@@ -191,20 +191,22 @@ past.
 
 
 
-|        Tool                     | Rewrites Correctly  | High IR | Work  w/o metadata  | Scalable |
-|:-------------------------------:|:-------------------:|:-------:|:-------------------:|:--------:|
-|   [ATOM](#atom)(Link Time)      |         Y           |    N    |           N         |     Y    | 
-|  [PLTO](#plto) (Link Time)      |         Y           |    N    |           N         |     Y    | 
-|  [Spike](#ispike)(Link Time)    |         Y           |    N    |           N         |     Y    | 
-|  [UQBT](#uqbt)                  |         Y           |    N    |           N         |     Y    | 
-| IDA Pro / [Hex Rays](#hexray)   |         N           |    Y    |           Y         |     Y    | 
-|       [Jakstab](#jackstab)      |         N           |    N    |           Y         |     N    | 
-|      [BAP](#bap)(TIE)           |         N           |    Y    |           Y         |     N    | 
-|   [CodeSurfer](#codesurfer)/X86 |         N           |    Y    |           Y         |     N    | 
-|     SecondWrite                 |         Y           |    Y    |           Y         |     Y    | 
-|     [Diablo](#diablo)           |                     |         |           N         |          |
 
 - Static tools
+
+  |        Tool                     | Rewrites Correctly  | High IR | Work  w/o metadata  | Scalable |
+  |:-------------------------------:|:-------------------:|:-------:|:-------------------:|:--------:|
+  |   [ATOM](#atom)(Link Time)      |         Y           |    N    |           N         |     Y    | 
+  |  [PLTO](#plto) (Link Time)      |         Y           |    N    |           N         |     Y    | 
+  |  [Spike](#ispike)(Link Time)    |         Y           |    N    |           N         |     Y    | 
+  |  [UQBT](#uqbt)                  |         Y           |    N    |           N         |     Y    | 
+  | IDA Pro / [Hex Rays](#hexray)   |         N           |    Y    |           Y         |     Y    | 
+  |       [Jakstab](#jackstab)      |         N           |    N    |           Y         |     N    | 
+  |      [BAP](#bap)(TIE)           |         N           |    Y    |           Y         |     N    | 
+  |   [CodeSurfer](#codesurfer)/X86 |         N           |    Y    |           Y         |     N    | 
+  |     SecondWrite                 |         Y           |    Y    |           Y         |     Y    | 
+  |     [Diablo](#diablo)           |                     |         |           N         |          |
+
   - Rewiters: [ATOM](#atom), [PLTO](#plto), [Spike](#ispike), [UQBT](#uqbt), [Diablo](#diablo)
     - All these rewrit- ers define their own low-level custom IR as opposed to
     using a compiler IR. These IRs are devoid of features such as abstract
