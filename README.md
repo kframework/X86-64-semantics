@@ -1,3 +1,15 @@
+###About static disassembly 
+    
+- Undecidable
+    
+  1. R. N.  Horspool and N. Marovac. An approach to the problem of
+    detranslation of computer programs. Comput. J., 23(3):223–229, 1980.  
+                                        
+  2. A. King, A.  Mycroft, T. W. Reps, and A. Simon.  Analysis of
+                                         executables: Benefits and challenges
+                                         (dagstuhl seminar 12051).  Dagstuhl
+                                         Reports, 2(1):100– 116, 2012.***
+
 ###Motivation for executable analysis 
 
 Traditional Traditional source-code analysis frameworks have limited
@@ -34,7 +46,7 @@ Source-code
     There are several scenarios where the source-code analysis is not
     sufficient.  An executable code might demonstrate differ- ent behavior from
     the original source code. This phenomenon is popularly known as
-    What-you-see-is-not-what-you-execute [1]. Modifications can happen to the
+    What-you-see-is-not-what-you-execute Take me to [contact](#contact_form). Modifications can happen to the
     source code during compilation (optimizations) or after the compilation
     process (bad code injection). These modifications can significantly alter
     the program behavior. Con- sequently, the exact behavior of any program can
@@ -96,17 +108,6 @@ Source-code
     compiler. The high expense of repeated compiler implementation often cannot
     be supported by a small fraction of the demand.
 
-###About static disassembly 
-    
-- Undecidable
-    
-  1. R. N.  Horspool and N. Marovac. An approach to the problem of
-    detranslation of computer programs. Comput. J., 23(3):223–229, 1980.  
-                                        
-  2. A. King, A.  Mycroft, T. W. Reps, and A. Simon.  Analysis of
-                                         executables: Benefits and challenges
-                                         (dagstuhl seminar 12051).  Dagstuhl
-                                         Reports, 2(1):100– 116, 2012.***
 
 
 ###Dynamic tools
@@ -201,6 +202,11 @@ code not adhering to this convention would be extremely hard to write.
     more difficult to read.
 
 ###Related work
+- Static  
+
+- Dynamic
+Binary rewriting research is being carried out in two directions: static and dynamic. Dynamic binary rewriters rewrite the binary during its execution. Examples are PIN [102], BIRD [107], DynInst [81], DynamoRIO [33] and Valgrind [131]. None of the dynamic binary rewriters we found employ an IR of an existing compiler. This is not surprising since dynamic rewriters construct their internal representation at run-time, and hence they would not have the time to construct a compiler IR. Dy- namic rewriters are hobbled since they do not have enough time to perform complex compiler transformations either; they have been primarily used for code instrumen- tation and simple security checks in the past. We do not discuss dynamic rewriters
+
 
 
 
