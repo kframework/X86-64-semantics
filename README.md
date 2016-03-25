@@ -189,7 +189,7 @@ enough time to perform complex compiler transformations either; they have been
 primarily used for code instrumen- tation and simple security checks in the
 past.
 
-- Static  
+- Static tools
 
 |        Tool                     | Rewrites Correctly  | High IR | Work  w/o metadata  | Scalable |
 |:-------------------------------:|:-------------------:|:-------:|:-------------------:|:--------:|
@@ -209,6 +209,26 @@ past.
     - All these rewrit- ers define their own low-level custom IR as opposed to
     using a compiler IR. These IRs are devoid of features such as abstract
     frames, symbols and maintain memory as a flat address space
+
+  - Industrial Tools
+    - [HexRays](#hexray)
+
+      - First, they acknowledge is that their output is not 100% reliable
+(perhaps because of the inherent uncertainties of disassembly)
+      - They only support binaries compiled from C/C++ using standard
+  compilers. We conjecture that these could be because they make language and
+  compiler-specific assumptions.  This severely limits their applicability in
+  practical scenarios. 
+
+    - [CodeSurfer](#codesurfer)
+
+      - such best effort solutions are good for executable analysis but do not
+  certify the behavior once these analyses fail. As opposed to our techniques,
+  it fails to maintain the functionality of the recovered intermediate
+
+    - [Veracode](#veracode)
+      - Veracode requires the presence of debug information, which is not present in deployed executables.
+      
   - Binary Analysis/IR  recovery:
 
     - [BAP](#bap) , [Phoenix](#phoenix) , [BitBlaze](#bitblaze) 
@@ -253,25 +273,6 @@ past.
       executables but they do not consider the scenarios where the information
       cannot be derived. 
 
-  - Industrial Tools
-    - [HexRays](#hexray)
-
-      - First, they acknowledge is that their output is not 100% reliable
-(perhaps because of the inherent uncertainties of disassembly)
-      - They only support binaries compiled from C/C++ using standard
-  compilers. We conjecture that these could be because they make language and
-  compiler-specific assumptions.  This severely limits their applicability in
-  practical scenarios. 
-
-    - [CodeSurfer](#codesurfer)
-
-      - such best effort solutions are good for executable analysis but do not
-  certify the behavior once these analyses fail. As opposed to our techniques,
-  it fails to maintain the functionality of the recovered intermediate
-
-    - [Veracode](#veracode)
-      - Veracode requires the presence of debug information, which is not present in deployed executables.
-      
       
   
 ###Existing decompilers
