@@ -46,7 +46,7 @@ Source-code
     There are several scenarios where the source-code analysis is not
     sufficient.  An executable code might demonstrate differ- ent behavior from
     the original source code. This phenomenon is popularly known as
-    What-you-see-is-not-what-you-execute [devine_2004](#devine_2004). Modifications can happen to the
+    What-you-see-is-not-what-you-execute [devine_2004](#Advantages-of-executable-analysis). Modifications can happen to the
     source code during compilation (optimizations) or after the compilation
     process (bad code injection). These modifications can significantly alter
     the program behavior. Con- sequently, the exact behavior of any program can
