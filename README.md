@@ -111,25 +111,11 @@ Source-code
 
 
 ###Dynamic tools
+- [Pin](#pin)
+- [Bird](#bird)
+- [DynamoRio](#dynamorio)
+- [Ispike](#ispike)
 
-1. C.-K. Luk and et al. Pin: building customized program analysis tools with
-dynamic instrumentation. In Proceedings of the ACM conference on Program- ming
-language design and implementation, pages 190–200, 2005.  
-
-2. S. Nanda and et al. Bird: Binary interpretation using runtime disassembly.
-In CGO ’06: Proceedings of the International Symposium on Code Generation and
-Optimization, pages 358–370, Washington, DC, USA, 2006.  3. J. K.
-Hollingsworth, B. P. Miller, and J. Cargille. Dynamic program instru- mentation
-for scalable performance tools. Scalable High Performance Com- puting
-Conference, May 1994.
-
-3. D. Bruening. Efficient, Transparent, and Comprehensive Runtime
-            Code Ma- nipulation. PhD thesis, MIT, 2004.
-
-4. C.-K. Luk, R. Muth, H. Patil, R. Cohn, and G. Lowney. Ispike: A
-            post-link optimizer for the Intel Itanium architecture. In In
-            IEEE/ACM International Symposium on Code Generation and
-            Optimization, pages 15–26, 2004.
 
 
 
@@ -310,5 +296,24 @@ Two well know taregts: amd64/x86_64/EMT64 32 bit (x86/IA-32)
   of them are chrashing
 
 ###References  
-<a name="devine_2004"></a> G. Balakrishnan and T. Reps. Analyzing memory accesses in x86
+1. <a name="devine_2004"></a> G. Balakrishnan and T. Reps. Analyzing memory accesses in x86
   executables.  In CC, pages 5–23. Springer-Verlag, 2004.
+
+2. <a name="pin"></a>C.-K. Luk and et al. Pin: building customized program analysis tools with
+dynamic instrumentation. In Proceedings of the ACM conference on Program- ming
+language design and implementation, pages 190–200, 2005.  
+
+3. <a name="bird"></a>S. Nanda and et al. Bird: Binary interpretation using runtime disassembly.
+In CGO ’06: Proceedings of the International Symposium on Code Generation and
+Optimization, pages 358–370, Washington, DC, USA, 2006.  3. J. K.
+Hollingsworth, B. P. Miller, and J. Cargille. Dynamic program instru- mentation
+for scalable performance tools. Scalable High Performance Com- puting
+Conference, May 1994.
+
+4. <a name="dynamorio"></a>D. Bruening. Efficient, Transparent, and Comprehensive Runtime
+            Code Ma- nipulation. PhD thesis, MIT, 2004.
+
+5. <a name="ispike"></a>C.-K. Luk, R. Muth, H. Patil, R. Cohn, and G. Lowney. Ispike: A
+            post-link optimizer for the Intel Itanium architecture. In In
+            IEEE/ACM International Symposium on Code Generation and
+            Optimization, pages 15–26, 2004.
