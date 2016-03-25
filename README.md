@@ -254,6 +254,7 @@ past.
 
   - Industrial Tools
     - [HexRays](#hexray)
+
       - First, they acknowledge is that their output is not 100% reliable
 (perhaps because of the inherent uncertainties of disassembly)
       - They only support binaries compiled from C/C++ using standard
@@ -262,6 +263,7 @@ past.
   practical scenarios. 
 
     - [CodeSurfer](#codesurfer)
+
       - such best effort solutions are good for executable analysis but do not
   certify the behavior once these analyses fail. As opposed to our techniques,
   it fails to maintain the functionality of the recovered intermediate
