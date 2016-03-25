@@ -211,7 +211,7 @@ past.
   - Binary Analysis/IR  recovery:
 
     - [BAP](#bap) , [Phoenix](#phoenix) , [BitBlaze](#bitblaze) 
-  All these tools define their own custom IR with- out the features of abstract stack and symbol promotion, facing limitations similar to tools like [Diablo](#diablo). Phoenix recovers a register transfer language (RTL) resembling architecture neutral assembly, which does not expose the semantics of several complicated instructions. Further, Phoenix and several other tools [95] require debugging information, which is usually absent in deployed executables. Various executable frameworks ease the specification of semantics of native instructions [141] which is orthogonal to our task of recovering intermediate representation. 
+      - All these tools define their own custom IR with- out the features of abstract stack and symbol promotion, facing limitations similar to tools like [Diablo](#diablo). Phoenix recovers a register transfer language (RTL) resembling architecture neutral assembly, which does not expose the semantics of several complicated instructions. Further, Phoenix and several other tools [95] require debugging information, which is usually absent in deployed executables. Various executable frameworks ease the specification of semantics of native instructions [141] which is orthogonal to our task of recovering intermediate representation. 
 
     - [Jakstab](#jackstab)
       - address control flow challenges in executables by resolving indirect branches using multiple rounds of disassembly interleaved with dataflow analysis. 
