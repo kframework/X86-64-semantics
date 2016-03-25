@@ -194,7 +194,7 @@ past.
 |:------------------:|:------------------:|:-------:|:------------------:|:--------:|
 |   [ATOM](#atom)(Link Time)  |          Y         |    N    |          N |     Y    | 
 |  [PLTO](#plto) (Link Time)  |          Y         |    N    | N         |     Y    | 
-|  [Spike](#ispike)(#ispike)(Link Time) |          Y |    N    |          N         |     Y    | 
+|  [Spike](#ispike)(Link Time) |          Y |    N    |          N         |     Y    | 
 |  [UQBT](#uqbt)        | Y         |    N    |          N         |     Y    | 
 | IDA Pro / [Hex Rays](#hexray) | N         |    Y    |          Y         |     Y    | 
 |       [Jakstab](#jackstab)      | N         |    N    |          Y         |     N    | 
