@@ -6,8 +6,11 @@
   detranslation of computer programs. Comput. J., 23(3):223–229, 1980.  
                                         
   2. A. King, A.  Mycroft, T. W. Reps, and A. Simon.  Analysis of executables:
-  Benefits and challenges (dagstuhl seminar 12051).  Dagstuhl Reports,
-  2(1):100– 116, 2012.[read]()
+Benefits and challenges (dagstuhl seminar 12051).  Dagstuhl Reports, 2(1):100–
+                                                                          116,
+                                                                          2012.[read]()
+  3. A.King, A.Mycroft, T. Reps, and A. Simon. Analysis of Executables: Benefits and Challenges. Dagstuhl Reports, pages 100–116, 2012. [read]()
+
 
 ###Motivation for executable analysis 
 
@@ -113,17 +116,6 @@ Source-code
 
 
 
-###Extra metadata info 
-            
-1. B. Schwarz, S. Debray, G. Andrews, and M. Legendre.  PLTO: A Link-Time
-Optimizer for the Intel IA-32 Architecture. In In Proc. Workshop on Binary
-Translation, 2001.  
-            
-2. L. van Put, D.  Chanet, B. De Bus, B. De Sutler, and K. De Bosschere. DIA-
-BLO: a reliable, retargetable and extensible link-time rewriting framework. In
-Proceedings of the 2005 IEEE International Symposium On Signal Processing And
-Information Technology, pages 7–12, 2005
-
 
 ###Challenges
 
@@ -181,15 +173,10 @@ code not adhering to this convention would be extremely hard to write.
     more difficult to read.
 
 ###Related work
-- Static  
-Etch [122],
-ATOM [66], PLTO [130], Diablo [149], Spike [103] and UQBT [48]. All
-
 - Dynamic tools
   - [Pin](#pin)
   - [Bird](#bird)
   - [DynamoRio](#dynamorio)
-  - [Ispike](#ispike)
   - [Valgrind](#valgrind)
   - [DynInst](#dyninst)
 
@@ -199,21 +186,59 @@ internal representation at run-time, and hence they would not have the time to
 construct a compiler IR. Dynamic rewriters are hobbled since they do not have
 enough time to perform complex compiler transformations either; they have been
 primarily used for code instrumen- tation and simple security checks in the
-past. We do not discuss dynamic rewriters
+past.
+
+- Static  
 
 |        Tool        | Rewrites Correctly | High IR | Work  w/o metadata | Scalable |
 |:------------------:|:------------------:|:-------:|:------------------:|:--------:|
-|   ATOM(Link Time)  |          Y         |    N    |          N         |     Y    |
-|  PLTO (Link Time)  |          Y         |    N    |          N         |     Y    |
-|  Spike ()Link Time |          Y         |    N    |          N         |     Y    |
-|        UQBT        |          Y         |    N    |          N         |     Y    |
-| IDA Pro / Hex Rays |          N         |    Y    |          Y         |     Y    |
-|       Jakstab      |          N         |    N    |          Y         |     N    |
-|      BAP (TIE)     |          N         |    Y    |          Y         |     N    |
-|   CodeSurfer/X86   |          N         |    Y    |          Y         |     N    |
-|     SecondWrite    |          Y         |    Y    |          Y         |     Y    |
+|   [ATOM](#atom)(Link Time)  |          Y         |    N    |          N |     Y    | 
+|  [PLTO](#plto) (Link Time)  |          Y         |    N    | N         |     Y    | 
+|  [Spike](#ispike)(#ispike)(Link Time) |          Y |    N    |          N         |     Y    | 
+|  [UQBT](#uqbt)        | Y         |    N    |          N         |     Y    | 
+| IDA Pro / [Hex Rays](#hexray) | N         |    Y    |          Y         |     Y    | 
+|       [Jakstab](#jackstab)      | N         |    N    |          Y         |     N    | 
+|      [BAP](#bap)(TIE)     | N         |    Y    |          Y         |     N    | 
+|   [CodeSurfer](#codesurfer)/X86   | N         |    Y    |          Y         |     N    | 
+|     SecondWrite    | Y         |    Y    |          Y         |     Y    | 
+|     [Diablo](#diablo) |                    |         |          N         |          |
 
 
+  - Rewiters: [ATOM](#atom), [PLTO](#plto), [Spike](#ispike), [UQBT](#uqbt),
+  [Diablo](#diablo)
+    - All these rewrit- ers define their own low-level custom IR as opposed to
+    using a compiler IR. These IRs are devoid of features such as abstract
+    frames, symbols and maintain memory as a flat address space
+  - Binary Analysis/IR  recovery:
+    - [BAP](#bap) , [Phoenix](#phoenix) , [BitBlaze](#bitblaze) 
+  All these tools define their own custom IR with- out the features of abstract stack and symbol promotion, facing limitations similar to tools like [Diablo](#diablo). Phoenix recovers a register transfer language (RTL) resembling architecture neutral assembly, which does not expose the semantics of several complicated instructions. Further, Phoenix and several other tools [95] require debugging information, which is usually absent in deployed executables. Various executable frameworks ease the specification of semantics of native instructions [141] which is orthogonal to our task of recovering intermediate repre-
+  sentation. 
+  - [Jakstab](#jackstab)
+    - address control flow challenges in executables by resolving indirect branches using multiple rounds of disassembly interleaved with dataflow analysis. 
+    However, they do not recover any high level information from executables and have been shown to scale to programs of a limited size. 
+  - [S2E](#s2e) , [RevNIC](#revnic) 
+    - dynamically translating x86 to LLVM using QEMU. Unlike our approach, these methods convert blocks of code to LLVM on the fly which limits the application of LLVM analyses to only one block at a time. 
+    RevNIC  recovers an IR by merging the translated blocks, but the recovered IR is incomplete and is only valid for current execution; consequently, various whole program analyses will provide incomplete 
+    information. 
+  - [RevGen](#revgen)  
+    - includes a static disassembler to recover an IR for entire binary. However, the translated code retains all the assumptions of the original binary about the stack layout. 
+    They do not provide any methods for obtaining an abstract stack or promoting memory locations to symbols, which are essential for the application of several source-level analyses. 
+  - [divine_2004](#divine_2004), [divine_2007](#divine_2007)
+    - present Value Set Analysis for analyzing memory accesses and extracting high level information like variables and their types. analyzing variables does not guarantee promotion to symbols in IR. 
+  - [Zhang](#zang) et al. 
+    - present techniques for recovering parameters and return values from executables but they do not consider the scenarios where the information cannot be derived. 
+
+  - Industrial Tools
+    - [HexRays](#hexray)
+      - First, they acknowledge is that their output is not 100% reliable (perhaps because of the inherent uncertainties of disassembly)
+      - They only support binaries compiled from C/C++ using standard compilers. We conjecture that these could be because they make language and compiler-specific assumptions. 
+  This severely limits their applicability in practical scenarios. 
+    - [CodeSurfer](#codesurfer)
+      - such best effort solutions are good for executable analysis but do not certify the behavior once these analyses fail. As opposed to our techniques, it fails to maintain the functionality of the recovered intermediate
+    - [Veracode](#veracode)
+      
+      
+  
 ###Existing decompilers
 
   McSema translates x86 machine code into LLVM bitcode.
@@ -340,4 +365,53 @@ IEEE/ACM International Symposium on Code Generation and Optimization, pages
 6. <a name="valgrind"></a>J. Seward and N. Nethercote. Valgrind, an open-source
 memory debugger for x86-linux. http://developer.kde.org/~sewardj/.            
 
-7. <a name="dyninst"></a>J. K. Hollingsworth, B. P. Miller, and J. Cargille. Dynamic program instru- mentation for scalable performance tools. Scalable High Performance Com- puting Conference, May 1994.
+7. <a name="dyninst"></a>J. K. Hollingsworth, B. P. Miller, and J. Cargille.
+Dynamic program instru- mentation for scalable performance tools. Scalable High
+Performance Com- puting Conference, May 1994.
+
+8. <a name="uqbt"></a>C. Cifuentes and M. V. Emmerick. UQBT: Adaptable binary
+translation at low cost. IEEE Computer, 33(3):60–66, 2000. 
+
+9. <a name="atom"></a>A. Eustace and A. Srivastava. ATOM: a flexible interface for
+building high performance programanalysis tools. In TCON’95: Proceedings of the
+USENIX 1995 Technical Conference, pages 25–25, 1995. 
+
+10. <a name="plto"></a>B. Schwarz, S. Debray, G. Andrews, and M. Legendre.  PLTO: A
+Link-Time Optimizer for the Intel IA-32 Architecture. In In Proc. Workshop on
+Binary Translation, 2001.  
+            
+11. <a name="diablo"></a>L. van Put, D.  Chanet, B. De Bus, B. De Sutler, and K. De
+Bosschere. DIA- BLO: a reliable, retargetable and extensible link-time
+rewriting framework. In Proceedings of the 2005 IEEE International Symposium On
+Signal Processing And Information Technology, pages 7–12, 2005
+
+12. <a name="etch"></a>T. Romer and et al. Instrumentation and Optimization of
+Win32/Intel Exe- cutables Using Etch. In In Proceedings of the USENIX Windows
+NT Work- shop, pages 1–1, 1997.
+
+13. <a name="hexray"></a> Hex-Rays Decompiler. http://www.hex-rays.com/.
+
+14. <a name="codesurfer"></a>G. Balakrishnan, R. Gruian, T. Reps, and T. Teitelbaum. Codesurfer/x86:a platform for analyzing x86 executables. In Proceedings of the 14th interna- tional conference on Compiler Construction, CC’05, pages 250–254, Berlin, Heidelberg, 2005. Springer-Verlag.
+
+15. <a name="veracode"></a>Application Security testing - Veracode. http://www.zynamics.com//.
+
+16.  <a name="bap"></a>D. Brumley, I. Jager, T. Avgerinos, and E. J. Schwartz. BAP: A binary analysis platform. In CAV, pages 463–469, 2011.
+
+17.  <a name="phoenix"></a>Phoenix Compiler Infrastructure. http://www.research.microsoft.com/phoenix/.  
+
+18.  <a name="bitblaze"></a>D. Song and et al. BitBlaze: A New Approach to Computer Security via Binary Analysis. In Proceedings of the 4th International Conference on Infor- mation Systems Security, pages 1–25, 2008.
+
+19.  <a name="jackstab"></a>J. Kinder and H. Veith. Jakstab: A static analysis platform for binaries. In Proceedings of the 20th international conference on Computer Aided Verifica- tion, CAV ’08, pages 423–427, Berlin, Heidelberg, 2008. Springer-Verlag.
+
+20.  <a name="revnic"></a>V. Chipounov and G. Candea. Reverse engineering of binary device drivers with RevNIC. In Proceedings of the 5th European conference on Computer systems, pages 167–180, 2010.
+
+21.   <a name="revgen"></a>V. Chipounov and G. Candea. Enabling sophisticated analyses of x86 binaries with RevGen. In Dependable Systems and Networks Workshops (DSN-W), 2011 IEEE/IFIP 41st International Conference on, pages 211 –216, 2011.
+
+22.  <a name="s2e"></a>V. Chipounov, V. Kuznetsov, and G. Candea. S2e: a platform for in-vivo multi-path analysis of software systems. In Proceedings of the sixteenth inter- national conference on Architectural support for programming languages and operating systems, ASPLOS XVI, pages 265–278, New York, NY, USA, 2011. ACM.
+[48]
+
+23.  <a name="divine_2004"></a>G. Balakrishnan and T. Reps. Analyzing memory accesses in x86 executables. In CC, pages 5–23. Springer-Verlag, 2004.
+
+24.  <a name="divine_2007"></a>G. Balakrishnan and T. Reps. DIVINE: discovering variables in executa- bles. In Proceedings of the 8th international conference on Verification, model checking, and abstract interpretation, pages 1–28, 2007.
+
+25.  <a name="zang"></a>J. Zhang, R. Zhao, and J. Pang. Parameter and return-value analysis of binary executables. In Proceedings of the 31st Annual International Computer Software and Applications Conference, pages 501–508, 2007.
