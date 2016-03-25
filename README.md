@@ -46,7 +46,7 @@ Source-code
     There are several scenarios where the source-code analysis is not
     sufficient.  An executable code might demonstrate differ- ent behavior from
     the original source code. This phenomenon is popularly known as
-    What-you-see-is-not-what-you-execute [devine_2004](#references). Modifications can happen to the
+    What-you-see-is-not-what-you-execute [devine_2004](#References). Modifications can happen to the
     source code during compilation (optimizations) or after the compilation
     process (bad code injection). These modifications can significantly alter
     the program behavior. Con- sequently, the exact behavior of any program can
@@ -309,6 +309,6 @@ Two well know taregts: amd64/x86_64/EMT64 32 bit (x86/IA-32)
   machine why std_args does not run why somes of them re not coveting why some
   of them are chrashing
 
-###references  
+###References  
 (#devine_2004) G. Balakrishnan and T. Reps. Analyzing memory accesses in x86
   executables.  In CC, pages 5–23. Springer-Verlag, 2004.
