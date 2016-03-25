@@ -190,18 +190,18 @@ past.
 
 - Static  
 
-|        Tool        | Rewrites Correctly | High IR | Work  w/o metadata | Scalable |
-|:------------------:|:------------------:|:-------:|:------------------:|:--------:|
-|   [ATOM](#atom)(Link Time)  |          Y         |    N    |          N |     Y    | 
-|  [PLTO](#plto) (Link Time)  |          Y         |    N    | N         |     Y    | 
-|  [Spike](#ispike)(Link Time) |          Y |    N    |          N         |     Y    | 
-|  [UQBT](#uqbt)        | Y         |    N    |          N         |     Y    | 
-| IDA Pro / [Hex Rays](#hexray) | N         |    Y    |          Y         |     Y    | 
-|       [Jakstab](#jackstab)      | N         |    N    |          Y         |     N    | 
-|      [BAP](#bap)(TIE)     | N         |    Y    |          Y         |     N    | 
-|   [CodeSurfer](#codesurfer)/X86   | N         |    Y    |          Y         |     N    | 
-|     SecondWrite    | Y         |    Y    |          Y         |     Y    | 
-|     [Diablo](#diablo) |                    |         |          N         |          |
+|        Tool                     | Rewrites Correctly  | High IR | Work  w/o metadata  | Scalable |
+|:-------------------------------:|:-------------------:|:-------:|:-------------------:|:--------:|
+|   [ATOM](#atom)(Link Time)      |         Y           |    N    |           N         |     Y    | 
+|  [PLTO](#plto) (Link Time)      |         Y           |    N    |           N         |     Y    | 
+|  [Spike](#ispike)(Link Time)    |         Y           |    N    |           N         |     Y    | 
+|  [UQBT](#uqbt)                  |         Y           |    N    |           N         |     Y    | 
+| IDA Pro / [Hex Rays](#hexray)   |         N           |    Y    |           Y         |     Y    | 
+|       [Jakstab](#jackstab)      |         N           |    N    |           Y         |     N    | 
+|      [BAP](#bap)(TIE)           |         N           |    Y    |           Y         |     N    | 
+|   [CodeSurfer](#codesurfer)/X86 |         N           |    Y    |           Y         |     N    | 
+|     SecondWrite                 |         Y           |    Y    |           Y         |     Y    | 
+|     [Diablo](#diablo)           |                     |         |           N         |          |
 
 
   - Rewiters: [ATOM](#atom), [PLTO](#plto), [Spike](#ispike), [UQBT](#uqbt), [Diablo](#diablo)
@@ -211,33 +211,59 @@ past.
   - Binary Analysis/IR  recovery:
 
     - [BAP](#bap) , [Phoenix](#phoenix) , [BitBlaze](#bitblaze) 
-      - All these tools define their own custom IR with- out the features of abstract stack and symbol promotion, facing limitations similar to tools like [Diablo](#diablo). Phoenix recovers a register transfer language (RTL) resembling architecture neutral assembly, which does not expose the semantics of several complicated instructions. Further, Phoenix and several other tools [95] require debugging information, which is usually absent in deployed executables. Various executable frameworks ease the specification of semantics of native instructions [141] which is orthogonal to our task of recovering intermediate representation. 
+      - All these tools define their own custom IR with- out the features of
+      abstract stack and symbol promotion, facing limitations similar to tools
+      like [Diablo](#diablo). Phoenix recovers a register transfer language
+      (RTL) resembling architecture neutral assembly, which does not expose the
+      semantics of several complicated instructions. Further, Phoenix and
+      several other tools [95] require debugging information, which is usually
+      absent in deployed executables. Various executable frameworks ease the
+      specification of semantics of native instructions [141] which is
+      orthogonal to our task of recovering intermediate representation. 
 
     - [Jakstab](#jackstab)
-      - address control flow challenges in executables by resolving indirect branches using multiple rounds of disassembly interleaved with dataflow analysis. 
-      However, they do not recover any high level information from executables and have been shown to scale to programs of a limited size. 
+      - address control flow challenges in executables by resolving indirect
+      branches using multiple rounds of disassembly interleaved with dataflow
+      analysis.  However, they do not recover any high level information from
+      executables and have been shown to scale to programs of a limited size. 
 
     - [S2E](#s2e) , [RevNIC](#revnic) 
-      - dynamically translating x86 to LLVM using QEMU. Unlike our approach, these methods convert blocks of code to LLVM on the fly which limits the application of LLVM analyses to only one block at a time. 
-    RevNIC  recovers an IR by merging the translated blocks, but the recovered IR is incomplete and is only valid for current execution; consequently, various whole program analyses will provide incomplete 
-    information. 
+      - dynamically translating x86 to LLVM using QEMU. Unlike our approach,
+      these methods convert blocks of code to LLVM on the fly which limits the
+      application of LLVM analyses to only one block at a time.  RevNIC
+      recovers an IR by merging the translated blocks, but the recovered IR is
+      incomplete and is only valid for current execution; consequently, various
+      whole program analyses will provide incomplete information. 
 
     - [RevGen](#revgen)  
-      - includes a static disassembler to recover an IR for entire binary. However, the translated code retains all the assumptions of the original binary about the stack layout. 
-    They do not provide any methods for obtaining an abstract stack or promoting memory locations to symbols, which are essential for the application of several source-level analyses. 
+      - includes a static disassembler to recover an IR for entire binary.
+      However, the translated code retains all the assumptions of the original
+      binary about the stack layout.  They do not provide any methods for
+      obtaining an abstract stack or promoting memory locations to symbols,
+      which are essential for the application of several source-level analyses. 
 
     - [divine_2004](#divine_2004), [divine_2007](#divine_2007)
-      - present Value Set Analysis for analyzing memory accesses and extracting high level information like variables and their types. analyzing variables does not guarantee promotion to symbols in IR. 
+      - present Value Set Analysis for analyzing memory accesses and extracting
+      high level information like variables and their types. analyzing
+      variables does not guarantee promotion to symbols in IR. 
 
     - [Zhang](#zang) et al. 
-      - present techniques for recovering parameters and return values from executables but they do not consider the scenarios where the information cannot be derived. 
+      - present techniques for recovering parameters and return values from
+      executables but they do not consider the scenarios where the information
+      cannot be derived. 
 
   - Industrial Tools
     - [HexRays](#hexray)
-      - First, they acknowledge is that their output is not 100% reliable (perhaps because of the inherent uncertainties of disassembly)
-      - They only support binaries compiled from C/C++ using standard compilers. We conjecture that these could be because they make language and compiler-specific assumptions.  This severely limits their applicability in practical scenarios. 
+      - First, they acknowledge is that their output is not 100% reliable
+(perhaps because of the inherent uncertainties of disassembly)
+      - They only support binaries compiled from C/C++ using standard
+  compilers. We conjecture that these could be because they make language and
+  compiler-specific assumptions.  This severely limits their applicability in
+  practical scenarios. 
     - [CodeSurfer](#codesurfer)
-      - such best effort solutions are good for executable analysis but do not certify the behavior once these analyses fail. As opposed to our techniques, it fails to maintain the functionality of the recovered intermediate
+      - such best effort solutions are good for executable analysis but do not
+  certify the behavior once these analyses fail. As opposed to our techniques,
+  it fails to maintain the functionality of the recovered intermediate
     - [Veracode](#veracode)
       
       
