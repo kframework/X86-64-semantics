@@ -260,10 +260,12 @@ past.
   compilers. We conjecture that these could be because they make language and
   compiler-specific assumptions.  This severely limits their applicability in
   practical scenarios. 
+
     - [CodeSurfer](#codesurfer)
       - such best effort solutions are good for executable analysis but do not
   certify the behavior once these analyses fail. As opposed to our techniques,
   it fails to maintain the functionality of the recovered intermediate
+
     - [Veracode](#veracode)
       - Veracode requires the presence of debug information, which is not present in deployed executables.
       
