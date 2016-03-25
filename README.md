@@ -3,20 +3,18 @@
 - Undecidable
     
   1. R. N.  Horspool and N. Marovac. An approach to the problem of
-    detranslation of computer programs. Comput. J., 23(3):223–229, 1980.  
+  detranslation of computer programs. Comput. J., 23(3):223–229, 1980.  
                                         
-  2. A. King, A.  Mycroft, T. W. Reps, and A. Simon.  Analysis of
-                                         executables: Benefits and challenges
-                                         (dagstuhl seminar 12051).  Dagstuhl
-                                         Reports, 2(1):100– 116, 2012.***
+  2. A. King, A.  Mycroft, T. W. Reps, and A. Simon.  Analysis of executables:
+  Benefits and challenges (dagstuhl seminar 12051).  Dagstuhl Reports,
+  2(1):100– 116, 2012.[read]()
 
 ###Motivation for executable analysis 
 
 Traditional Traditional source-code analysis frameworks have limited
 applicability in several scenarios which can be eliminated by  executable-level
 tools.  Some scenarios are:
-- Absence of source-code 
-There are several circumstances where the original
+- Absence of source-code There are several circumstances where the original
 source-code is not accessible. Some of the most prevalent reasons are listed
 below: 
   - IP-protected software 
@@ -46,11 +44,12 @@ Source-code
     There are several scenarios where the source-code analysis is not
     sufficient.  An executable code might demonstrate differ- ent behavior from
     the original source code. This phenomenon is popularly known as
-    What-you-see-is-not-what-you-execute [devine_2004](#devine_2004). Modifications can happen to the
-    source code during compilation (optimizations) or after the compilation
-    process (bad code injection). These modifications can significantly alter
-    the program behavior. Con- sequently, the exact behavior of any program can
-    only be uncovered by analyzing the executable code.
+    What-you-see-is-not-what-you-execute [devine_2004](#devine_2004).
+    Modifications can happen to the source code during compilation
+    (optimizations) or after the compilation process (bad code injection).
+    These modifications can significantly alter the program behavior. Con-
+    sequently, the exact behavior of any program can only be uncovered by
+    analyzing the executable code.
 
     Moreover, several components of a typical software might be developed in
     multiple languages (Fortran, C and C++). The presence of different
@@ -110,26 +109,20 @@ Source-code
 
 
 
-###Dynamic tools
-- [Pin](#pin)
-- [Bird](#bird)
-- [DynamoRio](#dynamorio)
-- [Ispike](#ispike)
 
 
 
 
 ###Extra metadata info 
             
-1. B. Schwarz, S. Debray, G. Andrews, and M. Legendre.
-            PLTO: A Link-Time Optimizer for the Intel IA-32 Architecture. In In
-            Proc. Workshop on Binary Translation, 2001.  
+1. B. Schwarz, S. Debray, G. Andrews, and M. Legendre.  PLTO: A Link-Time
+Optimizer for the Intel IA-32 Architecture. In In Proc. Workshop on Binary
+Translation, 2001.  
             
-2. L. van Put, D.
-            Chanet, B. De Bus, B. De Sutler, and K. De Bosschere. DIA- BLO: a
-            reliable, retargetable and extensible link-time rewriting
-            framework. In Proceedings of the 2005 IEEE International Symposium
-            On Signal Processing And Information Technology, pages 7–12, 2005
+2. L. van Put, D.  Chanet, B. De Bus, B. De Sutler, and K. De Bosschere. DIA-
+BLO: a reliable, retargetable and extensible link-time rewriting framework. In
+Proceedings of the 2005 IEEE International Symposium On Signal Processing And
+Information Technology, pages 7–12, 2005
 
 
 ###Challenges
@@ -189,11 +182,36 @@ code not adhering to this convention would be extremely hard to write.
 
 ###Related work
 - Static  
+Etch [122],
+ATOM [66], PLTO [130], Diablo [149], Spike [103] and UQBT [48]. All
 
-- Dynamic
-Binary rewriting research is being carried out in two directions: static and dynamic. Dynamic binary rewriters rewrite the binary during its execution. Examples are PIN [102], BIRD [107], DynInst [81], DynamoRIO [33] and Valgrind [131]. None of the dynamic binary rewriters we found employ an IR of an existing compiler. This is not surprising since dynamic rewriters construct their internal representation at run-time, and hence they would not have the time to construct a compiler IR. Dy- namic rewriters are hobbled since they do not have enough time to perform complex compiler transformations either; they have been primarily used for code instrumen- tation and simple security checks in the past. We do not discuss dynamic rewriters
+- Dynamic tools
+  - [Pin](#pin)
+  - [Bird](#bird)
+  - [DynamoRio](#dynamorio)
+  - [Ispike](#ispike)
+  - [Valgrind](#valgrind)
+  - [DynInst](#dyninst)
 
+None of the dynamic binary rewriters we found employ an IR of an existing
+compiler. This is not surprising since dynamic rewriters construct their
+internal representation at run-time, and hence they would not have the time to
+construct a compiler IR. Dynamic rewriters are hobbled since they do not have
+enough time to perform complex compiler transformations either; they have been
+primarily used for code instrumen- tation and simple security checks in the
+past. We do not discuss dynamic rewriters
 
+|        Tool        | Rewrites Correctly | High IR | Work  w/o metadata | Scalable |
+|:------------------:|:------------------:|:-------:|:------------------:|:--------:|
+|   ATOM(Link Time)  |          Y         |    N    |          N         |     Y    |
+|  PLTO (Link Time)  |          Y         |    N    |          N         |     Y    |
+|  Spike ()Link Time |          Y         |    N    |          N         |     Y    |
+|        UQBT        |          Y         |    N    |          N         |     Y    |
+| IDA Pro / Hex Rays |          N         |    Y    |          Y         |     Y    |
+|       Jakstab      |          N         |    N    |          Y         |     N    |
+|      BAP (TIE)     |          N         |    Y    |          Y         |     N    |
+|   CodeSurfer/X86   |          N         |    Y    |          Y         |     N    |
+|     SecondWrite    |          Y         |    Y    |          Y         |     Y    |
 
 
 ###Existing decompilers
@@ -223,8 +241,8 @@ Binary rewriting research is being carried out in two directions: static and dyn
   dagger; libbeauty, fracture    
 
 
-###Assembly basics  
-Two well know taregts: amd64/x86_64/EMT64 32 bit (x86/IA-32)
+###Assembly basics  Two well know taregts: amd64/x86_64/EMT64 32 bit
+(x86/IA-32)
 
 
 
@@ -296,24 +314,30 @@ Two well know taregts: amd64/x86_64/EMT64 32 bit (x86/IA-32)
   of them are chrashing
 
 ###References  
-1. <a name="devine_2004"></a> G. Balakrishnan and T. Reps. Analyzing memory accesses in x86
-  executables.  In CC, pages 5–23. Springer-Verlag, 2004.
+1. <a name="devine_2004"></a> G. Balakrishnan and T. Reps. Analyzing memory
+accesses in x86 executables.  In CC, pages 5–23. Springer-Verlag, 2004.
 
-2. <a name="pin"></a>C.-K. Luk and et al. Pin: building customized program analysis tools with
-dynamic instrumentation. In Proceedings of the ACM conference on Program- ming
-language design and implementation, pages 190–200, 2005.  
+2. <a name="pin"></a>C.-K. Luk and et al. Pin: building customized program
+analysis tools with dynamic instrumentation. In Proceedings of the ACM
+conference on Program- ming language design and implementation, pages 190–200,
+           2005.  
 
-3. <a name="bird"></a>S. Nanda and et al. Bird: Binary interpretation using runtime disassembly.
-In CGO ’06: Proceedings of the International Symposium on Code Generation and
-Optimization, pages 358–370, Washington, DC, USA, 2006.  3. J. K.
-Hollingsworth, B. P. Miller, and J. Cargille. Dynamic program instru- mentation
-for scalable performance tools. Scalable High Performance Com- puting
+3. <a name="bird"></a>S. Nanda and et al. Bird: Binary interpretation using
+runtime disassembly.  In CGO ’06: Proceedings of the International Symposium on
+Code Generation and Optimization, pages 358–370, Washington, DC, USA, 2006.  3.
+J. K.  Hollingsworth, B. P. Miller, and J. Cargille. Dynamic program instru-
+mentation for scalable performance tools. Scalable High Performance Com- puting
 Conference, May 1994.
 
-4. <a name="dynamorio"></a>D. Bruening. Efficient, Transparent, and Comprehensive Runtime
-            Code Ma- nipulation. PhD thesis, MIT, 2004.
+4. <a name="dynamorio"></a>D. Bruening. Efficient, Transparent, and
+Comprehensive Runtime Code Ma- nipulation. PhD thesis, MIT, 2004.
 
-5. <a name="ispike"></a>C.-K. Luk, R. Muth, H. Patil, R. Cohn, and G. Lowney. Ispike: A
-            post-link optimizer for the Intel Itanium architecture. In In
-            IEEE/ACM International Symposium on Code Generation and
-            Optimization, pages 15–26, 2004.
+5. <a name="ispike"></a>C.-K. Luk, R. Muth, H. Patil, R. Cohn, and G. Lowney.
+Ispike: A post-link optimizer for the Intel Itanium architecture. In In
+IEEE/ACM International Symposium on Code Generation and Optimization, pages
+15–26, 2004.
+
+6. <a name="valgrind"></a>J. Seward and N. Nethercote. Valgrind, an open-source
+memory debugger for x86-linux. http://developer.kde.org/~sewardj/.            
+
+7. <a name="dyninst"></a>J. K. Hollingsworth, B. P. Miller, and J. Cargille. Dynamic program instru- mentation for scalable performance tools. Scalable High Performance Com- puting Conference, May 1994.
