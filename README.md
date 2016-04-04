@@ -11,6 +11,12 @@ Benefits and challenges (dagstuhl seminar 12051).  Dagstuhl Reports, 2(1):100–
                                                                           2012.[read]()
   3. A.King, A.Mycroft, T. Reps, and A. Simon. Analysis of Executables: Benefits and Challenges. Dagstuhl Reports, pages 100–116, 2012. [read]()
 
+### Nomenclature 
+
+Reverse engineering consiste of  two phases: Disassembly (which produces
+    assembly code from machine code) and Decompilation ( which reconstructs the
+      higher-level semantic structure of the program from the assembly code) 
+![Figure](Figs/1.png)    
 
 ###Motivation for executable analysis 
 
