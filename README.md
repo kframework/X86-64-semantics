@@ -119,6 +119,21 @@ Source-code
 
 ###Challenges
 
+- CFG Recovery    
+  - Problem: Control flow reconstruction is the problem of determining an
+  overapproximation of all possible sequences of program lo- cations
+  (addresses) that will be executed by a given program.
+
+  - If indirect jumps have unknown targets, or if there are callback methods
+  passed to the system that are only invoked by external library methods, some
+  code blocks in the disassembled binary will appear not to be referenced from
+  anywhere. Similarly, the indirect jump or call instructions in the CFG will
+  have no successors. Thus, any static analysis that uses such graphs as an
+  initial overapproximation is unsound, as edges are missing from the CFG.
+
+  - Jackstab tries to solve it using: data flow analysis to figure out the 
+  jump target (A nice example in [phdThesis Kinder](#phd_kinder) in figure 3.1). To get the data information they use a version of VSA.
+
 - Disassembly assumptions: 
 
  fer instruction requires an absolute address operand [135]. A compiled code is
@@ -236,10 +251,28 @@ past.
       instruc- tions directly following the call that are never executed or
       belong to a different procedure. [phdThesis Kinder](#phd_kinder)
 
+      - IDAPro – short for Interactive Disassembler – is meant
+      to be used interactively, with the human engineer resolving
+      misinterpretations of data as code or providing additional entry points.
+      For an automated analysis of binaries, such an interactive approach to
+      disassembly is not an option.
+
     - [CodeSurfer](#codesurfer)
       - such best effort solutions are good for executable analysis but do not
   certify the behavior once these analyses fail. As opposed to our techniques,
   it fails to maintain the functionality of the recovered intermediate
+
+      - For disassembly, they rely on the capabilities of the commercial
+      disassembler IDA Pro. Generally, they assume a standard compilation model
+      for binaries, which guarantees correct disassembly by IDAPro. They
+      acknowledge that IDAPro’s output can be incomplete and do connect missing
+      edges from indirect calls, yet they lack a complete loop to disassemble
+      previously unprocessed branch targets. Furthermore, IDA Pro is prone not
+      only to omitting control flow edges but also to producing false positives
+      of code that is never executed. Thus the soundness of CodeSurfer/x86 is
+      severely impacted by errors introduced by the heuristics based
+      disassembly strategy of IDA Pro.
+
     - [Veracode](#veracode)
       - Veracode requires the presence of debug information, which is not present in deployed executables.
       
@@ -399,6 +432,11 @@ improve resistance to static disassembly.”
 Jump tables: Laune C. Harris and Barton P. Miller. “Practical analysis of stripped bi-
 nary code.” 
 
+Cristina Cifuentes and Mike van Emmerik. “Recovery of jump table case
+statements from binary code.” In: Sci. Comput. Program. 40.2-3 (2001),
+pp. 171–188.
+
+
 
 
 ###References  
@@ -478,4 +516,4 @@ NT Work- shop, pages 1–1, 1997.
 24.  <a name="divine_2007"></a>G. Balakrishnan and T. Reps. DIVINE: discovering variables in executa- bles. In Proceedings of the 8th international conference on Verification, model checking, and abstract interpretation, pages 1–28, 2007.
 
 25.  <a name="zang"></a>J. Zhang, R. Zhao, and J. Pang. Parameter and return-value analysis of binary executables. In Proceedings of the 31st Annual International Computer Software and Applications Conference, pages 501–508, 2007.
-26.  <a name="phd_kinder"></a> Static Analysis of x86 Executables
+26.  <a name="phd_kinder"></a> PhD Thesis, Kinder, Static Analysis of x86 Executables
