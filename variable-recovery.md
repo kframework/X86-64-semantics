@@ -96,3 +96,7 @@ int rewritten_foo(int arg1, int arg2) {
 ```
 
 ![image](Figs/2.png)
+
+### Symbol promotion
+
+![image](Figs/3.png)
