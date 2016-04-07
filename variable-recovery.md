@@ -7,9 +7,8 @@ Following are the steps:
 4. Promote the abstract locations into variables. 
 
 
-In mcsema, the recovred IR has the following format:
-
-For the source code,
+### Step 1-2
+Consider the source code,
 
 ```
 int main(){ 
@@ -85,6 +84,7 @@ int rewritten_foo(int arg1, int arg2) {
 ### Challenges
 ![image](Figs/2.png)
 
+### Step 3-4
 ### Symbol promotion
 
 ![image](Figs/3.png)
