@@ -1,3 +1,11 @@
+### variable recovery algorithm 
+Following are the steps:
+1. Deconstruct the monolithic stack that mcsema uses into local stack for each procedure.
+2. For each procedure, convert the accesses on that monolithic stack into accesses on the local stack.
+3. For each procedure, identify the abstract locations on its local stack corresponding to recovered variable.
+4. Promote the abstract locations into variables. 
+
+
 In mcsema, the recovred IR has the following format:
 
 For the source code,
