@@ -2,6 +2,9 @@
 Following are the steps:
 
 1. Deconstruct the monolithic stack that mcsema uses into local stack for each procedure.
+ - Use a data flow analysis to identify the max stack height of each procedure. Its OK to have the 
+ a variable expresion for max stack height. 
+ - Allocate an array of "max stack height" right at the beginnig of each procedure.
 2. For each procedure, convert the accesses on that monolithic stack into accesses on the local stack.
 3. For each procedure, identify the abstract locations on its local stack corresponding to recovered variable.
 4. Promote the abstract locations into variables. 
