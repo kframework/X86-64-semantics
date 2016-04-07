@@ -27,8 +27,8 @@ int foo(int a, int b) {
 }
 ```
 
-In the mcsema recovered IR all the 
-statck memory acceses are going on a monolithic array r.E 
+In the mcsema recovered IR, all the 
+stack memory acceses are going on a monolithic array r.RSP. 
 
 ```
 int main(struct regcntx r){ 
