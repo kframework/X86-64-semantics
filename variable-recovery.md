@@ -1,5 +1,6 @@
 ### variable recovery algorithm 
 Following are the steps:
+
 1. Deconstruct the monolithic stack that mcsema uses into local stack for each procedure.
 2. For each procedure, convert the accesses on that monolithic stack into accesses on the local stack.
 3. For each procedure, identify the abstract locations on its local stack corresponding to recovered variable.
@@ -82,27 +83,6 @@ int rewritten_foo(int arg1, int arg2) {
 ```
 
 ### Challenges
-
-```
-1. function foo: 
-2. sub 100, esp             // Subtract 100 from sp
-3.  call bar                // call bar
-
-4. function bar: 
-5. sub 10, esp              // Subtract 10 from sp
-6.  lea 4(esp),edi          //Move address esp+4 to edi
-7.  mov 2, ebx              // Move value 2 to ebx
-8.  mov 15, ecx             // Move value 15 to ecx
-9.  if (esi < 5) jmp B2     //Conditional Branch
-
-10. B1: mov 4,ebx           // Move value 4 to ebx
-11. mov 16,ecx              //Move value 16 to ecx
-12. B2: store 10, ebx[edi]  // Store 10 to indirect offset (edi + ebx) 
-13.  store 10, ecx[esp]     // Store 10 to indirect offset (esp + ecx)
-14.  store 10, edx[edi]     // Store 10 to indirect offset (edi + edx)
-
-```
-
 ![image](Figs/2.png)
 
 ### Symbol promotion
