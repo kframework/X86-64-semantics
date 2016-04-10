@@ -46,4 +46,6 @@ ${LLVM_PATH}/opt -O3    -o=${BIN}_opt.bc ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}.ll ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}_opt.ll ${BIN}_opt.bc
 
-opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=mapping.txt ${BIN}.ll -o /tmp/xxx
+if [ ! -f "mapping.txt" ] ; then 
+opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=mapping.txt ${BIN}.ll -o /tmp/xxx ;
+fi
