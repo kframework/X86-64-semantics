@@ -16,9 +16,10 @@ case $VERSION in
                 wget http://llvm.org/releases/3.5.0/cfe-3.5.0.src.tar.xz
                 wget http://llvm.org/releases/3.5.0/llvm-3.5.0.src.tar.xz
                 wget http://llvm.org/releases/3.5.0/compiler-rt-3.5.0.src.tar.xz
-                tar -xvf llvm-3.5.0.src.tar.xz && rm -f llvm-3.5.0.src.tar.xz
-                tar -xvf cfe-3.5.0.src.tar.xz && rm -f cfe-3.5.0.src.tar.xz
-                tar -xvf compiler-rt-3.5.0.src.tar.xz && rm -f compiler-rt-3.5.0.src.tar.xz
+                tar -xf llvm-3.5.0.src.tar.xz && rm -f llvm-3.5.0.src.tar.xz
+                tar -xf cfe-3.5.0.src.tar.xz && rm -f cfe-3.5.0.src.tar.xz
+                tar -xf compiler-rt-3.5.0.src.tar.xz && rm -f compiler-rt-3.5.0.src.tar.xz
+                rm -rf  $LLVM_HOME
                 mv llvm-3.5.0.src $LLVM_HOME
                 mv cfe-3.5.0.src $LLVM_HOME/tools/clang
                 mv compiler-rt-3.5.0.src $LLVM_HOME/projects/compiler-rt
