@@ -215,18 +215,18 @@ past.
 
 - Static tools
 
-  |        Tool                     | Rewrites Correctly  | High IR | Work  w/o metadata  | Scalable |
-  |:-------------------------------:|:-------------------:|:-------:|:-------------------:|:--------:|
-  |   [ATOM](#atom)(Link Time)      |         Y           |    N    |           N         |     Y    | 
-  |  [PLTO](#plto) (Link Time)      |         Y           |    N    |           N         |     Y    | 
-  |  [Spike](#ispike)(Link Time)    |         Y           |    N    |           N         |     Y    | 
-  |  [UQBT](#uqbt)                  |         Y           |    N    |           N         |     Y    | 
-  | IDA Pro / [Hex Rays](#hexray)   |         N           |    Y    |           Y         |     Y    | 
-  |       [Jakstab](#jackstab)      |         N           |    N    |           Y         |     N    | 
-  |      [BAP](#bap)(TIE)           |         N           |    Y    |           Y         |     N    | 
-  |   [CodeSurfer](#codesurfer)/X86 |         N           |    Y    |           Y         |     N    | 
-  |     SecondWrite                 |         Y           |    Y    |           Y         |     Y    | 
-  |     [Diablo](#diablo)           |                     |         |           N         |          |
+|        Tool                     | Rewrites Correctly  | High IR | Work  w/o metadata  | Scalable |
+|:-------------------------------:|:-------------------:|:-------:|:-------------------:|:--------:|
+|   [ATOM](#atom)(Link Time)      |         Y           |    N    |           N         |     Y    | 
+|  [PLTO](#plto) (Link Time)      |         Y           |    N    |           N         |     Y    | 
+|  [Spike](#ispike)(Link Time)    |         Y           |    N    |           N         |     Y    | 
+|  [UQBT](#uqbt)                  |         Y           |    N    |           N         |     Y    | 
+| IDA Pro / [Hex Rays](#hexray)   |         N           |    Y    |           Y         |     Y    | 
+|       [Jakstab](#jackstab)      |         N           |    N    |           Y         |     N    | 
+|      [BAP](#bap)(TIE)           |         N           |    Y    |           Y         |     N    | 
+|   [CodeSurfer](#codesurfer)/X86 |         N           |    Y    |           Y         |     N    | 
+|     SecondWrite                 |         Y           |    Y    |           Y         |     Y    | 
+|     [Diablo](#diablo)           |                     |         |           N         |          |
 
   - Rewiters: [ATOM](#atom), [PLTO](#plto), [Spike](#ispike), [UQBT](#uqbt), [Diablo](#diablo)
     - All these rewrit- ers define their own low-level custom IR as opposed to
@@ -353,41 +353,7 @@ past.
 
   dagger; libbeauty, fracture    
 
-
-###Assembly basics  Two well know taregts: amd64/x86_64/EMT64 32 bit
-(x86/IA-32)
-
-
-
-
-  gcc -masm=intel/att -S x.c
-
-
-
-
-  push arg
-
-  This instruction decrements the stack pointer and stores the data specified
-  as the argument into the location pointed to by the stack pointer.
-
-  pop arg
-
-  This instruction loads the data store
-
-
-
-
-
-
-
-
-
-
-
-
-
-  To Know ========
-
+###To Know
   080482cc <__gmon_start__@plt-0x10>: 80482cc:	ff 35 ac 96 04 08    	pushl
   0x80496ac 80482d2:	ff 25 b0 96 04 08    	jmp    *0x80496b0 80482d8: 00
   00                	add    %al,(%eax) ...
