@@ -14,9 +14,9 @@ global->local
 293 :   store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :          <41>	movq	%rsp, %rbp
 
 294 :   %81 = add i64 %78, -24 : NIL
+
 295 :   %82 = xor i64 %81, %79, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
 296 :   %83 = and i64 %82, 16 : NIL
-
 297 :   %84 = icmp eq i64 %83, 0 : NIL
 298 :   store i1 %84, i1* %AF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
 299 :   %85 = trunc i64 %81 to i8, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
