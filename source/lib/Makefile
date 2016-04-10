@@ -8,6 +8,6 @@ LEVEL=..
 #
 # List all of the subdirectories that we will compile.
 #
-DIRS=sample
+DIRS=max_stack_height sample
 
 include $(LEVEL)/Makefile.common
