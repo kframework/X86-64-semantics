@@ -1,0 +1,29 @@
+language: cpp
+
+compiler: gcc
+
+os: linux
+
+env: LLVM_HOME=$HOME/llvm BuildMode=Release+Asserts TEST_PARALLELISM=seq TEST_LOG=test.log
+
+before_script:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq gcc-4.8 g++-4.8 
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+
+script:
+  - sudo -E utils/install_llvm.sh
+  - export PATH=/usr/local/bin:$PATH
+  - utils/build.sh
+
+cache:
+  directories:
+    - $HOME/llvm
+
+notifications:
+  recipients:
+    - sdasgup3@illinois.edu
+  email:
+    on_success: change
+    on_failure: always
