@@ -1,11 +1,12 @@
 #!/bin/bash
 
 
-DIR="/home/dsand/Github/mcsema"
+DIR="${HOME}/Github/mcsema"
 LLVM_PATH="${DIR}/build/llvm-3.5/bin/"
 STD_DEFS="${DIR}/mc-sema/std_defs/std_defs.txt"
 CC=clang
 CXX=clang++
+
 
 C=$(which gcc)
 BIN="$1"
@@ -44,3 +45,5 @@ ${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=
 ${LLVM_PATH}/opt -O3    -o=${BIN}_opt.bc ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}.ll ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}_opt.ll ${BIN}_opt.bc
+
+opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=mapping.txt ${BIN}.ll -o /tmp/xxx
