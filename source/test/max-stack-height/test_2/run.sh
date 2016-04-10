@@ -35,8 +35,8 @@ fi
 
 rm -f *.cfg  *.o *.exe *.ll *.bc *.lifted *.objdump *.log 
 
-${CC}  ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
-objdump -d ${BIN} &> ${BIN}.objdump
+${CC} -c  ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
+objdump -d ${BIN}.o &> ${BIN}.objdump
 
 ${BIN_DESCEND_PATH}/bin_descend ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=main &> bd.log  
 
