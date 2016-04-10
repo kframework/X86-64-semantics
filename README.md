@@ -1,3 +1,11 @@
+# Table of Contents
+
+* [Build Instrcutions](docs/build.md)
+* [About Static Disassembly](#About-static-disassembly) 
+
+
+
+
 ### About static disassembly 
     
 - Undecidable
