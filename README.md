@@ -1,4 +1,4 @@
-###About static disassembly 
+### About static disassembly 
     
 - Undecidable
     
@@ -16,9 +16,9 @@ Benefits and challenges (dagstuhl seminar 12051).  Dagstuhl Reports, 2(1):100–
 Reverse engineering consiste of  two phases: Disassembly (which produces
     assembly code from machine code) and Decompilation ( which reconstructs the
       higher-level semantic structure of the program from the assembly code) 
-![Figure](Figs/1.png)    
+![Figure](docs/Figs/1.png)    
 
-###Motivation for executable analysis 
+### Motivation for executable analysis 
 
 Traditional Traditional source-code analysis frameworks have limited
 applicability in several scenarios which can be eliminated by  executable-level
@@ -65,7 +65,7 @@ Source-code
     languages complicate the task of analyzing the source-code. In such
     scenarios, a consistent representation  
 
-###Advantages of executable analysis 
+### Advantages of executable analysis 
 
 - End-user security enforcement. 
 
@@ -123,7 +123,7 @@ Source-code
 
 
 
-###Challenges
+### Challenges
 
 - CFG Recovery    
   - Problem: Control flow reconstruction is the problem of determining an
@@ -176,24 +176,10 @@ Such mechanisms would not work in programs without such a stack. An assembly
 code not adhering to this convention would be extremely hard to write.
 
 - Self Modifying code 
+ Most static binary tools do not handle self modifying code. 
 
- most static binary tools do not handle self mod- ifying code. 
 
-
-    Challenges ============ During the assembly process some information si
-    lost: 1. program data is stored in the same raw binary format as the
-    machine code instructions.  This means that it can be difficult to
-    determine which parts of the program are actually instructions. Notice that
-    you can disassemble raw data, but the resultant assembly code will be
-    nonsensical. 
-
-    2. Textual information from the assembly source code file, such as variable
-    names, label names, and code comments are all destroyed during assembly.
-    When you disassemble the code, the instructions will be the same, but all
-    the other helpful information will be lost. The code will be accurate, but
-    more difficult to read.
-
-###Related work
+### Related work
 
 - Dynamic tools
   - [Pin](#pin)
@@ -327,7 +313,7 @@ past.
 
       
   
-###Existing decompilers
+### Existing decompilers
 
   McSema translates x86 machine code into LLVM bitcode.
 
@@ -353,7 +339,7 @@ past.
 
   dagger; libbeauty, fracture    
 
-###To Know
+### To Know
   080482cc <__gmon_start__@plt-0x10>: 80482cc:	ff 35 ac 96 04 08    	pushl
   0x80496ac 80482d2:	ff 25 b0 96 04 08    	jmp    *0x80496b0 80482d8: 00
   00                	add    %al,(%eax) ...
@@ -411,7 +397,7 @@ pp. 171–188.
 
 
 
-###References  
+### References  
 1. <a name="devine_2004"></a> G. Balakrishnan and T. Reps. Analyzing memory
 accesses in x86 executables.  In CC, pages 5–23. Springer-Verlag, 2004.
 
