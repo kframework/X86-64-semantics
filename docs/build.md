@@ -3,6 +3,6 @@
 ```
 cd source
 ./configure --with-llvmsrc=<llvm-3.5.0.src> --with-llvmobj=<llvm-3.5.0.build>
-make -j 16
+CXXFLAGS+=-std=c++11 make -j 16
 ```
 
