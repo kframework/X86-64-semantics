@@ -1,9 +1,7 @@
 # Table of Contents
 
-* [Build Instrcutions](docs/build.md)
-* [About Static Disassembly](#About-static-disassembly) 
-
-
+* [Build Instructions & Usage Model](docs/build.md)
+* [Variable Recovery] (docs/variable-recovery.md)
 
 
 ### About static disassembly 
