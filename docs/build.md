@@ -1,4 +1,4 @@
-### build instructions
+### Build instructions
 
 ```
 cd source
