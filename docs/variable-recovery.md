@@ -11,7 +11,7 @@ Following are the steps:
 
 
 ### Step 1-2
-Consider the source code,
+ Consider the source code,
 
 ```
 int main(){ 
