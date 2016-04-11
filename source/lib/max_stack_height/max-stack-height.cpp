@@ -6,6 +6,8 @@
 #include "llvm/Support/Debug.h"
 #include "llvm/IR/InstIterator.h"
 #include "llvm/IR/Constants.h"
+#include "llvm/ADT/PostOrderIterator.h"
+#include "llvm/IR/CFG.h"
 
 using namespace llvm;
 
@@ -64,10 +66,10 @@ max_stack_height::perform_const_dfa() {
   }
 }
 
-uint64_t 
+height_ty 
 max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
 
-  uint64_t  max_height = 0;
+  height_ty  max_height = 0;
   for (BasicBlock::iterator I = BB->begin(), E = BB->end(); I != E; ++I) {
     if(LoadInst* ld_inst = dyn_cast<LoadInst>(&*I)) {
 
@@ -90,8 +92,8 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
 
                 Value* op1 = user_inst->getOperand(0);
                 Value* op2 = user_inst->getOperand(1);
-                int64_t offset = 0;
-                uint64_t abs_offset = 0;
+                height_ty offset = 0;
+                height_ty abs_offset = 0;
                 ConstantInt *cosnt_val = NULL;
 
 
@@ -134,6 +136,64 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
 void
 max_stack_height::perform_global_dfa() {
 
+  bool Changed = false;
+  height_ty top = 0 ;
+  // bitVector for in[B] of start node
+  height_ty initVector = 0;
+
+  // initialize OUT set of each basic block to top
+  for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
+    dfva* dfvaInstance = BBMap[BB];
+    (*dfvaInstance)[OUT] = top ;
+  }
+
+  do {
+    Changed = false;
+    ReversePostOrderTraversal<Function*> RPOT(Func);
+
+    for (ReversePostOrderTraversal<Function*>::rpo_iterator I = RPOT.begin(), 
+        E = RPOT.end(); I != E; ++I) {
+      BasicBlock* BB = *I;
+      dfva* dfvaInstance = BBMap[BB];
+
+      // this vector would be initialized accordingly later by the 
+      // first predecessor while taking a meet over predecessors
+      height_ty meetOverPreds = 0;
+
+      // go over predecessors and take a meet
+      bool first = true;
+      for(pred_iterator PI = pred_begin(BB), PE = pred_end(BB); PI!=PE; ++PI) {
+          
+        height_ty meetExpression =  (*(BBMap[*PI]))[OUT];
+
+        if(first) {
+          first = false;
+          meetOverPreds = meetExpression;
+        } else {
+          if(meetOverPreds != meetExpression) {
+            meetOverPreds  = -1;
+          } 
+        }
+      }
+   
+      // no predecessor, this is the start block s.
+      if(first) {
+        meetOverPreds = initVector;
+      }
+
+      // 'In' as a function of pred 'Out's
+      (*dfvaInstance)[IN] = meetOverPreds;   
+      height_ty old_out = (*dfvaInstance)[OUT];
+
+      // 'Out' as a function of 'In'
+      (*dfvaInstance)[OUT] = ((*dfvaInstance)[IN] == -1) ? -1 : (*dfvaInstance)[IN] + (*dfvaInstance)[GEN];
+  
+      height_ty new_out = (*dfvaInstance)[OUT];
+      if(old_out != new_out) {
+        Changed = true;
+      }
+    }
+  } while(Changed);
 }
 
 /*******************************************************************

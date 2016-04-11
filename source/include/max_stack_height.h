@@ -14,6 +14,7 @@ enum dfa_values {
   GEN,
   TOTAL_DFA_VALUES // = 3
   };
+typedef int64_t height_ty;
 
 
 // class This pass provides the functionality to find the binary virtual address  and
@@ -24,7 +25,7 @@ class max_stack_height : public FunctionPass {
 
       // Maps each Basic Block to a std::pair of , each of which
     // represents a property as defined in bitVectors enum 
-    typedef std::vector<unsigned int> dfva;      
+    typedef std::vector<height_ty> dfva;      
     DenseMap<BasicBlock*, dfva*> BBMap;
      
     // functions description along with the definition 
@@ -33,7 +34,7 @@ class max_stack_height : public FunctionPass {
     void perform_const_dfa();
     void perform_global_dfa();
     void print_flow_equations();
-    uint64_t calculate_max_height_BB(BasicBlock *BB);
+    height_ty calculate_max_height_BB(BasicBlock *BB);
       
 
   public:

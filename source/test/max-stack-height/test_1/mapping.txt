@@ -15,25 +15,6 @@ global->local
 
 294 :   %81 = add i64 %78, -24 : NIL
 
-295 :   %82 = xor i64 %81, %79, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-296 :   %83 = and i64 %82, 16 : NIL
-297 :   %84 = icmp eq i64 %83, 0 : NIL
-298 :   store i1 %84, i1* %AF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-299 :   %85 = trunc i64 %81 to i8, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-300 :   %86 = tail call i8 @llvm.ctpop.i8(i8 %85), !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-301 :   %87 = and i8 %86, 1 : NIL
-302 :   %88 = icmp eq i8 %87, 0 : NIL
-303 :   store i1 %88, i1* %PF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-304 :   %89 = icmp eq i64 %81, 0, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-305 :   store i1 %89, i1* %ZF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-306 :   %90 = icmp slt i64 %81, 0 : NIL
-307 :   store i1 %90, i1* %SF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-308 :   %91 = icmp ult i64 %79, 16, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-309 :   store i1 %91, i1* %CF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-310 :   %92 = and i64 %82, %79, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-311 :   %93 = icmp slt i64 %92, 0 : NIL
-312 :   store i1 %93, i1* %OF_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
-
 313 :   store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
 
 314 :   store i64 10, i64* %RDI_val, !mcsema_real_eip !5 :          <48>	movl	$10, %edi
@@ -73,26 +54,6 @@ glocal->local
 623 :   %253 = load i64* %RSP_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
 624 :   %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16) : NIL
 625 :   %254 = extractvalue { i64, i1 } %uadd, 0 : NIL
-
-626 :   %255 = xor i64 %254, %253, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-627 :   %256 = and i64 %255, 16 : NIL
-628 :   %257 = icmp eq i64 %256, 0 : NIL
-629 :   store i1 %257, i1* %AF_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-630 :   %258 = icmp slt i64 %254, 0 : NIL
-631 :   store i1 %258, i1* %SF_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-632 :   %259 = icmp eq i64 %254, 0, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-633 :   store i1 %259, i1* %ZF_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-634 :   %260 = xor i64 %253, -9223372036854775808, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-635 :   %261 = and i64 %255, %260, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-636 :   %262 = icmp slt i64 %261, 0 : NIL
-637 :   store i1 %262, i1* %OF_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-638 :   %263 = trunc i64 %254 to i8, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-639 :   %264 = tail call i8 @llvm.ctpop.i8(i8 %263), !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-640 :   %265 = and i8 %264, 1 : NIL
-641 :   %266 = icmp eq i8 %265, 0 : NIL
-642 :   store i1 %266, i1* %PF_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
-643 :   %267 = extractvalue { i64, i1 } %uadd, 1 : NIL
-644 :   store i1 %267, i1* %CF_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
 
 645 :   store i64 %254, i64* %RSP_val, !mcsema_real_eip !11 :          <64>	addq	$16, %rsp
 
