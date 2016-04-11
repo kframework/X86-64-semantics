@@ -33,6 +33,7 @@ class max_stack_height : public FunctionPass {
     void perform_const_dfa();
     void perform_global_dfa();
     void print_flow_equations();
+    uint64_t calculate_max_height_BB(BasicBlock *BB);
       
 
   public:
