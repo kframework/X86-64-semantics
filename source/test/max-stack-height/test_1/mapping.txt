@@ -2,20 +2,20 @@
 
 Source line mapping for function: sub_40
 ========================================================
-allocas
+allocas                                                                                                   // MAP[RSP_val = alloca] = 0;  rsp = 0
 global->local
-
-288 :   %77 = load i64* %RBP_val, !mcsema_real_eip !2 :          <40>	pushq	%rbp
-289 :   %78 = load i64* %RSP_val, !mcsema_real_eip !2 :          <40>	pushq	%rbp
-290 :   %79 = add i64 %78, -8 : NIL
+                                                                                                          
+288 :   %77 = load i64* %RBP_val, !mcsema_real_eip !2 :          <40>	pushq	%rbp                      
+289 :   %78 = load i64* %RSP_val, !mcsema_real_eip !2 :          <40>	pushq	%rbp                      // MAP[%78 = load i64* %RSP_val] =  rsp
+290 :   %79 = add i64 %78, -8 : NIL                                                                       // MAP[%79 = add i64 %78, -8] = MAP[%78 = load i64* %RSP_val] -8
 291 :   %80 = inttoptr i64 %79 to i64*, !mcsema_real_eip !2 :          <40>	pushq	%rbp
-292 :   store i64 %77, i64* %80, !mcsema_real_eip !2 :          <40>	pushq	%rbp
+292 :   store i64 %77, i64* %80, !mcsema_real_eip !2 :          <40>	pushq	%rbp                            
 
 293 :   store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :          <41>	movq	%rsp, %rbp
 
-294 :   %81 = add i64 %78, -24 : NIL
+294 :   %81 = add i64 %78, -24 : NIL                                                                      // MAP[%81 = add i64 %78, -24] = MAP[%78 = load i64* %RSP_val] - 24
 
-313 :   store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp
+313 :   store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :          <44>	subq	$16, %rsp         // rsp = MAP[%81 = add i64 %78, -24]
 
 314 :   store i64 10, i64* %RDI_val, !mcsema_real_eip !5 :          <48>	movl	$10, %edi
 315 :   store i64 20, i64* %RSI_val, !mcsema_real_eip !6 :          <4d>	movl	$20, %esi
