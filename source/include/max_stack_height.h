@@ -30,16 +30,18 @@ class max_stack_height : public FunctionPass {
 
     typedef std::vector<height_ty> dfva;      
 
-    // Maps each Basic Block to its data flow values (IN, OUT, GEN)
+    //Maps each Basic Block to its data flow values (IN, OUT, GEN)
     DenseMap<BasicBlock*, dfva*> BBMap;
-    // Maps each Instruction, involving rsp, to the value of the rsp. 
-    DenseMap<Value*, height_ty> InstMap;
+
+    //llvm alloca inst for rsp, rbp 
+    Value* llvm_alloca_inst_rsp;
+    Value* llvm_alloca_inst_rbp;
      
     void perform_dfa() ;
-    void initialize_dfa_framework();
+    void initialize_framework();
     void perform_const_dfa();
     void perform_global_dfa();
-    void print_height();
+    void print_adt(DenseMap<Value*, height_ty>);
     void print_adt();
     height_ty calculate_max_height_BB(BasicBlock *BB);
       
@@ -47,7 +49,10 @@ class max_stack_height : public FunctionPass {
   public:
     static char ID;
 
-    max_stack_height() : FunctionPass (ID) {}
+    max_stack_height() : FunctionPass (ID) {
+      llvm_alloca_inst_rsp = NULL;
+      llvm_alloca_inst_rbp = NULL;
+    }
 
     virtual bool runOnFunction(Function &F);
 
