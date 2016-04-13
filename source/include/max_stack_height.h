@@ -11,6 +11,7 @@
 
 #include "llvm/Pass.h"
 #include "llvm/IR/Instructions.h"
+#include "llvm/IR/InstVisitor.h"
 
 namespace llvm {
 
@@ -24,7 +25,9 @@ enum dfa_values {
 typedef int64_t height_ty;
 
 
-class max_stack_height : public FunctionPass {
+class max_stack_height :  public FunctionPass,
+                          public InstVisitor<max_stack_height>                            
+{
   private:
     Function* Func;
 
@@ -32,6 +35,11 @@ class max_stack_height : public FunctionPass {
 
     //Maps each Basic Block to its data flow values (IN, OUT, GEN)
     DenseMap<BasicBlock*, dfva*> BBMap;
+    
+    // Map to do a symbolic execution on the instruction of a BB
+    // involving rsp, rbp displacements to track the
+    // max displacement of rsp or from rbp in that BB.
+    DenseMap<Value*, height_ty> InstMap;
 
     //llvm alloca inst for rsp, rbp 
     Value* llvm_alloca_inst_rsp;
@@ -59,6 +67,17 @@ class max_stack_height : public FunctionPass {
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.setPreservesAll();
     };
+
+    // Overriden InstVisitor methods
+    void visitLoadInst(LoadInst     &I);  
+    void visitStoreInst(StoreInst   &I);           
+    void visitExtractValueInst(ExtractValueInst &I);
+    void visitIntrinsicInst(IntrinsicInst &I);
+    void visitAdd(BinaryOperator &I);
+    void visitSub(BinaryOperator &I);
+    void visitCallInst(CallInst &I);
+    void visitAddSubHelper(Instruction* I, bool isAdd);
+
 };
 
 } 

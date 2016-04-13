@@ -99,199 +99,11 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
     }
   }
 
-  // Map to do a symbolic execution on the instruction
-  // involving rsp, rbp displacements to track the
-  // max displacement of rsp or from rbp in BB.
-  DenseMap<Value*, height_ty> InstMap;
 
   assert(NULL != llvm_alloca_inst_rsp && "BB visited before Entry !!!");
   InstMap[llvm_alloca_inst_rsp] = 0;
 
-  for (auto &I : *BB) { 
-    Instruction *inst = &I;
-    unsigned opcode = inst->getOpcode();
-
-    switch(opcode) {
-      case Instruction::Load: 
-        {
-          LoadInst* ld_inst = cast<LoadInst>(inst);
-          Value* ld_ptr_op = ld_inst->getPointerOperand();
-          if(1 == InstMap.count(ld_ptr_op)) {
-            InstMap[ld_inst] = InstMap[ld_ptr_op];
-            DEBUG(errs() << *ld_inst << " :  " <<  InstMap[ld_inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-          }
-          break;        
-        }
-      case Instruction::Store: 
-        {
-          StoreInst* st_inst = cast<StoreInst>(inst);
-          Value* st_ptr_op = st_inst->getPointerOperand();
-          Value* st_val_op = st_inst->getValueOperand();
-          if(1 == InstMap.count(st_ptr_op) &&
-              1 == InstMap.count(st_val_op)) {
-            InstMap[st_ptr_op] = InstMap[st_val_op];
-            DEBUG(errs() << *st_inst << " :  " << "NIL"  << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-          }
-          break;                               
-        }
-      case Instruction::ExtractValue:
-        {
-          Value* op1 = inst->getOperand(0);
-          if(1 == InstMap.count(op1)) {
-            InstMap[inst] = InstMap[op1];
-            DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-          }
-          break;
-        }
-      case Instruction::Call:
-        {
-          CallInst* call_inst = cast<CallInst>(inst);
-          if (auto const *intrinsic_inst = dyn_cast<IntrinsicInst>(call_inst)) {
-            switch (intrinsic_inst->getIntrinsicID()) {
-              case Intrinsic::sadd_with_overflow:
-              case Intrinsic::uadd_with_overflow:
-              {
-                Value* op1 = inst->getOperand(0);
-                Value* op2 = inst->getOperand(1);
-
-                if(0 == InstMap.count(op1)) {
-                  break;
-                }
-
-                ConstantInt *cosnt_val = NULL;
-                height_ty offset = 0;
-
-                if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
-                  offset = cosnt_val->getLimitedValue();
-                  InstMap[inst] = InstMap[op1] + offset;
-                  DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-                  break;
-                }
-
-                if(1 == InstMap.count(op2)) {
-                  InstMap[inst] = InstMap[op1] + InstMap[op2];
-                  DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-                  break;
-                }
-
-                assert(0 && "offset is an variable expression");
-                break;
-              }
-              case Intrinsic::ssub_with_overflow:
-              case Intrinsic::usub_with_overflow: 
-              {
-                Value* op1 = inst->getOperand(0);
-                Value* op2 = inst->getOperand(1);
-
-                if(0 == InstMap.count(op1)) {
-                  break;
-                }
-
-                ConstantInt *cosnt_val = NULL;
-                height_ty offset = 0;
-
-                if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
-                  offset = cosnt_val->getLimitedValue();
-                  InstMap[inst] = InstMap[op1] - offset;
-                  DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-                  break;
-                }
-
-                if(1 == InstMap.count(op2)) {
-                  InstMap[inst] = InstMap[op1] + InstMap[op2];
-                  DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-                  break;
-                }
-
-                assert(0 && "offset is an variable expression");
-                break;
-              }
-              default:
-              break;
-            }
-            break;
-          }
-
-          Function *called_func = call_inst->getCalledFunction();
-
-          assert(NULL != called_func && "indirect func call found");
-
-          if(false == called_func->isDeclaration()) {
-            InstMap[llvm_alloca_inst_rsp] += RET_ADDRESS_SIZE;
-            DEBUG(errs() << *inst << " :  " <<  "NIL" << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-          } 
-          break;
-        }
-      case Instruction::Add: 
-        {
-          Value* op1 = inst->getOperand(0);
-          Value* op2 = inst->getOperand(1);
-
-          if(0 == InstMap.count(op1) &&  0 == InstMap.count(op2)) {
-            break;
-          }
-
-          ConstantInt *cosnt_val = NULL;
-          height_ty offset = 0;
-          if(1 == InstMap.count(op1) && 
-              NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
-            offset = cosnt_val->getLimitedValue();
-            InstMap[inst] = InstMap[op1] + offset;
-            DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-            break;
-          }
-
-          if(1 == InstMap.count(op2) && 
-              NULL != (cosnt_val = dyn_cast<ConstantInt>(op1))) {
-            offset = cosnt_val->getLimitedValue();
-            InstMap[inst] =InstMap[op2] + offset;
-            DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-            break;
-          }
-
-          if(1 == InstMap.count(op1) && 
-              1 == InstMap.count(op2)) {
-            InstMap[inst] = InstMap[op1] + InstMap[op2];
-            DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-            break;
-          }
-
-          assert(0 && "offset is an variable expression");
-          break;        
-        }
-      case Instruction::Sub: 
-        {
-          Value* op1 = inst->getOperand(0);
-          Value* op2 = inst->getOperand(1);
-
-          if(0 == InstMap.count(op1)) {
-            break;
-          }
-
-          ConstantInt *cosnt_val = NULL;
-          height_ty offset = 0;
-
-          if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
-            offset = cosnt_val->getLimitedValue();
-            InstMap[inst] = InstMap[op1] - offset;
-            DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-            break;
-          }
-
-          if(1 == InstMap.count(op2)) {
-            InstMap[inst] = InstMap[op1] + InstMap[op2];
-            DEBUG(errs() << *inst << " :  " <<  InstMap[inst] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
-            break;
-          }
-
-          assert(0 && "offset is an variable expression");
-          break;        
-        }
-      default:
-        break;        
-    }
-
-  } 
+  visit(*BB);
 
   //print_adt(InstMap);
   max_height = InstMap[llvm_alloca_inst_rsp];
@@ -299,6 +111,144 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   InstMap.clear();
   return max_height;
 }
+
+void
+max_stack_height::visitLoadInst(LoadInst     &I) {
+  Value* ld_ptr_op = I.getPointerOperand();
+  if(InstMap.count(ld_ptr_op)) {
+    InstMap[&I] = InstMap[ld_ptr_op];
+    DEBUG(errs() << I << " :  " <<  InstMap[&I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+  }
+}
+
+void
+max_stack_height::visitStoreInst(StoreInst     &I) {
+  Value* st_ptr_op = I.getPointerOperand();
+  Value* st_val_op = I.getValueOperand();
+  if(InstMap.count(st_ptr_op) && InstMap.count(st_val_op)) {
+    InstMap[st_ptr_op] = InstMap[st_val_op];
+    DEBUG(errs() << I << " :  " << "NIL"  << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+  }
+}
+
+void
+max_stack_height::visitExtractValueInst(ExtractValueInst &I) {
+  Value* op1 = I.getOperand(0);
+  if(InstMap.count(op1)) {
+    InstMap[&I] = InstMap[op1];
+    DEBUG(errs() << I << " :  " <<  InstMap[&I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+  }
+}
+
+void
+max_stack_height::visitCallInst(CallInst &I) {
+  Function *called_func = I.getCalledFunction();
+  assert(NULL != called_func && "indirect func call found");
+
+  if(false == called_func->isDeclaration()) {
+    InstMap[llvm_alloca_inst_rsp] += RET_ADDRESS_SIZE;
+    DEBUG(errs() << I << " :  " <<  "NIL" << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+  } 
+}
+
+void
+max_stack_height::visitIntrinsicInst(IntrinsicInst &I) {
+
+  unsigned ty = I.getIntrinsicID();
+  switch (ty) {
+    case Intrinsic::sadd_with_overflow:
+    case Intrinsic::uadd_with_overflow:
+      {
+        visitAddSubHelper(&I, true);
+        break;
+      }
+    case Intrinsic::ssub_with_overflow:
+    case Intrinsic::usub_with_overflow: 
+      {
+        visitAddSubHelper(&I, false);
+        break;
+      }
+    default:
+      break;
+  }
+  return;
+}
+
+void
+max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd) {
+  Value* op1 = I->getOperand(0);
+  Value* op2 = I->getOperand(1);
+
+  if(0 == InstMap.count(op1)) {
+    return;
+  }
+
+  ConstantInt *cosnt_val = NULL;
+  height_ty offset = 0;
+
+  if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
+    offset = cosnt_val->getLimitedValue();
+
+    if(isAdd) {
+      InstMap[I] = InstMap[op1] + offset;
+    } else {
+      InstMap[I] = InstMap[op1] - offset;
+    }
+    DEBUG(errs() << *I << " :  " <<  InstMap[I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+    return;
+  }
+
+  if(InstMap.count(op2)) {
+    InstMap[I] = InstMap[op1] + InstMap[op2];
+    DEBUG(errs() << I << " :  " <<  InstMap[I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+    return;
+  }
+
+  assert(0 && "offset is an variable expression");
+  return;
+}
+
+void 
+max_stack_height::visitAdd(BinaryOperator &I) {
+  Value* op1 = I.getOperand(0);
+  Value* op2 = I.getOperand(1);
+
+  if(0 == InstMap.count(op1) &&  0 == InstMap.count(op2)) {
+    return;
+  }
+
+  ConstantInt *cosnt_val = NULL;
+  height_ty offset = 0;
+  if(InstMap.count(op1) && NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
+    offset = cosnt_val->getLimitedValue();
+    InstMap[&I] = InstMap[op1] + offset;
+    DEBUG(errs() << I << " :  " <<  InstMap[&I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+    return;
+  }
+
+  if(InstMap.count(op2) && NULL != (cosnt_val = dyn_cast<ConstantInt>(op1))) {
+    offset = cosnt_val->getLimitedValue();
+    InstMap[&I] =InstMap[op2] + offset;
+    DEBUG(errs() << I << " :  " <<  InstMap[&I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+    return;
+  }
+
+  if(InstMap.count(op1) && InstMap.count(op2)) {
+    InstMap[&I] = InstMap[op1] + InstMap[op2];
+    DEBUG(errs() << I << " :  " <<  InstMap[&I] << " : " << InstMap[llvm_alloca_inst_rsp] << "\n" );
+    return;
+  }
+  
+  assert(0 && "offset is an variable expression");
+  return;
+}
+
+void 
+max_stack_height::visitSub(BinaryOperator &I) {
+  visitAddSubHelper(&I, false);
+  return;
+}
+
 
 /*******************************************************************
  * Function :   perform_global_dfa
