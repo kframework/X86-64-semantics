@@ -1,0 +1,76 @@
+Args: opt -load=/home/sdasgup3/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so -ssh -debug test_3.ll -o /dev/null 
+
+Features:+64bit,+sse2
+CPU:generic
+
+Subtarget features: SSELevel 3, 3DNowLevel 0, 64bit 1
+==========================================
+Function : sub_0
+==========================================
+----------------------------------
+entry
+----------------------------------
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %79 = add i64 %78, -8 :::  [I] = -8 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = -8
+  store i64 %79, i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = NULL : [ACTUAL ESP] = -8 : [ACTUAL EBP] = 0 : MAX DISP = -8
+  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -8
+  %81 = add i64 %78, -12, !mcsema_real_eip !4 :::  [I] = -12 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -12
+  %86 = load i64* %RBP_val, !mcsema_real_eip !5 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -12
+  %87 = add i64 %86, -8, !mcsema_real_eip !5 :::  [I] = -16 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
+  %92 = load i64* %RBP_val, !mcsema_real_eip !6 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
+  %93 = add i64 %92, -4, !mcsema_real_eip !6 :::  [I] = -12 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
+  %98 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
+  %99 = add i64 %98, -8, !mcsema_real_eip !7 :::  [I] = -16 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
+  %120 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
+  %121 = add i64 %120, -12, !mcsema_real_eip !8 :::  [I] = -20 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
+  %124 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
+  %125 = add i64 %124, -4, !mcsema_real_eip !9 :::  [I] = -12 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
+  %145 = load i64* %RBP_val, !mcsema_real_eip !11 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
+  %146 = add i64 %145, -12, !mcsema_real_eip !11 :::  [I] = -20 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
+----------------------------------
+block_0x30
+----------------------------------
+  %175 = load i64* %RSP_val, !mcsema_real_eip !15 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %178 = add i64 %175, 16, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  store i64 %178, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %185 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %186 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+----------------------------------
+block_0x20
+----------------------------------
+  %274 = load i64* %RSP_val, !mcsema_real_eip !15 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %277 = add i64 %274, 16, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  store i64 %277, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %284 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %285 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+----------------------------------
+DFA Equations: 
+----------------------------------
+sub_0::entry
+  IN   [0|0]
+  GEN  [-8|-20]
+  OUT  [-8|-20]
+sub_0::block_0x30
+  IN   [-8|-20]
+  GEN  [16|0]
+  OUT  [8|-20]
+sub_0::block_0x20
+  IN   [-8|-20]
+  GEN  [16|0]
+  OUT  [8|-20]
+Height[ sub_0 ] : -20
+==========================================
+Function : mcsema_main
+==========================================
+----------------------------------
+driverBlockRaw
+----------------------------------
+  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0) :::  [I] = NULL : [ACTUAL ESP] = 8 : [ACTUAL EBP] = 0 : MAX DISP = 0
+----------------------------------
+DFA Equations: 
+----------------------------------
+mcsema_main::driverBlockRaw
+  IN   [0|0]
+  GEN  [8|0]
+  OUT  [8|0]
+Height[ mcsema_main ] : 0

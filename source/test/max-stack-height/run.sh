@@ -11,6 +11,7 @@ CXX=clang++
 C=$(which gcc)
 BIN="$1"
 ARCH="$2"
+ENTRY_FUNC="$3"
 
 BIN_DESCEND_PATH="${DIR}/build/mc-sema/bin_descend"
 FUNC_MAP="${DIR}/mc-sema/std_defs/std_defs.txt"
@@ -38,9 +39,9 @@ rm -f *.cfg  *.o *.exe *.ll *.bc *.lifted *.objdump *.log
 ${CC}  -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
 objdump -d ${BIN}.o &> ${BIN}.objdump
 
-${BIN_DESCEND_PATH}/bin_descend ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=main &> bd.log  
+${BIN_DESCEND_PATH}/bin_descend ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> bd.log  
 
-${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=mcsema_main,main,raw,return,C &> cfgbc.log
+${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=mcsema_main,${ENTRY_FUNC},raw,return,C &> cfgbc.log
 
 ${LLVM_PATH}/opt -O3    -o=${BIN}_opt.bc ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}.ll ${BIN}.bc

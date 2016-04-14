@@ -33,10 +33,13 @@ bool
 max_stack_height::runOnFunction(Function &F) {
   Func = &F;
 
-  DEBUG(errs() << Func->getName() << "\n ==========================================\n");
+  DEBUG(errs() << "==========================================\n");
+  DEBUG(errs() << "Function : " << Func->getName() << "\n");
+  DEBUG(errs() << "==========================================\n");
   
   perform_dfa();
 
+  print_dfa_equations();
   print_height();
 
   return false; // Analysis pass
@@ -53,8 +56,6 @@ max_stack_height::perform_dfa() {
   perform_const_dfa();
   
   perform_global_dfa();
-
-  //print_height();
 
 }
 
@@ -79,10 +80,11 @@ max_stack_height::perform_const_dfa() {
 
   dfa_functions* dfvaInstance;
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
-    DEBUG(errs() << BB->getName() << "\n-----------------------------------\n");
+    DEBUG(errs() << "----------------------------------\n");
+    DEBUG(errs() << BB->getName() << "\n");
+    DEBUG(errs() << "----------------------------------\n");
     dfvaInstance = BBMap[BB];
     (*dfvaInstance)[GEN] = calculate_max_height_BB(BB);
-    DEBUG(errs() << "\n-----------------------------------\n");
   }
 }
 
@@ -121,8 +123,6 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   ret_val[ACTUAL_ESP] = InstMap[llvm_alloca_inst_rsp];
   ret_val[MAX_DISP_OF_ESP] = max_dis_of_esp;
   ret_val[MAX_DISP_OF_EBP] = max_dis_of_ebp;
-
-  DEBUG(errs() << "GEN: " << ret_val[ACTUAL_ESP] << ", " << ret_val[MAX_DISP_OF_ESP] << ", " << ret_val[MAX_DISP_OF_EBP]  << "\n");
 
   //Clean up
   InstMap.clear();
@@ -367,11 +367,9 @@ max_stack_height::debug(Value* I, Value* J) {
     DEBUG(errs()  << "[I] = " << stored_pointer << " : ");
   }
 
-  DEBUG(errs()  <<  "[ESP] = " << InstMap[llvm_alloca_inst_rsp] << " : " << 
-      "MX ESP = " << max_dis_of_esp << " : " << 
-      "[EBP] = " << InstMap[llvm_alloca_inst_rbp] << " : " << 
-      "MX EBP = " << max_dis_of_ebp << "\n" 
-      );
+  DEBUG(errs()  <<  "[ACTUAL ESP] = " << InstMap[llvm_alloca_inst_rsp] << " : " << 
+      "[ACTUAL EBP] = " << InstMap[llvm_alloca_inst_rbp] << " : " << 
+      "MAX DISP = " << max_dis_of_esp << "\n");
 }
 
 /*******************************************************************
@@ -381,6 +379,9 @@ max_stack_height::debug(Value* I, Value* J) {
 void
 max_stack_height::print_dfa_equations() {
 
+  DEBUG(errs() << "----------------------------------\n");
+  DEBUG(errs() << "DFA Equations: \n");
+  DEBUG(errs() << "----------------------------------\n");
   dfa_functions* dfvaInstance;
   StringRef Fname = Func->getName();
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
@@ -390,18 +391,15 @@ max_stack_height::print_dfa_equations() {
     for(uint32_t i = 0; i < TOTAL_FUNCTIONS; i++){
   
       switch(i) {
-        case(IN)  : (errs() << "    IN "); break;
+        case(IN)  : (errs() << "  IN  "); break;
         case(GEN) : (errs() << "  GEN "); break;
         case(OUT) : (errs() << "  OUT "); break;
       }
       
-      errs() << " [ " <<  
-                      (*dfvaInstance)[i][ACTUAL_ESP] <<       "||" <<  
-                      (*dfvaInstance)[i][MAX_DISP_OF_ESP] <<  "||" <<
-                      (*dfvaInstance)[i][MAX_DISP_OF_EBP] << 
-                  " ]\n"; 
+      DEBUG(errs() << " [" <<  
+                      (*dfvaInstance)[i][ACTUAL_ESP] <<       "|" <<  
+                      (*dfvaInstance)[i][MAX_DISP_OF_ESP] <<  "]\n"); 
     }
-    //(errs() << "\n------------\n"); 
   }
 }
 
@@ -419,5 +417,5 @@ max_stack_height::print_height() {
     ret_val = std::min(ret_val, std::min( (*dfvaInstance)[IN][MAX_DISP_OF_ESP],  (*dfvaInstance)[OUT][MAX_DISP_OF_ESP] ));
   }
 
-  errs() <<  "Height[ " << Fname << " ]" << ret_val << "\n";
+  DEBUG( errs() <<  "Height[ " << Fname << " ] : " << ret_val << "\n");
 }
