@@ -16,14 +16,29 @@
 namespace llvm {
 
 // enum for the data flow values associated with each basic block
-enum dfa_values {
+// Each program point is associated with 3 data flow values
+// IN, OUT, GEN,; each of them is a triplet ACTUAL_ESP, MAX_DISP_FROM_ESP,
+// and MAX_DISP_FROM_EBP
+enum DFA_FUNCTIONS {
   IN = 0,
-  OUT,
   GEN,
-  TOTAL_DFA_VALUES // = 3
+  OUT,
+  TOTAL_FUNCTIONS // = 3
   };
-typedef int64_t height_ty;
 
+enum DFA_VALUES {
+  ACTUAL_ESP = 0,
+  MAX_DISP_OF_ESP,
+  MAX_DISP_OF_EBP,
+  TOTAL_VALUES // = 3
+};
+
+typedef int64_t height_ty;
+typedef std::vector<height_ty> dfa_values;
+typedef std::vector< dfa_values > dfa_functions;      
+
+
+dfa_values operator+(dfa_values &x, dfa_values &y);  
 
 class max_stack_height :  public FunctionPass,
                           public InstVisitor<max_stack_height>                            
@@ -31,15 +46,15 @@ class max_stack_height :  public FunctionPass,
   private:
     Function* Func;
 
-    typedef std::vector<height_ty> dfva;      
 
     //Maps each Basic Block to its data flow values (IN, OUT, GEN)
-    DenseMap<BasicBlock*, dfva*> BBMap;
+    DenseMap<BasicBlock*, dfa_functions*> BBMap;
     
     // Map to do a symbolic execution on the instruction of a BB
     // involving rsp, rbp displacements to track the
     // max displacement of rsp or from rbp in that BB.
     DenseMap<Value*, height_ty> InstMap;
+    height_ty max_dis_of_esp, max_dis_of_ebp;
 
     //llvm alloca inst for rsp, rbp 
     Value* llvm_alloca_inst_rsp;
@@ -49,9 +64,11 @@ class max_stack_height :  public FunctionPass,
     void initialize_framework();
     void perform_const_dfa();
     void perform_global_dfa();
-    void print_adt(DenseMap<Value*, height_ty>);
-    void print_adt();
-    height_ty calculate_max_height_BB(BasicBlock *BB);
+    void debug(Value* I,  Value* stored_pointer);
+    void print_dfa_equations();
+    void print_height();
+    std::vector<height_ty> calculate_max_height_BB(BasicBlock *BB);
+
       
 
   public:
