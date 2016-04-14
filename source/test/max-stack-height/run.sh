@@ -34,8 +34,6 @@ else
 fi
 
 
-rm -f *.cfg  *.o *.exe *.ll *.bc *.lifted *.objdump *.log 
-
 ${CC}  -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
 objdump -d ${BIN}.o &> ${BIN}.objdump
 
