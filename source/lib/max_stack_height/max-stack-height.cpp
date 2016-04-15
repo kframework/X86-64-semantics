@@ -9,6 +9,9 @@
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/IntrinsicInst.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/Support/FileSystem.h"
+
 
 #define RET_ADDRESS_SIZE 8
 
@@ -40,8 +43,10 @@ max_stack_height::runOnFunction(Function &F) {
   perform_dfa();
 
   print_dfa_equations();
+  dump_cfg();
   print_height();
 
+  BBMap.clear();
   return false; // Analysis pass
 }
 
@@ -116,14 +121,16 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
 
   // Initialize 
   InstMap[llvm_alloca_inst_rsp] = 0;
+  InstMap[llvm_alloca_inst_rbp] = 0;
   max_dis_of_esp = max_dis_of_ebp = 0;
 
   visit(*BB);
 
   ret_val[ACTUAL_ESP] = InstMap[llvm_alloca_inst_rsp];
   ret_val[MAX_DISP_OF_ESP] = max_dis_of_esp;
-  ret_val[MAX_DISP_OF_EBP] = max_dis_of_ebp;
+  //ret_val[MAX_DISP_OF_EBP] = max_dis_of_ebp;
 
+  DEBUG(errs() << "Gen :: " <<  ret_val[ACTUAL_ESP] <<  " " <<   ret_val[MAX_DISP_OF_ESP] << "\n");
   //Clean up
   InstMap.clear();
   max_dis_of_esp = max_dis_of_ebp = 0;
@@ -232,7 +239,7 @@ max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd) {
     return;
   }
 
-  assert(0 && "offset is an variable expression");
+  //assert(0 && "offset is an variable expression");
   return;
 }
 
@@ -270,7 +277,7 @@ max_stack_height::visitAdd(BinaryOperator &I) {
     return;
   }
   
-  assert(0 && "offset is an variable expression");
+  //assert(0 && "offset is an variable expression");
   return;
 }
 
@@ -285,14 +292,16 @@ max_stack_height::perform_global_dfa() {
   bool Changed = false;
   dfa_values top(3,0) ;
   dfa_values bottom(3,-1) ;
-  dfa_values initVector(3,0);
+  dfa_values init_in_entry(3,0);
+  dfa_values init_out(3,-3);
 
   // initialize OUT set of each basic block to top
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
     dfa_functions* dfvaInstance = BBMap[BB];
-    (*dfvaInstance)[OUT] = top ;
+    (*dfvaInstance)[OUT] =  init_out;
   }
 
+  DEBUG(errs() << "\n\n"); 
   do {
     Changed = false;
     ReversePostOrderTraversal<Function*> RPOT(Func);
@@ -302,29 +311,39 @@ max_stack_height::perform_global_dfa() {
       BasicBlock* BB = *I;
       dfa_functions* dfvaInstance = BBMap[BB];
 
+      DEBUG(errs() << Func->getName() + "::" + BB->getName() + "\n"); 
+
       // this vector would be initialized accordingly later by the 
       // first predecessor while taking a meet over predecessors
       dfa_values meetOverPreds = {0,0,0};
 
       // go over predecessors and take a meet
+      bool is_entry = true;
       bool first = true;
       for(pred_iterator PI = pred_begin(BB), PE = pred_end(BB); PI!=PE; ++PI) {
-          
-        dfa_values meetExpression =  (*(BBMap[*PI]))[OUT];
+        is_entry = false;
 
-        if(first) {
-          first = false;
-          meetOverPreds = meetExpression;
-        } else {
-          if(meetOverPreds != meetExpression) {
-            meetOverPreds  = {-1,-1,-1};
-          } 
+        dfa_values out_val =  (*(BBMap[*PI]))[OUT];
+
+        DEBUG(errs() << "\tPred: " + (*PI)->getName() + ":" <<  out_val[ACTUAL_ESP] << ":" << out_val[MAX_DISP_OF_ESP] << "\n"); 
+        
+        if(out_val != init_out) {
+          if(first) {
+            first = false;
+            meetOverPreds = out_val;
+          } else {
+            if(out_val != meetOverPreds) {
+              meetOverPreds  = bottom;
+            } 
+          }
         }
       }
+
+      DEBUG(errs() << "\tGen: " << (*dfvaInstance)[GEN][ACTUAL_ESP]  << ":" << (*dfvaInstance)[GEN][MAX_DISP_OF_ESP]  << "\n"); 
    
       // no predecessor, this is the start block s.
-      if(first) {
-        meetOverPreds = initVector;
+      if(is_entry) {
+        meetOverPreds = init_in_entry;
       }
 
       // 'In' as a function of pred 'Out's
@@ -333,12 +352,13 @@ max_stack_height::perform_global_dfa() {
 
       // 'Out' as a function of 'In'
       if((*dfvaInstance)[IN] == bottom) {
-        (*dfvaInstance)[OUT] =  {-1,-1,-1};
+        (*dfvaInstance)[OUT] =  bottom;
       } else {
         (*dfvaInstance)[OUT][ACTUAL_ESP]  = ((*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][ACTUAL_ESP]);
         (*dfvaInstance)[OUT][MAX_DISP_OF_ESP]  = std::min( 
               (*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][MAX_DISP_OF_ESP], (*dfvaInstance)[IN][MAX_DISP_OF_ESP]);
       }
+      DEBUG(errs() << "\tOUT: " << (*dfvaInstance)[OUT][ACTUAL_ESP]  << ":" << (*dfvaInstance)[OUT][MAX_DISP_OF_ESP]  << "\n"); 
   
       dfa_values new_out = (*dfvaInstance)[OUT];
       if(old_out != new_out) {
@@ -384,16 +404,17 @@ max_stack_height::print_dfa_equations() {
   DEBUG(errs() << "----------------------------------\n");
   dfa_functions* dfvaInstance;
   StringRef Fname = Func->getName();
-  for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
-    dfvaInstance = BBMap[BB];
-    StringRef BBname = (*BB).getName();
-    errs() << Fname << "::" << BBname << "\n";
+
+  for (auto &BB: *Func) {
+    dfvaInstance = BBMap[&BB];
+    StringRef BBname = BB.getName();
+    DEBUG(errs() << Fname << "::" << BBname << "\n");
     for(uint32_t i = 0; i < TOTAL_FUNCTIONS; i++){
   
       switch(i) {
-        case(IN)  : (errs() << "  IN  "); break;
-        case(GEN) : (errs() << "  GEN "); break;
-        case(OUT) : (errs() << "  OUT "); break;
+        case(IN)  : DEBUG(errs() << "  IN  "); break;
+        case(GEN) : DEBUG(errs() << "  GEN "); break;
+        case(OUT) : DEBUG(errs() << "  OUT "); break;
       }
       
       DEBUG(errs() << " [" <<  
@@ -402,6 +423,42 @@ max_stack_height::print_dfa_equations() {
     }
   }
 }
+
+/*******************************************************************
+ * Function :   dump_cfg
+ * Purpose  :   dump cfg in dot format
+********************************************************************/
+void
+max_stack_height::dump_cfg() {
+  std::string err_string;
+  StringRef fname = Func->getName();
+  std::string filename = fname.str() + ".dot";
+
+  raw_fd_ostream dotfile(filename.c_str(), err_string, sys::fs::F_Text);
+  dotfile << "digraph graphname { \n" ; 
+
+  for(auto &BB: *Func) {
+    for (pred_iterator PI = pred_begin(&BB), E = pred_end(&BB); PI != E; ++PI) {
+      dotfile << "\t" << (*PI)->getName() << " -> " << BB.getName() << "\n";
+    }
+  }
+
+  for(auto &I : BBMap) {
+    BasicBlock *BB = I.first;
+    dfa_functions *dfvaInstance = I.second;
+    dotfile <<  "\t" << BB->getName() << 
+                " [ label=\"" + BB->getName() + "\\n(" << 
+                (*dfvaInstance)[GEN][ACTUAL_ESP] << " "  <<
+                (*dfvaInstance)[GEN][MAX_DISP_OF_ESP] << ")\" ]\n";
+
+  }
+
+
+  dotfile << "}" ; 
+  dotfile.close();
+}
+
+
 
 /*******************************************************************
  * Function :   print_height

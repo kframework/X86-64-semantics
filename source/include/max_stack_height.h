@@ -64,10 +64,13 @@ class max_stack_height :  public FunctionPass,
     void initialize_framework();
     void perform_const_dfa();
     void perform_global_dfa();
+    std::vector<height_ty> calculate_max_height_BB(BasicBlock *BB);
+
+    //Debug functions
     void debug(Value* I,  Value* stored_pointer);
     void print_dfa_equations();
     void print_height();
-    std::vector<height_ty> calculate_max_height_BB(BasicBlock *BB);
+    void dump_cfg();
 
       
 
