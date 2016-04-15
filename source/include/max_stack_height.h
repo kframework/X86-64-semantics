@@ -31,7 +31,7 @@ enum DFA_VALUES {
   ACTUAL_EBP,
   MAX_DISP_ESP,
   MAX_DISP_EBP,
-  TOTAL_VALUES // = 2
+  TOTAL_VALUES // = 4
 };
 
 typedef int64_t height_ty;
@@ -46,7 +46,7 @@ class max_stack_height :  public FunctionPass,
 {
   private:
     Function* Func;
-
+    height_ty stack_height;
 
     //Maps each Basic Block to its data flow values (IN, OUT, GEN)
     DenseMap<BasicBlock*, dfa_functions*> BBMap;
@@ -72,7 +72,7 @@ class max_stack_height :  public FunctionPass,
     //Debug functions
     void debug(Value* I,  Value* stored_pointer);
     void print_dfa_equations();
-    void print_height();
+    void compute_height();
     void print_dfa_values(std::string, dfa_values);
     void dump_cfg();
 
@@ -80,6 +80,10 @@ class max_stack_height :  public FunctionPass,
 
   public:
     static char ID;
+
+    height_ty get_stack_height() {
+    return stack_height;
+    }
 
     max_stack_height() : FunctionPass (ID) {
       llvm_alloca_inst_rsp = NULL;

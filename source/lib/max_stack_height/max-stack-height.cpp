@@ -33,7 +33,7 @@ max_stack_height::runOnFunction(Function &F) {
 
   print_dfa_equations();
   dump_cfg();
-  print_height();
+  compute_height();
 
   BBMap.clear();
   return false; // Analysis pass
@@ -225,9 +225,9 @@ max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd, Value* op1, Valu
   ConstantInt *cosnt_val = NULL;
   height_ty offset = 0;
 
-  assert(( NULL != (cosnt_val = dyn_cast<ConstantInt>(op2)) || InstMap.count(op2) ) &&
-      "op2 should either be a constant or available in InstMap");
-
+  if(!( NULL != (cosnt_val = dyn_cast<ConstantInt>(op2)) || InstMap.count(op2) )) {
+    DEBUG(errs() << "op2 should either be a constant or available in InstMap\n");  
+  }
 
   if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
     offset = cosnt_val->getLimitedValue();
@@ -421,30 +421,54 @@ max_stack_height::print_dfa_equations() {
 ********************************************************************/
 void
 max_stack_height::dump_cfg() {
+
   std::string err_string;
   StringRef fname = Func->getName();
-  std::string filename = fname.str() + ".dot";
+  std::string filename = "cfg." + fname.str() + ".dot";
 
   raw_fd_ostream dotfile(filename.c_str(), err_string, sys::fs::F_Text);
   dotfile << "digraph graphname { \n" ; 
 
+  //Create Node_count [shape="record" label="BBname"]
+  uint64_t count = 0;
+  std::map<BasicBlock*, std::string> BB2Names;
+  for(auto &BB: *Func) {
+    std::string nodename = "Node_" + std::to_string(count);
+    dfa_functions* dfvaInstance = BBMap[&BB];
+
+    // Node_0 [ shape="record" label="entry|{0:0:0:0|-136:-136:-8:-80|-136:-136:-8:-80}"]
+    // For different style try
+    // Node_0 [ shape="record" label="{entry|{0:0:0:0|-136:-136:-8:-80|-136:-136:-8:-80}}"]
+    dotfile << nodename << " [ shape=\"record\" label=\"" + BB.getName() <<
+        "|{" <<
+        (*dfvaInstance)[IN][ACTUAL_ESP] << ":" << 
+        (*dfvaInstance)[IN][MAX_DISP_ESP] << ":"  <<
+        (*dfvaInstance)[IN][ACTUAL_EBP] << ":"  <<
+        (*dfvaInstance)[IN][MAX_DISP_EBP] << 
+        "|" <<
+        (*dfvaInstance)[GEN][ACTUAL_ESP] << ":" << 
+        (*dfvaInstance)[GEN][MAX_DISP_ESP] << ":"  <<
+        (*dfvaInstance)[GEN][ACTUAL_EBP] << ":"  <<
+        (*dfvaInstance)[GEN][MAX_DISP_EBP] << 
+        "|" <<
+        (*dfvaInstance)[OUT][ACTUAL_ESP] << ":" << 
+        (*dfvaInstance)[OUT][MAX_DISP_ESP] << ":"  <<
+        (*dfvaInstance)[OUT][ACTUAL_EBP] << ":"  <<
+        (*dfvaInstance)[OUT][MAX_DISP_EBP] << 
+        "}" << 
+        "}\"]\n";
+  
+    BB2Names[&BB] = nodename;
+    count++;
+  }
+
+  dotfile << "\n";
+
   for(auto &BB: *Func) {
     for (pred_iterator PI = pred_begin(&BB), E = pred_end(&BB); PI != E; ++PI) {
-      dotfile << "\t" << (*PI)->getName() << " -> " << BB.getName() << "\n";
+      dotfile << BB2Names[*PI] << " -> " <<  BB2Names[&BB] << "\n";
     }
   }
-
-  for(auto &I : BBMap) {
-    BasicBlock *BB = I.first;
-    dfa_functions *dfvaInstance = I.second;
-    dotfile <<  "\t" << BB->getName() << " [ label=\"" + BB->getName() + "\\n(" << 
-                (*dfvaInstance)[GEN][ACTUAL_ESP] << ":"  <<
-                (*dfvaInstance)[GEN][MAX_DISP_ESP] << ":"  <<
-                (*dfvaInstance)[GEN][ACTUAL_EBP] << ":"  <<
-                (*dfvaInstance)[GEN][MAX_DISP_EBP] << ")\" ]\n";
-
-  }
-
 
   dotfile << "}" ; 
   dotfile.close();
@@ -453,11 +477,12 @@ max_stack_height::dump_cfg() {
 
 
 /*******************************************************************
- * Function :   print_height
- * Purpose  :   print the data flow values for each BB
+ * Function :   compute_height
+ * Purpose  : Minimum of all the OUT[BB] values seens.  
+ *            MIN(  MIN(OUT[BB][MAX_DISP_ESP]) , MIN(OUT[BB][MAX_DISP_EBP]) )
 ********************************************************************/
 void
-max_stack_height::print_height() {
+max_stack_height::compute_height() {
   height_ty max_dis_esp = 0;
   height_ty max_dis_ebp = 0;
 
@@ -468,6 +493,7 @@ max_stack_height::print_height() {
     max_dis_esp = std::min(max_dis_esp, (*dfvaInstance)[OUT][MAX_DISP_ESP] );
     max_dis_ebp = std::min(max_dis_ebp, (*dfvaInstance)[OUT][MAX_DISP_EBP] );
   }
+  stack_height = std::min(max_dis_esp, max_dis_ebp);
 
-  DEBUG( errs() <<  "Height[ " << Fname << " ] : " << std::min(max_dis_esp, max_dis_ebp) << "\n");
+  DEBUG( errs() <<  "Height[ " << Fname << " ] : " << stack_height << "\n");
 }
