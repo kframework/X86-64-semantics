@@ -28,7 +28,9 @@ enum DFA_FUNCTIONS {
 
 enum DFA_VALUES {
   ACTUAL_ESP = 0,
-  MAX_DISP,
+  ACTUAL_EBP,
+  MAX_DISP_ESP,
+  MAX_DISP_EBP,
   TOTAL_VALUES // = 2
 };
 
@@ -58,17 +60,20 @@ class max_stack_height :  public FunctionPass,
     //llvm alloca inst for rsp, rbp 
     Value* llvm_alloca_inst_rsp;
     Value* llvm_alloca_inst_rbp;
+    bool is_rsp_load;
      
     void perform_dfa() ;
     void initialize_framework();
     void perform_const_dfa();
     void perform_global_dfa();
-    std::vector<height_ty> calculate_max_height_BB(BasicBlock *BB);
+    dfa_values  calculate_max_height_BB(BasicBlock *BB);
+    void  transfer_function(dfa_functions*);
 
     //Debug functions
     void debug(Value* I,  Value* stored_pointer);
     void print_dfa_equations();
     void print_height();
+    void print_dfa_values(std::string, dfa_values);
     void dump_cfg();
 
       
@@ -95,7 +100,7 @@ class max_stack_height :  public FunctionPass,
     void visitAdd(BinaryOperator &I);
     void visitSub(BinaryOperator &I);
     void visitCallInst(CallInst &I);
-    void visitAddSubHelper(Instruction* I, bool isAdd);
+    void visitAddSubHelper(Instruction* I, bool isAdd, Value*, Value*);
 
 };
 

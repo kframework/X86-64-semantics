@@ -10,39 +10,49 @@ Function : sub_40
 ----------------------------------
 entry
 ----------------------------------
-  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %79 = add i64 %78, -8 :::  [I] = -8 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = -8
-  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : [ACTUAL ESP] = 0 : [ACTUAL EBP] = -8 : MAX DISP = -8
-  %81 = add i64 %78, -24 :::  [I] = -24 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = -8 : MAX DISP = -24
-  store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :::  [I] = NULL : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -24
-  %94 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -24
-  %95 = add i64 %94, -4, !mcsema_real_eip !7 :::  [I] = -12 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -24
-  %98 = load i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = -24 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -24
-  %99 = add i64 %98, -8 :::  [I] = -32 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  store i64 %99, i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = NULL : [ACTUAL ESP] = -32 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %107 = load i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = -32 : [ACTUAL ESP] = -32 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %108 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : [ACTUAL ESP] = -32 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0), !mcsema_real_eip !8 :::  [I] = NULL : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %241 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %242 = add i64 %241, -8, !mcsema_real_eip !9 :::  [I] = -16 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %247 = load i64* %RBP_val, !mcsema_real_eip !10 :::  [I] = -8 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %248 = add i64 %247, -8, !mcsema_real_eip !10 :::  [I] = -16 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %253 = load i64* %RSP_val, !mcsema_real_eip !11 :::  [I] = -24 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16) :::  [I] = -8 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %254 = extractvalue { i64, i1 } %uadd, 0 :::  [I] = -8 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %267 = extractvalue { i64, i1 } %uadd, 1 :::  [I] = -8 : [ACTUAL ESP] = -24 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  store i64 %254, i64* %RSP_val, !mcsema_real_eip !11 :::  [I] = NULL : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %270 = add i64 %254, 16, !mcsema_real_eip !13 :::  [I] = 8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  store i64 %270, i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = NULL : [ACTUAL ESP] = 8 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %277 = load i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = 8 : [ACTUAL ESP] = 8 : [ACTUAL EBP] = -8 : MAX DISP = -32
-  %278 = load i64* %RBP_val, !mcsema_real_eip !13 :::  [I] = -8 : [ACTUAL ESP] = 8 : [ACTUAL EBP] = -8 : MAX DISP = -32
+  %77 = load i64* %RBP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %79 = add i64 %78, -8 :::  [I] = -8 : Inst :: 0:-8:0:0
+  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : Inst :: 0:-8:-8:0
+  %81 = add i64 %78, -24 :::  [I] = -24 : Inst :: 0:-24:-8:0
+  store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :::  [I] = NULL : Inst :: -24:-24:-8:0
+  %94 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : Inst :: -24:-24:-8:0
+  %95 = add i64 %94, -4, !mcsema_real_eip !7 :::  [I] = -12 : Inst :: -24:-24:-8:-12
+  %98 = load i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = -24 : Inst :: -24:-24:-8:-12
+  %99 = add i64 %98, -8 :::  [I] = -32 : Inst :: -24:-32:-8:-12
+  store i64 %99, i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = NULL : Inst :: -32:-32:-8:-12
+  %107 = load i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = -32 : Inst :: -32:-32:-8:-12
+  %108 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : Inst :: -32:-32:-8:-12
+  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0), !mcsema_real_eip !8 :::  [I] = NULL : Inst :: -24:-32:-8:-12
+  %241 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : Inst :: -24:-32:-8:-12
+  %242 = add i64 %241, -8, !mcsema_real_eip !9 :::  [I] = -16 : Inst :: -24:-32:-8:-16
+  %247 = load i64* %RBP_val, !mcsema_real_eip !10 :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  %248 = add i64 %247, -8, !mcsema_real_eip !10 :::  [I] = -16 : Inst :: -24:-32:-8:-16
+  %253 = load i64* %RSP_val, !mcsema_real_eip !11 :::  [I] = -24 : Inst :: -24:-32:-8:-16
+  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16) :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  %254 = extractvalue { i64, i1 } %uadd, 0 :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  %267 = extractvalue { i64, i1 } %uadd, 1 :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  store i64 %254, i64* %RSP_val, !mcsema_real_eip !11 :::  [I] = NULL : Inst :: -8:-32:-8:-16
+  %270 = add i64 %254, 16, !mcsema_real_eip !13 :::  [I] = 8 : Inst :: -8:-32:-8:-16
+  store i64 %270, i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = NULL : Inst :: 8:-32:-8:-16
+  %277 = load i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = 8 : Inst :: 8:-32:-8:-16
+  %278 = load i64* %RBP_val, !mcsema_real_eip !13 :::  [I] = -8 : Inst :: 8:-32:-8:-16
+Gen :: 8:-32:-8:-16
+
+
+sub_40::entry
+	Gen :: 8:-32:-8:-16
+	Out :: 8:-32:-8:-16
+sub_40::entry
+	Gen :: 8:-32:-8:-16
+	Out :: 8:-32:-8:-16
 ----------------------------------
 DFA Equations: 
 ----------------------------------
 sub_40::entry
-  IN   [0|0]
-  GEN  [8|-32]
-  OUT  [8|-32]
+  IN   0:0:0:0
+  GEN  8:-32:-8:-16
+  OUT  8:-32:-8:-16
 Height[ sub_40 ] : -32
 ==========================================
 Function : sub_0
@@ -50,67 +60,112 @@ Function : sub_0
 ----------------------------------
 entry
 ----------------------------------
-  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %79 = add i64 %78, -8 :::  [I] = -8 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = -8
-  store i64 %79, i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = NULL : [ACTUAL ESP] = -8 : [ACTUAL EBP] = 0 : MAX DISP = -8
-  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -8
-  %81 = add i64 %78, -12, !mcsema_real_eip !4 :::  [I] = -12 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -12
-  %86 = load i64* %RBP_val, !mcsema_real_eip !5 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -12
-  %87 = add i64 %86, -8, !mcsema_real_eip !5 :::  [I] = -16 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
-  %92 = load i64* %RBP_val, !mcsema_real_eip !6 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
-  %93 = add i64 %92, -4, !mcsema_real_eip !6 :::  [I] = -12 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
-  %98 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
-  %99 = add i64 %98, -8, !mcsema_real_eip !7 :::  [I] = -16 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
-  %120 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -16
-  %121 = add i64 %120, -12, !mcsema_real_eip !8 :::  [I] = -20 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
-  %124 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
-  %125 = add i64 %124, -4, !mcsema_real_eip !9 :::  [I] = -12 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
-  %145 = load i64* %RBP_val, !mcsema_real_eip !11 :::  [I] = -8 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
-  %146 = add i64 %145, -12, !mcsema_real_eip !11 :::  [I] = -20 : [ACTUAL ESP] = -8 : [ACTUAL EBP] = -8 : MAX DISP = -20
+  %77 = load i64* %RBP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %79 = add i64 %78, -8 :::  [I] = -8 : Inst :: 0:-8:0:0
+  store i64 %79, i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = NULL : Inst :: -8:-8:0:0
+  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : Inst :: -8:-8:-8:0
+  %81 = add i64 %78, -12, !mcsema_real_eip !4 :::  [I] = -12 : Inst :: -8:-12:-8:0
+  %86 = load i64* %RBP_val, !mcsema_real_eip !5 :::  [I] = -8 : Inst :: -8:-12:-8:0
+  %87 = add i64 %86, -8, !mcsema_real_eip !5 :::  [I] = -16 : Inst :: -8:-12:-8:-16
+  %92 = load i64* %RBP_val, !mcsema_real_eip !6 :::  [I] = -8 : Inst :: -8:-12:-8:-16
+  %93 = add i64 %92, -4, !mcsema_real_eip !6 :::  [I] = -12 : Inst :: -8:-12:-8:-16
+  %98 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : Inst :: -8:-12:-8:-16
+  %99 = add i64 %98, -8, !mcsema_real_eip !7 :::  [I] = -16 : Inst :: -8:-12:-8:-16
+  %120 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : Inst :: -8:-12:-8:-16
+  %121 = add i64 %120, -12, !mcsema_real_eip !8 :::  [I] = -20 : Inst :: -8:-12:-8:-20
+  %124 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : Inst :: -8:-12:-8:-20
+  %125 = add i64 %124, -4, !mcsema_real_eip !9 :::  [I] = -12 : Inst :: -8:-12:-8:-20
+  %145 = load i64* %RBP_val, !mcsema_real_eip !11 :::  [I] = -8 : Inst :: -8:-12:-8:-20
+  %146 = add i64 %145, -12, !mcsema_real_eip !11 :::  [I] = -20 : Inst :: -8:-12:-8:-20
+Gen :: -8:-12:-8:-20
 ----------------------------------
 block_0x30
 ----------------------------------
-  %175 = load i64* %RSP_val, !mcsema_real_eip !15 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %178 = add i64 %175, 16, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  store i64 %178, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %185 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %186 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %165 = load i64* %RBP_val, !mcsema_real_eip !13 :::  [I] = 0 : Inst :: 0:0:0:0
+  %166 = add i64 %165, -16, !mcsema_real_eip !13 :::  [I] = -16 : Inst :: 0:0:0:-16
+  %169 = load i64* %RBP_val, !mcsema_real_eip !14 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %170 = add i64 %169, -16, !mcsema_real_eip !14 :::  [I] = -16 : Inst :: 0:0:0:-16
+  %175 = load i64* %RSP_val, !mcsema_real_eip !15 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %178 = add i64 %175, 16, !mcsema_real_eip !16 :::  [I] = 16 : Inst :: 0:0:0:-16
+  store i64 %178, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : Inst :: 16:0:0:-16
+  %185 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = 16 : Inst :: 16:0:0:-16
+  %186 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : Inst :: 16:0:0:-16
+Gen :: 16:0:0:-16
 ----------------------------------
 block_0x20
 ----------------------------------
-  %274 = load i64* %RSP_val, !mcsema_real_eip !15 :::  [I] = 0 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %277 = add i64 %274, 16, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 0 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  store i64 %277, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %284 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = 16 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
-  %285 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : [ACTUAL ESP] = 16 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  %264 = load i64* %RBP_val, !mcsema_real_eip !18 :::  [I] = 0 : Inst :: 0:0:0:0
+  %265 = add i64 %264, -16, !mcsema_real_eip !18 :::  [I] = -16 : Inst :: 0:0:0:-16
+  %268 = load i64* %RBP_val, !mcsema_real_eip !14 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %269 = add i64 %268, -16, !mcsema_real_eip !14 :::  [I] = -16 : Inst :: 0:0:0:-16
+  %274 = load i64* %RSP_val, !mcsema_real_eip !15 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %277 = add i64 %274, 16, !mcsema_real_eip !16 :::  [I] = 16 : Inst :: 0:0:0:-16
+  store i64 %277, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : Inst :: 16:0:0:-16
+  %284 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = 16 : Inst :: 16:0:0:-16
+  %285 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : Inst :: 16:0:0:-16
+Gen :: 16:0:0:-16
+
+
+sub_0::entry
+	Gen :: -8:-12:-8:-20
+	Out :: -8:-12:-8:-20
+sub_0::block_0x20
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 16:0:0:-16
+	Out :: 8:-12:-8:-24
+sub_0::block_0x30
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 16:0:0:-16
+	Out :: 8:-12:-8:-24
+sub_0::entry
+	Gen :: -8:-12:-8:-20
+	Out :: -8:-12:-8:-20
+sub_0::block_0x20
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 16:0:0:-16
+	Out :: 8:-12:-8:-24
+sub_0::block_0x30
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 16:0:0:-16
+	Out :: 8:-12:-8:-24
 ----------------------------------
 DFA Equations: 
 ----------------------------------
 sub_0::entry
-  IN   [0|0]
-  GEN  [-8|-20]
-  OUT  [-8|-20]
+  IN   0:0:0:0
+  GEN  -8:-12:-8:-20
+  OUT  -8:-12:-8:-20
 sub_0::block_0x30
-  IN   [-8|-20]
-  GEN  [16|0]
-  OUT  [8|-20]
+  IN   -8:-12:-8:-20
+  GEN  16:0:0:-16
+  OUT  8:-12:-8:-24
 sub_0::block_0x20
-  IN   [-8|-20]
-  GEN  [16|0]
-  OUT  [8|-20]
-Height[ sub_0 ] : -20
+  IN   -8:-12:-8:-20
+  GEN  16:0:0:-16
+  OUT  8:-12:-8:-24
+Height[ sub_0 ] : -24
 ==========================================
 Function : mcsema_main
 ==========================================
 ----------------------------------
 driverBlockRaw
 ----------------------------------
-  tail call x86_64_sysvcc void @sub_40(%struct.regs* %0) :::  [I] = NULL : [ACTUAL ESP] = 8 : [ACTUAL EBP] = 0 : MAX DISP = 0
+  tail call x86_64_sysvcc void @sub_40(%struct.regs* %0) :::  [I] = NULL : Inst :: 8:0:0:0
+Gen :: 8:0:0:0
+
+
+mcsema_main::driverBlockRaw
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+mcsema_main::driverBlockRaw
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
 ----------------------------------
 DFA Equations: 
 ----------------------------------
 mcsema_main::driverBlockRaw
-  IN   [0|0]
-  GEN  [8|0]
-  OUT  [8|0]
+  IN   0:0:0:0
+  GEN  8:0:0:0
+  OUT  8:0:0:0
 Height[ mcsema_main ] : 0
