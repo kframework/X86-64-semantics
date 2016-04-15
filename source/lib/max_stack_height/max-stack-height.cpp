@@ -25,8 +25,7 @@ dfa_values
 operator+(dfa_values &x, dfa_values &y) {
   dfa_values ret_val = { 
       x[ACTUAL_ESP] + y[ACTUAL_ESP], 
-      x[MAX_DISP_OF_ESP] + y[MAX_DISP_OF_ESP], 
-      x[MAX_DISP_OF_EBP] + y[MAX_DISP_OF_EBP]
+      x[MAX_DISP] + y[MAX_DISP]
   };
 
   return ret_val;
@@ -101,7 +100,7 @@ max_stack_height::perform_const_dfa() {
 std::vector<height_ty> 
 max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
 
-  std::vector<height_ty>  ret_val(3,0);
+  std::vector<height_ty>  ret_val(TOTAL_VALUES,0);
 
   //For the entry: find the llvm alloca inst for rsp_val, rbp_val
   if(pred_begin(BB) == pred_end(BB)) {
@@ -127,10 +126,9 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   visit(*BB);
 
   ret_val[ACTUAL_ESP] = InstMap[llvm_alloca_inst_rsp];
-  ret_val[MAX_DISP_OF_ESP] = max_dis_of_esp;
-  //ret_val[MAX_DISP_OF_EBP] = max_dis_of_ebp;
+  ret_val[MAX_DISP] = max_dis_of_esp;
 
-  DEBUG(errs() << "Gen :: " <<  ret_val[ACTUAL_ESP] <<  " " <<   ret_val[MAX_DISP_OF_ESP] << "\n");
+  DEBUG(errs() << "Gen :: " <<  ret_val[ACTUAL_ESP] <<  " " <<   ret_val[MAX_DISP] << "\n");
   //Clean up
   InstMap.clear();
   max_dis_of_esp = max_dis_of_ebp = 0;
@@ -290,10 +288,10 @@ void
 max_stack_height::perform_global_dfa() {
 
   bool Changed = false;
-  dfa_values top(3,0) ;
-  dfa_values bottom(3,-1) ;
-  dfa_values init_in_entry(3,0);
-  dfa_values init_out(3,-3);
+  dfa_values top(TOTAL_VALUES,0) ;
+  dfa_values bottom(TOTAL_VALUES,-1) ;
+  dfa_values init_in_entry(TOTAL_VALUES,0);
+  dfa_values init_out(TOTAL_VALUES,-3);
 
   // initialize OUT set of each basic block to top
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
@@ -315,7 +313,7 @@ max_stack_height::perform_global_dfa() {
 
       // this vector would be initialized accordingly later by the 
       // first predecessor while taking a meet over predecessors
-      dfa_values meetOverPreds = {0,0,0};
+      dfa_values meetOverPreds = top;
 
       // go over predecessors and take a meet
       bool is_entry = true;
@@ -325,7 +323,7 @@ max_stack_height::perform_global_dfa() {
 
         dfa_values out_val =  (*(BBMap[*PI]))[OUT];
 
-        DEBUG(errs() << "\tPred: " + (*PI)->getName() + ":" <<  out_val[ACTUAL_ESP] << ":" << out_val[MAX_DISP_OF_ESP] << "\n"); 
+        DEBUG(errs() << "\tPred: " + (*PI)->getName() + ":" <<  out_val[ACTUAL_ESP] << ":" << out_val[MAX_DISP] << "\n"); 
         
         if(out_val != init_out) {
           if(first) {
@@ -339,7 +337,7 @@ max_stack_height::perform_global_dfa() {
         }
       }
 
-      DEBUG(errs() << "\tGen: " << (*dfvaInstance)[GEN][ACTUAL_ESP]  << ":" << (*dfvaInstance)[GEN][MAX_DISP_OF_ESP]  << "\n"); 
+      DEBUG(errs() << "\tGen: " << (*dfvaInstance)[GEN][ACTUAL_ESP]  << ":" << (*dfvaInstance)[GEN][MAX_DISP]  << "\n"); 
    
       // no predecessor, this is the start block s.
       if(is_entry) {
@@ -355,10 +353,10 @@ max_stack_height::perform_global_dfa() {
         (*dfvaInstance)[OUT] =  bottom;
       } else {
         (*dfvaInstance)[OUT][ACTUAL_ESP]  = ((*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][ACTUAL_ESP]);
-        (*dfvaInstance)[OUT][MAX_DISP_OF_ESP]  = std::min( 
-              (*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][MAX_DISP_OF_ESP], (*dfvaInstance)[IN][MAX_DISP_OF_ESP]);
+        (*dfvaInstance)[OUT][MAX_DISP]  = std::min( 
+              (*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][MAX_DISP], (*dfvaInstance)[IN][MAX_DISP]);
       }
-      DEBUG(errs() << "\tOUT: " << (*dfvaInstance)[OUT][ACTUAL_ESP]  << ":" << (*dfvaInstance)[OUT][MAX_DISP_OF_ESP]  << "\n"); 
+      DEBUG(errs() << "\tOUT: " << (*dfvaInstance)[OUT][ACTUAL_ESP]  << ":" << (*dfvaInstance)[OUT][MAX_DISP]  << "\n"); 
   
       dfa_values new_out = (*dfvaInstance)[OUT];
       if(old_out != new_out) {
@@ -419,7 +417,7 @@ max_stack_height::print_dfa_equations() {
       
       DEBUG(errs() << " [" <<  
                       (*dfvaInstance)[i][ACTUAL_ESP] <<       "|" <<  
-                      (*dfvaInstance)[i][MAX_DISP_OF_ESP] <<  "]\n"); 
+                      (*dfvaInstance)[i][MAX_DISP] <<  "]\n"); 
     }
   }
 }
@@ -449,7 +447,7 @@ max_stack_height::dump_cfg() {
     dotfile <<  "\t" << BB->getName() << 
                 " [ label=\"" + BB->getName() + "\\n(" << 
                 (*dfvaInstance)[GEN][ACTUAL_ESP] << " "  <<
-                (*dfvaInstance)[GEN][MAX_DISP_OF_ESP] << ")\" ]\n";
+                (*dfvaInstance)[GEN][MAX_DISP] << ")\" ]\n";
 
   }
 
@@ -471,7 +469,7 @@ max_stack_height::print_height() {
   StringRef Fname = Func->getName();
   for (auto &BB : *Func) {
     dfvaInstance = BBMap[&BB];
-    ret_val = std::min(ret_val, std::min( (*dfvaInstance)[IN][MAX_DISP_OF_ESP],  (*dfvaInstance)[OUT][MAX_DISP_OF_ESP] ));
+    ret_val = std::min(ret_val, std::min( (*dfvaInstance)[IN][MAX_DISP],  (*dfvaInstance)[OUT][MAX_DISP] ));
   }
 
   DEBUG( errs() <<  "Height[ " << Fname << " ] : " << ret_val << "\n");

@@ -28,9 +28,8 @@ enum DFA_FUNCTIONS {
 
 enum DFA_VALUES {
   ACTUAL_ESP = 0,
-  MAX_DISP_OF_ESP,
-  MAX_DISP_OF_EBP,
-  TOTAL_VALUES // = 3
+  MAX_DISP,
+  TOTAL_VALUES // = 2
 };
 
 typedef int64_t height_ty;
