@@ -8,7 +8,7 @@ loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_st
 all:	test
 
 test: 
-	@${RUN_SH} ${PROG_PREFIX} 64 	${ENTRY_POINT} 
+	@${RUN_SH} ${PROG_PREFIX} 64 	${ENTRY_POINT} c
 	@${OPT} -load=${loadso} -ssh  -debug ${PROG_PREFIX}.ll  -o /dev/null &>  log
 	@sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
 	@sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.gold >  ${PROG_PREFIX}.mod

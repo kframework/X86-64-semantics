@@ -12,6 +12,7 @@ C=$(which gcc)
 BIN="$1"
 ARCH="$2"
 ENTRY_FUNC="$3"
+ASM_FILE="$4"
 
 BIN_DESCEND_PATH="${DIR}/build/mc-sema/bin_descend"
 FUNC_MAP="${DIR}/mc-sema/std_defs/std_defs.txt"
@@ -33,8 +34,12 @@ else
   CFGBC_ARCH="-mtriple=x86_64-pc-linux-gnu"
 fi
 
+if [ ${ASM_FILE} == "asm" ] ; then
+  nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
+else
+  ${CC}  -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
+fi
 
-${CC}  -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
 objdump -d ${BIN}.o &> ${BIN}.objdump
 
 ${BIN_DESCEND_PATH}/bin_descend ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> bd.log  
