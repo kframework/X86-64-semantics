@@ -68,6 +68,7 @@ class max_stack_height :  public FunctionPass,
     void perform_global_dfa();
     dfa_values  calculate_max_height_BB(BasicBlock *BB);
     void  transfer_function(dfa_functions*);
+    dfa_values meet_over_preds(BasicBlock *BB);
 
     //Debug functions
     void debug(Value* I,  Value* stored_pointer);

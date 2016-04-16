@@ -258,9 +258,6 @@ void
 max_stack_height::perform_global_dfa() {
 
   bool Changed = false;
-  dfa_values top(TOTAL_VALUES,0) ;
-  dfa_values bottom(TOTAL_VALUES,-1) ;
-  dfa_values init_in_entry(TOTAL_VALUES,0);
   dfa_values init_out(TOTAL_VALUES,-3);
 
   // initialize OUT set of each basic block to top
@@ -281,36 +278,8 @@ max_stack_height::perform_global_dfa() {
 
       DEBUG(errs() << Func->getName() + "::" + BB->getName() + "\n"); 
 
-      // this vector would be initialized accordingly later by the 
-      // first predecessor while taking a meet over predecessors
-      dfa_values meetOverPreds = top;
-
       // go over predecessors and take a meet
-      bool is_entry = true;
-      bool first = true;
-      for(pred_iterator PI = pred_begin(BB), PE = pred_end(BB); PI!=PE; ++PI) {
-        is_entry = false;
-
-        dfa_values out_val =  (*(BBMap[*PI]))[OUT];
-        print_dfa_values("\tPred :: " +  (*PI)->getName().str() + ": ", out_val);
-        
-        if(out_val != init_out) {
-          if(first) {
-            first = false;
-            meetOverPreds = out_val;
-          } else {
-            if(out_val != meetOverPreds) {
-              meetOverPreds  = bottom;
-            } 
-          }
-        }
-      }
-      print_dfa_values("\tGen :: ", (*dfvaInstance)[GEN]);
-   
-      // no predecessor, this is the start block s.
-      if(is_entry) {
-        meetOverPreds = init_in_entry;
-      }
+      dfa_values meetOverPreds = meet_over_preds(BB);
 
       // 'In' as a function of pred 'Out's
       (*dfvaInstance)[IN] = meetOverPreds;   
@@ -327,6 +296,52 @@ max_stack_height::perform_global_dfa() {
       }
     }
   } while(Changed);
+}
+
+dfa_values
+max_stack_height::meet_over_preds(BasicBlock* BB) {
+  dfa_values init_in_entry(TOTAL_VALUES,0);
+  dfa_values top(TOTAL_VALUES,0) ;
+  dfa_values init_out(TOTAL_VALUES,-3);
+  dfa_values bottom(TOTAL_VALUES,-1) ;
+
+  bool is_entry = true;
+  bool first = true;
+
+  // this vector would be initialized accordingly later by the 
+  // first predecessor while taking a meet over predecessors
+  dfa_values meetOverPreds = top;
+
+      
+  for(pred_iterator PI = pred_begin(BB), PE = pred_end(BB); PI!=PE; ++PI) {
+    is_entry = false;
+
+    dfa_values out_val =  (*(BBMap[*PI]))[OUT];
+    print_dfa_values("\tPred :: " +  (*PI)->getName().str() + ": ", out_val);
+        
+    if(out_val != init_out) {
+      if(first) {
+        first = false;
+        meetOverPreds = out_val;
+      } else {
+        if((out_val[ACTUAL_ESP] == meetOverPreds[ACTUAL_ESP]) &&
+            (out_val[ACTUAL_EBP] == meetOverPreds[ACTUAL_EBP])) {
+          meetOverPreds[MAX_DISP_ESP] = std::min(meetOverPreds[MAX_DISP_ESP], out_val[MAX_DISP_ESP]);
+          meetOverPreds[MAX_DISP_EBP] = std::min(meetOverPreds[MAX_DISP_EBP], out_val[MAX_DISP_EBP]);
+        } else {
+          meetOverPreds  = bottom;
+        }
+      }
+    }
+  }
+  print_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
+   
+  // no predecessor, this is the start block s.
+  if(is_entry) {
+    meetOverPreds = init_in_entry;
+  }
+
+  return meetOverPreds;
 }
 
 void
