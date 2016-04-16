@@ -49,6 +49,8 @@ ${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=
 ${LLVM_PATH}/opt -O3    -o=${BIN}_opt.bc ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}.ll ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}_opt.ll ${BIN}_opt.bc
+${LLVM_PATH}/llc -march=x86-64 -filetype=obj -o ${BIN}_lifted.o ${BIN}_opt.bc
+
 
 if [ ! -f "mapping.txt" ] ; then 
 opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=mapping.txt ${BIN}.ll -o /tmp/xxx ;
