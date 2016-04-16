@@ -77,11 +77,11 @@ class max_stack_height :  public FunctionPass,
     void  transfer_function(dfa_functions*);
     dfa_values meet_over_preds(BasicBlock *BB);
 
-    //Debug functions
-    void debug(Value* I,  Value* stored_pointer);
-    void print_dfa_equations();
+    //debug_local_dfa_info functions
+    void debug_local_dfa_info(Value* I);
+    void debug_global_dfa_info();
     void compute_height();
-    void print_dfa_values(std::string, dfa_values);
+    void debug_dfa_values(std::string, dfa_values);
     void dump_cfg();
 
       

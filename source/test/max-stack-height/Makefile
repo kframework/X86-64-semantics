@@ -7,6 +7,8 @@ test:
 	@make -C test_3 test
 	@make -C test_4 test
 	@make -C test_5 test
+	@make -C test_6 test
+	@make -C test_7 test
 
 .PHONY: clean
 clean:
@@ -15,3 +17,5 @@ clean:
 	@make -C test_3 clean
 	@make -C test_4 clean
 	@make -C test_5 clean
+	@make -C test_6 clean
+	@make -C test_7 clean

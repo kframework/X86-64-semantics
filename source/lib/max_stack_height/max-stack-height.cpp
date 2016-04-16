@@ -121,7 +121,7 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   ret_val[MAX_DISP_ESP] = max_dis_of_esp;
   ret_val[MAX_DISP_EBP] = max_dis_of_ebp;
 
-  print_dfa_values("Gen :: ", ret_val);
+  debug_dfa_values("Gen :: ", ret_val);
   //Clean up
   InstMap.clear();
   max_dis_of_esp = max_dis_of_ebp = 0;
@@ -133,8 +133,10 @@ void
 max_stack_height::visitLoadInst(LoadInst     &I) {
   Value* ld_ptr_op = I.getPointerOperand();
   if(InstMap.count(ld_ptr_op)) {
-    InstMap[&I] = InstMap[ld_ptr_op];
-    debug(&I, &I);
+    //InstMap[&I] = InstMap[ld_ptr_op];
+    InstMap[&I].first = InstMap[ld_ptr_op].first;
+    InstMap[&I].second = InstMap[ld_ptr_op].second;
+    debug_local_dfa_info(&I);
   }
 }
 
@@ -147,7 +149,7 @@ max_stack_height::visitStoreInst(StoreInst     &I) {
     assert(false == InstMap[st_val_op].second[IS_UNKNOWN] && 
         "Storing an unknown value to rsp/rbp\n");
     InstMap[st_ptr_op].first = InstMap[st_val_op].first;
-    debug(&I, NULL);
+    debug_local_dfa_info(&I);
   }
 }
 
@@ -155,8 +157,9 @@ void
 max_stack_height::visitExtractValueInst(ExtractValueInst &I) {
   Value* op1 = I.getOperand(0);
   if(InstMap.count(op1)) {
-    InstMap[&I] = InstMap[op1];
-    debug(&I, &I);
+    InstMap[&I].first = InstMap[op1].first;
+    InstMap[&I].second = InstMap[op1].second;
+    debug_local_dfa_info(&I);
   }
 }
 
@@ -167,7 +170,7 @@ max_stack_height::visitCallInst(CallInst &I) {
 
   if(false == called_func->isDeclaration()) {
     InstMap[llvm_alloca_inst_rsp].first += RET_ADDRESS_SIZE;
-    debug(&I, NULL);
+    debug_local_dfa_info(&I);
   } 
 }
 
@@ -261,7 +264,7 @@ max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd, Value* op1, Valu
     max_dis_of_ebp  = std::min(max_dis_of_ebp, InstMap[I].first);
   }
 
-  debug(I, I);
+  debug_local_dfa_info(I);
   return;
 }
 
@@ -305,7 +308,7 @@ max_stack_height::perform_global_dfa() {
       // 'Out' as a function of 'In'
       transfer_function(dfvaInstance);
 
-      print_dfa_values("\tOut :: ", (*dfvaInstance)[OUT]);
+      debug_dfa_values("\tOut :: ", (*dfvaInstance)[OUT]);
   
       dfa_values new_out = (*dfvaInstance)[OUT];
       if(old_out != new_out) {
@@ -334,7 +337,7 @@ max_stack_height::meet_over_preds(BasicBlock* BB) {
     is_entry = false;
 
     dfa_values out_val =  (*(BBMap[*PI]))[OUT];
-    print_dfa_values("\tPred :: " +  (*PI)->getName().str() + ": ", out_val);
+    debug_dfa_values("\tPred :: " +  (*PI)->getName().str() + ": ", out_val);
         
     if(out_val != init_out) {
       if(first) {
@@ -351,7 +354,7 @@ max_stack_height::meet_over_preds(BasicBlock* BB) {
       }
     }
   }
-  print_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
+  debug_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
    
   // no predecessor, this is the start block s.
   if(is_entry) {
@@ -383,35 +386,31 @@ max_stack_height::transfer_function(dfa_functions *dfvaInstance) {
 
 
 /*******************************************************************
- * Function :   debug
+ * Function :   debug_local_dfa_info
  * Purpose  :   print the data structure InstMap
 ********************************************************************/
 void
-max_stack_height::debug(Value* I, Value* J) {
-  height_ty stored_pointer = 0;
-  if(NULL != J) {
-    stored_pointer = InstMap[J].first;
-  }
-
+max_stack_height::debug_local_dfa_info(Value* I) {
   DEBUG(errs()  <<   *I << " :::  ");
-  if(NULL == J) {
-    DEBUG(errs()  << "[I] = NULL" << " : ");
+
+  if(InstMap.count(I)) {
+    DEBUG(errs()  << "[I] = " << InstMap[I].first << " : ");
   } else {
-    DEBUG(errs()  << "[I] = " << stored_pointer << " : ");
+    DEBUG(errs()  << "[I] = NULL" << " : ");
   }
 
   dfa_values val = {InstMap[llvm_alloca_inst_rsp].first, 
                     InstMap[llvm_alloca_inst_rbp].first, 
                     max_dis_of_esp, max_dis_of_ebp};
-  print_dfa_values("Inst :: ", val);
+  debug_dfa_values("Inst :: ", val);
 }
 
 /*******************************************************************
- * Function :   print_dfa_values
+ * Function :   debug_dfa_values
  * Purpose  :   print the data flow values for each BB
 ********************************************************************/
 void
-max_stack_height::print_dfa_values(std::string msg, dfa_values val) {
+max_stack_height::debug_dfa_values(std::string msg, dfa_values val) {
 
   DEBUG(errs() << msg << val[ACTUAL_ESP] <<  ":" <<  val[MAX_DISP_ESP]  << ":" <<
                          val[ACTUAL_EBP] <<  ":" <<  val[MAX_DISP_EBP] << "\n");
@@ -422,7 +421,7 @@ max_stack_height::print_dfa_values(std::string msg, dfa_values val) {
  * Purpose  :   print the data flow values for each BB
 ********************************************************************/
 void
-max_stack_height::print_dfa_equations() {
+max_stack_height::debug_global_dfa_info() {
 
   DEBUG(errs() << "----------------------------------\n");
   DEBUG(errs() << "DFA Equations: \n");
@@ -441,7 +440,7 @@ max_stack_height::print_dfa_equations() {
         case(GEN) : DEBUG(errs() << "  GEN "); break;
         case(OUT) : DEBUG(errs() << "  OUT "); break;
       }
-      print_dfa_values(" ", (*dfvaInstance)[i]);
+      debug_dfa_values(" ", (*dfvaInstance)[i]);
 
     }
   }
