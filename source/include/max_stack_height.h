@@ -34,10 +34,17 @@ enum DFA_VALUES {
   TOTAL_VALUES // = 4
 };
 
+enum INSTMAP_VAL {
+  IS_ESP = 0,
+  IS_UNKNOWN,
+  NUM_INSTMAP_VAL // =2
+};
+
 typedef int64_t height_ty;
 typedef std::vector<height_ty> dfa_values;
 typedef std::vector< dfa_values > dfa_functions;      
-typedef std::pair< height_ty, bool > inst_map_val;      
+typedef std::vector<bool> attribs;
+typedef std::pair< height_ty, attribs  > inst_map_val;      
 
 
 dfa_values operator+(dfa_values &x, dfa_values &y);  

@@ -108,8 +108,10 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   assert(NULL != llvm_alloca_inst_rsp && "BB visited before Entry !!!");
 
   // Initialize 
-  InstMap[llvm_alloca_inst_rsp] = inst_map_val(0, true);
-  InstMap[llvm_alloca_inst_rbp] = inst_map_val(0, false);
+  attribs rsp_attribs = {true, false};
+  attribs rbp_attribs = {false, false};
+  InstMap[llvm_alloca_inst_rsp] = inst_map_val(0, rsp_attribs);
+  InstMap[llvm_alloca_inst_rbp] = inst_map_val(0, rbp_attribs);
   max_dis_of_esp = max_dis_of_ebp = 0;
 
   visit(*BB);
@@ -131,7 +133,7 @@ void
 max_stack_height::visitLoadInst(LoadInst     &I) {
   Value* ld_ptr_op = I.getPointerOperand();
   if(InstMap.count(ld_ptr_op)) {
-    InstMap[&I] = inst_map_val( InstMap[ld_ptr_op].first, InstMap[ld_ptr_op].second);
+    InstMap[&I] = InstMap[ld_ptr_op];
     debug(&I, &I);
   }
 }
@@ -140,7 +142,10 @@ void
 max_stack_height::visitStoreInst(StoreInst     &I) {
   Value* st_ptr_op = I.getPointerOperand();
   Value* st_val_op = I.getValueOperand();
+
   if(InstMap.count(st_ptr_op) && InstMap.count(st_val_op)) {
+    assert(false == InstMap[st_val_op].second[IS_UNKNOWN] && 
+        "Storing an unknown value to rsp/rbp\n");
     InstMap[st_ptr_op].first = InstMap[st_val_op].first;
     debug(&I, NULL);
   }
@@ -208,6 +213,7 @@ max_stack_height::visitAdd(BinaryOperator &I) {
   }
   return;
 }
+
 void
 max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd, Value* op1, Value* op2) {
 
@@ -219,7 +225,20 @@ max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd, Value* op1, Valu
   height_ty offset = 0;
 
   if(!( NULL != (cosnt_val = dyn_cast<ConstantInt>(op2)) || InstMap.count(op2) )) {
-    DEBUG(errs() << "op2 should either be a constant or available in InstMap\n");  
+    //op2 is neither  a constant nor available in InstMap  
+    //This may introduce inaccuracy either in actual esp/ebp
+    //or max_dis_of_esp/max_dis_of_ebp
+    //The inaccuracy in actual esp/ebp can be handled
+    //by check the IS_UNKNOWN during store.
+    offset = 0;
+    InstMap[I].first = InstMap[op1].first + offset;
+    InstMap[I].second = InstMap[op1].second;
+    InstMap[I].second[IS_UNKNOWN] = true; 
+
+    //To do: Here we may have inaccuracy in  max_dis_of_esp/max_dis_of_ebp
+    DEBUG(errs() << "max_dis_of_esp/max_dis_of_ebp may not be accurate\n");
+
+    return;
   }
 
   if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
@@ -236,11 +255,12 @@ max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd, Value* op1, Valu
     InstMap[I].second = InstMap[op1].second;
   }
 
-  if(InstMap[I].second) {
+  if(InstMap[I].second[IS_ESP]) {
     max_dis_of_esp  = std::min(max_dis_of_esp, InstMap[I].first);
   } else {
     max_dis_of_ebp  = std::min(max_dis_of_ebp, InstMap[I].first);
   }
+
   debug(I, I);
   return;
 }
