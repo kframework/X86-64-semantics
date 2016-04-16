@@ -1,4 +1,4 @@
-Args: opt -load=/home/sdasgup3/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so -ssh -debug test_3.ll -o /dev/null 
+Args: /home/sdasgup3/Install/llvm-3.5.0.install/bin/opt -load=/home/sdasgup3/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so -ssh -debug test_3.ll -o /dev/null 
 
 Features:+64bit,+sse2
 CPU:generic
@@ -8,7 +8,7 @@ Subtarget features: SSELevel 3, 3DNowLevel 0, 64bit 1
 Function : sub_0
 ==========================================
 ----------------------------------
-entry
+sub_0::entry
 ----------------------------------
   %77 = load i64* %RBP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
   %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
@@ -30,7 +30,7 @@ entry
   %146 = add i64 %145, -12, !mcsema_real_eip !11 :::  [I] = -20 : Inst :: -8:-12:-8:-20
 Gen :: -8:-12:-8:-20
 ----------------------------------
-block_0x30
+sub_0::block_0x30
 ----------------------------------
   %165 = load i64* %RBP_val, !mcsema_real_eip !13 :::  [I] = 0 : Inst :: 0:0:0:0
   %166 = add i64 %165, -16, !mcsema_real_eip !13 :::  [I] = -16 : Inst :: 0:0:0:-16
@@ -43,7 +43,7 @@ block_0x30
   %186 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : Inst :: 16:0:0:-16
 Gen :: 16:0:0:-16
 ----------------------------------
-block_0x20
+sub_0::block_0x20
 ----------------------------------
   %264 = load i64* %RBP_val, !mcsema_real_eip !18 :::  [I] = 0 : Inst :: 0:0:0:0
   %265 = add i64 %264, -12, !mcsema_real_eip !18 :::  [I] = -12 : Inst :: 0:0:0:-12
@@ -57,6 +57,7 @@ block_0x20
 Gen :: 16:0:0:-12
 
 
+DFA Analysis: 
 sub_0::entry
 	Gen :: -8:-12:-8:-20
 	Out :: -8:-12:-8:-20
@@ -79,43 +80,22 @@ sub_0::block_0x30
 	Pred :: entry: -8:-12:-8:-20
 	Gen :: 16:0:0:-16
 	Out :: 8:-12:-8:-24
-----------------------------------
-DFA Equations: 
-----------------------------------
-sub_0::entry
-  IN   0:0:0:0
-  GEN  -8:-12:-8:-20
-  OUT  -8:-12:-8:-20
-sub_0::block_0x30
-  IN   -8:-12:-8:-20
-  GEN  16:0:0:-16
-  OUT  8:-12:-8:-24
-sub_0::block_0x20
-  IN   -8:-12:-8:-20
-  GEN  16:0:0:-12
-  OUT  8:-12:-8:-20
 Height[ sub_0 ] : -24
 ==========================================
 Function : mcsema_main
 ==========================================
 ----------------------------------
-driverBlockRaw
+mcsema_main::driverBlockRaw
 ----------------------------------
   tail call x86_64_sysvcc void @sub_0(%struct.regs* %0) :::  [I] = NULL : Inst :: 8:0:0:0
 Gen :: 8:0:0:0
 
 
+DFA Analysis: 
 mcsema_main::driverBlockRaw
 	Gen :: 8:0:0:0
 	Out :: 8:0:0:0
 mcsema_main::driverBlockRaw
 	Gen :: 8:0:0:0
 	Out :: 8:0:0:0
-----------------------------------
-DFA Equations: 
-----------------------------------
-mcsema_main::driverBlockRaw
-  IN   0:0:0:0
-  GEN  8:0:0:0
-  OUT  8:0:0:0
 Height[ mcsema_main ] : 0

@@ -31,7 +31,6 @@ max_stack_height::runOnFunction(Function &F) {
   
   perform_dfa();
 
-  print_dfa_equations();
   dump_cfg();
   compute_height();
 
@@ -75,7 +74,7 @@ max_stack_height::perform_const_dfa() {
   dfa_functions* dfvaInstance;
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
     DEBUG(errs() << "----------------------------------\n");
-    DEBUG(errs() << BB->getName() << "\n");
+    DEBUG(errs() << Func->getName() + "::" + BB->getName() << "\n");
     DEBUG(errs() << "----------------------------------\n");
     dfvaInstance = BBMap[BB];
     (*dfvaInstance)[GEN] = calculate_max_height_BB(BB);
@@ -121,7 +120,6 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   ret_val[MAX_DISP_EBP] = max_dis_of_ebp;
 
   print_dfa_values("Gen :: ", ret_val);
-
   //Clean up
   InstMap.clear();
   max_dis_of_esp = max_dis_of_ebp = 0;
@@ -271,7 +269,7 @@ max_stack_height::perform_global_dfa() {
     (*dfvaInstance)[OUT] =  init_out;
   }
 
-  DEBUG(errs() << "\n\n"); 
+  DEBUG(errs() << "\n\nDFA Analysis: \n"); 
   do {
     Changed = false;
     ReversePostOrderTraversal<Function*> RPOT(Func);
