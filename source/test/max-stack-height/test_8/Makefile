@@ -1,5 +1,8 @@
 PROG_PREFIX=test_8
 
+CC=clang
+CXX=clang++
+DIR="${HOME}/Github/mcsema"
 OPT=$(shell which opt)
 RUN_SH=../utils/run.sh  
 ENTRY_POINT=start
@@ -25,6 +28,8 @@ test:
 		fi \
 	done  
 
+	@${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
+	@./${PROG_PREFIX}.exe	
 	@echo "${PROG_PREFIX} Pass"
 
 clean:
