@@ -1,0 +1,220 @@
+Args: /home/sdasgup3/Install/llvm-3.5.0.install/bin/opt -load=/home/sdasgup3/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so -ssh -debug test_4.ll -o /dev/null 
+
+Features:+64bit,+sse2
+CPU:generic
+
+Subtarget features: SSELevel 3, 3DNowLevel 0, 64bit 1
+==========================================
+Function : sub_70
+==========================================
+----------------------------------
+sub_70::entry
+----------------------------------
+  %77 = load i64* %RBP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %79 = add i64 %78, -8 :::  [I] = -8 : Inst :: 0:-8:0:0
+  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : Inst :: 0:-8:-8:0
+  %81 = add i64 %78, -24 :::  [I] = -24 : Inst :: 0:-24:-8:0
+  store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :::  [I] = NULL : Inst :: -24:-24:-8:0
+  %94 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : Inst :: -24:-24:-8:0
+  %95 = add i64 %94, -4, !mcsema_real_eip !7 :::  [I] = -12 : Inst :: -24:-24:-8:-12
+  %98 = load i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = -24 : Inst :: -24:-24:-8:-12
+  %99 = add i64 %98, -8 :::  [I] = -32 : Inst :: -24:-32:-8:-12
+  store i64 %99, i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = NULL : Inst :: -32:-32:-8:-12
+  %107 = load i64* %RSP_val, !mcsema_real_eip !8 :::  [I] = -32 : Inst :: -32:-32:-8:-12
+  %108 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : Inst :: -32:-32:-8:-12
+  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0), !mcsema_real_eip !8 :::  [I] = NULL : Inst :: -24:-32:-8:-12
+  %241 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : Inst :: -24:-32:-8:-12
+  %242 = add i64 %241, -8, !mcsema_real_eip !9 :::  [I] = -16 : Inst :: -24:-32:-8:-16
+  %247 = load i64* %RBP_val, !mcsema_real_eip !10 :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  %248 = add i64 %247, -8, !mcsema_real_eip !10 :::  [I] = -16 : Inst :: -24:-32:-8:-16
+  %253 = load i64* %RSP_val, !mcsema_real_eip !11 :::  [I] = -24 : Inst :: -24:-32:-8:-16
+  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16) :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  %254 = extractvalue { i64, i1 } %uadd, 0 :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  %267 = extractvalue { i64, i1 } %uadd, 1 :::  [I] = -8 : Inst :: -24:-32:-8:-16
+  store i64 %254, i64* %RSP_val, !mcsema_real_eip !11 :::  [I] = NULL : Inst :: -8:-32:-8:-16
+  %270 = add i64 %254, 16, !mcsema_real_eip !13 :::  [I] = 8 : Inst :: -8:-32:-8:-16
+  store i64 %270, i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = NULL : Inst :: 8:-32:-8:-16
+  %277 = load i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = 8 : Inst :: 8:-32:-8:-16
+  %278 = load i64* %RBP_val, !mcsema_real_eip !13 :::  [I] = -8 : Inst :: 8:-32:-8:-16
+Gen :: 8:-32:-8:-16
+
+
+DFA Analysis: 
+sub_70::entry
+	Gen :: 8:-32:-8:-16
+	Out :: 8:-32:-8:-16
+sub_70::entry
+	Gen :: 8:-32:-8:-16
+	Out :: 8:-32:-8:-16
+Height[ sub_70 ] : -32
+==========================================
+Function : sub_0
+==========================================
+----------------------------------
+sub_0::entry
+----------------------------------
+  %77 = load i64* %RBP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %79 = add i64 %78, -8 :::  [I] = -8 : Inst :: 0:-8:0:0
+  store i64 %79, i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = NULL : Inst :: -8:-8:0:0
+  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : Inst :: -8:-8:-8:0
+  %81 = add i64 %78, -12, !mcsema_real_eip !4 :::  [I] = -12 : Inst :: -8:-12:-8:0
+  %86 = load i64* %RBP_val, !mcsema_real_eip !5 :::  [I] = -8 : Inst :: -8:-12:-8:0
+  %87 = add i64 %86, -8, !mcsema_real_eip !5 :::  [I] = -16 : Inst :: -8:-12:-8:-16
+  %92 = load i64* %RBP_val, !mcsema_real_eip !6 :::  [I] = -8 : Inst :: -8:-12:-8:-16
+  %93 = add i64 %92, -4, !mcsema_real_eip !6 :::  [I] = -12 : Inst :: -8:-12:-8:-16
+  %98 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : Inst :: -8:-12:-8:-16
+  %99 = add i64 %98, -8, !mcsema_real_eip !7 :::  [I] = -16 : Inst :: -8:-12:-8:-16
+  %120 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : Inst :: -8:-12:-8:-16
+  %121 = add i64 %120, -12, !mcsema_real_eip !8 :::  [I] = -20 : Inst :: -8:-12:-8:-20
+  %124 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : Inst :: -8:-12:-8:-20
+  %125 = add i64 %124, -4, !mcsema_real_eip !9 :::  [I] = -12 : Inst :: -8:-12:-8:-20
+Gen :: -8:-12:-8:-20
+----------------------------------
+sub_0::block_0x20.preheader
+----------------------------------
+Gen :: 0:0:0:0
+----------------------------------
+sub_0::block_0x6a.loopexit
+----------------------------------
+Gen :: 0:0:0:0
+----------------------------------
+sub_0::block_0x6a
+----------------------------------
+  %135 = load i64* %RBP_val, !mcsema_real_eip !11 :::  [I] = 0 : Inst :: 0:0:0:0
+  %136 = add i64 %135, -16, !mcsema_real_eip !11 :::  [I] = -16 : Inst :: 0:0:0:-16
+  %141 = load i64* %RSP_val, !mcsema_real_eip !12 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %144 = add i64 %141, 16, !mcsema_real_eip !13 :::  [I] = 16 : Inst :: 0:0:0:-16
+  store i64 %144, i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = NULL : Inst :: 16:0:0:-16
+  %151 = load i64* %RSP_val, !mcsema_real_eip !13 :::  [I] = 16 : Inst :: 16:0:0:-16
+  %152 = load i64* %RBP_val, !mcsema_real_eip !13 :::  [I] = 0 : Inst :: 16:0:0:-16
+Gen :: 16:0:0:-16
+----------------------------------
+sub_0::block_0x20
+----------------------------------
+  %215 = load i64* %RBP_val, !mcsema_real_eip !15 :::  [I] = 0 : Inst :: 0:0:0:0
+  %216 = add i64 %215, -4, !mcsema_real_eip !15 :::  [I] = -4 : Inst :: 0:0:0:-4
+  %221 = load i64* %RBP_val, !mcsema_real_eip !16 :::  [I] = 0 : Inst :: 0:0:0:-4
+  %222 = add i64 %221, -20, !mcsema_real_eip !16 :::  [I] = -20 : Inst :: 0:0:0:-20
+  %231 = load i64* %RBP_val, !mcsema_real_eip !19 :::  [I] = 0 : Inst :: 0:0:0:-20
+  %232 = add i64 %231, -20, !mcsema_real_eip !19 :::  [I] = -20 : Inst :: 0:0:0:-20
+  %254 = load i64* %RBP_val, !mcsema_real_eip !22 :::  [I] = 0 : Inst :: 0:0:0:-20
+  %255 = add i64 %254, -12, !mcsema_real_eip !22 :::  [I] = -12 : Inst :: 0:0:0:-20
+Gen :: 0:0:0:-20
+----------------------------------
+sub_0::block_0x4f
+----------------------------------
+  %274 = load i64* %RBP_val, !mcsema_real_eip !25 :::  [I] = 0 : Inst :: 0:0:0:0
+  %275 = add i64 %274, -12, !mcsema_real_eip !25 :::  [I] = -12 : Inst :: 0:0:0:-12
+  %278 = load i64* %RBP_val, !mcsema_real_eip !26 :::  [I] = 0 : Inst :: 0:0:0:-12
+  %279 = add i64 %278, -4, !mcsema_real_eip !26 :::  [I] = -4 : Inst :: 0:0:0:-12
+  %297 = load i64* %RBP_val, !mcsema_real_eip !28 :::  [I] = 0 : Inst :: 0:0:0:-12
+  %298 = add i64 %297, -4, !mcsema_real_eip !28 :::  [I] = -4 : Inst :: 0:0:0:-12
+Gen :: 0:0:0:-12
+----------------------------------
+sub_0::block_0x3f
+----------------------------------
+  %316 = load i64* %RBP_val, !mcsema_real_eip !31 :::  [I] = 0 : Inst :: 0:0:0:0
+  %317 = add i64 %316, -16, !mcsema_real_eip !31 :::  [I] = -16 : Inst :: 0:0:0:-16
+  %320 = load i64* %RBP_val, !mcsema_real_eip !26 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %321 = add i64 %320, -4, !mcsema_real_eip !26 :::  [I] = -4 : Inst :: 0:0:0:-16
+  %339 = load i64* %RBP_val, !mcsema_real_eip !28 :::  [I] = 0 : Inst :: 0:0:0:-16
+  %340 = add i64 %339, -4, !mcsema_real_eip !28 :::  [I] = -4 : Inst :: 0:0:0:-16
+Gen :: 0:0:0:-16
+----------------------------------
+sub_0::block_0x13
+----------------------------------
+  %343 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = 0 : Inst :: 0:0:0:0
+  %344 = add i64 %343, -4, !mcsema_real_eip !9 :::  [I] = -4 : Inst :: 0:0:0:-4
+Gen :: 0:0:0:-4
+
+
+DFA Analysis: 
+sub_0::entry
+	Gen :: -8:-12:-8:-20
+	Out :: -8:-12:-8:-20
+sub_0::block_0x20.preheader
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 0:0:0:0
+	Out :: -8:-12:-8:-20
+sub_0::block_0x20
+	Pred :: block_0x13: -3:-3:-3:-3
+	Pred :: block_0x20.preheader: -8:-12:-8:-20
+	Gen :: 0:0:0:-20
+	Out :: -8:-12:-8:-28
+sub_0::block_0x4f
+	Pred :: block_0x20: -8:-12:-8:-28
+	Gen :: 0:0:0:-12
+	Out :: -8:-12:-8:-28
+sub_0::block_0x3f
+	Pred :: block_0x20: -8:-12:-8:-28
+	Gen :: 0:0:0:-16
+	Out :: -8:-12:-8:-28
+sub_0::block_0x13
+	Pred :: block_0x3f: -8:-12:-8:-28
+	Pred :: block_0x4f: -8:-12:-8:-28
+	Gen :: 0:0:0:-4
+	Out :: -8:-12:-8:-28
+sub_0::block_0x6a.loopexit
+	Pred :: block_0x13: -8:-12:-8:-28
+	Gen :: 0:0:0:0
+	Out :: -8:-12:-8:-28
+sub_0::block_0x6a
+	Pred :: block_0x6a.loopexit: -8:-12:-8:-28
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 16:0:0:-16
+	Out :: 8:-12:-8:-28
+sub_0::entry
+	Gen :: -8:-12:-8:-20
+	Out :: -8:-12:-8:-20
+sub_0::block_0x20.preheader
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 0:0:0:0
+	Out :: -8:-12:-8:-20
+sub_0::block_0x20
+	Pred :: block_0x13: -8:-12:-8:-28
+	Pred :: block_0x20.preheader: -8:-12:-8:-20
+	Gen :: 0:0:0:-20
+	Out :: -8:-12:-8:-28
+sub_0::block_0x4f
+	Pred :: block_0x20: -8:-12:-8:-28
+	Gen :: 0:0:0:-12
+	Out :: -8:-12:-8:-28
+sub_0::block_0x3f
+	Pred :: block_0x20: -8:-12:-8:-28
+	Gen :: 0:0:0:-16
+	Out :: -8:-12:-8:-28
+sub_0::block_0x13
+	Pred :: block_0x3f: -8:-12:-8:-28
+	Pred :: block_0x4f: -8:-12:-8:-28
+	Gen :: 0:0:0:-4
+	Out :: -8:-12:-8:-28
+sub_0::block_0x6a.loopexit
+	Pred :: block_0x13: -8:-12:-8:-28
+	Gen :: 0:0:0:0
+	Out :: -8:-12:-8:-28
+sub_0::block_0x6a
+	Pred :: block_0x6a.loopexit: -8:-12:-8:-28
+	Pred :: entry: -8:-12:-8:-20
+	Gen :: 16:0:0:-16
+	Out :: 8:-12:-8:-28
+Height[ sub_0 ] : -28
+==========================================
+Function : mcsema_main
+==========================================
+----------------------------------
+mcsema_main::driverBlockRaw
+----------------------------------
+  tail call x86_64_sysvcc void @sub_70(%struct.regs* %0) :::  [I] = NULL : Inst :: 8:0:0:0
+Gen :: 8:0:0:0
+
+
+DFA Analysis: 
+mcsema_main::driverBlockRaw
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+mcsema_main::driverBlockRaw
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+Height[ mcsema_main ] : 0
