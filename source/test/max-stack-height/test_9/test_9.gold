@@ -1,0 +1,98 @@
+Args: /home/sdasgup3/Install/llvm-3.5.0.install/bin/opt -load=/home/sdasgup3/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so -ssh -debug test_9.ll -o /dev/null 
+
+Features:+64bit,+sse2
+CPU:generic
+
+Subtarget features: SSELevel 3, 3DNowLevel 0, 64bit 1
+==========================================
+Function : sub_1
+==========================================
+----------------------------------
+sub_1::entry
+----------------------------------
+Gen :: 0:0:0:0
+----------------------------------
+sub_1::block_0xd.preheader
+----------------------------------
+Gen :: 0:0:0:0
+----------------------------------
+sub_1::block_0x13.loopexit
+----------------------------------
+Gen :: 0:0:0:0
+----------------------------------
+sub_1::block_0x13
+----------------------------------
+  %108 = load i64* %RSP_val, !mcsema_real_eip !7 :::  [I] = 0 : Inst :: 0:0:0:0
+  %109 = add i64 %108, 8, !mcsema_real_eip !7 :::  [I] = 8 : Inst :: 0:0:0:0
+  store i64 %109, i64* %RSP_val, !mcsema_real_eip !7 :::  [I] = NULL : Inst :: 8:0:0:0
+  %116 = load i64* %RSP_val, !mcsema_real_eip !7 :::  [I] = 8 : Inst :: 8:0:0:0
+  %117 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = 0 : Inst :: 8:0:0:0
+Gen :: 8:0:0:0
+----------------------------------
+sub_1::block_0xd
+----------------------------------
+Gen :: 0:0:0:0
+
+
+DFA Analysis: 
+sub_1::entry
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0xd.preheader
+	Pred :: entry: 0:0:0:0
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0xd
+	Pred :: block_0xd: -3:-3:-3:-3
+	Pred :: block_0xd.preheader: 0:0:0:0
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0x13.loopexit
+	Pred :: block_0xd: 0:0:0:0
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0x13
+	Pred :: block_0x13.loopexit: 0:0:0:0
+	Pred :: entry: 0:0:0:0
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+sub_1::entry
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0xd.preheader
+	Pred :: entry: 0:0:0:0
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0xd
+	Pred :: block_0xd: 0:0:0:0
+	Pred :: block_0xd.preheader: 0:0:0:0
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0x13.loopexit
+	Pred :: block_0xd: 0:0:0:0
+	Gen :: 0:0:0:0
+	Out :: 0:0:0:0
+sub_1::block_0x13
+	Pred :: block_0x13.loopexit: 0:0:0:0
+	Pred :: entry: 0:0:0:0
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+Height[ sub_1 ] : 0
+==========================================
+Function : mcsema_main
+==========================================
+----------------------------------
+mcsema_main::driverBlockRaw
+----------------------------------
+  tail call x86_64_sysvcc void @sub_1(%struct.regs* %0) :::  [I] = NULL : Inst :: 8:0:0:0
+Gen :: 8:0:0:0
+
+
+DFA Analysis: 
+mcsema_main::driverBlockRaw
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+mcsema_main::driverBlockRaw
+	Gen :: 8:0:0:0
+	Out :: 8:0:0:0
+Height[ mcsema_main ] : 0
