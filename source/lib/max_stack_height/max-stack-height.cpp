@@ -108,14 +108,14 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
   assert(NULL != llvm_alloca_inst_rsp && "BB visited before Entry !!!");
 
   // Initialize 
-  InstMap[llvm_alloca_inst_rsp] = 0;
-  InstMap[llvm_alloca_inst_rbp] = 0;
+  InstMap[llvm_alloca_inst_rsp] = inst_map_val(0, true);
+  InstMap[llvm_alloca_inst_rbp] = inst_map_val(0, false);
   max_dis_of_esp = max_dis_of_ebp = 0;
 
   visit(*BB);
 
-  ret_val[ACTUAL_ESP] = InstMap[llvm_alloca_inst_rsp];
-  ret_val[ACTUAL_EBP] = InstMap[llvm_alloca_inst_rbp];
+  ret_val[ACTUAL_ESP] = InstMap[llvm_alloca_inst_rsp].first;
+  ret_val[ACTUAL_EBP] = InstMap[llvm_alloca_inst_rbp].first;
   ret_val[MAX_DISP_ESP] = max_dis_of_esp;
   ret_val[MAX_DISP_EBP] = max_dis_of_ebp;
 
@@ -131,12 +131,7 @@ void
 max_stack_height::visitLoadInst(LoadInst     &I) {
   Value* ld_ptr_op = I.getPointerOperand();
   if(InstMap.count(ld_ptr_op)) {
-    if(ld_ptr_op == llvm_alloca_inst_rsp) {
-      is_rsp_load  = true;
-    } else {
-      is_rsp_load = false;
-    }
-    InstMap[&I] = InstMap[ld_ptr_op];
+    InstMap[&I] = inst_map_val( InstMap[ld_ptr_op].first, InstMap[ld_ptr_op].second);
     debug(&I, &I);
   }
 }
@@ -146,7 +141,7 @@ max_stack_height::visitStoreInst(StoreInst     &I) {
   Value* st_ptr_op = I.getPointerOperand();
   Value* st_val_op = I.getValueOperand();
   if(InstMap.count(st_ptr_op) && InstMap.count(st_val_op)) {
-    InstMap[st_ptr_op] = InstMap[st_val_op];
+    InstMap[st_ptr_op].first = InstMap[st_val_op].first;
     debug(&I, NULL);
   }
 }
@@ -166,7 +161,7 @@ max_stack_height::visitCallInst(CallInst &I) {
   assert(NULL != called_func && "indirect func call found");
 
   if(false == called_func->isDeclaration()) {
-    InstMap[llvm_alloca_inst_rsp] += RET_ADDRESS_SIZE;
+    InstMap[llvm_alloca_inst_rsp].first += RET_ADDRESS_SIZE;
     debug(&I, NULL);
   } 
 }
@@ -230,19 +225,21 @@ max_stack_height::visitAddSubHelper(Instruction* I, bool isAdd, Value* op1, Valu
   if(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2))) {
     offset = cosnt_val->getLimitedValue();
   } else {
-    offset = InstMap[op2];
+    offset = InstMap[op2].first;
   }
 
   if(isAdd) {
-    InstMap[I] = InstMap[op1] + offset;
+    InstMap[I].first = InstMap[op1].first + offset;
+    InstMap[I].second = InstMap[op1].second;
   } else {
-    InstMap[I] = InstMap[op1] - offset;
+    InstMap[I].first = InstMap[op1].first - offset;
+    InstMap[I].second = InstMap[op1].second;
   }
 
-  if(is_rsp_load) {
-    max_dis_of_esp  = std::min(max_dis_of_esp, InstMap[I]);
+  if(InstMap[I].second) {
+    max_dis_of_esp  = std::min(max_dis_of_esp, InstMap[I].first);
   } else {
-    max_dis_of_ebp  = std::min(max_dis_of_ebp, InstMap[I]);
+    max_dis_of_ebp  = std::min(max_dis_of_ebp, InstMap[I].first);
   }
   debug(I, I);
   return;
@@ -373,7 +370,7 @@ void
 max_stack_height::debug(Value* I, Value* J) {
   height_ty stored_pointer = 0;
   if(NULL != J) {
-    stored_pointer = InstMap[J];
+    stored_pointer = InstMap[J].first;
   }
 
   DEBUG(errs()  <<   *I << " :::  ");
@@ -383,7 +380,9 @@ max_stack_height::debug(Value* I, Value* J) {
     DEBUG(errs()  << "[I] = " << stored_pointer << " : ");
   }
 
-  dfa_values val = {InstMap[llvm_alloca_inst_rsp], InstMap[llvm_alloca_inst_rbp], max_dis_of_esp, max_dis_of_ebp};
+  dfa_values val = {InstMap[llvm_alloca_inst_rsp].first, 
+                    InstMap[llvm_alloca_inst_rbp].first, 
+                    max_dis_of_esp, max_dis_of_ebp};
   print_dfa_values("Inst :: ", val);
 }
 

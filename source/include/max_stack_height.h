@@ -37,6 +37,7 @@ enum DFA_VALUES {
 typedef int64_t height_ty;
 typedef std::vector<height_ty> dfa_values;
 typedef std::vector< dfa_values > dfa_functions;      
+typedef std::pair< height_ty, bool > inst_map_val;      
 
 
 dfa_values operator+(dfa_values &x, dfa_values &y);  
@@ -54,13 +55,12 @@ class max_stack_height :  public FunctionPass,
     // Map to do a symbolic execution on the instruction of a BB
     // involving rsp, rbp displacements to track the
     // max displacement of rsp or from rbp in that BB.
-    DenseMap<Value*, height_ty> InstMap;
+    DenseMap<Value*, inst_map_val > InstMap;
     height_ty max_dis_of_esp, max_dis_of_ebp;
 
     //llvm alloca inst for rsp, rbp 
     Value* llvm_alloca_inst_rsp;
     Value* llvm_alloca_inst_rbp;
-    bool is_rsp_load;
      
     void perform_dfa() ;
     void initialize_framework();
