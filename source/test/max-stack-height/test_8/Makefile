@@ -1,0 +1,34 @@
+PROG_PREFIX=test_8
+
+OPT=$(shell which opt)
+RUN_SH=../utils/run.sh  
+ENTRY_POINT=start
+loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so 
+
+all:	test
+
+test: 
+	@${RUN_SH} ${PROG_PREFIX} 64 	${ENTRY_POINT} asm
+	@${OPT} -load=${loadso} -ssh  -debug ${PROG_PREFIX}.ll  -o /dev/null &>  log
+	@sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
+	@sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.gold >  ${PROG_PREFIX}.mod
+	@diff -w -q log.mod  ${PROG_PREFIX}.mod
+	@if [ $$? != 0  ]; then \
+		echo 	"${PROG_PREFIX} FAILED" ;\
+	fi
+
+	@for file in `ls *.dot` ; do \
+	  gold=$$(echo $$file | sed 's/dot/gold/g') ; \
+	  diff -w -q  $$gold $$file; \
+		if [ $$? != 0  ]; then \
+			echo 	"${PROG_PREFIX} FAILED" ;\
+		fi \
+	done  
+
+	@echo "${PROG_PREFIX} Pass"
+
+clean:
+	../utils/clearall.sh
+	rm -rf log *.dot *.mod
+
+.PHONY: clean run
