@@ -9,7 +9,7 @@ all:	test
 
 test: 
 	@${RUN_SH} ${PROG_PREFIX} 64 	${ENTRY_POINT} asm
-	@${OPT} -load=${loadso} -ssh  -debug ${PROG_PREFIX}.ll  -o /dev/null &>  log
+	@${OPT} -load=${loadso} -ssh  -debug ${PROG_PREFIX}.ll  -o /dev/null 2>  log
 	@sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
 	@sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.gold >  ${PROG_PREFIX}.mod
 	@diff -w -q log.mod  ${PROG_PREFIX}.mod
