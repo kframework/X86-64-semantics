@@ -37,6 +37,7 @@ clean:
 	@make -C test_5 clean
 	@make -C test_6 clean
 	@make -C test_7 clean
+	@make -C test_8 clean
 	@make -C test_9 clean
 	@make -C test_10 clean
 	@make -C test_11 clean
