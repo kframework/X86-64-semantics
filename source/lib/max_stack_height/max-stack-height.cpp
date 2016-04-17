@@ -29,10 +29,15 @@ max_stack_height::runOnFunction(Function &F) {
   DEBUG(errs() << "Function : " << Func->getName() << "\n");
   DEBUG(errs() << "==========================================\n");
   
+  if(false == initialize_framework()) {
+    return false; // Analysis pass
+  }
   perform_dfa();
 
   dump_cfg();
   compute_height();
+
+  cleanup_framework();
 
   return false; // Analysis pass
 }
@@ -51,21 +56,22 @@ max_stack_height::cleanup_framework() {
 ********************************************************************/
 void
 max_stack_height::perform_dfa() {
-  initialize_framework();
   
   perform_const_dfa();
   
   perform_global_dfa();
 
-  cleanup_framework();
 }
 
 /*******************************************************************
   * Function :   initialize_framework
   * Purpose  :   Allocates the data flow values
 ********************************************************************/
-void
+bool
 max_stack_height::initialize_framework() {
+
+  llvm_alloca_inst_rsp = NULL;
+  llvm_alloca_inst_rbp = NULL;
 
   //For the entry: find the llvm alloca inst for rsp_val, rbp_val
   BasicBlock* EB = &(Func->getEntryBlock());
@@ -81,10 +87,16 @@ max_stack_height::initialize_framework() {
     }
   }
 
+  if(NULL == llvm_alloca_inst_rsp || NULL == llvm_alloca_inst_rbp) {
+    return false;
+  }
+
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
     dfa_functions* dfvaInstance = new dfa_functions(TOTAL_FUNCTIONS, dfa_values(TOTAL_VALUES,0));
     BBMap[BB] = dfvaInstance;
   }
+
+  return true;
 }
 
 /*******************************************************************

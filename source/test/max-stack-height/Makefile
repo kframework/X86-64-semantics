@@ -21,6 +21,7 @@ test:
 	@make -C test_17 test
 	@make -C test_18 test
 	@make -C test_19 test
+	@make -C test_20 test
 
 .PHONY: clean
 clean:
@@ -42,3 +43,4 @@ clean:
 	@make -C test_17 clean
 	@make -C test_18 clean
 	@make -C test_19 clean
+	@make -C test_20 clean

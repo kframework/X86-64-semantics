@@ -70,7 +70,7 @@ class max_stack_height :  public FunctionPass,
     Value* llvm_alloca_inst_rbp;
      
     void perform_dfa() ;
-    void initialize_framework();
+    bool initialize_framework();
     void perform_const_dfa();
     void perform_global_dfa();
     dfa_values  calculate_max_height_BB(BasicBlock *BB);
