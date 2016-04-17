@@ -1,3 +1,9 @@
+# Table of Contents
+
+* [Build Instructions & Usage Model](docs/build.md)
+* [Variable Recovery] (docs/variable-recovery.md)
+
+
 ### About static disassembly 
     
 - Undecidable
