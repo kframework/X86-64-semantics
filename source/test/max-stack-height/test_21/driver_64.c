@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
   rState.RDI = 16;
   rState.RSI = (uint64_t) &foo;
 
+  mcsema_main(&rState);
+
   printf("We have: 0x%llx\n", foo);
 
   return 0;
