@@ -34,9 +34,16 @@ max_stack_height::runOnFunction(Function &F) {
   dump_cfg();
   compute_height();
 
-  BBMap.clear();
   return false; // Analysis pass
 }
+
+void
+max_stack_height::cleanup_framework() {
+  BBMap.clear();
+  llvm_alloca_inst_rsp = NULL;
+  llvm_alloca_inst_rbp = NULL;
+}
+
 
 /*******************************************************************
   * Function :   perform_dfa
@@ -50,6 +57,7 @@ max_stack_height::perform_dfa() {
   
   perform_global_dfa();
 
+  cleanup_framework();
 }
 
 /*******************************************************************
@@ -58,6 +66,21 @@ max_stack_height::perform_dfa() {
 ********************************************************************/
 void
 max_stack_height::initialize_framework() {
+
+  //For the entry: find the llvm alloca inst for rsp_val, rbp_val
+  BasicBlock* EB = &(Func->getEntryBlock());
+
+  AllocaInst* alloca_inst;
+  for (auto &I : *EB) { 
+    if(NULL != (alloca_inst = dyn_cast<AllocaInst>(&I))) {
+      if(alloca_inst->getName().equals("RSP_val")) {
+        llvm_alloca_inst_rsp = alloca_inst;
+      } else if (alloca_inst->getName().equals("RBP_val")) {
+        llvm_alloca_inst_rbp = alloca_inst;
+      }
+    }
+  }
+
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
     dfa_functions* dfvaInstance = new dfa_functions(TOTAL_FUNCTIONS, dfa_values(TOTAL_VALUES,0));
     BBMap[BB] = dfvaInstance;
@@ -88,24 +111,9 @@ max_stack_height::perform_const_dfa() {
 ********************************************************************/
 std::vector<height_ty> 
 max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
+  assert(NULL != llvm_alloca_inst_rsp && "BB visited before Entry !!!");
 
   std::vector<height_ty>  ret_val(TOTAL_VALUES,0);
-
-  //For the entry: find the llvm alloca inst for rsp_val, rbp_val
-  if(pred_begin(BB) == pred_end(BB)) {
-    AllocaInst* alloca_inst;
-    for (auto &I : *BB) { 
-      if(NULL != (alloca_inst = dyn_cast<AllocaInst>(&I))) {
-        if(alloca_inst->getName().equals("RSP_val")) {
-          llvm_alloca_inst_rsp = alloca_inst;
-        } else if (alloca_inst->getName().equals("RBP_val")) {
-          llvm_alloca_inst_rbp = alloca_inst;
-        }
-      }
-    }
-  }
-
-  assert(NULL != llvm_alloca_inst_rsp && "BB visited before Entry !!!");
 
   // Initialize 
   attribs rsp_attribs = {true, false};

@@ -76,6 +76,7 @@ class max_stack_height :  public FunctionPass,
     dfa_values  calculate_max_height_BB(BasicBlock *BB);
     void  transfer_function(dfa_functions*);
     dfa_values meet_over_preds(BasicBlock *BB);
+    void cleanup_framework();
 
     //debug_local_dfa_info functions
     void debug_local_dfa_info(Value* I);
