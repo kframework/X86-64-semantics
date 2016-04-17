@@ -1,0 +1,51 @@
+Args: /home/sdasgup3/Install/llvm-3.5.0.install/bin/opt -load=/home/sdasgup3/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so -ssh -debug test_25.ll -o /dev/null 
+
+Features:+64bit,+sse2
+CPU:generic
+
+Subtarget features: SSELevel 3, 3DNowLevel 0, 64bit 1
+==========================================
+Function : sub_0
+==========================================
+----------------------------------
+sub_0::entry
+----------------------------------
+  %77 = load i64* %RBP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2 :::  [I] = 0 : Inst :: 0:0:0:0
+  %79 = add i64 %78, -8 :::  [I] = -8 : Inst :: 0:-8:0:0
+  store i64 %79, i64* %RBP_val, !mcsema_real_eip !3 :::  [I] = NULL : Inst :: 0:-8:-8:0
+  %81 = add i64 %78, -40 :::  [I] = -40 : Inst :: 0:-40:-8:0
+  store i64 %81, i64* %RSP_val, !mcsema_real_eip !4 :::  [I] = NULL : Inst :: -40:-40:-8:0
+  %94 = load i64* %RBP_val, !mcsema_real_eip !6 :::  [I] = -8 : Inst :: -40:-40:-8:0
+  %95 = add i64 %94, -4, !mcsema_real_eip !6 :::  [I] = -12 : Inst :: -40:-40:-8:-12
+  %98 = load i64* %RBP_val, !mcsema_real_eip !7 :::  [I] = -8 : Inst :: -40:-40:-8:-12
+  %99 = add i64 %98, -8, !mcsema_real_eip !7 :::  [I] = -16 : Inst :: -40:-40:-8:-16
+  %104 = load i64* %RBP_val, !mcsema_real_eip !8 :::  [I] = -8 : Inst :: -40:-40:-8:-16
+  %105 = add i64 %104, -16, !mcsema_real_eip !8 :::  [I] = -24 : Inst :: -40:-40:-8:-24
+  %108 = load i64* %RBP_val, !mcsema_real_eip !9 :::  [I] = -8 : Inst :: -40:-40:-8:-24
+  %109 = add i64 %108, -16, !mcsema_real_eip !9 :::  [I] = -24 : Inst :: -40:-40:-8:-24
+  %116 = load i64* %RBP_val, !mcsema_real_eip !14 :::  [I] = -8 : Inst :: -40:-40:-8:-24
+  %117 = add i64 %116, -20, !mcsema_real_eip !14 :::  [I] = -28 : Inst :: -40:-40:-8:-28
+  %123 = load i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = -40 : Inst :: -40:-40:-8:-28
+  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %123, i64 32) :::  [I] = -8 : Inst :: -40:-40:-8:-28
+  %124 = extractvalue { i64, i1 } %uadd, 0 :::  [I] = -8 : Inst :: -40:-40:-8:-28
+  %137 = extractvalue { i64, i1 } %uadd, 1 :::  [I] = -8 : Inst :: -40:-40:-8:-28
+  store i64 %124, i64* %RSP_val, !mcsema_real_eip !16 :::  [I] = NULL : Inst :: -8:-40:-8:-28
+  %140 = add i64 %124, 16, !mcsema_real_eip !18 :::  [I] = 8 : Inst :: -8:-40:-8:-28
+  store i64 %140, i64* %RSP_val, !mcsema_real_eip !18 :::  [I] = NULL : Inst :: 8:-40:-8:-28
+  %147 = load i64* %RSP_val, !mcsema_real_eip !18 :::  [I] = 8 : Inst :: 8:-40:-8:-28
+  %148 = load i64* %RBP_val, !mcsema_real_eip !18 :::  [I] = -8 : Inst :: 8:-40:-8:-28
+Gen :: 8:-40:-8:-28
+
+
+DFA Analysis: 
+sub_0::entry
+	Gen :: 8:-40:-8:-28
+	Out :: 8:-40:-8:-28
+sub_0::entry
+	Gen :: 8:-40:-8:-28
+	Out :: 8:-40:-8:-28
+Height[ sub_0 ] : -40
+==========================================
+Function : mcsema_main
+==========================================
