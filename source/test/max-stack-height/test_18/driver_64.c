@@ -12,5 +12,7 @@ int main(int argc, char *argv[]) {
   //set up the stack 
   rState.RSP = (uint64_t) &stack[4096*9];
 
+  mcsema_main(&rState);
+
   return rState.RAX;
 }
