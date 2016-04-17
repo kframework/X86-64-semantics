@@ -11,11 +11,8 @@ CXX=clang++
 C=$(which gcc)
 BIN="$1"
 ARCH="$2"
-ENTRY_FUNC="$3"
-ASM_FILE="$4"
 
 BIN_DESCEND_PATH="${DIR}/build/mc-sema/bin_descend"
-FUNC_MAP="${DIR}/mc-sema/std_defs/std_defs.txt"
 CFG_TO_BC_PATH="${DIR}/build/mc-sema/bitcode_from_cfg/"
 SOURCEFILE="${BIN}.c"
 

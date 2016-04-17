@@ -1,21 +1,17 @@
-PROG_PREFIX=test_8
-
-ENTRY_FUNC=start
-ASM_FILE=asm
-FUNC_MAP=${HOME}/Github/mcsema/mc-sema/std_defs/std_defs.txt
-
+PROG_PREFIX=test_11
 
 CC=clang
 CXX=clang++
 DIR="${HOME}/Github/mcsema"
 OPT=$(shell which opt)
 RUN_SH=../utils/run.sh  
+ENTRY_POINT=start
 loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so 
 
 all:	test
 
 test: 
-	@ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64 	
+	@${RUN_SH} ${PROG_PREFIX} 64 	${ENTRY_POINT} c
 	@${OPT} -load=${loadso} -ssh  -debug ${PROG_PREFIX}.ll  -o /dev/null 2>  log
 	@sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
 	@sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.gold >  ${PROG_PREFIX}.mod
