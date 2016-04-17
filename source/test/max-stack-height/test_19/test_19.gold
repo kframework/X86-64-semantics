@@ -31,18 +31,3 @@ Height[ sub_1 ] : -8
 ==========================================
 Function : mcsema_main
 ==========================================
-----------------------------------
-mcsema_main::driverBlockRaw
-----------------------------------
-  tail call x86_64_sysvcc void @sub_1(%struct.regs* %0) :::  [I] = NULL : Inst :: 8:0:0:0
-Gen :: 8:0:0:0
-
-
-DFA Analysis: 
-mcsema_main::driverBlockRaw
-	Gen :: 8:0:0:0
-	Out :: 8:0:0:0
-mcsema_main::driverBlockRaw
-	Gen :: 8:0:0:0
-	Out :: 8:0:0:0
-Height[ mcsema_main ] : 0
