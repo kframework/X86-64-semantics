@@ -58,7 +58,7 @@
       will not be possible to put a static check to distinguish which stack
       frame the access belongs to.
       - If in the while loop body `%esp` is updated, then it is not statically possible
-      figure out the value of stack height and we get `Bottom` in that scenario
+      to figure out the value of stack height and we get `Bottom` in that scenario
       as well.
     
     - Transfer function: Calculating `Out[bb]` as a function of `Gen[bb]` and `In[bb]`
@@ -73,7 +73,7 @@
         Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
       }
       ```
-      - A `Bottom` in `In` or `Out` prevents deconstruction of stack frames. While out testing we *do NOT* get any cases with `Bottom` appering in `In` or `Out`.
+      - A `Bottom` in `In` or `Out` prevents deconstruction of stack frames. During testing we do __NOT__ get any cases with `Bottom` appering in `In` or `Out`.
       
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png) shows two cfgs corresponding to main (bigger one) and draw routines of [maze
     program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
