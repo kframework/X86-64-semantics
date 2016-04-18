@@ -1,7 +1,62 @@
 #### 21 March 2015
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
-2. 
+2. The underlying algorithm is a forward data flow analysis.
+  - Each program point is associated with following data flow value : {ACTUAL_ESP, ACTUAL_EBP, MAX_DISP_ESP, MAX_DISP_EBP} where
+    - ACTUAL_ESP: Actual displacement of esp. For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  ACTUAL_ESP becomes x - 32 after it.
+    - ACTUAL_EBP: Actual displacement of ebp
+    - MAX_DISP_ESP: For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then MAX_DISP_ESP becomes x-4 after it.
+    - Note that both ACTUAL_ESP and MAX_DISP_ESP need to be separately tracked. 
+      - Problem with having only ACTUAL_ESP
+      ```
+        sub $0x8,%rsp
+        mov -0xc(rsp), %edi //ACTUAL_ESP = -8, but   max stack height = -0xc
+      ```
+      - Problem with having only MAX_DISP_ESP (in negative direction)
+      ```
+        sub $0x8,%rsp
+        sub $0xc,%rsp // MAX_DISP_ESP = -0xc, but  max stack height = -0x14
+      ```
+      - Also just adding the offsets will not do.
+      ```
+        mov -0x8(rsp), %edi
+        sub $0xc, %rsp        // Adding the constants gives max stack height as 0x14, but its actually -0xc. 
+      ```
+  - local dfa within a bb: Calculating Gen[bb]
+    - The following instruction within a bb are identified to affect the rsp
+      - %RSP_val = alloca i64
+      - %78 = load i64* %RSP_val
+      - %79 = add i64 %78, -8
+      - store i64 %81, i64* %RSP_val
+      - %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16)
+      - %254 = extractvalue { i64, i1 } %uadd, 0
+      - tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
+    - The above instructions are tacked to get the above mentioned data flow values Generated in each bb with the start value of rsp/rbp assumed as 0. 
+      - Gen[bb]::ACTUAL_ESP: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
+      - Gen[bb]::MAX_DISP_ESP: max of the offsets of all the instructions within bb.
+  - global dfa
+    - meet operator: for any pair of predecessor blocks PB1 and PB2 of a basic block bb,
+    ```
+      if ( OUT[PB1]::ACTUAL_ESP == OUT[PB2]::ACTUAL_ESP &&  OUT[PB1]::ACTUAL_EBP == OUT[PB2]::ACTUAL_EBP) {
+        In[bb]::ACTUAL_ESP  = OUT[PB1]::ACTUAL_ESP;
+        In[bb]::ACTUAL_EBP  = OUT[PB1]::ACTUAL_EbP;
+        In[bb]::MAX_DISP_ESP  = min ( OUT[PB1]::MAX_DISP_ESP, OUT[PB2]::MAX_DISP_ESP)
+        In[bb]::MAX_DISP_EBP  = min ( OUT[PB1]::MAX_DISP_EBP, OUT[PB2]::MAX_DISP_EBP)
+      } else {
+        In[bb] = bottom
+      }
+    - transfer function
+    ```
+    if(In[bb] == bottom) {
+      Out[bb] =  bottom;
+    } else {
+      Out[bb]::ACTUAL_ESP = In[bb]::ACTUAL_ESP + Gen[bb]::ACTUAL_ESP;
+      Out[bb]::ACTUAL_EBP = In[bb]::ACTUAL_EBP + Gen[bb]::ACTUAL_EBP;
+      Out[bb]::MAX_DISP_ESP = min ( In[bb]::ACTUAL_ESP + Gen[bb]::MAX_DISP_ESP, In[bb]::MAX_DISP_ESP;
+      Out[bb]::MAX_DISP_EBP = min ( In[bb]::ACTUAL_EBP + Gen[bb]::MAX_DISP_EBP, In[bb]::MAX_DISP_EBP;
+    }
+    ```
+
 
 #### 7 March 2016 
 -------------
