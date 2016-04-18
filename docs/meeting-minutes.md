@@ -2,7 +2,7 @@
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
   - It is a forward data flow analysis (dfa).
-  - Each program point is associated with the following data flow value : __{ actual_esp, actual_ebp, max_disp_esp, max_disp_ebp }__ where
+  - Each program point is associated with the following data flow value : _{actual_esp, actual_ebp, max_disp_esp, max_disp_ebp_ } where
     - __actual_esp ( or actual_ebp)__: Actual displacement of rsp (or rbp). For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
     - __max_disp_esp ( or max_disp_ebp)__: offset of the stack access w.r.t rsp (or rbp). For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
     - Note: Both actual_esp and max_disp_esp need to be separately tracked. 
