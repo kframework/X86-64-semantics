@@ -24,9 +24,9 @@
         mov -0x8(rsp), %edi
         sub $0xc, %rsp        ;Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
-  - Local dfa within a bb: Calculating Gen[bb]
-    - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, `In[I]` and after, `Out[I]`.
-      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated within the instructions of a bb. The call instruction in the figure amount to `llvm %esp += 8` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to `%esp` is pop of return address.
+  - Local dfa within a bb: Calculating `Gen[bb]`
+    - Each instruction `I` (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, `In[I]` and after, `Out[I]`.
+      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated from one instruction to other within a bb. The call instruction in the figure results in to ` %esp += 8` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to `%esp` is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
       
       ```
@@ -49,18 +49,32 @@
         In[bb] = Bottom
       }
     ```
+    - The value `Bottom` (no useful information) is for the cases where the `%esp` or `%ebp` is *updated* differently in control flow paths before the join. This is going to solve two scenarios
+
+      - Consider two branches of a conditional statement; in both of them
+      `%esp` is updated differently and then an ancestor variable is accessed .
+      Now if we choose  height = max of `%esp` updates, and use it to deconstruct
+      the global stack to local stack frame, then in case of indirect access it
+      will not be possible to put a static check to distinguish which stack
+      frame the access belongs to.
+      - If in the while loop body `%esp` is updated, then it is not statically possible
+      figure out the value of stack height and we get `Bottom` in that scenario
+      as well.
     
     - Transfer function: Calculating `Out[bb]` as a function of `Gen[bb]` and `In[bb]`
-    ```javascript
-    if(In[bb] == Bottom) {
-      Out[bb] =  Bottom;
-    } else {
-      Out[bb]::actual_esp = In[bb]::actual_esp + Gen[bb]::actual_esp;
-      Out[bb]::actual_ebp = In[bb]::actual_ebp + Gen[bb]::actual_ebp;
-      Out[bb]::max_disp_esp = min ( In[bb]::actual_esp + Gen[bb]::max_disp_esp, In[bb]::max_disp_esp;
-      Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
-    }
-    ```
+    
+      ```javascript
+      if(In[bb] == Bottom) {
+        Out[bb] =  Bottom;
+      } else {
+        Out[bb]::actual_esp = In[bb]::actual_esp + Gen[bb]::actual_esp;
+        Out[bb]::actual_ebp = In[bb]::actual_ebp + Gen[bb]::actual_ebp;
+        Out[bb]::max_disp_esp = min ( In[bb]::actual_esp + Gen[bb]::max_disp_esp, In[bb]::max_disp_esp;
+        Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
+      }
+      ```
+      - A `Bottom` in `In` or `Out` prevents deconstruction of stack frames. While out testing we *do NOT* get any cases with `Bottom` appering in `In` or `Out`.
+      
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png) shows two cfgs corresponding to main (bigger one) and draw routines of [maze
     program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
     with the following interpretation 
@@ -74,6 +88,7 @@
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementally created. 
     - Added 25 test cases including all the demo testcases with which mcsema is tested.
+    - In node of cases, the value `Bottom` is reached.
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_24/cfg.png) shows one of the complex cfgs handled.
 
 
