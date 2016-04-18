@@ -37,8 +37,8 @@
 
   - Global dfa: Calculating `In[bb]` and `Out[bb]` 
     - Meet operator: Calculating `In[bb]` as a function of `Out[pped_bb]`,
-    ```javascript
 
+    ```javascript
       //For any pair of predecessor pred_bb_x and pred_bb_y
       if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
           OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
