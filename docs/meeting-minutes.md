@@ -3,8 +3,8 @@
 1. Implemented a pass to "find the maximum stack height  growth"
   - It is a forward data flow analysis (dfa).
   - Each program point is associated with the following data flow value : {`actual_esp`, `actual_ebp`, `max_disp_esp`, `max_disp_ebp`} where
-    - `actual_esp` ( or `actual_ebp`) =  Actual displacement of %rsp (or %rbp). For example, for a statement `sub $0x20,%rsp`, if %esp value is x before the statement, then  `actual_esp` becomes x - 32 after it.
-    - `max_disp_esp` ( or `max_disp_ebp)` =  Offset of the stack access w.r.t %rsp (or %rbp). For example, for a statement `mov -0x4(%rsp),%esi`, if esp value is x before the statement, then `max_disp_esp` becomes x-4 after it.
+    - `actual_esp` ( or `actual_ebp`) =  Actual displacement of `%rsp` (or `%rbp`). For example, for a statement `sub $0x20,%rsp`, if `%esp` value is `x` before the statement, then  `actual_esp` becomes `x - 32` after it.
+    - `max_disp_esp` ( or `max_disp_ebp)` =  Offset of the stack access w.r.t `%rsp` (or `%rbp`). For example, for a statement `mov -0x4(%rsp),%esi`, if `%esp` value is `x` before the statement, then `max_disp_esp` becomes `x-4` after it.
     - Note: Both `actual_esp` and `max_disp_esp` need to be separately tracked. 
       - Problem with having only `actual_esp`
 
@@ -25,18 +25,18 @@
         sub $0xc, %rsp        ;Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
   - Local dfa within a bb: Calculating Gen[bb]
-    - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, In[I] and after, Out[I] .
-      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated within the instructions of a bb. The call instruction in the figure amount to `llvm %esp += 8 ``` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to esp is pop of return address.
+    - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, `In[I]` and after, `Out[I]`.
+      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated within the instructions of a bb. The call instruction in the figure amount to `llvm %esp += 8` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to `%esp` is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
       
       ```
         Gen[bb]::actual_esp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
         Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
       ```  
-    - In the running example, Gen[bb] = { 8, -64, 0, 0}                                   
+    - In the running example, `Gen[bb] = { 8, -64, 0, 0}`                                   
 
-  - Global dfa: Calculating In[bb] and Out[bb] 
-    - Meet operator: Calculating In[bb] as a function of Out[pped_bb],
+  - Global dfa: Calculating `In[bb]` and `Out[bb]` 
+    - Meet operator: Calculating `In[bb]` as a function of `Out[pped_bb]`,
     ```javascript
       //For any pair of predecessor pred_bb_x and pred_bb_y
       if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
@@ -50,7 +50,7 @@
       }
     ```
     
-    - Transfer function: Calculating Out[bb] as a function of Gen[bb] and In[bb]
+    - Transfer function: Calculating `Out[bb]` as a function of `Gen[bb]` and `In[bb]`
     ```javascript
     if(In[bb] == Bottom) {
       Out[bb] =  Bottom;
