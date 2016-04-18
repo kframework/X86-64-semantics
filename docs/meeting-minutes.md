@@ -81,6 +81,7 @@
 
       ![Node of a cfg](fig_2.png)
   - Max stack height of functopn F
+
     ```javascript
       max ( Out[bb]::max_disp_esp and  Out[bb]::max_disp_esp ) for  all bb.  
     ```
