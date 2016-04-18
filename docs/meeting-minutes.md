@@ -3,38 +3,38 @@
 1. Implemented a pass to "find the maximum stack height  growth"
   - It is a forward data flow analysis (dfa).
   - Each program point is associated with the following data flow value : __{ actual_esp, actual_ebp, max_disp_esp, max_disp_ebp }__ where
-    - actual_esp ( or actual_ebp): Actual displacement of rsp (or rbp). For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
-    - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp (or rbp). For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
-    - Note that both actual_esp and max_disp_esp need to be separately tracked. 
+    - __actual_esp ( or actual_ebp)__: Actual displacement of rsp (or rbp). For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
+    - __max_disp_esp ( or max_disp_ebp)__: offset of the stack access w.r.t rsp (or rbp). For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
+    - Note: Both actual_esp and max_disp_esp need to be separately tracked. 
       - Problem with having only actual_esp
-      ``` c++
+      ```python
         sub $0x8,%rsp
         mov -0xc(rsp), %edi //actual_esp = -8, but   max stack height = -0xc - Ox8
       ```
       - Problem with having only max_disp_esp (in negative direction)
-      ``` c++
+      ```python
         sub $0x8,%rsp
         sub $0xc,%rsp // max_disp_esp = -0xc, but  max stack height = -0x14
-      ```c++
+      ``` 
       - Also just adding the offsets will not do.
-      ```
+      ```python
         mov -0x8(rsp), %edi
         sub $0xc, %rsp        // Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
   - Local dfa within a bb: Calculating Gen[bb]
     - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, In[I] and after, Out[I] .
-      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated within the instructions of a bb.  
-      The call instruction in the figure amount to ```%esp += 8 ``` because it is assumed that the function is well formed with conventional prologue and epilogue
-      and the only change that can happen to esp is pop of return address.
+      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated within the instructions of a bb. The call instruction in the figure amount to ```%esp += 8 ``` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to esp is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
-                                       
-      - Gen[bb]::actual_esp = Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
+      ```python
+      - Gen[bb]::actual_esp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
       - Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
+      ```  
     - In the running example, Gen[bb] = { 8, -64, 0, 0}                                   
 
-  - Global dfa
-    - Meet operator: For any pair of predecessor blocks pred_bb_x and pred_bb_y of bb,
-    ```
+  - Global dfa: Calculating In[bb] and Out[bb] 
+    - Meet operator: Calculating In[bb] as a function of Out[pped_bb],
+    ```python
+      //For any pair of predecessor pred_bb_x and pred_bb_y
       if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
           OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
         In[bb]::actual_esp  = Out[pred_bb_x]::actual_esp;
@@ -46,8 +46,8 @@
       }
     ```
     
-    - Transfer function
-    ```
+    - Transfer function: Calculating Out[bb] as a function of Gen[bb] and In[bb]
+    ```python
     if(In[bb] == Bottom) {
       Out[bb] =  Bottom;
     } else {
@@ -57,17 +57,12 @@
       Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
     }
     ```
-
-    [This example]
-    (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png)
-    shows two cfgs corresponding to main (bigger one) and draw routines of [maze
+    - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png) shows two cfgs corresponding to main (bigger one) and draw routines of [maze
     program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
     with the following interpretation 
 
     ![Node of a cfg](fig_2.png)
-    
-
-  - Max stack height of functopn F:  max ( Out[BB]::max_disp_esp and  Out[BB]::max_disp_esp ) for  all BB.  
+  - Max stack height of functopn F:  max ( Out[bb]::max_disp_esp and  Out[bb]::max_disp_esp ) for  all bb.  
 
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementally created. 
