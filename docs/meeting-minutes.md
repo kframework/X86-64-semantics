@@ -1,15 +1,15 @@
 #### 21 March 2015
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
-  - The underlying algorithm is a forward data flow analysis.
-  - Each program point is associated with the following data flow value : { actual_esp, actual_ebp, max_disp_esp, max_disp_ebp } where
+  - It is a forward data flow analysis (dfa).
+  - Each program point is associated with the following data flow value : __{ actual_esp, actual_ebp, max_disp_esp, max_disp_ebp }__ where
     - actual_esp ( or actual_ebp): Actual displacement of rsp (or rbp). For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
     - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp (or rbp). For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
     - Note that both actual_esp and max_disp_esp need to be separately tracked. 
       - Problem with having only actual_esp
       ```
         sub $0x8,%rsp
-        mov -0xc(rsp), %edi //actual_esp = -8, but   max stack height = -0xc
+        mov -0xc(rsp), %edi //actual_esp = -8, but   max stack height = -0xc - Ox8
       ```
       - Problem with having only max_disp_esp (in negative direction)
       ```
