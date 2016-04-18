@@ -31,9 +31,10 @@
     In the running example, Gen[bb] = { -8, -64, 0, 0}                                   
 
   - Global dfa
-    - Meet operator: For any pair of predecessor blocks pred_bb_x and pred_bb_y of a basic block bb,
+    - Meet operator: For any pair of predecessor blocks pred_bb_x and pred_bb_y of bb,
     ```
-      if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
+      if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
+          OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
         In[bb]::actual_esp  = Out[pred_bb_x]::actual_esp;
         In[bb]::actual_ebp  = Out[pred_bb_x]::actual_ebp;
         In[bb]::max_disp_esp  = min ( OUT[pred_bb_x]::max_disp_esp, OUT[pred_bb_y]::max_disp_esp)
@@ -45,8 +46,8 @@
     
     - Transfer function
     ```
-    if(In[bb] == bottom) {
-      Out[bb] =  bottom;
+    if(In[bb] == Bottom) {
+      Out[bb] =  Bottom;
     } else {
       Out[bb]::actual_esp = In[bb]::actual_esp + Gen[bb]::actual_esp;
       Out[bb]::actual_ebp = In[bb]::actual_ebp + Gen[bb]::actual_ebp;
@@ -54,7 +55,13 @@
       Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
     }
     ```
-  - max stack height of functopn F = max ( Out[BB]::max_disp_esp and  Out[BB]::max_disp_esp ) for  all BB.  
+
+    [This example]
+    (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png)
+    shows two cfgs corresponding to main (bigger one) and draw routines of [maze
+    program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
+
+  - Max stack height of functopn F:  max ( Out[BB]::max_disp_esp and  Out[BB]::max_disp_esp ) for  all BB.  
 
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementatlly created. 

@@ -1,0 +1,19 @@
+digraph graphname { 
+Node_0  [ shape="record" label="{In[I]::  0,0,0,0|     I  ::  %RSP_val = alloca i64       |       Out[I]:: 0,0,0,0}"]
+Node_1  [ shape="record" label="{In[I]::  0,0,0,0|     I ::  %1 = load i64* %RSP_val      |     Out[I]:: 0,0,0,0}"]
+Node_2  [ shape="record" label="{In[I]::  0,0,0,0|     I ::  %2 = add i64 %1, -32          |        Out[I]:: 0,-32,0,0}"]
+Node_3  [ shape="record" label="{In[I]::  0,-32,0,0|   I ::  store i64 %2, i64* %RSP_val  | Out[I]:: -32,-32,0,0}"]
+Node_4  [ shape="record" label="{In[I]::  -32,-32,0,0| I ::  %3 = add i64 %1, -28          | Out[I]:: -32, -32,0,0}"]
+Node_41  [ shape="record" label="{In[I]::  -32,-32,0,0| I ::  %4 = add i64 %1, -40          | Out[I]:: -32, -40,0,0}"]
+Node_5  [ shape="record" label="{In[I]::  -32,-40,0,0| I ::  %5 = load i64* %RSP_val      |     Out[I]:: -32,-40,0,0}"]
+Node_6  [ shape="record" label="{In[I]::  -32,-32,0,0| I ::  %6 = add i64 %4, -32          | Out[I]:: -32, -64,0,0}"]
+Node_7  [ shape="record" label="{In[I]::  -32,-64,0,0| I ::  store i64 %6, i64* %RSP_val  | Out[I]:: -64,-64,0,0}"]
+Node_8  [ shape="record" label="{In[I]::  -64,-64,0,0| I ::  call void @sub_0(%struct.regs* %0) | Out[I]:: -64 + 8, -64,0,0}"]
+Node_9  [ shape="record" label="{In[I]::  -56,-64,0,0| I ::  %uadd = tail call \{ i64, i1 \} @llvm.uadd.with.overflow.i64(i64 %5, i64 64)    | Out[I]:: -56,-64,0,0}"]
+Node_10 [ shape="record" label="{In[I]::  -56,-64,0,0| I ::  %7 = extractvalue \{ i64, i1 \} %uadd, 0    | Out[I]:: -56,-64,0,0}"]
+Node_11 [ shape="record" label="{In[I]::  -56,-64,0,0| I ::  store i64 %7, i64* %RSP_val   | Out[I]:: 8,-64,0,0}"]
+
+
+Node_0 -> Node_1 -> Node_2 -> Node_3 -> Node_4 -> Node_41 ->  Node_5 -> Node_6 -> Node_7 -> Node_8 -> Node_9 -> Node_10 -> Node_11
+
+}
