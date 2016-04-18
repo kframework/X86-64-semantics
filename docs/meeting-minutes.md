@@ -2,9 +2,9 @@
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
   - The underlying algorithm is a forward data flow analysis.
-  - Each program point is associated with following data flow value : { actual_esp, actual_ebp, max_disp_esp, max_disp_ebp } where
-    - actual_esp ( or actual_ebp): Actual displacement of esp. For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
-    - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp. For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
+  - Each program point is associated with the following data flow value : { actual_esp, actual_ebp, max_disp_esp, max_disp_ebp } where
+    - actual_esp ( or actual_ebp): Actual displacement of rsp (or rbp). For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
+    - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp (or rbp). For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
     - Note that both actual_esp and max_disp_esp need to be separately tracked. 
       - Problem with having only actual_esp
       ```
@@ -22,28 +22,24 @@
         sub $0xc, %rsp        // Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
   - local dfa within a bb: Calculating Gen[bb]
-    - The following instruction within a bb are identified to affect the rsp
-      - %RSP_val = alloca i64
-      - %78 = load i64* %RSP_val
-      - %79 = add i64 %78, -8
-      - store i64 %81, i64* %RSP_val
-      - %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16)
-      - %254 = extractvalue { i64, i1 } %uadd, 0
-      - tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
-    - The above instructions are tacked to get the above mentioned data flow values Generated in each bb with the start value of rsp/rbp assumed as 0. 
+    - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, In[I] and after, Out[I] .
+      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagted within the instructions of a bb.  
+    - After the data value propagation, Gen[bb] is computed as follows:
       - Gen[bb]::actual_esp: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
-      - Gen[bb]::max_disp_esp: max of the offsets of all the instructions within bb.
+      - Gen[bb]::max_disp_esp: max (Out[I]::max_disp_esp) for all I in bb.
+
+    In the running example, Gen[bb] = { -8, -64, 0, 0}                                   
 
   - Global dfa
-    - Meet operator: for any pair of predecessor blocks PB1 and PB2 of a basic block bb,
+    - Meet operator: For any pair of predecessor blocks pred_bb_x and pred_bb_y of a basic block bb,
     ```
-      if ( OUT[PB1]::actual_esp == OUT[PB2]::actual_esp &&  OUT[PB1]::actual_ebp == OUT[PB2]::actual_ebp) {
-        In[bb]::actual_esp  = OUT[PB1]::actual_esp;
-        In[bb]::actual_ebp  = OUT[PB1]::actual_ebp;
-        In[bb]::max_disp_esp  = min ( OUT[PB1]::max_disp_esp, OUT[PB2]::max_disp_esp)
-        In[bb]::max_disp_ebp  = min ( OUT[PB1]::max_disp_ebp, OUT[PB2]::max_disp_ebp)
+      if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
+        In[bb]::actual_esp  = Out[pred_bb_x]::actual_esp;
+        In[bb]::actual_ebp  = Out[pred_bb_x]::actual_ebp;
+        In[bb]::max_disp_esp  = min ( OUT[pred_bb_x]::max_disp_esp, OUT[pred_bb_y]::max_disp_esp)
+        In[bb]::max_disp_ebp  = min ( OUT[pred_bb_x]::max_disp_ebp, OUT[pred_bb_y]::max_disp_ebp)
       } else {
-        In[bb] = bottom
+        In[bb] = Bottom
       }
     ```
     
