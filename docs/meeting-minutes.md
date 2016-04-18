@@ -1,4 +1,10 @@
+#### 21 March 2015
+---------------------
+1. Implemented a pass to "find the maximum stack height  growth"
+2. 
+
 #### 7 March 2016 
+-------------
 * variable recovery algorithm 
   1. Deconstruct the monolithic stack that mcsema uses into local stack for each procedure.
     - Use a data flow analysis to identify the max stack height of each procedure. Its OK to have the 
