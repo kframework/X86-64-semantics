@@ -17,7 +17,7 @@
         sub $0xc,%rsp // max_disp_esp = -0xc, but  max stack height = -0x14
       ``` 
       - Also just adding the offsets will not do.
-      ```c-objdump
+      ```llvm
         mov -0x8(rsp), %edi
         sub $0xc, %rsp        // Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
