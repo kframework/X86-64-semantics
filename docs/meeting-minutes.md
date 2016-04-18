@@ -3,18 +3,18 @@
 1. Implemented a pass to "find the maximum stack height  growth"
   - The underlying algorithm is a forward data flow analysis.
   - Each program point is associated with following data flow value : { actual_esp, actual_ebp, max_disp_esp, max_disp_ebp } where
-    - actual_esp ( or actual_ebp): Actual displacement of esp. For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  ACTUAL_ESP becomes x - 32 after it.
-    - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp. For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then MAX_DISP_ESP becomes x-4 after it.
+    - actual_esp ( or actual_ebp): Actual displacement of esp. For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  actual_esp becomes x - 32 after it.
+    - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp. For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
     - Note that both actual_esp and max_disp_esp need to be separately tracked. 
       - Problem with having only actual_esp
       ```
         sub $0x8,%rsp
-        mov -0xc(rsp), %edi //ACTUAL_ESP = -8, but   max stack height = -0xc
+        mov -0xc(rsp), %edi //actual_esp = -8, but   max stack height = -0xc
       ```
       - Problem with having only max_disp_esp (in negative direction)
       ```
         sub $0x8,%rsp
-        sub $0xc,%rsp // MAX_DISP_ESP = -0xc, but  max stack height = -0x14
+        sub $0xc,%rsp // max_disp_esp = -0xc, but  max stack height = -0x14
       ```
       - Also just adding the offsets will not do.
       ```
@@ -34,31 +34,31 @@
       - Gen[bb]::actual_esp: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
       - Gen[bb]::max_disp_esp: max of the offsets of all the instructions within bb.
 
-  - global dfa
-    - meet operator: for any pair of predecessor blocks PB1 and PB2 of a basic block bb,
+  - Global dfa
+    - Meet operator: for any pair of predecessor blocks PB1 and PB2 of a basic block bb,
     ```
-      if ( OUT[PB1]::ACTUAL_ESP == OUT[PB2]::ACTUAL_ESP &&  OUT[PB1]::ACTUAL_EBP == OUT[PB2]::ACTUAL_EBP) {
-        In[bb]::ACTUAL_ESP  = OUT[PB1]::ACTUAL_ESP;
-        In[bb]::ACTUAL_EBP  = OUT[PB1]::ACTUAL_EbP;
-        In[bb]::MAX_DISP_ESP  = min ( OUT[PB1]::MAX_DISP_ESP, OUT[PB2]::MAX_DISP_ESP)
-        In[bb]::MAX_DISP_EBP  = min ( OUT[PB1]::MAX_DISP_EBP, OUT[PB2]::MAX_DISP_EBP)
+      if ( OUT[PB1]::actual_esp == OUT[PB2]::actual_esp &&  OUT[PB1]::actual_ebp == OUT[PB2]::actual_ebp) {
+        In[bb]::actual_esp  = OUT[PB1]::actual_esp;
+        In[bb]::actual_ebp  = OUT[PB1]::actual_ebp;
+        In[bb]::max_disp_esp  = min ( OUT[PB1]::max_disp_esp, OUT[PB2]::max_disp_esp)
+        In[bb]::max_disp_ebp  = min ( OUT[PB1]::max_disp_ebp, OUT[PB2]::max_disp_ebp)
       } else {
         In[bb] = bottom
       }
     ```
     
-    - transfer function
+    - Transfer function
     ```
     if(In[bb] == bottom) {
       Out[bb] =  bottom;
     } else {
-      Out[bb]::ACTUAL_ESP = In[bb]::ACTUAL_ESP + Gen[bb]::ACTUAL_ESP;
-      Out[bb]::ACTUAL_EBP = In[bb]::ACTUAL_EBP + Gen[bb]::ACTUAL_EBP;
-      Out[bb]::MAX_DISP_ESP = min ( In[bb]::ACTUAL_ESP + Gen[bb]::MAX_DISP_ESP, In[bb]::MAX_DISP_ESP;
-      Out[bb]::MAX_DISP_EBP = min ( In[bb]::ACTUAL_EBP + Gen[bb]::MAX_DISP_EBP, In[bb]::MAX_DISP_EBP;
+      Out[bb]::actual_esp = In[bb]::actual_esp + Gen[bb]::actual_esp;
+      Out[bb]::actual_ebp = In[bb]::actual_ebp + Gen[bb]::actual_ebp;
+      Out[bb]::max_disp_esp = min ( In[bb]::actual_esp + Gen[bb]::max_disp_esp, In[bb]::max_disp_esp;
+      Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
     }
     ```
-  - max stack height of functopn F = max ( Out[BB]::MAX_DISP_ESP and  Out[BB]::MAX_DISP_ESP ) for  all BB.  
+  - max stack height of functopn F = max ( Out[BB]::max_disp_esp and  Out[BB]::max_disp_esp ) for  all BB.  
 
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementatlly created. 
