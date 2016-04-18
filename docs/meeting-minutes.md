@@ -24,6 +24,8 @@
   - local dfa within a bb: Calculating Gen[bb]
     - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, In[I] and after, Out[I] .
       [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagted within the instructions of a bb.  
+      The call instruction in the figure amount to ```%esp += 8 ``` because it is assumed that the fnction is well formed with conventional prolouge and epiloue
+      and the only change that can happeen to esp is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
       - Gen[bb]::actual_esp: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
       - Gen[bb]::max_disp_esp: max (Out[I]::max_disp_esp) for all I in bb.
@@ -69,6 +71,8 @@
 
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementatlly created. 
+    - Added 25 test cases including all the one with with mcsema is tested.
+    - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_24/cfg.png) shows one of the complex cfgs handled.
 
 
 #### 7 March 2016 
