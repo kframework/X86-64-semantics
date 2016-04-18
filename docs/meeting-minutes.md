@@ -77,7 +77,7 @@
       
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png) shows two cfgs corresponding to main (bigger one) and draw routines of [maze
     program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
-    with the following interpretation ( Note: __The reported  `In[bb]`, `Gen[bb]` and `Out[bb]` are fixedpoint values__ )  
+    with the following interpretation ( Note: _The reported  `In[bb]`, `Gen[bb]` and `Out[bb]` are fixedpoint values_ )  
 
       ![Node of a cfg](fig_2.png)
   - Max stack height of function F
