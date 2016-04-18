@@ -64,13 +64,15 @@
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png) shows two cfgs corresponding to main (bigger one) and draw routines of [maze
     program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
     with the following interpretation 
-
-    ![Node of a cfg](fig_2.png)
-  - Max stack height of functopn F:  max ( Out[bb]::max_disp_esp and  Out[bb]::max_disp_esp ) for  all bb.  
+      ![Node of a cfg](fig_2.png)
+  - Max stack height of functopn F
+    ```javascript
+      max ( Out[bb]::max_disp_esp and  Out[bb]::max_disp_esp ) for  all bb.  
+    ```
 
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementally created. 
-    - Added 25 test cases including all the one with with mcsema is tested.
+    - Added 25 test cases including all the demo testcases with which mcsema is tested.
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_24/cfg.png) shows one of the complex cfgs handled.
 
 
