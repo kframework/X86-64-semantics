@@ -1,7 +1,11 @@
 # Table of Contents
 
-* [Build Instructions & Usage Model](docs/build.md)
-* [Variable Recovery] (docs/variable-recovery.md)
-* [Basics: Binary Decompilation] (docs/basics-of-binary-decompilation.md)  
+* Variable Recovery
+  - Problem: To extract variable and type information from x86 binary to llvm ir.
+  - [Progress](docs/variable-recovery.md)
+  - [Build Instructions & Usage Model](docs/build.md)
+  - [State-of-the-art Survey] (docs/related-work.md)
+* Related Topics
+  - [Basics: Binary Decompilation] (docs/basics-of-binary-decompilation.md)  
 
 
