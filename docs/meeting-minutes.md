@@ -1,7 +1,7 @@
 #### 21 March 2015
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
-  - It is a forward data flow analysis (dfa).
+  - A forward data flow analysis (dfa).
   - Each program point is associated with the following data flow value : {`actual_esp`, `actual_ebp`, `max_disp_esp`, `max_disp_ebp`} where
     - `actual_esp` ( or `actual_ebp`) =  Actual displacement of `%rsp` (or `%rbp`). For example, for a statement `sub $0x20,%rsp`, if `%esp` value is `x` before the statement, then  `actual_esp` becomes `x - 32` after it.
     - `max_disp_esp` ( or `max_disp_ebp)` =  Offset of the stack access w.r.t `%rsp` (or `%rbp`). For example, for a statement `mov -0x4(%rsp),%esi`, if `%esp` value is `x` before the statement, then `max_disp_esp` becomes `x-4` after it.
@@ -38,6 +38,7 @@
   - Global dfa: Calculating `In[bb]` and `Out[bb]` 
     - Meet operator: Calculating `In[bb]` as a function of `Out[pped_bb]`,
     ```javascript
+
       //For any pair of predecessor pred_bb_x and pred_bb_y
       if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
           OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
