@@ -1,18 +1,17 @@
 #### 21 March 2015
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
-2. The underlying algorithm is a forward data flow analysis.
-  - Each program point is associated with following data flow value : {ACTUAL_ESP, ACTUAL_EBP, MAX_DISP_ESP, MAX_DISP_EBP} where
-    - ACTUAL_ESP: Actual displacement of esp. For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  ACTUAL_ESP becomes x - 32 after it.
-    - ACTUAL_EBP: Actual displacement of ebp
-    - MAX_DISP_ESP: For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then MAX_DISP_ESP becomes x-4 after it.
-    - Note that both ACTUAL_ESP and MAX_DISP_ESP need to be separately tracked. 
-      - Problem with having only ACTUAL_ESP
+  - The underlying algorithm is a forward data flow analysis.
+  - Each program point is associated with following data flow value : { actual_esp, actual_ebp, max_disp_esp, max_disp_ebp } where
+    - actual_esp ( or actual_ebp): Actual displacement of esp. For example, for a statement ```sub $0x20,%rsp```, if esp value is x before the statement, then  ACTUAL_ESP becomes x - 32 after it.
+    - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp. For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then MAX_DISP_ESP becomes x-4 after it.
+    - Note that both actual_esp and max_disp_esp need to be separately tracked. 
+      - Problem with having only actual_esp
       ```
         sub $0x8,%rsp
         mov -0xc(rsp), %edi //ACTUAL_ESP = -8, but   max stack height = -0xc
       ```
-      - Problem with having only MAX_DISP_ESP (in negative direction)
+      - Problem with having only max_disp_esp (in negative direction)
       ```
         sub $0x8,%rsp
         sub $0xc,%rsp // MAX_DISP_ESP = -0xc, but  max stack height = -0x14
@@ -32,8 +31,9 @@
       - %254 = extractvalue { i64, i1 } %uadd, 0
       - tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
     - The above instructions are tacked to get the above mentioned data flow values Generated in each bb with the start value of rsp/rbp assumed as 0. 
-      - Gen[bb]::ACTUAL_ESP: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
-      - Gen[bb]::MAX_DISP_ESP: max of the offsets of all the instructions within bb.
+      - Gen[bb]::actual_esp: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
+      - Gen[bb]::max_disp_esp: max of the offsets of all the instructions within bb.
+
   - global dfa
     - meet operator: for any pair of predecessor blocks PB1 and PB2 of a basic block bb,
     ```
