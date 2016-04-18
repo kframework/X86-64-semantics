@@ -21,16 +21,15 @@
         mov -0x8(rsp), %edi
         sub $0xc, %rsp        // Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
-  - local dfa within a bb: Calculating Gen[bb]
+  - Local dfa within a bb: Calculating Gen[bb]
     - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, In[I] and after, Out[I] .
       [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated within the instructions of a bb.  
       The call instruction in the figure amount to ```%esp += 8 ``` because it is assumed that the function is well formed with conventional prologue and epilogue
       and the only change that can happen to esp is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
-      - Gen[bb]::actual_esp: Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
-      - Gen[bb]::max_disp_esp: max (Out[I]::max_disp_esp) for all I in bb.
-
-    In the running example, Gen[bb] = { -8, -64, 0, 0}                                   
+      > Gen[bb]::actual_esp = Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
+      > Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
+    - In the running example, Gen[bb] = { 8, -64, 0, 0}                                   
 
   - Global dfa
     - Meet operator: For any pair of predecessor blocks pred_bb_x and pred_bb_y of bb,
