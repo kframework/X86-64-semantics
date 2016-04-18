@@ -7,15 +7,15 @@
     - max_disp_esp ( or max_disp_ebp): offset of the stack access w.r.t rsp (or rbp). For example, for a statement ```mov -0x4(%rsp),%esi```, if esp value is x before the statement, then max_disp_esp becomes x-4 after it.
     - Note that both actual_esp and max_disp_esp need to be separately tracked. 
       - Problem with having only actual_esp
-      ```
+      ``` c++
         sub $0x8,%rsp
         mov -0xc(rsp), %edi //actual_esp = -8, but   max stack height = -0xc - Ox8
       ```
       - Problem with having only max_disp_esp (in negative direction)
-      ```
+      ``` c++
         sub $0x8,%rsp
         sub $0xc,%rsp // max_disp_esp = -0xc, but  max stack height = -0x14
-      ```
+      ```c++
       - Also just adding the offsets will not do.
       ```
         mov -0x8(rsp), %edi
@@ -27,8 +27,9 @@
       The call instruction in the figure amount to ```%esp += 8 ``` because it is assumed that the function is well formed with conventional prologue and epilogue
       and the only change that can happen to esp is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
-      > Gen[bb]::actual_esp = Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
-      > Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
+                                       
+      - Gen[bb]::actual_esp = Actual displacement of esp across the bb with value of rsp/rbp assumed as 0.
+      - Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
     - In the running example, Gen[bb] = { 8, -64, 0, 0}                                   
 
   - Global dfa
