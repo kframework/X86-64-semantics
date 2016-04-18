@@ -1,18 +1,16 @@
-### variable recovery algorithm 
-Following are the steps:
-
-1. Deconstruct the monolithic stack that mcsema uses into local stack for each procedure.
- - Use a data flow analysis to identify the max stack height of each procedure. Its OK to have the 
+#### 7 March 2016 
+* variable recovery algorithm 
+  1. Deconstruct the monolithic stack that mcsema uses into local stack for each procedure.
+    - Use a data flow analysis to identify the max stack height of each procedure. Its OK to have the 
  a variable expresion for max stack height. 
- - Allocate an array of "max stack height" right at the beginnig of each procedure.
-2. For each procedure, convert the accesses on that monolithic stack into accesses on the local stack.
-3. For each procedure, identify the abstract locations on its local stack corresponding to recovered variable.
-4. Promote the abstract locations into variables. 
+    - Allocate an array of "max stack height" right at the beginnig of each procedure.
+  2. For each procedure, convert the accesses on that monolithic stack into accesses on the local stack.
+  3. For each procedure, identify the abstract locations on its local stack corresponding to recovered variable.
+  4. Promote the abstract locations into variables. 
 
 
-### Step 1-2
+##### Step 1-2
 Consider the source code,
-
 ```
 int main(){ 
   int z; 
@@ -61,7 +59,7 @@ to each procedure.
 
 ```
 int main(struct regcntx r){ 
-  int LOCAL_FRAME[MAX_MAIN];
+  int LOCAL\_FRAME[MAX\_MAIN];
   
   LOCAL_FRAME[0] = 20; //Outgoing argument 
   LOCAL_FRAME[1] = 10; //Outgoing argument 
@@ -85,10 +83,10 @@ int rewritten_foo(int arg1, int arg2) {
 
 ```
 
-### Challenges
+###### Challenges
 ![image](Figs/2.png)
 
-### Step 3-4
-### Symbol promotion
+##### Step 3-4
+##### Symbol promotion
 
 ![image](Figs/3.png)
