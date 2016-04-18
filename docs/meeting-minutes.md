@@ -45,6 +45,7 @@
       } else {
         In[bb] = bottom
       }
+
     - transfer function
     ```
     if(In[bb] == bottom) {
@@ -56,6 +57,10 @@
       Out[bb]::MAX_DISP_EBP = min ( In[bb]::ACTUAL_EBP + Gen[bb]::MAX_DISP_EBP, In[bb]::MAX_DISP_EBP;
     }
     ```
+  - max stack height of functopn F = max ( Out[BB]::MAX_DISP_ESP and  Out[BB]::MAX_DISP_ESP ) for  all BB.  
+
+2. Tested the implementation.
+  - A [testsuite] (../source/test/max-stack-height/) is incrementatlly created. 
 
 
 #### 7 March 2016 
