@@ -14,12 +14,12 @@
       - Problem with having only ```max_disp_esp``` (in negative direction)
       ```nasm
         sub $0x8,%rsp
-        sub $0xc,%rsp // max_disp_esp = -0xc, but  max stack height = -0x14
+        sub $0xc,%rsp  #max_disp_esp = -0xc, but  max stack height = -0x14
       ``` 
       - Also just adding the offsets will not do.
       ```llvm
         mov -0x8(rsp), %edi
-        sub $0xc, %rsp        // Adding the constants gives max stack height as 0x14, but its actually -0xc. 
+        sub $0xc, %rsp        ;Adding the constants gives max stack height as 0x14, but its actually -0xc. 
       ```
   - Local dfa within a bb: Calculating Gen[bb]
     - Each instruction I (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, In[I] and after, Out[I] .
