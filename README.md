@@ -2,7 +2,7 @@
 
 * Variable Recovery
   - Problem: To extract variable and type information from x86 binary to llvm ir.
-  - [Progress](docs/variable-recovery.md)
+  - [Progress](docs/meeting-minutes.md)
   - [Build Instructions & Usage Model](docs/build.md)
   - [State-of-the-art Survey] (docs/related-work.md)
 * Related Topics
