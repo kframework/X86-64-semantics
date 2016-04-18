@@ -83,7 +83,7 @@
   - Max stack height of functopn F
 
     ```javascript
-      max ( Out[bb]::max_disp_esp and  Out[bb]::max_disp_esp ) for  all bb.  
+      max ( Out[bb]::max_disp_esp, Out[bb]::max_disp_esp ) for  all bb.  
     ```
 
 2. Tested the implementation.
