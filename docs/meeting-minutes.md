@@ -81,6 +81,7 @@
     with the following interpretation ( Note: _The reported  `In[bb]`, `Gen[bb]` and `Out[bb]` are fixedpoint values_ )  
 
       ![Node of a cfg](fig_2.png)
+
   - Max stack height of function F
 
     ```javascript
