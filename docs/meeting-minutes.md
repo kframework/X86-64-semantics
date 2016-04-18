@@ -77,10 +77,10 @@
       
     - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/cfg.png) shows two cfgs corresponding to main (bigger one) and draw routines of [maze
     program](https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_5/test_5.c)
-    with the following interpretation 
+    with the following interpretation ( Note: __The reported  `In[bb]`, `Gen[bb]` and `Out[bb]` are fixedpoint values. __ )  
 
       ![Node of a cfg](fig_2.png)
-  - Max stack height of functopn F
+  - Max stack height of function F
 
     ```javascript
       max ( Out[bb]::max_disp_esp, Out[bb]::max_disp_esp ) for  all bb.  
@@ -89,8 +89,8 @@
 2. Tested the implementation.
   - A [testsuite] (../source/test/max-stack-height/) is incrementally created. 
     - Added 25 test cases including all the demo testcases with which mcsema is tested.
-    - In node of cases, the value `Bottom` is reached.
-    - [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_24/cfg.png) shows one of the complex cfgs handled.
+    - In **none** of cases, the value `Bottom` is reached.
+    - Each test case folder contains a png file, showing the cfg and associaed fixed point values of `In`, `Gen` and `Out`. [This example] (https://github.com/sdasgup3/binary-decompilation/blob/master/source/test/max-stack-height/test_24/cfg.png) shows one of the complex cfgs handled.
 
 
 #### 7 March 2016 
