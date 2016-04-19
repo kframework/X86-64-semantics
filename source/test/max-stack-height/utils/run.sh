@@ -6,6 +6,8 @@ LLVM_PATH="${DIR}/build/llvm-3.5/bin/"
 STD_DEFS="${DIR}/mc-sema/std_defs/std_defs.txt"
 CC=clang
 CXX=clang++
+#CC_OPTIONS=-fomit-frame-pointer
+CC_OPTIONS=
 
 
 C=$(which gcc)
@@ -34,7 +36,7 @@ fi
 if [ ${ASM_FILE} == "asm" ] ; then
   nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
 else
-  ${CC}  -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
+  ${CC} ${CC_OPTIONS} -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
 fi
 
 objdump -d ${BIN}.o &> ${BIN}.objdump
