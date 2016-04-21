@@ -1,6 +1,6 @@
 #### 21 April 2015
 ---------------------
-1. Testing the previous implementation with clang, gcc, icc generated binary
+1. Testing the previous implementation with icc (clang and gcc are working fine) generated binary
   - icc generated binary gives error with external calls
 2. Started on the implementation on converting accesses on global mcsema stack to 
   per function stack accesses.
