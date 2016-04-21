@@ -1,15 +1,11 @@
-.PHONY: all
-
 TESTS=$(shell find . -type d -name "test_*" | sort -V)
+.PHONY:	${TESTS}  all clean
 
-all: test
+all: ${TESTS}
 
-test:
-	@for test in ${TESTS}; do \
-		make -C $${test} test; \
-	done
+${TESTS}:
+	make -C $@
 
-.PHONY: clean
 clean:
 	@for test in ${TESTS}; do \
 		make -C $${test} clean; \
