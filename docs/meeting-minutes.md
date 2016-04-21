@@ -1,3 +1,11 @@
+#### 21 April 2015
+---------------------
+1. Testing the previous implementation with clang, gcc, icc generated binary
+  - icc generated binary gives error with external calls
+2. Started on the implementation on converting accesses on global mcsema stack to 
+  per function stack.
+
+
 #### 14 April 2015
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
