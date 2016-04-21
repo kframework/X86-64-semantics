@@ -36,7 +36,7 @@ fi
 if [ ${ASM_FILE} == "asm" ] ; then
   nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
 else
-  ${CC} ${CC_OPTIONS} -c ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
+  ${COMPILER} ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
 fi
 
 objdump -d ${BIN}.o &> ${BIN}.objdump

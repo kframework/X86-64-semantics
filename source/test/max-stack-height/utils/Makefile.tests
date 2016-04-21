@@ -3,6 +3,7 @@ RUN_SH=../utils/run.sh
 loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so 
 GCC=$(shell which gcc)
 CLANG=$(shell which clang)
+ICC=$(shell which icc)
 
 all:   clang gcc
 
@@ -14,6 +15,11 @@ gcc:
 clang:
 	@echo " using clang"
 	@COMPILER=${CLANG} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
+	@${MAKE} run_pass
+
+icc:
+	@echo " using icc"
+	@COMPILER=${ICC} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
 	@${MAKE} run_pass
 
 run_pass:

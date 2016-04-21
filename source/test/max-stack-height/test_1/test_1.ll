@@ -2,12 +2,12 @@
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-%0 = type <{ [3 x i8] }>
+%0 = type <{ [19 x i8] }>
 %struct.regs = type <{ i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i1, i1, i1, i1, i1, i1, i1, [8 x x86_fp80], i1, i1, i3, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i2, i2, i1, i1, i1, i1, i1, i1, [8 x i8], i16, i64, i16, i64, i11, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i64, i64 }>
 
-@data_0x9a = internal constant %0 <{ [3 x i8] c"%d\00" }>, align 64
+@data_0x400638 = internal constant %0 <{ [19 x i8] c"\01\00\02\00\00\00\00\00\00\00\00\00\00\00\00\00%d\00" }>, align 64
 
-define internal x86_64_sysvcc void @sub_70(%struct.regs*) {
+define internal x86_64_sysvcc void @sub_400520(%struct.regs*) {
 entry:
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
@@ -475,7 +475,7 @@ entry:
   store i64 %169, i64* %STACK_BASE, align 1, !mcsema_real_eip !8
   %170 = load i64* %STACK_LIMIT_val, !mcsema_real_eip !8
   store i64 %170, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !8
-  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0), !mcsema_real_eip !8
+  tail call x86_64_sysvcc void @sub_4004b0(%struct.regs* %0), !mcsema_real_eip !8
   %171 = load i64* %RAX, !mcsema_real_eip !8
   store i64 %171, i64* %RAX_val, !mcsema_real_eip !8
   %172 = load i64* %RBX, !mcsema_real_eip !8
@@ -803,7 +803,7 @@ entry:
   ret void, !mcsema_real_eip !13
 }
 
-define internal x86_64_sysvcc void @sub_0(%struct.regs*) {
+define internal x86_64_sysvcc void @sub_4004b0(%struct.regs*) {
 entry:
   %R15_val = alloca i64, !mcsema_real_eip !14
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !14
@@ -1118,7 +1118,7 @@ entry:
   %93 = icmp slt i64 %92, 0
   store i1 %93, i1* %OF_val, !mcsema_real_eip !16
   store i64 %81, i64* %RSP_val, !mcsema_real_eip !16
-  store i64 ptrtoint (%0* @data_0x9a to i64), i64* %RAX_val, !mcsema_real_eip !17
+  store i64 add (i64 ptrtoint (%0* @data_0x400638 to i64), i64 16), i64* %RAX_val, !mcsema_real_eip !17
   %94 = load i64* %RBP_val, !mcsema_real_eip !18
   %95 = add i64 %94, -4, !mcsema_real_eip !18
   %96 = inttoptr i64 %95 to i64*, !mcsema_real_eip !18
@@ -1229,9 +1229,9 @@ entry:
   %179 = load i32* %178, !mcsema_real_eip !29
   %180 = zext i32 %179 to i64, !mcsema_real_eip !29
   store i64 %180, i64* %RAX_val, !mcsema_real_eip !29
-  br i1 %174, label %block_0x4e, label %block_0x3e, !mcsema_real_eip !28
+  br i1 %174, label %block_0x4004fe, label %block_0x4004ee, !mcsema_real_eip !28
 
-block_0x4e:                                       ; preds = %entry
+block_0x4004fe:                                   ; preds = %entry
   %181 = add i32 %179, -10
   %182 = xor i32 %181, %179, !mcsema_real_eip !30
   %183 = and i32 %182, 16, !mcsema_real_eip !30
@@ -1436,7 +1436,7 @@ block_0x4e:                                       ; preds = %entry
   store i64 %292, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !35
   ret void, !mcsema_real_eip !35
 
-block_0x3e:                                       ; preds = %entry
+block_0x4004ee:                                   ; preds = %entry
   %uadd140 = tail call { i32, i1 } @llvm.uadd.with.overflow.i32(i32 %179, i32 10)
   %293 = extractvalue { i32, i1 } %uadd140, 0
   %294 = xor i32 %293, %179, !mcsema_real_eip !36
@@ -1654,7 +1654,7 @@ declare i8 @llvm.ctpop.i8(i8) #1
 
 define void @mcsema_main(%struct.regs*) {
 driverBlockRaw:
-  tail call x86_64_sysvcc void @sub_70(%struct.regs* %0)
+  tail call x86_64_sysvcc void @sub_400520(%struct.regs* %0)
   ret void
 }
 
@@ -1671,39 +1671,39 @@ attributes #1 = { nounwind readnone }
 
 !0 = metadata !{i32 1, metadata !"Debug Info Version", i32 1}
 !1 = metadata !{i32 1, metadata !"Dwarf Version", i32 3}
-!2 = metadata !{i64 112, [12 x i8] c"\09pushq\09%rbp\00"}
-!3 = metadata !{i64 113, [17 x i8] c"\09movq\09%rsp, %rbp\00"}
-!4 = metadata !{i64 116, [16 x i8] c"\09subq\09$16, %rsp\00"}
-!5 = metadata !{i64 120, [16 x i8] c"\09movl\09$10, %edi\00"}
-!6 = metadata !{i64 125, [16 x i8] c"\09movl\09$20, %esi\00"}
-!7 = metadata !{i64 130, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
-!8 = metadata !{i64 137, [12 x i8] c"\09callq\09-142\00"}
-!9 = metadata !{i64 142, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}
-!10 = metadata !{i64 145, [21 x i8] c"\09movl\09-8(%rbp), %eax\00"}
-!11 = metadata !{i64 148, [16 x i8] c"\09addq\09$16, %rsp\00"}
-!12 = metadata !{i64 152, [11 x i8] c"\09popq\09%rbp\00"}
-!13 = metadata !{i64 153, [6 x i8] c"\09retq\00"}
-!14 = metadata !{i64 0, [12 x i8] c"\09pushq\09%rbp\00"}
-!15 = metadata !{i64 1, [17 x i8] c"\09movq\09%rsp, %rbp\00"}
-!16 = metadata !{i64 4, [16 x i8] c"\09subq\09$32, %rsp\00"}
-!17 = metadata !{i64 8, [18 x i8] c"\09movabsq\09$0, %rax\00"}
-!18 = metadata !{i64 18, [21 x i8] c"\09movl\09%edi, -4(%rbp)\00"}
-!19 = metadata !{i64 21, [21 x i8] c"\09movl\09%esi, -8(%rbp)\00"}
-!20 = metadata !{i64 24, [21 x i8] c"\09movl\09-4(%rbp), %esi\00"}
-!21 = metadata !{i64 27, [21 x i8] c"\09addl\09-8(%rbp), %esi\00"}
-!22 = metadata !{i64 30, [22 x i8] c"\09movl\09%esi, -12(%rbp)\00"}
-!23 = metadata !{i64 33, [22 x i8] c"\09movl\09-12(%rbp), %esi\00"}
-!24 = metadata !{i64 36, [17 x i8] c"\09movq\09%rax, %rdi\00"}
-!25 = metadata !{i64 41, [9 x i8] c"\09callq\090\00"} ; [ DW_TAG_file_type ] [/]
-!26 = metadata !{i64 46, [20 x i8] c"\09cmpl\09$40, -4(%rbp)\00"}
-!27 = metadata !{i64 53, [22 x i8] c"\09movl\09%eax, -20(%rbp)\00"}
-!28 = metadata !{i64 56, [8 x i8] c"\09jle\0916\00"}
-!29 = metadata !{i64 78, [22 x i8] c"\09movl\09-12(%rbp), %eax\00"}
-!30 = metadata !{i64 81, [16 x i8] c"\09subl\09$10, %eax\00"}
-!31 = metadata !{i64 86, [22 x i8] c"\09movl\09%eax, -16(%rbp)\00"}
-!32 = metadata !{i64 89, [22 x i8] c"\09movl\09-16(%rbp), %eax\00"}
-!33 = metadata !{i64 92, [16 x i8] c"\09addq\09$32, %rsp\00"}
-!34 = metadata !{i64 96, [11 x i8] c"\09popq\09%rbp\00"}
-!35 = metadata !{i64 97, [6 x i8] c"\09retq\00"}
-!36 = metadata !{i64 65, [16 x i8] c"\09addl\09$10, %eax\00"}
-!37 = metadata !{i64 70, [22 x i8] c"\09movl\09%eax, -16(%rbp)\00"}
+!2 = metadata !{i64 4195616, [12 x i8] c"\09pushq\09%rbp\00"}
+!3 = metadata !{i64 4195617, [17 x i8] c"\09movq\09%rsp, %rbp\00"}
+!4 = metadata !{i64 4195620, [16 x i8] c"\09subq\09$16, %rsp\00"}
+!5 = metadata !{i64 4195624, [16 x i8] c"\09movl\09$10, %edi\00"}
+!6 = metadata !{i64 4195629, [16 x i8] c"\09movl\09$20, %esi\00"}
+!7 = metadata !{i64 4195634, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
+!8 = metadata !{i64 4195641, [12 x i8] c"\09callq\09-142\00"}
+!9 = metadata !{i64 4195646, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}
+!10 = metadata !{i64 4195649, [21 x i8] c"\09movl\09-8(%rbp), %eax\00"}
+!11 = metadata !{i64 4195652, [16 x i8] c"\09addq\09$16, %rsp\00"}
+!12 = metadata !{i64 4195656, [11 x i8] c"\09popq\09%rbp\00"}
+!13 = metadata !{i64 4195657, [6 x i8] c"\09retq\00"}
+!14 = metadata !{i64 4195504, [12 x i8] c"\09pushq\09%rbp\00"}
+!15 = metadata !{i64 4195505, [17 x i8] c"\09movq\09%rsp, %rbp\00"}
+!16 = metadata !{i64 4195508, [16 x i8] c"\09subq\09$32, %rsp\00"}
+!17 = metadata !{i64 4195512, [24 x i8] c"\09movabsq\09$4195912, %rax\00"}
+!18 = metadata !{i64 4195522, [21 x i8] c"\09movl\09%edi, -4(%rbp)\00"}
+!19 = metadata !{i64 4195525, [21 x i8] c"\09movl\09%esi, -8(%rbp)\00"}
+!20 = metadata !{i64 4195528, [21 x i8] c"\09movl\09-4(%rbp), %esi\00"}
+!21 = metadata !{i64 4195531, [21 x i8] c"\09addl\09-8(%rbp), %esi\00"}
+!22 = metadata !{i64 4195534, [22 x i8] c"\09movl\09%esi, -12(%rbp)\00"}
+!23 = metadata !{i64 4195537, [22 x i8] c"\09movl\09-12(%rbp), %esi\00"}
+!24 = metadata !{i64 4195540, [17 x i8] c"\09movq\09%rax, %rdi\00"}
+!25 = metadata !{i64 4195545, [12 x i8] c"\09callq\09-318\00"}
+!26 = metadata !{i64 4195550, [20 x i8] c"\09cmpl\09$40, -4(%rbp)\00"}
+!27 = metadata !{i64 4195557, [22 x i8] c"\09movl\09%eax, -20(%rbp)\00"}
+!28 = metadata !{i64 4195560, [8 x i8] c"\09jle\0916\00"}
+!29 = metadata !{i64 4195582, [22 x i8] c"\09movl\09-12(%rbp), %eax\00"}
+!30 = metadata !{i64 4195585, [16 x i8] c"\09subl\09$10, %eax\00"}
+!31 = metadata !{i64 4195590, [22 x i8] c"\09movl\09%eax, -16(%rbp)\00"}
+!32 = metadata !{i64 4195593, [22 x i8] c"\09movl\09-16(%rbp), %eax\00"}
+!33 = metadata !{i64 4195596, [16 x i8] c"\09addq\09$32, %rsp\00"}
+!34 = metadata !{i64 4195600, [11 x i8] c"\09popq\09%rbp\00"}
+!35 = metadata !{i64 4195601, [6 x i8] c"\09retq\00"}
+!36 = metadata !{i64 4195569, [16 x i8] c"\09addl\09$10, %eax\00"}
+!37 = metadata !{i64 4195574, [22 x i8] c"\09movl\09%eax, -16(%rbp)\00"}
