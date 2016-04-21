@@ -4,7 +4,7 @@ TESTS=$(shell find . -type d -name "test_*" | sort -V)
 all: ${TESTS}
 
 ${TESTS}:
-	make -C $@
+	${MAKE} -C $@ 
 
 clean:
 	@for test in ${TESTS}; do \
