@@ -3,7 +3,7 @@
 1. Testing the previous implementation with clang, gcc, icc generated binary
   - icc generated binary gives error with external calls
 2. Started on the implementation on converting accesses on global mcsema stack to 
-  per function stack.
+  per function stack accesses.
 
 
 #### 14 April 2015
