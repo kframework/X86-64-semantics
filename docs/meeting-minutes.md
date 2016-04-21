@@ -4,6 +4,8 @@
   - icc generated binary gives error with external calls
 2. Started on the implementation on converting accesses on global mcsema stack to 
   per function stack accesses.
+3. Augment the automated testing with switches to generate binaries (to be consumed by mcsema) using different coppilers.
+4. Planning to augment the automated testing with switches for different calling conventions
 
 
 #### 14 April 2015
