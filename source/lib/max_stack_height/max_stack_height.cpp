@@ -115,7 +115,8 @@ void max_stack_height::perform_const_dfa() {
     DEBUG(errs() << Func->getName() + "::" + BB->getName() << "\n");
     DEBUG(errs() << "----------------------------------\n");
     dfvaInstance = BBMap[BB];
-    (*dfvaInstance)[GEN] = calculate_max_height_BB(BB);
+    dfa_values inval = {0,0,0,0};
+    (*dfvaInstance)[GEN] = calculate_max_height_BB(BB, inval);
   }
 }
 
@@ -126,44 +127,45 @@ void max_stack_height::perform_const_dfa() {
  *  tracked (using visitInst) to obtain the follwoing data flow values before,
  *  In[I] and after, Out[I].
  *
- *  1. ACTUAL_ESP (or ACTUAL_EBP) = Actual displacement of 
+ *  1. ACTUAL_RSP (or ACTUAL_RBP) = Actual displacement of 
  *              %rsp (or %rbp). For example, for a statement sub $0x20,%rsp, 
- *              if %esp value is x before the statement, 
- *              then actual_esp becomes x - 32 after it.
- *  2. MAX_DISP_ESP ( or MAX_DISP_EBP) = Offset of the stack 
+ *              if %rsp value is x before the statement, 
+ *              then actual_rsp becomes x - 32 after it.
+ *  2. MAX_DISP_RSP ( or MAX_DISP_RBP) = Offset of the stack 
  *              access w.r.t %rsp (or %rbp). For example, for a statement 
- *              mov -0x4(%rsp),%esi, if %esp value is x before the statement, 
- *              then max_disp_esp becomes x-4 after it.
+ *              mov -0x4(%rsp),%esi, if %rsp value is x before the statement, 
+ *              then max_disp_rsp becomes x-4 after it.
  *
  *  After the data value propagation among I's, Gen[bb] is computed as follows:
- *    Gen[bb]::actual_esp = Actual displacement of esp across the bb with
+ *    Gen[bb]::actual_rsp = Actual displacement of rsp across the bb with
  *    initial value of rsp/rbp assumed as 0.
- *    Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
+ *    Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_rsp) for all I in bb.
 ********************************************************************/
 std::vector<height_ty>
-max_stack_height::calculate_max_height_BB(BasicBlock *BB) {
+max_stack_height::calculate_max_height_BB(BasicBlock *BB, dfa_values inval) {
   assert(NULL != llvm_alloca_inst_rsp && "BB visited before Entry !!!");
 
-  std::vector<height_ty> ret_val(TOTAL_VALUES, 0);
+  dfa_values ret_val(TOTAL_VALUES, 0);
 
   // Initialize
   attribs rsp_attribs = {true, false};
   attribs rbp_attribs = {false, false};
-  InstMap[llvm_alloca_inst_rsp] = inst_map_val(0, rsp_attribs);
-  InstMap[llvm_alloca_inst_rbp] = inst_map_val(0, rbp_attribs);
-  max_dis_of_esp = max_dis_of_ebp = 0;
+  InstMap[llvm_alloca_inst_rsp] = inst_map_val(inval[ACTUAL_RSP], rsp_attribs);
+  InstMap[llvm_alloca_inst_rbp] = inst_map_val(inval[ACTUAL_RBP], rbp_attribs);
+  max_dis_of_rsp = inval[MAX_DISP_RSP];
+  max_dis_of_rbp = inval[MAX_DISP_RBP];
 
   visit(*BB);
 
-  ret_val[ACTUAL_ESP] = InstMap[llvm_alloca_inst_rsp].first;
-  ret_val[ACTUAL_EBP] = InstMap[llvm_alloca_inst_rbp].first;
-  ret_val[MAX_DISP_ESP] = max_dis_of_esp;
-  ret_val[MAX_DISP_EBP] = max_dis_of_ebp;
+  ret_val[ACTUAL_RSP] = InstMap[llvm_alloca_inst_rsp].first;
+  ret_val[ACTUAL_RBP] = InstMap[llvm_alloca_inst_rbp].first;
+  ret_val[MAX_DISP_RSP] = max_dis_of_rsp;
+  ret_val[MAX_DISP_RBP] = max_dis_of_rbp;
 
   debug_dfa_values("Gen :: ", ret_val);
   // Clean up
   InstMap.clear();
-  max_dis_of_esp = max_dis_of_ebp = 0;
+  max_dis_of_rsp = max_dis_of_rbp = 0;
 
   return ret_val;
 }
@@ -261,17 +263,17 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
   if (!(NULL != (cosnt_val = dyn_cast<ConstantInt>(op2)) ||
         InstMap.count(op2))) {
     // op2 is neither  a constant nor available in InstMap
-    // This may introduce inaccuracy either in actual esp/ebp
-    // or max_dis_of_esp/max_dis_of_ebp
-    // The inaccuracy in actual esp/ebp can be handled
+    // This may introduce inaccuracy either in actual rsp/rbp
+    // or max_dis_of_rsp/max_dis_of_rbp
+    // The inaccuracy in actual rsp/rbp can be handled
     // by check the IS_UNKNOWN during store.
     offset = 0;
     InstMap[I].first = InstMap[op1].first + offset;
     InstMap[I].second = InstMap[op1].second;
     InstMap[I].second[IS_UNKNOWN] = true;
 
-    // To do: Here we may have inaccuracy in  max_dis_of_esp/max_dis_of_ebp
-    DEBUG(errs() << "max_dis_of_esp/max_dis_of_ebp may not be accurate\n");
+    // To do: Here we may have inaccuracy in  max_dis_of_rsp/max_dis_of_rbp
+    DEBUG(errs() << "max_dis_of_rsp/max_dis_of_rbp may not be accurate\n");
 
     return;
   }
@@ -290,10 +292,10 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
     InstMap[I].second = InstMap[op1].second;
   }
 
-  if (InstMap[I].second[IS_ESP]) {
-    max_dis_of_esp = std::min(max_dis_of_esp, InstMap[I].first);
+  if (InstMap[I].second[IS_RSP]) {
+    max_dis_of_rsp = std::min(max_dis_of_rsp, InstMap[I].first);
   } else {
-    max_dis_of_ebp = std::min(max_dis_of_ebp, InstMap[I].first);
+    max_dis_of_rbp = std::min(max_dis_of_rbp, InstMap[I].first);
   }
 
   debug_local_dfa_info(I);
@@ -305,12 +307,12 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
  * Purpose  :   Calculating In[bb] and Out[bb]
  *  Meet operator: Calculating In[bb] as a function of Out[pped_bb],
       //For any pair of predecessor pred_bb_x and pred_bb_y
-      if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
-          OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
-        In[bb]::actual_esp  = Out[pred_bb_x]::actual_esp;
-        In[bb]::actual_ebp  = Out[pred_bb_x]::actual_ebp;
-        In[bb]::max_disp_esp  = min ( OUT[pred_bb_x]::max_disp_esp, OUT[pred_bb_y]::max_disp_esp)
-        In[bb]::max_disp_ebp  = min ( OUT[pred_bb_x]::max_disp_ebp, OUT[pred_bb_y]::max_disp_ebp)
+      if ( Out[pred_bb_x]::actual_rsp == OUT[pred_bb_y]::actual_rsp &&  
+          OUT[pred_bb_x]::actual_rbp == OUT[pred_bb_y]::actual_rbp) {
+        In[bb]::actual_rsp  = Out[pred_bb_x]::actual_rsp;
+        In[bb]::actual_rbp  = Out[pred_bb_x]::actual_rbp;
+        In[bb]::max_disp_rsp  = min ( OUT[pred_bb_x]::max_disp_rsp, OUT[pred_bb_y]::max_disp_rsp)
+        In[bb]::max_disp_rbp  = min ( OUT[pred_bb_x]::max_disp_rbp, OUT[pred_bb_y]::max_disp_rbp)
       } else {
         In[bb] = Bottom
       }
@@ -319,10 +321,10 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
       if(In[bb] == Bottom) {
         Out[bb] =  Bottom;
       } else {
-        Out[bb]::actual_esp = In[bb]::actual_esp + Gen[bb]::actual_esp;
-        Out[bb]::actual_ebp = In[bb]::actual_ebp + Gen[bb]::actual_ebp;
-        Out[bb]::max_disp_esp = min ( In[bb]::actual_esp + Gen[bb]::max_disp_esp, In[bb]::max_disp_esp;
-        Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
+        Out[bb]::actual_rsp = In[bb]::actual_rsp + Gen[bb]::actual_rsp;
+        Out[bb]::actual_rbp = In[bb]::actual_rbp + Gen[bb]::actual_rbp;
+        Out[bb]::max_disp_rsp = min ( In[bb]::actual_rsp + Gen[bb]::max_disp_rsp, In[bb]::max_disp_rsp;
+        Out[bb]::max_disp_rbp = min ( In[bb]::actual_rbp + Gen[bb]::max_disp_rbp, In[bb]::max_disp_rbp;
       }
 ********************************************************************/
 void max_stack_height::perform_global_dfa() {
@@ -393,12 +395,12 @@ dfa_values max_stack_height::meet_over_preds(BasicBlock *BB) {
         first = false;
         meetOverPreds = out_val;
       } else {
-        if ((out_val[ACTUAL_ESP] == meetOverPreds[ACTUAL_ESP]) &&
-            (out_val[ACTUAL_EBP] == meetOverPreds[ACTUAL_EBP])) {
-          meetOverPreds[MAX_DISP_ESP] =
-              std::min(meetOverPreds[MAX_DISP_ESP], out_val[MAX_DISP_ESP]);
-          meetOverPreds[MAX_DISP_EBP] =
-              std::min(meetOverPreds[MAX_DISP_EBP], out_val[MAX_DISP_EBP]);
+        if ((out_val[ACTUAL_RSP] == meetOverPreds[ACTUAL_RSP]) &&
+            (out_val[ACTUAL_RBP] == meetOverPreds[ACTUAL_RBP])) {
+          meetOverPreds[MAX_DISP_RSP] =
+              std::min(meetOverPreds[MAX_DISP_RSP], out_val[MAX_DISP_RSP]);
+          meetOverPreds[MAX_DISP_RBP] =
+              std::min(meetOverPreds[MAX_DISP_RBP], out_val[MAX_DISP_RBP]);
         } else {
           meetOverPreds = bottom;
         }
@@ -422,17 +424,17 @@ void max_stack_height::transfer_function(dfa_functions *dfvaInstance) {
   if ((*dfvaInstance)[IN] == bottom) {
     (*dfvaInstance)[OUT] = bottom;
   } else {
-    (*dfvaInstance)[OUT][ACTUAL_ESP] =
-        ((*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][ACTUAL_ESP]);
-    (*dfvaInstance)[OUT][ACTUAL_EBP] =
-        ((*dfvaInstance)[IN][ACTUAL_EBP] + (*dfvaInstance)[GEN][ACTUAL_EBP]);
+    (*dfvaInstance)[OUT][ACTUAL_RSP] =
+        ((*dfvaInstance)[IN][ACTUAL_RSP] + (*dfvaInstance)[GEN][ACTUAL_RSP]);
+    (*dfvaInstance)[OUT][ACTUAL_RBP] =
+        ((*dfvaInstance)[IN][ACTUAL_RBP] + (*dfvaInstance)[GEN][ACTUAL_RBP]);
 
-    (*dfvaInstance)[OUT][MAX_DISP_ESP] = std::min(
-        (*dfvaInstance)[IN][ACTUAL_ESP] + (*dfvaInstance)[GEN][MAX_DISP_ESP],
-        (*dfvaInstance)[IN][MAX_DISP_ESP]);
-    (*dfvaInstance)[OUT][MAX_DISP_EBP] = std::min(
-        (*dfvaInstance)[IN][ACTUAL_EBP] + (*dfvaInstance)[GEN][MAX_DISP_EBP],
-        (*dfvaInstance)[IN][MAX_DISP_EBP]);
+    (*dfvaInstance)[OUT][MAX_DISP_RSP] = std::min(
+        (*dfvaInstance)[IN][ACTUAL_RSP] + (*dfvaInstance)[GEN][MAX_DISP_RSP],
+        (*dfvaInstance)[IN][MAX_DISP_RSP]);
+    (*dfvaInstance)[OUT][MAX_DISP_RBP] = std::min(
+        (*dfvaInstance)[IN][ACTUAL_RBP] + (*dfvaInstance)[GEN][MAX_DISP_RBP],
+        (*dfvaInstance)[IN][MAX_DISP_RBP]);
   }
 }
 
@@ -451,8 +453,8 @@ void max_stack_height::debug_local_dfa_info(Value *I) {
   }
 
   dfa_values val = {InstMap[llvm_alloca_inst_rsp].first,
-                    InstMap[llvm_alloca_inst_rbp].first, max_dis_of_esp,
-                    max_dis_of_ebp};
+                    InstMap[llvm_alloca_inst_rbp].first, max_dis_of_rsp,
+                    max_dis_of_rbp};
   debug_dfa_values("Inst :: ", val);
 }
 
@@ -462,8 +464,8 @@ void max_stack_height::debug_local_dfa_info(Value *I) {
 ********************************************************************/
 void max_stack_height::debug_dfa_values(std::string msg, dfa_values val) {
 
-  DEBUG(errs() << msg << val[ACTUAL_ESP] << ":" << val[MAX_DISP_ESP] << ":"
-               << val[ACTUAL_EBP] << ":" << val[MAX_DISP_EBP] << "\n");
+  DEBUG(errs() << msg << val[ACTUAL_RSP] << ":" << val[MAX_DISP_RSP] << ":"
+               << val[ACTUAL_RBP] << ":" << val[MAX_DISP_RBP] << "\n");
 }
 
 /*******************************************************************
@@ -526,18 +528,18 @@ void max_stack_height::dump_cfg() {
     // Node_0 [ shape="record"
     // label="{entry|{0:0:0:0|-136:-136:-8:-80|-136:-136:-8:-80}}"]
     dotfile << nodename << " [ shape=\"record\" label=\"" + BB.getName() << "|{"
-            << (*dfvaInstance)[IN][ACTUAL_ESP] << ":"
-            << (*dfvaInstance)[IN][MAX_DISP_ESP] << ":"
-            << (*dfvaInstance)[IN][ACTUAL_EBP] << ":"
-            << (*dfvaInstance)[IN][MAX_DISP_EBP] << "|"
-            << (*dfvaInstance)[GEN][ACTUAL_ESP] << ":"
-            << (*dfvaInstance)[GEN][MAX_DISP_ESP] << ":"
-            << (*dfvaInstance)[GEN][ACTUAL_EBP] << ":"
-            << (*dfvaInstance)[GEN][MAX_DISP_EBP] << "|"
-            << (*dfvaInstance)[OUT][ACTUAL_ESP] << ":"
-            << (*dfvaInstance)[OUT][MAX_DISP_ESP] << ":"
-            << (*dfvaInstance)[OUT][ACTUAL_EBP] << ":"
-            << (*dfvaInstance)[OUT][MAX_DISP_EBP] << "}"
+            << (*dfvaInstance)[IN][ACTUAL_RSP] << ":"
+            << (*dfvaInstance)[IN][MAX_DISP_RSP] << ":"
+            << (*dfvaInstance)[IN][ACTUAL_RBP] << ":"
+            << (*dfvaInstance)[IN][MAX_DISP_RBP] << "|"
+            << (*dfvaInstance)[GEN][ACTUAL_RSP] << ":"
+            << (*dfvaInstance)[GEN][MAX_DISP_RSP] << ":"
+            << (*dfvaInstance)[GEN][ACTUAL_RBP] << ":"
+            << (*dfvaInstance)[GEN][MAX_DISP_RBP] << "|"
+            << (*dfvaInstance)[OUT][ACTUAL_RSP] << ":"
+            << (*dfvaInstance)[OUT][MAX_DISP_RSP] << ":"
+            << (*dfvaInstance)[OUT][ACTUAL_RBP] << ":"
+            << (*dfvaInstance)[OUT][MAX_DISP_RBP] << "}"
             << "}\"]\n";
 
     BB2Names[&BB] = nodename;
@@ -559,20 +561,20 @@ void max_stack_height::dump_cfg() {
 /*******************************************************************
  * Function :   compute_height
  * Purpose  : Compute the max statck height
- *  max ( Out[bb]::max_disp_esp, Out[bb]::max_disp_esp ) for  all bb.
+ *  max ( Out[bb]::max_disp_rsp, Out[bb]::max_disp_rsp ) for  all bb.
 ********************************************************************/
 void max_stack_height::compute_height() {
-  height_ty max_dis_esp = 0;
-  height_ty max_dis_ebp = 0;
+  height_ty max_dis_rsp = 0;
+  height_ty max_dis_rbp = 0;
 
   dfa_functions *dfvaInstance;
   StringRef Fname = Func->getName();
   for (auto &BB : *Func) {
     dfvaInstance = BBMap[&BB];
-    max_dis_esp = std::min(max_dis_esp, (*dfvaInstance)[OUT][MAX_DISP_ESP]);
-    max_dis_ebp = std::min(max_dis_ebp, (*dfvaInstance)[OUT][MAX_DISP_EBP]);
+    max_dis_rsp = std::min(max_dis_rsp, (*dfvaInstance)[OUT][MAX_DISP_RSP]);
+    max_dis_rbp = std::min(max_dis_rbp, (*dfvaInstance)[OUT][MAX_DISP_RBP]);
   }
-  stack_height = std::min(max_dis_esp, max_dis_ebp);
+  stack_height = std::min(max_dis_rsp, max_dis_rbp);
 
   DEBUG(errs() << "Height[ " << Fname << " ] : " << stack_height << "\n");
 }

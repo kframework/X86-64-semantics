@@ -16,8 +16,8 @@ namespace llvm {
 
 // enum for the data flow values associated with each basic block
 // Each program point is associated with 3 data flow values
-// IN, OUT, GEN,; each of them is a triplet ACTUAL_ESP, MAX_DISP_FROM_ESP,
-// and MAX_DISP_FROM_EBP
+// IN, OUT, GEN,; each of them is a triplet ACTUAL_RSP, MAX_DISP_FROM_RSP,
+// and MAX_DISP_FROM_RBP
 enum DFA_FUNCTIONS {
   IN = 0,
   GEN,
@@ -26,15 +26,15 @@ enum DFA_FUNCTIONS {
 };
 
 enum DFA_VALUES {
-  ACTUAL_ESP = 0,
-  ACTUAL_EBP,
-  MAX_DISP_ESP,
-  MAX_DISP_EBP,
+  ACTUAL_RSP = 0,
+  ACTUAL_RBP,
+  MAX_DISP_RSP,
+  MAX_DISP_RBP,
   TOTAL_VALUES // = 4
 };
 
 enum INSTMAP_VAL {
-  IS_ESP = 0,
+  IS_RSP = 0,
   IS_UNKNOWN,
   NUM_INSTMAP_VAL // =2
 };
@@ -60,7 +60,7 @@ private:
   // involving rsp, rbp displacements to track the
   // max displacement of rsp or from rbp in that BB.
   DenseMap<Value *, inst_map_val> InstMap;
-  height_ty max_dis_of_esp, max_dis_of_ebp;
+  height_ty max_dis_of_rsp, max_dis_of_rbp;
 
   // LLVM alloca inst for rsp, rbp
   Value *llvm_alloca_inst_rsp;
@@ -70,7 +70,7 @@ private:
   bool initialize_framework();
   void perform_const_dfa();
   void perform_global_dfa();
-  dfa_values calculate_max_height_BB(BasicBlock *BB);
+  dfa_values calculate_max_height_BB(BasicBlock *BB, dfa_values);
   void transfer_function(dfa_functions *);
   dfa_values meet_over_preds(BasicBlock *BB);
   void cleanup_framework();
