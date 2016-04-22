@@ -36,7 +36,7 @@ fi
 if [ ${ASM_FILE} == "asm" ] ; then
   nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
 else
-  ${COMPILER} ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
+  ${COMPILER} -O0 ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}    -o ${BIN}.o  
 fi
 
 objdump -d ${BIN}.o &> ${BIN}.objdump
@@ -51,6 +51,4 @@ ${LLVM_PATH}/llvm-dis   -o=${BIN}_opt.ll ${BIN}_opt.bc
 ${LLVM_PATH}/llc -march=x86-64 -filetype=obj -o ${BIN}_lifted.o ${BIN}_opt.bc
 
 
-if [ ! -f "mapping.txt" ] ; then 
 opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=mapping.txt ${BIN}.ll -o /tmp/xxx ;
-fi
