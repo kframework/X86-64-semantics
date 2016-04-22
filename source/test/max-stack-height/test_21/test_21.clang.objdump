@@ -1,0 +1,25 @@
+
+test_21.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <shiftit>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   7:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+   b:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
+   f:	48 8b 36             	mov    (%rsi),%rsi
+  12:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+  16:	8b 7d fc             	mov    -0x4(%rbp),%edi
+  19:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+  1d:	89 ff                	mov    %edi,%edi
+  1f:	89 f9                	mov    %edi,%ecx
+  21:	48 d3 ee             	shr    %cl,%rsi
+  24:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+  28:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+  2c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  30:	48 89 30             	mov    %rsi,(%rax)
+  33:	5d                   	pop    %rbp
+  34:	c3                   	retq   

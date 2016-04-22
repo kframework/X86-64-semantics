@@ -61,7 +61,7 @@ void max_stack_height::cleanup_framework() {
 ********************************************************************/
 void max_stack_height::perform_dfa() {
 
-  perform_const_dfa();
+  //perform_const_dfa();
 
   perform_global_dfa();
 }
@@ -162,7 +162,7 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB, dfa_values inval) {
   ret_val[MAX_DISP_RSP] = max_dis_of_rsp;
   ret_val[MAX_DISP_RBP] = max_dis_of_rbp;
 
-  debug_dfa_values("Gen :: ", ret_val);
+  //debug_dfa_values("Gen :: ", ret_val);
   // Clean up
   InstMap.clear();
   max_dis_of_rsp = max_dis_of_rbp = 0;
@@ -359,7 +359,7 @@ void max_stack_height::perform_global_dfa() {
       dfa_values old_out = (*dfvaInstance)[OUT];
 
       // 'Out' as a function of 'In'
-      transfer_function(dfvaInstance);
+      transfer_function(dfvaInstance, BB);
 
       debug_dfa_values("\tOut :: ", (*dfvaInstance)[OUT]);
 
@@ -407,7 +407,7 @@ dfa_values max_stack_height::meet_over_preds(BasicBlock *BB) {
       }
     }
   }
-  debug_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
+  //debug_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
 
   // no predecessor, this is the start block s.
   if (is_entry) {
@@ -417,13 +417,16 @@ dfa_values max_stack_height::meet_over_preds(BasicBlock *BB) {
   return meetOverPreds;
 }
 
-void max_stack_height::transfer_function(dfa_functions *dfvaInstance) {
+void max_stack_height::transfer_function(dfa_functions *dfvaInstance, BasicBlock* bb) {
 
   dfa_values bottom(TOTAL_VALUES, -1);
 
   if ((*dfvaInstance)[IN] == bottom) {
     (*dfvaInstance)[OUT] = bottom;
   } else {
+    (*dfvaInstance)[GEN] = calculate_max_height_BB(bb, (*dfvaInstance)[IN]);
+    (*dfvaInstance)[OUT] = (*dfvaInstance)[GEN];
+    /*
     (*dfvaInstance)[OUT][ACTUAL_RSP] =
         ((*dfvaInstance)[IN][ACTUAL_RSP] + (*dfvaInstance)[GEN][ACTUAL_RSP]);
     (*dfvaInstance)[OUT][ACTUAL_RBP] =
@@ -435,6 +438,9 @@ void max_stack_height::transfer_function(dfa_functions *dfvaInstance) {
     (*dfvaInstance)[OUT][MAX_DISP_RBP] = std::min(
         (*dfvaInstance)[IN][ACTUAL_RBP] + (*dfvaInstance)[GEN][MAX_DISP_RBP],
         (*dfvaInstance)[IN][MAX_DISP_RBP]);
+    */
+
+
   }
 }
 

@@ -1,0 +1,26 @@
+
+test_25.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	48 b8 00 00 00 00 00 	mov    $0x0,%rax
+   f:	00 00 00 
+  12:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  19:	89 7d f8             	mov    %edi,-0x8(%rbp)
+  1c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+  20:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
+  24:	48 8b 36             	mov    (%rsi),%rsi
+  27:	48 89 c7             	mov    %rax,%rdi
+  2a:	b0 00                	mov    $0x0,%al
+  2c:	e8 00 00 00 00       	callq  31 <main+0x31>
+  31:	b9 00 00 00 00       	mov    $0x0,%ecx
+  36:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  39:	89 c8                	mov    %ecx,%eax
+  3b:	48 83 c4 20          	add    $0x20,%rsp
+  3f:	5d                   	pop    %rbp
+  40:	c3                   	retq   

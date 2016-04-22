@@ -1,0 +1,26 @@
+
+test_3.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   7:	89 75 f8             	mov    %esi,-0x8(%rbp)
+   a:	8b 75 fc             	mov    -0x4(%rbp),%esi
+   d:	03 75 f8             	add    -0x8(%rbp),%esi
+  10:	89 75 f4             	mov    %esi,-0xc(%rbp)
+  13:	81 7d fc 28 00 00 00 	cmpl   $0x28,-0x4(%rbp)
+  1a:	0f 8e 10 00 00 00    	jle    30 <foo+0x30>
+  20:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  23:	05 0a 00 00 00       	add    $0xa,%eax
+  28:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  2b:	e9 0b 00 00 00       	jmpq   3b <foo+0x3b>
+  30:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  33:	2d 0a 00 00 00       	sub    $0xa,%eax
+  38:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  3b:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  3e:	5d                   	pop    %rbp
+  3f:	c3                   	retq   

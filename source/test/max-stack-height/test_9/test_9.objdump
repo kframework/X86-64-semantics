@@ -1,0 +1,24 @@
+
+test_9.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <filler>:
+	...
+
+0000000000000001 <start>:
+   1:	89 c1                	mov    %eax,%ecx
+   3:	31 c0                	xor    %eax,%eax
+   5:	ff c0                	inc    %eax
+   7:	31 db                	xor    %ebx,%ebx
+
+0000000000000009 <header>:
+   9:	39 cb                	cmp    %ecx,%ebx
+   b:	74 06                	je     13 <done>
+   d:	01 c0                	add    %eax,%eax
+   f:	ff c3                	inc    %ebx
+  11:	eb f6                	jmp    9 <header>
+
+0000000000000013 <done>:
+  13:	c3                   	retq   

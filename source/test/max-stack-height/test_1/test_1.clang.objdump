@@ -1,0 +1,51 @@
+
+test_1.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	48 b8 00 00 00 00 00 	mov    $0x0,%rax
+   f:	00 00 00 
+  12:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  15:	89 75 f8             	mov    %esi,-0x8(%rbp)
+  18:	8b 75 fc             	mov    -0x4(%rbp),%esi
+  1b:	03 75 f8             	add    -0x8(%rbp),%esi
+  1e:	89 75 f4             	mov    %esi,-0xc(%rbp)
+  21:	8b 75 f4             	mov    -0xc(%rbp),%esi
+  24:	48 89 c7             	mov    %rax,%rdi
+  27:	b0 00                	mov    $0x0,%al
+  29:	e8 00 00 00 00       	callq  2e <foo+0x2e>
+  2e:	81 7d fc 28 00 00 00 	cmpl   $0x28,-0x4(%rbp)
+  35:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  38:	0f 8e 10 00 00 00    	jle    4e <foo+0x4e>
+  3e:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  41:	05 0a 00 00 00       	add    $0xa,%eax
+  46:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  49:	e9 0b 00 00 00       	jmpq   59 <foo+0x59>
+  4e:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  51:	2d 0a 00 00 00       	sub    $0xa,%eax
+  56:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  59:	8b 45 f0             	mov    -0x10(%rbp),%eax
+  5c:	48 83 c4 20          	add    $0x20,%rsp
+  60:	5d                   	pop    %rbp
+  61:	c3                   	retq   
+  62:	66 66 66 66 66 2e 0f 	data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  69:	1f 84 00 00 00 00 00 
+
+0000000000000070 <main>:
+  70:	55                   	push   %rbp
+  71:	48 89 e5             	mov    %rsp,%rbp
+  74:	48 83 ec 10          	sub    $0x10,%rsp
+  78:	bf 0a 00 00 00       	mov    $0xa,%edi
+  7d:	be 14 00 00 00       	mov    $0x14,%esi
+  82:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  89:	e8 72 ff ff ff       	callq  0 <foo>
+  8e:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  91:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  94:	48 83 c4 10          	add    $0x10,%rsp
+  98:	5d                   	pop    %rbp
+  99:	c3                   	retq   

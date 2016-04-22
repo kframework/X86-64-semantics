@@ -1,0 +1,39 @@
+
+test_7.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+   f:	c7 45 f0 64 00 00 00 	movl   $0x64,-0x10(%rbp)
+  16:	c7 45 f4 c8 00 00 00 	movl   $0xc8,-0xc(%rbp)
+  1d:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  21:	e8 1a 00 00 00       	callq  40 <update>
+  26:	b9 00 00 00 00       	mov    $0x0,%ecx
+  2b:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+  2f:	89 c8                	mov    %ecx,%eax
+  31:	48 83 c4 20          	add    $0x20,%rsp
+  35:	5d                   	pop    %rbp
+  36:	c3                   	retq   
+  37:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  3e:	00 00 
+
+0000000000000040 <update>:
+  40:	55                   	push   %rbp
+  41:	48 89 e5             	mov    %rsp,%rbp
+  44:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+  48:	8b 45 f0             	mov    -0x10(%rbp),%eax
+  4b:	05 14 00 00 00       	add    $0x14,%eax
+  50:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  53:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  56:	05 1e 00 00 00       	add    $0x1e,%eax
+  5b:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  5e:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  62:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  66:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  6a:	5d                   	pop    %rbp
+  6b:	c3                   	retq   

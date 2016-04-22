@@ -1,0 +1,66 @@
+
+test_2.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	8b 45 18             	mov    0x18(%rbp),%eax
+   7:	44 8b 55 10          	mov    0x10(%rbp),%r10d
+   b:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   e:	89 75 f8             	mov    %esi,-0x8(%rbp)
+  11:	89 55 f4             	mov    %edx,-0xc(%rbp)
+  14:	89 4d f0             	mov    %ecx,-0x10(%rbp)
+  17:	44 89 45 ec          	mov    %r8d,-0x14(%rbp)
+  1b:	44 89 4d e8          	mov    %r9d,-0x18(%rbp)
+  1f:	44 89 55 e4          	mov    %r10d,-0x1c(%rbp)
+  23:	89 45 e0             	mov    %eax,-0x20(%rbp)
+  26:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  29:	03 45 f8             	add    -0x8(%rbp),%eax
+  2c:	03 45 f4             	add    -0xc(%rbp),%eax
+  2f:	03 45 f0             	add    -0x10(%rbp),%eax
+  32:	03 45 ec             	add    -0x14(%rbp),%eax
+  35:	03 45 e8             	add    -0x18(%rbp),%eax
+  38:	03 45 e4             	add    -0x1c(%rbp),%eax
+  3b:	89 45 dc             	mov    %eax,-0x24(%rbp)
+  3e:	81 7d dc 28 00 00 00 	cmpl   $0x28,-0x24(%rbp)
+  45:	0f 8e 0e 00 00 00    	jle    59 <foo+0x59>
+  4b:	8b 45 dc             	mov    -0x24(%rbp),%eax
+  4e:	03 45 e0             	add    -0x20(%rbp),%eax
+  51:	89 45 d8             	mov    %eax,-0x28(%rbp)
+  54:	e9 09 00 00 00       	jmpq   62 <foo+0x62>
+  59:	8b 45 dc             	mov    -0x24(%rbp),%eax
+  5c:	2b 45 e0             	sub    -0x20(%rbp),%eax
+  5f:	89 45 d8             	mov    %eax,-0x28(%rbp)
+  62:	8b 45 d8             	mov    -0x28(%rbp),%eax
+  65:	5d                   	pop    %rbp
+  66:	c3                   	retq   
+  67:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  6e:	00 00 
+
+0000000000000070 <main>:
+  70:	55                   	push   %rbp
+  71:	48 89 e5             	mov    %rsp,%rbp
+  74:	48 83 ec 20          	sub    $0x20,%rsp
+  78:	bf 0a 00 00 00       	mov    $0xa,%edi
+  7d:	be 14 00 00 00       	mov    $0x14,%esi
+  82:	ba 1e 00 00 00       	mov    $0x1e,%edx
+  87:	b9 28 00 00 00       	mov    $0x28,%ecx
+  8c:	41 b8 32 00 00 00    	mov    $0x32,%r8d
+  92:	41 b9 3c 00 00 00    	mov    $0x3c,%r9d
+  98:	b8 46 00 00 00       	mov    $0x46,%eax
+  9d:	41 ba 50 00 00 00    	mov    $0x50,%r10d
+  a3:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  aa:	c7 04 24 46 00 00 00 	movl   $0x46,(%rsp)
+  b1:	c7 44 24 08 50 00 00 	movl   $0x50,0x8(%rsp)
+  b8:	00 
+  b9:	44 89 55 f4          	mov    %r10d,-0xc(%rbp)
+  bd:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  c0:	e8 3b ff ff ff       	callq  0 <foo>
+  c5:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  c8:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  cb:	48 83 c4 20          	add    $0x20,%rsp
+  cf:	5d                   	pop    %rbp
+  d0:	c3                   	retq   

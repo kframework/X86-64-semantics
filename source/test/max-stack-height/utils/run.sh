@@ -33,6 +33,14 @@ else
   CFGBC_ARCH="-mtriple=x86_64-pc-linux-gnu"
 fi
 
+#if [ ${COMPILER} == "gcc" ]; then
+#  CC=$(which gcc);
+#elif [ ${COMPILER} == "clang" ]; then
+#  CC=$(which clang);
+#else  
+#  CC=$(which icc)
+#fi 
+
 if [ ${ASM_FILE} == "asm" ] ; then
   nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
 else

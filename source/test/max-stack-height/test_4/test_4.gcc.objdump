@@ -1,0 +1,43 @@
+
+test_4.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	89 7d ec             	mov    %edi,-0x14(%rbp)
+   7:	89 75 e8             	mov    %esi,-0x18(%rbp)
+   a:	8b 45 e8             	mov    -0x18(%rbp),%eax
+   d:	8b 55 ec             	mov    -0x14(%rbp),%edx
+  10:	01 d0                	add    %edx,%eax
+  12:	89 45 fc             	mov    %eax,-0x4(%rbp)
+  15:	eb 1d                	jmp    34 <foo+0x34>
+  17:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  1a:	83 e0 01             	and    $0x1,%eax
+  1d:	85 c0                	test   %eax,%eax
+  1f:	75 0b                	jne    2c <foo+0x2c>
+  21:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  24:	83 c0 0a             	add    $0xa,%eax
+  27:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  2a:	eb 04                	jmp    30 <foo+0x30>
+  2c:	83 6d fc 0a          	subl   $0xa,-0x4(%rbp)
+  30:	83 6d ec 01          	subl   $0x1,-0x14(%rbp)
+  34:	83 7d ec 00          	cmpl   $0x0,-0x14(%rbp)
+  38:	79 dd                	jns    17 <foo+0x17>
+  3a:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  3d:	5d                   	pop    %rbp
+  3e:	c3                   	retq   
+
+000000000000003f <main>:
+  3f:	55                   	push   %rbp
+  40:	48 89 e5             	mov    %rsp,%rbp
+  43:	48 83 ec 10          	sub    $0x10,%rsp
+  47:	be 14 00 00 00       	mov    $0x14,%esi
+  4c:	bf 0a 00 00 00       	mov    $0xa,%edi
+  51:	e8 00 00 00 00       	callq  56 <main+0x17>
+  56:	89 45 fc             	mov    %eax,-0x4(%rbp)
+  59:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  5c:	c9                   	leaveq 
+  5d:	c3                   	retq   
