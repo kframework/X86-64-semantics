@@ -1,0 +1,82 @@
+
+test_27.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <update>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   7:	89 75 f8             	mov    %esi,-0x8(%rbp)
+   a:	89 55 f4             	mov    %edx,-0xc(%rbp)
+   d:	89 4d f0             	mov    %ecx,-0x10(%rbp)
+  10:	44 89 45 ec          	mov    %r8d,-0x14(%rbp)
+  14:	44 89 4d e8          	mov    %r9d,-0x18(%rbp)
+  18:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  1b:	48 98                	cltq   
+  1d:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  24:	00 
+  25:	48 8b 45 10          	mov    0x10(%rbp),%rax
+  29:	48 01 c2             	add    %rax,%rdx
+  2c:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  2f:	89 02                	mov    %eax,(%rdx)
+  31:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  34:	48 98                	cltq   
+  36:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  3d:	00 
+  3e:	48 8b 45 10          	mov    0x10(%rbp),%rax
+  42:	48 01 c2             	add    %rax,%rdx
+  45:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  48:	89 02                	mov    %eax,(%rdx)
+  4a:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  4d:	48 98                	cltq   
+  4f:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  56:	00 
+  57:	48 8b 45 10          	mov    0x10(%rbp),%rax
+  5b:	48 01 c2             	add    %rax,%rdx
+  5e:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  61:	89 02                	mov    %eax,(%rdx)
+  63:	8b 45 f0             	mov    -0x10(%rbp),%eax
+  66:	48 98                	cltq   
+  68:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  6f:	00 
+  70:	48 8b 45 10          	mov    0x10(%rbp),%rax
+  74:	48 01 c2             	add    %rax,%rdx
+  77:	8b 45 f0             	mov    -0x10(%rbp),%eax
+  7a:	89 02                	mov    %eax,(%rdx)
+  7c:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  7f:	48 98                	cltq   
+  81:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  88:	00 
+  89:	48 8b 45 10          	mov    0x10(%rbp),%rax
+  8d:	48 01 c2             	add    %rax,%rdx
+  90:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  93:	89 02                	mov    %eax,(%rdx)
+  95:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  98:	48 98                	cltq   
+  9a:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  a1:	00 
+  a2:	48 8b 45 10          	mov    0x10(%rbp),%rax
+  a6:	48 01 c2             	add    %rax,%rdx
+  a9:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  ac:	89 02                	mov    %eax,(%rdx)
+  ae:	5d                   	pop    %rbp
+  af:	c3                   	retq   
+
+00000000000000b0 <main>:
+  b0:	55                   	push   %rbp
+  b1:	48 89 e5             	mov    %rsp,%rbp
+  b4:	48 83 ec 28          	sub    $0x28,%rsp
+  b8:	48 8d 45 e0          	lea    -0x20(%rbp),%rax
+  bc:	48 89 04 24          	mov    %rax,(%rsp)
+  c0:	41 b9 05 00 00 00    	mov    $0x5,%r9d
+  c6:	41 b8 04 00 00 00    	mov    $0x4,%r8d
+  cc:	b9 03 00 00 00       	mov    $0x3,%ecx
+  d1:	ba 02 00 00 00       	mov    $0x2,%edx
+  d6:	be 01 00 00 00       	mov    $0x1,%esi
+  db:	bf 00 00 00 00       	mov    $0x0,%edi
+  e0:	e8 00 00 00 00       	callq  e5 <main+0x35>
+  e5:	b8 00 00 00 00       	mov    $0x0,%eax
+  ea:	c9                   	leaveq 
+  eb:	c3                   	retq   

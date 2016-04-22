@@ -1,0 +1,39 @@
+
+test_17.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <printdata>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+   f:	eb 46                	jmp    57 <printdata+0x57>
+  11:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  14:	48 98                	cltq   
+  16:	48 8b 04 c5 00 00 00 	mov    0x0(,%rax,8),%rax
+  1d:	00 
+  1e:	48 85 c0             	test   %rax,%rax
+  21:	74 30                	je     53 <printdata+0x53>
+  23:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  26:	48 98                	cltq   
+  28:	48 8b 04 c5 00 00 00 	mov    0x0(,%rax,8),%rax
+  2f:	00 
+  30:	8b 08                	mov    (%rax),%ecx
+  32:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  35:	48 98                	cltq   
+  37:	48 8b 14 c5 00 00 00 	mov    0x0(,%rax,8),%rdx
+  3e:	00 
+  3f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  42:	89 c6                	mov    %eax,%esi
+  44:	bf 00 00 00 00       	mov    $0x0,%edi
+  49:	b8 00 00 00 00       	mov    $0x0,%eax
+  4e:	e8 00 00 00 00       	callq  53 <printdata+0x53>
+  53:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+  57:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  5a:	83 f8 09             	cmp    $0x9,%eax
+  5d:	76 b2                	jbe    11 <printdata+0x11>
+  5f:	b8 00 00 00 00       	mov    $0x0,%eax
+  64:	c9                   	leaveq 
+  65:	c3                   	retq   
