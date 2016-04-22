@@ -6,7 +6,7 @@ target triple = "x86_64-pc-linux-gnu"
 %1 = type <{ [95 x i8] }>
 %struct.regs = type <{ i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i1, i1, i1, i1, i1, i1, i1, [8 x x86_fp80], i1, i1, i3, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i2, i2, i1, i1, i1, i1, i1, i1, [8 x i8], i16, i64, i16, i64, i11, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i64, i64 }>
 
-@data_0x3b2 = internal global %0 <{ [77 x i8] c"+-+---+---+| |     |#|| | --+ | || |   | | || +-- | | ||     |   |+-----+---+" }>, align 64
+@data_0x3b2 = internal global %0 <{ [77 x i8] c"+-+---+---+| |     |#|| | --+ | ||#|   | | || +-- | | ||     |   |+-----+---+" }>, align 64
 @data_0x3ff = internal constant %1 <{ [95 x i8] c"%c\00\0A\00Wrong command!(only w,s,a,d accepted!)\0A\00You lose!\0A\00You win!\0A\00Your solution:%s \0A\00You lose\0A\00" }>, align 64
 
 define internal x86_64_sysvcc void @sub_c0(%struct.regs*) {
@@ -1191,7 +1191,7 @@ block_0x256:                                      ; preds = %block_0x1f8, %block
   %668 = load i64* %RDI_val, !mcsema_real_eip !94
   %669 = load i64* %RSI_val, !mcsema_real_eip !94
   %670 = tail call x86_64_sysvcc i64 @printf(i64 %668, i64 %669), !mcsema_real_eip !94
-  store i64 1, i64* %RDI_val, !mcsema_real_eip !95
+  store i64 0, i64* %RDI_val, !mcsema_real_eip !95
   %671 = load i64* %RBP_val, !mcsema_real_eip !96
   %672 = add i64 %671, -112, !mcsema_real_eip !96
   %673 = inttoptr i64 %672 to i64*, !mcsema_real_eip !96
@@ -3318,7 +3318,7 @@ attributes #1 = { nounwind readnone }
 !92 = metadata !{i64 625, [22 x i8] c"\09leaq\09-64(%rbp), %rsi\00"}
 !93 = metadata !{i64 629, [23 x i8] c"\09movl\09%eax, -108(%rbp)\00"}
 !94 = metadata !{i64 634, [9 x i8] c"\09callq\090\00"}
-!95 = metadata !{i64 639, [15 x i8] c"\09movl\09$1, %edi\00"}
+!95 = metadata !{i64 639, [15 x i8] c"\09movl\09$0, %edi\00"}
 !96 = metadata !{i64 644, [23 x i8] c"\09movl\09%eax, -112(%rbp)\00"}
 !97 = metadata !{i64 647, [9 x i8] c"\09callq\090\00"}
 !98 = metadata !{i64 488, [22 x i8] c"\09movl\09-20(%rbp), %eax\00"}
