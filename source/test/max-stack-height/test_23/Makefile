@@ -13,7 +13,8 @@ DIR="${HOME}/Github/mcsema"
 .PHONY:  run
 run: 
 	@${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
-	@$(shell echo "ss" | ./${PROG_PREFIX}.exe > out )
+	@echo "ss" > /tmp/test_23.txt ; ./${PROG_PREFIX}.exe </tmp/test_23.txt >out 
+
 	@-if diff out output.gold > /dev/null; then \
 	 echo "${PROG_PREFIX}: Output Pass"; \
 	else \
