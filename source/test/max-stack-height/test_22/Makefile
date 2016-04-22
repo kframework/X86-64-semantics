@@ -14,4 +14,9 @@ DIR="${HOME}/Github/mcsema"
 .PHONY:  run
 run: 
 	@${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
-	@./${PROG_PREFIX}.exe	
+	@./${PROG_PREFIX}.exe	> out
+	@-if diff out output.gold > /dev/null; then \
+	 echo "${PROG_PREFIX}: Output Pass"; \
+	else \
+	 echo "${PROG_PREFIX}: Output Fail"; \
+	fi
