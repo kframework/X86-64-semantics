@@ -78,7 +78,7 @@ sub_c0::block_0x13d
   %308 = add i64 %307, -36, !mcsema_real_eip !38 :::  [I] = -36 : Inst :: 0:0:0:-36
   %313 = load i64* %RBP_val, !mcsema_real_eip !39 :::  [I] = 0 : Inst :: 0:0:0:-36
   %314 = add i64 %313, -64, !mcsema_real_eip !39 :::  [I] = -64 : Inst :: 0:0:0:-64
-max_dis_of_esp/max_dis_of_ebp may not be accurate
+max_dis_of_rsp/max_dis_of_rbp may not be accurate
   %335 = load i64* %RBP_val, !mcsema_real_eip !41 :::  [I] = 0 : Inst :: 0:0:0:-64
   %336 = add i64 %335, -76, !mcsema_real_eip !41 :::  [I] = -76 : Inst :: 0:0:0:-76
   %341 = load i64* %RBP_val, !mcsema_real_eip !42 :::  [I] = 0 : Inst :: 0:0:0:-76
