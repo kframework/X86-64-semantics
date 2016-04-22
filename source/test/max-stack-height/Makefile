@@ -6,7 +6,7 @@ all: ${TESTS}
 
 
 ${TESTS}:
-	@${MAKE} -C $@ 
+	@${MAKE} -C $@ ${SUB_TARGET}
 
 clang:	SUB_TARGET=clang
 clang:	all
