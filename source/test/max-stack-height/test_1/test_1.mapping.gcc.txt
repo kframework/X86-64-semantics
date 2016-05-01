@@ -1208,22 +1208,22 @@ Source line mapping for function: sub_0
 367 :   %136 = zext i32 %120 to i64, !mcsema_real_eip !9 :          <14>	addl	%edx, %eax
 368 :   store i64 %136, i64* %RAX_val, !mcsema_real_eip !9 :          <14>	addl	%edx, %eax
 
-369 :   %137 = load i64* %RBP_val, !mcsema_real_eip !10 :          <16>	movl	%eax, -8(%rbp)
-370 :   %138 = add i64 %137, -8, !mcsema_real_eip !10 :          <16>	movl	%eax, -8(%rbp)
-371 :   %139 = inttoptr i64 %138 to i64*, !mcsema_real_eip !10 :          <16>	movl	%eax, -8(%rbp)
+369 :   %137 = load i64* %RBP_val, !mcsema_real_eip !10 :          <16>	movl	%eax, -4(%rbp)
+370 :   %138 = add i64 %137, -4, !mcsema_real_eip !10 :          <16>	movl	%eax, -4(%rbp)
+371 :   %139 = inttoptr i64 %138 to i64*, !mcsema_real_eip !10 :          <16>	movl	%eax, -4(%rbp)
 
 372 :   %140 = bitcast i64* %139 to i32* : NIL
 
-373 :   store i32 %120, i32* %140, !mcsema_real_eip !10 :          <16>	movl	%eax, -8(%rbp)
+373 :   store i32 %120, i32* %140, !mcsema_real_eip !10 :          <16>	movl	%eax, -4(%rbp)
 
-374 :   %141 = load i64* %RBP_val, !mcsema_real_eip !11 :          <19>	movl	-8(%rbp), %eax
-375 :   %142 = add i64 %141, -8, !mcsema_real_eip !11 :          <19>	movl	-8(%rbp), %eax
-376 :   %143 = inttoptr i64 %142 to i64*, !mcsema_real_eip !11 :          <19>	movl	-8(%rbp), %eax
+374 :   %141 = load i64* %RBP_val, !mcsema_real_eip !11 :          <19>	movl	-4(%rbp), %eax
+375 :   %142 = add i64 %141, -4, !mcsema_real_eip !11 :          <19>	movl	-4(%rbp), %eax
+376 :   %143 = inttoptr i64 %142 to i64*, !mcsema_real_eip !11 :          <19>	movl	-4(%rbp), %eax
 
 377 :   %144 = bitcast i64* %143 to i32* : NIL
 
-378 :   %145 = load i32* %144, !mcsema_real_eip !11 :          <19>	movl	-8(%rbp), %eax
-379 :   %146 = zext i32 %145 to i64, !mcsema_real_eip !11 :          <19>	movl	-8(%rbp), %eax
+378 :   %145 = load i32* %144, !mcsema_real_eip !11 :          <19>	movl	-4(%rbp), %eax
+379 :   %146 = zext i32 %145 to i64, !mcsema_real_eip !11 :          <19>	movl	-4(%rbp), %eax
 
 380 :   store i64 %146, i64* %RSI_val, !mcsema_real_eip !12 :          <1c>	movl	%eax, %esi
 
@@ -1272,15 +1272,15 @@ Source line mapping for function: sub_0
 409 :   %167 = load i1* %ZF_val, !mcsema_real_eip !16 :          <31>	jle	11
 410 :   %168 = or i1 %167, %166, !mcsema_real_eip !16 :          <31>	jle	11
 
-411 :   %169 = load i64* %RBP_val, !mcsema_real_eip !17 :          <3e>	movl	-8(%rbp), %eax
-412 :   %170 = add i64 %169, -8, !mcsema_real_eip !17 :          <3e>	movl	-8(%rbp), %eax
-413 :   %171 = inttoptr i64 %170 to i64*, !mcsema_real_eip !17 :          <3e>	movl	-8(%rbp), %eax
+411 :   %169 = load i64* %RBP_val, !mcsema_real_eip !17 :          <3e>	movl	-4(%rbp), %eax
+412 :   %170 = add i64 %169, -4, !mcsema_real_eip !17 :          <3e>	movl	-4(%rbp), %eax
+413 :   %171 = inttoptr i64 %170 to i64*, !mcsema_real_eip !17 :          <3e>	movl	-4(%rbp), %eax
 
 414 :   %172 = bitcast i64* %171 to i32* : NIL
 
-415 :   %173 = load i32* %172, !mcsema_real_eip !17 :          <3e>	movl	-8(%rbp), %eax
-416 :   %174 = zext i32 %173 to i64, !mcsema_real_eip !17 :          <3e>	movl	-8(%rbp), %eax
-417 :   store i64 %174, i64* %RAX_val, !mcsema_real_eip !17 :          <3e>	movl	-8(%rbp), %eax
+415 :   %173 = load i32* %172, !mcsema_real_eip !17 :          <3e>	movl	-4(%rbp), %eax
+416 :   %174 = zext i32 %173 to i64, !mcsema_real_eip !17 :          <3e>	movl	-4(%rbp), %eax
+417 :   store i64 %174, i64* %RAX_val, !mcsema_real_eip !17 :          <3e>	movl	-4(%rbp), %eax
 
 418 :   br i1 %168, label %block_0x3e, label %block_0x33, !mcsema_real_eip !16 :          <31>	jle	11
 
@@ -1313,23 +1313,23 @@ Source line mapping for function: sub_0
 438 :   %188 = zext i32 %175 to i64, !mcsema_real_eip !18 :          <41>	subl	$10, %eax
 439 :   store i64 %188, i64* %RAX_val, !mcsema_real_eip !18 :          <41>	subl	$10, %eax
 
-440 :   %189 = load i64* %RBP_val, !mcsema_real_eip !19 :          <44>	movl	%eax, -4(%rbp)
-441 :   %190 = add i64 %189, -4, !mcsema_real_eip !19 :          <44>	movl	%eax, -4(%rbp)
-442 :   %191 = inttoptr i64 %190 to i64*, !mcsema_real_eip !19 :          <44>	movl	%eax, -4(%rbp)
+440 :   %189 = load i64* %RBP_val, !mcsema_real_eip !19 :          <44>	movl	%eax, -8(%rbp)
+441 :   %190 = add i64 %189, -8, !mcsema_real_eip !19 :          <44>	movl	%eax, -8(%rbp)
+442 :   %191 = inttoptr i64 %190 to i64*, !mcsema_real_eip !19 :          <44>	movl	%eax, -8(%rbp)
 
 443 :   %192 = bitcast i64* %191 to i32* : NIL
 
-444 :   store i32 %175, i32* %192, !mcsema_real_eip !19 :          <44>	movl	%eax, -4(%rbp)
+444 :   store i32 %175, i32* %192, !mcsema_real_eip !19 :          <44>	movl	%eax, -8(%rbp)
 
-445 :   %193 = load i64* %RBP_val, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-446 :   %194 = add i64 %193, -4, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-447 :   %195 = inttoptr i64 %194 to i64*, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
+445 :   %193 = load i64* %RBP_val, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+446 :   %194 = add i64 %193, -8, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+447 :   %195 = inttoptr i64 %194 to i64*, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
 
 448 :   %196 = bitcast i64* %195 to i32* : NIL
 
-449 :   %197 = load i32* %196, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-450 :   %198 = zext i32 %197 to i64, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-451 :   store i64 %198, i64* %RAX_val, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
+449 :   %197 = load i32* %196, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+450 :   %198 = zext i32 %197 to i64, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+451 :   store i64 %198, i64* %RAX_val, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
 
 452 :   %199 = load i64* %RBP_val, !mcsema_real_eip !21 :          <4a>	leave
 453 :   store i64 %199, i64* %RSP_val, !mcsema_real_eip !21 :          <4a>	leave
@@ -1517,23 +1517,23 @@ Source line mapping for function: sub_0
 622 :   %287 = zext i32 %273 to i64, !mcsema_real_eip !23 :          <36>	addl	$10, %eax
 623 :   store i64 %287, i64* %RAX_val, !mcsema_real_eip !23 :          <36>	addl	$10, %eax
 
-624 :   %288 = load i64* %RBP_val, !mcsema_real_eip !24 :          <39>	movl	%eax, -4(%rbp)
-625 :   %289 = add i64 %288, -4, !mcsema_real_eip !24 :          <39>	movl	%eax, -4(%rbp)
-626 :   %290 = inttoptr i64 %289 to i64*, !mcsema_real_eip !24 :          <39>	movl	%eax, -4(%rbp)
+624 :   %288 = load i64* %RBP_val, !mcsema_real_eip !24 :          <39>	movl	%eax, -8(%rbp)
+625 :   %289 = add i64 %288, -8, !mcsema_real_eip !24 :          <39>	movl	%eax, -8(%rbp)
+626 :   %290 = inttoptr i64 %289 to i64*, !mcsema_real_eip !24 :          <39>	movl	%eax, -8(%rbp)
 
 627 :   %291 = bitcast i64* %290 to i32* : NIL
 
-628 :   store i32 %273, i32* %291, !mcsema_real_eip !24 :          <39>	movl	%eax, -4(%rbp)
+628 :   store i32 %273, i32* %291, !mcsema_real_eip !24 :          <39>	movl	%eax, -8(%rbp)
 
-629 :   %292 = load i64* %RBP_val, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-630 :   %293 = add i64 %292, -4, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-631 :   %294 = inttoptr i64 %293 to i64*, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
+629 :   %292 = load i64* %RBP_val, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+630 :   %293 = add i64 %292, -8, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+631 :   %294 = inttoptr i64 %293 to i64*, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
 
 632 :   %295 = bitcast i64* %294 to i32* : NIL
 
-633 :   %296 = load i32* %295, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-634 :   %297 = zext i32 %296 to i64, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
-635 :   store i64 %297, i64* %RAX_val, !mcsema_real_eip !20 :          <47>	movl	-4(%rbp), %eax
+633 :   %296 = load i32* %295, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+634 :   %297 = zext i32 %296 to i64, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
+635 :   store i64 %297, i64* %RAX_val, !mcsema_real_eip !20 :          <47>	movl	-8(%rbp), %eax
 
 636 :   %298 = load i64* %RBP_val, !mcsema_real_eip !21 :          <4a>	leave
 637 :   store i64 %298, i64* %RSP_val, !mcsema_real_eip !21 :          <4a>	leave

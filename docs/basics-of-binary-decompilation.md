@@ -30,6 +30,16 @@ below:
   - Third-party library and software components
   - Malicious executables 
   - Legacy executables 
+    - Various organizations have critical legacy applications that have been
+    developed for older systems and need to be ported to future versions. In
+    many cases, the application source-code is no longer accessible requiring
+    these applications to continue to run on outdated configurations.  There is
+    a huge demand of a framework which can recover functionally correct
+    source-code components from such legacy software, so that such legacy
+    systems can be ported to secure configurations.
+    Sometimes even if the source-code is available, it becomes unusable because
+    it relies on an old build system environment which cannot be re-created
+    today.
 
 All such situations require executable-level tools for distinct applications.
 For example, due to a rapid rise in cyber attacks, there is an increasing need
@@ -39,14 +49,8 @@ components only in an executable form has created a huge demand for effective
 executable analysis tools to achieve this goal Further, hundreds of malware are
 being uncovered almost daily which are only available in executable form.
 Security researchers requires novel tools to understand the behavior of such
-malware and to develop effective counter strategies. Various organizations have
-critical legacy applications that have been de- veloped for older systems and
-need to be ported to future versions. In many cases, the application
-source-code is no longer accessible requiring these applications to continue to
-run on outdated configurations.  There is a huge demand of a framework which
-can recover functionally correct source-code components from such legacy
-software, so that such legacy systems can be ported to secure configurations.
-Source-code
+malware and to develop effective counter strategies. 
+
 
 - Source-code analysis not sufficient 
 
@@ -215,9 +219,9 @@ past.
 |     [Diablo](#diablo)           |                     |         |           N         |          |
 
   - Rewiters: [ATOM](#atom), [PLTO](#plto), [Spike](#ispike), [UQBT](#uqbt), [Diablo](#diablo)
-    - All these rewrit- ers define their own low-level custom IR as opposed to
+    - All these rewriters define their own low-level custom IR as opposed to
     using a compiler IR. These IRs are devoid of features such as abstract
-    frames, symbols and maintain memory as a flat address space
+    frames, symbols and maintain memory as a flat address space.
 
   - Industrial Tools
     - [HexRays](#hexray)

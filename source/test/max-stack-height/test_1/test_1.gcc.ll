@@ -1146,12 +1146,12 @@ entry:
   %136 = zext i32 %120 to i64, !mcsema_real_eip !19
   store i64 %136, i64* %RAX_val, !mcsema_real_eip !19
   %137 = load i64* %RBP_val, !mcsema_real_eip !20
-  %138 = add i64 %137, -8, !mcsema_real_eip !20
+  %138 = add i64 %137, -4, !mcsema_real_eip !20
   %139 = inttoptr i64 %138 to i64*, !mcsema_real_eip !20
   %140 = bitcast i64* %139 to i32*
   store i32 %120, i32* %140, !mcsema_real_eip !20
   %141 = load i64* %RBP_val, !mcsema_real_eip !21
-  %142 = add i64 %141, -8, !mcsema_real_eip !21
+  %142 = add i64 %141, -4, !mcsema_real_eip !21
   %143 = inttoptr i64 %142 to i64*, !mcsema_real_eip !21
   %144 = bitcast i64* %143 to i32*
   %145 = load i32* %144, !mcsema_real_eip !21
@@ -1188,7 +1188,7 @@ entry:
   %167 = load i1* %ZF_val, !mcsema_real_eip !26
   %168 = or i1 %167, %166, !mcsema_real_eip !26
   %169 = load i64* %RBP_val, !mcsema_real_eip !27
-  %170 = add i64 %169, -8, !mcsema_real_eip !27
+  %170 = add i64 %169, -4, !mcsema_real_eip !27
   %171 = inttoptr i64 %170 to i64*, !mcsema_real_eip !27
   %172 = bitcast i64* %171 to i32*
   %173 = load i32* %172, !mcsema_real_eip !27
@@ -1219,12 +1219,12 @@ block_0x3e:                                       ; preds = %entry
   %188 = zext i32 %175 to i64, !mcsema_real_eip !28
   store i64 %188, i64* %RAX_val, !mcsema_real_eip !28
   %189 = load i64* %RBP_val, !mcsema_real_eip !29
-  %190 = add i64 %189, -4, !mcsema_real_eip !29
+  %190 = add i64 %189, -8, !mcsema_real_eip !29
   %191 = inttoptr i64 %190 to i64*, !mcsema_real_eip !29
   %192 = bitcast i64* %191 to i32*
   store i32 %175, i32* %192, !mcsema_real_eip !29
   %193 = load i64* %RBP_val, !mcsema_real_eip !30
-  %194 = add i64 %193, -4, !mcsema_real_eip !30
+  %194 = add i64 %193, -8, !mcsema_real_eip !30
   %195 = inttoptr i64 %194 to i64*, !mcsema_real_eip !30
   %196 = bitcast i64* %195 to i32*
   %197 = load i32* %196, !mcsema_real_eip !30
@@ -1405,12 +1405,12 @@ block_0x33:                                       ; preds = %entry
   %287 = zext i32 %273 to i64, !mcsema_real_eip !33
   store i64 %287, i64* %RAX_val, !mcsema_real_eip !33
   %288 = load i64* %RBP_val, !mcsema_real_eip !34
-  %289 = add i64 %288, -4, !mcsema_real_eip !34
+  %289 = add i64 %288, -8, !mcsema_real_eip !34
   %290 = inttoptr i64 %289 to i64*, !mcsema_real_eip !34
   %291 = bitcast i64* %290 to i32*
   store i32 %273, i32* %291, !mcsema_real_eip !34
   %292 = load i64* %RBP_val, !mcsema_real_eip !30
-  %293 = add i64 %292, -4, !mcsema_real_eip !30
+  %293 = add i64 %292, -8, !mcsema_real_eip !30
   %294 = inttoptr i64 %293 to i64*, !mcsema_real_eip !30
   %295 = bitcast i64* %294 to i32*
   %296 = load i32* %295, !mcsema_real_eip !30
@@ -1609,18 +1609,18 @@ attributes #1 = { nounwind readnone }
 !17 = metadata !{i64 14, [22 x i8] c"\09movl\09-24(%rbp), %eax\00"}
 !18 = metadata !{i64 17, [22 x i8] c"\09movl\09-20(%rbp), %edx\00"}
 !19 = metadata !{i64 20, [17 x i8] c"\09addl\09%edx, %eax\00"}
-!20 = metadata !{i64 22, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}
-!21 = metadata !{i64 25, [21 x i8] c"\09movl\09-8(%rbp), %eax\00"}
+!20 = metadata !{i64 22, [21 x i8] c"\09movl\09%eax, -4(%rbp)\00"}
+!21 = metadata !{i64 25, [21 x i8] c"\09movl\09-4(%rbp), %eax\00"}
 !22 = metadata !{i64 28, [17 x i8] c"\09movl\09%eax, %esi\00"}
 !23 = metadata !{i64 30, [15 x i8] c"\09movl\09$0, %edi\00"}
 !24 = metadata !{i64 40, [9 x i8] c"\09callq\090\00"}
 !25 = metadata !{i64 45, [21 x i8] c"\09cmpl\09$40, -20(%rbp)\00"}
 !26 = metadata !{i64 49, [8 x i8] c"\09jle\0911\00"}
-!27 = metadata !{i64 62, [21 x i8] c"\09movl\09-8(%rbp), %eax\00"}
+!27 = metadata !{i64 62, [21 x i8] c"\09movl\09-4(%rbp), %eax\00"}
 !28 = metadata !{i64 65, [16 x i8] c"\09subl\09$10, %eax\00"}
-!29 = metadata !{i64 68, [21 x i8] c"\09movl\09%eax, -4(%rbp)\00"}
-!30 = metadata !{i64 71, [21 x i8] c"\09movl\09-4(%rbp), %eax\00"}
+!29 = metadata !{i64 68, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}
+!30 = metadata !{i64 71, [21 x i8] c"\09movl\09-8(%rbp), %eax\00"}
 !31 = metadata !{i64 74, [7 x i8] c"\09leave\00"}
 !32 = metadata !{i64 75, [6 x i8] c"\09retq\00"}
 !33 = metadata !{i64 54, [16 x i8] c"\09addl\09$10, %eax\00"}
-!34 = metadata !{i64 57, [21 x i8] c"\09movl\09%eax, -4(%rbp)\00"}
+!34 = metadata !{i64 57, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}

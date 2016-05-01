@@ -49,9 +49,9 @@ fi
 
 objdump -d ${BIN}.o &> ${BIN}.objdump
 
-${BIN_DESCEND_PATH}/bin_descend ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> bd.log  
+${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> bd.log  
 
-${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=mcsema_main,${ENTRY_FUNC},raw,return,C &> cfgbc.log
+${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=mcsema_main,${ENTRY_FUNC},raw,return,C &> cfgbc.log
 
 ${LLVM_PATH}/opt -O3    -o=${BIN}_opt.bc ${BIN}.bc
 ${LLVM_PATH}/llvm-dis   -o=${BIN}.ll ${BIN}.bc
