@@ -1,4 +1,64 @@
-#### 21 April 2015
+#### 2nd May 2-16
+---------------------
+1. Fixed a issue withthe previosu implementation 
+  - There is a difference in which gcc and clang generated there epilogue and prologue for each function.
+    - clang generated binary	  
+    ```llvm
+    push   %rbp
+    mov    %rsp,%rbp
+    sub    $0x20,%rsp	// Allocation for local space
+    ...
+    add    $0x20,%rsp	// De-Allocation of local space
+                          // At this point the rsp is pointing to the stack loc containing 
+                          // previously pushed  rbp
+    pop    %rbp		
+    retq                  // pop the return address
+    ```
+
+    and corresponding mcsema generated llvm ir for last 2 instructions
+    ```llvm
+    %254 = load i64* %RSP_val
+    %268 = inttoptr i64 %254 to i64*, !mcsema_real_eip !12  ;popq	%rbp
+    %269 = load i64* %268, !mcsema_real_eip !12             ;popq	%rbp
+    store i64 %269, i64* %RBP_val, !mcsema_real_eip !12     ;popq	%rbp
+    %270 = add i64 %254, 16, !mcsema_real_eip !13           ;retq
+    store i64 %270, i64* %RSP_val, !mcsema_real_eip !11     ;retq
+    ```
+    - gcc generated binary	  
+    ```llvm
+    push   %rbp
+    mov    %rsp,%rbp
+    sub    $0x20,%rsp	// Allocation for local space
+    ...
+    leaveq                // %rsp = %rbp; pop %rbp 
+    retq                  // pop the return address
+    ```
+    and corresponding mcsema generated llvm ir for last 2 instructions
+    ```
+    %248 = load i64* %RBP_val, !mcsema_real_eip !10           ;leave
+    store i64 %248, i64* %RSP_val, !mcsema_real_eip !10       ;leave
+    %249 = inttoptr i64 %248 to i64*, !mcsema_real_eip !10    ;leave
+    %250 = load i64* %249, !mcsema_real_eip !10               ;leave
+    store i64 %250, i64* %RBP_val, !mcsema_real_eip !10       ;leave
+    %251 = add i64 %248, 16, !mcsema_real_eip !11             ;retq
+    store i64 %251, i64* %RSP_val, !mcsema_real_eip !11       ;retq
+    ```
+  - In the previosu implementation, before doing the global iterative dfa, 
+  we determine the local contant Gen<actual_rsp, max_disp_rsp, actual_rbp, max_disp_rbp> as
+      ```
+        Gen[bb]::actual_rsp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
+        Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_esp) for all I in bb.
+        - correspondingly for rbp -
+      ```  
+  where Gen is calculated with intial value of rsp/rbp as 0.
+  - Consider the calculation of actual_esp component of Gen
+      ![Const Gen computation of exit node](fig_3.png)
+  - The actual rsp calculation is wrong as it is dependent on the In::actua_rbp. In other words, the calculation of Gen is not a local property (within a bb), but dependent on the In.
+  - So we modified the global dfa so that gen are calculated during the iterative global dfa.
+
+
+
+#### 21 April 2016
 ---------------------
 1. Testing the previous implementation with icc (clang and gcc are working fine) generated binary
   - icc generated binary gives error with external calls
@@ -8,7 +68,7 @@
 4. Planning to augment the automated testing with switches for different calling conventions
 
 
-#### 14 April 2015
+#### 14 April 2016
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
   - A forward data flow analysis (dfa).
