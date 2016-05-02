@@ -1,4 +1,4 @@
-#### 2nd May 2-16
+#### 2nd May 2016
 ---------------------
 1. Fixed a issue with the previous implementation 
   - There is a difference in which gcc and clang generated there prologue and epilogue for each function.
@@ -45,19 +45,23 @@
     ```
   - The issue (explained next) is with the gcc generated binary and related to leave instrcution. 
   - In the previous implementation, before doing the global iterative dfa, 
-  we determine the local (rescricted to a bb) constant (does not depend on In/Out) Gen <actual_rsp, max_disp_rsp, actual_rbp, max_disp_rbp> as
+  we determine the local (i.e. restricted to a bb) constant (i.e. does not
+      depend on In/Out) Gen <actual_rsp, max_disp_rsp, actual_rbp,
+  max_disp_rbp> as follows:
+
       ```
         Gen[bb]::actual_rsp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
 
         Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_esp) for all I in bb.
         - correspondingly for rbp -
       ```  
-  ***Note Gen is calculated with initial value of rsp/rbp as 0.***
+  **Note Gen is calculated with initial value of rsp/rbp as 0.**
+
   - Consider the calculation of actual_esp component of Gen for an exit block (which will have the epilouge) for gcc generated binary
 
       ![Const Gen computation of exit node](fig_3.png)
 
-  - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;) is wrong as we have not considered the fact that actual_rsp is dependent on the In::actua_rbp. In other words, the calculation of Gen is not a local property, but dependent on the In.
+  - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;) is wrong as we have not considered the fact that actual_rsp is dependent on the In::actual\_rbp. In other words, the calculation of Gen is not a local property, but dependent on the In.
   - So we modified the global dfa so that gen are calculated during the iterative global dfa.
 
 #### 21 April 2016
