@@ -64,17 +64,15 @@
         Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_rsp) for all I in bb.
         - correspondingly for rbp -
         ```  
+        
         **Note Gen is calculated with initial value of rsp/rbp as 0.**
-
     - Consider the calculation of actual_rsp component of Gen for an exit block (which will have the epilouge) for gcc generated binary
-
-      ![Const Gen computation of exit node](fig_3.png)
-
-    - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;)
-  is wrong as we have not considered the fact that actual_rsp is dependent on
-  the In::actual\_rbp. 
-  In other words, the calculation of Gen is not a local property, but
-  dependent on the In.
+        
+        ![Const Gen computation of exit node](fig_3.png)
+    - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;) 
+        is wrong as we have not considered the fact that actual_rsp is dependent on the In::actual\_rbp. 
+        In other words, the calculation of Gen is not a local property, but
+        dependent on the In.
     - So we modified the global dfa so that gen are calculated during the iterative global dfa.
 
 #### 21 April 2016
