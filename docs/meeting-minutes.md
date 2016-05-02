@@ -54,18 +54,27 @@
   max_disp_rbp> as follows:
 
       ```
-        Gen[bb]::actual_rsp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
+        Gen[bb]::actual_rsp = Actual displacement of rsp across the bb with initial value of rsp/rbp assumed as 0.
 
-        Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_esp) for all I in bb.
+        Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_rsp) for all I in bb.
         - correspondingly for rbp -
       ```  
   **Note Gen is calculated with initial value of rsp/rbp as 0.**
 
-  - Consider the calculation of actual_esp component of Gen for an exit block (which will have the epilouge) for gcc generated binary
+  - Consider the calculation of actual_rsp component of Gen for an exit block (which will have the epilouge) for gcc generated binary
 
       ![Const Gen computation of exit node](fig_3.png)
 
-  - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;) is wrong as we have not considered the fact that actual_rsp is dependent on the In::actual\_rbp. In other words, the calculation of Gen is not a local property, but dependent on the In.
+  - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;)
+  is wrong as we have not considered the fact that actual_rsp is dependent on
+  the In::actual\_rbp. And this error will get propagated to the Out[exit
+  bb] as follows:
+
+  ```
+        Out[exit bb]::actual_rsp = In[bb]::actual_rsp + Gen[bb]::actual_rsp;
+  ```
+  In other words, the calculation of Gen is not a local property, but
+  dependent on the In.
   - So we modified the global dfa so that gen are calculated during the iterative global dfa.
 
 #### 21 April 2016
@@ -82,21 +91,21 @@
 ---------------------
 1. Implemented a pass to "find the maximum stack height  growth"
   - A forward data flow analysis (dfa).
-  - Each program point is associated with the following data flow value : {`actual_esp`, `actual_ebp`, `max_disp_esp`, `max_disp_ebp`} where
-    - `actual_esp` ( or `actual_ebp`) =  Actual displacement of `%rsp` (or `%rbp`). For example, for a statement `sub $0x20,%rsp`, if `%esp` value is `x` before the statement, then  `actual_esp` becomes `x - 32` after it.
-    - `max_disp_esp` ( or `max_disp_ebp)` =  Offset of the stack access w.r.t `%rsp` (or `%rbp`). For example, for a statement `mov -0x4(%rsp),%esi`, if `%esp` value is `x` before the statement, then `max_disp_esp` becomes `x-4` after it.
-    - Note: Both `actual_esp` and `max_disp_esp` need to be separately tracked. 
-      - Problem with having only `actual_esp`
+  - Each program point is associated with the following data flow value : {`actual_rsp`, `actual_rbp`, `max_disp_rsp`, `max_disp_rbp`} where
+    - `actual_rsp` ( or `actual_rbp`) =  Actual displacement of `%rsp` (or `%rbp`). For example, for a statement `sub $0x20,%rsp`, if `%rsp` value is `x` before the statement, then  `actual_rsp` becomes `x - 32` after it.
+    - `max_disp_rsp` ( or `max_disp_rbp)` =  Offset of the stack access w.r.t `%rsp` (or `%rbp`). For example, for a statement `mov -0x4(%rsp),%esi`, if `%rsp` value is `x` before the statement, then `max_disp_rsp` becomes `x-4` after it.
+    - Note: Both `actual_rsp` and `max_disp_rsp` need to be separately tracked. 
+      - Problem with having only `actual_rsp`
 
       ```llvm
         sub $0x8,%rsp
-        mov -0xc(rsp), %edi ;actual_esp = -8, but   max stack height = -0xc - Ox8
+        mov -0xc(rsp), %edi ;actual_rsp = -8, but   max stack height = -0xc - Ox8
       ```
-      - Problem with having only `max_disp_esp` (in negative direction)
+      - Problem with having only `max_disp_rsp` (in negative direction)
 
       ```llvm
         sub $0x8,%rsp
-        sub $0xc,%rsp  ;max_disp_esp = -0xc, but  max stack height = -0x14
+        sub $0xc,%rsp  ;max_disp_rsp = -0xc, but  max stack height = -0x14
       ``` 
       - Also just adding the offsets will not do.
 
@@ -106,12 +115,12 @@
       ```
   - Local dfa within a bb: Calculating `Gen[bb]`
     - Each instruction `I` (which may potentially affect rsp or rbp) within a bb is tracked to obtain the data flow values before, `In[I]` and after, `Out[I]`.
-      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated from one instruction to other within a bb. The call instruction in the figure results in to ` %esp += 8` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to `%esp` is pop of return address.
+      [This example](fig_1.png) captures all kinds of instructions considered and how the data values are propagated from one instruction to other within a bb. The call instruction in the figure results in to ` %rsp += 8` because it is assumed that the function is well formed with conventional prologue and epilogue and the only change that can happen to `%esp` is pop of return address.
     - After the data value propagation, Gen[bb] is computed as follows:
       
       ```
-        Gen[bb]::actual_esp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
-        Gen[bb]::max_disp_esp = max (Out[I]::max_disp_esp) for all I in bb.
+        Gen[bb]::actual_rsp = Actual displacement of rsp across the bb with initial value of rsp/rbp assumed as 0.
+        Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_rsp) for all I in bb.
       ```  
     - In the running example, `Gen[bb] = { 8, -64, 0, 0}`                                   
 
@@ -120,25 +129,25 @@
 
     ```javascript
       //For any pair of predecessor pred_bb_x and pred_bb_y
-      if ( Out[pred_bb_x]::actual_esp == OUT[pred_bb_y]::actual_esp &&  
-          OUT[pred_bb_x]::actual_ebp == OUT[pred_bb_y]::actual_ebp) {
-        In[bb]::actual_esp  = Out[pred_bb_x]::actual_esp;
-        In[bb]::actual_ebp  = Out[pred_bb_x]::actual_ebp;
-        In[bb]::max_disp_esp  = min ( OUT[pred_bb_x]::max_disp_esp, OUT[pred_bb_y]::max_disp_esp)
-        In[bb]::max_disp_ebp  = min ( OUT[pred_bb_x]::max_disp_ebp, OUT[pred_bb_y]::max_disp_ebp)
+      if ( Out[pred_bb_x]::actual_rsp == OUT[pred_bb_y]::actual_rsp &&  
+          OUT[pred_bb_x]::actual_rbp == OUT[pred_bb_y]::actual_rbp) {
+        In[bb]::actual_rsp  = Out[pred_bb_x]::actual_rsp;
+        In[bb]::actual_rbp  = Out[pred_bb_x]::actual_rbp;
+        In[bb]::max_disp_rsp  = min ( OUT[pred_bb_x]::max_disp_rsp, OUT[pred_bb_y]::max_disp_rsp)
+        In[bb]::max_disp_rbp  = min ( OUT[pred_bb_x]::max_disp_rbp, OUT[pred_bb_y]::max_disp_rbp)
       } else {
         In[bb] = Bottom
       }
     ```
-    - The value `Bottom` (no useful information) is for the cases where the `%esp` or `%ebp` is *updated* differently in control flow paths before the join. This is going to solve two scenarios
+    - The value `Bottom` (no useful information) is for the cases where the `%rsp` or `%ebp` is *updated* differently in control flow paths before the join. This is going to solve two scenarios
 
       - Consider two branches of a conditional statement; in both of them
-      `%esp` is updated differently and then an ancestor variable is accessed .
-      Now if we choose  height = max of `%esp` updates, and use it to deconstruct
+      `%rsp` is updated differently and then an ancestor variable is accessed .
+      Now if we choose  height = max of `%rsp` updates, and use it to deconstruct
       the global stack to local stack frame, then in case of indirect access it
       will not be possible to put a static check to distinguish which stack
       frame the access belongs to.
-      - If in the while loop body `%esp` is updated, then it is not statically possible
+      - If in the while loop body `%rsp` is updated, then it is not statically possible
       to figure out the value of stack height and we get `Bottom` in that scenario
       as well.
     
@@ -148,10 +157,10 @@
       if(In[bb] == Bottom) {
         Out[bb] =  Bottom;
       } else {
-        Out[bb]::actual_esp = In[bb]::actual_esp + Gen[bb]::actual_esp;
-        Out[bb]::actual_ebp = In[bb]::actual_ebp + Gen[bb]::actual_ebp;
-        Out[bb]::max_disp_esp = min ( In[bb]::actual_esp + Gen[bb]::max_disp_esp, In[bb]::max_disp_esp;
-        Out[bb]::max_disp_ebp = min ( In[bb]::actual_ebp + Gen[bb]::max_disp_ebp, In[bb]::max_disp_ebp;
+        Out[bb]::actual_rsp = In[bb]::actual_rsp + Gen[bb]::actual_rsp;
+        Out[bb]::actual_rbp = In[bb]::actual_rbp + Gen[bb]::actual_rbp;
+        Out[bb]::max_disp_rsp = min ( In[bb]::actual_rsp + Gen[bb]::max_disp_rsp, In[bb]::max_disp_rsp;
+        Out[bb]::max_disp_rbp = min ( In[bb]::actual_rbp + Gen[bb]::max_disp_rbp, In[bb]::max_disp_rbp;
       }
       ```
       - A `Bottom` in `In` or `Out` prevents deconstruction of stack frames. During testing we do **NOT** get any cases with `Bottom` appering in `In` or `Out`.
@@ -165,7 +174,7 @@
   - Max stack height of function F
 
     ```javascript
-      max ( Out[bb]::max_disp_esp, Out[bb]::max_disp_esp ) for  all bb.  
+      max ( Out[bb]::max_disp_rsp, Out[bb]::max_disp_rsp ) for  all bb.  
     ```
 
 2. Tested the implementation.
