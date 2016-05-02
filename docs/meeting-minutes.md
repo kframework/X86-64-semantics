@@ -1,6 +1,6 @@
 #### 2nd May 2-16
 ---------------------
-1. Fixed a issue withthe previosu implementation 
+1. Fixed a issue with the previous implementation 
   - There is a difference in which gcc and clang generated there epilogue and prologue for each function.
     - clang generated binary	  
     ```llvm
@@ -43,14 +43,15 @@
     %251 = add i64 %248, 16, !mcsema_real_eip !11             ;retq
     store i64 %251, i64* %RSP_val, !mcsema_real_eip !11       ;retq
     ```
-  - In the previosu implementation, before doing the global iterative dfa, 
-  we determine the local contant Gen<actual_rsp, max_disp_rsp, actual_rbp, max_disp_rbp> as
+  - In the previous implementation, before doing the global iterative dfa, 
+  we determine the local constant Gen<actual_rsp, max_disp_rsp, actual_rbp, max_disp_rbp> as
       ```
         Gen[bb]::actual_rsp = Actual displacement of esp across the bb with initial value of rsp/rbp assumed as 0.
+
         Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_esp) for all I in bb.
         - correspondingly for rbp -
       ```  
-  where Gen is calculated with intial value of rsp/rbp as 0.
+  where Gen is calculated with initial value of rsp/rbp as 0.
   - Consider the calculation of actual_esp component of Gen
       ![Const Gen computation of exit node](fig_3.png)
   - The actual rsp calculation is wrong as it is dependent on the In::actua_rbp. In other words, the calculation of Gen is not a local property (within a bb), but dependent on the In.
