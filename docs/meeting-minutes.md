@@ -67,12 +67,7 @@
 
   - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;)
   is wrong as we have not considered the fact that actual_rsp is dependent on
-  the In::actual\_rbp. And this error will get propagated to the Out[exit
-  bb] as follows:
-
-  ```
-        Out[exit bb]::actual_rsp = In[bb]::actual_rsp + Gen[bb]::actual_rsp;
-  ```
+  the In::actual\_rbp. 
   In other words, the calculation of Gen is not a local property, but
   dependent on the In.
   - So we modified the global dfa so that gen are calculated during the iterative global dfa.
