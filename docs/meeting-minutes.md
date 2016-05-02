@@ -3,6 +3,7 @@
 1. Fixed a issue with the previous implementation 
   - There is a difference in which gcc and clang generated there prologue and epilogue for each function.
     - clang generated binary	  
+
     ```llvm
     //prologue
     push   %rbp
@@ -18,6 +19,7 @@
     ```
 
     and corresponding mcsema generated llvm ir for last 2 instructions
+
     ```llvm
     %254 = load i64* %RSP_val
     %268 = inttoptr i64 %254 to i64*, !mcsema_real_eip !12  ;popq	%rbp
@@ -27,6 +29,7 @@
     store i64 %270, i64* %RSP_val, !mcsema_real_eip !11     ;retq
     ```
     - gcc generated binary	  
+
     ```llvm
     //prologue
     push   %rbp
@@ -38,7 +41,8 @@
     retq                  // pop the return address
     ```
     and corresponding mcsema generated llvm ir for last 2 instructions
-    ```
+
+    ```llvm
     %248 = load i64* %RBP_val, !mcsema_real_eip !10           ;leave
     store i64 %248, i64* %RSP_val, !mcsema_real_eip !10       ;leave
     %249 = inttoptr i64 %248 to i64*, !mcsema_real_eip !10    ;leave
