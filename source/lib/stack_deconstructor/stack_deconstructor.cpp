@@ -25,6 +25,13 @@ static RegisterPass<stack_deconstructor>
 bool stack_deconstructor::runOnModule(Module &M) {
   Mod = &M;
 
+  for(Function &F : M ) {
+    if (!F.isDeclaration()) {
+      max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(F);
+      errs() << "Analysing: " << F.getName() << " : " << max_stack_height_pass.get_stack_height() <<  "\n";
+    }
+  }
+
   return true; // Transform pass
 }
 

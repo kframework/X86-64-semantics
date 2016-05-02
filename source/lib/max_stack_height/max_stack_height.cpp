@@ -75,6 +75,7 @@ bool max_stack_height::initialize_framework() {
 
   llvm_alloca_inst_rsp = NULL;
   llvm_alloca_inst_rbp = NULL;
+  stack_height = 0;
 
   // For the entry: find the llvm alloca inst for rsp_val, rbp_val
   BasicBlock *EB = &(Func->getEntryBlock());

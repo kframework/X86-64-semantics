@@ -11,6 +11,7 @@
 #include "llvm/IR/InstVisitor.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/Pass.h"
+#include "max_stack_height.h"
 
 namespace llvm {
 
@@ -19,7 +20,7 @@ typedef int64_t height_ty;
 
 class stack_deconstructor : public ModulePass {
 private:
-  Function *Mod;
+  Module *Mod;
 
 public:
   static char ID;
@@ -31,6 +32,7 @@ public:
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const {
     AU.setPreservesAll();
+    AU.addRequired<max_stack_height>();
   };
 
 };

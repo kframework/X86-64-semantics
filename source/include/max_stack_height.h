@@ -90,6 +90,7 @@ public:
   max_stack_height() : FunctionPass(ID) {
     llvm_alloca_inst_rsp = NULL;
     llvm_alloca_inst_rbp = NULL;
+    stack_height = 0;
   }
 
   virtual bool runOnFunction(Function &F);
@@ -97,8 +98,6 @@ public:
   virtual void getAnalysisUsage(AnalysisUsage &AU) const {
     AU.setPreservesAll();
   };
-
-  height_ty getStackHeigt();
 
   // Overriden InstVisitor methods
   void visitLoadInst(LoadInst &I);

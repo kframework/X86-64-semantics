@@ -1,8 +1,8 @@
 LEVEL=../..
 
-LIBRARYNAME = LLVMmax_stack_height
+LIBRARYNAME = max_stack_height
 USEDLIBS = 
 BUILD_ARCHIVE = 1
-LOADABLE_MODULE = 1
+#LOADABLE_MODULE = 1
 
 include $(LEVEL)/Makefile.common
