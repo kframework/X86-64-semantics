@@ -4,10 +4,12 @@
   - There is a difference in which gcc and clang generated there prologue and epilogue for each function.
     - clang generated binary	  
     ```llvm
+    //prologue
     push   %rbp
     mov    %rsp,%rbp
     sub    $0x20,%rsp	// Allocation for local space
     ...
+    //epilogue
     add    $0x20,%rsp	// De-Allocation of local space
                           // At this point the rsp is pointing to the stack loc containing 
                           // previously pushed  rbp
@@ -26,10 +28,12 @@
     ```
     - gcc generated binary	  
     ```llvm
+    //prologue
     push   %rbp
     mov    %rsp,%rbp
     sub    $0x20,%rsp	// Allocation for local space
     ...
+    //epilogue
     leaveq                // %rsp = %rbp; pop %rbp 
     retq                  // pop the return address
     ```
