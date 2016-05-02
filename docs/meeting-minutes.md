@@ -54,11 +54,11 @@
       ```  
   ***Note Gen is calculated with initial value of rsp/rbp as 0.***
   - Consider the calculation of actual_esp component of Gen for an exit block (which will have the epilouge) for gcc generated binary
+
       ![Const Gen computation of exit node](fig_3.png)
-  - The actual rsp calculation is wrong as it is dependent on the In::actua_rbp. In other words, the calculation of Gen is not a local property (within a bb), but dependent on the In.
+
+  - The actual rsp calculation (which is supposed to be rsp = rbp; rsp += 16;) is wrong as we have not considered the fact that actual_rsp is dependent on the In::actua_rbp. In other words, the calculation of Gen is not a local property, but dependent on the In.
   - So we modified the global dfa so that gen are calculated during the iterative global dfa.
-
-
 
 #### 21 April 2016
 ---------------------
