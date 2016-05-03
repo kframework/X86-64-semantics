@@ -1,3 +1,7 @@
+### Run Commands
+make -s clang/gcc/icc
+make -s clean
+
 ### Testcase Features
   
 | Testcase 	| Specifics 	| Feature Tested 	| Comment |
