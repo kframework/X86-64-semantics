@@ -1,3 +1,37 @@
+#### 10th May 2016
+1. Implemented a basic pass which maps the access w.r.t to the global stack
+(provided by mcsema register context) to local stack per procedure.
+  - This is a transform pass on the mcsema generated llvm ir. 
+  - This is done by replacing the following instructions in each procedure
+  
+  ``` llvm
+    %RSP_val = alloca i64, !mcsema_real_eip !2 
+
+    %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2 ; Reading the register context to get the stack pointer
+    %7 = load i64* %RSP, !mcsema_real_eip !2
+
+    store i64 %7, i64* %RSP_val, !mcsema_real_eip !2  ; Storing the stack pointer in the local variable %RSP_val
+    ; All subsequesnt computations are using %RSP_val
+  ```
+
+  by
+
+  ``` llvm
+    %RSP_val = alloca i64, !mcsema_real_eip !2
+
+    %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2 ; 
+    %7 = load i64* %RSP, !mcsema_real_eip !2
+
+    %_local_stack_alloc_ = alloca [32 x i64]                                                    ; Newly inserted
+    %_local_stack_gep_ = getelementptr inbounds [32 x i64]* %_local_stack_alloc_, i32 0, i32 0  ; Newly inserted
+    %_local_stack_P2I_ = ptrtoint i64* %_local_stack_gep_ to i64                                ; Newly inserted
+    store i64 %_local_stack_P2I_, i64* %RSP_val                                                 ; Newly inserted
+    ; All subsequesnt computations are using %RSP_val
+  ```
+2. Limitation: Arguments which are passed usin stack are not handled yet. 
+  - Planning to pass the parent proc's local stack as an argument to callee so that callee can access them.
+
+
 #### 2nd May 2016
 ---------------------
 1. Fixed a issue with the previous implementation 
