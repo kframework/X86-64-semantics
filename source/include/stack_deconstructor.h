@@ -21,6 +21,7 @@ typedef int64_t height_ty;
 class stack_deconstructor : public ModulePass {
 private:
   Module *Mod;
+  void insertlocalstack(Function &F, height_ty size);
 
 public:
   static char ID;
