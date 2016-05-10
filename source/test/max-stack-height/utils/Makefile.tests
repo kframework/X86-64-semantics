@@ -1,6 +1,10 @@
 OPT=$(shell which opt)
+LLVMDIS=$(shell which llvm-dis)
+LLC=$(shell which llc)
 RUN_SH=../utils/run.sh  
-loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so 
+#loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so 
+loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMstack_deconstructor.so
+OPTSWITCH=-stack-decons -debug
 GCC=$(shell which gcc)
 CLANG=$(shell which clang)
 ICC=$(shell which icc)
@@ -14,27 +18,31 @@ gcc:
 
 clang:
 	@echo " using clang"
-	@COMPILER=${CLANG} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
-	@${MAKE} ext="clang" run_pass
+	COMPILER=${CLANG} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
+	${MAKE} ext="clang" run_pass
 
 icc:
 	@echo " using icc"
 	@COMPILER=${ICC} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
-	@${MAKE} ext="icc" run_pass
+	${MAKE} ext="icc" run_pass
 
 run_pass:
-	@${OPT} -load=${loadso} -ssh  -debug ${PROG_PREFIX}.ll  -o /dev/null 2>  log
-	@${MAKE} ext=${ext} check
+	${OPT} -load=${loadso} ${OPTSWITCH} ${PROG_PREFIX}.ll  -o ${PROG_PREFIX}.trans.bc  2>  log
+	${OPT} -O3  -o=${PROG_PREFIX}.trans_opt.bc ${PROG_PREFIX}.trans.bc
+	${LLVMDIS} ${PROG_PREFIX}.trans.bc
+	${LLVMDIS} ${PROG_PREFIX}.trans_opt.bc
+	${LLC} 	-march=x86-64 -filetype=obj -o ${PROG_PREFIX}.trans_lifted.o ${PROG_PREFIX}.trans.bc
+	${MAKE} ext=${ext} check
 
 check:
-	@sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
-	@sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.${ext}.gold >  ${PROG_PREFIX}.mod
-	@diff -w -q log.mod  ${PROG_PREFIX}.mod
-	@if [ $$? != 0  ]; then \
-		echo 	"    ${PROG_PREFIX} FAILED" ;\
-	fi
+#sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
+#sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.${ext}.gold >  ${PROG_PREFIX}.mod
+#diff -w -q log.mod  ${PROG_PREFIX}.mod
+#if [ $$? != 0  ]; then \
+#	echo 	"    ${PROG_PREFIX} FAILED" ;\
+#fi
 
-	@for file in `ls *.dot` ; do \
+	for file in `ls *.dot` ; do \
 	  gold=$$(echo $$file | sed 's/dot/${ext}.gold/g') ; \
 	  diff -w -q  $$gold $$file; \
 		if [ $$? != 0  ]; then \
@@ -42,8 +50,8 @@ check:
 		else \
 			rm $$file ; fi \
 	done  
-	@echo "    ${PROG_PREFIX} Pass" 
-	@${MAKE} run
+	echo "    ${PROG_PREFIX} Pass" 
+	${MAKE} run
 
 clean:
 	@../utils/clearall.sh

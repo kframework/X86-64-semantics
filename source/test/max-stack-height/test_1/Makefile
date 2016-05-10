@@ -21,5 +21,3 @@ run:
 	else \
 	 echo "${PROG_PREFIX}: Output Fail"; \
 	fi
-
-
