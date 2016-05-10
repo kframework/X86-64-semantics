@@ -1,5 +1,5 @@
 #### 10th May 2016
-1. Implemented and tested a basic pass which maps the access w.r.t to the global stack
+1. Implemented and tested a basic [pass](https://gitlab-beta.engr.illinois.edu/llvm/binary-decompilation/commit/d93134557d37e3f48b8100768f82392c797ad7ca) which maps the access w.r.t to the global stack
 (provided by mcsema register context) to local stack per procedure.
   - This is a transform pass on the mcsema generated llvm ir. 
   - This is done by replacing the following instructions in each procedure
