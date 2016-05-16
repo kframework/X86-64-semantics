@@ -1,3 +1,9 @@
+#### 16th May 2016
+1. Handling  "Arguments passed to callee using parent stack frame"
+  - The call instrutions (to mcsema generated functions) are modified to add caller stack frame as an extra argument. **DONE** [commit](https://github.com/sdasgup3/binary-decompilation/commit/9e88a03c60b2fcd856e732f993d5e4c1ab09d165)
+  - Planning to add checks after add instrutions to rsp and rbp such that if the access if beyond the current stack frame (in the positive) 
+    direction, then access the parent stack frame to access the argument. **WIP**
+
 #### 10th May 2016
 1. Implemented and tested a basic [pass](https://gitlab-beta.engr.illinois.edu/llvm/binary-decompilation/commit/d93134557d37e3f48b8100768f82392c797ad7ca) which maps the access w.r.t to the global stack
 (provided by mcsema register context) to local stack per procedure.
