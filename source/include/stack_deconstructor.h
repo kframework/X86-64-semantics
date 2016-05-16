@@ -36,6 +36,8 @@ public:
     AU.addRequired<max_stack_height>();
   };
 
+  Function* cloneFunctionWithExtraArgument(Function* );
+
 };
 }
 
