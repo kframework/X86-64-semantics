@@ -3,7 +3,7 @@
   
   ```
   The mean distance to the true type was 0.54 for Retypd, compared to 1.15 for dynamic TIE, 1.53 for REWARDS, 
-  1.58 for static TIE, and 1.70 for SecondWrite. The mean interval size shrunk to 1.2 with Re- typd, compared to 1.7 for SecondWrite and 2.0 for TIE._
+  1.58 for static TIE, and 1.70 for SecondWrite. The mean interval size shrunk to 1.2 with Re- typd, compared to 1.7 for SecondWrite and 2.0 for TIE.
   ```
   
   ```
@@ -20,9 +20,13 @@
   These rules ensure that Retypd can perform “iterative
 variable recovery”; lack of iterative variable recovery was cited by the authors of the Phoenix decompiler [27] as a common cause of incorrect decompilation when using TIE [15] for type recovery.
   ```
-
-
-
+4. From Second write paper:
+  
+```
+Integrating our variable identification system with type recovery makes the type 
+recovery simpler because it will need only recover scalar types like integers, floats and doubles. 
+Structures and arrays are detected as part of the variable identification. 
+```
 #### 16th May 2016
 1. Handling  "Arguments passed to callee using parent stack frame"
   - The call instrutions (to mcsema generated functions) are modified to add caller stack frame as an extra argument. **DONE** [commit](https://github.com/sdasgup3/binary-decompilation/commit/9e88a03c60b2fcd856e732f993d5e4c1ab09d165)
