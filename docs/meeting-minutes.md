@@ -30,8 +30,14 @@ Structures and arrays are detected as part of the variable identification.
 ![Second write typing rules](Figs/4.png) from [paper](papers/second_write_pldi_13.pdf) 
 
 ```
-For the other operations in the table, we propagate the types
-using the function unifyType. This function attempts to set the data type of all the given symbols andALocs to be the same.At least one of the symbols or the ALocs given to that function should be typed. Whenever this function finds conflicting types, it gives up and does not update any types. It is used for copy operations like type casts and phi nodes. It is also used to propagate types through memory as shown in the rules for stores and loads. Interprocedural information is propagated by unifying the formal and actual arguments types at a call instruction. The return value data type at the call site is unified with all the data types of all return values appearing in the return statements inside the called function body.
+For the other operations in the table, we propagate the types using the function unifyType. 
+This function attempts to set the data type of all the given symbols andALocs to be the same.
+At least one of the symbols or the ALocs given to that function should be typed. Whenever this 
+function finds conflicting types, it gives up and does not update any types. It is used for copy 
+operations like type casts and phi nodes. It is also used to propagate types through memory as shown 
+in the rules for stores and loads. Interprocedural information is propagated by unifying the formal and 
+actual arguments types at a call instruction. The return value data type at the call site is unified 
+with all the data types of all return values appearing in the return statements inside the called function body.
 ```
 
 
