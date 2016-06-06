@@ -27,6 +27,9 @@ Integrating our variable identification system with type recovery makes the type
 recovery simpler because it will need only recover scalar types like integers, floats and doubles. 
 Structures and arrays are detected as part of the variable identification. 
 ```
+![Second write typing rules](Figs/4.png) from [paper](papers/second_write_pldi_13.pdf) 
+
+
 #### 16th May 2016
 1. Handling  "Arguments passed to callee using parent stack frame"
   - The call instrutions (to mcsema generated functions) are modified to add caller stack frame as an extra argument. **DONE** [commit](https://github.com/sdasgup3/binary-decompilation/commit/9e88a03c60b2fcd856e732f993d5e4c1ab09d165)
