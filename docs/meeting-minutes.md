@@ -1,22 +1,26 @@
 ### 27 Jul 2016
-- Question 1
-  In reference to this particular paper, is variable recovery included in this type inference ? Or the variables (like scalar and aggregate variables) are already recovered before this particular type inference kicks in ? Or variable recovery is irrelevant  in the context of this paper,  because this paper only talks about inferring the type of stack offsets?
+
+- Starting referring the dissertation: POLYMORPHIC TYPE INFERENCE FOR LANGUAGES WITH OVERLOADING AND SUBTYPING, Geoffrey Seward Smith
+
+- Few relevant questions w.r.t the polymorphic type inference paper.
+  - Question 1
+    In reference to this particular paper, is variable recovery included in this type inference ? Or the variables (like scalar and aggregate variables) are already recovered before this particular type inference kicks in ? Or variable recovery is irrelevant  in the context of this paper,  because this paper only talks about inferring the type of stack offsets?
   
-  From the constraints generated (as given in Figure 2), it seems that some constraints considers the offset information of the  fields of  a structure (w.r.t the procedure's base pointer ), which after solving is going to help in knowing the type of the those fields. But it is not obvious to me if this particular paper is doing any kind of "structure variable" recovery using those offset information ? 
+    From the constraints generated (as given in Figure 2), it seems that some constraints considers the offset information of the  fields of  a structure (w.r.t the procedure's base pointer ), which after solving is going to help in knowing the type of the those fields. But it is not obvious to me if this particular paper is doing any kind of "structure variable" recovery using those offset information ? 
 
-  More specifically, In figure 2 of the paper, we can see the following constraints corresponding to instructions mov eax ,dword [edx]  and mov eax ,dword [edx + 4] respectively.
-  ```
-  >  τ.load.σ32@0 <: τ 
-  > τ.load.σ32@4 <: int ∧#FileDescriptor
-  ```
+    More specifically, In figure 2 of the paper, we can see the following constraints corresponding to instructions mov eax ,dword [edx]  and mov eax ,dword [edx + 4] respectively.
+    ```
+    >  τ.load.σ32@0 <: τ 
+    > τ.load.σ32@4 <: int ∧#FileDescriptor
+    ```
   
-  Are these constraints  also used to infer a "structure variable" with two fields at offset 0 and 4? Or its is used just to infer the type of the variables at offsets 0 and 4 from the base pointer of the procedure?
+    Are these constraints  also used to infer a "structure variable" with two fields at offset 0 and 4? Or its is used just to infer the type of the variables at offsets 0 and 4 from the base pointer of the procedure?
 
-- Question2
+  - Question2
 
-  This question is  related to my previous question.
+    This question is  related to my previous question.
 
-  As you  mentioned  that you do not need any pointer analysis information to infer that x has a the type struct S { struct S *, ...}*. I believe that the way you achieve this is by adding a new  constraint for each instruction corresponding to the access of the fields of x and solving them later. (Please correct me if I am wrong here).  If this is correct, then doesn't that mean that you  already have the information that x is a struct (but of course without the type information of its fields) before starting this type inference?
+    As you  mentioned  that you do not need any pointer analysis information to infer that x has a the type struct S { struct S *, ...}*. I believe that the way you achieve this is by adding a new  constraint for each instruction corresponding to the access of the fields of x and solving them later. (Please correct me if I am wrong here).  If this is correct, then doesn't that mean that you  already have the information that x is a struct (but of course without the type information of its fields) before starting this type inference?
 
 #### 07th June 2016
 1. Review of "Polymorphic type inference for machine code"
