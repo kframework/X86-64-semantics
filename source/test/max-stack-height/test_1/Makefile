@@ -12,7 +12,6 @@ DIR="${HOME}/Github/mcsema"
 
 .PHONY:run
 run:
-#${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
 	${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}.trans_lifted.o
 	./${PROG_PREFIX}.exe > out	
 

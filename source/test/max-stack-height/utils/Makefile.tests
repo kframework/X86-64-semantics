@@ -2,18 +2,19 @@ OPT=$(shell which opt)
 LLVMDIS=$(shell which llvm-dis)
 LLC=$(shell which llc)
 RUN_SH=../utils/run.sh  
-#loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMmax_stack_height.so 
-loadso=${HOME}/Github/binary-decompilation/source/Release+Asserts/lib/LLVMstack_deconstructor.so
-OPTSWITCH=-stack-decons -debug
+loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMmax_stack_height.so
+OPTSWITCH=-ssh -debug
+#loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMstack_deconstructor.so
+#OPTSWITCH=-stack-decons -debug
 GCC=$(shell which gcc)
 CLANG=$(shell which clang)
 ICC=$(shell which icc)
 
-all:   clang gcc
+all:    clang
 
 gcc:
 	@echo " using gcc"
-	@COMPILER=${GCC} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
+	COMPILER=${GCC} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
 	@${MAKE} ext="gcc" run_pass 
 
 clang:
@@ -35,14 +36,7 @@ run_pass:
 	${MAKE} ext=${ext} check
 
 check:
-#sed -e '/Args:/,/Subtarget features:/d' log > log.mod	
-#sed -e '/Args:/,/Subtarget features:/d'  ${PROG_PREFIX}.${ext}.gold >  ${PROG_PREFIX}.mod
-#diff -w -q log.mod  ${PROG_PREFIX}.mod
-#if [ $$? != 0  ]; then \
-#	echo 	"    ${PROG_PREFIX} FAILED" ;\
-#fi
-
-	for file in `ls *.dot` ; do \
+	@for file in `ls *.dot` ; do \
 	  gold=$$(echo $$file | sed 's/dot/${ext}.gold/g') ; \
 	  diff -w -q  $$gold $$file; \
 		if [ $$? != 0  ]; then \
