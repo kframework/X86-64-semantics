@@ -4,8 +4,6 @@ int foo(int a, int b) {
   int temp1, temp2; 
   temp1 = a+b;
   
-  //printf("%d", temp1);
-
   if(a > 40 ) {
     temp2 = temp1 + 10;
   } else {

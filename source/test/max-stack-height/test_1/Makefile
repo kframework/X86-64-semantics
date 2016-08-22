@@ -16,7 +16,8 @@ run:
 	./${PROG_PREFIX}.exe > out	
 
 	@-if diff out output.gold > /dev/null; then \
-	 echo "${PROG_PREFIX}: Output Pass"; \
+	 echo "  ${PROG_PREFIX}: Output Pass"; \
+	 rm -rf out
 	else \
-	 echo "${PROG_PREFIX}: Output Fail"; \
+	 echo "  ${PROG_PREFIX}: Output Fail"; \
 	fi

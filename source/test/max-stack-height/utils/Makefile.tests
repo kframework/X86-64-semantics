@@ -2,10 +2,10 @@ OPT=$(shell which opt)
 LLVMDIS=$(shell which llvm-dis)
 LLC=$(shell which llc)
 RUN_SH=../utils/run.sh  
-loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMmax_stack_height.so
-OPTSWITCH=-ssh -debug
-#loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMstack_deconstructor.so
-#OPTSWITCH=-stack-decons -debug
+#loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMmax_stack_height.so
+#OPTSWITCH=-ssh -debug
+loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMstack_deconstructor.so
+OPTSWITCH=-stack-decons -debug
 GCC=$(shell which gcc)
 CLANG=$(shell which clang)
 ICC=$(shell which icc)
@@ -13,12 +13,12 @@ ICC=$(shell which icc)
 all:    clang
 
 gcc:
-	@echo " using gcc"
+	@echo " Using gcc"
 	COMPILER=${GCC} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
 	@${MAKE} ext="gcc" run_pass 
 
 clang:
-	@echo " using clang"
+	@echo " Using clang"
 	COMPILER=${CLANG} ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
@@ -33,9 +33,9 @@ run_pass:
 	${LLVMDIS} ${PROG_PREFIX}.trans.bc
 	${LLVMDIS} ${PROG_PREFIX}.trans_opt.bc
 	${LLC} 	-march=x86-64 -filetype=obj -o ${PROG_PREFIX}.trans_lifted.o ${PROG_PREFIX}.trans.bc
-	${MAKE} ext=${ext} check
+	${MAKE} ext=${ext} run_check
 
-check:
+run_check:
 	@for file in `ls *.dot` ; do \
 	  gold=$$(echo $$file | sed 's/dot/${ext}.gold/g') ; \
 	  diff -w -q  $$gold $$file; \
@@ -44,7 +44,7 @@ check:
 		else \
 			rm $$file ; fi \
 	done  
-	echo "    ${PROG_PREFIX} Pass" 
+	@echo "  ${PROG_PREFIX}: Transform Pass" 
 	${MAKE} run
 
 clean:
