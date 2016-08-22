@@ -112,6 +112,8 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
         new StoreInst(p2i_inst, ptr_operand, str_inst);
 
         str_inst->eraseFromParent();
+
+        break;
       }
     }
   }
