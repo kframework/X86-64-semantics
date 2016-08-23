@@ -23,7 +23,7 @@
   we still be emiting the checks for those PTR's for which VSA fails to infer
   the values(e.g the values load from memory).
 
-  - Removing the dependence on computing stack heights statically
+  - Getting rid of impreciseness in computing stack heights statically
   
     Before doing this stack deconstruction, we were statically computing the stack heights and using that to compute the 
     ```parent_frame_start_ptr + parent_frame_height```. 
