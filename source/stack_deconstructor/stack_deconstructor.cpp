@@ -30,7 +30,7 @@ bool stack_deconstructor::runOnModule(Module &M) {
   for(Function &F : M ) {
     if (!F.isDeclaration()) {
       max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(F);
-      errs() << "Analysing: " << F.getName() << " : " << max_stack_height_pass.get_stack_height() <<  "\n";
+      //errs() << "Analysing: " << F.getName() << " : " << max_stack_height_pass.get_stack_height() <<  "\n";
       insertlocalstack(F, max_stack_height_pass.get_stack_height());
     }
   }
@@ -73,8 +73,9 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
 
   BasicBlock &eb = F.getEntryBlock();
   PtrToIntInst *p2i_inst = NULL;
-  StoreInst *str_inst = NULL;
+  LoadInst *str_inst = NULL;
   LLVMContext &ctx =  Mod->getContext();
+  BinaryOperator *stack_end  = NULL;
 
   bool stack_frame_deconstructed = false;
 
@@ -82,16 +83,15 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
    *    store i64 %7, i64* %RSP_val
    *  in the entry block
    */  
-  for (BasicBlock::iterator i = eb.begin(); i != eb.end(); ) {  
+  for (BasicBlock::iterator i: eb) {  
     Instruction *I = i++;
-    //if(NULL == p2i_inst && NULL != (str_inst = dyn_cast<StoreInst>(I))) {
-    if(NULL != (str_inst = dyn_cast<StoreInst>(I))) {
+    //if(NULL != (str_inst = dyn_cast<StoreInst>(I))) {
+    if(NULL != (str_inst = dyn_cast<LoadInst>(I))) {
 
-      stack_frame_deconstructed = true;
-
-      DEBUG(errs() << *str_inst << "\n");
       Value* ptr_operand = str_inst->getPointerOperand();
-      if(ptr_operand->getName().equals("RSP_val")) {
+      if(ptr_operand->getName().equals("RSP")) {
+
+        stack_frame_deconstructed = true;
 
         //create:: %_local_stack_alloc_ = alloca [32 x i64]
         Type* int64ty = Type::getInt64Ty(ctx);
@@ -103,15 +103,17 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
         indices.push_back(ConstantInt::get(Type::getInt32Ty(ctx), 0));
         indices.push_back(ConstantInt::get(Type::getInt32Ty(ctx), 0));
         GetElementPtrInst *gep_inst = GetElementPtrInst::CreateInBounds(ai_inst, 
-                indices, "_local_stack_gep_", str_inst);
+                indices, "_local_stack_start_ptr_", str_inst);
 
         //create:: %_local_stack_P2I_ = ptrtoint i64* %_local_stack_gep_ to i64
-        p2i_inst = new PtrToIntInst(gep_inst, Type::getInt64Ty(ctx), "_local_stack_P2I_",str_inst);
+        p2i_inst = new PtrToIntInst(gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_",str_inst);
+        ConstantInt* stack_height = ConstantInt::get(Type::getInt64Ty(ctx), -1*size, str_inst);
+        stack_end = BinaryOperator::Create(Instruction::Add, p2i_inst, stack_height, "_local_stack_end_",str_inst );
 
         //create:: store i64 %_local_stack_P2I_, i64* %RSP_val
         new StoreInst(p2i_inst, ptr_operand, str_inst);
 
-        str_inst->eraseFromParent();
+        //str_inst->eraseFromParent(); ????
 
         break;
       }
@@ -123,27 +125,32 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
     return;
   }
 
-  return;
+  /* For each call inst (to mcsema generated functions), add an extra actual arguments %_local_stack_P2I_ and height(%_local_stack_P2I_) 
+  ** and also the corresponding called function are augmented with an extra arguments i64 %_parent_rsp_, i32 %_parent_rsp_height   
+  */
+  for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
+    Instruction *I = &*i;
+    i++;
+    if(CallInst *ci = dyn_cast<CallInst>(I)) {
+      Function* f = ci->getCalledFunction();
+      if(!f->isDeclaration()) {
+        llvm::errs() << *ci << "\n";
 
-  /* For each call inst (to mcsema generated functions), add an extra actual argument %_local_stack_P2I_
-  ** and also the corresponding called function are augmented with an extra argument i64 %_parent_rsp_   
-  if(CallInst *ci = dyn_cast<CallInst>(I)) {
-    Function* f = ci->getCalledFunction();
-    if(!f->isDeclaration()) {
+        Function* new_f = cloneFunctionWithExtraArgument(f);
 
-      Function* new_f = cloneFunctionWithExtraArgument(f);
+        std::vector<Value*> arguments;
+        for(auto &args : ci->arg_operands()) {
+          arguments.push_back(args);
+        }
 
-      std::vector<Value*> arguments;
-      for(auto &args : ci->arg_operands()) {
-        arguments.push_back(args);
+        arguments.push_back(stack_end);
+        CallInst::Create(new_f, arguments, "", ci);
+        ci->eraseFromParent();
       }
-
-      arguments.push_back(p2i_inst);
-      CallInst::Create(new_f, arguments, "", ci);
-      ci->eraseFromParent();
     }
   }
-  */
+
+  return;
 }
 
 Function* stack_deconstructor::cloneFunctionWithExtraArgument(Function * F) {
@@ -173,7 +180,7 @@ Function* stack_deconstructor::cloneFunctionWithExtraArgument(Function * F) {
     DestI->setName(I->getName()); 
     VMap[I] = DestI++;       
   }
-  DestI->setName("_parent_rsp_");
+  DestI->setName("_parent_stack_end_ptr_"); DestI++;
 
   SmallVector<ReturnInst*, 8> Returns;  // Ignore returns cloned.
   CloneFunctionInto(NewF, F, VMap, false, Returns, "");
