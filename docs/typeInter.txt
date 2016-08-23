@@ -1,0 +1,7 @@
+
+The type inference phase has two parts:
+1. Type Inference  
+2. Downgrade infered types to human redable C types
+
+Is variable revovery done as part  of type recovery or prior to it or is it that case that the type recovery 
+can nothing to do witb variales are recovered or not.

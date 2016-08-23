@@ -1,0 +1,24 @@
+PROG_PREFIX=test_3
+
+ENTRY_FUNC=foo
+ASM_FILE=c
+FUNC_MAP=${HOME}/Github/mcsema/mc-sema/std_defs/std_defs.txt
+
+include ../utils/Makefile.tests
+
+CC=clang
+CXX=clang++
+DIR="${HOME}/Github/mcsema"
+
+.PHONY:run
+run:
+#${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
+	${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}.trans_lifted.o
+	./${PROG_PREFIX}.exe > out	
+
+	-if diff -w  out output.gold > /dev/null; then \
+	 echo "${PROG_PREFIX}: Output Pass"; \
+	else \
+	 echo "${PROG_PREFIX}: Output Fail"; \
+	fi
+	
