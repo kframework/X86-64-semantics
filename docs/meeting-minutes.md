@@ -24,6 +24,7 @@
   the values(e.g the values load from memory).
 
   - Removing the dependence on computing stack heights statically
+  
     Before doing this stack deconstruction, we were statically computing the stack heights and using that to compute the 
     ```parent_frame_start_ptr + parent_frame_height```. 
     As we can imagine that computing the precise value the above needs
