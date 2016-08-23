@@ -1,3 +1,38 @@
+### 23 Aug 2013
+- Worked on deconstruction the global stack ( which is shared by all the procedures ) into per procedure stack frame
+  - Transforming all the dereferences into the following checks
+  ```C
+  Let 
+  curr_frame_start_ptr: Base address of the current stack frame
+  parent_frame_start_ptr: Base address of the parent frame
+
+
+  if(PTR < curr_frame_start_ptr) { 
+    //PTR corresponds to current procedure stack frame
+    //dereference as usual
+  } else {
+    offset_in_parent_stack1 = PTR - curr_frame_start_ptr;
+    offset_in_parent_stack = offset_in_parent_stack1 - 8; // This 8 bits is to get past the location used for return address storage
+    dereference *[ (parent_frame_start_ptr + parent_frame_height) - offset_in_parent_stack)]
+  }
+  ```
+
+  Note: Currently all the load/store instructions are transformed like above.
+  But if we have a static analysis like VSA, then for many cases we will be
+  able to know the precise value of PTR and can prevent emitting these static checks. But
+  we still be emiting the checks for those PTR's for which VSA fails to infer
+  the values(e.g the values load from memory).
+
+  - Removing the dependence on computing stack heights statically
+    Before doing this stack deconstruction, we were statically computing the stack heights and using that to compute the 
+    ```parent_frame_start_ptr + parent_frame_height```. 
+    As we can imagine that computing the precise value the above needs
+    precise value of the stack height, which is not possible with a static analysis.
+
+    Currently we still be using the statically computed stack heights which is actually the maximum possible  height that the stack can grow.
+    And based on that will allocate a stack S. 
+    We will be instrumenting all the stack writes (writes within the boundaries of S) so as to track the last written location. 
+
 ### 27 Jul 2016
 
 - Starting referring the dissertation: POLYMORPHIC TYPE INFERENCE FOR LANGUAGES WITH OVERLOADING AND SUBTYPING, Geoffrey Seward Smith
