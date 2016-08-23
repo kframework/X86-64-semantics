@@ -34,6 +34,8 @@
     And based on that will allocate a stack S. 
     We will be instrumenting all the stack writes (writes within the boundaries of S) so as to track the last written location. 
 
+    [mail link] (https://github.com/sdasgup3/binary-decompilation/blob/stable/docs/Retped.md)
+
 ### 27 Jul 2016
 
 - Starting referring the dissertation: POLYMORPHIC TYPE INFERENCE FOR LANGUAGES WITH OVERLOADING AND SUBTYPING, Geoffrey Seward Smith
