@@ -72,7 +72,7 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
   assert(size <= 0 && "stack height cannot be positive\n");
 
   BasicBlock &eb = F.getEntryBlock();
-  PtrToIntInst *p2i_inst = NULL;
+  PtrToIntInst *stack_start = NULL;
   LoadInst *str_inst = NULL;
   LLVMContext &ctx =  Mod->getContext();
   BinaryOperator *stack_end  = NULL;
@@ -106,12 +106,12 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
                 indices, "_local_stack_start_ptr_", str_inst);
 
         //create:: %_local_stack_P2I_ = ptrtoint i64* %_local_stack_gep_ to i64
-        p2i_inst = new PtrToIntInst(gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_",str_inst);
+        stack_start = new PtrToIntInst(gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_",str_inst);
         ConstantInt* stack_height = ConstantInt::get(Type::getInt64Ty(ctx), -1*size, str_inst);
-        stack_end = BinaryOperator::Create(Instruction::Add, p2i_inst, stack_height, "_local_stack_end_",str_inst );
+        stack_end = BinaryOperator::Create(Instruction::Add, stack_start, stack_height, "_local_stack_end_",str_inst );
 
         //create:: store i64 %_local_stack_P2I_, i64* %RSP_val
-        new StoreInst(p2i_inst, ptr_operand, str_inst);
+        new StoreInst(stack_start, ptr_operand, str_inst);
 
         //str_inst->eraseFromParent(); ????
 
@@ -148,6 +148,45 @@ void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
         ci->eraseFromParent();
       }
     }
+  }
+
+  const Value* parentstack = NULL;
+  for (Function::const_arg_iterator I = F.arg_begin(), E = F.arg_end();
+       I != E; ++I) {
+    if(I->getName() == "_parent_stack_end_ptr_") {
+      parentstack = &*I;     
+    }
+  }
+
+  if(NULL == parentstack) return;
+
+  for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
+    Instruction *I = &*i;
+    i++;
+    if(LoadInst *li = dyn_cast<LoadInst>(I)) {
+
+      Value* ptr_operand = li->getPointerOperand();
+      PtrToIntInst  *p2i_inst = new PtrToIntInst(ptr_operand, Type::getInt64Ty(ctx), "_p2i_",li);
+      ICmpInst *BranchVal = new ICmpInst(li, ICmpInst::ICMP_ULE, p2i_inst, stack_start, "_cond_");
+      BasicBlock *TrueDest = BasicBlock::Create(ctx, "_true_", &F);
+      BasicBlock *FalseDest = BasicBlock::Create(ctx, "_false_", &F);
+      BranchInst::Create(TrueDest, FalseDest, BranchVal, li);
+
+      //True Branch
+      LoadInst *nLoadTrue = new LoadInst(ptr_operand, "_newload_", TrueDest);
+
+      //False Branch
+      BinaryOperator *offset1 = BinaryOperator::Create(Instruction::Sub, p2i_inst, stack_start, "_offset_above_rbp_", FalseDest);
+      BinaryOperator *offset2 = BinaryOperator::Create(Instruction::Sub, offset1, ConstantInt::get(Type::getInt64Ty(ctx), 8), "_offset_in_parent_stack_", FalseDest);
+      BinaryOperator *parent_address = BinaryOperator::Create(Instruction::Add, offset2,  const_cast<Value*> (parentstack) , "_address_in_parent_stack_", FalseDest);
+      IntToPtrInst *parent_address_ptr = new IntToPtrInst(parent_address, Type::getInt64PtrTy(ctx), "_address_ptr_in_parent_stack_",FalseDest);
+      new LoadInst(parent_address_ptr, "_newload_", FalseDest);
+
+      PHINode::Create( Type::getInt64Ty(ctx), 2, "_phi_", li);
+      li->replaceAllUsesWith(nLoadTrue);
+      li->eraseFromParent();
+    }
+
   }
 
   return;

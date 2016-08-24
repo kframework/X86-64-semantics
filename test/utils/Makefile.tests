@@ -36,15 +36,15 @@ run_pass:
 	${MAKE} ext=${ext} run_check
 
 run_check:
-	@for file in `ls *.dot` ; do \
-	  gold=$$(echo $$file | sed 's/dot/${ext}.gold/g') ; \
-	  diff -w -q  $$gold $$file; \
-		if [ $$? != 0  ]; then \
-			echo 	"    ${PROG_PREFIX} FAILED" ;\
-		else \
-			rm $$file ; fi \
-	done  
-	@echo "  ${PROG_PREFIX}: Transform Pass" 
+#	@for file in `ls *.dot` ; do \
+#	  gold=$$(echo $$file | sed 's/dot/${ext}.gold/g') ; \
+#	  diff -w -q  $$gold $$file; \
+#		if [ $$? != 0  ]; then \
+#			echo 	"    ${PROG_PREFIX} FAILED" ;\
+#		else \
+#			rm $$file ; fi \
+#	done  
+#	@echo "  ${PROG_PREFIX}: Transform Pass" 
 	${MAKE} run
 
 clean:
