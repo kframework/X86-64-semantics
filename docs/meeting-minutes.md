@@ -1,4 +1,66 @@
-#### 06th June 2016
+### 23 Aug 2013
+- Worked on deconstruction the global stack ( which is shared by all the procedures ) into per procedure stack frame
+  - Transforming all the dereferences into the following checks
+  ```C
+  Let 
+  curr_frame_start_ptr: Base address of the current stack frame
+  parent_frame_start_ptr: Base address of the parent frame
+
+
+  if(PTR < curr_frame_start_ptr) { 
+    //PTR corresponds to current procedure stack frame
+    //dereference as usual
+  } else {
+    offset_in_parent_stack1 = PTR - curr_frame_start_ptr;
+    offset_in_parent_stack = offset_in_parent_stack1 - 8; // This 8 bits is to get past the location used for return address storage
+    dereference *[ (parent_frame_start_ptr + parent_frame_height) - offset_in_parent_stack)]
+  }
+  ```
+
+  Note: Currently all the load/store instructions are transformed like above.
+  But if we have a static analysis like VSA, then for many cases we will be
+  able to know the precise value of PTR and can prevent emitting these static checks. But
+  we still be emiting the checks for those PTR's for which VSA fails to infer
+  the values(e.g the values load from memory).
+
+  - Getting rid of impreciseness in computing stack heights statically
+  
+    Before doing this stack deconstruction, we were statically computing the stack heights and using that to compute the 
+    ```parent_frame_start_ptr + parent_frame_height```. 
+    As we can imagine that computing the precise value the above needs
+    precise value of the stack height, which is not possible with a static analysis.
+
+    Currently we still be using the statically computed stack heights which is actually the maximum possible  height that the stack can grow.
+    And based on that will allocate a stack S. 
+    We will be instrumenting all the stack writes (writes within the boundaries of S) so as to track the last written location. 
+
+    [mail link] (https://github.com/sdasgup3/binary-decompilation/blob/stable/docs/Retped.md)
+
+### 27 Jul 2016
+
+- Starting referring the dissertation: POLYMORPHIC TYPE INFERENCE FOR LANGUAGES WITH OVERLOADING AND SUBTYPING, Geoffrey Seward Smith
+
+- Few relevant questions w.r.t the polymorphic type inference paper.
+  - Question 1
+    In reference to this particular paper, is variable recovery included in this type inference ? Or the variables (like scalar and aggregate variables) are already recovered before this particular type inference kicks in ? Or variable recovery is irrelevant  in the context of this paper,  because this paper only talks about inferring the type of stack offsets?
+  
+    From the constraints generated (as given in Figure 2), it seems that some constraints considers the offset information of the  fields of  a structure (w.r.t the procedure's base pointer ), which after solving is going to help in knowing the type of the those fields. But it is not obvious to me if this particular paper is doing any kind of "structure variable" recovery using those offset information ? 
+
+    More specifically, In figure 2 of the paper, we can see the following constraints corresponding to instructions mov eax ,dword [edx]  and mov eax ,dword [edx + 4] respectively.
+    ```
+    >  τ.load.σ32@0 <: τ 
+    > τ.load.σ32@4 <: int ∧#FileDescriptor
+    ```
+  
+    Are these constraints  also used to infer a "structure variable" with two fields at offset 0 and 4? Or its is used just to infer the type of the variables at offsets 0 and 4 from the base pointer of the procedure?
+
+  - Question2
+
+    This question is  related to my previous question.
+
+    As you  mentioned  that you do not need any pointer analysis information to infer that x has a the type struct S { struct S *, ...}*. I believe that the way you achieve this is by adding a new  constraint for each instruction corresponding to the access of the fields of x and solving them later. (Please correct me if I am wrong here).  If this is correct, then doesn't that mean that you  already have the information that x is a struct (but of course without the type information of its fields) before starting this type inference?
+
+#### 07th June 2016
 1. Review of "Polymorphic type inference for machine code"
   
   ```
@@ -28,6 +90,18 @@ recovery simpler because it will need only recover scalar types like integers, f
 Structures and arrays are detected as part of the variable identification. 
 ```
 ![Second write typing rules](Figs/4.png) from [paper](papers/second_write_pldi_13.pdf) 
+
+```
+For the other operations in the table, we propagate the types using the function unifyType. 
+This function attempts to set the data type of all the given symbols andALocs to be the same.
+At least one of the symbols or the ALocs given to that function should be typed. Whenever this 
+function finds conflicting types, it gives up and does not update any types. It is used for copy 
+operations like type casts and phi nodes. It is also used to propagate types through memory as shown 
+in the rules for stores and loads. Interprocedural information is propagated by unifying the formal and 
+actual arguments types at a call instruction. The return value data type at the call site is unified 
+with all the data types of all return values appearing in the return statements inside the called function body.
+```
+
 
 
 #### 16th May 2016
