@@ -1,0 +1,75 @@
+
+\documentclass[10pt,twoside]{article}
+\usepackage{url}
+
+\newcommand{\doctitle}{%
+Approximations for the Feedback Vertex Set Problem}
+
+\pagestyle{myheadings}
+\markboth{\hfill\doctitle}{\doctitle\hfill}
+
+\bibliographystyle{siam}
+
+\addtolength{\textwidth}{1.00in}
+\addtolength{\textheight}{1.00in}
+\addtolength{\evensidemargin}{-1.00in}
+\addtolength{\oddsidemargin}{-0.00in}
+\addtolength{\topmargin}{-.50in}
+
+\hyphenation{in-de-pen-dent}
+
+%\title{\textbf{\doctitle}\\
+\title{\textbf{ Binary Decompilation to LLVM IR}}
+
+\author{Sandeep Dasgupta\thanks{Electronic address: \texttt{sdasgup3@illinois.edu}}
+\qquad Vikram Adve\thanks{Electronic address: \texttt{vadve@illinois.edu}}
+} 
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\maketitle
+
+Analyzing and optimizing programs from their executable has a long history of
+research pertaining to various applications including  security vulnerability
+analysis, untrusted code analysis, malware analysis, program testing, and
+binary optimizations. 
+
+This work is a step towards the same broader objective by decompiling the input binary
+into an intermediate form ( IR ) of LLVM, which is a widely-used compiler
+infrastructure.  The main challenge of the work involves extracting the
+variable (both scalar and aggregate) and type information from the input binary
+into a fully functional IR.  For this we have used a publicly available tool
+called McSema \cite{Mcsema}  which can convert x86
+machine code to functional LLVM IR. McSema support translation of x86 machine
+code, including integer, floating point, and SSE instructions. One of the
+downside of McSema recovered IR is that the variable (scalar/aggregate)
+and type information is missing. The current work is about recovering those.
+
+As an initial step, we have developed tools \cite{SourceMapper} for better
+debugging of McSema generated IR.  Notables are ``source mapper'', which maps
+source ( input binary ) information to generated LLVM IR, and a LLVM backward
+slicer. Also we have identified optimization oportunities, like scalar
+replacement of aggregates, in the design of McSema generated IR to improve its
+quality. 
+
+Mcsema uses a big flat array to model the runtime process stack i.e. all the
+reads/writes made by a binary on its runtime stack are modeled into this array.
+The first step towards our goal is to identify variables in this array and
+promote them as separate symbols which requires deconstructing this global 
+array, that Mcsema shares between all the procedure, into per procedure array
+which is used to model the stack frame of that procedure.  Such stack deconstruction is important because 
+doing symbol promotion right on the global array could be very conservative because
+ an indirect write made by a different procedure may prevent
+symbol promotion in the current procedure.  We have implemented a
+transformation pass which can do the stack deconstruction and also implemented variable recovery
+and symbol promotion as described in \cite{PLDI2013,Eurosys2013}
+
+The next step is to infer the type of the recovered variables. 
+We are developing a prototype model for type inferencing based on \cite{PLDI2013,PLDI2016}. 
+
+\nocite{*}
+\bibliography{poster_abstract}
+
+\end{document}
