@@ -9,6 +9,7 @@
 \addtolength{\evensidemargin}{-1.00in}
 \addtolength{\oddsidemargin}{-0.00in}
 \addtolength{\topmargin}{-.50in}
+\date{}
 
 \title{\textbf{ Binary Decompilation to LLVM IR}}
 
@@ -27,72 +28,74 @@ research pertaining to various applications including  security vulnerability
 analysis, untrusted code analysis, malware analysis, program testing, and
 binary optimizations. 
 
-This work is a step towards the same broader objective by decompiling the input binary
-into an intermediate form ( IR ) of LLVM, which is a widely-used compiler
-infrastructure.  The main challenge of the work involves extracting the
-variable (both scalar and aggregate) and type information from the input binary
-into a fully functional IR.  
+This work serves the same broader objective by decompiling the input binary
+into an intermediate form (IR) of LLVM.  The main challenge of the work over
+and above the existing tools is to extract a richer llvm IR, including variable
+(both scalar and aggregate), type information and stack frame re-construction,
+which will facilitate many sophisticated analysis and optimizations.
 
-Current state-of-the-art static analysis tools (e.g. \cite{HexRays, Codesurfer,
-BAP}) for binary analysis \& decompilation operate on ad-hoc intermediate representations
-(IR) of the machine code and not available in public.  The corresponding
-literature has many advanced techniques ( \cite{SECONDWRITE-EUROSYS-2013},
-\cite{DIVINE-VMCAI-2007}, \cite{POLYTYPEINFERENCE-PLDI-2016}), but they are not
-open source either.  There are some frameworks which recover LLVM IR from
-executable.  S2E\cite{S2E-ASPLOS-2011} and RevNIC \cite{REVNIC-EUROSYS-2010}
+State-of-the-art binary analysis \& decompilation tools either operate on
+ad-hoc intermediate representations (\cite{HexRays, Codesurfer, BAP}) or not
+open sourced (\cite{HexRays, Codesurfer, BAP,SECONDWRITE-EUROSYS-2013,
+DIVINE-VMCAI-2007,POLYTYPEINFERENCE-PLDI-2016}).  There are some frameworks
+which recover LLVM IR from executable.  RevNIC \cite{REVNIC-EUROSYS-2010}
 present a method for dynamically translating x86 to LLVM using
-QEMU\cite{QEMU-ATEC-2005}.  As pointed out in \cite{SECONDWRITE-EUROSYS-2013},
-these methods convert blocks of code to LLVM on the fly which limits the
-application of LLVM analysis to only one block at a time. RevNIC
-\cite{REVNIC-EUROSYS-2010} recovers an IR by merging the translated blocks, but
-the recovered IR is incomplete and is only valid for current execution;
-consequently, various whole program analysis will provide incomplete
+QEMU\cite{QEMU-ATEC-2005}.  It recovers the IR by merging the translated
+blocks, but the recovered IR is incomplete and is only valid for current
+execution; consequently, various whole program analysis will provide incomplete
 information. RevGen \cite{REVGEN-DNSW-2011} includes a static disassembler to
-recover an IR for entire binary. However, the translated code retains all the
-assumptions of the original binary about the stack layout.  They do not provide
-any methods for obtaining an abstract stack or promoting memory locations to
-symbols, which are essential for the application of several source-level
-analysis. 
+recover an IR, but they do not provide variable recovery or promotion to symbols.
+  
+  %, which are essential for the application of several source-level
+  %analysis. 
 
 For our current work we have used a publicly available tool called McSema
-\cite{Mcsema}  which can convert x86 machine code to functional LLVM IR.
-Moreover this project is actively maintained, BSD3 licensed, and has extensive
-tests and documentation.  One of the downside of McSema recovered IR is that
-the variable (scalar/aggregate) and type information is missing. The current
-work is about devising a scalable decompilation solution which can recover
-those.
+\cite{Mcsema}  which converts x86 machine code to functional LLVM IR.  
+One of the limitation of McSema recovered IR is that the
+extracted IR misses high level information like variable and types.  Moreover,
+Mcsema uses a big flat array to model the runtime process stack which is shared
+by all the procedures. This inhibits many aggressive optimizations on the stack
+because of potential aliases between procedures. Also all the machines
+registers are mapped in memory in the recovered IR and not promoted to virtual
+registers. 
 
-As an initial step, we have developed tools \cite{SourceMapper} on top of
+As mentioned earlier,  McSema models the reads/writes made by a binary on its
+runtime stack into a global array.  The first step towards our goal of
+obtaining richer IR is to identify variables in this array and promote them as
+symbols which requires deconstructing this global array into per
+procedure array used to model the stack frame of that procedure.  This stack
+frame re-onstruction is important because doing symbol promotion right on the
+global array could be very conservative because an indirect write made by a
+different procedure may prevent symbol promotion in the current procedure.
+This has already implemented and currently we are working on 
+variable recovery and symbol promotion schemes based on
+\cite{SECONDWRITE-EUROSYS-2013, DIVINE-VMCAI-2007}.
+
+As a side step, we have developed tools \cite{SourceMapper} on top of
 Giri\cite{GIRI-ASPLOS-2013} for better debugging of McSema generated IR.
-Notables are ``Source Mapper'', which maps source ( input binary ) information
+Notables are ``Source Mapper'', which maps source (input binary) information
 to generated LLVM IR, and a ``Backward Slicer'' for McSema generated IR. Also we
 have identified optimization opportunities, like scalar replacement of
 aggregates, in the design of McSema generated IR to improve its quality. 
 
-Mcsema uses a big flat array to model the runtime process stack i.e. all the
-reads/writes made by a binary on its runtime stack are modeled into this array.
-The first step towards our goal is to identify variables in this array and
-promote them as separate symbols which requires deconstructing this global
-array, that Mcsema shares between all the procedure, into per procedure array
-which is used to model the stack frame of that procedure.  Such stack
-deconstruction is important because doing symbol promotion right on the global
-array could be very conservative because an indirect write made by a different
-procedure may prevent symbol promotion in the current procedure.  We have
-implemented a transformation pass which can do the stack deconstruction. We are
-planning to research on and implement various variable recovery and symbol
-promotion schemes as described in \cite{SECONDWRITE-EUROSYS-2013,
-DIVINE-VMCAI-2007}.
-
-The next step is going to be data-type recovery which aims at representing every
-symbol in the IR with a meaningful type instead of the generic types in the
-McSema recovered IR. The inferred types not only enables many sophisticated
-analysis (e.g. pointer analysis) but can also be used to rewrite optimized
-machine code for different architectures.  The plan is to first develop a
-simple type inferencer based on external function calls and arithmetic
-operations; then a more sophisticated one using a polymorphic type inference
-algorithm \cite{POLYTYPEINFERENCE-PLDI-2016}.
+The next goal, data-type recovery, aims at representing every symbol in the IR
+with a meaningful type instead of the generic types in the McSema recovered IR.
+The inferred types not only enables many sophisticated analysis (e.g. pointer
+analysis) but can also be used to rewrite optimized machine code for different
+architectures.  The plan is to first develop a simple type inferencer based on
+external function calls and arithmetic operations; then a more sophisticated
+one using a polymorphic type inference algorithm
+\cite{POLYTYPEINFERENCE-PLDI-2016}.
 
 \nocite{*}
 \bibliography{poster_abstract}
 
 \end{document}
+
+
+
+%recover an IR for entire binary. However, the translated code retains all the
+%assumptions of the original binary about the stack layout.  They do not provide
+%any methods for obtaining an abstract stack or promoting memory locations to
+%symbols, which are essential for the application of several source-level
+%analysis. 
