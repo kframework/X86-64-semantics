@@ -29,13 +29,13 @@ analysis, untrusted code analysis, malware analysis, program testing, and
 binary optimizations. 
 
 This work serves the same broader objective by decompiling the input binary
-into an intermediate form (IR) of LLVM.  The main challenge of the work over
+into intermediate representation (IR) of LLVM.  The main challenge of the work over
 and above the existing tools is to extract a richer LLVM IR  including
 variable, type information and per procedure stack frames, which
 will facilitate many sophisticated analysis and optimizations.
 
 State-of-the-art binary analysis \& decompilation tools either operate on
-ad-hoc intermediate representations (\cite{HexRays, Codesurfer, BAP}) or are
+ad-hoc IRs (\cite{HexRays, Codesurfer, BAP}) or are
 not open sourced (\cite{HexRays, Codesurfer, BAP,SECONDWRITE-EUROSYS-2013,
 DIVINE-VMCAI-2007,POLYTYPEINFERENCE-PLDI-2016}).  There are some frameworks
 which recover LLVM IR from executable.  RevNIC \cite{REVNIC-EUROSYS-2010}
@@ -64,7 +64,7 @@ As mentioned earlier,  McSema models the reads/writes made by a binary on its
 runtime stack into a global array.  The first step towards our goal of
 obtaining richer IR is to identify variables in this array and promote them as
 symbols. This requires deconstructing the global array into per
-procedure array which is used for modeling the stack frame of that procedure.  This stack
+procedure array which is used for modeling the stack frame for that procedure.  This stack
 frame re-construction is important because doing symbol promotion right on the
 global array could be very conservative because an indirect write made by a
 different procedure may prevent symbol promotion in the current procedure.
@@ -83,7 +83,7 @@ The next goal, data-type recovery, aims at representing every symbol in the IR
 with a meaningful type instead of the generic types in the McSema recovered IR.
 The inferred types not only enables many sophisticated analysis (e.g. pointer
 analysis) but can also be used to rewrite optimized machine code for different
-architectures.  The plan is to first develop a simple type inferencer based on
+architectures. The plan is to first develop a simple type inferencer based on
 external function calls and arithmetic operations; then a more sophisticated
 one using a polymorphic type inference algorithm
 \cite{POLYTYPEINFERENCE-PLDI-2016}.
