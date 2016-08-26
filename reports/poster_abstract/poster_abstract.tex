@@ -30,13 +30,13 @@ binary optimizations.
 
 This work serves the same broader objective by decompiling the input binary
 into an intermediate form (IR) of LLVM.  The main challenge of the work over
-and above the existing tools is to extract a richer llvm IR, including variable
-(both scalar and aggregate), type information and stack frame re-construction,
-which will facilitate many sophisticated analysis and optimizations.
+and above the existing tools is to extract a richer LLVM IR  including
+variable, type information and per procedure stack frames, which
+will facilitate many sophisticated analysis and optimizations.
 
 State-of-the-art binary analysis \& decompilation tools either operate on
-ad-hoc intermediate representations (\cite{HexRays, Codesurfer, BAP}) or not
-open sourced (\cite{HexRays, Codesurfer, BAP,SECONDWRITE-EUROSYS-2013,
+ad-hoc intermediate representations (\cite{HexRays, Codesurfer, BAP}) or are
+not open sourced (\cite{HexRays, Codesurfer, BAP,SECONDWRITE-EUROSYS-2013,
 DIVINE-VMCAI-2007,POLYTYPEINFERENCE-PLDI-2016}).  There are some frameworks
 which recover LLVM IR from executable.  RevNIC \cite{REVNIC-EUROSYS-2010}
 present a method for dynamically translating x86 to LLVM using
@@ -44,7 +44,8 @@ QEMU\cite{QEMU-ATEC-2005}.  It recovers the IR by merging the translated
 blocks, but the recovered IR is incomplete and is only valid for current
 execution; consequently, various whole program analysis will provide incomplete
 information. RevGen \cite{REVGEN-DNSW-2011} includes a static disassembler to
-recover an IR, but they do not provide variable recovery or promotion to symbols.
+recover an IR, but they do not provide variable recovery or its promotion to
+symbols.
   
   %, which are essential for the application of several source-level
   %analysis. 
@@ -55,19 +56,19 @@ One of the limitation of McSema recovered IR is that the
 extracted IR misses high level information like variable and types.  Moreover,
 Mcsema uses a big flat array to model the runtime process stack which is shared
 by all the procedures. This inhibits many aggressive optimizations on the stack
-because of potential aliases between procedures. Also all the machines
+because of potential aliases between procedures. Also the machines
 registers are mapped in memory in the recovered IR and not promoted to virtual
 registers. 
 
 As mentioned earlier,  McSema models the reads/writes made by a binary on its
 runtime stack into a global array.  The first step towards our goal of
 obtaining richer IR is to identify variables in this array and promote them as
-symbols which requires deconstructing this global array into per
-procedure array used to model the stack frame of that procedure.  This stack
-frame re-onstruction is important because doing symbol promotion right on the
+symbols. This requires deconstructing the global array into per
+procedure array which is used for modeling the stack frame of that procedure.  This stack
+frame re-construction is important because doing symbol promotion right on the
 global array could be very conservative because an indirect write made by a
 different procedure may prevent symbol promotion in the current procedure.
-This has already implemented and currently we are working on 
+This has already been implemented and currently we are working on 
 variable recovery and symbol promotion schemes based on
 \cite{SECONDWRITE-EUROSYS-2013, DIVINE-VMCAI-2007}.
 
