@@ -9,12 +9,16 @@
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
+#include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Cloning.h"
+#include "llvm/IR/IRBuilder.h"
+
 
 using namespace llvm;
+LLVMContext &ctx =  getGlobalContext();
+static IRBuilder<> IRB(ctx);
+
 
 char stack_deconstructor::ID = 0;
 static RegisterPass<stack_deconstructor>
@@ -30,8 +34,10 @@ bool stack_deconstructor::runOnModule(Module &M) {
   for(Function &F : M ) {
     if (!F.isDeclaration()) {
       max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(F);
+      approximate_stack_height = max_stack_height_pass.get_stack_height();
       //errs() << "Analysing: " << F.getName() << " : " << max_stack_height_pass.get_stack_height() <<  "\n";
-      insertlocalstack(F, max_stack_height_pass.get_stack_height());
+      insertlocalstack(F);
+      //test(F, 0);
     }
   }
 
@@ -67,132 +73,316 @@ bool stack_deconstructor::runOnModule(Module &M) {
   *
   *               ; All subsequesnt computations are using %RSP_val
 ********************************************************************/
-void stack_deconstructor::insertlocalstack(Function &F, height_ty size) {
+void stack_deconstructor::insertlocalstack(Function &F) {
 
-  assert(size <= 0 && "stack height cannot be positive\n");
+  assert(approximate_stack_height <= 0 && "stack height cannot be positive\n");
 
+  DEBUG(errs() << "========================\n Processing Function:" <<  F.getName() << "\n=================================\n");
+
+  Value *current_stack_start = NULL;
+  Value *current_stack_end  = NULL;
+
+  if(false == createLocalStackFrame(F, &current_stack_start, &current_stack_end)) {
+    return;
+  }
+  augmentFunctionWithParentStack(F, current_stack_end);
+  modifyLoadStoreToAccessParentStack(F, current_stack_start);
+
+  return;
+}
+
+/*************************************
+ *  %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6
+ *  %7 = load i64* %RSP
+ *  store i64 %7, i64* %RSP_val
+ *
+ *  to
+ *
+ *  %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6
+ *  %7 = load i64* %RSP
+ *
+ *  %_local_stack_alloc_ = alloca i64, i64 0
+ *  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+ *  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+ *  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
+ *
+ *  store i64 %_local_stack_start_, i64* %RSP_val
+ */
+bool 
+stack_deconstructor::createLocalStackFrame(Function &F, Value** stack_start, Value** stack_end ) {
+
+  /*  1. Search for the first store to RSP_val in the entry block
+  **    e.g store i64 %7, i64* %RSP_val
+  **  2. Replcae the stored value with the custom stack start address
+  */  
+  StoreInst *store_inst = NULL;
   BasicBlock &eb = F.getEntryBlock();
-  PtrToIntInst *stack_start = NULL;
-  LoadInst *str_inst = NULL;
-  LLVMContext &ctx =  Mod->getContext();
-  BinaryOperator *stack_end  = NULL;
-
   bool stack_frame_deconstructed = false;
+  ConstantInt* stack_height = ConstantInt::get(Type::getInt64Ty(ctx), -1*approximate_stack_height);
 
-  /*  Search for the instruction 
-   *    store i64 %7, i64* %RSP_val
-   *  in the entry block
-   */  
+  BasicBlock::iterator i = eb.begin();
+  Instruction *I = &*i++;
+
+  IRB.SetInsertPoint(I);
+  //Create:: %_local_stack_alloc_ = alloca [32 x i64]
+  auto *ai_inst  = IRB.CreateAlloca(Type::getInt64Ty(ctx), stack_height, "_local_stack_alloc_");
+
+  //Create:: %_local_stack_start_ptr_ = getelementptr inbounds [32 x i64]* %_local_stack_alloc_, i32 0, i32 0
+  std::vector<Value* > indices;
+  indices.push_back(IRB.getInt32(0));
+  auto *gep_inst = IRB.CreateInBoundsGEP(ai_inst, indices, "_local_stack_start_ptr_");
+
+  //Create:: %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  *stack_start = IRB.CreatePtrToInt (gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_");
+
+  //Create:: %_local_stack_end_ = sub i64 %_local_stack_start_, 32
+  *stack_end = IRB.CreateBinOp (Instruction::Sub, *stack_start, stack_height, "_local_stack_end_");
+
+
   for (BasicBlock::iterator i: eb) {  
     Instruction *I = i++;
-    //if(NULL != (str_inst = dyn_cast<StoreInst>(I))) {
-    if(NULL != (str_inst = dyn_cast<LoadInst>(I))) {
+    if(NULL != (store_inst = dyn_cast<StoreInst>(I))) {
 
-      Value* ptr_operand = str_inst->getPointerOperand();
-      if(ptr_operand->getName().equals("RSP")) {
+      Value* ptr_operand = store_inst->getPointerOperand();
+      if(ptr_operand->getName().equals("RSP_val")) {
 
         stack_frame_deconstructed = true;
+        IRB.SetInsertPoint(store_inst);
 
-        //create:: %_local_stack_alloc_ = alloca [32 x i64]
-        Type* int64ty = Type::getInt64Ty(ctx);
-        ArrayType *arr_int64ty  = ArrayType::get(int64ty, -1*size);
-        AllocaInst *ai_inst = new AllocaInst(arr_int64ty, "_local_stack_alloc_", str_inst);
+        //Create:: store i64 %_local_stack_end_, i64* %RSP_val
+        auto *new_store = IRB.CreateStore (*stack_start, ptr_operand);
 
-        //create:: %_local_stack_gep_ = getelementptr inbounds [32 x i64]* %_local_stack_alloc_, i32 0, i32 0
-        std::vector<Value* > indices;
-        indices.push_back(ConstantInt::get(Type::getInt32Ty(ctx), 0));
-        indices.push_back(ConstantInt::get(Type::getInt32Ty(ctx), 0));
-        GetElementPtrInst *gep_inst = GetElementPtrInst::CreateInBounds(ai_inst, 
-                indices, "_local_stack_start_ptr_", str_inst);
-
-        //create:: %_local_stack_P2I_ = ptrtoint i64* %_local_stack_gep_ to i64
-        stack_start = new PtrToIntInst(gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_",str_inst);
-        ConstantInt* stack_height = ConstantInt::get(Type::getInt64Ty(ctx), -1*size, str_inst);
-        stack_end = BinaryOperator::Create(Instruction::Add, stack_start, stack_height, "_local_stack_end_",str_inst );
-
-        //create:: store i64 %_local_stack_P2I_, i64* %RSP_val
-        new StoreInst(stack_start, ptr_operand, str_inst);
-
-        //str_inst->eraseFromParent(); ????
-
+        assert(true == store_inst->use_empty() && "The store instr should not be having any uses");
+        //Remove the actual store
+        recordConverted(store_inst, new_store);
         break;
       }
     }
   }
 
-  //If the stack frame is not deconstructed, return
-  if(false == stack_frame_deconstructed) {
-    return;
-  }
+  //At this point erase all the replcaed instrcutions
+  eraseReplacedInstructions();
 
-  /* For each call inst (to mcsema generated functions), add an extra actual arguments %_local_stack_P2I_ and height(%_local_stack_P2I_) 
-  ** and also the corresponding called function are augmented with an extra arguments i64 %_parent_rsp_, i32 %_parent_rsp_height   
+  return stack_frame_deconstructed;
+}
+
+void
+stack_deconstructor::augmentFunctionWithParentStack(Function &F, Value* current_stack_end) {
+  /* For each CallInst (to mcsema generated functions), add an extra actual
+  ** arguments %_local_stack_end_ which the last accesses location of the 
+  ** parent frame.
+  ** Also the corresponding called function are augmented with an extra
+  ** arguments i64 %_parent_stack_end_ptr_
   */
-  for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
-    Instruction *I = &*i;
-    i++;
-    if(CallInst *ci = dyn_cast<CallInst>(I)) {
-      Function* f = ci->getCalledFunction();
-      if(!f->isDeclaration()) {
-        llvm::errs() << *ci << "\n";
+  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
+    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
+      Instruction *I = &*BBI++;
 
-        Function* new_f = cloneFunctionWithExtraArgument(f);
+      if(CallInst *ci = dyn_cast<CallInst>(I)) {
+      
+        IRB.SetInsertPoint(ci);
+      
+        Function* f = ci->getCalledFunction(); 
+        if(!f->isDeclaration()) {
 
-        std::vector<Value*> arguments;
-        for(auto &args : ci->arg_operands()) {
-          arguments.push_back(args);
+          Function* new_f = cloneFunctionWithExtraArgument(f);
+
+          std::vector<Value*> arguments;
+          for(auto &args : ci->arg_operands()) {
+            arguments.push_back(args);
+          }
+
+          arguments.push_back(current_stack_end);
+          CallInst *new_ci = IRB.CreateCall(new_f, arguments);
+          recordConverted(ci, new_ci);
         }
-
-        arguments.push_back(stack_end);
-        CallInst::Create(new_f, arguments, "", ci);
-        ci->eraseFromParent();
       }
     }
   }
 
-  const Value* parentstack = NULL;
-  for (Function::const_arg_iterator I = F.arg_begin(), E = F.arg_end();
-       I != E; ++I) {
-    if(I->getName() == "_parent_stack_end_ptr_") {
-      parentstack = &*I;     
-    }
-  }
-
-  if(NULL == parentstack) return;
-
-  for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
-    Instruction *I = &*i;
-    i++;
-    if(LoadInst *li = dyn_cast<LoadInst>(I)) {
-
-      Value* ptr_operand = li->getPointerOperand();
-      PtrToIntInst  *p2i_inst = new PtrToIntInst(ptr_operand, Type::getInt64Ty(ctx), "_p2i_",li);
-      ICmpInst *BranchVal = new ICmpInst(li, ICmpInst::ICMP_ULE, p2i_inst, stack_start, "_cond_");
-      BasicBlock *TrueDest = BasicBlock::Create(ctx, "_true_", &F);
-      BasicBlock *FalseDest = BasicBlock::Create(ctx, "_false_", &F);
-      BranchInst::Create(TrueDest, FalseDest, BranchVal, li);
-
-      //True Branch
-      LoadInst *nLoadTrue = new LoadInst(ptr_operand, "_newload_", TrueDest);
-
-      //False Branch
-      BinaryOperator *offset1 = BinaryOperator::Create(Instruction::Sub, p2i_inst, stack_start, "_offset_above_rbp_", FalseDest);
-      BinaryOperator *offset2 = BinaryOperator::Create(Instruction::Sub, offset1, ConstantInt::get(Type::getInt64Ty(ctx), 8), "_offset_in_parent_stack_", FalseDest);
-      BinaryOperator *parent_address = BinaryOperator::Create(Instruction::Add, offset2,  const_cast<Value*> (parentstack) , "_address_in_parent_stack_", FalseDest);
-      IntToPtrInst *parent_address_ptr = new IntToPtrInst(parent_address, Type::getInt64PtrTy(ctx), "_address_ptr_in_parent_stack_",FalseDest);
-      new LoadInst(parent_address_ptr, "_newload_", FalseDest);
-
-      PHINode::Create( Type::getInt64Ty(ctx), 2, "_phi_", li);
-      li->replaceAllUsesWith(nLoadTrue);
-      li->eraseFromParent();
-    }
-
-  }
+  //At this point erase all the replcaed instrcutions
+  eraseReplacedInstructions();
 
   return;
 }
 
-Function* stack_deconstructor::cloneFunctionWithExtraArgument(Function * F) {
+void
+stack_deconstructor::modifyLoadStoreToAccessParentStack(Function &F, Value* current_stack_start) {
+
+  Value* parent_stack_end = NULL;
+  for (Function::arg_iterator I = F.arg_begin(), E = F.arg_end();
+       I != E; ++I) {
+    if(I->getName() == "_parent_stack_end_ptr_") {
+      parent_stack_end = &*I;     
+    }
+  }
+
+  //If not a generated function, return
+  if(NULL == parent_stack_end) return;
+
+  std::vector<Instruction*> intr_to_be_transfomed;
+
+  bool start = false;
+  //Collect all the Loads/Stores to be transformed
+  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
+    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
+      Instruction *I = &*BBI++;
+      if(isa<LoadInst>(I) || isa<StoreInst>(I)) {
+        if(StoreInst *si = dyn_cast<StoreInst>(I)) {
+          auto *ptr_op = si->getPointerOperand();
+          std::string name  = ptr_op->getName();
+          if(name.compare("STACK_LIMIT_val") == 0 ) {
+            start = true;
+          }
+        }
+
+        if(false == start) {
+          continue;
+        }
+        if (auto *ITy = dyn_cast<IntegerType>(I->getType())) {
+          unsigned int size= ITy->getBitWidth();
+          //if(size == 32 || size == 64) {
+          if(size == 64) {
+            intr_to_be_transfomed.push_back(I);
+          }
+        }
+      }
+    }
+  }
+
+  //Split the BB at the point of Load/Store Inst
+  for(Instruction *I : intr_to_be_transfomed) {
+    //DEBUG(errs() << "\nProcessing: " << *li << "\n");
+    BasicBlock *BB = I->getParent();
+    BB->splitBasicBlock(I, "_split_" + BB->getName());
+  }
+
+  intr_to_be_transfomed.clear();
+
+
+  //Collect all the newly inserted Uncond - Branch instrunction due to the split 
+  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
+    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
+      Instruction *I = &*BBI++;
+      if(BranchInst *br = dyn_cast<BranchInst>(I)) {
+        auto *BB  = br->getSuccessor(0);
+        std::string name = BB->getName();
+        if(name.find("_split_", 0, 7) != std::string::npos) {
+          intr_to_be_transfomed.push_back(br);
+        }
+      }
+    }
+  }
+
+  for (Instruction *I : intr_to_be_transfomed) {
+      if (BranchInst *br = dyn_cast<BranchInst>(I)) {
+        //DEBUG(errs() << "\nProcessing: " << *br << "\n");
+
+        auto *curr_bb  = br->getParent();
+        auto *succ_bb  = br->getSuccessor(0);
+
+        //The first inst of succ BB must be a Load or Store
+        bool isLoad = false;
+        auto BBI = succ_bb->begin();
+        Value* ptr_operand = NULL;
+        Value* value_operand = NULL;
+        Instruction* load_or_store_inst = &*BBI;
+
+        if (LoadInst *li = dyn_cast<LoadInst>(load_or_store_inst)) {
+          isLoad = true;
+          ptr_operand = li->getPointerOperand();
+        } else if (StoreInst *si = dyn_cast<StoreInst>(load_or_store_inst)) {
+          isLoad = false;
+          ptr_operand = si->getPointerOperand();
+          value_operand = si->getValueOperand();
+        } else {
+          assert (0 && "The first inst of succ BB must be a Load or Store");
+        }
+
+        // Replace the Uncond - Br instruction
+        IRB.SetInsertPoint(br);
+
+        // With
+        // %_p2i_ = ptrtoint i64* %PTR to i64
+        // %_cond_ = icmp ule i64 %_p2i_, %_p2i_14
+        // br i1 %_cond_15, label %_true_target_16, label %_false_target_17
+        auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_p2i_");
+        auto *cond = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, parent_stack_end, "_cond_");
+        BasicBlock *true_dest = BasicBlock::Create(ctx, "_true_dest_", &F);
+        BasicBlock *false_dest = BasicBlock::Create(ctx, "_false_dest_", &F);
+        auto *cond_br = IRB.CreateCondBr (cond, true_dest, false_dest);
+        recordConverted(br, cond_br);
+
+        //True Branch
+        IRB.SetInsertPoint(true_dest);
+        LoadInst  *new_load_true_path = NULL;
+        if(isLoad) {
+          new_load_true_path = IRB.CreateLoad(ptr_operand, "_new_load_true_path_");
+        } else {
+          IRB.CreateStore(value_operand, ptr_operand, "_new_store_true_path_");
+        }
+        IRB.CreateBr (succ_bb);
+
+        //False Branch
+        IRB.SetInsertPoint(false_dest);
+        
+        auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_start, "_offset_above_rbp_");
+        auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_end, offset, "_address_in_parent_stack_");
+        auto  *parent_address_ptr = IRB.CreateIntToPtr(parent_address, Type::getInt64PtrTy(ctx), "_address_ptr_in_parent_stack_");
+
+        LoadInst  *new_load_false_path = NULL;
+        if(isLoad) {
+          new_load_false_path = IRB.CreateLoad(parent_address_ptr, "_new_load_false_path_");
+        } else {
+          IRB.CreateStore(value_operand, parent_address_ptr, "_new_store_false_path_");
+        }
+        IRB.CreateBr (succ_bb);
+
+        //At Merge
+        if(isLoad) {
+          IRB.SetInsertPoint(load_or_store_inst);
+          Type *ty = load_or_store_inst->getType();
+          auto *new_phi = IRB.CreatePHI(ty, 2);
+          new_phi->addIncoming(new_load_true_path, true_dest);
+          new_phi->addIncoming(new_load_false_path, false_dest);
+          llvm::errs() << *new_load_true_path << "\n";
+          llvm::errs() << *new_load_false_path << "\n";
+          llvm::errs() << *load_or_store_inst << "\n";
+          llvm::errs() << *new_phi << "\n";
+          recordConverted(load_or_store_inst, new_phi);
+        } else {
+          load_or_store_inst->eraseFromParent();
+        }
+
+        /*
+        IRB.SetInsertPoint(load_or_store_inst);
+        auto *new_phi = IRB.CreatePHI(Type::getInt64PtrTy(ctx), 2);
+        new_phi->addIncoming(ptr_operand, true_dest);
+        new_phi->addIncoming(parent_address_ptr, false_dest);
+        Instruction *new_inst = NULL;
+        if(isLoad) {
+          //new_phi->addIncoming(new_load_true_path, true_dest);
+          //new_phi->addIncoming(new_load_false_path, false_dest);
+          new_inst = IRB.CreateLoad(new_phi);
+        } else {
+          //new_phi->addIncoming(new_store_true_path, true_dest);
+          //new_phi->addIncoming(new_store_false_path, false_dest);
+          new_inst = IRB.CreateStore(value_operand, new_phi);
+        }
+        recordConverted(load_or_store_inst, new_inst);
+        */
+
+      }
+  }
+
+  //At this point erase all the replcaed instrcutions 
+  eraseReplacedInstructions();
+
+  return;
+}
+
+Function* 
+stack_deconstructor::cloneFunctionWithExtraArgument(Function * F) {
   std::vector<Type*> ArgTypes;
   ValueToValueMapTy VMap;
   LLVMContext &ctx =  Mod->getContext();
@@ -225,9 +415,122 @@ Function* stack_deconstructor::cloneFunctionWithExtraArgument(Function * F) {
   CloneFunctionInto(NewF, F, VMap, false, Returns, "");
 
   Mod->getFunctionList().push_back(NewF);
-  //F->replaceAllUsesWith(NewF);
 
   return NewF;
 }
 
+void 
+stack_deconstructor::recordConverted(Instruction *From, Value *To) {
+  ToErase.push_back(From);
+  From->replaceAllUsesWith(To);
+}
+
+void 
+stack_deconstructor::eraseReplacedInstructions() {
+  for (Instruction *E : ToErase)
+    E->dropAllReferences();
+  for (Instruction *E : ToErase)
+    E->eraseFromParent();
+
+  ToErase.clear();
+}
+
+
+/*
+void stack_deconstructor::test(Function &F, height_ty size) {
+
+  assert(size <= 0 && "stack height cannot be positive\n");
+
+  DEBUG(errs() << "========================\n Processing Function:" <<  F.getName() << "\n=================================\n");
+
+  //Collect all the loads to be transformed
+  std::vector<Instruction*> intr_to_be_transfomed;
+
+  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
+    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
+      Instruction *I = &*BBI++;
+      if(LoadInst *li = dyn_cast<LoadInst>(I)) {
+        intr_to_be_transfomed.push_back(li);
+      }
+    }
+  }
+
+  for(Instruction *I : intr_to_be_transfomed) {
+      if(LoadInst *li = dyn_cast<LoadInst>(I)) {
+        DEBUG(errs() << "\nProcessing: " << *li << "\n");
+        IRB.SetInsertPoint(li);
+
+        BasicBlock *BB = li->getParent();
+        BB->splitBasicBlock(li, "newBB");
+      }
+  }
+
+  intr_to_be_transfomed.clear();
+  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
+    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
+      Instruction *I = &*BBI++;
+      if(BranchInst *br = dyn_cast<BranchInst>(I)) {
+        auto *BB  = br->getSuccessor(0);
+        std::string name = BB->getName();
+        if(name.find("newBB", 0, 5) != std::string::npos) {
+          intr_to_be_transfomed.push_back(br);
+          llvm::errs() << *br << "\n";
+        }
+      }
+    }
+  }
+
+  for(Instruction *I : intr_to_be_transfomed) {
+      if(BranchInst *br = dyn_cast<BranchInst>(I)) {
+        //DEBUG(errs() << "\nProcessing: " << *br << "\n");
+        IRB.SetInsertPoint(br);
+
+        auto *BB  = br->getSuccessor(0);
+        std::string name = BB->getName();
+        auto BBI = BB->begin();
+        LoadInst *li = dyn_cast<LoadInst>(&*BBI);
+        assert (NULL != li);
+        Value* ptr_operand = li->getPointerOperand();
+
+        auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_p2i_");
+        //DEBUG(errs() << *p2i_inst << "\n");
+        auto *cond = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, p2i_inst, "_cond_");
+        //DEBUG(errs() << *cond<< "\n");
+        BasicBlock *true_dest = BasicBlock::Create(ctx, "_true_target_", &F);
+        BasicBlock *false_dest = BasicBlock::Create(ctx, "_false_target_", &F);
+        auto *cond_br = IRB.CreateCondBr (cond, true_dest, false_dest);
+        //auto *cond_br =  BranchInst::Create (true_dest, false_dest , cond);
+        //DEBUG(errs() << *cond_br<< cond_br->getParent() << "\n");
+        //ReplaceInstWithInst(br, cond_br);
+        recordConverted(br, cond_br);
+
+        //True Branch
+        IRB.SetInsertPoint(true_dest);
+        auto *newload_true_path = IRB.CreateLoad(ptr_operand, "_newload_true_path_");
+        //DEBUG(errs() << *newload_true_path<< "\n");
+        auto *cond_br_true = IRB.CreateBr (BB);
+        //DEBUG(errs() << *cond_br_true << "\n");
+
+        //False Branch
+        IRB.SetInsertPoint(false_dest);
+        auto *newload_false_path = IRB.CreateLoad(ptr_operand, "_newload_false_path_");
+        //DEBUG(errs() << *newload_false_path<< "\n");
+        auto *cond_br_false = IRB.CreateBr (BB);
+        //DEBUG(errs() << *cond_br_false << "\n");
+
+        //At Merge
+        IRB.SetInsertPoint(li);
+        auto *new_load_phi = IRB.CreatePHI(Type::getInt64Ty(ctx), 2);
+        new_load_phi->addIncoming(newload_true_path, true_dest);
+        new_load_phi->addIncoming(newload_false_path, false_dest);
+        //DEBUG(errs() << *new_load_phi<< "\n");
+
+        recordConverted(li, new_load_phi);
+      }
+  }
+
+  eraseReplacedInstructions();
+  return;
+}
+*/
 

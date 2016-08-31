@@ -21,7 +21,11 @@ typedef int64_t height_ty;
 class stack_deconstructor : public ModulePass {
 private:
   Module *Mod;
-  void insertlocalstack(Function &F, height_ty size);
+  height_ty approximate_stack_height;
+  SmallVector<Instruction *, 8> ToErase;
+  DenseMap<const llvm::Function *, Value*> FunctionToFrameMap;
+  void insertlocalstack(Function &);
+  //void test(Function &F, height_ty size);
 
 public:
   static char ID;
@@ -37,7 +41,11 @@ public:
   };
 
   Function* cloneFunctionWithExtraArgument(Function* );
-
+  void eraseReplacedInstructions();
+  void recordConverted(Instruction *From, Value *To);
+  bool  createLocalStackFrame(Function&, Value**, Value**);
+  void augmentFunctionWithParentStack(Function &, Value*);
+  void modifyLoadStoreToAccessParentStack(Function &F, Value*) ;
 };
 }
 
