@@ -1,4 +1,68 @@
-### 23 Aug 2013
+### 31 Aug 2016
+- Finished the okmplementation of stack decpnstruction 
+  ```
+    Before the transformation the mcsema cpde lloks like this
+    define fiunc(struct %0) {
+      //For accessing register in the struct
+      RAX_val = alloca
+      RAX = getelementptr .. // read the register loc in the struct
+      %temp  = load  RAX
+      store %temp RAX_val 
+
+      //For accessing the stack in the struct 
+      RSP_val = alloca
+      RSP = getelementptr .. // read the stack loc in the struct
+      %temp  = load  RSP
+      store %temp RSP_val // assign the start addres of the stack to local variable RSP_val
+
+      ....
+
+      ... = load RAX_val
+      ... = load RSP_val    // or any offset from RSP_val
+    }
+
+      After the moficication 
+
+    define func(struct %0, %parent_stack_end ) {
+        %_local_stack_alloc_ = alloca i64, i64 0
+        %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+        %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+        %_local_stack_end_ = sub i64 %_local_stack_start_, 0
+
+      //For accessing register in the struct
+      RAX_val = alloca
+      RAX = getelementptr .. // read the register loc in the struct
+      %temp  = load  RAX
+      store %temp RAX_val 
+
+      //For accessing the stack in the struct 
+      RSP_val = alloca
+      RSP = getelementptr .. // read the stack loc in the struct
+      %temp  = load  RSP
+
+      store %_local_stack_start_ RSP_val // assign the start addres of the stack to local variable RSP_val
+
+      ....
+
+      if(RAX_val < _local_stack_start_) {  // As the alloca of local stack _local_stack_alloc_ is before the alloca of RAX_val, this condition should always be true
+      ... = load RAX_val
+      } else {
+        //compute the offset in the parent stack and load it
+      }
+
+      if(RSP_val < _local_stack_start_) {     
+        ... = load RSP_val
+      }else {
+        %offset = RSP_val - _local_stack_start_;
+        %address_in_parent_stack =  %offset + %parent_stack_end;
+        ... = load %address_in_parent_stack
+      }
+  ```
+
+
+
+
+### 23 Aug 2016
 - Worked on deconstruction the global stack ( which is shared by all the procedures ) into per procedure stack frame
   - Transforming all the dereferences into the following checks
   ```C
