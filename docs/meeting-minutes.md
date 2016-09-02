@@ -1,7 +1,7 @@
 ### 31 Aug 2016
 - Finished the okmplementation of stack decpnstruction 
   ```
-    Before the transformation the mcsema cpde lloks like this
+    Before the transformation the mcsema code looks like this
     define fiunc(struct %0) {
       //For accessing register in the struct
       RAX_val = alloca
@@ -27,7 +27,7 @@
         %_local_stack_alloc_ = alloca i64, i64 0
         %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
         %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-        %_local_stack_end_ = sub i64 %_local_stack_start_, 0
+        %_local_stack_end_ = sub i64 %_local_stack_start_, 0 //To be passed to any called function
 
       //For accessing register in the struct
       RAX_val = alloca
