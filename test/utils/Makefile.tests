@@ -20,6 +20,7 @@ gcc:
 
 clang:
 	@echo " Using clang"
+	mkdir -p ${outdir}
 	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
