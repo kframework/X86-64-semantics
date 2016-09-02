@@ -25,7 +25,6 @@ private:
   SmallVector<Instruction *, 8> ToErase;
   DenseMap<const llvm::Function *, Value*> FunctionToFrameMap;
   void insertlocalstack(Function &);
-  //void test(Function &F, height_ty size);
 
 public:
   static char ID;

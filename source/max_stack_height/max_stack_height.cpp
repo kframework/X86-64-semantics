@@ -583,5 +583,5 @@ void max_stack_height::compute_height() {
   }
   stack_height = std::min(max_dis_rsp, max_dis_rbp);
 
-  DEBUG(errs() << "Height[ " << Fname << " ] : " << stack_height << "\n");
+  errs() << "Height[ " << Fname << " ] : " << stack_height << "\n";
 }

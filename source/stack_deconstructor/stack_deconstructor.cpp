@@ -13,11 +13,13 @@
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/IR/IRBuilder.h"
+#include "llvm/ADT/Statistic.h"
 
 
 using namespace llvm;
 LLVMContext &ctx =  getGlobalContext();
 static IRBuilder<> IRB(ctx);
+//STATISTIC(NumOfParentStackAccesses,  "Number of parent stack accesses");
 
 
 char stack_deconstructor::ID = 0;
@@ -35,9 +37,8 @@ bool stack_deconstructor::runOnModule(Module &M) {
     if (!F.isDeclaration()) {
       max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(F);
       approximate_stack_height = max_stack_height_pass.get_stack_height();
-      //errs() << "Analysing: " << F.getName() << " : " << max_stack_height_pass.get_stack_height() <<  "\n";
+      errs() << "MaxStackHeight[" << F.getName() << "]=" << max_stack_height_pass.get_stack_height() <<  "\n";
       insertlocalstack(F);
-      //test(F, 0);
     }
   }
 
@@ -271,7 +272,6 @@ stack_deconstructor::modifyLoadStoreToAccessParentStack(Function &F, Value* curr
     TerminatorInst* ti = SplitBlockAndInsertIfThen(cond, I, false);
 
     auto *then_bb  = ti->getParent();
-    auto *then_bb_succ  = ti->getSuccessor(0);
 
     // Populate the Then Basic Block
     IRB.SetInsertPoint(then_bb->getTerminator());
