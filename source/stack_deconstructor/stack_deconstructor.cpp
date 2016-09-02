@@ -37,7 +37,6 @@ bool stack_deconstructor::runOnModule(Module &M) {
     if (!F.isDeclaration()) {
       max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(F);
       approximate_stack_height = max_stack_height_pass.get_stack_height();
-      errs() << "MaxStackHeight[" << F.getName() << "]=" << max_stack_height_pass.get_stack_height() <<  "\n";
       insertlocalstack(F);
     }
   }

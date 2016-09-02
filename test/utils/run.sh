@@ -8,6 +8,9 @@ CC=clang
 CXX=clang++
 #CC_OPTIONS=-fomit-frame-pointer
 CC_OPTIONS=
+LLC=llc
+ext=${COMPILER}
+outdir="Output/"
 
 
 C=$(which gcc)
@@ -33,30 +36,27 @@ else
   CFGBC_ARCH="-mtriple=x86_64-pc-linux-gnu"
 fi
 
-#if [ ${COMPILER} == "gcc" ]; then
-#  CC=$(which gcc);
-#elif [ ${COMPILER} == "clang" ]; then
-#  CC=$(which clang);
-#else  
-#  CC=$(which icc)
-#fi 
-
 if [ ${ASM_FILE} == "asm" ] ; then
   nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
 else
-  ${COMPILER} -O0 ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}  -c   -o ${BIN}.o  
+  ${COMPILER} -O0 ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}  -c   -o ${outdir}${BIN}.${ext}.o  
 fi
 
-objdump -d ${BIN}.o &> ${BIN}.objdump
+objdump -d ${BIN}.${ext}.o &> ${outdir}${BIN}.${ext}.objdump
 
-${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${BIN}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> bd.log  
+${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${BIN}.${ext}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> /tmp/bd.log  
 
-${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${BIN}.cfg  -o ${BIN}.bc  -driver=mcsema_main,${ENTRY_FUNC},raw,return,C &> cfgbc.log
+${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${BIN}.${ext}.cfg  -o ${outdir}${BIN}.${ext}.bc  -driver=mcsema_main,${ENTRY_FUNC},raw,return,C &> /tmp/cfgbc.log
 
-${LLVM_PATH}/opt -O3    -o=${BIN}_opt.bc ${BIN}.bc
-${LLVM_PATH}/llvm-dis   -o=${BIN}.ll ${BIN}.bc
-${LLVM_PATH}/llvm-dis   -o=${BIN}_opt.ll ${BIN}_opt.bc
-${LLVM_PATH}/llc -march=x86-64 -filetype=obj -o ${BIN}_lifted.o ${BIN}_opt.bc
+${LLVM_PATH}/opt -O3    ${outdir}${BIN}.${ext}.bc  -o=${outdir}${BIN}.${ext}.opt.bc 
+${LLVM_PATH}/llvm-dis   ${outdir}${BIN}.${ext}.opt.bc -o=${outdir}${BIN}.${ext}.opt.ll
+${LLVM_PATH}/llvm-dis   ${outdir}${BIN}.${ext}.bc -o=${outdir}${BIN}.${ext}.ll
 
+${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.opt.bc
+${CC} -m64 -I${DIR} -o ${outdir}${BIN}.${ext}.lifted.exe driver_64.c ${outdir}${BIN}.${ext}.lifted.o
+./${outdir}${BIN}.${ext}.lifted.exe > ${outdir}before.trans.out	
 
-opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=mapping.txt ${BIN}.ll -o /tmp/xxx ;
+# Clean Up
+rm -rf  ${outdir}${BIN}.${ext}.bc  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.lifted.exe ${outdir}${BIN}.${ext}.bc ${outdir}${BIN}.${ext}.opt.bc ${outdir}${BIN}.${ext}.o 
+
+opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=${outdir}${BIN}.srcmap.txt ${outdir}${BIN}.${ext}.ll -o /tmp/xxx ;

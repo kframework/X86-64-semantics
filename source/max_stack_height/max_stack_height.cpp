@@ -36,7 +36,7 @@ bool max_stack_height::runOnFunction(Function &F) {
   }
   perform_dfa();
 
-  dump_cfg();
+  DEBUG(dump_cfg());
   compute_height();
 
   cleanup_framework();
