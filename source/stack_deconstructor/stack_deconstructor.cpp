@@ -206,6 +206,19 @@ stack_deconstructor::augmentFunctionWithParentStack(Function &F, Value* current_
   return;
 }
 
+bool 
+stack_deconstructor::shouldConvert(Instruction* I) {
+  if(LoadInst* li = dyn_cast<LoadInst>(I)) {
+    auto *ptr_operand = li->getPointerOperand();
+    StringRef str = ptr_operand->getName();
+    if(str.empty()) {
+      return true;;
+    }
+  }
+
+  return false;
+}
+
 void
 stack_deconstructor::modifyLoadStoreToAccessParentStack(Function &F, Value* current_stack_start) {
 
@@ -222,157 +235,64 @@ stack_deconstructor::modifyLoadStoreToAccessParentStack(Function &F, Value* curr
 
   std::vector<Instruction*> intr_to_be_transfomed;
 
-  bool start = false;
   //Collect all the Loads/Stores to be transformed
   for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
       Instruction *I = &*BBI++;
-      if(isa<LoadInst>(I) || isa<StoreInst>(I)) {
-        if(StoreInst *si = dyn_cast<StoreInst>(I)) {
-          auto *ptr_op = si->getPointerOperand();
-          std::string name  = ptr_op->getName();
-          if(name.compare("STACK_LIMIT_val") == 0 ) {
-            start = true;
-          }
-        }
-
-        if(false == start) {
-          continue;
-        }
-        if (auto *ITy = dyn_cast<IntegerType>(I->getType())) {
-          unsigned int size= ITy->getBitWidth();
-          //if(size == 32 || size == 64) {
-          if(size == 64) {
-            intr_to_be_transfomed.push_back(I);
-          }
-        }
+      if(shouldConvert(I)) {
+        intr_to_be_transfomed.push_back(I);
       }
     }
   }
 
-  //Split the BB at the point of Load/Store Inst
   for(Instruction *I : intr_to_be_transfomed) {
-    //DEBUG(errs() << "\nProcessing: " << *li << "\n");
-    BasicBlock *BB = I->getParent();
-    BB->splitBasicBlock(I, "_split_" + BB->getName());
-  }
+    DEBUG(errs() << "\nProcessing: " << *I << "\n");
+    bool isLoad = false;
+    Value* ptr_operand = NULL;
+    Value* value_operand = NULL;
+    Instruction* load_or_store_inst = I;
+    auto *head_bb  = I->getParent();
 
-  intr_to_be_transfomed.clear();
 
-
-  //Collect all the newly inserted Uncond - Branch instrunction due to the split 
-  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
-    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
-      Instruction *I = &*BBI++;
-      if(BranchInst *br = dyn_cast<BranchInst>(I)) {
-        auto *BB  = br->getSuccessor(0);
-        std::string name = BB->getName();
-        if(name.find("_split_", 0, 7) != std::string::npos) {
-          intr_to_be_transfomed.push_back(br);
-        }
-      }
+    if (LoadInst *li = dyn_cast<LoadInst>(load_or_store_inst)) {
+      isLoad = true;
+      ptr_operand = li->getPointerOperand();
+    } else if (StoreInst *si = dyn_cast<StoreInst>(load_or_store_inst)) {
+      isLoad = false;
+      ptr_operand = si->getPointerOperand();
+      value_operand = si->getValueOperand();
+    } else {
+      assert (0 && "The first inst of succ BB must be a Load or Store");
     }
-  }
 
-  for (Instruction *I : intr_to_be_transfomed) {
-      if (BranchInst *br = dyn_cast<BranchInst>(I)) {
-        //DEBUG(errs() << "\nProcessing: " << *br << "\n");
+    IRB.SetInsertPoint(I);
+    auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_head_p2i_");
+    auto *cond = IRB.CreateICmp(ICmpInst::ICMP_UGE, p2i_inst, current_stack_start, "_head_cond_");
+    TerminatorInst* ti = SplitBlockAndInsertIfThen(cond, I, false);
 
-        auto *curr_bb  = br->getParent();
-        auto *succ_bb  = br->getSuccessor(0);
+    auto *then_bb  = ti->getParent();
+    auto *then_bb_succ  = ti->getSuccessor(0);
 
-        //The first inst of succ BB must be a Load or Store
-        bool isLoad = false;
-        auto BBI = succ_bb->begin();
-        Value* ptr_operand = NULL;
-        Value* value_operand = NULL;
-        Instruction* load_or_store_inst = &*BBI;
-
-        if (LoadInst *li = dyn_cast<LoadInst>(load_or_store_inst)) {
-          isLoad = true;
-          ptr_operand = li->getPointerOperand();
-        } else if (StoreInst *si = dyn_cast<StoreInst>(load_or_store_inst)) {
-          isLoad = false;
-          ptr_operand = si->getPointerOperand();
-          value_operand = si->getValueOperand();
-        } else {
-          assert (0 && "The first inst of succ BB must be a Load or Store");
-        }
-
-        // Replace the Uncond - Br instruction
-        IRB.SetInsertPoint(br);
-
-        // With
-        // %_p2i_ = ptrtoint i64* %PTR to i64
-        // %_cond_ = icmp ule i64 %_p2i_, %_p2i_14
-        // br i1 %_cond_15, label %_true_target_16, label %_false_target_17
-        auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_p2i_");
-        auto *cond = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, parent_stack_end, "_cond_");
-        BasicBlock *true_dest = BasicBlock::Create(ctx, "_true_dest_", &F);
-        BasicBlock *false_dest = BasicBlock::Create(ctx, "_false_dest_", &F);
-        auto *cond_br = IRB.CreateCondBr (cond, true_dest, false_dest);
-        recordConverted(br, cond_br);
-
-        //True Branch
-        IRB.SetInsertPoint(true_dest);
-        LoadInst  *new_load_true_path = NULL;
-        if(isLoad) {
-          new_load_true_path = IRB.CreateLoad(ptr_operand, "_new_load_true_path_");
-        } else {
-          IRB.CreateStore(value_operand, ptr_operand, "_new_store_true_path_");
-        }
-        IRB.CreateBr (succ_bb);
-
-        //False Branch
-        IRB.SetInsertPoint(false_dest);
+    // Populate the Then Basic Block
+    IRB.SetInsertPoint(then_bb->getTerminator());
         
-        auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_start, "_offset_above_rbp_");
-        auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_end, offset, "_address_in_parent_stack_");
-        auto  *parent_address_ptr = IRB.CreateIntToPtr(parent_address, Type::getInt64PtrTy(ctx), "_address_ptr_in_parent_stack_");
+    auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_start, "_offset_above_rbp_");
+    auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_end, offset, "_address_in_parent_stack_");
 
-        LoadInst  *new_load_false_path = NULL;
-        if(isLoad) {
-          new_load_false_path = IRB.CreateLoad(parent_address_ptr, "_new_load_false_path_");
-        } else {
-          IRB.CreateStore(value_operand, parent_address_ptr, "_new_store_false_path_");
-        }
-        IRB.CreateBr (succ_bb);
+    // Polulate the Tail Basic Block
+    IRB.SetInsertPoint(load_or_store_inst);
 
-        //At Merge
-        if(isLoad) {
-          IRB.SetInsertPoint(load_or_store_inst);
-          Type *ty = load_or_store_inst->getType();
-          auto *new_phi = IRB.CreatePHI(ty, 2);
-          new_phi->addIncoming(new_load_true_path, true_dest);
-          new_phi->addIncoming(new_load_false_path, false_dest);
-          llvm::errs() << *new_load_true_path << "\n";
-          llvm::errs() << *new_load_false_path << "\n";
-          llvm::errs() << *load_or_store_inst << "\n";
-          llvm::errs() << *new_phi << "\n";
-          recordConverted(load_or_store_inst, new_phi);
-        } else {
-          load_or_store_inst->eraseFromParent();
-        }
-
-        /*
-        IRB.SetInsertPoint(load_or_store_inst);
-        auto *new_phi = IRB.CreatePHI(Type::getInt64PtrTy(ctx), 2);
-        new_phi->addIncoming(ptr_operand, true_dest);
-        new_phi->addIncoming(parent_address_ptr, false_dest);
-        Instruction *new_inst = NULL;
-        if(isLoad) {
-          //new_phi->addIncoming(new_load_true_path, true_dest);
-          //new_phi->addIncoming(new_load_false_path, false_dest);
-          new_inst = IRB.CreateLoad(new_phi);
-        } else {
-          //new_phi->addIncoming(new_store_true_path, true_dest);
-          //new_phi->addIncoming(new_store_false_path, false_dest);
-          new_inst = IRB.CreateStore(value_operand, new_phi);
-        }
-        recordConverted(load_or_store_inst, new_inst);
-        */
-
-      }
+    auto *new_phi = IRB.CreatePHI(Type::getInt64Ty(ctx), 2);
+    new_phi->addIncoming(p2i_inst, head_bb);
+    new_phi->addIncoming(parent_address, then_bb);
+    auto  *address_ptr = IRB.CreateIntToPtr(new_phi, ptr_operand->getType(), "_address_ptr_in_parent_stack_");
+    Instruction* new_load_or_store_inst = NULL;
+    if(isLoad) {
+      new_load_or_store_inst = IRB.CreateLoad(address_ptr, "_new_load_");
+    } else {
+      new_load_or_store_inst  = IRB.CreateStore(value_operand, address_ptr, "_new_store_");
+    }
+    recordConverted(load_or_store_inst, new_load_or_store_inst);
   }
 
   //At this point erase all the replcaed instrcutions 
@@ -435,102 +355,20 @@ stack_deconstructor::eraseReplacedInstructions() {
   ToErase.clear();
 }
 
-
-/*
-void stack_deconstructor::test(Function &F, height_ty size) {
-
-  assert(size <= 0 && "stack height cannot be positive\n");
-
-  DEBUG(errs() << "========================\n Processing Function:" <<  F.getName() << "\n=================================\n");
-
-  //Collect all the loads to be transformed
-  std::vector<Instruction*> intr_to_be_transfomed;
-
-  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
-    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
-      Instruction *I = &*BBI++;
-      if(LoadInst *li = dyn_cast<LoadInst>(I)) {
-        intr_to_be_transfomed.push_back(li);
-      }
-    }
-  }
-
-  for(Instruction *I : intr_to_be_transfomed) {
-      if(LoadInst *li = dyn_cast<LoadInst>(I)) {
-        DEBUG(errs() << "\nProcessing: " << *li << "\n");
-        IRB.SetInsertPoint(li);
-
-        BasicBlock *BB = li->getParent();
-        BB->splitBasicBlock(li, "newBB");
-      }
-  }
-
-  intr_to_be_transfomed.clear();
-  for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
-    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
-      Instruction *I = &*BBI++;
-      if(BranchInst *br = dyn_cast<BranchInst>(I)) {
-        auto *BB  = br->getSuccessor(0);
-        std::string name = BB->getName();
-        if(name.find("newBB", 0, 5) != std::string::npos) {
-          intr_to_be_transfomed.push_back(br);
-          llvm::errs() << *br << "\n";
+        /*
+        IRB.SetInsertPoint(load_or_store_inst);
+        auto *new_phi = IRB.CreatePHI(Type::getInt64PtrTy(ctx), 2);
+        new_phi->addIncoming(ptr_operand, true_dest);
+        new_phi->addIncoming(parent_address_ptr, false_dest);
+        Instruction *new_inst = NULL;
+        if(isLoad) {
+          //new_phi->addIncoming(new_load_true_path, true_dest);
+          //new_phi->addIncoming(new_load_false_path, false_dest);
+          new_inst = IRB.CreateLoad(new_phi);
+        } else {
+          //new_phi->addIncoming(new_store_true_path, true_dest);
+          //new_phi->addIncoming(new_store_false_path, false_dest);
+          new_inst = IRB.CreateStore(value_operand, new_phi);
         }
-      }
-    }
-  }
-
-  for(Instruction *I : intr_to_be_transfomed) {
-      if(BranchInst *br = dyn_cast<BranchInst>(I)) {
-        //DEBUG(errs() << "\nProcessing: " << *br << "\n");
-        IRB.SetInsertPoint(br);
-
-        auto *BB  = br->getSuccessor(0);
-        std::string name = BB->getName();
-        auto BBI = BB->begin();
-        LoadInst *li = dyn_cast<LoadInst>(&*BBI);
-        assert (NULL != li);
-        Value* ptr_operand = li->getPointerOperand();
-
-        auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_p2i_");
-        //DEBUG(errs() << *p2i_inst << "\n");
-        auto *cond = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, p2i_inst, "_cond_");
-        //DEBUG(errs() << *cond<< "\n");
-        BasicBlock *true_dest = BasicBlock::Create(ctx, "_true_target_", &F);
-        BasicBlock *false_dest = BasicBlock::Create(ctx, "_false_target_", &F);
-        auto *cond_br = IRB.CreateCondBr (cond, true_dest, false_dest);
-        //auto *cond_br =  BranchInst::Create (true_dest, false_dest , cond);
-        //DEBUG(errs() << *cond_br<< cond_br->getParent() << "\n");
-        //ReplaceInstWithInst(br, cond_br);
-        recordConverted(br, cond_br);
-
-        //True Branch
-        IRB.SetInsertPoint(true_dest);
-        auto *newload_true_path = IRB.CreateLoad(ptr_operand, "_newload_true_path_");
-        //DEBUG(errs() << *newload_true_path<< "\n");
-        auto *cond_br_true = IRB.CreateBr (BB);
-        //DEBUG(errs() << *cond_br_true << "\n");
-
-        //False Branch
-        IRB.SetInsertPoint(false_dest);
-        auto *newload_false_path = IRB.CreateLoad(ptr_operand, "_newload_false_path_");
-        //DEBUG(errs() << *newload_false_path<< "\n");
-        auto *cond_br_false = IRB.CreateBr (BB);
-        //DEBUG(errs() << *cond_br_false << "\n");
-
-        //At Merge
-        IRB.SetInsertPoint(li);
-        auto *new_load_phi = IRB.CreatePHI(Type::getInt64Ty(ctx), 2);
-        new_load_phi->addIncoming(newload_true_path, true_dest);
-        new_load_phi->addIncoming(newload_false_path, false_dest);
-        //DEBUG(errs() << *new_load_phi<< "\n");
-
-        recordConverted(li, new_load_phi);
-      }
-  }
-
-  eraseReplacedInstructions();
-  return;
-}
-*/
-
+        recordConverted(load_or_store_inst, new_inst);
+        */

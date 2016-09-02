@@ -46,6 +46,7 @@ public:
   bool  createLocalStackFrame(Function&, Value**, Value**);
   void augmentFunctionWithParentStack(Function &, Value*);
   void modifyLoadStoreToAccessParentStack(Function &F, Value*) ;
+  bool shouldConvert(Instruction*);
 };
 }
 
