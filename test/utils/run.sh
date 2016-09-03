@@ -37,7 +37,7 @@ else
 fi
 
 if [ ${ASM_FILE} == "asm" ] ; then
-  nasm -f elf64 -o ${BIN}.o ${BIN}.asm ; 
+  nasm -f elf64 -o ${outdir}${BIN}.${ext}.o ${BIN}.asm ; 
 else
   ${COMPILER} -O0 ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}  -c   -o ${outdir}${BIN}.${ext}.o  
 fi
