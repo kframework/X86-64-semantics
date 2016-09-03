@@ -21,7 +21,7 @@ run:
 
 	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
 		echo "  ${PROG_PREFIX}: Output Passed"; \
-		rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
+		rm -rf ${outdir}*.exe ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
 	else \
 		echo "  ${PROG_PREFIX}: Output Failed"; \
 	fi 
