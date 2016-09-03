@@ -11,6 +11,10 @@ target triple = "x86_64-pc-linux-gnu"
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value(%struct.regs* %reg_context, i64 %ptr) #0 {
+  %_local_stack_alloc_ = alloca i64, i64 0
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void
@@ -18,6 +22,10 @@ define internal fastcc void @do_call_value(%struct.regs* %reg_context, i64 %ptr)
 
 define internal x86_64_sysvcc void @sub_0(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 152
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 152
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !2
@@ -109,7 +117,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !2
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
   %7 = load i64* %RSP, !mcsema_real_eip !2
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !2
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
   %8 = load i64* %RBP, !mcsema_real_eip !2
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !2
@@ -797,7 +805,7 @@ block_0x92:                                       ; preds = %block_0x78
   store i64 %358, i64* %STACK_BASE, align 1, !mcsema_real_eip !32
   %359 = load i64* %STACK_LIMIT_val, !mcsema_real_eip !32
   store i64 %359, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !32
-  tail call fastcc void @do_call_value(%struct.regs* %0, i64 %290), !mcsema_real_eip !32
+  call void @do_call_value1(%struct.regs* %0, i64 %290, i64 %_local_stack_end_)
   %360 = load i64* %RAX, !mcsema_real_eip !32
   store i64 %360, i64* %RAX_val, !mcsema_real_eip !32
   %361 = load i64* %RBX, !mcsema_real_eip !32
@@ -1491,7 +1499,7 @@ block_0x54:                                       ; preds = %block_0x3d
   store i64 %719, i64* %STACK_BASE, align 1, !mcsema_real_eip !47
   %720 = load i64* %STACK_LIMIT_val, !mcsema_real_eip !47
   store i64 %720, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !47
-  tail call fastcc void @do_call_value(%struct.regs* %0, i64 %651), !mcsema_real_eip !47
+  call void @do_call_value2(%struct.regs* %0, i64 %651, i64 %_local_stack_end_)
   %721 = load i64* %RAX, !mcsema_real_eip !47
   store i64 %721, i64* %RAX_val, !mcsema_real_eip !47
   %722 = load i64* %RBX, !mcsema_real_eip !47
@@ -1782,6 +1790,10 @@ block_0x54:                                       ; preds = %block_0x3d
 
 define internal x86_64_sysvcc void @sub_181(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 92
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 92
   %R15_val = alloca i64, !mcsema_real_eip !48
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !48
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !48
@@ -1873,7 +1885,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !48
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !48
   %7 = load i64* %RSP, !mcsema_real_eip !48
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !48
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !48
   %8 = load i64* %RBP, !mcsema_real_eip !48
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !48
@@ -2255,6 +2267,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_19a(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 96
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 96
   %R15_val = alloca i64, !mcsema_real_eip !51
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !51
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !51
@@ -2346,7 +2362,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !51
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !51
   %7 = load i64* %RSP, !mcsema_real_eip !51
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !51
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !51
   %8 = load i64* %RBP, !mcsema_real_eip !51
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !51
@@ -2728,6 +2744,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_1b3(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 100
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 100
   %R15_val = alloca i64, !mcsema_real_eip !54
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !54
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !54
@@ -2819,7 +2839,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !54
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !54
   %7 = load i64* %RSP, !mcsema_real_eip !54
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !54
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !54
   %8 = load i64* %RBP, !mcsema_real_eip !54
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !54
@@ -3201,6 +3221,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_1cc(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 104
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 104
   %R15_val = alloca i64, !mcsema_real_eip !57
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !57
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !57
@@ -3292,7 +3316,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !57
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !57
   %7 = load i64* %RSP, !mcsema_real_eip !57
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !57
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !57
   %8 = load i64* %RBP, !mcsema_real_eip !57
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !57
@@ -3674,6 +3698,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_1e5(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 108
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 108
   %R15_val = alloca i64, !mcsema_real_eip !60
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !60
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !60
@@ -3765,7 +3793,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !60
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !60
   %7 = load i64* %RSP, !mcsema_real_eip !60
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !60
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !60
   %8 = load i64* %RBP, !mcsema_real_eip !60
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !60
@@ -4147,6 +4175,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_27b(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 132
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 132
   %R15_val = alloca i64, !mcsema_real_eip !22
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !22
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !22
@@ -4238,7 +4270,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !22
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !22
   %7 = load i64* %RSP, !mcsema_real_eip !22
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !22
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !22
   %8 = load i64* %RBP, !mcsema_real_eip !22
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !22
@@ -4627,6 +4659,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_1fe(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 112
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 112
   %R15_val = alloca i64, !mcsema_real_eip !63
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !63
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !63
@@ -4718,7 +4754,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !63
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !63
   %7 = load i64* %RSP, !mcsema_real_eip !63
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !63
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !63
   %8 = load i64* %RBP, !mcsema_real_eip !63
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !63
@@ -5100,6 +5136,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_217(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 116
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 116
   %R15_val = alloca i64, !mcsema_real_eip !66
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !66
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !66
@@ -5191,7 +5231,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !66
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !66
   %7 = load i64* %RSP, !mcsema_real_eip !66
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !66
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !66
   %8 = load i64* %RBP, !mcsema_real_eip !66
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !66
@@ -5573,6 +5613,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_230(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 120
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 120
   %R15_val = alloca i64, !mcsema_real_eip !69
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !69
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !69
@@ -5664,7 +5708,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !69
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !69
   %7 = load i64* %RSP, !mcsema_real_eip !69
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !69
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !69
   %8 = load i64* %RBP, !mcsema_real_eip !69
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !69
@@ -6046,6 +6090,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_249(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 124
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 124
   %R15_val = alloca i64, !mcsema_real_eip !72
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !72
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !72
@@ -6137,7 +6185,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !72
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !72
   %7 = load i64* %RSP, !mcsema_real_eip !72
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !72
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !72
   %8 = load i64* %RBP, !mcsema_real_eip !72
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !72
@@ -6519,6 +6567,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_262(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 128
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 128
   %R15_val = alloca i64, !mcsema_real_eip !75
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !75
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !75
@@ -6610,7 +6662,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !75
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !75
   %7 = load i64* %RSP, !mcsema_real_eip !75
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !75
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !75
   %8 = load i64* %RBP, !mcsema_real_eip !75
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !75
@@ -6992,6 +7044,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_a0(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 56
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 56
   %R15_val = alloca i64, !mcsema_real_eip !78
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !78
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !78
@@ -7083,7 +7139,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !78
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !78
   %7 = load i64* %RSP, !mcsema_real_eip !78
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !78
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !78
   %8 = load i64* %RBP, !mcsema_real_eip !78
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !78
@@ -7465,6 +7521,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_b9(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 60
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 60
   %R15_val = alloca i64, !mcsema_real_eip !81
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !81
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !81
@@ -7556,7 +7616,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !81
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !81
   %7 = load i64* %RSP, !mcsema_real_eip !81
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !81
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !81
   %8 = load i64* %RBP, !mcsema_real_eip !81
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !81
@@ -7938,6 +7998,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_d2(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 64
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 64
   %R15_val = alloca i64, !mcsema_real_eip !84
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !84
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !84
@@ -8029,7 +8093,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !84
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !84
   %7 = load i64* %RSP, !mcsema_real_eip !84
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !84
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !84
   %8 = load i64* %RBP, !mcsema_real_eip !84
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !84
@@ -8411,6 +8475,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_eb(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 68
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 68
   %R15_val = alloca i64, !mcsema_real_eip !87
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !87
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !87
@@ -8502,7 +8570,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !87
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !87
   %7 = load i64* %RSP, !mcsema_real_eip !87
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !87
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !87
   %8 = load i64* %RBP, !mcsema_real_eip !87
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !87
@@ -8884,6 +8952,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_104(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 72
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 72
   %R15_val = alloca i64, !mcsema_real_eip !90
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !90
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !90
@@ -8975,7 +9047,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !90
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !90
   %7 = load i64* %RSP, !mcsema_real_eip !90
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !90
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !90
   %8 = load i64* %RBP, !mcsema_real_eip !90
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !90
@@ -9357,6 +9429,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_11d(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 76
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 76
   %R15_val = alloca i64, !mcsema_real_eip !93
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !93
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !93
@@ -9448,7 +9524,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !93
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !93
   %7 = load i64* %RSP, !mcsema_real_eip !93
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !93
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !93
   %8 = load i64* %RBP, !mcsema_real_eip !93
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !93
@@ -9830,6 +9906,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_136(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 80
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 80
   %R15_val = alloca i64, !mcsema_real_eip !96
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !96
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !96
@@ -9921,7 +10001,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !96
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !96
   %7 = load i64* %RSP, !mcsema_real_eip !96
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !96
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !96
   %8 = load i64* %RBP, !mcsema_real_eip !96
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !96
@@ -10303,6 +10383,10 @@ entry:
 
 define internal x86_64_sysvcc void @sub_14f(%struct.regs*) {
 entry:
+  %_local_stack_alloc_ = alloca i64, i64 84
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 84
   %R15_val = alloca i64, !mcsema_real_eip !99
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !99
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !99
@@ -10394,7 +10478,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !99
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !99
   %7 = load i64* %RSP, !mcsema_real_eip !99
-  store i64 %7, i64* %RSP_val, !mcsema_real_eip !99
+  store i64 %_local_stack_start_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !99
   %8 = load i64* %RBP, !mcsema_real_eip !99
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !99
@@ -10784,12 +10868,46 @@ declare i8 @llvm.ctpop.i8(i8) #2
 
 define void @mcsema_main(%struct.regs*) {
 driverBlockRaw:
+  %_local_stack_alloc_ = alloca i64, i64 0
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
   tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
   ret void
 }
 
 ; Function Attrs: nounwind readnone
 declare { i64, i1 } @llvm.uadd.with.overflow.i64(i64, i64) #2
+
+; Function Attrs: alwaysinline
+define internal fastcc void @do_call_value1(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_end_ptr_) #0 {
+  %_local_stack_alloc_1 = alloca i64, i64 0
+  %_local_stack_start_ptr_2 = getelementptr inbounds i64* %_local_stack_alloc_1, i32 0
+  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
+  %_local_stack_end_4 = sub i64 %_local_stack_start_3, 0
+  %_local_stack_alloc_ = alloca i64, i64 0
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
+  %1 = inttoptr i64 %ptr to void (%struct.regs*)*
+  tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal fastcc void @do_call_value2(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_end_ptr_) #0 {
+  %_local_stack_alloc_1 = alloca i64, i64 0
+  %_local_stack_start_ptr_2 = getelementptr inbounds i64* %_local_stack_alloc_1, i32 0
+  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
+  %_local_stack_end_4 = sub i64 %_local_stack_start_3, 0
+  %_local_stack_alloc_ = alloca i64, i64 0
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
+  %1 = inttoptr i64 %ptr to void (%struct.regs*)*
+  tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
+  ret void
+}
 
 attributes #0 = { alwaysinline }
 attributes #1 = { nounwind }

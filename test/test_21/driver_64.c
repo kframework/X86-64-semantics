@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
   mcsema_main(&rState);
 
-  printf("We have: 0x%llx\n", foo);
+  printf("We have: 0x%lx\n", foo);
 
   return 0;
 }

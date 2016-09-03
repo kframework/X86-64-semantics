@@ -13,20 +13,23 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture, i8* nocapture readonly, i
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) #0 {
 driverBlockRaw:
+  %_local_stack_alloc_5.i = alloca [8 x i64], align 8
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
+  %1 = bitcast [8 x i64]* %_local_stack_alloc_5.i to i8*
+  call void @llvm.lifetime.start(i64 64, i8* %1)
   %STi_val.i.0..sroa_cast = bitcast [8 x x86_fp80]* %STi_val.i to i8*
   call void @llvm.lifetime.start(i64 128, i8* %STi_val.i.0..sroa_cast)
+  %_local_stack_start_.i = ptrtoint [8 x i64]* %_local_stack_alloc_5.i to i64
   %RAX.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 0, !mcsema_real_eip !2
   %RBX.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 1, !mcsema_real_eip !2
-  %1 = bitcast i64* %RBX.i to <2 x i64>*
-  %2 = load <2 x i64>* %1, align 8
+  %2 = bitcast i64* %RBX.i to <2 x i64>*
+  %3 = load <2 x i64>* %2, align 8
   %RDX.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 3, !mcsema_real_eip !2
-  %3 = bitcast i64* %RDX.i to <2 x i64>*
-  %4 = load <2 x i64>* %3, align 8
+  %4 = bitcast i64* %RDX.i to <2 x i64>*
+  %5 = load <2 x i64>* %4, align 8
   %RDI.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 5, !mcsema_real_eip !2
-  %5 = load i64* %RDI.i, align 8, !mcsema_real_eip !2
+  %6 = load i64* %RDI.i, align 8, !mcsema_real_eip !2
   %RSP.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
-  %6 = load i64* %RSP.i, align 8, !mcsema_real_eip !2
   %RBP.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
   %7 = bitcast i64* %RBP.i to <2 x i64>*
   %8 = load <2 x i64>* %7, align 8
@@ -158,14 +161,14 @@ driverBlockRaw:
   %72 = shl nuw nsw i64 %70, 10, !mcsema_real_eip !8
   %73 = or i64 %71, %72
   %74 = or i64 %73, 582
-  %75 = add i64 %6, -8
+  %75 = add i64 %_local_stack_start_.i, -8
   %76 = inttoptr i64 %75 to i64*, !mcsema_real_eip !8
   store i64 %74, i64* %76, align 8, !mcsema_real_eip !8
-  %77 = add i64 %6, 8, !mcsema_real_eip !9
+  %77 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !9
   store i64 %74, i64* %RAX.i, align 8, !mcsema_real_eip !9
-  store <2 x i64> %2, <2 x i64>* %1, align 8
-  store <2 x i64> %4, <2 x i64>* %3, align 8
-  store i64 %5, i64* %RDI.i, align 8, !mcsema_real_eip !9
+  store <2 x i64> %3, <2 x i64>* %2, align 8
+  store <2 x i64> %5, <2 x i64>* %4, align 8
+  store i64 %6, i64* %RDI.i, align 8, !mcsema_real_eip !9
   store i64 %77, i64* %RSP.i, align 8, !mcsema_real_eip !9
   store <2 x i64> %8, <2 x i64>* %7, align 8
   store <2 x i64> %10, <2 x i64>* %9, align 8
@@ -226,6 +229,7 @@ driverBlockRaw:
   store i128 %65, i128* %XMM14.i, align 1, !mcsema_real_eip !9
   store i128 %66, i128* %XMM15.i, align 1, !mcsema_real_eip !9
   store <2 x i64> %68, <2 x i64>* %67, align 1
+  call void @llvm.lifetime.end(i64 64, i8* %1)
   call void @llvm.lifetime.end(i64 128, i8* %STi_val.i.0..sroa_cast)
   ret void
 }

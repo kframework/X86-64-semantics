@@ -13,23 +13,26 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture, i8* nocapture readonly, i
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) #0 {
 driverBlockRaw:
+  %_local_stack_alloc_21.i = alloca [40 x i64], align 8
   %FPU_TAG_val.i = alloca i64, align 8
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
-  %1 = bitcast i64* %FPU_TAG_val.i to i8*
-  call void @llvm.lifetime.start(i64 8, i8* %1)
-  %2 = bitcast [8 x x86_fp80]* %STi_val.i to i8*
-  call void @llvm.lifetime.start(i64 128, i8* %2)
+  %1 = bitcast [40 x i64]* %_local_stack_alloc_21.i to i8*
+  call void @llvm.lifetime.start(i64 320, i8* %1)
+  %2 = bitcast i64* %FPU_TAG_val.i to i8*
+  call void @llvm.lifetime.start(i64 8, i8* %2)
+  %3 = bitcast [8 x x86_fp80]* %STi_val.i to i8*
+  call void @llvm.lifetime.start(i64 128, i8* %3)
+  %_local_stack_start_.i = ptrtoint [40 x i64]* %_local_stack_alloc_21.i to i64
   %tmpcast.i = bitcast i64* %FPU_TAG_val.i to [8 x i2]*
-  %3 = bitcast %struct.regs* %0 to <2 x i64>*
-  %4 = load <2 x i64>* %3, align 8
+  %4 = bitcast %struct.regs* %0 to <2 x i64>*
+  %5 = load <2 x i64>* %4, align 8
   %RCX.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 2, !mcsema_real_eip !2
-  %5 = bitcast i64* %RCX.i to <2 x i64>*
-  %6 = load <2 x i64>* %5, align 8
+  %6 = bitcast i64* %RCX.i to <2 x i64>*
+  %7 = load <2 x i64>* %6, align 8
   %RSI.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 4, !mcsema_real_eip !2
-  %7 = bitcast i64* %RSI.i to <2 x i64>*
-  %8 = load <2 x i64>* %7, align 8
+  %8 = bitcast i64* %RSI.i to <2 x i64>*
+  %9 = load <2 x i64>* %8, align 8
   %RSP.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
-  %9 = load i64* %RSP.i, align 8, !mcsema_real_eip !2
   %RBP.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
   %10 = load i64* %RBP.i, align 8, !mcsema_real_eip !2
   %R8.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 8, !mcsema_real_eip !2
@@ -62,7 +65,7 @@ driverBlockRaw:
   %26 = load i1* %DF.i, align 1, !mcsema_real_eip !2
   %27 = getelementptr inbounds %struct.regs* %0, i64 0, i32 24, i64 0, !mcsema_real_eip !2
   %28 = bitcast x86_fp80* %27 to i8*, !mcsema_real_eip !2
-  call void @llvm.memcpy.p0i8.p0i8.i32(i8* %2, i8* %28, i32 128, i32 4, i1 false) #0, !mcsema_real_eip !2
+  call void @llvm.memcpy.p0i8.p0i8.i32(i8* %3, i8* %28, i32 128, i32 4, i1 false) #0, !mcsema_real_eip !2
   %FPU_B.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 25, !mcsema_real_eip !2
   %29 = load i1* %FPU_B.i, align 1, !mcsema_real_eip !2
   %FPU_C3.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 26, !mcsema_real_eip !2
@@ -154,17 +157,17 @@ driverBlockRaw:
   %STACK_BASE.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 70, !mcsema_real_eip !2
   %73 = bitcast i64* %STACK_BASE.i to <2 x i64>*
   %74 = load <2 x i64>* %73, align 8
-  %75 = add i64 %9, -8
+  %75 = add i64 %_local_stack_start_.i, -8
   %76 = inttoptr i64 %75 to i64*, !mcsema_real_eip !2
   store i64 %10, i64* %76, align 8, !mcsema_real_eip !2
-  %77 = add i64 %9, 8, !mcsema_real_eip !3
+  %77 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !3
   %78 = inttoptr i64 %77 to x86_fp80*
   %79 = load x86_fp80* %78, align 16, !mcsema_real_eip !3
   %80 = add i3 %31, -1
   %81 = zext i3 %80 to i64
   %82 = getelementptr inbounds [8 x x86_fp80]* %STi_val.i, i64 0, i64 %81, !mcsema_real_eip !3
   %83 = getelementptr inbounds [8 x i2]* %tmpcast.i, i64 0, i64 %81, !mcsema_real_eip !3
-  %84 = add i64 %9, -24, !mcsema_real_eip !4
+  %84 = add i64 %_local_stack_start_.i, -24, !mcsema_real_eip !4
   %85 = inttoptr i64 %84 to x86_fp80*
   store x86_fp80 %79, x86_fp80* %85, align 16, !mcsema_real_eip !4
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %82, align 16, !mcsema_real_eip !5
@@ -173,7 +176,7 @@ driverBlockRaw:
   %88 = getelementptr inbounds [8 x x86_fp80]* %STi_val.i, i64 0, i64 %87, !mcsema_real_eip !6
   %89 = getelementptr inbounds [8 x i2]* %tmpcast.i, i64 0, i64 %87, !mcsema_real_eip !6
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %88, align 16, !mcsema_real_eip !6
-  %90 = add i64 %9, -40, !mcsema_real_eip !7
+  %90 = add i64 %_local_stack_start_.i, -40, !mcsema_real_eip !7
   %91 = inttoptr i64 %90 to x86_fp80*
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %91, align 16, !mcsema_real_eip !7
   %92 = load x86_fp80* %85, align 16, !mcsema_real_eip !8
@@ -184,9 +187,9 @@ driverBlockRaw:
   store x86_fp80 %94, x86_fp80* %82, align 16, !mcsema_real_eip !9
   store i2 -1, i2* %89, align 1, !mcsema_real_eip !9
   %95 = load i64* %76, align 8, !mcsema_real_eip !10
-  store <2 x i64> %4, <2 x i64>* %3, align 8
-  store <2 x i64> %6, <2 x i64>* %5, align 8
-  store <2 x i64> %8, <2 x i64>* %7, align 8
+  store <2 x i64> %5, <2 x i64>* %4, align 8
+  store <2 x i64> %7, <2 x i64>* %6, align 8
+  store <2 x i64> %9, <2 x i64>* %8, align 8
   store i64 %77, i64* %RSP.i, align 8, !mcsema_real_eip !11
   store i64 %95, i64* %RBP.i, align 8, !mcsema_real_eip !11
   store <2 x i64> %12, <2 x i64>* %11, align 8
@@ -201,7 +204,7 @@ driverBlockRaw:
   store i1 %24, i1* %SF.i, align 1, !mcsema_real_eip !11
   store i1 %25, i1* %OF.i, align 1, !mcsema_real_eip !11
   store i1 %26, i1* %DF.i, align 1, !mcsema_real_eip !11
-  call void @llvm.memcpy.p0i8.p0i8.i32(i8* %28, i8* %2, i32 128, i32 8, i1 false) #0, !mcsema_real_eip !11
+  call void @llvm.memcpy.p0i8.p0i8.i32(i8* %28, i8* %3, i32 128, i32 8, i1 false) #0, !mcsema_real_eip !11
   store i1 %29, i1* %FPU_B.i, align 1, !mcsema_real_eip !11
   store i1 %30, i1* %FPU_C3.i, align 1, !mcsema_real_eip !11
   store i3 %80, i3* %FPU_TOP.i, align 1, !mcsema_real_eip !11
@@ -248,8 +251,9 @@ driverBlockRaw:
   store i128 %71, i128* %XMM14.i, align 1, !mcsema_real_eip !11
   store i128 %72, i128* %XMM15.i, align 1, !mcsema_real_eip !11
   store <2 x i64> %74, <2 x i64>* %73, align 1
-  call void @llvm.lifetime.end(i64 8, i8* %1)
-  call void @llvm.lifetime.end(i64 128, i8* %2)
+  call void @llvm.lifetime.end(i64 320, i8* %1)
+  call void @llvm.lifetime.end(i64 8, i8* %2)
+  call void @llvm.lifetime.end(i64 128, i8* %3)
   ret void
 }
 
