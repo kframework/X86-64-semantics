@@ -1,6 +1,1 @@
-Debug+Asserts/
-Release+Asserts/
-Makefile.common
-Makefile.llvm.config
-config.log
-config.status
+source/build
