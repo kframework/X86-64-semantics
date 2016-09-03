@@ -3,14 +3,8 @@ PROG_PREFIX=test_10
 ENTRY_FUNC=demo3
 ASM_FILE=c
 FUNC_MAP=${HOME}/Github/mcsema/mc-sema/std_defs/std_defs.txt
-LLC=$(shell which llc)
 
 include ../utils/Makefile.tests
-
-CC=clang
-CXX=clang++
-DIR="${HOME}/Github/mcsema"
-outdir="Output/"
 
 .PHONY:run
 run:

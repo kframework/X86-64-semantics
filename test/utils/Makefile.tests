@@ -11,6 +11,12 @@ OPTSWITCH=-stack-decons
 #ICC=$(shell which icc)
 outdir="Output/"
 
+#CC=$(shell which clang)
+CC=clang
+CXX=clang++
+DIR="${HOME}/Github/mcsema"
+
+
 all:    clang
 
 gcc:
