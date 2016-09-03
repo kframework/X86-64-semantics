@@ -1,0 +1,37 @@
+
+Output/test_7.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	48 8d 7d f0          	lea    -0x10(%rbp),%rdi
+   c:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  13:	c7 45 f0 64 00 00 00 	movl   $0x64,-0x10(%rbp)
+  1a:	c7 45 f4 c8 00 00 00 	movl   $0xc8,-0xc(%rbp)
+  21:	e8 1a 00 00 00       	callq  40 <update>
+  26:	8b 45 f0             	mov    -0x10(%rbp),%eax
+  29:	03 45 f4             	add    -0xc(%rbp),%eax
+  2c:	48 83 c4 10          	add    $0x10,%rsp
+  30:	5d                   	pop    %rbp
+  31:	c3                   	retq   
+  32:	66 66 66 66 66 2e 0f 	data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  39:	1f 84 00 00 00 00 00 
+
+0000000000000040 <update>:
+  40:	55                   	push   %rbp
+  41:	48 89 e5             	mov    %rsp,%rbp
+  44:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  48:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
+  4c:	8b 07                	mov    (%rdi),%eax
+  4e:	05 14 00 00 00       	add    $0x14,%eax
+  53:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  56:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
+  5a:	8b 47 04             	mov    0x4(%rdi),%eax
+  5d:	05 1e 00 00 00       	add    $0x1e,%eax
+  62:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  65:	5d                   	pop    %rbp
+  66:	c3                   	retq   
