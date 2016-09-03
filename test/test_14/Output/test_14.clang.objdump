@@ -1,5 +1,5 @@
 
-test_14.o:     file format elf64-x86-64
+Output/test_14.clang.o:     file format elf64-x86-64
 
 
 Disassembly of section .text:
@@ -16,7 +16,7 @@ Disassembly of section .text:
   10:	55                   	push   %rbp
   11:	48 89 e5             	mov    %rsp,%rbp
   14:	48 83 ec 10          	sub    $0x10,%rsp
-  18:	48 b8 00 00 00 00 00 	mov    $0x0,%rax
+  18:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
   1f:	00 00 00 
   22:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
   26:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
