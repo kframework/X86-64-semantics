@@ -1,5 +1,5 @@
 
-test_9.o:     file format elf64-x86-64
+Output/test_9.clang.o:     file format elf64-x86-64
 
 
 Disassembly of section .text:
