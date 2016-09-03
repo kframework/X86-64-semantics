@@ -1,5 +1,5 @@
 
-test_20.o:     file format elf64-x86-64
+Output/test_20.clang.o:     file format elf64-x86-64
 
 
 Disassembly of section .text:
@@ -47,121 +47,121 @@ Disassembly of section .text:
   96:	48 8b 0c c5 00 00 00 	mov    0x0(,%rax,8),%rcx
   9d:	00 
   9e:	ff e1                	jmpq   *%rcx
-  a0:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  a0:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   a7:	00 00 00 
   aa:	b0 00                	mov    $0x0,%al
   ac:	e8 00 00 00 00       	callq  b1 <switches+0xb1>
   b1:	89 45 c8             	mov    %eax,-0x38(%rbp)
   b4:	e9 dc 01 00 00       	jmpq   295 <switches+0x295>
-  b9:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  b9:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   c0:	00 00 00 
   c3:	b0 00                	mov    $0x0,%al
   c5:	e8 00 00 00 00       	callq  ca <switches+0xca>
   ca:	89 45 c4             	mov    %eax,-0x3c(%rbp)
   cd:	e9 c3 01 00 00       	jmpq   295 <switches+0x295>
-  d2:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  d2:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   d9:	00 00 00 
   dc:	b0 00                	mov    $0x0,%al
   de:	e8 00 00 00 00       	callq  e3 <switches+0xe3>
   e3:	89 45 c0             	mov    %eax,-0x40(%rbp)
   e6:	e9 aa 01 00 00       	jmpq   295 <switches+0x295>
-  eb:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  eb:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   f2:	00 00 00 
   f5:	b0 00                	mov    $0x0,%al
   f7:	e8 00 00 00 00       	callq  fc <switches+0xfc>
   fc:	89 45 bc             	mov    %eax,-0x44(%rbp)
   ff:	e9 91 01 00 00       	jmpq   295 <switches+0x295>
- 104:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 104:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  10b:	00 00 00 
  10e:	b0 00                	mov    $0x0,%al
  110:	e8 00 00 00 00       	callq  115 <switches+0x115>
  115:	89 45 b8             	mov    %eax,-0x48(%rbp)
  118:	e9 78 01 00 00       	jmpq   295 <switches+0x295>
- 11d:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 11d:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  124:	00 00 00 
  127:	b0 00                	mov    $0x0,%al
  129:	e8 00 00 00 00       	callq  12e <switches+0x12e>
  12e:	89 45 b4             	mov    %eax,-0x4c(%rbp)
  131:	e9 5f 01 00 00       	jmpq   295 <switches+0x295>
- 136:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 136:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  13d:	00 00 00 
  140:	b0 00                	mov    $0x0,%al
  142:	e8 00 00 00 00       	callq  147 <switches+0x147>
  147:	89 45 b0             	mov    %eax,-0x50(%rbp)
  14a:	e9 46 01 00 00       	jmpq   295 <switches+0x295>
- 14f:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 14f:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  156:	00 00 00 
  159:	b0 00                	mov    $0x0,%al
  15b:	e8 00 00 00 00       	callq  160 <switches+0x160>
  160:	89 45 ac             	mov    %eax,-0x54(%rbp)
  163:	e9 2d 01 00 00       	jmpq   295 <switches+0x295>
- 168:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 168:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  16f:	00 00 00 
  172:	b0 00                	mov    $0x0,%al
  174:	e8 00 00 00 00       	callq  179 <switches+0x179>
  179:	89 45 a8             	mov    %eax,-0x58(%rbp)
  17c:	e9 14 01 00 00       	jmpq   295 <switches+0x295>
- 181:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 181:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  188:	00 00 00 
  18b:	b0 00                	mov    $0x0,%al
  18d:	e8 00 00 00 00       	callq  192 <switches+0x192>
  192:	89 45 a4             	mov    %eax,-0x5c(%rbp)
  195:	e9 fb 00 00 00       	jmpq   295 <switches+0x295>
- 19a:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 19a:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  1a1:	00 00 00 
  1a4:	b0 00                	mov    $0x0,%al
  1a6:	e8 00 00 00 00       	callq  1ab <switches+0x1ab>
  1ab:	89 45 a0             	mov    %eax,-0x60(%rbp)
  1ae:	e9 e2 00 00 00       	jmpq   295 <switches+0x295>
- 1b3:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 1b3:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  1ba:	00 00 00 
  1bd:	b0 00                	mov    $0x0,%al
  1bf:	e8 00 00 00 00       	callq  1c4 <switches+0x1c4>
  1c4:	89 45 9c             	mov    %eax,-0x64(%rbp)
  1c7:	e9 c9 00 00 00       	jmpq   295 <switches+0x295>
- 1cc:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 1cc:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  1d3:	00 00 00 
  1d6:	b0 00                	mov    $0x0,%al
  1d8:	e8 00 00 00 00       	callq  1dd <switches+0x1dd>
  1dd:	89 45 98             	mov    %eax,-0x68(%rbp)
  1e0:	e9 b0 00 00 00       	jmpq   295 <switches+0x295>
- 1e5:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 1e5:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  1ec:	00 00 00 
  1ef:	b0 00                	mov    $0x0,%al
  1f1:	e8 00 00 00 00       	callq  1f6 <switches+0x1f6>
  1f6:	89 45 94             	mov    %eax,-0x6c(%rbp)
  1f9:	e9 97 00 00 00       	jmpq   295 <switches+0x295>
- 1fe:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 1fe:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  205:	00 00 00 
  208:	b0 00                	mov    $0x0,%al
  20a:	e8 00 00 00 00       	callq  20f <switches+0x20f>
  20f:	89 45 90             	mov    %eax,-0x70(%rbp)
  212:	e9 7e 00 00 00       	jmpq   295 <switches+0x295>
- 217:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 217:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  21e:	00 00 00 
  221:	b0 00                	mov    $0x0,%al
  223:	e8 00 00 00 00       	callq  228 <switches+0x228>
  228:	89 45 8c             	mov    %eax,-0x74(%rbp)
  22b:	e9 65 00 00 00       	jmpq   295 <switches+0x295>
- 230:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 230:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  237:	00 00 00 
  23a:	b0 00                	mov    $0x0,%al
  23c:	e8 00 00 00 00       	callq  241 <switches+0x241>
  241:	89 45 88             	mov    %eax,-0x78(%rbp)
  244:	e9 4c 00 00 00       	jmpq   295 <switches+0x295>
- 249:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 249:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  250:	00 00 00 
  253:	b0 00                	mov    $0x0,%al
  255:	e8 00 00 00 00       	callq  25a <switches+0x25a>
  25a:	89 45 84             	mov    %eax,-0x7c(%rbp)
  25d:	e9 33 00 00 00       	jmpq   295 <switches+0x295>
- 262:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 262:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  269:	00 00 00 
  26c:	b0 00                	mov    $0x0,%al
  26e:	e8 00 00 00 00       	callq  273 <switches+0x273>
  273:	89 45 80             	mov    %eax,-0x80(%rbp)
  276:	e9 1a 00 00 00       	jmpq   295 <switches+0x295>
- 27b:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 27b:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  282:	00 00 00 
  285:	8b 75 fc             	mov    -0x4(%rbp),%esi
  288:	b0 00                	mov    $0x0,%al
