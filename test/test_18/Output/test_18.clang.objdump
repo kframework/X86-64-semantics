@@ -1,5 +1,5 @@
 
-test_18.o:     file format elf64-x86-64
+Output/test_18.clang.o:     file format elf64-x86-64
 
 
 Disassembly of section .text:
@@ -10,13 +10,13 @@ Disassembly of section .text:
    4:	48 83 ec 10          	sub    $0x10,%rsp
    8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
    f:	48 63 45 fc          	movslq -0x4(%rbp),%rax
-  13:	48 3d c1 88 13 00    	cmp    $0x1388c1,%rax
+  13:	48 3d 68 00 00 00    	cmp    $0x68,%rax
   19:	0f 83 5c 00 00 00    	jae    7b <printdata+0x7b>
   1f:	48 63 45 fc          	movslq -0x4(%rbp),%rax
   23:	48 81 3c c5 00 00 00 	cmpq   $0x0,0x0(,%rax,8)
   2a:	00 00 00 00 00 
   2f:	0f 84 31 00 00 00    	je     66 <printdata+0x66>
-  35:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  35:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   3c:	00 00 00 
   3f:	8b 75 fc             	mov    -0x4(%rbp),%esi
   42:	48 63 45 fc          	movslq -0x4(%rbp),%rax

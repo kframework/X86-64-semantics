@@ -349,34 +349,34 @@ Source line mapping for function: sub_0
 324 :   %103 = sext i32 %102 to i64, !mcsema_real_eip !6 :          <f>	movslq	-4(%rbp), %rax
 325 :   store i64 %103, i64* %RAX_val, !mcsema_real_eip !6 :          <f>	movslq	-4(%rbp), %rax
 
-326 :   %104 = add nsw i64 %103, -1280193 : NIL
+326 :   %104 = add nsw i64 %103, -104 : NIL
 
-327 :   %105 = xor i64 %104, %103, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-328 :   %106 = and i64 %105, 16, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-329 :   %107 = icmp ne i64 %106, 0, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-330 :   store i1 %107, i1* %AF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-331 :   %108 = trunc i64 %104 to i8, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-332 :   %109 = tail call i8 @llvm.ctpop.i8(i8 %108), !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+327 :   %105 = xor i64 %104, %103, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+328 :   %106 = and i64 %105, 16, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+329 :   %107 = icmp ne i64 %106, 0, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+330 :   store i1 %107, i1* %AF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+331 :   %108 = trunc i64 %104 to i8, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+332 :   %109 = tail call i8 @llvm.ctpop.i8(i8 %108), !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 333 :   %110 = and i8 %109, 1 : NIL
 334 :   %111 = icmp eq i8 %110, 0 : NIL
 
-335 :   store i1 %111, i1* %PF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-336 :   %112 = icmp eq i64 %104, 0, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-337 :   store i1 %112, i1* %ZF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+335 :   store i1 %111, i1* %PF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+336 :   %112 = icmp eq i64 %104, 0, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+337 :   store i1 %112, i1* %ZF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 338 :   %113 = icmp slt i64 %104, 0 : NIL
 
-339 :   store i1 %113, i1* %SF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+339 :   store i1 %113, i1* %SF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
-340 :   %114 = icmp ult i32 %102, 1280193 : NIL
+340 :   %114 = icmp ult i32 %102, 104 : NIL
 
-341 :   store i1 %114, i1* %CF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-342 :   %115 = and i64 %105, %103, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+341 :   store i1 %114, i1* %CF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+342 :   %115 = and i64 %105, %103, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 343 :   %116 = icmp slt i64 %115, 0 : NIL
 
-344 :   store i1 %116, i1* %OF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+344 :   store i1 %116, i1* %OF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 345 :   br i1 %114, label %block_0x1f.preheader, label %block_0x7b, !mcsema_real_eip !8 :          <19>	jae	92
 
@@ -606,7 +606,7 @@ Source line mapping for function: sub_0
 
 542 :   br i1 %219, label %block_0x6b, label %block_0x35, !mcsema_real_eip !15 :          <2f>	je	49
 
-543 :   store i64 ptrtoint (%1* @data_0x9c469e to i64), i64* %RDI_val, !mcsema_real_eip !16 :          <35>	movabsq	$0, %rdi
+543 :   store i64 ptrtoint (%1* @data_0x3d6 to i64), i64* %RDI_val, !mcsema_real_eip !16 :          <35>	movabsq	$0, %rdi
 
 544 :   %221 = load i64* %RBP_val, !mcsema_real_eip !17 :          <3f>	movl	-4(%rbp), %esi
 545 :   %222 = add i64 %221, -4, !mcsema_real_eip !17 :          <3f>	movl	-4(%rbp), %esi
@@ -736,34 +736,34 @@ Source line mapping for function: sub_0
 630 :   %289 = sext i32 %288 to i64, !mcsema_real_eip !6 :          <f>	movslq	-4(%rbp), %rax
 631 :   store i64 %289, i64* %RAX_val, !mcsema_real_eip !6 :          <f>	movslq	-4(%rbp), %rax
 
-632 :   %290 = add nsw i64 %289, -1280193 : NIL
+632 :   %290 = add nsw i64 %289, -104 : NIL
 
-633 :   %291 = xor i64 %290, %289, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-634 :   %292 = and i64 %291, 16, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-635 :   %293 = icmp ne i64 %292, 0, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-636 :   store i1 %293, i1* %AF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-637 :   %294 = trunc i64 %290 to i8, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-638 :   %295 = tail call i8 @llvm.ctpop.i8(i8 %294), !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+633 :   %291 = xor i64 %290, %289, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+634 :   %292 = and i64 %291, 16, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+635 :   %293 = icmp ne i64 %292, 0, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+636 :   store i1 %293, i1* %AF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+637 :   %294 = trunc i64 %290 to i8, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+638 :   %295 = tail call i8 @llvm.ctpop.i8(i8 %294), !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 639 :   %296 = and i8 %295, 1 : NIL
 640 :   %297 = icmp eq i8 %296, 0 : NIL
 
-641 :   store i1 %297, i1* %PF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-642 :   %298 = icmp eq i64 %290, 0, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-643 :   store i1 %298, i1* %ZF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+641 :   store i1 %297, i1* %PF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+642 :   %298 = icmp eq i64 %290, 0, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+643 :   store i1 %298, i1* %ZF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 644 :   %299 = icmp slt i64 %290, 0 : NIL
 
-645 :   store i1 %299, i1* %SF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+645 :   store i1 %299, i1* %SF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
-646 :   %300 = icmp ult i32 %288, 1280193 : NIL
+646 :   %300 = icmp ult i32 %288, 104 : NIL
 
-647 :   store i1 %300, i1* %CF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
-648 :   %301 = and i64 %291, %289, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+647 :   store i1 %300, i1* %CF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
+648 :   %301 = and i64 %291, %289, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 649 :   %302 = icmp slt i64 %301, 0 : NIL
 
-650 :   store i1 %302, i1* %OF_val, !mcsema_real_eip !7 :          <13>	cmpq	$1280193, %rax
+650 :   store i1 %302, i1* %OF_val, !mcsema_real_eip !7 :          <13>	cmpq	$104, %rax
 
 651 :   br i1 %300, label %block_0x1f, label %block_0x7b.loopexit, !mcsema_real_eip !8 :          <19>	jae	92
 ========================================================
