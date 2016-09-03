@@ -42,7 +42,7 @@ else
   ${COMPILER} -O0 ${CC_OPTIONS}  ${SOURCEFILE} ${GCC_ARCH}  -c   -o ${outdir}${BIN}.${ext}.o  
 fi
 
-objdump -d ${BIN}.${ext}.o &> ${outdir}${BIN}.${ext}.objdump
+objdump -d ${outdir}${BIN}.${ext}.o &> ${outdir}${BIN}.${ext}.objdump
 
 ${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${BIN}.${ext}.o -func-map=${FUNC_MAP}  -entry-symbol=${ENTRY_FUNC} &> /tmp/bd.log  
 
@@ -54,9 +54,8 @@ ${LLVM_PATH}/llvm-dis   ${outdir}${BIN}.${ext}.bc -o=${outdir}${BIN}.${ext}.ll
 
 ${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.opt.bc
 ${CC} -m64 -I${DIR} -o ${outdir}${BIN}.${ext}.lifted.exe driver_64.c ${outdir}${BIN}.${ext}.lifted.o
-./${outdir}${BIN}.${ext}.lifted.exe > ${outdir}before.trans.out	
 
 # Clean Up
-rm -rf  ${outdir}${BIN}.${ext}.bc  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.lifted.exe ${outdir}${BIN}.${ext}.bc ${outdir}${BIN}.${ext}.opt.bc ${outdir}${BIN}.${ext}.o 
+rm -rf  ${outdir}${BIN}.${ext}.bc  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.bc ${outdir}${BIN}.${ext}.opt.bc ${outdir}${BIN}.${ext}.o 
 
 opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=${outdir}${BIN}.srcmap.txt ${outdir}${BIN}.${ext}.ll -o /tmp/xxx ;

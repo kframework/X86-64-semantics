@@ -2,21 +2,26 @@ PROG_PREFIX=test_23
 
 ENTRY_FUNC=main	
 ASM_FILE=c
-#FUNC_MAP=${HOME}/Github/mcsema/mc-sema/std_defs/std_defs.txt
 FUNC_MAP=map.txt
+LLC=$(shell which llc)
 
 include ../utils/Makefile.tests
 
 CC=clang
 CXX=clang++
 DIR="${HOME}/Github/mcsema"
-.PHONY:  run
-run: 
-	@${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
-	@echo "ss" > /tmp/test_23.txt ; ./${PROG_PREFIX}.exe </tmp/test_23.txt >out 
+outdir="Output/"
 
-	@-if diff out output.gold > /dev/null; then \
-	 echo "${PROG_PREFIX}: Output Pass"; \
+.PHONY:run
+run:
+	${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
+	${CC} -m64 -I${DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o
+	@-./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe > ${outdir}after.trans.out	
+	@-./${outdir}${PROG_PREFIX}.${ext}.lifted.exe > ${outdir}before.trans.out	
+
+	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
+		echo "  ${PROG_PREFIX}: Output Passed"; \
+		rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
 	else \
-	 echo "${PROG_PREFIX}: Output Fail"; \
-	fi
+		echo "  ${PROG_PREFIX}: Output Failed"; \
+	fi 
