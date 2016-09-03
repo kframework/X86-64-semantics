@@ -8,12 +8,8 @@ struct TIME Difference(struct TIME t1, struct TIME t2);
 
 int main(){
     struct TIME t1,t2;
-    //scanf("%d%d%d",&t1.hours,&t1.minutes,&t1.seconds);
-    //scanf("%d%d%d",&t2.hours,&t2.minutes,&t2.seconds);
-    Difference(t1,t2);
-    //printf("%d:%d:%d ",t2.hours,t2.minutes,t2.seconds);
-    //printf("= %d:%d:%d\n",diff.hours,diff.minutes,diff.seconds);
-    return 0;
+    struct TIME t =  Difference(t1,t2);
+    return t.seconds + t.minutes + t.hours;
 }
 
 struct TIME Difference(struct TIME t1, struct TIME t2){

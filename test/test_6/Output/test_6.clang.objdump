@@ -1,5 +1,5 @@
 
-test_6.o:     file format elf64-x86-64
+Output/test_6.clang.o:     file format elf64-x86-64
 
 
 Disassembly of section .text:
@@ -7,31 +7,32 @@ Disassembly of section .text:
 0000000000000000 <main>:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 83 ec 70          	sub    $0x70,%rsp
-   8:	b8 00 00 00 00       	mov    $0x0,%eax
-   d:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  14:	8b 4d f8             	mov    -0x8(%rbp),%ecx
-  17:	89 4d d8             	mov    %ecx,-0x28(%rbp)
-  1a:	48 8b 55 f0          	mov    -0x10(%rbp),%rdx
-  1e:	48 89 55 d0          	mov    %rdx,-0x30(%rbp)
-  22:	48 8b 7d d0          	mov    -0x30(%rbp),%rdi
-  26:	8b 75 d8             	mov    -0x28(%rbp),%esi
-  29:	8b 4d e8             	mov    -0x18(%rbp),%ecx
-  2c:	89 4d c8             	mov    %ecx,-0x38(%rbp)
-  2f:	48 8b 55 e0          	mov    -0x20(%rbp),%rdx
-  33:	48 89 55 c0          	mov    %rdx,-0x40(%rbp)
-  37:	48 8b 55 c0          	mov    -0x40(%rbp),%rdx
-  3b:	8b 4d c8             	mov    -0x38(%rbp),%ecx
-  3e:	89 45 9c             	mov    %eax,-0x64(%rbp)
-  41:	e8 2a 00 00 00       	callq  70 <Difference>
-  46:	89 55 a8             	mov    %edx,-0x58(%rbp)
-  49:	48 89 45 a0          	mov    %rax,-0x60(%rbp)
-  4d:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
-  51:	48 89 45 b0          	mov    %rax,-0x50(%rbp)
-  55:	8b 4d a8             	mov    -0x58(%rbp),%ecx
-  58:	89 4d b8             	mov    %ecx,-0x48(%rbp)
-  5b:	8b 45 9c             	mov    -0x64(%rbp),%eax
-  5e:	48 83 c4 70          	add    $0x70,%rsp
+   4:	48 83 ec 60          	sub    $0x60,%rsp
+   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+   f:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  12:	89 45 c8             	mov    %eax,-0x38(%rbp)
+  15:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+  19:	48 89 4d c0          	mov    %rcx,-0x40(%rbp)
+  1d:	48 8b 7d c0          	mov    -0x40(%rbp),%rdi
+  21:	8b 75 c8             	mov    -0x38(%rbp),%esi
+  24:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  27:	89 45 b8             	mov    %eax,-0x48(%rbp)
+  2a:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+  2e:	48 89 4d b0          	mov    %rcx,-0x50(%rbp)
+  32:	48 8b 55 b0          	mov    -0x50(%rbp),%rdx
+  36:	8b 4d b8             	mov    -0x48(%rbp),%ecx
+  39:	e8 32 00 00 00       	callq  70 <Difference>
+  3e:	89 55 a8             	mov    %edx,-0x58(%rbp)
+  41:	48 89 45 a0          	mov    %rax,-0x60(%rbp)
+  45:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+  49:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+  4d:	8b 4d a8             	mov    -0x58(%rbp),%ecx
+  50:	89 4d d8             	mov    %ecx,-0x28(%rbp)
+  53:	8b 4d d0             	mov    -0x30(%rbp),%ecx
+  56:	03 4d d4             	add    -0x2c(%rbp),%ecx
+  59:	03 4d d8             	add    -0x28(%rbp),%ecx
+  5c:	89 c8                	mov    %ecx,%eax
+  5e:	48 83 c4 60          	add    $0x60,%rsp
   62:	5d                   	pop    %rbp
   63:	c3                   	retq   
   64:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
