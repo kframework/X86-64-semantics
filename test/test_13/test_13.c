@@ -5,10 +5,6 @@
 #include <stdlib.h>
 #endif
 
-void foo(void) {
-    return;
-}
-
 static int checkFn(char *f) {
     int r = 1;
     int k = strlen(f);

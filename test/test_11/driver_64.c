@@ -7,9 +7,7 @@ extern void mcsema_main(RegState *);
 int main(int argc, char *argv[]) {
   size_t  len = sizeof("/first/test/path");
   char    *a = malloc(len);
-  char    *b = malloc(len);
-
-  memset(b, 0, len);
+  char    *b;
   strcpy(a, "/first/test/path");
 
   RegState            rState = {0};

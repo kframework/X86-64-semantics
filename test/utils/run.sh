@@ -58,4 +58,4 @@ ${CC} -m64 -I${DIR} -o ${outdir}${BIN}.${ext}.lifted.exe driver_64.c ${outdir}${
 # Clean Up
 rm -rf  ${outdir}${BIN}.${ext}.bc  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.bc ${outdir}${BIN}.${ext}.opt.bc ${outdir}${BIN}.${ext}.o 
 
-opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=${outdir}${BIN}.srcmap.txt ${outdir}${BIN}.${ext}.ll -o /tmp/xxx ;
+#opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=${outdir}${BIN}.srcmap.txt ${outdir}${BIN}.${ext}.ll -o /tmp/xxx ;
