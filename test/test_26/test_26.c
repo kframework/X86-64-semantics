@@ -25,7 +25,7 @@ int main(){
     t.x = 10;
     t.y = 20;
     t.n.x = 30;
-    update(1,2,3,4,5,6,t);
-    return 0;
+    struct TIME ret = update(1,2,3,4,5,6,t);
+    return ret.x + ret.y + ret.n.x;
 }
 
