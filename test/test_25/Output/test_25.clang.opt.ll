@@ -1,11 +1,11 @@
-; ModuleID = 'test_25_opt.bc'
+; ModuleID = 'Output/test_25.clang.opt.bc'
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
 %0 = type <{ [10 x i8] }>
 %struct.regs = type <{ i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i1, i1, i1, i1, i1, i1, i1, [8 x x86_fp80], i1, i1, i3, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i2, i2, i1, i1, i1, i1, i1, i1, [8 x i8], i16, i64, i16, i64, i11, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i64, i64 }>
 
-@data_0x41 = internal constant %0 <{ [10 x i8] c"I am: %s\0A\00" }>, align 64
+@data_0x42 = internal constant %0 <{ [10 x i8] c"I am: %s\0A\00" }>, align 64
 
 declare x86_64_sysvcc i64 @printf(i64 inreg, i64 inreg)
 
@@ -165,50 +165,51 @@ driverBlockRaw:
   %76 = add i64 %6, -24, !mcsema_real_eip !5
   %77 = inttoptr i64 %76 to i64*, !mcsema_real_eip !5
   store i64 %4, i64* %77, align 8, !mcsema_real_eip !5
-  %78 = inttoptr i64 %4 to i64*, !mcsema_real_eip !6
-  %79 = load i64* %78, align 8, !mcsema_real_eip !6
-  %80 = tail call x86_64_sysvcc i64 @printf(i64 ptrtoint (%0* @data_0x41 to i64), i64 %79), !mcsema_real_eip !7
-  %81 = add i64 %6, -28, !mcsema_real_eip !8
-  %82 = trunc i64 %80 to i32, !mcsema_real_eip !8
-  %83 = inttoptr i64 %81 to i32*
-  store i32 %82, i32* %83, align 4, !mcsema_real_eip !8
+  %78 = add i64 %4, 8, !mcsema_real_eip !6
+  %79 = inttoptr i64 %78 to i64*, !mcsema_real_eip !6
+  %80 = load i64* %79, align 8, !mcsema_real_eip !6
+  %81 = tail call x86_64_sysvcc i64 @printf(i64 ptrtoint (%0* @data_0x42 to i64), i64 %80), !mcsema_real_eip !7
+  %82 = add i64 %6, -28, !mcsema_real_eip !8
+  %83 = trunc i64 %81 to i32, !mcsema_real_eip !8
+  %84 = inttoptr i64 %82 to i32*
+  store i32 %83, i32* %84, align 4, !mcsema_real_eip !8
   %uadd.i = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %70, i64 32)
-  %84 = extractvalue { i64, i1 } %uadd.i, 0
-  %85 = xor i64 %84, %70, !mcsema_real_eip !9
-  %86 = and i64 %85, 16, !mcsema_real_eip !9
-  %87 = icmp ne i64 %86, 0, !mcsema_real_eip !9
-  %88 = icmp slt i64 %84, 0
-  %89 = icmp eq i64 %84, 0, !mcsema_real_eip !9
-  %90 = add i64 %6, 9223372036854775768
-  %91 = and i64 %85, %90, !mcsema_real_eip !9
-  %92 = icmp slt i64 %91, 0
-  %93 = trunc i64 %84 to i8, !mcsema_real_eip !9
-  %94 = tail call i8 @llvm.ctpop.i8(i8 %93), !mcsema_real_eip !9
-  %95 = and i8 %94, 1
-  %96 = icmp eq i8 %95, 0
-  %97 = extractvalue { i64, i1 } %uadd.i, 1
-  %98 = inttoptr i64 %84 to i64*, !mcsema_real_eip !10
-  %99 = load i64* %98, align 8, !mcsema_real_eip !10
-  %100 = add i64 %84, 16, !mcsema_real_eip !11
+  %85 = extractvalue { i64, i1 } %uadd.i, 0
+  %86 = xor i64 %85, %70, !mcsema_real_eip !9
+  %87 = and i64 %86, 16, !mcsema_real_eip !9
+  %88 = icmp ne i64 %87, 0, !mcsema_real_eip !9
+  %89 = icmp slt i64 %85, 0
+  %90 = icmp eq i64 %85, 0, !mcsema_real_eip !9
+  %91 = add i64 %6, 9223372036854775768
+  %92 = and i64 %86, %91, !mcsema_real_eip !9
+  %93 = icmp slt i64 %92, 0
+  %94 = trunc i64 %85 to i8, !mcsema_real_eip !9
+  %95 = tail call i8 @llvm.ctpop.i8(i8 %94), !mcsema_real_eip !9
+  %96 = and i8 %95, 1
+  %97 = icmp eq i8 %96, 0
+  %98 = extractvalue { i64, i1 } %uadd.i, 1
+  %99 = inttoptr i64 %85 to i64*, !mcsema_real_eip !10
+  %100 = load i64* %99, align 8, !mcsema_real_eip !10
+  %101 = add i64 %85, 16, !mcsema_real_eip !11
   store i64 0, i64* %RAX.i, align 8, !mcsema_real_eip !11
   store i64 %2, i64* %RBX.i, align 8, !mcsema_real_eip !11
   store i64 0, i64* %RCX.i, align 8, !mcsema_real_eip !11
   store i64 %3, i64* %RDX.i, align 8, !mcsema_real_eip !11
-  store i64 %79, i64* %RSI.i, align 8, !mcsema_real_eip !11
-  store i64 ptrtoint (%0* @data_0x41 to i64), i64* %RDI.i, align 8, !mcsema_real_eip !11
-  store i64 %100, i64* %RSP.i, align 8, !mcsema_real_eip !11
-  store i64 %99, i64* %RBP.i, align 8, !mcsema_real_eip !11
+  store i64 %80, i64* %RSI.i, align 8, !mcsema_real_eip !11
+  store i64 ptrtoint (%0* @data_0x42 to i64), i64* %RDI.i, align 8, !mcsema_real_eip !11
+  store i64 %101, i64* %RSP.i, align 8, !mcsema_real_eip !11
+  store i64 %100, i64* %RBP.i, align 8, !mcsema_real_eip !11
   store <2 x i64> %9, <2 x i64>* %8, align 8
   store <2 x i64> %11, <2 x i64>* %10, align 8
   store <2 x i64> %13, <2 x i64>* %12, align 8
   store <2 x i64> %15, <2 x i64>* %14, align 8
   store i64 %16, i64* %RIP.i, align 8, !mcsema_real_eip !11
-  store i1 %97, i1* %CF.i, align 1, !mcsema_real_eip !11
-  store i1 %96, i1* %PF.i, align 1, !mcsema_real_eip !11
-  store i1 %87, i1* %AF.i, align 1, !mcsema_real_eip !11
-  store i1 %89, i1* %ZF.i, align 1, !mcsema_real_eip !11
-  store i1 %88, i1* %SF.i, align 1, !mcsema_real_eip !11
-  store i1 %92, i1* %OF.i, align 1, !mcsema_real_eip !11
+  store i1 %98, i1* %CF.i, align 1, !mcsema_real_eip !11
+  store i1 %97, i1* %PF.i, align 1, !mcsema_real_eip !11
+  store i1 %88, i1* %AF.i, align 1, !mcsema_real_eip !11
+  store i1 %90, i1* %ZF.i, align 1, !mcsema_real_eip !11
+  store i1 %89, i1* %SF.i, align 1, !mcsema_real_eip !11
+  store i1 %93, i1* %OF.i, align 1, !mcsema_real_eip !11
   store i1 %17, i1* %DF.i, align 1, !mcsema_real_eip !11
   call void @llvm.memcpy.p0i8.p0i8.i32(i8* %19, i8* %1, i32 128, i32 8, i1 false), !mcsema_real_eip !11
   store i1 %20, i1* %FPU_B.i, align 1, !mcsema_real_eip !11
@@ -280,9 +281,9 @@ attributes #1 = { nounwind readnone }
 !3 = metadata !{i64 18, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
 !4 = metadata !{i64 25, [21 x i8] c"\09movl\09%edi, -8(%rbp)\00"}
 !5 = metadata !{i64 28, [22 x i8] c"\09movq\09%rsi, -16(%rbp)\00"}
-!6 = metadata !{i64 36, [19 x i8] c"\09movq\09(%rsi), %rsi\00"}
-!7 = metadata !{i64 44, [9 x i8] c"\09callq\090\00"}
-!8 = metadata !{i64 54, [22 x i8] c"\09movl\09%eax, -20(%rbp)\00"}
-!9 = metadata !{i64 59, [16 x i8] c"\09addq\09$32, %rsp\00"}
-!10 = metadata !{i64 63, [11 x i8] c"\09popq\09%rbp\00"}
-!11 = metadata !{i64 64, [6 x i8] c"\09retq\00"}
+!6 = metadata !{i64 36, [20 x i8] c"\09movq\098(%rsi), %rsi\00"}
+!7 = metadata !{i64 45, [9 x i8] c"\09callq\090\00"}
+!8 = metadata !{i64 55, [22 x i8] c"\09movl\09%eax, -20(%rbp)\00"}
+!9 = metadata !{i64 60, [16 x i8] c"\09addq\09$32, %rsp\00"}
+!10 = metadata !{i64 64, [11 x i8] c"\09popq\09%rbp\00"}
+!11 = metadata !{i64 65, [6 x i8] c"\09retq\00"}
