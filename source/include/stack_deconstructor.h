@@ -44,7 +44,7 @@ public:
   void recordConverted(Instruction *From, Value *To);
   bool  createLocalStackFrame(Function&, Value**, Value**);
   void augmentFunctionWithParentStack(Function &, Value*, Value*);
-  void modifyLoadsToAccessParentStack(Function &F, Value*) ;
+  void modifyLoadsToAccessParentStack(Function &F, Value*, Value*) ;
   bool shouldConvert(Instruction*);
   static Function *printf_prototype(LLVMContext &, Module*);
   Constant* geti8StrVal(Module& M, std::string, Twine const& name);

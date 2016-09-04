@@ -88,7 +88,7 @@ void stack_deconstructor::insertlocalstack(Function &F) {
     return;
   }
   augmentFunctionWithParentStack(F, current_stack_start, current_stack_end);
-  modifyLoadsToAccessParentStack(F, current_stack_start);
+  modifyLoadsToAccessParentStack(F, current_stack_start, current_stack_end);
 
   return;
 }
@@ -138,7 +138,7 @@ stack_deconstructor::createLocalStackFrame(Function &F, Value** stack_start, Val
   *stack_start = IRB.CreatePtrToInt (gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_");
 
   //Create:: %_local_stack_end_ = sub i64 %_local_stack_start_, 32
-  *stack_end = IRB.CreateBinOp (Instruction::Sub, *stack_start, stack_height, "_local_stack_end_");
+  *stack_end = IRB.CreateBinOp (Instruction::Add, *stack_start, stack_height, "_local_stack_end_");
 
 
   for (BasicBlock::iterator i: eb) {  
@@ -152,7 +152,7 @@ stack_deconstructor::createLocalStackFrame(Function &F, Value** stack_start, Val
         IRB.SetInsertPoint(store_inst);
 
         //Create:: store i64 %_local_stack_end_, i64* %RSP_val
-        auto *new_store = IRB.CreateStore (*stack_start, ptr_operand);
+        auto *new_store = IRB.CreateStore (*stack_end, ptr_operand);
 
         assert(true == store_inst->use_empty() && "The store instr should not be having any uses");
         //Remove the actual store
@@ -223,7 +223,7 @@ stack_deconstructor::shouldConvert(Instruction* I) {
 }
 
 void
-stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_stack_start) {
+stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_stack_start, Value* current_stack_end) {
 
   Value* parent_stack_start = NULL;
   Value* parent_stack_end = NULL;
@@ -274,9 +274,10 @@ stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_
 
     IRB.SetInsertPoint(I);
     auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_head_p2i_");
-    auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, parent_stack_start, "_head_cond1_");
-    auto *cond2 = IRB.CreateICmp(ICmpInst::ICMP_UGE, p2i_inst, parent_stack_end, "_head_cond2_");
-    auto *cond = IRB.CreateBinOp (Instruction::And, cond1, cond2, "_load_addr_in_parent_stack_");
+    //auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, parent_stack_start, "_head_cond1_");
+    //auto *cond2 = IRB.CreateICmp(ICmpInst::ICMP_UGE, p2i_inst, parent_stack_end, "_head_cond2_");
+    //auto *cond = IRB.CreateBinOp (Instruction::And, cond1, cond2, "_load_addr_in_parent_stack_");
+    auto *cond = IRB.CreateICmp(ICmpInst::ICMP_UGE, p2i_inst, current_stack_end, "_head_cond_");
     TerminatorInst* ti = SplitBlockAndInsertIfThen(cond, I, false);
 
     auto *then_bb  = ti->getParent();
@@ -286,8 +287,8 @@ stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_
 
     Function *printf_func = printf_prototype(ctx, Mod);    
     IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack [" + std::to_string(StaticParentAccessChecks++) + "]\n", "_debug_parent_stack_"));
-    auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_start, "_offset_above_rbp_");
-    auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_end, offset, "_address_in_parent_stack_");
+    auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_end, "_offset_above_rbp_");
+    auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_start, offset, "_address_in_parent_stack_");
 
     // Polulate the Tail Basic Block
     IRB.SetInsertPoint(load_or_store_inst);
