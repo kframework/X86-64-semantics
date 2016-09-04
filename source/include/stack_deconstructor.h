@@ -43,9 +43,12 @@ public:
   void eraseReplacedInstructions();
   void recordConverted(Instruction *From, Value *To);
   bool  createLocalStackFrame(Function&, Value**, Value**);
-  void augmentFunctionWithParentStack(Function &, Value*);
-  void modifyLoadStoreToAccessParentStack(Function &F, Value*) ;
+  void augmentFunctionWithParentStack(Function &, Value*, Value*);
+  void modifyLoadsToAccessParentStack(Function &F, Value*) ;
   bool shouldConvert(Instruction*);
+  static Function *printf_prototype(LLVMContext &, Module*);
+  Constant* geti8StrVal(Module& M, std::string, Twine const& name);
+  
 };
 }
 
