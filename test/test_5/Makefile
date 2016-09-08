@@ -1,6 +1,6 @@
 PROG_PREFIX=test_5
 
-ENTRY_FUNC=main
+ENTRY_FUNC=foo
 ASM_FILE=c
 FUNC_MAP=${HOME}/Github/mcsema/mc-sema/std_defs/std_defs.txt
 LLC=$(shell which llc)
@@ -16,8 +16,8 @@ outdir="Output/"
 run:
 	${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
 	${CC} -m64 -I${DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o
-	@-echo "ss" | ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe > ${outdir}after.trans.out	
-	@-echo "ss" | ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe > ${outdir}before.trans.out	
+	./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe > ${outdir}after.trans.out	
+	./${outdir}${PROG_PREFIX}.${ext}.lifted.exe > ${outdir}before.trans.out	
 
 	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
 		echo "  ${PROG_PREFIX}: Output Passed"; \
