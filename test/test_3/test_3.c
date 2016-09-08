@@ -1,13 +1,10 @@
 
 
-int foo(int a, int b) { 
-  int temp1, temp2; 
-  temp1 = a+b;
+int foo(int* arr, int n) { 
+  unsigned int sum = 0 ;
 
-  if(a > 40 ) {
-    temp1 = temp1 + 10;
-  } else {
-    temp2 = temp1 - 10; // var accessed in this path only
+  for(int i = 0 ; i < n ; i ++) {
+    sum += arr[i];
   }
-  return temp1;
+  return sum;
 }
