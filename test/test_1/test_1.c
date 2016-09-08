@@ -3,13 +3,15 @@
 int foo(int a, int b) { 
   int temp1, temp2; 
   temp1 = a+b;
-  
-  if(a > 40 ) {
-    temp2 = temp1 + 10;
-  } else {
-    temp2 = temp1 - 10;
-  }
 
+  while(a >= 0) {
+    if(a%2 == 0 ) {
+      temp2 = temp1 + 10;
+    } else {
+      temp1 = temp1 - 10;
+    }
+    a --;
+  }
   return temp2;
 }
 

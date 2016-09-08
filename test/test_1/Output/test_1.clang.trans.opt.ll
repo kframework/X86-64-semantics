@@ -147,10 +147,10 @@ driverBlockRaw:
   %STACK_BASE.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 70, !mcsema_real_eip !2
   %65 = bitcast i64* %STACK_BASE.i to <2 x i64>*
   %66 = load <2 x i64>* %65, align 8
-  %67 = add i64 %_local_stack_start_.i, -8
+  %67 = add i64 %_local_stack_start_.i, 24
   %68 = inttoptr i64 %67 to i64*, !mcsema_real_eip !2
   store i64 %6, i64* %68, align 8, !mcsema_real_eip !2
-  %69 = add i64 %_local_stack_start_.i, -24
+  %69 = add i64 %_local_stack_start_.i, 8
   %70 = xor i64 %69, %67, !mcsema_real_eip !3
   %71 = and i64 %70, 16
   %72 = icmp eq i64 %71, 0
@@ -163,17 +163,16 @@ driverBlockRaw:
   %79 = icmp ult i64 %67, 16, !mcsema_real_eip !3
   %80 = and i64 %70, %67, !mcsema_real_eip !3
   %81 = icmp slt i64 %80, 0
-  %82 = add i64 %_local_stack_start_.i, -12, !mcsema_real_eip !4
+  %82 = add i64 %_local_stack_start_.i, 20, !mcsema_real_eip !4
   %83 = inttoptr i64 %82 to i32*
   store i32 0, i32* %83, align 4, !mcsema_real_eip !4
-  %84 = add i64 %_local_stack_start_.i, -32
-  %85 = inttoptr i64 %84 to i64*, !mcsema_real_eip !5
-  store i64 -4981261766360305936, i64* %85, align 8, !mcsema_real_eip !5
+  %84 = getelementptr inbounds [32 x i64]* %_local_stack_alloc_79.i, i64 0, i64 0
+  store i64 -4981261766360305936, i64* %84, align 8, !mcsema_real_eip !5
   store <2 x i64> %3, <2 x i64>* %2, align 8
   store <2 x i64> %5, <2 x i64>* %4, align 8
   store i64 20, i64* %RSI.i, align 8, !mcsema_real_eip !5
   store i64 10, i64* %RDI.i, align 8, !mcsema_real_eip !5
-  store i64 %84, i64* %RSP.i, align 8, !mcsema_real_eip !5
+  store i64 %_local_stack_start_.i, i64* %RSP.i, align 8, !mcsema_real_eip !5
   store i64 %67, i64* %RBP.i, align 8, !mcsema_real_eip !5
   store <2 x i64> %8, <2 x i64>* %7, align 8
   store <2 x i64> %10, <2 x i64>* %9, align 8
@@ -251,7 +250,7 @@ attributes #2 = { noreturn nounwind }
 
 !0 = metadata !{i32 1, metadata !"Debug Info Version", i32 1}
 !1 = metadata !{i32 1, metadata !"Dwarf Version", i32 3}
-!2 = metadata !{i64 64, [12 x i8] c"\09pushq\09%rbp\00"}
-!3 = metadata !{i64 68, [16 x i8] c"\09subq\09$16, %rsp\00"}
-!4 = metadata !{i64 82, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
-!5 = metadata !{i64 89, [11 x i8] c"\09callq\09-94\00"}
+!2 = metadata !{i64 112, [12 x i8] c"\09pushq\09%rbp\00"}
+!3 = metadata !{i64 116, [16 x i8] c"\09subq\09$16, %rsp\00"}
+!4 = metadata !{i64 130, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
+!5 = metadata !{i64 137, [12 x i8] c"\09callq\09-142\00"}
