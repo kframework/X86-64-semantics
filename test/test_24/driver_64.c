@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "mc-sema/common/RegisterState.h"
+#include "RegisterState.h"
 
 extern void mcsema_main(RegState *);
   

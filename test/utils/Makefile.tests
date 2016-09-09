@@ -1,33 +1,30 @@
 OPT=$(shell which opt)
 LLVMDIS=$(shell which llvm-dis)
 LLC=$(shell which llc)
-RUN_SH=../utils/run.sh  
-#loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMmax_stack_height.so
-#OPTSWITCH=-ssh -debug
-loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMstack_deconstructor.so
+
+UTILS_DIR="../utils"
+INCLUDE_DIR=${UTILS_DIR}
+RUN_SH=${UTILS_DIR}/run.sh  
+loadso=../../source/build/lib/LLVMstack_deconstructor.so
 OPTSWITCH=-stack-decons 
-#GCC=$(shell which gcc)
-#CLANG=$(shell which clang)
+#OPTSWITCH=-stack-decons -debug-only="stack_deconstructor"
 #ICC=$(shell which icc)
 outdir="Output/"
-
-#CC=$(shell which clang)
 CC=clang
 CXX=clang++
-DIR="${HOME}/Github/mcsema"
 
 
 all:    clang
 
 gcc:
 	@echo " Using gcc"
-	COMPILER=gcc ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} -x ${RUN_SH} ${PROG_PREFIX} 64
+	COMPILER=gcc ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
 	@${MAKE} ext="gcc" run_pass 
 
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
+	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=1 ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -50,6 +47,20 @@ run_check:
 		echo "  ${PROG_PREFIX}: Transformations Failed"; \
 	fi
 	${MAKE} run
+
+.PHONY:run
+run:
+	${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
+	${CC} -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o
+	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ${CMD_ARGS} > ${outdir}after.trans.out	
+	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
+
+	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
+		echo "  ${PROG_PREFIX}: Output Passed"; \
+		rm -rf ${outdir}*.exe ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
+	else \
+		echo "  ${PROG_PREFIX}: Output Failed"; \
+	fi 
 
 clean:
 	@../utils/clearall.sh
