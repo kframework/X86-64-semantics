@@ -1,6 +1,6 @@
-OPT=$(shell which opt)
-LLVMDIS=$(shell which llvm-dis)
-LLC=$(shell which llc)
+OPT=opt
+LLVMDIS=llvm-dis
+LLC=llc
 
 UTILS_DIR="../utils"
 INCLUDE_DIR=${UTILS_DIR}
