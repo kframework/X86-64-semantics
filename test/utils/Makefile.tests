@@ -1,0 +1,59 @@
+OPT=$(shell which opt)
+LLVMDIS=$(shell which llvm-dis)
+LLC=$(shell which llc)
+RUN_SH=../utils/run.sh  
+#loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMmax_stack_height.so
+#OPTSWITCH=-ssh -debug
+loadso=${HOME}/Github/binary-decompilation/source/build/lib/LLVMstack_deconstructor.so
+OPTSWITCH=-stack-decons 
+#GCC=$(shell which gcc)
+#CLANG=$(shell which clang)
+#ICC=$(shell which icc)
+outdir="Output/"
+
+#CC=$(shell which clang)
+CC=clang
+CXX=clang++
+DIR="${HOME}/Github/mcsema"
+
+
+all:    clang
+
+gcc:
+	@echo " Using gcc"
+	COMPILER=gcc ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} -x ${RUN_SH} ${PROG_PREFIX} 64
+	@${MAKE} ext="gcc" run_pass 
+
+clang:
+	@echo " Using clang"
+	mkdir -p ${outdir}
+	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
+	${MAKE} ext="clang" run_pass
+
+icc:
+	@echo " using icc"
+	@COMPILER=icc ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
+	${MAKE} ext="icc" run_pass
+
+run_pass:
+	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
+	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
+	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
+	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.opt.ll
+
+	${MAKE} ext=${ext} run_check
+
+run_check:
+	@if diff -w -q ${outdir}${PROG_PREFIX}.${ext}.pass.log ${outdir}${PROG_PREFIX}.${ext}.pass.log.gold > /dev/null; then \
+		echo "  ${PROG_PREFIX}: Transformations Passed"; rm -rf ${outdir}${PROG_PREFIX}.${ext}.pass.log ; \
+	else \
+		echo "  ${PROG_PREFIX}: Transformations Failed"; \
+	fi
+	${MAKE} run
+
+clean:
+	@../utils/clearall.sh
+	@rm -rf log *.dot *.mod
+
+
+

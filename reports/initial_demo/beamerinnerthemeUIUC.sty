@@ -1,0 +1,111 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\defbeamertemplate*{title page}{uiuc}[1][]
+{
+
+\centering
+\scalebox{0.6}{\includegraphics{logos/illinois.eps}}\par
+\medskip
+
+  \usebeamerfont{title}\inserttitle\par
+  \usebeamerfont{subtitle}\insertsubtitle\par
+  \bigskip
+  \usebeamerfont{author}\insertauthor\par
+  \usebeamerfont{institute}\insertinstitute\par
+  \smallskip
+  \usebeamerfont{date}\insertdate\par
+  %\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+
+
+}
+
+\logo{\includegraphics{logos/illinois-logo.eps}\vspace{210pt}\hspace{320pt}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\frametitlelogoa}[1]{\def\@frametitlelogoa{#1}}
+\newcommand{\frametitlelogob}[1]{\def\@frametitlelogob{#1}}
+\frametitlelogoa{}
+\frametitlelogob{}
+
+\newlength{\framelogosize}
+\setlength{\framelogosize}{0.5in}
+
+%\defbeamertemplate*{frametitle}{uiuc}[1][]{
+%  \@tempdima=\textwidth
+%  \advance\@tempdima by\beamer@leftmargin
+%  \advance\@tempdima by\beamer@rightmargin
+%  \advance\@tempdima by2\framelogosize
+%  \leavevmode%
+%  \makebox[\framelogosize]{
+%    \ifx\@frametitlelogoa\@empty
+%    \else
+%      \includegraphics[width=\framelogosize,height=\framelogosize,keepaspectratio]{\@frametitlelogoa}
+%    \fi
+%    \rule{0pt}{\framelogosize}
+%  }%
+%  \hfil%
+%  \raisebox{2mm}{
+%    \begin{beamercolorbox}[wd=3in]{frametitle}
+%      \centering
+%      \strut\insertframetitle\strut
+%      \par
+%      \hrule
+%    \end{beamercolorbox}
+%  }%
+%  \hfil%
+%  \makebox[\framelogosize]{
+%    \ifx\@frametitlelogoa\@empty
+%    \else
+%      \includegraphics[width=\framelogosize,height=\framelogosize,keepaspectratio]{\@frametitlelogob}
+%    \fi
+%    \rule{0pt}{\framelogosize}
+%  }%
+%}
+
+% from jonathan lifflander
+\defbeamertemplate*{frametitle}{uiuc}[1][]
+{
+
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  %\setbeamercolor*{frametitle}{bg=gray!10}  % can't get this to work...
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+
+  \begin{beamercolorbox}[sep=0.7cm,#1,wd=\the\@tempdima,ht=45pt]{frametitle}
+    \usebeamerfont{frametitle}%
+    \vbox{}\vskip-1ex%
+    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+    \strut\hspace{30pt}\insertframetitle \strut\par%
+    {%
+      \ifx\insertframesubtitle\@empty \vspace*{0.11cm}
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}
+      \hspace{35pt}
+      $\rightarrow\ \ $\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip-1ex%
+    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+  \end{beamercolorbox}
+
+  \vspace{-5pt}
+  
+  \begin{minipage}{\paperwidth}
+    \hspace{-30pt}\color{uiucblue}\rule[10pt]{1.1\paperwidth}{0.2mm}
+  \end{minipage}
+  
+
+}
+
+\mode
+<all>

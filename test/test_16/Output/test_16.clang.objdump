@@ -1,0 +1,22 @@
+
+Output/test_16.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	5d                   	pop    %rbp
+   5:	c3                   	retq   
+   6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+   d:	00 00 00 
+
+0000000000000010 <printit>:
+  10:	55                   	push   %rbp
+  11:	48 89 e5             	mov    %rsp,%rbp
+  14:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  18:	c7 45 f4 0a 00 00 00 	movl   $0xa,-0xc(%rbp)
+  1f:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  22:	5d                   	pop    %rbp
+  23:	c3                   	retq   

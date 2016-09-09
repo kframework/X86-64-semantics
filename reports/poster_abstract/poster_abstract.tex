@@ -1,0 +1,102 @@
+\documentclass[10pt,twoside]{article}
+\usepackage{url}
+
+
+\bibliographystyle{siam}
+
+\addtolength{\textwidth}{1.00in}
+\addtolength{\textheight}{1.00in}
+\addtolength{\evensidemargin}{-1.00in}
+\addtolength{\oddsidemargin}{-0.00in}
+\addtolength{\topmargin}{-.50in}
+\date{}
+
+\title{\textbf{ Binary Decompilation to LLVM IR}}
+
+\author{Sandeep Dasgupta\thanks{Electronic address: \texttt{sdasgup3@illinois.edu}}
+\qquad Vikram Adve\thanks{Electronic address: \texttt{vadve@illinois.edu}}
+} 
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\maketitle
+
+Analyzing and optimizing programs from their executable has a long history of
+research pertaining to various applications including  security vulnerability
+analysis, untrusted code analysis, malware analysis, program testing, and
+binary optimizations. 
+
+This work serves the same broader objective by decompiling the input binary
+into intermediate representation (IR) of LLVM.  The main challenge of the work over
+and above the existing tools is to extract a richer LLVM IR  including
+variable, type information and per procedure stack frames, which
+will facilitate many sophisticated analysis and optimizations.
+
+State-of-the-art binary analysis \& decompilation tools either operate on
+ad-hoc IRs (\cite{HexRays, Codesurfer, BAP}) or are
+not open sourced (\cite{HexRays, Codesurfer, BAP,SECONDWRITE-EUROSYS-2013,
+DIVINE-VMCAI-2007,POLYTYPEINFERENCE-PLDI-2016}).  There are some frameworks
+which recover LLVM IR from executable.  RevNIC \cite{REVNIC-EUROSYS-2010}
+present a method for dynamically translating x86 to LLVM using
+QEMU\cite{QEMU-ATEC-2005}.  It recovers the IR by merging the translated
+blocks, but the recovered IR is incomplete and is only valid for current
+execution; consequently, various whole program analysis will provide incomplete
+information. RevGen \cite{REVGEN-DNSW-2011} includes a static disassembler to
+recover an IR, but they do not provide variable recovery or its promotion to
+symbols.
+  
+  %, which are essential for the application of several source-level
+  %analysis. 
+
+For our current work we have used a publicly available tool called McSema
+\cite{Mcsema}  which converts x86 machine code to functional LLVM IR.  
+One of the limitation of McSema recovered IR is that the
+extracted IR misses high level information like variable and types.  Moreover,
+Mcsema uses a big flat array to model the runtime process stack which is shared
+by all the procedures. This inhibits many aggressive optimizations on the stack
+because of potential aliases between procedures. Also the machines
+registers are mapped in memory in the recovered IR and not promoted to virtual
+registers. 
+
+As mentioned earlier,  McSema models the reads/writes made by a binary on its
+runtime stack into a global array.  The first step towards our goal of
+obtaining richer IR is to identify variables in this array and promote them as
+symbols. This requires deconstructing the global array into per
+procedure array which is used for modeling the stack frame for that procedure.  This stack
+frame re-construction is important because doing symbol promotion right on the
+global array could be very conservative because an indirect write made by a
+different procedure may prevent symbol promotion in the current procedure.
+This has already been implemented and currently we are working on 
+variable recovery and symbol promotion schemes based on
+\cite{SECONDWRITE-EUROSYS-2013, DIVINE-VMCAI-2007}.
+
+As a side step, we have developed tools \cite{SourceMapper} on top of
+Giri\cite{GIRI-ASPLOS-2013} for better debugging of McSema generated IR.
+Notables are ``Source Mapper'', which maps source (input binary) information
+to generated LLVM IR, and a ``Backward Slicer'' for McSema generated IR. Also we
+have identified optimization opportunities, like scalar replacement of
+aggregates, in the design of McSema generated IR to improve its quality. 
+
+The next goal, data-type recovery, aims at representing every symbol in the IR
+with a meaningful type instead of the generic types in the McSema recovered IR.
+The inferred types not only enables many sophisticated analysis (e.g. pointer
+analysis) but can also be used to rewrite optimized machine code for different
+architectures. The plan is to first develop a simple type inferencer based on
+external function calls and arithmetic operations; then a more sophisticated
+one using a polymorphic type inference algorithm
+\cite{POLYTYPEINFERENCE-PLDI-2016}.
+
+\nocite{*}
+\bibliography{poster_abstract}
+
+\end{document}
+
+
+
+%recover an IR for entire binary. However, the translated code retains all the
+%assumptions of the original binary about the stack layout.  They do not provide
+%any methods for obtaining an abstract stack or promoting memory locations to
+%symbols, which are essential for the application of several source-level
+%analysis. 

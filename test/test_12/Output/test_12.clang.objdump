@@ -1,0 +1,36 @@
+
+Output/test_12.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <bar>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	5d                   	pop    %rbp
+   5:	c3                   	retq   
+   6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+   d:	00 00 00 
+
+0000000000000010 <foo>:
+  10:	55                   	push   %rbp
+  11:	48 89 e5             	mov    %rsp,%rbp
+  14:	48 83 ec 20          	sub    $0x20,%rsp
+  18:	be 00 00 00 00       	mov    $0x0,%esi
+  1d:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+  21:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  25:	b0 00                	mov    $0x0,%al
+  27:	e8 00 00 00 00       	callq  2c <foo+0x1c>
+  2c:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  2f:	81 7d ec ff ff ff ff 	cmpl   $0xffffffff,-0x14(%rbp)
+  36:	0f 84 17 00 00 00    	je     53 <foo+0x43>
+  3c:	8b 7d ec             	mov    -0x14(%rbp),%edi
+  3f:	e8 00 00 00 00       	callq  44 <foo+0x34>
+  44:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  4b:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  4e:	e9 07 00 00 00       	jmpq   5a <foo+0x4a>
+  53:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+  5a:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  5d:	48 83 c4 20          	add    $0x20,%rsp
+  61:	5d                   	pop    %rbp
+  62:	c3                   	retq   
