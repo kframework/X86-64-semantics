@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### 31 Aug 2016
 - Finished the okmplementation of stack decpnstruction 
   ```
