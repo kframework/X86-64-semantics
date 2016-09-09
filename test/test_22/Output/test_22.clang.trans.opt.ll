@@ -13,7 +13,7 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture, i8* nocapture readonly, i
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) #0 {
 driverBlockRaw:
-  %_local_stack_alloc_21.i = alloca [40 x i64], align 8
+  %_local_stack_alloc_21.i = alloca [40 x i64], align 16
   %FPU_TAG_val.i = alloca i64, align 8
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
   %1 = bitcast [40 x i64]* %_local_stack_alloc_21.i to i8*
@@ -157,17 +157,17 @@ driverBlockRaw:
   %STACK_BASE.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 70, !mcsema_real_eip !2
   %73 = bitcast i64* %STACK_BASE.i to <2 x i64>*
   %74 = load <2 x i64>* %73, align 8
-  %75 = add i64 %_local_stack_start_.i, -8
+  %75 = add i64 %_local_stack_start_.i, 32
   %76 = inttoptr i64 %75 to i64*, !mcsema_real_eip !2
-  store i64 %10, i64* %76, align 8, !mcsema_real_eip !2
-  %77 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !3
+  store i64 %10, i64* %76, align 16, !mcsema_real_eip !2
+  %77 = add i64 %_local_stack_start_.i, 48, !mcsema_real_eip !3
   %78 = inttoptr i64 %77 to x86_fp80*
   %79 = load x86_fp80* %78, align 16, !mcsema_real_eip !3
   %80 = add i3 %31, -1
   %81 = zext i3 %80 to i64
   %82 = getelementptr inbounds [8 x x86_fp80]* %STi_val.i, i64 0, i64 %81, !mcsema_real_eip !3
   %83 = getelementptr inbounds [8 x i2]* %tmpcast.i, i64 0, i64 %81, !mcsema_real_eip !3
-  %84 = add i64 %_local_stack_start_.i, -24, !mcsema_real_eip !4
+  %84 = add i64 %_local_stack_start_.i, 16, !mcsema_real_eip !4
   %85 = inttoptr i64 %84 to x86_fp80*
   store x86_fp80 %79, x86_fp80* %85, align 16, !mcsema_real_eip !4
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %82, align 16, !mcsema_real_eip !5
@@ -176,22 +176,20 @@ driverBlockRaw:
   %88 = getelementptr inbounds [8 x x86_fp80]* %STi_val.i, i64 0, i64 %87, !mcsema_real_eip !6
   %89 = getelementptr inbounds [8 x i2]* %tmpcast.i, i64 0, i64 %87, !mcsema_real_eip !6
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %88, align 16, !mcsema_real_eip !6
-  %90 = add i64 %_local_stack_start_.i, -40, !mcsema_real_eip !7
-  %91 = inttoptr i64 %90 to x86_fp80*
-  store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %91, align 16, !mcsema_real_eip !7
-  %92 = load x86_fp80* %85, align 16, !mcsema_real_eip !8
-  store x86_fp80 %92, x86_fp80* %88, align 16, !mcsema_real_eip !8
-  %93 = load x86_fp80* %82, align 16, !mcsema_real_eip !9
-  %94 = fmul x86_fp80 %92, %93, !mcsema_real_eip !9
+  %90 = bitcast [40 x i64]* %_local_stack_alloc_21.i to x86_fp80*, !mcsema_real_eip !7
+  store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %90, align 16, !mcsema_real_eip !7
+  %91 = load x86_fp80* %85, align 16, !mcsema_real_eip !8
+  store x86_fp80 %91, x86_fp80* %88, align 16, !mcsema_real_eip !8
+  %92 = fmul x86_fp80 %91, 0xK4000C90FDAA22168C000, !mcsema_real_eip !9
   store i2 0, i2* %83, align 1, !mcsema_real_eip !9
-  store x86_fp80 %94, x86_fp80* %82, align 16, !mcsema_real_eip !9
+  store x86_fp80 %92, x86_fp80* %82, align 16, !mcsema_real_eip !9
   store i2 -1, i2* %89, align 1, !mcsema_real_eip !9
-  %95 = load i64* %76, align 8, !mcsema_real_eip !10
+  %93 = load i64* %76, align 16, !mcsema_real_eip !10
   store <2 x i64> %5, <2 x i64>* %4, align 8
   store <2 x i64> %7, <2 x i64>* %6, align 8
   store <2 x i64> %9, <2 x i64>* %8, align 8
   store i64 %77, i64* %RSP.i, align 8, !mcsema_real_eip !11
-  store i64 %95, i64* %RBP.i, align 8, !mcsema_real_eip !11
+  store i64 %93, i64* %RBP.i, align 8, !mcsema_real_eip !11
   store <2 x i64> %12, <2 x i64>* %11, align 8
   store <2 x i64> %14, <2 x i64>* %13, align 8
   store <2 x i64> %16, <2 x i64>* %15, align 8
@@ -228,8 +226,8 @@ driverBlockRaw:
   store i1 %48, i1* %FPU_ZM.i, align 1, !mcsema_real_eip !11
   store i1 %49, i1* %FPU_DM.i, align 1, !mcsema_real_eip !11
   store i1 %50, i1* %FPU_IM.i, align 1, !mcsema_real_eip !11
-  %96 = load i64* %FPU_TAG_val.i, align 8
-  store i64 %96, i64* %52, align 4
+  %94 = load i64* %FPU_TAG_val.i, align 8
+  store i64 %94, i64* %52, align 4
   store i16 %54, i16* %FPU_LASTIP_SEG.i, align 1, !mcsema_real_eip !11
   store i64 %55, i64* %FPU_LASTIP_OFF.i, align 1, !mcsema_real_eip !11
   store i16 %56, i16* %FPU_LASTDATA_SEG.i, align 1, !mcsema_real_eip !11

@@ -137,7 +137,7 @@ stack_deconstructor::createLocalStackFrame(Function &F, Value** stack_start, Val
   //Create:: %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
   *stack_start = IRB.CreatePtrToInt (gep_inst, Type::getInt64Ty(ctx), "_local_stack_start_");
 
-  //Create:: %_local_stack_end_ = sub i64 %_local_stack_start_, 32
+  //Create:: %_local_stack_end_ = add i64 %_local_stack_start_, i64 HEIGHT
   *stack_end = IRB.CreateBinOp (Instruction::Add, *stack_start, stack_height, "_local_stack_end_");
 
 
@@ -274,21 +274,28 @@ stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_
 
     IRB.SetInsertPoint(I);
     auto  *p2i_inst = IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_head_p2i_");
-    //auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_ULE, p2i_inst, parent_stack_start, "_head_cond1_");
-    //auto *cond2 = IRB.CreateICmp(ICmpInst::ICMP_UGE, p2i_inst, parent_stack_end, "_head_cond2_");
-    //auto *cond = IRB.CreateBinOp (Instruction::And, cond1, cond2, "_load_addr_in_parent_stack_");
-    auto *cond = IRB.CreateICmp(ICmpInst::ICMP_UGE, p2i_inst, current_stack_end, "_head_cond_");
-    TerminatorInst* ti = SplitBlockAndInsertIfThen(cond, I, false);
+    auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_end, "_offset_above_rbp_");
+    auto *potential_parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_start, offset, "_address_in_parent_stack_");
+
+    auto *cond0 = IRB.CreateICmp(ICmpInst::ICMP_UGT, p2i_inst, current_stack_end, "_cond0_");
+
+    auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, p2i_inst, parent_stack_end, "_cond1_");
+    auto *cond2 = IRB.CreateICmp(ICmpInst::ICMP_ULT, p2i_inst, parent_stack_start, "_cond2_");
+    auto *cond3 = IRB.CreateBinOp (Instruction::Or, cond1, cond2, "_cond3_");
+
+    auto *cond4 = IRB.CreateICmp (ICmpInst::ICMP_ULE, potential_parent_address, parent_stack_end, "_cond4_");
+    auto *cond5 = IRB.CreateBinOp (Instruction::And, cond0, cond3, "_cond5_");
+    auto *cond6 = IRB.CreateBinOp (Instruction::And, cond5, cond4, "_cond6_");
+    TerminatorInst* ti = SplitBlockAndInsertIfThen(cond6, I, false);
 
     auto *then_bb  = ti->getParent();
 
     // Populate the Then Basic Block
     IRB.SetInsertPoint(then_bb->getTerminator());
 
-    Function *printf_func = printf_prototype(ctx, Mod);    
-    IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack [" + std::to_string(StaticParentAccessChecks++) + "]\n", "_debug_parent_stack_"));
-    auto *offset = IRB.CreateBinOp (Instruction::Sub, p2i_inst, current_stack_end, "_offset_above_rbp_");
+    DEBUG( Constant *printf_func = printf_prototype(ctx, Mod);  IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack [" + std::to_string(StaticParentAccessChecks++) + "]\n", "_debug_parent_stack_")));
     auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_start, offset, "_address_in_parent_stack_");
+
 
     // Polulate the Tail Basic Block
     IRB.SetInsertPoint(load_or_store_inst);
@@ -296,6 +303,7 @@ stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_
     auto *new_phi = IRB.CreatePHI(Type::getInt64Ty(ctx), 2);
     new_phi->addIncoming(p2i_inst, head_bb);
     new_phi->addIncoming(parent_address, then_bb);
+
     auto  *address_ptr = IRB.CreateIntToPtr(new_phi, ptr_operand->getType(), "_address_ptr_in_parent_stack_");
     Instruction* new_load_or_store_inst = NULL;
     if(isLoad) {
@@ -368,16 +376,19 @@ stack_deconstructor::eraseReplacedInstructions() {
   ToErase.clear();
 }
 
-Function *
+Constant *
 stack_deconstructor::printf_prototype(LLVMContext &ctx, Module *mod) {
 
   FunctionType *printf_type =
       TypeBuilder<int(char *, ...), false>::get(getGlobalContext());
 
-  Function *func = cast<Function>(mod->getOrInsertFunction(
+  Constant *func = mod->getOrInsertFunction(
       "printf", printf_type,
-      AttributeSet().addAttribute(mod->getContext(), 1U, Attribute::NoAlias)));
+      AttributeSet().addAttribute(mod->getContext(), 1U, Attribute::NoAlias));
 
+  if(!func) {
+    assert(0 && "getOrInsertFunction returned non function");
+  }
   return func;
 }
 

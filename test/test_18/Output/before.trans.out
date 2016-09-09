@@ -1,6 +1,1 @@
-readdata[40] = 0x602080 => 0xAA0000
-readdata[43] = 0x602084 => 0x00BB00
-readdata[47] = 0x602088 => 0x0000CC
-readdata[64] = 0x602080 => 0xAA0000
-readdata[67] = 0x602084 => 0x00BB00
-readdata[71] = 0x602088 => 0x0000CC
+1557798

@@ -15,31 +15,8 @@ Disassembly of section .text:
 0000000000000010 <printit>:
   10:	55                   	push   %rbp
   11:	48 89 e5             	mov    %rsp,%rbp
-  14:	48 83 ec 10          	sub    $0x10,%rsp
-  18:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
-  1f:	00 00 00 
-  22:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-  26:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
-  2a:	48 89 c7             	mov    %rax,%rdi
-  2d:	b0 00                	mov    $0x0,%al
-  2f:	e8 00 00 00 00       	callq  34 <printit+0x24>
-  34:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
-  3b:	00 00 00 
-  3e:	89 45 f4             	mov    %eax,-0xc(%rbp)
-  41:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
-  45:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
-  49:	b0 00                	mov    $0x0,%al
-  4b:	e8 00 00 00 00       	callq  50 <printit+0x40>
-  50:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
-  57:	00 00 00 
-  5a:	89 45 f4             	mov    %eax,-0xc(%rbp)
-  5d:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
-  61:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
-  65:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
-  69:	b0 00                	mov    $0x0,%al
-  6b:	e8 00 00 00 00       	callq  70 <printit+0x60>
-  70:	89 45 f4             	mov    %eax,-0xc(%rbp)
-  73:	8b 45 f4             	mov    -0xc(%rbp),%eax
-  76:	48 83 c4 10          	add    $0x10,%rsp
-  7a:	5d                   	pop    %rbp
-  7b:	c3                   	retq   
+  14:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  18:	c7 45 f4 0a 00 00 00 	movl   $0xa,-0xc(%rbp)
+  1f:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  22:	5d                   	pop    %rbp
+  23:	c3                   	retq   

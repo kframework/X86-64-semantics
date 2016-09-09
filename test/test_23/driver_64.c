@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #define TARGET_IA64
 #include "mc-sema/common/RegisterState.h"
 
@@ -18,7 +19,8 @@ int maze_driver(int argc, const char* argv[])
 
     mcsema_main(&rState);
 
-    return rState.RAX;
+    printf("%lu\n", rState.RAX);
+    return 0;
 }
 
 int main(int argc, const char *argv[]) {

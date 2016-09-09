@@ -8,19 +8,31 @@ Disassembly of section .text:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
    4:	48 83 ec 20          	sub    $0x20,%rsp
-   8:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
-   f:	00 00 00 
-  12:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  19:	89 7d f8             	mov    %edi,-0x8(%rbp)
-  1c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
-  20:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
-  24:	48 8b 76 08          	mov    0x8(%rsi),%rsi
-  28:	48 89 c7             	mov    %rax,%rdi
-  2b:	b0 00                	mov    $0x0,%al
-  2d:	e8 00 00 00 00       	callq  32 <main+0x32>
-  32:	b9 00 00 00 00       	mov    $0x0,%ecx
-  37:	89 45 ec             	mov    %eax,-0x14(%rbp)
-  3a:	89 c8                	mov    %ecx,%eax
-  3c:	48 83 c4 20          	add    $0x20,%rsp
-  40:	5d                   	pop    %rbp
-  41:	c3                   	retq   
+   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+   f:	89 7d f8             	mov    %edi,-0x8(%rbp)
+  12:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+  16:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%rbp)
+  1d:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
+  21:	48 8b 7e 08          	mov    0x8(%rsi),%rdi
+  25:	e8 00 00 00 00       	callq  2a <main+0x2a>
+  2a:	89 c1                	mov    %eax,%ecx
+  2c:	89 4d e8             	mov    %ecx,-0x18(%rbp)
+  2f:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%rbp)
+  36:	8b 45 e4             	mov    -0x1c(%rbp),%eax
+  39:	3b 45 e8             	cmp    -0x18(%rbp),%eax
+  3c:	0f 8d 28 00 00 00    	jge    6a <main+0x6a>
+  42:	48 63 45 e4          	movslq -0x1c(%rbp),%rax
+  46:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+  4a:	48 8b 49 08          	mov    0x8(%rcx),%rcx
+  4e:	0f be 14 01          	movsbl (%rcx,%rax,1),%edx
+  52:	8b 75 ec             	mov    -0x14(%rbp),%esi
+  55:	01 d6                	add    %edx,%esi
+  57:	89 75 ec             	mov    %esi,-0x14(%rbp)
+  5a:	8b 45 e4             	mov    -0x1c(%rbp),%eax
+  5d:	05 01 00 00 00       	add    $0x1,%eax
+  62:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  65:	e9 cc ff ff ff       	jmpq   36 <main+0x36>
+  6a:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  6d:	48 83 c4 20          	add    $0x20,%rsp
+  71:	5d                   	pop    %rbp
+  72:	c3                   	retq   

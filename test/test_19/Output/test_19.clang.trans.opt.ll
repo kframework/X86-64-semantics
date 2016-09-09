@@ -161,21 +161,18 @@ driverBlockRaw:
   %72 = shl nuw nsw i64 %70, 10, !mcsema_real_eip !8
   %73 = or i64 %71, %72
   %74 = or i64 %73, 582
-  %75 = add i64 %_local_stack_start_.i, -8
-  %76 = inttoptr i64 %75 to i64*, !mcsema_real_eip !8
-  store i64 %74, i64* %76, align 8, !mcsema_real_eip !8
-  %77 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !9
+  %75 = add i64 %_local_stack_start_.i, 16, !mcsema_real_eip !9
   store i64 %74, i64* %RAX.i, align 8, !mcsema_real_eip !9
   store <2 x i64> %3, <2 x i64>* %2, align 8
   store <2 x i64> %5, <2 x i64>* %4, align 8
   store i64 %6, i64* %RDI.i, align 8, !mcsema_real_eip !9
-  store i64 %77, i64* %RSP.i, align 8, !mcsema_real_eip !9
+  store i64 %75, i64* %RSP.i, align 8, !mcsema_real_eip !9
   store <2 x i64> %8, <2 x i64>* %7, align 8
   store <2 x i64> %10, <2 x i64>* %9, align 8
   store <2 x i64> %12, <2 x i64>* %11, align 8
   store <2 x i64> %14, <2 x i64>* %13, align 8
-  %78 = bitcast i64* %R15.i to <2 x i64>*
-  store <2 x i64> %16, <2 x i64>* %78, align 8
+  %76 = bitcast i64* %R15.i to <2 x i64>*
+  store <2 x i64> %16, <2 x i64>* %76, align 8
   store i1 false, i1* %CF.i, align 1, !mcsema_real_eip !9
   store i1 true, i1* %PF.i, align 1, !mcsema_real_eip !9
   store i1 %17, i1* %AF.i, align 1, !mcsema_real_eip !9

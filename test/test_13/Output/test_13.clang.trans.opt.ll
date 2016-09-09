@@ -156,25 +156,25 @@ driverBlockRaw:
   %66 = load i64* %STACK_BASE.i, align 8, !mcsema_real_eip !2
   %STACK_LIMIT.i = getelementptr inbounds %struct.regs* %0, i64 0, i32 71, !mcsema_real_eip !2
   %67 = load i64* %STACK_LIMIT.i, align 8, !mcsema_real_eip !2
-  %68 = add i64 %_local_stack_start_.i, -8
+  %68 = add i64 %_local_stack_start_.i, 40
   %69 = inttoptr i64 %68 to i64*, !mcsema_real_eip !2
   store i64 %7, i64* %69, align 8, !mcsema_real_eip !2
-  %70 = add i64 %_local_stack_start_.i, -40
-  %71 = add i64 %_local_stack_start_.i, -16
+  %70 = add i64 %_local_stack_start_.i, 8
+  %71 = add i64 %_local_stack_start_.i, 32
   %72 = inttoptr i64 %71 to i64*
   store i64 %6, i64* %72, align 8, !mcsema_real_eip !3
-  %73 = add i64 %_local_stack_start_.i, -20, !mcsema_real_eip !4
+  %73 = add i64 %_local_stack_start_.i, 28, !mcsema_real_eip !4
   %74 = trunc i64 %5 to i32, !mcsema_real_eip !4
   %75 = inttoptr i64 %73 to i32*
   store i32 %74, i32* %75, align 4, !mcsema_real_eip !4
-  %76 = add i64 %_local_stack_start_.i, -24
+  %76 = add i64 %_local_stack_start_.i, 24
   %77 = inttoptr i64 %76 to i32*
   store i32 0, i32* %77, align 8, !mcsema_real_eip !5
   %78 = load i32* %75, align 4, !mcsema_real_eip !6
   %79 = sext i32 %78 to i64, !mcsema_real_eip !6
   %80 = shl nsw i64 %79, 3, !mcsema_real_eip !7
   %81 = tail call x86_64_sysvcc i64 @malloc(i64 %80), !mcsema_real_eip !8
-  %82 = add i64 %_local_stack_start_.i, -32
+  %82 = add i64 %_local_stack_start_.i, 16
   %83 = inttoptr i64 %82 to i64*
   store i64 %81, i64* %83, align 8, !mcsema_real_eip !9
   %84 = load i32* %77, align 8, !mcsema_real_eip !10
@@ -207,17 +207,16 @@ block_0x33.i:                                     ; preds = %driverBlockRaw
   %102 = load i64* %101, align 8, !mcsema_real_eip !15
   %103 = inttoptr i64 %70 to i64*, !mcsema_real_eip !16
   store i64 %102, i64* %103, align 8, !mcsema_real_eip !16
-  %104 = add i64 %_local_stack_start_.i, -48
-  %105 = inttoptr i64 %104 to i64*, !mcsema_real_eip !17
-  store i64 -4981261766360305936, i64* %105, align 8, !mcsema_real_eip !17
+  %104 = getelementptr inbounds [48 x i64]* %_local_stack_alloc_168.i, i64 0, i64 0
+  store i64 -4981261766360305936, i64* %104, align 8, !mcsema_real_eip !17
   store i64 %102, i64* %RAX.i, align 8, !mcsema_real_eip !17
-  %106 = extractelement <2 x i64> %3, i32 0
-  store i64 %106, i64* %RBX.i, align 8, !mcsema_real_eip !17
+  %105 = extractelement <2 x i64> %3, i32 0
+  store i64 %105, i64* %RBX.i, align 8, !mcsema_real_eip !17
   store i64 %98, i64* %RCX.i, align 8, !mcsema_real_eip !17
   store i64 %4, i64* %RDX.i, align 8, !mcsema_real_eip !17
   store i64 %5, i64* %RSI.i, align 8, !mcsema_real_eip !17
   store i64 %102, i64* %RDI.i, align 8, !mcsema_real_eip !17
-  store i64 %104, i64* %RSP.i, align 8, !mcsema_real_eip !17
+  store i64 %_local_stack_start_.i, i64* %RSP.i, align 8, !mcsema_real_eip !17
   store i64 %68, i64* %RBP.i, align 8, !mcsema_real_eip !17
   store i64 %8, i64* %R8.i, align 8, !mcsema_real_eip !17
   store i64 %9, i64* %R9.i, align 8, !mcsema_real_eip !17
@@ -286,34 +285,34 @@ block_0x33.i:                                     ; preds = %driverBlockRaw
   unreachable
 
 sub_0.exit:                                       ; preds = %driverBlockRaw
-  %107 = add i64 %81, 1, !mcsema_real_eip !18
-  %108 = inttoptr i64 %107 to i8*
-  store i8 2, i8* %108, align 1, !mcsema_real_eip !18
+  %106 = add i64 %81, 1, !mcsema_real_eip !18
+  %107 = inttoptr i64 %106 to i8*
+  store i8 2, i8* %107, align 1, !mcsema_real_eip !18
   %uadd350.i = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %70, i64 32)
-  %109 = extractvalue { i64, i1 } %uadd350.i, 0
-  %110 = xor i64 %109, %70, !mcsema_real_eip !19
-  %111 = and i64 %110, 16, !mcsema_real_eip !19
-  %112 = icmp ne i64 %111, 0, !mcsema_real_eip !19
-  %113 = icmp slt i64 %109, 0
-  %114 = icmp eq i64 %109, 0, !mcsema_real_eip !19
-  %115 = add i64 %_local_stack_start_.i, 9223372036854775768
-  %116 = and i64 %110, %115, !mcsema_real_eip !19
-  %117 = icmp slt i64 %116, 0
-  %118 = trunc i64 %109 to i8, !mcsema_real_eip !19
-  %119 = tail call i8 @llvm.ctpop.i8(i8 %118), !mcsema_real_eip !19
-  %120 = and i8 %119, 1
-  %121 = icmp eq i8 %120, 0
-  %122 = extractvalue { i64, i1 } %uadd350.i, 1
-  %123 = inttoptr i64 %109 to i64*, !mcsema_real_eip !20
-  %124 = load i64* %123, align 8, !mcsema_real_eip !20
-  %125 = add i64 %109, 16, !mcsema_real_eip !21
+  %108 = extractvalue { i64, i1 } %uadd350.i, 0
+  %109 = xor i64 %108, %70, !mcsema_real_eip !19
+  %110 = and i64 %109, 16, !mcsema_real_eip !19
+  %111 = icmp ne i64 %110, 0, !mcsema_real_eip !19
+  %112 = icmp slt i64 %108, 0
+  %113 = icmp eq i64 %108, 0, !mcsema_real_eip !19
+  %114 = add i64 %_local_stack_start_.i, -9223372036854775800
+  %115 = and i64 %109, %114, !mcsema_real_eip !19
+  %116 = icmp slt i64 %115, 0
+  %117 = trunc i64 %108 to i8, !mcsema_real_eip !19
+  %118 = tail call i8 @llvm.ctpop.i8(i8 %117), !mcsema_real_eip !19
+  %119 = and i8 %118, 1
+  %120 = icmp eq i8 %119, 0
+  %121 = extractvalue { i64, i1 } %uadd350.i, 1
+  %122 = inttoptr i64 %108 to i64*, !mcsema_real_eip !20
+  %123 = load i64* %122, align 8, !mcsema_real_eip !20
+  %124 = add i64 %108, 16, !mcsema_real_eip !21
   store i64 %81, i64* %RAX.i, align 8, !mcsema_real_eip !21
   store <2 x i64> %3, <2 x i64>* %2, align 8
   store i64 %4, i64* %RDX.i, align 8, !mcsema_real_eip !21
   store i64 %5, i64* %RSI.i, align 8, !mcsema_real_eip !21
   store i64 %80, i64* %RDI.i, align 8, !mcsema_real_eip !21
-  store i64 %125, i64* %RSP.i, align 8, !mcsema_real_eip !21
-  store i64 %124, i64* %RBP.i, align 8, !mcsema_real_eip !21
+  store i64 %124, i64* %RSP.i, align 8, !mcsema_real_eip !21
+  store i64 %123, i64* %RBP.i, align 8, !mcsema_real_eip !21
   store i64 %8, i64* %R8.i, align 8, !mcsema_real_eip !21
   store i64 %9, i64* %R9.i, align 8, !mcsema_real_eip !21
   store i64 %10, i64* %R10.i, align 8, !mcsema_real_eip !21
@@ -323,12 +322,12 @@ sub_0.exit:                                       ; preds = %driverBlockRaw
   store i64 %14, i64* %R14.i, align 8, !mcsema_real_eip !21
   store i64 %15, i64* %R15.i, align 8, !mcsema_real_eip !21
   store i64 %16, i64* %RIP.i, align 8, !mcsema_real_eip !21
-  store i1 %122, i1* %CF.i, align 1, !mcsema_real_eip !21
-  store i1 %121, i1* %PF.i, align 1, !mcsema_real_eip !21
-  store i1 %112, i1* %AF.i, align 1, !mcsema_real_eip !21
-  store i1 %114, i1* %ZF.i, align 1, !mcsema_real_eip !21
-  store i1 %113, i1* %SF.i, align 1, !mcsema_real_eip !21
-  store i1 %117, i1* %OF.i, align 1, !mcsema_real_eip !21
+  store i1 %121, i1* %CF.i, align 1, !mcsema_real_eip !21
+  store i1 %120, i1* %PF.i, align 1, !mcsema_real_eip !21
+  store i1 %111, i1* %AF.i, align 1, !mcsema_real_eip !21
+  store i1 %113, i1* %ZF.i, align 1, !mcsema_real_eip !21
+  store i1 %112, i1* %SF.i, align 1, !mcsema_real_eip !21
+  store i1 %116, i1* %OF.i, align 1, !mcsema_real_eip !21
   store i1 %17, i1* %DF.i, align 1, !mcsema_real_eip !21
   call void @llvm.memcpy.p0i8.p0i8.i32(i8* %19, i8* %STi_val.i.0..sroa_cast, i32 128, i32 8, i1 false), !mcsema_real_eip !21
   store i1 %20, i1* %FPU_B.i, align 1, !mcsema_real_eip !21

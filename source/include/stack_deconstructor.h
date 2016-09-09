@@ -46,7 +46,7 @@ public:
   void augmentFunctionWithParentStack(Function &, Value*, Value*);
   void modifyLoadsToAccessParentStack(Function &F, Value*, Value*) ;
   bool shouldConvert(Instruction*);
-  static Function *printf_prototype(LLVMContext &, Module*);
+  static Constant *printf_prototype(LLVMContext &, Module*);
   Constant* geti8StrVal(Module& M, std::string, Twine const& name);
   
 };

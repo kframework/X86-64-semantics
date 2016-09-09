@@ -13,10 +13,6 @@
 | test_5 	| Passing a heap pointer of an array as argumet to a function in registers  | How heap pointers are distinguised from stack pointers 	| Here the pointer is passed on in register; To access that there is a register load and we dont modify register loads |
 | test_6 	| Passing a heap pointer of an array as argumet to a function on stack registers  | How heap pointers are distinguised from stack pointers 	| Here the pointer is passed on stack; To access that there is offset calculation from current stack. Once the heap pointer is obtained it must be loaded as is. |
 | test_7 	| mixed test 2-6  | 	| |
-
-
-
-
-
-| test_26 	| Passing a structure argument to a function via stack 	                                                        | Parent stack access 	| The stack height is determined by max rbp access than rsp |
-| test_27 	| Passing an array argument to a function via stack 	                                                        | Parent stack access 	| The stack height is determined by max rbp access than rsp |
+| test_8 - test_25 	| testcases owned from mcsema testsuite | 	| |
+| test_26 	| Passing a structure argument (stack var, stack pointer, dynamically allocated pointer) to a function via stack   and returnng a struct          | Parent stack access 	|  |
+| test_27 	|  Passing a structure argument (stack var, stack pointer, dynamically allocated pointer) to a function via stack and returning pointer to struct | Parent stack access 	|  |

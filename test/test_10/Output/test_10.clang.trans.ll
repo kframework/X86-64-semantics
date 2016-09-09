@@ -10,7 +10,7 @@ entry:
   %_local_stack_alloc_ = alloca i64, i64 41
   %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
   %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = sub i64 %_local_stack_start_, 41
+  %_local_stack_end_ = add i64 %_local_stack_start_, 41
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !2
@@ -102,7 +102,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !2
   %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
   %7 = load i64* %RSP, !mcsema_real_eip !2
-  store i64 %_local_stack_start_, i64* %RSP_val
+  store i64 %_local_stack_end_, i64* %RSP_val
   %RBP = getelementptr inbounds %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
   %8 = load i64* %RBP, !mcsema_real_eip !2
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !2
@@ -780,7 +780,7 @@ driverBlockRaw:
   %_local_stack_alloc_ = alloca i64, i64 0
   %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
   %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
+  %_local_stack_end_ = add i64 %_local_stack_start_, 0
   tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
   ret void
 }
