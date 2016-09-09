@@ -93,23 +93,6 @@ void stack_deconstructor::insertlocalstack(Function &F) {
   return;
 }
 
-/*************************************
- *  %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6
- *  %7 = load i64* %RSP
- *  store i64 %7, i64* %RSP_val
- *
- *  to
- *
- *  %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6
- *  %7 = load i64* %RSP
- *
- *  %_local_stack_alloc_ = alloca i64, i64 0
- *  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
- *  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
- *  %_local_stack_end_ = sub i64 %_local_stack_start_, 0
- *
- *  store i64 %_local_stack_start_, i64* %RSP_val
- */
 bool 
 stack_deconstructor::createLocalStackFrame(Function &F, Value** stack_start, Value** stack_end ) {
 
@@ -221,6 +204,7 @@ stack_deconstructor::shouldConvert(Instruction* I) {
 
   return false;
 }
+
 
 void
 stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_stack_start, Value* current_stack_end) {
