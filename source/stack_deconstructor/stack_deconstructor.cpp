@@ -1,4 +1,4 @@
-#define DEBUG_TYPE "stack_deconstructor"
+//#define DEBUG_TYPE "stack_deconstructor"
 #include "stack_deconstructor.h"
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/IR/CFG.h"
@@ -6,7 +6,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/InstIterator.h"
 #include "llvm/IR/IntrinsicInst.h"
-#include "llvm/Support/Debug.h"
+//#include "llvm/Support/Debug.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
@@ -21,7 +21,7 @@
 using namespace llvm;
 LLVMContext &ctx =  getGlobalContext();
 static IRBuilder<> IRB(ctx);
-STATISTIC(StaticParentAccessChecks,  "Number of static parent stack accesses");
+//STATISTIC(StaticParentAccessChecks,  "Number of static parent stack accesses");
 
 
 char stack_deconstructor::ID = 0;
@@ -79,7 +79,7 @@ void stack_deconstructor::insertlocalstack(Function &F) {
 
   assert(approximate_stack_height <= 0 && "stack height cannot be positive\n");
 
-  DEBUG(errs() << "========================\n Processing Function:" <<  F.getName() << "\n=================================\n");
+  //DEBUG(errs() << "========================\n Processing Function:" <<  F.getName() << "\n=================================\n");
 
   Value *current_stack_start = NULL;
   Value *current_stack_end  = NULL;
@@ -237,7 +237,7 @@ stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_
   }
 
   for(Instruction *I : intr_to_be_transfomed) {
-    DEBUG(errs() << "\nProcessing: " << *I << "\n");
+    //DEBUG(errs() << "\nProcessing: " << *I << "\n");
     bool isLoad = false;
     Value* ptr_operand = NULL;
     Value* value_operand = NULL;
@@ -277,7 +277,7 @@ stack_deconstructor::modifyLoadsToAccessParentStack(Function &F, Value* current_
     // Populate the Then Basic Block
     IRB.SetInsertPoint(then_bb->getTerminator());
 
-    DEBUG( Constant *printf_func = printf_prototype(ctx, Mod);  IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack [" + std::to_string(StaticParentAccessChecks++) + "]\n", "_debug_parent_stack_")));
+    //DEBUG( Constant *printf_func = printf_prototype(ctx, Mod);  IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack [" + std::to_string(StaticParentAccessChecks++) + "]\n", "_debug_parent_stack_")));
     auto *parent_address = IRB.CreateBinOp (Instruction::Add, parent_stack_start, offset, "_address_in_parent_stack_");
 
 
