@@ -6,7 +6,8 @@ UTILS_DIR="../utils"
 INCLUDE_DIR=${UTILS_DIR}
 RUN_SH=${UTILS_DIR}/run.sh  
 loadso=../../source/build/lib/LLVMstack_deconstructor.so
-OPTSWITCH=-stack-decons 
+#OPTSWITCH=-stack-decons 
+OPTSWITCH=-ssh
 #OPTSWITCH=-stack-decons -debug-only="stack_deconstructor"
 #ICC=$(shell which icc)
 outdir="Output/"
