@@ -36,7 +36,7 @@ bool max_stack_height::runOnFunction(Function &F) {
   }
   perform_dfa();
 
-  dump_cfg();
+  DEBUG(dump_cfg());
   compute_height();
 
   cleanup_framework();
@@ -583,5 +583,5 @@ void max_stack_height::compute_height() {
   }
   stack_height = std::min(max_dis_rsp, max_dis_rbp);
 
-  DEBUG(errs() << "Height[ " << Fname << " ] : " << stack_height << "\n");
+  errs() << "Height[ " << Fname << " ] : " << stack_height << "\n";
 }

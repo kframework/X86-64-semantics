@@ -3,19 +3,7 @@ PROG_PREFIX=test_14
 ENTRY_FUNC=checkFn
 ASM_FILE=c
 FUNC_MAP=map.txt
+CMD_ARGS=
+STDIN_ARGS=
 
 include ../utils/Makefile.tests
-
-CC=clang
-CXX=clang++
-DIR="${HOME}/Github/mcsema"
-
-.PHONY:  run
-run: 
-	@${CC} -m64 -I${DIR} -o ${PROG_PREFIX}.exe driver_64.c ${PROG_PREFIX}_lifted.o
-	./${PROG_PREFIX}.exe	> out
-	@-if diff out output.gold > /dev/null; then \
-	 echo "${PROG_PREFIX}: Output Pass"; \
-	else \
-	 echo "${PROG_PREFIX}: Output Fail"; \
-	fi

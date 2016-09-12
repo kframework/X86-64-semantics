@@ -2,7 +2,7 @@
 #include <string.h>
 #include <immintrin.h>
 #include <mmintrin.h>
-#include "mc-sema/common/RegisterState.h"
+#include "RegisterState.h"
 
 extern void mcsema_main(RegState *);
 

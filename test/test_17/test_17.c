@@ -20,16 +20,19 @@ unsigned int *mydata[] = {
 
 int printdata(void) {
     int i;
+    unsigned int sum = 0;
 
     for(i = 0; 
         i < sizeof(mydata)/sizeof(mydata[0]); 
         i++) 
     {
         if(mydata[i] != NULL) {
-            printf("mydata[%d] = %p => 0x%06X\n", i, mydata[i], *(mydata[i]));
+            //printf("mydata[%d] = %p => 0x%06X\n", i, mydata[i], *(mydata[i]));
+            sum +=  *(mydata[i]);
         }
     }
 
-    return 0;
+    //return 0;
+    return sum;
 
 }

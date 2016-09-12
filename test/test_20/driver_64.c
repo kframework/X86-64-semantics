@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "mc-sema/common/RegisterState.h"
+#include "RegisterState.h"
 
 extern void mcsema_main(RegState *);
 
@@ -18,6 +18,8 @@ int main(int argc, char *argv[]) {
     rState.RDI = i;
     mcsema_main(&rState);
   }
+
+  printf("%lu\n", rState.RAX);
 
   return 0;
 }

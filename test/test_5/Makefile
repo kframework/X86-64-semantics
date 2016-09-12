@@ -1,11 +1,9 @@
 PROG_PREFIX=test_5
 
-ENTRY_FUNC=main
+ENTRY_FUNC=foo
 ASM_FILE=c
-FUNC_MAP=${HOME}/Github/mcsema/mc-sema/std_defs/std_defs.txt
+FUNC_MAP=../utils/std_defs.txt
+CMD_ARGS=
+STDIN_ARGS=
 
 include ../utils/Makefile.tests
-
-.PHONY:run
-run:
-	

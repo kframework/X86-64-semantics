@@ -1,34 +1,24 @@
-#include <stdio.h>
-struct TIME{
-  int seconds;
-  int minutes;
-  int hours;
-};
-struct TIME Difference(struct TIME t1, struct TIME t2);
+#include<stdio.h>
+#include<stdlib.h>
 
-int main(){
-    struct TIME t1,t2;
-    //scanf("%d%d%d",&t1.hours,&t1.minutes,&t1.seconds);
-    //scanf("%d%d%d",&t2.hours,&t2.minutes,&t2.seconds);
-    Difference(t1,t2);
-    //printf("%d:%d:%d ",t2.hours,t2.minutes,t2.seconds);
-    //printf("= %d:%d:%d\n",diff.hours,diff.minutes,diff.seconds);
-    return 0;
+int foo(int a, int b, int c, int d, int e, int f, int size1, int* arr1, int size2, int* arr2) { 
+  unsigned int sum = 0 ;
+
+  for(int i = 0 ; i < size1 ; i ++) {
+    sum += (arr1[i]  - arr2[i]);
+  }
+  return sum*(a+b+c+d+e+f);
 }
 
-struct TIME Difference(struct TIME t1, struct TIME t2){
-    struct TIME differ;
-    if(t2.seconds>t1.seconds){
-        --t1.minutes;
-        t1.seconds+=60;
-    }
-    differ.seconds=t1.seconds-t2.seconds;
-    if(t2.minutes>t1.minutes){
-        --t1.hours;
-        t1.minutes+=60;
-    }
-    differ.minutes=t1.minutes-t2.minutes;
-    differ.hours=t1.hours-t2.hours;
+int main(int argc, char** argv) {
+  int* arr1 = (int *) malloc(sizeof(int) * 10);
+  int* arr2 = (int *) malloc(sizeof(int) * 10);
 
-    return differ;
+  for(int i = 0 ; i < 10 ; i ++) {
+    arr1[i]  = 10 + i+1;
+  }
+  for(int i = 0 ; i < 10 ; i ++) {
+    arr2[i]  = i+1;
+  }
+  return foo(100, 200, 300, 400, 500, 600, 10, arr1, 10, arr2);
 }

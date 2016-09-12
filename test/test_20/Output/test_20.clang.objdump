@@ -1,0 +1,132 @@
+
+Output/test_20.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <switches>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   7:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
+   e:	8b 7d fc             	mov    -0x4(%rbp),%edi
+  11:	89 f8                	mov    %edi,%eax
+  13:	2d 88 23 01 00       	sub    $0x12388,%eax
+  18:	89 7d f4             	mov    %edi,-0xc(%rbp)
+  1b:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  1e:	0f 8f 56 00 00 00    	jg     7a <switches+0x7a>
+  24:	e9 00 00 00 00       	jmpq   29 <switches+0x29>
+  29:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  2c:	2d fe 00 00 00       	sub    $0xfe,%eax
+  31:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  34:	0f 8f 2a 00 00 00    	jg     64 <switches+0x64>
+  3a:	e9 00 00 00 00       	jmpq   3f <switches+0x3f>
+  3f:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  42:	89 c1                	mov    %eax,%ecx
+  44:	89 ca                	mov    %ecx,%edx
+  46:	83 e8 13             	sub    $0x13,%eax
+  49:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  4c:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+  50:	0f 87 7c 01 00 00    	ja     1d2 <switches+0x1d2>
+  56:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+  5a:	48 8b 0c c5 00 00 00 	mov    0x0(,%rax,8),%rcx
+  61:	00 
+  62:	ff e1                	jmpq   *%rcx
+  64:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  67:	2d ff 00 00 00       	sub    $0xff,%eax
+  6c:	89 45 dc             	mov    %eax,-0x24(%rbp)
+  6f:	0f 84 ad 00 00 00    	je     122 <switches+0x122>
+  75:	e9 58 01 00 00       	jmpq   1d2 <switches+0x1d2>
+  7a:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  7d:	05 77 dc fe ff       	add    $0xfffedc77,%eax
+  82:	89 c1                	mov    %eax,%ecx
+  84:	83 e8 0a             	sub    $0xa,%eax
+  87:	48 89 4d d0          	mov    %rcx,-0x30(%rbp)
+  8b:	89 45 cc             	mov    %eax,-0x34(%rbp)
+  8e:	0f 87 3e 01 00 00    	ja     1d2 <switches+0x1d2>
+  94:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+  98:	48 8b 0c c5 00 00 00 	mov    0x0(,%rax,8),%rcx
+  9f:	00 
+  a0:	ff e1                	jmpq   *%rcx
+  a2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  a5:	05 00 00 00 00       	add    $0x0,%eax
+  aa:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  ad:	e9 2b 01 00 00       	jmpq   1dd <switches+0x1dd>
+  b2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  b5:	05 01 00 00 00       	add    $0x1,%eax
+  ba:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  bd:	e9 1b 01 00 00       	jmpq   1dd <switches+0x1dd>
+  c2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  c5:	05 02 00 00 00       	add    $0x2,%eax
+  ca:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  cd:	e9 0b 01 00 00       	jmpq   1dd <switches+0x1dd>
+  d2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  d5:	05 04 00 00 00       	add    $0x4,%eax
+  da:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  dd:	e9 fb 00 00 00       	jmpq   1dd <switches+0x1dd>
+  e2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  e5:	05 06 00 00 00       	add    $0x6,%eax
+  ea:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  ed:	e9 eb 00 00 00       	jmpq   1dd <switches+0x1dd>
+  f2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  f5:	05 0c 00 00 00       	add    $0xc,%eax
+  fa:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  fd:	e9 db 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 102:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 105:	05 0d 00 00 00       	add    $0xd,%eax
+ 10a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 10d:	e9 cb 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 112:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 115:	05 13 00 00 00       	add    $0x13,%eax
+ 11a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 11d:	e9 bb 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 122:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 125:	05 ff 00 00 00       	add    $0xff,%eax
+ 12a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 12d:	e9 ab 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 132:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 135:	05 89 23 01 00       	add    $0x12389,%eax
+ 13a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 13d:	e9 9b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 142:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 145:	05 8a 23 01 00       	add    $0x1238a,%eax
+ 14a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 14d:	e9 8b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 152:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 155:	05 8b 23 01 00       	add    $0x1238b,%eax
+ 15a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 15d:	e9 7b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 162:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 165:	05 8c 23 01 00       	add    $0x1238c,%eax
+ 16a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 16d:	e9 6b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 172:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 175:	05 8d 23 01 00       	add    $0x1238d,%eax
+ 17a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 17d:	e9 5b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 182:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 185:	05 8f 23 01 00       	add    $0x1238f,%eax
+ 18a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 18d:	e9 4b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 192:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 195:	05 90 23 01 00       	add    $0x12390,%eax
+ 19a:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 19d:	e9 3b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 1a2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1a5:	05 91 23 01 00       	add    $0x12391,%eax
+ 1aa:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 1ad:	e9 2b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 1b2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1b5:	05 92 23 01 00       	add    $0x12392,%eax
+ 1ba:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 1bd:	e9 1b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 1c2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1c5:	05 93 23 01 00       	add    $0x12393,%eax
+ 1ca:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 1cd:	e9 0b 00 00 00       	jmpq   1dd <switches+0x1dd>
+ 1d2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1d5:	05 00 00 00 00       	add    $0x0,%eax
+ 1da:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 1dd:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1e0:	5d                   	pop    %rbp
+ 1e1:	c3                   	retq   

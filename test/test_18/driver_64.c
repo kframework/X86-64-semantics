@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "mc-sema/common/RegisterState.h"
+#include "RegisterState.h"
 
 extern void mcsema_main(RegState *);
 
@@ -14,5 +14,7 @@ int main(int argc, char *argv[]) {
 
   mcsema_main(&rState);
 
-  return rState.RAX;
+  printf("%lx", rState.RAX);
+  return 0;
+  //return rState.RAX;
 }

@@ -1,6 +1,13 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, const char* argv[]) {
-    printf("I am: %s\n", argv[0]);
-    return 0;
+	int sum = 0;
+	int len = strlen(argv[1]);
+	for(int i = 0 ; i < len; i ++ ) {
+    //printf("I am: %s\n", argv[1]);
+    		sum += argv[1][i];
+	}
+    //return 0;
+    return len;
 }

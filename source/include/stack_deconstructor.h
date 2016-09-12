@@ -21,7 +21,10 @@ typedef int64_t height_ty;
 class stack_deconstructor : public ModulePass {
 private:
   Module *Mod;
-  void insertlocalstack(Function &F, height_ty size);
+  height_ty approximate_stack_height;
+  SmallVector<Instruction *, 8> ToErase;
+  DenseMap<const llvm::Function *, Value*> FunctionToFrameMap;
+  void insertlocalstack(Function &);
 
 public:
   static char ID;
@@ -37,7 +40,15 @@ public:
   };
 
   Function* cloneFunctionWithExtraArgument(Function* );
-
+  void eraseReplacedInstructions();
+  void recordConverted(Instruction *From, Value *To);
+  bool  createLocalStackFrame(Function&, Value**, Value**);
+  void augmentFunctionWithParentStack(Function &, Value*, Value*);
+  void modifyLoadsToAccessParentStack(Function &F, Value*, Value*) ;
+  bool shouldConvert(Instruction*);
+  static Constant *printf_prototype(LLVMContext &, Module*);
+  Constant* geti8StrVal(Module& M, std::string, Twine const& name);
+  
 };
 }
 
