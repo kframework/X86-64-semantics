@@ -35,15 +35,10 @@ icc:
 	${MAKE} ext="icc" run_pass
 
 run_pass:
-	echo "1"
 	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
-	echo "2"
 	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
-	echo "3"
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
-	echo "4"
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.opt.ll
-	echo "5"
 
 	${MAKE} ext=${ext} run_check
 
