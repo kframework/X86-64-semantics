@@ -1,5 +1,8 @@
 ### 14 Sept 2016
 
+If we can fugure out the registers which are used in a functioon then we can get rid of the structure context
+
+
 We can model a simple type analysis as follows:
 1. Multiplication, substraction, shifting, xor, binary and, binary or and division force their “parameters”
 to be integers.
@@ -13,10 +16,7 @@ to be integers.
 9. If something is returned from main(), it is an integer.
 10. If the value of one variable is moved into another variable, they have the same type.
 11. If the dereferenced value of a pointer has type τ , then the pointer has type τ∗.
-12. The sum of a pointer of type τ
-∗ and an integer is a pointer, but not necessarily of type τ
-∗
-.
+12. The sum of a pointer of type τ ∗ and an integer is a pointer, but not necessarily of type τ
 
 ### 31 Aug 2016
 - Finished the okmplementation of stack decpnstruction 

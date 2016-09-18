@@ -38,9 +38,9 @@ include_directories(${LLVM_INCLUDE_DIRS})
 # Following commands are specific to this tutorial
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-add_subdirectory(utils)
-add_subdirectory(max_stack_height)
-add_subdirectory(stack_deconstructor)
+add_subdirectory(libs)
+add_subdirectory(tools)
+add_subdirectory(test)
 
 # testing part relies on lit, dependency is required to avoid cmake bloat
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
