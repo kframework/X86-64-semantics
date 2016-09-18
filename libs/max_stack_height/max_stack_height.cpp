@@ -46,7 +46,7 @@ bool max_stack_height::runOnFunction(Function &F) {
 
 /*******************************************************************
   * Function :  cleanup_framework
-  * Purpose  :  Cleanup the temporary data structures used to 
+  * Purpose  :  Cleanup the temporary data structures used to
   *             compute max stack height of Function.
 ********************************************************************/
 void max_stack_height::cleanup_framework() {
@@ -61,7 +61,7 @@ void max_stack_height::cleanup_framework() {
 ********************************************************************/
 void max_stack_height::perform_dfa() {
 
-  //perform_const_dfa();
+  // perform_const_dfa();
 
   perform_global_dfa();
 }
@@ -116,25 +116,25 @@ void max_stack_height::perform_const_dfa() {
     DEBUG(errs() << Func->getName() + "::" + BB->getName() << "\n");
     DEBUG(errs() << "----------------------------------\n");
     dfvaInstance = BBMap[BB];
-    dfa_values inval = {0,0,0,0};
+    dfa_values inval = {0, 0, 0, 0};
     (*dfvaInstance)[GEN] = calculate_max_height_BB(BB, inval);
   }
 }
 
 /*******************************************************************
  * Function :   calculate_max_height_BB
- * Purpose  :  
+ * Purpose  :
  *  Each instruction I (which may potentially affect rsp or rbp) within a bb is
  *  tracked (using visitInst) to obtain the follwoing data flow values before,
  *  In[I] and after, Out[I].
  *
- *  1. ACTUAL_RSP (or ACTUAL_RBP) = Actual displacement of 
- *              %rsp (or %rbp). For example, for a statement sub $0x20,%rsp, 
- *              if %rsp value is x before the statement, 
+ *  1. ACTUAL_RSP (or ACTUAL_RBP) = Actual displacement of
+ *              %rsp (or %rbp). For example, for a statement sub $0x20,%rsp,
+ *              if %rsp value is x before the statement,
  *              then actual_rsp becomes x - 32 after it.
- *  2. MAX_DISP_RSP ( or MAX_DISP_RBP) = Offset of the stack 
- *              access w.r.t %rsp (or %rbp). For example, for a statement 
- *              mov -0x4(%rsp),%esi, if %rsp value is x before the statement, 
+ *  2. MAX_DISP_RSP ( or MAX_DISP_RBP) = Offset of the stack
+ *              access w.r.t %rsp (or %rbp). For example, for a statement
+ *              mov -0x4(%rsp),%esi, if %rsp value is x before the statement,
  *              then max_disp_rsp becomes x-4 after it.
  *
  *  After the data value propagation among I's, Gen[bb] is computed as follows:
@@ -163,14 +163,13 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB, dfa_values inval) {
   ret_val[MAX_DISP_RSP] = max_dis_of_rsp;
   ret_val[MAX_DISP_RBP] = max_dis_of_rbp;
 
-  //debug_dfa_values("Gen :: ", ret_val);
+  // debug_dfa_values("Gen :: ", ret_val);
   // Clean up
   InstMap.clear();
   max_dis_of_rsp = max_dis_of_rbp = 0;
 
   return ret_val;
 }
-
 
 void max_stack_height::visitLoadInst(LoadInst &I) {
   Value *ld_ptr_op = I.getPointerOperand();
@@ -308,24 +307,28 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
  * Purpose  :   Calculating In[bb] and Out[bb]
  *  Meet operator: Calculating In[bb] as a function of Out[pped_bb],
       //For any pair of predecessor pred_bb_x and pred_bb_y
-      if ( Out[pred_bb_x]::actual_rsp == OUT[pred_bb_y]::actual_rsp &&  
+      if ( Out[pred_bb_x]::actual_rsp == OUT[pred_bb_y]::actual_rsp &&
           OUT[pred_bb_x]::actual_rbp == OUT[pred_bb_y]::actual_rbp) {
         In[bb]::actual_rsp  = Out[pred_bb_x]::actual_rsp;
         In[bb]::actual_rbp  = Out[pred_bb_x]::actual_rbp;
-        In[bb]::max_disp_rsp  = min ( OUT[pred_bb_x]::max_disp_rsp, OUT[pred_bb_y]::max_disp_rsp)
-        In[bb]::max_disp_rbp  = min ( OUT[pred_bb_x]::max_disp_rbp, OUT[pred_bb_y]::max_disp_rbp)
+        In[bb]::max_disp_rsp  = min ( OUT[pred_bb_x]::max_disp_rsp,
+OUT[pred_bb_y]::max_disp_rsp)
+        In[bb]::max_disp_rbp  = min ( OUT[pred_bb_x]::max_disp_rbp,
+OUT[pred_bb_y]::max_disp_rbp)
       } else {
         In[bb] = Bottom
       }
-    
+
     Transfer function: Calculating Out[bb] as a function of Gen[bb] and In[bb]
       if(In[bb] == Bottom) {
         Out[bb] =  Bottom;
       } else {
         Out[bb]::actual_rsp = In[bb]::actual_rsp + Gen[bb]::actual_rsp;
         Out[bb]::actual_rbp = In[bb]::actual_rbp + Gen[bb]::actual_rbp;
-        Out[bb]::max_disp_rsp = min ( In[bb]::actual_rsp + Gen[bb]::max_disp_rsp, In[bb]::max_disp_rsp;
-        Out[bb]::max_disp_rbp = min ( In[bb]::actual_rbp + Gen[bb]::max_disp_rbp, In[bb]::max_disp_rbp;
+        Out[bb]::max_disp_rsp = min ( In[bb]::actual_rsp +
+Gen[bb]::max_disp_rsp, In[bb]::max_disp_rsp;
+        Out[bb]::max_disp_rbp = min ( In[bb]::actual_rbp +
+Gen[bb]::max_disp_rbp, In[bb]::max_disp_rbp;
       }
 ********************************************************************/
 void max_stack_height::perform_global_dfa() {
@@ -408,7 +411,7 @@ dfa_values max_stack_height::meet_over_preds(BasicBlock *BB) {
       }
     }
   }
-  //debug_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
+  // debug_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
 
   // no predecessor, this is the start block s.
   if (is_entry) {
@@ -418,7 +421,8 @@ dfa_values max_stack_height::meet_over_preds(BasicBlock *BB) {
   return meetOverPreds;
 }
 
-void max_stack_height::transfer_function(dfa_functions *dfvaInstance, BasicBlock* bb) {
+void max_stack_height::transfer_function(dfa_functions *dfvaInstance,
+                                         BasicBlock *bb) {
 
   dfa_values bottom(TOTAL_VALUES, -1);
 
@@ -440,8 +444,6 @@ void max_stack_height::transfer_function(dfa_functions *dfvaInstance, BasicBlock
         (*dfvaInstance)[IN][ACTUAL_RBP] + (*dfvaInstance)[GEN][MAX_DISP_RBP],
         (*dfvaInstance)[IN][MAX_DISP_RBP]);
     */
-
-
   }
 }
 

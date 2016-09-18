@@ -1,6 +1,8 @@
-//===------------------------ stack_deconstructor --------------------------===//
+//===------------------------ stack_deconstructor
+//--------------------------===//
 //
-// This file provide class definition and functionality to partition global monolithic
+// This file provide class definition and functionality to partition global
+// monolithic
 // stack to per function stack frame
 //
 //===----------------------------------------------------------------------===//
@@ -17,20 +19,18 @@ namespace llvm {
 
 typedef int64_t height_ty;
 
-
 class stack_deconstructor : public ModulePass {
 private:
   Module *Mod;
   height_ty approximate_stack_height;
   SmallVector<Instruction *, 8> ToErase;
-  DenseMap<const llvm::Function *, Value*> FunctionToFrameMap;
+  DenseMap<const llvm::Function *, Value *> FunctionToFrameMap;
   void insertlocalstack(Function &);
 
 public:
   static char ID;
 
-
-  stack_deconstructor() : ModulePass(ID) { }
+  stack_deconstructor() : ModulePass(ID) {}
 
   virtual bool runOnModule(Module &F);
 
@@ -39,16 +39,15 @@ public:
     AU.addRequired<max_stack_height>();
   };
 
-  Function* cloneFunctionWithExtraArgument(Function* );
+  Function *cloneFunctionWithExtraArgument(Function *);
   void eraseReplacedInstructions();
   void recordConverted(Instruction *From, Value *To);
-  bool  createLocalStackFrame(Function&, Value**, Value**);
-  void augmentFunctionWithParentStack(Function &, Value*, Value*);
-  void modifyLoadsToAccessParentStack(Function &F, Value*, Value*) ;
-  bool shouldConvert(Instruction*);
-  static Constant *printf_prototype(LLVMContext &, Module*);
-  Constant* geti8StrVal(Module& M, std::string, Twine const& name);
-  
+  bool createLocalStackFrame(Function &, Value **, Value **);
+  void augmentFunctionWithParentStack(Function &, Value *, Value *);
+  void modifyLoadsToAccessParentStack(Function &F, Value *, Value *);
+  bool shouldConvert(Instruction *);
+  static Constant *printf_prototype(LLVMContext &, Module *);
+  Constant *geti8StrVal(Module &M, std::string, Twine const &name);
 };
 }
 

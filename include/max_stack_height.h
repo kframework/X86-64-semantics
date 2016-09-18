@@ -71,7 +71,7 @@ private:
   void perform_const_dfa();
   void perform_global_dfa();
   dfa_values calculate_max_height_BB(BasicBlock *BB, dfa_values);
-  void transfer_function(dfa_functions *, BasicBlock*);
+  void transfer_function(dfa_functions *, BasicBlock *);
   dfa_values meet_over_preds(BasicBlock *BB);
   void cleanup_framework();
 

@@ -44,3 +44,5 @@ add_subdirectory(test)
 
 # testing part relies on lit, dependency is required to avoid cmake bloat
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+include(CheckFormat.cmake)
