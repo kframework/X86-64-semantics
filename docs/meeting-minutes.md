@@ -1,8 +1,123 @@
-### 14 Sept 2016
+### 21 Sept 2016
 
-If we can fugure out the registers which are used in a functioon then we can get rid of the structure context
+## Function prototype detection
+Currently the register context contain all all the registers except the
+stack which we managed to chop off from it.
+The idea here is to get pass and return  only those registers 
+which are relevant.
+
+Consider the folowing snippet of MCSema extracted IR
+This is to show that some registers like  %CTX.XMM15 are not "really"
+used in the function as opposed to %CTX.RSP
+
+```llvm
+define internal x86_64_sysvcc void @foo(%struct.regs* %CTX) {
+entry:
+  ; Allocating the local stack of size  32*64 bits, 32 is inferred from static stack height computation  
+
+  %_local_stack_alloc_ = alloca i64, i64 32
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = add i64 %_local_stack_start_, 32
+
+  ; Local allocas for register variables
+  %XMM15_val = alloca i128
+  %RSP_val = alloca i64 
+
+  ; Storing values to to local allocas
+  %XMM15 = getelementptr inbounds %struct.regs* %0, i64 0, i32 69
+  %74 = load i128* %XMM15
+  store i128 %74, i128* %XMM15_val
+
+  store i64 %_local_stack_end_, i64* %RSP_val
+
+  ; "Real" Use of RBP_val 
+  ; Code for mov %rbp to %rsp
+  %77 = load i64* %RBP_val, !mcsema_real_eip !2
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2
+  %79 = add i64 %78, -8
+  %80 = inttoptr i64 %79 to i64*, !mcsema_real_eip !2
+  store i64 %77, i64* %80, !mcsema_real_eip !2
+
+  ; Using just to store it back to register context
+  %168 = load i128* %XMM15_val, !mcsema_real_eip !8
+  store i128 %168, i128* %XMM15, align 1, !mcsema_real_eip !8
+
+  call bar();
+
+  %238 = load i128* %XMM15, align 1, !mcsema_real_eip !8
+  store i128 %238, i128* %XMM15_val, !mcsema_real_eip !8
+
+  ...
+
+  %338 = load i128* %XMM15_val, !mcsema_real_eip !13
+  store i128 %338, i128* %XMM15, align 1, !mcsema_real_eip !13
+```
+
+The take away is
+  - Cuurently all the registers are passed on as arguments to all the functions
+  - All the registers are returned from all the function using the struct context register  pointer.
+  - The aim for "Function prototype detection" to is to figure out 
+    - The arguments to functions, which will then be passed as arguments
+    - The return values; which will be returned from the function and in case of multiple values, returned as
+    a struct.
+
+Consider the example which demonstrats that a register potentially written in a caller should be passed as argument
+of all the subsequent callee.
+
+```
+foo () {                   bar () {          car() {
+  reg_defined                  car();        reg_used;
+    bar();                        
+}                           }                 }
+
+```
+
+Consider the example which demonstrats that a register potentially written in a callee will be returned  to all the 
+ancestor callers
+
+```
+foo () {                   bar () {          car() {
+    bar();                        
+    reg_used                  car();        reg_sritten;
+}                           }                 }
+
+```
+
+## Using a poiner analysis for tracking variables
+The idea here is to use pointer analysis to 
+partition the local stack which will give us 
+start points of variables and using range analysis
+to figure out the sizes of those partitions.
+
+```
+; Allocating the local stack of size  32*64 bits, 32 is inferred from static stack height computation  
+  %_local_stack_alloc_ = alloca i64, i64 32
+  %_local_stack_start_ptr_ = getelementptr inbounds i64* %_local_stack_alloc_, i32 0
+  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = add i64 %_local_stack_start_, 32
+
+  store i64 %_local_stack_end_, i64* %RSP_val
+
+  ; "Real" Use of RBP_val 
+  ; Code for mov %rbp to %rsp
+  %78 = load i64* %RSP_val, !mcsema_real_eip !2
+  %79 = add i64 %78, -8
+  %80 = inttoptr i64 %79 to i64*, !mcsema_real_eip !2
+  store i32 10, i64* %80, !mcsema_real_eip !2
+
+  %81 = add i64 %78, -12
+  %82 = inttoptr i64 %79 to i64*, !mcsema_real_eip !2
+  store i32 20, i64* %80, !mcsema_real_eip !2
+```
+
+So here we are looking for a AA which  should say that
+%80 and %82 are not aliased.
+Tried with basicAA, globalsmodref-aa and scev-aa and all of them 
+says that the locations are aliased. Need to try ander-aa and dsa-aa
 
 
+## Rules for type inferences
 We can model a simple type analysis as follows:
 1. Multiplication, substraction, shifting, xor, binary and, binary or and division force their “parameters”
 to be integers.
