@@ -96,9 +96,10 @@ bool max_stack_height::initialize_framework() {
 
   // Allocates the data values to each BB.
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
+    auto *bb = &*BB;
     dfa_functions *dfvaInstance =
         new dfa_functions(TOTAL_FUNCTIONS, dfa_values(TOTAL_VALUES, 0));
-    BBMap[BB] = dfvaInstance;
+    BBMap[bb] = dfvaInstance;
   }
 
   return true;
@@ -115,9 +116,10 @@ void max_stack_height::perform_const_dfa() {
     DEBUG(errs() << "----------------------------------\n");
     DEBUG(errs() << Func->getName() + "::" + BB->getName() << "\n");
     DEBUG(errs() << "----------------------------------\n");
-    dfvaInstance = BBMap[BB];
+    auto *bb = &*BB;
+    dfvaInstance = BBMap[bb];
     dfa_values inval = {0, 0, 0, 0};
-    (*dfvaInstance)[GEN] = calculate_max_height_BB(BB, inval);
+    (*dfvaInstance)[GEN] = calculate_max_height_BB(bb, inval);
   }
 }
 
@@ -338,7 +340,7 @@ void max_stack_height::perform_global_dfa() {
 
   // initialize OUT set of each basic block to top
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {
-    dfa_functions *dfvaInstance = BBMap[BB];
+    dfa_functions *dfvaInstance = BBMap[&*BB];
     (*dfvaInstance)[OUT] = init_out;
   }
 
@@ -517,11 +519,14 @@ void max_stack_height::debug_global_dfa_info() {
 ********************************************************************/
 void max_stack_height::dump_cfg() {
 
-  std::string err_string;
+  std::error_code ec;
   StringRef fname = Func->getName();
   std::string filename = "cfg." + fname.str() + ".dot";
 
-  raw_fd_ostream dotfile(filename.c_str(), err_string, sys::fs::F_Text);
+  raw_fd_ostream dotfile(filename.c_str(), ec, sys::fs::F_Text);
+  if(ec) {
+    assert(0 && "Error opening file\n");
+  }
   dotfile << "digraph graphname { \n";
 
   // Create Node_count [shape="record" label="BBname"]

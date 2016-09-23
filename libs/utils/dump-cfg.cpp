@@ -26,8 +26,9 @@ bool dump_cfg::runOnModule(Module &Mod) {
 
 void dump_cfg::dumpcfg() {
 
-  std::string err_string;
-  raw_fd_ostream dotfile("graph.dot", err_string, sys::fs::F_Text);
+  //std::string err_string;
+  std::error_code ec;
+  raw_fd_ostream dotfile("graph.dot", ec, sys::fs::F_Text);
   dotfile << "digraph graphname { \n";
 
   for (const auto &F : *M) {

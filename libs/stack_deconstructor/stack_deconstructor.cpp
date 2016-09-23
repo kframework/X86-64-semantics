@@ -17,7 +17,7 @@
 #include "llvm/IR/TypeBuilder.h"
 
 using namespace llvm;
-LLVMContext &ctx = getGlobalContext();
+LLVMContext ctx;
 static IRBuilder<> IRB(ctx);
 // STATISTIC(StaticParentAccessChecks,  "Number of static parent stack
 // accesses");
@@ -139,8 +139,9 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   *stack_end = IRB.CreateBinOp(Instruction::Add, *stack_start, stack_height,
                                "_local_stack_end_");
 
-  for (BasicBlock::iterator i : eb) {
-    Instruction *I = i++;
+  for (BasicBlock::iterator i  = eb.begin(), e = eb.end(); i != e ;) {
+    Instruction *I = &*i;
+    i++;
     if (NULL != (store_inst = dyn_cast<StoreInst>(I))) {
 
       Value *ptr_operand = store_inst->getPointerOperand();
@@ -150,6 +151,7 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
         IRB.SetInsertPoint(store_inst);
 
         // Create:: store i64 %_local_stack_end_, i64* %RSP_val
+        llvm::errs() << *((*stack_end)->getType()) << " " << *(cast<PointerType>(ptr_operand->getType())->getElementType())  << "\n";
         auto *new_store = IRB.CreateStore(*stack_end, ptr_operand);
 
         assert(true == store_inst->use_empty() &&
@@ -359,7 +361,8 @@ Function *stack_deconstructor::cloneFunctionWithExtraArgument(Function *F) {
   for (Function::const_arg_iterator I = F->arg_begin(), E = F->arg_end();
        I != E; ++I) {
     DestI->setName(I->getName());
-    VMap[I] = DestI++;
+    VMap[&*I] = &*DestI;
+    DestI++;
   }
   DestI->setName("_parent_stack_start_ptr_");
   DestI++;
@@ -391,7 +394,7 @@ void stack_deconstructor::eraseReplacedInstructions() {
 Constant *stack_deconstructor::printf_prototype(LLVMContext &ctx, Module *mod) {
 
   FunctionType *printf_type =
-      TypeBuilder<int(char *, ...), false>::get(getGlobalContext());
+      TypeBuilder<int(char *, ...), false>::get(ctx);
 
   Constant *func = mod->getOrInsertFunction(
       "printf", printf_type,
@@ -405,13 +408,13 @@ Constant *stack_deconstructor::printf_prototype(LLVMContext &ctx, Module *mod) {
 
 Constant *stack_deconstructor::geti8StrVal(Module &M, std::string str,
                                            Twine const &name) {
-  LLVMContext &ctx = getGlobalContext();
+  LLVMContext ctx;
   Constant *strConstant = ConstantDataArray::getString(ctx, str.c_str());
   GlobalVariable *GVStr =
       new GlobalVariable(M, strConstant->getType(), true,
                          GlobalValue::InternalLinkage, strConstant, name);
   Constant *zero = Constant::getNullValue(IntegerType::getInt32Ty(ctx));
   Constant *indices[] = {zero, zero};
-  Constant *strVal = ConstantExpr::getGetElementPtr(GVStr, indices, true);
+  Constant *strVal = ConstantExpr::getGetElementPtr(strConstant->getType(), GVStr, indices, true);
   return strVal;
 }
