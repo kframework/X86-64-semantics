@@ -25,20 +25,20 @@ Disassembly of section .text:
   35:	03 45 e8             	add    -0x18(%rbp),%eax
   38:	03 45 e4             	add    -0x1c(%rbp),%eax
   3b:	89 45 dc             	mov    %eax,-0x24(%rbp)
-  3e:	81 7d dc 28 00 00 00 	cmpl   $0x28,-0x24(%rbp)
-  45:	0f 8e 0e 00 00 00    	jle    59 <foo+0x59>
-  4b:	8b 45 dc             	mov    -0x24(%rbp),%eax
-  4e:	03 45 e0             	add    -0x20(%rbp),%eax
-  51:	89 45 d8             	mov    %eax,-0x28(%rbp)
-  54:	e9 09 00 00 00       	jmpq   62 <foo+0x62>
-  59:	8b 45 dc             	mov    -0x24(%rbp),%eax
-  5c:	2b 45 e0             	sub    -0x20(%rbp),%eax
-  5f:	89 45 d8             	mov    %eax,-0x28(%rbp)
-  62:	8b 45 d8             	mov    -0x28(%rbp),%eax
-  65:	5d                   	pop    %rbp
-  66:	c3                   	retq   
-  67:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
-  6e:	00 00 
+  3e:	83 7d dc 28          	cmpl   $0x28,-0x24(%rbp)
+  42:	0f 8e 0e 00 00 00    	jle    56 <foo+0x56>
+  48:	8b 45 dc             	mov    -0x24(%rbp),%eax
+  4b:	03 45 e0             	add    -0x20(%rbp),%eax
+  4e:	89 45 d8             	mov    %eax,-0x28(%rbp)
+  51:	e9 09 00 00 00       	jmpq   5f <foo+0x5f>
+  56:	8b 45 dc             	mov    -0x24(%rbp),%eax
+  59:	2b 45 e0             	sub    -0x20(%rbp),%eax
+  5c:	89 45 d8             	mov    %eax,-0x28(%rbp)
+  5f:	8b 45 d8             	mov    -0x28(%rbp),%eax
+  62:	5d                   	pop    %rbp
+  63:	c3                   	retq   
+  64:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  6b:	00 00 00 00 00 
 
 0000000000000070 <main>:
   70:	55                   	push   %rbp

@@ -155,9 +155,9 @@ driverBlockRaw:
   %71 = inttoptr i64 %70 to i32*
   store i32 0, i32* %71, align 4, !mcsema_real_eip !7
   %72 = add i64 %_local_stack_start_.i, 104, !mcsema_real_eip !8
-  br label %block_0x190.i
+  br label %block_0x16d.i
 
-block_0x1b0.i:                                    ; preds = %block_0x190.i
+block_0x189.i:                                    ; preds = %block_0x16d.i
   %RDI.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 5, !mcsema_real_eip !2
   %R10.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 10, !mcsema_real_eip !2
   %CF.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 17, !mcsema_real_eip !2
@@ -176,10 +176,10 @@ block_0x1b0.i:                                    ; preds = %block_0x190.i
   %78 = add i64 %_local_stack_start_.i, 76, !mcsema_real_eip !12
   %79 = inttoptr i64 %78 to i32*
   store i32 0, i32* %79, align 4, !mcsema_real_eip !12
-  br label %block_0x1df.i
+  br label %block_0x1b2.i
 
-block_0x190.i:                                    ; preds = %block_0x190.i, %driverBlockRaw
-  %80 = phi i32 [ 0, %driverBlockRaw ], [ %87, %block_0x190.i ]
+block_0x16d.i:                                    ; preds = %block_0x16d.i, %driverBlockRaw
+  %80 = phi i32 [ 0, %driverBlockRaw ], [ %87, %block_0x16d.i ]
   %81 = add i32 %80, 1
   %82 = sext i32 %80 to i64, !mcsema_real_eip !13
   %83 = shl nsw i64 %82, 2
@@ -195,9 +195,9 @@ block_0x190.i:                                    ; preds = %block_0x190.i, %dri
   %91 = and i32 %87, %90
   %92 = icmp slt i32 %91, 0
   %tmp210.i = xor i1 %89, %92
-  br i1 %tmp210.i, label %block_0x190.i, label %block_0x1b0.i, !mcsema_real_eip !16
+  br i1 %tmp210.i, label %block_0x16d.i, label %block_0x189.i, !mcsema_real_eip !16
 
-block_0x202.i:                                    ; preds = %block_0x1df.i
+block_0x1d1.i:                                    ; preds = %block_0x1b2.i
   %_local_stack_alloc_124.sub.i = getelementptr inbounds [176 x i64], [176 x i64]* %_local_stack_alloc_124.i, i64 0, i64 0
   %RCX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 2, !mcsema_real_eip !2
   %RSP.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
@@ -318,8 +318,8 @@ block_0x202.i:                                    ; preds = %block_0x1df.i
   call void @llvm.trap()
   unreachable
 
-block_0x1df.i:                                    ; preds = %block_0x1df.i, %block_0x1b0.i
-  %128 = phi i32 [ 0, %block_0x1b0.i ], [ %136, %block_0x1df.i ]
+block_0x1b2.i:                                    ; preds = %block_0x1b2.i, %block_0x189.i
+  %128 = phi i32 [ 0, %block_0x189.i ], [ %136, %block_0x1b2.i ]
   %129 = add i32 %128, 1
   %130 = sext i32 %128 to i64, !mcsema_real_eip !33
   %131 = load i64, i64* %77, align 8, !mcsema_real_eip !34
@@ -336,7 +336,7 @@ block_0x1df.i:                                    ; preds = %block_0x1df.i, %blo
   %140 = and i32 %138, %136, !mcsema_real_eip !17
   %141 = icmp slt i32 %140, 0
   %tmp214.i = xor i1 %139, %141
-  br i1 %tmp214.i, label %block_0x1df.i, label %block_0x202.i, !mcsema_real_eip !38
+  br i1 %tmp214.i, label %block_0x1b2.i, label %block_0x1d1.i, !mcsema_real_eip !38
 }
 
 ; Function Attrs: noreturn nounwind
@@ -354,40 +354,40 @@ attributes #3 = { noreturn nounwind }
 
 !0 = !{i32 1, !"Debug Info Version", i32 1}
 !1 = !{i32 1, !"Dwarf Version", i32 3}
-!2 = !{i64 352, [12 x i8] c"\09pushq\09%rbp\00"}
-!3 = !{i64 356, [12 x i8] c"\09pushq\09%r14\00"}
-!4 = !{i64 358, [12 x i8] c"\09pushq\09%rbx\00"}
-!5 = !{i64 366, [20 x i8] c"\09movl\09$0, -20(%rbp)\00"}
-!6 = !{i64 373, [20 x i8] c"\09movl\09$1, -24(%rbp)\00"}
-!7 = !{i64 380, [20 x i8] c"\09movl\09$0, -68(%rbp)\00"}
-!8 = !{i64 412, [29 x i8] c"\09movl\09%eax, -64(%rbp,%rcx,4)\00"}
-!9 = !{i64 446, [22 x i8] c"\09movq\09%rax, -80(%rbp)\00"}
-!10 = !{i64 450, [9 x i8] c"\09callq\090\00"}
-!11 = !{i64 455, [22 x i8] c"\09movq\09%rax, -88(%rbp)\00"}
-!12 = !{i64 459, [20 x i8] c"\09movl\09$0, -92(%rbp)\00"}
-!13 = !{i64 408, [24 x i8] c"\09movslq\09-68(%rbp), %rcx\00"}
-!14 = !{i64 416, [22 x i8] c"\09movl\09-68(%rbp), %eax\00"}
-!15 = !{i64 424, [22 x i8] c"\09movl\09%eax, -68(%rbp)\00"}
-!16 = !{i64 394, [8 x i8] c"\09jge\0932\00"}
-!17 = !{i64 466, [21 x i8] c"\09cmpl\09$10, -92(%rbp)\00"}
-!18 = !{i64 523, [22 x i8] c"\09movl\09-24(%rbp), %edi\00"}
-!19 = !{i64 526, [22 x i8] c"\09movq\09-80(%rbp), %rdx\00"}
-!20 = !{i64 530, [22 x i8] c"\09movq\09-88(%rbp), %rsi\00"}
-!21 = !{i64 546, [23 x i8] c"\09movq\09%rsi, -104(%rbp)\00"}
-!22 = !{i64 557, [23 x i8] c"\09movq\09%rcx, -112(%rbp)\00"}
-!23 = !{i64 564, [23 x i8] c"\09movl\09%r8d, -116(%rbp)\00"}
-!24 = !{i64 571, [22 x i8] c"\09movq\09%r9, -128(%rbp)\00"}
-!25 = !{i64 578, [23 x i8] c"\09movl\09-116(%rbp), %eax\00"}
-!26 = !{i64 581, [19 x i8] c"\09movl\09%eax, (%rsp)\00"}
-!27 = !{i64 584, [23 x i8] c"\09movq\09-112(%rbp), %rbx\00"}
-!28 = !{i64 588, [20 x i8] c"\09movq\09%rbx, 8(%rsp)\00"}
-!29 = !{i64 593, [23 x i8] c"\09movq\09-128(%rbp), %r14\00"}
-!30 = !{i64 597, [21 x i8] c"\09movq\09%r14, 16(%rsp)\00"}
-!31 = !{i64 602, [21 x i8] c"\09movq\09%r10, 24(%rsp)\00"}
-!32 = !{i64 607, [12 x i8] c"\09callq\09-612\00"}
-!33 = !{i64 487, [24 x i8] c"\09movslq\09-92(%rbp), %rcx\00"}
-!34 = !{i64 491, [22 x i8] c"\09movq\09-88(%rbp), %rdx\00"}
-!35 = !{i64 495, [26 x i8] c"\09movl\09%eax, (%rdx,%rcx,4)\00"}
-!36 = !{i64 498, [22 x i8] c"\09movl\09-92(%rbp), %eax\00"}
-!37 = !{i64 506, [22 x i8] c"\09movl\09%eax, -92(%rbp)\00"}
-!38 = !{i64 473, [8 x i8] c"\09jge\0935\00"}
+!2 = !{i64 320, [12 x i8] c"\09pushq\09%rbp\00"}
+!3 = !{i64 324, [12 x i8] c"\09pushq\09%r14\00"}
+!4 = !{i64 326, [12 x i8] c"\09pushq\09%rbx\00"}
+!5 = !{i64 334, [20 x i8] c"\09movl\09$0, -20(%rbp)\00"}
+!6 = !{i64 341, [20 x i8] c"\09movl\09$1, -24(%rbp)\00"}
+!7 = !{i64 348, [20 x i8] c"\09movl\09$0, -68(%rbp)\00"}
+!8 = !{i64 375, [29 x i8] c"\09movl\09%eax, -64(%rbp,%rcx,4)\00"}
+!9 = !{i64 404, [22 x i8] c"\09movq\09%rcx, -80(%rbp)\00"}
+!10 = !{i64 408, [9 x i8] c"\09callq\090\00"}
+!11 = !{i64 413, [22 x i8] c"\09movq\09%rax, -88(%rbp)\00"}
+!12 = !{i64 417, [20 x i8] c"\09movl\09$0, -92(%rbp)\00"}
+!13 = !{i64 371, [24 x i8] c"\09movslq\09-68(%rbp), %rcx\00"}
+!14 = !{i64 379, [22 x i8] c"\09movl\09-68(%rbp), %eax\00"}
+!15 = !{i64 385, [22 x i8] c"\09movl\09%eax, -68(%rbp)\00"}
+!16 = !{i64 359, [8 x i8] c"\09jge\0928\00"}
+!17 = !{i64 424, [21 x i8] c"\09cmpl\09$10, -92(%rbp)\00"}
+!18 = !{i64 474, [22 x i8] c"\09movl\09-24(%rbp), %edi\00"}
+!19 = !{i64 477, [22 x i8] c"\09movq\09-80(%rbp), %rdx\00"}
+!20 = !{i64 481, [22 x i8] c"\09movq\09-88(%rbp), %rsi\00"}
+!21 = !{i64 497, [23 x i8] c"\09movq\09%rsi, -104(%rbp)\00"}
+!22 = !{i64 508, [23 x i8] c"\09movq\09%rcx, -112(%rbp)\00"}
+!23 = !{i64 515, [23 x i8] c"\09movl\09%r8d, -116(%rbp)\00"}
+!24 = !{i64 522, [22 x i8] c"\09movq\09%r9, -128(%rbp)\00"}
+!25 = !{i64 529, [23 x i8] c"\09movl\09-116(%rbp), %eax\00"}
+!26 = !{i64 532, [19 x i8] c"\09movl\09%eax, (%rsp)\00"}
+!27 = !{i64 535, [23 x i8] c"\09movq\09-112(%rbp), %rbx\00"}
+!28 = !{i64 539, [20 x i8] c"\09movq\09%rbx, 8(%rsp)\00"}
+!29 = !{i64 544, [23 x i8] c"\09movq\09-128(%rbp), %r14\00"}
+!30 = !{i64 548, [21 x i8] c"\09movq\09%r14, 16(%rsp)\00"}
+!31 = !{i64 553, [21 x i8] c"\09movq\09%r10, 24(%rsp)\00"}
+!32 = !{i64 558, [12 x i8] c"\09callq\09-563\00"}
+!33 = !{i64 440, [24 x i8] c"\09movslq\09-92(%rbp), %rcx\00"}
+!34 = !{i64 444, [22 x i8] c"\09movq\09-88(%rbp), %rdx\00"}
+!35 = !{i64 448, [26 x i8] c"\09movl\09%eax, (%rdx,%rcx,4)\00"}
+!36 = !{i64 451, [22 x i8] c"\09movl\09-92(%rbp), %eax\00"}
+!37 = !{i64 457, [22 x i8] c"\09movl\09%eax, -92(%rbp)\00"}
+!38 = !{i64 428, [8 x i8] c"\09jge\0931\00"}

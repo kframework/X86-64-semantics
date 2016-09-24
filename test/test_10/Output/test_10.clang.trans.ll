@@ -368,15 +368,15 @@ entry:
   store i1 %126, i1* %SF_val, !mcsema_real_eip !14
   store i1 false, i1* %CF_val, !mcsema_real_eip !14
   store i1 false, i1* %OF_val, !mcsema_real_eip !14
-  br i1 %125, label %block_0x82, label %block_0x34.preheader, !mcsema_real_eip !15
+  br i1 %125, label %block_0x7a, label %block_0x32.preheader, !mcsema_real_eip !15
 
-block_0x34.preheader:                             ; preds = %entry
-  br label %block_0x34
+block_0x32.preheader:                             ; preds = %entry
+  br label %block_0x32
 
-block_0x82.loopexit:                              ; preds = %block_0x25
-  br label %block_0x82
+block_0x7a.loopexit:                              ; preds = %block_0x25
+  br label %block_0x7a
 
-block_0x82:                                       ; preds = %block_0x82.loopexit, %entry
+block_0x7a:                                       ; preds = %block_0x7a.loopexit, %entry
   %127 = load i64, i64* %RSP_val, !mcsema_real_eip !16
   %128 = inttoptr i64 %127 to i64*, !mcsema_real_eip !16
   %129 = load i64, i64* %128, !mcsema_real_eip !16
@@ -526,7 +526,7 @@ block_0x82:                                       ; preds = %block_0x82.loopexit
   store i64 %200, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !17
   ret void, !mcsema_real_eip !17
 
-block_0x34:                                       ; preds = %block_0x25, %block_0x34.preheader
+block_0x32:                                       ; preds = %block_0x25, %block_0x32.preheader
   %201 = load i64, i64* %RBP_val, !mcsema_real_eip !18
   %202 = add i64 %201, -33, !mcsema_real_eip !18
   %203 = inttoptr i64 %202 to i64*, !mcsema_real_eip !18
@@ -556,9 +556,9 @@ block_0x34:                                       ; preds = %block_0x25, %block_
   store i1 %220, i1* %OF_val, !mcsema_real_eip !19
   %221 = load i1, i1* %ZF_val, !mcsema_real_eip !20
   %222 = load i64, i64* %RBP_val, !mcsema_real_eip !21
-  br i1 %221, label %block_0x43, label %block_0x4f, !mcsema_real_eip !20
+  br i1 %221, label %block_0x3f, label %block_0x4b, !mcsema_real_eip !20
 
-block_0x4f:                                       ; preds = %block_0x34
+block_0x4b:                                       ; preds = %block_0x32
   %223 = add i64 %222, -33, !mcsema_real_eip !21
   %224 = inttoptr i64 %223 to i64*, !mcsema_real_eip !21
   %225 = bitcast i64* %224 to i8*
@@ -658,7 +658,7 @@ block_0x4f:                                       ; preds = %block_0x34
   store i8 %287, i8* %295, !mcsema_real_eip !32
   br label %block_0x25, !mcsema_real_eip !33
 
-block_0x43:                                       ; preds = %block_0x34
+block_0x3f:                                       ; preds = %block_0x32
   %296 = add i64 %222, -32, !mcsema_real_eip !34
   %297 = inttoptr i64 %296 to i64*, !mcsema_real_eip !34
   %298 = load i64, i64* %297, !mcsema_real_eip !34
@@ -746,7 +746,7 @@ block_0x43:                                       ; preds = %block_0x34
   store i8 %349, i8* %357, !mcsema_real_eip !32
   br label %block_0x25, !mcsema_real_eip !33
 
-block_0x25:                                       ; preds = %block_0x43, %block_0x4f
+block_0x25:                                       ; preds = %block_0x3f, %block_0x4b
   %358 = load i64, i64* %RBP_val, !mcsema_real_eip !13
   %359 = add i64 %358, -33, !mcsema_real_eip !13
   %360 = inttoptr i64 %359 to i64*, !mcsema_real_eip !13
@@ -766,7 +766,7 @@ block_0x25:                                       ; preds = %block_0x43, %block_
   store i1 %369, i1* %SF_val, !mcsema_real_eip !14
   store i1 false, i1* %CF_val, !mcsema_real_eip !14
   store i1 false, i1* %OF_val, !mcsema_real_eip !14
-  br i1 %368, label %block_0x82.loopexit, label %block_0x34, !mcsema_real_eip !15
+  br i1 %368, label %block_0x7a.loopexit, label %block_0x32, !mcsema_real_eip !15
 }
 
 ; Function Attrs: argmemonly nounwind
@@ -810,24 +810,24 @@ attributes #2 = { nounwind readnone }
 !12 = !{i64 34, [21 x i8] c"\09movb\09%al, -33(%rbp)\00"}
 !13 = !{i64 37, [24 x i8] c"\09movsbl\09-33(%rbp), %eax\00"}
 !14 = !{i64 41, [15 x i8] c"\09cmpl\09$0, %eax\00"}
-!15 = !{i64 46, [7 x i8] c"\09je\0978\00"}
-!16 = !{i64 130, [11 x i8] c"\09popq\09%rbp\00"}
-!17 = !{i64 131, [6 x i8] c"\09retq\00"}
-!18 = !{i64 52, [24 x i8] c"\09movsbl\09-33(%rbp), %eax\00"}
-!19 = !{i64 56, [16 x i8] c"\09cmpl\09$47, %eax\00"}
-!20 = !{i64 61, [8 x i8] c"\09jne\0912\00"}
-!21 = !{i64 79, [21 x i8] c"\09movb\09-33(%rbp), %al\00"}
-!22 = !{i64 82, [22 x i8] c"\09movq\09-32(%rbp), %rcx\00"}
-!23 = !{i64 86, [18 x i8] c"\09movb\09%al, (%rcx)\00"}
-!24 = !{i64 88, [22 x i8] c"\09movq\09-24(%rbp), %rax\00"}
-!25 = !{i64 92, [15 x i8] c"\09addq\09$1, %rax\00"}
-!26 = !{i64 98, [22 x i8] c"\09movq\09%rax, -24(%rbp)\00"}
-!27 = !{i64 102, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
-!28 = !{i64 106, [15 x i8] c"\09addq\09$1, %rax\00"}
-!29 = !{i64 112, [22 x i8] c"\09movq\09%rax, -32(%rbp)\00"}
-!30 = !{i64 116, [22 x i8] c"\09movq\09-24(%rbp), %rax\00"}
-!31 = !{i64 120, [18 x i8] c"\09movb\09(%rax), %cl\00"}
-!32 = !{i64 122, [21 x i8] c"\09movb\09%cl, -33(%rbp)\00"}
-!33 = !{i64 125, [9 x i8] c"\09jmp\09-93\00"}
-!34 = !{i64 67, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
-!35 = !{i64 71, [18 x i8] c"\09movb\09$92, (%rax)\00"}
+!15 = !{i64 44, [7 x i8] c"\09je\0972\00"}
+!16 = !{i64 122, [11 x i8] c"\09popq\09%rbp\00"}
+!17 = !{i64 123, [6 x i8] c"\09retq\00"}
+!18 = !{i64 50, [24 x i8] c"\09movsbl\09-33(%rbp), %eax\00"}
+!19 = !{i64 54, [16 x i8] c"\09cmpl\09$47, %eax\00"}
+!20 = !{i64 57, [8 x i8] c"\09jne\0912\00"}
+!21 = !{i64 75, [21 x i8] c"\09movb\09-33(%rbp), %al\00"}
+!22 = !{i64 78, [22 x i8] c"\09movq\09-32(%rbp), %rcx\00"}
+!23 = !{i64 82, [18 x i8] c"\09movb\09%al, (%rcx)\00"}
+!24 = !{i64 84, [22 x i8] c"\09movq\09-24(%rbp), %rax\00"}
+!25 = !{i64 88, [15 x i8] c"\09addq\09$1, %rax\00"}
+!26 = !{i64 92, [22 x i8] c"\09movq\09%rax, -24(%rbp)\00"}
+!27 = !{i64 96, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
+!28 = !{i64 100, [15 x i8] c"\09addq\09$1, %rax\00"}
+!29 = !{i64 104, [22 x i8] c"\09movq\09%rax, -32(%rbp)\00"}
+!30 = !{i64 108, [22 x i8] c"\09movq\09-24(%rbp), %rax\00"}
+!31 = !{i64 112, [18 x i8] c"\09movb\09(%rax), %cl\00"}
+!32 = !{i64 114, [21 x i8] c"\09movb\09%cl, -33(%rbp)\00"}
+!33 = !{i64 117, [9 x i8] c"\09jmp\09-85\00"}
+!34 = !{i64 63, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
+!35 = !{i64 67, [18 x i8] c"\09movb\09$92, (%rax)\00"}

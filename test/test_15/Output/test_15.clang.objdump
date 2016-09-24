@@ -19,9 +19,8 @@ Disassembly of section .text:
   17:	8b 3c 25 00 00 00 00 	mov    0x0,%edi
   1e:	89 7d f8             	mov    %edi,-0x8(%rbp)
   21:	8b 7d fc             	mov    -0x4(%rbp),%edi
-  24:	8b 04 25 00 00 00 00 	mov    0x0,%eax
-  2b:	01 f8                	add    %edi,%eax
-  2d:	89 04 25 00 00 00 00 	mov    %eax,0x0
-  34:	8b 45 f8             	mov    -0x8(%rbp),%eax
-  37:	5d                   	pop    %rbp
-  38:	c3                   	retq   
+  24:	03 3c 25 00 00 00 00 	add    0x0,%edi
+  2b:	89 3c 25 00 00 00 00 	mov    %edi,0x0
+  32:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  35:	5d                   	pop    %rbp
+  36:	c3                   	retq   

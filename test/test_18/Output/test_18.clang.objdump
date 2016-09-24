@@ -10,24 +10,23 @@ Disassembly of section .text:
    4:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
    b:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
   12:	48 63 45 fc          	movslq -0x4(%rbp),%rax
-  16:	48 3d 68 00 00 00    	cmp    $0x68,%rax
-  1c:	0f 83 41 00 00 00    	jae    63 <printdata+0x63>
-  22:	48 63 45 fc          	movslq -0x4(%rbp),%rax
-  26:	48 81 3c c5 00 00 00 	cmpq   $0x0,0x0(,%rax,8)
-  2d:	00 00 00 00 00 
-  32:	0f 84 16 00 00 00    	je     4e <printdata+0x4e>
-  38:	48 63 45 fc          	movslq -0x4(%rbp),%rax
-  3c:	48 8b 04 c5 00 00 00 	mov    0x0(,%rax,8),%rax
-  43:	00 
-  44:	8b 08                	mov    (%rax),%ecx
-  46:	8b 55 f8             	mov    -0x8(%rbp),%edx
-  49:	01 ca                	add    %ecx,%edx
-  4b:	89 55 f8             	mov    %edx,-0x8(%rbp)
-  4e:	e9 00 00 00 00       	jmpq   53 <printdata+0x53>
-  53:	8b 45 fc             	mov    -0x4(%rbp),%eax
-  56:	05 01 00 00 00       	add    $0x1,%eax
-  5b:	89 45 fc             	mov    %eax,-0x4(%rbp)
-  5e:	e9 af ff ff ff       	jmpq   12 <printdata+0x12>
-  63:	8b 45 f8             	mov    -0x8(%rbp),%eax
-  66:	5d                   	pop    %rbp
-  67:	c3                   	retq   
+  16:	48 83 f8 68          	cmp    $0x68,%rax
+  1a:	0f 83 3a 00 00 00    	jae    5a <printdata+0x5a>
+  20:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+  24:	48 83 3c c5 00 00 00 	cmpq   $0x0,0x0(,%rax,8)
+  2b:	00 00 
+  2d:	0f 84 14 00 00 00    	je     47 <printdata+0x47>
+  33:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+  37:	48 8b 04 c5 00 00 00 	mov    0x0(,%rax,8),%rax
+  3e:	00 
+  3f:	8b 08                	mov    (%rax),%ecx
+  41:	03 4d f8             	add    -0x8(%rbp),%ecx
+  44:	89 4d f8             	mov    %ecx,-0x8(%rbp)
+  47:	e9 00 00 00 00       	jmpq   4c <printdata+0x4c>
+  4c:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  4f:	83 c0 01             	add    $0x1,%eax
+  52:	89 45 fc             	mov    %eax,-0x4(%rbp)
+  55:	e9 b8 ff ff ff       	jmpq   12 <printdata+0x12>
+  5a:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  5d:	5d                   	pop    %rbp
+  5e:	c3                   	retq   

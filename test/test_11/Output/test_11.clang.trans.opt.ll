@@ -179,9 +179,9 @@ driverBlockRaw:
   %78 = inttoptr i64 %77 to i64*, !mcsema_real_eip !7
   store i64 %76, i64* %78, align 8, !mcsema_real_eip !7
   %79 = icmp eq i64 %76, 0, !mcsema_real_eip !8
-  br i1 %79, label %block_0xe8.i, label %block_0x5a.i, !mcsema_real_eip !9
+  br i1 %79, label %block_0xd6.i, label %block_0x55.i, !mcsema_real_eip !9
 
-block_0xe8.i:                                     ; preds = %driverBlockRaw
+block_0xd6.i:                                     ; preds = %driverBlockRaw
   %80 = add i64 %_local_stack_start_.i, 40, !mcsema_real_eip !10
   %81 = inttoptr i64 %80 to i64*, !mcsema_real_eip !10
   store i64 0, i64* %81, align 8, !mcsema_real_eip !10
@@ -275,7 +275,7 @@ block_0xe8.i:                                     ; preds = %driverBlockRaw
   call void @llvm.lifetime.end(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
   br label %sub_20.exit
 
-block_0x5a.i:                                     ; preds = %driverBlockRaw
+block_0x55.i:                                     ; preds = %driverBlockRaw
   %99 = load i64, i64* %71, align 8, !mcsema_real_eip !14
   %100 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !15
   %101 = inttoptr i64 %100 to i64*, !mcsema_real_eip !15
@@ -289,15 +289,15 @@ block_0x5a.i:                                     ; preds = %driverBlockRaw
   %107 = load i8*, i8** %106, align 8
   %108 = load i8, i8* %107, align 1, !mcsema_real_eip !21
   %109 = icmp eq i8 %108, 0
-  br i1 %109, label %block_0xdb.i, label %block_0x8f.i.preheader, !mcsema_real_eip !22
+  br i1 %109, label %block_0xc9.i, label %block_0x84.i.preheader, !mcsema_real_eip !22
 
-block_0x8f.i.preheader:                           ; preds = %block_0x5a.i
-  br label %block_0x8f.i
+block_0x84.i.preheader:                           ; preds = %block_0x55.i
+  br label %block_0x84.i
 
-block_0xdb.i.loopexit:                            ; preds = %block_0x8f.i
-  br label %block_0xdb.i
+block_0xc9.i.loopexit:                            ; preds = %block_0x84.i
+  br label %block_0xc9.i
 
-block_0xdb.i:                                     ; preds = %block_0xdb.i.loopexit, %block_0x5a.i
+block_0xc9.i:                                     ; preds = %block_0xc9.i.loopexit, %block_0x55.i
   %110 = load i64, i64* %78, align 8, !mcsema_real_eip !23
   %111 = add i64 %_local_stack_start_.i, 40, !mcsema_real_eip !24
   %112 = inttoptr i64 %111 to i64*, !mcsema_real_eip !24
@@ -393,9 +393,9 @@ block_0xdb.i:                                     ; preds = %block_0xdb.i.loopex
   call void @llvm.lifetime.end(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
   br label %sub_20.exit
 
-block_0x8f.i:                                     ; preds = %block_0x8f.i.preheader, %block_0x8f.i
-  %.in.i = phi i64 [ %.sink.i, %block_0x8f.i ], [ %102, %block_0x8f.i.preheader ]
-  %129 = phi i8 [ %136, %block_0x8f.i ], [ %108, %block_0x8f.i.preheader ]
+block_0x84.i:                                     ; preds = %block_0x84.i.preheader, %block_0x84.i
+  %.in.i = phi i64 [ %.sink.i, %block_0x84.i ], [ %102, %block_0x84.i.preheader ]
+  %129 = phi i8 [ %136, %block_0x84.i ], [ %108, %block_0x84.i.preheader ]
   %130 = inttoptr i64 %.in.i to i8*
   %131 = icmp eq i8 %129, 47
   %.sink112.i = select i1 %131, i8 92, i8 %129
@@ -409,9 +409,9 @@ block_0x8f.i:                                     ; preds = %block_0x8f.i.prehea
   %135 = load i8*, i8** %106, align 8
   %136 = load i8, i8* %135, align 1, !mcsema_real_eip !21
   %137 = icmp eq i8 %136, 0
-  br i1 %137, label %block_0xdb.i.loopexit, label %block_0x8f.i, !mcsema_real_eip !22
+  br i1 %137, label %block_0xc9.i.loopexit, label %block_0x84.i, !mcsema_real_eip !22
 
-sub_20.exit:                                      ; preds = %block_0xdb.i, %block_0xe8.i
+sub_20.exit:                                      ; preds = %block_0xc9.i, %block_0xd6.i
   ret void
 }
 
@@ -431,23 +431,23 @@ attributes #1 = { nounwind readnone }
 !2 = !{i64 32, [12 x i8] c"\09pushq\09%rbp\00"}
 !3 = !{i64 40, [22 x i8] c"\09movq\09%rdi, -16(%rbp)\00"}
 !4 = !{i64 48, [9 x i8] c"\09callq\090\00"}
-!5 = !{i64 59, [22 x i8] c"\09movq\09%rax, -24(%rbp)\00"}
-!6 = !{i64 67, [9 x i8] c"\09callq\090\00"}
-!7 = !{i64 72, [22 x i8] c"\09movq\09%rax, -32(%rbp)\00"}
-!8 = !{i64 76, [20 x i8] c"\09cmpq\09$0, -32(%rbp)\00"}
-!9 = !{i64 84, [8 x i8] c"\09je\09142\00"}
-!10 = !{i64 232, [19 x i8] c"\09movq\09$0, -8(%rbp)\00"}
-!11 = !{i64 244, [16 x i8] c"\09addq\09$48, %rsp\00"}
-!12 = !{i64 248, [11 x i8] c"\09popq\09%rbp\00"}
-!13 = !{i64 249, [6 x i8] c"\09retq\00"}
-!14 = !{i64 95, [22 x i8] c"\09movq\09-16(%rbp), %rax\00"}
-!15 = !{i64 99, [22 x i8] c"\09movq\09%rax, -40(%rbp)\00"}
-!16 = !{i64 103, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
-!17 = !{i64 107, [22 x i8] c"\09movq\09%rax, -48(%rbp)\00"}
-!18 = !{i64 111, [22 x i8] c"\09movq\09-32(%rbp), %rdi\00"}
-!19 = !{i64 115, [22 x i8] c"\09movq\09-24(%rbp), %rdx\00"}
-!20 = !{i64 119, [9 x i8] c"\09callq\090\00"}
-!21 = !{i64 128, [21 x i8] c"\09movsbl\09(%rax), %ecx\00"}
-!22 = !{i64 137, [7 x i8] c"\09je\0976\00"}
-!23 = !{i64 219, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
-!24 = !{i64 223, [21 x i8] c"\09movq\09%rax, -8(%rbp)\00"}
+!5 = !{i64 57, [22 x i8] c"\09movq\09%rax, -24(%rbp)\00"}
+!6 = !{i64 65, [9 x i8] c"\09callq\090\00"}
+!7 = !{i64 70, [22 x i8] c"\09movq\09%rax, -32(%rbp)\00"}
+!8 = !{i64 74, [20 x i8] c"\09cmpq\09$0, -32(%rbp)\00"}
+!9 = !{i64 79, [8 x i8] c"\09je\09129\00"}
+!10 = !{i64 214, [19 x i8] c"\09movq\09$0, -8(%rbp)\00"}
+!11 = !{i64 226, [16 x i8] c"\09addq\09$48, %rsp\00"}
+!12 = !{i64 230, [11 x i8] c"\09popq\09%rbp\00"}
+!13 = !{i64 231, [6 x i8] c"\09retq\00"}
+!14 = !{i64 87, [22 x i8] c"\09movq\09-16(%rbp), %rax\00"}
+!15 = !{i64 91, [22 x i8] c"\09movq\09%rax, -40(%rbp)\00"}
+!16 = !{i64 95, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
+!17 = !{i64 99, [22 x i8] c"\09movq\09%rax, -48(%rbp)\00"}
+!18 = !{i64 103, [22 x i8] c"\09movq\09-32(%rbp), %rdi\00"}
+!19 = !{i64 107, [22 x i8] c"\09movq\09-24(%rbp), %rdx\00"}
+!20 = !{i64 111, [9 x i8] c"\09callq\090\00"}
+!21 = !{i64 120, [21 x i8] c"\09movsbl\09(%rax), %ecx\00"}
+!22 = !{i64 126, [7 x i8] c"\09je\0969\00"}
+!23 = !{i64 201, [22 x i8] c"\09movq\09-32(%rbp), %rax\00"}
+!24 = !{i64 205, [21 x i8] c"\09movq\09%rax, -8(%rbp)\00"}

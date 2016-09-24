@@ -90,12 +90,11 @@ Disassembly of section .text:
  111:	48 89 e5             	mov    %rsp,%rbp
  114:	48 81 ec 80 00 00 00 	sub    $0x80,%rsp
  11b:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
- 122:	48 b8 0a 00 00 00 0a 	mov    $0xa0000000a,%rax
- 129:	00 00 00 
- 12c:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+ 122:	c7 45 f0 0a 00 00 00 	movl   $0xa,-0x10(%rbp)
+ 129:	c7 45 f4 0a 00 00 00 	movl   $0xa,-0xc(%rbp)
  130:	c7 45 f8 0a 00 00 00 	movl   $0xa,-0x8(%rbp)
- 137:	b9 18 00 00 00       	mov    $0x18,%ecx
- 13c:	89 cf                	mov    %ecx,%edi
+ 137:	b8 18 00 00 00       	mov    $0x18,%eax
+ 13c:	89 c7                	mov    %eax,%edi
  13e:	e8 00 00 00 00       	callq  143 <main+0x33>
  143:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
  147:	c7 00 05 00 00 00    	movl   $0x5,(%rax)

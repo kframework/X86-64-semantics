@@ -1436,9 +1436,9 @@ entry:
   %311 = inttoptr i64 %310 to i64*, !mcsema_real_eip !47
   %312 = bitcast i64* %311 to i32*
   %313 = load i32, i32* %312, !mcsema_real_eip !47
-  br i1 %302, label %block_0x59, label %block_0x4b, !mcsema_real_eip !45
+  br i1 %302, label %block_0x56, label %block_0x48, !mcsema_real_eip !45
 
-block_0x59:                                       ; preds = %entry
+block_0x56:                                       ; preds = %entry
   %314 = sub i32 %307, %313, !mcsema_real_eip !47
   %315 = xor i32 %314, %307, !mcsema_real_eip !47
   %316 = xor i32 %315, %313, !mcsema_real_eip !47
@@ -1623,7 +1623,7 @@ block_0x59:                                       ; preds = %entry
   store i64 %413, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !51
   ret void, !mcsema_real_eip !51
 
-block_0x4b:                                       ; preds = %entry
+block_0x48:                                       ; preds = %entry
   %uadd145 = tail call { i32, i1 } @llvm.uadd.with.overflow.i32(i32 %307, i32 %313)
   %414 = extractvalue { i32, i1 } %uadd145, 0
   %415 = xor i32 %414, %313, !mcsema_real_eip !52
@@ -2682,9 +2682,9 @@ entry:
   %339 = phi i64 [ %_head_p2i_145, %330 ], [ %_address_in_parent_stack_155, %337 ]
   %_address_ptr_in_parent_stack_156 = inttoptr i64 %339 to i32*
   %_new_load_157 = load i32, i32* %_address_ptr_in_parent_stack_156
-  br i1 %324, label %block_0x59, label %block_0x4b, !mcsema_real_eip !45
+  br i1 %324, label %block_0x56, label %block_0x48, !mcsema_real_eip !45
 
-block_0x59:                                       ; preds = %338
+block_0x56:                                       ; preds = %338
   %340 = sub i32 %_new_load_144, %_new_load_157, !mcsema_real_eip !47
   %341 = xor i32 %340, %_new_load_144, !mcsema_real_eip !47
   %342 = xor i32 %341, %_new_load_157, !mcsema_real_eip !47
@@ -2729,12 +2729,12 @@ block_0x59:                                       ; preds = %338
   %_cond6_167 = and i1 %_cond5_166, %_cond4_165
   br i1 %_cond6_167, label %364, label %365
 
-; <label>:364:                                    ; preds = %block_0x59
+; <label>:364:                                    ; preds = %block_0x56
   %_address_in_parent_stack_168 = add i64 %_parent_stack_start_ptr_, %_offset_above_rbp_159
   br label %365
 
-; <label>:365:                                    ; preds = %block_0x59, %364
-  %366 = phi i64 [ %_head_p2i_158, %block_0x59 ], [ %_address_in_parent_stack_168, %364 ]
+; <label>:365:                                    ; preds = %block_0x56, %364
+  %366 = phi i64 [ %_head_p2i_158, %block_0x56 ], [ %_address_in_parent_stack_168, %364 ]
   %_address_ptr_in_parent_stack_169 = inttoptr i64 %366 to i32*
   %_new_load_170 = load i32, i32* %_address_ptr_in_parent_stack_169
   %367 = zext i32 %_new_load_170 to i64, !mcsema_real_eip !49
@@ -2926,7 +2926,7 @@ block_0x59:                                       ; preds = %338
   store i64 %445, i64* %STACK_LIMIT, align 1, !mcsema_real_eip !51
   ret void, !mcsema_real_eip !51
 
-block_0x4b:                                       ; preds = %338
+block_0x48:                                       ; preds = %338
   %uadd145 = tail call { i32, i1 } @llvm.uadd.with.overflow.i32(i32 %_new_load_144, i32 %_new_load_157)
   %446 = extractvalue { i32, i1 } %uadd145, 0
   %447 = xor i32 %446, %_new_load_157, !mcsema_real_eip !52
@@ -2973,12 +2973,12 @@ block_0x4b:                                       ; preds = %338
   %_cond6_206 = and i1 %_cond5_205, %_cond4_204
   br i1 %_cond6_206, label %471, label %472
 
-; <label>:471:                                    ; preds = %block_0x4b
+; <label>:471:                                    ; preds = %block_0x48
   %_address_in_parent_stack_207 = add i64 %_parent_stack_start_ptr_, %_offset_above_rbp_198
   br label %472
 
-; <label>:472:                                    ; preds = %block_0x4b, %471
-  %473 = phi i64 [ %_head_p2i_197, %block_0x4b ], [ %_address_in_parent_stack_207, %471 ]
+; <label>:472:                                    ; preds = %block_0x48, %471
+  %473 = phi i64 [ %_head_p2i_197, %block_0x48 ], [ %_address_in_parent_stack_207, %471 ]
   %_address_ptr_in_parent_stack_208 = inttoptr i64 %473 to i32*
   %_new_load_209 = load i32, i32* %_address_ptr_in_parent_stack_208
   %474 = zext i32 %_new_load_209 to i64, !mcsema_real_eip !49
@@ -3222,12 +3222,12 @@ attributes #2 = { nounwind readnone }
 !42 = !{i64 56, [22 x i8] c"\09addl\09-28(%rbp), %eax\00"}
 !43 = !{i64 59, [22 x i8] c"\09movl\09%eax, -36(%rbp)\00"}
 !44 = !{i64 62, [21 x i8] c"\09cmpl\09$40, -36(%rbp)\00"}
-!45 = !{i64 69, [8 x i8] c"\09jle\0914\00"}
-!46 = !{i64 89, [22 x i8] c"\09movl\09-36(%rbp), %eax\00"}
-!47 = !{i64 92, [22 x i8] c"\09subl\09-32(%rbp), %eax\00"}
-!48 = !{i64 95, [22 x i8] c"\09movl\09%eax, -40(%rbp)\00"}
-!49 = !{i64 98, [22 x i8] c"\09movl\09-40(%rbp), %eax\00"}
-!50 = !{i64 101, [11 x i8] c"\09popq\09%rbp\00"}
-!51 = !{i64 102, [6 x i8] c"\09retq\00"}
-!52 = !{i64 78, [22 x i8] c"\09addl\09-32(%rbp), %eax\00"}
-!53 = !{i64 81, [22 x i8] c"\09movl\09%eax, -40(%rbp)\00"}
+!45 = !{i64 66, [8 x i8] c"\09jle\0914\00"}
+!46 = !{i64 86, [22 x i8] c"\09movl\09-36(%rbp), %eax\00"}
+!47 = !{i64 89, [22 x i8] c"\09subl\09-32(%rbp), %eax\00"}
+!48 = !{i64 92, [22 x i8] c"\09movl\09%eax, -40(%rbp)\00"}
+!49 = !{i64 95, [22 x i8] c"\09movl\09-40(%rbp), %eax\00"}
+!50 = !{i64 98, [11 x i8] c"\09popq\09%rbp\00"}
+!51 = !{i64 99, [6 x i8] c"\09retq\00"}
+!52 = !{i64 75, [22 x i8] c"\09addl\09-32(%rbp), %eax\00"}
+!53 = !{i64 78, [22 x i8] c"\09movl\09%eax, -40(%rbp)\00"}

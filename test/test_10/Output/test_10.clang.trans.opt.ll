@@ -175,32 +175,32 @@ driverBlockRaw:
   store i8 %82, i8* %1, align 8, !mcsema_real_eip !11
   %83 = tail call i8 @llvm.ctpop.i8(i8 %82) #2, !mcsema_real_eip !12
   %84 = icmp eq i8 %82, 0
-  br i1 %84, label %sub_0.exit, label %block_0x34.preheader.i, !mcsema_real_eip !13
+  br i1 %84, label %sub_0.exit, label %block_0x32.preheader.i, !mcsema_real_eip !13
 
-block_0x34.preheader.i:                           ; preds = %driverBlockRaw
+block_0x32.preheader.i:                           ; preds = %driverBlockRaw
   %85 = inttoptr i64 %78 to i8**
   %86 = inttoptr i64 %75 to i8**
-  br label %block_0x34.i
+  br label %block_0x32.i
 
-block_0x34.i:                                     ; preds = %block_0x25.i, %block_0x34.preheader.i
-  %87 = phi i8 [ %97, %block_0x25.i ], [ %82, %block_0x34.preheader.i ]
-  %RCX_val.1.i = phi i64 [ %100, %block_0x25.i ], [ %3, %block_0x34.preheader.i ]
+block_0x32.i:                                     ; preds = %block_0x25.i, %block_0x32.preheader.i
+  %87 = phi i8 [ %97, %block_0x25.i ], [ %82, %block_0x32.preheader.i ]
+  %RCX_val.1.i = phi i64 [ %100, %block_0x25.i ], [ %3, %block_0x32.preheader.i ]
   %88 = icmp eq i8 %87, 47
-  br i1 %88, label %block_0x43.i, label %block_0x4f.i, !mcsema_real_eip !14
+  br i1 %88, label %block_0x3f.i, label %block_0x4b.i, !mcsema_real_eip !14
 
-block_0x4f.i:                                     ; preds = %block_0x34.i
+block_0x4b.i:                                     ; preds = %block_0x32.i
   %89 = load i64, i64* %79, align 8, !mcsema_real_eip !15
   %90 = inttoptr i64 %89 to i8*
   store i8 %87, i8* %90, align 1, !mcsema_real_eip !16
   br label %block_0x25.i, !mcsema_real_eip !17
 
-block_0x43.i:                                     ; preds = %block_0x34.i
+block_0x3f.i:                                     ; preds = %block_0x32.i
   %91 = load i8*, i8** %85, align 8
   store i8 92, i8* %91, align 1, !mcsema_real_eip !18
   br label %block_0x25.i, !mcsema_real_eip !17
 
-block_0x25.i:                                     ; preds = %block_0x43.i, %block_0x4f.i
-  %RCX_val.1.sink.i = phi i64 [ %RCX_val.1.i, %block_0x43.i ], [ %89, %block_0x4f.i ]
+block_0x25.i:                                     ; preds = %block_0x3f.i, %block_0x4b.i
+  %RCX_val.1.sink.i = phi i64 [ %RCX_val.1.i, %block_0x3f.i ], [ %89, %block_0x4b.i ]
   %92 = load i64, i64* %76, align 8
   %93 = add i64 %92, 1
   store i64 %93, i64* %76, align 8
@@ -214,7 +214,7 @@ block_0x25.i:                                     ; preds = %block_0x43.i, %bloc
   %100 = or i64 %98, %99
   store i8 %97, i8* %1, align 8
   %101 = icmp eq i8 %97, 0
-  br i1 %101, label %sub_0.exit.loopexit, label %block_0x34.i, !mcsema_real_eip !13
+  br i1 %101, label %sub_0.exit.loopexit, label %block_0x32.i, !mcsema_real_eip !13
 
 sub_0.exit.loopexit:                              ; preds = %block_0x25.i
   br label %sub_0.exit
@@ -327,11 +327,11 @@ attributes #2 = { nounwind }
 !10 = !{i64 32, [18 x i8] c"\09movb\09(%rsi), %al\00"}
 !11 = !{i64 34, [21 x i8] c"\09movb\09%al, -33(%rbp)\00"}
 !12 = !{i64 41, [15 x i8] c"\09cmpl\09$0, %eax\00"}
-!13 = !{i64 46, [7 x i8] c"\09je\0978\00"}
-!14 = !{i64 61, [8 x i8] c"\09jne\0912\00"}
-!15 = !{i64 82, [22 x i8] c"\09movq\09-32(%rbp), %rcx\00"}
-!16 = !{i64 86, [18 x i8] c"\09movb\09%al, (%rcx)\00"}
-!17 = !{i64 125, [9 x i8] c"\09jmp\09-93\00"}
-!18 = !{i64 71, [18 x i8] c"\09movb\09$92, (%rax)\00"}
-!19 = !{i64 130, [11 x i8] c"\09popq\09%rbp\00"}
-!20 = !{i64 131, [6 x i8] c"\09retq\00"}
+!13 = !{i64 44, [7 x i8] c"\09je\0972\00"}
+!14 = !{i64 57, [8 x i8] c"\09jne\0912\00"}
+!15 = !{i64 78, [22 x i8] c"\09movq\09-32(%rbp), %rcx\00"}
+!16 = !{i64 82, [18 x i8] c"\09movb\09%al, (%rcx)\00"}
+!17 = !{i64 117, [9 x i8] c"\09jmp\09-85\00"}
+!18 = !{i64 67, [18 x i8] c"\09movb\09$92, (%rax)\00"}
+!19 = !{i64 122, [11 x i8] c"\09popq\09%rbp\00"}
+!20 = !{i64 123, [6 x i8] c"\09retq\00"}
