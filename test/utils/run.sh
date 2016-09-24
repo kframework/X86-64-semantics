@@ -7,6 +7,7 @@ CXX=clang++
 OPT=opt
 LLVMDIS=llvm-dis
 LLVMAS35="${HOME}/Install/llvm-3.5.0.release.install/bin/llvm-as"
+LLVMAS=llvm-as
 #llvm-as
 LLC=llc
 #CC_OPTIONS=-fomit-frame-pointer
@@ -56,14 +57,12 @@ then
   ${LLVMDIS}   ${outdir}${BIN}.${ext}.opt.bc -o=${outdir}${BIN}.${ext}.opt.ll
   ${LLVMDIS}   ${outdir}${BIN}.${ext}.bc -o=${outdir}${BIN}.${ext}.ll
 else
-  ${LLVMAS35} ${outdir}${BIN}.${ext}.ll -o ${outdir}${BIN}.${ext}.bc
-  ${LLVMAS35} ${outdir}${BIN}.${ext}.opt.ll -o ${outdir}${BIN}.${ext}.opt.bc
+  ${LLVMAS} ${outdir}${BIN}.${ext}.ll -o ${outdir}${BIN}.${ext}.bc
+  ${LLVMAS} ${outdir}${BIN}.${ext}.opt.ll -o ${outdir}${BIN}.${ext}.opt.bc
 fi
 
 ${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.opt.bc
 ${CC} -m64 -I${INCLUDE_DIR} -o ${outdir}${BIN}.${ext}.lifted.exe driver_64.c ${outdir}${BIN}.${ext}.lifted.o
 
 # Clean Up
-rm -rf  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o  ${outdir}${BIN}.${ext}.o 
-
-#opt -load=${HOME}/Github/llvm-slicer/Release+Asserts/lib/LLVMSlicer.so -srcline-mapping -mapping-output=${outdir}${BIN}.srcmap.txt ${outdir}${BIN}.${ext}.ll -o /tmp/xxx ;
+rm -rf  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o  ${outdir}${BIN}.${ext}.o  ${outdir}${BIN}.${ext}.opt.bc ${outdir}${BIN}.${ext}.bc
