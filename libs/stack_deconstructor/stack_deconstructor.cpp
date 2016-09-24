@@ -17,8 +17,6 @@
 #include "llvm/IR/TypeBuilder.h"
 
 using namespace llvm;
-LLVMContext ctx;
-static IRBuilder<> IRB(ctx);
 // STATISTIC(StaticParentAccessChecks,  "Number of static parent stack
 // accesses");
 
@@ -33,6 +31,7 @@ static RegisterPass<stack_deconstructor>
 ********************************************************************/
 bool stack_deconstructor::runOnModule(Module &M) {
   Mod = &M;
+  ctx = &M.getContext();
 
   for (Function &F : M) {
     if (!F.isDeclaration()) {
@@ -113,15 +112,18 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   BasicBlock &eb = F.getEntryBlock();
   bool stack_frame_deconstructed = false;
   ConstantInt *stack_height =
-      ConstantInt::get(Type::getInt64Ty(ctx), -1 * approximate_stack_height);
+      ConstantInt::get(Type::getInt64Ty(*ctx), -1 * approximate_stack_height);
+  //llvm::errs() << "stack_h " << (stack_height)->getType() << "\n";
 
   BasicBlock::iterator i = eb.begin();
   Instruction *I = &*i++;
 
-  IRB.SetInsertPoint(I);
+  IRBuilder<>IRB(I);
+  //IRB.SetInsertPoint(I);
   // Create:: %_local_stack_alloc_ = alloca [32 x i64]
-  auto *ai_inst = IRB.CreateAlloca(Type::getInt64Ty(ctx), stack_height,
+  auto *ai_inst = IRB.CreateAlloca(Type::getInt64Ty(*ctx), stack_height,
                                    "_local_stack_alloc_");
+ // llvm::errs() << "ai_inst " << (ai_inst)->getType() << "\n";
 
   // Create:: %_local_stack_start_ptr_ = getelementptr inbounds [32 x i64]*
   // %_local_stack_alloc_, i32 0, i32 0
@@ -132,7 +134,7 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
 
   // Create:: %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to
   // i64
-  *stack_start = IRB.CreatePtrToInt(gep_inst, Type::getInt64Ty(ctx),
+  *stack_start = IRB.CreatePtrToInt(gep_inst, Type::getInt64Ty(*ctx),
                                     "_local_stack_start_");
 
   // Create:: %_local_stack_end_ = add i64 %_local_stack_start_, i64 HEIGHT
@@ -151,7 +153,6 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
         IRB.SetInsertPoint(store_inst);
 
         // Create:: store i64 %_local_stack_end_, i64* %RSP_val
-        llvm::errs() << *((*stack_end)->getType()) << " " << *(cast<PointerType>(ptr_operand->getType())->getElementType())  << "\n";
         auto *new_store = IRB.CreateStore(*stack_end, ptr_operand);
 
         assert(true == store_inst->use_empty() &&
@@ -183,7 +184,8 @@ void stack_deconstructor::augmentFunctionWithParentStack(
 
       if (CallInst *ci = dyn_cast<CallInst>(I)) {
 
-        IRB.SetInsertPoint(ci);
+        IRBuilder<> IRB(ci);
+        //IRB.SetInsertPoint(ci);
 
         Function *f = ci->getCalledFunction();
         if (!f->isDeclaration()) {
@@ -273,9 +275,10 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
       assert(0 && "The first inst of succ BB must be a Load or Store");
     }
 
-    IRB.SetInsertPoint(I);
+    IRBuilder <> IRB(I);
+    //IRB.SetInsertPoint(I);
     auto *p2i_inst =
-        IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(ctx), "_head_p2i_");
+        IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(*ctx), "_head_p2i_");
     auto *offset = IRB.CreateBinOp(Instruction::Sub, p2i_inst,
                                    current_stack_end, "_offset_above_rbp_");
     auto *potential_parent_address =
@@ -302,7 +305,7 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
     // Populate the Then Basic Block
     IRB.SetInsertPoint(then_bb->getTerminator());
 
-    // DEBUG( Constant *printf_func = printf_prototype(ctx, Mod);
+    // DEBUG( Constant *printf_func = printf_prototype(*ctx, Mod);
     // IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack ["
     // + std::to_string(StaticParentAccessChecks++) + "]\n",
     // "_debug_parent_stack_")));
@@ -312,7 +315,7 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
     // Polulate the Tail Basic Block
     IRB.SetInsertPoint(load_or_store_inst);
 
-    auto *new_phi = IRB.CreatePHI(Type::getInt64Ty(ctx), 2);
+    auto *new_phi = IRB.CreatePHI(Type::getInt64Ty(*ctx), 2);
     new_phi->addIncoming(p2i_inst, head_bb);
     new_phi->addIncoming(parent_address, then_bb);
 
@@ -337,7 +340,6 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
 Function *stack_deconstructor::cloneFunctionWithExtraArgument(Function *F) {
   std::vector<Type *> ArgTypes;
   ValueToValueMapTy VMap;
-  LLVMContext &ctx = Mod->getContext();
 
   for (Function::const_arg_iterator I = F->arg_begin(), E = F->arg_end();
        I != E; ++I) {
@@ -345,8 +347,8 @@ Function *stack_deconstructor::cloneFunctionWithExtraArgument(Function *F) {
   }
 
   // extra argument
-  ArgTypes.push_back(Type::getInt64Ty(ctx));
-  ArgTypes.push_back(Type::getInt64Ty(ctx));
+  ArgTypes.push_back(Type::getInt64Ty(*ctx));
+  ArgTypes.push_back(Type::getInt64Ty(*ctx));
 
   // Create a new function type considering the extra argument
   FunctionType *FTy =
@@ -408,12 +410,11 @@ Constant *stack_deconstructor::printf_prototype(LLVMContext &ctx, Module *mod) {
 
 Constant *stack_deconstructor::geti8StrVal(Module &M, std::string str,
                                            Twine const &name) {
-  LLVMContext ctx;
-  Constant *strConstant = ConstantDataArray::getString(ctx, str.c_str());
+  Constant *strConstant = ConstantDataArray::getString(*ctx, str.c_str());
   GlobalVariable *GVStr =
       new GlobalVariable(M, strConstant->getType(), true,
                          GlobalValue::InternalLinkage, strConstant, name);
-  Constant *zero = Constant::getNullValue(IntegerType::getInt32Ty(ctx));
+  Constant *zero = Constant::getNullValue(IntegerType::getInt32Ty(*ctx));
   Constant *indices[] = {zero, zero};
   Constant *strVal = ConstantExpr::getGetElementPtr(strConstant->getType(), GVStr, indices, true);
   return strVal;

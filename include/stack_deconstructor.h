@@ -22,6 +22,8 @@ typedef int64_t height_ty;
 class stack_deconstructor : public ModulePass {
 private:
   Module *Mod;
+  LLVMContext *ctx;
+
   height_ty approximate_stack_height;
   SmallVector<Instruction *, 8> ToErase;
   DenseMap<const llvm::Function *, Value *> FunctionToFrameMap;
@@ -30,7 +32,7 @@ private:
 public:
   static char ID;
 
-  stack_deconstructor() : ModulePass(ID) {}
+  stack_deconstructor() : ModulePass(ID), ctx(NULL) {}
 
   virtual bool runOnModule(Module &F);
 
