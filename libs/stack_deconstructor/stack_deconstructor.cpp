@@ -7,14 +7,14 @@
 #include "llvm/IR/InstIterator.h"
 #include "llvm/IR/IntrinsicInst.h"
 //#include "llvm/Support/Debug.h"
+#include "llvm/ADT/Statistic.h"
+#include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/TypeBuilder.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/Transforms/Utils/ValueMapper.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Cloning.h"
-#include "llvm/IR/IRBuilder.h"
-#include "llvm/ADT/Statistic.h"
-#include "llvm/IR/TypeBuilder.h"
+#include "llvm/Transforms/Utils/ValueMapper.h"
 
 using namespace llvm;
 // STATISTIC(StaticParentAccessChecks,  "Number of static parent stack
@@ -113,17 +113,16 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   bool stack_frame_deconstructed = false;
   ConstantInt *stack_height =
       ConstantInt::get(Type::getInt64Ty(*ctx), -1 * approximate_stack_height);
-  //llvm::errs() << "stack_h " << (stack_height)->getType() << "\n";
+  // llvm::errs() << "stack_h " << (stack_height)->getType() << "\n";
 
   BasicBlock::iterator i = eb.begin();
   Instruction *I = &*i++;
 
-  IRBuilder<>IRB(I);
-  //IRB.SetInsertPoint(I);
+  IRBuilder<> IRB(I);
   // Create:: %_local_stack_alloc_ = alloca [32 x i64]
   auto *ai_inst = IRB.CreateAlloca(Type::getInt64Ty(*ctx), stack_height,
                                    "_local_stack_alloc_");
- // llvm::errs() << "ai_inst " << (ai_inst)->getType() << "\n";
+  // llvm::errs() << "ai_inst " << (ai_inst)->getType() << "\n";
 
   // Create:: %_local_stack_start_ptr_ = getelementptr inbounds [32 x i64]*
   // %_local_stack_alloc_, i32 0, i32 0
@@ -141,7 +140,7 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   *stack_end = IRB.CreateBinOp(Instruction::Add, *stack_start, stack_height,
                                "_local_stack_end_");
 
-  for (BasicBlock::iterator i  = eb.begin(), e = eb.end(); i != e ;) {
+  for (BasicBlock::iterator i = eb.begin(), e = eb.end(); i != e;) {
     Instruction *I = &*i;
     i++;
     if (NULL != (store_inst = dyn_cast<StoreInst>(I))) {
@@ -185,7 +184,6 @@ void stack_deconstructor::augmentFunctionWithParentStack(
       if (CallInst *ci = dyn_cast<CallInst>(I)) {
 
         IRBuilder<> IRB(ci);
-        //IRB.SetInsertPoint(ci);
 
         Function *f = ci->getCalledFunction();
         if (!f->isDeclaration()) {
@@ -275,8 +273,7 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
       assert(0 && "The first inst of succ BB must be a Load or Store");
     }
 
-    IRBuilder <> IRB(I);
-    //IRB.SetInsertPoint(I);
+    IRBuilder<> IRB(I);
     auto *p2i_inst =
         IRB.CreatePtrToInt(ptr_operand, Type::getInt64Ty(*ctx), "_head_p2i_");
     auto *offset = IRB.CreateBinOp(Instruction::Sub, p2i_inst,
@@ -395,8 +392,7 @@ void stack_deconstructor::eraseReplacedInstructions() {
 
 Constant *stack_deconstructor::printf_prototype(LLVMContext &ctx, Module *mod) {
 
-  FunctionType *printf_type =
-      TypeBuilder<int(char *, ...), false>::get(ctx);
+  FunctionType *printf_type = TypeBuilder<int(char *, ...), false>::get(ctx);
 
   Constant *func = mod->getOrInsertFunction(
       "printf", printf_type,
@@ -416,6 +412,7 @@ Constant *stack_deconstructor::geti8StrVal(Module &M, std::string str,
                          GlobalValue::InternalLinkage, strConstant, name);
   Constant *zero = Constant::getNullValue(IntegerType::getInt32Ty(*ctx));
   Constant *indices[] = {zero, zero};
-  Constant *strVal = ConstantExpr::getGetElementPtr(strConstant->getType(), GVStr, indices, true);
+  Constant *strVal = ConstantExpr::getGetElementPtr(strConstant->getType(),
+                                                    GVStr, indices, true);
   return strVal;
 }

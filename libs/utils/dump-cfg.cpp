@@ -1,17 +1,15 @@
 #define DEBUG_TYPE "dump_cfg"
 #include "dump-cfg.h"
-#include "llvm/IR/Function.h"
-#include "llvm/IR/Module.h"
-#include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/Debug.h"
-#include "llvm/IR/InstIterator.h"
-#include "llvm/IR/Constants.h"
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/IR/CFG.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/InstIterator.h"
 #include "llvm/IR/IntrinsicInst.h"
-#include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/Module.h"
+#include "llvm/Support/Debug.h"
 #include "llvm/Support/FileSystem.h"
+#include "llvm/Support/raw_ostream.h"
 
 using namespace llvm;
 
@@ -26,7 +24,6 @@ bool dump_cfg::runOnModule(Module &Mod) {
 
 void dump_cfg::dumpcfg() {
 
-  //std::string err_string;
   std::error_code ec;
   raw_fd_ostream dotfile("graph.dot", ec, sys::fs::F_Text);
   dotfile << "digraph graphname { \n";

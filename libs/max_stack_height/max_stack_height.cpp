@@ -9,8 +9,6 @@
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/raw_ostream.h"
 
 #define RET_ADDRESS_SIZE 8
 
@@ -524,7 +522,7 @@ void max_stack_height::dump_cfg() {
   std::string filename = "cfg." + fname.str() + ".dot";
 
   raw_fd_ostream dotfile(filename.c_str(), ec, sys::fs::F_Text);
-  if(ec) {
+  if (ec) {
     assert(0 && "Error opening file\n");
   }
   dotfile << "digraph graphname { \n";
