@@ -14,6 +14,7 @@ OPTSWITCH=-stack-decons
 outdir="Output/"
 CC=clang
 CXX=clang++
+SKIP_ARG=1
 
 
 all:    clang
@@ -26,7 +27,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=1 ${RUN_SH} ${PROG_PREFIX} 64
+	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG} ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
 icc:
