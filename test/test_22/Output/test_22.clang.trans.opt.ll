@@ -14,16 +14,17 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture writeonly, i8* nocapture r
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) local_unnamed_addr #1 {
 driverBlockRaw:
-  %_local_stack_alloc_21.i = alloca [40 x i64], align 16
+  %_local_stack_start_ptr_21.i = alloca [40 x i8], align 1
   %FPU_TAG_val.i = alloca i64, align 8
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
-  %1 = bitcast [40 x i64]* %_local_stack_alloc_21.i to i8*
-  call void @llvm.lifetime.start(i64 320, i8* nonnull %1)
+  %1 = getelementptr inbounds [40 x i8], [40 x i8]* %_local_stack_start_ptr_21.i, i64 0, i64 0
+  call void @llvm.lifetime.start(i64 40, i8* nonnull %1)
   %2 = bitcast i64* %FPU_TAG_val.i to i8*
   call void @llvm.lifetime.start(i64 8, i8* nonnull %2)
   %3 = bitcast [8 x x86_fp80]* %STi_val.i to i8*
   call void @llvm.lifetime.start(i64 128, i8* nonnull %3)
-  %_local_stack_start_.i = ptrtoint [40 x i64]* %_local_stack_alloc_21.i to i64
+  %_local_stack_end_ptr_.i = getelementptr inbounds [40 x i8], [40 x i8]* %_local_stack_start_ptr_21.i, i64 0, i64 40
+  %_local_stack_end_.i = ptrtoint i8* %_local_stack_end_ptr_.i to i64
   %tmpcast.i = bitcast i64* %FPU_TAG_val.i to [8 x i2]*
   %4 = bitcast %struct.regs* %0 to <2 x i64>*
   %5 = load <2 x i64>, <2 x i64>* %4, align 8
@@ -158,17 +159,17 @@ driverBlockRaw:
   %STACK_BASE.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 70, !mcsema_real_eip !2
   %73 = bitcast i64* %STACK_BASE.i to <2 x i64>*
   %74 = load <2 x i64>, <2 x i64>* %73, align 8
-  %75 = add i64 %_local_stack_start_.i, 32
+  %75 = add i64 %_local_stack_end_.i, -8
   %76 = inttoptr i64 %75 to i64*, !mcsema_real_eip !2
-  store i64 %10, i64* %76, align 16, !mcsema_real_eip !2
-  %77 = add i64 %_local_stack_start_.i, 48, !mcsema_real_eip !3
+  store i64 %10, i64* %76, align 8, !mcsema_real_eip !2
+  %77 = add i64 %_local_stack_end_.i, 8, !mcsema_real_eip !3
   %78 = inttoptr i64 %77 to x86_fp80*
   %79 = load x86_fp80, x86_fp80* %78, align 16, !mcsema_real_eip !3
   %80 = add i3 %31, -1
   %81 = zext i3 %80 to i64
   %82 = getelementptr inbounds [8 x x86_fp80], [8 x x86_fp80]* %STi_val.i, i64 0, i64 %81, !mcsema_real_eip !3
   %83 = getelementptr inbounds [8 x i2], [8 x i2]* %tmpcast.i, i64 0, i64 %81, !mcsema_real_eip !3
-  %84 = add i64 %_local_stack_start_.i, 16, !mcsema_real_eip !4
+  %84 = add i64 %_local_stack_end_.i, -24, !mcsema_real_eip !4
   %85 = inttoptr i64 %84 to x86_fp80*
   store x86_fp80 %79, x86_fp80* %85, align 16, !mcsema_real_eip !4
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %82, align 16, !mcsema_real_eip !5
@@ -177,31 +178,33 @@ driverBlockRaw:
   %88 = getelementptr inbounds [8 x x86_fp80], [8 x x86_fp80]* %STi_val.i, i64 0, i64 %87, !mcsema_real_eip !6
   %89 = getelementptr inbounds [8 x i2], [8 x i2]* %tmpcast.i, i64 0, i64 %87, !mcsema_real_eip !6
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %88, align 16, !mcsema_real_eip !6
-  %90 = bitcast [40 x i64]* %_local_stack_alloc_21.i to x86_fp80*, !mcsema_real_eip !7
-  store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %90, align 16, !mcsema_real_eip !7
-  %91 = load x86_fp80, x86_fp80* %85, align 16, !mcsema_real_eip !8
-  store x86_fp80 %91, x86_fp80* %88, align 16, !mcsema_real_eip !8
-  %92 = fmul x86_fp80 %91, 0xK4000C90FDAA22168C000, !mcsema_real_eip !9
+  %90 = add i64 %_local_stack_end_.i, -40, !mcsema_real_eip !7
+  %91 = inttoptr i64 %90 to x86_fp80*
+  store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %91, align 16, !mcsema_real_eip !7
+  %92 = load x86_fp80, x86_fp80* %85, align 16, !mcsema_real_eip !8
+  store x86_fp80 %92, x86_fp80* %88, align 16, !mcsema_real_eip !8
+  %93 = load x86_fp80, x86_fp80* %82, align 16, !mcsema_real_eip !9
+  %94 = fmul x86_fp80 %92, %93, !mcsema_real_eip !9
   store i2 0, i2* %83, align 1, !mcsema_real_eip !9
-  store x86_fp80 %92, x86_fp80* %82, align 16, !mcsema_real_eip !9
+  store x86_fp80 %94, x86_fp80* %82, align 16, !mcsema_real_eip !9
   store i2 -1, i2* %89, align 1, !mcsema_real_eip !9
-  %93 = load i64, i64* %76, align 16, !mcsema_real_eip !10
-  %94 = bitcast %struct.regs* %0 to <2 x i64>*
-  store <2 x i64> %5, <2 x i64>* %94, align 8
-  %95 = bitcast i64* %RCX.i to <2 x i64>*
-  store <2 x i64> %7, <2 x i64>* %95, align 8
-  %96 = bitcast i64* %RSI.i to <2 x i64>*
-  store <2 x i64> %9, <2 x i64>* %96, align 8
+  %95 = load i64, i64* %76, align 8, !mcsema_real_eip !10
+  %96 = bitcast %struct.regs* %0 to <2 x i64>*
+  store <2 x i64> %5, <2 x i64>* %96, align 8
+  %97 = bitcast i64* %RCX.i to <2 x i64>*
+  store <2 x i64> %7, <2 x i64>* %97, align 8
+  %98 = bitcast i64* %RSI.i to <2 x i64>*
+  store <2 x i64> %9, <2 x i64>* %98, align 8
   store i64 %77, i64* %RSP.i, align 8, !mcsema_real_eip !11
-  store i64 %93, i64* %RBP.i, align 8, !mcsema_real_eip !11
-  %97 = bitcast i64* %R8.i to <2 x i64>*
-  store <2 x i64> %12, <2 x i64>* %97, align 8
-  %98 = bitcast i64* %R10.i to <2 x i64>*
-  store <2 x i64> %14, <2 x i64>* %98, align 8
-  %99 = bitcast i64* %R12.i to <2 x i64>*
-  store <2 x i64> %16, <2 x i64>* %99, align 8
-  %100 = bitcast i64* %R14.i to <2 x i64>*
-  store <2 x i64> %18, <2 x i64>* %100, align 8
+  store i64 %95, i64* %RBP.i, align 8, !mcsema_real_eip !11
+  %99 = bitcast i64* %R8.i to <2 x i64>*
+  store <2 x i64> %12, <2 x i64>* %99, align 8
+  %100 = bitcast i64* %R10.i to <2 x i64>*
+  store <2 x i64> %14, <2 x i64>* %100, align 8
+  %101 = bitcast i64* %R12.i to <2 x i64>*
+  store <2 x i64> %16, <2 x i64>* %101, align 8
+  %102 = bitcast i64* %R14.i to <2 x i64>*
+  store <2 x i64> %18, <2 x i64>* %102, align 8
   store i64 %19, i64* %RIP.i, align 8, !mcsema_real_eip !11
   store i1 %20, i1* %CF.i, align 1, !mcsema_real_eip !11
   store i1 %21, i1* %PF.i, align 1, !mcsema_real_eip !11
@@ -234,8 +237,8 @@ driverBlockRaw:
   store i1 %48, i1* %FPU_ZM.i, align 1, !mcsema_real_eip !11
   store i1 %49, i1* %FPU_DM.i, align 1, !mcsema_real_eip !11
   store i1 %50, i1* %FPU_IM.i, align 1, !mcsema_real_eip !11
-  %101 = load i64, i64* %FPU_TAG_val.i, align 8
-  store i64 %101, i64* %52, align 4
+  %103 = load i64, i64* %FPU_TAG_val.i, align 8
+  store i64 %103, i64* %52, align 4
   store i16 %54, i16* %FPU_LASTIP_SEG.i, align 1, !mcsema_real_eip !11
   store i64 %55, i64* %FPU_LASTIP_OFF.i, align 1, !mcsema_real_eip !11
   store i16 %56, i16* %FPU_LASTDATA_SEG.i, align 1, !mcsema_real_eip !11
@@ -256,9 +259,9 @@ driverBlockRaw:
   store i128 %70, i128* %XMM13.i, align 1, !mcsema_real_eip !11
   store i128 %71, i128* %XMM14.i, align 1, !mcsema_real_eip !11
   store i128 %72, i128* %XMM15.i, align 1, !mcsema_real_eip !11
-  %102 = bitcast i64* %STACK_BASE.i to <2 x i64>*
-  store <2 x i64> %74, <2 x i64>* %102, align 1
-  call void @llvm.lifetime.end(i64 320, i8* nonnull %1)
+  %104 = bitcast i64* %STACK_BASE.i to <2 x i64>*
+  store <2 x i64> %74, <2 x i64>* %104, align 1
+  call void @llvm.lifetime.end(i64 40, i8* nonnull %1)
   call void @llvm.lifetime.end(i64 8, i8* nonnull %2)
   call void @llvm.lifetime.end(i64 128, i8* nonnull %3)
   ret void

@@ -11,10 +11,10 @@ declare i8 @llvm.ctpop.i8(i8) #0
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs* nocapture) local_unnamed_addr #1 {
 driverBlockRaw:
-  %_local_stack_alloc_2.i = alloca [0 x i64], align 8
-  %1 = bitcast [0 x i64]* %_local_stack_alloc_2.i to i8*
+  %_local_stack_start_ptr_2.i = alloca [0 x i8], align 1
+  %1 = getelementptr inbounds [0 x i8], [0 x i8]* %_local_stack_start_ptr_2.i, i64 0, i64 0
   call void @llvm.lifetime.start(i64 0, i8* nonnull %1)
-  %_local_stack_start_.i = ptrtoint [0 x i64]* %_local_stack_alloc_2.i to i64
+  %_local_stack_end_.i = ptrtoint [0 x i8]* %_local_stack_start_ptr_2.i to i64
   %RAX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0, !mcsema_real_eip !2
   %2 = load i64, i64* %RAX.i, align 8, !mcsema_real_eip !2
   %RSP.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
@@ -41,7 +41,7 @@ driverBlockRaw:
   %16 = icmp eq i8 %15, 0
   %17 = extractvalue { i32, i1 } %uadd.i, 1
   %18 = zext i32 %4 to i64, !mcsema_real_eip !2
-  %19 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !3
+  %19 = add i64 %_local_stack_end_.i, 8, !mcsema_real_eip !3
   store i64 %18, i64* %RAX.i, align 8, !mcsema_real_eip !3
   store i64 %19, i64* %RSP.i, align 8, !mcsema_real_eip !3
   store i1 %17, i1* %CF.i, align 1, !mcsema_real_eip !3
