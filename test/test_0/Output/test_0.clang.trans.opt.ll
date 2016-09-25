@@ -11,14 +11,14 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture writeonly, i8* nocapture r
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) local_unnamed_addr #1 {
 driverBlockRaw:
-  %_local_stack_alloc_9.i = alloca [32 x i64], align 8
+  %_local_stack_start_ptr_9.i = alloca [32 x i8], align 1
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
-  %1 = bitcast [32 x i64]* %_local_stack_alloc_9.i to i8*
-  call void @llvm.lifetime.start(i64 256, i8* nonnull %1)
+  %1 = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_9.i, i64 0, i64 0
+  call void @llvm.lifetime.start(i64 32, i8* nonnull %1)
   %STi_val.i.0..sroa_cast = bitcast [8 x x86_fp80]* %STi_val.i to i8*
   call void @llvm.lifetime.start(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
-  %_local_stack_alloc_9.sub.i = getelementptr inbounds [32 x i64], [32 x i64]* %_local_stack_alloc_9.i, i64 0, i64 0
-  %_local_stack_start_.i = ptrtoint [32 x i64]* %_local_stack_alloc_9.i to i64
+  %_local_stack_end_ptr_.i = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_9.i, i64 0, i64 32
+  %_local_stack_end_.i = ptrtoint i8* %_local_stack_end_ptr_.i to i64
   %RAX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0, !mcsema_real_eip !2
   %RBX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 1, !mcsema_real_eip !2
   %2 = bitcast i64* %RBX.i to <2 x i64>*
@@ -154,43 +154,45 @@ driverBlockRaw:
   %STACK_BASE.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 70, !mcsema_real_eip !2
   %72 = bitcast i64* %STACK_BASE.i to <2 x i64>*
   %73 = load <2 x i64>, <2 x i64>* %72, align 8
-  %74 = add i64 %_local_stack_start_.i, 24
+  %74 = add i64 %_local_stack_end_.i, -8
   %75 = inttoptr i64 %74 to i64*, !mcsema_real_eip !2
   store i64 %7, i64* %75, align 8, !mcsema_real_eip !2
-  %76 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !3
-  %77 = add i64 %_local_stack_start_.i, 20, !mcsema_real_eip !4
+  %76 = add i64 %_local_stack_end_.i, -24, !mcsema_real_eip !3
+  %77 = add i64 %_local_stack_end_.i, -12, !mcsema_real_eip !4
   %78 = inttoptr i64 %77 to i32*
   store i32 0, i32* %78, align 4, !mcsema_real_eip !4
-  store i64 %76, i64* %_local_stack_alloc_9.sub.i, align 8, !mcsema_real_eip !5
-  %79 = inttoptr i64 %76 to i32*
-  store i32 1, i32* %79, align 8, !mcsema_real_eip !6
-  %80 = load i64, i64* %_local_stack_alloc_9.sub.i, align 8, !mcsema_real_eip !7
-  %81 = add i64 %80, 4, !mcsema_real_eip !8
-  %82 = inttoptr i64 %81 to i32*
-  store i32 2, i32* %82, align 4, !mcsema_real_eip !8
-  %83 = load i64, i64* %_local_stack_alloc_9.sub.i, align 8, !mcsema_real_eip !9
-  %84 = add i64 %83, 4, !mcsema_real_eip !10
-  %85 = inttoptr i64 %84 to i32*
-  %86 = load i32, i32* %85, align 4, !mcsema_real_eip !10
-  %87 = zext i32 %86 to i64, !mcsema_real_eip !10
-  %88 = load i64, i64* %75, align 8, !mcsema_real_eip !11
-  %89 = add i64 %_local_stack_start_.i, 40, !mcsema_real_eip !12
-  store i64 %87, i64* %RAX.i, align 8, !mcsema_real_eip !12
-  %90 = bitcast i64* %RBX.i to <2 x i64>*
-  store <2 x i64> %3, <2 x i64>* %90, align 8
-  %91 = bitcast i64* %RDX.i to <2 x i64>*
-  store <2 x i64> %5, <2 x i64>* %91, align 8
+  %79 = add i64 %_local_stack_end_.i, -32, !mcsema_real_eip !5
+  %80 = inttoptr i64 %79 to i64*, !mcsema_real_eip !5
+  store i64 %76, i64* %80, align 8, !mcsema_real_eip !5
+  %81 = inttoptr i64 %76 to i32*
+  store i32 1, i32* %81, align 4, !mcsema_real_eip !6
+  %82 = load i64, i64* %80, align 8, !mcsema_real_eip !7
+  %83 = add i64 %82, 4, !mcsema_real_eip !8
+  %84 = inttoptr i64 %83 to i32*
+  store i32 2, i32* %84, align 4, !mcsema_real_eip !8
+  %85 = load i64, i64* %80, align 8, !mcsema_real_eip !9
+  %86 = add i64 %85, 4, !mcsema_real_eip !10
+  %87 = inttoptr i64 %86 to i32*
+  %88 = load i32, i32* %87, align 4, !mcsema_real_eip !10
+  %89 = zext i32 %88 to i64, !mcsema_real_eip !10
+  %90 = load i64, i64* %75, align 8, !mcsema_real_eip !11
+  %91 = add i64 %_local_stack_end_.i, 8, !mcsema_real_eip !12
+  store i64 %89, i64* %RAX.i, align 8, !mcsema_real_eip !12
+  %92 = bitcast i64* %RBX.i to <2 x i64>*
+  store <2 x i64> %3, <2 x i64>* %92, align 8
+  %93 = bitcast i64* %RDX.i to <2 x i64>*
+  store <2 x i64> %5, <2 x i64>* %93, align 8
   store i64 %6, i64* %RDI.i, align 8, !mcsema_real_eip !12
-  store i64 %89, i64* %RSP.i, align 8, !mcsema_real_eip !12
-  store i64 %88, i64* %RBP.i, align 8, !mcsema_real_eip !12
-  %92 = bitcast i64* %R8.i to <2 x i64>*
-  store <2 x i64> %9, <2 x i64>* %92, align 8
-  %93 = bitcast i64* %R10.i to <2 x i64>*
-  store <2 x i64> %11, <2 x i64>* %93, align 8
-  %94 = bitcast i64* %R12.i to <2 x i64>*
-  store <2 x i64> %13, <2 x i64>* %94, align 8
-  %95 = bitcast i64* %R14.i to <2 x i64>*
-  store <2 x i64> %15, <2 x i64>* %95, align 8
+  store i64 %91, i64* %RSP.i, align 8, !mcsema_real_eip !12
+  store i64 %90, i64* %RBP.i, align 8, !mcsema_real_eip !12
+  %94 = bitcast i64* %R8.i to <2 x i64>*
+  store <2 x i64> %9, <2 x i64>* %94, align 8
+  %95 = bitcast i64* %R10.i to <2 x i64>*
+  store <2 x i64> %11, <2 x i64>* %95, align 8
+  %96 = bitcast i64* %R12.i to <2 x i64>*
+  store <2 x i64> %13, <2 x i64>* %96, align 8
+  %97 = bitcast i64* %R14.i to <2 x i64>*
+  store <2 x i64> %15, <2 x i64>* %97, align 8
   store i64 %16, i64* %RIP.i, align 8, !mcsema_real_eip !12
   store i1 %17, i1* %CF.i, align 1, !mcsema_real_eip !12
   store i1 %18, i1* %PF.i, align 1, !mcsema_real_eip !12
@@ -244,9 +246,9 @@ driverBlockRaw:
   store i128 %69, i128* %XMM13.i, align 1, !mcsema_real_eip !12
   store i128 %70, i128* %XMM14.i, align 1, !mcsema_real_eip !12
   store i128 %71, i128* %XMM15.i, align 1, !mcsema_real_eip !12
-  %96 = bitcast i64* %STACK_BASE.i to <2 x i64>*
-  store <2 x i64> %73, <2 x i64>* %96, align 1
-  call void @llvm.lifetime.end(i64 256, i8* nonnull %1)
+  %98 = bitcast i64* %STACK_BASE.i to <2 x i64>*
+  store <2 x i64> %73, <2 x i64>* %98, align 1
+  call void @llvm.lifetime.end(i64 32, i8* nonnull %1)
   call void @llvm.lifetime.end(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
   ret void
 }

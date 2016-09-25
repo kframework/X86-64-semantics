@@ -14,13 +14,13 @@ declare i8 @llvm.ctpop.i8(i8) #1
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs* nocapture) local_unnamed_addr #2 {
 driverBlockRaw:
-  %_local_stack_alloc_7.i = alloca [0 x i64], align 8
+  %_local_stack_start_ptr_7.i = alloca [0 x i8], align 1
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
-  %1 = bitcast [0 x i64]* %_local_stack_alloc_7.i to i8*
+  %1 = getelementptr inbounds [0 x i8], [0 x i8]* %_local_stack_start_ptr_7.i, i64 0, i64 0
   call void @llvm.lifetime.start(i64 0, i8* nonnull %1)
   %STi_val.i.0..sroa_cast = bitcast [8 x x86_fp80]* %STi_val.i to i8*
   call void @llvm.lifetime.start(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
-  %_local_stack_start_.i = ptrtoint [0 x i64]* %_local_stack_alloc_7.i to i64
+  %_local_stack_end_.i = ptrtoint [0 x i8]* %_local_stack_start_ptr_7.i to i64
   %RAX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0, !mcsema_real_eip !2
   %2 = load i64, i64* %RAX.i, align 8, !mcsema_real_eip !2
   %RBX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 1, !mcsema_real_eip !2
@@ -73,7 +73,7 @@ sub_1.exit:                                       ; preds = %driverBlockRaw, %bl
   %AF_val.0.i = icmp ne i32 %AF_val.0.in.i, 0
   %PF_val.0.in.i = and i8 %PF_val.0.in.in.i, 1
   %PF_val.0.i = icmp eq i8 %PF_val.0.in.i, 0
-  %19 = add i64 %_local_stack_start_.i, 8, !mcsema_real_eip !7
+  %19 = add i64 %_local_stack_end_.i, 8, !mcsema_real_eip !7
   store i64 %RAX_val.0.i, i64* %RAX.i, align 8, !mcsema_real_eip !7
   store i64 %RBX_val.0.i, i64* %RBX.i, align 8, !mcsema_real_eip !7
   store i64 %5, i64* %RCX.i, align 8, !mcsema_real_eip !7

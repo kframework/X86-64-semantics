@@ -12,10 +12,12 @@ target triple = "x86_64-pc-linux-gnu"
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value(%struct.regs* %reg_context, i64 %ptr) #0 {
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void
@@ -23,10 +25,12 @@ define internal fastcc void @do_call_value(%struct.regs* %reg_context, i64 %ptr)
 
 define internal x86_64_sysvcc void @sub_b0(%struct.regs*) {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 104
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 104
+  %_local_stack_start_ptr_ = alloca i8, i64 104
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 104
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !2
@@ -1343,10 +1347,12 @@ block_0x148:                                      ; preds = %block_0x11e
 
 define internal x86_64_sysvcc void @sub_172(%struct.regs*) {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 84
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 84
+  %_local_stack_start_ptr_ = alloca i8, i64 84
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 84
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !48
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !48
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !48
@@ -3106,10 +3112,12 @@ block_0x148:                                      ; preds = %block_0x11e
 ; Function Attrs: nounwind
 define internal x86_64_sysvcc void @sub_18e(%struct.regs*) #1 {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 4
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 4
+  %_local_stack_start_ptr_ = alloca i8, i64 4
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 4
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !44
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !44
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !44
@@ -3583,10 +3591,12 @@ entry:
 
 define internal x86_64_sysvcc void @sub_180(%struct.regs*) {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 84
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 84
+  %_local_stack_start_ptr_ = alloca i8, i64 84
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 84
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !105
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !105
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !105
@@ -5346,10 +5356,12 @@ block_0x148:                                      ; preds = %block_0x11e
 
 define internal x86_64_sysvcc void @sub_164(%struct.regs*) {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 84
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 84
+  %_local_stack_start_ptr_ = alloca i8, i64 84
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 84
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !108
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !108
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !108
@@ -7109,10 +7121,12 @@ block_0x148:                                      ; preds = %block_0x11e
 
 define internal x86_64_sysvcc void @sub_156(%struct.regs*) {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 84
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 84
+  %_local_stack_start_ptr_ = alloca i8, i64 84
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 84
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !111
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !111
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !111
@@ -8879,10 +8893,12 @@ declare i8 @llvm.ctpop.i8(i8) #3
 
 define void @mcsema_main(%struct.regs*) {
 driverBlockRaw:
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   tail call x86_64_sysvcc void @sub_b0(%struct.regs* %0)
   ret void
 }
@@ -8895,14 +8911,18 @@ declare { i32, i1 } @llvm.uadd.with.overflow.i32(i32, i32) #3
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value.1(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_start_ptr_, i64 %_parent_stack_end_ptr_) #0 {
-  %_local_stack_alloc_1 = alloca i64, i64 0
-  %_local_stack_start_ptr_2 = getelementptr inbounds i64, i64* %_local_stack_alloc_1, i32 0
-  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
-  %_local_stack_end_4 = add i64 %_local_stack_start_3, 0
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_1 = alloca i8, i64 0
+  %_local_stack_end_ptr_2 = getelementptr inbounds i8, i8* %_local_stack_start_ptr_1, i64 0
+  %_bt_local_stack_start_ptr_3 = bitcast i8* %_local_stack_start_ptr_1 to i64*
+  %_bt_local_stack_end_ptr_4 = bitcast i8* %_local_stack_end_ptr_2 to i64*
+  %_local_stack_start_5 = ptrtoint i64* %_bt_local_stack_start_ptr_3 to i64
+  %_local_stack_end_6 = ptrtoint i64* %_bt_local_stack_end_ptr_4 to i64
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void
@@ -8910,14 +8930,18 @@ define internal fastcc void @do_call_value.1(%struct.regs* %reg_context, i64 %pt
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value.2(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_start_ptr_, i64 %_parent_stack_end_ptr_) #0 {
-  %_local_stack_alloc_1 = alloca i64, i64 0
-  %_local_stack_start_ptr_2 = getelementptr inbounds i64, i64* %_local_stack_alloc_1, i32 0
-  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
-  %_local_stack_end_4 = add i64 %_local_stack_start_3, 0
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_1 = alloca i8, i64 0
+  %_local_stack_end_ptr_2 = getelementptr inbounds i8, i8* %_local_stack_start_ptr_1, i64 0
+  %_bt_local_stack_start_ptr_3 = bitcast i8* %_local_stack_start_ptr_1 to i64*
+  %_bt_local_stack_end_ptr_4 = bitcast i8* %_local_stack_end_ptr_2 to i64*
+  %_local_stack_start_5 = ptrtoint i64* %_bt_local_stack_start_ptr_3 to i64
+  %_local_stack_end_6 = ptrtoint i64* %_bt_local_stack_end_ptr_4 to i64
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void
@@ -8925,14 +8949,18 @@ define internal fastcc void @do_call_value.2(%struct.regs* %reg_context, i64 %pt
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value.3(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_start_ptr_, i64 %_parent_stack_end_ptr_) #0 {
-  %_local_stack_alloc_1 = alloca i64, i64 0
-  %_local_stack_start_ptr_2 = getelementptr inbounds i64, i64* %_local_stack_alloc_1, i32 0
-  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
-  %_local_stack_end_4 = add i64 %_local_stack_start_3, 0
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_1 = alloca i8, i64 0
+  %_local_stack_end_ptr_2 = getelementptr inbounds i8, i8* %_local_stack_start_ptr_1, i64 0
+  %_bt_local_stack_start_ptr_3 = bitcast i8* %_local_stack_start_ptr_1 to i64*
+  %_bt_local_stack_end_ptr_4 = bitcast i8* %_local_stack_end_ptr_2 to i64*
+  %_local_stack_start_5 = ptrtoint i64* %_bt_local_stack_start_ptr_3 to i64
+  %_local_stack_end_6 = ptrtoint i64* %_bt_local_stack_end_ptr_4 to i64
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void
@@ -8940,14 +8968,18 @@ define internal fastcc void @do_call_value.3(%struct.regs* %reg_context, i64 %pt
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value.4(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_start_ptr_, i64 %_parent_stack_end_ptr_) #0 {
-  %_local_stack_alloc_1 = alloca i64, i64 0
-  %_local_stack_start_ptr_2 = getelementptr inbounds i64, i64* %_local_stack_alloc_1, i32 0
-  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
-  %_local_stack_end_4 = add i64 %_local_stack_start_3, 0
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_1 = alloca i8, i64 0
+  %_local_stack_end_ptr_2 = getelementptr inbounds i8, i8* %_local_stack_start_ptr_1, i64 0
+  %_bt_local_stack_start_ptr_3 = bitcast i8* %_local_stack_start_ptr_1 to i64*
+  %_bt_local_stack_end_ptr_4 = bitcast i8* %_local_stack_end_ptr_2 to i64*
+  %_local_stack_start_5 = ptrtoint i64* %_bt_local_stack_start_ptr_3 to i64
+  %_local_stack_end_6 = ptrtoint i64* %_bt_local_stack_end_ptr_4 to i64
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void
@@ -8955,14 +8987,18 @@ define internal fastcc void @do_call_value.4(%struct.regs* %reg_context, i64 %pt
 
 ; Function Attrs: alwaysinline
 define internal fastcc void @do_call_value.5(%struct.regs* %reg_context, i64 %ptr, i64 %_parent_stack_start_ptr_, i64 %_parent_stack_end_ptr_) #0 {
-  %_local_stack_alloc_1 = alloca i64, i64 0
-  %_local_stack_start_ptr_2 = getelementptr inbounds i64, i64* %_local_stack_alloc_1, i32 0
-  %_local_stack_start_3 = ptrtoint i64* %_local_stack_start_ptr_2 to i64
-  %_local_stack_end_4 = add i64 %_local_stack_start_3, 0
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_1 = alloca i8, i64 0
+  %_local_stack_end_ptr_2 = getelementptr inbounds i8, i8* %_local_stack_start_ptr_1, i64 0
+  %_bt_local_stack_start_ptr_3 = bitcast i8* %_local_stack_start_ptr_1 to i64*
+  %_bt_local_stack_end_ptr_4 = bitcast i8* %_local_stack_end_ptr_2 to i64*
+  %_local_stack_start_5 = ptrtoint i64* %_bt_local_stack_start_ptr_3 to i64
+  %_local_stack_end_6 = ptrtoint i64* %_bt_local_stack_end_ptr_4 to i64
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %1 = inttoptr i64 %ptr to void (%struct.regs*)*
   tail call x86_64_sysvcc void %1(%struct.regs* %reg_context)
   ret void

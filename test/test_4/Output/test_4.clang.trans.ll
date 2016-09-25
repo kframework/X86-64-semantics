@@ -10,10 +10,12 @@ target triple = "x86_64-pc-linux-gnu"
 
 define internal x86_64_sysvcc void @sub_a0(%struct.regs*) {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 256
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 256
+  %_local_stack_start_ptr_ = alloca i8, i64 256
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 256
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !2
@@ -1039,10 +1041,12 @@ entry:
 ; Function Attrs: nounwind
 define internal x86_64_sysvcc void @sub_0(%struct.regs*) #0 {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 80
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 80
+  %_local_stack_start_ptr_ = alloca i8, i64 80
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 80
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !67
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !67
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !67
@@ -1984,10 +1988,12 @@ declare i8 @llvm.ctpop.i8(i8) #2
 
 define void @mcsema_main(%struct.regs*) {
 driverBlockRaw:
-  %_local_stack_alloc_ = alloca i64, i64 0
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 0
+  %_local_stack_start_ptr_ = alloca i8, i64 0
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   tail call x86_64_sysvcc void @sub_a0(%struct.regs* %0)
   ret void
 }
@@ -2001,10 +2007,12 @@ declare { i32, i1 } @llvm.uadd.with.overflow.i32(i32, i32) #2
 ; Function Attrs: nounwind
 define internal x86_64_sysvcc void @sub_0.1(%struct.regs*, i64 %_parent_stack_start_ptr_, i64 %_parent_stack_end_ptr_) #0 {
 entry:
-  %_local_stack_alloc_ = alloca i64, i64 80
-  %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-  %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = add i64 %_local_stack_start_, 80
+  %_local_stack_start_ptr_ = alloca i8, i64 80
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 80
+  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
+  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
   %R15_val = alloca i64, !mcsema_real_eip !67
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !67
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !67

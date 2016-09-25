@@ -1,15 +1,30 @@
-//#define DEBUG_TYPE "stack_deconstructor"
+//===-- stack_deconstructor.cpp - Deconstruct the global stack into local stack
+//frame ---===//
+//
+//                     The LLVM Compiler Infrastructure
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
+//
+// This file implements a pass that deconstruct the global stack shared by all
+// the prcedures into local stack frames per procedure
+//
+//===----------------------------------------------------------------------===//
+
+#define DEBUG_TYPE "stack_deconstructor"
 #include "stack_deconstructor.h"
 #include "llvm/ADT/PostOrderIterator.h"
+#include "llvm/ADT/Statistic.h"
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/Function.h"
+#include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/InstIterator.h"
 #include "llvm/IR/IntrinsicInst.h"
-//#include "llvm/Support/Debug.h"
-#include "llvm/ADT/Statistic.h"
-#include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/TypeBuilder.h"
+#include "llvm/Support/Debug.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
@@ -17,18 +32,15 @@
 #include "llvm/Transforms/Utils/ValueMapper.h"
 
 using namespace llvm;
-// STATISTIC(StaticParentAccessChecks,  "Number of static parent stack
-// accesses");
+STATISTIC(StaticParentAccessChecks, "Number of static parent stack accesses");
 
 char stack_deconstructor::ID = 0;
 static RegisterPass<stack_deconstructor>
     X("stack-decons",
       "To partition global monolithic stack to per function stack frame");
 
-/*******************************************************************
-  * Function :   runOnModule
-  * Purpose  :   Entry point for stack_deconstructor pass
-********************************************************************/
+/// Function :   runOnModule
+/// Purpose  :   Entry point for stack_deconstructor pass
 bool stack_deconstructor::runOnModule(Module &M) {
   Mod = &M;
   ctx = &M.getContext();
@@ -42,50 +54,36 @@ bool stack_deconstructor::runOnModule(Module &M) {
     }
   }
 
-  return true; // Transform pass
+  // Does Transformation
+  return true;
 }
 
-/*******************************************************************
-  * Function :   insertlocalstack
-  * Purpose  :   Deconstruct the global stack frame (visible to all the
-  *               functions) into per procedure (local) stack frame.
-  *              Covert the following instructiions
-  *
-  *               %RSP_val = alloca i64, !mcsema_real_eip !2
-  *
-  *               %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6,
-*!mcsema_real_eip !2 ; Reading the register context to get the stack pointer
-  *               %7 = load i64* %RSP, !mcsema_real_eip !2
-  *
-  *               store i64 %7, i64* %RSP_val, !mcsema_real_eip !2  ; Storing
-*the stack pointer in the local variable %RSP_val
-  *               ; All subsequesnt computations are using %RSP_val
-  *
-  *               TO
-  *
-  *               %RSP_val = alloca i64, !mcsema_real_eip !2
-  *
-  *               ; Following two are dead instructions
-  *               %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6,
-*!mcsema_real_eip !2 ;
-  *               %7 = load i64* %RSP, !mcsema_real_eip !2
-  *
-  *               %_local_stack_alloc_ = alloca [32 x i64]   ; The stack height
-*32 is determined by a previous dfa pass    ; Newly inserted
-  *               %_local_stack_gep_ = getelementptr inbounds [32 x i64]*
-*%_local_stack_alloc_, i32 0, i32 0  ; Newly inserted
-  *               %_local_stack_P2I_ = ptrtoint i64* %_local_stack_gep_ to i64
-*; Newly inserted
-  *               store i64 %_local_stack_P2I_, i64* %RSP_val ; Newly inserted
-  *
-  *               ; All subsequesnt computations are using %RSP_val
-********************************************************************/
+/// Function :    insertlocalstack
+/// Purpose  :    Introduce local stack frame based on the stack size
+/// approximated
+///               by max_stack_height pass
+///   Convert the following instructiions
+///     %RSP_val = alloca i64
+///     %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6
+///     %7 = load i64* %RSP, !mcsema_real_eip !2
+///     store i64 %7, i64* %RSP_val
+///     ; All subsequesnt computations are using %RSP_val
+///                 TO
+///     %_local_stack_start_ptr_ = alloca i8, i64 32
+///     %_local_stack_end_ptr_ = getelementptr inbounds i8, i8*
+///     %_local_stack_start_ptr_, i64 32
+///     %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to
+///     i64*
+///     %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
+///     %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
+///     %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
+///     ; All subsequesnt computations are using %RSP_val
 void stack_deconstructor::insertlocalstack(Function &F) {
 
   assert(approximate_stack_height <= 0 && "stack height cannot be positive\n");
 
-  // DEBUG(errs() << "========================\n Processing Function:" <<
-  // F.getName() << "\n=================================\n");
+  DEBUG(errs() << "========================\n Processing Function:"
+               << F.getName() << "\n=================================\n");
 
   Value *current_stack_start = NULL;
   Value *current_stack_end = NULL;
@@ -104,41 +102,36 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
                                                 Value **stack_start,
                                                 Value **stack_end) {
 
-  /*  1. Search for the first store to RSP_val in the entry block
-  **    e.g store i64 %7, i64* %RSP_val
-  **  2. Replcae the stored value with the custom stack start address
-  */
+  auto *int64_type = Type::getInt64Ty(*ctx);
+  auto *ptr_to_int64_type = int64_type->getPointerTo();
+
+  //  1. Search for the first store to RSP_val in the entry block
+  //    e.g store i64 %7, i64* %RSP_val
+  //  2. Replcae the stored value with the custom stack start address
   StoreInst *store_inst = NULL;
   BasicBlock &eb = F.getEntryBlock();
   bool stack_frame_deconstructed = false;
   ConstantInt *stack_height =
-      ConstantInt::get(Type::getInt64Ty(*ctx), -1 * approximate_stack_height);
-  // llvm::errs() << "stack_h " << (stack_height)->getType() << "\n";
+      ConstantInt::get(int64_type, -1 * approximate_stack_height);
 
   BasicBlock::iterator i = eb.begin();
   Instruction *I = &*i++;
 
   IRBuilder<> IRB(I);
-  // Create:: %_local_stack_alloc_ = alloca [32 x i64]
-  auto *ai_inst = IRB.CreateAlloca(Type::getInt64Ty(*ctx), stack_height,
-                                   "_local_stack_alloc_");
-  // llvm::errs() << "ai_inst " << (ai_inst)->getType() << "\n";
-
-  // Create:: %_local_stack_start_ptr_ = getelementptr inbounds [32 x i64]*
-  // %_local_stack_alloc_, i32 0, i32 0
+  auto *stack_start_ptr = IRB.CreateAlloca(Type::getInt8Ty(*ctx), stack_height,
+                                           "_local_stack_start_ptr_");
   std::vector<Value *> indices;
-  indices.push_back(IRB.getInt32(0));
-  auto *gep_inst =
-      IRB.CreateInBoundsGEP(ai_inst, indices, "_local_stack_start_ptr_");
-
-  // Create:: %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to
-  // i64
-  *stack_start = IRB.CreatePtrToInt(gep_inst, Type::getInt64Ty(*ctx),
+  indices.push_back(stack_height);
+  auto *stack_end_ptr =
+      IRB.CreateInBoundsGEP(stack_start_ptr, indices, "_local_stack_end_ptr_");
+  auto *bicast_stack_start_ptr = IRB.CreateBitCast(
+      stack_start_ptr, ptr_to_int64_type, "_bt_local_stack_start_ptr_");
+  auto *bicast_stack_end_ptr = IRB.CreateBitCast(
+      stack_end_ptr, ptr_to_int64_type, "_bt_local_stack_end_ptr_");
+  *stack_start = IRB.CreatePtrToInt(bicast_stack_start_ptr, int64_type,
                                     "_local_stack_start_");
-
-  // Create:: %_local_stack_end_ = add i64 %_local_stack_start_, i64 HEIGHT
-  *stack_end = IRB.CreateBinOp(Instruction::Add, *stack_start, stack_height,
-                               "_local_stack_end_");
+  *stack_end =
+      IRB.CreatePtrToInt(bicast_stack_end_ptr, int64_type, "_local_stack_end_");
 
   for (BasicBlock::iterator i = eb.begin(), e = eb.end(); i != e;) {
     Instruction *I = &*i;
@@ -169,14 +162,16 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   return stack_frame_deconstructed;
 }
 
+/// Function :  augmentFunctionWithParentStack
+/// Purpose  :  For each CallInst (to mcsema generated functions), add extra
+/// actual
+/// arguments %_local_stack_start_  and %_local_stack_end_ which points to the
+/// start & end
+/// addresses  of parent frame. Also the corresponding called function are
+/// augmented with extra
+/// arguments
 void stack_deconstructor::augmentFunctionWithParentStack(
     Function &F, Value *current_stack_start, Value *current_stack_end) {
-  /* For each CallInst (to mcsema generated functions), add an extra actual
-  ** arguments %_local_stack_end_ which the last accesses location of the
-  ** parent frame.
-  ** Also the corresponding called function are augmented with an extra
-  ** arguments i64 %_parent_stack_end_ptr_
-  */
   for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
       Instruction *I = &*BBI++;
@@ -302,10 +297,12 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
     // Populate the Then Basic Block
     IRB.SetInsertPoint(then_bb->getTerminator());
 
-    // DEBUG( Constant *printf_func = printf_prototype(*ctx, Mod);
-    // IRB.CreateCall(printf_func, geti8StrVal(*Mod, "Accessing Parent Stack ["
-    // + std::to_string(StaticParentAccessChecks++) + "]\n",
-    // "_debug_parent_stack_")));
+    DEBUG(Constant *printf_func = printf_prototype(*ctx, Mod); IRB.CreateCall(
+        printf_func,
+        geti8StrVal(*Mod,
+                    "Accessing Parent Stack [" +
+                        std::to_string(StaticParentAccessChecks++) + "]\n",
+                    "_debug_parent_stack_")));
     auto *parent_address = IRB.CreateBinOp(Instruction::Add, parent_stack_start,
                                            offset, "_address_in_parent_stack_");
 
