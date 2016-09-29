@@ -1,3 +1,3 @@
 add_llvm_loadable_module(LLVMstack_deconstructor stack_deconstructor.cpp)
-
+add_library(stack_deconstructor STATIC stack_deconstructor.cpp)
 target_link_libraries(LLVMstack_deconstructor max_stack_height)

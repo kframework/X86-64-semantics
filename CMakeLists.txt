@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.4)
+project(Allina)
 
 # LLVM detection part
-# The user is supposed to set this to a valid llvm 3.7 install root
 set(LLVM_ROOT "" CACHE PATH "Root of LLVM install.")
 
 # A bit of a sanity check:
@@ -22,6 +22,8 @@ list(APPEND CMAKE_PREFIX_PATH
 find_package(LLVM REQUIRED CONFIG)
 
 SET(CMAKE_CXX_FLAGS "-Wall -fno-rtti")
+set(LLVM_BUILD_TOOLS ON)
+
 
 # AddLLVM needs these
 set(LLVM_RUNTIME_OUTPUT_INTDIR ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/bin)
