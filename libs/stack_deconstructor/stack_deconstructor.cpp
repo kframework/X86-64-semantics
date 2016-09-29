@@ -1,5 +1,5 @@
 //===-- stack_deconstructor.cpp - Deconstruct the global stack into local stack
-//frame ---===//
+// frame ---===//
 //
 //                     The LLVM Compiler Infrastructure
 //

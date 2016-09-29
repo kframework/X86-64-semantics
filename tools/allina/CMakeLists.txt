@@ -10,6 +10,6 @@ set(LLVM_LINK_COMPONENTS
 add_llvm_tool(allina
   allina.cpp
 )
-target_link_libraries(allina stack_deconstructor)
+target_link_libraries(allina stack_deconstructor max_stack_height)
 
 #add_definitions(${LLVM_DEFINITIONS})

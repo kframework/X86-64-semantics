@@ -15,6 +15,7 @@ outdir="Output/"
 CC=clang
 CXX=clang++
 SKIP_ARG=1
+ALLINA="../../build/bin/allina"
 
 
 all:    clang
@@ -36,7 +37,8 @@ icc:
 	${MAKE} ext="icc" run_pass
 
 run_pass:
-	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
+	#${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
+	${ALLINA} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
 	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.opt.ll
