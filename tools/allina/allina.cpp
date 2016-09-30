@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
   if (!DisableVerify) {
     std::string Err;
     if (verifyModule(*Mod.get(), &errs())) {
-      errs() << "Verify Negative\n";
+      errs() << "Input Verify Negative\n";
       return 1;
     }
   }
@@ -60,6 +60,9 @@ int main(int argc, char **argv) {
   legacy::PassManager PM;
   PM.add(new stack_deconstructor());
   PM.run(*Mod);
+
+  // Verify the transformation
+  verifyModule(*Mod.get(), &errs());
 
   // Output the Module content
   std::error_code EC;
