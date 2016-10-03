@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4)
-project(Allina)
+project(Allin)
 
 # LLVM detection part
 set(LLVM_ROOT "" CACHE PATH "Root of LLVM install.")

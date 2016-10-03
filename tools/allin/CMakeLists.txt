@@ -7,9 +7,9 @@ set(LLVM_LINK_COMPONENTS
   Support
 )
 
-add_llvm_tool(allina
-  allina.cpp
+add_llvm_tool(allin
+  allin.cpp
 )
-target_link_libraries(allina stack_deconstructor max_stack_height)
+target_link_libraries(allin stack_deconstructor max_stack_height)
 
 #add_definitions(${LLVM_DEFINITIONS})

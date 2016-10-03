@@ -1,1 +1,1 @@
-add_subdirectory(allina)
+add_subdirectory(allin)
