@@ -1,0 +1,37 @@
+Function: main: 8 pointers, 0 call sites
+  MustAlias:	%struct.regs* %0, i64** %sruct_field_addr
+  MayAlias:	%struct.regs* %0, i64* %aloca2_64
+  MayAlias:	i64* %aloca2_64, i64** %sruct_field_addr
+  MayAlias:	%struct.regs* %0, i16* %alloca2
+  MayAlias:	i16* %alloca2, i64** %sruct_field_addr
+  MustAlias:	i16* %alloca2, i64* %aloca2_64
+  MayAlias:	%struct.regs* %0, i8* %alloca2_bt
+  MayAlias:	i64** %sruct_field_addr, i8* %alloca2_bt
+  MustAlias:	i64* %aloca2_64, i8* %alloca2_bt
+  MustAlias:	i16* %alloca2, i8* %alloca2_bt
+  MayAlias:	%struct.regs* %0, i8* %_in_alloca2_1
+  MayAlias:	i64** %sruct_field_addr, i8* %_in_alloca2_1
+  PartialAlias:	i64* %aloca2_64, i8* %_in_alloca2_1
+  PartialAlias:	i16* %alloca2, i8* %_in_alloca2_1
+  NoAlias:	i8* %_in_alloca2_1, i8* %alloca2_bt
+  MayAlias:	%struct.regs* %0, i8* %_in_next_0
+  MayAlias:	i64** %sruct_field_addr, i8* %_in_next_0
+  PartialAlias:	i64* %aloca2_64, i8* %_in_next_0
+  NoAlias:	i16* %alloca2, i8* %_in_next_0
+  NoAlias:	i8* %_in_next_0, i8* %alloca2_bt
+  NoAlias:	i8* %_in_alloca2_1, i8* %_in_next_0
+  MayAlias:	%struct.regs* %0, i16* %_next_
+  MayAlias:	i16* %_next_, i64** %sruct_field_addr
+  PartialAlias:	i16* %_next_, i64* %aloca2_64
+  NoAlias:	i16* %_next_, i16* %alloca2
+  NoAlias:	i16* %_next_, i8* %alloca2_bt
+  NoAlias:	i16* %_next_, i8* %_in_alloca2_1
+  MustAlias:	i16* %_next_, i8* %_in_next_0
+===== Alias Analysis Evaluator Report =====
+  28 Total Alias Queries Performed
+  7 no alias responses (25.0%)
+  12 may alias responses (42.8%)
+  4 partial alias responses (14.2%)
+  5 must alias responses (17.8%)
+  Alias Analysis Evaluator Pointer Alias Summary: 25%/42%/14%/17%
+  Alias Analysis Mod/Ref Evaluator Summary: no mod/ref!
