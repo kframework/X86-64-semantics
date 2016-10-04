@@ -1,3 +1,186 @@
+```
+========= Def Use List =========
+  %78 = load i64, i64* %RSP_val
+	  %81 = add i64 %78, -24
+		  store i64 %81, i64* %RSP_val
+		  %90 = icmp slt i64 %81, 0
+			  store i1 %90, i1* %SF_val
+		  %89 = icmp eq i64 %81, 0
+			  store i1 %89, i1* %ZF_val
+		  %85 = trunc i64 %81 to i8
+			  %86 = tail call i8 @llvm.ctpop.i8(i8 %85)
+				  %87 = and i8 %86, 1
+					  %88 = icmp eq i8 %87, 0
+		  %82 = xor i64 %81, %79
+			  %92 = and i64 %82, %79
+				  %93 = icmp slt i64 %92, 0
+					  store i1 %93, i1* %OF_val
+			  %83 = and i64 %82, 16
+				  %84 = icmp eq i64 %83, 0
+					  store i1 %84, i1* %AF_val
+	  %79 = add i64 %78, -8
+		  %92 = and i64 %82, %79
+			  %93 = icmp slt i64 %92, 0
+				  store i1 %93, i1* %OF_val
+		  %91 = icmp ult i64 %79, 16
+			  store i1 %91, i1* %CF_val
+		  %82 = xor i64 %81, %79
+			  %92 = and i64 %82, %79
+				  %93 = icmp slt i64 %92, 0
+					  store i1 %93, i1* %OF_val
+			  %83 = and i64 %82, 16
+				  %84 = icmp eq i64 %83, 0
+					  store i1 %84, i1* %AF_val
+		  store i64 %79, i64* %RBP_val
+		  %80 = inttoptr i64 %79 to i64*
+			  store i64 %77, i64* %80
+========= Def Use List =========
+  %98 = load i64, i64* %RSP_val
+	  %99 = add i64 %98, -8
+		  store i64 %99, i64* %RSP_val
+		  %100 = inttoptr i64 %99 to i64*
+			  store i64 -4981261766360305936, i64* %100 ##
+
+                          TO
+
+  %98 = load i8, i8** %RSP_ptr
+	  %99 = getelementptr inbounds i8, i8* %8, -8
+		  store i8* %99, i8** %RSP_ptr
+		  %100 = bitcast i8* %99 to i64*
+			  store i64 -4981261766360305936, i64* %100
+========= Def Use List =========
+// We dont have to store back to struct as we are passing this RSP_val as an argument to callee   
+  %107 = load i64, i64* %RSP_val
+	  store i64 %107, i64* %RSP
+========= Def Use List =========
+  %253 = load i64, i64* %RSP_val
+	  %260 = xor i64 %253, -9223372036854775808
+		  %261 = and i64 %255, %260
+			  %262 = icmp slt i64 %261, 0
+				  store i1 %262, i1* %OF_val
+	  %255 = xor i64 %254, %253
+		  %261 = and i64 %255, %260
+			  %262 = icmp slt i64 %261, 0
+				  store i1 %262, i1* %OF_val
+		  %256 = and i64 %255, 16
+			  %257 = icmp eq i64 %256, 0
+				  store i1 %257, i1* %AF_val
+	  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16)
+		  %267 = extractvalue { i64, i1 } %uadd, 1
+			  store i1 %267, i1* %CF_val
+		  %254 = extractvalue { i64, i1 } %uadd, 0
+			  %270 = add i64 %254, 16
+				  store i64 %270, i64* %RSP_val
+			  %268 = inttoptr i64 %254 to i64*
+				  %269 = load i64, i64* %268
+					  store i64 %269, i64* %RBP_val
+			  store i64 %254, i64* %RSP_val
+			  %263 = trunc i64 %254 to i8
+				  %264 = tail call i8 @llvm.ctpop.i8(i8 %263)
+					  %265 = and i8 %264, 1
+			  %259 = icmp eq i64 %254, 0
+				  store i1 %259, i1* %ZF_val
+			  %258 = icmp slt i64 %254, 0
+				  store i1 %258, i1* %SF_val
+			  %255 = xor i64 %254, %253
+				  %261 = and i64 %255, %260
+					  %262 = icmp slt i64 %261, 0
+				  %256 = and i64 %255, 16
+					  %257 = icmp eq i64 %256, 0
+========= Def Use List =========
+// We dont have to store back to struct as we are passing this RSP_val as an argument to callee   
+  %277 = load i64, i64* %RSP_val
+	  store i64 %277, i64* %RSP
+========= Def Use List =========
+  %78 = load i64, i64* %RSP_val
+	  %81 = add i64 %78, -12
+		  %82 = inttoptr i64 %81 to i64*
+			  %85 = bitcast i64* %82 to i32*  ##
+				  store i32 %84, i32* %85 ##
+	  %79 = add i64 %78, -8
+		  store i64 %79, i64* %RBP_val
+		  store i64 %79, i64* %RSP_val
+		  %80 = inttoptr i64 %79 to i64*
+			  store i64 %77, i64* %80 ##
+
+                          TO
+
+  %78 = load i8, i8* %RSP_ptr
+	  %81 = getelementptr inbounds i8, i8* %78, -12
+		  %82 = bitcast i8* %81 to i64*
+			  %85 = bitcast i64* %82 to i32*
+				  store i32 %84, i32* %85
+	  %79 = getelementptr inbounds i8, i8* %78, -8
+		  store i8* %79, i8** %RBP_ptr
+		  store i8* %79, i64* %RSP_ptr
+		  %80 = bitcast i8* %79 to i64*
+			  store i64 %77, i64* %80
+========= Def Use List =========
+  %141 = load i64, i64* %RSP_val  
+	  %144 = add i64 %141, 16
+		  store i64 %144, i64* %RSP_val
+	  %142 = inttoptr i64 %141 to i64*
+		  %143 = load i64, i64* %142  
+			  store i64 %143, i64* %RBP_val  
+TO
+
+  %141 = load i8*, i8** %RSP_ptr
+	  %144 = getelementptr inbounds i8, i8* %141, 16
+		  store i8* %144, i8** %RSP_ptr
+	  %142 = bitcast i8* %141 to i64*
+		  %143 = load i64, i64* %142
+                          %145 = inttoptr i64 %143 to i8*
+			  store i8* %145, i8** %RBP_ptr
+
+========= Def Use List =========
+// We dont have to store back to struct as we are passing this RSP_val as an argument to callee   
+  %151 = load i64, i64* %RSP_val
+	  store i64 %151, i64* %RSP
+
+```
+
+
+```
+/* if we use RSP_ptr as i64** */
+RSP_ptr = i64*
+...
+
+// Usage 1
+%1  = load i64** RSP_ptr
+%2  = bitcast i64* %1 to i8*
+%3  = getelementptr i8, i8* %2, i32 offset
+%4 = bitcast i8* %3 to i32* 
+store i32 val, i32* %4
+
+// Usage 2
+%1  = load i64** RSP_ptr
+%2  = bitcast i64* %1 to i8*
+%3  = getelementptr i8, i8* %2, i32 offset
+%4 = bitcast i8* %3 to i64*
+store i64* %4, i64** %RSP_ptr
+
+/* if we use RSP_ptr as i8** */
+RSP\_ptr = i8*
+...
+
+// Usage 1
+%1  = load i8** RSP_ptr
+// NOT REQUIRED %2  = bitcast i64* %1 to i8*
+%3  = getelementptr i8, i8* %2, i32 offset
+%4 = bitcast i8* %3 to i32* 
+store i32 val, i32* %4
+
+// Usage 2
+%1  = load i8** RSP_ptr
+// NOT REQUIRED %2  = bitcast i64* %1 to i8*
+%3  = getelementptr i8, i8* %2, i32 offset
+// NOT REQUIRED %4 = bitcast i8* %3 to i64*
+store i64* %4, i8** %RSP_ptr
+
+```
+
+
+
 ### 21 Sept 2016
 
 ## Function prototype detection
