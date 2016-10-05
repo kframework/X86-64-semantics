@@ -8,6 +8,7 @@
 |:--------:	|:-----------------------------------------------------------------------------------------------------:	|:------------------------:	|:------------------------:	| 
 | test_1 	| func with many control flow paths 	| Stack height calculation 	| |
 | test_2 	| Passing scalar argumets on stack 	| Parent stack access using offsets from current stack 	| |
+| test_2_1 	| Minimal version of test_2  |  	|  | Used for debugging |
 | test_3 	| Passing parent stack pointer of an array as argumet to a function in registers  | Parent stack access using direct pointer to parent stack 	| Here the pointer is passed on in register; To access that there is a register load and we dont modify register loads | |
 | test_4 	| Passing parent stack pointer of an array as argumet to a function on stack  | Parent stack access using offset to parent stack 	| Here the pointer is passed on in stack; To access that there is offset calculation from current stack. ||
 | test_5 	| Passing a heap pointer of an array as argumet to a function in registers  | How heap pointers are distinguised from stack pointers 	| Here the pointer is passed on in register; To access that there is a register load and we dont modify register loads |
