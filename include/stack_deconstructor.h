@@ -29,8 +29,9 @@ private:
   DenseMap<const llvm::Function *, Value *> FunctionToFrameMap;
   DenseMap<llvm::Value *, llvm::Value *> convertMap;
   void deconstructStack(Function &);
-  Type *int8_type;
-  Type *ptr_to_int8_type;
+  IntegerType *int8_type;
+  IntegerType *int64_type;
+  PointerType *ptr_to_int8_type;
 
 public:
   static char ID;
@@ -44,26 +45,33 @@ public:
     AU.addRequired<max_stack_height>();
   };
 
-  Function *cloneFunctionWithExtraArgument(Function *);
-  void eraseReplacedInstructions();
-  void recordConverted(Instruction *From, Value *To);
+  // Create Local stack for each procedure
   bool createLocalStackFrame(Function &, Value **, Value **, Value**);
+
+  // Passing the parent stack as an argument
   void augmentFunctionWithParentStack(Function &, Value *, Value *, Value *);
+  Function *cloneFunctionWithExtraArgument(Function *);
+
+  // Modify the loads to access the parent stack, if required
   void modifyLoadsToAccessParentStack(Function &F, Value *, Value *);
   bool shouldConvertForParentStackAccess(Instruction *);
+
+  // General helper functions 
   static Constant *printf_prototype(LLVMContext &, Module *);
   Constant *geti8StrVal(Module &M, std::string, Twine const &name);
+  void recordConverted(Instruction *, Value *, bool=true, bool=true);
+  void eraseReplacedInstructions();
+  bool isLoadOfImp(Value*, StringRef);
 
   // Functions to transform code to facilitate alias analysis
   void convert(Instruction *, Value*, Value*);
   bool shouldConvert(Instruction *);
-  void handle_int2ptr(Instruction* I, Value *, Value *);
-  void handle_add(Instruction* I, Value *, Value *);
   void handle_load(Instruction* I, Value *, Value *);
   void handle_store(Instruction* I, Value *, Value *);
-  void handle_call(Instruction* I, Value *, Value *);
-  void handle_xor(Instruction* I, Value *, Value *);
-  void recordConverted2(Instruction *From, Value *To, bool = true, bool = true);
+  void handle_int2ptr(Instruction* I);
+  void handle_add(Instruction* I);
+  void handle_call(Instruction* I);
+  void handle_extractval(Instruction* I);
 };
 }
 
