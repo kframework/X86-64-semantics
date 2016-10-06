@@ -112,6 +112,12 @@
                                                / 
   ```
   - Implementation Details
+    - [test] (https://github.com/sdasgup3/binary-decompilation/blob/var_recovery/test/variable_recovery/test_0/test_0.c) 
+      [diff](https://github.com/sdasgup3/binary-decompilation/commit/6bdf336bedab73d3fa6b2a7aeb385a2ecd6a3a88) 
+
+    - [test] (https://github.com/sdasgup3/binary-decompilation/blob/var_recovery/test/variable_recovery/test_1/test_1.c)
+      [diff](https://github.com/sdasgup3/binary-decompilation/commit/ca0411e10489e11345d12e4bbd5b6ee29affa8c0)
+    - 
     - The transformation happens in 2 phases. First new instructions are added based on fact that loads/stores of i64\* RSP\_val (or RBP_val) 
       need to be replaced with corresponding loads/stores of i8** RSP_ptr (or RBP_ptr). But the old insructions are still kept. In the second phase 
       dce removes most if the dead instructions.
