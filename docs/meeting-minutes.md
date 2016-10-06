@@ -26,6 +26,24 @@
     store i64 1, i64* %3
     ret void
   }
+  $ opt -basicaa -aa-eval -print-alias-sets   test.ll -disable-output 
+  Alias sets for function 'foo':
+  Alias Set Tracker: 1 alias sets for 3 pointer values.
+  AliasSet[0x27a2c90, 3] may alias, Mod/Ref   Pointers: (i64* %RSP_val, 8), (i64* %1, 8), (i64* %3, 8)
+
+  $ opt -basicaa -aa-eval -print-all-alias-modref-info    test.ll -disable-output 
+  Function: foo: 5 pointers, 0 call sites
+  NoAlias:	i64* %RSP_val, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_local_stack_end_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
+
+  MayAlias:	i64* %1, i64* %RSP_val
+  MayAlias:	i64* %1, i8* %_local_stack_start_ptr_
+  MayAlias:	i64* %1, i8* %_local_stack_end_ptr_
+  MayAlias:	i64* %3, i64* %RSP_val
+  MayAlias:	i64* %3, i8* %_local_stack_start_ptr_
+  MayAlias:	i64* %3, i8* %_local_stack_end_ptr_
+  MayAlias:	i64* %1, i64* %3
 
   ; Consider the code after the transformation, test.trans.ll
   define internal void @foo() {
@@ -48,10 +66,6 @@
     ret void
   }
 
-  $ opt -basicaa -aa-eval -print-alias-sets   test.ll -disable-output 
-  Alias sets for function 'foo':
-  Alias Set Tracker: 1 alias sets for 3 pointer values.
-  AliasSet[0x27a2c90, 3] may alias, Mod/Ref   Pointers: (i64* %RSP_val, 8), (i64* %1, 8), (i64* %3, 8)
 
   $ opt -basicaa -aa-eval -print-alias-sets   test.trans.ll -disable-output 
   Alias sets for function 'foo':
@@ -59,20 +73,6 @@
   AliasSet[0x3760c40, 1] must alias, Mod/Ref   Pointers: (i8** %_RSP_ptr_, 8)
   AliasSet[0x3760ce0, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_, 8)
   AliasSet[0x3760d80, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_2, 8)
-
-  $ opt -basicaa -aa-eval -print-all-alias-modref-info    test.ll -disable-output 
-  Function: foo: 5 pointers, 0 call sites
-  NoAlias:	i64* %RSP_val, i8* %_local_stack_start_ptr_
-  NoAlias:	i64* %RSP_val, i8* %_local_stack_end_ptr_
-  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
-
-  MayAlias:	i64* %1, i64* %RSP_val
-  MayAlias:	i64* %1, i8* %_local_stack_start_ptr_
-  MayAlias:	i64* %1, i8* %_local_stack_end_ptr_
-  MayAlias:	i64* %3, i64* %RSP_val
-  MayAlias:	i64* %3, i8* %_local_stack_start_ptr_
-  MayAlias:	i64* %3, i8* %_local_stack_end_ptr_
-  MayAlias:	i64* %1, i64* %3
 
   $ opt -basicaa -aa-eval -print-all-alias-modref-info    test_2.trans.ll -disable-output 
   Function: foo: 7 pointers, 0 call sites
