@@ -1,205 +1,190 @@
-```
+### 06 Oct 2016
 
-  %84 = load i64, i64* %RBP_val, !mcsema_real_eip !70
-  %85 = add i64 %84, 40, !mcsema_real_eip !70
-  %86 = inttoptr i64 %85 to i64*, !mcsema_real_eip !70
-  %87 = load i64, i64* %86, !mcsema_real_eip !70
-  store i64 %87, i64* %RAX_val, !mcsema_real_eip !70
+#### Variable Recovery 
+##### Stage I: Transforming the mcsema generated IR so as to facilitate alias analysis 
+  - Because of the presenseof int2ptr in mcsema generated code, AA like basic AA is not 
+  giving any meaningful results. So we decide to avoid the int2ptr/ptrtoints as much as possible.
 
+  ```llvm
+  ; Consider the code before the transformation, test.ll
+  define internal void @foo() {
+    entry:
+    %_local_stack_alloc_ = alloca i64, i64 32
+    %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
+    %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
+    %_local_stack_end_ = add i64 %_local_stack_start_, 32
 
-  ; 1
-  %_new_load_4 = load i8*, i8** %_RBP_ptr_
-  %87 = load i64, i64* %RBP_val, !mcsema_real_eip !70
-  %_new_gep_5 = getelementptr i8, i8* %_new_load_4, i64 40
-  %88 = add i64 %87, 40, !mcsema_real_eip !70
-  %_new_bt_6 = bitcast i8* %_new_gep_5 to i64*
-  %89 = inttoptr i64 %88 to i64*, !mcsema_real_eip !70
-  %90 = load i64, i64* %_new_bt_6, !mcsema_real_eip !70
-  store i64 %90, i64* %RAX_val, !mcsema_real_eip !70
+    %RSP_val = alloca i64
 
+    store i64 %_local_stack_end_, i64* %RSP_val
 
-```
+    %0 = load i64, i64* %RSP_val
+    %1 = inttoptr i64 %0 to i64*
+    store i64 0, i64* %1
 
-```
-========= Def Use List =========
-  %78 = load i64, i64* %RSP_val
-	  %81 = add i64 %78, -24
-		  store i64 %81, i64* %RSP_val
-		  %90 = icmp slt i64 %81, 0
-			  store i1 %90, i1* %SF_val
-		  %89 = icmp eq i64 %81, 0
-			  store i1 %89, i1* %ZF_val
-		  %85 = trunc i64 %81 to i8
-			  %86 = tail call i8 @llvm.ctpop.i8(i8 %85)
-				  %87 = and i8 %86, 1
-					  %88 = icmp eq i8 %87, 0
-		  %82 = xor i64 %81, %79
-			  %92 = and i64 %82, %79
-				  %93 = icmp slt i64 %92, 0
-					  store i1 %93, i1* %OF_val
-			  %83 = and i64 %82, 16
-				  %84 = icmp eq i64 %83, 0
-					  store i1 %84, i1* %AF_val
-	  %79 = add i64 %78, -8
-		  %92 = and i64 %82, %79
-			  %93 = icmp slt i64 %92, 0
-				  store i1 %93, i1* %OF_val
-		  %91 = icmp ult i64 %79, 16
-			  store i1 %91, i1* %CF_val
-		  %82 = xor i64 %81, %79
-			  %92 = and i64 %82, %79
-				  %93 = icmp slt i64 %92, 0
-					  store i1 %93, i1* %OF_val
-			  %83 = and i64 %82, 16
-				  %84 = icmp eq i64 %83, 0
-					  store i1 %84, i1* %AF_val
-		  store i64 %79, i64* %RBP_val
-		  %80 = inttoptr i64 %79 to i64*
-			  store i64 %77, i64* %80
-========= Def Use List =========
-  %98 = load i64, i64* %RSP_val
-	  %99 = add i64 %98, -8
-		  store i64 %99, i64* %RSP_val
-		  %100 = inttoptr i64 %99 to i64*
-			  store i64 -4981261766360305936, i64* %100 ##
+    %2 = add i64 %0, -16
+    %3 = inttoptr i64 %2 to i64*
+    store i64 1, i64* %3
+    ret void
+  }
 
-                          TO
+  ; Consider the code after the transformation, test.trans.ll
+  define internal void @foo() {
+  entry:
+    %_RSP_ptr_ = alloca i8*, i64 0
+    %_local_stack_start_ptr_ = alloca i8, i64 0
+    %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+    store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
 
-  %98 = load i8, i8** %RSP_ptr
-	  %99 = getelementptr inbounds i8, i8* %8, -8
-		  store i8* %99, i8** %RSP_ptr
-		  %100 = bitcast i8* %99 to i64*
-			  store i64 -4981261766360305936, i64* %100
-========= Def Use List =========
-// We dont have to store back to struct as we are passing this RSP_val as an argument to callee   
-  %107 = load i64, i64* %RSP_val
-	  store i64 %107, i64* %RSP
-========= Def Use List =========
-  %253 = load i64, i64* %RSP_val
-	  %260 = xor i64 %253, -9223372036854775808
-		  %261 = and i64 %255, %260
-			  %262 = icmp slt i64 %261, 0
-				  store i1 %262, i1* %OF_val
-	  %255 = xor i64 %254, %253
-		  %261 = and i64 %255, %260
-			  %262 = icmp slt i64 %261, 0
-				  store i1 %262, i1* %OF_val
-		  %256 = and i64 %255, 16
-			  %257 = icmp eq i64 %256, 0
-				  store i1 %257, i1* %AF_val
-	  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16)
-		  %267 = extractvalue { i64, i1 } %uadd, 1
-			  store i1 %267, i1* %CF_val
-		  %254 = extractvalue { i64, i1 } %uadd, 0
-			  %270 = add i64 %254, 16
-				  store i64 %270, i64* %RSP_val
-			  %268 = inttoptr i64 %254 to i64*
-				  %269 = load i64, i64* %268
-					  store i64 %269, i64* %RBP_val
-			  store i64 %254, i64* %RSP_val
-			  %263 = trunc i64 %254 to i8
-				  %264 = tail call i8 @llvm.ctpop.i8(i8 %263)
-					  %265 = and i8 %264, 1
-			  %259 = icmp eq i64 %254, 0
-				  store i1 %259, i1* %ZF_val
-			  %258 = icmp slt i64 %254, 0
-				  store i1 %258, i1* %SF_val
-			  %255 = xor i64 %254, %253
-				  %261 = and i64 %255, %260
-					  %262 = icmp slt i64 %261, 0
-				  %256 = and i64 %255, 16
-					  %257 = icmp eq i64 %256, 0
-========= Def Use List =========
-// We dont have to store back to struct as we are passing this RSP_val as an argument to callee   
-  %277 = load i64, i64* %RSP_val
-	  store i64 %277, i64* %RSP
-========= Def Use List =========
-  %78 = load i64, i64* %RSP_val
-	  %81 = add i64 %78, -12
-		  %82 = inttoptr i64 %81 to i64*
-			  %85 = bitcast i64* %82 to i32*  ##
-				  store i32 %84, i32* %85 ##
-	  %79 = add i64 %78, -8
-		  store i64 %79, i64* %RBP_val
-		  store i64 %79, i64* %RSP_val
-		  %80 = inttoptr i64 %79 to i64*
-			  store i64 %77, i64* %80 ##
+    %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
+    %_allin_new_bt_ = bitcast i8* %_load_rsp_ptr_ to i64*
+    store i64 0, i64* %_allin_new_bt_
 
-                          TO
+    %_new_gep_ = getelementptr i8, i8* %_load_rsp_ptr_, i64 -16
+    %_allin_new_bt_2 = bitcast i8* %_new_gep_ to i64*
+    store i64 1, i64* %_allin_new_bt_2
+    ret void
+  }
 
-  %78 = load i8, i8* %RSP_ptr
-	  %81 = getelementptr inbounds i8, i8* %78, -12
-		  %82 = bitcast i8* %81 to i64*
-			  %85 = bitcast i64* %82 to i32*
-				  store i32 %84, i32* %85
-	  %79 = getelementptr inbounds i8, i8* %78, -8
-		  store i8* %79, i8** %RBP_ptr
-		  store i8* %79, i64* %RSP_ptr
-		  %80 = bitcast i8* %79 to i64*
-			  store i64 %77, i64* %80
-========= Def Use List =========
-  %141 = load i64, i64* %RSP_val  
-	  %144 = add i64 %141, 16
-		  store i64 %144, i64* %RSP_val
-	  %142 = inttoptr i64 %141 to i64*
-		  %143 = load i64, i64* %142  
-			  store i64 %143, i64* %RBP_val  
-TO
+  $ opt -basicaa -aa-eval -print-alias-sets   test.ll -disable-output 
+  Alias sets for function 'foo':
+  Alias Set Tracker: 1 alias sets for 3 pointer values.
+  AliasSet[0x37aac90, 3] may alias, Mod/Ref   Pointers: (i64* %RSP_val, 8), (i64* %1, 8), (i64* %3, 8)
 
-  %141 = load i8*, i8** %RSP_ptr
-	  %144 = getelementptr inbounds i8, i8* %141, 16
-		  store i8* %144, i8** %RSP_ptr
-	  %142 = bitcast i8* %141 to i64*
-		  %143 = load i64, i64* %142
-                          %145 = inttoptr i64 %143 to i8*
-			  store i8* %145, i8** %RBP_ptr
+  $ opt -basicaa -aa-eval -print-alias-sets   test.trans.ll -disable-output 
+  Alias sets for function 'foo':
+  Alias Set Tracker: 3 alias sets for 3 pointer values.
+  AliasSet[0x439abc0, 1] must alias, Mod/Ref   Pointers: (i8** %_RSP_ptr_, 8)
+  AliasSet[0x439ac60, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_, 8)
+  AliasSet[0x439ad00, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_2, 8)
 
-========= Def Use List =========
-// We dont have to store back to struct as we are passing this RSP_val as an argument to callee   
-  %151 = load i64, i64* %RSP_val
-	  store i64 %151, i64* %RSP
+  $ opt -basicaa -aa-eval -print-all-alias-modref-info    test_2.ll -disable-output 
+  Function: foo: 5 pointers, 0 call sites
+  MustAlias:	i64* %_local_stack_alloc_, i64* %_local_stack_start_ptr_
 
-```
+  NoAlias:	i64* %RSP_val, i64* %_local_stack_alloc_
+  NoAlias:	i64* %RSP_val, i64* %_local_stack_start_ptr_
+
+  MayAlias:	i64* %1, i64* %_local_stack_alloc_
+  MayAlias:	i64* %1, i64* %_local_stack_start_ptr_
+  MayAlias:	i64* %1, i64* %RSP_val
+  MayAlias:	i64* %3, i64* %_local_stack_alloc_
+  MayAlias:	i64* %3, i64* %_local_stack_start_ptr_
+  MayAlias:	i64* %3, i64* %RSP_val
+  MayAlias:	i64* %1, i64* %3
+
+  $ opt -basicaa -aa-eval -print-all-alias-modref-info    test_2.trans.ll -disable-output 
+  Function: foo: 7 pointers, 0 call sites
+  MustAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
+  MustAlias:	i64* %_allin_new_bt_, i8* %_load_rsp_ptr_
+  MustAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_
+
+  NoAlias:	i8* %_local_stack_start_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_load_rsp_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_start_ptr_
+  NoAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %_allin_new_bt_, i8** %_RSP_ptr_
+  NoAlias:	i64* %_allin_new_bt_, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %_allin_new_bt_, i8* %_local_stack_end_ptr_
+  NoAlias:	i8* %_new_gep_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_
+  NoAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_
+  NoAlias:	i64* %_allin_new_bt_, i8* %_new_gep_
+  NoAlias:	i64* %_allin_new_bt_2, i8** %_RSP_ptr_
+  NoAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %_allin_new_bt_2, i8* %_load_rsp_ptr_
+  NoAlias:	i64* %_allin_new_bt_, i64* %_allin_new_bt_2
+  ```
+  Now Consider the scenario after the transformation
+  ```
+
+  ```
 
 
-```
-/* if we use RSP_ptr as i64** */
-RSP_ptr = i64*
-...
+  - With this transformation all the [tests](https://github.com/sdasgup3/binary-decompilation/tree/master/test) are passing. 
+  ```
+    Fromat::binary --> tool::Mcsema --> Format::LLVM IR --> Tool::ALLIN --> Format::IR
+                                            |                                   | 
+                                            |                                   |
+                                            |                                   |____\ Tool::clang --> Output2
+                                            |                                        /
+                                            |__\ Tool::clang --> Output1         Passing Definition: Output 1 == Output 2
+                                               / 
+  ```
+  - Implementation Details
+    - The transformation happens in 2 phases. First new instructions are added based on fact that loads/stores of i64\* RSP\_val (or RBP_val) 
+      need to be replaced with corresponding loads/stores of i8** RSP_ptr (or RBP_ptr). But the old insructions are still kept. In the second phase 
+      dce removes most if the dead instructions.
 
-// Usage 1
-%1  = load i64** RSP_ptr
-%2  = bitcast i64* %1 to i8*
-%3  = getelementptr i8, i8* %2, i32 offset
-%4 = bitcast i8* %3 to i32* 
-store i32 val, i32* %4
+      ```llvm
+        ; %rax = MEM[rbp + 40]
+        %84 = load i64, i64* %RBP_val
+        %85 = add i64 %84, 40
+        %86 = inttoptr i64 %85 to i64*
+        %87 = load i64, i64* %86
+        store i64 %87, i64* %RAX_val
 
-// Usage 2
-%1  = load i64** RSP_ptr
-%2  = bitcast i64* %1 to i8*
-%3  = getelementptr i8, i8* %2, i32 offset
-%4 = bitcast i8* %3 to i64*
-store i64* %4, i64** %RSP_ptr
+        ; Phase 1
+        %_new_load_4 = load i8*, i8** %_RBP_ptr_
+        %87 = load i64, i64* %RBP_val
 
-/* if we use RSP_ptr as i8** */
-RSP\_ptr = i8*
-...
+        %_new_gep_5 = getelementptr i8, i8* %_new_load_4, i64 40
+        %88 = add i64 %87, 40
 
-// Usage 1
-%1  = load i8** RSP_ptr
-// NOT REQUIRED %2  = bitcast i64* %1 to i8*
-%3  = getelementptr i8, i8* %2, i32 offset
-%4 = bitcast i8* %3 to i32* 
-store i32 val, i32* %4
+        %_new_bt_6 = bitcast i8* %_new_gep_5 to i64*
+        %89 = inttoptr i64 %88 to i64*
 
-// Usage 2
-%1  = load i8** RSP_ptr
-// NOT REQUIRED %2  = bitcast i64* %1 to i8*
-%3  = getelementptr i8, i8* %2, i32 offset
-// NOT REQUIRED %4 = bitcast i8* %3 to i64*
-store i64* %4, i8** %RSP_ptr
+        %90 = load i64, i64* %_new_bt_6
+        store i64 %90, i64* %RAX_val
 
-```
+        ; Phase 2; After dce
+        %_new_load_4 = load i8*, i8** %_RBP_ptr_
+        %_new_gep_5 = getelementptr i8, i8* %_new_load_4, i64 40
+        %_new_bt_6 = bitcast i8* %_new_gep_5 to i64*
+        %90 = load i64, i64* %_new_bt_6
+      ```
+  - Whats is going to be the pointer type of RSP_ptr or RBP_ptr 
+  ```
+    /* if we use RSP_ptr as i64** */
+    RSP_ptr = i64* alloca
+    ...
+
+    // Usage 1
+  %1  = load i64** RSP_ptr
+  %2  = bitcast i64* %1 to i8*
+  %3  = getelementptr i8, i8* %2, i32 offset
+  %4 = bitcast i8* %3 to i32* 
+  store i32 val, i32* %4
+
+  // Usage 2
+  %1  = load i64** RSP_ptr
+  %2  = bitcast i64* %1 to i8*
+  %3  = getelementptr i8, i8* %2, i32 offset
+  %4 = bitcast i8* %3 to i64*
+  store i64* %4, i64** %RSP_ptr
+
+  /* if we use RSP_ptr as i8** */
+  RSP\_ptr = i8*
+  ...
+
+  // Usage 1
+  %1  = load i8** RSP_ptr
+  // NOT REQUIRED %2  = bitcast i64* %1 to i8*
+  %3  = getelementptr i8, i8* %2, i32 offset
+  %4 = bitcast i8* %3 to i32* 
+  store i32 val, i32* %4
+
+  // Usage 2
+  %1  = load i8** RSP_ptr
+  // NOT REQUIRED %2  = bitcast i64* %1 to i8*
+  %3  = getelementptr i8, i8* %2, i32 offset
+  // NOT REQUIRED %4 = bitcast i8* %3 to i64*
+  store i64* %4, i8** %RSP_ptr
+
+  ```
 
 
 
