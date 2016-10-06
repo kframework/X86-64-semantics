@@ -1,10 +1,13 @@
-int foo(int x) {
+typedef struct {
+int x,y;
+} Point;
 
-  int local_var1;
-  int local_var2;
-
-  local_var1 = x ;
-  local_var2 = x -1;
-
-  return x != 0 && 0 == (local_var1 & local_var2); 
+int main(){
+  int i;
+  Point p[5];
+  for(i=0;i<5;++i) {
+    p[i].x = 1;
+    p[i].y = 2;
+  }
+  return p[0].y;
 }
