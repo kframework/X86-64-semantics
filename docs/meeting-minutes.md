@@ -8,13 +8,12 @@
   ```llvm
   ; Consider the code before the transformation, test.ll
   define internal void @foo() {
-    entry:
-    %_local_stack_alloc_ = alloca i64, i64 32
-    %_local_stack_start_ptr_ = getelementptr inbounds i64, i64* %_local_stack_alloc_, i32 0
-    %_local_stack_start_ = ptrtoint i64* %_local_stack_start_ptr_ to i64
-    %_local_stack_end_ = add i64 %_local_stack_start_, 32
-
+  entry:
     %RSP_val = alloca i64
+
+    %_local_stack_start_ptr_ = alloca i8, i64 32
+    %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 32
+    %_local_stack_end_ = ptrtoint i8* %_local_stack_end_ptr_  to i64
 
     store i64 %_local_stack_end_, i64* %RSP_val
 
@@ -31,9 +30,12 @@
   ; Consider the code after the transformation, test.trans.ll
   define internal void @foo() {
   entry:
-    %_RSP_ptr_ = alloca i8*, i64 0
-    %_local_stack_start_ptr_ = alloca i8, i64 0
-    %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
+    %_RSP_ptr_ = alloca i8*
+
+    %_local_stack_start_ptr_ = alloca i8, i64 32
+    %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 32
+
+
     store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
 
     %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
@@ -49,60 +51,55 @@
   $ opt -basicaa -aa-eval -print-alias-sets   test.ll -disable-output 
   Alias sets for function 'foo':
   Alias Set Tracker: 1 alias sets for 3 pointer values.
-  AliasSet[0x37aac90, 3] may alias, Mod/Ref   Pointers: (i64* %RSP_val, 8), (i64* %1, 8), (i64* %3, 8)
+  AliasSet[0x27a2c90, 3] may alias, Mod/Ref   Pointers: (i64* %RSP_val, 8), (i64* %1, 8), (i64* %3, 8)
 
   $ opt -basicaa -aa-eval -print-alias-sets   test.trans.ll -disable-output 
   Alias sets for function 'foo':
   Alias Set Tracker: 3 alias sets for 3 pointer values.
-  AliasSet[0x439abc0, 1] must alias, Mod/Ref   Pointers: (i8** %_RSP_ptr_, 8)
-  AliasSet[0x439ac60, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_, 8)
-  AliasSet[0x439ad00, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_2, 8)
+  AliasSet[0x3760c40, 1] must alias, Mod/Ref   Pointers: (i8** %_RSP_ptr_, 8)
+  AliasSet[0x3760ce0, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_, 8)
+  AliasSet[0x3760d80, 1] must alias, Mod       Pointers: (i64* %_allin_new_bt_2, 8)
 
-  $ opt -basicaa -aa-eval -print-all-alias-modref-info    test_2.ll -disable-output 
+  $ opt -basicaa -aa-eval -print-all-alias-modref-info    test.ll -disable-output 
   Function: foo: 5 pointers, 0 call sites
-  MustAlias:	i64* %_local_stack_alloc_, i64* %_local_stack_start_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_local_stack_end_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
 
-  NoAlias:	i64* %RSP_val, i64* %_local_stack_alloc_
-  NoAlias:	i64* %RSP_val, i64* %_local_stack_start_ptr_
-
-  MayAlias:	i64* %1, i64* %_local_stack_alloc_
-  MayAlias:	i64* %1, i64* %_local_stack_start_ptr_
   MayAlias:	i64* %1, i64* %RSP_val
-  MayAlias:	i64* %3, i64* %_local_stack_alloc_
-  MayAlias:	i64* %3, i64* %_local_stack_start_ptr_
+  MayAlias:	i64* %1, i8* %_local_stack_start_ptr_
+  MayAlias:	i64* %1, i8* %_local_stack_end_ptr_
   MayAlias:	i64* %3, i64* %RSP_val
+  MayAlias:	i64* %3, i8* %_local_stack_start_ptr_
+  MayAlias:	i64* %3, i8* %_local_stack_end_ptr_
   MayAlias:	i64* %1, i64* %3
 
   $ opt -basicaa -aa-eval -print-all-alias-modref-info    test_2.trans.ll -disable-output 
   Function: foo: 7 pointers, 0 call sites
-  MustAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
   MustAlias:	i64* %_allin_new_bt_, i8* %_load_rsp_ptr_
   MustAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_
 
   NoAlias:	i8* %_local_stack_start_ptr_, i8** %_RSP_ptr_
   NoAlias:	i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
   NoAlias:	i8* %_load_rsp_ptr_, i8** %_RSP_ptr_
-  NoAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_start_ptr_
-  NoAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_end_ptr_
   NoAlias:	i64* %_allin_new_bt_, i8** %_RSP_ptr_
-  NoAlias:	i64* %_allin_new_bt_, i8* %_local_stack_start_ptr_
-  NoAlias:	i64* %_allin_new_bt_, i8* %_local_stack_end_ptr_
   NoAlias:	i8* %_new_gep_, i8** %_RSP_ptr_
-  NoAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_
-  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_
   NoAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_
   NoAlias:	i64* %_allin_new_bt_, i8* %_new_gep_
   NoAlias:	i64* %_allin_new_bt_2, i8** %_RSP_ptr_
-  NoAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_start_ptr_
-  NoAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_end_ptr_
   NoAlias:	i64* %_allin_new_bt_2, i8* %_load_rsp_ptr_
   NoAlias:	i64* %_allin_new_bt_, i64* %_allin_new_bt_2
-  ```
-  Now Consider the scenario after the transformation
-  ```
 
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_start_ptr_
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_end_ptr_
+  MayAlias:	i64* %_allin_new_bt_, i8* %_local_stack_start_ptr_
+  MayAlias:	i64* %_allin_new_bt_, i8* %_local_stack_end_ptr_
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_start_ptr_
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_end_ptr_
   ```
-
 
   - With this transformation all the [tests](https://github.com/sdasgup3/binary-decompilation/tree/master/test) are passing. 
   ```
