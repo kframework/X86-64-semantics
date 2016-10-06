@@ -1,18 +1,22 @@
-; ModuleID = 'Output/test_1.clang.bc'
+; ModuleID = 'Output/test_1.clang.trans.bc'
 source_filename = "Output/test_1.clang.bc"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
 %struct.regs = type <{ i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64,
   %i64, i64, i64, i64, i64, i64, i1, i1, i1, i1, i1, i1, i1, [8 x x86_fp80],
-  %i1, i1, i3, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i2, i2, i1,
-  %i1, i1, i1, i1, i1, [8 x i8], i16, i64, i16, i64, i11, i128, i128, i128,
+  %i1, i1, i3, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i2, i2, i1, i1,
+  %i1, i1, i1, i1, [8 x i8], i16, i64, i16, i64, i11, i128, i128, i128, i128,
   %i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128,
-  %i128, i64, i64 }>
+  %i64, i64 }>
 
-; Function Attrs: nounwind
-define internal x86_64_sysvcc void @sub_0(%struct.regs*) #0 {
+define internal x86_64_sysvcc void @sub_0(%struct.regs*) {
 entry:
+  %_RSP_ptr_ = alloca i8*, i64 56
+  %_RBP_ptr_ = alloca i8*, i64 56
+  %_local_stack_start_ptr_ = alloca i8, i64 56
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 56
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
   
   %DF_val = alloca i1
   %OF_val = alloca i1
@@ -78,33 +82,36 @@ entry:
 
   ; push   %rbp
   ; mov %rsp,%rbp
-  %foo77 = load i64, i64* %RBP_val
+  %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
+  %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
   %foo78 = load i64, i64* %RSP_val
+  %_new_gep_ = getelementptr i8, i8* %_load_rsp_ptr_, i64 -8
   %foo79 = add i64 %foo78, -8
-  %foo80 = inttoptr i64 %foo79 to i64*
-  store i64 %foo77, i64* %foo80
+  %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
+  %_new_ptr2int_ = ptrtoint i8* %_load_rbp_ptr_ to i64
+  store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_
   store i64 %foo79, i64* %RSP_val
+  store volatile i8* %_new_gep_, i8** %_RBP_ptr_
   store i64 %foo79, i64* %RBP_val
 
   ; movl   $0x0,-0x4(%rbp)
-  %foo81 = add i64 %foo78, -12
-  %foo82 = inttoptr i64 %foo81 to i64*
-  %foo83 = bitcast i64* %foo82 to i32*
+  %_new_gep_1 = getelementptr i8, i8* %_load_rsp_ptr_, i64 -12
+  %_allin_new_bt_2 = bitcast i8* %_new_gep_1 to i64*
+  %foo83 = bitcast i64* %_allin_new_bt_2 to i32*
   store i32 0, i32* %foo83
-
-  ; movl   $0x0,-0x8(%rbp)
-  %foo84 = load i64, i64* %RBP_val
-  %foo85 = add i64 %foo84, -8
-  %foo86 = inttoptr i64 %foo85 to i64*
-  %foo87 = bitcast i64* %foo86 to i32*
+  %_load_rbp_ptr_3 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_4 = getelementptr i8, i8* %_load_rbp_ptr_3, i64 -8
+  %_allin_new_bt_5 = bitcast i8* %_new_gep_4 to i64*
+  %foo87 = bitcast i64* %_allin_new_bt_5 to i32*
   store i32 0, i32* %foo87
 
   ; cmpl   $0x5,-0x8(%rbp)
   ; jge    42 <main+0x42>
-  %foo88 = load i64, i64* %RBP_val
-  %foo89 = add i64 %foo88, -8
-  %foo90 = inttoptr i64 %foo89 to i64*
-  %foo91 = bitcast i64* %foo90 to i32*
+  %_load_rbp_ptr_6 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_7 = getelementptr i8, i8* %_load_rbp_ptr_6, i64 -8
+  %_allin_new_bt_8 = bitcast i8* %_new_gep_7 to i64*
+  %foo91 = bitcast i64* %_allin_new_bt_8 to i32*
   %foo92 = load i32, i32* %foo91
   %foo93 = add i32 %foo92, -5
   %foo94 = xor i32 %foo93, %foo92
@@ -137,20 +144,25 @@ block_0x42.loopexit:                              ; preds = %block_0x1c
 block_0x42:                                       ; preds = %block_0x42.loopexit, %entry
 
   ; mov    -0x2c(%rbp),%eax
-  %foo106 = load i64, i64* %RBP_val
-  %foo107 = add i64 %foo106, -44
-  %foo108 = inttoptr i64 %foo107 to i64*
-  %foo109 = bitcast i64* %foo108 to i32*
+  %_load_rbp_ptr_9 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_10 = getelementptr i8, i8* %_load_rbp_ptr_9, i64 -44
+  %_allin_new_bt_11 = bitcast i8* %_new_gep_10 to i64*
+  %foo109 = bitcast i64* %_allin_new_bt_11 to i32*
   %foo110 = load i32, i32* %foo109
   %foo111 = zext i32 %foo110 to i64
   store i64 %foo111, i64* %RAX_val
 
   ; pop rbp
+  %_load_rsp_ptr_12 = load i8*, i8** %_RSP_ptr_
   %foo112 = load i64, i64* %RSP_val
-  %foo113 = inttoptr i64 %foo112 to i64*
-  %foo114 = load i64, i64* %foo113
+  %_allin_new_bt_13 = bitcast i8* %_load_rsp_ptr_12 to i64*
+  %foo114 = load i64, i64* %_allin_new_bt_13
+  %_new_int2ptr_ = inttoptr i64 %foo114 to i8*
+  store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
   store i64 %foo114, i64* %RBP_val
+  %_new_gep_14 = getelementptr i8, i8* %_load_rsp_ptr_12, i64 16
   %foo115 = add i64 %foo112, 16
+  store volatile i8* %_new_gep_14, i8** %_RSP_ptr_
   store i64 %foo115, i64* %RSP_val
 
   ; struct winding
@@ -189,47 +201,47 @@ block_0x42:                                       ; preds = %block_0x42.loopexit
 block_0x1c:                                       ; preds = %block_0x1c, %block_0x1c.preheader
 
   ; movslq -0x8(%rbp),%rax
-  %foo186 = load i64, i64* %RBP_val
-  %foo187 = add i64 %foo186, -8
-  %foo188 = inttoptr i64 %foo187 to i64*
-  %foo189 = bitcast i64* %foo188 to i32*
+  %_load_rbp_ptr_19 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_20 = getelementptr i8, i8* %_load_rbp_ptr_19, i64 -8
+  %_allin_new_bt_21 = bitcast i8* %_new_gep_20 to i64*
+  %foo189 = bitcast i64* %_allin_new_bt_21 to i32*
   %foo190 = load i32, i32* %foo189
   %foo191 = sext i32 %foo190 to i64
   store i64 %foo191, i64* %RAX_val
 
   ; movl   $0x1,-0x30(%rbp,%rax,8) == [%rbp - 48 + %rax*8] = 1
-  %foo192 = load i64, i64* %RBP_val
-  %foo193 = add i64 %foo192, -48
+  %_load_rbp_ptr_22 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_23 = getelementptr i8, i8* %_load_rbp_ptr_22, i64 -48
   %foo194 = shl nsw i64 %foo191, 3
-  %foo195 = add i64 %foo193, %foo194
-  %foo196 = inttoptr i64 %foo195 to i64*
-  %foo197 = bitcast i64* %foo196 to i32*
+  %_new_gep_24 = getelementptr i8, i8* %_new_gep_23, i64 %foo194
+  %_allin_new_bt_25 = bitcast i8* %_new_gep_24 to i64*
+  %foo197 = bitcast i64* %_allin_new_bt_25 to i32*
   store i32 1, i32* %foo197
 
   ; movslq -0x8(%rbp),%rax
-  %foo198 = load i64, i64* %RBP_val
-  %foo199 = add i64 %foo198, -8
-  %foo200 = inttoptr i64 %foo199 to i64*
-  %foo201 = bitcast i64* %foo200 to i32*
+  %_load_rbp_ptr_26 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_27 = getelementptr i8, i8* %_load_rbp_ptr_26, i64 -8
+  %_allin_new_bt_28 = bitcast i8* %_new_gep_27 to i64*
+  %foo201 = bitcast i64* %_allin_new_bt_28 to i32*
   %foo202 = load i32, i32* %foo201
   %foo203 = sext i32 %foo202 to i64
   store i64 %foo203, i64* %RAX_val
 
   ; movl   $0x2,-0x2c(%rbp,%rax,8)
-  %foo204 = load i64, i64* %RBP_val
-  %foo205 = add i64 %foo204, -44
+  %_load_rbp_ptr_29 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_30 = getelementptr i8, i8* %_load_rbp_ptr_29, i64 -44
   %foo206 = shl nsw i64 %foo203, 3
-  %foo207 = add i64 %foo205, %foo206
-  %foo208 = inttoptr i64 %foo207 to i64*
-  %foo209 = bitcast i64* %foo208 to i32*
+  %_new_gep_31 = getelementptr i8, i8* %_new_gep_30, i64 %foo206
+  %_allin_new_bt_32 = bitcast i8* %_new_gep_31 to i64*
+  %foo209 = bitcast i64* %_allin_new_bt_32 to i32*
   store i32 2, i32* %foo209
 
   ; mov    -0x8(%rbp),%eax
   ; add    $0x1,%eax
-  %foo210 = load i64, i64* %RBP_val
-  %foo211 = add i64 %foo210, -8
-  %foo212 = inttoptr i64 %foo211 to i64*
-  %foo213 = bitcast i64* %foo212 to i32*
+  %_load_rbp_ptr_33 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_34 = getelementptr i8, i8* %_load_rbp_ptr_33, i64 -8
+  %_allin_new_bt_35 = bitcast i8* %_new_gep_34 to i64*
+  %foo213 = bitcast i64* %_allin_new_bt_35 to i32*
   %foo214 = load i32, i32* %foo213
   %uadd = tail call { i32, i1 } @llvm.uadd.with.overflow.i32(i32 %foo214, i32 1)
   %foo215 = extractvalue { i32, i1 } %uadd, 0
@@ -258,18 +270,18 @@ block_0x1c:                                       ; preds = %block_0x1c, %block_
   store i64 %foo229, i64* %RAX_val
 
   ; mov    %eax,-0x8(%rbp)
-  %foo230 = load i64, i64* %RBP_val
-  %foo231 = add i64 %foo230, -8
-  %foo232 = inttoptr i64 %foo231 to i64*
-  %foo233 = bitcast i64* %foo232 to i32*
+  %_load_rbp_ptr_36 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_37 = getelementptr i8, i8* %_load_rbp_ptr_36, i64 -8
+  %_allin_new_bt_38 = bitcast i8* %_new_gep_37 to i64*
+  %foo233 = bitcast i64* %_allin_new_bt_38 to i32*
   store i32 %foo215, i32* %foo233
 
-  ;  cmpl   $0x5,-0x8(%rbp) ;
+   ;  cmpl   $0x5,-0x8(%rbp) ;
   ; jge    42 <main+0x42>
-  %foo234 = load i64, i64* %RBP_val
-  %foo235 = add i64 %foo234, -8
-  %foo236 = inttoptr i64 %foo235 to i64*
-  %foo237 = bitcast i64* %foo236 to i32*
+  %_load_rbp_ptr_39 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_40 = getelementptr i8, i8* %_load_rbp_ptr_39, i64 -8
+  %_allin_new_bt_41 = bitcast i8* %_new_gep_40 to i64*
+  %foo237 = bitcast i64* %_allin_new_bt_41 to i32*
   %foo238 = load i32, i32* %foo237
   %foo239 = add i32 %foo238, -5
   %foo240 = xor i32 %foo239, %foo238
