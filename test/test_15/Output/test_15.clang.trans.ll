@@ -11,12 +11,11 @@ target triple = "x86_64-pc-linux-gnu"
 ; Function Attrs: nounwind
 define internal x86_64_sysvcc void @sub_10(%struct.regs*) #0 {
 entry:
+  %_RSP_ptr_ = alloca i8*, i64 16
+  %_RBP_ptr_ = alloca i8*, i64 16
   %_local_stack_start_ptr_ = alloca i8, i64 16
   %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 16
-  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
-  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
-  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !2
@@ -108,7 +107,7 @@ entry:
   store i64 %6, i64* %RDI_val, !mcsema_real_eip !2
   %RSP = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
   %7 = load i64, i64* %RSP, !mcsema_real_eip !2
-  store i64 %_local_stack_end_, i64* %RSP_val
+  store i64 %7, i64* %RSP_val, !mcsema_real_eip !2
   %RBP = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
   %8 = load i64, i64* %RBP, !mcsema_real_eip !2
   store i64 %8, i64* %RBP_val, !mcsema_real_eip !2
@@ -304,31 +303,46 @@ entry:
   %STACK_LIMIT = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 71, !mcsema_real_eip !2
   %76 = load i64, i64* %STACK_LIMIT, !mcsema_real_eip !2
   store i64 %76, i64* %STACK_LIMIT_val, !mcsema_real_eip !2
+  %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
   %77 = load i64, i64* %RBP_val, !mcsema_real_eip !2
+  %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
   %78 = load i64, i64* %RSP_val, !mcsema_real_eip !2
+  %_new_gep_ = getelementptr i8, i8* %_load_rsp_ptr_, i64 -8
   %79 = add i64 %78, -8
+  %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
   %80 = inttoptr i64 %79 to i64*, !mcsema_real_eip !2
-  store i64 %77, i64* %80, !mcsema_real_eip !2
+  %_new_ptr2int_ = ptrtoint i8* %_load_rbp_ptr_ to i64
+  store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_
   store i64 %79, i64* %RSP_val, !mcsema_real_eip !2
+  store volatile i8* %_new_gep_, i8** %_RBP_ptr_
   store i64 %79, i64* %RBP_val, !mcsema_real_eip !3
+  %_new_gep_1 = getelementptr i8, i8* %_load_rsp_ptr_, i64 -12
   %81 = add i64 %78, -12, !mcsema_real_eip !4
+  %_allin_new_bt_2 = bitcast i8* %_new_gep_1 to i64*
   %82 = inttoptr i64 %81 to i64*, !mcsema_real_eip !4
   %83 = load i64, i64* %RDI_val, !mcsema_real_eip !4
   %84 = trunc i64 %83 to i32, !mcsema_real_eip !4
-  %85 = bitcast i64* %82 to i32*
+  %85 = bitcast i64* %_allin_new_bt_2 to i32*
   store i32 %84, i32* %85, !mcsema_real_eip !4
   %86 = load i32, i32* bitcast (%0* @data_0x37 to i32*), !mcsema_real_eip !5
   %87 = zext i32 %86 to i64, !mcsema_real_eip !5
   store i64 %87, i64* %RDI_val, !mcsema_real_eip !5
+  %_load_rbp_ptr_3 = load i8*, i8** %_RBP_ptr_
   %88 = load i64, i64* %RBP_val, !mcsema_real_eip !6
+  %_new_gep_4 = getelementptr i8, i8* %_load_rbp_ptr_3, i64 -8
   %89 = add i64 %88, -8, !mcsema_real_eip !6
+  %_allin_new_bt_5 = bitcast i8* %_new_gep_4 to i64*
   %90 = inttoptr i64 %89 to i64*, !mcsema_real_eip !6
-  %91 = bitcast i64* %90 to i32*
+  %91 = bitcast i64* %_allin_new_bt_5 to i32*
   store i32 %86, i32* %91, !mcsema_real_eip !6
+  %_load_rbp_ptr_6 = load i8*, i8** %_RBP_ptr_
   %92 = load i64, i64* %RBP_val, !mcsema_real_eip !7
+  %_new_gep_7 = getelementptr i8, i8* %_load_rbp_ptr_6, i64 -4
   %93 = add i64 %92, -4, !mcsema_real_eip !7
+  %_allin_new_bt_8 = bitcast i8* %_new_gep_7 to i64*
   %94 = inttoptr i64 %93 to i64*, !mcsema_real_eip !7
-  %95 = bitcast i64* %94 to i32*
+  %95 = bitcast i64* %_allin_new_bt_8 to i32*
   %96 = load i32, i32* %95, !mcsema_real_eip !7
   %97 = load i32, i32* bitcast (%0* @data_0x37 to i32*), !mcsema_real_eip !8
   %uadd = tail call { i32, i1 } @llvm.uadd.with.overflow.i32(i32 %96, i32 %97)
@@ -357,18 +371,27 @@ entry:
   %114 = zext i32 %98 to i64, !mcsema_real_eip !8
   store i64 %114, i64* %RDI_val, !mcsema_real_eip !8
   store i32 %98, i32* bitcast (%0* @data_0x37 to i32*), !mcsema_real_eip !9
+  %_load_rbp_ptr_9 = load i8*, i8** %_RBP_ptr_
   %115 = load i64, i64* %RBP_val, !mcsema_real_eip !10
+  %_new_gep_10 = getelementptr i8, i8* %_load_rbp_ptr_9, i64 -8
   %116 = add i64 %115, -8, !mcsema_real_eip !10
+  %_allin_new_bt_11 = bitcast i8* %_new_gep_10 to i64*
   %117 = inttoptr i64 %116 to i64*, !mcsema_real_eip !10
-  %118 = bitcast i64* %117 to i32*
+  %118 = bitcast i64* %_allin_new_bt_11 to i32*
   %119 = load i32, i32* %118, !mcsema_real_eip !10
   %120 = zext i32 %119 to i64, !mcsema_real_eip !10
   store i64 %120, i64* %RAX_val, !mcsema_real_eip !10
+  %_load_rsp_ptr_12 = load i8*, i8** %_RSP_ptr_
   %121 = load i64, i64* %RSP_val, !mcsema_real_eip !11
+  %_allin_new_bt_13 = bitcast i8* %_load_rsp_ptr_12 to i64*
   %122 = inttoptr i64 %121 to i64*, !mcsema_real_eip !11
-  %123 = load i64, i64* %122, !mcsema_real_eip !11
+  %123 = load i64, i64* %_allin_new_bt_13, !mcsema_real_eip !11
+  %_new_int2ptr_ = inttoptr i64 %123 to i8*
+  store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
   store i64 %123, i64* %RBP_val, !mcsema_real_eip !11
+  %_new_gep_14 = getelementptr i8, i8* %_load_rsp_ptr_12, i64 16
   %124 = add i64 %121, 16, !mcsema_real_eip !12
+  store volatile i8* %_new_gep_14, i8** %_RSP_ptr_
   store i64 %124, i64* %RSP_val, !mcsema_real_eip !12
   %125 = load i64, i64* %RAX_val, !mcsema_real_eip !12
   store i64 %125, i64* %RAX, !mcsema_real_eip !12
@@ -382,10 +405,14 @@ entry:
   store i64 %129, i64* %RSI, !mcsema_real_eip !12
   %130 = load i64, i64* %RDI_val, !mcsema_real_eip !12
   store i64 %130, i64* %RDI, !mcsema_real_eip !12
+  %_load_rsp_ptr_15 = load i8*, i8** %_RSP_ptr_
   %131 = load i64, i64* %RSP_val, !mcsema_real_eip !12
-  store i64 %131, i64* %RSP, !mcsema_real_eip !12
+  %_new_ptr2int_16 = ptrtoint i8* %_load_rsp_ptr_15 to i64
+  store volatile i64 %_new_ptr2int_16, i64* %RSP
+  %_load_rbp_ptr_17 = load i8*, i8** %_RBP_ptr_
   %132 = load i64, i64* %RBP_val, !mcsema_real_eip !12
-  store i64 %132, i64* %RBP, !mcsema_real_eip !12
+  %_new_ptr2int_18 = ptrtoint i8* %_load_rbp_ptr_17 to i64
+  store volatile i64 %_new_ptr2int_18, i64* %RBP
   %133 = load i64, i64* %R8_val, !mcsema_real_eip !12
   store i64 %133, i64* %R8, !mcsema_real_eip !12
   %134 = load i64, i64* %R9_val, !mcsema_real_eip !12
@@ -523,12 +550,11 @@ declare i8 @llvm.ctpop.i8(i8) #2
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) #0 {
 driverBlockRaw:
+  %_RSP_ptr_ = alloca i8*, i64 0
+  %_RBP_ptr_ = alloca i8*, i64 0
   %_local_stack_start_ptr_ = alloca i8, i64 0
   %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
-  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
-  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
-  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
   tail call x86_64_sysvcc void @sub_10(%struct.regs* %0)
   ret void
 }

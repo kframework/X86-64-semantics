@@ -11,26 +11,32 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture writeonly, i8* nocapture r
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) local_unnamed_addr #1 {
 driverBlockRaw:
-  %_local_stack_start_ptr_7.i = alloca [20 x i8], align 1
+  %_RSP_ptr_7.sroa.0.i = alloca i64, align 8
+  %_RBP_ptr_8.sroa.0.i = alloca i64, align 8
+  %_local_stack_start_ptr_9.i = alloca [20 x i8], align 1
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
-  %1 = getelementptr inbounds [20 x i8], [20 x i8]* %_local_stack_start_ptr_7.i, i64 0, i64 0
+  %_RSP_ptr_7.sroa.0.i.0..sroa_cast = bitcast i64* %_RSP_ptr_7.sroa.0.i to i8*
+  call void @llvm.lifetime.start(i64 8, i8* nonnull %_RSP_ptr_7.sroa.0.i.0..sroa_cast)
+  %_RBP_ptr_8.sroa.0.i.0..sroa_cast = bitcast i64* %_RBP_ptr_8.sroa.0.i to i8*
+  call void @llvm.lifetime.start(i64 8, i8* nonnull %_RBP_ptr_8.sroa.0.i.0..sroa_cast)
+  %1 = getelementptr inbounds [20 x i8], [20 x i8]* %_local_stack_start_ptr_9.i, i64 0, i64 0
   call void @llvm.lifetime.start(i64 20, i8* nonnull %1)
   %STi_val.i.0..sroa_cast = bitcast [8 x x86_fp80]* %STi_val.i to i8*
   call void @llvm.lifetime.start(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
-  %_local_stack_end_ptr_.i = getelementptr inbounds [20 x i8], [20 x i8]* %_local_stack_start_ptr_7.i, i64 0, i64 20
-  %_local_stack_end_.i = ptrtoint i8* %_local_stack_end_ptr_.i to i64
+  %_local_stack_end_ptr_.i = getelementptr inbounds [20 x i8], [20 x i8]* %_local_stack_start_ptr_9.i, i64 0, i64 20
+  %2 = ptrtoint i8* %_local_stack_end_ptr_.i to i64
+  store i64 %2, i64* %_RSP_ptr_7.sroa.0.i, align 8
   %RAX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0, !mcsema_real_eip !2
   %RBX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 1, !mcsema_real_eip !2
-  %2 = bitcast i64* %RBX.i to <2 x i64>*
-  %3 = load <2 x i64>, <2 x i64>* %2, align 8
+  %3 = bitcast i64* %RBX.i to <2 x i64>*
+  %4 = load <2 x i64>, <2 x i64>* %3, align 8
   %RDX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 3, !mcsema_real_eip !2
-  %4 = bitcast i64* %RDX.i to <2 x i64>*
-  %5 = load <2 x i64>, <2 x i64>* %4, align 8
+  %5 = bitcast i64* %RDX.i to <2 x i64>*
+  %6 = load <2 x i64>, <2 x i64>* %5, align 8
   %RDI.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 5, !mcsema_real_eip !2
-  %6 = load i64, i64* %RDI.i, align 8, !mcsema_real_eip !2
+  %7 = load i64, i64* %RDI.i, align 8, !mcsema_real_eip !2
   %RSP.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
   %RBP.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
-  %7 = load i64, i64* %RBP.i, align 8, !mcsema_real_eip !2
   %R8.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 8, !mcsema_real_eip !2
   %8 = bitcast i64* %R8.i to <2 x i64>*
   %9 = load <2 x i64>, <2 x i64>* %8, align 8
@@ -154,33 +160,51 @@ driverBlockRaw:
   %STACK_BASE.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 70, !mcsema_real_eip !2
   %72 = bitcast i64* %STACK_BASE.i to <2 x i64>*
   %73 = load <2 x i64>, <2 x i64>* %72, align 8
-  %74 = add i64 %_local_stack_end_.i, -8
-  %75 = inttoptr i64 %74 to i64*, !mcsema_real_eip !2
-  store i64 %7, i64* %75, align 8, !mcsema_real_eip !2
-  %76 = add i64 %_local_stack_end_.i, -16, !mcsema_real_eip !3
-  %77 = inttoptr i64 %76 to i64*, !mcsema_real_eip !3
-  store i64 %6, i64* %77, align 8, !mcsema_real_eip !3
-  %78 = add i64 %_local_stack_end_.i, -20, !mcsema_real_eip !4
-  %79 = inttoptr i64 %78 to i32*
-  store i32 10, i32* %79, align 4, !mcsema_real_eip !4
-  %80 = load i64, i64* %75, align 8, !mcsema_real_eip !5
-  %81 = add i64 %_local_stack_end_.i, 8, !mcsema_real_eip !6
-  store i64 10, i64* %RAX.i, align 8, !mcsema_real_eip !6
-  %82 = bitcast i64* %RBX.i to <2 x i64>*
-  store <2 x i64> %3, <2 x i64>* %82, align 8
-  %83 = bitcast i64* %RDX.i to <2 x i64>*
-  store <2 x i64> %5, <2 x i64>* %83, align 8
-  store i64 %6, i64* %RDI.i, align 8, !mcsema_real_eip !6
-  store i64 %81, i64* %RSP.i, align 8, !mcsema_real_eip !6
-  store i64 %80, i64* %RBP.i, align 8, !mcsema_real_eip !6
-  %84 = bitcast i64* %R8.i to <2 x i64>*
-  store <2 x i64> %9, <2 x i64>* %84, align 8
-  %85 = bitcast i64* %R10.i to <2 x i64>*
-  store <2 x i64> %11, <2 x i64>* %85, align 8
-  %86 = bitcast i64* %R12.i to <2 x i64>*
-  store <2 x i64> %13, <2 x i64>* %86, align 8
-  %87 = bitcast i64* %R14.i to <2 x i64>*
-  store <2 x i64> %15, <2 x i64>* %87, align 8
+  %_RBP_ptr_8.sroa.0.i.0._RBP_ptr_8.sroa.0.0._RBP_ptr_8.sroa.0.0._load_rbp_ptr_10.i = load i64, i64* %_RBP_ptr_8.sroa.0.i, align 8
+  %74 = bitcast i64* %_RSP_ptr_7.sroa.0.i to i8**
+  %_RSP_ptr_7.sroa.0.i.0._RSP_ptr_7.sroa.0.0._RSP_ptr_7.sroa.0.0._load_rsp_ptr_13.i4 = load i8*, i8** %74, align 8
+  %_new_gep_.i = getelementptr i8, i8* %_RSP_ptr_7.sroa.0.i.0._RSP_ptr_7.sroa.0.0._RSP_ptr_7.sroa.0.0._load_rsp_ptr_13.i4, i64 -8
+  %_allin_new_bt_.i = bitcast i8* %_new_gep_.i to i64*
+  store volatile i64 %_RBP_ptr_8.sroa.0.i.0._RBP_ptr_8.sroa.0.0._RBP_ptr_8.sroa.0.0._load_rbp_ptr_10.i, i64* %_allin_new_bt_.i, align 8
+  %75 = ptrtoint i8* %_new_gep_.i to i64
+  store volatile i64 %75, i64* %_RSP_ptr_7.sroa.0.i, align 8
+  store volatile i64 %75, i64* %_RBP_ptr_8.sroa.0.i, align 8
+  %_new_gep_1.i = getelementptr i8, i8* %_RSP_ptr_7.sroa.0.i.0._RSP_ptr_7.sroa.0.0._RSP_ptr_7.sroa.0.0._load_rsp_ptr_13.i4, i64 -16
+  %_allin_new_bt_2.i = bitcast i8* %_new_gep_1.i to i64*
+  store i64 %7, i64* %_allin_new_bt_2.i, align 8, !mcsema_real_eip !3
+  %76 = bitcast i64* %_RBP_ptr_8.sroa.0.i to i8**
+  %_RBP_ptr_8.sroa.0.i.0._RBP_ptr_8.sroa.0.0._RBP_ptr_8.sroa.0.0._load_rbp_ptr_314.i5 = load i8*, i8** %76, align 8
+  %_new_gep_4.i = getelementptr i8, i8* %_RBP_ptr_8.sroa.0.i.0._RBP_ptr_8.sroa.0.0._RBP_ptr_8.sroa.0.0._load_rbp_ptr_314.i5, i64 -12
+  %77 = bitcast i8* %_new_gep_4.i to i32*
+  store i32 10, i32* %77, align 4, !mcsema_real_eip !4
+  %_RBP_ptr_8.sroa.0.i.0._RBP_ptr_8.sroa.0.0._RBP_ptr_8.sroa.0.0._load_rbp_ptr_615.i6 = load i8*, i8** %76, align 8
+  %_new_gep_7.i = getelementptr i8, i8* %_RBP_ptr_8.sroa.0.i.0._RBP_ptr_8.sroa.0.0._RBP_ptr_8.sroa.0.0._load_rbp_ptr_615.i6, i64 -12
+  %78 = bitcast i8* %_new_gep_7.i to i32*
+  %79 = load i32, i32* %78, align 4, !mcsema_real_eip !5
+  %80 = zext i32 %79 to i64, !mcsema_real_eip !5
+  %_RSP_ptr_7.sroa.0.i.0._RSP_ptr_7.sroa.0.0._RSP_ptr_7.sroa.0.0._load_rsp_ptr_916.i7 = load i8*, i8** %74, align 8
+  %_allin_new_bt_10.i = bitcast i8* %_RSP_ptr_7.sroa.0.i.0._RSP_ptr_7.sroa.0.0._RSP_ptr_7.sroa.0.0._load_rsp_ptr_916.i7 to i64*
+  %81 = load i64, i64* %_allin_new_bt_10.i, align 8
+  store volatile i64 %81, i64* %_RBP_ptr_8.sroa.0.i, align 8
+  %_new_gep_11.i = getelementptr i8, i8* %_RSP_ptr_7.sroa.0.i.0._RSP_ptr_7.sroa.0.0._RSP_ptr_7.sroa.0.0._load_rsp_ptr_916.i7, i64 16
+  %82 = ptrtoint i8* %_new_gep_11.i to i64
+  store volatile i64 %82, i64* %_RSP_ptr_7.sroa.0.i, align 8
+  store i64 %80, i64* %RAX.i, align 8, !mcsema_real_eip !6
+  %83 = bitcast i64* %RBX.i to <2 x i64>*
+  store <2 x i64> %4, <2 x i64>* %83, align 8
+  %84 = bitcast i64* %RDX.i to <2 x i64>*
+  store <2 x i64> %6, <2 x i64>* %84, align 8
+  store i64 %7, i64* %RDI.i, align 8, !mcsema_real_eip !6
+  store volatile i64 %82, i64* %RSP.i, align 8
+  store volatile i64 %81, i64* %RBP.i, align 8
+  %85 = bitcast i64* %R8.i to <2 x i64>*
+  store <2 x i64> %9, <2 x i64>* %85, align 8
+  %86 = bitcast i64* %R10.i to <2 x i64>*
+  store <2 x i64> %11, <2 x i64>* %86, align 8
+  %87 = bitcast i64* %R12.i to <2 x i64>*
+  store <2 x i64> %13, <2 x i64>* %87, align 8
+  %88 = bitcast i64* %R14.i to <2 x i64>*
+  store <2 x i64> %15, <2 x i64>* %88, align 8
   store i64 %16, i64* %RIP.i, align 8, !mcsema_real_eip !6
   store i1 %17, i1* %CF.i, align 1, !mcsema_real_eip !6
   store i1 %18, i1* %PF.i, align 1, !mcsema_real_eip !6
@@ -234,8 +258,10 @@ driverBlockRaw:
   store i128 %69, i128* %XMM13.i, align 1, !mcsema_real_eip !6
   store i128 %70, i128* %XMM14.i, align 1, !mcsema_real_eip !6
   store i128 %71, i128* %XMM15.i, align 1, !mcsema_real_eip !6
-  %88 = bitcast i64* %STACK_BASE.i to <2 x i64>*
-  store <2 x i64> %73, <2 x i64>* %88, align 1
+  %89 = bitcast i64* %STACK_BASE.i to <2 x i64>*
+  store <2 x i64> %73, <2 x i64>* %89, align 1
+  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RSP_ptr_7.sroa.0.i.0..sroa_cast)
+  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RBP_ptr_8.sroa.0.i.0..sroa_cast)
   call void @llvm.lifetime.end(i64 20, i8* nonnull %1)
   call void @llvm.lifetime.end(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
   ret void
@@ -257,5 +283,5 @@ attributes #1 = { nounwind }
 !2 = !{i64 16, [12 x i8] c"\09pushq\09%rbp\00"}
 !3 = !{i64 20, [21 x i8] c"\09movq\09%rdi, -8(%rbp)\00"}
 !4 = !{i64 24, [21 x i8] c"\09movl\09$10, -12(%rbp)\00"}
-!5 = !{i64 34, [11 x i8] c"\09popq\09%rbp\00"}
+!5 = !{i64 31, [22 x i8] c"\09movl\09-12(%rbp), %eax\00"}
 !6 = !{i64 35, [6 x i8] c"\09retq\00"}

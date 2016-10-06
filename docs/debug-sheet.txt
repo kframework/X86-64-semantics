@@ -1,0 +1,15 @@
+@_test_.1 = internal constant [10 x i8] c"Value:%d\0A\00" 
+
+%bt_XX0 = inttoptr i64 %_new_load_14 to i64*
+  %load_XX0 = load i64, i64* %bt_XX0
+  %test1 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @_test_.1, i32 0, i32 0), i64 %load_XX0)
+
+    %_load_rsp_ptr_XXX = load i8*, i8** %_RSP_ptr_
+  %otr2i_X1 = ptrtoint i8* %_load_rsp_ptr_XXX to i64
+  %test4 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @_test_.1, i32 0, i32 0), i64 %otr2i_X1)
+
+  %_load_rsp_ptr_YYY = load i64, i64* %RSP_val
+  %test5 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @_test_.1, i32 0, i32 0), i64 %_load_rsp_ptr_YYY)
+
+
+  declare i32 @printf(i8* noalias, ...)

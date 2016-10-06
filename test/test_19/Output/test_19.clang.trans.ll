@@ -11,12 +11,11 @@ target triple = "x86_64-pc-linux-gnu"
 ; Function Attrs: nounwind
 define internal x86_64_sysvcc void @sub_1(%struct.regs*) #0 {
 entry:
+  %_RSP_ptr_ = alloca i8*, i64 8
+  %_RBP_ptr_ = alloca i8*, i64 8
   %_local_stack_start_ptr_ = alloca i8, i64 8
   %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 8
-  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
-  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
-  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
   %R15_val = alloca i64, !mcsema_real_eip !2
   %STACK_LIMIT_val = alloca i64, !mcsema_real_eip !2
   %STACK_BASE_val = alloca i64, !mcsema_real_eip !2
@@ -105,7 +104,7 @@ entry:
   store i64 %5, i64* %RDI_val, !mcsema_real_eip !2
   %RSP = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 6, !mcsema_real_eip !2
   %6 = load i64, i64* %RSP, !mcsema_real_eip !2
-  store i64 %_local_stack_end_, i64* %RSP_val
+  store i64 %6, i64* %RSP_val, !mcsema_real_eip !2
   %RBP = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 7, !mcsema_real_eip !2
   %7 = load i64, i64* %RBP, !mcsema_real_eip !2
   store i64 %7, i64* %RBP_val, !mcsema_real_eip !2
@@ -324,13 +323,19 @@ entry:
   %85 = or i64 %82, %83
   %86 = or i64 %85, %84
   %87 = or i64 %86, 582
+  %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
   %88 = load i64, i64* %RSP_val, !mcsema_real_eip !9
+  %_new_gep_ = getelementptr i8, i8* %_load_rsp_ptr_, i64 -8
   %89 = add i64 %88, -8
+  %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
   %90 = inttoptr i64 %89 to i64*, !mcsema_real_eip !9
-  store i64 %87, i64* %90, !mcsema_real_eip !9
+  store i64 %87, i64* %_allin_new_bt_, !mcsema_real_eip !9
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_
   store i64 %89, i64* %RSP_val, !mcsema_real_eip !9
-  %91 = load i64, i64* %90, !mcsema_real_eip !10
+  %91 = load i64, i64* %_allin_new_bt_, !mcsema_real_eip !10
+  %_new_gep_1 = getelementptr i8, i8* %_load_rsp_ptr_, i64 8
   %92 = add i64 %88, 8, !mcsema_real_eip !11
+  store volatile i8* %_new_gep_1, i8** %_RSP_ptr_
   store i64 %92, i64* %RSP_val, !mcsema_real_eip !11
   store i64 %91, i64* %RAX, !mcsema_real_eip !11
   %93 = load i64, i64* %RBX_val, !mcsema_real_eip !11
@@ -343,10 +348,14 @@ entry:
   store i64 %96, i64* %RSI, !mcsema_real_eip !11
   %97 = load i64, i64* %RDI_val, !mcsema_real_eip !11
   store i64 %97, i64* %RDI, !mcsema_real_eip !11
+  %_load_rsp_ptr_2 = load i8*, i8** %_RSP_ptr_
   %98 = load i64, i64* %RSP_val, !mcsema_real_eip !11
-  store i64 %98, i64* %RSP, !mcsema_real_eip !11
+  %_new_ptr2int_ = ptrtoint i8* %_load_rsp_ptr_2 to i64
+  store volatile i64 %_new_ptr2int_, i64* %RSP
+  %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
   %99 = load i64, i64* %RBP_val, !mcsema_real_eip !11
-  store i64 %99, i64* %RBP, !mcsema_real_eip !11
+  %_new_ptr2int_3 = ptrtoint i8* %_load_rbp_ptr_ to i64
+  store volatile i64 %_new_ptr2int_3, i64* %RBP
   %100 = load i64, i64* %R8_val, !mcsema_real_eip !11
   store i64 %100, i64* %R8, !mcsema_real_eip !11
   %101 = load i64, i64* %R9_val, !mcsema_real_eip !11
@@ -481,12 +490,11 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture writeonly, i8* nocapture r
 ; Function Attrs: nounwind
 define void @mcsema_main(%struct.regs*) #0 {
 driverBlockRaw:
+  %_RSP_ptr_ = alloca i8*, i64 0
+  %_RBP_ptr_ = alloca i8*, i64 0
   %_local_stack_start_ptr_ = alloca i8, i64 0
   %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
-  %_bt_local_stack_start_ptr_ = bitcast i8* %_local_stack_start_ptr_ to i64*
-  %_bt_local_stack_end_ptr_ = bitcast i8* %_local_stack_end_ptr_ to i64*
-  %_local_stack_start_ = ptrtoint i64* %_bt_local_stack_start_ptr_ to i64
-  %_local_stack_end_ = ptrtoint i64* %_bt_local_stack_end_ptr_ to i64
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
   tail call x86_64_sysvcc void @sub_1(%struct.regs* %0)
   ret void
 }

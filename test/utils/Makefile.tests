@@ -14,7 +14,7 @@ OPTSWITCH=-stack-decons
 outdir="Output/"
 CC=clang
 CXX=clang++
-SKIP_ARG=1
+SKIP_ARG=0
 ALLIN="../../build/bin/allin"
 
 
@@ -28,7 +28,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG} ${RUN_SH} ${PROG_PREFIX} 64
+	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG} bash -x ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -37,8 +37,8 @@ icc:
 	${MAKE} ext="icc" run_pass
 
 run_pass:
-	#${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
-	${ALLIN} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
+	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll -debug  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
+	#${ALLIN} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
 	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.opt.ll

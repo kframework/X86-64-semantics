@@ -1,0 +1,55 @@
+
+Output/test_7_1.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <check>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 8b 45 10          	mov    0x10(%rbp),%rax
+   8:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   b:	89 75 f8             	mov    %esi,-0x8(%rbp)
+   e:	89 55 f4             	mov    %edx,-0xc(%rbp)
+  11:	89 4d f0             	mov    %ecx,-0x10(%rbp)
+  14:	44 89 45 ec          	mov    %r8d,-0x14(%rbp)
+  18:	44 89 4d e8          	mov    %r9d,-0x18(%rbp)
+  1c:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+  20:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+  24:	8b 08                	mov    (%rax),%ecx
+  26:	89 4d dc             	mov    %ecx,-0x24(%rbp)
+  29:	8b 45 dc             	mov    -0x24(%rbp),%eax
+  2c:	5d                   	pop    %rbp
+  2d:	c3                   	retq   
+  2e:	66 90                	xchg   %ax,%ax
+
+0000000000000030 <main>:
+  30:	55                   	push   %rbp
+  31:	48 89 e5             	mov    %rsp,%rbp
+  34:	48 83 ec 50          	sub    $0x50,%rsp
+  38:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  3f:	c7 45 cc 00 00 00 00 	movl   $0x0,-0x34(%rbp)
+  46:	83 7d cc 0a          	cmpl   $0xa,-0x34(%rbp)
+  4a:	0f 8d 1a 00 00 00    	jge    6a <main+0x3a>
+  50:	48 63 45 cc          	movslq -0x34(%rbp),%rax
+  54:	c7 44 85 d0 15 00 00 	movl   $0x15,-0x30(%rbp,%rax,4)
+  5b:	00 
+  5c:	8b 45 cc             	mov    -0x34(%rbp),%eax
+  5f:	83 c0 01             	add    $0x1,%eax
+  62:	89 45 cc             	mov    %eax,-0x34(%rbp)
+  65:	e9 dc ff ff ff       	jmpq   46 <main+0x16>
+  6a:	b8 0a 00 00 00       	mov    $0xa,%eax
+  6f:	48 8d 4d d0          	lea    -0x30(%rbp),%rcx
+  73:	89 c7                	mov    %eax,%edi
+  75:	89 c6                	mov    %eax,%esi
+  77:	89 c2                	mov    %eax,%edx
+  79:	48 89 4d c0          	mov    %rcx,-0x40(%rbp)
+  7d:	89 c1                	mov    %eax,%ecx
+  7f:	41 89 c0             	mov    %eax,%r8d
+  82:	41 89 c1             	mov    %eax,%r9d
+  85:	4c 8b 55 c0          	mov    -0x40(%rbp),%r10
+  89:	4c 89 14 24          	mov    %r10,(%rsp)
+  8d:	e8 6e ff ff ff       	callq  0 <check>
+  92:	48 83 c4 50          	add    $0x50,%rsp
+  96:	5d                   	pop    %rbp
+  97:	c3                   	retq   

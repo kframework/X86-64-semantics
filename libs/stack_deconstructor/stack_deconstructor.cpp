@@ -171,10 +171,15 @@ bool stack_deconstructor::shouldConvert(Instruction* I) {
     Value *pointer_operand = I->getOperand(0);
     Instruction *ptr_operand = dyn_cast<Instruction>(pointer_operand);
     assert(ptr_operand && "stack_deconstructor::handle_add - Check out");
+    if(0 != convertMap.count(ptr_operand)) {
+      return true;
+    }
+    /*
     if(isLoadOfImp(ptr_operand, "RSP_val") || isLoadOfImp(ptr_operand, "RBP_val")) {
       assert(0 != convertMap.count(ptr_operand) && "Add Inst: The pointer operand should already get converted.");
       return true;
     }
+    */
     return false;
   }
 
@@ -187,24 +192,23 @@ bool stack_deconstructor::shouldConvert(Instruction* I) {
     Value *ptr_operand = SI->getPointerOperand();
     Value *val_operand = SI->getValueOperand();
 
+    // Check1: Consider stores to RSP_val or RBP_val OR
+    // Check2: Ignore If value pointer of store is coming from load RSP or load RBP OR
+    // Check3: Consider stores whose value pointers are already replaced (i.e. present in convertMap)
 
-    // Ignore stores to McSema register struct fields  RSP and RBP
-    // We should not handle the followings
-    // 1. store i1 %259, i1* %ZF_val
-    // 2. store i32 %84, i32* %85
-    //  If %85 is derived from RSP_ptr or PBP_ptr, it is going to be replaced with converted instruction before 
-    //  this instruction is encountered.
-    //  If %84 is derived from RSP_ptr or PBP_ptr, it is NOT going to be converted.
-    bool precond = ( ptr_operand->getName().equals("RSP_val") || ptr_operand->getName().equals("RBP_val"));
-    if(precond) {
-      // Ignore 
-      //  %1 = load i64, i64* %RBP/%RSP
-      //  store i64 %1, i64* %RBP_val/%RSP_val
+    // Check 1
+    if(ptr_operand->getName().equals("RSP_val") || ptr_operand->getName().equals("RBP_val")) {
+      // Check 2
       if(isLoadOfImp(val_operand, "RSP") || isLoadOfImp(val_operand, "RBP")) {
         return false;
       }
+      return true;
     }
-    return precond;
+    // Check 3
+    if(0 != convertMap.count(val_operand)) {
+      return true;
+    }
+    return false;
   }
 
   if(CallInst *CI = dyn_cast<CallInst>(I)) {
@@ -214,6 +218,7 @@ bool stack_deconstructor::shouldConvert(Instruction* I) {
     }
     Value *op1 = CI->getArgOperand(0);
     if(false == isLoadOfImp(op1, "RSP_val") && false == isLoadOfImp(op1, "RBP_val")) {
+      assert (0 == convertMap.count(op1) && "CHECK");
       return false;
     }
 
@@ -270,9 +275,9 @@ void stack_deconstructor::handle_load(Instruction* I, Value *rsp_ptr_alloca, Val
   Value *ptr_operand = LI->getPointerOperand();
 
   if (ptr_operand->getName().equals("RSP_val")) {                   
-    new_load = IRB.CreateLoad(rsp_ptr_alloca, "_new_load_");
+    new_load = IRB.CreateLoad(rsp_ptr_alloca, "_load_rsp_ptr_");
   } else {
-    new_load = IRB.CreateLoad(rbp_ptr_alloca, "_new_load_");
+    new_load = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
   }
   recordConverted(LI, new_load, false, false);
 
@@ -301,10 +306,33 @@ void stack_deconstructor::handle_load(Instruction* I, Value *rsp_ptr_alloca, Val
 //  %2 = add i64 %1, C
 //  %3 = inttoptr i64 %2 to i64*
 //  store i64 %val , i64* %3
+//  This store will be processed by handle_store only if convertMap.contains(%val) == true
+//  Nevertheless, inttoptr will be converted to i8* bitcast and its uses will be replaced. 
+//  
+//  Case IV:
+//  %1 = load i64, i64* %RSP_val
+//  store i64 %1, i64* %RDI_val
+//  This store will be processed by handle_store as convertMap.contains(%1) == true 
+//  The instruction convertMap[%1] is appended with 'int2ptr convertMap[%1] to elementtypeof(%RDI_val)'
 //
-//  This store will not be processed by this function. 
-//  inttoptr will be converted to i8* bitcast and its uses will be replaced. 
+//  Example: 
+//  ; push rbp ; mov rsp -> rbp
+//    %1 = load i64, i64* %RBP_val
+//    %2 = load i64, i64* %RSP_val
+//    %3 = add i64 %1, -8
+//    %4 = inttoptr i64 %3 to i64*
+//    store i64 %1, i64* %4, !mcsema_real_eip !2
+//    store i64 %3, i64* %RBP_val, !mcsema_real_eip !3
 //
+//  After transform:
+//    %1 = load i64, i64* %RBP_val, !mcsema_real_eip !2
+//    %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
+//    %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
+//    %_new_gep_ = getelementptr i8, i8* %_load_rsp_ptr_, i64 -8
+//    %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
+//    %_new_ptr2int_ = inttoptr i8* %_load_rbp_ptr_ to i64
+//    store i64 %_new_ptr2int_, i64* %_allin_new_bt_
+//    store volatile i8* %_new_gep_, i8** %_RBP_ptr_
 void stack_deconstructor::handle_store(Instruction* I, Value *rsp_ptr_alloca, Value *rbp_ptr_alloca) {
   StoreInst* SI = dyn_cast<StoreInst>(I);
   Value *ptr_operand = SI->getPointerOperand();
@@ -314,22 +342,38 @@ void stack_deconstructor::handle_store(Instruction* I, Value *rsp_ptr_alloca, Va
 
   Value *inst_before_store = nullptr;
   Instruction *new_store = nullptr;
+  bool erase_old_store;
 
-  if(0 != convertMap.count(val_operand)) {
-    Value* new_val_operand  = convertMap[val_operand];
-    GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(new_val_operand);
-    assert(gep && "stack_deconstructor::handle_store -> check");
-    inst_before_store = gep;
+  if(ptr_operand->getName().equals("RSP_val") || ptr_operand->getName().equals("RBP_val")) {
+
+    if(0 != convertMap.count(val_operand)) {
+      Value* new_val_operand  = convertMap[val_operand];
+      GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(new_val_operand);
+      assert(gep && "stack_deconstructor::handle_store -> check");
+      inst_before_store = gep;
+    } else {
+      inst_before_store = IRB.CreateIntToPtr (val_operand, ptr_to_int8_type, "_new_int2ptr_");  
+   }
+
+    if(ptr_operand->getName().equals("RSP_val")) {
+      new_store = IRB.CreateStore(inst_before_store, rsp_ptr_alloca, "_new_store_");
+    } else if(ptr_operand->getName().equals("RBP_val")) {
+      new_store = IRB.CreateStore(inst_before_store, rbp_ptr_alloca, "_new_store_");
+    }
+    erase_old_store = false;
+
   } else {
-    inst_before_store = IRB.CreateIntToPtr (val_operand, ptr_to_int8_type, "_new_int2ptr_");  
+    // Means convertMap.contains(val_operand) = true
+    Value *converted_value_operand = convertMap[val_operand];
+    Type *value_operand_type = val_operand->getType();
+    Type *converted_value_operand_type =  converted_value_operand->getType();
+    assert(true  == converted_value_operand_type->isPointerTy() && "All the transofrmed types must be pointer types");
+    assert(true  == value_operand_type->isIntegerTy() && "Increemental check failed");
+    inst_before_store = IRB.CreatePtrToInt (converted_value_operand, value_operand_type, "_new_ptr2int_");  
+    new_store = IRB.CreateStore(inst_before_store, ptr_operand, "_new_store_");
+    erase_old_store = true;
   }
-
-  if(ptr_operand->getName().equals("RSP_val")) {
-    new_store = IRB.CreateStore(inst_before_store, rsp_ptr_alloca, "_new_store_");
-  } else if(ptr_operand->getName().equals("RBP_val")) {
-    new_store = IRB.CreateStore(inst_before_store, rbp_ptr_alloca, "_new_store_");
-  }
-  recordConverted(SI, new_store, false, false);
+  recordConverted(SI, new_store, false, erase_old_store);
 
   return;
 }
@@ -350,7 +394,7 @@ void stack_deconstructor::handle_int2ptr(Instruction* I) {
   Type *type = I->getType();
   Value *ptr_operand = I->getOperand(0);
   Value *new_ptr_operand = convertMap[ptr_operand];
-  auto *new_bt = IRB.CreateBitCast (new_ptr_operand, type, "_new_bt_");
+  auto *new_bt = IRB.CreateBitCast (new_ptr_operand, type, "_allin_new_bt_");
   recordConverted(I, new_bt, true, false);
 
   return;
@@ -402,7 +446,7 @@ void stack_deconstructor::augmentFunctionWithParentStack(
           }
 
 
-          auto *new_load = IRB.CreateLoad(rbp_ptr_alloca, "_new_load_from_rbp_");
+          auto *new_load = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
           arguments.push_back(local_stack_start);
           arguments.push_back(local_stack_end);
           arguments.push_back(new_load);
@@ -504,21 +548,22 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
     auto *ptr_to_int = IRB.CreatePtrToInt(ptr_operand, int64_type, "_ptr_to_int_");
     auto *local_end_to_int = IRB.CreatePtrToInt(local_stack_end, int64_type, "_local_end_to_int_");
 
-    auto *local_end_bt = IRB.CreateBitCast(local_stack_end, ptr_operand_type,  "_local_end_bt_");
-    auto *parent_end_bt = IRB.CreateBitCast(parent_stack_end, ptr_operand_type, "_parent_end_bt_");
-    auto *parent_start_bt = IRB.CreateBitCast(parent_stack_start, ptr_operand_type, "_parent_start_bt_");
+    auto *ptr_operand_bt = IRB.CreateBitCast(ptr_operand, ptr_to_int8_type,  "_ptr_bt_");
+    auto *local_end_bt = IRB.CreateBitCast(local_stack_end, ptr_to_int8_type,  "_local_end_bt_");
+    auto *parent_end_bt = IRB.CreateBitCast(parent_stack_end, ptr_to_int8_type, "_parent_end_bt_");
+    auto *parent_start_bt = IRB.CreateBitCast(parent_stack_start, ptr_to_int8_type, "_parent_start_bt_");
 
     auto *offset = IRB.CreateBinOp(Instruction::Sub, ptr_to_int,
                                    local_end_to_int, "_offset_above_rbp_");
     auto *potential_parent_address = IRB.CreateGEP(parent_start_bt, offset, "_pot_address_in_parent_stack_");
 
 
-    auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand,
+    auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand_bt,
                                  local_end_bt, "_cond1_");
-    auto *cond2_1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand, parent_end_bt,
-                                 "_cond2_1");
-    auto *cond2_2 = IRB.CreateICmp(ICmpInst::ICMP_ULT, ptr_operand,
-                                 parent_start_bt, "_cond2_2");
+    auto *cond2_1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand_bt, parent_end_bt,
+                                 "_cond2_1_");
+    auto *cond2_2 = IRB.CreateICmp(ICmpInst::ICMP_ULT, ptr_operand_bt,
+                                 parent_start_bt, "_cond2_2_");
     auto *cond2 = IRB.CreateBinOp(Instruction::Or, cond2_1, cond2_2, "_cond2_");
 
     auto *cond3 = IRB.CreateICmp(ICmpInst::ICMP_ULE, potential_parent_address,
@@ -539,13 +584,14 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
                         std::to_string(StaticParentAccessChecks++) + "]\n",
                     "_debug_parent_stack_")));
     auto *parent_address = IRB.CreateGEP(parent_start_bt, offset, "_address_in_parent_stack_");
+    auto *parent_address_bt = IRB.CreateBitCast(parent_address, ptr_operand_type, "_address_in_parent_stack_bt_");
 
     // Polulate the Tail Basic Block
     IRB.SetInsertPoint(li);
 
     auto *new_phi = IRB.CreatePHI(ptr_operand_type, 2);
     new_phi->addIncoming(ptr_operand, head_bb);
-    new_phi->addIncoming(parent_address, then_bb);
+    new_phi->addIncoming(parent_address_bt, then_bb);
 
     Instruction *new_load = NULL;
     new_load = IRB.CreateLoad(new_phi, "_new_load_");
@@ -562,7 +608,7 @@ bool stack_deconstructor::shouldConvertForParentStackAccess(Instruction *I) {
   if (LoadInst *li = dyn_cast<LoadInst>(I)) {
     auto *ptr_operand = li->getPointerOperand();
     StringRef str = ptr_operand->getName();
-    if (str.empty()) {
+    if (str.empty() || StringRef::npos != str.find("_allin_")) {
       return true;
     }
   }

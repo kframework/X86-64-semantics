@@ -18,9 +18,9 @@ Disassembly of section .text:
   27:	8b 45 f0             	mov    -0x10(%rbp),%eax
   2a:	3b 45 f4             	cmp    -0xc(%rbp),%eax
   2d:	0f 8d 42 00 00 00    	jge    75 <doWork+0x75>
-  33:	48 63 45 f0          	movslq -0x10(%rbp),%rax
-  37:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
-  3b:	48 8b 04 c1          	mov    (%rcx,%rax,8),%rax
+  33:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  37:	48 63 4d f0          	movslq -0x10(%rbp),%rcx
+  3b:	48 8b 04 c8          	mov    (%rax,%rcx,8),%rax
   3f:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
   43:	48 8b 7d e0          	mov    -0x20(%rbp),%rdi
   47:	e8 44 00 00 00       	callq  90 <checkFn>
@@ -57,11 +57,11 @@ Disassembly of section .text:
   bb:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
   bf:	8a 08                	mov    (%rax),%cl
   c1:	88 4d ef             	mov    %cl,-0x11(%rbp)
-  c4:	8b 55 f0             	mov    -0x10(%rbp),%edx
-  c7:	83 ea 01             	sub    $0x1,%edx
-  ca:	48 63 c2             	movslq %edx,%rax
-  cd:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
-  d1:	8a 0c 06             	mov    (%rsi,%rax,1),%cl
+  c4:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  c8:	8b 55 f0             	mov    -0x10(%rbp),%edx
+  cb:	83 ea 01             	sub    $0x1,%edx
+  ce:	48 63 f2             	movslq %edx,%rsi
+  d1:	8a 0c 30             	mov    (%rax,%rsi,1),%cl
   d4:	88 4d ee             	mov    %cl,-0x12(%rbp)
   d7:	0f be 55 ef          	movsbl -0x11(%rbp),%edx
   db:	0f be 7d ee          	movsbl -0x12(%rbp),%edi

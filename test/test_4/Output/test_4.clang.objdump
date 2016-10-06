@@ -27,12 +27,12 @@ Disassembly of section .text:
   45:	8b 45 b8             	mov    -0x48(%rbp),%eax
   48:	3b 45 dc             	cmp    -0x24(%rbp),%eax
   4b:	0f 8d 2a 00 00 00    	jge    7b <foo+0x7b>
-  51:	48 63 45 b8          	movslq -0x48(%rbp),%rax
-  55:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
-  59:	8b 14 81             	mov    (%rcx,%rax,4),%edx
-  5c:	48 63 45 b8          	movslq -0x48(%rbp),%rax
-  60:	48 8b 4d c0          	mov    -0x40(%rbp),%rcx
-  64:	2b 14 81             	sub    (%rcx,%rax,4),%edx
+  51:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+  55:	48 63 4d b8          	movslq -0x48(%rbp),%rcx
+  59:	8b 14 88             	mov    (%rax,%rcx,4),%edx
+  5c:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+  60:	48 63 4d b8          	movslq -0x48(%rbp),%rcx
+  64:	2b 14 88             	sub    (%rax,%rcx,4),%edx
   67:	03 55 bc             	add    -0x44(%rbp),%edx
   6a:	89 55 bc             	mov    %edx,-0x44(%rbp)
   6d:	8b 45 b8             	mov    -0x48(%rbp),%eax

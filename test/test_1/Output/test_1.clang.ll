@@ -630,7 +630,6 @@ entry:
   %251 = load i32, i32* %250, !mcsema_real_eip !10
   %252 = zext i32 %251 to i64, !mcsema_real_eip !10
   store i64 %252, i64* %RAX_val, !mcsema_real_eip !10
-
   %253 = load i64, i64* %RSP_val, !mcsema_real_eip !11
   %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %253, i64 16)
   %254 = extractvalue { i64, i1 } %uadd, 0
@@ -638,25 +637,21 @@ entry:
   %256 = and i64 %255, 16
   %257 = icmp eq i64 %256, 0
   store i1 %257, i1* %AF_val, !mcsema_real_eip !11
-
   %258 = icmp slt i64 %254, 0
   store i1 %258, i1* %SF_val, !mcsema_real_eip !11
   %259 = icmp eq i64 %254, 0, !mcsema_real_eip !11
   store i1 %259, i1* %ZF_val, !mcsema_real_eip !11
-
   %260 = xor i64 %253, -9223372036854775808, !mcsema_real_eip !11
   %261 = and i64 %255, %260, !mcsema_real_eip !11
   %262 = icmp slt i64 %261, 0
   store i1 %262, i1* %OF_val, !mcsema_real_eip !11
   %263 = trunc i64 %254 to i8, !mcsema_real_eip !11
-
   %264 = tail call i8 @llvm.ctpop.i8(i8 %263), !mcsema_real_eip !11
   %265 = and i8 %264, 1
   %266 = icmp eq i8 %265, 0
   store i1 %266, i1* %PF_val, !mcsema_real_eip !11
   %267 = extractvalue { i64, i1 } %uadd, 1
   store i1 %267, i1* %CF_val, !mcsema_real_eip !11
-
   store i64 %254, i64* %RSP_val, !mcsema_real_eip !11
   %268 = inttoptr i64 %254 to i64*, !mcsema_real_eip !12
   %269 = load i64, i64* %268, !mcsema_real_eip !12

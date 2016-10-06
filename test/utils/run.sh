@@ -62,7 +62,7 @@ else
 fi
 
 ${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${BIN}.${ext}.lifted.o ${outdir}${BIN}.${ext}.opt.bc
-${CC} -m64 -I${INCLUDE_DIR} -o ${outdir}${BIN}.${ext}.lifted.exe driver_64.c ${outdir}${BIN}.${ext}.lifted.o
+${CC} -g -m64 -I${INCLUDE_DIR} -o ${outdir}${BIN}.${ext}.lifted.exe driver_64.c ${outdir}${BIN}.${ext}.lifted.o
 
 # Clean Up
 rm -rf  ${outdir}${BIN}.${ext}.cfg  ${outdir}${BIN}.${ext}.lifted.o  ${outdir}${BIN}.${ext}.o  ${outdir}${BIN}.${ext}.opt.bc ${outdir}${BIN}.${ext}.bc

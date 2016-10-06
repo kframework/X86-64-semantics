@@ -21,10 +21,10 @@ Disassembly of section .text:
   36:	8b 45 e4             	mov    -0x1c(%rbp),%eax
   39:	3b 45 e8             	cmp    -0x18(%rbp),%eax
   3c:	0f 8d 24 00 00 00    	jge    66 <main+0x66>
-  42:	48 63 45 e4          	movslq -0x1c(%rbp),%rax
-  46:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
-  4a:	48 8b 49 08          	mov    0x8(%rcx),%rcx
-  4e:	0f be 14 01          	movsbl (%rcx,%rax,1),%edx
+  42:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  46:	48 8b 40 08          	mov    0x8(%rax),%rax
+  4a:	48 63 4d e4          	movslq -0x1c(%rbp),%rcx
+  4e:	0f be 14 08          	movsbl (%rax,%rcx,1),%edx
   52:	03 55 ec             	add    -0x14(%rbp),%edx
   55:	89 55 ec             	mov    %edx,-0x14(%rbp)
   58:	8b 45 e4             	mov    -0x1c(%rbp),%eax

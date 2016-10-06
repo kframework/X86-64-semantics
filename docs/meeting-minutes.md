@@ -1,4 +1,26 @@
 ```
+
+  %84 = load i64, i64* %RBP_val, !mcsema_real_eip !70
+  %85 = add i64 %84, 40, !mcsema_real_eip !70
+  %86 = inttoptr i64 %85 to i64*, !mcsema_real_eip !70
+  %87 = load i64, i64* %86, !mcsema_real_eip !70
+  store i64 %87, i64* %RAX_val, !mcsema_real_eip !70
+
+
+  ; 1
+  %_new_load_4 = load i8*, i8** %_RBP_ptr_
+  %87 = load i64, i64* %RBP_val, !mcsema_real_eip !70
+  %_new_gep_5 = getelementptr i8, i8* %_new_load_4, i64 40
+  %88 = add i64 %87, 40, !mcsema_real_eip !70
+  %_new_bt_6 = bitcast i8* %_new_gep_5 to i64*
+  %89 = inttoptr i64 %88 to i64*, !mcsema_real_eip !70
+  %90 = load i64, i64* %_new_bt_6, !mcsema_real_eip !70
+  store i64 %90, i64* %RAX_val, !mcsema_real_eip !70
+
+
+```
+
+```
 ========= Def Use List =========
   %78 = load i64, i64* %RSP_val
 	  %81 = add i64 %78, -24
