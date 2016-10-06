@@ -79,11 +79,12 @@ void stack_deconstructor::deconstructStack(Function &F) {
   int8_type = Type::getInt8Ty(*ctx);
   ptr_to_int8_type = Type::getInt8PtrTy(*ctx);
 
-  if (false ==
-      createLocalStackFrame(F, &local_stack_start, &local_stack_end, &rbp_ptr_alloca)) {
+  if (false == createLocalStackFrame(F, &local_stack_start, &local_stack_end,
+                                     &rbp_ptr_alloca)) {
     return;
   }
-  augmentFunctionWithParentStack(F, local_stack_start, local_stack_end, rbp_ptr_alloca);
+  augmentFunctionWithParentStack(F, local_stack_start, local_stack_end,
+                                 rbp_ptr_alloca);
   modifyLoadsToAccessParentStack(F, local_stack_start, local_stack_end);
 
   return;
@@ -91,7 +92,7 @@ void stack_deconstructor::deconstructStack(Function &F) {
 
 /// Function :  createLocalStackFrame
 /// Purpose  :  Convert the following instructiions
-/// 
+///
 /// Task 1:
 /// %RSP_val = alloca i64
 /// %RSP = getelementptr inbounds %struct.regs* %0, i64 0, i32 6
@@ -99,12 +100,13 @@ void stack_deconstructor::deconstructStack(Function &F) {
 /// store i64 %7, i64* %RSP_val
 ///
 ///                 TO
-/// %RSP_ptr  = alloca i8* 
-/// %RBP_ptr  = alloca i8* 
+/// %RSP_ptr  = alloca i8*
+/// %RBP_ptr  = alloca i8*
 /// %_local_stack_start_ptr_ = alloca i8, i64 n
-/// %_local_stack_end_ptr_ = gep inbounds i8, i8* %_local_stack_start_ptr_, i64 n
+/// %_local_stack_end_ptr_ = gep inbounds i8, i8* %_local_stack_start_ptr_, i64
+/// n
 /// store i8* %_local_stack_end_ptr_ , i8** %RSP_ptr
-/// 
+///
 /// Task 2:
 /// Replace all uses of RSP_val with RSP_ptr
 bool stack_deconstructor::createLocalStackFrame(Function &F,
@@ -124,21 +126,21 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   ConstantInt *stack_height =
       ConstantInt::get(int64_type, -1 * approximate_stack_height);
 
-  Instruction *I = &*(F.getEntryBlock().begin()) ;
+  Instruction *I = &*(F.getEntryBlock().begin());
 
   IRBuilder<> IRB(I);
-  auto *rsp_ptr_alloca = IRB.CreateAlloca(ptr_to_int8_type, stack_height,
-                                           "_RSP_ptr_");
-  *rbp_ptr_alloca = IRB.CreateAlloca(ptr_to_int8_type, stack_height,
-                                           "_RBP_ptr_");
-  *stack_start = IRB.CreateAlloca(int8_type, stack_height,
-                                           "_local_stack_start_ptr_");
+  auto *rsp_ptr_alloca =
+      IRB.CreateAlloca(ptr_to_int8_type, stack_height, "_RSP_ptr_");
+  *rbp_ptr_alloca =
+      IRB.CreateAlloca(ptr_to_int8_type, stack_height, "_RBP_ptr_");
+  *stack_start =
+      IRB.CreateAlloca(int8_type, stack_height, "_local_stack_start_ptr_");
   std::vector<Value *> indices;
   indices.push_back(stack_height);
   *stack_end =
       IRB.CreateInBoundsGEP(*stack_start, indices, "_local_stack_end_ptr_");
   IRB.CreateStore(*stack_end, rsp_ptr_alloca);
-  if(parent_stack_rbp_ptr)
+  if (parent_stack_rbp_ptr)
     IRB.CreateStore(parent_stack_rbp_ptr, *rbp_ptr_alloca);
 
   // Performing Task 2
@@ -146,7 +148,7 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
       Instruction *I = &*BBI++;
-      if(shouldConvert(I)) {
+      if (shouldConvert(I)) {
         stack_deconstructed = true;
         DEBUG(errs() << "\n" << *I << "\n");
         convert(I, rsp_ptr_alloca, *rbp_ptr_alloca);
@@ -158,123 +160,133 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
   return stack_deconstructed;
 }
 
-bool stack_deconstructor::shouldConvert(Instruction* I) {
+bool stack_deconstructor::shouldConvert(Instruction *I) {
 
-  if(LoadInst* LI = dyn_cast<LoadInst>(I)) {
-    Value *ptr_operand = LI->getPointerOperand();  
-    if (ptr_operand->getName().equals("RSP_val") || ptr_operand->getName().equals("RBP_val")) {                   
+  if (LoadInst *LI = dyn_cast<LoadInst>(I)) {
+    Value *ptr_operand = LI->getPointerOperand();
+    if (ptr_operand->getName().equals("RSP_val") ||
+        ptr_operand->getName().equals("RBP_val")) {
       return true;
     }
   }
 
-  if(I->getOpcode() == Instruction::Add) {
+  if (I->getOpcode() == Instruction::Add) {
     Value *pointer_operand = I->getOperand(0);
     Instruction *ptr_operand = dyn_cast<Instruction>(pointer_operand);
     assert(ptr_operand && "stack_deconstructor::handle_add - Check out");
-    if(0 != convertMap.count(ptr_operand)) {
+    if (0 != convertMap.count(ptr_operand)) {
       return true;
     }
     /*
-    if(isLoadOfImp(ptr_operand, "RSP_val") || isLoadOfImp(ptr_operand, "RBP_val")) {
-      assert(0 != convertMap.count(ptr_operand) && "Add Inst: The pointer operand should already get converted.");
+    if(isLoadOfImp(ptr_operand, "RSP_val") || isLoadOfImp(ptr_operand,
+    "RBP_val")) {
+      assert(0 != convertMap.count(ptr_operand) && "Add Inst: The pointer
+    operand should already get converted.");
       return true;
     }
     */
     return false;
   }
 
-  if(I->getOpcode() == Instruction::IntToPtr) {
+  if (I->getOpcode() == Instruction::IntToPtr) {
     Value *int_operand = I->getOperand(0);
     return (0 != convertMap.count(int_operand));
   }
 
-  if(StoreInst* SI = dyn_cast<StoreInst>(I)) {
+  if (StoreInst *SI = dyn_cast<StoreInst>(I)) {
     Value *ptr_operand = SI->getPointerOperand();
     Value *val_operand = SI->getValueOperand();
 
     // Check1: Consider stores to RSP_val or RBP_val OR
-    // Check2: Ignore If value pointer of store is coming from load RSP or load RBP OR
-    // Check3: Consider stores whose value pointers are already replaced (i.e. present in convertMap)
+    // Check2: Ignore If value pointer of store is coming from load RSP or load
+    // RBP OR
+    // Check3: Consider stores whose value pointers are already replaced (i.e.
+    // present in convertMap)
 
     // Check 1
-    if(ptr_operand->getName().equals("RSP_val") || ptr_operand->getName().equals("RBP_val")) {
+    if (ptr_operand->getName().equals("RSP_val") ||
+        ptr_operand->getName().equals("RBP_val")) {
       // Check 2
-      if(isLoadOfImp(val_operand, "RSP") || isLoadOfImp(val_operand, "RBP")) {
+      if (isLoadOfImp(val_operand, "RSP") || isLoadOfImp(val_operand, "RBP")) {
         return false;
       }
       return true;
     }
     // Check 3
-    if(0 != convertMap.count(val_operand)) {
+    if (0 != convertMap.count(val_operand)) {
       return true;
     }
     return false;
   }
 
-  if(CallInst *CI = dyn_cast<CallInst>(I)) {
-    Function* F = CI->getCalledFunction();
-    if(!F || F->getIntrinsicID() != Intrinsic::uadd_with_overflow) {
+  if (CallInst *CI = dyn_cast<CallInst>(I)) {
+    Function *F = CI->getCalledFunction();
+    if (!F || F->getIntrinsicID() != Intrinsic::uadd_with_overflow) {
       return false;
     }
     Value *op1 = CI->getArgOperand(0);
-    if(false == isLoadOfImp(op1, "RSP_val") && false == isLoadOfImp(op1, "RBP_val")) {
-      assert (0 == convertMap.count(op1) && "CHECK");
+    if (false == isLoadOfImp(op1, "RSP_val") &&
+        false == isLoadOfImp(op1, "RBP_val")) {
+      assert(0 == convertMap.count(op1) && "CHECK");
       return false;
     }
 
-    assert(0 != convertMap.count(op1) && "Call Inst: The pointer operand should already get converted.");
+    assert(0 != convertMap.count(op1) &&
+           "Call Inst: The pointer operand should already get converted.");
 
     return true;
   }
 
-  if(ExtractValueInst *EI = dyn_cast<ExtractValueInst>(I)) {
+  if (ExtractValueInst *EI = dyn_cast<ExtractValueInst>(I)) {
     Value *op1 = EI->getOperand(0);
     return (0 != convertMap.count(op1));
   }
   return false;
 }
 
-void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca, Value *rbp_ptr_alloca) {
+void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca,
+                                  Value *rbp_ptr_alloca) {
 
-  switch(I->getOpcode()) {
-    case Instruction::Load:
-      handle_load(I, rsp_ptr_alloca, rbp_ptr_alloca);
-      break;
-    case Instruction::Store:
-      handle_store(I, rsp_ptr_alloca, rbp_ptr_alloca);
-      break;
-    case Instruction::Add:
-      handle_add(I);
-      break;
-    case Instruction::ExtractValue:
-      handle_extractval(I);
-      break;
-    case Instruction::Call:
-      handle_call(I);
-      break;
-    case Instruction::IntToPtr:
-      handle_int2ptr(I);
-      break;
-    default:
-      llvm::errs() << *I << "\n";
-      assert(0 && "Unexpected Instruction to be converted");
-      break;
+  switch (I->getOpcode()) {
+  case Instruction::Load:
+    handle_load(I, rsp_ptr_alloca, rbp_ptr_alloca);
+    break;
+  case Instruction::Store:
+    handle_store(I, rsp_ptr_alloca, rbp_ptr_alloca);
+    break;
+  case Instruction::Add:
+    handle_add(I);
+    break;
+  case Instruction::ExtractValue:
+    handle_extractval(I);
+    break;
+  case Instruction::Call:
+    handle_call(I);
+    break;
+  case Instruction::IntToPtr:
+    handle_int2ptr(I);
+    break;
+  default:
+    llvm::errs() << *I << "\n";
+    assert(0 && "Unexpected Instruction to be converted");
+    break;
   }
 
   return;
 }
 
-/// Purpose: Helper function to convert (load i64, i64* RSP_val) to 
+/// Purpose: Helper function to convert (load i64, i64* RSP_val) to
 /// (load i8*, i8** RSP_ptr)
 /// This transmation is useful to make alias analysis effective.
-void stack_deconstructor::handle_load(Instruction* I, Value *rsp_ptr_alloca, Value *rbp_ptr_alloca) {
-  LoadInst* LI = dyn_cast<LoadInst>(I);
+void stack_deconstructor::handle_load(Instruction *I, Value *rsp_ptr_alloca,
+                                      Value *rbp_ptr_alloca) {
+  LoadInst *LI = dyn_cast<LoadInst>(I);
 
   IRBuilder<> IRB(LI);
   Instruction *new_load = nullptr;
   Value *ptr_operand = LI->getPointerOperand();
 
-  if (ptr_operand->getName().equals("RSP_val")) {                   
+  if (ptr_operand->getName().equals("RSP_val")) {
     new_load = IRB.CreateLoad(rsp_ptr_alloca, "_load_rsp_ptr_");
   } else {
     new_load = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
@@ -285,20 +297,22 @@ void stack_deconstructor::handle_load(Instruction* I, Value *rsp_ptr_alloca, Val
 }
 
 //  Case I:
-//  %1 = load i64, i64* %RSP_val  
+//  %1 = load i64, i64* %RSP_val
 //  %2 = add i64 %1, 16
 //  store i64 %2, i64* %RSP_val
 //
-//  While processing store, the add inst has already been converted to 
+//  While processing store, the add inst has already been converted to
 //  gep; so check convertMap.contains(store::value_operand) and its  agep
 //
 //  Case II: pop rbp
 //  %1 = inttoptr i64 %0 to i64*  ; %O is an offset from %RSP_val
-//  %2 = load i64, i64* %1  
+//  %2 = load i64, i64* %1
 //  store i64 %2, i64* %RBP_val
 //
-//  At int2ptr inst we create a bitcast and replace all used of int2ptr with that.
-//  So convertMap.contains(store::value_operand) is false and we will convert the result of load to 
+//  At int2ptr inst we create a bitcast and replace all used of int2ptr with
+//  that.
+//  So convertMap.contains(store::value_operand) is false and we will convert
+//  the result of load to
 //  i8* ptr and store it in i8** RBP_ptr
 //
 //  Case III:
@@ -306,16 +320,20 @@ void stack_deconstructor::handle_load(Instruction* I, Value *rsp_ptr_alloca, Val
 //  %2 = add i64 %1, C
 //  %3 = inttoptr i64 %2 to i64*
 //  store i64 %val , i64* %3
-//  This store will be processed by handle_store only if convertMap.contains(%val) == true
-//  Nevertheless, inttoptr will be converted to i8* bitcast and its uses will be replaced. 
-//  
+//  This store will be processed by handle_store only if
+//  convertMap.contains(%val) == true
+//  Nevertheless, inttoptr will be converted to i8* bitcast and its uses will be
+//  replaced.
+//
 //  Case IV:
 //  %1 = load i64, i64* %RSP_val
 //  store i64 %1, i64* %RDI_val
-//  This store will be processed by handle_store as convertMap.contains(%1) == true 
-//  The instruction convertMap[%1] is appended with 'int2ptr convertMap[%1] to elementtypeof(%RDI_val)'
+//  This store will be processed by handle_store as convertMap.contains(%1) ==
+//  true
+//  The instruction convertMap[%1] is appended with 'int2ptr convertMap[%1] to
+//  elementtypeof(%RDI_val)'
 //
-//  Example: 
+//  Example:
 //  ; push rbp ; mov rsp -> rbp
 //    %1 = load i64, i64* %RBP_val
 //    %2 = load i64, i64* %RSP_val
@@ -333,8 +351,9 @@ void stack_deconstructor::handle_load(Instruction* I, Value *rsp_ptr_alloca, Val
 //    %_new_ptr2int_ = inttoptr i8* %_load_rbp_ptr_ to i64
 //    store i64 %_new_ptr2int_, i64* %_allin_new_bt_
 //    store volatile i8* %_new_gep_, i8** %_RBP_ptr_
-void stack_deconstructor::handle_store(Instruction* I, Value *rsp_ptr_alloca, Value *rbp_ptr_alloca) {
-  StoreInst* SI = dyn_cast<StoreInst>(I);
+void stack_deconstructor::handle_store(Instruction *I, Value *rsp_ptr_alloca,
+                                       Value *rbp_ptr_alloca) {
+  StoreInst *SI = dyn_cast<StoreInst>(I);
   Value *ptr_operand = SI->getPointerOperand();
   Value *val_operand = SI->getValueOperand();
 
@@ -344,21 +363,25 @@ void stack_deconstructor::handle_store(Instruction* I, Value *rsp_ptr_alloca, Va
   Instruction *new_store = nullptr;
   bool erase_old_store;
 
-  if(ptr_operand->getName().equals("RSP_val") || ptr_operand->getName().equals("RBP_val")) {
+  if (ptr_operand->getName().equals("RSP_val") ||
+      ptr_operand->getName().equals("RBP_val")) {
 
-    if(0 != convertMap.count(val_operand)) {
-      Value* new_val_operand  = convertMap[val_operand];
+    if (0 != convertMap.count(val_operand)) {
+      Value *new_val_operand = convertMap[val_operand];
       GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(new_val_operand);
       assert(gep && "stack_deconstructor::handle_store -> check");
       inst_before_store = gep;
     } else {
-      inst_before_store = IRB.CreateIntToPtr (val_operand, ptr_to_int8_type, "_new_int2ptr_");  
-   }
+      inst_before_store =
+          IRB.CreateIntToPtr(val_operand, ptr_to_int8_type, "_new_int2ptr_");
+    }
 
-    if(ptr_operand->getName().equals("RSP_val")) {
-      new_store = IRB.CreateStore(inst_before_store, rsp_ptr_alloca, "_new_store_");
-    } else if(ptr_operand->getName().equals("RBP_val")) {
-      new_store = IRB.CreateStore(inst_before_store, rbp_ptr_alloca, "_new_store_");
+    if (ptr_operand->getName().equals("RSP_val")) {
+      new_store =
+          IRB.CreateStore(inst_before_store, rsp_ptr_alloca, "_new_store_");
+    } else if (ptr_operand->getName().equals("RBP_val")) {
+      new_store =
+          IRB.CreateStore(inst_before_store, rbp_ptr_alloca, "_new_store_");
     }
     erase_old_store = false;
 
@@ -366,10 +389,13 @@ void stack_deconstructor::handle_store(Instruction* I, Value *rsp_ptr_alloca, Va
     // Means convertMap.contains(val_operand) = true
     Value *converted_value_operand = convertMap[val_operand];
     Type *value_operand_type = val_operand->getType();
-    Type *converted_value_operand_type =  converted_value_operand->getType();
-    assert(true  == converted_value_operand_type->isPointerTy() && "All the transofrmed types must be pointer types");
-    assert(true  == value_operand_type->isIntegerTy() && "Increemental check failed");
-    inst_before_store = IRB.CreatePtrToInt (converted_value_operand, value_operand_type, "_new_ptr2int_");  
+    Type *converted_value_operand_type = converted_value_operand->getType();
+    assert(true == converted_value_operand_type->isPointerTy() &&
+           "All the transofrmed types must be pointer types");
+    assert(true == value_operand_type->isIntegerTy() &&
+           "Increemental check failed");
+    inst_before_store = IRB.CreatePtrToInt(converted_value_operand,
+                                           value_operand_type, "_new_ptr2int_");
     new_store = IRB.CreateStore(inst_before_store, ptr_operand, "_new_store_");
     erase_old_store = true;
   }
@@ -378,39 +404,39 @@ void stack_deconstructor::handle_store(Instruction* I, Value *rsp_ptr_alloca, Va
   return;
 }
 
-void stack_deconstructor::handle_add(Instruction* I) {
+void stack_deconstructor::handle_add(Instruction *I) {
   IRBuilder<> IRB(I);
   Value *ptr_operand = I->getOperand(0);
   Value *new_ptr_operand = convertMap[ptr_operand];
   Value *C = I->getOperand(1);
-  auto *new_gep = IRB.CreateGEP (new_ptr_operand, C, "_new_gep_");
+  auto *new_gep = IRB.CreateGEP(new_ptr_operand, C, "_new_gep_");
   recordConverted(I, new_gep, false, false);
 
   return;
 }
 
-void stack_deconstructor::handle_int2ptr(Instruction* I) {
+void stack_deconstructor::handle_int2ptr(Instruction *I) {
   IRBuilder<> IRB(I);
   Type *type = I->getType();
   Value *ptr_operand = I->getOperand(0);
   Value *new_ptr_operand = convertMap[ptr_operand];
-  auto *new_bt = IRB.CreateBitCast (new_ptr_operand, type, "_allin_new_bt_");
+  auto *new_bt = IRB.CreateBitCast(new_ptr_operand, type, "_allin_new_bt_");
   recordConverted(I, new_bt, true, false);
 
   return;
 }
 
-void stack_deconstructor::handle_call(Instruction* I) {
+void stack_deconstructor::handle_call(Instruction *I) {
   IRBuilder<> IRB(I);
-  CallInst* CI = dyn_cast<CallInst>(I);
+  CallInst *CI = dyn_cast<CallInst>(I);
   Value *op1 = CI->getArgOperand(0);
   Value *op2 = CI->getArgOperand(1);
-  auto *new_gep = IRB.CreateGEP (convertMap[op1], op2, "_new_gep_");
+  auto *new_gep = IRB.CreateGEP(convertMap[op1], op2, "_new_gep_");
   recordConverted(CI, new_gep, false, false);
   return;
 }
 
-void stack_deconstructor::handle_extractval(Instruction* I) {
+void stack_deconstructor::handle_extractval(Instruction *I) {
   IRBuilder<> IRB(I);
   Value *op1 = I->getOperand(0);
   recordConverted(I, convertMap[op1], false, false);
@@ -419,14 +445,15 @@ void stack_deconstructor::handle_extractval(Instruction* I) {
 
 /// Function :  augmentFunctionWithParentStack
 /// Purpose  :  For each CallInst (to mcsema generated functions), add extra
-/// actual arguments 
+/// actual arguments
 ///   %_local_stack_start_  : points to the start of parent frame
 ///   %_local_stack_end_    : point to the end of parent stack frame
-///   %_rbp_ptr_            : point to the rbp pointer of parent frame 
+///   %_rbp_ptr_            : point to the rbp pointer of parent frame
 /// Also the corresponding called function are augmented with extra
 /// formal arguments.
 void stack_deconstructor::augmentFunctionWithParentStack(
-    Function &F, Value *local_stack_start, Value *local_stack_end, Value *rbp_ptr_alloca) {
+    Function &F, Value *local_stack_start, Value *local_stack_end,
+    Value *rbp_ptr_alloca) {
   for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
       Instruction *I = &*BBI++;
@@ -445,7 +472,6 @@ void stack_deconstructor::augmentFunctionWithParentStack(
             arguments.push_back(args);
           }
 
-
           auto *new_load = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
           arguments.push_back(local_stack_start);
           arguments.push_back(local_stack_end);
@@ -463,7 +489,6 @@ void stack_deconstructor::augmentFunctionWithParentStack(
   return;
 }
 
-
 /// Function :  modifyLoadsToAccessParentStack
 /// Purpose  :  Add a runtime check for each load
 /// to check if the pointer dereferenced pointer to pointing to
@@ -478,22 +503,36 @@ void stack_deconstructor::augmentFunctionWithParentStack(
 ///       Condition1 : PTR < LocalEnd
 ///   Conclusion:
 ///       Dereference PTR
-/// Case II: PTR is a parent stack pointer computed w.r.t local RSP/RBP as PTR = RSP/RBP + C
+/// Case II: PTR is a parent stack pointer computed w.r.t local RSP/RBP as PTR =
+/// RSP/RBP + C
 ///   Satisfies:
 ///       !condition1
-///       Condition2 : (PTR > ParentEnd || PTR < ParentStart) // PTR is on a different address space 
-///                                                           // becasue of because of different stack 
-///                                                           // array used for each function, so
-///                                                           // PTR will not fall within the parent stack
-///                                                           // limits  
-///       Condition3 : ParentStart + (PTR - LocalEnd) <  LocalEnd // LHS of the condition is the effective address
-///                                                               // in the parnet stack frame. And that should
-///                                                               // lie within the parnet stack bounds      
+///       Condition2 : (PTR > ParentEnd || PTR < ParentStart) // PTR is on a
+///       different address space
+///                                                           // becasue of
+///                                                           because of
+///                                                           different stack
+///                                                           // array used for
+///                                                           each function, so
+///                                                           // PTR will not
+///                                                           fall within the
+///                                                           parent stack
+///                                                           // limits
+///       Condition3 : ParentStart + (PTR - LocalEnd) <  LocalEnd // LHS of the
+///       condition is the effective address
+///                                                               // in the
+///                                                               parnet stack
+///                                                               frame. And
+///                                                               that should
+///                                                               // lie within
+///                                                               the parnet
+///                                                               stack bounds
 ///   Conclusion:
 ///       Dereference (ParentStart + (PTR - LocalEnd))
 /// Case III: PTR is a direct parent stack pointer computed
 ///   Satisfies:
-///       condition1 // as layout of parent stack address is above that of local stack address
+///       condition1 // as layout of parent stack address is above that of local
+///       stack address
 ///       !condition2
 ///   Conclusion:
 ///       Dereference PTR
@@ -504,8 +543,9 @@ void stack_deconstructor::augmentFunctionWithParentStack(
 ///       !condition3
 ///   Conclusion:
 ///       Dereference PTR
-///       
-///  So  IF    Condition1 && Condition2 && Condition3 ==>      Dereference (ParentStart + (PTR - LocalEnd))
+///
+///  So  IF    Condition1 && Condition2 && Condition3 ==>      Dereference
+///  (ParentStart + (PTR - LocalEnd))
 ///      Else   Dereference PTR
 void stack_deconstructor::modifyLoadsToAccessParentStack(
     Function &F, Value *local_stack_start, Value *local_stack_end) {
@@ -545,32 +585,41 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
     Type *ptr_operand_type = ptr_operand->getType();
 
     IRBuilder<> IRB(I);
-    auto *ptr_to_int = IRB.CreatePtrToInt(ptr_operand, int64_type, "_ptr_to_int_");
-    auto *local_end_to_int = IRB.CreatePtrToInt(local_stack_end, int64_type, "_local_end_to_int_");
+    auto *ptr_to_int =
+        IRB.CreatePtrToInt(ptr_operand, int64_type, "_ptr_to_int_");
+    auto *local_end_to_int =
+        IRB.CreatePtrToInt(local_stack_end, int64_type, "_local_end_to_int_");
 
-    auto *ptr_operand_bt = IRB.CreateBitCast(ptr_operand, ptr_to_int8_type,  "_ptr_bt_");
-    auto *local_end_bt = IRB.CreateBitCast(local_stack_end, ptr_to_int8_type,  "_local_end_bt_");
-    auto *parent_end_bt = IRB.CreateBitCast(parent_stack_end, ptr_to_int8_type, "_parent_end_bt_");
-    auto *parent_start_bt = IRB.CreateBitCast(parent_stack_start, ptr_to_int8_type, "_parent_start_bt_");
+    auto *ptr_operand_bt =
+        IRB.CreateBitCast(ptr_operand, ptr_to_int8_type, "_ptr_bt_");
+    auto *local_end_bt =
+        IRB.CreateBitCast(local_stack_end, ptr_to_int8_type, "_local_end_bt_");
+    auto *parent_end_bt = IRB.CreateBitCast(parent_stack_end, ptr_to_int8_type,
+                                            "_parent_end_bt_");
+    auto *parent_start_bt = IRB.CreateBitCast(
+        parent_stack_start, ptr_to_int8_type, "_parent_start_bt_");
 
     auto *offset = IRB.CreateBinOp(Instruction::Sub, ptr_to_int,
                                    local_end_to_int, "_offset_above_rbp_");
-    auto *potential_parent_address = IRB.CreateGEP(parent_start_bt, offset, "_pot_address_in_parent_stack_");
-
+    auto *potential_parent_address =
+        IRB.CreateGEP(parent_start_bt, offset, "_pot_address_in_parent_stack_");
 
     auto *cond1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand_bt,
                                  local_end_bt, "_cond1_");
-    auto *cond2_1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand_bt, parent_end_bt,
-                                 "_cond2_1_");
+    auto *cond2_1 = IRB.CreateICmp(ICmpInst::ICMP_UGT, ptr_operand_bt,
+                                   parent_end_bt, "_cond2_1_");
     auto *cond2_2 = IRB.CreateICmp(ICmpInst::ICMP_ULT, ptr_operand_bt,
-                                 parent_start_bt, "_cond2_2_");
+                                   parent_start_bt, "_cond2_2_");
     auto *cond2 = IRB.CreateBinOp(Instruction::Or, cond2_1, cond2_2, "_cond2_");
 
     auto *cond3 = IRB.CreateICmp(ICmpInst::ICMP_ULE, potential_parent_address,
                                  parent_end_bt, "_cond4_");
-    auto *cond1_n_cond2 = IRB.CreateBinOp(Instruction::And, cond1, cond2, "_cond1_n_cond2_");
-    auto *cond1_n_cond2_cond3 = IRB.CreateBinOp(Instruction::And, cond1_n_cond2, cond3, "_cond1_n_cond2_cond3_");
-    TerminatorInst *ti = SplitBlockAndInsertIfThen(cond1_n_cond2_cond3, I, false);
+    auto *cond1_n_cond2 =
+        IRB.CreateBinOp(Instruction::And, cond1, cond2, "_cond1_n_cond2_");
+    auto *cond1_n_cond2_cond3 = IRB.CreateBinOp(Instruction::And, cond1_n_cond2,
+                                                cond3, "_cond1_n_cond2_cond3_");
+    TerminatorInst *ti =
+        SplitBlockAndInsertIfThen(cond1_n_cond2_cond3, I, false);
 
     auto *then_bb = ti->getParent();
 
@@ -583,8 +632,10 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
                     "Accessing Parent Stack [" +
                         std::to_string(StaticParentAccessChecks++) + "]\n",
                     "_debug_parent_stack_")));
-    auto *parent_address = IRB.CreateGEP(parent_start_bt, offset, "_address_in_parent_stack_");
-    auto *parent_address_bt = IRB.CreateBitCast(parent_address, ptr_operand_type, "_address_in_parent_stack_bt_");
+    auto *parent_address =
+        IRB.CreateGEP(parent_start_bt, offset, "_address_in_parent_stack_");
+    auto *parent_address_bt = IRB.CreateBitCast(
+        parent_address, ptr_operand_type, "_address_in_parent_stack_bt_");
 
     // Polulate the Tail Basic Block
     IRB.SetInsertPoint(li);
@@ -661,11 +712,12 @@ Function *stack_deconstructor::cloneFunctionWithExtraArgument(Function *F) {
   return NewF;
 }
 
-void stack_deconstructor::recordConverted(Instruction *From, Value *To, bool replaceUses, bool erase) {
+void stack_deconstructor::recordConverted(Instruction *From, Value *To,
+                                          bool replaceUses, bool erase) {
   convertMap[From] = To;
-  if(erase)
+  if (erase)
     ToErase.push_back(From);
-  if(replaceUses) {
+  if (replaceUses) {
     From->replaceAllUsesWith(To);
   }
   DEBUG(llvm::errs() << "\tConvert :" << *From << " --> " << *To << "\n");
@@ -710,13 +762,13 @@ Constant *stack_deconstructor::geti8StrVal(Module &M, std::string str,
 
 bool stack_deconstructor::isLoadOfImp(Value *I, StringRef ptr_name) {
   LoadInst *LI = dyn_cast<LoadInst>(I);
-  if(!LI) {
+  if (!LI) {
     return false;
   }
 
   Value *ptr_operand = LI->getPointerOperand();
-  if(ptr_operand->getName() != ptr_name) {
-      return false;
+  if (ptr_operand->getName() != ptr_name) {
+    return false;
   }
 
   return true;

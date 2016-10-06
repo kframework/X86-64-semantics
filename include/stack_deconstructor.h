@@ -46,7 +46,7 @@ public:
   };
 
   // Create Local stack for each procedure
-  bool createLocalStackFrame(Function &, Value **, Value **, Value**);
+  bool createLocalStackFrame(Function &, Value **, Value **, Value **);
 
   // Passing the parent stack as an argument
   void augmentFunctionWithParentStack(Function &, Value *, Value *, Value *);
@@ -56,22 +56,22 @@ public:
   void modifyLoadsToAccessParentStack(Function &F, Value *, Value *);
   bool shouldConvertForParentStackAccess(Instruction *);
 
-  // General helper functions 
+  // General helper functions
   static Constant *printf_prototype(LLVMContext &, Module *);
   Constant *geti8StrVal(Module &M, std::string, Twine const &name);
-  void recordConverted(Instruction *, Value *, bool=true, bool=true);
+  void recordConverted(Instruction *, Value *, bool = true, bool = true);
   void eraseReplacedInstructions();
-  bool isLoadOfImp(Value*, StringRef);
+  bool isLoadOfImp(Value *, StringRef);
 
   // Functions to transform code to facilitate alias analysis
-  void convert(Instruction *, Value*, Value*);
+  void convert(Instruction *, Value *, Value *);
   bool shouldConvert(Instruction *);
-  void handle_load(Instruction* I, Value *, Value *);
-  void handle_store(Instruction* I, Value *, Value *);
-  void handle_int2ptr(Instruction* I);
-  void handle_add(Instruction* I);
-  void handle_call(Instruction* I);
-  void handle_extractval(Instruction* I);
+  void handle_load(Instruction *I, Value *, Value *);
+  void handle_store(Instruction *I, Value *, Value *);
+  void handle_int2ptr(Instruction *I);
+  void handle_add(Instruction *I);
+  void handle_call(Instruction *I);
+  void handle_extractval(Instruction *I);
 };
 }
 
