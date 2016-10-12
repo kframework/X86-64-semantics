@@ -371,10 +371,10 @@ entry:
   store i64 %109, i64* %RAX_val, !mcsema_real_eip !10
   %_load_rsp_ptr_13 = load i8*, i8** %_RSP_ptr_
   %110 = load i64, i64* %RSP_val, !mcsema_real_eip !11
-  %_new_gep_14 = getelementptr i8, i8* %_load_rsp_ptr_13, i64 16
-  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %110, i64 16)
+  %_new_ptr2int_14 = ptrtoint i8* %_load_rsp_ptr_13 to i64
+  %uadd = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %_new_ptr2int_14, i64 16)
   %111 = extractvalue { i64, i1 } %uadd, 0
-  %112 = xor i64 %111, %110, !mcsema_real_eip !11
+  %112 = xor i64 %111, %_new_ptr2int_14, !mcsema_real_eip !11
   %113 = and i64 %112, 16
   %114 = icmp eq i64 %113, 0
   store i1 %114, i1* %AF_val, !mcsema_real_eip !11
@@ -382,7 +382,7 @@ entry:
   store i1 %115, i1* %SF_val, !mcsema_real_eip !11
   %116 = icmp eq i64 %111, 0, !mcsema_real_eip !11
   store i1 %116, i1* %ZF_val, !mcsema_real_eip !11
-  %117 = xor i64 %110, -9223372036854775808, !mcsema_real_eip !11
+  %117 = xor i64 %_new_ptr2int_14, -9223372036854775808, !mcsema_real_eip !11
   %118 = and i64 %112, %117, !mcsema_real_eip !11
   %119 = icmp slt i64 %118, 0
   store i1 %119, i1* %OF_val, !mcsema_real_eip !11
@@ -392,19 +392,18 @@ entry:
   %123 = icmp eq i8 %122, 0
   store i1 %123, i1* %PF_val, !mcsema_real_eip !11
   %124 = extractvalue { i64, i1 } %uadd, 1
-  %_new_ptr2int_15 = ptrtoint i8* %_new_gep_14 to i1
-  store volatile i1 %_new_ptr2int_15, i1* %CF_val
-  store volatile i8* %_new_gep_14, i8** %_RSP_ptr_
+  store i1 %124, i1* %CF_val, !mcsema_real_eip !11
+  %_new_int2ptr_ = inttoptr i64 %111 to i8*
+  store volatile i8* %_new_int2ptr_, i8** %_RSP_ptr_
   store i64 %111, i64* %RSP_val, !mcsema_real_eip !11
-  %_allin_new_bt_16 = bitcast i8* %_new_gep_14 to i64*
   %125 = inttoptr i64 %111 to i64*, !mcsema_real_eip !12
-  %126 = load i64, i64* %_allin_new_bt_16, !mcsema_real_eip !12
-  %_new_int2ptr_ = inttoptr i64 %126 to i8*
-  store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
+  %126 = load i64, i64* %125, !mcsema_real_eip !12
+  %_new_int2ptr_15 = inttoptr i64 %126 to i8*
+  store volatile i8* %_new_int2ptr_15, i8** %_RBP_ptr_
   store i64 %126, i64* %RBP_val, !mcsema_real_eip !12
-  %_new_gep_17 = getelementptr i8, i8* %_new_gep_14, i64 16
   %127 = add i64 %111, 16, !mcsema_real_eip !13
-  store volatile i8* %_new_gep_17, i8** %_RSP_ptr_
+  %_new_int2ptr_16 = inttoptr i64 %127 to i8*
+  store volatile i8* %_new_int2ptr_16, i8** %_RSP_ptr_
   store i64 %127, i64* %RSP_val, !mcsema_real_eip !13
   %128 = load i64, i64* %RAX_val, !mcsema_real_eip !13
   store i64 %128, i64* %RAX, !mcsema_real_eip !13
@@ -418,14 +417,14 @@ entry:
   store i64 %132, i64* %RSI, !mcsema_real_eip !13
   %133 = load i64, i64* %RDI_val, !mcsema_real_eip !13
   store i64 %133, i64* %RDI, !mcsema_real_eip !13
-  %_load_rsp_ptr_18 = load i8*, i8** %_RSP_ptr_
+  %_load_rsp_ptr_17 = load i8*, i8** %_RSP_ptr_
   %134 = load i64, i64* %RSP_val, !mcsema_real_eip !13
-  %_new_ptr2int_19 = ptrtoint i8* %_load_rsp_ptr_18 to i64
-  store volatile i64 %_new_ptr2int_19, i64* %RSP
-  %_load_rbp_ptr_20 = load i8*, i8** %_RBP_ptr_
+  %_new_ptr2int_18 = ptrtoint i8* %_load_rsp_ptr_17 to i64
+  store volatile i64 %_new_ptr2int_18, i64* %RSP
+  %_load_rbp_ptr_19 = load i8*, i8** %_RBP_ptr_
   %135 = load i64, i64* %RBP_val, !mcsema_real_eip !13
-  %_new_ptr2int_21 = ptrtoint i8* %_load_rbp_ptr_20 to i64
-  store volatile i64 %_new_ptr2int_21, i64* %RBP
+  %_new_ptr2int_20 = ptrtoint i8* %_load_rbp_ptr_19 to i64
+  store volatile i64 %_new_ptr2int_20, i64* %RBP
   %136 = load i64, i64* %R8_val, !mcsema_real_eip !13
   store i64 %136, i64* %R8, !mcsema_real_eip !13
   %137 = load i64, i64* %R9_val, !mcsema_real_eip !13

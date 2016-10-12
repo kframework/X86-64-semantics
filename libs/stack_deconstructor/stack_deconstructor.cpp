@@ -162,6 +162,7 @@ bool stack_deconstructor::createLocalStackFrame(Function &F,
 
 bool stack_deconstructor::shouldConvert(Instruction *I) {
 
+  // handle load
   if (LoadInst *LI = dyn_cast<LoadInst>(I)) {
     Value *ptr_operand = LI->getPointerOperand();
     if (ptr_operand->getName().equals("RSP_val") ||
@@ -170,6 +171,7 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     }
   }
 
+  // handle add
   if (I->getOpcode() == Instruction::Add) {
     Value *pointer_operand = I->getOperand(0);
     Instruction *ptr_operand = dyn_cast<Instruction>(pointer_operand);
@@ -188,6 +190,7 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return false;
   }
 
+  // handle int2ptr
   if (I->getOpcode() == Instruction::IntToPtr) {
     Value *int_operand = I->getOperand(0);
     return (0 != convertMap.count(int_operand));
@@ -219,6 +222,7 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return false;
   }
 
+  // handle  call
   if (CallInst *CI = dyn_cast<CallInst>(I)) {
     Function *F = CI->getCalledFunction();
     if (!F || F->getIntrinsicID() != Intrinsic::uadd_with_overflow) {
@@ -237,6 +241,7 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return true;
   }
 
+  // handle  extract
   if (ExtractValueInst *EI = dyn_cast<ExtractValueInst>(I)) {
     Value *op1 = EI->getOperand(0);
     return (0 != convertMap.count(op1));
@@ -431,8 +436,12 @@ void stack_deconstructor::handle_call(Instruction *I) {
   CallInst *CI = dyn_cast<CallInst>(I);
   Value *op1 = CI->getArgOperand(0);
   Value *op2 = CI->getArgOperand(1);
-  auto *new_gep = IRB.CreateGEP(convertMap[op1], op2, "_new_gep_");
-  recordConverted(CI, new_gep, false, false);
+  Type *op1_type = op1->getType();
+  //auto *new_gep = IRB.CreateGEP(convertMap[op1], op2, "_new_gep_");
+  auto *new_ptr_int = IRB.CreatePtrToInt(convertMap[op1], op1_type, "_new_ptr2int_");
+  //recordConverted(CI, new_ptr_int, true, false);
+  Instruction *op1_I = dyn_cast<Instruction>(op1);
+  recordConverted(op1_I, new_ptr_int, true, false);
   return;
 }
 

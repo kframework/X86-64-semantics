@@ -1,4 +1,4 @@
-TESTS=$(shell find . -type d -name "test_*" | sort -V)
+TESTS=$(shell find . -maxdepth 1  -type d -name "test_*" | sort -V)
 .PHONY:	${TESTS}  all clean gcc clang
 SUB_TARGET=all
 

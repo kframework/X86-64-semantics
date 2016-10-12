@@ -1,5 +1,6 @@
 OPT=opt
 LLVMDIS=llvm-dis
+LLVMAS=llvm-as
 LLC=llc
 
 UTILS_DIR="../utils"
@@ -16,6 +17,7 @@ CC=clang
 CXX=clang++
 SKIP_ARG=0
 ALLIN="../../build/bin/allin"
+BC2ALLVM=bc2allvm
 
 
 all:    clang
@@ -28,7 +30,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG} bash -x ${RUN_SH} ${PROG_PREFIX} 64
+	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG}  ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -37,7 +39,7 @@ icc:
 	${MAKE} ext="icc" run_pass
 
 run_pass:
-	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll -debug  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
+	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll   -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
 	#${ALLIN} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
 	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
@@ -57,16 +59,31 @@ run_check:
 run:
 	${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
 	${CC} -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o
+
 	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ${CMD_ARGS} > ${outdir}after.trans.out	
 	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
 
 	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
 		echo "  ${PROG_PREFIX}: Output Passed"; \
-		rm -rf ${outdir}*.exe ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
+		rm -rf  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
 	else \
 		echo "  ${PROG_PREFIX}: Output Failed"; \
 	fi 
 
+	rm -rf 	./${outdir}*.allexe
+	${LLVMAS} ${outdir}${PROG_PREFIX}.${ext}.trans.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
+	${CC} -m64 -I${INCLUDE_DIR} -emit-llvm -c driver_64.c -o ${outdir}driver_64.bc
+	${BC2ALLVM} ${outdir}driver_64.bc ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.allexe
+
+	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.allexe ${CMD_ARGS} > ${outdir}after.trans.out	
+	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
+
+	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
+		echo "  ${PROG_PREFIX}: ALLEY Output Passed"; \
+		rm -rf  ./${outdir}*.exe  ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ${outdir}*.allexe ${outdir}*.bc; \
+	else \
+		echo "  ${PROG_PREFIX}: ALLEY Output Failed"; \
+	fi 
 clean:
 	@../utils/clearall.sh
 	@rm -rf log *.dot *.mod
