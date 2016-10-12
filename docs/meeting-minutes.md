@@ -1,14 +1,16 @@
 ### 12 Oct 2016
 - All the testsuite testcases are converted to allexe and tested
+
   ```
-    Format::binary --> tool::Mcsema --> Format::LLVM IR --> Tool::ALLIN --> Format::IR --> Tool::bc2allvm --> Format::allexe
-                                            |                                   |                                   | 
-                                            |                                   |                                   |
-                                            |                                   |____\ Tool::clang --> Output2      |___\ Tool::alley --> Output 3
-                                            |                                        /                                  /
-                                            |__\ Tool::clang --> Output1         Passing Definition: Output 1 == Output 2 == Output 3
+Format::binary --> tool::Mcsema --> Format::LLVM IR --> Tool::ALLIN --> Format::IR --> Tool::bc2allvm --> Format::allexe
+                                            |                          |                             | 
+                                            |                          |                             |
+                                            |                          |_\ Tool::clang -> O2         |_\ Tool::alley --> O3
+                                            |                            /                             /
+                                            |__\ Tool::clang --> O1         Passing Definition: O 1 == O 2 == O 3
                                                / 
   ```
+
 - Problem with indirect calls [calgrapph](Figs/test_23_1.callgraph.ps)
   - Till now first we identify the calls and agment them with actual arguments (parent %rsp and parent %rbp pointer) and go to the called function to augment the formal arguments.
   - This is not possible for idirect calls
