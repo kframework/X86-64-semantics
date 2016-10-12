@@ -1,0 +1,41 @@
+
+Output/test_23.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+   b:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
+  12:	8a 04 25 00 00 00 00 	mov    0x0,%al
+  19:	88 45 f7             	mov    %al,-0x9(%rbp)
+  1c:	83 7d f8 01          	cmpl   $0x1,-0x8(%rbp)
+  20:	0f 8d 5a 00 00 00    	jge    80 <main+0x80>
+  26:	48 63 45 f8          	movslq -0x8(%rbp),%rax
+  2a:	0f be 4c 05 f7       	movsbl -0x9(%rbp,%rax,1),%ecx
+  2f:	83 c1 9f             	add    $0xffffffffffffff9f,%ecx
+  32:	89 c8                	mov    %ecx,%eax
+  34:	83 e9 16             	sub    $0x16,%ecx
+  37:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+  3b:	89 4d e4             	mov    %ecx,-0x1c(%rbp)
+  3e:	0f 87 22 00 00 00    	ja     66 <main+0x66>
+  44:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  48:	48 8b 0c c5 00 00 00 	mov    0x0(,%rax,8),%rcx
+  4f:	00 
+  50:	ff e1                	jmpq   *%rcx
+  52:	e9 1b 00 00 00       	jmpq   72 <main+0x72>
+  57:	e9 16 00 00 00       	jmpq   72 <main+0x72>
+  5c:	e9 11 00 00 00       	jmpq   72 <main+0x72>
+  61:	e9 0c 00 00 00       	jmpq   72 <main+0x72>
+  66:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  6d:	e9 15 00 00 00       	jmpq   87 <main+0x87>
+  72:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  75:	83 c0 01             	add    $0x1,%eax
+  78:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  7b:	e9 9c ff ff ff       	jmpq   1c <main+0x1c>
+  80:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  87:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  8a:	5d                   	pop    %rbp
+  8b:	c3                   	retq   
