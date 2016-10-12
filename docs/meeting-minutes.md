@@ -11,7 +11,7 @@ Format::binary --> tool::Mcsema --> Format::LLVM IR --> Tool::ALLIN --> Format::
                                                / 
   ```
 
-- Problem with indirect calls [calgrapph](Figs/test_23_1.callgraph.ps)
+- Problem with indirect calls [calgrapph](Figs/test_23_1.callgraph.pdf)
   - Till now first we identify the calls and agment them with actual arguments (parent %rsp and parent %rbp pointer) and go to the called function to augment the formal arguments.
   - This is not possible for idirect calls
   - Proposed Soln: Modify all the internal functions and call to non library function 
