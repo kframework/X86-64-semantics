@@ -1,3 +1,70 @@
+### 12 Oct 2016
+- All the testsuite testcases are converted to allexe and tested
+  ```
+    Format::binary --> tool::Mcsema --> Format::LLVM IR --> Tool::ALLIN --> Format::IR --> Tool::bc2allvm --> Format::allexe
+                                            |                                   |                                   | 
+                                            |                                   |                                   |
+                                            |                                   |____\ Tool::clang --> Output2      |___\ Tool::alley --> Output 3
+                                            |                                        /                                  /
+                                            |__\ Tool::clang --> Output1         Passing Definition: Output 1 == Output 2 == Output 3
+                                               / 
+  ```
+- Problem with indirect calls [calgrapph](Figs/test_23_1.callgraph.ps)
+  - Till now first we identify the calls and agment them with actual arguments (parent %rsp and parent %rbp pointer) and go to the called function to augment the formal arguments.
+  - This is not possible for idirect calls
+  - Proposed Soln: Modify all the internal functions and call to non library function 
+
+- Experiment with `opt  -cfl-anders-aa -aa-eval   -print-all-alias-modref-info`
+```
+define void @main() {
+entry:
+  %X =  alloca i8*
+  %Y =  alloca i8*
+
+  %a =  alloca i8, i64 32
+  %b =  alloca i8
+  %c =  alloca i8
+
+  store i8* %a, i8** %X
+  store i8* %b, i8** %Y
+
+  %LX = load i8* , i8** %X
+  %LY = load i8* , i8** %Y
+}
+Anders Query
+  NoAlias:	i8* %LX, i8* %LY
+
+```
+
+```
+define void @main() {
+entry:
+  %X =  alloca i8*
+  %Y =  alloca i8*
+
+  %a =  alloca i8, i64 32
+  %b =  alloca i8
+  %c =  alloca i8
+
+  store i8* %a, i8** %X
+  store i8* %b, i8** %Y
+
+  %LX = load i8* , i8** %X
+  %LY = load i8* , i8** %Y
+
+  %_new_addr_ = getelementptr i8, i8* %LX, i64 8
+  %_new_val_  = ptrtoint i8* %LY to i8
+  store i8 %_new_val_ , i8* %_new_addr_
+  store i8* %_new_addr_ , i8** %X
+  ; The folllowing makes %LX %LY May Alias
+   store i8* %_new_addr_ , i8** %Y
+}
+
+```
+[anders AA](Figs/anders_AA.jpg)
+
+
+
 ### 06 Oct 2016
 
 #### Variable Recovery 
