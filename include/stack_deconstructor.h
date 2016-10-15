@@ -23,12 +23,9 @@ class stack_deconstructor : public ModulePass {
 private:
   Module *Mod;
   LLVMContext *ctx;
-
-  height_ty approximate_stack_height;
   SmallVector<Instruction *, 8> ToErase;
-  DenseMap<const llvm::Function *, Value *> FunctionToFrameMap;
+  DenseMap<llvm::Function *, llvm::Function*> FunctionCloneMap;
   DenseMap<llvm::Value *, llvm::Value *> convertMap;
-  void deconstructStack(Function &);
   IntegerType *int8_type;
   IntegerType *int64_type;
   PointerType *ptr_to_int8_type;
@@ -45,11 +42,16 @@ public:
     AU.addRequired<max_stack_height>();
   };
 
+  void deconstructStack();
+
+  // Augment formal arguments of internal functions with parent stack informations (like stack pointer and base pointer)
+  void augmentFuntionSignature();
+
   // Create Local stack for each procedure
-  bool createLocalStackFrame(Function &, Value **, Value **, Value **);
+  void createLocalStackFrame(Function &, height_ty, Value **, Value **, Value **);
 
   // Passing the parent stack as an argument
-  void augmentFunctionWithParentStack(Function &, Value *, Value *, Value *);
+  void augmentCall(Function &, Value *, Value *, Value *);
   Function *cloneFunctionWithExtraArgument(Function *);
 
   // Modify the loads to access the parent stack, if required
