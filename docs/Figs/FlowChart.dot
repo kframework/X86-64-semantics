@@ -1,0 +1,15 @@
+digraph "Stack Deconstruction" {
+	label="Flow chart of stack deconstruction ( A --> B: A must happen before B)";
+
+	Node1 [shape=record,label="{Augment actual arguments to calls}"];
+	Node2 [shape=record,label="{Augment formal arguments to internal functions}"];
+	Node3 [shape=record,label="{Create and use local stack pointers}"];
+	Node4 [shape=record,label="{Handle parent stack access}"];
+	
+        Node2 -> Node1;
+	Node3 -> Node1;
+
+        Node2 -> Node4;
+
+        Node3 -> Node4
+}
