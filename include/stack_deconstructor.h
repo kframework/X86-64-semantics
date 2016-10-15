@@ -25,6 +25,7 @@ private:
   LLVMContext *ctx;
   SmallVector<Instruction *, 8> ToErase;
   DenseMap<llvm::Function *, llvm::Function*> FunctionCloneMap;
+  DenseMap<llvm::Function *, height_ty> FunctionStackHeightMap;
   DenseMap<llvm::Value *, llvm::Value *> convertMap;
   IntegerType *int8_type;
   IntegerType *int64_type;

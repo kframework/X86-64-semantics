@@ -65,6 +65,19 @@ bool stack_deconstructor::runOnModule(Module &M) {
 void stack_deconstructor::deconstructStack() {
   Value *local_stack_start, *local_stack_end, *rbp_ptr_alloca;
 
+  for (Module::iterator FuncI = Mod->begin(), FuncE = Mod->end();
+       FuncI != FuncE; ++FuncI) {
+    Function *Func =  &*FuncI;
+    if(Func->isIntrinsic() || Func->isDeclaration()) {
+      continue;
+    }
+
+    max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(*Func);
+    height_ty stack_height = max_stack_height_pass.get_stack_height();
+    assert(stack_height <= 0 && "stack height cannot be positive\n");
+    FunctionStackHeightMap[Func] = stack_height;
+  }
+
   augmentFuntionSignature();
 
   for(auto P : FunctionCloneMap) {
@@ -75,12 +88,8 @@ void stack_deconstructor::deconstructStack() {
     DEBUG(errs() << "========================\n Processing Function:"
              << newFunc->getName() << "\n=================================\n");
 
-    // Compute the stack height of oldFunc (Note: stack_height(oldFunc) == stack_height(newFunc))
-    max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(*oldFunc);
-    height_ty stack_height = max_stack_height_pass.get_stack_height();
-    assert(stack_height <= 0 && "stack height cannot be positive\n");
 
-    createLocalStackFrame(*newFunc, stack_height, &local_stack_start, &local_stack_end, &rbp_ptr_alloca);
+    createLocalStackFrame(*newFunc, FunctionStackHeightMap[oldFunc],  &local_stack_start, &local_stack_end, &rbp_ptr_alloca);
     augmentCall(*newFunc, local_stack_start, local_stack_end, rbp_ptr_alloca);
     modifyLoadsToAccessParentStack(*newFunc, local_stack_start, local_stack_end);
   }
@@ -98,11 +107,30 @@ void stack_deconstructor::deconstructStack() {
 void stack_deconstructor::augmentFuntionSignature() {
   // Collect the functons to clone
   std::vector<Function*> worklist;
+  Function *mcsema_main = NULL;
+  
   for (Module::iterator FuncI = Mod->begin(), FuncE = Mod->end();
        FuncI != FuncE; ++FuncI) {
     Function *Func =  &*FuncI;
+    if(Func->getName() == "mcsema_main") {
+      mcsema_main = Func;
+      continue;
+    }
     worklist.push_back(Func);
   }
+
+  // Find the function called from mcsema_main
+  Function *called_from_mcsema_main = NULL;
+  for (auto FI = mcsema_main->begin(), FE = mcsema_main->end(); FI != FE; ++FI) {
+    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
+      Instruction *I = &*BBI++;
+
+      if (CallInst *ci = dyn_cast<CallInst>(I)) {
+        called_from_mcsema_main = ci->getCalledFunction();
+      }
+    }
+  }
+
 
   // Clone them
   for(auto *oldFunc : worklist) {
@@ -110,14 +138,13 @@ void stack_deconstructor::augmentFuntionSignature() {
     if(oldFunc->isIntrinsic() || oldFunc->isDeclaration()) {
       continue;
     }
+
     // Task 3
-    StringRef oldFuncName  =  oldFunc->getName();
-    DEBUG(llvm::errs() << "Cloning function : " <<  oldFuncName << "\n";);
-    if(oldFuncName == "mcsema_main") {
-      // We still want to process the internals of mcsema_main (like aumenting calls and for that adding local stack allocas)
+    if(oldFunc == called_from_mcsema_main) {
       FunctionCloneMap[oldFunc] = oldFunc;
       continue;
     }
+
     Function *newFunc = cloneFunctionWithExtraArgument(oldFunc);
     FunctionCloneMap[oldFunc] = newFunc;
 
@@ -154,7 +181,7 @@ void stack_deconstructor::augmentFuntionSignature() {
 ///
 /// Task 2:
 /// Replace all uses of RSP_val with RSP_ptr
-void stack_deconstructor::createLocalStackFrame(Function &F, height_ty stackheight,
+void stack_deconstructor::createLocalStackFrame(Function &F, height_ty stackheight, 
                                                 Value **stack_start,
                                                 Value **stack_end,
                                                 Value **rbp_ptr_alloca) {
@@ -168,9 +195,6 @@ void stack_deconstructor::createLocalStackFrame(Function &F, height_ty stackheig
   }
 
   // Performing Task 1
-  if(0 == stackheight)  {
-    stackheight = -1;
-  }
   ConstantInt *stack_height =
       ConstantInt::get(int64_type, -1 * stackheight);
 

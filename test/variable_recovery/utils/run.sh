@@ -39,7 +39,7 @@ else
   CFGBC_ARCH="-mtriple=x86_64-pc-linux-gnu"
 fi
 
-if [ ${SKIP_MCSEMA} == "0" ] 
+if [ ${SKIP_MCSEMA} == "0" ] && [ ${ASM_FILE} != "mcsema_ll" ];
 then  
   if [ ${ASM_FILE} == "asm" ] ; then
     nasm -f elf64 -o ${outdir}${BIN}.${ext}.o ${BIN}.asm ; 

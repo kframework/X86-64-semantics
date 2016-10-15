@@ -19,21 +19,21 @@ declare i8 @llvm.ctpop.i8(i8) #1
 
 define void @mcsema_main(%struct.regs*) local_unnamed_addr {
 driverBlockRaw:
-  %_RSP_ptr_106.sroa.0.i = alloca i64, align 8
-  %_RBP_ptr_107.sroa.0.i = alloca i64, align 8
-  %_local_stack_start_ptr_108.i = alloca [56 x i8], align 1
+  %_RSP_ptr_.sroa.0.i = alloca i64, align 8
+  %_RBP_ptr_.sroa.0.i = alloca i64, align 8
+  %_local_stack_start_ptr_106.i = alloca [56 x i8], align 1
   %STi_val.i = alloca [8 x x86_fp80], align 16, !mcsema_real_eip !2
-  %_RSP_ptr_106.sroa.0.i.0..sroa_cast = bitcast i64* %_RSP_ptr_106.sroa.0.i to i8*
-  call void @llvm.lifetime.start(i64 8, i8* nonnull %_RSP_ptr_106.sroa.0.i.0..sroa_cast)
-  %_RBP_ptr_107.sroa.0.i.0..sroa_cast = bitcast i64* %_RBP_ptr_107.sroa.0.i to i8*
-  call void @llvm.lifetime.start(i64 8, i8* nonnull %_RBP_ptr_107.sroa.0.i.0..sroa_cast)
-  %1 = getelementptr inbounds [56 x i8], [56 x i8]* %_local_stack_start_ptr_108.i, i64 0, i64 0
+  %_RSP_ptr_.sroa.0.i.0..sroa_cast = bitcast i64* %_RSP_ptr_.sroa.0.i to i8*
+  call void @llvm.lifetime.start(i64 8, i8* nonnull %_RSP_ptr_.sroa.0.i.0..sroa_cast)
+  %_RBP_ptr_.sroa.0.i.0..sroa_cast = bitcast i64* %_RBP_ptr_.sroa.0.i to i8*
+  call void @llvm.lifetime.start(i64 8, i8* nonnull %_RBP_ptr_.sroa.0.i.0..sroa_cast)
+  %1 = getelementptr inbounds [56 x i8], [56 x i8]* %_local_stack_start_ptr_106.i, i64 0, i64 0
   call void @llvm.lifetime.start(i64 56, i8* nonnull %1)
   %STi_val.i.0..sroa_cast = bitcast [8 x x86_fp80]* %STi_val.i to i8*
   call void @llvm.lifetime.start(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
-  %_local_stack_end_ptr_.i = getelementptr inbounds [56 x i8], [56 x i8]* %_local_stack_start_ptr_108.i, i64 0, i64 56
+  %_local_stack_end_ptr_.i = getelementptr inbounds [56 x i8], [56 x i8]* %_local_stack_start_ptr_106.i, i64 0, i64 56
   %2 = ptrtoint i8* %_local_stack_end_ptr_.i to i64
-  store i64 %2, i64* %_RSP_ptr_106.sroa.0.i, align 8
+  store i64 %2, i64* %_RSP_ptr_.sroa.0.i, align 8
   %RAX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0, !mcsema_real_eip !2
   %RBX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 1, !mcsema_real_eip !2
   %RCX.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 2, !mcsema_real_eip !2
@@ -169,62 +169,62 @@ driverBlockRaw:
   %66 = load i64, i64* %STACK_BASE.i, align 8, !mcsema_real_eip !2
   %STACK_LIMIT.i = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 71, !mcsema_real_eip !2
   %67 = load i64, i64* %STACK_LIMIT.i, align 8, !mcsema_real_eip !2
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_109.i = load i64, i64* %_RBP_ptr_107.sroa.0.i, align 8
-  %68 = bitcast i64* %_RSP_ptr_106.sroa.0.i to i8**
-  %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_120.i7 = load i8*, i8** %68, align 8
-  %_new_gep_.i = getelementptr i8, i8* %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_120.i7, i64 -8
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_107.i = load i64, i64* %_RBP_ptr_.sroa.0.i, align 8
+  %68 = bitcast i64* %_RSP_ptr_.sroa.0.i to i8**
+  %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_116.i7 = load i8*, i8** %68, align 8
+  %_new_gep_.i = getelementptr i8, i8* %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_116.i7, i64 -8
   %_allin_new_bt_.i = bitcast i8* %_new_gep_.i to i64*
-  store volatile i64 %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_109.i, i64* %_allin_new_bt_.i, align 8
+  store volatile i64 %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_107.i, i64* %_allin_new_bt_.i, align 8
   %69 = ptrtoint i8* %_new_gep_.i to i64
-  store volatile i64 %69, i64* %_RBP_ptr_107.sroa.0.i, align 8
-  %_new_gep_1.i = getelementptr i8, i8* %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_120.i7, i64 -56
+  store volatile i64 %69, i64* %_RBP_ptr_.sroa.0.i, align 8
+  %_new_gep_1.i = getelementptr i8, i8* %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_116.i7, i64 -56
   %70 = ptrtoint i8* %_new_gep_1.i to i64
-  store volatile i64 %70, i64* %_RSP_ptr_106.sroa.0.i, align 8
-  %_new_gep_3.i = getelementptr i8, i8* %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_120.i7, i64 -24
+  store volatile i64 %70, i64* %_RSP_ptr_.sroa.0.i, align 8
+  %_new_gep_3.i = getelementptr i8, i8* %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_116.i7, i64 -24
   %_allin_new_bt_4.i = bitcast i8* %_new_gep_3.i to i64*
   store i64 %7, i64* %_allin_new_bt_4.i, align 8, !mcsema_real_eip !3
-  %71 = bitcast i64* %_RBP_ptr_107.sroa.0.i to i8**
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_5121.i8 = load i8*, i8** %71, align 8
-  %_new_gep_6.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_5121.i8, i64 -16
+  %71 = bitcast i64* %_RBP_ptr_.sroa.0.i to i8**
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_5117.i8 = load i8*, i8** %71, align 8
+  %_new_gep_6.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_5117.i8, i64 -16
   %_allin_new_bt_7.i = bitcast i8* %_new_gep_6.i to i64*
   %72 = load i64, i64* %_allin_new_bt_7.i, align 8, !mcsema_real_eip !4
   %73 = tail call x86_64_sysvcc i64 @strlen(i64 %72), !mcsema_real_eip !5
   %74 = add i64 %73, 1
-  %_new_gep_9.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_5121.i8, i64 -24
+  %_new_gep_9.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_5117.i8, i64 -24
   %_allin_new_bt_10.i = bitcast i8* %_new_gep_9.i to i64*
   store i64 %74, i64* %_allin_new_bt_10.i, align 8, !mcsema_real_eip !6
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_11122.i9 = load i8*, i8** %71, align 8
-  %_new_gep_12.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_11122.i9, i64 -24
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_11118.i9 = load i8*, i8** %71, align 8
+  %_new_gep_12.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_11118.i9, i64 -24
   %_allin_new_bt_13.i = bitcast i8* %_new_gep_12.i to i64*
   %75 = load i64, i64* %_allin_new_bt_13.i, align 8, !mcsema_real_eip !7
   %76 = tail call x86_64_sysvcc i64 @malloc(i64 %75), !mcsema_real_eip !8
-  %_new_gep_15.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_11122.i9, i64 -32
+  %_new_gep_15.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_11118.i9, i64 -32
   %_allin_new_bt_16.i = bitcast i8* %_new_gep_15.i to i64*
   store i64 %76, i64* %_allin_new_bt_16.i, align 8, !mcsema_real_eip !9
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_17123.i10 = load i8*, i8** %71, align 8
-  %_new_gep_18.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_17123.i10, i64 -32
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_17119.i10 = load i8*, i8** %71, align 8
+  %_new_gep_18.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_17119.i10, i64 -32
   %_allin_new_bt_19.i = bitcast i8* %_new_gep_18.i to i64*
   %77 = load i64, i64* %_allin_new_bt_19.i, align 8, !mcsema_real_eip !10
   %78 = icmp eq i64 %77, 0, !mcsema_real_eip !10
   br i1 %78, label %block_0xd6.i, label %block_0x55.i, !mcsema_real_eip !11
 
 block_0xd6.i:                                     ; preds = %driverBlockRaw
-  %_new_gep_21.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_17123.i10, i64 -8
+  %_new_gep_21.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_17119.i10, i64 -8
   %_allin_new_bt_22.i = bitcast i8* %_new_gep_21.i to i64*
   store i64 0, i64* %_allin_new_bt_22.i, align 8, !mcsema_real_eip !12
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_23133.i17 = load i8*, i8** %71, align 8
-  %_new_gep_24.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_23133.i17, i64 -8
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_23129.i17 = load i8*, i8** %71, align 8
+  %_new_gep_24.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_23129.i17, i64 -8
   %_allin_new_bt_25.i = bitcast i8* %_new_gep_24.i to i64*
   %79 = load i64, i64* %_allin_new_bt_25.i, align 8, !mcsema_real_eip !13
-  %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_26113.i = load i64, i64* %_RSP_ptr_106.sroa.0.i, align 8
-  %uadd144.i = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_26113.i, i64 48)
+  %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_26111.i = load i64, i64* %_RSP_ptr_.sroa.0.i, align 8
+  %uadd144.i = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_26111.i, i64 48)
   %80 = extractvalue { i64, i1 } %uadd144.i, 0
-  %81 = xor i64 %80, %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_26113.i, !mcsema_real_eip !14
+  %81 = xor i64 %80, %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_26111.i, !mcsema_real_eip !14
   %82 = and i64 %81, 16
   %83 = icmp eq i64 %82, 0
   %84 = icmp slt i64 %80, 0
   %85 = icmp eq i64 %80, 0, !mcsema_real_eip !14
-  %86 = xor i64 %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_26113.i, -9223372036854775808, !mcsema_real_eip !14
+  %86 = xor i64 %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_26111.i, -9223372036854775808, !mcsema_real_eip !14
   %87 = and i64 %81, %86, !mcsema_real_eip !14
   %88 = icmp slt i64 %87, 0
   %89 = trunc i64 %80 to i8, !mcsema_real_eip !14
@@ -232,12 +232,12 @@ block_0xd6.i:                                     ; preds = %driverBlockRaw
   %91 = and i8 %90, 1
   %92 = icmp eq i8 %91, 0
   %93 = extractvalue { i64, i1 } %uadd144.i, 1
-  store volatile i64 %80, i64* %_RSP_ptr_106.sroa.0.i, align 8
+  store volatile i64 %80, i64* %_RSP_ptr_.sroa.0.i, align 8
   %94 = inttoptr i64 %80 to i64*, !mcsema_real_eip !15
   %95 = load i64, i64* %94, align 8
-  store volatile i64 %95, i64* %_RBP_ptr_107.sroa.0.i, align 8
+  store volatile i64 %95, i64* %_RBP_ptr_.sroa.0.i, align 8
   %96 = add i64 %80, 16
-  store volatile i64 %96, i64* %_RSP_ptr_106.sroa.0.i, align 8
+  store volatile i64 %96, i64* %_RSP_ptr_.sroa.0.i, align 8
   store i64 %79, i64* %RAX.i, align 8, !mcsema_real_eip !16
   %97 = bitcast i64* %RBX.i to <2 x i64>*
   store <2 x i64> %4, <2 x i64>* %97, align 8
@@ -309,35 +309,35 @@ block_0xd6.i:                                     ; preds = %driverBlockRaw
   store i128 %65, i128* %XMM15.i, align 1, !mcsema_real_eip !16
   store i64 %66, i64* %STACK_BASE.i, align 1, !mcsema_real_eip !16
   store i64 %67, i64* %STACK_LIMIT.i, align 1, !mcsema_real_eip !16
-  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RSP_ptr_106.sroa.0.i.0..sroa_cast)
-  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RBP_ptr_107.sroa.0.i.0..sroa_cast)
+  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RSP_ptr_.sroa.0.i.0..sroa_cast)
+  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RBP_ptr_.sroa.0.i.0..sroa_cast)
   call void @llvm.lifetime.end(i64 56, i8* nonnull %1)
   call void @llvm.lifetime.end(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
   br label %sub_20.exit
 
 block_0x55.i:                                     ; preds = %driverBlockRaw
-  %_new_gep_35.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_17123.i10, i64 -16
+  %_new_gep_35.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_17119.i10, i64 -16
   %_allin_new_bt_36.i = bitcast i8* %_new_gep_35.i to i64*
   %99 = load i64, i64* %_allin_new_bt_36.i, align 8, !mcsema_real_eip !17
-  %_new_gep_37.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_17123.i10, i64 -40
+  %_new_gep_37.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_17119.i10, i64 -40
   %_allin_new_bt_38.i = bitcast i8* %_new_gep_37.i to i64*
   store i64 %99, i64* %_allin_new_bt_38.i, align 8, !mcsema_real_eip !18
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_39124.i11 = load i8*, i8** %71, align 8
-  %_new_gep_40.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_39124.i11, i64 -32
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_39120.i11 = load i8*, i8** %71, align 8
+  %_new_gep_40.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_39120.i11, i64 -32
   %_allin_new_bt_41.i = bitcast i8* %_new_gep_40.i to i64*
   %100 = load i64, i64* %_allin_new_bt_41.i, align 8, !mcsema_real_eip !19
-  %_new_gep_42.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_39124.i11, i64 -48
+  %_new_gep_42.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_39120.i11, i64 -48
   %_allin_new_bt_43.i = bitcast i8* %_new_gep_42.i to i64*
   store i64 %100, i64* %_allin_new_bt_43.i, align 8, !mcsema_real_eip !20
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_44125.i12 = load i8*, i8** %71, align 8
-  %_new_gep_45.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_44125.i12, i64 -32
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_44121.i12 = load i8*, i8** %71, align 8
+  %_new_gep_45.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_44121.i12, i64 -32
   %_allin_new_bt_46.i = bitcast i8* %_new_gep_45.i to i64*
   %101 = load i64, i64* %_allin_new_bt_46.i, align 8, !mcsema_real_eip !21
-  %_new_gep_47.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_44125.i12, i64 -24
+  %_new_gep_47.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_44121.i12, i64 -24
   %_allin_new_bt_48.i = bitcast i8* %_new_gep_47.i to i64*
   %102 = load i64, i64* %_allin_new_bt_48.i, align 8, !mcsema_real_eip !22
   %103 = tail call x86_64_sysvcc i64 @memset(i64 %101, i64 0, i64 %102), !mcsema_real_eip !23
-  %_new_gep_50.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_44125.i12, i64 -40
+  %_new_gep_50.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_44121.i12, i64 -40
   %104 = bitcast i8* %_new_gep_50.i to i8**
   %105 = load i8*, i8** %104, align 8
   %106 = load i8, i8* %105, align 1, !mcsema_real_eip !24
@@ -351,26 +351,26 @@ block_0xc9.i.loopexit:                            ; preds = %block_0x84.i
   br label %block_0xc9.i
 
 block_0xc9.i:                                     ; preds = %block_0xc9.i.loopexit, %block_0x55.i
-  %_RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_52131.i = phi i8* [ %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_44125.i12, %block_0x55.i ], [ %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_104130.i15, %block_0xc9.i.loopexit ]
-  %_new_gep_53.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_52131.i, i64 -32
+  %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_52126.i = phi i8* [ %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_44121.i12, %block_0x55.i ], [ %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_104125.i15, %block_0xc9.i.loopexit ]
+  %_new_gep_53.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_52126.i, i64 -32
   %_allin_new_bt_54.i = bitcast i8* %_new_gep_53.i to i64*
   %108 = load i64, i64* %_allin_new_bt_54.i, align 8, !mcsema_real_eip !26
-  %_new_gep_55.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_52131.i, i64 -8
+  %_new_gep_55.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_52126.i, i64 -8
   %_allin_new_bt_56.i = bitcast i8* %_new_gep_55.i to i64*
   store i64 %108, i64* %_allin_new_bt_56.i, align 8, !mcsema_real_eip !27
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_57132.i16 = load i8*, i8** %71, align 8
-  %_new_gep_58.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_57132.i16, i64 -8
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_57127.i16 = load i8*, i8** %71, align 8
+  %_new_gep_58.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_57127.i16, i64 -8
   %_allin_new_bt_59.i = bitcast i8* %_new_gep_58.i to i64*
   %109 = load i64, i64* %_allin_new_bt_59.i, align 8, !mcsema_real_eip !13
-  %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_60110.i = load i64, i64* %_RSP_ptr_106.sroa.0.i, align 8
-  %uadd141.i = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_60110.i, i64 48)
+  %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_60108.i = load i64, i64* %_RSP_ptr_.sroa.0.i, align 8
+  %uadd141.i = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_60108.i, i64 48)
   %110 = extractvalue { i64, i1 } %uadd141.i, 0
-  %111 = xor i64 %110, %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_60110.i, !mcsema_real_eip !14
+  %111 = xor i64 %110, %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_60108.i, !mcsema_real_eip !14
   %112 = and i64 %111, 16
   %113 = icmp eq i64 %112, 0
   %114 = icmp slt i64 %110, 0
   %115 = icmp eq i64 %110, 0, !mcsema_real_eip !14
-  %116 = xor i64 %_RSP_ptr_106.sroa.0.i.0._RSP_ptr_106.sroa.0.0._RSP_ptr_106.sroa.0.0._load_rsp_ptr_60110.i, -9223372036854775808, !mcsema_real_eip !14
+  %116 = xor i64 %_RSP_ptr_.sroa.0.i.0._RSP_ptr_.sroa.0.0._RSP_ptr_.sroa.0.0._RSP_ptr_.0._load_rsp_ptr_60108.i, -9223372036854775808, !mcsema_real_eip !14
   %117 = and i64 %111, %116, !mcsema_real_eip !14
   %118 = icmp slt i64 %117, 0
   %119 = trunc i64 %110 to i8, !mcsema_real_eip !14
@@ -378,12 +378,12 @@ block_0xc9.i:                                     ; preds = %block_0xc9.i.loopex
   %121 = and i8 %120, 1
   %122 = icmp eq i8 %121, 0
   %123 = extractvalue { i64, i1 } %uadd141.i, 1
-  store volatile i64 %110, i64* %_RSP_ptr_106.sroa.0.i, align 8
+  store volatile i64 %110, i64* %_RSP_ptr_.sroa.0.i, align 8
   %124 = inttoptr i64 %110 to i64*, !mcsema_real_eip !15
   %125 = load i64, i64* %124, align 8
-  store volatile i64 %125, i64* %_RBP_ptr_107.sroa.0.i, align 8
+  store volatile i64 %125, i64* %_RBP_ptr_.sroa.0.i, align 8
   %126 = add i64 %110, 16
-  store volatile i64 %126, i64* %_RSP_ptr_106.sroa.0.i, align 8
+  store volatile i64 %126, i64* %_RSP_ptr_.sroa.0.i, align 8
   store i64 %109, i64* %RAX.i, align 8, !mcsema_real_eip !16
   %127 = extractelement <2 x i64> %4, i32 0
   store i64 %127, i64* %RBX.i, align 8, !mcsema_real_eip !16
@@ -456,35 +456,35 @@ block_0xc9.i:                                     ; preds = %block_0xc9.i.loopex
   store i128 %65, i128* %XMM15.i, align 1, !mcsema_real_eip !16
   store i64 %66, i64* %STACK_BASE.i, align 1, !mcsema_real_eip !16
   store i64 %67, i64* %STACK_LIMIT.i, align 1, !mcsema_real_eip !16
-  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RSP_ptr_106.sroa.0.i.0..sroa_cast)
-  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RBP_ptr_107.sroa.0.i.0..sroa_cast)
+  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RSP_ptr_.sroa.0.i.0..sroa_cast)
+  call void @llvm.lifetime.end(i64 8, i8* nonnull %_RBP_ptr_.sroa.0.i.0..sroa_cast)
   call void @llvm.lifetime.end(i64 56, i8* nonnull %1)
   call void @llvm.lifetime.end(i64 128, i8* nonnull %STi_val.i.0..sroa_cast)
   br label %sub_20.exit
 
 block_0x84.i:                                     ; preds = %block_0x84.i.preheader, %block_0x84.i
   %128 = phi i8 [ %138, %block_0x84.i ], [ %106, %block_0x84.i.preheader ]
-  %_RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_69127.i = phi i8* [ %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_104130.i15, %block_0x84.i ], [ %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_44125.i12, %block_0x84.i.preheader ]
+  %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_69123.i = phi i8* [ %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_104125.i15, %block_0x84.i ], [ %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_44121.i12, %block_0x84.i.preheader ]
   %129 = icmp eq i8 %128, 47
-  %_new_gep_90.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_69127.i, i64 -48
+  %_new_gep_90.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_69123.i, i64 -48
   %130 = bitcast i8* %_new_gep_90.i to i8**
   %131 = load i8*, i8** %130, align 8
   %.sink.i = select i1 %129, i8 92, i8 %128
   store i8 %.sink.i, i8* %131, align 1
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_92128.i13 = load i8*, i8** %71, align 8
-  %_new_gep_93.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_92128.i13, i64 -40
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_92128.i13 = load i8*, i8** %71, align 8
+  %_new_gep_93.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_92128.i13, i64 -40
   %_allin_new_bt_94.i = bitcast i8* %_new_gep_93.i to i64*
   %132 = load i64, i64* %_allin_new_bt_94.i, align 8
   %133 = add i64 %132, 1
   store i64 %133, i64* %_allin_new_bt_94.i, align 8
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_98129.i14 = load i8*, i8** %71, align 8
-  %_new_gep_99.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_98129.i14, i64 -48
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_98.sink130.i14 = load i8*, i8** %71, align 8
+  %_new_gep_99.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_98.sink130.i14, i64 -48
   %_allin_new_bt_100.i = bitcast i8* %_new_gep_99.i to i64*
   %134 = load i64, i64* %_allin_new_bt_100.i, align 8
   %135 = add i64 %134, 1
   store i64 %135, i64* %_allin_new_bt_100.i, align 8
-  %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_104130.i15 = load i8*, i8** %71, align 8
-  %_new_gep_105.i = getelementptr i8, i8* %_RBP_ptr_107.sroa.0.i.0._RBP_ptr_107.sroa.0.0._RBP_ptr_107.sroa.0.0._load_rbp_ptr_104130.i15, i64 -40
+  %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_104125.i15 = load i8*, i8** %71, align 8
+  %_new_gep_105.i = getelementptr i8, i8* %_RBP_ptr_.sroa.0.i.0._RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_104125.i15, i64 -40
   %136 = bitcast i8* %_new_gep_105.i to i8**
   %137 = load i8*, i8** %136, align 8
   %138 = load i8, i8* %137, align 1, !mcsema_real_eip !24

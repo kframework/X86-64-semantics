@@ -81,7 +81,6 @@ int keycomp(const char *key)
     //digit 7
     // b9
     k67 = to_byte(key[6]);
-    k67 << 4;
     k67 |= (to_byte(key[7]));
     if((~k67) == 0x46) {
         ret -= 1;
@@ -110,7 +109,7 @@ int keycomp(const char *key)
     temp = k12_19 ^ 0xA488769D;
     ok = temp >> 16;
     AAAA = temp & 0x0000FFFF;
-    if(ok == 'OK' && AAAA == ret) {
+    if(ok == 'O' && AAAA == ret) {
         ret = 0;
     } else {
         ret = 0xbcdf;

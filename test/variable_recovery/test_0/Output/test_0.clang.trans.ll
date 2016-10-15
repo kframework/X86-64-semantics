@@ -7,8 +7,8 @@ target triple = "x86_64-pc-linux-gnu"
 
 define internal x86_64_sysvcc void @sub_0(%struct.regs*) {
 entry:
-  %_RSP_ptr_ = alloca i8*, i64 32
-  %_RBP_ptr_ = alloca i8*, i64 32
+  %_RSP_ptr_ = alloca i8*
+  %_RBP_ptr_ = alloca i8*
   %_local_stack_start_ptr_ = alloca i8, i64 32
   %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 32
   store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
@@ -44,6 +44,7 @@ entry:
   %RBP = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 7
   %foo8 = load i64, i64* %RBP
   store i64 %foo8, i64* %RBP_val
+
   %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
   %foo77 = load i64, i64* %RBP_val
   %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
@@ -115,8 +116,6 @@ entry:
   %foo111 = load i32, i32* %foo110
   %foo112 = zext i32 %foo111 to i64
   store i64 %foo112, i64* %RAX_val
-
-
   %_load_rsp_ptr_17 = load i8*, i8** %_RSP_ptr_
   %foo113 = load i64, i64* %RSP_val
   %_allin_new_bt_18 = bitcast i8* %_load_rsp_ptr_17 to i64*
@@ -125,7 +124,6 @@ entry:
   %_new_int2ptr_ = inttoptr i64 %foo115 to i8*
   store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
   store i64 %foo115, i64* %RBP_val
-
   %_new_gep_19 = getelementptr i8, i8* %_load_rsp_ptr_17, i64 16
   %foo116 = add i64 %foo113, 16
   store volatile i8* %_new_gep_19, i8** %_RSP_ptr_
@@ -158,8 +156,8 @@ declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture writeonly, i8* nocapture r
 
 define void @mcsema_main(%struct.regs*) {
 driverBlockRaw:
-  %_RSP_ptr_ = alloca i8*, i64 0
-  %_RBP_ptr_ = alloca i8*, i64 0
+  %_RSP_ptr_ = alloca i8*
+  %_RBP_ptr_ = alloca i8*
   %_local_stack_start_ptr_ = alloca i8, i64 0
   %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 0
   store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_

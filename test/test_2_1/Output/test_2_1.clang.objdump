@@ -1,0 +1,59 @@
+
+Output/test_2_1.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	8b 45 18             	mov    0x18(%rbp),%eax
+   7:	44 8b 55 10          	mov    0x10(%rbp),%r10d
+   b:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   e:	89 75 f8             	mov    %esi,-0x8(%rbp)
+  11:	89 55 f4             	mov    %edx,-0xc(%rbp)
+  14:	89 4d f0             	mov    %ecx,-0x10(%rbp)
+  17:	44 89 45 ec          	mov    %r8d,-0x14(%rbp)
+  1b:	44 89 4d e8          	mov    %r9d,-0x18(%rbp)
+  1f:	44 89 55 e4          	mov    %r10d,-0x1c(%rbp)
+  23:	89 45 e0             	mov    %eax,-0x20(%rbp)
+  26:	8b 45 e4             	mov    -0x1c(%rbp),%eax
+  29:	03 45 e0             	add    -0x20(%rbp),%eax
+  2c:	89 45 dc             	mov    %eax,-0x24(%rbp)
+  2f:	8b 45 dc             	mov    -0x24(%rbp),%eax
+  32:	5d                   	pop    %rbp
+  33:	c3                   	retq   
+  34:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  3b:	00 00 00 00 00 
+
+0000000000000040 <main>:
+  40:	55                   	push   %rbp
+  41:	48 89 e5             	mov    %rsp,%rbp
+  44:	53                   	push   %rbx
+  45:	48 83 ec 28          	sub    $0x28,%rsp
+  49:	b8 64 00 00 00       	mov    $0x64,%eax
+  4e:	b9 c8 00 00 00       	mov    $0xc8,%ecx
+  53:	ba 2c 01 00 00       	mov    $0x12c,%edx
+  58:	41 b8 90 01 00 00    	mov    $0x190,%r8d
+  5e:	41 b9 f4 01 00 00    	mov    $0x1f4,%r9d
+  64:	41 ba 58 02 00 00    	mov    $0x258,%r10d
+  6a:	41 bb 0a 00 00 00    	mov    $0xa,%r11d
+  70:	bb 14 00 00 00       	mov    $0x14,%ebx
+  75:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+  7c:	89 7d f0             	mov    %edi,-0x10(%rbp)
+  7f:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+  83:	89 c7                	mov    %eax,%edi
+  85:	89 ce                	mov    %ecx,%esi
+  87:	44 89 c1             	mov    %r8d,%ecx
+  8a:	45 89 c8             	mov    %r9d,%r8d
+  8d:	45 89 d1             	mov    %r10d,%r9d
+  90:	c7 04 24 0a 00 00 00 	movl   $0xa,(%rsp)
+  97:	c7 44 24 08 14 00 00 	movl   $0x14,0x8(%rsp)
+  9e:	00 
+  9f:	89 5d e4             	mov    %ebx,-0x1c(%rbp)
+  a2:	44 89 5d e0          	mov    %r11d,-0x20(%rbp)
+  a6:	e8 55 ff ff ff       	callq  0 <foo>
+  ab:	48 83 c4 28          	add    $0x28,%rsp
+  af:	5b                   	pop    %rbx
+  b0:	5d                   	pop    %rbp
+  b1:	c3                   	retq   

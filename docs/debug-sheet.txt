@@ -13,3 +13,7 @@
 
 
   declare i32 @printf(i8* noalias, ...)
+
+  @_test_.1 = internal constant [22 x i8] c"Value:%u|%u|%u|%u|%u\0A\00"
+  %test5 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([22 x i8], [22 x i8]* @_test_.1, i32 0, i32 0), i64 %_ptr_to_int_152,  i64 %_local_end_to_int_153, i64 %_offset_above_rbp_155, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_)
+

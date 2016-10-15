@@ -1,6 +1,0 @@
-a == foo
-b == /stuff/
-c == bar
-a == foo
-b == \stuff\
-c == bar
