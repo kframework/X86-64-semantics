@@ -24,7 +24,7 @@ private:
   Module *Mod;
   LLVMContext *ctx;
   SmallVector<Instruction *, 8> ToErase;
-  DenseMap<llvm::Function *, llvm::Function*> FunctionCloneMap;
+  DenseMap<llvm::Function *, llvm::Function *> FunctionCloneMap;
   DenseMap<llvm::Function *, height_ty> FunctionStackHeightMap;
   DenseMap<llvm::Value *, llvm::Value *> convertMap;
   IntegerType *int8_type;
@@ -45,11 +45,13 @@ public:
 
   void deconstructStack();
 
-  // Augment formal arguments of internal functions with parent stack informations (like stack pointer and base pointer)
+  // Augment formal arguments of internal functions with parent stack
+  // informations (like stack pointer and base pointer)
   void augmentFuntionSignature();
 
   // Create Local stack for each procedure
-  void createLocalStackFrame(Function &, height_ty, Value **, Value **, Value **);
+  void createLocalStackFrame(Function &, height_ty, Value **, Value **,
+                             Value **);
 
   // Passing the parent stack as an argument
   void augmentCall(Function &, Value *, Value *, Value *);

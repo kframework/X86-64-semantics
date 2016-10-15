@@ -44,7 +44,7 @@ bool stack_deconstructor::runOnModule(Module &M) {
   Mod = &M;
   ctx = &M.getContext();
 
-  // Initialize 
+  // Initialize
   int64_type = Type::getInt64Ty(*ctx);
   int8_type = Type::getInt8Ty(*ctx);
   ptr_to_int8_type = Type::getInt8PtrTy(*ctx);
@@ -57,9 +57,11 @@ bool stack_deconstructor::runOnModule(Module &M) {
 /// Function :  deconstructStack
 /// Purpose  :  Introduce local stack frame based on the stack size
 /// approximated by max_stack_height pass. This includes
-/// 1. Augment formal arguments of all the internal functions with parent stack informations (like stack pointer and base pointer)
-/// For each clonee function 
-///   2. Create local stack pointers and replace all existing used of RSP_val/RBP_val with them
+/// 1. Augment formal arguments of all the internal functions with parent stack
+/// informations (like stack pointer and base pointer)
+/// For each clonee function
+///   2. Create local stack pointers and replace all existing used of
+///   RSP_val/RBP_val with them
 ///   3. Augment the calls to internal functions with proper actual arguments
 ///   4. Handle parent stack access
 void stack_deconstructor::deconstructStack() {
@@ -67,12 +69,13 @@ void stack_deconstructor::deconstructStack() {
 
   for (Module::iterator FuncI = Mod->begin(), FuncE = Mod->end();
        FuncI != FuncE; ++FuncI) {
-    Function *Func =  &*FuncI;
-    if(Func->isIntrinsic() || Func->isDeclaration()) {
+    Function *Func = &*FuncI;
+    if (Func->isIntrinsic() || Func->isDeclaration()) {
       continue;
     }
 
-    max_stack_height &max_stack_height_pass = getAnalysis<max_stack_height>(*Func);
+    max_stack_height &max_stack_height_pass =
+        getAnalysis<max_stack_height>(*Func);
     height_ty stack_height = max_stack_height_pass.get_stack_height();
     assert(stack_height <= 0 && "stack height cannot be positive\n");
     FunctionStackHeightMap[Func] = stack_height;
@@ -80,39 +83,45 @@ void stack_deconstructor::deconstructStack() {
 
   augmentFuntionSignature();
 
-  for(auto P : FunctionCloneMap) {
+  for (auto P : FunctionCloneMap) {
     auto *oldFunc = P.first;
     auto *newFunc = P.second;
-    local_stack_start = local_stack_end = rbp_ptr_alloca  = nullptr;
+    local_stack_start = local_stack_end = rbp_ptr_alloca = nullptr;
 
     DEBUG(errs() << "========================\n Processing Function:"
-             << newFunc->getName() << "\n=================================\n");
+                 << newFunc->getName()
+                 << "\n=================================\n");
 
-
-    createLocalStackFrame(*newFunc, FunctionStackHeightMap[oldFunc],  &local_stack_start, &local_stack_end, &rbp_ptr_alloca);
+    createLocalStackFrame(*newFunc, FunctionStackHeightMap[oldFunc],
+                          &local_stack_start, &local_stack_end,
+                          &rbp_ptr_alloca);
     augmentCall(*newFunc, local_stack_start, local_stack_end, rbp_ptr_alloca);
-    modifyLoadsToAccessParentStack(*newFunc, local_stack_start, local_stack_end);
+    modifyLoadsToAccessParentStack(*newFunc, local_stack_start,
+                                   local_stack_end);
   }
 
   return;
 }
 
 /// Function :  augmentFuntionSignature
-/// Purpose  :  1. Augment formal arguments of internal functions with parent stack informations (like stack pointer and base pointer)
-///             2. Uses of cloned functions other that calls are replaced with the clonee
+/// Purpose  :  1. Augment formal arguments of internal functions with parent
+/// stack informations (like stack pointer and base pointer)
+///             2. Uses of cloned functions other that calls are replaced with
+///             the clonee
 ///             3. Do not clone the entry function mcsema_main
 /// Example  :
-///     Convert define i32 @bar(i32)  to 
-///     define i32 define i32 @bar.2(i32, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_)
+///     Convert define i32 @bar(i32)  to
+///     define i32 define i32 @bar.2(i32, i8* %_parent_stack_start_ptr_, i8*
+///     %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_)
 void stack_deconstructor::augmentFuntionSignature() {
   // Collect the functons to clone
-  std::vector<Function*> worklist;
+  std::vector<Function *> worklist;
   Function *mcsema_main = NULL;
-  
+
   for (Module::iterator FuncI = Mod->begin(), FuncE = Mod->end();
        FuncI != FuncE; ++FuncI) {
-    Function *Func =  &*FuncI;
-    if(Func->getName() == "mcsema_main") {
+    Function *Func = &*FuncI;
+    if (Func->getName() == "mcsema_main") {
       mcsema_main = Func;
       continue;
     }
@@ -121,7 +130,8 @@ void stack_deconstructor::augmentFuntionSignature() {
 
   // Find the function called from mcsema_main
   Function *called_from_mcsema_main = NULL;
-  for (auto FI = mcsema_main->begin(), FE = mcsema_main->end(); FI != FE; ++FI) {
+  for (auto FI = mcsema_main->begin(), FE = mcsema_main->end(); FI != FE;
+       ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
       Instruction *I = &*BBI++;
 
@@ -131,16 +141,15 @@ void stack_deconstructor::augmentFuntionSignature() {
     }
   }
 
-
   // Clone them
-  for(auto *oldFunc : worklist) {
+  for (auto *oldFunc : worklist) {
     // Do not clone functions whose definitions are not internal
-    if(oldFunc->isIntrinsic() || oldFunc->isDeclaration()) {
+    if (oldFunc->isIntrinsic() || oldFunc->isDeclaration()) {
       continue;
     }
 
     // Task 3
-    if(oldFunc == called_from_mcsema_main) {
+    if (oldFunc == called_from_mcsema_main) {
       FunctionCloneMap[oldFunc] = oldFunc;
       continue;
     }
@@ -149,15 +158,17 @@ void stack_deconstructor::augmentFuntionSignature() {
     FunctionCloneMap[oldFunc] = newFunc;
 
     // Task 2
-    for (User* user : oldFunc->users()) {
-      assert((true == isa<CallInst>(user) || true == isa<Constant>(user)) && "Unhandled usage of a function");
-      if(isa<CallInst>(user)) {
+    for (User *user : oldFunc->users()) {
+      assert((true == isa<CallInst>(user) || true == isa<Constant>(user)) &&
+             "Unhandled usage of a function");
+      if (isa<CallInst>(user)) {
         continue;
       }
 
       DEBUG(llvm::errs() << *user << "\n");
-      Constant* const_ptr = ConstantExpr::getCast(Instruction::BitCast, newFunc, oldFunc->getType()); 
-      oldFunc->replaceAllUsesWith(const_ptr);  
+      Constant *const_ptr = ConstantExpr::getCast(Instruction::BitCast, newFunc,
+                                                  oldFunc->getType());
+      oldFunc->replaceAllUsesWith(const_ptr);
     }
   }
 }
@@ -181,7 +192,8 @@ void stack_deconstructor::augmentFuntionSignature() {
 ///
 /// Task 2:
 /// Replace all uses of RSP_val with RSP_ptr
-void stack_deconstructor::createLocalStackFrame(Function &F, height_ty stackheight, 
+void stack_deconstructor::createLocalStackFrame(Function &F,
+                                                height_ty stackheight,
                                                 Value **stack_start,
                                                 Value **stack_end,
                                                 Value **rbp_ptr_alloca) {
@@ -195,16 +207,14 @@ void stack_deconstructor::createLocalStackFrame(Function &F, height_ty stackheig
   }
 
   // Performing Task 1
-  ConstantInt *stack_height =
-      ConstantInt::get(int64_type, -1 * stackheight);
+  ConstantInt *stack_height = ConstantInt::get(int64_type, -1 * stackheight);
 
   Instruction *I = &*(F.getEntryBlock().begin());
 
   IRBuilder<> IRB(I);
   auto *rsp_ptr_alloca =
       IRB.CreateAlloca(ptr_to_int8_type, nullptr, "_RSP_ptr_");
-  *rbp_ptr_alloca =
-      IRB.CreateAlloca(ptr_to_int8_type, nullptr, "_RBP_ptr_");
+  *rbp_ptr_alloca = IRB.CreateAlloca(ptr_to_int8_type, nullptr, "_RBP_ptr_");
   *stack_start =
       IRB.CreateAlloca(int8_type, stack_height, "_local_stack_start_ptr_");
   std::vector<Value *> indices;
@@ -497,9 +507,10 @@ void stack_deconstructor::handle_call(Instruction *I) {
   IRBuilder<> IRB(I);
   CallInst *CI = dyn_cast<CallInst>(I);
   Value *op1 = CI->getArgOperand(0);
-  //Value *op2 = CI->getArgOperand(1);
+  // Value *op2 = CI->getArgOperand(1);
   Type *op1_type = op1->getType();
-  auto *new_ptr_int = IRB.CreatePtrToInt(convertMap[op1], op1_type, "_new_ptr2int_");
+  auto *new_ptr_int =
+      IRB.CreatePtrToInt(convertMap[op1], op1_type, "_new_ptr2int_");
   Instruction *op1_I = dyn_cast<Instruction>(op1);
   recordConverted(op1_I, new_ptr_int, true, false);
   return;
@@ -520,9 +531,9 @@ void stack_deconstructor::handle_extractval(Instruction *I) {
 ///   %_rbp_ptr_            : point to the rbp pointer of parent frame
 /// Also the corresponding called function are augmented with extra
 /// formal arguments.
-void stack_deconstructor::augmentCall(
-    Function &F, Value *local_stack_start, Value *local_stack_end,
-    Value *rbp_ptr_alloca) {
+void stack_deconstructor::augmentCall(Function &F, Value *local_stack_start,
+                                      Value *local_stack_end,
+                                      Value *rbp_ptr_alloca) {
   for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
       Instruction *I = &*BBI++;
@@ -530,35 +541,37 @@ void stack_deconstructor::augmentCall(
       if (CallInst *ci = dyn_cast<CallInst>(I)) {
 
         IRBuilder<> IRB(ci);
-        Value *calledValue  = ci->getCalledValue();
+        Value *calledValue = ci->getCalledValue();
         Function *oldFunc = dyn_cast<Function>(calledValue);
-        Value *newCallee =  NULL;
+        Value *newCallee = NULL;
 
-        if(oldFunc) {
+        if (oldFunc) {
           // We will be augmenting only those calls whose definitions
           // are cloned. Ex. we should not augment printf
-          if(0 == FunctionCloneMap.count(oldFunc)) {
-              continue;
+          if (0 == FunctionCloneMap.count(oldFunc)) {
+            continue;
           }
-          newCallee =  FunctionCloneMap[oldFunc];
+          newCallee = FunctionCloneMap[oldFunc];
         } else {
           // calledValue is a function pointer
           Type *type = calledValue->getType();
-          FunctionType *funcTy = dyn_cast<FunctionType>(type->getPointerElementType());
+          FunctionType *funcTy =
+              dyn_cast<FunctionType>(type->getPointerElementType());
           assert(funcTy != nullptr && "Must be a function type");
 
           // Augment the old function pointer type to promoted type
           std::vector<Type *> ArgTypes;
-          FunctionType::param_iterator PI =  funcTy->param_begin();
-          FunctionType::param_iterator PE =  funcTy->param_end();
-          for(;PI != PE ; PI++) {
+          FunctionType::param_iterator PI = funcTy->param_begin();
+          FunctionType::param_iterator PE = funcTy->param_end();
+          for (; PI != PE; PI++) {
             ArgTypes.push_back(*PI);
           }
           ArgTypes.push_back(ptr_to_int8_type);
           ArgTypes.push_back(ptr_to_int8_type);
           ArgTypes.push_back(ptr_to_int8_type);
 
-          FunctionType *newTy = FunctionType::get(ci->getType() , ArgTypes, false);
+          FunctionType *newTy =
+              FunctionType::get(ci->getType(), ArgTypes, false);
 
           // Create a bitcast of the old function pointer to promoted type
           newCallee = IRB.CreateBitCast(calledValue, newTy->getPointerTo());
@@ -572,12 +585,12 @@ void stack_deconstructor::augmentCall(
         arguments.push_back(local_stack_start);
         arguments.push_back(local_stack_end);
         arguments.push_back(new_load);
-        
+
         CallInst *new_ci = IRB.CreateCall(newCallee, arguments);
         recordConverted(ci, new_ci);
       } // end if(CallInst ...)
-    } // end for
-  } // end for
+    }   // end for
+  }     // end for
   // At this point erase all the replcaed instrcutions
   eraseReplacedInstructions();
 
@@ -630,7 +643,8 @@ void stack_deconstructor::augmentCall(
 ///
 /// Case III: PTR is a direct parent stack pointer computed
 ///   Satisfies:
-///       !condition1 // as layout of parent stack address is above that of local
+///       !condition1 // as layout of parent stack address is above that of
+///       local
 ///       stack address
 ///       !condition2
 ///   Conclusion:
@@ -716,8 +730,8 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
                                  parent_end_bt, "_cond4_");
     auto *cond1_n_cond2 =
         IRB.CreateBinOp(Instruction::And, cond1, cond2, "_cond1_n_cond2_");
-    auto *cond1_n_cond2_n_cond3 = IRB.CreateBinOp(Instruction::And, cond1_n_cond2,
-                                                cond3, "_cond1_n_cond2_cond3_");
+    auto *cond1_n_cond2_n_cond3 = IRB.CreateBinOp(
+        Instruction::And, cond1_n_cond2, cond3, "_cond1_n_cond2_cond3_");
     TerminatorInst *ti =
         SplitBlockAndInsertIfThen(cond1_n_cond2_n_cond3, I, false);
 
@@ -732,7 +746,7 @@ void stack_deconstructor::modifyLoadsToAccessParentStack(
                     "Accessing Parent Stack [" +
                         std::to_string(StaticParentAccessChecks++) + "]\n",
                     "_debug_parent_stack_")));
-    //Constant *printf_func = printf_prototype(*ctx, Mod); IRB.CreateCall(
+    // Constant *printf_func = printf_prototype(*ctx, Mod); IRB.CreateCall(
     //    printf_func,
     //    geti8StrVal(*Mod,
     //                "Accessing Parent Stack [" +
