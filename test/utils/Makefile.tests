@@ -5,7 +5,7 @@ LLC=llc
 
 UTILS_DIR="../utils"
 INCLUDE_DIR=${UTILS_DIR}
-RUN_SH=${UTILS_DIR}/run.sh  
+RUN_SH=${UTILS_DIR}/run.pl  
 loadso=../../build/lib/LLVMstack_deconstructor.so
 #loadso=../../source/build/lib/LLVMmax_stack_height.so
 OPTSWITCH=-stack-decons 
@@ -15,9 +15,14 @@ OPTSWITCH=-stack-decons
 outdir="Output/"
 CC=clang
 CXX=clang++
-SKIP_ARG=1
 ALLIN="../../build/bin/allin"
 BC2ALLVM=bc2allvm
+
+
+SKIP_MCSEMA=-skip_mcsema
+PRINT=
+#SKIP_MCSEMA=
+#PRINT=-print
 
 
 all:    clang
@@ -30,7 +35,8 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG}  ${RUN_SH} ${PROG_PREFIX} 64
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang ${PRINT}	
+	#COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG}  ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
 icc:
