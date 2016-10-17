@@ -23,7 +23,6 @@ my $CC_OPTIONS="";
 #Derived paths
 my $BIN_DESCEND_PATH="${MCSEMA_HOME}/build/mc-sema/bin_descend";
 my $CFG_TO_BC_PATH="${MCSEMA_HOME}/build/mc-sema/bitcode_from_cfg/";
-my $UTILS_DIR="${ALLIN_HOME}/test/utils";
 my $GCC_ARCH="";
 my $BIN_ARCH="";
 my $CFGBC_ARCH="";
@@ -38,6 +37,7 @@ my $skip_mcsema=0;
 my $print="";
 my $map="";
 my $entry="";
+my $incdir="";
 
 GetOptions (
             "help"          => \$help, 
@@ -49,6 +49,7 @@ GetOptions (
             "file:s"        => \$file, 
             "suffix:s"      => \$suffix, 
             "entry:s"       => \$entry, 
+            "incdir:s"      => \$incdir, 
             ) or die("Error in command line arguments\n");
 
 if($help) {
@@ -81,7 +82,7 @@ cleanup();
 # Functions
 sub generate_binary {
   execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
-  execute("${CC} -g ${GCC_ARCH} -I${UTILS_DIR} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o");
+  execute("${CC} -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o");
 }
 
 sub run_mcsema {

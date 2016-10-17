@@ -35,7 +35,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang ${PRINT}	
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	
 	#COMPILER=clang ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} INCLUDE_DIR=${INCLUDE_DIR} FUNC_MAP=${FUNC_MAP} SKIP_MCSEMA=${SKIP_ARG}  ${RUN_SH} ${PROG_PREFIX} 64
 	${MAKE} ext="clang" run_pass
 
