@@ -1,9 +1,0 @@
-PROG_PREFIX=test_1
-
-ENTRY_FUNC=main
-ASM_FILE=mcsema_ll
-FUNC_MAP=../utils/std_defs.txt
-CMD_ARGS=
-STDIN_ARGS=
-
-include ../utils/Makefile.tests
