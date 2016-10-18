@@ -1,4 +1,4 @@
-TESTS=$(shell find . -maxdepth 1  -type d -name "test_*" | sort -V)
+TESTS=decompilation
 .PHONY:	${TESTS}  all clean gcc clang
 SUB_TARGET=all
 
