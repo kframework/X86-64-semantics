@@ -82,7 +82,7 @@ cleanup();
 # Functions
 sub generate_binary {
   execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
-  execute("${CC} -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o");
+  execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o /home/sdasgup3/allvm-umbrella/allvm/build/lib/libnone.a");
 }
 
 sub run_mcsema {
@@ -93,10 +93,10 @@ sub run_mcsema {
     execute("${compiler} -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
   } 
   if("o" eq $ext) {
-
+    execute("cp  $file  ${outdir}${basename}.${suffix}.o");
   } 
   if("ll" eq $ext) {
-
+    execute("${compiler} -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
   } 
 
   execute("objdump -d ${outdir}${basename}.${suffix}.o &> ${outdir}${basename}.${suffix}.objdump");
@@ -110,7 +110,11 @@ sub run_mcsema {
 
 sub cleanup {
   # Clean Up
-  execute("rm -rf  ${outdir}${basename}.${suffix}.cfg  ${outdir}${basename}.${suffix}.lifted.o  ${outdir}${basename}.$suffix}.o ${outdir}${basename}.${suffix}.bc ${outdir}${basename}.${suffix}.opt.bc");
+  execute("rm -rf  ${outdir}${basename}.${suffix}.cfg");  
+  execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.o");  
+  execute("rm -rf  ${outdir}${basename}.${suffix}.o"); 
+  execute("rm -rf  ${outdir}${basename}.${suffix}.bc"); 
+  execute("rm -rf  ${outdir}${basename}.${suffix}.opt.bc");
 }
 
 # Utilities

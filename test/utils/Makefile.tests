@@ -22,7 +22,7 @@ BC2ALLVM=bc2allvm
 SKIP_MCSEMA=-skip_mcsema
 PRINT=
 #SKIP_MCSEMA=
-#PRINT=-print
+PRINT=-print
 
 
 all:    clang
