@@ -3,10 +3,10 @@ source_filename = "Output/test_0_1.clang.bc"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-%0 = type <{ [8 x i8] }>
+%0 = type <{ [6 x i8] }>
 %struct.regs = type <{ i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i1, i1, i1, i1, i1, i1, i1, [8 x x86_fp80], i1, i1, i3, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i1, i2, i2, i1, i1, i1, i1, i1, i1, [8 x i8], i16, i64, i16, i64, i11, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i64, i64 }>
 
-@data_0x32 = internal constant %0 <{ [8 x i8] c"test %d\00" }>, align 64
+@data_0x2d = internal constant %0 <{ [6 x i8] c"test \00" }>, align 64
 
 define internal x86_64_sysvcc void @sub_0(%struct.regs*) {
 entry:
@@ -305,7 +305,7 @@ entry:
   store i64 %79, i64* %RBP_val, !mcsema_real_eip !3
   %81 = add i64 %78, -24
   store i64 %81, i64* %RSP_val, !mcsema_real_eip !4
-  store i64 ptrtoint (%0* @data_0x32 to i64), i64* %RDI_val, !mcsema_real_eip !5
+  store i64 ptrtoint (%0* @data_0x2d to i64), i64* %RDI_val, !mcsema_real_eip !5
   %82 = add i64 %78, -12, !mcsema_real_eip !6
   %83 = inttoptr i64 %82 to i64*, !mcsema_real_eip !6
   %84 = bitcast i64* %83 to i32*
@@ -313,14 +313,14 @@ entry:
   %85 = load i64, i64* %RDI_val, !mcsema_real_eip !7
   %86 = tail call x86_64_sysvcc i64 @printf(i64 %85), !mcsema_real_eip !7
   store i64 %86, i64* %RAX_val, !mcsema_real_eip !7
-  store i64 0, i64* %RSI_val, !mcsema_real_eip !8
+  store i64 0, i64* %RCX_val, !mcsema_real_eip !8
   %87 = load i64, i64* %RBP_val, !mcsema_real_eip !9
   %88 = add i64 %87, -8, !mcsema_real_eip !9
   %89 = inttoptr i64 %88 to i64*, !mcsema_real_eip !9
   %90 = trunc i64 %86 to i32, !mcsema_real_eip !9
   %91 = bitcast i64* %89 to i32*
   store i32 %90, i32* %91, !mcsema_real_eip !9
-  %92 = load i64, i64* %RSI_val, !mcsema_real_eip !10
+  %92 = load i64, i64* %RCX_val, !mcsema_real_eip !10
   %93 = and i64 %92, 4294967295
   store i64 %93, i64* %RAX_val, !mcsema_real_eip !10
   %94 = load i64, i64* %RSP_val, !mcsema_real_eip !11
@@ -523,11 +523,11 @@ attributes #1 = { nounwind readnone }
 !3 = !{i64 1, [17 x i8] c"\09movq\09%rsp, %rbp\00"}
 !4 = !{i64 4, [16 x i8] c"\09subq\09$16, %rsp\00"}
 !5 = !{i64 8, [18 x i8] c"\09movabsq\09$0, %rdi\00"}
-!6 = !{i64 23, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
-!7 = !{i64 32, [9 x i8] c"\09callq\090\00"}
-!8 = !{i64 37, [17 x i8] c"\09xorl\09%esi, %esi\00"}
-!9 = !{i64 39, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}
-!10 = !{i64 42, [17 x i8] c"\09movl\09%esi, %eax\00"}
-!11 = !{i64 44, [16 x i8] c"\09addq\09$16, %rsp\00"}
-!12 = !{i64 48, [11 x i8] c"\09popq\09%rbp\00"}
-!13 = !{i64 49, [6 x i8] c"\09retq\00"}
+!6 = !{i64 18, [19 x i8] c"\09movl\09$0, -4(%rbp)\00"}
+!7 = !{i64 27, [9 x i8] c"\09callq\090\00"}
+!8 = !{i64 32, [17 x i8] c"\09xorl\09%ecx, %ecx\00"}
+!9 = !{i64 34, [21 x i8] c"\09movl\09%eax, -8(%rbp)\00"}
+!10 = !{i64 37, [17 x i8] c"\09movl\09%ecx, %eax\00"}
+!11 = !{i64 39, [16 x i8] c"\09addq\09$16, %rsp\00"}
+!12 = !{i64 43, [11 x i8] c"\09popq\09%rbp\00"}
+!13 = !{i64 44, [6 x i8] c"\09retq\00"}
