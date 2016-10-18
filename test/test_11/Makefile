@@ -6,4 +6,4 @@ FUNC_MAP=map.txt
 STDIN_ARGS=
 CMD_ARGS=
 
-include ../utils/Makefile.tests
+include ../../utils/Makefile.tests
