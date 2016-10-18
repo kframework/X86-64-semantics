@@ -1,8 +1,7 @@
 #include<stdio.h>
 int main() {
   
-  printf("string");
-  //printf("%d\n",10);
+  printf("test %d", 10);
   return 0;
 
 }
