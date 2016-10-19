@@ -16,9 +16,6 @@ entry:
   ; store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
 
 
-
-  %RSP_val = alloca i64
-  %RBP_val = alloca i64
   %RAX_val = alloca i64
 
   ; Def from:   %_RBP_ptr_ = alloca i8*
