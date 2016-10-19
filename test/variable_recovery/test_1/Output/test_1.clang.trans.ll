@@ -28,10 +28,22 @@ entry:
 
   %_new_gep_ = getelementptr i8, i8* %_load_rsp_ptr_, i64 -8
   %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
+  
   %_new_ptr2int_ = ptrtoint i8* %_load_rbp_ptr_ to i64
   store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+  ;  Unknown
+  ;store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+
+  
   store volatile i8* %_new_gep_, i8** %_RSP_ptr_
   store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+ 
+ ;  Unknown
+  ;store volatile i8* %_new_gep_, i8** %_RSP_ptr_
+
+  ;  Unknown
+  ;store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+ 
 
   ; *(rsp - 12) = 0
   %_new_gep_1 = getelementptr i8, i8* %_load_rsp_ptr_, i64 -12
