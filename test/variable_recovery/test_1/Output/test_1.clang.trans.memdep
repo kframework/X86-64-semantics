@@ -1,0 +1,61 @@
+Printing analysis 'Memory Dependence Analysis' for function 'sub_0':
+Pass::print not implemented for pass: 'Memory Dependence Analysis'!
+Printing analysis 'Print MemDeps of function' for function 'sub_0':
+    Def from:   %_RSP_ptr_ = alloca i8*
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
+
+    Def from:   %_RBP_ptr_ = alloca i8*
+  %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
+
+    Def from:   store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
+  %_load_rsp_ptr_ = load i8*, i8** %_RSP_ptr_
+
+    Unknown
+  store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+
+    Unknown
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_
+
+    Unknown
+  store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+
+    Clobber from:   store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+  store i32 0, i32* %XXX83
+
+    Clobber from:   store i32 0, i32* %XXX83
+  %_load_rbp_ptr_3 = load i8*, i8** %_RBP_ptr_
+
+    Def from:   %_load_rbp_ptr_3 = load i8*, i8** %_RBP_ptr_
+  store i32 1, i32* %XXX87
+
+    Clobber from:   store i32 1, i32* %XXX87
+  %_load_rbp_ptr_6 = load i8*, i8** %_RBP_ptr_
+
+    Clobber from:   store i32 1, i32* %XXX87
+  %XXX92 = load i32, i32* %XXX91
+
+    Def from:   %RAX_val = alloca i64
+  store i64 %XXX93, i64* %RAX_val
+
+    Clobber from:   store i32 1, i32* %XXX87
+  %_load_rsp_ptr_9 = load i8*, i8** %_RSP_ptr_
+
+    Clobber from:   store i32 1, i32* %XXX87
+  %XXX96 = load i64, i64* %_allin_new_bt_10
+
+    Unknown
+  store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
+
+    Unknown
+  store volatile i8* %_new_gep_11, i8** %_RSP_ptr_
+
+Printing analysis 'Global Value Numbering' for function 'sub_0':
+Pass::print not implemented for pass: 'Global Value Numbering'!
+Printing analysis 'Memory Dependence Analysis' for function 'mcsema_main':
+Pass::print not implemented for pass: 'Memory Dependence Analysis'!
+Printing analysis 'Print MemDeps of function' for function 'mcsema_main':
+    NonFuncLocal
+  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
+
+Printing analysis 'Global Value Numbering' for function 'mcsema_main':
+Pass::print not implemented for pass: 'Global Value Numbering'!

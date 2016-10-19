@@ -1,0 +1,963 @@
+Function: sub_0: 27 pointers, 0 call sites
+  NoAlias:	i8** %_RBP_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_local_stack_start_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_local_stack_start_ptr_, i8** %_RBP_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8** %_RBP_ptr_
+  NoAlias:	i8* %_local_stack_end_ptr_, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %RSP_val, i8** %_RSP_ptr_
+  NoAlias:	i64* %RSP_val, i8** %_RBP_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RBP_val, i8** %_RSP_ptr_
+  NoAlias:	i64* %RBP_val, i8** %_RBP_ptr_
+  NoAlias:	i64* %RBP_val, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %RBP_val, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RBP_val, i64* %RSP_val
+  NoAlias:	i64* %RAX_val, i8** %_RSP_ptr_
+  NoAlias:	i64* %RAX_val, i8** %_RBP_ptr_
+  NoAlias:	i64* %RAX_val, i8* %_local_stack_start_ptr_
+  NoAlias:	i64* %RAX_val, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RAX_val, i64* %RSP_val
+  NoAlias:	i64* %RAX_val, i64* %RBP_val
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_load_rbp_ptr_, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_load_rbp_ptr_, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_load_rbp_ptr_
+  NoAlias:	i64* %RBP_val, i8* %_load_rbp_ptr_
+  NoAlias:	i64* %RAX_val, i8* %_load_rbp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_load_rsp_ptr_, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_load_rsp_ptr_, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_load_rsp_ptr_
+  NoAlias:	i64* %RBP_val, i8* %_load_rsp_ptr_
+  NoAlias:	i64* %RAX_val, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_new_gep_, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_new_gep_, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_
+  NoAlias:	i64* %RSP_val, i8* %_new_gep_
+  NoAlias:	i64* %RBP_val, i8* %_new_gep_
+  NoAlias:	i64* %RAX_val, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_new_gep_
+  NoAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i64* %_allin_new_bt_
+  NoAlias:	i64* %RBP_val, i64* %_allin_new_bt_
+  NoAlias:	i64* %RAX_val, i64* %_allin_new_bt_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_load_rbp_ptr_
+  NoAlias:	i64* %_allin_new_bt_, i8* %_load_rsp_ptr_
+  MustAlias:	i64* %_allin_new_bt_, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_new_gep_1, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_new_gep_1, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_1
+  NoAlias:	i64* %RSP_val, i8* %_new_gep_1
+  NoAlias:	i64* %RBP_val, i8* %_new_gep_1
+  NoAlias:	i64* %RAX_val, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_new_gep_1
+  NoAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_1
+  NoAlias:	i8* %_new_gep_, i8* %_new_gep_1
+  NoAlias:	i64* %_allin_new_bt_, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_2, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_2, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i64* %_allin_new_bt_2
+  NoAlias:	i64* %RBP_val, i64* %_allin_new_bt_2
+  NoAlias:	i64* %RAX_val, i64* %_allin_new_bt_2
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_load_rbp_ptr_
+  NoAlias:	i64* %_allin_new_bt_2, i8* %_load_rsp_ptr_
+  PartialAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_
+  PartialAlias:	i64* %_allin_new_bt_, i64* %_allin_new_bt_2
+  MustAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i32* %XXX83, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i32* %XXX83, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_local_stack_end_ptr_
+  NoAlias:	i32* %XXX83, i64* %RSP_val
+  NoAlias:	i32* %XXX83, i64* %RBP_val
+  NoAlias:	i32* %XXX83, i64* %RAX_val
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_load_rbp_ptr_
+  NoAlias:	i32* %XXX83, i8* %_load_rsp_ptr_
+  NoAlias:	i32* %XXX83, i8* %_new_gep_
+  NoAlias:	i32* %XXX83, i64* %_allin_new_bt_
+  MustAlias:	i32* %XXX83, i8* %_new_gep_1
+  MustAlias:	i32* %XXX83, i64* %_allin_new_bt_2
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_load_rbp_ptr_3, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_load_rbp_ptr_3, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_load_rbp_ptr_3
+  NoAlias:	i64* %RBP_val, i8* %_load_rbp_ptr_3
+  NoAlias:	i64* %RAX_val, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_new_gep_4, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_new_gep_4, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_4
+  NoAlias:	i64* %RSP_val, i8* %_new_gep_4
+  NoAlias:	i64* %RBP_val, i8* %_new_gep_4
+  NoAlias:	i64* %RAX_val, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_1, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_new_gep_4
+  NoAlias:	i8* %_load_rbp_ptr_3, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_5, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_5, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i64* %_allin_new_bt_5
+  NoAlias:	i64* %RBP_val, i64* %_allin_new_bt_5
+  NoAlias:	i64* %RAX_val, i64* %_allin_new_bt_5
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_load_rbp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i64* %_allin_new_bt_5
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i64* %_allin_new_bt_5
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i64* %_allin_new_bt_5
+  NoAlias:	i64* %_allin_new_bt_5, i8* %_load_rbp_ptr_3
+  MustAlias:	i64* %_allin_new_bt_5, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i32* %XXX87, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i32* %XXX87, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_local_stack_end_ptr_
+  NoAlias:	i32* %XXX87, i64* %RSP_val
+  NoAlias:	i32* %XXX87, i64* %RBP_val
+  NoAlias:	i32* %XXX87, i64* %RAX_val
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_load_rbp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i64* %_allin_new_bt_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i64* %_allin_new_bt_2
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i32* %XXX87
+  NoAlias:	i32* %XXX87, i8* %_load_rbp_ptr_3
+  MustAlias:	i32* %XXX87, i8* %_new_gep_4
+  MustAlias:	i32* %XXX87, i64* %_allin_new_bt_5
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_load_rbp_ptr_6, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_load_rbp_ptr_6, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_load_rbp_ptr_6
+  NoAlias:	i64* %RBP_val, i8* %_load_rbp_ptr_6
+  NoAlias:	i64* %RAX_val, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_new_gep_7, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_new_gep_7, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_7
+  NoAlias:	i64* %RSP_val, i8* %_new_gep_7
+  NoAlias:	i64* %RBP_val, i8* %_new_gep_7
+  NoAlias:	i64* %RAX_val, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_1, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_4, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_new_gep_7
+  NoAlias:	i8* %_load_rbp_ptr_6, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_8, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_8, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i64* %_allin_new_bt_8
+  NoAlias:	i64* %RBP_val, i64* %_allin_new_bt_8
+  NoAlias:	i64* %RAX_val, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_load_rbp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i64* %_allin_new_bt_8
+  NoAlias:	i64* %_allin_new_bt_8, i8* %_load_rbp_ptr_6
+  MustAlias:	i64* %_allin_new_bt_8, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i32* %XXX91, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i32* %XXX91, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_local_stack_end_ptr_
+  NoAlias:	i32* %XXX91, i64* %RSP_val
+  NoAlias:	i32* %XXX91, i64* %RBP_val
+  NoAlias:	i32* %XXX91, i64* %RAX_val
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_load_rbp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i64* %_allin_new_bt_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i64* %_allin_new_bt_2
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i32* %XXX91
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i64* %_allin_new_bt_5
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i32* %XXX91
+  NoAlias:	i32* %XXX91, i8* %_load_rbp_ptr_6
+  MustAlias:	i32* %XXX91, i8* %_new_gep_7
+  MustAlias:	i32* %XXX91, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_load_rsp_ptr_9, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_load_rsp_ptr_9, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i8* %_load_rsp_ptr_9
+  NoAlias:	i64* %RBP_val, i8* %_load_rsp_ptr_9
+  NoAlias:	i64* %RAX_val, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_10, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i64* %_allin_new_bt_10, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_local_stack_start_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_local_stack_end_ptr_
+  NoAlias:	i64* %RSP_val, i64* %_allin_new_bt_10
+  NoAlias:	i64* %RBP_val, i64* %_allin_new_bt_10
+  NoAlias:	i64* %RAX_val, i64* %_allin_new_bt_10
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_load_rbp_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_load_rsp_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_new_gep_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i64* %_allin_new_bt_10
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_new_gep_1
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i64* %_allin_new_bt_2
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i64* %_allin_new_bt_10
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_load_rbp_ptr_3
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i64* %_allin_new_bt_5
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i64* %_allin_new_bt_10
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_load_rbp_ptr_6
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i64* %_allin_new_bt_8
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i64* %_allin_new_bt_10
+  MustAlias:	i64* %_allin_new_bt_10, i8* %_load_rsp_ptr_9
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_new_int2ptr_, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_new_int2ptr_, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_int2ptr_
+Anders Query
+  NoAlias:	i64* %RSP_val, i8* %_new_int2ptr_
+Anders Query
+  NoAlias:	i64* %RBP_val, i8* %_new_int2ptr_
+Anders Query
+  NoAlias:	i64* %RAX_val, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_1, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_4, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_7, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_9, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_10, i8* %_new_int2ptr_
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  NoAlias:	i8* %_new_gep_11, i8** %_RSP_ptr_
+Anders Query
+  NoAlias:	i8* %_new_gep_11, i8** %_RBP_ptr_
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_start_ptr_, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_local_stack_end_ptr_, i8* %_new_gep_11
+  NoAlias:	i64* %RSP_val, i8* %_new_gep_11
+  NoAlias:	i64* %RBP_val, i8* %_new_gep_11
+  NoAlias:	i64* %RAX_val, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rsp_ptr_, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_1, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_2, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX83, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_3, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_11, i8* %_new_gep_4
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_5, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX87, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_load_rbp_ptr_6, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_11, i8* %_new_gep_7
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i64* %_allin_new_bt_8, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i32* %XXX91, i8* %_new_gep_11
+  NoAlias:	i8* %_load_rsp_ptr_9, i8* %_new_gep_11
+  NoAlias:	i64* %_allin_new_bt_10, i8* %_new_gep_11
+Anders Query
+Anders Query
+Anders Query
+  MayAlias:	i8* %_new_gep_11, i8* %_new_int2ptr_
+Function: mcsema_main: 1 pointers, 1 call sites
+===== Alias Analysis Evaluator Report =====
+  351 Total Alias Queries Performed
+  140 no alias responses (39.8%)
+  198 may alias responses (56.4%)
+  2 partial alias responses (0.5%)
+  11 must alias responses (3.1%)
+  Alias Analysis Evaluator Pointer Alias Summary: 39%/56%/0%/3%
+  1 Total ModRef Queries Performed
+  0 no mod/ref responses (0.0%)
+  0 mod responses (0.0%)
+  0 ref responses (0.0%)
+  1 mod & ref responses (100.0%)
+  Alias Analysis Evaluator Mod/Ref Summary: 0%/0%/0%/100%

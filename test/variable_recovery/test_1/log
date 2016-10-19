@@ -1,0 +1,126 @@
+Printing analysis 'Memory Dependence Analysis' for function 'sub_0':
+Pass::print not implemented for pass: 'Memory Dependence Analysis'!
+Printing analysis 'Print MemDeps of function' for function 'sub_0':
+    NonFuncLocal
+  %XXX1 = load i64, i64* %RAX
+
+    Def from:   %RAX_val = alloca i64
+  store i64 %XXX1, i64* %RAX_val
+
+    NonFuncLocal
+  %XXX7 = load i64, i64* %RSP
+
+    Def from:   %RSP_val = alloca i64
+  store i64 %XXX7, i64* %RSP_val
+
+    NonFuncLocal
+  %XXX8 = load i64, i64* %RBP
+
+    Def from:   %RBP_val = alloca i64
+  store i64 %XXX8, i64* %RBP_val
+
+    Def from:   store i64 %XXX8, i64* %RBP_val
+  %XXX77 = load i64, i64* %RBP_val
+
+    Def from:   store i64 %XXX7, i64* %RSP_val
+  %XXX78 = load i64, i64* %RSP_val
+
+    Def from:   %XXX78 = load i64, i64* %RSP_val
+  store i64 %XXX77, i64* %XXX80
+
+    Clobber from:   store i64 %XXX77, i64* %XXX80
+  store i64 %XXX79, i64* %RSP_val
+
+    Clobber from:   store i64 %XXX77, i64* %XXX80
+  store i64 %XXX79, i64* %RBP_val
+
+    Clobber from:   store i64 %XXX77, i64* %XXX80
+  store i64 %XXX83, i64* %RAX_val
+
+    Clobber from:   store i64 %XXX83, i64* %RAX_val
+  store i32 0, i32* %XXX86
+
+    Clobber from:   store i32 0, i32* %XXX86
+  %XXX87 = load i64, i64* %RBP_val
+
+    Clobber from:   store i32 0, i32* %XXX86
+  %XXX90 = load i64, i64* %RAX_val
+
+    Def from:   %XXX90 = load i64, i64* %RAX_val
+  store i64 %XXX90, i64* %XXX89
+
+    Clobber from:   store i64 %XXX90, i64* %XXX89
+  %XXX91 = load i64, i64* %RBP_val
+
+    Clobber from:   store i64 %XXX90, i64* %XXX89
+  %XXX94 = load i64, i64* %XXX93
+
+    Def from:   %XXX94 = load i64, i64* %XXX93
+  store i64 %XXX94, i64* %RAX_val
+
+    Clobber from:   store i64 %XXX94, i64* %RAX_val
+  store i32 1, i32* %XXX96
+
+    Clobber from:   store i32 1, i32* %XXX96
+  %XXX97 = load i64, i64* %RBP_val
+
+    Clobber from:   store i32 1, i32* %XXX96
+  %XXX100 = load i64, i64* %XXX99
+
+    Def from:   %XXX100 = load i64, i64* %XXX99
+  store i64 %XXX100, i64* %RAX_val
+
+    Clobber from:   store i64 %XXX100, i64* %RAX_val
+  store i32 2, i32* %XXX103
+
+    Clobber from:   store i32 2, i32* %XXX103
+  %XXX104 = load i64, i64* %RBP_val
+
+    Clobber from:   store i32 2, i32* %XXX103
+  %XXX107 = load i64, i64* %XXX106
+
+    Def from:   %XXX107 = load i64, i64* %XXX106
+  store i64 %XXX107, i64* %RAX_val
+
+    Clobber from:   store i64 %XXX107, i64* %RAX_val
+  %XXX111 = load i32, i32* %XXX110
+
+    Def from:   %XXX111 = load i32, i32* %XXX110
+  store i64 %XXX112, i64* %RAX_val
+
+    Clobber from:   store i32 2, i32* %XXX103
+  %XXX113 = load i64, i64* %RSP_val
+
+    Clobber from:   store i64 %XXX112, i64* %RAX_val
+  %XXX115 = load i64, i64* %XXX114
+
+    Def from:   %XXX115 = load i64, i64* %XXX114
+  store i64 %XXX115, i64* %RBP_val
+
+    Def from:   %XXX115 = load i64, i64* %XXX114
+  store i64 %XXX116, i64* %RSP_val
+
+    Def from:   store i64 %XXX112, i64* %RAX_val
+  %XXX117 = load i64, i64* %RAX_val
+
+    Def from:   %XXX115 = load i64, i64* %XXX114
+  store i64 %XXX117, i64* %RAX
+
+    Def from:   store i64 %XXX116, i64* %RSP_val
+  %XXX123 = load i64, i64* %RSP_val
+
+    Def from:   %XXX115 = load i64, i64* %XXX114
+  store i64 %XXX123, i64* %RSP
+
+    Def from:   store i64 %XXX115, i64* %RBP_val
+  %XXX124 = load i64, i64* %RBP_val
+
+    Def from:   %XXX115 = load i64, i64* %XXX114
+  store i64 %XXX124, i64* %RBP
+
+Printing analysis 'Memory Dependence Analysis' for function 'mcsema_main':
+Pass::print not implemented for pass: 'Memory Dependence Analysis'!
+Printing analysis 'Print MemDeps of function' for function 'mcsema_main':
+    NonFuncLocal
+  tail call x86_64_sysvcc void @sub_0(%struct.regs* %0)
+
