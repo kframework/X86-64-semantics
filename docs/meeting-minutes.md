@@ -1,3 +1,106 @@
+### 19 Oct 2016
+  - Memory dependence analysis 
+  ```
+  define  i32 @foo() {
+    %x = alloca i32, align 4
+    %xp = alloca i32*, align 8
+
+    store i32 0, i32* %x
+    store i32* %x, i32** %xp, align 8
+
+    %1 = load i32*, i32** %xp, align 8
+    %2 = load i32, i32* %1, align 4
+    ret i32 0
+  }
+
+      Def from:   %x = alloca i32, align 4
+  store i32 0, i32* %x
+
+    Def from:   %xp = alloca i32*, align 8
+  store i32* %x, i32** %xp, align 8
+
+    Def from:   store i32* %x, i32** %xp, align 8
+  %1 = load i32*, i32** %xp, align 8
+
+    Clobber from:   store i32 0, i32* %x
+  %2 = load i32, i32* %1, align 4
+
+  ```
+
+  ```
+  define  i32 @foo() {
+    %1 = alloca i32, align 4
+    %result = alloca i32, align 4
+    %x = alloca i32, align 4
+    %xp = alloca i32*, align 8
+
+    store i32 0, i32* %1
+    store i32 5, i32* %result, align 4
+    store i32 7, i32* %x, align 4
+    store i32* %x, i32** %xp, align 8
+
+    %2 = load i32, i32* %x, align 4
+    %3 = icmp eq i32 %2, 4
+    br i1 %3, label %4, label %7
+
+    ; <label>:4                                       ; preds = %0 
+    %5 = load i32*, i32** %xp, align 8
+    %6 = load i32, i32* %5, align 4
+    store i32 %6, i32* %result, align 4
+    br label %8
+
+    ; <label>:7                                       ; preds = %0
+    store i32 42, i32* %result, align 4
+    br label %8
+
+    ; <label>:8
+    ret i32 0
+  }
+
+  ; opt      -memdep -print-memdeps -gvn -analyze test_3.ll
+  ;Def from:   %1 = alloca i32, align 4
+  ; store i32 0, i32* %1
+
+  ;Def from:   %result = alloca i32, align 4
+  ;  store i32 5, i32* %result, align 4
+
+  ;Def from:   %x = alloca i32, align 4
+  ;  store i32 7, i32* %x, align 4
+
+  ;Def from:   %xp = alloca i32*, align 8
+  ;  store i32* %x, i32** %xp, align 8
+
+  ;Def from:   store i32 7, i32* %x, align 4
+  ; %2 = load i32, i32* %x, align 4
+
+  ;Def in block %0 from:   store i32* %x, i32** %xp, align 8
+  ; %5 = load i32*, i32** %xp, align 8
+
+  ;Unknown in block %4
+  ; %6 = load i32, i32* %5, align 4
+
+  ; Def in block %0 from:   store i32 5, i32* %result, align 4
+  ; store i32 %6, i32* %result, align 4
+
+  ; Def in block %0 from:   store i32 5, i32* %result, align 4
+  ; store i32 42, i32* %result, align 4
+
+  ; opt -basicaa    -aa-eval -print-all-alias-modref-info test_2.ll  -disable-output
+  ;NoAlias:	i32* %1, i32* %result
+  ;NoAlias:	i32* %1, i32* %x
+  ;NoAlias:	i32* %result, i32* %x
+  ;NoAlias:	i32* %1, i32** %xp
+  ;NoAlias:	i32* %result, i32** %xp
+  ;NoAlias:	i32* %x, i32** %xp
+  ;NoAlias:	i32* %1, i32* %5
+  ;NoAlias:	i32* %5, i32* %result
+  ;MayAlias:	i32* %5, i32* %x
+  ;NoAlias:	i32* %5, i32** %xp
+  ```
+
+
+
+
 ### 12 Oct 2016
 - All the testsuite testcases are converted to allexe and tested
 
