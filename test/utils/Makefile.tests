@@ -10,6 +10,7 @@ INCLUDE_DIR=${UTILS_DIR}
 RUN_SH=${UTILS_DIR}/run.pl  
 loadso=${TEST_DIR}/../build/lib/LLVMstack_deconstructor.so
 ALLIN=${TEST_DIR}/../build/bin/allin
+LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a";
 
 
 OPTSWITCH=-stack-decons 
@@ -66,7 +67,7 @@ run_check:
 .PHONY:run
 run:
 	${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
-	${CC}   -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o /home/sdasgup3/allvm-umbrella/allvm/build/lib/libnone.a
+	${CC}   -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${LIBNONE}
 
 	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ${CMD_ARGS} > ${outdir}after.trans.out	
 	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
