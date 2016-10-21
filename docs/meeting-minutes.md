@@ -1,5 +1,5 @@
 ### 19 Oct 2016
-  - Memory dependence analysis 
+  - Memory dependence analysis in general
   ```
   define  i32 @foo() {
     %x = alloca i32, align 4
@@ -97,7 +97,8 @@
   ;MayAlias:	i32* %5, i32* %x
   ;NoAlias:	i32* %5, i32** %xp
   ```
-
+ - Memory dependence analysis on mcsema generated IR
+ (test)[https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.trans.ll]
 
 
 
