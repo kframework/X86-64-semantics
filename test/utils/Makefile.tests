@@ -22,10 +22,10 @@ CXX=clang++
 BC2ALLVM=bc2allvm
 
 
-SKIP_MCSEMA=-skip_mcsema
-PRINT=
-#SKIP_MCSEMA=
-#PRINT=-print
+#SKIP_MCSEMA=-skip_mcsema
+#PRINT=
+SKIP_MCSEMA=
+PRINT=-print
 
 
 all:    clang
@@ -38,7 +38,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}
 	${MAKE} ext="clang" run_pass
 
 icc:
