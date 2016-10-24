@@ -159,6 +159,9 @@ entry:
   %72 = load i64, i64* %STACK_BASE, !mcsema_real_eip !2
   %STACK_LIMIT = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 71, !mcsema_real_eip !2
   %73 = load i64, i64* %STACK_LIMIT, !mcsema_real_eip !2
+
+  ; push   %rbp 
+  ; mov    %rsp,%rbp
   %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
   %_new_gep_ = getelementptr i8, i8* %_local_stack_end_ptr_, i64 -8
   %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
@@ -166,22 +169,32 @@ entry:
   store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
   store volatile i8* %_new_gep_, i8** %_RSP_ptr_
   store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+
+  ; movl   $0x0,-0x4(%rbp)
   %_new_gep_1 = getelementptr i8, i8* %_local_stack_end_ptr_, i64 -12
   %_allin_new_bt_2 = bitcast i8* %_new_gep_1 to i64*
   %74 = bitcast i64* %_allin_new_bt_2 to i32*
   store i32 0, i32* %74, !mcsema_real_eip !3
+
+  ; movl   $0x1,-0x8(%rbp)
   %_new_gep_4 = getelementptr i8, i8* %_new_gep_, i64 -8
   %_allin_new_bt_5 = bitcast i8* %_new_gep_4 to i64*
   %75 = bitcast i64* %_allin_new_bt_5 to i32*
   store i32 1, i32* %75, !mcsema_real_eip !4
+
+  ; pop    %rbp
   %_load_rsp_ptr_9 = load i8*, i8** %_RSP_ptr_
   %_allin_new_bt_10 = bitcast i8* %_load_rsp_ptr_9 to i64*
   %76 = load i64, i64* %_allin_new_bt_10, !mcsema_real_eip !5
   %_new_int2ptr_ = inttoptr i64 %76 to i8*
   store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
+
   %_new_gep_11 = getelementptr i8, i8* %_load_rsp_ptr_9, i64 16
   store volatile i8* %_new_gep_11, i8** %_RSP_ptr_
+
+  ; mov    -0x8(%rbp),%eax
   store i64 1, i64* %RAX, !mcsema_real_eip !6
+
   store i64 %1, i64* %RBX, !mcsema_real_eip !6
   store i64 %2, i64* %RCX, !mcsema_real_eip !6
   store i64 %3, i64* %RDX, !mcsema_real_eip !6
