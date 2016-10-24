@@ -15,6 +15,7 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/SystemUtils.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Transforms/Scalar.h"
 
 #include <memory>
 
@@ -59,6 +60,8 @@ int main(int argc, char **argv) {
   // Create a pass manager and fill it with the passes we want to run.
   legacy::PassManager PM;
   PM.add(new stack_deconstructor());
+  //PM.add(createPromoteMemoryToRegisterPass());
+  //PM.add(createDeadCodeEliminationPass());
   PM.run(*Mod);
 
   // Verify the transformation
