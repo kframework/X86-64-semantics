@@ -1,21 +1,24 @@
 ### 24 Oct 2016
   - After looking into the reasons why AA is not able to disambiguate some of the memory references, we tried applying the following series of passes
-  `-mme2reg -dce -early-cse-memssa`. Lets first go through the reasons for applying these:
+      ```-mme2reg -dce -early-cse-memssa```. 
+  
+      Lets first go through the reasons for applying these:
 
     - Use of -early-cse-memssa  
-    ```
-    %arr = alloca i8, i8 16
-    %ptr = alloca i8*
+      ```
+      %arr = alloca i8, i8 16
+      %ptr = alloca i8*
 
-    store i8* %arr, i8** %ptr
+      store i8* %arr, i8** %ptr
 
-    %loadptr1  = load i8*, i8** %ptr 
-    %gep_4_loadptr1  = getelementptr inbounds i8, i8* %loadptr1, i8 4
+      %loadptr1  = load i8*, i8** %ptr 
+      %gep_4_loadptr1  = getelementptr inbounds i8, i8* %loadptr1, i8 4
 
-    %loadptr2  = load i8*, i8** %ptr 
-    %gep_8_loadptr2  = getelementptr inbounds i8, i8* %loadptr2, i8 8
-    ```
-    Ander's AA (-cfl-anders-aa) gives MAY_ALIAS(%gep_4_loadptr1, %gep_8_loadptr2) == true
+      %loadptr2  = load i8*, i8** %ptr 
+      %gep_8_loadptr2  = getelementptr inbounds i8, i8* %loadptr2, i8 8
+      ```
+    
+      Ander's AA (-cfl-anders-aa) gives MAY_ALIAS(%gep_4_loadptr1, %gep_8_loadptr2) == true
     But if we can do commom sub-expression elimination, the later part of the code becomes
 
     ```
