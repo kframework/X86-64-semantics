@@ -27,6 +27,8 @@
     %gep_8_loadptr2  = getelementptr inbounds i8, i8* %loadptr1, i8 8
     ```
     and AA can disambiguate %gep_4_loadptr1 and %gep_8_loadptr2  as NO_ALIAS
+    
+    ** NOTE: CSE may not be possible always, and that is when we have to live with spurious may alias results. **
 
     - Use of -mme2reg -dce
     ```
