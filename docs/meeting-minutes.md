@@ -54,6 +54,11 @@
     store i64 %Y, i64* %RAX
     ```
 
+    I tried the sequences of passes on [test_1.c](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/test_1.c) transforming mcsema output [test_1.clang.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.ll) --> [test_1.clang.trans.trio.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.trans.trio.ll)
+    and AA can disambiguate `%_new_gep_ , %_new_gep_1,  %_new_gep_4`
+
+    Similarly, applying the same on [test_2.c](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/test_2.c) and able to disambiguate the pointer and the structure variable.
+
 
 ### 19 Oct 2016
   - Memory dependence analysis in general
