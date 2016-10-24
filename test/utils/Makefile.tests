@@ -13,7 +13,7 @@ ALLIN=${TEST_DIR}/../build/bin/allin
 LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a";
 
 
-OPTSWITCH=-stack-decons 
+OPTSWITCH=-stack-decons -mem2reg -dce  -early-cse-memssa
 #OPTSWITCH=-ssh
 #OPTSWITCH=-stack-decons -debug-only="stack_deconstructor"
 #ICC=$(shell which icc)
@@ -26,7 +26,7 @@ BC2ALLVM=bc2allvm
 #SKIP_MCSEMA=-skip_mcsema
 #PRINT=
 SKIP_MCSEMA=
-PRINT=-print
+#PRINT=-print
 
 
 all:    clang
@@ -48,8 +48,8 @@ icc:
 	${MAKE} ext="icc" run_pass
 
 run_pass:
-	#${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll   -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
-	${ALLIN} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
+	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll   -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
+	#${ALLIN} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
 	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
 	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.opt.ll
