@@ -1,3 +1,60 @@
+### 24 Oct 2016
+  - After looking into the reasons why AA is not able to disambiguate some of the memory references, we tried applying the following series of passes
+  `-mme2reg -dce -early-cse-memssa`. Lets first go through the reasons for applying these:
+
+    - Use of -early-cse-memssa  
+    ```
+    %arr = alloca i8, i8 16
+    %ptr = alloca i8*
+
+    store i8* %arr, i8** %ptr
+
+    %loadptr1  = load i8*, i8** %ptr 
+    %gep_4_loadptr1  = getelementptr inbounds i8, i8* %loadptr1, i8 4
+
+    %loadptr2  = load i8*, i8** %ptr 
+    %gep_8_loadptr2  = getelementptr inbounds i8, i8* %loadptr2, i8 8
+    ```
+    Ander's AA (-cfl-anders-aa) gives MAY_ALIAS(%gep_4_loadptr1, %gep_8_loadptr2) == true
+    But if we can do commom sub-expression elimination, the later part of the code becomes
+
+    ```
+    %loadptr1  = load i8*, i8** %ptr 
+    %gep_4_loadptr1  = getelementptr inbounds i8, i8* %loadptr1, i8 4
+    %gep_8_loadptr2  = getelementptr inbounds i8, i8* %loadptr1, i8 8
+    ```
+    and AA can disambiguate %gep_4_loadptr1 and %gep_8_loadptr2  as NO_ALIAS
+
+    - Use of -mme2reg -dce
+    ```
+    %RAX = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0
+    %1 = load i64, i64* %RAX
+    store i64 %1, i64* %RAX_val
+    ...
+    store i64 %Y, i64* %RAX_val
+    ...
+    %87 = load i64, i64* %RAX_val
+    store i64 %87, i64* %RAX
+    ```
+
+    After mem2reg:
+    ```
+    %RAX = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0
+    %1 = load i64, i64* %RAX
+    ...
+    ...
+    store i64 %Y, i64* %RAX
+    ```
+
+    After dce:
+    ```
+    %RAX = getelementptr inbounds %struct.regs, %struct.regs* %0, i64 0, i32 0
+    ...
+    ...
+    store i64 %Y, i64* %RAX
+    ```
+
+
 ### 19 Oct 2016
   - Memory dependence analysis in general
   ```
