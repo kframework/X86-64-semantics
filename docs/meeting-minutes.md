@@ -57,10 +57,15 @@
     store i64 %Y, i64* %RAX
     ```
 
-    I tried the sequences of passes on [test_1.c](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/test_1.c) transforming mcsema output [test_1.clang.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.ll) --> [test_1.clang.trans.trio.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.trans.trio.ll)
-    and AA can disambiguate `%_new_gep_ , %_new_gep_1,  %_new_gep_4`
+    I tried the sequences of passes on [test_1.c](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/test_1.c) 
+    Transforming mcsema output [test_1.clang.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.ll) --> [test_1.clang.trans.trio.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_1/Output/test_1.clang.trans.trio.ll)
+    
+    In the transformed output, AA can disambiguate `%_new_gep_ , %_new_gep_1,  %_new_gep_4` because of the reason of cse mentioned earlier.
 
     Similarly, applying the same on [test_0.c](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_0/test_0.c) and able to disambiguate the pointer and the structure variable.
+    Transformation is from mcsema generated IR [test_0.clang.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_0/Output/test_0.clang.ll) to [test_0.clang.trans.trio.ll](https://github.com/sdasgup3/binary-decompilation/blob/master/test/variable_recovery/test_0/Output/test_0.clang.trans.trio.ll)
+
+    In the transformed output, AA can disambiguate `%_new_gep_ , %_new_gep_1,  %_new_gep_3, %_new_gep_6` 
 
 
 ### 19 Oct 2016
