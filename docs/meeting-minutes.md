@@ -1,3 +1,20 @@
+### 26 Oct 2016
+  - Ed's test suite status
+  ```
+    Total cfg generated: 314
+    CFG cannot get converted to BIN:  124
+    Get converted to BIN :  190
+  ```
+
+  - Single source test run
+  |  Testsuite | Total | Output Diff | CFG to BC Error | Seg Faults | Pass |
+  |:----------:|:-----:|-------------|-----------------|------------|------|
+  |  UnitTests | 111   | 14          | 17              | 8          | 72   |
+  | Regression | 65    | 7          | 16              | 3          | 39   |
+  | Benchmark  | 138   | 8          | 91              | 24         | 15   |
+  |            | 314   | 29          | 124             | 35         | 126  |
+
+
 ### 24 Oct 2016
   - After looking into the reasons why AA is not able to disambiguate some of the memory references, we tried applying the following series of passes
       ```-mme2reg -dce -early-cse-memssa```. 
