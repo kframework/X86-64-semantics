@@ -16,7 +16,7 @@
   |            | 314   | 29          | 124             | 35         | 126  |
 
   - The diff errors are due to fp instructions and va args. 
-  - The cfg recovery failure are due to unsupported instructions
+  - The cfg recovery failure are due to unsupported instructions [list of unsupported inst ](https://github.com/sdasgup3/llvm-test-suite-mcsema/blob/master/SingleSource/unsupported.txt)
   - For Multisource, the [driver](https://github.com/sdasgup3/binary-decompilation/blob/master/test/utils/driver_64.c) need to handle the input passed through registers. For Single source the inputs are
   embedded in the source file only.
 
