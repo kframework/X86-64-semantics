@@ -1,3 +1,16 @@
+//===-- max_stack_height.cpp - Static analysis for stack height approximation --------------------------------------==//
+//
+//                     The LLVM Compiler Infrastructure
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
+//
+// This implements a function pass to approximate the max stack height of each function.
+//
+//===----------------------------------------------------------------------===//
+
 #define DEBUG_TYPE "max_stack_height"
 #include "max_stack_height.h"
 #include "llvm/ADT/PostOrderIterator.h"

@@ -1,5 +1,12 @@
-//===------------------------ stack_deconstructor
-//--------------------------===//
+//===-- stack_deconstructor.h - Deconstruct the global stack into local stack
+// frame --------------------*- C++ -*-===// 
+//
+//                     The LLVM Compiler Infrastructure
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
 //
 // This file provide class definition and functionality to partition global
 // monolithic
