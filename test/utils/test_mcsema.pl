@@ -18,6 +18,7 @@ my $LLVMAS35="${home}/Install/llvm-3.5.0.release.install/bin/llvm-as";
 my $LLC="llc";
 my $outdir="Output/";
 my $CC_OPTIONS="";
+my $redirect = " 2>&1 1> ";
 #"-fomit-frame-pointer";
 
 #Derived paths
@@ -35,11 +36,14 @@ my $incdir="${home}/Github/binary-decompilation/test/utils/";
 
 # Status
 my $diffcount = 0;
-my $cfg_to_bc_error = 0;
-my $total = 0;
-my $unsupported = 0;
+my $pass = 0;
 my $supported = 0;
-my @nf = ();
+my $unsupported = 0;
+my $total = 0;
+my $orig_unsupported = 0;
+my $orig_supported = 0;
+my @nf1 = ();
+my @nf2 = ();
 
 GetOptions (
             "help"          => \$help, 
@@ -67,6 +71,7 @@ for my $file (@files) {
   my $lifted = $file.".lifted";
   my $cfg = $file . ".cfg";
 
+  my $old_bc = $file . ".bc";
   my $bc = $file . ".new.bc";
   my $optbc = $file . ".new.opt.bc";
   my $o = $file . ".new.o";
@@ -75,36 +80,41 @@ for my $file (@files) {
 
   $total =  $total  + 1;
 
-  #print "\n=============================\n";
-  #print $file . "\n";
+  print "\n===". $file. "===\n";
 
-  if(-e $lifted) {
-    $supported += 1;
-    process_lifted();
+  if($check_unsupported ne "") {
+    check_unsup($file);
   } else {
-    $unsupported += 1;
-    push @nf, $file;
+    if(-e $old_bc) {
+      $orig_supported += 1;
+    } else {
+      $orig_unsupported += 1;
+      push @nf1, $file;
+    }
     process_cfg($file);
   }
 }
 
 print "Total: " . $total . "\n";
-print "Diff Error " . $diffcount . "\n";
-print "CFG  Error " . $cfg_to_bc_error . "\n";
-print "Unsupported  " . $unsupported . "\n";
-print "Supported  " . $supported . "\n";
+print "Original supported Count " . $orig_supported . "\n";
+print "Original Unsupported Count " . $orig_unsupported . "\n";
+print "Pass Count " . $pass . "\n";
+print "Diff Error Count " . $diffcount . "\n";
+print "Current supported Count" . $supported . "\n";
+print "Current unsupported Count" . $unsupported . "\n";
 
-for my $file (@nf) {
+print "\nOriginal Unsupported\n";
+for my $file (@nf1) {
+  print $file . "\n";
+}
+print "\nCurrent Unsupported\n";
+for my $file (@nf2) {
   print $file . "\n";
 }
 
 
 
 # Utilities
-sub process_lifted {
-
-}
-
 sub process_cfg {
   my $file = shift @_;
 
@@ -124,14 +134,16 @@ sub process_cfg {
     execute("grep \"Unsupported\" -A 2 $path/convert.log");
   } else {
     #-ignore-unsupported 
-    execute("${CFG_TO_BC_PATH}/cfg_to_bc  ${CFGBC_ARCH}  -i $cfg  -o $bc  -driver=mcsema_main,${entry},raw,return,C &> $cfg2bclog");
-    execute("${OPT} -O3    $bc  -o=$optbc"); 
-    execute("${LLC} ${BIN_ARCH} -filetype=obj -o $o $optbc");
-    execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o $newlifted $driver $o ${libnone}");
-    if(-e $newlifted) {
+    execute("${CFG_TO_BC_PATH}/cfg_to_bc  ${CFGBC_ARCH}  -i $cfg  -o $bc  -driver=mcsema_main,${entry},raw,return,C $redirect $cfg2bclog");
+    if(-e $bc ) {
+      $supported = $supported +1;
+      execute("${OPT} -O3    $bc  -o=$optbc"); 
+      execute("${LLC} ${BIN_ARCH} -filetype=obj -o $o $optbc");
+      execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o $newlifted $driver $o ${libnone}");
       run_compare($file, $newlifted);
     } else {
-      $cfg_to_bc_error = $cfg_to_bc_error +1;
+      $unsupported = $unsupported +1;
+      push @nf2, $file;
     }
   }
 }
@@ -139,9 +151,10 @@ sub process_cfg {
 sub run_compare {
   my $orig = shift @_;
   my $lifted = shift @_;
-  execute("$orig 2>&1  1>out1");
-  execute("$lifted 2>&1  1>out2");
+  execute("$orig $redirect out1");
+  execute("$lifted $redirect out2");
   if (compare("out1","out2") == 0) {
+    $pass += 1;
   } else {
     execute("diff out1 out2");
     $diffcount  = $diffcount + 1;
@@ -169,4 +182,27 @@ sub split_filename {
     return ($file,$ext);
 }
 
+sub check_unsup {
+  my $file = shift @_;
+  my $lifted = $file.".lifted";
+  my $cfg = $file . ".cfg";
+  my @suffixlist = (".simple");
 
+  my $bc = $file . ".new.bc";
+  my $optbc = $file . ".new.opt.bc";
+  my $o = $file . ".new.o";
+  my $newlifted = $file . ".new.lifted";
+  my $cfg2bclog = $file . ".new.convert.txt";
+
+  if(-e $bc) {
+    $supported += 1;
+    process_lifted();
+  } else {
+    $unsupported += 1;
+    push @nf1, $file;
+    process_cfg($file);
+  }
+}
+
+sub process_lifted {
+}
