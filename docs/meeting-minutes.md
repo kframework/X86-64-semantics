@@ -1,3 +1,16 @@
+### Oct 29 2016
+  - Single source test run
+  
+  |  Testsuite | Total | Original Supported/Unsupported | Current Supported/Unsupported | Seg Faults | Diff | Pass |
+  |:----------:|:-----:|----------------------|--------------------|------------|------|------|
+  |  UnitTests | 111   | 17          | 17              | 8          | 72   |
+  | Regression | 65    | 7          | 16              | 3          | 39   |
+  | Benchmark  | 138   | 8          | 91              | 24         | 15   |
+  |            | 314   | 29          | 124             | 35         | 126  |
+
+    -  Original Unsupported: cfg there but bc cannot be obtained due to some errors in the cfg2bc process.
+ 
+
 ### 27 Oct 2016
   - 
   
