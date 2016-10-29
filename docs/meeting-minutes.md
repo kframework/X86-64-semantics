@@ -3,10 +3,10 @@
   
   |  Testsuite | Total | Original Supported/Unsupported | Current Supported/Unsupported | Seg Faults | Diff | Pass |
   |:----------:|:-----:|----------------------|--------------------|------------|------|------|
-  |  UnitTests | 111   | 17          | 17              | 8          | 72   |
-  | Regression | 65    | 7          | 16              | 3          | 39   |
-  | Benchmark  | 138   | 8          | 91              | 24         | 15   |
-  |            | 314   | 29          | 124             | 35         | 126  |
+  |  UnitTests | 111   | 94 /17          |(94 + 10) /(17 - 10)               | 8          | (16 + 7)   | (70 + 3) | 
+  | Regression | 65    | 49/16          | (49+3) / (16 - 3)              | 4          | 7 + 1  | 38 + 2 | 
+   | Benchmark  | 138   | 47/91          | (47+20) / (91 - 20)   | 26         | (28 +15)  | 19 + 5 | 
+  |  Multisource | 206  | 48/158   | 19/187          | 124             | 35         | 126  |
 
     -  Original Unsupported: cfg there but bc cannot be obtained due to some errors in the cfg2bc process.
  
