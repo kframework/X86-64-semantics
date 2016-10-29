@@ -1,3 +1,18 @@
+### 27 Oct 2016
+  - 
+  
+  |  Testsuite | Total IDA CFG created |  Supported(by mcsema cfg2bc) | Unsupported(by mcsema cfg2bc) | ^ Successfully generated non-vectorized executable |
+  |:----------:|:-----:|-------------|-----------------|------------|
+  |  SingleSource | 314   | 190          | 124              | 76 | 
+  | Multisource | 206   | 45|  161          | ^^   |
+  
+  ^: These are the test cases from the label "CFGS Unsupported(by mcsema cfg2bc)" which I can convert to non-vectored executable. The rest cannot be converted because of error "sse register return with sse disabled"
+  
+  ^^: In this case, most of the unsupported testcases (#161 ) are getting the error "sse register return with sse disabled" or the unsupported instructions are other than vector instructions (so no point in generating non-vectored instructions). Here is the full list (https://github.com/sdasgup3/llvm-test-suite-mcsema/blob/master/SingleSource/unsupported.txt)
+
+
+ 
+
 ### 26 Oct 2016
   - Ed's test suite status
   ```
