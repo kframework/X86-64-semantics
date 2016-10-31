@@ -1,3 +1,54 @@
+### Oct 29 2016
+  - Single source test run
+  
+  |  Testsuite | Total | Original Supported/Unsupported | Current Supported/Unsupported | Seg Faults | Diff | Pass |
+  |:----------:|:-----:|----------------------|--------------------|------------|------|------|
+  |  UnitTests | 111   | 94 /17          |(94 + 10) /(17 - 10)               | 8          | (16 + 7)   | (70 + 3) | 
+  | Regression | 65    | 49/16          | (49+3) / (16 - 3)              | 4          | 7 + 1  | 38 + 2 | 
+   | Benchmark  | 138   | 47/91          | (47+20) / (91 - 20)   | 26         | (2 +15)  | 19 + 5 | 
+  |  Multisource | 206  | 48/158   | 19/187          | 124             | 35         | 126  |
+
+    -  Original Unsupported: cfg there but bc cannot be obtained due to some errors in the cfg2bc process.
+ 
+
+### 27 Oct 2016
+  - 
+  
+  |  Testsuite | Total IDA CFG created |  Supported(by mcsema cfg2bc) | Unsupported(by mcsema cfg2bc) | ^ Successfully generated non-vectorized executable |
+  |:----------:|:-----:|-------------|-----------------|------------|
+  |  SingleSource | 314   | 190          | 124              | 76 | 
+  | Multisource | 206   | 45|  161          | ^^   |
+  
+  ^: These are the test cases from the label "CFGS Unsupported(by mcsema cfg2bc)" which I can convert to non-vectored executable. The rest cannot be converted because of error "sse register return with sse disabled"
+  
+  ^^: In this case, most of the unsupported testcases (#161 ) are getting the error "sse register return with sse disabled" or the unsupported instructions are other than vector instructions (so no point in generating non-vectored instructions). Here is the full list (https://github.com/sdasgup3/llvm-test-suite-mcsema/blob/master/SingleSource/unsupported.txt)
+
+
+ 
+
+### 26 Oct 2016
+  - Ed's test suite status
+  ```
+    Total cfg generated: 314
+    CFG cannot get converted to BIN:  124
+    Get converted to BIN :  190
+  ```
+
+  - Single source test run
+  
+  |  Testsuite | Total | Output Diff | CFG to BC Error | Seg Faults | Pass |
+  |:----------:|:-----:|-------------|-----------------|------------|------|
+  |  UnitTests | 111   | 14          | 17              | 8          | 72   |
+  | Regression | 65    | 7          | 16              | 3          | 39   |
+  | Benchmark  | 138   | 8          | 91              | 24         | 15   |
+  |            | 314   | 29          | 124             | 35         | 126  |
+
+  - The diff errors are due to fp instructions and va args. 
+  - The cfg recovery failure are due to unsupported instructions [list of unsupported inst ](https://github.com/sdasgup3/llvm-test-suite-mcsema/blob/master/SingleSource/unsupported.txt)
+  - For Multisource, the [driver](https://github.com/sdasgup3/binary-decompilation/blob/master/test/utils/driver_64.c) need to handle the input passed through registers. For Single source the inputs are
+  embedded in the source file only.
+
+
 ### 24 Oct 2016
   - After looking into the reasons why AA is not able to disambiguate some of the memory references, we tried applying the following series of passes
       ```-mme2reg -dce -early-cse-memssa```. 

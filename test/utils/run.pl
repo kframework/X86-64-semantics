@@ -18,7 +18,6 @@ my $LLVMAS35="${home}/Install/llvm-3.5.0.release.install/bin/llvm-as";
 my $LLC="llc";
 my $outdir="Output/";
 my $CC_OPTIONS="";
-my $LIBNONE="$home/allvm-umbrella/allvm/build/lib/libnone.a";
 #"-fomit-frame-pointer";
 
 #Derived paths
@@ -39,6 +38,7 @@ my $print="";
 my $map="";
 my $entry="";
 my $incdir="";
+my $libnone="";
 
 GetOptions (
             "help"          => \$help, 
@@ -51,6 +51,7 @@ GetOptions (
             "suffix:s"      => \$suffix, 
             "entry:s"       => \$entry, 
             "incdir:s"      => \$incdir, 
+            "libnone:s"     => \$libnone, 
             ) or die("Error in command line arguments\n");
 
 if($help) {
@@ -83,7 +84,7 @@ cleanup();
 # Functions
 sub generate_binary {
   execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
-  execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${LIBNONE}");
+  execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
 }
 
 sub run_mcsema {

@@ -10,22 +10,25 @@ INCLUDE_DIR=${UTILS_DIR}
 RUN_SH=${UTILS_DIR}/run.pl  
 loadso=${TEST_DIR}/../build/lib/LLVMstack_deconstructor.so
 ALLIN=${TEST_DIR}/../build/bin/allin
-LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a";
 
 
-OPTSWITCH=-stack-decons -mem2reg -dce  -early-cse-memssa
+#OPTSWITCH=-stack-decons -mem2reg -dce  -early-cse-memssa
+OPTSWITCH=-stack-decons 
 #OPTSWITCH=-ssh
 #OPTSWITCH=-stack-decons -debug-only="stack_deconstructor"
 #ICC=$(shell which icc)
 outdir=Output/
 CC=clang
 CXX=clang++
+
+# ALLVM dependency
 BC2ALLVM=bc2allvm
+#LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a";
 
 
-#SKIP_MCSEMA=-skip_mcsema
+SKIP_MCSEMA=-skip_mcsema
 #PRINT=
-SKIP_MCSEMA=
+#SKIP_MCSEMA=
 #PRINT=-print
 
 
@@ -39,7 +42,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE}
 	${MAKE} ext="clang" run_pass
 
 icc:

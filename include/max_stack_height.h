@@ -1,6 +1,13 @@
-//===------------------------ max_stack_height.h --------------------------===//
+//===-- max_stack_height.h - Static analysis for stack height approximation --------------------*- C++ -*-===//
 //
-// This file provide class definition and functionality to compute the static
+//                     The LLVM Compiler Infrastructure
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
+//
+// This file provide class definition and functionality to approximate the max
 // stack frame size for each fucntion.
 //
 //===----------------------------------------------------------------------===//
