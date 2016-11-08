@@ -22,16 +22,18 @@ CC=clang
 CXX=clang++
 
 # ALLVM dependency
-BC2ALLVM=bc2allvm
-LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a";
+BC2ALLVM=/nix/store/0kp7zx7jd5s5cjqxi12la67jfpv2kszz-allvm-tools/bin/bc2allvm
+LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a"
 
 
-SKIP_MCSEMA=-skip_mcsema
+MCSEMA_HOME=${HOME}/Github/mcsema
+#SKIP_MCSEMA=-skip_mcsema
 #PRINT=
 #SKIP_MCSEMA=
 PRINT=-print
 
 
+#all:    cfg
 all:    clang
 
 gcc:
@@ -42,7 +44,7 @@ gcc:
 clang:
 	@echo " Using clang"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE} -home ~/Github/mcsema_latest
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE} -home ${MCSEMA_HOME}
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -53,7 +55,7 @@ icc:
 cfg:
 	@echo " Using IDA"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE} -cfg -home ~/Github/mcsema_latest
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE} -cfg -home ${MCSEMA_HOME}
 
 run_pass:
 	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll   -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 

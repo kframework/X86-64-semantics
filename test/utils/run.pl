@@ -20,6 +20,8 @@ my $LLC="llc";
 my $outdir="Output/";
 my $CC_OPTIONS="";
 #"-fomit-frame-pointer";
+#my $redirect = " &> ";
+
 
 # Customizable inputs
 my $help = "";
@@ -80,11 +82,14 @@ if($arch eq "32") {
 
 my ($basename, $ext) = split_filename($file);
 
-generate_binary_from_source();
-generate_cfg();
-run_mcsema();
-generate_linked_binary();
-cleanup();
+if ("" ne $cfg) {
+  generate_binary_from_source();
+  generate_cfg();
+} else {
+  run_mcsema();
+  generate_linked_binary();
+  cleanup();
+}
 
 # Functions
 sub generate_binary_from_source {
@@ -110,25 +115,28 @@ sub generate_linked_binary {
 }
 
 sub generate_cfg {
-  if("" ne $cfg ) {
-    return;
-  }
-  execute("${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o  &> /tmp/bd.log "); 
+  #execute("IDA_PATH=${home}/ida-6.95 ${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o"); 
+  #execute("${home}/ida-6.95/idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" ${outdir}${basename}.${suffix}.o "); 
+  #execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
 }
 
 sub run_mcsema {
   if("" ne $skip_mcsema) {
     return;
   }
-  execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C &> /tmp/cfgbc.log");
-  execute("${OPT} -O3    ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc"); 
-  execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.bc -o=${outdir}${basename}.${suffix}.ll");
-  execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.opt.bc -o=${outdir}${basename}.${suffix}.opt.ll");
+  if(-e "${outdir}${basename}.${suffix}.ida.cfg") {
+    execute("rm -rf ${outdir}${basename}.${suffix}.bc ${outdir}${basename}.${suffix}.opt.bc ${outdir}${basename}.${suffix}.ll ${outdir}${basename}.${suffix}.opt.ll");
+    execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}.ida.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C 1>/tmp/cfgbc.log 2>&1");
+    execute("${OPT} -O3    ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc"); 
+    execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.bc -o=${outdir}${basename}.${suffix}.ll");
+    execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.opt.bc -o=${outdir}${basename}.${suffix}.opt.ll");
+  } else {
+    print "CFG Missing : ${outdir}${basename}.${suffix}.ida.cfg\n\n" ;
+  }
 }
 
 sub cleanup {
   # Clean Up
-  execute("rm -rf  ${outdir}${basename}.${suffix}.cfg");  
   execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.o");  
   execute("rm -rf  ${outdir}${basename}.${suffix}.o"); 
   execute("rm -rf  ${outdir}${basename}.${suffix}.bc"); 
