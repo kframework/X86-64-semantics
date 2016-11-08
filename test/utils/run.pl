@@ -7,7 +7,8 @@ use Getopt::Long;
 
 #Global constants
 my $home =  $ENV{'HOME'};
-my $MCSEMA_HOME="${home}/Github/mcsema";
+#my $MCSEMA_HOME="${home}/Github/mcsema";
+my $MCSEMA_HOME="";
 my $ALLIN_HOME="${home}/Github/binary-decompilation/";
 my $CC="clang";
 my $CXX="clang++";
@@ -20,31 +21,27 @@ my $outdir="Output/";
 my $CC_OPTIONS="";
 #"-fomit-frame-pointer";
 
-#Derived paths
-my $BIN_DESCEND_PATH="${MCSEMA_HOME}/build/mc-sema/bin_descend";
-my $CFG_TO_BC_PATH="${MCSEMA_HOME}/build/mc-sema/bitcode_from_cfg/";
-my $GCC_ARCH="";
-my $BIN_ARCH="";
-my $CFGBC_ARCH="";
-
 # Customizable inputs
 my $help = "";
 my $compiler="clang";
 my $suffix="clang";
 my $arch="64";
 my $file="";
-my $skip_mcsema=0;
+my $skip_mcsema="";
 my $print="";
 my $map="";
 my $entry="";
 my $incdir="";
 my $libnone="";
+my $cfg="";
 
 GetOptions (
             "help"          => \$help, 
             "print"         => \$print, 
             "skip_mcsema"   => \$skip_mcsema, 
+            "cfg"           => \$cfg, 
             "compiler:s"    => \$compiler, 
+            "home:s"       => \$MCSEMA_HOME, 
             "arch:s"        => \$arch, 
             "map:s"         => \$map, 
             "file:s"        => \$file, 
@@ -63,6 +60,14 @@ if ("" eq $file) {
   die "ERROR: Provide source file name\n";
 }
 
+#Derived paths
+my $BIN_DESCEND_PATH="${MCSEMA_HOME}/build/mc-sema/bin_descend";
+my $CFG_TO_BC_PATH="${MCSEMA_HOME}/build/mc-sema/bitcode_from_cfg/";
+my $GCC_ARCH="";
+my $BIN_ARCH="";
+my $CFGBC_ARCH="";
+
+
 if($arch eq "32") {
   $GCC_ARCH="-m32";
   $BIN_ARCH="-march=x86";
@@ -75,19 +80,14 @@ if($arch eq "32") {
 
 my ($basename, $ext) = split_filename($file);
 
-if(0 == $skip_mcsema) {
-  run_mcsema();
-} 
-generate_binary();
+generate_binary_from_source();
+generate_cfg();
+run_mcsema();
+generate_linked_binary();
 cleanup();
 
 # Functions
-sub generate_binary {
-  execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
-  execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
-}
-
-sub run_mcsema {
+sub generate_binary_from_source {
   if("asm" eq $ext) {
     execute("nasm -f elf64 -o ${outdir}${basename}.${suffix}.o $file ;");
   } 
@@ -100,11 +100,27 @@ sub run_mcsema {
   if("ll" eq $ext) {
     execute("${compiler} -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
   } 
-
   execute("objdump -d ${outdir}${basename}.${suffix}.o &> ${outdir}${basename}.${suffix}.objdump");
-  execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log "); 
-  execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C &> /tmp/cfgbc.log");
+}
 
+
+sub generate_linked_binary {
+  execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
+  execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
+}
+
+sub generate_cfg {
+  if("" ne $cfg ) {
+    return;
+  }
+  execute("${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o  &> /tmp/bd.log "); 
+}
+
+sub run_mcsema {
+  if("" ne $skip_mcsema) {
+    return;
+  }
+  execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C &> /tmp/cfgbc.log");
   execute("${OPT} -O3    ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc"); 
   execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.bc -o=${outdir}${basename}.${suffix}.ll");
   execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.opt.bc -o=${outdir}${basename}.${suffix}.opt.ll");
