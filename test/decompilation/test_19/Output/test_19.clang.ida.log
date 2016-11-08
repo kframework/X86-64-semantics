@@ -1,0 +1,80 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_19.clang.cfg
+PROCESSING: test_19.clang.o
+Adding data seg: .data: 0x2cL-0x44L
+Looking for relocations in 2c - 44
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .data: 0x2cL-0x44L
+Recovering: start
+Processing export name: start at: 1
+WARNING: Cannot determine type of function: start at: 1At EP start:1
+BB: 1
+Starting insn at: 1
+Processing insn at 1
+		Bytes: [140, 21, 44, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 1 to 2
+Adding reference because of data refs from 1
+Testing 33 for externality
+		Data Ref: 33, size: 1
+Data Range: 2c <= 33 < 44
+Data Range: 33 - 34
+		Setting MEM ref at 1: to 33 type: DATA
+Processing insn at 7
+		Bytes: [140, 13, 48, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 7 to 2
+Adding reference because of data refs from 7
+Testing 3d for externality
+		Data Ref: 3d, size: 2
+Data Range: 2c <= 3d < 44
+Data Range: 3d - 3f
+		Setting MEM ref at 7: to 3d type: DATA
+Processing insn at d
+		Bytes: [140, 29, 52, 0, 0, 0]
+findRelocOffset setting imm reloc offset at d to 2
+Adding reference because of data refs from d
+Testing 43 for externality
+		Data Ref: 43, size: 1
+Data Range: 2c <= 43 < 44
+Data Range: 43 - 44
+		Setting MEM ref at d: to 43 type: DATA
+Processing insn at 13
+		Bytes: [140, 5, 56, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 13 to 2
+Adding reference because of data refs from 13
+Testing 43 for externality
+		Data Ref: 43, size: 1
+Data Range: 2c <= 43 < 44
+Data Range: 43 - 44
+		Setting MEM ref at 13: to 43 type: DATA
+Processing insn at 19
+		Bytes: [140, 37, 60, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 19 to 2
+Adding reference because of data refs from 19
+Testing 43 for externality
+		Data Ref: 43, size: 1
+Data Range: 2c <= 43 < 44
+Data Range: 43 - 44
+		Setting MEM ref at 19: to 43 type: DATA
+Processing insn at 1f
+		Bytes: [140, 45, 64, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 1f to 2
+Adding reference because of data refs from 1f
+Testing 43 for externality
+		Data Ref: 43, size: 1
+Data Range: 2c <= 43 < 44
+Data Range: 43 - 44
+		Setting MEM ref at 1f: to 43 type: DATA
+Processing insn at 25
+		Bytes: [49, 192]
+Processing insn at 27
+		Bytes: [140, 208]
+Processing insn at 29
+		Bytes: [156]
+Processing insn at 2a
+		Bytes: [88]
+Processing insn at 2b
+		Bytes: [195]
+Ending insn at: 2a
+Recovered 1 functions.
+Saving to: Output/test_19.clang.cfg

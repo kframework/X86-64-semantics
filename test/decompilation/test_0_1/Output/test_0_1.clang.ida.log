@@ -1,0 +1,66 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_0_1.clang.cfg
+PROCESSING: test_0_1.clang.o
+Adding data seg: .rodata.str1.1: 0x35L-0x3bL
+Adding data seg: .eh_frame: 0x40L-0x78L
+Looking for relocations in 35 - 3b
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x35L-0x3bL
+Looking for relocations in 40 - 78
+Found relocations in binary: (60)..
+rtype : 4, 0, 0
+60 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 60, seg_offset: 0 => 0
+Reloc Base Address: 60
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x40L-0x78L
+Recovering: main
+Processing export name: main at: 0
+At EP main:0
+BB: 0
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [72, 131, 236, 16]
+Processing insn at 8
+		Bytes: [72, 191, 53, 0, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 8 to 2
+Adding reference because of data refs from 8
+Testing 35 for externality
+		Data Ref: 35, size: 6
+Data Range: 35 <= 35 < 3b
+Data Range: 35 - 3b
+		Setting IMM ref at 8: to 35 type: DATA
+Processing insn at 12
+		Bytes: [199, 69, 252, 0, 0, 0, 0]
+Processing insn at 19
+		Bytes: [176, 0]
+Processing insn at 1b
+		Bytes: [232, 88, 0, 0, 0]
+Checking code ref 78
+Testing 78 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 1b to 1
+Processing insn at 20
+		Bytes: [185, 0, 0, 0, 0]
+Processing insn at 25
+		Bytes: [137, 69, 248]
+Processing insn at 28
+		Bytes: [137, 200]
+Processing insn at 2a
+		Bytes: [72, 131, 196, 16]
+Processing insn at 2e
+		Bytes: [93]
+Processing insn at 2f
+		Bytes: [195]
+Ending insn at: 2e
+Program will reference external: printf
+Recovered 1 functions.
+Saving to: Output/test_0_1.clang.cfg

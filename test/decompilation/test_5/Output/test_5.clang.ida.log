@@ -1,0 +1,87 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_5.clang.cfg
+PROCESSING: test_5.clang.o
+Adding data seg: .eh_frame: 0x58L-0x90L
+Looking for relocations in 58 - 90
+Found relocations in binary: (78)..
+rtype : 4, 0, 0
+78 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 78, seg_offset: 0 => 0
+Reloc Base Address: 78
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x58L-0x90L
+Recovering: foo
+Processing export name: foo at: 0
+WARNING: Cannot determine type of function: foo at: 0At EP foo:0
+Testing 25 for externality
+Testing 48 for externality
+Testing 19 for externality
+BB: 48
+Starting insn at: 48
+Processing insn at 48
+		Bytes: [139, 69, 240]
+Processing insn at 4b
+		Bytes: [93]
+Processing insn at 4c
+		Bytes: [195]
+Ending insn at: 4b
+BB: 25
+Successors: 19
+Starting insn at: 25
+Processing insn at 25
+		Bytes: [72, 99, 69, 236]
+Processing insn at 29
+		Bytes: [72, 139, 77, 248]
+Processing insn at 2d
+		Bytes: [139, 20, 129]
+Processing insn at 30
+		Bytes: [139, 117, 240]
+Processing insn at 33
+		Bytes: [1, 214]
+Processing insn at 35
+		Bytes: [137, 117, 240]
+Processing insn at 38
+		Bytes: [139, 69, 236]
+Processing insn at 3b
+		Bytes: [5, 1, 0, 0, 0]
+Processing insn at 40
+		Bytes: [137, 69, 236]
+Processing insn at 43
+		Bytes: [233, 209, 255, 255, 255]
+Checking code ref 19
+Testing 19 for externality
+INTERNAL JMP: 19
+Ending insn at: 43
+BB: 19
+Successors: 25, 48
+Starting insn at: 19
+Processing insn at 19
+		Bytes: [139, 69, 236]
+Processing insn at 1c
+		Bytes: [59, 69, 244]
+Processing insn at 1f
+		Bytes: [15, 141, 35, 0, 0, 0]
+Checking code ref 48
+Ending insn at: 1f
+BB: 0
+Successors: 19
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [72, 137, 125, 248]
+Processing insn at 8
+		Bytes: [137, 117, 244]
+Processing insn at b
+		Bytes: [199, 69, 240, 0, 0, 0, 0]
+Processing insn at 12
+		Bytes: [199, 69, 236, 0, 0, 0, 0]
+Ending insn at: 12
+Recovered 1 functions.
+Saving to: Output/test_5.clang.cfg

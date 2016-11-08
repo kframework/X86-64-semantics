@@ -1,0 +1,51 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_9.clang.cfg
+PROCESSING: test_9.clang.o
+Recovering: start
+Processing export name: start at: 1
+WARNING: Cannot determine type of function: start at: 1At EP start:1
+Testing d for externality
+Testing 13 for externality
+Testing 9 for externality
+BB: 13
+Starting insn at: 13
+Processing insn at 13
+		Bytes: [195]
+Ending insn at: 13
+BB: d
+Successors: 9
+Starting insn at: d
+Processing insn at d
+		Bytes: [1, 192]
+Processing insn at f
+		Bytes: [255, 195]
+Processing insn at 11
+		Bytes: [235, 246]
+Checking code ref 9
+Testing 9 for externality
+INTERNAL JMP: 9
+Ending insn at: 11
+BB: 9
+Successors: d, 13
+Starting insn at: 9
+Processing insn at 9
+		Bytes: [57, 203]
+Processing insn at b
+		Bytes: [116, 6]
+Checking code ref 13
+Ending insn at: b
+BB: 1
+Successors: 9
+Starting insn at: 1
+Processing insn at 1
+		Bytes: [137, 193]
+Processing insn at 3
+		Bytes: [49, 192]
+Processing insn at 5
+		Bytes: [255, 192]
+Processing insn at 7
+		Bytes: [49, 219]
+Ending insn at: 7
+Recovered 1 functions.
+Saving to: Output/test_9.clang.cfg

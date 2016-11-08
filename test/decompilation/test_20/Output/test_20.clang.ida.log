@@ -1,0 +1,725 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Will lift 1 exports
+CFG Output File file: Output/test_20.clang.cfg
+PROCESSING: test_20.clang.o
+Found a jmp based switch at: 62
+Address accessed via JMP: 248
+Address accessed via JMP: 250
+Address accessed via JMP: 258
+Address accessed via JMP: 260
+Address accessed via JMP: 268
+Address accessed via JMP: 270
+Address accessed via JMP: 278
+Address accessed via JMP: 280
+Address accessed via JMP: 288
+Address accessed via JMP: 290
+Address accessed via JMP: 298
+Address accessed via JMP: 2a0
+Address accessed via JMP: 2a8
+Address accessed via JMP: 2b0
+Address accessed via JMP: 2b8
+Address accessed via JMP: 2c0
+Address accessed via JMP: 2c8
+Address accessed via JMP: 2d0
+Address accessed via JMP: 2d8
+Address accessed via JMP: 2e0
+Found a jmp based switch at: a0
+Address accessed via JMP: 1f0
+Address accessed via JMP: 1f8
+Address accessed via JMP: 200
+Address accessed via JMP: 208
+Address accessed via JMP: 210
+Address accessed via JMP: 218
+Address accessed via JMP: 220
+Address accessed via JMP: 228
+Address accessed via JMP: 230
+Address accessed via JMP: 238
+Address accessed via JMP: 240
+Adding data seg: .rodata: 0x1f0L-0x2e8L
+Adding data seg: .eh_frame: 0x2e8L-0x320L
+Looking for relocations in 1f0 - 2e8
+Found relocations in binary: (1f0)..
+rtype : c, 132, 0
+1f0 Found reloc to: 132 (size: 8)
+Testing 132 for externality
+		NOT ADDING REF: 000001f0 -> 00000132
+rtype : c, 142, 0
+1f8 Found reloc to: 142 (size: 8)
+Testing 142 for externality
+		NOT ADDING REF: 000001f8 -> 00000142
+rtype : c, 152, 0
+200 Found reloc to: 152 (size: 8)
+Testing 152 for externality
+		NOT ADDING REF: 00000200 -> 00000152
+rtype : c, 162, 0
+208 Found reloc to: 162 (size: 8)
+Testing 162 for externality
+		NOT ADDING REF: 00000208 -> 00000162
+rtype : c, 172, 0
+210 Found reloc to: 172 (size: 8)
+Testing 172 for externality
+		NOT ADDING REF: 00000210 -> 00000172
+rtype : c, 1d2, 0
+218 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000218 -> 000001d2
+rtype : c, 182, 0
+220 Found reloc to: 182 (size: 8)
+Testing 182 for externality
+		NOT ADDING REF: 00000220 -> 00000182
+rtype : c, 192, 0
+228 Found reloc to: 192 (size: 8)
+Testing 192 for externality
+		NOT ADDING REF: 00000228 -> 00000192
+rtype : c, 1a2, 0
+230 Found reloc to: 1a2 (size: 8)
+Testing 1a2 for externality
+		NOT ADDING REF: 00000230 -> 000001a2
+rtype : c, 1b2, 0
+238 Found reloc to: 1b2 (size: 8)
+Testing 1b2 for externality
+		NOT ADDING REF: 00000238 -> 000001b2
+rtype : c, 1c2, 0
+240 Found reloc to: 1c2 (size: 8)
+Testing 1c2 for externality
+		NOT ADDING REF: 00000240 -> 000001c2
+rtype : c, a2, 0
+248 Found reloc to: a2 (size: 8)
+Testing a2 for externality
+		NOT ADDING REF: 00000248 -> 000000a2
+rtype : c, b2, 0
+250 Found reloc to: b2 (size: 8)
+Testing b2 for externality
+		NOT ADDING REF: 00000250 -> 000000b2
+rtype : c, c2, 0
+258 Found reloc to: c2 (size: 8)
+Testing c2 for externality
+		NOT ADDING REF: 00000258 -> 000000c2
+rtype : c, 1d2, 0
+260 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000260 -> 000001d2
+rtype : c, d2, 0
+268 Found reloc to: d2 (size: 8)
+Testing d2 for externality
+		NOT ADDING REF: 00000268 -> 000000d2
+rtype : c, 1d2, 0
+270 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000270 -> 000001d2
+rtype : c, e2, 0
+278 Found reloc to: e2 (size: 8)
+Testing e2 for externality
+		NOT ADDING REF: 00000278 -> 000000e2
+rtype : c, 1d2, 0
+280 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000280 -> 000001d2
+rtype : c, 1d2, 0
+288 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000288 -> 000001d2
+rtype : c, 1d2, 0
+290 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000290 -> 000001d2
+rtype : c, 1d2, 0
+298 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 00000298 -> 000001d2
+rtype : c, 1d2, 0
+2a0 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 000002a0 -> 000001d2
+rtype : c, f2, 0
+2a8 Found reloc to: f2 (size: 8)
+Testing f2 for externality
+		NOT ADDING REF: 000002a8 -> 000000f2
+rtype : c, 102, 0
+2b0 Found reloc to: 102 (size: 8)
+Testing 102 for externality
+		NOT ADDING REF: 000002b0 -> 00000102
+rtype : c, 1d2, 0
+2b8 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 000002b8 -> 000001d2
+rtype : c, 1d2, 0
+2c0 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 000002c0 -> 000001d2
+rtype : c, 1d2, 0
+2c8 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 000002c8 -> 000001d2
+rtype : c, 1d2, 0
+2d0 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 000002d0 -> 000001d2
+rtype : c, 1d2, 0
+2d8 Found reloc to: 1d2 (size: 8)
+Testing 1d2 for externality
+		NOT ADDING REF: 000002d8 -> 000001d2
+rtype : c, 112, 0
+2e0 Found reloc to: 112 (size: 8)
+Testing 112 for externality
+		NOT ADDING REF: 000002e0 -> 00000112
+Adding data seg: .rodata: 0x1f0L-0x2e8L
+Looking for relocations in 2e8 - 320
+Found relocations in binary: (308)..
+rtype : 4, 0, 0
+308 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 308, seg_offset: 0 => 0
+Reloc Base Address: 308
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x2e8L-0x320L
+Recovering: switches
+Processing export name: switches at: 0
+WARNING: Cannot determine type of function: switches at: 0At EP switches:0
+Testing 24 for externality
+Testing 7a for externality
+Testing 94 for externality
+Testing 1d2 for externality
+Testing 132 for externality
+Testing 142 for externality
+Testing 152 for externality
+Testing 162 for externality
+Testing 172 for externality
+Testing 182 for externality
+Testing 192 for externality
+Testing 1a2 for externality
+Testing 1b2 for externality
+Testing 1c2 for externality
+Testing 1d2 for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 29 for externality
+Testing 3a for externality
+Testing 64 for externality
+Testing 75 for externality
+Testing 122 for externality
+Testing 1dd for externality
+Testing 1d2 for externality
+Testing 3f for externality
+Testing 56 for externality
+Testing 1d2 for externality
+Testing a2 for externality
+Testing b2 for externality
+Testing c2 for externality
+Testing d2 for externality
+Testing e2 for externality
+Testing f2 for externality
+Testing 102 for externality
+Testing 112 for externality
+Testing 1d2 for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+Testing 1dd for externality
+BB: 1dd
+Starting insn at: 1dd
+Processing insn at 1dd
+		Bytes: [139, 69, 248]
+Processing insn at 1e0
+		Bytes: [93]
+Processing insn at 1e1
+		Bytes: [195]
+Ending insn at: 1e0
+BB: 1d2
+Successors: 1dd
+Starting insn at: 1d2
+Processing insn at 1d2
+		Bytes: [139, 69, 248]
+Processing insn at 1d5
+		Bytes: [5, 0, 0, 0, 0]
+Processing insn at 1da
+		Bytes: [137, 69, 248]
+Ending insn at: 1da
+BB: 1c2
+Successors: 1dd
+Starting insn at: 1c2
+Processing insn at 1c2
+		Bytes: [139, 69, 248]
+Processing insn at 1c5
+		Bytes: [5, 147, 35, 1, 0]
+Processing insn at 1ca
+		Bytes: [137, 69, 248]
+Processing insn at 1cd
+		Bytes: [233, 11, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 1cd
+BB: 1b2
+Successors: 1dd
+Starting insn at: 1b2
+Processing insn at 1b2
+		Bytes: [139, 69, 248]
+Processing insn at 1b5
+		Bytes: [5, 146, 35, 1, 0]
+Processing insn at 1ba
+		Bytes: [137, 69, 248]
+Processing insn at 1bd
+		Bytes: [233, 27, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 1bd
+BB: 1a2
+Successors: 1dd
+Starting insn at: 1a2
+Processing insn at 1a2
+		Bytes: [139, 69, 248]
+Processing insn at 1a5
+		Bytes: [5, 145, 35, 1, 0]
+Processing insn at 1aa
+		Bytes: [137, 69, 248]
+Processing insn at 1ad
+		Bytes: [233, 43, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 1ad
+BB: 192
+Successors: 1dd
+Starting insn at: 192
+Processing insn at 192
+		Bytes: [139, 69, 248]
+Processing insn at 195
+		Bytes: [5, 144, 35, 1, 0]
+Processing insn at 19a
+		Bytes: [137, 69, 248]
+Processing insn at 19d
+		Bytes: [233, 59, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 19d
+BB: 182
+Successors: 1dd
+Starting insn at: 182
+Processing insn at 182
+		Bytes: [139, 69, 248]
+Processing insn at 185
+		Bytes: [5, 143, 35, 1, 0]
+Processing insn at 18a
+		Bytes: [137, 69, 248]
+Processing insn at 18d
+		Bytes: [233, 75, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 18d
+BB: 172
+Successors: 1dd
+Starting insn at: 172
+Processing insn at 172
+		Bytes: [139, 69, 248]
+Processing insn at 175
+		Bytes: [5, 141, 35, 1, 0]
+Processing insn at 17a
+		Bytes: [137, 69, 248]
+Processing insn at 17d
+		Bytes: [233, 91, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 17d
+BB: 162
+Successors: 1dd
+Starting insn at: 162
+Processing insn at 162
+		Bytes: [139, 69, 248]
+Processing insn at 165
+		Bytes: [5, 140, 35, 1, 0]
+Processing insn at 16a
+		Bytes: [137, 69, 248]
+Processing insn at 16d
+		Bytes: [233, 107, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 16d
+BB: 152
+Successors: 1dd
+Starting insn at: 152
+Processing insn at 152
+		Bytes: [139, 69, 248]
+Processing insn at 155
+		Bytes: [5, 139, 35, 1, 0]
+Processing insn at 15a
+		Bytes: [137, 69, 248]
+Processing insn at 15d
+		Bytes: [233, 123, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 15d
+BB: 142
+Successors: 1dd
+Starting insn at: 142
+Processing insn at 142
+		Bytes: [139, 69, 248]
+Processing insn at 145
+		Bytes: [5, 138, 35, 1, 0]
+Processing insn at 14a
+		Bytes: [137, 69, 248]
+Processing insn at 14d
+		Bytes: [233, 139, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 14d
+BB: 132
+Successors: 1dd
+Starting insn at: 132
+Processing insn at 132
+		Bytes: [139, 69, 248]
+Processing insn at 135
+		Bytes: [5, 137, 35, 1, 0]
+Processing insn at 13a
+		Bytes: [137, 69, 248]
+Processing insn at 13d
+		Bytes: [233, 155, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 13d
+BB: 122
+Successors: 1dd
+Starting insn at: 122
+Processing insn at 122
+		Bytes: [139, 69, 248]
+Processing insn at 125
+		Bytes: [5, 255, 0, 0, 0]
+Processing insn at 12a
+		Bytes: [137, 69, 248]
+Processing insn at 12d
+		Bytes: [233, 171, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 12d
+BB: 112
+Successors: 1dd
+Starting insn at: 112
+Processing insn at 112
+		Bytes: [139, 69, 248]
+Processing insn at 115
+		Bytes: [5, 19, 0, 0, 0]
+Processing insn at 11a
+		Bytes: [137, 69, 248]
+Processing insn at 11d
+		Bytes: [233, 187, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 11d
+BB: 102
+Successors: 1dd
+Starting insn at: 102
+Processing insn at 102
+		Bytes: [139, 69, 248]
+Processing insn at 105
+		Bytes: [5, 13, 0, 0, 0]
+Processing insn at 10a
+		Bytes: [137, 69, 248]
+Processing insn at 10d
+		Bytes: [233, 203, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: 10d
+BB: f2
+Successors: 1dd
+Starting insn at: f2
+Processing insn at f2
+		Bytes: [139, 69, 248]
+Processing insn at f5
+		Bytes: [5, 12, 0, 0, 0]
+Processing insn at fa
+		Bytes: [137, 69, 248]
+Processing insn at fd
+		Bytes: [233, 219, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: fd
+BB: e2
+Successors: 1dd
+Starting insn at: e2
+Processing insn at e2
+		Bytes: [139, 69, 248]
+Processing insn at e5
+		Bytes: [5, 6, 0, 0, 0]
+Processing insn at ea
+		Bytes: [137, 69, 248]
+Processing insn at ed
+		Bytes: [233, 235, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: ed
+BB: d2
+Successors: 1dd
+Starting insn at: d2
+Processing insn at d2
+		Bytes: [139, 69, 248]
+Processing insn at d5
+		Bytes: [5, 4, 0, 0, 0]
+Processing insn at da
+		Bytes: [137, 69, 248]
+Processing insn at dd
+		Bytes: [233, 251, 0, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: dd
+BB: c2
+Successors: 1dd
+Starting insn at: c2
+Processing insn at c2
+		Bytes: [139, 69, 248]
+Processing insn at c5
+		Bytes: [5, 2, 0, 0, 0]
+Processing insn at ca
+		Bytes: [137, 69, 248]
+Processing insn at cd
+		Bytes: [233, 11, 1, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: cd
+BB: b2
+Successors: 1dd
+Starting insn at: b2
+Processing insn at b2
+		Bytes: [139, 69, 248]
+Processing insn at b5
+		Bytes: [5, 1, 0, 0, 0]
+Processing insn at ba
+		Bytes: [137, 69, 248]
+Processing insn at bd
+		Bytes: [233, 27, 1, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: bd
+BB: a2
+Successors: 1dd
+Starting insn at: a2
+Processing insn at a2
+		Bytes: [139, 69, 248]
+Processing insn at a5
+		Bytes: [5, 0, 0, 0, 0]
+Processing insn at aa
+		Bytes: [137, 69, 248]
+Processing insn at ad
+		Bytes: [233, 43, 1, 0, 0]
+Checking code ref 1dd
+Testing 1dd for externality
+INTERNAL JMP: 1dd
+Ending insn at: ad
+BB: 94
+Successors: 132, 142, 152, 162, 172, 182, 192, 1a2, 1b2, 1c2, 1d2
+Starting insn at: 94
+Processing insn at 94
+		Bytes: [72, 139, 69, 208]
+Processing insn at 98
+		Bytes: [72, 139, 12, 197, 240, 1, 0, 0]
+findRelocOffset setting imm reloc offset at 98 to 4
+Adding reference because of data refs from 98
+Testing 1f0 for externality
+		Data Ref: 1f0, size: 88
+Data Range: 1f0 <= 1f0 < 2e8
+Data Range: 1f0 - 248
+		Setting MEM ref at 98: to 1f0 type: DATA
+Processing insn at a0
+		Bytes: [255, 225]
+Its a jump table
+	JMPTable Start: 1f0
+	JMPTable offset from data: 0
+		Adding JMPTable 0: 132
+		Adding JMPTable 1: 142
+		Adding JMPTable 2: 152
+		Adding JMPTable 3: 162
+		Adding JMPTable 4: 172
+		Adding JMPTable 5: 1d2
+		Adding JMPTable 6: 182
+		Adding JMPTable 7: 192
+		Adding JMPTable 8: 1a2
+		Adding JMPTable 9: 1b2
+		Adding JMPTable 10: 1c2
+Ending insn at: a0
+BB: 7a
+Successors: 94, 1d2
+Starting insn at: 7a
+Processing insn at 7a
+		Bytes: [139, 69, 244]
+Processing insn at 7d
+		Bytes: [5, 119, 220, 254, 255]
+Processing insn at 82
+		Bytes: [137, 193]
+Processing insn at 84
+		Bytes: [131, 232, 10]
+Processing insn at 87
+		Bytes: [72, 137, 77, 208]
+Processing insn at 8b
+		Bytes: [137, 69, 204]
+Processing insn at 8e
+		Bytes: [15, 135, 62, 1, 0, 0]
+Checking code ref 1d2
+Ending insn at: 8e
+BB: 75
+Successors: 1d2
+Starting insn at: 75
+Processing insn at 75
+		Bytes: [233, 88, 1, 0, 0]
+Checking code ref 1d2
+Testing 1d2 for externality
+INTERNAL JMP: 1d2
+Ending insn at: 75
+BB: 64
+Successors: 75, 122
+Starting insn at: 64
+Processing insn at 64
+		Bytes: [139, 69, 244]
+Processing insn at 67
+		Bytes: [45, 255, 0, 0, 0]
+Processing insn at 6c
+		Bytes: [137, 69, 220]
+Processing insn at 6f
+		Bytes: [15, 132, 173, 0, 0, 0]
+Checking code ref 122
+Ending insn at: 6f
+BB: 56
+Successors: a2, b2, c2, d2, e2, f2, 102, 112, 1d2
+Starting insn at: 56
+Processing insn at 56
+		Bytes: [72, 139, 69, 224]
+Processing insn at 5a
+		Bytes: [72, 139, 12, 197, 72, 2, 0, 0]
+findRelocOffset setting imm reloc offset at 5a to 4
+Adding reference because of data refs from 5a
+Testing 248 for externality
+		Data Ref: 248, size: 160
+Data Range: 1f0 <= 248 < 2e8
+Data Range: 248 - 2e8
+		Setting MEM ref at 5a: to 248 type: DATA
+Processing insn at 62
+		Bytes: [255, 225]
+Its a jump table
+	JMPTable Start: 248
+	JMPTable offset from data: 58
+		Adding JMPTable 0: a2
+		Adding JMPTable 1: b2
+		Adding JMPTable 2: c2
+		Adding JMPTable 3: 1d2
+		Adding JMPTable 4: d2
+		Adding JMPTable 5: 1d2
+		Adding JMPTable 6: e2
+		Adding JMPTable 7: 1d2
+		Adding JMPTable 8: 1d2
+		Adding JMPTable 9: 1d2
+		Adding JMPTable 10: 1d2
+		Adding JMPTable 11: 1d2
+		Adding JMPTable 12: f2
+		Adding JMPTable 13: 102
+		Adding JMPTable 14: 1d2
+		Adding JMPTable 15: 1d2
+		Adding JMPTable 16: 1d2
+		Adding JMPTable 17: 1d2
+		Adding JMPTable 18: 1d2
+		Adding JMPTable 19: 112
+Ending insn at: 62
+BB: 3f
+Successors: 56, 1d2
+Starting insn at: 3f
+Processing insn at 3f
+		Bytes: [139, 69, 244]
+Processing insn at 42
+		Bytes: [137, 193]
+Processing insn at 44
+		Bytes: [137, 202]
+Processing insn at 46
+		Bytes: [131, 232, 19]
+Processing insn at 49
+		Bytes: [137, 69, 232]
+Processing insn at 4c
+		Bytes: [72, 137, 85, 224]
+Processing insn at 50
+		Bytes: [15, 135, 124, 1, 0, 0]
+Checking code ref 1d2
+Ending insn at: 50
+BB: 3a
+Successors: 3f
+Starting insn at: 3a
+Processing insn at 3a
+		Bytes: [233, 0, 0, 0, 0]
+Checking code ref 3f
+Testing 3f for externality
+INTERNAL JMP: 3f
+Ending insn at: 3a
+BB: 29
+Successors: 3a, 64
+Starting insn at: 29
+Processing insn at 29
+		Bytes: [139, 69, 244]
+Processing insn at 2c
+		Bytes: [45, 254, 0, 0, 0]
+Processing insn at 31
+		Bytes: [137, 69, 236]
+Processing insn at 34
+		Bytes: [15, 143, 42, 0, 0, 0]
+Checking code ref 64
+Ending insn at: 34
+BB: 24
+Successors: 29
+Starting insn at: 24
+Processing insn at 24
+		Bytes: [233, 0, 0, 0, 0]
+Checking code ref 29
+Testing 29 for externality
+INTERNAL JMP: 29
+Ending insn at: 24
+BB: 0
+Successors: 24, 7a
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [137, 125, 252]
+Processing insn at 7
+		Bytes: [199, 69, 248, 0, 0, 0, 0]
+Processing insn at e
+		Bytes: [139, 125, 252]
+Processing insn at 11
+		Bytes: [137, 248]
+Processing insn at 13
+		Bytes: [45, 136, 35, 1, 0]
+Processing insn at 18
+		Bytes: [137, 125, 244]
+Processing insn at 1b
+		Bytes: [137, 69, 240]
+Processing insn at 1e
+		Bytes: [15, 143, 86, 0, 0, 0]
+Checking code ref 7a
+Ending insn at: 1e
+Recovered 1 functions.
+Saving to: Output/test_20.clang.cfg

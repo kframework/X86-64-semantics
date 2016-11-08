@@ -1,0 +1,133 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_2_1.clang.cfg
+PROCESSING: test_2_1.clang.o
+Adding data seg: .eh_frame: 0xc0L-0x110L
+Looking for relocations in c0 - 110
+Found relocations in binary: (e0)..
+rtype : 4, 0, 0
+e0 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: e0, seg_offset: 0 => 0
+Reloc Base Address: e0
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+fc Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: fc, seg_offset: 0 => 0
+Reloc Base Address: fc
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0xc0L-0x110L
+Recovering: main
+Processing export name: main at: 40
+At EP main:40
+BB: 40
+Starting insn at: 40
+Processing insn at 40
+		Bytes: [85]
+Processing insn at 41
+		Bytes: [72, 137, 229]
+Processing insn at 44
+		Bytes: [83]
+Processing insn at 45
+		Bytes: [72, 131, 236, 40]
+Processing insn at 49
+		Bytes: [184, 100, 0, 0, 0]
+Processing insn at 4e
+		Bytes: [185, 200, 0, 0, 0]
+Processing insn at 53
+		Bytes: [186, 44, 1, 0, 0]
+Processing insn at 58
+		Bytes: [65, 184, 144, 1, 0, 0]
+Processing insn at 5e
+		Bytes: [65, 185, 244, 1, 0, 0]
+Processing insn at 64
+		Bytes: [65, 186, 88, 2, 0, 0]
+Processing insn at 6a
+		Bytes: [65, 187, 10, 0, 0, 0]
+Processing insn at 70
+		Bytes: [187, 20, 0, 0, 0]
+Processing insn at 75
+		Bytes: [199, 69, 244, 0, 0, 0, 0]
+Processing insn at 7c
+		Bytes: [137, 125, 240]
+Processing insn at 7f
+		Bytes: [72, 137, 117, 232]
+Processing insn at 83
+		Bytes: [137, 199]
+Processing insn at 85
+		Bytes: [137, 206]
+Processing insn at 87
+		Bytes: [68, 137, 193]
+Processing insn at 8a
+		Bytes: [69, 137, 200]
+Processing insn at 8d
+		Bytes: [69, 137, 209]
+Processing insn at 90
+		Bytes: [199, 4, 36, 10, 0, 0, 0]
+Processing insn at 97
+		Bytes: [199, 68, 36, 8, 20, 0, 0, 0]
+Processing insn at 9f
+		Bytes: [137, 93, 228]
+Processing insn at a2
+		Bytes: [68, 137, 93, 224]
+Processing insn at a6
+		Bytes: [232, 85, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: foo
+Processing insn at ab
+		Bytes: [72, 131, 196, 40]
+Processing insn at af
+		Bytes: [91]
+Processing insn at b0
+		Bytes: [93]
+Processing insn at b1
+		Bytes: [195]
+Ending insn at: b0
+Recovering: 0x0L
+BB: 0
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [139, 69, 24]
+Processing insn at 7
+		Bytes: [68, 139, 85, 16]
+Processing insn at b
+		Bytes: [137, 125, 252]
+Processing insn at e
+		Bytes: [137, 117, 248]
+Processing insn at 11
+		Bytes: [137, 85, 244]
+Processing insn at 14
+		Bytes: [137, 77, 240]
+Processing insn at 17
+		Bytes: [68, 137, 69, 236]
+Processing insn at 1b
+		Bytes: [68, 137, 77, 232]
+Processing insn at 1f
+		Bytes: [68, 137, 85, 228]
+Processing insn at 23
+		Bytes: [137, 69, 224]
+Processing insn at 26
+		Bytes: [139, 69, 228]
+Processing insn at 29
+		Bytes: [3, 69, 224]
+Processing insn at 2c
+		Bytes: [137, 69, 220]
+Processing insn at 2f
+		Bytes: [139, 69, 220]
+Processing insn at 32
+		Bytes: [93]
+Processing insn at 33
+		Bytes: [195]
+Ending insn at: 32
+Recovered 2 functions.
+Saving to: Output/test_2_1.clang.cfg

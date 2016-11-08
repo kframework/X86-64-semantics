@@ -1,0 +1,166 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_2.clang.cfg
+PROCESSING: test_2.clang.o
+Adding data seg: .eh_frame: 0xe0L-0x130L
+Looking for relocations in e0 - 130
+Found relocations in binary: (100)..
+rtype : 4, 0, 0
+100 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 100, seg_offset: 0 => 0
+Reloc Base Address: 100
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+11c Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 11c, seg_offset: 0 => 0
+Reloc Base Address: 11c
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0xe0L-0x130L
+Recovering: main
+Processing export name: main at: 70
+At EP main:70
+BB: 70
+Starting insn at: 70
+Processing insn at 70
+		Bytes: [85]
+Processing insn at 71
+		Bytes: [72, 137, 229]
+Processing insn at 74
+		Bytes: [72, 131, 236, 32]
+Processing insn at 78
+		Bytes: [191, 10, 0, 0, 0]
+Processing insn at 7d
+		Bytes: [190, 20, 0, 0, 0]
+Processing insn at 82
+		Bytes: [186, 30, 0, 0, 0]
+Processing insn at 87
+		Bytes: [185, 40, 0, 0, 0]
+Processing insn at 8c
+		Bytes: [65, 184, 50, 0, 0, 0]
+Processing insn at 92
+		Bytes: [65, 185, 60, 0, 0, 0]
+Processing insn at 98
+		Bytes: [184, 70, 0, 0, 0]
+Processing insn at 9d
+		Bytes: [65, 186, 80, 0, 0, 0]
+Processing insn at a3
+		Bytes: [199, 69, 252, 0, 0, 0, 0]
+Processing insn at aa
+		Bytes: [199, 4, 36, 70, 0, 0, 0]
+Processing insn at b1
+		Bytes: [199, 68, 36, 8, 80, 0, 0, 0]
+Processing insn at b9
+		Bytes: [68, 137, 85, 244]
+Processing insn at bd
+		Bytes: [137, 69, 240]
+Processing insn at c0
+		Bytes: [232, 59, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: foo
+Processing insn at c5
+		Bytes: [137, 69, 248]
+Processing insn at c8
+		Bytes: [139, 69, 248]
+Processing insn at cb
+		Bytes: [72, 131, 196, 32]
+Processing insn at cf
+		Bytes: [93]
+Processing insn at d0
+		Bytes: [195]
+Ending insn at: cf
+Recovering: 0x0L
+Testing 4b for externality
+Testing 59 for externality
+Testing 62 for externality
+BB: 62
+Starting insn at: 62
+Processing insn at 62
+		Bytes: [139, 69, 216]
+Processing insn at 65
+		Bytes: [93]
+Processing insn at 66
+		Bytes: [195]
+Ending insn at: 65
+BB: 59
+Successors: 62
+Starting insn at: 59
+Processing insn at 59
+		Bytes: [139, 69, 220]
+Processing insn at 5c
+		Bytes: [43, 69, 224]
+Processing insn at 5f
+		Bytes: [137, 69, 216]
+Ending insn at: 5f
+BB: 4b
+Successors: 62
+Starting insn at: 4b
+Processing insn at 4b
+		Bytes: [139, 69, 220]
+Processing insn at 4e
+		Bytes: [3, 69, 224]
+Processing insn at 51
+		Bytes: [137, 69, 216]
+Processing insn at 54
+		Bytes: [233, 9, 0, 0, 0]
+Checking code ref 62
+Testing 62 for externality
+INTERNAL JMP: 62
+Ending insn at: 54
+BB: 0
+Successors: 4b, 59
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [139, 69, 24]
+Processing insn at 7
+		Bytes: [68, 139, 85, 16]
+Processing insn at b
+		Bytes: [137, 125, 252]
+Processing insn at e
+		Bytes: [137, 117, 248]
+Processing insn at 11
+		Bytes: [137, 85, 244]
+Processing insn at 14
+		Bytes: [137, 77, 240]
+Processing insn at 17
+		Bytes: [68, 137, 69, 236]
+Processing insn at 1b
+		Bytes: [68, 137, 77, 232]
+Processing insn at 1f
+		Bytes: [68, 137, 85, 228]
+Processing insn at 23
+		Bytes: [137, 69, 224]
+Processing insn at 26
+		Bytes: [139, 69, 252]
+Processing insn at 29
+		Bytes: [3, 69, 248]
+Processing insn at 2c
+		Bytes: [3, 69, 244]
+Processing insn at 2f
+		Bytes: [3, 69, 240]
+Processing insn at 32
+		Bytes: [3, 69, 236]
+Processing insn at 35
+		Bytes: [3, 69, 232]
+Processing insn at 38
+		Bytes: [3, 69, 228]
+Processing insn at 3b
+		Bytes: [137, 69, 220]
+Processing insn at 3e
+		Bytes: [129, 125, 220, 40, 0, 0, 0]
+Processing insn at 45
+		Bytes: [15, 142, 14, 0, 0, 0]
+Checking code ref 59
+Ending insn at: 45
+Recovered 2 functions.
+Saving to: Output/test_2.clang.cfg

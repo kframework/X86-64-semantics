@@ -1,0 +1,16 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_8.clang.cfg
+PROCESSING: test_8.clang.o
+Recovering: start
+Processing export name: start at: 1
+WARNING: Cannot determine type of function: start at: 1At EP start:1
+BB: 1
+Starting insn at: 1
+Processing insn at 1
+		Bytes: [131, 192, 1]
+Processing insn at 4
+		Bytes: [195]
+Ending insn at: 1
+Recovered 1 functions.
+Saving to: Output/test_8.clang.cfg
