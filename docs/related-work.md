@@ -309,3 +309,30 @@ Second write is also emitting LLVM IR
   - Type reconstruction
     - Assign each program variable a type var t.
     - TIE generates constraints on the type variables based upon how the variable is used, e.g., if a variable is used as part of signed division , we add the constraint that  t must be a signed type. One of our main contributions is that the constraint system can be solved and lead to accurate and conservative results.
+
+### Bitblaze
+    [Vine](http://bitblaze.cs.berkeley.edu/vine.html) : Vine, an intermediate language (IL) for reasoning about assembly. We lift up all x86 instructions to the Vine IL, which is a simple, RISC like language that makes subsequent analysis possible. Our IL reduces the hundreds of x86 instructions to about a dozen different statements. Note their IL is not a decompilation: our goal is not to recover a higher-level language representation of the code, but to analyze assembly as a first class language. Vine also provides an infrastructure for manipulating and performing automated analysis on our IL.
+
+    The goal of the BitBlaze Binary Analysis Platform is to design and develop
+    techniques and the core utilities that cater the common needs of security
+    applications and enable others to build upon and develop new solutions to
+    security problems more easily and effectively.
+
+    Vine:  static analysis component
+    TEMU: dynamic analysis component
+    Rudder: The symbolic execution engine to explore path uncovered during the dynamic analysis
+
+
+
+
+
+### Revgen
+    https://github.com/dslab-epfl/s2e/blob/revgen/docs/Tools/StaticTranslator.rst
+    S2E [16] and Revnic [14] present a method for dynamically translating x86 to LLVM using QEMU. Unlike our approach, these methods convert blocks of code to LLVM on the fly which limits the application of LLVM analyses to only one block at a time.
+IR incomplete:
+Revnic [14] and RevGen [15] recover an IR by merging the translated blocks, but the recovered IR is incomplete and is only valid for current execution; consequently, various whole program analyses will provide incomplete information.
+no abstract stack or promoting information
+Further, the translated code retains all the assumptions of the original bi- nary about the stack layout. They do not provide any methods for obtaining an abstract stack or promoting memory locations to symbols, which are essential for the application of several source-level analyses.
+
+### decomp
+    https://github.com/decomp/decomp/blob/master/front-end.md
