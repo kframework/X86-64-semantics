@@ -111,7 +111,7 @@ sub generate_binary_from_source {
   if("ll" eq $ext) {
     execute("${compiler} -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
   } 
-  execute("objdump -d ${outdir}${basename}.${suffix}.o &> ${outdir}${basename}.${suffix}.objdump");
+  execute("objdump -d ${outdir}${basename}.${suffix}.o 1>${outdir}${basename}.${suffix}.objdump 2>&1");
 }
 
 
