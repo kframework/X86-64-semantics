@@ -18,9 +18,9 @@ Disassembly of section .text:
   14:	db 6d 10             	fldt   0x10(%rbp)
   17:	db 7d f0             	fstpt  -0x10(%rbp)
   1a:	dd 05 00 00 00 00    	fldl   0x0(%rip)        # 20 <timespi+0x10>
-  20:	d9 c0                	fld    %st(0)
-  22:	db 7d e0             	fstpt  -0x20(%rbp)
-  25:	db 6d f0             	fldt   -0x10(%rbp)
-  28:	de c9                	fmulp  %st,%st(1)
-  2a:	5d                   	pop    %rbp
-  2b:	c3                   	retq   
+  20:	db 7d e0             	fstpt  -0x20(%rbp)
+  23:	db 6d f0             	fldt   -0x10(%rbp)
+  26:	db 6d e0             	fldt   -0x20(%rbp)
+  29:	de c9                	fmulp  %st,%st(1)
+  2b:	5d                   	pop    %rbp
+  2c:	c3                   	retq   

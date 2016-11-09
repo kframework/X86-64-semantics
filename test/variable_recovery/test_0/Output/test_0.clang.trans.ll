@@ -351,6 +351,7 @@ entry:
   %95 = inttoptr i64 %94 to i64*, !mcsema_real_eip !8
   %96 = bitcast i64* %95 to i32*
   store i32 1, i32* %96, !mcsema_real_eip !8
+
   %_load_rbp_ptr_11 = load i8*, i8** %_RBP_ptr_
   %97 = load i64, i64* %RBP_val, !mcsema_real_eip !9
   %_new_gep_12 = getelementptr i8, i8* %_load_rbp_ptr_11, i64 -24
