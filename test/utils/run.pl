@@ -122,8 +122,11 @@ sub generate_linked_binary {
 
 sub generate_cfg {
   #execute("IDA_PATH=${home}/ida-6.95 ${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o"); 
-  #execute("${home}/ida-6.95/idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" ${outdir}${basename}.${suffix}.o "); 
-  execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
+  if("" ne $bind) {
+    execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
+  } else {
+    execute("${home}/ida-6.95/idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}${cfgext}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" ${outdir}${basename}.${suffix}.o "); 
+  }
 }
 
 sub run_mcsema {
