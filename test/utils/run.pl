@@ -64,8 +64,8 @@ if ("" eq $file) {
 }
 
 #Derived paths
-my $BIN_DESCEND_PATH="${MCSEMA_HOME}/build/mc-sema/bin_descend";
-my $CFG_TO_BC_PATH="${MCSEMA_HOME}/build/mc-sema/bitcode_from_cfg/";
+my $BIN_DESCEND_PATH="${MCSEMA_HOME}/mc-sema/bin_descend";
+my $CFG_TO_BC_PATH="${MCSEMA_HOME}/mc-sema/bitcode_from_cfg/";
 my $GCC_ARCH="";
 my $BIN_ARCH="";
 my $CFGBC_ARCH="";
