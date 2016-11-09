@@ -12,8 +12,8 @@ loadso=${TEST_DIR}/../build/lib/LLVMstack_deconstructor.so
 ALLIN=${TEST_DIR}/../build/bin/allin
 
 
-#OPTSWITCH=-stack-decons -mem2reg -dce  -early-cse-memssa
-OPTSWITCH=-stack-decons 
+OPTSWITCH=-stack-decons -mem2reg -dce  -early-cse-memssa
+#OPTSWITCH=-stack-decons 
 #OPTSWITCH=-ssh
 #OPTSWITCH=-stack-decons -debug-only="stack_deconstructor"
 #ICC=$(shell which icc)
