@@ -1,5 +1,6 @@
 #include<stdio.h>
 
+/*
 typedef void (*fp) (int) ;
 
 void bar(int x) {
@@ -13,5 +14,12 @@ void foo(fp F) {
 
 int main() {
   foo(bar);
+  return 0;
+}
+*/
+
+
+int main() {
+  printf("Hello World!");
   return 0;
 }
