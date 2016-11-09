@@ -60,5 +60,5 @@ attributes #1 = { nounwind }
 
 !0 = !{i32 1, !"Debug Info Version", i32 1}
 !1 = !{i32 1, !"Dwarf Version", i32 3}
-!2 = !{i64 1, [15 x i8] c"\09addl\09$1, %eax\00"}
-!3 = !{i64 4, [6 x i8] c"\09retq\00"}
+!2 = !{i64 1}
+!3 = !{i64 4}

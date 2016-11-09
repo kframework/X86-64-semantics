@@ -7,7 +7,6 @@ use Getopt::Long;
 
 #Global constants
 my $home =  $ENV{'HOME'};
-#my $MCSEMA_HOME="${home}/Github/mcsema";
 my $MCSEMA_HOME="";
 my $ALLIN_HOME="${home}/Github/binary-decompilation/";
 my $CC="clang";
@@ -36,12 +35,14 @@ my $entry="";
 my $incdir="";
 my $libnone="";
 my $cfg="";
+my $bind="";
 
 GetOptions (
             "help"          => \$help, 
             "print"         => \$print, 
             "skip_mcsema"   => \$skip_mcsema, 
             "cfg"           => \$cfg, 
+            "bind"           => \$bind, 
             "compiler:s"    => \$compiler, 
             "home:s"       => \$MCSEMA_HOME, 
             "arch:s"        => \$arch, 
@@ -78,6 +79,11 @@ if($arch eq "32") {
   $GCC_ARCH="-m64";
   $BIN_ARCH="-march=x86-64";
   $CFGBC_ARCH="-mtriple=x86_64-pc-linux-gnu";
+}
+
+my $cfgext=".ida";
+if("" ne $bind) {
+  $cfgext="";
 }
 
 my ($basename, $ext) = split_filename($file);
@@ -117,21 +123,22 @@ sub generate_linked_binary {
 sub generate_cfg {
   #execute("IDA_PATH=${home}/ida-6.95 ${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o"); 
   #execute("${home}/ida-6.95/idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" ${outdir}${basename}.${suffix}.o "); 
-  #execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
+  execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
 }
 
 sub run_mcsema {
   if("" ne $skip_mcsema) {
     return;
   }
-  if(-e "${outdir}${basename}.${suffix}.ida.cfg") {
+  if(-e "${outdir}${basename}.${suffix}${cfgext}.cfg") {
     execute("rm -rf ${outdir}${basename}.${suffix}.bc ${outdir}${basename}.${suffix}.opt.bc ${outdir}${basename}.${suffix}.ll ${outdir}${basename}.${suffix}.opt.ll");
-    execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}.ida.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C 1>/tmp/cfgbc.log 2>&1");
+    execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C 1>/tmp/cfgbc.log 2>&1");
     execute("${OPT} -O3    ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc"); 
     execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.bc -o=${outdir}${basename}.${suffix}.ll");
     execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.opt.bc -o=${outdir}${basename}.${suffix}.opt.ll");
   } else {
-    print "CFG Missing : ${outdir}${basename}.${suffix}.ida.cfg\n\n" ;
+    print "CFG Missing : ${outdir}${basename}.${suffix}${cfgext}.cfg\n\n" ;
+    exit(1);
   }
 }
 
@@ -147,7 +154,7 @@ sub cleanup {
 sub execute {
   my $args = shift @_;
   if("" ne $print) {
-    print "EXECUTING: $args \n";
+    print "$args \n";
   }
   system("$args");
 }

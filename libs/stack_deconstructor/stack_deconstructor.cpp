@@ -262,6 +262,31 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return false;
   }
 
+  if (I->getOpcode() == Instruction::Xor || I->getOpcode() == Instruction::And) {
+    auto *op1 = I->getOperand(0);
+    auto *op2 = I->getOperand(1);
+    if (0 != convertMap.count(op1) || 0 != convertMap.count(op2)) {
+      return true;
+    }
+    return false;
+  }
+
+  if (I->getOpcode() == Instruction::Trunc) {
+    auto *op1 = I->getOperand(0);
+    if (0 != convertMap.count(op1)) {
+      return true;
+    }
+    return false;
+  }
+
+  if (I->getOpcode() == Instruction::ICmp) {
+    auto *op1 = I->getOperand(0);
+    if (0 != convertMap.count(op1)) {
+      return true;
+    }
+    return false;
+  }
+
   // handle int2ptr
   if (I->getOpcode() == Instruction::IntToPtr) {
     Value *int_operand = I->getOperand(0);
@@ -303,7 +328,10 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     Value *op1 = CI->getArgOperand(0);
     if (false == isLoadOfImp(op1, "RSP_val") &&
         false == isLoadOfImp(op1, "RBP_val")) {
-      assert(0 == convertMap.count(op1) && "CHECK");
+      //assert(0 == convertMap.count(op1) && "CHECK");
+      // %117 = load i64, i64* %RSP_val
+      // %.lcssa = phi i64 [ %117, %block_0x1f ]
+      //%uadd211 = tail call { i64, i1 } @llvm.uadd.with.overflow.i64(i64 %.lcssa, i64 16)
       return false;
     }
 
@@ -318,12 +346,35 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     Value *op1 = EI->getOperand(0);
     return (0 != convertMap.count(op1));
   }
+
+  //PhiNode
+  if (PHINode *PI = dyn_cast<PHINode>(I)) {
+    unsigned incomingValues = PI->getNumIncomingValues();
+    for(unsigned i = 0 ; i < incomingValues; i++) {
+      Value *val  = PI->getIncomingValue (i);
+      if (0 != convertMap.count(val)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // Handle unsupported: Debug Purpose only
+  auto numOperand = I->getNumOperands();
+  for(unsigned i = 0 ; i < numOperand; i++) {
+    Value *op = I->getOperand(i);
+    if(0 != convertMap.count(op)) {
+      llvm::errs() << "Unsupported: " << *I << "\n";
+      assert(0 == convertMap.count(op) && "Unsupported Instruction\n");
+    }
+  }
   return false;
 }
 
 void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca,
                                   Value *rbp_ptr_alloca) {
-
+  //lib/IR/Instrcution.cpp
   switch (I->getOpcode()) {
   case Instruction::Load:
     handle_load(I, rsp_ptr_alloca, rbp_ptr_alloca);
@@ -342,6 +393,16 @@ void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca,
     break;
   case Instruction::IntToPtr:
     handle_int2ptr(I);
+    break;
+  case Instruction::PHI:
+    handle_phi(I);
+    break;
+  //case Instruction::And:
+  case Instruction::Trunc:
+  case Instruction::ICmp:
+  case Instruction::Xor:
+  case Instruction::And:
+    handle_int_operators(I);
     break;
   default:
     llvm::errs() << *I << "\n";
@@ -520,6 +581,118 @@ void stack_deconstructor::handle_extractval(Instruction *I) {
   IRBuilder<> IRB(I);
   Value *op1 = I->getOperand(0);
   recordConverted(I, convertMap[op1], false, false);
+  return;
+}
+
+void stack_deconstructor::handle_phi(Instruction *I) {
+  IRBuilder<> IRB(I);
+  PHINode *PI = dyn_cast<PHINode>(I);
+
+  unsigned incomingValues = PI->getNumIncomingValues();
+
+  // Obtain the new Type of PHINode
+  Type *Ty =  nullptr;
+  for(unsigned i = 0 ; i < incomingValues; i++) {
+    Value *orig_val  = PI->getIncomingValue (i);
+    if (0 != convertMap.count(orig_val)) {
+      auto *converted_val  = convertMap[orig_val];      
+      Ty = converted_val->getType();
+      break;
+    }
+  }
+
+  auto *new_phi = IRB.CreatePHI(Ty, incomingValues);
+
+  for(unsigned i = 0 ; i < incomingValues; i++) {
+    auto *orig_val  = PI->getIncomingValue (i);
+    if(0 != convertMap.count(orig_val)) {
+      auto *converted_val  = convertMap[orig_val];
+      new_phi->addIncoming(converted_val, PI->getIncomingBlock(i));
+    } else {
+      new_phi->addIncoming(orig_val, PI->getIncomingBlock(i));
+    }
+  }
+  recordConverted(PI, new_phi, false, false);
+  return;
+}
+
+void stack_deconstructor::handle_int_operators(Instruction *I) {
+  IRBuilder<> IRB(I);
+
+  if(Instruction::Xor == I->getOpcode() || Instruction::And == I->getOpcode()) {
+    auto *op1 = I->getOperand(0);
+    auto *op2 = I->getOperand(1);
+
+    auto *new_op1 = op1;
+    auto *new_op2 = op2;
+
+    if(0 != convertMap.count(op1)) { 
+      auto *converted_op1 = convertMap[op1];
+      if(converted_op1->getType()->isPointerTy()) {
+        new_op1 =
+          IRB.CreatePtrToInt(converted_op1, op1->getType(), "_trans_p2i_");
+      }
+    }
+
+    if(0 != convertMap.count(op2)) { 
+      auto *converted_op2 = convertMap[op2];
+      if(converted_op2->getType()->isPointerTy()) {
+        new_op2 =
+          IRB.CreatePtrToInt(converted_op2, op2->getType(), "_trans_p2i_");
+      }
+    }
+
+    Value *new_val = nullptr;
+    if(Instruction::Xor == I->getOpcode()) {
+      new_val = IRB.CreateBinOp(Instruction::Xor, new_op1,
+                                     new_op2, "_trans_xor_");
+    } else {
+      new_val = IRB.CreateBinOp(Instruction::And, new_op1,
+                                     new_op2, "_trans_xor_");
+    }
+    Instruction *new_inst = dyn_cast<Instruction>(new_val);
+    recordConverted(I, new_inst, true, false);
+
+  } else if (Instruction::Trunc == I->getOpcode()) {
+
+    auto *op1 = I->getOperand(0);
+    auto *new_op1 = op1;
+
+    if(0 != convertMap.count(op1)) { 
+      auto *converted_op1 = convertMap[op1];
+      if(converted_op1->getType()->isPointerTy()) {
+        new_op1 =
+          IRB.CreatePtrToInt(converted_op1, op1->getType(), "_trans_p2i_");
+      }
+    }
+
+    auto *new_val = IRB.CreateTrunc(new_op1, I->getType(), "_trans_trunc_");
+    Instruction *new_inst = dyn_cast<Instruction>(new_val);
+    recordConverted(I, new_inst, true, false);
+  } else if (Instruction::ICmp == I->getOpcode()) {
+
+    ICmpInst *IC = dyn_cast<ICmpInst>(I);
+    auto *op1 = IC->getOperand(0);
+    auto *new_op1 = op1;
+
+    if(0 != convertMap.count(op1)) { 
+      auto *converted_op1 = convertMap[op1];
+      if(converted_op1->getType()->isPointerTy()) {
+        new_op1 =
+          IRB.CreatePtrToInt(converted_op1, op1->getType(), "_trans_p2i_");
+      }
+    }
+
+    Value *new_val = nullptr;
+    if(IC->isEquality()) {
+      new_val = IRB.CreateICmpEQ(new_op1, IC->getOperand(1), "_trans_icmp_eq_");
+    } else {
+      new_val = IRB.CreateICmpNE(new_op1, IC->getOperand(1), "_trans_icmp_ne_");
+    }
+    Instruction *new_inst = dyn_cast<Instruction>(new_val);
+    recordConverted(IC, new_inst, true, false);
+  }
+
   return;
 }
 

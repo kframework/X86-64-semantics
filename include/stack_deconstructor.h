@@ -84,6 +84,8 @@ public:
   void handle_add(Instruction *I);
   void handle_call(Instruction *I);
   void handle_extractval(Instruction *I);
+  void handle_phi(Instruction *I);
+  void handle_int_operators(Instruction *I);
 };
 }
 
