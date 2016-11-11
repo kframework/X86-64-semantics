@@ -1,75 +1,100 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
 Will lift 1 exports
-CFG Output File file: Output/test_25.clang.cfg
+CFG Output File file: Output/test_25.clang.ida.cfg
 PROCESSING: test_25.clang.o
-Adding data seg: .eh_frame: 0x80L-0xb8L
-Looking for relocations in 80 - b8
-Found relocations in binary: (a0)..
+Adding data seg: .rodata.str1.1: 0x8bL-0x95L
+Adding data seg: .eh_frame: 0x98L-0xd0L
+Looking for relocations in 8b - 95
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x8bL-0x95L
+Looking for relocations in 98 - d0
+Found relocations in binary: (b8)..
 rtype : 4, 0, 0
-a0 Found reloc to: 0 (size: 4)
+b8 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: a0, seg_offset: 0 => 0
-Reloc Base Address: a0
+Offset: b8, seg_offset: 0 => 0
+Reloc Base Address: b8
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0x80L-0xb8L
+Adding data seg: .eh_frame: 0x98L-0xd0L
 Recovering: main
 Processing export name: main at: 0
 At EP main:0
 Testing 42 for externality
-Testing 6a for externality
+Testing 82 for externality
 Testing 36 for externality
-BB: 6a
-Starting insn at: 6a
-Processing insn at 6a
+BB: 82
+Starting insn at: 82
+Processing insn at 82
 		Bytes: [139, 69, 232]
-Processing insn at 6d
+Processing insn at 85
 		Bytes: [72, 131, 196, 32]
-Processing insn at 71
+Processing insn at 89
 		Bytes: [93]
-Processing insn at 72
+Processing insn at 8a
 		Bytes: [195]
-Ending insn at: 71
+Ending insn at: 89
 BB: 42
 Successors: 36
 Starting insn at: 42
 Processing insn at 42
-		Bytes: [72, 99, 69, 228]
-Processing insn at 46
-		Bytes: [72, 139, 77, 240]
-Processing insn at 4a
-		Bytes: [72, 139, 73, 8]
-Processing insn at 4e
-		Bytes: [15, 190, 20, 1]
-Processing insn at 52
-		Bytes: [139, 117, 236]
-Processing insn at 55
-		Bytes: [1, 214]
-Processing insn at 57
-		Bytes: [137, 117, 236]
-Processing insn at 5a
+		Bytes: [72, 191, 139, 0, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 42 to 2
+Adding reference because of data refs from 42
+Testing 8b for externality
+		Data Ref: 8b, size: 10
+Data Range: 8b <= 8b < 95
+Data Range: 8b - 95
+		Setting IMM ref at 42: to 8b type: DATA
+Processing insn at 4c
+		Bytes: [72, 139, 69, 240]
+Processing insn at 50
+		Bytes: [72, 139, 112, 8]
+Processing insn at 54
+		Bytes: [176, 0]
+Processing insn at 56
+		Bytes: [232, 117, 0, 0, 0]
+Checking code ref d0
+Testing d0 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 56 to 1
+Processing insn at 5b
+		Bytes: [72, 139, 117, 240]
+Processing insn at 5f
+		Bytes: [72, 139, 118, 8]
+Processing insn at 63
+		Bytes: [72, 99, 125, 228]
+Processing insn at 67
+		Bytes: [15, 190, 12, 62]
+Processing insn at 6b
+		Bytes: [3, 77, 236]
+Processing insn at 6e
+		Bytes: [137, 77, 236]
+Processing insn at 71
+		Bytes: [137, 69, 224]
+Processing insn at 74
 		Bytes: [139, 69, 228]
-Processing insn at 5d
-		Bytes: [5, 1, 0, 0, 0]
-Processing insn at 62
+Processing insn at 77
+		Bytes: [131, 192, 1]
+Processing insn at 7a
 		Bytes: [137, 69, 228]
-Processing insn at 65
-		Bytes: [233, 204, 255, 255, 255]
+Processing insn at 7d
+		Bytes: [233, 180, 255, 255, 255]
 Checking code ref 36
 Testing 36 for externality
 INTERNAL JMP: 36
-Ending insn at: 65
+Ending insn at: 7d
 BB: 36
-Successors: 42, 6a
+Successors: 42, 82
 Starting insn at: 36
 Processing insn at 36
 		Bytes: [139, 69, 228]
 Processing insn at 39
 		Bytes: [59, 69, 232]
 Processing insn at 3c
-		Bytes: [15, 141, 40, 0, 0, 0]
-Checking code ref 6a
+		Bytes: [15, 141, 64, 0, 0, 0]
+Checking code ref 82
 Ending insn at: 3c
 BB: 0
 Successors: 36
@@ -93,9 +118,9 @@ Processing insn at 1d
 Processing insn at 21
 		Bytes: [72, 139, 126, 8]
 Processing insn at 25
-		Bytes: [232, 142, 0, 0, 0]
-Checking code ref b8
-Testing b8 for externality
+		Bytes: [232, 174, 0, 0, 0]
+Checking code ref d8
+Testing d8 for externality
 EXTERNAL CALL: strlen
 findRelocOffset setting imm reloc offset at 25 to 1
 Processing insn at 2a
@@ -106,5 +131,6 @@ Processing insn at 2f
 		Bytes: [199, 69, 228, 0, 0, 0, 0]
 Ending insn at: 2f
 Program will reference external: strlen
+Program will reference external: printf
 Recovered 1 functions.
-Saving to: Output/test_25.clang.cfg
+Saving to: Output/test_25.clang.ida.cfg
