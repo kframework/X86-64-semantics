@@ -1,0 +1,178 @@
+
+Output/test_34.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <Initrand>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 c7 04 25 00 00 00 	movq   $0x12403,0x0
+   b:	00 03 24 01 00 
+  10:	5d                   	pop    %rbp
+  11:	c3                   	retq   
+  12:	66 66 66 66 66 2e 0f 	data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  19:	1f 84 00 00 00 00 00 
+
+0000000000000020 <Rand>:
+  20:	55                   	push   %rbp
+  21:	48 89 e5             	mov    %rsp,%rbp
+  24:	48 69 04 25 00 00 00 	imul   $0x51d,0x0,%rax
+  2b:	00 1d 05 00 00 
+  30:	48 05 19 36 00 00    	add    $0x3619,%rax
+  36:	48 25 ff ff 00 00    	and    $0xffff,%rax
+  3c:	48 89 04 25 00 00 00 	mov    %rax,0x0
+  43:	00 
+  44:	48 8b 04 25 00 00 00 	mov    0x0,%rax
+  4b:	00 
+  4c:	89 c1                	mov    %eax,%ecx
+  4e:	89 c8                	mov    %ecx,%eax
+  50:	5d                   	pop    %rbp
+  51:	c3                   	retq   
+  52:	66 66 66 66 66 2e 0f 	data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  59:	1f 84 00 00 00 00 00 
+
+0000000000000060 <bInitarr>:
+  60:	55                   	push   %rbp
+  61:	48 89 e5             	mov    %rsp,%rbp
+  64:	48 83 ec 20          	sub    $0x20,%rsp
+  68:	e8 93 ff ff ff       	callq  0 <Initrand>
+  6d:	c7 04 25 00 00 00 00 	movl   $0x0,0x0
+  74:	00 00 00 00 
+  78:	c7 04 25 00 00 00 00 	movl   $0x0,0x0
+  7f:	00 00 00 00 
+  83:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  8a:	81 7d fc f4 01 00 00 	cmpl   $0x1f4,-0x4(%rbp)
+  91:	0f 8f b7 00 00 00    	jg     14e <bInitarr+0xee>
+  97:	e8 84 ff ff ff       	callq  20 <Rand>
+  9c:	b9 a0 86 01 00       	mov    $0x186a0,%ecx
+  a1:	89 ca                	mov    %ecx,%edx
+  a3:	48 63 f0             	movslq %eax,%rsi
+  a6:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+  aa:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
+  ae:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  b2:	48 89 55 e8          	mov    %rdx,-0x18(%rbp)
+  b6:	48 99                	cqto   
+  b8:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  bc:	48 f7 ff             	idiv   %rdi
+  bf:	48 69 c0 a0 86 01 00 	imul   $0x186a0,%rax,%rax
+  c6:	48 29 c6             	sub    %rax,%rsi
+  c9:	48 81 ee 50 c3 00 00 	sub    $0xc350,%rsi
+  d0:	89 f1                	mov    %esi,%ecx
+  d2:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+  d6:	89 0c 85 00 00 00 00 	mov    %ecx,0x0(,%rax,4)
+  dd:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+  e1:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+  e8:	3b 0c 25 00 00 00 00 	cmp    0x0,%ecx
+  ef:	0f 8e 17 00 00 00    	jle    10c <bInitarr+0xac>
+  f5:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+  f9:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+ 100:	89 0c 25 00 00 00 00 	mov    %ecx,0x0
+ 107:	e9 2f 00 00 00       	jmpq   13b <bInitarr+0xdb>
+ 10c:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+ 110:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+ 117:	3b 0c 25 00 00 00 00 	cmp    0x0,%ecx
+ 11e:	0f 8d 12 00 00 00    	jge    136 <bInitarr+0xd6>
+ 124:	48 63 45 fc          	movslq -0x4(%rbp),%rax
+ 128:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+ 12f:	89 0c 25 00 00 00 00 	mov    %ecx,0x0
+ 136:	e9 00 00 00 00       	jmpq   13b <bInitarr+0xdb>
+ 13b:	e9 00 00 00 00       	jmpq   140 <bInitarr+0xe0>
+ 140:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 143:	83 c0 01             	add    $0x1,%eax
+ 146:	89 45 fc             	mov    %eax,-0x4(%rbp)
+ 149:	e9 3c ff ff ff       	jmpq   8a <bInitarr+0x2a>
+ 14e:	48 83 c4 20          	add    $0x20,%rsp
+ 152:	5d                   	pop    %rbp
+ 153:	c3                   	retq   
+ 154:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
+ 15b:	00 00 00 00 00 
+
+0000000000000160 <Bubble>:
+ 160:	55                   	push   %rbp
+ 161:	48 89 e5             	mov    %rsp,%rbp
+ 164:	48 83 ec 20          	sub    $0x20,%rsp
+ 168:	89 7d fc             	mov    %edi,-0x4(%rbp)
+ 16b:	e8 f0 fe ff ff       	callq  60 <bInitarr>
+ 170:	c7 04 25 00 00 00 00 	movl   $0x1f4,0x0
+ 177:	f4 01 00 00 
+ 17b:	83 3c 25 00 00 00 00 	cmpl   $0x1,0x0
+ 182:	01 
+ 183:	0f 8e 98 00 00 00    	jle    221 <Bubble+0xc1>
+ 189:	c7 45 f8 01 00 00 00 	movl   $0x1,-0x8(%rbp)
+ 190:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 193:	3b 04 25 00 00 00 00 	cmp    0x0,%eax
+ 19a:	0f 8d 6b 00 00 00    	jge    20b <Bubble+0xab>
+ 1a0:	48 63 45 f8          	movslq -0x8(%rbp),%rax
+ 1a4:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+ 1ab:	8b 55 f8             	mov    -0x8(%rbp),%edx
+ 1ae:	83 c2 01             	add    $0x1,%edx
+ 1b1:	48 63 c2             	movslq %edx,%rax
+ 1b4:	3b 0c 85 00 00 00 00 	cmp    0x0(,%rax,4),%ecx
+ 1bb:	0f 8e 3c 00 00 00    	jle    1fd <Bubble+0x9d>
+ 1c1:	48 63 45 f8          	movslq -0x8(%rbp),%rax
+ 1c5:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+ 1cc:	89 4d f4             	mov    %ecx,-0xc(%rbp)
+ 1cf:	8b 4d f8             	mov    -0x8(%rbp),%ecx
+ 1d2:	83 c1 01             	add    $0x1,%ecx
+ 1d5:	48 63 c1             	movslq %ecx,%rax
+ 1d8:	8b 0c 85 00 00 00 00 	mov    0x0(,%rax,4),%ecx
+ 1df:	48 63 45 f8          	movslq -0x8(%rbp),%rax
+ 1e3:	89 0c 85 00 00 00 00 	mov    %ecx,0x0(,%rax,4)
+ 1ea:	8b 4d f4             	mov    -0xc(%rbp),%ecx
+ 1ed:	8b 55 f8             	mov    -0x8(%rbp),%edx
+ 1f0:	83 c2 01             	add    $0x1,%edx
+ 1f3:	48 63 c2             	movslq %edx,%rax
+ 1f6:	89 0c 85 00 00 00 00 	mov    %ecx,0x0(,%rax,4)
+ 1fd:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 200:	83 c0 01             	add    $0x1,%eax
+ 203:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 206:	e9 85 ff ff ff       	jmpq   190 <Bubble+0x30>
+ 20b:	8b 04 25 00 00 00 00 	mov    0x0,%eax
+ 212:	83 e8 01             	sub    $0x1,%eax
+ 215:	89 04 25 00 00 00 00 	mov    %eax,0x0
+ 21c:	e9 5a ff ff ff       	jmpq   17b <Bubble+0x1b>
+ 221:	8b 04 25 00 00 00 00 	mov    0x0,%eax
+ 228:	3b 04 25 00 00 00 00 	cmp    0x0,%eax
+ 22f:	0f 85 14 00 00 00    	jne    249 <Bubble+0xe9>
+ 235:	8b 04 25 00 00 00 00 	mov    0x0,%eax
+ 23c:	3b 04 25 00 00 00 00 	cmp    0x0,%eax
+ 243:	0f 84 14 00 00 00    	je     25d <Bubble+0xfd>
+ 249:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 250:	00 00 00 
+ 253:	b0 00                	mov    $0x0,%al
+ 255:	e8 00 00 00 00       	callq  25a <Bubble+0xfa>
+ 25a:	89 45 f0             	mov    %eax,-0x10(%rbp)
+ 25d:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 264:	00 00 00 
+ 267:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 26a:	83 c0 01             	add    $0x1,%eax
+ 26d:	48 63 c8             	movslq %eax,%rcx
+ 270:	8b 34 8d 00 00 00 00 	mov    0x0(,%rcx,4),%esi
+ 277:	b0 00                	mov    $0x0,%al
+ 279:	e8 00 00 00 00       	callq  27e <Bubble+0x11e>
+ 27e:	89 45 ec             	mov    %eax,-0x14(%rbp)
+ 281:	48 83 c4 20          	add    $0x20,%rsp
+ 285:	5d                   	pop    %rbp
+ 286:	c3                   	retq   
+ 287:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+ 28e:	00 00 
+
+0000000000000290 <main>:
+ 290:	55                   	push   %rbp
+ 291:	48 89 e5             	mov    %rsp,%rbp
+ 294:	48 83 ec 10          	sub    $0x10,%rsp
+ 298:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 29f:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
+ 2a6:	83 7d f8 64          	cmpl   $0x64,-0x8(%rbp)
+ 2aa:	0f 8d 16 00 00 00    	jge    2c6 <main+0x36>
+ 2b0:	8b 7d f8             	mov    -0x8(%rbp),%edi
+ 2b3:	e8 a8 fe ff ff       	callq  160 <Bubble>
+ 2b8:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 2bb:	83 c0 01             	add    $0x1,%eax
+ 2be:	89 45 f8             	mov    %eax,-0x8(%rbp)
+ 2c1:	e9 e0 ff ff ff       	jmpq   2a6 <main+0x16>
+ 2c6:	31 c0                	xor    %eax,%eax
+ 2c8:	48 83 c4 10          	add    $0x10,%rsp
+ 2cc:	5d                   	pop    %rbp
+ 2cd:	c3                   	retq   

@@ -1,0 +1,771 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/linux.txt
+Will lift 1 exports
+CFG Output File file: Output/test_34.clang.ida.cfg
+PROCESSING: test_34.clang.o
+Adding data seg: .rodata.str1.1: 0x2ceL-0x2e5L
+Adding data seg: .eh_frame: 0x2e8L-0x390L
+Looking for relocations in 2ce - 2e5
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x2ceL-0x2e5L
+Looking for relocations in 2e8 - 390
+Found relocations in binary: (308)..
+rtype : 4, 0, 0
+308 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 308, seg_offset: 0 => 0
+Reloc Base Address: 308
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+324 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 324, seg_offset: 0 => 0
+Reloc Base Address: 324
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+340 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 340, seg_offset: 0 => 0
+Reloc Base Address: 340
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+35c Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 35c, seg_offset: 0 => 0
+Reloc Base Address: 35c
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+378 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 378, seg_offset: 0 => 0
+Reloc Base Address: 378
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x2e8L-0x390L
+Recovering: main
+Processing export name: main at: 290
+At EP main:290
+Testing 2b0 for externality
+Testing 2c6 for externality
+Testing 2a6 for externality
+BB: 2c6
+Starting insn at: 2c6
+Processing insn at 2c6
+		Bytes: [49, 192]
+Processing insn at 2c8
+		Bytes: [72, 131, 196, 16]
+Processing insn at 2cc
+		Bytes: [93]
+Processing insn at 2cd
+		Bytes: [195]
+Ending insn at: 2cc
+BB: 2b0
+Successors: 2a6
+Starting insn at: 2b0
+Processing insn at 2b0
+		Bytes: [139, 125, 248]
+Processing insn at 2b3
+		Bytes: [232, 168, 254, 255, 255]
+Checking code ref 160
+Testing 160 for externality
+INTERNAL CALL: Bubble
+Processing insn at 2b8
+		Bytes: [139, 69, 248]
+Processing insn at 2bb
+		Bytes: [131, 192, 1]
+Processing insn at 2be
+		Bytes: [137, 69, 248]
+Processing insn at 2c1
+		Bytes: [233, 224, 255, 255, 255]
+Checking code ref 2a6
+Testing 2a6 for externality
+INTERNAL JMP: 2a6
+Ending insn at: 2c1
+BB: 2a6
+Successors: 2b0, 2c6
+Starting insn at: 2a6
+Processing insn at 2a6
+		Bytes: [131, 125, 248, 100]
+Processing insn at 2aa
+		Bytes: [15, 141, 22, 0, 0, 0]
+Checking code ref 2c6
+Ending insn at: 2aa
+BB: 290
+Successors: 2a6
+Starting insn at: 290
+Processing insn at 290
+		Bytes: [85]
+Processing insn at 291
+		Bytes: [72, 137, 229]
+Processing insn at 294
+		Bytes: [72, 131, 236, 16]
+Processing insn at 298
+		Bytes: [199, 69, 252, 0, 0, 0, 0]
+Processing insn at 29f
+		Bytes: [199, 69, 248, 0, 0, 0, 0]
+Ending insn at: 29f
+Recovering: 0x0L
+BB: 0
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [72, 199, 4, 37, 72, 4, 0, 0, 3, 36, 1, 0]
+findRelocOffset setting imm reloc offset at 4 to 4
+Adding reference because of data refs from 4
+Testing 448 for externality
+		Data Ref: 448, size: 8
+Adding data seg: common: 0x448L-0x450L
+Looking for relocations in 448 - 450
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: common: 0x448L-0x450L
+		Setting MEM ref at 4: to 448 type: DATA
+Processing insn at 10
+		Bytes: [93]
+Processing insn at 11
+		Bytes: [195]
+Ending insn at: 10
+Recovering: 0x160L
+Testing 189 for externality
+Testing 221 for externality
+Testing 235 for externality
+Testing 249 for externality
+Testing 249 for externality
+Testing 25d for externality
+Testing 1a0 for externality
+Testing 20b for externality
+Testing 17b for externality
+Testing 1c1 for externality
+Testing 1fd for externality
+Testing 190 for externality
+BB: 25d
+Starting insn at: 25d
+Processing insn at 25d
+		Bytes: [72, 191, 225, 2, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 25d to 2
+Adding reference because of data refs from 25d
+Testing 2e1 for externality
+		Data Ref: 2e1, size: 4
+Data Range: 2ce <= 2e1 < 2e5
+Data Range: 2e1 - 2e5
+		Setting IMM ref at 25d: to 2e1 type: DATA
+Processing insn at 267
+		Bytes: [139, 69, 252]
+Processing insn at 26a
+		Bytes: [131, 192, 1]
+Processing insn at 26d
+		Bytes: [72, 99, 200]
+Processing insn at 270
+		Bytes: [139, 52, 141, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 270 to 3
+Adding reference because of data refs from 270
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Adding data seg: common: 0x450L-0x458L
+Looking for relocations in 450 - 458
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: common: 0x450L-0x458L
+		Setting MEM ref at 270: to 450 type: DATA
+Processing insn at 277
+		Bytes: [176, 0]
+Processing insn at 279
+		Bytes: [232, 106, 2, 0, 0]
+Checking code ref 4e8
+Testing 4e8 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 279 to 1
+Processing insn at 27e
+		Bytes: [137, 69, 236]
+Processing insn at 281
+		Bytes: [72, 131, 196, 32]
+Processing insn at 285
+		Bytes: [93]
+Processing insn at 286
+		Bytes: [195]
+Ending insn at: 285
+BB: 249
+Successors: 25d
+Starting insn at: 249
+Processing insn at 249
+		Bytes: [72, 191, 206, 2, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 249 to 2
+Adding reference because of data refs from 249
+Testing 2ce for externality
+		Data Ref: 2ce, size: 19
+Data Range: 2ce <= 2ce < 2e5
+Data Range: 2ce - 2e1
+		Setting IMM ref at 249: to 2ce type: DATA
+Processing insn at 253
+		Bytes: [176, 0]
+Processing insn at 255
+		Bytes: [232, 142, 2, 0, 0]
+Checking code ref 4e8
+Testing 4e8 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 255 to 1
+Processing insn at 25a
+		Bytes: [137, 69, 240]
+Ending insn at: 25a
+BB: 235
+Successors: 249, 25d
+Starting insn at: 235
+Processing insn at 235
+		Bytes: [139, 4, 37, 32, 12, 0, 0]
+findRelocOffset setting imm reloc offset at 235 to 3
+Adding reference because of data refs from 235
+WARNING: Data not in valid segment c20
+Processing insn at 23c
+		Bytes: [59, 4, 37, 144, 3, 0, 0]
+findRelocOffset setting imm reloc offset at 23c to 3
+Adding reference because of data refs from 23c
+Testing 390 for externality
+		Data Ref: 390, size: 8
+Adding data seg: common: 0x390L-0x398L
+Looking for relocations in 390 - 398
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: common: 0x390L-0x398L
+		Setting MEM ref at 23c: to 390 type: DATA
+Processing insn at 243
+		Bytes: [15, 132, 20, 0, 0, 0]
+Checking code ref 25d
+Ending insn at: 243
+BB: 221
+Successors: 235, 249
+Starting insn at: 221
+Processing insn at 221
+		Bytes: [139, 4, 37, 84, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 221 to 3
+Adding reference because of data refs from 221
+Testing 454 for externality
+		Data Ref: 454, size: 4
+Data Range: 450 <= 454 < 458
+Data Range: 454 - 458
+		Setting MEM ref at 221: to 454 type: DATA
+Processing insn at 228
+		Bytes: [59, 4, 37, 232, 3, 0, 0]
+findRelocOffset setting imm reloc offset at 228 to 3
+Adding reference because of data refs from 228
+Testing 3e8 for externality
+		Data Ref: 3e8, size: 8
+Adding data seg: common: 0x3e8L-0x3f0L
+Looking for relocations in 3e8 - 3f0
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: common: 0x3e8L-0x3f0L
+		Setting MEM ref at 228: to 3e8 type: DATA
+Processing insn at 22f
+		Bytes: [15, 133, 20, 0, 0, 0]
+Checking code ref 249
+Ending insn at: 22f
+BB: 20b
+Successors: 17b
+Starting insn at: 20b
+Processing insn at 20b
+		Bytes: [139, 4, 37, 96, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 20b to 3
+Adding reference because of data refs from 20b
+Testing 460 for externality
+		Data Ref: 460, size: 8
+Adding data seg: common: 0x460L-0x468L
+Looking for relocations in 460 - 468
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: common: 0x460L-0x468L
+		Setting MEM ref at 20b: to 460 type: DATA
+Processing insn at 212
+		Bytes: [131, 232, 1]
+Processing insn at 215
+		Bytes: [137, 4, 37, 96, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 215 to 3
+Adding reference because of data refs from 215
+Testing 460 for externality
+		Data Ref: 460, size: 8
+Data Range: 460 <= 460 < 468
+Data Range: 460 - 468
+		Setting MEM ref at 215: to 460 type: DATA
+Processing insn at 21c
+		Bytes: [233, 90, 255, 255, 255]
+Checking code ref 17b
+Testing 17b for externality
+INTERNAL JMP: 17b
+Ending insn at: 21c
+BB: 1fd
+Successors: 190
+Starting insn at: 1fd
+Processing insn at 1fd
+		Bytes: [139, 69, 248]
+Processing insn at 200
+		Bytes: [131, 192, 1]
+Processing insn at 203
+		Bytes: [137, 69, 248]
+Processing insn at 206
+		Bytes: [233, 133, 255, 255, 255]
+Checking code ref 190
+Testing 190 for externality
+INTERNAL JMP: 190
+Ending insn at: 206
+BB: 1c1
+Successors: 1fd
+Starting insn at: 1c1
+Processing insn at 1c1
+		Bytes: [72, 99, 69, 248]
+Processing insn at 1c5
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 1c5 to 3
+Adding reference because of data refs from 1c5
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 1c5: to 450 type: DATA
+Processing insn at 1cc
+		Bytes: [137, 77, 244]
+Processing insn at 1cf
+		Bytes: [139, 77, 248]
+Processing insn at 1d2
+		Bytes: [131, 193, 1]
+Processing insn at 1d5
+		Bytes: [72, 99, 193]
+Processing insn at 1d8
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 1d8 to 3
+Adding reference because of data refs from 1d8
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 1d8: to 450 type: DATA
+Processing insn at 1df
+		Bytes: [72, 99, 69, 248]
+Processing insn at 1e3
+		Bytes: [137, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 1e3 to 3
+Adding reference because of data refs from 1e3
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 1e3: to 450 type: DATA
+Processing insn at 1ea
+		Bytes: [139, 77, 244]
+Processing insn at 1ed
+		Bytes: [139, 85, 248]
+Processing insn at 1f0
+		Bytes: [131, 194, 1]
+Processing insn at 1f3
+		Bytes: [72, 99, 194]
+Processing insn at 1f6
+		Bytes: [137, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 1f6 to 3
+Adding reference because of data refs from 1f6
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 1f6: to 450 type: DATA
+Ending insn at: 1f6
+BB: 1a0
+Successors: 1c1, 1fd
+Starting insn at: 1a0
+Processing insn at 1a0
+		Bytes: [72, 99, 69, 248]
+Processing insn at 1a4
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 1a4 to 3
+Adding reference because of data refs from 1a4
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 1a4: to 450 type: DATA
+Processing insn at 1ab
+		Bytes: [139, 85, 248]
+Processing insn at 1ae
+		Bytes: [131, 194, 1]
+Processing insn at 1b1
+		Bytes: [72, 99, 194]
+Processing insn at 1b4
+		Bytes: [59, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 1b4 to 3
+Adding reference because of data refs from 1b4
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 1b4: to 450 type: DATA
+Processing insn at 1bb
+		Bytes: [15, 142, 60, 0, 0, 0]
+Checking code ref 1fd
+Ending insn at: 1bb
+BB: 190
+Successors: 1a0, 20b
+Starting insn at: 190
+Processing insn at 190
+		Bytes: [139, 69, 248]
+Processing insn at 193
+		Bytes: [59, 4, 37, 96, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 193 to 3
+Adding reference because of data refs from 193
+Testing 460 for externality
+		Data Ref: 460, size: 8
+Data Range: 460 <= 460 < 468
+Data Range: 460 - 468
+		Setting MEM ref at 193: to 460 type: DATA
+Processing insn at 19a
+		Bytes: [15, 141, 107, 0, 0, 0]
+Checking code ref 20b
+Ending insn at: 19a
+BB: 189
+Successors: 190
+Starting insn at: 189
+Processing insn at 189
+		Bytes: [199, 69, 248, 1, 0, 0, 0]
+Ending insn at: 189
+BB: 17b
+Successors: 189, 221
+Starting insn at: 17b
+Processing insn at 17b
+		Bytes: [131, 60, 37, 96, 4, 0, 0, 1]
+findRelocOffset setting imm reloc offset at 17b to 3
+Adding reference because of data refs from 17b
+Testing 460 for externality
+		Data Ref: 460, size: 8
+Data Range: 460 <= 460 < 468
+Data Range: 460 - 468
+		Setting MEM ref at 17b: to 460 type: DATA
+Processing insn at 183
+		Bytes: [15, 142, 152, 0, 0, 0]
+Checking code ref 221
+Ending insn at: 183
+BB: 160
+Successors: 17b
+Starting insn at: 160
+Processing insn at 160
+		Bytes: [85]
+Processing insn at 161
+		Bytes: [72, 137, 229]
+Processing insn at 164
+		Bytes: [72, 131, 236, 32]
+Processing insn at 168
+		Bytes: [137, 125, 252]
+Processing insn at 16b
+		Bytes: [232, 240, 254, 255, 255]
+Checking code ref 60
+Testing 60 for externality
+INTERNAL CALL: bInitarr
+Processing insn at 170
+		Bytes: [199, 4, 37, 96, 4, 0, 0, 244, 1, 0, 0]
+findRelocOffset setting imm reloc offset at 170 to 3
+Adding reference because of data refs from 170
+Testing 460 for externality
+		Data Ref: 460, size: 8
+Data Range: 460 <= 460 < 468
+Data Range: 460 - 468
+		Setting MEM ref at 170: to 460 type: DATA
+Ending insn at: 170
+Recovering: 0x60L
+Testing 97 for externality
+Testing 14e for externality
+Testing f5 for externality
+Testing 10c for externality
+Testing 124 for externality
+Testing 136 for externality
+Testing 13b for externality
+Testing 140 for externality
+Testing 8a for externality
+Testing 13b for externality
+BB: 14e
+Starting insn at: 14e
+Processing insn at 14e
+		Bytes: [72, 131, 196, 32]
+Processing insn at 152
+		Bytes: [93]
+Processing insn at 153
+		Bytes: [195]
+Ending insn at: 152
+BB: 140
+Successors: 8a
+Starting insn at: 140
+Processing insn at 140
+		Bytes: [139, 69, 252]
+Processing insn at 143
+		Bytes: [131, 192, 1]
+Processing insn at 146
+		Bytes: [137, 69, 252]
+Processing insn at 149
+		Bytes: [233, 60, 255, 255, 255]
+Checking code ref 8a
+Testing 8a for externality
+INTERNAL JMP: 8a
+Ending insn at: 149
+BB: 13b
+Successors: 140
+Starting insn at: 13b
+Processing insn at 13b
+		Bytes: [233, 0, 0, 0, 0]
+Checking code ref 140
+Testing 140 for externality
+INTERNAL JMP: 140
+Ending insn at: 13b
+BB: 136
+Successors: 13b
+Starting insn at: 136
+Processing insn at 136
+		Bytes: [233, 0, 0, 0, 0]
+Checking code ref 13b
+Testing 13b for externality
+INTERNAL JMP: 13b
+Ending insn at: 136
+BB: 124
+Successors: 136
+Starting insn at: 124
+Processing insn at 124
+		Bytes: [72, 99, 69, 252]
+Processing insn at 128
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 128 to 3
+Adding reference because of data refs from 128
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 128: to 450 type: DATA
+Processing insn at 12f
+		Bytes: [137, 12, 37, 232, 3, 0, 0]
+findRelocOffset setting imm reloc offset at 12f to 3
+Adding reference because of data refs from 12f
+Testing 3e8 for externality
+		Data Ref: 3e8, size: 8
+Data Range: 3e8 <= 3e8 < 3f0
+Data Range: 3e8 - 3f0
+		Setting MEM ref at 12f: to 3e8 type: DATA
+Ending insn at: 12f
+BB: 10c
+Successors: 124, 136
+Starting insn at: 10c
+Processing insn at 10c
+		Bytes: [72, 99, 69, 252]
+Processing insn at 110
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 110 to 3
+Adding reference because of data refs from 110
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at 110: to 450 type: DATA
+Processing insn at 117
+		Bytes: [59, 12, 37, 232, 3, 0, 0]
+findRelocOffset setting imm reloc offset at 117 to 3
+Adding reference because of data refs from 117
+Testing 3e8 for externality
+		Data Ref: 3e8, size: 8
+Data Range: 3e8 <= 3e8 < 3f0
+Data Range: 3e8 - 3f0
+		Setting MEM ref at 117: to 3e8 type: DATA
+Processing insn at 11e
+		Bytes: [15, 141, 18, 0, 0, 0]
+Checking code ref 136
+Ending insn at: 11e
+BB: f5
+Successors: 13b
+Starting insn at: f5
+Processing insn at f5
+		Bytes: [72, 99, 69, 252]
+Processing insn at f9
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at f9 to 3
+Adding reference because of data refs from f9
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at f9: to 450 type: DATA
+Processing insn at 100
+		Bytes: [137, 12, 37, 144, 3, 0, 0]
+findRelocOffset setting imm reloc offset at 100 to 3
+Adding reference because of data refs from 100
+Testing 390 for externality
+		Data Ref: 390, size: 8
+Data Range: 390 <= 390 < 398
+Data Range: 390 - 398
+		Setting MEM ref at 100: to 390 type: DATA
+Processing insn at 107
+		Bytes: [233, 47, 0, 0, 0]
+Checking code ref 13b
+Testing 13b for externality
+INTERNAL JMP: 13b
+Ending insn at: 107
+BB: 97
+Successors: f5, 10c
+Starting insn at: 97
+Processing insn at 97
+		Bytes: [232, 132, 255, 255, 255]
+Checking code ref 20
+Testing 20 for externality
+INTERNAL CALL: Rand
+Processing insn at 9c
+		Bytes: [185, 160, 134, 1, 0]
+Processing insn at a1
+		Bytes: [137, 202]
+Processing insn at a3
+		Bytes: [72, 99, 240]
+Processing insn at a6
+		Bytes: [72, 137, 117, 240]
+Processing insn at aa
+		Bytes: [72, 139, 117, 240]
+Processing insn at ae
+		Bytes: [72, 139, 69, 240]
+Processing insn at b2
+		Bytes: [72, 137, 85, 232]
+Processing insn at b6
+		Bytes: [72, 153]
+Processing insn at b8
+		Bytes: [72, 139, 125, 232]
+Processing insn at bc
+		Bytes: [72, 247, 255]
+Processing insn at bf
+		Bytes: [72, 105, 192, 160, 134, 1, 0]
+Processing insn at c6
+		Bytes: [72, 41, 198]
+Processing insn at c9
+		Bytes: [72, 129, 238, 80, 195, 0, 0]
+Processing insn at d0
+		Bytes: [137, 241]
+Processing insn at d2
+		Bytes: [72, 99, 69, 252]
+Processing insn at d6
+		Bytes: [137, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at d6 to 3
+Adding reference because of data refs from d6
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at d6: to 450 type: DATA
+Processing insn at dd
+		Bytes: [72, 99, 69, 252]
+Processing insn at e1
+		Bytes: [139, 12, 133, 80, 4, 0, 0]
+findRelocOffset setting imm reloc offset at e1 to 3
+Adding reference because of data refs from e1
+Testing 450 for externality
+		Data Ref: 450, size: 8
+Data Range: 450 <= 450 < 458
+Data Range: 450 - 458
+		Setting MEM ref at e1: to 450 type: DATA
+Processing insn at e8
+		Bytes: [59, 12, 37, 144, 3, 0, 0]
+findRelocOffset setting imm reloc offset at e8 to 3
+Adding reference because of data refs from e8
+Testing 390 for externality
+		Data Ref: 390, size: 8
+Data Range: 390 <= 390 < 398
+Data Range: 390 - 398
+		Setting MEM ref at e8: to 390 type: DATA
+Processing insn at ef
+		Bytes: [15, 142, 23, 0, 0, 0]
+Checking code ref 10c
+Ending insn at: ef
+BB: 8a
+Successors: 97, 14e
+Starting insn at: 8a
+Processing insn at 8a
+		Bytes: [129, 125, 252, 244, 1, 0, 0]
+Processing insn at 91
+		Bytes: [15, 143, 183, 0, 0, 0]
+Checking code ref 14e
+Ending insn at: 91
+BB: 60
+Successors: 8a
+Starting insn at: 60
+Processing insn at 60
+		Bytes: [85]
+Processing insn at 61
+		Bytes: [72, 137, 229]
+Processing insn at 64
+		Bytes: [72, 131, 236, 32]
+Processing insn at 68
+		Bytes: [232, 147, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: Initrand
+Processing insn at 6d
+		Bytes: [199, 4, 37, 144, 3, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 6d to 3
+Adding reference because of data refs from 6d
+Testing 390 for externality
+		Data Ref: 390, size: 8
+Data Range: 390 <= 390 < 398
+Data Range: 390 - 398
+		Setting MEM ref at 6d: to 390 type: DATA
+Processing insn at 78
+		Bytes: [199, 4, 37, 232, 3, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 78 to 3
+Adding reference because of data refs from 78
+Testing 3e8 for externality
+		Data Ref: 3e8, size: 8
+Data Range: 3e8 <= 3e8 < 3f0
+Data Range: 3e8 - 3f0
+		Setting MEM ref at 78: to 3e8 type: DATA
+Processing insn at 83
+		Bytes: [199, 69, 252, 1, 0, 0, 0]
+Ending insn at: 83
+Recovering: 0x20L
+BB: 20
+Starting insn at: 20
+Processing insn at 20
+		Bytes: [85]
+Processing insn at 21
+		Bytes: [72, 137, 229]
+Processing insn at 24
+		Bytes: [72, 105, 4, 37, 72, 4, 0, 0, 29, 5, 0, 0]
+findRelocOffset setting imm reloc offset at 24 to 4
+Adding reference because of data refs from 24
+Testing 448 for externality
+		Data Ref: 448, size: 8
+Data Range: 448 <= 448 < 450
+Data Range: 448 - 450
+		Setting MEM ref at 24: to 448 type: DATA
+Processing insn at 30
+		Bytes: [72, 5, 25, 54, 0, 0]
+Processing insn at 36
+		Bytes: [72, 37, 255, 255, 0, 0]
+Processing insn at 3c
+		Bytes: [72, 137, 4, 37, 72, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 3c to 4
+Adding reference because of data refs from 3c
+Testing 448 for externality
+		Data Ref: 448, size: 8
+Data Range: 448 <= 448 < 450
+Data Range: 448 - 450
+		Setting MEM ref at 3c: to 448 type: DATA
+Processing insn at 44
+		Bytes: [72, 139, 4, 37, 72, 4, 0, 0]
+findRelocOffset setting imm reloc offset at 44 to 4
+Adding reference because of data refs from 44
+Testing 448 for externality
+		Data Ref: 448, size: 8
+Data Range: 448 <= 448 < 450
+Data Range: 448 - 450
+		Setting MEM ref at 44: to 448 type: DATA
+Processing insn at 4c
+		Bytes: [137, 193]
+Processing insn at 4e
+		Bytes: [137, 200]
+Processing insn at 50
+		Bytes: [93]
+Processing insn at 51
+		Bytes: [195]
+Ending insn at: 50
+Program will reference external: printf
+Recovered 5 functions.
+Saving to: Output/test_34.clang.ida.cfg

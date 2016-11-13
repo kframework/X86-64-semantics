@@ -1,0 +1,118 @@
+Looking up target...
+Reading module ...
+ TT x86-64 : x86_64-unknown-unknown 
+Deserializing functions...
+set_ref_reloc_type: Adding  ref: MEM, to: 160, ro: 0, rt: CODE
+Deserializing functions...
+set_ref_reloc_type: Adding  ref: MEM, to: 448, ro: 0, rt: DATA
+Deserializing functions...
+set_ref_reloc_type: Adding  ref: IMM, to: 2e1, ro: 2, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: IMM, to: 2ce, ro: 2, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 390, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 454, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 3e8, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 460, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 460, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 460, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 460, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 60, ro: 0, rt: CODE
+set_ref_reloc_type: Adding  ref: MEM, to: 460, ro: 0, rt: DATA
+Deserializing functions...
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 3e8, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 3e8, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 390, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 20, ro: 0, rt: CODE
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 450, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 390, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: IMM, to: 0, ro: 1, rt: CODE
+set_ref_reloc_type: Adding  ref: MEM, to: 390, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 3e8, ro: 0, rt: DATA
+Deserializing functions...
+set_ref_reloc_type: Adding  ref: MEM, to: 448, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 448, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 448, ro: 0, rt: DATA
+Deserializing data...
+Deserializing data...
+Deserializing symbol at: 308, sub_0x0L, 4
+cur_pos: 2e8
+dse_base: 308
+new_cur_pos: 30c
+Deserializing symbol at: 324, sub_0x0L, 4
+cur_pos: 30c
+dse_base: 324
+new_cur_pos: 328
+Deserializing symbol at: 340, sub_0x0L, 4
+cur_pos: 328
+dse_base: 340
+new_cur_pos: 344
+Deserializing symbol at: 35c, sub_0x0L, 4
+cur_pos: 344
+dse_base: 35c
+new_cur_pos: 360
+Deserializing symbol at: 378, sub_0x0L, 4
+cur_pos: 360
+dse_base: 378
+new_cur_pos: 37c
+Deserializing data...
+Deserializing data...
+Deserializing data...
+Deserializing data...
+Deserializing data...
+Deserializing externs...
+Creating module...
+Setting target...
+Done setting target
+Adding external funcs...
+Adding external data...
+Adding internal data...
+Adding Offset Tables...
+Adding entry points...
+Returning modue...
+Setting initial triples...
+Looking at entry points...
+Already have driver for: main
+Getting LLVM module...
+Converting to LLVM...
+Inserted function: sub_290
+Inserted function: sub_0
+Inserted function: sub_160
+Inserted function: sub_60
+Inserted function: sub_20
+inserting global data section named data_0x2ce
+inserting global data section named data_0x2e8
+inserting global data section named data_0x448
+inserting global data section named data_0x450
+inserting global data section named data_0x390
+inserting global data section named data_0x3e8
+inserting global data section named data_0x460
+dataSectionToTypesContents: Found symbol: sub_0x0L
+linuxGetInceptionFunction: Adding Callbacks to Module!
+dataSectionToTypesContents: Found symbol: sub_0x0L
+dataSectionToTypesContents: Found symbol: sub_0x0L
+dataSectionToTypesContents: Found symbol: sub_0x0L
+dataSectionToTypesContents: Found symbol: sub_0x0L
+doCallPCtarget address : 160
+doCallPCtarget address : 60
+doCallPCExtern paramCount  : 10 : printf
+10 : 1ad81c0
+doCallPCExtern paramCount  : 10 : printf
+10 : 1ad81c0
+Unsupported!
+24 	imulq	$1309, 1096, %rax
+882
+doCallPCtarget address : 0
+doCallPCtarget address : 20
+Adding entry point: mcsema_main
+in : doPostAnalysis
+registering passes
