@@ -1,0 +1,55 @@
+
+Output/test_31.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <fib>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	b8 01 00 00 00       	mov    $0x1,%eax
+   d:	89 7d f8             	mov    %edi,-0x8(%rbp)
+  10:	3b 45 f8             	cmp    -0x8(%rbp),%eax
+  13:	0f 84 0e 00 00 00    	je     27 <fib+0x27>
+  19:	b8 00 00 00 00       	mov    $0x0,%eax
+  1e:	3b 45 f8             	cmp    -0x8(%rbp),%eax
+  21:	0f 85 0c 00 00 00    	jne    33 <fib+0x33>
+  27:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  2e:	e9 28 00 00 00       	jmpq   5b <fib+0x5b>
+  33:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  36:	2d 01 00 00 00       	sub    $0x1,%eax
+  3b:	89 c7                	mov    %eax,%edi
+  3d:	e8 be ff ff ff       	callq  0 <fib>
+  42:	8b 7d f8             	mov    -0x8(%rbp),%edi
+  45:	81 ef 02 00 00 00    	sub    $0x2,%edi
+  4b:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  4e:	e8 ad ff ff ff       	callq  0 <fib>
+  53:	8b 7d f4             	mov    -0xc(%rbp),%edi
+  56:	01 c7                	add    %eax,%edi
+  58:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  5b:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  5e:	48 83 c4 10          	add    $0x10,%rsp
+  62:	5d                   	pop    %rbp
+  63:	c3                   	retq   
+  64:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  6b:	00 00 00 00 00 
+
+0000000000000070 <main>:
+  70:	55                   	push   %rbp
+  71:	48 89 e5             	mov    %rsp,%rbp
+  74:	48 83 ec 10          	sub    $0x10,%rsp
+  78:	bf 05 00 00 00       	mov    $0x5,%edi
+  7d:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  84:	e8 77 ff ff ff       	callq  0 <fib>
+  89:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  90:	00 00 00 
+  93:	89 c6                	mov    %eax,%esi
+  95:	b0 00                	mov    $0x0,%al
+  97:	e8 00 00 00 00       	callq  9c <main+0x2c>
+  9c:	be 00 00 00 00       	mov    $0x0,%esi
+  a1:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  a4:	89 f0                	mov    %esi,%eax
+  a6:	48 83 c4 10          	add    $0x10,%rsp
+  aa:	5d                   	pop    %rbp
+  ab:	c3                   	retq   
