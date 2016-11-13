@@ -1,0 +1,268 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_33.clang.ida.cfg
+PROCESSING: test_33.clang.o
+Adding data seg: .rodata.str1.1: 0x100L-0x10fL
+Adding data seg: .eh_frame: 0x110L-0x160L
+Looking for relocations in 100 - 10f
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x100L-0x10fL
+Looking for relocations in 110 - 160
+Found relocations in binary: (130)..
+rtype : 4, 0, 0
+130 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 130, seg_offset: 0 => 0
+Reloc Base Address: 130
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+14c Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 14c, seg_offset: 0 => 0
+Reloc Base Address: 14c
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x110L-0x160L
+Recovering: main
+Processing export name: main at: 80
+At EP main:80
+Testing a0 for externality
+Testing b5 for externality
+Testing c2 for externality
+Testing c2 for externality
+BB: c2
+Starting insn at: c2
+Processing insn at c2
+		Bytes: [139, 69, 232]
+Processing insn at c5
+		Bytes: [191, 3, 0, 0, 0]
+Processing insn at ca
+		Bytes: [137, 69, 236]
+Processing insn at cd
+		Bytes: [139, 117, 236]
+Processing insn at d0
+		Bytes: [139, 69, 236]
+Processing insn at d3
+		Bytes: [137, 117, 228]
+Processing insn at d6
+		Bytes: [137, 198]
+Processing insn at d8
+		Bytes: [232, 35, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: Ack
+Processing insn at dd
+		Bytes: [72, 191, 0, 1, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at dd to 2
+Adding reference because of data refs from dd
+Testing 100 for externality
+		Data Ref: 100, size: 15
+Data Range: 100 <= 100 < 10f
+Data Range: 100 - 10f
+		Setting IMM ref at dd: to 100 type: DATA
+Processing insn at e7
+		Bytes: [139, 117, 228]
+Processing insn at ea
+		Bytes: [137, 194]
+Processing insn at ec
+		Bytes: [176, 0]
+Processing insn at ee
+		Bytes: [232, 117, 0, 0, 0]
+Checking code ref 168
+Testing 168 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at ee to 1
+Processing insn at f3
+		Bytes: [49, 210]
+Processing insn at f5
+		Bytes: [137, 69, 224]
+Processing insn at f8
+		Bytes: [137, 208]
+Processing insn at fa
+		Bytes: [72, 131, 196, 32]
+Processing insn at fe
+		Bytes: [93]
+Processing insn at ff
+		Bytes: [195]
+Ending insn at: fe
+BB: b5
+Successors: c2
+Starting insn at: b5
+Processing insn at b5
+		Bytes: [184, 8, 0, 0, 0]
+Processing insn at ba
+		Bytes: [137, 69, 232]
+Processing insn at bd
+		Bytes: [233, 0, 0, 0, 0]
+Checking code ref c2
+Testing c2 for externality
+INTERNAL JMP: c2
+Ending insn at: bd
+BB: a0
+Successors: c2
+Starting insn at: a0
+Processing insn at a0
+		Bytes: [72, 139, 69, 240]
+Processing insn at a4
+		Bytes: [72, 139, 120, 8]
+Processing insn at a8
+		Bytes: [232, 179, 0, 0, 0]
+Checking code ref 160
+Testing 160 for externality
+EXTERNAL CALL: atoi
+findRelocOffset setting imm reloc offset at a8 to 1
+Processing insn at ad
+		Bytes: [137, 69, 232]
+Processing insn at b0
+		Bytes: [233, 13, 0, 0, 0]
+Checking code ref c2
+Testing c2 for externality
+INTERNAL JMP: c2
+Ending insn at: b0
+BB: 80
+Successors: a0, b5
+Starting insn at: 80
+Processing insn at 80
+		Bytes: [85]
+Processing insn at 81
+		Bytes: [72, 137, 229]
+Processing insn at 84
+		Bytes: [72, 131, 236, 32]
+Processing insn at 88
+		Bytes: [199, 69, 252, 0, 0, 0, 0]
+Processing insn at 8f
+		Bytes: [137, 125, 248]
+Processing insn at 92
+		Bytes: [72, 137, 117, 240]
+Processing insn at 96
+		Bytes: [131, 125, 248, 2]
+Processing insn at 9a
+		Bytes: [15, 133, 21, 0, 0, 0]
+Checking code ref b5
+Ending insn at: 9a
+Recovering: 0x0L
+Testing 18 for externality
+Testing 26 for externality
+Testing 30 for externality
+Testing 4a for externality
+Testing 70 for externality
+Testing 70 for externality
+BB: 70
+Starting insn at: 70
+Processing insn at 70
+		Bytes: [139, 69, 252]
+Processing insn at 73
+		Bytes: [72, 131, 196, 16]
+Processing insn at 77
+		Bytes: [93]
+Processing insn at 78
+		Bytes: [195]
+Ending insn at: 77
+BB: 4a
+Successors: 70
+Starting insn at: 4a
+Processing insn at 4a
+		Bytes: [139, 69, 248]
+Processing insn at 4d
+		Bytes: [131, 232, 1]
+Processing insn at 50
+		Bytes: [139, 125, 248]
+Processing insn at 53
+		Bytes: [139, 77, 244]
+Processing insn at 56
+		Bytes: [131, 233, 1]
+Processing insn at 59
+		Bytes: [137, 206]
+Processing insn at 5b
+		Bytes: [137, 69, 240]
+Processing insn at 5e
+		Bytes: [232, 157, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: Ack
+Processing insn at 63
+		Bytes: [139, 125, 240]
+Processing insn at 66
+		Bytes: [137, 198]
+Processing insn at 68
+		Bytes: [232, 147, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: Ack
+Processing insn at 6d
+		Bytes: [137, 69, 252]
+Ending insn at: 6d
+BB: 30
+Successors: 70
+Starting insn at: 30
+Processing insn at 30
+		Bytes: [190, 1, 0, 0, 0]
+Processing insn at 35
+		Bytes: [139, 69, 248]
+Processing insn at 38
+		Bytes: [131, 232, 1]
+Processing insn at 3b
+		Bytes: [137, 199]
+Processing insn at 3d
+		Bytes: [232, 190, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: Ack
+Processing insn at 42
+		Bytes: [137, 69, 252]
+Processing insn at 45
+		Bytes: [233, 38, 0, 0, 0]
+Checking code ref 70
+Testing 70 for externality
+INTERNAL JMP: 70
+Ending insn at: 45
+BB: 26
+Successors: 30, 4a
+Starting insn at: 26
+Processing insn at 26
+		Bytes: [131, 125, 244, 0]
+Processing insn at 2a
+		Bytes: [15, 133, 26, 0, 0, 0]
+Checking code ref 4a
+Ending insn at: 2a
+BB: 18
+Successors: 70
+Starting insn at: 18
+Processing insn at 18
+		Bytes: [139, 69, 244]
+Processing insn at 1b
+		Bytes: [131, 192, 1]
+Processing insn at 1e
+		Bytes: [137, 69, 252]
+Processing insn at 21
+		Bytes: [233, 74, 0, 0, 0]
+Checking code ref 70
+Testing 70 for externality
+INTERNAL JMP: 70
+Ending insn at: 21
+BB: 0
+Successors: 18, 26
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [72, 131, 236, 16]
+Processing insn at 8
+		Bytes: [137, 125, 248]
+Processing insn at b
+		Bytes: [137, 117, 244]
+Processing insn at e
+		Bytes: [131, 125, 248, 0]
+Processing insn at 12
+		Bytes: [15, 133, 14, 0, 0, 0]
+Checking code ref 26
+Ending insn at: 12
+Program will reference external: atoi
+Program will reference external: printf
+Recovered 2 functions.
+Saving to: Output/test_33.clang.ida.cfg
