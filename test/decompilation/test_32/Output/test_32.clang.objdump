@@ -1,0 +1,65 @@
+
+Output/test_32.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <fib>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+   c:	48 83 7d f0 02       	cmpq   $0x2,-0x10(%rbp)
+  11:	0f 83 0d 00 00 00    	jae    24 <fib+0x24>
+  17:	48 c7 45 f8 01 00 00 	movq   $0x1,-0x8(%rbp)
+  1e:	00 
+  1f:	e9 2c 00 00 00       	jmpq   50 <fib+0x50>
+  24:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  28:	48 83 e8 02          	sub    $0x2,%rax
+  2c:	48 89 c7             	mov    %rax,%rdi
+  2f:	e8 cc ff ff ff       	callq  0 <fib>
+  34:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  38:	48 83 ef 01          	sub    $0x1,%rdi
+  3c:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+  40:	e8 bb ff ff ff       	callq  0 <fib>
+  45:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  49:	48 01 c7             	add    %rax,%rdi
+  4c:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  50:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  54:	48 83 c4 20          	add    $0x20,%rsp
+  58:	5d                   	pop    %rbp
+  59:	c3                   	retq   
+  5a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000000060 <main>:
+  60:	55                   	push   %rbp
+  61:	48 89 e5             	mov    %rsp,%rbp
+  64:	48 83 ec 20          	sub    $0x20,%rsp
+  68:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  6f:	89 7d f8             	mov    %edi,-0x8(%rbp)
+  72:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+  76:	83 7d f8 02          	cmpl   $0x2,-0x8(%rbp)
+  7a:	0f 85 15 00 00 00    	jne    95 <main+0x35>
+  80:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  84:	48 8b 78 08          	mov    0x8(%rax),%rdi
+  88:	e8 00 00 00 00       	callq  8d <main+0x2d>
+  8d:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  90:	e9 0d 00 00 00       	jmpq   a2 <main+0x42>
+  95:	b8 14 00 00 00       	mov    $0x14,%eax
+  9a:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  9d:	e9 00 00 00 00       	jmpq   a2 <main+0x42>
+  a2:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  a5:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  a8:	48 63 7d ec          	movslq -0x14(%rbp),%rdi
+  ac:	e8 4f ff ff ff       	callq  0 <fib>
+  b1:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  b8:	00 00 00 
+  bb:	48 89 c6             	mov    %rax,%rsi
+  be:	b0 00                	mov    $0x0,%al
+  c0:	e8 00 00 00 00       	callq  c5 <main+0x65>
+  c5:	31 c9                	xor    %ecx,%ecx
+  c7:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  ca:	89 c8                	mov    %ecx,%eax
+  cc:	48 83 c4 20          	add    $0x20,%rsp
+  d0:	5d                   	pop    %rbp
+  d1:	c3                   	retq   

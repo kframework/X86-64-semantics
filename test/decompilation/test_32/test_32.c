@@ -16,7 +16,7 @@ fib(unsigned long n) {
 
 int
 main(int argc, char *argv[]) {
-#define LENGTH 43
+#define LENGTH 20
     int N = ((argc == 2) ? atoi(argv[1]) : LENGTH);
     printf("%ld\n", fib(N));
     return(0);
