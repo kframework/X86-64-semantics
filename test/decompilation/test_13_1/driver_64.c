@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
   rState.RSP = (uint64_t) &stack[4096*9];
 
   mcsema_main(&rState);
+  printf("%lu\n", rState.RAX);
 
   return 0;
 }
