@@ -32,7 +32,7 @@ dataSectionToTypesContents: Found symbol: sub_0x0L
 linuxGetInceptionFunction: Adding Callbacks to Module!
 getValueForExternal: Found external data ref to: stderr
 doCallPCExtern paramCount  : 3 : fprintf
-3 : 1ad5130
+3 : 2c68ee0
 Adding entry point: mcsema_main
 in : doPostAnalysis
 registering passes

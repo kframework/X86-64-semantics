@@ -1,4 +1,3 @@
-
 int XYZ;
 int main()
 {

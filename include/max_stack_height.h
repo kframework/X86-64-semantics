@@ -23,8 +23,8 @@ namespace llvm {
 
 // enum for the data flow values associated with each basic block
 // Each program point is associated with 3 data flow values
-// IN, OUT, GEN,; each of them is a triplet ACTUAL_RSP, MAX_DISP_FROM_RSP,
-// and MAX_DISP_FROM_RBP
+// IN, OUT, GEN,; each of them is a tuple <ACTUAL_RSP, ACTUAL_RBP, MAX_DISP_FROM_RSP,
+// MAX_DISP_FROM_RBP>
 enum DFA_FUNCTIONS {
   IN = 0,
   GEN,
@@ -49,6 +49,7 @@ enum INSTMAP_VAL {
 typedef int64_t height_ty;
 typedef std::vector<height_ty> dfa_values;
 typedef std::vector<dfa_values> dfa_functions;
+
 typedef std::vector<bool> attribs;
 typedef std::pair<height_ty, attribs> inst_map_val;
 

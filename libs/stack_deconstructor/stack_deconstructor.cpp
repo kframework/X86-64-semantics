@@ -287,6 +287,14 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return false;
   }
 
+  if (I->getOpcode() == Instruction::Shl) {
+    auto *op1 = I->getOperand(0);
+    if (0 != convertMap.count(op1)) {
+      return true;
+    }
+    return false;
+  }
+
   // handle int2ptr
   if (I->getOpcode() == Instruction::IntToPtr) {
     Value *int_operand = I->getOperand(0);
@@ -402,6 +410,7 @@ void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca,
   case Instruction::ICmp:
   case Instruction::Xor:
   case Instruction::And:
+  case Instruction::Shl:
     handle_int_operators(I);
     break;
   default:
@@ -592,27 +601,42 @@ void stack_deconstructor::handle_phi(Instruction *I) {
 
   // Obtain the new Type of PHINode
   Type *Ty =  nullptr;
+  bool all_incoming_vals_converted = true;
   for(unsigned i = 0 ; i < incomingValues; i++) {
     Value *orig_val  = PI->getIncomingValue (i);
     if (0 != convertMap.count(orig_val)) {
       auto *converted_val  = convertMap[orig_val];      
       Ty = converted_val->getType();
-      break;
+    } else {
+      all_incoming_vals_converted = false;
     }
   }
 
-  auto *new_phi = IRB.CreatePHI(Ty, incomingValues);
+  if(true == all_incoming_vals_converted) {
+    auto *new_phi = IRB.CreatePHI(Ty, incomingValues);
 
-  for(unsigned i = 0 ; i < incomingValues; i++) {
-    auto *orig_val  = PI->getIncomingValue (i);
-    if(0 != convertMap.count(orig_val)) {
+    for(unsigned i = 0 ; i < incomingValues; i++) {
+      auto *orig_val  = PI->getIncomingValue (i);
       auto *converted_val  = convertMap[orig_val];
       new_phi->addIncoming(converted_val, PI->getIncomingBlock(i));
-    } else {
-      new_phi->addIncoming(orig_val, PI->getIncomingBlock(i));
     }
+    recordConverted(PI, new_phi, false, false);
+  } else {
+    auto *new_phi = IRB.CreatePHI(Ty, incomingValues);
+
+    for(unsigned i = 0 ; i < incomingValues; i++) {
+      auto *orig_val  = PI->getIncomingValue (i);
+      if(0 != convertMap.count(orig_val)) {
+        auto *converted_val  = convertMap[orig_val];
+        Value *new_val =
+          IRB.CreatePtrToInt(converted_val, PI->getType(), "_trans_p2i_");
+        new_phi->addIncoming(new_val, PI->getIncomingBlock(i));
+      } else {
+        new_phi->addIncoming(orig_val, PI->getIncomingBlock(i));
+      }
+    }
+    recordConverted(PI, new_phi, false, false);
   }
-  recordConverted(PI, new_phi, false, false);
   return;
 }
 
@@ -691,6 +715,23 @@ void stack_deconstructor::handle_int_operators(Instruction *I) {
     }
     Instruction *new_inst = dyn_cast<Instruction>(new_val);
     recordConverted(IC, new_inst, true, false);
+  } else if (Instruction::Shl == I->getOpcode()) {
+
+    BinaryOperator *BI = dyn_cast<BinaryOperator>(I);
+    auto *op1 = BI->getOperand(0);
+    auto *new_op1 = op1;
+
+    if(0 != convertMap.count(op1)) { 
+      auto *converted_op1 = convertMap[op1];
+      if(converted_op1->getType()->isPointerTy()) {
+        new_op1 =
+          IRB.CreatePtrToInt(converted_op1, op1->getType(), "_trans_p2i_");
+      }
+    }
+
+    Value *new_val = IRB.CreateShl(new_op1, BI->getOperand(1), "_trans_shl_eq_");
+    Instruction *new_inst = dyn_cast<Instruction>(new_val);
+    recordConverted(BI, new_inst, true, false);
   }
 
   return;

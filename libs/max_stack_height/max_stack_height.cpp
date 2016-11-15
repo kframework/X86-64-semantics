@@ -199,10 +199,15 @@ void max_stack_height::visitStoreInst(StoreInst &I) {
   Value *st_val_op = I.getValueOperand();
 
   if (InstMap.count(st_ptr_op) && InstMap.count(st_val_op)) {
-    assert(false == InstMap[st_val_op].second[IS_UNKNOWN] &&
-           "Storing an unknown value to rsp/rbp\n");
-    InstMap[st_ptr_op].first = InstMap[st_val_op].first;
-    debug_local_dfa_info(&I);
+    if(true == InstMap[st_val_op].second[IS_UNKNOWN]) {
+      llvm::errs() << "ERROR: " << I << "\n";
+      //assert(false == InstMap[st_val_op].second[IS_UNKNOWN] &&
+      //     "Storing an unknown value to rsp/rbp\n");
+      InstMap[st_ptr_op].first = InstMap[st_val_op].first;
+    } else {
+      InstMap[st_ptr_op].first = InstMap[st_val_op].first;
+      debug_local_dfa_info(&I);
+    }
   }
 }
 
@@ -286,7 +291,7 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
     InstMap[I].second[IS_UNKNOWN] = true;
 
     // To do: Here we may have inaccuracy in  max_dis_of_rsp/max_dis_of_rbp
-    DEBUG(errs() << "max_dis_of_rsp/max_dis_of_rbp may not be accurate\n");
+    DEBUG(errs() << *I << " max_dis_of_rsp/max_dis_of_rbp may not be accurate\n");
 
     return;
   }

@@ -31,9 +31,9 @@ inserting global data section named data_0x98
 dataSectionToTypesContents: Found symbol: sub_0x0L
 linuxGetInceptionFunction: Adding Callbacks to Module!
 doCallPCExtern paramCount  : 1 : strlen
-1 : 1ab1280
+1 : 1817690
 doCallPCExtern paramCount  : 2 : printf
-2 : 1ab1280
+2 : 1817690
 Adding entry point: mcsema_main
 in : doPostAnalysis
 registering passes

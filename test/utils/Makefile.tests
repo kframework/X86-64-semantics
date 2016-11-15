@@ -32,7 +32,7 @@ BC2ALLVM=bc2allvm
 #SKIP_MCSEMA=-skip_mcsema
 #PRINT=
 #SKIP_MCSEMA=
-#PRINT=-print
+PRINT=-print
 
 
 #all:    cfg
@@ -78,7 +78,9 @@ run_check:
 
 .PHONY:run
 run:
-	${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
+	#${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
+	#${CC}   -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${LIBNONE}
+	${CC} 	-m64  -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o -c ${outdir}${PROG_PREFIX}.${ext}.trans.bc
 	${CC}   -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${LIBNONE}
 
 	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ${CMD_ARGS} > ${outdir}after.trans.out	
@@ -86,7 +88,7 @@ run:
 
 	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
 		echo "  ${PROG_PREFIX}: Output Passed"; \
-		rm -rf  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ; \
+		rm -rf  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf  ${outdir}after.trans.out ; \
 	else \
 		echo "  ${PROG_PREFIX}: Output Failed"; \
 	fi 
@@ -101,7 +103,7 @@ run:
 
 	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
 		echo "  ${PROG_PREFIX}: ALLEY Output Passed"; \
-		rm -rf  ./${outdir}*.exe  ${outdir}${PROG_PREFIX}.${ext}.trans.bc ${outdir}after.trans.out ${outdir}*.allexe ${outdir}*.bc; \
+		rm -rf  ./${outdir}*.exe   ${outdir}after.trans.out ${outdir}*.allexe ; \
 	else \
 		echo "  ${PROG_PREFIX}: ALLEY Output Failed"; \
 	fi 

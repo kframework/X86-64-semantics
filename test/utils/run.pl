@@ -78,7 +78,7 @@ if($arch eq "32") {
 } else {
   $GCC_ARCH="-m64";
   $BIN_ARCH="-march=x86-64";
-  $CFGBC_ARCH="-mtriple=x86_64-pc-linux-gnu";
+  $CFGBC_ARCH="-mtriple=x86_64-unknown-linux-gnu";
 }
 
 my $cfgext=".ida";
@@ -99,6 +99,7 @@ if ("" ne $cfg) {
 
 # Functions
 sub generate_binary_from_source {
+  print("Generate source binary\n");
   if("asm" eq $ext) {
     execute("nasm -f elf64 -o ${outdir}${basename}.${suffix}.o $file ;");
   } 
@@ -116,11 +117,15 @@ sub generate_binary_from_source {
 
 
 sub generate_linked_binary {
-  execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
+  print("Generate lifted binary\n");
+  #execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
+  #execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
+  execute("${CC} ${GCC_ARCH}  -o ${outdir}${basename}.${suffix}.lifted.o -c ${outdir}${basename}.${suffix}.opt.ll");
   execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
 }
 
 sub generate_cfg {
+  print("\nGenerate cfg ($cfgext)\n");
   #execute("IDA_PATH=${home}/ida-6.95 ${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o"); 
   if("" ne $bind) {
     execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
@@ -130,6 +135,7 @@ sub generate_cfg {
 }
 
 sub run_mcsema {
+  print("Running cfg to bc\n");
   if("" ne $skip_mcsema) {
     return;
   }
@@ -146,6 +152,8 @@ sub run_mcsema {
 }
 
 sub cleanup {
+  print("Cleanup\n");
+  return;
   # Clean Up
   execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.o");  
   execute("rm -rf  ${outdir}${basename}.${suffix}.o"); 

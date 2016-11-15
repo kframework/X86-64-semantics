@@ -42,10 +42,10 @@ dataSectionToTypesContents: Found symbol: sub_0x0L
 linuxGetInceptionFunction: Adding Callbacks to Module!
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : atoi
-1 : 25be7b0
+1 : 3393790
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : c : printf
-c : 25be7b0
+c : 3393790
 doCallPCtarget address : 0
 doCallPCtarget address : 0
 doCallPCtarget address : 0
