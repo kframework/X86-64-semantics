@@ -1,6 +1,6 @@
 ### Nov 16
   - McSema future 
-    - Moving to new_reg_assing; 
+    - Moving to new_reg_assing
     - variable recovery: Not based on VSA; "We are starting with the stack variable deduction that IDA gives us during CFG recovery, and iterating from there." 
     - 
       ```
