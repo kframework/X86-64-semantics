@@ -17,7 +17,7 @@ Disassembly of section .text:
   25:	00 00 00 
   28:	b0 00                	mov    $0x0,%al
   2a:	e8 00 00 00 00       	callq  2f <func+0x2f>
-  2f:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  2f:	89 45 f0             	mov    %eax,-0x10(%rbp)
   32:	8b 45 f8             	mov    -0x8(%rbp),%eax
   35:	83 c0 01             	add    $0x1,%eax
   38:	89 45 f8             	mov    %eax,-0x8(%rbp)
