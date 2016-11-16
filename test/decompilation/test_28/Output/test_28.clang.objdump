@@ -4,18 +4,38 @@ Output/test_28.clang.o:     file format elf64-x86-64
 
 Disassembly of section .text:
 
-0000000000000000 <main>:
+0000000000000000 <func>:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
    4:	48 83 ec 10          	sub    $0x10,%rsp
-   8:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
-   f:	00 00 00 
-  12:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  19:	b0 00                	mov    $0x0,%al
-  1b:	e8 00 00 00 00       	callq  20 <main+0x20>
-  20:	31 c9                	xor    %ecx,%ecx
-  22:	89 45 f8             	mov    %eax,-0x8(%rbp)
-  25:	89 c8                	mov    %ecx,%eax
-  27:	48 83 c4 10          	add    $0x10,%rsp
-  2b:	5d                   	pop    %rbp
-  2c:	c3                   	retq   
+   8:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   b:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
+  12:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  15:	3b 45 fc             	cmp    -0x4(%rbp),%eax
+  18:	0f 8d 22 00 00 00    	jge    40 <func+0x40>
+  1e:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  25:	00 00 00 
+  28:	b0 00                	mov    $0x0,%al
+  2a:	e8 00 00 00 00       	callq  2f <func+0x2f>
+  2f:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  32:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  35:	83 c0 01             	add    $0x1,%eax
+  38:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  3b:	e9 d2 ff ff ff       	jmpq   12 <func+0x12>
+  40:	48 83 c4 10          	add    $0x10,%rsp
+  44:	5d                   	pop    %rbp
+  45:	c3                   	retq   
+  46:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  4d:	00 00 00 
+
+0000000000000050 <main>:
+  50:	55                   	push   %rbp
+  51:	48 89 e5             	mov    %rsp,%rbp
+  54:	48 83 ec 10          	sub    $0x10,%rsp
+  58:	bf 02 00 00 00       	mov    $0x2,%edi
+  5d:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  64:	e8 97 ff ff ff       	callq  0 <func>
+  69:	31 c0                	xor    %eax,%eax
+  6b:	48 83 c4 10          	add    $0x10,%rsp
+  6f:	5d                   	pop    %rbp
+  70:	c3                   	retq   

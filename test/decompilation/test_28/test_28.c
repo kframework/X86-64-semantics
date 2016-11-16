@@ -19,7 +19,7 @@ int main() {
 */
 
 
-voiid func(int k) {
+void func(int k) {
   for(int i = 0 ; i < k ; i++)
     printf("Hello World!");
 } 

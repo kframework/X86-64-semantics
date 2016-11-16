@@ -2,26 +2,119 @@ Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definiti
 Will lift 1 exports
 CFG Output File file: Output/test_28.clang.ida.cfg
 PROCESSING: test_28.clang.o
-Adding data seg: .rodata.str1.1: 0x2dL-0x3aL
-Adding data seg: .eh_frame: 0x40L-0x78L
-Looking for relocations in 2d - 3a
+Adding data seg: .rodata.str1.1: 0x71L-0x7eL
+Adding data seg: .eh_frame: 0x80L-0xd0L
+Looking for relocations in 71 - 7e
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.str1.1: 0x2dL-0x3aL
-Looking for relocations in 40 - 78
-Found relocations in binary: (60)..
+Adding data seg: .rodata.str1.1: 0x71L-0x7eL
+Looking for relocations in 80 - d0
+Found relocations in binary: (a0)..
 rtype : 4, 0, 0
-60 Found reloc to: 0 (size: 4)
+a0 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 60, seg_offset: 0 => 0
-Reloc Base Address: 60
+Offset: a0, seg_offset: 0 => 0
+Reloc Base Address: a0
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0x40L-0x78L
+rtype : 4, 0, 0
+bc Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: bc, seg_offset: 0 => 0
+Reloc Base Address: bc
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x80L-0xd0L
 Recovering: main
-Processing export name: main at: 0
-At EP main:0
+Processing export name: main at: 50
+At EP main:50
+BB: 50
+Starting insn at: 50
+Processing insn at 50
+		Bytes: [85]
+Processing insn at 51
+		Bytes: [72, 137, 229]
+Processing insn at 54
+		Bytes: [72, 131, 236, 16]
+Processing insn at 58
+		Bytes: [191, 2, 0, 0, 0]
+Processing insn at 5d
+		Bytes: [199, 69, 252, 0, 0, 0, 0]
+Processing insn at 64
+		Bytes: [232, 151, 255, 255, 255]
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: func
+Processing insn at 69
+		Bytes: [49, 192]
+Processing insn at 6b
+		Bytes: [72, 131, 196, 16]
+Processing insn at 6f
+		Bytes: [93]
+Processing insn at 70
+		Bytes: [195]
+Ending insn at: 6f
+Recovering: 0x0L
+Testing 1e for externality
+Testing 40 for externality
+Testing 12 for externality
+BB: 40
+Starting insn at: 40
+Processing insn at 40
+		Bytes: [72, 131, 196, 16]
+Processing insn at 44
+		Bytes: [93]
+Processing insn at 45
+		Bytes: [195]
+Ending insn at: 44
+BB: 1e
+Successors: 12
+Starting insn at: 1e
+Processing insn at 1e
+		Bytes: [72, 191, 113, 0, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 1e to 2
+Adding reference because of data refs from 1e
+Testing 71 for externality
+		Data Ref: 71, size: 13
+Data Range: 71 <= 71 < 7e
+Data Range: 71 - 7e
+		Setting IMM ref at 1e: to 71 type: DATA
+Processing insn at 28
+		Bytes: [176, 0]
+Processing insn at 2a
+		Bytes: [232, 161, 0, 0, 0]
+Checking code ref d0
+Testing d0 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 2a to 1
+Processing insn at 2f
+		Bytes: [137, 69, 244]
+Processing insn at 32
+		Bytes: [139, 69, 248]
+Processing insn at 35
+		Bytes: [131, 192, 1]
+Processing insn at 38
+		Bytes: [137, 69, 248]
+Processing insn at 3b
+		Bytes: [233, 210, 255, 255, 255]
+Checking code ref 12
+Testing 12 for externality
+INTERNAL JMP: 12
+Ending insn at: 3b
+BB: 12
+Successors: 1e, 40
+Starting insn at: 12
+Processing insn at 12
+		Bytes: [139, 69, 248]
+Processing insn at 15
+		Bytes: [59, 69, 252]
+Processing insn at 18
+		Bytes: [15, 141, 34, 0, 0, 0]
+Checking code ref 40
+Ending insn at: 18
 BB: 0
+Successors: 12
 Starting insn at: 0
 Processing insn at 0
 		Bytes: [85]
@@ -30,37 +123,10 @@ Processing insn at 1
 Processing insn at 4
 		Bytes: [72, 131, 236, 16]
 Processing insn at 8
-		Bytes: [72, 191, 45, 0, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 8 to 2
-Adding reference because of data refs from 8
-Testing 2d for externality
-		Data Ref: 2d, size: 13
-Data Range: 2d <= 2d < 3a
-Data Range: 2d - 3a
-		Setting IMM ref at 8: to 2d type: DATA
-Processing insn at 12
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
-Processing insn at 19
-		Bytes: [176, 0]
-Processing insn at 1b
-		Bytes: [232, 88, 0, 0, 0]
-Checking code ref 78
-Testing 78 for externality
-EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 1b to 1
-Processing insn at 20
-		Bytes: [49, 201]
-Processing insn at 22
-		Bytes: [137, 69, 248]
-Processing insn at 25
-		Bytes: [137, 200]
-Processing insn at 27
-		Bytes: [72, 131, 196, 16]
-Processing insn at 2b
-		Bytes: [93]
-Processing insn at 2c
-		Bytes: [195]
-Ending insn at: 2b
+		Bytes: [137, 125, 252]
+Processing insn at b
+		Bytes: [199, 69, 248, 0, 0, 0, 0]
+Ending insn at: b
 Program will reference external: printf
-Recovered 1 functions.
+Recovered 2 functions.
 Saving to: Output/test_28.clang.ida.cfg
