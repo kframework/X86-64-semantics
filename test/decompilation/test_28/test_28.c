@@ -19,7 +19,12 @@ int main() {
 */
 
 
+voiid func(int k) {
+  for(int i = 0 ; i < k ; i++)
+    printf("Hello World!");
+} 
+
 int main() {
-  printf("Hello World!");
+  func(2);
   return 0;
 }
