@@ -1,0 +1,38 @@
+
+Output/test_1.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   b:	83 7d fc 03          	cmpl   $0x3,-0x4(%rbp)
+   f:	0f 8d 28 00 00 00    	jge    3d <foo+0x3d>
+  15:	48 8d 7d f8          	lea    -0x8(%rbp),%rdi
+  19:	e8 00 00 00 00       	callq  1e <foo+0x1e>
+  1e:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  25:	00 00 00 
+  28:	8b 75 f8             	mov    -0x8(%rbp),%esi
+  2b:	89 45 f0             	mov    %eax,-0x10(%rbp)
+  2e:	b0 00                	mov    $0x0,%al
+  30:	e8 00 00 00 00       	callq  35 <foo+0x35>
+  35:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  38:	e9 2c 00 00 00       	jmpq   69 <foo+0x69>
+  3d:	48 8d 7d f6          	lea    -0xa(%rbp),%rdi
+  41:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+  45:	e8 00 00 00 00       	callq  4a <foo+0x4a>
+  4a:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  51:	00 00 00 
+  54:	0f bf 75 f6          	movswl -0xa(%rbp),%esi
+  58:	0f bf 55 f4          	movswl -0xc(%rbp),%edx
+  5c:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  5f:	b0 00                	mov    $0x0,%al
+  61:	e8 00 00 00 00       	callq  66 <foo+0x66>
+  66:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  69:	31 c0                	xor    %eax,%eax
+  6b:	48 83 c4 20          	add    $0x20,%rsp
+  6f:	5d                   	pop    %rbp
+  70:	c3                   	retq   

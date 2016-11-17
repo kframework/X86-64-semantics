@@ -1,0 +1,48 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Will lift 1 exports
+CFG Output File file: Output/test_1.clang.ida.cfg
+PROCESSING: test_1.clang.o
+Adding data seg: .rodata.str1.1: 0x68L-0x73L
+Adding data seg: .eh_frame: 0x78L-0xb0L
+Looking for relocations in 68 - 73
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x68L-0x73L
+Looking for relocations in 78 - b0
+Found relocations in binary: (98)..
+rtype : 4, 0, 0
+98 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 98, seg_offset: 0 => 0
+Reloc Base Address: 98
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x78L-0xb0L
+Recovering: foo
+Processing export name: foo at: 0
+WARNING: Cannot determine type of function: foo at: 0At EP foo:0
+Testing 9 for externality
+Testing 40 for externality
+BB: 40
+Starting insn at: 40
+Processing insn at 40
+		Bytes: [72, 141, 124, 36, 12]
+Processing insn at 45
+		Bytes: [232, 118, 0, 0, 0]
+Checking code ref c0
+Testing c0 for externality
+EXTERNAL CALL: fooA
+Unknown external: fooATraceback (most recent call last):
+  File "/home/dsand/Github/mcsema/build//mc-sema/bin_descend/get_cfg.py", line 2213, in <module>
+    recoverCfg(eps, outf, args.exports_are_apis)
+  File "/home/dsand/Github/mcsema/build//mc-sema/bin_descend/get_cfg.py", line 1820, in recoverCfg
+    recoverFunction(M, F, fea, new_eas)
+  File "/home/dsand/Github/mcsema/build//mc-sema/bin_descend/get_cfg.py", line 1623, in recoverFunction
+    recoverFunctionFromSet(M, F, blockset, new_eas)
+  File "/home/dsand/Github/mcsema/build//mc-sema/bin_descend/get_cfg.py", line 1611, in recoverFunctionFromSet
+    I, endBlock = instructionHandler(M, B, head, new_eas)
+  File "/home/dsand/Github/mcsema/build//mc-sema/bin_descend/get_cfg.py", line 780, in instructionHandler
+    if doesNotReturn(fn):
+  File "/home/dsand/Github/mcsema/build//mc-sema/bin_descend/get_cfg.py", line 205, in doesNotReturn
+    raise Exception("Unknown external: " + fname)
+Exception: Unknown external: fooA
