@@ -1,3 +1,40 @@
+### 22 Nov
+|    Vector Inst    | Frequency | Extra variants implemented | Comments | 
+|:----------:|:---------:|----------------------------|-------------------------|
+|  SHUFPDrri | 169       | SHUFPDrmi                         |  | 
+| MOVUPDrm | 42        |                          |   | 
+|     MULPSrr       | 12       |                          | 
+| MOVUPDmr	 | 9 |  |  
+|MOVHPDrm	 | 6 | |  
+|UNPCKHPDrr  | 	6 | | 
+|MULPDrr	| 5 |  |   |
+|CMPSDrr	|4| |Not Implemented | 
+|CVTDQ2PSrr | 	4 | | |
+|MULPDrm	| 3 |  |
+|MAXPSrr	 | 2 |  MAXPSrm MAXPDRR MAXPDrm| |
+|MULPSrm	| 2 | | 
+| PSHUFHWri	 | 2 |  PSHUFHWmi | | 
+|DIVPDrr	 | 2 || 
+|CMPPSrri	|2| |Not Implemented | 
+|CMPSSrr	|2| |Not Implemented | 
+|MOVHPDmr	 | 1 || 
+|CMPSDrm	|1| |Not Implemented | 
+|DIVPDrm   | 1 |||
+|PMULLWrm	|1| |Not Implemented | 
+
+
+Following are already been supported in the recent commits in branch new_reg_assign
+|    Vector Inst    | Frequency |
+|:----------:|:---------:|
+| ADDPSrr  | 13       |     
+| ADDPSrm | 11 |  
+| PSLLDQri	 | 11 | 
+|SUBPDrm	 | 6 |
+|ADDPDrr	| 4|
+|ADDPDrm	|3 | 
+|SUBPDrr	|3 |  
+
+
 ### Nov 16
   - McSema future 
     - Moving to new_reg_assing
