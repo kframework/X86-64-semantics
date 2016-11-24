@@ -164,6 +164,7 @@ sub process_cfg {
   my $o = $file . ".new.o";
   my $newlifted = $file . ".new.lifted";
   my $cfg2bclog = $file . ".new.convert.txt";
+  my $unsupp_summary =  "unsupported_summary.txt";
   my ($basename,$path,$suffix) = fileparse($file,@suffixlist);
 
   if($check_unsupported ne "") {
@@ -181,7 +182,7 @@ sub process_cfg {
       $supported = $supported +1;
       push @sp2, $file;
       if("" ne $entrypoint) {
-        execute("$clang35 -O3 -m64 $MCSEMA_HOME/drivers/ELF_64_linux.S $bc ${libnone} -o  $newlifted"); 
+        execute("$clang35 -O3 -m64 $MCSEMA_HOME/../drivers/ELF_64_linux.S $bc ${libnone} -o  $newlifted"); 
       } else {
         execute("${OPT} -O3    $bc  -o=$optbc"); 
         execute("${LLC} ${BIN_ARCH} -filetype=obj -o $o $optbc");
@@ -192,6 +193,11 @@ sub process_cfg {
       $unsupported = $unsupported +1;
       push @nf2, $file;
       print "<Unsupported>\n";
+      execute("grep -i \"Unsupported\\|Error\" -A 2 $cfg2bclog");
+      execute("echo  >> $unsupp_summary");
+      execute("echo $file >> $unsupp_summary");
+      execute("echo \"========\" >> $unsupp_summary");
+      execute("grep -i \"Unsupported\\|Error\" -A 2 $cfg2bclog >> $unsupp_summary");
     }
   }
 }
