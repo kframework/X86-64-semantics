@@ -1,4 +1,6 @@
 ### 22 Nov
+- Supported the following vector instructions 
+
 |    Vector Inst    | Frequency | Extra variants implemented | Comments | 
 |:----------:|:---------:|----------------------------|-------------------------|
 |  SHUFPDrri | 169       | SHUFPDrmi                         |  | 
@@ -22,17 +24,17 @@
 |DIVPDrm   | 1 |||
 |PMULLWrm	|1| |Not Implemented | 
 
+- Following are already been supported in the recent commits in branch new_reg_assign
 
-Following are already been supported in the recent commits in branch new_reg_assign
-|    Vector Inst    | Frequency |
-|:----------:|:---------:|
-| ADDPSrr  | 13       |     
-| ADDPSrm | 11 |  
-| PSLLDQri	 | 11 | 
-|SUBPDrm	 | 6 |
-|ADDPDrr	| 4|
-|ADDPDrm	|3 | 
-|SUBPDrr	|3 |  
+  |    Vector Inst    | Frequency |
+  |:----------:|:---------:|
+  | ADDPSrr  | 13       |     
+  | ADDPSrm | 11 |  
+  | PSLLDQri	 | 11 | 
+  |SUBPDrm	 | 6 |
+  |ADDPDrr	| 4|
+  |ADDPDrm	|3 | 
+  |SUBPDrr	|3 |  
 
 
 ### Nov 16
