@@ -164,7 +164,7 @@ sub process_cfg {
   my $o = $file . ".new.o";
   my $newlifted = $file . ".new.lifted";
   my $cfg2bclog = $file . ".new.convert.txt";
-  my $unsupp_summary =  "unsupported_summary.txt";
+  my $unsupp_summary =  "unsupported_summary.raw";
   my ($basename,$path,$suffix) = fileparse($file,@suffixlist);
 
   if($check_unsupported ne "") {
