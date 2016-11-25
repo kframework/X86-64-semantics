@@ -19,7 +19,7 @@ my $LLC="llc";
 my $outdir="Output/";
 my $CC_OPTIONS="";
 #my $redirect = " 2>&1 1> ";
-my $redirect = " &> ";
+#my $redirect = " &> ";
 my $clang35="${home}/Install/llvm-3.5.0.release.install/bin/clang-3.5"; 
 my $loadso="${home}/Github/binary-decompilation/build/lib/LLVMstack_deconstructor.so";
 my $INCLUDE_DIR="${home}/Github/binary-decompilation/test/utils/";
@@ -173,9 +173,9 @@ sub process_cfg {
     #-ignore-unsupported 
     execute("rm -rf  $bc");
     if("" ne $entrypoint) {
-      execute("${CFG_TO_BC_PATH}/cfg_to_bc -post-analysis=0  ${CFGBC_ARCH}  -i $cfg  -entrypoint=main -o $bc  $redirect $cfg2bclog");
+      execute("${CFG_TO_BC_PATH}/cfg_to_bc -post-analysis=0  ${CFGBC_ARCH}  -i $cfg  -entrypoint=main -o $bc   1>$cfg2bclog 2>&1");
     } else {
-      execute("${CFG_TO_BC_PATH}/cfg_to_bc  ${CFGBC_ARCH}  -i $cfg  -o $bc  -driver=mcsema_main,${entry},raw,return,C $redirect $cfg2bclog");
+      execute("${CFG_TO_BC_PATH}/cfg_to_bc  ${CFGBC_ARCH}  -i $cfg  -o $bc  -driver=mcsema_main,${entry},raw,return,C 1>$cfg2bclog 2>&1");
     }
     execute("ls $bc");
     if(-e "$bc" ) {
@@ -209,8 +209,8 @@ sub run_compare {
   if("" ne $norun) {
     return;
   }
-  execute("./$orig $redirect out1");
-  execute("./$lifted $redirect out2");
+  execute("./$orig  1>out_1 2>&1");
+  execute("./$lifted 1>out_2 2>&1");
   if (compare("out1","out2") == 0) {
     $passcount += 1;
     push @pass, $orig;
@@ -275,7 +275,7 @@ sub check_analysis {
   my $transo = $file . ".new.trans.o";
   my $translifted = $file . ".new.trans.lifted";
 
-  execute("${OPT} -load=${loadso} -stack-decons $bc   -o ${transbc}  $redirect /dev/null"); 
+  execute("${OPT} -load=${loadso} -stack-decons $bc   -o ${transbc} 1>/dev/null 2>&1"); 
   execute("${LLC} -march=x86-64 -filetype=obj -o $transo ${transbc}");
   execute("${CC}   -m64 -I${INCLUDE_DIR} -o $translifted ${INCLUDE_DIR}/driver_64.c $transo ${LIBNONE}");
   run_compare($file, $translifted);
