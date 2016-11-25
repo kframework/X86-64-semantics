@@ -215,7 +215,7 @@ sub run_compare {
     $passcount += 1;
     push @pass, $orig;
   } else {
-    execute("diff out1 out2");
+    execute("diff out_1 out_2");
     $diffcount  = $diffcount + 1;
     push @diff, $orig;
   }
