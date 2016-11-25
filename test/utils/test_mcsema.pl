@@ -211,7 +211,7 @@ sub run_compare {
   }
   execute("./$orig  1>out_1 2>&1");
   execute("./$lifted 1>out_2 2>&1");
-  if (compare("out1","out2") == 0) {
+  if (compare("out_1","out_2") == 0) {
     $passcount += 1;
     push @pass, $orig;
   } else {
