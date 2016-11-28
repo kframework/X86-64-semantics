@@ -6,8 +6,9 @@
  |  UnitTests | 110   |      | 22     | 88   | 2   | 14   | 72   |      | 5      | 105  | 2   | 24   | 79   |
  | Regression | 65    |      | 17     | 48   | 1   | 7    | 40   |      | 13     | 52   | 2   | 8    |  42  |
  | Benchmark  | 138   |      | 92     | 46   |  6   | 13   | 27   |      | 40     | 98   | 37  | 24   |  37  |
- | Multisource| 185   |      | 156    | 29   |      |      |    |        | 63     | 122  |  38   | 29 | 55     |
+ | Multisource| 185   |      | 156    | 29   |    NA  |  NA    | NA   |        | 63     | 122  |  38   | 29 | 55     |
 
+**NA**
 
 ### 22 Nov
 - Supported the following vector instructions 
