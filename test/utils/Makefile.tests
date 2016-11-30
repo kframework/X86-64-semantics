@@ -8,14 +8,9 @@ TEST_DIR=../../
 UTILS_DIR=${TEST_DIR}/utils
 INCLUDE_DIR=${UTILS_DIR}
 RUN_SH=${UTILS_DIR}/run.pl  
-loadso=${TEST_DIR}/../build/lib/LLVMstack_deconstructor.so
 ALLIN=${TEST_DIR}/../build/bin/allin
 
 
-OPTSWITCH=-stack-decons -mem2reg -dce  -early-cse-memssa
-#OPTSWITCH=-stack-decons 
-#OPTSWITCH=-ssh
-#OPTSWITCH=-stack-decons -debug-only="stack_deconstructor"
 #ICC=$(shell which icc)
 outdir=Output/
 CC=clang
@@ -24,16 +19,14 @@ CXX=clang++
 # ALLVM dependency
 BC2ALLVM=bc2allvm
 #BC2ALLVM=/nix/store/0kp7zx7jd5s5cjqxi12la67jfpv2kszz-allvm-tools/bin/bc2allvm
-#LIBNONE="${HOME}/allvm-umbrella/allvm/build/lib/libnone.a"
 
 
-#MCSEMA_HOME=${HOME}/Github/mcsema_latest/build/
-#MCSEMA_HOME=${HOME}/Junk/mcsema
 #SKIP_MCSEMA=-skip_mcsema
-#PRINT=
 #SKIP_MCSEMA=
 PRINT=-print
+REG_ASSIGN=-reg_assign
 
+.PHONY:run
 
 #all:    cfg
 all:    clang
@@ -44,9 +37,11 @@ gcc:
 	@${MAKE} ext="gcc" run_pass 
 
 clang:
-	@echo " Using clang"
+	@echo ""
+	@echo " ${PROG_PREFIX} (clang)"
+	@echo "=========================="
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE} -home ${MCSEMA_HOME} 
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -home ${MCSEMA_HOME}  ${REG_ASSIGN}
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -57,56 +52,12 @@ icc:
 cfg:
 	@echo " Using IDA"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA} -libnone ${LIBNONE} -cfg -home ${MCSEMA_HOME} 
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -cfg -home ${MCSEMA_HOME} 
 
 run_pass:
-	${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${PROG_PREFIX}.${ext}.ll  -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc  2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log 
-	#${ALLIN} ${outdir}${PROG_PREFIX}.${ext}.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc 2>  ${outdir}${PROG_PREFIX}.${ext}.pass.log
-	${OPT} -O3  ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o=${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc
-	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.ll
-	${LLVMDIS} ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.opt.ll
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN}
+#${MAKE} ext=${ext} run
 
-	${MAKE} ext=${ext} run_check
-
-run_check:
-	@if diff -w -q ${outdir}${PROG_PREFIX}.${ext}.pass.log ${outdir}${PROG_PREFIX}.${ext}.pass.log.gold > /dev/null; then \
-		echo "  ${PROG_PREFIX}: Transformations Passed"; rm -rf ${outdir}${PROG_PREFIX}.${ext}.pass.log ; \
-	else \
-		echo "  ${PROG_PREFIX}: Transformations Failed"; \
-	fi
-	${MAKE} run
-
-.PHONY:run
-run:
-	#${LLC} 	-march=x86-64 -filetype=obj -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
-	#${CC}   -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${LIBNONE}
-	${CC} 	-m64  -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o -c ${outdir}${PROG_PREFIX}.${ext}.trans.bc
-	${CC}   -m64 -I${INCLUDE_DIR} -o ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe driver_64.c ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ${LIBNONE}
-
-	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe ${CMD_ARGS} > ${outdir}after.trans.out	
-	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
-
-	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
-		echo "  ${PROG_PREFIX}: Output Passed"; \
-		rm -rf  ./${outdir}${PROG_PREFIX}.${ext}.trans.lifted.exe; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.lifted.o ; rm -rf ${outdir}${PROG_PREFIX}.${ext}.trans.opt.bc ; rm -rf  ${outdir}after.trans.out ; \
-	else \
-		echo "  ${PROG_PREFIX}: Output Failed"; \
-	fi 
-
-	rm -rf 	./${outdir}*.allexe
-	${LLVMAS} ${outdir}${PROG_PREFIX}.${ext}.trans.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
-	${CC} -m64 -I${INCLUDE_DIR} -emit-llvm -c driver_64.c -o ${outdir}driver_64.bc
-	${BC2ALLVM} ${outdir}driver_64.bc ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.allexe
-
-	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.allexe ${CMD_ARGS} > ${outdir}after.trans.out	
-	@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
-
-	@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
-		echo "  ${PROG_PREFIX}: ALLEY Output Passed"; \
-		rm -rf  ./${outdir}*.exe   ${outdir}after.trans.out ${outdir}*.allexe ; \
-	else \
-		echo "  ${PROG_PREFIX}: ALLEY Output Failed"; \
-	fi 
 clean:
 	@../utils/clearall.sh
 	@rm -rf log *.dot *.mod
