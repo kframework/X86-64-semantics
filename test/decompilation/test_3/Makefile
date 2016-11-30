@@ -1,6 +1,6 @@
 PROG_PREFIX=test_3
 
-ENTRY_FUNC=foo
+ENTRY_FUNC=main
 ASM_FILE=c
 FUNC_MAP=../../utils/std_defs.txt
 CMD_ARGS=
