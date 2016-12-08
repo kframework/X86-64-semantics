@@ -1,0 +1,86 @@
+Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/linux.txt
+Will lift 1 exports
+CFG Output File file: Output/test_34.clang.ida.cfg
+PROCESSING: test_34.clang.o
+Adding data seg: .rodata.str1.1: 0x3fL-0x43L
+Adding data seg: .eh_frame: 0x48L-0x80L
+Looking for relocations in 3f - 43
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x3fL-0x43L
+Looking for relocations in 48 - 80
+Found relocations in binary: (68)..
+rtype : 4, 0, 0
+68 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: 68, seg_offset: 0 => 0
+Reloc Base Address: 68
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x48L-0x80L
+Recovering: main
+Processing export name: main at: 0
+At EP main:0
+BB: 0
+Starting insn at: 0
+Processing insn at 0
+		Bytes: [85]
+Processing insn at 1
+		Bytes: [72, 137, 229]
+Processing insn at 4
+		Bytes: [72, 131, 236, 16]
+Processing insn at 8
+		Bytes: [72, 191, 63, 0, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 8 to 2
+Adding reference because of data refs from 8
+Testing 3f for externality
+		Data Ref: 3f, size: 4
+Data Range: 3f <= 3f < 43
+Data Range: 3f - 43
+		Setting IMM ref at 8: to 3f type: DATA
+Processing insn at 12
+		Bytes: [199, 69, 252, 0, 0, 0, 0]
+Processing insn at 19
+		Bytes: [199, 4, 37, 128, 0, 0, 0, 10, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 19 to 3
+Adding reference because of data refs from 19
+Testing 80 for externality
+		Data Ref: 80, size: 8
+Adding data seg: common: 0x80L-0x88L
+Looking for relocations in 80 - 88
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: common: 0x80L-0x88L
+		Setting MEM ref at 19: to 80 type: DATA
+Processing insn at 24
+		Bytes: [139, 52, 37, 128, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 24 to 3
+Adding reference because of data refs from 24
+Testing 80 for externality
+		Data Ref: 80, size: 8
+Data Range: 80 <= 80 < 88
+Data Range: 80 - 88
+		Setting MEM ref at 24: to 80 type: DATA
+Processing insn at 2b
+		Bytes: [176, 0]
+Processing insn at 2d
+		Bytes: [232, 134, 0, 0, 0]
+Checking code ref b8
+Testing b8 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 2d to 1
+Processing insn at 32
+		Bytes: [49, 246]
+Processing insn at 34
+		Bytes: [137, 69, 248]
+Processing insn at 37
+		Bytes: [137, 240]
+Processing insn at 39
+		Bytes: [72, 131, 196, 16]
+Processing insn at 3d
+		Bytes: [93]
+Processing insn at 3e
+		Bytes: [195]
+Ending insn at: 3d
+Program will reference external: printf
+Recovered 1 functions.
+Saving to: Output/test_34.clang.ida.cfg
