@@ -1,9 +1,8 @@
-#include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include "RegisterState.h"
+#include <stdint.h>
+#include <string.h>
 
-extern void sub_0(RegState *);
+extern int keycomp(const char*);
   
 uint32_t to_byte(uint8_t b) {
     if(b <= '9') {return b - '0';}
@@ -35,15 +34,7 @@ int main(int argc, char *argv[]) {
     }
 
     key = argv[1]; //"key{d9dd1cb9dc13ebc3dc3780d76123ee34}";
-    RegState            rState = {0};
-    unsigned long   stack[4096*10];
-
-    //set up the stack 
-    rState.RSP = (uint64_t) &stack[4096*9];
-    rState.RDI =  (uint64_t) key;
-    sub_0(&rState);
-
-    ret = rState.RAX;
+    ret = keycomp(key);
     if(ret == 0) {
         printf("a winner is you!\n");
     } else {

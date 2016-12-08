@@ -234,8 +234,8 @@ sub run_custom_pass {
 
   if(0 == compare("${outdir}before.trans.out", "${outdir}after.trans.out")) {
     print("\t${basename}: Output Passed\n");
-    execute("rm -rf ./${outdir}${basename}.${suffix}.trans.lifted.exe");
-    execute("rm -rf ${outdir}${basename}.${suffix}.trans.opt.bc");
+    #execute("rm -rf ./${outdir}${basename}.${suffix}.trans.lifted.exe");
+    #execute("rm -rf ${outdir}${basename}.${suffix}.trans.opt.bc");
     execute("rm -rf ${outdir}after.trans.out");
   } else {
     print("\t${basename}: Output Failed\n");

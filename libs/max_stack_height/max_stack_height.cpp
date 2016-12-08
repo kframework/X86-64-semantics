@@ -77,6 +77,40 @@ void max_stack_height::perform_dfa() {
   perform_global_dfa();
 }
 
+
+/*******************************************************************
+  * Function :  get_init_xsp_or_rsp
+  * Purpose  :  Get the llvm value which initializes xsp (option == true) or
+  *             xbp (option == false)
+********************************************************************/
+Value *max_stack_height::get_init_xsp_or_rsp(Function *F, bool option) {
+  int expected_value_1 = 0 ;
+  int expected_value_2 = 0 ;
+  if(option) {
+    expected_value_2 = 7;
+  } else {
+    expected_value_2 = 8;
+  }
+  // For the entry: find the llvm gep inst for xsp
+  BasicBlock *EB = &(F->getEntryBlock());
+  GetElementPtrInst *gep_inst = NULL;
+  for (auto &I : *EB) {
+    if (NULL != (gep_inst = dyn_cast<GetElementPtrInst>(&I))) {
+      if(true == gep_inst->hasAllConstantIndices() && 2 == gep_inst->getNumIndices()) {
+        User::op_iterator itb = gep_inst->idx_begin();
+        ConstantInt *idx_1 = dyn_cast<ConstantInt>(*itb);
+        ConstantInt *idx_2 = dyn_cast<ConstantInt>(*(++itb));
+        assert(idx_1 != NULL && idx_2 != NULL && "Non ConstantInt's !!!");
+        if(idx_1->equalsInt(expected_value_1) && idx_2->equalsInt(expected_value_2)) {
+          return gep_inst;
+        }
+      }
+    }
+  }
+
+  return NULL;
+}
+
 /*******************************************************************
   * Function :  initialize_framework
   * Purpose  :  Initializes the temporary data-strcutures.
@@ -84,25 +118,17 @@ void max_stack_height::perform_dfa() {
 ********************************************************************/
 bool max_stack_height::initialize_framework() {
 
-  llvm_alloca_inst_rsp = NULL;
-  llvm_alloca_inst_rbp = NULL;
-  stack_height = 0;
+  llvm_alloca_inst_rsp = get_init_xsp_or_rsp(Func, true);
+  llvm_alloca_inst_rbp = get_init_xsp_or_rsp(Func, false);
 
-  // For the entry: find the llvm alloca inst for rsp_val, rbp_val
-  BasicBlock *EB = &(Func->getEntryBlock());
-  AllocaInst *alloca_inst;
-  for (auto &I : *EB) {
-    if (NULL != (alloca_inst = dyn_cast<AllocaInst>(&I))) {
-      if (alloca_inst->getName().equals("RSP_val")) {
-        llvm_alloca_inst_rsp = alloca_inst;
-      } else if (alloca_inst->getName().equals("RBP_val")) {
-        llvm_alloca_inst_rbp = alloca_inst;
-      }
-    }
+  // If bot are not found then return as max stack height cannot be detdermined
+  if (NULL == llvm_alloca_inst_rsp && NULL == llvm_alloca_inst_rbp) {
+    DEBUG(errs() << "Cannot find init rsp / rbp\n");
+    return false;
   }
 
-  if (NULL == llvm_alloca_inst_rsp || NULL == llvm_alloca_inst_rbp) {
-    return false;
+  if(NULL == llvm_alloca_inst_rsp) {
+    llvm_alloca_inst_rsp = new value(); 
   }
 
   // Allocates the data values to each BB.
@@ -138,7 +164,7 @@ void max_stack_height::perform_const_dfa() {
  * Function :   calculate_max_height_BB
  * Purpose  :
  *  Each instruction I (which may potentially affect rsp or rbp) within a bb is
- *  tracked (using visitInst) to obtain the follwoing data flow values before,
+ *  tracked (using visitInst) to obtain the following data flow values before,
  *  In[I] and after, Out[I].
  *
  *  1. ACTUAL_RSP (or ACTUAL_RBP) = Actual displacement of
@@ -184,10 +210,10 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB, dfa_values inval) {
   return ret_val;
 }
 
+//InstMap:  < Value* , <height, atrrib>  > where attrib: <bool isRSP, bool isValid> 
 void max_stack_height::visitLoadInst(LoadInst &I) {
   Value *ld_ptr_op = I.getPointerOperand();
   if (InstMap.count(ld_ptr_op)) {
-    // InstMap[&I] = InstMap[ld_ptr_op];
     InstMap[&I].first = InstMap[ld_ptr_op].first;
     InstMap[&I].second = InstMap[ld_ptr_op].second;
     debug_local_dfa_info(&I);
@@ -268,6 +294,7 @@ void max_stack_height::visitAdd(BinaryOperator &I) {
   return;
 }
 
+//InstMap:  < Value* , <height, atrrib>  > where attrib: <bool isRSP, bool isValid> 
 void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
                                          Value *op2) {
 
@@ -431,7 +458,7 @@ dfa_values max_stack_height::meet_over_preds(BasicBlock *BB) {
   }
   // debug_dfa_values("\tGen :: ", (*BBMap[BB])[GEN]);
 
-  // no predecessor, this is the start block s.
+  // no predecessor, this is the entry block s.
   if (is_entry) {
     meetOverPreds = init_in_entry;
   }
@@ -449,22 +476,29 @@ void max_stack_height::transfer_function(dfa_functions *dfvaInstance,
   } else {
     (*dfvaInstance)[GEN] = calculate_max_height_BB(bb, (*dfvaInstance)[IN]);
     (*dfvaInstance)[OUT] = (*dfvaInstance)[GEN];
-    /*
-    (*dfvaInstance)[OUT][ACTUAL_RSP] =
-        ((*dfvaInstance)[IN][ACTUAL_RSP] + (*dfvaInstance)[GEN][ACTUAL_RSP]);
-    (*dfvaInstance)[OUT][ACTUAL_RBP] =
-        ((*dfvaInstance)[IN][ACTUAL_RBP] + (*dfvaInstance)[GEN][ACTUAL_RBP]);
-
-    (*dfvaInstance)[OUT][MAX_DISP_RSP] = std::min(
-        (*dfvaInstance)[IN][ACTUAL_RSP] + (*dfvaInstance)[GEN][MAX_DISP_RSP],
-        (*dfvaInstance)[IN][MAX_DISP_RSP]);
-    (*dfvaInstance)[OUT][MAX_DISP_RBP] = std::min(
-        (*dfvaInstance)[IN][ACTUAL_RBP] + (*dfvaInstance)[GEN][MAX_DISP_RBP],
-        (*dfvaInstance)[IN][MAX_DISP_RBP]);
-    */
   }
 }
 
+/*******************************************************************
+ * Function :   compute_height
+ * Purpose  : Compute the max statck height
+ *  max ( Out[bb]::max_disp_rsp, Out[bb]::max_disp_rsp ) for  all bb.
+********************************************************************/
+void max_stack_height::compute_height() {
+  height_ty max_dis_rsp = 0;
+  height_ty max_dis_rbp = 0;
+
+  dfa_functions *dfvaInstance;
+  StringRef Fname = Func->getName();
+  for (auto &BB : *Func) {
+    dfvaInstance = BBMap[&BB];
+    max_dis_rsp = std::min(max_dis_rsp, (*dfvaInstance)[OUT][MAX_DISP_RSP]);
+    max_dis_rbp = std::min(max_dis_rbp, (*dfvaInstance)[OUT][MAX_DISP_RBP]);
+  }
+  stack_height = std::min(max_dis_rsp, max_dis_rbp);
+
+  errs() << "Height[ " << Fname << " ] : " << stack_height << "\n";
+}
 /*******************************************************************
  * Function :   debug_local_dfa_info
  * Purpose  :   print the data structure InstMap
@@ -588,23 +622,3 @@ void max_stack_height::dump_cfg() {
   dotfile.close();
 }
 
-/*******************************************************************
- * Function :   compute_height
- * Purpose  : Compute the max statck height
- *  max ( Out[bb]::max_disp_rsp, Out[bb]::max_disp_rsp ) for  all bb.
-********************************************************************/
-void max_stack_height::compute_height() {
-  height_ty max_dis_rsp = 0;
-  height_ty max_dis_rbp = 0;
-
-  dfa_functions *dfvaInstance;
-  StringRef Fname = Func->getName();
-  for (auto &BB : *Func) {
-    dfvaInstance = BBMap[&BB];
-    max_dis_rsp = std::min(max_dis_rsp, (*dfvaInstance)[OUT][MAX_DISP_RSP]);
-    max_dis_rbp = std::min(max_dis_rbp, (*dfvaInstance)[OUT][MAX_DISP_RBP]);
-  }
-  stack_height = std::min(max_dis_rsp, max_dis_rbp);
-
-  errs() << "Height[ " << Fname << " ] : " << stack_height << "\n";
-}

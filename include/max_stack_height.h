@@ -70,6 +70,7 @@ private:
   DenseMap<Value *, inst_map_val> InstMap;
   height_ty max_dis_of_rsp, max_dis_of_rbp;
 
+  Value *get_init_xsp_or_rsp(Function*, bool);
   // LLVM alloca inst for rsp, rbp
   Value *llvm_alloca_inst_rsp;
   Value *llvm_alloca_inst_rbp;
