@@ -30,7 +30,7 @@ translate_CALLpcrel32: function is: fprintf, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 getValueForExternal: Found external data ref to: stderr
 doCallPCExtern paramCount  : 3 : fprintf
-3 : 28fb260
+3 : 17f4260
 Adding entry point: print_it
 print_it is implemented by sub_0
 NOT doing post analysis passes.

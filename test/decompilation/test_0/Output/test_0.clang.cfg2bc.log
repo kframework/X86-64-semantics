@@ -28,7 +28,7 @@ inserting global data section named data_0x60
 translate_CALLpcrel32: function is: printf, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : c : printf
-c : 2059690
+c : 15c2690
 Adding entry point: main
 main is implemented by sub_0
 NOT doing post analysis passes.

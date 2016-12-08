@@ -39,7 +39,7 @@ dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : c : printf
-c : 30b8690
+c : 2294690
 doCallPCtarget address : 0
 doCallPCtarget address : 0
 Adding entry point: main
