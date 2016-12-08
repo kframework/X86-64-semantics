@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
 
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   rState.RDI = 16;
   rState.RSI = (uint64_t) &foo;
 
-  mcsema_main(&rState);
+  sub_0(&rState);
 
   printf("We have: 0x%lx\n", foo);
 

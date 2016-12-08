@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
   size_t  len = sizeof("/first/test/path");
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     rState.RDI = (uint64_t) a;
     rState.RSI = (uint64_t) b;
 
-    mcsema_main(&rState);
+    sub_0(&rState);
 
     printf("%s -> %s\n", a, b);
 

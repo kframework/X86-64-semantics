@@ -41,7 +41,7 @@ clang:
 	@echo " ${PROG_PREFIX} (clang)"
 	@echo "=========================="
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -home ${MCSEMA_HOME}  ${REG_ASSIGN}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -home ${MCSEMA_HOME}  ${REG_ASSIGN} -driver ${DRIVER}
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -52,10 +52,10 @@ icc:
 cfg:
 	@echo " Using IDA"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -cfg -home ${MCSEMA_HOME} 
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -cfg -home ${MCSEMA_HOME} -driver ${DRIVER}
 
 run_pass:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN} -driver ${DRIVER}
 #${MAKE} ext=${ext} run
 
 clean:

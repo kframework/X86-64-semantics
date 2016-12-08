@@ -1,3 +1,4 @@
+#include<stdio.h>
 
 typedef struct { 
   int x, y; 
@@ -9,5 +10,6 @@ int main() {
   pp->x= 1; 
   pp->y= 2; 
 
+  printf("%d\n", pp->y);
   return pp->y; 
 }

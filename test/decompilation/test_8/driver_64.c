@@ -2,7 +2,7 @@
 #include <string.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_1(RegState *);
 
 unsigned long getNextPC(void) {
     return 0;
@@ -18,7 +18,7 @@ int doDemo1(int k) {
     rState.RSP = (uint64_t) &stack[4096*9];
     rState.RAX = k;
 
-    mcsema_main(&rState);
+    sub_1(&rState);
 
     return rState.RAX;
 }

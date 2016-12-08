@@ -5,5 +5,6 @@ ASM_FILE=c
 FUNC_MAP=stderr_map.txt
 CMD_ARGS=
 STDIN_ARGS=
+DRIVER=driver_64.c 
 
 include ../../utils/Makefile.tests

@@ -4,7 +4,7 @@
 #include <mmintrin.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 #ifdef __linux__
 long double DoDemoFpu1(long double k) {
@@ -16,7 +16,7 @@ long double DoDemoFpu1(long double k) {
     memcpy(&stack[0x8ff5], &k, sizeof(k));
     rState.RSP = (unsigned long) &stack[0x8ff4];
 
-    mcsema_main(&rState);
+    sub_0(&rState);
 
     // read ST(0)
     n = FPU_GET_REG(&rState, 0);
@@ -33,7 +33,7 @@ long double DoDemoFpu1(long double k) {
     foo = _mm_loadu_pd(&k);
     memcpy(rState.XMM0.tag, &foo, sizeof(foo)); 
 
-    mcsema_main(&rState);
+    sub_0(&rState);
     long double bar;
     _mm_store_pd(&bar, *(__m128d*)(&rState.XMM0.tag));
     //return NATIVEFPU_TO_LD((nativefpu*)(rState.XMM0.tag));

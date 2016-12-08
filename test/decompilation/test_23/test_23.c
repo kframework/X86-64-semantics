@@ -59,17 +59,16 @@ main (int argc, char *argv[])
 				x++;
 				break;
 			default:
-				//printf("Wrong command!(only w,s,a,d accepted!)\n");
-				//printf("You lose!\n");
-				//exit(-1);
+				printf("Wrong command!(only w,s,a,d accepted!)\n");
+				printf("You lose!\n");
+				exit(-1);
                                 return 1;
 		}
 		if (maze[y][x] == '#')
 		{
-			//printf ("You win!\n");
-			//printf ("Your solution:%s \n",program);
-			//exit (0);
-                        return 0;
+			printf ("You win!\n");
+			printf ("Your solution:%s \n",program);
+			exit (0);
 		}
 		if (maze[y][x] != ' ' &&
 				!((y == 2 && maze[y][x] == '|' && x > 0 && x < W)))
@@ -78,15 +77,14 @@ main (int argc, char *argv[])
 			y = oy;
 		}
 		if (ox==x && oy==y){
-			//printf("You lose\n");
-                        //
+			printf("You lose\n");
                         return 2;
 		}
 		maze[y][x]='X';
-		//draw ();          //draw it
+		draw ();  
 		i++;
 		//sleep(1); //me wait to human
 	}
-	//printf("You lose\n");
+	printf("You lose\n");
         return 1;
 }

@@ -15,6 +15,8 @@ int main(){
       stack_arr[i] = 21;
     }
 
-    return check(10,  10, 10, 10, 10, 10, stack_arr);
+    int z  =  check(10,  10, 10, 10, 10, 10, stack_arr);
+    printf("%d\n", z);
+    return z;
 }
 

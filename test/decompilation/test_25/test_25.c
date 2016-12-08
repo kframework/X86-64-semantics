@@ -9,5 +9,6 @@ int main(int argc, const char* argv[]) {
     		sum += argv[1][i];
 	}
     //return 0;
+    printf("%d\n", len);
     return len;
 }

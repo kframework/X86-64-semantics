@@ -5,5 +5,6 @@ ASM_FILE=asm
 FUNC_MAP=../../utils/std_defs.txt
 CMD_ARGS=
 STDIN_ARGS=
+DRIVER=driver_64.c
 
 include ../../utils/Makefile.tests

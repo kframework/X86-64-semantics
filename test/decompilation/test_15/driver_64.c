@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
 
@@ -13,15 +13,15 @@ int main(int argc, char *argv[]) {
   rState.RSP = (uint64_t) &stack[4096*9];
 
   rState.RDI = (uint64_t) 2;
-  mcsema_main(&rState);
+  sub_0(&rState);
   int i = (uint64_t) rState.RAX;
 
   rState.RDI = (uint64_t) 4;
-  mcsema_main(&rState);
+  sub_0(&rState);
   int k = (uint64_t) rState.RAX;
 
   rState.RDI = (uint64_t) 0;
-  mcsema_main(&rState);
+  sub_0(&rState);
   int j = (uint64_t) rState.RAX;
 
   printf("i == %d\nk == %d\nj == %d\n", i, k, j);

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
 
@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
   char str[] = "abc";
   rState.RDI = (uint64_t) str;
-  mcsema_main(&rState);
+  sub_0(&rState);
 
   return 0;
 }

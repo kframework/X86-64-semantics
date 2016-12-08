@@ -3,7 +3,7 @@
 #define TARGET_IA64
 #include "RegisterState.h"
 
-extern int mcsema_main(RegState *);
+extern int sub_0(RegState *);
 
 int maze_driver(int argc, const char* argv[])
 {
@@ -23,7 +23,7 @@ int maze_driver(int argc, const char* argv[])
     rState.RDI = (unsigned long) arr;
     rState.RSI = (unsigned long) 10;
 
-    mcsema_main(&rState);
+    sub_0(&rState);
     printf("%lu\n", rState.RAX);
 
     return 0;

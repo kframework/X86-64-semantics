@@ -16,6 +16,7 @@ int foo(int a, int b, int c, int d,
 int main() {
   int z; 
   z = foo(10,20,30,40,50,60,  70, 80); 
+  printf("%d\n", z);
   return z;
 }
 

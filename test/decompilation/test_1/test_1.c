@@ -18,6 +18,7 @@ int foo(int a, int b) {
 int main() {
   int z; 
   z = foo(10,20); 
+  printf("%d\n", z);
   return z;
 }
 

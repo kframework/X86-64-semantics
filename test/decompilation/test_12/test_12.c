@@ -6,10 +6,6 @@
 #define INVALID_HANDLE_VALUE (-1)
 #define CloseHandle(x) close(x)
 
-void bar(void) {
-    return;
-}
-
 int foo(char *p) {
     HANDLE  h;
     h = open(p, O_RDONLY);

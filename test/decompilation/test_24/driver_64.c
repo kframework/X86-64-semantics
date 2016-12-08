@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
   
 uint32_t to_byte(uint8_t b) {
     if(b <= '9') {return b - '0';}
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     //set up the stack 
     rState.RSP = (uint64_t) &stack[4096*9];
     rState.RDI =  (uint64_t) key;
-    mcsema_main(&rState);
+    sub_0(&rState);
 
     ret = rState.RAX;
     if(ret == 0) {

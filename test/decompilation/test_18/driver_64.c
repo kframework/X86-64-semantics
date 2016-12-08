@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
 
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
   //set up the stack 
   rState.RSP = (uint64_t) &stack[4096*9];
 
-  mcsema_main(&rState);
+  sub_0(&rState);
 
   printf("%lx", rState.RAX);
   return 0;

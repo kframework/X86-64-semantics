@@ -32,6 +32,8 @@ int main(){
   t1->n.x = 5;  
 
   S ret = update(1, 2, 3, 1,2,3,  &t, t1);
-  return ret.x + ret.y + ret.n.x;
+  int z = ret.x + ret.y + ret.n.x;
+  printf("%d\n", z);
+  return z;
 }
 

@@ -20,5 +20,7 @@ int main(int argc, char** argv) {
   for(int i = 0 ; i < 10 ; i ++) {
     arr2[i]  = i+1;
   }
-  return foo(100, 200, 300, 400, 500, 600, 10, arr1, 10, arr2);
+  int z =  foo(100, 200, 300, 400, 500, 600, 10, arr1, 10, arr2);
+  printf("%d\n", z);
+  return z;
 }

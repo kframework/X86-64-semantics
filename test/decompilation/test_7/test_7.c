@@ -38,6 +38,8 @@ int main(){
       ptr_dyn_arr[i] = i+1;
     }
 
-    return check(stack_var,  stack_arr, ptr_stack_var, ptr_dyn_arr, 10, 10, stack_var, stack_arr, ptr_stack_var, ptr_dyn_arr);
+    int z =   check(stack_var,  stack_arr, ptr_stack_var, ptr_dyn_arr, 10, 10, stack_var, stack_arr, ptr_stack_var, ptr_dyn_arr);
+    printf("%d\n", z);
+    return z;
 }
 

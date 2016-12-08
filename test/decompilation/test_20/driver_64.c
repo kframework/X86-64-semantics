@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
   for(i = 0; i <= 255; i++) {
     rState.RDI = i;
-    mcsema_main(&rState);
+    sub_0(&rState);
   }
 
   printf("%lu\n", rState.RAX);

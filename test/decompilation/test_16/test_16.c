@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-void foo(void) {
-    return;
-}
-
 int printit(char ch[]) {
 	int c = 10;
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
   RegState            rState = {0};
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
   rState.RDI = (uint64_t) foo;
   rState.RSI = (uint64_t) 3;
 
-  mcsema_main(&rState);
+  sub_0(&rState);
 
   printf("a == %s\n", a);
   printf("b == %s\n", b);

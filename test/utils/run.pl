@@ -42,6 +42,7 @@ my $reg_assign="";
 my $runpass="";
 my $stdin_args="";
 my $cmd_args="";
+my $driver="";
 
 GetOptions (
             "help"          => \$help, 
@@ -61,6 +62,7 @@ GetOptions (
             "entry:s"       => \$entry, 
             "incdir:s"      => \$incdir, 
             "stdin_args:s"      => \$stdin_args, 
+            "driver:s"      => \$driver, 
             "cmd_args:s"      => \$cmd_args, 
             ) or die("Error in command line arguments\n");
 
@@ -158,7 +160,7 @@ sub generate_linked_binary {
   #execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
   if("" ne $reg_assign) {
     #execute("${CC_35} -O3 ${GCC_ARCH} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.S ${libnone}  -o $outputexe");
-    execute("${CC} -O3 ${GCC_ARCH} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.S ${libnone}  -o $outputexe");
+    execute("${CC} -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.S ${libnone}  -o $outputexe");
   } else {
     execute("${CC} ${GCC_ARCH}  -o ${outdir}${basename}.${suffix}.lifted.o -c ${outdir}${basename}.${suffix}.opt.ll");
     execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
@@ -221,6 +223,7 @@ sub run_custom_pass {
     execute("rm -rf ${outdir}${basename}.${suffix}.pass.log");
   } else {
     print("\t${basename}: Transformations Failed\n");
+    execute("diff ${outdir}${basename}.${suffix}.pass.log ${outdir}${basename}.${suffix}.pass.log.gold");
   }
 
   generate_linked_binary("${outdir}${basename}.${suffix}.trans.bc", "${outdir}${basename}.${suffix}.trans.lifted.exe" );
@@ -236,6 +239,7 @@ sub run_custom_pass {
     execute("rm -rf ${outdir}after.trans.out");
   } else {
     print("\t${basename}: Output Failed\n");
+    execute("diff ${outdir}before.trans.out ${outdir}after.trans.out");
   }
 
   ## Generate allexe and check output
