@@ -14,6 +14,10 @@ clang:	all
 gcc: SUB_TARGET=gcc
 gcc: all
 	
+cfg:
+	@for test in ${TESTS}; do \
+		make -C $${test} cfg; \
+	done
 clean:
 	@for test in ${TESTS}; do \
 		make -C $${test} clean; \

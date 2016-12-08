@@ -1,31 +1,31 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
 Will lift 1 exports
-CFG Output File file: Output/test_14.clang.cfg
+CFG Output File file: Output/test_14.clang.ida.cfg
 PROCESSING: test_14.clang.o
-Adding data seg: .rodata.str1.1: 0x45L-0x49L
-Adding data seg: .eh_frame: 0x50L-0xa0L
-Looking for relocations in 45 - 49
+Adding data seg: .rodata.str1.1: 0x3dL-0x41L
+Adding data seg: .eh_frame: 0x48L-0x98L
+Looking for relocations in 3d - 41
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.str1.1: 0x45L-0x49L
-Looking for relocations in 50 - a0
-Found relocations in binary: (70)..
+Adding data seg: .rodata.str1.1: 0x3dL-0x41L
+Looking for relocations in 48 - 98
+Found relocations in binary: (68)..
 rtype : 4, 0, 0
-70 Found reloc to: 0 (size: 4)
+68 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 70, seg_offset: 0 => 0
-Reloc Base Address: 70
+Offset: 68, seg_offset: 0 => 0
+Reloc Base Address: 68
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
 rtype : 4, 0, 0
-8c Found reloc to: 0 (size: 4)
+84 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 8c, seg_offset: 0 => 0
-Reloc Base Address: 8c
+Offset: 84, seg_offset: 0 => 0
+Reloc Base Address: 84
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0x50L-0xa0L
+Adding data seg: .eh_frame: 0x48L-0x98L
 Recovering: checkFn
 Processing export name: checkFn at: 10
 WARNING: Cannot determine type of function: checkFn at: 10At EP checkFn:10
@@ -38,14 +38,14 @@ Processing insn at 11
 Processing insn at 14
 		Bytes: [72, 131, 236, 16]
 Processing insn at 18
-		Bytes: [72, 184, 69, 0, 0, 0, 0, 0, 0, 0]
+		Bytes: [72, 184, 61, 0, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 18 to 2
 Adding reference because of data refs from 18
-Testing 45 for externality
-		Data Ref: 45, size: 1
-Data Range: 45 <= 45 < 49
-Data Range: 45 - 46
-		Setting IMM ref at 18: to 45 type: DATA
+Testing 3d for externality
+		Data Ref: 3d, size: 1
+Data Range: 3d <= 3d < 41
+Data Range: 3d - 3e
+		Setting IMM ref at 18: to 3d type: DATA
 Processing insn at 22
 		Bytes: [72, 137, 125, 248]
 Processing insn at 26
@@ -55,9 +55,9 @@ Processing insn at 2a
 Processing insn at 2e
 		Bytes: [72, 139, 117, 240]
 Processing insn at 32
-		Bytes: [232, 105, 0, 0, 0]
-Checking code ref a0
-Testing a0 for externality
+		Bytes: [232, 97, 0, 0, 0]
+Checking code ref 98
+Testing 98 for externality
 EXTERNAL CALL: strcmp
 findRelocOffset setting imm reloc offset at 32 to 1
 Processing insn at 37
@@ -81,4 +81,4 @@ Processing insn at 5
 Ending insn at: 4
 Program will reference external: strcmp
 Recovered 2 functions.
-Saving to: Output/test_14.clang.cfg
+Saving to: Output/test_14.clang.ida.cfg

@@ -4,33 +4,25 @@ Output/test_12.clang.o:     file format elf64-x86-64
 
 Disassembly of section .text:
 
-0000000000000000 <bar>:
+0000000000000000 <foo>:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
-   4:	5d                   	pop    %rbp
-   5:	c3                   	retq   
-   6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
-   d:	00 00 00 
-
-0000000000000010 <foo>:
-  10:	55                   	push   %rbp
-  11:	48 89 e5             	mov    %rsp,%rbp
-  14:	48 83 ec 20          	sub    $0x20,%rsp
-  18:	31 f6                	xor    %esi,%esi
-  1a:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
-  1e:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
-  22:	b0 00                	mov    $0x0,%al
-  24:	e8 00 00 00 00       	callq  29 <foo+0x19>
-  29:	89 45 ec             	mov    %eax,-0x14(%rbp)
-  2c:	83 7d ec ff          	cmpl   $0xffffffffffffffff,-0x14(%rbp)
-  30:	0f 84 17 00 00 00    	je     4d <foo+0x3d>
-  36:	8b 7d ec             	mov    -0x14(%rbp),%edi
-  39:	e8 00 00 00 00       	callq  3e <foo+0x2e>
-  3e:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  45:	89 45 e8             	mov    %eax,-0x18(%rbp)
-  48:	e9 07 00 00 00       	jmpq   54 <foo+0x44>
-  4d:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
-  54:	8b 45 fc             	mov    -0x4(%rbp),%eax
-  57:	48 83 c4 20          	add    $0x20,%rsp
-  5b:	5d                   	pop    %rbp
-  5c:	c3                   	retq   
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	31 f6                	xor    %esi,%esi
+   a:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+   e:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  12:	b0 00                	mov    $0x0,%al
+  14:	e8 00 00 00 00       	callq  19 <foo+0x19>
+  19:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  1c:	83 7d ec ff          	cmpl   $0xffffffff,-0x14(%rbp)
+  20:	0f 84 17 00 00 00    	je     3d <foo+0x3d>
+  26:	8b 7d ec             	mov    -0x14(%rbp),%edi
+  29:	e8 00 00 00 00       	callq  2e <foo+0x2e>
+  2e:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  35:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  38:	e9 07 00 00 00       	jmpq   44 <foo+0x44>
+  3d:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+  44:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  47:	48 83 c4 20          	add    $0x20,%rsp
+  4b:	5d                   	pop    %rbp
+  4c:	c3                   	retq   

@@ -1,19 +1,11 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
 Will lift 1 exports
-CFG Output File file: Output/test_21.clang.cfg
+CFG Output File file: Output/test_21.clang.ida.cfg
 PROCESSING: test_21.clang.o
-Adding data seg: .eh_frame: 0x40L-0x78L
-Looking for relocations in 40 - 78
-Found relocations in binary: (60)..
-rtype : 4, 0, 0
-60 Found reloc to: 0 (size: 4)
-Testing 0 for externality
-Offset: 60, seg_offset: 0 => 0
-Reloc Base Address: 60
-Reloc size: 4
-Testing 0 for externality
-Code Ref: 0!
-Adding data seg: .eh_frame: 0x40L-0x78L
+Adding data seg: .eh_frame: 0x38L-0x70L
+Looking for relocations in 38 - 70
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .eh_frame: 0x38L-0x70L
 Recovering: shiftit
 Processing export name: shiftit at: 0
 WARNING: Cannot determine type of function: shiftit at: 0At EP shiftit:0
@@ -57,4 +49,4 @@ Processing insn at 34
 		Bytes: [195]
 Ending insn at: 33
 Recovered 1 functions.
-Saving to: Output/test_21.clang.cfg
+Saving to: Output/test_21.clang.ida.cfg

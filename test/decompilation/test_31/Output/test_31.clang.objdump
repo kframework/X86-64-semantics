@@ -11,45 +11,44 @@ Disassembly of section .text:
    8:	b8 01 00 00 00       	mov    $0x1,%eax
    d:	89 7d f8             	mov    %edi,-0x8(%rbp)
   10:	3b 45 f8             	cmp    -0x8(%rbp),%eax
-  13:	0f 84 0e 00 00 00    	je     27 <fib+0x27>
-  19:	b8 00 00 00 00       	mov    $0x0,%eax
-  1e:	3b 45 f8             	cmp    -0x8(%rbp),%eax
-  21:	0f 85 0c 00 00 00    	jne    33 <fib+0x33>
-  27:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
-  2e:	e9 28 00 00 00       	jmpq   5b <fib+0x5b>
-  33:	8b 45 f8             	mov    -0x8(%rbp),%eax
-  36:	2d 01 00 00 00       	sub    $0x1,%eax
-  3b:	89 c7                	mov    %eax,%edi
-  3d:	e8 be ff ff ff       	callq  0 <fib>
-  42:	8b 7d f8             	mov    -0x8(%rbp),%edi
-  45:	81 ef 02 00 00 00    	sub    $0x2,%edi
-  4b:	89 45 f4             	mov    %eax,-0xc(%rbp)
-  4e:	e8 ad ff ff ff       	callq  0 <fib>
-  53:	8b 7d f4             	mov    -0xc(%rbp),%edi
-  56:	01 c7                	add    %eax,%edi
-  58:	89 7d fc             	mov    %edi,-0x4(%rbp)
-  5b:	8b 45 fc             	mov    -0x4(%rbp),%eax
-  5e:	48 83 c4 10          	add    $0x10,%rsp
-  62:	5d                   	pop    %rbp
-  63:	c3                   	retq   
-  64:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
-  6b:	00 00 00 00 00 
+  13:	0f 84 0b 00 00 00    	je     24 <fib+0x24>
+  19:	31 c0                	xor    %eax,%eax
+  1b:	3b 45 f8             	cmp    -0x8(%rbp),%eax
+  1e:	0f 85 0c 00 00 00    	jne    30 <fib+0x30>
+  24:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  2b:	e9 23 00 00 00       	jmpq   53 <fib+0x53>
+  30:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  33:	83 e8 01             	sub    $0x1,%eax
+  36:	89 c7                	mov    %eax,%edi
+  38:	e8 c3 ff ff ff       	callq  0 <fib>
+  3d:	8b 7d f8             	mov    -0x8(%rbp),%edi
+  40:	83 ef 02             	sub    $0x2,%edi
+  43:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  46:	e8 b5 ff ff ff       	callq  0 <fib>
+  4b:	8b 7d f4             	mov    -0xc(%rbp),%edi
+  4e:	01 c7                	add    %eax,%edi
+  50:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  53:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  56:	48 83 c4 10          	add    $0x10,%rsp
+  5a:	5d                   	pop    %rbp
+  5b:	c3                   	retq   
+  5c:	0f 1f 40 00          	nopl   0x0(%rax)
 
-0000000000000070 <main>:
-  70:	55                   	push   %rbp
-  71:	48 89 e5             	mov    %rsp,%rbp
-  74:	48 83 ec 10          	sub    $0x10,%rsp
-  78:	bf 05 00 00 00       	mov    $0x5,%edi
-  7d:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  84:	e8 77 ff ff ff       	callq  0 <fib>
-  89:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
-  90:	00 00 00 
-  93:	89 c6                	mov    %eax,%esi
-  95:	b0 00                	mov    $0x0,%al
-  97:	e8 00 00 00 00       	callq  9c <main+0x2c>
-  9c:	be 00 00 00 00       	mov    $0x0,%esi
-  a1:	89 45 f8             	mov    %eax,-0x8(%rbp)
-  a4:	89 f0                	mov    %esi,%eax
-  a6:	48 83 c4 10          	add    $0x10,%rsp
-  aa:	5d                   	pop    %rbp
-  ab:	c3                   	retq   
+0000000000000060 <main>:
+  60:	55                   	push   %rbp
+  61:	48 89 e5             	mov    %rsp,%rbp
+  64:	48 83 ec 10          	sub    $0x10,%rsp
+  68:	bf 05 00 00 00       	mov    $0x5,%edi
+  6d:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  74:	e8 87 ff ff ff       	callq  0 <fib>
+  79:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  80:	00 00 00 
+  83:	89 c6                	mov    %eax,%esi
+  85:	b0 00                	mov    $0x0,%al
+  87:	e8 00 00 00 00       	callq  8c <main+0x2c>
+  8c:	31 f6                	xor    %esi,%esi
+  8e:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  91:	89 f0                	mov    %esi,%eax
+  93:	48 83 c4 10          	add    $0x10,%rsp
+  97:	5d                   	pop    %rbp
+  98:	c3                   	retq   

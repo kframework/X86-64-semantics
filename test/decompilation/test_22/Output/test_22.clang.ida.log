@@ -1,67 +1,26 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
 Will lift 1 exports
-CFG Output File file: Output/test_22.clang.cfg
+CFG Output File file: Output/test_22.clang.ida.cfg
 PROCESSING: test_22.clang.o
-Adding data seg: .rodata.cst8: 0x38L-0x40L
-Adding data seg: .eh_frame: 0x40L-0x90L
-Looking for relocations in 38 - 40
+Adding data seg: .rodata.cst8: 0x20L-0x28L
+Adding data seg: .eh_frame: 0x28L-0x60L
+Looking for relocations in 20 - 28
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.cst8: 0x38L-0x40L
-Looking for relocations in 40 - 90
-Found relocations in binary: (60)..
+Adding data seg: .rodata.cst8: 0x20L-0x28L
+Looking for relocations in 28 - 60
+Found relocations in binary: (48)..
 rtype : 4, 0, 0
-60 Found reloc to: 0 (size: 4)
+48 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 60, seg_offset: 0 => 0
-Reloc Base Address: 60
+Offset: 48, seg_offset: 0 => 0
+Reloc Base Address: 48
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-rtype : 4, 0, 0
-7c Found reloc to: 0 (size: 4)
-Testing 0 for externality
-Offset: 7c, seg_offset: 0 => 0
-Reloc Base Address: 7c
-Reloc size: 4
-Testing 0 for externality
-Code Ref: 0!
-Adding data seg: .eh_frame: 0x40L-0x90L
+Adding data seg: .eh_frame: 0x28L-0x60L
 Recovering: timespi
-Processing export name: timespi at: 10
-At EP timespi:10
-BB: 10
-Starting insn at: 10
-Processing insn at 10
-		Bytes: [85]
-Processing insn at 11
-		Bytes: [72, 137, 229]
-Processing insn at 14
-		Bytes: [219, 109, 16]
-Processing insn at 17
-		Bytes: [219, 125, 240]
-Processing insn at 1a
-		Bytes: [221, 5, 24, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 1a to 2
-Adding reference because of data refs from 1a
-Testing 38 for externality
-		Data Ref: 38, size: 8
-Data Range: 38 <= 38 < 40
-Data Range: 38 - 40
-		Setting MEM ref at 1a: to 38 type: DATA
-Processing insn at 20
-		Bytes: [217, 192]
-Processing insn at 22
-		Bytes: [219, 125, 224]
-Processing insn at 25
-		Bytes: [219, 109, 240]
-Processing insn at 28
-		Bytes: [222, 201]
-Processing insn at 2a
-		Bytes: [93]
-Processing insn at 2b
-		Bytes: [195]
-Ending insn at: 2a
-Recovering: 0x0L
+Processing export name: timespi at: 0
+At EP timespi:0
 BB: 0
 Starting insn at: 0
 Processing insn at 0
@@ -69,9 +28,30 @@ Processing insn at 0
 Processing insn at 1
 		Bytes: [72, 137, 229]
 Processing insn at 4
+		Bytes: [219, 109, 16]
+Processing insn at 7
+		Bytes: [219, 125, 240]
+Processing insn at a
+		Bytes: [221, 5, 16, 0, 0, 0]
+findRelocOffset setting imm reloc offset at a to 2
+Adding reference because of data refs from a
+Testing 20 for externality
+		Data Ref: 20, size: 8
+Data Range: 20 <= 20 < 28
+Data Range: 20 - 28
+		Setting MEM ref at a: to 20 type: DATA
+Processing insn at 10
+		Bytes: [219, 125, 224]
+Processing insn at 13
+		Bytes: [219, 109, 240]
+Processing insn at 16
+		Bytes: [219, 109, 224]
+Processing insn at 19
+		Bytes: [222, 201]
+Processing insn at 1b
 		Bytes: [93]
-Processing insn at 5
+Processing insn at 1c
 		Bytes: [195]
-Ending insn at: 4
-Recovered 2 functions.
-Saving to: Output/test_22.clang.cfg
+Ending insn at: 1b
+Recovered 1 functions.
+Saving to: Output/test_22.clang.ida.cfg

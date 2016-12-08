@@ -1,147 +1,145 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
 Will lift 1 exports
-CFG Output File file: Output/test_17.clang.cfg
+CFG Output File file: Output/test_17.clang.ida.cfg
 PROCESSING: test_17.clang.o
-Adding data seg: .data: 0x70L-0xd0L
-Adding data seg: .eh_frame: 0xd8L-0x110L
-Looking for relocations in 70 - d0
-Found relocations in binary: (88)..
-rtype : 2c, 70, 0
-88 Found reloc to: 70 (size: 8)
-Testing 70 for externality
-Offset: 88, seg_offset: 0 => 70
-Reloc Base Address: 88
+Adding data seg: .data: 0x60L-0xc0L
+Adding data seg: .eh_frame: 0xc0L-0xf8L
+Looking for relocations in 60 - c0
+Found relocations in binary: (78)..
+rtype : 2c, 60, 0
+78 Found reloc to: 60 (size: 8)
+Testing 60 for externality
+Offset: 78, seg_offset: 0 => 60
+Reloc Base Address: 78
 Reloc size: 8
-Testing 70 for externality
-Data Range: 70 <= 70 < d0
-Data Range: 70 - 71
+Testing 60 for externality
+Data Range: 60 <= 60 < c0
+Data Range: 60 - 61
 UNKNOWN Ref, assuming data
-rtype : 2c, 74, 0
-a0 Found reloc to: 74 (size: 8)
-Testing 74 for externality
-Offset: a0, seg_offset: 0 => 74
-Reloc Base Address: a0
+rtype : 2c, 64, 0
+90 Found reloc to: 64 (size: 8)
+Testing 64 for externality
+Offset: 90, seg_offset: 0 => 64
+Reloc Base Address: 90
 Reloc size: 8
-Testing 74 for externality
-Data Range: 70 <= 74 < d0
-Data Range: 74 - 75
+Testing 64 for externality
+Data Range: 60 <= 64 < c0
+Data Range: 64 - 65
 UNKNOWN Ref, assuming data
-rtype : 2c, 78, 0
-b8 Found reloc to: 78 (size: 8)
-Testing 78 for externality
-Offset: b8, seg_offset: 0 => 78
-Reloc Base Address: b8
+rtype : 2c, 68, 0
+a8 Found reloc to: 68 (size: 8)
+Testing 68 for externality
+Offset: a8, seg_offset: 0 => 68
+Reloc Base Address: a8
 Reloc size: 8
-Testing 78 for externality
-Data Range: 70 <= 78 < d0
-Data Range: 78 - 80
+Testing 68 for externality
+Data Range: 60 <= 68 < c0
+Data Range: 68 - 70
 Data Ref!
-Adding data seg: .data: 0x70L-0xd0L
-Looking for relocations in d8 - 110
-Found relocations in binary: (f8)..
+Adding data seg: .data: 0x60L-0xc0L
+Looking for relocations in c0 - f8
+Found relocations in binary: (e0)..
 rtype : 4, 0, 0
-f8 Found reloc to: 0 (size: 4)
+e0 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: f8, seg_offset: 0 => 0
-Reloc Base Address: f8
+Offset: e0, seg_offset: 0 => 0
+Reloc Base Address: e0
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0xd8L-0x110L
+Adding data seg: .eh_frame: 0xc0L-0xf8L
 Recovering: printdata
 Processing export name: printdata at: 0
 WARNING: Cannot determine type of function: printdata at: 0At EP printdata:0
-Testing 22 for externality
-Testing 63 for externality
-Testing 38 for externality
-Testing 4e for externality
-Testing 53 for externality
+Testing 20 for externality
+Testing 5a for externality
+Testing 33 for externality
+Testing 47 for externality
+Testing 4c for externality
 Testing 12 for externality
-BB: 63
-Starting insn at: 63
-Processing insn at 63
+BB: 5a
+Starting insn at: 5a
+Processing insn at 5a
 		Bytes: [139, 69, 248]
-Processing insn at 66
+Processing insn at 5d
 		Bytes: [93]
-Processing insn at 67
-		Bytes: [195]
-Ending insn at: 66
-BB: 53
-Successors: 12
-Starting insn at: 53
-Processing insn at 53
-		Bytes: [139, 69, 252]
-Processing insn at 56
-		Bytes: [5, 1, 0, 0, 0]
-Processing insn at 5b
-		Bytes: [137, 69, 252]
 Processing insn at 5e
-		Bytes: [233, 175, 255, 255, 255]
+		Bytes: [195]
+Ending insn at: 5d
+BB: 4c
+Successors: 12
+Starting insn at: 4c
+Processing insn at 4c
+		Bytes: [139, 69, 252]
+Processing insn at 4f
+		Bytes: [131, 192, 1]
+Processing insn at 52
+		Bytes: [137, 69, 252]
+Processing insn at 55
+		Bytes: [233, 184, 255, 255, 255]
 Checking code ref 12
 Testing 12 for externality
 INTERNAL JMP: 12
-Ending insn at: 5e
-BB: 4e
-Successors: 53
-Starting insn at: 4e
-Processing insn at 4e
+Ending insn at: 55
+BB: 47
+Successors: 4c
+Starting insn at: 47
+Processing insn at 47
 		Bytes: [233, 0, 0, 0, 0]
-Checking code ref 53
-Testing 53 for externality
-INTERNAL JMP: 53
-Ending insn at: 4e
-BB: 38
-Successors: 4e
-Starting insn at: 38
-Processing insn at 38
+Checking code ref 4c
+Testing 4c for externality
+INTERNAL JMP: 4c
+Ending insn at: 47
+BB: 33
+Successors: 47
+Starting insn at: 33
+Processing insn at 33
 		Bytes: [72, 99, 69, 252]
-Processing insn at 3c
-		Bytes: [72, 139, 4, 197, 128, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 3c to 4
-Adding reference because of data refs from 3c
-Testing 80 for externality
-		Data Ref: 80, size: 8
-Data Range: 70 <= 80 < d0
-Data Range: 80 - 88
-		Setting MEM ref at 3c: to 80 type: DATA
-Processing insn at 44
+Processing insn at 37
+		Bytes: [72, 139, 4, 197, 112, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 37 to 4
+Adding reference because of data refs from 37
+Testing 70 for externality
+		Data Ref: 70, size: 8
+Data Range: 60 <= 70 < c0
+Data Range: 70 - 78
+		Setting MEM ref at 37: to 70 type: DATA
+Processing insn at 3f
 		Bytes: [139, 8]
-Processing insn at 46
-		Bytes: [139, 85, 248]
-Processing insn at 49
-		Bytes: [1, 202]
-Processing insn at 4b
-		Bytes: [137, 85, 248]
-Ending insn at: 4b
-BB: 22
-Successors: 38, 4e
-Starting insn at: 22
-Processing insn at 22
+Processing insn at 41
+		Bytes: [3, 77, 248]
+Processing insn at 44
+		Bytes: [137, 77, 248]
+Ending insn at: 44
+BB: 20
+Successors: 33, 47
+Starting insn at: 20
+Processing insn at 20
 		Bytes: [72, 99, 69, 252]
-Processing insn at 26
-		Bytes: [72, 129, 60, 197, 128, 0, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 26 to 4
-Adding reference because of data refs from 26
-Testing 80 for externality
-		Data Ref: 80, size: 8
-Data Range: 70 <= 80 < d0
-Data Range: 80 - 88
-		Setting MEM ref at 26: to 80 type: DATA
-Processing insn at 32
-		Bytes: [15, 132, 22, 0, 0, 0]
-Checking code ref 4e
-Ending insn at: 32
+Processing insn at 24
+		Bytes: [72, 131, 60, 197, 112, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 24 to 4
+Adding reference because of data refs from 24
+Testing 70 for externality
+		Data Ref: 70, size: 8
+Data Range: 60 <= 70 < c0
+Data Range: 70 - 78
+		Setting MEM ref at 24: to 70 type: DATA
+Processing insn at 2d
+		Bytes: [15, 132, 20, 0, 0, 0]
+Checking code ref 47
+Ending insn at: 2d
 BB: 12
-Successors: 22, 63
+Successors: 20, 5a
 Starting insn at: 12
 Processing insn at 12
 		Bytes: [72, 99, 69, 252]
 Processing insn at 16
-		Bytes: [72, 61, 10, 0, 0, 0]
-Processing insn at 1c
-		Bytes: [15, 131, 65, 0, 0, 0]
-Checking code ref 63
-Ending insn at: 1c
+		Bytes: [72, 131, 248, 10]
+Processing insn at 1a
+		Bytes: [15, 131, 58, 0, 0, 0]
+Checking code ref 5a
+Ending insn at: 1a
 BB: 0
 Successors: 12
 Starting insn at: 0
@@ -155,4 +153,4 @@ Processing insn at b
 		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Ending insn at: b
 Recovered 1 functions.
-Saving to: Output/test_17.clang.cfg
+Saving to: Output/test_17.clang.ida.cfg

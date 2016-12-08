@@ -56,7 +56,7 @@ Disassembly of section .text:
 00000000000000a0 <main>:
   a0:	55                   	push   %rbp
   a1:	48 89 e5             	mov    %rsp,%rbp
-  a4:	48 83 ec 50          	sub    $0x50,%rsp
+  a4:	48 83 ec 60          	sub    $0x60,%rsp
   a8:	b8 28 00 00 00       	mov    $0x28,%eax
   ad:	89 c1                	mov    %eax,%ecx
   af:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
@@ -108,8 +108,17 @@ Disassembly of section .text:
  175:	c7 44 24 10 0a 00 00 	movl   $0xa,0x10(%rsp)
  17c:	00 
  17d:	4c 89 5c 24 18       	mov    %r11,0x18(%rsp)
- 182:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+ 182:	89 45 d0             	mov    %eax,-0x30(%rbp)
  185:	e8 76 fe ff ff       	callq  0 <foo>
- 18a:	48 83 c4 50          	add    $0x50,%rsp
- 18e:	5d                   	pop    %rbp
- 18f:	c3                   	retq   
+ 18a:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 191:	00 00 00 
+ 194:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+ 197:	8b 75 d4             	mov    -0x2c(%rbp),%esi
+ 19a:	b0 00                	mov    $0x0,%al
+ 19c:	e8 00 00 00 00       	callq  1a1 <main+0x101>
+ 1a1:	8b 4d d4             	mov    -0x2c(%rbp),%ecx
+ 1a4:	89 45 cc             	mov    %eax,-0x34(%rbp)
+ 1a7:	89 c8                	mov    %ecx,%eax
+ 1a9:	48 83 c4 60          	add    $0x60,%rsp
+ 1ad:	5d                   	pop    %rbp
+ 1ae:	c3                   	retq   

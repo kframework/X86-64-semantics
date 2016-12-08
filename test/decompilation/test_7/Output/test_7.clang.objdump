@@ -100,7 +100,7 @@ Disassembly of section .text:
  141:	48 89 e5             	mov    %rsp,%rbp
  144:	41 56                	push   %r14
  146:	53                   	push   %rbx
- 147:	48 81 ec 90 00 00 00 	sub    $0x90,%rsp
+ 147:	48 81 ec a0 00 00 00 	sub    $0xa0,%rsp
  14e:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%rbp)
  155:	c7 45 e8 01 00 00 00 	movl   $0x1,-0x18(%rbp)
  15c:	c7 45 bc 00 00 00 00 	movl   $0x0,-0x44(%rbp)
@@ -157,8 +157,17 @@ Disassembly of section .text:
  224:	4c 89 74 24 10       	mov    %r14,0x10(%rsp)
  229:	4c 89 54 24 18       	mov    %r10,0x18(%rsp)
  22e:	e8 cd fd ff ff       	callq  0 <check>
- 233:	48 81 c4 90 00 00 00 	add    $0x90,%rsp
- 23a:	5b                   	pop    %rbx
- 23b:	41 5e                	pop    %r14
- 23d:	5d                   	pop    %rbp
- 23e:	c3                   	retq   
+ 233:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 23a:	00 00 00 
+ 23d:	89 45 a0             	mov    %eax,-0x60(%rbp)
+ 240:	8b 75 a0             	mov    -0x60(%rbp),%esi
+ 243:	b0 00                	mov    $0x0,%al
+ 245:	e8 00 00 00 00       	callq  24a <main+0x10a>
+ 24a:	8b 75 a0             	mov    -0x60(%rbp),%esi
+ 24d:	89 85 7c ff ff ff    	mov    %eax,-0x84(%rbp)
+ 253:	89 f0                	mov    %esi,%eax
+ 255:	48 81 c4 a0 00 00 00 	add    $0xa0,%rsp
+ 25c:	5b                   	pop    %rbx
+ 25d:	41 5e                	pop    %r14
+ 25f:	5d                   	pop    %rbp
+ 260:	c3                   	retq   

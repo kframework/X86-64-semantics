@@ -7,14 +7,24 @@ Disassembly of section .text:
 0000000000000000 <main>:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 8d 45 f0          	lea    -0x10(%rbp),%rax
-   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-   f:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
-  13:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  17:	c7 00 01 00 00 00    	movl   $0x1,(%rax)
-  1d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  21:	c7 40 04 02 00 00 00 	movl   $0x2,0x4(%rax)
-  28:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  2c:	8b 40 04             	mov    0x4(%rax),%eax
-  2f:	5d                   	pop    %rbp
-  30:	c3                   	retq   
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+   f:	00 00 00 
+  12:	48 8d 45 f0          	lea    -0x10(%rbp),%rax
+  16:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  1d:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+  21:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  25:	c7 00 01 00 00 00    	movl   $0x1,(%rax)
+  2b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  2f:	c7 40 04 02 00 00 00 	movl   $0x2,0x4(%rax)
+  36:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  3a:	8b 70 04             	mov    0x4(%rax),%esi
+  3d:	b0 00                	mov    $0x0,%al
+  3f:	e8 00 00 00 00       	callq  44 <main+0x44>
+  44:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  48:	8b 77 04             	mov    0x4(%rdi),%esi
+  4b:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  4e:	89 f0                	mov    %esi,%eax
+  50:	48 83 c4 20          	add    $0x20,%rsp
+  54:	5d                   	pop    %rbp
+  55:	c3                   	retq   

@@ -1,6 +1,6 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
 Will lift 1 exports
-CFG Output File file: Output/test_9.clang.cfg
+CFG Output File file: Output/test_9.clang.ida.cfg
 PROCESSING: test_9.clang.o
 Recovering: start
 Processing export name: start at: 1
@@ -48,4 +48,4 @@ Processing insn at 7
 		Bytes: [49, 219]
 Ending insn at: 7
 Recovered 1 functions.
-Saving to: Output/test_9.clang.cfg
+Saving to: Output/test_9.clang.ida.cfg

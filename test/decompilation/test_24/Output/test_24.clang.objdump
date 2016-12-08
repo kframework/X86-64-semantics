@@ -107,7 +107,7 @@ Disassembly of section .text:
  193:	40 88 f9             	mov    %dil,%cl
  196:	88 4d dd             	mov    %cl,-0x23(%rbp)
  199:	0f b6 45 dd          	movzbl -0x23(%rbp),%eax
- 19d:	83 f0 ff             	xor    $0xffffffffffffffff,%eax
+ 19d:	83 f0 ff             	xor    $0xffffffff,%eax
  1a0:	83 f8 46             	cmp    $0x46,%eax
  1a3:	0f 85 0e 00 00 00    	jne    1b7 <keycomp+0x1b7>
  1a9:	8b 45 ec             	mov    -0x14(%rbp),%eax

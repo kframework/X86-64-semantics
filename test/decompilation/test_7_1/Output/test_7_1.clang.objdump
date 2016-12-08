@@ -50,6 +50,15 @@ Disassembly of section .text:
   85:	4c 8b 55 c0          	mov    -0x40(%rbp),%r10
   89:	4c 89 14 24          	mov    %r10,(%rsp)
   8d:	e8 6e ff ff ff       	callq  0 <check>
-  92:	48 83 c4 50          	add    $0x50,%rsp
-  96:	5d                   	pop    %rbp
-  97:	c3                   	retq   
+  92:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  99:	00 00 00 
+  9c:	89 45 c8             	mov    %eax,-0x38(%rbp)
+  9f:	8b 75 c8             	mov    -0x38(%rbp),%esi
+  a2:	b0 00                	mov    $0x0,%al
+  a4:	e8 00 00 00 00       	callq  a9 <main+0x79>
+  a9:	8b 4d c8             	mov    -0x38(%rbp),%ecx
+  ac:	89 45 bc             	mov    %eax,-0x44(%rbp)
+  af:	89 c8                	mov    %ecx,%eax
+  b1:	48 83 c4 50          	add    $0x50,%rsp
+  b5:	5d                   	pop    %rbp
+  b6:	c3                   	retq   

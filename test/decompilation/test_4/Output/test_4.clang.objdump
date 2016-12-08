@@ -61,7 +61,7 @@ Disassembly of section .text:
   a8:	41 55                	push   %r13
   aa:	41 54                	push   %r12
   ac:	53                   	push   %rbx
-  ad:	48 81 ec c8 00 00 00 	sub    $0xc8,%rsp
+  ad:	48 81 ec d8 00 00 00 	sub    $0xd8,%rsp
   b4:	b8 64 00 00 00       	mov    $0x64,%eax
   b9:	b9 c8 00 00 00       	mov    $0xc8,%ecx
   be:	ba 2c 01 00 00       	mov    $0x12c,%edx
@@ -71,11 +71,11 @@ Disassembly of section .text:
   d5:	41 bb 0a 00 00 00    	mov    $0xa,%r11d
   db:	48 8d 9d 70 ff ff ff 	lea    -0x90(%rbp),%rbx
   e2:	4c 8d 75 a0          	lea    -0x60(%rbp),%r14
-  e6:	49 bf 00 00 00 00 00 	mov    $0x0,%r15
+  e6:	49 bf 00 00 00 00 00 	movabs $0x0,%r15
   ed:	00 00 00 
   f0:	41 bc 28 00 00 00    	mov    $0x28,%r12d
   f6:	45 89 e5             	mov    %r12d,%r13d
-  f9:	49 bc 00 00 00 00 00 	mov    $0x0,%r12
+  f9:	49 bc 00 00 00 00 00 	movabs $0x0,%r12
  100:	00 00 00 
  103:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%rbp)
  10a:	89 7d d0             	mov    %edi,-0x30(%rbp)
@@ -83,7 +83,7 @@ Disassembly of section .text:
  111:	4c 89 f6             	mov    %r14,%rsi
  114:	48 89 f7             	mov    %rsi,%rdi
  117:	4c 89 e6             	mov    %r12,%rsi
- 11a:	89 95 6c ff ff ff    	mov    %edx,-0x94(%rbp)
+ 11a:	89 95 68 ff ff ff    	mov    %edx,-0x98(%rbp)
  120:	4c 89 ea             	mov    %r13,%rdx
  123:	4c 89 bd 60 ff ff ff 	mov    %r15,-0xa0(%rbp)
  12a:	4c 89 ad 58 ff ff ff 	mov    %r13,-0xa8(%rbp)
@@ -103,7 +103,7 @@ Disassembly of section .text:
  184:	e8 00 00 00 00       	callq  189 <main+0xe9>
  189:	8b bd 54 ff ff ff    	mov    -0xac(%rbp),%edi
  18f:	8b b5 50 ff ff ff    	mov    -0xb0(%rbp),%esi
- 195:	8b 95 6c ff ff ff    	mov    -0x94(%rbp),%edx
+ 195:	8b 95 68 ff ff ff    	mov    -0x98(%rbp),%edx
  19b:	8b 8d 44 ff ff ff    	mov    -0xbc(%rbp),%ecx
  1a1:	44 8b 85 40 ff ff ff 	mov    -0xc0(%rbp),%r8d
  1a8:	44 8b 8d 3c ff ff ff 	mov    -0xc4(%rbp),%r9d
@@ -115,11 +115,20 @@ Disassembly of section .text:
  1ca:	4c 8b b5 30 ff ff ff 	mov    -0xd0(%rbp),%r14
  1d1:	4c 89 74 24 18       	mov    %r14,0x18(%rsp)
  1d6:	e8 25 fe ff ff       	callq  0 <foo>
- 1db:	48 81 c4 c8 00 00 00 	add    $0xc8,%rsp
- 1e2:	5b                   	pop    %rbx
- 1e3:	41 5c                	pop    %r12
- 1e5:	41 5d                	pop    %r13
- 1e7:	41 5e                	pop    %r14
- 1e9:	41 5f                	pop    %r15
- 1eb:	5d                   	pop    %rbp
- 1ec:	c3                   	retq   
+ 1db:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 1e2:	00 00 00 
+ 1e5:	89 85 6c ff ff ff    	mov    %eax,-0x94(%rbp)
+ 1eb:	8b b5 6c ff ff ff    	mov    -0x94(%rbp),%esi
+ 1f1:	b0 00                	mov    $0x0,%al
+ 1f3:	e8 00 00 00 00       	callq  1f8 <main+0x158>
+ 1f8:	8b 8d 6c ff ff ff    	mov    -0x94(%rbp),%ecx
+ 1fe:	89 85 2c ff ff ff    	mov    %eax,-0xd4(%rbp)
+ 204:	89 c8                	mov    %ecx,%eax
+ 206:	48 81 c4 d8 00 00 00 	add    $0xd8,%rsp
+ 20d:	5b                   	pop    %rbx
+ 20e:	41 5c                	pop    %r12
+ 210:	41 5d                	pop    %r13
+ 212:	41 5e                	pop    %r14
+ 214:	41 5f                	pop    %r15
+ 216:	5d                   	pop    %rbp
+ 217:	c3                   	retq   

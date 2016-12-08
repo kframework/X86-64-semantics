@@ -1,6 +1,6 @@
 Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
 Will lift 1 exports
-CFG Output File file: Output/test_19.clang.cfg
+CFG Output File file: Output/test_19.clang.ida.cfg
 PROCESSING: test_19.clang.o
 Adding data seg: .data: 0x2cL-0x44L
 Looking for relocations in 2c - 44
@@ -77,4 +77,4 @@ Processing insn at 2b
 		Bytes: [195]
 Ending insn at: 2a
 Recovered 1 functions.
-Saving to: Output/test_19.clang.cfg
+Saving to: Output/test_19.clang.ida.cfg

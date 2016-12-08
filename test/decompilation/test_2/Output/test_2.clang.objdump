@@ -43,7 +43,7 @@ Disassembly of section .text:
 0000000000000070 <main>:
   70:	55                   	push   %rbp
   71:	48 89 e5             	mov    %rsp,%rbp
-  74:	48 83 ec 20          	sub    $0x20,%rsp
+  74:	48 83 ec 30          	sub    $0x30,%rsp
   78:	bf 0a 00 00 00       	mov    $0xa,%edi
   7d:	be 14 00 00 00       	mov    $0x14,%esi
   82:	ba 1e 00 00 00       	mov    $0x1e,%edx
@@ -59,8 +59,15 @@ Disassembly of section .text:
   b9:	44 89 55 f4          	mov    %r10d,-0xc(%rbp)
   bd:	89 45 f0             	mov    %eax,-0x10(%rbp)
   c0:	e8 3b ff ff ff       	callq  0 <foo>
-  c5:	89 45 f8             	mov    %eax,-0x8(%rbp)
-  c8:	8b 45 f8             	mov    -0x8(%rbp),%eax
-  cb:	48 83 c4 20          	add    $0x20,%rsp
-  cf:	5d                   	pop    %rbp
-  d0:	c3                   	retq   
+  c5:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  cc:	00 00 00 
+  cf:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  d2:	8b 75 f8             	mov    -0x8(%rbp),%esi
+  d5:	b0 00                	mov    $0x0,%al
+  d7:	e8 00 00 00 00       	callq  dc <main+0x6c>
+  dc:	8b 4d f8             	mov    -0x8(%rbp),%ecx
+  df:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  e2:	89 c8                	mov    %ecx,%eax
+  e4:	48 83 c4 30          	add    $0x30,%rsp
+  e8:	5d                   	pop    %rbp
+  e9:	c3                   	retq   

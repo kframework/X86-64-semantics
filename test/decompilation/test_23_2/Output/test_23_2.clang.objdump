@@ -662,7 +662,7 @@ Disassembly of section .text:
      b95:	48 89 84 24 68 02 00 	mov    %rax,0x268(%rsp)
      b9c:	00 
      b9d:	89 f7                	mov    %esi,%edi
-     b9f:	83 c7 9c             	add    $0xffffffffffffff9c,%edi
+     b9f:	83 c7 9c             	add    $0xffffff9c,%edi
      ba2:	41 89 f8             	mov    %edi,%r8d
      ba5:	41 31 f0             	xor    %esi,%r8d
      ba8:	45 89 c1             	mov    %r8d,%r9d
@@ -1125,7 +1125,7 @@ Disassembly of section .text:
     12c6:	00 
     12c7:	89 c1                	mov    %eax,%ecx
     12c9:	89 ca                	mov    %ecx,%edx
-    12cb:	83 c2 9c             	add    $0xffffffffffffff9c,%edx
+    12cb:	83 c2 9c             	add    $0xffffff9c,%edx
     12ce:	89 d6                	mov    %edx,%esi
     12d0:	31 ce                	xor    %ecx,%esi
     12d2:	89 f7                	mov    %esi,%edi
@@ -1246,7 +1246,7 @@ Disassembly of section .text:
     1476:	89 50 fc             	mov    %edx,-0x4(%rax)
     1479:	e9 5e f6 ff ff       	jmpq   adc <sub_4004ed+0xadc>
     147e:	8b 44 24 84          	mov    -0x7c(%rsp),%eax
-    1482:	83 c0 9f             	add    $0xffffffffffffff9f,%eax
+    1482:	83 c0 9f             	add    $0xffffff9f,%eax
     1485:	89 c1                	mov    %eax,%ecx
     1487:	8b 54 24 84          	mov    -0x7c(%rsp),%edx
     148b:	31 d1                	xor    %edx,%ecx
@@ -1303,7 +1303,7 @@ Disassembly of section .text:
     1543:	0f 85 65 fe ff ff    	jne    13ae <sub_4004ed+0x13ae>
     1549:	e9 1a f7 ff ff       	jmpq   c68 <sub_4004ed+0xc68>
     154e:	8b 44 24 84          	mov    -0x7c(%rsp),%eax
-    1552:	83 c0 8d             	add    $0xffffffffffffff8d,%eax
+    1552:	83 c0 8d             	add    $0xffffff8d,%eax
     1555:	89 c1                	mov    %eax,%ecx
     1557:	8b 54 24 84          	mov    -0x7c(%rsp),%edx
     155b:	31 d1                	xor    %edx,%ecx
@@ -1362,7 +1362,7 @@ Disassembly of section .text:
     1620:	00 
     1621:	89 c1                	mov    %eax,%ecx
     1623:	89 ca                	mov    %ecx,%edx
-    1625:	83 c2 89             	add    $0xffffffffffffff89,%edx
+    1625:	83 c2 89             	add    $0xffffff89,%edx
     1628:	89 d6                	mov    %edx,%esi
     162a:	31 ce                	xor    %ecx,%esi
     162c:	89 f7                	mov    %esi,%edi

@@ -89,7 +89,7 @@ Testing d0 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at 2a to 1
 Processing insn at 2f
-		Bytes: [137, 69, 240]
+		Bytes: [137, 69, 244]
 Processing insn at 32
 		Bytes: [139, 69, 248]
 Processing insn at 35

@@ -4,23 +4,15 @@ Output/test_22.clang.o:     file format elf64-x86-64
 
 Disassembly of section .text:
 
-0000000000000000 <foo>:
+0000000000000000 <timespi>:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
-   4:	5d                   	pop    %rbp
-   5:	c3                   	retq   
-   6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
-   d:	00 00 00 
-
-0000000000000010 <timespi>:
-  10:	55                   	push   %rbp
-  11:	48 89 e5             	mov    %rsp,%rbp
-  14:	db 6d 10             	fldt   0x10(%rbp)
-  17:	db 7d f0             	fstpt  -0x10(%rbp)
-  1a:	dd 05 00 00 00 00    	fldl   0x0(%rip)        # 20 <timespi+0x10>
-  20:	db 7d e0             	fstpt  -0x20(%rbp)
-  23:	db 6d f0             	fldt   -0x10(%rbp)
-  26:	db 6d e0             	fldt   -0x20(%rbp)
-  29:	de c9                	fmulp  %st,%st(1)
-  2b:	5d                   	pop    %rbp
-  2c:	c3                   	retq   
+   4:	db 6d 10             	fldt   0x10(%rbp)
+   7:	db 7d f0             	fstpt  -0x10(%rbp)
+   a:	dd 05 00 00 00 00    	fldl   0x0(%rip)        # 10 <timespi+0x10>
+  10:	db 7d e0             	fstpt  -0x20(%rbp)
+  13:	db 6d f0             	fldt   -0x10(%rbp)
+  16:	db 6d e0             	fldt   -0x20(%rbp)
+  19:	de c9                	fmulp  %st,%st(1)
+  1b:	5d                   	pop    %rbp
+  1c:	c3                   	retq   
