@@ -1,0 +1,61 @@
+Looking up target...
+Reading module ...
+ TT x86-64 : x86_64-unknown-unknown 
+Deserializing functions...
+set_ref_reloc_type: Adding  ref: MEM, to: 70, ro: 0, rt: DATA
+set_ref_reloc_type: Adding  ref: MEM, to: 70, ro: 0, rt: DATA
+Deserializing data...
+Deserializing symbol at: 1b0, dta_0x60L, 8
+cur_pos: 60
+dse_base: 1b0
+new_cur_pos: 1b8
+Deserializing symbol at: 1c8, dta_0x64L, 8
+cur_pos: 1b8
+dse_base: 1c8
+new_cur_pos: 1d0
+Deserializing symbol at: 1e8, dta_0x68L, 8
+cur_pos: 1d0
+dse_base: 1e8
+new_cur_pos: 1f0
+Deserializing symbol at: 270, dta_0x60L, 8
+cur_pos: 1f0
+dse_base: 270
+new_cur_pos: 278
+Deserializing symbol at: 288, dta_0x64L, 8
+cur_pos: 278
+dse_base: 288
+new_cur_pos: 290
+Deserializing symbol at: 2a8, dta_0x68L, 8
+cur_pos: 290
+dse_base: 2a8
+new_cur_pos: 2b0
+Deserializing data...
+Deserializing symbol at: 3d0, sub_0x0L, 4
+cur_pos: 3b0
+dse_base: 3d0
+new_cur_pos: 3d4
+Creating module...
+Setting target...
+Done setting target
+Adding external funcs...
+Adding external data...
+Adding internal data...
+Adding Offset Tables...
+Adding entry points...
+Returning modue...
+Setting initial triples...
+Getting LLVM module...
+Converting to LLVM...
+Inserted function: sub_0
+inserting global data section named data_0x60
+inserting global data section named data_0x3b0
+dataSectionToTypesContents: Found symbol: dta_0x60L
+dataSectionToTypesContents: Found symbol: dta_0x64L
+dataSectionToTypesContents: Found symbol: dta_0x68L
+dataSectionToTypesContents: Found symbol: dta_0x60L
+dataSectionToTypesContents: Found symbol: dta_0x64L
+dataSectionToTypesContents: Found symbol: dta_0x68L
+dataSectionToTypesContents: Found symbol: sub_0x0L
+Adding entry point: printdata
+printdata is implemented by sub_0
+NOT doing post analysis passes.

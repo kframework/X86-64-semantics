@@ -1,0 +1,66 @@
+Looking up target...
+Reading module ...
+ TT x86-64 : x86_64-unknown-unknown 
+Deserializing externs...
+Deserializing externs...
+Deserializing externs...
+Deserializing functions...
+Deserializing data...
+Deserializing symbol at: 440, sub_0x0L, 4
+cur_pos: 420
+dse_base: 440
+new_cur_pos: 444
+Creating module...
+Setting target...
+Done setting target
+Adding external funcs...
+Adding external data...
+Adding internal data...
+Adding Offset Tables...
+Adding entry points...
+Returning modue...
+Setting initial triples...
+Getting LLVM module...
+Converting to LLVM...
+Inserted function: sub_0
+inserting global data section named data_0x420
+translate_CALLpcrel32: function is: strlen, cc is: 0
+dataSectionToTypesContents: Found symbol: sub_0x0L
+doCallPCExtern paramCount  : 1 : strlen
+1 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+translate_CALLpcrel32: function is: read_bytes, cc is: 0
+doCallPCExtern paramCount  : 3 : read_bytes
+3 : 1bf9690
+translate_CALLpcrel32: function is: read_bytes, cc is: 0
+doCallPCExtern paramCount  : 3 : read_bytes
+3 : 1bf9690
+translate_CALLpcrel32: function is: read_bytes, cc is: 0
+doCallPCExtern paramCount  : 3 : read_bytes
+3 : 1bf9690
+translate_CALLpcrel32: function is: read_bytes, cc is: 0
+doCallPCExtern paramCount  : 3 : read_bytes
+3 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+translate_CALLpcrel32: function is: to_byte, cc is: 0
+doCallPCExtern paramCount  : 1 : to_byte
+1 : 1bf9690
+Adding entry point: keycomp
+keycomp is implemented by sub_0
+NOT doing post analysis passes.
