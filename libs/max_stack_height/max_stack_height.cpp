@@ -84,6 +84,32 @@ void max_stack_height::perform_dfa() {
   *             xbp (option == false)
 ********************************************************************/
 Value *max_stack_height::get_init_xsp_or_rsp(Function *F, bool option) {
+
+  std::string gep_name("");
+  if(option) {
+    gep_name = "XSP";
+  } else {
+    gep_name = "XBP";
+  }
+
+  BasicBlock *EB = &(F->getEntryBlock());
+  GetElementPtrInst *gep_inst = NULL;
+  for (auto &I : *EB) {
+    if (NULL != (gep_inst = dyn_cast<GetElementPtrInst>(&I))) {
+      StringRef str = gep_inst->getName();
+      if(str.empty()) {
+        continue;
+      }
+
+      if(str.equals(gep_name)) {
+        return gep_inst;
+      }
+    }
+  }
+
+  //The following imlmentations is based on recognizing xsp, xbp based on 
+  // the offsets of geps
+  /*
   int expected_value_1 = 0 ;
   int expected_value_2 = 0 ;
   if(option) {
@@ -107,6 +133,7 @@ Value *max_stack_height::get_init_xsp_or_rsp(Function *F, bool option) {
       }
     }
   }
+  */
 
   return NULL;
 }
@@ -121,15 +148,13 @@ bool max_stack_height::initialize_framework() {
   llvm_alloca_inst_rsp = get_init_xsp_or_rsp(Func, true);
   llvm_alloca_inst_rbp = get_init_xsp_or_rsp(Func, false);
 
-  // If bot are not found then return as max stack height cannot be detdermined
+  // If both are not found then return as max stack height cannot be detdermined
   if (NULL == llvm_alloca_inst_rsp && NULL == llvm_alloca_inst_rbp) {
     DEBUG(errs() << "Cannot find init rsp / rbp\n");
     return false;
   }
 
-  if(NULL == llvm_alloca_inst_rsp) {
-    llvm_alloca_inst_rsp = new value(); 
-  }
+  assert((llvm_alloca_inst_rsp && llvm_alloca_inst_rbp) && "Max Stack height: One of llvm_alloca_inst_rsp or llvm_alloca_inst_rbp is null\n");
 
   // Allocates the data values to each BB.
   for (Function::iterator BB = Func->begin(), E = Func->end(); BB != E; ++BB) {

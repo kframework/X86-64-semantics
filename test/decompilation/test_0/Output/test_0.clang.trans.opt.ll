@@ -163,7 +163,7 @@ entry:
   store i64 %54, i64* %XSP, align 8, !mcsema_real_eip !16
   %56 = tail call x86_64_sysvcc i64 @_printf(i64 %RDI_val.15, i64 %36, i64 %RDX_val.17, i64 %RCX_val.18, i64 %R8_val.19, i64 %R9_val.20, i64 %38, i64 %41, i64 %44, i64 %47, i64 %50, i64 %53), !mcsema_real_eip !16
   store i64 %56, i64* %XAX, align 8, !mcsema_real_eip !16
-  %RBP_val.23 = load i64, i64* %XBP, align 8, !mcsema_real_eip !17
+  %RBP_val.23 = load i64, i64* %XBP, align 8
   %57 = add i64 %RBP_val.23, -24, !mcsema_real_eip !17
   %58 = inttoptr i64 %57 to i64*, !mcsema_real_eip !17
   %59 = load i64, i64* %58, align 8, !mcsema_real_eip !17

@@ -27,13 +27,13 @@ inserting global data section named data_0xc8
 translate_CALLpcrel32: function is: strlen, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : strlen
-1 : 3276690
+1 : 172b690
 translate_CALLpcrel32: function is: malloc, cc is: 0
 doCallPCExtern paramCount  : 1 : malloc
-1 : 3276690
+1 : 172b690
 translate_CALLpcrel32: function is: memset, cc is: 0
 doCallPCExtern paramCount  : 3 : memset
-3 : 3276690
+3 : 172b690
 Adding entry point: doTrans
 doTrans is implemented by sub_0
 NOT doing post analysis passes.

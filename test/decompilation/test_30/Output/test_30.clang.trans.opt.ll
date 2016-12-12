@@ -100,7 +100,7 @@ entry:
   %17 = inttoptr i64 %16 to i64*, !mcsema_real_eip !6
   %RDI_val.5 = load i64, i64* %XDI, align 8, !mcsema_real_eip !6
   store i64 %RDI_val.5, i64* %17, align 8, !mcsema_real_eip !6
-  %18 = load i64, i64* bitcast ([8 x i8]* @stderr to i64*), align 8, !mcsema_real_eip !7
+  %18 = load i64, i64* bitcast ([8 x i8]* @stderr to i64*), align 8
   store i64 %18, i64* %XDI, align 8, !mcsema_real_eip !7
   %RBP_val.6 = load i64, i64* %XBP, align 8, !mcsema_real_eip !8
   %19 = add i64 %RBP_val.6, -8, !mcsema_real_eip !8

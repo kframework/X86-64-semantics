@@ -37,7 +37,7 @@ entry:
   %OF_full = getelementptr %RegState, %RegState* %0, i64 0, i32 14, !mcsema_real_eip !2
   %OF = bitcast i8* %OF_full to i1*, !mcsema_real_eip !2
   %EAX.0 = bitcast i64* %XAX to i32*, !mcsema_real_eip !2
-  %EAX_val.1 = load i32, i32* %EAX.0, align 4, !mcsema_real_eip !2
+  %EAX_val.1 = load i32, i32* %EAX.0, align 4
   %1 = zext i32 %EAX_val.1 to i64, !mcsema_real_eip !2
   store i64 %1, i64* %XCX, align 8, !mcsema_real_eip !2
   store i64 1, i64* %XAX, align 8, !mcsema_real_eip !3

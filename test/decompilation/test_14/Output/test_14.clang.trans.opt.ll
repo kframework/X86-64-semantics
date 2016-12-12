@@ -102,7 +102,7 @@ entry:
   %19 = inttoptr i64 %18 to i64*, !mcsema_real_eip !7
   %RAX_val.7 = load i64, i64* %XAX, align 8, !mcsema_real_eip !7
   store i64 %RAX_val.7, i64* %19, align 8, !mcsema_real_eip !7
-  %RBP_val.8 = load i64, i64* %XBP, align 8, !mcsema_real_eip !8
+  %RBP_val.8 = load i64, i64* %XBP, align 8
   %20 = add i64 %RBP_val.8, -8, !mcsema_real_eip !8
   %21 = inttoptr i64 %20 to i64*, !mcsema_real_eip !8
   %22 = load i64, i64* %21, align 8, !mcsema_real_eip !8

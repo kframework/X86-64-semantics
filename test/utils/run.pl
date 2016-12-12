@@ -82,7 +82,7 @@ my $GCC_ARCH="";
 my $BIN_ARCH="";
 my $CFGBC_ARCH="";
 my $loadso="${ALLIN_HOME}/build/lib/LLVMstack_deconstructor.so";
-my $OPTSWITCH="-early-cse-memssa -ssh" ;
+my $OPTSWITCH="-constprop -ssh" ;
 #my $OPTSWITCH="-stack-decons -mem2reg -dce  -early-cse-memssa";
 #my $OPTSWITCH="-stack-decons -debug-only=\"stack_deconstructor\"";
 

@@ -64,14 +64,16 @@ entry:
   store i32 0, i32* %4, align 4, !mcsema_real_eip !4
   %RBP_val.4 = load i64, i64* %XBP, align 8, !mcsema_real_eip !5
   %5 = add i64 %RBP_val.4, -4, !mcsema_real_eip !5
-  %6 = inttoptr i64 %5 to i32*, !mcsema_real_eip !5
-  store i32 0, i32* %6, align 4, !mcsema_real_eip !5
   br label %block_0x12, !mcsema_real_eip !6
 
 block_0x12:                                       ; preds = %block_0x4c, %entry
-  %RBP_val.5 = load i64, i64* %XBP, align 8, !mcsema_real_eip !6
-  %7 = add i64 %RBP_val.5, -4, !mcsema_real_eip !6
-  %8 = inttoptr i64 %7 to i32*, !mcsema_real_eip !6
+  %.sink.in = phi i64 [ %75, %block_0x4c ], [ %5, %entry ]
+  %EAX_val.26.sink = phi i32 [ %78, %block_0x4c ], [ 0, %entry ]
+  %6 = inttoptr i64 %.sink.in to i32*
+  store i32 %EAX_val.26.sink, i32* %6, align 4
+  %RBP_val.5 = load i64, i64* %XBP, align 8
+  %7 = add i64 %RBP_val.5, -4
+  %8 = inttoptr i64 %7 to i32*
   %9 = load i32, i32* %8, align 4, !mcsema_real_eip !6
   %10 = sext i32 %9 to i64, !mcsema_real_eip !6
   store i64 %10, i64* %XAX, align 8, !mcsema_real_eip !6
@@ -151,8 +153,8 @@ block_0x33:                                       ; preds = %block_0x20
   %53 = load i32, i32* %52, align 4, !mcsema_real_eip !17
   %54 = zext i32 %53 to i64, !mcsema_real_eip !17
   store i64 %54, i64* %XCX, align 8, !mcsema_real_eip !17
-  %55 = add i64 %RBP_val.5, -8, !mcsema_real_eip !18
-  %56 = inttoptr i64 %55 to i32*, !mcsema_real_eip !18
+  %55 = add i64 %RBP_val.5, -8
+  %56 = inttoptr i64 %55 to i32*
   %57 = load i32, i32* %56, align 4, !mcsema_real_eip !18
   %58 = add i32 %53, %57, !mcsema_real_eip !18
   %59 = xor i32 %58, %57, !mcsema_real_eip !18
@@ -184,7 +186,7 @@ block_0x33:                                       ; preds = %block_0x20
 
 block_0x4c:                                       ; preds = %block_0x20, %block_0x33
   %RBP_val.21 = phi i64 [ %RBP_val.5, %block_0x20 ], [ %RBP_val.21.pre, %block_0x33 ]
-  %75 = add i64 %RBP_val.21, -4, !mcsema_real_eip !20
+  %75 = add i64 %RBP_val.21, -4
   %76 = inttoptr i64 %75 to i32*, !mcsema_real_eip !20
   %77 = load i32, i32* %76, align 4, !mcsema_real_eip !20
   %78 = add i32 %77, 1, !mcsema_real_eip !21
@@ -209,8 +211,7 @@ block_0x4c:                                       ; preds = %block_0x20, %block_
   store i1 %91, i1* %CF, align 1, !mcsema_real_eip !21
   %92 = zext i32 %78 to i64, !mcsema_real_eip !21
   store i64 %92, i64* %XAX, align 8, !mcsema_real_eip !21
-  store i32 %78, i32* %76, align 4, !mcsema_real_eip !22
-  br label %block_0x12, !mcsema_real_eip !23
+  br label %block_0x12, !mcsema_real_eip !22
 }
 
 ; Function Attrs: nounwind readnone
@@ -243,5 +244,4 @@ attributes #1 = { nounwind readnone }
 !19 = !{i64 68}
 !20 = !{i64 76}
 !21 = !{i64 79}
-!22 = !{i64 82}
-!23 = !{i64 85}
+!22 = !{i64 85}

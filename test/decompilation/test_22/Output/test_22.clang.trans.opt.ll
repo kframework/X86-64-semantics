@@ -88,10 +88,10 @@ fpu_read_continue:                                ; preds = %fpu_write, %fpu_rea
   store i1 false, i1* %FPU_FLAG_C1, align 1
   %22 = inttoptr i64 %14 to x86_fp80*
   store x86_fp80 %fpu_switch_phinode, x86_fp80* %22, align 16, !mcsema_real_eip !5
-  %23 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !5
+  %23 = load i3, i3* %FPU_FLAG_TOP, align 1
   %24 = zext i3 %23 to i64
   %25 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %24
-  %26 = bitcast i8* %25 to i2*, !mcsema_real_eip !5
+  %26 = bitcast i8* %25 to i2*
   store i2 -1, i2* %26, align 1, !mcsema_real_eip !5
   %27 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %24
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !6
@@ -117,14 +117,14 @@ fpu_read_continue7:                               ; preds = %fpu_read_continue, 
   store i1 false, i1* %FPU_FLAG_C1, align 1
   %36 = inttoptr i64 %28 to x86_fp80*
   store x86_fp80 %fpu_switch_phinode8, x86_fp80* %36, align 16, !mcsema_real_eip !7
-  %37 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !7
+  %37 = load i3, i3* %FPU_FLAG_TOP, align 1
   %38 = zext i3 %37 to i64
   %39 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %38
-  %40 = bitcast i8* %39 to i2*, !mcsema_real_eip !7
+  %40 = bitcast i8* %39 to i2*
   store i2 -1, i2* %40, align 1, !mcsema_real_eip !7
   %41 = add i3 %37, 1, !mcsema_real_eip !7
   store i3 %41, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !7
-  %RBP_val.6 = load i64, i64* %XBP, align 8, !mcsema_real_eip !8
+  %RBP_val.6 = load i64, i64* %XBP, align 8
   %42 = add i64 %RBP_val.6, -16, !mcsema_real_eip !8
   %43 = inttoptr i64 %42 to x86_fp80*
   %44 = load x86_fp80, x86_fp80* %43, align 16, !mcsema_real_eip !8
@@ -160,7 +160,7 @@ fpu_write14:                                      ; preds = %fpu_exception15, %f
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !9
   store i2 0, i2* %56, align 1, !mcsema_real_eip !9
   store x86_fp80 %50, x86_fp80* %54, align 16, !mcsema_real_eip !9
-  %59 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
+  %59 = load i3, i3* %FPU_FLAG_TOP, align 1
   %60 = zext i3 %59 to i64
   %61 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %60
   %62 = bitcast i8* %61 to i2*, !mcsema_real_eip !10
@@ -180,10 +180,10 @@ fpu_read_normal17:                                ; preds = %fpu_write14
 fpu_read_continue19:                              ; preds = %fpu_write14, %fpu_read_normal17
   %fpu_switch_phinode20 = phi x86_fp80 [ %65, %fpu_read_normal17 ], [ 0xK00000000000000000000, %fpu_write14 ], !mcsema_real_eip !10
   store i1 false, i1* %FPU_FLAG_C1, align 1
-  %66 = add i3 %59, 1, !mcsema_real_eip !10
+  %66 = add i3 %59, 1
   %67 = zext i3 %66 to i64
   %68 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %67
-  %69 = bitcast i8* %68 to i2*, !mcsema_real_eip !10
+  %69 = bitcast i8* %68 to i2*
   %70 = load i2, i2* %69, align 1, !mcsema_real_eip !10
   %switch = icmp eq i2 %70, -1
   %.pre = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %67
@@ -199,7 +199,7 @@ fpu_read_continue23:                              ; preds = %fpu_read_continue19
   store i2 0, i2* %69, align 1, !mcsema_real_eip !10
   store x86_fp80 %72, x86_fp80* %.pre, align 16, !mcsema_real_eip !10
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !10
-  %73 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
+  %73 = load i3, i3* %FPU_FLAG_TOP, align 1
   %74 = zext i3 %73 to i64
   %75 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %74
   %76 = bitcast i8* %75 to i2*, !mcsema_real_eip !10

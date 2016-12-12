@@ -117,8 +117,8 @@ entry:
 
 block_0x20:                                       ; preds = %block_0x76, %entry
   %RBP_val.10 = load i64, i64* %XBP, align 8, !mcsema_real_eip !9
-  %23 = add i64 %RBP_val.10, -8, !mcsema_real_eip !9
-  %24 = inttoptr i64 %23 to i32*, !mcsema_real_eip !9
+  %23 = add i64 %RBP_val.10, -8
+  %24 = inttoptr i64 %23 to i32*
   %25 = load i32, i32* %24, align 4, !mcsema_real_eip !9
   %26 = add i32 %25, -1
   %27 = xor i32 %26, %25, !mcsema_real_eip !9
@@ -210,9 +210,9 @@ block_0x84:                                       ; preds = %block_0x20
   br label %block_0xa4, !mcsema_real_eip !11
 
 block_0xa4:                                       ; preds = %block_0x6a, %block_0x84
-  %.sink2 = phi i64 [ %107, %block_0x6a ], [ %74, %block_0x84 ]
+  %.sink3.in = phi i64 [ %107, %block_0x6a ], [ %74, %block_0x84 ]
   %.sink = phi i32 [ 1, %block_0x6a ], [ %EAX_val.18, %block_0x84 ]
-  %75 = inttoptr i64 %.sink2 to i32*
+  %75 = inttoptr i64 %.sink3.in to i32*
   store i32 %.sink, i32* %75, align 4
   %RBP_val.33 = load i64, i64* %XBP, align 8, !mcsema_real_eip !23
   %76 = add i64 %RBP_val.33, -4, !mcsema_real_eip !23
@@ -282,8 +282,8 @@ block_0x6a:                                       ; preds = %block_0x2a, %block_
   ret void, !mcsema_real_eip !29
 
 block_0x76:                                       ; preds = %block_0x48, %block_0x48, %block_0x48, %block_0x48
-  %109 = add i64 %RBP_val.37, -8, !mcsema_real_eip !32
-  %110 = inttoptr i64 %109 to i32*, !mcsema_real_eip !32
+  %109 = add i64 %RBP_val.37, -8
+  %110 = inttoptr i64 %109 to i32*
   %111 = load i32, i32* %110, align 4, !mcsema_real_eip !32
   %112 = add i32 %111, 1, !mcsema_real_eip !33
   %113 = xor i32 %112, %111, !mcsema_real_eip !33

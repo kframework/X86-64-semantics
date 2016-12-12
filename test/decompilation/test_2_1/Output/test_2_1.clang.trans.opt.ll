@@ -273,7 +273,7 @@ entry:
   %EAX_val.63 = load i32, i32* %EAX.62, align 4, !mcsema_real_eip !34
   %26 = inttoptr i64 %25 to i32*, !mcsema_real_eip !34
   store i32 %EAX_val.63, i32* %26, align 4, !mcsema_real_eip !34
-  %RBP_val.64 = load i64, i64* %XBP, align 8, !mcsema_real_eip !35
+  %RBP_val.64 = load i64, i64* %XBP, align 8
   %27 = add i64 %RBP_val.64, -28, !mcsema_real_eip !35
   %28 = inttoptr i64 %27 to i32*, !mcsema_real_eip !35
   %29 = load i32, i32* %28, align 4, !mcsema_real_eip !35
