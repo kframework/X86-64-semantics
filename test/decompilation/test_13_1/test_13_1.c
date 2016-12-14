@@ -1,4 +1,4 @@
-void checkFn() {
+void __attribute__((noinline)) checkFn() {
 }
 
 int doWork() {
