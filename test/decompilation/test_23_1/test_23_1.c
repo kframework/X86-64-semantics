@@ -2,32 +2,36 @@
 #include <stdio.h>
 #include <unistd.h>
 
+// ssss dddd ww aa ww dddd ssss dd wwww
+// ssssssss dddddddddd wwwwwww aa
+//   8        10             7  2
 int
 main ()
 {
 	int i = 0;    //Iteration number
-	char program[1]  = "w";
-	while(i < 1)
+        int res = 0;
+	char program[]  = "ssssdddd";
+	while(i < 8)
 	{
 		switch (program[i])
 		{
 			case 'w':
-                                i = i + 1;
+                                res = res + 1;
 				break;
 			case 's':
-                                i = i + 2;
+                                res = res + 2;
 				break;
 			case 'a':
-                                i = i - 2;
+                                res = res - 2;
 				break;
 			case 'd':
-                                i = i - 1;
+                                res = res - 1;
 				break;
 			default:
                                 return 1;
 		}
 		i++;
 	}
-        printf("%d\n", i);
+        printf("%d\n", res);
         return 1;
 }
