@@ -15,7 +15,10 @@ Disassembly of section .text:
 0000000000000010 <doWork>:
   10:	55                   	push   %rbp
   11:	48 89 e5             	mov    %rsp,%rbp
-  14:	c7 45 fc 02 00 00 00 	movl   $0x2,-0x4(%rbp)
-  1b:	8b 45 fc             	mov    -0x4(%rbp),%eax
-  1e:	5d                   	pop    %rbp
-  1f:	c3                   	retq   
+  14:	48 83 ec 10          	sub    $0x10,%rsp
+  18:	c7 45 fc 02 00 00 00 	movl   $0x2,-0x4(%rbp)
+  1f:	e8 dc ff ff ff       	callq  0 <checkFn>
+  24:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  27:	48 83 c4 10          	add    $0x10,%rsp
+  2b:	5d                   	pop    %rbp
+  2c:	c3                   	retq   
