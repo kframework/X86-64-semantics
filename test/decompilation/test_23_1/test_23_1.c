@@ -12,18 +12,22 @@ main ()
 		switch (program[i])
 		{
 			case 'w':
+                                i = i + 1;
 				break;
 			case 's':
+                                i = i + 2;
 				break;
 			case 'a':
+                                i = i - 2;
 				break;
 			case 'd':
+                                i = i - 1;
 				break;
 			default:
                                 return 1;
 		}
 		i++;
 	}
-        printf("%d\n", 1);
+        printf("%d\n", i);
         return 1;
 }

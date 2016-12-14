@@ -3,10 +3,6 @@ Will lift 1 exports
 CFG Output File file: Output/test_23_1.clang.ida.cfg
 PROCESSING: test_23_1.clang.o
 Found a jmp based switch at: 54
-Address accessed via JMP: b0
-Address accessed via JMP: b8
-Address accessed via JMP: c0
-Address accessed via JMP: c8
 Address accessed via JMP: d0
 Address accessed via JMP: d8
 Address accessed via JMP: e0
@@ -26,281 +22,309 @@ Address accessed via JMP: 148
 Address accessed via JMP: 150
 Address accessed via JMP: 158
 Address accessed via JMP: 160
-Adding data seg: .rodata: 0xb0L-0x169L
-Adding data seg: .rodata.str1.1: 0x169L-0x16dL
-Adding data seg: .eh_frame: 0x170L-0x1a8L
-Looking for relocations in b0 - 169
-Found relocations in binary: (b0)..
-rtype : c, 60, 0
-b0 Found reloc to: 60 (size: 8)
-Testing 60 for externality
-		NOT ADDING REF: 000000b0 -> 00000060
-rtype : c, 6a, 0
-b8 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000b8 -> 0000006a
-rtype : c, 6a, 0
-c0 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000c0 -> 0000006a
-rtype : c, 65, 0
-c8 Found reloc to: 65 (size: 8)
-Testing 65 for externality
-		NOT ADDING REF: 000000c8 -> 00000065
-rtype : c, 6a, 0
-d0 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000d0 -> 0000006a
-rtype : c, 6a, 0
-d8 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000d8 -> 0000006a
-rtype : c, 6a, 0
-e0 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000e0 -> 0000006a
-rtype : c, 6a, 0
-e8 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000e8 -> 0000006a
-rtype : c, 6a, 0
-f0 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000f0 -> 0000006a
-rtype : c, 6a, 0
-f8 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 000000f8 -> 0000006a
-rtype : c, 6a, 0
-100 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000100 -> 0000006a
-rtype : c, 6a, 0
-108 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000108 -> 0000006a
-rtype : c, 6a, 0
-110 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000110 -> 0000006a
-rtype : c, 6a, 0
-118 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000118 -> 0000006a
-rtype : c, 6a, 0
-120 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000120 -> 0000006a
-rtype : c, 6a, 0
-128 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000128 -> 0000006a
-rtype : c, 6a, 0
-130 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000130 -> 0000006a
-rtype : c, 6a, 0
-138 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000138 -> 0000006a
-rtype : c, 5b, 0
-140 Found reloc to: 5b (size: 8)
-Testing 5b for externality
-		NOT ADDING REF: 00000140 -> 0000005b
-rtype : c, 6a, 0
-148 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000148 -> 0000006a
-rtype : c, 6a, 0
-150 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000150 -> 0000006a
-rtype : c, 6a, 0
-158 Found reloc to: 6a (size: 8)
-Testing 6a for externality
-		NOT ADDING REF: 00000158 -> 0000006a
+Address accessed via JMP: 168
+Address accessed via JMP: 170
+Address accessed via JMP: 178
+Address accessed via JMP: 180
+Adding data seg: .rodata: 0xd0L-0x189L
+Adding data seg: .rodata.str1.1: 0x189L-0x18dL
+Adding data seg: .eh_frame: 0x190L-0x1c8L
+Looking for relocations in d0 - 189
+Found relocations in binary: (d0)..
+rtype : c, 72, 0
+d0 Found reloc to: 72 (size: 8)
+Testing 72 for externality
+		NOT ADDING REF: 000000d0 -> 00000072
+rtype : c, 8e, 0
+d8 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 000000d8 -> 0000008e
+rtype : c, 8e, 0
+e0 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 000000e0 -> 0000008e
+rtype : c, 80, 0
+e8 Found reloc to: 80 (size: 8)
+Testing 80 for externality
+		NOT ADDING REF: 000000e8 -> 00000080
+rtype : c, 8e, 0
+f0 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 000000f0 -> 0000008e
+rtype : c, 8e, 0
+f8 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 000000f8 -> 0000008e
+rtype : c, 8e, 0
+100 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000100 -> 0000008e
+rtype : c, 8e, 0
+108 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000108 -> 0000008e
+rtype : c, 8e, 0
+110 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000110 -> 0000008e
+rtype : c, 8e, 0
+118 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000118 -> 0000008e
+rtype : c, 8e, 0
+120 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000120 -> 0000008e
+rtype : c, 8e, 0
+128 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000128 -> 0000008e
+rtype : c, 8e, 0
+130 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000130 -> 0000008e
+rtype : c, 8e, 0
+138 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000138 -> 0000008e
+rtype : c, 8e, 0
+140 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000140 -> 0000008e
+rtype : c, 8e, 0
+148 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000148 -> 0000008e
+rtype : c, 8e, 0
+150 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000150 -> 0000008e
+rtype : c, 8e, 0
+158 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000158 -> 0000008e
+rtype : c, 64, 0
+160 Found reloc to: 64 (size: 8)
+Testing 64 for externality
+		NOT ADDING REF: 00000160 -> 00000064
+rtype : c, 8e, 0
+168 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000168 -> 0000008e
+rtype : c, 8e, 0
+170 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000170 -> 0000008e
+rtype : c, 8e, 0
+178 Found reloc to: 8e (size: 8)
+Testing 8e for externality
+		NOT ADDING REF: 00000178 -> 0000008e
 rtype : c, 56, 0
-160 Found reloc to: 56 (size: 8)
+180 Found reloc to: 56 (size: 8)
 Testing 56 for externality
-		NOT ADDING REF: 00000160 -> 00000056
-Adding data seg: .rodata: 0xb0L-0x169L
-Looking for relocations in 169 - 16d
+		NOT ADDING REF: 00000180 -> 00000056
+Adding data seg: .rodata: 0xd0L-0x189L
+Looking for relocations in 189 - 18d
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.str1.1: 0x169L-0x16dL
-Looking for relocations in 170 - 1a8
-Found relocations in binary: (190)..
+Adding data seg: .rodata.str1.1: 0x189L-0x18dL
+Looking for relocations in 190 - 1c8
+Found relocations in binary: (1b0)..
 rtype : 4, 0, 0
-190 Found reloc to: 0 (size: 4)
+1b0 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 190, seg_offset: 0 => 0
-Reloc Base Address: 190
+Offset: 1b0, seg_offset: 0 => 0
+Reloc Base Address: 1b0
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0x170L-0x1a8L
+Adding data seg: .eh_frame: 0x190L-0x1c8L
 Recovering: main
 Processing export name: main at: 0
 At EP main:0
 Testing 2a for externality
-Testing 84 for externality
+Testing a8 for externality
 Testing 48 for externality
-Testing 6a for externality
-Testing a4 for externality
+Testing 8e for externality
+Testing c6 for externality
 Testing 56 for externality
-Testing 5b for externality
-Testing 60 for externality
-Testing 65 for externality
-Testing 6a for externality
-Testing 76 for externality
+Testing 64 for externality
+Testing 72 for externality
+Testing 80 for externality
+Testing 8e for externality
+Testing 9a for externality
 Testing 20 for externality
-Testing 76 for externality
-Testing 76 for externality
-Testing 76 for externality
-BB: a4
-Starting insn at: a4
-Processing insn at a4
+Testing 9a for externality
+Testing 9a for externality
+Testing 9a for externality
+BB: c6
+Starting insn at: c6
+Processing insn at c6
 		Bytes: [139, 69, 252]
-Processing insn at a7
+Processing insn at c9
 		Bytes: [72, 131, 196, 32]
-Processing insn at ab
+Processing insn at cd
 		Bytes: [93]
-Processing insn at ac
+Processing insn at ce
 		Bytes: [195]
-Ending insn at: ab
-BB: 84
-Successors: a4
-Starting insn at: 84
-Processing insn at 84
-		Bytes: [72, 191, 105, 1, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 84 to 2
-Adding reference because of data refs from 84
-Testing 169 for externality
-		Data Ref: 169, size: 4
-Data Range: 169 <= 169 < 16d
-Data Range: 169 - 16d
-		Setting IMM ref at 84: to 169 type: DATA
-Processing insn at 8e
-		Bytes: [190, 1, 0, 0, 0]
-Processing insn at 93
+Ending insn at: cd
+BB: a8
+Successors: c6
+Starting insn at: a8
+Processing insn at a8
+		Bytes: [72, 191, 137, 1, 0, 0, 0, 0, 0, 0]
+findRelocOffset setting imm reloc offset at a8 to 2
+Adding reference because of data refs from a8
+Testing 189 for externality
+		Data Ref: 189, size: 4
+Data Range: 189 <= 189 < 18d
+Data Range: 189 - 18d
+		Setting IMM ref at a8: to 189 type: DATA
+Processing insn at b2
+		Bytes: [139, 117, 248]
+Processing insn at b5
 		Bytes: [176, 0]
-Processing insn at 95
-		Bytes: [232, 14, 1, 0, 0]
-Checking code ref 1a8
-Testing 1a8 for externality
+Processing insn at b7
+		Bytes: [232, 12, 1, 0, 0]
+Checking code ref 1c8
+Testing 1c8 for externality
 EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 95 to 1
-Processing insn at 9a
+findRelocOffset setting imm reloc offset at b7 to 1
+Processing insn at bc
 		Bytes: [199, 69, 252, 1, 0, 0, 0]
-Processing insn at a1
+Processing insn at c3
 		Bytes: [137, 69, 224]
-Ending insn at: a1
-BB: 76
+Ending insn at: c3
+BB: 9a
 Successors: 20
-Starting insn at: 76
-Processing insn at 76
+Starting insn at: 9a
+Processing insn at 9a
 		Bytes: [139, 69, 248]
-Processing insn at 79
+Processing insn at 9d
 		Bytes: [131, 192, 1]
-Processing insn at 7c
+Processing insn at a0
 		Bytes: [137, 69, 248]
-Processing insn at 7f
-		Bytes: [233, 156, 255, 255, 255]
+Processing insn at a3
+		Bytes: [233, 120, 255, 255, 255]
 Checking code ref 20
 Testing 20 for externality
 INTERNAL JMP: 20
-Ending insn at: 7f
-BB: 6a
-Successors: a4
-Starting insn at: 6a
-Processing insn at 6a
+Ending insn at: a3
+BB: 8e
+Successors: c6
+Starting insn at: 8e
+Processing insn at 8e
 		Bytes: [199, 69, 252, 1, 0, 0, 0]
-Processing insn at 71
-		Bytes: [233, 46, 0, 0, 0]
-Checking code ref a4
-Testing a4 for externality
-INTERNAL JMP: a4
-Ending insn at: 71
-BB: 65
-Successors: 76
-Starting insn at: 65
-Processing insn at 65
+Processing insn at 95
+		Bytes: [233, 44, 0, 0, 0]
+Checking code ref c6
+Testing c6 for externality
+INTERNAL JMP: c6
+Ending insn at: 95
+BB: 80
+Successors: 9a
+Starting insn at: 80
+Processing insn at 80
+		Bytes: [139, 69, 248]
+Processing insn at 83
+		Bytes: [131, 232, 1]
+Processing insn at 86
+		Bytes: [137, 69, 248]
+Processing insn at 89
 		Bytes: [233, 12, 0, 0, 0]
-Checking code ref 76
-Testing 76 for externality
-INTERNAL JMP: 76
-Ending insn at: 65
-BB: 60
-Successors: 76
-Starting insn at: 60
-Processing insn at 60
-		Bytes: [233, 17, 0, 0, 0]
-Checking code ref 76
-Testing 76 for externality
-INTERNAL JMP: 76
-Ending insn at: 60
-BB: 5b
-Successors: 76
-Starting insn at: 5b
-Processing insn at 5b
-		Bytes: [233, 22, 0, 0, 0]
-Checking code ref 76
-Testing 76 for externality
-INTERNAL JMP: 76
-Ending insn at: 5b
+Checking code ref 9a
+Testing 9a for externality
+INTERNAL JMP: 9a
+Ending insn at: 89
+BB: 72
+Successors: 9a
+Starting insn at: 72
+Processing insn at 72
+		Bytes: [139, 69, 248]
+Processing insn at 75
+		Bytes: [131, 232, 2]
+Processing insn at 78
+		Bytes: [137, 69, 248]
+Processing insn at 7b
+		Bytes: [233, 26, 0, 0, 0]
+Checking code ref 9a
+Testing 9a for externality
+INTERNAL JMP: 9a
+Ending insn at: 7b
+BB: 64
+Successors: 9a
+Starting insn at: 64
+Processing insn at 64
+		Bytes: [139, 69, 248]
+Processing insn at 67
+		Bytes: [131, 192, 2]
+Processing insn at 6a
+		Bytes: [137, 69, 248]
+Processing insn at 6d
+		Bytes: [233, 40, 0, 0, 0]
+Checking code ref 9a
+Testing 9a for externality
+INTERNAL JMP: 9a
+Ending insn at: 6d
 BB: 56
-Successors: 76
+Successors: 9a
 Starting insn at: 56
 Processing insn at 56
-		Bytes: [233, 27, 0, 0, 0]
-Checking code ref 76
-Testing 76 for externality
-INTERNAL JMP: 76
-Ending insn at: 56
+		Bytes: [139, 69, 248]
+Processing insn at 59
+		Bytes: [131, 192, 1]
+Processing insn at 5c
+		Bytes: [137, 69, 248]
+Processing insn at 5f
+		Bytes: [233, 54, 0, 0, 0]
+Checking code ref 9a
+Testing 9a for externality
+INTERNAL JMP: 9a
+Ending insn at: 5f
 BB: 48
-Successors: 56, 5b, 60, 65, 6a
+Successors: 56, 64, 72, 80, 8e
 Starting insn at: 48
 Processing insn at 48
 		Bytes: [72, 139, 69, 232]
 Processing insn at 4c
-		Bytes: [72, 139, 12, 197, 176, 0, 0, 0]
+		Bytes: [72, 139, 12, 197, 208, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 4c to 4
 Adding reference because of data refs from 4c
-Testing b0 for externality
-		Data Ref: b0, size: 184
-Data Range: b0 <= b0 < 169
-Data Range: b0 - 168
-		Setting MEM ref at 4c: to b0 type: DATA
+Testing d0 for externality
+		Data Ref: d0, size: 184
+Data Range: d0 <= d0 < 189
+Data Range: d0 - 188
+		Setting MEM ref at 4c: to d0 type: DATA
 Processing insn at 54
 		Bytes: [255, 225]
 Its a jump table
-	JMPTable Start: b0
+	JMPTable Start: d0
 	JMPTable offset from data: 0
-		Adding JMPTable 0: 60
-		Adding JMPTable 1: 6a
-		Adding JMPTable 2: 6a
-		Adding JMPTable 3: 65
-		Adding JMPTable 4: 6a
-		Adding JMPTable 5: 6a
-		Adding JMPTable 6: 6a
-		Adding JMPTable 7: 6a
-		Adding JMPTable 8: 6a
-		Adding JMPTable 9: 6a
-		Adding JMPTable 10: 6a
-		Adding JMPTable 11: 6a
-		Adding JMPTable 12: 6a
-		Adding JMPTable 13: 6a
-		Adding JMPTable 14: 6a
-		Adding JMPTable 15: 6a
-		Adding JMPTable 16: 6a
-		Adding JMPTable 17: 6a
-		Adding JMPTable 18: 5b
-		Adding JMPTable 19: 6a
-		Adding JMPTable 20: 6a
-		Adding JMPTable 21: 6a
+		Adding JMPTable 0: 72
+		Adding JMPTable 1: 8e
+		Adding JMPTable 2: 8e
+		Adding JMPTable 3: 80
+		Adding JMPTable 4: 8e
+		Adding JMPTable 5: 8e
+		Adding JMPTable 6: 8e
+		Adding JMPTable 7: 8e
+		Adding JMPTable 8: 8e
+		Adding JMPTable 9: 8e
+		Adding JMPTable 10: 8e
+		Adding JMPTable 11: 8e
+		Adding JMPTable 12: 8e
+		Adding JMPTable 13: 8e
+		Adding JMPTable 14: 8e
+		Adding JMPTable 15: 8e
+		Adding JMPTable 16: 8e
+		Adding JMPTable 17: 8e
+		Adding JMPTable 18: 64
+		Adding JMPTable 19: 8e
+		Adding JMPTable 20: 8e
+		Adding JMPTable 21: 8e
 		Adding JMPTable 22: 56
 Ending insn at: 54
 BB: 2a
-Successors: 48, 6a
+Successors: 48, 8e
 Starting insn at: 2a
 Processing insn at 2a
 		Bytes: [72, 99, 69, 248]
@@ -317,17 +341,17 @@ Processing insn at 3b
 Processing insn at 3f
 		Bytes: [137, 77, 228]
 Processing insn at 42
-		Bytes: [15, 135, 34, 0, 0, 0]
-Checking code ref 6a
+		Bytes: [15, 135, 70, 0, 0, 0]
+Checking code ref 8e
 Ending insn at: 42
 BB: 20
-Successors: 2a, 84
+Successors: 2a, a8
 Starting insn at: 20
 Processing insn at 20
 		Bytes: [131, 125, 248, 1]
 Processing insn at 24
-		Bytes: [15, 141, 90, 0, 0, 0]
-Checking code ref 84
+		Bytes: [15, 141, 126, 0, 0, 0]
+Checking code ref a8
 Ending insn at: 24
 BB: 0
 Successors: 20
@@ -343,14 +367,14 @@ Processing insn at 8
 Processing insn at f
 		Bytes: [199, 69, 248, 0, 0, 0, 0]
 Processing insn at 16
-		Bytes: [138, 4, 37, 104, 1, 0, 0]
+		Bytes: [138, 4, 37, 136, 1, 0, 0]
 findRelocOffset setting imm reloc offset at 16 to 3
 Adding reference because of data refs from 16
-Testing 168 for externality
-		Data Ref: 168, size: 1
-Data Range: b0 <= 168 < 169
-Data Range: 168 - 169
-		Setting MEM ref at 16: to 168 type: DATA
+Testing 188 for externality
+		Data Ref: 188, size: 1
+Data Range: d0 <= 188 < 189
+Data Range: 188 - 189
+		Setting MEM ref at 16: to 188 type: DATA
 Processing insn at 1d
 		Bytes: [136, 69, 247]
 Ending insn at: 1d
