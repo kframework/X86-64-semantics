@@ -31,12 +31,17 @@ private:
   Module *Mod;
   LLVMContext *ctx;
   SmallVector<Instruction *, 8> ToErase;
+  // Functions which are actually cloned;
   DenseMap<llvm::Function *, llvm::Function *> FunctionCloneMap;
   DenseMap<llvm::Function *, height_ty> FunctionStackHeightMap;
   DenseMap<llvm::Value *, llvm::Value *> convertMap;
   IntegerType *int8_type;
   IntegerType *int64_type;
   PointerType *ptr_to_int8_type;
+  PointerType *ptr_to_int64_type;
+
+  // Entry function */
+  Function *mcsema_main;
 
 public:
   static char ID;
@@ -58,10 +63,10 @@ public:
 
   // Create Local stack for each procedure
   void createLocalStackFrame(Function &, height_ty, Value **, Value **,
-                             Value **);
+                             Value **, Value **);
 
   // Passing the parent stack as an argument
-  void augmentCall(Function &, Value *, Value *, Value *);
+  void augmentCall(Function &, Value *, Value *, Value *, Value *);
   Function *cloneFunctionWithExtraArgument(Function *);
 
   // Modify the loads to access the parent stack, if required
@@ -82,6 +87,7 @@ public:
   void handle_store(Instruction *I, Value *, Value *);
   void handle_int2ptr(Instruction *I);
   void handle_add(Instruction *I);
+  void handle_sub(Instruction *I);
   void handle_call(Instruction *I);
   void handle_extractval(Instruction *I);
   void handle_phi(Instruction *I);

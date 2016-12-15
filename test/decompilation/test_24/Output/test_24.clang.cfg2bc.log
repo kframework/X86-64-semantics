@@ -27,40 +27,39 @@ inserting global data section named data_0x420
 translate_CALLpcrel32: function is: strlen, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : strlen
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: read_bytes, cc is: 0
 doCallPCExtern paramCount  : 3 : read_bytes
-3 : 198f690
+3 : 2aa1e80
 translate_CALLpcrel32: function is: read_bytes, cc is: 0
 doCallPCExtern paramCount  : 3 : read_bytes
-3 : 198f690
+3 : 2aa1e80
 translate_CALLpcrel32: function is: read_bytes, cc is: 0
 doCallPCExtern paramCount  : 3 : read_bytes
-3 : 198f690
+3 : 2aa1e80
 translate_CALLpcrel32: function is: read_bytes, cc is: 0
 doCallPCExtern paramCount  : 3 : read_bytes
-3 : 198f690
+3 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 translate_CALLpcrel32: function is: to_byte, cc is: 0
 doCallPCExtern paramCount  : 1 : to_byte
-1 : 198f690
+1 : 2aa1e80
 Adding entry point: keycomp
 keycomp is implemented by sub_0
-NOT doing post analysis passes.

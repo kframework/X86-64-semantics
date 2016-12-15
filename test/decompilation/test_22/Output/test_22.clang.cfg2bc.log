@@ -27,4 +27,3 @@ inserting global data section named data_0x28
 dataSectionToTypesContents: Found symbol: sub_0x0L
 Adding entry point: timespi
 timespi is implemented by sub_0
-NOT doing post analysis passes.

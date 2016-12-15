@@ -19,4 +19,3 @@ Inserted function: sub_0
 inserting global data section named data_0x38
 Adding entry point: shiftit
 shiftit is implemented by sub_0
-NOT doing post analysis passes.

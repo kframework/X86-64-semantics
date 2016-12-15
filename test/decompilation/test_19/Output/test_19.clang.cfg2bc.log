@@ -25,4 +25,3 @@ Inserted function: sub_1
 inserting global data section named data_0x2c
 Adding entry point: start
 start is implemented by sub_1
-NOT doing post analysis passes.

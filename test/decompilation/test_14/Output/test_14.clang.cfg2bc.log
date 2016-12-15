@@ -35,7 +35,6 @@ translate_CALLpcrel32: function is: strcmp, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 2 : strcmp
-2 : 28bb8e0
+2 : 2ebff20
 Adding entry point: checkFn
 checkFn is implemented by sub_10
-NOT doing post analysis passes.

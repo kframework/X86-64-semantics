@@ -19,4 +19,3 @@ Inserted function: sub_0
 inserting global data section named data_0x80
 Adding entry point: demo3
 demo3 is implemented by sub_0
-NOT doing post analysis passes.

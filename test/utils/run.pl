@@ -36,7 +36,6 @@ my $map="";
 my $entry="";
 my $incdir="";
 my $cfg="";
-my $bind="";
 my $extract_bc="";
 my $reg_assign="";
 my $runpass="";
@@ -51,7 +50,6 @@ GetOptions (
             "cfg"           => \$cfg, 
             "extract_bc"    => \$extract_bc, 
             "reg_assign"    => \$reg_assign, 
-            "bind"           => \$bind, 
             "runpass"      => \$runpass, 
             "compiler:s"    => \$compiler, 
             "home:s"       => \$MCSEMA_HOME, 
@@ -82,7 +80,7 @@ my $GCC_ARCH="";
 my $BIN_ARCH="";
 my $CFGBC_ARCH="";
 my $loadso="${ALLIN_HOME}/build/lib/LLVMstack_deconstructor.so";
-my $OPTSWITCH="-constprop -ssh" ;
+my $OPTSWITCH="-constprop -stack-decons -dce  -early-cse-memssa" ;
 #my $OPTSWITCH="-stack-decons -mem2reg -dce  -early-cse-memssa";
 #my $OPTSWITCH="-stack-decons -debug-only=\"stack_deconstructor\"";
 
@@ -100,16 +98,13 @@ if($arch eq "32") {
 }
 
 my $cfgext=".ida";
-if("" ne $bind) {
-  $cfgext="";
-}
 
 my ($basename, $ext) = split_filename($file);
 
 ### Drivers
 if("" ne $extract_bc) {
   extract_bc_from_cfg();
-  generate_linked_binary("${outdir}${basename}.${suffix}.bc", "${outdir}${basename}.${suffix}.lifted.exe");
+  generate_linked_binary("${outdir}${basename}.${suffix}.opt.bc", "${outdir}${basename}.${suffix}.lifted.exe");
   cleanup();
   exit;
 }
@@ -124,7 +119,7 @@ if ("" ne $cfg) {
   generate_cfg();
 } else {
   extract_bc_from_cfg();
-  generate_linked_binary("${outdir}${basename}.${suffix}.bc", "${outdir}${basename}.${suffix}.lifted.exe");
+  generate_linked_binary("${outdir}${basename}.${suffix}.opt.bc", "${outdir}${basename}.${suffix}.lifted.exe");
   cleanup();
 }
 
@@ -173,11 +168,7 @@ sub generate_cfg {
   execute("rm -rf ${outdir}${basename}.${suffix}${cfgext}.cfg ${outdir}${basename}.${suffix}.ida.log");
 
   #execute("IDA_PATH=${home}/ida-6.95 ${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o"); 
-  if("" ne $bind) {
-    execute("${BIN_DESCEND_PATH}/bin_descend  ${BIN_ARCH} -d -i=${outdir}${basename}.${suffix}.o -func-map=${map}  -entry-symbol=${entry} &> /tmp/bd.log ");
-  } else {
-    execute("${home}/ida-6.95/idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}${cfgext}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" ${outdir}${basename}.${suffix}.o "); 
-  }
+  execute("${home}/ida-6.95/idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}${cfgext}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" ${outdir}${basename}.${suffix}.o "); 
 }
 
 ###  Generate BC from CFG
@@ -191,12 +182,12 @@ sub extract_bc_from_cfg {
     execute("rm -rf ${outdir}${basename}.${suffix}.bc ${outdir}${basename}.${suffix}.opt.bc ${outdir}${basename}.${suffix}.ll ${outdir}${basename}.${suffix}.opt.ll");
 
     if("" ne "$reg_assign") {
-      execute("${CFG_TO_BC_PATH}/cfg_to_bc -post-analysis=0 ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.bc  -entrypoint=${entry} 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1");
+      execute("${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.bc  -entrypoint=${entry} 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1");
     } else {
       execute("${CFG_TO_BC_PATH}/cfg_to_bc -ignore-unsupported ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.bc  -driver=mcsema_main,${entry},raw,return,C 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1");
     }
 
-    execute("${OPT} -O3    ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc"); 
+    execute("${OPT} -dce  -early-cse-memssa  ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc"); 
     execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.bc -o=${outdir}${basename}.${suffix}.ll");
     execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.opt.bc -o=${outdir}${basename}.${suffix}.opt.ll");
   } else {
@@ -211,7 +202,29 @@ sub run_custom_pass {
 
   execute("rm -rf ${outdir}${basename}.${suffix}.trans.bc ${outdir}${basename}.${suffix}.trans.opt.bc ${outdir}${basename}.${suffix}.trans.ll ${outdir}${basename}.${suffix}.trans.opt.ll");
 
-  execute("${OPT} -load=${loadso} ${OPTSWITCH} ${outdir}${basename}.${suffix}.ll  -o ${outdir}${basename}.${suffix}.trans.bc  2>  ${outdir}${basename}.${suffix}.pass.log"); 
+  ## Finding entryfunc called by the inline asm driver
+  my $entryfunc = "";
+  if(-e "${outdir}${basename}.${suffix}.cfg2bc.log") {
+    open(my $fp, "<", "${outdir}${basename}.${suffix}.cfg2bc.log") or die "cannot open ${outdir}${basename}.${suffix}.cfg2bc.log: $!";  
+    my @lines = <$fp>;
+    close ($fp);
+    foreach my $line (@lines) {
+      chomp ($line);
+      if($line =~ m/${entry} is implemented by (.*)/) {
+        $entryfunc = $1;
+      }
+    }
+  } else {
+    print "Missing : ${outdir}${basename}.${suffix}.cfg2bc.log (Required for extracting the entry function)\n\n" ;
+    exit(1);
+  }
+
+  if("" eq $entryfunc) {
+    print "Could not extract entry function\n\n" ;
+    exit(1);
+  }
+
+  execute("${OPT} -load=${loadso} ${OPTSWITCH} -mcsema_main ${entryfunc} ${outdir}${basename}.${suffix}.ll  -o ${outdir}${basename}.${suffix}.trans.bc  2>  ${outdir}${basename}.${suffix}.pass.log"); 
   #${ALLIN} ${outdir}${basename}.${ext}.ll -o ${outdir}${basename}.${ext}.trans.bc 2>  ${outdir}${basename}.${ext}.pass.log
   execute("${OPT} -O3  ${outdir}${basename}.${suffix}.trans.bc -o=${outdir}${basename}.${suffix}.trans.opt.bc");
   execute("${LLVMDIS} ${outdir}${basename}.${suffix}.trans.bc -o ${outdir}${basename}.${suffix}.trans.ll");

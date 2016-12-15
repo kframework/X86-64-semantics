@@ -58,4 +58,3 @@ dataSectionToTypesContents: Found symbol: dta_0x68L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 Adding entry point: printdata
 printdata is implemented by sub_0
-NOT doing post analysis passes.

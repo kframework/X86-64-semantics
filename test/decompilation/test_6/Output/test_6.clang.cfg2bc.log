@@ -37,14 +37,13 @@ translate_CALLpcrel32: function is: malloc, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : malloc
-1 : 200b690
+1 : 1ba1e80
 translate_CALLpcrel32: function is: malloc, cc is: 0
 doCallPCExtern paramCount  : 1 : malloc
-1 : 200b690
+1 : 1ba1e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : c : printf
-c : 200b690
+c : 1ba1e80
 Adding entry point: main
 main is implemented by sub_a0
-NOT doing post analysis passes.

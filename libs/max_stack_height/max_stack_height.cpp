@@ -204,7 +204,7 @@ void max_stack_height::perform_const_dfa() {
  *  After the data value propagation among I's, Gen[bb] is computed as follows:
  *    Gen[bb]::actual_rsp = Actual displacement of rsp across the bb with
  *    initial value of rsp/rbp assumed as 0.
- *    Gen[bb]::max_disp_rsp = max (Out[I]::max_disp_rsp) for all I in bb.
+ *    Gen[bb]::max_disp_rsp = min (Out[I]::max_disp_rsp) for all I in bb.
 ********************************************************************/
 std::vector<height_ty>
 max_stack_height::calculate_max_height_BB(BasicBlock *BB, dfa_values inval) {
@@ -227,7 +227,6 @@ max_stack_height::calculate_max_height_BB(BasicBlock *BB, dfa_values inval) {
   ret_val[MAX_DISP_RSP] = max_dis_of_rsp;
   ret_val[MAX_DISP_RBP] = max_dis_of_rbp;
 
-  // debug_dfa_values("Gen :: ", ret_val);
   // Clean up
   InstMap.clear();
   max_dis_of_rsp = max_dis_of_rbp = 0;
@@ -278,6 +277,12 @@ void max_stack_height::visitCallInst(CallInst &I) {
   if (false == called_func->isDeclaration()) {
     InstMap[llvm_alloca_inst_rsp].first += RET_ADDRESS_SIZE;
     debug_local_dfa_info(&I);
+  } else {
+    auto called_func_name = called_func->getName();
+    if(false == called_func_name.startswith("llvm.")) {
+      InstMap[llvm_alloca_inst_rsp].first += RET_ADDRESS_SIZE;
+      debug_local_dfa_info(&I);
+    }
   }
 }
 
@@ -382,7 +387,8 @@ void max_stack_height::visitAddSubHelper(Instruction *I, bool isAdd, Value *op1,
         In[bb]::actual_rsp  = Out[pred_bb_x]::actual_rsp;
         In[bb]::actual_rbp  = Out[pred_bb_x]::actual_rbp;
         In[bb]::max_disp_rsp  = min ( OUT[pred_bb_x]::max_disp_rsp,
-OUT[pred_bb_y]::max_disp_rsp)
+OUT[pred_bb_y]::max_disp_rsp) 
+        //min is used as values are negative and we need the max negative displacement. 
         In[bb]::max_disp_rbp  = min ( OUT[pred_bb_x]::max_disp_rbp,
 OUT[pred_bb_y]::max_disp_rbp)
       } else {
@@ -524,6 +530,11 @@ void max_stack_height::compute_height() {
 
   errs() << "Height[ " << Fname << " ] : " << stack_height << "\n";
 }
+
+
+/******************* DEBUG ROUTINES ************************************/
+
+
 /*******************************************************************
  * Function :   debug_local_dfa_info
  * Purpose  :   print the data structure InstMap

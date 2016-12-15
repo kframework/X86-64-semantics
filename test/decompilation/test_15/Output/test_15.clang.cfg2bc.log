@@ -29,4 +29,3 @@ inserting global data section named data_0x30
 dataSectionToTypesContents: Found symbol: sub_0x0L
 Adding entry point: doOp
 doOp is implemented by sub_0
-NOT doing post analysis passes.

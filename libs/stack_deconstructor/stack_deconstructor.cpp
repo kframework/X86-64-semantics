@@ -29,6 +29,7 @@
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
+#include "llvm/Support/CommandLine.h"
 
 using namespace llvm;
 STATISTIC(StaticParentAccessChecks, "Number of static parent stack accesses");
@@ -37,6 +38,8 @@ char stack_deconstructor::ID = 0;
 static RegisterPass<stack_deconstructor>
     X("stack-decons",
       "To partition global monolithic stack to per function stack frame");
+
+cl::opt<std::string> EntryFuncion("mcsema_main", cl::desc("Specify the entry function to be called from the inline asm driver"), cl::value_desc("Function Name"), cl::Required);
 
 /// Function :  runOnModule
 /// Purpose  :  Entry point for stack_deconstructor pass
@@ -48,6 +51,8 @@ bool stack_deconstructor::runOnModule(Module &M) {
   int64_type = Type::getInt64Ty(*ctx);
   int8_type = Type::getInt8Ty(*ctx);
   ptr_to_int8_type = Type::getInt8PtrTy(*ctx);
+  ptr_to_int64_type = Type::getInt64PtrTy(*ctx);
+  mcsema_main = nullptr;
 
   deconstructStack();
 
@@ -57,16 +62,18 @@ bool stack_deconstructor::runOnModule(Module &M) {
 /// Function :  deconstructStack
 /// Purpose  :  Introduce local stack frame based on the stack size
 /// approximated by max_stack_height pass. This includes
-/// 1. Augment formal arguments of all the internal functions with parent stack
-/// informations (like stack pointer and base pointer)
+///   1. Augment formal arguments of all the internal functions with parent stack
+///     informations (like stack pointer and base pointer)
 /// For each clonee function
 ///   2. Create local stack pointers and replace all existing used of
 ///   RSP_val/RBP_val with them
 ///   3. Augment the calls to internal functions with proper actual arguments
 ///   4. Handle parent stack access
 void stack_deconstructor::deconstructStack() {
-  Value *local_stack_start, *local_stack_end, *rbp_ptr_alloca;
+  Value *local_stack_start, *local_stack_end; 
+  Value *rsp_ptr_alloca, *rbp_ptr_alloca;
 
+  // Extracting function approximate heights
   for (Module::iterator FuncI = Mod->begin(), FuncE = Mod->end();
        FuncI != FuncE; ++FuncI) {
     Function *Func = &*FuncI;
@@ -81,6 +88,7 @@ void stack_deconstructor::deconstructStack() {
     FunctionStackHeightMap[Func] = stack_height;
   }
 
+  // Task 1
   augmentFuntionSignature();
 
   for (auto P : FunctionCloneMap) {
@@ -88,14 +96,26 @@ void stack_deconstructor::deconstructStack() {
     auto *newFunc = P.second;
     local_stack_start = local_stack_end = rbp_ptr_alloca = nullptr;
 
+    if(oldFunc == mcsema_main) {
+      DEBUG(errs() << "========================\n Processing Function:"
+                 << oldFunc->getName()
+                 << "\n=================================\n");
+
+      createLocalStackFrame(*oldFunc, FunctionStackHeightMap[oldFunc],
+                          &local_stack_start, &local_stack_end,
+                          &rsp_ptr_alloca, &rbp_ptr_alloca);
+      augmentCall(*oldFunc, local_stack_start, local_stack_end, rsp_ptr_alloca, rbp_ptr_alloca);
+      modifyLoadsToAccessParentStack(*oldFunc, local_stack_start, local_stack_end);
+    }
+
     DEBUG(errs() << "========================\n Processing Function:"
                  << newFunc->getName()
                  << "\n=================================\n");
 
     createLocalStackFrame(*newFunc, FunctionStackHeightMap[oldFunc],
                           &local_stack_start, &local_stack_end,
-                          &rbp_ptr_alloca);
-    augmentCall(*newFunc, local_stack_start, local_stack_end, rbp_ptr_alloca);
+                          &rsp_ptr_alloca, &rbp_ptr_alloca);
+    augmentCall(*newFunc, local_stack_start, local_stack_end, rsp_ptr_alloca, rbp_ptr_alloca);
     modifyLoadsToAccessParentStack(*newFunc, local_stack_start,
                                    local_stack_end);
   }
@@ -116,41 +136,20 @@ void stack_deconstructor::deconstructStack() {
 void stack_deconstructor::augmentFuntionSignature() {
   // Collect the functons to clone
   std::vector<Function *> worklist;
-  Function *mcsema_main = NULL;
 
   for (Module::iterator FuncI = Mod->begin(), FuncE = Mod->end();
        FuncI != FuncE; ++FuncI) {
     Function *Func = &*FuncI;
-    if (Func->getName() == "mcsema_main") {
+    if (Func->getName() == EntryFuncion) {
       mcsema_main = Func;
-      continue;
     }
     worklist.push_back(Func);
-  }
-
-  // Find the function called from mcsema_main
-  Function *called_from_mcsema_main = NULL;
-  for (auto FI = mcsema_main->begin(), FE = mcsema_main->end(); FI != FE;
-       ++FI) {
-    for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
-      Instruction *I = &*BBI++;
-
-      if (CallInst *ci = dyn_cast<CallInst>(I)) {
-        called_from_mcsema_main = ci->getCalledFunction();
-      }
-    }
   }
 
   // Clone them
   for (auto *oldFunc : worklist) {
     // Do not clone functions whose definitions are not internal
     if (oldFunc->isIntrinsic() || oldFunc->isDeclaration()) {
-      continue;
-    }
-
-    // Task 3
-    if (oldFunc == called_from_mcsema_main) {
-      FunctionCloneMap[oldFunc] = oldFunc;
       continue;
     }
 
@@ -196,6 +195,7 @@ void stack_deconstructor::createLocalStackFrame(Function &F,
                                                 height_ty stackheight,
                                                 Value **stack_start,
                                                 Value **stack_end,
+                                                Value **rsp_ptr_alloca,
                                                 Value **rbp_ptr_alloca) {
 
   // Check F's argumnets are augmented with parent stack rbp pointer.
@@ -212,16 +212,17 @@ void stack_deconstructor::createLocalStackFrame(Function &F,
   Instruction *I = &*(F.getEntryBlock().begin());
 
   IRBuilder<> IRB(I);
-  auto *rsp_ptr_alloca =
+  *rsp_ptr_alloca =
       IRB.CreateAlloca(ptr_to_int8_type, nullptr, "_RSP_ptr_");
   *rbp_ptr_alloca = IRB.CreateAlloca(ptr_to_int8_type, nullptr, "_RBP_ptr_");
+
   *stack_start =
       IRB.CreateAlloca(int8_type, stack_height, "_local_stack_start_ptr_");
   std::vector<Value *> indices;
   indices.push_back(stack_height);
   *stack_end =
       IRB.CreateInBoundsGEP(*stack_start, indices, "_local_stack_end_ptr_");
-  IRB.CreateStore(*stack_end, rsp_ptr_alloca);
+  IRB.CreateStore(*stack_end, *rsp_ptr_alloca);
   if (parent_stack_rbp_ptr)
     IRB.CreateStore(parent_stack_rbp_ptr, *rbp_ptr_alloca);
 
@@ -231,7 +232,7 @@ void stack_deconstructor::createLocalStackFrame(Function &F,
       Instruction *I = &*BBI++;
       if (shouldConvert(I)) {
         DEBUG(errs() << "\n" << *I << "\n");
-        convert(I, rsp_ptr_alloca, *rbp_ptr_alloca);
+        convert(I, *rsp_ptr_alloca, *rbp_ptr_alloca);
       }
     }
   }
@@ -245,23 +246,31 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
   // handle load
   if (LoadInst *LI = dyn_cast<LoadInst>(I)) {
     Value *ptr_operand = LI->getPointerOperand();
-    if (ptr_operand->getName().equals("RSP_val") ||
-        ptr_operand->getName().equals("RBP_val")) {
+    if (ptr_operand->getName().equals("XSP") ||
+        ptr_operand->getName().equals("XBP")) {
       return true;
     }
   }
 
-  // handle add
-  if (I->getOpcode() == Instruction::Add) {
+
+  // handle add sub
+  if (I->getOpcode() == Instruction::Add || I->getOpcode() == Instruction::Sub) {
+    /*
     Value *pointer_operand = I->getOperand(0);
     Instruction *ptr_operand = dyn_cast<Instruction>(pointer_operand);
-    assert(ptr_operand && "stack_deconstructor::handle_add - Check out");
-    if (0 != convertMap.count(ptr_operand)) {
+    if(!ptr_operand) {
+      llvm::errs() << *I << "\tPtr Op: " << *ptr_operand <<"\n"; 
+      assert(ptr_operand && "stack_deconstructor::handle_add - Check out");
+    }
+    */
+    if ( (0 != convertMap.count(I->getOperand(0))) || 
+         (0 != convertMap.count(I->getOperand(1))) ) {
       return true;
     }
     return false;
   }
 
+  //handle Xor And Trunc ICmp Shl LShr
   if (I->getOpcode() == Instruction::Xor || I->getOpcode() == Instruction::And) {
     auto *op1 = I->getOperand(0);
     auto *op2 = I->getOperand(1);
@@ -271,7 +280,10 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return false;
   }
 
-  if (I->getOpcode() == Instruction::Trunc) {
+  if (I->getOpcode() == Instruction::Trunc || 
+        I->getOpcode() == Instruction::ICmp ||
+        I->getOpcode() == Instruction::Shl ||
+        I->getOpcode() == Instruction::LShr) {
     auto *op1 = I->getOperand(0);
     if (0 != convertMap.count(op1)) {
       return true;
@@ -279,21 +291,6 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return false;
   }
 
-  if (I->getOpcode() == Instruction::ICmp) {
-    auto *op1 = I->getOperand(0);
-    if (0 != convertMap.count(op1)) {
-      return true;
-    }
-    return false;
-  }
-
-  if (I->getOpcode() == Instruction::Shl) {
-    auto *op1 = I->getOperand(0);
-    if (0 != convertMap.count(op1)) {
-      return true;
-    }
-    return false;
-  }
 
   // handle int2ptr
   if (I->getOpcode() == Instruction::IntToPtr) {
@@ -301,6 +298,7 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     return (0 != convertMap.count(int_operand));
   }
 
+  // handle store
   if (StoreInst *SI = dyn_cast<StoreInst>(I)) {
     Value *ptr_operand = SI->getPointerOperand();
     Value *val_operand = SI->getValueOperand();
@@ -312,8 +310,8 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
     // present in convertMap)
 
     // Check 1
-    if (ptr_operand->getName().equals("RSP_val") ||
-        ptr_operand->getName().equals("RBP_val")) {
+    if (ptr_operand->getName().equals("XSP") ||
+        ptr_operand->getName().equals("XBP")) {
       // Check 2
       if (isLoadOfImp(val_operand, "RSP") || isLoadOfImp(val_operand, "RBP")) {
         return false;
@@ -334,8 +332,8 @@ bool stack_deconstructor::shouldConvert(Instruction *I) {
       return false;
     }
     Value *op1 = CI->getArgOperand(0);
-    if (false == isLoadOfImp(op1, "RSP_val") &&
-        false == isLoadOfImp(op1, "RBP_val")) {
+    if (false == isLoadOfImp(op1, "XSP") &&
+        false == isLoadOfImp(op1, "XBP")) {
       //assert(0 == convertMap.count(op1) && "CHECK");
       // %117 = load i64, i64* %RSP_val
       // %.lcssa = phi i64 [ %117, %block_0x1f ]
@@ -393,6 +391,9 @@ void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca,
   case Instruction::Add:
     handle_add(I);
     break;
+  case Instruction::Sub:
+    handle_sub(I);
+    break;
   case Instruction::ExtractValue:
     handle_extractval(I);
     break;
@@ -411,6 +412,7 @@ void stack_deconstructor::convert(Instruction *I, Value *rsp_ptr_alloca,
   case Instruction::Xor:
   case Instruction::And:
   case Instruction::Shl:
+  case Instruction::LShr:
     handle_int_operators(I);
     break;
   default:
@@ -433,7 +435,7 @@ void stack_deconstructor::handle_load(Instruction *I, Value *rsp_ptr_alloca,
   Instruction *new_load = nullptr;
   Value *ptr_operand = LI->getPointerOperand();
 
-  if (ptr_operand->getName().equals("RSP_val")) {
+  if (ptr_operand->getName().equals("XSP")) {
     new_load = IRB.CreateLoad(rsp_ptr_alloca, "_load_rsp_ptr_");
   } else {
     new_load = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
@@ -510,23 +512,26 @@ void stack_deconstructor::handle_store(Instruction *I, Value *rsp_ptr_alloca,
   Instruction *new_store = nullptr;
   bool erase_old_store;
 
-  if (ptr_operand->getName().equals("RSP_val") ||
-      ptr_operand->getName().equals("RBP_val")) {
+  if (ptr_operand->getName().equals("XSP") ||
+      ptr_operand->getName().equals("XBP")) {
 
     if (0 != convertMap.count(val_operand)) {
       Value *new_val_operand = convertMap[val_operand];
-      GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(new_val_operand);
-      assert(gep && "stack_deconstructor::handle_store -> check");
-      inst_before_store = gep;
+      bool acceptable_val_operand = isa<GetElementPtrInst>(new_val_operand) || isa<LoadInst> (new_val_operand);
+      if(!acceptable_val_operand) {
+        llvm::errs() << *SI << "\tValue: " << *val_operand << "\t Ptr: " << *ptr_operand << "\n";
+        assert(0 && "stack_deconstructor::handle_store -> check");
+      }
+      inst_before_store = new_val_operand;
     } else {
       inst_before_store =
           IRB.CreateIntToPtr(val_operand, ptr_to_int8_type, "_new_int2ptr_");
     }
 
-    if (ptr_operand->getName().equals("RSP_val")) {
+    if (ptr_operand->getName().equals("XSP")) {
       new_store =
           IRB.CreateStore(inst_before_store, rsp_ptr_alloca, "_new_store_");
-    } else if (ptr_operand->getName().equals("RBP_val")) {
+    } else if (ptr_operand->getName().equals("XBP")) {
       new_store =
           IRB.CreateStore(inst_before_store, rbp_ptr_alloca, "_new_store_");
     }
@@ -553,10 +558,41 @@ void stack_deconstructor::handle_store(Instruction *I, Value *rsp_ptr_alloca,
 
 void stack_deconstructor::handle_add(Instruction *I) {
   IRBuilder<> IRB(I);
+  Value *new_ptr_operand = nullptr;
+  Value *C = nullptr;
+  if(0 != convertMap.count(I->getOperand(0))) {
+    new_ptr_operand = convertMap[I->getOperand(0)];
+    C = I->getOperand(1);
+  } else {
+    new_ptr_operand = convertMap[I->getOperand(1)];
+    C = I->getOperand(0);
+  }
+
+  if(false == isa<Constant>(C)) {
+    //llvm::errs() << *I << "\n";
+    //assert(isa<Constant>(C) && "handle_add: Not a constant\n");
+  }
+
+  auto *new_gep = IRB.CreateGEP(new_ptr_operand, C, "_new_gep_");
+  recordConverted(I, new_gep, false, false);
+
+  return;
+}
+
+void stack_deconstructor::handle_sub(Instruction *I) {
+  IRBuilder<> IRB(I);
+  //BinaryOperator *BI = dyn_cast<BinaryOperator>(I);
+  Type *Ty = I->getType();
+
   Value *ptr_operand = I->getOperand(0);
   Value *new_ptr_operand = convertMap[ptr_operand];
-  Value *C = I->getOperand(1);
-  auto *new_gep = IRB.CreateGEP(new_ptr_operand, C, "_new_gep_");
+  Value *op = I->getOperand(1);
+  ConstantInt *C = dyn_cast<ConstantInt> (op);
+  assert(C && "Sub oerand not a constant int!!\n");
+
+  int64_t sub_int_op = C->getSExtValue();
+  Constant *gep_int_op = ConstantInt::get(Ty, -1*sub_int_op);
+  auto *new_gep = IRB.CreateGEP(new_ptr_operand, gep_int_op, "_new_gep_");
   recordConverted(I, new_gep, false, false);
 
   return;
@@ -747,6 +783,7 @@ void stack_deconstructor::handle_int_operators(Instruction *I) {
 /// formal arguments.
 void stack_deconstructor::augmentCall(Function &F, Value *local_stack_start,
                                       Value *local_stack_end,
+                                      Value *rsp_ptr_alloca,
                                       Value *rbp_ptr_alloca) {
   for (auto FI = F.begin(), FE = F.end(); FI != FE; ++FI) {
     for (auto BBI = FI->begin(), BBE = FI->end(); BBI != BBE;) {
@@ -763,6 +800,22 @@ void stack_deconstructor::augmentCall(Function &F, Value *local_stack_start,
           // We will be augmenting only those calls whose definitions
           // are cloned. Ex. we should not augment printf
           if (0 == FunctionCloneMap.count(oldFunc)) {
+            //This could be functions like strcmp or llvm.ctpop
+            // For functions like strcmp, fix the rsp pointer by 8
+            auto FuncName = oldFunc->getName();
+            if(false == FuncName.startswith("llvm.")) {
+              std::vector<Value *> arguments;
+              for (auto &args : ci->arg_operands()) {
+                arguments.push_back(args);
+              }
+              CallInst *new_ci = IRB.CreateCall(oldFunc, arguments);
+              new_ci->setCallingConv(ci->getCallingConv());
+              auto *rsp_fix = IRB.CreateLoad(rsp_ptr_alloca, "_rsp_fix_");
+              auto *gep_fix =
+                  IRB.CreateGEP(rsp_fix, ConstantInt::get(int64_type, 8) , "_gep_fix_");
+              IRB.CreateStore(gep_fix, rsp_ptr_alloca);
+              recordConverted(ci, new_ci);
+            }
             continue;
           }
           newCallee = FunctionCloneMap[oldFunc];
@@ -795,12 +848,18 @@ void stack_deconstructor::augmentCall(Function &F, Value *local_stack_start,
         for (auto &args : ci->arg_operands()) {
           arguments.push_back(args);
         }
-        auto *new_load = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
-        arguments.push_back(local_stack_start);
+        auto *new_load_rbp = IRB.CreateLoad(rbp_ptr_alloca, "_load_rbp_ptr_");
+        auto *new_load_rsp = IRB.CreateLoad(rsp_ptr_alloca, "_load_rsp_ptr_");
+        arguments.push_back(new_load_rsp);
         arguments.push_back(local_stack_end);
-        arguments.push_back(new_load);
+        arguments.push_back(new_load_rbp);
 
         CallInst *new_ci = IRB.CreateCall(newCallee, arguments);
+        new_ci->setCallingConv(ci->getCallingConv());
+        auto *rsp_fix = IRB.CreateLoad(rsp_ptr_alloca, "_rsp_fix_");
+        auto *gep_fix =
+            IRB.CreateGEP(rsp_fix, ConstantInt::get(int64_type, 8) , "_gep_fix_");
+        IRB.CreateStore(gep_fix, rsp_ptr_alloca);
         recordConverted(ci, new_ci);
       } // end if(CallInst ...)
     }   // end for
@@ -818,13 +877,16 @@ void stack_deconstructor::augmentCall(Function &F, Value *local_stack_start,
 //  Algorithm:
 /// Let PTR           : Pointer to be dereferenced
 ///     LocalEnd      : Top address of the local stack
-///     ParentEnd     : Top address of the local stack
-///     ParentStart   : Bottom address of the local stack
+///     ParentEnd     : Top address of the parent stack
+///     ParentStart   : Bottom address of the parent stack
+///     
+///     condition1 : (PTR points to higher address than LocalEnd) : PTR > LocalEnd
+///     condition2 (not within parent stack limits ): (PTR > ParentEnd || PTR < ParentStart)
+///     condition3 : ParentStart + (PTR - LocalEnd) <  ParentEnd
 ///
 /// Case I: PTR is a local stack  pointer
 ///   Satisfies:
 ///       !condition1
-///         where condition1 : PTR > LocalEnd
 ///   Conclusion:
 ///       Dereference PTR
 ///
@@ -832,34 +894,21 @@ void stack_deconstructor::augmentCall(Function &F, Value *local_stack_start,
 /// RSP/RBP + C
 ///   Satisfies:
 ///       condition1
-///       condition2 : (PTR > ParentEnd || PTR < ParentStart) // PTR is on a
-///       different address space
-///                                                           // becasue of
-///                                                           because of
-///                                                           different stack
-///                                                           // array used for
-///                                                           each function, so
-///                                                           // PTR will not
-///                                                           fall within the
-///                                                           parent stack
-///                                                           // limits
-///       condition3 : ParentStart + (PTR - LocalEnd) <  ParentEnd // LHS of the
-///       condition is the effective address
-///                                                               // in the
-///                                                               parnet stack
-///                                                               frame. And
-///                                                               that should
-///                                                               // lie within
-///                                                               the parnet
-///                                                               stack bounds
+///       condition2 
+///        // NOTE: PTR is on a  different address space because of different stack array used for 
+///        // each function, so  PTR will not  fall within the parent stack limits
+//
+///       condition3 : ParentStart + (PTR - LocalEnd) <  ParentEnd 
+//        // LHS of the condition is the effective address in the parnet stack frame. And that should 
+//        // lie within the parnet stack bounds.
+//
 ///   Conclusion:
 ///       Dereference (ParentStart + (PTR - LocalEnd))
 ///
-/// Case III: PTR is a direct parent stack pointer computed
+/// Case III: PTR is a direct parent stack pointer 
 ///   Satisfies:
-///       !condition1 // as layout of parent stack address is above that of
-///       local
-///       stack address
+///       condition1 
+//        // as layout of parent stack address is above that of local stack address
 ///       !condition2
 ///   Conclusion:
 ///       Dereference PTR

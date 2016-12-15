@@ -87,9 +87,13 @@ declare void @__mcsema_detach_ret() #0
 ; Function Attrs: noinline
 define x86_64_sysvcc void @sub_0(%RegState*) #1 {
 entry:
+  %_RSP_ptr_ = alloca i8*
+  %_RBP_ptr_ = alloca i8*
+  %_local_stack_start_ptr_ = alloca i8, i64 96
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 96
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !2
   %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !2
-  %XBX = getelementptr %RegState, %RegState* %0, i32 0, i32 2, !mcsema_real_eip !2
   %XCX = getelementptr %RegState, %RegState* %0, i32 0, i32 3, !mcsema_real_eip !2
   %XDX = getelementptr %RegState, %RegState* %0, i32 0, i32 4, !mcsema_real_eip !2
   %XSI = getelementptr %RegState, %RegState* %0, i32 0, i32 5, !mcsema_real_eip !2
@@ -108,3003 +112,2491 @@ entry:
   %SF = bitcast i8* %SF_full to i1*, !mcsema_real_eip !2
   %OF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 14, !mcsema_real_eip !2
   %OF = bitcast i8* %OF_full to i1*, !mcsema_real_eip !2
-  %DF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 15, !mcsema_real_eip !2
-  %DF = bitcast i8* %DF_full to i1*, !mcsema_real_eip !2
-  %STi = getelementptr %RegState, %RegState* %0, i32 0, i32 16, !mcsema_real_eip !2
-  %FPU_FLAG_BUSY_full = getelementptr %RegState, %RegState* %0, i32 0, i32 17, !mcsema_real_eip !2
-  %FPU_FLAG_BUSY = bitcast i8* %FPU_FLAG_BUSY_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_C3_full = getelementptr %RegState, %RegState* %0, i32 0, i32 18, !mcsema_real_eip !2
-  %FPU_FLAG_C3 = bitcast i8* %FPU_FLAG_C3_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_TOP_full = getelementptr %RegState, %RegState* %0, i32 0, i32 19, !mcsema_real_eip !2
-  %FPU_FLAG_TOP = bitcast i8* %FPU_FLAG_TOP_full to i3*, !mcsema_real_eip !2
-  %FPU_FLAG_C2_full = getelementptr %RegState, %RegState* %0, i32 0, i32 20, !mcsema_real_eip !2
-  %FPU_FLAG_C2 = bitcast i8* %FPU_FLAG_C2_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_C1_full = getelementptr %RegState, %RegState* %0, i32 0, i32 21, !mcsema_real_eip !2
-  %FPU_FLAG_C1 = bitcast i8* %FPU_FLAG_C1_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_C0_full = getelementptr %RegState, %RegState* %0, i32 0, i32 22, !mcsema_real_eip !2
-  %FPU_FLAG_C0 = bitcast i8* %FPU_FLAG_C0_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_ES_full = getelementptr %RegState, %RegState* %0, i32 0, i32 23, !mcsema_real_eip !2
-  %FPU_FLAG_ES = bitcast i8* %FPU_FLAG_ES_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_SF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 24, !mcsema_real_eip !2
-  %FPU_FLAG_SF = bitcast i8* %FPU_FLAG_SF_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_PE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 25, !mcsema_real_eip !2
-  %FPU_FLAG_PE = bitcast i8* %FPU_FLAG_PE_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_UE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 26, !mcsema_real_eip !2
-  %FPU_FLAG_UE = bitcast i8* %FPU_FLAG_UE_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_OE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 27, !mcsema_real_eip !2
-  %FPU_FLAG_OE = bitcast i8* %FPU_FLAG_OE_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_ZE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 28, !mcsema_real_eip !2
-  %FPU_FLAG_ZE = bitcast i8* %FPU_FLAG_ZE_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_DE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 29, !mcsema_real_eip !2
-  %FPU_FLAG_DE = bitcast i8* %FPU_FLAG_DE_full to i1*, !mcsema_real_eip !2
-  %FPU_FLAG_IE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 30, !mcsema_real_eip !2
-  %FPU_FLAG_IE = bitcast i8* %FPU_FLAG_IE_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_X_full = getelementptr %RegState, %RegState* %0, i32 0, i32 31, !mcsema_real_eip !2
-  %FPU_CONTROL_X = bitcast i8* %FPU_CONTROL_X_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_RC_full = getelementptr %RegState, %RegState* %0, i32 0, i32 32, !mcsema_real_eip !2
-  %FPU_CONTROL_RC = bitcast i8* %FPU_CONTROL_RC_full to i2*, !mcsema_real_eip !2
-  %FPU_CONTROL_PC_full = getelementptr %RegState, %RegState* %0, i32 0, i32 33, !mcsema_real_eip !2
-  %FPU_CONTROL_PC = bitcast i8* %FPU_CONTROL_PC_full to i2*, !mcsema_real_eip !2
-  %FPU_CONTROL_PM_full = getelementptr %RegState, %RegState* %0, i32 0, i32 34, !mcsema_real_eip !2
-  %FPU_CONTROL_PM = bitcast i8* %FPU_CONTROL_PM_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_UM_full = getelementptr %RegState, %RegState* %0, i32 0, i32 35, !mcsema_real_eip !2
-  %FPU_CONTROL_UM = bitcast i8* %FPU_CONTROL_UM_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_OM_full = getelementptr %RegState, %RegState* %0, i32 0, i32 36, !mcsema_real_eip !2
-  %FPU_CONTROL_OM = bitcast i8* %FPU_CONTROL_OM_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_ZM_full = getelementptr %RegState, %RegState* %0, i32 0, i32 37, !mcsema_real_eip !2
-  %FPU_CONTROL_ZM = bitcast i8* %FPU_CONTROL_ZM_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_DM_full = getelementptr %RegState, %RegState* %0, i32 0, i32 38, !mcsema_real_eip !2
-  %FPU_CONTROL_DM = bitcast i8* %FPU_CONTROL_DM_full to i1*, !mcsema_real_eip !2
-  %FPU_CONTROL_IM_full = getelementptr %RegState, %RegState* %0, i32 0, i32 39, !mcsema_real_eip !2
-  %FPU_CONTROL_IM = bitcast i8* %FPU_CONTROL_IM_full to i1*, !mcsema_real_eip !2
-  %FPU_TAG = getelementptr %RegState, %RegState* %0, i32 0, i32 40, !mcsema_real_eip !2
-  %FPU_LASTIP_SEG = getelementptr %RegState, %RegState* %0, i32 0, i32 41, !mcsema_real_eip !2
-  %FPU_LASTIP_OFF = getelementptr %RegState, %RegState* %0, i32 0, i32 42, !mcsema_real_eip !2
-  %FPU_LASTDATA_SEG = getelementptr %RegState, %RegState* %0, i32 0, i32 43, !mcsema_real_eip !2
-  %FPU_LASTDATA_OFF = getelementptr %RegState, %RegState* %0, i32 0, i32 44, !mcsema_real_eip !2
-  %FPU_FOPCODE_full = getelementptr %RegState, %RegState* %0, i32 0, i32 45, !mcsema_real_eip !2
-  %FPU_FOPCODE = bitcast i16* %FPU_FOPCODE_full to i11*, !mcsema_real_eip !2
-  %XMM0 = getelementptr %RegState, %RegState* %0, i32 0, i32 46, !mcsema_real_eip !2
-  %XMM1 = getelementptr %RegState, %RegState* %0, i32 0, i32 47, !mcsema_real_eip !2
-  %XMM2 = getelementptr %RegState, %RegState* %0, i32 0, i32 48, !mcsema_real_eip !2
-  %XMM3 = getelementptr %RegState, %RegState* %0, i32 0, i32 49, !mcsema_real_eip !2
-  %XMM4 = getelementptr %RegState, %RegState* %0, i32 0, i32 50, !mcsema_real_eip !2
-  %XMM5 = getelementptr %RegState, %RegState* %0, i32 0, i32 51, !mcsema_real_eip !2
-  %XMM6 = getelementptr %RegState, %RegState* %0, i32 0, i32 52, !mcsema_real_eip !2
-  %XMM7 = getelementptr %RegState, %RegState* %0, i32 0, i32 53, !mcsema_real_eip !2
-  %XMM8 = getelementptr %RegState, %RegState* %0, i32 0, i32 54, !mcsema_real_eip !2
-  %XMM9 = getelementptr %RegState, %RegState* %0, i32 0, i32 55, !mcsema_real_eip !2
-  %XMM10 = getelementptr %RegState, %RegState* %0, i32 0, i32 56, !mcsema_real_eip !2
-  %XMM11 = getelementptr %RegState, %RegState* %0, i32 0, i32 57, !mcsema_real_eip !2
-  %XMM12 = getelementptr %RegState, %RegState* %0, i32 0, i32 58, !mcsema_real_eip !2
-  %XMM13 = getelementptr %RegState, %RegState* %0, i32 0, i32 59, !mcsema_real_eip !2
-  %XMM14 = getelementptr %RegState, %RegState* %0, i32 0, i32 60, !mcsema_real_eip !2
-  %XMM15 = getelementptr %RegState, %RegState* %0, i32 0, i32 61, !mcsema_real_eip !2
-  %STACK_BASE = getelementptr %RegState, %RegState* %0, i32 0, i32 62, !mcsema_real_eip !2
-  %STACK_LIMIT = getelementptr %RegState, %RegState* %0, i32 0, i32 63, !mcsema_real_eip !2
-  %R8 = getelementptr %RegState, %RegState* %0, i32 0, i32 64, !mcsema_real_eip !2
-  %R9 = getelementptr %RegState, %RegState* %0, i32 0, i32 65, !mcsema_real_eip !2
-  %R10 = getelementptr %RegState, %RegState* %0, i32 0, i32 66, !mcsema_real_eip !2
-  %R11 = getelementptr %RegState, %RegState* %0, i32 0, i32 67, !mcsema_real_eip !2
-  %R12 = getelementptr %RegState, %RegState* %0, i32 0, i32 68, !mcsema_real_eip !2
-  %R13 = getelementptr %RegState, %RegState* %0, i32 0, i32 69, !mcsema_real_eip !2
-  %R14 = getelementptr %RegState, %RegState* %0, i32 0, i32 70, !mcsema_real_eip !2
-  %R15 = getelementptr %RegState, %RegState* %0, i32 0, i32 71, !mcsema_real_eip !2
   br label %block_0x0, !mcsema_real_eip !2
 
 block_0x0:                                        ; preds = %entry
-  %RBP_val.0 = load i64, i64* %XBP, !mcsema_real_eip !2
+  %_load_rbp_ptr_ = load i8*, i8** %_RBP_ptr_
   %RSP_val.1 = load i64, i64* %XSP, !mcsema_real_eip !2
+  %_new_gep_ = getelementptr i8, i8* %_local_stack_end_ptr_, i64 -8
   %1 = sub i64 %RSP_val.1, 8, !mcsema_real_eip !2
-  %2 = inttoptr i64 %1 to i64*, !mcsema_real_eip !2
-  store i64 %RBP_val.0, i64* %2, !mcsema_real_eip !2
+  %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
+  %_new_ptr2int_ = ptrtoint i8* %_load_rbp_ptr_ to i64
+  store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_
   store i64 %1, i64* %XSP, !mcsema_real_eip !2
-  %RSP_val.2 = load i64, i64* %XSP, !mcsema_real_eip !3
-  store i64 %RSP_val.2, i64* %XBP, !mcsema_real_eip !3
+  store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+  store i64 %1, i64* %XBP, !mcsema_real_eip !3
+  %_load_rsp_ptr_2 = load i8*, i8** %_RSP_ptr_
   %RSP_val.3 = load i64, i64* %XSP, !mcsema_real_eip !4
-  %3 = sub i64 %RSP_val.3, 80, !mcsema_real_eip !4
-  %4 = xor i64 %3, %RSP_val.3, !mcsema_real_eip !4
-  %5 = xor i64 %4, 80, !mcsema_real_eip !4
-  %6 = and i64 %5, 16, !mcsema_real_eip !4
-  %7 = icmp ne i64 %6, 0, !mcsema_real_eip !4
-  store i1 %7, i1* %AF, !mcsema_real_eip !4
-  %8 = trunc i64 %3 to i8, !mcsema_real_eip !4
-  %9 = call i8 @llvm.ctpop.i8(i8 %8), !mcsema_real_eip !4
-  %10 = trunc i8 %9 to i1, !mcsema_real_eip !4
-  %11 = xor i1 %10, true, !mcsema_real_eip !4
-  store i1 %11, i1* %PF, !mcsema_real_eip !4
-  %12 = icmp eq i64 %3, 0, !mcsema_real_eip !4
-  store i1 %12, i1* %ZF, !mcsema_real_eip !4
-  %13 = lshr i64 %3, 63, !mcsema_real_eip !4
-  %14 = trunc i64 %13 to i1, !mcsema_real_eip !4
-  store i1 %14, i1* %SF, !mcsema_real_eip !4
-  %15 = icmp ult i64 %RSP_val.3, 80, !mcsema_real_eip !4
-  store i1 %15, i1* %CF, !mcsema_real_eip !4
-  %16 = xor i64 %RSP_val.3, 80, !mcsema_real_eip !4
-  %17 = xor i64 %RSP_val.3, %3, !mcsema_real_eip !4
-  %18 = and i64 %16, %17, !mcsema_real_eip !4
-  %19 = lshr i64 %18, 63, !mcsema_real_eip !4
-  %20 = trunc i64 %19 to i1, !mcsema_real_eip !4
-  store i1 %20, i1* %OF, !mcsema_real_eip !4
-  store i64 %3, i64* %XSP, !mcsema_real_eip !4
-  %RBP_val.4 = load i64, i64* %XBP, !mcsema_real_eip !5
-  %21 = add i64 %RBP_val.4, -16, !mcsema_real_eip !5
-  %22 = inttoptr i64 %21 to i64*, !mcsema_real_eip !5
+  %_new_gep_3 = getelementptr i8, i8* %_load_rsp_ptr_2, i64 -80
+  %2 = sub i64 %RSP_val.3, 80, !mcsema_real_eip !4
+  %_trans_p2i_ = ptrtoint i8* %_new_gep_3 to i64
+  %_trans_p2i_4 = ptrtoint i8* %_load_rsp_ptr_2 to i64
+  %_trans_xor_ = xor i64 %_trans_p2i_, %_trans_p2i_4
+  %3 = xor i64 %_trans_xor_, 80, !mcsema_real_eip !4
+  %4 = and i64 %3, 16, !mcsema_real_eip !4
+  %5 = icmp ne i64 %4, 0, !mcsema_real_eip !4
+  store i1 %5, i1* %AF, !mcsema_real_eip !4
+  %_trans_trunc_ = trunc i64 %_trans_p2i_ to i8
+  %6 = call i8 @llvm.ctpop.i8(i8 %_trans_trunc_), !mcsema_real_eip !4
+  %7 = trunc i8 %6 to i1, !mcsema_real_eip !4
+  %8 = xor i1 %7, true, !mcsema_real_eip !4
+  store i1 %8, i1* %PF, !mcsema_real_eip !4
+  %_trans_icmp_eq_ = icmp eq i64 %_trans_p2i_, 0
+  store i1 %_trans_icmp_eq_, i1* %ZF, !mcsema_real_eip !4
+  %9 = lshr i64 %2, 63, !mcsema_real_eip !4
+  %10 = trunc i64 %9 to i1, !mcsema_real_eip !4
+  store i1 %10, i1* %SF, !mcsema_real_eip !4
+  %_trans_icmp_ne_ = icmp ne i64 %_trans_p2i_4, 80
+  store i1 %_trans_icmp_ne_, i1* %CF, !mcsema_real_eip !4
+  %_trans_xor_9 = xor i64 %_trans_p2i_4, 80
+  %11 = and i64 %_trans_xor_9, %_trans_xor_, !mcsema_real_eip !4
+  %12 = lshr i64 %11, 63, !mcsema_real_eip !4
+  %13 = trunc i64 %12 to i1, !mcsema_real_eip !4
+  store i1 %13, i1* %OF, !mcsema_real_eip !4
+  store volatile i8* %_new_gep_3, i8** %_RSP_ptr_
+  store i64 %2, i64* %XSP, !mcsema_real_eip !4
+  %_load_rbp_ptr_13 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_14 = getelementptr i8, i8* %_load_rbp_ptr_13, i64 -16
+  %_allin_new_bt_15 = bitcast i8* %_new_gep_14 to i64*
   %RDI_val.5 = load i64, i64* %XDI, !mcsema_real_eip !5
-  store i64 %RDI_val.5, i64* %22, !mcsema_real_eip !5
-  %RBP_val.6 = load i64, i64* %XBP, !mcsema_real_eip !6
-  %23 = add i64 %RBP_val.6, -16, !mcsema_real_eip !6
-  %24 = inttoptr i64 %23 to i64*, !mcsema_real_eip !6
-  %25 = load i64, i64* %24, !mcsema_real_eip !6
-  store i64 %25, i64* %XDI, !mcsema_real_eip !6
-  %RDI_val.7 = load i64, i64* %XDI, !mcsema_real_eip !7
+  store i64 %RDI_val.5, i64* %_allin_new_bt_15, !mcsema_real_eip !5
+  %_load_rbp_ptr_16 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_17 = getelementptr i8, i8* %_load_rbp_ptr_16, i64 -16
+  %_allin_new_bt_18 = bitcast i8* %_new_gep_17 to i64*
+  %14 = load i64, i64* %_allin_new_bt_18, !mcsema_real_eip !6
+  store i64 %14, i64* %XDI, !mcsema_real_eip !6
+  %_load_rsp_ptr_19 = load i8*, i8** %_RSP_ptr_
   %RSP_val.8 = load i64, i64* %XSP, !mcsema_real_eip !7
-  %26 = sub i64 %RSP_val.8, 8, !mcsema_real_eip !7
-  %27 = inttoptr i64 %26 to i64*, !mcsema_real_eip !7
-  store i64 -2415393069852865332, i64* %27, !mcsema_real_eip !7
-  store i64 %26, i64* %XSP, !mcsema_real_eip !7
-  %28 = call x86_64_sysvcc i64 @_strlen(i64 %RDI_val.7), !mcsema_real_eip !7
-  store i64 %28, i64* %XAX, !mcsema_real_eip !7
+  %_new_gep_20 = getelementptr i8, i8* %_load_rsp_ptr_19, i64 -8
+  %15 = sub i64 %RSP_val.8, 8, !mcsema_real_eip !7
+  %_allin_new_bt_21 = bitcast i8* %_new_gep_20 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_21, !mcsema_real_eip !7
+  store volatile i8* %_new_gep_20, i8** %_RSP_ptr_
+  store i64 %15, i64* %XSP, !mcsema_real_eip !7
+  %16 = call x86_64_sysvcc i64 @_strlen(i64 %14)
+  %_rsp_fix_ = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_ = getelementptr i8, i8* %_rsp_fix_, i64 8
+  store i8* %_gep_fix_, i8** %_RSP_ptr_
+  store i64 %16, i64* %XAX, !mcsema_real_eip !7
   %EAX.9 = bitcast i64* %XAX to i32*, !mcsema_real_eip !8
   %EAX_val.10 = load i32, i32* %EAX.9, !mcsema_real_eip !8
-  %29 = zext i32 %EAX_val.10 to i64, !mcsema_real_eip !8
-  store i64 %29, i64* %XCX, !mcsema_real_eip !8
-  %RBP_val.11 = load i64, i64* %XBP, !mcsema_real_eip !9
-  %30 = add i64 %RBP_val.11, -32, !mcsema_real_eip !9
-  %31 = inttoptr i64 %30 to i64*, !mcsema_real_eip !9
+  %17 = zext i32 %EAX_val.10 to i64, !mcsema_real_eip !8
+  store i64 %17, i64* %XCX, !mcsema_real_eip !8
+  %_load_rbp_ptr_22 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_23 = getelementptr i8, i8* %_load_rbp_ptr_22, i64 -32
+  %_allin_new_bt_24 = bitcast i8* %_new_gep_23 to i64*
   %ECX.12 = bitcast i64* %XCX to i32*, !mcsema_real_eip !9
   %ECX_val.13 = load i32, i32* %ECX.12, !mcsema_real_eip !9
-  %32 = ptrtoint i64* %31 to i64, !mcsema_real_eip !9
-  %33 = inttoptr i64 %32 to i32*, !mcsema_real_eip !9
-  store i32 %ECX_val.13, i32* %33, !mcsema_real_eip !9
-  %RBP_val.14 = load i64, i64* %XBP, !mcsema_real_eip !10
-  %34 = add i64 %RBP_val.14, -32, !mcsema_real_eip !10
-  %35 = inttoptr i64 %34 to i64*, !mcsema_real_eip !10
-  %36 = ptrtoint i64* %35 to i64, !mcsema_real_eip !10
-  %37 = inttoptr i64 %36 to i32*, !mcsema_real_eip !10
-  %38 = load i32, i32* %37, !mcsema_real_eip !10
-  %39 = sub i32 %38, 37, !mcsema_real_eip !10
-  %40 = xor i32 %39, %38, !mcsema_real_eip !10
-  %41 = xor i32 %40, 37, !mcsema_real_eip !10
-  %42 = and i32 %41, 16, !mcsema_real_eip !10
-  %43 = icmp ne i32 %42, 0, !mcsema_real_eip !10
-  store i1 %43, i1* %AF, !mcsema_real_eip !10
-  %44 = trunc i32 %39 to i8, !mcsema_real_eip !10
-  %45 = call i8 @llvm.ctpop.i8(i8 %44), !mcsema_real_eip !10
-  %46 = trunc i8 %45 to i1, !mcsema_real_eip !10
-  %47 = xor i1 %46, true, !mcsema_real_eip !10
-  store i1 %47, i1* %PF, !mcsema_real_eip !10
-  %48 = icmp eq i32 %39, 0, !mcsema_real_eip !10
-  store i1 %48, i1* %ZF, !mcsema_real_eip !10
-  %49 = lshr i32 %39, 31, !mcsema_real_eip !10
-  %50 = trunc i32 %49 to i1, !mcsema_real_eip !10
-  store i1 %50, i1* %SF, !mcsema_real_eip !10
-  %51 = icmp ult i32 %38, 37, !mcsema_real_eip !10
-  store i1 %51, i1* %CF, !mcsema_real_eip !10
-  %52 = xor i32 %38, 37, !mcsema_real_eip !10
-  %53 = xor i32 %38, %39, !mcsema_real_eip !10
-  %54 = and i32 %52, %53, !mcsema_real_eip !10
-  %55 = lshr i32 %54, 31, !mcsema_real_eip !10
-  %56 = trunc i32 %55 to i1, !mcsema_real_eip !10
-  store i1 %56, i1* %OF, !mcsema_real_eip !10
-  %57 = load i1, i1* %ZF, !mcsema_real_eip !11
-  %58 = icmp eq i1 %57, true, !mcsema_real_eip !11
-  br i1 %58, label %block_0x2f, label %block_0x24, !mcsema_real_eip !11
+  %18 = ptrtoint i64* %_allin_new_bt_24 to i64, !mcsema_real_eip !9
+  %19 = inttoptr i64 %18 to i32*, !mcsema_real_eip !9
+  store i32 %ECX_val.13, i32* %19, !mcsema_real_eip !9
+  %_load_rbp_ptr_25 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_26 = getelementptr i8, i8* %_load_rbp_ptr_25, i64 -32
+  %_allin_new_bt_27 = bitcast i8* %_new_gep_26 to i64*
+  %20 = ptrtoint i64* %_allin_new_bt_27 to i64, !mcsema_real_eip !10
+  %21 = inttoptr i64 %20 to i32*, !mcsema_real_eip !10
+  %22 = load i32, i32* %21, !mcsema_real_eip !10
+  %23 = sub i32 %22, 37, !mcsema_real_eip !10
+  %24 = xor i32 %23, %22, !mcsema_real_eip !10
+  %25 = xor i32 %24, 37, !mcsema_real_eip !10
+  %26 = and i32 %25, 16, !mcsema_real_eip !10
+  %27 = icmp ne i32 %26, 0, !mcsema_real_eip !10
+  store i1 %27, i1* %AF, !mcsema_real_eip !10
+  %28 = trunc i32 %23 to i8, !mcsema_real_eip !10
+  %29 = call i8 @llvm.ctpop.i8(i8 %28), !mcsema_real_eip !10
+  %30 = trunc i8 %29 to i1, !mcsema_real_eip !10
+  %31 = xor i1 %30, true, !mcsema_real_eip !10
+  store i1 %31, i1* %PF, !mcsema_real_eip !10
+  %32 = icmp eq i32 %23, 0, !mcsema_real_eip !10
+  store i1 %32, i1* %ZF, !mcsema_real_eip !10
+  %33 = lshr i32 %23, 31, !mcsema_real_eip !10
+  %34 = trunc i32 %33 to i1, !mcsema_real_eip !10
+  store i1 %34, i1* %SF, !mcsema_real_eip !10
+  %35 = icmp ult i32 %22, 37, !mcsema_real_eip !10
+  store i1 %35, i1* %CF, !mcsema_real_eip !10
+  %36 = xor i32 %22, 37, !mcsema_real_eip !10
+  %37 = and i32 %36, %24, !mcsema_real_eip !10
+  %38 = lshr i32 %37, 31, !mcsema_real_eip !10
+  %39 = trunc i32 %38 to i1, !mcsema_real_eip !10
+  store i1 %39, i1* %OF, !mcsema_real_eip !10
+  br i1 %32, label %block_0x2f, label %block_0x24, !mcsema_real_eip !11
 
 block_0x24:                                       ; preds = %block_0x0
-  %RBP_val.23 = load i64, i64* %XBP, !mcsema_real_eip !12
-  %59 = add i64 %RBP_val.23, -32, !mcsema_real_eip !12
-  %60 = inttoptr i64 %59 to i64*, !mcsema_real_eip !12
-  %61 = ptrtoint i64* %60 to i64, !mcsema_real_eip !12
-  %62 = inttoptr i64 %61 to i32*, !mcsema_real_eip !12
-  %63 = load i32, i32* %62, !mcsema_real_eip !12
-  %64 = zext i32 %63 to i64, !mcsema_real_eip !12
-  store i64 %64, i64* %XAX, !mcsema_real_eip !12
-  %RBP_val.24 = load i64, i64* %XBP, !mcsema_real_eip !13
-  %65 = add i64 %RBP_val.24, -4, !mcsema_real_eip !13
-  %66 = inttoptr i64 %65 to i64*, !mcsema_real_eip !13
-  %EAX.25 = bitcast i64* %XAX to i32*, !mcsema_real_eip !13
-  %EAX_val.26 = load i32, i32* %EAX.25, !mcsema_real_eip !13
-  %67 = ptrtoint i64* %66 to i64, !mcsema_real_eip !13
-  %68 = inttoptr i64 %67 to i32*, !mcsema_real_eip !13
-  store i32 %EAX_val.26, i32* %68, !mcsema_real_eip !13
+  %40 = load i32, i32* %21, !mcsema_real_eip !12
+  %41 = zext i32 %40 to i64, !mcsema_real_eip !12
+  store i64 %41, i64* %XAX, !mcsema_real_eip !12
+  %_new_gep_32 = getelementptr i8, i8* %_load_rbp_ptr_25, i64 -4
+  %_allin_new_bt_33 = bitcast i8* %_new_gep_32 to i64*
+  %EAX_val.26 = load i32, i32* %EAX.9, !mcsema_real_eip !13
+  %42 = ptrtoint i64* %_allin_new_bt_33 to i64, !mcsema_real_eip !13
+  %43 = inttoptr i64 %42 to i32*, !mcsema_real_eip !13
+  store i32 %EAX_val.26, i32* %43, !mcsema_real_eip !13
   br label %block_0x417, !mcsema_real_eip !14
 
 block_0x2f:                                       ; preds = %block_0x0
-  %RBP_val.15 = load i64, i64* %XBP, !mcsema_real_eip !15
-  %69 = add i64 %RBP_val.15, -16, !mcsema_real_eip !15
-  %70 = inttoptr i64 %69 to i64*, !mcsema_real_eip !15
-  %71 = load i64, i64* %70, !mcsema_real_eip !15
-  store i64 %71, i64* %XAX, !mcsema_real_eip !15
-  %RAX_val.16 = load i64, i64* %XAX, !mcsema_real_eip !16
-  %72 = add i64 4, %RAX_val.16, !mcsema_real_eip !16
-  %73 = xor i64 %72, %RAX_val.16, !mcsema_real_eip !16
-  %74 = xor i64 %73, 4, !mcsema_real_eip !16
-  %75 = and i64 %74, 16, !mcsema_real_eip !16
-  %76 = icmp ne i64 %75, 0, !mcsema_real_eip !16
-  store i1 %76, i1* %AF, !mcsema_real_eip !16
-  %77 = lshr i64 %72, 63, !mcsema_real_eip !16
-  %78 = trunc i64 %77 to i1, !mcsema_real_eip !16
-  store i1 %78, i1* %SF, !mcsema_real_eip !16
-  %79 = icmp eq i64 %72, 0, !mcsema_real_eip !16
-  store i1 %79, i1* %ZF, !mcsema_real_eip !16
-  %80 = xor i64 %RAX_val.16, 4, !mcsema_real_eip !16
-  %81 = xor i64 %80, -1, !mcsema_real_eip !16
-  %82 = xor i64 %RAX_val.16, %72, !mcsema_real_eip !16
-  %83 = and i64 %81, %82, !mcsema_real_eip !16
-  %84 = lshr i64 %83, 63, !mcsema_real_eip !16
-  %85 = and i64 %84, 1, !mcsema_real_eip !16
-  %86 = trunc i64 %85 to i1, !mcsema_real_eip !16
-  store i1 %86, i1* %OF, !mcsema_real_eip !16
-  %87 = trunc i64 %72 to i8, !mcsema_real_eip !16
-  %88 = call i8 @llvm.ctpop.i8(i8 %87), !mcsema_real_eip !16
-  %89 = trunc i8 %88 to i1, !mcsema_real_eip !16
-  %90 = xor i1 %89, true, !mcsema_real_eip !16
-  store i1 %90, i1* %PF, !mcsema_real_eip !16
-  %91 = icmp ult i64 %72, %RAX_val.16, !mcsema_real_eip !16
-  store i1 %91, i1* %CF, !mcsema_real_eip !16
-  store i64 %72, i64* %XAX, !mcsema_real_eip !16
-  %RBP_val.17 = load i64, i64* %XBP, !mcsema_real_eip !17
-  %92 = add i64 %RBP_val.17, -16, !mcsema_real_eip !17
-  %93 = inttoptr i64 %92 to i64*, !mcsema_real_eip !17
-  %RAX_val.18 = load i64, i64* %XAX, !mcsema_real_eip !17
-  store i64 %RAX_val.18, i64* %93, !mcsema_real_eip !17
-  %RBP_val.19 = load i64, i64* %XBP, !mcsema_real_eip !18
-  %94 = add i64 %RBP_val.19, -16, !mcsema_real_eip !18
-  %95 = inttoptr i64 %94 to i64*, !mcsema_real_eip !18
-  %96 = load i64, i64* %95, !mcsema_real_eip !18
-  store i64 %96, i64* %XAX, !mcsema_real_eip !18
-  %RAX_val.20 = load i64, i64* %XAX, !mcsema_real_eip !19
-  %97 = add i64 %RAX_val.20, 0, !mcsema_real_eip !19
-  %98 = inttoptr i64 %97 to i64*, !mcsema_real_eip !19
-  %99 = ptrtoint i64* %98 to i64, !mcsema_real_eip !19
-  %100 = inttoptr i64 %99 to i8*, !mcsema_real_eip !19
-  %101 = load i8, i8* %100, !mcsema_real_eip !19
-  %102 = sext i8 %101 to i32, !mcsema_real_eip !19
-  %103 = zext i32 %102 to i64, !mcsema_real_eip !19
-  store i64 %103, i64* %XCX, !mcsema_real_eip !19
-  %ECX.21 = bitcast i64* %XCX to i32*, !mcsema_real_eip !20
-  %ECX_val.22 = load i32, i32* %ECX.21, !mcsema_real_eip !20
-  %104 = sub i32 %ECX_val.22, 100, !mcsema_real_eip !20
-  %105 = xor i32 %104, %ECX_val.22, !mcsema_real_eip !20
-  %106 = xor i32 %105, 100, !mcsema_real_eip !20
-  %107 = and i32 %106, 16, !mcsema_real_eip !20
-  %108 = icmp ne i32 %107, 0, !mcsema_real_eip !20
-  store i1 %108, i1* %AF, !mcsema_real_eip !20
-  %109 = trunc i32 %104 to i8, !mcsema_real_eip !20
-  %110 = call i8 @llvm.ctpop.i8(i8 %109), !mcsema_real_eip !20
-  %111 = trunc i8 %110 to i1, !mcsema_real_eip !20
-  %112 = xor i1 %111, true, !mcsema_real_eip !20
-  store i1 %112, i1* %PF, !mcsema_real_eip !20
-  %113 = icmp eq i32 %104, 0, !mcsema_real_eip !20
-  store i1 %113, i1* %ZF, !mcsema_real_eip !20
-  %114 = lshr i32 %104, 31, !mcsema_real_eip !20
-  %115 = trunc i32 %114 to i1, !mcsema_real_eip !20
-  store i1 %115, i1* %SF, !mcsema_real_eip !20
-  %116 = icmp ult i32 %ECX_val.22, 100, !mcsema_real_eip !20
-  store i1 %116, i1* %CF, !mcsema_real_eip !20
-  %117 = xor i32 %ECX_val.22, 100, !mcsema_real_eip !20
-  %118 = xor i32 %ECX_val.22, %104, !mcsema_real_eip !20
-  %119 = and i32 %117, %118, !mcsema_real_eip !20
-  %120 = lshr i32 %119, 31, !mcsema_real_eip !20
-  %121 = trunc i32 %120 to i1, !mcsema_real_eip !20
-  store i1 %121, i1* %OF, !mcsema_real_eip !20
-  %122 = load i1, i1* %ZF, !mcsema_real_eip !21
-  %123 = icmp eq i1 %122, true, !mcsema_real_eip !21
-  br i1 %123, label %block_0x57, label %block_0x4b, !mcsema_real_eip !21
+  %_new_gep_35 = getelementptr i8, i8* %_load_rbp_ptr_25, i64 -16
+  %_allin_new_bt_36 = bitcast i8* %_new_gep_35 to i64*
+  %44 = load i64, i64* %_allin_new_bt_36, !mcsema_real_eip !15
+  store i64 %44, i64* %XAX, !mcsema_real_eip !15
+  %45 = add i64 4, %44, !mcsema_real_eip !16
+  %46 = xor i64 %45, %44, !mcsema_real_eip !16
+  %47 = xor i64 %46, 4, !mcsema_real_eip !16
+  %48 = and i64 %47, 16, !mcsema_real_eip !16
+  %49 = icmp ne i64 %48, 0, !mcsema_real_eip !16
+  store i1 %49, i1* %AF, !mcsema_real_eip !16
+  %50 = lshr i64 %45, 63, !mcsema_real_eip !16
+  %51 = trunc i64 %50 to i1, !mcsema_real_eip !16
+  store i1 %51, i1* %SF, !mcsema_real_eip !16
+  %52 = icmp eq i64 %45, 0, !mcsema_real_eip !16
+  store i1 %52, i1* %ZF, !mcsema_real_eip !16
+  %53 = xor i64 %44, 4, !mcsema_real_eip !16
+  %54 = xor i64 %53, -1, !mcsema_real_eip !16
+  %55 = and i64 %54, %46, !mcsema_real_eip !16
+  %56 = lshr i64 %55, 63, !mcsema_real_eip !16
+  %57 = and i64 %56, 1, !mcsema_real_eip !16
+  %58 = trunc i64 %57 to i1, !mcsema_real_eip !16
+  store i1 %58, i1* %OF, !mcsema_real_eip !16
+  %59 = trunc i64 %45 to i8, !mcsema_real_eip !16
+  %60 = call i8 @llvm.ctpop.i8(i8 %59), !mcsema_real_eip !16
+  %61 = trunc i8 %60 to i1, !mcsema_real_eip !16
+  %62 = xor i1 %61, true, !mcsema_real_eip !16
+  store i1 %62, i1* %PF, !mcsema_real_eip !16
+  %63 = icmp ult i64 %45, %44, !mcsema_real_eip !16
+  store i1 %63, i1* %CF, !mcsema_real_eip !16
+  store i64 %45, i64* %XAX, !mcsema_real_eip !16
+  store i64 %45, i64* %_allin_new_bt_36, !mcsema_real_eip !17
+  %_load_rbp_ptr_40 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_41 = getelementptr i8, i8* %_load_rbp_ptr_40, i64 -16
+  %_allin_new_bt_42 = bitcast i8* %_new_gep_41 to i64*
+  %64 = load i64, i64* %_allin_new_bt_42, !mcsema_real_eip !18
+  store i64 %64, i64* %XAX, !mcsema_real_eip !18
+  %65 = inttoptr i64 %64 to i64*, !mcsema_real_eip !19
+  %66 = inttoptr i64 %64 to i8*, !mcsema_real_eip !19
+  %67 = load i8, i8* %66, !mcsema_real_eip !19
+  %68 = sext i8 %67 to i32, !mcsema_real_eip !19
+  %69 = zext i32 %68 to i64, !mcsema_real_eip !19
+  store i64 %69, i64* %XCX, !mcsema_real_eip !19
+  %ECX_val.22 = load i32, i32* %ECX.12, !mcsema_real_eip !20
+  %70 = sub i32 %ECX_val.22, 100, !mcsema_real_eip !20
+  %71 = xor i32 %70, %ECX_val.22, !mcsema_real_eip !20
+  %72 = xor i32 %71, 100, !mcsema_real_eip !20
+  %73 = and i32 %72, 16, !mcsema_real_eip !20
+  %74 = icmp ne i32 %73, 0, !mcsema_real_eip !20
+  store i1 %74, i1* %AF, !mcsema_real_eip !20
+  %75 = trunc i32 %70 to i8, !mcsema_real_eip !20
+  %76 = call i8 @llvm.ctpop.i8(i8 %75), !mcsema_real_eip !20
+  %77 = trunc i8 %76 to i1, !mcsema_real_eip !20
+  %78 = xor i1 %77, true, !mcsema_real_eip !20
+  store i1 %78, i1* %PF, !mcsema_real_eip !20
+  %79 = icmp eq i32 %70, 0, !mcsema_real_eip !20
+  store i1 %79, i1* %ZF, !mcsema_real_eip !20
+  %80 = lshr i32 %70, 31, !mcsema_real_eip !20
+  %81 = trunc i32 %80 to i1, !mcsema_real_eip !20
+  store i1 %81, i1* %SF, !mcsema_real_eip !20
+  %82 = icmp ult i32 %ECX_val.22, 100, !mcsema_real_eip !20
+  store i1 %82, i1* %CF, !mcsema_real_eip !20
+  %83 = xor i32 %ECX_val.22, 100, !mcsema_real_eip !20
+  %84 = and i32 %83, %71, !mcsema_real_eip !20
+  %85 = lshr i32 %84, 31, !mcsema_real_eip !20
+  %86 = trunc i32 %85 to i1, !mcsema_real_eip !20
+  store i1 %86, i1* %OF, !mcsema_real_eip !20
+  br i1 %79, label %block_0x57, label %block_0x4b, !mcsema_real_eip !21
 
 block_0x4b:                                       ; preds = %block_0x2f
-  %RBP_val.33 = load i64, i64* %XBP, !mcsema_real_eip !22
-  %124 = add i64 %RBP_val.33, -4, !mcsema_real_eip !22
-  %125 = inttoptr i64 %124 to i64*, !mcsema_real_eip !22
-  %126 = ptrtoint i64* %125 to i64, !mcsema_real_eip !22
-  %127 = inttoptr i64 %126 to i32*, !mcsema_real_eip !22
-  store i32 -2, i32* %127, !mcsema_real_eip !22
+  %_new_gep_44 = getelementptr i8, i8* %_load_rbp_ptr_40, i64 -4
+  %_allin_new_bt_45 = bitcast i8* %_new_gep_44 to i64*
+  %87 = ptrtoint i64* %_allin_new_bt_45 to i64, !mcsema_real_eip !22
+  %88 = inttoptr i64 %87 to i32*, !mcsema_real_eip !22
+  store i32 -2, i32* %88, !mcsema_real_eip !22
   br label %block_0x417, !mcsema_real_eip !23
 
 block_0x57:                                       ; preds = %block_0x2f
-  %RBP_val.27 = load i64, i64* %XBP, !mcsema_real_eip !24
-  %128 = add i64 %RBP_val.27, -16, !mcsema_real_eip !24
-  %129 = inttoptr i64 %128 to i64*, !mcsema_real_eip !24
-  %130 = load i64, i64* %129, !mcsema_real_eip !24
-  store i64 %130, i64* %XAX, !mcsema_real_eip !24
-  %RAX_val.28 = load i64, i64* %XAX, !mcsema_real_eip !25
-  %131 = add i64 %RAX_val.28, 1, !mcsema_real_eip !25
-  %132 = inttoptr i64 %131 to i64*, !mcsema_real_eip !25
-  %133 = ptrtoint i64* %132 to i64, !mcsema_real_eip !25
-  %134 = inttoptr i64 %133 to i8*, !mcsema_real_eip !25
-  %135 = load i8, i8* %134, !mcsema_real_eip !25
-  %136 = zext i8 %135 to i32, !mcsema_real_eip !25
-  %137 = zext i32 %136 to i64, !mcsema_real_eip !25
-  store i64 %137, i64* %XDI, !mcsema_real_eip !25
-  %RDI_val.29 = load i64, i64* %XDI, !mcsema_real_eip !26
+  %89 = load i64, i64* %_allin_new_bt_42, !mcsema_real_eip !24
+  store i64 %89, i64* %XAX, !mcsema_real_eip !24
+  %90 = add i64 %89, 1, !mcsema_real_eip !25
+  %91 = inttoptr i64 %90 to i64*, !mcsema_real_eip !25
+  %92 = inttoptr i64 %90 to i8*, !mcsema_real_eip !25
+  %93 = load i8, i8* %92, !mcsema_real_eip !25
+  %94 = zext i8 %93 to i32, !mcsema_real_eip !25
+  %95 = zext i32 %94 to i64, !mcsema_real_eip !25
+  store i64 %95, i64* %XDI, !mcsema_real_eip !25
+  %_load_rsp_ptr_49 = load i8*, i8** %_RSP_ptr_
   %RSP_val.30 = load i64, i64* %XSP, !mcsema_real_eip !26
-  %138 = sub i64 %RSP_val.30, 8, !mcsema_real_eip !26
-  %139 = inttoptr i64 %138 to i64*, !mcsema_real_eip !26
-  store i64 -2415393069852865332, i64* %139, !mcsema_real_eip !26
-  store i64 %138, i64* %XSP, !mcsema_real_eip !26
-  %140 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.29), !mcsema_real_eip !26
-  store i64 %140, i64* %XAX, !mcsema_real_eip !26
-  %EAX.31 = bitcast i64* %XAX to i32*, !mcsema_real_eip !27
-  %EAX_val.32 = load i32, i32* %EAX.31, !mcsema_real_eip !27
-  %141 = sub i32 %EAX_val.32, 9, !mcsema_real_eip !27
-  %142 = xor i32 %141, %EAX_val.32, !mcsema_real_eip !27
-  %143 = xor i32 %142, 9, !mcsema_real_eip !27
-  %144 = and i32 %143, 16, !mcsema_real_eip !27
-  %145 = icmp ne i32 %144, 0, !mcsema_real_eip !27
-  store i1 %145, i1* %AF, !mcsema_real_eip !27
-  %146 = trunc i32 %141 to i8, !mcsema_real_eip !27
-  %147 = call i8 @llvm.ctpop.i8(i8 %146), !mcsema_real_eip !27
-  %148 = trunc i8 %147 to i1, !mcsema_real_eip !27
-  %149 = xor i1 %148, true, !mcsema_real_eip !27
-  store i1 %149, i1* %PF, !mcsema_real_eip !27
-  %150 = icmp eq i32 %141, 0, !mcsema_real_eip !27
-  store i1 %150, i1* %ZF, !mcsema_real_eip !27
-  %151 = lshr i32 %141, 31, !mcsema_real_eip !27
-  %152 = trunc i32 %151 to i1, !mcsema_real_eip !27
-  store i1 %152, i1* %SF, !mcsema_real_eip !27
-  %153 = icmp ult i32 %EAX_val.32, 9, !mcsema_real_eip !27
-  store i1 %153, i1* %CF, !mcsema_real_eip !27
-  %154 = xor i32 %EAX_val.32, 9, !mcsema_real_eip !27
-  %155 = xor i32 %EAX_val.32, %141, !mcsema_real_eip !27
-  %156 = and i32 %154, %155, !mcsema_real_eip !27
-  %157 = lshr i32 %156, 31, !mcsema_real_eip !27
-  %158 = trunc i32 %157 to i1, !mcsema_real_eip !27
-  store i1 %158, i1* %OF, !mcsema_real_eip !27
-  %159 = load i1, i1* %ZF, !mcsema_real_eip !28
-  %160 = icmp eq i1 %159, true, !mcsema_real_eip !28
-  br i1 %160, label %block_0x79, label %block_0x6d, !mcsema_real_eip !28
+  %_new_gep_50 = getelementptr i8, i8* %_load_rsp_ptr_49, i64 -8
+  %96 = sub i64 %RSP_val.30, 8, !mcsema_real_eip !26
+  %_allin_new_bt_51 = bitcast i8* %_new_gep_50 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_51, !mcsema_real_eip !26
+  store volatile i8* %_new_gep_50, i8** %_RSP_ptr_
+  store i64 %96, i64* %XSP, !mcsema_real_eip !26
+  %97 = call x86_64_sysvcc i64 @_to_byte(i64 %95)
+  %_rsp_fix_416 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_417 = getelementptr i8, i8* %_rsp_fix_416, i64 8
+  store i8* %_gep_fix_417, i8** %_RSP_ptr_
+  store i64 %97, i64* %XAX, !mcsema_real_eip !26
+  %EAX_val.32 = load i32, i32* %EAX.9, !mcsema_real_eip !27
+  %98 = sub i32 %EAX_val.32, 9, !mcsema_real_eip !27
+  %99 = xor i32 %98, %EAX_val.32, !mcsema_real_eip !27
+  %100 = xor i32 %99, 9, !mcsema_real_eip !27
+  %101 = and i32 %100, 16, !mcsema_real_eip !27
+  %102 = icmp ne i32 %101, 0, !mcsema_real_eip !27
+  store i1 %102, i1* %AF, !mcsema_real_eip !27
+  %103 = trunc i32 %98 to i8, !mcsema_real_eip !27
+  %104 = call i8 @llvm.ctpop.i8(i8 %103), !mcsema_real_eip !27
+  %105 = trunc i8 %104 to i1, !mcsema_real_eip !27
+  %106 = xor i1 %105, true, !mcsema_real_eip !27
+  store i1 %106, i1* %PF, !mcsema_real_eip !27
+  %107 = icmp eq i32 %98, 0, !mcsema_real_eip !27
+  store i1 %107, i1* %ZF, !mcsema_real_eip !27
+  %108 = lshr i32 %98, 31, !mcsema_real_eip !27
+  %109 = trunc i32 %108 to i1, !mcsema_real_eip !27
+  store i1 %109, i1* %SF, !mcsema_real_eip !27
+  %110 = icmp ult i32 %EAX_val.32, 9, !mcsema_real_eip !27
+  store i1 %110, i1* %CF, !mcsema_real_eip !27
+  %111 = xor i32 %EAX_val.32, 9, !mcsema_real_eip !27
+  %112 = and i32 %111, %99, !mcsema_real_eip !27
+  %113 = lshr i32 %112, 31, !mcsema_real_eip !27
+  %114 = trunc i32 %113 to i1, !mcsema_real_eip !27
+  store i1 %114, i1* %OF, !mcsema_real_eip !27
+  br i1 %107, label %block_0x79, label %block_0x6d, !mcsema_real_eip !28
 
 block_0x417:                                      ; preds = %block_0x411, %block_0x338, %block_0x2ea, %block_0x2c6, %block_0x1cc, %block_0x10e, %block_0xcb, %block_0x98, %block_0x6d, %block_0x4b, %block_0x24
-  %RBP_val.34 = load i64, i64* %XBP, !mcsema_real_eip !29
-  %161 = add i64 %RBP_val.34, -4, !mcsema_real_eip !29
-  %162 = inttoptr i64 %161 to i64*, !mcsema_real_eip !29
-  %163 = ptrtoint i64* %162 to i64, !mcsema_real_eip !29
-  %164 = inttoptr i64 %163 to i32*, !mcsema_real_eip !29
-  %165 = load i32, i32* %164, !mcsema_real_eip !29
-  %166 = zext i32 %165 to i64, !mcsema_real_eip !29
-  store i64 %166, i64* %XAX, !mcsema_real_eip !29
+  %_load_rbp_ptr_52 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_53 = getelementptr i8, i8* %_load_rbp_ptr_52, i64 -4
+  %_allin_new_bt_54 = bitcast i8* %_new_gep_53 to i64*
+  %115 = ptrtoint i64* %_allin_new_bt_54 to i64, !mcsema_real_eip !29
+  %116 = inttoptr i64 %115 to i32*, !mcsema_real_eip !29
+  %117 = load i32, i32* %116, !mcsema_real_eip !29
+  %118 = zext i32 %117 to i64, !mcsema_real_eip !29
+  store i64 %118, i64* %XAX, !mcsema_real_eip !29
+  %_load_rsp_ptr_55 = load i8*, i8** %_RSP_ptr_
   %RSP_val.35 = load i64, i64* %XSP, !mcsema_real_eip !30
-  %167 = add i64 80, %RSP_val.35, !mcsema_real_eip !30
-  %168 = xor i64 %167, %RSP_val.35, !mcsema_real_eip !30
-  %169 = xor i64 %168, 80, !mcsema_real_eip !30
-  %170 = and i64 %169, 16, !mcsema_real_eip !30
-  %171 = icmp ne i64 %170, 0, !mcsema_real_eip !30
-  store i1 %171, i1* %AF, !mcsema_real_eip !30
-  %172 = lshr i64 %167, 63, !mcsema_real_eip !30
-  %173 = trunc i64 %172 to i1, !mcsema_real_eip !30
-  store i1 %173, i1* %SF, !mcsema_real_eip !30
-  %174 = icmp eq i64 %167, 0, !mcsema_real_eip !30
-  store i1 %174, i1* %ZF, !mcsema_real_eip !30
-  %175 = xor i64 %RSP_val.35, 80, !mcsema_real_eip !30
-  %176 = xor i64 %175, -1, !mcsema_real_eip !30
-  %177 = xor i64 %RSP_val.35, %167, !mcsema_real_eip !30
-  %178 = and i64 %176, %177, !mcsema_real_eip !30
-  %179 = lshr i64 %178, 63, !mcsema_real_eip !30
-  %180 = and i64 %179, 1, !mcsema_real_eip !30
-  %181 = trunc i64 %180 to i1, !mcsema_real_eip !30
-  store i1 %181, i1* %OF, !mcsema_real_eip !30
-  %182 = trunc i64 %167 to i8, !mcsema_real_eip !30
-  %183 = call i8 @llvm.ctpop.i8(i8 %182), !mcsema_real_eip !30
-  %184 = trunc i8 %183 to i1, !mcsema_real_eip !30
-  %185 = xor i1 %184, true, !mcsema_real_eip !30
-  store i1 %185, i1* %PF, !mcsema_real_eip !30
-  %186 = icmp ult i64 %167, %RSP_val.35, !mcsema_real_eip !30
-  store i1 %186, i1* %CF, !mcsema_real_eip !30
-  store i64 %167, i64* %XSP, !mcsema_real_eip !30
-  %RSP_val.36 = load i64, i64* %XSP, !mcsema_real_eip !31
-  %187 = inttoptr i64 %RSP_val.36 to i64*, !mcsema_real_eip !31
-  %188 = load i64, i64* %187, !mcsema_real_eip !31
-  store i64 %188, i64* %XBP, !mcsema_real_eip !31
-  %189 = add i64 %RSP_val.36, 8, !mcsema_real_eip !31
-  store i64 %189, i64* %XSP, !mcsema_real_eip !31
-  %RSP_val.37 = load i64, i64* %XSP, !mcsema_real_eip !32
-  %190 = add i64 %RSP_val.37, 8, !mcsema_real_eip !32
-  %191 = inttoptr i64 %RSP_val.37 to i64*, !mcsema_real_eip !32
-  %192 = load i64, i64* %191, !mcsema_real_eip !32
-  store i64 %192, i64* %XIP, !mcsema_real_eip !32
-  store i64 %190, i64* %XSP, !mcsema_real_eip !32
+  %_new_gep_56 = getelementptr i8, i8* %_load_rsp_ptr_55, i64 80
+  %119 = add i64 80, %RSP_val.35, !mcsema_real_eip !30
+  %_trans_p2i_57 = ptrtoint i8* %_new_gep_56 to i64
+  %_trans_p2i_58 = ptrtoint i8* %_load_rsp_ptr_55 to i64
+  %_trans_xor_59 = xor i64 %_trans_p2i_57, %_trans_p2i_58
+  %120 = xor i64 %_trans_xor_59, 80, !mcsema_real_eip !30
+  %121 = and i64 %120, 16, !mcsema_real_eip !30
+  %122 = icmp ne i64 %121, 0, !mcsema_real_eip !30
+  store i1 %122, i1* %AF, !mcsema_real_eip !30
+  %123 = lshr i64 %119, 63, !mcsema_real_eip !30
+  %124 = trunc i64 %123 to i1, !mcsema_real_eip !30
+  store i1 %124, i1* %SF, !mcsema_real_eip !30
+  %_trans_icmp_eq_61 = icmp eq i64 %_trans_p2i_57, 0
+  store i1 %_trans_icmp_eq_61, i1* %ZF, !mcsema_real_eip !30
+  %_trans_xor_63 = xor i64 %_trans_p2i_58, 80
+  %125 = xor i64 %_trans_xor_63, -1, !mcsema_real_eip !30
+  %126 = and i64 %125, %_trans_xor_59, !mcsema_real_eip !30
+  %127 = lshr i64 %126, 63, !mcsema_real_eip !30
+  %128 = and i64 %127, 1, !mcsema_real_eip !30
+  %129 = trunc i64 %128 to i1, !mcsema_real_eip !30
+  store i1 %129, i1* %OF, !mcsema_real_eip !30
+  %_trans_trunc_68 = trunc i64 %_trans_p2i_57 to i8
+  %130 = call i8 @llvm.ctpop.i8(i8 %_trans_trunc_68), !mcsema_real_eip !30
+  %131 = trunc i8 %130 to i1, !mcsema_real_eip !30
+  %132 = xor i1 %131, true, !mcsema_real_eip !30
+  store i1 %132, i1* %PF, !mcsema_real_eip !30
+  %_trans_icmp_ne_70 = icmp ne i64 %_trans_p2i_57, %RSP_val.35
+  store i1 %_trans_icmp_ne_70, i1* %CF, !mcsema_real_eip !30
+  store volatile i8* %_new_gep_56, i8** %_RSP_ptr_
+  store i64 %119, i64* %XSP, !mcsema_real_eip !30
+  %_allin_new_bt_72 = bitcast i8* %_new_gep_56 to i64*
+  %133 = load i64, i64* %_allin_new_bt_72, !mcsema_real_eip !31
+  %_new_int2ptr_ = inttoptr i64 %133 to i8*
+  store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
+  store i64 %133, i64* %XBP, !mcsema_real_eip !31
+  %_new_gep_73 = getelementptr i8, i8* %_new_gep_56, i64 8
+  %134 = add i64 %119, 8, !mcsema_real_eip !31
+  store volatile i8* %_new_gep_73, i8** %_RSP_ptr_
+  store i64 %134, i64* %XSP, !mcsema_real_eip !31
+  %_new_gep_75 = getelementptr i8, i8* %_new_gep_73, i64 8
+  %135 = add i64 %134, 8, !mcsema_real_eip !32
+  %_allin_new_bt_76 = bitcast i8* %_new_gep_73 to i64*
+  %136 = load i64, i64* %_allin_new_bt_76, !mcsema_real_eip !32
+  store i64 %136, i64* %XIP, !mcsema_real_eip !32
+  store volatile i8* %_new_gep_75, i8** %_RSP_ptr_
+  store i64 %135, i64* %XSP, !mcsema_real_eip !32
   ret void, !mcsema_real_eip !32
 
 block_0x6d:                                       ; preds = %block_0x57
-  %RBP_val.50 = load i64, i64* %XBP, !mcsema_real_eip !33
-  %193 = add i64 %RBP_val.50, -4, !mcsema_real_eip !33
-  %194 = inttoptr i64 %193 to i64*, !mcsema_real_eip !33
-  %195 = ptrtoint i64* %194 to i64, !mcsema_real_eip !33
-  %196 = inttoptr i64 %195 to i32*, !mcsema_real_eip !33
-  store i32 -3, i32* %196, !mcsema_real_eip !33
+  %_load_rbp_ptr_77 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_78 = getelementptr i8, i8* %_load_rbp_ptr_77, i64 -4
+  %_allin_new_bt_79 = bitcast i8* %_new_gep_78 to i64*
+  %137 = ptrtoint i64* %_allin_new_bt_79 to i64, !mcsema_real_eip !33
+  %138 = inttoptr i64 %137 to i32*, !mcsema_real_eip !33
+  store i32 -3, i32* %138, !mcsema_real_eip !33
   br label %block_0x417, !mcsema_real_eip !34
 
 block_0x79:                                       ; preds = %block_0x57
-  %RBP_val.38 = load i64, i64* %XBP, !mcsema_real_eip !35
-  %197 = add i64 %RBP_val.38, -16, !mcsema_real_eip !35
-  %198 = inttoptr i64 %197 to i64*, !mcsema_real_eip !35
-  %199 = load i64, i64* %198, !mcsema_real_eip !35
-  store i64 %199, i64* %XAX, !mcsema_real_eip !35
-  %RAX_val.39 = load i64, i64* %XAX, !mcsema_real_eip !36
-  %200 = add i64 %RAX_val.39, 2, !mcsema_real_eip !36
-  %201 = inttoptr i64 %200 to i64*, !mcsema_real_eip !36
-  %202 = ptrtoint i64* %201 to i64, !mcsema_real_eip !36
-  %203 = inttoptr i64 %202 to i8*, !mcsema_real_eip !36
-  %204 = load i8, i8* %203, !mcsema_real_eip !36
-  %205 = zext i8 %204 to i32, !mcsema_real_eip !36
-  %206 = zext i32 %205 to i64, !mcsema_real_eip !36
-  store i64 %206, i64* %XDI, !mcsema_real_eip !36
-  %RDI_val.40 = load i64, i64* %XDI, !mcsema_real_eip !37
+  %_load_rbp_ptr_80 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_81 = getelementptr i8, i8* %_load_rbp_ptr_80, i64 -16
+  %_allin_new_bt_82 = bitcast i8* %_new_gep_81 to i64*
+  %139 = load i64, i64* %_allin_new_bt_82, !mcsema_real_eip !35
+  store i64 %139, i64* %XAX, !mcsema_real_eip !35
+  %140 = add i64 %139, 2, !mcsema_real_eip !36
+  %141 = inttoptr i64 %140 to i64*, !mcsema_real_eip !36
+  %142 = inttoptr i64 %140 to i8*, !mcsema_real_eip !36
+  %143 = load i8, i8* %142, !mcsema_real_eip !36
+  %144 = zext i8 %143 to i32, !mcsema_real_eip !36
+  %145 = zext i32 %144 to i64, !mcsema_real_eip !36
+  store i64 %145, i64* %XDI, !mcsema_real_eip !36
   %RSP_val.41 = load i64, i64* %XSP, !mcsema_real_eip !37
-  %207 = sub i64 %RSP_val.41, 8, !mcsema_real_eip !37
-  %208 = inttoptr i64 %207 to i64*, !mcsema_real_eip !37
-  store i64 -2415393069852865332, i64* %208, !mcsema_real_eip !37
-  store i64 %207, i64* %XSP, !mcsema_real_eip !37
-  %209 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.40), !mcsema_real_eip !37
-  store i64 %209, i64* %XAX, !mcsema_real_eip !37
-  %RBP_val.42 = load i64, i64* %XBP, !mcsema_real_eip !38
-  %210 = add i64 %RBP_val.42, -24, !mcsema_real_eip !38
-  %211 = inttoptr i64 %210 to i64*, !mcsema_real_eip !38
-  %EAX.43 = bitcast i64* %XAX to i32*, !mcsema_real_eip !38
-  %EAX_val.44 = load i32, i32* %EAX.43, !mcsema_real_eip !38
-  %212 = ptrtoint i64* %211 to i64, !mcsema_real_eip !38
-  %213 = inttoptr i64 %212 to i32*, !mcsema_real_eip !38
-  store i32 %EAX_val.44, i32* %213, !mcsema_real_eip !38
-  %RBP_val.45 = load i64, i64* %XBP, !mcsema_real_eip !39
-  %214 = add i64 %RBP_val.45, -24, !mcsema_real_eip !39
-  %215 = inttoptr i64 %214 to i64*, !mcsema_real_eip !39
-  %216 = ptrtoint i64* %215 to i64, !mcsema_real_eip !39
-  %217 = inttoptr i64 %216 to i32*, !mcsema_real_eip !39
-  %218 = load i32, i32* %217, !mcsema_real_eip !39
-  %219 = zext i32 %218 to i64, !mcsema_real_eip !39
-  store i64 %219, i64* %XAX, !mcsema_real_eip !39
-  %EAX.46 = bitcast i64* %XAX to i32*, !mcsema_real_eip !40
-  %EAX_val.47 = load i32, i32* %EAX.46, !mcsema_real_eip !40
-  %220 = shl i32 %EAX_val.47, 0, !mcsema_real_eip !40
-  %221 = and i32 %220, -2147483648, !mcsema_real_eip !40
-  %222 = icmp ne i32 %221, 0, !mcsema_real_eip !40
-  %223 = load i1, i1* %CF, !mcsema_real_eip !40
-  %224 = select i1 true, i1 %222, i1 %223, !mcsema_real_eip !40
-  %225 = shl i32 %220, 1, !mcsema_real_eip !40
-  %226 = load i1, i1* %OF, !mcsema_real_eip !40
-  %227 = and i32 %225, -2147483648, !mcsema_real_eip !40
-  %228 = icmp ne i32 %227, 0, !mcsema_real_eip !40
-  %229 = xor i1 %228, %224, !mcsema_real_eip !40
-  %230 = select i1 true, i1 %229, i1 %226, !mcsema_real_eip !40
-  store i1 %230, i1* %OF, !mcsema_real_eip !40
-  store i1 %224, i1* %CF, !mcsema_real_eip !40
-  %231 = load i1, i1* %ZF, !mcsema_real_eip !40
-  %232 = icmp eq i32 %225, 0, !mcsema_real_eip !40
-  %233 = select i1 true, i1 %232, i1 %231, !mcsema_real_eip !40
-  store i1 %233, i1* %ZF, !mcsema_real_eip !40
-  %234 = load i1, i1* %SF, !mcsema_real_eip !40
-  %235 = icmp slt i32 %225, 0, !mcsema_real_eip !40
-  %236 = select i1 true, i1 %235, i1 %234, !mcsema_real_eip !40
-  store i1 %236, i1* %SF, !mcsema_real_eip !40
-  %237 = load i1, i1* %PF, !mcsema_real_eip !40
-  %238 = trunc i32 %225 to i8, !mcsema_real_eip !40
-  %239 = call i8 @llvm.ctpop.i8(i8 %238), !mcsema_real_eip !40
-  %240 = trunc i8 %239 to i1, !mcsema_real_eip !40
-  %241 = xor i1 %240, true, !mcsema_real_eip !40
-  store i1 %241, i1* %PF, !mcsema_real_eip !40
-  %242 = load i1, i1* %PF, !mcsema_real_eip !40
-  %243 = select i1 true, i1 %242, i1 %237, !mcsema_real_eip !40
-  store i1 %243, i1* %PF, !mcsema_real_eip !40
-  %244 = zext i32 %225 to i64, !mcsema_real_eip !40
-  store i64 %244, i64* %XAX, !mcsema_real_eip !40
-  %EAX.48 = bitcast i64* %XAX to i32*, !mcsema_real_eip !41
-  %EAX_val.49 = load i32, i32* %EAX.48, !mcsema_real_eip !41
-  %245 = sub i32 %EAX_val.49, 26, !mcsema_real_eip !41
-  %246 = xor i32 %245, %EAX_val.49, !mcsema_real_eip !41
-  %247 = xor i32 %246, 26, !mcsema_real_eip !41
-  %248 = and i32 %247, 16, !mcsema_real_eip !41
-  %249 = icmp ne i32 %248, 0, !mcsema_real_eip !41
-  store i1 %249, i1* %AF, !mcsema_real_eip !41
-  %250 = trunc i32 %245 to i8, !mcsema_real_eip !41
-  %251 = call i8 @llvm.ctpop.i8(i8 %250), !mcsema_real_eip !41
-  %252 = trunc i8 %251 to i1, !mcsema_real_eip !41
-  %253 = xor i1 %252, true, !mcsema_real_eip !41
-  store i1 %253, i1* %PF, !mcsema_real_eip !41
-  %254 = icmp eq i32 %245, 0, !mcsema_real_eip !41
-  store i1 %254, i1* %ZF, !mcsema_real_eip !41
-  %255 = lshr i32 %245, 31, !mcsema_real_eip !41
-  %256 = trunc i32 %255 to i1, !mcsema_real_eip !41
-  store i1 %256, i1* %SF, !mcsema_real_eip !41
-  %257 = icmp ult i32 %EAX_val.49, 26, !mcsema_real_eip !41
-  store i1 %257, i1* %CF, !mcsema_real_eip !41
-  %258 = xor i32 %EAX_val.49, 26, !mcsema_real_eip !41
-  %259 = xor i32 %EAX_val.49, %245, !mcsema_real_eip !41
-  %260 = and i32 %258, %259, !mcsema_real_eip !41
-  %261 = lshr i32 %260, 31, !mcsema_real_eip !41
-  %262 = trunc i32 %261 to i1, !mcsema_real_eip !41
-  store i1 %262, i1* %OF, !mcsema_real_eip !41
-  %263 = load i1, i1* %ZF, !mcsema_real_eip !42
-  %264 = icmp eq i1 %263, true, !mcsema_real_eip !42
-  br i1 %264, label %block_0xa4, label %block_0x98, !mcsema_real_eip !42
+  %_new_gep_84 = getelementptr i8, i8* %_gep_fix_417, i64 -8
+  %146 = sub i64 %RSP_val.41, 8, !mcsema_real_eip !37
+  %_allin_new_bt_85 = bitcast i8* %_new_gep_84 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_85, !mcsema_real_eip !37
+  store volatile i8* %_new_gep_84, i8** %_RSP_ptr_
+  store i64 %146, i64* %XSP, !mcsema_real_eip !37
+  %147 = call x86_64_sysvcc i64 @_to_byte(i64 %145)
+  %_rsp_fix_418 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_419 = getelementptr i8, i8* %_rsp_fix_418, i64 8
+  store i8* %_gep_fix_419, i8** %_RSP_ptr_
+  store i64 %147, i64* %XAX, !mcsema_real_eip !37
+  %_load_rbp_ptr_86 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_87 = getelementptr i8, i8* %_load_rbp_ptr_86, i64 -24
+  %_allin_new_bt_88 = bitcast i8* %_new_gep_87 to i64*
+  %EAX_val.44 = load i32, i32* %EAX.9, !mcsema_real_eip !38
+  %148 = ptrtoint i64* %_allin_new_bt_88 to i64, !mcsema_real_eip !38
+  %149 = inttoptr i64 %148 to i32*, !mcsema_real_eip !38
+  store i32 %EAX_val.44, i32* %149, !mcsema_real_eip !38
+  %_load_rbp_ptr_89 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_90 = getelementptr i8, i8* %_load_rbp_ptr_89, i64 -24
+  %_allin_new_bt_91 = bitcast i8* %_new_gep_90 to i64*
+  %150 = ptrtoint i64* %_allin_new_bt_91 to i64, !mcsema_real_eip !39
+  %151 = inttoptr i64 %150 to i32*, !mcsema_real_eip !39
+  %152 = load i32, i32* %151, !mcsema_real_eip !39
+  %153 = zext i32 %152 to i64, !mcsema_real_eip !39
+  store i64 %153, i64* %XAX, !mcsema_real_eip !39
+  %EAX_val.47 = load i32, i32* %EAX.9, !mcsema_real_eip !40
+  %154 = and i32 %EAX_val.47, -2147483648, !mcsema_real_eip !40
+  %155 = icmp ne i32 %154, 0, !mcsema_real_eip !40
+  %156 = load i1, i1* %CF, !mcsema_real_eip !40
+  %157 = shl i32 %EAX_val.47, 1, !mcsema_real_eip !40
+  %158 = load i1, i1* %OF, !mcsema_real_eip !40
+  %159 = and i32 %157, -2147483648, !mcsema_real_eip !40
+  %160 = icmp ne i32 %159, 0, !mcsema_real_eip !40
+  %161 = xor i1 %160, %155, !mcsema_real_eip !40
+  store i1 %161, i1* %OF, !mcsema_real_eip !40
+  store i1 %155, i1* %CF, !mcsema_real_eip !40
+  %162 = load i1, i1* %ZF, !mcsema_real_eip !40
+  %163 = icmp eq i32 %157, 0, !mcsema_real_eip !40
+  store i1 %163, i1* %ZF, !mcsema_real_eip !40
+  %164 = load i1, i1* %SF, !mcsema_real_eip !40
+  %165 = icmp slt i32 %157, 0, !mcsema_real_eip !40
+  store i1 %165, i1* %SF, !mcsema_real_eip !40
+  %166 = load i1, i1* %PF, !mcsema_real_eip !40
+  %167 = trunc i32 %157 to i8, !mcsema_real_eip !40
+  %168 = call i8 @llvm.ctpop.i8(i8 %167), !mcsema_real_eip !40
+  %169 = trunc i8 %168 to i1, !mcsema_real_eip !40
+  %170 = xor i1 %169, true, !mcsema_real_eip !40
+  store i1 %170, i1* %PF, !mcsema_real_eip !40
+  %171 = zext i32 %157 to i64, !mcsema_real_eip !40
+  store i64 %171, i64* %XAX, !mcsema_real_eip !40
+  %EAX_val.49 = load i32, i32* %EAX.9, !mcsema_real_eip !41
+  %172 = sub i32 %EAX_val.49, 26, !mcsema_real_eip !41
+  %173 = xor i32 %172, %EAX_val.49, !mcsema_real_eip !41
+  %174 = xor i32 %173, 26, !mcsema_real_eip !41
+  %175 = and i32 %174, 16, !mcsema_real_eip !41
+  %176 = icmp ne i32 %175, 0, !mcsema_real_eip !41
+  store i1 %176, i1* %AF, !mcsema_real_eip !41
+  %177 = trunc i32 %172 to i8, !mcsema_real_eip !41
+  %178 = call i8 @llvm.ctpop.i8(i8 %177), !mcsema_real_eip !41
+  %179 = trunc i8 %178 to i1, !mcsema_real_eip !41
+  %180 = xor i1 %179, true, !mcsema_real_eip !41
+  store i1 %180, i1* %PF, !mcsema_real_eip !41
+  %181 = icmp eq i32 %172, 0, !mcsema_real_eip !41
+  store i1 %181, i1* %ZF, !mcsema_real_eip !41
+  %182 = lshr i32 %172, 31, !mcsema_real_eip !41
+  %183 = trunc i32 %182 to i1, !mcsema_real_eip !41
+  store i1 %183, i1* %SF, !mcsema_real_eip !41
+  %184 = icmp ult i32 %EAX_val.49, 26, !mcsema_real_eip !41
+  store i1 %184, i1* %CF, !mcsema_real_eip !41
+  %185 = xor i32 %EAX_val.49, 26, !mcsema_real_eip !41
+  %186 = and i32 %185, %173, !mcsema_real_eip !41
+  %187 = lshr i32 %186, 31, !mcsema_real_eip !41
+  %188 = trunc i32 %187 to i1, !mcsema_real_eip !41
+  store i1 %188, i1* %OF, !mcsema_real_eip !41
+  br i1 %181, label %block_0xa4, label %block_0x98, !mcsema_real_eip !42
 
 block_0x98:                                       ; preds = %block_0x79
-  %RBP_val.71 = load i64, i64* %XBP, !mcsema_real_eip !43
-  %265 = add i64 %RBP_val.71, -4, !mcsema_real_eip !43
-  %266 = inttoptr i64 %265 to i64*, !mcsema_real_eip !43
-  %267 = ptrtoint i64* %266 to i64, !mcsema_real_eip !43
-  %268 = inttoptr i64 %267 to i32*, !mcsema_real_eip !43
-  store i32 -4, i32* %268, !mcsema_real_eip !43
+  %_new_gep_93 = getelementptr i8, i8* %_load_rbp_ptr_89, i64 -4
+  %_allin_new_bt_94 = bitcast i8* %_new_gep_93 to i64*
+  %189 = ptrtoint i64* %_allin_new_bt_94 to i64, !mcsema_real_eip !43
+  %190 = inttoptr i64 %189 to i32*, !mcsema_real_eip !43
+  store i32 -4, i32* %190, !mcsema_real_eip !43
   br label %block_0x417, !mcsema_real_eip !44
 
 block_0xa4:                                       ; preds = %block_0x79
-  %RBP_val.51 = load i64, i64* %XBP, !mcsema_real_eip !45
-  %269 = add i64 %RBP_val.51, -16, !mcsema_real_eip !45
-  %270 = inttoptr i64 %269 to i64*, !mcsema_real_eip !45
-  %271 = load i64, i64* %270, !mcsema_real_eip !45
-  store i64 %271, i64* %XAX, !mcsema_real_eip !45
-  %RAX_val.52 = load i64, i64* %XAX, !mcsema_real_eip !46
-  %272 = add i64 %RAX_val.52, 3, !mcsema_real_eip !46
-  %273 = inttoptr i64 %272 to i64*, !mcsema_real_eip !46
-  %274 = ptrtoint i64* %273 to i64, !mcsema_real_eip !46
-  %275 = inttoptr i64 %274 to i8*, !mcsema_real_eip !46
-  %276 = load i8, i8* %275, !mcsema_real_eip !46
-  %277 = zext i8 %276 to i32, !mcsema_real_eip !46
-  %278 = zext i32 %277 to i64, !mcsema_real_eip !46
-  store i64 %278, i64* %XDI, !mcsema_real_eip !46
-  %RDI_val.53 = load i64, i64* %XDI, !mcsema_real_eip !47
+  %_new_gep_96 = getelementptr i8, i8* %_load_rbp_ptr_89, i64 -16
+  %_allin_new_bt_97 = bitcast i8* %_new_gep_96 to i64*
+  %191 = load i64, i64* %_allin_new_bt_97, !mcsema_real_eip !45
+  store i64 %191, i64* %XAX, !mcsema_real_eip !45
+  %192 = add i64 %191, 3, !mcsema_real_eip !46
+  %193 = inttoptr i64 %192 to i64*, !mcsema_real_eip !46
+  %194 = inttoptr i64 %192 to i8*, !mcsema_real_eip !46
+  %195 = load i8, i8* %194, !mcsema_real_eip !46
+  %196 = zext i8 %195 to i32, !mcsema_real_eip !46
+  %197 = zext i32 %196 to i64, !mcsema_real_eip !46
+  store i64 %197, i64* %XDI, !mcsema_real_eip !46
+  %_load_rsp_ptr_98 = load i8*, i8** %_RSP_ptr_
   %RSP_val.54 = load i64, i64* %XSP, !mcsema_real_eip !47
-  %279 = sub i64 %RSP_val.54, 8, !mcsema_real_eip !47
-  %280 = inttoptr i64 %279 to i64*, !mcsema_real_eip !47
-  store i64 -2415393069852865332, i64* %280, !mcsema_real_eip !47
-  store i64 %279, i64* %XSP, !mcsema_real_eip !47
-  %281 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.53), !mcsema_real_eip !47
-  store i64 %281, i64* %XAX, !mcsema_real_eip !47
+  %_new_gep_99 = getelementptr i8, i8* %_load_rsp_ptr_98, i64 -8
+  %198 = sub i64 %RSP_val.54, 8, !mcsema_real_eip !47
+  %_allin_new_bt_100 = bitcast i8* %_new_gep_99 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_100, !mcsema_real_eip !47
+  store volatile i8* %_new_gep_99, i8** %_RSP_ptr_
+  store i64 %198, i64* %XSP, !mcsema_real_eip !47
+  %199 = call x86_64_sysvcc i64 @_to_byte(i64 %197)
+  %_rsp_fix_420 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_421 = getelementptr i8, i8* %_rsp_fix_420, i64 8
+  store i8* %_gep_fix_421, i8** %_RSP_ptr_
+  store i64 %199, i64* %XAX, !mcsema_real_eip !47
   store i64 2, i64* %XDI, !mcsema_real_eip !48
-  %RBP_val.55 = load i64, i64* %XBP, !mcsema_real_eip !49
-  %282 = add i64 %RBP_val.55, -28, !mcsema_real_eip !49
-  %283 = inttoptr i64 %282 to i64*, !mcsema_real_eip !49
-  %EAX.56 = bitcast i64* %XAX to i32*, !mcsema_real_eip !49
-  %EAX_val.57 = load i32, i32* %EAX.56, !mcsema_real_eip !49
-  %284 = ptrtoint i64* %283 to i64, !mcsema_real_eip !49
-  %285 = inttoptr i64 %284 to i32*, !mcsema_real_eip !49
-  store i32 %EAX_val.57, i32* %285, !mcsema_real_eip !49
-  %RBP_val.58 = load i64, i64* %XBP, !mcsema_real_eip !50
-  %286 = add i64 %RBP_val.58, -28, !mcsema_real_eip !50
-  %287 = inttoptr i64 %286 to i64*, !mcsema_real_eip !50
-  %288 = ptrtoint i64* %287 to i64, !mcsema_real_eip !50
-  %289 = inttoptr i64 %288 to i32*, !mcsema_real_eip !50
-  %290 = load i32, i32* %289, !mcsema_real_eip !50
-  %291 = zext i32 %290 to i64, !mcsema_real_eip !50
-  store i64 %291, i64* %XAX, !mcsema_real_eip !50
-  %EAX.59 = bitcast i64* %XAX to i32*, !mcsema_real_eip !51
-  %EAX_val.60 = load i32, i32* %EAX.59, !mcsema_real_eip !51
-  %292 = add i32 1, %EAX_val.60, !mcsema_real_eip !51
-  %293 = xor i32 %292, %EAX_val.60, !mcsema_real_eip !51
-  %294 = xor i32 %293, 1, !mcsema_real_eip !51
-  %295 = and i32 %294, 16, !mcsema_real_eip !51
-  %296 = icmp ne i32 %295, 0, !mcsema_real_eip !51
-  store i1 %296, i1* %AF, !mcsema_real_eip !51
-  %297 = lshr i32 %292, 31, !mcsema_real_eip !51
-  %298 = trunc i32 %297 to i1, !mcsema_real_eip !51
-  store i1 %298, i1* %SF, !mcsema_real_eip !51
-  %299 = icmp eq i32 %292, 0, !mcsema_real_eip !51
-  store i1 %299, i1* %ZF, !mcsema_real_eip !51
-  %300 = xor i32 %EAX_val.60, 1, !mcsema_real_eip !51
-  %301 = xor i32 %300, -1, !mcsema_real_eip !51
-  %302 = xor i32 %EAX_val.60, %292, !mcsema_real_eip !51
-  %303 = and i32 %301, %302, !mcsema_real_eip !51
-  %304 = lshr i32 %303, 31, !mcsema_real_eip !51
-  %305 = and i32 %304, 1, !mcsema_real_eip !51
-  %306 = trunc i32 %305 to i1, !mcsema_real_eip !51
-  store i1 %306, i1* %OF, !mcsema_real_eip !51
-  %307 = trunc i32 %292 to i8, !mcsema_real_eip !51
-  %308 = call i8 @llvm.ctpop.i8(i8 %307), !mcsema_real_eip !51
-  %309 = trunc i8 %308 to i1, !mcsema_real_eip !51
-  %310 = xor i1 %309, true, !mcsema_real_eip !51
-  store i1 %310, i1* %PF, !mcsema_real_eip !51
-  %311 = icmp ult i32 %292, %EAX_val.60, !mcsema_real_eip !51
-  store i1 %311, i1* %CF, !mcsema_real_eip !51
-  %312 = zext i32 %292 to i64, !mcsema_real_eip !51
-  store i64 %312, i64* %XAX, !mcsema_real_eip !51
-  %EAX.61 = bitcast i64* %XAX to i32*, !mcsema_real_eip !52
-  %EAX_val.62 = load i32, i32* %EAX.61, !mcsema_real_eip !52
-  %313 = and i32 %EAX_val.62, -2147483648, !mcsema_real_eip !52
-  %314 = icmp eq i32 %313, 0, !mcsema_real_eip !52
-  %315 = select i1 %314, i32 0, i32 -1, !mcsema_real_eip !52
-  %316 = zext i32 %315 to i64, !mcsema_real_eip !52
-  store i64 %316, i64* %XDX, !mcsema_real_eip !52
+  %_load_rbp_ptr_101 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_102 = getelementptr i8, i8* %_load_rbp_ptr_101, i64 -28
+  %_allin_new_bt_103 = bitcast i8* %_new_gep_102 to i64*
+  %EAX_val.57 = load i32, i32* %EAX.9, !mcsema_real_eip !49
+  %200 = ptrtoint i64* %_allin_new_bt_103 to i64, !mcsema_real_eip !49
+  %201 = inttoptr i64 %200 to i32*, !mcsema_real_eip !49
+  store i32 %EAX_val.57, i32* %201, !mcsema_real_eip !49
+  %_load_rbp_ptr_104 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_105 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -28
+  %_allin_new_bt_106 = bitcast i8* %_new_gep_105 to i64*
+  %202 = ptrtoint i64* %_allin_new_bt_106 to i64, !mcsema_real_eip !50
+  %203 = inttoptr i64 %202 to i32*, !mcsema_real_eip !50
+  %204 = load i32, i32* %203, !mcsema_real_eip !50
+  %205 = zext i32 %204 to i64, !mcsema_real_eip !50
+  store i64 %205, i64* %XAX, !mcsema_real_eip !50
+  %EAX_val.60 = load i32, i32* %EAX.9, !mcsema_real_eip !51
+  %206 = add i32 1, %EAX_val.60, !mcsema_real_eip !51
+  %207 = xor i32 %206, %EAX_val.60, !mcsema_real_eip !51
+  %208 = xor i32 %207, 1, !mcsema_real_eip !51
+  %209 = and i32 %208, 16, !mcsema_real_eip !51
+  %210 = icmp ne i32 %209, 0, !mcsema_real_eip !51
+  store i1 %210, i1* %AF, !mcsema_real_eip !51
+  %211 = lshr i32 %206, 31, !mcsema_real_eip !51
+  %212 = trunc i32 %211 to i1, !mcsema_real_eip !51
+  store i1 %212, i1* %SF, !mcsema_real_eip !51
+  %213 = icmp eq i32 %206, 0, !mcsema_real_eip !51
+  store i1 %213, i1* %ZF, !mcsema_real_eip !51
+  %214 = xor i32 %EAX_val.60, 1, !mcsema_real_eip !51
+  %215 = xor i32 %214, -1, !mcsema_real_eip !51
+  %216 = and i32 %215, %207, !mcsema_real_eip !51
+  %217 = lshr i32 %216, 31, !mcsema_real_eip !51
+  %218 = and i32 %217, 1, !mcsema_real_eip !51
+  %219 = trunc i32 %218 to i1, !mcsema_real_eip !51
+  store i1 %219, i1* %OF, !mcsema_real_eip !51
+  %220 = trunc i32 %206 to i8, !mcsema_real_eip !51
+  %221 = call i8 @llvm.ctpop.i8(i8 %220), !mcsema_real_eip !51
+  %222 = trunc i8 %221 to i1, !mcsema_real_eip !51
+  %223 = xor i1 %222, true, !mcsema_real_eip !51
+  store i1 %223, i1* %PF, !mcsema_real_eip !51
+  %224 = icmp ult i32 %206, %EAX_val.60, !mcsema_real_eip !51
+  store i1 %224, i1* %CF, !mcsema_real_eip !51
+  %225 = zext i32 %206 to i64, !mcsema_real_eip !51
+  store i64 %225, i64* %XAX, !mcsema_real_eip !51
+  %EAX_val.62 = load i32, i32* %EAX.9, !mcsema_real_eip !52
+  %226 = and i32 %EAX_val.62, -2147483648, !mcsema_real_eip !52
+  %227 = icmp eq i32 %226, 0, !mcsema_real_eip !52
+  %228 = select i1 %227, i32 0, i32 -1, !mcsema_real_eip !52
+  %229 = zext i32 %228 to i64, !mcsema_real_eip !52
+  store i64 %229, i64* %XDX, !mcsema_real_eip !52
   %EDI.63 = bitcast i64* %XDI to i32*, !mcsema_real_eip !53
   %EDI_val.64 = load i32, i32* %EDI.63, !mcsema_real_eip !53
-  %EAX.65 = bitcast i64* %XAX to i32*, !mcsema_real_eip !53
-  %EAX_val.66 = load i32, i32* %EAX.65, !mcsema_real_eip !53
   %EDX.67 = bitcast i64* %XDX to i32*, !mcsema_real_eip !53
   %EDX_val.68 = load i32, i32* %EDX.67, !mcsema_real_eip !53
-  %317 = zext i32 %EDX_val.68 to i64, !mcsema_real_eip !53
-  %318 = shl i64 %317, 32, !mcsema_real_eip !53
-  %319 = sext i32 %EAX_val.66 to i64, !mcsema_real_eip !53
-  %320 = or i64 %318, %319, !mcsema_real_eip !53
-  %321 = sext i32 %EDI_val.64 to i64, !mcsema_real_eip !53
-  %322 = sdiv i64 %320, %321, !mcsema_real_eip !53
-  %323 = srem i64 %320, %321, !mcsema_real_eip !53
-  %324 = trunc i64 %323 to i32, !mcsema_real_eip !53
-  %325 = trunc i64 %322 to i32, !mcsema_real_eip !53
-  %326 = zext i32 %324 to i64, !mcsema_real_eip !53
-  store i64 %326, i64* %XDX, !mcsema_real_eip !53
-  %327 = zext i32 %325 to i64, !mcsema_real_eip !53
-  store i64 %327, i64* %XAX, !mcsema_real_eip !53
-  %EAX.69 = bitcast i64* %XAX to i32*, !mcsema_real_eip !54
-  %EAX_val.70 = load i32, i32* %EAX.69, !mcsema_real_eip !54
-  %328 = sub i32 %EAX_val.70, 7, !mcsema_real_eip !54
-  %329 = xor i32 %328, %EAX_val.70, !mcsema_real_eip !54
-  %330 = xor i32 %329, 7, !mcsema_real_eip !54
-  %331 = and i32 %330, 16, !mcsema_real_eip !54
-  %332 = icmp ne i32 %331, 0, !mcsema_real_eip !54
-  store i1 %332, i1* %AF, !mcsema_real_eip !54
-  %333 = trunc i32 %328 to i8, !mcsema_real_eip !54
-  %334 = call i8 @llvm.ctpop.i8(i8 %333), !mcsema_real_eip !54
-  %335 = trunc i8 %334 to i1, !mcsema_real_eip !54
-  %336 = xor i1 %335, true, !mcsema_real_eip !54
-  store i1 %336, i1* %PF, !mcsema_real_eip !54
-  %337 = icmp eq i32 %328, 0, !mcsema_real_eip !54
-  store i1 %337, i1* %ZF, !mcsema_real_eip !54
-  %338 = lshr i32 %328, 31, !mcsema_real_eip !54
-  %339 = trunc i32 %338 to i1, !mcsema_real_eip !54
-  store i1 %339, i1* %SF, !mcsema_real_eip !54
-  %340 = icmp ult i32 %EAX_val.70, 7, !mcsema_real_eip !54
-  store i1 %340, i1* %CF, !mcsema_real_eip !54
-  %341 = xor i32 %EAX_val.70, 7, !mcsema_real_eip !54
-  %342 = xor i32 %EAX_val.70, %328, !mcsema_real_eip !54
-  %343 = and i32 %341, %342, !mcsema_real_eip !54
-  %344 = lshr i32 %343, 31, !mcsema_real_eip !54
-  %345 = trunc i32 %344 to i1, !mcsema_real_eip !54
-  store i1 %345, i1* %OF, !mcsema_real_eip !54
-  %346 = load i1, i1* %ZF, !mcsema_real_eip !55
-  %347 = icmp eq i1 %346, true, !mcsema_real_eip !55
-  br i1 %347, label %block_0xd7, label %block_0xcb, !mcsema_real_eip !55
+  %230 = zext i32 %EDX_val.68 to i64, !mcsema_real_eip !53
+  %231 = shl i64 %230, 32, !mcsema_real_eip !53
+  %232 = sext i32 %EAX_val.62 to i64, !mcsema_real_eip !53
+  %233 = or i64 %231, %232, !mcsema_real_eip !53
+  %234 = sext i32 %EDI_val.64 to i64, !mcsema_real_eip !53
+  %235 = sdiv i64 %233, %234, !mcsema_real_eip !53
+  %236 = srem i64 %233, %234, !mcsema_real_eip !53
+  %237 = trunc i64 %236 to i32, !mcsema_real_eip !53
+  %238 = trunc i64 %235 to i32, !mcsema_real_eip !53
+  %239 = zext i32 %237 to i64, !mcsema_real_eip !53
+  store i64 %239, i64* %XDX, !mcsema_real_eip !53
+  %240 = zext i32 %238 to i64, !mcsema_real_eip !53
+  store i64 %240, i64* %XAX, !mcsema_real_eip !53
+  %EAX_val.70 = load i32, i32* %EAX.9, !mcsema_real_eip !54
+  %241 = sub i32 %EAX_val.70, 7, !mcsema_real_eip !54
+  %242 = xor i32 %241, %EAX_val.70, !mcsema_real_eip !54
+  %243 = xor i32 %242, 7, !mcsema_real_eip !54
+  %244 = and i32 %243, 16, !mcsema_real_eip !54
+  %245 = icmp ne i32 %244, 0, !mcsema_real_eip !54
+  store i1 %245, i1* %AF, !mcsema_real_eip !54
+  %246 = trunc i32 %241 to i8, !mcsema_real_eip !54
+  %247 = call i8 @llvm.ctpop.i8(i8 %246), !mcsema_real_eip !54
+  %248 = trunc i8 %247 to i1, !mcsema_real_eip !54
+  %249 = xor i1 %248, true, !mcsema_real_eip !54
+  store i1 %249, i1* %PF, !mcsema_real_eip !54
+  %250 = icmp eq i32 %241, 0, !mcsema_real_eip !54
+  store i1 %250, i1* %ZF, !mcsema_real_eip !54
+  %251 = lshr i32 %241, 31, !mcsema_real_eip !54
+  %252 = trunc i32 %251 to i1, !mcsema_real_eip !54
+  store i1 %252, i1* %SF, !mcsema_real_eip !54
+  %253 = icmp ult i32 %EAX_val.70, 7, !mcsema_real_eip !54
+  store i1 %253, i1* %CF, !mcsema_real_eip !54
+  %254 = xor i32 %EAX_val.70, 7, !mcsema_real_eip !54
+  %255 = and i32 %254, %242, !mcsema_real_eip !54
+  %256 = lshr i32 %255, 31, !mcsema_real_eip !54
+  %257 = trunc i32 %256 to i1, !mcsema_real_eip !54
+  store i1 %257, i1* %OF, !mcsema_real_eip !54
+  br i1 %250, label %block_0xd7, label %block_0xcb, !mcsema_real_eip !55
 
 block_0xcb:                                       ; preds = %block_0xa4
-  %RBP_val.78 = load i64, i64* %XBP, !mcsema_real_eip !56
-  %348 = add i64 %RBP_val.78, -4, !mcsema_real_eip !56
-  %349 = inttoptr i64 %348 to i64*, !mcsema_real_eip !56
-  %350 = ptrtoint i64* %349 to i64, !mcsema_real_eip !56
-  %351 = inttoptr i64 %350 to i32*, !mcsema_real_eip !56
-  store i32 -5, i32* %351, !mcsema_real_eip !56
+  %_new_gep_108 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -4
+  %_allin_new_bt_109 = bitcast i8* %_new_gep_108 to i64*
+  %258 = ptrtoint i64* %_allin_new_bt_109 to i64, !mcsema_real_eip !56
+  %259 = inttoptr i64 %258 to i32*, !mcsema_real_eip !56
+  store i32 -5, i32* %259, !mcsema_real_eip !56
   br label %block_0x417, !mcsema_real_eip !57
 
 block_0xd7:                                       ; preds = %block_0xa4
-  %RBP_val.72 = load i64, i64* %XBP, !mcsema_real_eip !58
-  %352 = add i64 %RBP_val.72, -16, !mcsema_real_eip !58
-  %353 = inttoptr i64 %352 to i64*, !mcsema_real_eip !58
-  %354 = load i64, i64* %353, !mcsema_real_eip !58
-  store i64 %354, i64* %XAX, !mcsema_real_eip !58
-  %RAX_val.73 = load i64, i64* %XAX, !mcsema_real_eip !59
-  %355 = add i64 %RAX_val.73, 4, !mcsema_real_eip !59
-  %356 = inttoptr i64 %355 to i64*, !mcsema_real_eip !59
-  %357 = ptrtoint i64* %356 to i64, !mcsema_real_eip !59
-  %358 = inttoptr i64 %357 to i8*, !mcsema_real_eip !59
-  %359 = load i8, i8* %358, !mcsema_real_eip !59
-  %360 = sext i8 %359 to i32, !mcsema_real_eip !59
-  %361 = zext i32 %360 to i64, !mcsema_real_eip !59
-  store i64 %361, i64* %XCX, !mcsema_real_eip !59
-  %ECX.74 = bitcast i64* %XCX to i32*, !mcsema_real_eip !60
-  %ECX_val.75 = load i32, i32* %ECX.74, !mcsema_real_eip !60
-  %362 = and i32 %ECX_val.75, 15, !mcsema_real_eip !60
-  %363 = lshr i32 %362, 31, !mcsema_real_eip !60
-  %364 = trunc i32 %363 to i1, !mcsema_real_eip !60
-  store i1 %364, i1* %SF, !mcsema_real_eip !60
-  %365 = icmp eq i32 %362, 0, !mcsema_real_eip !60
-  store i1 %365, i1* %ZF, !mcsema_real_eip !60
-  %366 = trunc i32 %362 to i8, !mcsema_real_eip !60
-  %367 = call i8 @llvm.ctpop.i8(i8 %366), !mcsema_real_eip !60
-  %368 = trunc i8 %367 to i1, !mcsema_real_eip !60
-  %369 = xor i1 %368, true, !mcsema_real_eip !60
-  store i1 %369, i1* %PF, !mcsema_real_eip !60
+  %_new_gep_111 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -16
+  %_allin_new_bt_112 = bitcast i8* %_new_gep_111 to i64*
+  %260 = load i64, i64* %_allin_new_bt_112, !mcsema_real_eip !58
+  store i64 %260, i64* %XAX, !mcsema_real_eip !58
+  %261 = add i64 %260, 4, !mcsema_real_eip !59
+  %262 = inttoptr i64 %261 to i64*, !mcsema_real_eip !59
+  %263 = inttoptr i64 %261 to i8*, !mcsema_real_eip !59
+  %264 = load i8, i8* %263, !mcsema_real_eip !59
+  %265 = sext i8 %264 to i32, !mcsema_real_eip !59
+  %266 = zext i32 %265 to i64, !mcsema_real_eip !59
+  store i64 %266, i64* %XCX, !mcsema_real_eip !59
+  %ECX_val.75 = load i32, i32* %ECX.12, !mcsema_real_eip !60
+  %267 = and i32 %ECX_val.75, 15, !mcsema_real_eip !60
+  store i1 false, i1* %SF, !mcsema_real_eip !60
+  %268 = icmp eq i32 %267, 0, !mcsema_real_eip !60
+  store i1 %268, i1* %ZF, !mcsema_real_eip !60
+  %269 = trunc i32 %267 to i8, !mcsema_real_eip !60
+  %270 = call i8 @llvm.ctpop.i8(i8 %269), !mcsema_real_eip !60
+  %271 = trunc i8 %270 to i1, !mcsema_real_eip !60
+  %272 = xor i1 %271, true, !mcsema_real_eip !60
+  store i1 %272, i1* %PF, !mcsema_real_eip !60
   store i1 false, i1* %OF, !mcsema_real_eip !60
   store i1 false, i1* %CF, !mcsema_real_eip !60
   store i1 undef, i1* %AF, !mcsema_real_eip !60
-  %370 = zext i32 %362 to i64, !mcsema_real_eip !60
-  store i64 %370, i64* %XCX, !mcsema_real_eip !60
-  %ECX.76 = bitcast i64* %XCX to i32*, !mcsema_real_eip !61
-  %ECX_val.77 = load i32, i32* %ECX.76, !mcsema_real_eip !61
-  %371 = sub i32 %ECX_val.77, 1, !mcsema_real_eip !61
-  %372 = xor i32 %371, %ECX_val.77, !mcsema_real_eip !61
-  %373 = xor i32 %372, 1, !mcsema_real_eip !61
-  %374 = and i32 %373, 16, !mcsema_real_eip !61
-  %375 = icmp ne i32 %374, 0, !mcsema_real_eip !61
-  store i1 %375, i1* %AF, !mcsema_real_eip !61
-  %376 = trunc i32 %371 to i8, !mcsema_real_eip !61
-  %377 = call i8 @llvm.ctpop.i8(i8 %376), !mcsema_real_eip !61
-  %378 = trunc i8 %377 to i1, !mcsema_real_eip !61
-  %379 = xor i1 %378, true, !mcsema_real_eip !61
-  store i1 %379, i1* %PF, !mcsema_real_eip !61
-  %380 = icmp eq i32 %371, 0, !mcsema_real_eip !61
-  store i1 %380, i1* %ZF, !mcsema_real_eip !61
-  %381 = lshr i32 %371, 31, !mcsema_real_eip !61
-  %382 = trunc i32 %381 to i1, !mcsema_real_eip !61
-  store i1 %382, i1* %SF, !mcsema_real_eip !61
-  %383 = icmp ult i32 %ECX_val.77, 1, !mcsema_real_eip !61
-  store i1 %383, i1* %CF, !mcsema_real_eip !61
-  %384 = xor i32 %ECX_val.77, 1, !mcsema_real_eip !61
-  %385 = xor i32 %ECX_val.77, %371, !mcsema_real_eip !61
-  %386 = and i32 %384, %385, !mcsema_real_eip !61
-  %387 = lshr i32 %386, 31, !mcsema_real_eip !61
-  %388 = trunc i32 %387 to i1, !mcsema_real_eip !61
-  store i1 %388, i1* %OF, !mcsema_real_eip !61
-  %389 = load i1, i1* %ZF, !mcsema_real_eip !62
-  %390 = icmp eq i1 %389, false, !mcsema_real_eip !62
-  br i1 %390, label %block_0x10e, label %block_0xeb, !mcsema_real_eip !62
+  %273 = zext i32 %267 to i64, !mcsema_real_eip !60
+  store i64 %273, i64* %XCX, !mcsema_real_eip !60
+  %ECX_val.77 = load i32, i32* %ECX.12, !mcsema_real_eip !61
+  %274 = sub i32 %ECX_val.77, 1, !mcsema_real_eip !61
+  %275 = xor i32 %274, %ECX_val.77, !mcsema_real_eip !61
+  %276 = xor i32 %275, 1, !mcsema_real_eip !61
+  %277 = and i32 %276, 16, !mcsema_real_eip !61
+  %278 = icmp ne i32 %277, 0, !mcsema_real_eip !61
+  store i1 %278, i1* %AF, !mcsema_real_eip !61
+  %279 = trunc i32 %274 to i8, !mcsema_real_eip !61
+  %280 = call i8 @llvm.ctpop.i8(i8 %279), !mcsema_real_eip !61
+  %281 = trunc i8 %280 to i1, !mcsema_real_eip !61
+  %282 = xor i1 %281, true, !mcsema_real_eip !61
+  store i1 %282, i1* %PF, !mcsema_real_eip !61
+  %283 = icmp eq i32 %274, 0, !mcsema_real_eip !61
+  store i1 %283, i1* %ZF, !mcsema_real_eip !61
+  %284 = lshr i32 %274, 31, !mcsema_real_eip !61
+  %285 = trunc i32 %284 to i1, !mcsema_real_eip !61
+  store i1 %285, i1* %SF, !mcsema_real_eip !61
+  %286 = icmp ult i32 %ECX_val.77, 1, !mcsema_real_eip !61
+  store i1 %286, i1* %CF, !mcsema_real_eip !61
+  %287 = xor i32 %ECX_val.77, 1, !mcsema_real_eip !61
+  %288 = and i32 %287, %275, !mcsema_real_eip !61
+  %289 = lshr i32 %288, 31, !mcsema_real_eip !61
+  %290 = trunc i32 %289 to i1, !mcsema_real_eip !61
+  store i1 %290, i1* %OF, !mcsema_real_eip !61
+  %291 = icmp eq i1 %283, false, !mcsema_real_eip !62
+  br i1 %291, label %block_0x10e, label %block_0xeb, !mcsema_real_eip !62
 
 block_0xeb:                                       ; preds = %block_0xd7
-  %RBP_val.80 = load i64, i64* %XBP, !mcsema_real_eip !63
-  %391 = add i64 %RBP_val.80, -16, !mcsema_real_eip !63
-  %392 = inttoptr i64 %391 to i64*, !mcsema_real_eip !63
-  %393 = load i64, i64* %392, !mcsema_real_eip !63
-  store i64 %393, i64* %XAX, !mcsema_real_eip !63
-  %RAX_val.81 = load i64, i64* %XAX, !mcsema_real_eip !64
-  %394 = add i64 %RAX_val.81, 4, !mcsema_real_eip !64
-  %395 = inttoptr i64 %394 to i64*, !mcsema_real_eip !64
-  %396 = ptrtoint i64* %395 to i64, !mcsema_real_eip !64
-  %397 = inttoptr i64 %396 to i8*, !mcsema_real_eip !64
-  %398 = load i8, i8* %397, !mcsema_real_eip !64
-  %399 = sext i8 %398 to i32, !mcsema_real_eip !64
-  %400 = zext i32 %399 to i64, !mcsema_real_eip !64
-  store i64 %400, i64* %XCX, !mcsema_real_eip !64
-  %ECX.82 = bitcast i64* %XCX to i32*, !mcsema_real_eip !65
-  %ECX_val.83 = load i32, i32* %ECX.82, !mcsema_real_eip !65
-  %401 = and i32 %ECX_val.83, 240, !mcsema_real_eip !65
-  %402 = lshr i32 %401, 31, !mcsema_real_eip !65
-  %403 = trunc i32 %402 to i1, !mcsema_real_eip !65
-  store i1 %403, i1* %SF, !mcsema_real_eip !65
-  %404 = icmp eq i32 %401, 0, !mcsema_real_eip !65
-  store i1 %404, i1* %ZF, !mcsema_real_eip !65
-  %405 = trunc i32 %401 to i8, !mcsema_real_eip !65
-  %406 = call i8 @llvm.ctpop.i8(i8 %405), !mcsema_real_eip !65
-  %407 = trunc i8 %406 to i1, !mcsema_real_eip !65
-  %408 = xor i1 %407, true, !mcsema_real_eip !65
-  store i1 %408, i1* %PF, !mcsema_real_eip !65
+  %292 = load i64, i64* %_allin_new_bt_112, !mcsema_real_eip !63
+  store i64 %292, i64* %XAX, !mcsema_real_eip !63
+  %293 = add i64 %292, 4, !mcsema_real_eip !64
+  %294 = inttoptr i64 %293 to i64*, !mcsema_real_eip !64
+  %295 = inttoptr i64 %293 to i8*, !mcsema_real_eip !64
+  %296 = load i8, i8* %295, !mcsema_real_eip !64
+  %297 = sext i8 %296 to i32, !mcsema_real_eip !64
+  %298 = zext i32 %297 to i64, !mcsema_real_eip !64
+  store i64 %298, i64* %XCX, !mcsema_real_eip !64
+  %ECX_val.83 = load i32, i32* %ECX.12, !mcsema_real_eip !65
+  %299 = and i32 %ECX_val.83, 240, !mcsema_real_eip !65
+  store i1 false, i1* %SF, !mcsema_real_eip !65
+  %300 = icmp eq i32 %299, 0, !mcsema_real_eip !65
+  store i1 %300, i1* %ZF, !mcsema_real_eip !65
+  %301 = trunc i32 %299 to i8, !mcsema_real_eip !65
+  %302 = call i8 @llvm.ctpop.i8(i8 %301), !mcsema_real_eip !65
+  %303 = trunc i8 %302 to i1, !mcsema_real_eip !65
+  %304 = xor i1 %303, true, !mcsema_real_eip !65
+  store i1 %304, i1* %PF, !mcsema_real_eip !65
   store i1 false, i1* %OF, !mcsema_real_eip !65
   store i1 false, i1* %CF, !mcsema_real_eip !65
   store i1 undef, i1* %AF, !mcsema_real_eip !65
-  %409 = zext i32 %401 to i64, !mcsema_real_eip !65
-  store i64 %409, i64* %XCX, !mcsema_real_eip !65
-  %ECX.84 = bitcast i64* %XCX to i32*, !mcsema_real_eip !66
-  %ECX_val.85 = load i32, i32* %ECX.84, !mcsema_real_eip !66
-  %410 = sub i32 %ECX_val.85, 48, !mcsema_real_eip !66
-  %411 = xor i32 %410, %ECX_val.85, !mcsema_real_eip !66
-  %412 = xor i32 %411, 48, !mcsema_real_eip !66
-  %413 = and i32 %412, 16, !mcsema_real_eip !66
-  %414 = icmp ne i32 %413, 0, !mcsema_real_eip !66
-  store i1 %414, i1* %AF, !mcsema_real_eip !66
-  %415 = trunc i32 %410 to i8, !mcsema_real_eip !66
-  %416 = call i8 @llvm.ctpop.i8(i8 %415), !mcsema_real_eip !66
-  %417 = trunc i8 %416 to i1, !mcsema_real_eip !66
-  %418 = xor i1 %417, true, !mcsema_real_eip !66
-  store i1 %418, i1* %PF, !mcsema_real_eip !66
-  %419 = icmp eq i32 %410, 0, !mcsema_real_eip !66
-  store i1 %419, i1* %ZF, !mcsema_real_eip !66
-  %420 = lshr i32 %410, 31, !mcsema_real_eip !66
-  %421 = trunc i32 %420 to i1, !mcsema_real_eip !66
-  store i1 %421, i1* %SF, !mcsema_real_eip !66
-  %422 = icmp ult i32 %ECX_val.85, 48, !mcsema_real_eip !66
-  store i1 %422, i1* %CF, !mcsema_real_eip !66
-  %423 = xor i32 %ECX_val.85, 48, !mcsema_real_eip !66
-  %424 = xor i32 %ECX_val.85, %410, !mcsema_real_eip !66
-  %425 = and i32 %423, %424, !mcsema_real_eip !66
-  %426 = lshr i32 %425, 31, !mcsema_real_eip !66
-  %427 = trunc i32 %426 to i1, !mcsema_real_eip !66
-  store i1 %427, i1* %OF, !mcsema_real_eip !66
-  %428 = load i1, i1* %ZF, !mcsema_real_eip !67
-  %429 = icmp eq i1 %428, false, !mcsema_real_eip !67
-  br i1 %429, label %block_0x10e, label %block_0x102, !mcsema_real_eip !67
+  %305 = zext i32 %299 to i64, !mcsema_real_eip !65
+  store i64 %305, i64* %XCX, !mcsema_real_eip !65
+  %ECX_val.85 = load i32, i32* %ECX.12, !mcsema_real_eip !66
+  %306 = sub i32 %ECX_val.85, 48, !mcsema_real_eip !66
+  %307 = xor i32 %306, %ECX_val.85, !mcsema_real_eip !66
+  %308 = xor i32 %307, 48, !mcsema_real_eip !66
+  %309 = and i32 %308, 16, !mcsema_real_eip !66
+  %310 = icmp ne i32 %309, 0, !mcsema_real_eip !66
+  store i1 %310, i1* %AF, !mcsema_real_eip !66
+  %311 = trunc i32 %306 to i8, !mcsema_real_eip !66
+  %312 = call i8 @llvm.ctpop.i8(i8 %311), !mcsema_real_eip !66
+  %313 = trunc i8 %312 to i1, !mcsema_real_eip !66
+  %314 = xor i1 %313, true, !mcsema_real_eip !66
+  store i1 %314, i1* %PF, !mcsema_real_eip !66
+  %315 = icmp eq i32 %306, 0, !mcsema_real_eip !66
+  store i1 %315, i1* %ZF, !mcsema_real_eip !66
+  %316 = lshr i32 %306, 31, !mcsema_real_eip !66
+  %317 = trunc i32 %316 to i1, !mcsema_real_eip !66
+  store i1 %317, i1* %SF, !mcsema_real_eip !66
+  %318 = icmp ult i32 %ECX_val.85, 48, !mcsema_real_eip !66
+  store i1 %318, i1* %CF, !mcsema_real_eip !66
+  %319 = xor i32 %ECX_val.85, 48, !mcsema_real_eip !66
+  %320 = and i32 %319, %307, !mcsema_real_eip !66
+  %321 = lshr i32 %320, 31, !mcsema_real_eip !66
+  %322 = trunc i32 %321 to i1, !mcsema_real_eip !66
+  store i1 %322, i1* %OF, !mcsema_real_eip !66
+  %323 = icmp eq i1 %315, false, !mcsema_real_eip !67
+  br i1 %323, label %block_0x10e, label %block_0x102, !mcsema_real_eip !67
 
 block_0x10e:                                      ; preds = %block_0xeb, %block_0xd7
-  %RBP_val.79 = load i64, i64* %XBP, !mcsema_real_eip !68
-  %430 = add i64 %RBP_val.79, -4, !mcsema_real_eip !68
-  %431 = inttoptr i64 %430 to i64*, !mcsema_real_eip !68
-  %432 = ptrtoint i64* %431 to i64, !mcsema_real_eip !68
-  %433 = inttoptr i64 %432 to i32*, !mcsema_real_eip !68
-  store i32 -6, i32* %433, !mcsema_real_eip !68
+  %_new_gep_117 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -4
+  %_allin_new_bt_118 = bitcast i8* %_new_gep_117 to i64*
+  %324 = ptrtoint i64* %_allin_new_bt_118 to i64, !mcsema_real_eip !68
+  %325 = inttoptr i64 %324 to i32*, !mcsema_real_eip !68
+  store i32 -6, i32* %325, !mcsema_real_eip !68
   br label %block_0x417, !mcsema_real_eip !69
 
 block_0x102:                                      ; preds = %block_0xeb
-  %RBP_val.86 = load i64, i64* %XBP, !mcsema_real_eip !70
-  %434 = add i64 %RBP_val.86, -20, !mcsema_real_eip !70
-  %435 = inttoptr i64 %434 to i64*, !mcsema_real_eip !70
-  %436 = ptrtoint i64* %435 to i64, !mcsema_real_eip !70
-  %437 = inttoptr i64 %436 to i32*, !mcsema_real_eip !70
-  store i32 -4, i32* %437, !mcsema_real_eip !70
+  %_new_gep_120 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -20
+  %_allin_new_bt_121 = bitcast i8* %_new_gep_120 to i64*
+  %326 = ptrtoint i64* %_allin_new_bt_121 to i64, !mcsema_real_eip !70
+  %327 = inttoptr i64 %326 to i32*, !mcsema_real_eip !70
+  store i32 -4, i32* %327, !mcsema_real_eip !70
   br label %block_0x11a, !mcsema_real_eip !71
 
 block_0x11a:                                      ; preds = %block_0x102
-  %RBP_val.87 = load i64, i64* %XBP, !mcsema_real_eip !72
-  %438 = add i64 %RBP_val.87, -16, !mcsema_real_eip !72
-  %439 = inttoptr i64 %438 to i64*, !mcsema_real_eip !72
-  %440 = load i64, i64* %439, !mcsema_real_eip !72
-  store i64 %440, i64* %XAX, !mcsema_real_eip !72
-  %RAX_val.88 = load i64, i64* %XAX, !mcsema_real_eip !73
-  %441 = add i64 %RAX_val.88, 5, !mcsema_real_eip !73
-  %442 = inttoptr i64 %441 to i64*, !mcsema_real_eip !73
-  %443 = ptrtoint i64* %442 to i64, !mcsema_real_eip !73
-  %444 = inttoptr i64 %443 to i8*, !mcsema_real_eip !73
-  %445 = load i8, i8* %444, !mcsema_real_eip !73
-  %446 = sext i8 %445 to i32, !mcsema_real_eip !73
-  %447 = zext i32 %446 to i64, !mcsema_real_eip !73
-  store i64 %447, i64* %XCX, !mcsema_real_eip !73
-  %ECX.89 = bitcast i64* %XCX to i32*, !mcsema_real_eip !74
-  %ECX_val.90 = load i32, i32* %ECX.89, !mcsema_real_eip !74
-  %448 = and i32 %ECX_val.90, 15, !mcsema_real_eip !74
-  %449 = lshr i32 %448, 31, !mcsema_real_eip !74
-  %450 = trunc i32 %449 to i1, !mcsema_real_eip !74
-  store i1 %450, i1* %SF, !mcsema_real_eip !74
-  %451 = icmp eq i32 %448, 0, !mcsema_real_eip !74
-  store i1 %451, i1* %ZF, !mcsema_real_eip !74
-  %452 = trunc i32 %448 to i8, !mcsema_real_eip !74
-  %453 = call i8 @llvm.ctpop.i8(i8 %452), !mcsema_real_eip !74
-  %454 = trunc i8 %453 to i1, !mcsema_real_eip !74
-  %455 = xor i1 %454, true, !mcsema_real_eip !74
-  store i1 %455, i1* %PF, !mcsema_real_eip !74
+  %_load_rbp_ptr_122 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_123 = getelementptr i8, i8* %_load_rbp_ptr_122, i64 -16
+  %_allin_new_bt_124 = bitcast i8* %_new_gep_123 to i64*
+  %328 = load i64, i64* %_allin_new_bt_124, !mcsema_real_eip !72
+  store i64 %328, i64* %XAX, !mcsema_real_eip !72
+  %329 = add i64 %328, 5, !mcsema_real_eip !73
+  %330 = inttoptr i64 %329 to i64*, !mcsema_real_eip !73
+  %331 = inttoptr i64 %329 to i8*, !mcsema_real_eip !73
+  %332 = load i8, i8* %331, !mcsema_real_eip !73
+  %333 = sext i8 %332 to i32, !mcsema_real_eip !73
+  %334 = zext i32 %333 to i64, !mcsema_real_eip !73
+  store i64 %334, i64* %XCX, !mcsema_real_eip !73
+  %ECX_val.90 = load i32, i32* %ECX.12, !mcsema_real_eip !74
+  %335 = and i32 %ECX_val.90, 15, !mcsema_real_eip !74
+  store i1 false, i1* %SF, !mcsema_real_eip !74
+  %336 = icmp eq i32 %335, 0, !mcsema_real_eip !74
+  store i1 %336, i1* %ZF, !mcsema_real_eip !74
+  %337 = trunc i32 %335 to i8, !mcsema_real_eip !74
+  %338 = call i8 @llvm.ctpop.i8(i8 %337), !mcsema_real_eip !74
+  %339 = trunc i8 %338 to i1, !mcsema_real_eip !74
+  %340 = xor i1 %339, true, !mcsema_real_eip !74
+  store i1 %340, i1* %PF, !mcsema_real_eip !74
   store i1 false, i1* %OF, !mcsema_real_eip !74
   store i1 false, i1* %CF, !mcsema_real_eip !74
   store i1 undef, i1* %AF, !mcsema_real_eip !74
-  %456 = zext i32 %448 to i64, !mcsema_real_eip !74
-  store i64 %456, i64* %XCX, !mcsema_real_eip !74
+  %341 = zext i32 %335 to i64, !mcsema_real_eip !74
+  store i64 %341, i64* %XCX, !mcsema_real_eip !74
   %CL.91 = bitcast i64* %XCX to i8*, !mcsema_real_eip !75
   %CL_val.92 = load i8, i8* %CL.91, !mcsema_real_eip !75
   %DL.93 = bitcast i64* %XDX to i8*, !mcsema_real_eip !75
   store i8 %CL_val.92, i8* %DL.93, !mcsema_real_eip !75
-  %RBP_val.94 = load i64, i64* %XBP, !mcsema_real_eip !76
-  %457 = add i64 %RBP_val.94, -33, !mcsema_real_eip !76
-  %458 = inttoptr i64 %457 to i64*, !mcsema_real_eip !76
-  %DL.95 = bitcast i64* %XDX to i8*, !mcsema_real_eip !76
-  %DL_val.96 = load i8, i8* %DL.95, !mcsema_real_eip !76
-  %459 = ptrtoint i64* %458 to i64, !mcsema_real_eip !76
-  %460 = inttoptr i64 %459 to i8*, !mcsema_real_eip !76
-  store i8 %DL_val.96, i8* %460, !mcsema_real_eip !76
-  %RBP_val.97 = load i64, i64* %XBP, !mcsema_real_eip !77
-  %461 = add i64 %RBP_val.97, -16, !mcsema_real_eip !77
-  %462 = inttoptr i64 %461 to i64*, !mcsema_real_eip !77
-  %463 = load i64, i64* %462, !mcsema_real_eip !77
-  store i64 %463, i64* %XAX, !mcsema_real_eip !77
-  %RAX_val.98 = load i64, i64* %XAX, !mcsema_real_eip !78
-  %464 = add i64 %RAX_val.98, 5, !mcsema_real_eip !78
-  %465 = inttoptr i64 %464 to i64*, !mcsema_real_eip !78
-  %466 = ptrtoint i64* %465 to i64, !mcsema_real_eip !78
-  %467 = inttoptr i64 %466 to i8*, !mcsema_real_eip !78
-  %468 = load i8, i8* %467, !mcsema_real_eip !78
-  %469 = sext i8 %468 to i32, !mcsema_real_eip !78
-  %470 = zext i32 %469 to i64, !mcsema_real_eip !78
-  store i64 %470, i64* %XCX, !mcsema_real_eip !78
-  %ECX.99 = bitcast i64* %XCX to i32*, !mcsema_real_eip !79
-  %ECX_val.100 = load i32, i32* %ECX.99, !mcsema_real_eip !79
-  %471 = and i32 %ECX_val.100, 240, !mcsema_real_eip !79
-  %472 = lshr i32 %471, 31, !mcsema_real_eip !79
-  %473 = trunc i32 %472 to i1, !mcsema_real_eip !79
-  store i1 %473, i1* %SF, !mcsema_real_eip !79
-  %474 = icmp eq i32 %471, 0, !mcsema_real_eip !79
-  store i1 %474, i1* %ZF, !mcsema_real_eip !79
-  %475 = trunc i32 %471 to i8, !mcsema_real_eip !79
-  %476 = call i8 @llvm.ctpop.i8(i8 %475), !mcsema_real_eip !79
-  %477 = trunc i8 %476 to i1, !mcsema_real_eip !79
-  %478 = xor i1 %477, true, !mcsema_real_eip !79
-  store i1 %478, i1* %PF, !mcsema_real_eip !79
+  %_new_gep_126 = getelementptr i8, i8* %_load_rbp_ptr_122, i64 -33
+  %_allin_new_bt_127 = bitcast i8* %_new_gep_126 to i64*
+  %342 = ptrtoint i64* %_allin_new_bt_127 to i64, !mcsema_real_eip !76
+  %343 = inttoptr i64 %342 to i8*, !mcsema_real_eip !76
+  store i8 %CL_val.92, i8* %343, !mcsema_real_eip !76
+  %_load_rbp_ptr_128 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_129 = getelementptr i8, i8* %_load_rbp_ptr_128, i64 -16
+  %_allin_new_bt_130 = bitcast i8* %_new_gep_129 to i64*
+  %344 = load i64, i64* %_allin_new_bt_130, !mcsema_real_eip !77
+  store i64 %344, i64* %XAX, !mcsema_real_eip !77
+  %345 = add i64 %344, 5, !mcsema_real_eip !78
+  %346 = inttoptr i64 %345 to i64*, !mcsema_real_eip !78
+  %347 = inttoptr i64 %345 to i8*, !mcsema_real_eip !78
+  %348 = load i8, i8* %347, !mcsema_real_eip !78
+  %349 = sext i8 %348 to i32, !mcsema_real_eip !78
+  %350 = zext i32 %349 to i64, !mcsema_real_eip !78
+  store i64 %350, i64* %XCX, !mcsema_real_eip !78
+  %ECX_val.100 = load i32, i32* %ECX.12, !mcsema_real_eip !79
+  %351 = and i32 %ECX_val.100, 240, !mcsema_real_eip !79
+  store i1 false, i1* %SF, !mcsema_real_eip !79
+  %352 = icmp eq i32 %351, 0, !mcsema_real_eip !79
+  store i1 %352, i1* %ZF, !mcsema_real_eip !79
+  %353 = trunc i32 %351 to i8, !mcsema_real_eip !79
+  %354 = call i8 @llvm.ctpop.i8(i8 %353), !mcsema_real_eip !79
+  %355 = trunc i8 %354 to i1, !mcsema_real_eip !79
+  %356 = xor i1 %355, true, !mcsema_real_eip !79
+  store i1 %356, i1* %PF, !mcsema_real_eip !79
   store i1 false, i1* %OF, !mcsema_real_eip !79
   store i1 false, i1* %CF, !mcsema_real_eip !79
   store i1 undef, i1* %AF, !mcsema_real_eip !79
-  %479 = zext i32 %471 to i64, !mcsema_real_eip !79
-  store i64 %479, i64* %XCX, !mcsema_real_eip !79
-  %CL.101 = bitcast i64* %XCX to i8*, !mcsema_real_eip !80
-  %CL_val.102 = load i8, i8* %CL.101, !mcsema_real_eip !80
-  %DL.103 = bitcast i64* %XDX to i8*, !mcsema_real_eip !80
-  store i8 %CL_val.102, i8* %DL.103, !mcsema_real_eip !80
-  %RBP_val.104 = load i64, i64* %XBP, !mcsema_real_eip !81
-  %480 = add i64 %RBP_val.104, -34, !mcsema_real_eip !81
-  %481 = inttoptr i64 %480 to i64*, !mcsema_real_eip !81
-  %DL.105 = bitcast i64* %XDX to i8*, !mcsema_real_eip !81
-  %DL_val.106 = load i8, i8* %DL.105, !mcsema_real_eip !81
-  %482 = ptrtoint i64* %481 to i64, !mcsema_real_eip !81
-  %483 = inttoptr i64 %482 to i8*, !mcsema_real_eip !81
-  store i8 %DL_val.106, i8* %483, !mcsema_real_eip !81
-  %RBP_val.107 = load i64, i64* %XBP, !mcsema_real_eip !82
-  %484 = add i64 %RBP_val.107, -33, !mcsema_real_eip !82
-  %485 = inttoptr i64 %484 to i64*, !mcsema_real_eip !82
-  %486 = ptrtoint i64* %485 to i64, !mcsema_real_eip !82
-  %487 = inttoptr i64 %486 to i8*, !mcsema_real_eip !82
-  %488 = load i8, i8* %487, !mcsema_real_eip !82
-  %489 = zext i8 %488 to i32, !mcsema_real_eip !82
-  %490 = zext i32 %489 to i64, !mcsema_real_eip !82
-  store i64 %490, i64* %XCX, !mcsema_real_eip !82
-  %ECX.108 = bitcast i64* %XCX to i32*, !mcsema_real_eip !83
-  %ECX_val.109 = load i32, i32* %ECX.108, !mcsema_real_eip !83
-  %491 = sub i32 %ECX_val.109, 3, !mcsema_real_eip !83
-  %492 = xor i32 %491, %ECX_val.109, !mcsema_real_eip !83
-  %493 = xor i32 %492, 3, !mcsema_real_eip !83
-  %494 = and i32 %493, 16, !mcsema_real_eip !83
-  %495 = icmp ne i32 %494, 0, !mcsema_real_eip !83
-  store i1 %495, i1* %AF, !mcsema_real_eip !83
-  %496 = trunc i32 %491 to i8, !mcsema_real_eip !83
-  %497 = call i8 @llvm.ctpop.i8(i8 %496), !mcsema_real_eip !83
-  %498 = trunc i8 %497 to i1, !mcsema_real_eip !83
-  %499 = xor i1 %498, true, !mcsema_real_eip !83
-  store i1 %499, i1* %PF, !mcsema_real_eip !83
-  %500 = icmp eq i32 %491, 0, !mcsema_real_eip !83
-  store i1 %500, i1* %ZF, !mcsema_real_eip !83
-  %501 = lshr i32 %491, 31, !mcsema_real_eip !83
-  %502 = trunc i32 %501 to i1, !mcsema_real_eip !83
-  store i1 %502, i1* %SF, !mcsema_real_eip !83
-  %503 = icmp ult i32 %ECX_val.109, 3, !mcsema_real_eip !83
-  store i1 %503, i1* %CF, !mcsema_real_eip !83
-  %504 = xor i32 %ECX_val.109, 3, !mcsema_real_eip !83
-  %505 = xor i32 %ECX_val.109, %491, !mcsema_real_eip !83
-  %506 = and i32 %504, %505, !mcsema_real_eip !83
-  %507 = lshr i32 %506, 31, !mcsema_real_eip !83
-  %508 = trunc i32 %507 to i1, !mcsema_real_eip !83
-  store i1 %508, i1* %OF, !mcsema_real_eip !83
-  %509 = load i1, i1* %ZF, !mcsema_real_eip !84
-  %510 = icmp eq i1 %509, false, !mcsema_real_eip !84
-  br i1 %510, label %block_0x165, label %block_0x14a, !mcsema_real_eip !84
+  %357 = zext i32 %351 to i64, !mcsema_real_eip !79
+  store i64 %357, i64* %XCX, !mcsema_real_eip !79
+  %CL_val.102 = load i8, i8* %CL.91, !mcsema_real_eip !80
+  store i8 %CL_val.102, i8* %DL.93, !mcsema_real_eip !80
+  %_new_gep_132 = getelementptr i8, i8* %_load_rbp_ptr_128, i64 -34
+  %_allin_new_bt_133 = bitcast i8* %_new_gep_132 to i64*
+  %358 = ptrtoint i64* %_allin_new_bt_133 to i64, !mcsema_real_eip !81
+  %359 = inttoptr i64 %358 to i8*, !mcsema_real_eip !81
+  store i8 %CL_val.102, i8* %359, !mcsema_real_eip !81
+  %_load_rbp_ptr_134 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_135 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -33
+  %_allin_new_bt_136 = bitcast i8* %_new_gep_135 to i64*
+  %360 = ptrtoint i64* %_allin_new_bt_136 to i64, !mcsema_real_eip !82
+  %361 = inttoptr i64 %360 to i8*, !mcsema_real_eip !82
+  %362 = load i8, i8* %361, !mcsema_real_eip !82
+  %363 = zext i8 %362 to i32, !mcsema_real_eip !82
+  %364 = zext i32 %363 to i64, !mcsema_real_eip !82
+  store i64 %364, i64* %XCX, !mcsema_real_eip !82
+  %ECX_val.109 = load i32, i32* %ECX.12, !mcsema_real_eip !83
+  %365 = sub i32 %ECX_val.109, 3, !mcsema_real_eip !83
+  %366 = xor i32 %365, %ECX_val.109, !mcsema_real_eip !83
+  %367 = xor i32 %366, 3, !mcsema_real_eip !83
+  %368 = and i32 %367, 16, !mcsema_real_eip !83
+  %369 = icmp ne i32 %368, 0, !mcsema_real_eip !83
+  store i1 %369, i1* %AF, !mcsema_real_eip !83
+  %370 = trunc i32 %365 to i8, !mcsema_real_eip !83
+  %371 = call i8 @llvm.ctpop.i8(i8 %370), !mcsema_real_eip !83
+  %372 = trunc i8 %371 to i1, !mcsema_real_eip !83
+  %373 = xor i1 %372, true, !mcsema_real_eip !83
+  store i1 %373, i1* %PF, !mcsema_real_eip !83
+  %374 = icmp eq i32 %365, 0, !mcsema_real_eip !83
+  store i1 %374, i1* %ZF, !mcsema_real_eip !83
+  %375 = lshr i32 %365, 31, !mcsema_real_eip !83
+  %376 = trunc i32 %375 to i1, !mcsema_real_eip !83
+  store i1 %376, i1* %SF, !mcsema_real_eip !83
+  %377 = icmp ult i32 %ECX_val.109, 3, !mcsema_real_eip !83
+  store i1 %377, i1* %CF, !mcsema_real_eip !83
+  %378 = xor i32 %ECX_val.109, 3, !mcsema_real_eip !83
+  %379 = and i32 %378, %366, !mcsema_real_eip !83
+  %380 = lshr i32 %379, 31, !mcsema_real_eip !83
+  %381 = trunc i32 %380 to i1, !mcsema_real_eip !83
+  store i1 %381, i1* %OF, !mcsema_real_eip !83
+  %382 = icmp eq i1 %374, false, !mcsema_real_eip !84
+  br i1 %382, label %block_0x165, label %block_0x14a, !mcsema_real_eip !84
 
 block_0x14a:                                      ; preds = %block_0x11a
-  %RBP_val.116 = load i64, i64* %XBP, !mcsema_real_eip !85
-  %511 = add i64 %RBP_val.116, -34, !mcsema_real_eip !85
-  %512 = inttoptr i64 %511 to i64*, !mcsema_real_eip !85
-  %513 = ptrtoint i64* %512 to i64, !mcsema_real_eip !85
-  %514 = inttoptr i64 %513 to i8*, !mcsema_real_eip !85
-  %515 = load i8, i8* %514, !mcsema_real_eip !85
-  %516 = zext i8 %515 to i32, !mcsema_real_eip !85
-  %517 = zext i32 %516 to i64, !mcsema_real_eip !85
-  store i64 %517, i64* %XAX, !mcsema_real_eip !85
-  %EAX.117 = bitcast i64* %XAX to i32*, !mcsema_real_eip !86
-  %EAX_val.118 = load i32, i32* %EAX.117, !mcsema_real_eip !86
-  %518 = sub i32 %EAX_val.118, 96, !mcsema_real_eip !86
-  %519 = xor i32 %518, %EAX_val.118, !mcsema_real_eip !86
-  %520 = xor i32 %519, 96, !mcsema_real_eip !86
-  %521 = and i32 %520, 16, !mcsema_real_eip !86
-  %522 = icmp ne i32 %521, 0, !mcsema_real_eip !86
-  store i1 %522, i1* %AF, !mcsema_real_eip !86
-  %523 = trunc i32 %518 to i8, !mcsema_real_eip !86
-  %524 = call i8 @llvm.ctpop.i8(i8 %523), !mcsema_real_eip !86
-  %525 = trunc i8 %524 to i1, !mcsema_real_eip !86
-  %526 = xor i1 %525, true, !mcsema_real_eip !86
-  store i1 %526, i1* %PF, !mcsema_real_eip !86
-  %527 = icmp eq i32 %518, 0, !mcsema_real_eip !86
-  store i1 %527, i1* %ZF, !mcsema_real_eip !86
-  %528 = lshr i32 %518, 31, !mcsema_real_eip !86
-  %529 = trunc i32 %528 to i1, !mcsema_real_eip !86
-  store i1 %529, i1* %SF, !mcsema_real_eip !86
-  %530 = icmp ult i32 %EAX_val.118, 96, !mcsema_real_eip !86
-  store i1 %530, i1* %CF, !mcsema_real_eip !86
-  %531 = xor i32 %EAX_val.118, 96, !mcsema_real_eip !86
-  %532 = xor i32 %EAX_val.118, %518, !mcsema_real_eip !86
-  %533 = and i32 %531, %532, !mcsema_real_eip !86
-  %534 = lshr i32 %533, 31, !mcsema_real_eip !86
-  %535 = trunc i32 %534 to i1, !mcsema_real_eip !86
-  store i1 %535, i1* %OF, !mcsema_real_eip !86
-  %536 = load i1, i1* %ZF, !mcsema_real_eip !87
-  %537 = icmp eq i1 %536, false, !mcsema_real_eip !87
-  br i1 %537, label %block_0x165, label %block_0x157, !mcsema_real_eip !87
+  %_new_gep_138 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -34
+  %_allin_new_bt_139 = bitcast i8* %_new_gep_138 to i64*
+  %383 = ptrtoint i64* %_allin_new_bt_139 to i64, !mcsema_real_eip !85
+  %384 = inttoptr i64 %383 to i8*, !mcsema_real_eip !85
+  %385 = load i8, i8* %384, !mcsema_real_eip !85
+  %386 = zext i8 %385 to i32, !mcsema_real_eip !85
+  %387 = zext i32 %386 to i64, !mcsema_real_eip !85
+  store i64 %387, i64* %XAX, !mcsema_real_eip !85
+  %EAX_val.118 = load i32, i32* %EAX.9, !mcsema_real_eip !86
+  %388 = sub i32 %EAX_val.118, 96, !mcsema_real_eip !86
+  %389 = xor i32 %388, %EAX_val.118, !mcsema_real_eip !86
+  %390 = xor i32 %389, 96, !mcsema_real_eip !86
+  %391 = and i32 %390, 16, !mcsema_real_eip !86
+  %392 = icmp ne i32 %391, 0, !mcsema_real_eip !86
+  store i1 %392, i1* %AF, !mcsema_real_eip !86
+  %393 = trunc i32 %388 to i8, !mcsema_real_eip !86
+  %394 = call i8 @llvm.ctpop.i8(i8 %393), !mcsema_real_eip !86
+  %395 = trunc i8 %394 to i1, !mcsema_real_eip !86
+  %396 = xor i1 %395, true, !mcsema_real_eip !86
+  store i1 %396, i1* %PF, !mcsema_real_eip !86
+  %397 = icmp eq i32 %388, 0, !mcsema_real_eip !86
+  store i1 %397, i1* %ZF, !mcsema_real_eip !86
+  %398 = lshr i32 %388, 31, !mcsema_real_eip !86
+  %399 = trunc i32 %398 to i1, !mcsema_real_eip !86
+  store i1 %399, i1* %SF, !mcsema_real_eip !86
+  %400 = icmp ult i32 %EAX_val.118, 96, !mcsema_real_eip !86
+  store i1 %400, i1* %CF, !mcsema_real_eip !86
+  %401 = xor i32 %EAX_val.118, 96, !mcsema_real_eip !86
+  %402 = and i32 %401, %389, !mcsema_real_eip !86
+  %403 = lshr i32 %402, 31, !mcsema_real_eip !86
+  %404 = trunc i32 %403 to i1, !mcsema_real_eip !86
+  store i1 %404, i1* %OF, !mcsema_real_eip !86
+  %405 = icmp eq i1 %397, false, !mcsema_real_eip !87
+  br i1 %405, label %block_0x165, label %block_0x157, !mcsema_real_eip !87
 
 block_0x165:                                      ; preds = %block_0x14a, %block_0x11a
-  %RBP_val.110 = load i64, i64* %XBP, !mcsema_real_eip !88
-  %538 = add i64 %RBP_val.110, -20, !mcsema_real_eip !88
-  %539 = inttoptr i64 %538 to i64*, !mcsema_real_eip !88
-  %540 = ptrtoint i64* %539 to i64, !mcsema_real_eip !88
-  %541 = inttoptr i64 %540 to i32*, !mcsema_real_eip !88
-  %542 = load i32, i32* %541, !mcsema_real_eip !88
-  %543 = zext i32 %542 to i64, !mcsema_real_eip !88
-  store i64 %543, i64* %XAX, !mcsema_real_eip !88
-  %EAX.111 = bitcast i64* %XAX to i32*, !mcsema_real_eip !89
-  %EAX_val.112 = load i32, i32* %EAX.111, !mcsema_real_eip !89
-  %544 = add i32 5, %EAX_val.112, !mcsema_real_eip !89
-  %545 = xor i32 %544, %EAX_val.112, !mcsema_real_eip !89
-  %546 = xor i32 %545, 5, !mcsema_real_eip !89
-  %547 = and i32 %546, 16, !mcsema_real_eip !89
-  %548 = icmp ne i32 %547, 0, !mcsema_real_eip !89
-  store i1 %548, i1* %AF, !mcsema_real_eip !89
-  %549 = lshr i32 %544, 31, !mcsema_real_eip !89
-  %550 = trunc i32 %549 to i1, !mcsema_real_eip !89
-  store i1 %550, i1* %SF, !mcsema_real_eip !89
-  %551 = icmp eq i32 %544, 0, !mcsema_real_eip !89
-  store i1 %551, i1* %ZF, !mcsema_real_eip !89
-  %552 = xor i32 %EAX_val.112, 5, !mcsema_real_eip !89
-  %553 = xor i32 %552, -1, !mcsema_real_eip !89
-  %554 = xor i32 %EAX_val.112, %544, !mcsema_real_eip !89
-  %555 = and i32 %553, %554, !mcsema_real_eip !89
-  %556 = lshr i32 %555, 31, !mcsema_real_eip !89
-  %557 = and i32 %556, 1, !mcsema_real_eip !89
-  %558 = trunc i32 %557 to i1, !mcsema_real_eip !89
-  store i1 %558, i1* %OF, !mcsema_real_eip !89
-  %559 = trunc i32 %544 to i8, !mcsema_real_eip !89
-  %560 = call i8 @llvm.ctpop.i8(i8 %559), !mcsema_real_eip !89
-  %561 = trunc i8 %560 to i1, !mcsema_real_eip !89
-  %562 = xor i1 %561, true, !mcsema_real_eip !89
-  store i1 %562, i1* %PF, !mcsema_real_eip !89
-  %563 = icmp ult i32 %544, %EAX_val.112, !mcsema_real_eip !89
-  store i1 %563, i1* %CF, !mcsema_real_eip !89
-  %564 = zext i32 %544 to i64, !mcsema_real_eip !89
-  store i64 %564, i64* %XAX, !mcsema_real_eip !89
-  %RBP_val.113 = load i64, i64* %XBP, !mcsema_real_eip !90
-  %565 = add i64 %RBP_val.113, -20, !mcsema_real_eip !90
-  %566 = inttoptr i64 %565 to i64*, !mcsema_real_eip !90
-  %EAX.114 = bitcast i64* %XAX to i32*, !mcsema_real_eip !90
-  %EAX_val.115 = load i32, i32* %EAX.114, !mcsema_real_eip !90
-  %567 = ptrtoint i64* %566 to i64, !mcsema_real_eip !90
-  %568 = inttoptr i64 %567 to i32*, !mcsema_real_eip !90
-  store i32 %EAX_val.115, i32* %568, !mcsema_real_eip !90
+  %_new_gep_141 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -20
+  %_allin_new_bt_142 = bitcast i8* %_new_gep_141 to i64*
+  %406 = ptrtoint i64* %_allin_new_bt_142 to i64, !mcsema_real_eip !88
+  %407 = inttoptr i64 %406 to i32*, !mcsema_real_eip !88
+  %408 = load i32, i32* %407, !mcsema_real_eip !88
+  %409 = zext i32 %408 to i64, !mcsema_real_eip !88
+  store i64 %409, i64* %XAX, !mcsema_real_eip !88
+  %EAX_val.112 = load i32, i32* %EAX.9, !mcsema_real_eip !89
+  %410 = add i32 5, %EAX_val.112, !mcsema_real_eip !89
+  %411 = xor i32 %410, %EAX_val.112, !mcsema_real_eip !89
+  %412 = xor i32 %411, 5, !mcsema_real_eip !89
+  %413 = and i32 %412, 16, !mcsema_real_eip !89
+  %414 = icmp ne i32 %413, 0, !mcsema_real_eip !89
+  store i1 %414, i1* %AF, !mcsema_real_eip !89
+  %415 = lshr i32 %410, 31, !mcsema_real_eip !89
+  %416 = trunc i32 %415 to i1, !mcsema_real_eip !89
+  store i1 %416, i1* %SF, !mcsema_real_eip !89
+  %417 = icmp eq i32 %410, 0, !mcsema_real_eip !89
+  store i1 %417, i1* %ZF, !mcsema_real_eip !89
+  %418 = xor i32 %EAX_val.112, 5, !mcsema_real_eip !89
+  %419 = xor i32 %418, -1, !mcsema_real_eip !89
+  %420 = and i32 %419, %411, !mcsema_real_eip !89
+  %421 = lshr i32 %420, 31, !mcsema_real_eip !89
+  %422 = and i32 %421, 1, !mcsema_real_eip !89
+  %423 = trunc i32 %422 to i1, !mcsema_real_eip !89
+  store i1 %423, i1* %OF, !mcsema_real_eip !89
+  %424 = trunc i32 %410 to i8, !mcsema_real_eip !89
+  %425 = call i8 @llvm.ctpop.i8(i8 %424), !mcsema_real_eip !89
+  %426 = trunc i8 %425 to i1, !mcsema_real_eip !89
+  %427 = xor i1 %426, true, !mcsema_real_eip !89
+  store i1 %427, i1* %PF, !mcsema_real_eip !89
+  %428 = icmp ult i32 %410, %EAX_val.112, !mcsema_real_eip !89
+  store i1 %428, i1* %CF, !mcsema_real_eip !89
+  %429 = zext i32 %410 to i64, !mcsema_real_eip !89
+  store i64 %429, i64* %XAX, !mcsema_real_eip !89
+  %EAX_val.115 = load i32, i32* %EAX.9, !mcsema_real_eip !90
+  store i32 %EAX_val.115, i32* %407, !mcsema_real_eip !90
   br label %block_0x16e, !mcsema_real_eip !85
 
 block_0x16e:                                      ; preds = %block_0x157, %block_0x165
-  %RBP_val.119 = load i64, i64* %XBP, !mcsema_real_eip !91
-  %569 = add i64 %RBP_val.119, -16, !mcsema_real_eip !91
-  %570 = inttoptr i64 %569 to i64*, !mcsema_real_eip !91
-  %571 = load i64, i64* %570, !mcsema_real_eip !91
-  store i64 %571, i64* %XAX, !mcsema_real_eip !91
-  %RAX_val.120 = load i64, i64* %XAX, !mcsema_real_eip !92
-  %572 = add i64 %RAX_val.120, 6, !mcsema_real_eip !92
-  %573 = inttoptr i64 %572 to i64*, !mcsema_real_eip !92
-  %574 = ptrtoint i64* %573 to i64, !mcsema_real_eip !92
-  %575 = inttoptr i64 %574 to i8*, !mcsema_real_eip !92
-  %576 = load i8, i8* %575, !mcsema_real_eip !92
-  %577 = zext i8 %576 to i32, !mcsema_real_eip !92
-  %578 = zext i32 %577 to i64, !mcsema_real_eip !92
-  store i64 %578, i64* %XDI, !mcsema_real_eip !92
-  %RDI_val.121 = load i64, i64* %XDI, !mcsema_real_eip !93
+  %_load_rbp_ptr_146 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_147 = getelementptr i8, i8* %_load_rbp_ptr_146, i64 -16
+  %_allin_new_bt_148 = bitcast i8* %_new_gep_147 to i64*
+  %430 = load i64, i64* %_allin_new_bt_148, !mcsema_real_eip !91
+  store i64 %430, i64* %XAX, !mcsema_real_eip !91
+  %431 = add i64 %430, 6, !mcsema_real_eip !92
+  %432 = inttoptr i64 %431 to i64*, !mcsema_real_eip !92
+  %433 = inttoptr i64 %431 to i8*, !mcsema_real_eip !92
+  %434 = load i8, i8* %433, !mcsema_real_eip !92
+  %435 = zext i8 %434 to i32, !mcsema_real_eip !92
+  %436 = zext i32 %435 to i64, !mcsema_real_eip !92
+  store i64 %436, i64* %XDI, !mcsema_real_eip !92
+  %_load_rsp_ptr_149 = load i8*, i8** %_RSP_ptr_
   %RSP_val.122 = load i64, i64* %XSP, !mcsema_real_eip !93
-  %579 = sub i64 %RSP_val.122, 8, !mcsema_real_eip !93
-  %580 = inttoptr i64 %579 to i64*, !mcsema_real_eip !93
-  store i64 -2415393069852865332, i64* %580, !mcsema_real_eip !93
-  store i64 %579, i64* %XSP, !mcsema_real_eip !93
-  %581 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.121), !mcsema_real_eip !93
-  store i64 %581, i64* %XAX, !mcsema_real_eip !93
+  %_new_gep_150 = getelementptr i8, i8* %_load_rsp_ptr_149, i64 -8
+  %437 = sub i64 %RSP_val.122, 8, !mcsema_real_eip !93
+  %_allin_new_bt_151 = bitcast i8* %_new_gep_150 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_151, !mcsema_real_eip !93
+  store volatile i8* %_new_gep_150, i8** %_RSP_ptr_
+  store i64 %437, i64* %XSP, !mcsema_real_eip !93
+  %438 = call x86_64_sysvcc i64 @_to_byte(i64 %436)
+  %_rsp_fix_422 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_423 = getelementptr i8, i8* %_rsp_fix_422, i64 8
+  store i8* %_gep_fix_423, i8** %_RSP_ptr_
+  store i64 %438, i64* %XAX, !mcsema_real_eip !93
   %AL.123 = bitcast i64* %XAX to i8*, !mcsema_real_eip !94
   %AL_val.124 = load i8, i8* %AL.123, !mcsema_real_eip !94
-  %CL.125 = bitcast i64* %XCX to i8*, !mcsema_real_eip !94
-  store i8 %AL_val.124, i8* %CL.125, !mcsema_real_eip !94
-  %RBP_val.126 = load i64, i64* %XBP, !mcsema_real_eip !95
-  %582 = add i64 %RBP_val.126, -35, !mcsema_real_eip !95
-  %583 = inttoptr i64 %582 to i64*, !mcsema_real_eip !95
-  %CL.127 = bitcast i64* %XCX to i8*, !mcsema_real_eip !95
-  %CL_val.128 = load i8, i8* %CL.127, !mcsema_real_eip !95
-  %584 = ptrtoint i64* %583 to i64, !mcsema_real_eip !95
-  %585 = inttoptr i64 %584 to i8*, !mcsema_real_eip !95
-  store i8 %CL_val.128, i8* %585, !mcsema_real_eip !95
-  %RBP_val.129 = load i64, i64* %XBP, !mcsema_real_eip !96
-  %586 = add i64 %RBP_val.129, -16, !mcsema_real_eip !96
-  %587 = inttoptr i64 %586 to i64*, !mcsema_real_eip !96
-  %588 = load i64, i64* %587, !mcsema_real_eip !96
-  store i64 %588, i64* %XDX, !mcsema_real_eip !96
-  %RDX_val.130 = load i64, i64* %XDX, !mcsema_real_eip !97
-  %589 = add i64 %RDX_val.130, 7, !mcsema_real_eip !97
-  %590 = inttoptr i64 %589 to i64*, !mcsema_real_eip !97
-  %591 = ptrtoint i64* %590 to i64, !mcsema_real_eip !97
-  %592 = inttoptr i64 %591 to i8*, !mcsema_real_eip !97
-  %593 = load i8, i8* %592, !mcsema_real_eip !97
-  %594 = zext i8 %593 to i32, !mcsema_real_eip !97
-  %595 = zext i32 %594 to i64, !mcsema_real_eip !97
-  store i64 %595, i64* %XDI, !mcsema_real_eip !97
-  %RDI_val.131 = load i64, i64* %XDI, !mcsema_real_eip !98
+  store i8 %AL_val.124, i8* %CL.91, !mcsema_real_eip !94
+  %_load_rbp_ptr_152 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_153 = getelementptr i8, i8* %_load_rbp_ptr_152, i64 -35
+  %_allin_new_bt_154 = bitcast i8* %_new_gep_153 to i64*
+  %439 = ptrtoint i64* %_allin_new_bt_154 to i64, !mcsema_real_eip !95
+  %440 = inttoptr i64 %439 to i8*, !mcsema_real_eip !95
+  store i8 %AL_val.124, i8* %440, !mcsema_real_eip !95
+  %_load_rbp_ptr_155 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_156 = getelementptr i8, i8* %_load_rbp_ptr_155, i64 -16
+  %_allin_new_bt_157 = bitcast i8* %_new_gep_156 to i64*
+  %441 = load i64, i64* %_allin_new_bt_157, !mcsema_real_eip !96
+  store i64 %441, i64* %XDX, !mcsema_real_eip !96
+  %442 = add i64 %441, 7, !mcsema_real_eip !97
+  %443 = inttoptr i64 %442 to i64*, !mcsema_real_eip !97
+  %444 = inttoptr i64 %442 to i8*, !mcsema_real_eip !97
+  %445 = load i8, i8* %444, !mcsema_real_eip !97
+  %446 = zext i8 %445 to i32, !mcsema_real_eip !97
+  %447 = zext i32 %446 to i64, !mcsema_real_eip !97
+  store i64 %447, i64* %XDI, !mcsema_real_eip !97
+  %_load_rsp_ptr_158 = load i8*, i8** %_RSP_ptr_
   %RSP_val.132 = load i64, i64* %XSP, !mcsema_real_eip !98
-  %596 = sub i64 %RSP_val.132, 8, !mcsema_real_eip !98
-  %597 = inttoptr i64 %596 to i64*, !mcsema_real_eip !98
-  store i64 -2415393069852865332, i64* %597, !mcsema_real_eip !98
-  store i64 %596, i64* %XSP, !mcsema_real_eip !98
-  %598 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.131), !mcsema_real_eip !98
-  store i64 %598, i64* %XAX, !mcsema_real_eip !98
-  %RBP_val.133 = load i64, i64* %XBP, !mcsema_real_eip !99
-  %599 = add i64 %RBP_val.133, -35, !mcsema_real_eip !99
-  %600 = inttoptr i64 %599 to i64*, !mcsema_real_eip !99
-  %601 = ptrtoint i64* %600 to i64, !mcsema_real_eip !99
-  %602 = inttoptr i64 %601 to i8*, !mcsema_real_eip !99
-  %603 = load i8, i8* %602, !mcsema_real_eip !99
-  %604 = zext i8 %603 to i32, !mcsema_real_eip !99
-  %605 = zext i32 %604 to i64, !mcsema_real_eip !99
-  store i64 %605, i64* %XDI, !mcsema_real_eip !99
-  %EDI.134 = bitcast i64* %XDI to i32*, !mcsema_real_eip !100
-  %EDI_val.135 = load i32, i32* %EDI.134, !mcsema_real_eip !100
-  %EAX.136 = bitcast i64* %XAX to i32*, !mcsema_real_eip !100
-  %EAX_val.137 = load i32, i32* %EAX.136, !mcsema_real_eip !100
-  %606 = or i32 %EDI_val.135, %EAX_val.137, !mcsema_real_eip !100
+  %_new_gep_159 = getelementptr i8, i8* %_load_rsp_ptr_158, i64 -8
+  %448 = sub i64 %RSP_val.132, 8, !mcsema_real_eip !98
+  %_allin_new_bt_160 = bitcast i8* %_new_gep_159 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_160, !mcsema_real_eip !98
+  store volatile i8* %_new_gep_159, i8** %_RSP_ptr_
+  store i64 %448, i64* %XSP, !mcsema_real_eip !98
+  %449 = call x86_64_sysvcc i64 @_to_byte(i64 %447)
+  %_rsp_fix_424 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_425 = getelementptr i8, i8* %_rsp_fix_424, i64 8
+  store i8* %_gep_fix_425, i8** %_RSP_ptr_
+  store i64 %449, i64* %XAX, !mcsema_real_eip !98
+  %_load_rbp_ptr_161 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_162 = getelementptr i8, i8* %_load_rbp_ptr_161, i64 -35
+  %_allin_new_bt_163 = bitcast i8* %_new_gep_162 to i64*
+  %450 = ptrtoint i64* %_allin_new_bt_163 to i64, !mcsema_real_eip !99
+  %451 = inttoptr i64 %450 to i8*, !mcsema_real_eip !99
+  %452 = load i8, i8* %451, !mcsema_real_eip !99
+  %453 = zext i8 %452 to i32, !mcsema_real_eip !99
+  %454 = zext i32 %453 to i64, !mcsema_real_eip !99
+  store i64 %454, i64* %XDI, !mcsema_real_eip !99
+  %EDI_val.135 = load i32, i32* %EDI.63, !mcsema_real_eip !100
+  %EAX_val.137 = load i32, i32* %EAX.9, !mcsema_real_eip !100
+  %455 = or i32 %EDI_val.135, %EAX_val.137, !mcsema_real_eip !100
   store i1 undef, i1* %AF, !mcsema_real_eip !100
   store i1 false, i1* %OF, !mcsema_real_eip !100
   store i1 false, i1* %CF, !mcsema_real_eip !100
-  %607 = lshr i32 %606, 31, !mcsema_real_eip !100
-  %608 = trunc i32 %607 to i1, !mcsema_real_eip !100
-  store i1 %608, i1* %SF, !mcsema_real_eip !100
-  %609 = icmp eq i32 %606, 0, !mcsema_real_eip !100
-  store i1 %609, i1* %ZF, !mcsema_real_eip !100
-  %610 = trunc i32 %606 to i8, !mcsema_real_eip !100
-  %611 = call i8 @llvm.ctpop.i8(i8 %610), !mcsema_real_eip !100
-  %612 = trunc i8 %611 to i1, !mcsema_real_eip !100
-  %613 = xor i1 %612, true, !mcsema_real_eip !100
-  store i1 %613, i1* %PF, !mcsema_real_eip !100
-  %614 = zext i32 %606 to i64, !mcsema_real_eip !100
-  store i64 %614, i64* %XDI, !mcsema_real_eip !100
+  %456 = lshr i32 %455, 31, !mcsema_real_eip !100
+  %457 = trunc i32 %456 to i1, !mcsema_real_eip !100
+  store i1 %457, i1* %SF, !mcsema_real_eip !100
+  %458 = icmp eq i32 %455, 0, !mcsema_real_eip !100
+  store i1 %458, i1* %ZF, !mcsema_real_eip !100
+  %459 = trunc i32 %455 to i8, !mcsema_real_eip !100
+  %460 = call i8 @llvm.ctpop.i8(i8 %459), !mcsema_real_eip !100
+  %461 = trunc i8 %460 to i1, !mcsema_real_eip !100
+  %462 = xor i1 %461, true, !mcsema_real_eip !100
+  store i1 %462, i1* %PF, !mcsema_real_eip !100
+  %463 = zext i32 %455 to i64, !mcsema_real_eip !100
+  store i64 %463, i64* %XDI, !mcsema_real_eip !100
   %DIL.138 = bitcast i64* %XDI to i8*, !mcsema_real_eip !101
   %DIL_val.139 = load i8, i8* %DIL.138, !mcsema_real_eip !101
-  %CL.140 = bitcast i64* %XCX to i8*, !mcsema_real_eip !101
-  store i8 %DIL_val.139, i8* %CL.140, !mcsema_real_eip !101
-  %RBP_val.141 = load i64, i64* %XBP, !mcsema_real_eip !102
-  %615 = add i64 %RBP_val.141, -35, !mcsema_real_eip !102
-  %616 = inttoptr i64 %615 to i64*, !mcsema_real_eip !102
-  %CL.142 = bitcast i64* %XCX to i8*, !mcsema_real_eip !102
-  %CL_val.143 = load i8, i8* %CL.142, !mcsema_real_eip !102
-  %617 = ptrtoint i64* %616 to i64, !mcsema_real_eip !102
-  %618 = inttoptr i64 %617 to i8*, !mcsema_real_eip !102
-  store i8 %CL_val.143, i8* %618, !mcsema_real_eip !102
-  %RBP_val.144 = load i64, i64* %XBP, !mcsema_real_eip !103
-  %619 = add i64 %RBP_val.144, -35, !mcsema_real_eip !103
-  %620 = inttoptr i64 %619 to i64*, !mcsema_real_eip !103
-  %621 = ptrtoint i64* %620 to i64, !mcsema_real_eip !103
-  %622 = inttoptr i64 %621 to i8*, !mcsema_real_eip !103
-  %623 = load i8, i8* %622, !mcsema_real_eip !103
-  %624 = zext i8 %623 to i32, !mcsema_real_eip !103
-  %625 = zext i32 %624 to i64, !mcsema_real_eip !103
-  store i64 %625, i64* %XAX, !mcsema_real_eip !103
-  %EAX.145 = bitcast i64* %XAX to i32*, !mcsema_real_eip !104
-  %EAX_val.146 = load i32, i32* %EAX.145, !mcsema_real_eip !104
-  %626 = xor i32 %EAX_val.146, -1, !mcsema_real_eip !104
+  store i8 %DIL_val.139, i8* %CL.91, !mcsema_real_eip !101
+  store i8 %DIL_val.139, i8* %451, !mcsema_real_eip !102
+  %_load_rbp_ptr_167 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_168 = getelementptr i8, i8* %_load_rbp_ptr_167, i64 -35
+  %_allin_new_bt_169 = bitcast i8* %_new_gep_168 to i64*
+  %464 = ptrtoint i64* %_allin_new_bt_169 to i64, !mcsema_real_eip !103
+  %465 = inttoptr i64 %464 to i8*, !mcsema_real_eip !103
+  %466 = load i8, i8* %465, !mcsema_real_eip !103
+  %467 = zext i8 %466 to i32, !mcsema_real_eip !103
+  %468 = zext i32 %467 to i64, !mcsema_real_eip !103
+  store i64 %468, i64* %XAX, !mcsema_real_eip !103
+  %EAX_val.146 = load i32, i32* %EAX.9, !mcsema_real_eip !104
+  %469 = xor i32 %EAX_val.146, -1, !mcsema_real_eip !104
   store i1 false, i1* %CF, !mcsema_real_eip !104
   store i1 false, i1* %OF, !mcsema_real_eip !104
-  %627 = lshr i32 %626, 31, !mcsema_real_eip !104
-  %628 = trunc i32 %627 to i1, !mcsema_real_eip !104
-  store i1 %628, i1* %SF, !mcsema_real_eip !104
-  %629 = icmp eq i32 %626, 0, !mcsema_real_eip !104
-  store i1 %629, i1* %ZF, !mcsema_real_eip !104
-  %630 = trunc i32 %626 to i8, !mcsema_real_eip !104
-  %631 = call i8 @llvm.ctpop.i8(i8 %630), !mcsema_real_eip !104
-  %632 = trunc i8 %631 to i1, !mcsema_real_eip !104
-  %633 = xor i1 %632, true, !mcsema_real_eip !104
-  store i1 %633, i1* %PF, !mcsema_real_eip !104
+  %470 = lshr i32 %469, 31, !mcsema_real_eip !104
+  %471 = trunc i32 %470 to i1, !mcsema_real_eip !104
+  store i1 %471, i1* %SF, !mcsema_real_eip !104
+  %472 = icmp eq i32 %469, 0, !mcsema_real_eip !104
+  store i1 %472, i1* %ZF, !mcsema_real_eip !104
+  %473 = trunc i32 %469 to i8, !mcsema_real_eip !104
+  %474 = call i8 @llvm.ctpop.i8(i8 %473), !mcsema_real_eip !104
+  %475 = trunc i8 %474 to i1, !mcsema_real_eip !104
+  %476 = xor i1 %475, true, !mcsema_real_eip !104
+  store i1 %476, i1* %PF, !mcsema_real_eip !104
   store i1 undef, i1* %AF, !mcsema_real_eip !104
-  %634 = zext i32 %626 to i64, !mcsema_real_eip !104
-  store i64 %634, i64* %XAX, !mcsema_real_eip !104
-  %EAX.147 = bitcast i64* %XAX to i32*, !mcsema_real_eip !105
-  %EAX_val.148 = load i32, i32* %EAX.147, !mcsema_real_eip !105
-  %635 = sub i32 %EAX_val.148, 70, !mcsema_real_eip !105
-  %636 = xor i32 %635, %EAX_val.148, !mcsema_real_eip !105
-  %637 = xor i32 %636, 70, !mcsema_real_eip !105
-  %638 = and i32 %637, 16, !mcsema_real_eip !105
-  %639 = icmp ne i32 %638, 0, !mcsema_real_eip !105
-  store i1 %639, i1* %AF, !mcsema_real_eip !105
-  %640 = trunc i32 %635 to i8, !mcsema_real_eip !105
-  %641 = call i8 @llvm.ctpop.i8(i8 %640), !mcsema_real_eip !105
-  %642 = trunc i8 %641 to i1, !mcsema_real_eip !105
-  %643 = xor i1 %642, true, !mcsema_real_eip !105
-  store i1 %643, i1* %PF, !mcsema_real_eip !105
-  %644 = icmp eq i32 %635, 0, !mcsema_real_eip !105
-  store i1 %644, i1* %ZF, !mcsema_real_eip !105
-  %645 = lshr i32 %635, 31, !mcsema_real_eip !105
-  %646 = trunc i32 %645 to i1, !mcsema_real_eip !105
-  store i1 %646, i1* %SF, !mcsema_real_eip !105
-  %647 = icmp ult i32 %EAX_val.148, 70, !mcsema_real_eip !105
-  store i1 %647, i1* %CF, !mcsema_real_eip !105
-  %648 = xor i32 %EAX_val.148, 70, !mcsema_real_eip !105
-  %649 = xor i32 %EAX_val.148, %635, !mcsema_real_eip !105
-  %650 = and i32 %648, %649, !mcsema_real_eip !105
-  %651 = lshr i32 %650, 31, !mcsema_real_eip !105
-  %652 = trunc i32 %651 to i1, !mcsema_real_eip !105
-  store i1 %652, i1* %OF, !mcsema_real_eip !105
-  %653 = load i1, i1* %ZF, !mcsema_real_eip !106
-  %654 = icmp eq i1 %653, false, !mcsema_real_eip !106
-  br i1 %654, label %block_0x1b7, label %block_0x1a9, !mcsema_real_eip !106
+  %477 = zext i32 %469 to i64, !mcsema_real_eip !104
+  store i64 %477, i64* %XAX, !mcsema_real_eip !104
+  %EAX_val.148 = load i32, i32* %EAX.9, !mcsema_real_eip !105
+  %478 = sub i32 %EAX_val.148, 70, !mcsema_real_eip !105
+  %479 = xor i32 %478, %EAX_val.148, !mcsema_real_eip !105
+  %480 = xor i32 %479, 70, !mcsema_real_eip !105
+  %481 = and i32 %480, 16, !mcsema_real_eip !105
+  %482 = icmp ne i32 %481, 0, !mcsema_real_eip !105
+  store i1 %482, i1* %AF, !mcsema_real_eip !105
+  %483 = trunc i32 %478 to i8, !mcsema_real_eip !105
+  %484 = call i8 @llvm.ctpop.i8(i8 %483), !mcsema_real_eip !105
+  %485 = trunc i8 %484 to i1, !mcsema_real_eip !105
+  %486 = xor i1 %485, true, !mcsema_real_eip !105
+  store i1 %486, i1* %PF, !mcsema_real_eip !105
+  %487 = icmp eq i32 %478, 0, !mcsema_real_eip !105
+  store i1 %487, i1* %ZF, !mcsema_real_eip !105
+  %488 = lshr i32 %478, 31, !mcsema_real_eip !105
+  %489 = trunc i32 %488 to i1, !mcsema_real_eip !105
+  store i1 %489, i1* %SF, !mcsema_real_eip !105
+  %490 = icmp ult i32 %EAX_val.148, 70, !mcsema_real_eip !105
+  store i1 %490, i1* %CF, !mcsema_real_eip !105
+  %491 = xor i32 %EAX_val.148, 70, !mcsema_real_eip !105
+  %492 = and i32 %491, %479, !mcsema_real_eip !105
+  %493 = lshr i32 %492, 31, !mcsema_real_eip !105
+  %494 = trunc i32 %493 to i1, !mcsema_real_eip !105
+  store i1 %494, i1* %OF, !mcsema_real_eip !105
+  %495 = icmp eq i1 %487, false, !mcsema_real_eip !106
+  br i1 %495, label %block_0x1b7, label %block_0x1a9, !mcsema_real_eip !106
 
 block_0x157:                                      ; preds = %block_0x14a
-  %RBP_val.149 = load i64, i64* %XBP, !mcsema_real_eip !107
-  %655 = add i64 %RBP_val.149, -20, !mcsema_real_eip !107
-  %656 = inttoptr i64 %655 to i64*, !mcsema_real_eip !107
-  %657 = ptrtoint i64* %656 to i64, !mcsema_real_eip !107
-  %658 = inttoptr i64 %657 to i32*, !mcsema_real_eip !107
-  %659 = load i32, i32* %658, !mcsema_real_eip !107
-  %660 = zext i32 %659 to i64, !mcsema_real_eip !107
-  store i64 %660, i64* %XAX, !mcsema_real_eip !107
-  %EAX.150 = bitcast i64* %XAX to i32*, !mcsema_real_eip !108
-  %EAX_val.151 = load i32, i32* %EAX.150, !mcsema_real_eip !108
-  %661 = add i32 4, %EAX_val.151, !mcsema_real_eip !108
-  %662 = xor i32 %661, %EAX_val.151, !mcsema_real_eip !108
-  %663 = xor i32 %662, 4, !mcsema_real_eip !108
-  %664 = and i32 %663, 16, !mcsema_real_eip !108
-  %665 = icmp ne i32 %664, 0, !mcsema_real_eip !108
-  store i1 %665, i1* %AF, !mcsema_real_eip !108
-  %666 = lshr i32 %661, 31, !mcsema_real_eip !108
-  %667 = trunc i32 %666 to i1, !mcsema_real_eip !108
-  store i1 %667, i1* %SF, !mcsema_real_eip !108
-  %668 = icmp eq i32 %661, 0, !mcsema_real_eip !108
-  store i1 %668, i1* %ZF, !mcsema_real_eip !108
-  %669 = xor i32 %EAX_val.151, 4, !mcsema_real_eip !108
-  %670 = xor i32 %669, -1, !mcsema_real_eip !108
-  %671 = xor i32 %EAX_val.151, %661, !mcsema_real_eip !108
-  %672 = and i32 %670, %671, !mcsema_real_eip !108
-  %673 = lshr i32 %672, 31, !mcsema_real_eip !108
-  %674 = and i32 %673, 1, !mcsema_real_eip !108
-  %675 = trunc i32 %674 to i1, !mcsema_real_eip !108
-  store i1 %675, i1* %OF, !mcsema_real_eip !108
-  %676 = trunc i32 %661 to i8, !mcsema_real_eip !108
-  %677 = call i8 @llvm.ctpop.i8(i8 %676), !mcsema_real_eip !108
-  %678 = trunc i8 %677 to i1, !mcsema_real_eip !108
-  %679 = xor i1 %678, true, !mcsema_real_eip !108
-  store i1 %679, i1* %PF, !mcsema_real_eip !108
-  %680 = icmp ult i32 %661, %EAX_val.151, !mcsema_real_eip !108
-  store i1 %680, i1* %CF, !mcsema_real_eip !108
-  %681 = zext i32 %661 to i64, !mcsema_real_eip !108
-  store i64 %681, i64* %XAX, !mcsema_real_eip !108
-  %RBP_val.152 = load i64, i64* %XBP, !mcsema_real_eip !109
-  %682 = add i64 %RBP_val.152, -20, !mcsema_real_eip !109
-  %683 = inttoptr i64 %682 to i64*, !mcsema_real_eip !109
-  %EAX.153 = bitcast i64* %XAX to i32*, !mcsema_real_eip !109
-  %EAX_val.154 = load i32, i32* %EAX.153, !mcsema_real_eip !109
-  %684 = ptrtoint i64* %683 to i64, !mcsema_real_eip !109
-  %685 = inttoptr i64 %684 to i32*, !mcsema_real_eip !109
-  store i32 %EAX_val.154, i32* %685, !mcsema_real_eip !109
+  %_new_gep_171 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -20
+  %_allin_new_bt_172 = bitcast i8* %_new_gep_171 to i64*
+  %496 = ptrtoint i64* %_allin_new_bt_172 to i64, !mcsema_real_eip !107
+  %497 = inttoptr i64 %496 to i32*, !mcsema_real_eip !107
+  %498 = load i32, i32* %497, !mcsema_real_eip !107
+  %499 = zext i32 %498 to i64, !mcsema_real_eip !107
+  store i64 %499, i64* %XAX, !mcsema_real_eip !107
+  %EAX_val.151 = load i32, i32* %EAX.9, !mcsema_real_eip !108
+  %500 = add i32 4, %EAX_val.151, !mcsema_real_eip !108
+  %501 = xor i32 %500, %EAX_val.151, !mcsema_real_eip !108
+  %502 = xor i32 %501, 4, !mcsema_real_eip !108
+  %503 = and i32 %502, 16, !mcsema_real_eip !108
+  %504 = icmp ne i32 %503, 0, !mcsema_real_eip !108
+  store i1 %504, i1* %AF, !mcsema_real_eip !108
+  %505 = lshr i32 %500, 31, !mcsema_real_eip !108
+  %506 = trunc i32 %505 to i1, !mcsema_real_eip !108
+  store i1 %506, i1* %SF, !mcsema_real_eip !108
+  %507 = icmp eq i32 %500, 0, !mcsema_real_eip !108
+  store i1 %507, i1* %ZF, !mcsema_real_eip !108
+  %508 = xor i32 %EAX_val.151, 4, !mcsema_real_eip !108
+  %509 = xor i32 %508, -1, !mcsema_real_eip !108
+  %510 = and i32 %509, %501, !mcsema_real_eip !108
+  %511 = lshr i32 %510, 31, !mcsema_real_eip !108
+  %512 = and i32 %511, 1, !mcsema_real_eip !108
+  %513 = trunc i32 %512 to i1, !mcsema_real_eip !108
+  store i1 %513, i1* %OF, !mcsema_real_eip !108
+  %514 = trunc i32 %500 to i8, !mcsema_real_eip !108
+  %515 = call i8 @llvm.ctpop.i8(i8 %514), !mcsema_real_eip !108
+  %516 = trunc i8 %515 to i1, !mcsema_real_eip !108
+  %517 = xor i1 %516, true, !mcsema_real_eip !108
+  store i1 %517, i1* %PF, !mcsema_real_eip !108
+  %518 = icmp ult i32 %500, %EAX_val.151, !mcsema_real_eip !108
+  store i1 %518, i1* %CF, !mcsema_real_eip !108
+  %519 = zext i32 %500 to i64, !mcsema_real_eip !108
+  store i64 %519, i64* %XAX, !mcsema_real_eip !108
+  %EAX_val.154 = load i32, i32* %EAX.9, !mcsema_real_eip !109
+  store i32 %EAX_val.154, i32* %497, !mcsema_real_eip !109
   br label %block_0x16e, !mcsema_real_eip !110
 
 block_0x1a9:                                      ; preds = %block_0x16e
-  %RBP_val.164 = load i64, i64* %XBP, !mcsema_real_eip !111
-  %686 = add i64 %RBP_val.164, -20, !mcsema_real_eip !111
-  %687 = inttoptr i64 %686 to i64*, !mcsema_real_eip !111
-  %688 = ptrtoint i64* %687 to i64, !mcsema_real_eip !111
-  %689 = inttoptr i64 %688 to i32*, !mcsema_real_eip !111
-  %690 = load i32, i32* %689, !mcsema_real_eip !111
-  %691 = zext i32 %690 to i64, !mcsema_real_eip !111
-  store i64 %691, i64* %XAX, !mcsema_real_eip !111
-  %EAX.165 = bitcast i64* %XAX to i32*, !mcsema_real_eip !112
-  %EAX_val.166 = load i32, i32* %EAX.165, !mcsema_real_eip !112
-  %692 = sub i32 %EAX_val.166, 1, !mcsema_real_eip !112
-  %693 = xor i32 %692, %EAX_val.166, !mcsema_real_eip !112
-  %694 = xor i32 %693, 1, !mcsema_real_eip !112
-  %695 = and i32 %694, 16, !mcsema_real_eip !112
-  %696 = icmp ne i32 %695, 0, !mcsema_real_eip !112
-  store i1 %696, i1* %AF, !mcsema_real_eip !112
-  %697 = trunc i32 %692 to i8, !mcsema_real_eip !112
-  %698 = call i8 @llvm.ctpop.i8(i8 %697), !mcsema_real_eip !112
-  %699 = trunc i8 %698 to i1, !mcsema_real_eip !112
-  %700 = xor i1 %699, true, !mcsema_real_eip !112
-  store i1 %700, i1* %PF, !mcsema_real_eip !112
-  %701 = icmp eq i32 %692, 0, !mcsema_real_eip !112
-  store i1 %701, i1* %ZF, !mcsema_real_eip !112
-  %702 = lshr i32 %692, 31, !mcsema_real_eip !112
-  %703 = trunc i32 %702 to i1, !mcsema_real_eip !112
-  store i1 %703, i1* %SF, !mcsema_real_eip !112
-  %704 = icmp ult i32 %EAX_val.166, 1, !mcsema_real_eip !112
-  store i1 %704, i1* %CF, !mcsema_real_eip !112
-  %705 = xor i32 %EAX_val.166, 1, !mcsema_real_eip !112
-  %706 = xor i32 %EAX_val.166, %692, !mcsema_real_eip !112
-  %707 = and i32 %705, %706, !mcsema_real_eip !112
-  %708 = lshr i32 %707, 31, !mcsema_real_eip !112
-  %709 = trunc i32 %708 to i1, !mcsema_real_eip !112
-  store i1 %709, i1* %OF, !mcsema_real_eip !112
-  %710 = zext i32 %692 to i64, !mcsema_real_eip !112
-  store i64 %710, i64* %XAX, !mcsema_real_eip !112
-  %RBP_val.167 = load i64, i64* %XBP, !mcsema_real_eip !113
-  %711 = add i64 %RBP_val.167, -20, !mcsema_real_eip !113
-  %712 = inttoptr i64 %711 to i64*, !mcsema_real_eip !113
-  %EAX.168 = bitcast i64* %XAX to i32*, !mcsema_real_eip !113
-  %EAX_val.169 = load i32, i32* %EAX.168, !mcsema_real_eip !113
-  %713 = ptrtoint i64* %712 to i64, !mcsema_real_eip !113
-  %714 = inttoptr i64 %713 to i32*, !mcsema_real_eip !113
-  store i32 %EAX_val.169, i32* %714, !mcsema_real_eip !113
+  %_new_gep_177 = getelementptr i8, i8* %_load_rbp_ptr_167, i64 -20
+  %_allin_new_bt_178 = bitcast i8* %_new_gep_177 to i64*
+  %520 = ptrtoint i64* %_allin_new_bt_178 to i64, !mcsema_real_eip !111
+  %521 = inttoptr i64 %520 to i32*, !mcsema_real_eip !111
+  %522 = load i32, i32* %521, !mcsema_real_eip !111
+  %523 = zext i32 %522 to i64, !mcsema_real_eip !111
+  store i64 %523, i64* %XAX, !mcsema_real_eip !111
+  %EAX_val.166 = load i32, i32* %EAX.9, !mcsema_real_eip !112
+  %524 = sub i32 %EAX_val.166, 1, !mcsema_real_eip !112
+  %525 = xor i32 %524, %EAX_val.166, !mcsema_real_eip !112
+  %526 = xor i32 %525, 1, !mcsema_real_eip !112
+  %527 = and i32 %526, 16, !mcsema_real_eip !112
+  %528 = icmp ne i32 %527, 0, !mcsema_real_eip !112
+  store i1 %528, i1* %AF, !mcsema_real_eip !112
+  %529 = trunc i32 %524 to i8, !mcsema_real_eip !112
+  %530 = call i8 @llvm.ctpop.i8(i8 %529), !mcsema_real_eip !112
+  %531 = trunc i8 %530 to i1, !mcsema_real_eip !112
+  %532 = xor i1 %531, true, !mcsema_real_eip !112
+  store i1 %532, i1* %PF, !mcsema_real_eip !112
+  %533 = icmp eq i32 %524, 0, !mcsema_real_eip !112
+  store i1 %533, i1* %ZF, !mcsema_real_eip !112
+  %534 = lshr i32 %524, 31, !mcsema_real_eip !112
+  %535 = trunc i32 %534 to i1, !mcsema_real_eip !112
+  store i1 %535, i1* %SF, !mcsema_real_eip !112
+  %536 = icmp ult i32 %EAX_val.166, 1, !mcsema_real_eip !112
+  store i1 %536, i1* %CF, !mcsema_real_eip !112
+  %537 = xor i32 %EAX_val.166, 1, !mcsema_real_eip !112
+  %538 = and i32 %537, %525, !mcsema_real_eip !112
+  %539 = lshr i32 %538, 31, !mcsema_real_eip !112
+  %540 = trunc i32 %539 to i1, !mcsema_real_eip !112
+  store i1 %540, i1* %OF, !mcsema_real_eip !112
+  %541 = zext i32 %524 to i64, !mcsema_real_eip !112
+  store i64 %541, i64* %XAX, !mcsema_real_eip !112
+  %EAX_val.169 = load i32, i32* %EAX.9, !mcsema_real_eip !113
+  store i32 %EAX_val.169, i32* %521, !mcsema_real_eip !113
   br label %block_0x1c2, !mcsema_real_eip !114
 
 block_0x1b7:                                      ; preds = %block_0x16e
-  %RBP_val.155 = load i64, i64* %XBP, !mcsema_real_eip !115
-  %715 = add i64 %RBP_val.155, -20, !mcsema_real_eip !115
-  %716 = inttoptr i64 %715 to i64*, !mcsema_real_eip !115
-  %717 = ptrtoint i64* %716 to i64, !mcsema_real_eip !115
-  %718 = inttoptr i64 %717 to i32*, !mcsema_real_eip !115
-  %719 = load i32, i32* %718, !mcsema_real_eip !115
-  %720 = zext i32 %719 to i64, !mcsema_real_eip !115
-  store i64 %720, i64* %XCX, !mcsema_real_eip !115
-  %RBP_val.156 = load i64, i64* %XBP, !mcsema_real_eip !116
-  %721 = add i64 %RBP_val.156, -20, !mcsema_real_eip !116
-  %722 = inttoptr i64 %721 to i64*, !mcsema_real_eip !116
-  %723 = ptrtoint i64* %722 to i64, !mcsema_real_eip !116
-  %724 = inttoptr i64 %723 to i32*, !mcsema_real_eip !116
-  %725 = load i32, i32* %724, !mcsema_real_eip !116
-  %726 = zext i32 %725 to i64, !mcsema_real_eip !116
-  store i64 %726, i64* %XAX, !mcsema_real_eip !116
-  %EAX.157 = bitcast i64* %XAX to i32*, !mcsema_real_eip !117
-  %EAX_val.158 = load i32, i32* %EAX.157, !mcsema_real_eip !117
-  %CL.159 = bitcast i64* %XCX to i8*, !mcsema_real_eip !117
-  %CL_val.160 = load i8, i8* %CL.159, !mcsema_real_eip !117
+  %_new_gep_183 = getelementptr i8, i8* %_load_rbp_ptr_167, i64 -20
+  %_allin_new_bt_184 = bitcast i8* %_new_gep_183 to i64*
+  %542 = ptrtoint i64* %_allin_new_bt_184 to i64, !mcsema_real_eip !115
+  %543 = inttoptr i64 %542 to i32*, !mcsema_real_eip !115
+  %544 = load i32, i32* %543, !mcsema_real_eip !115
+  %545 = zext i32 %544 to i64, !mcsema_real_eip !115
+  store i64 %545, i64* %XCX, !mcsema_real_eip !115
+  %546 = load i32, i32* %543, !mcsema_real_eip !116
+  %547 = zext i32 %546 to i64, !mcsema_real_eip !116
+  store i64 %547, i64* %XAX, !mcsema_real_eip !116
+  %EAX_val.158 = load i32, i32* %EAX.9, !mcsema_real_eip !117
+  %CL_val.160 = load i8, i8* %CL.91, !mcsema_real_eip !117
   %CL_val.160.zext = zext i8 %CL_val.160 to i32, !mcsema_real_eip !117
-  %727 = and i32 %CL_val.160.zext, 31, !mcsema_real_eip !117
-  %728 = sub i32 %CL_val.160.zext, 1, !mcsema_real_eip !117
-  %729 = icmp ne i32 %727, 0, !mcsema_real_eip !117
-  %730 = select i1 %729, i32 %728, i32 0, !mcsema_real_eip !117
-  %731 = select i1 %729, i32 1, i32 0, !mcsema_real_eip !117
-  %732 = shl i32 %EAX_val.158, %730, !mcsema_real_eip !117
-  %733 = and i32 %732, -2147483648, !mcsema_real_eip !117
-  %734 = icmp ne i32 %733, 0, !mcsema_real_eip !117
-  %735 = load i1, i1* %CF, !mcsema_real_eip !117
-  %736 = select i1 %729, i1 %734, i1 %735, !mcsema_real_eip !117
-  %737 = shl i32 %732, %731, !mcsema_real_eip !117
-  %738 = icmp eq i32 %727, 1, !mcsema_real_eip !117
-  %739 = load i1, i1* %OF, !mcsema_real_eip !117
-  %740 = and i32 %737, -2147483648, !mcsema_real_eip !117
-  %741 = icmp ne i32 %740, 0, !mcsema_real_eip !117
-  %742 = xor i1 %741, %736, !mcsema_real_eip !117
-  %743 = select i1 %738, i1 %742, i1 %739, !mcsema_real_eip !117
-  store i1 %743, i1* %OF, !mcsema_real_eip !117
-  store i1 %736, i1* %CF, !mcsema_real_eip !117
-  %744 = load i1, i1* %ZF, !mcsema_real_eip !117
-  %745 = icmp eq i32 %737, 0, !mcsema_real_eip !117
-  %746 = select i1 %729, i1 %745, i1 %744, !mcsema_real_eip !117
-  store i1 %746, i1* %ZF, !mcsema_real_eip !117
-  %747 = load i1, i1* %SF, !mcsema_real_eip !117
-  %748 = icmp slt i32 %737, 0, !mcsema_real_eip !117
-  %749 = select i1 %729, i1 %748, i1 %747, !mcsema_real_eip !117
-  store i1 %749, i1* %SF, !mcsema_real_eip !117
-  %750 = load i1, i1* %PF, !mcsema_real_eip !117
-  %751 = trunc i32 %737 to i8, !mcsema_real_eip !117
-  %752 = call i8 @llvm.ctpop.i8(i8 %751), !mcsema_real_eip !117
-  %753 = trunc i8 %752 to i1, !mcsema_real_eip !117
-  %754 = xor i1 %753, true, !mcsema_real_eip !117
-  store i1 %754, i1* %PF, !mcsema_real_eip !117
-  %755 = load i1, i1* %PF, !mcsema_real_eip !117
-  %756 = select i1 %729, i1 %755, i1 %750, !mcsema_real_eip !117
-  store i1 %756, i1* %PF, !mcsema_real_eip !117
-  %757 = zext i32 %737 to i64, !mcsema_real_eip !117
-  store i64 %757, i64* %XAX, !mcsema_real_eip !117
-  %RBP_val.161 = load i64, i64* %XBP, !mcsema_real_eip !118
-  %758 = add i64 %RBP_val.161, -20, !mcsema_real_eip !118
-  %759 = inttoptr i64 %758 to i64*, !mcsema_real_eip !118
-  %EAX.162 = bitcast i64* %XAX to i32*, !mcsema_real_eip !118
-  %EAX_val.163 = load i32, i32* %EAX.162, !mcsema_real_eip !118
-  %760 = ptrtoint i64* %759 to i64, !mcsema_real_eip !118
-  %761 = inttoptr i64 %760 to i32*, !mcsema_real_eip !118
-  store i32 %EAX_val.163, i32* %761, !mcsema_real_eip !118
+  %548 = and i32 %CL_val.160.zext, 31, !mcsema_real_eip !117
+  %549 = sub i32 %CL_val.160.zext, 1, !mcsema_real_eip !117
+  %550 = icmp ne i32 %548, 0, !mcsema_real_eip !117
+  %551 = select i1 %550, i32 %549, i32 0, !mcsema_real_eip !117
+  %552 = select i1 %550, i32 1, i32 0, !mcsema_real_eip !117
+  %553 = shl i32 %EAX_val.158, %551, !mcsema_real_eip !117
+  %554 = and i32 %553, -2147483648, !mcsema_real_eip !117
+  %555 = icmp ne i32 %554, 0, !mcsema_real_eip !117
+  %556 = select i1 %550, i1 %555, i1 %490, !mcsema_real_eip !117
+  %557 = shl i32 %553, %552, !mcsema_real_eip !117
+  %558 = icmp eq i32 %548, 1, !mcsema_real_eip !117
+  %559 = and i32 %557, -2147483648, !mcsema_real_eip !117
+  %560 = icmp ne i32 %559, 0, !mcsema_real_eip !117
+  %561 = xor i1 %560, %556, !mcsema_real_eip !117
+  %562 = select i1 %558, i1 %561, i1 %494, !mcsema_real_eip !117
+  store i1 %562, i1* %OF, !mcsema_real_eip !117
+  store i1 %556, i1* %CF, !mcsema_real_eip !117
+  %563 = icmp eq i32 %557, 0, !mcsema_real_eip !117
+  %564 = select i1 %550, i1 %563, i1 %487, !mcsema_real_eip !117
+  store i1 %564, i1* %ZF, !mcsema_real_eip !117
+  %565 = icmp slt i32 %557, 0, !mcsema_real_eip !117
+  %566 = select i1 %550, i1 %565, i1 %489, !mcsema_real_eip !117
+  store i1 %566, i1* %SF, !mcsema_real_eip !117
+  %567 = trunc i32 %557 to i8, !mcsema_real_eip !117
+  %568 = call i8 @llvm.ctpop.i8(i8 %567), !mcsema_real_eip !117
+  %569 = trunc i8 %568 to i1, !mcsema_real_eip !117
+  %570 = xor i1 %569, true, !mcsema_real_eip !117
+  %571 = select i1 %550, i1 %570, i1 %486, !mcsema_real_eip !117
+  store i1 %571, i1* %PF, !mcsema_real_eip !117
+  %572 = zext i32 %557 to i64, !mcsema_real_eip !117
+  store i64 %572, i64* %XAX, !mcsema_real_eip !117
+  %EAX_val.163 = load i32, i32* %EAX.9, !mcsema_real_eip !118
+  store i32 %EAX_val.163, i32* %543, !mcsema_real_eip !118
   br label %block_0x1c2, !mcsema_real_eip !111
 
 block_0x1c2:                                      ; preds = %block_0x1b7, %block_0x1a9
-  %RBP_val.170 = load i64, i64* %XBP, !mcsema_real_eip !119
-  %762 = add i64 %RBP_val.170, -20, !mcsema_real_eip !119
-  %763 = inttoptr i64 %762 to i64*, !mcsema_real_eip !119
-  %764 = ptrtoint i64* %763 to i64, !mcsema_real_eip !119
-  %765 = inttoptr i64 %764 to i32*, !mcsema_real_eip !119
-  %766 = load i32, i32* %765, !mcsema_real_eip !119
-  %767 = sub i32 %766, 0, !mcsema_real_eip !119
-  %768 = xor i32 %767, %766, !mcsema_real_eip !119
-  %769 = xor i32 %768, 0, !mcsema_real_eip !119
-  %770 = and i32 %769, 16, !mcsema_real_eip !119
-  %771 = icmp ne i32 %770, 0, !mcsema_real_eip !119
-  store i1 %771, i1* %AF, !mcsema_real_eip !119
-  %772 = trunc i32 %767 to i8, !mcsema_real_eip !119
-  %773 = call i8 @llvm.ctpop.i8(i8 %772), !mcsema_real_eip !119
-  %774 = trunc i8 %773 to i1, !mcsema_real_eip !119
-  %775 = xor i1 %774, true, !mcsema_real_eip !119
-  store i1 %775, i1* %PF, !mcsema_real_eip !119
-  %776 = icmp eq i32 %767, 0, !mcsema_real_eip !119
-  store i1 %776, i1* %ZF, !mcsema_real_eip !119
-  %777 = lshr i32 %767, 31, !mcsema_real_eip !119
-  %778 = trunc i32 %777 to i1, !mcsema_real_eip !119
-  store i1 %778, i1* %SF, !mcsema_real_eip !119
-  %779 = icmp ult i32 %766, 0, !mcsema_real_eip !119
-  store i1 %779, i1* %CF, !mcsema_real_eip !119
-  %780 = xor i32 %766, 0, !mcsema_real_eip !119
-  %781 = xor i32 %766, %767, !mcsema_real_eip !119
-  %782 = and i32 %780, %781, !mcsema_real_eip !119
-  %783 = lshr i32 %782, 31, !mcsema_real_eip !119
-  %784 = trunc i32 %783 to i1, !mcsema_real_eip !119
-  store i1 %784, i1* %OF, !mcsema_real_eip !119
-  %785 = load i1, i1* %ZF, !mcsema_real_eip !120
-  %786 = icmp eq i1 %785, true, !mcsema_real_eip !120
-  br i1 %786, label %block_0x1d8, label %block_0x1cc, !mcsema_real_eip !120
+  %_load_rbp_ptr_191 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_192 = getelementptr i8, i8* %_load_rbp_ptr_191, i64 -20
+  %_allin_new_bt_193 = bitcast i8* %_new_gep_192 to i64*
+  %573 = ptrtoint i64* %_allin_new_bt_193 to i64, !mcsema_real_eip !119
+  %574 = inttoptr i64 %573 to i32*, !mcsema_real_eip !119
+  %575 = load i32, i32* %574, !mcsema_real_eip !119
+  store i1 false, i1* %AF, !mcsema_real_eip !119
+  %576 = trunc i32 %575 to i8, !mcsema_real_eip !119
+  %577 = call i8 @llvm.ctpop.i8(i8 %576), !mcsema_real_eip !119
+  %578 = trunc i8 %577 to i1, !mcsema_real_eip !119
+  %579 = xor i1 %578, true, !mcsema_real_eip !119
+  store i1 %579, i1* %PF, !mcsema_real_eip !119
+  %580 = icmp eq i32 %575, 0, !mcsema_real_eip !119
+  store i1 %580, i1* %ZF, !mcsema_real_eip !119
+  %581 = lshr i32 %575, 31, !mcsema_real_eip !119
+  %582 = trunc i32 %581 to i1, !mcsema_real_eip !119
+  store i1 %582, i1* %SF, !mcsema_real_eip !119
+  store i1 false, i1* %CF, !mcsema_real_eip !119
+  store i1 false, i1* %OF, !mcsema_real_eip !119
+  br i1 %580, label %block_0x1d8, label %block_0x1cc, !mcsema_real_eip !120
 
 block_0x1cc:                                      ; preds = %block_0x1c2
-  %RBP_val.193 = load i64, i64* %XBP, !mcsema_real_eip !121
-  %787 = add i64 %RBP_val.193, -4, !mcsema_real_eip !121
-  %788 = inttoptr i64 %787 to i64*, !mcsema_real_eip !121
-  %789 = ptrtoint i64* %788 to i64, !mcsema_real_eip !121
-  %790 = inttoptr i64 %789 to i32*, !mcsema_real_eip !121
-  store i32 -7, i32* %790, !mcsema_real_eip !121
+  %_new_gep_195 = getelementptr i8, i8* %_load_rbp_ptr_191, i64 -4
+  %_allin_new_bt_196 = bitcast i8* %_new_gep_195 to i64*
+  %583 = ptrtoint i64* %_allin_new_bt_196 to i64, !mcsema_real_eip !121
+  %584 = inttoptr i64 %583 to i32*, !mcsema_real_eip !121
+  store i32 -7, i32* %584, !mcsema_real_eip !121
   br label %block_0x417, !mcsema_real_eip !122
 
 block_0x1d8:                                      ; preds = %block_0x1c2
-  %EDI.171 = bitcast i64* %XDI to i32*, !mcsema_real_eip !123
-  %EDI_val.172 = load i32, i32* %EDI.171, !mcsema_real_eip !123
-  %EDI.173 = bitcast i64* %XDI to i32*, !mcsema_real_eip !123
-  %EDI_val.174 = load i32, i32* %EDI.173, !mcsema_real_eip !123
-  %791 = xor i32 %EDI_val.172, %EDI_val.174, !mcsema_real_eip !123
+  %EDI_val.172 = load i32, i32* %EDI.63, !mcsema_real_eip !123
   store i1 false, i1* %CF, !mcsema_real_eip !123
   store i1 false, i1* %OF, !mcsema_real_eip !123
-  %792 = lshr i32 %791, 31, !mcsema_real_eip !123
-  %793 = trunc i32 %792 to i1, !mcsema_real_eip !123
-  store i1 %793, i1* %SF, !mcsema_real_eip !123
-  %794 = icmp eq i32 %791, 0, !mcsema_real_eip !123
-  store i1 %794, i1* %ZF, !mcsema_real_eip !123
-  %795 = trunc i32 %791 to i8, !mcsema_real_eip !123
-  %796 = call i8 @llvm.ctpop.i8(i8 %795), !mcsema_real_eip !123
-  %797 = trunc i8 %796 to i1, !mcsema_real_eip !123
-  %798 = xor i1 %797, true, !mcsema_real_eip !123
-  store i1 %798, i1* %PF, !mcsema_real_eip !123
+  store i1 false, i1* %SF, !mcsema_real_eip !123
+  store i1 true, i1* %ZF, !mcsema_real_eip !123
+  store i1 true, i1* %PF, !mcsema_real_eip !123
   store i1 undef, i1* %AF, !mcsema_real_eip !123
-  %799 = zext i32 %791 to i64, !mcsema_real_eip !123
-  store i64 %799, i64* %XDI, !mcsema_real_eip !123
+  store i64 0, i64* %XDI, !mcsema_real_eip !123
   store i64 4, i64* %XDX, !mcsema_real_eip !124
-  %RBP_val.175 = load i64, i64* %XBP, !mcsema_real_eip !125
-  %800 = add i64 %RBP_val.175, -16, !mcsema_real_eip !125
-  %801 = inttoptr i64 %800 to i64*, !mcsema_real_eip !125
-  %802 = load i64, i64* %801, !mcsema_real_eip !125
-  store i64 %802, i64* %XAX, !mcsema_real_eip !125
-  %RAX_val.176 = load i64, i64* %XAX, !mcsema_real_eip !126
-  %803 = add i64 8, %RAX_val.176, !mcsema_real_eip !126
-  %804 = xor i64 %803, %RAX_val.176, !mcsema_real_eip !126
-  %805 = xor i64 %804, 8, !mcsema_real_eip !126
-  %806 = and i64 %805, 16, !mcsema_real_eip !126
-  %807 = icmp ne i64 %806, 0, !mcsema_real_eip !126
-  store i1 %807, i1* %AF, !mcsema_real_eip !126
-  %808 = lshr i64 %803, 63, !mcsema_real_eip !126
-  %809 = trunc i64 %808 to i1, !mcsema_real_eip !126
-  store i1 %809, i1* %SF, !mcsema_real_eip !126
-  %810 = icmp eq i64 %803, 0, !mcsema_real_eip !126
-  store i1 %810, i1* %ZF, !mcsema_real_eip !126
-  %811 = xor i64 %RAX_val.176, 8, !mcsema_real_eip !126
-  %812 = xor i64 %811, -1, !mcsema_real_eip !126
-  %813 = xor i64 %RAX_val.176, %803, !mcsema_real_eip !126
-  %814 = and i64 %812, %813, !mcsema_real_eip !126
-  %815 = lshr i64 %814, 63, !mcsema_real_eip !126
-  %816 = and i64 %815, 1, !mcsema_real_eip !126
-  %817 = trunc i64 %816 to i1, !mcsema_real_eip !126
-  store i1 %817, i1* %OF, !mcsema_real_eip !126
-  %818 = trunc i64 %803 to i8, !mcsema_real_eip !126
-  %819 = call i8 @llvm.ctpop.i8(i8 %818), !mcsema_real_eip !126
-  %820 = trunc i8 %819 to i1, !mcsema_real_eip !126
-  %821 = xor i1 %820, true, !mcsema_real_eip !126
-  store i1 %821, i1* %PF, !mcsema_real_eip !126
-  %822 = icmp ult i64 %803, %RAX_val.176, !mcsema_real_eip !126
-  store i1 %822, i1* %CF, !mcsema_real_eip !126
-  store i64 %803, i64* %XAX, !mcsema_real_eip !126
-  %RAX_val.177 = load i64, i64* %XAX, !mcsema_real_eip !127
-  store i64 %RAX_val.177, i64* %XSI, !mcsema_real_eip !127
-  %RDI_val.178 = load i64, i64* %XDI, !mcsema_real_eip !128
-  %RSI_val.179 = load i64, i64* %XSI, !mcsema_real_eip !128
-  %RDX_val.180 = load i64, i64* %XDX, !mcsema_real_eip !128
+  %_new_gep_198 = getelementptr i8, i8* %_load_rbp_ptr_191, i64 -16
+  %_allin_new_bt_199 = bitcast i8* %_new_gep_198 to i64*
+  %585 = load i64, i64* %_allin_new_bt_199, !mcsema_real_eip !125
+  store i64 %585, i64* %XAX, !mcsema_real_eip !125
+  %586 = add i64 8, %585, !mcsema_real_eip !126
+  %587 = xor i64 %586, %585, !mcsema_real_eip !126
+  %588 = xor i64 %587, 8, !mcsema_real_eip !126
+  %589 = and i64 %588, 16, !mcsema_real_eip !126
+  %590 = icmp ne i64 %589, 0, !mcsema_real_eip !126
+  store i1 %590, i1* %AF, !mcsema_real_eip !126
+  %591 = lshr i64 %586, 63, !mcsema_real_eip !126
+  %592 = trunc i64 %591 to i1, !mcsema_real_eip !126
+  store i1 %592, i1* %SF, !mcsema_real_eip !126
+  %593 = icmp eq i64 %586, 0, !mcsema_real_eip !126
+  store i1 %593, i1* %ZF, !mcsema_real_eip !126
+  %594 = xor i64 %585, 8, !mcsema_real_eip !126
+  %595 = xor i64 %594, -1, !mcsema_real_eip !126
+  %596 = and i64 %595, %587, !mcsema_real_eip !126
+  %597 = lshr i64 %596, 63, !mcsema_real_eip !126
+  %598 = and i64 %597, 1, !mcsema_real_eip !126
+  %599 = trunc i64 %598 to i1, !mcsema_real_eip !126
+  store i1 %599, i1* %OF, !mcsema_real_eip !126
+  %600 = trunc i64 %586 to i8, !mcsema_real_eip !126
+  %601 = call i8 @llvm.ctpop.i8(i8 %600), !mcsema_real_eip !126
+  %602 = trunc i8 %601 to i1, !mcsema_real_eip !126
+  %603 = xor i1 %602, true, !mcsema_real_eip !126
+  store i1 %603, i1* %PF, !mcsema_real_eip !126
+  %604 = icmp ult i64 %586, %585, !mcsema_real_eip !126
+  store i1 %604, i1* %CF, !mcsema_real_eip !126
+  store i64 %586, i64* %XAX, !mcsema_real_eip !126
+  store i64 %586, i64* %XSI, !mcsema_real_eip !127
+  %_load_rsp_ptr_200 = load i8*, i8** %_RSP_ptr_
   %RSP_val.181 = load i64, i64* %XSP, !mcsema_real_eip !128
-  %823 = sub i64 %RSP_val.181, 8, !mcsema_real_eip !128
-  %824 = inttoptr i64 %823 to i64*, !mcsema_real_eip !128
-  store i64 -2415393069852865332, i64* %824, !mcsema_real_eip !128
-  store i64 %823, i64* %XSP, !mcsema_real_eip !128
-  %825 = call x86_64_sysvcc i64 @_read_bytes(i64 %RDI_val.178, i64 %RSI_val.179, i64 %RDX_val.180), !mcsema_real_eip !128
-  store i64 %825, i64* %XAX, !mcsema_real_eip !128
+  %_new_gep_201 = getelementptr i8, i8* %_load_rsp_ptr_200, i64 -8
+  %605 = sub i64 %RSP_val.181, 8, !mcsema_real_eip !128
+  %_allin_new_bt_202 = bitcast i8* %_new_gep_201 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_202, !mcsema_real_eip !128
+  store volatile i8* %_new_gep_201, i8** %_RSP_ptr_
+  store i64 %605, i64* %XSP, !mcsema_real_eip !128
+  %606 = call x86_64_sysvcc i64 @_read_bytes(i64 0, i64 %586, i64 4)
+  %_rsp_fix_426 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_427 = getelementptr i8, i8* %_rsp_fix_426, i64 8
+  store i8* %_gep_fix_427, i8** %_RSP_ptr_
+  store i64 %606, i64* %XAX, !mcsema_real_eip !128
   %AX.182 = bitcast i64* %XAX to i16*, !mcsema_real_eip !129
   %AX_val.183 = load i16, i16* %AX.182, !mcsema_real_eip !129
   %CX.184 = bitcast i64* %XCX to i16*, !mcsema_real_eip !129
   store i16 %AX_val.183, i16* %CX.184, !mcsema_real_eip !129
-  %RBP_val.185 = load i64, i64* %XBP, !mcsema_real_eip !130
-  %826 = add i64 %RBP_val.185, -38, !mcsema_real_eip !130
-  %827 = inttoptr i64 %826 to i64*, !mcsema_real_eip !130
-  %CX.186 = bitcast i64* %XCX to i16*, !mcsema_real_eip !130
-  %CX_val.187 = load i16, i16* %CX.186, !mcsema_real_eip !130
-  %828 = ptrtoint i64* %827 to i64, !mcsema_real_eip !130
-  %829 = inttoptr i64 %828 to i16*, !mcsema_real_eip !130
-  store i16 %CX_val.187, i16* %829, !mcsema_real_eip !130
-  %RBP_val.188 = load i64, i64* %XBP, !mcsema_real_eip !131
-  %830 = add i64 %RBP_val.188, -38, !mcsema_real_eip !131
-  %831 = inttoptr i64 %830 to i64*, !mcsema_real_eip !131
-  %832 = ptrtoint i64* %831 to i64, !mcsema_real_eip !131
-  %833 = inttoptr i64 %832 to i16*, !mcsema_real_eip !131
-  %834 = load i16, i16* %833, !mcsema_real_eip !131
-  %835 = zext i16 %834 to i32, !mcsema_real_eip !131
-  %836 = zext i32 %835 to i64, !mcsema_real_eip !131
-  store i64 %836, i64* %XAX, !mcsema_real_eip !131
-  %EAX.189 = bitcast i64* %XAX to i32*, !mcsema_real_eip !132
-  %EAX_val.190 = load i32, i32* %EAX.189, !mcsema_real_eip !132
-  %837 = or i32 %EAX_val.190, 21845, !mcsema_real_eip !132
+  %_load_rbp_ptr_203 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_204 = getelementptr i8, i8* %_load_rbp_ptr_203, i64 -38
+  %_allin_new_bt_205 = bitcast i8* %_new_gep_204 to i64*
+  %607 = ptrtoint i64* %_allin_new_bt_205 to i64, !mcsema_real_eip !130
+  %608 = inttoptr i64 %607 to i16*, !mcsema_real_eip !130
+  store i16 %AX_val.183, i16* %608, !mcsema_real_eip !130
+  %_load_rbp_ptr_206 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_207 = getelementptr i8, i8* %_load_rbp_ptr_206, i64 -38
+  %_allin_new_bt_208 = bitcast i8* %_new_gep_207 to i64*
+  %609 = ptrtoint i64* %_allin_new_bt_208 to i64, !mcsema_real_eip !131
+  %610 = inttoptr i64 %609 to i16*, !mcsema_real_eip !131
+  %611 = load i16, i16* %610, !mcsema_real_eip !131
+  %612 = zext i16 %611 to i32, !mcsema_real_eip !131
+  %613 = zext i32 %612 to i64, !mcsema_real_eip !131
+  store i64 %613, i64* %XAX, !mcsema_real_eip !131
+  %EAX_val.190 = load i32, i32* %EAX.9, !mcsema_real_eip !132
+  %614 = or i32 %EAX_val.190, 21845, !mcsema_real_eip !132
   store i1 undef, i1* %AF, !mcsema_real_eip !132
   store i1 false, i1* %OF, !mcsema_real_eip !132
   store i1 false, i1* %CF, !mcsema_real_eip !132
-  %838 = lshr i32 %837, 31, !mcsema_real_eip !132
-  %839 = trunc i32 %838 to i1, !mcsema_real_eip !132
-  store i1 %839, i1* %SF, !mcsema_real_eip !132
-  %840 = icmp eq i32 %837, 0, !mcsema_real_eip !132
-  store i1 %840, i1* %ZF, !mcsema_real_eip !132
-  %841 = trunc i32 %837 to i8, !mcsema_real_eip !132
-  %842 = call i8 @llvm.ctpop.i8(i8 %841), !mcsema_real_eip !132
-  %843 = trunc i8 %842 to i1, !mcsema_real_eip !132
-  %844 = xor i1 %843, true, !mcsema_real_eip !132
-  store i1 %844, i1* %PF, !mcsema_real_eip !132
-  %845 = zext i32 %837 to i64, !mcsema_real_eip !132
-  store i64 %845, i64* %XAX, !mcsema_real_eip !132
-  %EAX.191 = bitcast i64* %XAX to i32*, !mcsema_real_eip !133
-  %EAX_val.192 = load i32, i32* %EAX.191, !mcsema_real_eip !133
-  %846 = sub i32 %EAX_val.192, 56663, !mcsema_real_eip !133
-  %847 = xor i32 %846, %EAX_val.192, !mcsema_real_eip !133
-  %848 = xor i32 %847, 56663, !mcsema_real_eip !133
-  %849 = and i32 %848, 16, !mcsema_real_eip !133
-  %850 = icmp ne i32 %849, 0, !mcsema_real_eip !133
-  store i1 %850, i1* %AF, !mcsema_real_eip !133
-  %851 = trunc i32 %846 to i8, !mcsema_real_eip !133
-  %852 = call i8 @llvm.ctpop.i8(i8 %851), !mcsema_real_eip !133
-  %853 = trunc i8 %852 to i1, !mcsema_real_eip !133
-  %854 = xor i1 %853, true, !mcsema_real_eip !133
-  store i1 %854, i1* %PF, !mcsema_real_eip !133
-  %855 = icmp eq i32 %846, 0, !mcsema_real_eip !133
-  store i1 %855, i1* %ZF, !mcsema_real_eip !133
-  %856 = lshr i32 %846, 31, !mcsema_real_eip !133
-  %857 = trunc i32 %856 to i1, !mcsema_real_eip !133
-  store i1 %857, i1* %SF, !mcsema_real_eip !133
-  %858 = icmp ult i32 %EAX_val.192, 56663, !mcsema_real_eip !133
-  store i1 %858, i1* %CF, !mcsema_real_eip !133
-  %859 = xor i32 %EAX_val.192, 56663, !mcsema_real_eip !133
-  %860 = xor i32 %EAX_val.192, %846, !mcsema_real_eip !133
-  %861 = and i32 %859, %860, !mcsema_real_eip !133
-  %862 = lshr i32 %861, 31, !mcsema_real_eip !133
-  %863 = trunc i32 %862 to i1, !mcsema_real_eip !133
-  store i1 %863, i1* %OF, !mcsema_real_eip !133
-  %864 = load i1, i1* %ZF, !mcsema_real_eip !134
-  %865 = icmp eq i1 %864, false, !mcsema_real_eip !134
-  br i1 %865, label %block_0x22a, label %block_0x20a, !mcsema_real_eip !134
+  %615 = lshr i32 %614, 31, !mcsema_real_eip !132
+  %616 = trunc i32 %615 to i1, !mcsema_real_eip !132
+  store i1 %616, i1* %SF, !mcsema_real_eip !132
+  store i1 false, i1* %ZF, !mcsema_real_eip !132
+  %617 = trunc i32 %614 to i8, !mcsema_real_eip !132
+  %618 = call i8 @llvm.ctpop.i8(i8 %617), !mcsema_real_eip !132
+  %619 = trunc i8 %618 to i1, !mcsema_real_eip !132
+  %620 = xor i1 %619, true, !mcsema_real_eip !132
+  store i1 %620, i1* %PF, !mcsema_real_eip !132
+  %621 = zext i32 %614 to i64, !mcsema_real_eip !132
+  store i64 %621, i64* %XAX, !mcsema_real_eip !132
+  %EAX_val.192 = load i32, i32* %EAX.9, !mcsema_real_eip !133
+  %622 = sub i32 %EAX_val.192, 56663, !mcsema_real_eip !133
+  %623 = xor i32 %622, %EAX_val.192, !mcsema_real_eip !133
+  %624 = xor i32 %623, 56663, !mcsema_real_eip !133
+  %625 = and i32 %624, 16, !mcsema_real_eip !133
+  %626 = icmp ne i32 %625, 0, !mcsema_real_eip !133
+  store i1 %626, i1* %AF, !mcsema_real_eip !133
+  %627 = trunc i32 %622 to i8, !mcsema_real_eip !133
+  %628 = call i8 @llvm.ctpop.i8(i8 %627), !mcsema_real_eip !133
+  %629 = trunc i8 %628 to i1, !mcsema_real_eip !133
+  %630 = xor i1 %629, true, !mcsema_real_eip !133
+  store i1 %630, i1* %PF, !mcsema_real_eip !133
+  %631 = icmp eq i32 %622, 0, !mcsema_real_eip !133
+  store i1 %631, i1* %ZF, !mcsema_real_eip !133
+  %632 = lshr i32 %622, 31, !mcsema_real_eip !133
+  %633 = trunc i32 %632 to i1, !mcsema_real_eip !133
+  store i1 %633, i1* %SF, !mcsema_real_eip !133
+  %634 = icmp ult i32 %EAX_val.192, 56663, !mcsema_real_eip !133
+  store i1 %634, i1* %CF, !mcsema_real_eip !133
+  %635 = xor i32 %EAX_val.192, 56663, !mcsema_real_eip !133
+  %636 = and i32 %635, %623, !mcsema_real_eip !133
+  %637 = lshr i32 %636, 31, !mcsema_real_eip !133
+  %638 = trunc i32 %637 to i1, !mcsema_real_eip !133
+  store i1 %638, i1* %OF, !mcsema_real_eip !133
+  %639 = icmp eq i1 %631, false, !mcsema_real_eip !134
+  br i1 %639, label %block_0x22a, label %block_0x20a, !mcsema_real_eip !134
 
 block_0x20a:                                      ; preds = %block_0x1d8
-  %RBP_val.195 = load i64, i64* %XBP, !mcsema_real_eip !135
-  %866 = add i64 %RBP_val.195, -38, !mcsema_real_eip !135
-  %867 = inttoptr i64 %866 to i64*, !mcsema_real_eip !135
-  %868 = ptrtoint i64* %867 to i64, !mcsema_real_eip !135
-  %869 = inttoptr i64 %868 to i16*, !mcsema_real_eip !135
-  %870 = load i16, i16* %869, !mcsema_real_eip !135
-  %871 = zext i16 %870 to i32, !mcsema_real_eip !135
-  %872 = zext i32 %871 to i64, !mcsema_real_eip !135
-  store i64 %872, i64* %XAX, !mcsema_real_eip !135
-  %EAX.196 = bitcast i64* %XAX to i32*, !mcsema_real_eip !136
-  %EAX_val.197 = load i32, i32* %EAX.196, !mcsema_real_eip !136
-  %873 = or i32 %EAX_val.197, 43690, !mcsema_real_eip !136
+  %640 = load i16, i16* %610, !mcsema_real_eip !135
+  %641 = zext i16 %640 to i32, !mcsema_real_eip !135
+  %642 = zext i32 %641 to i64, !mcsema_real_eip !135
+  store i64 %642, i64* %XAX, !mcsema_real_eip !135
+  %EAX_val.197 = load i32, i32* %EAX.9, !mcsema_real_eip !136
+  %643 = or i32 %EAX_val.197, 43690, !mcsema_real_eip !136
   store i1 undef, i1* %AF, !mcsema_real_eip !136
   store i1 false, i1* %OF, !mcsema_real_eip !136
   store i1 false, i1* %CF, !mcsema_real_eip !136
-  %874 = lshr i32 %873, 31, !mcsema_real_eip !136
-  %875 = trunc i32 %874 to i1, !mcsema_real_eip !136
-  store i1 %875, i1* %SF, !mcsema_real_eip !136
-  %876 = icmp eq i32 %873, 0, !mcsema_real_eip !136
-  store i1 %876, i1* %ZF, !mcsema_real_eip !136
-  %877 = trunc i32 %873 to i8, !mcsema_real_eip !136
-  %878 = call i8 @llvm.ctpop.i8(i8 %877), !mcsema_real_eip !136
-  %879 = trunc i8 %878 to i1, !mcsema_real_eip !136
-  %880 = xor i1 %879, true, !mcsema_real_eip !136
-  store i1 %880, i1* %PF, !mcsema_real_eip !136
-  %881 = zext i32 %873 to i64, !mcsema_real_eip !136
-  store i64 %881, i64* %XAX, !mcsema_real_eip !136
-  %EAX.198 = bitcast i64* %XAX to i32*, !mcsema_real_eip !137
-  %EAX_val.199 = load i32, i32* %EAX.198, !mcsema_real_eip !137
-  %882 = sub i32 %EAX_val.199, 65211, !mcsema_real_eip !137
-  %883 = xor i32 %882, %EAX_val.199, !mcsema_real_eip !137
-  %884 = xor i32 %883, 65211, !mcsema_real_eip !137
-  %885 = and i32 %884, 16, !mcsema_real_eip !137
-  %886 = icmp ne i32 %885, 0, !mcsema_real_eip !137
-  store i1 %886, i1* %AF, !mcsema_real_eip !137
-  %887 = trunc i32 %882 to i8, !mcsema_real_eip !137
-  %888 = call i8 @llvm.ctpop.i8(i8 %887), !mcsema_real_eip !137
-  %889 = trunc i8 %888 to i1, !mcsema_real_eip !137
-  %890 = xor i1 %889, true, !mcsema_real_eip !137
-  store i1 %890, i1* %PF, !mcsema_real_eip !137
-  %891 = icmp eq i32 %882, 0, !mcsema_real_eip !137
-  store i1 %891, i1* %ZF, !mcsema_real_eip !137
-  %892 = lshr i32 %882, 31, !mcsema_real_eip !137
-  %893 = trunc i32 %892 to i1, !mcsema_real_eip !137
-  store i1 %893, i1* %SF, !mcsema_real_eip !137
-  %894 = icmp ult i32 %EAX_val.199, 65211, !mcsema_real_eip !137
-  store i1 %894, i1* %CF, !mcsema_real_eip !137
-  %895 = xor i32 %EAX_val.199, 65211, !mcsema_real_eip !137
-  %896 = xor i32 %EAX_val.199, %882, !mcsema_real_eip !137
-  %897 = and i32 %895, %896, !mcsema_real_eip !137
-  %898 = lshr i32 %897, 31, !mcsema_real_eip !137
-  %899 = trunc i32 %898 to i1, !mcsema_real_eip !137
-  store i1 %899, i1* %OF, !mcsema_real_eip !137
-  %900 = load i1, i1* %ZF, !mcsema_real_eip !138
-  %901 = icmp eq i1 %900, false, !mcsema_real_eip !138
-  br i1 %901, label %block_0x22a, label %block_0x21e, !mcsema_real_eip !138
+  %644 = lshr i32 %643, 31, !mcsema_real_eip !136
+  %645 = trunc i32 %644 to i1, !mcsema_real_eip !136
+  store i1 %645, i1* %SF, !mcsema_real_eip !136
+  store i1 false, i1* %ZF, !mcsema_real_eip !136
+  %646 = trunc i32 %643 to i8, !mcsema_real_eip !136
+  %647 = call i8 @llvm.ctpop.i8(i8 %646), !mcsema_real_eip !136
+  %648 = trunc i8 %647 to i1, !mcsema_real_eip !136
+  %649 = xor i1 %648, true, !mcsema_real_eip !136
+  store i1 %649, i1* %PF, !mcsema_real_eip !136
+  %650 = zext i32 %643 to i64, !mcsema_real_eip !136
+  store i64 %650, i64* %XAX, !mcsema_real_eip !136
+  %EAX_val.199 = load i32, i32* %EAX.9, !mcsema_real_eip !137
+  %651 = sub i32 %EAX_val.199, 65211, !mcsema_real_eip !137
+  %652 = xor i32 %651, %EAX_val.199, !mcsema_real_eip !137
+  %653 = xor i32 %652, 65211, !mcsema_real_eip !137
+  %654 = and i32 %653, 16, !mcsema_real_eip !137
+  %655 = icmp ne i32 %654, 0, !mcsema_real_eip !137
+  store i1 %655, i1* %AF, !mcsema_real_eip !137
+  %656 = trunc i32 %651 to i8, !mcsema_real_eip !137
+  %657 = call i8 @llvm.ctpop.i8(i8 %656), !mcsema_real_eip !137
+  %658 = trunc i8 %657 to i1, !mcsema_real_eip !137
+  %659 = xor i1 %658, true, !mcsema_real_eip !137
+  store i1 %659, i1* %PF, !mcsema_real_eip !137
+  %660 = icmp eq i32 %651, 0, !mcsema_real_eip !137
+  store i1 %660, i1* %ZF, !mcsema_real_eip !137
+  %661 = lshr i32 %651, 31, !mcsema_real_eip !137
+  %662 = trunc i32 %661 to i1, !mcsema_real_eip !137
+  store i1 %662, i1* %SF, !mcsema_real_eip !137
+  %663 = icmp ult i32 %EAX_val.199, 65211, !mcsema_real_eip !137
+  store i1 %663, i1* %CF, !mcsema_real_eip !137
+  %664 = xor i32 %EAX_val.199, 65211, !mcsema_real_eip !137
+  %665 = and i32 %664, %652, !mcsema_real_eip !137
+  %666 = lshr i32 %665, 31, !mcsema_real_eip !137
+  %667 = trunc i32 %666 to i1, !mcsema_real_eip !137
+  store i1 %667, i1* %OF, !mcsema_real_eip !137
+  %668 = icmp eq i1 %660, false, !mcsema_real_eip !138
+  br i1 %668, label %block_0x22a, label %block_0x21e, !mcsema_real_eip !138
 
 block_0x22a:                                      ; preds = %block_0x20a, %block_0x1d8
-  %RBP_val.194 = load i64, i64* %XBP, !mcsema_real_eip !139
-  %902 = add i64 %RBP_val.194, -20, !mcsema_real_eip !139
-  %903 = inttoptr i64 %902 to i64*, !mcsema_real_eip !139
-  %904 = ptrtoint i64* %903 to i64, !mcsema_real_eip !139
-  %905 = inttoptr i64 %904 to i32*, !mcsema_real_eip !139
-  store i32 48059, i32* %905, !mcsema_real_eip !139
+  %_new_gep_213 = getelementptr i8, i8* %_load_rbp_ptr_206, i64 -20
+  %_allin_new_bt_214 = bitcast i8* %_new_gep_213 to i64*
+  %669 = ptrtoint i64* %_allin_new_bt_214 to i64, !mcsema_real_eip !139
+  %670 = inttoptr i64 %669 to i32*, !mcsema_real_eip !139
+  store i32 48059, i32* %670, !mcsema_real_eip !139
   br label %block_0x231, !mcsema_real_eip !135
 
 block_0x231:                                      ; preds = %block_0x21e, %block_0x22a
-  %EDI.200 = bitcast i64* %XDI to i32*, !mcsema_real_eip !140
-  %EDI_val.201 = load i32, i32* %EDI.200, !mcsema_real_eip !140
-  %EDI.202 = bitcast i64* %XDI to i32*, !mcsema_real_eip !140
-  %EDI_val.203 = load i32, i32* %EDI.202, !mcsema_real_eip !140
-  %906 = xor i32 %EDI_val.201, %EDI_val.203, !mcsema_real_eip !140
+  %EDI_val.201 = load i32, i32* %EDI.63, !mcsema_real_eip !140
   store i1 false, i1* %CF, !mcsema_real_eip !140
   store i1 false, i1* %OF, !mcsema_real_eip !140
-  %907 = lshr i32 %906, 31, !mcsema_real_eip !140
-  %908 = trunc i32 %907 to i1, !mcsema_real_eip !140
-  store i1 %908, i1* %SF, !mcsema_real_eip !140
-  %909 = icmp eq i32 %906, 0, !mcsema_real_eip !140
-  store i1 %909, i1* %ZF, !mcsema_real_eip !140
-  %910 = trunc i32 %906 to i8, !mcsema_real_eip !140
-  %911 = call i8 @llvm.ctpop.i8(i8 %910), !mcsema_real_eip !140
-  %912 = trunc i8 %911 to i1, !mcsema_real_eip !140
-  %913 = xor i1 %912, true, !mcsema_real_eip !140
-  store i1 %913, i1* %PF, !mcsema_real_eip !140
+  store i1 false, i1* %SF, !mcsema_real_eip !140
+  store i1 true, i1* %ZF, !mcsema_real_eip !140
+  store i1 true, i1* %PF, !mcsema_real_eip !140
   store i1 undef, i1* %AF, !mcsema_real_eip !140
-  %914 = zext i32 %906 to i64, !mcsema_real_eip !140
-  store i64 %914, i64* %XDI, !mcsema_real_eip !140
+  store i64 0, i64* %XDI, !mcsema_real_eip !140
   store i64 8, i64* %XDX, !mcsema_real_eip !141
-  %RBP_val.204 = load i64, i64* %XBP, !mcsema_real_eip !142
-  %915 = add i64 %RBP_val.204, -16, !mcsema_real_eip !142
-  %916 = inttoptr i64 %915 to i64*, !mcsema_real_eip !142
-  %917 = load i64, i64* %916, !mcsema_real_eip !142
-  store i64 %917, i64* %XAX, !mcsema_real_eip !142
-  %RAX_val.205 = load i64, i64* %XAX, !mcsema_real_eip !143
-  %918 = add i64 12, %RAX_val.205, !mcsema_real_eip !143
-  %919 = xor i64 %918, %RAX_val.205, !mcsema_real_eip !143
-  %920 = xor i64 %919, 12, !mcsema_real_eip !143
-  %921 = and i64 %920, 16, !mcsema_real_eip !143
-  %922 = icmp ne i64 %921, 0, !mcsema_real_eip !143
-  store i1 %922, i1* %AF, !mcsema_real_eip !143
-  %923 = lshr i64 %918, 63, !mcsema_real_eip !143
-  %924 = trunc i64 %923 to i1, !mcsema_real_eip !143
-  store i1 %924, i1* %SF, !mcsema_real_eip !143
-  %925 = icmp eq i64 %918, 0, !mcsema_real_eip !143
-  store i1 %925, i1* %ZF, !mcsema_real_eip !143
-  %926 = xor i64 %RAX_val.205, 12, !mcsema_real_eip !143
-  %927 = xor i64 %926, -1, !mcsema_real_eip !143
-  %928 = xor i64 %RAX_val.205, %918, !mcsema_real_eip !143
-  %929 = and i64 %927, %928, !mcsema_real_eip !143
-  %930 = lshr i64 %929, 63, !mcsema_real_eip !143
-  %931 = and i64 %930, 1, !mcsema_real_eip !143
-  %932 = trunc i64 %931 to i1, !mcsema_real_eip !143
-  store i1 %932, i1* %OF, !mcsema_real_eip !143
-  %933 = trunc i64 %918 to i8, !mcsema_real_eip !143
-  %934 = call i8 @llvm.ctpop.i8(i8 %933), !mcsema_real_eip !143
-  %935 = trunc i8 %934 to i1, !mcsema_real_eip !143
-  %936 = xor i1 %935, true, !mcsema_real_eip !143
-  store i1 %936, i1* %PF, !mcsema_real_eip !143
-  %937 = icmp ult i64 %918, %RAX_val.205, !mcsema_real_eip !143
-  store i1 %937, i1* %CF, !mcsema_real_eip !143
-  store i64 %918, i64* %XAX, !mcsema_real_eip !143
-  %RAX_val.206 = load i64, i64* %XAX, !mcsema_real_eip !144
-  store i64 %RAX_val.206, i64* %XSI, !mcsema_real_eip !144
-  %RDI_val.207 = load i64, i64* %XDI, !mcsema_real_eip !145
-  %RSI_val.208 = load i64, i64* %XSI, !mcsema_real_eip !145
-  %RDX_val.209 = load i64, i64* %XDX, !mcsema_real_eip !145
+  %_load_rbp_ptr_215 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_216 = getelementptr i8, i8* %_load_rbp_ptr_215, i64 -16
+  %_allin_new_bt_217 = bitcast i8* %_new_gep_216 to i64*
+  %671 = load i64, i64* %_allin_new_bt_217, !mcsema_real_eip !142
+  store i64 %671, i64* %XAX, !mcsema_real_eip !142
+  %672 = add i64 12, %671, !mcsema_real_eip !143
+  %673 = xor i64 %672, %671, !mcsema_real_eip !143
+  %674 = xor i64 %673, 12, !mcsema_real_eip !143
+  %675 = and i64 %674, 16, !mcsema_real_eip !143
+  %676 = icmp ne i64 %675, 0, !mcsema_real_eip !143
+  store i1 %676, i1* %AF, !mcsema_real_eip !143
+  %677 = lshr i64 %672, 63, !mcsema_real_eip !143
+  %678 = trunc i64 %677 to i1, !mcsema_real_eip !143
+  store i1 %678, i1* %SF, !mcsema_real_eip !143
+  %679 = icmp eq i64 %672, 0, !mcsema_real_eip !143
+  store i1 %679, i1* %ZF, !mcsema_real_eip !143
+  %680 = xor i64 %671, 12, !mcsema_real_eip !143
+  %681 = xor i64 %680, -1, !mcsema_real_eip !143
+  %682 = and i64 %681, %673, !mcsema_real_eip !143
+  %683 = lshr i64 %682, 63, !mcsema_real_eip !143
+  %684 = and i64 %683, 1, !mcsema_real_eip !143
+  %685 = trunc i64 %684 to i1, !mcsema_real_eip !143
+  store i1 %685, i1* %OF, !mcsema_real_eip !143
+  %686 = trunc i64 %672 to i8, !mcsema_real_eip !143
+  %687 = call i8 @llvm.ctpop.i8(i8 %686), !mcsema_real_eip !143
+  %688 = trunc i8 %687 to i1, !mcsema_real_eip !143
+  %689 = xor i1 %688, true, !mcsema_real_eip !143
+  store i1 %689, i1* %PF, !mcsema_real_eip !143
+  %690 = icmp ult i64 %672, %671, !mcsema_real_eip !143
+  store i1 %690, i1* %CF, !mcsema_real_eip !143
+  store i64 %672, i64* %XAX, !mcsema_real_eip !143
+  store i64 %672, i64* %XSI, !mcsema_real_eip !144
+  %_load_rsp_ptr_218 = load i8*, i8** %_RSP_ptr_
   %RSP_val.210 = load i64, i64* %XSP, !mcsema_real_eip !145
-  %938 = sub i64 %RSP_val.210, 8, !mcsema_real_eip !145
-  %939 = inttoptr i64 %938 to i64*, !mcsema_real_eip !145
-  store i64 -2415393069852865332, i64* %939, !mcsema_real_eip !145
-  store i64 %938, i64* %XSP, !mcsema_real_eip !145
-  %940 = call x86_64_sysvcc i64 @_read_bytes(i64 %RDI_val.207, i64 %RSI_val.208, i64 %RDX_val.209), !mcsema_real_eip !145
-  store i64 %940, i64* %XAX, !mcsema_real_eip !145
-  %RBP_val.211 = load i64, i64* %XBP, !mcsema_real_eip !146
-  %941 = add i64 %RBP_val.211, -44, !mcsema_real_eip !146
-  %942 = inttoptr i64 %941 to i64*, !mcsema_real_eip !146
-  %EAX.212 = bitcast i64* %XAX to i32*, !mcsema_real_eip !146
-  %EAX_val.213 = load i32, i32* %EAX.212, !mcsema_real_eip !146
-  %943 = ptrtoint i64* %942 to i64, !mcsema_real_eip !146
-  %944 = inttoptr i64 %943 to i32*, !mcsema_real_eip !146
-  store i32 %EAX_val.213, i32* %944, !mcsema_real_eip !146
-  %RBP_val.214 = load i64, i64* %XBP, !mcsema_real_eip !147
-  %945 = add i64 %RBP_val.214, -44, !mcsema_real_eip !147
-  %946 = inttoptr i64 %945 to i64*, !mcsema_real_eip !147
-  %947 = ptrtoint i64* %946 to i64, !mcsema_real_eip !147
-  %948 = inttoptr i64 %947 to i32*, !mcsema_real_eip !147
-  %949 = load i32, i32* %948, !mcsema_real_eip !147
-  %950 = zext i32 %949 to i64, !mcsema_real_eip !147
-  store i64 %950, i64* %XAX, !mcsema_real_eip !147
-  %EAX.215 = bitcast i64* %XAX to i32*, !mcsema_real_eip !148
-  %EAX_val.216 = load i32, i32* %EAX.215, !mcsema_real_eip !148
-  %951 = xor i32 %EAX_val.216, -1534560611, !mcsema_real_eip !148
+  %_new_gep_219 = getelementptr i8, i8* %_load_rsp_ptr_218, i64 -8
+  %691 = sub i64 %RSP_val.210, 8, !mcsema_real_eip !145
+  %_allin_new_bt_220 = bitcast i8* %_new_gep_219 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_220, !mcsema_real_eip !145
+  store volatile i8* %_new_gep_219, i8** %_RSP_ptr_
+  store i64 %691, i64* %XSP, !mcsema_real_eip !145
+  %692 = call x86_64_sysvcc i64 @_read_bytes(i64 0, i64 %672, i64 8)
+  %_rsp_fix_428 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_429 = getelementptr i8, i8* %_rsp_fix_428, i64 8
+  store i8* %_gep_fix_429, i8** %_RSP_ptr_
+  store i64 %692, i64* %XAX, !mcsema_real_eip !145
+  %_load_rbp_ptr_221 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_222 = getelementptr i8, i8* %_load_rbp_ptr_221, i64 -44
+  %_allin_new_bt_223 = bitcast i8* %_new_gep_222 to i64*
+  %EAX_val.213 = load i32, i32* %EAX.9, !mcsema_real_eip !146
+  %693 = ptrtoint i64* %_allin_new_bt_223 to i64, !mcsema_real_eip !146
+  %694 = inttoptr i64 %693 to i32*, !mcsema_real_eip !146
+  store i32 %EAX_val.213, i32* %694, !mcsema_real_eip !146
+  %_load_rbp_ptr_224 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_225 = getelementptr i8, i8* %_load_rbp_ptr_224, i64 -44
+  %_allin_new_bt_226 = bitcast i8* %_new_gep_225 to i64*
+  %695 = ptrtoint i64* %_allin_new_bt_226 to i64, !mcsema_real_eip !147
+  %696 = inttoptr i64 %695 to i32*, !mcsema_real_eip !147
+  %697 = load i32, i32* %696, !mcsema_real_eip !147
+  %698 = zext i32 %697 to i64, !mcsema_real_eip !147
+  store i64 %698, i64* %XAX, !mcsema_real_eip !147
+  %EAX_val.216 = load i32, i32* %EAX.9, !mcsema_real_eip !148
+  %699 = xor i32 %EAX_val.216, -1534560611, !mcsema_real_eip !148
   store i1 false, i1* %CF, !mcsema_real_eip !148
   store i1 false, i1* %OF, !mcsema_real_eip !148
-  %952 = lshr i32 %951, 31, !mcsema_real_eip !148
-  %953 = trunc i32 %952 to i1, !mcsema_real_eip !148
-  store i1 %953, i1* %SF, !mcsema_real_eip !148
-  %954 = icmp eq i32 %951, 0, !mcsema_real_eip !148
-  store i1 %954, i1* %ZF, !mcsema_real_eip !148
-  %955 = trunc i32 %951 to i8, !mcsema_real_eip !148
-  %956 = call i8 @llvm.ctpop.i8(i8 %955), !mcsema_real_eip !148
-  %957 = trunc i8 %956 to i1, !mcsema_real_eip !148
-  %958 = xor i1 %957, true, !mcsema_real_eip !148
-  store i1 %958, i1* %PF, !mcsema_real_eip !148
+  %700 = lshr i32 %699, 31, !mcsema_real_eip !148
+  %701 = trunc i32 %700 to i1, !mcsema_real_eip !148
+  store i1 %701, i1* %SF, !mcsema_real_eip !148
+  %702 = icmp eq i32 %699, 0, !mcsema_real_eip !148
+  store i1 %702, i1* %ZF, !mcsema_real_eip !148
+  %703 = trunc i32 %699 to i8, !mcsema_real_eip !148
+  %704 = call i8 @llvm.ctpop.i8(i8 %703), !mcsema_real_eip !148
+  %705 = trunc i8 %704 to i1, !mcsema_real_eip !148
+  %706 = xor i1 %705, true, !mcsema_real_eip !148
+  store i1 %706, i1* %PF, !mcsema_real_eip !148
   store i1 undef, i1* %AF, !mcsema_real_eip !148
-  %959 = zext i32 %951 to i64, !mcsema_real_eip !148
-  store i64 %959, i64* %XAX, !mcsema_real_eip !148
-  %RBP_val.217 = load i64, i64* %XBP, !mcsema_real_eip !149
-  %960 = add i64 %RBP_val.217, -48, !mcsema_real_eip !149
-  %961 = inttoptr i64 %960 to i64*, !mcsema_real_eip !149
-  %EAX.218 = bitcast i64* %XAX to i32*, !mcsema_real_eip !149
-  %EAX_val.219 = load i32, i32* %EAX.218, !mcsema_real_eip !149
-  %962 = ptrtoint i64* %961 to i64, !mcsema_real_eip !149
-  %963 = inttoptr i64 %962 to i32*, !mcsema_real_eip !149
-  store i32 %EAX_val.219, i32* %963, !mcsema_real_eip !149
-  %RBP_val.220 = load i64, i64* %XBP, !mcsema_real_eip !150
-  %964 = add i64 %RBP_val.220, -48, !mcsema_real_eip !150
-  %965 = inttoptr i64 %964 to i64*, !mcsema_real_eip !150
-  %966 = ptrtoint i64* %965 to i64, !mcsema_real_eip !150
-  %967 = inttoptr i64 %966 to i32*, !mcsema_real_eip !150
-  %968 = load i32, i32* %967, !mcsema_real_eip !150
-  %969 = zext i32 %968 to i64, !mcsema_real_eip !150
-  store i64 %969, i64* %XAX, !mcsema_real_eip !150
-  %EAX.221 = bitcast i64* %XAX to i32*, !mcsema_real_eip !151
-  %EAX_val.222 = load i32, i32* %EAX.221, !mcsema_real_eip !151
-  %970 = lshr i32 %EAX_val.222, 15, !mcsema_real_eip !151
-  %971 = and i32 %970, 1, !mcsema_real_eip !151
-  %972 = icmp ne i32 %971, 0, !mcsema_real_eip !151
-  %973 = load i1, i1* %CF, !mcsema_real_eip !151
-  %974 = select i1 true, i1 %972, i1 %973, !mcsema_real_eip !151
-  %975 = lshr i32 %970, 1, !mcsema_real_eip !151
-  %976 = load i1, i1* %OF, !mcsema_real_eip !151
-  %977 = and i32 %EAX_val.222, -2147483648, !mcsema_real_eip !151
-  %978 = icmp ne i32 %977, 0, !mcsema_real_eip !151
-  %979 = select i1 false, i1 %978, i1 %976, !mcsema_real_eip !151
-  store i1 %979, i1* %OF, !mcsema_real_eip !151
-  store i1 %974, i1* %CF, !mcsema_real_eip !151
-  %980 = load i1, i1* %ZF, !mcsema_real_eip !151
-  %981 = icmp eq i32 %975, 0, !mcsema_real_eip !151
-  %982 = select i1 true, i1 %981, i1 %980, !mcsema_real_eip !151
-  store i1 %982, i1* %ZF, !mcsema_real_eip !151
-  %983 = load i1, i1* %SF, !mcsema_real_eip !151
-  %984 = icmp slt i32 %975, 0, !mcsema_real_eip !151
-  %985 = select i1 true, i1 %984, i1 %983, !mcsema_real_eip !151
-  store i1 %985, i1* %SF, !mcsema_real_eip !151
-  %986 = load i1, i1* %PF, !mcsema_real_eip !151
-  %987 = trunc i32 %975 to i8, !mcsema_real_eip !151
-  %988 = call i8 @llvm.ctpop.i8(i8 %987), !mcsema_real_eip !151
-  %989 = trunc i8 %988 to i1, !mcsema_real_eip !151
-  %990 = xor i1 %989, true, !mcsema_real_eip !151
-  store i1 %990, i1* %PF, !mcsema_real_eip !151
-  %991 = load i1, i1* %PF, !mcsema_real_eip !151
-  %992 = select i1 true, i1 %991, i1 %986, !mcsema_real_eip !151
-  store i1 %992, i1* %PF, !mcsema_real_eip !151
-  %993 = zext i32 %975 to i64, !mcsema_real_eip !151
-  store i64 %993, i64* %XAX, !mcsema_real_eip !151
-  %RBP_val.223 = load i64, i64* %XBP, !mcsema_real_eip !152
-  %994 = add i64 %RBP_val.223, -52, !mcsema_real_eip !152
-  %995 = inttoptr i64 %994 to i64*, !mcsema_real_eip !152
-  %EAX.224 = bitcast i64* %XAX to i32*, !mcsema_real_eip !152
-  %EAX_val.225 = load i32, i32* %EAX.224, !mcsema_real_eip !152
-  %996 = ptrtoint i64* %995 to i64, !mcsema_real_eip !152
-  %997 = inttoptr i64 %996 to i32*, !mcsema_real_eip !152
-  store i32 %EAX_val.225, i32* %997, !mcsema_real_eip !152
-  %RBP_val.226 = load i64, i64* %XBP, !mcsema_real_eip !153
-  %998 = add i64 %RBP_val.226, -48, !mcsema_real_eip !153
-  %999 = inttoptr i64 %998 to i64*, !mcsema_real_eip !153
-  %1000 = ptrtoint i64* %999 to i64, !mcsema_real_eip !153
-  %1001 = inttoptr i64 %1000 to i32*, !mcsema_real_eip !153
-  %1002 = load i32, i32* %1001, !mcsema_real_eip !153
-  %1003 = zext i32 %1002 to i64, !mcsema_real_eip !153
-  store i64 %1003, i64* %XAX, !mcsema_real_eip !153
-  %EAX.227 = bitcast i64* %XAX to i32*, !mcsema_real_eip !154
-  %EAX_val.228 = load i32, i32* %EAX.227, !mcsema_real_eip !154
-  %1004 = and i32 %EAX_val.228, 65535, !mcsema_real_eip !154
-  %1005 = lshr i32 %1004, 31, !mcsema_real_eip !154
-  %1006 = trunc i32 %1005 to i1, !mcsema_real_eip !154
-  store i1 %1006, i1* %SF, !mcsema_real_eip !154
-  %1007 = icmp eq i32 %1004, 0, !mcsema_real_eip !154
-  store i1 %1007, i1* %ZF, !mcsema_real_eip !154
-  %1008 = trunc i32 %1004 to i8, !mcsema_real_eip !154
-  %1009 = call i8 @llvm.ctpop.i8(i8 %1008), !mcsema_real_eip !154
-  %1010 = trunc i8 %1009 to i1, !mcsema_real_eip !154
-  %1011 = xor i1 %1010, true, !mcsema_real_eip !154
-  store i1 %1011, i1* %PF, !mcsema_real_eip !154
+  %707 = zext i32 %699 to i64, !mcsema_real_eip !148
+  store i64 %707, i64* %XAX, !mcsema_real_eip !148
+  %_new_gep_228 = getelementptr i8, i8* %_load_rbp_ptr_224, i64 -48
+  %_allin_new_bt_229 = bitcast i8* %_new_gep_228 to i64*
+  %EAX_val.219 = load i32, i32* %EAX.9, !mcsema_real_eip !149
+  %708 = ptrtoint i64* %_allin_new_bt_229 to i64, !mcsema_real_eip !149
+  %709 = inttoptr i64 %708 to i32*, !mcsema_real_eip !149
+  store i32 %EAX_val.219, i32* %709, !mcsema_real_eip !149
+  %_load_rbp_ptr_230 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_231 = getelementptr i8, i8* %_load_rbp_ptr_230, i64 -48
+  %_allin_new_bt_232 = bitcast i8* %_new_gep_231 to i64*
+  %710 = ptrtoint i64* %_allin_new_bt_232 to i64, !mcsema_real_eip !150
+  %711 = inttoptr i64 %710 to i32*, !mcsema_real_eip !150
+  %712 = load i32, i32* %711, !mcsema_real_eip !150
+  %713 = zext i32 %712 to i64, !mcsema_real_eip !150
+  store i64 %713, i64* %XAX, !mcsema_real_eip !150
+  %EAX_val.222 = load i32, i32* %EAX.9, !mcsema_real_eip !151
+  %714 = lshr i32 %EAX_val.222, 15, !mcsema_real_eip !151
+  %715 = and i32 %714, 1, !mcsema_real_eip !151
+  %716 = icmp ne i32 %715, 0, !mcsema_real_eip !151
+  %717 = load i1, i1* %CF, !mcsema_real_eip !151
+  %718 = lshr i32 %714, 1, !mcsema_real_eip !151
+  %719 = load i1, i1* %OF, !mcsema_real_eip !151
+  %720 = and i32 %EAX_val.222, -2147483648, !mcsema_real_eip !151
+  %721 = icmp ne i32 %720, 0, !mcsema_real_eip !151
+  store i1 %716, i1* %CF, !mcsema_real_eip !151
+  %722 = load i1, i1* %ZF, !mcsema_real_eip !151
+  %723 = icmp eq i32 %718, 0, !mcsema_real_eip !151
+  store i1 %723, i1* %ZF, !mcsema_real_eip !151
+  %724 = load i1, i1* %SF, !mcsema_real_eip !151
+  store i1 false, i1* %SF, !mcsema_real_eip !151
+  %725 = load i1, i1* %PF, !mcsema_real_eip !151
+  %726 = trunc i32 %718 to i8, !mcsema_real_eip !151
+  %727 = call i8 @llvm.ctpop.i8(i8 %726), !mcsema_real_eip !151
+  %728 = trunc i8 %727 to i1, !mcsema_real_eip !151
+  %729 = xor i1 %728, true, !mcsema_real_eip !151
+  store i1 %729, i1* %PF, !mcsema_real_eip !151
+  %730 = zext i32 %718 to i64, !mcsema_real_eip !151
+  store i64 %730, i64* %XAX, !mcsema_real_eip !151
+  %_new_gep_234 = getelementptr i8, i8* %_load_rbp_ptr_230, i64 -52
+  %_allin_new_bt_235 = bitcast i8* %_new_gep_234 to i64*
+  %EAX_val.225 = load i32, i32* %EAX.9, !mcsema_real_eip !152
+  %731 = ptrtoint i64* %_allin_new_bt_235 to i64, !mcsema_real_eip !152
+  %732 = inttoptr i64 %731 to i32*, !mcsema_real_eip !152
+  store i32 %EAX_val.225, i32* %732, !mcsema_real_eip !152
+  %_load_rbp_ptr_236 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_237 = getelementptr i8, i8* %_load_rbp_ptr_236, i64 -48
+  %_allin_new_bt_238 = bitcast i8* %_new_gep_237 to i64*
+  %733 = ptrtoint i64* %_allin_new_bt_238 to i64, !mcsema_real_eip !153
+  %734 = inttoptr i64 %733 to i32*, !mcsema_real_eip !153
+  %735 = load i32, i32* %734, !mcsema_real_eip !153
+  %736 = zext i32 %735 to i64, !mcsema_real_eip !153
+  store i64 %736, i64* %XAX, !mcsema_real_eip !153
+  %EAX_val.228 = load i32, i32* %EAX.9, !mcsema_real_eip !154
+  %737 = and i32 %EAX_val.228, 65535, !mcsema_real_eip !154
+  store i1 false, i1* %SF, !mcsema_real_eip !154
+  %738 = icmp eq i32 %737, 0, !mcsema_real_eip !154
+  store i1 %738, i1* %ZF, !mcsema_real_eip !154
+  %739 = trunc i32 %737 to i8, !mcsema_real_eip !154
+  %740 = call i8 @llvm.ctpop.i8(i8 %739), !mcsema_real_eip !154
+  %741 = trunc i8 %740 to i1, !mcsema_real_eip !154
+  %742 = xor i1 %741, true, !mcsema_real_eip !154
+  store i1 %742, i1* %PF, !mcsema_real_eip !154
   store i1 false, i1* %OF, !mcsema_real_eip !154
   store i1 false, i1* %CF, !mcsema_real_eip !154
   store i1 undef, i1* %AF, !mcsema_real_eip !154
-  %1012 = zext i32 %1004 to i64, !mcsema_real_eip !154
-  store i64 %1012, i64* %XAX, !mcsema_real_eip !154
-  %RBP_val.229 = load i64, i64* %XBP, !mcsema_real_eip !155
-  %1013 = add i64 %RBP_val.229, -56, !mcsema_real_eip !155
-  %1014 = inttoptr i64 %1013 to i64*, !mcsema_real_eip !155
-  %EAX.230 = bitcast i64* %XAX to i32*, !mcsema_real_eip !155
-  %EAX_val.231 = load i32, i32* %EAX.230, !mcsema_real_eip !155
-  %1015 = ptrtoint i64* %1014 to i64, !mcsema_real_eip !155
-  %1016 = inttoptr i64 %1015 to i32*, !mcsema_real_eip !155
-  store i32 %EAX_val.231, i32* %1016, !mcsema_real_eip !155
-  %RBP_val.232 = load i64, i64* %XBP, !mcsema_real_eip !156
-  %1017 = add i64 %RBP_val.232, -52, !mcsema_real_eip !156
-  %1018 = inttoptr i64 %1017 to i64*, !mcsema_real_eip !156
-  %1019 = ptrtoint i64* %1018 to i64, !mcsema_real_eip !156
-  %1020 = inttoptr i64 %1019 to i32*, !mcsema_real_eip !156
-  %1021 = load i32, i32* %1020, !mcsema_real_eip !156
-  %1022 = sub i32 %1021, 79, !mcsema_real_eip !156
-  %1023 = xor i32 %1022, %1021, !mcsema_real_eip !156
-  %1024 = xor i32 %1023, 79, !mcsema_real_eip !156
-  %1025 = and i32 %1024, 16, !mcsema_real_eip !156
-  %1026 = icmp ne i32 %1025, 0, !mcsema_real_eip !156
-  store i1 %1026, i1* %AF, !mcsema_real_eip !156
-  %1027 = trunc i32 %1022 to i8, !mcsema_real_eip !156
-  %1028 = call i8 @llvm.ctpop.i8(i8 %1027), !mcsema_real_eip !156
-  %1029 = trunc i8 %1028 to i1, !mcsema_real_eip !156
-  %1030 = xor i1 %1029, true, !mcsema_real_eip !156
-  store i1 %1030, i1* %PF, !mcsema_real_eip !156
-  %1031 = icmp eq i32 %1022, 0, !mcsema_real_eip !156
-  store i1 %1031, i1* %ZF, !mcsema_real_eip !156
-  %1032 = lshr i32 %1022, 31, !mcsema_real_eip !156
-  %1033 = trunc i32 %1032 to i1, !mcsema_real_eip !156
-  store i1 %1033, i1* %SF, !mcsema_real_eip !156
-  %1034 = icmp ult i32 %1021, 79, !mcsema_real_eip !156
-  store i1 %1034, i1* %CF, !mcsema_real_eip !156
-  %1035 = xor i32 %1021, 79, !mcsema_real_eip !156
-  %1036 = xor i32 %1021, %1022, !mcsema_real_eip !156
-  %1037 = and i32 %1035, %1036, !mcsema_real_eip !156
-  %1038 = lshr i32 %1037, 31, !mcsema_real_eip !156
-  %1039 = trunc i32 %1038 to i1, !mcsema_real_eip !156
-  store i1 %1039, i1* %OF, !mcsema_real_eip !156
-  %1040 = load i1, i1* %ZF, !mcsema_real_eip !157
-  %1041 = icmp eq i1 %1040, false, !mcsema_real_eip !157
-  br i1 %1041, label %block_0x28c, label %block_0x274, !mcsema_real_eip !157
+  %743 = zext i32 %737 to i64, !mcsema_real_eip !154
+  store i64 %743, i64* %XAX, !mcsema_real_eip !154
+  %_new_gep_240 = getelementptr i8, i8* %_load_rbp_ptr_236, i64 -56
+  %_allin_new_bt_241 = bitcast i8* %_new_gep_240 to i64*
+  %EAX_val.231 = load i32, i32* %EAX.9, !mcsema_real_eip !155
+  %744 = ptrtoint i64* %_allin_new_bt_241 to i64, !mcsema_real_eip !155
+  %745 = inttoptr i64 %744 to i32*, !mcsema_real_eip !155
+  store i32 %EAX_val.231, i32* %745, !mcsema_real_eip !155
+  %_load_rbp_ptr_242 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_243 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -52
+  %_allin_new_bt_244 = bitcast i8* %_new_gep_243 to i64*
+  %746 = ptrtoint i64* %_allin_new_bt_244 to i64, !mcsema_real_eip !156
+  %747 = inttoptr i64 %746 to i32*, !mcsema_real_eip !156
+  %748 = load i32, i32* %747, !mcsema_real_eip !156
+  %749 = sub i32 %748, 79, !mcsema_real_eip !156
+  %750 = xor i32 %749, %748, !mcsema_real_eip !156
+  %751 = xor i32 %750, 79, !mcsema_real_eip !156
+  %752 = and i32 %751, 16, !mcsema_real_eip !156
+  %753 = icmp ne i32 %752, 0, !mcsema_real_eip !156
+  store i1 %753, i1* %AF, !mcsema_real_eip !156
+  %754 = trunc i32 %749 to i8, !mcsema_real_eip !156
+  %755 = call i8 @llvm.ctpop.i8(i8 %754), !mcsema_real_eip !156
+  %756 = trunc i8 %755 to i1, !mcsema_real_eip !156
+  %757 = xor i1 %756, true, !mcsema_real_eip !156
+  store i1 %757, i1* %PF, !mcsema_real_eip !156
+  %758 = icmp eq i32 %749, 0, !mcsema_real_eip !156
+  store i1 %758, i1* %ZF, !mcsema_real_eip !156
+  %759 = lshr i32 %749, 31, !mcsema_real_eip !156
+  %760 = trunc i32 %759 to i1, !mcsema_real_eip !156
+  store i1 %760, i1* %SF, !mcsema_real_eip !156
+  %761 = icmp ult i32 %748, 79, !mcsema_real_eip !156
+  store i1 %761, i1* %CF, !mcsema_real_eip !156
+  %762 = xor i32 %748, 79, !mcsema_real_eip !156
+  %763 = and i32 %762, %750, !mcsema_real_eip !156
+  %764 = lshr i32 %763, 31, !mcsema_real_eip !156
+  %765 = trunc i32 %764 to i1, !mcsema_real_eip !156
+  store i1 %765, i1* %OF, !mcsema_real_eip !156
+  %766 = icmp eq i1 %758, false, !mcsema_real_eip !157
+  br i1 %766, label %block_0x28c, label %block_0x274, !mcsema_real_eip !157
 
 block_0x21e:                                      ; preds = %block_0x20a
-  %RBP_val.233 = load i64, i64* %XBP, !mcsema_real_eip !158
-  %1042 = add i64 %RBP_val.233, -20, !mcsema_real_eip !158
-  %1043 = inttoptr i64 %1042 to i64*, !mcsema_real_eip !158
-  %1044 = ptrtoint i64* %1043 to i64, !mcsema_real_eip !158
-  %1045 = inttoptr i64 %1044 to i32*, !mcsema_real_eip !158
-  store i32 43690, i32* %1045, !mcsema_real_eip !158
+  %_new_gep_246 = getelementptr i8, i8* %_load_rbp_ptr_206, i64 -20
+  %_allin_new_bt_247 = bitcast i8* %_new_gep_246 to i64*
+  %767 = ptrtoint i64* %_allin_new_bt_247 to i64, !mcsema_real_eip !158
+  %768 = inttoptr i64 %767 to i32*, !mcsema_real_eip !158
+  store i32 43690, i32* %768, !mcsema_real_eip !158
   br label %block_0x231, !mcsema_real_eip !159
 
 block_0x274:                                      ; preds = %block_0x231
-  %RBP_val.235 = load i64, i64* %XBP, !mcsema_real_eip !160
-  %1046 = add i64 %RBP_val.235, -56, !mcsema_real_eip !160
-  %1047 = inttoptr i64 %1046 to i64*, !mcsema_real_eip !160
-  %1048 = ptrtoint i64* %1047 to i64, !mcsema_real_eip !160
-  %1049 = inttoptr i64 %1048 to i32*, !mcsema_real_eip !160
-  %1050 = load i32, i32* %1049, !mcsema_real_eip !160
-  %1051 = zext i32 %1050 to i64, !mcsema_real_eip !160
-  store i64 %1051, i64* %XAX, !mcsema_real_eip !160
-  %RBP_val.236 = load i64, i64* %XBP, !mcsema_real_eip !161
-  %1052 = add i64 %RBP_val.236, -20, !mcsema_real_eip !161
-  %1053 = inttoptr i64 %1052 to i64*, !mcsema_real_eip !161
-  %EAX.237 = bitcast i64* %XAX to i32*, !mcsema_real_eip !161
-  %EAX_val.238 = load i32, i32* %EAX.237, !mcsema_real_eip !161
-  %1054 = ptrtoint i64* %1053 to i64, !mcsema_real_eip !161
-  %1055 = inttoptr i64 %1054 to i32*, !mcsema_real_eip !161
-  %1056 = load i32, i32* %1055, !mcsema_real_eip !161
-  %1057 = sub i32 %EAX_val.238, %1056, !mcsema_real_eip !161
-  %1058 = xor i32 %1057, %EAX_val.238, !mcsema_real_eip !161
-  %1059 = xor i32 %1058, %1056, !mcsema_real_eip !161
-  %1060 = and i32 %1059, 16, !mcsema_real_eip !161
-  %1061 = icmp ne i32 %1060, 0, !mcsema_real_eip !161
-  store i1 %1061, i1* %AF, !mcsema_real_eip !161
-  %1062 = trunc i32 %1057 to i8, !mcsema_real_eip !161
-  %1063 = call i8 @llvm.ctpop.i8(i8 %1062), !mcsema_real_eip !161
-  %1064 = trunc i8 %1063 to i1, !mcsema_real_eip !161
-  %1065 = xor i1 %1064, true, !mcsema_real_eip !161
-  store i1 %1065, i1* %PF, !mcsema_real_eip !161
-  %1066 = icmp eq i32 %1057, 0, !mcsema_real_eip !161
-  store i1 %1066, i1* %ZF, !mcsema_real_eip !161
-  %1067 = lshr i32 %1057, 31, !mcsema_real_eip !161
-  %1068 = trunc i32 %1067 to i1, !mcsema_real_eip !161
-  store i1 %1068, i1* %SF, !mcsema_real_eip !161
-  %1069 = icmp ult i32 %EAX_val.238, %1056, !mcsema_real_eip !161
-  store i1 %1069, i1* %CF, !mcsema_real_eip !161
-  %1070 = xor i32 %EAX_val.238, %1056, !mcsema_real_eip !161
-  %1071 = xor i32 %EAX_val.238, %1057, !mcsema_real_eip !161
-  %1072 = and i32 %1070, %1071, !mcsema_real_eip !161
-  %1073 = lshr i32 %1072, 31, !mcsema_real_eip !161
-  %1074 = trunc i32 %1073 to i1, !mcsema_real_eip !161
-  store i1 %1074, i1* %OF, !mcsema_real_eip !161
-  %1075 = load i1, i1* %ZF, !mcsema_real_eip !162
-  %1076 = icmp eq i1 %1075, false, !mcsema_real_eip !162
-  br i1 %1076, label %block_0x28c, label %block_0x280, !mcsema_real_eip !162
+  %_new_gep_249 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -56
+  %_allin_new_bt_250 = bitcast i8* %_new_gep_249 to i64*
+  %769 = ptrtoint i64* %_allin_new_bt_250 to i64, !mcsema_real_eip !160
+  %770 = inttoptr i64 %769 to i32*, !mcsema_real_eip !160
+  %771 = load i32, i32* %770, !mcsema_real_eip !160
+  %772 = zext i32 %771 to i64, !mcsema_real_eip !160
+  store i64 %772, i64* %XAX, !mcsema_real_eip !160
+  %_new_gep_252 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -20
+  %_allin_new_bt_253 = bitcast i8* %_new_gep_252 to i64*
+  %EAX_val.238 = load i32, i32* %EAX.9, !mcsema_real_eip !161
+  %773 = ptrtoint i64* %_allin_new_bt_253 to i64, !mcsema_real_eip !161
+  %774 = inttoptr i64 %773 to i32*, !mcsema_real_eip !161
+  %775 = load i32, i32* %774, !mcsema_real_eip !161
+  %776 = sub i32 %EAX_val.238, %775, !mcsema_real_eip !161
+  %777 = xor i32 %776, %EAX_val.238, !mcsema_real_eip !161
+  %778 = xor i32 %777, %775, !mcsema_real_eip !161
+  %779 = and i32 %778, 16, !mcsema_real_eip !161
+  %780 = icmp ne i32 %779, 0, !mcsema_real_eip !161
+  store i1 %780, i1* %AF, !mcsema_real_eip !161
+  %781 = trunc i32 %776 to i8, !mcsema_real_eip !161
+  %782 = call i8 @llvm.ctpop.i8(i8 %781), !mcsema_real_eip !161
+  %783 = trunc i8 %782 to i1, !mcsema_real_eip !161
+  %784 = xor i1 %783, true, !mcsema_real_eip !161
+  store i1 %784, i1* %PF, !mcsema_real_eip !161
+  %785 = icmp eq i32 %776, 0, !mcsema_real_eip !161
+  store i1 %785, i1* %ZF, !mcsema_real_eip !161
+  %786 = lshr i32 %776, 31, !mcsema_real_eip !161
+  %787 = trunc i32 %786 to i1, !mcsema_real_eip !161
+  store i1 %787, i1* %SF, !mcsema_real_eip !161
+  %788 = icmp ult i32 %EAX_val.238, %775, !mcsema_real_eip !161
+  store i1 %788, i1* %CF, !mcsema_real_eip !161
+  %789 = xor i32 %EAX_val.238, %775, !mcsema_real_eip !161
+  %790 = and i32 %789, %777, !mcsema_real_eip !161
+  %791 = lshr i32 %790, 31, !mcsema_real_eip !161
+  %792 = trunc i32 %791 to i1, !mcsema_real_eip !161
+  store i1 %792, i1* %OF, !mcsema_real_eip !161
+  %793 = icmp eq i1 %785, false, !mcsema_real_eip !162
+  br i1 %793, label %block_0x28c, label %block_0x280, !mcsema_real_eip !162
 
 block_0x28c:                                      ; preds = %block_0x274, %block_0x231
-  %RBP_val.234 = load i64, i64* %XBP, !mcsema_real_eip !163
-  %1077 = add i64 %RBP_val.234, -20, !mcsema_real_eip !163
-  %1078 = inttoptr i64 %1077 to i64*, !mcsema_real_eip !163
-  %1079 = ptrtoint i64* %1078 to i64, !mcsema_real_eip !163
-  %1080 = inttoptr i64 %1079 to i32*, !mcsema_real_eip !163
-  store i32 48351, i32* %1080, !mcsema_real_eip !163
+  %_new_gep_255 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -20
+  %_allin_new_bt_256 = bitcast i8* %_new_gep_255 to i64*
+  %794 = ptrtoint i64* %_allin_new_bt_256 to i64, !mcsema_real_eip !163
+  %795 = inttoptr i64 %794 to i32*, !mcsema_real_eip !163
+  store i32 48351, i32* %795, !mcsema_real_eip !163
   br label %block_0x293, !mcsema_real_eip !160
 
 block_0x293:                                      ; preds = %block_0x280, %block_0x28c
   store i64 8, i64* %XDX, !mcsema_real_eip !164
-  %RBP_val.239 = load i64, i64* %XBP, !mcsema_real_eip !165
-  %1081 = add i64 %RBP_val.239, -20, !mcsema_real_eip !165
-  %1082 = inttoptr i64 %1081 to i64*, !mcsema_real_eip !165
-  %1083 = ptrtoint i64* %1082 to i64, !mcsema_real_eip !165
-  %1084 = inttoptr i64 %1083 to i32*, !mcsema_real_eip !165
-  %1085 = load i32, i32* %1084, !mcsema_real_eip !165
-  %1086 = zext i32 %1085 to i64, !mcsema_real_eip !165
-  store i64 %1086, i64* %XDI, !mcsema_real_eip !165
-  %RBP_val.240 = load i64, i64* %XBP, !mcsema_real_eip !166
-  %1087 = add i64 %RBP_val.240, -16, !mcsema_real_eip !166
-  %1088 = inttoptr i64 %1087 to i64*, !mcsema_real_eip !166
-  %1089 = load i64, i64* %1088, !mcsema_real_eip !166
-  store i64 %1089, i64* %XAX, !mcsema_real_eip !166
-  %RAX_val.241 = load i64, i64* %XAX, !mcsema_real_eip !167
-  %1090 = add i64 20, %RAX_val.241, !mcsema_real_eip !167
-  %1091 = xor i64 %1090, %RAX_val.241, !mcsema_real_eip !167
-  %1092 = xor i64 %1091, 20, !mcsema_real_eip !167
-  %1093 = and i64 %1092, 16, !mcsema_real_eip !167
-  %1094 = icmp ne i64 %1093, 0, !mcsema_real_eip !167
-  store i1 %1094, i1* %AF, !mcsema_real_eip !167
-  %1095 = lshr i64 %1090, 63, !mcsema_real_eip !167
-  %1096 = trunc i64 %1095 to i1, !mcsema_real_eip !167
-  store i1 %1096, i1* %SF, !mcsema_real_eip !167
-  %1097 = icmp eq i64 %1090, 0, !mcsema_real_eip !167
-  store i1 %1097, i1* %ZF, !mcsema_real_eip !167
-  %1098 = xor i64 %RAX_val.241, 20, !mcsema_real_eip !167
-  %1099 = xor i64 %1098, -1, !mcsema_real_eip !167
-  %1100 = xor i64 %RAX_val.241, %1090, !mcsema_real_eip !167
-  %1101 = and i64 %1099, %1100, !mcsema_real_eip !167
-  %1102 = lshr i64 %1101, 63, !mcsema_real_eip !167
-  %1103 = and i64 %1102, 1, !mcsema_real_eip !167
-  %1104 = trunc i64 %1103 to i1, !mcsema_real_eip !167
-  store i1 %1104, i1* %OF, !mcsema_real_eip !167
-  %1105 = trunc i64 %1090 to i8, !mcsema_real_eip !167
-  %1106 = call i8 @llvm.ctpop.i8(i8 %1105), !mcsema_real_eip !167
-  %1107 = trunc i8 %1106 to i1, !mcsema_real_eip !167
-  %1108 = xor i1 %1107, true, !mcsema_real_eip !167
-  store i1 %1108, i1* %PF, !mcsema_real_eip !167
-  %1109 = icmp ult i64 %1090, %RAX_val.241, !mcsema_real_eip !167
-  store i1 %1109, i1* %CF, !mcsema_real_eip !167
-  store i64 %1090, i64* %XAX, !mcsema_real_eip !167
-  %RAX_val.242 = load i64, i64* %XAX, !mcsema_real_eip !168
-  store i64 %RAX_val.242, i64* %XSI, !mcsema_real_eip !168
-  %RDI_val.243 = load i64, i64* %XDI, !mcsema_real_eip !169
-  %RSI_val.244 = load i64, i64* %XSI, !mcsema_real_eip !169
-  %RDX_val.245 = load i64, i64* %XDX, !mcsema_real_eip !169
+  %_load_rbp_ptr_257 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_258 = getelementptr i8, i8* %_load_rbp_ptr_257, i64 -20
+  %_allin_new_bt_259 = bitcast i8* %_new_gep_258 to i64*
+  %796 = ptrtoint i64* %_allin_new_bt_259 to i64, !mcsema_real_eip !165
+  %797 = inttoptr i64 %796 to i32*, !mcsema_real_eip !165
+  %798 = load i32, i32* %797, !mcsema_real_eip !165
+  %799 = zext i32 %798 to i64, !mcsema_real_eip !165
+  store i64 %799, i64* %XDI, !mcsema_real_eip !165
+  %_new_gep_261 = getelementptr i8, i8* %_load_rbp_ptr_257, i64 -16
+  %_allin_new_bt_262 = bitcast i8* %_new_gep_261 to i64*
+  %800 = load i64, i64* %_allin_new_bt_262, !mcsema_real_eip !166
+  store i64 %800, i64* %XAX, !mcsema_real_eip !166
+  %801 = add i64 20, %800, !mcsema_real_eip !167
+  %802 = xor i64 %801, %800, !mcsema_real_eip !167
+  %803 = xor i64 %802, 20, !mcsema_real_eip !167
+  %804 = and i64 %803, 16, !mcsema_real_eip !167
+  %805 = icmp ne i64 %804, 0, !mcsema_real_eip !167
+  store i1 %805, i1* %AF, !mcsema_real_eip !167
+  %806 = lshr i64 %801, 63, !mcsema_real_eip !167
+  %807 = trunc i64 %806 to i1, !mcsema_real_eip !167
+  store i1 %807, i1* %SF, !mcsema_real_eip !167
+  %808 = icmp eq i64 %801, 0, !mcsema_real_eip !167
+  store i1 %808, i1* %ZF, !mcsema_real_eip !167
+  %809 = xor i64 %800, 20, !mcsema_real_eip !167
+  %810 = xor i64 %809, -1, !mcsema_real_eip !167
+  %811 = and i64 %810, %802, !mcsema_real_eip !167
+  %812 = lshr i64 %811, 63, !mcsema_real_eip !167
+  %813 = and i64 %812, 1, !mcsema_real_eip !167
+  %814 = trunc i64 %813 to i1, !mcsema_real_eip !167
+  store i1 %814, i1* %OF, !mcsema_real_eip !167
+  %815 = trunc i64 %801 to i8, !mcsema_real_eip !167
+  %816 = call i8 @llvm.ctpop.i8(i8 %815), !mcsema_real_eip !167
+  %817 = trunc i8 %816 to i1, !mcsema_real_eip !167
+  %818 = xor i1 %817, true, !mcsema_real_eip !167
+  store i1 %818, i1* %PF, !mcsema_real_eip !167
+  %819 = icmp ult i64 %801, %800, !mcsema_real_eip !167
+  store i1 %819, i1* %CF, !mcsema_real_eip !167
+  store i64 %801, i64* %XAX, !mcsema_real_eip !167
+  store i64 %801, i64* %XSI, !mcsema_real_eip !168
+  %_load_rsp_ptr_263 = load i8*, i8** %_RSP_ptr_
   %RSP_val.246 = load i64, i64* %XSP, !mcsema_real_eip !169
-  %1110 = sub i64 %RSP_val.246, 8, !mcsema_real_eip !169
-  %1111 = inttoptr i64 %1110 to i64*, !mcsema_real_eip !169
-  store i64 -2415393069852865332, i64* %1111, !mcsema_real_eip !169
-  store i64 %1110, i64* %XSP, !mcsema_real_eip !169
-  %1112 = call x86_64_sysvcc i64 @_read_bytes(i64 %RDI_val.243, i64 %RSI_val.244, i64 %RDX_val.245), !mcsema_real_eip !169
-  store i64 %1112, i64* %XAX, !mcsema_real_eip !169
-  %RBP_val.247 = load i64, i64* %XBP, !mcsema_real_eip !170
-  %1113 = add i64 %RBP_val.247, -60, !mcsema_real_eip !170
-  %1114 = inttoptr i64 %1113 to i64*, !mcsema_real_eip !170
-  %EAX.248 = bitcast i64* %XAX to i32*, !mcsema_real_eip !170
-  %EAX_val.249 = load i32, i32* %EAX.248, !mcsema_real_eip !170
-  %1115 = ptrtoint i64* %1114 to i64, !mcsema_real_eip !170
-  %1116 = inttoptr i64 %1115 to i32*, !mcsema_real_eip !170
-  store i32 %EAX_val.249, i32* %1116, !mcsema_real_eip !170
-  %RBP_val.250 = load i64, i64* %XBP, !mcsema_real_eip !171
-  %1117 = add i64 %RBP_val.250, -60, !mcsema_real_eip !171
-  %1118 = inttoptr i64 %1117 to i64*, !mcsema_real_eip !171
-  %1119 = ptrtoint i64* %1118 to i64, !mcsema_real_eip !171
-  %1120 = inttoptr i64 %1119 to i32*, !mcsema_real_eip !171
-  %1121 = load i32, i32* %1120, !mcsema_real_eip !171
-  %1122 = zext i32 %1121 to i64, !mcsema_real_eip !171
-  store i64 %1122, i64* %XAX, !mcsema_real_eip !171
-  %EAX.251 = bitcast i64* %XAX to i32*, !mcsema_real_eip !172
-  %EAX_val.252 = load i32, i32* %EAX.251, !mcsema_real_eip !172
-  %1123 = sub i32 %EAX_val.252, 3, !mcsema_real_eip !172
-  %1124 = xor i32 %1123, %EAX_val.252, !mcsema_real_eip !172
-  %1125 = xor i32 %1124, 3, !mcsema_real_eip !172
-  %1126 = and i32 %1125, 16, !mcsema_real_eip !172
-  %1127 = icmp ne i32 %1126, 0, !mcsema_real_eip !172
-  store i1 %1127, i1* %AF, !mcsema_real_eip !172
-  %1128 = trunc i32 %1123 to i8, !mcsema_real_eip !172
-  %1129 = call i8 @llvm.ctpop.i8(i8 %1128), !mcsema_real_eip !172
-  %1130 = trunc i8 %1129 to i1, !mcsema_real_eip !172
-  %1131 = xor i1 %1130, true, !mcsema_real_eip !172
-  store i1 %1131, i1* %PF, !mcsema_real_eip !172
-  %1132 = icmp eq i32 %1123, 0, !mcsema_real_eip !172
-  store i1 %1132, i1* %ZF, !mcsema_real_eip !172
-  %1133 = lshr i32 %1123, 31, !mcsema_real_eip !172
-  %1134 = trunc i32 %1133 to i1, !mcsema_real_eip !172
-  store i1 %1134, i1* %SF, !mcsema_real_eip !172
-  %1135 = icmp ult i32 %EAX_val.252, 3, !mcsema_real_eip !172
-  store i1 %1135, i1* %CF, !mcsema_real_eip !172
-  %1136 = xor i32 %EAX_val.252, 3, !mcsema_real_eip !172
-  %1137 = xor i32 %EAX_val.252, %1123, !mcsema_real_eip !172
-  %1138 = and i32 %1136, %1137, !mcsema_real_eip !172
-  %1139 = lshr i32 %1138, 31, !mcsema_real_eip !172
-  %1140 = trunc i32 %1139 to i1, !mcsema_real_eip !172
-  store i1 %1140, i1* %OF, !mcsema_real_eip !172
-  %1141 = zext i32 %1123 to i64, !mcsema_real_eip !172
-  store i64 %1141, i64* %XAX, !mcsema_real_eip !172
-  %RBP_val.253 = load i64, i64* %XBP, !mcsema_real_eip !173
-  %1142 = add i64 %RBP_val.253, -60, !mcsema_real_eip !173
-  %1143 = inttoptr i64 %1142 to i64*, !mcsema_real_eip !173
-  %EAX.254 = bitcast i64* %XAX to i32*, !mcsema_real_eip !173
-  %EAX_val.255 = load i32, i32* %EAX.254, !mcsema_real_eip !173
-  %1144 = ptrtoint i64* %1143 to i64, !mcsema_real_eip !173
-  %1145 = inttoptr i64 %1144 to i32*, !mcsema_real_eip !173
-  store i32 %EAX_val.255, i32* %1145, !mcsema_real_eip !173
-  %RBP_val.256 = load i64, i64* %XBP, !mcsema_real_eip !174
-  %1146 = add i64 %RBP_val.256, -60, !mcsema_real_eip !174
-  %1147 = inttoptr i64 %1146 to i64*, !mcsema_real_eip !174
-  %1148 = ptrtoint i64* %1147 to i64, !mcsema_real_eip !174
-  %1149 = inttoptr i64 %1148 to i32*, !mcsema_real_eip !174
-  %1150 = load i32, i32* %1149, !mcsema_real_eip !174
-  %1151 = zext i32 %1150 to i64, !mcsema_real_eip !174
-  store i64 %1151, i64* %XAX, !mcsema_real_eip !174
-  %EAX.257 = bitcast i64* %XAX to i32*, !mcsema_real_eip !175
-  %EAX_val.258 = load i32, i32* %EAX.257, !mcsema_real_eip !175
-  %1152 = and i32 %EAX_val.258, 7, !mcsema_real_eip !175
-  %1153 = lshr i32 %1152, 31, !mcsema_real_eip !175
-  %1154 = trunc i32 %1153 to i1, !mcsema_real_eip !175
-  store i1 %1154, i1* %SF, !mcsema_real_eip !175
-  %1155 = icmp eq i32 %1152, 0, !mcsema_real_eip !175
-  store i1 %1155, i1* %ZF, !mcsema_real_eip !175
-  %1156 = trunc i32 %1152 to i8, !mcsema_real_eip !175
-  %1157 = call i8 @llvm.ctpop.i8(i8 %1156), !mcsema_real_eip !175
-  %1158 = trunc i8 %1157 to i1, !mcsema_real_eip !175
-  %1159 = xor i1 %1158, true, !mcsema_real_eip !175
-  store i1 %1159, i1* %PF, !mcsema_real_eip !175
+  %_new_gep_264 = getelementptr i8, i8* %_load_rsp_ptr_263, i64 -8
+  %820 = sub i64 %RSP_val.246, 8, !mcsema_real_eip !169
+  %_allin_new_bt_265 = bitcast i8* %_new_gep_264 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_265, !mcsema_real_eip !169
+  store volatile i8* %_new_gep_264, i8** %_RSP_ptr_
+  store i64 %820, i64* %XSP, !mcsema_real_eip !169
+  %821 = call x86_64_sysvcc i64 @_read_bytes(i64 %799, i64 %801, i64 8)
+  %_rsp_fix_430 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_431 = getelementptr i8, i8* %_rsp_fix_430, i64 8
+  store i8* %_gep_fix_431, i8** %_RSP_ptr_
+  store i64 %821, i64* %XAX, !mcsema_real_eip !169
+  %_load_rbp_ptr_266 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_267 = getelementptr i8, i8* %_load_rbp_ptr_266, i64 -60
+  %_allin_new_bt_268 = bitcast i8* %_new_gep_267 to i64*
+  %EAX_val.249 = load i32, i32* %EAX.9, !mcsema_real_eip !170
+  %822 = ptrtoint i64* %_allin_new_bt_268 to i64, !mcsema_real_eip !170
+  %823 = inttoptr i64 %822 to i32*, !mcsema_real_eip !170
+  store i32 %EAX_val.249, i32* %823, !mcsema_real_eip !170
+  %_load_rbp_ptr_269 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_270 = getelementptr i8, i8* %_load_rbp_ptr_269, i64 -60
+  %_allin_new_bt_271 = bitcast i8* %_new_gep_270 to i64*
+  %824 = ptrtoint i64* %_allin_new_bt_271 to i64, !mcsema_real_eip !171
+  %825 = inttoptr i64 %824 to i32*, !mcsema_real_eip !171
+  %826 = load i32, i32* %825, !mcsema_real_eip !171
+  %827 = zext i32 %826 to i64, !mcsema_real_eip !171
+  store i64 %827, i64* %XAX, !mcsema_real_eip !171
+  %EAX_val.252 = load i32, i32* %EAX.9, !mcsema_real_eip !172
+  %828 = sub i32 %EAX_val.252, 3, !mcsema_real_eip !172
+  %829 = xor i32 %828, %EAX_val.252, !mcsema_real_eip !172
+  %830 = xor i32 %829, 3, !mcsema_real_eip !172
+  %831 = and i32 %830, 16, !mcsema_real_eip !172
+  %832 = icmp ne i32 %831, 0, !mcsema_real_eip !172
+  store i1 %832, i1* %AF, !mcsema_real_eip !172
+  %833 = trunc i32 %828 to i8, !mcsema_real_eip !172
+  %834 = call i8 @llvm.ctpop.i8(i8 %833), !mcsema_real_eip !172
+  %835 = trunc i8 %834 to i1, !mcsema_real_eip !172
+  %836 = xor i1 %835, true, !mcsema_real_eip !172
+  store i1 %836, i1* %PF, !mcsema_real_eip !172
+  %837 = icmp eq i32 %828, 0, !mcsema_real_eip !172
+  store i1 %837, i1* %ZF, !mcsema_real_eip !172
+  %838 = lshr i32 %828, 31, !mcsema_real_eip !172
+  %839 = trunc i32 %838 to i1, !mcsema_real_eip !172
+  store i1 %839, i1* %SF, !mcsema_real_eip !172
+  %840 = icmp ult i32 %EAX_val.252, 3, !mcsema_real_eip !172
+  store i1 %840, i1* %CF, !mcsema_real_eip !172
+  %841 = xor i32 %EAX_val.252, 3, !mcsema_real_eip !172
+  %842 = and i32 %841, %829, !mcsema_real_eip !172
+  %843 = lshr i32 %842, 31, !mcsema_real_eip !172
+  %844 = trunc i32 %843 to i1, !mcsema_real_eip !172
+  store i1 %844, i1* %OF, !mcsema_real_eip !172
+  %845 = zext i32 %828 to i64, !mcsema_real_eip !172
+  store i64 %845, i64* %XAX, !mcsema_real_eip !172
+  %EAX_val.255 = load i32, i32* %EAX.9, !mcsema_real_eip !173
+  store i32 %EAX_val.255, i32* %825, !mcsema_real_eip !173
+  %_load_rbp_ptr_275 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_276 = getelementptr i8, i8* %_load_rbp_ptr_275, i64 -60
+  %_allin_new_bt_277 = bitcast i8* %_new_gep_276 to i64*
+  %846 = ptrtoint i64* %_allin_new_bt_277 to i64, !mcsema_real_eip !174
+  %847 = inttoptr i64 %846 to i32*, !mcsema_real_eip !174
+  %848 = load i32, i32* %847, !mcsema_real_eip !174
+  %849 = zext i32 %848 to i64, !mcsema_real_eip !174
+  store i64 %849, i64* %XAX, !mcsema_real_eip !174
+  %EAX_val.258 = load i32, i32* %EAX.9, !mcsema_real_eip !175
+  %850 = and i32 %EAX_val.258, 7, !mcsema_real_eip !175
+  store i1 false, i1* %SF, !mcsema_real_eip !175
+  %851 = icmp eq i32 %850, 0, !mcsema_real_eip !175
+  store i1 %851, i1* %ZF, !mcsema_real_eip !175
+  %852 = trunc i32 %850 to i8, !mcsema_real_eip !175
+  %853 = call i8 @llvm.ctpop.i8(i8 %852), !mcsema_real_eip !175
+  %854 = trunc i8 %853 to i1, !mcsema_real_eip !175
+  %855 = xor i1 %854, true, !mcsema_real_eip !175
+  store i1 %855, i1* %PF, !mcsema_real_eip !175
   store i1 false, i1* %OF, !mcsema_real_eip !175
   store i1 false, i1* %CF, !mcsema_real_eip !175
   store i1 undef, i1* %AF, !mcsema_real_eip !175
-  %1160 = zext i32 %1152 to i64, !mcsema_real_eip !175
-  store i64 %1160, i64* %XAX, !mcsema_real_eip !175
-  %EAX.259 = bitcast i64* %XAX to i32*, !mcsema_real_eip !176
-  %EAX_val.260 = load i32, i32* %EAX.259, !mcsema_real_eip !176
-  %1161 = sub i32 %EAX_val.260, 0, !mcsema_real_eip !176
-  %1162 = xor i32 %1161, %EAX_val.260, !mcsema_real_eip !176
-  %1163 = xor i32 %1162, 0, !mcsema_real_eip !176
-  %1164 = and i32 %1163, 16, !mcsema_real_eip !176
-  %1165 = icmp ne i32 %1164, 0, !mcsema_real_eip !176
-  store i1 %1165, i1* %AF, !mcsema_real_eip !176
-  %1166 = trunc i32 %1161 to i8, !mcsema_real_eip !176
-  %1167 = call i8 @llvm.ctpop.i8(i8 %1166), !mcsema_real_eip !176
-  %1168 = trunc i8 %1167 to i1, !mcsema_real_eip !176
-  %1169 = xor i1 %1168, true, !mcsema_real_eip !176
-  store i1 %1169, i1* %PF, !mcsema_real_eip !176
-  %1170 = icmp eq i32 %1161, 0, !mcsema_real_eip !176
-  store i1 %1170, i1* %ZF, !mcsema_real_eip !176
-  %1171 = lshr i32 %1161, 31, !mcsema_real_eip !176
-  %1172 = trunc i32 %1171 to i1, !mcsema_real_eip !176
-  store i1 %1172, i1* %SF, !mcsema_real_eip !176
-  %1173 = icmp ult i32 %EAX_val.260, 0, !mcsema_real_eip !176
-  store i1 %1173, i1* %CF, !mcsema_real_eip !176
-  %1174 = xor i32 %EAX_val.260, 0, !mcsema_real_eip !176
-  %1175 = xor i32 %EAX_val.260, %1161, !mcsema_real_eip !176
-  %1176 = and i32 %1174, %1175, !mcsema_real_eip !176
-  %1177 = lshr i32 %1176, 31, !mcsema_real_eip !176
-  %1178 = trunc i32 %1177 to i1, !mcsema_real_eip !176
-  store i1 %1178, i1* %OF, !mcsema_real_eip !176
-  %1179 = load i1, i1* %ZF, !mcsema_real_eip !177
-  %1180 = icmp eq i1 %1179, true, !mcsema_real_eip !177
-  br i1 %1180, label %block_0x2d2, label %block_0x2c6, !mcsema_real_eip !177
+  %856 = zext i32 %850 to i64, !mcsema_real_eip !175
+  store i64 %856, i64* %XAX, !mcsema_real_eip !175
+  %EAX_val.260 = load i32, i32* %EAX.9, !mcsema_real_eip !176
+  store i1 false, i1* %AF, !mcsema_real_eip !176
+  %857 = trunc i32 %EAX_val.260 to i8, !mcsema_real_eip !176
+  %858 = call i8 @llvm.ctpop.i8(i8 %857), !mcsema_real_eip !176
+  %859 = trunc i8 %858 to i1, !mcsema_real_eip !176
+  %860 = xor i1 %859, true, !mcsema_real_eip !176
+  store i1 %860, i1* %PF, !mcsema_real_eip !176
+  %861 = icmp eq i32 %EAX_val.260, 0, !mcsema_real_eip !176
+  store i1 %861, i1* %ZF, !mcsema_real_eip !176
+  %862 = lshr i32 %EAX_val.260, 31, !mcsema_real_eip !176
+  %863 = trunc i32 %862 to i1, !mcsema_real_eip !176
+  store i1 %863, i1* %SF, !mcsema_real_eip !176
+  store i1 false, i1* %CF, !mcsema_real_eip !176
+  store i1 false, i1* %OF, !mcsema_real_eip !176
+  br i1 %861, label %block_0x2d2, label %block_0x2c6, !mcsema_real_eip !177
 
 block_0x280:                                      ; preds = %block_0x274
-  %RBP_val.261 = load i64, i64* %XBP, !mcsema_real_eip !178
-  %1181 = add i64 %RBP_val.261, -20, !mcsema_real_eip !178
-  %1182 = inttoptr i64 %1181 to i64*, !mcsema_real_eip !178
-  %1183 = ptrtoint i64* %1182 to i64, !mcsema_real_eip !178
-  %1184 = inttoptr i64 %1183 to i32*, !mcsema_real_eip !178
-  store i32 0, i32* %1184, !mcsema_real_eip !178
+  store i32 0, i32* %774, !mcsema_real_eip !178
   br label %block_0x293, !mcsema_real_eip !179
 
 block_0x2c6:                                      ; preds = %block_0x293
-  %RBP_val.269 = load i64, i64* %XBP, !mcsema_real_eip !180
-  %1185 = add i64 %RBP_val.269, -4, !mcsema_real_eip !180
-  %1186 = inttoptr i64 %1185 to i64*, !mcsema_real_eip !180
-  %1187 = ptrtoint i64* %1186 to i64, !mcsema_real_eip !180
-  %1188 = inttoptr i64 %1187 to i32*, !mcsema_real_eip !180
-  store i32 -21, i32* %1188, !mcsema_real_eip !180
+  %_new_gep_282 = getelementptr i8, i8* %_load_rbp_ptr_275, i64 -4
+  %_allin_new_bt_283 = bitcast i8* %_new_gep_282 to i64*
+  %864 = ptrtoint i64* %_allin_new_bt_283 to i64, !mcsema_real_eip !180
+  %865 = inttoptr i64 %864 to i32*, !mcsema_real_eip !180
+  store i32 -21, i32* %865, !mcsema_real_eip !180
   br label %block_0x417, !mcsema_real_eip !181
 
 block_0x2d2:                                      ; preds = %block_0x293
-  %RBP_val.262 = load i64, i64* %XBP, !mcsema_real_eip !182
-  %1189 = add i64 %RBP_val.262, -60, !mcsema_real_eip !182
-  %1190 = inttoptr i64 %1189 to i64*, !mcsema_real_eip !182
-  %1191 = ptrtoint i64* %1190 to i64, !mcsema_real_eip !182
-  %1192 = inttoptr i64 %1191 to i32*, !mcsema_real_eip !182
-  %1193 = load i32, i32* %1192, !mcsema_real_eip !182
-  %1194 = zext i32 %1193 to i64, !mcsema_real_eip !182
-  store i64 %1194, i64* %XAX, !mcsema_real_eip !182
-  %EAX.263 = bitcast i64* %XAX to i32*, !mcsema_real_eip !183
-  %EAX_val.264 = load i32, i32* %EAX.263, !mcsema_real_eip !183
-  %1195 = sub i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
-  %1196 = xor i32 %1195, %EAX_val.264, !mcsema_real_eip !183
-  %1197 = xor i32 %1196, -2147483648, !mcsema_real_eip !183
-  %1198 = and i32 %1197, 16, !mcsema_real_eip !183
-  %1199 = icmp ne i32 %1198, 0, !mcsema_real_eip !183
-  store i1 %1199, i1* %AF, !mcsema_real_eip !183
-  %1200 = trunc i32 %1195 to i8, !mcsema_real_eip !183
-  %1201 = call i8 @llvm.ctpop.i8(i8 %1200), !mcsema_real_eip !183
-  %1202 = trunc i8 %1201 to i1, !mcsema_real_eip !183
-  %1203 = xor i1 %1202, true, !mcsema_real_eip !183
-  store i1 %1203, i1* %PF, !mcsema_real_eip !183
-  %1204 = icmp eq i32 %1195, 0, !mcsema_real_eip !183
-  store i1 %1204, i1* %ZF, !mcsema_real_eip !183
-  %1205 = lshr i32 %1195, 31, !mcsema_real_eip !183
-  %1206 = trunc i32 %1205 to i1, !mcsema_real_eip !183
-  store i1 %1206, i1* %SF, !mcsema_real_eip !183
-  %1207 = icmp ult i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
-  store i1 %1207, i1* %CF, !mcsema_real_eip !183
-  %1208 = xor i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
-  %1209 = xor i32 %EAX_val.264, %1195, !mcsema_real_eip !183
-  %1210 = and i32 %1208, %1209, !mcsema_real_eip !183
-  %1211 = lshr i32 %1210, 31, !mcsema_real_eip !183
-  %1212 = trunc i32 %1211 to i1, !mcsema_real_eip !183
-  store i1 %1212, i1* %OF, !mcsema_real_eip !183
-  %1213 = zext i32 %1195 to i64, !mcsema_real_eip !183
-  store i64 %1213, i64* %XAX, !mcsema_real_eip !183
-  %RBP_val.265 = load i64, i64* %XBP, !mcsema_real_eip !184
-  %1214 = add i64 %RBP_val.265, -60, !mcsema_real_eip !184
-  %1215 = inttoptr i64 %1214 to i64*, !mcsema_real_eip !184
-  %EAX.266 = bitcast i64* %XAX to i32*, !mcsema_real_eip !184
-  %EAX_val.267 = load i32, i32* %EAX.266, !mcsema_real_eip !184
-  %1216 = ptrtoint i64* %1215 to i64, !mcsema_real_eip !184
-  %1217 = inttoptr i64 %1216 to i32*, !mcsema_real_eip !184
-  store i32 %EAX_val.267, i32* %1217, !mcsema_real_eip !184
-  %RBP_val.268 = load i64, i64* %XBP, !mcsema_real_eip !185
-  %1218 = add i64 %RBP_val.268, -60, !mcsema_real_eip !185
-  %1219 = inttoptr i64 %1218 to i64*, !mcsema_real_eip !185
-  %1220 = ptrtoint i64* %1219 to i64, !mcsema_real_eip !185
-  %1221 = inttoptr i64 %1220 to i32*, !mcsema_real_eip !185
-  %1222 = load i32, i32* %1221, !mcsema_real_eip !185
-  %1223 = sub i32 %1222, 268435455, !mcsema_real_eip !185
-  %1224 = xor i32 %1223, %1222, !mcsema_real_eip !185
-  %1225 = xor i32 %1224, 268435455, !mcsema_real_eip !185
-  %1226 = and i32 %1225, 16, !mcsema_real_eip !185
-  %1227 = icmp ne i32 %1226, 0, !mcsema_real_eip !185
-  store i1 %1227, i1* %AF, !mcsema_real_eip !185
-  %1228 = trunc i32 %1223 to i8, !mcsema_real_eip !185
-  %1229 = call i8 @llvm.ctpop.i8(i8 %1228), !mcsema_real_eip !185
-  %1230 = trunc i8 %1229 to i1, !mcsema_real_eip !185
-  %1231 = xor i1 %1230, true, !mcsema_real_eip !185
-  store i1 %1231, i1* %PF, !mcsema_real_eip !185
-  %1232 = icmp eq i32 %1223, 0, !mcsema_real_eip !185
-  store i1 %1232, i1* %ZF, !mcsema_real_eip !185
-  %1233 = lshr i32 %1223, 31, !mcsema_real_eip !185
-  %1234 = trunc i32 %1233 to i1, !mcsema_real_eip !185
-  store i1 %1234, i1* %SF, !mcsema_real_eip !185
-  %1235 = icmp ult i32 %1222, 268435455, !mcsema_real_eip !185
-  store i1 %1235, i1* %CF, !mcsema_real_eip !185
-  %1236 = xor i32 %1222, 268435455, !mcsema_real_eip !185
-  %1237 = xor i32 %1222, %1223, !mcsema_real_eip !185
-  %1238 = and i32 %1236, %1237, !mcsema_real_eip !185
-  %1239 = lshr i32 %1238, 31, !mcsema_real_eip !185
-  %1240 = trunc i32 %1239 to i1, !mcsema_real_eip !185
-  store i1 %1240, i1* %OF, !mcsema_real_eip !185
-  %1241 = load i1, i1* %ZF, !mcsema_real_eip !186
-  %1242 = icmp eq i1 %1241, true, !mcsema_real_eip !186
-  %1243 = load i1, i1* %CF, !mcsema_real_eip !186
-  %1244 = icmp eq i1 %1243, true, !mcsema_real_eip !186
-  %1245 = or i1 %1244, %1242, !mcsema_real_eip !186
-  br i1 %1245, label %block_0x2f6, label %block_0x2ea, !mcsema_real_eip !186
+  %866 = load i32, i32* %847, !mcsema_real_eip !182
+  %867 = zext i32 %866 to i64, !mcsema_real_eip !182
+  store i64 %867, i64* %XAX, !mcsema_real_eip !182
+  %EAX_val.264 = load i32, i32* %EAX.9, !mcsema_real_eip !183
+  %868 = sub i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
+  %869 = xor i32 %868, %EAX_val.264, !mcsema_real_eip !183
+  %870 = xor i32 %869, -2147483648, !mcsema_real_eip !183
+  %871 = and i32 %870, 16, !mcsema_real_eip !183
+  %872 = icmp ne i32 %871, 0, !mcsema_real_eip !183
+  store i1 %872, i1* %AF, !mcsema_real_eip !183
+  %873 = trunc i32 %868 to i8, !mcsema_real_eip !183
+  %874 = call i8 @llvm.ctpop.i8(i8 %873), !mcsema_real_eip !183
+  %875 = trunc i8 %874 to i1, !mcsema_real_eip !183
+  %876 = xor i1 %875, true, !mcsema_real_eip !183
+  store i1 %876, i1* %PF, !mcsema_real_eip !183
+  %877 = icmp eq i32 %868, 0, !mcsema_real_eip !183
+  store i1 %877, i1* %ZF, !mcsema_real_eip !183
+  %878 = lshr i32 %868, 31, !mcsema_real_eip !183
+  %879 = trunc i32 %878 to i1, !mcsema_real_eip !183
+  store i1 %879, i1* %SF, !mcsema_real_eip !183
+  %880 = icmp ult i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
+  store i1 %880, i1* %CF, !mcsema_real_eip !183
+  %881 = xor i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
+  %882 = and i32 %881, %869, !mcsema_real_eip !183
+  %883 = lshr i32 %882, 31, !mcsema_real_eip !183
+  %884 = trunc i32 %883 to i1, !mcsema_real_eip !183
+  store i1 %884, i1* %OF, !mcsema_real_eip !183
+  %885 = zext i32 %868 to i64, !mcsema_real_eip !183
+  store i64 %885, i64* %XAX, !mcsema_real_eip !183
+  %EAX_val.267 = load i32, i32* %EAX.9, !mcsema_real_eip !184
+  store i32 %EAX_val.267, i32* %847, !mcsema_real_eip !184
+  %_load_rbp_ptr_290 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_291 = getelementptr i8, i8* %_load_rbp_ptr_290, i64 -60
+  %_allin_new_bt_292 = bitcast i8* %_new_gep_291 to i64*
+  %886 = ptrtoint i64* %_allin_new_bt_292 to i64, !mcsema_real_eip !185
+  %887 = inttoptr i64 %886 to i32*, !mcsema_real_eip !185
+  %888 = load i32, i32* %887, !mcsema_real_eip !185
+  %889 = sub i32 %888, 268435455, !mcsema_real_eip !185
+  %890 = xor i32 %889, %888, !mcsema_real_eip !185
+  %891 = xor i32 %890, 268435455, !mcsema_real_eip !185
+  %892 = and i32 %891, 16, !mcsema_real_eip !185
+  %893 = icmp ne i32 %892, 0, !mcsema_real_eip !185
+  store i1 %893, i1* %AF, !mcsema_real_eip !185
+  %894 = trunc i32 %889 to i8, !mcsema_real_eip !185
+  %895 = call i8 @llvm.ctpop.i8(i8 %894), !mcsema_real_eip !185
+  %896 = trunc i8 %895 to i1, !mcsema_real_eip !185
+  %897 = xor i1 %896, true, !mcsema_real_eip !185
+  store i1 %897, i1* %PF, !mcsema_real_eip !185
+  %898 = icmp eq i32 %889, 0, !mcsema_real_eip !185
+  store i1 %898, i1* %ZF, !mcsema_real_eip !185
+  %899 = lshr i32 %889, 31, !mcsema_real_eip !185
+  %900 = trunc i32 %899 to i1, !mcsema_real_eip !185
+  store i1 %900, i1* %SF, !mcsema_real_eip !185
+  %901 = icmp ult i32 %888, 268435455, !mcsema_real_eip !185
+  store i1 %901, i1* %CF, !mcsema_real_eip !185
+  %902 = xor i32 %888, 268435455, !mcsema_real_eip !185
+  %903 = and i32 %902, %890, !mcsema_real_eip !185
+  %904 = lshr i32 %903, 31, !mcsema_real_eip !185
+  %905 = trunc i32 %904 to i1, !mcsema_real_eip !185
+  store i1 %905, i1* %OF, !mcsema_real_eip !185
+  %906 = or i1 %901, %898, !mcsema_real_eip !186
+  br i1 %906, label %block_0x2f6, label %block_0x2ea, !mcsema_real_eip !186
 
 block_0x2ea:                                      ; preds = %block_0x2d2
-  %RBP_val.309 = load i64, i64* %XBP, !mcsema_real_eip !187
-  %1246 = add i64 %RBP_val.309, -4, !mcsema_real_eip !187
-  %1247 = inttoptr i64 %1246 to i64*, !mcsema_real_eip !187
-  %1248 = ptrtoint i64* %1247 to i64, !mcsema_real_eip !187
-  %1249 = inttoptr i64 %1248 to i32*, !mcsema_real_eip !187
-  store i32 -22, i32* %1249, !mcsema_real_eip !187
+  %_new_gep_294 = getelementptr i8, i8* %_load_rbp_ptr_290, i64 -4
+  %_allin_new_bt_295 = bitcast i8* %_new_gep_294 to i64*
+  %907 = ptrtoint i64* %_allin_new_bt_295 to i64, !mcsema_real_eip !187
+  %908 = inttoptr i64 %907 to i32*, !mcsema_real_eip !187
+  store i32 -22, i32* %908, !mcsema_real_eip !187
   br label %block_0x417, !mcsema_real_eip !188
 
 block_0x2f6:                                      ; preds = %block_0x2d2
   store i64 10000, i64* %XAX, !mcsema_real_eip !189
-  %RBP_val.270 = load i64, i64* %XBP, !mcsema_real_eip !190
-  %1250 = add i64 %RBP_val.270, -60, !mcsema_real_eip !190
-  %1251 = inttoptr i64 %1250 to i64*, !mcsema_real_eip !190
-  %1252 = ptrtoint i64* %1251 to i64, !mcsema_real_eip !190
-  %1253 = inttoptr i64 %1252 to i32*, !mcsema_real_eip !190
-  %1254 = load i32, i32* %1253, !mcsema_real_eip !190
-  %1255 = zext i32 %1254 to i64, !mcsema_real_eip !190
-  store i64 %1255, i64* %XCX, !mcsema_real_eip !190
-  %ECX.271 = bitcast i64* %XCX to i32*, !mcsema_real_eip !191
-  %ECX_val.272 = load i32, i32* %ECX.271, !mcsema_real_eip !191
-  %1256 = xor i32 %ECX_val.272, 13631488, !mcsema_real_eip !191
+  %909 = load i32, i32* %887, !mcsema_real_eip !190
+  %910 = zext i32 %909 to i64, !mcsema_real_eip !190
+  store i64 %910, i64* %XCX, !mcsema_real_eip !190
+  %ECX_val.272 = load i32, i32* %ECX.12, !mcsema_real_eip !191
+  %911 = xor i32 %ECX_val.272, 13631488, !mcsema_real_eip !191
   store i1 false, i1* %CF, !mcsema_real_eip !191
   store i1 false, i1* %OF, !mcsema_real_eip !191
-  %1257 = lshr i32 %1256, 31, !mcsema_real_eip !191
-  %1258 = trunc i32 %1257 to i1, !mcsema_real_eip !191
-  store i1 %1258, i1* %SF, !mcsema_real_eip !191
-  %1259 = icmp eq i32 %1256, 0, !mcsema_real_eip !191
-  store i1 %1259, i1* %ZF, !mcsema_real_eip !191
-  %1260 = trunc i32 %1256 to i8, !mcsema_real_eip !191
-  %1261 = call i8 @llvm.ctpop.i8(i8 %1260), !mcsema_real_eip !191
-  %1262 = trunc i8 %1261 to i1, !mcsema_real_eip !191
-  %1263 = xor i1 %1262, true, !mcsema_real_eip !191
-  store i1 %1263, i1* %PF, !mcsema_real_eip !191
+  %912 = lshr i32 %911, 31, !mcsema_real_eip !191
+  %913 = trunc i32 %912 to i1, !mcsema_real_eip !191
+  store i1 %913, i1* %SF, !mcsema_real_eip !191
+  %914 = icmp eq i32 %911, 0, !mcsema_real_eip !191
+  store i1 %914, i1* %ZF, !mcsema_real_eip !191
+  %915 = trunc i32 %911 to i8, !mcsema_real_eip !191
+  %916 = call i8 @llvm.ctpop.i8(i8 %915), !mcsema_real_eip !191
+  %917 = trunc i8 %916 to i1, !mcsema_real_eip !191
+  %918 = xor i1 %917, true, !mcsema_real_eip !191
+  store i1 %918, i1* %PF, !mcsema_real_eip !191
   store i1 undef, i1* %AF, !mcsema_real_eip !191
-  %1264 = zext i32 %1256 to i64, !mcsema_real_eip !191
-  store i64 %1264, i64* %XCX, !mcsema_real_eip !191
-  %RBP_val.273 = load i64, i64* %XBP, !mcsema_real_eip !192
-  %1265 = add i64 %RBP_val.273, -60, !mcsema_real_eip !192
-  %1266 = inttoptr i64 %1265 to i64*, !mcsema_real_eip !192
-  %ECX.274 = bitcast i64* %XCX to i32*, !mcsema_real_eip !192
-  %ECX_val.275 = load i32, i32* %ECX.274, !mcsema_real_eip !192
-  %1267 = ptrtoint i64* %1266 to i64, !mcsema_real_eip !192
-  %1268 = inttoptr i64 %1267 to i32*, !mcsema_real_eip !192
-  store i32 %ECX_val.275, i32* %1268, !mcsema_real_eip !192
-  %RBP_val.276 = load i64, i64* %XBP, !mcsema_real_eip !193
-  %1269 = add i64 %RBP_val.276, -60, !mcsema_real_eip !193
-  %1270 = inttoptr i64 %1269 to i64*, !mcsema_real_eip !193
-  %1271 = ptrtoint i64* %1270 to i64, !mcsema_real_eip !193
-  %1272 = inttoptr i64 %1271 to i32*, !mcsema_real_eip !193
-  %1273 = load i32, i32* %1272, !mcsema_real_eip !193
-  %1274 = zext i32 %1273 to i64, !mcsema_real_eip !193
-  store i64 %1274, i64* %XCX, !mcsema_real_eip !193
-  %ECX.277 = bitcast i64* %XCX to i32*, !mcsema_real_eip !194
-  %ECX_val.278 = load i32, i32* %ECX.277, !mcsema_real_eip !194
-  %1275 = lshr i32 %ECX_val.278, 3, !mcsema_real_eip !194
-  %1276 = and i32 %1275, 1, !mcsema_real_eip !194
-  %1277 = icmp ne i32 %1276, 0, !mcsema_real_eip !194
-  %1278 = load i1, i1* %CF, !mcsema_real_eip !194
-  %1279 = select i1 true, i1 %1277, i1 %1278, !mcsema_real_eip !194
-  %1280 = lshr i32 %1275, 1, !mcsema_real_eip !194
-  %1281 = load i1, i1* %OF, !mcsema_real_eip !194
-  %1282 = and i32 %ECX_val.278, -2147483648, !mcsema_real_eip !194
-  %1283 = icmp ne i32 %1282, 0, !mcsema_real_eip !194
-  %1284 = select i1 false, i1 %1283, i1 %1281, !mcsema_real_eip !194
-  store i1 %1284, i1* %OF, !mcsema_real_eip !194
-  store i1 %1279, i1* %CF, !mcsema_real_eip !194
-  %1285 = load i1, i1* %ZF, !mcsema_real_eip !194
-  %1286 = icmp eq i32 %1280, 0, !mcsema_real_eip !194
-  %1287 = select i1 true, i1 %1286, i1 %1285, !mcsema_real_eip !194
-  store i1 %1287, i1* %ZF, !mcsema_real_eip !194
-  %1288 = load i1, i1* %SF, !mcsema_real_eip !194
-  %1289 = icmp slt i32 %1280, 0, !mcsema_real_eip !194
-  %1290 = select i1 true, i1 %1289, i1 %1288, !mcsema_real_eip !194
-  store i1 %1290, i1* %SF, !mcsema_real_eip !194
-  %1291 = load i1, i1* %PF, !mcsema_real_eip !194
-  %1292 = trunc i32 %1280 to i8, !mcsema_real_eip !194
-  %1293 = call i8 @llvm.ctpop.i8(i8 %1292), !mcsema_real_eip !194
-  %1294 = trunc i8 %1293 to i1, !mcsema_real_eip !194
-  %1295 = xor i1 %1294, true, !mcsema_real_eip !194
-  store i1 %1295, i1* %PF, !mcsema_real_eip !194
-  %1296 = load i1, i1* %PF, !mcsema_real_eip !194
-  %1297 = select i1 true, i1 %1296, i1 %1291, !mcsema_real_eip !194
-  store i1 %1297, i1* %PF, !mcsema_real_eip !194
-  %1298 = zext i32 %1280 to i64, !mcsema_real_eip !194
-  store i64 %1298, i64* %XCX, !mcsema_real_eip !194
-  %RBP_val.279 = load i64, i64* %XBP, !mcsema_real_eip !195
-  %1299 = add i64 %RBP_val.279, -60, !mcsema_real_eip !195
-  %1300 = inttoptr i64 %1299 to i64*, !mcsema_real_eip !195
-  %ECX.280 = bitcast i64* %XCX to i32*, !mcsema_real_eip !195
-  %ECX_val.281 = load i32, i32* %ECX.280, !mcsema_real_eip !195
-  %1301 = ptrtoint i64* %1300 to i64, !mcsema_real_eip !195
-  %1302 = inttoptr i64 %1301 to i32*, !mcsema_real_eip !195
-  store i32 %ECX_val.281, i32* %1302, !mcsema_real_eip !195
-  %RBP_val.282 = load i64, i64* %XBP, !mcsema_real_eip !196
-  %1303 = add i64 %RBP_val.282, -60, !mcsema_real_eip !196
-  %1304 = inttoptr i64 %1303 to i64*, !mcsema_real_eip !196
-  %1305 = ptrtoint i64* %1304 to i64, !mcsema_real_eip !196
-  %1306 = inttoptr i64 %1305 to i32*, !mcsema_real_eip !196
-  %1307 = load i32, i32* %1306, !mcsema_real_eip !196
-  %1308 = zext i32 %1307 to i64, !mcsema_real_eip !196
-  store i64 %1308, i64* %XCX, !mcsema_real_eip !196
-  %ECX.283 = bitcast i64* %XCX to i32*, !mcsema_real_eip !197
-  %ECX_val.284 = load i32, i32* %ECX.283, !mcsema_real_eip !197
-  %1309 = sub i32 %ECX_val.284, 226, !mcsema_real_eip !197
-  %1310 = xor i32 %1309, %ECX_val.284, !mcsema_real_eip !197
-  %1311 = xor i32 %1310, 226, !mcsema_real_eip !197
-  %1312 = and i32 %1311, 16, !mcsema_real_eip !197
-  %1313 = icmp ne i32 %1312, 0, !mcsema_real_eip !197
-  store i1 %1313, i1* %AF, !mcsema_real_eip !197
-  %1314 = trunc i32 %1309 to i8, !mcsema_real_eip !197
-  %1315 = call i8 @llvm.ctpop.i8(i8 %1314), !mcsema_real_eip !197
-  %1316 = trunc i8 %1315 to i1, !mcsema_real_eip !197
-  %1317 = xor i1 %1316, true, !mcsema_real_eip !197
-  store i1 %1317, i1* %PF, !mcsema_real_eip !197
-  %1318 = icmp eq i32 %1309, 0, !mcsema_real_eip !197
-  store i1 %1318, i1* %ZF, !mcsema_real_eip !197
-  %1319 = lshr i32 %1309, 31, !mcsema_real_eip !197
-  %1320 = trunc i32 %1319 to i1, !mcsema_real_eip !197
-  store i1 %1320, i1* %SF, !mcsema_real_eip !197
-  %1321 = icmp ult i32 %ECX_val.284, 226, !mcsema_real_eip !197
-  store i1 %1321, i1* %CF, !mcsema_real_eip !197
-  %1322 = xor i32 %ECX_val.284, 226, !mcsema_real_eip !197
-  %1323 = xor i32 %ECX_val.284, %1309, !mcsema_real_eip !197
-  %1324 = and i32 %1322, %1323, !mcsema_real_eip !197
-  %1325 = lshr i32 %1324, 31, !mcsema_real_eip !197
-  %1326 = trunc i32 %1325 to i1, !mcsema_real_eip !197
-  store i1 %1326, i1* %OF, !mcsema_real_eip !197
-  %1327 = zext i32 %1309 to i64, !mcsema_real_eip !197
-  store i64 %1327, i64* %XCX, !mcsema_real_eip !197
-  %RBP_val.285 = load i64, i64* %XBP, !mcsema_real_eip !198
-  %1328 = add i64 %RBP_val.285, -60, !mcsema_real_eip !198
-  %1329 = inttoptr i64 %1328 to i64*, !mcsema_real_eip !198
-  %ECX.286 = bitcast i64* %XCX to i32*, !mcsema_real_eip !198
-  %ECX_val.287 = load i32, i32* %ECX.286, !mcsema_real_eip !198
-  %1330 = ptrtoint i64* %1329 to i64, !mcsema_real_eip !198
-  %1331 = inttoptr i64 %1330 to i32*, !mcsema_real_eip !198
-  store i32 %ECX_val.287, i32* %1331, !mcsema_real_eip !198
-  %RBP_val.288 = load i64, i64* %XBP, !mcsema_real_eip !199
-  %1332 = add i64 %RBP_val.288, -60, !mcsema_real_eip !199
-  %1333 = inttoptr i64 %1332 to i64*, !mcsema_real_eip !199
-  %1334 = ptrtoint i64* %1333 to i64, !mcsema_real_eip !199
-  %1335 = inttoptr i64 %1334 to i32*, !mcsema_real_eip !199
-  %1336 = load i32, i32* %1335, !mcsema_real_eip !199
-  %1337 = zext i32 %1336 to i64, !mcsema_real_eip !199
-  store i64 %1337, i64* %XCX, !mcsema_real_eip !199
-  %RBP_val.289 = load i64, i64* %XBP, !mcsema_real_eip !200
-  %1338 = add i64 %RBP_val.289, -68, !mcsema_real_eip !200
-  %1339 = inttoptr i64 %1338 to i64*, !mcsema_real_eip !200
-  %EAX.290 = bitcast i64* %XAX to i32*, !mcsema_real_eip !200
-  %EAX_val.291 = load i32, i32* %EAX.290, !mcsema_real_eip !200
-  %1340 = ptrtoint i64* %1339 to i64, !mcsema_real_eip !200
-  %1341 = inttoptr i64 %1340 to i32*, !mcsema_real_eip !200
-  store i32 %EAX_val.291, i32* %1341, !mcsema_real_eip !200
-  %ECX.292 = bitcast i64* %XCX to i32*, !mcsema_real_eip !201
-  %ECX_val.293 = load i32, i32* %ECX.292, !mcsema_real_eip !201
-  %1342 = zext i32 %ECX_val.293 to i64, !mcsema_real_eip !201
-  store i64 %1342, i64* %XAX, !mcsema_real_eip !201
-  %EDX.294 = bitcast i64* %XDX to i32*, !mcsema_real_eip !202
-  %EDX_val.295 = load i32, i32* %EDX.294, !mcsema_real_eip !202
-  %EDX.296 = bitcast i64* %XDX to i32*, !mcsema_real_eip !202
-  %EDX_val.297 = load i32, i32* %EDX.296, !mcsema_real_eip !202
-  %1343 = xor i32 %EDX_val.295, %EDX_val.297, !mcsema_real_eip !202
+  %919 = zext i32 %911 to i64, !mcsema_real_eip !191
+  store i64 %919, i64* %XCX, !mcsema_real_eip !191
+  %ECX_val.275 = load i32, i32* %ECX.12, !mcsema_real_eip !192
+  store i32 %ECX_val.275, i32* %887, !mcsema_real_eip !192
+  %_load_rbp_ptr_302 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_303 = getelementptr i8, i8* %_load_rbp_ptr_302, i64 -60
+  %_allin_new_bt_304 = bitcast i8* %_new_gep_303 to i64*
+  %920 = ptrtoint i64* %_allin_new_bt_304 to i64, !mcsema_real_eip !193
+  %921 = inttoptr i64 %920 to i32*, !mcsema_real_eip !193
+  %922 = load i32, i32* %921, !mcsema_real_eip !193
+  %923 = zext i32 %922 to i64, !mcsema_real_eip !193
+  store i64 %923, i64* %XCX, !mcsema_real_eip !193
+  %ECX_val.278 = load i32, i32* %ECX.12, !mcsema_real_eip !194
+  %924 = lshr i32 %ECX_val.278, 3, !mcsema_real_eip !194
+  %925 = and i32 %924, 1, !mcsema_real_eip !194
+  %926 = icmp ne i32 %925, 0, !mcsema_real_eip !194
+  %927 = load i1, i1* %CF, !mcsema_real_eip !194
+  %928 = lshr i32 %924, 1, !mcsema_real_eip !194
+  %929 = load i1, i1* %OF, !mcsema_real_eip !194
+  %930 = and i32 %ECX_val.278, -2147483648, !mcsema_real_eip !194
+  %931 = icmp ne i32 %930, 0, !mcsema_real_eip !194
+  store i1 %926, i1* %CF, !mcsema_real_eip !194
+  %932 = load i1, i1* %ZF, !mcsema_real_eip !194
+  %933 = icmp eq i32 %928, 0, !mcsema_real_eip !194
+  store i1 %933, i1* %ZF, !mcsema_real_eip !194
+  %934 = load i1, i1* %SF, !mcsema_real_eip !194
+  store i1 false, i1* %SF, !mcsema_real_eip !194
+  %935 = load i1, i1* %PF, !mcsema_real_eip !194
+  %936 = trunc i32 %928 to i8, !mcsema_real_eip !194
+  %937 = call i8 @llvm.ctpop.i8(i8 %936), !mcsema_real_eip !194
+  %938 = trunc i8 %937 to i1, !mcsema_real_eip !194
+  %939 = xor i1 %938, true, !mcsema_real_eip !194
+  store i1 %939, i1* %PF, !mcsema_real_eip !194
+  %940 = zext i32 %928 to i64, !mcsema_real_eip !194
+  store i64 %940, i64* %XCX, !mcsema_real_eip !194
+  %ECX_val.281 = load i32, i32* %ECX.12, !mcsema_real_eip !195
+  store i32 %ECX_val.281, i32* %921, !mcsema_real_eip !195
+  %_load_rbp_ptr_308 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_309 = getelementptr i8, i8* %_load_rbp_ptr_308, i64 -60
+  %_allin_new_bt_310 = bitcast i8* %_new_gep_309 to i64*
+  %941 = ptrtoint i64* %_allin_new_bt_310 to i64, !mcsema_real_eip !196
+  %942 = inttoptr i64 %941 to i32*, !mcsema_real_eip !196
+  %943 = load i32, i32* %942, !mcsema_real_eip !196
+  %944 = zext i32 %943 to i64, !mcsema_real_eip !196
+  store i64 %944, i64* %XCX, !mcsema_real_eip !196
+  %ECX_val.284 = load i32, i32* %ECX.12, !mcsema_real_eip !197
+  %945 = sub i32 %ECX_val.284, 226, !mcsema_real_eip !197
+  %946 = xor i32 %945, %ECX_val.284, !mcsema_real_eip !197
+  %947 = xor i32 %946, 226, !mcsema_real_eip !197
+  %948 = and i32 %947, 16, !mcsema_real_eip !197
+  %949 = icmp ne i32 %948, 0, !mcsema_real_eip !197
+  store i1 %949, i1* %AF, !mcsema_real_eip !197
+  %950 = trunc i32 %945 to i8, !mcsema_real_eip !197
+  %951 = call i8 @llvm.ctpop.i8(i8 %950), !mcsema_real_eip !197
+  %952 = trunc i8 %951 to i1, !mcsema_real_eip !197
+  %953 = xor i1 %952, true, !mcsema_real_eip !197
+  store i1 %953, i1* %PF, !mcsema_real_eip !197
+  %954 = icmp eq i32 %945, 0, !mcsema_real_eip !197
+  store i1 %954, i1* %ZF, !mcsema_real_eip !197
+  %955 = lshr i32 %945, 31, !mcsema_real_eip !197
+  %956 = trunc i32 %955 to i1, !mcsema_real_eip !197
+  store i1 %956, i1* %SF, !mcsema_real_eip !197
+  %957 = icmp ult i32 %ECX_val.284, 226, !mcsema_real_eip !197
+  store i1 %957, i1* %CF, !mcsema_real_eip !197
+  %958 = xor i32 %ECX_val.284, 226, !mcsema_real_eip !197
+  %959 = and i32 %958, %946, !mcsema_real_eip !197
+  %960 = lshr i32 %959, 31, !mcsema_real_eip !197
+  %961 = trunc i32 %960 to i1, !mcsema_real_eip !197
+  store i1 %961, i1* %OF, !mcsema_real_eip !197
+  %962 = zext i32 %945 to i64, !mcsema_real_eip !197
+  store i64 %962, i64* %XCX, !mcsema_real_eip !197
+  %ECX_val.287 = load i32, i32* %ECX.12, !mcsema_real_eip !198
+  store i32 %ECX_val.287, i32* %942, !mcsema_real_eip !198
+  %_load_rbp_ptr_314 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_315 = getelementptr i8, i8* %_load_rbp_ptr_314, i64 -60
+  %_allin_new_bt_316 = bitcast i8* %_new_gep_315 to i64*
+  %963 = ptrtoint i64* %_allin_new_bt_316 to i64, !mcsema_real_eip !199
+  %964 = inttoptr i64 %963 to i32*, !mcsema_real_eip !199
+  %965 = load i32, i32* %964, !mcsema_real_eip !199
+  %966 = zext i32 %965 to i64, !mcsema_real_eip !199
+  store i64 %966, i64* %XCX, !mcsema_real_eip !199
+  %_new_gep_318 = getelementptr i8, i8* %_load_rbp_ptr_314, i64 -68
+  %_allin_new_bt_319 = bitcast i8* %_new_gep_318 to i64*
+  %EAX_val.291 = load i32, i32* %EAX.9, !mcsema_real_eip !200
+  %967 = ptrtoint i64* %_allin_new_bt_319 to i64, !mcsema_real_eip !200
+  %968 = inttoptr i64 %967 to i32*, !mcsema_real_eip !200
+  store i32 %EAX_val.291, i32* %968, !mcsema_real_eip !200
+  %ECX_val.293 = load i32, i32* %ECX.12, !mcsema_real_eip !201
+  %969 = zext i32 %ECX_val.293 to i64, !mcsema_real_eip !201
+  store i64 %969, i64* %XAX, !mcsema_real_eip !201
+  %EDX_val.295 = load i32, i32* %EDX.67, !mcsema_real_eip !202
   store i1 false, i1* %CF, !mcsema_real_eip !202
   store i1 false, i1* %OF, !mcsema_real_eip !202
-  %1344 = lshr i32 %1343, 31, !mcsema_real_eip !202
-  %1345 = trunc i32 %1344 to i1, !mcsema_real_eip !202
-  store i1 %1345, i1* %SF, !mcsema_real_eip !202
-  %1346 = icmp eq i32 %1343, 0, !mcsema_real_eip !202
-  store i1 %1346, i1* %ZF, !mcsema_real_eip !202
-  %1347 = trunc i32 %1343 to i8, !mcsema_real_eip !202
-  %1348 = call i8 @llvm.ctpop.i8(i8 %1347), !mcsema_real_eip !202
-  %1349 = trunc i8 %1348 to i1, !mcsema_real_eip !202
-  %1350 = xor i1 %1349, true, !mcsema_real_eip !202
-  store i1 %1350, i1* %PF, !mcsema_real_eip !202
+  store i1 false, i1* %SF, !mcsema_real_eip !202
+  store i1 true, i1* %ZF, !mcsema_real_eip !202
+  store i1 true, i1* %PF, !mcsema_real_eip !202
   store i1 undef, i1* %AF, !mcsema_real_eip !202
-  %1351 = zext i32 %1343 to i64, !mcsema_real_eip !202
-  store i64 %1351, i64* %XDX, !mcsema_real_eip !202
-  %RBP_val.298 = load i64, i64* %XBP, !mcsema_real_eip !203
-  %1352 = add i64 %RBP_val.298, -68, !mcsema_real_eip !203
-  %1353 = inttoptr i64 %1352 to i64*, !mcsema_real_eip !203
-  %1354 = ptrtoint i64* %1353 to i64, !mcsema_real_eip !203
-  %1355 = inttoptr i64 %1354 to i32*, !mcsema_real_eip !203
-  %1356 = load i32, i32* %1355, !mcsema_real_eip !203
-  %1357 = zext i32 %1356 to i64, !mcsema_real_eip !203
-  store i64 %1357, i64* %XCX, !mcsema_real_eip !203
-  %ECX.299 = bitcast i64* %XCX to i32*, !mcsema_real_eip !204
-  %ECX_val.300 = load i32, i32* %ECX.299, !mcsema_real_eip !204
-  %EAX.301 = bitcast i64* %XAX to i32*, !mcsema_real_eip !204
-  %EAX_val.302 = load i32, i32* %EAX.301, !mcsema_real_eip !204
-  %EDX.303 = bitcast i64* %XDX to i32*, !mcsema_real_eip !204
-  %EDX_val.304 = load i32, i32* %EDX.303, !mcsema_real_eip !204
-  %1358 = zext i32 %EDX_val.304 to i64, !mcsema_real_eip !204
-  %1359 = shl i64 %1358, 32, !mcsema_real_eip !204
-  %1360 = sext i32 %EAX_val.302 to i64, !mcsema_real_eip !204
-  %1361 = or i64 %1359, %1360, !mcsema_real_eip !204
-  %1362 = zext i32 %ECX_val.300 to i64, !mcsema_real_eip !204
-  %1363 = udiv i64 %1361, %1362, !mcsema_real_eip !204
-  %1364 = urem i64 %1361, %1362, !mcsema_real_eip !204
-  %1365 = trunc i64 %1364 to i32, !mcsema_real_eip !204
-  %1366 = trunc i64 %1363 to i32, !mcsema_real_eip !204
-  %1367 = zext i32 %1365 to i64, !mcsema_real_eip !204
-  store i64 %1367, i64* %XDX, !mcsema_real_eip !204
-  %1368 = zext i32 %1366 to i64, !mcsema_real_eip !204
-  store i64 %1368, i64* %XAX, !mcsema_real_eip !204
-  %RBP_val.305 = load i64, i64* %XBP, !mcsema_real_eip !205
-  %1369 = add i64 %RBP_val.305, -60, !mcsema_real_eip !205
-  %1370 = inttoptr i64 %1369 to i64*, !mcsema_real_eip !205
-  %EAX.306 = bitcast i64* %XAX to i32*, !mcsema_real_eip !205
-  %EAX_val.307 = load i32, i32* %EAX.306, !mcsema_real_eip !205
-  %1371 = ptrtoint i64* %1370 to i64, !mcsema_real_eip !205
-  %1372 = inttoptr i64 %1371 to i32*, !mcsema_real_eip !205
-  store i32 %EAX_val.307, i32* %1372, !mcsema_real_eip !205
-  %RBP_val.308 = load i64, i64* %XBP, !mcsema_real_eip !206
-  %1373 = add i64 %RBP_val.308, -60, !mcsema_real_eip !206
-  %1374 = inttoptr i64 %1373 to i64*, !mcsema_real_eip !206
-  %1375 = ptrtoint i64* %1374 to i64, !mcsema_real_eip !206
-  %1376 = inttoptr i64 %1375 to i32*, !mcsema_real_eip !206
-  %1377 = load i32, i32* %1376, !mcsema_real_eip !206
-  %1378 = sub i32 %1377, 3, !mcsema_real_eip !206
-  %1379 = xor i32 %1378, %1377, !mcsema_real_eip !206
-  %1380 = xor i32 %1379, 3, !mcsema_real_eip !206
-  %1381 = and i32 %1380, 16, !mcsema_real_eip !206
-  %1382 = icmp ne i32 %1381, 0, !mcsema_real_eip !206
-  store i1 %1382, i1* %AF, !mcsema_real_eip !206
-  %1383 = trunc i32 %1378 to i8, !mcsema_real_eip !206
-  %1384 = call i8 @llvm.ctpop.i8(i8 %1383), !mcsema_real_eip !206
-  %1385 = trunc i8 %1384 to i1, !mcsema_real_eip !206
-  %1386 = xor i1 %1385, true, !mcsema_real_eip !206
-  store i1 %1386, i1* %PF, !mcsema_real_eip !206
-  %1387 = icmp eq i32 %1378, 0, !mcsema_real_eip !206
-  store i1 %1387, i1* %ZF, !mcsema_real_eip !206
-  %1388 = lshr i32 %1378, 31, !mcsema_real_eip !206
-  %1389 = trunc i32 %1388 to i1, !mcsema_real_eip !206
-  store i1 %1389, i1* %SF, !mcsema_real_eip !206
-  %1390 = icmp ult i32 %1377, 3, !mcsema_real_eip !206
-  store i1 %1390, i1* %CF, !mcsema_real_eip !206
-  %1391 = xor i32 %1377, 3, !mcsema_real_eip !206
-  %1392 = xor i32 %1377, %1378, !mcsema_real_eip !206
-  %1393 = and i32 %1391, %1392, !mcsema_real_eip !206
-  %1394 = lshr i32 %1393, 31, !mcsema_real_eip !206
-  %1395 = trunc i32 %1394 to i1, !mcsema_real_eip !206
-  store i1 %1395, i1* %OF, !mcsema_real_eip !206
-  %1396 = load i1, i1* %ZF, !mcsema_real_eip !207
-  %1397 = icmp eq i1 %1396, true, !mcsema_real_eip !207
-  br i1 %1397, label %block_0x343, label %block_0x338, !mcsema_real_eip !207
+  store i64 0, i64* %XDX, !mcsema_real_eip !202
+  %_load_rbp_ptr_320 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_321 = getelementptr i8, i8* %_load_rbp_ptr_320, i64 -68
+  %_allin_new_bt_322 = bitcast i8* %_new_gep_321 to i64*
+  %970 = ptrtoint i64* %_allin_new_bt_322 to i64, !mcsema_real_eip !203
+  %971 = inttoptr i64 %970 to i32*, !mcsema_real_eip !203
+  %972 = load i32, i32* %971, !mcsema_real_eip !203
+  %973 = zext i32 %972 to i64, !mcsema_real_eip !203
+  store i64 %973, i64* %XCX, !mcsema_real_eip !203
+  %ECX_val.300 = load i32, i32* %ECX.12, !mcsema_real_eip !204
+  %EAX_val.302 = load i32, i32* %EAX.9, !mcsema_real_eip !204
+  %EDX_val.304 = load i32, i32* %EDX.67, !mcsema_real_eip !204
+  %974 = zext i32 %EDX_val.304 to i64, !mcsema_real_eip !204
+  %975 = shl i64 %974, 32, !mcsema_real_eip !204
+  %976 = sext i32 %EAX_val.302 to i64, !mcsema_real_eip !204
+  %977 = or i64 %975, %976, !mcsema_real_eip !204
+  %978 = zext i32 %ECX_val.300 to i64, !mcsema_real_eip !204
+  %979 = udiv i64 %977, %978, !mcsema_real_eip !204
+  %980 = urem i64 %977, %978, !mcsema_real_eip !204
+  %981 = trunc i64 %980 to i32, !mcsema_real_eip !204
+  %982 = trunc i64 %979 to i32, !mcsema_real_eip !204
+  %983 = zext i32 %981 to i64, !mcsema_real_eip !204
+  store i64 %983, i64* %XDX, !mcsema_real_eip !204
+  %984 = zext i32 %982 to i64, !mcsema_real_eip !204
+  store i64 %984, i64* %XAX, !mcsema_real_eip !204
+  %_new_gep_324 = getelementptr i8, i8* %_load_rbp_ptr_320, i64 -60
+  %_allin_new_bt_325 = bitcast i8* %_new_gep_324 to i64*
+  %EAX_val.307 = load i32, i32* %EAX.9, !mcsema_real_eip !205
+  %985 = ptrtoint i64* %_allin_new_bt_325 to i64, !mcsema_real_eip !205
+  %986 = inttoptr i64 %985 to i32*, !mcsema_real_eip !205
+  store i32 %EAX_val.307, i32* %986, !mcsema_real_eip !205
+  %_load_rbp_ptr_326 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_327 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -60
+  %_allin_new_bt_328 = bitcast i8* %_new_gep_327 to i64*
+  %987 = ptrtoint i64* %_allin_new_bt_328 to i64, !mcsema_real_eip !206
+  %988 = inttoptr i64 %987 to i32*, !mcsema_real_eip !206
+  %989 = load i32, i32* %988, !mcsema_real_eip !206
+  %990 = sub i32 %989, 3, !mcsema_real_eip !206
+  %991 = xor i32 %990, %989, !mcsema_real_eip !206
+  %992 = xor i32 %991, 3, !mcsema_real_eip !206
+  %993 = and i32 %992, 16, !mcsema_real_eip !206
+  %994 = icmp ne i32 %993, 0, !mcsema_real_eip !206
+  store i1 %994, i1* %AF, !mcsema_real_eip !206
+  %995 = trunc i32 %990 to i8, !mcsema_real_eip !206
+  %996 = call i8 @llvm.ctpop.i8(i8 %995), !mcsema_real_eip !206
+  %997 = trunc i8 %996 to i1, !mcsema_real_eip !206
+  %998 = xor i1 %997, true, !mcsema_real_eip !206
+  store i1 %998, i1* %PF, !mcsema_real_eip !206
+  %999 = icmp eq i32 %990, 0, !mcsema_real_eip !206
+  store i1 %999, i1* %ZF, !mcsema_real_eip !206
+  %1000 = lshr i32 %990, 31, !mcsema_real_eip !206
+  %1001 = trunc i32 %1000 to i1, !mcsema_real_eip !206
+  store i1 %1001, i1* %SF, !mcsema_real_eip !206
+  %1002 = icmp ult i32 %989, 3, !mcsema_real_eip !206
+  store i1 %1002, i1* %CF, !mcsema_real_eip !206
+  %1003 = xor i32 %989, 3, !mcsema_real_eip !206
+  %1004 = and i32 %1003, %991, !mcsema_real_eip !206
+  %1005 = lshr i32 %1004, 31, !mcsema_real_eip !206
+  %1006 = trunc i32 %1005 to i1, !mcsema_real_eip !206
+  store i1 %1006, i1* %OF, !mcsema_real_eip !206
+  br i1 %999, label %block_0x343, label %block_0x338, !mcsema_real_eip !207
 
 block_0x338:                                      ; preds = %block_0x2f6
-  %RBP_val.325 = load i64, i64* %XBP, !mcsema_real_eip !208
-  %1398 = add i64 %RBP_val.325, -60, !mcsema_real_eip !208
-  %1399 = inttoptr i64 %1398 to i64*, !mcsema_real_eip !208
-  %1400 = ptrtoint i64* %1399 to i64, !mcsema_real_eip !208
-  %1401 = inttoptr i64 %1400 to i32*, !mcsema_real_eip !208
-  %1402 = load i32, i32* %1401, !mcsema_real_eip !208
-  %1403 = zext i32 %1402 to i64, !mcsema_real_eip !208
-  store i64 %1403, i64* %XAX, !mcsema_real_eip !208
-  %RBP_val.326 = load i64, i64* %XBP, !mcsema_real_eip !209
-  %1404 = add i64 %RBP_val.326, -4, !mcsema_real_eip !209
-  %1405 = inttoptr i64 %1404 to i64*, !mcsema_real_eip !209
-  %EAX.327 = bitcast i64* %XAX to i32*, !mcsema_real_eip !209
-  %EAX_val.328 = load i32, i32* %EAX.327, !mcsema_real_eip !209
-  %1406 = ptrtoint i64* %1405 to i64, !mcsema_real_eip !209
-  %1407 = inttoptr i64 %1406 to i32*, !mcsema_real_eip !209
-  store i32 %EAX_val.328, i32* %1407, !mcsema_real_eip !209
+  %1007 = load i32, i32* %988, !mcsema_real_eip !208
+  %1008 = zext i32 %1007 to i64, !mcsema_real_eip !208
+  store i64 %1008, i64* %XAX, !mcsema_real_eip !208
+  %_new_gep_333 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -4
+  %_allin_new_bt_334 = bitcast i8* %_new_gep_333 to i64*
+  %EAX_val.328 = load i32, i32* %EAX.9, !mcsema_real_eip !209
+  %1009 = ptrtoint i64* %_allin_new_bt_334 to i64, !mcsema_real_eip !209
+  %1010 = inttoptr i64 %1009 to i32*, !mcsema_real_eip !209
+  store i32 %EAX_val.328, i32* %1010, !mcsema_real_eip !209
   br label %block_0x417, !mcsema_real_eip !210
 
 block_0x343:                                      ; preds = %block_0x2f6
   store i64 4, i64* %XDX, !mcsema_real_eip !211
-  %RBP_val.310 = load i64, i64* %XBP, !mcsema_real_eip !212
-  %1408 = add i64 %RBP_val.310, -20, !mcsema_real_eip !212
-  %1409 = inttoptr i64 %1408 to i64*, !mcsema_real_eip !212
-  %1410 = ptrtoint i64* %1409 to i64, !mcsema_real_eip !212
-  %1411 = inttoptr i64 %1410 to i32*, !mcsema_real_eip !212
-  %1412 = load i32, i32* %1411, !mcsema_real_eip !212
-  %1413 = zext i32 %1412 to i64, !mcsema_real_eip !212
-  store i64 %1413, i64* %XDI, !mcsema_real_eip !212
-  %RBP_val.311 = load i64, i64* %XBP, !mcsema_real_eip !213
-  %1414 = add i64 %RBP_val.311, -16, !mcsema_real_eip !213
-  %1415 = inttoptr i64 %1414 to i64*, !mcsema_real_eip !213
-  %1416 = load i64, i64* %1415, !mcsema_real_eip !213
-  store i64 %1416, i64* %XAX, !mcsema_real_eip !213
-  %RAX_val.312 = load i64, i64* %XAX, !mcsema_real_eip !214
-  %1417 = add i64 28, %RAX_val.312, !mcsema_real_eip !214
-  %1418 = xor i64 %1417, %RAX_val.312, !mcsema_real_eip !214
-  %1419 = xor i64 %1418, 28, !mcsema_real_eip !214
-  %1420 = and i64 %1419, 16, !mcsema_real_eip !214
-  %1421 = icmp ne i64 %1420, 0, !mcsema_real_eip !214
-  store i1 %1421, i1* %AF, !mcsema_real_eip !214
-  %1422 = lshr i64 %1417, 63, !mcsema_real_eip !214
-  %1423 = trunc i64 %1422 to i1, !mcsema_real_eip !214
-  store i1 %1423, i1* %SF, !mcsema_real_eip !214
-  %1424 = icmp eq i64 %1417, 0, !mcsema_real_eip !214
-  store i1 %1424, i1* %ZF, !mcsema_real_eip !214
-  %1425 = xor i64 %RAX_val.312, 28, !mcsema_real_eip !214
-  %1426 = xor i64 %1425, -1, !mcsema_real_eip !214
-  %1427 = xor i64 %RAX_val.312, %1417, !mcsema_real_eip !214
-  %1428 = and i64 %1426, %1427, !mcsema_real_eip !214
-  %1429 = lshr i64 %1428, 63, !mcsema_real_eip !214
-  %1430 = and i64 %1429, 1, !mcsema_real_eip !214
-  %1431 = trunc i64 %1430 to i1, !mcsema_real_eip !214
-  store i1 %1431, i1* %OF, !mcsema_real_eip !214
-  %1432 = trunc i64 %1417 to i8, !mcsema_real_eip !214
-  %1433 = call i8 @llvm.ctpop.i8(i8 %1432), !mcsema_real_eip !214
-  %1434 = trunc i8 %1433 to i1, !mcsema_real_eip !214
-  %1435 = xor i1 %1434, true, !mcsema_real_eip !214
-  store i1 %1435, i1* %PF, !mcsema_real_eip !214
-  %1436 = icmp ult i64 %1417, %RAX_val.312, !mcsema_real_eip !214
-  store i1 %1436, i1* %CF, !mcsema_real_eip !214
-  store i64 %1417, i64* %XAX, !mcsema_real_eip !214
-  %RAX_val.313 = load i64, i64* %XAX, !mcsema_real_eip !215
-  store i64 %RAX_val.313, i64* %XSI, !mcsema_real_eip !215
-  %RDI_val.314 = load i64, i64* %XDI, !mcsema_real_eip !216
-  %RSI_val.315 = load i64, i64* %XSI, !mcsema_real_eip !216
-  %RDX_val.316 = load i64, i64* %XDX, !mcsema_real_eip !216
+  %_new_gep_336 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -20
+  %_allin_new_bt_337 = bitcast i8* %_new_gep_336 to i64*
+  %1011 = ptrtoint i64* %_allin_new_bt_337 to i64, !mcsema_real_eip !212
+  %1012 = inttoptr i64 %1011 to i32*, !mcsema_real_eip !212
+  %1013 = load i32, i32* %1012, !mcsema_real_eip !212
+  %1014 = zext i32 %1013 to i64, !mcsema_real_eip !212
+  store i64 %1014, i64* %XDI, !mcsema_real_eip !212
+  %_new_gep_339 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -16
+  %_allin_new_bt_340 = bitcast i8* %_new_gep_339 to i64*
+  %1015 = load i64, i64* %_allin_new_bt_340, !mcsema_real_eip !213
+  store i64 %1015, i64* %XAX, !mcsema_real_eip !213
+  %1016 = add i64 28, %1015, !mcsema_real_eip !214
+  %1017 = xor i64 %1016, %1015, !mcsema_real_eip !214
+  %1018 = xor i64 %1017, 28, !mcsema_real_eip !214
+  %1019 = and i64 %1018, 16, !mcsema_real_eip !214
+  %1020 = icmp ne i64 %1019, 0, !mcsema_real_eip !214
+  store i1 %1020, i1* %AF, !mcsema_real_eip !214
+  %1021 = lshr i64 %1016, 63, !mcsema_real_eip !214
+  %1022 = trunc i64 %1021 to i1, !mcsema_real_eip !214
+  store i1 %1022, i1* %SF, !mcsema_real_eip !214
+  %1023 = icmp eq i64 %1016, 0, !mcsema_real_eip !214
+  store i1 %1023, i1* %ZF, !mcsema_real_eip !214
+  %1024 = xor i64 %1015, 28, !mcsema_real_eip !214
+  %1025 = xor i64 %1024, -1, !mcsema_real_eip !214
+  %1026 = and i64 %1025, %1017, !mcsema_real_eip !214
+  %1027 = lshr i64 %1026, 63, !mcsema_real_eip !214
+  %1028 = and i64 %1027, 1, !mcsema_real_eip !214
+  %1029 = trunc i64 %1028 to i1, !mcsema_real_eip !214
+  store i1 %1029, i1* %OF, !mcsema_real_eip !214
+  %1030 = trunc i64 %1016 to i8, !mcsema_real_eip !214
+  %1031 = call i8 @llvm.ctpop.i8(i8 %1030), !mcsema_real_eip !214
+  %1032 = trunc i8 %1031 to i1, !mcsema_real_eip !214
+  %1033 = xor i1 %1032, true, !mcsema_real_eip !214
+  store i1 %1033, i1* %PF, !mcsema_real_eip !214
+  %1034 = icmp ult i64 %1016, %1015, !mcsema_real_eip !214
+  store i1 %1034, i1* %CF, !mcsema_real_eip !214
+  store i64 %1016, i64* %XAX, !mcsema_real_eip !214
+  store i64 %1016, i64* %XSI, !mcsema_real_eip !215
+  %_load_rsp_ptr_341 = load i8*, i8** %_RSP_ptr_
   %RSP_val.317 = load i64, i64* %XSP, !mcsema_real_eip !216
-  %1437 = sub i64 %RSP_val.317, 8, !mcsema_real_eip !216
-  %1438 = inttoptr i64 %1437 to i64*, !mcsema_real_eip !216
-  store i64 -2415393069852865332, i64* %1438, !mcsema_real_eip !216
-  store i64 %1437, i64* %XSP, !mcsema_real_eip !216
-  %1439 = call x86_64_sysvcc i64 @_read_bytes(i64 %RDI_val.314, i64 %RSI_val.315, i64 %RDX_val.316), !mcsema_real_eip !216
-  store i64 %1439, i64* %XAX, !mcsema_real_eip !216
-  %RBP_val.318 = load i64, i64* %XBP, !mcsema_real_eip !217
-  %1440 = add i64 %RBP_val.318, -64, !mcsema_real_eip !217
-  %1441 = inttoptr i64 %1440 to i64*, !mcsema_real_eip !217
-  %EAX.319 = bitcast i64* %XAX to i32*, !mcsema_real_eip !217
-  %EAX_val.320 = load i32, i32* %EAX.319, !mcsema_real_eip !217
-  %1442 = ptrtoint i64* %1441 to i64, !mcsema_real_eip !217
-  %1443 = inttoptr i64 %1442 to i32*, !mcsema_real_eip !217
-  store i32 %EAX_val.320, i32* %1443, !mcsema_real_eip !217
-  %RBP_val.321 = load i64, i64* %XBP, !mcsema_real_eip !218
-  %1444 = add i64 %RBP_val.321, -16, !mcsema_real_eip !218
-  %1445 = inttoptr i64 %1444 to i64*, !mcsema_real_eip !218
-  %1446 = load i64, i64* %1445, !mcsema_real_eip !218
-  store i64 %1446, i64* %XSI, !mcsema_real_eip !218
-  %RSI_val.322 = load i64, i64* %XSI, !mcsema_real_eip !219
-  %1447 = add i64 %RSI_val.322, 28, !mcsema_real_eip !219
-  %1448 = inttoptr i64 %1447 to i64*, !mcsema_real_eip !219
-  %1449 = ptrtoint i64* %1448 to i64, !mcsema_real_eip !219
-  %1450 = inttoptr i64 %1449 to i8*, !mcsema_real_eip !219
-  %1451 = load i8, i8* %1450, !mcsema_real_eip !219
-  %1452 = sext i8 %1451 to i32, !mcsema_real_eip !219
-  %1453 = zext i32 %1452 to i64, !mcsema_real_eip !219
-  store i64 %1453, i64* %XAX, !mcsema_real_eip !219
-  %EAX.323 = bitcast i64* %XAX to i32*, !mcsema_real_eip !220
-  %EAX_val.324 = load i32, i32* %EAX.323, !mcsema_real_eip !220
-  %1454 = sub i32 %EAX_val.324, 100, !mcsema_real_eip !220
-  %1455 = xor i32 %1454, %EAX_val.324, !mcsema_real_eip !220
-  %1456 = xor i32 %1455, 100, !mcsema_real_eip !220
-  %1457 = and i32 %1456, 16, !mcsema_real_eip !220
-  %1458 = icmp ne i32 %1457, 0, !mcsema_real_eip !220
-  store i1 %1458, i1* %AF, !mcsema_real_eip !220
-  %1459 = trunc i32 %1454 to i8, !mcsema_real_eip !220
-  %1460 = call i8 @llvm.ctpop.i8(i8 %1459), !mcsema_real_eip !220
-  %1461 = trunc i8 %1460 to i1, !mcsema_real_eip !220
-  %1462 = xor i1 %1461, true, !mcsema_real_eip !220
-  store i1 %1462, i1* %PF, !mcsema_real_eip !220
-  %1463 = icmp eq i32 %1454, 0, !mcsema_real_eip !220
-  store i1 %1463, i1* %ZF, !mcsema_real_eip !220
-  %1464 = lshr i32 %1454, 31, !mcsema_real_eip !220
-  %1465 = trunc i32 %1464 to i1, !mcsema_real_eip !220
-  store i1 %1465, i1* %SF, !mcsema_real_eip !220
-  %1466 = icmp ult i32 %EAX_val.324, 100, !mcsema_real_eip !220
-  store i1 %1466, i1* %CF, !mcsema_real_eip !220
-  %1467 = xor i32 %EAX_val.324, 100, !mcsema_real_eip !220
-  %1468 = xor i32 %EAX_val.324, %1454, !mcsema_real_eip !220
-  %1469 = and i32 %1467, %1468, !mcsema_real_eip !220
-  %1470 = lshr i32 %1469, 31, !mcsema_real_eip !220
-  %1471 = trunc i32 %1470 to i1, !mcsema_real_eip !220
-  store i1 %1471, i1* %OF, !mcsema_real_eip !220
-  %1472 = load i1, i1* %ZF, !mcsema_real_eip !221
-  %1473 = icmp eq i1 %1472, false, !mcsema_real_eip !221
-  br i1 %1473, label %block_0x38e, label %block_0x36f, !mcsema_real_eip !221
+  %_new_gep_342 = getelementptr i8, i8* %_load_rsp_ptr_341, i64 -8
+  %1035 = sub i64 %RSP_val.317, 8, !mcsema_real_eip !216
+  %_allin_new_bt_343 = bitcast i8* %_new_gep_342 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_343, !mcsema_real_eip !216
+  store volatile i8* %_new_gep_342, i8** %_RSP_ptr_
+  store i64 %1035, i64* %XSP, !mcsema_real_eip !216
+  %1036 = call x86_64_sysvcc i64 @_read_bytes(i64 %1014, i64 %1016, i64 4)
+  %_rsp_fix_432 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_433 = getelementptr i8, i8* %_rsp_fix_432, i64 8
+  store i8* %_gep_fix_433, i8** %_RSP_ptr_
+  store i64 %1036, i64* %XAX, !mcsema_real_eip !216
+  %_load_rbp_ptr_344 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_345 = getelementptr i8, i8* %_load_rbp_ptr_344, i64 -64
+  %_allin_new_bt_346 = bitcast i8* %_new_gep_345 to i64*
+  %EAX_val.320 = load i32, i32* %EAX.9, !mcsema_real_eip !217
+  %1037 = ptrtoint i64* %_allin_new_bt_346 to i64, !mcsema_real_eip !217
+  %1038 = inttoptr i64 %1037 to i32*, !mcsema_real_eip !217
+  store i32 %EAX_val.320, i32* %1038, !mcsema_real_eip !217
+  %_load_rbp_ptr_347 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_348 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -16
+  %_allin_new_bt_349 = bitcast i8* %_new_gep_348 to i64*
+  %1039 = load i64, i64* %_allin_new_bt_349, !mcsema_real_eip !218
+  store i64 %1039, i64* %XSI, !mcsema_real_eip !218
+  %1040 = add i64 %1039, 28, !mcsema_real_eip !219
+  %1041 = inttoptr i64 %1040 to i64*, !mcsema_real_eip !219
+  %1042 = inttoptr i64 %1040 to i8*, !mcsema_real_eip !219
+  %1043 = load i8, i8* %1042, !mcsema_real_eip !219
+  %1044 = sext i8 %1043 to i32, !mcsema_real_eip !219
+  %1045 = zext i32 %1044 to i64, !mcsema_real_eip !219
+  store i64 %1045, i64* %XAX, !mcsema_real_eip !219
+  %EAX_val.324 = load i32, i32* %EAX.9, !mcsema_real_eip !220
+  %1046 = sub i32 %EAX_val.324, 100, !mcsema_real_eip !220
+  %1047 = xor i32 %1046, %EAX_val.324, !mcsema_real_eip !220
+  %1048 = xor i32 %1047, 100, !mcsema_real_eip !220
+  %1049 = and i32 %1048, 16, !mcsema_real_eip !220
+  %1050 = icmp ne i32 %1049, 0, !mcsema_real_eip !220
+  store i1 %1050, i1* %AF, !mcsema_real_eip !220
+  %1051 = trunc i32 %1046 to i8, !mcsema_real_eip !220
+  %1052 = call i8 @llvm.ctpop.i8(i8 %1051), !mcsema_real_eip !220
+  %1053 = trunc i8 %1052 to i1, !mcsema_real_eip !220
+  %1054 = xor i1 %1053, true, !mcsema_real_eip !220
+  store i1 %1054, i1* %PF, !mcsema_real_eip !220
+  %1055 = icmp eq i32 %1046, 0, !mcsema_real_eip !220
+  store i1 %1055, i1* %ZF, !mcsema_real_eip !220
+  %1056 = lshr i32 %1046, 31, !mcsema_real_eip !220
+  %1057 = trunc i32 %1056 to i1, !mcsema_real_eip !220
+  store i1 %1057, i1* %SF, !mcsema_real_eip !220
+  %1058 = icmp ult i32 %EAX_val.324, 100, !mcsema_real_eip !220
+  store i1 %1058, i1* %CF, !mcsema_real_eip !220
+  %1059 = xor i32 %EAX_val.324, 100, !mcsema_real_eip !220
+  %1060 = and i32 %1059, %1047, !mcsema_real_eip !220
+  %1061 = lshr i32 %1060, 31, !mcsema_real_eip !220
+  %1062 = trunc i32 %1061 to i1, !mcsema_real_eip !220
+  store i1 %1062, i1* %OF, !mcsema_real_eip !220
+  %1063 = icmp eq i1 %1055, false, !mcsema_real_eip !221
+  br i1 %1063, label %block_0x38e, label %block_0x36f, !mcsema_real_eip !221
 
 block_0x36f:                                      ; preds = %block_0x343
-  %RBP_val.337 = load i64, i64* %XBP, !mcsema_real_eip !222
-  %1474 = add i64 %RBP_val.337, -16, !mcsema_real_eip !222
-  %1475 = inttoptr i64 %1474 to i64*, !mcsema_real_eip !222
-  %1476 = load i64, i64* %1475, !mcsema_real_eip !222
-  store i64 %1476, i64* %XAX, !mcsema_real_eip !222
-  %RAX_val.338 = load i64, i64* %XAX, !mcsema_real_eip !223
-  %1477 = add i64 %RAX_val.338, 29, !mcsema_real_eip !223
-  %1478 = inttoptr i64 %1477 to i64*, !mcsema_real_eip !223
-  %1479 = ptrtoint i64* %1478 to i64, !mcsema_real_eip !223
-  %1480 = inttoptr i64 %1479 to i8*, !mcsema_real_eip !223
-  %1481 = load i8, i8* %1480, !mcsema_real_eip !223
-  %1482 = sext i8 %1481 to i32, !mcsema_real_eip !223
-  %1483 = zext i32 %1482 to i64, !mcsema_real_eip !223
-  store i64 %1483, i64* %XCX, !mcsema_real_eip !223
-  %ECX.339 = bitcast i64* %XCX to i32*, !mcsema_real_eip !224
-  %ECX_val.340 = load i32, i32* %ECX.339, !mcsema_real_eip !224
-  %1484 = sub i32 %ECX_val.340, 100, !mcsema_real_eip !224
-  %1485 = xor i32 %1484, %ECX_val.340, !mcsema_real_eip !224
-  %1486 = xor i32 %1485, 100, !mcsema_real_eip !224
-  %1487 = and i32 %1486, 16, !mcsema_real_eip !224
-  %1488 = icmp ne i32 %1487, 0, !mcsema_real_eip !224
-  store i1 %1488, i1* %AF, !mcsema_real_eip !224
-  %1489 = trunc i32 %1484 to i8, !mcsema_real_eip !224
-  %1490 = call i8 @llvm.ctpop.i8(i8 %1489), !mcsema_real_eip !224
-  %1491 = trunc i8 %1490 to i1, !mcsema_real_eip !224
-  %1492 = xor i1 %1491, true, !mcsema_real_eip !224
-  store i1 %1492, i1* %PF, !mcsema_real_eip !224
-  %1493 = icmp eq i32 %1484, 0, !mcsema_real_eip !224
-  store i1 %1493, i1* %ZF, !mcsema_real_eip !224
-  %1494 = lshr i32 %1484, 31, !mcsema_real_eip !224
-  %1495 = trunc i32 %1494 to i1, !mcsema_real_eip !224
-  store i1 %1495, i1* %SF, !mcsema_real_eip !224
-  %1496 = icmp ult i32 %ECX_val.340, 100, !mcsema_real_eip !224
-  store i1 %1496, i1* %CF, !mcsema_real_eip !224
-  %1497 = xor i32 %ECX_val.340, 100, !mcsema_real_eip !224
-  %1498 = xor i32 %ECX_val.340, %1484, !mcsema_real_eip !224
-  %1499 = and i32 %1497, %1498, !mcsema_real_eip !224
-  %1500 = lshr i32 %1499, 31, !mcsema_real_eip !224
-  %1501 = trunc i32 %1500 to i1, !mcsema_real_eip !224
-  store i1 %1501, i1* %OF, !mcsema_real_eip !224
-  %1502 = load i1, i1* %ZF, !mcsema_real_eip !225
-  %1503 = icmp eq i1 %1502, false, !mcsema_real_eip !225
-  br i1 %1503, label %block_0x38e, label %block_0x380, !mcsema_real_eip !225
+  %1064 = load i64, i64* %_allin_new_bt_349, !mcsema_real_eip !222
+  store i64 %1064, i64* %XAX, !mcsema_real_eip !222
+  %1065 = add i64 %1064, 29, !mcsema_real_eip !223
+  %1066 = inttoptr i64 %1065 to i64*, !mcsema_real_eip !223
+  %1067 = inttoptr i64 %1065 to i8*, !mcsema_real_eip !223
+  %1068 = load i8, i8* %1067, !mcsema_real_eip !223
+  %1069 = sext i8 %1068 to i32, !mcsema_real_eip !223
+  %1070 = zext i32 %1069 to i64, !mcsema_real_eip !223
+  store i64 %1070, i64* %XCX, !mcsema_real_eip !223
+  %ECX_val.340 = load i32, i32* %ECX.12, !mcsema_real_eip !224
+  %1071 = sub i32 %ECX_val.340, 100, !mcsema_real_eip !224
+  %1072 = xor i32 %1071, %ECX_val.340, !mcsema_real_eip !224
+  %1073 = xor i32 %1072, 100, !mcsema_real_eip !224
+  %1074 = and i32 %1073, 16, !mcsema_real_eip !224
+  %1075 = icmp ne i32 %1074, 0, !mcsema_real_eip !224
+  store i1 %1075, i1* %AF, !mcsema_real_eip !224
+  %1076 = trunc i32 %1071 to i8, !mcsema_real_eip !224
+  %1077 = call i8 @llvm.ctpop.i8(i8 %1076), !mcsema_real_eip !224
+  %1078 = trunc i8 %1077 to i1, !mcsema_real_eip !224
+  %1079 = xor i1 %1078, true, !mcsema_real_eip !224
+  store i1 %1079, i1* %PF, !mcsema_real_eip !224
+  %1080 = icmp eq i32 %1071, 0, !mcsema_real_eip !224
+  store i1 %1080, i1* %ZF, !mcsema_real_eip !224
+  %1081 = lshr i32 %1071, 31, !mcsema_real_eip !224
+  %1082 = trunc i32 %1081 to i1, !mcsema_real_eip !224
+  store i1 %1082, i1* %SF, !mcsema_real_eip !224
+  %1083 = icmp ult i32 %ECX_val.340, 100, !mcsema_real_eip !224
+  store i1 %1083, i1* %CF, !mcsema_real_eip !224
+  %1084 = xor i32 %ECX_val.340, 100, !mcsema_real_eip !224
+  %1085 = and i32 %1084, %1072, !mcsema_real_eip !224
+  %1086 = lshr i32 %1085, 31, !mcsema_real_eip !224
+  %1087 = trunc i32 %1086 to i1, !mcsema_real_eip !224
+  store i1 %1087, i1* %OF, !mcsema_real_eip !224
+  %1088 = icmp eq i1 %1080, false, !mcsema_real_eip !225
+  br i1 %1088, label %block_0x38e, label %block_0x380, !mcsema_real_eip !225
 
 block_0x38e:                                      ; preds = %block_0x36f, %block_0x343
-  %RBP_val.329 = load i64, i64* %XBP, !mcsema_real_eip !226
-  %1504 = add i64 %RBP_val.329, -16, !mcsema_real_eip !226
-  %1505 = inttoptr i64 %1504 to i64*, !mcsema_real_eip !226
-  %1506 = load i64, i64* %1505, !mcsema_real_eip !226
-  store i64 %1506, i64* %XAX, !mcsema_real_eip !226
-  %RAX_val.330 = load i64, i64* %XAX, !mcsema_real_eip !227
-  %1507 = add i64 %RAX_val.330, 28, !mcsema_real_eip !227
-  %1508 = inttoptr i64 %1507 to i64*, !mcsema_real_eip !227
-  %1509 = ptrtoint i64* %1508 to i64, !mcsema_real_eip !227
-  %1510 = inttoptr i64 %1509 to i8*, !mcsema_real_eip !227
-  %1511 = load i8, i8* %1510, !mcsema_real_eip !227
-  %1512 = sext i8 %1511 to i32, !mcsema_real_eip !227
-  %1513 = zext i32 %1512 to i64, !mcsema_real_eip !227
-  store i64 %1513, i64* %XCX, !mcsema_real_eip !227
-  %RBP_val.331 = load i64, i64* %XBP, !mcsema_real_eip !228
-  %1514 = add i64 %RBP_val.331, -16, !mcsema_real_eip !228
-  %1515 = inttoptr i64 %1514 to i64*, !mcsema_real_eip !228
-  %1516 = load i64, i64* %1515, !mcsema_real_eip !228
-  store i64 %1516, i64* %XAX, !mcsema_real_eip !228
-  %RAX_val.332 = load i64, i64* %XAX, !mcsema_real_eip !229
-  %1517 = add i64 %RAX_val.332, 29, !mcsema_real_eip !229
-  %1518 = inttoptr i64 %1517 to i64*, !mcsema_real_eip !229
-  %1519 = ptrtoint i64* %1518 to i64, !mcsema_real_eip !229
-  %1520 = inttoptr i64 %1519 to i8*, !mcsema_real_eip !229
-  %1521 = load i8, i8* %1520, !mcsema_real_eip !229
-  %1522 = sext i8 %1521 to i32, !mcsema_real_eip !229
-  %1523 = zext i32 %1522 to i64, !mcsema_real_eip !229
-  store i64 %1523, i64* %XDX, !mcsema_real_eip !229
-  %ECX.333 = bitcast i64* %XCX to i32*, !mcsema_real_eip !230
-  %ECX_val.334 = load i32, i32* %ECX.333, !mcsema_real_eip !230
-  %EDX.335 = bitcast i64* %XDX to i32*, !mcsema_real_eip !230
-  %EDX_val.336 = load i32, i32* %EDX.335, !mcsema_real_eip !230
-  %1524 = sub i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
-  %1525 = xor i32 %1524, %ECX_val.334, !mcsema_real_eip !230
-  %1526 = xor i32 %1525, %EDX_val.336, !mcsema_real_eip !230
-  %1527 = and i32 %1526, 16, !mcsema_real_eip !230
-  %1528 = icmp ne i32 %1527, 0, !mcsema_real_eip !230
-  store i1 %1528, i1* %AF, !mcsema_real_eip !230
-  %1529 = trunc i32 %1524 to i8, !mcsema_real_eip !230
-  %1530 = call i8 @llvm.ctpop.i8(i8 %1529), !mcsema_real_eip !230
-  %1531 = trunc i8 %1530 to i1, !mcsema_real_eip !230
-  %1532 = xor i1 %1531, true, !mcsema_real_eip !230
-  store i1 %1532, i1* %PF, !mcsema_real_eip !230
-  %1533 = icmp eq i32 %1524, 0, !mcsema_real_eip !230
-  store i1 %1533, i1* %ZF, !mcsema_real_eip !230
-  %1534 = lshr i32 %1524, 31, !mcsema_real_eip !230
-  %1535 = trunc i32 %1534 to i1, !mcsema_real_eip !230
-  store i1 %1535, i1* %SF, !mcsema_real_eip !230
-  %1536 = icmp ult i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
-  store i1 %1536, i1* %CF, !mcsema_real_eip !230
-  %1537 = xor i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
-  %1538 = xor i32 %ECX_val.334, %1524, !mcsema_real_eip !230
-  %1539 = and i32 %1537, %1538, !mcsema_real_eip !230
-  %1540 = lshr i32 %1539, 31, !mcsema_real_eip !230
-  %1541 = trunc i32 %1540 to i1, !mcsema_real_eip !230
-  store i1 %1541, i1* %OF, !mcsema_real_eip !230
-  %1542 = load i1, i1* %ZF, !mcsema_real_eip !231
-  %1543 = icmp eq i1 %1542, false, !mcsema_real_eip !231
-  br i1 %1543, label %block_0x406, label %block_0x3a6, !mcsema_real_eip !231
+  %1089 = load i64, i64* %_allin_new_bt_349, !mcsema_real_eip !226
+  store i64 %1089, i64* %XAX, !mcsema_real_eip !226
+  %1090 = add i64 %1089, 28, !mcsema_real_eip !227
+  %1091 = inttoptr i64 %1090 to i64*, !mcsema_real_eip !227
+  %1092 = inttoptr i64 %1090 to i8*, !mcsema_real_eip !227
+  %1093 = load i8, i8* %1092, !mcsema_real_eip !227
+  %1094 = sext i8 %1093 to i32, !mcsema_real_eip !227
+  %1095 = zext i32 %1094 to i64, !mcsema_real_eip !227
+  store i64 %1095, i64* %XCX, !mcsema_real_eip !227
+  %1096 = load i64, i64* %_allin_new_bt_349, !mcsema_real_eip !228
+  store i64 %1096, i64* %XAX, !mcsema_real_eip !228
+  %1097 = add i64 %1096, 29, !mcsema_real_eip !229
+  %1098 = inttoptr i64 %1097 to i64*, !mcsema_real_eip !229
+  %1099 = inttoptr i64 %1097 to i8*, !mcsema_real_eip !229
+  %1100 = load i8, i8* %1099, !mcsema_real_eip !229
+  %1101 = sext i8 %1100 to i32, !mcsema_real_eip !229
+  %1102 = zext i32 %1101 to i64, !mcsema_real_eip !229
+  store i64 %1102, i64* %XDX, !mcsema_real_eip !229
+  %ECX_val.334 = load i32, i32* %ECX.12, !mcsema_real_eip !230
+  %EDX_val.336 = load i32, i32* %EDX.67, !mcsema_real_eip !230
+  %1103 = sub i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
+  %1104 = xor i32 %1103, %ECX_val.334, !mcsema_real_eip !230
+  %1105 = xor i32 %1104, %EDX_val.336, !mcsema_real_eip !230
+  %1106 = and i32 %1105, 16, !mcsema_real_eip !230
+  %1107 = icmp ne i32 %1106, 0, !mcsema_real_eip !230
+  store i1 %1107, i1* %AF, !mcsema_real_eip !230
+  %1108 = trunc i32 %1103 to i8, !mcsema_real_eip !230
+  %1109 = call i8 @llvm.ctpop.i8(i8 %1108), !mcsema_real_eip !230
+  %1110 = trunc i8 %1109 to i1, !mcsema_real_eip !230
+  %1111 = xor i1 %1110, true, !mcsema_real_eip !230
+  store i1 %1111, i1* %PF, !mcsema_real_eip !230
+  %1112 = icmp eq i32 %1103, 0, !mcsema_real_eip !230
+  store i1 %1112, i1* %ZF, !mcsema_real_eip !230
+  %1113 = lshr i32 %1103, 31, !mcsema_real_eip !230
+  %1114 = trunc i32 %1113 to i1, !mcsema_real_eip !230
+  store i1 %1114, i1* %SF, !mcsema_real_eip !230
+  %1115 = icmp ult i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
+  store i1 %1115, i1* %CF, !mcsema_real_eip !230
+  %1116 = xor i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
+  %1117 = and i32 %1116, %1104, !mcsema_real_eip !230
+  %1118 = lshr i32 %1117, 31, !mcsema_real_eip !230
+  %1119 = trunc i32 %1118 to i1, !mcsema_real_eip !230
+  store i1 %1119, i1* %OF, !mcsema_real_eip !230
+  %1120 = icmp eq i1 %1112, false, !mcsema_real_eip !231
+  br i1 %1120, label %block_0x406, label %block_0x3a6, !mcsema_real_eip !231
 
 block_0x3a6:                                      ; preds = %block_0x38e
   store i64 15, i64* %XAX, !mcsema_real_eip !232
-  %RBP_val.345 = load i64, i64* %XBP, !mcsema_real_eip !233
-  %1544 = add i64 %RBP_val.345, -16, !mcsema_real_eip !233
-  %1545 = inttoptr i64 %1544 to i64*, !mcsema_real_eip !233
-  %1546 = load i64, i64* %1545, !mcsema_real_eip !233
-  store i64 %1546, i64* %XCX, !mcsema_real_eip !233
-  %RCX_val.346 = load i64, i64* %XCX, !mcsema_real_eip !234
-  %1547 = add i64 %RCX_val.346, 31, !mcsema_real_eip !234
-  %1548 = inttoptr i64 %1547 to i64*, !mcsema_real_eip !234
-  %1549 = ptrtoint i64* %1548 to i64, !mcsema_real_eip !234
-  %1550 = inttoptr i64 %1549 to i8*, !mcsema_real_eip !234
-  %1551 = load i8, i8* %1550, !mcsema_real_eip !234
-  %1552 = sext i8 %1551 to i32, !mcsema_real_eip !234
-  %1553 = zext i32 %1552 to i64, !mcsema_real_eip !234
-  store i64 %1553, i64* %XDX, !mcsema_real_eip !234
-  %RBP_val.347 = load i64, i64* %XBP, !mcsema_real_eip !235
-  %1554 = add i64 %RBP_val.347, -16, !mcsema_real_eip !235
-  %1555 = inttoptr i64 %1554 to i64*, !mcsema_real_eip !235
-  %1556 = load i64, i64* %1555, !mcsema_real_eip !235
-  store i64 %1556, i64* %XCX, !mcsema_real_eip !235
-  %RCX_val.348 = load i64, i64* %XCX, !mcsema_real_eip !236
-  %1557 = add i64 %RCX_val.348, 30, !mcsema_real_eip !236
-  %1558 = inttoptr i64 %1557 to i64*, !mcsema_real_eip !236
-  %1559 = ptrtoint i64* %1558 to i64, !mcsema_real_eip !236
-  %1560 = inttoptr i64 %1559 to i8*, !mcsema_real_eip !236
-  %1561 = load i8, i8* %1560, !mcsema_real_eip !236
-  %1562 = sext i8 %1561 to i32, !mcsema_real_eip !236
-  %1563 = zext i32 %1562 to i64, !mcsema_real_eip !236
-  store i64 %1563, i64* %XSI, !mcsema_real_eip !236
-  %EDX.349 = bitcast i64* %XDX to i32*, !mcsema_real_eip !237
-  %EDX_val.350 = load i32, i32* %EDX.349, !mcsema_real_eip !237
+  %1121 = load i64, i64* %_allin_new_bt_349, !mcsema_real_eip !233
+  store i64 %1121, i64* %XCX, !mcsema_real_eip !233
+  %1122 = add i64 %1121, 31, !mcsema_real_eip !234
+  %1123 = inttoptr i64 %1122 to i64*, !mcsema_real_eip !234
+  %1124 = inttoptr i64 %1122 to i8*, !mcsema_real_eip !234
+  %1125 = load i8, i8* %1124, !mcsema_real_eip !234
+  %1126 = sext i8 %1125 to i32, !mcsema_real_eip !234
+  %1127 = zext i32 %1126 to i64, !mcsema_real_eip !234
+  store i64 %1127, i64* %XDX, !mcsema_real_eip !234
+  %1128 = load i64, i64* %_allin_new_bt_349, !mcsema_real_eip !235
+  store i64 %1128, i64* %XCX, !mcsema_real_eip !235
+  %1129 = add i64 %1128, 30, !mcsema_real_eip !236
+  %1130 = inttoptr i64 %1129 to i64*, !mcsema_real_eip !236
+  %1131 = inttoptr i64 %1129 to i8*, !mcsema_real_eip !236
+  %1132 = load i8, i8* %1131, !mcsema_real_eip !236
+  %1133 = sext i8 %1132 to i32, !mcsema_real_eip !236
+  %1134 = zext i32 %1133 to i64, !mcsema_real_eip !236
+  store i64 %1134, i64* %XSI, !mcsema_real_eip !236
+  %EDX_val.350 = load i32, i32* %EDX.67, !mcsema_real_eip !237
   %ESI.351 = bitcast i64* %XSI to i32*, !mcsema_real_eip !237
   %ESI_val.352 = load i32, i32* %ESI.351, !mcsema_real_eip !237
-  %1564 = sub i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
-  %1565 = xor i32 %1564, %EDX_val.350, !mcsema_real_eip !237
-  %1566 = xor i32 %1565, %ESI_val.352, !mcsema_real_eip !237
-  %1567 = and i32 %1566, 16, !mcsema_real_eip !237
-  %1568 = icmp ne i32 %1567, 0, !mcsema_real_eip !237
-  store i1 %1568, i1* %AF, !mcsema_real_eip !237
-  %1569 = trunc i32 %1564 to i8, !mcsema_real_eip !237
-  %1570 = call i8 @llvm.ctpop.i8(i8 %1569), !mcsema_real_eip !237
-  %1571 = trunc i8 %1570 to i1, !mcsema_real_eip !237
-  %1572 = xor i1 %1571, true, !mcsema_real_eip !237
-  store i1 %1572, i1* %PF, !mcsema_real_eip !237
-  %1573 = icmp eq i32 %1564, 0, !mcsema_real_eip !237
-  store i1 %1573, i1* %ZF, !mcsema_real_eip !237
-  %1574 = lshr i32 %1564, 31, !mcsema_real_eip !237
-  %1575 = trunc i32 %1574 to i1, !mcsema_real_eip !237
-  store i1 %1575, i1* %SF, !mcsema_real_eip !237
-  %1576 = icmp ult i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
-  store i1 %1576, i1* %CF, !mcsema_real_eip !237
-  %1577 = xor i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
-  %1578 = xor i32 %EDX_val.350, %1564, !mcsema_real_eip !237
-  %1579 = and i32 %1577, %1578, !mcsema_real_eip !237
-  %1580 = lshr i32 %1579, 31, !mcsema_real_eip !237
-  %1581 = trunc i32 %1580 to i1, !mcsema_real_eip !237
-  store i1 %1581, i1* %OF, !mcsema_real_eip !237
-  %1582 = zext i32 %1564 to i64, !mcsema_real_eip !237
-  store i64 %1582, i64* %XDX, !mcsema_real_eip !237
-  %EAX.353 = bitcast i64* %XAX to i32*, !mcsema_real_eip !238
-  %EAX_val.354 = load i32, i32* %EAX.353, !mcsema_real_eip !238
-  %EDX.355 = bitcast i64* %XDX to i32*, !mcsema_real_eip !238
-  %EDX_val.356 = load i32, i32* %EDX.355, !mcsema_real_eip !238
-  %1583 = sub i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
-  %1584 = xor i32 %1583, %EAX_val.354, !mcsema_real_eip !238
-  %1585 = xor i32 %1584, %EDX_val.356, !mcsema_real_eip !238
-  %1586 = and i32 %1585, 16, !mcsema_real_eip !238
-  %1587 = icmp ne i32 %1586, 0, !mcsema_real_eip !238
-  store i1 %1587, i1* %AF, !mcsema_real_eip !238
-  %1588 = trunc i32 %1583 to i8, !mcsema_real_eip !238
-  %1589 = call i8 @llvm.ctpop.i8(i8 %1588), !mcsema_real_eip !238
-  %1590 = trunc i8 %1589 to i1, !mcsema_real_eip !238
-  %1591 = xor i1 %1590, true, !mcsema_real_eip !238
-  store i1 %1591, i1* %PF, !mcsema_real_eip !238
-  %1592 = icmp eq i32 %1583, 0, !mcsema_real_eip !238
-  store i1 %1592, i1* %ZF, !mcsema_real_eip !238
-  %1593 = lshr i32 %1583, 31, !mcsema_real_eip !238
-  %1594 = trunc i32 %1593 to i1, !mcsema_real_eip !238
-  store i1 %1594, i1* %SF, !mcsema_real_eip !238
-  %1595 = icmp ult i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
-  store i1 %1595, i1* %CF, !mcsema_real_eip !238
-  %1596 = xor i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
-  %1597 = xor i32 %EAX_val.354, %1583, !mcsema_real_eip !238
-  %1598 = and i32 %1596, %1597, !mcsema_real_eip !238
-  %1599 = lshr i32 %1598, 31, !mcsema_real_eip !238
-  %1600 = trunc i32 %1599 to i1, !mcsema_real_eip !238
-  store i1 %1600, i1* %OF, !mcsema_real_eip !238
-  %1601 = zext i32 %1583 to i64, !mcsema_real_eip !238
-  store i64 %1601, i64* %XAX, !mcsema_real_eip !238
-  %RBP_val.357 = load i64, i64* %XBP, !mcsema_real_eip !239
-  %1602 = add i64 %RBP_val.357, -20, !mcsema_real_eip !239
-  %1603 = inttoptr i64 %1602 to i64*, !mcsema_real_eip !239
-  %1604 = ptrtoint i64* %1603 to i64, !mcsema_real_eip !239
-  %1605 = inttoptr i64 %1604 to i32*, !mcsema_real_eip !239
-  %1606 = load i32, i32* %1605, !mcsema_real_eip !239
-  %EAX.358 = bitcast i64* %XAX to i32*, !mcsema_real_eip !239
-  %EAX_val.359 = load i32, i32* %EAX.358, !mcsema_real_eip !239
-  %1607 = add i32 %EAX_val.359, %1606, !mcsema_real_eip !239
-  %1608 = xor i32 %1607, %1606, !mcsema_real_eip !239
-  %1609 = xor i32 %1608, %EAX_val.359, !mcsema_real_eip !239
-  %1610 = and i32 %1609, 16, !mcsema_real_eip !239
-  %1611 = icmp ne i32 %1610, 0, !mcsema_real_eip !239
-  store i1 %1611, i1* %AF, !mcsema_real_eip !239
-  %1612 = lshr i32 %1607, 31, !mcsema_real_eip !239
-  %1613 = trunc i32 %1612 to i1, !mcsema_real_eip !239
-  store i1 %1613, i1* %SF, !mcsema_real_eip !239
-  %1614 = icmp eq i32 %1607, 0, !mcsema_real_eip !239
-  store i1 %1614, i1* %ZF, !mcsema_real_eip !239
-  %1615 = xor i32 %1606, %EAX_val.359, !mcsema_real_eip !239
-  %1616 = xor i32 %1615, -1, !mcsema_real_eip !239
-  %1617 = xor i32 %1606, %1607, !mcsema_real_eip !239
-  %1618 = and i32 %1616, %1617, !mcsema_real_eip !239
-  %1619 = lshr i32 %1618, 31, !mcsema_real_eip !239
-  %1620 = and i32 %1619, 1, !mcsema_real_eip !239
-  %1621 = trunc i32 %1620 to i1, !mcsema_real_eip !239
-  store i1 %1621, i1* %OF, !mcsema_real_eip !239
-  %1622 = trunc i32 %1607 to i8, !mcsema_real_eip !239
-  %1623 = call i8 @llvm.ctpop.i8(i8 %1622), !mcsema_real_eip !239
-  %1624 = trunc i8 %1623 to i1, !mcsema_real_eip !239
-  %1625 = xor i1 %1624, true, !mcsema_real_eip !239
-  store i1 %1625, i1* %PF, !mcsema_real_eip !239
-  %1626 = icmp ult i32 %1607, %1606, !mcsema_real_eip !239
-  store i1 %1626, i1* %CF, !mcsema_real_eip !239
-  %1627 = zext i32 %1607 to i64, !mcsema_real_eip !239
-  store i64 %1627, i64* %XAX, !mcsema_real_eip !239
-  %RBP_val.360 = load i64, i64* %XBP, !mcsema_real_eip !240
-  %1628 = add i64 %RBP_val.360, -20, !mcsema_real_eip !240
-  %1629 = inttoptr i64 %1628 to i64*, !mcsema_real_eip !240
-  %EAX.361 = bitcast i64* %XAX to i32*, !mcsema_real_eip !240
-  %EAX_val.362 = load i32, i32* %EAX.361, !mcsema_real_eip !240
-  %1630 = ptrtoint i64* %1629 to i64, !mcsema_real_eip !240
-  %1631 = inttoptr i64 %1630 to i32*, !mcsema_real_eip !240
-  store i32 %EAX_val.362, i32* %1631, !mcsema_real_eip !240
-  %RBP_val.363 = load i64, i64* %XBP, !mcsema_real_eip !241
-  %1632 = add i64 %RBP_val.363, -16, !mcsema_real_eip !241
-  %1633 = inttoptr i64 %1632 to i64*, !mcsema_real_eip !241
-  %1634 = load i64, i64* %1633, !mcsema_real_eip !241
-  store i64 %1634, i64* %XCX, !mcsema_real_eip !241
-  %RCX_val.364 = load i64, i64* %XCX, !mcsema_real_eip !242
-  %1635 = add i64 %RCX_val.364, 28, !mcsema_real_eip !242
-  %1636 = inttoptr i64 %1635 to i64*, !mcsema_real_eip !242
-  %1637 = ptrtoint i64* %1636 to i64, !mcsema_real_eip !242
-  %1638 = inttoptr i64 %1637 to i8*, !mcsema_real_eip !242
-  %1639 = load i8, i8* %1638, !mcsema_real_eip !242
-  %1640 = zext i8 %1639 to i32, !mcsema_real_eip !242
-  %1641 = zext i32 %1640 to i64, !mcsema_real_eip !242
-  store i64 %1641, i64* %XDI, !mcsema_real_eip !242
-  %RDI_val.365 = load i64, i64* %XDI, !mcsema_real_eip !243
+  %1135 = sub i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
+  %1136 = xor i32 %1135, %EDX_val.350, !mcsema_real_eip !237
+  %1137 = xor i32 %1136, %ESI_val.352, !mcsema_real_eip !237
+  %1138 = and i32 %1137, 16, !mcsema_real_eip !237
+  %1139 = icmp ne i32 %1138, 0, !mcsema_real_eip !237
+  store i1 %1139, i1* %AF, !mcsema_real_eip !237
+  %1140 = trunc i32 %1135 to i8, !mcsema_real_eip !237
+  %1141 = call i8 @llvm.ctpop.i8(i8 %1140), !mcsema_real_eip !237
+  %1142 = trunc i8 %1141 to i1, !mcsema_real_eip !237
+  %1143 = xor i1 %1142, true, !mcsema_real_eip !237
+  store i1 %1143, i1* %PF, !mcsema_real_eip !237
+  %1144 = icmp eq i32 %1135, 0, !mcsema_real_eip !237
+  store i1 %1144, i1* %ZF, !mcsema_real_eip !237
+  %1145 = lshr i32 %1135, 31, !mcsema_real_eip !237
+  %1146 = trunc i32 %1145 to i1, !mcsema_real_eip !237
+  store i1 %1146, i1* %SF, !mcsema_real_eip !237
+  %1147 = icmp ult i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
+  store i1 %1147, i1* %CF, !mcsema_real_eip !237
+  %1148 = xor i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
+  %1149 = and i32 %1148, %1136, !mcsema_real_eip !237
+  %1150 = lshr i32 %1149, 31, !mcsema_real_eip !237
+  %1151 = trunc i32 %1150 to i1, !mcsema_real_eip !237
+  store i1 %1151, i1* %OF, !mcsema_real_eip !237
+  %1152 = zext i32 %1135 to i64, !mcsema_real_eip !237
+  store i64 %1152, i64* %XDX, !mcsema_real_eip !237
+  %EAX_val.354 = load i32, i32* %EAX.9, !mcsema_real_eip !238
+  %EDX_val.356 = load i32, i32* %EDX.67, !mcsema_real_eip !238
+  %1153 = sub i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
+  %1154 = xor i32 %1153, %EAX_val.354, !mcsema_real_eip !238
+  %1155 = xor i32 %1154, %EDX_val.356, !mcsema_real_eip !238
+  %1156 = and i32 %1155, 16, !mcsema_real_eip !238
+  %1157 = icmp ne i32 %1156, 0, !mcsema_real_eip !238
+  store i1 %1157, i1* %AF, !mcsema_real_eip !238
+  %1158 = trunc i32 %1153 to i8, !mcsema_real_eip !238
+  %1159 = call i8 @llvm.ctpop.i8(i8 %1158), !mcsema_real_eip !238
+  %1160 = trunc i8 %1159 to i1, !mcsema_real_eip !238
+  %1161 = xor i1 %1160, true, !mcsema_real_eip !238
+  store i1 %1161, i1* %PF, !mcsema_real_eip !238
+  %1162 = icmp eq i32 %1153, 0, !mcsema_real_eip !238
+  store i1 %1162, i1* %ZF, !mcsema_real_eip !238
+  %1163 = lshr i32 %1153, 31, !mcsema_real_eip !238
+  %1164 = trunc i32 %1163 to i1, !mcsema_real_eip !238
+  store i1 %1164, i1* %SF, !mcsema_real_eip !238
+  %1165 = icmp ult i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
+  store i1 %1165, i1* %CF, !mcsema_real_eip !238
+  %1166 = xor i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
+  %1167 = and i32 %1166, %1154, !mcsema_real_eip !238
+  %1168 = lshr i32 %1167, 31, !mcsema_real_eip !238
+  %1169 = trunc i32 %1168 to i1, !mcsema_real_eip !238
+  store i1 %1169, i1* %OF, !mcsema_real_eip !238
+  %1170 = zext i32 %1153 to i64, !mcsema_real_eip !238
+  store i64 %1170, i64* %XAX, !mcsema_real_eip !238
+  %_new_gep_366 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -20
+  %_allin_new_bt_367 = bitcast i8* %_new_gep_366 to i64*
+  %1171 = ptrtoint i64* %_allin_new_bt_367 to i64, !mcsema_real_eip !239
+  %1172 = inttoptr i64 %1171 to i32*, !mcsema_real_eip !239
+  %1173 = load i32, i32* %1172, !mcsema_real_eip !239
+  %EAX_val.359 = load i32, i32* %EAX.9, !mcsema_real_eip !239
+  %1174 = add i32 %EAX_val.359, %1173, !mcsema_real_eip !239
+  %1175 = xor i32 %1174, %1173, !mcsema_real_eip !239
+  %1176 = xor i32 %1175, %EAX_val.359, !mcsema_real_eip !239
+  %1177 = and i32 %1176, 16, !mcsema_real_eip !239
+  %1178 = icmp ne i32 %1177, 0, !mcsema_real_eip !239
+  store i1 %1178, i1* %AF, !mcsema_real_eip !239
+  %1179 = lshr i32 %1174, 31, !mcsema_real_eip !239
+  %1180 = trunc i32 %1179 to i1, !mcsema_real_eip !239
+  store i1 %1180, i1* %SF, !mcsema_real_eip !239
+  %1181 = icmp eq i32 %1174, 0, !mcsema_real_eip !239
+  store i1 %1181, i1* %ZF, !mcsema_real_eip !239
+  %1182 = xor i32 %1173, %EAX_val.359, !mcsema_real_eip !239
+  %1183 = xor i32 %1182, -1, !mcsema_real_eip !239
+  %1184 = and i32 %1183, %1175, !mcsema_real_eip !239
+  %1185 = lshr i32 %1184, 31, !mcsema_real_eip !239
+  %1186 = and i32 %1185, 1, !mcsema_real_eip !239
+  %1187 = trunc i32 %1186 to i1, !mcsema_real_eip !239
+  store i1 %1187, i1* %OF, !mcsema_real_eip !239
+  %1188 = trunc i32 %1174 to i8, !mcsema_real_eip !239
+  %1189 = call i8 @llvm.ctpop.i8(i8 %1188), !mcsema_real_eip !239
+  %1190 = trunc i8 %1189 to i1, !mcsema_real_eip !239
+  %1191 = xor i1 %1190, true, !mcsema_real_eip !239
+  store i1 %1191, i1* %PF, !mcsema_real_eip !239
+  %1192 = icmp ult i32 %1174, %1173, !mcsema_real_eip !239
+  store i1 %1192, i1* %CF, !mcsema_real_eip !239
+  %1193 = zext i32 %1174 to i64, !mcsema_real_eip !239
+  store i64 %1193, i64* %XAX, !mcsema_real_eip !239
+  %EAX_val.362 = load i32, i32* %EAX.9, !mcsema_real_eip !240
+  store i32 %EAX_val.362, i32* %1172, !mcsema_real_eip !240
+  %_load_rbp_ptr_371 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_372 = getelementptr i8, i8* %_load_rbp_ptr_371, i64 -16
+  %_allin_new_bt_373 = bitcast i8* %_new_gep_372 to i64*
+  %1194 = load i64, i64* %_allin_new_bt_373, !mcsema_real_eip !241
+  store i64 %1194, i64* %XCX, !mcsema_real_eip !241
+  %1195 = add i64 %1194, 28, !mcsema_real_eip !242
+  %1196 = inttoptr i64 %1195 to i64*, !mcsema_real_eip !242
+  %1197 = inttoptr i64 %1195 to i8*, !mcsema_real_eip !242
+  %1198 = load i8, i8* %1197, !mcsema_real_eip !242
+  %1199 = zext i8 %1198 to i32, !mcsema_real_eip !242
+  %1200 = zext i32 %1199 to i64, !mcsema_real_eip !242
+  store i64 %1200, i64* %XDI, !mcsema_real_eip !242
+  %_load_rsp_ptr_374 = load i8*, i8** %_RSP_ptr_
   %RSP_val.366 = load i64, i64* %XSP, !mcsema_real_eip !243
-  %1642 = sub i64 %RSP_val.366, 8, !mcsema_real_eip !243
-  %1643 = inttoptr i64 %1642 to i64*, !mcsema_real_eip !243
-  store i64 -2415393069852865332, i64* %1643, !mcsema_real_eip !243
-  store i64 %1642, i64* %XSP, !mcsema_real_eip !243
-  %1644 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.365), !mcsema_real_eip !243
-  store i64 %1644, i64* %XAX, !mcsema_real_eip !243
-  %RBP_val.367 = load i64, i64* %XBP, !mcsema_real_eip !244
-  %1645 = add i64 %RBP_val.367, -20, !mcsema_real_eip !244
-  %1646 = inttoptr i64 %1645 to i64*, !mcsema_real_eip !244
-  %1647 = ptrtoint i64* %1646 to i64, !mcsema_real_eip !244
-  %1648 = inttoptr i64 %1647 to i32*, !mcsema_real_eip !244
-  %1649 = load i32, i32* %1648, !mcsema_real_eip !244
-  %1650 = zext i32 %1649 to i64, !mcsema_real_eip !244
-  store i64 %1650, i64* %XDX, !mcsema_real_eip !244
-  %EDX.368 = bitcast i64* %XDX to i32*, !mcsema_real_eip !245
-  %EDX_val.369 = load i32, i32* %EDX.368, !mcsema_real_eip !245
-  %EAX.370 = bitcast i64* %XAX to i32*, !mcsema_real_eip !245
-  %EAX_val.371 = load i32, i32* %EAX.370, !mcsema_real_eip !245
-  %1651 = sub i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
-  %1652 = xor i32 %1651, %EDX_val.369, !mcsema_real_eip !245
-  %1653 = xor i32 %1652, %EAX_val.371, !mcsema_real_eip !245
-  %1654 = and i32 %1653, 16, !mcsema_real_eip !245
-  %1655 = icmp ne i32 %1654, 0, !mcsema_real_eip !245
-  store i1 %1655, i1* %AF, !mcsema_real_eip !245
-  %1656 = trunc i32 %1651 to i8, !mcsema_real_eip !245
-  %1657 = call i8 @llvm.ctpop.i8(i8 %1656), !mcsema_real_eip !245
-  %1658 = trunc i8 %1657 to i1, !mcsema_real_eip !245
-  %1659 = xor i1 %1658, true, !mcsema_real_eip !245
-  store i1 %1659, i1* %PF, !mcsema_real_eip !245
-  %1660 = icmp eq i32 %1651, 0, !mcsema_real_eip !245
-  store i1 %1660, i1* %ZF, !mcsema_real_eip !245
-  %1661 = lshr i32 %1651, 31, !mcsema_real_eip !245
-  %1662 = trunc i32 %1661 to i1, !mcsema_real_eip !245
-  store i1 %1662, i1* %SF, !mcsema_real_eip !245
-  %1663 = icmp ult i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
-  store i1 %1663, i1* %CF, !mcsema_real_eip !245
-  %1664 = xor i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
-  %1665 = xor i32 %EDX_val.369, %1651, !mcsema_real_eip !245
-  %1666 = and i32 %1664, %1665, !mcsema_real_eip !245
-  %1667 = lshr i32 %1666, 31, !mcsema_real_eip !245
-  %1668 = trunc i32 %1667 to i1, !mcsema_real_eip !245
-  store i1 %1668, i1* %OF, !mcsema_real_eip !245
-  %1669 = zext i32 %1651 to i64, !mcsema_real_eip !245
-  store i64 %1669, i64* %XDX, !mcsema_real_eip !245
-  %RBP_val.372 = load i64, i64* %XBP, !mcsema_real_eip !246
-  %1670 = add i64 %RBP_val.372, -20, !mcsema_real_eip !246
-  %1671 = inttoptr i64 %1670 to i64*, !mcsema_real_eip !246
-  %EDX.373 = bitcast i64* %XDX to i32*, !mcsema_real_eip !246
-  %EDX_val.374 = load i32, i32* %EDX.373, !mcsema_real_eip !246
-  %1672 = ptrtoint i64* %1671 to i64, !mcsema_real_eip !246
-  %1673 = inttoptr i64 %1672 to i32*, !mcsema_real_eip !246
-  store i32 %EDX_val.374, i32* %1673, !mcsema_real_eip !246
-  %RBP_val.375 = load i64, i64* %XBP, !mcsema_real_eip !247
-  %1674 = add i64 %RBP_val.375, -20, !mcsema_real_eip !247
-  %1675 = inttoptr i64 %1674 to i64*, !mcsema_real_eip !247
-  %1676 = ptrtoint i64* %1675 to i64, !mcsema_real_eip !247
-  %1677 = inttoptr i64 %1676 to i32*, !mcsema_real_eip !247
-  %1678 = load i32, i32* %1677, !mcsema_real_eip !247
-  %1679 = sub i32 %1678, 0, !mcsema_real_eip !247
-  %1680 = xor i32 %1679, %1678, !mcsema_real_eip !247
-  %1681 = xor i32 %1680, 0, !mcsema_real_eip !247
-  %1682 = and i32 %1681, 16, !mcsema_real_eip !247
-  %1683 = icmp ne i32 %1682, 0, !mcsema_real_eip !247
-  store i1 %1683, i1* %AF, !mcsema_real_eip !247
-  %1684 = trunc i32 %1679 to i8, !mcsema_real_eip !247
-  %1685 = call i8 @llvm.ctpop.i8(i8 %1684), !mcsema_real_eip !247
-  %1686 = trunc i8 %1685 to i1, !mcsema_real_eip !247
-  %1687 = xor i1 %1686, true, !mcsema_real_eip !247
-  store i1 %1687, i1* %PF, !mcsema_real_eip !247
-  %1688 = icmp eq i32 %1679, 0, !mcsema_real_eip !247
-  store i1 %1688, i1* %ZF, !mcsema_real_eip !247
-  %1689 = lshr i32 %1679, 31, !mcsema_real_eip !247
-  %1690 = trunc i32 %1689 to i1, !mcsema_real_eip !247
-  store i1 %1690, i1* %SF, !mcsema_real_eip !247
-  %1691 = icmp ult i32 %1678, 0, !mcsema_real_eip !247
-  store i1 %1691, i1* %CF, !mcsema_real_eip !247
-  %1692 = xor i32 %1678, 0, !mcsema_real_eip !247
-  %1693 = xor i32 %1678, %1679, !mcsema_real_eip !247
-  %1694 = and i32 %1692, %1693, !mcsema_real_eip !247
-  %1695 = lshr i32 %1694, 31, !mcsema_real_eip !247
-  %1696 = trunc i32 %1695 to i1, !mcsema_real_eip !247
-  store i1 %1696, i1* %OF, !mcsema_real_eip !247
-  %1697 = load i1, i1* %ZF, !mcsema_real_eip !248
-  %1698 = icmp eq i1 %1697, false, !mcsema_real_eip !248
-  br i1 %1698, label %block_0x401, label %block_0x3e4, !mcsema_real_eip !248
+  %_new_gep_375 = getelementptr i8, i8* %_load_rsp_ptr_374, i64 -8
+  %1201 = sub i64 %RSP_val.366, 8, !mcsema_real_eip !243
+  %_allin_new_bt_376 = bitcast i8* %_new_gep_375 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_376, !mcsema_real_eip !243
+  store volatile i8* %_new_gep_375, i8** %_RSP_ptr_
+  store i64 %1201, i64* %XSP, !mcsema_real_eip !243
+  %1202 = call x86_64_sysvcc i64 @_to_byte(i64 %1200)
+  %_rsp_fix_434 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_435 = getelementptr i8, i8* %_rsp_fix_434, i64 8
+  store i8* %_gep_fix_435, i8** %_RSP_ptr_
+  store i64 %1202, i64* %XAX, !mcsema_real_eip !243
+  %_load_rbp_ptr_377 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_378 = getelementptr i8, i8* %_load_rbp_ptr_377, i64 -20
+  %_allin_new_bt_379 = bitcast i8* %_new_gep_378 to i64*
+  %1203 = ptrtoint i64* %_allin_new_bt_379 to i64, !mcsema_real_eip !244
+  %1204 = inttoptr i64 %1203 to i32*, !mcsema_real_eip !244
+  %1205 = load i32, i32* %1204, !mcsema_real_eip !244
+  %1206 = zext i32 %1205 to i64, !mcsema_real_eip !244
+  store i64 %1206, i64* %XDX, !mcsema_real_eip !244
+  %EDX_val.369 = load i32, i32* %EDX.67, !mcsema_real_eip !245
+  %EAX_val.371 = load i32, i32* %EAX.9, !mcsema_real_eip !245
+  %1207 = sub i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
+  %1208 = xor i32 %1207, %EDX_val.369, !mcsema_real_eip !245
+  %1209 = xor i32 %1208, %EAX_val.371, !mcsema_real_eip !245
+  %1210 = and i32 %1209, 16, !mcsema_real_eip !245
+  %1211 = icmp ne i32 %1210, 0, !mcsema_real_eip !245
+  store i1 %1211, i1* %AF, !mcsema_real_eip !245
+  %1212 = trunc i32 %1207 to i8, !mcsema_real_eip !245
+  %1213 = call i8 @llvm.ctpop.i8(i8 %1212), !mcsema_real_eip !245
+  %1214 = trunc i8 %1213 to i1, !mcsema_real_eip !245
+  %1215 = xor i1 %1214, true, !mcsema_real_eip !245
+  store i1 %1215, i1* %PF, !mcsema_real_eip !245
+  %1216 = icmp eq i32 %1207, 0, !mcsema_real_eip !245
+  store i1 %1216, i1* %ZF, !mcsema_real_eip !245
+  %1217 = lshr i32 %1207, 31, !mcsema_real_eip !245
+  %1218 = trunc i32 %1217 to i1, !mcsema_real_eip !245
+  store i1 %1218, i1* %SF, !mcsema_real_eip !245
+  %1219 = icmp ult i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
+  store i1 %1219, i1* %CF, !mcsema_real_eip !245
+  %1220 = xor i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
+  %1221 = and i32 %1220, %1208, !mcsema_real_eip !245
+  %1222 = lshr i32 %1221, 31, !mcsema_real_eip !245
+  %1223 = trunc i32 %1222 to i1, !mcsema_real_eip !245
+  store i1 %1223, i1* %OF, !mcsema_real_eip !245
+  %1224 = zext i32 %1207 to i64, !mcsema_real_eip !245
+  store i64 %1224, i64* %XDX, !mcsema_real_eip !245
+  %EDX_val.374 = load i32, i32* %EDX.67, !mcsema_real_eip !246
+  store i32 %EDX_val.374, i32* %1204, !mcsema_real_eip !246
+  %_load_rbp_ptr_383 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_384 = getelementptr i8, i8* %_load_rbp_ptr_383, i64 -20
+  %_allin_new_bt_385 = bitcast i8* %_new_gep_384 to i64*
+  %1225 = ptrtoint i64* %_allin_new_bt_385 to i64, !mcsema_real_eip !247
+  %1226 = inttoptr i64 %1225 to i32*, !mcsema_real_eip !247
+  %1227 = load i32, i32* %1226, !mcsema_real_eip !247
+  store i1 false, i1* %AF, !mcsema_real_eip !247
+  %1228 = trunc i32 %1227 to i8, !mcsema_real_eip !247
+  %1229 = call i8 @llvm.ctpop.i8(i8 %1228), !mcsema_real_eip !247
+  %1230 = trunc i8 %1229 to i1, !mcsema_real_eip !247
+  %1231 = xor i1 %1230, true, !mcsema_real_eip !247
+  store i1 %1231, i1* %PF, !mcsema_real_eip !247
+  %1232 = icmp eq i32 %1227, 0, !mcsema_real_eip !247
+  store i1 %1232, i1* %ZF, !mcsema_real_eip !247
+  %1233 = lshr i32 %1227, 31, !mcsema_real_eip !247
+  %1234 = trunc i32 %1233 to i1, !mcsema_real_eip !247
+  store i1 %1234, i1* %SF, !mcsema_real_eip !247
+  store i1 false, i1* %CF, !mcsema_real_eip !247
+  store i1 false, i1* %OF, !mcsema_real_eip !247
+  %1235 = icmp eq i1 %1232, false, !mcsema_real_eip !248
+  br i1 %1235, label %block_0x401, label %block_0x3e4, !mcsema_real_eip !248
 
 block_0x406:                                      ; preds = %block_0x38e
-  %RBP_val.341 = load i64, i64* %XBP, !mcsema_real_eip !249
-  %1699 = add i64 %RBP_val.341, -64, !mcsema_real_eip !249
-  %1700 = inttoptr i64 %1699 to i64*, !mcsema_real_eip !249
-  %1701 = ptrtoint i64* %1700 to i64, !mcsema_real_eip !249
-  %1702 = inttoptr i64 %1701 to i32*, !mcsema_real_eip !249
-  %1703 = load i32, i32* %1702, !mcsema_real_eip !249
-  %1704 = zext i32 %1703 to i64, !mcsema_real_eip !249
-  store i64 %1704, i64* %XAX, !mcsema_real_eip !249
-  %RBP_val.342 = load i64, i64* %XBP, !mcsema_real_eip !250
-  %1705 = add i64 %RBP_val.342, -20, !mcsema_real_eip !250
-  %1706 = inttoptr i64 %1705 to i64*, !mcsema_real_eip !250
-  %EAX.343 = bitcast i64* %XAX to i32*, !mcsema_real_eip !250
-  %EAX_val.344 = load i32, i32* %EAX.343, !mcsema_real_eip !250
-  %1707 = ptrtoint i64* %1706 to i64, !mcsema_real_eip !250
-  %1708 = inttoptr i64 %1707 to i32*, !mcsema_real_eip !250
-  store i32 %EAX_val.344, i32* %1708, !mcsema_real_eip !250
+  %_new_gep_387 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -64
+  %_allin_new_bt_388 = bitcast i8* %_new_gep_387 to i64*
+  %1236 = ptrtoint i64* %_allin_new_bt_388 to i64, !mcsema_real_eip !249
+  %1237 = inttoptr i64 %1236 to i32*, !mcsema_real_eip !249
+  %1238 = load i32, i32* %1237, !mcsema_real_eip !249
+  %1239 = zext i32 %1238 to i64, !mcsema_real_eip !249
+  store i64 %1239, i64* %XAX, !mcsema_real_eip !249
+  %_new_gep_390 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -20
+  %_allin_new_bt_391 = bitcast i8* %_new_gep_390 to i64*
+  %EAX_val.344 = load i32, i32* %EAX.9, !mcsema_real_eip !250
+  %1240 = ptrtoint i64* %_allin_new_bt_391 to i64, !mcsema_real_eip !250
+  %1241 = inttoptr i64 %1240 to i32*, !mcsema_real_eip !250
+  store i32 %EAX_val.344, i32* %1241, !mcsema_real_eip !250
   br label %block_0x40c, !mcsema_real_eip !232
 
 block_0x380:                                      ; preds = %block_0x36f
-  %RBP_val.376 = load i64, i64* %XBP, !mcsema_real_eip !251
-  %1709 = add i64 %RBP_val.376, -64, !mcsema_real_eip !251
-  %1710 = inttoptr i64 %1709 to i64*, !mcsema_real_eip !251
-  %1711 = ptrtoint i64* %1710 to i64, !mcsema_real_eip !251
-  %1712 = inttoptr i64 %1711 to i32*, !mcsema_real_eip !251
-  %1713 = load i32, i32* %1712, !mcsema_real_eip !251
-  %1714 = zext i32 %1713 to i64, !mcsema_real_eip !251
-  store i64 %1714, i64* %XAX, !mcsema_real_eip !251
-  %RBP_val.377 = load i64, i64* %XBP, !mcsema_real_eip !252
-  %1715 = add i64 %RBP_val.377, -20, !mcsema_real_eip !252
-  %1716 = inttoptr i64 %1715 to i64*, !mcsema_real_eip !252
-  %1717 = ptrtoint i64* %1716 to i64, !mcsema_real_eip !252
-  %1718 = inttoptr i64 %1717 to i32*, !mcsema_real_eip !252
-  %1719 = load i32, i32* %1718, !mcsema_real_eip !252
-  %EAX.378 = bitcast i64* %XAX to i32*, !mcsema_real_eip !252
-  %EAX_val.379 = load i32, i32* %EAX.378, !mcsema_real_eip !252
-  %1720 = xor i32 %1719, %EAX_val.379, !mcsema_real_eip !252
+  %_new_gep_393 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -64
+  %_allin_new_bt_394 = bitcast i8* %_new_gep_393 to i64*
+  %1242 = ptrtoint i64* %_allin_new_bt_394 to i64, !mcsema_real_eip !251
+  %1243 = inttoptr i64 %1242 to i32*, !mcsema_real_eip !251
+  %1244 = load i32, i32* %1243, !mcsema_real_eip !251
+  %1245 = zext i32 %1244 to i64, !mcsema_real_eip !251
+  store i64 %1245, i64* %XAX, !mcsema_real_eip !251
+  %_new_gep_396 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -20
+  %_allin_new_bt_397 = bitcast i8* %_new_gep_396 to i64*
+  %1246 = ptrtoint i64* %_allin_new_bt_397 to i64, !mcsema_real_eip !252
+  %1247 = inttoptr i64 %1246 to i32*, !mcsema_real_eip !252
+  %1248 = load i32, i32* %1247, !mcsema_real_eip !252
+  %EAX_val.379 = load i32, i32* %EAX.9, !mcsema_real_eip !252
+  %1249 = xor i32 %1248, %EAX_val.379, !mcsema_real_eip !252
   store i1 false, i1* %CF, !mcsema_real_eip !252
   store i1 false, i1* %OF, !mcsema_real_eip !252
-  %1721 = lshr i32 %1720, 31, !mcsema_real_eip !252
-  %1722 = trunc i32 %1721 to i1, !mcsema_real_eip !252
-  store i1 %1722, i1* %SF, !mcsema_real_eip !252
-  %1723 = icmp eq i32 %1720, 0, !mcsema_real_eip !252
-  store i1 %1723, i1* %ZF, !mcsema_real_eip !252
-  %1724 = trunc i32 %1720 to i8, !mcsema_real_eip !252
-  %1725 = call i8 @llvm.ctpop.i8(i8 %1724), !mcsema_real_eip !252
-  %1726 = trunc i8 %1725 to i1, !mcsema_real_eip !252
-  %1727 = xor i1 %1726, true, !mcsema_real_eip !252
-  store i1 %1727, i1* %PF, !mcsema_real_eip !252
+  %1250 = lshr i32 %1249, 31, !mcsema_real_eip !252
+  %1251 = trunc i32 %1250 to i1, !mcsema_real_eip !252
+  store i1 %1251, i1* %SF, !mcsema_real_eip !252
+  %1252 = icmp eq i32 %1249, 0, !mcsema_real_eip !252
+  store i1 %1252, i1* %ZF, !mcsema_real_eip !252
+  %1253 = trunc i32 %1249 to i8, !mcsema_real_eip !252
+  %1254 = call i8 @llvm.ctpop.i8(i8 %1253), !mcsema_real_eip !252
+  %1255 = trunc i8 %1254 to i1, !mcsema_real_eip !252
+  %1256 = xor i1 %1255, true, !mcsema_real_eip !252
+  store i1 %1256, i1* %PF, !mcsema_real_eip !252
   store i1 undef, i1* %AF, !mcsema_real_eip !252
-  %1728 = zext i32 %1720 to i64, !mcsema_real_eip !252
-  store i64 %1728, i64* %XAX, !mcsema_real_eip !252
-  %RBP_val.380 = load i64, i64* %XBP, !mcsema_real_eip !253
-  %1729 = add i64 %RBP_val.380, -20, !mcsema_real_eip !253
-  %1730 = inttoptr i64 %1729 to i64*, !mcsema_real_eip !253
-  %EAX.381 = bitcast i64* %XAX to i32*, !mcsema_real_eip !253
-  %EAX_val.382 = load i32, i32* %EAX.381, !mcsema_real_eip !253
-  %1731 = ptrtoint i64* %1730 to i64, !mcsema_real_eip !253
-  %1732 = inttoptr i64 %1731 to i32*, !mcsema_real_eip !253
-  store i32 %EAX_val.382, i32* %1732, !mcsema_real_eip !253
+  %1257 = zext i32 %1249 to i64, !mcsema_real_eip !252
+  store i64 %1257, i64* %XAX, !mcsema_real_eip !252
+  %EAX_val.382 = load i32, i32* %EAX.9, !mcsema_real_eip !253
+  store i32 %EAX_val.382, i32* %1247, !mcsema_real_eip !253
   br label %block_0x411, !mcsema_real_eip !254
 
 block_0x40c:                                      ; preds = %block_0x401, %block_0x406
   br label %block_0x411, !mcsema_real_eip !255
 
 block_0x3e4:                                      ; preds = %block_0x3a6
-  %RBP_val.383 = load i64, i64* %XBP, !mcsema_real_eip !256
-  %1733 = add i64 %RBP_val.383, -16, !mcsema_real_eip !256
-  %1734 = inttoptr i64 %1733 to i64*, !mcsema_real_eip !256
-  %1735 = load i64, i64* %1734, !mcsema_real_eip !256
-  store i64 %1735, i64* %XAX, !mcsema_real_eip !256
-  %RAX_val.384 = load i64, i64* %XAX, !mcsema_real_eip !257
-  %1736 = add i64 %RAX_val.384, 31, !mcsema_real_eip !257
-  %1737 = inttoptr i64 %1736 to i64*, !mcsema_real_eip !257
-  %1738 = ptrtoint i64* %1737 to i64, !mcsema_real_eip !257
-  %1739 = inttoptr i64 %1738 to i8*, !mcsema_real_eip !257
-  %1740 = load i8, i8* %1739, !mcsema_real_eip !257
-  %1741 = zext i8 %1740 to i32, !mcsema_real_eip !257
-  %1742 = zext i32 %1741 to i64, !mcsema_real_eip !257
-  store i64 %1742, i64* %XDI, !mcsema_real_eip !257
-  %RDI_val.385 = load i64, i64* %XDI, !mcsema_real_eip !258
+  %_new_gep_402 = getelementptr i8, i8* %_load_rbp_ptr_383, i64 -16
+  %_allin_new_bt_403 = bitcast i8* %_new_gep_402 to i64*
+  %1258 = load i64, i64* %_allin_new_bt_403, !mcsema_real_eip !256
+  store i64 %1258, i64* %XAX, !mcsema_real_eip !256
+  %1259 = add i64 %1258, 31, !mcsema_real_eip !257
+  %1260 = inttoptr i64 %1259 to i64*, !mcsema_real_eip !257
+  %1261 = inttoptr i64 %1259 to i8*, !mcsema_real_eip !257
+  %1262 = load i8, i8* %1261, !mcsema_real_eip !257
+  %1263 = zext i8 %1262 to i32, !mcsema_real_eip !257
+  %1264 = zext i32 %1263 to i64, !mcsema_real_eip !257
+  store i64 %1264, i64* %XDI, !mcsema_real_eip !257
+  %_load_rsp_ptr_404 = load i8*, i8** %_RSP_ptr_
   %RSP_val.386 = load i64, i64* %XSP, !mcsema_real_eip !258
-  %1743 = sub i64 %RSP_val.386, 8, !mcsema_real_eip !258
-  %1744 = inttoptr i64 %1743 to i64*, !mcsema_real_eip !258
-  store i64 -2415393069852865332, i64* %1744, !mcsema_real_eip !258
-  store i64 %1743, i64* %XSP, !mcsema_real_eip !258
-  %1745 = call x86_64_sysvcc i64 @_to_byte(i64 %RDI_val.385), !mcsema_real_eip !258
-  store i64 %1745, i64* %XAX, !mcsema_real_eip !258
-  %EAX.387 = bitcast i64* %XAX to i32*, !mcsema_real_eip !259
-  %EAX_val.388 = load i32, i32* %EAX.387, !mcsema_real_eip !259
-  %1746 = sub i32 %EAX_val.388, 4, !mcsema_real_eip !259
-  %1747 = xor i32 %1746, %EAX_val.388, !mcsema_real_eip !259
-  %1748 = xor i32 %1747, 4, !mcsema_real_eip !259
-  %1749 = and i32 %1748, 16, !mcsema_real_eip !259
-  %1750 = icmp ne i32 %1749, 0, !mcsema_real_eip !259
-  store i1 %1750, i1* %AF, !mcsema_real_eip !259
-  %1751 = trunc i32 %1746 to i8, !mcsema_real_eip !259
-  %1752 = call i8 @llvm.ctpop.i8(i8 %1751), !mcsema_real_eip !259
-  %1753 = trunc i8 %1752 to i1, !mcsema_real_eip !259
-  %1754 = xor i1 %1753, true, !mcsema_real_eip !259
-  store i1 %1754, i1* %PF, !mcsema_real_eip !259
-  %1755 = icmp eq i32 %1746, 0, !mcsema_real_eip !259
-  store i1 %1755, i1* %ZF, !mcsema_real_eip !259
-  %1756 = lshr i32 %1746, 31, !mcsema_real_eip !259
-  %1757 = trunc i32 %1756 to i1, !mcsema_real_eip !259
-  store i1 %1757, i1* %SF, !mcsema_real_eip !259
-  %1758 = icmp ult i32 %EAX_val.388, 4, !mcsema_real_eip !259
-  store i1 %1758, i1* %CF, !mcsema_real_eip !259
-  %1759 = xor i32 %EAX_val.388, 4, !mcsema_real_eip !259
-  %1760 = xor i32 %EAX_val.388, %1746, !mcsema_real_eip !259
-  %1761 = and i32 %1759, %1760, !mcsema_real_eip !259
-  %1762 = lshr i32 %1761, 31, !mcsema_real_eip !259
-  %1763 = trunc i32 %1762 to i1, !mcsema_real_eip !259
-  store i1 %1763, i1* %OF, !mcsema_real_eip !259
-  %1764 = load i1, i1* %ZF, !mcsema_real_eip !260
-  %1765 = icmp eq i1 %1764, true, !mcsema_real_eip !260
-  br i1 %1765, label %block_0x401, label %block_0x3fa, !mcsema_real_eip !260
+  %_new_gep_405 = getelementptr i8, i8* %_load_rsp_ptr_404, i64 -8
+  %1265 = sub i64 %RSP_val.386, 8, !mcsema_real_eip !258
+  %_allin_new_bt_406 = bitcast i8* %_new_gep_405 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_406, !mcsema_real_eip !258
+  store volatile i8* %_new_gep_405, i8** %_RSP_ptr_
+  store i64 %1265, i64* %XSP, !mcsema_real_eip !258
+  %1266 = call x86_64_sysvcc i64 @_to_byte(i64 %1264)
+  %_rsp_fix_436 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_437 = getelementptr i8, i8* %_rsp_fix_436, i64 8
+  store i8* %_gep_fix_437, i8** %_RSP_ptr_
+  store i64 %1266, i64* %XAX, !mcsema_real_eip !258
+  %EAX_val.388 = load i32, i32* %EAX.9, !mcsema_real_eip !259
+  %1267 = sub i32 %EAX_val.388, 4, !mcsema_real_eip !259
+  %1268 = xor i32 %1267, %EAX_val.388, !mcsema_real_eip !259
+  %1269 = xor i32 %1268, 4, !mcsema_real_eip !259
+  %1270 = and i32 %1269, 16, !mcsema_real_eip !259
+  %1271 = icmp ne i32 %1270, 0, !mcsema_real_eip !259
+  store i1 %1271, i1* %AF, !mcsema_real_eip !259
+  %1272 = trunc i32 %1267 to i8, !mcsema_real_eip !259
+  %1273 = call i8 @llvm.ctpop.i8(i8 %1272), !mcsema_real_eip !259
+  %1274 = trunc i8 %1273 to i1, !mcsema_real_eip !259
+  %1275 = xor i1 %1274, true, !mcsema_real_eip !259
+  store i1 %1275, i1* %PF, !mcsema_real_eip !259
+  %1276 = icmp eq i32 %1267, 0, !mcsema_real_eip !259
+  store i1 %1276, i1* %ZF, !mcsema_real_eip !259
+  %1277 = lshr i32 %1267, 31, !mcsema_real_eip !259
+  %1278 = trunc i32 %1277 to i1, !mcsema_real_eip !259
+  store i1 %1278, i1* %SF, !mcsema_real_eip !259
+  %1279 = icmp ult i32 %EAX_val.388, 4, !mcsema_real_eip !259
+  store i1 %1279, i1* %CF, !mcsema_real_eip !259
+  %1280 = xor i32 %EAX_val.388, 4, !mcsema_real_eip !259
+  %1281 = and i32 %1280, %1268, !mcsema_real_eip !259
+  %1282 = lshr i32 %1281, 31, !mcsema_real_eip !259
+  %1283 = trunc i32 %1282 to i1, !mcsema_real_eip !259
+  store i1 %1283, i1* %OF, !mcsema_real_eip !259
+  br i1 %1276, label %block_0x401, label %block_0x3fa, !mcsema_real_eip !260
 
 block_0x401:                                      ; preds = %block_0x3fa, %block_0x3e4, %block_0x3a6
   br label %block_0x40c, !mcsema_real_eip !261
 
 block_0x411:                                      ; preds = %block_0x40c, %block_0x380
-  %RBP_val.389 = load i64, i64* %XBP, !mcsema_real_eip !262
-  %1766 = add i64 %RBP_val.389, -20, !mcsema_real_eip !262
-  %1767 = inttoptr i64 %1766 to i64*, !mcsema_real_eip !262
-  %1768 = ptrtoint i64* %1767 to i64, !mcsema_real_eip !262
-  %1769 = inttoptr i64 %1768 to i32*, !mcsema_real_eip !262
-  %1770 = load i32, i32* %1769, !mcsema_real_eip !262
-  %1771 = zext i32 %1770 to i64, !mcsema_real_eip !262
-  store i64 %1771, i64* %XAX, !mcsema_real_eip !262
-  %RBP_val.390 = load i64, i64* %XBP, !mcsema_real_eip !263
-  %1772 = add i64 %RBP_val.390, -4, !mcsema_real_eip !263
-  %1773 = inttoptr i64 %1772 to i64*, !mcsema_real_eip !263
-  %EAX.391 = bitcast i64* %XAX to i32*, !mcsema_real_eip !263
-  %EAX_val.392 = load i32, i32* %EAX.391, !mcsema_real_eip !263
-  %1774 = ptrtoint i64* %1773 to i64, !mcsema_real_eip !263
-  %1775 = inttoptr i64 %1774 to i32*, !mcsema_real_eip !263
-  store i32 %EAX_val.392, i32* %1775, !mcsema_real_eip !263
+  %_load_rbp_ptr_407 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_408 = getelementptr i8, i8* %_load_rbp_ptr_407, i64 -20
+  %_allin_new_bt_409 = bitcast i8* %_new_gep_408 to i64*
+  %1284 = ptrtoint i64* %_allin_new_bt_409 to i64, !mcsema_real_eip !262
+  %1285 = inttoptr i64 %1284 to i32*, !mcsema_real_eip !262
+  %1286 = load i32, i32* %1285, !mcsema_real_eip !262
+  %1287 = zext i32 %1286 to i64, !mcsema_real_eip !262
+  store i64 %1287, i64* %XAX, !mcsema_real_eip !262
+  %_new_gep_411 = getelementptr i8, i8* %_load_rbp_ptr_407, i64 -4
+  %_allin_new_bt_412 = bitcast i8* %_new_gep_411 to i64*
+  %EAX_val.392 = load i32, i32* %EAX.9, !mcsema_real_eip !263
+  %1288 = ptrtoint i64* %_allin_new_bt_412 to i64, !mcsema_real_eip !263
+  %1289 = inttoptr i64 %1288 to i32*, !mcsema_real_eip !263
+  store i32 %EAX_val.392, i32* %1289, !mcsema_real_eip !263
   br label %block_0x417, !mcsema_real_eip !264
 
 block_0x3fa:                                      ; preds = %block_0x3e4
-  %RBP_val.393 = load i64, i64* %XBP, !mcsema_real_eip !264
-  %1776 = add i64 %RBP_val.393, -20, !mcsema_real_eip !264
-  %1777 = inttoptr i64 %1776 to i64*, !mcsema_real_eip !264
-  %1778 = ptrtoint i64* %1777 to i64, !mcsema_real_eip !264
-  %1779 = inttoptr i64 %1778 to i32*, !mcsema_real_eip !264
-  store i32 -32, i32* %1779, !mcsema_real_eip !264
+  %_load_rbp_ptr_413 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_414 = getelementptr i8, i8* %_load_rbp_ptr_413, i64 -20
+  %_allin_new_bt_415 = bitcast i8* %_new_gep_414 to i64*
+  %1290 = ptrtoint i64* %_allin_new_bt_415 to i64, !mcsema_real_eip !264
+  %1291 = inttoptr i64 %1290 to i32*, !mcsema_real_eip !264
+  store i32 -32, i32* %1291, !mcsema_real_eip !264
   br label %block_0x401
 }
 
@@ -3131,6 +2623,3915 @@ declare x86_64_sysvcc i64 @_read_bytes(i64, i64, i64) #2
 
 ; Function Attrs: naked noinline
 declare void @keycomp() #2
+
+; Function Attrs: noinline
+define x86_64_sysvcc void @sub_0.1(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
+entry:
+  %_RSP_ptr_ = alloca i8*
+  %_RBP_ptr_ = alloca i8*
+  %_local_stack_start_ptr_ = alloca i8, i64 96
+  %_local_stack_end_ptr_ = getelementptr inbounds i8, i8* %_local_stack_start_ptr_, i64 96
+  store i8* %_local_stack_end_ptr_, i8** %_RSP_ptr_
+  store i8* %_parent_stack_rbp_ptr_, i8** %_RBP_ptr_
+  %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !2
+  %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !2
+  %XCX = getelementptr %RegState, %RegState* %0, i32 0, i32 3, !mcsema_real_eip !2
+  %XDX = getelementptr %RegState, %RegState* %0, i32 0, i32 4, !mcsema_real_eip !2
+  %XSI = getelementptr %RegState, %RegState* %0, i32 0, i32 5, !mcsema_real_eip !2
+  %XDI = getelementptr %RegState, %RegState* %0, i32 0, i32 6, !mcsema_real_eip !2
+  %XBP = getelementptr %RegState, %RegState* %0, i32 0, i32 8, !mcsema_real_eip !2
+  %XSP = getelementptr %RegState, %RegState* %0, i32 0, i32 7, !mcsema_real_eip !2
+  %ZF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 12, !mcsema_real_eip !2
+  %ZF = bitcast i8* %ZF_full to i1*, !mcsema_real_eip !2
+  %PF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 10, !mcsema_real_eip !2
+  %PF = bitcast i8* %PF_full to i1*, !mcsema_real_eip !2
+  %AF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 11, !mcsema_real_eip !2
+  %AF = bitcast i8* %AF_full to i1*, !mcsema_real_eip !2
+  %CF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 9, !mcsema_real_eip !2
+  %CF = bitcast i8* %CF_full to i1*, !mcsema_real_eip !2
+  %SF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 13, !mcsema_real_eip !2
+  %SF = bitcast i8* %SF_full to i1*, !mcsema_real_eip !2
+  %OF_full = getelementptr %RegState, %RegState* %0, i32 0, i32 14, !mcsema_real_eip !2
+  %OF = bitcast i8* %OF_full to i1*, !mcsema_real_eip !2
+  br label %block_0x0, !mcsema_real_eip !2
+
+block_0x0:                                        ; preds = %entry
+  %RSP_val.1 = load i64, i64* %XSP, !mcsema_real_eip !2
+  %_new_gep_ = getelementptr i8, i8* %_local_stack_end_ptr_, i64 -8
+  %1 = sub i64 %RSP_val.1, 8, !mcsema_real_eip !2
+  %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
+  %_new_ptr2int_ = ptrtoint i8* %_parent_stack_rbp_ptr_ to i64
+  store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_
+  store i64 %1, i64* %XSP, !mcsema_real_eip !2
+  store volatile i8* %_new_gep_, i8** %_RBP_ptr_
+  store i64 %1, i64* %XBP, !mcsema_real_eip !3
+  %_load_rsp_ptr_2 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.3 = load i64, i64* %XSP, !mcsema_real_eip !4
+  %_new_gep_3 = getelementptr i8, i8* %_load_rsp_ptr_2, i64 -80
+  %2 = sub i64 %RSP_val.3, 80, !mcsema_real_eip !4
+  %_trans_p2i_ = ptrtoint i8* %_new_gep_3 to i64
+  %_trans_p2i_4 = ptrtoint i8* %_load_rsp_ptr_2 to i64
+  %_trans_xor_ = xor i64 %_trans_p2i_, %_trans_p2i_4
+  %3 = xor i64 %_trans_xor_, 80, !mcsema_real_eip !4
+  %4 = and i64 %3, 16, !mcsema_real_eip !4
+  %5 = icmp ne i64 %4, 0, !mcsema_real_eip !4
+  store i1 %5, i1* %AF, !mcsema_real_eip !4
+  %_trans_trunc_ = trunc i64 %_trans_p2i_ to i8
+  %6 = call i8 @llvm.ctpop.i8(i8 %_trans_trunc_), !mcsema_real_eip !4
+  %7 = trunc i8 %6 to i1, !mcsema_real_eip !4
+  %8 = xor i1 %7, true, !mcsema_real_eip !4
+  store i1 %8, i1* %PF, !mcsema_real_eip !4
+  %_trans_icmp_eq_ = icmp eq i64 %_trans_p2i_, 0
+  store i1 %_trans_icmp_eq_, i1* %ZF, !mcsema_real_eip !4
+  %9 = lshr i64 %2, 63, !mcsema_real_eip !4
+  %10 = trunc i64 %9 to i1, !mcsema_real_eip !4
+  store i1 %10, i1* %SF, !mcsema_real_eip !4
+  %_trans_icmp_ne_ = icmp ne i64 %_trans_p2i_4, 80
+  store i1 %_trans_icmp_ne_, i1* %CF, !mcsema_real_eip !4
+  %_trans_xor_9 = xor i64 %_trans_p2i_4, 80
+  %11 = and i64 %_trans_xor_9, %_trans_xor_, !mcsema_real_eip !4
+  %12 = lshr i64 %11, 63, !mcsema_real_eip !4
+  %13 = trunc i64 %12 to i1, !mcsema_real_eip !4
+  store i1 %13, i1* %OF, !mcsema_real_eip !4
+  store volatile i8* %_new_gep_3, i8** %_RSP_ptr_
+  store i64 %2, i64* %XSP, !mcsema_real_eip !4
+  %_load_rbp_ptr_13 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_14 = getelementptr i8, i8* %_load_rbp_ptr_13, i64 -16
+  %_allin_new_bt_15 = bitcast i8* %_new_gep_14 to i64*
+  %RDI_val.5 = load i64, i64* %XDI, !mcsema_real_eip !5
+  store i64 %RDI_val.5, i64* %_allin_new_bt_15, !mcsema_real_eip !5
+  %_load_rbp_ptr_16 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_17 = getelementptr i8, i8* %_load_rbp_ptr_16, i64 -16
+  %_allin_new_bt_18 = bitcast i8* %_new_gep_17 to i64*
+  %_ptr_to_int_ = ptrtoint i64* %_allin_new_bt_18 to i64
+  %_local_end_to_int_ = ptrtoint i8* %_local_stack_end_ptr_ to i64
+  %_offset_above_rbp_ = sub i64 %_ptr_to_int_, %_local_end_to_int_
+  %_pot_address_in_parent_stack_ = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_
+  %_cond1_ = icmp ugt i8* %_new_gep_17, %_local_stack_end_ptr_
+  %_cond2_1_ = icmp ugt i8* %_new_gep_17, %_parent_stack_end_ptr_
+  %_cond2_2_ = icmp ult i8* %_new_gep_17, %_parent_stack_start_ptr_
+  %_cond2_ = or i1 %_cond2_1_, %_cond2_2_
+  %_cond4_ = icmp ule i8* %_pot_address_in_parent_stack_, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_ = and i1 %_cond1_, %_cond2_
+  %_cond1_n_cond2_cond3_ = and i1 %_cond1_n_cond2_, %_cond4_
+  br i1 %_cond1_n_cond2_cond3_, label %14, label %15
+
+; <label>:14:                                     ; preds = %block_0x0
+  %_address_in_parent_stack_bt_ = bitcast i8* %_pot_address_in_parent_stack_ to i64*
+  br label %15
+
+; <label>:15:                                     ; preds = %block_0x0, %14
+  %16 = phi i64* [ %_allin_new_bt_18, %block_0x0 ], [ %_address_in_parent_stack_bt_, %14 ]
+  %_new_load_ = load i64, i64* %16
+  store i64 %_new_load_, i64* %XDI, !mcsema_real_eip !6
+  %_load_rsp_ptr_19 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.8 = load i64, i64* %XSP, !mcsema_real_eip !7
+  %_new_gep_20 = getelementptr i8, i8* %_load_rsp_ptr_19, i64 -8
+  %17 = sub i64 %RSP_val.8, 8, !mcsema_real_eip !7
+  %_allin_new_bt_21 = bitcast i8* %_new_gep_20 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_21, !mcsema_real_eip !7
+  store volatile i8* %_new_gep_20, i8** %_RSP_ptr_
+  store i64 %17, i64* %XSP, !mcsema_real_eip !7
+  %18 = call x86_64_sysvcc i64 @_strlen(i64 %_new_load_)
+  %_rsp_fix_ = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_ = getelementptr i8, i8* %_rsp_fix_, i64 8
+  store i8* %_gep_fix_, i8** %_RSP_ptr_
+  store i64 %18, i64* %XAX, !mcsema_real_eip !7
+  %EAX.9 = bitcast i64* %XAX to i32*, !mcsema_real_eip !8
+  %EAX_val.10 = load i32, i32* %EAX.9, !mcsema_real_eip !8
+  %19 = zext i32 %EAX_val.10 to i64, !mcsema_real_eip !8
+  store i64 %19, i64* %XCX, !mcsema_real_eip !8
+  %_load_rbp_ptr_22 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_23 = getelementptr i8, i8* %_load_rbp_ptr_22, i64 -32
+  %_allin_new_bt_24 = bitcast i8* %_new_gep_23 to i64*
+  %ECX.12 = bitcast i64* %XCX to i32*, !mcsema_real_eip !9
+  %ECX_val.13 = load i32, i32* %ECX.12, !mcsema_real_eip !9
+  %20 = ptrtoint i64* %_allin_new_bt_24 to i64, !mcsema_real_eip !9
+  %21 = inttoptr i64 %20 to i32*, !mcsema_real_eip !9
+  store i32 %ECX_val.13, i32* %21, !mcsema_real_eip !9
+  %_load_rbp_ptr_25 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_26 = getelementptr i8, i8* %_load_rbp_ptr_25, i64 -32
+  %_allin_new_bt_27 = bitcast i8* %_new_gep_26 to i64*
+  %22 = ptrtoint i64* %_allin_new_bt_27 to i64, !mcsema_real_eip !10
+  %23 = inttoptr i64 %22 to i32*, !mcsema_real_eip !10
+  %_ptr_bt_440 = bitcast i32* %23 to i8*
+  %_offset_above_rbp_441 = sub i64 %22, %_local_end_to_int_
+  %_pot_address_in_parent_stack_442 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_441
+  %_cond1_443 = icmp ugt i8* %_ptr_bt_440, %_local_stack_end_ptr_
+  %_cond2_1_444 = icmp ugt i8* %_ptr_bt_440, %_parent_stack_end_ptr_
+  %_cond2_2_445 = icmp ult i8* %_ptr_bt_440, %_parent_stack_start_ptr_
+  %_cond2_446 = or i1 %_cond2_1_444, %_cond2_2_445
+  %_cond4_447 = icmp ule i8* %_pot_address_in_parent_stack_442, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_448 = and i1 %_cond1_443, %_cond2_446
+  %_cond1_n_cond2_cond3_449 = and i1 %_cond1_n_cond2_448, %_cond4_447
+  br i1 %_cond1_n_cond2_cond3_449, label %24, label %25
+
+; <label>:24:                                     ; preds = %15
+  %_address_in_parent_stack_bt_451 = bitcast i8* %_pot_address_in_parent_stack_442 to i32*
+  br label %25
+
+; <label>:25:                                     ; preds = %15, %24
+  %26 = phi i32* [ %23, %15 ], [ %_address_in_parent_stack_bt_451, %24 ]
+  %_new_load_452 = load i32, i32* %26
+  %27 = sub i32 %_new_load_452, 37, !mcsema_real_eip !10
+  %28 = xor i32 %27, %_new_load_452, !mcsema_real_eip !10
+  %29 = xor i32 %28, 37, !mcsema_real_eip !10
+  %30 = and i32 %29, 16, !mcsema_real_eip !10
+  %31 = icmp ne i32 %30, 0, !mcsema_real_eip !10
+  store i1 %31, i1* %AF, !mcsema_real_eip !10
+  %32 = trunc i32 %27 to i8, !mcsema_real_eip !10
+  %33 = call i8 @llvm.ctpop.i8(i8 %32), !mcsema_real_eip !10
+  %34 = trunc i8 %33 to i1, !mcsema_real_eip !10
+  %35 = xor i1 %34, true, !mcsema_real_eip !10
+  store i1 %35, i1* %PF, !mcsema_real_eip !10
+  %36 = icmp eq i32 %27, 0, !mcsema_real_eip !10
+  store i1 %36, i1* %ZF, !mcsema_real_eip !10
+  %37 = lshr i32 %27, 31, !mcsema_real_eip !10
+  %38 = trunc i32 %37 to i1, !mcsema_real_eip !10
+  store i1 %38, i1* %SF, !mcsema_real_eip !10
+  %39 = icmp ult i32 %_new_load_452, 37, !mcsema_real_eip !10
+  store i1 %39, i1* %CF, !mcsema_real_eip !10
+  %40 = xor i32 %_new_load_452, 37, !mcsema_real_eip !10
+  %41 = and i32 %40, %28, !mcsema_real_eip !10
+  %42 = lshr i32 %41, 31, !mcsema_real_eip !10
+  %43 = trunc i32 %42 to i1, !mcsema_real_eip !10
+  store i1 %43, i1* %OF, !mcsema_real_eip !10
+  br i1 %36, label %block_0x2f, label %block_0x24, !mcsema_real_eip !11
+
+block_0x24:                                       ; preds = %25
+  br i1 %_cond1_n_cond2_cond3_449, label %44, label %45
+
+; <label>:44:                                     ; preds = %block_0x24
+  %_address_in_parent_stack_bt_466 = bitcast i8* %_pot_address_in_parent_stack_442 to i32*
+  br label %45
+
+; <label>:45:                                     ; preds = %block_0x24, %44
+  %46 = phi i32* [ %23, %block_0x24 ], [ %_address_in_parent_stack_bt_466, %44 ]
+  %_new_load_467 = load i32, i32* %46
+  %47 = zext i32 %_new_load_467 to i64, !mcsema_real_eip !12
+  store i64 %47, i64* %XAX, !mcsema_real_eip !12
+  %_new_gep_32 = getelementptr i8, i8* %_load_rbp_ptr_25, i64 -4
+  %_allin_new_bt_33 = bitcast i8* %_new_gep_32 to i64*
+  %EAX_val.26 = load i32, i32* %EAX.9, !mcsema_real_eip !13
+  %48 = ptrtoint i64* %_allin_new_bt_33 to i64, !mcsema_real_eip !13
+  %49 = inttoptr i64 %48 to i32*, !mcsema_real_eip !13
+  store i32 %EAX_val.26, i32* %49, !mcsema_real_eip !13
+  br label %block_0x417, !mcsema_real_eip !14
+
+block_0x2f:                                       ; preds = %25
+  %_new_gep_35 = getelementptr i8, i8* %_load_rbp_ptr_25, i64 -16
+  %_allin_new_bt_36 = bitcast i8* %_new_gep_35 to i64*
+  %_ptr_to_int_468 = ptrtoint i64* %_allin_new_bt_36 to i64
+  %_offset_above_rbp_471 = sub i64 %_ptr_to_int_468, %_local_end_to_int_
+  %_pot_address_in_parent_stack_472 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_471
+  %_cond1_473 = icmp ugt i8* %_new_gep_35, %_local_stack_end_ptr_
+  %_cond2_1_474 = icmp ugt i8* %_new_gep_35, %_parent_stack_end_ptr_
+  %_cond2_2_475 = icmp ult i8* %_new_gep_35, %_parent_stack_start_ptr_
+  %_cond2_476 = or i1 %_cond2_1_474, %_cond2_2_475
+  %_cond4_477 = icmp ule i8* %_pot_address_in_parent_stack_472, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_478 = and i1 %_cond1_473, %_cond2_476
+  %_cond1_n_cond2_cond3_479 = and i1 %_cond1_n_cond2_478, %_cond4_477
+  br i1 %_cond1_n_cond2_cond3_479, label %50, label %51
+
+; <label>:50:                                     ; preds = %block_0x2f
+  %_address_in_parent_stack_bt_481 = bitcast i8* %_pot_address_in_parent_stack_472 to i64*
+  br label %51
+
+; <label>:51:                                     ; preds = %block_0x2f, %50
+  %52 = phi i64* [ %_allin_new_bt_36, %block_0x2f ], [ %_address_in_parent_stack_bt_481, %50 ]
+  %_new_load_482 = load i64, i64* %52
+  store i64 %_new_load_482, i64* %XAX, !mcsema_real_eip !15
+  %53 = add i64 4, %_new_load_482, !mcsema_real_eip !16
+  %54 = xor i64 %53, %_new_load_482, !mcsema_real_eip !16
+  %55 = xor i64 %54, 4, !mcsema_real_eip !16
+  %56 = and i64 %55, 16, !mcsema_real_eip !16
+  %57 = icmp ne i64 %56, 0, !mcsema_real_eip !16
+  store i1 %57, i1* %AF, !mcsema_real_eip !16
+  %58 = lshr i64 %53, 63, !mcsema_real_eip !16
+  %59 = trunc i64 %58 to i1, !mcsema_real_eip !16
+  store i1 %59, i1* %SF, !mcsema_real_eip !16
+  %60 = icmp eq i64 %53, 0, !mcsema_real_eip !16
+  store i1 %60, i1* %ZF, !mcsema_real_eip !16
+  %61 = xor i64 %_new_load_482, 4, !mcsema_real_eip !16
+  %62 = xor i64 %61, -1, !mcsema_real_eip !16
+  %63 = and i64 %62, %54, !mcsema_real_eip !16
+  %64 = lshr i64 %63, 63, !mcsema_real_eip !16
+  %65 = and i64 %64, 1, !mcsema_real_eip !16
+  %66 = trunc i64 %65 to i1, !mcsema_real_eip !16
+  store i1 %66, i1* %OF, !mcsema_real_eip !16
+  %67 = trunc i64 %53 to i8, !mcsema_real_eip !16
+  %68 = call i8 @llvm.ctpop.i8(i8 %67), !mcsema_real_eip !16
+  %69 = trunc i8 %68 to i1, !mcsema_real_eip !16
+  %70 = xor i1 %69, true, !mcsema_real_eip !16
+  store i1 %70, i1* %PF, !mcsema_real_eip !16
+  %71 = icmp ult i64 %53, %_new_load_482, !mcsema_real_eip !16
+  store i1 %71, i1* %CF, !mcsema_real_eip !16
+  store i64 %53, i64* %XAX, !mcsema_real_eip !16
+  store i64 %53, i64* %_allin_new_bt_36, !mcsema_real_eip !17
+  %_load_rbp_ptr_40 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_41 = getelementptr i8, i8* %_load_rbp_ptr_40, i64 -16
+  %_allin_new_bt_42 = bitcast i8* %_new_gep_41 to i64*
+  %_ptr_to_int_483 = ptrtoint i64* %_allin_new_bt_42 to i64
+  %_offset_above_rbp_486 = sub i64 %_ptr_to_int_483, %_local_end_to_int_
+  %_pot_address_in_parent_stack_487 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_486
+  %_cond1_488 = icmp ugt i8* %_new_gep_41, %_local_stack_end_ptr_
+  %_cond2_1_489 = icmp ugt i8* %_new_gep_41, %_parent_stack_end_ptr_
+  %_cond2_2_490 = icmp ult i8* %_new_gep_41, %_parent_stack_start_ptr_
+  %_cond2_491 = or i1 %_cond2_1_489, %_cond2_2_490
+  %_cond4_492 = icmp ule i8* %_pot_address_in_parent_stack_487, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_493 = and i1 %_cond1_488, %_cond2_491
+  %_cond1_n_cond2_cond3_494 = and i1 %_cond1_n_cond2_493, %_cond4_492
+  br i1 %_cond1_n_cond2_cond3_494, label %72, label %73
+
+; <label>:72:                                     ; preds = %51
+  %_address_in_parent_stack_bt_496 = bitcast i8* %_pot_address_in_parent_stack_487 to i64*
+  br label %73
+
+; <label>:73:                                     ; preds = %51, %72
+  %74 = phi i64* [ %_allin_new_bt_42, %51 ], [ %_address_in_parent_stack_bt_496, %72 ]
+  %_new_load_497 = load i64, i64* %74
+  store i64 %_new_load_497, i64* %XAX, !mcsema_real_eip !18
+  %75 = inttoptr i64 %_new_load_497 to i64*, !mcsema_real_eip !19
+  %76 = inttoptr i64 %_new_load_497 to i8*, !mcsema_real_eip !19
+  %_offset_above_rbp_500 = sub i64 %_new_load_497, %_local_end_to_int_
+  %_pot_address_in_parent_stack_501 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_500
+  %_cond1_502 = icmp ugt i8* %76, %_local_stack_end_ptr_
+  %_cond2_1_503 = icmp ugt i8* %76, %_parent_stack_end_ptr_
+  %_cond2_2_504 = icmp ult i8* %76, %_parent_stack_start_ptr_
+  %_cond2_505 = or i1 %_cond2_1_503, %_cond2_2_504
+  %_cond4_506 = icmp ule i8* %_pot_address_in_parent_stack_501, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_507 = and i1 %_cond1_502, %_cond2_505
+  %_cond1_n_cond2_cond3_508 = and i1 %_cond1_n_cond2_507, %_cond4_506
+  br i1 %_cond1_n_cond2_cond3_508, label %77, label %78
+
+; <label>:77:                                     ; preds = %73
+  br label %78
+
+; <label>:78:                                     ; preds = %73, %77
+  %79 = phi i8* [ %76, %73 ], [ %_pot_address_in_parent_stack_501, %77 ]
+  %_new_load_510 = load i8, i8* %79
+  %80 = sext i8 %_new_load_510 to i32, !mcsema_real_eip !19
+  %81 = zext i32 %80 to i64, !mcsema_real_eip !19
+  store i64 %81, i64* %XCX, !mcsema_real_eip !19
+  %ECX_val.22 = load i32, i32* %ECX.12, !mcsema_real_eip !20
+  %82 = sub i32 %ECX_val.22, 100, !mcsema_real_eip !20
+  %83 = xor i32 %82, %ECX_val.22, !mcsema_real_eip !20
+  %84 = xor i32 %83, 100, !mcsema_real_eip !20
+  %85 = and i32 %84, 16, !mcsema_real_eip !20
+  %86 = icmp ne i32 %85, 0, !mcsema_real_eip !20
+  store i1 %86, i1* %AF, !mcsema_real_eip !20
+  %87 = trunc i32 %82 to i8, !mcsema_real_eip !20
+  %88 = call i8 @llvm.ctpop.i8(i8 %87), !mcsema_real_eip !20
+  %89 = trunc i8 %88 to i1, !mcsema_real_eip !20
+  %90 = xor i1 %89, true, !mcsema_real_eip !20
+  store i1 %90, i1* %PF, !mcsema_real_eip !20
+  %91 = icmp eq i32 %82, 0, !mcsema_real_eip !20
+  store i1 %91, i1* %ZF, !mcsema_real_eip !20
+  %92 = lshr i32 %82, 31, !mcsema_real_eip !20
+  %93 = trunc i32 %92 to i1, !mcsema_real_eip !20
+  store i1 %93, i1* %SF, !mcsema_real_eip !20
+  %94 = icmp ult i32 %ECX_val.22, 100, !mcsema_real_eip !20
+  store i1 %94, i1* %CF, !mcsema_real_eip !20
+  %95 = xor i32 %ECX_val.22, 100, !mcsema_real_eip !20
+  %96 = and i32 %95, %83, !mcsema_real_eip !20
+  %97 = lshr i32 %96, 31, !mcsema_real_eip !20
+  %98 = trunc i32 %97 to i1, !mcsema_real_eip !20
+  store i1 %98, i1* %OF, !mcsema_real_eip !20
+  br i1 %91, label %block_0x57, label %block_0x4b, !mcsema_real_eip !21
+
+block_0x4b:                                       ; preds = %78
+  %_new_gep_44 = getelementptr i8, i8* %_load_rbp_ptr_40, i64 -4
+  %_allin_new_bt_45 = bitcast i8* %_new_gep_44 to i64*
+  %99 = ptrtoint i64* %_allin_new_bt_45 to i64, !mcsema_real_eip !22
+  %100 = inttoptr i64 %99 to i32*, !mcsema_real_eip !22
+  store i32 -2, i32* %100, !mcsema_real_eip !22
+  br label %block_0x417, !mcsema_real_eip !23
+
+block_0x57:                                       ; preds = %78
+  br i1 %_cond1_n_cond2_cond3_494, label %101, label %102
+
+; <label>:101:                                    ; preds = %block_0x57
+  %_address_in_parent_stack_bt_524 = bitcast i8* %_pot_address_in_parent_stack_487 to i64*
+  br label %102
+
+; <label>:102:                                    ; preds = %block_0x57, %101
+  %103 = phi i64* [ %_allin_new_bt_42, %block_0x57 ], [ %_address_in_parent_stack_bt_524, %101 ]
+  %_new_load_525 = load i64, i64* %103
+  store i64 %_new_load_525, i64* %XAX, !mcsema_real_eip !24
+  %104 = add i64 %_new_load_525, 1, !mcsema_real_eip !25
+  %105 = inttoptr i64 %104 to i64*, !mcsema_real_eip !25
+  %106 = inttoptr i64 %104 to i8*, !mcsema_real_eip !25
+  %_offset_above_rbp_528 = sub i64 %104, %_local_end_to_int_
+  %_pot_address_in_parent_stack_529 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_528
+  %_cond1_530 = icmp ugt i8* %106, %_local_stack_end_ptr_
+  %_cond2_1_531 = icmp ugt i8* %106, %_parent_stack_end_ptr_
+  %_cond2_2_532 = icmp ult i8* %106, %_parent_stack_start_ptr_
+  %_cond2_533 = or i1 %_cond2_1_531, %_cond2_2_532
+  %_cond4_534 = icmp ule i8* %_pot_address_in_parent_stack_529, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_535 = and i1 %_cond1_530, %_cond2_533
+  %_cond1_n_cond2_cond3_536 = and i1 %_cond1_n_cond2_535, %_cond4_534
+  br i1 %_cond1_n_cond2_cond3_536, label %107, label %108
+
+; <label>:107:                                    ; preds = %102
+  br label %108
+
+; <label>:108:                                    ; preds = %102, %107
+  %109 = phi i8* [ %106, %102 ], [ %_pot_address_in_parent_stack_529, %107 ]
+  %_new_load_538 = load i8, i8* %109
+  %110 = zext i8 %_new_load_538 to i32, !mcsema_real_eip !25
+  %111 = zext i32 %110 to i64, !mcsema_real_eip !25
+  store i64 %111, i64* %XDI, !mcsema_real_eip !25
+  %_load_rsp_ptr_49 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.30 = load i64, i64* %XSP, !mcsema_real_eip !26
+  %_new_gep_50 = getelementptr i8, i8* %_load_rsp_ptr_49, i64 -8
+  %112 = sub i64 %RSP_val.30, 8, !mcsema_real_eip !26
+  %_allin_new_bt_51 = bitcast i8* %_new_gep_50 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_51, !mcsema_real_eip !26
+  store volatile i8* %_new_gep_50, i8** %_RSP_ptr_
+  store i64 %112, i64* %XSP, !mcsema_real_eip !26
+  %113 = call x86_64_sysvcc i64 @_to_byte(i64 %111)
+  %_rsp_fix_416 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_417 = getelementptr i8, i8* %_rsp_fix_416, i64 8
+  store i8* %_gep_fix_417, i8** %_RSP_ptr_
+  store i64 %113, i64* %XAX, !mcsema_real_eip !26
+  %EAX_val.32 = load i32, i32* %EAX.9, !mcsema_real_eip !27
+  %114 = sub i32 %EAX_val.32, 9, !mcsema_real_eip !27
+  %115 = xor i32 %114, %EAX_val.32, !mcsema_real_eip !27
+  %116 = xor i32 %115, 9, !mcsema_real_eip !27
+  %117 = and i32 %116, 16, !mcsema_real_eip !27
+  %118 = icmp ne i32 %117, 0, !mcsema_real_eip !27
+  store i1 %118, i1* %AF, !mcsema_real_eip !27
+  %119 = trunc i32 %114 to i8, !mcsema_real_eip !27
+  %120 = call i8 @llvm.ctpop.i8(i8 %119), !mcsema_real_eip !27
+  %121 = trunc i8 %120 to i1, !mcsema_real_eip !27
+  %122 = xor i1 %121, true, !mcsema_real_eip !27
+  store i1 %122, i1* %PF, !mcsema_real_eip !27
+  %123 = icmp eq i32 %114, 0, !mcsema_real_eip !27
+  store i1 %123, i1* %ZF, !mcsema_real_eip !27
+  %124 = lshr i32 %114, 31, !mcsema_real_eip !27
+  %125 = trunc i32 %124 to i1, !mcsema_real_eip !27
+  store i1 %125, i1* %SF, !mcsema_real_eip !27
+  %126 = icmp ult i32 %EAX_val.32, 9, !mcsema_real_eip !27
+  store i1 %126, i1* %CF, !mcsema_real_eip !27
+  %127 = xor i32 %EAX_val.32, 9, !mcsema_real_eip !27
+  %128 = and i32 %127, %115, !mcsema_real_eip !27
+  %129 = lshr i32 %128, 31, !mcsema_real_eip !27
+  %130 = trunc i32 %129 to i1, !mcsema_real_eip !27
+  store i1 %130, i1* %OF, !mcsema_real_eip !27
+  br i1 %123, label %block_0x79, label %block_0x6d, !mcsema_real_eip !28
+
+block_0x417:                                      ; preds = %1459, %1130, %block_0x2ea, %block_0x2c6, %block_0x1cc, %block_0x10e, %block_0xcb, %block_0x98, %block_0x6d, %block_0x4b, %45
+  %_load_rbp_ptr_52 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_53 = getelementptr i8, i8* %_load_rbp_ptr_52, i64 -4
+  %_allin_new_bt_54 = bitcast i8* %_new_gep_53 to i64*
+  %131 = ptrtoint i64* %_allin_new_bt_54 to i64, !mcsema_real_eip !29
+  %132 = inttoptr i64 %131 to i32*, !mcsema_real_eip !29
+  %_ptr_bt_541 = bitcast i32* %132 to i8*
+  %_offset_above_rbp_542 = sub i64 %131, %_local_end_to_int_
+  %_pot_address_in_parent_stack_543 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_542
+  %_cond1_544 = icmp ugt i8* %_ptr_bt_541, %_local_stack_end_ptr_
+  %_cond2_1_545 = icmp ugt i8* %_ptr_bt_541, %_parent_stack_end_ptr_
+  %_cond2_2_546 = icmp ult i8* %_ptr_bt_541, %_parent_stack_start_ptr_
+  %_cond2_547 = or i1 %_cond2_1_545, %_cond2_2_546
+  %_cond4_548 = icmp ule i8* %_pot_address_in_parent_stack_543, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_549 = and i1 %_cond1_544, %_cond2_547
+  %_cond1_n_cond2_cond3_550 = and i1 %_cond1_n_cond2_549, %_cond4_548
+  br i1 %_cond1_n_cond2_cond3_550, label %133, label %134
+
+; <label>:133:                                    ; preds = %block_0x417
+  %_address_in_parent_stack_bt_552 = bitcast i8* %_pot_address_in_parent_stack_543 to i32*
+  br label %134
+
+; <label>:134:                                    ; preds = %block_0x417, %133
+  %135 = phi i32* [ %132, %block_0x417 ], [ %_address_in_parent_stack_bt_552, %133 ]
+  %_new_load_553 = load i32, i32* %135
+  %136 = zext i32 %_new_load_553 to i64, !mcsema_real_eip !29
+  store i64 %136, i64* %XAX, !mcsema_real_eip !29
+  %_load_rsp_ptr_55 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.35 = load i64, i64* %XSP, !mcsema_real_eip !30
+  %_new_gep_56 = getelementptr i8, i8* %_load_rsp_ptr_55, i64 80
+  %137 = add i64 80, %RSP_val.35, !mcsema_real_eip !30
+  %_trans_p2i_57 = ptrtoint i8* %_new_gep_56 to i64
+  %_trans_p2i_58 = ptrtoint i8* %_load_rsp_ptr_55 to i64
+  %_trans_xor_59 = xor i64 %_trans_p2i_57, %_trans_p2i_58
+  %138 = xor i64 %_trans_xor_59, 80, !mcsema_real_eip !30
+  %139 = and i64 %138, 16, !mcsema_real_eip !30
+  %140 = icmp ne i64 %139, 0, !mcsema_real_eip !30
+  store i1 %140, i1* %AF, !mcsema_real_eip !30
+  %141 = lshr i64 %137, 63, !mcsema_real_eip !30
+  %142 = trunc i64 %141 to i1, !mcsema_real_eip !30
+  store i1 %142, i1* %SF, !mcsema_real_eip !30
+  %_trans_icmp_eq_61 = icmp eq i64 %_trans_p2i_57, 0
+  store i1 %_trans_icmp_eq_61, i1* %ZF, !mcsema_real_eip !30
+  %_trans_xor_63 = xor i64 %_trans_p2i_58, 80
+  %143 = xor i64 %_trans_xor_63, -1, !mcsema_real_eip !30
+  %144 = and i64 %143, %_trans_xor_59, !mcsema_real_eip !30
+  %145 = lshr i64 %144, 63, !mcsema_real_eip !30
+  %146 = and i64 %145, 1, !mcsema_real_eip !30
+  %147 = trunc i64 %146 to i1, !mcsema_real_eip !30
+  store i1 %147, i1* %OF, !mcsema_real_eip !30
+  %_trans_trunc_68 = trunc i64 %_trans_p2i_57 to i8
+  %148 = call i8 @llvm.ctpop.i8(i8 %_trans_trunc_68), !mcsema_real_eip !30
+  %149 = trunc i8 %148 to i1, !mcsema_real_eip !30
+  %150 = xor i1 %149, true, !mcsema_real_eip !30
+  store i1 %150, i1* %PF, !mcsema_real_eip !30
+  %_trans_icmp_ne_70 = icmp ne i64 %_trans_p2i_57, %RSP_val.35
+  store i1 %_trans_icmp_ne_70, i1* %CF, !mcsema_real_eip !30
+  store volatile i8* %_new_gep_56, i8** %_RSP_ptr_
+  store i64 %137, i64* %XSP, !mcsema_real_eip !30
+  %_allin_new_bt_72 = bitcast i8* %_new_gep_56 to i64*
+  %_ptr_to_int_554 = ptrtoint i64* %_allin_new_bt_72 to i64
+  %_offset_above_rbp_557 = sub i64 %_ptr_to_int_554, %_local_end_to_int_
+  %_pot_address_in_parent_stack_558 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_557
+  %_cond1_559 = icmp ugt i8* %_new_gep_56, %_local_stack_end_ptr_
+  %_cond2_1_560 = icmp ugt i8* %_new_gep_56, %_parent_stack_end_ptr_
+  %_cond2_2_561 = icmp ult i8* %_new_gep_56, %_parent_stack_start_ptr_
+  %_cond2_562 = or i1 %_cond2_1_560, %_cond2_2_561
+  %_cond4_563 = icmp ule i8* %_pot_address_in_parent_stack_558, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_564 = and i1 %_cond1_559, %_cond2_562
+  %_cond1_n_cond2_cond3_565 = and i1 %_cond1_n_cond2_564, %_cond4_563
+  br i1 %_cond1_n_cond2_cond3_565, label %151, label %152
+
+; <label>:151:                                    ; preds = %134
+  %_address_in_parent_stack_bt_567 = bitcast i8* %_pot_address_in_parent_stack_558 to i64*
+  br label %152
+
+; <label>:152:                                    ; preds = %134, %151
+  %153 = phi i64* [ %_allin_new_bt_72, %134 ], [ %_address_in_parent_stack_bt_567, %151 ]
+  %_new_load_568 = load i64, i64* %153
+  %_new_int2ptr_ = inttoptr i64 %_new_load_568 to i8*
+  store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
+  store i64 %_new_load_568, i64* %XBP, !mcsema_real_eip !31
+  %_new_gep_73 = getelementptr i8, i8* %_new_gep_56, i64 8
+  %154 = add i64 %137, 8, !mcsema_real_eip !31
+  store volatile i8* %_new_gep_73, i8** %_RSP_ptr_
+  store i64 %154, i64* %XSP, !mcsema_real_eip !31
+  %_new_gep_75 = getelementptr i8, i8* %_new_gep_73, i64 8
+  %155 = add i64 %154, 8, !mcsema_real_eip !32
+  %_allin_new_bt_76 = bitcast i8* %_new_gep_73 to i64*
+  %_ptr_to_int_569 = ptrtoint i64* %_allin_new_bt_76 to i64
+  %_offset_above_rbp_572 = sub i64 %_ptr_to_int_569, %_local_end_to_int_
+  %_pot_address_in_parent_stack_573 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_572
+  %_cond1_574 = icmp ugt i8* %_new_gep_73, %_local_stack_end_ptr_
+  %_cond2_1_575 = icmp ugt i8* %_new_gep_73, %_parent_stack_end_ptr_
+  %_cond2_2_576 = icmp ult i8* %_new_gep_73, %_parent_stack_start_ptr_
+  %_cond2_577 = or i1 %_cond2_1_575, %_cond2_2_576
+  %_cond4_578 = icmp ule i8* %_pot_address_in_parent_stack_573, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_579 = and i1 %_cond1_574, %_cond2_577
+  %_cond1_n_cond2_cond3_580 = and i1 %_cond1_n_cond2_579, %_cond4_578
+  br i1 %_cond1_n_cond2_cond3_580, label %156, label %157
+
+; <label>:156:                                    ; preds = %152
+  %_address_in_parent_stack_bt_582 = bitcast i8* %_pot_address_in_parent_stack_573 to i64*
+  br label %157
+
+; <label>:157:                                    ; preds = %152, %156
+  %158 = phi i64* [ %_allin_new_bt_76, %152 ], [ %_address_in_parent_stack_bt_582, %156 ]
+  %_new_load_583 = load i64, i64* %158
+  store i64 %_new_load_583, i64* %XIP, !mcsema_real_eip !32
+  store volatile i8* %_new_gep_75, i8** %_RSP_ptr_
+  store i64 %155, i64* %XSP, !mcsema_real_eip !32
+  ret void, !mcsema_real_eip !32
+
+block_0x6d:                                       ; preds = %108
+  %_load_rbp_ptr_77 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_78 = getelementptr i8, i8* %_load_rbp_ptr_77, i64 -4
+  %_allin_new_bt_79 = bitcast i8* %_new_gep_78 to i64*
+  %159 = ptrtoint i64* %_allin_new_bt_79 to i64, !mcsema_real_eip !33
+  %160 = inttoptr i64 %159 to i32*, !mcsema_real_eip !33
+  store i32 -3, i32* %160, !mcsema_real_eip !33
+  br label %block_0x417, !mcsema_real_eip !34
+
+block_0x79:                                       ; preds = %108
+  %_load_rbp_ptr_80 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_81 = getelementptr i8, i8* %_load_rbp_ptr_80, i64 -16
+  %_allin_new_bt_82 = bitcast i8* %_new_gep_81 to i64*
+  %_ptr_to_int_584 = ptrtoint i64* %_allin_new_bt_82 to i64
+  %_offset_above_rbp_587 = sub i64 %_ptr_to_int_584, %_local_end_to_int_
+  %_pot_address_in_parent_stack_588 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_587
+  %_cond1_589 = icmp ugt i8* %_new_gep_81, %_local_stack_end_ptr_
+  %_cond2_1_590 = icmp ugt i8* %_new_gep_81, %_parent_stack_end_ptr_
+  %_cond2_2_591 = icmp ult i8* %_new_gep_81, %_parent_stack_start_ptr_
+  %_cond2_592 = or i1 %_cond2_1_590, %_cond2_2_591
+  %_cond4_593 = icmp ule i8* %_pot_address_in_parent_stack_588, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_594 = and i1 %_cond1_589, %_cond2_592
+  %_cond1_n_cond2_cond3_595 = and i1 %_cond1_n_cond2_594, %_cond4_593
+  br i1 %_cond1_n_cond2_cond3_595, label %161, label %162
+
+; <label>:161:                                    ; preds = %block_0x79
+  %_address_in_parent_stack_bt_597 = bitcast i8* %_pot_address_in_parent_stack_588 to i64*
+  br label %162
+
+; <label>:162:                                    ; preds = %block_0x79, %161
+  %163 = phi i64* [ %_allin_new_bt_82, %block_0x79 ], [ %_address_in_parent_stack_bt_597, %161 ]
+  %_new_load_598 = load i64, i64* %163
+  store i64 %_new_load_598, i64* %XAX, !mcsema_real_eip !35
+  %164 = add i64 %_new_load_598, 2, !mcsema_real_eip !36
+  %165 = inttoptr i64 %164 to i64*, !mcsema_real_eip !36
+  %166 = inttoptr i64 %164 to i8*, !mcsema_real_eip !36
+  %_offset_above_rbp_601 = sub i64 %164, %_local_end_to_int_
+  %_pot_address_in_parent_stack_602 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_601
+  %_cond1_603 = icmp ugt i8* %166, %_local_stack_end_ptr_
+  %_cond2_1_604 = icmp ugt i8* %166, %_parent_stack_end_ptr_
+  %_cond2_2_605 = icmp ult i8* %166, %_parent_stack_start_ptr_
+  %_cond2_606 = or i1 %_cond2_1_604, %_cond2_2_605
+  %_cond4_607 = icmp ule i8* %_pot_address_in_parent_stack_602, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_608 = and i1 %_cond1_603, %_cond2_606
+  %_cond1_n_cond2_cond3_609 = and i1 %_cond1_n_cond2_608, %_cond4_607
+  br i1 %_cond1_n_cond2_cond3_609, label %167, label %168
+
+; <label>:167:                                    ; preds = %162
+  br label %168
+
+; <label>:168:                                    ; preds = %162, %167
+  %169 = phi i8* [ %166, %162 ], [ %_pot_address_in_parent_stack_602, %167 ]
+  %_new_load_611 = load i8, i8* %169
+  %170 = zext i8 %_new_load_611 to i32, !mcsema_real_eip !36
+  %171 = zext i32 %170 to i64, !mcsema_real_eip !36
+  store i64 %171, i64* %XDI, !mcsema_real_eip !36
+  %RSP_val.41 = load i64, i64* %XSP, !mcsema_real_eip !37
+  %_new_gep_84 = getelementptr i8, i8* %_gep_fix_417, i64 -8
+  %172 = sub i64 %RSP_val.41, 8, !mcsema_real_eip !37
+  %_allin_new_bt_85 = bitcast i8* %_new_gep_84 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_85, !mcsema_real_eip !37
+  store volatile i8* %_new_gep_84, i8** %_RSP_ptr_
+  store i64 %172, i64* %XSP, !mcsema_real_eip !37
+  %173 = call x86_64_sysvcc i64 @_to_byte(i64 %171)
+  %_rsp_fix_418 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_419 = getelementptr i8, i8* %_rsp_fix_418, i64 8
+  store i8* %_gep_fix_419, i8** %_RSP_ptr_
+  store i64 %173, i64* %XAX, !mcsema_real_eip !37
+  %_load_rbp_ptr_86 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_87 = getelementptr i8, i8* %_load_rbp_ptr_86, i64 -24
+  %_allin_new_bt_88 = bitcast i8* %_new_gep_87 to i64*
+  %EAX_val.44 = load i32, i32* %EAX.9, !mcsema_real_eip !38
+  %174 = ptrtoint i64* %_allin_new_bt_88 to i64, !mcsema_real_eip !38
+  %175 = inttoptr i64 %174 to i32*, !mcsema_real_eip !38
+  store i32 %EAX_val.44, i32* %175, !mcsema_real_eip !38
+  %_load_rbp_ptr_89 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_90 = getelementptr i8, i8* %_load_rbp_ptr_89, i64 -24
+  %_allin_new_bt_91 = bitcast i8* %_new_gep_90 to i64*
+  %176 = ptrtoint i64* %_allin_new_bt_91 to i64, !mcsema_real_eip !39
+  %177 = inttoptr i64 %176 to i32*, !mcsema_real_eip !39
+  %_ptr_bt_614 = bitcast i32* %177 to i8*
+  %_offset_above_rbp_615 = sub i64 %176, %_local_end_to_int_
+  %_pot_address_in_parent_stack_616 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_615
+  %_cond1_617 = icmp ugt i8* %_ptr_bt_614, %_local_stack_end_ptr_
+  %_cond2_1_618 = icmp ugt i8* %_ptr_bt_614, %_parent_stack_end_ptr_
+  %_cond2_2_619 = icmp ult i8* %_ptr_bt_614, %_parent_stack_start_ptr_
+  %_cond2_620 = or i1 %_cond2_1_618, %_cond2_2_619
+  %_cond4_621 = icmp ule i8* %_pot_address_in_parent_stack_616, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_622 = and i1 %_cond1_617, %_cond2_620
+  %_cond1_n_cond2_cond3_623 = and i1 %_cond1_n_cond2_622, %_cond4_621
+  br i1 %_cond1_n_cond2_cond3_623, label %178, label %179
+
+; <label>:178:                                    ; preds = %168
+  %_address_in_parent_stack_bt_625 = bitcast i8* %_pot_address_in_parent_stack_616 to i32*
+  br label %179
+
+; <label>:179:                                    ; preds = %168, %178
+  %180 = phi i32* [ %177, %168 ], [ %_address_in_parent_stack_bt_625, %178 ]
+  %_new_load_626 = load i32, i32* %180
+  %181 = zext i32 %_new_load_626 to i64, !mcsema_real_eip !39
+  store i64 %181, i64* %XAX, !mcsema_real_eip !39
+  %EAX_val.47 = load i32, i32* %EAX.9, !mcsema_real_eip !40
+  %182 = and i32 %EAX_val.47, -2147483648, !mcsema_real_eip !40
+  %183 = icmp ne i32 %182, 0, !mcsema_real_eip !40
+  %184 = load i1, i1* %CF, !mcsema_real_eip !40
+  %185 = shl i32 %EAX_val.47, 1, !mcsema_real_eip !40
+  %186 = load i1, i1* %OF, !mcsema_real_eip !40
+  %187 = and i32 %185, -2147483648, !mcsema_real_eip !40
+  %188 = icmp ne i32 %187, 0, !mcsema_real_eip !40
+  %189 = xor i1 %188, %183, !mcsema_real_eip !40
+  store i1 %189, i1* %OF, !mcsema_real_eip !40
+  store i1 %183, i1* %CF, !mcsema_real_eip !40
+  %190 = load i1, i1* %ZF, !mcsema_real_eip !40
+  %191 = icmp eq i32 %185, 0, !mcsema_real_eip !40
+  store i1 %191, i1* %ZF, !mcsema_real_eip !40
+  %192 = load i1, i1* %SF, !mcsema_real_eip !40
+  %193 = icmp slt i32 %185, 0, !mcsema_real_eip !40
+  store i1 %193, i1* %SF, !mcsema_real_eip !40
+  %194 = load i1, i1* %PF, !mcsema_real_eip !40
+  %195 = trunc i32 %185 to i8, !mcsema_real_eip !40
+  %196 = call i8 @llvm.ctpop.i8(i8 %195), !mcsema_real_eip !40
+  %197 = trunc i8 %196 to i1, !mcsema_real_eip !40
+  %198 = xor i1 %197, true, !mcsema_real_eip !40
+  store i1 %198, i1* %PF, !mcsema_real_eip !40
+  %199 = zext i32 %185 to i64, !mcsema_real_eip !40
+  store i64 %199, i64* %XAX, !mcsema_real_eip !40
+  %EAX_val.49 = load i32, i32* %EAX.9, !mcsema_real_eip !41
+  %200 = sub i32 %EAX_val.49, 26, !mcsema_real_eip !41
+  %201 = xor i32 %200, %EAX_val.49, !mcsema_real_eip !41
+  %202 = xor i32 %201, 26, !mcsema_real_eip !41
+  %203 = and i32 %202, 16, !mcsema_real_eip !41
+  %204 = icmp ne i32 %203, 0, !mcsema_real_eip !41
+  store i1 %204, i1* %AF, !mcsema_real_eip !41
+  %205 = trunc i32 %200 to i8, !mcsema_real_eip !41
+  %206 = call i8 @llvm.ctpop.i8(i8 %205), !mcsema_real_eip !41
+  %207 = trunc i8 %206 to i1, !mcsema_real_eip !41
+  %208 = xor i1 %207, true, !mcsema_real_eip !41
+  store i1 %208, i1* %PF, !mcsema_real_eip !41
+  %209 = icmp eq i32 %200, 0, !mcsema_real_eip !41
+  store i1 %209, i1* %ZF, !mcsema_real_eip !41
+  %210 = lshr i32 %200, 31, !mcsema_real_eip !41
+  %211 = trunc i32 %210 to i1, !mcsema_real_eip !41
+  store i1 %211, i1* %SF, !mcsema_real_eip !41
+  %212 = icmp ult i32 %EAX_val.49, 26, !mcsema_real_eip !41
+  store i1 %212, i1* %CF, !mcsema_real_eip !41
+  %213 = xor i32 %EAX_val.49, 26, !mcsema_real_eip !41
+  %214 = and i32 %213, %201, !mcsema_real_eip !41
+  %215 = lshr i32 %214, 31, !mcsema_real_eip !41
+  %216 = trunc i32 %215 to i1, !mcsema_real_eip !41
+  store i1 %216, i1* %OF, !mcsema_real_eip !41
+  br i1 %209, label %block_0xa4, label %block_0x98, !mcsema_real_eip !42
+
+block_0x98:                                       ; preds = %179
+  %_new_gep_93 = getelementptr i8, i8* %_load_rbp_ptr_89, i64 -4
+  %_allin_new_bt_94 = bitcast i8* %_new_gep_93 to i64*
+  %217 = ptrtoint i64* %_allin_new_bt_94 to i64, !mcsema_real_eip !43
+  %218 = inttoptr i64 %217 to i32*, !mcsema_real_eip !43
+  store i32 -4, i32* %218, !mcsema_real_eip !43
+  br label %block_0x417, !mcsema_real_eip !44
+
+block_0xa4:                                       ; preds = %179
+  %_new_gep_96 = getelementptr i8, i8* %_load_rbp_ptr_89, i64 -16
+  %_allin_new_bt_97 = bitcast i8* %_new_gep_96 to i64*
+  %_ptr_to_int_627 = ptrtoint i64* %_allin_new_bt_97 to i64
+  %_offset_above_rbp_630 = sub i64 %_ptr_to_int_627, %_local_end_to_int_
+  %_pot_address_in_parent_stack_631 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_630
+  %_cond1_632 = icmp ugt i8* %_new_gep_96, %_local_stack_end_ptr_
+  %_cond2_1_633 = icmp ugt i8* %_new_gep_96, %_parent_stack_end_ptr_
+  %_cond2_2_634 = icmp ult i8* %_new_gep_96, %_parent_stack_start_ptr_
+  %_cond2_635 = or i1 %_cond2_1_633, %_cond2_2_634
+  %_cond4_636 = icmp ule i8* %_pot_address_in_parent_stack_631, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_637 = and i1 %_cond1_632, %_cond2_635
+  %_cond1_n_cond2_cond3_638 = and i1 %_cond1_n_cond2_637, %_cond4_636
+  br i1 %_cond1_n_cond2_cond3_638, label %219, label %220
+
+; <label>:219:                                    ; preds = %block_0xa4
+  %_address_in_parent_stack_bt_640 = bitcast i8* %_pot_address_in_parent_stack_631 to i64*
+  br label %220
+
+; <label>:220:                                    ; preds = %block_0xa4, %219
+  %221 = phi i64* [ %_allin_new_bt_97, %block_0xa4 ], [ %_address_in_parent_stack_bt_640, %219 ]
+  %_new_load_641 = load i64, i64* %221
+  store i64 %_new_load_641, i64* %XAX, !mcsema_real_eip !45
+  %222 = add i64 %_new_load_641, 3, !mcsema_real_eip !46
+  %223 = inttoptr i64 %222 to i64*, !mcsema_real_eip !46
+  %224 = inttoptr i64 %222 to i8*, !mcsema_real_eip !46
+  %_offset_above_rbp_644 = sub i64 %222, %_local_end_to_int_
+  %_pot_address_in_parent_stack_645 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_644
+  %_cond1_646 = icmp ugt i8* %224, %_local_stack_end_ptr_
+  %_cond2_1_647 = icmp ugt i8* %224, %_parent_stack_end_ptr_
+  %_cond2_2_648 = icmp ult i8* %224, %_parent_stack_start_ptr_
+  %_cond2_649 = or i1 %_cond2_1_647, %_cond2_2_648
+  %_cond4_650 = icmp ule i8* %_pot_address_in_parent_stack_645, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_651 = and i1 %_cond1_646, %_cond2_649
+  %_cond1_n_cond2_cond3_652 = and i1 %_cond1_n_cond2_651, %_cond4_650
+  br i1 %_cond1_n_cond2_cond3_652, label %225, label %226
+
+; <label>:225:                                    ; preds = %220
+  br label %226
+
+; <label>:226:                                    ; preds = %220, %225
+  %227 = phi i8* [ %224, %220 ], [ %_pot_address_in_parent_stack_645, %225 ]
+  %_new_load_654 = load i8, i8* %227
+  %228 = zext i8 %_new_load_654 to i32, !mcsema_real_eip !46
+  %229 = zext i32 %228 to i64, !mcsema_real_eip !46
+  store i64 %229, i64* %XDI, !mcsema_real_eip !46
+  %_load_rsp_ptr_98 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.54 = load i64, i64* %XSP, !mcsema_real_eip !47
+  %_new_gep_99 = getelementptr i8, i8* %_load_rsp_ptr_98, i64 -8
+  %230 = sub i64 %RSP_val.54, 8, !mcsema_real_eip !47
+  %_allin_new_bt_100 = bitcast i8* %_new_gep_99 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_100, !mcsema_real_eip !47
+  store volatile i8* %_new_gep_99, i8** %_RSP_ptr_
+  store i64 %230, i64* %XSP, !mcsema_real_eip !47
+  %231 = call x86_64_sysvcc i64 @_to_byte(i64 %229)
+  %_rsp_fix_420 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_421 = getelementptr i8, i8* %_rsp_fix_420, i64 8
+  store i8* %_gep_fix_421, i8** %_RSP_ptr_
+  store i64 %231, i64* %XAX, !mcsema_real_eip !47
+  store i64 2, i64* %XDI, !mcsema_real_eip !48
+  %_load_rbp_ptr_101 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_102 = getelementptr i8, i8* %_load_rbp_ptr_101, i64 -28
+  %_allin_new_bt_103 = bitcast i8* %_new_gep_102 to i64*
+  %EAX_val.57 = load i32, i32* %EAX.9, !mcsema_real_eip !49
+  %232 = ptrtoint i64* %_allin_new_bt_103 to i64, !mcsema_real_eip !49
+  %233 = inttoptr i64 %232 to i32*, !mcsema_real_eip !49
+  store i32 %EAX_val.57, i32* %233, !mcsema_real_eip !49
+  %_load_rbp_ptr_104 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_105 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -28
+  %_allin_new_bt_106 = bitcast i8* %_new_gep_105 to i64*
+  %234 = ptrtoint i64* %_allin_new_bt_106 to i64, !mcsema_real_eip !50
+  %235 = inttoptr i64 %234 to i32*, !mcsema_real_eip !50
+  %_ptr_bt_657 = bitcast i32* %235 to i8*
+  %_offset_above_rbp_658 = sub i64 %234, %_local_end_to_int_
+  %_pot_address_in_parent_stack_659 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_658
+  %_cond1_660 = icmp ugt i8* %_ptr_bt_657, %_local_stack_end_ptr_
+  %_cond2_1_661 = icmp ugt i8* %_ptr_bt_657, %_parent_stack_end_ptr_
+  %_cond2_2_662 = icmp ult i8* %_ptr_bt_657, %_parent_stack_start_ptr_
+  %_cond2_663 = or i1 %_cond2_1_661, %_cond2_2_662
+  %_cond4_664 = icmp ule i8* %_pot_address_in_parent_stack_659, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_665 = and i1 %_cond1_660, %_cond2_663
+  %_cond1_n_cond2_cond3_666 = and i1 %_cond1_n_cond2_665, %_cond4_664
+  br i1 %_cond1_n_cond2_cond3_666, label %236, label %237
+
+; <label>:236:                                    ; preds = %226
+  %_address_in_parent_stack_bt_668 = bitcast i8* %_pot_address_in_parent_stack_659 to i32*
+  br label %237
+
+; <label>:237:                                    ; preds = %226, %236
+  %238 = phi i32* [ %235, %226 ], [ %_address_in_parent_stack_bt_668, %236 ]
+  %_new_load_669 = load i32, i32* %238
+  %239 = zext i32 %_new_load_669 to i64, !mcsema_real_eip !50
+  store i64 %239, i64* %XAX, !mcsema_real_eip !50
+  %EAX_val.60 = load i32, i32* %EAX.9, !mcsema_real_eip !51
+  %240 = add i32 1, %EAX_val.60, !mcsema_real_eip !51
+  %241 = xor i32 %240, %EAX_val.60, !mcsema_real_eip !51
+  %242 = xor i32 %241, 1, !mcsema_real_eip !51
+  %243 = and i32 %242, 16, !mcsema_real_eip !51
+  %244 = icmp ne i32 %243, 0, !mcsema_real_eip !51
+  store i1 %244, i1* %AF, !mcsema_real_eip !51
+  %245 = lshr i32 %240, 31, !mcsema_real_eip !51
+  %246 = trunc i32 %245 to i1, !mcsema_real_eip !51
+  store i1 %246, i1* %SF, !mcsema_real_eip !51
+  %247 = icmp eq i32 %240, 0, !mcsema_real_eip !51
+  store i1 %247, i1* %ZF, !mcsema_real_eip !51
+  %248 = xor i32 %EAX_val.60, 1, !mcsema_real_eip !51
+  %249 = xor i32 %248, -1, !mcsema_real_eip !51
+  %250 = and i32 %249, %241, !mcsema_real_eip !51
+  %251 = lshr i32 %250, 31, !mcsema_real_eip !51
+  %252 = and i32 %251, 1, !mcsema_real_eip !51
+  %253 = trunc i32 %252 to i1, !mcsema_real_eip !51
+  store i1 %253, i1* %OF, !mcsema_real_eip !51
+  %254 = trunc i32 %240 to i8, !mcsema_real_eip !51
+  %255 = call i8 @llvm.ctpop.i8(i8 %254), !mcsema_real_eip !51
+  %256 = trunc i8 %255 to i1, !mcsema_real_eip !51
+  %257 = xor i1 %256, true, !mcsema_real_eip !51
+  store i1 %257, i1* %PF, !mcsema_real_eip !51
+  %258 = icmp ult i32 %240, %EAX_val.60, !mcsema_real_eip !51
+  store i1 %258, i1* %CF, !mcsema_real_eip !51
+  %259 = zext i32 %240 to i64, !mcsema_real_eip !51
+  store i64 %259, i64* %XAX, !mcsema_real_eip !51
+  %EAX_val.62 = load i32, i32* %EAX.9, !mcsema_real_eip !52
+  %260 = and i32 %EAX_val.62, -2147483648, !mcsema_real_eip !52
+  %261 = icmp eq i32 %260, 0, !mcsema_real_eip !52
+  %262 = select i1 %261, i32 0, i32 -1, !mcsema_real_eip !52
+  %263 = zext i32 %262 to i64, !mcsema_real_eip !52
+  store i64 %263, i64* %XDX, !mcsema_real_eip !52
+  %EDI.63 = bitcast i64* %XDI to i32*, !mcsema_real_eip !53
+  %EDI_val.64 = load i32, i32* %EDI.63, !mcsema_real_eip !53
+  %EDX.67 = bitcast i64* %XDX to i32*, !mcsema_real_eip !53
+  %EDX_val.68 = load i32, i32* %EDX.67, !mcsema_real_eip !53
+  %264 = zext i32 %EDX_val.68 to i64, !mcsema_real_eip !53
+  %265 = shl i64 %264, 32, !mcsema_real_eip !53
+  %266 = sext i32 %EAX_val.62 to i64, !mcsema_real_eip !53
+  %267 = or i64 %265, %266, !mcsema_real_eip !53
+  %268 = sext i32 %EDI_val.64 to i64, !mcsema_real_eip !53
+  %269 = sdiv i64 %267, %268, !mcsema_real_eip !53
+  %270 = srem i64 %267, %268, !mcsema_real_eip !53
+  %271 = trunc i64 %270 to i32, !mcsema_real_eip !53
+  %272 = trunc i64 %269 to i32, !mcsema_real_eip !53
+  %273 = zext i32 %271 to i64, !mcsema_real_eip !53
+  store i64 %273, i64* %XDX, !mcsema_real_eip !53
+  %274 = zext i32 %272 to i64, !mcsema_real_eip !53
+  store i64 %274, i64* %XAX, !mcsema_real_eip !53
+  %EAX_val.70 = load i32, i32* %EAX.9, !mcsema_real_eip !54
+  %275 = sub i32 %EAX_val.70, 7, !mcsema_real_eip !54
+  %276 = xor i32 %275, %EAX_val.70, !mcsema_real_eip !54
+  %277 = xor i32 %276, 7, !mcsema_real_eip !54
+  %278 = and i32 %277, 16, !mcsema_real_eip !54
+  %279 = icmp ne i32 %278, 0, !mcsema_real_eip !54
+  store i1 %279, i1* %AF, !mcsema_real_eip !54
+  %280 = trunc i32 %275 to i8, !mcsema_real_eip !54
+  %281 = call i8 @llvm.ctpop.i8(i8 %280), !mcsema_real_eip !54
+  %282 = trunc i8 %281 to i1, !mcsema_real_eip !54
+  %283 = xor i1 %282, true, !mcsema_real_eip !54
+  store i1 %283, i1* %PF, !mcsema_real_eip !54
+  %284 = icmp eq i32 %275, 0, !mcsema_real_eip !54
+  store i1 %284, i1* %ZF, !mcsema_real_eip !54
+  %285 = lshr i32 %275, 31, !mcsema_real_eip !54
+  %286 = trunc i32 %285 to i1, !mcsema_real_eip !54
+  store i1 %286, i1* %SF, !mcsema_real_eip !54
+  %287 = icmp ult i32 %EAX_val.70, 7, !mcsema_real_eip !54
+  store i1 %287, i1* %CF, !mcsema_real_eip !54
+  %288 = xor i32 %EAX_val.70, 7, !mcsema_real_eip !54
+  %289 = and i32 %288, %276, !mcsema_real_eip !54
+  %290 = lshr i32 %289, 31, !mcsema_real_eip !54
+  %291 = trunc i32 %290 to i1, !mcsema_real_eip !54
+  store i1 %291, i1* %OF, !mcsema_real_eip !54
+  br i1 %284, label %block_0xd7, label %block_0xcb, !mcsema_real_eip !55
+
+block_0xcb:                                       ; preds = %237
+  %_new_gep_108 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -4
+  %_allin_new_bt_109 = bitcast i8* %_new_gep_108 to i64*
+  %292 = ptrtoint i64* %_allin_new_bt_109 to i64, !mcsema_real_eip !56
+  %293 = inttoptr i64 %292 to i32*, !mcsema_real_eip !56
+  store i32 -5, i32* %293, !mcsema_real_eip !56
+  br label %block_0x417, !mcsema_real_eip !57
+
+block_0xd7:                                       ; preds = %237
+  %_new_gep_111 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -16
+  %_allin_new_bt_112 = bitcast i8* %_new_gep_111 to i64*
+  %_ptr_to_int_670 = ptrtoint i64* %_allin_new_bt_112 to i64
+  %_offset_above_rbp_673 = sub i64 %_ptr_to_int_670, %_local_end_to_int_
+  %_pot_address_in_parent_stack_674 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_673
+  %_cond1_675 = icmp ugt i8* %_new_gep_111, %_local_stack_end_ptr_
+  %_cond2_1_676 = icmp ugt i8* %_new_gep_111, %_parent_stack_end_ptr_
+  %_cond2_2_677 = icmp ult i8* %_new_gep_111, %_parent_stack_start_ptr_
+  %_cond2_678 = or i1 %_cond2_1_676, %_cond2_2_677
+  %_cond4_679 = icmp ule i8* %_pot_address_in_parent_stack_674, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_680 = and i1 %_cond1_675, %_cond2_678
+  %_cond1_n_cond2_cond3_681 = and i1 %_cond1_n_cond2_680, %_cond4_679
+  br i1 %_cond1_n_cond2_cond3_681, label %294, label %295
+
+; <label>:294:                                    ; preds = %block_0xd7
+  %_address_in_parent_stack_bt_683 = bitcast i8* %_pot_address_in_parent_stack_674 to i64*
+  br label %295
+
+; <label>:295:                                    ; preds = %block_0xd7, %294
+  %296 = phi i64* [ %_allin_new_bt_112, %block_0xd7 ], [ %_address_in_parent_stack_bt_683, %294 ]
+  %_new_load_684 = load i64, i64* %296
+  store i64 %_new_load_684, i64* %XAX, !mcsema_real_eip !58
+  %297 = add i64 %_new_load_684, 4, !mcsema_real_eip !59
+  %298 = inttoptr i64 %297 to i64*, !mcsema_real_eip !59
+  %299 = inttoptr i64 %297 to i8*, !mcsema_real_eip !59
+  %_offset_above_rbp_687 = sub i64 %297, %_local_end_to_int_
+  %_pot_address_in_parent_stack_688 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_687
+  %_cond1_689 = icmp ugt i8* %299, %_local_stack_end_ptr_
+  %_cond2_1_690 = icmp ugt i8* %299, %_parent_stack_end_ptr_
+  %_cond2_2_691 = icmp ult i8* %299, %_parent_stack_start_ptr_
+  %_cond2_692 = or i1 %_cond2_1_690, %_cond2_2_691
+  %_cond4_693 = icmp ule i8* %_pot_address_in_parent_stack_688, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_694 = and i1 %_cond1_689, %_cond2_692
+  %_cond1_n_cond2_cond3_695 = and i1 %_cond1_n_cond2_694, %_cond4_693
+  br i1 %_cond1_n_cond2_cond3_695, label %300, label %301
+
+; <label>:300:                                    ; preds = %295
+  br label %301
+
+; <label>:301:                                    ; preds = %295, %300
+  %302 = phi i8* [ %299, %295 ], [ %_pot_address_in_parent_stack_688, %300 ]
+  %_new_load_697 = load i8, i8* %302
+  %303 = sext i8 %_new_load_697 to i32, !mcsema_real_eip !59
+  %304 = zext i32 %303 to i64, !mcsema_real_eip !59
+  store i64 %304, i64* %XCX, !mcsema_real_eip !59
+  %ECX_val.75 = load i32, i32* %ECX.12, !mcsema_real_eip !60
+  %305 = and i32 %ECX_val.75, 15, !mcsema_real_eip !60
+  store i1 false, i1* %SF, !mcsema_real_eip !60
+  %306 = icmp eq i32 %305, 0, !mcsema_real_eip !60
+  store i1 %306, i1* %ZF, !mcsema_real_eip !60
+  %307 = trunc i32 %305 to i8, !mcsema_real_eip !60
+  %308 = call i8 @llvm.ctpop.i8(i8 %307), !mcsema_real_eip !60
+  %309 = trunc i8 %308 to i1, !mcsema_real_eip !60
+  %310 = xor i1 %309, true, !mcsema_real_eip !60
+  store i1 %310, i1* %PF, !mcsema_real_eip !60
+  store i1 false, i1* %OF, !mcsema_real_eip !60
+  store i1 false, i1* %CF, !mcsema_real_eip !60
+  store i1 undef, i1* %AF, !mcsema_real_eip !60
+  %311 = zext i32 %305 to i64, !mcsema_real_eip !60
+  store i64 %311, i64* %XCX, !mcsema_real_eip !60
+  %ECX_val.77 = load i32, i32* %ECX.12, !mcsema_real_eip !61
+  %312 = sub i32 %ECX_val.77, 1, !mcsema_real_eip !61
+  %313 = xor i32 %312, %ECX_val.77, !mcsema_real_eip !61
+  %314 = xor i32 %313, 1, !mcsema_real_eip !61
+  %315 = and i32 %314, 16, !mcsema_real_eip !61
+  %316 = icmp ne i32 %315, 0, !mcsema_real_eip !61
+  store i1 %316, i1* %AF, !mcsema_real_eip !61
+  %317 = trunc i32 %312 to i8, !mcsema_real_eip !61
+  %318 = call i8 @llvm.ctpop.i8(i8 %317), !mcsema_real_eip !61
+  %319 = trunc i8 %318 to i1, !mcsema_real_eip !61
+  %320 = xor i1 %319, true, !mcsema_real_eip !61
+  store i1 %320, i1* %PF, !mcsema_real_eip !61
+  %321 = icmp eq i32 %312, 0, !mcsema_real_eip !61
+  store i1 %321, i1* %ZF, !mcsema_real_eip !61
+  %322 = lshr i32 %312, 31, !mcsema_real_eip !61
+  %323 = trunc i32 %322 to i1, !mcsema_real_eip !61
+  store i1 %323, i1* %SF, !mcsema_real_eip !61
+  %324 = icmp ult i32 %ECX_val.77, 1, !mcsema_real_eip !61
+  store i1 %324, i1* %CF, !mcsema_real_eip !61
+  %325 = xor i32 %ECX_val.77, 1, !mcsema_real_eip !61
+  %326 = and i32 %325, %313, !mcsema_real_eip !61
+  %327 = lshr i32 %326, 31, !mcsema_real_eip !61
+  %328 = trunc i32 %327 to i1, !mcsema_real_eip !61
+  store i1 %328, i1* %OF, !mcsema_real_eip !61
+  %329 = icmp eq i1 %321, false, !mcsema_real_eip !62
+  br i1 %329, label %block_0x10e, label %block_0xeb, !mcsema_real_eip !62
+
+block_0xeb:                                       ; preds = %301
+  br i1 %_cond1_n_cond2_cond3_681, label %330, label %331
+
+; <label>:330:                                    ; preds = %block_0xeb
+  %_address_in_parent_stack_bt_711 = bitcast i8* %_pot_address_in_parent_stack_674 to i64*
+  br label %331
+
+; <label>:331:                                    ; preds = %block_0xeb, %330
+  %332 = phi i64* [ %_allin_new_bt_112, %block_0xeb ], [ %_address_in_parent_stack_bt_711, %330 ]
+  %_new_load_712 = load i64, i64* %332
+  store i64 %_new_load_712, i64* %XAX, !mcsema_real_eip !63
+  %333 = add i64 %_new_load_712, 4, !mcsema_real_eip !64
+  %334 = inttoptr i64 %333 to i64*, !mcsema_real_eip !64
+  %335 = inttoptr i64 %333 to i8*, !mcsema_real_eip !64
+  %_offset_above_rbp_715 = sub i64 %333, %_local_end_to_int_
+  %_pot_address_in_parent_stack_716 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_715
+  %_cond1_717 = icmp ugt i8* %335, %_local_stack_end_ptr_
+  %_cond2_1_718 = icmp ugt i8* %335, %_parent_stack_end_ptr_
+  %_cond2_2_719 = icmp ult i8* %335, %_parent_stack_start_ptr_
+  %_cond2_720 = or i1 %_cond2_1_718, %_cond2_2_719
+  %_cond4_721 = icmp ule i8* %_pot_address_in_parent_stack_716, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_722 = and i1 %_cond1_717, %_cond2_720
+  %_cond1_n_cond2_cond3_723 = and i1 %_cond1_n_cond2_722, %_cond4_721
+  br i1 %_cond1_n_cond2_cond3_723, label %336, label %337
+
+; <label>:336:                                    ; preds = %331
+  br label %337
+
+; <label>:337:                                    ; preds = %331, %336
+  %338 = phi i8* [ %335, %331 ], [ %_pot_address_in_parent_stack_716, %336 ]
+  %_new_load_725 = load i8, i8* %338
+  %339 = sext i8 %_new_load_725 to i32, !mcsema_real_eip !64
+  %340 = zext i32 %339 to i64, !mcsema_real_eip !64
+  store i64 %340, i64* %XCX, !mcsema_real_eip !64
+  %ECX_val.83 = load i32, i32* %ECX.12, !mcsema_real_eip !65
+  %341 = and i32 %ECX_val.83, 240, !mcsema_real_eip !65
+  store i1 false, i1* %SF, !mcsema_real_eip !65
+  %342 = icmp eq i32 %341, 0, !mcsema_real_eip !65
+  store i1 %342, i1* %ZF, !mcsema_real_eip !65
+  %343 = trunc i32 %341 to i8, !mcsema_real_eip !65
+  %344 = call i8 @llvm.ctpop.i8(i8 %343), !mcsema_real_eip !65
+  %345 = trunc i8 %344 to i1, !mcsema_real_eip !65
+  %346 = xor i1 %345, true, !mcsema_real_eip !65
+  store i1 %346, i1* %PF, !mcsema_real_eip !65
+  store i1 false, i1* %OF, !mcsema_real_eip !65
+  store i1 false, i1* %CF, !mcsema_real_eip !65
+  store i1 undef, i1* %AF, !mcsema_real_eip !65
+  %347 = zext i32 %341 to i64, !mcsema_real_eip !65
+  store i64 %347, i64* %XCX, !mcsema_real_eip !65
+  %ECX_val.85 = load i32, i32* %ECX.12, !mcsema_real_eip !66
+  %348 = sub i32 %ECX_val.85, 48, !mcsema_real_eip !66
+  %349 = xor i32 %348, %ECX_val.85, !mcsema_real_eip !66
+  %350 = xor i32 %349, 48, !mcsema_real_eip !66
+  %351 = and i32 %350, 16, !mcsema_real_eip !66
+  %352 = icmp ne i32 %351, 0, !mcsema_real_eip !66
+  store i1 %352, i1* %AF, !mcsema_real_eip !66
+  %353 = trunc i32 %348 to i8, !mcsema_real_eip !66
+  %354 = call i8 @llvm.ctpop.i8(i8 %353), !mcsema_real_eip !66
+  %355 = trunc i8 %354 to i1, !mcsema_real_eip !66
+  %356 = xor i1 %355, true, !mcsema_real_eip !66
+  store i1 %356, i1* %PF, !mcsema_real_eip !66
+  %357 = icmp eq i32 %348, 0, !mcsema_real_eip !66
+  store i1 %357, i1* %ZF, !mcsema_real_eip !66
+  %358 = lshr i32 %348, 31, !mcsema_real_eip !66
+  %359 = trunc i32 %358 to i1, !mcsema_real_eip !66
+  store i1 %359, i1* %SF, !mcsema_real_eip !66
+  %360 = icmp ult i32 %ECX_val.85, 48, !mcsema_real_eip !66
+  store i1 %360, i1* %CF, !mcsema_real_eip !66
+  %361 = xor i32 %ECX_val.85, 48, !mcsema_real_eip !66
+  %362 = and i32 %361, %349, !mcsema_real_eip !66
+  %363 = lshr i32 %362, 31, !mcsema_real_eip !66
+  %364 = trunc i32 %363 to i1, !mcsema_real_eip !66
+  store i1 %364, i1* %OF, !mcsema_real_eip !66
+  %365 = icmp eq i1 %357, false, !mcsema_real_eip !67
+  br i1 %365, label %block_0x10e, label %block_0x102, !mcsema_real_eip !67
+
+block_0x10e:                                      ; preds = %337, %301
+  %_new_gep_117 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -4
+  %_allin_new_bt_118 = bitcast i8* %_new_gep_117 to i64*
+  %366 = ptrtoint i64* %_allin_new_bt_118 to i64, !mcsema_real_eip !68
+  %367 = inttoptr i64 %366 to i32*, !mcsema_real_eip !68
+  store i32 -6, i32* %367, !mcsema_real_eip !68
+  br label %block_0x417, !mcsema_real_eip !69
+
+block_0x102:                                      ; preds = %337
+  %_new_gep_120 = getelementptr i8, i8* %_load_rbp_ptr_104, i64 -20
+  %_allin_new_bt_121 = bitcast i8* %_new_gep_120 to i64*
+  %368 = ptrtoint i64* %_allin_new_bt_121 to i64, !mcsema_real_eip !70
+  %369 = inttoptr i64 %368 to i32*, !mcsema_real_eip !70
+  store i32 -4, i32* %369, !mcsema_real_eip !70
+  br label %block_0x11a, !mcsema_real_eip !71
+
+block_0x11a:                                      ; preds = %block_0x102
+  %_load_rbp_ptr_122 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_123 = getelementptr i8, i8* %_load_rbp_ptr_122, i64 -16
+  %_allin_new_bt_124 = bitcast i8* %_new_gep_123 to i64*
+  %_ptr_to_int_726 = ptrtoint i64* %_allin_new_bt_124 to i64
+  %_offset_above_rbp_729 = sub i64 %_ptr_to_int_726, %_local_end_to_int_
+  %_pot_address_in_parent_stack_730 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_729
+  %_cond1_731 = icmp ugt i8* %_new_gep_123, %_local_stack_end_ptr_
+  %_cond2_1_732 = icmp ugt i8* %_new_gep_123, %_parent_stack_end_ptr_
+  %_cond2_2_733 = icmp ult i8* %_new_gep_123, %_parent_stack_start_ptr_
+  %_cond2_734 = or i1 %_cond2_1_732, %_cond2_2_733
+  %_cond4_735 = icmp ule i8* %_pot_address_in_parent_stack_730, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_736 = and i1 %_cond1_731, %_cond2_734
+  %_cond1_n_cond2_cond3_737 = and i1 %_cond1_n_cond2_736, %_cond4_735
+  br i1 %_cond1_n_cond2_cond3_737, label %370, label %371
+
+; <label>:370:                                    ; preds = %block_0x11a
+  %_address_in_parent_stack_bt_739 = bitcast i8* %_pot_address_in_parent_stack_730 to i64*
+  br label %371
+
+; <label>:371:                                    ; preds = %block_0x11a, %370
+  %372 = phi i64* [ %_allin_new_bt_124, %block_0x11a ], [ %_address_in_parent_stack_bt_739, %370 ]
+  %_new_load_740 = load i64, i64* %372
+  store i64 %_new_load_740, i64* %XAX, !mcsema_real_eip !72
+  %373 = add i64 %_new_load_740, 5, !mcsema_real_eip !73
+  %374 = inttoptr i64 %373 to i64*, !mcsema_real_eip !73
+  %375 = inttoptr i64 %373 to i8*, !mcsema_real_eip !73
+  %_offset_above_rbp_743 = sub i64 %373, %_local_end_to_int_
+  %_pot_address_in_parent_stack_744 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_743
+  %_cond1_745 = icmp ugt i8* %375, %_local_stack_end_ptr_
+  %_cond2_1_746 = icmp ugt i8* %375, %_parent_stack_end_ptr_
+  %_cond2_2_747 = icmp ult i8* %375, %_parent_stack_start_ptr_
+  %_cond2_748 = or i1 %_cond2_1_746, %_cond2_2_747
+  %_cond4_749 = icmp ule i8* %_pot_address_in_parent_stack_744, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_750 = and i1 %_cond1_745, %_cond2_748
+  %_cond1_n_cond2_cond3_751 = and i1 %_cond1_n_cond2_750, %_cond4_749
+  br i1 %_cond1_n_cond2_cond3_751, label %376, label %377
+
+; <label>:376:                                    ; preds = %371
+  br label %377
+
+; <label>:377:                                    ; preds = %371, %376
+  %378 = phi i8* [ %375, %371 ], [ %_pot_address_in_parent_stack_744, %376 ]
+  %_new_load_753 = load i8, i8* %378
+  %379 = sext i8 %_new_load_753 to i32, !mcsema_real_eip !73
+  %380 = zext i32 %379 to i64, !mcsema_real_eip !73
+  store i64 %380, i64* %XCX, !mcsema_real_eip !73
+  %ECX_val.90 = load i32, i32* %ECX.12, !mcsema_real_eip !74
+  %381 = and i32 %ECX_val.90, 15, !mcsema_real_eip !74
+  store i1 false, i1* %SF, !mcsema_real_eip !74
+  %382 = icmp eq i32 %381, 0, !mcsema_real_eip !74
+  store i1 %382, i1* %ZF, !mcsema_real_eip !74
+  %383 = trunc i32 %381 to i8, !mcsema_real_eip !74
+  %384 = call i8 @llvm.ctpop.i8(i8 %383), !mcsema_real_eip !74
+  %385 = trunc i8 %384 to i1, !mcsema_real_eip !74
+  %386 = xor i1 %385, true, !mcsema_real_eip !74
+  store i1 %386, i1* %PF, !mcsema_real_eip !74
+  store i1 false, i1* %OF, !mcsema_real_eip !74
+  store i1 false, i1* %CF, !mcsema_real_eip !74
+  store i1 undef, i1* %AF, !mcsema_real_eip !74
+  %387 = zext i32 %381 to i64, !mcsema_real_eip !74
+  store i64 %387, i64* %XCX, !mcsema_real_eip !74
+  %CL.91 = bitcast i64* %XCX to i8*, !mcsema_real_eip !75
+  %CL_val.92 = load i8, i8* %CL.91, !mcsema_real_eip !75
+  %DL.93 = bitcast i64* %XDX to i8*, !mcsema_real_eip !75
+  store i8 %CL_val.92, i8* %DL.93, !mcsema_real_eip !75
+  %_new_gep_126 = getelementptr i8, i8* %_load_rbp_ptr_122, i64 -33
+  %_allin_new_bt_127 = bitcast i8* %_new_gep_126 to i64*
+  %388 = ptrtoint i64* %_allin_new_bt_127 to i64, !mcsema_real_eip !76
+  %389 = inttoptr i64 %388 to i8*, !mcsema_real_eip !76
+  store i8 %CL_val.92, i8* %389, !mcsema_real_eip !76
+  %_load_rbp_ptr_128 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_129 = getelementptr i8, i8* %_load_rbp_ptr_128, i64 -16
+  %_allin_new_bt_130 = bitcast i8* %_new_gep_129 to i64*
+  %_ptr_to_int_754 = ptrtoint i64* %_allin_new_bt_130 to i64
+  %_offset_above_rbp_757 = sub i64 %_ptr_to_int_754, %_local_end_to_int_
+  %_pot_address_in_parent_stack_758 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_757
+  %_cond1_759 = icmp ugt i8* %_new_gep_129, %_local_stack_end_ptr_
+  %_cond2_1_760 = icmp ugt i8* %_new_gep_129, %_parent_stack_end_ptr_
+  %_cond2_2_761 = icmp ult i8* %_new_gep_129, %_parent_stack_start_ptr_
+  %_cond2_762 = or i1 %_cond2_1_760, %_cond2_2_761
+  %_cond4_763 = icmp ule i8* %_pot_address_in_parent_stack_758, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_764 = and i1 %_cond1_759, %_cond2_762
+  %_cond1_n_cond2_cond3_765 = and i1 %_cond1_n_cond2_764, %_cond4_763
+  br i1 %_cond1_n_cond2_cond3_765, label %390, label %391
+
+; <label>:390:                                    ; preds = %377
+  %_address_in_parent_stack_bt_767 = bitcast i8* %_pot_address_in_parent_stack_758 to i64*
+  br label %391
+
+; <label>:391:                                    ; preds = %377, %390
+  %392 = phi i64* [ %_allin_new_bt_130, %377 ], [ %_address_in_parent_stack_bt_767, %390 ]
+  %_new_load_768 = load i64, i64* %392
+  store i64 %_new_load_768, i64* %XAX, !mcsema_real_eip !77
+  %393 = add i64 %_new_load_768, 5, !mcsema_real_eip !78
+  %394 = inttoptr i64 %393 to i64*, !mcsema_real_eip !78
+  %395 = inttoptr i64 %393 to i8*, !mcsema_real_eip !78
+  %_offset_above_rbp_771 = sub i64 %393, %_local_end_to_int_
+  %_pot_address_in_parent_stack_772 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_771
+  %_cond1_773 = icmp ugt i8* %395, %_local_stack_end_ptr_
+  %_cond2_1_774 = icmp ugt i8* %395, %_parent_stack_end_ptr_
+  %_cond2_2_775 = icmp ult i8* %395, %_parent_stack_start_ptr_
+  %_cond2_776 = or i1 %_cond2_1_774, %_cond2_2_775
+  %_cond4_777 = icmp ule i8* %_pot_address_in_parent_stack_772, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_778 = and i1 %_cond1_773, %_cond2_776
+  %_cond1_n_cond2_cond3_779 = and i1 %_cond1_n_cond2_778, %_cond4_777
+  br i1 %_cond1_n_cond2_cond3_779, label %396, label %397
+
+; <label>:396:                                    ; preds = %391
+  br label %397
+
+; <label>:397:                                    ; preds = %391, %396
+  %398 = phi i8* [ %395, %391 ], [ %_pot_address_in_parent_stack_772, %396 ]
+  %_new_load_781 = load i8, i8* %398
+  %399 = sext i8 %_new_load_781 to i32, !mcsema_real_eip !78
+  %400 = zext i32 %399 to i64, !mcsema_real_eip !78
+  store i64 %400, i64* %XCX, !mcsema_real_eip !78
+  %ECX_val.100 = load i32, i32* %ECX.12, !mcsema_real_eip !79
+  %401 = and i32 %ECX_val.100, 240, !mcsema_real_eip !79
+  store i1 false, i1* %SF, !mcsema_real_eip !79
+  %402 = icmp eq i32 %401, 0, !mcsema_real_eip !79
+  store i1 %402, i1* %ZF, !mcsema_real_eip !79
+  %403 = trunc i32 %401 to i8, !mcsema_real_eip !79
+  %404 = call i8 @llvm.ctpop.i8(i8 %403), !mcsema_real_eip !79
+  %405 = trunc i8 %404 to i1, !mcsema_real_eip !79
+  %406 = xor i1 %405, true, !mcsema_real_eip !79
+  store i1 %406, i1* %PF, !mcsema_real_eip !79
+  store i1 false, i1* %OF, !mcsema_real_eip !79
+  store i1 false, i1* %CF, !mcsema_real_eip !79
+  store i1 undef, i1* %AF, !mcsema_real_eip !79
+  %407 = zext i32 %401 to i64, !mcsema_real_eip !79
+  store i64 %407, i64* %XCX, !mcsema_real_eip !79
+  %CL_val.102 = load i8, i8* %CL.91, !mcsema_real_eip !80
+  store i8 %CL_val.102, i8* %DL.93, !mcsema_real_eip !80
+  %_new_gep_132 = getelementptr i8, i8* %_load_rbp_ptr_128, i64 -34
+  %_allin_new_bt_133 = bitcast i8* %_new_gep_132 to i64*
+  %408 = ptrtoint i64* %_allin_new_bt_133 to i64, !mcsema_real_eip !81
+  %409 = inttoptr i64 %408 to i8*, !mcsema_real_eip !81
+  store i8 %CL_val.102, i8* %409, !mcsema_real_eip !81
+  %_load_rbp_ptr_134 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_135 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -33
+  %_allin_new_bt_136 = bitcast i8* %_new_gep_135 to i64*
+  %410 = ptrtoint i64* %_allin_new_bt_136 to i64, !mcsema_real_eip !82
+  %411 = inttoptr i64 %410 to i8*, !mcsema_real_eip !82
+  %_offset_above_rbp_784 = sub i64 %410, %_local_end_to_int_
+  %_pot_address_in_parent_stack_785 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_784
+  %_cond1_786 = icmp ugt i8* %411, %_local_stack_end_ptr_
+  %_cond2_1_787 = icmp ugt i8* %411, %_parent_stack_end_ptr_
+  %_cond2_2_788 = icmp ult i8* %411, %_parent_stack_start_ptr_
+  %_cond2_789 = or i1 %_cond2_1_787, %_cond2_2_788
+  %_cond4_790 = icmp ule i8* %_pot_address_in_parent_stack_785, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_791 = and i1 %_cond1_786, %_cond2_789
+  %_cond1_n_cond2_cond3_792 = and i1 %_cond1_n_cond2_791, %_cond4_790
+  br i1 %_cond1_n_cond2_cond3_792, label %412, label %413
+
+; <label>:412:                                    ; preds = %397
+  br label %413
+
+; <label>:413:                                    ; preds = %397, %412
+  %414 = phi i8* [ %411, %397 ], [ %_pot_address_in_parent_stack_785, %412 ]
+  %_new_load_794 = load i8, i8* %414
+  %415 = zext i8 %_new_load_794 to i32, !mcsema_real_eip !82
+  %416 = zext i32 %415 to i64, !mcsema_real_eip !82
+  store i64 %416, i64* %XCX, !mcsema_real_eip !82
+  %ECX_val.109 = load i32, i32* %ECX.12, !mcsema_real_eip !83
+  %417 = sub i32 %ECX_val.109, 3, !mcsema_real_eip !83
+  %418 = xor i32 %417, %ECX_val.109, !mcsema_real_eip !83
+  %419 = xor i32 %418, 3, !mcsema_real_eip !83
+  %420 = and i32 %419, 16, !mcsema_real_eip !83
+  %421 = icmp ne i32 %420, 0, !mcsema_real_eip !83
+  store i1 %421, i1* %AF, !mcsema_real_eip !83
+  %422 = trunc i32 %417 to i8, !mcsema_real_eip !83
+  %423 = call i8 @llvm.ctpop.i8(i8 %422), !mcsema_real_eip !83
+  %424 = trunc i8 %423 to i1, !mcsema_real_eip !83
+  %425 = xor i1 %424, true, !mcsema_real_eip !83
+  store i1 %425, i1* %PF, !mcsema_real_eip !83
+  %426 = icmp eq i32 %417, 0, !mcsema_real_eip !83
+  store i1 %426, i1* %ZF, !mcsema_real_eip !83
+  %427 = lshr i32 %417, 31, !mcsema_real_eip !83
+  %428 = trunc i32 %427 to i1, !mcsema_real_eip !83
+  store i1 %428, i1* %SF, !mcsema_real_eip !83
+  %429 = icmp ult i32 %ECX_val.109, 3, !mcsema_real_eip !83
+  store i1 %429, i1* %CF, !mcsema_real_eip !83
+  %430 = xor i32 %ECX_val.109, 3, !mcsema_real_eip !83
+  %431 = and i32 %430, %418, !mcsema_real_eip !83
+  %432 = lshr i32 %431, 31, !mcsema_real_eip !83
+  %433 = trunc i32 %432 to i1, !mcsema_real_eip !83
+  store i1 %433, i1* %OF, !mcsema_real_eip !83
+  %434 = icmp eq i1 %426, false, !mcsema_real_eip !84
+  br i1 %434, label %block_0x165, label %block_0x14a, !mcsema_real_eip !84
+
+block_0x14a:                                      ; preds = %413
+  %_new_gep_138 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -34
+  %_allin_new_bt_139 = bitcast i8* %_new_gep_138 to i64*
+  %435 = ptrtoint i64* %_allin_new_bt_139 to i64, !mcsema_real_eip !85
+  %436 = inttoptr i64 %435 to i8*, !mcsema_real_eip !85
+  %_offset_above_rbp_797 = sub i64 %435, %_local_end_to_int_
+  %_pot_address_in_parent_stack_798 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_797
+  %_cond1_799 = icmp ugt i8* %436, %_local_stack_end_ptr_
+  %_cond2_1_800 = icmp ugt i8* %436, %_parent_stack_end_ptr_
+  %_cond2_2_801 = icmp ult i8* %436, %_parent_stack_start_ptr_
+  %_cond2_802 = or i1 %_cond2_1_800, %_cond2_2_801
+  %_cond4_803 = icmp ule i8* %_pot_address_in_parent_stack_798, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_804 = and i1 %_cond1_799, %_cond2_802
+  %_cond1_n_cond2_cond3_805 = and i1 %_cond1_n_cond2_804, %_cond4_803
+  br i1 %_cond1_n_cond2_cond3_805, label %437, label %438
+
+; <label>:437:                                    ; preds = %block_0x14a
+  br label %438
+
+; <label>:438:                                    ; preds = %block_0x14a, %437
+  %439 = phi i8* [ %436, %block_0x14a ], [ %_pot_address_in_parent_stack_798, %437 ]
+  %_new_load_807 = load i8, i8* %439
+  %440 = zext i8 %_new_load_807 to i32, !mcsema_real_eip !85
+  %441 = zext i32 %440 to i64, !mcsema_real_eip !85
+  store i64 %441, i64* %XAX, !mcsema_real_eip !85
+  %EAX_val.118 = load i32, i32* %EAX.9, !mcsema_real_eip !86
+  %442 = sub i32 %EAX_val.118, 96, !mcsema_real_eip !86
+  %443 = xor i32 %442, %EAX_val.118, !mcsema_real_eip !86
+  %444 = xor i32 %443, 96, !mcsema_real_eip !86
+  %445 = and i32 %444, 16, !mcsema_real_eip !86
+  %446 = icmp ne i32 %445, 0, !mcsema_real_eip !86
+  store i1 %446, i1* %AF, !mcsema_real_eip !86
+  %447 = trunc i32 %442 to i8, !mcsema_real_eip !86
+  %448 = call i8 @llvm.ctpop.i8(i8 %447), !mcsema_real_eip !86
+  %449 = trunc i8 %448 to i1, !mcsema_real_eip !86
+  %450 = xor i1 %449, true, !mcsema_real_eip !86
+  store i1 %450, i1* %PF, !mcsema_real_eip !86
+  %451 = icmp eq i32 %442, 0, !mcsema_real_eip !86
+  store i1 %451, i1* %ZF, !mcsema_real_eip !86
+  %452 = lshr i32 %442, 31, !mcsema_real_eip !86
+  %453 = trunc i32 %452 to i1, !mcsema_real_eip !86
+  store i1 %453, i1* %SF, !mcsema_real_eip !86
+  %454 = icmp ult i32 %EAX_val.118, 96, !mcsema_real_eip !86
+  store i1 %454, i1* %CF, !mcsema_real_eip !86
+  %455 = xor i32 %EAX_val.118, 96, !mcsema_real_eip !86
+  %456 = and i32 %455, %443, !mcsema_real_eip !86
+  %457 = lshr i32 %456, 31, !mcsema_real_eip !86
+  %458 = trunc i32 %457 to i1, !mcsema_real_eip !86
+  store i1 %458, i1* %OF, !mcsema_real_eip !86
+  %459 = icmp eq i1 %451, false, !mcsema_real_eip !87
+  br i1 %459, label %block_0x165, label %block_0x157, !mcsema_real_eip !87
+
+block_0x165:                                      ; preds = %438, %413
+  %_new_gep_141 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -20
+  %_allin_new_bt_142 = bitcast i8* %_new_gep_141 to i64*
+  %460 = ptrtoint i64* %_allin_new_bt_142 to i64, !mcsema_real_eip !88
+  %461 = inttoptr i64 %460 to i32*, !mcsema_real_eip !88
+  %_ptr_bt_810 = bitcast i32* %461 to i8*
+  %_offset_above_rbp_811 = sub i64 %460, %_local_end_to_int_
+  %_pot_address_in_parent_stack_812 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_811
+  %_cond1_813 = icmp ugt i8* %_ptr_bt_810, %_local_stack_end_ptr_
+  %_cond2_1_814 = icmp ugt i8* %_ptr_bt_810, %_parent_stack_end_ptr_
+  %_cond2_2_815 = icmp ult i8* %_ptr_bt_810, %_parent_stack_start_ptr_
+  %_cond2_816 = or i1 %_cond2_1_814, %_cond2_2_815
+  %_cond4_817 = icmp ule i8* %_pot_address_in_parent_stack_812, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_818 = and i1 %_cond1_813, %_cond2_816
+  %_cond1_n_cond2_cond3_819 = and i1 %_cond1_n_cond2_818, %_cond4_817
+  br i1 %_cond1_n_cond2_cond3_819, label %462, label %463
+
+; <label>:462:                                    ; preds = %block_0x165
+  %_address_in_parent_stack_bt_821 = bitcast i8* %_pot_address_in_parent_stack_812 to i32*
+  br label %463
+
+; <label>:463:                                    ; preds = %block_0x165, %462
+  %464 = phi i32* [ %461, %block_0x165 ], [ %_address_in_parent_stack_bt_821, %462 ]
+  %_new_load_822 = load i32, i32* %464
+  %465 = zext i32 %_new_load_822 to i64, !mcsema_real_eip !88
+  store i64 %465, i64* %XAX, !mcsema_real_eip !88
+  %EAX_val.112 = load i32, i32* %EAX.9, !mcsema_real_eip !89
+  %466 = add i32 5, %EAX_val.112, !mcsema_real_eip !89
+  %467 = xor i32 %466, %EAX_val.112, !mcsema_real_eip !89
+  %468 = xor i32 %467, 5, !mcsema_real_eip !89
+  %469 = and i32 %468, 16, !mcsema_real_eip !89
+  %470 = icmp ne i32 %469, 0, !mcsema_real_eip !89
+  store i1 %470, i1* %AF, !mcsema_real_eip !89
+  %471 = lshr i32 %466, 31, !mcsema_real_eip !89
+  %472 = trunc i32 %471 to i1, !mcsema_real_eip !89
+  store i1 %472, i1* %SF, !mcsema_real_eip !89
+  %473 = icmp eq i32 %466, 0, !mcsema_real_eip !89
+  store i1 %473, i1* %ZF, !mcsema_real_eip !89
+  %474 = xor i32 %EAX_val.112, 5, !mcsema_real_eip !89
+  %475 = xor i32 %474, -1, !mcsema_real_eip !89
+  %476 = and i32 %475, %467, !mcsema_real_eip !89
+  %477 = lshr i32 %476, 31, !mcsema_real_eip !89
+  %478 = and i32 %477, 1, !mcsema_real_eip !89
+  %479 = trunc i32 %478 to i1, !mcsema_real_eip !89
+  store i1 %479, i1* %OF, !mcsema_real_eip !89
+  %480 = trunc i32 %466 to i8, !mcsema_real_eip !89
+  %481 = call i8 @llvm.ctpop.i8(i8 %480), !mcsema_real_eip !89
+  %482 = trunc i8 %481 to i1, !mcsema_real_eip !89
+  %483 = xor i1 %482, true, !mcsema_real_eip !89
+  store i1 %483, i1* %PF, !mcsema_real_eip !89
+  %484 = icmp ult i32 %466, %EAX_val.112, !mcsema_real_eip !89
+  store i1 %484, i1* %CF, !mcsema_real_eip !89
+  %485 = zext i32 %466 to i64, !mcsema_real_eip !89
+  store i64 %485, i64* %XAX, !mcsema_real_eip !89
+  %EAX_val.115 = load i32, i32* %EAX.9, !mcsema_real_eip !90
+  store i32 %EAX_val.115, i32* %461, !mcsema_real_eip !90
+  br label %block_0x16e, !mcsema_real_eip !85
+
+block_0x16e:                                      ; preds = %567, %463
+  %_load_rbp_ptr_146 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_147 = getelementptr i8, i8* %_load_rbp_ptr_146, i64 -16
+  %_allin_new_bt_148 = bitcast i8* %_new_gep_147 to i64*
+  %_ptr_to_int_823 = ptrtoint i64* %_allin_new_bt_148 to i64
+  %_offset_above_rbp_826 = sub i64 %_ptr_to_int_823, %_local_end_to_int_
+  %_pot_address_in_parent_stack_827 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_826
+  %_cond1_828 = icmp ugt i8* %_new_gep_147, %_local_stack_end_ptr_
+  %_cond2_1_829 = icmp ugt i8* %_new_gep_147, %_parent_stack_end_ptr_
+  %_cond2_2_830 = icmp ult i8* %_new_gep_147, %_parent_stack_start_ptr_
+  %_cond2_831 = or i1 %_cond2_1_829, %_cond2_2_830
+  %_cond4_832 = icmp ule i8* %_pot_address_in_parent_stack_827, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_833 = and i1 %_cond1_828, %_cond2_831
+  %_cond1_n_cond2_cond3_834 = and i1 %_cond1_n_cond2_833, %_cond4_832
+  br i1 %_cond1_n_cond2_cond3_834, label %486, label %487
+
+; <label>:486:                                    ; preds = %block_0x16e
+  %_address_in_parent_stack_bt_836 = bitcast i8* %_pot_address_in_parent_stack_827 to i64*
+  br label %487
+
+; <label>:487:                                    ; preds = %block_0x16e, %486
+  %488 = phi i64* [ %_allin_new_bt_148, %block_0x16e ], [ %_address_in_parent_stack_bt_836, %486 ]
+  %_new_load_837 = load i64, i64* %488
+  store i64 %_new_load_837, i64* %XAX, !mcsema_real_eip !91
+  %489 = add i64 %_new_load_837, 6, !mcsema_real_eip !92
+  %490 = inttoptr i64 %489 to i64*, !mcsema_real_eip !92
+  %491 = inttoptr i64 %489 to i8*, !mcsema_real_eip !92
+  %_offset_above_rbp_840 = sub i64 %489, %_local_end_to_int_
+  %_pot_address_in_parent_stack_841 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_840
+  %_cond1_842 = icmp ugt i8* %491, %_local_stack_end_ptr_
+  %_cond2_1_843 = icmp ugt i8* %491, %_parent_stack_end_ptr_
+  %_cond2_2_844 = icmp ult i8* %491, %_parent_stack_start_ptr_
+  %_cond2_845 = or i1 %_cond2_1_843, %_cond2_2_844
+  %_cond4_846 = icmp ule i8* %_pot_address_in_parent_stack_841, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_847 = and i1 %_cond1_842, %_cond2_845
+  %_cond1_n_cond2_cond3_848 = and i1 %_cond1_n_cond2_847, %_cond4_846
+  br i1 %_cond1_n_cond2_cond3_848, label %492, label %493
+
+; <label>:492:                                    ; preds = %487
+  br label %493
+
+; <label>:493:                                    ; preds = %487, %492
+  %494 = phi i8* [ %491, %487 ], [ %_pot_address_in_parent_stack_841, %492 ]
+  %_new_load_850 = load i8, i8* %494
+  %495 = zext i8 %_new_load_850 to i32, !mcsema_real_eip !92
+  %496 = zext i32 %495 to i64, !mcsema_real_eip !92
+  store i64 %496, i64* %XDI, !mcsema_real_eip !92
+  %_load_rsp_ptr_149 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.122 = load i64, i64* %XSP, !mcsema_real_eip !93
+  %_new_gep_150 = getelementptr i8, i8* %_load_rsp_ptr_149, i64 -8
+  %497 = sub i64 %RSP_val.122, 8, !mcsema_real_eip !93
+  %_allin_new_bt_151 = bitcast i8* %_new_gep_150 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_151, !mcsema_real_eip !93
+  store volatile i8* %_new_gep_150, i8** %_RSP_ptr_
+  store i64 %497, i64* %XSP, !mcsema_real_eip !93
+  %498 = call x86_64_sysvcc i64 @_to_byte(i64 %496)
+  %_rsp_fix_422 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_423 = getelementptr i8, i8* %_rsp_fix_422, i64 8
+  store i8* %_gep_fix_423, i8** %_RSP_ptr_
+  store i64 %498, i64* %XAX, !mcsema_real_eip !93
+  %AL.123 = bitcast i64* %XAX to i8*, !mcsema_real_eip !94
+  %AL_val.124 = load i8, i8* %AL.123, !mcsema_real_eip !94
+  store i8 %AL_val.124, i8* %CL.91, !mcsema_real_eip !94
+  %_load_rbp_ptr_152 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_153 = getelementptr i8, i8* %_load_rbp_ptr_152, i64 -35
+  %_allin_new_bt_154 = bitcast i8* %_new_gep_153 to i64*
+  %499 = ptrtoint i64* %_allin_new_bt_154 to i64, !mcsema_real_eip !95
+  %500 = inttoptr i64 %499 to i8*, !mcsema_real_eip !95
+  store i8 %AL_val.124, i8* %500, !mcsema_real_eip !95
+  %_load_rbp_ptr_155 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_156 = getelementptr i8, i8* %_load_rbp_ptr_155, i64 -16
+  %_allin_new_bt_157 = bitcast i8* %_new_gep_156 to i64*
+  %_ptr_to_int_851 = ptrtoint i64* %_allin_new_bt_157 to i64
+  %_offset_above_rbp_854 = sub i64 %_ptr_to_int_851, %_local_end_to_int_
+  %_pot_address_in_parent_stack_855 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_854
+  %_cond1_856 = icmp ugt i8* %_new_gep_156, %_local_stack_end_ptr_
+  %_cond2_1_857 = icmp ugt i8* %_new_gep_156, %_parent_stack_end_ptr_
+  %_cond2_2_858 = icmp ult i8* %_new_gep_156, %_parent_stack_start_ptr_
+  %_cond2_859 = or i1 %_cond2_1_857, %_cond2_2_858
+  %_cond4_860 = icmp ule i8* %_pot_address_in_parent_stack_855, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_861 = and i1 %_cond1_856, %_cond2_859
+  %_cond1_n_cond2_cond3_862 = and i1 %_cond1_n_cond2_861, %_cond4_860
+  br i1 %_cond1_n_cond2_cond3_862, label %501, label %502
+
+; <label>:501:                                    ; preds = %493
+  %_address_in_parent_stack_bt_864 = bitcast i8* %_pot_address_in_parent_stack_855 to i64*
+  br label %502
+
+; <label>:502:                                    ; preds = %493, %501
+  %503 = phi i64* [ %_allin_new_bt_157, %493 ], [ %_address_in_parent_stack_bt_864, %501 ]
+  %_new_load_865 = load i64, i64* %503
+  store i64 %_new_load_865, i64* %XDX, !mcsema_real_eip !96
+  %504 = add i64 %_new_load_865, 7, !mcsema_real_eip !97
+  %505 = inttoptr i64 %504 to i64*, !mcsema_real_eip !97
+  %506 = inttoptr i64 %504 to i8*, !mcsema_real_eip !97
+  %_offset_above_rbp_868 = sub i64 %504, %_local_end_to_int_
+  %_pot_address_in_parent_stack_869 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_868
+  %_cond1_870 = icmp ugt i8* %506, %_local_stack_end_ptr_
+  %_cond2_1_871 = icmp ugt i8* %506, %_parent_stack_end_ptr_
+  %_cond2_2_872 = icmp ult i8* %506, %_parent_stack_start_ptr_
+  %_cond2_873 = or i1 %_cond2_1_871, %_cond2_2_872
+  %_cond4_874 = icmp ule i8* %_pot_address_in_parent_stack_869, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_875 = and i1 %_cond1_870, %_cond2_873
+  %_cond1_n_cond2_cond3_876 = and i1 %_cond1_n_cond2_875, %_cond4_874
+  br i1 %_cond1_n_cond2_cond3_876, label %507, label %508
+
+; <label>:507:                                    ; preds = %502
+  br label %508
+
+; <label>:508:                                    ; preds = %502, %507
+  %509 = phi i8* [ %506, %502 ], [ %_pot_address_in_parent_stack_869, %507 ]
+  %_new_load_878 = load i8, i8* %509
+  %510 = zext i8 %_new_load_878 to i32, !mcsema_real_eip !97
+  %511 = zext i32 %510 to i64, !mcsema_real_eip !97
+  store i64 %511, i64* %XDI, !mcsema_real_eip !97
+  %_load_rsp_ptr_158 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.132 = load i64, i64* %XSP, !mcsema_real_eip !98
+  %_new_gep_159 = getelementptr i8, i8* %_load_rsp_ptr_158, i64 -8
+  %512 = sub i64 %RSP_val.132, 8, !mcsema_real_eip !98
+  %_allin_new_bt_160 = bitcast i8* %_new_gep_159 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_160, !mcsema_real_eip !98
+  store volatile i8* %_new_gep_159, i8** %_RSP_ptr_
+  store i64 %512, i64* %XSP, !mcsema_real_eip !98
+  %513 = call x86_64_sysvcc i64 @_to_byte(i64 %511)
+  %_rsp_fix_424 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_425 = getelementptr i8, i8* %_rsp_fix_424, i64 8
+  store i8* %_gep_fix_425, i8** %_RSP_ptr_
+  store i64 %513, i64* %XAX, !mcsema_real_eip !98
+  %_load_rbp_ptr_161 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_162 = getelementptr i8, i8* %_load_rbp_ptr_161, i64 -35
+  %_allin_new_bt_163 = bitcast i8* %_new_gep_162 to i64*
+  %514 = ptrtoint i64* %_allin_new_bt_163 to i64, !mcsema_real_eip !99
+  %515 = inttoptr i64 %514 to i8*, !mcsema_real_eip !99
+  %_offset_above_rbp_881 = sub i64 %514, %_local_end_to_int_
+  %_pot_address_in_parent_stack_882 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_881
+  %_cond1_883 = icmp ugt i8* %515, %_local_stack_end_ptr_
+  %_cond2_1_884 = icmp ugt i8* %515, %_parent_stack_end_ptr_
+  %_cond2_2_885 = icmp ult i8* %515, %_parent_stack_start_ptr_
+  %_cond2_886 = or i1 %_cond2_1_884, %_cond2_2_885
+  %_cond4_887 = icmp ule i8* %_pot_address_in_parent_stack_882, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_888 = and i1 %_cond1_883, %_cond2_886
+  %_cond1_n_cond2_cond3_889 = and i1 %_cond1_n_cond2_888, %_cond4_887
+  br i1 %_cond1_n_cond2_cond3_889, label %516, label %517
+
+; <label>:516:                                    ; preds = %508
+  br label %517
+
+; <label>:517:                                    ; preds = %508, %516
+  %518 = phi i8* [ %515, %508 ], [ %_pot_address_in_parent_stack_882, %516 ]
+  %_new_load_891 = load i8, i8* %518
+  %519 = zext i8 %_new_load_891 to i32, !mcsema_real_eip !99
+  %520 = zext i32 %519 to i64, !mcsema_real_eip !99
+  store i64 %520, i64* %XDI, !mcsema_real_eip !99
+  %EDI_val.135 = load i32, i32* %EDI.63, !mcsema_real_eip !100
+  %EAX_val.137 = load i32, i32* %EAX.9, !mcsema_real_eip !100
+  %521 = or i32 %EDI_val.135, %EAX_val.137, !mcsema_real_eip !100
+  store i1 undef, i1* %AF, !mcsema_real_eip !100
+  store i1 false, i1* %OF, !mcsema_real_eip !100
+  store i1 false, i1* %CF, !mcsema_real_eip !100
+  %522 = lshr i32 %521, 31, !mcsema_real_eip !100
+  %523 = trunc i32 %522 to i1, !mcsema_real_eip !100
+  store i1 %523, i1* %SF, !mcsema_real_eip !100
+  %524 = icmp eq i32 %521, 0, !mcsema_real_eip !100
+  store i1 %524, i1* %ZF, !mcsema_real_eip !100
+  %525 = trunc i32 %521 to i8, !mcsema_real_eip !100
+  %526 = call i8 @llvm.ctpop.i8(i8 %525), !mcsema_real_eip !100
+  %527 = trunc i8 %526 to i1, !mcsema_real_eip !100
+  %528 = xor i1 %527, true, !mcsema_real_eip !100
+  store i1 %528, i1* %PF, !mcsema_real_eip !100
+  %529 = zext i32 %521 to i64, !mcsema_real_eip !100
+  store i64 %529, i64* %XDI, !mcsema_real_eip !100
+  %DIL.138 = bitcast i64* %XDI to i8*, !mcsema_real_eip !101
+  %DIL_val.139 = load i8, i8* %DIL.138, !mcsema_real_eip !101
+  store i8 %DIL_val.139, i8* %CL.91, !mcsema_real_eip !101
+  store i8 %DIL_val.139, i8* %515, !mcsema_real_eip !102
+  %_load_rbp_ptr_167 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_168 = getelementptr i8, i8* %_load_rbp_ptr_167, i64 -35
+  %_allin_new_bt_169 = bitcast i8* %_new_gep_168 to i64*
+  %530 = ptrtoint i64* %_allin_new_bt_169 to i64, !mcsema_real_eip !103
+  %531 = inttoptr i64 %530 to i8*, !mcsema_real_eip !103
+  %_offset_above_rbp_894 = sub i64 %530, %_local_end_to_int_
+  %_pot_address_in_parent_stack_895 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_894
+  %_cond1_896 = icmp ugt i8* %531, %_local_stack_end_ptr_
+  %_cond2_1_897 = icmp ugt i8* %531, %_parent_stack_end_ptr_
+  %_cond2_2_898 = icmp ult i8* %531, %_parent_stack_start_ptr_
+  %_cond2_899 = or i1 %_cond2_1_897, %_cond2_2_898
+  %_cond4_900 = icmp ule i8* %_pot_address_in_parent_stack_895, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_901 = and i1 %_cond1_896, %_cond2_899
+  %_cond1_n_cond2_cond3_902 = and i1 %_cond1_n_cond2_901, %_cond4_900
+  br i1 %_cond1_n_cond2_cond3_902, label %532, label %533
+
+; <label>:532:                                    ; preds = %517
+  br label %533
+
+; <label>:533:                                    ; preds = %517, %532
+  %534 = phi i8* [ %531, %517 ], [ %_pot_address_in_parent_stack_895, %532 ]
+  %_new_load_904 = load i8, i8* %534
+  %535 = zext i8 %_new_load_904 to i32, !mcsema_real_eip !103
+  %536 = zext i32 %535 to i64, !mcsema_real_eip !103
+  store i64 %536, i64* %XAX, !mcsema_real_eip !103
+  %EAX_val.146 = load i32, i32* %EAX.9, !mcsema_real_eip !104
+  %537 = xor i32 %EAX_val.146, -1, !mcsema_real_eip !104
+  store i1 false, i1* %CF, !mcsema_real_eip !104
+  store i1 false, i1* %OF, !mcsema_real_eip !104
+  %538 = lshr i32 %537, 31, !mcsema_real_eip !104
+  %539 = trunc i32 %538 to i1, !mcsema_real_eip !104
+  store i1 %539, i1* %SF, !mcsema_real_eip !104
+  %540 = icmp eq i32 %537, 0, !mcsema_real_eip !104
+  store i1 %540, i1* %ZF, !mcsema_real_eip !104
+  %541 = trunc i32 %537 to i8, !mcsema_real_eip !104
+  %542 = call i8 @llvm.ctpop.i8(i8 %541), !mcsema_real_eip !104
+  %543 = trunc i8 %542 to i1, !mcsema_real_eip !104
+  %544 = xor i1 %543, true, !mcsema_real_eip !104
+  store i1 %544, i1* %PF, !mcsema_real_eip !104
+  store i1 undef, i1* %AF, !mcsema_real_eip !104
+  %545 = zext i32 %537 to i64, !mcsema_real_eip !104
+  store i64 %545, i64* %XAX, !mcsema_real_eip !104
+  %EAX_val.148 = load i32, i32* %EAX.9, !mcsema_real_eip !105
+  %546 = sub i32 %EAX_val.148, 70, !mcsema_real_eip !105
+  %547 = xor i32 %546, %EAX_val.148, !mcsema_real_eip !105
+  %548 = xor i32 %547, 70, !mcsema_real_eip !105
+  %549 = and i32 %548, 16, !mcsema_real_eip !105
+  %550 = icmp ne i32 %549, 0, !mcsema_real_eip !105
+  store i1 %550, i1* %AF, !mcsema_real_eip !105
+  %551 = trunc i32 %546 to i8, !mcsema_real_eip !105
+  %552 = call i8 @llvm.ctpop.i8(i8 %551), !mcsema_real_eip !105
+  %553 = trunc i8 %552 to i1, !mcsema_real_eip !105
+  %554 = xor i1 %553, true, !mcsema_real_eip !105
+  store i1 %554, i1* %PF, !mcsema_real_eip !105
+  %555 = icmp eq i32 %546, 0, !mcsema_real_eip !105
+  store i1 %555, i1* %ZF, !mcsema_real_eip !105
+  %556 = lshr i32 %546, 31, !mcsema_real_eip !105
+  %557 = trunc i32 %556 to i1, !mcsema_real_eip !105
+  store i1 %557, i1* %SF, !mcsema_real_eip !105
+  %558 = icmp ult i32 %EAX_val.148, 70, !mcsema_real_eip !105
+  store i1 %558, i1* %CF, !mcsema_real_eip !105
+  %559 = xor i32 %EAX_val.148, 70, !mcsema_real_eip !105
+  %560 = and i32 %559, %547, !mcsema_real_eip !105
+  %561 = lshr i32 %560, 31, !mcsema_real_eip !105
+  %562 = trunc i32 %561 to i1, !mcsema_real_eip !105
+  store i1 %562, i1* %OF, !mcsema_real_eip !105
+  %563 = icmp eq i1 %555, false, !mcsema_real_eip !106
+  br i1 %563, label %block_0x1b7, label %block_0x1a9, !mcsema_real_eip !106
+
+block_0x157:                                      ; preds = %438
+  %_new_gep_171 = getelementptr i8, i8* %_load_rbp_ptr_134, i64 -20
+  %_allin_new_bt_172 = bitcast i8* %_new_gep_171 to i64*
+  %564 = ptrtoint i64* %_allin_new_bt_172 to i64, !mcsema_real_eip !107
+  %565 = inttoptr i64 %564 to i32*, !mcsema_real_eip !107
+  %_ptr_bt_907 = bitcast i32* %565 to i8*
+  %_offset_above_rbp_908 = sub i64 %564, %_local_end_to_int_
+  %_pot_address_in_parent_stack_909 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_908
+  %_cond1_910 = icmp ugt i8* %_ptr_bt_907, %_local_stack_end_ptr_
+  %_cond2_1_911 = icmp ugt i8* %_ptr_bt_907, %_parent_stack_end_ptr_
+  %_cond2_2_912 = icmp ult i8* %_ptr_bt_907, %_parent_stack_start_ptr_
+  %_cond2_913 = or i1 %_cond2_1_911, %_cond2_2_912
+  %_cond4_914 = icmp ule i8* %_pot_address_in_parent_stack_909, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_915 = and i1 %_cond1_910, %_cond2_913
+  %_cond1_n_cond2_cond3_916 = and i1 %_cond1_n_cond2_915, %_cond4_914
+  br i1 %_cond1_n_cond2_cond3_916, label %566, label %567
+
+; <label>:566:                                    ; preds = %block_0x157
+  %_address_in_parent_stack_bt_918 = bitcast i8* %_pot_address_in_parent_stack_909 to i32*
+  br label %567
+
+; <label>:567:                                    ; preds = %block_0x157, %566
+  %568 = phi i32* [ %565, %block_0x157 ], [ %_address_in_parent_stack_bt_918, %566 ]
+  %_new_load_919 = load i32, i32* %568
+  %569 = zext i32 %_new_load_919 to i64, !mcsema_real_eip !107
+  store i64 %569, i64* %XAX, !mcsema_real_eip !107
+  %EAX_val.151 = load i32, i32* %EAX.9, !mcsema_real_eip !108
+  %570 = add i32 4, %EAX_val.151, !mcsema_real_eip !108
+  %571 = xor i32 %570, %EAX_val.151, !mcsema_real_eip !108
+  %572 = xor i32 %571, 4, !mcsema_real_eip !108
+  %573 = and i32 %572, 16, !mcsema_real_eip !108
+  %574 = icmp ne i32 %573, 0, !mcsema_real_eip !108
+  store i1 %574, i1* %AF, !mcsema_real_eip !108
+  %575 = lshr i32 %570, 31, !mcsema_real_eip !108
+  %576 = trunc i32 %575 to i1, !mcsema_real_eip !108
+  store i1 %576, i1* %SF, !mcsema_real_eip !108
+  %577 = icmp eq i32 %570, 0, !mcsema_real_eip !108
+  store i1 %577, i1* %ZF, !mcsema_real_eip !108
+  %578 = xor i32 %EAX_val.151, 4, !mcsema_real_eip !108
+  %579 = xor i32 %578, -1, !mcsema_real_eip !108
+  %580 = and i32 %579, %571, !mcsema_real_eip !108
+  %581 = lshr i32 %580, 31, !mcsema_real_eip !108
+  %582 = and i32 %581, 1, !mcsema_real_eip !108
+  %583 = trunc i32 %582 to i1, !mcsema_real_eip !108
+  store i1 %583, i1* %OF, !mcsema_real_eip !108
+  %584 = trunc i32 %570 to i8, !mcsema_real_eip !108
+  %585 = call i8 @llvm.ctpop.i8(i8 %584), !mcsema_real_eip !108
+  %586 = trunc i8 %585 to i1, !mcsema_real_eip !108
+  %587 = xor i1 %586, true, !mcsema_real_eip !108
+  store i1 %587, i1* %PF, !mcsema_real_eip !108
+  %588 = icmp ult i32 %570, %EAX_val.151, !mcsema_real_eip !108
+  store i1 %588, i1* %CF, !mcsema_real_eip !108
+  %589 = zext i32 %570 to i64, !mcsema_real_eip !108
+  store i64 %589, i64* %XAX, !mcsema_real_eip !108
+  %EAX_val.154 = load i32, i32* %EAX.9, !mcsema_real_eip !109
+  store i32 %EAX_val.154, i32* %565, !mcsema_real_eip !109
+  br label %block_0x16e, !mcsema_real_eip !110
+
+block_0x1a9:                                      ; preds = %533
+  %_new_gep_177 = getelementptr i8, i8* %_load_rbp_ptr_167, i64 -20
+  %_allin_new_bt_178 = bitcast i8* %_new_gep_177 to i64*
+  %590 = ptrtoint i64* %_allin_new_bt_178 to i64, !mcsema_real_eip !111
+  %591 = inttoptr i64 %590 to i32*, !mcsema_real_eip !111
+  %_ptr_bt_922 = bitcast i32* %591 to i8*
+  %_offset_above_rbp_923 = sub i64 %590, %_local_end_to_int_
+  %_pot_address_in_parent_stack_924 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_923
+  %_cond1_925 = icmp ugt i8* %_ptr_bt_922, %_local_stack_end_ptr_
+  %_cond2_1_926 = icmp ugt i8* %_ptr_bt_922, %_parent_stack_end_ptr_
+  %_cond2_2_927 = icmp ult i8* %_ptr_bt_922, %_parent_stack_start_ptr_
+  %_cond2_928 = or i1 %_cond2_1_926, %_cond2_2_927
+  %_cond4_929 = icmp ule i8* %_pot_address_in_parent_stack_924, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_930 = and i1 %_cond1_925, %_cond2_928
+  %_cond1_n_cond2_cond3_931 = and i1 %_cond1_n_cond2_930, %_cond4_929
+  br i1 %_cond1_n_cond2_cond3_931, label %592, label %593
+
+; <label>:592:                                    ; preds = %block_0x1a9
+  %_address_in_parent_stack_bt_933 = bitcast i8* %_pot_address_in_parent_stack_924 to i32*
+  br label %593
+
+; <label>:593:                                    ; preds = %block_0x1a9, %592
+  %594 = phi i32* [ %591, %block_0x1a9 ], [ %_address_in_parent_stack_bt_933, %592 ]
+  %_new_load_934 = load i32, i32* %594
+  %595 = zext i32 %_new_load_934 to i64, !mcsema_real_eip !111
+  store i64 %595, i64* %XAX, !mcsema_real_eip !111
+  %EAX_val.166 = load i32, i32* %EAX.9, !mcsema_real_eip !112
+  %596 = sub i32 %EAX_val.166, 1, !mcsema_real_eip !112
+  %597 = xor i32 %596, %EAX_val.166, !mcsema_real_eip !112
+  %598 = xor i32 %597, 1, !mcsema_real_eip !112
+  %599 = and i32 %598, 16, !mcsema_real_eip !112
+  %600 = icmp ne i32 %599, 0, !mcsema_real_eip !112
+  store i1 %600, i1* %AF, !mcsema_real_eip !112
+  %601 = trunc i32 %596 to i8, !mcsema_real_eip !112
+  %602 = call i8 @llvm.ctpop.i8(i8 %601), !mcsema_real_eip !112
+  %603 = trunc i8 %602 to i1, !mcsema_real_eip !112
+  %604 = xor i1 %603, true, !mcsema_real_eip !112
+  store i1 %604, i1* %PF, !mcsema_real_eip !112
+  %605 = icmp eq i32 %596, 0, !mcsema_real_eip !112
+  store i1 %605, i1* %ZF, !mcsema_real_eip !112
+  %606 = lshr i32 %596, 31, !mcsema_real_eip !112
+  %607 = trunc i32 %606 to i1, !mcsema_real_eip !112
+  store i1 %607, i1* %SF, !mcsema_real_eip !112
+  %608 = icmp ult i32 %EAX_val.166, 1, !mcsema_real_eip !112
+  store i1 %608, i1* %CF, !mcsema_real_eip !112
+  %609 = xor i32 %EAX_val.166, 1, !mcsema_real_eip !112
+  %610 = and i32 %609, %597, !mcsema_real_eip !112
+  %611 = lshr i32 %610, 31, !mcsema_real_eip !112
+  %612 = trunc i32 %611 to i1, !mcsema_real_eip !112
+  store i1 %612, i1* %OF, !mcsema_real_eip !112
+  %613 = zext i32 %596 to i64, !mcsema_real_eip !112
+  store i64 %613, i64* %XAX, !mcsema_real_eip !112
+  %EAX_val.169 = load i32, i32* %EAX.9, !mcsema_real_eip !113
+  store i32 %EAX_val.169, i32* %591, !mcsema_real_eip !113
+  br label %block_0x1c2, !mcsema_real_eip !114
+
+block_0x1b7:                                      ; preds = %533
+  %_new_gep_183 = getelementptr i8, i8* %_load_rbp_ptr_167, i64 -20
+  %_allin_new_bt_184 = bitcast i8* %_new_gep_183 to i64*
+  %614 = ptrtoint i64* %_allin_new_bt_184 to i64, !mcsema_real_eip !115
+  %615 = inttoptr i64 %614 to i32*, !mcsema_real_eip !115
+  %_ptr_bt_937 = bitcast i32* %615 to i8*
+  %_offset_above_rbp_938 = sub i64 %614, %_local_end_to_int_
+  %_pot_address_in_parent_stack_939 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_938
+  %_cond1_940 = icmp ugt i8* %_ptr_bt_937, %_local_stack_end_ptr_
+  %_cond2_1_941 = icmp ugt i8* %_ptr_bt_937, %_parent_stack_end_ptr_
+  %_cond2_2_942 = icmp ult i8* %_ptr_bt_937, %_parent_stack_start_ptr_
+  %_cond2_943 = or i1 %_cond2_1_941, %_cond2_2_942
+  %_cond4_944 = icmp ule i8* %_pot_address_in_parent_stack_939, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_945 = and i1 %_cond1_940, %_cond2_943
+  %_cond1_n_cond2_cond3_946 = and i1 %_cond1_n_cond2_945, %_cond4_944
+  br i1 %_cond1_n_cond2_cond3_946, label %616, label %617
+
+; <label>:616:                                    ; preds = %block_0x1b7
+  %_address_in_parent_stack_bt_948 = bitcast i8* %_pot_address_in_parent_stack_939 to i32*
+  br label %617
+
+; <label>:617:                                    ; preds = %block_0x1b7, %616
+  %618 = phi i32* [ %615, %block_0x1b7 ], [ %_address_in_parent_stack_bt_948, %616 ]
+  %_new_load_949 = load i32, i32* %618
+  %619 = zext i32 %_new_load_949 to i64, !mcsema_real_eip !115
+  store i64 %619, i64* %XCX, !mcsema_real_eip !115
+  br i1 %_cond1_n_cond2_cond3_946, label %620, label %621
+
+; <label>:620:                                    ; preds = %617
+  %_address_in_parent_stack_bt_963 = bitcast i8* %_pot_address_in_parent_stack_939 to i32*
+  br label %621
+
+; <label>:621:                                    ; preds = %617, %620
+  %622 = phi i32* [ %615, %617 ], [ %_address_in_parent_stack_bt_963, %620 ]
+  %_new_load_964 = load i32, i32* %622
+  %623 = zext i32 %_new_load_964 to i64, !mcsema_real_eip !116
+  store i64 %623, i64* %XAX, !mcsema_real_eip !116
+  %EAX_val.158 = load i32, i32* %EAX.9, !mcsema_real_eip !117
+  %CL_val.160 = load i8, i8* %CL.91, !mcsema_real_eip !117
+  %CL_val.160.zext = zext i8 %CL_val.160 to i32, !mcsema_real_eip !117
+  %624 = and i32 %CL_val.160.zext, 31, !mcsema_real_eip !117
+  %625 = sub i32 %CL_val.160.zext, 1, !mcsema_real_eip !117
+  %626 = icmp ne i32 %624, 0, !mcsema_real_eip !117
+  %627 = select i1 %626, i32 %625, i32 0, !mcsema_real_eip !117
+  %628 = select i1 %626, i32 1, i32 0, !mcsema_real_eip !117
+  %629 = shl i32 %EAX_val.158, %627, !mcsema_real_eip !117
+  %630 = and i32 %629, -2147483648, !mcsema_real_eip !117
+  %631 = icmp ne i32 %630, 0, !mcsema_real_eip !117
+  %632 = select i1 %626, i1 %631, i1 %558, !mcsema_real_eip !117
+  %633 = shl i32 %629, %628, !mcsema_real_eip !117
+  %634 = icmp eq i32 %624, 1, !mcsema_real_eip !117
+  %635 = and i32 %633, -2147483648, !mcsema_real_eip !117
+  %636 = icmp ne i32 %635, 0, !mcsema_real_eip !117
+  %637 = xor i1 %636, %632, !mcsema_real_eip !117
+  %638 = select i1 %634, i1 %637, i1 %562, !mcsema_real_eip !117
+  store i1 %638, i1* %OF, !mcsema_real_eip !117
+  store i1 %632, i1* %CF, !mcsema_real_eip !117
+  %639 = icmp eq i32 %633, 0, !mcsema_real_eip !117
+  %640 = select i1 %626, i1 %639, i1 %555, !mcsema_real_eip !117
+  store i1 %640, i1* %ZF, !mcsema_real_eip !117
+  %641 = icmp slt i32 %633, 0, !mcsema_real_eip !117
+  %642 = select i1 %626, i1 %641, i1 %557, !mcsema_real_eip !117
+  store i1 %642, i1* %SF, !mcsema_real_eip !117
+  %643 = trunc i32 %633 to i8, !mcsema_real_eip !117
+  %644 = call i8 @llvm.ctpop.i8(i8 %643), !mcsema_real_eip !117
+  %645 = trunc i8 %644 to i1, !mcsema_real_eip !117
+  %646 = xor i1 %645, true, !mcsema_real_eip !117
+  %647 = select i1 %626, i1 %646, i1 %554, !mcsema_real_eip !117
+  store i1 %647, i1* %PF, !mcsema_real_eip !117
+  %648 = zext i32 %633 to i64, !mcsema_real_eip !117
+  store i64 %648, i64* %XAX, !mcsema_real_eip !117
+  %EAX_val.163 = load i32, i32* %EAX.9, !mcsema_real_eip !118
+  store i32 %EAX_val.163, i32* %615, !mcsema_real_eip !118
+  br label %block_0x1c2, !mcsema_real_eip !111
+
+block_0x1c2:                                      ; preds = %621, %593
+  %_load_rbp_ptr_191 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_192 = getelementptr i8, i8* %_load_rbp_ptr_191, i64 -20
+  %_allin_new_bt_193 = bitcast i8* %_new_gep_192 to i64*
+  %649 = ptrtoint i64* %_allin_new_bt_193 to i64, !mcsema_real_eip !119
+  %650 = inttoptr i64 %649 to i32*, !mcsema_real_eip !119
+  %_ptr_bt_967 = bitcast i32* %650 to i8*
+  %_offset_above_rbp_968 = sub i64 %649, %_local_end_to_int_
+  %_pot_address_in_parent_stack_969 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_968
+  %_cond1_970 = icmp ugt i8* %_ptr_bt_967, %_local_stack_end_ptr_
+  %_cond2_1_971 = icmp ugt i8* %_ptr_bt_967, %_parent_stack_end_ptr_
+  %_cond2_2_972 = icmp ult i8* %_ptr_bt_967, %_parent_stack_start_ptr_
+  %_cond2_973 = or i1 %_cond2_1_971, %_cond2_2_972
+  %_cond4_974 = icmp ule i8* %_pot_address_in_parent_stack_969, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_975 = and i1 %_cond1_970, %_cond2_973
+  %_cond1_n_cond2_cond3_976 = and i1 %_cond1_n_cond2_975, %_cond4_974
+  br i1 %_cond1_n_cond2_cond3_976, label %651, label %652
+
+; <label>:651:                                    ; preds = %block_0x1c2
+  %_address_in_parent_stack_bt_978 = bitcast i8* %_pot_address_in_parent_stack_969 to i32*
+  br label %652
+
+; <label>:652:                                    ; preds = %block_0x1c2, %651
+  %653 = phi i32* [ %650, %block_0x1c2 ], [ %_address_in_parent_stack_bt_978, %651 ]
+  %_new_load_979 = load i32, i32* %653
+  store i1 false, i1* %AF, !mcsema_real_eip !119
+  %654 = trunc i32 %_new_load_979 to i8, !mcsema_real_eip !119
+  %655 = call i8 @llvm.ctpop.i8(i8 %654), !mcsema_real_eip !119
+  %656 = trunc i8 %655 to i1, !mcsema_real_eip !119
+  %657 = xor i1 %656, true, !mcsema_real_eip !119
+  store i1 %657, i1* %PF, !mcsema_real_eip !119
+  %658 = icmp eq i32 %_new_load_979, 0, !mcsema_real_eip !119
+  store i1 %658, i1* %ZF, !mcsema_real_eip !119
+  %659 = lshr i32 %_new_load_979, 31, !mcsema_real_eip !119
+  %660 = trunc i32 %659 to i1, !mcsema_real_eip !119
+  store i1 %660, i1* %SF, !mcsema_real_eip !119
+  store i1 false, i1* %CF, !mcsema_real_eip !119
+  store i1 false, i1* %OF, !mcsema_real_eip !119
+  br i1 %658, label %block_0x1d8, label %block_0x1cc, !mcsema_real_eip !120
+
+block_0x1cc:                                      ; preds = %652
+  %_new_gep_195 = getelementptr i8, i8* %_load_rbp_ptr_191, i64 -4
+  %_allin_new_bt_196 = bitcast i8* %_new_gep_195 to i64*
+  %661 = ptrtoint i64* %_allin_new_bt_196 to i64, !mcsema_real_eip !121
+  %662 = inttoptr i64 %661 to i32*, !mcsema_real_eip !121
+  store i32 -7, i32* %662, !mcsema_real_eip !121
+  br label %block_0x417, !mcsema_real_eip !122
+
+block_0x1d8:                                      ; preds = %652
+  %EDI_val.172 = load i32, i32* %EDI.63, !mcsema_real_eip !123
+  store i1 false, i1* %CF, !mcsema_real_eip !123
+  store i1 false, i1* %OF, !mcsema_real_eip !123
+  store i1 false, i1* %SF, !mcsema_real_eip !123
+  store i1 true, i1* %ZF, !mcsema_real_eip !123
+  store i1 true, i1* %PF, !mcsema_real_eip !123
+  store i1 undef, i1* %AF, !mcsema_real_eip !123
+  store i64 0, i64* %XDI, !mcsema_real_eip !123
+  store i64 4, i64* %XDX, !mcsema_real_eip !124
+  %_new_gep_198 = getelementptr i8, i8* %_load_rbp_ptr_191, i64 -16
+  %_allin_new_bt_199 = bitcast i8* %_new_gep_198 to i64*
+  %_ptr_to_int_980 = ptrtoint i64* %_allin_new_bt_199 to i64
+  %_offset_above_rbp_983 = sub i64 %_ptr_to_int_980, %_local_end_to_int_
+  %_pot_address_in_parent_stack_984 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_983
+  %_cond1_985 = icmp ugt i8* %_new_gep_198, %_local_stack_end_ptr_
+  %_cond2_1_986 = icmp ugt i8* %_new_gep_198, %_parent_stack_end_ptr_
+  %_cond2_2_987 = icmp ult i8* %_new_gep_198, %_parent_stack_start_ptr_
+  %_cond2_988 = or i1 %_cond2_1_986, %_cond2_2_987
+  %_cond4_989 = icmp ule i8* %_pot_address_in_parent_stack_984, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_990 = and i1 %_cond1_985, %_cond2_988
+  %_cond1_n_cond2_cond3_991 = and i1 %_cond1_n_cond2_990, %_cond4_989
+  br i1 %_cond1_n_cond2_cond3_991, label %663, label %664
+
+; <label>:663:                                    ; preds = %block_0x1d8
+  %_address_in_parent_stack_bt_993 = bitcast i8* %_pot_address_in_parent_stack_984 to i64*
+  br label %664
+
+; <label>:664:                                    ; preds = %block_0x1d8, %663
+  %665 = phi i64* [ %_allin_new_bt_199, %block_0x1d8 ], [ %_address_in_parent_stack_bt_993, %663 ]
+  %_new_load_994 = load i64, i64* %665
+  store i64 %_new_load_994, i64* %XAX, !mcsema_real_eip !125
+  %666 = add i64 8, %_new_load_994, !mcsema_real_eip !126
+  %667 = xor i64 %666, %_new_load_994, !mcsema_real_eip !126
+  %668 = xor i64 %667, 8, !mcsema_real_eip !126
+  %669 = and i64 %668, 16, !mcsema_real_eip !126
+  %670 = icmp ne i64 %669, 0, !mcsema_real_eip !126
+  store i1 %670, i1* %AF, !mcsema_real_eip !126
+  %671 = lshr i64 %666, 63, !mcsema_real_eip !126
+  %672 = trunc i64 %671 to i1, !mcsema_real_eip !126
+  store i1 %672, i1* %SF, !mcsema_real_eip !126
+  %673 = icmp eq i64 %666, 0, !mcsema_real_eip !126
+  store i1 %673, i1* %ZF, !mcsema_real_eip !126
+  %674 = xor i64 %_new_load_994, 8, !mcsema_real_eip !126
+  %675 = xor i64 %674, -1, !mcsema_real_eip !126
+  %676 = and i64 %675, %667, !mcsema_real_eip !126
+  %677 = lshr i64 %676, 63, !mcsema_real_eip !126
+  %678 = and i64 %677, 1, !mcsema_real_eip !126
+  %679 = trunc i64 %678 to i1, !mcsema_real_eip !126
+  store i1 %679, i1* %OF, !mcsema_real_eip !126
+  %680 = trunc i64 %666 to i8, !mcsema_real_eip !126
+  %681 = call i8 @llvm.ctpop.i8(i8 %680), !mcsema_real_eip !126
+  %682 = trunc i8 %681 to i1, !mcsema_real_eip !126
+  %683 = xor i1 %682, true, !mcsema_real_eip !126
+  store i1 %683, i1* %PF, !mcsema_real_eip !126
+  %684 = icmp ult i64 %666, %_new_load_994, !mcsema_real_eip !126
+  store i1 %684, i1* %CF, !mcsema_real_eip !126
+  store i64 %666, i64* %XAX, !mcsema_real_eip !126
+  store i64 %666, i64* %XSI, !mcsema_real_eip !127
+  %_load_rsp_ptr_200 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.181 = load i64, i64* %XSP, !mcsema_real_eip !128
+  %_new_gep_201 = getelementptr i8, i8* %_load_rsp_ptr_200, i64 -8
+  %685 = sub i64 %RSP_val.181, 8, !mcsema_real_eip !128
+  %_allin_new_bt_202 = bitcast i8* %_new_gep_201 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_202, !mcsema_real_eip !128
+  store volatile i8* %_new_gep_201, i8** %_RSP_ptr_
+  store i64 %685, i64* %XSP, !mcsema_real_eip !128
+  %686 = call x86_64_sysvcc i64 @_read_bytes(i64 0, i64 %666, i64 4)
+  %_rsp_fix_426 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_427 = getelementptr i8, i8* %_rsp_fix_426, i64 8
+  store i8* %_gep_fix_427, i8** %_RSP_ptr_
+  store i64 %686, i64* %XAX, !mcsema_real_eip !128
+  %AX.182 = bitcast i64* %XAX to i16*, !mcsema_real_eip !129
+  %AX_val.183 = load i16, i16* %AX.182, !mcsema_real_eip !129
+  %CX.184 = bitcast i64* %XCX to i16*, !mcsema_real_eip !129
+  store i16 %AX_val.183, i16* %CX.184, !mcsema_real_eip !129
+  %_load_rbp_ptr_203 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_204 = getelementptr i8, i8* %_load_rbp_ptr_203, i64 -38
+  %_allin_new_bt_205 = bitcast i8* %_new_gep_204 to i64*
+  %687 = ptrtoint i64* %_allin_new_bt_205 to i64, !mcsema_real_eip !130
+  %688 = inttoptr i64 %687 to i16*, !mcsema_real_eip !130
+  store i16 %AX_val.183, i16* %688, !mcsema_real_eip !130
+  %_load_rbp_ptr_206 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_207 = getelementptr i8, i8* %_load_rbp_ptr_206, i64 -38
+  %_allin_new_bt_208 = bitcast i8* %_new_gep_207 to i64*
+  %689 = ptrtoint i64* %_allin_new_bt_208 to i64, !mcsema_real_eip !131
+  %690 = inttoptr i64 %689 to i16*, !mcsema_real_eip !131
+  %_ptr_bt_997 = bitcast i16* %690 to i8*
+  %_offset_above_rbp_998 = sub i64 %689, %_local_end_to_int_
+  %_pot_address_in_parent_stack_999 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_998
+  %_cond1_1000 = icmp ugt i8* %_ptr_bt_997, %_local_stack_end_ptr_
+  %_cond2_1_1001 = icmp ugt i8* %_ptr_bt_997, %_parent_stack_end_ptr_
+  %_cond2_2_1002 = icmp ult i8* %_ptr_bt_997, %_parent_stack_start_ptr_
+  %_cond2_1003 = or i1 %_cond2_1_1001, %_cond2_2_1002
+  %_cond4_1004 = icmp ule i8* %_pot_address_in_parent_stack_999, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1005 = and i1 %_cond1_1000, %_cond2_1003
+  %_cond1_n_cond2_cond3_1006 = and i1 %_cond1_n_cond2_1005, %_cond4_1004
+  br i1 %_cond1_n_cond2_cond3_1006, label %691, label %692
+
+; <label>:691:                                    ; preds = %664
+  %_address_in_parent_stack_bt_1008 = bitcast i8* %_pot_address_in_parent_stack_999 to i16*
+  br label %692
+
+; <label>:692:                                    ; preds = %664, %691
+  %693 = phi i16* [ %690, %664 ], [ %_address_in_parent_stack_bt_1008, %691 ]
+  %_new_load_1009 = load i16, i16* %693
+  %694 = zext i16 %_new_load_1009 to i32, !mcsema_real_eip !131
+  %695 = zext i32 %694 to i64, !mcsema_real_eip !131
+  store i64 %695, i64* %XAX, !mcsema_real_eip !131
+  %EAX_val.190 = load i32, i32* %EAX.9, !mcsema_real_eip !132
+  %696 = or i32 %EAX_val.190, 21845, !mcsema_real_eip !132
+  store i1 undef, i1* %AF, !mcsema_real_eip !132
+  store i1 false, i1* %OF, !mcsema_real_eip !132
+  store i1 false, i1* %CF, !mcsema_real_eip !132
+  %697 = lshr i32 %696, 31, !mcsema_real_eip !132
+  %698 = trunc i32 %697 to i1, !mcsema_real_eip !132
+  store i1 %698, i1* %SF, !mcsema_real_eip !132
+  store i1 false, i1* %ZF, !mcsema_real_eip !132
+  %699 = trunc i32 %696 to i8, !mcsema_real_eip !132
+  %700 = call i8 @llvm.ctpop.i8(i8 %699), !mcsema_real_eip !132
+  %701 = trunc i8 %700 to i1, !mcsema_real_eip !132
+  %702 = xor i1 %701, true, !mcsema_real_eip !132
+  store i1 %702, i1* %PF, !mcsema_real_eip !132
+  %703 = zext i32 %696 to i64, !mcsema_real_eip !132
+  store i64 %703, i64* %XAX, !mcsema_real_eip !132
+  %EAX_val.192 = load i32, i32* %EAX.9, !mcsema_real_eip !133
+  %704 = sub i32 %EAX_val.192, 56663, !mcsema_real_eip !133
+  %705 = xor i32 %704, %EAX_val.192, !mcsema_real_eip !133
+  %706 = xor i32 %705, 56663, !mcsema_real_eip !133
+  %707 = and i32 %706, 16, !mcsema_real_eip !133
+  %708 = icmp ne i32 %707, 0, !mcsema_real_eip !133
+  store i1 %708, i1* %AF, !mcsema_real_eip !133
+  %709 = trunc i32 %704 to i8, !mcsema_real_eip !133
+  %710 = call i8 @llvm.ctpop.i8(i8 %709), !mcsema_real_eip !133
+  %711 = trunc i8 %710 to i1, !mcsema_real_eip !133
+  %712 = xor i1 %711, true, !mcsema_real_eip !133
+  store i1 %712, i1* %PF, !mcsema_real_eip !133
+  %713 = icmp eq i32 %704, 0, !mcsema_real_eip !133
+  store i1 %713, i1* %ZF, !mcsema_real_eip !133
+  %714 = lshr i32 %704, 31, !mcsema_real_eip !133
+  %715 = trunc i32 %714 to i1, !mcsema_real_eip !133
+  store i1 %715, i1* %SF, !mcsema_real_eip !133
+  %716 = icmp ult i32 %EAX_val.192, 56663, !mcsema_real_eip !133
+  store i1 %716, i1* %CF, !mcsema_real_eip !133
+  %717 = xor i32 %EAX_val.192, 56663, !mcsema_real_eip !133
+  %718 = and i32 %717, %705, !mcsema_real_eip !133
+  %719 = lshr i32 %718, 31, !mcsema_real_eip !133
+  %720 = trunc i32 %719 to i1, !mcsema_real_eip !133
+  store i1 %720, i1* %OF, !mcsema_real_eip !133
+  %721 = icmp eq i1 %713, false, !mcsema_real_eip !134
+  br i1 %721, label %block_0x22a, label %block_0x20a, !mcsema_real_eip !134
+
+block_0x20a:                                      ; preds = %692
+  br i1 %_cond1_n_cond2_cond3_1006, label %722, label %723
+
+; <label>:722:                                    ; preds = %block_0x20a
+  %_address_in_parent_stack_bt_1023 = bitcast i8* %_pot_address_in_parent_stack_999 to i16*
+  br label %723
+
+; <label>:723:                                    ; preds = %block_0x20a, %722
+  %724 = phi i16* [ %690, %block_0x20a ], [ %_address_in_parent_stack_bt_1023, %722 ]
+  %_new_load_1024 = load i16, i16* %724
+  %725 = zext i16 %_new_load_1024 to i32, !mcsema_real_eip !135
+  %726 = zext i32 %725 to i64, !mcsema_real_eip !135
+  store i64 %726, i64* %XAX, !mcsema_real_eip !135
+  %EAX_val.197 = load i32, i32* %EAX.9, !mcsema_real_eip !136
+  %727 = or i32 %EAX_val.197, 43690, !mcsema_real_eip !136
+  store i1 undef, i1* %AF, !mcsema_real_eip !136
+  store i1 false, i1* %OF, !mcsema_real_eip !136
+  store i1 false, i1* %CF, !mcsema_real_eip !136
+  %728 = lshr i32 %727, 31, !mcsema_real_eip !136
+  %729 = trunc i32 %728 to i1, !mcsema_real_eip !136
+  store i1 %729, i1* %SF, !mcsema_real_eip !136
+  store i1 false, i1* %ZF, !mcsema_real_eip !136
+  %730 = trunc i32 %727 to i8, !mcsema_real_eip !136
+  %731 = call i8 @llvm.ctpop.i8(i8 %730), !mcsema_real_eip !136
+  %732 = trunc i8 %731 to i1, !mcsema_real_eip !136
+  %733 = xor i1 %732, true, !mcsema_real_eip !136
+  store i1 %733, i1* %PF, !mcsema_real_eip !136
+  %734 = zext i32 %727 to i64, !mcsema_real_eip !136
+  store i64 %734, i64* %XAX, !mcsema_real_eip !136
+  %EAX_val.199 = load i32, i32* %EAX.9, !mcsema_real_eip !137
+  %735 = sub i32 %EAX_val.199, 65211, !mcsema_real_eip !137
+  %736 = xor i32 %735, %EAX_val.199, !mcsema_real_eip !137
+  %737 = xor i32 %736, 65211, !mcsema_real_eip !137
+  %738 = and i32 %737, 16, !mcsema_real_eip !137
+  %739 = icmp ne i32 %738, 0, !mcsema_real_eip !137
+  store i1 %739, i1* %AF, !mcsema_real_eip !137
+  %740 = trunc i32 %735 to i8, !mcsema_real_eip !137
+  %741 = call i8 @llvm.ctpop.i8(i8 %740), !mcsema_real_eip !137
+  %742 = trunc i8 %741 to i1, !mcsema_real_eip !137
+  %743 = xor i1 %742, true, !mcsema_real_eip !137
+  store i1 %743, i1* %PF, !mcsema_real_eip !137
+  %744 = icmp eq i32 %735, 0, !mcsema_real_eip !137
+  store i1 %744, i1* %ZF, !mcsema_real_eip !137
+  %745 = lshr i32 %735, 31, !mcsema_real_eip !137
+  %746 = trunc i32 %745 to i1, !mcsema_real_eip !137
+  store i1 %746, i1* %SF, !mcsema_real_eip !137
+  %747 = icmp ult i32 %EAX_val.199, 65211, !mcsema_real_eip !137
+  store i1 %747, i1* %CF, !mcsema_real_eip !137
+  %748 = xor i32 %EAX_val.199, 65211, !mcsema_real_eip !137
+  %749 = and i32 %748, %736, !mcsema_real_eip !137
+  %750 = lshr i32 %749, 31, !mcsema_real_eip !137
+  %751 = trunc i32 %750 to i1, !mcsema_real_eip !137
+  store i1 %751, i1* %OF, !mcsema_real_eip !137
+  %752 = icmp eq i1 %744, false, !mcsema_real_eip !138
+  br i1 %752, label %block_0x22a, label %block_0x21e, !mcsema_real_eip !138
+
+block_0x22a:                                      ; preds = %723, %692
+  %_new_gep_213 = getelementptr i8, i8* %_load_rbp_ptr_206, i64 -20
+  %_allin_new_bt_214 = bitcast i8* %_new_gep_213 to i64*
+  %753 = ptrtoint i64* %_allin_new_bt_214 to i64, !mcsema_real_eip !139
+  %754 = inttoptr i64 %753 to i32*, !mcsema_real_eip !139
+  store i32 48059, i32* %754, !mcsema_real_eip !139
+  br label %block_0x231, !mcsema_real_eip !135
+
+block_0x231:                                      ; preds = %block_0x21e, %block_0x22a
+  %EDI_val.201 = load i32, i32* %EDI.63, !mcsema_real_eip !140
+  store i1 false, i1* %CF, !mcsema_real_eip !140
+  store i1 false, i1* %OF, !mcsema_real_eip !140
+  store i1 false, i1* %SF, !mcsema_real_eip !140
+  store i1 true, i1* %ZF, !mcsema_real_eip !140
+  store i1 true, i1* %PF, !mcsema_real_eip !140
+  store i1 undef, i1* %AF, !mcsema_real_eip !140
+  store i64 0, i64* %XDI, !mcsema_real_eip !140
+  store i64 8, i64* %XDX, !mcsema_real_eip !141
+  %_load_rbp_ptr_215 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_216 = getelementptr i8, i8* %_load_rbp_ptr_215, i64 -16
+  %_allin_new_bt_217 = bitcast i8* %_new_gep_216 to i64*
+  %_ptr_to_int_1025 = ptrtoint i64* %_allin_new_bt_217 to i64
+  %_offset_above_rbp_1028 = sub i64 %_ptr_to_int_1025, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1029 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1028
+  %_cond1_1030 = icmp ugt i8* %_new_gep_216, %_local_stack_end_ptr_
+  %_cond2_1_1031 = icmp ugt i8* %_new_gep_216, %_parent_stack_end_ptr_
+  %_cond2_2_1032 = icmp ult i8* %_new_gep_216, %_parent_stack_start_ptr_
+  %_cond2_1033 = or i1 %_cond2_1_1031, %_cond2_2_1032
+  %_cond4_1034 = icmp ule i8* %_pot_address_in_parent_stack_1029, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1035 = and i1 %_cond1_1030, %_cond2_1033
+  %_cond1_n_cond2_cond3_1036 = and i1 %_cond1_n_cond2_1035, %_cond4_1034
+  br i1 %_cond1_n_cond2_cond3_1036, label %755, label %756
+
+; <label>:755:                                    ; preds = %block_0x231
+  %_address_in_parent_stack_bt_1038 = bitcast i8* %_pot_address_in_parent_stack_1029 to i64*
+  br label %756
+
+; <label>:756:                                    ; preds = %block_0x231, %755
+  %757 = phi i64* [ %_allin_new_bt_217, %block_0x231 ], [ %_address_in_parent_stack_bt_1038, %755 ]
+  %_new_load_1039 = load i64, i64* %757
+  store i64 %_new_load_1039, i64* %XAX, !mcsema_real_eip !142
+  %758 = add i64 12, %_new_load_1039, !mcsema_real_eip !143
+  %759 = xor i64 %758, %_new_load_1039, !mcsema_real_eip !143
+  %760 = xor i64 %759, 12, !mcsema_real_eip !143
+  %761 = and i64 %760, 16, !mcsema_real_eip !143
+  %762 = icmp ne i64 %761, 0, !mcsema_real_eip !143
+  store i1 %762, i1* %AF, !mcsema_real_eip !143
+  %763 = lshr i64 %758, 63, !mcsema_real_eip !143
+  %764 = trunc i64 %763 to i1, !mcsema_real_eip !143
+  store i1 %764, i1* %SF, !mcsema_real_eip !143
+  %765 = icmp eq i64 %758, 0, !mcsema_real_eip !143
+  store i1 %765, i1* %ZF, !mcsema_real_eip !143
+  %766 = xor i64 %_new_load_1039, 12, !mcsema_real_eip !143
+  %767 = xor i64 %766, -1, !mcsema_real_eip !143
+  %768 = and i64 %767, %759, !mcsema_real_eip !143
+  %769 = lshr i64 %768, 63, !mcsema_real_eip !143
+  %770 = and i64 %769, 1, !mcsema_real_eip !143
+  %771 = trunc i64 %770 to i1, !mcsema_real_eip !143
+  store i1 %771, i1* %OF, !mcsema_real_eip !143
+  %772 = trunc i64 %758 to i8, !mcsema_real_eip !143
+  %773 = call i8 @llvm.ctpop.i8(i8 %772), !mcsema_real_eip !143
+  %774 = trunc i8 %773 to i1, !mcsema_real_eip !143
+  %775 = xor i1 %774, true, !mcsema_real_eip !143
+  store i1 %775, i1* %PF, !mcsema_real_eip !143
+  %776 = icmp ult i64 %758, %_new_load_1039, !mcsema_real_eip !143
+  store i1 %776, i1* %CF, !mcsema_real_eip !143
+  store i64 %758, i64* %XAX, !mcsema_real_eip !143
+  store i64 %758, i64* %XSI, !mcsema_real_eip !144
+  %_load_rsp_ptr_218 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.210 = load i64, i64* %XSP, !mcsema_real_eip !145
+  %_new_gep_219 = getelementptr i8, i8* %_load_rsp_ptr_218, i64 -8
+  %777 = sub i64 %RSP_val.210, 8, !mcsema_real_eip !145
+  %_allin_new_bt_220 = bitcast i8* %_new_gep_219 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_220, !mcsema_real_eip !145
+  store volatile i8* %_new_gep_219, i8** %_RSP_ptr_
+  store i64 %777, i64* %XSP, !mcsema_real_eip !145
+  %778 = call x86_64_sysvcc i64 @_read_bytes(i64 0, i64 %758, i64 8)
+  %_rsp_fix_428 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_429 = getelementptr i8, i8* %_rsp_fix_428, i64 8
+  store i8* %_gep_fix_429, i8** %_RSP_ptr_
+  store i64 %778, i64* %XAX, !mcsema_real_eip !145
+  %_load_rbp_ptr_221 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_222 = getelementptr i8, i8* %_load_rbp_ptr_221, i64 -44
+  %_allin_new_bt_223 = bitcast i8* %_new_gep_222 to i64*
+  %EAX_val.213 = load i32, i32* %EAX.9, !mcsema_real_eip !146
+  %779 = ptrtoint i64* %_allin_new_bt_223 to i64, !mcsema_real_eip !146
+  %780 = inttoptr i64 %779 to i32*, !mcsema_real_eip !146
+  store i32 %EAX_val.213, i32* %780, !mcsema_real_eip !146
+  %_load_rbp_ptr_224 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_225 = getelementptr i8, i8* %_load_rbp_ptr_224, i64 -44
+  %_allin_new_bt_226 = bitcast i8* %_new_gep_225 to i64*
+  %781 = ptrtoint i64* %_allin_new_bt_226 to i64, !mcsema_real_eip !147
+  %782 = inttoptr i64 %781 to i32*, !mcsema_real_eip !147
+  %_ptr_bt_1042 = bitcast i32* %782 to i8*
+  %_offset_above_rbp_1043 = sub i64 %781, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1044 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1043
+  %_cond1_1045 = icmp ugt i8* %_ptr_bt_1042, %_local_stack_end_ptr_
+  %_cond2_1_1046 = icmp ugt i8* %_ptr_bt_1042, %_parent_stack_end_ptr_
+  %_cond2_2_1047 = icmp ult i8* %_ptr_bt_1042, %_parent_stack_start_ptr_
+  %_cond2_1048 = or i1 %_cond2_1_1046, %_cond2_2_1047
+  %_cond4_1049 = icmp ule i8* %_pot_address_in_parent_stack_1044, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1050 = and i1 %_cond1_1045, %_cond2_1048
+  %_cond1_n_cond2_cond3_1051 = and i1 %_cond1_n_cond2_1050, %_cond4_1049
+  br i1 %_cond1_n_cond2_cond3_1051, label %783, label %784
+
+; <label>:783:                                    ; preds = %756
+  %_address_in_parent_stack_bt_1053 = bitcast i8* %_pot_address_in_parent_stack_1044 to i32*
+  br label %784
+
+; <label>:784:                                    ; preds = %756, %783
+  %785 = phi i32* [ %782, %756 ], [ %_address_in_parent_stack_bt_1053, %783 ]
+  %_new_load_1054 = load i32, i32* %785
+  %786 = zext i32 %_new_load_1054 to i64, !mcsema_real_eip !147
+  store i64 %786, i64* %XAX, !mcsema_real_eip !147
+  %EAX_val.216 = load i32, i32* %EAX.9, !mcsema_real_eip !148
+  %787 = xor i32 %EAX_val.216, -1534560611, !mcsema_real_eip !148
+  store i1 false, i1* %CF, !mcsema_real_eip !148
+  store i1 false, i1* %OF, !mcsema_real_eip !148
+  %788 = lshr i32 %787, 31, !mcsema_real_eip !148
+  %789 = trunc i32 %788 to i1, !mcsema_real_eip !148
+  store i1 %789, i1* %SF, !mcsema_real_eip !148
+  %790 = icmp eq i32 %787, 0, !mcsema_real_eip !148
+  store i1 %790, i1* %ZF, !mcsema_real_eip !148
+  %791 = trunc i32 %787 to i8, !mcsema_real_eip !148
+  %792 = call i8 @llvm.ctpop.i8(i8 %791), !mcsema_real_eip !148
+  %793 = trunc i8 %792 to i1, !mcsema_real_eip !148
+  %794 = xor i1 %793, true, !mcsema_real_eip !148
+  store i1 %794, i1* %PF, !mcsema_real_eip !148
+  store i1 undef, i1* %AF, !mcsema_real_eip !148
+  %795 = zext i32 %787 to i64, !mcsema_real_eip !148
+  store i64 %795, i64* %XAX, !mcsema_real_eip !148
+  %_new_gep_228 = getelementptr i8, i8* %_load_rbp_ptr_224, i64 -48
+  %_allin_new_bt_229 = bitcast i8* %_new_gep_228 to i64*
+  %EAX_val.219 = load i32, i32* %EAX.9, !mcsema_real_eip !149
+  %796 = ptrtoint i64* %_allin_new_bt_229 to i64, !mcsema_real_eip !149
+  %797 = inttoptr i64 %796 to i32*, !mcsema_real_eip !149
+  store i32 %EAX_val.219, i32* %797, !mcsema_real_eip !149
+  %_load_rbp_ptr_230 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_231 = getelementptr i8, i8* %_load_rbp_ptr_230, i64 -48
+  %_allin_new_bt_232 = bitcast i8* %_new_gep_231 to i64*
+  %798 = ptrtoint i64* %_allin_new_bt_232 to i64, !mcsema_real_eip !150
+  %799 = inttoptr i64 %798 to i32*, !mcsema_real_eip !150
+  %_ptr_bt_1057 = bitcast i32* %799 to i8*
+  %_offset_above_rbp_1058 = sub i64 %798, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1059 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1058
+  %_cond1_1060 = icmp ugt i8* %_ptr_bt_1057, %_local_stack_end_ptr_
+  %_cond2_1_1061 = icmp ugt i8* %_ptr_bt_1057, %_parent_stack_end_ptr_
+  %_cond2_2_1062 = icmp ult i8* %_ptr_bt_1057, %_parent_stack_start_ptr_
+  %_cond2_1063 = or i1 %_cond2_1_1061, %_cond2_2_1062
+  %_cond4_1064 = icmp ule i8* %_pot_address_in_parent_stack_1059, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1065 = and i1 %_cond1_1060, %_cond2_1063
+  %_cond1_n_cond2_cond3_1066 = and i1 %_cond1_n_cond2_1065, %_cond4_1064
+  br i1 %_cond1_n_cond2_cond3_1066, label %800, label %801
+
+; <label>:800:                                    ; preds = %784
+  %_address_in_parent_stack_bt_1068 = bitcast i8* %_pot_address_in_parent_stack_1059 to i32*
+  br label %801
+
+; <label>:801:                                    ; preds = %784, %800
+  %802 = phi i32* [ %799, %784 ], [ %_address_in_parent_stack_bt_1068, %800 ]
+  %_new_load_1069 = load i32, i32* %802
+  %803 = zext i32 %_new_load_1069 to i64, !mcsema_real_eip !150
+  store i64 %803, i64* %XAX, !mcsema_real_eip !150
+  %EAX_val.222 = load i32, i32* %EAX.9, !mcsema_real_eip !151
+  %804 = lshr i32 %EAX_val.222, 15, !mcsema_real_eip !151
+  %805 = and i32 %804, 1, !mcsema_real_eip !151
+  %806 = icmp ne i32 %805, 0, !mcsema_real_eip !151
+  %807 = load i1, i1* %CF, !mcsema_real_eip !151
+  %808 = lshr i32 %804, 1, !mcsema_real_eip !151
+  %809 = load i1, i1* %OF, !mcsema_real_eip !151
+  %810 = and i32 %EAX_val.222, -2147483648, !mcsema_real_eip !151
+  %811 = icmp ne i32 %810, 0, !mcsema_real_eip !151
+  store i1 %806, i1* %CF, !mcsema_real_eip !151
+  %812 = load i1, i1* %ZF, !mcsema_real_eip !151
+  %813 = icmp eq i32 %808, 0, !mcsema_real_eip !151
+  store i1 %813, i1* %ZF, !mcsema_real_eip !151
+  %814 = load i1, i1* %SF, !mcsema_real_eip !151
+  store i1 false, i1* %SF, !mcsema_real_eip !151
+  %815 = load i1, i1* %PF, !mcsema_real_eip !151
+  %816 = trunc i32 %808 to i8, !mcsema_real_eip !151
+  %817 = call i8 @llvm.ctpop.i8(i8 %816), !mcsema_real_eip !151
+  %818 = trunc i8 %817 to i1, !mcsema_real_eip !151
+  %819 = xor i1 %818, true, !mcsema_real_eip !151
+  store i1 %819, i1* %PF, !mcsema_real_eip !151
+  %820 = zext i32 %808 to i64, !mcsema_real_eip !151
+  store i64 %820, i64* %XAX, !mcsema_real_eip !151
+  %_new_gep_234 = getelementptr i8, i8* %_load_rbp_ptr_230, i64 -52
+  %_allin_new_bt_235 = bitcast i8* %_new_gep_234 to i64*
+  %EAX_val.225 = load i32, i32* %EAX.9, !mcsema_real_eip !152
+  %821 = ptrtoint i64* %_allin_new_bt_235 to i64, !mcsema_real_eip !152
+  %822 = inttoptr i64 %821 to i32*, !mcsema_real_eip !152
+  store i32 %EAX_val.225, i32* %822, !mcsema_real_eip !152
+  %_load_rbp_ptr_236 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_237 = getelementptr i8, i8* %_load_rbp_ptr_236, i64 -48
+  %_allin_new_bt_238 = bitcast i8* %_new_gep_237 to i64*
+  %823 = ptrtoint i64* %_allin_new_bt_238 to i64, !mcsema_real_eip !153
+  %824 = inttoptr i64 %823 to i32*, !mcsema_real_eip !153
+  %_ptr_bt_1072 = bitcast i32* %824 to i8*
+  %_offset_above_rbp_1073 = sub i64 %823, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1074 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1073
+  %_cond1_1075 = icmp ugt i8* %_ptr_bt_1072, %_local_stack_end_ptr_
+  %_cond2_1_1076 = icmp ugt i8* %_ptr_bt_1072, %_parent_stack_end_ptr_
+  %_cond2_2_1077 = icmp ult i8* %_ptr_bt_1072, %_parent_stack_start_ptr_
+  %_cond2_1078 = or i1 %_cond2_1_1076, %_cond2_2_1077
+  %_cond4_1079 = icmp ule i8* %_pot_address_in_parent_stack_1074, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1080 = and i1 %_cond1_1075, %_cond2_1078
+  %_cond1_n_cond2_cond3_1081 = and i1 %_cond1_n_cond2_1080, %_cond4_1079
+  br i1 %_cond1_n_cond2_cond3_1081, label %825, label %826
+
+; <label>:825:                                    ; preds = %801
+  %_address_in_parent_stack_bt_1083 = bitcast i8* %_pot_address_in_parent_stack_1074 to i32*
+  br label %826
+
+; <label>:826:                                    ; preds = %801, %825
+  %827 = phi i32* [ %824, %801 ], [ %_address_in_parent_stack_bt_1083, %825 ]
+  %_new_load_1084 = load i32, i32* %827
+  %828 = zext i32 %_new_load_1084 to i64, !mcsema_real_eip !153
+  store i64 %828, i64* %XAX, !mcsema_real_eip !153
+  %EAX_val.228 = load i32, i32* %EAX.9, !mcsema_real_eip !154
+  %829 = and i32 %EAX_val.228, 65535, !mcsema_real_eip !154
+  store i1 false, i1* %SF, !mcsema_real_eip !154
+  %830 = icmp eq i32 %829, 0, !mcsema_real_eip !154
+  store i1 %830, i1* %ZF, !mcsema_real_eip !154
+  %831 = trunc i32 %829 to i8, !mcsema_real_eip !154
+  %832 = call i8 @llvm.ctpop.i8(i8 %831), !mcsema_real_eip !154
+  %833 = trunc i8 %832 to i1, !mcsema_real_eip !154
+  %834 = xor i1 %833, true, !mcsema_real_eip !154
+  store i1 %834, i1* %PF, !mcsema_real_eip !154
+  store i1 false, i1* %OF, !mcsema_real_eip !154
+  store i1 false, i1* %CF, !mcsema_real_eip !154
+  store i1 undef, i1* %AF, !mcsema_real_eip !154
+  %835 = zext i32 %829 to i64, !mcsema_real_eip !154
+  store i64 %835, i64* %XAX, !mcsema_real_eip !154
+  %_new_gep_240 = getelementptr i8, i8* %_load_rbp_ptr_236, i64 -56
+  %_allin_new_bt_241 = bitcast i8* %_new_gep_240 to i64*
+  %EAX_val.231 = load i32, i32* %EAX.9, !mcsema_real_eip !155
+  %836 = ptrtoint i64* %_allin_new_bt_241 to i64, !mcsema_real_eip !155
+  %837 = inttoptr i64 %836 to i32*, !mcsema_real_eip !155
+  store i32 %EAX_val.231, i32* %837, !mcsema_real_eip !155
+  %_load_rbp_ptr_242 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_243 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -52
+  %_allin_new_bt_244 = bitcast i8* %_new_gep_243 to i64*
+  %838 = ptrtoint i64* %_allin_new_bt_244 to i64, !mcsema_real_eip !156
+  %839 = inttoptr i64 %838 to i32*, !mcsema_real_eip !156
+  %_ptr_bt_1087 = bitcast i32* %839 to i8*
+  %_offset_above_rbp_1088 = sub i64 %838, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1089 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1088
+  %_cond1_1090 = icmp ugt i8* %_ptr_bt_1087, %_local_stack_end_ptr_
+  %_cond2_1_1091 = icmp ugt i8* %_ptr_bt_1087, %_parent_stack_end_ptr_
+  %_cond2_2_1092 = icmp ult i8* %_ptr_bt_1087, %_parent_stack_start_ptr_
+  %_cond2_1093 = or i1 %_cond2_1_1091, %_cond2_2_1092
+  %_cond4_1094 = icmp ule i8* %_pot_address_in_parent_stack_1089, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1095 = and i1 %_cond1_1090, %_cond2_1093
+  %_cond1_n_cond2_cond3_1096 = and i1 %_cond1_n_cond2_1095, %_cond4_1094
+  br i1 %_cond1_n_cond2_cond3_1096, label %840, label %841
+
+; <label>:840:                                    ; preds = %826
+  %_address_in_parent_stack_bt_1098 = bitcast i8* %_pot_address_in_parent_stack_1089 to i32*
+  br label %841
+
+; <label>:841:                                    ; preds = %826, %840
+  %842 = phi i32* [ %839, %826 ], [ %_address_in_parent_stack_bt_1098, %840 ]
+  %_new_load_1099 = load i32, i32* %842
+  %843 = sub i32 %_new_load_1099, 79, !mcsema_real_eip !156
+  %844 = xor i32 %843, %_new_load_1099, !mcsema_real_eip !156
+  %845 = xor i32 %844, 79, !mcsema_real_eip !156
+  %846 = and i32 %845, 16, !mcsema_real_eip !156
+  %847 = icmp ne i32 %846, 0, !mcsema_real_eip !156
+  store i1 %847, i1* %AF, !mcsema_real_eip !156
+  %848 = trunc i32 %843 to i8, !mcsema_real_eip !156
+  %849 = call i8 @llvm.ctpop.i8(i8 %848), !mcsema_real_eip !156
+  %850 = trunc i8 %849 to i1, !mcsema_real_eip !156
+  %851 = xor i1 %850, true, !mcsema_real_eip !156
+  store i1 %851, i1* %PF, !mcsema_real_eip !156
+  %852 = icmp eq i32 %843, 0, !mcsema_real_eip !156
+  store i1 %852, i1* %ZF, !mcsema_real_eip !156
+  %853 = lshr i32 %843, 31, !mcsema_real_eip !156
+  %854 = trunc i32 %853 to i1, !mcsema_real_eip !156
+  store i1 %854, i1* %SF, !mcsema_real_eip !156
+  %855 = icmp ult i32 %_new_load_1099, 79, !mcsema_real_eip !156
+  store i1 %855, i1* %CF, !mcsema_real_eip !156
+  %856 = xor i32 %_new_load_1099, 79, !mcsema_real_eip !156
+  %857 = and i32 %856, %844, !mcsema_real_eip !156
+  %858 = lshr i32 %857, 31, !mcsema_real_eip !156
+  %859 = trunc i32 %858 to i1, !mcsema_real_eip !156
+  store i1 %859, i1* %OF, !mcsema_real_eip !156
+  %860 = icmp eq i1 %852, false, !mcsema_real_eip !157
+  br i1 %860, label %block_0x28c, label %block_0x274, !mcsema_real_eip !157
+
+block_0x21e:                                      ; preds = %723
+  %_new_gep_246 = getelementptr i8, i8* %_load_rbp_ptr_206, i64 -20
+  %_allin_new_bt_247 = bitcast i8* %_new_gep_246 to i64*
+  %861 = ptrtoint i64* %_allin_new_bt_247 to i64, !mcsema_real_eip !158
+  %862 = inttoptr i64 %861 to i32*, !mcsema_real_eip !158
+  store i32 43690, i32* %862, !mcsema_real_eip !158
+  br label %block_0x231, !mcsema_real_eip !159
+
+block_0x274:                                      ; preds = %841
+  %_new_gep_249 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -56
+  %_allin_new_bt_250 = bitcast i8* %_new_gep_249 to i64*
+  %863 = ptrtoint i64* %_allin_new_bt_250 to i64, !mcsema_real_eip !160
+  %864 = inttoptr i64 %863 to i32*, !mcsema_real_eip !160
+  %_ptr_bt_1102 = bitcast i32* %864 to i8*
+  %_offset_above_rbp_1103 = sub i64 %863, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1104 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1103
+  %_cond1_1105 = icmp ugt i8* %_ptr_bt_1102, %_local_stack_end_ptr_
+  %_cond2_1_1106 = icmp ugt i8* %_ptr_bt_1102, %_parent_stack_end_ptr_
+  %_cond2_2_1107 = icmp ult i8* %_ptr_bt_1102, %_parent_stack_start_ptr_
+  %_cond2_1108 = or i1 %_cond2_1_1106, %_cond2_2_1107
+  %_cond4_1109 = icmp ule i8* %_pot_address_in_parent_stack_1104, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1110 = and i1 %_cond1_1105, %_cond2_1108
+  %_cond1_n_cond2_cond3_1111 = and i1 %_cond1_n_cond2_1110, %_cond4_1109
+  br i1 %_cond1_n_cond2_cond3_1111, label %865, label %866
+
+; <label>:865:                                    ; preds = %block_0x274
+  %_address_in_parent_stack_bt_1113 = bitcast i8* %_pot_address_in_parent_stack_1104 to i32*
+  br label %866
+
+; <label>:866:                                    ; preds = %block_0x274, %865
+  %867 = phi i32* [ %864, %block_0x274 ], [ %_address_in_parent_stack_bt_1113, %865 ]
+  %_new_load_1114 = load i32, i32* %867
+  %868 = zext i32 %_new_load_1114 to i64, !mcsema_real_eip !160
+  store i64 %868, i64* %XAX, !mcsema_real_eip !160
+  %_new_gep_252 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -20
+  %_allin_new_bt_253 = bitcast i8* %_new_gep_252 to i64*
+  %EAX_val.238 = load i32, i32* %EAX.9, !mcsema_real_eip !161
+  %869 = ptrtoint i64* %_allin_new_bt_253 to i64, !mcsema_real_eip !161
+  %870 = inttoptr i64 %869 to i32*, !mcsema_real_eip !161
+  %_ptr_bt_1117 = bitcast i32* %870 to i8*
+  %_offset_above_rbp_1118 = sub i64 %869, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1119 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1118
+  %_cond1_1120 = icmp ugt i8* %_ptr_bt_1117, %_local_stack_end_ptr_
+  %_cond2_1_1121 = icmp ugt i8* %_ptr_bt_1117, %_parent_stack_end_ptr_
+  %_cond2_2_1122 = icmp ult i8* %_ptr_bt_1117, %_parent_stack_start_ptr_
+  %_cond2_1123 = or i1 %_cond2_1_1121, %_cond2_2_1122
+  %_cond4_1124 = icmp ule i8* %_pot_address_in_parent_stack_1119, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1125 = and i1 %_cond1_1120, %_cond2_1123
+  %_cond1_n_cond2_cond3_1126 = and i1 %_cond1_n_cond2_1125, %_cond4_1124
+  br i1 %_cond1_n_cond2_cond3_1126, label %871, label %872
+
+; <label>:871:                                    ; preds = %866
+  %_address_in_parent_stack_bt_1128 = bitcast i8* %_pot_address_in_parent_stack_1119 to i32*
+  br label %872
+
+; <label>:872:                                    ; preds = %866, %871
+  %873 = phi i32* [ %870, %866 ], [ %_address_in_parent_stack_bt_1128, %871 ]
+  %_new_load_1129 = load i32, i32* %873
+  %874 = sub i32 %EAX_val.238, %_new_load_1129, !mcsema_real_eip !161
+  %875 = xor i32 %874, %EAX_val.238, !mcsema_real_eip !161
+  %876 = xor i32 %875, %_new_load_1129, !mcsema_real_eip !161
+  %877 = and i32 %876, 16, !mcsema_real_eip !161
+  %878 = icmp ne i32 %877, 0, !mcsema_real_eip !161
+  store i1 %878, i1* %AF, !mcsema_real_eip !161
+  %879 = trunc i32 %874 to i8, !mcsema_real_eip !161
+  %880 = call i8 @llvm.ctpop.i8(i8 %879), !mcsema_real_eip !161
+  %881 = trunc i8 %880 to i1, !mcsema_real_eip !161
+  %882 = xor i1 %881, true, !mcsema_real_eip !161
+  store i1 %882, i1* %PF, !mcsema_real_eip !161
+  %883 = icmp eq i32 %874, 0, !mcsema_real_eip !161
+  store i1 %883, i1* %ZF, !mcsema_real_eip !161
+  %884 = lshr i32 %874, 31, !mcsema_real_eip !161
+  %885 = trunc i32 %884 to i1, !mcsema_real_eip !161
+  store i1 %885, i1* %SF, !mcsema_real_eip !161
+  %886 = icmp ult i32 %EAX_val.238, %_new_load_1129, !mcsema_real_eip !161
+  store i1 %886, i1* %CF, !mcsema_real_eip !161
+  %887 = xor i32 %EAX_val.238, %_new_load_1129, !mcsema_real_eip !161
+  %888 = and i32 %887, %875, !mcsema_real_eip !161
+  %889 = lshr i32 %888, 31, !mcsema_real_eip !161
+  %890 = trunc i32 %889 to i1, !mcsema_real_eip !161
+  store i1 %890, i1* %OF, !mcsema_real_eip !161
+  %891 = icmp eq i1 %883, false, !mcsema_real_eip !162
+  br i1 %891, label %block_0x28c, label %block_0x280, !mcsema_real_eip !162
+
+block_0x28c:                                      ; preds = %872, %841
+  %_new_gep_255 = getelementptr i8, i8* %_load_rbp_ptr_242, i64 -20
+  %_allin_new_bt_256 = bitcast i8* %_new_gep_255 to i64*
+  %892 = ptrtoint i64* %_allin_new_bt_256 to i64, !mcsema_real_eip !163
+  %893 = inttoptr i64 %892 to i32*, !mcsema_real_eip !163
+  store i32 48351, i32* %893, !mcsema_real_eip !163
+  br label %block_0x293, !mcsema_real_eip !160
+
+block_0x293:                                      ; preds = %block_0x280, %block_0x28c
+  store i64 8, i64* %XDX, !mcsema_real_eip !164
+  %_load_rbp_ptr_257 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_258 = getelementptr i8, i8* %_load_rbp_ptr_257, i64 -20
+  %_allin_new_bt_259 = bitcast i8* %_new_gep_258 to i64*
+  %894 = ptrtoint i64* %_allin_new_bt_259 to i64, !mcsema_real_eip !165
+  %895 = inttoptr i64 %894 to i32*, !mcsema_real_eip !165
+  %_ptr_bt_1132 = bitcast i32* %895 to i8*
+  %_offset_above_rbp_1133 = sub i64 %894, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1134 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1133
+  %_cond1_1135 = icmp ugt i8* %_ptr_bt_1132, %_local_stack_end_ptr_
+  %_cond2_1_1136 = icmp ugt i8* %_ptr_bt_1132, %_parent_stack_end_ptr_
+  %_cond2_2_1137 = icmp ult i8* %_ptr_bt_1132, %_parent_stack_start_ptr_
+  %_cond2_1138 = or i1 %_cond2_1_1136, %_cond2_2_1137
+  %_cond4_1139 = icmp ule i8* %_pot_address_in_parent_stack_1134, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1140 = and i1 %_cond1_1135, %_cond2_1138
+  %_cond1_n_cond2_cond3_1141 = and i1 %_cond1_n_cond2_1140, %_cond4_1139
+  br i1 %_cond1_n_cond2_cond3_1141, label %896, label %897
+
+; <label>:896:                                    ; preds = %block_0x293
+  %_address_in_parent_stack_bt_1143 = bitcast i8* %_pot_address_in_parent_stack_1134 to i32*
+  br label %897
+
+; <label>:897:                                    ; preds = %block_0x293, %896
+  %898 = phi i32* [ %895, %block_0x293 ], [ %_address_in_parent_stack_bt_1143, %896 ]
+  %_new_load_1144 = load i32, i32* %898
+  %899 = zext i32 %_new_load_1144 to i64, !mcsema_real_eip !165
+  store i64 %899, i64* %XDI, !mcsema_real_eip !165
+  %_new_gep_261 = getelementptr i8, i8* %_load_rbp_ptr_257, i64 -16
+  %_allin_new_bt_262 = bitcast i8* %_new_gep_261 to i64*
+  %_ptr_to_int_1145 = ptrtoint i64* %_allin_new_bt_262 to i64
+  %_offset_above_rbp_1148 = sub i64 %_ptr_to_int_1145, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1149 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1148
+  %_cond1_1150 = icmp ugt i8* %_new_gep_261, %_local_stack_end_ptr_
+  %_cond2_1_1151 = icmp ugt i8* %_new_gep_261, %_parent_stack_end_ptr_
+  %_cond2_2_1152 = icmp ult i8* %_new_gep_261, %_parent_stack_start_ptr_
+  %_cond2_1153 = or i1 %_cond2_1_1151, %_cond2_2_1152
+  %_cond4_1154 = icmp ule i8* %_pot_address_in_parent_stack_1149, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1155 = and i1 %_cond1_1150, %_cond2_1153
+  %_cond1_n_cond2_cond3_1156 = and i1 %_cond1_n_cond2_1155, %_cond4_1154
+  br i1 %_cond1_n_cond2_cond3_1156, label %900, label %901
+
+; <label>:900:                                    ; preds = %897
+  %_address_in_parent_stack_bt_1158 = bitcast i8* %_pot_address_in_parent_stack_1149 to i64*
+  br label %901
+
+; <label>:901:                                    ; preds = %897, %900
+  %902 = phi i64* [ %_allin_new_bt_262, %897 ], [ %_address_in_parent_stack_bt_1158, %900 ]
+  %_new_load_1159 = load i64, i64* %902
+  store i64 %_new_load_1159, i64* %XAX, !mcsema_real_eip !166
+  %903 = add i64 20, %_new_load_1159, !mcsema_real_eip !167
+  %904 = xor i64 %903, %_new_load_1159, !mcsema_real_eip !167
+  %905 = xor i64 %904, 20, !mcsema_real_eip !167
+  %906 = and i64 %905, 16, !mcsema_real_eip !167
+  %907 = icmp ne i64 %906, 0, !mcsema_real_eip !167
+  store i1 %907, i1* %AF, !mcsema_real_eip !167
+  %908 = lshr i64 %903, 63, !mcsema_real_eip !167
+  %909 = trunc i64 %908 to i1, !mcsema_real_eip !167
+  store i1 %909, i1* %SF, !mcsema_real_eip !167
+  %910 = icmp eq i64 %903, 0, !mcsema_real_eip !167
+  store i1 %910, i1* %ZF, !mcsema_real_eip !167
+  %911 = xor i64 %_new_load_1159, 20, !mcsema_real_eip !167
+  %912 = xor i64 %911, -1, !mcsema_real_eip !167
+  %913 = and i64 %912, %904, !mcsema_real_eip !167
+  %914 = lshr i64 %913, 63, !mcsema_real_eip !167
+  %915 = and i64 %914, 1, !mcsema_real_eip !167
+  %916 = trunc i64 %915 to i1, !mcsema_real_eip !167
+  store i1 %916, i1* %OF, !mcsema_real_eip !167
+  %917 = trunc i64 %903 to i8, !mcsema_real_eip !167
+  %918 = call i8 @llvm.ctpop.i8(i8 %917), !mcsema_real_eip !167
+  %919 = trunc i8 %918 to i1, !mcsema_real_eip !167
+  %920 = xor i1 %919, true, !mcsema_real_eip !167
+  store i1 %920, i1* %PF, !mcsema_real_eip !167
+  %921 = icmp ult i64 %903, %_new_load_1159, !mcsema_real_eip !167
+  store i1 %921, i1* %CF, !mcsema_real_eip !167
+  store i64 %903, i64* %XAX, !mcsema_real_eip !167
+  store i64 %903, i64* %XSI, !mcsema_real_eip !168
+  %_load_rsp_ptr_263 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.246 = load i64, i64* %XSP, !mcsema_real_eip !169
+  %_new_gep_264 = getelementptr i8, i8* %_load_rsp_ptr_263, i64 -8
+  %922 = sub i64 %RSP_val.246, 8, !mcsema_real_eip !169
+  %_allin_new_bt_265 = bitcast i8* %_new_gep_264 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_265, !mcsema_real_eip !169
+  store volatile i8* %_new_gep_264, i8** %_RSP_ptr_
+  store i64 %922, i64* %XSP, !mcsema_real_eip !169
+  %923 = call x86_64_sysvcc i64 @_read_bytes(i64 %899, i64 %903, i64 8)
+  %_rsp_fix_430 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_431 = getelementptr i8, i8* %_rsp_fix_430, i64 8
+  store i8* %_gep_fix_431, i8** %_RSP_ptr_
+  store i64 %923, i64* %XAX, !mcsema_real_eip !169
+  %_load_rbp_ptr_266 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_267 = getelementptr i8, i8* %_load_rbp_ptr_266, i64 -60
+  %_allin_new_bt_268 = bitcast i8* %_new_gep_267 to i64*
+  %EAX_val.249 = load i32, i32* %EAX.9, !mcsema_real_eip !170
+  %924 = ptrtoint i64* %_allin_new_bt_268 to i64, !mcsema_real_eip !170
+  %925 = inttoptr i64 %924 to i32*, !mcsema_real_eip !170
+  store i32 %EAX_val.249, i32* %925, !mcsema_real_eip !170
+  %_load_rbp_ptr_269 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_270 = getelementptr i8, i8* %_load_rbp_ptr_269, i64 -60
+  %_allin_new_bt_271 = bitcast i8* %_new_gep_270 to i64*
+  %926 = ptrtoint i64* %_allin_new_bt_271 to i64, !mcsema_real_eip !171
+  %927 = inttoptr i64 %926 to i32*, !mcsema_real_eip !171
+  %_ptr_bt_1162 = bitcast i32* %927 to i8*
+  %_offset_above_rbp_1163 = sub i64 %926, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1164 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1163
+  %_cond1_1165 = icmp ugt i8* %_ptr_bt_1162, %_local_stack_end_ptr_
+  %_cond2_1_1166 = icmp ugt i8* %_ptr_bt_1162, %_parent_stack_end_ptr_
+  %_cond2_2_1167 = icmp ult i8* %_ptr_bt_1162, %_parent_stack_start_ptr_
+  %_cond2_1168 = or i1 %_cond2_1_1166, %_cond2_2_1167
+  %_cond4_1169 = icmp ule i8* %_pot_address_in_parent_stack_1164, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1170 = and i1 %_cond1_1165, %_cond2_1168
+  %_cond1_n_cond2_cond3_1171 = and i1 %_cond1_n_cond2_1170, %_cond4_1169
+  br i1 %_cond1_n_cond2_cond3_1171, label %928, label %929
+
+; <label>:928:                                    ; preds = %901
+  %_address_in_parent_stack_bt_1173 = bitcast i8* %_pot_address_in_parent_stack_1164 to i32*
+  br label %929
+
+; <label>:929:                                    ; preds = %901, %928
+  %930 = phi i32* [ %927, %901 ], [ %_address_in_parent_stack_bt_1173, %928 ]
+  %_new_load_1174 = load i32, i32* %930
+  %931 = zext i32 %_new_load_1174 to i64, !mcsema_real_eip !171
+  store i64 %931, i64* %XAX, !mcsema_real_eip !171
+  %EAX_val.252 = load i32, i32* %EAX.9, !mcsema_real_eip !172
+  %932 = sub i32 %EAX_val.252, 3, !mcsema_real_eip !172
+  %933 = xor i32 %932, %EAX_val.252, !mcsema_real_eip !172
+  %934 = xor i32 %933, 3, !mcsema_real_eip !172
+  %935 = and i32 %934, 16, !mcsema_real_eip !172
+  %936 = icmp ne i32 %935, 0, !mcsema_real_eip !172
+  store i1 %936, i1* %AF, !mcsema_real_eip !172
+  %937 = trunc i32 %932 to i8, !mcsema_real_eip !172
+  %938 = call i8 @llvm.ctpop.i8(i8 %937), !mcsema_real_eip !172
+  %939 = trunc i8 %938 to i1, !mcsema_real_eip !172
+  %940 = xor i1 %939, true, !mcsema_real_eip !172
+  store i1 %940, i1* %PF, !mcsema_real_eip !172
+  %941 = icmp eq i32 %932, 0, !mcsema_real_eip !172
+  store i1 %941, i1* %ZF, !mcsema_real_eip !172
+  %942 = lshr i32 %932, 31, !mcsema_real_eip !172
+  %943 = trunc i32 %942 to i1, !mcsema_real_eip !172
+  store i1 %943, i1* %SF, !mcsema_real_eip !172
+  %944 = icmp ult i32 %EAX_val.252, 3, !mcsema_real_eip !172
+  store i1 %944, i1* %CF, !mcsema_real_eip !172
+  %945 = xor i32 %EAX_val.252, 3, !mcsema_real_eip !172
+  %946 = and i32 %945, %933, !mcsema_real_eip !172
+  %947 = lshr i32 %946, 31, !mcsema_real_eip !172
+  %948 = trunc i32 %947 to i1, !mcsema_real_eip !172
+  store i1 %948, i1* %OF, !mcsema_real_eip !172
+  %949 = zext i32 %932 to i64, !mcsema_real_eip !172
+  store i64 %949, i64* %XAX, !mcsema_real_eip !172
+  %EAX_val.255 = load i32, i32* %EAX.9, !mcsema_real_eip !173
+  store i32 %EAX_val.255, i32* %927, !mcsema_real_eip !173
+  %_load_rbp_ptr_275 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_276 = getelementptr i8, i8* %_load_rbp_ptr_275, i64 -60
+  %_allin_new_bt_277 = bitcast i8* %_new_gep_276 to i64*
+  %950 = ptrtoint i64* %_allin_new_bt_277 to i64, !mcsema_real_eip !174
+  %951 = inttoptr i64 %950 to i32*, !mcsema_real_eip !174
+  %_ptr_bt_1177 = bitcast i32* %951 to i8*
+  %_offset_above_rbp_1178 = sub i64 %950, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1179 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1178
+  %_cond1_1180 = icmp ugt i8* %_ptr_bt_1177, %_local_stack_end_ptr_
+  %_cond2_1_1181 = icmp ugt i8* %_ptr_bt_1177, %_parent_stack_end_ptr_
+  %_cond2_2_1182 = icmp ult i8* %_ptr_bt_1177, %_parent_stack_start_ptr_
+  %_cond2_1183 = or i1 %_cond2_1_1181, %_cond2_2_1182
+  %_cond4_1184 = icmp ule i8* %_pot_address_in_parent_stack_1179, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1185 = and i1 %_cond1_1180, %_cond2_1183
+  %_cond1_n_cond2_cond3_1186 = and i1 %_cond1_n_cond2_1185, %_cond4_1184
+  br i1 %_cond1_n_cond2_cond3_1186, label %952, label %953
+
+; <label>:952:                                    ; preds = %929
+  %_address_in_parent_stack_bt_1188 = bitcast i8* %_pot_address_in_parent_stack_1179 to i32*
+  br label %953
+
+; <label>:953:                                    ; preds = %929, %952
+  %954 = phi i32* [ %951, %929 ], [ %_address_in_parent_stack_bt_1188, %952 ]
+  %_new_load_1189 = load i32, i32* %954
+  %955 = zext i32 %_new_load_1189 to i64, !mcsema_real_eip !174
+  store i64 %955, i64* %XAX, !mcsema_real_eip !174
+  %EAX_val.258 = load i32, i32* %EAX.9, !mcsema_real_eip !175
+  %956 = and i32 %EAX_val.258, 7, !mcsema_real_eip !175
+  store i1 false, i1* %SF, !mcsema_real_eip !175
+  %957 = icmp eq i32 %956, 0, !mcsema_real_eip !175
+  store i1 %957, i1* %ZF, !mcsema_real_eip !175
+  %958 = trunc i32 %956 to i8, !mcsema_real_eip !175
+  %959 = call i8 @llvm.ctpop.i8(i8 %958), !mcsema_real_eip !175
+  %960 = trunc i8 %959 to i1, !mcsema_real_eip !175
+  %961 = xor i1 %960, true, !mcsema_real_eip !175
+  store i1 %961, i1* %PF, !mcsema_real_eip !175
+  store i1 false, i1* %OF, !mcsema_real_eip !175
+  store i1 false, i1* %CF, !mcsema_real_eip !175
+  store i1 undef, i1* %AF, !mcsema_real_eip !175
+  %962 = zext i32 %956 to i64, !mcsema_real_eip !175
+  store i64 %962, i64* %XAX, !mcsema_real_eip !175
+  %EAX_val.260 = load i32, i32* %EAX.9, !mcsema_real_eip !176
+  store i1 false, i1* %AF, !mcsema_real_eip !176
+  %963 = trunc i32 %EAX_val.260 to i8, !mcsema_real_eip !176
+  %964 = call i8 @llvm.ctpop.i8(i8 %963), !mcsema_real_eip !176
+  %965 = trunc i8 %964 to i1, !mcsema_real_eip !176
+  %966 = xor i1 %965, true, !mcsema_real_eip !176
+  store i1 %966, i1* %PF, !mcsema_real_eip !176
+  %967 = icmp eq i32 %EAX_val.260, 0, !mcsema_real_eip !176
+  store i1 %967, i1* %ZF, !mcsema_real_eip !176
+  %968 = lshr i32 %EAX_val.260, 31, !mcsema_real_eip !176
+  %969 = trunc i32 %968 to i1, !mcsema_real_eip !176
+  store i1 %969, i1* %SF, !mcsema_real_eip !176
+  store i1 false, i1* %CF, !mcsema_real_eip !176
+  store i1 false, i1* %OF, !mcsema_real_eip !176
+  br i1 %967, label %block_0x2d2, label %block_0x2c6, !mcsema_real_eip !177
+
+block_0x280:                                      ; preds = %872
+  store i32 0, i32* %870, !mcsema_real_eip !178
+  br label %block_0x293, !mcsema_real_eip !179
+
+block_0x2c6:                                      ; preds = %953
+  %_new_gep_282 = getelementptr i8, i8* %_load_rbp_ptr_275, i64 -4
+  %_allin_new_bt_283 = bitcast i8* %_new_gep_282 to i64*
+  %970 = ptrtoint i64* %_allin_new_bt_283 to i64, !mcsema_real_eip !180
+  %971 = inttoptr i64 %970 to i32*, !mcsema_real_eip !180
+  store i32 -21, i32* %971, !mcsema_real_eip !180
+  br label %block_0x417, !mcsema_real_eip !181
+
+block_0x2d2:                                      ; preds = %953
+  br i1 %_cond1_n_cond2_cond3_1186, label %972, label %973
+
+; <label>:972:                                    ; preds = %block_0x2d2
+  %_address_in_parent_stack_bt_1203 = bitcast i8* %_pot_address_in_parent_stack_1179 to i32*
+  br label %973
+
+; <label>:973:                                    ; preds = %block_0x2d2, %972
+  %974 = phi i32* [ %951, %block_0x2d2 ], [ %_address_in_parent_stack_bt_1203, %972 ]
+  %_new_load_1204 = load i32, i32* %974
+  %975 = zext i32 %_new_load_1204 to i64, !mcsema_real_eip !182
+  store i64 %975, i64* %XAX, !mcsema_real_eip !182
+  %EAX_val.264 = load i32, i32* %EAX.9, !mcsema_real_eip !183
+  %976 = sub i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
+  %977 = xor i32 %976, %EAX_val.264, !mcsema_real_eip !183
+  %978 = xor i32 %977, -2147483648, !mcsema_real_eip !183
+  %979 = and i32 %978, 16, !mcsema_real_eip !183
+  %980 = icmp ne i32 %979, 0, !mcsema_real_eip !183
+  store i1 %980, i1* %AF, !mcsema_real_eip !183
+  %981 = trunc i32 %976 to i8, !mcsema_real_eip !183
+  %982 = call i8 @llvm.ctpop.i8(i8 %981), !mcsema_real_eip !183
+  %983 = trunc i8 %982 to i1, !mcsema_real_eip !183
+  %984 = xor i1 %983, true, !mcsema_real_eip !183
+  store i1 %984, i1* %PF, !mcsema_real_eip !183
+  %985 = icmp eq i32 %976, 0, !mcsema_real_eip !183
+  store i1 %985, i1* %ZF, !mcsema_real_eip !183
+  %986 = lshr i32 %976, 31, !mcsema_real_eip !183
+  %987 = trunc i32 %986 to i1, !mcsema_real_eip !183
+  store i1 %987, i1* %SF, !mcsema_real_eip !183
+  %988 = icmp ult i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
+  store i1 %988, i1* %CF, !mcsema_real_eip !183
+  %989 = xor i32 %EAX_val.264, -2147483648, !mcsema_real_eip !183
+  %990 = and i32 %989, %977, !mcsema_real_eip !183
+  %991 = lshr i32 %990, 31, !mcsema_real_eip !183
+  %992 = trunc i32 %991 to i1, !mcsema_real_eip !183
+  store i1 %992, i1* %OF, !mcsema_real_eip !183
+  %993 = zext i32 %976 to i64, !mcsema_real_eip !183
+  store i64 %993, i64* %XAX, !mcsema_real_eip !183
+  %EAX_val.267 = load i32, i32* %EAX.9, !mcsema_real_eip !184
+  store i32 %EAX_val.267, i32* %951, !mcsema_real_eip !184
+  %_load_rbp_ptr_290 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_291 = getelementptr i8, i8* %_load_rbp_ptr_290, i64 -60
+  %_allin_new_bt_292 = bitcast i8* %_new_gep_291 to i64*
+  %994 = ptrtoint i64* %_allin_new_bt_292 to i64, !mcsema_real_eip !185
+  %995 = inttoptr i64 %994 to i32*, !mcsema_real_eip !185
+  %_ptr_bt_1207 = bitcast i32* %995 to i8*
+  %_offset_above_rbp_1208 = sub i64 %994, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1209 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1208
+  %_cond1_1210 = icmp ugt i8* %_ptr_bt_1207, %_local_stack_end_ptr_
+  %_cond2_1_1211 = icmp ugt i8* %_ptr_bt_1207, %_parent_stack_end_ptr_
+  %_cond2_2_1212 = icmp ult i8* %_ptr_bt_1207, %_parent_stack_start_ptr_
+  %_cond2_1213 = or i1 %_cond2_1_1211, %_cond2_2_1212
+  %_cond4_1214 = icmp ule i8* %_pot_address_in_parent_stack_1209, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1215 = and i1 %_cond1_1210, %_cond2_1213
+  %_cond1_n_cond2_cond3_1216 = and i1 %_cond1_n_cond2_1215, %_cond4_1214
+  br i1 %_cond1_n_cond2_cond3_1216, label %996, label %997
+
+; <label>:996:                                    ; preds = %973
+  %_address_in_parent_stack_bt_1218 = bitcast i8* %_pot_address_in_parent_stack_1209 to i32*
+  br label %997
+
+; <label>:997:                                    ; preds = %973, %996
+  %998 = phi i32* [ %995, %973 ], [ %_address_in_parent_stack_bt_1218, %996 ]
+  %_new_load_1219 = load i32, i32* %998
+  %999 = sub i32 %_new_load_1219, 268435455, !mcsema_real_eip !185
+  %1000 = xor i32 %999, %_new_load_1219, !mcsema_real_eip !185
+  %1001 = xor i32 %1000, 268435455, !mcsema_real_eip !185
+  %1002 = and i32 %1001, 16, !mcsema_real_eip !185
+  %1003 = icmp ne i32 %1002, 0, !mcsema_real_eip !185
+  store i1 %1003, i1* %AF, !mcsema_real_eip !185
+  %1004 = trunc i32 %999 to i8, !mcsema_real_eip !185
+  %1005 = call i8 @llvm.ctpop.i8(i8 %1004), !mcsema_real_eip !185
+  %1006 = trunc i8 %1005 to i1, !mcsema_real_eip !185
+  %1007 = xor i1 %1006, true, !mcsema_real_eip !185
+  store i1 %1007, i1* %PF, !mcsema_real_eip !185
+  %1008 = icmp eq i32 %999, 0, !mcsema_real_eip !185
+  store i1 %1008, i1* %ZF, !mcsema_real_eip !185
+  %1009 = lshr i32 %999, 31, !mcsema_real_eip !185
+  %1010 = trunc i32 %1009 to i1, !mcsema_real_eip !185
+  store i1 %1010, i1* %SF, !mcsema_real_eip !185
+  %1011 = icmp ult i32 %_new_load_1219, 268435455, !mcsema_real_eip !185
+  store i1 %1011, i1* %CF, !mcsema_real_eip !185
+  %1012 = xor i32 %_new_load_1219, 268435455, !mcsema_real_eip !185
+  %1013 = and i32 %1012, %1000, !mcsema_real_eip !185
+  %1014 = lshr i32 %1013, 31, !mcsema_real_eip !185
+  %1015 = trunc i32 %1014 to i1, !mcsema_real_eip !185
+  store i1 %1015, i1* %OF, !mcsema_real_eip !185
+  %1016 = or i1 %1011, %1008, !mcsema_real_eip !186
+  br i1 %1016, label %block_0x2f6, label %block_0x2ea, !mcsema_real_eip !186
+
+block_0x2ea:                                      ; preds = %997
+  %_new_gep_294 = getelementptr i8, i8* %_load_rbp_ptr_290, i64 -4
+  %_allin_new_bt_295 = bitcast i8* %_new_gep_294 to i64*
+  %1017 = ptrtoint i64* %_allin_new_bt_295 to i64, !mcsema_real_eip !187
+  %1018 = inttoptr i64 %1017 to i32*, !mcsema_real_eip !187
+  store i32 -22, i32* %1018, !mcsema_real_eip !187
+  br label %block_0x417, !mcsema_real_eip !188
+
+block_0x2f6:                                      ; preds = %997
+  store i64 10000, i64* %XAX, !mcsema_real_eip !189
+  br i1 %_cond1_n_cond2_cond3_1216, label %1019, label %1020
+
+; <label>:1019:                                   ; preds = %block_0x2f6
+  %_address_in_parent_stack_bt_1233 = bitcast i8* %_pot_address_in_parent_stack_1209 to i32*
+  br label %1020
+
+; <label>:1020:                                   ; preds = %block_0x2f6, %1019
+  %1021 = phi i32* [ %995, %block_0x2f6 ], [ %_address_in_parent_stack_bt_1233, %1019 ]
+  %_new_load_1234 = load i32, i32* %1021
+  %1022 = zext i32 %_new_load_1234 to i64, !mcsema_real_eip !190
+  store i64 %1022, i64* %XCX, !mcsema_real_eip !190
+  %ECX_val.272 = load i32, i32* %ECX.12, !mcsema_real_eip !191
+  %1023 = xor i32 %ECX_val.272, 13631488, !mcsema_real_eip !191
+  store i1 false, i1* %CF, !mcsema_real_eip !191
+  store i1 false, i1* %OF, !mcsema_real_eip !191
+  %1024 = lshr i32 %1023, 31, !mcsema_real_eip !191
+  %1025 = trunc i32 %1024 to i1, !mcsema_real_eip !191
+  store i1 %1025, i1* %SF, !mcsema_real_eip !191
+  %1026 = icmp eq i32 %1023, 0, !mcsema_real_eip !191
+  store i1 %1026, i1* %ZF, !mcsema_real_eip !191
+  %1027 = trunc i32 %1023 to i8, !mcsema_real_eip !191
+  %1028 = call i8 @llvm.ctpop.i8(i8 %1027), !mcsema_real_eip !191
+  %1029 = trunc i8 %1028 to i1, !mcsema_real_eip !191
+  %1030 = xor i1 %1029, true, !mcsema_real_eip !191
+  store i1 %1030, i1* %PF, !mcsema_real_eip !191
+  store i1 undef, i1* %AF, !mcsema_real_eip !191
+  %1031 = zext i32 %1023 to i64, !mcsema_real_eip !191
+  store i64 %1031, i64* %XCX, !mcsema_real_eip !191
+  %ECX_val.275 = load i32, i32* %ECX.12, !mcsema_real_eip !192
+  store i32 %ECX_val.275, i32* %995, !mcsema_real_eip !192
+  %_load_rbp_ptr_302 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_303 = getelementptr i8, i8* %_load_rbp_ptr_302, i64 -60
+  %_allin_new_bt_304 = bitcast i8* %_new_gep_303 to i64*
+  %1032 = ptrtoint i64* %_allin_new_bt_304 to i64, !mcsema_real_eip !193
+  %1033 = inttoptr i64 %1032 to i32*, !mcsema_real_eip !193
+  %_ptr_bt_1237 = bitcast i32* %1033 to i8*
+  %_offset_above_rbp_1238 = sub i64 %1032, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1239 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1238
+  %_cond1_1240 = icmp ugt i8* %_ptr_bt_1237, %_local_stack_end_ptr_
+  %_cond2_1_1241 = icmp ugt i8* %_ptr_bt_1237, %_parent_stack_end_ptr_
+  %_cond2_2_1242 = icmp ult i8* %_ptr_bt_1237, %_parent_stack_start_ptr_
+  %_cond2_1243 = or i1 %_cond2_1_1241, %_cond2_2_1242
+  %_cond4_1244 = icmp ule i8* %_pot_address_in_parent_stack_1239, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1245 = and i1 %_cond1_1240, %_cond2_1243
+  %_cond1_n_cond2_cond3_1246 = and i1 %_cond1_n_cond2_1245, %_cond4_1244
+  br i1 %_cond1_n_cond2_cond3_1246, label %1034, label %1035
+
+; <label>:1034:                                   ; preds = %1020
+  %_address_in_parent_stack_bt_1248 = bitcast i8* %_pot_address_in_parent_stack_1239 to i32*
+  br label %1035
+
+; <label>:1035:                                   ; preds = %1020, %1034
+  %1036 = phi i32* [ %1033, %1020 ], [ %_address_in_parent_stack_bt_1248, %1034 ]
+  %_new_load_1249 = load i32, i32* %1036
+  %1037 = zext i32 %_new_load_1249 to i64, !mcsema_real_eip !193
+  store i64 %1037, i64* %XCX, !mcsema_real_eip !193
+  %ECX_val.278 = load i32, i32* %ECX.12, !mcsema_real_eip !194
+  %1038 = lshr i32 %ECX_val.278, 3, !mcsema_real_eip !194
+  %1039 = and i32 %1038, 1, !mcsema_real_eip !194
+  %1040 = icmp ne i32 %1039, 0, !mcsema_real_eip !194
+  %1041 = load i1, i1* %CF, !mcsema_real_eip !194
+  %1042 = lshr i32 %1038, 1, !mcsema_real_eip !194
+  %1043 = load i1, i1* %OF, !mcsema_real_eip !194
+  %1044 = and i32 %ECX_val.278, -2147483648, !mcsema_real_eip !194
+  %1045 = icmp ne i32 %1044, 0, !mcsema_real_eip !194
+  store i1 %1040, i1* %CF, !mcsema_real_eip !194
+  %1046 = load i1, i1* %ZF, !mcsema_real_eip !194
+  %1047 = icmp eq i32 %1042, 0, !mcsema_real_eip !194
+  store i1 %1047, i1* %ZF, !mcsema_real_eip !194
+  %1048 = load i1, i1* %SF, !mcsema_real_eip !194
+  store i1 false, i1* %SF, !mcsema_real_eip !194
+  %1049 = load i1, i1* %PF, !mcsema_real_eip !194
+  %1050 = trunc i32 %1042 to i8, !mcsema_real_eip !194
+  %1051 = call i8 @llvm.ctpop.i8(i8 %1050), !mcsema_real_eip !194
+  %1052 = trunc i8 %1051 to i1, !mcsema_real_eip !194
+  %1053 = xor i1 %1052, true, !mcsema_real_eip !194
+  store i1 %1053, i1* %PF, !mcsema_real_eip !194
+  %1054 = zext i32 %1042 to i64, !mcsema_real_eip !194
+  store i64 %1054, i64* %XCX, !mcsema_real_eip !194
+  %ECX_val.281 = load i32, i32* %ECX.12, !mcsema_real_eip !195
+  store i32 %ECX_val.281, i32* %1033, !mcsema_real_eip !195
+  %_load_rbp_ptr_308 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_309 = getelementptr i8, i8* %_load_rbp_ptr_308, i64 -60
+  %_allin_new_bt_310 = bitcast i8* %_new_gep_309 to i64*
+  %1055 = ptrtoint i64* %_allin_new_bt_310 to i64, !mcsema_real_eip !196
+  %1056 = inttoptr i64 %1055 to i32*, !mcsema_real_eip !196
+  %_ptr_bt_1252 = bitcast i32* %1056 to i8*
+  %_offset_above_rbp_1253 = sub i64 %1055, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1254 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1253
+  %_cond1_1255 = icmp ugt i8* %_ptr_bt_1252, %_local_stack_end_ptr_
+  %_cond2_1_1256 = icmp ugt i8* %_ptr_bt_1252, %_parent_stack_end_ptr_
+  %_cond2_2_1257 = icmp ult i8* %_ptr_bt_1252, %_parent_stack_start_ptr_
+  %_cond2_1258 = or i1 %_cond2_1_1256, %_cond2_2_1257
+  %_cond4_1259 = icmp ule i8* %_pot_address_in_parent_stack_1254, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1260 = and i1 %_cond1_1255, %_cond2_1258
+  %_cond1_n_cond2_cond3_1261 = and i1 %_cond1_n_cond2_1260, %_cond4_1259
+  br i1 %_cond1_n_cond2_cond3_1261, label %1057, label %1058
+
+; <label>:1057:                                   ; preds = %1035
+  %_address_in_parent_stack_bt_1263 = bitcast i8* %_pot_address_in_parent_stack_1254 to i32*
+  br label %1058
+
+; <label>:1058:                                   ; preds = %1035, %1057
+  %1059 = phi i32* [ %1056, %1035 ], [ %_address_in_parent_stack_bt_1263, %1057 ]
+  %_new_load_1264 = load i32, i32* %1059
+  %1060 = zext i32 %_new_load_1264 to i64, !mcsema_real_eip !196
+  store i64 %1060, i64* %XCX, !mcsema_real_eip !196
+  %ECX_val.284 = load i32, i32* %ECX.12, !mcsema_real_eip !197
+  %1061 = sub i32 %ECX_val.284, 226, !mcsema_real_eip !197
+  %1062 = xor i32 %1061, %ECX_val.284, !mcsema_real_eip !197
+  %1063 = xor i32 %1062, 226, !mcsema_real_eip !197
+  %1064 = and i32 %1063, 16, !mcsema_real_eip !197
+  %1065 = icmp ne i32 %1064, 0, !mcsema_real_eip !197
+  store i1 %1065, i1* %AF, !mcsema_real_eip !197
+  %1066 = trunc i32 %1061 to i8, !mcsema_real_eip !197
+  %1067 = call i8 @llvm.ctpop.i8(i8 %1066), !mcsema_real_eip !197
+  %1068 = trunc i8 %1067 to i1, !mcsema_real_eip !197
+  %1069 = xor i1 %1068, true, !mcsema_real_eip !197
+  store i1 %1069, i1* %PF, !mcsema_real_eip !197
+  %1070 = icmp eq i32 %1061, 0, !mcsema_real_eip !197
+  store i1 %1070, i1* %ZF, !mcsema_real_eip !197
+  %1071 = lshr i32 %1061, 31, !mcsema_real_eip !197
+  %1072 = trunc i32 %1071 to i1, !mcsema_real_eip !197
+  store i1 %1072, i1* %SF, !mcsema_real_eip !197
+  %1073 = icmp ult i32 %ECX_val.284, 226, !mcsema_real_eip !197
+  store i1 %1073, i1* %CF, !mcsema_real_eip !197
+  %1074 = xor i32 %ECX_val.284, 226, !mcsema_real_eip !197
+  %1075 = and i32 %1074, %1062, !mcsema_real_eip !197
+  %1076 = lshr i32 %1075, 31, !mcsema_real_eip !197
+  %1077 = trunc i32 %1076 to i1, !mcsema_real_eip !197
+  store i1 %1077, i1* %OF, !mcsema_real_eip !197
+  %1078 = zext i32 %1061 to i64, !mcsema_real_eip !197
+  store i64 %1078, i64* %XCX, !mcsema_real_eip !197
+  %ECX_val.287 = load i32, i32* %ECX.12, !mcsema_real_eip !198
+  store i32 %ECX_val.287, i32* %1056, !mcsema_real_eip !198
+  %_load_rbp_ptr_314 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_315 = getelementptr i8, i8* %_load_rbp_ptr_314, i64 -60
+  %_allin_new_bt_316 = bitcast i8* %_new_gep_315 to i64*
+  %1079 = ptrtoint i64* %_allin_new_bt_316 to i64, !mcsema_real_eip !199
+  %1080 = inttoptr i64 %1079 to i32*, !mcsema_real_eip !199
+  %_ptr_bt_1267 = bitcast i32* %1080 to i8*
+  %_offset_above_rbp_1268 = sub i64 %1079, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1269 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1268
+  %_cond1_1270 = icmp ugt i8* %_ptr_bt_1267, %_local_stack_end_ptr_
+  %_cond2_1_1271 = icmp ugt i8* %_ptr_bt_1267, %_parent_stack_end_ptr_
+  %_cond2_2_1272 = icmp ult i8* %_ptr_bt_1267, %_parent_stack_start_ptr_
+  %_cond2_1273 = or i1 %_cond2_1_1271, %_cond2_2_1272
+  %_cond4_1274 = icmp ule i8* %_pot_address_in_parent_stack_1269, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1275 = and i1 %_cond1_1270, %_cond2_1273
+  %_cond1_n_cond2_cond3_1276 = and i1 %_cond1_n_cond2_1275, %_cond4_1274
+  br i1 %_cond1_n_cond2_cond3_1276, label %1081, label %1082
+
+; <label>:1081:                                   ; preds = %1058
+  %_address_in_parent_stack_bt_1278 = bitcast i8* %_pot_address_in_parent_stack_1269 to i32*
+  br label %1082
+
+; <label>:1082:                                   ; preds = %1058, %1081
+  %1083 = phi i32* [ %1080, %1058 ], [ %_address_in_parent_stack_bt_1278, %1081 ]
+  %_new_load_1279 = load i32, i32* %1083
+  %1084 = zext i32 %_new_load_1279 to i64, !mcsema_real_eip !199
+  store i64 %1084, i64* %XCX, !mcsema_real_eip !199
+  %_new_gep_318 = getelementptr i8, i8* %_load_rbp_ptr_314, i64 -68
+  %_allin_new_bt_319 = bitcast i8* %_new_gep_318 to i64*
+  %EAX_val.291 = load i32, i32* %EAX.9, !mcsema_real_eip !200
+  %1085 = ptrtoint i64* %_allin_new_bt_319 to i64, !mcsema_real_eip !200
+  %1086 = inttoptr i64 %1085 to i32*, !mcsema_real_eip !200
+  store i32 %EAX_val.291, i32* %1086, !mcsema_real_eip !200
+  %ECX_val.293 = load i32, i32* %ECX.12, !mcsema_real_eip !201
+  %1087 = zext i32 %ECX_val.293 to i64, !mcsema_real_eip !201
+  store i64 %1087, i64* %XAX, !mcsema_real_eip !201
+  %EDX_val.295 = load i32, i32* %EDX.67, !mcsema_real_eip !202
+  store i1 false, i1* %CF, !mcsema_real_eip !202
+  store i1 false, i1* %OF, !mcsema_real_eip !202
+  store i1 false, i1* %SF, !mcsema_real_eip !202
+  store i1 true, i1* %ZF, !mcsema_real_eip !202
+  store i1 true, i1* %PF, !mcsema_real_eip !202
+  store i1 undef, i1* %AF, !mcsema_real_eip !202
+  store i64 0, i64* %XDX, !mcsema_real_eip !202
+  %_load_rbp_ptr_320 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_321 = getelementptr i8, i8* %_load_rbp_ptr_320, i64 -68
+  %_allin_new_bt_322 = bitcast i8* %_new_gep_321 to i64*
+  %1088 = ptrtoint i64* %_allin_new_bt_322 to i64, !mcsema_real_eip !203
+  %1089 = inttoptr i64 %1088 to i32*, !mcsema_real_eip !203
+  %_ptr_bt_1282 = bitcast i32* %1089 to i8*
+  %_offset_above_rbp_1283 = sub i64 %1088, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1284 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1283
+  %_cond1_1285 = icmp ugt i8* %_ptr_bt_1282, %_local_stack_end_ptr_
+  %_cond2_1_1286 = icmp ugt i8* %_ptr_bt_1282, %_parent_stack_end_ptr_
+  %_cond2_2_1287 = icmp ult i8* %_ptr_bt_1282, %_parent_stack_start_ptr_
+  %_cond2_1288 = or i1 %_cond2_1_1286, %_cond2_2_1287
+  %_cond4_1289 = icmp ule i8* %_pot_address_in_parent_stack_1284, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1290 = and i1 %_cond1_1285, %_cond2_1288
+  %_cond1_n_cond2_cond3_1291 = and i1 %_cond1_n_cond2_1290, %_cond4_1289
+  br i1 %_cond1_n_cond2_cond3_1291, label %1090, label %1091
+
+; <label>:1090:                                   ; preds = %1082
+  %_address_in_parent_stack_bt_1293 = bitcast i8* %_pot_address_in_parent_stack_1284 to i32*
+  br label %1091
+
+; <label>:1091:                                   ; preds = %1082, %1090
+  %1092 = phi i32* [ %1089, %1082 ], [ %_address_in_parent_stack_bt_1293, %1090 ]
+  %_new_load_1294 = load i32, i32* %1092
+  %1093 = zext i32 %_new_load_1294 to i64, !mcsema_real_eip !203
+  store i64 %1093, i64* %XCX, !mcsema_real_eip !203
+  %ECX_val.300 = load i32, i32* %ECX.12, !mcsema_real_eip !204
+  %EAX_val.302 = load i32, i32* %EAX.9, !mcsema_real_eip !204
+  %EDX_val.304 = load i32, i32* %EDX.67, !mcsema_real_eip !204
+  %1094 = zext i32 %EDX_val.304 to i64, !mcsema_real_eip !204
+  %1095 = shl i64 %1094, 32, !mcsema_real_eip !204
+  %1096 = sext i32 %EAX_val.302 to i64, !mcsema_real_eip !204
+  %1097 = or i64 %1095, %1096, !mcsema_real_eip !204
+  %1098 = zext i32 %ECX_val.300 to i64, !mcsema_real_eip !204
+  %1099 = udiv i64 %1097, %1098, !mcsema_real_eip !204
+  %1100 = urem i64 %1097, %1098, !mcsema_real_eip !204
+  %1101 = trunc i64 %1100 to i32, !mcsema_real_eip !204
+  %1102 = trunc i64 %1099 to i32, !mcsema_real_eip !204
+  %1103 = zext i32 %1101 to i64, !mcsema_real_eip !204
+  store i64 %1103, i64* %XDX, !mcsema_real_eip !204
+  %1104 = zext i32 %1102 to i64, !mcsema_real_eip !204
+  store i64 %1104, i64* %XAX, !mcsema_real_eip !204
+  %_new_gep_324 = getelementptr i8, i8* %_load_rbp_ptr_320, i64 -60
+  %_allin_new_bt_325 = bitcast i8* %_new_gep_324 to i64*
+  %EAX_val.307 = load i32, i32* %EAX.9, !mcsema_real_eip !205
+  %1105 = ptrtoint i64* %_allin_new_bt_325 to i64, !mcsema_real_eip !205
+  %1106 = inttoptr i64 %1105 to i32*, !mcsema_real_eip !205
+  store i32 %EAX_val.307, i32* %1106, !mcsema_real_eip !205
+  %_load_rbp_ptr_326 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_327 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -60
+  %_allin_new_bt_328 = bitcast i8* %_new_gep_327 to i64*
+  %1107 = ptrtoint i64* %_allin_new_bt_328 to i64, !mcsema_real_eip !206
+  %1108 = inttoptr i64 %1107 to i32*, !mcsema_real_eip !206
+  %_ptr_bt_1297 = bitcast i32* %1108 to i8*
+  %_offset_above_rbp_1298 = sub i64 %1107, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1299 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1298
+  %_cond1_1300 = icmp ugt i8* %_ptr_bt_1297, %_local_stack_end_ptr_
+  %_cond2_1_1301 = icmp ugt i8* %_ptr_bt_1297, %_parent_stack_end_ptr_
+  %_cond2_2_1302 = icmp ult i8* %_ptr_bt_1297, %_parent_stack_start_ptr_
+  %_cond2_1303 = or i1 %_cond2_1_1301, %_cond2_2_1302
+  %_cond4_1304 = icmp ule i8* %_pot_address_in_parent_stack_1299, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1305 = and i1 %_cond1_1300, %_cond2_1303
+  %_cond1_n_cond2_cond3_1306 = and i1 %_cond1_n_cond2_1305, %_cond4_1304
+  br i1 %_cond1_n_cond2_cond3_1306, label %1109, label %1110
+
+; <label>:1109:                                   ; preds = %1091
+  %_address_in_parent_stack_bt_1308 = bitcast i8* %_pot_address_in_parent_stack_1299 to i32*
+  br label %1110
+
+; <label>:1110:                                   ; preds = %1091, %1109
+  %1111 = phi i32* [ %1108, %1091 ], [ %_address_in_parent_stack_bt_1308, %1109 ]
+  %_new_load_1309 = load i32, i32* %1111
+  %1112 = sub i32 %_new_load_1309, 3, !mcsema_real_eip !206
+  %1113 = xor i32 %1112, %_new_load_1309, !mcsema_real_eip !206
+  %1114 = xor i32 %1113, 3, !mcsema_real_eip !206
+  %1115 = and i32 %1114, 16, !mcsema_real_eip !206
+  %1116 = icmp ne i32 %1115, 0, !mcsema_real_eip !206
+  store i1 %1116, i1* %AF, !mcsema_real_eip !206
+  %1117 = trunc i32 %1112 to i8, !mcsema_real_eip !206
+  %1118 = call i8 @llvm.ctpop.i8(i8 %1117), !mcsema_real_eip !206
+  %1119 = trunc i8 %1118 to i1, !mcsema_real_eip !206
+  %1120 = xor i1 %1119, true, !mcsema_real_eip !206
+  store i1 %1120, i1* %PF, !mcsema_real_eip !206
+  %1121 = icmp eq i32 %1112, 0, !mcsema_real_eip !206
+  store i1 %1121, i1* %ZF, !mcsema_real_eip !206
+  %1122 = lshr i32 %1112, 31, !mcsema_real_eip !206
+  %1123 = trunc i32 %1122 to i1, !mcsema_real_eip !206
+  store i1 %1123, i1* %SF, !mcsema_real_eip !206
+  %1124 = icmp ult i32 %_new_load_1309, 3, !mcsema_real_eip !206
+  store i1 %1124, i1* %CF, !mcsema_real_eip !206
+  %1125 = xor i32 %_new_load_1309, 3, !mcsema_real_eip !206
+  %1126 = and i32 %1125, %1113, !mcsema_real_eip !206
+  %1127 = lshr i32 %1126, 31, !mcsema_real_eip !206
+  %1128 = trunc i32 %1127 to i1, !mcsema_real_eip !206
+  store i1 %1128, i1* %OF, !mcsema_real_eip !206
+  br i1 %1121, label %block_0x343, label %block_0x338, !mcsema_real_eip !207
+
+block_0x338:                                      ; preds = %1110
+  br i1 %_cond1_n_cond2_cond3_1306, label %1129, label %1130
+
+; <label>:1129:                                   ; preds = %block_0x338
+  %_address_in_parent_stack_bt_1323 = bitcast i8* %_pot_address_in_parent_stack_1299 to i32*
+  br label %1130
+
+; <label>:1130:                                   ; preds = %block_0x338, %1129
+  %1131 = phi i32* [ %1108, %block_0x338 ], [ %_address_in_parent_stack_bt_1323, %1129 ]
+  %_new_load_1324 = load i32, i32* %1131
+  %1132 = zext i32 %_new_load_1324 to i64, !mcsema_real_eip !208
+  store i64 %1132, i64* %XAX, !mcsema_real_eip !208
+  %_new_gep_333 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -4
+  %_allin_new_bt_334 = bitcast i8* %_new_gep_333 to i64*
+  %EAX_val.328 = load i32, i32* %EAX.9, !mcsema_real_eip !209
+  %1133 = ptrtoint i64* %_allin_new_bt_334 to i64, !mcsema_real_eip !209
+  %1134 = inttoptr i64 %1133 to i32*, !mcsema_real_eip !209
+  store i32 %EAX_val.328, i32* %1134, !mcsema_real_eip !209
+  br label %block_0x417, !mcsema_real_eip !210
+
+block_0x343:                                      ; preds = %1110
+  store i64 4, i64* %XDX, !mcsema_real_eip !211
+  %_new_gep_336 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -20
+  %_allin_new_bt_337 = bitcast i8* %_new_gep_336 to i64*
+  %1135 = ptrtoint i64* %_allin_new_bt_337 to i64, !mcsema_real_eip !212
+  %1136 = inttoptr i64 %1135 to i32*, !mcsema_real_eip !212
+  %_ptr_bt_1327 = bitcast i32* %1136 to i8*
+  %_offset_above_rbp_1328 = sub i64 %1135, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1329 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1328
+  %_cond1_1330 = icmp ugt i8* %_ptr_bt_1327, %_local_stack_end_ptr_
+  %_cond2_1_1331 = icmp ugt i8* %_ptr_bt_1327, %_parent_stack_end_ptr_
+  %_cond2_2_1332 = icmp ult i8* %_ptr_bt_1327, %_parent_stack_start_ptr_
+  %_cond2_1333 = or i1 %_cond2_1_1331, %_cond2_2_1332
+  %_cond4_1334 = icmp ule i8* %_pot_address_in_parent_stack_1329, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1335 = and i1 %_cond1_1330, %_cond2_1333
+  %_cond1_n_cond2_cond3_1336 = and i1 %_cond1_n_cond2_1335, %_cond4_1334
+  br i1 %_cond1_n_cond2_cond3_1336, label %1137, label %1138
+
+; <label>:1137:                                   ; preds = %block_0x343
+  %_address_in_parent_stack_bt_1338 = bitcast i8* %_pot_address_in_parent_stack_1329 to i32*
+  br label %1138
+
+; <label>:1138:                                   ; preds = %block_0x343, %1137
+  %1139 = phi i32* [ %1136, %block_0x343 ], [ %_address_in_parent_stack_bt_1338, %1137 ]
+  %_new_load_1339 = load i32, i32* %1139
+  %1140 = zext i32 %_new_load_1339 to i64, !mcsema_real_eip !212
+  store i64 %1140, i64* %XDI, !mcsema_real_eip !212
+  %_new_gep_339 = getelementptr i8, i8* %_load_rbp_ptr_326, i64 -16
+  %_allin_new_bt_340 = bitcast i8* %_new_gep_339 to i64*
+  %_ptr_to_int_1340 = ptrtoint i64* %_allin_new_bt_340 to i64
+  %_offset_above_rbp_1343 = sub i64 %_ptr_to_int_1340, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1344 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1343
+  %_cond1_1345 = icmp ugt i8* %_new_gep_339, %_local_stack_end_ptr_
+  %_cond2_1_1346 = icmp ugt i8* %_new_gep_339, %_parent_stack_end_ptr_
+  %_cond2_2_1347 = icmp ult i8* %_new_gep_339, %_parent_stack_start_ptr_
+  %_cond2_1348 = or i1 %_cond2_1_1346, %_cond2_2_1347
+  %_cond4_1349 = icmp ule i8* %_pot_address_in_parent_stack_1344, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1350 = and i1 %_cond1_1345, %_cond2_1348
+  %_cond1_n_cond2_cond3_1351 = and i1 %_cond1_n_cond2_1350, %_cond4_1349
+  br i1 %_cond1_n_cond2_cond3_1351, label %1141, label %1142
+
+; <label>:1141:                                   ; preds = %1138
+  %_address_in_parent_stack_bt_1353 = bitcast i8* %_pot_address_in_parent_stack_1344 to i64*
+  br label %1142
+
+; <label>:1142:                                   ; preds = %1138, %1141
+  %1143 = phi i64* [ %_allin_new_bt_340, %1138 ], [ %_address_in_parent_stack_bt_1353, %1141 ]
+  %_new_load_1354 = load i64, i64* %1143
+  store i64 %_new_load_1354, i64* %XAX, !mcsema_real_eip !213
+  %1144 = add i64 28, %_new_load_1354, !mcsema_real_eip !214
+  %1145 = xor i64 %1144, %_new_load_1354, !mcsema_real_eip !214
+  %1146 = xor i64 %1145, 28, !mcsema_real_eip !214
+  %1147 = and i64 %1146, 16, !mcsema_real_eip !214
+  %1148 = icmp ne i64 %1147, 0, !mcsema_real_eip !214
+  store i1 %1148, i1* %AF, !mcsema_real_eip !214
+  %1149 = lshr i64 %1144, 63, !mcsema_real_eip !214
+  %1150 = trunc i64 %1149 to i1, !mcsema_real_eip !214
+  store i1 %1150, i1* %SF, !mcsema_real_eip !214
+  %1151 = icmp eq i64 %1144, 0, !mcsema_real_eip !214
+  store i1 %1151, i1* %ZF, !mcsema_real_eip !214
+  %1152 = xor i64 %_new_load_1354, 28, !mcsema_real_eip !214
+  %1153 = xor i64 %1152, -1, !mcsema_real_eip !214
+  %1154 = and i64 %1153, %1145, !mcsema_real_eip !214
+  %1155 = lshr i64 %1154, 63, !mcsema_real_eip !214
+  %1156 = and i64 %1155, 1, !mcsema_real_eip !214
+  %1157 = trunc i64 %1156 to i1, !mcsema_real_eip !214
+  store i1 %1157, i1* %OF, !mcsema_real_eip !214
+  %1158 = trunc i64 %1144 to i8, !mcsema_real_eip !214
+  %1159 = call i8 @llvm.ctpop.i8(i8 %1158), !mcsema_real_eip !214
+  %1160 = trunc i8 %1159 to i1, !mcsema_real_eip !214
+  %1161 = xor i1 %1160, true, !mcsema_real_eip !214
+  store i1 %1161, i1* %PF, !mcsema_real_eip !214
+  %1162 = icmp ult i64 %1144, %_new_load_1354, !mcsema_real_eip !214
+  store i1 %1162, i1* %CF, !mcsema_real_eip !214
+  store i64 %1144, i64* %XAX, !mcsema_real_eip !214
+  store i64 %1144, i64* %XSI, !mcsema_real_eip !215
+  %_load_rsp_ptr_341 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.317 = load i64, i64* %XSP, !mcsema_real_eip !216
+  %_new_gep_342 = getelementptr i8, i8* %_load_rsp_ptr_341, i64 -8
+  %1163 = sub i64 %RSP_val.317, 8, !mcsema_real_eip !216
+  %_allin_new_bt_343 = bitcast i8* %_new_gep_342 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_343, !mcsema_real_eip !216
+  store volatile i8* %_new_gep_342, i8** %_RSP_ptr_
+  store i64 %1163, i64* %XSP, !mcsema_real_eip !216
+  %1164 = call x86_64_sysvcc i64 @_read_bytes(i64 %1140, i64 %1144, i64 4)
+  %_rsp_fix_432 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_433 = getelementptr i8, i8* %_rsp_fix_432, i64 8
+  store i8* %_gep_fix_433, i8** %_RSP_ptr_
+  store i64 %1164, i64* %XAX, !mcsema_real_eip !216
+  %_load_rbp_ptr_344 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_345 = getelementptr i8, i8* %_load_rbp_ptr_344, i64 -64
+  %_allin_new_bt_346 = bitcast i8* %_new_gep_345 to i64*
+  %EAX_val.320 = load i32, i32* %EAX.9, !mcsema_real_eip !217
+  %1165 = ptrtoint i64* %_allin_new_bt_346 to i64, !mcsema_real_eip !217
+  %1166 = inttoptr i64 %1165 to i32*, !mcsema_real_eip !217
+  store i32 %EAX_val.320, i32* %1166, !mcsema_real_eip !217
+  %_load_rbp_ptr_347 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_348 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -16
+  %_allin_new_bt_349 = bitcast i8* %_new_gep_348 to i64*
+  %_ptr_to_int_1355 = ptrtoint i64* %_allin_new_bt_349 to i64
+  %_offset_above_rbp_1358 = sub i64 %_ptr_to_int_1355, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1359 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1358
+  %_cond1_1360 = icmp ugt i8* %_new_gep_348, %_local_stack_end_ptr_
+  %_cond2_1_1361 = icmp ugt i8* %_new_gep_348, %_parent_stack_end_ptr_
+  %_cond2_2_1362 = icmp ult i8* %_new_gep_348, %_parent_stack_start_ptr_
+  %_cond2_1363 = or i1 %_cond2_1_1361, %_cond2_2_1362
+  %_cond4_1364 = icmp ule i8* %_pot_address_in_parent_stack_1359, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1365 = and i1 %_cond1_1360, %_cond2_1363
+  %_cond1_n_cond2_cond3_1366 = and i1 %_cond1_n_cond2_1365, %_cond4_1364
+  br i1 %_cond1_n_cond2_cond3_1366, label %1167, label %1168
+
+; <label>:1167:                                   ; preds = %1142
+  %_address_in_parent_stack_bt_1368 = bitcast i8* %_pot_address_in_parent_stack_1359 to i64*
+  br label %1168
+
+; <label>:1168:                                   ; preds = %1142, %1167
+  %1169 = phi i64* [ %_allin_new_bt_349, %1142 ], [ %_address_in_parent_stack_bt_1368, %1167 ]
+  %_new_load_1369 = load i64, i64* %1169
+  store i64 %_new_load_1369, i64* %XSI, !mcsema_real_eip !218
+  %1170 = add i64 %_new_load_1369, 28, !mcsema_real_eip !219
+  %1171 = inttoptr i64 %1170 to i64*, !mcsema_real_eip !219
+  %1172 = inttoptr i64 %1170 to i8*, !mcsema_real_eip !219
+  %_offset_above_rbp_1372 = sub i64 %1170, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1373 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1372
+  %_cond1_1374 = icmp ugt i8* %1172, %_local_stack_end_ptr_
+  %_cond2_1_1375 = icmp ugt i8* %1172, %_parent_stack_end_ptr_
+  %_cond2_2_1376 = icmp ult i8* %1172, %_parent_stack_start_ptr_
+  %_cond2_1377 = or i1 %_cond2_1_1375, %_cond2_2_1376
+  %_cond4_1378 = icmp ule i8* %_pot_address_in_parent_stack_1373, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1379 = and i1 %_cond1_1374, %_cond2_1377
+  %_cond1_n_cond2_cond3_1380 = and i1 %_cond1_n_cond2_1379, %_cond4_1378
+  br i1 %_cond1_n_cond2_cond3_1380, label %1173, label %1174
+
+; <label>:1173:                                   ; preds = %1168
+  br label %1174
+
+; <label>:1174:                                   ; preds = %1168, %1173
+  %1175 = phi i8* [ %1172, %1168 ], [ %_pot_address_in_parent_stack_1373, %1173 ]
+  %_new_load_1382 = load i8, i8* %1175
+  %1176 = sext i8 %_new_load_1382 to i32, !mcsema_real_eip !219
+  %1177 = zext i32 %1176 to i64, !mcsema_real_eip !219
+  store i64 %1177, i64* %XAX, !mcsema_real_eip !219
+  %EAX_val.324 = load i32, i32* %EAX.9, !mcsema_real_eip !220
+  %1178 = sub i32 %EAX_val.324, 100, !mcsema_real_eip !220
+  %1179 = xor i32 %1178, %EAX_val.324, !mcsema_real_eip !220
+  %1180 = xor i32 %1179, 100, !mcsema_real_eip !220
+  %1181 = and i32 %1180, 16, !mcsema_real_eip !220
+  %1182 = icmp ne i32 %1181, 0, !mcsema_real_eip !220
+  store i1 %1182, i1* %AF, !mcsema_real_eip !220
+  %1183 = trunc i32 %1178 to i8, !mcsema_real_eip !220
+  %1184 = call i8 @llvm.ctpop.i8(i8 %1183), !mcsema_real_eip !220
+  %1185 = trunc i8 %1184 to i1, !mcsema_real_eip !220
+  %1186 = xor i1 %1185, true, !mcsema_real_eip !220
+  store i1 %1186, i1* %PF, !mcsema_real_eip !220
+  %1187 = icmp eq i32 %1178, 0, !mcsema_real_eip !220
+  store i1 %1187, i1* %ZF, !mcsema_real_eip !220
+  %1188 = lshr i32 %1178, 31, !mcsema_real_eip !220
+  %1189 = trunc i32 %1188 to i1, !mcsema_real_eip !220
+  store i1 %1189, i1* %SF, !mcsema_real_eip !220
+  %1190 = icmp ult i32 %EAX_val.324, 100, !mcsema_real_eip !220
+  store i1 %1190, i1* %CF, !mcsema_real_eip !220
+  %1191 = xor i32 %EAX_val.324, 100, !mcsema_real_eip !220
+  %1192 = and i32 %1191, %1179, !mcsema_real_eip !220
+  %1193 = lshr i32 %1192, 31, !mcsema_real_eip !220
+  %1194 = trunc i32 %1193 to i1, !mcsema_real_eip !220
+  store i1 %1194, i1* %OF, !mcsema_real_eip !220
+  %1195 = icmp eq i1 %1187, false, !mcsema_real_eip !221
+  br i1 %1195, label %block_0x38e, label %block_0x36f, !mcsema_real_eip !221
+
+block_0x36f:                                      ; preds = %1174
+  br i1 %_cond1_n_cond2_cond3_1366, label %1196, label %1197
+
+; <label>:1196:                                   ; preds = %block_0x36f
+  %_address_in_parent_stack_bt_1396 = bitcast i8* %_pot_address_in_parent_stack_1359 to i64*
+  br label %1197
+
+; <label>:1197:                                   ; preds = %block_0x36f, %1196
+  %1198 = phi i64* [ %_allin_new_bt_349, %block_0x36f ], [ %_address_in_parent_stack_bt_1396, %1196 ]
+  %_new_load_1397 = load i64, i64* %1198
+  store i64 %_new_load_1397, i64* %XAX, !mcsema_real_eip !222
+  %1199 = add i64 %_new_load_1397, 29, !mcsema_real_eip !223
+  %1200 = inttoptr i64 %1199 to i64*, !mcsema_real_eip !223
+  %1201 = inttoptr i64 %1199 to i8*, !mcsema_real_eip !223
+  %_offset_above_rbp_1400 = sub i64 %1199, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1401 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1400
+  %_cond1_1402 = icmp ugt i8* %1201, %_local_stack_end_ptr_
+  %_cond2_1_1403 = icmp ugt i8* %1201, %_parent_stack_end_ptr_
+  %_cond2_2_1404 = icmp ult i8* %1201, %_parent_stack_start_ptr_
+  %_cond2_1405 = or i1 %_cond2_1_1403, %_cond2_2_1404
+  %_cond4_1406 = icmp ule i8* %_pot_address_in_parent_stack_1401, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1407 = and i1 %_cond1_1402, %_cond2_1405
+  %_cond1_n_cond2_cond3_1408 = and i1 %_cond1_n_cond2_1407, %_cond4_1406
+  br i1 %_cond1_n_cond2_cond3_1408, label %1202, label %1203
+
+; <label>:1202:                                   ; preds = %1197
+  br label %1203
+
+; <label>:1203:                                   ; preds = %1197, %1202
+  %1204 = phi i8* [ %1201, %1197 ], [ %_pot_address_in_parent_stack_1401, %1202 ]
+  %_new_load_1410 = load i8, i8* %1204
+  %1205 = sext i8 %_new_load_1410 to i32, !mcsema_real_eip !223
+  %1206 = zext i32 %1205 to i64, !mcsema_real_eip !223
+  store i64 %1206, i64* %XCX, !mcsema_real_eip !223
+  %ECX_val.340 = load i32, i32* %ECX.12, !mcsema_real_eip !224
+  %1207 = sub i32 %ECX_val.340, 100, !mcsema_real_eip !224
+  %1208 = xor i32 %1207, %ECX_val.340, !mcsema_real_eip !224
+  %1209 = xor i32 %1208, 100, !mcsema_real_eip !224
+  %1210 = and i32 %1209, 16, !mcsema_real_eip !224
+  %1211 = icmp ne i32 %1210, 0, !mcsema_real_eip !224
+  store i1 %1211, i1* %AF, !mcsema_real_eip !224
+  %1212 = trunc i32 %1207 to i8, !mcsema_real_eip !224
+  %1213 = call i8 @llvm.ctpop.i8(i8 %1212), !mcsema_real_eip !224
+  %1214 = trunc i8 %1213 to i1, !mcsema_real_eip !224
+  %1215 = xor i1 %1214, true, !mcsema_real_eip !224
+  store i1 %1215, i1* %PF, !mcsema_real_eip !224
+  %1216 = icmp eq i32 %1207, 0, !mcsema_real_eip !224
+  store i1 %1216, i1* %ZF, !mcsema_real_eip !224
+  %1217 = lshr i32 %1207, 31, !mcsema_real_eip !224
+  %1218 = trunc i32 %1217 to i1, !mcsema_real_eip !224
+  store i1 %1218, i1* %SF, !mcsema_real_eip !224
+  %1219 = icmp ult i32 %ECX_val.340, 100, !mcsema_real_eip !224
+  store i1 %1219, i1* %CF, !mcsema_real_eip !224
+  %1220 = xor i32 %ECX_val.340, 100, !mcsema_real_eip !224
+  %1221 = and i32 %1220, %1208, !mcsema_real_eip !224
+  %1222 = lshr i32 %1221, 31, !mcsema_real_eip !224
+  %1223 = trunc i32 %1222 to i1, !mcsema_real_eip !224
+  store i1 %1223, i1* %OF, !mcsema_real_eip !224
+  %1224 = icmp eq i1 %1216, false, !mcsema_real_eip !225
+  br i1 %1224, label %block_0x38e, label %block_0x380, !mcsema_real_eip !225
+
+block_0x38e:                                      ; preds = %1203, %1174
+  br i1 %_cond1_n_cond2_cond3_1366, label %1225, label %1226
+
+; <label>:1225:                                   ; preds = %block_0x38e
+  %_address_in_parent_stack_bt_1424 = bitcast i8* %_pot_address_in_parent_stack_1359 to i64*
+  br label %1226
+
+; <label>:1226:                                   ; preds = %block_0x38e, %1225
+  %1227 = phi i64* [ %_allin_new_bt_349, %block_0x38e ], [ %_address_in_parent_stack_bt_1424, %1225 ]
+  %_new_load_1425 = load i64, i64* %1227
+  store i64 %_new_load_1425, i64* %XAX, !mcsema_real_eip !226
+  %1228 = add i64 %_new_load_1425, 28, !mcsema_real_eip !227
+  %1229 = inttoptr i64 %1228 to i64*, !mcsema_real_eip !227
+  %1230 = inttoptr i64 %1228 to i8*, !mcsema_real_eip !227
+  %_offset_above_rbp_1428 = sub i64 %1228, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1429 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1428
+  %_cond1_1430 = icmp ugt i8* %1230, %_local_stack_end_ptr_
+  %_cond2_1_1431 = icmp ugt i8* %1230, %_parent_stack_end_ptr_
+  %_cond2_2_1432 = icmp ult i8* %1230, %_parent_stack_start_ptr_
+  %_cond2_1433 = or i1 %_cond2_1_1431, %_cond2_2_1432
+  %_cond4_1434 = icmp ule i8* %_pot_address_in_parent_stack_1429, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1435 = and i1 %_cond1_1430, %_cond2_1433
+  %_cond1_n_cond2_cond3_1436 = and i1 %_cond1_n_cond2_1435, %_cond4_1434
+  br i1 %_cond1_n_cond2_cond3_1436, label %1231, label %1232
+
+; <label>:1231:                                   ; preds = %1226
+  br label %1232
+
+; <label>:1232:                                   ; preds = %1226, %1231
+  %1233 = phi i8* [ %1230, %1226 ], [ %_pot_address_in_parent_stack_1429, %1231 ]
+  %_new_load_1438 = load i8, i8* %1233
+  %1234 = sext i8 %_new_load_1438 to i32, !mcsema_real_eip !227
+  %1235 = zext i32 %1234 to i64, !mcsema_real_eip !227
+  store i64 %1235, i64* %XCX, !mcsema_real_eip !227
+  br i1 %_cond1_n_cond2_cond3_1366, label %1236, label %1237
+
+; <label>:1236:                                   ; preds = %1232
+  %_address_in_parent_stack_bt_1452 = bitcast i8* %_pot_address_in_parent_stack_1359 to i64*
+  br label %1237
+
+; <label>:1237:                                   ; preds = %1232, %1236
+  %1238 = phi i64* [ %_allin_new_bt_349, %1232 ], [ %_address_in_parent_stack_bt_1452, %1236 ]
+  %_new_load_1453 = load i64, i64* %1238
+  store i64 %_new_load_1453, i64* %XAX, !mcsema_real_eip !228
+  %1239 = add i64 %_new_load_1453, 29, !mcsema_real_eip !229
+  %1240 = inttoptr i64 %1239 to i64*, !mcsema_real_eip !229
+  %1241 = inttoptr i64 %1239 to i8*, !mcsema_real_eip !229
+  %_offset_above_rbp_1456 = sub i64 %1239, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1457 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1456
+  %_cond1_1458 = icmp ugt i8* %1241, %_local_stack_end_ptr_
+  %_cond2_1_1459 = icmp ugt i8* %1241, %_parent_stack_end_ptr_
+  %_cond2_2_1460 = icmp ult i8* %1241, %_parent_stack_start_ptr_
+  %_cond2_1461 = or i1 %_cond2_1_1459, %_cond2_2_1460
+  %_cond4_1462 = icmp ule i8* %_pot_address_in_parent_stack_1457, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1463 = and i1 %_cond1_1458, %_cond2_1461
+  %_cond1_n_cond2_cond3_1464 = and i1 %_cond1_n_cond2_1463, %_cond4_1462
+  br i1 %_cond1_n_cond2_cond3_1464, label %1242, label %1243
+
+; <label>:1242:                                   ; preds = %1237
+  br label %1243
+
+; <label>:1243:                                   ; preds = %1237, %1242
+  %1244 = phi i8* [ %1241, %1237 ], [ %_pot_address_in_parent_stack_1457, %1242 ]
+  %_new_load_1466 = load i8, i8* %1244
+  %1245 = sext i8 %_new_load_1466 to i32, !mcsema_real_eip !229
+  %1246 = zext i32 %1245 to i64, !mcsema_real_eip !229
+  store i64 %1246, i64* %XDX, !mcsema_real_eip !229
+  %ECX_val.334 = load i32, i32* %ECX.12, !mcsema_real_eip !230
+  %EDX_val.336 = load i32, i32* %EDX.67, !mcsema_real_eip !230
+  %1247 = sub i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
+  %1248 = xor i32 %1247, %ECX_val.334, !mcsema_real_eip !230
+  %1249 = xor i32 %1248, %EDX_val.336, !mcsema_real_eip !230
+  %1250 = and i32 %1249, 16, !mcsema_real_eip !230
+  %1251 = icmp ne i32 %1250, 0, !mcsema_real_eip !230
+  store i1 %1251, i1* %AF, !mcsema_real_eip !230
+  %1252 = trunc i32 %1247 to i8, !mcsema_real_eip !230
+  %1253 = call i8 @llvm.ctpop.i8(i8 %1252), !mcsema_real_eip !230
+  %1254 = trunc i8 %1253 to i1, !mcsema_real_eip !230
+  %1255 = xor i1 %1254, true, !mcsema_real_eip !230
+  store i1 %1255, i1* %PF, !mcsema_real_eip !230
+  %1256 = icmp eq i32 %1247, 0, !mcsema_real_eip !230
+  store i1 %1256, i1* %ZF, !mcsema_real_eip !230
+  %1257 = lshr i32 %1247, 31, !mcsema_real_eip !230
+  %1258 = trunc i32 %1257 to i1, !mcsema_real_eip !230
+  store i1 %1258, i1* %SF, !mcsema_real_eip !230
+  %1259 = icmp ult i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
+  store i1 %1259, i1* %CF, !mcsema_real_eip !230
+  %1260 = xor i32 %ECX_val.334, %EDX_val.336, !mcsema_real_eip !230
+  %1261 = and i32 %1260, %1248, !mcsema_real_eip !230
+  %1262 = lshr i32 %1261, 31, !mcsema_real_eip !230
+  %1263 = trunc i32 %1262 to i1, !mcsema_real_eip !230
+  store i1 %1263, i1* %OF, !mcsema_real_eip !230
+  %1264 = icmp eq i1 %1256, false, !mcsema_real_eip !231
+  br i1 %1264, label %block_0x406, label %block_0x3a6, !mcsema_real_eip !231
+
+block_0x3a6:                                      ; preds = %1243
+  store i64 15, i64* %XAX, !mcsema_real_eip !232
+  br i1 %_cond1_n_cond2_cond3_1366, label %1265, label %1266
+
+; <label>:1265:                                   ; preds = %block_0x3a6
+  %_address_in_parent_stack_bt_1480 = bitcast i8* %_pot_address_in_parent_stack_1359 to i64*
+  br label %1266
+
+; <label>:1266:                                   ; preds = %block_0x3a6, %1265
+  %1267 = phi i64* [ %_allin_new_bt_349, %block_0x3a6 ], [ %_address_in_parent_stack_bt_1480, %1265 ]
+  %_new_load_1481 = load i64, i64* %1267
+  store i64 %_new_load_1481, i64* %XCX, !mcsema_real_eip !233
+  %1268 = add i64 %_new_load_1481, 31, !mcsema_real_eip !234
+  %1269 = inttoptr i64 %1268 to i64*, !mcsema_real_eip !234
+  %1270 = inttoptr i64 %1268 to i8*, !mcsema_real_eip !234
+  %_offset_above_rbp_1484 = sub i64 %1268, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1485 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1484
+  %_cond1_1486 = icmp ugt i8* %1270, %_local_stack_end_ptr_
+  %_cond2_1_1487 = icmp ugt i8* %1270, %_parent_stack_end_ptr_
+  %_cond2_2_1488 = icmp ult i8* %1270, %_parent_stack_start_ptr_
+  %_cond2_1489 = or i1 %_cond2_1_1487, %_cond2_2_1488
+  %_cond4_1490 = icmp ule i8* %_pot_address_in_parent_stack_1485, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1491 = and i1 %_cond1_1486, %_cond2_1489
+  %_cond1_n_cond2_cond3_1492 = and i1 %_cond1_n_cond2_1491, %_cond4_1490
+  br i1 %_cond1_n_cond2_cond3_1492, label %1271, label %1272
+
+; <label>:1271:                                   ; preds = %1266
+  br label %1272
+
+; <label>:1272:                                   ; preds = %1266, %1271
+  %1273 = phi i8* [ %1270, %1266 ], [ %_pot_address_in_parent_stack_1485, %1271 ]
+  %_new_load_1494 = load i8, i8* %1273
+  %1274 = sext i8 %_new_load_1494 to i32, !mcsema_real_eip !234
+  %1275 = zext i32 %1274 to i64, !mcsema_real_eip !234
+  store i64 %1275, i64* %XDX, !mcsema_real_eip !234
+  br i1 %_cond1_n_cond2_cond3_1366, label %1276, label %1277
+
+; <label>:1276:                                   ; preds = %1272
+  %_address_in_parent_stack_bt_1508 = bitcast i8* %_pot_address_in_parent_stack_1359 to i64*
+  br label %1277
+
+; <label>:1277:                                   ; preds = %1272, %1276
+  %1278 = phi i64* [ %_allin_new_bt_349, %1272 ], [ %_address_in_parent_stack_bt_1508, %1276 ]
+  %_new_load_1509 = load i64, i64* %1278
+  store i64 %_new_load_1509, i64* %XCX, !mcsema_real_eip !235
+  %1279 = add i64 %_new_load_1509, 30, !mcsema_real_eip !236
+  %1280 = inttoptr i64 %1279 to i64*, !mcsema_real_eip !236
+  %1281 = inttoptr i64 %1279 to i8*, !mcsema_real_eip !236
+  %_offset_above_rbp_1512 = sub i64 %1279, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1513 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1512
+  %_cond1_1514 = icmp ugt i8* %1281, %_local_stack_end_ptr_
+  %_cond2_1_1515 = icmp ugt i8* %1281, %_parent_stack_end_ptr_
+  %_cond2_2_1516 = icmp ult i8* %1281, %_parent_stack_start_ptr_
+  %_cond2_1517 = or i1 %_cond2_1_1515, %_cond2_2_1516
+  %_cond4_1518 = icmp ule i8* %_pot_address_in_parent_stack_1513, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1519 = and i1 %_cond1_1514, %_cond2_1517
+  %_cond1_n_cond2_cond3_1520 = and i1 %_cond1_n_cond2_1519, %_cond4_1518
+  br i1 %_cond1_n_cond2_cond3_1520, label %1282, label %1283
+
+; <label>:1282:                                   ; preds = %1277
+  br label %1283
+
+; <label>:1283:                                   ; preds = %1277, %1282
+  %1284 = phi i8* [ %1281, %1277 ], [ %_pot_address_in_parent_stack_1513, %1282 ]
+  %_new_load_1522 = load i8, i8* %1284
+  %1285 = sext i8 %_new_load_1522 to i32, !mcsema_real_eip !236
+  %1286 = zext i32 %1285 to i64, !mcsema_real_eip !236
+  store i64 %1286, i64* %XSI, !mcsema_real_eip !236
+  %EDX_val.350 = load i32, i32* %EDX.67, !mcsema_real_eip !237
+  %ESI.351 = bitcast i64* %XSI to i32*, !mcsema_real_eip !237
+  %ESI_val.352 = load i32, i32* %ESI.351, !mcsema_real_eip !237
+  %1287 = sub i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
+  %1288 = xor i32 %1287, %EDX_val.350, !mcsema_real_eip !237
+  %1289 = xor i32 %1288, %ESI_val.352, !mcsema_real_eip !237
+  %1290 = and i32 %1289, 16, !mcsema_real_eip !237
+  %1291 = icmp ne i32 %1290, 0, !mcsema_real_eip !237
+  store i1 %1291, i1* %AF, !mcsema_real_eip !237
+  %1292 = trunc i32 %1287 to i8, !mcsema_real_eip !237
+  %1293 = call i8 @llvm.ctpop.i8(i8 %1292), !mcsema_real_eip !237
+  %1294 = trunc i8 %1293 to i1, !mcsema_real_eip !237
+  %1295 = xor i1 %1294, true, !mcsema_real_eip !237
+  store i1 %1295, i1* %PF, !mcsema_real_eip !237
+  %1296 = icmp eq i32 %1287, 0, !mcsema_real_eip !237
+  store i1 %1296, i1* %ZF, !mcsema_real_eip !237
+  %1297 = lshr i32 %1287, 31, !mcsema_real_eip !237
+  %1298 = trunc i32 %1297 to i1, !mcsema_real_eip !237
+  store i1 %1298, i1* %SF, !mcsema_real_eip !237
+  %1299 = icmp ult i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
+  store i1 %1299, i1* %CF, !mcsema_real_eip !237
+  %1300 = xor i32 %EDX_val.350, %ESI_val.352, !mcsema_real_eip !237
+  %1301 = and i32 %1300, %1288, !mcsema_real_eip !237
+  %1302 = lshr i32 %1301, 31, !mcsema_real_eip !237
+  %1303 = trunc i32 %1302 to i1, !mcsema_real_eip !237
+  store i1 %1303, i1* %OF, !mcsema_real_eip !237
+  %1304 = zext i32 %1287 to i64, !mcsema_real_eip !237
+  store i64 %1304, i64* %XDX, !mcsema_real_eip !237
+  %EAX_val.354 = load i32, i32* %EAX.9, !mcsema_real_eip !238
+  %EDX_val.356 = load i32, i32* %EDX.67, !mcsema_real_eip !238
+  %1305 = sub i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
+  %1306 = xor i32 %1305, %EAX_val.354, !mcsema_real_eip !238
+  %1307 = xor i32 %1306, %EDX_val.356, !mcsema_real_eip !238
+  %1308 = and i32 %1307, 16, !mcsema_real_eip !238
+  %1309 = icmp ne i32 %1308, 0, !mcsema_real_eip !238
+  store i1 %1309, i1* %AF, !mcsema_real_eip !238
+  %1310 = trunc i32 %1305 to i8, !mcsema_real_eip !238
+  %1311 = call i8 @llvm.ctpop.i8(i8 %1310), !mcsema_real_eip !238
+  %1312 = trunc i8 %1311 to i1, !mcsema_real_eip !238
+  %1313 = xor i1 %1312, true, !mcsema_real_eip !238
+  store i1 %1313, i1* %PF, !mcsema_real_eip !238
+  %1314 = icmp eq i32 %1305, 0, !mcsema_real_eip !238
+  store i1 %1314, i1* %ZF, !mcsema_real_eip !238
+  %1315 = lshr i32 %1305, 31, !mcsema_real_eip !238
+  %1316 = trunc i32 %1315 to i1, !mcsema_real_eip !238
+  store i1 %1316, i1* %SF, !mcsema_real_eip !238
+  %1317 = icmp ult i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
+  store i1 %1317, i1* %CF, !mcsema_real_eip !238
+  %1318 = xor i32 %EAX_val.354, %EDX_val.356, !mcsema_real_eip !238
+  %1319 = and i32 %1318, %1306, !mcsema_real_eip !238
+  %1320 = lshr i32 %1319, 31, !mcsema_real_eip !238
+  %1321 = trunc i32 %1320 to i1, !mcsema_real_eip !238
+  store i1 %1321, i1* %OF, !mcsema_real_eip !238
+  %1322 = zext i32 %1305 to i64, !mcsema_real_eip !238
+  store i64 %1322, i64* %XAX, !mcsema_real_eip !238
+  %_new_gep_366 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -20
+  %_allin_new_bt_367 = bitcast i8* %_new_gep_366 to i64*
+  %1323 = ptrtoint i64* %_allin_new_bt_367 to i64, !mcsema_real_eip !239
+  %1324 = inttoptr i64 %1323 to i32*, !mcsema_real_eip !239
+  %_ptr_bt_1525 = bitcast i32* %1324 to i8*
+  %_offset_above_rbp_1526 = sub i64 %1323, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1527 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1526
+  %_cond1_1528 = icmp ugt i8* %_ptr_bt_1525, %_local_stack_end_ptr_
+  %_cond2_1_1529 = icmp ugt i8* %_ptr_bt_1525, %_parent_stack_end_ptr_
+  %_cond2_2_1530 = icmp ult i8* %_ptr_bt_1525, %_parent_stack_start_ptr_
+  %_cond2_1531 = or i1 %_cond2_1_1529, %_cond2_2_1530
+  %_cond4_1532 = icmp ule i8* %_pot_address_in_parent_stack_1527, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1533 = and i1 %_cond1_1528, %_cond2_1531
+  %_cond1_n_cond2_cond3_1534 = and i1 %_cond1_n_cond2_1533, %_cond4_1532
+  br i1 %_cond1_n_cond2_cond3_1534, label %1325, label %1326
+
+; <label>:1325:                                   ; preds = %1283
+  %_address_in_parent_stack_bt_1536 = bitcast i8* %_pot_address_in_parent_stack_1527 to i32*
+  br label %1326
+
+; <label>:1326:                                   ; preds = %1283, %1325
+  %1327 = phi i32* [ %1324, %1283 ], [ %_address_in_parent_stack_bt_1536, %1325 ]
+  %_new_load_1537 = load i32, i32* %1327
+  %EAX_val.359 = load i32, i32* %EAX.9, !mcsema_real_eip !239
+  %1328 = add i32 %EAX_val.359, %_new_load_1537, !mcsema_real_eip !239
+  %1329 = xor i32 %1328, %_new_load_1537, !mcsema_real_eip !239
+  %1330 = xor i32 %1329, %EAX_val.359, !mcsema_real_eip !239
+  %1331 = and i32 %1330, 16, !mcsema_real_eip !239
+  %1332 = icmp ne i32 %1331, 0, !mcsema_real_eip !239
+  store i1 %1332, i1* %AF, !mcsema_real_eip !239
+  %1333 = lshr i32 %1328, 31, !mcsema_real_eip !239
+  %1334 = trunc i32 %1333 to i1, !mcsema_real_eip !239
+  store i1 %1334, i1* %SF, !mcsema_real_eip !239
+  %1335 = icmp eq i32 %1328, 0, !mcsema_real_eip !239
+  store i1 %1335, i1* %ZF, !mcsema_real_eip !239
+  %1336 = xor i32 %_new_load_1537, %EAX_val.359, !mcsema_real_eip !239
+  %1337 = xor i32 %1336, -1, !mcsema_real_eip !239
+  %1338 = and i32 %1337, %1329, !mcsema_real_eip !239
+  %1339 = lshr i32 %1338, 31, !mcsema_real_eip !239
+  %1340 = and i32 %1339, 1, !mcsema_real_eip !239
+  %1341 = trunc i32 %1340 to i1, !mcsema_real_eip !239
+  store i1 %1341, i1* %OF, !mcsema_real_eip !239
+  %1342 = trunc i32 %1328 to i8, !mcsema_real_eip !239
+  %1343 = call i8 @llvm.ctpop.i8(i8 %1342), !mcsema_real_eip !239
+  %1344 = trunc i8 %1343 to i1, !mcsema_real_eip !239
+  %1345 = xor i1 %1344, true, !mcsema_real_eip !239
+  store i1 %1345, i1* %PF, !mcsema_real_eip !239
+  %1346 = icmp ult i32 %1328, %_new_load_1537, !mcsema_real_eip !239
+  store i1 %1346, i1* %CF, !mcsema_real_eip !239
+  %1347 = zext i32 %1328 to i64, !mcsema_real_eip !239
+  store i64 %1347, i64* %XAX, !mcsema_real_eip !239
+  %EAX_val.362 = load i32, i32* %EAX.9, !mcsema_real_eip !240
+  store i32 %EAX_val.362, i32* %1324, !mcsema_real_eip !240
+  %_load_rbp_ptr_371 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_372 = getelementptr i8, i8* %_load_rbp_ptr_371, i64 -16
+  %_allin_new_bt_373 = bitcast i8* %_new_gep_372 to i64*
+  %_ptr_to_int_1538 = ptrtoint i64* %_allin_new_bt_373 to i64
+  %_offset_above_rbp_1541 = sub i64 %_ptr_to_int_1538, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1542 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1541
+  %_cond1_1543 = icmp ugt i8* %_new_gep_372, %_local_stack_end_ptr_
+  %_cond2_1_1544 = icmp ugt i8* %_new_gep_372, %_parent_stack_end_ptr_
+  %_cond2_2_1545 = icmp ult i8* %_new_gep_372, %_parent_stack_start_ptr_
+  %_cond2_1546 = or i1 %_cond2_1_1544, %_cond2_2_1545
+  %_cond4_1547 = icmp ule i8* %_pot_address_in_parent_stack_1542, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1548 = and i1 %_cond1_1543, %_cond2_1546
+  %_cond1_n_cond2_cond3_1549 = and i1 %_cond1_n_cond2_1548, %_cond4_1547
+  br i1 %_cond1_n_cond2_cond3_1549, label %1348, label %1349
+
+; <label>:1348:                                   ; preds = %1326
+  %_address_in_parent_stack_bt_1551 = bitcast i8* %_pot_address_in_parent_stack_1542 to i64*
+  br label %1349
+
+; <label>:1349:                                   ; preds = %1326, %1348
+  %1350 = phi i64* [ %_allin_new_bt_373, %1326 ], [ %_address_in_parent_stack_bt_1551, %1348 ]
+  %_new_load_1552 = load i64, i64* %1350
+  store i64 %_new_load_1552, i64* %XCX, !mcsema_real_eip !241
+  %1351 = add i64 %_new_load_1552, 28, !mcsema_real_eip !242
+  %1352 = inttoptr i64 %1351 to i64*, !mcsema_real_eip !242
+  %1353 = inttoptr i64 %1351 to i8*, !mcsema_real_eip !242
+  %_offset_above_rbp_1555 = sub i64 %1351, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1556 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1555
+  %_cond1_1557 = icmp ugt i8* %1353, %_local_stack_end_ptr_
+  %_cond2_1_1558 = icmp ugt i8* %1353, %_parent_stack_end_ptr_
+  %_cond2_2_1559 = icmp ult i8* %1353, %_parent_stack_start_ptr_
+  %_cond2_1560 = or i1 %_cond2_1_1558, %_cond2_2_1559
+  %_cond4_1561 = icmp ule i8* %_pot_address_in_parent_stack_1556, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1562 = and i1 %_cond1_1557, %_cond2_1560
+  %_cond1_n_cond2_cond3_1563 = and i1 %_cond1_n_cond2_1562, %_cond4_1561
+  br i1 %_cond1_n_cond2_cond3_1563, label %1354, label %1355
+
+; <label>:1354:                                   ; preds = %1349
+  br label %1355
+
+; <label>:1355:                                   ; preds = %1349, %1354
+  %1356 = phi i8* [ %1353, %1349 ], [ %_pot_address_in_parent_stack_1556, %1354 ]
+  %_new_load_1565 = load i8, i8* %1356
+  %1357 = zext i8 %_new_load_1565 to i32, !mcsema_real_eip !242
+  %1358 = zext i32 %1357 to i64, !mcsema_real_eip !242
+  store i64 %1358, i64* %XDI, !mcsema_real_eip !242
+  %_load_rsp_ptr_374 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.366 = load i64, i64* %XSP, !mcsema_real_eip !243
+  %_new_gep_375 = getelementptr i8, i8* %_load_rsp_ptr_374, i64 -8
+  %1359 = sub i64 %RSP_val.366, 8, !mcsema_real_eip !243
+  %_allin_new_bt_376 = bitcast i8* %_new_gep_375 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_376, !mcsema_real_eip !243
+  store volatile i8* %_new_gep_375, i8** %_RSP_ptr_
+  store i64 %1359, i64* %XSP, !mcsema_real_eip !243
+  %1360 = call x86_64_sysvcc i64 @_to_byte(i64 %1358)
+  %_rsp_fix_434 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_435 = getelementptr i8, i8* %_rsp_fix_434, i64 8
+  store i8* %_gep_fix_435, i8** %_RSP_ptr_
+  store i64 %1360, i64* %XAX, !mcsema_real_eip !243
+  %_load_rbp_ptr_377 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_378 = getelementptr i8, i8* %_load_rbp_ptr_377, i64 -20
+  %_allin_new_bt_379 = bitcast i8* %_new_gep_378 to i64*
+  %1361 = ptrtoint i64* %_allin_new_bt_379 to i64, !mcsema_real_eip !244
+  %1362 = inttoptr i64 %1361 to i32*, !mcsema_real_eip !244
+  %_ptr_bt_1568 = bitcast i32* %1362 to i8*
+  %_offset_above_rbp_1569 = sub i64 %1361, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1570 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1569
+  %_cond1_1571 = icmp ugt i8* %_ptr_bt_1568, %_local_stack_end_ptr_
+  %_cond2_1_1572 = icmp ugt i8* %_ptr_bt_1568, %_parent_stack_end_ptr_
+  %_cond2_2_1573 = icmp ult i8* %_ptr_bt_1568, %_parent_stack_start_ptr_
+  %_cond2_1574 = or i1 %_cond2_1_1572, %_cond2_2_1573
+  %_cond4_1575 = icmp ule i8* %_pot_address_in_parent_stack_1570, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1576 = and i1 %_cond1_1571, %_cond2_1574
+  %_cond1_n_cond2_cond3_1577 = and i1 %_cond1_n_cond2_1576, %_cond4_1575
+  br i1 %_cond1_n_cond2_cond3_1577, label %1363, label %1364
+
+; <label>:1363:                                   ; preds = %1355
+  %_address_in_parent_stack_bt_1579 = bitcast i8* %_pot_address_in_parent_stack_1570 to i32*
+  br label %1364
+
+; <label>:1364:                                   ; preds = %1355, %1363
+  %1365 = phi i32* [ %1362, %1355 ], [ %_address_in_parent_stack_bt_1579, %1363 ]
+  %_new_load_1580 = load i32, i32* %1365
+  %1366 = zext i32 %_new_load_1580 to i64, !mcsema_real_eip !244
+  store i64 %1366, i64* %XDX, !mcsema_real_eip !244
+  %EDX_val.369 = load i32, i32* %EDX.67, !mcsema_real_eip !245
+  %EAX_val.371 = load i32, i32* %EAX.9, !mcsema_real_eip !245
+  %1367 = sub i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
+  %1368 = xor i32 %1367, %EDX_val.369, !mcsema_real_eip !245
+  %1369 = xor i32 %1368, %EAX_val.371, !mcsema_real_eip !245
+  %1370 = and i32 %1369, 16, !mcsema_real_eip !245
+  %1371 = icmp ne i32 %1370, 0, !mcsema_real_eip !245
+  store i1 %1371, i1* %AF, !mcsema_real_eip !245
+  %1372 = trunc i32 %1367 to i8, !mcsema_real_eip !245
+  %1373 = call i8 @llvm.ctpop.i8(i8 %1372), !mcsema_real_eip !245
+  %1374 = trunc i8 %1373 to i1, !mcsema_real_eip !245
+  %1375 = xor i1 %1374, true, !mcsema_real_eip !245
+  store i1 %1375, i1* %PF, !mcsema_real_eip !245
+  %1376 = icmp eq i32 %1367, 0, !mcsema_real_eip !245
+  store i1 %1376, i1* %ZF, !mcsema_real_eip !245
+  %1377 = lshr i32 %1367, 31, !mcsema_real_eip !245
+  %1378 = trunc i32 %1377 to i1, !mcsema_real_eip !245
+  store i1 %1378, i1* %SF, !mcsema_real_eip !245
+  %1379 = icmp ult i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
+  store i1 %1379, i1* %CF, !mcsema_real_eip !245
+  %1380 = xor i32 %EDX_val.369, %EAX_val.371, !mcsema_real_eip !245
+  %1381 = and i32 %1380, %1368, !mcsema_real_eip !245
+  %1382 = lshr i32 %1381, 31, !mcsema_real_eip !245
+  %1383 = trunc i32 %1382 to i1, !mcsema_real_eip !245
+  store i1 %1383, i1* %OF, !mcsema_real_eip !245
+  %1384 = zext i32 %1367 to i64, !mcsema_real_eip !245
+  store i64 %1384, i64* %XDX, !mcsema_real_eip !245
+  %EDX_val.374 = load i32, i32* %EDX.67, !mcsema_real_eip !246
+  store i32 %EDX_val.374, i32* %1362, !mcsema_real_eip !246
+  %_load_rbp_ptr_383 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_384 = getelementptr i8, i8* %_load_rbp_ptr_383, i64 -20
+  %_allin_new_bt_385 = bitcast i8* %_new_gep_384 to i64*
+  %1385 = ptrtoint i64* %_allin_new_bt_385 to i64, !mcsema_real_eip !247
+  %1386 = inttoptr i64 %1385 to i32*, !mcsema_real_eip !247
+  %_ptr_bt_1583 = bitcast i32* %1386 to i8*
+  %_offset_above_rbp_1584 = sub i64 %1385, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1585 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1584
+  %_cond1_1586 = icmp ugt i8* %_ptr_bt_1583, %_local_stack_end_ptr_
+  %_cond2_1_1587 = icmp ugt i8* %_ptr_bt_1583, %_parent_stack_end_ptr_
+  %_cond2_2_1588 = icmp ult i8* %_ptr_bt_1583, %_parent_stack_start_ptr_
+  %_cond2_1589 = or i1 %_cond2_1_1587, %_cond2_2_1588
+  %_cond4_1590 = icmp ule i8* %_pot_address_in_parent_stack_1585, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1591 = and i1 %_cond1_1586, %_cond2_1589
+  %_cond1_n_cond2_cond3_1592 = and i1 %_cond1_n_cond2_1591, %_cond4_1590
+  br i1 %_cond1_n_cond2_cond3_1592, label %1387, label %1388
+
+; <label>:1387:                                   ; preds = %1364
+  %_address_in_parent_stack_bt_1594 = bitcast i8* %_pot_address_in_parent_stack_1585 to i32*
+  br label %1388
+
+; <label>:1388:                                   ; preds = %1364, %1387
+  %1389 = phi i32* [ %1386, %1364 ], [ %_address_in_parent_stack_bt_1594, %1387 ]
+  %_new_load_1595 = load i32, i32* %1389
+  store i1 false, i1* %AF, !mcsema_real_eip !247
+  %1390 = trunc i32 %_new_load_1595 to i8, !mcsema_real_eip !247
+  %1391 = call i8 @llvm.ctpop.i8(i8 %1390), !mcsema_real_eip !247
+  %1392 = trunc i8 %1391 to i1, !mcsema_real_eip !247
+  %1393 = xor i1 %1392, true, !mcsema_real_eip !247
+  store i1 %1393, i1* %PF, !mcsema_real_eip !247
+  %1394 = icmp eq i32 %_new_load_1595, 0, !mcsema_real_eip !247
+  store i1 %1394, i1* %ZF, !mcsema_real_eip !247
+  %1395 = lshr i32 %_new_load_1595, 31, !mcsema_real_eip !247
+  %1396 = trunc i32 %1395 to i1, !mcsema_real_eip !247
+  store i1 %1396, i1* %SF, !mcsema_real_eip !247
+  store i1 false, i1* %CF, !mcsema_real_eip !247
+  store i1 false, i1* %OF, !mcsema_real_eip !247
+  %1397 = icmp eq i1 %1394, false, !mcsema_real_eip !248
+  br i1 %1397, label %block_0x401, label %block_0x3e4, !mcsema_real_eip !248
+
+block_0x406:                                      ; preds = %1243
+  %_new_gep_387 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -64
+  %_allin_new_bt_388 = bitcast i8* %_new_gep_387 to i64*
+  %1398 = ptrtoint i64* %_allin_new_bt_388 to i64, !mcsema_real_eip !249
+  %1399 = inttoptr i64 %1398 to i32*, !mcsema_real_eip !249
+  %_ptr_bt_1598 = bitcast i32* %1399 to i8*
+  %_offset_above_rbp_1599 = sub i64 %1398, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1600 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1599
+  %_cond1_1601 = icmp ugt i8* %_ptr_bt_1598, %_local_stack_end_ptr_
+  %_cond2_1_1602 = icmp ugt i8* %_ptr_bt_1598, %_parent_stack_end_ptr_
+  %_cond2_2_1603 = icmp ult i8* %_ptr_bt_1598, %_parent_stack_start_ptr_
+  %_cond2_1604 = or i1 %_cond2_1_1602, %_cond2_2_1603
+  %_cond4_1605 = icmp ule i8* %_pot_address_in_parent_stack_1600, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1606 = and i1 %_cond1_1601, %_cond2_1604
+  %_cond1_n_cond2_cond3_1607 = and i1 %_cond1_n_cond2_1606, %_cond4_1605
+  br i1 %_cond1_n_cond2_cond3_1607, label %1400, label %1401
+
+; <label>:1400:                                   ; preds = %block_0x406
+  %_address_in_parent_stack_bt_1609 = bitcast i8* %_pot_address_in_parent_stack_1600 to i32*
+  br label %1401
+
+; <label>:1401:                                   ; preds = %block_0x406, %1400
+  %1402 = phi i32* [ %1399, %block_0x406 ], [ %_address_in_parent_stack_bt_1609, %1400 ]
+  %_new_load_1610 = load i32, i32* %1402
+  %1403 = zext i32 %_new_load_1610 to i64, !mcsema_real_eip !249
+  store i64 %1403, i64* %XAX, !mcsema_real_eip !249
+  %_new_gep_390 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -20
+  %_allin_new_bt_391 = bitcast i8* %_new_gep_390 to i64*
+  %EAX_val.344 = load i32, i32* %EAX.9, !mcsema_real_eip !250
+  %1404 = ptrtoint i64* %_allin_new_bt_391 to i64, !mcsema_real_eip !250
+  %1405 = inttoptr i64 %1404 to i32*, !mcsema_real_eip !250
+  store i32 %EAX_val.344, i32* %1405, !mcsema_real_eip !250
+  br label %block_0x40c, !mcsema_real_eip !232
+
+block_0x380:                                      ; preds = %1203
+  %_new_gep_393 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -64
+  %_allin_new_bt_394 = bitcast i8* %_new_gep_393 to i64*
+  %1406 = ptrtoint i64* %_allin_new_bt_394 to i64, !mcsema_real_eip !251
+  %1407 = inttoptr i64 %1406 to i32*, !mcsema_real_eip !251
+  %_ptr_bt_1613 = bitcast i32* %1407 to i8*
+  %_offset_above_rbp_1614 = sub i64 %1406, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1615 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1614
+  %_cond1_1616 = icmp ugt i8* %_ptr_bt_1613, %_local_stack_end_ptr_
+  %_cond2_1_1617 = icmp ugt i8* %_ptr_bt_1613, %_parent_stack_end_ptr_
+  %_cond2_2_1618 = icmp ult i8* %_ptr_bt_1613, %_parent_stack_start_ptr_
+  %_cond2_1619 = or i1 %_cond2_1_1617, %_cond2_2_1618
+  %_cond4_1620 = icmp ule i8* %_pot_address_in_parent_stack_1615, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1621 = and i1 %_cond1_1616, %_cond2_1619
+  %_cond1_n_cond2_cond3_1622 = and i1 %_cond1_n_cond2_1621, %_cond4_1620
+  br i1 %_cond1_n_cond2_cond3_1622, label %1408, label %1409
+
+; <label>:1408:                                   ; preds = %block_0x380
+  %_address_in_parent_stack_bt_1624 = bitcast i8* %_pot_address_in_parent_stack_1615 to i32*
+  br label %1409
+
+; <label>:1409:                                   ; preds = %block_0x380, %1408
+  %1410 = phi i32* [ %1407, %block_0x380 ], [ %_address_in_parent_stack_bt_1624, %1408 ]
+  %_new_load_1625 = load i32, i32* %1410
+  %1411 = zext i32 %_new_load_1625 to i64, !mcsema_real_eip !251
+  store i64 %1411, i64* %XAX, !mcsema_real_eip !251
+  %_new_gep_396 = getelementptr i8, i8* %_load_rbp_ptr_347, i64 -20
+  %_allin_new_bt_397 = bitcast i8* %_new_gep_396 to i64*
+  %1412 = ptrtoint i64* %_allin_new_bt_397 to i64, !mcsema_real_eip !252
+  %1413 = inttoptr i64 %1412 to i32*, !mcsema_real_eip !252
+  %_ptr_bt_1628 = bitcast i32* %1413 to i8*
+  %_offset_above_rbp_1629 = sub i64 %1412, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1630 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1629
+  %_cond1_1631 = icmp ugt i8* %_ptr_bt_1628, %_local_stack_end_ptr_
+  %_cond2_1_1632 = icmp ugt i8* %_ptr_bt_1628, %_parent_stack_end_ptr_
+  %_cond2_2_1633 = icmp ult i8* %_ptr_bt_1628, %_parent_stack_start_ptr_
+  %_cond2_1634 = or i1 %_cond2_1_1632, %_cond2_2_1633
+  %_cond4_1635 = icmp ule i8* %_pot_address_in_parent_stack_1630, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1636 = and i1 %_cond1_1631, %_cond2_1634
+  %_cond1_n_cond2_cond3_1637 = and i1 %_cond1_n_cond2_1636, %_cond4_1635
+  br i1 %_cond1_n_cond2_cond3_1637, label %1414, label %1415
+
+; <label>:1414:                                   ; preds = %1409
+  %_address_in_parent_stack_bt_1639 = bitcast i8* %_pot_address_in_parent_stack_1630 to i32*
+  br label %1415
+
+; <label>:1415:                                   ; preds = %1409, %1414
+  %1416 = phi i32* [ %1413, %1409 ], [ %_address_in_parent_stack_bt_1639, %1414 ]
+  %_new_load_1640 = load i32, i32* %1416
+  %EAX_val.379 = load i32, i32* %EAX.9, !mcsema_real_eip !252
+  %1417 = xor i32 %_new_load_1640, %EAX_val.379, !mcsema_real_eip !252
+  store i1 false, i1* %CF, !mcsema_real_eip !252
+  store i1 false, i1* %OF, !mcsema_real_eip !252
+  %1418 = lshr i32 %1417, 31, !mcsema_real_eip !252
+  %1419 = trunc i32 %1418 to i1, !mcsema_real_eip !252
+  store i1 %1419, i1* %SF, !mcsema_real_eip !252
+  %1420 = icmp eq i32 %1417, 0, !mcsema_real_eip !252
+  store i1 %1420, i1* %ZF, !mcsema_real_eip !252
+  %1421 = trunc i32 %1417 to i8, !mcsema_real_eip !252
+  %1422 = call i8 @llvm.ctpop.i8(i8 %1421), !mcsema_real_eip !252
+  %1423 = trunc i8 %1422 to i1, !mcsema_real_eip !252
+  %1424 = xor i1 %1423, true, !mcsema_real_eip !252
+  store i1 %1424, i1* %PF, !mcsema_real_eip !252
+  store i1 undef, i1* %AF, !mcsema_real_eip !252
+  %1425 = zext i32 %1417 to i64, !mcsema_real_eip !252
+  store i64 %1425, i64* %XAX, !mcsema_real_eip !252
+  %EAX_val.382 = load i32, i32* %EAX.9, !mcsema_real_eip !253
+  store i32 %EAX_val.382, i32* %1413, !mcsema_real_eip !253
+  br label %block_0x411, !mcsema_real_eip !254
+
+block_0x40c:                                      ; preds = %block_0x401, %1401
+  br label %block_0x411, !mcsema_real_eip !255
+
+block_0x3e4:                                      ; preds = %1388
+  %_new_gep_402 = getelementptr i8, i8* %_load_rbp_ptr_383, i64 -16
+  %_allin_new_bt_403 = bitcast i8* %_new_gep_402 to i64*
+  %_ptr_to_int_1641 = ptrtoint i64* %_allin_new_bt_403 to i64
+  %_offset_above_rbp_1644 = sub i64 %_ptr_to_int_1641, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1645 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1644
+  %_cond1_1646 = icmp ugt i8* %_new_gep_402, %_local_stack_end_ptr_
+  %_cond2_1_1647 = icmp ugt i8* %_new_gep_402, %_parent_stack_end_ptr_
+  %_cond2_2_1648 = icmp ult i8* %_new_gep_402, %_parent_stack_start_ptr_
+  %_cond2_1649 = or i1 %_cond2_1_1647, %_cond2_2_1648
+  %_cond4_1650 = icmp ule i8* %_pot_address_in_parent_stack_1645, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1651 = and i1 %_cond1_1646, %_cond2_1649
+  %_cond1_n_cond2_cond3_1652 = and i1 %_cond1_n_cond2_1651, %_cond4_1650
+  br i1 %_cond1_n_cond2_cond3_1652, label %1426, label %1427
+
+; <label>:1426:                                   ; preds = %block_0x3e4
+  %_address_in_parent_stack_bt_1654 = bitcast i8* %_pot_address_in_parent_stack_1645 to i64*
+  br label %1427
+
+; <label>:1427:                                   ; preds = %block_0x3e4, %1426
+  %1428 = phi i64* [ %_allin_new_bt_403, %block_0x3e4 ], [ %_address_in_parent_stack_bt_1654, %1426 ]
+  %_new_load_1655 = load i64, i64* %1428
+  store i64 %_new_load_1655, i64* %XAX, !mcsema_real_eip !256
+  %1429 = add i64 %_new_load_1655, 31, !mcsema_real_eip !257
+  %1430 = inttoptr i64 %1429 to i64*, !mcsema_real_eip !257
+  %1431 = inttoptr i64 %1429 to i8*, !mcsema_real_eip !257
+  %_offset_above_rbp_1658 = sub i64 %1429, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1659 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1658
+  %_cond1_1660 = icmp ugt i8* %1431, %_local_stack_end_ptr_
+  %_cond2_1_1661 = icmp ugt i8* %1431, %_parent_stack_end_ptr_
+  %_cond2_2_1662 = icmp ult i8* %1431, %_parent_stack_start_ptr_
+  %_cond2_1663 = or i1 %_cond2_1_1661, %_cond2_2_1662
+  %_cond4_1664 = icmp ule i8* %_pot_address_in_parent_stack_1659, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1665 = and i1 %_cond1_1660, %_cond2_1663
+  %_cond1_n_cond2_cond3_1666 = and i1 %_cond1_n_cond2_1665, %_cond4_1664
+  br i1 %_cond1_n_cond2_cond3_1666, label %1432, label %1433
+
+; <label>:1432:                                   ; preds = %1427
+  br label %1433
+
+; <label>:1433:                                   ; preds = %1427, %1432
+  %1434 = phi i8* [ %1431, %1427 ], [ %_pot_address_in_parent_stack_1659, %1432 ]
+  %_new_load_1668 = load i8, i8* %1434
+  %1435 = zext i8 %_new_load_1668 to i32, !mcsema_real_eip !257
+  %1436 = zext i32 %1435 to i64, !mcsema_real_eip !257
+  store i64 %1436, i64* %XDI, !mcsema_real_eip !257
+  %_load_rsp_ptr_404 = load i8*, i8** %_RSP_ptr_
+  %RSP_val.386 = load i64, i64* %XSP, !mcsema_real_eip !258
+  %_new_gep_405 = getelementptr i8, i8* %_load_rsp_ptr_404, i64 -8
+  %1437 = sub i64 %RSP_val.386, 8, !mcsema_real_eip !258
+  %_allin_new_bt_406 = bitcast i8* %_new_gep_405 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_406, !mcsema_real_eip !258
+  store volatile i8* %_new_gep_405, i8** %_RSP_ptr_
+  store i64 %1437, i64* %XSP, !mcsema_real_eip !258
+  %1438 = call x86_64_sysvcc i64 @_to_byte(i64 %1436)
+  %_rsp_fix_436 = load i8*, i8** %_RSP_ptr_
+  %_gep_fix_437 = getelementptr i8, i8* %_rsp_fix_436, i64 8
+  store i8* %_gep_fix_437, i8** %_RSP_ptr_
+  store i64 %1438, i64* %XAX, !mcsema_real_eip !258
+  %EAX_val.388 = load i32, i32* %EAX.9, !mcsema_real_eip !259
+  %1439 = sub i32 %EAX_val.388, 4, !mcsema_real_eip !259
+  %1440 = xor i32 %1439, %EAX_val.388, !mcsema_real_eip !259
+  %1441 = xor i32 %1440, 4, !mcsema_real_eip !259
+  %1442 = and i32 %1441, 16, !mcsema_real_eip !259
+  %1443 = icmp ne i32 %1442, 0, !mcsema_real_eip !259
+  store i1 %1443, i1* %AF, !mcsema_real_eip !259
+  %1444 = trunc i32 %1439 to i8, !mcsema_real_eip !259
+  %1445 = call i8 @llvm.ctpop.i8(i8 %1444), !mcsema_real_eip !259
+  %1446 = trunc i8 %1445 to i1, !mcsema_real_eip !259
+  %1447 = xor i1 %1446, true, !mcsema_real_eip !259
+  store i1 %1447, i1* %PF, !mcsema_real_eip !259
+  %1448 = icmp eq i32 %1439, 0, !mcsema_real_eip !259
+  store i1 %1448, i1* %ZF, !mcsema_real_eip !259
+  %1449 = lshr i32 %1439, 31, !mcsema_real_eip !259
+  %1450 = trunc i32 %1449 to i1, !mcsema_real_eip !259
+  store i1 %1450, i1* %SF, !mcsema_real_eip !259
+  %1451 = icmp ult i32 %EAX_val.388, 4, !mcsema_real_eip !259
+  store i1 %1451, i1* %CF, !mcsema_real_eip !259
+  %1452 = xor i32 %EAX_val.388, 4, !mcsema_real_eip !259
+  %1453 = and i32 %1452, %1440, !mcsema_real_eip !259
+  %1454 = lshr i32 %1453, 31, !mcsema_real_eip !259
+  %1455 = trunc i32 %1454 to i1, !mcsema_real_eip !259
+  store i1 %1455, i1* %OF, !mcsema_real_eip !259
+  br i1 %1448, label %block_0x401, label %block_0x3fa, !mcsema_real_eip !260
+
+block_0x401:                                      ; preds = %block_0x3fa, %1433, %1388
+  br label %block_0x40c, !mcsema_real_eip !261
+
+block_0x411:                                      ; preds = %block_0x40c, %1415
+  %_load_rbp_ptr_407 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_408 = getelementptr i8, i8* %_load_rbp_ptr_407, i64 -20
+  %_allin_new_bt_409 = bitcast i8* %_new_gep_408 to i64*
+  %1456 = ptrtoint i64* %_allin_new_bt_409 to i64, !mcsema_real_eip !262
+  %1457 = inttoptr i64 %1456 to i32*, !mcsema_real_eip !262
+  %_ptr_bt_1671 = bitcast i32* %1457 to i8*
+  %_offset_above_rbp_1672 = sub i64 %1456, %_local_end_to_int_
+  %_pot_address_in_parent_stack_1673 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_1672
+  %_cond1_1674 = icmp ugt i8* %_ptr_bt_1671, %_local_stack_end_ptr_
+  %_cond2_1_1675 = icmp ugt i8* %_ptr_bt_1671, %_parent_stack_end_ptr_
+  %_cond2_2_1676 = icmp ult i8* %_ptr_bt_1671, %_parent_stack_start_ptr_
+  %_cond2_1677 = or i1 %_cond2_1_1675, %_cond2_2_1676
+  %_cond4_1678 = icmp ule i8* %_pot_address_in_parent_stack_1673, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_1679 = and i1 %_cond1_1674, %_cond2_1677
+  %_cond1_n_cond2_cond3_1680 = and i1 %_cond1_n_cond2_1679, %_cond4_1678
+  br i1 %_cond1_n_cond2_cond3_1680, label %1458, label %1459
+
+; <label>:1458:                                   ; preds = %block_0x411
+  %_address_in_parent_stack_bt_1682 = bitcast i8* %_pot_address_in_parent_stack_1673 to i32*
+  br label %1459
+
+; <label>:1459:                                   ; preds = %block_0x411, %1458
+  %1460 = phi i32* [ %1457, %block_0x411 ], [ %_address_in_parent_stack_bt_1682, %1458 ]
+  %_new_load_1683 = load i32, i32* %1460
+  %1461 = zext i32 %_new_load_1683 to i64, !mcsema_real_eip !262
+  store i64 %1461, i64* %XAX, !mcsema_real_eip !262
+  %_new_gep_411 = getelementptr i8, i8* %_load_rbp_ptr_407, i64 -4
+  %_allin_new_bt_412 = bitcast i8* %_new_gep_411 to i64*
+  %EAX_val.392 = load i32, i32* %EAX.9, !mcsema_real_eip !263
+  %1462 = ptrtoint i64* %_allin_new_bt_412 to i64, !mcsema_real_eip !263
+  %1463 = inttoptr i64 %1462 to i32*, !mcsema_real_eip !263
+  store i32 %EAX_val.392, i32* %1463, !mcsema_real_eip !263
+  br label %block_0x417, !mcsema_real_eip !264
+
+block_0x3fa:                                      ; preds = %1433
+  %_load_rbp_ptr_413 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_414 = getelementptr i8, i8* %_load_rbp_ptr_413, i64 -20
+  %_allin_new_bt_415 = bitcast i8* %_new_gep_414 to i64*
+  %1464 = ptrtoint i64* %_allin_new_bt_415 to i64, !mcsema_real_eip !264
+  %1465 = inttoptr i64 %1464 to i32*, !mcsema_real_eip !264
+  store i32 -32, i32* %1465, !mcsema_real_eip !264
+  br label %block_0x401
+}
 
 attributes #0 = { naked }
 attributes #1 = { noinline }

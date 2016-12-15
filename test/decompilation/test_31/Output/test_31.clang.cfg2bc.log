@@ -39,9 +39,8 @@ dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : c : printf
-c : 2917690
+c : 2cc3530
 doCallPCtarget address : 0
 doCallPCtarget address : 0
 Adding entry point: main
 main is implemented by sub_60
-NOT doing post analysis passes.

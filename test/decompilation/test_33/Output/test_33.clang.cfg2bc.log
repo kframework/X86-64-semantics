@@ -40,14 +40,13 @@ translate_CALLpcrel32: function is: atoi, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : atoi
-1 : 2a77690
+1 : 232de80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : c : printf
-c : 2a77690
+c : 232de80
 doCallPCtarget address : 0
 doCallPCtarget address : 0
 doCallPCtarget address : 0
 Adding entry point: main
 main is implemented by sub_80
-NOT doing post analysis passes.

@@ -30,13 +30,12 @@ inserting global data section named data_0xb8
 translate_CALLpcrel32: function is: strlen, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : strlen
-1 : 2beb690
+1 : 16d95f0
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 2beb690
+2 : 16d95f0
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 2beb690
+2 : 16d95f0
 Adding entry point: main
 main is implemented by sub_0
-NOT doing post analysis passes.

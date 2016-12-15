@@ -19,4 +19,3 @@ Inserted function: sub_0
 inserting global data section named data_0x2d0
 Adding entry point: switches
 switches is implemented by sub_0
-NOT doing post analysis passes.

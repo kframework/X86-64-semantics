@@ -19,8 +19,7 @@ Getting LLVM module...
 Converting to LLVM...
 Inserted function: sub_10
 Inserted function: sub_0
-inserting global data section named data_0x48
+inserting global data section named data_0x30
 doCallPCtarget address : 0
 Adding entry point: doWork
 doWork is implemented by sub_10
-NOT doing post analysis passes.
