@@ -4,3 +4,4 @@
 *.clang.trans.opt.bc
 *.exe
 *.dot
+*.o
