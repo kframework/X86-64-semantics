@@ -138,7 +138,7 @@ entry:
   %_new_gep_26 = getelementptr inbounds [192 x i8], [192 x i8]* %_local_stack_start_ptr_1, i64 0, i64 116
   %15 = bitcast i8* %_new_gep_26 to i32*
   store i32 0, i32* %15, align 4, !mcsema_real_eip !9
-  %EAX.12 = bitcast i64* %XAX to i32*
+  %EAX.23 = bitcast i64* %XAX to i32*
   br label %block_0x163, !mcsema_real_eip !10
 
 block_0x163:                                      ; preds = %block_0x16d, %entry
@@ -408,7 +408,7 @@ block_0x1d1:                                      ; preds = %block_0x1a8
   %R8D_val.53 = load i32, i32* %R8D.52, align 4, !mcsema_real_eip !51
   %137 = bitcast i8* %_new_gep_111 to i32*
   store i32 %R8D_val.53, i32* %137, align 4, !mcsema_real_eip !51
-  %EAX_val.55 = load i32, i32* %EAX.12, align 4, !mcsema_real_eip !52
+  %EAX_val.55 = load i32, i32* %EAX.23, align 4, !mcsema_real_eip !52
   %138 = zext i32 %EAX_val.55 to i64, !mcsema_real_eip !52
   store i64 %138, i64* %R8, align 8, !mcsema_real_eip !52
   %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_11316 = load i8*, i8** %12, align 8
@@ -416,7 +416,7 @@ block_0x1d1:                                      ; preds = %block_0x1a8
   %_allin_new_bt_115 = bitcast i8* %_new_gep_114 to i64*
   %R9_val.57 = load i64, i64* %R9, align 8, !mcsema_real_eip !53
   store i64 %R9_val.57, i64* %_allin_new_bt_115, align 8, !mcsema_real_eip !53
-  %EAX_val.59 = load i32, i32* %EAX.12, align 4, !mcsema_real_eip !54
+  %EAX_val.59 = load i32, i32* %EAX.23, align 4, !mcsema_real_eip !54
   %139 = zext i32 %EAX_val.59 to i64, !mcsema_real_eip !54
   store i64 %139, i64* %R9, align 8, !mcsema_real_eip !54
   %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_11617 = load i8*, i8** %12, align 8
@@ -467,7 +467,7 @@ block_0x1d1:                                      ; preds = %block_0x1a8
   store i64 ptrtoint (%0* @data_0x261 to i64), i64* %XDI, align 8, !mcsema_real_eip !63
   %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_14022 = load i8*, i8** %12, align 8
   %_new_gep_141 = getelementptr i8, i8* %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_14022, i64 -96
-  %EAX_val.75 = load i32, i32* %EAX.12, align 4, !mcsema_real_eip !64
+  %EAX_val.75 = load i32, i32* %EAX.23, align 4, !mcsema_real_eip !64
   %147 = bitcast i8* %_new_gep_141 to i32*
   store i32 %EAX_val.75, i32* %147, align 4, !mcsema_real_eip !64
   %_RBP_ptr_.sroa.0.0._RBP_ptr_.sroa.0.0._RBP_ptr_.0._load_rbp_ptr_14323 = load i8*, i8** %12, align 8
@@ -1394,7 +1394,7 @@ entry:
   %13 = bitcast i8* %_new_gep_26 to i32*
   store i32 0, i32* %13, align 4, !mcsema_real_eip !9
   %_local_end_to_int_ = ptrtoint i8* %_local_stack_end_ptr_ to i64
-  %EAX.12 = bitcast i64* %XAX to i32*
+  %EAX.23 = bitcast i64* %XAX to i32*
   br label %block_0x163, !mcsema_real_eip !10
 
 block_0x163:                                      ; preds = %block_0x16d, %entry
@@ -1762,7 +1762,7 @@ block_0x1d1:                                      ; preds = %block_0x1a8
   %R8D_val.53 = load i32, i32* %R8D.52, align 4, !mcsema_real_eip !51
   %124 = bitcast i8* %_new_gep_111 to i32*
   store i32 %R8D_val.53, i32* %124, align 4, !mcsema_real_eip !51
-  %EAX_val.55 = load i32, i32* %EAX.12, align 4, !mcsema_real_eip !52
+  %EAX_val.55 = load i32, i32* %EAX.23, align 4, !mcsema_real_eip !52
   %125 = zext i32 %EAX_val.55 to i64, !mcsema_real_eip !52
   store i64 %125, i64* %R8, align 8, !mcsema_real_eip !52
   %_RBP_ptr_.0._RBP_ptr_.0._load_rbp_ptr_113 = load i8*, i8** %_RBP_ptr_, align 8
@@ -1770,7 +1770,7 @@ block_0x1d1:                                      ; preds = %block_0x1a8
   %_allin_new_bt_115 = bitcast i8* %_new_gep_114 to i64*
   %R9_val.57 = load i64, i64* %R9, align 8, !mcsema_real_eip !53
   store i64 %R9_val.57, i64* %_allin_new_bt_115, align 8, !mcsema_real_eip !53
-  %EAX_val.59 = load i32, i32* %EAX.12, align 4, !mcsema_real_eip !54
+  %EAX_val.59 = load i32, i32* %EAX.23, align 4, !mcsema_real_eip !54
   %126 = zext i32 %EAX_val.59 to i64, !mcsema_real_eip !54
   store i64 %126, i64* %R9, align 8, !mcsema_real_eip !54
   %_RBP_ptr_.0._RBP_ptr_.0._load_rbp_ptr_116 = load i8*, i8** %_RBP_ptr_, align 8
@@ -1854,7 +1854,7 @@ block_0x1d1:                                      ; preds = %block_0x1a8
   store i64 ptrtoint (%0* @data_0x261 to i64), i64* %XDI, align 8, !mcsema_real_eip !63
   %_RBP_ptr_.0._RBP_ptr_.0._load_rbp_ptr_140 = load i8*, i8** %_RBP_ptr_, align 8
   %_new_gep_141 = getelementptr i8, i8* %_RBP_ptr_.0._RBP_ptr_.0._load_rbp_ptr_140, i64 -96
-  %EAX_val.75 = load i32, i32* %EAX.12, align 4, !mcsema_real_eip !64
+  %EAX_val.75 = load i32, i32* %EAX.23, align 4, !mcsema_real_eip !64
   %133 = bitcast i8* %_new_gep_141 to i32*
   store i32 %EAX_val.75, i32* %133, align 4, !mcsema_real_eip !64
   %_RBP_ptr_.0._RBP_ptr_.0._load_rbp_ptr_143 = load i8*, i8** %_RBP_ptr_, align 8

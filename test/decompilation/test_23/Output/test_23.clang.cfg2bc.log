@@ -57,19 +57,19 @@ translate_CALLpcrel32: function is: read, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 3 : read
-3 : 342ae80
+3 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: exit, cc is: 0
 doCallPCExtern paramCount  : 1 : exit
-1 : 342ae80
+1 : 30c4e80
 translate_JMPr: jump table via register: 154
 doJumpTableViaSwitchReg: Doing jumpt table via switch(reg)
 doJumpTableViaSwitchReg: Mapping from 156 => block_0x156
@@ -79,25 +79,25 @@ doJumpTableViaSwitchReg: Mapping from 18e => block_0x18e
 doJumpTableViaSwitchReg: Mapping from 172 => block_0x172
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: exit, cc is: 0
 doCallPCExtern paramCount  : 1 : exit
-1 : 342ae80
+1 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCExtern paramCount  : 2 : printf
-2 : 342ae80
+2 : 30c4e80
 Adding entry point: main
 main is implemented by sub_b0

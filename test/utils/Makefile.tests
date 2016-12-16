@@ -17,9 +17,6 @@ CC=clang
 CXX=clang++
 
 # ALLVM dependency
-BC2ALLVM=bc2allvm
-#BC2ALLVM=/nix/store/0kp7zx7jd5s5cjqxi12la67jfpv2kszz-allvm-tools/bin/bc2allvm
-
 
 #SKIP_MCSEMA=-skip_mcsema
 #SKIP_MCSEMA=

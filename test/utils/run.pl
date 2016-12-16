@@ -20,6 +20,7 @@ my $outdir="Output/";
 my $CC_OPTIONS="";
 my $CC_35="${home}/Install/llvm-3.5.0.release.install/bin/clang-3.5";
 my $libnone=$ENV{'LIBNONE'};
+my $BC2ALLVM="$ENV{'ALLVM_HOME'}/bc2allvm";
 #"-fomit-frame-pointer";
 #my $redirect = " &> ";
 
@@ -151,11 +152,8 @@ sub generate_linked_binary {
 
   execute("rm -rf ${outputexe}");
 
-  #execute("${LLC} ${BIN_ARCH} -filetype=obj -o ${outdir}${basename}.${suffix}.lifted.o ${outdir}${basename}.${suffix}.opt.ll");
-  #execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
   if("" ne $reg_assign) {
-    #execute("${CC_35} -O3 ${GCC_ARCH} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.S ${libnone}  -o $outputexe");
-    execute("${CC} -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.S ${libnone}  -o $outputexe");
+    execute("${CC} -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.ll ${libnone}  -o $outputexe");
   } else {
     execute("${CC} ${GCC_ARCH}  -o ${outdir}${basename}.${suffix}.lifted.o -c ${outdir}${basename}.${suffix}.opt.ll");
     execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
@@ -239,39 +237,41 @@ sub run_custom_pass {
     execute("diff ${outdir}${basename}.${suffix}.pass.log ${outdir}${basename}.${suffix}.pass.log.gold");
   }
 
+  ## Run and check output between before and after analysis
   generate_linked_binary("${outdir}${basename}.${suffix}.trans.bc", "${outdir}${basename}.${suffix}.trans.lifted.exe" );
+  run_compare("${outdir}${basename}.${suffix}.trans.lifted.exe", "${outdir}${basename}.${suffix}.lifted.exe", "Native");
 
-  ## Check Output
-  execute("echo ${stdin_args} | ./${outdir}${basename}.${suffix}.trans.lifted.exe ${cmd_args} 1>${outdir}after.trans.out 2>&1");
-  execute("echo ${stdin_args} | ./${outdir}${basename}.${suffix}.lifted.exe ${cmd_args} 1>${outdir}before.trans.out 2>&1");
-
-  if(0 == compare("${outdir}before.trans.out", "${outdir}after.trans.out")) {
-    print("\t${basename}: Output Passed\n");
-    #execute("rm -rf ./${outdir}${basename}.${suffix}.trans.lifted.exe");
-    #execute("rm -rf ${outdir}${basename}.${suffix}.trans.opt.bc");
-    execute("rm -rf ${outdir}after.trans.out");
-  } else {
-    print("\t${basename}: Output Failed\n");
-    execute("diff ${outdir}before.trans.out ${outdir}after.trans.out");
+  print("\nGenerating Allexe \n");
+  ## Generate allexe's
+  execute("rm -rf 	./${outdir}*.allexe");
+  my $driverbc = "";
+  if("" ne $driver) {
+    execute("${CC} -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc");
+    $driverbc = "${outdir}driver_64.bc";
   }
+  execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc $MCSEMA_HOME/../drivers/ELF_64_linux.ll  -o ${outdir}${basename}.${suffix}.trans.allexe");
 
-  ## Generate allexe and check output
-  #execute("rm -rf 	./${outdir}*.allexe");
-  #${LLVMAS} ${outdir}${PROG_PREFIX}.${ext}.trans.ll -o ${outdir}${PROG_PREFIX}.${ext}.trans.bc
-  #${CC} -m64 -I${INCLUDE_DIR} -emit-llvm -c driver_64.c -o ${outdir}driver_64.bc
-  #${BC2ALLVM} ${outdir}driver_64.bc ${outdir}${PROG_PREFIX}.${ext}.trans.bc -o ${outdir}${PROG_PREFIX}.${ext}.trans.allexe
-
-  #@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.trans.allexe ${CMD_ARGS} > ${outdir}after.trans.out	
-  #@-echo ${STDIN_ARGS} |  ./${outdir}${PROG_PREFIX}.${ext}.lifted.exe ${CMD_ARGS} > ${outdir}before.trans.out	
-
-  #@if diff ${outdir}before.trans.out  ${outdir}after.trans.out  > /dev/null; then \
-  #echo "  ${PROG_PREFIX}: ALLEY Output Passed"; \
-  #	rm -rf  ./${outdir}*.exe   ${outdir}after.trans.out ${outdir}*.allexe ; \
-  #else \
-  #		echo "  ${PROG_PREFIX}: ALLEY Output Failed"; \
-  #	fi 
+  ## Run and check output of allexe obtained from IR after analysis 
+  run_compare("${outdir}${basename}.${suffix}.trans.allexe", "${outdir}${basename}.${suffix}.lifted.exe", "Allexe");
 }
 
+sub run_compare {
+  my $exe_1 = shift @_;
+  my $exe_2 = shift @_;
+  my $tag = shift @_;
+
+  print("\nRun & Compare\n");
+  execute("echo ${stdin_args} | ./$exe_1 ${cmd_args} 1>${outdir}after.trans.out 2>&1");
+  execute("echo ${stdin_args} | ./$exe_2 ${cmd_args} 1>${outdir}before.trans.out 2>&1");
+
+  if(0 == compare("${outdir}before.trans.out", "${outdir}after.trans.out")) {
+    print("\t${basename}: $tag Output Passed\n");
+    execute("rm -rf ${outdir}after.trans.out");
+  } else {
+    print("\t${basename}: $tag Output Failed\n");
+    execute("diff ${outdir}before.trans.out ${outdir}after.trans.out");
+  }
+}
 
 sub cleanup {
   print("Cleanup\n");

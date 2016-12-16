@@ -5,3 +5,6 @@
 *.exe
 *.dot
 *.o
+*.allexe
+driver_64.bc
+after.trans.out

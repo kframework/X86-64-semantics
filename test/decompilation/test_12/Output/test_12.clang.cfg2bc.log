@@ -26,9 +26,9 @@ inserting global data section named data_0x50
 translate_CALLpcrel32: function is: open, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 2 : open
-2 : 251f190
+2 : 286c190
 translate_CALLpcrel32: function is: close, cc is: 0
 doCallPCExtern paramCount  : 1 : close
-1 : 251f190
+1 : 286c190
 Adding entry point: foo
 foo is implemented by sub_0

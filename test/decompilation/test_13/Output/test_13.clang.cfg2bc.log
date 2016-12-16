@@ -42,11 +42,11 @@ dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 1 : malloc
-1 : 21b1e80
+1 : 14a3e80
 translate_CALLpcrel32: function is: strlen, cc is: 0
 doCallPCtarget address : 90
 doCallPCtarget address : 100
 doCallPCExtern paramCount  : 1 : strlen
-1 : 21b1e80
+1 : 14a3e80
 Adding entry point: doWork
 doWork is implemented by sub_0

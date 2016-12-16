@@ -40,10 +40,10 @@ translate_CALLpcrel32: function is: memcpy, cc is: 0
 dataSectionToTypesContents: Found symbol: sub_0x0L
 dataSectionToTypesContents: Found symbol: sub_0x0L
 doCallPCExtern paramCount  : 3 : memcpy
-3 : 2a12e80
+3 : 2cbae80
 translate_CALLpcrel32: function is: printf, cc is: 0
 doCallPCtarget address : 0
 doCallPCExtern paramCount  : c : printf
-c : 2a12e80
+c : 2cbae80
 Adding entry point: main
 main is implemented by sub_50
