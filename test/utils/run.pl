@@ -153,7 +153,7 @@ sub generate_linked_binary {
   execute("rm -rf ${outputexe}");
 
   if("" ne $reg_assign) {
-    execute("${CC} -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc $MCSEMA_HOME/../drivers/ELF_64_linux.ll ${libnone}  -o $outputexe");
+    execute("${CC} -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc ${incdir}/ELF_64_linux.ll ${libnone}  -o $outputexe");
   } else {
     execute("${CC} ${GCC_ARCH}  -o ${outdir}${basename}.${suffix}.lifted.o -c ${outdir}${basename}.${suffix}.opt.ll");
     execute("${CC}  -g ${GCC_ARCH} -I${incdir} -o ${outdir}${basename}.${suffix}.lifted.exe driver_64.c ${outdir}${basename}.${suffix}.lifted.o ${libnone}");
@@ -249,7 +249,7 @@ sub run_custom_pass {
     execute("${CC} -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc");
     $driverbc = "${outdir}driver_64.bc";
   }
-  execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc $MCSEMA_HOME/../drivers/ELF_64_linux.ll  -o ${outdir}${basename}.${suffix}.trans.allexe");
+  execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${incdir}/ELF_64_linux.ll  -o ${outdir}${basename}.${suffix}.trans.allexe");
 
   ## Run and check output of allexe obtained from IR after analysis 
   run_compare("${outdir}${basename}.${suffix}.trans.allexe", "${outdir}${basename}.${suffix}.lifted.exe", "Allexe");
