@@ -20,7 +20,7 @@ my $outdir="Output/";
 my $CC_OPTIONS="";
 my $CC_35="${home}/Install/llvm-3.5.0.release.install/bin/clang-3.5";
 my $libnone=$ENV{'LIBNONE'};
-my $BC2ALLVM="$ENV{'ALLVM_HOME'}/bc2allvm";
+my $BC2ALLVM="bc2allvm";
 #"-fomit-frame-pointer";
 #my $redirect = " &> ";
 
