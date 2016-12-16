@@ -8,7 +8,7 @@ TEST_DIR=../../
 UTILS_DIR=${TEST_DIR}/utils
 INCLUDE_DIR=${UTILS_DIR}
 RUN_SH=${UTILS_DIR}/run.pl  
-ALLIN=${TEST_DIR}/../build/bin/allin
+ALLIN_HOME=${TEST_DIR}/../build/
 
 
 #ICC=$(shell which icc)
@@ -38,7 +38,7 @@ clang:
 	@echo " ${PROG_PREFIX} (clang)"
 	@echo "=========================="
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -home ${MCSEMA_HOME}  ${REG_ASSIGN} -driver ${DRIVER}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -home ${MCSEMA_HOME}  ${REG_ASSIGN} -driver ${DRIVER} -allin_home ${ALLIN_HOME}
 	${MAKE} ext="clang" run_pass
 
 icc:
@@ -49,11 +49,10 @@ icc:
 cfg:
 	@echo " Using IDA"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -cfg -home ${MCSEMA_HOME} -driver ${DRIVER}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -cfg -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME}
 
 run_pass:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN} -driver ${DRIVER}
-#${MAKE} ext=${ext} run
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	${FORCE_SKIP_MCSEMA}  -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN} -driver ${DRIVER} -allin_home ${ALLIN_HOME}
 
 clean:
 	@../utils/clearall.sh

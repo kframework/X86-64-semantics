@@ -43,6 +43,7 @@ my $runpass="";
 my $stdin_args="";
 my $cmd_args="";
 my $driver="";
+my $allin_home="";
 
 GetOptions (
             "help"          => \$help, 
@@ -63,6 +64,7 @@ GetOptions (
             "stdin_args:s"      => \$stdin_args, 
             "driver:s"      => \$driver, 
             "cmd_args:s"      => \$cmd_args, 
+            "allin_home:s"      => \$allin_home, 
             ) or die("Error in command line arguments\n");
 
 if($help) {
@@ -80,7 +82,7 @@ my $CFG_TO_BC_PATH="${MCSEMA_HOME}/mc-sema/bitcode_from_cfg/";
 my $GCC_ARCH="";
 my $BIN_ARCH="";
 my $CFGBC_ARCH="";
-my $loadso="${ALLIN_HOME}/build/lib/LLVMstack_deconstructor.so";
+my $loadso="${allin_home}/lib/LLVMstack_deconstructor.so";
 my $OPTSWITCH="-constprop -stack-decons -dce  -early-cse-memssa" ;
 #my $OPTSWITCH="-stack-decons -mem2reg -dce  -early-cse-memssa";
 #my $OPTSWITCH="-stack-decons -debug-only=\"stack_deconstructor\"";
@@ -222,8 +224,7 @@ sub run_custom_pass {
     exit(1);
   }
 
-  #execute("${OPT} -load=${loadso} ${OPTSWITCH} -mcsema_main ${entryfunc} ${outdir}${basename}.${suffix}.ll  -o ${outdir}${basename}.${suffix}.trans.bc  2>  ${outdir}${basename}.${suffix}.pass.log"); 
-  execute("${OPT} -load=${loadso} ${OPTSWITCH} -mcsema_main ${entryfunc} ${outdir}${basename}.${suffix}.ll  -o ${outdir}${basename}.${suffix}.trans.bc  "); 
+  execute("${OPT} -load=${loadso} ${OPTSWITCH} -mcsema_main ${entryfunc} ${outdir}${basename}.${suffix}.ll  -o ${outdir}${basename}.${suffix}.trans.bc  2>  ${outdir}${basename}.${suffix}.pass.log"); 
   #${ALLIN} ${outdir}${basename}.${ext}.ll -o ${outdir}${basename}.${ext}.trans.bc 2>  ${outdir}${basename}.${ext}.pass.log
   execute("${OPT} -O3  ${outdir}${basename}.${suffix}.trans.bc -o=${outdir}${basename}.${suffix}.trans.opt.bc");
   execute("${LLVMDIS} ${outdir}${basename}.${suffix}.trans.bc -o ${outdir}${basename}.${suffix}.trans.ll");
