@@ -1,5 +1,5 @@
 #include<stdio.h>
-int XYZ;
+int XYZ=20;
 int main()
 {
         XYZ = 10;
