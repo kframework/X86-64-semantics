@@ -242,7 +242,9 @@ sub run_custom_pass {
   ## Run and check output between before and after analysis
   generate_linked_binary("${outdir}${basename}.${suffix}.trans.bc", "${outdir}${basename}.${suffix}.trans.lifted.exe" );
   run_compare("${outdir}${basename}.${suffix}.trans.lifted.exe", "${outdir}${basename}.${suffix}.lifted.exe", "Native");
+}
 
+sub generate_test_allexe {
   print("\nGenerating Allexe \n");
   ## Generate allexe's
   execute("rm -rf 	./${outdir}*.allexe");
