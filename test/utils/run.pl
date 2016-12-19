@@ -253,7 +253,8 @@ sub generate_test_allexe {
     execute("${CC} -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc");
     $driverbc = "${outdir}driver_64.bc";
   }
-  execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${incdir}/ELF_64_linux.ll  -o ${outdir}${basename}.${suffix}.trans.allexe");
+  execute("${LLVMAS} ${incdir}/ELF_64_linux.ll  -o ${outdir}ELF_64_linux.bc");
+  execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${outdir}/ELF_64_linux.bc  -o ${outdir}${basename}.${suffix}.trans.allexe");
 
   ## Run and check output of allexe obtained from IR after analysis 
   run_compare("${outdir}${basename}.${suffix}.trans.allexe", "${outdir}${basename}.${suffix}.lifted.exe", "Allexe");
