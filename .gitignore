@@ -8,3 +8,4 @@
 *.allexe
 driver_64.bc
 after.trans.out
+*.cfg2bc.log
