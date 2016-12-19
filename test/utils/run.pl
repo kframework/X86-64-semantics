@@ -21,6 +21,8 @@ my $CC_OPTIONS="";
 my $CC_35="${home}/Install/llvm-3.5.0.release.install/bin/clang-3.5";
 my $libnone=$ENV{'LIBNONE'};
 my $BC2ALLVM="bc2allvm";
+my $ALLTOGETHER="alltogether";
+my $ALLEY="alley";
 #"-fomit-frame-pointer";
 #my $redirect = " &> ";
 
@@ -44,6 +46,7 @@ my $stdin_args="";
 my $cmd_args="";
 my $driver="";
 my $allin_home="";
+my $testallexe="";
 
 GetOptions (
             "help"          => \$help, 
@@ -53,6 +56,7 @@ GetOptions (
             "extract_bc"    => \$extract_bc, 
             "reg_assign"    => \$reg_assign, 
             "runpass"      => \$runpass, 
+            "testallexe"      => \$testallexe, 
             "compiler:s"    => \$compiler, 
             "home:s"       => \$MCSEMA_HOME, 
             "arch:s"        => \$arch, 
@@ -117,15 +121,17 @@ if("" ne $runpass) {
   exit;
 }
 
+if("" ne $testallexe) {
+  generate_test_allexe();
+  exit;
+}
+
 if ("" ne $cfg) {
   generate_binary_from_source();
   generate_cfg();
-} else {
-  extract_bc_from_cfg();
-  generate_linked_binary("${outdir}${basename}.${suffix}.opt.bc", "${outdir}${basename}.${suffix}.lifted.exe");
-  cleanup();
-}
+} 
 
+exit;
 
 # Functions
 sub generate_binary_from_source {
@@ -255,9 +261,10 @@ sub generate_test_allexe {
   }
   execute("${LLVMAS} ${incdir}/ELF_64_linux.ll  -o ${outdir}ELF_64_linux.bc");
   execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${outdir}/ELF_64_linux.bc  -o ${outdir}${basename}.${suffix}.trans.allexe");
+  execute("${ALLTOGETHER} ${outdir}${basename}.${suffix}.trans.allexe -o ${outdir}${basename}.${suffix}.trans.merged.allexe 1>${outdir}alltogether.log 2>&1");
 
   ## Run and check output of allexe obtained from IR after analysis 
-  run_compare("${outdir}${basename}.${suffix}.trans.allexe", "${outdir}${basename}.${suffix}.lifted.exe", "Allexe");
+  run_compare("${ALLEY} --force-static  ${outdir}${basename}.${suffix}.trans.merged.allexe", "${outdir}${basename}.${suffix}.lifted.exe", "Allexe");
 }
 
 sub run_compare {
@@ -266,8 +273,8 @@ sub run_compare {
   my $tag = shift @_;
 
   print("\nRun & Compare\n");
-  execute("echo ${stdin_args} | ./$exe_1 ${cmd_args} 1>${outdir}after.trans.out 2>&1");
-  execute("echo ${stdin_args} | ./$exe_2 ${cmd_args} 1>${outdir}before.trans.out 2>&1");
+  execute("echo ${stdin_args} | $exe_1 ${cmd_args} 1>${outdir}after.trans.out 2>&1");
+  execute("echo ${stdin_args} | $exe_2 ${cmd_args} 1>${outdir}before.trans.out 2>&1");
 
   if(0 == compare("${outdir}before.trans.out", "${outdir}after.trans.out")) {
     print("\t${basename}: $tag Output Passed\n");
