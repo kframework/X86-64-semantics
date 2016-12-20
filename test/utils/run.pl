@@ -261,7 +261,7 @@ sub generate_test_allexe {
   }
   execute("${LLVMAS} ${incdir}/ELF_64_linux.ll  -o ${outdir}ELF_64_linux.bc");
   execute("${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${outdir}/ELF_64_linux.bc  -o ${outdir}${basename}.${suffix}.trans.allexe");
-  execute("${ALLTOGETHER} ${outdir}${basename}.${suffix}.trans.allexe -o ${outdir}${basename}.${suffix}.trans.merged.allexe 1>${outdir}alltogether.log 2>&1");
+  execute("${ALLTOGETHER} -disable-opt ${outdir}${basename}.${suffix}.trans.allexe -o ${outdir}${basename}.${suffix}.trans.merged.allexe 1>${outdir}alltogether.log 2>&1");
 
   ## Run and check output of allexe obtained from IR after analysis 
   run_compare("${ALLEY} --force-static  ${outdir}${basename}.${suffix}.trans.merged.allexe", "${outdir}${basename}.${suffix}.lifted.exe", "Allexe");
