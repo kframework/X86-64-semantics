@@ -1,25 +1,13 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include "RegisterState.h"
 
-extern void sub_0(RegState *);
+extern int switches(int);
 
 int main(int argc, char *argv[]) {
+    int i = 0;
 
-  RegState            rState = {0};
-  unsigned long   stack[4096*10];
+    for(i = 0; i <= 255; i++) {
+        switches(i);
+    }
 
-  //set up the stack 
-  rState.RSP = (uint64_t) &stack[4096*9];
-
-  int i = 0;
-
-  for(i = 0; i <= 255; i++) {
-    rState.RDI = i;
-    sub_0(&rState);
-  }
-
-  printf("%lu\n", rState.RAX);
-
-  return 0;
+    return 0;
 }
