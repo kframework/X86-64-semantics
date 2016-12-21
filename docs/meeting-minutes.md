@@ -6,6 +6,7 @@
   - Driver being in the assembly format prohibits allexe creation. Wrapped the asm as inline asm in a bc file and use that as the driver toi create allexe.
   
 - Current work on type recovery 
+  - Read some basic litarature on type recovery. 
   - The first phase to do pointer recovery to distinguish poointers and integers. (Ongoing )
   - The second phase will be to recover the type of the pointed to memory. 
 
