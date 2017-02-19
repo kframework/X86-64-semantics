@@ -1,3 +1,15 @@
+### 21 Dec
+- The binary decompilation repository is now compatible to current master of McSema(formerly know as new_reg_assign)
+- All the driver related issues are resolved
+  - The driver is sharing the procress stack with the McSema regState stack. For example say the driver is calling the extracted fuction with mcsema_regstate.stack == rsp. The expectation is once the extracted function returns the condition mcsema_regstate.stack == rsp  must again be true, becuase the driver then uses this mcsema_regstate.stack in the driver code. 
+  - The driver code sometimes uses rbp register for storing result of some computation. Again when it calls to some extracted function, it stores rbp in McSema.regstate.rbp and again the expectation is once the function is returned McSema.regstate.rbp must contain the original rbp.
+  - Driver being in the assembly format prohibits allexe creation. Wrapped the asm as inline asm in a bc file and use that as the driver toi create allexe.
+  
+- Current work on type recovery 
+  - Read some basic litarature on type recovery. 
+  - The first phase to do pointer recovery to distinguish poointers and integers. (Ongoing )
+  - The second phase will be to recover the type of the pointed to memory. 
+
 ### 23 Nov
 - Folloing is the change in supported count  from the previous runs on llvm testsuite 
 
