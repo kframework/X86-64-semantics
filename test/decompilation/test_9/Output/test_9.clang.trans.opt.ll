@@ -60,8 +60,8 @@ block_0xd.preheader:                              ; preds = %entry
 
 block_0xd:                                        ; preds = %block_0xd.preheader, %block_0xd
   %EBX_val.1714 = phi i32 [ %6, %block_0xd ], [ 0, %block_0xd.preheader ]
-  %EAX_val.2213 = phi i32 [ %4, %block_0xd ], [ 1, %block_0xd.preheader ]
-  %4 = shl i32 %EAX_val.2213, 1
+  %EAX_val.2113 = phi i32 [ %4, %block_0xd ], [ 1, %block_0xd.preheader ]
+  %4 = shl i32 %EAX_val.2113, 1
   %5 = zext i32 %4 to i64, !mcsema_real_eip !7
   %6 = add i32 %EBX_val.1714, 1, !mcsema_real_eip !8
   %7 = sub i32 %6, %EAX_val.1, !mcsema_real_eip !5
@@ -93,9 +93,9 @@ block_0x13:                                       ; preds = %block_0x9.block_0x1
   store i1 false, i1* %SF, align 1
   store i1 %14, i1* %CF, align 1
   store i1 %17, i1* %OF, align 1
-  %RSP_val.20 = load i64, i64* %XSP, align 8, !mcsema_real_eip !9
+  %RSP_val.30 = load i64, i64* %XSP, align 8, !mcsema_real_eip !9
   %_new_gep_ = getelementptr [0 x i8], [0 x i8]* %_local_stack_start_ptr_1, i64 0, i64 8
-  %18 = add i64 %RSP_val.20, 8, !mcsema_real_eip !9
+  %18 = add i64 %RSP_val.30, 8, !mcsema_real_eip !9
   store volatile i8* %_new_gep_, i8** %_RSP_ptr_, align 8
   store i64 %18, i64* %XSP, align 8, !mcsema_real_eip !9
   ret void, !mcsema_real_eip !9
@@ -143,8 +143,8 @@ block_0xd.preheader:                              ; preds = %entry
 
 block_0xd:                                        ; preds = %block_0xd.preheader, %block_0xd
   %EBX_val.1714 = phi i32 [ %6, %block_0xd ], [ 0, %block_0xd.preheader ]
-  %EAX_val.2213 = phi i32 [ %4, %block_0xd ], [ 1, %block_0xd.preheader ]
-  %4 = shl i32 %EAX_val.2213, 1
+  %EAX_val.2113 = phi i32 [ %4, %block_0xd ], [ 1, %block_0xd.preheader ]
+  %4 = shl i32 %EAX_val.2113, 1
   %5 = zext i32 %4 to i64, !mcsema_real_eip !7
   %6 = add i32 %EBX_val.1714, 1, !mcsema_real_eip !8
   %7 = sub i32 %6, %EAX_val.1, !mcsema_real_eip !5
@@ -176,9 +176,9 @@ block_0x13:                                       ; preds = %block_0x9.block_0x1
   store i1 false, i1* %SF, align 1
   store i1 %14, i1* %CF, align 1
   store i1 %17, i1* %OF, align 1
-  %RSP_val.20 = load i64, i64* %XSP, align 8, !mcsema_real_eip !9
+  %RSP_val.30 = load i64, i64* %XSP, align 8, !mcsema_real_eip !9
   %_new_gep_ = getelementptr [0 x i8], [0 x i8]* %_local_stack_start_ptr_1, i64 0, i64 8
-  %18 = add i64 %RSP_val.20, 8, !mcsema_real_eip !9
+  %18 = add i64 %RSP_val.30, 8, !mcsema_real_eip !9
   store volatile i8* %_new_gep_, i8** %_RSP_ptr_, align 8
   store i64 %18, i64* %XSP, align 8, !mcsema_real_eip !9
   ret void, !mcsema_real_eip !9

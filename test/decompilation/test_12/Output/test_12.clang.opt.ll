@@ -196,24 +196,24 @@ block_0x26:                                       ; preds = %block_0x0
   %52 = load i32, i32* %33, !mcsema_real_eip !13
   %53 = zext i32 %52 to i64, !mcsema_real_eip !13
   store i64 %53, i64* %XDI, !mcsema_real_eip !13
-  %RSP_val.22 = load i64, i64* %XSP, !mcsema_real_eip !14
-  %54 = sub i64 %RSP_val.22, 8, !mcsema_real_eip !14
+  %RSP_val.21 = load i64, i64* %XSP, !mcsema_real_eip !14
+  %54 = sub i64 %RSP_val.21, 8, !mcsema_real_eip !14
   %55 = inttoptr i64 %54 to i64*, !mcsema_real_eip !14
   store i64 -2415393069852865332, i64* %55, !mcsema_real_eip !14
   store i64 %54, i64* %XSP, !mcsema_real_eip !14
   %56 = call x86_64_sysvcc i64 @_close(i64 %53), !mcsema_real_eip !14
   store i64 %56, i64* %XAX, !mcsema_real_eip !14
-  %RBP_val.23 = load i64, i64* %XBP, !mcsema_real_eip !15
-  %57 = add i64 %RBP_val.23, -4, !mcsema_real_eip !15
+  %RBP_val.22 = load i64, i64* %XBP, !mcsema_real_eip !15
+  %57 = add i64 %RBP_val.22, -4, !mcsema_real_eip !15
   %58 = inttoptr i64 %57 to i64*, !mcsema_real_eip !15
   %59 = inttoptr i64 %57 to i32*, !mcsema_real_eip !15
   store i32 0, i32* %59, !mcsema_real_eip !15
-  %RBP_val.24 = load i64, i64* %XBP, !mcsema_real_eip !16
-  %60 = add i64 %RBP_val.24, -24, !mcsema_real_eip !16
+  %RBP_val.23 = load i64, i64* %XBP, !mcsema_real_eip !16
+  %60 = add i64 %RBP_val.23, -24, !mcsema_real_eip !16
   %61 = inttoptr i64 %60 to i64*, !mcsema_real_eip !16
-  %EAX_val.26 = load i32, i32* %EAX.16, !mcsema_real_eip !16
+  %EAX_val.25 = load i32, i32* %EAX.16, !mcsema_real_eip !16
   %62 = inttoptr i64 %60 to i32*, !mcsema_real_eip !16
-  store i32 %EAX_val.26, i32* %62, !mcsema_real_eip !16
+  store i32 %EAX_val.25, i32* %62, !mcsema_real_eip !16
   br label %block_0x44, !mcsema_real_eip !17
 
 block_0x3d:                                       ; preds = %block_0x0
@@ -221,7 +221,7 @@ block_0x3d:                                       ; preds = %block_0x0
   %64 = inttoptr i64 %63 to i64*, !mcsema_real_eip !18
   %65 = inttoptr i64 %63 to i32*, !mcsema_real_eip !18
   store i32 -1, i32* %65, !mcsema_real_eip !18
-  br label %block_0x44, !mcsema_real_eip !13
+  br label %block_0x44, !mcsema_real_eip !19
 
 block_0x44:                                       ; preds = %block_0x3d, %block_0x26
   %RBP_val.27 = load i64, i64* %XBP, !mcsema_real_eip !19

@@ -257,6 +257,7 @@ fpu_write:                                        ; preds = %fpu_exception, %ent
   %10 = load i3, i3* %FPU_FLAG_TOP, align 1
   %11 = zext i3 %10 to i64
   %12 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %11
+  %13 = bitcast i8* %12 to i2*
   %_ptr_to_int_38 = ptrtoint i8* %12 to i64
   %_offset_above_rbp_41 = sub i64 %_ptr_to_int_38, %_local_end_to_int_
   %_pot_address_in_parent_stack_42 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_41
@@ -267,9 +268,9 @@ fpu_write:                                        ; preds = %fpu_exception, %ent
   %_cond4_47 = icmp ule i8* %_pot_address_in_parent_stack_42, %_parent_stack_end_ptr_
   %_cond1_n_cond2_48 = and i1 %_cond1_43, %_cond2_46
   %_cond1_n_cond2_cond3_49 = and i1 %_cond1_n_cond2_48, %_cond4_47
-  %.v5 = select i1 %_cond1_n_cond2_cond3_49, i8* %_pot_address_in_parent_stack_42, i8* %12
-  %13 = bitcast i8* %.v5 to i2*
-  %_new_load_52 = load i2, i2* %13, align 1
+  %_address_in_parent_stack_bt_51 = bitcast i8* %_pot_address_in_parent_stack_42 to i2*
+  %14 = select i1 %_cond1_n_cond2_cond3_49, i2* %_address_in_parent_stack_bt_51, i2* %13
+  %_new_load_52 = load i2, i2* %14, align 1
   %switch = icmp eq i2 %_new_load_52, -1
   %.pre = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %11
   br i1 %switch, label %fpu_read_continue, label %fpu_read_normal
@@ -283,7 +284,7 @@ fpu_read_normal:                                  ; preds = %fpu_write
   %_ptr_bt_55 = bitcast x86_fp80* %.pre to i8*
   %_offset_above_rbp_56 = sub i64 %_ptr_to_int_53, %_local_end_to_int_
   %_pot_address_in_parent_stack_57 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_56
-  %_cond1_58 = icmp ugt i8* %_ptr_bt_55, %_local_stack_end_ptr_
+  %_cond1_58 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_55
   %_cond2_1_59 = icmp ugt i8* %_ptr_bt_55, %_parent_stack_end_ptr_
   %_cond2_2_60 = icmp ult i8* %_ptr_bt_55, %_parent_stack_start_ptr_
   %_cond2_61 = or i1 %_cond2_1_59, %_cond2_2_60
@@ -298,38 +299,36 @@ fpu_read_normal:                                  ; preds = %fpu_write
 fpu_read_continue:                                ; preds = %fpu_write, %fpu_read_normal
   %_new_load_127 = phi x86_fp80 [ %_new_load_67, %fpu_read_normal ], [ 0xK00000000000000000000, %fpu_write ], !mcsema_real_eip !5
   store i1 false, i1* %FPU_FLAG_C1, align 1
-  %14 = bitcast i8* %_new_gep_6 to x86_fp80*
-  store x86_fp80 %_new_load_127, x86_fp80* %14, align 16, !mcsema_real_eip !5
-  %15 = bitcast i8* %12 to i2*, !mcsema_real_eip !5
-  store i2 -1, i2* %15, align 1, !mcsema_real_eip !5
-  %_address_in_parent_stack_bt_81 = bitcast i8* %_pot_address_in_parent_stack_42 to i2*
-  %16 = select i1 %_cond1_n_cond2_cond3_49, i2* %_address_in_parent_stack_bt_81, i2* %15
-  %_new_load_82 = load i2, i2* %16, align 1
-  %17 = icmp eq i2 %_new_load_82, -1, !mcsema_real_eip !6
-  br i1 %17, label %fpu_write1, label %fpu_exception2, !mcsema_real_eip !6
+  %15 = bitcast i8* %_new_gep_6 to x86_fp80*
+  store x86_fp80 %_new_load_127, x86_fp80* %15, align 16, !mcsema_real_eip !5
+  store i2 -1, i2* %13, align 1, !mcsema_real_eip !5
+  %_new_load_82 = load i2, i2* %14, align 1
+  %16 = icmp eq i2 %_new_load_82, -1, !mcsema_real_eip !6
+  br i1 %16, label %fpu_write1, label %fpu_exception2, !mcsema_real_eip !6
 
 fpu_write1:                                       ; preds = %fpu_exception2, %fpu_read_continue
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !6
-  store i2 0, i2* %15, align 1, !mcsema_real_eip !6
+  store i2 0, i2* %13, align 1, !mcsema_real_eip !6
   store x86_fp80 0xK4000C90FDAA22168C000, x86_fp80* %.pre, align 16, !mcsema_real_eip !6
-  %18 = load i3, i3* %FPU_FLAG_TOP, align 1
-  %19 = zext i3 %18 to i64
-  %20 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %19
-  %_ptr_to_int_83 = ptrtoint i8* %20 to i64
+  %17 = load i3, i3* %FPU_FLAG_TOP, align 1
+  %18 = zext i3 %17 to i64
+  %19 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %18
+  %20 = bitcast i8* %19 to i2*
+  %_ptr_to_int_83 = ptrtoint i8* %19 to i64
   %_offset_above_rbp_86 = sub i64 %_ptr_to_int_83, %_local_end_to_int_
   %_pot_address_in_parent_stack_87 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_86
-  %_cond1_88 = icmp ugt i8* %20, %_local_stack_end_ptr_
-  %_cond2_1_89 = icmp ugt i8* %20, %_parent_stack_end_ptr_
-  %_cond2_2_90 = icmp ult i8* %20, %_parent_stack_start_ptr_
+  %_cond1_88 = icmp ugt i8* %19, %_local_stack_end_ptr_
+  %_cond2_1_89 = icmp ugt i8* %19, %_parent_stack_end_ptr_
+  %_cond2_2_90 = icmp ult i8* %19, %_parent_stack_start_ptr_
   %_cond2_91 = or i1 %_cond2_1_89, %_cond2_2_90
   %_cond4_92 = icmp ule i8* %_pot_address_in_parent_stack_87, %_parent_stack_end_ptr_
   %_cond1_n_cond2_93 = and i1 %_cond1_88, %_cond2_91
   %_cond1_n_cond2_cond3_94 = and i1 %_cond1_n_cond2_93, %_cond4_92
-  %.v6 = select i1 %_cond1_n_cond2_cond3_94, i8* %_pot_address_in_parent_stack_87, i8* %20
-  %21 = bitcast i8* %.v6 to i2*
+  %_address_in_parent_stack_bt_96 = bitcast i8* %_pot_address_in_parent_stack_87 to i2*
+  %21 = select i1 %_cond1_n_cond2_cond3_94, i2* %_address_in_parent_stack_bt_96, i2* %20
   %_new_load_97 = load i2, i2* %21, align 1
   %switch1 = icmp eq i2 %_new_load_97, -1
-  %.pre9 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %19
+  %.pre7 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %18
   br i1 %switch1, label %fpu_read_continue7, label %fpu_read_normal5
 
 fpu_exception2:                                   ; preds = %fpu_read_continue
@@ -337,11 +336,11 @@ fpu_exception2:                                   ; preds = %fpu_read_continue
   br label %fpu_write1, !mcsema_real_eip !6
 
 fpu_read_normal5:                                 ; preds = %fpu_write1
-  %_ptr_to_int_98 = ptrtoint x86_fp80* %.pre9 to i64
-  %_ptr_bt_100 = bitcast x86_fp80* %.pre9 to i8*
+  %_ptr_to_int_98 = ptrtoint x86_fp80* %.pre7 to i64
+  %_ptr_bt_100 = bitcast x86_fp80* %.pre7 to i8*
   %_offset_above_rbp_101 = sub i64 %_ptr_to_int_98, %_local_end_to_int_
   %_pot_address_in_parent_stack_102 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_101
-  %_cond1_103 = icmp ugt i8* %_ptr_bt_100, %_local_stack_end_ptr_
+  %_cond1_103 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_100
   %_cond2_1_104 = icmp ugt i8* %_ptr_bt_100, %_parent_stack_end_ptr_
   %_cond2_2_105 = icmp ult i8* %_ptr_bt_100, %_parent_stack_start_ptr_
   %_cond2_106 = or i1 %_cond2_1_104, %_cond2_2_105
@@ -349,7 +348,7 @@ fpu_read_normal5:                                 ; preds = %fpu_write1
   %_cond1_n_cond2_108 = and i1 %_cond1_103, %_cond2_106
   %_cond1_n_cond2_cond3_109 = and i1 %_cond1_n_cond2_108, %_cond4_107
   %_address_in_parent_stack_bt_111 = bitcast i8* %_pot_address_in_parent_stack_102 to x86_fp80*
-  %_address_in_parent_stack_bt_111. = select i1 %_cond1_n_cond2_cond3_109, x86_fp80* %_address_in_parent_stack_bt_111, x86_fp80* %.pre9
+  %_address_in_parent_stack_bt_111. = select i1 %_cond1_n_cond2_cond3_109, x86_fp80* %_address_in_parent_stack_bt_111, x86_fp80* %.pre7
   %_new_load_112 = load x86_fp80, x86_fp80* %_address_in_parent_stack_bt_111., align 16
   br label %fpu_read_continue7, !mcsema_real_eip !7
 
@@ -358,40 +357,37 @@ fpu_read_continue7:                               ; preds = %fpu_write1, %fpu_re
   store i1 false, i1* %FPU_FLAG_C1, align 1
   %22 = bitcast [40 x i8]* %_local_stack_start_ptr_4 to x86_fp80*
   store x86_fp80 %_new_load_157, x86_fp80* %22, align 16, !mcsema_real_eip !7
-  %23 = bitcast i8* %20 to i2*, !mcsema_real_eip !7
-  store i2 -1, i2* %23, align 1, !mcsema_real_eip !7
-  %_address_in_parent_stack_bt_141 = bitcast i8* %_pot_address_in_parent_stack_87 to i2*
-  %_address_in_parent_stack_bt_141. = select i1 %_cond1_n_cond2_cond3_94, i2* %_address_in_parent_stack_bt_141, i2* %23
-  %_new_load_142 = load i2, i2* %_address_in_parent_stack_bt_141., align 1
-  %24 = icmp eq i2 %_new_load_142, -1, !mcsema_real_eip !8
-  br i1 %24, label %fpu_write10, label %fpu_exception11, !mcsema_real_eip !8
+  store i2 -1, i2* %20, align 1, !mcsema_real_eip !7
+  %_new_load_142 = load i2, i2* %21, align 1
+  %23 = icmp eq i2 %_new_load_142, -1, !mcsema_real_eip !8
+  br i1 %23, label %fpu_write10, label %fpu_exception11, !mcsema_real_eip !8
 
 fpu_write10:                                      ; preds = %fpu_exception11, %fpu_read_continue7
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !8
-  store i2 0, i2* %23, align 1, !mcsema_real_eip !8
-  store x86_fp80 %_new_load_127, x86_fp80* %.pre9, align 16, !mcsema_real_eip !8
-  %25 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !9
-  %26 = add i3 %25, -1
-  store i3 %26, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !9
-  %27 = zext i3 %26 to i64
-  %28 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %27
-  %29 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %27
-  %30 = bitcast i8* %29 to i2*, !mcsema_real_eip !9
-  %_ptr_to_int_158 = ptrtoint i8* %29 to i64
+  store i2 0, i2* %20, align 1, !mcsema_real_eip !8
+  store x86_fp80 %_new_load_127, x86_fp80* %.pre7, align 16, !mcsema_real_eip !8
+  %24 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !9
+  %25 = add i3 %24, -1
+  store i3 %25, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !9
+  %26 = zext i3 %25 to i64
+  %27 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %26
+  %28 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %26
+  %29 = bitcast i8* %28 to i2*, !mcsema_real_eip !9
+  %_ptr_to_int_158 = ptrtoint i8* %28 to i64
   %_offset_above_rbp_161 = sub i64 %_ptr_to_int_158, %_local_end_to_int_
   %_pot_address_in_parent_stack_162 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_161
-  %_cond1_163 = icmp ugt i8* %29, %_local_stack_end_ptr_
-  %_cond2_1_164 = icmp ugt i8* %29, %_parent_stack_end_ptr_
-  %_cond2_2_165 = icmp ult i8* %29, %_parent_stack_start_ptr_
+  %_cond1_163 = icmp ugt i8* %28, %_local_stack_end_ptr_
+  %_cond2_1_164 = icmp ugt i8* %28, %_parent_stack_end_ptr_
+  %_cond2_2_165 = icmp ult i8* %28, %_parent_stack_start_ptr_
   %_cond2_166 = or i1 %_cond2_1_164, %_cond2_2_165
   %_cond4_167 = icmp ule i8* %_pot_address_in_parent_stack_162, %_parent_stack_end_ptr_
   %_cond1_n_cond2_168 = and i1 %_cond1_163, %_cond2_166
   %_cond1_n_cond2_cond3_169 = and i1 %_cond1_n_cond2_168, %_cond4_167
   %_address_in_parent_stack_bt_171 = bitcast i8* %_pot_address_in_parent_stack_162 to i2*
-  %_address_in_parent_stack_bt_171. = select i1 %_cond1_n_cond2_cond3_169, i2* %_address_in_parent_stack_bt_171, i2* %30
+  %_address_in_parent_stack_bt_171. = select i1 %_cond1_n_cond2_cond3_169, i2* %_address_in_parent_stack_bt_171, i2* %29
   %_new_load_172 = load i2, i2* %_address_in_parent_stack_bt_171., align 1
-  %31 = icmp eq i2 %_new_load_172, -1, !mcsema_real_eip !9
-  br i1 %31, label %fpu_write14, label %fpu_exception15, !mcsema_real_eip !9
+  %30 = icmp eq i2 %_new_load_172, -1, !mcsema_real_eip !9
+  br i1 %30, label %fpu_write14, label %fpu_exception15, !mcsema_real_eip !9
 
 fpu_exception11:                                  ; preds = %fpu_read_continue7
   store i1 true, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !8
@@ -399,24 +395,24 @@ fpu_exception11:                                  ; preds = %fpu_read_continue7
 
 fpu_write14:                                      ; preds = %fpu_exception15, %fpu_write10
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !9
-  store i2 0, i2* %30, align 1, !mcsema_real_eip !9
-  store x86_fp80 %_new_load_157, x86_fp80* %28, align 16, !mcsema_real_eip !9
-  %32 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
-  %33 = zext i3 %32 to i64
-  %34 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %33
-  %_ptr_to_int_173 = ptrtoint i8* %34 to i64
+  store i2 0, i2* %29, align 1, !mcsema_real_eip !9
+  store x86_fp80 %_new_load_157, x86_fp80* %27, align 16, !mcsema_real_eip !9
+  %31 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
+  %32 = zext i3 %31 to i64
+  %33 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %32
+  %_ptr_to_int_173 = ptrtoint i8* %33 to i64
   %_offset_above_rbp_176 = sub i64 %_ptr_to_int_173, %_local_end_to_int_
   %_pot_address_in_parent_stack_177 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_176
-  %_cond1_178 = icmp ugt i8* %34, %_local_stack_end_ptr_
-  %_cond2_1_179 = icmp ugt i8* %34, %_parent_stack_end_ptr_
-  %_cond2_2_180 = icmp ult i8* %34, %_parent_stack_start_ptr_
+  %_cond1_178 = icmp ugt i8* %33, %_local_stack_end_ptr_
+  %_cond2_1_179 = icmp ugt i8* %33, %_parent_stack_end_ptr_
+  %_cond2_2_180 = icmp ult i8* %33, %_parent_stack_start_ptr_
   %_cond2_181 = or i1 %_cond2_1_179, %_cond2_2_180
   %_cond4_182 = icmp ule i8* %_pot_address_in_parent_stack_177, %_parent_stack_end_ptr_
   %_cond1_n_cond2_183 = and i1 %_cond1_178, %_cond2_181
   %_cond1_n_cond2_cond3_184 = and i1 %_cond1_n_cond2_183, %_cond4_182
-  %.v7 = select i1 %_cond1_n_cond2_cond3_184, i8* %_pot_address_in_parent_stack_177, i8* %34
-  %35 = bitcast i8* %.v7 to i2*
-  %_new_load_187 = load i2, i2* %35, align 1
+  %.v5 = select i1 %_cond1_n_cond2_cond3_184, i8* %_pot_address_in_parent_stack_177, i8* %33
+  %34 = bitcast i8* %.v5 to i2*
+  %_new_load_187 = load i2, i2* %34, align 1
   %switch2 = icmp eq i2 %_new_load_187, -1
   br i1 %switch2, label %fpu_read_continue19, label %fpu_read_normal17
 
@@ -425,12 +421,12 @@ fpu_exception15:                                  ; preds = %fpu_write10
   br label %fpu_write14, !mcsema_real_eip !9
 
 fpu_read_normal17:                                ; preds = %fpu_write14
-  %36 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %33
-  %_ptr_to_int_188 = ptrtoint x86_fp80* %36 to i64
-  %_ptr_bt_190 = bitcast x86_fp80* %36 to i8*
+  %35 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %32
+  %_ptr_to_int_188 = ptrtoint x86_fp80* %35 to i64
+  %_ptr_bt_190 = bitcast x86_fp80* %35 to i8*
   %_offset_above_rbp_191 = sub i64 %_ptr_to_int_188, %_local_end_to_int_
   %_pot_address_in_parent_stack_192 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_191
-  %_cond1_193 = icmp ugt i8* %_ptr_bt_190, %_local_stack_end_ptr_
+  %_cond1_193 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_190
   %_cond2_1_194 = icmp ugt i8* %_ptr_bt_190, %_parent_stack_end_ptr_
   %_cond2_2_195 = icmp ult i8* %_ptr_bt_190, %_parent_stack_start_ptr_
   %_cond2_196 = or i1 %_cond2_1_194, %_cond2_2_195
@@ -438,40 +434,40 @@ fpu_read_normal17:                                ; preds = %fpu_write14
   %_cond1_n_cond2_198 = and i1 %_cond1_193, %_cond2_196
   %_cond1_n_cond2_cond3_199 = and i1 %_cond1_n_cond2_198, %_cond4_197
   %_address_in_parent_stack_bt_201 = bitcast i8* %_pot_address_in_parent_stack_192 to x86_fp80*
-  %_address_in_parent_stack_bt_201. = select i1 %_cond1_n_cond2_cond3_199, x86_fp80* %_address_in_parent_stack_bt_201, x86_fp80* %36
+  %_address_in_parent_stack_bt_201. = select i1 %_cond1_n_cond2_cond3_199, x86_fp80* %_address_in_parent_stack_bt_201, x86_fp80* %35
   %_new_load_202 = load x86_fp80, x86_fp80* %_address_in_parent_stack_bt_201., align 16
   br label %fpu_read_continue19, !mcsema_real_eip !10
 
 fpu_read_continue19:                              ; preds = %fpu_write14, %fpu_read_normal17
   %fpu_switch_phinode20 = phi x86_fp80 [ %_new_load_202, %fpu_read_normal17 ], [ 0xK00000000000000000000, %fpu_write14 ], !mcsema_real_eip !10
   store i1 false, i1* %FPU_FLAG_C1, align 1
-  %37 = add i3 %32, 1, !mcsema_real_eip !10
-  %38 = zext i3 %37 to i64
-  %39 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %38
-  %40 = bitcast i8* %39 to i2*, !mcsema_real_eip !10
-  %_ptr_to_int_203 = ptrtoint i8* %39 to i64
+  %36 = add i3 %31, 1, !mcsema_real_eip !10
+  %37 = zext i3 %36 to i64
+  %38 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %37
+  %39 = bitcast i8* %38 to i2*, !mcsema_real_eip !10
+  %_ptr_to_int_203 = ptrtoint i8* %38 to i64
   %_offset_above_rbp_206 = sub i64 %_ptr_to_int_203, %_local_end_to_int_
   %_pot_address_in_parent_stack_207 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_206
-  %_cond1_208 = icmp ugt i8* %39, %_local_stack_end_ptr_
-  %_cond2_1_209 = icmp ugt i8* %39, %_parent_stack_end_ptr_
-  %_cond2_2_210 = icmp ult i8* %39, %_parent_stack_start_ptr_
+  %_cond1_208 = icmp ugt i8* %38, %_local_stack_end_ptr_
+  %_cond2_1_209 = icmp ugt i8* %38, %_parent_stack_end_ptr_
+  %_cond2_2_210 = icmp ult i8* %38, %_parent_stack_start_ptr_
   %_cond2_211 = or i1 %_cond2_1_209, %_cond2_2_210
   %_cond4_212 = icmp ule i8* %_pot_address_in_parent_stack_207, %_parent_stack_end_ptr_
   %_cond1_n_cond2_213 = and i1 %_cond1_208, %_cond2_211
   %_cond1_n_cond2_cond3_214 = and i1 %_cond1_n_cond2_213, %_cond4_212
   %_address_in_parent_stack_bt_216 = bitcast i8* %_pot_address_in_parent_stack_207 to i2*
-  %_address_in_parent_stack_bt_216. = select i1 %_cond1_n_cond2_cond3_214, i2* %_address_in_parent_stack_bt_216, i2* %40
+  %_address_in_parent_stack_bt_216. = select i1 %_cond1_n_cond2_cond3_214, i2* %_address_in_parent_stack_bt_216, i2* %39
   %_new_load_217 = load i2, i2* %_address_in_parent_stack_bt_216., align 1
   %switch3 = icmp eq i2 %_new_load_217, -1
-  %.pre11 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %38
+  %.pre9 = getelementptr %RegState, %RegState* %0, i64 0, i32 16, i64 %37
   br i1 %switch3, label %fpu_read_continue23, label %fpu_read_normal21
 
 fpu_read_normal21:                                ; preds = %fpu_read_continue19
-  %_ptr_to_int_218 = ptrtoint x86_fp80* %.pre11 to i64
-  %_ptr_bt_220 = bitcast x86_fp80* %.pre11 to i8*
+  %_ptr_to_int_218 = ptrtoint x86_fp80* %.pre9 to i64
+  %_ptr_bt_220 = bitcast x86_fp80* %.pre9 to i8*
   %_offset_above_rbp_221 = sub i64 %_ptr_to_int_218, %_local_end_to_int_
   %_pot_address_in_parent_stack_222 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_221
-  %_cond1_223 = icmp ugt i8* %_ptr_bt_220, %_local_stack_end_ptr_
+  %_cond1_223 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_220
   %_cond2_1_224 = icmp ugt i8* %_ptr_bt_220, %_parent_stack_end_ptr_
   %_cond2_2_225 = icmp ult i8* %_ptr_bt_220, %_parent_stack_start_ptr_
   %_cond2_226 = or i1 %_cond2_1_224, %_cond2_2_225
@@ -479,34 +475,34 @@ fpu_read_normal21:                                ; preds = %fpu_read_continue19
   %_cond1_n_cond2_228 = and i1 %_cond1_223, %_cond2_226
   %_cond1_n_cond2_cond3_229 = and i1 %_cond1_n_cond2_228, %_cond4_227
   %_address_in_parent_stack_bt_231 = bitcast i8* %_pot_address_in_parent_stack_222 to x86_fp80*
-  %_address_in_parent_stack_bt_231. = select i1 %_cond1_n_cond2_cond3_229, x86_fp80* %_address_in_parent_stack_bt_231, x86_fp80* %.pre11
+  %_address_in_parent_stack_bt_231. = select i1 %_cond1_n_cond2_cond3_229, x86_fp80* %_address_in_parent_stack_bt_231, x86_fp80* %.pre9
   %_new_load_232 = load x86_fp80, x86_fp80* %_address_in_parent_stack_bt_231., align 16
   br label %fpu_read_continue23, !mcsema_real_eip !10
 
 fpu_read_continue23:                              ; preds = %fpu_read_continue19, %fpu_read_normal21
   %fpu_switch_phinode24 = phi x86_fp80 [ %_new_load_232, %fpu_read_normal21 ], [ 0xK00000000000000000000, %fpu_read_continue19 ], !mcsema_real_eip !10
-  %41 = fmul x86_fp80 %fpu_switch_phinode20, %fpu_switch_phinode24, !mcsema_real_eip !10
-  store i2 0, i2* %40, align 1, !mcsema_real_eip !10
-  store x86_fp80 %41, x86_fp80* %.pre11, align 16, !mcsema_real_eip !10
+  %40 = fmul x86_fp80 %fpu_switch_phinode20, %fpu_switch_phinode24, !mcsema_real_eip !10
+  store i2 0, i2* %39, align 1, !mcsema_real_eip !10
+  store x86_fp80 %40, x86_fp80* %.pre9, align 16, !mcsema_real_eip !10
   store i1 false, i1* %FPU_FLAG_C1, align 1, !mcsema_real_eip !10
-  %42 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
-  %43 = zext i3 %42 to i64
-  %44 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %43
-  %45 = bitcast i8* %44 to i2*, !mcsema_real_eip !10
-  store i2 -1, i2* %45, align 1, !mcsema_real_eip !10
-  %46 = add i3 %42, 1, !mcsema_real_eip !10
-  store i3 %46, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
+  %41 = load i3, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
+  %42 = zext i3 %41 to i64
+  %43 = getelementptr %RegState, %RegState* %0, i64 0, i32 40, i64 %42
+  %44 = bitcast i8* %43 to i2*, !mcsema_real_eip !10
+  store i2 -1, i2* %44, align 1, !mcsema_real_eip !10
+  %45 = add i3 %41, 1, !mcsema_real_eip !10
+  store i3 %45, i3* %FPU_FLAG_TOP, align 1, !mcsema_real_eip !10
   store volatile i8* %_parent_stack_rbp_ptr_, i8** %_RBP_ptr_, align 8
   store i64 %_new_ptr2int_, i64* %XBP, align 8, !mcsema_real_eip !12
   %_new_gep_19 = getelementptr inbounds [40 x i8], [40 x i8]* %_local_stack_start_ptr_4, i64 0, i64 40
   store volatile i8* %_new_gep_19, i8** %_RSP_ptr_, align 8
   %_new_gep_21 = getelementptr [40 x i8], [40 x i8]* %_local_stack_start_ptr_4, i64 0, i64 48
-  %47 = add i64 %RSP_val.1, 8, !mcsema_real_eip !11
+  %46 = add i64 %RSP_val.1, 8, !mcsema_real_eip !11
   %_address_in_parent_stack_bt_276._allin_new_bt_22 = bitcast i8* %_new_gep_19 to i64*
   %_new_load_277 = load i64, i64* %_address_in_parent_stack_bt_276._allin_new_bt_22, align 8
   store i64 %_new_load_277, i64* %XIP, align 8, !mcsema_real_eip !11
   store volatile i8* %_new_gep_21, i8** %_RSP_ptr_, align 8
-  store i64 %47, i64* %XSP, align 8, !mcsema_real_eip !11
+  store i64 %46, i64* %XSP, align 8, !mcsema_real_eip !11
   ret void, !mcsema_real_eip !11
 }
 

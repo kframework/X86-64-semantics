@@ -159,7 +159,7 @@ entry:
   %27 = and i8 %26, 1
   %28 = icmp eq i8 %27, 0
   store i1 %28, i1* %PF, align 1, !mcsema_real_eip !14
-  %_trans_icmp_ne_40 = icmp ne i64 %_trans_p2i_27, %RSP_val.21
+  %_trans_icmp_ne_40 = icmp ne i64 %RSP_val.21, %_trans_p2i_27
   store i1 %_trans_icmp_ne_40, i1* %CF, align 1, !mcsema_real_eip !14
   store volatile i8* %_new_gep_26, i8** %_RSP_ptr_, align 8
   store i64 %19, i64* %XSP, align 8, !mcsema_real_eip !14
@@ -315,7 +315,7 @@ entry:
   %25 = and i8 %24, 1
   %26 = icmp eq i8 %25, 0
   store i1 %26, i1* %PF, align 1, !mcsema_real_eip !14
-  %_trans_icmp_ne_40 = icmp ne i64 %_trans_p2i_27, %RSP_val.21
+  %_trans_icmp_ne_40 = icmp ne i64 %RSP_val.21, %_trans_p2i_27
   store i1 %_trans_icmp_ne_40, i1* %CF, align 1, !mcsema_real_eip !14
   store volatile i8* %_new_gep_26, i8** %_RSP_ptr_, align 8
   store i64 %17, i64* %XSP, align 8, !mcsema_real_eip !14

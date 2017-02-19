@@ -42,9 +42,9 @@ entry:
   %SF = bitcast i8* %SF_full to i1*, !mcsema_real_eip !2
   %OF_full = getelementptr %RegState, %RegState* %0, i64 0, i32 14, !mcsema_real_eip !2
   %OF = bitcast i8* %OF_full to i1*, !mcsema_real_eip !2
-  %RSP_val.1 = load i64, i64* %XSP, align 8, !mcsema_real_eip !2
+  %RSP_val.6 = load i64, i64* %XSP, align 8, !mcsema_real_eip !2
   %_new_gep_ = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_1, i64 0, i64 24
-  %1 = add i64 %RSP_val.1, -8
+  %1 = add i64 %RSP_val.6, -8
   %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
   store volatile i64 undef, i64* %_allin_new_bt_, align 8
   store volatile i8* %_new_gep_, i8** %_RSP_ptr_, align 8
@@ -52,7 +52,7 @@ entry:
   store volatile i64 %2, i64* %_RBP_ptr_.sroa.0, align 8
   store i64 %1, i64* %XBP, align 8, !mcsema_real_eip !3
   %_new_gep_3 = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_1, i64 0, i64 8
-  %3 = add i64 %RSP_val.1, -24
+  %3 = add i64 %RSP_val.6, -24
   %_trans_p2i_ = ptrtoint i8* %_new_gep_3 to i64
   %_trans_xor_ = xor i64 %_trans_p2i_, %2
   %4 = and i64 %_trans_xor_, 16
@@ -77,12 +77,12 @@ entry:
   %13 = bitcast i8* %_new_gep_14 to i32*
   store i32 2, i32* %13, align 4, !mcsema_real_eip !5
   %_new_gep_17 = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_1, i64 0, i64 0
-  %14 = add i64 %RSP_val.1, -32
+  %14 = add i64 %RSP_val.6, -32
   %_allin_new_bt_18 = bitcast [32 x i8]* %_local_stack_start_ptr_1 to i64*
   store i64 -4981261766360305936, i64* %_allin_new_bt_18, align 8, !mcsema_real_eip !6
   store volatile i8* %_new_gep_17, i8** %_RSP_ptr_, align 8
   store i64 %14, i64* %XSP, align 8, !mcsema_real_eip !6
-  call x86_64_sysvcc void @checkFn.2(%RegState* %0, i8* %_new_gep_)
+  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_)
   %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_ = load i8*, i8** %_RSP_ptr_, align 8
   %_gep_fix_ = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_, align 8
@@ -92,9 +92,9 @@ entry:
   %16 = load i32, i32* %15, align 4, !mcsema_real_eip !7
   %17 = zext i32 %16 to i64, !mcsema_real_eip !7
   store i64 %17, i64* %XAX, align 8, !mcsema_real_eip !7
-  %RSP_val.7 = load i64, i64* %XSP, align 8, !mcsema_real_eip !8
+  %RSP_val.12 = load i64, i64* %XSP, align 8, !mcsema_real_eip !8
   %_new_gep_23 = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 24
-  %18 = add i64 %RSP_val.7, 16, !mcsema_real_eip !8
+  %18 = add i64 %RSP_val.12, 16, !mcsema_real_eip !8
   %_trans_p2i_24 = ptrtoint i8* %_new_gep_23 to i64
   %_trans_p2i_25 = ptrtoint i8* %_gep_fix_ to i64
   %_trans_xor_26 = xor i64 %_trans_p2i_24, %_trans_p2i_25
@@ -114,7 +114,7 @@ entry:
   %26 = and i8 %25, 1
   %27 = icmp eq i8 %26, 0
   store i1 %27, i1* %PF, align 1, !mcsema_real_eip !8
-  %_trans_icmp_ne_37 = icmp ne i64 %_trans_p2i_24, %RSP_val.7
+  %_trans_icmp_ne_37 = icmp ne i64 %RSP_val.12, %_trans_p2i_24
   store i1 %_trans_icmp_ne_37, i1* %CF, align 1, !mcsema_real_eip !8
   store volatile i8* %_new_gep_23, i8** %_RSP_ptr_, align 8
   store i64 %18, i64* %XSP, align 8, !mcsema_real_eip !8
@@ -123,11 +123,11 @@ entry:
   store volatile i64 %28, i64* %_RBP_ptr_.sroa.0, align 8
   store i64 %28, i64* %XBP, align 8, !mcsema_real_eip !9
   %_new_gep_40 = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 32
-  %29 = add i64 %RSP_val.7, 24, !mcsema_real_eip !9
+  %29 = add i64 %RSP_val.12, 24, !mcsema_real_eip !9
   store volatile i8* %_new_gep_40, i8** %_RSP_ptr_, align 8
   store i64 %29, i64* %XSP, align 8, !mcsema_real_eip !9
   %_new_gep_42 = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 40
-  %30 = add i64 %RSP_val.7, 32, !mcsema_real_eip !10
+  %30 = add i64 %RSP_val.12, 32, !mcsema_real_eip !10
   %_allin_new_bt_43 = bitcast i8* %_new_gep_40 to i64*
   %31 = load i64, i64* %_allin_new_bt_43, align 8, !mcsema_real_eip !10
   store i64 %31, i64* %XIP, align 8, !mcsema_real_eip !10
@@ -139,8 +139,38 @@ entry:
 ; Function Attrs: nounwind readnone
 declare i8 @llvm.ctpop.i8(i8) #1
 
+; Function Attrs: noinline norecurse nounwind
+define internal x86_64_sysvcc void @checkFn.1(%RegState* nocapture, i8* %_parent_stack_rbp_ptr_) unnamed_addr #2 {
+entry:
+  %_RSP_ptr_ = alloca i8*, align 8
+  %_RBP_ptr_ = alloca i8*, align 8
+  %_local_stack_start_ptr_1 = alloca i64, align 8
+  %_local_stack_end_ptr_ = getelementptr inbounds i64, i64* %_local_stack_start_ptr_1, i64 1
+  %1 = bitcast i64* %_local_stack_end_ptr_ to i8*
+  %2 = bitcast i8** %_RSP_ptr_ to i64**
+  store i64* %_local_stack_end_ptr_, i64** %2, align 8
+  store i8* %_parent_stack_rbp_ptr_, i8** %_RBP_ptr_, align 8
+  %XBP = getelementptr %RegState, %RegState* %0, i64 0, i32 8, !mcsema_real_eip !11
+  %XSP = getelementptr %RegState, %RegState* %0, i64 0, i32 7, !mcsema_real_eip !11
+  %RSP_val.1 = load i64, i64* %XSP, align 8, !mcsema_real_eip !11
+  %_new_gep_ = bitcast i64* %_local_stack_start_ptr_1 to i8*
+  %_new_ptr2int_ = ptrtoint i8* %_parent_stack_rbp_ptr_ to i64
+  store volatile i64 %_new_ptr2int_, i64* %_local_stack_start_ptr_1, align 8
+  store volatile i8* %_new_gep_, i8** %_RSP_ptr_, align 8
+  store volatile i8* %_new_gep_, i8** %_RBP_ptr_, align 8
+  store volatile i8* %_parent_stack_rbp_ptr_, i8** %_RBP_ptr_, align 8
+  store i64 %_new_ptr2int_, i64* %XBP, align 8, !mcsema_real_eip !12
+  store volatile i8* %1, i8** %_RSP_ptr_, align 8
+  %_new_gep_63 = getelementptr i64, i64* %_local_stack_start_ptr_1, i64 2
+  %_new_gep_6 = bitcast i64* %_new_gep_63 to i8*
+  %3 = add i64 %RSP_val.1, 8, !mcsema_real_eip !13
+  store volatile i8* %_new_gep_6, i8** %_RSP_ptr_, align 8
+  store i64 %3, i64* %XSP, align 8, !mcsema_real_eip !13
+  ret void, !mcsema_real_eip !13
+}
+
 ; Function Attrs: noinline nounwind
-define x86_64_sysvcc void @sub_10.1(%RegState* nocapture, i8* readonly %_parent_stack_start_ptr_, i8* readnone %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) local_unnamed_addr #0 {
+define x86_64_sysvcc void @sub_10.2(%RegState* nocapture, i8* readonly %_parent_stack_start_ptr_, i8* readnone %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) local_unnamed_addr #0 {
 entry:
   %_RSP_ptr_ = alloca i8*, align 8
   %_RBP_ptr_ = alloca i8*, align 8
@@ -164,9 +194,9 @@ entry:
   %SF = bitcast i8* %SF_full to i1*, !mcsema_real_eip !2
   %OF_full = getelementptr %RegState, %RegState* %0, i64 0, i32 14, !mcsema_real_eip !2
   %OF = bitcast i8* %OF_full to i1*, !mcsema_real_eip !2
-  %RSP_val.1 = load i64, i64* %XSP, align 8, !mcsema_real_eip !2
+  %RSP_val.6 = load i64, i64* %XSP, align 8, !mcsema_real_eip !2
   %_new_gep_ = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_1, i64 0, i64 24
-  %1 = add i64 %RSP_val.1, -8
+  %1 = add i64 %RSP_val.6, -8
   %_allin_new_bt_ = bitcast i8* %_new_gep_ to i64*
   %_new_ptr2int_ = ptrtoint i8* %_parent_stack_rbp_ptr_ to i64
   store volatile i64 %_new_ptr2int_, i64* %_allin_new_bt_, align 8
@@ -174,7 +204,7 @@ entry:
   store volatile i8* %_new_gep_, i8** %_RBP_ptr_, align 8
   store i64 %1, i64* %XBP, align 8, !mcsema_real_eip !3
   %_new_gep_3 = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_1, i64 0, i64 8
-  %2 = add i64 %RSP_val.1, -24
+  %2 = add i64 %RSP_val.6, -24
   %_trans_p2i_ = ptrtoint i8* %_new_gep_3 to i64
   %_trans_p2i_4 = ptrtoint i8* %_new_gep_ to i64
   %_trans_xor_ = xor i64 %_trans_p2i_, %_trans_p2i_4
@@ -199,12 +229,12 @@ entry:
   %11 = bitcast i8* %_new_gep_14 to i32*
   store i32 2, i32* %11, align 4, !mcsema_real_eip !5
   %_new_gep_17 = getelementptr inbounds [32 x i8], [32 x i8]* %_local_stack_start_ptr_1, i64 0, i64 0
-  %12 = add i64 %RSP_val.1, -32
+  %12 = add i64 %RSP_val.6, -32
   %_allin_new_bt_18 = bitcast [32 x i8]* %_local_stack_start_ptr_1 to i64*
   store i64 -4981261766360305936, i64* %_allin_new_bt_18, align 8, !mcsema_real_eip !6
   store volatile i8* %_new_gep_17, i8** %_RSP_ptr_, align 8
   store i64 %12, i64* %XSP, align 8, !mcsema_real_eip !6
-  call x86_64_sysvcc void @checkFn.2(%RegState* %0, i8* %_new_gep_)
+  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_)
   %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_ = load i8*, i8** %_RSP_ptr_, align 8
   %_gep_fix_ = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_, align 8
@@ -226,9 +256,9 @@ entry:
   %_new_load_ = load i32, i32* %14, align 4
   %15 = zext i32 %_new_load_ to i64, !mcsema_real_eip !7
   store i64 %15, i64* %XAX, align 8, !mcsema_real_eip !7
-  %RSP_val.7 = load i64, i64* %XSP, align 8, !mcsema_real_eip !8
+  %RSP_val.12 = load i64, i64* %XSP, align 8, !mcsema_real_eip !8
   %_new_gep_23 = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 24
-  %16 = add i64 %RSP_val.7, 16, !mcsema_real_eip !8
+  %16 = add i64 %RSP_val.12, 16, !mcsema_real_eip !8
   %_trans_p2i_24 = ptrtoint i8* %_new_gep_23 to i64
   %_trans_p2i_25 = ptrtoint i8* %_gep_fix_ to i64
   %_trans_xor_26 = xor i64 %_trans_p2i_24, %_trans_p2i_25
@@ -248,7 +278,7 @@ entry:
   %24 = and i8 %23, 1
   %25 = icmp eq i8 %24, 0
   store i1 %25, i1* %PF, align 1, !mcsema_real_eip !8
-  %_trans_icmp_ne_37 = icmp ne i64 %_trans_p2i_24, %RSP_val.7
+  %_trans_icmp_ne_37 = icmp ne i64 %RSP_val.12, %_trans_p2i_24
   store i1 %_trans_icmp_ne_37, i1* %CF, align 1, !mcsema_real_eip !8
   store volatile i8* %_new_gep_23, i8** %_RSP_ptr_, align 8
   store i64 %16, i64* %XSP, align 8, !mcsema_real_eip !8
@@ -268,11 +298,11 @@ entry:
   store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_, align 8
   store i64 %_new_load_60, i64* %XBP, align 8, !mcsema_real_eip !9
   %_new_gep_40 = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 32
-  %26 = add i64 %RSP_val.7, 24, !mcsema_real_eip !9
+  %26 = add i64 %RSP_val.12, 24, !mcsema_real_eip !9
   store volatile i8* %_new_gep_40, i8** %_RSP_ptr_, align 8
   store i64 %26, i64* %XSP, align 8, !mcsema_real_eip !9
   %_new_gep_42 = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 40
-  %27 = add i64 %RSP_val.7, 32, !mcsema_real_eip !10
+  %27 = add i64 %RSP_val.12, 32, !mcsema_real_eip !10
   %_ptr_to_int_61 = ptrtoint i8* %_new_gep_40 to i64
   %_offset_above_rbp_64 = sub i64 %_ptr_to_int_61, %_local_end_to_int_
   %_pot_address_in_parent_stack_65 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_64
@@ -290,36 +320,6 @@ entry:
   store volatile i8* %_new_gep_42, i8** %_RSP_ptr_, align 8
   store i64 %27, i64* %XSP, align 8, !mcsema_real_eip !10
   ret void, !mcsema_real_eip !10
-}
-
-; Function Attrs: noinline norecurse nounwind
-define internal x86_64_sysvcc void @checkFn.2(%RegState* nocapture, i8* %_parent_stack_rbp_ptr_) unnamed_addr #2 {
-entry:
-  %_RSP_ptr_ = alloca i8*, align 8
-  %_RBP_ptr_ = alloca i8*, align 8
-  %_local_stack_start_ptr_1 = alloca i64, align 8
-  %_local_stack_end_ptr_ = getelementptr inbounds i64, i64* %_local_stack_start_ptr_1, i64 1
-  %1 = bitcast i64* %_local_stack_end_ptr_ to i8*
-  %2 = bitcast i8** %_RSP_ptr_ to i64**
-  store i64* %_local_stack_end_ptr_, i64** %2, align 8
-  store i8* %_parent_stack_rbp_ptr_, i8** %_RBP_ptr_, align 8
-  %XBP = getelementptr %RegState, %RegState* %0, i64 0, i32 8, !mcsema_real_eip !11
-  %XSP = getelementptr %RegState, %RegState* %0, i64 0, i32 7, !mcsema_real_eip !11
-  %RSP_val.11 = load i64, i64* %XSP, align 8, !mcsema_real_eip !11
-  %_new_gep_ = bitcast i64* %_local_stack_start_ptr_1 to i8*
-  %_new_ptr2int_ = ptrtoint i8* %_parent_stack_rbp_ptr_ to i64
-  store volatile i64 %_new_ptr2int_, i64* %_local_stack_start_ptr_1, align 8
-  store volatile i8* %_new_gep_, i8** %_RSP_ptr_, align 8
-  store volatile i8* %_new_gep_, i8** %_RBP_ptr_, align 8
-  store volatile i8* %_parent_stack_rbp_ptr_, i8** %_RBP_ptr_, align 8
-  store i64 %_new_ptr2int_, i64* %XBP, align 8, !mcsema_real_eip !12
-  store volatile i8* %1, i8** %_RSP_ptr_, align 8
-  %_new_gep_63 = getelementptr i64, i64* %_local_stack_start_ptr_1, i64 2
-  %_new_gep_6 = bitcast i64* %_new_gep_63 to i8*
-  %3 = add i64 %RSP_val.11, 8, !mcsema_real_eip !13
-  store volatile i8* %_new_gep_6, i8** %_RSP_ptr_, align 8
-  store i64 %3, i64* %XSP, align 8, !mcsema_real_eip !13
-  ret void, !mcsema_real_eip !13
 }
 
 attributes #0 = { noinline nounwind }

@@ -179,7 +179,7 @@ entry:
   %_ptr_bt_37 = inttoptr i64 %RSI_val.7 to i8*
   %_offset_above_rbp_38 = sub i64 %RSI_val.7, %_local_end_to_int_
   %_pot_address_in_parent_stack_39 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_38
-  %_cond1_40 = icmp ugt i8* %_ptr_bt_37, %_local_stack_end_ptr_
+  %_cond1_40 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_37
   %_cond2_1_41 = icmp ugt i8* %_ptr_bt_37, %_parent_stack_end_ptr_
   %_cond2_2_42 = icmp ult i8* %_ptr_bt_37, %_parent_stack_start_ptr_
   %_cond2_43 = or i1 %_cond2_1_41, %_cond2_2_42

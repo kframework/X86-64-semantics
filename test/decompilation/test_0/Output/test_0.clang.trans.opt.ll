@@ -215,7 +215,7 @@ entry:
   %48 = and i8 %47, 1
   %49 = icmp eq i8 %48, 0
   store i1 %49, i1* %PF, align 1, !mcsema_real_eip !20
-  %_trans_icmp_ne_67 = icmp ne i64 %_trans_p2i_54, %RSP_val.30
+  %_trans_icmp_ne_67 = icmp ne i64 %RSP_val.30, %_trans_p2i_54
   store i1 %_trans_icmp_ne_67, i1* %CF, align 1, !mcsema_real_eip !20
   store volatile i8* %_new_gep_53, i8** %_RSP_ptr_, align 8
   store i64 %40, i64* %XSP, align 8, !mcsema_real_eip !20
@@ -359,7 +359,7 @@ entry:
   %_ptr_bt_106 = inttoptr i64 %17 to i8*
   %_offset_above_rbp_107 = sub i64 %17, %_local_end_to_int_
   %_pot_address_in_parent_stack_108 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_107
-  %_cond1_109 = icmp ugt i8* %_ptr_bt_106, %_local_stack_end_ptr_
+  %_cond1_109 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_106
   %_cond2_1_110 = icmp ugt i8* %_ptr_bt_106, %_parent_stack_end_ptr_
   %_cond2_2_111 = icmp ult i8* %_ptr_bt_106, %_parent_stack_start_ptr_
   %_cond2_112 = or i1 %_cond2_1_110, %_cond2_2_111
@@ -495,7 +495,7 @@ entry:
   %_ptr_bt_226 = inttoptr i64 %26 to i8*
   %_offset_above_rbp_227 = sub i64 %26, %_local_end_to_int_
   %_pot_address_in_parent_stack_228 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_227
-  %_cond1_229 = icmp ugt i8* %_ptr_bt_226, %_local_stack_end_ptr_
+  %_cond1_229 = icmp ult i8* %_local_stack_end_ptr_, %_ptr_bt_226
   %_cond2_1_230 = icmp ugt i8* %_ptr_bt_226, %_parent_stack_end_ptr_
   %_cond2_2_231 = icmp ult i8* %_ptr_bt_226, %_parent_stack_start_ptr_
   %_cond2_232 = or i1 %_cond2_1_230, %_cond2_2_231
@@ -538,7 +538,7 @@ entry:
   %40 = and i8 %39, 1
   %41 = icmp eq i8 %40, 0
   store i1 %41, i1* %PF, align 1, !mcsema_real_eip !20
-  %_trans_icmp_ne_67 = icmp ne i64 %_trans_p2i_54, %RSP_val.30
+  %_trans_icmp_ne_67 = icmp ne i64 %RSP_val.30, %_trans_p2i_54
   store i1 %_trans_icmp_ne_67, i1* %CF, align 1, !mcsema_real_eip !20
   store volatile i8* %_new_gep_53, i8** %_RSP_ptr_, align 8
   store i64 %32, i64* %XSP, align 8, !mcsema_real_eip !20
