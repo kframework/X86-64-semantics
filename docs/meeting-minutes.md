@@ -1,3 +1,19 @@
+### Feb 20
+#### Some thoughts on probable diection
+The decompiled binary is missing of various attributes like precise types, variables (stack , global, heap), control flow structures, exact fucntion arguments and return types. How the absense of these attributes affect compiler optimizations and analysis metrics (like pointer analysis and ??). 
+
+For that we need not to implemnent the analysis like type/variable recovery in the first place, but we can start with the source code and start omitting the attributes one at a time. We have the Mcsema output to guide us how the code will look like (not exactly because the mcsema code has all the attributes pruned away). 
+
+With the metrics identified we can think about implementing our own implementation of attribute generation and compare.
+
+
+#### Type Recovery
+Consisit of two phases:
+ - Basic type reconstruction which consists of 
+  - Determine if an object holds a pointer, floating-point or integral value.
+  - Determine the size of the integral and floating-point type, stored in an object.
+  - For integral type determine if an object holds a signed or unsigned value.
+
 ### 21 Dec
 - The binary decompilation repository is now compatible to current master of McSema(formerly know as new_reg_assign)
 - All the driver related issues are resolved
