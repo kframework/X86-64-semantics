@@ -82,7 +82,7 @@ entry:
   store i64 -4981261766360305936, i64* %_allin_new_bt_18, align 8, !mcsema_real_eip !6
   store volatile i8* %_new_gep_17, i8** %_RSP_ptr_, align 8
   store i64 %14, i64* %XSP, align 8, !mcsema_real_eip !6
-  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_)
+  call x86_64_sysvcc void @sub_0.1(%RegState* %0, i8* %_new_gep_)
   %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_ = load i8*, i8** %_RSP_ptr_, align 8
   %_gep_fix_ = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_, align 8
@@ -140,7 +140,7 @@ entry:
 declare i8 @llvm.ctpop.i8(i8) #1
 
 ; Function Attrs: noinline norecurse nounwind
-define internal x86_64_sysvcc void @checkFn.1(%RegState* nocapture, i8* %_parent_stack_rbp_ptr_) unnamed_addr #2 {
+define internal x86_64_sysvcc void @sub_0.1(%RegState* nocapture, i8* %_parent_stack_rbp_ptr_) unnamed_addr #2 {
 entry:
   %_RSP_ptr_ = alloca i8*, align 8
   %_RBP_ptr_ = alloca i8*, align 8
@@ -234,7 +234,7 @@ entry:
   store i64 -4981261766360305936, i64* %_allin_new_bt_18, align 8, !mcsema_real_eip !6
   store volatile i8* %_new_gep_17, i8** %_RSP_ptr_, align 8
   store i64 %12, i64* %XSP, align 8, !mcsema_real_eip !6
-  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_)
+  call x86_64_sysvcc void @sub_0.1(%RegState* %0, i8* %_new_gep_)
   %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_ = load i8*, i8** %_RSP_ptr_, align 8
   %_gep_fix_ = getelementptr i8, i8* %_RSP_ptr_.0._RSP_ptr_.0._rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_, align 8

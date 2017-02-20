@@ -37,7 +37,7 @@ declare void @__mcsema_detach_call_value() #0
 declare void @__mcsema_detach_ret() #0
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @checkFn(%RegState*) #1 {
+define internal x86_64_sysvcc void @sub_0(%RegState*) #1 {
 entry:
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !2
   %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !2
@@ -323,7 +323,7 @@ block_0x10:                                       ; preds = %entry
   %27 = inttoptr i64 %26 to i64*, !mcsema_real_eip !10
   store i64 -4981261766360305936, i64* %27, !mcsema_real_eip !10
   store i64 %26, i64* %XSP, !mcsema_real_eip !10
-  call x86_64_sysvcc void @checkFn(%RegState* %0), !mcsema_real_eip !10
+  call x86_64_sysvcc void @sub_0(%RegState* %0), !mcsema_real_eip !10
   %RBP_val.11 = load i64, i64* %XBP, !mcsema_real_eip !11
   %28 = add i64 %RBP_val.11, -4, !mcsema_real_eip !11
   %29 = inttoptr i64 %28 to i64*, !mcsema_real_eip !11

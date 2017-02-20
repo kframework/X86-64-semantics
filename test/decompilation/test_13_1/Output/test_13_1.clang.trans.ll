@@ -37,7 +37,7 @@ declare void @__mcsema_detach_call_value() #0
 declare void @__mcsema_detach_ret() #0
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @checkFn(%RegState*) #1 {
+define internal x86_64_sysvcc void @sub_0(%RegState*) #1 {
 entry:
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !2
   %XBP = getelementptr %RegState, %RegState* %0, i32 0, i32 8, !mcsema_real_eip !2
@@ -146,7 +146,7 @@ block_0x10:                                       ; preds = %entry
   store volatile i8* %_new_gep_17, i8** %_RSP_ptr_
   store i64 %16, i64* %XSP, !mcsema_real_eip !10
   %_load_rbp_ptr_44 = load i8*, i8** %_RBP_ptr_
-  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_17, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_44)
+  call x86_64_sysvcc void @sub_0.1(%RegState* %0, i8* %_new_gep_17, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_44)
   %_rsp_fix_ = load i8*, i8** %_RSP_ptr_
   %_gep_fix_ = getelementptr i8, i8* %_rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_
@@ -215,7 +215,7 @@ declare i8 @llvm.ctpop.i8(i8) #2
 declare void @doWork() #3
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @checkFn.1(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
+define internal x86_64_sysvcc void @sub_0.1(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
 entry:
   %_RSP_ptr_ = alloca i8*
   %_RBP_ptr_ = alloca i8*
@@ -380,7 +380,7 @@ block_0x10:                                       ; preds = %entry
   store volatile i8* %_new_gep_17, i8** %_RSP_ptr_
   store i64 %16, i64* %XSP, !mcsema_real_eip !10
   %_load_rbp_ptr_44 = load i8*, i8** %_RBP_ptr_
-  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_17, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_44)
+  call x86_64_sysvcc void @sub_0.1(%RegState* %0, i8* %_new_gep_17, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_44)
   %_rsp_fix_ = load i8*, i8** %_RSP_ptr_
   %_gep_fix_ = getelementptr i8, i8* %_rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_

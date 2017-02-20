@@ -73,7 +73,7 @@ declare void @__mcsema_detach_call_value() #0
 declare void @__mcsema_detach_ret() #0
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @checkFn(%RegState*) #1 {
+define internal x86_64_sysvcc void @sub_90(%RegState*) #1 {
 entry:
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !2
   %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !2
@@ -361,7 +361,7 @@ block_0xf3:                                       ; preds = %block_0xee, %block_
 }
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @doStuff(%RegState*) #1 {
+define internal x86_64_sysvcc void @sub_100(%RegState*) #1 {
 entry:
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !32
   %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !32
@@ -821,7 +821,7 @@ block_0x33:                                       ; preds = %block_0x27
   store volatile i8* %_new_gep_50, i8** %_RSP_ptr_
   store i64 %75, i64* %XSP, !mcsema_real_eip !85
   %_load_rbp_ptr_92 = load i8*, i8** %_RBP_ptr_
-  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_50, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_92)
+  call x86_64_sysvcc void @sub_90.1(%RegState* %0, i8* %_new_gep_50, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_92)
   %_rsp_fix_94 = load i8*, i8** %_RSP_ptr_
   %_gep_fix_95 = getelementptr i8, i8* %_rsp_fix_94, i64 8
   store i8* %_gep_fix_95, i8** %_RSP_ptr_
@@ -858,7 +858,7 @@ block_0x55:                                       ; preds = %block_0x33
   store volatile i8* %_new_gep_59, i8** %_RSP_ptr_
   store i64 %86, i64* %XSP, !mcsema_real_eip !90
   %_load_rbp_ptr_96 = load i8*, i8** %_RBP_ptr_
-  call x86_64_sysvcc void @doStuff.2(%RegState* %0, i8* %_new_gep_59, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_96)
+  call x86_64_sysvcc void @sub_100.2(%RegState* %0, i8* %_new_gep_59, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_96)
   %_rsp_fix_98 = load i8*, i8** %_RSP_ptr_
   %_gep_fix_99 = getelementptr i8, i8* %_rsp_fix_98, i64 8
   store i8* %_gep_fix_99, i8** %_RSP_ptr_
@@ -988,7 +988,7 @@ declare x86_64_sysvcc i64 @_malloc(i64) #2
 declare void @doWork() #2
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @checkFn.1(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
+define internal x86_64_sysvcc void @sub_90.1(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
 entry:
   %_RSP_ptr_ = alloca i8*
   %_RBP_ptr_ = alloca i8*
@@ -1528,7 +1528,7 @@ block_0xf3:                                       ; preds = %block_0xee, %27
 }
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @doStuff.2(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
+define internal x86_64_sysvcc void @sub_100.2(%RegState*, i8* %_parent_stack_start_ptr_, i8* %_parent_stack_end_ptr_, i8* %_parent_stack_rbp_ptr_) #1 {
 entry:
   %_RSP_ptr_ = alloca i8*
   %_RBP_ptr_ = alloca i8*
@@ -2367,7 +2367,7 @@ block_0x33:                                       ; preds = %53
   store volatile i8* %_new_gep_50, i8** %_RSP_ptr_
   store i64 %89, i64* %XSP, !mcsema_real_eip !85
   %_load_rbp_ptr_92 = load i8*, i8** %_RBP_ptr_
-  call x86_64_sysvcc void @checkFn.1(%RegState* %0, i8* %_new_gep_50, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_92)
+  call x86_64_sysvcc void @sub_90.1(%RegState* %0, i8* %_new_gep_50, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_92)
   %_rsp_fix_94 = load i8*, i8** %_RSP_ptr_
   %_gep_fix_95 = getelementptr i8, i8* %_rsp_fix_94, i64 8
   store i8* %_gep_fix_95, i8** %_RSP_ptr_
@@ -2430,7 +2430,7 @@ block_0x55:                                       ; preds = %87
   store volatile i8* %_new_gep_59, i8** %_RSP_ptr_
   store i64 %104, i64* %XSP, !mcsema_real_eip !90
   %_load_rbp_ptr_96 = load i8*, i8** %_RBP_ptr_
-  call x86_64_sysvcc void @doStuff.2(%RegState* %0, i8* %_new_gep_59, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_96)
+  call x86_64_sysvcc void @sub_100.2(%RegState* %0, i8* %_new_gep_59, i8* %_local_stack_end_ptr_, i8* %_load_rbp_ptr_96)
   %_rsp_fix_98 = load i8*, i8** %_RSP_ptr_
   %_gep_fix_99 = getelementptr i8, i8* %_rsp_fix_98, i64 8
   store i8* %_gep_fix_99, i8** %_RSP_ptr_
