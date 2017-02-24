@@ -1,7 +1,13 @@
 ### Feb 20
 #### Some thoughts on probable diection
-The decompiled binary is missing of various attributes like precise types, variables (stack , global, heap), control flow structures, exact fucntion arguments and return types. How the absense of these attributes affect compiler optimizations and analysis metrics (like pointer analysis and ??). 
+The decompiled binary is missing of various attributes like precise types, variables (stack , global, heap), control flow structures, exact function arguments and return types. How the absense of these attributes affect clients like compiler optimizations and analysis (like pointer analysis and ??) or symbolic execution. 
 
+The kind of questions that will be answered by this work are like 
+ - How the absence of an attribute affect a particualr client
+ - What set of attributes can facilitate a particular cleint.
+
+One approach of doing that could be to start with the McSema decompiled IR and add attributes (e.g. type information) to it using a particular attribute recovery method (e.g. type recovery). The issues with this approach are twofold
+ - 
 For that we need not to implemnent the analysis like type/variable recovery in the first place, but we can start with the source code and start omitting the attributes one at a time. We have the Mcsema output to guide us how the code will look like (not exactly because the mcsema code has all the attributes pruned away). 
 
 With the metrics identified we can think about implementing our own implementation of attribute generation and compare.
