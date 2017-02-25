@@ -16,8 +16,14 @@ using a particular attribute recovery method (e.g. type recovery). The issues wi
    in recovering that attribute. 
  
 Another approach is to start with the source code, lets call it version 1,  and strip off a particular attribute (like type 
-information) to get version 2. Now version 2 is very different from the decompiled binary  
- 
-For that we need not to implemnent the analysis like type/variable recovery in the first place, but we can start with the source code and start omitting the attributes one at a time. We have the Mcsema output to guide us how the code will look like (not exactly because the mcsema code has all the attributes pruned away). 
+information) to get version 2. Now version 2 is very different from the decompiled binary as the later has the runtime 
+process stack explicit, whereas the source code that is abstracted away.  
 
-With the metrics identified we can think about implementing our own implementation of attribute generation and compare.
+Other appraoch to start with the decompied IR (like the once McSema produces), let call it version 1, and use the debug info to add a particular attribute to get version 2. Now version 1 and 2 are a good candidate to check the affect of the attribute on a client. 
+
+
+#### Challenges
+- To propagate the debug info from the binary to the decompiled IR.
+ 
+
+
