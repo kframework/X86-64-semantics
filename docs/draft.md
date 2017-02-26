@@ -9,7 +9,7 @@ The kind of questions that will be answered by this work are like
 One approach of doing that could be to start with the McSema decompiled IR and add attributes (e.g. type information) to it 
 using a particular attribute recovery method (e.g. type recovery). The issues with this approach are the following.
 
- - Developing a attribute recovery is not the goal of this work. Exiting attribute recovery methods are either under progress or 
+ - Developing a attribute recovery is not the goal of this work. Exiting attribute recovery methods are either under progress or not open sourced or 
    they are not targetting LLVM IR.
  - Applying a existing attribute recovery transformation  may not yield the precide attribute information as it is present in the 
    source code because of the limittaions in the underlying attribute recovery implementation or because of practical challenges 
