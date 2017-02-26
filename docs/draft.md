@@ -11,19 +11,23 @@ using a particular attribute recovery method (e.g. type recovery). The issues wi
 
  - Developing a attribute recovery is not the goal of this work. Exiting attribute recovery methods are either under progress or 
    they are not targetting LLVM IR.
- - Applying a existing attribute recovery transformation  may not yeild the precide attribute information as it is present in the 
+ - Applying a existing attribute recovery transformation  may not yield the precide attribute information as it is present in the 
    source code because of the limittaions in the underlying attribute recovery implementation or because of practical challenges 
    in recovering that attribute. 
  
 Another approach is to start with the source code, lets call it version 1,  and strip off a particular attribute (like type 
-information) to get version 2. Now version 2 is very different from the decompiled binary as the later has the runtime 
-process stack explicit, whereas the source code that is abstracted away.  
+information) to get version 2. Now version 2 is very different from the decompiled binary as a number of lowlevel implementation details are introduced during compilation, such as stack frames, calling conventions, exception implementation, and data layout
+, whereas in the source code those are abstracted away.
 
-Other appraoch to start with the decompied IR (like the once McSema produces), let call it version 1, and use the debug info to add a particular attribute to get version 2. Now version 1 and 2 are a good candidate to check the affect of the attribute on a client. 
+Other appraoch to start with the decompied IR (like the once McSema produces), let call it version 1, and use the debug info to add a particular attribute to get version 2. Now version 1 and 2 are a good candidate to check the affect of the attribute on a particular client. 
 
 
 #### Challenges
 - To propagate the debug info from the binary to the decompiled IR.
+
+
+https://www.cs.colorado.edu/~bec/papers/sas06-decompilers.pdf
+https://pdfs.semanticscholar.org/177a/250daaeff8dd97e9612ac67073216de1ed42.pdf
  
 
 
