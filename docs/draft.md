@@ -26,6 +26,8 @@ Other appraoch to start with the decompied IR (like the once McSema produces), l
 - To propagate the debug info from the binary to the decompiled IR.
 
 
+While I searched  on how the source level clients are applied to the binaries; Or there exist special version of those clients that work better on binary code, the results that I got are like the decompiled binary is subjected to various analysis which can  decompiles decompiles various attributes which are lost during compilation to result in a code which is amenable to source level analysis. But there does not exist any specialized version of the client which can recover the attributes relevant for its application.
+
 https://www.cs.colorado.edu/~bec/papers/sas06-decompilers.pdf
 https://pdfs.semanticscholar.org/177a/250daaeff8dd97e9612ac67073216de1ed42.pdf
  
