@@ -13,7 +13,7 @@ On the following clients:
  - source level symbolic execution
  - Automatic Parallellization
 
-One approach of doing that could be to start with the McSema decompiled IR (which is CFG recovered binary and devoid of attributes mentioned above) 
+One approach of doing that could be to start with the McSema decompiled IR (which is CFG recovered binary in LLVM IR form and devoid of attributes mentioned above) 
 and add attributes (e.g. type information) to it using a particular attribute recovery method (e.g. type recovery). The issues with this approach are the following.
 
  - Developing a attribute recovery is not the goal of this work. Exiting attribute recovery methods are either under progress or not open sourced or 
