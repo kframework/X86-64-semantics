@@ -2,8 +2,18 @@ The binary is missing of various attributes like precise types, variables (stack
 flow structures, exact function arguments and return types. The goal to experimentally evaluate how the presence of these
 attributes in source code facilitate (or in other words, how the absence of these attributes in binary affect) clients like compiler optimizations and analysis (like pointer analysis and ??) or source level symbolic execution. This might also be  helpful in answering what is the minimal set of attributes which can facilitate a particular cleint.
 
+In this work we are planning to study the affects of the following attributes:
+ - Per procedure physical stack frames
+ - Variable and aggregate (structure/array) Information
+ - Type information
+ - function signature
 
-One approach of doing that could be to start with the McSema decompiled IR (which is devoid of attributes mentioned above) 
+On the following clients:
+ - Pointer analysis
+ - source level symbolic execution
+ - Automatic Parallellization
+
+One approach of doing that could be to start with the McSema decompiled IR (which is CFG recovered binary and devoid of attributes mentioned above) 
 and add attributes (e.g. type information) to it using a particular attribute recovery method (e.g. type recovery). The issues with this approach are the following.
 
  - Developing a attribute recovery is not the goal of this work. Exiting attribute recovery methods are either under progress or not open sourced or 
