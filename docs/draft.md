@@ -1,7 +1,7 @@
 The binary is missing of various attributes like precise types, variables (stack , global, heap), control 
 flow structures, exact function arguments and return types. The goal of this work  is to experimentally evaluate the increasing precision of a particular attribute recovered from binary code on clients like compiler optimizations and analysis (like pointer analysis and ??) or source level symbolic execution.  For the last 16 years a large amount of research has been carried on binary code type inferences and this work aims to evaluate how well a particular client can liverage that information. This might also be  helpful in answering what is the minimal set of attributes which can facilitate a particular client.  
 
-The plan here is to recover a particular attribute  from binary at various precision levels, starting with a binary with most imprecise attribute information, then to add attribute inforamtion to mimic different exiting implementation (for example, adding type information so as to mimic TIE) and going up to a binary representation with most precise attribute information. Once recovered, those attributes (at a particualr precision level) need to be applied to the binary code in a way that the cleint can liverage that information. Next, the different precios levels of recovered attributes will be evaluated based on a particular client.         
+The plan here is to recover a particular attribute  from binary at various precision levels, starting with a binary with most imprecise attribute information, then to add attribute inforamtion to mimic different exiting implementation (for example, adding type information so as to mimic TIE) and going up to a binary representation with most precise attribute information. Once recovered, those attributes (at a particualr precision level) need to be applied to the binary code in a way that the cleint can liverage that information. Next, the different precision levels of recovered attributes will be evaluated based on a particular client.         
 
 In this work we are planning to study the affects of the following attributes:
  - Per procedure physical stack frames
@@ -25,6 +25,10 @@ information) to get version 2. Now version 2 is very different from the binary a
 , whereas in the source code those are abstracted away.
 
 Other appraoch to start with the binary (or slightly higher level representation as in McSema's IR ), let call it version 1, and use the debug info from source code to add a particular attribute to get version 2. Now version 1 and 2 are a good candidate to check the affect of the attribute on a particular client. 
+
+### Meta Comments
+May be we can focus on type and try to evaluate the different precision of type informations.The [paper](http://dl.acm.org/citation.cfm?id=2896499), 2016, CSUR,  is a survey on work of type inferencing binary code and gives an idea of different levels of precision that we can achieve. 
+
 
 ### Immediate Challenges
 - To propagate the debug info from the binary to the decompiled IR. The issue here is how to propagtate the debug info in 
