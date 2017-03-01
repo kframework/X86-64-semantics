@@ -27,7 +27,7 @@ information) to get version 2. Now version 2 is very different from the binary a
 Other appraoch to start with the binary (or slightly higher level representation as in McSema's IR ), let call it version 1, and use the debug info from source code to add a particular attribute to get version 2. Now version 1 and 2 are a good candidate to check the affect of the attribute on a particular client. 
 
 ### Meta Comments
-May be we can focus on type and try to evaluate the different precision of type informations.The [paper](http://dl.acm.org/citation.cfm?id=2896499), 2016, CSUR,  is a survey on work of type inferencing binary code and gives an idea of different levels of precision that we can achieve. 
+May be we can focus on a single attribute type and try to evaluate the different precision of type informations.The [paper](http://dl.acm.org/citation.cfm?id=2896499), 2016, CSUR,  is a survey on work of type inferencing binary code and gives an idea of different levels of precision that we can achieve. 
 
 
 ### Immediate Challenges
