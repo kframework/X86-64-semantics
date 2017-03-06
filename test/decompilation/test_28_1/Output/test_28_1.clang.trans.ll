@@ -155,56 +155,68 @@ block_0x0:                                        ; preds = %entry
   %37 = add i64 %34, 8, !mcsema_real_eip !9
   %38 = inttoptr i64 %37 to i64*, !mcsema_real_eip !9
   %39 = load i64, i64* %38, !mcsema_real_eip !9
-  %40 = sub i64 %RSP_val.15, 8, !mcsema_real_eip !9
+  %40 = add i64 %37, 8, !mcsema_real_eip !9
   %41 = inttoptr i64 %40 to i64*, !mcsema_real_eip !9
-  store i64 -2415393069852865332, i64* %41, !mcsema_real_eip !9
-  store i64 %40, i64* %XSP, !mcsema_real_eip !9
-  %42 = call x86_64_sysvcc i64 @_printf(i64 %RAX_val.7, i64 %RSI_val.10, i64 %RDX_val.11, i64 %RCX_val.12, i64 %R8_val.13, i64 %R9_val.14, i64 %24, i64 %27, i64 %30, i64 %33, i64 %36, i64 %39), !mcsema_real_eip !9
-  store i64 %42, i64* %XAX, !mcsema_real_eip !9
+  %42 = load i64, i64* %41, !mcsema_real_eip !9
+  %43 = add i64 %40, 8, !mcsema_real_eip !9
+  %44 = inttoptr i64 %43 to i64*, !mcsema_real_eip !9
+  %45 = load i64, i64* %44, !mcsema_real_eip !9
+  %46 = add i64 %43, 8, !mcsema_real_eip !9
+  %47 = inttoptr i64 %46 to i64*, !mcsema_real_eip !9
+  %48 = load i64, i64* %47, !mcsema_real_eip !9
+  %49 = add i64 %46, 8, !mcsema_real_eip !9
+  %50 = inttoptr i64 %49 to i64*, !mcsema_real_eip !9
+  %51 = load i64, i64* %50, !mcsema_real_eip !9
+  %52 = sub i64 %RSP_val.15, 8, !mcsema_real_eip !9
+  %53 = inttoptr i64 %52 to i64*, !mcsema_real_eip !9
+  store i64 -2415393069852865332, i64* %53, !mcsema_real_eip !9
+  store i64 %52, i64* %XSP, !mcsema_real_eip !9
+  %54 = call x86_64_sysvcc i64 @_printf(i64 %RAX_val.7, i64 %RSI_val.10, i64 %RDX_val.11, i64 %RCX_val.12, i64 %R8_val.13, i64 %R9_val.14, i64 %24, i64 %27, i64 %30, i64 %33, i64 %36, i64 %39, i64 %42, i64 %45, i64 %48, i64 %51), !mcsema_real_eip !9
+  store i64 %54, i64* %XAX, !mcsema_real_eip !9
   %RBP_val.17 = load i64, i64* %XBP, !mcsema_real_eip !10
-  %43 = add i64 %RBP_val.17, -8, !mcsema_real_eip !10
-  %44 = inttoptr i64 %43 to i64*, !mcsema_real_eip !10
+  %55 = add i64 %RBP_val.17, -8, !mcsema_real_eip !10
+  %56 = inttoptr i64 %55 to i64*, !mcsema_real_eip !10
   %EAX.18 = bitcast i64* %XAX to i32*, !mcsema_real_eip !10
   %EAX_val.19 = load i32, i32* %EAX.18, !mcsema_real_eip !10
-  %45 = inttoptr i64 %43 to i32*, !mcsema_real_eip !10
-  store i32 %EAX_val.19, i32* %45, !mcsema_real_eip !10
+  %57 = inttoptr i64 %55 to i32*, !mcsema_real_eip !10
+  store i32 %EAX_val.19, i32* %57, !mcsema_real_eip !10
   %RSP_val.20 = load i64, i64* %XSP, !mcsema_real_eip !11
-  %46 = add i64 16, %RSP_val.20, !mcsema_real_eip !11
-  %47 = xor i64 %46, %RSP_val.20, !mcsema_real_eip !11
-  %48 = xor i64 %47, 16, !mcsema_real_eip !11
-  %49 = and i64 %48, 16, !mcsema_real_eip !11
-  %50 = icmp ne i64 %49, 0, !mcsema_real_eip !11
-  store i1 %50, i1* %AF, !mcsema_real_eip !11
-  %51 = lshr i64 %46, 63, !mcsema_real_eip !11
-  %52 = trunc i64 %51 to i1, !mcsema_real_eip !11
-  store i1 %52, i1* %SF, !mcsema_real_eip !11
-  %53 = icmp eq i64 %46, 0, !mcsema_real_eip !11
-  store i1 %53, i1* %ZF, !mcsema_real_eip !11
-  %54 = xor i64 %RSP_val.20, 16, !mcsema_real_eip !11
-  %55 = xor i64 %54, -1, !mcsema_real_eip !11
-  %56 = and i64 %55, %47, !mcsema_real_eip !11
-  %57 = lshr i64 %56, 63, !mcsema_real_eip !11
-  %58 = and i64 %57, 1, !mcsema_real_eip !11
-  %59 = trunc i64 %58 to i1, !mcsema_real_eip !11
-  store i1 %59, i1* %OF, !mcsema_real_eip !11
-  %60 = trunc i64 %46 to i8, !mcsema_real_eip !11
-  %61 = call i8 @llvm.ctpop.i8(i8 %60), !mcsema_real_eip !11
-  %62 = trunc i8 %61 to i1, !mcsema_real_eip !11
-  %63 = xor i1 %62, true, !mcsema_real_eip !11
-  store i1 %63, i1* %PF, !mcsema_real_eip !11
-  %64 = icmp ult i64 %46, %RSP_val.20, !mcsema_real_eip !11
-  store i1 %64, i1* %CF, !mcsema_real_eip !11
-  store i64 %46, i64* %XSP, !mcsema_real_eip !11
-  %65 = inttoptr i64 %46 to i64*, !mcsema_real_eip !12
-  %66 = load i64, i64* %65, !mcsema_real_eip !12
-  store i64 %66, i64* %XBP, !mcsema_real_eip !12
-  %67 = add i64 %46, 8, !mcsema_real_eip !12
-  store i64 %67, i64* %XSP, !mcsema_real_eip !12
-  %68 = add i64 %67, 8, !mcsema_real_eip !13
-  %69 = inttoptr i64 %67 to i64*, !mcsema_real_eip !13
-  %70 = load i64, i64* %69, !mcsema_real_eip !13
-  store i64 %70, i64* %XIP, !mcsema_real_eip !13
-  store i64 %68, i64* %XSP, !mcsema_real_eip !13
+  %58 = add i64 16, %RSP_val.20, !mcsema_real_eip !11
+  %59 = xor i64 %58, %RSP_val.20, !mcsema_real_eip !11
+  %60 = xor i64 %59, 16, !mcsema_real_eip !11
+  %61 = and i64 %60, 16, !mcsema_real_eip !11
+  %62 = icmp ne i64 %61, 0, !mcsema_real_eip !11
+  store i1 %62, i1* %AF, !mcsema_real_eip !11
+  %63 = lshr i64 %58, 63, !mcsema_real_eip !11
+  %64 = trunc i64 %63 to i1, !mcsema_real_eip !11
+  store i1 %64, i1* %SF, !mcsema_real_eip !11
+  %65 = icmp eq i64 %58, 0, !mcsema_real_eip !11
+  store i1 %65, i1* %ZF, !mcsema_real_eip !11
+  %66 = xor i64 %RSP_val.20, 16, !mcsema_real_eip !11
+  %67 = xor i64 %66, -1, !mcsema_real_eip !11
+  %68 = and i64 %67, %59, !mcsema_real_eip !11
+  %69 = lshr i64 %68, 63, !mcsema_real_eip !11
+  %70 = and i64 %69, 1, !mcsema_real_eip !11
+  %71 = trunc i64 %70 to i1, !mcsema_real_eip !11
+  store i1 %71, i1* %OF, !mcsema_real_eip !11
+  %72 = trunc i64 %58 to i8, !mcsema_real_eip !11
+  %73 = call i8 @llvm.ctpop.i8(i8 %72), !mcsema_real_eip !11
+  %74 = trunc i8 %73 to i1, !mcsema_real_eip !11
+  %75 = xor i1 %74, true, !mcsema_real_eip !11
+  store i1 %75, i1* %PF, !mcsema_real_eip !11
+  %76 = icmp ult i64 %58, %RSP_val.20, !mcsema_real_eip !11
+  store i1 %76, i1* %CF, !mcsema_real_eip !11
+  store i64 %58, i64* %XSP, !mcsema_real_eip !11
+  %77 = inttoptr i64 %58 to i64*, !mcsema_real_eip !12
+  %78 = load i64, i64* %77, !mcsema_real_eip !12
+  store i64 %78, i64* %XBP, !mcsema_real_eip !12
+  %79 = add i64 %58, 8, !mcsema_real_eip !12
+  store i64 %79, i64* %XSP, !mcsema_real_eip !12
+  %80 = add i64 %79, 8, !mcsema_real_eip !13
+  %81 = inttoptr i64 %79 to i64*, !mcsema_real_eip !13
+  %82 = load i64, i64* %81, !mcsema_real_eip !13
+  store i64 %82, i64* %XIP, !mcsema_real_eip !13
+  store i64 %80, i64* %XSP, !mcsema_real_eip !13
   ret void, !mcsema_real_eip !13
 }
 
@@ -356,7 +368,7 @@ block_0x30:                                       ; preds = %entry
   ret void, !mcsema_real_eip !23
 }
 
-declare x86_64_sysvcc i64 @printf(i64 inreg, i64 inreg, i64 inreg, i64 inreg, i64 inreg, i64 inreg, i64, i64, i64, i64, i64, i64)
+declare x86_64_sysvcc i64 @printf(i64 inreg, i64 inreg, i64 inreg, i64 inreg, i64 inreg, i64 inreg, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)
 
 ; Function Attrs: naked noinline
 declare void @callback_sub_0() #2
@@ -365,7 +377,7 @@ declare void @callback_sub_0() #2
 declare i8 @llvm.ctpop.i8(i8) #3
 
 ; Function Attrs: naked noinline
-declare x86_64_sysvcc i64 @_printf(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64) #2
+declare x86_64_sysvcc i64 @_printf(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64) #2
 
 ; Function Attrs: naked noinline
 declare void @main() #2
@@ -486,213 +498,297 @@ block_0x0:                                        ; preds = %entry
   %_new_load_ = load i64, i64* %18
   %_new_gep_18 = getelementptr i8, i8* %_load_rsp_ptr_16, i64 8
   %_allin_new_bt_19 = bitcast i8* %_new_gep_18 to i64*
-  %_ptr_to_int_56 = ptrtoint i64* %_allin_new_bt_19 to i64
-  %_offset_above_rbp_59 = sub i64 %_ptr_to_int_56, %_local_end_to_int_
-  %_pot_address_in_parent_stack_60 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_59
-  %_cond1_61 = icmp ugt i8* %_new_gep_18, %_local_stack_end_ptr_
-  %_cond2_1_62 = icmp ugt i8* %_new_gep_18, %_parent_stack_end_ptr_
-  %_cond2_2_63 = icmp ult i8* %_new_gep_18, %_parent_stack_start_ptr_
-  %_cond2_64 = or i1 %_cond2_1_62, %_cond2_2_63
-  %_cond4_65 = icmp ule i8* %_pot_address_in_parent_stack_60, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_66 = and i1 %_cond1_61, %_cond2_64
-  %_cond1_n_cond2_cond3_67 = and i1 %_cond1_n_cond2_66, %_cond4_65
-  br i1 %_cond1_n_cond2_cond3_67, label %19, label %20
+  %_ptr_to_int_64 = ptrtoint i64* %_allin_new_bt_19 to i64
+  %_offset_above_rbp_67 = sub i64 %_ptr_to_int_64, %_local_end_to_int_
+  %_pot_address_in_parent_stack_68 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_67
+  %_cond1_69 = icmp ugt i8* %_new_gep_18, %_local_stack_end_ptr_
+  %_cond2_1_70 = icmp ugt i8* %_new_gep_18, %_parent_stack_end_ptr_
+  %_cond2_2_71 = icmp ult i8* %_new_gep_18, %_parent_stack_start_ptr_
+  %_cond2_72 = or i1 %_cond2_1_70, %_cond2_2_71
+  %_cond4_73 = icmp ule i8* %_pot_address_in_parent_stack_68, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_74 = and i1 %_cond1_69, %_cond2_72
+  %_cond1_n_cond2_cond3_75 = and i1 %_cond1_n_cond2_74, %_cond4_73
+  br i1 %_cond1_n_cond2_cond3_75, label %19, label %20
 
 ; <label>:19:                                     ; preds = %17
-  %_address_in_parent_stack_bt_69 = bitcast i8* %_pot_address_in_parent_stack_60 to i64*
+  %_address_in_parent_stack_bt_77 = bitcast i8* %_pot_address_in_parent_stack_68 to i64*
   br label %20
 
 ; <label>:20:                                     ; preds = %17, %19
-  %21 = phi i64* [ %_allin_new_bt_19, %17 ], [ %_address_in_parent_stack_bt_69, %19 ]
-  %_new_load_70 = load i64, i64* %21
+  %21 = phi i64* [ %_allin_new_bt_19, %17 ], [ %_address_in_parent_stack_bt_77, %19 ]
+  %_new_load_78 = load i64, i64* %21
   %_new_gep_20 = getelementptr i8, i8* %_new_gep_18, i64 8
   %_allin_new_bt_21 = bitcast i8* %_new_gep_20 to i64*
-  %_ptr_to_int_71 = ptrtoint i64* %_allin_new_bt_21 to i64
-  %_offset_above_rbp_74 = sub i64 %_ptr_to_int_71, %_local_end_to_int_
-  %_pot_address_in_parent_stack_75 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_74
-  %_cond1_76 = icmp ugt i8* %_new_gep_20, %_local_stack_end_ptr_
-  %_cond2_1_77 = icmp ugt i8* %_new_gep_20, %_parent_stack_end_ptr_
-  %_cond2_2_78 = icmp ult i8* %_new_gep_20, %_parent_stack_start_ptr_
-  %_cond2_79 = or i1 %_cond2_1_77, %_cond2_2_78
-  %_cond4_80 = icmp ule i8* %_pot_address_in_parent_stack_75, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_81 = and i1 %_cond1_76, %_cond2_79
-  %_cond1_n_cond2_cond3_82 = and i1 %_cond1_n_cond2_81, %_cond4_80
-  br i1 %_cond1_n_cond2_cond3_82, label %22, label %23
+  %_ptr_to_int_79 = ptrtoint i64* %_allin_new_bt_21 to i64
+  %_offset_above_rbp_82 = sub i64 %_ptr_to_int_79, %_local_end_to_int_
+  %_pot_address_in_parent_stack_83 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_82
+  %_cond1_84 = icmp ugt i8* %_new_gep_20, %_local_stack_end_ptr_
+  %_cond2_1_85 = icmp ugt i8* %_new_gep_20, %_parent_stack_end_ptr_
+  %_cond2_2_86 = icmp ult i8* %_new_gep_20, %_parent_stack_start_ptr_
+  %_cond2_87 = or i1 %_cond2_1_85, %_cond2_2_86
+  %_cond4_88 = icmp ule i8* %_pot_address_in_parent_stack_83, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_89 = and i1 %_cond1_84, %_cond2_87
+  %_cond1_n_cond2_cond3_90 = and i1 %_cond1_n_cond2_89, %_cond4_88
+  br i1 %_cond1_n_cond2_cond3_90, label %22, label %23
 
 ; <label>:22:                                     ; preds = %20
-  %_address_in_parent_stack_bt_84 = bitcast i8* %_pot_address_in_parent_stack_75 to i64*
+  %_address_in_parent_stack_bt_92 = bitcast i8* %_pot_address_in_parent_stack_83 to i64*
   br label %23
 
 ; <label>:23:                                     ; preds = %20, %22
-  %24 = phi i64* [ %_allin_new_bt_21, %20 ], [ %_address_in_parent_stack_bt_84, %22 ]
-  %_new_load_85 = load i64, i64* %24
+  %24 = phi i64* [ %_allin_new_bt_21, %20 ], [ %_address_in_parent_stack_bt_92, %22 ]
+  %_new_load_93 = load i64, i64* %24
   %_new_gep_22 = getelementptr i8, i8* %_new_gep_20, i64 8
   %_allin_new_bt_23 = bitcast i8* %_new_gep_22 to i64*
-  %_ptr_to_int_86 = ptrtoint i64* %_allin_new_bt_23 to i64
-  %_offset_above_rbp_89 = sub i64 %_ptr_to_int_86, %_local_end_to_int_
-  %_pot_address_in_parent_stack_90 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_89
-  %_cond1_91 = icmp ugt i8* %_new_gep_22, %_local_stack_end_ptr_
-  %_cond2_1_92 = icmp ugt i8* %_new_gep_22, %_parent_stack_end_ptr_
-  %_cond2_2_93 = icmp ult i8* %_new_gep_22, %_parent_stack_start_ptr_
-  %_cond2_94 = or i1 %_cond2_1_92, %_cond2_2_93
-  %_cond4_95 = icmp ule i8* %_pot_address_in_parent_stack_90, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_96 = and i1 %_cond1_91, %_cond2_94
-  %_cond1_n_cond2_cond3_97 = and i1 %_cond1_n_cond2_96, %_cond4_95
-  br i1 %_cond1_n_cond2_cond3_97, label %25, label %26
+  %_ptr_to_int_94 = ptrtoint i64* %_allin_new_bt_23 to i64
+  %_offset_above_rbp_97 = sub i64 %_ptr_to_int_94, %_local_end_to_int_
+  %_pot_address_in_parent_stack_98 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_97
+  %_cond1_99 = icmp ugt i8* %_new_gep_22, %_local_stack_end_ptr_
+  %_cond2_1_100 = icmp ugt i8* %_new_gep_22, %_parent_stack_end_ptr_
+  %_cond2_2_101 = icmp ult i8* %_new_gep_22, %_parent_stack_start_ptr_
+  %_cond2_102 = or i1 %_cond2_1_100, %_cond2_2_101
+  %_cond4_103 = icmp ule i8* %_pot_address_in_parent_stack_98, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_104 = and i1 %_cond1_99, %_cond2_102
+  %_cond1_n_cond2_cond3_105 = and i1 %_cond1_n_cond2_104, %_cond4_103
+  br i1 %_cond1_n_cond2_cond3_105, label %25, label %26
 
 ; <label>:25:                                     ; preds = %23
-  %_address_in_parent_stack_bt_99 = bitcast i8* %_pot_address_in_parent_stack_90 to i64*
+  %_address_in_parent_stack_bt_107 = bitcast i8* %_pot_address_in_parent_stack_98 to i64*
   br label %26
 
 ; <label>:26:                                     ; preds = %23, %25
-  %27 = phi i64* [ %_allin_new_bt_23, %23 ], [ %_address_in_parent_stack_bt_99, %25 ]
-  %_new_load_100 = load i64, i64* %27
+  %27 = phi i64* [ %_allin_new_bt_23, %23 ], [ %_address_in_parent_stack_bt_107, %25 ]
+  %_new_load_108 = load i64, i64* %27
   %_new_gep_24 = getelementptr i8, i8* %_new_gep_22, i64 8
   %_allin_new_bt_25 = bitcast i8* %_new_gep_24 to i64*
-  %_ptr_to_int_101 = ptrtoint i64* %_allin_new_bt_25 to i64
-  %_offset_above_rbp_104 = sub i64 %_ptr_to_int_101, %_local_end_to_int_
-  %_pot_address_in_parent_stack_105 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_104
-  %_cond1_106 = icmp ugt i8* %_new_gep_24, %_local_stack_end_ptr_
-  %_cond2_1_107 = icmp ugt i8* %_new_gep_24, %_parent_stack_end_ptr_
-  %_cond2_2_108 = icmp ult i8* %_new_gep_24, %_parent_stack_start_ptr_
-  %_cond2_109 = or i1 %_cond2_1_107, %_cond2_2_108
-  %_cond4_110 = icmp ule i8* %_pot_address_in_parent_stack_105, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_111 = and i1 %_cond1_106, %_cond2_109
-  %_cond1_n_cond2_cond3_112 = and i1 %_cond1_n_cond2_111, %_cond4_110
-  br i1 %_cond1_n_cond2_cond3_112, label %28, label %29
+  %_ptr_to_int_109 = ptrtoint i64* %_allin_new_bt_25 to i64
+  %_offset_above_rbp_112 = sub i64 %_ptr_to_int_109, %_local_end_to_int_
+  %_pot_address_in_parent_stack_113 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_112
+  %_cond1_114 = icmp ugt i8* %_new_gep_24, %_local_stack_end_ptr_
+  %_cond2_1_115 = icmp ugt i8* %_new_gep_24, %_parent_stack_end_ptr_
+  %_cond2_2_116 = icmp ult i8* %_new_gep_24, %_parent_stack_start_ptr_
+  %_cond2_117 = or i1 %_cond2_1_115, %_cond2_2_116
+  %_cond4_118 = icmp ule i8* %_pot_address_in_parent_stack_113, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_119 = and i1 %_cond1_114, %_cond2_117
+  %_cond1_n_cond2_cond3_120 = and i1 %_cond1_n_cond2_119, %_cond4_118
+  br i1 %_cond1_n_cond2_cond3_120, label %28, label %29
 
 ; <label>:28:                                     ; preds = %26
-  %_address_in_parent_stack_bt_114 = bitcast i8* %_pot_address_in_parent_stack_105 to i64*
+  %_address_in_parent_stack_bt_122 = bitcast i8* %_pot_address_in_parent_stack_113 to i64*
   br label %29
 
 ; <label>:29:                                     ; preds = %26, %28
-  %30 = phi i64* [ %_allin_new_bt_25, %26 ], [ %_address_in_parent_stack_bt_114, %28 ]
-  %_new_load_115 = load i64, i64* %30
+  %30 = phi i64* [ %_allin_new_bt_25, %26 ], [ %_address_in_parent_stack_bt_122, %28 ]
+  %_new_load_123 = load i64, i64* %30
   %_new_gep_26 = getelementptr i8, i8* %_new_gep_24, i64 8
   %_allin_new_bt_27 = bitcast i8* %_new_gep_26 to i64*
-  %_ptr_to_int_116 = ptrtoint i64* %_allin_new_bt_27 to i64
-  %_offset_above_rbp_119 = sub i64 %_ptr_to_int_116, %_local_end_to_int_
-  %_pot_address_in_parent_stack_120 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_119
-  %_cond1_121 = icmp ugt i8* %_new_gep_26, %_local_stack_end_ptr_
-  %_cond2_1_122 = icmp ugt i8* %_new_gep_26, %_parent_stack_end_ptr_
-  %_cond2_2_123 = icmp ult i8* %_new_gep_26, %_parent_stack_start_ptr_
-  %_cond2_124 = or i1 %_cond2_1_122, %_cond2_2_123
-  %_cond4_125 = icmp ule i8* %_pot_address_in_parent_stack_120, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_126 = and i1 %_cond1_121, %_cond2_124
-  %_cond1_n_cond2_cond3_127 = and i1 %_cond1_n_cond2_126, %_cond4_125
-  br i1 %_cond1_n_cond2_cond3_127, label %31, label %32
+  %_ptr_to_int_124 = ptrtoint i64* %_allin_new_bt_27 to i64
+  %_offset_above_rbp_127 = sub i64 %_ptr_to_int_124, %_local_end_to_int_
+  %_pot_address_in_parent_stack_128 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_127
+  %_cond1_129 = icmp ugt i8* %_new_gep_26, %_local_stack_end_ptr_
+  %_cond2_1_130 = icmp ugt i8* %_new_gep_26, %_parent_stack_end_ptr_
+  %_cond2_2_131 = icmp ult i8* %_new_gep_26, %_parent_stack_start_ptr_
+  %_cond2_132 = or i1 %_cond2_1_130, %_cond2_2_131
+  %_cond4_133 = icmp ule i8* %_pot_address_in_parent_stack_128, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_134 = and i1 %_cond1_129, %_cond2_132
+  %_cond1_n_cond2_cond3_135 = and i1 %_cond1_n_cond2_134, %_cond4_133
+  br i1 %_cond1_n_cond2_cond3_135, label %31, label %32
 
 ; <label>:31:                                     ; preds = %29
-  %_address_in_parent_stack_bt_129 = bitcast i8* %_pot_address_in_parent_stack_120 to i64*
+  %_address_in_parent_stack_bt_137 = bitcast i8* %_pot_address_in_parent_stack_128 to i64*
   br label %32
 
 ; <label>:32:                                     ; preds = %29, %31
-  %33 = phi i64* [ %_allin_new_bt_27, %29 ], [ %_address_in_parent_stack_bt_129, %31 ]
-  %_new_load_130 = load i64, i64* %33
+  %33 = phi i64* [ %_allin_new_bt_27, %29 ], [ %_address_in_parent_stack_bt_137, %31 ]
+  %_new_load_138 = load i64, i64* %33
+  %_new_gep_28 = getelementptr i8, i8* %_new_gep_26, i64 8
+  %_allin_new_bt_29 = bitcast i8* %_new_gep_28 to i64*
+  %_ptr_to_int_139 = ptrtoint i64* %_allin_new_bt_29 to i64
+  %_offset_above_rbp_142 = sub i64 %_ptr_to_int_139, %_local_end_to_int_
+  %_pot_address_in_parent_stack_143 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_142
+  %_cond1_144 = icmp ugt i8* %_new_gep_28, %_local_stack_end_ptr_
+  %_cond2_1_145 = icmp ugt i8* %_new_gep_28, %_parent_stack_end_ptr_
+  %_cond2_2_146 = icmp ult i8* %_new_gep_28, %_parent_stack_start_ptr_
+  %_cond2_147 = or i1 %_cond2_1_145, %_cond2_2_146
+  %_cond4_148 = icmp ule i8* %_pot_address_in_parent_stack_143, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_149 = and i1 %_cond1_144, %_cond2_147
+  %_cond1_n_cond2_cond3_150 = and i1 %_cond1_n_cond2_149, %_cond4_148
+  br i1 %_cond1_n_cond2_cond3_150, label %34, label %35
+
+; <label>:34:                                     ; preds = %32
+  %_address_in_parent_stack_bt_152 = bitcast i8* %_pot_address_in_parent_stack_143 to i64*
+  br label %35
+
+; <label>:35:                                     ; preds = %32, %34
+  %36 = phi i64* [ %_allin_new_bt_29, %32 ], [ %_address_in_parent_stack_bt_152, %34 ]
+  %_new_load_153 = load i64, i64* %36
+  %_new_gep_30 = getelementptr i8, i8* %_new_gep_28, i64 8
+  %_allin_new_bt_31 = bitcast i8* %_new_gep_30 to i64*
+  %_ptr_to_int_154 = ptrtoint i64* %_allin_new_bt_31 to i64
+  %_offset_above_rbp_157 = sub i64 %_ptr_to_int_154, %_local_end_to_int_
+  %_pot_address_in_parent_stack_158 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_157
+  %_cond1_159 = icmp ugt i8* %_new_gep_30, %_local_stack_end_ptr_
+  %_cond2_1_160 = icmp ugt i8* %_new_gep_30, %_parent_stack_end_ptr_
+  %_cond2_2_161 = icmp ult i8* %_new_gep_30, %_parent_stack_start_ptr_
+  %_cond2_162 = or i1 %_cond2_1_160, %_cond2_2_161
+  %_cond4_163 = icmp ule i8* %_pot_address_in_parent_stack_158, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_164 = and i1 %_cond1_159, %_cond2_162
+  %_cond1_n_cond2_cond3_165 = and i1 %_cond1_n_cond2_164, %_cond4_163
+  br i1 %_cond1_n_cond2_cond3_165, label %37, label %38
+
+; <label>:37:                                     ; preds = %35
+  %_address_in_parent_stack_bt_167 = bitcast i8* %_pot_address_in_parent_stack_158 to i64*
+  br label %38
+
+; <label>:38:                                     ; preds = %35, %37
+  %39 = phi i64* [ %_allin_new_bt_31, %35 ], [ %_address_in_parent_stack_bt_167, %37 ]
+  %_new_load_168 = load i64, i64* %39
+  %_new_gep_32 = getelementptr i8, i8* %_new_gep_30, i64 8
+  %_allin_new_bt_33 = bitcast i8* %_new_gep_32 to i64*
+  %_ptr_to_int_169 = ptrtoint i64* %_allin_new_bt_33 to i64
+  %_offset_above_rbp_172 = sub i64 %_ptr_to_int_169, %_local_end_to_int_
+  %_pot_address_in_parent_stack_173 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_172
+  %_cond1_174 = icmp ugt i8* %_new_gep_32, %_local_stack_end_ptr_
+  %_cond2_1_175 = icmp ugt i8* %_new_gep_32, %_parent_stack_end_ptr_
+  %_cond2_2_176 = icmp ult i8* %_new_gep_32, %_parent_stack_start_ptr_
+  %_cond2_177 = or i1 %_cond2_1_175, %_cond2_2_176
+  %_cond4_178 = icmp ule i8* %_pot_address_in_parent_stack_173, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_179 = and i1 %_cond1_174, %_cond2_177
+  %_cond1_n_cond2_cond3_180 = and i1 %_cond1_n_cond2_179, %_cond4_178
+  br i1 %_cond1_n_cond2_cond3_180, label %40, label %41
+
+; <label>:40:                                     ; preds = %38
+  %_address_in_parent_stack_bt_182 = bitcast i8* %_pot_address_in_parent_stack_173 to i64*
+  br label %41
+
+; <label>:41:                                     ; preds = %38, %40
+  %42 = phi i64* [ %_allin_new_bt_33, %38 ], [ %_address_in_parent_stack_bt_182, %40 ]
+  %_new_load_183 = load i64, i64* %42
+  %_new_gep_34 = getelementptr i8, i8* %_new_gep_32, i64 8
+  %_allin_new_bt_35 = bitcast i8* %_new_gep_34 to i64*
+  %_ptr_to_int_184 = ptrtoint i64* %_allin_new_bt_35 to i64
+  %_offset_above_rbp_187 = sub i64 %_ptr_to_int_184, %_local_end_to_int_
+  %_pot_address_in_parent_stack_188 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_187
+  %_cond1_189 = icmp ugt i8* %_new_gep_34, %_local_stack_end_ptr_
+  %_cond2_1_190 = icmp ugt i8* %_new_gep_34, %_parent_stack_end_ptr_
+  %_cond2_2_191 = icmp ult i8* %_new_gep_34, %_parent_stack_start_ptr_
+  %_cond2_192 = or i1 %_cond2_1_190, %_cond2_2_191
+  %_cond4_193 = icmp ule i8* %_pot_address_in_parent_stack_188, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_194 = and i1 %_cond1_189, %_cond2_192
+  %_cond1_n_cond2_cond3_195 = and i1 %_cond1_n_cond2_194, %_cond4_193
+  br i1 %_cond1_n_cond2_cond3_195, label %43, label %44
+
+; <label>:43:                                     ; preds = %41
+  %_address_in_parent_stack_bt_197 = bitcast i8* %_pot_address_in_parent_stack_188 to i64*
+  br label %44
+
+; <label>:44:                                     ; preds = %41, %43
+  %45 = phi i64* [ %_allin_new_bt_35, %41 ], [ %_address_in_parent_stack_bt_197, %43 ]
+  %_new_load_198 = load i64, i64* %45
   %RSP_val.16 = load i64, i64* %XSP, !mcsema_real_eip !9
-  %_new_gep_29 = getelementptr i8, i8* %_load_rsp_ptr_16, i64 -8
-  %34 = sub i64 %RSP_val.16, 8, !mcsema_real_eip !9
-  %_allin_new_bt_30 = bitcast i8* %_new_gep_29 to i64*
-  store i64 -2415393069852865332, i64* %_allin_new_bt_30, !mcsema_real_eip !9
-  store volatile i8* %_new_gep_29, i8** %_RSP_ptr_
-  store i64 %34, i64* %XSP, !mcsema_real_eip !9
-  %35 = call x86_64_sysvcc i64 @_printf(i64 %RAX_val.7, i64 %RSI_val.10, i64 %RDX_val.11, i64 %RCX_val.12, i64 %R8_val.13, i64 %R9_val.14, i64 %_new_load_, i64 %_new_load_70, i64 %_new_load_85, i64 %_new_load_100, i64 %_new_load_115, i64 %_new_load_130)
+  %_new_gep_37 = getelementptr i8, i8* %_load_rsp_ptr_16, i64 -8
+  %46 = sub i64 %RSP_val.16, 8, !mcsema_real_eip !9
+  %_allin_new_bt_38 = bitcast i8* %_new_gep_37 to i64*
+  store i64 -2415393069852865332, i64* %_allin_new_bt_38, !mcsema_real_eip !9
+  store volatile i8* %_new_gep_37, i8** %_RSP_ptr_
+  store i64 %46, i64* %XSP, !mcsema_real_eip !9
+  %47 = call x86_64_sysvcc i64 @_printf(i64 %RAX_val.7, i64 %RSI_val.10, i64 %RDX_val.11, i64 %RCX_val.12, i64 %R8_val.13, i64 %R9_val.14, i64 %_new_load_, i64 %_new_load_78, i64 %_new_load_93, i64 %_new_load_108, i64 %_new_load_123, i64 %_new_load_138, i64 %_new_load_153, i64 %_new_load_168, i64 %_new_load_183, i64 %_new_load_198)
   %_rsp_fix_ = load i8*, i8** %_RSP_ptr_
   %_gep_fix_ = getelementptr i8, i8* %_rsp_fix_, i64 8
   store i8* %_gep_fix_, i8** %_RSP_ptr_
-  store i64 %35, i64* %XAX, !mcsema_real_eip !9
-  %_load_rbp_ptr_31 = load i8*, i8** %_RBP_ptr_
-  %_new_gep_32 = getelementptr i8, i8* %_load_rbp_ptr_31, i64 -8
-  %_allin_new_bt_33 = bitcast i8* %_new_gep_32 to i64*
+  store i64 %47, i64* %XAX, !mcsema_real_eip !9
+  %_load_rbp_ptr_39 = load i8*, i8** %_RBP_ptr_
+  %_new_gep_40 = getelementptr i8, i8* %_load_rbp_ptr_39, i64 -8
+  %_allin_new_bt_41 = bitcast i8* %_new_gep_40 to i64*
   %EAX.18 = bitcast i64* %XAX to i32*, !mcsema_real_eip !10
   %EAX_val.19 = load i32, i32* %EAX.18, !mcsema_real_eip !10
-  %36 = ptrtoint i64* %_allin_new_bt_33 to i64, !mcsema_real_eip !10
-  %37 = inttoptr i64 %36 to i32*, !mcsema_real_eip !10
-  store i32 %EAX_val.19, i32* %37, !mcsema_real_eip !10
-  %_load_rsp_ptr_34 = load i8*, i8** %_RSP_ptr_
+  %48 = ptrtoint i64* %_allin_new_bt_41 to i64, !mcsema_real_eip !10
+  %49 = inttoptr i64 %48 to i32*, !mcsema_real_eip !10
+  store i32 %EAX_val.19, i32* %49, !mcsema_real_eip !10
+  %_load_rsp_ptr_42 = load i8*, i8** %_RSP_ptr_
   %RSP_val.20 = load i64, i64* %XSP, !mcsema_real_eip !11
-  %_new_gep_35 = getelementptr i8, i8* %_load_rsp_ptr_34, i64 16
-  %38 = add i64 16, %RSP_val.20, !mcsema_real_eip !11
-  %_trans_p2i_36 = ptrtoint i8* %_new_gep_35 to i64
-  %_trans_p2i_37 = ptrtoint i8* %_load_rsp_ptr_34 to i64
-  %_trans_xor_38 = xor i64 %_trans_p2i_36, %_trans_p2i_37
-  %39 = xor i64 %_trans_xor_38, 16, !mcsema_real_eip !11
-  %40 = and i64 %39, 16, !mcsema_real_eip !11
-  %41 = icmp ne i64 %40, 0, !mcsema_real_eip !11
-  store i1 %41, i1* %AF, !mcsema_real_eip !11
-  %42 = lshr i64 %38, 63, !mcsema_real_eip !11
-  %43 = trunc i64 %42 to i1, !mcsema_real_eip !11
-  store i1 %43, i1* %SF, !mcsema_real_eip !11
-  %_trans_icmp_eq_40 = icmp eq i64 %_trans_p2i_36, 0
-  store i1 %_trans_icmp_eq_40, i1* %ZF, !mcsema_real_eip !11
-  %_trans_xor_42 = xor i64 %_trans_p2i_37, 16
-  %44 = xor i64 %_trans_xor_42, -1, !mcsema_real_eip !11
-  %45 = and i64 %44, %_trans_xor_38, !mcsema_real_eip !11
-  %46 = lshr i64 %45, 63, !mcsema_real_eip !11
-  %47 = and i64 %46, 1, !mcsema_real_eip !11
-  %48 = trunc i64 %47 to i1, !mcsema_real_eip !11
-  store i1 %48, i1* %OF, !mcsema_real_eip !11
-  %_trans_trunc_47 = trunc i64 %_trans_p2i_36 to i8
-  %49 = call i8 @llvm.ctpop.i8(i8 %_trans_trunc_47), !mcsema_real_eip !11
-  %50 = trunc i8 %49 to i1, !mcsema_real_eip !11
-  %51 = xor i1 %50, true, !mcsema_real_eip !11
-  store i1 %51, i1* %PF, !mcsema_real_eip !11
-  %_trans_icmp_ne_49 = icmp ne i64 %_trans_p2i_36, %RSP_val.20
-  store i1 %_trans_icmp_ne_49, i1* %CF, !mcsema_real_eip !11
-  store volatile i8* %_new_gep_35, i8** %_RSP_ptr_
-  store i64 %38, i64* %XSP, !mcsema_real_eip !11
-  %_allin_new_bt_51 = bitcast i8* %_new_gep_35 to i64*
-  %_ptr_to_int_131 = ptrtoint i64* %_allin_new_bt_51 to i64
-  %_offset_above_rbp_134 = sub i64 %_ptr_to_int_131, %_local_end_to_int_
-  %_pot_address_in_parent_stack_135 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_134
-  %_cond1_136 = icmp ugt i8* %_new_gep_35, %_local_stack_end_ptr_
-  %_cond2_1_137 = icmp ugt i8* %_new_gep_35, %_parent_stack_end_ptr_
-  %_cond2_2_138 = icmp ult i8* %_new_gep_35, %_parent_stack_start_ptr_
-  %_cond2_139 = or i1 %_cond2_1_137, %_cond2_2_138
-  %_cond4_140 = icmp ule i8* %_pot_address_in_parent_stack_135, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_141 = and i1 %_cond1_136, %_cond2_139
-  %_cond1_n_cond2_cond3_142 = and i1 %_cond1_n_cond2_141, %_cond4_140
-  br i1 %_cond1_n_cond2_cond3_142, label %52, label %53
+  %_new_gep_43 = getelementptr i8, i8* %_load_rsp_ptr_42, i64 16
+  %50 = add i64 16, %RSP_val.20, !mcsema_real_eip !11
+  %_trans_p2i_44 = ptrtoint i8* %_new_gep_43 to i64
+  %_trans_p2i_45 = ptrtoint i8* %_load_rsp_ptr_42 to i64
+  %_trans_xor_46 = xor i64 %_trans_p2i_44, %_trans_p2i_45
+  %51 = xor i64 %_trans_xor_46, 16, !mcsema_real_eip !11
+  %52 = and i64 %51, 16, !mcsema_real_eip !11
+  %53 = icmp ne i64 %52, 0, !mcsema_real_eip !11
+  store i1 %53, i1* %AF, !mcsema_real_eip !11
+  %54 = lshr i64 %50, 63, !mcsema_real_eip !11
+  %55 = trunc i64 %54 to i1, !mcsema_real_eip !11
+  store i1 %55, i1* %SF, !mcsema_real_eip !11
+  %_trans_icmp_eq_48 = icmp eq i64 %_trans_p2i_44, 0
+  store i1 %_trans_icmp_eq_48, i1* %ZF, !mcsema_real_eip !11
+  %_trans_xor_50 = xor i64 %_trans_p2i_45, 16
+  %56 = xor i64 %_trans_xor_50, -1, !mcsema_real_eip !11
+  %57 = and i64 %56, %_trans_xor_46, !mcsema_real_eip !11
+  %58 = lshr i64 %57, 63, !mcsema_real_eip !11
+  %59 = and i64 %58, 1, !mcsema_real_eip !11
+  %60 = trunc i64 %59 to i1, !mcsema_real_eip !11
+  store i1 %60, i1* %OF, !mcsema_real_eip !11
+  %_trans_trunc_55 = trunc i64 %_trans_p2i_44 to i8
+  %61 = call i8 @llvm.ctpop.i8(i8 %_trans_trunc_55), !mcsema_real_eip !11
+  %62 = trunc i8 %61 to i1, !mcsema_real_eip !11
+  %63 = xor i1 %62, true, !mcsema_real_eip !11
+  store i1 %63, i1* %PF, !mcsema_real_eip !11
+  %_trans_icmp_ne_57 = icmp ne i64 %_trans_p2i_44, %RSP_val.20
+  store i1 %_trans_icmp_ne_57, i1* %CF, !mcsema_real_eip !11
+  store volatile i8* %_new_gep_43, i8** %_RSP_ptr_
+  store i64 %50, i64* %XSP, !mcsema_real_eip !11
+  %_allin_new_bt_59 = bitcast i8* %_new_gep_43 to i64*
+  %_ptr_to_int_199 = ptrtoint i64* %_allin_new_bt_59 to i64
+  %_offset_above_rbp_202 = sub i64 %_ptr_to_int_199, %_local_end_to_int_
+  %_pot_address_in_parent_stack_203 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_202
+  %_cond1_204 = icmp ugt i8* %_new_gep_43, %_local_stack_end_ptr_
+  %_cond2_1_205 = icmp ugt i8* %_new_gep_43, %_parent_stack_end_ptr_
+  %_cond2_2_206 = icmp ult i8* %_new_gep_43, %_parent_stack_start_ptr_
+  %_cond2_207 = or i1 %_cond2_1_205, %_cond2_2_206
+  %_cond4_208 = icmp ule i8* %_pot_address_in_parent_stack_203, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_209 = and i1 %_cond1_204, %_cond2_207
+  %_cond1_n_cond2_cond3_210 = and i1 %_cond1_n_cond2_209, %_cond4_208
+  br i1 %_cond1_n_cond2_cond3_210, label %64, label %65
 
-; <label>:52:                                     ; preds = %32
-  %_address_in_parent_stack_bt_144 = bitcast i8* %_pot_address_in_parent_stack_135 to i64*
-  br label %53
+; <label>:64:                                     ; preds = %44
+  %_address_in_parent_stack_bt_212 = bitcast i8* %_pot_address_in_parent_stack_203 to i64*
+  br label %65
 
-; <label>:53:                                     ; preds = %32, %52
-  %54 = phi i64* [ %_allin_new_bt_51, %32 ], [ %_address_in_parent_stack_bt_144, %52 ]
-  %_new_load_145 = load i64, i64* %54
-  %_new_int2ptr_ = inttoptr i64 %_new_load_145 to i8*
+; <label>:65:                                     ; preds = %44, %64
+  %66 = phi i64* [ %_allin_new_bt_59, %44 ], [ %_address_in_parent_stack_bt_212, %64 ]
+  %_new_load_213 = load i64, i64* %66
+  %_new_int2ptr_ = inttoptr i64 %_new_load_213 to i8*
   store volatile i8* %_new_int2ptr_, i8** %_RBP_ptr_
-  store i64 %_new_load_145, i64* %XBP, !mcsema_real_eip !12
-  %_new_gep_52 = getelementptr i8, i8* %_new_gep_35, i64 8
-  %55 = add i64 %38, 8, !mcsema_real_eip !12
-  store volatile i8* %_new_gep_52, i8** %_RSP_ptr_
-  store i64 %55, i64* %XSP, !mcsema_real_eip !12
-  %_new_gep_54 = getelementptr i8, i8* %_new_gep_52, i64 8
-  %56 = add i64 %55, 8, !mcsema_real_eip !13
-  %_allin_new_bt_55 = bitcast i8* %_new_gep_52 to i64*
-  %_ptr_to_int_146 = ptrtoint i64* %_allin_new_bt_55 to i64
-  %_offset_above_rbp_149 = sub i64 %_ptr_to_int_146, %_local_end_to_int_
-  %_pot_address_in_parent_stack_150 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_149
-  %_cond1_151 = icmp ugt i8* %_new_gep_52, %_local_stack_end_ptr_
-  %_cond2_1_152 = icmp ugt i8* %_new_gep_52, %_parent_stack_end_ptr_
-  %_cond2_2_153 = icmp ult i8* %_new_gep_52, %_parent_stack_start_ptr_
-  %_cond2_154 = or i1 %_cond2_1_152, %_cond2_2_153
-  %_cond4_155 = icmp ule i8* %_pot_address_in_parent_stack_150, %_parent_stack_end_ptr_
-  %_cond1_n_cond2_156 = and i1 %_cond1_151, %_cond2_154
-  %_cond1_n_cond2_cond3_157 = and i1 %_cond1_n_cond2_156, %_cond4_155
-  br i1 %_cond1_n_cond2_cond3_157, label %57, label %58
+  store i64 %_new_load_213, i64* %XBP, !mcsema_real_eip !12
+  %_new_gep_60 = getelementptr i8, i8* %_new_gep_43, i64 8
+  %67 = add i64 %50, 8, !mcsema_real_eip !12
+  store volatile i8* %_new_gep_60, i8** %_RSP_ptr_
+  store i64 %67, i64* %XSP, !mcsema_real_eip !12
+  %_new_gep_62 = getelementptr i8, i8* %_new_gep_60, i64 8
+  %68 = add i64 %67, 8, !mcsema_real_eip !13
+  %_allin_new_bt_63 = bitcast i8* %_new_gep_60 to i64*
+  %_ptr_to_int_214 = ptrtoint i64* %_allin_new_bt_63 to i64
+  %_offset_above_rbp_217 = sub i64 %_ptr_to_int_214, %_local_end_to_int_
+  %_pot_address_in_parent_stack_218 = getelementptr i8, i8* %_parent_stack_start_ptr_, i64 %_offset_above_rbp_217
+  %_cond1_219 = icmp ugt i8* %_new_gep_60, %_local_stack_end_ptr_
+  %_cond2_1_220 = icmp ugt i8* %_new_gep_60, %_parent_stack_end_ptr_
+  %_cond2_2_221 = icmp ult i8* %_new_gep_60, %_parent_stack_start_ptr_
+  %_cond2_222 = or i1 %_cond2_1_220, %_cond2_2_221
+  %_cond4_223 = icmp ule i8* %_pot_address_in_parent_stack_218, %_parent_stack_end_ptr_
+  %_cond1_n_cond2_224 = and i1 %_cond1_219, %_cond2_222
+  %_cond1_n_cond2_cond3_225 = and i1 %_cond1_n_cond2_224, %_cond4_223
+  br i1 %_cond1_n_cond2_cond3_225, label %69, label %70
 
-; <label>:57:                                     ; preds = %53
-  %_address_in_parent_stack_bt_159 = bitcast i8* %_pot_address_in_parent_stack_150 to i64*
-  br label %58
+; <label>:69:                                     ; preds = %65
+  %_address_in_parent_stack_bt_227 = bitcast i8* %_pot_address_in_parent_stack_218 to i64*
+  br label %70
 
-; <label>:58:                                     ; preds = %53, %57
-  %59 = phi i64* [ %_allin_new_bt_55, %53 ], [ %_address_in_parent_stack_bt_159, %57 ]
-  %_new_load_160 = load i64, i64* %59
-  store i64 %_new_load_160, i64* %XIP, !mcsema_real_eip !13
-  store volatile i8* %_new_gep_54, i8** %_RSP_ptr_
-  store i64 %56, i64* %XSP, !mcsema_real_eip !13
+; <label>:70:                                     ; preds = %65, %69
+  %71 = phi i64* [ %_allin_new_bt_63, %65 ], [ %_address_in_parent_stack_bt_227, %69 ]
+  %_new_load_228 = load i64, i64* %71
+  store i64 %_new_load_228, i64* %XIP, !mcsema_real_eip !13
+  store volatile i8* %_new_gep_62, i8** %_RSP_ptr_
+  store i64 %68, i64* %XSP, !mcsema_real_eip !13
   ret void, !mcsema_real_eip !13
 }
 
