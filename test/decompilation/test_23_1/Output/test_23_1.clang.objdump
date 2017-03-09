@@ -20,7 +20,7 @@ Disassembly of section .text:
   37:	0f 8d 7e 00 00 00    	jge    bb <main+0xbb>
   3d:	48 63 45 f8          	movslq -0x8(%rbp),%rax
   41:	0f be 4c 05 eb       	movsbl -0x15(%rbp,%rax,1),%ecx
-  46:	83 c1 9f             	add    $0xffffff9f,%ecx
+  46:	83 c1 9f             	add    $0xffffffffffffff9f,%ecx
   49:	89 c8                	mov    %ecx,%eax
   4b:	83 e9 16             	sub    $0x16,%ecx
   4e:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
@@ -52,7 +52,7 @@ Disassembly of section .text:
   b0:	83 c0 01             	add    $0x1,%eax
   b3:	89 45 f8             	mov    %eax,-0x8(%rbp)
   b6:	e9 78 ff ff ff       	jmpq   33 <main+0x33>
-  bb:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  bb:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
   c2:	00 00 00 
   c5:	8b 75 f4             	mov    -0xc(%rbp),%esi
   c8:	b0 00                	mov    $0x0,%al

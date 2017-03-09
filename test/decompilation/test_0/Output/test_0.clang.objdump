@@ -8,7 +8,7 @@ Disassembly of section .text:
    0:	55                   	push   %rbp
    1:	48 89 e5             	mov    %rsp,%rbp
    4:	48 83 ec 20          	sub    $0x20,%rsp
-   8:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+   8:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
    f:	00 00 00 
   12:	48 8d 45 f0          	lea    -0x10(%rbp),%rax
   16:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)

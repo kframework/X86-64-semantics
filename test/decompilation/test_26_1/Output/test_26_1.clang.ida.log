@@ -50,10 +50,18 @@ Processing insn at a2
 		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Processing insn at a9
 		Bytes: [199, 69, 240, 10, 0, 0, 0]
+Adding reference because of data refs from a9
+WARNING: Data not in valid segment ff0000000000004e
 Processing insn at b0
 		Bytes: [199, 69, 244, 10, 0, 0, 0]
+Adding reference because of data refs from b0
+WARNING: Data not in valid segment ff0000000000004f
 Processing insn at b7
 		Bytes: [199, 69, 248, 10, 0, 0, 0]
+Adding reference because of data refs from b7
+WARNING: Data not in valid segment ff00000000000051
+Adding reference because of data refs from b7
+WARNING: Data not in valid segment ff00000000000052
 Processing insn at be
 		Bytes: [184, 24, 0, 0, 0]
 Processing insn at c3
@@ -129,16 +137,30 @@ Processing insn at 140
 		Bytes: [72, 139, 69, 200]
 Processing insn at 144
 		Bytes: [72, 137, 69, 216]
+Adding reference because of data refs from 144
+WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 148
 		Bytes: [139, 77, 208]
 Processing insn at 14b
 		Bytes: [137, 77, 224]
+Adding reference because of data refs from 14b
+WARNING: Data not in valid segment ff00000000000051
+Adding reference because of data refs from 14b
+WARNING: Data not in valid segment ff00000000000052
 Processing insn at 14e
 		Bytes: [139, 77, 216]
+Adding reference because of data refs from 14e
+WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 151
 		Bytes: [3, 77, 220]
+Adding reference because of data refs from 151
+WARNING: Data not in valid segment ff0000000000004f
 Processing insn at 154
 		Bytes: [3, 77, 224]
+Adding reference because of data refs from 154
+WARNING: Data not in valid segment ff00000000000051
+Adding reference because of data refs from 154
+WARNING: Data not in valid segment ff00000000000052
 Processing insn at 157
 		Bytes: [137, 77, 196]
 Processing insn at 15a
@@ -205,6 +227,8 @@ Processing insn at 34
 		Bytes: [1, 209]
 Processing insn at 36
 		Bytes: [137, 77, 184]
+Adding reference because of data refs from 36
+WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 39
 		Bytes: [72, 139, 69, 208]
 Processing insn at 3d
@@ -217,6 +241,8 @@ Processing insn at 47
 		Bytes: [1, 209]
 Processing insn at 49
 		Bytes: [137, 77, 188]
+Adding reference because of data refs from 49
+WARNING: Data not in valid segment ff0000000000004f
 Processing insn at 4c
 		Bytes: [72, 139, 69, 208]
 Processing insn at 50
@@ -229,12 +255,22 @@ Processing insn at 5a
 		Bytes: [1, 209]
 Processing insn at 5c
 		Bytes: [137, 77, 192]
+Adding reference because of data refs from 5c
+WARNING: Data not in valid segment ff00000000000051
+Adding reference because of data refs from 5c
+WARNING: Data not in valid segment ff00000000000052
 Processing insn at 5f
 		Bytes: [139, 77, 192]
+Adding reference because of data refs from 5f
+WARNING: Data not in valid segment ff00000000000051
+Adding reference because of data refs from 5f
+WARNING: Data not in valid segment ff00000000000052
 Processing insn at 62
 		Bytes: [137, 77, 248]
 Processing insn at 65
 		Bytes: [72, 139, 69, 184]
+Adding reference because of data refs from 65
+WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 69
 		Bytes: [72, 137, 69, 240]
 Processing insn at 6d

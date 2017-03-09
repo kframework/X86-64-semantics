@@ -52,7 +52,7 @@ Disassembly of section .text:
   a5:	89 45 ec             	mov    %eax,-0x14(%rbp)
   a8:	48 63 7d ec          	movslq -0x14(%rbp),%rdi
   ac:	e8 4f ff ff ff       	callq  0 <fib>
-  b1:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  b1:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
   b8:	00 00 00 
   bb:	48 89 c6             	mov    %rax,%rsi
   be:	b0 00                	mov    $0x0,%al

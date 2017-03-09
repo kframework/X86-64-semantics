@@ -8,7 +8,7 @@ Not scanning data sections of object file for pointer-alikes
 Adding data seg: .eh_frame: 0x30L-0x80L
 Recovering: doWork
 Processing export name: doWork at: 10
-WARNING: Cannot determine type of function: doWork at: 10At EP doWork:10
+At EP doWork:10
 BB: 10
 Starting insn at: 10
 Processing insn at 10

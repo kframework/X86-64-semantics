@@ -8,7 +8,7 @@ Not scanning data sections of object file for pointer-alikes
 Adding data seg: .eh_frame: 0x2d0L-0x308L
 Recovering: switches
 Processing export name: switches at: 0
-WARNING: Cannot determine type of function: switches at: 0At EP switches:0
+At EP switches:0
 Testing 1c for externality
 Testing 19f for externality
 Testing 2c8 for externality

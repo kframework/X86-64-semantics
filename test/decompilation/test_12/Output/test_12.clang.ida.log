@@ -16,7 +16,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x50L-0x88L
 Recovering: foo
 Processing export name: foo at: 0
-WARNING: Cannot determine type of function: foo at: 0At EP foo:0
+At EP foo:0
 Testing 26 for externality
 Testing 3d for externality
 Testing 44 for externality

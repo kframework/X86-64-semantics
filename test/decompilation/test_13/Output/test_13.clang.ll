@@ -73,7 +73,7 @@ declare void @__mcsema_detach_call_value() #0
 declare void @__mcsema_detach_ret() #0
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @sub_90(%RegState*) #1 {
+define internal x86_64_sysvcc void @checkFn(%RegState*) #1 {
 entry:
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !2
   %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !2
@@ -491,7 +491,7 @@ block_0xf3:                                       ; preds = %block_0xee, %block_
 }
 
 ; Function Attrs: noinline
-define internal x86_64_sysvcc void @sub_100(%RegState*) #1 {
+define internal x86_64_sysvcc void @doStuff(%RegState*) #1 {
 entry:
   %XIP = getelementptr %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !32
   %XAX = getelementptr %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !32
@@ -1201,7 +1201,7 @@ block_0x33:                                       ; preds = %block_0x27
   %125 = inttoptr i64 %124 to i64*, !mcsema_real_eip !85
   store i64 -4981261766360305936, i64* %125, !mcsema_real_eip !85
   store i64 %124, i64* %XSP, !mcsema_real_eip !85
-  call x86_64_sysvcc void @sub_90(%RegState* %0), !mcsema_real_eip !85
+  call x86_64_sysvcc void @checkFn(%RegState* %0), !mcsema_real_eip !85
   %EAX.122 = bitcast i64* %XAX to i32*, !mcsema_real_eip !86
   %EAX_val.123 = load i32, i32* %EAX.122, !mcsema_real_eip !86
   %126 = sub i32 %EAX_val.123, 0, !mcsema_real_eip !86
@@ -1248,7 +1248,7 @@ block_0x55:                                       ; preds = %block_0x33
   %153 = inttoptr i64 %152 to i64*, !mcsema_real_eip !90
   store i64 -4981261766360305936, i64* %153, !mcsema_real_eip !90
   store i64 %152, i64* %XSP, !mcsema_real_eip !90
-  call x86_64_sysvcc void @sub_100(%RegState* %0), !mcsema_real_eip !90
+  call x86_64_sysvcc void @doStuff(%RegState* %0), !mcsema_real_eip !90
   br label %block_0x62, !mcsema_real_eip !91
 
 block_0x62:                                       ; preds = %block_0x55, %block_0x33

@@ -157,7 +157,7 @@ Disassembly of section .text:
  224:	4c 89 74 24 10       	mov    %r14,0x10(%rsp)
  229:	4c 89 54 24 18       	mov    %r10,0x18(%rsp)
  22e:	e8 cd fd ff ff       	callq  0 <check>
- 233:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 233:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
  23a:	00 00 00 
  23d:	89 45 a0             	mov    %eax,-0x60(%rbp)
  240:	8b 75 a0             	mov    -0x60(%rbp),%esi

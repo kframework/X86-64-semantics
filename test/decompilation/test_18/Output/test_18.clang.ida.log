@@ -14,8 +14,8 @@ Reloc Base Address: 1b0
 Reloc size: 8
 Testing 60 for externality
 Data Range: 60 <= 60 < 3b0
-Data Range: 60 - 61
-UNKNOWN Ref, assuming data
+Data Range: 60 - 64
+Data Ref!
 rtype : 2c, 64, 0
 1c8 Found reloc to: 64 (size: 8)
 Testing 64 for externality
@@ -24,8 +24,8 @@ Reloc Base Address: 1c8
 Reloc size: 8
 Testing 64 for externality
 Data Range: 60 <= 64 < 3b0
-Data Range: 64 - 65
-UNKNOWN Ref, assuming data
+Data Range: 64 - 68
+Data Ref!
 rtype : 2c, 68, 0
 1e8 Found reloc to: 68 (size: 8)
 Testing 68 for externality
@@ -34,7 +34,7 @@ Reloc Base Address: 1e8
 Reloc size: 8
 Testing 68 for externality
 Data Range: 60 <= 68 < 3b0
-Data Range: 68 - 70
+Data Range: 68 - 6c
 Data Ref!
 rtype : 2c, 60, 0
 270 Found reloc to: 60 (size: 8)
@@ -44,8 +44,8 @@ Reloc Base Address: 270
 Reloc size: 8
 Testing 60 for externality
 Data Range: 60 <= 60 < 3b0
-Data Range: 60 - 61
-UNKNOWN Ref, assuming data
+Data Range: 60 - 64
+Data Ref!
 rtype : 2c, 64, 0
 288 Found reloc to: 64 (size: 8)
 Testing 64 for externality
@@ -54,8 +54,8 @@ Reloc Base Address: 288
 Reloc size: 8
 Testing 64 for externality
 Data Range: 60 <= 64 < 3b0
-Data Range: 64 - 65
-UNKNOWN Ref, assuming data
+Data Range: 64 - 68
+Data Ref!
 rtype : 2c, 68, 0
 2a8 Found reloc to: 68 (size: 8)
 Testing 68 for externality
@@ -64,7 +64,7 @@ Reloc Base Address: 2a8
 Reloc size: 8
 Testing 68 for externality
 Data Range: 60 <= 68 < 3b0
-Data Range: 68 - 70
+Data Range: 68 - 6c
 Data Ref!
 Adding data seg: .data: 0x60L-0x3b0L
 Looking for relocations in 3b0 - 3e8
@@ -80,7 +80,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x3b0L-0x3e8L
 Recovering: printdata
 Processing export name: printdata at: 0
-WARNING: Cannot determine type of function: printdata at: 0At EP printdata:0
+At EP printdata:0
 Testing 20 for externality
 Testing 5a for externality
 Testing 33 for externality
@@ -130,9 +130,9 @@ Processing insn at 37
 findRelocOffset setting imm reloc offset at 37 to 4
 Adding reference because of data refs from 37
 Testing 70 for externality
-		Data Ref: 70, size: 8
+		Data Ref: 70, size: 832
 Data Range: 60 <= 70 < 3b0
-Data Range: 70 - 78
+Data Range: 70 - 3b0
 		Setting MEM ref at 37: to 70 type: DATA
 Processing insn at 3f
 		Bytes: [139, 8]
@@ -151,9 +151,9 @@ Processing insn at 24
 findRelocOffset setting imm reloc offset at 24 to 4
 Adding reference because of data refs from 24
 Testing 70 for externality
-		Data Ref: 70, size: 8
+		Data Ref: 70, size: 832
 Data Range: 60 <= 70 < 3b0
-Data Range: 70 - 78
+Data Range: 70 - 3b0
 		Setting MEM ref at 24: to 70 type: DATA
 Processing insn at 2d
 		Bytes: [15, 132, 20, 0, 0, 0]

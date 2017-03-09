@@ -14,7 +14,7 @@ Disassembly of section .text:
   12:	b0 00                	mov    $0x0,%al
   14:	e8 00 00 00 00       	callq  19 <foo+0x19>
   19:	89 45 ec             	mov    %eax,-0x14(%rbp)
-  1c:	83 7d ec ff          	cmpl   $0xffffffff,-0x14(%rbp)
+  1c:	83 7d ec ff          	cmpl   $0xffffffffffffffff,-0x14(%rbp)
   20:	0f 84 17 00 00 00    	je     3d <foo+0x3d>
   26:	8b 7d ec             	mov    -0x14(%rbp),%edi
   29:	e8 00 00 00 00       	callq  2e <foo+0x2e>

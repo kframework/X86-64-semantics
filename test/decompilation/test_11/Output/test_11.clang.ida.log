@@ -16,7 +16,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0xc8L-0x100L
 Recovering: doTrans
 Processing export name: doTrans at: 0
-WARNING: Cannot determine type of function: doTrans at: 0At EP doTrans:0
+At EP doTrans:0
 Testing 35 for externality
 Testing b6 for externality
 Testing 64 for externality

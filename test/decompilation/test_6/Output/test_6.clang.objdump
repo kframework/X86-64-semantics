@@ -110,7 +110,7 @@ Disassembly of section .text:
  17d:	4c 89 5c 24 18       	mov    %r11,0x18(%rsp)
  182:	89 45 d0             	mov    %eax,-0x30(%rbp)
  185:	e8 76 fe ff ff       	callq  0 <foo>
- 18a:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 18a:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
  191:	00 00 00 
  194:	89 45 d4             	mov    %eax,-0x2c(%rbp)
  197:	8b 75 d4             	mov    -0x2c(%rbp),%esi

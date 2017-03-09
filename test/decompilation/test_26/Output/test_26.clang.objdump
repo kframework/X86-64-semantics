@@ -93,7 +93,7 @@ Disassembly of section .text:
  120:	55                   	push   %rbp
  121:	48 89 e5             	mov    %rsp,%rbp
  124:	48 81 ec 90 00 00 00 	sub    $0x90,%rsp
- 12b:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 12b:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
  132:	00 00 00 
  135:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
  13c:	c7 45 f0 0a 00 00 00 	movl   $0xa,-0x10(%rbp)

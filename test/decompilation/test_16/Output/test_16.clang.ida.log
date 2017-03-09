@@ -8,7 +8,7 @@ Not scanning data sections of object file for pointer-alikes
 Adding data seg: .eh_frame: 0x18L-0x50L
 Recovering: printit
 Processing export name: printit at: 0
-WARNING: Cannot determine type of function: printit at: 0At EP printit:0
+At EP printit:0
 BB: 0
 Starting insn at: 0
 Processing insn at 0

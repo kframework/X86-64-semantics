@@ -50,9 +50,9 @@ Processing insn at 61
 findRelocOffset setting imm reloc offset at 61 to 2
 Adding reference because of data refs from 61
 Testing c0 for externality
-		Data Ref: c0, size: 1
+		Data Ref: c0, size: 8
 Data Range: c0 <= c0 < e8
-Data Range: c0 - c1
+Data Range: c0 - c8
 		Setting IMM ref at 61: to c0 type: DATA
 Processing insn at 6b
 		Bytes: [186, 40, 0, 0, 0]

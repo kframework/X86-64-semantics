@@ -71,11 +71,11 @@ Disassembly of section .text:
   d5:	41 bb 0a 00 00 00    	mov    $0xa,%r11d
   db:	48 8d 9d 70 ff ff ff 	lea    -0x90(%rbp),%rbx
   e2:	4c 8d 75 a0          	lea    -0x60(%rbp),%r14
-  e6:	49 bf 00 00 00 00 00 	movabs $0x0,%r15
+  e6:	49 bf 00 00 00 00 00 	mov    $0x0,%r15
   ed:	00 00 00 
   f0:	41 bc 28 00 00 00    	mov    $0x28,%r12d
   f6:	45 89 e5             	mov    %r12d,%r13d
-  f9:	49 bc 00 00 00 00 00 	movabs $0x0,%r12
+  f9:	49 bc 00 00 00 00 00 	mov    $0x0,%r12
  100:	00 00 00 
  103:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%rbp)
  10a:	89 7d d0             	mov    %edi,-0x30(%rbp)
@@ -115,7 +115,7 @@ Disassembly of section .text:
  1ca:	4c 8b b5 30 ff ff ff 	mov    -0xd0(%rbp),%r14
  1d1:	4c 89 74 24 18       	mov    %r14,0x18(%rsp)
  1d6:	e8 25 fe ff ff       	callq  0 <foo>
- 1db:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 1db:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
  1e2:	00 00 00 
  1e5:	89 85 6c ff ff ff    	mov    %eax,-0x94(%rbp)
  1eb:	8b b5 6c ff ff ff    	mov    -0x94(%rbp),%esi

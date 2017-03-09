@@ -130,7 +130,7 @@ Disassembly of section .text:
  1c4:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
  1c8:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
  1cd:	e8 2e fe ff ff       	callq  0 <update>
- 1d2:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 1d2:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
  1d9:	00 00 00 
  1dc:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
  1e0:	48 8b 45 e0          	mov    -0x20(%rbp),%rax

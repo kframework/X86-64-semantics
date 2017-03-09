@@ -8,7 +8,7 @@ Not scanning data sections of object file for pointer-alikes
 Adding data seg: .eh_frame: 0x38L-0x70L
 Recovering: shiftit
 Processing export name: shiftit at: 0
-WARNING: Cannot determine type of function: shiftit at: 0At EP shiftit:0
+At EP shiftit:0
 BB: 0
 Starting insn at: 0
 Processing insn at 0

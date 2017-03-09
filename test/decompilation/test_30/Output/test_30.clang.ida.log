@@ -20,7 +20,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x40L-0x78L
 Recovering: print_it
 Processing export name: print_it at: 0
-WARNING: Cannot determine type of function: print_it at: 0At EP print_it:0
+At EP print_it:0
 BB: 0
 Starting insn at: 0
 Processing insn at 0

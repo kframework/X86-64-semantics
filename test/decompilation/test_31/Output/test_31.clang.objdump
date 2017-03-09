@@ -41,7 +41,7 @@ Disassembly of section .text:
   68:	bf 05 00 00 00       	mov    $0x5,%edi
   6d:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
   74:	e8 87 ff ff ff       	callq  0 <fib>
-  79:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  79:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
   80:	00 00 00 
   83:	89 c6                	mov    %eax,%esi
   85:	b0 00                	mov    $0x0,%al

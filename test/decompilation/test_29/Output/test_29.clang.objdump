@@ -25,10 +25,10 @@ Disassembly of section .text:
   3a:	89 f2                	mov    %esi,%edx
   3c:	89 0c 90             	mov    %ecx,(%rax,%rdx,4)
   3f:	8b 45 ec             	mov    -0x14(%rbp),%eax
-  42:	83 c0 ff             	add    $0xffffffff,%eax
+  42:	83 c0 ff             	add    $0xffffffffffffffff,%eax
   45:	89 45 ec             	mov    %eax,-0x14(%rbp)
   48:	e9 c9 ff ff ff       	jmpq   16 <foo+0x16>
-  4d:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  4d:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
   54:	00 00 00 
   57:	8b 75 fc             	mov    -0x4(%rbp),%esi
   5a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax

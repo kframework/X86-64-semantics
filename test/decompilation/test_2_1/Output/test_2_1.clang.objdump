@@ -10,7 +10,7 @@ Disassembly of section .text:
    4:	48 83 ec 30          	sub    $0x30,%rsp
    8:	8b 45 18             	mov    0x18(%rbp),%eax
    b:	44 8b 55 10          	mov    0x10(%rbp),%r10d
-   f:	49 bb 00 00 00 00 00 	movabs $0x0,%r11
+   f:	49 bb 00 00 00 00 00 	mov    $0x0,%r11
   16:	00 00 00 
   19:	89 7d fc             	mov    %edi,-0x4(%rbp)
   1c:	89 75 f8             	mov    %esi,-0x8(%rbp)

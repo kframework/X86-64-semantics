@@ -228,9 +228,9 @@ Processing insn at 2c7
 findRelocOffset setting imm reloc offset at 2c7 to 2
 Adding reference because of data refs from 2c7
 Testing 3e0 for externality
-		Data Ref: 3e0, size: 1
+		Data Ref: 3e0, size: 77
 Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 3e1
+Data Range: 3e0 - 42d
 		Setting IMM ref at 2c7: to 3e0 type: DATA
 Processing insn at 2d1
 		Bytes: [72, 99, 77, 232]
@@ -349,9 +349,9 @@ Processing insn at 249
 findRelocOffset setting imm reloc offset at 249 to 2
 Adding reference because of data refs from 249
 Testing 3e0 for externality
-		Data Ref: 3e0, size: 1
+		Data Ref: 3e0, size: 77
 Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 3e1
+Data Range: 3e0 - 42d
 		Setting IMM ref at 249: to 3e0 type: DATA
 Processing insn at 253
 		Bytes: [72, 99, 77, 232]
@@ -386,9 +386,9 @@ Processing insn at 219
 findRelocOffset setting imm reloc offset at 219 to 2
 Adding reference because of data refs from 219
 Testing 3e0 for externality
-		Data Ref: 3e0, size: 1
+		Data Ref: 3e0, size: 77
 Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 3e1
+Data Range: 3e0 - 42d
 		Setting IMM ref at 219: to 3e0 type: DATA
 Processing insn at 223
 		Bytes: [72, 99, 77, 232]
@@ -466,9 +466,9 @@ Processing insn at 1c0
 findRelocOffset setting imm reloc offset at 1c0 to 2
 Adding reference because of data refs from 1c0
 Testing 3e0 for externality
-		Data Ref: 3e0, size: 1
+		Data Ref: 3e0, size: 77
 Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 3e1
+Data Range: 3e0 - 42d
 		Setting IMM ref at 1c0: to 3e0 type: DATA
 Processing insn at 1ca
 		Bytes: [72, 99, 77, 232]
@@ -699,9 +699,9 @@ Processing insn at c5
 findRelocOffset setting imm reloc offset at c5 to 2
 Adding reference because of data refs from c5
 Testing 3e0 for externality
-		Data Ref: 3e0, size: 1
+		Data Ref: 3e0, size: 77
 Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 3e1
+Data Range: 3e0 - 42d
 		Setting IMM ref at c5: to 3e0 type: DATA
 Processing insn at cf
 		Bytes: [199, 69, 252, 0, 0, 0, 0]
@@ -824,9 +824,9 @@ Processing insn at 34
 findRelocOffset setting imm reloc offset at 34 to 2
 Adding reference because of data refs from 34
 Testing 3e0 for externality
-		Data Ref: 3e0, size: 1
+		Data Ref: 3e0, size: 77
 Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 3e1
+Data Range: 3e0 - 42d
 		Setting IMM ref at 34: to 3e0 type: DATA
 Processing insn at 3e
 		Bytes: [72, 99, 77, 252]

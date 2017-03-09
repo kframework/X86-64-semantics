@@ -16,7 +16,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x420L-0x458L
 Recovering: keycomp
 Processing export name: keycomp at: 0
-WARNING: Cannot determine type of function: keycomp at: 0At EP keycomp:0
+At EP keycomp:0
 Testing 24 for externality
 Testing 2f for externality
 Testing 4b for externality
