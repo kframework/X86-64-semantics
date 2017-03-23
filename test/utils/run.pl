@@ -141,7 +141,7 @@ sub generate_binary_from_source {
     execute("nasm -f elf64 -o ${outdir}${basename}.${suffix}.o $file ;");
   } 
   if("c" eq $ext) {
-    execute("${compiler} -g -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
+    execute("${compiler}  -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
   } 
   if("cpp" eq $ext) {
     execute("${compiler}++ -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o");
@@ -174,7 +174,7 @@ sub generate_linked_binary {
 sub generate_cfg {
   print("\nGenerate cfg ($cfgext)\n");
 
-  execute("rm -rf ${outdir}${basename}.${suffix}${cfgext}.cfg ${outdir}${basename}.${suffix}.ida.log ${outdir}${basename}.${suffix}.ida.tool.log");
+  execute("rm -rf ${outdir}${basename}.${suffix}.i64 ${outdir}${basename}.${suffix}${cfgext}.cfg ${outdir}${basename}.${suffix}.${cfgext}.log ${outdir}${basename}.${suffix}.${cfgext}.tool.log");
 
   #execute("IDA_PATH=${home}/ida-6.95 ${BIN_DESCEND_PATH}/bin_descend_wrapper.py -d ${BIN_ARCH} -func-map=${map} -entry-symbol=${entry} -i=${outdir}${basename}.${suffix}.o"); 
   execute("idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}${cfgext}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log \" -L${outdir}${basename}.${suffix}.ida.tool.log  ${outdir}${basename}.${suffix}.o "); 
