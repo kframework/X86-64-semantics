@@ -1,3 +1,9 @@
+### Mar 30
+- Basic variable recovery is done.[source c file](https://github.com/sdasgup3/binary-decompilation/blob/stack_variable_recovery/test/variable_recovery/test_1/test_1.c)  [ll file](https://github.com/sdasgup3/binary-decompilation/blob/stack_variable_recovery/test/variable_recovery/test_1/Output/test_1.clang.ll)
+ - The only changes are made in the IDA cfg recovery end. Very little changes in cfg to bc
+- Structure recovery script (to extract structure info from IDA) is ready to be deployed.[struct recovery](https://gist.github.com/sdasgup3/d79874b749e04f355a231cb4f162c404)
+- Pointers : IDA does have much information, may need to look into the debug info.
+
 ### Feb 20
 
 #### Type Recovery
