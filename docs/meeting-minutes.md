@@ -1,3 +1,7 @@
+### Apr 20
+- Binary Drarf reader (link)[https://github.com/sdasgup3/dwarf-type-reader] is almost (function pointers soon to be  handled) ready and spliiting the putput in protobuf binary.  
+
+
 ### Mar 30
 - Basic variable recovery is done.[source c file](https://github.com/sdasgup3/binary-decompilation/blob/stack_variable_recovery/test/variable_recovery/test_1/test_1.c)  [ll file](https://github.com/sdasgup3/binary-decompilation/blob/stack_variable_recovery/test/variable_recovery/test_1/Output/test_1.clang.ll)
  - The only changes are made in the IDA cfg recovery end. Very little changes in cfg to bc
