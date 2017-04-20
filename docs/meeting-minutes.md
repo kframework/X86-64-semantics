@@ -1,5 +1,5 @@
 ### Apr 20
-- Binary Drarf reader (link)[https://github.com/sdasgup3/dwarf-type-reader] is almost (function pointers soon to be  handled) ready and spliiting the putput in protobuf binary.  
+- Binary Drarf reader [link](https://github.com/sdasgup3/dwarf-type-reader) is almost (function pointers soon to be  handled) ready and dumpng the output in protobuf binary.  
 
 
 ### Mar 30
