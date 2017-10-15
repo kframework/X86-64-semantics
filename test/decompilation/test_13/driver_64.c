@@ -6,13 +6,13 @@
 #include <stdio.h>
 #include <string.h>
 
-extern void doWork(char**, int);
+extern "C" void doWork(char**, int);
 
 int main(int argc, char *argv[]) {
     char    *foo[3];
-    char    *a = malloc(sizeof("foo"));
-    char    *b = malloc(sizeof("/stuff/"));
-    char    *c = malloc(sizeof("bar"));
+    char    *a = (char *)malloc(sizeof("foo"));
+    char    *b = (char *)malloc(sizeof("/stuff/"));
+    char    *c = (char *)malloc(sizeof("bar"));
 
     memset(a, 0, sizeof("foo"));
     memset(b, 0, sizeof("/stuff/"));

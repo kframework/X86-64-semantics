@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern int foo(int *, int);
+extern "C" int foo(int *, int);
 
 int main(int argc, const char *argv[]) {
     int* arr = ( int *)malloc(sizeof( int)*10 );

@@ -7,11 +7,11 @@
 #include <string.h>
 
 //extern void STDCALL sub_b(RegState *);
-extern char* doTrans(char *);
+extern "C" char* doTrans(char *);
 
 int main(int argc, char *argv[]) {
     size_t  len = sizeof("/first/test/path");
-    char    *a = malloc(len);
+    char    *a = (char *)malloc(len);
     char    *b;
 
     strcpy(a, "/first/test/path");

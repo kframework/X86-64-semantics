@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-extern int  doOp(int);
+extern "C" int  doOp(int);
 
 int __attribute((x86_64_sysvcc)) main(int argc, char *argv[]) {
 

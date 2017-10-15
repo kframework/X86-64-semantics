@@ -4,12 +4,12 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-extern void demo3(const char *, const char*);
+extern "C" void demo3(const char *, const char*);
 
 int main(int argc, char *argv[]) {
     size_t  len = sizeof("/first/test/path");
-    char    *a = malloc(len);
-    char    *b = malloc(len);
+    char    *a = (char *)malloc(len);
+    char    *b = (char *)malloc(len);
 
     memset(b, 0, len);
     strcpy(a, "/first/test/path");
