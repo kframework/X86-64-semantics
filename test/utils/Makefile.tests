@@ -31,7 +31,8 @@ SHELL = bash
 all:    clang
 
 cfg:
-	@echo -e "\e[4m\e[1m\e[34mRun Command\e[0m"
+	@echo ""
+	@echo -e "\e[4m\e[1m\e[34m${PROG_PREFIX}\e[0m"
 	mkdir -p ${outdir}
 	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -cfg -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${MASTER}
 

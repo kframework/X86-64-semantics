@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13/map.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_13.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13/Output/test_13.clang.ida.cfg
 PROCESSING: test_13.clang.o
 Adding data seg: .eh_frame: 0x180L-0x1f0L
 Looking for relocations in 180 - 1f0
@@ -42,27 +46,18 @@ Testing 27 for externality
 BB: 75
 Starting insn at: 75
 Processing insn at 75
-		Bytes: [72, 139, 69, 232]
 Processing insn at 79
-		Bytes: [198, 64, 1, 2]
 Processing insn at 7d
-		Bytes: [72, 131, 196, 32]
 Processing insn at 81
-		Bytes: [93]
 Processing insn at 82
-		Bytes: [195]
 Ending insn at: 81
 BB: 67
 Successors: 27
 Starting insn at: 67
 Processing insn at 67
-		Bytes: [139, 69, 240]
 Processing insn at 6a
-		Bytes: [131, 192, 1]
 Processing insn at 6d
-		Bytes: [137, 69, 240]
 Processing insn at 70
-		Bytes: [233, 178, 255, 255, 255]
 Checking code ref 27
 Testing 27 for externality
 INTERNAL JMP: 27
@@ -71,7 +66,6 @@ BB: 62
 Successors: 67
 Starting insn at: 62
 Processing insn at 62
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 67
 Testing 67 for externality
 INTERNAL JMP: 67
@@ -80,11 +74,8 @@ BB: 55
 Successors: 62
 Starting insn at: 55
 Processing insn at 55
-		Bytes: [72, 139, 125, 224]
 Processing insn at 59
-		Bytes: [72, 139, 117, 224]
 Processing insn at 5d
-		Bytes: [232, 158, 0, 0, 0]
 Checking code ref 100
 Testing 100 for externality
 INTERNAL CALL: doStuff
@@ -93,64 +84,43 @@ BB: 33
 Successors: 55, 62
 Starting insn at: 33
 Processing insn at 33
-		Bytes: [72, 139, 69, 248]
 Processing insn at 37
-		Bytes: [72, 99, 77, 240]
 Processing insn at 3b
-		Bytes: [72, 139, 4, 200]
 Processing insn at 3f
-		Bytes: [72, 137, 69, 224]
 Processing insn at 43
-		Bytes: [72, 139, 125, 224]
 Processing insn at 47
-		Bytes: [232, 68, 0, 0, 0]
 Checking code ref 90
 Testing 90 for externality
 INTERNAL CALL: checkFn
 Processing insn at 4c
-		Bytes: [131, 248, 0]
 Processing insn at 4f
-		Bytes: [15, 133, 13, 0, 0, 0]
 Checking code ref 62
 Ending insn at: 4f
 BB: 27
 Successors: 33, 75
 Starting insn at: 27
 Processing insn at 27
-		Bytes: [139, 69, 240]
 Processing insn at 2a
-		Bytes: [59, 69, 244]
 Processing insn at 2d
-		Bytes: [15, 141, 66, 0, 0, 0]
 Checking code ref 75
 Ending insn at: 2d
 BB: 0
 Successors: 27
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 131, 236, 32]
 Processing insn at 8
-		Bytes: [72, 137, 125, 248]
 Processing insn at c
-		Bytes: [137, 117, 244]
 Processing insn at f
-		Bytes: [199, 69, 240, 0, 0, 0, 0]
 Processing insn at 16
-		Bytes: [72, 99, 125, 244]
 Processing insn at 1a
-		Bytes: [72, 193, 231, 3]
 Processing insn at 1e
-		Bytes: [232, 205, 1, 0, 0]
 Checking code ref 1f0
 Testing 1f0 for externality
 EXTERNAL CALL: malloc
 findRelocOffset setting imm reloc offset at 1e to 1
 Processing insn at 23
-		Bytes: [72, 137, 69, 232]
 Ending insn at: 23
 Recovering: 0x100L
 Testing 132 for externality
@@ -162,33 +132,21 @@ Testing 154 for externality
 BB: 17a
 Starting insn at: 17a
 Processing insn at 17a
-		Bytes: [93]
 Processing insn at 17b
-		Bytes: [195]
 Ending insn at: 17a
 BB: 154
 Successors: 125
 Starting insn at: 154
 Processing insn at 154
-		Bytes: [72, 139, 69, 232]
 Processing insn at 158
-		Bytes: [72, 131, 192, 1]
 Processing insn at 15c
-		Bytes: [72, 137, 69, 232]
 Processing insn at 160
-		Bytes: [72, 139, 69, 224]
 Processing insn at 164
-		Bytes: [72, 131, 192, 1]
 Processing insn at 168
-		Bytes: [72, 137, 69, 224]
 Processing insn at 16c
-		Bytes: [72, 139, 69, 232]
 Processing insn at 170
-		Bytes: [138, 8]
 Processing insn at 172
-		Bytes: [136, 77, 223]
 Processing insn at 175
-		Bytes: [233, 171, 255, 255, 255]
 Checking code ref 125
 Testing 125 for externality
 INTERNAL JMP: 125
@@ -197,21 +155,15 @@ BB: 14b
 Successors: 154
 Starting insn at: 14b
 Processing insn at 14b
-		Bytes: [138, 69, 223]
 Processing insn at 14e
-		Bytes: [72, 139, 77, 224]
 Processing insn at 152
-		Bytes: [136, 1]
 Ending insn at: 152
 BB: 13f
 Successors: 154
 Starting insn at: 13f
 Processing insn at 13f
-		Bytes: [72, 139, 69, 224]
 Processing insn at 143
-		Bytes: [198, 0, 92]
 Processing insn at 146
-		Bytes: [233, 9, 0, 0, 0]
 Checking code ref 154
 Testing 154 for externality
 INTERNAL JMP: 154
@@ -220,49 +172,32 @@ BB: 132
 Successors: 13f, 14b
 Starting insn at: 132
 Processing insn at 132
-		Bytes: [15, 190, 69, 223]
 Processing insn at 136
-		Bytes: [131, 248, 47]
 Processing insn at 139
-		Bytes: [15, 133, 12, 0, 0, 0]
 Checking code ref 14b
 Ending insn at: 139
 BB: 125
 Successors: 132, 17a
 Starting insn at: 125
 Processing insn at 125
-		Bytes: [15, 190, 69, 223]
 Processing insn at 129
-		Bytes: [131, 248, 0]
 Processing insn at 12c
-		Bytes: [15, 132, 72, 0, 0, 0]
 Checking code ref 17a
 Ending insn at: 12c
 BB: 100
 Successors: 125
 Starting insn at: 100
 Processing insn at 100
-		Bytes: [85]
 Processing insn at 101
-		Bytes: [72, 137, 229]
 Processing insn at 104
-		Bytes: [72, 137, 125, 248]
 Processing insn at 108
-		Bytes: [72, 137, 117, 240]
 Processing insn at 10c
-		Bytes: [72, 139, 117, 248]
 Processing insn at 110
-		Bytes: [72, 137, 117, 232]
 Processing insn at 114
-		Bytes: [72, 139, 117, 240]
 Processing insn at 118
-		Bytes: [72, 137, 117, 224]
 Processing insn at 11c
-		Bytes: [72, 139, 117, 232]
 Processing insn at 120
-		Bytes: [138, 6]
 Processing insn at 122
-		Bytes: [136, 69, 223]
 Ending insn at: 122
 Recovering: 0x90L
 Testing bb for externality
@@ -273,19 +208,14 @@ Testing f3 for externality
 BB: f3
 Starting insn at: f3
 Processing insn at f3
-		Bytes: [139, 69, 244]
 Processing insn at f6
-		Bytes: [72, 131, 196, 32]
 Processing insn at fa
-		Bytes: [93]
 Processing insn at fb
-		Bytes: [195]
 Ending insn at: fa
 BB: ee
 Successors: f3
 Starting insn at: ee
 Processing insn at ee
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref f3
 Testing f3 for externality
 INTERNAL JMP: f3
@@ -294,71 +224,46 @@ BB: e7
 Successors: ee
 Starting insn at: e7
 Processing insn at e7
-		Bytes: [199, 69, 244, 0, 0, 0, 0]
 Ending insn at: e7
 BB: bb
 Successors: e7, ee
 Starting insn at: bb
 Processing insn at bb
-		Bytes: [72, 139, 69, 248]
 Processing insn at bf
-		Bytes: [138, 8]
 Processing insn at c1
-		Bytes: [136, 77, 239]
 Processing insn at c4
-		Bytes: [72, 139, 69, 248]
-Processing insn at c8
-		Bytes: [139, 85, 240]
-Processing insn at cb
-		Bytes: [131, 234, 1]
-Processing insn at ce
-		Bytes: [72, 99, 242]
+Processing insn at c7
+Processing insn at ca
+Processing insn at cd
 Processing insn at d1
-		Bytes: [138, 12, 48]
 Processing insn at d4
-		Bytes: [136, 77, 238]
 Processing insn at d7
-		Bytes: [15, 190, 85, 239]
 Processing insn at db
-		Bytes: [15, 190, 125, 238]
 Processing insn at df
-		Bytes: [57, 250]
 Processing insn at e1
-		Bytes: [15, 133, 7, 0, 0, 0]
 Checking code ref ee
 Ending insn at: e1
 BB: 90
 Successors: bb, f3
 Starting insn at: 90
 Processing insn at 90
-		Bytes: [85]
 Processing insn at 91
-		Bytes: [72, 137, 229]
 Processing insn at 94
-		Bytes: [72, 131, 236, 32]
 Processing insn at 98
-		Bytes: [72, 137, 125, 248]
 Processing insn at 9c
-		Bytes: [199, 69, 244, 1, 0, 0, 0]
 Processing insn at a3
-		Bytes: [72, 139, 125, 248]
 Processing insn at a7
-		Bytes: [232, 76, 1, 0, 0]
 Checking code ref 1f8
 Testing 1f8 for externality
 EXTERNAL CALL: strlen
 findRelocOffset setting imm reloc offset at a7 to 1
 Processing insn at ac
-		Bytes: [137, 193]
 Processing insn at ae
-		Bytes: [137, 77, 240]
 Processing insn at b1
-		Bytes: [131, 125, 240, 1]
 Processing insn at b5
-		Bytes: [15, 142, 56, 0, 0, 0]
 Checking code ref f3
 Ending insn at: b5
 Program will reference external: malloc
 Program will reference external: strlen
 Recovered 3 functions.
-Saving to: Output/test_13.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13/Output/test_13.clang.ida.cfg

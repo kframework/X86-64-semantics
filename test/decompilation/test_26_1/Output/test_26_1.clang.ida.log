@@ -1,296 +1,193 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_26_1.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_26_1/Output/test_26_1.clang.ida.cfg
 PROCESSING: test_26_1.clang.o
-Adding data seg: .rodata.str1.1: 0x176L-0x17aL
-Adding data seg: .eh_frame: 0x180L-0x1d0L
-Looking for relocations in 176 - 17a
+Adding data seg: .rodata.str1.1: 0x162L-0x166L
+Adding data seg: .eh_frame: 0x168L-0x1b8L
+Looking for relocations in 162 - 166
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.str1.1: 0x176L-0x17aL
-Looking for relocations in 180 - 1d0
-Found relocations in binary: (1a0)..
+Adding data seg: .rodata.str1.1: 0x162L-0x166L
+Looking for relocations in 168 - 1b8
+Found relocations in binary: (188)..
 rtype : 4, 0, 0
-1a0 Found reloc to: 0 (size: 4)
+188 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 1a0, seg_offset: 0 => 0
-Reloc Base Address: 1a0
+Offset: 188, seg_offset: 0 => 0
+Reloc Base Address: 188
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
 rtype : 4, 0, 0
-1bc Found reloc to: 0 (size: 4)
+1a4 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 1bc, seg_offset: 0 => 0
-Reloc Base Address: 1bc
+Offset: 1a4, seg_offset: 0 => 0
+Reloc Base Address: 1a4
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0x180L-0x1d0L
+Adding data seg: .eh_frame: 0x168L-0x1b8L
 Recovering: main
-Processing export name: main at: 90
-At EP main:90
-BB: 90
-Starting insn at: 90
-Processing insn at 90
-		Bytes: [85]
-Processing insn at 91
-		Bytes: [72, 137, 229]
-Processing insn at 94
-		Bytes: [72, 131, 236, 112]
-Processing insn at 98
-		Bytes: [72, 191, 118, 1, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 98 to 2
-Adding reference because of data refs from 98
-Testing 176 for externality
-		Data Ref: 176, size: 1
-Data Range: 176 <= 176 < 17a
-Data Range: 176 - 177
-		Setting IMM ref at 98: to 176 type: DATA
-Processing insn at a2
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
-Processing insn at a9
-		Bytes: [199, 69, 240, 10, 0, 0, 0]
-Adding reference because of data refs from a9
+Processing export name: main at: 80
+At EP main:80
+BB: 80
+Starting insn at: 80
+Processing insn at 80
+Processing insn at 81
+Processing insn at 84
+Processing insn at 88
+findRelocOffset setting imm reloc offset at 88 to 2
+Adding reference because of data refs from 88
+Testing 162 for externality
+		Data Ref: 162, size: 1
+Data Range: 162 <= 162 < 166
+Data Range: 162 - 163
+		Setting IMM ref at 88: to 162 type: DATA
+Processing insn at 92
+Processing insn at 99
+Adding reference because of data refs from 99
 WARNING: Data not in valid segment ff0000000000004e
-Processing insn at b0
-		Bytes: [199, 69, 244, 10, 0, 0, 0]
-Adding reference because of data refs from b0
+Processing insn at a0
+Adding reference because of data refs from a0
 WARNING: Data not in valid segment ff0000000000004f
-Processing insn at b7
-		Bytes: [199, 69, 248, 10, 0, 0, 0]
-Adding reference because of data refs from b7
+Processing insn at a7
+Adding reference because of data refs from a7
 WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from b7
+Adding reference because of data refs from a7
 WARNING: Data not in valid segment ff00000000000052
-Processing insn at be
-		Bytes: [184, 24, 0, 0, 0]
-Processing insn at c3
-		Bytes: [137, 193]
-Processing insn at c5
-		Bytes: [72, 137, 125, 184]
-Processing insn at c9
-		Bytes: [72, 137, 207]
-Processing insn at cc
-		Bytes: [232, 255, 0, 0, 0]
-Checking code ref 1d0
-Testing 1d0 for externality
+Processing insn at ae
+Processing insn at b3
+Processing insn at b5
+Processing insn at b9
+Processing insn at bc
+Checking code ref 1b8
+Testing 1b8 for externality
 EXTERNAL CALL: malloc
-findRelocOffset setting imm reloc offset at cc to 1
-Processing insn at d1
-		Bytes: [72, 137, 69, 232]
-Processing insn at d5
-		Bytes: [72, 139, 69, 232]
-Processing insn at d9
-		Bytes: [199, 0, 5, 0, 0, 0]
-Processing insn at df
-		Bytes: [72, 139, 69, 232]
-Processing insn at e3
-		Bytes: [199, 64, 4, 5, 0, 0, 0]
-Processing insn at ea
-		Bytes: [72, 139, 69, 232]
-Processing insn at ee
-		Bytes: [199, 64, 8, 5, 0, 0, 0]
-Processing insn at f5
-		Bytes: [72, 139, 69, 232]
-Processing insn at f9
-		Bytes: [72, 137, 225]
-Processing insn at fc
-		Bytes: [72, 137, 65, 8]
-Processing insn at 100
-		Bytes: [72, 141, 69, 240]
-Processing insn at 104
-		Bytes: [72, 137, 1]
-Processing insn at 107
-		Bytes: [186, 1, 0, 0, 0]
-Processing insn at 10c
-		Bytes: [190, 2, 0, 0, 0]
+findRelocOffset setting imm reloc offset at bc to 1
+Processing insn at c1
+Processing insn at c5
+Processing insn at cb
+Processing insn at cf
+Processing insn at d6
+Processing insn at da
+Processing insn at e1
+Processing insn at e5
+Processing insn at e8
+Processing insn at ec
+Processing insn at f0
+Processing insn at f3
+Processing insn at f8
+Processing insn at fd
+Processing insn at 103
+Processing insn at 105
+Processing insn at 108
+Processing insn at 10b
+Processing insn at 10e
 Processing insn at 111
-		Bytes: [65, 184, 3, 0, 0, 0]
-Processing insn at 117
-		Bytes: [137, 215]
+Processing insn at 115
 Processing insn at 119
-		Bytes: [137, 117, 180]
 Processing insn at 11c
-		Bytes: [137, 85, 176]
-Processing insn at 11f
-		Bytes: [68, 137, 194]
-Processing insn at 122
-		Bytes: [139, 77, 176]
-Processing insn at 125
-		Bytes: [68, 139, 77, 180]
-Processing insn at 129
-		Bytes: [68, 137, 69, 172]
-Processing insn at 12d
-		Bytes: [69, 137, 200]
-Processing insn at 130
-		Bytes: [68, 139, 77, 172]
-Processing insn at 134
-		Bytes: [232, 199, 254, 255, 255]
+Processing insn at 120
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: update
-Processing insn at 139
-		Bytes: [137, 85, 208]
-Processing insn at 13c
-		Bytes: [72, 137, 69, 200]
-Processing insn at 140
-		Bytes: [72, 139, 69, 200]
-Processing insn at 144
-		Bytes: [72, 137, 69, 216]
-Adding reference because of data refs from 144
+Processing insn at 125
+Processing insn at 128
+Processing insn at 12c
+Processing insn at 130
+Adding reference because of data refs from 130
 WARNING: Data not in valid segment ff0000000000004e
-Processing insn at 148
-		Bytes: [139, 77, 208]
-Processing insn at 14b
-		Bytes: [137, 77, 224]
-Adding reference because of data refs from 14b
+Processing insn at 134
+Processing insn at 137
+Adding reference because of data refs from 137
 WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 14b
+Adding reference because of data refs from 137
 WARNING: Data not in valid segment ff00000000000052
-Processing insn at 14e
-		Bytes: [139, 77, 216]
-Adding reference because of data refs from 14e
+Processing insn at 13a
+Adding reference because of data refs from 13a
 WARNING: Data not in valid segment ff0000000000004e
-Processing insn at 151
-		Bytes: [3, 77, 220]
-Adding reference because of data refs from 151
+Processing insn at 13d
+Adding reference because of data refs from 13d
 WARNING: Data not in valid segment ff0000000000004f
-Processing insn at 154
-		Bytes: [3, 77, 224]
-Adding reference because of data refs from 154
+Processing insn at 140
+Adding reference because of data refs from 140
 WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 154
+Adding reference because of data refs from 140
 WARNING: Data not in valid segment ff00000000000052
-Processing insn at 157
-		Bytes: [137, 77, 196]
-Processing insn at 15a
-		Bytes: [139, 117, 196]
-Processing insn at 15d
-		Bytes: [72, 139, 125, 184]
-Processing insn at 161
-		Bytes: [176, 0]
-Processing insn at 163
-		Bytes: [232, 112, 0, 0, 0]
-Checking code ref 1d8
-Testing 1d8 for externality
+Processing insn at 143
+Processing insn at 146
+Processing insn at 149
+Processing insn at 14d
+Processing insn at 14f
+Checking code ref 1c0
+Testing 1c0 for externality
 EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 163 to 1
-Processing insn at 168
-		Bytes: [139, 77, 196]
-Processing insn at 16b
-		Bytes: [137, 69, 168]
-Processing insn at 16e
-		Bytes: [137, 200]
-Processing insn at 170
-		Bytes: [72, 131, 196, 112]
-Processing insn at 174
-		Bytes: [93]
-Processing insn at 175
-		Bytes: [195]
-Ending insn at: 174
+findRelocOffset setting imm reloc offset at 14f to 1
+Processing insn at 154
+Processing insn at 157
+Processing insn at 15a
+Processing insn at 15c
+Processing insn at 160
+Processing insn at 161
+Ending insn at: 160
 Recovering: 0x0L
 BB: 0
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 139, 69, 24]
 Processing insn at 8
-		Bytes: [76, 139, 85, 16]
 Processing insn at c
-		Bytes: [137, 125, 236]
 Processing insn at f
-		Bytes: [137, 117, 232]
 Processing insn at 12
-		Bytes: [137, 85, 228]
 Processing insn at 15
-		Bytes: [137, 77, 224]
 Processing insn at 18
-		Bytes: [68, 137, 69, 220]
 Processing insn at 1c
-		Bytes: [68, 137, 77, 216]
 Processing insn at 20
-		Bytes: [76, 137, 85, 208]
 Processing insn at 24
-		Bytes: [72, 137, 69, 200]
 Processing insn at 28
-		Bytes: [72, 139, 69, 208]
 Processing insn at 2c
-		Bytes: [139, 8]
-Processing insn at 2e
-		Bytes: [72, 139, 69, 200]
-Processing insn at 32
-		Bytes: [139, 16]
-Processing insn at 34
-		Bytes: [1, 209]
+Processing insn at 2f
+Processing insn at 31
+Processing insn at 33
+Adding reference because of data refs from 33
+WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 36
-		Bytes: [137, 77, 184]
-Adding reference because of data refs from 36
-WARNING: Data not in valid segment ff0000000000004e
-Processing insn at 39
-		Bytes: [72, 139, 69, 208]
+Processing insn at 3a
 Processing insn at 3d
-		Bytes: [139, 72, 4]
-Processing insn at 40
-		Bytes: [72, 139, 69, 200]
+Processing insn at 41
 Processing insn at 44
-		Bytes: [139, 80, 4]
-Processing insn at 47
-		Bytes: [1, 209]
-Processing insn at 49
-		Bytes: [137, 77, 188]
-Adding reference because of data refs from 49
+Processing insn at 46
+Adding reference because of data refs from 46
 WARNING: Data not in valid segment ff0000000000004f
-Processing insn at 4c
-		Bytes: [72, 139, 69, 208]
+Processing insn at 49
+Processing insn at 4d
 Processing insn at 50
-		Bytes: [139, 72, 8]
-Processing insn at 53
-		Bytes: [72, 139, 69, 200]
+Processing insn at 54
 Processing insn at 57
-		Bytes: [139, 80, 8]
-Processing insn at 5a
-		Bytes: [1, 209]
+Processing insn at 59
+Adding reference because of data refs from 59
+WARNING: Data not in valid segment ff00000000000051
+Adding reference because of data refs from 59
+WARNING: Data not in valid segment ff00000000000052
 Processing insn at 5c
-		Bytes: [137, 77, 192]
-Adding reference because of data refs from 5c
-WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 5c
-WARNING: Data not in valid segment ff00000000000052
 Processing insn at 5f
-		Bytes: [139, 77, 192]
 Adding reference because of data refs from 5f
-WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 5f
-WARNING: Data not in valid segment ff00000000000052
-Processing insn at 62
-		Bytes: [137, 77, 248]
-Processing insn at 65
-		Bytes: [72, 139, 69, 184]
-Adding reference because of data refs from 65
 WARNING: Data not in valid segment ff0000000000004e
-Processing insn at 69
-		Bytes: [72, 137, 69, 240]
+Processing insn at 63
+Processing insn at 67
+Processing insn at 6a
 Processing insn at 6d
-		Bytes: [139, 77, 248]
-Processing insn at 70
-		Bytes: [137, 77, 176]
-Processing insn at 73
-		Bytes: [72, 139, 69, 240]
-Processing insn at 77
-		Bytes: [72, 137, 69, 168]
-Processing insn at 7b
-		Bytes: [72, 139, 69, 168]
-Processing insn at 7f
-		Bytes: [139, 85, 176]
-Processing insn at 82
-		Bytes: [93]
-Processing insn at 83
-		Bytes: [195]
-Ending insn at: 82
+Processing insn at 71
+Processing insn at 75
+Processing insn at 79
+Processing insn at 7c
+Processing insn at 7d
+Ending insn at: 7c
 Program will reference external: malloc
 Program will reference external: printf
 Recovered 2 functions.
-Saving to: Output/test_26_1.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_26_1/Output/test_26_1.clang.ida.cfg

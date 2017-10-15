@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_31.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_31/Output/test_31.clang.ida.cfg
 PROCESSING: test_31.clang.o
 Adding data seg: .rodata.str1.1: 0x99L-0x9dL
 Adding data seg: .eh_frame: 0xa0L-0xf0L
@@ -32,22 +36,15 @@ At EP main:60
 BB: 60
 Starting insn at: 60
 Processing insn at 60
-		Bytes: [85]
 Processing insn at 61
-		Bytes: [72, 137, 229]
 Processing insn at 64
-		Bytes: [72, 131, 236, 16]
 Processing insn at 68
-		Bytes: [191, 5, 0, 0, 0]
 Processing insn at 6d
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Processing insn at 74
-		Bytes: [232, 135, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: fib
 Processing insn at 79
-		Bytes: [72, 191, 153, 0, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 79 to 2
 Adding reference because of data refs from 79
 Testing 99 for externality
@@ -56,27 +53,18 @@ Data Range: 99 <= 99 < 9d
 Data Range: 99 - 9d
 		Setting IMM ref at 79: to 99 type: DATA
 Processing insn at 83
-		Bytes: [137, 198]
 Processing insn at 85
-		Bytes: [176, 0]
 Processing insn at 87
-		Bytes: [232, 100, 0, 0, 0]
 Checking code ref f0
 Testing f0 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at 87 to 1
 Processing insn at 8c
-		Bytes: [49, 246]
 Processing insn at 8e
-		Bytes: [137, 69, 248]
 Processing insn at 91
-		Bytes: [137, 240]
 Processing insn at 93
-		Bytes: [72, 131, 196, 16]
 Processing insn at 97
-		Bytes: [93]
 Processing insn at 98
-		Bytes: [195]
 Ending insn at: 97
 Recovering: 0x0L
 Testing 19 for externality
@@ -87,53 +75,36 @@ Testing 30 for externality
 BB: 53
 Starting insn at: 53
 Processing insn at 53
-		Bytes: [139, 69, 252]
 Processing insn at 56
-		Bytes: [72, 131, 196, 16]
 Processing insn at 5a
-		Bytes: [93]
 Processing insn at 5b
-		Bytes: [195]
 Ending insn at: 5a
 BB: 30
 Successors: 53
 Starting insn at: 30
 Processing insn at 30
-		Bytes: [139, 69, 248]
 Processing insn at 33
-		Bytes: [131, 232, 1]
 Processing insn at 36
-		Bytes: [137, 199]
 Processing insn at 38
-		Bytes: [232, 195, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: fib
 Processing insn at 3d
-		Bytes: [139, 125, 248]
 Processing insn at 40
-		Bytes: [131, 239, 2]
 Processing insn at 43
-		Bytes: [137, 69, 244]
 Processing insn at 46
-		Bytes: [232, 181, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: fib
 Processing insn at 4b
-		Bytes: [139, 125, 244]
 Processing insn at 4e
-		Bytes: [1, 199]
 Processing insn at 50
-		Bytes: [137, 125, 252]
 Ending insn at: 50
 BB: 24
 Successors: 53
 Starting insn at: 24
 Processing insn at 24
-		Bytes: [199, 69, 252, 1, 0, 0, 0]
 Processing insn at 2b
-		Bytes: [233, 35, 0, 0, 0]
 Checking code ref 53
 Testing 53 for externality
 INTERNAL JMP: 53
@@ -142,32 +113,22 @@ BB: 19
 Successors: 24, 30
 Starting insn at: 19
 Processing insn at 19
-		Bytes: [49, 192]
 Processing insn at 1b
-		Bytes: [59, 69, 248]
 Processing insn at 1e
-		Bytes: [15, 133, 12, 0, 0, 0]
 Checking code ref 30
 Ending insn at: 1e
 BB: 0
 Successors: 19, 24
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 131, 236, 16]
 Processing insn at 8
-		Bytes: [184, 1, 0, 0, 0]
 Processing insn at d
-		Bytes: [137, 125, 248]
 Processing insn at 10
-		Bytes: [59, 69, 248]
 Processing insn at 13
-		Bytes: [15, 132, 11, 0, 0, 0]
 Checking code ref 24
 Ending insn at: 13
 Program will reference external: printf
 Recovered 2 functions.
-Saving to: Output/test_31.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_31/Output/test_31.clang.ida.cfg

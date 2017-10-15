@@ -14,21 +14,21 @@ Disassembly of section .text:
   16:	8b 45 ec             	mov    -0x14(%rbp),%eax
   19:	3b 45 fc             	cmp    -0x4(%rbp),%eax
   1c:	0f 86 2b 00 00 00    	jbe    4d <foo+0x4d>
-  22:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  26:	8b 4d ec             	mov    -0x14(%rbp),%ecx
-  29:	83 e9 01             	sub    $0x1,%ecx
-  2c:	89 c9                	mov    %ecx,%ecx
-  2e:	89 ca                	mov    %ecx,%edx
-  30:	8b 0c 90             	mov    (%rax,%rdx,4),%ecx
-  33:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  37:	8b 75 ec             	mov    -0x14(%rbp),%esi
-  3a:	89 f2                	mov    %esi,%edx
-  3c:	89 0c 90             	mov    %ecx,(%rax,%rdx,4)
+  22:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  25:	83 e8 01             	sub    $0x1,%eax
+  28:	89 c0                	mov    %eax,%eax
+  2a:	89 c1                	mov    %eax,%ecx
+  2c:	48 8b 55 f0          	mov    -0x10(%rbp),%rdx
+  30:	8b 04 8a             	mov    (%rdx,%rcx,4),%eax
+  33:	8b 75 ec             	mov    -0x14(%rbp),%esi
+  36:	89 f1                	mov    %esi,%ecx
+  38:	48 8b 55 f0          	mov    -0x10(%rbp),%rdx
+  3c:	89 04 8a             	mov    %eax,(%rdx,%rcx,4)
   3f:	8b 45 ec             	mov    -0x14(%rbp),%eax
-  42:	83 c0 ff             	add    $0xffffffffffffffff,%eax
+  42:	83 c0 ff             	add    $0xffffffff,%eax
   45:	89 45 ec             	mov    %eax,-0x14(%rbp)
   48:	e9 c9 ff ff ff       	jmpq   16 <foo+0x16>
-  4d:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  4d:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   54:	00 00 00 
   57:	8b 75 fc             	mov    -0x4(%rbp),%esi
   5a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax

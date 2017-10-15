@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13_1/map.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_13_1.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13_1/Output/test_13_1.clang.ida.cfg
 PROCESSING: test_13_1.clang.o
 Adding data seg: .eh_frame: 0x30L-0x80L
 Looking for relocations in 30 - 80
@@ -12,38 +16,25 @@ At EP doWork:10
 BB: 10
 Starting insn at: 10
 Processing insn at 10
-		Bytes: [85]
 Processing insn at 11
-		Bytes: [72, 137, 229]
 Processing insn at 14
-		Bytes: [72, 131, 236, 16]
 Processing insn at 18
-		Bytes: [199, 69, 252, 2, 0, 0, 0]
 Processing insn at 1f
-		Bytes: [232, 220, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: checkFn
 Processing insn at 24
-		Bytes: [139, 69, 252]
 Processing insn at 27
-		Bytes: [72, 131, 196, 16]
 Processing insn at 2b
-		Bytes: [93]
 Processing insn at 2c
-		Bytes: [195]
 Ending insn at: 2b
 Recovering: 0x0L
 BB: 0
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [93]
 Processing insn at 5
-		Bytes: [195]
 Ending insn at: 4
 Recovered 2 functions.
-Saving to: Output/test_13_1.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13_1/Output/test_13_1.clang.ida.cfg

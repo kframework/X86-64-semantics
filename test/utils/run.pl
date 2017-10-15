@@ -124,7 +124,7 @@ my ( $basename, $ext ) = split_filename($file);
 
 my $include_regstate = "";
 if ( ${driver} ne "" ) {
-    $include_regstate = "-I${MCSEMA_HOME}/../mcsema/Arch/X86/Runtime/";
+    $include_regstate = "-I${MCSEMA_HOME}/mcsema/Arch/X86/Runtime/";
 }
 
 ### Drivers
@@ -271,7 +271,7 @@ sub extract_bc_from_cfg {
         }
         else {
             execute(
-"$MCSEMA_HOME/bin/mcsema-lift --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
+"$MCSEMA_HOME/bin/mcsema-lift  -ignore-unsupported --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
             );
         }
         execute(

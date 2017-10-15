@@ -14,9 +14,9 @@ Disassembly of section .text:
   19:	8b 45 ec             	mov    -0x14(%rbp),%eax
   1c:	3b 45 f4             	cmp    -0xc(%rbp),%eax
   1f:	0f 8d 1f 00 00 00    	jge    44 <foo+0x44>
-  25:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-  29:	48 63 4d ec          	movslq -0x14(%rbp),%rcx
-  2d:	8b 14 88             	mov    (%rax,%rcx,4),%edx
+  25:	48 63 45 ec          	movslq -0x14(%rbp),%rax
+  29:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+  2d:	8b 14 81             	mov    (%rcx,%rax,4),%edx
   30:	03 55 f0             	add    -0x10(%rbp),%edx
   33:	89 55 f0             	mov    %edx,-0x10(%rbp)
   36:	8b 45 ec             	mov    -0x14(%rbp),%eax

@@ -57,7 +57,7 @@ Disassembly of section .text.startup:
   3d:	48 83 c4 10          	add    $0x10,%rsp
   41:	5d                   	pop    %rbp
   42:	c3                   	retq   
-  43:	66 66 66 66 2e 0f 1f 	data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  43:	66 66 66 66 2e 0f 1f 	data16 data16 data16 nopw %cs:0x0(%rax,%rax,1)
   4a:	84 00 00 00 00 00 
 
 0000000000000050 <_GLOBAL__sub_I_test_OOP_0.cpp>:

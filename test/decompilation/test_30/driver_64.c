@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-extern int print_it(const char *words);
+extern "C" int print_it(const char *words);
 
 int stderr_driver(const char* words)
 {

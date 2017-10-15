@@ -3,7 +3,7 @@
 #define TARGET_IA64
 #include "RegisterState.h"
 
-extern int mcsema_main(RegState *);
+extern "C" int mcsema_main(RegState *);
 
 int maze_driver(int argc, const char* argv[])
 {

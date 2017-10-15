@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_10.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_10/Output/test_10.clang.ida.cfg
 PROCESSING: test_10.clang.o
 Adding data seg: .eh_frame: 0x80L-0xb8L
 Looking for relocations in 80 - b8
@@ -18,33 +22,21 @@ Testing 54 for externality
 BB: 7a
 Starting insn at: 7a
 Processing insn at 7a
-		Bytes: [93]
 Processing insn at 7b
-		Bytes: [195]
 Ending insn at: 7a
 BB: 54
 Successors: 25
 Starting insn at: 54
 Processing insn at 54
-		Bytes: [72, 139, 69, 232]
 Processing insn at 58
-		Bytes: [72, 131, 192, 1]
 Processing insn at 5c
-		Bytes: [72, 137, 69, 232]
 Processing insn at 60
-		Bytes: [72, 139, 69, 224]
 Processing insn at 64
-		Bytes: [72, 131, 192, 1]
 Processing insn at 68
-		Bytes: [72, 137, 69, 224]
 Processing insn at 6c
-		Bytes: [72, 139, 69, 232]
 Processing insn at 70
-		Bytes: [138, 8]
 Processing insn at 72
-		Bytes: [136, 77, 223]
 Processing insn at 75
-		Bytes: [233, 171, 255, 255, 255]
 Checking code ref 25
 Testing 25 for externality
 INTERNAL JMP: 25
@@ -53,21 +45,15 @@ BB: 4b
 Successors: 54
 Starting insn at: 4b
 Processing insn at 4b
-		Bytes: [138, 69, 223]
 Processing insn at 4e
-		Bytes: [72, 139, 77, 224]
 Processing insn at 52
-		Bytes: [136, 1]
 Ending insn at: 52
 BB: 3f
 Successors: 54
 Starting insn at: 3f
 Processing insn at 3f
-		Bytes: [72, 139, 69, 224]
 Processing insn at 43
-		Bytes: [198, 0, 92]
 Processing insn at 46
-		Bytes: [233, 9, 0, 0, 0]
 Checking code ref 54
 Testing 54 for externality
 INTERNAL JMP: 54
@@ -76,49 +62,32 @@ BB: 32
 Successors: 3f, 4b
 Starting insn at: 32
 Processing insn at 32
-		Bytes: [15, 190, 69, 223]
 Processing insn at 36
-		Bytes: [131, 248, 47]
 Processing insn at 39
-		Bytes: [15, 133, 12, 0, 0, 0]
 Checking code ref 4b
 Ending insn at: 39
 BB: 25
 Successors: 32, 7a
 Starting insn at: 25
 Processing insn at 25
-		Bytes: [15, 190, 69, 223]
 Processing insn at 29
-		Bytes: [131, 248, 0]
 Processing insn at 2c
-		Bytes: [15, 132, 72, 0, 0, 0]
 Checking code ref 7a
 Ending insn at: 2c
 BB: 0
 Successors: 25
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 137, 125, 248]
 Processing insn at 8
-		Bytes: [72, 137, 117, 240]
 Processing insn at c
-		Bytes: [72, 139, 117, 248]
 Processing insn at 10
-		Bytes: [72, 137, 117, 232]
 Processing insn at 14
-		Bytes: [72, 139, 117, 240]
 Processing insn at 18
-		Bytes: [72, 137, 117, 224]
 Processing insn at 1c
-		Bytes: [72, 139, 117, 232]
 Processing insn at 20
-		Bytes: [138, 6]
 Processing insn at 22
-		Bytes: [136, 69, 223]
 Ending insn at: 22
 Recovered 1 functions.
-Saving to: Output/test_10.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_10/Output/test_10.clang.ida.cfg

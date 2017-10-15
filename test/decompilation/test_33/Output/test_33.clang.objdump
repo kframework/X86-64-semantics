@@ -68,7 +68,7 @@ Disassembly of section .text:
   d3:	89 75 e4             	mov    %esi,-0x1c(%rbp)
   d6:	89 c6                	mov    %eax,%esi
   d8:	e8 23 ff ff ff       	callq  0 <Ack>
-  dd:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  dd:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   e4:	00 00 00 
   e7:	8b 75 e4             	mov    -0x1c(%rbp),%esi
   ea:	89 c2                	mov    %eax,%edx

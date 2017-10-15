@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "RegisterState.h"
+#include "State.h"
 
-extern void sub_1(RegState *);
+extern "C" void sub_1(RegState *);
 
 unsigned long getNextPC(void) {
     return 0;

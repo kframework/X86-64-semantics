@@ -37,7 +37,7 @@ Disassembly of section .text:
   5f:	8b 45 d8             	mov    -0x28(%rbp),%eax
   62:	5d                   	pop    %rbp
   63:	c3                   	retq   
-  64:	66 66 66 2e 0f 1f 84 	data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  64:	66 66 66 2e 0f 1f 84 	data16 data16 nopw %cs:0x0(%rax,%rax,1)
   6b:	00 00 00 00 00 
 
 0000000000000070 <main>:
@@ -59,7 +59,7 @@ Disassembly of section .text:
   b9:	44 89 55 f4          	mov    %r10d,-0xc(%rbp)
   bd:	89 45 f0             	mov    %eax,-0x10(%rbp)
   c0:	e8 3b ff ff ff       	callq  0 <foo>
-  c5:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  c5:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   cc:	00 00 00 
   cf:	89 45 f8             	mov    %eax,-0x8(%rbp)
   d2:	8b 75 f8             	mov    -0x8(%rbp),%esi

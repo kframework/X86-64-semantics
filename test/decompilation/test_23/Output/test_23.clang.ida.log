@@ -1,743 +1,507 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_23/map.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_23.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_23/Output/test_23.clang.ida.cfg
 PROCESSING: test_23.clang.o
-Found a jmp based switch at: 154
-Address accessed via JMP: 320
-Address accessed via JMP: 328
-Address accessed via JMP: 330
-Address accessed via JMP: 338
-Address accessed via JMP: 340
-Address accessed via JMP: 348
-Address accessed via JMP: 350
-Address accessed via JMP: 358
-Address accessed via JMP: 360
-Address accessed via JMP: 368
-Address accessed via JMP: 370
-Address accessed via JMP: 378
-Address accessed via JMP: 380
-Address accessed via JMP: 388
-Address accessed via JMP: 390
-Address accessed via JMP: 398
-Address accessed via JMP: 3a0
-Address accessed via JMP: 3a8
-Address accessed via JMP: 3b0
-Address accessed via JMP: 3b8
-Address accessed via JMP: 3c0
-Address accessed via JMP: 3c8
-Address accessed via JMP: 3d0
-Adding data seg: .rodata: 0x320L-0x3d8L
-Adding data seg: .data: 0x3e0L-0x42dL
-Adding data seg: .rodata.str1.1: 0x42dL-0x48cL
-Adding data seg: .eh_frame: 0x490L-0x4e0L
-Looking for relocations in 320 - 3d8
-Found relocations in binary: (320)..
-rtype : c, 172, 0
-320 Found reloc to: 172 (size: 8)
-Testing 172 for externality
-		NOT ADDING REF: 00000320 -> 00000172
-rtype : c, 18e, 0
-328 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000328 -> 0000018e
-rtype : c, 18e, 0
-330 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000330 -> 0000018e
-rtype : c, 180, 0
-338 Found reloc to: 180 (size: 8)
-Testing 180 for externality
-		NOT ADDING REF: 00000338 -> 00000180
-rtype : c, 18e, 0
-340 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000340 -> 0000018e
-rtype : c, 18e, 0
-348 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000348 -> 0000018e
-rtype : c, 18e, 0
-350 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000350 -> 0000018e
-rtype : c, 18e, 0
-358 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000358 -> 0000018e
-rtype : c, 18e, 0
-360 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000360 -> 0000018e
-rtype : c, 18e, 0
-368 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000368 -> 0000018e
-rtype : c, 18e, 0
-370 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000370 -> 0000018e
-rtype : c, 18e, 0
-378 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000378 -> 0000018e
-rtype : c, 18e, 0
-380 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000380 -> 0000018e
-rtype : c, 18e, 0
-388 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000388 -> 0000018e
-rtype : c, 18e, 0
-390 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000390 -> 0000018e
-rtype : c, 18e, 0
-398 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 00000398 -> 0000018e
-rtype : c, 18e, 0
-3a0 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 000003a0 -> 0000018e
-rtype : c, 18e, 0
-3a8 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 000003a8 -> 0000018e
-rtype : c, 164, 0
-3b0 Found reloc to: 164 (size: 8)
-Testing 164 for externality
-		NOT ADDING REF: 000003b0 -> 00000164
-rtype : c, 18e, 0
-3b8 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 000003b8 -> 0000018e
-rtype : c, 18e, 0
-3c0 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 000003c0 -> 0000018e
-rtype : c, 18e, 0
-3c8 Found reloc to: 18e (size: 8)
-Testing 18e for externality
-		NOT ADDING REF: 000003c8 -> 0000018e
-rtype : c, 156, 0
-3d0 Found reloc to: 156 (size: 8)
-Testing 156 for externality
-		NOT ADDING REF: 000003d0 -> 00000156
-Adding data seg: .rodata: 0x320L-0x3d8L
-Looking for relocations in 3e0 - 42d
+Adding data seg: .data: 0x350L-0x39dL
+Adding data seg: .rodata.str1.1: 0x39dL-0x3fcL
+Adding data seg: .eh_frame: 0x400L-0x450L
+Looking for relocations in 350 - 39d
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .data: 0x3e0L-0x42dL
-Looking for relocations in 42d - 48c
+Adding data seg: .data: 0x350L-0x39dL
+Looking for relocations in 39d - 3fc
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.str1.1: 0x42dL-0x48cL
-Looking for relocations in 490 - 4e0
-Found relocations in binary: (4b0)..
+Adding data seg: .rodata.str1.1: 0x39dL-0x3fcL
+Looking for relocations in 400 - 450
+Found relocations in binary: (420)..
 rtype : 4, 0, 0
-4b0 Found reloc to: 0 (size: 4)
+420 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 4b0, seg_offset: 0 => 0
-Reloc Base Address: 4b0
+Offset: 420, seg_offset: 0 => 0
+Reloc Base Address: 420
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
 rtype : 4, 0, 0
-4cc Found reloc to: 0 (size: 4)
+43c Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 4cc, seg_offset: 0 => 0
-Reloc Base Address: 4cc
+Offset: 43c, seg_offset: 0 => 0
+Reloc Base Address: 43c
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-Adding data seg: .eh_frame: 0x490L-0x4e0L
+Adding data seg: .eh_frame: 0x400L-0x450L
 Recovering: main
 Processing export name: main at: b0
 At EP main:b0
-Testing 11e for externality
-Testing 2f7 for externality
-Testing 148 for externality
-Testing 18e for externality
-Testing 1e6 for externality
-Testing 219 for externality
-Testing 23f for externality
-Testing 28f for externality
-Testing 29b for externality
-Testing 2c7 for externality
-Testing 114 for externality
-Testing 2a7 for externality
-Testing 2c7 for externality
-Testing 312 for externality
-Testing 249 for externality
-Testing 283 for externality
-Testing 26f for externality
-Testing 283 for externality
-Testing 279 for externality
-Testing 283 for externality
-Testing 283 for externality
-Testing 28f for externality
-Testing 156 for externality
-Testing 164 for externality
-Testing 172 for externality
-Testing 180 for externality
-Testing 18e for externality
+Testing 121 for externality
+Testing 329 for externality
+Testing 147 for externality
+Testing 1a4 for externality
+Testing 1f2 for externality
+Testing 218 for externality
+Testing 24b for externality
+Testing 271 for externality
+Testing 2c1 for externality
+Testing 2cd for externality
+Testing 2f9 for externality
+Testing 117 for externality
+Testing 2d9 for externality
+Testing 2f9 for externality
+Testing 344 for externality
+Testing 27b for externality
+Testing 2b5 for externality
+Testing 2a1 for externality
+Testing 2b5 for externality
+Testing 2ab for externality
+Testing 2b5 for externality
+Testing 2b5 for externality
+Testing 2c1 for externality
+Testing 14c for externality
+Testing 15b for externality
+Testing 1b2 for externality
+Testing 1f2 for externality
+Testing 160 for externality
+Testing 16f for externality
+Testing 196 for externality
+Testing 1f2 for externality
+Testing 174 for externality
+Testing 183 for externality
 Testing 1c0 for externality
-Testing 1c0 for externality
-Testing 1c0 for externality
-Testing 1c0 for externality
-BB: 312
-Starting insn at: 312
-Processing insn at 312
-		Bytes: [139, 69, 252]
-Processing insn at 315
-		Bytes: [72, 131, 196, 112]
-Processing insn at 319
-		Bytes: [93]
-Processing insn at 31a
-		Bytes: [195]
-Ending insn at: 319
-BB: 2f7
-Successors: 312
-Starting insn at: 2f7
-Processing insn at 2f7
-		Bytes: [72, 191, 130, 4, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 2f7 to 2
-Adding reference because of data refs from 2f7
-Testing 482 for externality
-		Data Ref: 482, size: 10
-Data Range: 42d <= 482 < 48c
-Data Range: 482 - 48c
-		Setting IMM ref at 2f7: to 482 type: DATA
-Processing insn at 301
-		Bytes: [176, 0]
-Processing insn at 303
-		Bytes: [232, 224, 1, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
+Testing 188 for externality
+Testing 1f2 for externality
+BB: 344
+Starting insn at: 344
+Processing insn at 344
+Processing insn at 347
+Processing insn at 34e
+Processing insn at 34f
+Ending insn at: 34e
+BB: 329
+Successors: 344
+Starting insn at: 329
+Processing insn at 329
+findRelocOffset setting imm reloc offset at 329 to 2
+Adding reference because of data refs from 329
+Testing 3f2 for externality
+		Data Ref: 3f2, size: 10
+Data Range: 39d <= 3f2 < 3fc
+Data Range: 3f2 - 3fc
+		Setting IMM ref at 329: to 3f2 type: DATA
+Processing insn at 333
+Processing insn at 335
+Checking code ref 458
+Testing 458 for externality
 EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 303 to 1
-Processing insn at 308
-		Bytes: [199, 69, 252, 1, 0, 0, 0]
+findRelocOffset setting imm reloc offset at 335 to 1
+Processing insn at 33a
+Processing insn at 341
+Ending insn at: 341
+BB: 2f9
+Successors: 117
+Starting insn at: 2f9
+Processing insn at 2f9
+findRelocOffset setting imm reloc offset at 2f9 to 2
+Adding reference because of data refs from 2f9
+Testing 350 for externality
+		Data Ref: 350, size: 77
+Data Range: 350 <= 350 < 39d
+Data Range: 350 - 39d
+		Setting IMM ref at 2f9: to 350 type: DATA
+Processing insn at 303
+Processing insn at 307
+Processing insn at 30b
 Processing insn at 30f
-		Bytes: [137, 69, 148]
-Ending insn at: 30f
-BB: 2c7
-Successors: 114
-Starting insn at: 2c7
-Processing insn at 2c7
-		Bytes: [72, 184, 224, 3, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 2c7 to 2
-Adding reference because of data refs from 2c7
-Testing 3e0 for externality
-		Data Ref: 3e0, size: 77
-Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 42d
-		Setting IMM ref at 2c7: to 3e0 type: DATA
-Processing insn at 2d1
-		Bytes: [72, 99, 77, 232]
-Processing insn at 2d5
-		Bytes: [72, 107, 201, 11]
-Processing insn at 2d9
-		Bytes: [72, 1, 200]
-Processing insn at 2dc
-		Bytes: [72, 99, 77, 236]
-Processing insn at 2e0
-		Bytes: [198, 4, 8, 88]
-Processing insn at 2e4
-		Bytes: [232, 23, 253, 255, 255]
+Processing insn at 312
+Processing insn at 316
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: draw
-Processing insn at 2e9
-		Bytes: [139, 85, 220]
-Processing insn at 2ec
-		Bytes: [131, 194, 1]
-Processing insn at 2ef
-		Bytes: [137, 85, 220]
-Processing insn at 2f2
-		Bytes: [233, 29, 254, 255, 255]
-Checking code ref 114
-Testing 114 for externality
-INTERNAL JMP: 114
-Ending insn at: 2f2
-BB: 2a7
-Successors: 312
-Starting insn at: 2a7
-Processing insn at 2a7
-		Bytes: [72, 191, 130, 4, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 2a7 to 2
-Adding reference because of data refs from 2a7
-Testing 482 for externality
-		Data Ref: 482, size: 10
-Data Range: 42d <= 482 < 48c
-Data Range: 482 - 48c
-		Setting IMM ref at 2a7: to 482 type: DATA
-Processing insn at 2b1
-		Bytes: [176, 0]
-Processing insn at 2b3
-		Bytes: [232, 48, 2, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
+Processing insn at 31b
+Processing insn at 31e
+Processing insn at 321
+Processing insn at 324
+Checking code ref 117
+Testing 117 for externality
+INTERNAL JMP: 117
+Ending insn at: 324
+BB: 2d9
+Successors: 344
+Starting insn at: 2d9
+Processing insn at 2d9
+findRelocOffset setting imm reloc offset at 2d9 to 2
+Adding reference because of data refs from 2d9
+Testing 3f2 for externality
+		Data Ref: 3f2, size: 10
+Data Range: 39d <= 3f2 < 3fc
+Data Range: 3f2 - 3fc
+		Setting IMM ref at 2d9: to 3f2 type: DATA
+Processing insn at 2e3
+Processing insn at 2e5
+Checking code ref 458
+Testing 458 for externality
 EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 2b3 to 1
+findRelocOffset setting imm reloc offset at 2e5 to 1
+Processing insn at 2ea
+Processing insn at 2f1
+Processing insn at 2f4
+Checking code ref 344
+Testing 344 for externality
+INTERNAL JMP: 344
+Ending insn at: 2f4
+BB: 2cd
+Successors: 2d9, 2f9
+Starting insn at: 2cd
+Processing insn at 2cd
+Processing insn at 2d0
+Processing insn at 2d3
+Checking code ref 2f9
+Ending insn at: 2d3
+BB: 2c1
+Successors: 2cd, 2f9
+Starting insn at: 2c1
+Processing insn at 2c1
+Processing insn at 2c4
+Processing insn at 2c7
+Checking code ref 2f9
+Ending insn at: 2c7
+BB: 2b5
+Successors: 2c1
+Starting insn at: 2b5
+Processing insn at 2b5
 Processing insn at 2b8
-		Bytes: [199, 69, 252, 2, 0, 0, 0]
-Processing insn at 2bf
-		Bytes: [137, 69, 152]
-Processing insn at 2c2
-		Bytes: [233, 75, 0, 0, 0]
-Checking code ref 312
-Testing 312 for externality
-INTERNAL JMP: 312
-Ending insn at: 2c2
-BB: 29b
-Successors: 2a7, 2c7
-Starting insn at: 29b
-Processing insn at 29b
-		Bytes: [139, 69, 224]
-Processing insn at 29e
-		Bytes: [59, 69, 232]
+Processing insn at 2bb
+Processing insn at 2be
+Ending insn at: 2be
+BB: 2ab
+Successors: 2b5, 2c1
+Starting insn at: 2ab
+Processing insn at 2ab
+Processing insn at 2af
+Checking code ref 2c1
+Ending insn at: 2af
+BB: 2a1
+Successors: 2ab, 2b5
+Starting insn at: 2a1
 Processing insn at 2a1
-		Bytes: [15, 133, 32, 0, 0, 0]
-Checking code ref 2c7
-Ending insn at: 2a1
-BB: 28f
-Successors: 29b, 2c7
-Starting insn at: 28f
-Processing insn at 28f
-		Bytes: [139, 69, 228]
-Processing insn at 292
-		Bytes: [59, 69, 236]
-Processing insn at 295
-		Bytes: [15, 133, 44, 0, 0, 0]
-Checking code ref 2c7
-Ending insn at: 295
-BB: 283
-Successors: 28f
-Starting insn at: 283
-Processing insn at 283
-		Bytes: [139, 69, 228]
-Processing insn at 286
-		Bytes: [137, 69, 236]
+Processing insn at 2a5
+Checking code ref 2b5
+Ending insn at: 2a5
+BB: 27b
+Successors: 2a1, 2b5
+Starting insn at: 27b
+Processing insn at 27b
+findRelocOffset setting imm reloc offset at 27b to 2
+Adding reference because of data refs from 27b
+Testing 350 for externality
+		Data Ref: 350, size: 77
+Data Range: 350 <= 350 < 39d
+Data Range: 350 - 39d
+		Setting IMM ref at 27b: to 350 type: DATA
+Processing insn at 285
 Processing insn at 289
-		Bytes: [139, 69, 224]
-Processing insn at 28c
-		Bytes: [137, 69, 232]
-Ending insn at: 28c
-BB: 279
-Successors: 283, 28f
-Starting insn at: 279
-Processing insn at 279
-		Bytes: [131, 125, 236, 11]
-Processing insn at 27d
-		Bytes: [15, 140, 12, 0, 0, 0]
-Checking code ref 28f
-Ending insn at: 27d
-BB: 26f
-Successors: 279, 283
-Starting insn at: 26f
-Processing insn at 26f
-		Bytes: [131, 125, 236, 0]
-Processing insn at 273
-		Bytes: [15, 142, 10, 0, 0, 0]
-Checking code ref 283
-Ending insn at: 273
-BB: 249
-Successors: 26f, 283
-Starting insn at: 249
-Processing insn at 249
-		Bytes: [72, 184, 224, 3, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 249 to 2
-Adding reference because of data refs from 249
-Testing 3e0 for externality
-		Data Ref: 3e0, size: 77
-Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 42d
-		Setting IMM ref at 249: to 3e0 type: DATA
-Processing insn at 253
-		Bytes: [72, 99, 77, 232]
-Processing insn at 257
-		Bytes: [72, 107, 201, 11]
-Processing insn at 25b
-		Bytes: [72, 1, 200]
-Processing insn at 25e
-		Bytes: [72, 99, 77, 236]
-Processing insn at 262
-		Bytes: [15, 190, 20, 8]
-Processing insn at 266
-		Bytes: [131, 250, 124]
-Processing insn at 269
-		Bytes: [15, 133, 20, 0, 0, 0]
-Checking code ref 283
-Ending insn at: 269
-BB: 23f
-Successors: 249, 283
-Starting insn at: 23f
-Processing insn at 23f
-		Bytes: [131, 125, 232, 2]
+Processing insn at 28d
+Processing insn at 291
+Processing insn at 294
+Processing insn at 298
+Processing insn at 29b
+Checking code ref 2b5
+Ending insn at: 29b
+BB: 271
+Successors: 27b, 2b5
+Starting insn at: 271
+Processing insn at 271
+Processing insn at 275
+Checking code ref 2b5
+Ending insn at: 275
+BB: 24b
+Successors: 271, 2c1
+Starting insn at: 24b
+Processing insn at 24b
+findRelocOffset setting imm reloc offset at 24b to 2
+Adding reference because of data refs from 24b
+Testing 350 for externality
+		Data Ref: 350, size: 77
+Data Range: 350 <= 350 < 39d
+Data Range: 350 - 39d
+		Setting IMM ref at 24b: to 350 type: DATA
+Processing insn at 255
+Processing insn at 259
+Processing insn at 25d
+Processing insn at 261
+Processing insn at 264
+Processing insn at 268
+Processing insn at 26b
+Checking code ref 2c1
+Ending insn at: 26b
+BB: 218
+Successors: 24b
+Starting insn at: 218
+Processing insn at 218
+findRelocOffset setting imm reloc offset at 218 to 2
+Adding reference because of data refs from 218
+Testing 3d5 for externality
+		Data Ref: 3d5, size: 10
+Data Range: 39d <= 3d5 < 3fc
+Data Range: 3d5 - 3df
+		Setting IMM ref at 218: to 3d5 type: DATA
+Processing insn at 222
+Processing insn at 224
+Checking code ref 458
+Testing 458 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 224 to 1
+Processing insn at 229
+findRelocOffset setting imm reloc offset at 229 to 2
+Adding reference because of data refs from 229
+Testing 3df for externality
+		Data Ref: 3df, size: 19
+Data Range: 39d <= 3df < 3fc
+Data Range: 3df - 3f2
+		Setting IMM ref at 229: to 3df type: DATA
+Processing insn at 233
+Processing insn at 237
+Processing insn at 23a
+Processing insn at 23c
+Checking code ref 458
+Testing 458 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 23c to 1
+Processing insn at 241
 Processing insn at 243
-		Bytes: [15, 133, 58, 0, 0, 0]
-Checking code ref 283
-Ending insn at: 243
-BB: 219
-Successors: 23f, 28f
-Starting insn at: 219
-Processing insn at 219
-		Bytes: [72, 184, 224, 3, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 219 to 2
-Adding reference because of data refs from 219
-Testing 3e0 for externality
-		Data Ref: 3e0, size: 77
-Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 42d
-		Setting IMM ref at 219: to 3e0 type: DATA
-Processing insn at 223
-		Bytes: [72, 99, 77, 232]
-Processing insn at 227
-		Bytes: [72, 107, 201, 11]
-Processing insn at 22b
-		Bytes: [72, 1, 200]
-Processing insn at 22e
-		Bytes: [72, 99, 77, 236]
-Processing insn at 232
-		Bytes: [15, 190, 20, 8]
-Processing insn at 236
-		Bytes: [131, 250, 32]
-Processing insn at 239
-		Bytes: [15, 132, 80, 0, 0, 0]
-Checking code ref 28f
-Ending insn at: 239
-BB: 1e6
-Successors: 219
-Starting insn at: 1e6
-Processing insn at 1e6
-		Bytes: [72, 191, 101, 4, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 1e6 to 2
-Adding reference because of data refs from 1e6
-Testing 465 for externality
-		Data Ref: 465, size: 10
-Data Range: 42d <= 465 < 48c
-Data Range: 465 - 46f
-		Setting IMM ref at 1e6: to 465 type: DATA
-Processing insn at 1f0
-		Bytes: [176, 0]
-Processing insn at 1f2
-		Bytes: [232, 241, 2, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
-EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 1f2 to 1
-Processing insn at 1f7
-		Bytes: [72, 191, 111, 4, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 1f7 to 2
-Adding reference because of data refs from 1f7
-Testing 46f for externality
-		Data Ref: 46f, size: 19
-Data Range: 42d <= 46f < 48c
-Data Range: 46f - 482
-		Setting IMM ref at 1f7: to 46f type: DATA
-Processing insn at 201
-		Bytes: [72, 141, 117, 192]
-Processing insn at 205
-		Bytes: [137, 69, 160]
-Processing insn at 208
-		Bytes: [176, 0]
-Processing insn at 20a
-		Bytes: [232, 217, 2, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
-EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 20a to 1
-Processing insn at 20f
-		Bytes: [49, 255]
-Processing insn at 211
-		Bytes: [137, 69, 156]
-Processing insn at 214
-		Bytes: [232, 199, 2, 0, 0]
-Checking code ref 4e0
-Testing 4e0 for externality
+Processing insn at 246
+Checking code ref 450
+Testing 450 for externality
 EXTERNAL CALL: exit
-findRelocOffset setting imm reloc offset at 214 to 1
-Ending insn at: 214
+findRelocOffset setting imm reloc offset at 246 to 1
+Ending insn at: 246
+BB: 1f2
+Successors: 218, 24b
+Starting insn at: 1f2
+Processing insn at 1f2
+findRelocOffset setting imm reloc offset at 1f2 to 2
+Adding reference because of data refs from 1f2
+Testing 350 for externality
+		Data Ref: 350, size: 77
+Data Range: 350 <= 350 < 39d
+Data Range: 350 - 39d
+		Setting IMM ref at 1f2: to 350 type: DATA
+Processing insn at 1fc
+Processing insn at 200
+Processing insn at 204
+Processing insn at 208
+Processing insn at 20b
+Processing insn at 20f
+Processing insn at 212
+Checking code ref 24b
+Ending insn at: 212
 BB: 1c0
-Successors: 1e6, 219
+Successors: 1f2
 Starting insn at: 1c0
 Processing insn at 1c0
-		Bytes: [72, 184, 224, 3, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 1c0 to 2
 Adding reference because of data refs from 1c0
-Testing 3e0 for externality
-		Data Ref: 3e0, size: 77
-Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 42d
-		Setting IMM ref at 1c0: to 3e0 type: DATA
+Testing 3a2 for externality
+		Data Ref: 3a2, size: 40
+Data Range: 39d <= 3a2 < 3fc
+Data Range: 3a2 - 3ca
+		Setting IMM ref at 1c0: to 3a2 type: DATA
 Processing insn at 1ca
-		Bytes: [72, 99, 77, 232]
-Processing insn at 1ce
-		Bytes: [72, 107, 201, 11]
-Processing insn at 1d2
-		Bytes: [72, 1, 200]
-Processing insn at 1d5
-		Bytes: [72, 99, 77, 236]
-Processing insn at 1d9
-		Bytes: [15, 190, 20, 8]
-Processing insn at 1dd
-		Bytes: [131, 250, 35]
+Processing insn at 1cc
+Checking code ref 458
+Testing 458 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 1cc to 1
+Processing insn at 1d1
+findRelocOffset setting imm reloc offset at 1d1 to 2
+Adding reference because of data refs from 1d1
+Testing 3ca for externality
+		Data Ref: 3ca, size: 11
+Data Range: 39d <= 3ca < 3fc
+Data Range: 3ca - 3d5
+		Setting IMM ref at 1d1: to 3ca type: DATA
+Processing insn at 1db
+Processing insn at 1de
 Processing insn at 1e0
-		Bytes: [15, 133, 51, 0, 0, 0]
-Checking code ref 219
-Ending insn at: 1e0
-BB: 18e
-Successors: 1c0
-Starting insn at: 18e
-Processing insn at 18e
-		Bytes: [72, 191, 50, 4, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 18e to 2
-Adding reference because of data refs from 18e
-Testing 432 for externality
-		Data Ref: 432, size: 40
-Data Range: 42d <= 432 < 48c
-Data Range: 432 - 45a
-		Setting IMM ref at 18e: to 432 type: DATA
-Processing insn at 198
-		Bytes: [176, 0]
-Processing insn at 19a
-		Bytes: [232, 73, 3, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
+Checking code ref 458
+Testing 458 for externality
 EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 19a to 1
-Processing insn at 19f
-		Bytes: [72, 191, 90, 4, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at 19f to 2
-Adding reference because of data refs from 19f
-Testing 45a for externality
-		Data Ref: 45a, size: 11
-Data Range: 42d <= 45a < 48c
-Data Range: 45a - 465
-		Setting IMM ref at 19f: to 45a type: DATA
-Processing insn at 1a9
-		Bytes: [137, 69, 168]
-Processing insn at 1ac
-		Bytes: [176, 0]
-Processing insn at 1ae
-		Bytes: [232, 53, 3, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
-EXTERNAL CALL: printf
-findRelocOffset setting imm reloc offset at 1ae to 1
-Processing insn at 1b3
-		Bytes: [191, 255, 255, 255, 255]
-Processing insn at 1b8
-		Bytes: [137, 69, 164]
-Processing insn at 1bb
-		Bytes: [232, 32, 3, 0, 0]
-Checking code ref 4e0
-Testing 4e0 for externality
+findRelocOffset setting imm reloc offset at 1e0 to 1
+Processing insn at 1e5
+Processing insn at 1ea
+Processing insn at 1ed
+Checking code ref 450
+Testing 450 for externality
 EXTERNAL CALL: exit
-findRelocOffset setting imm reloc offset at 1bb to 1
+findRelocOffset setting imm reloc offset at 1ed to 1
+Ending insn at: 1ed
+BB: 1b2
+Successors: 1f2
+Starting insn at: 1b2
+Processing insn at 1b2
+Processing insn at 1b5
+Processing insn at 1b8
+Processing insn at 1bb
+Checking code ref 1f2
+Testing 1f2 for externality
+INTERNAL JMP: 1f2
 Ending insn at: 1bb
-BB: 180
-Successors: 1c0
-Starting insn at: 180
-Processing insn at 180
-		Bytes: [139, 69, 236]
+BB: 1a4
+Successors: 1f2
+Starting insn at: 1a4
+Processing insn at 1a4
+Processing insn at 1a7
+Processing insn at 1aa
+Processing insn at 1ad
+Checking code ref 1f2
+Testing 1f2 for externality
+INTERNAL JMP: 1f2
+Ending insn at: 1ad
+BB: 196
+Successors: 1f2
+Starting insn at: 196
+Processing insn at 196
+Processing insn at 199
+Processing insn at 19c
+Processing insn at 19f
+Checking code ref 1f2
+Testing 1f2 for externality
+INTERNAL JMP: 1f2
+Ending insn at: 19f
+BB: 188
+Successors: 1f2
+Starting insn at: 188
+Processing insn at 188
+Processing insn at 18b
+Processing insn at 18e
+Processing insn at 191
+Checking code ref 1f2
+Testing 1f2 for externality
+INTERNAL JMP: 1f2
+Ending insn at: 191
+BB: 183
+Successors: 188
+Starting insn at: 183
 Processing insn at 183
-		Bytes: [131, 192, 1]
-Processing insn at 186
-		Bytes: [137, 69, 236]
-Processing insn at 189
-		Bytes: [233, 50, 0, 0, 0]
+Checking code ref 188
+Testing 188 for externality
+INTERNAL JMP: 188
+Ending insn at: 183
+BB: 174
+Successors: 183, 1c0
+Starting insn at: 174
+Processing insn at 174
+Processing insn at 177
+Processing insn at 17a
+Processing insn at 17d
 Checking code ref 1c0
-Testing 1c0 for externality
-INTERNAL JMP: 1c0
-Ending insn at: 189
-BB: 172
-Successors: 1c0
-Starting insn at: 172
-Processing insn at 172
-		Bytes: [139, 69, 236]
-Processing insn at 175
-		Bytes: [131, 192, 255]
-Processing insn at 178
-		Bytes: [137, 69, 236]
-Processing insn at 17b
-		Bytes: [233, 64, 0, 0, 0]
-Checking code ref 1c0
-Testing 1c0 for externality
-INTERNAL JMP: 1c0
-Ending insn at: 17b
-BB: 164
-Successors: 1c0
-Starting insn at: 164
-Processing insn at 164
-		Bytes: [139, 69, 232]
-Processing insn at 167
-		Bytes: [131, 192, 1]
-Processing insn at 16a
-		Bytes: [137, 69, 232]
-Processing insn at 16d
-		Bytes: [233, 78, 0, 0, 0]
-Checking code ref 1c0
-Testing 1c0 for externality
-INTERNAL JMP: 1c0
-Ending insn at: 16d
-BB: 156
-Successors: 1c0
-Starting insn at: 156
-Processing insn at 156
-		Bytes: [139, 69, 232]
-Processing insn at 159
-		Bytes: [131, 192, 255]
-Processing insn at 15c
-		Bytes: [137, 69, 232]
-Processing insn at 15f
-		Bytes: [233, 92, 0, 0, 0]
-Checking code ref 1c0
-Testing 1c0 for externality
-INTERNAL JMP: 1c0
-Ending insn at: 15f
-BB: 148
-Successors: 156, 164, 172, 180, 18e
-Starting insn at: 148
-Processing insn at 148
-		Bytes: [72, 139, 69, 176]
+Ending insn at: 17d
+BB: 16f
+Successors: 174
+Starting insn at: 16f
+Processing insn at 16f
+Checking code ref 174
+Testing 174 for externality
+INTERNAL JMP: 174
+Ending insn at: 16f
+BB: 160
+Successors: 16f, 196
+Starting insn at: 160
+Processing insn at 160
+Processing insn at 163
+Processing insn at 166
+Processing insn at 169
+Checking code ref 196
+Ending insn at: 169
+BB: 15b
+Successors: 160
+Starting insn at: 15b
+Processing insn at 15b
+Checking code ref 160
+Testing 160 for externality
+INTERNAL JMP: 160
+Ending insn at: 15b
+BB: 14c
+Successors: 15b, 1b2
+Starting insn at: 14c
 Processing insn at 14c
-		Bytes: [72, 139, 12, 197, 32, 3, 0, 0]
-findRelocOffset setting imm reloc offset at 14c to 4
-Adding reference because of data refs from 14c
-Testing 320 for externality
-		Data Ref: 320, size: 184
-Data Range: 320 <= 320 < 3d8
-Data Range: 320 - 3d8
-		Setting MEM ref at 14c: to 320 type: DATA
-Processing insn at 154
-		Bytes: [255, 225]
-Its a jump table
-	JMPTable Start: 320
-	JMPTable offset from data: 0
-		Adding JMPTable 0: 172
-		Adding JMPTable 1: 18e
-		Adding JMPTable 2: 18e
-		Adding JMPTable 3: 180
-		Adding JMPTable 4: 18e
-		Adding JMPTable 5: 18e
-		Adding JMPTable 6: 18e
-		Adding JMPTable 7: 18e
-		Adding JMPTable 8: 18e
-		Adding JMPTable 9: 18e
-		Adding JMPTable 10: 18e
-		Adding JMPTable 11: 18e
-		Adding JMPTable 12: 18e
-		Adding JMPTable 13: 18e
-		Adding JMPTable 14: 18e
-		Adding JMPTable 15: 18e
-		Adding JMPTable 16: 18e
-		Adding JMPTable 17: 18e
-		Adding JMPTable 18: 164
-		Adding JMPTable 19: 18e
-		Adding JMPTable 20: 18e
-		Adding JMPTable 21: 18e
-		Adding JMPTable 22: 156
-Ending insn at: 154
-BB: 11e
-Successors: 148, 18e
-Starting insn at: 11e
-Processing insn at 11e
-		Bytes: [139, 69, 236]
+Processing insn at 14f
+Processing insn at 152
+Processing insn at 155
+Checking code ref 1b2
+Ending insn at: 155
+BB: 147
+Successors: 14c
+Starting insn at: 147
+Processing insn at 147
+Checking code ref 14c
+Testing 14c for externality
+INTERNAL JMP: 14c
+Ending insn at: 147
+BB: 121
+Successors: 147, 1a4
+Starting insn at: 121
 Processing insn at 121
-		Bytes: [137, 69, 228]
 Processing insn at 124
-		Bytes: [139, 69, 232]
 Processing insn at 127
-		Bytes: [137, 69, 224]
 Processing insn at 12a
-		Bytes: [72, 99, 77, 220]
-Processing insn at 12e
-		Bytes: [15, 190, 68, 13, 192]
-Processing insn at 133
-		Bytes: [131, 192, 159]
+Processing insn at 12d
+Processing insn at 131
 Processing insn at 136
-		Bytes: [137, 193]
 Processing insn at 138
-		Bytes: [131, 232, 22]
 Processing insn at 13b
-		Bytes: [72, 137, 77, 176]
-Processing insn at 13f
-		Bytes: [137, 69, 172]
-Processing insn at 142
-		Bytes: [15, 135, 70, 0, 0, 0]
-Checking code ref 18e
-Ending insn at: 142
-BB: 114
-Successors: 11e, 2f7
-Starting insn at: 114
-Processing insn at 114
-		Bytes: [131, 125, 220, 28]
-Processing insn at 118
-		Bytes: [15, 141, 217, 1, 0, 0]
-Checking code ref 2f7
-Ending insn at: 118
+Processing insn at 13e
+Processing insn at 141
+Checking code ref 1a4
+Ending insn at: 141
+BB: 117
+Successors: 121, 329
+Starting insn at: 117
+Processing insn at 117
+Processing insn at 11b
+Checking code ref 329
+Ending insn at: 11b
 BB: b0
-Successors: 114
+Successors: 117
 Starting insn at: b0
 Processing insn at b0
-		Bytes: [85]
 Processing insn at b1
-		Bytes: [72, 137, 229]
 Processing insn at b4
-		Bytes: [72, 131, 236, 112]
-Processing insn at b8
-		Bytes: [49, 192]
-Processing insn at ba
-		Bytes: [185, 28, 0, 0, 0]
-Processing insn at bf
-		Bytes: [137, 202]
-Processing insn at c1
-		Bytes: [76, 141, 69, 192]
-Processing insn at c5
-		Bytes: [73, 185, 224, 3, 0, 0, 0, 0, 0, 0]
-findRelocOffset setting imm reloc offset at c5 to 2
-Adding reference because of data refs from c5
-Testing 3e0 for externality
-		Data Ref: 3e0, size: 77
-Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 42d
-		Setting IMM ref at c5: to 3e0 type: DATA
-Processing insn at cf
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
-Processing insn at d6
-		Bytes: [137, 125, 248]
+Processing insn at bb
+Processing insn at bd
+Processing insn at c2
+Processing insn at c4
+Processing insn at c8
+findRelocOffset setting imm reloc offset at c8 to 2
+Adding reference because of data refs from c8
+Testing 350 for externality
+		Data Ref: 350, size: 77
+Data Range: 350 <= 350 < 39d
+Data Range: 350 - 39d
+		Setting IMM ref at c8: to 350 type: DATA
+Processing insn at d2
 Processing insn at d9
-		Bytes: [72, 137, 117, 240]
-Processing insn at dd
-		Bytes: [199, 69, 220, 0, 0, 0, 0]
-Processing insn at e4
-		Bytes: [199, 69, 236, 1, 0, 0, 0]
-Processing insn at eb
-		Bytes: [199, 69, 232, 1, 0, 0, 0]
-Processing insn at f2
-		Bytes: [72, 99, 117, 232]
-Processing insn at f6
-		Bytes: [72, 107, 246, 11]
-Processing insn at fa
-		Bytes: [73, 1, 241]
+Processing insn at dc
+Processing insn at e0
+Processing insn at e7
+Processing insn at ee
+Processing insn at f5
+Processing insn at f9
 Processing insn at fd
-		Bytes: [72, 99, 117, 236]
 Processing insn at 101
-		Bytes: [65, 198, 4, 49, 88]
-Processing insn at 106
-		Bytes: [137, 199]
-Processing insn at 108
-		Bytes: [76, 137, 198]
+Processing insn at 104
+Processing insn at 109
 Processing insn at 10b
-		Bytes: [232, 224, 3, 0, 0]
-Checking code ref 4f0
-Testing 4f0 for externality
+Processing insn at 10e
+Checking code ref 460
+Testing 460 for externality
 EXTERNAL CALL: read
-findRelocOffset setting imm reloc offset at 10b to 1
-Processing insn at 110
-		Bytes: [72, 137, 69, 184]
-Ending insn at: 110
+findRelocOffset setting imm reloc offset at 10e to 1
+Processing insn at 113
+Ending insn at: 113
 Recovering: 0x0L
 Testing 19 for externality
 Testing 8b for externality
@@ -748,61 +512,46 @@ Testing 20 for externality
 BB: 8b
 Starting insn at: 8b
 Processing insn at 8b
-		Bytes: [72, 191, 48, 4, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 8b to 2
 Adding reference because of data refs from 8b
-Testing 430 for externality
-		Data Ref: 430, size: 2
-Data Range: 42d <= 430 < 48c
-Data Range: 430 - 432
-		Setting IMM ref at 8b: to 430 type: DATA
+Testing 3a0 for externality
+		Data Ref: 3a0, size: 2
+Data Range: 39d <= 3a0 < 3fc
+Data Range: 3a0 - 3a2
+		Setting IMM ref at 8b: to 3a0 type: DATA
 Processing insn at 95
-		Bytes: [176, 0]
 Processing insn at 97
-		Bytes: [232, 76, 4, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
+Checking code ref 458
+Testing 458 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at 97 to 1
 Processing insn at 9c
-		Bytes: [137, 69, 236]
 Processing insn at 9f
-		Bytes: [72, 131, 196, 32]
 Processing insn at a3
-		Bytes: [93]
 Processing insn at a4
-		Bytes: [195]
 Ending insn at: a3
 BB: 69
 Successors: f
 Starting insn at: 69
 Processing insn at 69
-		Bytes: [72, 191, 48, 4, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 69 to 2
 Adding reference because of data refs from 69
-Testing 430 for externality
-		Data Ref: 430, size: 2
-Data Range: 42d <= 430 < 48c
-Data Range: 430 - 432
-		Setting IMM ref at 69: to 430 type: DATA
+Testing 3a0 for externality
+		Data Ref: 3a0, size: 2
+Data Range: 39d <= 3a0 < 3fc
+Data Range: 3a0 - 3a2
+		Setting IMM ref at 69: to 3a0 type: DATA
 Processing insn at 73
-		Bytes: [176, 0]
 Processing insn at 75
-		Bytes: [232, 110, 4, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
+Checking code ref 458
+Testing 458 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at 75 to 1
 Processing insn at 7a
-		Bytes: [137, 69, 240]
 Processing insn at 7d
-		Bytes: [139, 69, 252]
 Processing insn at 80
-		Bytes: [131, 192, 1]
 Processing insn at 83
-		Bytes: [137, 69, 252]
 Processing insn at 86
-		Bytes: [233, 132, 255, 255, 255]
 Checking code ref f
 Testing f for externality
 INTERNAL JMP: f
@@ -811,51 +560,37 @@ BB: 2a
 Successors: 20
 Starting insn at: 2a
 Processing insn at 2a
-		Bytes: [72, 191, 45, 4, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 2a to 2
 Adding reference because of data refs from 2a
-Testing 42d for externality
-		Data Ref: 42d, size: 3
-Data Range: 42d <= 42d < 48c
-Data Range: 42d - 430
-		Setting IMM ref at 2a: to 42d type: DATA
+Testing 39d for externality
+		Data Ref: 39d, size: 3
+Data Range: 39d <= 39d < 3fc
+Data Range: 39d - 3a0
+		Setting IMM ref at 2a: to 39d type: DATA
 Processing insn at 34
-		Bytes: [72, 184, 224, 3, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 34 to 2
 Adding reference because of data refs from 34
-Testing 3e0 for externality
-		Data Ref: 3e0, size: 77
-Data Range: 3e0 <= 3e0 < 42d
-Data Range: 3e0 - 42d
-		Setting IMM ref at 34: to 3e0 type: DATA
+Testing 350 for externality
+		Data Ref: 350, size: 77
+Data Range: 350 <= 350 < 39d
+Data Range: 350 - 39d
+		Setting IMM ref at 34: to 350 type: DATA
 Processing insn at 3e
-		Bytes: [72, 99, 77, 252]
 Processing insn at 42
-		Bytes: [72, 107, 201, 11]
 Processing insn at 46
-		Bytes: [72, 1, 200]
-Processing insn at 49
-		Bytes: [72, 99, 77, 248]
+Processing insn at 4a
 Processing insn at 4d
-		Bytes: [15, 190, 52, 8]
 Processing insn at 51
-		Bytes: [176, 0]
 Processing insn at 53
-		Bytes: [232, 144, 4, 0, 0]
-Checking code ref 4e8
-Testing 4e8 for externality
+Checking code ref 458
+Testing 458 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at 53 to 1
 Processing insn at 58
-		Bytes: [137, 69, 244]
 Processing insn at 5b
-		Bytes: [139, 69, 248]
 Processing insn at 5e
-		Bytes: [131, 192, 1]
 Processing insn at 61
-		Bytes: [137, 69, 248]
 Processing insn at 64
-		Bytes: [233, 183, 255, 255, 255]
 Checking code ref 20
 Testing 20 for externality
 INTERNAL JMP: 20
@@ -864,40 +599,31 @@ BB: 20
 Successors: 2a, 69
 Starting insn at: 20
 Processing insn at 20
-		Bytes: [131, 125, 248, 11]
 Processing insn at 24
-		Bytes: [15, 141, 63, 0, 0, 0]
 Checking code ref 69
 Ending insn at: 24
 BB: 19
 Successors: 20
 Starting insn at: 19
 Processing insn at 19
-		Bytes: [199, 69, 248, 0, 0, 0, 0]
 Ending insn at: 19
 BB: f
 Successors: 19, 8b
 Starting insn at: f
 Processing insn at f
-		Bytes: [131, 125, 252, 7]
 Processing insn at 13
-		Bytes: [15, 141, 114, 0, 0, 0]
 Checking code ref 8b
 Ending insn at: 13
 BB: 0
 Successors: f
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 131, 236, 32]
 Processing insn at 8
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Ending insn at: 8
 Program will reference external: read
 Program will reference external: exit
 Program will reference external: printf
 Recovered 2 functions.
-Saving to: Output/test_23.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_23/Output/test_23.clang.ida.cfg

@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/linux.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/linux.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_34.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_34/Output/test_34.clang.ida.cfg
 PROCESSING: test_34.clang.o
 Adding data seg: .data: 0x40L-0x44L
 Adding data seg: .rodata.str1.1: 0x44L-0x48L
@@ -28,13 +32,9 @@ At EP main:0
 BB: 0
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 131, 236, 16]
 Processing insn at 8
-		Bytes: [72, 191, 68, 0, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 8 to 2
 Adding reference because of data refs from 8
 Testing 44 for externality
@@ -43,9 +43,7 @@ Data Range: 44 <= 44 < 48
 Data Range: 44 - 48
 		Setting IMM ref at 8: to 44 type: DATA
 Processing insn at 12
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Processing insn at 19
-		Bytes: [199, 4, 37, 64, 0, 0, 0, 10, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 19 to 3
 Adding reference because of data refs from 19
 Testing 40 for externality
@@ -54,7 +52,6 @@ Data Range: 40 <= 40 < 44
 Data Range: 40 - 44
 		Setting MEM ref at 19: to 40 type: DATA
 Processing insn at 24
-		Bytes: [139, 52, 37, 64, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 24 to 3
 Adding reference because of data refs from 24
 Testing 40 for externality
@@ -63,26 +60,18 @@ Data Range: 40 <= 40 < 44
 Data Range: 40 - 44
 		Setting MEM ref at 24: to 40 type: DATA
 Processing insn at 2b
-		Bytes: [176, 0]
 Processing insn at 2d
-		Bytes: [232, 78, 0, 0, 0]
 Checking code ref 80
 Testing 80 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at 2d to 1
 Processing insn at 32
-		Bytes: [49, 246]
 Processing insn at 34
-		Bytes: [137, 69, 248]
 Processing insn at 37
-		Bytes: [137, 240]
 Processing insn at 39
-		Bytes: [72, 131, 196, 16]
 Processing insn at 3d
-		Bytes: [93]
 Processing insn at 3e
-		Bytes: [195]
 Ending insn at: 3d
 Program will reference external: printf
 Recovered 1 functions.
-Saving to: Output/test_34.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_34/Output/test_34.clang.ida.cfg

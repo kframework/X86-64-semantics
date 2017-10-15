@@ -1,16 +1,19 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_8.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_8/Output/test_8.clang.ida.cfg
 PROCESSING: test_8.clang.o
 Recovering: start
 Processing export name: start at: 1
-WARNING: Cannot determine type of function: start at: 1At EP start:1
+WARNING: Cannot determine type of function: start at: 1
+At EP start:1
 BB: 1
 Starting insn at: 1
 Processing insn at 1
-		Bytes: [131, 192, 1]
 Processing insn at 4
-		Bytes: [195]
 Ending insn at: 1
 Recovered 1 functions.
-Saving to: Output/test_8.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_8/Output/test_8.clang.ida.cfg

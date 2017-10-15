@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_20/map.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_20.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_20/Output/test_20.clang.ida.cfg
 PROCESSING: test_20.clang.o
 Adding data seg: .eh_frame: 0x2d0L-0x308L
 Looking for relocations in 2d0 - 308
@@ -88,33 +92,23 @@ Testing 2bf for externality
 BB: 2c8
 Starting insn at: 2c8
 Processing insn at 2c8
-		Bytes: [139, 69, 248]
 Processing insn at 2cb
-		Bytes: [93]
 Processing insn at 2cc
-		Bytes: [195]
 Ending insn at: 2cb
 BB: 2bf
 Successors: 2c8
 Starting insn at: 2bf
 Processing insn at 2bf
-		Bytes: [139, 69, 248]
 Processing insn at 2c2
-		Bytes: [131, 192, 0]
 Processing insn at 2c5
-		Bytes: [137, 69, 248]
 Ending insn at: 2c5
 BB: 2af
 Successors: 2c8
 Starting insn at: 2af
 Processing insn at 2af
-		Bytes: [139, 69, 248]
 Processing insn at 2b2
-		Bytes: [5, 147, 35, 1, 0]
 Processing insn at 2b7
-		Bytes: [137, 69, 248]
 Processing insn at 2ba
-		Bytes: [233, 9, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -123,13 +117,9 @@ BB: 29f
 Successors: 2c8
 Starting insn at: 29f
 Processing insn at 29f
-		Bytes: [139, 69, 248]
 Processing insn at 2a2
-		Bytes: [5, 146, 35, 1, 0]
 Processing insn at 2a7
-		Bytes: [137, 69, 248]
 Processing insn at 2aa
-		Bytes: [233, 25, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -138,13 +128,9 @@ BB: 28f
 Successors: 2c8
 Starting insn at: 28f
 Processing insn at 28f
-		Bytes: [139, 69, 248]
 Processing insn at 292
-		Bytes: [5, 145, 35, 1, 0]
 Processing insn at 297
-		Bytes: [137, 69, 248]
 Processing insn at 29a
-		Bytes: [233, 41, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -153,13 +139,9 @@ BB: 27f
 Successors: 2c8
 Starting insn at: 27f
 Processing insn at 27f
-		Bytes: [139, 69, 248]
 Processing insn at 282
-		Bytes: [5, 144, 35, 1, 0]
 Processing insn at 287
-		Bytes: [137, 69, 248]
 Processing insn at 28a
-		Bytes: [233, 57, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -168,13 +150,9 @@ BB: 26f
 Successors: 2c8
 Starting insn at: 26f
 Processing insn at 26f
-		Bytes: [139, 69, 248]
 Processing insn at 272
-		Bytes: [5, 143, 35, 1, 0]
 Processing insn at 277
-		Bytes: [137, 69, 248]
 Processing insn at 27a
-		Bytes: [233, 73, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -183,13 +161,9 @@ BB: 25f
 Successors: 2c8
 Starting insn at: 25f
 Processing insn at 25f
-		Bytes: [139, 69, 248]
 Processing insn at 262
-		Bytes: [5, 141, 35, 1, 0]
 Processing insn at 267
-		Bytes: [137, 69, 248]
 Processing insn at 26a
-		Bytes: [233, 89, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -198,13 +172,9 @@ BB: 24f
 Successors: 2c8
 Starting insn at: 24f
 Processing insn at 24f
-		Bytes: [139, 69, 248]
 Processing insn at 252
-		Bytes: [5, 140, 35, 1, 0]
 Processing insn at 257
-		Bytes: [137, 69, 248]
 Processing insn at 25a
-		Bytes: [233, 105, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -213,13 +183,9 @@ BB: 23f
 Successors: 2c8
 Starting insn at: 23f
 Processing insn at 23f
-		Bytes: [139, 69, 248]
 Processing insn at 242
-		Bytes: [5, 139, 35, 1, 0]
 Processing insn at 247
-		Bytes: [137, 69, 248]
 Processing insn at 24a
-		Bytes: [233, 121, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -228,13 +194,9 @@ BB: 22f
 Successors: 2c8
 Starting insn at: 22f
 Processing insn at 22f
-		Bytes: [139, 69, 248]
 Processing insn at 232
-		Bytes: [5, 138, 35, 1, 0]
 Processing insn at 237
-		Bytes: [137, 69, 248]
 Processing insn at 23a
-		Bytes: [233, 137, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -243,13 +205,9 @@ BB: 21f
 Successors: 2c8
 Starting insn at: 21f
 Processing insn at 21f
-		Bytes: [139, 69, 248]
 Processing insn at 222
-		Bytes: [5, 137, 35, 1, 0]
 Processing insn at 227
-		Bytes: [137, 69, 248]
 Processing insn at 22a
-		Bytes: [233, 153, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -258,13 +216,9 @@ BB: 20f
 Successors: 2c8
 Starting insn at: 20f
 Processing insn at 20f
-		Bytes: [139, 69, 248]
 Processing insn at 212
-		Bytes: [5, 255, 0, 0, 0]
 Processing insn at 217
-		Bytes: [137, 69, 248]
 Processing insn at 21a
-		Bytes: [233, 169, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -273,13 +227,9 @@ BB: 201
 Successors: 2c8
 Starting insn at: 201
 Processing insn at 201
-		Bytes: [139, 69, 248]
 Processing insn at 204
-		Bytes: [131, 192, 19]
 Processing insn at 207
-		Bytes: [137, 69, 248]
 Processing insn at 20a
-		Bytes: [233, 185, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -288,13 +238,9 @@ BB: 1f3
 Successors: 2c8
 Starting insn at: 1f3
 Processing insn at 1f3
-		Bytes: [139, 69, 248]
 Processing insn at 1f6
-		Bytes: [131, 192, 13]
 Processing insn at 1f9
-		Bytes: [137, 69, 248]
 Processing insn at 1fc
-		Bytes: [233, 199, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -303,13 +249,9 @@ BB: 1e5
 Successors: 2c8
 Starting insn at: 1e5
 Processing insn at 1e5
-		Bytes: [139, 69, 248]
 Processing insn at 1e8
-		Bytes: [131, 192, 12]
 Processing insn at 1eb
-		Bytes: [137, 69, 248]
 Processing insn at 1ee
-		Bytes: [233, 213, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -318,13 +260,9 @@ BB: 1d7
 Successors: 2c8
 Starting insn at: 1d7
 Processing insn at 1d7
-		Bytes: [139, 69, 248]
 Processing insn at 1da
-		Bytes: [131, 192, 6]
 Processing insn at 1dd
-		Bytes: [137, 69, 248]
 Processing insn at 1e0
-		Bytes: [233, 227, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -333,13 +271,9 @@ BB: 1c9
 Successors: 2c8
 Starting insn at: 1c9
 Processing insn at 1c9
-		Bytes: [139, 69, 248]
 Processing insn at 1cc
-		Bytes: [131, 192, 4]
 Processing insn at 1cf
-		Bytes: [137, 69, 248]
 Processing insn at 1d2
-		Bytes: [233, 241, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -348,13 +282,9 @@ BB: 1bb
 Successors: 2c8
 Starting insn at: 1bb
 Processing insn at 1bb
-		Bytes: [139, 69, 248]
 Processing insn at 1be
-		Bytes: [131, 192, 2]
 Processing insn at 1c1
-		Bytes: [137, 69, 248]
 Processing insn at 1c4
-		Bytes: [233, 255, 0, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -363,13 +293,9 @@ BB: 1ad
 Successors: 2c8
 Starting insn at: 1ad
 Processing insn at 1ad
-		Bytes: [139, 69, 248]
 Processing insn at 1b0
-		Bytes: [131, 192, 1]
 Processing insn at 1b3
-		Bytes: [137, 69, 248]
 Processing insn at 1b6
-		Bytes: [233, 13, 1, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -378,13 +304,9 @@ BB: 19f
 Successors: 2c8
 Starting insn at: 19f
 Processing insn at 19f
-		Bytes: [139, 69, 248]
 Processing insn at 1a2
-		Bytes: [131, 192, 0]
 Processing insn at 1a5
-		Bytes: [137, 69, 248]
 Processing insn at 1a8
-		Bytes: [233, 27, 1, 0, 0]
 Checking code ref 2c8
 Testing 2c8 for externality
 INTERNAL JMP: 2c8
@@ -393,7 +315,6 @@ BB: 19a
 Successors: 2bf
 Starting insn at: 19a
 Processing insn at 19a
-		Bytes: [233, 32, 1, 0, 0]
 Checking code ref 2bf
 Testing 2bf for externality
 INTERNAL JMP: 2bf
@@ -402,20 +323,15 @@ BB: 189
 Successors: 19a, 2af
 Starting insn at: 189
 Processing insn at 189
-		Bytes: [139, 69, 244]
 Processing insn at 18c
-		Bytes: [45, 147, 35, 1, 0]
 Processing insn at 191
-		Bytes: [137, 69, 172]
 Processing insn at 194
-		Bytes: [15, 132, 21, 1, 0, 0]
 Checking code ref 2af
 Ending insn at: 194
 BB: 184
 Successors: 189
 Starting insn at: 184
 Processing insn at 184
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 189
 Testing 189 for externality
 INTERNAL JMP: 189
@@ -424,20 +340,15 @@ BB: 173
 Successors: 184, 29f
 Starting insn at: 173
 Processing insn at 173
-		Bytes: [139, 69, 244]
 Processing insn at 176
-		Bytes: [45, 146, 35, 1, 0]
 Processing insn at 17b
-		Bytes: [137, 69, 176]
 Processing insn at 17e
-		Bytes: [15, 132, 27, 1, 0, 0]
 Checking code ref 29f
 Ending insn at: 17e
 BB: 16e
 Successors: 173
 Starting insn at: 16e
 Processing insn at 16e
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 173
 Testing 173 for externality
 INTERNAL JMP: 173
@@ -446,20 +357,15 @@ BB: 15d
 Successors: 16e, 28f
 Starting insn at: 15d
 Processing insn at 15d
-		Bytes: [139, 69, 244]
 Processing insn at 160
-		Bytes: [45, 145, 35, 1, 0]
 Processing insn at 165
-		Bytes: [137, 69, 180]
 Processing insn at 168
-		Bytes: [15, 132, 33, 1, 0, 0]
 Checking code ref 28f
 Ending insn at: 168
 BB: 158
 Successors: 15d
 Starting insn at: 158
 Processing insn at 158
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 15d
 Testing 15d for externality
 INTERNAL JMP: 15d
@@ -468,20 +374,15 @@ BB: 147
 Successors: 158, 27f
 Starting insn at: 147
 Processing insn at 147
-		Bytes: [139, 69, 244]
 Processing insn at 14a
-		Bytes: [45, 144, 35, 1, 0]
 Processing insn at 14f
-		Bytes: [137, 69, 184]
 Processing insn at 152
-		Bytes: [15, 132, 39, 1, 0, 0]
 Checking code ref 27f
 Ending insn at: 152
 BB: 142
 Successors: 147
 Starting insn at: 142
 Processing insn at 142
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 147
 Testing 147 for externality
 INTERNAL JMP: 147
@@ -490,20 +391,15 @@ BB: 131
 Successors: 142, 26f
 Starting insn at: 131
 Processing insn at 131
-		Bytes: [139, 69, 244]
 Processing insn at 134
-		Bytes: [45, 143, 35, 1, 0]
 Processing insn at 139
-		Bytes: [137, 69, 188]
 Processing insn at 13c
-		Bytes: [15, 132, 45, 1, 0, 0]
 Checking code ref 26f
 Ending insn at: 13c
 BB: 12c
 Successors: 131
 Starting insn at: 12c
 Processing insn at 12c
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 131
 Testing 131 for externality
 INTERNAL JMP: 131
@@ -512,20 +408,15 @@ BB: 11b
 Successors: 12c, 25f
 Starting insn at: 11b
 Processing insn at 11b
-		Bytes: [139, 69, 244]
 Processing insn at 11e
-		Bytes: [45, 141, 35, 1, 0]
 Processing insn at 123
-		Bytes: [137, 69, 192]
 Processing insn at 126
-		Bytes: [15, 132, 51, 1, 0, 0]
 Checking code ref 25f
 Ending insn at: 126
 BB: 116
 Successors: 11b
 Starting insn at: 116
 Processing insn at 116
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 11b
 Testing 11b for externality
 INTERNAL JMP: 11b
@@ -534,20 +425,15 @@ BB: 105
 Successors: 116, 24f
 Starting insn at: 105
 Processing insn at 105
-		Bytes: [139, 69, 244]
 Processing insn at 108
-		Bytes: [45, 140, 35, 1, 0]
 Processing insn at 10d
-		Bytes: [137, 69, 196]
 Processing insn at 110
-		Bytes: [15, 132, 57, 1, 0, 0]
 Checking code ref 24f
 Ending insn at: 110
 BB: 100
 Successors: 105
 Starting insn at: 100
 Processing insn at 100
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 105
 Testing 105 for externality
 INTERNAL JMP: 105
@@ -556,20 +442,15 @@ BB: ef
 Successors: 100, 23f
 Starting insn at: ef
 Processing insn at ef
-		Bytes: [139, 69, 244]
 Processing insn at f2
-		Bytes: [45, 139, 35, 1, 0]
 Processing insn at f7
-		Bytes: [137, 69, 200]
 Processing insn at fa
-		Bytes: [15, 132, 63, 1, 0, 0]
 Checking code ref 23f
 Ending insn at: fa
 BB: ea
 Successors: ef
 Starting insn at: ea
 Processing insn at ea
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref ef
 Testing ef for externality
 INTERNAL JMP: ef
@@ -578,20 +459,15 @@ BB: d9
 Successors: ea, 22f
 Starting insn at: d9
 Processing insn at d9
-		Bytes: [139, 69, 244]
 Processing insn at dc
-		Bytes: [45, 138, 35, 1, 0]
 Processing insn at e1
-		Bytes: [137, 69, 204]
 Processing insn at e4
-		Bytes: [15, 132, 69, 1, 0, 0]
 Checking code ref 22f
 Ending insn at: e4
 BB: d4
 Successors: d9
 Starting insn at: d4
 Processing insn at d4
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref d9
 Testing d9 for externality
 INTERNAL JMP: d9
@@ -600,20 +476,15 @@ BB: c3
 Successors: d4, 21f
 Starting insn at: c3
 Processing insn at c3
-		Bytes: [139, 69, 244]
 Processing insn at c6
-		Bytes: [45, 137, 35, 1, 0]
 Processing insn at cb
-		Bytes: [137, 69, 208]
 Processing insn at ce
-		Bytes: [15, 132, 75, 1, 0, 0]
 Checking code ref 21f
 Ending insn at: ce
 BB: be
 Successors: c3
 Starting insn at: be
 Processing insn at be
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref c3
 Testing c3 for externality
 INTERNAL JMP: c3
@@ -622,20 +493,15 @@ BB: ad
 Successors: be, 20f
 Starting insn at: ad
 Processing insn at ad
-		Bytes: [139, 69, 244]
 Processing insn at b0
-		Bytes: [45, 255, 0, 0, 0]
 Processing insn at b5
-		Bytes: [137, 69, 212]
 Processing insn at b8
-		Bytes: [15, 132, 81, 1, 0, 0]
 Checking code ref 20f
 Ending insn at: b8
 BB: a8
 Successors: ad
 Starting insn at: a8
 Processing insn at a8
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref ad
 Testing ad for externality
 INTERNAL JMP: ad
@@ -644,20 +510,15 @@ BB: 99
 Successors: a8, 201
 Starting insn at: 99
 Processing insn at 99
-		Bytes: [139, 69, 244]
 Processing insn at 9c
-		Bytes: [131, 232, 19]
 Processing insn at 9f
-		Bytes: [137, 69, 216]
 Processing insn at a2
-		Bytes: [15, 132, 89, 1, 0, 0]
 Checking code ref 201
 Ending insn at: a2
 BB: 94
 Successors: 99
 Starting insn at: 94
 Processing insn at 94
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 99
 Testing 99 for externality
 INTERNAL JMP: 99
@@ -666,20 +527,15 @@ BB: 85
 Successors: 94, 1f3
 Starting insn at: 85
 Processing insn at 85
-		Bytes: [139, 69, 244]
 Processing insn at 88
-		Bytes: [131, 232, 13]
 Processing insn at 8b
-		Bytes: [137, 69, 220]
 Processing insn at 8e
-		Bytes: [15, 132, 95, 1, 0, 0]
 Checking code ref 1f3
 Ending insn at: 8e
 BB: 80
 Successors: 85
 Starting insn at: 80
 Processing insn at 80
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 85
 Testing 85 for externality
 INTERNAL JMP: 85
@@ -688,20 +544,15 @@ BB: 71
 Successors: 80, 1e5
 Starting insn at: 71
 Processing insn at 71
-		Bytes: [139, 69, 244]
 Processing insn at 74
-		Bytes: [131, 232, 12]
 Processing insn at 77
-		Bytes: [137, 69, 224]
 Processing insn at 7a
-		Bytes: [15, 132, 101, 1, 0, 0]
 Checking code ref 1e5
 Ending insn at: 7a
 BB: 6c
 Successors: 71
 Starting insn at: 6c
 Processing insn at 6c
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 71
 Testing 71 for externality
 INTERNAL JMP: 71
@@ -710,20 +561,15 @@ BB: 5d
 Successors: 6c, 1d7
 Starting insn at: 5d
 Processing insn at 5d
-		Bytes: [139, 69, 244]
 Processing insn at 60
-		Bytes: [131, 232, 6]
 Processing insn at 63
-		Bytes: [137, 69, 228]
 Processing insn at 66
-		Bytes: [15, 132, 107, 1, 0, 0]
 Checking code ref 1d7
 Ending insn at: 66
 BB: 58
 Successors: 5d
 Starting insn at: 58
 Processing insn at 58
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 5d
 Testing 5d for externality
 INTERNAL JMP: 5d
@@ -732,20 +578,15 @@ BB: 49
 Successors: 58, 1c9
 Starting insn at: 49
 Processing insn at 49
-		Bytes: [139, 69, 244]
 Processing insn at 4c
-		Bytes: [131, 232, 4]
 Processing insn at 4f
-		Bytes: [137, 69, 232]
 Processing insn at 52
-		Bytes: [15, 132, 113, 1, 0, 0]
 Checking code ref 1c9
 Ending insn at: 52
 BB: 44
 Successors: 49
 Starting insn at: 44
 Processing insn at 44
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 49
 Testing 49 for externality
 INTERNAL JMP: 49
@@ -754,20 +595,15 @@ BB: 35
 Successors: 44, 1bb
 Starting insn at: 35
 Processing insn at 35
-		Bytes: [139, 69, 244]
 Processing insn at 38
-		Bytes: [131, 232, 2]
 Processing insn at 3b
-		Bytes: [137, 69, 236]
 Processing insn at 3e
-		Bytes: [15, 132, 119, 1, 0, 0]
 Checking code ref 1bb
 Ending insn at: 3e
 BB: 30
 Successors: 35
 Starting insn at: 30
 Processing insn at 30
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 35
 Testing 35 for externality
 INTERNAL JMP: 35
@@ -776,20 +612,15 @@ BB: 21
 Successors: 30, 1ad
 Starting insn at: 21
 Processing insn at 21
-		Bytes: [139, 69, 244]
 Processing insn at 24
-		Bytes: [131, 232, 1]
 Processing insn at 27
-		Bytes: [137, 69, 240]
 Processing insn at 2a
-		Bytes: [15, 132, 125, 1, 0, 0]
 Checking code ref 1ad
 Ending insn at: 2a
 BB: 1c
 Successors: 21
 Starting insn at: 1c
 Processing insn at 1c
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 21
 Testing 21 for externality
 INTERNAL JMP: 21
@@ -798,22 +629,14 @@ BB: 0
 Successors: 1c, 19f
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [137, 125, 252]
 Processing insn at 7
-		Bytes: [199, 69, 248, 0, 0, 0, 0]
 Processing insn at e
-		Bytes: [139, 125, 252]
 Processing insn at 11
-		Bytes: [133, 255]
 Processing insn at 13
-		Bytes: [137, 125, 244]
 Processing insn at 16
-		Bytes: [15, 132, 131, 1, 0, 0]
 Checking code ref 19f
 Ending insn at: 16
 Recovered 1 functions.
-Saving to: Output/test_20.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_20/Output/test_20.clang.ida.cfg

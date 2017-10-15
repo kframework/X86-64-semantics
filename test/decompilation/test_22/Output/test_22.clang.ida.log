@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_22.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_22/Output/test_22.clang.ida.cfg
 PROCESSING: test_22.clang.o
 Adding data seg: .rodata.cst8: 0x20L-0x28L
 Adding data seg: .eh_frame: 0x28L-0x60L
@@ -24,17 +28,12 @@ At EP timespi:0
 BB: 0
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [219, 109, 16]
 Processing insn at 7
-		Bytes: [219, 125, 240]
 Adding reference because of data refs from 7
 WARNING: Data not in valid segment ff00000000000046
 Processing insn at a
-		Bytes: [221, 5, 16, 0, 0, 0]
 findRelocOffset setting imm reloc offset at a to 2
 Adding reference because of data refs from a
 Testing 20 for externality
@@ -43,23 +42,15 @@ Data Range: 20 <= 20 < 28
 Data Range: 20 - 28
 		Setting MEM ref at a: to 20 type: DATA
 Processing insn at 10
-		Bytes: [219, 125, 224]
-Adding reference because of data refs from 10
+Processing insn at 12
+Adding reference because of data refs from 12
 WARNING: Data not in valid segment ff00000000000046
-Processing insn at 13
-		Bytes: [219, 109, 240]
-Adding reference because of data refs from 13
+Processing insn at 15
+Adding reference because of data refs from 15
 WARNING: Data not in valid segment ff00000000000046
-Processing insn at 16
-		Bytes: [219, 109, 224]
-Adding reference because of data refs from 16
-WARNING: Data not in valid segment ff00000000000046
-Processing insn at 19
-		Bytes: [222, 201]
+Processing insn at 18
+Processing insn at 1a
 Processing insn at 1b
-		Bytes: [93]
-Processing insn at 1c
-		Bytes: [195]
-Ending insn at: 1b
+Ending insn at: 1a
 Recovered 1 functions.
-Saving to: Output/test_22.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_22/Output/test_22.clang.ida.cfg

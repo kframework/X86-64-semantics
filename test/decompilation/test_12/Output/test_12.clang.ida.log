@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_12/map.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_12.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_12/Output/test_12.clang.ida.cfg
 PROCESSING: test_12.clang.o
 Adding data seg: .eh_frame: 0x50L-0x88L
 Looking for relocations in 50 - 88
@@ -23,37 +27,27 @@ Testing 44 for externality
 BB: 44
 Starting insn at: 44
 Processing insn at 44
-		Bytes: [139, 69, 252]
 Processing insn at 47
-		Bytes: [72, 131, 196, 32]
 Processing insn at 4b
-		Bytes: [93]
 Processing insn at 4c
-		Bytes: [195]
 Ending insn at: 4b
 BB: 3d
 Successors: 44
 Starting insn at: 3d
 Processing insn at 3d
-		Bytes: [199, 69, 252, 255, 255, 255, 255]
 Ending insn at: 3d
 BB: 26
 Successors: 44
 Starting insn at: 26
 Processing insn at 26
-		Bytes: [139, 125, 236]
 Processing insn at 29
-		Bytes: [232, 90, 0, 0, 0]
 Checking code ref 88
 Testing 88 for externality
 EXTERNAL CALL: close
 findRelocOffset setting imm reloc offset at 29 to 1
 Processing insn at 2e
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Processing insn at 35
-		Bytes: [137, 69, 232]
 Processing insn at 38
-		Bytes: [233, 7, 0, 0, 0]
 Checking code ref 44
 Testing 44 for externality
 INTERNAL JMP: 44
@@ -62,34 +56,23 @@ BB: 0
 Successors: 26, 3d
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 131, 236, 32]
 Processing insn at 8
-		Bytes: [49, 246]
 Processing insn at a
-		Bytes: [72, 137, 125, 240]
 Processing insn at e
-		Bytes: [72, 139, 125, 240]
 Processing insn at 12
-		Bytes: [176, 0]
 Processing insn at 14
-		Bytes: [232, 119, 0, 0, 0]
 Checking code ref 90
 Testing 90 for externality
 EXTERNAL CALL: open
 findRelocOffset setting imm reloc offset at 14 to 1
 Processing insn at 19
-		Bytes: [137, 69, 236]
 Processing insn at 1c
-		Bytes: [131, 125, 236, 255]
 Processing insn at 20
-		Bytes: [15, 132, 23, 0, 0, 0]
 Checking code ref 3d
 Ending insn at: 20
 Program will reference external: close
 Program will reference external: open
 Recovered 1 functions.
-Saving to: Output/test_12.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_12/Output/test_12.clang.ida.cfg

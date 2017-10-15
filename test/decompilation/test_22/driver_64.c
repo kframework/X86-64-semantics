@@ -3,7 +3,7 @@
 #include <immintrin.h>
 #include <mmintrin.h>
 
-extern long double timespi(long double k);
+extern "C" long double timespi(long double k);
 
 #ifdef __linux__
 long double DoDemoFpu1(long double k) {

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void mcsema_main(RegState *);
+extern "C" void mcsema_main(RegState *);
 
 int main(int argc, char *argv[]) {
 

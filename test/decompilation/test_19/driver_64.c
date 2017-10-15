@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #define TARGET_IA64
-#include "RegisterState.h"
+#include "State.h"
 
-extern void sub_1(RegState *);
+extern "C" void sub_1(RegState *);
 
 int doDemo12(int k) {
     RegState            rState = {0};

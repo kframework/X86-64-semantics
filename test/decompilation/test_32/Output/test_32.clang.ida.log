@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_32.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_32/Output/test_32.clang.ida.cfg
 PROCESSING: test_32.clang.o
 Adding data seg: .rodata.str1.1: 0xd2L-0xd7L
 Adding data seg: .eh_frame: 0xd8L-0x128L
@@ -36,18 +40,13 @@ Testing a2 for externality
 BB: a2
 Starting insn at: a2
 Processing insn at a2
-		Bytes: [139, 69, 232]
 Processing insn at a5
-		Bytes: [137, 69, 236]
 Processing insn at a8
-		Bytes: [72, 99, 125, 236]
 Processing insn at ac
-		Bytes: [232, 79, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: fib
 Processing insn at b1
-		Bytes: [72, 191, 210, 0, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at b1 to 2
 Adding reference because of data refs from b1
 Testing d2 for externality
@@ -56,37 +55,25 @@ Data Range: d2 <= d2 < d7
 Data Range: d2 - d7
 		Setting IMM ref at b1: to d2 type: DATA
 Processing insn at bb
-		Bytes: [72, 137, 198]
 Processing insn at be
-		Bytes: [176, 0]
 Processing insn at c0
-		Bytes: [232, 107, 0, 0, 0]
 Checking code ref 130
 Testing 130 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at c0 to 1
 Processing insn at c5
-		Bytes: [49, 201]
 Processing insn at c7
-		Bytes: [137, 69, 228]
 Processing insn at ca
-		Bytes: [137, 200]
 Processing insn at cc
-		Bytes: [72, 131, 196, 32]
 Processing insn at d0
-		Bytes: [93]
 Processing insn at d1
-		Bytes: [195]
 Ending insn at: d0
 BB: 95
 Successors: a2
 Starting insn at: 95
 Processing insn at 95
-		Bytes: [184, 20, 0, 0, 0]
 Processing insn at 9a
-		Bytes: [137, 69, 232]
 Processing insn at 9d
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref a2
 Testing a2 for externality
 INTERNAL JMP: a2
@@ -95,19 +82,14 @@ BB: 80
 Successors: a2
 Starting insn at: 80
 Processing insn at 80
-		Bytes: [72, 139, 69, 240]
 Processing insn at 84
-		Bytes: [72, 139, 120, 8]
 Processing insn at 88
-		Bytes: [232, 155, 0, 0, 0]
 Checking code ref 128
 Testing 128 for externality
 EXTERNAL CALL: atoi
 findRelocOffset setting imm reloc offset at 88 to 1
 Processing insn at 8d
-		Bytes: [137, 69, 232]
 Processing insn at 90
-		Bytes: [233, 13, 0, 0, 0]
 Checking code ref a2
 Testing a2 for externality
 INTERNAL JMP: a2
@@ -116,21 +98,13 @@ BB: 60
 Successors: 80, 95
 Starting insn at: 60
 Processing insn at 60
-		Bytes: [85]
 Processing insn at 61
-		Bytes: [72, 137, 229]
 Processing insn at 64
-		Bytes: [72, 131, 236, 32]
 Processing insn at 68
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Processing insn at 6f
-		Bytes: [137, 125, 248]
 Processing insn at 72
-		Bytes: [72, 137, 117, 240]
 Processing insn at 76
-		Bytes: [131, 125, 248, 2]
 Processing insn at 7a
-		Bytes: [15, 133, 21, 0, 0, 0]
 Checking code ref 95
 Ending insn at: 7a
 Recovering: 0x0L
@@ -140,53 +114,36 @@ Testing 50 for externality
 BB: 50
 Starting insn at: 50
 Processing insn at 50
-		Bytes: [72, 139, 69, 248]
 Processing insn at 54
-		Bytes: [72, 131, 196, 32]
 Processing insn at 58
-		Bytes: [93]
 Processing insn at 59
-		Bytes: [195]
 Ending insn at: 58
 BB: 24
 Successors: 50
 Starting insn at: 24
 Processing insn at 24
-		Bytes: [72, 139, 69, 240]
 Processing insn at 28
-		Bytes: [72, 131, 232, 2]
 Processing insn at 2c
-		Bytes: [72, 137, 199]
 Processing insn at 2f
-		Bytes: [232, 204, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: fib
 Processing insn at 34
-		Bytes: [72, 139, 125, 240]
 Processing insn at 38
-		Bytes: [72, 131, 239, 1]
 Processing insn at 3c
-		Bytes: [72, 137, 69, 232]
 Processing insn at 40
-		Bytes: [232, 187, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: fib
 Processing insn at 45
-		Bytes: [72, 139, 125, 232]
 Processing insn at 49
-		Bytes: [72, 1, 199]
 Processing insn at 4c
-		Bytes: [72, 137, 125, 248]
 Ending insn at: 4c
 BB: 17
 Successors: 50
 Starting insn at: 17
 Processing insn at 17
-		Bytes: [72, 199, 69, 248, 1, 0, 0, 0]
 Processing insn at 1f
-		Bytes: [233, 44, 0, 0, 0]
 Checking code ref 50
 Testing 50 for externality
 INTERNAL JMP: 50
@@ -195,20 +152,14 @@ BB: 0
 Successors: 17, 24
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 131, 236, 32]
 Processing insn at 8
-		Bytes: [72, 137, 125, 240]
 Processing insn at c
-		Bytes: [72, 131, 125, 240, 2]
 Processing insn at 11
-		Bytes: [15, 131, 13, 0, 0, 0]
 Checking code ref 24
 Ending insn at: 11
 Program will reference external: atoi
 Program will reference external: printf
 Recovered 2 functions.
-Saving to: Output/test_32.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_32/Output/test_32.clang.ida.cfg

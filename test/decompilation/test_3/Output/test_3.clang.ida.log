@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: ../../utils/std_defs.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_3.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_3/Output/test_3.clang.ida.cfg
 PROCESSING: test_3.clang.o
 Adding data seg: .rodata: 0xc0L-0xe8L
 Adding data seg: .rodata.str1.1: 0xe8L-0xecL
@@ -36,17 +40,11 @@ At EP main:50
 BB: 50
 Starting insn at: 50
 Processing insn at 50
-		Bytes: [85]
 Processing insn at 51
-		Bytes: [72, 137, 229]
 Processing insn at 54
-		Bytes: [72, 131, 236, 80]
 Processing insn at 58
-		Bytes: [190, 10, 0, 0, 0]
 Processing insn at 5d
-		Bytes: [72, 141, 69, 208]
 Processing insn at 61
-		Bytes: [72, 185, 192, 0, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 61 to 2
 Adding reference because of data refs from 61
 Testing c0 for externality
@@ -55,34 +53,23 @@ Data Range: c0 <= c0 < e8
 Data Range: c0 - c8
 		Setting IMM ref at 61: to c0 type: DATA
 Processing insn at 6b
-		Bytes: [186, 40, 0, 0, 0]
 Processing insn at 70
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Processing insn at 77
-		Bytes: [72, 137, 199]
 Processing insn at 7a
-		Bytes: [137, 117, 200]
 Processing insn at 7d
-		Bytes: [72, 137, 206]
 Processing insn at 80
-		Bytes: [72, 137, 69, 192]
 Processing insn at 84
-		Bytes: [232, 183, 0, 0, 0]
 Checking code ref 140
 Testing 140 for externality
 EXTERNAL CALL: memcpy
 findRelocOffset setting imm reloc offset at 84 to 1
 Processing insn at 89
-		Bytes: [72, 139, 125, 192]
 Processing insn at 8d
-		Bytes: [139, 117, 200]
 Processing insn at 90
-		Bytes: [232, 107, 255, 255, 255]
 Checking code ref 0
 Testing 0 for externality
 INTERNAL CALL: foo
 Processing insn at 95
-		Bytes: [72, 191, 232, 0, 0, 0, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 95 to 2
 Adding reference because of data refs from 95
 Testing e8 for externality
@@ -91,29 +78,19 @@ Data Range: e8 <= e8 < ec
 Data Range: e8 - ec
 		Setting IMM ref at 95: to e8 type: DATA
 Processing insn at 9f
-		Bytes: [137, 69, 204]
 Processing insn at a2
-		Bytes: [139, 117, 204]
 Processing insn at a5
-		Bytes: [176, 0]
 Processing insn at a7
-		Bytes: [232, 156, 0, 0, 0]
 Checking code ref 148
 Testing 148 for externality
 EXTERNAL CALL: printf
 findRelocOffset setting imm reloc offset at a7 to 1
 Processing insn at ac
-		Bytes: [139, 117, 204]
 Processing insn at af
-		Bytes: [137, 69, 188]
 Processing insn at b2
-		Bytes: [137, 240]
 Processing insn at b4
-		Bytes: [72, 131, 196, 80]
 Processing insn at b8
-		Bytes: [93]
 Processing insn at b9
-		Bytes: [195]
 Ending insn at: b8
 Recovering: 0x0L
 Testing 25 for externality
@@ -122,33 +99,21 @@ Testing 19 for externality
 BB: 44
 Starting insn at: 44
 Processing insn at 44
-		Bytes: [139, 69, 240]
 Processing insn at 47
-		Bytes: [93]
 Processing insn at 48
-		Bytes: [195]
 Ending insn at: 47
 BB: 25
 Successors: 19
 Starting insn at: 25
 Processing insn at 25
-		Bytes: [72, 139, 69, 248]
 Processing insn at 29
-		Bytes: [72, 99, 77, 236]
 Processing insn at 2d
-		Bytes: [139, 20, 136]
 Processing insn at 30
-		Bytes: [3, 85, 240]
 Processing insn at 33
-		Bytes: [137, 85, 240]
 Processing insn at 36
-		Bytes: [139, 69, 236]
 Processing insn at 39
-		Bytes: [131, 192, 1]
 Processing insn at 3c
-		Bytes: [137, 69, 236]
 Processing insn at 3f
-		Bytes: [233, 213, 255, 255, 255]
 Checking code ref 19
 Testing 19 for externality
 INTERNAL JMP: 19
@@ -157,30 +122,21 @@ BB: 19
 Successors: 25, 44
 Starting insn at: 19
 Processing insn at 19
-		Bytes: [139, 69, 236]
 Processing insn at 1c
-		Bytes: [59, 69, 244]
 Processing insn at 1f
-		Bytes: [15, 141, 31, 0, 0, 0]
 Checking code ref 44
 Ending insn at: 1f
 BB: 0
 Successors: 19
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [72, 137, 125, 248]
 Processing insn at 8
-		Bytes: [137, 117, 244]
 Processing insn at b
-		Bytes: [199, 69, 240, 0, 0, 0, 0]
 Processing insn at 12
-		Bytes: [199, 69, 236, 0, 0, 0, 0]
 Ending insn at: 12
 Program will reference external: memcpy
 Program will reference external: printf
 Recovered 2 functions.
-Saving to: Output/test_3.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_3/Output/test_3.clang.ida.cfg

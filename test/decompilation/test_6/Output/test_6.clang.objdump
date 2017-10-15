@@ -27,12 +27,12 @@ Disassembly of section .text:
   45:	8b 45 b8             	mov    -0x48(%rbp),%eax
   48:	3b 45 dc             	cmp    -0x24(%rbp),%eax
   4b:	0f 8d 2a 00 00 00    	jge    7b <foo+0x7b>
-  51:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-  55:	48 63 4d b8          	movslq -0x48(%rbp),%rcx
-  59:	8b 14 88             	mov    (%rax,%rcx,4),%edx
-  5c:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
-  60:	48 63 4d b8          	movslq -0x48(%rbp),%rcx
-  64:	2b 14 88             	sub    (%rax,%rcx,4),%edx
+  51:	48 63 45 b8          	movslq -0x48(%rbp),%rax
+  55:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+  59:	8b 14 81             	mov    (%rcx,%rax,4),%edx
+  5c:	48 63 45 b8          	movslq -0x48(%rbp),%rax
+  60:	48 8b 4d c0          	mov    -0x40(%rbp),%rcx
+  64:	2b 14 81             	sub    (%rcx,%rax,4),%edx
   67:	03 55 bc             	add    -0x44(%rbp),%edx
   6a:	89 55 bc             	mov    %edx,-0x44(%rbp)
   6d:	8b 45 b8             	mov    -0x48(%rbp),%eax
@@ -75,9 +75,9 @@ Disassembly of section .text:
   ea:	8b 45 dc             	mov    -0x24(%rbp),%eax
   ed:	83 c0 0a             	add    $0xa,%eax
   f0:	83 c0 01             	add    $0x1,%eax
-  f3:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
-  f7:	48 63 55 dc          	movslq -0x24(%rbp),%rdx
-  fb:	89 04 91             	mov    %eax,(%rcx,%rdx,4)
+  f3:	48 63 4d dc          	movslq -0x24(%rbp),%rcx
+  f7:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+  fb:	89 04 8a             	mov    %eax,(%rdx,%rcx,4)
   fe:	8b 45 dc             	mov    -0x24(%rbp),%eax
  101:	83 c0 01             	add    $0x1,%eax
  104:	89 45 dc             	mov    %eax,-0x24(%rbp)
@@ -87,9 +87,9 @@ Disassembly of section .text:
  117:	0f 8d 1f 00 00 00    	jge    13c <main+0x9c>
  11d:	8b 45 d8             	mov    -0x28(%rbp),%eax
  120:	83 c0 01             	add    $0x1,%eax
- 123:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
- 127:	48 63 55 d8          	movslq -0x28(%rbp),%rdx
- 12b:	89 04 91             	mov    %eax,(%rcx,%rdx,4)
+ 123:	48 63 4d d8          	movslq -0x28(%rbp),%rcx
+ 127:	48 8b 55 e0          	mov    -0x20(%rbp),%rdx
+ 12b:	89 04 8a             	mov    %eax,(%rdx,%rcx,4)
  12e:	8b 45 d8             	mov    -0x28(%rbp),%eax
  131:	83 c0 01             	add    $0x1,%eax
  134:	89 45 d8             	mov    %eax,-0x28(%rbp)
@@ -110,7 +110,7 @@ Disassembly of section .text:
  17d:	4c 89 5c 24 18       	mov    %r11,0x18(%rsp)
  182:	89 45 d0             	mov    %eax,-0x30(%rbp)
  185:	e8 76 fe ff ff       	callq  0 <foo>
- 18a:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+ 18a:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
  191:	00 00 00 
  194:	89 45 d4             	mov    %eax,-0x2c(%rbp)
  197:	8b 75 d4             	mov    -0x2c(%rbp),%esi

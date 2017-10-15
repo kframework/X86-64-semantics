@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "RegisterState.h"
+#include "State.h"
 
-extern void sub_1(RegState *);
+extern "C" void sub_1(RegState *);
 
 int doDemo2(int k) {
     RegState            rState = {0};

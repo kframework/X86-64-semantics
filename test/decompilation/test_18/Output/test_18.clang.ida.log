@@ -1,6 +1,10 @@
-Debugging is enabled.Using Batch mode.Starting analysisLoading Standard Definitions file: map.txt
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_18/map.txt
+Using Batch mode.
+Starting analysis
 Will lift 1 exports
-CFG Output File file: Output/test_18.clang.ida.cfg
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_18/Output/test_18.clang.ida.cfg
 PROCESSING: test_18.clang.o
 Adding data seg: .data: 0x60L-0x3b0L
 Adding data seg: .eh_frame: 0x3b0L-0x3e8L
@@ -90,23 +94,16 @@ Testing 12 for externality
 BB: 5a
 Starting insn at: 5a
 Processing insn at 5a
-		Bytes: [139, 69, 248]
 Processing insn at 5d
-		Bytes: [93]
 Processing insn at 5e
-		Bytes: [195]
 Ending insn at: 5d
 BB: 4c
 Successors: 12
 Starting insn at: 4c
 Processing insn at 4c
-		Bytes: [139, 69, 252]
 Processing insn at 4f
-		Bytes: [131, 192, 1]
 Processing insn at 52
-		Bytes: [137, 69, 252]
 Processing insn at 55
-		Bytes: [233, 184, 255, 255, 255]
 Checking code ref 12
 Testing 12 for externality
 INTERNAL JMP: 12
@@ -115,7 +112,6 @@ BB: 47
 Successors: 4c
 Starting insn at: 47
 Processing insn at 47
-		Bytes: [233, 0, 0, 0, 0]
 Checking code ref 4c
 Testing 4c for externality
 INTERNAL JMP: 4c
@@ -124,9 +120,7 @@ BB: 33
 Successors: 47
 Starting insn at: 33
 Processing insn at 33
-		Bytes: [72, 99, 69, 252]
 Processing insn at 37
-		Bytes: [72, 139, 4, 197, 112, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 37 to 4
 Adding reference because of data refs from 37
 Testing 70 for externality
@@ -135,19 +129,14 @@ Data Range: 60 <= 70 < 3b0
 Data Range: 70 - 3b0
 		Setting MEM ref at 37: to 70 type: DATA
 Processing insn at 3f
-		Bytes: [139, 8]
 Processing insn at 41
-		Bytes: [3, 77, 248]
 Processing insn at 44
-		Bytes: [137, 77, 248]
 Ending insn at: 44
 BB: 20
 Successors: 33, 47
 Starting insn at: 20
 Processing insn at 20
-		Bytes: [72, 99, 69, 252]
 Processing insn at 24
-		Bytes: [72, 131, 60, 197, 112, 0, 0, 0, 0]
 findRelocOffset setting imm reloc offset at 24 to 4
 Adding reference because of data refs from 24
 Testing 70 for externality
@@ -156,31 +145,23 @@ Data Range: 60 <= 70 < 3b0
 Data Range: 70 - 3b0
 		Setting MEM ref at 24: to 70 type: DATA
 Processing insn at 2d
-		Bytes: [15, 132, 20, 0, 0, 0]
 Checking code ref 47
 Ending insn at: 2d
 BB: 12
 Successors: 20, 5a
 Starting insn at: 12
 Processing insn at 12
-		Bytes: [72, 99, 69, 252]
 Processing insn at 16
-		Bytes: [72, 131, 248, 104]
 Processing insn at 1a
-		Bytes: [15, 131, 58, 0, 0, 0]
 Checking code ref 5a
 Ending insn at: 1a
 BB: 0
 Successors: 12
 Starting insn at: 0
 Processing insn at 0
-		Bytes: [85]
 Processing insn at 1
-		Bytes: [72, 137, 229]
 Processing insn at 4
-		Bytes: [199, 69, 248, 0, 0, 0, 0]
 Processing insn at b
-		Bytes: [199, 69, 252, 0, 0, 0, 0]
 Ending insn at: b
 Recovered 1 functions.
-Saving to: Output/test_18.clang.ida.cfg
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_18/Output/test_18.clang.ida.cfg

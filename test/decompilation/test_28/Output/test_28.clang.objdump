@@ -13,7 +13,7 @@ Disassembly of section .text:
   12:	8b 45 f8             	mov    -0x8(%rbp),%eax
   15:	3b 45 fc             	cmp    -0x4(%rbp),%eax
   18:	0f 8d 22 00 00 00    	jge    40 <func+0x40>
-  1e:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  1e:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   25:	00 00 00 
   28:	b0 00                	mov    $0x0,%al
   2a:	e8 00 00 00 00       	callq  2f <func+0x2f>

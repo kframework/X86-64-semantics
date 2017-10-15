@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "RegisterState.h"
 
-extern void sub_0(RegState *);
+extern "C" void sub_0(RegState *);
 
 int main(int argc, char *argv[]) {
 

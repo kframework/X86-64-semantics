@@ -21,16 +21,16 @@ Disassembly of section .text:
   36:	8b 45 e4             	mov    -0x1c(%rbp),%eax
   39:	3b 45 e8             	cmp    -0x18(%rbp),%eax
   3c:	0f 8d 40 00 00 00    	jge    82 <main+0x82>
-  42:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  42:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   49:	00 00 00 
   4c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
   50:	48 8b 70 08          	mov    0x8(%rax),%rsi
   54:	b0 00                	mov    $0x0,%al
   56:	e8 00 00 00 00       	callq  5b <main+0x5b>
-  5b:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
-  5f:	48 8b 76 08          	mov    0x8(%rsi),%rsi
-  63:	48 63 7d e4          	movslq -0x1c(%rbp),%rdi
-  67:	0f be 0c 3e          	movsbl (%rsi,%rdi,1),%ecx
+  5b:	48 63 75 e4          	movslq -0x1c(%rbp),%rsi
+  5f:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  63:	48 8b 7f 08          	mov    0x8(%rdi),%rdi
+  67:	0f be 0c 37          	movsbl (%rdi,%rsi,1),%ecx
   6b:	03 4d ec             	add    -0x14(%rbp),%ecx
   6e:	89 4d ec             	mov    %ecx,-0x14(%rbp)
   71:	89 45 e0             	mov    %eax,-0x20(%rbp)
@@ -38,7 +38,7 @@ Disassembly of section .text:
   77:	83 c0 01             	add    $0x1,%eax
   7a:	89 45 e4             	mov    %eax,-0x1c(%rbp)
   7d:	e9 b4 ff ff ff       	jmpq   36 <main+0x36>
-  82:	48 bf 00 00 00 00 00 	mov    $0x0,%rdi
+  82:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   89:	00 00 00 
   8c:	8b 75 e8             	mov    -0x18(%rbp),%esi
   8f:	b0 00                	mov    $0x0,%al
