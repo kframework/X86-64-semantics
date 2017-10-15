@@ -11,3 +11,4 @@ after.trans.out
 *.cfg2bc.log
 ELF_64_linux.bc
 alltogether.log
+build/*
