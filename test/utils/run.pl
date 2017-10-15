@@ -317,7 +317,7 @@ sub run_compare {
         compare( "${outdir}before.trans.out", "${outdir}after.trans.out" ) )
     {
         passInfo("${basename} $tag Output Passed");
-        execute("rm -rf ${outdir}after.trans.out");
+        execute("rm -rf ${outdir}*.trans.out");
     }
     else {
         failInfo("\t${basename}: $tag Output Failed\n");
