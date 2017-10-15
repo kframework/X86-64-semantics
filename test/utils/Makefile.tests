@@ -21,7 +21,9 @@ CXX=clang++
 #SKIP_MCSEMA=-skip_mcsema
 #SKIP_MCSEMA=
 PRINT=-print
-REG_ASSIGN=-reg_assign
+MASTER="--master"
+SHELL = bash
+
 
 .PHONY:run
 
@@ -29,34 +31,30 @@ REG_ASSIGN=-reg_assign
 all:    clang
 
 cfg:
-	@echo " Using IDA"
+	@echo -e "\e[4m\e[1m\e[34mRun Command\e[0m"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -cfg -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -cfg -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${MASTER}
 
 gcc:
 	@echo " Using gcc"
 	COMPILER=gcc ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
-	@${MAKE} ext="gcc" run_pass 
 icc:
 	@echo " using icc"
 	@COMPILER=icc ENTRY_FUNC=${ENTRY_FUNC} ASM_FILE=${ASM_FILE} FUNC_MAP=${FUNC_MAP} ${RUN_SH} ${PROG_PREFIX} 64
-	${MAKE} ext="icc" run_pass
 
 
 clang:
 	@echo ""
-	@echo " ${PROG_PREFIX} (clang)"
-	@echo "=========================="
+	@echo -e "\e[4m\e[1m\e[34m${PROG_PREFIX}\e[0m"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME}  ${REG_ASSIGN} -driver ${DRIVER} -allin_home ${ALLIN_HOME} -extract_bc
-	${MAKE} ext="clang" run_pass
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME}  ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME} -extract_bc
 
 run_pass:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN} -driver ${DRIVER} -allin_home ${ALLIN_HOME} 
-	${MAKE} ext="clang" test_allexe
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME} 
+	#${MAKE} ext="clang" test_allexe
 
 test_allexe:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -testallexe -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${REG_ASSIGN} -driver ${DRIVER} -allin_home ${ALLIN_HOME} 
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -compiler clang -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -testallexe -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME} 
 
 
 clean:
