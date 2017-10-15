@@ -16,7 +16,6 @@ my $AUGMENT_TYPE =
 my $CC          = "clang-3.8";
 my $CXX         = "clang++-3.8";
 my $OPT         = "opt";
-my $LLVMDIS     = "llvm-dis";
 my $LLVMAS      = "llvm-as";
 my $LLVMAS35    = "${home}/Install/llvm-3.5.0.release.install/bin/llvm-as";
 my $LLC         = "llc";
@@ -99,6 +98,7 @@ my $BIN_ARCH         = "";
 my $CFGBC_ARCH       = "";
 my $loadso           = "${allin_home}/lib/LLVMstack_deconstructor.so";
 my $OPTSWITCH        = "-constprop -stack-decons -dce  -early-cse-memssa";
+my $LLVMDIS          = "${MCSEMA_HOME}/build/llvm/bin/llvm-dis";
 
 #my $OPTSWITCH="-stack-decons -mem2reg -dce  -early-cse-memssa";
 #my $OPTSWITCH="-stack-decons -debug-only=\"stack_deconstructor\"";
@@ -131,7 +131,7 @@ if ( ${driver} ne "" ) {
 if ( "" ne $extract_bc ) {
     extract_bc_from_cfg();
     generate_linked_binary(
-        "${outdir}${basename}.${suffix}.bc",
+        "${outdir}${basename}.${suffix}.lifted.bc",
         "${outdir}${basename}.${suffix}.lifted.exe"
     );
     if ( -e "${outdir}${basename}.${suffix}.native" ) {
@@ -158,6 +158,7 @@ if ( "" ne $testallexe ) {
 if ( "" ne $cfg ) {
     generate_binary_from_source();
     generate_cfg();
+
     #update_cfg();
 }
 
@@ -261,24 +262,21 @@ sub extract_bc_from_cfg {
     }
 
     if ( -e "${outdir}${basename}.${suffix}${cfgext}.cfg" ) {
-        execute(
-"rm -rf ${outdir}${basename}.${suffix}.bc ${outdir}${basename}.${suffix}.opt.bc ${outdir}${basename}.${suffix}.ll ${outdir}${basename}.${suffix}.opt.ll"
-        );
+        execute("rm -rf ${outdir}${basename}.${suffix}.lifted.bc ${outdir}${basename}.${suffix}.lifted.ll");
 
         if ( "" eq $master ) {
             execute(
-"${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.bc  -entrypoint=${entry} 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
+"${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.lifted.bc  -entrypoint=${entry} 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
             );
         }
         else {
             execute(
-"$MCSEMA_HOME/bin/mcsema-lift --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
+"$MCSEMA_HOME/bin/mcsema-lift --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
             );
         }
-
-#execute("${OPT} -dce    ${outdir}${basename}.${suffix}.bc  -o=${outdir}${basename}.${suffix}.opt.bc");
-#execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.bc -o=${outdir}${basename}.${suffix}.ll");
-#execute("${LLVMDIS}   ${outdir}${basename}.${suffix}.opt.bc -o=${outdir}${basename}.${suffix}.opt.ll");
+        execute(
+"${LLVMDIS}   ${outdir}${basename}.${suffix}.lifted.bc -o=${outdir}${basename}.${suffix}.lifted.ll"
+        );
     }
     else {
         print "CFG Missing : ${outdir}${basename}.${suffix}${cfgext}.cfg\n\n";
@@ -313,6 +311,7 @@ sub run_compare {
 
 sub cleanup {
     info("Cleanup");
+
     # Clean Up
     execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.o");
     execute("rm -rf  ${outdir}${basename}.${suffix}.o");
@@ -343,7 +342,6 @@ sub failInfo {
     my $args = shift @_;
     system("echo  \e[4m\e[1m\e[91m$args\e[0m");
 }
-
 
 sub display {
     my $args = shift @_;
@@ -413,9 +411,6 @@ sub run_custom_pass {
     );
     execute(
 "${LLVMDIS} ${outdir}${basename}.${suffix}.trans.bc -o ${outdir}${basename}.${suffix}.trans.ll"
-    );
-    execute(
-"${LLVMDIS} ${outdir}${basename}.${suffix}.trans.opt.bc -o ${outdir}${basename}.${suffix}.trans.opt.ll"
     );
 
     print("\nRunning checks on pass \n");

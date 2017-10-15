@@ -59,7 +59,7 @@ test_allexe:
 
 clean:
 
-	@../utils/clearall.sh
+	@../../utils/clearall.sh
 	@rm -rf log *.dot *.mod
 
 
