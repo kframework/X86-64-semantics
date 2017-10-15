@@ -37,7 +37,6 @@ chomp $IDA;
 
 # Customizable inputs
 my $help        = "";
-my $compiler    = "";
 my $suffix      = "clang";
 my $arch        = "64";
 my $file        = "";
@@ -55,17 +54,18 @@ my $cmd_args    = "";
 my $driver      = "";
 my $allin_home  = "";
 my $testallexe  = "";
+my $skip_runcompare  = "";
 
 GetOptions(
     "help"         => \$help,
     "print"        => \$print,
+    "skip_runcompare" => \$skip_runcompare,
     "skip_mcsema"  => \$skip_mcsema,
     "cfg"          => \$cfg,
     "extract_bc"   => \$extract_bc,
     "master"       => \$master,
     "runpass"      => \$runpass,
     "testallexe"   => \$testallexe,
-    "compiler:s"   => \$compiler,
     "home:s"       => \$MCSEMA_HOME,
     "arch:s"       => \$arch,
     "map:s"        => \$map,
@@ -128,11 +128,23 @@ if ( ${driver} ne "" ) {
 }
 
 ### Drivers
+if ( "" ne $cfg ) {
+    generate_binary_from_source();
+    generate_cfg();
+}
+
 if ( "" ne $extract_bc ) {
     extract_bc_from_cfg();
     generate_linked_binary(
         "${outdir}${basename}.${suffix}.lifted.bc",
         "${outdir}${basename}.${suffix}.lifted.exe"
+    );
+
+
+    generate_binary_from_source();
+    generate_linked_binary(
+        "${outdir}${basename}.${suffix}.o",
+        "${outdir}${basename}.${suffix}.native"
     );
     if ( -e "${outdir}${basename}.${suffix}.native" ) {
         run_compare(
@@ -155,13 +167,6 @@ if ( "" ne $testallexe ) {
     exit;
 }
 
-if ( "" ne $cfg ) {
-    generate_binary_from_source();
-    generate_cfg();
-
-    #update_cfg();
-}
-
 exit;
 
 # Functions
@@ -170,46 +175,51 @@ sub generate_binary_from_source {
     execute(
 "rm -rf ${outdir}${basename}.${suffix}.o ${outdir}${basename}.${suffix}.objdump"
     );
+
     if ( "asm" eq $ext ) {
         execute("nasm -f elf64 -o ${outdir}${basename}.${suffix}.o $file ;");
     }
+
     if ( "c" eq $ext ) {
         execute(
 "${CC}  -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
         );
         ## Create native binary for comparision
-        execute(
-"${CXX}  ${include_regstate} -O0 ${CXX_OPTIONS} ${CC_OPTIONS}  ${GCC_ARCH}  ${outdir}${basename}.${suffix}.o ${driver}  -o ${outdir}${basename}.${suffix}.native"
-        );
+        #execute( "${CXX}  ${include_regstate} -O0 ${CXX_OPTIONS} ${CC_OPTIONS}  ${GCC_ARCH}  ${outdir}${basename}.${suffix}.o ${driver}  -o ${outdir}${basename}.${suffix}.native");
     }
+
     if ( "cpp" eq $ext ) {
         execute(
 "${CXX} -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
         );
-        ## Create native binary for comparision
-        execute(
-"${CXX}  -O0  ${include_regstate}  ${CXX_OPTIONS} ${CC_OPTIONS}  ${GCC_ARCH}  ${outdir}${basename}.${suffix}.o ${driver}  -o ${outdir}${basename}.${suffix}.native"
-        );
     }
+
     if ( "o" eq $ext ) {
         execute("cp  $file  ${outdir}${basename}.${suffix}.o");
     }
+
     if ( "ll" eq $ext ) {
         execute(
 "${CXX} -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
         );
     }
+
     execute(
 "objdump -d ${outdir}${basename}.${suffix}.o 1>${outdir}${basename}.${suffix}.objdump 2>&1"
     );
 }
 
 sub generate_linked_binary {
-    info("Generate lifted binary");
     my $inputbc   = shift @_;
     my $outputexe = shift @_;
 
+    info("Generate lifted binary [ $inputbc to $outputexe]");
     execute("rm -rf ${outputexe}");
+
+    if ( "asm" eq $ext ) {
+      print("Skipped for asm file\n");  
+      return;
+    }
 
     if ( "" eq $master ) {
         execute(
@@ -290,6 +300,12 @@ sub run_compare {
     my $tag   = shift @_;
 
     info("Run N Compare");
+
+    if ("" ne $skip_runcompare) {
+        passInfo("${basename} $tag Output Skipped");
+        return;
+    }
+
     execute(
 "echo ${stdin_args} | $exe_1 ${cmd_args} 1>${outdir}after.trans.out 2>&1"
     );
@@ -368,6 +384,33 @@ sub printall {
     print "\n\n";
 }
 
+
+sub generate_test_allexe {
+    print("\nGenerating Allexe \n");
+    ## Generate allexe's
+    execute("rm -rf 	./${outdir}*.allexe");
+    my $driverbc = "";
+    if ( "" ne $driver ) {
+        execute(
+            "${CC} -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc"
+        );
+        $driverbc = "${outdir}driver_64.bc";
+    }
+    execute("${LLVMAS} ${incdir}/ELF_64_linux.ll  -o ${outdir}ELF_64_linux.bc");
+    execute(
+"${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${outdir}/ELF_64_linux.bc  -o ${outdir}${basename}.${suffix}.trans.allexe"
+    );
+    execute(
+"${ALLTOGETHER} -disable-opt ${outdir}${basename}.${suffix}.trans.allexe -o ${outdir}${basename}.${suffix}.trans.merged.allexe 1>${outdir}alltogether.log 2>&1"
+    );
+
+    ## Run and check output of allexe obtained from IR after analysis
+    run_compare(
+"${ALLEY} --force-static  ${outdir}${basename}.${suffix}.trans.merged.allexe",
+        "${outdir}${basename}.${suffix}.lifted.exe", "Allexe"
+    );
+}
+
 ### Run my passes
 sub run_custom_pass {
     print("\nRunning custom passes\n");
@@ -440,31 +483,5 @@ sub run_custom_pass {
         "${outdir}${basename}.${suffix}.trans.lifted.exe",
         "${outdir}${basename}.${suffix}.lifted.exe",
         "Native"
-    );
-}
-
-sub generate_test_allexe {
-    print("\nGenerating Allexe \n");
-    ## Generate allexe's
-    execute("rm -rf 	./${outdir}*.allexe");
-    my $driverbc = "";
-    if ( "" ne $driver ) {
-        execute(
-            "${CC} -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc"
-        );
-        $driverbc = "${outdir}driver_64.bc";
-    }
-    execute("${LLVMAS} ${incdir}/ELF_64_linux.ll  -o ${outdir}ELF_64_linux.bc");
-    execute(
-"${BC2ALLVM}  $driverbc ${outdir}${basename}.${suffix}.trans.bc ${outdir}/ELF_64_linux.bc  -o ${outdir}${basename}.${suffix}.trans.allexe"
-    );
-    execute(
-"${ALLTOGETHER} -disable-opt ${outdir}${basename}.${suffix}.trans.allexe -o ${outdir}${basename}.${suffix}.trans.merged.allexe 1>${outdir}alltogether.log 2>&1"
-    );
-
-    ## Run and check output of allexe obtained from IR after analysis
-    run_compare(
-"${ALLEY} --force-static  ${outdir}${basename}.${suffix}.trans.merged.allexe",
-        "${outdir}${basename}.${suffix}.lifted.exe", "Allexe"
     );
 }
