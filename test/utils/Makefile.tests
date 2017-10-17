@@ -7,7 +7,7 @@ TEST_DIR=../../
 
 UTILS_DIR=${TEST_DIR}/utils
 INCLUDE_DIR=${UTILS_DIR}
-RUN_SH=${UTILS_DIR}/run.pl  
+RUN_SH=${UTILS_DIR}/run.pl
 ALLIN_HOME=${TEST_DIR}/../build/
 
 
@@ -34,26 +34,23 @@ cfg:
 	@echo ""
 	@echo -e "\e[4m\e[1m\e[34m${PROG_PREFIX}\e[0m"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -cfg -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${MASTER}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${MASTER} -genbin -gencfg
 
 clang:
 	@echo ""
 	@echo -e "\e[4m\e[1m\e[34m${PROG_PREFIX}\e[0m"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME}  ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${SKIP_RUNCOMPARE} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS}  -extract_bc
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME}  ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME}  -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS}  -extract_bc -compile_bc -run_compare ${SKIP_RUNCOMPARE}
+
+clean:
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE}  -cleanup 
+
+
+
 
 run_pass:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME} 
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -runpass -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME}
 	#${MAKE} ext="clang" test_allexe
 
 test_allexe:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -testallexe -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME} 
-
-
-clean:
-
-	@../../utils/clearall.sh
-	@rm -rf log *.dot *.mod
-
-
-
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	 -testallexe -home ${MCSEMA_HOME} -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS} ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME}
