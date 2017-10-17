@@ -23,6 +23,7 @@ sub generate_binary_from_source {
     my $CXX         = shift @_;
     my $CXX_OPTIONS = shift @_;
     my $arch        = shift @_;
+    my $force_gen   = shift @_;
 
     my $GCC_ARCH = "-m64";
     if ( $arch eq "32" ) {
@@ -30,6 +31,11 @@ sub generate_binary_from_source {
     }
 
     info("Generate source binary");
+    if ( "" eq $force_gen and ( -e "${outdir}${basename}.${suffix}.o" ) ) {
+        info("Skipped: already present");
+        return;
+    }
+
     execute(
 "rm -rf ${outdir}${basename}.${suffix}.o ${outdir}${basename}.${suffix}.objdump"
     );
@@ -68,6 +74,7 @@ sub generate_binary_from_source {
 ## Generate cfg from binary
 sub generate_cfg {
     my $outdir      = shift @_;
+    my $testdir     = shift @_;
     my $basename    = shift @_;
     my $suffix      = shift @_;
     my $cfgext      = shift @_;
@@ -76,8 +83,15 @@ sub generate_cfg {
     my $entry       = shift @_;
     my $MCSEMA_HOME = shift @_;
     my $IDA         = shift @_;
+    my $force_gen   = shift @_;
 
     info("Generate cfg [$cfgext]");
+    if ( "" eq $force_gen
+        and ( -e "${outdir}${basename}.${suffix}${cfgext}.cfg" ) )
+    {
+        info("Skipped: already present");
+        return;
+    }
 
     execute(
 "rm -rf ${outdir}${basename}.${suffix}.i64 ${outdir}${basename}.${suffix}${cfgext}.cfg ${outdir}${basename}.${suffix}${cfgext}.log ${outdir}${basename}.${suffix}${cfgext}.tool.log"
@@ -98,7 +112,9 @@ sub generate_cfg {
     if (   !( -e "${outdir}${basename}.${suffix}${cfgext}.cfg" )
         || !( -s "${outdir}${basename}.${suffix}${cfgext}.cfg" ) )
     {
-        failInfo("${basename}: cfg generation: Failed");
+        failInfo(
+"$testdir${outdir}${basename}.${suffix}.ida.log: cfg generation: Failed"
+        );
         return;
     }
 }
@@ -106,6 +122,7 @@ sub generate_cfg {
 ###  Generate BC from CFG
 sub extract_bc_from_cfg {
     my $outdir      = shift @_;
+    my $testdir     = shift @_;
     my $basename    = shift @_;
     my $suffix      = shift @_;
     my $cfgext      = shift @_;
@@ -114,6 +131,7 @@ sub extract_bc_from_cfg {
     my $MCSEMA_HOME = shift @_;
     my $entry       = shift @_;
     my $LLVMDIS     = shift @_;
+    my $force_gen   = shift @_;
 
     info("Running cfg to bc");
     my $CFG_TO_BC_PATH = "${MCSEMA_HOME}/mc-sema/bitcode_from_cfg/";
@@ -126,40 +144,55 @@ sub extract_bc_from_cfg {
         $CFGBC_ARCH = "-mtriple=i686-pc-linux-gnu";
     }
 
-    if ( -e "${outdir}${basename}.${suffix}${cfgext}.cfg" ) {
-        execute(
+    # If input cfg is missing; warn
+    if ( !( -e "${outdir}${basename}.${suffix}${cfgext}.cfg" ) ) {
+        warnInfo(
+            "$testdir${outdir}${basename}.${suffix}${cfgext}.cfg: Missing");
+        return;
+    }
+
+    # If output bc is presemt; skip
+    if ( "" eq $force_gen
+        and ( -e "${outdir}${basename}.${suffix}.lifted.bc" ) )
+    {
+        info("Skipped: already present");
+        return;
+    }
+
+    # Create
+    execute(
 "rm -rf ${outdir}${basename}.${suffix}.lifted.bc ${outdir}${basename}.${suffix}.lifted.ll"
-        );
+    );
 
-        if ( "" eq $master ) {
-            execute(
-"${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.lifted.bc  -entrypoint=${entry} 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
-            );
-        }
-        else {
-            execute(
-"$MCSEMA_HOME/bin/mcsema-lift -ignore-unsupported  --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
-            );
-        }
-
-        if ( !( -e "${outdir}${basename}.${suffix}.lifted.bc" ) ) {
-            failInfo("${basename}: bc generation: Failed");
-            return;
-        }
-
+    if ( "" eq $master ) {
         execute(
-"${LLVMDIS}   ${outdir}${basename}.${suffix}.lifted.bc -o=${outdir}${basename}.${suffix}.lifted.ll"
+"${CFG_TO_BC_PATH}/cfg_to_bc ${CFGBC_ARCH}  -i ${outdir}${basename}.${suffix}${cfgext}.cfg  -o ${outdir}${basename}.${suffix}.lifted.bc  -entrypoint=${entry} 1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
         );
     }
     else {
-        info("CFG Missing : ${outdir}${basename}.${suffix}${cfgext}.cfg");
-        exit(1);
+        execute(
+"$MCSEMA_HOME/bin/mcsema-lift -ignore-unsupported  --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
+        );
     }
+
+    # Err if fail to create.
+    if ( !( -e "${outdir}${basename}.${suffix}.lifted.bc" ) ) {
+        failInfo(
+"$testdir${outdir}${basename}.${suffix}.cfg2bc.log: bc generation: Failed"
+        );
+        return;
+    }
+
+    execute(
+"${LLVMDIS}   ${outdir}${basename}.${suffix}.lifted.bc -o=${outdir}${basename}.${suffix}.lifted.ll"
+    );
+
 }
 
 sub generate_linked_binary {
     my $inputbc          = shift @_;
     my $outputexe        = shift @_;
+    my $testdir          = shift @_;
     my $outdir           = shift @_;
     my $ext              = shift @_;
     my $master           = shift @_;
@@ -171,6 +204,7 @@ sub generate_linked_binary {
     my $include_regstate = shift @_;
     my $driver           = shift @_;
     my $MCSEMA_HOME      = shift @_;
+    my $force_gen        = shift @_;
 
     my $GCC_ARCH = "-m64";
     if ( $arch eq "32" ) {
@@ -178,6 +212,21 @@ sub generate_linked_binary {
     }
 
     info("Generate lifted binary [ $inputbc to $outputexe]");
+
+    # If input bc is missing; warn
+    if ( !( -e "${inputbc}" ) ) {
+        warnInfo("$testdir${inputbc}: Missing");
+        return;
+    }
+
+    # If output exe already present, skip
+    if ( "" eq $force_gen
+        and ( -e "${outputexe}" ) )
+    {
+        info("Skipped: already present");
+        return;
+    }
+
     execute("rm -rf ${outputexe}");
 
     if ( "asm" eq $ext ) {
@@ -194,6 +243,11 @@ sub generate_linked_binary {
         execute(
 "${CXX}  ${CXX_OPTIONS} ${GCC_ARCH}  -O3 ${include_regstate}  $inputbc ${driver} ${MCSEMA_HOME}/lib/libmcsema_rt64.a   -o $outputexe"
         );
+    }
+
+    # Err if fail to create.
+    if ( !( -e $outputexe ) ) {
+        failInfo("$testdir${outputexe}: lifted exe: Failed");
     }
 }
 
@@ -246,6 +300,11 @@ sub passInfo {
 sub failInfo {
     my $args = shift @_;
     system("echo  \e[4m\e[1m\e[91m$args\e[0m");
+}
+
+sub warnInfo {
+    my $args = shift @_;
+    system("echo  \e[4m\e[1m\e[35m$args\e[0m");
 }
 
 sub display {

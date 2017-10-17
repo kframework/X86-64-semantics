@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use File::Compare;
+use File::Basename;
 
 use lib qw( /home/sdasgup3/Github/binary-decompilation/test/utils/ );
 use utils;
@@ -59,6 +61,8 @@ my $skip_runcompare = "";
 my $run_compare     = "";
 my $compile_bc      = "";
 my $cleanup         = "";
+my $testdir         = "";
+my $force_gen       = "";
 
 GetOptions(
     "help"            => \$help,
@@ -86,6 +90,8 @@ GetOptions(
     "cmd_args:s"      => \$cmd_args,
     "allin_home:s"    => \$allin_home,
     "outdir:s"        => \$outdir,
+    "testdir:s"       => \$testdir,
+    "force_gen"       => \$force_gen,
 ) or die("Error in command line arguments\n");
 
 if ($help) {
@@ -117,23 +123,23 @@ if ( ${driver} ne "" ) {
 
 ### Drivers
 if ( "" ne $genbin ) {
-    utils::generate_binary_from_source(
-        $outdir, $basename,   $suffix, $ext,         $file,
-        $CC,     $CC_OPTIONS, $CXX,    $CXX_OPTIONS, $arch
-    );
+    utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
+        $file, $CC, $CC_OPTIONS, $CXX, $CXX_OPTIONS, $arch . $force_gen );
 }
 
 if ( "" ne $gencfg ) {
     utils::generate_cfg(
-        $outdir, $basename, $suffix,      $cfgext, $master,
-        $map,    $entry,    $MCSEMA_HOME, $IDA
+        $outdir,      $testdir, $basename, $suffix,
+        $cfgext,      $master,  $map,      $entry,
+        $MCSEMA_HOME, $IDA,     $force_gen
     );
 }
 
 if ( "" ne $extract_bc ) {
     utils::extract_bc_from_cfg(
-        $outdir, $basename,    $suffix, $cfgext, $master,
-        $arch,   $MCSEMA_HOME, $entry,  $LLVMDIS
+        $outdir, $testdir, $basename, $suffix,
+        $cfgext, $master,  $arch,     $MCSEMA_HOME,
+        $entry,  $LLVMDIS, $force_gen
     );
 }
 
@@ -141,6 +147,7 @@ if ( "" ne $compile_bc ) {
     utils::generate_linked_binary(
         "${outdir}${basename}.${suffix}.lifted.bc",
         "${outdir}${basename}.${suffix}.lifted.exe",
+        $testdir,
         $outdir,
         $ext,
         $master,
@@ -151,7 +158,8 @@ if ( "" ne $compile_bc ) {
         $incdir,
         $include_regstate,
         $driver,
-        $MCSEMA_HOME
+        $MCSEMA_HOME,
+        $force_gen
     );
 }
 
