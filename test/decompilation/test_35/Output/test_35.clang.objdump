@@ -1,0 +1,52 @@
+
+Output/test_35.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <f>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+   8:	64 48 8b 3c 25 00 00 	mov    %fs:0x0,%rdi
+   f:	00 00 
+  11:	48 ff c7             	inc    %rdi
+  14:	64 48 89 3c 25 00 00 	mov    %rdi,%fs:0x0
+  1b:	00 00 
+  1d:	48 89 f8             	mov    %rdi,%rax
+  20:	5d                   	pop    %rbp
+  21:	c3                   	retq   
+  22:	66 66 66 66 66 2e 0f 	data16 data16 data16 data16 nopw %cs:0x0(%rax,%rax,1)
+  29:	1f 84 00 00 00 00 00 
+
+0000000000000030 <main>:
+  30:	55                   	push   %rbp
+  31:	48 89 e5             	mov    %rsp,%rbp
+  34:	48 83 ec 30          	sub    $0x30,%rsp
+  38:	48 8d 7d f0          	lea    -0x10(%rbp),%rdi
+  3c:	31 c0                	xor    %eax,%eax
+  3e:	89 c1                	mov    %eax,%ecx
+  40:	48 ba 00 00 00 00 00 	movabs $0x0,%rdx
+  47:	00 00 00 
+  4a:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  51:	48 89 ce             	mov    %rcx,%rsi
+  54:	e8 00 00 00 00       	callq  59 <main+0x29>
+  59:	48 8d 4d e8          	lea    -0x18(%rbp),%rcx
+  5d:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  61:	48 89 ce             	mov    %rcx,%rsi
+  64:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  67:	e8 00 00 00 00       	callq  6c <main+0x3c>
+  6c:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  73:	00 00 00 
+  76:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+  7a:	41 89 c8             	mov    %ecx,%r8d
+  7d:	44 89 c6             	mov    %r8d,%esi
+  80:	89 45 e0             	mov    %eax,-0x20(%rbp)
+  83:	b0 00                	mov    $0x0,%al
+  85:	e8 00 00 00 00       	callq  8a <main+0x5a>
+  8a:	31 f6                	xor    %esi,%esi
+  8c:	89 45 dc             	mov    %eax,-0x24(%rbp)
+  8f:	89 f0                	mov    %esi,%eax
+  91:	48 83 c4 30          	add    $0x30,%rsp
+  95:	5d                   	pop    %rbp
+  96:	c3                   	retq   
