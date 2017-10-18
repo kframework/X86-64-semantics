@@ -3,7 +3,7 @@
 There are the list of notable static decompilations projects.
 
 |  Tool | Links |Open Sourced | Intermediate  IR | Functional  |
-|:--:|:--:|:--:|:--:|:--:|:--|
+|:--:|:--:|:--:|:--:|:--:|
 | ANgR | [1](http://angr.io/)| Yes| Not LLVM | Not |
 | BAP | [1](https://github.com/BinaryAnalysisPlatform/bap) | Yes | BIL | Not |
 |Bitblaze| [1](http://bitblaze.cs.berkeley.edu/)| Yes| Not LLVM | Not|
