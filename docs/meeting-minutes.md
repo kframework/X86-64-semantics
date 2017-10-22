@@ -39,10 +39,12 @@ reuse of CoreDet to render binary programs behave deterministically.
 
 My personal take is still on McSema which  is actively suported. Also as pointed out in soe literature that dynamic translators recover an IR by merging the translated blocks, but the recovered IR is incomplete and is only valid for current execution; consequently, various whole program analyses will provide incomplete information.
 
-
-
-
-
+### Meeting minutes
+1. Enhance an exiting tool?
+2. Where do we have the novelty: The binar lifting part or the CFI sing instrumentation or both? Binary liftng part
+3. What about targetting a subset of  benchmarks We dont have to support all the benchmark but a subset.
+4. what is the reason that McSema lacks in floating point?
+5. Try to know whic constructs SR might have problems; by lloking at the becnhmarks they support or from the knowledge of the benchmark!
 
 
 ### Apr 28
