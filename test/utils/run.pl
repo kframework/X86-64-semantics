@@ -23,9 +23,10 @@ my $LLVMAS      = "llvm-as";
 my $LLVMAS35    = "${home}/Install/llvm-3.5.0.release.install/bin/llvm-as";
 my $LLC         = "llc";
 my $outdir      = "Output/";
-my $CC_OPTIONS  = " -g ";
-my $CXX_OPTIONS = " -g -std=c++11 ";
-my $CC_35       = "${home}/Install/llvm-3.5.0.release.install/bin/clang-3.5";
+#my $CC_OPTIONS  = " -mno-sse -g ";
+# https://gcc.gnu.org/onlinedocs/gcc-4.7.3/gcc/i386-and-x86_002d64-Options.html
+my $CC_OPTIONS  = "  -g ";
+my $CXX_OPTIONS = " -O3 -lpthread";
 my $libnone     = "";
 my $BC2ALLVM    = "bc2allvm";
 my $ALLTOGETHER = "alltogether";
@@ -123,8 +124,11 @@ if ( ${driver} ne "" ) {
 
 ### Drivers
 if ( "" ne $genbin ) {
-    utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
-        $file, $CC, $CC_OPTIONS, $CXX, $CXX_OPTIONS, $arch . $force_gen );
+    utils::generate_binary_from_source(
+        $outdir,      $basename, $suffix,     $ext,
+        $file,        $CC,       $CC_OPTIONS, $CXX,
+        $CXX_OPTIONS, $arch,     $force_gen
+    );
 }
 
 if ( "" ne $gencfg ) {
@@ -165,13 +169,15 @@ if ( "" ne $compile_bc ) {
 
 if ( "" ne $run_compare ) {
     utils::generate_binary_from_source(
-        $outdir, $basename,   $suffix, $ext,         $file,
-        $CC,     $CC_OPTIONS, $CXX,    $CXX_OPTIONS, $arch
+        $outdir,      $basename, $suffix,     $ext,
+        $file,        $CC,       $CC_OPTIONS, $CXX,
+        $CXX_OPTIONS, $arch,     $force_gen
     );
 
     utils::generate_linked_binary(
         "${outdir}${basename}.${suffix}.o",
         "${outdir}${basename}.${suffix}.native",
+        $testdir,
         $outdir,
         $ext,
         $master,
@@ -182,7 +188,8 @@ if ( "" ne $run_compare ) {
         $incdir,
         $include_regstate,
         $driver,
-        $MCSEMA_HOME
+        $MCSEMA_HOME,
+        $force_gen
     );
     if ( -e "${outdir}${basename}.${suffix}.native" ) {
         if ( "" ne $skip_runcompare ) {

@@ -5,7 +5,7 @@ void testfunc(short s, float X, char C, long long LL, int I, double D) {
 }
 
 int main() {
-	testfunc(12, 1.245f, 'x', 123456677890LL, -10, 45e14);
+	testfunc(12, 1.245f, 'x', 123456677890LL, -10, 4.5);
         return 0;
 }
 

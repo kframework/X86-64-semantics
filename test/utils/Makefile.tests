@@ -24,26 +24,24 @@ PRINT=-print
 MASTER="--master"
 SHELL = bash
 
-
 .PHONY:run
 
-#all:    cfg
 all:    clang
 
 cfg:
 	@echo ""
 	@echo -e "\e[4m\e[1m\e[34m${PROG_PREFIX}\e[0m"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${MASTER} -genbin -gencfg
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME} -driver ${DRIVER} -allin_home ${ALLIN_HOME} ${MASTER} -genbin -gencfg ${FORCE_GEN}
 
 clang:
 	@echo ""
 	@echo -e "\e[4m\e[1m\e[34m${PROG_PREFIX}\e[0m"
 	mkdir -p ${outdir}
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME}  ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME}  -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS}  -extract_bc -compile_bc -run_compare ${SKIP_RUNCOMPARE}
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE} -arch 64 ${SKIP_MCSEMA} -map ${FUNC_MAP} -entry ${ENTRY_FUNC} -suffix clang -incdir ${INCLUDE_DIR}  ${PRINT}	  -home ${MCSEMA_HOME}  ${MASTER} -driver ${DRIVER} -allin_home ${ALLIN_HOME}  -stdin_args  ${STDIN_ARGS} -cmd_args ${CMD_ARGS}  -extract_bc -compile_bc -run_compare ${SKIP_RUNCOMPARE} ${FORCE_GEN}
 
 clean:
-	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE}  -cleanup 
+	${RUN_SH} -file ${PROG_PREFIX}.${ASM_FILE}  -cleanup
 
 
 

@@ -32,7 +32,7 @@ sub generate_binary_from_source {
 
     info("Generate source binary");
     if ( "" eq $force_gen and ( -e "${outdir}${basename}.${suffix}.o" ) ) {
-        info("Skipped: already present");
+        warnInfo("Skipped: already present");
         return;
     }
 
@@ -89,7 +89,7 @@ sub generate_cfg {
     if ( "" eq $force_gen
         and ( -e "${outdir}${basename}.${suffix}${cfgext}.cfg" ) )
     {
-        info("Skipped: already present");
+        warnInfo("Skipped: already present");
         return;
     }
 
@@ -155,7 +155,7 @@ sub extract_bc_from_cfg {
     if ( "" eq $force_gen
         and ( -e "${outdir}${basename}.${suffix}.lifted.bc" ) )
     {
-        info("Skipped: already present");
+        warnInfo("Skipped: already present");
         return;
     }
 
@@ -223,14 +223,14 @@ sub generate_linked_binary {
     if ( "" eq $force_gen
         and ( -e "${outputexe}" ) )
     {
-        info("Skipped: already present");
+        warnInfo("Skipped: already present");
         return;
     }
 
     execute("rm -rf ${outputexe}");
 
     if ( "asm" eq $ext ) {
-        print("Skipped for asm file\n");
+        warnInfo("Skipped: asm file");
         return;
     }
 
@@ -336,7 +336,7 @@ sub cleanup {
     execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.bc");
     execute("rm -rf  ${outdir}${basename}.${suffix}.opt.bc");
     execute("rm -rf  ${outdir}${basename}.${suffix}.native");
-    execute("rm -rf  ${outdir}${basename}.${suffix}.exe");
+    execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.exe");
 }
 1;
 
