@@ -1,0 +1,97 @@
+Debugging is enabled.
+Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
+Using Batch mode.
+Starting analysis
+Will lift 1 exports
+CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_36/Output/test_36.clang.ida.cfg
+PROCESSING: test_36.clang.o
+Adding data seg: .rodata.cst8: 0x78L-0x80L
+Adding data seg: .rodata.str1.1: 0x80L-0x84L
+Adding data seg: .eh_frame: 0x88L-0xd8L
+Looking for relocations in 78 - 80
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.cst8: 0x78L-0x80L
+Looking for relocations in 80 - 84
+Not scanning data sections of object file for pointer-alikes
+Adding data seg: .rodata.str1.1: 0x80L-0x84L
+Looking for relocations in 88 - d8
+Found relocations in binary: (a8)..
+rtype : 4, 0, 0
+a8 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: a8, seg_offset: 0 => 0
+Reloc Base Address: a8
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+rtype : 4, 0, 0
+c4 Found reloc to: 0 (size: 4)
+Testing 0 for externality
+Offset: c4, seg_offset: 0 => 0
+Reloc Base Address: c4
+Reloc size: 4
+Testing 0 for externality
+Code Ref: 0!
+Adding data seg: .eh_frame: 0x88L-0xd8L
+Recovering: main
+Processing export name: main at: 30
+At EP main:30
+BB: 30
+Starting insn at: 30
+Processing insn at 30
+Processing insn at 31
+Processing insn at 34
+Processing insn at 38
+findRelocOffset setting imm reloc offset at 38 to 5
+Adding reference because of data refs from 38
+Testing 78 for externality
+		Data Ref: 78, size: 8
+Data Range: 78 <= 78 < 80
+Data Range: 78 - 80
+		Setting MEM ref at 38: to 78 type: DATA
+Processing insn at 41
+Processing insn at 48
+Processing insn at 4d
+Processing insn at 52
+Checking code ref 0
+Testing 0 for externality
+INTERNAL CALL: fun
+Processing insn at 57
+findRelocOffset setting imm reloc offset at 57 to 2
+Adding reference because of data refs from 57
+Testing 80 for externality
+		Data Ref: 80, size: 4
+Data Range: 80 <= 80 < 84
+Data Range: 80 - 84
+		Setting IMM ref at 57: to 80 type: DATA
+Processing insn at 61
+Processing insn at 63
+Checking code ref d8
+Testing d8 for externality
+EXTERNAL CALL: printf
+findRelocOffset setting imm reloc offset at 63 to 1
+Processing insn at 68
+Processing insn at 6a
+Processing insn at 6d
+Processing insn at 6f
+Processing insn at 73
+Processing insn at 74
+Ending insn at: 73
+Recovering: 0x0L
+BB: 0
+Starting insn at: 0
+Processing insn at 0
+Processing insn at 1
+Processing insn at 4
+Processing insn at 9
+Processing insn at e
+Processing insn at 13
+Processing insn at 18
+Processing insn at 1d
+Processing insn at 22
+Processing insn at 26
+Processing insn at 27
+Ending insn at: 26
+Program will reference external: printf
+Recovered 2 functions.
+Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_36/Output/test_36.clang.ida.cfg
