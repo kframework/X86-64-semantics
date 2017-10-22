@@ -1,0 +1,53 @@
+
+Output/test_1.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <testfunc>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 30          	sub    $0x30,%rsp
+   8:	40 88 f0             	mov    %sil,%al
+   b:	66 41 89 f8          	mov    %di,%r8w
+   f:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  16:	00 00 00 
+  19:	66 44 89 45 fe       	mov    %r8w,-0x2(%rbp)
+  1e:	f3 0f 11 45 f8       	movss  %xmm0,-0x8(%rbp)
+  23:	88 45 f7             	mov    %al,-0x9(%rbp)
+  26:	48 89 55 e8          	mov    %rdx,-0x18(%rbp)
+  2a:	89 4d e4             	mov    %ecx,-0x1c(%rbp)
+  2d:	f2 0f 11 4d d8       	movsd  %xmm1,-0x28(%rbp)
+  32:	0f bf 75 fe          	movswl -0x2(%rbp),%esi
+  36:	f3 0f 5a 45 f8       	cvtss2sd -0x8(%rbp),%xmm0
+  3b:	0f be 55 f7          	movsbl -0x9(%rbp),%edx
+  3f:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+  43:	44 8b 45 e4          	mov    -0x1c(%rbp),%r8d
+  47:	f2 0f 10 4d d8       	movsd  -0x28(%rbp),%xmm1
+  4c:	b0 02                	mov    $0x2,%al
+  4e:	e8 00 00 00 00       	callq  53 <testfunc+0x53>
+  53:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+  56:	48 83 c4 30          	add    $0x30,%rsp
+  5a:	5d                   	pop    %rbp
+  5b:	c3                   	retq   
+  5c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000060 <main>:
+  60:	55                   	push   %rbp
+  61:	48 89 e5             	mov    %rsp,%rbp
+  64:	48 83 ec 10          	sub    $0x10,%rsp
+  68:	bf 0c 00 00 00       	mov    $0xc,%edi
+  6d:	f3 0f 10 04 25 00 00 	movss  0x0,%xmm0
+  74:	00 00 
+  76:	be 78 00 00 00       	mov    $0x78,%esi
+  7b:	48 ba 02 68 97 be 1c 	movabs $0x1cbe976802,%rdx
+  82:	00 00 00 
+  85:	b9 f6 ff ff ff       	mov    $0xfffffff6,%ecx
+  8a:	f2 0f 10 0c 25 00 00 	movsd  0x0,%xmm1
+  91:	00 00 
+  93:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  9a:	e8 61 ff ff ff       	callq  0 <testfunc>
+  9f:	31 c0                	xor    %eax,%eax
+  a1:	48 83 c4 10          	add    $0x10,%rsp
+  a5:	5d                   	pop    %rbp
+  a6:	c3                   	retq   

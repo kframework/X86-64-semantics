@@ -1,0 +1,132 @@
+
+Output/test_2.clang.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <testL>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 20          	sub    $0x20,%rsp
+   8:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
+   f:	00 00 00 
+  12:	b9 10 00 00 00       	mov    $0x10,%ecx
+  17:	89 ca                	mov    %ecx,%edx
+  19:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  1d:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
+  21:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+  25:	48 89 f8             	mov    %rdi,%rax
+  28:	48 89 55 e8          	mov    %rdx,-0x18(%rbp)
+  2c:	48 99                	cqto   
+  2e:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  32:	48 f7 ff             	idiv   %rdi
+  35:	89 c1                	mov    %eax,%ecx
+  37:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  3b:	89 ce                	mov    %ecx,%esi
+  3d:	b0 00                	mov    $0x0,%al
+  3f:	e8 00 00 00 00       	callq  44 <testL+0x44>
+  44:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  4b:	00 00 00 
+  4e:	49 b8 00 00 00 00 00 	movabs $0x400000000000,%r8
+  55:	40 00 00 
+  58:	4c 8b 4d f8          	mov    -0x8(%rbp),%r9
+  5c:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  5f:	4c 89 c8             	mov    %r9,%rax
+  62:	48 99                	cqto   
+  64:	49 f7 f8             	idiv   %r8
+  67:	89 c1                	mov    %eax,%ecx
+  69:	89 ce                	mov    %ecx,%esi
+  6b:	b0 00                	mov    $0x0,%al
+  6d:	e8 00 00 00 00       	callq  72 <testL+0x72>
+  72:	89 45 e0             	mov    %eax,-0x20(%rbp)
+  75:	48 83 c4 20          	add    $0x20,%rsp
+  79:	5d                   	pop    %rbp
+  7a:	c3                   	retq   
+  7b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000000080 <test>:
+  80:	55                   	push   %rbp
+  81:	48 89 e5             	mov    %rsp,%rbp
+  84:	48 83 ec 20          	sub    $0x20,%rsp
+  88:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
+  8f:	00 00 00 
+  92:	b9 01 00 00 00       	mov    $0x1,%ecx
+  97:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  9a:	8b 7d fc             	mov    -0x4(%rbp),%edi
+  9d:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+  a1:	89 f8                	mov    %edi,%eax
+  a3:	99                   	cltd   
+  a4:	f7 f9                	idiv   %ecx
+  a6:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  aa:	89 c6                	mov    %eax,%esi
+  ac:	b0 00                	mov    $0x0,%al
+  ae:	e8 00 00 00 00       	callq  b3 <test+0x33>
+  b3:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  ba:	00 00 00 
+  bd:	b9 10 00 00 00       	mov    $0x10,%ecx
+  c2:	8b 75 fc             	mov    -0x4(%rbp),%esi
+  c5:	89 45 ec             	mov    %eax,-0x14(%rbp)
+  c8:	89 f0                	mov    %esi,%eax
+  ca:	99                   	cltd   
+  cb:	f7 f9                	idiv   %ecx
+  cd:	89 c6                	mov    %eax,%esi
+  cf:	b0 00                	mov    $0x0,%al
+  d1:	e8 00 00 00 00       	callq  d6 <test+0x56>
+  d6:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  dd:	00 00 00 
+  e0:	b9 00 00 04 00       	mov    $0x40000,%ecx
+  e5:	8b 75 fc             	mov    -0x4(%rbp),%esi
+  e8:	89 45 e8             	mov    %eax,-0x18(%rbp)
+  eb:	89 f0                	mov    %esi,%eax
+  ed:	99                   	cltd   
+  ee:	f7 f9                	idiv   %ecx
+  f0:	89 c6                	mov    %eax,%esi
+  f2:	b0 00                	mov    $0x0,%al
+  f4:	e8 00 00 00 00       	callq  f9 <test+0x79>
+  f9:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+ 100:	00 00 00 
+ 103:	b9 00 00 00 40       	mov    $0x40000000,%ecx
+ 108:	8b 75 fc             	mov    -0x4(%rbp),%esi
+ 10b:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+ 10e:	89 f0                	mov    %esi,%eax
+ 110:	99                   	cltd   
+ 111:	f7 f9                	idiv   %ecx
+ 113:	89 c6                	mov    %eax,%esi
+ 115:	b0 00                	mov    $0x0,%al
+ 117:	e8 00 00 00 00       	callq  11c <test+0x9c>
+ 11c:	89 45 e0             	mov    %eax,-0x20(%rbp)
+ 11f:	48 83 c4 20          	add    $0x20,%rsp
+ 123:	5d                   	pop    %rbp
+ 124:	c3                   	retq   
+ 125:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+ 12c:	00 00 00 00 
+
+0000000000000130 <main>:
+ 130:	55                   	push   %rbp
+ 131:	48 89 e5             	mov    %rsp,%rbp
+ 134:	48 83 ec 10          	sub    $0x10,%rsp
+ 138:	48 b8 00 00 00 00 00 	movabs $0xffe0000000000000,%rax
+ 13f:	00 e0 ff 
+ 142:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 149:	c7 45 f8 00 00 f0 ff 	movl   $0xfff00000,-0x8(%rbp)
+ 150:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+ 154:	8b 4d f8             	mov    -0x8(%rbp),%ecx
+ 157:	83 c1 20             	add    $0x20,%ecx
+ 15a:	89 cf                	mov    %ecx,%edi
+ 15c:	e8 1f ff ff ff       	callq  80 <test>
+ 161:	8b 4d f8             	mov    -0x8(%rbp),%ecx
+ 164:	83 c1 21             	add    $0x21,%ecx
+ 167:	89 cf                	mov    %ecx,%edi
+ 169:	e8 12 ff ff ff       	callq  80 <test>
+ 16e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 172:	48 83 c0 40          	add    $0x40,%rax
+ 176:	48 89 c7             	mov    %rax,%rdi
+ 179:	e8 82 fe ff ff       	callq  0 <testL>
+ 17e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 182:	48 83 c0 41          	add    $0x41,%rax
+ 186:	48 89 c7             	mov    %rax,%rdi
+ 189:	e8 72 fe ff ff       	callq  0 <testL>
+ 18e:	31 c0                	xor    %eax,%eax
+ 190:	48 83 c4 10          	add    $0x10,%rsp
+ 194:	5d                   	pop    %rbp
+ 195:	c3                   	retq   
