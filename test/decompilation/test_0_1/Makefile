@@ -2,7 +2,6 @@ PROG_PREFIX=test_0_1
 
 ENTRY_FUNC=main
 ASM_FILE=c
-FUNC_MAP=../../utils/std_defs.txt
 CMD_ARGS=
 STDIN_ARGS=
 

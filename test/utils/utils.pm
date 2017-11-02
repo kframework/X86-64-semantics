@@ -13,18 +13,17 @@ $VERSION = 1.00;
 @EXPORT_OK =
   qw(generate_binary_from_source generate_cfg extract_bc_from_cfg generate_linked_binary run_compare cleanup split_filename);
 
+use lib qw( /home/sdasgup3/Github/binary-decompilation/test/utils/ );
+use tools;
+
 sub generate_binary_from_source {
-    my $outdir      = shift @_;
-    my $basename    = shift @_;
-    my $suffix      = shift @_;
-    my $ext         = shift @_;
-    my $file        = shift @_;
-    my $CC          = shift @_;
-    my $CC_OPTIONS  = shift @_;
-    my $CXX         = shift @_;
-    my $CXX_OPTIONS = shift @_;
-    my $arch        = shift @_;
-    my $force_gen   = shift @_;
+    my $outdir    = shift @_;
+    my $basename  = shift @_;
+    my $suffix    = shift @_;
+    my $ext       = shift @_;
+    my $file      = shift @_;
+    my $arch      = shift @_;
+    my $force_gen = shift @_;
 
     my $GCC_ARCH = "-m64";
     if ( $arch eq "32" ) {
@@ -47,13 +46,13 @@ sub generate_binary_from_source {
 
     if ( "c" eq $ext ) {
         execute(
-"${CC}  -O0 ${CC_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
+"$tools::CC  -O0 $tools::CC_OPTIONS  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
         );
     }
 
     if ( "cpp" eq $ext ) {
         execute(
-"${CXX} -O0 ${CXX_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
+"$tools::CXX -O0 $tools::CXX_OPTIONS  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
         );
     }
 
@@ -63,7 +62,7 @@ sub generate_binary_from_source {
 
     if ( "ll" eq $ext ) {
         execute(
-"${CXX} -O0 ${CXX_OPTIONS}  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
+"$tools::CXX -O0 $tools::CXX_OPTIONS  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
         );
     }
 
@@ -74,17 +73,15 @@ sub generate_binary_from_source {
 
 ## Generate cfg from binary
 sub generate_cfg {
-    my $outdir      = shift @_;
-    my $testdir     = shift @_;
-    my $basename    = shift @_;
-    my $suffix      = shift @_;
-    my $cfgext      = shift @_;
-    my $master      = shift @_;
-    my $map         = shift @_;
-    my $entry       = shift @_;
-    my $MCSEMA_HOME = shift @_;
-    my $IDA         = shift @_;
-    my $force_gen   = shift @_;
+    my $outdir    = shift @_;
+    my $testdir   = shift @_;
+    my $basename  = shift @_;
+    my $suffix    = shift @_;
+    my $cfgext    = shift @_;
+    my $master    = shift @_;
+    my $map       = shift @_;
+    my $entry     = shift @_;
+    my $force_gen = shift @_;
 
     info("Generate cfg [$cfgext]");
     if ( "" eq $force_gen
@@ -98,15 +95,15 @@ sub generate_cfg {
 "rm -rf ${outdir}${basename}.${suffix}.i64 ${outdir}${basename}.${suffix}${cfgext}.cfg ${outdir}${basename}.${suffix}${cfgext}.log ${outdir}${basename}.${suffix}${cfgext}.tool.log"
     );
 
-    my $BIN_DESCEND_PATH = "${MCSEMA_HOME}/mc-sema/bin_descend";
     if ( "" eq $master ) {
+        my $BIN_DESCEND_PATH = "$tools::MCSEMA_HOME/mc-sema/bin_descend";
         execute(
 "idal64 -B \"-S${BIN_DESCEND_PATH}/get_cfg.py --std-defs ${map} --batch --entry-symbol ${entry} --output ${outdir}${basename}.${suffix}${cfgext}.cfg --debug --debug_output ${outdir}${basename}.${suffix}.ida.log  --stack-vars\" -L${outdir}${basename}.${suffix}.ida.tool.log  ${outdir}${basename}.${suffix}.o "
         );
     }
     else {
         execute(
-"$MCSEMA_HOME/bin/mcsema-disass --disassembler ${IDA} ${map} --arch amd64 --os linux --entrypoint ${entry} --binary  ${outdir}${basename}.${suffix}.o --output  ${outdir}${basename}.${suffix}${cfgext}.cfg --log_file ${outdir}${basename}.${suffix}.ida.log"
+"$tools::MCSEMA_HOME/bin/mcsema-disass --disassembler $tools::IDA ${map} --arch amd64 --os linux --entrypoint ${entry} --binary  ${outdir}${basename}.${suffix}.o --output  ${outdir}${basename}.${suffix}${cfgext}.cfg --log_file ${outdir}${basename}.${suffix}.ida.log"
         );
     }
 
@@ -122,20 +119,18 @@ sub generate_cfg {
 
 ###  Generate BC from CFG
 sub extract_bc_from_cfg {
-    my $outdir      = shift @_;
-    my $testdir     = shift @_;
-    my $basename    = shift @_;
-    my $suffix      = shift @_;
-    my $cfgext      = shift @_;
-    my $master      = shift @_;
-    my $arch        = shift @_;
-    my $MCSEMA_HOME = shift @_;
-    my $entry       = shift @_;
-    my $LLVMDIS     = shift @_;
-    my $force_gen   = shift @_;
+    my $outdir    = shift @_;
+    my $testdir   = shift @_;
+    my $basename  = shift @_;
+    my $suffix    = shift @_;
+    my $cfgext    = shift @_;
+    my $master    = shift @_;
+    my $arch      = shift @_;
+    my $entry     = shift @_;
+    my $force_gen = shift @_;
 
     info("Running cfg to bc");
-    my $CFG_TO_BC_PATH = "${MCSEMA_HOME}/mc-sema/bitcode_from_cfg/";
+    my $CFG_TO_BC_PATH = "$tools::MCSEMA_HOME/mc-sema/bitcode_from_cfg/";
     my $GCC_ARCH       = "-m64";
     my $BIN_ARCH       = "-march=x86-64";
     my $CFGBC_ARCH     = "-mtriple=x86_64-unknown-linux-gnu";
@@ -171,8 +166,16 @@ sub extract_bc_from_cfg {
         );
     }
     else {
+        my $switches = "";
+        if ( $tools::MCSEMA_BRANCH eq "use_remill_semantics" ) {
+            $switches = "";
+        }
+        elsif ( $tools::MCSEMA_BRANCH eq "master" ) {
+            $switches = "-ignore-unsupported --entrypoint ${entry}";
+        }
+
         execute(
-"$MCSEMA_HOME/bin/mcsema-lift -ignore-unsupported  --arch amd64 --os linux --entrypoint ${entry} --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
+"$tools::MCSEMA_HOME/bin/mcsema-lift ${switches}  --arch amd64 --os linux  --cfg ${outdir}${basename}.${suffix}${cfgext}.cfg --output ${outdir}${basename}.${suffix}.lifted.bc  1> ${outdir}${basename}.${suffix}.cfg2bc.log 2>&1"
         );
     }
 
@@ -185,27 +188,22 @@ sub extract_bc_from_cfg {
     }
 
     execute(
-"${LLVMDIS}   ${outdir}${basename}.${suffix}.lifted.bc -o=${outdir}${basename}.${suffix}.lifted.ll"
+"$tools::LLVMDIS   ${outdir}${basename}.${suffix}.lifted.bc -o=${outdir}${basename}.${suffix}.lifted.ll"
     );
 
 }
 
 sub generate_linked_binary {
-    my $inputbc          = shift @_;
-    my $outputexe        = shift @_;
-    my $testdir          = shift @_;
-    my $outdir           = shift @_;
-    my $ext              = shift @_;
-    my $master           = shift @_;
-    my $CC               = shift @_;
-    my $CXX              = shift @_;
-    my $CXX_OPTIONS      = shift @_;
-    my $arch             = shift @_;
-    my $incdir           = shift @_;
-    my $include_regstate = shift @_;
-    my $driver           = shift @_;
-    my $MCSEMA_HOME      = shift @_;
-    my $force_gen        = shift @_;
+    my $inputbc   = shift @_;
+    my $outputexe = shift @_;
+    my $testdir   = shift @_;
+    my $outdir    = shift @_;
+    my $ext       = shift @_;
+    my $master    = shift @_;
+    my $arch      = shift @_;
+    my $incdir    = shift @_;
+    my $driver    = shift @_;
+    my $force_gen = shift @_;
 
     my $GCC_ARCH = "-m64";
     if ( $arch eq "32" ) {
@@ -237,12 +235,12 @@ sub generate_linked_binary {
 
     if ( "" eq $master ) {
         execute(
-"${CC} -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc ${incdir}/ELF_64_linux.ll   -o $outputexe"
+"$tools::CC -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc ${incdir}/ELF_64_linux.ll   -o $outputexe"
         );
     }
     else {
         execute(
-"${CXX}  ${CXX_OPTIONS} ${GCC_ARCH}  -O3 ${include_regstate}  $inputbc ${driver} ${MCSEMA_HOME}/lib/libmcsema_rt64.a   -o $outputexe"
+"$tools::CXX  $tools::CXX_OPTIONS ${GCC_ARCH}  -O3 $tools::REGSTATE  $inputbc ${driver} $tools::MCSEMA_LIB   -o $outputexe"
         );
     }
 
@@ -373,7 +371,7 @@ sub generate_test_allexe {
     my $driverbc = "";
     if ( "" ne $driver ) {
         execute(
-            "${CC} -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc"
+            "$tools::CC -I${incdir} -emit-llvm -c	$driver -o  ${outdir}driver_64.bc"
         );
         $driverbc = "${outdir}driver_64.bc";
     }

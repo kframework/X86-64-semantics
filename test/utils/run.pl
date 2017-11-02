@@ -7,7 +7,6 @@ use File::Basename;
 
 use lib qw( /home/sdasgup3/Github/binary-decompilation/test/utils/ );
 use utils;
-use tools;
 
 my $outdir = "Output/";
 my $cfgext = ".ida";
@@ -84,33 +83,24 @@ if ( "" ne $cleanup ) {
 if ( $map ne "" ) {
     $map = "--std-defs " . $map . " ";
 }
-my $include_regstate = "";
-if ( ${driver} ne "" ) {
-    $include_regstate = "-I${tools::MCSEMA_HOME}/mcsema/Arch/X86/Runtime/";
-}
 
 ### Drivers
 if ( "" ne $genbin ) {
-    utils::generate_binary_from_source(
-        $outdir,             $basename,  $suffix,            $ext,
-        $file,               $tools::CC, $tools::CC_OPTIONS, $tools::CXX,
-        $tools::CXX_OPTIONS, $arch,      $force_gen
-    );
+    utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
+        $file, $arch, $force_gen );
 }
 
 if ( "" ne $gencfg ) {
     utils::generate_cfg(
-        $outdir,             $testdir,    $basename, $suffix,
-        $cfgext,             $master,     $map,      $entry,
-        $tools::MCSEMA_HOME, $tools::IDA, $force_gen
+        $outdir, $testdir, $basename, $suffix, $cfgext,
+        $master, $map,     $entry,    $force_gen
     );
 }
 
 if ( "" ne $extract_bc ) {
     utils::extract_bc_from_cfg(
-        $outdir, $testdir,        $basename, $suffix,
-        $cfgext, $master,         $arch,     $tools::MCSEMA_HOME,
-        $entry,  $tools::LLVMDIS, $force_gen
+        $outdir, $testdir, $basename, $suffix, $cfgext,
+        $master, $arch,    $entry,    $force_gen
     );
 }
 
@@ -122,24 +112,16 @@ if ( "" ne $compile_bc ) {
         $outdir,
         $ext,
         $master,
-        $tools::CC,
-        $tools::CXX,
-        $tools::CXX_OPTIONS,
         $arch,
         $incdir,
-        $include_regstate,
         $driver,
-        $tools::MCSEMA_HOME,
         $force_gen
     );
 }
 
 if ( "" ne $run_compare ) {
-    utils::generate_binary_from_source(
-        $outdir,             $basename,  $suffix,            $ext,
-        $file,               $tools::CC, $tools::CC_OPTIONS, $tools::CXX,
-        $tools::CXX_OPTIONS, $arch,      $force_gen
-    );
+    utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
+        $file, $arch, $force_gen );
 
     utils::generate_linked_binary(
         "${outdir}${basename}.${suffix}.o",
@@ -148,14 +130,9 @@ if ( "" ne $run_compare ) {
         $outdir,
         $ext,
         $master,
-        $tools::CC,
-        $tools::CXX,
-        $tools::CXX_OPTIONS,
         $arch,
         $incdir,
-        $include_regstate,
         $driver,
-        $tools::MCSEMA_HOME,
         $force_gen
     );
     if ( -e "${outdir}${basename}.${suffix}.native" ) {
