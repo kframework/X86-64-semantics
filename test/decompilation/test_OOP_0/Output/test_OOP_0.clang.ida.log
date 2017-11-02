@@ -5,393 +5,76 @@ Starting analysis
 Will lift 1 exports
 CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_OOP_0/Output/test_OOP_0.clang.ida.cfg
 PROCESSING: test_OOP_0.clang.o
-Adding data seg: .gcc_except_table: 0xccL-0xf8L
-Adding data seg: .bss: 0x1f2L-0x1f3L
-Adding data seg: .rodata._ZTV7Derived: 0x1f8L-0x210L
-Adding data seg: .rodata._ZTS7Derived: 0x210L-0x219L
-Adding data seg: .rodata._ZTS4Base: 0x219L-0x21fL
-Adding data seg: .rodata._ZTI4Base: 0x220L-0x230L
-Adding data seg: .rodata._ZTI7Derived: 0x230L-0x248L
-Adding data seg: .rodata._ZTV4Base: 0x248L-0x260L
-Adding data seg: .rodata.str1.1: 0x260L-0x279L
-Adding data seg: .init_array: 0x280L-0x288L
-Adding data seg: .eh_frame: 0x288L-0x388L
-Looking for relocations in cc - f8
+Adding data seg: .bss: 0x40L-0x41L
+Adding data seg: .rodata.str1.1: 0x41L-0x4fL
+Adding data seg: .init_array: 0x50L-0x58L
+Adding data seg: .eh_frame: 0x58L-0x98L
+Looking for relocations in 40 - 41
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .gcc_except_table: 0xccL-0xf8L
-Looking for relocations in 1f2 - 1f3
+Adding data seg: .bss: 0x40L-0x41L
+Looking for relocations in 41 - 4f
 Not scanning data sections of object file for pointer-alikes
-Adding data seg: .bss: 0x1f2L-0x1f3L
-Looking for relocations in 1f8 - 210
-Found relocations in binary: (200)..
-rtype : 2c, 230, 0
-200 Found reloc to: 230 (size: 8)
-Testing 230 for externality
-Offset: 200, seg_offset: 0 => 230
-Reloc Base Address: 200
+Adding data seg: .rodata.str1.1: 0x41L-0x4fL
+Looking for relocations in 50 - 58
+Found relocations in binary: (50)..
+rtype : c, 20, 0
+50 Found reloc to: 20 (size: 8)
+Testing 20 for externality
+Offset: 50, seg_offset: 0 => 20
+Reloc Base Address: 50
 Reloc size: 8
-Testing 230 for externality
-Data Range: 230 <= 230 < 248
-Data Range: 230 - 238
-Data Ref!
-rtype : 2c, 180, 0
-208 Found reloc to: 180 (size: 8)
-Testing 180 for externality
-Offset: 208, seg_offset: 0 => 180
-Reloc Base Address: 208
-Reloc size: 8
-Testing 180 for externality
-Code Ref: 180!
-Adding data seg: .rodata._ZTV7Derived: 0x1f8L-0x210L
-Looking for relocations in 210 - 219
-Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata._ZTS7Derived: 0x210L-0x219L
-Looking for relocations in 219 - 21f
-Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata._ZTS4Base: 0x219L-0x21fL
-Looking for relocations in 220 - 230
-Found relocations in binary: (220)..
-rtype : 2c, 3c0, 0
-220 Found reloc to: 3c0 (size: 8)
-Testing 3c0 for externality
-220 is an external reference
-Offset: 220, seg_offset: 0 => 3c0
-Reloc Base Address: 220
-Reloc size: 8
-Testing 3c0 for externality
-External ref from data at 3c0 => _ZdlPv
-rtype : 2c, 219, 0
-228 Found reloc to: 219 (size: 8)
-Testing 219 for externality
-Offset: 228, seg_offset: 0 => 219
-Reloc Base Address: 228
-Reloc size: 8
-Testing 219 for externality
-Data Range: 219 <= 219 < 21f
-Data Range: 219 - 21f
-Data Ref!
-Adding data seg: .rodata._ZTI4Base: 0x220L-0x230L
-Looking for relocations in 230 - 248
-Found relocations in binary: (230)..
-rtype : 2c, 3c8, 0
-230 Found reloc to: 3c8 (size: 8)
-Testing 3c8 for externality
-230 is an external reference
-Offset: 230, seg_offset: 0 => 3c8
-Reloc Base Address: 230
-Reloc size: 8
-Testing 3c8 for externality
-External ref from data at 3c8 => _Znwm
-rtype : 2c, 210, 0
-238 Found reloc to: 210 (size: 8)
-Testing 210 for externality
-Offset: 238, seg_offset: 0 => 210
-Reloc Base Address: 238
-Reloc size: 8
-Testing 210 for externality
-Data Range: 210 <= 210 < 219
-Data Range: 210 - 219
-Data Ref!
-rtype : 2c, 220, 0
-240 Found reloc to: 220 (size: 8)
-Testing 220 for externality
-Offset: 240, seg_offset: 0 => 220
-Reloc Base Address: 240
-Reloc size: 8
-Testing 220 for externality
-Data Range: 220 <= 220 < 230
-Data Range: 220 - 228
-Data Ref!
-Adding data seg: .rodata._ZTI7Derived: 0x230L-0x248L
-Looking for relocations in 248 - 260
-Found relocations in binary: (250)..
-rtype : 2c, 220, 0
-250 Found reloc to: 220 (size: 8)
-Testing 220 for externality
-Offset: 250, seg_offset: 0 => 220
-Reloc Base Address: 250
-Reloc size: 8
-Testing 220 for externality
-Data Range: 220 <= 220 < 230
-Data Range: 220 - 228
-Data Ref!
-rtype : 2c, 1c0, 0
-258 Found reloc to: 1c0 (size: 8)
-Testing 1c0 for externality
-Offset: 258, seg_offset: 0 => 1c0
-Reloc Base Address: 258
-Reloc size: 8
-Testing 1c0 for externality
-Code Ref: 1c0!
-Adding data seg: .rodata._ZTV4Base: 0x248L-0x260L
-Looking for relocations in 260 - 279
-Not scanning data sections of object file for pointer-alikes
-Adding data seg: .rodata.str1.1: 0x260L-0x279L
-Looking for relocations in 280 - 288
-Found relocations in binary: (280)..
-rtype : c, c0, 0
-280 Found reloc to: c0 (size: 8)
-Testing c0 for externality
-Offset: 280, seg_offset: 0 => c0
-Reloc Base Address: 280
-Reloc size: 8
-Testing c0 for externality
-Code Ref: c0!
-Adding data seg: .init_array: 0x280L-0x288L
-Looking for relocations in 288 - 388
-Found relocations in binary: (2a8)..
-rtype : 4, 70, 0
-2a8 Found reloc to: 70 (size: 4)
-Testing 70 for externality
-Offset: 2a8, seg_offset: 0 => 70
-Reloc Base Address: 2a8
-Reloc size: 4
-Testing 70 for externality
-Code Ref: 70!
-rtype : 24, 3e0, 0
-2cf Found reloc to: 3e0 (size: 4)
-Testing 3e0 for externality
-2cf is an external reference
-Offset: 2cf, seg_offset: 0 => 3e0
-Reloc Base Address: 2cf
-Reloc size: 4
-Testing 3e0 for externality
-External ref from data at 3e0 => gxx_personality_v0
+Testing 20 for externality
+Code Ref: 20!
+Adding data seg: .init_array: 0x50L-0x58L
+Looking for relocations in 58 - 98
+Found relocations in binary: (78)..
 rtype : 4, 0, 0
-2e4 Found reloc to: 0 (size: 4)
+78 Found reloc to: 0 (size: 4)
 Testing 0 for externality
-Offset: 2e4, seg_offset: 0 => 0
-Reloc Base Address: 2e4
+Offset: 78, seg_offset: 0 => 0
+Reloc Base Address: 78
 Reloc size: 4
 Testing 0 for externality
 Code Ref: 0!
-rtype : 4, cc, 0
-2ed Found reloc to: cc (size: 4)
-Testing cc for externality
-Offset: 2ed, seg_offset: 0 => cc
-Reloc Base Address: 2ed
+rtype : 4, 20, 0
+8c Found reloc to: 20 (size: 4)
+Testing 20 for externality
+Offset: 8c, seg_offset: 0 => 20
+Reloc Base Address: 8c
 Reloc size: 4
-Testing cc for externality
-Data Range: cc <= cc < f8
-Data Range: cc - cd
-UNKNOWN Ref, assuming data
-rtype : 4, 100, 0
-304 Found reloc to: 100 (size: 4)
-Testing 100 for externality
-Offset: 304, seg_offset: 0 => 100
-Reloc Base Address: 304
-Reloc size: 4
-Testing 100 for externality
-Code Ref: 100!
-rtype : 4, 150, 0
-320 Found reloc to: 150 (size: 4)
-Testing 150 for externality
-Offset: 320, seg_offset: 0 => 150
-Reloc Base Address: 320
-Reloc size: 4
-Testing 150 for externality
-Code Ref: 150!
-rtype : 4, 180, 0
-33c Found reloc to: 180 (size: 4)
-Testing 180 for externality
-Offset: 33c, seg_offset: 0 => 180
-Reloc Base Address: 33c
-Reloc size: 4
-Testing 180 for externality
-Code Ref: 180!
-rtype : 4, 1c0, 0
-358 Found reloc to: 1c0 (size: 4)
-Testing 1c0 for externality
-Offset: 358, seg_offset: 0 => 1c0
-Reloc Base Address: 358
-Reloc size: 4
-Testing 1c0 for externality
-Code Ref: 1c0!
-rtype : 4, 70, 0
-374 Found reloc to: 70 (size: 4)
-Testing 70 for externality
-Offset: 374, seg_offset: 0 => 70
-Reloc Base Address: 374
-Reloc size: 4
-Testing 70 for externality
-Code Ref: 70!
-Adding data seg: .eh_frame: 0x288L-0x388L
+Testing 20 for externality
+Code Ref: 20!
+Adding data seg: .eh_frame: 0x58L-0x98L
 Recovering: main
 Processing export name: main at: 0
 At EP main:0
-Testing 36 for externality
-BB: 36
-Starting insn at: 36
-Processing insn at 36
-Processing insn at 3a
-Processing insn at 3e
-Processing insn at 42
-Processing insn at 45
-Processing insn at 48
-Processing insn at 4a
-Processing insn at 4c
-Processing insn at 50
-Processing insn at 51
-Ending insn at: 50
 BB: 0
-Successors: 36
 Starting insn at: 0
 Processing insn at 0
 Processing insn at 1
-Processing insn at 4
-Processing insn at 8
-Processing insn at f
-Processing insn at 14
-Processing insn at 16
-Checking code ref 3c8
-Testing 3c8 for externality
-EXTERNAL CALL: _Znwm
-findRelocOffset setting imm reloc offset at 16 to 1
-Processing insn at 1b
-Processing insn at 1e
-Processing insn at 21
-Processing insn at 25
-Processing insn at 28
-Processing insn at 2c
-Checking code ref 100
-Testing 100 for externality
-INTERNAL CALL: _ZN7DerivedC2Ev
-findRelocOffset setting imm reloc offset at 2c to 1
-Processing insn at 31
-Checking code ref 36
-Testing 36 for externality
-INTERNAL JMP: 36
-Ending insn at: 31
-Recovering: 0x180L
-BB: 180
-Starting insn at: 180
-Processing insn at 180
-Processing insn at 181
-Processing insn at 184
-Processing insn at 188
-findRelocOffset setting imm reloc offset at 188 to 2
-Adding reference because of data refs from 188
-Testing 3a0 for externality
-EXTERNAL CODE REF FROM 188 to ZSt4cout
-Processing insn at 192
-findRelocOffset setting imm reloc offset at 192 to 2
-Adding reference because of data refs from 192
-Testing 26b for externality
-		Data Ref: 26b, size: 14
-Data Range: 260 <= 26b < 279
-Data Range: 26b - 279
-		Setting IMM ref at 192: to 26b type: DATA
-Processing insn at 19c
-Processing insn at 1a0
-Processing insn at 1a3
-Checking code ref 3a8
-Testing 3a8 for externality
-EXTERNAL CALL: _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-findRelocOffset setting imm reloc offset at 1a3 to 1
-Processing insn at 1a8
-Processing insn at 1ac
-Processing insn at 1b0
-Processing insn at 1b1
-Ending insn at: 1b0
-Recovering: 0x1c0L
-BB: 1c0
-Starting insn at: 1c0
-Processing insn at 1c0
-Processing insn at 1c1
-Processing insn at 1c4
-Processing insn at 1c8
-findRelocOffset setting imm reloc offset at 1c8 to 2
-Adding reference because of data refs from 1c8
-Testing 3a0 for externality
-EXTERNAL CODE REF FROM 1c8 to ZSt4cout
-Processing insn at 1d2
-findRelocOffset setting imm reloc offset at 1d2 to 2
-Adding reference because of data refs from 1d2
-Testing 260 for externality
-		Data Ref: 260, size: 11
-Data Range: 260 <= 260 < 279
-Data Range: 260 - 26b
-		Setting IMM ref at 1d2: to 260 type: DATA
-Processing insn at 1dc
-Processing insn at 1e0
-Processing insn at 1e3
-Checking code ref 3a8
-Testing 3a8 for externality
-EXTERNAL CALL: _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-findRelocOffset setting imm reloc offset at 1e3 to 1
-Processing insn at 1e8
-Processing insn at 1ec
-Processing insn at 1f0
-Processing insn at 1f1
-Ending insn at: 1f0
-Recovering: 0xc0L
-BB: c0
-Starting insn at: c0
-Processing insn at c0
-Processing insn at c1
-Processing insn at c4
-Checking code ref 70
-Testing 70 for externality
-INTERNAL CALL: __cxx_global_var_init
-Processing insn at c9
-Processing insn at ca
-Ending insn at: c9
-Recovering: 0x100L
-BB: 100
-Starting insn at: 100
-Processing insn at 100
-Processing insn at 101
-Processing insn at 104
-Processing insn at 108
-Processing insn at 10c
-Processing insn at 110
-Processing insn at 113
-Processing insn at 117
-Processing insn at 11a
-Checking code ref 150
-Testing 150 for externality
-INTERNAL CALL: _ZN4BaseC2Ev
-findRelocOffset setting imm reloc offset at 11a to 1
-Processing insn at 11f
-findRelocOffset setting imm reloc offset at 11f to 2
-Adding reference because of data refs from 11f
-Testing 1f8 for externality
-		Data Ref: 1f8, size: 1
-Data Range: 1f8 <= 1f8 < 210
-Data Range: 1f8 - 1f9
-		Setting IMM ref at 11f: to 1f8 type: DATA
-Processing insn at 129
-Processing insn at 12d
-Processing insn at 131
-Processing insn at 134
-Processing insn at 13b
-Processing insn at 13f
-Processing insn at 140
-Ending insn at: 13f
-Recovering: 0x70L
-BB: 70
-Starting insn at: 70
-Processing insn at 70
-Processing insn at 71
-Processing insn at 74
-Processing insn at 78
-findRelocOffset setting imm reloc offset at 78 to 2
-Adding reference because of data refs from 78
-Testing 1f2 for externality
-		Data Ref: 1f2, size: 1
-Data Range: 1f2 <= 1f2 < 1f3
-Data Range: 1f2 - 1f3
-		Setting IMM ref at 78: to 1f2 type: DATA
-Processing insn at 82
-Checking code ref 390
-Testing 390 for externality
-EXTERNAL CALL: ZNSt8ios_base4InitC1Ev
-Unknown external: ZNSt8ios_base4InitC1Ev
+findRelocOffset setting imm reloc offset at 1 to 1
+Adding reference because of data refs from 1
+Testing b0 for externality
+EXTERNAL CODE REF FROM 1 to ZSt4cout
+Processing insn at 6
+findRelocOffset setting imm reloc offset at 6 to 1
+Adding reference because of data refs from 6
+Testing 41 for externality
+		Data Ref: 41, size: 14
+Data Range: 41 <= 41 < 4f
+Data Range: 41 - 4f
+		Setting IMM ref at 6: to 41 type: DATA
+Processing insn at b
+Processing insn at 10
+Checking code ref a8
+Testing a8 for externality
+EXTERNAL CALL: ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+Unknown external: ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
 Traceback (most recent call last):
   File "/home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/ida/get_cfg.py", line 2398, in <module>
     recoverCfg(eps, outf, args.exports_are_apis)
-  File "/home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/ida/get_cfg.py", line 2020, in recoverCfg
-    recoverFunction(M, F, cur_ea, new_eas)
+  File "/home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/ida/get_cfg.py", line 2004, in recoverCfg
+    recoverFunction(M, F, fea, new_eas)
   File "/home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/ida/get_cfg.py", line 1806, in recoverFunction
     recoverFunctionFromSet(M, F, blockset, new_eas)
   File "/home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/ida/get_cfg.py", line 1794, in recoverFunctionFromSet
@@ -400,5 +83,5 @@ Traceback (most recent call last):
     if doesNotReturn(fn):
   File "/home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/ida/get_cfg.py", line 247, in doesNotReturn
     raise Exception("Unknown external: " + fname)
-Exception: Unknown external: ZNSt8ios_base4InitC1Ev
+Exception: Unknown external: ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
 

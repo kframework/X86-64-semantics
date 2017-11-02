@@ -107,9 +107,9 @@ Processing insn at 2f9
 findRelocOffset setting imm reloc offset at 2f9 to 2
 Adding reference because of data refs from 2f9
 Testing 350 for externality
-		Data Ref: 350, size: 77
+		Data Ref: 350, size: 1
 Data Range: 350 <= 350 < 39d
-Data Range: 350 - 39d
+Data Range: 350 - 351
 		Setting IMM ref at 2f9: to 350 type: DATA
 Processing insn at 303
 Processing insn at 307
@@ -197,9 +197,9 @@ Processing insn at 27b
 findRelocOffset setting imm reloc offset at 27b to 2
 Adding reference because of data refs from 27b
 Testing 350 for externality
-		Data Ref: 350, size: 77
+		Data Ref: 350, size: 1
 Data Range: 350 <= 350 < 39d
-Data Range: 350 - 39d
+Data Range: 350 - 351
 		Setting IMM ref at 27b: to 350 type: DATA
 Processing insn at 285
 Processing insn at 289
@@ -224,9 +224,9 @@ Processing insn at 24b
 findRelocOffset setting imm reloc offset at 24b to 2
 Adding reference because of data refs from 24b
 Testing 350 for externality
-		Data Ref: 350, size: 77
+		Data Ref: 350, size: 1
 Data Range: 350 <= 350 < 39d
-Data Range: 350 - 39d
+Data Range: 350 - 351
 		Setting IMM ref at 24b: to 350 type: DATA
 Processing insn at 255
 Processing insn at 259
@@ -285,9 +285,9 @@ Processing insn at 1f2
 findRelocOffset setting imm reloc offset at 1f2 to 2
 Adding reference because of data refs from 1f2
 Testing 350 for externality
-		Data Ref: 350, size: 77
+		Data Ref: 350, size: 1
 Data Range: 350 <= 350 < 39d
-Data Range: 350 - 39d
+Data Range: 350 - 351
 		Setting IMM ref at 1f2: to 350 type: DATA
 Processing insn at 1fc
 Processing insn at 200
@@ -478,9 +478,9 @@ Processing insn at c8
 findRelocOffset setting imm reloc offset at c8 to 2
 Adding reference because of data refs from c8
 Testing 350 for externality
-		Data Ref: 350, size: 77
+		Data Ref: 350, size: 1
 Data Range: 350 <= 350 < 39d
-Data Range: 350 - 39d
+Data Range: 350 - 351
 		Setting IMM ref at c8: to 350 type: DATA
 Processing insn at d2
 Processing insn at d9
@@ -571,9 +571,9 @@ Processing insn at 34
 findRelocOffset setting imm reloc offset at 34 to 2
 Adding reference because of data refs from 34
 Testing 350 for externality
-		Data Ref: 350, size: 77
+		Data Ref: 350, size: 1
 Data Range: 350 <= 350 < 39d
-Data Range: 350 - 39d
+Data Range: 350 - 351
 		Setting IMM ref at 34: to 350 type: DATA
 Processing insn at 3e
 Processing insn at 42

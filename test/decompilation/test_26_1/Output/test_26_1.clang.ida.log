@@ -48,16 +48,8 @@ Data Range: 162 - 163
 		Setting IMM ref at 88: to 162 type: DATA
 Processing insn at 92
 Processing insn at 99
-Adding reference because of data refs from 99
-WARNING: Data not in valid segment ff0000000000004e
 Processing insn at a0
-Adding reference because of data refs from a0
-WARNING: Data not in valid segment ff0000000000004f
 Processing insn at a7
-Adding reference because of data refs from a7
-WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from a7
-WARNING: Data not in valid segment ff00000000000052
 Processing insn at ae
 Processing insn at b3
 Processing insn at b5
@@ -98,25 +90,11 @@ Processing insn at 125
 Processing insn at 128
 Processing insn at 12c
 Processing insn at 130
-Adding reference because of data refs from 130
-WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 134
 Processing insn at 137
-Adding reference because of data refs from 137
-WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 137
-WARNING: Data not in valid segment ff00000000000052
 Processing insn at 13a
-Adding reference because of data refs from 13a
-WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 13d
-Adding reference because of data refs from 13d
-WARNING: Data not in valid segment ff0000000000004f
 Processing insn at 140
-Adding reference because of data refs from 140
-WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 140
-WARNING: Data not in valid segment ff00000000000052
 Processing insn at 143
 Processing insn at 146
 Processing insn at 149
@@ -153,30 +131,20 @@ Processing insn at 2c
 Processing insn at 2f
 Processing insn at 31
 Processing insn at 33
-Adding reference because of data refs from 33
-WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 36
 Processing insn at 3a
 Processing insn at 3d
 Processing insn at 41
 Processing insn at 44
 Processing insn at 46
-Adding reference because of data refs from 46
-WARNING: Data not in valid segment ff0000000000004f
 Processing insn at 49
 Processing insn at 4d
 Processing insn at 50
 Processing insn at 54
 Processing insn at 57
 Processing insn at 59
-Adding reference because of data refs from 59
-WARNING: Data not in valid segment ff00000000000051
-Adding reference because of data refs from 59
-WARNING: Data not in valid segment ff00000000000052
 Processing insn at 5c
 Processing insn at 5f
-Adding reference because of data refs from 5f
-WARNING: Data not in valid segment ff0000000000004e
 Processing insn at 63
 Processing insn at 67
 Processing insn at 6a

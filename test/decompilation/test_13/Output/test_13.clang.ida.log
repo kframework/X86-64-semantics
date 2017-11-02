@@ -36,6 +36,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x180L-0x1f0L
 Recovering: doWork
 Processing export name: doWork at: 0
+WARNING: Cannot determine type of function: doWork at: 0
 At EP doWork:0
 Testing 33 for externality
 Testing 75 for externality

@@ -31,8 +31,6 @@ Processing insn at 0
 Processing insn at 1
 Processing insn at 4
 Processing insn at 7
-Adding reference because of data refs from 7
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at a
 findRelocOffset setting imm reloc offset at a to 2
 Adding reference because of data refs from a
@@ -43,11 +41,7 @@ Data Range: 20 - 28
 		Setting MEM ref at a: to 20 type: DATA
 Processing insn at 10
 Processing insn at 12
-Adding reference because of data refs from 12
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 15
-Adding reference because of data refs from 15
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 18
 Processing insn at 1a
 Processing insn at 1b

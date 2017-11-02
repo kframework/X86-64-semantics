@@ -12,6 +12,7 @@ Not scanning data sections of object file for pointer-alikes
 Adding data seg: .eh_frame: 0x80L-0xb8L
 Recovering: demo3
 Processing export name: demo3 at: 0
+WARNING: Cannot determine type of function: demo3 at: 0
 At EP demo3:0
 Testing 32 for externality
 Testing 7a for externality

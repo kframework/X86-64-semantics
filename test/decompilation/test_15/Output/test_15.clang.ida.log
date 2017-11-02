@@ -24,6 +24,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x30L-0x68L
 Recovering: doOp
 Processing export name: doOp at: 0
+WARNING: Cannot determine type of function: doOp at: 0
 At EP doOp:0
 BB: 0
 Starting insn at: 0

@@ -42,16 +42,8 @@ Processing insn at 10b
 Processing insn at 110
 Processing insn at 112
 Processing insn at 119
-Adding reference because of data refs from 119
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 120
-Adding reference because of data refs from 120
-WARNING: Data not in valid segment ff00000000000047
 Processing insn at 127
-Adding reference because of data refs from 127
-WARNING: Data not in valid segment ff00000000000049
-Adding reference because of data refs from 127
-WARNING: Data not in valid segment ff0000000000004a
 Processing insn at 12e
 Checking code ref 270
 Testing 270 for externality
@@ -71,14 +63,8 @@ Processing insn at 165
 Processing insn at 16c
 Processing insn at 170
 Processing insn at 174
-Adding reference because of data refs from 174
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 178
 Processing insn at 17c
-Adding reference because of data refs from 17c
-WARNING: Data not in valid segment ff00000000000049
-Adding reference because of data refs from 17c
-WARNING: Data not in valid segment ff0000000000004a
 Processing insn at 180
 Processing insn at 184
 Processing insn at 188
@@ -93,14 +79,8 @@ Processing insn at 1a4
 Processing insn at 1a7
 Processing insn at 1ae
 Processing insn at 1b1
-Adding reference because of data refs from 1b1
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 1b6
 Processing insn at 1ba
-Adding reference because of data refs from 1ba
-WARNING: Data not in valid segment ff00000000000049
-Adding reference because of data refs from 1ba
-WARNING: Data not in valid segment ff0000000000004a
 Processing insn at 1bf
 Processing insn at 1c4
 Processing insn at 1c8
@@ -157,14 +137,8 @@ Processing insn at 25
 Processing insn at 29
 Processing insn at 2c
 Processing insn at 30
-Adding reference because of data refs from 30
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 34
 Processing insn at 37
-Adding reference because of data refs from 37
-WARNING: Data not in valid segment ff00000000000049
-Adding reference because of data refs from 37
-WARNING: Data not in valid segment ff0000000000004a
 Processing insn at 3a
 Processing insn at 3e
 Processing insn at 42
@@ -181,8 +155,6 @@ EXTERNAL CALL: malloc
 findRelocOffset setting imm reloc offset at 5c to 1
 Processing insn at 61
 Processing insn at 65
-Adding reference because of data refs from 65
-WARNING: Data not in valid segment ff00000000000046
 Processing insn at 68
 Processing insn at 6c
 Processing insn at 6e
@@ -197,8 +169,6 @@ Processing insn at 89
 Processing insn at 8c
 Processing insn at 90
 Processing insn at 92
-Adding reference because of data refs from 92
-WARNING: Data not in valid segment ff00000000000047
 Processing insn at 95
 Processing insn at 99
 Processing insn at 9c
@@ -212,10 +182,6 @@ Processing insn at b7
 Processing insn at ba
 Processing insn at be
 Processing insn at c1
-Adding reference because of data refs from c1
-WARNING: Data not in valid segment ff00000000000049
-Adding reference because of data refs from c1
-WARNING: Data not in valid segment ff0000000000004a
 Processing insn at c4
 Processing insn at c8
 Processing insn at cb

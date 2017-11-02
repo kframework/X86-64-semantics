@@ -5,137 +5,23 @@ Output/test_OOP_0.clang.o:     file format elf64-x86-64
 Disassembly of section .text:
 
 0000000000000000 <main>:
-   0:	55                   	push   %rbp
-   1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 83 ec 30          	sub    $0x30,%rsp
-   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-   f:	b8 10 00 00 00       	mov    $0x10,%eax
-  14:	89 c7                	mov    %eax,%edi
-  16:	e8 00 00 00 00       	callq  1b <main+0x1b>
-  1b:	48 89 c7             	mov    %rax,%rdi
-  1e:	48 89 c1             	mov    %rax,%rcx
-  21:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
-  25:	48 89 c7             	mov    %rax,%rdi
-  28:	48 89 4d d0          	mov    %rcx,-0x30(%rbp)
-  2c:	e8 00 00 00 00       	callq  31 <main+0x31>
-  31:	e9 00 00 00 00       	jmpq   36 <main+0x36>
-  36:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-  3a:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
-  3e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  42:	48 8b 08             	mov    (%rax),%rcx
-  45:	48 89 c7             	mov    %rax,%rdi
-  48:	ff 11                	callq  *(%rcx)
-  4a:	31 c0                	xor    %eax,%eax
-  4c:	48 83 c4 30          	add    $0x30,%rsp
-  50:	5d                   	pop    %rbp
-  51:	c3                   	retq   
-  52:	89 d1                	mov    %edx,%ecx
-  54:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
-  58:	89 4d e4             	mov    %ecx,-0x1c(%rbp)
-  5b:	48 8b 7d d8          	mov    -0x28(%rbp),%rdi
-  5f:	e8 00 00 00 00       	callq  64 <main+0x64>
-  64:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
-  68:	e8 00 00 00 00       	callq  6d <_GLOBAL__sub_I_test_OOP_0.cpp+0x1d>
+   0:	50                   	push   %rax
+   1:	bf 00 00 00 00       	mov    $0x0,%edi
+   6:	be 00 00 00 00       	mov    $0x0,%esi
+   b:	ba 0d 00 00 00       	mov    $0xd,%edx
+  10:	e8 00 00 00 00       	callq  15 <main+0x15>
+  15:	31 c0                	xor    %eax,%eax
+  17:	59                   	pop    %rcx
+  18:	c3                   	retq   
 
 Disassembly of section .text.startup:
 
-0000000000000000 <__cxx_global_var_init>:
-   0:	55                   	push   %rbp
-   1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 83 ec 10          	sub    $0x10,%rsp
-   8:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
-   f:	00 00 00 
-  12:	e8 00 00 00 00       	callq  17 <__cxx_global_var_init+0x17>
-  17:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
-  1e:	00 00 00 
-  21:	48 be 00 00 00 00 00 	movabs $0x0,%rsi
-  28:	00 00 00 
-  2b:	48 ba 00 00 00 00 00 	movabs $0x0,%rdx
-  32:	00 00 00 
-  35:	e8 00 00 00 00       	callq  3a <__cxx_global_var_init+0x3a>
-  3a:	89 45 fc             	mov    %eax,-0x4(%rbp)
-  3d:	48 83 c4 10          	add    $0x10,%rsp
-  41:	5d                   	pop    %rbp
-  42:	c3                   	retq   
-  43:	66 66 66 66 2e 0f 1f 	data16 data16 data16 nopw %cs:0x0(%rax,%rax,1)
-  4a:	84 00 00 00 00 00 
-
-0000000000000050 <_GLOBAL__sub_I_test_OOP_0.cpp>:
-  50:	55                   	push   %rbp
-  51:	48 89 e5             	mov    %rsp,%rbp
-  54:	e8 a7 ff ff ff       	callq  0 <__cxx_global_var_init>
-  59:	5d                   	pop    %rbp
-  5a:	c3                   	retq   
-
-Disassembly of section .text._ZN7DerivedC2Ev:
-
-0000000000000000 <_ZN7DerivedC2Ev>:
-   0:	55                   	push   %rbp
-   1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 83 ec 10          	sub    $0x10,%rsp
-   8:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-   c:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
-  10:	48 89 f8             	mov    %rdi,%rax
-  13:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
-  17:	48 89 c7             	mov    %rax,%rdi
-  1a:	e8 00 00 00 00       	callq  1f <_ZN7DerivedC2Ev+0x1f>
-  1f:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
-  26:	00 00 00 
-  29:	48 83 c0 10          	add    $0x10,%rax
-  2d:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
-  31:	48 89 07             	mov    %rax,(%rdi)
-  34:	c7 47 0c 2a 00 00 00 	movl   $0x2a,0xc(%rdi)
-  3b:	48 83 c4 10          	add    $0x10,%rsp
-  3f:	5d                   	pop    %rbp
-  40:	c3                   	retq   
-
-Disassembly of section .text._ZN4BaseC2Ev:
-
-0000000000000000 <_ZN4BaseC2Ev>:
-   0:	55                   	push   %rbp
-   1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
-   b:	00 00 00 
-   e:	48 83 c0 10          	add    $0x10,%rax
-  12:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-  16:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
-  1a:	48 89 07             	mov    %rax,(%rdi)
-  1d:	c7 47 08 2a 00 00 00 	movl   $0x2a,0x8(%rdi)
-  24:	5d                   	pop    %rbp
-  25:	c3                   	retq   
-
-Disassembly of section .text._ZN7Derived4funcEv:
-
-0000000000000000 <_ZN7Derived4funcEv>:
-   0:	55                   	push   %rbp
-   1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 83 ec 10          	sub    $0x10,%rsp
-   8:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
-   f:	00 00 00 
-  12:	48 be 00 00 00 00 00 	movabs $0x0,%rsi
-  19:	00 00 00 
-  1c:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-  20:	48 89 c7             	mov    %rax,%rdi
-  23:	e8 00 00 00 00       	callq  28 <_ZN7Derived4funcEv+0x28>
-  28:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
-  2c:	48 83 c4 10          	add    $0x10,%rsp
-  30:	5d                   	pop    %rbp
-  31:	c3                   	retq   
-
-Disassembly of section .text._ZN4Base4funcEv:
-
-0000000000000000 <_ZN4Base4funcEv>:
-   0:	55                   	push   %rbp
-   1:	48 89 e5             	mov    %rsp,%rbp
-   4:	48 83 ec 10          	sub    $0x10,%rsp
-   8:	48 b8 00 00 00 00 00 	movabs $0x0,%rax
-   f:	00 00 00 
-  12:	48 be 00 00 00 00 00 	movabs $0x0,%rsi
-  19:	00 00 00 
-  1c:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-  20:	48 89 c7             	mov    %rax,%rdi
-  23:	e8 00 00 00 00       	callq  28 <_ZN4Base4funcEv+0x28>
-  28:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
-  2c:	48 83 c4 10          	add    $0x10,%rsp
-  30:	5d                   	pop    %rbp
-  31:	c3                   	retq   
+0000000000000000 <_GLOBAL__sub_I_test_OOP_0.cpp>:
+   0:	50                   	push   %rax
+   1:	bf 00 00 00 00       	mov    $0x0,%edi
+   6:	e8 00 00 00 00       	callq  b <_GLOBAL__sub_I_test_OOP_0.cpp+0xb>
+   b:	bf 00 00 00 00       	mov    $0x0,%edi
+  10:	be 00 00 00 00       	mov    $0x0,%esi
+  15:	ba 00 00 00 00       	mov    $0x0,%edx
+  1a:	58                   	pop    %rax
+  1b:	e9 00 00 00 00       	jmpq   20 <_GLOBAL__sub_I_test_OOP_0.cpp+0x20>

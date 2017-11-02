@@ -32,6 +32,7 @@ Code Ref: 0!
 Adding data seg: .eh_frame: 0x48L-0x98L
 Recovering: checkFn
 Processing export name: checkFn at: 10
+WARNING: Cannot determine type of function: checkFn at: 10
 At EP checkFn:10
 BB: 10
 Starting insn at: 10

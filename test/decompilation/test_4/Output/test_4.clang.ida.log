@@ -60,9 +60,9 @@ Processing insn at e6
 findRelocOffset setting imm reloc offset at e6 to 2
 Adding reference because of data refs from e6
 Testing 250 for externality
-		Data Ref: 250, size: 8
+		Data Ref: 250, size: 1
 Data Range: 220 <= 250 < 278
-Data Range: 250 - 258
+Data Range: 250 - 251
 		Setting IMM ref at e6: to 250 type: DATA
 Processing insn at f0
 Processing insn at f6
@@ -70,9 +70,9 @@ Processing insn at f9
 findRelocOffset setting imm reloc offset at f9 to 2
 Adding reference because of data refs from f9
 Testing 220 for externality
-		Data Ref: 220, size: 8
+		Data Ref: 220, size: 1
 Data Range: 220 <= 220 < 278
-Data Range: 220 - 228
+Data Range: 220 - 221
 		Setting IMM ref at f9: to 220 type: DATA
 Processing insn at 103
 Processing insn at 10a

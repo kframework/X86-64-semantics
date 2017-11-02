@@ -1,6 +1,5 @@
 Debugging is enabled.
 Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
-Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/utils/std_defs.txt
 Using Batch mode.
 Starting analysis
 Will lift 1 exports
@@ -12,6 +11,7 @@ Not scanning data sections of object file for pointer-alikes
 Adding data seg: .eh_frame: 0x50L-0x88L
 Recovering: foo
 Processing export name: foo at: 0
+WARNING: Cannot determine type of function: foo at: 0
 At EP foo:0
 Testing 25 for externality
 Testing 44 for externality

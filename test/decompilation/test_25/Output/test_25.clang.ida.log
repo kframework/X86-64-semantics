@@ -105,16 +105,16 @@ Processing insn at f
 Processing insn at 12
 Processing insn at 16
 Processing insn at 1d
-Processing insn at 21
-Processing insn at 25
+Processing insn at 24
+Processing insn at 28
+Processing insn at 2c
 Checking code ref f8
 Testing f8 for externality
 EXTERNAL CALL: strlen
-findRelocOffset setting imm reloc offset at 25 to 1
-Processing insn at 2a
-Processing insn at 2c
-Processing insn at 2f
-Ending insn at: 2f
+findRelocOffset setting imm reloc offset at 2c to 1
+Processing insn at 31
+Processing insn at 33
+Ending insn at: 33
 Program will reference external: strlen
 Program will reference external: printf
 Recovered 1 functions.

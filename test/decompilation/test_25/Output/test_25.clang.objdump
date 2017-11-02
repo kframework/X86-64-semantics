@@ -12,14 +12,14 @@ Disassembly of section .text:
    f:	89 7d f8             	mov    %edi,-0x8(%rbp)
   12:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
   16:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%rbp)
-  1d:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
-  21:	48 8b 7e 08          	mov    0x8(%rsi),%rdi
-  25:	e8 00 00 00 00       	callq  2a <main+0x2a>
-  2a:	89 c1                	mov    %eax,%ecx
-  2c:	89 4d e8             	mov    %ecx,-0x18(%rbp)
-  2f:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%rbp)
-  36:	8b 45 e4             	mov    -0x1c(%rbp),%eax
-  39:	3b 45 e8             	cmp    -0x18(%rbp),%eax
+  1d:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%rbp)
+  24:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
+  28:	48 8b 7e 08          	mov    0x8(%rsi),%rdi
+  2c:	e8 00 00 00 00       	callq  31 <main+0x31>
+  31:	89 c1                	mov    %eax,%ecx
+  33:	89 4d e4             	mov    %ecx,-0x1c(%rbp)
+  36:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  39:	3b 45 e4             	cmp    -0x1c(%rbp),%eax
   3c:	0f 8d 40 00 00 00    	jge    82 <main+0x82>
   42:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   49:	00 00 00 
@@ -27,23 +27,23 @@ Disassembly of section .text:
   50:	48 8b 70 08          	mov    0x8(%rax),%rsi
   54:	b0 00                	mov    $0x0,%al
   56:	e8 00 00 00 00       	callq  5b <main+0x5b>
-  5b:	48 63 75 e4          	movslq -0x1c(%rbp),%rsi
+  5b:	48 63 75 e8          	movslq -0x18(%rbp),%rsi
   5f:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
   63:	48 8b 7f 08          	mov    0x8(%rdi),%rdi
   67:	0f be 0c 37          	movsbl (%rdi,%rsi,1),%ecx
   6b:	03 4d ec             	add    -0x14(%rbp),%ecx
   6e:	89 4d ec             	mov    %ecx,-0x14(%rbp)
   71:	89 45 e0             	mov    %eax,-0x20(%rbp)
-  74:	8b 45 e4             	mov    -0x1c(%rbp),%eax
+  74:	8b 45 e8             	mov    -0x18(%rbp),%eax
   77:	83 c0 01             	add    $0x1,%eax
-  7a:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+  7a:	89 45 e8             	mov    %eax,-0x18(%rbp)
   7d:	e9 b4 ff ff ff       	jmpq   36 <main+0x36>
   82:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
   89:	00 00 00 
-  8c:	8b 75 e8             	mov    -0x18(%rbp),%esi
+  8c:	8b 75 e4             	mov    -0x1c(%rbp),%esi
   8f:	b0 00                	mov    $0x0,%al
   91:	e8 00 00 00 00       	callq  96 <main+0x96>
-  96:	8b 75 e8             	mov    -0x18(%rbp),%esi
+  96:	8b 75 e4             	mov    -0x1c(%rbp),%esi
   99:	89 45 dc             	mov    %eax,-0x24(%rbp)
   9c:	89 f0                	mov    %esi,%eax
   9e:	48 83 c4 30          	add    $0x30,%rsp
