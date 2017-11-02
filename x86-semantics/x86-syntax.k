@@ -7,10 +7,13 @@ module X86-SYNTAX
                  | Opcode Typedoperands
   syntax Label ::= "." Id
   syntax Opcode ::=  Id
+  /*
   syntax Typedoperands ::=  Typeoperand
                          | Typeoperand "," Typeoperand
                          | Typeoperand "," Typeoperand "," Typeoperand 
                          | Typeoperand "," Typeoperand "," Typeoperand "," Typeoperand
+  */                       
+  syntax Typedoperands ::=  List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
                        | Label
                        | Mm

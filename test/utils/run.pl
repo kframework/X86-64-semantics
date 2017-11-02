@@ -7,33 +7,10 @@ use File::Basename;
 
 use lib qw( /home/sdasgup3/Github/binary-decompilation/test/utils/ );
 use utils;
+use tools;
 
-#Global constants
-my $home        = $ENV{'HOME'};
-my $MCSEMA_HOME = "";
-my $ALLIN_HOME  = "${home}/Github/binary-decompilation/";
-my $DWARF_TYPE_READER =
-  "${home}/Github/dwarf-type-reader/build/bin/dwarf-type-reader";
-my $AUGMENT_TYPE =
-"${home}/Github/binary-decompilation/tools/augment_ida_type/augment_ida_types.py";
-my $CC          = "clang-3.8";
-my $CXX         = "clang++-3.8";
-my $OPT         = "opt";
-my $LLVMAS      = "llvm-as";
-my $LLVMAS35    = "${home}/Install/llvm-3.5.0.release.install/bin/llvm-as";
-my $LLC         = "llc";
-my $outdir      = "Output/";
-#my $CC_OPTIONS  = " -mno-sse -g ";
-# https://gcc.gnu.org/onlinedocs/gcc-4.7.3/gcc/i386-and-x86_002d64-Options.html
-my $CC_OPTIONS  = "  -g ";
-my $CXX_OPTIONS = " -O3 -lpthread";
-my $libnone     = "";
-my $BC2ALLVM    = "bc2allvm";
-my $ALLTOGETHER = "alltogether";
-my $ALLEY       = "alley";
-my $IDA         = `which idal64`;
-my $cfgext      = ".ida";
-chomp $IDA;
+my $outdir = "Output/";
+my $cfgext = ".ida";
 
 #"-fomit-frame-pointer";
 #my $redirect = " &> ";
@@ -56,7 +33,6 @@ my $runpass         = "";
 my $stdin_args      = "";
 my $cmd_args        = "";
 my $driver          = "";
-my $allin_home      = "";
 my $testallexe      = "";
 my $skip_runcompare = "";
 my $run_compare     = "";
@@ -79,7 +55,6 @@ GetOptions(
     "run_compare"     => \$run_compare,
     "cleanup"         => \$cleanup,
     "testallexe"      => \$testallexe,
-    "home:s"          => \$MCSEMA_HOME,
     "arch:s"          => \$arch,
     "map:s"           => \$map,
     "file:s"          => \$file,
@@ -89,7 +64,6 @@ GetOptions(
     "stdin_args:s"    => \$stdin_args,
     "driver:s"        => \$driver,
     "cmd_args:s"      => \$cmd_args,
-    "allin_home:s"    => \$allin_home,
     "outdir:s"        => \$outdir,
     "testdir:s"       => \$testdir,
     "force_gen"       => \$force_gen,
@@ -106,44 +80,37 @@ if ( "" ne $cleanup ) {
     exit(0);
 }
 
-if ( "" eq $file || "" eq $MCSEMA_HOME ) {
-    die "ERROR: Provide source file name or MCSEMA_HOME\n";
-}
-
 #Derived paths
-my $loadso    = "${allin_home}/lib/LLVMstack_deconstructor.so";
-my $OPTSWITCH = "-constprop -stack-decons -dce  -early-cse-memssa";
-my $LLVMDIS   = "${MCSEMA_HOME}/build/llvm/bin/llvm-dis";
 if ( $map ne "" ) {
     $map = "--std-defs " . $map . " ";
 }
 my $include_regstate = "";
 if ( ${driver} ne "" ) {
-    $include_regstate = "-I${MCSEMA_HOME}/mcsema/Arch/X86/Runtime/";
+    $include_regstate = "-I${tools::MCSEMA_HOME}/mcsema/Arch/X86/Runtime/";
 }
 
 ### Drivers
 if ( "" ne $genbin ) {
     utils::generate_binary_from_source(
-        $outdir,      $basename, $suffix,     $ext,
-        $file,        $CC,       $CC_OPTIONS, $CXX,
-        $CXX_OPTIONS, $arch,     $force_gen
+        $outdir,             $basename,  $suffix,            $ext,
+        $file,               $tools::CC, $tools::CC_OPTIONS, $tools::CXX,
+        $tools::CXX_OPTIONS, $arch,      $force_gen
     );
 }
 
 if ( "" ne $gencfg ) {
     utils::generate_cfg(
-        $outdir,      $testdir, $basename, $suffix,
-        $cfgext,      $master,  $map,      $entry,
-        $MCSEMA_HOME, $IDA,     $force_gen
+        $outdir,             $testdir,    $basename, $suffix,
+        $cfgext,             $master,     $map,      $entry,
+        $tools::MCSEMA_HOME, $tools::IDA, $force_gen
     );
 }
 
 if ( "" ne $extract_bc ) {
     utils::extract_bc_from_cfg(
-        $outdir, $testdir, $basename, $suffix,
-        $cfgext, $master,  $arch,     $MCSEMA_HOME,
-        $entry,  $LLVMDIS, $force_gen
+        $outdir, $testdir,        $basename, $suffix,
+        $cfgext, $master,         $arch,     $tools::MCSEMA_HOME,
+        $entry,  $tools::LLVMDIS, $force_gen
     );
 }
 
@@ -155,23 +122,23 @@ if ( "" ne $compile_bc ) {
         $outdir,
         $ext,
         $master,
-        $CC,
-        $CXX,
-        $CXX_OPTIONS,
+        $tools::CC,
+        $tools::CXX,
+        $tools::CXX_OPTIONS,
         $arch,
         $incdir,
         $include_regstate,
         $driver,
-        $MCSEMA_HOME,
+        $tools::MCSEMA_HOME,
         $force_gen
     );
 }
 
 if ( "" ne $run_compare ) {
     utils::generate_binary_from_source(
-        $outdir,      $basename, $suffix,     $ext,
-        $file,        $CC,       $CC_OPTIONS, $CXX,
-        $CXX_OPTIONS, $arch,     $force_gen
+        $outdir,             $basename,  $suffix,            $ext,
+        $file,               $tools::CC, $tools::CC_OPTIONS, $tools::CXX,
+        $tools::CXX_OPTIONS, $arch,      $force_gen
     );
 
     utils::generate_linked_binary(
@@ -181,14 +148,14 @@ if ( "" ne $run_compare ) {
         $outdir,
         $ext,
         $master,
-        $CC,
-        $CXX,
-        $CXX_OPTIONS,
+        $tools::CC,
+        $tools::CXX,
+        $tools::CXX_OPTIONS,
         $arch,
         $incdir,
         $include_regstate,
         $driver,
-        $MCSEMA_HOME,
+        $tools::MCSEMA_HOME,
         $force_gen
     );
     if ( -e "${outdir}${basename}.${suffix}.native" ) {
