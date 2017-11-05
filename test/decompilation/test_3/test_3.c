@@ -2,7 +2,8 @@
 int foo(unsigned int* arr, int n) { 
   unsigned int sum = 0 ;
 
-  for(int i = 0 ; i < n ; i ++) {
+  int i = 0;
+  for(; i < n ; i ++) {
     sum += arr[i];
   }
   return sum;

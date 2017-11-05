@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-extern "C" int switches(int);
+//extern "C" int switches(int);
 
 int main(int argc, char *argv[]) {
     int i = 0;

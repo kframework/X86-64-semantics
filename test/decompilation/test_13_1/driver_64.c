@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-extern "C" int doWork();
+//extern "C" int doWork();
 
 int main(int argc, char *argv[]) {
 

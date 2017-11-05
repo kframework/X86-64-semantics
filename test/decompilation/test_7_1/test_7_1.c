@@ -8,10 +8,10 @@ int  check(int a, int  b, int c, int d, int e, int f,  int * stack_arr_s){
 }
 
 int main(){
-    int stack_arr[10];
+    int i = 0, stack_arr[10];
     //int *stack_arr = (int *) malloc(sizeof(int) * 10);
 
-    for(int i = 0 ;i < 10; i++) {
+    for( i = 0 ;i < 10; i++) {
       stack_arr[i] = 21;
     }
 

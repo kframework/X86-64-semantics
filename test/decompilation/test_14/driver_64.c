@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-extern "C" int checkFn(char *);
+//extern "C" int checkFn(char *);
 
 int main(int argc, char *argv[]) {
 

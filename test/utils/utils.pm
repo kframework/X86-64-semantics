@@ -22,18 +22,20 @@ sub generate_binary_from_source {
     my $suffix    = shift @_;
     my $ext       = shift @_;
     my $file      = shift @_;
-    my $arch      = shift @_;
+    my $driver    = shift @_;
     my $force_gen = shift @_;
-
-    my $GCC_ARCH = "-m64";
-    if ( $arch eq "32" ) {
-        $GCC_ARCH = "-m32";
-    }
 
     info("Generate source binary");
     if ( "" eq $force_gen and ( -e "${outdir}${basename}.${suffix}.o" ) ) {
         warnInfo("Skipped: already present");
         return;
+    }
+
+    my $extra_srcs = "";
+    if (   $tools::MCSEMA_BRANCH eq "revamb"
+        || $tools::MCSEMA_BRANCH eq "use_remill_semantics" )
+    {
+        $extra_srcs = $driver;
     }
 
     execute(
@@ -46,13 +48,13 @@ sub generate_binary_from_source {
 
     if ( "c" eq $ext ) {
         execute(
-"$tools::CC  -O0 $tools::CC_OPTIONS  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
+"$tools::CC  -O0 $tools::CC_OPTIONS  $file  $extra_srcs $tools::GCC_ARCH $tools::GEN_OBJ_FILE  -o ${outdir}${basename}.${suffix}.o"
         );
     }
 
     if ( "cpp" eq $ext ) {
         execute(
-"$tools::CXX -O0 $tools::CXX_OPTIONS  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
+"$tools::CXX -O0 $tools::CXX_OPTIONS  $file $extra_srcs $tools::GCC_ARCH   $tools::GEN_OBJ_FILE   -o ${outdir}${basename}.${suffix}.o"
         );
     }
 
@@ -62,7 +64,7 @@ sub generate_binary_from_source {
 
     if ( "ll" eq $ext ) {
         execute(
-"$tools::CXX -O0 $tools::CXX_OPTIONS  $file ${GCC_ARCH}  -c   -o ${outdir}${basename}.${suffix}.o"
+"$tools::CXX -O0 $tools::CXX_OPTIONS  $file $tools::GCC_ARCH   $tools::GEN_OBJ_FILE   -o ${outdir}${basename}.${suffix}.o"
         );
     }
 
@@ -131,11 +133,9 @@ sub extract_bc_from_cfg {
 
     info("Running cfg to bc");
     my $CFG_TO_BC_PATH = "$tools::MCSEMA_HOME/mc-sema/bitcode_from_cfg/";
-    my $GCC_ARCH       = "-m64";
     my $BIN_ARCH       = "-march=x86-64";
     my $CFGBC_ARCH     = "-mtriple=x86_64-unknown-linux-gnu";
     if ( $arch eq "32" ) {
-        $GCC_ARCH   = "-m32";
         $BIN_ARCH   = "-march=x86";
         $CFGBC_ARCH = "-mtriple=i686-pc-linux-gnu";
     }
@@ -200,15 +200,9 @@ sub generate_linked_binary {
     my $outdir    = shift @_;
     my $ext       = shift @_;
     my $master    = shift @_;
-    my $arch      = shift @_;
     my $incdir    = shift @_;
     my $driver    = shift @_;
     my $force_gen = shift @_;
-
-    my $GCC_ARCH = "-m64";
-    if ( $arch eq "32" ) {
-        $GCC_ARCH = "-m32";
-    }
 
     info("Generate lifted binary [ $inputbc to $outputexe]");
 
@@ -235,12 +229,12 @@ sub generate_linked_binary {
 
     if ( "" eq $master ) {
         execute(
-"$tools::CC -O3 ${GCC_ARCH} -I${incdir} ${driver} $inputbc ${incdir}/ELF_64_linux.ll   -o $outputexe"
+"$tools::CC -O3 $tools::GCC_ARCH  -I${incdir} ${driver} $inputbc ${incdir}/ELF_64_linux.ll   -o $outputexe"
         );
     }
     else {
         execute(
-"$tools::CXX  $tools::CXX_OPTIONS ${GCC_ARCH}  -O3 $tools::REGSTATE  $inputbc ${driver} $tools::MCSEMA_LIB   -o $outputexe"
+"$tools::CC  $tools::CXX_OPTIONS $tools::GCC_ARCH   -O3 $tools::REGSTATE  $inputbc ${driver} $tools::MCSEMA_LIB   -o $outputexe"
         );
     }
 

@@ -20,7 +20,8 @@ int main() {
 
 
 void func(int k) {
-  for(int i = 0 ; i < k ; i++)
+  int i = 0;
+  for( i = 0 ; i < k ; i++)
     printf("Hello World!");
 } 
 

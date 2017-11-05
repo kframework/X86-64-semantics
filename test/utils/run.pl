@@ -74,6 +74,11 @@ if ($help) {
 }
 
 my ( $basename, $ext ) = utils::split_filename($file);
+if ( "asm" eq $ext and "yes" eq $tools::SKIP_ASM ) {
+    utils::warnInfo("Skipped: asm file");
+    exit(0);
+}
+
 if ( "" ne $cleanup ) {
     utils::cleanup( $outdir, $basename, $suffix );
     exit(0);
@@ -85,9 +90,24 @@ if ( $map ne "" ) {
 }
 
 ### Drivers
+
+if ( "revamb" eq $tools::MCSEMA_BRANCH ) {
+    utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
+        $file, $driver, $force_gen );
+    execute("$tools::TRANSLATE ${outdir}${basename}.${suffix}.o");
+
+    utils::run_compare(
+        "${outdir}${basename}.${suffix}.o",
+        "${outdir}${basename}.${suffix}.o.translated",
+        "Native", $stdin_args, $cmd_args, $outdir, $basename
+    );
+
+    exit(0);
+}
+
 if ( "" ne $genbin ) {
     utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
-        $file, $arch, $force_gen );
+        $file, $driver, $force_gen );
 }
 
 if ( "" ne $gencfg ) {
@@ -112,7 +132,6 @@ if ( "" ne $compile_bc ) {
         $outdir,
         $ext,
         $master,
-        $arch,
         $incdir,
         $driver,
         $force_gen
@@ -121,35 +140,54 @@ if ( "" ne $compile_bc ) {
 
 if ( "" ne $run_compare ) {
     utils::generate_binary_from_source( $outdir, $basename, $suffix, $ext,
-        $file, $arch, $force_gen );
+        $file, $driver, $force_gen );
 
-    utils::generate_linked_binary(
-        "${outdir}${basename}.${suffix}.o",
-        "${outdir}${basename}.${suffix}.native",
-        $testdir,
-        $outdir,
-        $ext,
-        $master,
-        $arch,
-        $incdir,
-        $driver,
-        $force_gen
-    );
-    if ( -e "${outdir}${basename}.${suffix}.native" ) {
-        if ( "" ne $skip_runcompare ) {
-            passInfo("${basename} Run Compare Skipped");
-            exit(0);
+    if ( $tools::GEN_OBJ_FILE eq "" ) {
+        if ( -e "${outdir}${basename}.${suffix}.o" ) {
+            if ( "" ne $skip_runcompare ) {
+                passInfo("${basename} Run Compare Skipped");
+                exit(0);
+            }
+
+            utils::run_compare(
+                "${outdir}${basename}.${suffix}.lifted.exe",
+                "${outdir}${basename}.${suffix}.o",
+                "Native",
+                $stdin_args,
+                $cmd_args,
+                $outdir,
+                $basename
+            );
         }
-
-        utils::run_compare(
-            "${outdir}${basename}.${suffix}.lifted.exe",
+    }
+    else {
+        utils::generate_linked_binary(
+            "${outdir}${basename}.${suffix}.o",
             "${outdir}${basename}.${suffix}.native",
-            "Native",
-            $stdin_args,
-            $cmd_args,
+            $testdir,
             $outdir,
-            $basename
+            $ext,
+            $master,
+            $incdir,
+            $driver,
+            $force_gen
         );
+        if ( -e "${outdir}${basename}.${suffix}.native" ) {
+            if ( "" ne $skip_runcompare ) {
+                passInfo("${basename} Run Compare Skipped");
+                exit(0);
+            }
+
+            utils::run_compare(
+                "${outdir}${basename}.${suffix}.lifted.exe",
+                "${outdir}${basename}.${suffix}.native",
+                "Native",
+                $stdin_args,
+                $cmd_args,
+                $outdir,
+                $basename
+            );
+        }
     }
 }
 

@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <string.h>
 
-extern "C" int keycomp(const char*);
-extern "C" uint32_t to_byte(uint8_t);
-extern "C" uint32_t read_bytes(uint32_t, const char *, int);
+// extern "C" int keycomp(const char*);
+// extern "C" uint32_t to_byte(uint8_t);
+// extern "C" uint32_t read_bytes(uint32_t, const char *, int);
   
 uint32_t to_byte(uint8_t b) {
     if(b <= '9') {return b - '0';}

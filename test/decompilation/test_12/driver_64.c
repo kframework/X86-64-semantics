@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-extern "C" int foo(char*);
 
 
 int main(int argc, char *argv[]) {

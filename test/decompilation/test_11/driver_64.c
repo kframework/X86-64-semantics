@@ -7,7 +7,7 @@
 #include <string.h>
 
 //extern void STDCALL sub_b(RegState *);
-extern "C" char* doTrans(char *);
+//extern "C" char* doTrans(char *);
 
 int main(int argc, char *argv[]) {
     size_t  len = sizeof("/first/test/path");

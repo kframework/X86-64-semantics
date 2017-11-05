@@ -3,7 +3,8 @@
 int foo(int a, int b, int c, int d, int e, int f, int size1, int* arr1, int size2, int* arr2) { 
   unsigned int sum = 0 ;
 
-  for(int i = 0 ; i < size1 ; i ++) {
+  int i = 0;
+  for(; i < size1 ; i ++) {
     sum += (arr1[i]  - arr2[i]);
   }
   return sum*(a+b+c+d+e+f);

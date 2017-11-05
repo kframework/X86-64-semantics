@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-extern "C" void shiftit(int amt, uint64_t *orig);
+//extern "C" void shiftit(int amt, uint64_t *orig);
 
 int main(int argc, char *argv[]) {
     uint64_t foo = 0xFFFFFFFF00000000ULL;

@@ -4,7 +4,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-extern "C" void demo3(const char *, const char*);
+//extern "C" void demo3(const char *, const char*);
 
 int main(int argc, char *argv[]) {
     size_t  len = sizeof("/first/test/path");
