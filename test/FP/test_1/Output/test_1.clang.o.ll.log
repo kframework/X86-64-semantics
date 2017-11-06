@@ -1,0 +1,65 @@
+JumpTargets found in global data: 174
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+144 new jump targets and 1435 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+76 new jump targets and 406 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+65 new jump targets and 457 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+47 new jump targets and 227 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+42 new jump targets and 202 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+24 new jump targets and 111 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+18 new jump targets and 92 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+11 new jump targets and 80 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+7 new jump targets and 34 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+9 new jump targets and 72 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+5 new jump targets and 31 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+5 new jump targets and 46 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+3 new jump targets and 22 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+1 new jump targets and 5 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+1 new jump targets and 1 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+0 new jump targets and 1 new branches were found
+Harvesting: reset Visited, SROA, ConstProp, EarlyCSE, SET + OSRA
+Adding 7 jump targets from 0x11884
+Adding 241 jump targets from 0x168ec
+Adding 5 jump targets from 0x1ab6c
+Adding 5 jump targets from 0x1b1fc
+Adding 5 jump targets from 0x1abf4
+252 new jump targets and 12 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+7 new jump targets and 357 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+3 new jump targets and 12 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+3 new jump targets and 15 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+3 new jump targets and 16 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+0 new jump targets and 5 new branches were found
+Harvesting: reset Visited, SROA, ConstProp, EarlyCSE, SET + OSRA
+Adding 7 jump targets from 0x11884
+Adding 241 jump targets from 0x168ec
+Adding 5 jump targets from 0x1ab6c
+Adding 5 jump targets from 0x1b1fc
+Adding 5 jump targets from 0x1abf4
+0 new jump targets and 2 new branches were found
+Harvesting: reset Visited, SROA, ConstProp, EarlyCSE, SET + OSRA
+Adding 7 jump targets from 0x11884
+Adding 241 jump targets from 0x168ec
+Adding 5 jump targets from 0x1ab6c
+Adding 5 jump targets from 0x1b1fc
+Adding 5 jump targets from 0x1abf4
+0 new jump targets and 0 new branches were found
+We're done looking for jump targets

@@ -1,0 +1,48 @@
+JumpTargets found in global data: 175
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+160 new jump targets and 1449 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+111 new jump targets and 742 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+67 new jump targets and 383 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+54 new jump targets and 300 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+26 new jump targets and 136 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+20 new jump targets and 117 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+11 new jump targets and 52 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+10 new jump targets and 21 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+6 new jump targets and 15 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+5 new jump targets and 30 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+5 new jump targets and 8 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+3 new jump targets and 14 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+1 new jump targets and 2 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+0 new jump targets and 6 new branches were found
+Harvesting: reset Visited, SROA, ConstProp, EarlyCSE, SET + OSRA
+Adding 7 jump targets from 0x11924
+Adding 241 jump targets from 0x1698c
+Adding 5 jump targets from 0x1ac0c
+Adding 5 jump targets from 0x1ac94
+Adding 5 jump targets from 0x1b29c
+253 new jump targets and 13 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+4 new jump targets and 345 new branches were found
+Harvesting: SROA, ConstProp, EarlyCSE and SET
+0 new jump targets and 5 new branches were found
+Harvesting: reset Visited, SROA, ConstProp, EarlyCSE, SET + OSRA
+Adding 7 jump targets from 0x11924
+Adding 241 jump targets from 0x1698c
+Adding 5 jump targets from 0x1ac0c
+Adding 5 jump targets from 0x1ac94
+Adding 5 jump targets from 0x1b29c
+0 new jump targets and 0 new branches were found
+We're done looking for jump targets
