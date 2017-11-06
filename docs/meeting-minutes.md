@@ -4,17 +4,28 @@ I was experimenting with running [revNg or revamb](https://github.com/revng/reva
 
 After fixing those, we got the following results which shows that we can switch to Mcsema people's recommended, remill, branch as its better than revamb.
 
+__UnitTests__
+|  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|  McSema(Remill) |  111 | 98 | 12 | 1 | 0 | 0 |
+|  Revamb |  101 | 88 | 13 |  NA| NA | NA   |
+|  McSema(master) |  111 | 74 | 34 |  0| 2 | 1 |
 
-|  Tool | Suite | Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
-|:--:|:--:|:-:|:--:|:--:|:--:|:--:|:--:|
-|  McSema(Remill) | UnitTests | 111 | 98 | 12 | 1 | 0 | 0 |
-|  McSema(master) | UnitTests | 111 | 74 | 34 |  0| 2 | 1 |
-|  Revamb | UnitTests | 101 | 88 | 13 |  NA| NA | NA   |
-|  McSema(Remill) | Regression | 65 | 52 | 10 | 3 | 0 | 0 |
-|  McSema(master) | Regression | 65 | 40 | 9 | 0 | 5 | 11 |
-|  Revamb | Regression | 65 | 52 | 12 (1 noexe) | NA | NA | NA |
-|  McSema(Remill) | Benchmark | 140 | To be published |  | 0 | 0 | 0 |
-|  Revamb | Benchmark | 140 | To be published |  | NA | NA | NA |
+
+
+__Regression__
+|  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|  McSema(Remill) | 65 | 52 | 10 | 3 | 0 | 0 |
+|  Revamb |  65 | 52 | 12 (1 noexe) | NA | NA | NA |
+|  McSema(master)  | 65 | 40 | 9 | 0 | 5 | 11 |
+
+
+__Benchmark__
+|  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|  McSema(Remill) |  140 | To be published |  | 0 | 0 | 0 |
+|  Revamb |  140 | To be published |  | NA | NA | NA |
 
 
 ### Oct 17, 2017
