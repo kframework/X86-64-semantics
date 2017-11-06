@@ -5,6 +5,7 @@ I was experimenting with running [revNg or revamb](https://github.com/revng/reva
 After fixing those, we got the following results which shows that we can switch to Mcsema people's recommended, remill, branch as its better than revamb.
 
 __UnitTests__
+
 |  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |  McSema(Remill) |  111 | 98 | 12 | 1 | 0 | 0 |
@@ -14,6 +15,7 @@ __UnitTests__
 
 
 __Regression__
+
 |  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |  McSema(Remill) | 65 | 52 | 10 | 3 | 0 | 0 |
@@ -22,6 +24,7 @@ __Regression__
 
 
 __Benchmark__
+
 |  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |  McSema(Remill) |  140 | To be published |  | 0 | 0 | 0 |
