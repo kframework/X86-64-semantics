@@ -2,7 +2,7 @@
 
 I was experimenting with running [revNg or revamb](https://github.com/revng/revamb) (aka rev NextGen) on Singlesource benchmarks and found that they are able to generate  at-least as many passes as McSema (master branch) is providing. As per, https://github.com/trailofbits/mcsema/pull/304, I have been asked to use McSema's remill branch, which at first had problems passing even the simple programs [Issue 308](https://github.com/trailofbits/mcsema/issues/308) and [Issue 156](https://github.com/trailofbits/remill/pull/156).
 
-After fixing those, we got the following results which shows that we can switch to Mcsema people's recommended, remill, branch as its better than revamb.
+After fixing those, we got the following results which shows that we can switch to Mcsema people's recommended, remill, branch as its better ( like better FP instruction support) than revamb.
 
 __UnitTests__
 
