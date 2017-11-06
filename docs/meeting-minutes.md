@@ -1,3 +1,22 @@
+### Nov 06, 2017
+
+I was experimenting with running [revNg or revamb](https://github.com/revng/revamb) (aka rev NextGen) on Singlesource benchmarks and found that they are able to generate  at-least as many passes as McSema (master branch) is providing. As per, https://github.com/trailofbits/mcsema/pull/304, I have been asked to use McSema's remill branch, which at first had problems passing even the simple programs [Issue 308](https://github.com/trailofbits/mcsema/issues/308) and [Issue 156](https://github.com/trailofbits/remill/pull/156).
+
+After fixing those, we got the following results which shows that we can switch to Mcsema people's recommended, remill, branch as its better than revamb.
+
+
+|  Tool | Suite | Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
+|:--:|:--:|:-:|:--:|:--:|:--:|:--:|:--:|
+|  McSema(Remill) | UnitTests | 111 | 98 | 12 | 1 | 0 | 0 |
+|  McSema(master) | UnitTests | 111 | 74 | 34 |  0| 2 | 1 |
+|  Revamb | UnitTests | 101 | 88 | 13 |  NA| NA | NA   |
+|  McSema(Remill) | Regression | 65 | 52 | 10 | 3 | 0 | 0 |
+|  McSema(master) | Regression | 65 | 40 | 9 | 0 | 5 | 11 |
+|  Revamb | Regression | 65 | 52 | 12 (1 noexe) | NA | NA | NA |
+|  McSema(Remill) | Benchmark | 140 | To be published |  | 0 | 0 | 0 |
+|  Revamb | Benchmark | 140 | To be published |  | NA | NA | NA |
+
+
 ### Oct 17, 2017
 
 There are the list of notable static decompilations projects.
