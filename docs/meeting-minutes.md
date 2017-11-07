@@ -27,8 +27,8 @@ __Benchmark__
 
 |  Tool |  Total | Exec Pass | Exec Fail | Failed bc -> exe | Failed exe -> cfg | Failed cfg -> bc |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|  McSema(Remill) |  140 | To be published |  | 0 | 0 | 0 |
-|  Revamb |  140 | To be published |  | NA | NA | NA |
+|  McSema(Remill) |  140 | 99 | 41 | 0 | 0 | 0 |
+|  Revamb |  140 |  |  | NA | NA | NA |
 
 
 ### Oct 17, 2017
