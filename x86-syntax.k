@@ -7,12 +7,7 @@ module X86-SYNTAX
                  | Opcode Typedoperands
   syntax Label ::= "." Id
   syntax Opcode ::=  Id
-  /*
-  syntax Typedoperands ::=  Typeoperand
-                         | Typeoperand "," Typeoperand
-                         | Typeoperand "," Typeoperand "," Typeoperand 
-                         | Typeoperand "," Typeoperand "," Typeoperand "," Typeoperand
-  */                       
+
   syntax Typedoperands ::=  List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
                        | Label
@@ -204,4 +199,30 @@ module X86-SYNTAX
                | "%ymm13" 
                | "%ymm14" 
                | "%ymm15" 
+endmodule
+
+module X86-CONFIGURATION
+
+  configuration <T>
+    // The frontend is expected to provide rules for
+    // loading the program into the memory cell as
+    // abstract instructions and filling the labels map
+    <k> $PGM:Code </k>
+    <regstate>
+      <rsp> 255 </rsp>
+      <rip> 0 </rip>
+      <rbp> 0 </rbp>
+      <rax> 0 </rax>
+      <rdx> 0 </rdx>
+      <rsi> 0 </rsi>
+      <rdi> 0 </rdi>
+      <eflags>
+        <sf> 0 </sf>
+        <zf> 0 </zf>
+        <cf> 0 </cf>
+      </eflags>
+    </regstate>
+
+    <labels> .Map </labels>
+  </T>
 endmodule
