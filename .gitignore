@@ -15,3 +15,6 @@ build/*
 *.ll
 *.log
 *.cfg
+*.coverage.csv
+*.native
+*.lifted.bc
