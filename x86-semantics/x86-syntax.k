@@ -8,21 +8,22 @@ module X86-SYNTAX
   syntax Label ::= "." Id
   syntax Opcode ::=  Id
 
-  syntax Typedoperands ::=  List{Typeoperand, ","}
+  syntax Typedoperands ::= List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
                        | Label
                        | Mm
-                       | Rh
-                       | R8
-                       | R16
-                       | R32
-                       | R64
                        | Sreg
                        | St
-                       | Xmm
-                       | Ymm
                        | Memoffs
                        | Mem
+                       | Register
+  syntax Register ::= Rh
+                    | R8
+                    | R16
+                    | R32
+                    | R64
+                    | Xmm
+                    | Ymm
   syntax Memoffs ::= Offset
                    | Sreg ":" Offset  
   syntax Offset ::= Int
