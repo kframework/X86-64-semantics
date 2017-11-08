@@ -74,6 +74,7 @@ if ($help) {
 }
 
 my ( $basename, $ext ) = utils::split_filename($file);
+
 if ( "asm" eq $ext and "yes" eq $tools::SKIP_ASM ) {
     utils::warnInfo("Skipped: asm file");
     exit(0);
@@ -145,7 +146,7 @@ if ( "" ne $run_compare ) {
     if ( $tools::GEN_OBJ_FILE eq "" ) {
         if ( -e "${outdir}${basename}.${suffix}.o" ) {
             if ( "" ne $skip_runcompare ) {
-                passInfo("${basename} Run Compare Skipped");
+                passInfo("${basename} Run Compare Skipped explicitly");
                 exit(0);
             }
 

@@ -31,6 +31,7 @@ sub generate_binary_from_source {
         return;
     }
 
+    # For the following branches we need fullly linked binary.
     my $extra_srcs = "";
     if (   $tools::MCSEMA_BRANCH eq "revamb"
         || $tools::MCSEMA_BRANCH eq "use_remill_semantics" )
@@ -104,6 +105,11 @@ sub generate_cfg {
         );
     }
     else {
+
+        if ( $tools::MCSEMA_BRANCH eq "use_remill_semantics" ) {
+            $entry = "main";
+        }
+
         execute(
 "$tools::MCSEMA_HOME/bin/mcsema-disass --disassembler $tools::IDA ${map} --arch amd64 --os linux --entrypoint ${entry} --binary  ${outdir}${basename}.${suffix}.o --output  ${outdir}${basename}.${suffix}${cfgext}.cfg --log_file ${outdir}${basename}.${suffix}.ida.log"
         );
@@ -233,8 +239,14 @@ sub generate_linked_binary {
         );
     }
     else {
+   # For the following branches the lifted binary is already linked with driver.
+        my $extra_srcs = "";
+        if ( $tools::MCSEMA_BRANCH eq "use_remill_semantics" ) {
+            $driver = "";
+        }
+
         execute(
-"$tools::CC  $tools::CXX_OPTIONS $tools::GCC_ARCH   -O3 $tools::REGSTATE  $inputbc ${driver} $tools::MCSEMA_LIB   -o $outputexe"
+"$tools::CXX  $tools::CXX_OPTIONS $tools::GCC_ARCH   -O3 $tools::REGSTATE  $inputbc ${driver} $tools::MCSEMA_LIB   -o $outputexe"
         );
     }
 
@@ -313,9 +325,13 @@ sub split_filename {
     }
     my @components = split( /\//, ${arg} );
     my $filename = $components[ @components - 1 ];
+
     @components = split( /\./, ${filename} );
-    my $file = $components[0];
-    my $ext  = $components[1];
+    my @slice = @components[ 0 .. @components - 2 ];
+    my $file  = join ".", @slice;
+    my $ext   = $components[ @components - 1 ];
+
+    # print( "\n" . $filename . "%%" . $file . "%%" . $ext . "\n" );
     return ( $file, $ext );
 }
 
@@ -330,6 +346,9 @@ sub cleanup {
     execute("rm -rf  ${outdir}${basename}.${suffix}.opt.bc");
     execute("rm -rf  ${outdir}${basename}.${suffix}.native");
     execute("rm -rf  ${outdir}${basename}.${suffix}.lifted.exe");
+    execute("rm -rf  ${outdir}*.csv");
+    execute("rm -rf  ${outdir}*.translated");
+    execute("rm -rf  ${outdir}*.o");
 }
 1;
 

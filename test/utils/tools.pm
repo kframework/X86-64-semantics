@@ -38,8 +38,8 @@ our $GEN_OBJ_FILE  = "-c";
 our $GCC_ARCH      = "-m64";
 =cut
 
-
-$CC_OPTIONS  = "   ";
+#=pod
+$CC_OPTIONS  = " -lpthread  ";
 $CXX_OPTIONS = " -O3 -lpthread";
 our $CC  = "${home}/Github/remill/remill-build/libraries/llvm/bin/clang";
 our $CXX = "${home}/Github/remill/remill-build/libraries/llvm/bin/clang++";
@@ -51,7 +51,7 @@ our $MCSEMA_LIB    = "$MCSEMA_HOME/lib/libmcsema_rt64-4.0.a";
 our $GEN_OBJ_FILE = "";
 our $GCC_ARCH = "-m64";
 $SKIP_ASM = "yes";
-
+#=cut
 
 1;
 
