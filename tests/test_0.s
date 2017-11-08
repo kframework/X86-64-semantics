@@ -1,2 +1,1 @@
-.text:
-    add 1,%rax
+add 10,%rax
