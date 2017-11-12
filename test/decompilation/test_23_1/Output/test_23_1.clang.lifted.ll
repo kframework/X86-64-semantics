@@ -1,1285 +1,1430 @@
 ; ModuleID = 'Output/test_23_1.clang.lifted.bc'
+source_filename = "llvm-link"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
-target triple = "x86_64-pc-linux-gnu"
+target triple = "x86_64-pc-linux-gnu-elf"
 
-module asm "  .globl sub_0;"
-module asm "  .globl callback_sub_0;"
-module asm "  .type callback_sub_0,@function"
-module asm "callback_sub_0:"
-module asm "  .cfi_startproc;"
-module asm "  pushq %rax;"
-module asm "  leaq sub_0@plt(%rip), %rax;"
-module asm "  xchgq (%rsp), %rax;"
-module asm "  jmp __mcsema_attach_call;"
-module asm "0:"
-module asm "  .size callback_sub_0,0b-callback_sub_0;"
-module asm "  .cfi_endproc;"
-module asm "  .globl printf;"
-module asm "  .globl _printf;"
-module asm "  .type _printf,@function"
-module asm "_printf:"
-module asm "  .cfi_startproc;"
-module asm "  pushq %rax;"
-module asm "  leaq printf@plt(%rip), %rax;"
-module asm "  xchgq (%rsp), %rax;"
-module asm "  jmp __mcsema_detach_call;"
-module asm "0:"
-module asm "  .size _printf,0b-_printf;"
-module asm "  .cfi_endproc;"
-module asm "  .globl sub_0;"
-module asm "  .globl main;"
-module asm "  .type main,@function"
-module asm "main:"
-module asm "  .cfi_startproc;"
-module asm "  pushq %rax;"
-module asm "  leaq sub_0(%rip), %rax;"
-module asm "  xchgq (%rsp), %rax;"
-module asm "  jmp __mcsema_attach_call;"
-module asm "0:"
-module asm "  .size main,0b-main;"
-module asm "  .cfi_endproc;"
+%seg_400660__rodata_type = type <{ [201 x i8], [4 x i8] }>
+%seg_600ff0__got_type = type <{ i64, [8 x i8] }>
+%__bss_start_type = type <{ [8 x i8] }>
+%struct.State = type { %struct.ArchState, [32 x %union.VectorReg], %struct.ArithFlags, %union.Flags, %struct.Segments, %struct.AddressSpace, %struct.GPR, %struct.X87Stack, %struct.MMX, %struct.FPUStatusFlags, %union.Flags }
+%struct.ArchState = type { i32, i32, i32, i32 }
+%union.VectorReg = type { %union.vec512_t }
+%union.vec512_t = type { %struct.uint64v8_t }
+%struct.uint64v8_t = type { [8 x i64] }
+%struct.ArithFlags = type { i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8 }
+%struct.Segments = type { i16, %union.SegmentSelector, i16, %union.SegmentSelector, i16, %union.SegmentSelector, i16, %union.SegmentSelector, i16, %union.SegmentSelector, i16, %union.SegmentSelector }
+%union.SegmentSelector = type { i16 }
+%struct.AddressSpace = type { i64, %struct.Reg, i64, %struct.Reg }
+%struct.Reg = type { %union.Flags }
+%struct.GPR = type { i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg, i64, %struct.Reg }
+%struct.X87Stack = type { [8 x %struct.anon.2] }
+%struct.anon.2 = type { i64, double }
+%struct.MMX = type { [8 x %struct.anon.3] }
+%struct.anon.3 = type { i64, %union.vec64_t }
+%union.vec64_t = type { %struct.uint64v1_t }
+%struct.uint64v1_t = type { [1 x i64] }
+%struct.FPUStatusFlags = type { i8, i8, i8, i8, i8, i8, i8, i8 }
+%union.Flags = type { i64 }
+%struct.Memory = type opaque
 
-%0 = type <{ [13 x i8] }>
-%1 = type <{ [32 x i8], i32, [20 x i8] }>
-%RegState = type { i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i8, i8, i8, i8, i8, i8, i8, x86_fp80, x86_fp80, x86_fp80, x86_fp80, x86_fp80, x86_fp80, x86_fp80, x86_fp80, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, [10 x i8], i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128, i128 }
-
-@data_111 = internal constant %0 <{ [13 x i8] c"ssssdddd\00%d\0A\00" }>, align 64
-@data_120 = internal constant %1 <{ [32 x i8] c"\14\00\00\00\00\00\00\00\01zR\00\01x\10\01\1B\0C\07\08\90\01\00\00\1C\00\00\00\1C\00\00\00", i32 ptrtoint (void ()* @callback_sub_0 to i32), [20 x i8] c"\11\01\00\00\00A\0E\10\86\02C\0D\06\00\00\00\00\00\00\00" }>, align 64
-
-; Function Attrs: naked
-declare void @__mcsema_attach_call() #0
-
-; Function Attrs: naked
-declare void @__mcsema_attach_ret() #0
-
-; Function Attrs: naked
-declare void @__mcsema_detach_call() #0
-
-; Function Attrs: naked
-declare void @__mcsema_detach_call_value() #0
-
-; Function Attrs: naked
-declare void @__mcsema_detach_ret() #0
-
-; Function Attrs: noinline
-define x86_64_sysvcc void @sub_0(%RegState*) #1 {
-entry:
-  %RIP_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 0, !mcsema_real_eip !0
-  %RIP_read = bitcast i64* %RIP_write to i64*, !mcsema_real_eip !0
-  %EIP_write = bitcast i64* %RIP_read to i64*, !mcsema_real_eip !0
-  %EIP_read = bitcast i64* %EIP_write to i32*, !mcsema_real_eip !0
-  %RAX_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 1, !mcsema_real_eip !0
-  %RAX_read = bitcast i64* %RAX_write to i64*, !mcsema_real_eip !0
-  %EAX_write = bitcast i64* %RAX_read to i64*, !mcsema_real_eip !0
-  %EAX_read = bitcast i64* %EAX_write to i32*, !mcsema_real_eip !0
-  %AX_write = bitcast i32* %EAX_read to i16*, !mcsema_real_eip !0
-  %AX_read = bitcast i16* %AX_write to i16*, !mcsema_real_eip !0
-  %AL_write = bitcast i16* %AX_read to i8*, !mcsema_real_eip !0
-  %AL_read = bitcast i8* %AL_write to i8*, !mcsema_real_eip !0
-  %AH_write = getelementptr inbounds i8, i8* %AL_read, i32 1, !mcsema_real_eip !0
-  %AH_read = bitcast i8* %AH_write to i8*, !mcsema_real_eip !0
-  %RBX_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 2, !mcsema_real_eip !0
-  %RBX_read = bitcast i64* %RBX_write to i64*, !mcsema_real_eip !0
-  %EBX_write = bitcast i64* %RBX_read to i64*, !mcsema_real_eip !0
-  %EBX_read = bitcast i64* %EBX_write to i32*, !mcsema_real_eip !0
-  %BX_write = bitcast i32* %EBX_read to i16*, !mcsema_real_eip !0
-  %BX_read = bitcast i16* %BX_write to i16*, !mcsema_real_eip !0
-  %BL_write = bitcast i16* %BX_read to i8*, !mcsema_real_eip !0
-  %BL_read = bitcast i8* %BL_write to i8*, !mcsema_real_eip !0
-  %BH_write = getelementptr inbounds i8, i8* %BL_read, i32 1, !mcsema_real_eip !0
-  %BH_read = bitcast i8* %BH_write to i8*, !mcsema_real_eip !0
-  %RCX_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 3, !mcsema_real_eip !0
-  %RCX_read = bitcast i64* %RCX_write to i64*, !mcsema_real_eip !0
-  %ECX_write = bitcast i64* %RCX_read to i64*, !mcsema_real_eip !0
-  %ECX_read = bitcast i64* %ECX_write to i32*, !mcsema_real_eip !0
-  %CX_write = bitcast i32* %ECX_read to i16*, !mcsema_real_eip !0
-  %CX_read = bitcast i16* %CX_write to i16*, !mcsema_real_eip !0
-  %CL_write = bitcast i16* %CX_read to i8*, !mcsema_real_eip !0
-  %CL_read = bitcast i8* %CL_write to i8*, !mcsema_real_eip !0
-  %CH_write = getelementptr inbounds i8, i8* %CL_read, i32 1, !mcsema_real_eip !0
-  %CH_read = bitcast i8* %CH_write to i8*, !mcsema_real_eip !0
-  %RDX_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 4, !mcsema_real_eip !0
-  %RDX_read = bitcast i64* %RDX_write to i64*, !mcsema_real_eip !0
-  %EDX_write = bitcast i64* %RDX_read to i64*, !mcsema_real_eip !0
-  %EDX_read = bitcast i64* %EDX_write to i32*, !mcsema_real_eip !0
-  %DX_write = bitcast i32* %EDX_read to i16*, !mcsema_real_eip !0
-  %DX_read = bitcast i16* %DX_write to i16*, !mcsema_real_eip !0
-  %DL_write = bitcast i16* %DX_read to i8*, !mcsema_real_eip !0
-  %DL_read = bitcast i8* %DL_write to i8*, !mcsema_real_eip !0
-  %DH_write = getelementptr inbounds i8, i8* %DL_read, i32 1, !mcsema_real_eip !0
-  %DH_read = bitcast i8* %DH_write to i8*, !mcsema_real_eip !0
-  %RSI_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 5, !mcsema_real_eip !0
-  %RSI_read = bitcast i64* %RSI_write to i64*, !mcsema_real_eip !0
-  %ESI_write = bitcast i64* %RSI_read to i64*, !mcsema_real_eip !0
-  %ESI_read = bitcast i64* %ESI_write to i32*, !mcsema_real_eip !0
-  %SI_write = bitcast i32* %ESI_read to i16*, !mcsema_real_eip !0
-  %SI_read = bitcast i16* %SI_write to i16*, !mcsema_real_eip !0
-  %SIL_write = bitcast i16* %SI_read to i8*, !mcsema_real_eip !0
-  %SIL_read = bitcast i8* %SIL_write to i8*, !mcsema_real_eip !0
-  %RDI_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 6, !mcsema_real_eip !0
-  %RDI_read = bitcast i64* %RDI_write to i64*, !mcsema_real_eip !0
-  %EDI_write = bitcast i64* %RDI_read to i64*, !mcsema_real_eip !0
-  %EDI_read = bitcast i64* %EDI_write to i32*, !mcsema_real_eip !0
-  %DI_write = bitcast i32* %EDI_read to i16*, !mcsema_real_eip !0
-  %DI_read = bitcast i16* %DI_write to i16*, !mcsema_real_eip !0
-  %DIL_write = bitcast i16* %DI_read to i8*, !mcsema_real_eip !0
-  %DIL_read = bitcast i8* %DIL_write to i8*, !mcsema_real_eip !0
-  %RSP_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 7, !mcsema_real_eip !0
-  %RSP_read = bitcast i64* %RSP_write to i64*, !mcsema_real_eip !0
-  %ESP_write = bitcast i64* %RSP_read to i64*, !mcsema_real_eip !0
-  %ESP_read = bitcast i64* %ESP_write to i32*, !mcsema_real_eip !0
-  %SP_write = bitcast i32* %ESP_read to i16*, !mcsema_real_eip !0
-  %SP_read = bitcast i16* %SP_write to i16*, !mcsema_real_eip !0
-  %SPL_write = bitcast i16* %SP_read to i8*, !mcsema_real_eip !0
-  %SPL_read = bitcast i8* %SPL_write to i8*, !mcsema_real_eip !0
-  %RBP_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 8, !mcsema_real_eip !0
-  %RBP_read = bitcast i64* %RBP_write to i64*, !mcsema_real_eip !0
-  %EBP_write = bitcast i64* %RBP_read to i64*, !mcsema_real_eip !0
-  %EBP_read = bitcast i64* %EBP_write to i32*, !mcsema_real_eip !0
-  %BP_write = bitcast i32* %EBP_read to i16*, !mcsema_real_eip !0
-  %BP_read = bitcast i16* %BP_write to i16*, !mcsema_real_eip !0
-  %BPL_write = bitcast i16* %BP_read to i8*, !mcsema_real_eip !0
-  %BPL_read = bitcast i8* %BPL_write to i8*, !mcsema_real_eip !0
-  %R8_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 9, !mcsema_real_eip !0
-  %R8_read = bitcast i64* %R8_write to i64*, !mcsema_real_eip !0
-  %R8D_write = bitcast i64* %R8_read to i64*, !mcsema_real_eip !0
-  %R8D_read = bitcast i64* %R8D_write to i32*, !mcsema_real_eip !0
-  %R8W_write = bitcast i32* %R8D_read to i16*, !mcsema_real_eip !0
-  %R8W_read = bitcast i16* %R8W_write to i16*, !mcsema_real_eip !0
-  %R8B_write = bitcast i16* %R8W_read to i8*, !mcsema_real_eip !0
-  %R8B_read = bitcast i8* %R8B_write to i8*, !mcsema_real_eip !0
-  %R9_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 10, !mcsema_real_eip !0
-  %R9_read = bitcast i64* %R9_write to i64*, !mcsema_real_eip !0
-  %R9D_write = bitcast i64* %R9_read to i64*, !mcsema_real_eip !0
-  %R9D_read = bitcast i64* %R9D_write to i32*, !mcsema_real_eip !0
-  %R9W_write = bitcast i32* %R9D_read to i16*, !mcsema_real_eip !0
-  %R9W_read = bitcast i16* %R9W_write to i16*, !mcsema_real_eip !0
-  %R9B_write = bitcast i16* %R9W_read to i8*, !mcsema_real_eip !0
-  %R9B_read = bitcast i8* %R9B_write to i8*, !mcsema_real_eip !0
-  %R10_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 11, !mcsema_real_eip !0
-  %R10_read = bitcast i64* %R10_write to i64*, !mcsema_real_eip !0
-  %R10D_write = bitcast i64* %R10_read to i64*, !mcsema_real_eip !0
-  %R10D_read = bitcast i64* %R10D_write to i32*, !mcsema_real_eip !0
-  %R10W_write = bitcast i32* %R10D_read to i16*, !mcsema_real_eip !0
-  %R10W_read = bitcast i16* %R10W_write to i16*, !mcsema_real_eip !0
-  %R10B_write = bitcast i16* %R10W_read to i8*, !mcsema_real_eip !0
-  %R10B_read = bitcast i8* %R10B_write to i8*, !mcsema_real_eip !0
-  %R11_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 12, !mcsema_real_eip !0
-  %R11_read = bitcast i64* %R11_write to i64*, !mcsema_real_eip !0
-  %R11D_write = bitcast i64* %R11_read to i64*, !mcsema_real_eip !0
-  %R11D_read = bitcast i64* %R11D_write to i32*, !mcsema_real_eip !0
-  %R11W_write = bitcast i32* %R11D_read to i16*, !mcsema_real_eip !0
-  %R11W_read = bitcast i16* %R11W_write to i16*, !mcsema_real_eip !0
-  %R11B_write = bitcast i16* %R11W_read to i8*, !mcsema_real_eip !0
-  %R11B_read = bitcast i8* %R11B_write to i8*, !mcsema_real_eip !0
-  %R12_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 13, !mcsema_real_eip !0
-  %R12_read = bitcast i64* %R12_write to i64*, !mcsema_real_eip !0
-  %R12D_write = bitcast i64* %R12_read to i64*, !mcsema_real_eip !0
-  %R12D_read = bitcast i64* %R12D_write to i32*, !mcsema_real_eip !0
-  %R12W_write = bitcast i32* %R12D_read to i16*, !mcsema_real_eip !0
-  %R12W_read = bitcast i16* %R12W_write to i16*, !mcsema_real_eip !0
-  %R12B_write = bitcast i16* %R12W_read to i8*, !mcsema_real_eip !0
-  %R12B_read = bitcast i8* %R12B_write to i8*, !mcsema_real_eip !0
-  %R13_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 14, !mcsema_real_eip !0
-  %R13_read = bitcast i64* %R13_write to i64*, !mcsema_real_eip !0
-  %R13D_write = bitcast i64* %R13_read to i64*, !mcsema_real_eip !0
-  %R13D_read = bitcast i64* %R13D_write to i32*, !mcsema_real_eip !0
-  %R13W_write = bitcast i32* %R13D_read to i16*, !mcsema_real_eip !0
-  %R13W_read = bitcast i16* %R13W_write to i16*, !mcsema_real_eip !0
-  %R13B_write = bitcast i16* %R13W_read to i8*, !mcsema_real_eip !0
-  %R13B_read = bitcast i8* %R13B_write to i8*, !mcsema_real_eip !0
-  %R14_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 15, !mcsema_real_eip !0
-  %R14_read = bitcast i64* %R14_write to i64*, !mcsema_real_eip !0
-  %R14D_write = bitcast i64* %R14_read to i64*, !mcsema_real_eip !0
-  %R14D_read = bitcast i64* %R14D_write to i32*, !mcsema_real_eip !0
-  %R14W_write = bitcast i32* %R14D_read to i16*, !mcsema_real_eip !0
-  %R14W_read = bitcast i16* %R14W_write to i16*, !mcsema_real_eip !0
-  %R14B_write = bitcast i16* %R14W_read to i8*, !mcsema_real_eip !0
-  %R14B_read = bitcast i8* %R14B_write to i8*, !mcsema_real_eip !0
-  %R15_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 16, !mcsema_real_eip !0
-  %R15_read = bitcast i64* %R15_write to i64*, !mcsema_real_eip !0
-  %R15D_write = bitcast i64* %R15_read to i64*, !mcsema_real_eip !0
-  %R15D_read = bitcast i64* %R15D_write to i32*, !mcsema_real_eip !0
-  %R15W_write = bitcast i32* %R15D_read to i16*, !mcsema_real_eip !0
-  %R15W_read = bitcast i16* %R15W_write to i16*, !mcsema_real_eip !0
-  %R15B_write = bitcast i16* %R15W_read to i8*, !mcsema_real_eip !0
-  %R15B_read = bitcast i8* %R15B_write to i8*, !mcsema_real_eip !0
-  %CF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 17, !mcsema_real_eip !0
-  %CF_read = bitcast i8* %CF_write to i8*, !mcsema_real_eip !0
-  %PF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 18, !mcsema_real_eip !0
-  %PF_read = bitcast i8* %PF_write to i8*, !mcsema_real_eip !0
-  %AF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 19, !mcsema_real_eip !0
-  %AF_read = bitcast i8* %AF_write to i8*, !mcsema_real_eip !0
-  %ZF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 20, !mcsema_real_eip !0
-  %ZF_read = bitcast i8* %ZF_write to i8*, !mcsema_real_eip !0
-  %SF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 21, !mcsema_real_eip !0
-  %SF_read = bitcast i8* %SF_write to i8*, !mcsema_real_eip !0
-  %OF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 22, !mcsema_real_eip !0
-  %OF_read = bitcast i8* %OF_write to i8*, !mcsema_real_eip !0
-  %DF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 23, !mcsema_real_eip !0
-  %DF_read = bitcast i8* %DF_write to i8*, !mcsema_real_eip !0
-  %ST0_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 24, !mcsema_real_eip !0
-  %ST0_read = bitcast x86_fp80* %ST0_write to x86_fp80*, !mcsema_real_eip !0
-  %ST1_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 25, !mcsema_real_eip !0
-  %ST1_read = bitcast x86_fp80* %ST1_write to x86_fp80*, !mcsema_real_eip !0
-  %ST2_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 26, !mcsema_real_eip !0
-  %ST2_read = bitcast x86_fp80* %ST2_write to x86_fp80*, !mcsema_real_eip !0
-  %ST3_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 27, !mcsema_real_eip !0
-  %ST3_read = bitcast x86_fp80* %ST3_write to x86_fp80*, !mcsema_real_eip !0
-  %ST4_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 28, !mcsema_real_eip !0
-  %ST4_read = bitcast x86_fp80* %ST4_write to x86_fp80*, !mcsema_real_eip !0
-  %ST5_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 29, !mcsema_real_eip !0
-  %ST5_read = bitcast x86_fp80* %ST5_write to x86_fp80*, !mcsema_real_eip !0
-  %ST6_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 30, !mcsema_real_eip !0
-  %ST6_read = bitcast x86_fp80* %ST6_write to x86_fp80*, !mcsema_real_eip !0
-  %ST7_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 31, !mcsema_real_eip !0
-  %ST7_read = bitcast x86_fp80* %ST7_write to x86_fp80*, !mcsema_real_eip !0
-  %FPU_FLAG_BUSY_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 32, !mcsema_real_eip !0
-  %FPU_FLAG_BUSY_read = bitcast i8* %FPU_FLAG_BUSY_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_C3_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 33, !mcsema_real_eip !0
-  %FPU_FLAG_C3_read = bitcast i8* %FPU_FLAG_C3_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_C2_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 34, !mcsema_real_eip !0
-  %FPU_FLAG_C2_read = bitcast i8* %FPU_FLAG_C2_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_C1_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 35, !mcsema_real_eip !0
-  %FPU_FLAG_C1_read = bitcast i8* %FPU_FLAG_C1_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_C0_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 36, !mcsema_real_eip !0
-  %FPU_FLAG_C0_read = bitcast i8* %FPU_FLAG_C0_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_ES_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 37, !mcsema_real_eip !0
-  %FPU_FLAG_ES_read = bitcast i8* %FPU_FLAG_ES_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_SF_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 38, !mcsema_real_eip !0
-  %FPU_FLAG_SF_read = bitcast i8* %FPU_FLAG_SF_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_PE_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 39, !mcsema_real_eip !0
-  %FPU_FLAG_PE_read = bitcast i8* %FPU_FLAG_PE_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_UE_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 40, !mcsema_real_eip !0
-  %FPU_FLAG_UE_read = bitcast i8* %FPU_FLAG_UE_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_OE_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 41, !mcsema_real_eip !0
-  %FPU_FLAG_OE_read = bitcast i8* %FPU_FLAG_OE_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_ZE_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 42, !mcsema_real_eip !0
-  %FPU_FLAG_ZE_read = bitcast i8* %FPU_FLAG_ZE_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_DE_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 43, !mcsema_real_eip !0
-  %FPU_FLAG_DE_read = bitcast i8* %FPU_FLAG_DE_write to i8*, !mcsema_real_eip !0
-  %FPU_FLAG_IE_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 44, !mcsema_real_eip !0
-  %FPU_FLAG_IE_read = bitcast i8* %FPU_FLAG_IE_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_X_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 45, !mcsema_real_eip !0
-  %FPU_CONTROL_X_read = bitcast i8* %FPU_CONTROL_X_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_RC_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 46, !mcsema_real_eip !0
-  %FPU_CONTROL_RC_read = bitcast i8* %FPU_CONTROL_RC_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_PC_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 47, !mcsema_real_eip !0
-  %FPU_CONTROL_PC_read = bitcast i8* %FPU_CONTROL_PC_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_PM_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 48, !mcsema_real_eip !0
-  %FPU_CONTROL_PM_read = bitcast i8* %FPU_CONTROL_PM_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_UM_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 49, !mcsema_real_eip !0
-  %FPU_CONTROL_UM_read = bitcast i8* %FPU_CONTROL_UM_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_OM_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 50, !mcsema_real_eip !0
-  %FPU_CONTROL_OM_read = bitcast i8* %FPU_CONTROL_OM_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_ZM_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 51, !mcsema_real_eip !0
-  %FPU_CONTROL_ZM_read = bitcast i8* %FPU_CONTROL_ZM_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_DM_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 52, !mcsema_real_eip !0
-  %FPU_CONTROL_DM_read = bitcast i8* %FPU_CONTROL_DM_write to i8*, !mcsema_real_eip !0
-  %FPU_CONTROL_IM_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 53, !mcsema_real_eip !0
-  %FPU_CONTROL_IM_read = bitcast i8* %FPU_CONTROL_IM_write to i8*, !mcsema_real_eip !0
-  %XMM0_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 55, !mcsema_real_eip !0
-  %XMM0_read = bitcast i128* %XMM0_write to i128*, !mcsema_real_eip !0
-  %XMM1_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 56, !mcsema_real_eip !0
-  %XMM1_read = bitcast i128* %XMM1_write to i128*, !mcsema_real_eip !0
-  %XMM2_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 57, !mcsema_real_eip !0
-  %XMM2_read = bitcast i128* %XMM2_write to i128*, !mcsema_real_eip !0
-  %XMM3_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 58, !mcsema_real_eip !0
-  %XMM3_read = bitcast i128* %XMM3_write to i128*, !mcsema_real_eip !0
-  %XMM4_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 59, !mcsema_real_eip !0
-  %XMM4_read = bitcast i128* %XMM4_write to i128*, !mcsema_real_eip !0
-  %XMM5_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 60, !mcsema_real_eip !0
-  %XMM5_read = bitcast i128* %XMM5_write to i128*, !mcsema_real_eip !0
-  %XMM6_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 61, !mcsema_real_eip !0
-  %XMM6_read = bitcast i128* %XMM6_write to i128*, !mcsema_real_eip !0
-  %XMM7_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 62, !mcsema_real_eip !0
-  %XMM7_read = bitcast i128* %XMM7_write to i128*, !mcsema_real_eip !0
-  %XMM8_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 63, !mcsema_real_eip !0
-  %XMM8_read = bitcast i128* %XMM8_write to i128*, !mcsema_real_eip !0
-  %XMM9_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 64, !mcsema_real_eip !0
-  %XMM9_read = bitcast i128* %XMM9_write to i128*, !mcsema_real_eip !0
-  %XMM10_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 65, !mcsema_real_eip !0
-  %XMM10_read = bitcast i128* %XMM10_write to i128*, !mcsema_real_eip !0
-  %XMM11_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 66, !mcsema_real_eip !0
-  %XMM11_read = bitcast i128* %XMM11_write to i128*, !mcsema_real_eip !0
-  %XMM12_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 67, !mcsema_real_eip !0
-  %XMM12_read = bitcast i128* %XMM12_write to i128*, !mcsema_real_eip !0
-  %XMM13_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 68, !mcsema_real_eip !0
-  %XMM13_read = bitcast i128* %XMM13_write to i128*, !mcsema_real_eip !0
-  %XMM14_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 69, !mcsema_real_eip !0
-  %XMM14_read = bitcast i128* %XMM14_write to i128*, !mcsema_real_eip !0
-  %XMM15_write = getelementptr inbounds %RegState, %RegState* %0, i32 0, i32 70, !mcsema_real_eip !0
-  %XMM15_read = bitcast i128* %XMM15_write to i128*, !mcsema_real_eip !0
-  br label %block_0, !mcsema_real_eip !0
-
-block_0:                                          ; preds = %entry
-  store volatile i64 0, i64* %EIP_write, !mcsema_real_eip !0
-  %1 = load i64, i64* %RBP_read, !mcsema_real_eip !0
-  %2 = load i64, i64* %RSP_read, !mcsema_real_eip !0
-  %3 = sub i64 %2, 8, !mcsema_real_eip !0
-  %4 = inttoptr i64 %3 to i64*, !mcsema_real_eip !0
-  store i64 %1, i64* %4, !mcsema_real_eip !0
-  store volatile i64 %3, i64* %RSP_write, !mcsema_real_eip !0
-  store volatile i64 1, i64* %EIP_write, !mcsema_real_eip !1
-  %5 = load i64, i64* %RSP_read, !mcsema_real_eip !1
-  store volatile i64 %5, i64* %RBP_write, !mcsema_real_eip !1
-  store volatile i64 4, i64* %EIP_write, !mcsema_real_eip !2
-  %6 = load i64, i64* %RSP_read, !mcsema_real_eip !2
-  %7 = sext i8 48 to i64, !mcsema_real_eip !2
-  %8 = sub i64 %6, %7, !mcsema_real_eip !2
-  %9 = xor i64 %8, %6, !mcsema_real_eip !2
-  %10 = xor i64 %9, %7, !mcsema_real_eip !2
-  %11 = and i64 %10, 16, !mcsema_real_eip !2
-  %12 = icmp ne i64 %11, 0, !mcsema_real_eip !2
-  %13 = zext i1 %12 to i8, !mcsema_real_eip !2
-  store volatile i8 %13, i8* %AF_write, !mcsema_real_eip !2
-  %14 = trunc i64 %8 to i8, !mcsema_real_eip !2
-  %15 = call i8 @llvm.ctpop.i8(i8 %14), !mcsema_real_eip !2
-  %16 = trunc i8 %15 to i1, !mcsema_real_eip !2
-  %17 = zext i1 %16 to i8, !mcsema_real_eip !2
-  %18 = xor i8 %17, 1, !mcsema_real_eip !2
-  %19 = trunc i8 %18 to i1, !mcsema_real_eip !2
-  %20 = zext i1 %19 to i8, !mcsema_real_eip !2
-  store volatile i8 %20, i8* %PF_write, !mcsema_real_eip !2
-  %21 = icmp eq i64 %8, 0, !mcsema_real_eip !2
-  %22 = zext i1 %21 to i8, !mcsema_real_eip !2
-  store volatile i8 %22, i8* %ZF_write, !mcsema_real_eip !2
-  %23 = lshr i64 %8, 63, !mcsema_real_eip !2
-  %24 = trunc i64 %23 to i1, !mcsema_real_eip !2
-  %25 = zext i1 %24 to i8, !mcsema_real_eip !2
-  %26 = trunc i8 %25 to i1, !mcsema_real_eip !2
-  %27 = zext i1 %26 to i8, !mcsema_real_eip !2
-  store volatile i8 %27, i8* %SF_write, !mcsema_real_eip !2
-  %28 = icmp ult i64 %6, %7, !mcsema_real_eip !2
-  %29 = zext i1 %28 to i8, !mcsema_real_eip !2
-  store volatile i8 %29, i8* %CF_write, !mcsema_real_eip !2
-  %30 = xor i64 %6, %7, !mcsema_real_eip !2
-  %31 = xor i64 %6, %8, !mcsema_real_eip !2
-  %32 = and i64 %30, %31, !mcsema_real_eip !2
-  %33 = lshr i64 %32, 63, !mcsema_real_eip !2
-  %34 = trunc i64 %33 to i1, !mcsema_real_eip !2
-  %35 = zext i1 %34 to i8, !mcsema_real_eip !2
-  %36 = trunc i8 %35 to i1, !mcsema_real_eip !2
-  %37 = zext i1 %36 to i8, !mcsema_real_eip !2
-  store volatile i8 %37, i8* %OF_write, !mcsema_real_eip !2
-  store volatile i64 %8, i64* %RSP_write, !mcsema_real_eip !2
-  store volatile i64 8, i64* %EIP_write, !mcsema_real_eip !3
-  %38 = load i64, i64* %RBP_read, !mcsema_real_eip !3
-  %39 = add i64 %38, -4, !mcsema_real_eip !3
-  %40 = inttoptr i64 %39 to i64*, !mcsema_real_eip !3
-  %41 = ptrtoint i64* %40 to i64, !mcsema_real_eip !3
-  %42 = inttoptr i64 %41 to i32*, !mcsema_real_eip !3
-  store i32 0, i32* %42, !mcsema_real_eip !3
-  store volatile i64 15, i64* %EIP_write, !mcsema_real_eip !4
-  %43 = load i64, i64* %RBP_read, !mcsema_real_eip !4
-  %44 = add i64 %43, -8, !mcsema_real_eip !4
-  %45 = inttoptr i64 %44 to i64*, !mcsema_real_eip !4
-  %46 = ptrtoint i64* %45 to i64, !mcsema_real_eip !4
-  %47 = inttoptr i64 %46 to i32*, !mcsema_real_eip !4
-  store i32 0, i32* %47, !mcsema_real_eip !4
-  store volatile i64 22, i64* %EIP_write, !mcsema_real_eip !5
-  %48 = load i64, i64* %RBP_read, !mcsema_real_eip !5
-  %49 = add i64 %48, -12, !mcsema_real_eip !5
-  %50 = inttoptr i64 %49 to i64*, !mcsema_real_eip !5
-  %51 = ptrtoint i64* %50 to i64, !mcsema_real_eip !5
-  %52 = inttoptr i64 %51 to i32*, !mcsema_real_eip !5
-  store i32 0, i32* %52, !mcsema_real_eip !5
-  store volatile i64 29, i64* %EIP_write, !mcsema_real_eip !6
-  %53 = ptrtoint %0* @data_111 to i64, !mcsema_real_eip !6
-  %54 = add i64 %53, 0, !mcsema_real_eip !6
-  %55 = add i64 0, %54, !mcsema_real_eip !6
-  %56 = inttoptr i64 %55 to i64*, !mcsema_real_eip !6
-  %57 = load i64, i64* %56, !mcsema_real_eip !6
-  store volatile i64 %57, i64* %RAX_write, !mcsema_real_eip !6
-  store volatile i64 37, i64* %EIP_write, !mcsema_real_eip !7
-  %58 = load i64, i64* %RBP_read, !mcsema_real_eip !7
-  %59 = add i64 %58, -21, !mcsema_real_eip !7
-  %60 = inttoptr i64 %59 to i64*, !mcsema_real_eip !7
-  %61 = load i64, i64* %RAX_read, !mcsema_real_eip !7
-  store i64 %61, i64* %60, !mcsema_real_eip !7
-  store volatile i64 41, i64* %EIP_write, !mcsema_real_eip !8
-  %62 = ptrtoint %0* @data_111 to i64, !mcsema_real_eip !8
-  %63 = add i64 %62, 8, !mcsema_real_eip !8
-  %64 = add i64 0, %63, !mcsema_real_eip !8
-  %65 = inttoptr i64 %64 to i64*, !mcsema_real_eip !8
-  %66 = ptrtoint i64* %65 to i64, !mcsema_real_eip !8
-  %67 = inttoptr i64 %66 to i8*, !mcsema_real_eip !8
-  %68 = load i8, i8* %67, !mcsema_real_eip !8
-  store volatile i8 %68, i8* %CL_write, !mcsema_real_eip !8
-  store volatile i64 48, i64* %EIP_write, !mcsema_real_eip !9
-  %69 = load i64, i64* %RBP_read, !mcsema_real_eip !9
-  %70 = add i64 %69, -13, !mcsema_real_eip !9
-  %71 = inttoptr i64 %70 to i64*, !mcsema_real_eip !9
-  %72 = load i8, i8* %CL_read, !mcsema_real_eip !9
-  %73 = ptrtoint i64* %71 to i64, !mcsema_real_eip !9
-  %74 = inttoptr i64 %73 to i8*, !mcsema_real_eip !9
-  store i8 %72, i8* %74, !mcsema_real_eip !9
-  br label %block_33, !mcsema_real_eip !10
-
-block_33:                                         ; preds = %block_dc, %block_0
-  store volatile i64 51, i64* %EIP_write, !mcsema_real_eip !10
-  %75 = load i64, i64* %RBP_read, !mcsema_real_eip !10
-  %76 = add i64 %75, -8, !mcsema_real_eip !10
-  %77 = inttoptr i64 %76 to i64*, !mcsema_real_eip !10
-  %78 = ptrtoint i64* %77 to i64, !mcsema_real_eip !10
-  %79 = inttoptr i64 %78 to i32*, !mcsema_real_eip !10
-  %80 = load i32, i32* %79, !mcsema_real_eip !10
-  %81 = sub i32 %80, 8, !mcsema_real_eip !10
-  %82 = xor i32 %81, %80, !mcsema_real_eip !10
-  %83 = xor i32 %82, 8, !mcsema_real_eip !10
-  %84 = and i32 %83, 16, !mcsema_real_eip !10
-  %85 = icmp ne i32 %84, 0, !mcsema_real_eip !10
-  %86 = zext i1 %85 to i8, !mcsema_real_eip !10
-  store volatile i8 %86, i8* %AF_write, !mcsema_real_eip !10
-  %87 = trunc i32 %81 to i8, !mcsema_real_eip !10
-  %88 = call i8 @llvm.ctpop.i8(i8 %87), !mcsema_real_eip !10
-  %89 = trunc i8 %88 to i1, !mcsema_real_eip !10
-  %90 = zext i1 %89 to i8, !mcsema_real_eip !10
-  %91 = xor i8 %90, 1, !mcsema_real_eip !10
-  %92 = trunc i8 %91 to i1, !mcsema_real_eip !10
-  %93 = zext i1 %92 to i8, !mcsema_real_eip !10
-  store volatile i8 %93, i8* %PF_write, !mcsema_real_eip !10
-  %94 = icmp eq i32 %81, 0, !mcsema_real_eip !10
-  %95 = zext i1 %94 to i8, !mcsema_real_eip !10
-  store volatile i8 %95, i8* %ZF_write, !mcsema_real_eip !10
-  %96 = lshr i32 %81, 31, !mcsema_real_eip !10
-  %97 = trunc i32 %96 to i1, !mcsema_real_eip !10
-  %98 = zext i1 %97 to i8, !mcsema_real_eip !10
-  %99 = trunc i8 %98 to i1, !mcsema_real_eip !10
-  %100 = zext i1 %99 to i8, !mcsema_real_eip !10
-  store volatile i8 %100, i8* %SF_write, !mcsema_real_eip !10
-  %101 = icmp ult i32 %80, 8, !mcsema_real_eip !10
-  %102 = zext i1 %101 to i8, !mcsema_real_eip !10
-  store volatile i8 %102, i8* %CF_write, !mcsema_real_eip !10
-  %103 = xor i32 %80, 8, !mcsema_real_eip !10
-  %104 = xor i32 %80, %81, !mcsema_real_eip !10
-  %105 = and i32 %103, %104, !mcsema_real_eip !10
-  %106 = lshr i32 %105, 31, !mcsema_real_eip !10
-  %107 = trunc i32 %106 to i1, !mcsema_real_eip !10
-  %108 = zext i1 %107 to i8, !mcsema_real_eip !10
-  %109 = trunc i8 %108 to i1, !mcsema_real_eip !10
-  %110 = zext i1 %109 to i8, !mcsema_real_eip !10
-  store volatile i8 %110, i8* %OF_write, !mcsema_real_eip !10
-  store volatile i64 55, i64* %EIP_write, !mcsema_real_eip !11
-  %111 = load i8, i8* %SF_read, !mcsema_real_eip !11
-  %112 = trunc i8 %111 to i1, !mcsema_real_eip !11
-  %113 = load i8, i8* %OF_read, !mcsema_real_eip !11
-  %114 = trunc i8 %113 to i1, !mcsema_real_eip !11
-  %115 = icmp eq i1 %112, %114, !mcsema_real_eip !11
-  br i1 %115, label %block_ea, label %block_3d, !mcsema_real_eip !11
-
-block_3d:                                         ; preds = %block_33
-  store volatile i64 61, i64* %EIP_write, !mcsema_real_eip !12
-  %116 = load i64, i64* %RBP_read, !mcsema_real_eip !12
-  %117 = add i64 %116, -8, !mcsema_real_eip !12
-  %118 = inttoptr i64 %117 to i64*, !mcsema_real_eip !12
-  %119 = ptrtoint i64* %118 to i64, !mcsema_real_eip !12
-  %120 = inttoptr i64 %119 to i32*, !mcsema_real_eip !12
-  %121 = load i32, i32* %120, !mcsema_real_eip !12
-  %122 = sext i32 %121 to i64, !mcsema_real_eip !12
-  store volatile i64 %122, i64* %RAX_write, !mcsema_real_eip !12
-  store volatile i64 65, i64* %EIP_write, !mcsema_real_eip !13
-  %123 = load i64, i64* %RBP_read, !mcsema_real_eip !13
-  %124 = add i64 %123, -21, !mcsema_real_eip !13
-  %125 = load i64, i64* %RAX_read, !mcsema_real_eip !13
-  %126 = add i64 %124, %125, !mcsema_real_eip !13
-  %127 = inttoptr i64 %126 to i64*, !mcsema_real_eip !13
-  %128 = ptrtoint i64* %127 to i64, !mcsema_real_eip !13
-  %129 = inttoptr i64 %128 to i8*, !mcsema_real_eip !13
-  %130 = load i8, i8* %129, !mcsema_real_eip !13
-  %131 = sext i8 %130 to i32, !mcsema_real_eip !13
-  %132 = zext i32 %131 to i64, !mcsema_real_eip !13
-  store volatile i64 %132, i64* %ECX_write, !mcsema_real_eip !13
-  store volatile i64 70, i64* %EIP_write, !mcsema_real_eip !14
-  %133 = load i32, i32* %ECX_read, !mcsema_real_eip !14
-  %134 = zext i32 %133 to i64, !mcsema_real_eip !14
-  store volatile i64 %134, i64* %EDX_write, !mcsema_real_eip !14
-  store volatile i64 72, i64* %EIP_write, !mcsema_real_eip !15
-  %135 = load i32, i32* %EDX_read, !mcsema_real_eip !15
-  %136 = sub i32 %135, 97, !mcsema_real_eip !15
-  %137 = xor i32 %136, %135, !mcsema_real_eip !15
-  %138 = xor i32 %137, 97, !mcsema_real_eip !15
-  %139 = and i32 %138, 16, !mcsema_real_eip !15
-  %140 = icmp ne i32 %139, 0, !mcsema_real_eip !15
-  %141 = zext i1 %140 to i8, !mcsema_real_eip !15
-  store volatile i8 %141, i8* %AF_write, !mcsema_real_eip !15
-  %142 = trunc i32 %136 to i8, !mcsema_real_eip !15
-  %143 = call i8 @llvm.ctpop.i8(i8 %142), !mcsema_real_eip !15
-  %144 = trunc i8 %143 to i1, !mcsema_real_eip !15
-  %145 = zext i1 %144 to i8, !mcsema_real_eip !15
-  %146 = xor i8 %145, 1, !mcsema_real_eip !15
-  %147 = trunc i8 %146 to i1, !mcsema_real_eip !15
-  %148 = zext i1 %147 to i8, !mcsema_real_eip !15
-  store volatile i8 %148, i8* %PF_write, !mcsema_real_eip !15
-  %149 = icmp eq i32 %136, 0, !mcsema_real_eip !15
-  %150 = zext i1 %149 to i8, !mcsema_real_eip !15
-  store volatile i8 %150, i8* %ZF_write, !mcsema_real_eip !15
-  %151 = lshr i32 %136, 31, !mcsema_real_eip !15
-  %152 = trunc i32 %151 to i1, !mcsema_real_eip !15
-  %153 = zext i1 %152 to i8, !mcsema_real_eip !15
-  %154 = trunc i8 %153 to i1, !mcsema_real_eip !15
-  %155 = zext i1 %154 to i8, !mcsema_real_eip !15
-  store volatile i8 %155, i8* %SF_write, !mcsema_real_eip !15
-  %156 = icmp ult i32 %135, 97, !mcsema_real_eip !15
-  %157 = zext i1 %156 to i8, !mcsema_real_eip !15
-  store volatile i8 %157, i8* %CF_write, !mcsema_real_eip !15
-  %158 = xor i32 %135, 97, !mcsema_real_eip !15
-  %159 = xor i32 %135, %136, !mcsema_real_eip !15
-  %160 = and i32 %158, %159, !mcsema_real_eip !15
-  %161 = lshr i32 %160, 31, !mcsema_real_eip !15
-  %162 = trunc i32 %161 to i1, !mcsema_real_eip !15
-  %163 = zext i1 %162 to i8, !mcsema_real_eip !15
-  %164 = trunc i8 %163 to i1, !mcsema_real_eip !15
-  %165 = zext i1 %164 to i8, !mcsema_real_eip !15
-  store volatile i8 %165, i8* %OF_write, !mcsema_real_eip !15
-  %166 = zext i32 %136 to i64, !mcsema_real_eip !15
-  store volatile i64 %166, i64* %EDX_write, !mcsema_real_eip !15
-  store volatile i64 75, i64* %EIP_write, !mcsema_real_eip !16
-  %167 = load i64, i64* %RBP_read, !mcsema_real_eip !16
-  %168 = add i64 %167, -28, !mcsema_real_eip !16
-  %169 = inttoptr i64 %168 to i64*, !mcsema_real_eip !16
-  %170 = load i32, i32* %ECX_read, !mcsema_real_eip !16
-  %171 = ptrtoint i64* %169 to i64, !mcsema_real_eip !16
-  %172 = inttoptr i64 %171 to i32*, !mcsema_real_eip !16
-  store i32 %170, i32* %172, !mcsema_real_eip !16
-  store volatile i64 78, i64* %EIP_write, !mcsema_real_eip !17
-  %173 = load i64, i64* %RBP_read, !mcsema_real_eip !17
-  %174 = add i64 %173, -32, !mcsema_real_eip !17
-  %175 = inttoptr i64 %174 to i64*, !mcsema_real_eip !17
-  %176 = load i32, i32* %EDX_read, !mcsema_real_eip !17
-  %177 = ptrtoint i64* %175 to i64, !mcsema_real_eip !17
-  %178 = inttoptr i64 %177 to i32*, !mcsema_real_eip !17
-  store i32 %176, i32* %178, !mcsema_real_eip !17
-  store volatile i64 81, i64* %EIP_write, !mcsema_real_eip !18
-  %179 = load i8, i8* %ZF_read, !mcsema_real_eip !18
-  %180 = trunc i8 %179 to i1, !mcsema_real_eip !18
-  %181 = icmp eq i1 %180, true, !mcsema_real_eip !18
-  br i1 %181, label %block_b4, label %block_57, !mcsema_real_eip !18
-
-block_57:                                         ; preds = %block_3d
-  store volatile i64 87, i64* %EIP_write, !mcsema_real_eip !19
-  br label %block_5c, !mcsema_real_eip !19
-
-block_5c:                                         ; preds = %block_57
-  store volatile i64 92, i64* %EIP_write, !mcsema_real_eip !20
-  %182 = load i64, i64* %RBP_read, !mcsema_real_eip !20
-  %183 = add i64 %182, -28, !mcsema_real_eip !20
-  %184 = inttoptr i64 %183 to i64*, !mcsema_real_eip !20
-  %185 = ptrtoint i64* %184 to i64, !mcsema_real_eip !20
-  %186 = inttoptr i64 %185 to i32*, !mcsema_real_eip !20
-  %187 = load i32, i32* %186, !mcsema_real_eip !20
-  %188 = zext i32 %187 to i64, !mcsema_real_eip !20
-  store volatile i64 %188, i64* %EAX_write, !mcsema_real_eip !20
-  store volatile i64 95, i64* %EIP_write, !mcsema_real_eip !21
-  %189 = load i32, i32* %EAX_read, !mcsema_real_eip !21
-  %190 = sub i32 %189, 100, !mcsema_real_eip !21
-  %191 = xor i32 %190, %189, !mcsema_real_eip !21
-  %192 = xor i32 %191, 100, !mcsema_real_eip !21
-  %193 = and i32 %192, 16, !mcsema_real_eip !21
-  %194 = icmp ne i32 %193, 0, !mcsema_real_eip !21
-  %195 = zext i1 %194 to i8, !mcsema_real_eip !21
-  store volatile i8 %195, i8* %AF_write, !mcsema_real_eip !21
-  %196 = trunc i32 %190 to i8, !mcsema_real_eip !21
-  %197 = call i8 @llvm.ctpop.i8(i8 %196), !mcsema_real_eip !21
-  %198 = trunc i8 %197 to i1, !mcsema_real_eip !21
-  %199 = zext i1 %198 to i8, !mcsema_real_eip !21
-  %200 = xor i8 %199, 1, !mcsema_real_eip !21
-  %201 = trunc i8 %200 to i1, !mcsema_real_eip !21
-  %202 = zext i1 %201 to i8, !mcsema_real_eip !21
-  store volatile i8 %202, i8* %PF_write, !mcsema_real_eip !21
-  %203 = icmp eq i32 %190, 0, !mcsema_real_eip !21
-  %204 = zext i1 %203 to i8, !mcsema_real_eip !21
-  store volatile i8 %204, i8* %ZF_write, !mcsema_real_eip !21
-  %205 = lshr i32 %190, 31, !mcsema_real_eip !21
-  %206 = trunc i32 %205 to i1, !mcsema_real_eip !21
-  %207 = zext i1 %206 to i8, !mcsema_real_eip !21
-  %208 = trunc i8 %207 to i1, !mcsema_real_eip !21
-  %209 = zext i1 %208 to i8, !mcsema_real_eip !21
-  store volatile i8 %209, i8* %SF_write, !mcsema_real_eip !21
-  %210 = icmp ult i32 %189, 100, !mcsema_real_eip !21
-  %211 = zext i1 %210 to i8, !mcsema_real_eip !21
-  store volatile i8 %211, i8* %CF_write, !mcsema_real_eip !21
-  %212 = xor i32 %189, 100, !mcsema_real_eip !21
-  %213 = xor i32 %189, %190, !mcsema_real_eip !21
-  %214 = and i32 %212, %213, !mcsema_real_eip !21
-  %215 = lshr i32 %214, 31, !mcsema_real_eip !21
-  %216 = trunc i32 %215 to i1, !mcsema_real_eip !21
-  %217 = zext i1 %216 to i8, !mcsema_real_eip !21
-  %218 = trunc i8 %217 to i1, !mcsema_real_eip !21
-  %219 = zext i1 %218 to i8, !mcsema_real_eip !21
-  store volatile i8 %219, i8* %OF_write, !mcsema_real_eip !21
-  %220 = zext i32 %190 to i64, !mcsema_real_eip !21
-  store volatile i64 %220, i64* %EAX_write, !mcsema_real_eip !21
-  store volatile i64 98, i64* %EIP_write, !mcsema_real_eip !22
-  %221 = load i64, i64* %RBP_read, !mcsema_real_eip !22
-  %222 = add i64 %221, -36, !mcsema_real_eip !22
-  %223 = inttoptr i64 %222 to i64*, !mcsema_real_eip !22
-  %224 = load i32, i32* %EAX_read, !mcsema_real_eip !22
-  %225 = ptrtoint i64* %223 to i64, !mcsema_real_eip !22
-  %226 = inttoptr i64 %225 to i32*, !mcsema_real_eip !22
-  store i32 %224, i32* %226, !mcsema_real_eip !22
-  store volatile i64 101, i64* %EIP_write, !mcsema_real_eip !23
-  %227 = load i8, i8* %ZF_read, !mcsema_real_eip !23
-  %228 = trunc i8 %227 to i1, !mcsema_real_eip !23
-  %229 = icmp eq i1 %228, true, !mcsema_real_eip !23
-  br i1 %229, label %block_c2, label %block_6b, !mcsema_real_eip !23
-
-block_6b:                                         ; preds = %block_5c
-  store volatile i64 107, i64* %EIP_write, !mcsema_real_eip !24
-  br label %block_70, !mcsema_real_eip !24
-
-block_70:                                         ; preds = %block_6b
-  store volatile i64 112, i64* %EIP_write, !mcsema_real_eip !25
-  %230 = load i64, i64* %RBP_read, !mcsema_real_eip !25
-  %231 = add i64 %230, -28, !mcsema_real_eip !25
-  %232 = inttoptr i64 %231 to i64*, !mcsema_real_eip !25
-  %233 = ptrtoint i64* %232 to i64, !mcsema_real_eip !25
-  %234 = inttoptr i64 %233 to i32*, !mcsema_real_eip !25
-  %235 = load i32, i32* %234, !mcsema_real_eip !25
-  %236 = zext i32 %235 to i64, !mcsema_real_eip !25
-  store volatile i64 %236, i64* %EAX_write, !mcsema_real_eip !25
-  store volatile i64 115, i64* %EIP_write, !mcsema_real_eip !26
-  %237 = load i32, i32* %EAX_read, !mcsema_real_eip !26
-  %238 = sub i32 %237, 115, !mcsema_real_eip !26
-  %239 = xor i32 %238, %237, !mcsema_real_eip !26
-  %240 = xor i32 %239, 115, !mcsema_real_eip !26
-  %241 = and i32 %240, 16, !mcsema_real_eip !26
-  %242 = icmp ne i32 %241, 0, !mcsema_real_eip !26
-  %243 = zext i1 %242 to i8, !mcsema_real_eip !26
-  store volatile i8 %243, i8* %AF_write, !mcsema_real_eip !26
-  %244 = trunc i32 %238 to i8, !mcsema_real_eip !26
-  %245 = call i8 @llvm.ctpop.i8(i8 %244), !mcsema_real_eip !26
-  %246 = trunc i8 %245 to i1, !mcsema_real_eip !26
-  %247 = zext i1 %246 to i8, !mcsema_real_eip !26
-  %248 = xor i8 %247, 1, !mcsema_real_eip !26
-  %249 = trunc i8 %248 to i1, !mcsema_real_eip !26
-  %250 = zext i1 %249 to i8, !mcsema_real_eip !26
-  store volatile i8 %250, i8* %PF_write, !mcsema_real_eip !26
-  %251 = icmp eq i32 %238, 0, !mcsema_real_eip !26
-  %252 = zext i1 %251 to i8, !mcsema_real_eip !26
-  store volatile i8 %252, i8* %ZF_write, !mcsema_real_eip !26
-  %253 = lshr i32 %238, 31, !mcsema_real_eip !26
-  %254 = trunc i32 %253 to i1, !mcsema_real_eip !26
-  %255 = zext i1 %254 to i8, !mcsema_real_eip !26
-  %256 = trunc i8 %255 to i1, !mcsema_real_eip !26
-  %257 = zext i1 %256 to i8, !mcsema_real_eip !26
-  store volatile i8 %257, i8* %SF_write, !mcsema_real_eip !26
-  %258 = icmp ult i32 %237, 115, !mcsema_real_eip !26
-  %259 = zext i1 %258 to i8, !mcsema_real_eip !26
-  store volatile i8 %259, i8* %CF_write, !mcsema_real_eip !26
-  %260 = xor i32 %237, 115, !mcsema_real_eip !26
-  %261 = xor i32 %237, %238, !mcsema_real_eip !26
-  %262 = and i32 %260, %261, !mcsema_real_eip !26
-  %263 = lshr i32 %262, 31, !mcsema_real_eip !26
-  %264 = trunc i32 %263 to i1, !mcsema_real_eip !26
-  %265 = zext i1 %264 to i8, !mcsema_real_eip !26
-  %266 = trunc i8 %265 to i1, !mcsema_real_eip !26
-  %267 = zext i1 %266 to i8, !mcsema_real_eip !26
-  store volatile i8 %267, i8* %OF_write, !mcsema_real_eip !26
-  %268 = zext i32 %238 to i64, !mcsema_real_eip !26
-  store volatile i64 %268, i64* %EAX_write, !mcsema_real_eip !26
-  store volatile i64 118, i64* %EIP_write, !mcsema_real_eip !27
-  %269 = load i64, i64* %RBP_read, !mcsema_real_eip !27
-  %270 = add i64 %269, -40, !mcsema_real_eip !27
-  %271 = inttoptr i64 %270 to i64*, !mcsema_real_eip !27
-  %272 = load i32, i32* %EAX_read, !mcsema_real_eip !27
-  %273 = ptrtoint i64* %271 to i64, !mcsema_real_eip !27
-  %274 = inttoptr i64 %273 to i32*, !mcsema_real_eip !27
-  store i32 %272, i32* %274, !mcsema_real_eip !27
-  store volatile i64 121, i64* %EIP_write, !mcsema_real_eip !28
-  %275 = load i8, i8* %ZF_read, !mcsema_real_eip !28
-  %276 = trunc i8 %275 to i1, !mcsema_real_eip !28
-  %277 = icmp eq i1 %276, true, !mcsema_real_eip !28
-  br i1 %277, label %block_a6, label %block_7f, !mcsema_real_eip !28
-
-block_7f:                                         ; preds = %block_70
-  store volatile i64 127, i64* %EIP_write, !mcsema_real_eip !29
-  br label %block_84, !mcsema_real_eip !29
-
-block_84:                                         ; preds = %block_7f
-  store volatile i64 132, i64* %EIP_write, !mcsema_real_eip !30
-  %278 = load i64, i64* %RBP_read, !mcsema_real_eip !30
-  %279 = add i64 %278, -28, !mcsema_real_eip !30
-  %280 = inttoptr i64 %279 to i64*, !mcsema_real_eip !30
-  %281 = ptrtoint i64* %280 to i64, !mcsema_real_eip !30
-  %282 = inttoptr i64 %281 to i32*, !mcsema_real_eip !30
-  %283 = load i32, i32* %282, !mcsema_real_eip !30
-  %284 = zext i32 %283 to i64, !mcsema_real_eip !30
-  store volatile i64 %284, i64* %EAX_write, !mcsema_real_eip !30
-  store volatile i64 135, i64* %EIP_write, !mcsema_real_eip !31
-  %285 = load i32, i32* %EAX_read, !mcsema_real_eip !31
-  %286 = sub i32 %285, 119, !mcsema_real_eip !31
-  %287 = xor i32 %286, %285, !mcsema_real_eip !31
-  %288 = xor i32 %287, 119, !mcsema_real_eip !31
-  %289 = and i32 %288, 16, !mcsema_real_eip !31
-  %290 = icmp ne i32 %289, 0, !mcsema_real_eip !31
-  %291 = zext i1 %290 to i8, !mcsema_real_eip !31
-  store volatile i8 %291, i8* %AF_write, !mcsema_real_eip !31
-  %292 = trunc i32 %286 to i8, !mcsema_real_eip !31
-  %293 = call i8 @llvm.ctpop.i8(i8 %292), !mcsema_real_eip !31
-  %294 = trunc i8 %293 to i1, !mcsema_real_eip !31
-  %295 = zext i1 %294 to i8, !mcsema_real_eip !31
-  %296 = xor i8 %295, 1, !mcsema_real_eip !31
-  %297 = trunc i8 %296 to i1, !mcsema_real_eip !31
-  %298 = zext i1 %297 to i8, !mcsema_real_eip !31
-  store volatile i8 %298, i8* %PF_write, !mcsema_real_eip !31
-  %299 = icmp eq i32 %286, 0, !mcsema_real_eip !31
-  %300 = zext i1 %299 to i8, !mcsema_real_eip !31
-  store volatile i8 %300, i8* %ZF_write, !mcsema_real_eip !31
-  %301 = lshr i32 %286, 31, !mcsema_real_eip !31
-  %302 = trunc i32 %301 to i1, !mcsema_real_eip !31
-  %303 = zext i1 %302 to i8, !mcsema_real_eip !31
-  %304 = trunc i8 %303 to i1, !mcsema_real_eip !31
-  %305 = zext i1 %304 to i8, !mcsema_real_eip !31
-  store volatile i8 %305, i8* %SF_write, !mcsema_real_eip !31
-  %306 = icmp ult i32 %285, 119, !mcsema_real_eip !31
-  %307 = zext i1 %306 to i8, !mcsema_real_eip !31
-  store volatile i8 %307, i8* %CF_write, !mcsema_real_eip !31
-  %308 = xor i32 %285, 119, !mcsema_real_eip !31
-  %309 = xor i32 %285, %286, !mcsema_real_eip !31
-  %310 = and i32 %308, %309, !mcsema_real_eip !31
-  %311 = lshr i32 %310, 31, !mcsema_real_eip !31
-  %312 = trunc i32 %311 to i1, !mcsema_real_eip !31
-  %313 = zext i1 %312 to i8, !mcsema_real_eip !31
-  %314 = trunc i8 %313 to i1, !mcsema_real_eip !31
-  %315 = zext i1 %314 to i8, !mcsema_real_eip !31
-  store volatile i8 %315, i8* %OF_write, !mcsema_real_eip !31
-  %316 = zext i32 %286 to i64, !mcsema_real_eip !31
-  store volatile i64 %316, i64* %EAX_write, !mcsema_real_eip !31
-  store volatile i64 138, i64* %EIP_write, !mcsema_real_eip !32
-  %317 = load i64, i64* %RBP_read, !mcsema_real_eip !32
-  %318 = add i64 %317, -44, !mcsema_real_eip !32
-  %319 = inttoptr i64 %318 to i64*, !mcsema_real_eip !32
-  %320 = load i32, i32* %EAX_read, !mcsema_real_eip !32
-  %321 = ptrtoint i64* %319 to i64, !mcsema_real_eip !32
-  %322 = inttoptr i64 %321 to i32*, !mcsema_real_eip !32
-  store i32 %320, i32* %322, !mcsema_real_eip !32
-  store volatile i64 141, i64* %EIP_write, !mcsema_real_eip !33
-  %323 = load i8, i8* %ZF_read, !mcsema_real_eip !33
-  %324 = trunc i8 %323 to i1, !mcsema_real_eip !33
-  %325 = icmp eq i1 %324, false, !mcsema_real_eip !33
-  br i1 %325, label %block_d0, label %block_93, !mcsema_real_eip !33
-
-block_93:                                         ; preds = %block_84
-  store volatile i64 147, i64* %EIP_write, !mcsema_real_eip !34
-  br label %block_98, !mcsema_real_eip !34
-
-block_98:                                         ; preds = %block_93
-  store volatile i64 152, i64* %EIP_write, !mcsema_real_eip !35
-  %326 = load i64, i64* %RBP_read, !mcsema_real_eip !35
-  %327 = add i64 %326, -12, !mcsema_real_eip !35
-  %328 = inttoptr i64 %327 to i64*, !mcsema_real_eip !35
-  %329 = ptrtoint i64* %328 to i64, !mcsema_real_eip !35
-  %330 = inttoptr i64 %329 to i32*, !mcsema_real_eip !35
-  %331 = load i32, i32* %330, !mcsema_real_eip !35
-  %332 = zext i32 %331 to i64, !mcsema_real_eip !35
-  store volatile i64 %332, i64* %EAX_write, !mcsema_real_eip !35
-  store volatile i64 155, i64* %EIP_write, !mcsema_real_eip !36
-  %333 = load i32, i32* %EAX_read, !mcsema_real_eip !36
-  %334 = add i32 1, %333, !mcsema_real_eip !36
-  %335 = xor i32 %334, %333, !mcsema_real_eip !36
-  %336 = xor i32 %335, 1, !mcsema_real_eip !36
-  %337 = and i32 %336, 16, !mcsema_real_eip !36
-  %338 = icmp ne i32 %337, 0, !mcsema_real_eip !36
-  %339 = zext i1 %338 to i8, !mcsema_real_eip !36
-  store volatile i8 %339, i8* %AF_write, !mcsema_real_eip !36
-  %340 = lshr i32 %334, 31, !mcsema_real_eip !36
-  %341 = trunc i32 %340 to i1, !mcsema_real_eip !36
-  %342 = zext i1 %341 to i8, !mcsema_real_eip !36
-  %343 = trunc i8 %342 to i1, !mcsema_real_eip !36
-  %344 = zext i1 %343 to i8, !mcsema_real_eip !36
-  store volatile i8 %344, i8* %SF_write, !mcsema_real_eip !36
-  %345 = icmp eq i32 %334, 0, !mcsema_real_eip !36
-  %346 = zext i1 %345 to i8, !mcsema_real_eip !36
-  store volatile i8 %346, i8* %ZF_write, !mcsema_real_eip !36
-  %347 = xor i32 %333, 1, !mcsema_real_eip !36
-  %348 = xor i32 %347, -1, !mcsema_real_eip !36
-  %349 = xor i32 %333, %334, !mcsema_real_eip !36
-  %350 = and i32 %348, %349, !mcsema_real_eip !36
-  %351 = lshr i32 %350, 31, !mcsema_real_eip !36
-  %352 = and i32 %351, 1, !mcsema_real_eip !36
-  %353 = trunc i32 %352 to i1, !mcsema_real_eip !36
-  %354 = zext i1 %353 to i8, !mcsema_real_eip !36
-  %355 = trunc i8 %354 to i1, !mcsema_real_eip !36
-  %356 = zext i1 %355 to i8, !mcsema_real_eip !36
-  store volatile i8 %356, i8* %OF_write, !mcsema_real_eip !36
-  %357 = trunc i32 %334 to i8, !mcsema_real_eip !36
-  %358 = call i8 @llvm.ctpop.i8(i8 %357), !mcsema_real_eip !36
-  %359 = trunc i8 %358 to i1, !mcsema_real_eip !36
-  %360 = zext i1 %359 to i8, !mcsema_real_eip !36
-  %361 = xor i8 %360, 1, !mcsema_real_eip !36
-  %362 = trunc i8 %361 to i1, !mcsema_real_eip !36
-  %363 = zext i1 %362 to i8, !mcsema_real_eip !36
-  store volatile i8 %363, i8* %PF_write, !mcsema_real_eip !36
-  %364 = icmp ult i32 %334, %333, !mcsema_real_eip !36
-  %365 = zext i1 %364 to i8, !mcsema_real_eip !36
-  store volatile i8 %365, i8* %CF_write, !mcsema_real_eip !36
-  %366 = zext i32 %334 to i64, !mcsema_real_eip !36
-  store volatile i64 %366, i64* %EAX_write, !mcsema_real_eip !36
-  store volatile i64 158, i64* %EIP_write, !mcsema_real_eip !37
-  %367 = load i64, i64* %RBP_read, !mcsema_real_eip !37
-  %368 = add i64 %367, -12, !mcsema_real_eip !37
-  %369 = inttoptr i64 %368 to i64*, !mcsema_real_eip !37
-  %370 = load i32, i32* %EAX_read, !mcsema_real_eip !37
-  %371 = ptrtoint i64* %369 to i64, !mcsema_real_eip !37
-  %372 = inttoptr i64 %371 to i32*, !mcsema_real_eip !37
-  store i32 %370, i32* %372, !mcsema_real_eip !37
-  store volatile i64 161, i64* %EIP_write, !mcsema_real_eip !38
-  br label %block_dc, !mcsema_real_eip !38
-
-block_a6:                                         ; preds = %block_70
-  store volatile i64 166, i64* %EIP_write, !mcsema_real_eip !39
-  %373 = load i64, i64* %RBP_read, !mcsema_real_eip !39
-  %374 = add i64 %373, -12, !mcsema_real_eip !39
-  %375 = inttoptr i64 %374 to i64*, !mcsema_real_eip !39
-  %376 = ptrtoint i64* %375 to i64, !mcsema_real_eip !39
-  %377 = inttoptr i64 %376 to i32*, !mcsema_real_eip !39
-  %378 = load i32, i32* %377, !mcsema_real_eip !39
-  %379 = zext i32 %378 to i64, !mcsema_real_eip !39
-  store volatile i64 %379, i64* %EAX_write, !mcsema_real_eip !39
-  store volatile i64 169, i64* %EIP_write, !mcsema_real_eip !40
-  %380 = load i32, i32* %EAX_read, !mcsema_real_eip !40
-  %381 = add i32 2, %380, !mcsema_real_eip !40
-  %382 = xor i32 %381, %380, !mcsema_real_eip !40
-  %383 = xor i32 %382, 2, !mcsema_real_eip !40
-  %384 = and i32 %383, 16, !mcsema_real_eip !40
-  %385 = icmp ne i32 %384, 0, !mcsema_real_eip !40
-  %386 = zext i1 %385 to i8, !mcsema_real_eip !40
-  store volatile i8 %386, i8* %AF_write, !mcsema_real_eip !40
-  %387 = lshr i32 %381, 31, !mcsema_real_eip !40
-  %388 = trunc i32 %387 to i1, !mcsema_real_eip !40
-  %389 = zext i1 %388 to i8, !mcsema_real_eip !40
-  %390 = trunc i8 %389 to i1, !mcsema_real_eip !40
-  %391 = zext i1 %390 to i8, !mcsema_real_eip !40
-  store volatile i8 %391, i8* %SF_write, !mcsema_real_eip !40
-  %392 = icmp eq i32 %381, 0, !mcsema_real_eip !40
-  %393 = zext i1 %392 to i8, !mcsema_real_eip !40
-  store volatile i8 %393, i8* %ZF_write, !mcsema_real_eip !40
-  %394 = xor i32 %380, 2, !mcsema_real_eip !40
-  %395 = xor i32 %394, -1, !mcsema_real_eip !40
-  %396 = xor i32 %380, %381, !mcsema_real_eip !40
-  %397 = and i32 %395, %396, !mcsema_real_eip !40
-  %398 = lshr i32 %397, 31, !mcsema_real_eip !40
-  %399 = and i32 %398, 1, !mcsema_real_eip !40
-  %400 = trunc i32 %399 to i1, !mcsema_real_eip !40
-  %401 = zext i1 %400 to i8, !mcsema_real_eip !40
-  %402 = trunc i8 %401 to i1, !mcsema_real_eip !40
-  %403 = zext i1 %402 to i8, !mcsema_real_eip !40
-  store volatile i8 %403, i8* %OF_write, !mcsema_real_eip !40
-  %404 = trunc i32 %381 to i8, !mcsema_real_eip !40
-  %405 = call i8 @llvm.ctpop.i8(i8 %404), !mcsema_real_eip !40
-  %406 = trunc i8 %405 to i1, !mcsema_real_eip !40
-  %407 = zext i1 %406 to i8, !mcsema_real_eip !40
-  %408 = xor i8 %407, 1, !mcsema_real_eip !40
-  %409 = trunc i8 %408 to i1, !mcsema_real_eip !40
-  %410 = zext i1 %409 to i8, !mcsema_real_eip !40
-  store volatile i8 %410, i8* %PF_write, !mcsema_real_eip !40
-  %411 = icmp ult i32 %381, %380, !mcsema_real_eip !40
-  %412 = zext i1 %411 to i8, !mcsema_real_eip !40
-  store volatile i8 %412, i8* %CF_write, !mcsema_real_eip !40
-  %413 = zext i32 %381 to i64, !mcsema_real_eip !40
-  store volatile i64 %413, i64* %EAX_write, !mcsema_real_eip !40
-  store volatile i64 172, i64* %EIP_write, !mcsema_real_eip !41
-  %414 = load i64, i64* %RBP_read, !mcsema_real_eip !41
-  %415 = add i64 %414, -12, !mcsema_real_eip !41
-  %416 = inttoptr i64 %415 to i64*, !mcsema_real_eip !41
-  %417 = load i32, i32* %EAX_read, !mcsema_real_eip !41
-  %418 = ptrtoint i64* %416 to i64, !mcsema_real_eip !41
-  %419 = inttoptr i64 %418 to i32*, !mcsema_real_eip !41
-  store i32 %417, i32* %419, !mcsema_real_eip !41
-  store volatile i64 175, i64* %EIP_write, !mcsema_real_eip !42
-  br label %block_dc, !mcsema_real_eip !42
-
-block_b4:                                         ; preds = %block_3d
-  store volatile i64 180, i64* %EIP_write, !mcsema_real_eip !43
-  %420 = load i64, i64* %RBP_read, !mcsema_real_eip !43
-  %421 = add i64 %420, -12, !mcsema_real_eip !43
-  %422 = inttoptr i64 %421 to i64*, !mcsema_real_eip !43
-  %423 = ptrtoint i64* %422 to i64, !mcsema_real_eip !43
-  %424 = inttoptr i64 %423 to i32*, !mcsema_real_eip !43
-  %425 = load i32, i32* %424, !mcsema_real_eip !43
-  %426 = zext i32 %425 to i64, !mcsema_real_eip !43
-  store volatile i64 %426, i64* %EAX_write, !mcsema_real_eip !43
-  store volatile i64 183, i64* %EIP_write, !mcsema_real_eip !44
-  %427 = load i32, i32* %EAX_read, !mcsema_real_eip !44
-  %428 = sub i32 %427, 2, !mcsema_real_eip !44
-  %429 = xor i32 %428, %427, !mcsema_real_eip !44
-  %430 = xor i32 %429, 2, !mcsema_real_eip !44
-  %431 = and i32 %430, 16, !mcsema_real_eip !44
-  %432 = icmp ne i32 %431, 0, !mcsema_real_eip !44
-  %433 = zext i1 %432 to i8, !mcsema_real_eip !44
-  store volatile i8 %433, i8* %AF_write, !mcsema_real_eip !44
-  %434 = trunc i32 %428 to i8, !mcsema_real_eip !44
-  %435 = call i8 @llvm.ctpop.i8(i8 %434), !mcsema_real_eip !44
-  %436 = trunc i8 %435 to i1, !mcsema_real_eip !44
-  %437 = zext i1 %436 to i8, !mcsema_real_eip !44
-  %438 = xor i8 %437, 1, !mcsema_real_eip !44
-  %439 = trunc i8 %438 to i1, !mcsema_real_eip !44
-  %440 = zext i1 %439 to i8, !mcsema_real_eip !44
-  store volatile i8 %440, i8* %PF_write, !mcsema_real_eip !44
-  %441 = icmp eq i32 %428, 0, !mcsema_real_eip !44
-  %442 = zext i1 %441 to i8, !mcsema_real_eip !44
-  store volatile i8 %442, i8* %ZF_write, !mcsema_real_eip !44
-  %443 = lshr i32 %428, 31, !mcsema_real_eip !44
-  %444 = trunc i32 %443 to i1, !mcsema_real_eip !44
-  %445 = zext i1 %444 to i8, !mcsema_real_eip !44
-  %446 = trunc i8 %445 to i1, !mcsema_real_eip !44
-  %447 = zext i1 %446 to i8, !mcsema_real_eip !44
-  store volatile i8 %447, i8* %SF_write, !mcsema_real_eip !44
-  %448 = icmp ult i32 %427, 2, !mcsema_real_eip !44
-  %449 = zext i1 %448 to i8, !mcsema_real_eip !44
-  store volatile i8 %449, i8* %CF_write, !mcsema_real_eip !44
-  %450 = xor i32 %427, 2, !mcsema_real_eip !44
-  %451 = xor i32 %427, %428, !mcsema_real_eip !44
-  %452 = and i32 %450, %451, !mcsema_real_eip !44
-  %453 = lshr i32 %452, 31, !mcsema_real_eip !44
-  %454 = trunc i32 %453 to i1, !mcsema_real_eip !44
-  %455 = zext i1 %454 to i8, !mcsema_real_eip !44
-  %456 = trunc i8 %455 to i1, !mcsema_real_eip !44
-  %457 = zext i1 %456 to i8, !mcsema_real_eip !44
-  store volatile i8 %457, i8* %OF_write, !mcsema_real_eip !44
-  %458 = zext i32 %428 to i64, !mcsema_real_eip !44
-  store volatile i64 %458, i64* %EAX_write, !mcsema_real_eip !44
-  store volatile i64 186, i64* %EIP_write, !mcsema_real_eip !45
-  %459 = load i64, i64* %RBP_read, !mcsema_real_eip !45
-  %460 = add i64 %459, -12, !mcsema_real_eip !45
-  %461 = inttoptr i64 %460 to i64*, !mcsema_real_eip !45
-  %462 = load i32, i32* %EAX_read, !mcsema_real_eip !45
-  %463 = ptrtoint i64* %461 to i64, !mcsema_real_eip !45
-  %464 = inttoptr i64 %463 to i32*, !mcsema_real_eip !45
-  store i32 %462, i32* %464, !mcsema_real_eip !45
-  store volatile i64 189, i64* %EIP_write, !mcsema_real_eip !46
-  br label %block_dc, !mcsema_real_eip !46
-
-block_c2:                                         ; preds = %block_5c
-  store volatile i64 194, i64* %EIP_write, !mcsema_real_eip !47
-  %465 = load i64, i64* %RBP_read, !mcsema_real_eip !47
-  %466 = add i64 %465, -12, !mcsema_real_eip !47
-  %467 = inttoptr i64 %466 to i64*, !mcsema_real_eip !47
-  %468 = ptrtoint i64* %467 to i64, !mcsema_real_eip !47
-  %469 = inttoptr i64 %468 to i32*, !mcsema_real_eip !47
-  %470 = load i32, i32* %469, !mcsema_real_eip !47
-  %471 = zext i32 %470 to i64, !mcsema_real_eip !47
-  store volatile i64 %471, i64* %EAX_write, !mcsema_real_eip !47
-  store volatile i64 197, i64* %EIP_write, !mcsema_real_eip !48
-  %472 = load i32, i32* %EAX_read, !mcsema_real_eip !48
-  %473 = sub i32 %472, 1, !mcsema_real_eip !48
-  %474 = xor i32 %473, %472, !mcsema_real_eip !48
-  %475 = xor i32 %474, 1, !mcsema_real_eip !48
-  %476 = and i32 %475, 16, !mcsema_real_eip !48
-  %477 = icmp ne i32 %476, 0, !mcsema_real_eip !48
-  %478 = zext i1 %477 to i8, !mcsema_real_eip !48
-  store volatile i8 %478, i8* %AF_write, !mcsema_real_eip !48
-  %479 = trunc i32 %473 to i8, !mcsema_real_eip !48
-  %480 = call i8 @llvm.ctpop.i8(i8 %479), !mcsema_real_eip !48
-  %481 = trunc i8 %480 to i1, !mcsema_real_eip !48
-  %482 = zext i1 %481 to i8, !mcsema_real_eip !48
-  %483 = xor i8 %482, 1, !mcsema_real_eip !48
-  %484 = trunc i8 %483 to i1, !mcsema_real_eip !48
-  %485 = zext i1 %484 to i8, !mcsema_real_eip !48
-  store volatile i8 %485, i8* %PF_write, !mcsema_real_eip !48
-  %486 = icmp eq i32 %473, 0, !mcsema_real_eip !48
-  %487 = zext i1 %486 to i8, !mcsema_real_eip !48
-  store volatile i8 %487, i8* %ZF_write, !mcsema_real_eip !48
-  %488 = lshr i32 %473, 31, !mcsema_real_eip !48
-  %489 = trunc i32 %488 to i1, !mcsema_real_eip !48
-  %490 = zext i1 %489 to i8, !mcsema_real_eip !48
-  %491 = trunc i8 %490 to i1, !mcsema_real_eip !48
-  %492 = zext i1 %491 to i8, !mcsema_real_eip !48
-  store volatile i8 %492, i8* %SF_write, !mcsema_real_eip !48
-  %493 = icmp ult i32 %472, 1, !mcsema_real_eip !48
-  %494 = zext i1 %493 to i8, !mcsema_real_eip !48
-  store volatile i8 %494, i8* %CF_write, !mcsema_real_eip !48
-  %495 = xor i32 %472, 1, !mcsema_real_eip !48
-  %496 = xor i32 %472, %473, !mcsema_real_eip !48
-  %497 = and i32 %495, %496, !mcsema_real_eip !48
-  %498 = lshr i32 %497, 31, !mcsema_real_eip !48
-  %499 = trunc i32 %498 to i1, !mcsema_real_eip !48
-  %500 = zext i1 %499 to i8, !mcsema_real_eip !48
-  %501 = trunc i8 %500 to i1, !mcsema_real_eip !48
-  %502 = zext i1 %501 to i8, !mcsema_real_eip !48
-  store volatile i8 %502, i8* %OF_write, !mcsema_real_eip !48
-  %503 = zext i32 %473 to i64, !mcsema_real_eip !48
-  store volatile i64 %503, i64* %EAX_write, !mcsema_real_eip !48
-  store volatile i64 200, i64* %EIP_write, !mcsema_real_eip !49
-  %504 = load i64, i64* %RBP_read, !mcsema_real_eip !49
-  %505 = add i64 %504, -12, !mcsema_real_eip !49
-  %506 = inttoptr i64 %505 to i64*, !mcsema_real_eip !49
-  %507 = load i32, i32* %EAX_read, !mcsema_real_eip !49
-  %508 = ptrtoint i64* %506 to i64, !mcsema_real_eip !49
-  %509 = inttoptr i64 %508 to i32*, !mcsema_real_eip !49
-  store i32 %507, i32* %509, !mcsema_real_eip !49
-  store volatile i64 203, i64* %EIP_write, !mcsema_real_eip !50
-  br label %block_dc, !mcsema_real_eip !50
-
-block_d0:                                         ; preds = %block_84
-  store volatile i64 208, i64* %EIP_write, !mcsema_real_eip !51
-  %510 = load i64, i64* %RBP_read, !mcsema_real_eip !51
-  %511 = add i64 %510, -4, !mcsema_real_eip !51
-  %512 = inttoptr i64 %511 to i64*, !mcsema_real_eip !51
-  %513 = ptrtoint i64* %512 to i64, !mcsema_real_eip !51
-  %514 = inttoptr i64 %513 to i32*, !mcsema_real_eip !51
-  store i32 1, i32* %514, !mcsema_real_eip !51
-  store volatile i64 215, i64* %EIP_write, !mcsema_real_eip !52
-  br label %block_108, !mcsema_real_eip !52
-
-block_dc:                                         ; preds = %block_c2, %block_b4, %block_a6, %block_98
-  store volatile i64 220, i64* %EIP_write, !mcsema_real_eip !53
-  %515 = load i64, i64* %RBP_read, !mcsema_real_eip !53
-  %516 = add i64 %515, -8, !mcsema_real_eip !53
-  %517 = inttoptr i64 %516 to i64*, !mcsema_real_eip !53
-  %518 = ptrtoint i64* %517 to i64, !mcsema_real_eip !53
-  %519 = inttoptr i64 %518 to i32*, !mcsema_real_eip !53
-  %520 = load i32, i32* %519, !mcsema_real_eip !53
-  %521 = zext i32 %520 to i64, !mcsema_real_eip !53
-  store volatile i64 %521, i64* %EAX_write, !mcsema_real_eip !53
-  store volatile i64 223, i64* %EIP_write, !mcsema_real_eip !54
-  %522 = load i32, i32* %EAX_read, !mcsema_real_eip !54
-  %523 = add i32 1, %522, !mcsema_real_eip !54
-  %524 = xor i32 %523, %522, !mcsema_real_eip !54
-  %525 = xor i32 %524, 1, !mcsema_real_eip !54
-  %526 = and i32 %525, 16, !mcsema_real_eip !54
-  %527 = icmp ne i32 %526, 0, !mcsema_real_eip !54
-  %528 = zext i1 %527 to i8, !mcsema_real_eip !54
-  store volatile i8 %528, i8* %AF_write, !mcsema_real_eip !54
-  %529 = lshr i32 %523, 31, !mcsema_real_eip !54
-  %530 = trunc i32 %529 to i1, !mcsema_real_eip !54
-  %531 = zext i1 %530 to i8, !mcsema_real_eip !54
-  %532 = trunc i8 %531 to i1, !mcsema_real_eip !54
-  %533 = zext i1 %532 to i8, !mcsema_real_eip !54
-  store volatile i8 %533, i8* %SF_write, !mcsema_real_eip !54
-  %534 = icmp eq i32 %523, 0, !mcsema_real_eip !54
-  %535 = zext i1 %534 to i8, !mcsema_real_eip !54
-  store volatile i8 %535, i8* %ZF_write, !mcsema_real_eip !54
-  %536 = xor i32 %522, 1, !mcsema_real_eip !54
-  %537 = xor i32 %536, -1, !mcsema_real_eip !54
-  %538 = xor i32 %522, %523, !mcsema_real_eip !54
-  %539 = and i32 %537, %538, !mcsema_real_eip !54
-  %540 = lshr i32 %539, 31, !mcsema_real_eip !54
-  %541 = and i32 %540, 1, !mcsema_real_eip !54
-  %542 = trunc i32 %541 to i1, !mcsema_real_eip !54
-  %543 = zext i1 %542 to i8, !mcsema_real_eip !54
-  %544 = trunc i8 %543 to i1, !mcsema_real_eip !54
-  %545 = zext i1 %544 to i8, !mcsema_real_eip !54
-  store volatile i8 %545, i8* %OF_write, !mcsema_real_eip !54
-  %546 = trunc i32 %523 to i8, !mcsema_real_eip !54
-  %547 = call i8 @llvm.ctpop.i8(i8 %546), !mcsema_real_eip !54
-  %548 = trunc i8 %547 to i1, !mcsema_real_eip !54
-  %549 = zext i1 %548 to i8, !mcsema_real_eip !54
-  %550 = xor i8 %549, 1, !mcsema_real_eip !54
-  %551 = trunc i8 %550 to i1, !mcsema_real_eip !54
-  %552 = zext i1 %551 to i8, !mcsema_real_eip !54
-  store volatile i8 %552, i8* %PF_write, !mcsema_real_eip !54
-  %553 = icmp ult i32 %523, %522, !mcsema_real_eip !54
-  %554 = zext i1 %553 to i8, !mcsema_real_eip !54
-  store volatile i8 %554, i8* %CF_write, !mcsema_real_eip !54
-  %555 = zext i32 %523 to i64, !mcsema_real_eip !54
-  store volatile i64 %555, i64* %EAX_write, !mcsema_real_eip !54
-  store volatile i64 226, i64* %EIP_write, !mcsema_real_eip !55
-  %556 = load i64, i64* %RBP_read, !mcsema_real_eip !55
-  %557 = add i64 %556, -8, !mcsema_real_eip !55
-  %558 = inttoptr i64 %557 to i64*, !mcsema_real_eip !55
-  %559 = load i32, i32* %EAX_read, !mcsema_real_eip !55
-  %560 = ptrtoint i64* %558 to i64, !mcsema_real_eip !55
-  %561 = inttoptr i64 %560 to i32*, !mcsema_real_eip !55
-  store i32 %559, i32* %561, !mcsema_real_eip !55
-  store volatile i64 229, i64* %EIP_write, !mcsema_real_eip !56
-  br label %block_33, !mcsema_real_eip !56
-
-block_ea:                                         ; preds = %block_33
-  store volatile i64 234, i64* %EIP_write, !mcsema_real_eip !57
-  %562 = ptrtoint %0* @data_111 to i64, !mcsema_real_eip !57
-  %563 = add i64 %562, 9, !mcsema_real_eip !57
-  store volatile i64 %563, i64* %RDI_write, !mcsema_real_eip !57
-  store volatile i64 244, i64* %EIP_write, !mcsema_real_eip !58
-  %564 = load i64, i64* %RBP_read, !mcsema_real_eip !58
-  %565 = add i64 %564, -12, !mcsema_real_eip !58
-  %566 = inttoptr i64 %565 to i64*, !mcsema_real_eip !58
-  %567 = ptrtoint i64* %566 to i64, !mcsema_real_eip !58
-  %568 = inttoptr i64 %567 to i32*, !mcsema_real_eip !58
-  %569 = load i32, i32* %568, !mcsema_real_eip !58
-  %570 = zext i32 %569 to i64, !mcsema_real_eip !58
-  store volatile i64 %570, i64* %ESI_write, !mcsema_real_eip !58
-  store volatile i64 247, i64* %EIP_write, !mcsema_real_eip !59
-  store volatile i8 0, i8* %AL_write, !mcsema_real_eip !59
-  store volatile i64 249, i64* %EIP_write, !mcsema_real_eip !60
-  %571 = load i64, i64* %RDI_read, !mcsema_real_eip !60
-  %572 = load i64, i64* %RSI_read, !mcsema_real_eip !60
-  %573 = load i64, i64* %RSP_read, !mcsema_real_eip !60
-  %574 = sub i64 %573, 8, !mcsema_real_eip !60
-  %575 = inttoptr i64 %574 to i64*, !mcsema_real_eip !60
-  store i64 -2415393069852865332, i64* %575, !mcsema_real_eip !60
-  store volatile i64 %574, i64* %RSP_write, !mcsema_real_eip !60
-  %576 = call x86_64_sysvcc i64 @_printf(i64 %571, i64 %572), !mcsema_real_eip !60
-  store volatile i64 %576, i64* %RAX_write, !mcsema_real_eip !60
-  store volatile i64 254, i64* %EIP_write, !mcsema_real_eip !61
-  %577 = load i64, i64* %RBP_read, !mcsema_real_eip !61
-  %578 = add i64 %577, -4, !mcsema_real_eip !61
-  %579 = inttoptr i64 %578 to i64*, !mcsema_real_eip !61
-  %580 = ptrtoint i64* %579 to i64, !mcsema_real_eip !61
-  %581 = inttoptr i64 %580 to i32*, !mcsema_real_eip !61
-  store i32 1, i32* %581, !mcsema_real_eip !61
-  store volatile i64 261, i64* %EIP_write, !mcsema_real_eip !62
-  %582 = load i64, i64* %RBP_read, !mcsema_real_eip !62
-  %583 = add i64 %582, -48, !mcsema_real_eip !62
-  %584 = inttoptr i64 %583 to i64*, !mcsema_real_eip !62
-  %585 = load i32, i32* %EAX_read, !mcsema_real_eip !62
-  %586 = ptrtoint i64* %584 to i64, !mcsema_real_eip !62
-  %587 = inttoptr i64 %586 to i32*, !mcsema_real_eip !62
-  store i32 %585, i32* %587, !mcsema_real_eip !62
-  br label %block_108, !mcsema_real_eip !63
-
-block_108:                                        ; preds = %block_ea, %block_d0
-  store volatile i64 264, i64* %EIP_write, !mcsema_real_eip !63
-  %588 = load i64, i64* %RBP_read, !mcsema_real_eip !63
-  %589 = add i64 %588, -4, !mcsema_real_eip !63
-  %590 = inttoptr i64 %589 to i64*, !mcsema_real_eip !63
-  %591 = ptrtoint i64* %590 to i64, !mcsema_real_eip !63
-  %592 = inttoptr i64 %591 to i32*, !mcsema_real_eip !63
-  %593 = load i32, i32* %592, !mcsema_real_eip !63
-  %594 = zext i32 %593 to i64, !mcsema_real_eip !63
-  store volatile i64 %594, i64* %EAX_write, !mcsema_real_eip !63
-  store volatile i64 267, i64* %EIP_write, !mcsema_real_eip !64
-  %595 = load i64, i64* %RSP_read, !mcsema_real_eip !64
-  %596 = add i64 48, %595, !mcsema_real_eip !64
-  %597 = xor i64 %596, %595, !mcsema_real_eip !64
-  %598 = xor i64 %597, 48, !mcsema_real_eip !64
-  %599 = and i64 %598, 16, !mcsema_real_eip !64
-  %600 = icmp ne i64 %599, 0, !mcsema_real_eip !64
-  %601 = zext i1 %600 to i8, !mcsema_real_eip !64
-  store volatile i8 %601, i8* %AF_write, !mcsema_real_eip !64
-  %602 = lshr i64 %596, 63, !mcsema_real_eip !64
-  %603 = trunc i64 %602 to i1, !mcsema_real_eip !64
-  %604 = zext i1 %603 to i8, !mcsema_real_eip !64
-  %605 = trunc i8 %604 to i1, !mcsema_real_eip !64
-  %606 = zext i1 %605 to i8, !mcsema_real_eip !64
-  store volatile i8 %606, i8* %SF_write, !mcsema_real_eip !64
-  %607 = icmp eq i64 %596, 0, !mcsema_real_eip !64
-  %608 = zext i1 %607 to i8, !mcsema_real_eip !64
-  store volatile i8 %608, i8* %ZF_write, !mcsema_real_eip !64
-  %609 = xor i64 %595, 48, !mcsema_real_eip !64
-  %610 = xor i64 %609, -1, !mcsema_real_eip !64
-  %611 = xor i64 %595, %596, !mcsema_real_eip !64
-  %612 = and i64 %610, %611, !mcsema_real_eip !64
-  %613 = lshr i64 %612, 63, !mcsema_real_eip !64
-  %614 = and i64 %613, 1, !mcsema_real_eip !64
-  %615 = trunc i64 %614 to i1, !mcsema_real_eip !64
-  %616 = zext i1 %615 to i8, !mcsema_real_eip !64
-  %617 = trunc i8 %616 to i1, !mcsema_real_eip !64
-  %618 = zext i1 %617 to i8, !mcsema_real_eip !64
-  store volatile i8 %618, i8* %OF_write, !mcsema_real_eip !64
-  %619 = trunc i64 %596 to i8, !mcsema_real_eip !64
-  %620 = call i8 @llvm.ctpop.i8(i8 %619), !mcsema_real_eip !64
-  %621 = trunc i8 %620 to i1, !mcsema_real_eip !64
-  %622 = zext i1 %621 to i8, !mcsema_real_eip !64
-  %623 = xor i8 %622, 1, !mcsema_real_eip !64
-  %624 = trunc i8 %623 to i1, !mcsema_real_eip !64
-  %625 = zext i1 %624 to i8, !mcsema_real_eip !64
-  store volatile i8 %625, i8* %PF_write, !mcsema_real_eip !64
-  %626 = icmp ult i64 %596, %595, !mcsema_real_eip !64
-  %627 = zext i1 %626 to i8, !mcsema_real_eip !64
-  store volatile i8 %627, i8* %CF_write, !mcsema_real_eip !64
-  store volatile i64 %596, i64* %RSP_write, !mcsema_real_eip !64
-  store volatile i64 271, i64* %EIP_write, !mcsema_real_eip !65
-  %628 = load i64, i64* %RSP_read, !mcsema_real_eip !65
-  %629 = inttoptr i64 %628 to i64*, !mcsema_real_eip !65
-  %630 = load i64, i64* %629, !mcsema_real_eip !65
-  store volatile i64 %630, i64* %RBP_write, !mcsema_real_eip !65
-  %631 = add i64 %628, 8, !mcsema_real_eip !65
-  store volatile i64 %631, i64* %RSP_write, !mcsema_real_eip !65
-  store volatile i64 272, i64* %EIP_write, !mcsema_real_eip !66
-  %632 = load i64, i64* %RSP_read, !mcsema_real_eip !66
-  %633 = add i64 %632, 8, !mcsema_real_eip !66
-  %634 = inttoptr i64 %632 to i64*, !mcsema_real_eip !66
-  %635 = load i64, i64* %634, !mcsema_real_eip !66
-  store volatile i64 %635, i64* %RIP_write, !mcsema_real_eip !66
-  store volatile i64 %633, i64* %RSP_write, !mcsema_real_eip !66
-  ret void, !mcsema_real_eip !66
-}
-
-declare x86_64_sysvcc i64 @printf(i64 inreg, i64 inreg)
-
-; Function Attrs: naked noinline
-declare void @callback_sub_0() #2
+@seg_400660__rodata = internal constant %seg_400660__rodata_type <{ [201 x i8] c"\01\00\02\00\00\00\00\00u\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\83\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00g\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00\91\05@\00\00\00\00\00Y\05@\00\00\00\00\00ssssdddd\00", [4 x i8] c"%d\0A\00" }>
+@seg_600ff0__got = internal global %seg_600ff0__got_type <{ i64 ptrtoint (i64 (i64, i64, i64, i64, i64, i64, i64, i64)* @__libc_start_main to i64), [8 x i8] c"X\10`\00\00\00\00\00" }>
+@__bss_start = dllexport local_unnamed_addr global %__bss_start_type zeroinitializer
+@0 = internal constant void ()* @__mcsema_attach_call
+@1 = internal constant %struct.Memory* (%struct.State*, i64, %struct.Memory*)* @sub_4004f0_main
+@2 = internal constant %struct.Memory* (%struct.State*, i64, %struct.Memory*)* @sub_4003b8__init_proc
+@3 = internal constant %struct.Memory* (%struct.State*, i64, %struct.Memory*)* @sub_400654__term_proc
 
 ; Function Attrs: nounwind readnone
-declare i8 @llvm.ctpop.i8(i8) #3
+declare i32 @llvm.ctpop.i32(i32) #0
 
-; Function Attrs: naked noinline
-declare x86_64_sysvcc i64 @_printf(i64, i64) #2
+; Function Attrs: noduplicate noinline nounwind optnone
+declare %struct.Memory* @__remill_function_call(%struct.State* dereferenceable(2688), i64, %struct.Memory*) #1
 
-; Function Attrs: naked noinline
-declare void @main() #2
+; Function Attrs: noduplicate noinline nounwind optnone
+declare %struct.Memory* @__remill_missing_block(%struct.State* dereferenceable(2688), i64, %struct.Memory*) #1
 
-attributes #0 = { naked }
-attributes #1 = { noinline }
-attributes #2 = { naked noinline }
-attributes #3 = { nounwind readnone }
+; Function Attrs: nounwind readnone
+declare void @llvm.dbg.declare(metadata, metadata, metadata) #0
 
-!0 = !{i64 0}
-!1 = !{i64 1}
-!2 = !{i64 4}
-!3 = !{i64 8}
-!4 = !{i64 15}
-!5 = !{i64 22}
-!6 = !{i64 29}
-!7 = !{i64 37}
-!8 = !{i64 41}
-!9 = !{i64 48}
-!10 = !{i64 51}
-!11 = !{i64 55}
-!12 = !{i64 61}
-!13 = !{i64 65}
-!14 = !{i64 70}
-!15 = !{i64 72}
-!16 = !{i64 75}
-!17 = !{i64 78}
-!18 = !{i64 81}
-!19 = !{i64 87}
-!20 = !{i64 92}
-!21 = !{i64 95}
-!22 = !{i64 98}
-!23 = !{i64 101}
-!24 = !{i64 107}
-!25 = !{i64 112}
-!26 = !{i64 115}
-!27 = !{i64 118}
-!28 = !{i64 121}
-!29 = !{i64 127}
-!30 = !{i64 132}
-!31 = !{i64 135}
-!32 = !{i64 138}
-!33 = !{i64 141}
-!34 = !{i64 147}
-!35 = !{i64 152}
-!36 = !{i64 155}
-!37 = !{i64 158}
-!38 = !{i64 161}
-!39 = !{i64 166}
-!40 = !{i64 169}
-!41 = !{i64 172}
-!42 = !{i64 175}
-!43 = !{i64 180}
-!44 = !{i64 183}
-!45 = !{i64 186}
-!46 = !{i64 189}
-!47 = !{i64 194}
-!48 = !{i64 197}
-!49 = !{i64 200}
-!50 = !{i64 203}
-!51 = !{i64 208}
-!52 = !{i64 215}
-!53 = !{i64 220}
-!54 = !{i64 223}
-!55 = !{i64 226}
-!56 = !{i64 229}
-!57 = !{i64 234}
-!58 = !{i64 244}
-!59 = !{i64 247}
-!60 = !{i64 249}
-!61 = !{i64 254}
-!62 = !{i64 261}
-!63 = !{i64 264}
-!64 = !{i64 267}
-!65 = !{i64 271}
-!66 = !{i64 272}
+; Function Attrs: noinline
+declare extern_weak x86_64_sysvcc i64 @__libc_start_main(i64, i64, i64, i64, i64, i64, i64, i64) #2
+
+; Function Attrs: noinline
+declare extern_weak x86_64_sysvcc i64 @printf(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64) #2
+
+; Function Attrs: noinline nounwind
+define internal %struct.Memory* @sub_4003b8__init_proc(%struct.State* dereferenceable(2688) %state2, i64 %pc, %struct.Memory* %memory1) #3 {
+block_4003b8:
+  %0 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 33, i32 0, i32 0
+  %1 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 1, i32 0, i32 0
+  %2 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 13, i32 0, i32 0
+  %3 = load i64, i64* %2, align 8
+  %4 = add i64 %3, -8
+  store i64 %4, i64* %2, align 8, !tbaa !844
+  %5 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 1
+  %6 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 3
+  %7 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 5
+  %8 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 7
+  %9 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 9
+  %10 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 13
+  %11 = load i64, i64* inttoptr (i64 add (i64 ptrtoint (%seg_600ff0__got_type* @seg_600ff0__got to i64), i64 8) to i64*)
+  store i64 %11, i64* %1, align 8, !tbaa !844
+  store i8 0, i8* %5, align 1, !tbaa !848
+  %12 = trunc i64 %11 to i32
+  %13 = and i32 %12, 255
+  %14 = tail call i32 @llvm.ctpop.i32(i32 %13) #6
+  %15 = trunc i32 %14 to i8
+  %16 = and i8 %15, 1
+  %17 = xor i8 %16, 1
+  store i8 %17, i8* %6, align 1, !tbaa !860
+  %18 = icmp eq i64 %11, 0
+  %19 = zext i1 %18 to i8
+  store i8 %19, i8* %8, align 1, !tbaa !861
+  %20 = lshr i64 %11, 63
+  %21 = trunc i64 %20 to i8
+  store i8 %21, i8* %9, align 1, !tbaa !862
+  store i8 0, i8* %10, align 1, !tbaa !863
+  store i8 0, i8* %7, align 1, !tbaa !864
+  %.v = select i1 %18, i64 18, i64 16
+  %22 = add i64 %.v, %pc
+  store i64 %22, i64* %0, align 8, !tbaa !844
+  br i1 %18, label %block_4003ca, label %block_4003c8
+
+block_4003ca:                                     ; preds = %block_4003c8, %block_4003b8
+  %23 = phi i64 [ %4, %block_4003b8 ], [ %.pre, %block_4003c8 ]
+  %MEMORY.0 = phi %struct.Memory* [ %memory1, %block_4003b8 ], [ %52, %block_4003c8 ]
+  %24 = add i64 %23, 8
+  %25 = icmp ugt i64 %23, -9
+  %26 = zext i1 %25 to i8
+  store i8 %26, i8* %5, align 1, !tbaa !848
+  %27 = trunc i64 %24 to i32
+  %28 = and i32 %27, 255
+  %29 = tail call i32 @llvm.ctpop.i32(i32 %28) #6
+  %30 = trunc i32 %29 to i8
+  %31 = and i8 %30, 1
+  %32 = xor i8 %31, 1
+  store i8 %32, i8* %6, align 1, !tbaa !860
+  %33 = xor i64 %24, %23
+  %34 = lshr i64 %33, 4
+  %35 = trunc i64 %34 to i8
+  %36 = and i8 %35, 1
+  store i8 %36, i8* %7, align 1, !tbaa !864
+  %37 = icmp eq i64 %24, 0
+  %38 = zext i1 %37 to i8
+  store i8 %38, i8* %8, align 1, !tbaa !861
+  %39 = lshr i64 %24, 63
+  %40 = trunc i64 %39 to i8
+  store i8 %40, i8* %9, align 1, !tbaa !862
+  %41 = lshr i64 %23, 63
+  %42 = xor i64 %39, %41
+  %43 = add nuw nsw i64 %42, %39
+  %44 = icmp eq i64 %43, 2
+  %45 = zext i1 %44 to i8
+  store i8 %45, i8* %10, align 1, !tbaa !863
+  %46 = inttoptr i64 %24 to i64*
+  %47 = load i64, i64* %46
+  store i64 %47, i64* %0, align 8, !tbaa !844
+  %48 = add i64 %23, 16
+  store i64 %48, i64* %2, align 8, !tbaa !844
+  ret %struct.Memory* %MEMORY.0
+
+block_4003c8:                                     ; preds = %block_4003b8
+  %49 = add i64 %22, 2
+  %50 = add i64 %3, -16
+  %51 = inttoptr i64 %50 to i64*
+  store i64 %49, i64* %51
+  store i64 %50, i64* %2, align 8, !tbaa !844
+  store i64 %11, i64* %0, align 8, !tbaa !844
+  %52 = tail call %struct.Memory* @__remill_function_call(%struct.State* nonnull %state2, i64 %11, %struct.Memory* %memory1)
+  %.pre = load i64, i64* %2, align 8
+  br label %block_4003ca
+}
+
+; Function Attrs: noinline nounwind
+define internal %struct.Memory* @sub_400654__term_proc(%struct.State* nocapture dereferenceable(2688) %state2, i64 %pc, %struct.Memory* returned %memory1) #3 {
+block_400654:
+  %0 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 33, i32 0, i32 0
+  %1 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 13, i32 0, i32 0
+  %2 = load i64, i64* %1, align 8
+  %3 = add i64 %2, -8
+  %4 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 1
+  %5 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 3
+  %6 = xor i64 %3, %2
+  %7 = lshr i64 %6, 4
+  %8 = trunc i64 %7 to i8
+  %9 = and i8 %8, 1
+  %10 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 5
+  %11 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 7
+  %12 = lshr i64 %3, 63
+  %13 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 9
+  %14 = lshr i64 %2, 63
+  %15 = xor i64 %12, %14
+  %16 = add nuw nsw i64 %15, %14
+  %17 = icmp eq i64 %16, 2
+  %18 = zext i1 %17 to i8
+  %19 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 13
+  %20 = icmp ult i64 %2, 8
+  %21 = zext i1 %20 to i8
+  store i8 %21, i8* %4, align 1, !tbaa !848
+  %22 = trunc i64 %2 to i32
+  %23 = and i32 %22, 255
+  %24 = tail call i32 @llvm.ctpop.i32(i32 %23) #6
+  %25 = trunc i32 %24 to i8
+  %26 = and i8 %25, 1
+  %27 = xor i8 %26, 1
+  store i8 %27, i8* %5, align 1, !tbaa !860
+  store i8 %9, i8* %10, align 1, !tbaa !864
+  %28 = icmp eq i64 %2, 0
+  %29 = zext i1 %28 to i8
+  store i8 %29, i8* %11, align 1, !tbaa !861
+  %30 = trunc i64 %14 to i8
+  store i8 %30, i8* %13, align 1, !tbaa !862
+  store i8 %18, i8* %19, align 1, !tbaa !863
+  %31 = inttoptr i64 %2 to i64*
+  %32 = load i64, i64* %31
+  store i64 %32, i64* %0, align 8, !tbaa !844
+  %33 = add i64 %2, 8
+  store i64 %33, i64* %1, align 8, !tbaa !844
+  ret %struct.Memory* %memory1
+}
+
+; Function Attrs: noinline nounwind
+define internal %struct.Memory* @sub_4004f0_main(%struct.State* dereferenceable(2688) %state2, i64 %pc, %struct.Memory* %memory1) #3 {
+block_4004f0:
+  %0 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 33, i32 0, i32 0
+  %1 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 1, i32 0
+  %2 = bitcast %union.Flags* %1 to i8*
+  %3 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 5, i32 0
+  %4 = bitcast %union.Flags* %3 to i8*
+  %5 = bitcast %union.Flags* %1 to i32*
+  %6 = getelementptr inbounds %union.Flags, %union.Flags* %1, i64 0, i32 0
+  %7 = getelementptr inbounds %union.Flags, %union.Flags* %3, i64 0, i32 0
+  %8 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 9, i32 0, i32 0
+  %9 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 11, i32 0, i32 0
+  %10 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 13, i32 0, i32 0
+  %11 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 6, i32 15, i32 0, i32 0
+  %12 = load i64, i64* %11, align 8
+  %13 = load i64, i64* %10, align 8, !tbaa !844
+  %14 = add i64 %13, -8
+  %15 = inttoptr i64 %14 to i64*
+  store i64 %12, i64* %15
+  store i64 %14, i64* %11, align 8, !tbaa !844
+  %16 = add i64 %13, -56
+  store i64 %16, i64* %10, align 8, !tbaa !844
+  %17 = icmp ult i64 %14, 48
+  %18 = zext i1 %17 to i8
+  %19 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 1
+  store i8 %18, i8* %19, align 1, !tbaa !848
+  %20 = trunc i64 %16 to i32
+  %21 = and i32 %20, 255
+  %22 = tail call i32 @llvm.ctpop.i32(i32 %21) #6
+  %23 = trunc i32 %22 to i8
+  %24 = and i8 %23, 1
+  %25 = xor i8 %24, 1
+  %26 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 3
+  store i8 %25, i8* %26, align 1, !tbaa !860
+  %27 = xor i64 %14, 16
+  %28 = xor i64 %27, %16
+  %29 = lshr i64 %28, 4
+  %30 = trunc i64 %29 to i8
+  %31 = and i8 %30, 1
+  %32 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 5
+  store i8 %31, i8* %32, align 1, !tbaa !864
+  %33 = icmp eq i64 %16, 0
+  %34 = zext i1 %33 to i8
+  %35 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 7
+  store i8 %34, i8* %35, align 1, !tbaa !861
+  %36 = lshr i64 %16, 63
+  %37 = trunc i64 %36 to i8
+  %38 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 9
+  store i8 %37, i8* %38, align 1, !tbaa !862
+  %39 = lshr i64 %14, 63
+  %40 = xor i64 %36, %39
+  %41 = add nuw nsw i64 %40, %39
+  %42 = icmp eq i64 %41, 2
+  %43 = zext i1 %42 to i8
+  %44 = getelementptr inbounds %struct.State, %struct.State* %state2, i64 0, i32 2, i32 13
+  store i8 %43, i8* %44, align 1, !tbaa !863
+  %45 = add i64 %13, -12
+  %46 = inttoptr i64 %45 to i32*
+  store i32 0, i32* %46
+  %47 = add i64 %13, -16
+  %48 = inttoptr i64 %47 to i32*
+  store i32 0, i32* %48
+  %49 = add i64 %13, -20
+  %50 = inttoptr i64 %49 to i32*
+  store i32 0, i32* %50
+  %51 = load i64, i64* inttoptr (i64 add (i64 ptrtoint (%seg_400660__rodata_type* @seg_400660__rodata to i64), i64 192) to i64*)
+  store i64 %51, i64* %6, align 8, !tbaa !844
+  %52 = add i64 %13, -29
+  %53 = inttoptr i64 %52 to i64*
+  store i64 %51, i64* %53
+  %54 = load i8, i8* inttoptr (i64 add (i64 ptrtoint (%seg_400660__rodata_type* @seg_400660__rodata to i64), i64 200) to i8*)
+  store i8 %54, i8* %4, align 1, !tbaa !865
+  %55 = add i64 %13, -21
+  %56 = add i64 %pc, 51
+  store i64 %56, i64* %0, align 8
+  %57 = inttoptr i64 %55 to i8*
+  store i8 %54, i8* %57
+  %58 = add i64 %13, -40
+  %59 = add i64 %13, -44
+  br label %block_400523
+
+block_400559:                                     ; preds = %block_40054b
+  br label %block_40059d
+
+block_400575:                                     ; preds = %block_40054b
+  br label %block_40059d
+
+block_40059d:                                     ; preds = %block_40054b, %block_400583, %block_400575, %block_400559
+  %.sink155 = phi i32 [ -1, %block_400583 ], [ -2, %block_400575 ], [ 1, %block_400559 ], [ 2, %block_40054b ]
+  %.sink5 = phi i64 [ 20, %block_400583 ], [ 34, %block_400575 ], [ 62, %block_400559 ], [ 48, %block_40054b ]
+  %60 = inttoptr i64 %49 to i32*
+  %61 = load i32, i32* %60
+  %62 = add i32 %61, %.sink155
+  %63 = zext i32 %62 to i64
+  store i64 %63, i64* %6, align 8, !tbaa !844
+  %64 = add i64 %78, 6
+  %65 = inttoptr i64 %49 to i32*
+  store i32 %62, i32* %65
+  %66 = add i64 %.sink5, %64
+  %67 = inttoptr i64 %47 to i32*
+  %68 = load i32, i32* %67
+  %69 = add i32 %68, 1
+  %70 = zext i32 %69 to i64
+  store i64 %70, i64* %6, align 8, !tbaa !844
+  %71 = inttoptr i64 %47 to i32*
+  store i32 %69, i32* %71
+  %72 = add i64 %66, -122
+  br label %block_400523
+
+block_400583:                                     ; preds = %block_40054b
+  br label %block_40059d
+
+block_40054b:                                     ; preds = %block_40052d
+  %73 = inttoptr i64 %58 to i64*
+  %74 = load i64, i64* %73
+  store i64 %74, i64* %6, align 8, !tbaa !844
+  %75 = shl i64 %74, 3
+  %76 = add i64 %75, add (i64 ptrtoint (%seg_400660__rodata_type* @seg_400660__rodata to i64), i64 8)
+  %77 = inttoptr i64 %76 to i64*
+  %78 = load i64, i64* %77
+  store i64 %78, i64* %7, align 8, !tbaa !844
+  switch i64 %78, label %195 [
+    i64 4195715, label %block_400583
+    i64 4195729, label %block_400591
+    i64 4195701, label %block_400575
+    i64 4195673, label %block_400559
+    i64 4195687, label %block_40059d
+  ]
+
+block_400591:                                     ; preds = %block_40052d, %block_40054b
+  %79 = phi i64 [ %146, %block_40052d ], [ 4195729, %block_40054b ]
+  %80 = zext i1 %141 to i8
+  %81 = and i32 %139, 255
+  %82 = tail call i32 @llvm.ctpop.i32(i32 %81) #6
+  %83 = trunc i32 %82 to i8
+  %84 = and i8 %83, 1
+  %85 = xor i8 %84, 1
+  %86 = xor i32 %137, 16
+  %87 = xor i32 %86, %139
+  %88 = lshr i32 %87, 4
+  %89 = trunc i32 %88 to i8
+  %90 = and i8 %89, 1
+  %91 = zext i1 %142 to i8
+  %92 = lshr i32 %139, 31
+  %93 = trunc i32 %92 to i8
+  %94 = lshr i32 %137, 31
+  %95 = xor i32 %92, %94
+  %96 = add nuw nsw i32 %95, %94
+  %97 = icmp eq i32 %96, 2
+  %98 = zext i1 %97 to i8
+  store i8 %80, i8* %19, align 1, !tbaa !848
+  store i8 %85, i8* %26, align 1, !tbaa !860
+  store i8 %90, i8* %32, align 1, !tbaa !864
+  store i8 %91, i8* %35, align 1, !tbaa !861
+  store i8 %93, i8* %38, align 1, !tbaa !862
+  store i8 %98, i8* %44, align 1, !tbaa !863
+  %99 = inttoptr i64 %45 to i32*
+  store i32 1, i32* %99
+  %100 = add i64 %79, 56
+  store i64 %100, i64* %0, align 8, !tbaa !844
+  br label %block_4005c9
+
+block_4005ab:                                     ; preds = %block_400523
+  %101 = icmp ult i32 %184, 8
+  %102 = zext i1 %101 to i8
+  %103 = and i32 %185, 255
+  %104 = tail call i32 @llvm.ctpop.i32(i32 %103) #6
+  %105 = trunc i32 %104 to i8
+  %106 = and i8 %105, 1
+  %107 = xor i8 %106, 1
+  %108 = xor i32 %185, %184
+  %109 = lshr i32 %108, 4
+  %110 = trunc i32 %109 to i8
+  %111 = and i8 %110, 1
+  %112 = icmp eq i32 %185, 0
+  %113 = zext i1 %112 to i8
+  %114 = zext i1 %191 to i8
+  store i8 %102, i8* %19, align 1, !tbaa !848
+  store i8 %107, i8* %26, align 1, !tbaa !860
+  store i8 %111, i8* %32, align 1, !tbaa !864
+  store i8 %113, i8* %35, align 1, !tbaa !861
+  store i8 %187, i8* %38, align 1, !tbaa !862
+  store i8 %114, i8* %44, align 1, !tbaa !863
+  store i64 add (i64 ptrtoint (%seg_400660__rodata_type* @seg_400660__rodata to i64), i64 201), i64* %9, align 8, !tbaa !844
+  %115 = inttoptr i64 %49 to i32*
+  %116 = load i32, i32* %115
+  %117 = zext i32 %116 to i64
+  store i64 %117, i64* %8, align 8, !tbaa !844
+  store i8 0, i8* %2, align 1, !tbaa !865
+  %118 = add i64 %194, -459
+  %119 = add i64 %194, 20
+  %120 = add i64 %13, -64
+  %121 = inttoptr i64 %120 to i64*
+  store i64 %119, i64* %121
+  store i64 %120, i64* %10, align 8, !tbaa !844
+  store i64 %118, i64* %0, align 8, !tbaa !844
+  %122 = tail call fastcc %struct.Memory* @ext_601048_printf(%struct.State* nonnull %state2, %struct.Memory* %MEMORY.3) #6
+  %123 = load i64, i64* %11, align 8
+  %124 = add i64 %123, -4
+  %125 = load i64, i64* %0, align 8
+  %126 = inttoptr i64 %124 to i32*
+  store i32 1, i32* %126
+  %127 = add i64 %123, -40
+  %128 = load i32, i32* %5, align 4
+  %129 = add i64 %125, 10
+  store i64 %129, i64* %0, align 8
+  %130 = inttoptr i64 %127 to i32*
+  store i32 %128, i32* %130
+  %.pre = load i64, i64* %10, align 8
+  br label %block_4005c9
+
+block_40052d:                                     ; preds = %block_400523
+  %131 = sext i32 %184 to i64
+  %132 = add nsw i64 %131, -21
+  %133 = add i64 %132, %14
+  %134 = inttoptr i64 %133 to i8*
+  %135 = load i8, i8* %134
+  %136 = sext i8 %135 to i32
+  %137 = add nsw i32 %136, -97
+  %138 = zext i32 %137 to i64
+  store i64 %138, i64* %6, align 8, !tbaa !844
+  %139 = add nsw i32 %136, -119
+  %140 = zext i32 %139 to i64
+  store i64 %140, i64* %7, align 8, !tbaa !844
+  %141 = icmp ult i32 %137, 22
+  %142 = icmp eq i32 %139, 0
+  %143 = inttoptr i64 %58 to i64*
+  store i64 %138, i64* %143
+  %144 = inttoptr i64 %59 to i32*
+  store i32 %139, i32* %144
+  %145 = or i1 %142, %141
+  %.v47 = select i1 %145, i64 30, i64 100
+  %146 = add i64 %194, %.v47
+  br i1 %145, label %block_40054b, label %block_400591
+
+block_4005c9:                                     ; preds = %block_4005ab, %block_400591
+  %147 = phi i64 [ %.pre, %block_4005ab ], [ %16, %block_400591 ]
+  %148 = phi i64 [ %123, %block_4005ab ], [ %14, %block_400591 ]
+  %MEMORY.2 = phi %struct.Memory* [ %122, %block_4005ab ], [ %MEMORY.3, %block_400591 ]
+  %149 = add i64 %148, -4
+  %150 = inttoptr i64 %149 to i32*
+  %151 = load i32, i32* %150
+  %152 = zext i32 %151 to i64
+  store i64 %152, i64* %6, align 8, !tbaa !844
+  %153 = add i64 %147, 48
+  %154 = icmp ugt i64 %147, -49
+  %155 = zext i1 %154 to i8
+  store i8 %155, i8* %19, align 1, !tbaa !848
+  %156 = trunc i64 %153 to i32
+  %157 = and i32 %156, 255
+  %158 = tail call i32 @llvm.ctpop.i32(i32 %157) #6
+  %159 = trunc i32 %158 to i8
+  %160 = and i8 %159, 1
+  %161 = xor i8 %160, 1
+  store i8 %161, i8* %26, align 1, !tbaa !860
+  %162 = xor i64 %147, 16
+  %163 = xor i64 %162, %153
+  %164 = lshr i64 %163, 4
+  %165 = trunc i64 %164 to i8
+  %166 = and i8 %165, 1
+  store i8 %166, i8* %32, align 1, !tbaa !864
+  %167 = icmp eq i64 %153, 0
+  %168 = zext i1 %167 to i8
+  store i8 %168, i8* %35, align 1, !tbaa !861
+  %169 = lshr i64 %153, 63
+  %170 = trunc i64 %169 to i8
+  store i8 %170, i8* %38, align 1, !tbaa !862
+  %171 = lshr i64 %147, 63
+  %172 = xor i64 %169, %171
+  %173 = add nuw nsw i64 %172, %169
+  %174 = icmp eq i64 %173, 2
+  %175 = zext i1 %174 to i8
+  store i8 %175, i8* %44, align 1, !tbaa !863
+  %176 = add i64 %147, 56
+  %177 = inttoptr i64 %153 to i64*
+  %178 = load i64, i64* %177
+  store i64 %178, i64* %11, align 8, !tbaa !844
+  %179 = inttoptr i64 %176 to i64*
+  %180 = load i64, i64* %179
+  store i64 %180, i64* %0, align 8, !tbaa !844
+  %181 = add i64 %147, 64
+  store i64 %181, i64* %10, align 8, !tbaa !844
+  ret %struct.Memory* %MEMORY.2
+
+block_400523:                                     ; preds = %block_40059d, %block_4004f0
+  %182 = phi i64 [ %56, %block_4004f0 ], [ %72, %block_40059d ]
+  %MEMORY.3 = phi %struct.Memory* [ %memory1, %block_4004f0 ], [ %MEMORY.3, %block_40059d ]
+  %183 = inttoptr i64 %47 to i32*
+  %184 = load i32, i32* %183
+  %185 = add i32 %184, -8
+  %186 = lshr i32 %185, 31
+  %187 = trunc i32 %186 to i8
+  %188 = lshr i32 %184, 31
+  %189 = xor i32 %186, %188
+  %190 = add nuw nsw i32 %189, %188
+  %191 = icmp eq i32 %190, 2
+  %192 = icmp ne i8 %187, 0
+  %193 = xor i1 %192, %191
+  %.v = select i1 %193, i64 10, i64 136
+  %194 = add i64 %182, %.v
+  br i1 %193, label %block_40052d, label %block_4005ab
+
+; <label>:195:                                    ; preds = %block_40054b
+  %196 = zext i1 %141 to i8
+  %197 = and i32 %139, 255
+  %198 = tail call i32 @llvm.ctpop.i32(i32 %197) #6
+  %199 = trunc i32 %198 to i8
+  %200 = and i8 %199, 1
+  %201 = xor i8 %200, 1
+  %202 = xor i32 %137, 16
+  %203 = xor i32 %202, %139
+  %204 = lshr i32 %203, 4
+  %205 = trunc i32 %204 to i8
+  %206 = and i8 %205, 1
+  %207 = zext i1 %142 to i8
+  %208 = lshr i32 %139, 31
+  %209 = trunc i32 %208 to i8
+  %210 = lshr i32 %137, 31
+  %211 = xor i32 %208, %210
+  %212 = add nuw nsw i32 %211, %210
+  %213 = icmp eq i32 %212, 2
+  %214 = zext i1 %213 to i8
+  store i64 %78, i64* %0, align 8
+  store i8 %196, i8* %19, align 1, !tbaa !848
+  store i8 %201, i8* %26, align 1, !tbaa !860
+  store i8 %206, i8* %32, align 1, !tbaa !864
+  store i8 %207, i8* %35, align 1, !tbaa !861
+  store i8 %209, i8* %38, align 1, !tbaa !862
+  store i8 %214, i8* %44, align 1, !tbaa !863
+  %215 = tail call %struct.Memory* @__remill_missing_block(%struct.State* nonnull %state2, i64 %78, %struct.Memory* %MEMORY.3)
+  ret %struct.Memory* %215
+}
+
+; Function Attrs: noinline
+declare void @__mcsema_attach_call() #2
+
+; Function Attrs: naked nobuiltin noinline nounwind
+define dllexport void @main() local_unnamed_addr #4 {
+  tail call void asm sideeffect "pushq $0;pushq $$0x4004f0;jmpq *$1;", "*m,*m,~{dirflag},~{fpsr},~{flags}"(%struct.Memory* (%struct.State*, i64, %struct.Memory*)** nonnull @1, void ()** nonnull @0) #6
+  ret void
+}
+
+; Function Attrs: noinline nounwind
+define internal fastcc %struct.Memory* @ext_601048_printf(%struct.State*, %struct.Memory*) unnamed_addr #5 {
+  %3 = tail call %struct.Memory* @__remill_function_call(%struct.State* %0, i64 ptrtoint (i64 (i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)* @printf to i64), %struct.Memory* %1)
+  ret %struct.Memory* %3
+}
+
+; Function Attrs: naked nobuiltin noinline nounwind
+define dllexport void @.init_proc() local_unnamed_addr #4 {
+  tail call void asm sideeffect "pushq $0;pushq $$0x4003b8;jmpq *$1;", "*m,*m,~{dirflag},~{fpsr},~{flags}"(%struct.Memory* (%struct.State*, i64, %struct.Memory*)** nonnull @2, void ()** nonnull @0) #6
+  ret void
+}
+
+; Function Attrs: naked nobuiltin noinline nounwind
+define dllexport void @.term_proc() local_unnamed_addr #4 {
+  tail call void asm sideeffect "pushq $0;pushq $$0x400654;jmpq *$1;", "*m,*m,~{dirflag},~{fpsr},~{flags}"(%struct.Memory* (%struct.State*, i64, %struct.Memory*)** nonnull @3, void ()** nonnull @0) #6
+  ret void
+}
+
+attributes #0 = { nounwind readnone }
+attributes #1 = { noduplicate noinline nounwind optnone "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #2 = { noinline }
+attributes #3 = { noinline nounwind "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #4 = { naked nobuiltin noinline nounwind }
+attributes #5 = { noinline nounwind }
+attributes #6 = { nounwind }
+
+!llvm.ident = !{!0, !0}
+!llvm.dbg.cu = !{!1}
+!llvm.module.flags = !{!842, !843}
+
+!0 = !{!"clang version 4.0.1 (https://github.com/llvm-mirror/clang.git 3c8961bedc65c9a15cbe67a2ef385a0938f7cfef) (https://github.com/llvm-mirror/llvm.git c8fccc53ed66d505898f8850bcc690c977a7c9a7)"}
+!1 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !2, producer: "clang version 4.0.1 (https://github.com/llvm-mirror/clang.git 3c8961bedc65c9a15cbe67a2ef385a0938f7cfef) (https://github.com/llvm-mirror/llvm.git c8fccc53ed66d505898f8850bcc690c977a7c9a7)", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !3, retainedTypes: !38, imports: !41)
+!2 = !DIFile(filename: "/home/sdasgup3/Github/remill/remill/Arch/X86/Runtime/BasicBlock.cpp", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!3 = !{!4, !25, !34}
+!4 = distinct !DICompositeType(tag: DW_TAG_enumeration_type, name: "Name", scope: !6, file: !5, line: 51, baseType: !8, size: 32, elements: !11, identifier: "_ZTSN14AsyncHyperCall4NameE")
+!5 = !DIFile(filename: "/home/sdasgup3/Github/remill/remill/Arch/Runtime/HyperCall.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!6 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "AsyncHyperCall", file: !5, line: 49, size: 8, elements: !7, identifier: "_ZTS14AsyncHyperCall")
+!7 = !{}
+!8 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint32_t", file: !9, line: 183, baseType: !10)
+!9 = !DIFile(filename: "/home/sdasgup3/Github/remill/remill-build/libraries/llvm/bin/../lib/clang/4.0.1/include/stdint.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!10 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)
+!11 = !{!12, !13, !14, !15, !16, !17, !18, !19, !20, !21, !22, !23, !24}
+!12 = !DIEnumerator(name: "kInvalid", value: 0)
+!13 = !DIEnumerator(name: "kX86Int1", value: 1)
+!14 = !DIEnumerator(name: "kX86Int3", value: 2)
+!15 = !DIEnumerator(name: "kX86IntO", value: 3)
+!16 = !DIEnumerator(name: "kX86IntN", value: 4)
+!17 = !DIEnumerator(name: "kX86Bound", value: 5)
+!18 = !DIEnumerator(name: "kX86IRet", value: 6)
+!19 = !DIEnumerator(name: "kX86SysCall", value: 7)
+!20 = !DIEnumerator(name: "kX86SysRet", value: 8)
+!21 = !DIEnumerator(name: "kX86SysEnter", value: 9)
+!22 = !DIEnumerator(name: "kX86SysExit", value: 10)
+!23 = !DIEnumerator(name: "kAArch64SupervisorCall", value: 11)
+!24 = !DIEnumerator(name: "kInvalidInstruction", value: 12)
+!25 = distinct !DICompositeType(tag: DW_TAG_enumeration_type, name: "RequestPrivilegeLevel", file: !26, line: 381, baseType: !27, size: 16, elements: !29, identifier: "_ZTS21RequestPrivilegeLevel")
+!26 = !DIFile(filename: "/home/sdasgup3/Github/remill/remill/Arch/X86/Runtime/State.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!27 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint16_t", file: !9, line: 218, baseType: !28)
+!28 = !DIBasicType(name: "unsigned short", size: 16, encoding: DW_ATE_unsigned)
+!29 = !{!30, !31, !32, !33}
+!30 = !DIEnumerator(name: "kRingZero", value: 0)
+!31 = !DIEnumerator(name: "kRingOne", value: 1)
+!32 = !DIEnumerator(name: "kRingTwo", value: 2)
+!33 = !DIEnumerator(name: "kRingThree", value: 3)
+!34 = distinct !DICompositeType(tag: DW_TAG_enumeration_type, name: "TableIndicator", file: !26, line: 388, baseType: !27, size: 16, elements: !35, identifier: "_ZTS14TableIndicator")
+!35 = !{!36, !37}
+!36 = !DIEnumerator(name: "kGlobalDescriptorTable", value: 0)
+!37 = !DIEnumerator(name: "kLocalDescriptorTable", value: 1)
+!38 = !{!39}
+!39 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !40, size: 64)
+!40 = !DIDerivedType(tag: DW_TAG_const_type, baseType: null)
+!41 = !{!42, !47, !50, !53, !56, !58, !60, !62, !64, !66, !68, !70, !72, !74, !76, !79, !80, !81, !84, !86, !88, !90, !92, !94, !96, !98, !100, !102, !104, !159, !163, !167, !183, !186, !190, !198, !206, !210, !217, !221, !225, !227, !229, !233, !243, !247, !253, !259, !261, !265, !269, !273, !277, !288, !290, !294, !298, !302, !304, !310, !314, !318, !320, !322, !326, !334, !338, !342, !346, !348, !354, !356, !363, !368, !372, !376, !380, !384, !388, !390, !392, !396, !400, !404, !406, !410, !414, !416, !418, !422, !428, !433, !438, !439, !440, !441, !442, !443, !444, !445, !446, !447, !448, !450, !452, !455, !459, !464, !469, !471, !473, !475, !477, !479, !481, !483, !485, !487, !489, !491, !493, !495, !499, !505, !509, !511, !516, !518, !522, !526, !530, !538, !542, !546, !550, !554, !558, !562, !566, !570, !574, !578, !582, !586, !588, !592, !596, !600, !606, !610, !614, !616, !620, !624, !630, !632, !636, !640, !644, !648, !652, !656, !660, !661, !662, !663, !666, !667, !668, !669, !670, !671, !672, !674, !679, !684, !688, !690, !692, !694, !696, !703, !707, !711, !715, !719, !723, !728, !732, !734, !738, !744, !748, !753, !755, !757, !761, !765, !769, !771, !773, !775, !777, !781, !783, !785, !789, !793, !797, !801, !805, !807, !809, !813, !817, !821, !825, !827, !829, !833, !837, !838, !839, !840, !841}
+!42 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !45, line: 48)
+!43 = !DINamespace(name: "std", scope: null, file: !44, line: 199)
+!44 = !DIFile(filename: "/usr/lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/x86_64-linux-gnu/c++/6.3.0/bits/c++config.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!45 = !DIDerivedType(tag: DW_TAG_typedef, name: "int8_t", file: !9, line: 235, baseType: !46)
+!46 = !DIBasicType(name: "signed char", size: 8, encoding: DW_ATE_signed_char)
+!47 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !48, line: 49)
+!48 = !DIDerivedType(tag: DW_TAG_typedef, name: "int16_t", file: !9, line: 216, baseType: !49)
+!49 = !DIBasicType(name: "short", size: 16, encoding: DW_ATE_signed)
+!50 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !51, line: 50)
+!51 = !DIDerivedType(tag: DW_TAG_typedef, name: "int32_t", file: !9, line: 178, baseType: !52)
+!52 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
+!53 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !54, line: 51)
+!54 = !DIDerivedType(tag: DW_TAG_typedef, name: "int64_t", file: !9, line: 107, baseType: !55)
+!55 = !DIBasicType(name: "long int", size: 64, encoding: DW_ATE_signed)
+!56 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !57, line: 53)
+!57 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_fast8_t", file: !9, line: 245, baseType: !45)
+!58 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !59, line: 54)
+!59 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_fast16_t", file: !9, line: 228, baseType: !48)
+!60 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !61, line: 55)
+!61 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_fast32_t", file: !9, line: 197, baseType: !51)
+!62 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !63, line: 56)
+!63 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_fast64_t", file: !9, line: 123, baseType: !54)
+!64 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !65, line: 58)
+!65 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_least8_t", file: !9, line: 243, baseType: !45)
+!66 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !67, line: 59)
+!67 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_least16_t", file: !9, line: 226, baseType: !48)
+!68 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !69, line: 60)
+!69 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_least32_t", file: !9, line: 195, baseType: !51)
+!70 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !71, line: 61)
+!71 = !DIDerivedType(tag: DW_TAG_typedef, name: "int_least64_t", file: !9, line: 121, baseType: !54)
+!72 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !73, line: 63)
+!73 = !DIDerivedType(tag: DW_TAG_typedef, name: "intmax_t", file: !9, line: 276, baseType: !55)
+!74 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !75, line: 64)
+!75 = !DIDerivedType(tag: DW_TAG_typedef, name: "intptr_t", file: !9, line: 263, baseType: !54)
+!76 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !77, line: 66)
+!77 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint8_t", file: !9, line: 237, baseType: !78)
+!78 = !DIBasicType(name: "unsigned char", size: 8, encoding: DW_ATE_unsigned_char)
+!79 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !27, line: 67)
+!80 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !8, line: 68)
+!81 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !82, line: 69)
+!82 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint64_t", file: !9, line: 109, baseType: !83)
+!83 = !DIBasicType(name: "long unsigned int", size: 64, encoding: DW_ATE_unsigned)
+!84 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !85, line: 71)
+!85 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_fast8_t", file: !9, line: 246, baseType: !77)
+!86 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !87, line: 72)
+!87 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_fast16_t", file: !9, line: 229, baseType: !27)
+!88 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !89, line: 73)
+!89 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_fast32_t", file: !9, line: 198, baseType: !8)
+!90 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !91, line: 74)
+!91 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_fast64_t", file: !9, line: 124, baseType: !82)
+!92 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !93, line: 76)
+!93 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_least8_t", file: !9, line: 244, baseType: !77)
+!94 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !95, line: 77)
+!95 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_least16_t", file: !9, line: 227, baseType: !27)
+!96 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !97, line: 78)
+!97 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_least32_t", file: !9, line: 196, baseType: !8)
+!98 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !99, line: 79)
+!99 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint_least64_t", file: !9, line: 122, baseType: !82)
+!100 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !101, line: 81)
+!101 = !DIDerivedType(tag: DW_TAG_typedef, name: "uintmax_t", file: !9, line: 277, baseType: !83)
+!102 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !103, line: 82)
+!103 = !DIDerivedType(tag: DW_TAG_typedef, name: "uintptr_t", file: !9, line: 270, baseType: !82)
+!104 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !105, line: 58)
+!105 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "exception_ptr", scope: !107, file: !106, line: 77, size: 64, elements: !108, identifier: "_ZTSNSt15__exception_ptr13exception_ptrE")
+!106 = !DIFile(filename: "/usr/lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0/bits/exception_ptr.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!107 = !DINamespace(name: "__exception_ptr", scope: !43, file: !106, line: 53)
+!108 = !{!109, !111, !115, !118, !119, !124, !125, !129, !134, !138, !142, !145, !146, !149, !153}
+!109 = !DIDerivedType(tag: DW_TAG_member, name: "_M_exception_object", scope: !105, file: !106, line: 79, baseType: !110, size: 64)
+!110 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
+!111 = !DISubprogram(name: "exception_ptr", scope: !105, file: !106, line: 81, type: !112, isLocal: false, isDefinition: false, scopeLine: 81, flags: DIFlagExplicit | DIFlagPrototyped, isOptimized: false)
+!112 = !DISubroutineType(types: !113)
+!113 = !{null, !114, !110}
+!114 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !105, size: 64, flags: DIFlagArtificial | DIFlagObjectPointer)
+!115 = !DISubprogram(name: "_M_addref", linkageName: "_ZNSt15__exception_ptr13exception_ptr9_M_addrefEv", scope: !105, file: !106, line: 83, type: !116, isLocal: false, isDefinition: false, scopeLine: 83, flags: DIFlagPrototyped, isOptimized: false)
+!116 = !DISubroutineType(types: !117)
+!117 = !{null, !114}
+!118 = !DISubprogram(name: "_M_release", linkageName: "_ZNSt15__exception_ptr13exception_ptr10_M_releaseEv", scope: !105, file: !106, line: 84, type: !116, isLocal: false, isDefinition: false, scopeLine: 84, flags: DIFlagPrototyped, isOptimized: false)
+!119 = !DISubprogram(name: "_M_get", linkageName: "_ZNKSt15__exception_ptr13exception_ptr6_M_getEv", scope: !105, file: !106, line: 86, type: !120, isLocal: false, isDefinition: false, scopeLine: 86, flags: DIFlagPrototyped, isOptimized: false)
+!120 = !DISubroutineType(types: !121)
+!121 = !{!110, !122}
+!122 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !123, size: 64, flags: DIFlagArtificial | DIFlagObjectPointer)
+!123 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !105)
+!124 = !DISubprogram(name: "exception_ptr", scope: !105, file: !106, line: 92, type: !116, isLocal: false, isDefinition: false, scopeLine: 92, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!125 = !DISubprogram(name: "exception_ptr", scope: !105, file: !106, line: 94, type: !126, isLocal: false, isDefinition: false, scopeLine: 94, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!126 = !DISubroutineType(types: !127)
+!127 = !{null, !114, !128}
+!128 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !123, size: 64)
+!129 = !DISubprogram(name: "exception_ptr", scope: !105, file: !106, line: 97, type: !130, isLocal: false, isDefinition: false, scopeLine: 97, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!130 = !DISubroutineType(types: !131)
+!131 = !{null, !114, !132}
+!132 = !DIDerivedType(tag: DW_TAG_typedef, name: "nullptr_t", scope: !43, file: !44, line: 205, baseType: !133)
+!133 = !DIBasicType(tag: DW_TAG_unspecified_type, name: "decltype(nullptr)")
+!134 = !DISubprogram(name: "exception_ptr", scope: !105, file: !106, line: 101, type: !135, isLocal: false, isDefinition: false, scopeLine: 101, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!135 = !DISubroutineType(types: !136)
+!136 = !{null, !114, !137}
+!137 = !DIDerivedType(tag: DW_TAG_rvalue_reference_type, baseType: !105, size: 64)
+!138 = !DISubprogram(name: "operator=", linkageName: "_ZNSt15__exception_ptr13exception_ptraSERKS0_", scope: !105, file: !106, line: 114, type: !139, isLocal: false, isDefinition: false, scopeLine: 114, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!139 = !DISubroutineType(types: !140)
+!140 = !{!141, !114, !128}
+!141 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !105, size: 64)
+!142 = !DISubprogram(name: "operator=", linkageName: "_ZNSt15__exception_ptr13exception_ptraSEOS0_", scope: !105, file: !106, line: 118, type: !143, isLocal: false, isDefinition: false, scopeLine: 118, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!143 = !DISubroutineType(types: !144)
+!144 = !{!141, !114, !137}
+!145 = !DISubprogram(name: "~exception_ptr", scope: !105, file: !106, line: 125, type: !116, isLocal: false, isDefinition: false, scopeLine: 125, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!146 = !DISubprogram(name: "swap", linkageName: "_ZNSt15__exception_ptr13exception_ptr4swapERS0_", scope: !105, file: !106, line: 128, type: !147, isLocal: false, isDefinition: false, scopeLine: 128, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!147 = !DISubroutineType(types: !148)
+!148 = !{null, !114, !141}
+!149 = !DISubprogram(name: "operator bool", linkageName: "_ZNKSt15__exception_ptr13exception_ptrcvbEv", scope: !105, file: !106, line: 140, type: !150, isLocal: false, isDefinition: false, scopeLine: 140, flags: DIFlagPublic | DIFlagExplicit | DIFlagPrototyped, isOptimized: false)
+!150 = !DISubroutineType(types: !151)
+!151 = !{!152, !122}
+!152 = !DIBasicType(name: "bool", size: 8, encoding: DW_ATE_boolean)
+!153 = !DISubprogram(name: "__cxa_exception_type", linkageName: "_ZNKSt15__exception_ptr13exception_ptr20__cxa_exception_typeEv", scope: !105, file: !106, line: 149, type: !154, isLocal: false, isDefinition: false, scopeLine: 149, flags: DIFlagPublic | DIFlagPrototyped, isOptimized: false)
+!154 = !DISubroutineType(types: !155)
+!155 = !{!156, !122}
+!156 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !157, size: 64)
+!157 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !158)
+!158 = distinct !DICompositeType(tag: DW_TAG_class_type, name: "type_info", scope: !43, file: !106, line: 47, flags: DIFlagFwdDecl, identifier: "_ZTSSt9type_info")
+!159 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !107, entity: !160, line: 71)
+!160 = !DISubprogram(name: "rethrow_exception", linkageName: "_ZSt17rethrow_exceptionNSt15__exception_ptr13exception_ptrE", scope: !43, file: !106, line: 67, type: !161, isLocal: false, isDefinition: false, flags: DIFlagPrototyped | DIFlagNoReturn, isOptimized: false)
+!161 = !DISubroutineType(types: !162)
+!162 = !{null, !105}
+!163 = !DIImportedEntity(tag: DW_TAG_imported_module, scope: !164, entity: !166, line: 58)
+!164 = !DINamespace(name: "__gnu_debug", scope: null, file: !165, line: 56)
+!165 = !DIFile(filename: "/usr/lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0/debug/debug.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!166 = !DINamespace(name: "__debug", scope: !43, file: !165, line: 50)
+!167 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !168, line: 64)
+!168 = !DIDerivedType(tag: DW_TAG_typedef, name: "mbstate_t", file: !169, line: 106, baseType: !170)
+!169 = !DIFile(filename: "/usr/include/wchar.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!170 = !DIDerivedType(tag: DW_TAG_typedef, name: "__mbstate_t", file: !169, line: 94, baseType: !171)
+!171 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !169, line: 82, size: 64, elements: !172, identifier: "_ZTS11__mbstate_t")
+!172 = !{!173, !174}
+!173 = !DIDerivedType(tag: DW_TAG_member, name: "__count", scope: !171, file: !169, line: 84, baseType: !52, size: 32)
+!174 = !DIDerivedType(tag: DW_TAG_member, name: "__value", scope: !171, file: !169, line: 93, baseType: !175, size: 32, offset: 32)
+!175 = distinct !DICompositeType(tag: DW_TAG_union_type, scope: !171, file: !169, line: 85, size: 32, elements: !176, identifier: "_ZTSN11__mbstate_tUt_E")
+!176 = !{!177, !178}
+!177 = !DIDerivedType(tag: DW_TAG_member, name: "__wch", scope: !175, file: !169, line: 88, baseType: !10, size: 32)
+!178 = !DIDerivedType(tag: DW_TAG_member, name: "__wchb", scope: !175, file: !169, line: 92, baseType: !179, size: 32)
+!179 = !DICompositeType(tag: DW_TAG_array_type, baseType: !180, size: 32, elements: !181)
+!180 = !DIBasicType(name: "char", size: 8, encoding: DW_ATE_signed_char)
+!181 = !{!182}
+!182 = !DISubrange(count: 4)
+!183 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !184, line: 139)
+!184 = !DIDerivedType(tag: DW_TAG_typedef, name: "wint_t", file: !185, line: 132, baseType: !10)
+!185 = !DIFile(filename: "/home/sdasgup3/Github/remill/remill-build/libraries/llvm/bin/../lib/clang/4.0.1/include/stddef.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!186 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !187, line: 141)
+!187 = !DISubprogram(name: "btowc", scope: !169, file: !169, line: 356, type: !188, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!188 = !DISubroutineType(types: !189)
+!189 = !{!184, !52}
+!190 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !191, line: 142)
+!191 = !DISubprogram(name: "fgetwc", scope: !169, file: !169, line: 748, type: !192, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!192 = !DISubroutineType(types: !193)
+!193 = !{!184, !194}
+!194 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !195, size: 64)
+!195 = !DIDerivedType(tag: DW_TAG_typedef, name: "__FILE", file: !196, line: 64, baseType: !197)
+!196 = !DIFile(filename: "/usr/include/stdio.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!197 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "_IO_FILE", file: !196, line: 44, flags: DIFlagFwdDecl, identifier: "_ZTS8_IO_FILE")
+!198 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !199, line: 143)
+!199 = !DISubprogram(name: "fgetws", scope: !169, file: !169, line: 777, type: !200, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!200 = !DISubroutineType(types: !201)
+!201 = !{!202, !204, !52, !205}
+!202 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !203, size: 64)
+!203 = !DIBasicType(name: "wchar_t", size: 32, encoding: DW_ATE_signed)
+!204 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !202)
+!205 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !194)
+!206 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !207, line: 144)
+!207 = !DISubprogram(name: "fputwc", scope: !169, file: !169, line: 762, type: !208, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!208 = !DISubroutineType(types: !209)
+!209 = !{!184, !203, !194}
+!210 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !211, line: 145)
+!211 = !DISubprogram(name: "fputws", scope: !169, file: !169, line: 784, type: !212, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!212 = !DISubroutineType(types: !213)
+!213 = !{!52, !214, !205}
+!214 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !215)
+!215 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !216, size: 64)
+!216 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !203)
+!217 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !218, line: 146)
+!218 = !DISubprogram(name: "fwide", scope: !169, file: !169, line: 590, type: !219, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!219 = !DISubroutineType(types: !220)
+!220 = !{!52, !194, !52}
+!221 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !222, line: 147)
+!222 = !DISubprogram(name: "fwprintf", scope: !169, file: !169, line: 597, type: !223, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!223 = !DISubroutineType(types: !224)
+!224 = !{!52, !205, !214, null}
+!225 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !226, line: 148)
+!226 = !DISubprogram(name: "fwscanf", scope: !169, file: !169, line: 638, type: !223, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!227 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !228, line: 149)
+!228 = !DISubprogram(name: "getwc", scope: !169, file: !169, line: 749, type: !192, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!229 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !230, line: 150)
+!230 = !DISubprogram(name: "getwchar", scope: !169, file: !169, line: 755, type: !231, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!231 = !DISubroutineType(types: !232)
+!232 = !{!184}
+!233 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !234, line: 151)
+!234 = !DISubprogram(name: "mbrlen", scope: !169, file: !169, line: 379, type: !235, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!235 = !DISubroutineType(types: !236)
+!236 = !{!237, !238, !237, !241}
+!237 = !DIDerivedType(tag: DW_TAG_typedef, name: "size_t", file: !185, line: 62, baseType: !83)
+!238 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !239)
+!239 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !240, size: 64)
+!240 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !180)
+!241 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !242)
+!242 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !168, size: 64)
+!243 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !244, line: 152)
+!244 = !DISubprogram(name: "mbrtowc", scope: !169, file: !169, line: 368, type: !245, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!245 = !DISubroutineType(types: !246)
+!246 = !{!237, !204, !238, !237, !241}
+!247 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !248, line: 153)
+!248 = !DISubprogram(name: "mbsinit", scope: !169, file: !169, line: 364, type: !249, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!249 = !DISubroutineType(types: !250)
+!250 = !{!52, !251}
+!251 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !252, size: 64)
+!252 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !168)
+!253 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !254, line: 154)
+!254 = !DISubprogram(name: "mbsrtowcs", scope: !169, file: !169, line: 411, type: !255, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!255 = !DISubroutineType(types: !256)
+!256 = !{!237, !204, !257, !237, !241}
+!257 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !258)
+!258 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !239, size: 64)
+!259 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !260, line: 155)
+!260 = !DISubprogram(name: "putwc", scope: !169, file: !169, line: 763, type: !208, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!261 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !262, line: 156)
+!262 = !DISubprogram(name: "putwchar", scope: !169, file: !169, line: 769, type: !263, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!263 = !DISubroutineType(types: !264)
+!264 = !{!184, !203}
+!265 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !266, line: 158)
+!266 = !DISubprogram(name: "swprintf", scope: !169, file: !169, line: 607, type: !267, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!267 = !DISubroutineType(types: !268)
+!268 = !{!52, !204, !237, !214, null}
+!269 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !270, line: 160)
+!270 = !DISubprogram(name: "swscanf", scope: !169, file: !169, line: 648, type: !271, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!271 = !DISubroutineType(types: !272)
+!272 = !{!52, !214, !214, null}
+!273 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !274, line: 161)
+!274 = !DISubprogram(name: "ungetwc", scope: !169, file: !169, line: 792, type: !275, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!275 = !DISubroutineType(types: !276)
+!276 = !{!184, !184, !194}
+!277 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !278, line: 162)
+!278 = !DISubprogram(name: "vfwprintf", scope: !169, file: !169, line: 615, type: !279, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!279 = !DISubroutineType(types: !280)
+!280 = !{!52, !205, !214, !281}
+!281 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !282, size: 64)
+!282 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "__va_list_tag", file: !2, size: 192, elements: !283, identifier: "_ZTS13__va_list_tag")
+!283 = !{!284, !285, !286, !287}
+!284 = !DIDerivedType(tag: DW_TAG_member, name: "gp_offset", scope: !282, file: !2, baseType: !10, size: 32)
+!285 = !DIDerivedType(tag: DW_TAG_member, name: "fp_offset", scope: !282, file: !2, baseType: !10, size: 32, offset: 32)
+!286 = !DIDerivedType(tag: DW_TAG_member, name: "overflow_arg_area", scope: !282, file: !2, baseType: !110, size: 64, offset: 64)
+!287 = !DIDerivedType(tag: DW_TAG_member, name: "reg_save_area", scope: !282, file: !2, baseType: !110, size: 64, offset: 128)
+!288 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !289, line: 164)
+!289 = !DISubprogram(name: "vfwscanf", scope: !169, file: !169, line: 692, type: !279, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!290 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !291, line: 167)
+!291 = !DISubprogram(name: "vswprintf", scope: !169, file: !169, line: 628, type: !292, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!292 = !DISubroutineType(types: !293)
+!293 = !{!52, !204, !237, !214, !281}
+!294 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !295, line: 170)
+!295 = !DISubprogram(name: "vswscanf", scope: !169, file: !169, line: 704, type: !296, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!296 = !DISubroutineType(types: !297)
+!297 = !{!52, !214, !214, !281}
+!298 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !299, line: 172)
+!299 = !DISubprogram(name: "vwprintf", scope: !169, file: !169, line: 623, type: !300, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!300 = !DISubroutineType(types: !301)
+!301 = !{!52, !214, !281}
+!302 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !303, line: 174)
+!303 = !DISubprogram(name: "vwscanf", scope: !169, file: !169, line: 700, type: !300, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!304 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !305, line: 176)
+!305 = !DISubprogram(name: "wcrtomb", scope: !169, file: !169, line: 373, type: !306, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!306 = !DISubroutineType(types: !307)
+!307 = !{!237, !308, !203, !241}
+!308 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !309)
+!309 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !180, size: 64)
+!310 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !311, line: 177)
+!311 = !DISubprogram(name: "wcscat", scope: !169, file: !169, line: 157, type: !312, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!312 = !DISubroutineType(types: !313)
+!313 = !{!202, !204, !214}
+!314 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !315, line: 178)
+!315 = !DISubprogram(name: "wcscmp", scope: !169, file: !169, line: 166, type: !316, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!316 = !DISubroutineType(types: !317)
+!317 = !{!52, !215, !215}
+!318 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !319, line: 179)
+!319 = !DISubprogram(name: "wcscoll", scope: !169, file: !169, line: 195, type: !316, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!320 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !321, line: 180)
+!321 = !DISubprogram(name: "wcscpy", scope: !169, file: !169, line: 147, type: !312, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!322 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !323, line: 181)
+!323 = !DISubprogram(name: "wcscspn", scope: !169, file: !169, line: 255, type: !324, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!324 = !DISubroutineType(types: !325)
+!325 = !{!237, !215, !215}
+!326 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !327, line: 182)
+!327 = !DISubprogram(name: "wcsftime", scope: !169, file: !169, line: 858, type: !328, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!328 = !DISubroutineType(types: !329)
+!329 = !{!237, !204, !237, !214, !330}
+!330 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !331)
+!331 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !332, size: 64)
+!332 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !333)
+!333 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "tm", file: !169, line: 137, flags: DIFlagFwdDecl, identifier: "_ZTS2tm")
+!334 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !335, line: 183)
+!335 = !DISubprogram(name: "wcslen", scope: !169, file: !169, line: 290, type: !336, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!336 = !DISubroutineType(types: !337)
+!337 = !{!237, !215}
+!338 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !339, line: 184)
+!339 = !DISubprogram(name: "wcsncat", scope: !169, file: !169, line: 161, type: !340, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!340 = !DISubroutineType(types: !341)
+!341 = !{!202, !204, !214, !237}
+!342 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !343, line: 185)
+!343 = !DISubprogram(name: "wcsncmp", scope: !169, file: !169, line: 169, type: !344, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!344 = !DISubroutineType(types: !345)
+!345 = !{!52, !215, !215, !237}
+!346 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !347, line: 186)
+!347 = !DISubprogram(name: "wcsncpy", scope: !169, file: !169, line: 152, type: !340, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!348 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !349, line: 187)
+!349 = !DISubprogram(name: "wcsrtombs", scope: !169, file: !169, line: 417, type: !350, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!350 = !DISubroutineType(types: !351)
+!351 = !{!237, !308, !352, !237, !241}
+!352 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !353)
+!353 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !215, size: 64)
+!354 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !355, line: 188)
+!355 = !DISubprogram(name: "wcsspn", scope: !169, file: !169, line: 259, type: !324, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!356 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !357, line: 189)
+!357 = !DISubprogram(name: "wcstod", scope: !169, file: !169, line: 453, type: !358, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!358 = !DISubroutineType(types: !359)
+!359 = !{!360, !214, !361}
+!360 = !DIBasicType(name: "double", size: 64, encoding: DW_ATE_float)
+!361 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !362)
+!362 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !202, size: 64)
+!363 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !364, line: 191)
+!364 = !DISubprogram(name: "wcstof", scope: !169, file: !169, line: 460, type: !365, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!365 = !DISubroutineType(types: !366)
+!366 = !{!367, !214, !361}
+!367 = !DIBasicType(name: "float", size: 32, encoding: DW_ATE_float)
+!368 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !369, line: 193)
+!369 = !DISubprogram(name: "wcstok", scope: !169, file: !169, line: 285, type: !370, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!370 = !DISubroutineType(types: !371)
+!371 = !{!202, !204, !214, !361}
+!372 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !373, line: 194)
+!373 = !DISubprogram(name: "wcstol", scope: !169, file: !169, line: 471, type: !374, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!374 = !DISubroutineType(types: !375)
+!375 = !{!55, !214, !361, !52}
+!376 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !377, line: 195)
+!377 = !DISubprogram(name: "wcstoul", scope: !169, file: !169, line: 476, type: !378, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!378 = !DISubroutineType(types: !379)
+!379 = !{!83, !214, !361, !52}
+!380 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !381, line: 196)
+!381 = !DISubprogram(name: "wcsxfrm", scope: !169, file: !169, line: 199, type: !382, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!382 = !DISubroutineType(types: !383)
+!383 = !{!237, !204, !214, !237}
+!384 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !385, line: 197)
+!385 = !DISubprogram(name: "wctob", scope: !169, file: !169, line: 360, type: !386, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!386 = !DISubroutineType(types: !387)
+!387 = !{!52, !184}
+!388 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !389, line: 198)
+!389 = !DISubprogram(name: "wmemcmp", scope: !169, file: !169, line: 328, type: !344, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!390 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !391, line: 199)
+!391 = !DISubprogram(name: "wmemcpy", scope: !169, file: !169, line: 332, type: !340, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!392 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !393, line: 200)
+!393 = !DISubprogram(name: "wmemmove", scope: !169, file: !169, line: 337, type: !394, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!394 = !DISubroutineType(types: !395)
+!395 = !{!202, !202, !215, !237}
+!396 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !397, line: 201)
+!397 = !DISubprogram(name: "wmemset", scope: !169, file: !169, line: 341, type: !398, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!398 = !DISubroutineType(types: !399)
+!399 = !{!202, !202, !203, !237}
+!400 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !401, line: 202)
+!401 = !DISubprogram(name: "wprintf", scope: !169, file: !169, line: 604, type: !402, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!402 = !DISubroutineType(types: !403)
+!403 = !{!52, !214, null}
+!404 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !405, line: 203)
+!405 = !DISubprogram(name: "wscanf", scope: !169, file: !169, line: 645, type: !402, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!406 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !407, line: 204)
+!407 = !DISubprogram(name: "wcschr", scope: !169, file: !169, line: 230, type: !408, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!408 = !DISubroutineType(types: !409)
+!409 = !{!202, !215, !203}
+!410 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !411, line: 205)
+!411 = !DISubprogram(name: "wcspbrk", scope: !169, file: !169, line: 269, type: !412, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!412 = !DISubroutineType(types: !413)
+!413 = !{!202, !215, !215}
+!414 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !415, line: 206)
+!415 = !DISubprogram(name: "wcsrchr", scope: !169, file: !169, line: 240, type: !408, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!416 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !417, line: 207)
+!417 = !DISubprogram(name: "wcsstr", scope: !169, file: !169, line: 280, type: !412, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!418 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !419, line: 208)
+!419 = !DISubprogram(name: "wmemchr", scope: !169, file: !169, line: 323, type: !420, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!420 = !DISubroutineType(types: !421)
+!421 = !{!202, !215, !203, !237}
+!422 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !424, line: 248)
+!423 = !DINamespace(name: "__gnu_cxx", scope: null, file: !44, line: 225)
+!424 = !DISubprogram(name: "wcstold", scope: !169, file: !169, line: 462, type: !425, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!425 = !DISubroutineType(types: !426)
+!426 = !{!427, !214, !361}
+!427 = !DIBasicType(name: "long double", size: 128, encoding: DW_ATE_float)
+!428 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !429, line: 257)
+!429 = !DISubprogram(name: "wcstoll", scope: !169, file: !169, line: 486, type: !430, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!430 = !DISubroutineType(types: !431)
+!431 = !{!432, !214, !361, !52}
+!432 = !DIBasicType(name: "long long int", size: 64, encoding: DW_ATE_signed)
+!433 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !434, line: 258)
+!434 = !DISubprogram(name: "wcstoull", scope: !169, file: !169, line: 493, type: !435, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!435 = !DISubroutineType(types: !436)
+!436 = !{!437, !214, !361, !52}
+!437 = !DIBasicType(name: "long long unsigned int", size: 64, encoding: DW_ATE_unsigned)
+!438 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !424, line: 264)
+!439 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !429, line: 265)
+!440 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !434, line: 266)
+!441 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !364, line: 280)
+!442 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !289, line: 283)
+!443 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !295, line: 286)
+!444 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !303, line: 289)
+!445 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !424, line: 293)
+!446 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !429, line: 294)
+!447 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !434, line: 295)
+!448 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !449, line: 44)
+!449 = !DIDerivedType(tag: DW_TAG_typedef, name: "size_t", scope: !43, file: !44, line: 201, baseType: !83)
+!450 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !451, line: 45)
+!451 = !DIDerivedType(tag: DW_TAG_typedef, name: "ptrdiff_t", scope: !43, file: !44, line: 202, baseType: !55)
+!452 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !453, line: 53)
+!453 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "lconv", file: !454, line: 53, flags: DIFlagFwdDecl, identifier: "_ZTS5lconv")
+!454 = !DIFile(filename: "/usr/include/locale.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!455 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !456, line: 54)
+!456 = !DISubprogram(name: "setlocale", scope: !454, file: !454, line: 124, type: !457, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!457 = !DISubroutineType(types: !458)
+!458 = !{!309, !52, !239}
+!459 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !460, line: 55)
+!460 = !DISubprogram(name: "localeconv", scope: !454, file: !454, line: 127, type: !461, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!461 = !DISubroutineType(types: !462)
+!462 = !{!463}
+!463 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !453, size: 64)
+!464 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !465, line: 64)
+!465 = !DISubprogram(name: "isalnum", scope: !466, file: !466, line: 110, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!466 = !DIFile(filename: "/usr/include/ctype.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!467 = !DISubroutineType(types: !468)
+!468 = !{!52, !52}
+!469 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !470, line: 65)
+!470 = !DISubprogram(name: "isalpha", scope: !466, file: !466, line: 111, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!471 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !472, line: 66)
+!472 = !DISubprogram(name: "iscntrl", scope: !466, file: !466, line: 112, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!473 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !474, line: 67)
+!474 = !DISubprogram(name: "isdigit", scope: !466, file: !466, line: 113, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!475 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !476, line: 68)
+!476 = !DISubprogram(name: "isgraph", scope: !466, file: !466, line: 115, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!477 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !478, line: 69)
+!478 = !DISubprogram(name: "islower", scope: !466, file: !466, line: 114, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!479 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !480, line: 70)
+!480 = !DISubprogram(name: "isprint", scope: !466, file: !466, line: 116, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!481 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !482, line: 71)
+!482 = !DISubprogram(name: "ispunct", scope: !466, file: !466, line: 117, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!483 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !484, line: 72)
+!484 = !DISubprogram(name: "isspace", scope: !466, file: !466, line: 118, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!485 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !486, line: 73)
+!486 = !DISubprogram(name: "isupper", scope: !466, file: !466, line: 119, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!487 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !488, line: 74)
+!488 = !DISubprogram(name: "isxdigit", scope: !466, file: !466, line: 120, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!489 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !490, line: 75)
+!490 = !DISubprogram(name: "tolower", scope: !466, file: !466, line: 124, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!491 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !492, line: 76)
+!492 = !DISubprogram(name: "toupper", scope: !466, file: !466, line: 127, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!493 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !494, line: 87)
+!494 = !DISubprogram(name: "isblank", scope: !466, file: !466, line: 136, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!495 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !496, line: 124)
+!496 = !DIDerivedType(tag: DW_TAG_typedef, name: "div_t", file: !497, line: 62, baseType: !498)
+!497 = !DIFile(filename: "/usr/include/stdlib.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!498 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !497, line: 58, flags: DIFlagFwdDecl, identifier: "_ZTS5div_t")
+!499 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !500, line: 125)
+!500 = !DIDerivedType(tag: DW_TAG_typedef, name: "ldiv_t", file: !497, line: 70, baseType: !501)
+!501 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !497, line: 66, size: 128, elements: !502, identifier: "_ZTS6ldiv_t")
+!502 = !{!503, !504}
+!503 = !DIDerivedType(tag: DW_TAG_member, name: "quot", scope: !501, file: !497, line: 68, baseType: !55, size: 64)
+!504 = !DIDerivedType(tag: DW_TAG_member, name: "rem", scope: !501, file: !497, line: 69, baseType: !55, size: 64, offset: 64)
+!505 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !506, line: 127)
+!506 = !DISubprogram(name: "abort", scope: !497, file: !497, line: 476, type: !507, isLocal: false, isDefinition: false, flags: DIFlagPrototyped | DIFlagNoReturn, isOptimized: false)
+!507 = !DISubroutineType(types: !508)
+!508 = !{null}
+!509 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !510, line: 128)
+!510 = !DISubprogram(name: "abs", scope: !497, file: !497, line: 735, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!511 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !512, line: 129)
+!512 = !DISubprogram(name: "atexit", scope: !497, file: !497, line: 480, type: !513, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!513 = !DISubroutineType(types: !514)
+!514 = !{!52, !515}
+!515 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !507, size: 64)
+!516 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !517, line: 132)
+!517 = !DISubprogram(name: "at_quick_exit", scope: !497, file: !497, line: 485, type: !513, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!518 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !519, line: 135)
+!519 = !DISubprogram(name: "atof", scope: !497, file: !497, line: 105, type: !520, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!520 = !DISubroutineType(types: !521)
+!521 = !{!360, !239}
+!522 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !523, line: 136)
+!523 = !DISubprogram(name: "atoi", scope: !497, file: !497, line: 108, type: !524, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!524 = !DISubroutineType(types: !525)
+!525 = !{!52, !239}
+!526 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !527, line: 137)
+!527 = !DISubprogram(name: "atol", scope: !497, file: !497, line: 111, type: !528, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!528 = !DISubroutineType(types: !529)
+!529 = !{!55, !239}
+!530 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !531, line: 138)
+!531 = !DISubprogram(name: "bsearch", scope: !497, file: !497, line: 715, type: !532, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!532 = !DISubroutineType(types: !533)
+!533 = !{!110, !39, !39, !237, !237, !534}
+!534 = !DIDerivedType(tag: DW_TAG_typedef, name: "__compar_fn_t", file: !497, line: 702, baseType: !535)
+!535 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !536, size: 64)
+!536 = !DISubroutineType(types: !537)
+!537 = !{!52, !39, !39}
+!538 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !539, line: 139)
+!539 = !DISubprogram(name: "calloc", scope: !497, file: !497, line: 429, type: !540, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!540 = !DISubroutineType(types: !541)
+!541 = !{!110, !237, !237}
+!542 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !543, line: 140)
+!543 = !DISubprogram(name: "div", scope: !497, file: !497, line: 749, type: !544, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!544 = !DISubroutineType(types: !545)
+!545 = !{!496, !52, !52}
+!546 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !547, line: 141)
+!547 = !DISubprogram(name: "exit", scope: !497, file: !497, line: 504, type: !548, isLocal: false, isDefinition: false, flags: DIFlagPrototyped | DIFlagNoReturn, isOptimized: false)
+!548 = !DISubroutineType(types: !549)
+!549 = !{null, !52}
+!550 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !551, line: 142)
+!551 = !DISubprogram(name: "free", scope: !497, file: !497, line: 444, type: !552, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!552 = !DISubroutineType(types: !553)
+!553 = !{null, !110}
+!554 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !555, line: 143)
+!555 = !DISubprogram(name: "getenv", scope: !497, file: !497, line: 525, type: !556, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!556 = !DISubroutineType(types: !557)
+!557 = !{!309, !239}
+!558 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !559, line: 144)
+!559 = !DISubprogram(name: "labs", scope: !497, file: !497, line: 736, type: !560, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!560 = !DISubroutineType(types: !561)
+!561 = !{!55, !55}
+!562 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !563, line: 145)
+!563 = !DISubprogram(name: "ldiv", scope: !497, file: !497, line: 751, type: !564, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!564 = !DISubroutineType(types: !565)
+!565 = !{!500, !55, !55}
+!566 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !567, line: 146)
+!567 = !DISubprogram(name: "malloc", scope: !497, file: !497, line: 427, type: !568, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!568 = !DISubroutineType(types: !569)
+!569 = !{!110, !237}
+!570 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !571, line: 148)
+!571 = !DISubprogram(name: "mblen", scope: !497, file: !497, line: 823, type: !572, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!572 = !DISubroutineType(types: !573)
+!573 = !{!52, !239, !237}
+!574 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !575, line: 149)
+!575 = !DISubprogram(name: "mbstowcs", scope: !497, file: !497, line: 834, type: !576, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!576 = !DISubroutineType(types: !577)
+!577 = !{!237, !204, !238, !237}
+!578 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !579, line: 150)
+!579 = !DISubprogram(name: "mbtowc", scope: !497, file: !497, line: 826, type: !580, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!580 = !DISubroutineType(types: !581)
+!581 = !{!52, !204, !238, !237}
+!582 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !583, line: 152)
+!583 = !DISubprogram(name: "qsort", scope: !497, file: !497, line: 725, type: !584, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!584 = !DISubroutineType(types: !585)
+!585 = !{null, !110, !237, !237, !534}
+!586 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !587, line: 155)
+!587 = !DISubprogram(name: "quick_exit", scope: !497, file: !497, line: 510, type: !548, isLocal: false, isDefinition: false, flags: DIFlagPrototyped | DIFlagNoReturn, isOptimized: false)
+!588 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !589, line: 158)
+!589 = !DISubprogram(name: "rand", scope: !497, file: !497, line: 335, type: !590, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!590 = !DISubroutineType(types: !591)
+!591 = !{!52}
+!592 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !593, line: 159)
+!593 = !DISubprogram(name: "realloc", scope: !497, file: !497, line: 441, type: !594, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!594 = !DISubroutineType(types: !595)
+!595 = !{!110, !110, !237}
+!596 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !597, line: 160)
+!597 = !DISubprogram(name: "srand", scope: !497, file: !497, line: 337, type: !598, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!598 = !DISubroutineType(types: !599)
+!599 = !{null, !10}
+!600 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !601, line: 161)
+!601 = !DISubprogram(name: "strtod", scope: !497, file: !497, line: 125, type: !602, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!602 = !DISubroutineType(types: !603)
+!603 = !{!360, !238, !604}
+!604 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !605)
+!605 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !309, size: 64)
+!606 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !607, line: 162)
+!607 = !DISubprogram(name: "strtol", scope: !497, file: !497, line: 144, type: !608, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!608 = !DISubroutineType(types: !609)
+!609 = !{!55, !238, !604, !52}
+!610 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !611, line: 163)
+!611 = !DISubprogram(name: "strtoul", scope: !497, file: !497, line: 148, type: !612, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!612 = !DISubroutineType(types: !613)
+!613 = !{!83, !238, !604, !52}
+!614 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !615, line: 164)
+!615 = !DISubprogram(name: "system", scope: !497, file: !497, line: 677, type: !524, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!616 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !617, line: 166)
+!617 = !DISubprogram(name: "wcstombs", scope: !497, file: !497, line: 837, type: !618, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!618 = !DISubroutineType(types: !619)
+!619 = !{!237, !308, !214, !237}
+!620 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !621, line: 167)
+!621 = !DISubprogram(name: "wctomb", scope: !497, file: !497, line: 830, type: !622, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!622 = !DISubroutineType(types: !623)
+!623 = !{!52, !309, !203}
+!624 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !625, line: 220)
+!625 = !DIDerivedType(tag: DW_TAG_typedef, name: "lldiv_t", file: !497, line: 82, baseType: !626)
+!626 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !497, line: 78, size: 128, elements: !627, identifier: "_ZTS7lldiv_t")
+!627 = !{!628, !629}
+!628 = !DIDerivedType(tag: DW_TAG_member, name: "quot", scope: !626, file: !497, line: 80, baseType: !432, size: 64)
+!629 = !DIDerivedType(tag: DW_TAG_member, name: "rem", scope: !626, file: !497, line: 81, baseType: !432, size: 64, offset: 64)
+!630 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !631, line: 226)
+!631 = !DISubprogram(name: "_Exit", scope: !497, file: !497, line: 518, type: !548, isLocal: false, isDefinition: false, flags: DIFlagPrototyped | DIFlagNoReturn, isOptimized: false)
+!632 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !633, line: 230)
+!633 = !DISubprogram(name: "llabs", scope: !497, file: !497, line: 740, type: !634, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!634 = !DISubroutineType(types: !635)
+!635 = !{!432, !432}
+!636 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !637, line: 236)
+!637 = !DISubprogram(name: "lldiv", scope: !497, file: !497, line: 757, type: !638, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!638 = !DISubroutineType(types: !639)
+!639 = !{!625, !432, !432}
+!640 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !641, line: 247)
+!641 = !DISubprogram(name: "atoll", scope: !497, file: !497, line: 118, type: !642, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!642 = !DISubroutineType(types: !643)
+!643 = !{!432, !239}
+!644 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !645, line: 248)
+!645 = !DISubprogram(name: "strtoll", scope: !497, file: !497, line: 170, type: !646, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!646 = !DISubroutineType(types: !647)
+!647 = !{!432, !238, !604, !52}
+!648 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !649, line: 249)
+!649 = !DISubprogram(name: "strtoull", scope: !497, file: !497, line: 175, type: !650, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!650 = !DISubroutineType(types: !651)
+!651 = !{!437, !238, !604, !52}
+!652 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !653, line: 251)
+!653 = !DISubprogram(name: "strtof", scope: !497, file: !497, line: 133, type: !654, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!654 = !DISubroutineType(types: !655)
+!655 = !{!367, !238, !604}
+!656 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !657, line: 252)
+!657 = !DISubprogram(name: "strtold", scope: !497, file: !497, line: 136, type: !658, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!658 = !DISubroutineType(types: !659)
+!659 = !{!427, !238, !604}
+!660 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !625, line: 260)
+!661 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !631, line: 262)
+!662 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !633, line: 264)
+!663 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !664, line: 265)
+!664 = !DISubprogram(name: "div", linkageName: "_ZN9__gnu_cxx3divExx", scope: !423, file: !665, line: 233, type: !638, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!665 = !DIFile(filename: "/usr/lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0/cstdlib", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!666 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !637, line: 266)
+!667 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !641, line: 268)
+!668 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !653, line: 269)
+!669 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !645, line: 270)
+!670 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !649, line: 271)
+!671 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !657, line: 272)
+!672 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !673, line: 98)
+!673 = !DIDerivedType(tag: DW_TAG_typedef, name: "FILE", file: !196, line: 48, baseType: !197)
+!674 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !675, line: 99)
+!675 = !DIDerivedType(tag: DW_TAG_typedef, name: "fpos_t", file: !196, line: 112, baseType: !676)
+!676 = !DIDerivedType(tag: DW_TAG_typedef, name: "_G_fpos_t", file: !677, line: 25, baseType: !678)
+!677 = !DIFile(filename: "/usr/include/_G_config.h", directory: "/home/sdasgup3/Github/remill/remill-build/remill/Arch/X86/Runtime")
+!678 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !677, line: 21, flags: DIFlagFwdDecl, identifier: "_ZTS9_G_fpos_t")
+!679 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !680, line: 101)
+!680 = !DISubprogram(name: "clearerr", scope: !196, file: !196, line: 828, type: !681, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!681 = !DISubroutineType(types: !682)
+!682 = !{null, !683}
+!683 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !673, size: 64)
+!684 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !685, line: 102)
+!685 = !DISubprogram(name: "fclose", scope: !196, file: !196, line: 239, type: !686, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!686 = !DISubroutineType(types: !687)
+!687 = !{!52, !683}
+!688 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !689, line: 103)
+!689 = !DISubprogram(name: "feof", scope: !196, file: !196, line: 830, type: !686, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!690 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !691, line: 104)
+!691 = !DISubprogram(name: "ferror", scope: !196, file: !196, line: 832, type: !686, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!692 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !693, line: 105)
+!693 = !DISubprogram(name: "fflush", scope: !196, file: !196, line: 244, type: !686, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!694 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !695, line: 106)
+!695 = !DISubprogram(name: "fgetc", scope: !196, file: !196, line: 533, type: !686, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!696 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !697, line: 107)
+!697 = !DISubprogram(name: "fgetpos", scope: !196, file: !196, line: 800, type: !698, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!698 = !DISubroutineType(types: !699)
+!699 = !{!52, !700, !701}
+!700 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !683)
+!701 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !702)
+!702 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !675, size: 64)
+!703 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !704, line: 108)
+!704 = !DISubprogram(name: "fgets", scope: !196, file: !196, line: 624, type: !705, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!705 = !DISubroutineType(types: !706)
+!706 = !{!309, !308, !52, !700}
+!707 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !708, line: 109)
+!708 = !DISubprogram(name: "fopen", scope: !196, file: !196, line: 274, type: !709, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!709 = !DISubroutineType(types: !710)
+!710 = !{!683, !238, !238}
+!711 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !712, line: 110)
+!712 = !DISubprogram(name: "fprintf", scope: !196, file: !196, line: 358, type: !713, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!713 = !DISubroutineType(types: !714)
+!714 = !{!52, !700, !238, null}
+!715 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !716, line: 111)
+!716 = !DISubprogram(name: "fputc", scope: !196, file: !196, line: 575, type: !717, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!717 = !DISubroutineType(types: !718)
+!718 = !{!52, !52, !683}
+!719 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !720, line: 112)
+!720 = !DISubprogram(name: "fputs", scope: !196, file: !196, line: 691, type: !721, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!721 = !DISubroutineType(types: !722)
+!722 = !{!52, !238, !700}
+!723 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !724, line: 113)
+!724 = !DISubprogram(name: "fread", scope: !196, file: !196, line: 711, type: !725, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!725 = !DISubroutineType(types: !726)
+!726 = !{!237, !727, !237, !237, !700}
+!727 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !110)
+!728 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !729, line: 114)
+!729 = !DISubprogram(name: "freopen", scope: !196, file: !196, line: 280, type: !730, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!730 = !DISubroutineType(types: !731)
+!731 = !{!683, !238, !238, !700}
+!732 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !733, line: 115)
+!733 = !DISubprogram(name: "fscanf", scope: !196, file: !196, line: 427, type: !713, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!734 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !735, line: 116)
+!735 = !DISubprogram(name: "fseek", scope: !196, file: !196, line: 751, type: !736, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!736 = !DISubroutineType(types: !737)
+!737 = !{!52, !683, !55, !52}
+!738 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !739, line: 117)
+!739 = !DISubprogram(name: "fsetpos", scope: !196, file: !196, line: 805, type: !740, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!740 = !DISubroutineType(types: !741)
+!741 = !{!52, !683, !742}
+!742 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !743, size: 64)
+!743 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !675)
+!744 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !745, line: 118)
+!745 = !DISubprogram(name: "ftell", scope: !196, file: !196, line: 756, type: !746, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!746 = !DISubroutineType(types: !747)
+!747 = !{!55, !683}
+!748 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !749, line: 119)
+!749 = !DISubprogram(name: "fwrite", scope: !196, file: !196, line: 717, type: !750, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!750 = !DISubroutineType(types: !751)
+!751 = !{!237, !752, !237, !237, !700}
+!752 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !39)
+!753 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !754, line: 120)
+!754 = !DISubprogram(name: "getc", scope: !196, file: !196, line: 534, type: !686, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!755 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !756, line: 121)
+!756 = !DISubprogram(name: "getchar", scope: !196, file: !196, line: 540, type: !590, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!757 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !758, line: 124)
+!758 = !DISubprogram(name: "gets", scope: !196, file: !196, line: 640, type: !759, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!759 = !DISubroutineType(types: !760)
+!760 = !{!309, !309}
+!761 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !762, line: 126)
+!762 = !DISubprogram(name: "perror", scope: !196, file: !196, line: 848, type: !763, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!763 = !DISubroutineType(types: !764)
+!764 = !{null, !239}
+!765 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !766, line: 127)
+!766 = !DISubprogram(name: "printf", scope: !196, file: !196, line: 364, type: !767, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!767 = !DISubroutineType(types: !768)
+!768 = !{!52, !238, null}
+!769 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !770, line: 128)
+!770 = !DISubprogram(name: "putc", scope: !196, file: !196, line: 576, type: !717, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!771 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !772, line: 129)
+!772 = !DISubprogram(name: "putchar", scope: !196, file: !196, line: 582, type: !467, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!773 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !774, line: 130)
+!774 = !DISubprogram(name: "puts", scope: !196, file: !196, line: 697, type: !524, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!775 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !776, line: 131)
+!776 = !DISubprogram(name: "remove", scope: !196, file: !196, line: 180, type: !524, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!777 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !778, line: 132)
+!778 = !DISubprogram(name: "rename", scope: !196, file: !196, line: 182, type: !779, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!779 = !DISubroutineType(types: !780)
+!780 = !{!52, !239, !239}
+!781 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !782, line: 133)
+!782 = !DISubprogram(name: "rewind", scope: !196, file: !196, line: 761, type: !681, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!783 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !784, line: 134)
+!784 = !DISubprogram(name: "scanf", scope: !196, file: !196, line: 433, type: !767, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!785 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !786, line: 135)
+!786 = !DISubprogram(name: "setbuf", scope: !196, file: !196, line: 334, type: !787, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!787 = !DISubroutineType(types: !788)
+!788 = !{null, !700, !308}
+!789 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !790, line: 136)
+!790 = !DISubprogram(name: "setvbuf", scope: !196, file: !196, line: 338, type: !791, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!791 = !DISubroutineType(types: !792)
+!792 = !{!52, !700, !308, !52, !237}
+!793 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !794, line: 137)
+!794 = !DISubprogram(name: "sprintf", scope: !196, file: !196, line: 366, type: !795, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!795 = !DISubroutineType(types: !796)
+!796 = !{!52, !308, !238, null}
+!797 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !798, line: 138)
+!798 = !DISubprogram(name: "sscanf", scope: !196, file: !196, line: 435, type: !799, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!799 = !DISubroutineType(types: !800)
+!800 = !{!52, !238, !238, null}
+!801 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !802, line: 139)
+!802 = !DISubprogram(name: "tmpfile", scope: !196, file: !196, line: 197, type: !803, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!803 = !DISubroutineType(types: !804)
+!804 = !{!683}
+!805 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !806, line: 141)
+!806 = !DISubprogram(name: "tmpnam", scope: !196, file: !196, line: 211, type: !759, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!807 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !808, line: 143)
+!808 = !DISubprogram(name: "ungetc", scope: !196, file: !196, line: 704, type: !717, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!809 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !810, line: 144)
+!810 = !DISubprogram(name: "vfprintf", scope: !196, file: !196, line: 373, type: !811, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!811 = !DISubroutineType(types: !812)
+!812 = !{!52, !700, !238, !281}
+!813 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !814, line: 145)
+!814 = !DISubprogram(name: "vprintf", scope: !196, file: !196, line: 379, type: !815, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!815 = !DISubroutineType(types: !816)
+!816 = !{!52, !238, !281}
+!817 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !818, line: 146)
+!818 = !DISubprogram(name: "vsprintf", scope: !196, file: !196, line: 381, type: !819, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!819 = !DISubroutineType(types: !820)
+!820 = !{!52, !308, !238, !281}
+!821 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !822, line: 175)
+!822 = !DISubprogram(name: "snprintf", scope: !196, file: !196, line: 388, type: !823, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!823 = !DISubroutineType(types: !824)
+!824 = !{!52, !308, !237, !238, null}
+!825 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !826, line: 176)
+!826 = !DISubprogram(name: "vfscanf", scope: !196, file: !196, line: 473, type: !811, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!827 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !828, line: 177)
+!828 = !DISubprogram(name: "vscanf", scope: !196, file: !196, line: 481, type: !815, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!829 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !830, line: 178)
+!830 = !DISubprogram(name: "vsnprintf", scope: !196, file: !196, line: 392, type: !831, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!831 = !DISubroutineType(types: !832)
+!832 = !{!52, !308, !237, !238, !281}
+!833 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !423, entity: !834, line: 179)
+!834 = !DISubprogram(name: "vsscanf", scope: !196, file: !196, line: 485, type: !835, isLocal: false, isDefinition: false, flags: DIFlagPrototyped, isOptimized: false)
+!835 = !DISubroutineType(types: !836)
+!836 = !{!52, !238, !238, !281}
+!837 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !822, line: 185)
+!838 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !826, line: 186)
+!839 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !828, line: 187)
+!840 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !830, line: 188)
+!841 = !DIImportedEntity(tag: DW_TAG_imported_declaration, scope: !43, entity: !834, line: 189)
+!842 = !{i32 2, !"Dwarf Version", i32 4}
+!843 = !{i32 2, !"Debug Info Version", i32 3}
+!844 = !{!845, !845, i64 0}
+!845 = !{!"long", !846, i64 0}
+!846 = !{!"omnipotent char", !847, i64 0}
+!847 = !{!"Simple C++ TBAA"}
+!848 = !{!849, !846, i64 2065}
+!849 = !{!"_ZTS5State", !846, i64 16, !850, i64 2064, !846, i64 2080, !852, i64 2088, !854, i64 2112, !856, i64 2144, !857, i64 2416, !858, i64 2544, !859, i64 2672, !846, i64 2680}
+!850 = !{!"_ZTS10ArithFlags", !851, i64 0, !846, i64 1, !851, i64 2, !846, i64 3, !851, i64 4, !846, i64 5, !851, i64 6, !846, i64 7, !851, i64 8, !846, i64 9, !851, i64 10, !846, i64 11, !851, i64 12, !846, i64 13, !851, i64 14, !851, i64 15}
+!851 = !{!"bool", !846, i64 0}
+!852 = !{!"_ZTS8Segments", !853, i64 0, !846, i64 2, !853, i64 4, !846, i64 6, !853, i64 8, !846, i64 10, !853, i64 12, !846, i64 14, !853, i64 16, !846, i64 18, !853, i64 20, !846, i64 22}
+!853 = !{!"short", !846, i64 0}
+!854 = !{!"_ZTS12AddressSpace", !845, i64 0, !855, i64 8, !845, i64 16, !855, i64 24}
+!855 = !{!"_ZTS3Reg", !846, i64 0}
+!856 = !{!"_ZTS3GPR", !845, i64 0, !855, i64 8, !845, i64 16, !855, i64 24, !845, i64 32, !855, i64 40, !845, i64 48, !855, i64 56, !845, i64 64, !855, i64 72, !845, i64 80, !855, i64 88, !845, i64 96, !855, i64 104, !845, i64 112, !855, i64 120, !845, i64 128, !855, i64 136, !845, i64 144, !855, i64 152, !845, i64 160, !855, i64 168, !845, i64 176, !855, i64 184, !845, i64 192, !855, i64 200, !845, i64 208, !855, i64 216, !845, i64 224, !855, i64 232, !845, i64 240, !855, i64 248, !845, i64 256, !855, i64 264}
+!857 = !{!"_ZTS8X87Stack", !846, i64 0}
+!858 = !{!"_ZTS3MMX", !846, i64 0}
+!859 = !{!"_ZTS14FPUStatusFlags", !846, i64 0, !846, i64 1, !846, i64 2, !846, i64 3, !846, i64 4, !846, i64 5, !846, i64 6, !846, i64 7}
+!860 = !{!849, !846, i64 2067}
+!861 = !{!849, !846, i64 2071}
+!862 = !{!849, !846, i64 2073}
+!863 = !{!849, !846, i64 2077}
+!864 = !{!849, !846, i64 2069}
+!865 = !{!846, !846, i64 0}

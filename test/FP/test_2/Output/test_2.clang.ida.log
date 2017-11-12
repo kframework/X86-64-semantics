@@ -115,19 +115,14 @@ Looking for cross-references in segment .bss [601030, 601038)
 Looking for cross-references in segment extern [601038, 601060)
   Stopping scan at 60105c
 Looking for thunks
-  Found thunk for .printf at 4003e0
+  Found thunk for printf targeting 601048 at 4003e0
 Looking for external symbols
+  Function at 4003e0 is the external function printf
   Function at 601038 is the external function printf
   Function at 601040 is the external function __libc_start_main
   Function at 601048 is the external function printf
   Function at 601050 is the external function __libc_start_main
 Looking for entrypoints
-Recovering .printf at 4003e0
-  Analysing subroutine .printf at 4003e0
-  Subroutine .printf at 4003e0 has 1 blocks
-  BB: 4003e0 in func 4003e0 with 1 insts
-    I: 4003e0 (data mem internal 601018 )
-      No successors
 Recovering __do_global_dtors_aux at 4004a0
   Analysing subroutine __do_global_dtors_aux at 4004a0
   Subroutine __do_global_dtors_aux at 4004a0 has 3 blocks
@@ -242,7 +237,7 @@ Recovering testL at 4004f0
     I: 400525
     I: 400528
     I: 40052c
-    I: 40052e (code flow internal 4003e0 .printf)
+    I: 40052e (code flow external 601048 printf)
     I: 400533
     I: 400536
     I: 40053a
@@ -384,10 +379,11 @@ Recovering .init in segment .init [4003b8, 4003cf)
 Recovering .got in segment .got [600ff0, 601000)
   8-byte reference at 600ff0 to 601050 (__libc_start_main)
   8-byte reference at 600ff8 to 601058 (__gmon_start__)
+Recovering extern function printf at 4003e0
 Recovering extern function printf at 601038
+Recovering extern function printf at 601048
 Recovering extern function __libc_start_main at 601040
 Recovering extern function __libc_start_main at 601050
-Recovering extern function printf at 601048
-Recovered 12 functions.
+Recovered 11 functions.
 Saving to: /home/sdasgup3/Github/binary-decompilation/test/FP/test_2/Output/test_2.clang.ida.cfg
 Done analysis!

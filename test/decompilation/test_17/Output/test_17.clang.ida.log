@@ -1,138 +1,407 @@
 Debugging is enabled.
-Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
-Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_17/map.txt
+Loading Standard Definitions file: /usr/local/lib/python2.7/dist-packages/mcsema_disass-2.0-py2.7.egg/mcsema_disass/defs/linux.txt
 Using Batch mode.
 Starting analysis
-Will lift 1 exports
-CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_17/Output/test_17.clang.ida.cfg
-PROCESSING: test_17.clang.o
-Adding data seg: .data: 0x60L-0xc0L
-Adding data seg: .eh_frame: 0xc0L-0xf8L
-Looking for relocations in 60 - c0
-Found relocations in binary: (78)..
-rtype : 2c, 60, 0
-78 Found reloc to: 60 (size: 8)
-Testing 60 for externality
-Offset: 78, seg_offset: 0 => 60
-Reloc Base Address: 78
-Reloc size: 8
-Testing 60 for externality
-Data Range: 60 <= 60 < c0
-Data Range: 60 - 61
-UNKNOWN Ref, assuming data
-rtype : 2c, 64, 0
-90 Found reloc to: 64 (size: 8)
-Testing 64 for externality
-Offset: 90, seg_offset: 0 => 64
-Reloc Base Address: 90
-Reloc size: 8
-Testing 64 for externality
-Data Range: 60 <= 64 < c0
-Data Range: 64 - 65
-UNKNOWN Ref, assuming data
-rtype : 2c, 68, 0
-a8 Found reloc to: 68 (size: 8)
-Testing 68 for externality
-Offset: a8, seg_offset: 0 => 68
-Reloc Base Address: a8
-Reloc size: 8
-Testing 68 for externality
-Data Range: 60 <= 68 < c0
-Data Range: 68 - 70
-Data Ref!
-Adding data seg: .data: 0x60L-0xc0L
-Looking for relocations in c0 - f8
-Found relocations in binary: (e0)..
-rtype : 4, 0, 0
-e0 Found reloc to: 0 (size: 4)
-Testing 0 for externality
-Offset: e0, seg_offset: 0 => 0
-Reloc Base Address: e0
-Reloc size: 4
-Testing 0 for externality
-Code Ref: 0!
-Adding data seg: .eh_frame: 0xc0L-0xf8L
-Recovering: printdata
-Processing export name: printdata at: 0
-WARNING: Cannot determine type of function: printdata at: 0
-At EP printdata:0
-Testing 20 for externality
-Testing 5a for externality
-Testing 33 for externality
-Testing 47 for externality
-Testing 4c for externality
-Testing 12 for externality
-BB: 5a
-Starting insn at: 5a
-Processing insn at 5a
-Processing insn at 5d
-Processing insn at 5e
-Ending insn at: 5d
-BB: 4c
-Successors: 12
-Starting insn at: 4c
-Processing insn at 4c
-Processing insn at 4f
-Processing insn at 52
-Processing insn at 55
-Checking code ref 12
-Testing 12 for externality
-INTERNAL JMP: 12
-Ending insn at: 55
-BB: 47
-Successors: 4c
-Starting insn at: 47
-Processing insn at 47
-Checking code ref 4c
-Testing 4c for externality
-INTERNAL JMP: 4c
-Ending insn at: 47
-BB: 33
-Successors: 47
-Starting insn at: 33
-Processing insn at 33
-Processing insn at 37
-findRelocOffset setting imm reloc offset at 37 to 4
-Adding reference because of data refs from 37
-Testing 70 for externality
-		Data Ref: 70, size: 8
-Data Range: 60 <= 70 < c0
-Data Range: 70 - 78
-		Setting MEM ref at 37: to 70 type: DATA
-Processing insn at 3f
-Processing insn at 41
-Processing insn at 44
-Ending insn at: 44
-BB: 20
-Successors: 33, 47
-Starting insn at: 20
-Processing insn at 20
-Processing insn at 24
-findRelocOffset setting imm reloc offset at 24 to 4
-Adding reference because of data refs from 24
-Testing 70 for externality
-		Data Ref: 70, size: 8
-Data Range: 60 <= 70 < c0
-Data Range: 70 - 78
-		Setting MEM ref at 24: to 70 type: DATA
-Processing insn at 2d
-Checking code ref 47
-Ending insn at: 2d
-BB: 12
-Successors: 20, 5a
-Starting insn at: 12
-Processing insn at 12
-Processing insn at 16
-Processing insn at 1a
-Checking code ref 5a
-Ending insn at: 1a
-BB: 0
-Successors: 12
-Starting insn at: 0
-Processing insn at 0
-Processing insn at 1
-Processing insn at 4
-Processing insn at b
-Ending insn at: b
-Recovered 1 functions.
+Recovering module test_17.clang.o
+Looking for instructions in segment .init
+  Default block heads for function 400380 with loose bounds [400380, 400397)
+    block [400380, 400390)
+    block [400390, 400392)
+    block [400392, 400397)
+    chunk [400380, 400397)
+Looking for instructions in segment .text
+  Default block heads for function 4003a0 with loose bounds [4003a0, 4003cb)
+    block [4003a0, 4003cb)
+    chunk [4003a0, 4003cb)
+  Default block heads for function 4003d0 with loose bounds [4003d0, 400402)
+    block [4003d0, 4003e5)
+    block [4003e5, 4003ef)
+    block [4003ef, 4003f7)
+    block [400400, 400402)
+    chunk [4003d0, 400402)
+  Default block heads for function 400410 with loose bounds [400410, 40044a)
+    block [400410, 400433)
+    block [400433, 40043d)
+    block [40043d, 400445)
+    block [400448, 40044a)
+    chunk [400410, 40044a)
+  Default block heads for function 400450 with loose bounds [400450, 40046c)
+    block [400450, 400459)
+    block [400459, 40046a)
+    block [40046a, 40046c)
+    chunk [400450, 40046c)
+  Default block heads for function 400470 with loose bounds [400470, 400496)
+    block [400470, 40047b)
+    block [40047b, 40047d)
+    block [400480, 40048a)
+    block [40048a, 400496)
+    chunk [400470, 400496)
+  Default block heads for function 4004a0 with loose bounds [4004a0, 4004ff)
+    block [4004a0, 4004b2)
+    block [4004b2, 4004c0)
+    block [4004c0, 4004d3)
+    block [4004d3, 4004e7)
+    block [4004e7, 4004ec)
+    block [4004ec, 4004fa)
+    block [4004fa, 4004ff)
+    chunk [4004a0, 4004ff)
+  Default block heads for function 400500 with loose bounds [400500, 400523)
+    block [400500, 400523)
+    chunk [400500, 400523)
+  Default block heads for function 400530 with loose bounds [400530, 400595)
+    block [400530, 400566)
+    block [400566, 400570)
+    block [400570, 400586)
+    block [400586, 400595)
+    chunk [400530, 400595)
+  Default block heads for function 4005a0 with loose bounds [4005a0, 4005a2)
+    block [4005a0, 4005a2)
+    chunk [4005a0, 4005a2)
+Looking for instructions in segment .fini
+  Default block heads for function 4005a4 with loose bounds [4005a4, 4005ad)
+    block [4005a4, 4005ad)
+    chunk [4005a4, 4005ad)
+Looking for strings in segment .rodata [4005b0, 4005b4)
+Looking for strings in segment .eh_frame_hdr [4005b4, 4005e8)
+Looking for strings in segment .eh_frame [4005e8, 4006d4)
+Looking for strings in segment .init_array [600e38, 600e40)
+Looking for strings in segment .fini_array [600e40, 600e48)
+Looking for strings in segment .jcr [600e48, 600e50)
+Looking for strings in segment .got [600ff0, 601000)
+Looking for strings in segment .got.plt [601000, 601018)
+Looking for strings in segment .data [601020, 601090)
+Looking for strings in segment .bss [601090, 601098)
+Looking for strings in segment extern [601098, 6010b0)
+Looking for cross-references in segment .init [400380, 400397)
+Looking for cross-references in segment .text [4003a0, 4005a2)
+  Stopping scan at 4003cc
+  Stopping scan at 4003fc
+  Stopping scan at 40040c
+  Stopping scan at ffffffffffffffff
+  Stopping scan at 40044c
+  Stopping scan at 40046c
+  Stopping scan at ffffffffffffffff
+  Stopping scan at 40049c
+  Stopping scan at ffffffffffffffff
+  Stopping scan at 40052c
+  Stopping scan at 40059c
+Looking for cross-references in segment .fini [4005a4, 4005ad)
+Looking for cross-references in segment .rodata [4005b0, 4005b4)
+  Stopping scan at 4005b0
+Looking for cross-references in segment .eh_frame_hdr [4005b4, 4005e8)
+  Stopping scan at 4005e4
+Looking for cross-references in segment .eh_frame [4005e8, 4006d4)
+  Stopping scan at 4006d0
+Looking for cross-references in segment .init_array [600e38, 600e40)
+  Adding qword reference from 600e38 to 400470
+  Stopping scan at 600e38
+Looking for cross-references in segment .fini_array [600e40, 600e48)
+  Adding qword reference from 600e40 to 400450
+  Stopping scan at 600e40
+Looking for cross-references in segment .jcr [600e48, 600e50)
+  Stopping scan at 600e4c
+Looking for cross-references in segment .got [600ff0, 601000)
+  Adding qword reference from 600ff0 to 6010a0
+  Adding qword reference from 600ff8 to 6010a8
+  Stopping scan at 600ff8
+Looking for cross-references in segment .got.plt [601000, 601018)
+  Stopping scan at 601014
+Looking for cross-references in segment .data [601020, 601090)
+  Adding qword reference from 601048 to 601030
+  Adding qword reference from 601060 to 601034
+  !!! target_ea = 601038 item_size = 1
+  !!! target_ea = 601038 item_size = 1
+  Stopping scan at 60108c
+Looking for cross-references in segment .bss [601090, 601098)
+  Stopping scan at 601094
+Looking for cross-references in segment extern [601098, 6010b0)
+  Stopping scan at 6010ac
+Looking for thunks
+Looking for external symbols
+  Function at 601098 is the external function __libc_start_main
+  Function at 6010a0 is the external function __libc_start_main
+Looking for entrypoints
+Recovering .init_proc at 400380
+  Analysing subroutine .init_proc at 400380
+  Subroutine .init_proc at 400380 has 3 blocks
+  BB: 400380 in func 400380 with 4 insts
+    I: 400380
+    I: 400384 (data mem internal 600ff8 )
+    I: 40038b
+    I: 40038e (code flow internal 400392 )
+      Successors: 400390, 400392
+  BB: 400390 in func 400380 with 1 insts
+    I: 400390
+      Successors: 400392
+  BB: 400392 in func 400380 with 2 insts
+    I: 400392
+    I: 400396
+      No successors
+Recovering _start at 4003a0
+  Analysing subroutine _start at 4003a0
+  Subroutine _start at 4003a0 has 1 blocks
+  BB: 4003a0 in func 4003a0 with 12 insts
+    I: 4003a0
+    I: 4003a2
+    I: 4003a5
+    I: 4003a6
+    I: 4003a9
+    I: 4003ad
+    I: 4003ae
+    I: 4003af (code imm internal 4005a0 __libc_csu_fini)
+    I: 4003b6 (code imm internal 400530 __libc_csu_init)
+    I: 4003bd (code imm internal 400500 main)
+    I: 4003c4 (data mem internal 600ff0 )
+    I: 4003ca
+      Does not return
+Recovering deregister_tm_clones at 4003d0
+  Analysing subroutine deregister_tm_clones at 4003d0
+  Subroutine deregister_tm_clones at 4003d0 has 4 blocks
+  BB: 4003d0 in func 4003d0 with 6 insts
+    I: 4003d0 (data imm internal 601097 )
+    I: 4003d5
+    I: 4003d6 (data imm internal 601090 __bss_start)
+    I: 4003dc
+    I: 4003e0
+    I: 4003e3 (code flow internal 400400 )
+      Successors: 400400, 4003e5
+  BB: 400400 in func 4003d0 with 2 insts
+    I: 400400
+    I: 400401
+      No successors
+  BB: 4003e5 in func 4003d0 with 3 insts
+    I: 4003e5
+    I: 4003ea
+    I: 4003ed (code flow internal 400400 )
+      Successors: 400400, 4003ef
+  BB: 4003ef in func 4003d0 with 3 insts
+    I: 4003ef
+    I: 4003f0 (data imm internal 601090 __bss_start)
+    I: 4003f5
+      No successors
+Recovering register_tm_clones at 400410
+  Analysing subroutine register_tm_clones at 400410
+  Subroutine register_tm_clones at 400410 has 4 blocks
+  BB: 400410 in func 400410 with 10 insts
+    I: 400410 (data imm internal 601090 __bss_start)
+    I: 400415
+    I: 400416 (data imm internal 601090 __bss_start)
+    I: 40041d
+    I: 400421
+    I: 400424
+    I: 400427
+    I: 40042b
+    I: 40042e
+    I: 400431 (code flow internal 400448 )
+      Successors: 400448, 400433
+  BB: 400448 in func 400410 with 2 insts
+    I: 400448
+    I: 400449
+      No successors
+  BB: 400433 in func 400410 with 3 insts
+    I: 400433
+    I: 400438
+    I: 40043b (code flow internal 400448 )
+      Successors: 400448, 40043d
+  BB: 40043d in func 400410 with 3 insts
+    I: 40043d
+    I: 40043e (data imm internal 601090 __bss_start)
+    I: 400443
+      No successors
+Recovering frame_dummy at 400470
+  Analysing subroutine frame_dummy at 400470
+  Subroutine frame_dummy at 400470 has 4 blocks
+  BB: 400470 in func 400470 with 3 insts
+    I: 400470 (data imm internal 600e48 __JCR_LIST__)
+    I: 400475
+    I: 400479 (code flow internal 400480 )
+      Successors: 400480, 40047b
+  BB: 400480 in func 400470 with 3 insts
+    I: 400480
+    I: 400485
+    I: 400488 (code flow internal 40047b )
+      Successors: 40048a, 40047b
+  BB: 40048a in func 400470 with 5 insts
+    I: 40048a
+    I: 40048b
+    I: 40048e
+    I: 400490
+    I: 400491 (code flow internal 400410 register_tm_clones)
+      Successors: 400410
+  BB: 40047b in func 400470 with 1 insts
+    I: 40047b (code flow internal 400410 register_tm_clones)
+      Successors: 400410
+Recovering printdata at 4004a0
+  Analysing subroutine printdata at 4004a0
+  Subroutine printdata at 4004a0 has 7 blocks
+  BB: 4004a0 in func 4004a0 with 4 insts
+    I: 4004a0
+    I: 4004a1
+    I: 4004a4
+    I: 4004ab
+      Successors: 4004b2
+  BB: 4004c0 in func 4004a0 with 3 insts
+    I: 4004c0
+    I: 4004c4 (data disp internal 601040 mydata)
+    I: 4004cd (code flow internal 4004e7 )
+      Successors: 4004d3, 4004e7
+  BB: 4004e7 in func 4004a0 with 1 insts
+    I: 4004e7 (code flow internal 4004ec )
+      Successors: 4004ec
+  BB: 4004ec in func 4004a0 with 4 insts
+    I: 4004ec
+    I: 4004ef
+    I: 4004f2
+    I: 4004f5 (code flow internal 4004b2 )
+      Successors: 4004b2
+  BB: 4004b2 in func 4004a0 with 3 insts
+    I: 4004b2
+    I: 4004b6
+    I: 4004ba (code flow internal 4004fa )
+      Successors: 4004c0, 4004fa
+  BB: 4004d3 in func 4004a0 with 5 insts
+    I: 4004d3
+    I: 4004d7 (data disp internal 601040 mydata)
+    I: 4004df
+    I: 4004e1
+    I: 4004e4
+      Successors: 4004e7
+  BB: 4004fa in func 4004a0 with 3 insts
+    I: 4004fa
+    I: 4004fd
+    I: 4004fe
+      No successors
+Recovering main at 400500
+  Analysing subroutine main at 400500
+  Subroutine main at 400500 has 1 blocks
+  BB: 400500 in func 400500 with 11 insts
+    I: 400500
+    I: 400501
+    I: 400504
+    I: 400508
+    I: 40050f
+    I: 400512
+    I: 400516
+    I: 400518 (code flow internal 4004a0 printdata)
+    I: 40051d
+    I: 400521
+    I: 400522
+      No successors
+Recovering __libc_csu_init at 400530
+  Analysing subroutine __libc_csu_init at 400530
+  Subroutine __libc_csu_init at 400530 has 4 blocks
+  BB: 400530 in func 400530 with 17 insts
+    I: 400530
+    I: 400532
+    I: 400534
+    I: 400537
+    I: 400539
+    I: 40053b (data mem internal 600e38 __frame_dummy_init_array_entry)
+    I: 400542
+    I: 400543 (data mem internal 600e40 __do_global_dtors_aux_fini_array_entry)
+    I: 40054a
+    I: 40054b
+    I: 40054e
+    I: 400551
+    I: 400554
+    I: 400558
+    I: 40055c (code flow internal 400380 .init_proc)
+    I: 400561
+    I: 400564 (code flow internal 400586 )
+      Successors: 400586, 400566
+  BB: 400570 in func 400530 with 7 insts
+    I: 400570
+    I: 400573
+    I: 400576
+    I: 400579
+    I: 40057d
+    I: 400581
+    I: 400584 (code flow internal 400570 )
+      Successors: 400570, 400586
+  BB: 400566 in func 400530 with 2 insts
+    I: 400566
+    I: 400568
+      Successors: 400570
+  BB: 400586 in func 400530 with 8 insts
+    I: 400586
+    I: 40058a
+    I: 40058b
+    I: 40058c
+    I: 40058e
+    I: 400590
+    I: 400592
+    I: 400594
+      No successors
+Recovering __do_global_dtors_aux at 400450
+  Analysing subroutine __do_global_dtors_aux at 400450
+  Subroutine __do_global_dtors_aux at 400450 has 3 blocks
+  BB: 400450 in func 400450 with 2 insts
+    I: 400450 (data mem internal 601090 __bss_start)
+    I: 400457 (code flow internal 40046a )
+      Successors: 400459, 40046a
+  BB: 400459 in func 400450 with 5 insts
+    I: 400459
+    I: 40045a
+    I: 40045d (code flow internal 4003d0 deregister_tm_clones)
+    I: 400462
+    I: 400463 (data mem internal 601090 __bss_start)
+      Successors: 40046a
+  BB: 40046a in func 400450 with 1 insts
+    I: 40046a
+      No successors
+Recovering __libc_csu_fini at 4005a0
+  Analysing subroutine __libc_csu_fini at 4005a0
+  Subroutine __libc_csu_fini at 4005a0 has 1 blocks
+  BB: 4005a0 in func 4005a0 with 1 insts
+    I: 4005a0
+      No successors
+Recovering .term_proc at 4005a4
+  Analysing subroutine .term_proc at 4005a4
+  Subroutine .term_proc at 4005a4 has 1 blocks
+  BB: 4005a4 in func 4005a4 with 3 insts
+    I: 4005a4
+    I: 4005a8
+    I: 4005ac
+      No successors
+Global Variable None
+Splitting segment .data at 601040 for exported variable mydata
+Splitting segment .data at 601038 for exported variable c
+Splitting segment .bss at 601090 for exported variable __bss_start
+Splitting segment .data at 601034 for exported variable b
+Splitting segment .data at 601030 for exported variable a
+Recovering .init in segment .init [400380, 400397)
+Recovering .text in segment .text [4003a0, 4005a2)
+Recovering .fini in segment .fini [4005a4, 4005ad)
+Recovering .got in segment .got [600ff0, 601000)
+  8-byte reference at 600ff0 to 6010a0 (__libc_start_main)
+  8-byte reference at 600ff8 to 6010a8 (__gmon_start__)
+Recovering .got.plt in segment .got.plt [601000, 601018)
+Recovering .data in segment .data [601020, 601030)
+Recovering a in segment .data [601030, 601034)
+  Variable a at 601030
+Recovering b in segment .data [601034, 601038)
+  Variable b at 601034
+Recovering c in segment .data [601038, 601040)
+  Variable c at 601038
+Recovering mydata in segment .data [601040, 601090)
+  8-byte reference at 601048 to 601030 (a)
+  8-byte reference at 601060 to 601034 (b)
+  Variable mydata at 601040
+Recovering .eh_frame in segment .eh_frame [4005e8, 4006d4)
+Recovering __bss_start in segment .bss [601090, 601098)
+  Variable __bss_start at 601090
+Recovering .rodata in segment .rodata [4005b0, 4005b4)
+Recovering .jcr in segment .jcr [600e48, 600e50)
+  Variable __JCR_LIST__ at 600e48
+Recovering .eh_frame_hdr in segment .eh_frame_hdr [4005b4, 4005e8)
+Recovering .init_array in segment .init_array [600e38, 600e40)
+  8-byte reference at 600e38 to 400470 (frame_dummy)
+  Variable __frame_dummy_init_array_entry at 600e38
+Recovering .fini_array in segment .fini_array [600e40, 600e48)
+  8-byte reference at 600e40 to 400450 (__do_global_dtors_aux)
+  Variable __do_global_dtors_aux_fini_array_entry at 600e40
+Recovering extern function __libc_start_main at 601098
+Recovering extern function __libc_start_main at 6010a0
+Recovered 11 functions.
 Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_17/Output/test_17.clang.ida.cfg
+Done analysis!

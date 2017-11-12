@@ -85,7 +85,7 @@ for my $test (@tests) {
 
     if ( "" ne $revamb ) {
         my $TRANSLATE = "${home}/Github/orchestra/root/bin/translate";
-        execute("${TRANSLATE}  ${bin};");
+        execute("${TRANSLATE} -s -O2  ${bin};");
     }
 
     $CWD = $cwd;

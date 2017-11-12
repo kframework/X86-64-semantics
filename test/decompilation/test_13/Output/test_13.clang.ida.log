@@ -1,270 +1,691 @@
 Debugging is enabled.
-Loading Standard Definitions file: /home/sdasgup3/.local/lib/python2.7/site-packages/mcsema_disass-0.0.1-py2.7.egg/mcsema_disass/defs/linux.txt
-Loading Standard Definitions file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13/map.txt
+Loading Standard Definitions file: /usr/local/lib/python2.7/dist-packages/mcsema_disass-2.0-py2.7.egg/mcsema_disass/defs/linux.txt
 Using Batch mode.
 Starting analysis
-Will lift 1 exports
-CFG Output File file: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13/Output/test_13.clang.ida.cfg
-PROCESSING: test_13.clang.o
-Adding data seg: .eh_frame: 0x180L-0x1f0L
-Looking for relocations in 180 - 1f0
-Found relocations in binary: (1a0)..
-rtype : 4, 0, 0
-1a0 Found reloc to: 0 (size: 4)
-Testing 0 for externality
-Offset: 1a0, seg_offset: 0 => 0
-Reloc Base Address: 1a0
-Reloc size: 4
-Testing 0 for externality
-Code Ref: 0!
-rtype : 4, 0, 0
-1bc Found reloc to: 0 (size: 4)
-Testing 0 for externality
-Offset: 1bc, seg_offset: 0 => 0
-Reloc Base Address: 1bc
-Reloc size: 4
-Testing 0 for externality
-Code Ref: 0!
-rtype : 4, 0, 0
-1d8 Found reloc to: 0 (size: 4)
-Testing 0 for externality
-Offset: 1d8, seg_offset: 0 => 0
-Reloc Base Address: 1d8
-Reloc size: 4
-Testing 0 for externality
-Code Ref: 0!
-Adding data seg: .eh_frame: 0x180L-0x1f0L
-Recovering: doWork
-Processing export name: doWork at: 0
-WARNING: Cannot determine type of function: doWork at: 0
-At EP doWork:0
-Testing 33 for externality
-Testing 75 for externality
-Testing 55 for externality
-Testing 62 for externality
-Testing 67 for externality
-Testing 27 for externality
-BB: 75
-Starting insn at: 75
-Processing insn at 75
-Processing insn at 79
-Processing insn at 7d
-Processing insn at 81
-Processing insn at 82
-Ending insn at: 81
-BB: 67
-Successors: 27
-Starting insn at: 67
-Processing insn at 67
-Processing insn at 6a
-Processing insn at 6d
-Processing insn at 70
-Checking code ref 27
-Testing 27 for externality
-INTERNAL JMP: 27
-Ending insn at: 70
-BB: 62
-Successors: 67
-Starting insn at: 62
-Processing insn at 62
-Checking code ref 67
-Testing 67 for externality
-INTERNAL JMP: 67
-Ending insn at: 62
-BB: 55
-Successors: 62
-Starting insn at: 55
-Processing insn at 55
-Processing insn at 59
-Processing insn at 5d
-Checking code ref 100
-Testing 100 for externality
-INTERNAL CALL: doStuff
-Ending insn at: 5d
-BB: 33
-Successors: 55, 62
-Starting insn at: 33
-Processing insn at 33
-Processing insn at 37
-Processing insn at 3b
-Processing insn at 3f
-Processing insn at 43
-Processing insn at 47
-Checking code ref 90
-Testing 90 for externality
-INTERNAL CALL: checkFn
-Processing insn at 4c
-Processing insn at 4f
-Checking code ref 62
-Ending insn at: 4f
-BB: 27
-Successors: 33, 75
-Starting insn at: 27
-Processing insn at 27
-Processing insn at 2a
-Processing insn at 2d
-Checking code ref 75
-Ending insn at: 2d
-BB: 0
-Successors: 27
-Starting insn at: 0
-Processing insn at 0
-Processing insn at 1
-Processing insn at 4
-Processing insn at 8
-Processing insn at c
-Processing insn at f
-Processing insn at 16
-Processing insn at 1a
-Processing insn at 1e
-Checking code ref 1f0
-Testing 1f0 for externality
-EXTERNAL CALL: malloc
-findRelocOffset setting imm reloc offset at 1e to 1
-Processing insn at 23
-Ending insn at: 23
-Recovering: 0x100L
-Testing 132 for externality
-Testing 17a for externality
-Testing 13f for externality
-Testing 14b for externality
-Testing 125 for externality
-Testing 154 for externality
-BB: 17a
-Starting insn at: 17a
-Processing insn at 17a
-Processing insn at 17b
-Ending insn at: 17a
-BB: 154
-Successors: 125
-Starting insn at: 154
-Processing insn at 154
-Processing insn at 158
-Processing insn at 15c
-Processing insn at 160
-Processing insn at 164
-Processing insn at 168
-Processing insn at 16c
-Processing insn at 170
-Processing insn at 172
-Processing insn at 175
-Checking code ref 125
-Testing 125 for externality
-INTERNAL JMP: 125
-Ending insn at: 175
-BB: 14b
-Successors: 154
-Starting insn at: 14b
-Processing insn at 14b
-Processing insn at 14e
-Processing insn at 152
-Ending insn at: 152
-BB: 13f
-Successors: 154
-Starting insn at: 13f
-Processing insn at 13f
-Processing insn at 143
-Processing insn at 146
-Checking code ref 154
-Testing 154 for externality
-INTERNAL JMP: 154
-Ending insn at: 146
-BB: 132
-Successors: 13f, 14b
-Starting insn at: 132
-Processing insn at 132
-Processing insn at 136
-Processing insn at 139
-Checking code ref 14b
-Ending insn at: 139
-BB: 125
-Successors: 132, 17a
-Starting insn at: 125
-Processing insn at 125
-Processing insn at 129
-Processing insn at 12c
-Checking code ref 17a
-Ending insn at: 12c
-BB: 100
-Successors: 125
-Starting insn at: 100
-Processing insn at 100
-Processing insn at 101
-Processing insn at 104
-Processing insn at 108
-Processing insn at 10c
-Processing insn at 110
-Processing insn at 114
-Processing insn at 118
-Processing insn at 11c
-Processing insn at 120
-Processing insn at 122
-Ending insn at: 122
-Recovering: 0x90L
-Testing bb for externality
-Testing f3 for externality
-Testing e7 for externality
-Testing ee for externality
-Testing f3 for externality
-BB: f3
-Starting insn at: f3
-Processing insn at f3
-Processing insn at f6
-Processing insn at fa
-Processing insn at fb
-Ending insn at: fa
-BB: ee
-Successors: f3
-Starting insn at: ee
-Processing insn at ee
-Checking code ref f3
-Testing f3 for externality
-INTERNAL JMP: f3
-Ending insn at: ee
-BB: e7
-Successors: ee
-Starting insn at: e7
-Processing insn at e7
-Ending insn at: e7
-BB: bb
-Successors: e7, ee
-Starting insn at: bb
-Processing insn at bb
-Processing insn at bf
-Processing insn at c1
-Processing insn at c4
-Processing insn at c7
-Processing insn at ca
-Processing insn at cd
-Processing insn at d1
-Processing insn at d4
-Processing insn at d7
-Processing insn at db
-Processing insn at df
-Processing insn at e1
-Checking code ref ee
-Ending insn at: e1
-BB: 90
-Successors: bb, f3
-Starting insn at: 90
-Processing insn at 90
-Processing insn at 91
-Processing insn at 94
-Processing insn at 98
-Processing insn at 9c
-Processing insn at a3
-Processing insn at a7
-Checking code ref 1f8
-Testing 1f8 for externality
-EXTERNAL CALL: strlen
-findRelocOffset setting imm reloc offset at a7 to 1
-Processing insn at ac
-Processing insn at ae
-Processing insn at b1
-Processing insn at b5
-Checking code ref f3
-Ending insn at: b5
-Program will reference external: malloc
-Program will reference external: strlen
-Recovered 3 functions.
+Recovering module test_13.clang.o
+Looking for instructions in segment .init
+  Default block heads for function 4004a0 with loose bounds [4004a0, 4004b7)
+    block [4004a0, 4004b0)
+    block [4004b0, 4004b2)
+    block [4004b2, 4004b7)
+    chunk [4004a0, 4004b7)
+Looking for instructions in segment .plt
+  Default block heads for function 4004d0 with loose bounds [4004d0, 4004d6)
+    block [4004d0, 4004d6)
+    chunk [4004d0, 4004d6)
+  Default block heads for function 4004e0 with loose bounds [4004e0, 4004e6)
+    block [4004e0, 4004e6)
+    chunk [4004e0, 4004e6)
+  Default block heads for function 4004f0 with loose bounds [4004f0, 4004f6)
+    block [4004f0, 4004f6)
+    chunk [4004f0, 4004f6)
+  Default block heads for function 400500 with loose bounds [400500, 400506)
+    block [400500, 400506)
+    chunk [400500, 400506)
+  Default block heads for function 400510 with loose bounds [400510, 400516)
+    block [400510, 400516)
+    chunk [400510, 400516)
+Looking for instructions in segment .text
+  Default block heads for function 400520 with loose bounds [400520, 40054b)
+    block [400520, 40054b)
+    chunk [400520, 40054b)
+  Default block heads for function 400550 with loose bounds [400550, 400582)
+    block [400550, 400565)
+    block [400565, 40056f)
+    block [40056f, 400577)
+    block [400580, 400582)
+    chunk [400550, 400582)
+  Default block heads for function 400590 with loose bounds [400590, 4005ca)
+    block [400590, 4005b3)
+    block [4005b3, 4005bd)
+    block [4005bd, 4005c5)
+    block [4005c8, 4005ca)
+    chunk [400590, 4005ca)
+  Default block heads for function 4005d0 with loose bounds [4005d0, 4005ec)
+    block [4005d0, 4005d9)
+    block [4005d9, 4005ea)
+    block [4005ea, 4005ec)
+    chunk [4005d0, 4005ec)
+  Default block heads for function 4005f0 with loose bounds [4005f0, 400616)
+    block [4005f0, 4005fb)
+    block [4005fb, 4005fd)
+    block [400600, 40060a)
+    block [40060a, 400616)
+    chunk [4005f0, 400616)
+  Default block heads for function 400620 with loose bounds [400620, 4006a3)
+    block [400620, 400647)
+    block [400647, 400653)
+    block [400653, 400675)
+    block [400675, 400682)
+    block [400682, 400687)
+    block [400687, 400695)
+    block [400695, 4006a3)
+    chunk [400620, 4006a3)
+  Default block heads for function 4006b0 with loose bounds [4006b0, 40071c)
+    block [4006b0, 4006db)
+    block [4006db, 400707)
+    block [400707, 40070e)
+    block [40070e, 400713)
+    block [400713, 40071c)
+    chunk [4006b0, 40071c)
+  Default block heads for function 400720 with loose bounds [400720, 40079c)
+    block [400720, 400745)
+    block [400745, 400752)
+    block [400752, 40075f)
+    block [40075f, 40076b)
+    block [40076b, 400774)
+    block [400774, 40079a)
+    block [40079a, 40079c)
+    chunk [400720, 40079c)
+  Default block heads for function 4007a0 with loose bounds [4007a0, 400961)
+    block [4007a0, 400961)
+    chunk [4007a0, 400961)
+  Default block heads for function 400970 with loose bounds [400970, 4009d5)
+    block [400970, 4009a6)
+    block [4009a6, 4009b0)
+    block [4009b0, 4009c6)
+    block [4009c6, 4009d5)
+    chunk [400970, 4009d5)
+  Default block heads for function 4009e0 with loose bounds [4009e0, 4009e2)
+    block [4009e0, 4009e2)
+    chunk [4009e0, 4009e2)
+Looking for instructions in segment .fini
+  Default block heads for function 4009e4 with loose bounds [4009e4, 4009ed)
+    block [4009e4, 4009ed)
+    chunk [4009e4, 4009ed)
+Looking for strings in segment .rodata [4009f0, 400a1f)
+  Found string 'foo' of length 4 at 4009f4, jumping to 4009f8
+  Found string '/stuff/' of length 8 at 4009f8, jumping to 400a00
+  Found string 'bar' of length 4 at 400a00, jumping to 400a04
+  Found string 'a == %s\n' of length 9 at 400a04, jumping to 400a0d
+  Found string 'b == %s\n' of length 9 at 400a0d, jumping to 400a16
+  Found string 'c == %s\n' of length 9 at 400a16, jumping to 400a1f
+Looking for strings in segment .eh_frame_hdr [400a20, 400a6c)
+Looking for strings in segment .eh_frame [400a70, 400bc4)
+Looking for strings in segment .init_array [600df8, 600e00)
+Looking for strings in segment .fini_array [600e00, 600e08)
+Looking for strings in segment .jcr [600e08, 600e10)
+Looking for strings in segment .got [600ff0, 601000)
+Looking for strings in segment .got.plt [601000, 601040)
+Looking for strings in segment .data [601040, 601050)
+Looking for strings in segment .bss [601050, 601058)
+Looking for strings in segment extern [601058, 6010c0)
+Looking for cross-references in segment .init [4004a0, 4004b7)
+Looking for cross-references in segment .plt [4004c0, 400520)
+  Stopping scan at 4004cc
+  Stopping scan at 4004dc
+  Stopping scan at 4004ec
+  Stopping scan at 4004fc
+  Stopping scan at 40050c
+  Stopping scan at 40051c
+Looking for cross-references in segment .text [400520, 4009e2)
+  Stopping scan at 40054c
+  Stopping scan at 40057c
+  Stopping scan at 40058c
+  Stopping scan at ffffffffffffffff
+  Stopping scan at 4005cc
+  Stopping scan at 4005ec
+  Stopping scan at ffffffffffffffff
+  Stopping scan at 40061c
+  Stopping scan at 4006ac
+  Stopping scan at 40071c
+  Stopping scan at 40079c
+  Stopping scan at 40096c
+  Stopping scan at 4009dc
+Looking for cross-references in segment .fini [4009e4, 4009ed)
+Looking for cross-references in segment .rodata [4009f0, 400a1f)
+  Found string at 4009f4, jumping to 4009f8
+  Found string at 4009f8, jumping to 400a00
+  Found string at 400a00, jumping to 400a04
+  Found string at 400a04, jumping to 400a0d
+  Found string at 400a0d, jumping to 400a16
+  Found string at 400a16, jumping to 400a1f
+  Stopping scan at 400a16
+Looking for cross-references in segment .eh_frame_hdr [400a20, 400a6c)
+  Stopping scan at 400a68
+Looking for cross-references in segment .eh_frame [400a70, 400bc4)
+  Stopping scan at 400bc0
+Looking for cross-references in segment .init_array [600df8, 600e00)
+  Adding qword reference from 600df8 to 4005f0
+  Stopping scan at 600df8
+Looking for cross-references in segment .fini_array [600e00, 600e08)
+  Adding qword reference from 600e00 to 4005d0
+  Stopping scan at 600e00
+Looking for cross-references in segment .jcr [600e08, 600e10)
+  Stopping scan at 600e0c
+Looking for cross-references in segment .got [600ff0, 601000)
+  Adding qword reference from 600ff0 to 6010a8
+  Adding qword reference from 600ff8 to 6010b8
+  Stopping scan at 600ff8
+Looking for cross-references in segment .got.plt [601000, 601040)
+  Adding qword reference from 601018 to 601088
+  Adding qword reference from 601020 to 601090
+  Adding qword reference from 601028 to 601098
+  Adding qword reference from 601030 to 6010a0
+  Adding qword reference from 601038 to 6010b0
+  Stopping scan at 601038
+Looking for cross-references in segment .data [601040, 601050)
+  Stopping scan at 60104c
+Looking for cross-references in segment .bss [601050, 601058)
+  Stopping scan at 601054
+Looking for cross-references in segment extern [601058, 6010c0)
+  Stopping scan at 6010bc
+Looking for thunks
+  Found thunk for malloc targeting 6010b0 at 400510
+  Found thunk for strlen targeting 601090 at 4004e0
+  Found thunk for printf targeting 601098 at 4004f0
+  Found thunk for memset targeting 6010a0 at 400500
+  Found thunk for strcpy targeting 601088 at 4004d0
+Looking for external symbols
+  Function at 4004d0 is the external function strcpy
+  Function at 4004e0 is the external function strlen
+  Function at 4004f0 is the external function printf
+  Function at 400500 is the external function memset
+  Function at 400510 is the external function malloc
+  Function at 601058 is the external function strcpy
+  Function at 601060 is the external function strlen
+  Function at 601068 is the external function printf
+  Function at 601070 is the external function memset
+  Function at 601078 is the external function __libc_start_main
+  Function at 601080 is the external function malloc
+  Function at 601088 is the external function strcpy
+  Function at 601090 is the external function strlen
+  Function at 601098 is the external function printf
+  Function at 6010a0 is the external function memset
+  Function at 6010a8 is the external function __libc_start_main
+  Function at 6010b0 is the external function malloc
+Looking for entrypoints
+Recovering .init_proc at 4004a0
+  Analysing subroutine .init_proc at 4004a0
+  Subroutine .init_proc at 4004a0 has 3 blocks
+  BB: 4004a0 in func 4004a0 with 4 insts
+    I: 4004a0
+    I: 4004a4 (data mem internal 600ff8 )
+    I: 4004ab
+    I: 4004ae (code flow internal 4004b2 )
+      Successors: 4004b0, 4004b2
+  BB: 4004b0 in func 4004a0 with 1 insts
+    I: 4004b0
+      Successors: 4004b2
+  BB: 4004b2 in func 4004a0 with 2 insts
+    I: 4004b2
+    I: 4004b6
+      No successors
+Recovering .term_proc at 4009e4
+  Analysing subroutine .term_proc at 4009e4
+  Subroutine .term_proc at 4009e4 has 1 blocks
+  BB: 4009e4 in func 4009e4 with 3 insts
+    I: 4009e4
+    I: 4009e8
+    I: 4009ec
+      No successors
+Recovering __libc_csu_fini at 4009e0
+  Analysing subroutine __libc_csu_fini at 4009e0
+  Subroutine __libc_csu_fini at 4009e0 has 1 blocks
+  BB: 4009e0 in func 4009e0 with 1 insts
+    I: 4009e0
+      No successors
+Recovering _start at 400520
+  Analysing subroutine _start at 400520
+  Subroutine _start at 400520 has 1 blocks
+  BB: 400520 in func 400520 with 12 insts
+    I: 400520
+    I: 400522
+    I: 400525
+    I: 400526
+    I: 400529
+    I: 40052d
+    I: 40052e
+    I: 40052f (code imm internal 4009e0 __libc_csu_fini)
+    I: 400536 (code imm internal 400970 __libc_csu_init)
+    I: 40053d (code imm internal 4007a0 main)
+    I: 400544 (data mem internal 600ff0 )
+    I: 40054a
+      Does not return
+Recovering main at 4007a0
+  Analysing subroutine main at 4007a0
+  Subroutine main at 4007a0 has 1 blocks
+  BB: 4007a0 in func 4007a0 with 102 insts
+    I: 4007a0
+    I: 4007a1
+    I: 4007a4
+    I: 4007ab
+    I: 4007b0
+    I: 4007b2
+    I: 4007b9
+    I: 4007bc
+    I: 4007c0
+    I: 4007c3 (code flow external 6010b0 malloc)
+    I: 4007c8
+    I: 4007cd
+    I: 4007cf
+    I: 4007d3 (code flow external 6010b0 malloc)
+    I: 4007d8
+    I: 4007dd
+    I: 4007df
+    I: 4007e3 (code flow external 6010b0 malloc)
+    I: 4007e8 (data imm internal 400a04 aAS)
+    I: 4007f2
+    I: 4007f4
+    I: 4007fa
+    I: 4007fd
+    I: 400803
+    I: 400806
+    I: 40080a
+    I: 40080e
+    I: 400812
+    I: 400815
+    I: 400819
+    I: 40081b
+    I: 40081e
+    I: 400821
+    I: 400825 (code flow external 6010a0 memset)
+    I: 40082a
+    I: 40082e
+    I: 400831
+    I: 400835 (code flow external 6010a0 memset)
+    I: 40083a
+    I: 40083e
+    I: 400841
+    I: 400845 (code flow external 6010a0 memset)
+    I: 40084a
+    I: 40084e (data imm internal 4009f4 src)
+    I: 400853 (code flow external 601088 strcpy)
+    I: 400858
+    I: 40085c (data imm internal 4009f8 aStuff)
+    I: 400862
+    I: 400865
+    I: 400869 (code flow external 601088 strcpy)
+    I: 40086e
+    I: 400872 (data imm internal 400a00 aBar)
+    I: 400878
+    I: 40087b
+    I: 40087f (code flow external 601088 strcpy)
+    I: 400884
+    I: 400888
+    I: 40088c
+    I: 400890
+    I: 400894
+    I: 400898
+    I: 40089c
+    I: 4008a0
+    I: 4008a4
+    I: 4008a8
+    I: 4008aa (code flow external 601098 printf)
+    I: 4008af (data imm internal 400a0d format)
+    I: 4008b9
+    I: 4008bd
+    I: 4008c3
+    I: 4008c5 (code flow external 601098 printf)
+    I: 4008ca (data imm internal 400a16 aCS)
+    I: 4008d4
+    I: 4008d8
+    I: 4008de
+    I: 4008e0 (code flow external 601098 printf)
+    I: 4008e5
+    I: 4008ea
+    I: 4008ee
+    I: 4008f4
+    I: 4008f6 (code flow internal 400620 doWork)
+    I: 4008fb (data imm internal 400a04 aAS)
+    I: 400905
+    I: 400909
+    I: 40090f
+    I: 400911 (code flow external 601098 printf)
+    I: 400916 (data imm internal 400a0d format)
+    I: 400920
+    I: 400924
+    I: 40092a
+    I: 40092c (code flow external 601098 printf)
+    I: 400931 (data imm internal 400a16 aCS)
+    I: 40093b
+    I: 40093f
+    I: 400945
+    I: 400947 (code flow external 601098 printf)
+    I: 40094c
+    I: 40094f
+    I: 400955
+    I: 400958
+    I: 40095f
+    I: 400960
+      No successors
+Recovering deregister_tm_clones at 400550
+  Analysing subroutine deregister_tm_clones at 400550
+  Subroutine deregister_tm_clones at 400550 has 4 blocks
+  BB: 400550 in func 400550 with 6 insts
+    I: 400550 (data imm internal 601057 )
+    I: 400555
+    I: 400556 (data imm internal 601050 __bss_start)
+    I: 40055c
+    I: 400560
+    I: 400563 (code flow internal 400580 )
+      Successors: 400580, 400565
+  BB: 400580 in func 400550 with 2 insts
+    I: 400580
+    I: 400581
+      No successors
+  BB: 400565 in func 400550 with 3 insts
+    I: 400565
+    I: 40056a
+    I: 40056d (code flow internal 400580 )
+      Successors: 400580, 40056f
+  BB: 40056f in func 400550 with 3 insts
+    I: 40056f
+    I: 400570 (data imm internal 601050 __bss_start)
+    I: 400575
+      No successors
+Recovering __do_global_dtors_aux at 4005d0
+  Analysing subroutine __do_global_dtors_aux at 4005d0
+  Subroutine __do_global_dtors_aux at 4005d0 has 3 blocks
+  BB: 4005d0 in func 4005d0 with 2 insts
+    I: 4005d0 (data mem internal 601050 __bss_start)
+    I: 4005d7 (code flow internal 4005ea )
+      Successors: 4005d9, 4005ea
+  BB: 4005d9 in func 4005d0 with 5 insts
+    I: 4005d9
+    I: 4005da
+    I: 4005dd (code flow internal 400550 deregister_tm_clones)
+    I: 4005e2
+    I: 4005e3 (data mem internal 601050 __bss_start)
+      Successors: 4005ea
+  BB: 4005ea in func 4005d0 with 1 insts
+    I: 4005ea
+      No successors
+Recovering frame_dummy at 4005f0
+  Analysing subroutine frame_dummy at 4005f0
+  Subroutine frame_dummy at 4005f0 has 4 blocks
+  BB: 4005f0 in func 4005f0 with 3 insts
+    I: 4005f0 (data imm internal 600e08 __JCR_LIST__)
+    I: 4005f5
+    I: 4005f9 (code flow internal 400600 )
+      Successors: 400600, 4005fb
+  BB: 400600 in func 4005f0 with 3 insts
+    I: 400600
+    I: 400605
+    I: 400608 (code flow internal 4005fb )
+      Successors: 40060a, 4005fb
+  BB: 40060a in func 4005f0 with 5 insts
+    I: 40060a
+    I: 40060b
+    I: 40060e
+    I: 400610
+    I: 400611 (code flow internal 400590 register_tm_clones)
+      Successors: 400590
+  BB: 4005fb in func 4005f0 with 1 insts
+    I: 4005fb (code flow internal 400590 register_tm_clones)
+      Successors: 400590
+Recovering doWork at 400620
+  Analysing subroutine doWork at 400620
+  Subroutine doWork at 400620 has 7 blocks
+  BB: 400620 in func 400620 with 10 insts
+    I: 400620
+    I: 400621
+    I: 400624
+    I: 400628
+    I: 40062c
+    I: 40062f
+    I: 400636
+    I: 40063a
+    I: 40063e (code flow external 6010b0 malloc)
+    I: 400643
+      Successors: 400647
+  BB: 400682 in func 400620 with 1 insts
+    I: 400682 (code flow internal 400687 )
+      Successors: 400687
+  BB: 400647 in func 400620 with 3 insts
+    I: 400647
+    I: 40064a
+    I: 40064d (code flow internal 400695 )
+      Successors: 400653, 400695
+  BB: 400687 in func 400620 with 4 insts
+    I: 400687
+    I: 40068a
+    I: 40068d
+    I: 400690 (code flow internal 400647 )
+      Successors: 400647
+  BB: 400653 in func 400620 with 8 insts
+    I: 400653
+    I: 400657
+    I: 40065b
+    I: 40065f
+    I: 400663
+    I: 400667 (code flow internal 4006b0 checkFn)
+    I: 40066c
+    I: 40066f (code flow internal 400682 )
+      Successors: 400682, 400675
+  BB: 400675 in func 400620 with 3 insts
+    I: 400675
+    I: 400679
+    I: 40067d (code flow internal 400720 doStuff)
+      Successors: 400682
+  BB: 400695 in func 400620 with 5 insts
+    I: 400695
+    I: 400699
+    I: 40069d
+    I: 4006a1
+    I: 4006a2
+      No successors
+Recovering __libc_csu_init at 400970
+  Analysing subroutine __libc_csu_init at 400970
+  Subroutine __libc_csu_init at 400970 has 4 blocks
+  BB: 400970 in func 400970 with 17 insts
+    I: 400970
+    I: 400972
+    I: 400974
+    I: 400977
+    I: 400979
+    I: 40097b (data mem internal 600df8 __frame_dummy_init_array_entry)
+    I: 400982
+    I: 400983 (data mem internal 600e00 __do_global_dtors_aux_fini_array_entry)
+    I: 40098a
+    I: 40098b
+    I: 40098e
+    I: 400991
+    I: 400994
+    I: 400998
+    I: 40099c (code flow internal 4004a0 .init_proc)
+    I: 4009a1
+    I: 4009a4 (code flow internal 4009c6 )
+      Successors: 4009c6, 4009a6
+  BB: 4009b0 in func 400970 with 7 insts
+    I: 4009b0
+    I: 4009b3
+    I: 4009b6
+    I: 4009b9
+    I: 4009bd
+    I: 4009c1
+    I: 4009c4 (code flow internal 4009b0 )
+      Successors: 4009b0, 4009c6
+  BB: 4009a6 in func 400970 with 2 insts
+    I: 4009a6
+    I: 4009a8
+      Successors: 4009b0
+  BB: 4009c6 in func 400970 with 8 insts
+    I: 4009c6
+    I: 4009ca
+    I: 4009cb
+    I: 4009cc
+    I: 4009ce
+    I: 4009d0
+    I: 4009d2
+    I: 4009d4
+      No successors
+Recovering checkFn at 4006b0
+  Analysing subroutine checkFn at 4006b0
+  Subroutine checkFn at 4006b0 has 5 blocks
+  BB: 4006b0 in func 4006b0 with 11 insts
+    I: 4006b0
+    I: 4006b1
+    I: 4006b4
+    I: 4006b8
+    I: 4006bc
+    I: 4006c3
+    I: 4006c7 (code flow external 601090 strlen)
+    I: 4006cc
+    I: 4006ce
+    I: 4006d1
+    I: 4006d5 (code flow internal 400713 )
+      Successors: 400713, 4006db
+  BB: 400713 in func 4006b0 with 4 insts
+    I: 400713
+    I: 400716
+    I: 40071a
+    I: 40071b
+      No successors
+  BB: 40070e in func 4006b0 with 1 insts
+    I: 40070e (code flow internal 400713 )
+      Successors: 400713
+  BB: 4006db in func 4006b0 with 13 insts
+    I: 4006db
+    I: 4006df
+    I: 4006e1
+    I: 4006e4
+    I: 4006e8
+    I: 4006eb
+    I: 4006ee
+    I: 4006f1
+    I: 4006f4
+    I: 4006f7
+    I: 4006fb
+    I: 4006ff
+    I: 400701 (code flow internal 40070e )
+      Successors: 40070e, 400707
+  BB: 400707 in func 4006b0 with 1 insts
+    I: 400707
+      Successors: 40070e
+Recovering register_tm_clones at 400590
+  Analysing subroutine register_tm_clones at 400590
+  Subroutine register_tm_clones at 400590 has 4 blocks
+  BB: 400590 in func 400590 with 10 insts
+    I: 400590 (data imm internal 601050 __bss_start)
+    I: 400595
+    I: 400596 (data imm internal 601050 __bss_start)
+    I: 40059d
+    I: 4005a1
+    I: 4005a4
+    I: 4005a7
+    I: 4005ab
+    I: 4005ae
+    I: 4005b1 (code flow internal 4005c8 )
+      Successors: 4005c8, 4005b3
+  BB: 4005c8 in func 400590 with 2 insts
+    I: 4005c8
+    I: 4005c9
+      No successors
+  BB: 4005b3 in func 400590 with 3 insts
+    I: 4005b3
+    I: 4005b8
+    I: 4005bb (code flow internal 4005c8 )
+      Successors: 4005c8, 4005bd
+  BB: 4005bd in func 400590 with 3 insts
+    I: 4005bd
+    I: 4005be (data imm internal 601050 __bss_start)
+    I: 4005c3
+      No successors
+Recovering doStuff at 400720
+  Analysing subroutine doStuff at 400720
+  Subroutine doStuff at 400720 has 7 blocks
+  BB: 400720 in func 400720 with 11 insts
+    I: 400720
+    I: 400721
+    I: 400724
+    I: 400728
+    I: 40072c
+    I: 400730
+    I: 400734
+    I: 400738
+    I: 40073c
+    I: 400740
+    I: 400742
+      Successors: 400745
+  BB: 400745 in func 400720 with 3 insts
+    I: 400745
+    I: 400749
+    I: 40074c (code flow internal 40079a )
+      Successors: 400752, 40079a
+  BB: 40076b in func 400720 with 3 insts
+    I: 40076b
+    I: 40076e
+    I: 400772
+      Successors: 400774
+  BB: 400752 in func 400720 with 3 insts
+    I: 400752
+    I: 400756
+    I: 400759 (code flow internal 40076b )
+      Successors: 40076b, 40075f
+  BB: 400774 in func 400720 with 10 insts
+    I: 400774
+    I: 400778
+    I: 40077c
+    I: 400780
+    I: 400784
+    I: 400788
+    I: 40078c
+    I: 400790
+    I: 400792
+    I: 400795 (code flow internal 400745 )
+      Successors: 400745
+  BB: 40079a in func 400720 with 2 insts
+    I: 40079a
+    I: 40079b
+      No successors
+  BB: 40075f in func 400720 with 3 insts
+    I: 40075f
+    I: 400763
+    I: 400766 (code flow internal 400774 )
+      Successors: 400774
+Global Variable None
+Splitting segment .bss at 601050 for exported variable __bss_start
+Recovering .init in segment .init [4004a0, 4004b7)
+Recovering .plt in segment .plt [4004c0, 400520)
+Recovering __bss_start in segment .bss [601050, 601058)
+  Variable __bss_start at 601050
+Recovering .fini in segment .fini [4009e4, 4009ed)
+Recovering .got in segment .got [600ff0, 601000)
+  8-byte reference at 600ff0 to 6010a8 (__libc_start_main)
+  8-byte reference at 600ff8 to 6010b8 (__gmon_start__)
+Recovering .got.plt in segment .got.plt [601000, 601040)
+  8-byte reference at 601018 to 601088 (strcpy)
+  8-byte reference at 601020 to 601090 (strlen)
+  8-byte reference at 601028 to 601098 (printf)
+  8-byte reference at 601030 to 6010a0 (memset)
+  8-byte reference at 601038 to 6010b0 (malloc)
+Recovering .jcr in segment .jcr [600e08, 600e10)
+  Variable __JCR_LIST__ at 600e08
+Recovering .data in segment .data [601040, 601050)
+Recovering .text in segment .text [400520, 4009e2)
+Recovering .rodata in segment .rodata [4009f0, 400a1f)
+  Variable src at 4009f4
+  Variable aStuff at 4009f8
+  Variable aBar at 400a00
+  Variable aAS at 400a04
+  Variable format at 400a0d
+  Variable aCS at 400a16
+Recovering .fini_array in segment .fini_array [600e00, 600e08)
+  8-byte reference at 600e00 to 4005d0 (__do_global_dtors_aux)
+  Variable __do_global_dtors_aux_fini_array_entry at 600e00
+Recovering .eh_frame_hdr in segment .eh_frame_hdr [400a20, 400a6c)
+Recovering .init_array in segment .init_array [600df8, 600e00)
+  8-byte reference at 600df8 to 4005f0 (frame_dummy)
+  Variable __frame_dummy_init_array_entry at 600df8
+Recovering .eh_frame in segment .eh_frame [400a70, 400bc4)
+Recovering extern function strlen at 4004e0
+Recovering extern function malloc at 400510
+Recovering extern function printf at 601098
+Recovering extern function printf at 601068
+Recovering extern function strlen at 601060
+Recovering extern function malloc at 601080
+Recovering extern function memset at 6010a0
+Recovering extern function printf at 4004f0
+Recovering extern function memset at 400500
+Recovering extern function strcpy at 4004d0
+Recovering extern function __libc_start_main at 601078
+Recovering extern function memset at 601070
+Recovering extern function strlen at 601090
+Recovering extern function strcpy at 601058
+Recovering extern function strcpy at 601088
+Recovering extern function __libc_start_main at 6010a8
+Recovering extern function malloc at 6010b0
+Recovered 13 functions.
 Saving to: /home/sdasgup3/Github/binary-decompilation/test/decompilation/test_13/Output/test_13.clang.ida.cfg
+Done analysis!
