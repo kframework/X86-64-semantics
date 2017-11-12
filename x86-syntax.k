@@ -8,6 +8,8 @@ module X86-SYNTAX
   syntax Label ::= "." Id
   syntax Opcode ::=  Id
 
+  syntax AbstractValue ::= Int 
+
   syntax Typedoperands ::= List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
                        | Label

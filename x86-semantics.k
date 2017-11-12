@@ -2,9 +2,8 @@ requires "x86-configuration.k"
 
 module  X86-SEMANTICS-BASE-RULES
   imports X86-CONFIGURATION
-
   /*@
-    
+
     The lookup and update operations on the registers require two cells, k and
     regs for integer registers.  We have included only the rule for the integer
     registers case.  If the current computational task is an integer register
@@ -26,6 +25,26 @@ module  X86-SEMANTICS-BASE-RULES
   rule <k> %r14 => V ...</k> <r14> V </r14>
   rule <k> %r15 => V ...</k> <r15> V </r15>
 
+  /*@
+    if the top computational task is to update a register, say Rd with a computed
+    value I, the previous value of Rd, denoted by the wildcard _, is replaced by
+    I, as shown below.
+  */
+  syntax KItem ::= updateReg(K, Register) [strict(1)]
+  rule <k> updateReg(V:AbstractValue, %rax) => . ...</k> <rax> _ => V </rax>
+  rule <k> updateReg(V:AbstractValue, %rbx) => . ...</k> <rbx> _ => V </rbx>
+  rule <k> updateReg(V:AbstractValue, %rcx) => . ...</k> <rcx> _ => V </rcx>
+  rule <k> updateReg(V:AbstractValue, %rdx) => . ...</k> <rdx> _ => V </rdx>
+  rule <k> updateReg(V:AbstractValue, %rsi) => . ...</k> <rsi> _ => V </rsi>
+  rule <k> updateReg(V:AbstractValue, %rdi) => . ...</k> <rdi> _ => V </rdi>
+  rule <k> updateReg(V:AbstractValue, %r8)  => . ...</k> <r8>  _ => V </r8>
+  rule <k> updateReg(V:AbstractValue, %r9)  => . ...</k> <r9>  _ => V </r9>
+  rule <k> updateReg(V:AbstractValue, %r10) => . ...</k> <r10> _ => V </r10>
+  rule <k> updateReg(V:AbstractValue, %r11) => . ...</k> <r11> _ => V </r11>
+  rule <k> updateReg(V:AbstractValue, %r12) => . ...</k> <r12> _ => V </r12>
+  rule <k> updateReg(V:AbstractValue, %r13) => . ...</k> <r13> _ => V </r13>
+  rule <k> updateReg(V:AbstractValue, %r14) => . ...</k> <r14> _ => V </r14>
+  rule <k> updateReg(V:AbstractValue, %r15) => . ...</k> <r15> _ => V </r15>
 endmodule
 
 module X86-SEMANTICS-BASE-INSTRUCTIONS
@@ -34,8 +53,7 @@ module X86-SEMANTICS-BASE-INSTRUCTIONS
   /*@
     Base Instructions
   */
-  //rule <k> Op:Opcode I:Int, %rax => updateReg(I,%rax) ...</k>  <rax> V </rax>
-  rule <k> Op:Opcode I:Int, %rax => . ...</k>  <rax> V => V +Int I </rax>
+  rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
 
   syntax KItem ::= "exit_0"
   rule <k> . => exit_0 </k>

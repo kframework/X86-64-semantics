@@ -3,29 +3,31 @@ requires "x86-syntax.k"
 module X86-CONFIGURATION
   imports X86-SYNTAX
 
+  syntax KResult ::= AbstractValue
+
   configuration <T>
     <k> $PGM:Code </k>
     <pc> 0 </pc>
     <memstate> .Map </memstate>
     <regstate>
       <gpr>
-        <rip> 0 </rip>
-        <rax> 0 </rax>
-        <rbx> 0 </rbx>
-        <rcx> 0 </rcx>
-        <rdx> 0 </rdx>
-        <rsi> 0 </rsi>
-        <rdi> 0 </rdi>
-        <rsp> 0 </rsp>
-        <rbp> 0 </rbp>
-        <r8> 0 </r8>
-        <r9> 0 </r9>
-        <r10> 0 </r10>
-        <r11> 0 </r11>
-        <r12> 0 </r12>
-        <r13> 0 </r13>
-        <r14> 0 </r14>
-        <r15> 0 </r15>
+        <rip> 0:AbstractValue </rip>
+        <rax> 0:AbstractValue </rax>
+        <rbx> 0:AbstractValue </rbx>
+        <rcx> 0:AbstractValue </rcx>
+        <rdx> 0:AbstractValue </rdx>
+        <rsi> 0:AbstractValue </rsi>
+        <rdi> 0:AbstractValue </rdi>
+        <rsp> 0:AbstractValue </rsp>
+        <rbp> 0:AbstractValue </rbp>
+        <r8> 0:AbstractValue </r8>
+        <r9> 0:AbstractValue </r9>
+        <r10> 0:AbstractValue </r10>
+        <r11> 0:AbstractValue </r11>
+        <r12> 0:AbstractValue </r12>
+        <r13> 0:AbstractValue </r13>
+        <r14> 0:AbstractValue </r14>
+        <r15> 0:AbstractValue </r15>
       </gpr>
 
       <arithflags>
@@ -48,7 +50,7 @@ module X86-CONFIGURATION
         Following is the mention of only the status flags (not of Control or
         System flags)
 
-      */  
+      */
         <cf> 0 </cf>
         <pf> 0 </pf>
         <af> 0 </af>
@@ -60,7 +62,7 @@ module X86-CONFIGURATION
 
       /*@ 128 bit xmm registers
       */
-      <xmm>   
+      <xmm>
         <xmm0>  0   </xmm0>
         <xmm1>  0   </xmm1>
         <xmm2>  0   </xmm2>
@@ -77,10 +79,9 @@ module X86-CONFIGURATION
         <xmm13> 0   </xmm13>
         <xmm14> 0   </xmm14>
         <xmm15> 0   </xmm15>
-      </xmm>   
+      </xmm>
     </regstate>
 
     <labels> .Map </labels>
   </T>
 endmodule
-
