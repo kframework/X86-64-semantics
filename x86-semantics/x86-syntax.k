@@ -1,9 +1,10 @@
 module X86-SYNTAX
   syntax Instructions ::= List{Instruction, ""}
   syntax Instruction ::= Label ":"
-                 | Opcode Typedoperands
+                       | Opcode Typedoperands
   syntax Label ::= "." Id
-  syntax Opcode ::=  Id
+  syntax Opcode ::=  "add"
+                  | "sub"
 
   syntax AbstractValue ::= Int
 

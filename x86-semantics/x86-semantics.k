@@ -4,21 +4,49 @@ module LOAD-PROGRAM-TO-MEMORY
   imports X86-SYNTAX
   imports X86-CONFIGURATION
 
-  rule I:Instruction Is:Instructions => I ~> Is
-  rule .Instructions => .K
-
   syntax Int ::= loc(Int)
-  syntax Int ::= getISize(Instruction) [function]
-  rule getISize(I:Instruction) => 1
+  syntax Int ::= getISize(Opcode, Typedoperands) [function]
+  syntax Instruction ::= storedinstr(Opcode, Typedoperands)
+  syntax Instruction ::= execinstr(Opcode, Typedoperands)
+
+  rule getISize(OpC:Opcode, OpR:Typedoperands) => 1
 
   /*@
-  Base Instructions
+    Unroll intructions into KList.
   */
-  //rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
+  rule I:Instruction Is:Instructions => I ~> Is
 
-  rule <k> I:Instruction => . ...</k>
-    <cmem> CMap:Map => CMap[loc(L) <- I] </cmem>
-    <nextLoc> L:Int => L +Int getISize(I) </nextLoc>
+  /*@
+    Load the instructions into Code memory.
+  */
+  rule  <k> OpC:Opcode OpR:Typedoperands => . ...</k>
+        <cmem> CMap:Map => CMap[loc(L) <- storedinstr(OpC,OpR)] </cmem>
+        <nextLoc> L => L +Int getISize(OpC, OpR) </nextLoc>
+  /*@
+    To stop the execution of instrcution, a sentinal instruction is stored in code memory, which upon fetching will stop further execution.
+    Also rip is set to the next instrcution to execute.
+  */
+  rule  <k>.Instructions => .K ...</k>
+        <cmem> CMap:Map => CMap[loc(L) <- storedinstr(sentinal, .Typedoperands)] </cmem>
+        <nextLoc> L  </nextLoc>
+        <rip> _ => LoadAddr </rip>
+        <entrypoint> LoadAddr </entrypoint>
+
+  /*@
+    Fetch the instructions from Code memory.
+  */
+  rule <k> fetch => execinstr(OpC,OpR) ~> fetch ... </k>
+  <cmem>... loc(PC) |-> storedinstr(OpC,OpR)   ...</cmem>
+  <rip> PC => PC +Int getISize(OpC,OpR) </rip>
+
+  /*@
+    Once the sentinal instrcution is fetched, the execution stops.
+  */
+  rule <k> fetch => . ... </k>
+  <cmem>... loc(PC) |-> storedinstr(sentinal, .Typedoperands)   ...</cmem>
+  <rip> PC </rip>
+
+
 endmodule
 
 module  X86-SEMANTICS-BASE-RULES
@@ -70,10 +98,13 @@ endmodule
 
 module X86-SEMANTICS-BASE-INSTRUCTIONS
   imports X86-SEMANTICS-BASE-RULES
+
   /*@
     Base Instructions
   */
-  //rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
+  rule <k> execinstr ( add , (I:Int ,  (%rax , .Typedoperands)) ) => updateReg(I +Int V, %rax) ...</k>  <rax> V </rax>
+  rule <k> execinstr ( sub , (I:Int ,  %rbx , .Typedoperands) ) => updateReg(V -Int I, %rbx) ...</k>  <rbx> V </rbx>
+
 
   syntax KItem ::= "exit_0"
   rule <k> .K => exit_0 </k>
