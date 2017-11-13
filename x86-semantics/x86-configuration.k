@@ -17,7 +17,7 @@ module X86-CONFIGURATION
     </memstate>
     <regstate>
       <gpr>
-        <rip> 0:AbstractValue </rip>
+        <rip> 0:Int </rip>
         <rax> 0:AbstractValue </rax>
         <rbx> 0:AbstractValue </rbx>
         <rcx> 0:AbstractValue </rcx>

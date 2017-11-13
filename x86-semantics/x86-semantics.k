@@ -8,23 +8,23 @@ module LOAD-PROGRAM-TO-MEMORY
   rule .Instructions => .K
 
   syntax Int ::= loc(Int)
-  syntax Int ::= getISize(Instruction)
-  rule getISize(I) => 1:Int
+  syntax Int ::= getISize(Instruction) [function]
+  rule getISize(I:Instruction) => 1
 
   /*@
-    Base Instructions
+  Base Instructions
   */
   //rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
+
   rule <k> I:Instruction => . ...</k>
-  <cmem> CMap:Map => CMap[loc(L) <- I] </cmem>
-  <nextLoc> L => L +Int 1 </nextLoc>
+    <cmem> CMap:Map => CMap[loc(L) <- I] </cmem>
+    <nextLoc> L:Int => L +Int getISize(I) </nextLoc>
 endmodule
 
 module  X86-SEMANTICS-BASE-RULES
   imports LOAD-PROGRAM-TO-MEMORY
 
   /*@
-
     The lookup and update operations on the registers require two cells, k and
     regs for integer registers.  We have included only the rule for the integer
     registers case.  If the current computational task is an integer register
