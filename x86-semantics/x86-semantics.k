@@ -1,7 +1,28 @@
 requires "x86-configuration.k"
 
-module  X86-SEMANTICS-BASE-RULES
+module LOAD-PROGRAM-TO-MEMORY
+  imports X86-SYNTAX
   imports X86-CONFIGURATION
+
+  rule I:Instruction Is:Instructions => I ~> Is
+  rule .Instructions => .K
+
+  syntax Int ::= loc(Int)
+  syntax Int ::= getISize(Instruction)
+  rule getISize(I) => 1:Int
+
+  /*@
+    Base Instructions
+  */
+  //rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
+  rule <k> I:Instruction => . ...</k>
+  <cmem> CMap:Map => CMap[loc(L) <- I] </cmem>
+  <nextLoc> L => L +Int 1 </nextLoc>
+endmodule
+
+module  X86-SEMANTICS-BASE-RULES
+  imports LOAD-PROGRAM-TO-MEMORY
+
   /*@
 
     The lookup and update operations on the registers require two cells, k and
@@ -49,18 +70,18 @@ endmodule
 
 module X86-SEMANTICS-BASE-INSTRUCTIONS
   imports X86-SEMANTICS-BASE-RULES
-
   /*@
     Base Instructions
   */
-  rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
+  //rule <k> Op:Opcode I:Int, %rax => updateReg(I +Int V,%rax) ...</k>  <rax> V </rax>
 
   syntax KItem ::= "exit_0"
-  rule <k> . => exit_0 </k>
+  rule <k> .K => exit_0 </k>
 
 endmodule
 
 
 module X86-SEMANTICS
   imports X86-SEMANTICS-BASE-INSTRUCTIONS
+
 endmodule

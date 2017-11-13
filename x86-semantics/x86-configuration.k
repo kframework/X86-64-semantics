@@ -4,11 +4,17 @@ module X86-CONFIGURATION
   imports X86-SYNTAX
 
   syntax KResult ::= AbstractValue
+  syntax KItem ::= "execute"
 
   configuration <T>
-    <k> $PGM:Code </k>
-    <pc> 0 </pc>
-    <memstate> .Map </memstate>
+    <k> $PGM:Instructions ~> execute </k>
+    // <k> $PGM:Instructions </k>
+    <entrypoint> 0:Int </entrypoint>
+    <nextLoc> 0:Int </nextLoc>
+    <memstate>
+      <cmem> .Map </cmem>
+      <dmem> .Map </dmem>
+    </memstate>
     <regstate>
       <gpr>
         <rip> 0:AbstractValue </rip>
@@ -84,4 +90,6 @@ module X86-CONFIGURATION
 
     <labels> .Map </labels>
   </T>
+
+
 endmodule
