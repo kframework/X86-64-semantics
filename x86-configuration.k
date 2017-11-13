@@ -4,11 +4,11 @@ module X86-CONFIGURATION
   imports X86-SYNTAX
 
   syntax KResult ::= AbstractValue
-  syntax KItem ::= "execute"
+  syntax KItem ::= "fetch"
+  syntax Opcode ::= "sentinal"
 
   configuration <T>
-    <k> $PGM:Instructions ~> execute </k>
-    // <k> $PGM:Instructions </k>
+    <k> $PGM:Instructions ~> fetch </k>
     <entrypoint> 0:Int </entrypoint>
     <nextLoc> 0:Int </nextLoc>
     <memstate>
