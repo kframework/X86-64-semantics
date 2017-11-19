@@ -93,4 +93,44 @@ module  X86-SEMANTIC-UTILITIES
   rule <k> updateReg(MI:MInt, %r13) => . ...</k> <r13> _ => MI </r13>
   rule <k> updateReg(MI:MInt, %r14) => . ...</k> <r14> _ => MI </r14>
   rule <k> updateReg(MI:MInt, %r15) => . ...</k> <r15> _ => MI </r15>
+
+  //syntax Instruction ::=   normalizeInst(Opcode, Register, MInt, MInt)
+  // syntax Instruction ::=   normalizeInst(Opcode, Typedoperands)
+  // Todo : type check
+  syntax MInt ::= truncate64to8(MInt) [function]
+
+  //syntax MInt ::= truncate64to16(MInt) [function]
+  //syntax MInt ::= truncate64to32(MInt) [function]
+  syntax Typeoperand ::= extractR8(R64)
+  syntax Typeoperand ::= MInt
+  //syntax MInt ::= extractR16(R64)
+  //syntax MInt ::= extractR32(R64)
+
+  syntax MInt ::= zeroExtend1to8(MInt) [function]
+  syntax MInt ::= zeroExtend8to64(MInt) [function]
+
+  syntax MInt ::= plugin8(MInt, R64)
+
+  rule truncate64to8(MI) => mi(8, svalueMInt(andMInt(MI, mi(64,255))))
+  //rule truncate64to16(MI) => mi(16, svalueMInt(andMInt(MI, mi(64,65535))))
+  //rule truncate64to32(MI) => mi(32, svalueMInt(andMInt(MI, mi(64,4294967295))))
+
+
+  rule <k> extractR8(%rax) => truncate64to8(MI) ...</k>
+  <rax> MI </rax>
+/*
+  rule extractR8(%rax) => truncate64to16MI)
+  <rax> MI </rax>
+
+  rule extractR8(%rax) => truncate64to32MI)
+  <rax> MI </rax>
+*/
+  rule <k> plugin8(MId:MInt, %rax) => updateReg(orMInt(zeroExtend8to64(MId), andMInt(MIs, mi(64,-256)))   , %rax) ...</k>
+  <rax> MIs </rax>
+
+  rule zeroExtend1to8(MI) => mi(8, uvalueMInt(MI))
+  rule zeroExtend8to64(MI) => mi(64, uvalueMInt(MI))
+
+  syntax KItem ::= "exit_0"
+  rule <k> .K => exit_0 </k>
 endmodule

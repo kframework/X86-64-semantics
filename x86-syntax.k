@@ -8,7 +8,8 @@ module X86-SYNTAX
   syntax Instruction ::= Label ":"
                        | Opcode Typedoperands
   syntax Label ::= "." Id
-  syntax Opcode ::=  "addq"
+  syntax Opcode ::= "addq"
+                  | "adcb"    
 
   syntax AbstractValue ::= Int | MInt
 

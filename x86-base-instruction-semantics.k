@@ -19,20 +19,41 @@ vrsqrtps_ymm_ymm, vsqrtpd_ymm_ymm, vsqrtps_ymm_ymm,
 vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm, vzeroall,
 xorq_r64_r64,
 */
-
-module X86-BASE-INSTRUCTIONS-SEMANTICS
+module ADC-R8-R8
   imports X86-SEMANTIC-UTILITIES
+  // Todo: check for overflow
+  rule <k> execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
+  execinstr(adcb, (%rax, extractR8(%rax), extractR8(%rax), .Typedoperands)) ...</k>
 
-  /*@
-    Base Instructions
-  */
+  //MI,m2 type chaeck
+  context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, .Typedoperands))
+  context execinstr(adcb, (_:Typeoperand, MInt, HOLE:Typeoperand, .Typedoperands))
+
+  rule
+  <k> execinstr(adcb, ( DestR:R64, MI1:MInt, MI2:MInt, .Typedoperands )) => plugin8(addMInt(addMInt(MI1, MI2), zeroExtend1to8(MI3)), DestR) ...</k>
+  <cf> MI3 </cf>
+
+endmodule
+
+module ADD-IMM-R8
+  imports X86-SEMANTIC-UTILITIES
   syntax Int ::= handleImmediate(Imm) [function]
   rule handleImmediate($ I:Int) => I
 
   rule <k> execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => updateReg(addMInt(mi(64, handleImmediate(I)), MI), %rax) ...</k>  <rax> MI </rax>
+endmodule
+
+module ADC-SEMANTICS
+  imports ADC-R8-R8
+endmodule
+
+module ADD-SEMANTICS
+  imports ADD-IMM-R8
+endmodule
 
 
-  syntax KItem ::= "exit_0"
-  rule <k> .K => exit_0 </k>
 
+module X86-BASE-INSTRUCTIONS-SEMANTICS
+  imports ADC-SEMANTICS
+  imports ADD-SEMANTICS
 endmodule
