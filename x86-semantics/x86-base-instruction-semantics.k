@@ -26,8 +26,11 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   /*@
     Base Instructions
   */
-  rule <k> execinstr ( add , (I:Int ,  (%rax , .Typedoperands)) ) => updateReg(I +Int V, %rax) ...</k>  <rax> V </rax>
-  rule <k> execinstr ( sub , (I:Int ,  %rbx , .Typedoperands) ) => updateReg(V -Int I, %rbx) ...</k>  <rbx> V </rbx>
+  syntax Int ::= handleImmediate(Imm) [function]
+  rule handleImmediate($ I:Int) => I
+
+  rule <k> execinstr ( add , (I:Imm ,  (%rax , .Typedoperands)) ) => updateReg(handleImmediate(I) +Int V, %rax) ...</k>  <rax> V </rax>
+  rule <k> execinstr ( sub , (I:Imm ,  %rbx , .Typedoperands) ) => updateReg(V -Int handleImmediate(I), %rbx) ...</k>  <rbx> V </rbx>
 
 
   syntax KItem ::= "exit_0"
