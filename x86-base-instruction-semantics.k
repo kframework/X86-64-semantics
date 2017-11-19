@@ -29,8 +29,7 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   syntax Int ::= handleImmediate(Imm) [function]
   rule handleImmediate($ I:Int) => I
 
-  rule <k> execinstr ( add , (I:Imm ,  (%rax , .Typedoperands)) ) => updateReg(handleImmediate(I) +Int V, %rax) ...</k>  <rax> V </rax>
-  rule <k> execinstr ( sub , (I:Imm ,  %rbx , .Typedoperands) ) => updateReg(V -Int handleImmediate(I), %rbx) ...</k>  <rbx> V </rbx>
+  rule <k> execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => updateReg(addMInt(mi(64, handleImmediate(I)), MI), %rax) ...</k>  <rax> MI </rax>
 
 
   syntax KItem ::= "exit_0"
