@@ -43,9 +43,7 @@ module LOAD-PROGRAM-TO-MEMORY
   /*@
     Once the sentinal instrcution is fetched, the execution stops.
   */
-  rule <k> fetch => . ... </k>
-  <cmem>... loc(PC) |-> storedinstr(sentinal, .Typedoperands)   ...</cmem>
-  <rip> PC </rip>
+  rule <k> execinstr ( sentinal , .Typedoperands ) ~> fetch => . ... </k>
 
 
 endmodule

@@ -1,4 +1,7 @@
 module X86-SYNTAX
+
+/*@ The following captures  the At&t syntax of x86 assembly.
+*/
   syntax Instructions ::= List{Instruction, ""}
   syntax Instruction ::= Label ":"
                        | Opcode Typedoperands
@@ -27,7 +30,7 @@ module X86-SYNTAX
   syntax Memoffs ::= Offset
                    | Sreg ":" Offset
   syntax Offset ::= Int
-  syntax Imm ::= Int
+  syntax Imm ::= "$" Int
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"
                | "(" Rip ")"
