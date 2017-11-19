@@ -1,4 +1,6 @@
+//requires "domains.k "
 module X86-SYNTAX
+  imports MINT
 
 /*@ The following captures  the At&t syntax of x86 assembly.
 */
@@ -6,10 +8,9 @@ module X86-SYNTAX
   syntax Instruction ::= Label ":"
                        | Opcode Typedoperands
   syntax Label ::= "." Id
-  syntax Opcode ::=  "add"
-                  | "sub"
+  syntax Opcode ::=  "addq"
 
-  syntax AbstractValue ::= Int
+  syntax AbstractValue ::= Int | MInt
 
   syntax Typedoperands ::= List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
@@ -30,6 +31,7 @@ module X86-SYNTAX
   syntax Memoffs ::= Offset
                    | Sreg ":" Offset
   syntax Offset ::= Int
+  // Todo: Support $0xhhhh
   syntax Imm ::= "$" Int
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"

@@ -2,6 +2,7 @@ requires "x86-syntax.k"
 
 module X86-CONFIGURATION
   imports X86-SYNTAX
+  imports MINT
 
   syntax KResult ::= AbstractValue
   syntax KItem ::= "fetch"
@@ -9,31 +10,31 @@ module X86-CONFIGURATION
 
   configuration <T>
     <k> $PGM:Instructions ~> fetch </k>
-    <entrypoint> 0:Int </entrypoint>
-    <nextLoc> 0:Int </nextLoc>
+    <entrypoint> mi(64,0) </entrypoint>
+    <nextLoc> mi(64,0) </nextLoc>
     <memstate>
       <cmem> .Map </cmem>
       <dmem> .Map </dmem>
     </memstate>
     <regstate>
       <gpr>
-        <rip> 0:Int </rip>
-        <rax> 0:AbstractValue </rax>
-        <rbx> 0:AbstractValue </rbx>
-        <rcx> 0:AbstractValue </rcx>
-        <rdx> 0:AbstractValue </rdx>
-        <rsi> 0:AbstractValue </rsi>
-        <rdi> 0:AbstractValue </rdi>
-        <rsp> 0:AbstractValue </rsp>
-        <rbp> 0:AbstractValue </rbp>
-        <r8> 0:AbstractValue </r8>
-        <r9> 0:AbstractValue </r9>
-        <r10> 0:AbstractValue </r10>
-        <r11> 0:AbstractValue </r11>
-        <r12> 0:AbstractValue </r12>
-        <r13> 0:AbstractValue </r13>
-        <r14> 0:AbstractValue </r14>
-        <r15> 0:AbstractValue </r15>
+        <rip> mi(64,0) </rip>
+        <rax> mi(64,0) </rax>
+        <rbx> mi(64,0) </rbx>
+        <rcx> mi(64,0) </rcx>
+        <rdx> mi(64,0) </rdx>
+        <rsi> mi(64,0) </rsi>
+        <rdi> mi(64,0) </rdi>
+        <rsp> mi(64,0) </rsp>
+        <rbp> mi(64,0) </rbp>
+        <r8> mi(64,0) </r8>
+        <r9> mi(64,0) </r9>
+        <r10> mi(64,0) </r10>
+        <r11> mi(64,0) </r11>
+        <r12> mi(64,0) </r12>
+        <r13> mi(64,0) </r13>
+        <r14> mi(64,0) </r14>
+        <r15> mi(64,0) </r15>
       </gpr>
 
       <arithflags>
@@ -57,34 +58,33 @@ module X86-CONFIGURATION
         System flags)
 
       */
-        <cf> 0 </cf>
-        <pf> 0 </pf>
-        <af> 0 </af>
-        <zf> 0 </zf>
-        <sf> 0 </sf>
-        <of> 0 </of>
-        <df> 0 </df>
+        <cf> mi(1,0) </cf>
+        <pf> mi(1,0) </pf>
+        <af> mi(1,0) </af>
+        <zf> mi(1,0) </zf>
+        <sf> mi(1,0) </sf>
+        <of> mi(1,0) </of>
+        <df> mi(1,0) </df>
       </arithflags>
 
       /*@ 128 bit xmm registers
       */
       <xmm>
-        <xmm0>  0   </xmm0>
-        <xmm1>  0   </xmm1>
-        <xmm2>  0   </xmm2>
-        <xmm3>  0   </xmm3>
-        <xmm4>  0   </xmm4>
-        <xmm5>  0   </xmm5>
-        <xmm6>  0   </xmm6>
-        <xmm7>  0   </xmm7>
-        <xmm8>  0   </xmm8>
-        <xmm9>  0   </xmm9>
-        <xmm10> 0   </xmm10>
-        <xmm11> 0   </xmm11>
-        <xmm12> 0   </xmm12>
-        <xmm13> 0   </xmm13>
-        <xmm14> 0   </xmm14>
-        <xmm15> 0   </xmm15>
+        <xmm0>  mi(128,0)   </xmm0>
+        <xmm1>  mi(128,0)   </xmm1>
+        <xmm2>  mi(128,0)   </xmm2>
+        <xmm3>  mi(128,0)   </xmm3>
+        <xmm4>  mi(128,0)   </xmm4>
+        <xmm5>  mi(128,0)   </xmm5>
+        <xmm6>  mi(128,0)   </xmm6>
+        <xmm7>  mi(128,0)   </xmm7>
+        <xmm8>  mi(128,0)   </xmm8>
+        <xmm9>  mi(128,0)   </xmm9>
+        <xmm11> mi(128,0)   </xmm11>
+        <xmm12> mi(128,0)   </xmm12>
+        <xmm14> mi(128,0)   </xmm14>
+        <xmm13> mi(128,0)   </xmm13>
+        <xmm15> mi(128,0)   </xmm15>
       </xmm>
     </regstate>
 
