@@ -48,8 +48,88 @@ module LOAD-PROGRAM-TO-MEMORY
 
 endmodule
 
+module X86-FLAG-CHECKS
+  imports MINT
+  imports X86-SYNTAX
+  imports X86-CONFIGURATION
+  
+
+  syntax KItem ::= updateOverflowAdd(MInt, MInt, MInt) 
+  rule 
+  <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
+  <of> _ => fromBool( 
+              eqMInt( 
+                mi(bitwidthMInt(MIres),2), 
+                addMInt(
+                  xorMInt(
+                    lshrMInt(MIsrc1, bitwidthMInt(MIres) -Int 1),
+                    lshrMInt(MIres, bitwidthMInt(MIres) -Int 1)
+                  ),
+                  xorMInt(
+                    lshrMInt(MIsrc2, bitwidthMInt(MIres) -Int 1),
+                    lshrMInt(MIres, bitwidthMInt(MIres) -Int 1)
+                  )
+                )
+              ) 
+            , 1)
+  </of>
+
+  syntax KItem ::= updateZeroFlag(MInt) 
+  rule <k> updateZeroFlag(MI) => . ...</k>
+  <zf> _ => fromBool(zeroMInt(MI),1) </zf>
+
+  syntax KItem ::= updateSignFlag(MInt) 
+  rule <k> UpdateSignFlag(MI) => . ...</k>
+  <sf> _ => fromBool( eqMInt(mi(bitwidthMInt(MI),1), lshrMInt(MI, bitwidthMInt(MI) -Int 1)) , 1) </sf>
+
+  syntax KItem ::= updateAuxCarryFlag(MInt,MInt, MInt) 
+  rule <k> updateAuxCarryFlag(MIsrc1, MIsrc2, MIres) => . ...</k>
+  <af> _ =>  fromBool( 
+              andInt( 
+                lshrMInt(
+                  xorMInt( xorMInt( MIsrc1, MIsrc2), MIres), 
+                  4
+                ),
+                mi(bitwidthMInt(MIres), 1)
+              ) 
+            , 1)
+  </af>
+
+  syntax Bool ::= carryHelperAdd(MInt,MInt, MInt) [function]
+  rule  carryHelperAdd(MIsrc1, MIsrc2, MIres) => 
+      ultMInt( MIres, MIsrc1) orBool ultMInt( MIres, MIsrc2)
+
+  syntax KItem ::= updateCarryFlagAdd(MInt,MInt, MInt, MInt, MInt) 
+  rule <k> updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) => . ...</k>
+  <cf> _ => fromBool( carryHelperAdd(MIsrc1, MIsrc2, MIsum) orBool carryHelperAdd(MIsum, MIcarry, MIresult) , 1)
+  </cf>
+
+
+  /*
+  syntax MInt ::= addListMInt(Int, Typedoperands) [function]
+  rule addListMInt(W:Int, (MI1:MInt, MI2:MInt, Rest)) => addMInt(addMInt(MI1, MI2), addListMInt(W, Rest))
+  rule addListMInt(W:Int, .Typedoperands) => mi(W,0) 
+
+  syntax KItem ::= updateParityFlag(MInt) 
+  rule <k> updateParityFlag(MI) => . ...</k>
+  <cf> _ => 
+          addListMInt(bitwidthMInt(MI),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),1))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),2))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),4))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),8))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),32))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),64))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),128))), 32),
+            fromBool(toBool(addMInt(MI, mi(bitwidthMInt(MI),256))), 32)
+          )
+  </cf>
+  */
+endmodule  
+
 module  X86-SEMANTIC-UTILITIES
   imports LOAD-PROGRAM-TO-MEMORY
+  imports X86-FLAG-CHECKS
 
   /*@
     The lookup and update operations on the registers require two cells, k and
@@ -94,43 +174,60 @@ module  X86-SEMANTIC-UTILITIES
   rule <k> updateReg(MI:MInt, %r14) => . ...</k> <r14> _ => MI </r14>
   rule <k> updateReg(MI:MInt, %r15) => . ...</k> <r15> _ => MI </r15>
 
-  //syntax Instruction ::=   normalizeInst(Opcode, Register, MInt, MInt)
-  // syntax Instruction ::=   normalizeInst(Opcode, Typedoperands)
-  // Todo : type check
+  /*@ Conversion from/to MInt and Bool
+  */  
+  syntax Bool ::= toBool(MInt) [function]
+  rule toBool(MI) => true
+    requires uvalueMInt(MI) =/=Int 0
+  rule toBool(MI) => false
+    requires uvalueMInt(MI) ==Int 0
+
+  syntax MInt ::= fromBool(Bool, Int) [function]
+  rule fromBool(B:Bool, W:Int) => mi(W,1)
+    requires B
+  rule fromBool(B:Bool, W:Int) => mi(W,0)
+    requires notBool B
+
+  /*@ truncateMtoN: Truncates a MInt(M,V1) to MInt(N,V2)
+    Todo : type check
+  */
   syntax MInt ::= truncate64to8(MInt) [function]
-
-  //syntax MInt ::= truncate64to16(MInt) [function]
-  //syntax MInt ::= truncate64to32(MInt) [function]
-  syntax Typeoperand ::= extractR8(R64)
-  syntax Typeoperand ::= MInt
-  //syntax MInt ::= extractR16(R64)
-  //syntax MInt ::= extractR32(R64)
-
-  syntax MInt ::= zeroExtend1to8(MInt) [function]
-  syntax MInt ::= zeroExtend8to64(MInt) [function]
-
-  syntax MInt ::= plugin8(MInt, R64)
+  syntax MInt ::= truncate64to16(MInt) [function]
+  syntax MInt ::= truncate64to32(MInt) [function]
 
   rule truncate64to8(MI) => mi(8, svalueMInt(andMInt(MI, mi(64,255))))
-  //rule truncate64to16(MI) => mi(16, svalueMInt(andMInt(MI, mi(64,65535))))
-  //rule truncate64to32(MI) => mi(32, svalueMInt(andMInt(MI, mi(64,4294967295))))
+  rule truncate64to16(MI) => mi(16, svalueMInt(andMInt(MI, mi(64,65535))))
+  rule truncate64to32(MI) => mi(32, svalueMInt(andMInt(MI, mi(64,4294967295))))
 
-
+  /*@ extractM: Extracts the lower M bits from a R^$ register.
+    Todo : type check
+  */
+  syntax Typeoperand ::= extractR8(R64)
+  syntax Typeoperand ::= extractR16(R64)
+  syntax Typeoperand ::= extractR32(R64)
+  syntax Typeoperand ::= MInt
   rule <k> extractR8(%rax) => truncate64to8(MI) ...</k>
   <rax> MI </rax>
-/*
-  rule extractR8(%rax) => truncate64to16MI)
+  rule <k> extractR16(%rax) => truncate64to16(MI) ...</k>
+  <rax> MI </rax>
+  rule <k> extractR32(%rax) => truncate64to32(MI) ...</k>
   <rax> MI </rax>
 
-  rule extractR8(%rax) => truncate64to32MI)
-  <rax> MI </rax>
-*/
-  rule <k> plugin8(MId:MInt, %rax) => updateReg(orMInt(zeroExtend8to64(MId), andMInt(MIs, mi(64,-256)))   , %rax) ...</k>
-  <rax> MIs </rax>
+  /*@ zeroExtendMtoN: Zero extend MInt(M, V1) to MInt(N,V2)
+  */
+  syntax MInt ::= zeroExtend1to8(MInt) [function]
+  syntax MInt ::= zeroExtend8to64(MInt) [function]
 
   rule zeroExtend1to8(MI) => mi(8, uvalueMInt(MI))
   rule zeroExtend8to64(MI) => mi(64, uvalueMInt(MI))
 
+  /*@ pluginM: plugin MInt(M, V) to lower 8 bits of R64. 
+  */  
+  syntax MInt ::= plugin8(MInt, R64)
+  rule <k> plugin8(MId:MInt, %rax) => updateReg(orMInt(zeroExtend8to64(MId), andMInt(MIs, mi(64,-256)))   , %rax) ...</k>
+  <rax> MIs </rax>
+
   syntax KItem ::= "exit_0"
   rule <k> .K => exit_0 </k>
 endmodule
+
