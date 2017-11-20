@@ -21,16 +21,33 @@ requires "x86-semantic-utilities.k"
 
 module ADC-R8-R8
   imports X86-SEMANTIC-UTILITIES
+
   rule <k> execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%rax), extractR8(%rax), .Typedoperands)) ...</k>
+  execinstr(adcb, (%rax, extractR8(%rax), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
+  <cf> MI3 </cf>
 
   //MI,m2 type chaeck
-  context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, .Typedoperands))
-  context execinstr(adcb, (_:Typeoperand, MInt, HOLE:Typeoperand, .Typedoperands))
+  context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
+  context execinstr(adcb, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
 
   rule
-  <k> execinstr(adcb, ( DestR:R64, MI1:MInt, MI2:MInt, .Typedoperands )) => plugin8(addMInt(addMInt(MI1, MI2), zeroExtend1to8(MI3)), DestR) ...</k>
-  <cf> MI3 </cf>
+    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
+      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc1), .Typedoperands )) 
+  
+  rule
+    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
+      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
+
+  rule
+    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+    => 
+      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
+      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
+      updateParityFlag(MIresult) ~> 
+      plugin8(MIresult, DestR) 
 
 endmodule
 
