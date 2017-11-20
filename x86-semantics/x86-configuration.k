@@ -64,7 +64,6 @@ module X86-CONFIGURATION
         <zf> mi(1,0) </zf>
         <sf> mi(1,0) </sf>
         <of> mi(1,0) </of>
-        <df> mi(1,0) </df>
       </arithflags>
 
       /*@ 128 bit xmm registers
