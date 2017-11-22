@@ -13,10 +13,13 @@ my $file    = "";
 my $print   = "";
 my $clean   = "";
 my $compile = "";
-my $run     = "";
+my $krun    = "";
+my $xrun    = "";
+my $compare = "";
 my $output  = "";
 my $kdefn   = "/home/sdasgup3/Github/binary-decompilation/x86-semantics";
 my $outdir  = "Output";
+my $home    = $ENV{'HOME'};
 
 GetOptions(
     "help"     => \$help,
@@ -24,8 +27,11 @@ GetOptions(
     "file:s"   => \$file,
     "output:s" => \$output,
     "compile"  => \$compile,
-    "run"      => \$run,
+    "krun"     => \$krun,
+    "xrun"     => \$xrun,
+    "compare"  => \$compare,
     "clean"    => \$clean,
+    "outdir:s" => \$outdir,
 ) or die("Error in command line arguments\n");
 
 if ($help) {
@@ -37,18 +43,42 @@ if ( "" ne $compile ) {
     execute("kompile x86-semantics.k --syntax-module X86-SYNTAX --debug -v");
 }
 
-if ( "" ne $run ) {
+if ( "" ne $krun ) {
     my ( $basename, $ext ) = utils::split_filename($file);
 
-    if ( "" eq $output ) {
-        $output = "$outdir/$basename.kstate";
-    }
+    $output = "$outdir/$basename.kstate";
 
     execute("krun -d $kdefn $basename.$ext --output-file $output");
     execute(
 "cat $output | sed -e 's/\\(<[^</]*>\\)/\\n\\1/g' | sed  '/^\\s*\$/d' 1> /tmp/x  2>&1"
     );
     execute("mv /tmp/x $output");
+    checkKRunStatus("$outdir/$basename.kstate");
+}
+
+if ( "" ne $xrun ) {
+    my ( $basename, $ext ) = utils::split_filename($file);
+
+    $output = "$outdir/$basename.xstate";
+
+    execute("as $basename.$ext -o $basename.o");
+    execute("ld $basename.o -o $basename.exec");
+    execute(
+"gdb --batch --command=${home}/scripts-n-docs/scripts/gdb_scripts/script_3.gdb --args $basename.exec 1> $output 2>&1"
+    );
+}
+
+if ( "" ne $compare ) {
+    my ( $basename, $ext ) = utils::split_filename($file);
+
+    my $filek = "$outdir/$basename.kstate";
+    my $filex = "$outdir/$basename.xstate";
+    my @kstates = processKFile($filek);
+    my @xstates = processXFile($filex);
+    #print @kstates. "\n"; 
+    #print @xstates . "\n"; 
+
+    compareStates(\@kstates, \@xstates);
 }
 
 exit;

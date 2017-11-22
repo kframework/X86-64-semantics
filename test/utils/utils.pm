@@ -111,7 +111,7 @@ sub generate_cfg {
         }
 
         execute(
-"$tools::MCSEMA_HOME/bin/mcsema-disass --disassembler $tools::IDA ${map} --arch amd64 --os linux --entrypoint ${entry} --binary  ${outdir}${basename}.${suffix}.o --output  ${outdir}${basename}.${suffix}${cfgext}.cfg --log_file ${outdir}${basename}.${suffix}.ida.log"
+"$tools::MCSEMA_HOME/bin/mcsema-disass --recover-stack-vars --disassembler $tools::IDA ${map} --arch amd64 --os linux --entrypoint ${entry} --binary  ${outdir}${basename}.${suffix}.o --output  ${outdir}${basename}.${suffix}${cfgext}.cfg --log_file ${outdir}${basename}.${suffix}.ida.log"
         );
     }
 
@@ -174,7 +174,7 @@ sub extract_bc_from_cfg {
     else {
         my $switches = "";
         if ( $tools::MCSEMA_BRANCH eq "use_remill_semantics" ) {
-            $switches = "";
+            $switches = " --keep_memops --disable_optimizer ";
         }
         elsif ( $tools::MCSEMA_BRANCH eq "master" ) {
             $switches = "-ignore-unsupported --entrypoint ${entry}";

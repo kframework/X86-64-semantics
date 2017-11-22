@@ -20,26 +20,28 @@ compare:${CSTATES}
 %.kstate: %.s
 	@echo ""
 	@echo  "Generate: ${OUTDIR}/$@ "
-	$(Mkdir)
-	${RUN_SH} --file $< --run --output ${OUTDIR}/$@
+	@mkdir -p ${OUTDIR}
+	${RUN_SH} --file $< --krun --output ${OUTDIR}/$@
 
 %.xstate: %.s
 	@echo ""
 	@echo  "Generate: ${OUTDIR}/$@ "
-	$(Mkdir)
-	touch  ${OUTDIR}/$@
+	@mkdir -p ${OUTDIR}
+	${RUN_SH} --file $< --xrun --output ${OUTDIR}/$@
 
 %.cstate: ${OUTDIR}/%.kstate ${OUTDIR}/%.xstate
+	@echo ""
 	@echo  "Compare: ${OUTDIR}/$@ "
+	${RUN_SH} --file $< --compare 
 
 allclean:
 	@echo "All Cleaning"
-	@rm -rf ${OUTDIR}
+	rm -rf ${OUTDIR}
 
-cleankstate: 
+cleankstate:
 	@echo "K Cleaning"
 	@rm -rf ${OUTDIR}/*.kstate
 
-cleanxstate: 
+cleanxstate:
 	@echo "X Cleaning"
 	@rm -rf ${OUTDIR}/*.xstate

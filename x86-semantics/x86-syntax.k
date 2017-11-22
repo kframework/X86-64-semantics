@@ -5,17 +5,20 @@ module X86-SYNTAX
 /*@ The following captures  the At&t syntax of x86 assembly.
 */
   syntax Instructions ::= List{Instruction, ""}
-  syntax Instruction ::= Label ":"
+  syntax Instruction ::= Label 
                        | Opcode Typedoperands
-  syntax Label ::= "." Id
+                       | ".section" ".text"
+                       | ".globl" "_start"
+  syntax Label ::=  "_start" ":"
+        
   syntax Opcode ::= "addq"
                   | "adcb"    
+                  | "nop"    
 
   syntax AbstractValue ::= Int | MInt
 
   syntax Typedoperands ::= List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
-                       | Label
                        | Mm
                        | Sreg
                        | St
