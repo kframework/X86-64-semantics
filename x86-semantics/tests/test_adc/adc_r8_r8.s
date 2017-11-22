@@ -2,6 +2,6 @@
 .globl _start
 
 _start:
-    addq $65535, %rax
+    addq $61438, %rax
     adcb %al,%al
     nop

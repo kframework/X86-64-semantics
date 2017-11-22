@@ -18,7 +18,7 @@ my $xrun    = "";
 my $compare = "";
 my $output  = "";
 my $kdefn   = "/home/sdasgup3/Github/binary-decompilation/x86-semantics";
-my $outdir  = "Output";
+my $outdir  = "Output/";
 my $home    = $ENV{'HOME'};
 
 GetOptions(
@@ -61,11 +61,13 @@ if ( "" ne $xrun ) {
 
     $output = "$outdir/$basename.xstate";
 
-    execute("as $basename.$ext -o $basename.o");
-    execute("ld $basename.o -o $basename.exec");
+    execute("as $basename.$ext -o $outdir/$basename.o");
+    execute("ld $outdir/$basename.o -o $outdir/$basename.exec");
     execute(
-"gdb --batch --command=${home}/scripts-n-docs/scripts/gdb_scripts/script_3.gdb --args $basename.exec 1> $output 2>&1"
+"gdb --batch --command=${home}/scripts-n-docs/scripts/gdb_scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1"
     );
+    execute("rm -rf $outdir/$basename.exec");
+    execute("rm -rf $outdir/$basename.o");
 }
 
 if ( "" ne $compare ) {
