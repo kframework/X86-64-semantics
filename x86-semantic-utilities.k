@@ -19,6 +19,17 @@ module LOAD-PROGRAM-TO-MEMORY
   rule I:Instruction Is:Instructions => I ~> Is
 
   /*@
+    Ignore certain contructs for the time being.
+  */
+  rule <k> .section .text  => . ...</k>
+  rule <k> .globl _start  => . ...</k>
+  // why this does not work 
+  // rule <k> L : Label => . ...</k>
+  rule <k> _start : => . ...</k>
+  // Which rule to take precedence
+  // rule <k> nop => . ...</k>
+
+  /*@
     Load the instructions into Code memory.
   */
   rule  <k> OpC:Opcode OpR:Typedoperands => . ...</k>
@@ -45,6 +56,7 @@ module LOAD-PROGRAM-TO-MEMORY
     Once the sentinal instrcution is fetched, the execution stops.
   */
   rule <k> execinstr ( sentinal , .Typedoperands ) ~> fetch => . ... </k>
+  rule <k> execinstr ( nop , .Typedoperands ) ~> fetch => . ... </k>
 
 
 endmodule
@@ -53,6 +65,10 @@ module X86-FLAG-CHECKS
   imports X86-SYNTAX
   imports X86-CONFIGURATION
   imports X86-GENERAL-UTILS
+
+  /*@
+    http://teaching.idallen.com/dat2343/10f/notes/040_overflow.txt
+  */  
   
   /*@
     Update Overflow Flag.
