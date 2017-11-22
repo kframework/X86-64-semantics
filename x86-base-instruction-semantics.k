@@ -1,4 +1,4 @@
-requires "x86-semantic-utilities.k"
+requires "x86-semantic-utils.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
@@ -20,7 +20,7 @@ requires "x86-semantic-utilities.k"
 */
 
 module ADC-R8-R8
-  imports X86-SEMANTIC-UTILITIES
+  imports X86-SEMANTIC-UTILS
 
   rule <k> execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
   execinstr(adcb, (%rax, extractR8(%rax), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
@@ -52,7 +52,7 @@ module ADC-R8-R8
 endmodule
 
 module ADD-IMM-R8
-  imports X86-SEMANTIC-UTILITIES
+  imports X86-SEMANTIC-UTILS
   syntax Int ::= handleImmediate(Imm) [function]
   rule handleImmediate($ I:Int) => I
 
