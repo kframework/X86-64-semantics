@@ -1,0 +1,47 @@
+requires "x86-semantic-utils.k"
+
+/*@ This file defines the semantics of following 51 base instructions.
+  - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
+*/
+
+module ADC-R8-R8
+  imports X86-SEMANTIC-UTILS
+
+  //MI,m2 type chaeck
+  context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
+  context execinstr(adcb, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
+
+  rule
+    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
+      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), .Typedoperands )) 
+  
+  rule
+    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
+      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
+
+  rule
+    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+    => 
+      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
+      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
+      updateParityFlag(MIresult) ~> 
+      pluginLSBitsToRegister(MIresult, DestR) 
+
+  // Unroll START
+Unroll START
+  rule <k> 
+    execinstr ( adcb , (%REG18 ,  (%REG28 , .Typedoperands)) ) =>
+      execinstr(adcb, (%REG2, extractLSBitsFromRegister(%REG1, 8), extractLSBitsFromRegister(%REG2, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+Unroll END
+  // Unroll END
+
+endmodule
+
+module ADC-SEMANTICS
+  imports ADC-R8-R8
+endmodule

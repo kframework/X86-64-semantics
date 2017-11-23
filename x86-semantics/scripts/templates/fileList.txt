@@ -1,0 +1,2 @@
+x86-add.tmpl
+x86-adc.tmpl
