@@ -8,51 +8,64 @@ $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT  = qw(generate );
 
-#our SUBST = "";
+#our REG64 = "";
 our @TMPLS = (); 
 our @TMPLS2 = (); 
 
-
+# module X86-REGISTER-SEMANTICS
 my $T = <<"T1";
-  rule <k> %SUBST => MI ...</k> <SUBST> MI </SUBST>
+  rule <k> %REG64 => MI ...</k> <REG64> MI </REG64>
 T1
 push @TMPLS, $T;
 
 $T = <<"T1";
-  rule <k> updateReg(MI:MInt, %SUBST) => . ...</k> <SUBST> _ => MI </SUBST>
+  rule <k> updateReg(MI:MInt, %REG64) => . ...</k> <REG64> _ => MI </REG64>
 T1
 push @TMPLS, $T;
 
 $T = <<"T1";
-  rule <k> extractR8(%SUBST) => truncate64to8(MI) ...</k>
-  <SUBST> MI </SUBST>
+  rule <k> extractLSBitsFromRegister(%REG64, 8) => truncate(MI,64,8) ...</k>
+  <REG64> MI </REG64>
 T1
 push @TMPLS, $T;
 
 $T = <<"T1";
-  rule <k> extractR16(%SUBST) => truncate64to16(MI) ...</k>
-  <SUBST> MI </SUBST>
+  rule <k> extractLSBitsFromRegister(%REG64, 16) => truncate(MI,64,16) ...</k>
+  <REG64> MI </REG64>
 T1
 push @TMPLS, $T;
 
 $T = <<"T1";
-  rule <k> extractR32(%SUBST) => truncate64to32(MI) ...</k>
-  <SUBST> MI </SUBST>
+  rule <k> extractLSBitsFromRegister(%REG64, 32) => truncate(MI,64,32) ...</k>
+  <REG64> MI </REG64>
 T1
 push @TMPLS, $T;
 
 $T = <<"T1";
   rule <k> 
-    plugin8(MId:MInt, %SUBST) =>
-      updateReg(orMInt(zeroExtend8to64(MId), andMInt(MIs, mi(64,-256)))   , %SUBST) ...</k>
-  <SUBST> MIs </SUBST>
+    pluginLSBitsToRegister(MIs:MInt, %REG64) =>
+      updateReg(updateLSB(MId, MIs), %REG64) ...</k>
+  <REG64> MId </REG64>
+T1
+push @TMPLS, $T;
+
+# module ADD-IMM-R8
+$T = <<"T1";
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%REG64 , .Typedoperands)) ) => 
+      execinstr(addq, (%REG64, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <REG64> MI </REG64>
 T1
 push @TMPLS, $T;
 
 
+# module ADC-R8-R8
 $T = <<"T1";
-  rule <k> execinstr ( adcb , (%REG18 ,  (%REG28 , .Typedoperands)) ) =>
-  execinstr(adcb, (%REG2, extractR8(%REG1), extractR8(%REG2), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
+  rule <k> 
+    execinstr ( adcb , (%REG18 ,  (%REG28 , .Typedoperands)) ) =>
+      execinstr(adcb, (%REG2, extractLSBitsFromRegister(%REG1, 8), extractLSBitsFromRegister(%REG2, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
   <cf> MI3 </cf>
 T1
 push @TMPLS2, $T;
@@ -68,7 +81,7 @@ sub generate {
 
   for my $TMPL (@TMPLS) {
     for my $arg1 (@regs) {
-      my $MODTMPL = $TMPL =~ s/SUBST/$arg1/gr;
+      my $MODTMPL = $TMPL =~ s/REG64/$arg1/gr;
       print $MODTMPL;
     }
     print "\n\n";

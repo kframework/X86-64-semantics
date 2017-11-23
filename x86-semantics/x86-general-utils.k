@@ -1,6 +1,12 @@
 module MINT-WRAPPER
   imports MINT
 
+  /*@
+    Bitwise negation
+  */  
+  syntax MInt ::= negateMInt(MInt)   [function]
+  rule negateMInt(MI) => xorMInt(MI, mi(bitwidthMInt(MI), -1))
+
   /*@ 
     Adding MInt List.
   */  
@@ -27,24 +33,47 @@ module MINT-WRAPPER
   rule fromBool(B:Bool, W:Int) => mi(W,0)
     requires notBool B
 
-  /*@ truncateMtoN: Truncates a MInt(M,V1) to MInt(N,V2)
+  /*@ truncate(MI, From, To) Truncates a mi(From,V1) to mi(To,V2)
     Todo : type check
   */
-  syntax MInt ::= truncate64to8(MInt) [function]
-  syntax MInt ::= truncate64to16(MInt) [function]
-  syntax MInt ::= truncate64to32(MInt) [function]
+  syntax MInt ::= truncate(MInt, Int, Int) [function]
 
-  rule truncate64to8(MI) => mi(8, svalueMInt(andMInt(MI, mi(64,255))))
-  rule truncate64to16(MI) => mi(16, svalueMInt(andMInt(MI, mi(64,65535))))
-  rule truncate64to32(MI) => mi(32, svalueMInt(andMInt(MI, mi(64,4294967295))))
+  rule truncate(MI, From, To) => 
+    mi(To, svalueMInt(andMInt(MI, mi(From,umaxMInt(To)))))
 
-  /*@ zeroExtendMtoN: Zero extend MInt(M, V1) to MInt(N,V2)
+  /*@ 
+    zeroExtend(MI, N): Zero extend MInt MI to a MInt of
+      N bitwidth.
   */
-  syntax MInt ::= zeroExtend1to8(MInt) [function]
-  syntax MInt ::= zeroExtend8to64(MInt) [function]
+  syntax MInt ::= zeroExtend(MInt, Int) [function]
 
-  rule zeroExtend1to8(MI) => mi(8, uvalueMInt(MI))
-  rule zeroExtend8to64(MI) => mi(64, uvalueMInt(MI))
+  rule zeroExtend(MI:MInt, N:Int) => mi(N, uvalueMInt(MI))
+  requires N >Int bitwidthMInt(MI)
+  rule zeroExtend(MI:MInt, N:Int) => MI
+  requires N <=Int bitwidthMInt(MI)
+
+  /*@ 
+    updateLSB(MITarget, MISrc): 
+      Let MITarget == mi(WT, VT)
+      Let MISrc == mi(WS, VS)
+      updateLSB updates the lower WS bits of VT with VS.
+  */
+  syntax MInt ::= updateLSB(MInt, MInt) [function]
+
+  rule updateLSB(MITarget, MISrc) => MISrc
+    requires bitwidthMInt(MISrc) >=Int bitwidthMInt(MITarget)
+
+  rule updateLSB(MITarget, MISrc) => 
+    orMInt(
+      andMInt(
+          MITarget, 
+          negateMInt(
+            mi(bitwidthMInt(MITarget), umaxMInt(bitwidthMInt(MISrc)))
+          )
+      ),
+      zeroExtend(MISrc, bitwidthMInt(MITarget))
+    )
+    requires bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget)
 
 endmodule
 

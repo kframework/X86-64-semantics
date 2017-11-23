@@ -70,5 +70,24 @@ my @r8s = (
   "r15b",
 );
 
+my @r16s = (
+ "ax",
+ "cx",
+ "dx",
+ "bx",
+ "sp",
+ "bp",
+ "si",
+ "di",
+ "r8w",
+ "r9w",
+ "r10w",
+ "r11w",
+ "r12w",
+ "r13w",
+ "r14w",
+ "r15w",
+);
+
 
 generate(\@regs, \@r8s, \%subRegToReg);
