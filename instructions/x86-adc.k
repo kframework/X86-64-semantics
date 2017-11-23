@@ -6,439 +6,6 @@ requires "x86-semantic-utils.k"
 module ADC-R8-R8
   imports X86-SEMANTIC-UTILS
 
-  rule <k> execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%rax), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%rbx), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%rcx), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%rdx), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r8), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r9), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r10), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r11), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r12), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r13), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r14), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%r15), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%rax), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%rbx), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%rcx), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%rdx), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r8), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r9), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r10), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r11), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r12), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r13), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r14), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%bl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rbx, extractR8(%r15), extractR8(%rbx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%rax), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%rbx), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%rcx), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%rdx), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r8), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r9), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r10), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r11), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r12), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r13), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r14), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%cl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rcx, extractR8(%r15), extractR8(%rcx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%rax), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%rbx), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%rcx), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%rdx), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r8), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r9), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r10), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r11), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r12), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r13), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r14), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%dl , .Typedoperands)) ) =>
-  execinstr(adcb, (%rdx, extractR8(%r15), extractR8(%rdx), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%rax), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%rbx), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%rcx), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%rdx), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r8), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r9), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r10), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r11), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r12), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r13), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r14), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r8b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r8, extractR8(%r15), extractR8(%r8), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%rax), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%rbx), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%rcx), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%rdx), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r8), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r9), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r10), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r11), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r12), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r13), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r14), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r9b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r9, extractR8(%r15), extractR8(%r9), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%rax), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%rbx), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%rcx), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%rdx), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r8), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r9), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r10), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r11), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r12), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r13), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r14), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r10b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r10, extractR8(%r15), extractR8(%r10), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%rax), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%rbx), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%rcx), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%rdx), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r8), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r9), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r10), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r11), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r12), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r13), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r14), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r11b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r11, extractR8(%r15), extractR8(%r11), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%rax), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%rbx), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%rcx), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%rdx), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r8), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r9), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r10), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r11), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r12), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r13), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r14), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r12b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r12, extractR8(%r15), extractR8(%r12), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%rax), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%rbx), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%rcx), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%rdx), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r8), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r9), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r10), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r11), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r12), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r13), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r14), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r13b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r13, extractR8(%r15), extractR8(%r13), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%rax), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%rbx), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%rcx), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%rdx), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r8), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r9), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r10), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r11), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r12), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r13), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r14), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r14b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r14, extractR8(%r15), extractR8(%r14), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%al ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%rax), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%bl ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%rbx), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%cl ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%rcx), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%dl ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%rdx), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r8b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r8), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r9b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r9), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r10b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r10), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r11b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r11), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r12b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r12), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r13b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r13), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r14b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r14), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-  rule <k> execinstr ( adcb , (%r15b ,  (%r15b , .Typedoperands)) ) =>
-  execinstr(adcb, (%r15, extractR8(%r15), extractR8(%r15), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-
   //MI,m2 type chaeck
   context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
   context execinstr(adcb, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
@@ -460,17 +27,824 @@ module ADC-R8-R8
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      plugin8(MIresult, DestR) 
+      pluginLSBitsToRegister(MIresult, DestR) 
 
+  // Autogenerated
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%al , .Typedoperands)) ) =>
+      execinstr(adcb, (%rax, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%rax, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%bl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rbx, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%rbx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%cl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rcx, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%rcx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%dl , .Typedoperands)) ) =>
+      execinstr(adcb, (%rdx, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%rdx, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r8b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r8, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r8, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r9b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r9, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r9, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r10b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r10, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r10, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r11b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r11, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r11, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r12b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r12, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r12, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r13b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r13, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r13, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r14b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r14, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r14, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%al ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%rax, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%bl ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%rbx, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%cl ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%rcx, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%dl ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%rdx, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r8b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r8, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r9b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r9, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r10b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r10, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r11b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r11, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r12b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r12, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r13b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r13, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r14b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r14, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
+  rule <k> 
+    execinstr ( adcb , (%r15b ,  (%r15b , .Typedoperands)) ) =>
+      execinstr(adcb, (%r15, extractLSBitsFromRegister(%r15, 8), extractLSBitsFromRegister(%r15, 8), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <cf> MI3 </cf>
 endmodule
 
 module ADD-IMM-R8
   imports X86-SEMANTIC-UTILS
+
   syntax Int ::= handleImmediate(Imm) [function]
   rule handleImmediate($ I:Int) => I
 
-  rule <k> execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => updateReg(addMInt(mi(64, handleImmediate(I)), MI), %rax) ...</k>  <rax> MI </rax>
-  rule <k> execinstr ( addq , (I:Imm ,  (%rcx , .Typedoperands)) ) => updateReg(addMInt(mi(64, handleImmediate(I)), MI), %rcx) ...</k>  <rcx> MI </rcx>
+  rule
+  <k>
+    execinstr(addq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, .Typedoperands )) =>
+      updateReg(addMInt(MIsrc1, MIsrc2), DestR) 
+  ...</k> 
+
+  // Autogenerated   
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => 
+      execinstr(addq, (%rax, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rax> MI </rax>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rbx , .Typedoperands)) ) => 
+      execinstr(addq, (%rbx, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rbx> MI </rbx>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rcx , .Typedoperands)) ) => 
+      execinstr(addq, (%rcx, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rcx> MI </rcx>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rdx , .Typedoperands)) ) => 
+      execinstr(addq, (%rdx, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rdx> MI </rdx>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rsi , .Typedoperands)) ) => 
+      execinstr(addq, (%rsi, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rsi> MI </rsi>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rdi , .Typedoperands)) ) => 
+      execinstr(addq, (%rdi, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rdi> MI </rdi>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rsp , .Typedoperands)) ) => 
+      execinstr(addq, (%rsp, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rsp> MI </rsp>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rbp , .Typedoperands)) ) => 
+      execinstr(addq, (%rbp, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <rbp> MI </rbp>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r8 , .Typedoperands)) ) => 
+      execinstr(addq, (%r8, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r8> MI </r8>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r9 , .Typedoperands)) ) => 
+      execinstr(addq, (%r9, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r9> MI </r9>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r10 , .Typedoperands)) ) => 
+      execinstr(addq, (%r10, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r10> MI </r10>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r11 , .Typedoperands)) ) => 
+      execinstr(addq, (%r11, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r11> MI </r11>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r12 , .Typedoperands)) ) => 
+      execinstr(addq, (%r12, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r12> MI </r12>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r13 , .Typedoperands)) ) => 
+      execinstr(addq, (%r13, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r13> MI </r13>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r14 , .Typedoperands)) ) => 
+      execinstr(addq, (%r14, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r14> MI </r14>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%r15 , .Typedoperands)) ) => 
+      execinstr(addq, (%r15, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+  ...</k>
+  <r15> MI </r15>
 endmodule
 
 module ADC-SEMANTICS
