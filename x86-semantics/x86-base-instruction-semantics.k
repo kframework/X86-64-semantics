@@ -1,4 +1,5 @@
 requires "x86-adc.k"
+requires "x86-add.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
