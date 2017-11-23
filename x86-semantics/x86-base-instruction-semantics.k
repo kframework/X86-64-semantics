@@ -1,4 +1,4 @@
-requires "x86-semantic-utils.k"
+requires "x86-adc.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
@@ -19,53 +19,6 @@ requires "x86-semantic-utils.k"
   - xorq_r64_r64,
 */
 
-module ADC-R8-R8
-  imports X86-SEMANTIC-UTILS
-
-  rule <k> execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
-  execinstr(adcb, (%rax, extractR8(%rax), extractR8(%rax), zeroExtend1to8(MI3), .Typedoperands)) ...</k>
-  <cf> MI3 </cf>
-
-  //MI,m2 type chaeck
-  context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
-  context execinstr(adcb, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
-
-  rule
-    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc1), .Typedoperands )) 
-  
-  rule
-    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
-      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
-
-  rule
-    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      plugin8(MIresult, DestR) 
-
-endmodule
-
-module ADD-IMM-R8
-  imports X86-SEMANTIC-UTILS
-  syntax Int ::= handleImmediate(Imm) [function]
-  rule handleImmediate($ I:Int) => I
-
-  rule <k> execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => updateReg(addMInt(mi(64, handleImmediate(I)), MI), %rax) ...</k>  <rax> MI </rax>
-endmodule
-
-module ADC-SEMANTICS
-  imports ADC-R8-R8
-endmodule
-
-module ADD-SEMANTICS
-  imports ADD-IMM-R8
-endmodule
 
 
 

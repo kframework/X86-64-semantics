@@ -3,5 +3,7 @@
 
 _start:
     addq $61438, %rax
-    adcb %al,%al
+    addq $1, %rcx
+    adcb %cl,%al
+    adcb %cl,%al
     nop

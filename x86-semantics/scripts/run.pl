@@ -40,7 +40,7 @@ if ($help) {
 }
 
 if ( "" ne $compile ) {
-    execute("kompile x86-semantics.k --syntax-module X86-SYNTAX --debug -v");
+    execute("kompile x86-semantics.k --syntax-module X86-SYNTAX -I ./instructions --debug -v");
 }
 
 if ( "" ne $krun ) {
@@ -64,10 +64,10 @@ if ( "" ne $xrun ) {
     execute("as $basename.$ext -o $outdir/$basename.o");
     execute("ld $outdir/$basename.o -o $outdir/$basename.exec");
     execute(
-"gdb --batch --command=${home}/scripts-n-docs/scripts/gdb_scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1"
+"gdb --batch --command=../../scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1"
     );
-    execute("rm -rf $outdir/$basename.exec");
-    execute("rm -rf $outdir/$basename.o");
+    #execute("rm -rf $outdir/$basename.exec");
+    #execute("rm -rf $outdir/$basename.o");
 }
 
 if ( "" ne $compare ) {
