@@ -15,6 +15,7 @@ module X86-FLAG-CHECKS
     Update Overflow Flag.
   */  
   syntax KItem ::= updateOverflowAdd(MInt, MInt, MInt) 
+
   rule 
   <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
   <of> _ => fromBool( 
@@ -33,6 +34,7 @@ module X86-FLAG-CHECKS
               ) 
             , 1)
   </of>
+
 
   /*@
     Update Zero Flag.
@@ -111,6 +113,42 @@ module X86-FLAG-CHECKS
             ), 
           1)
   </pf>
+
+
+  /*@
+    Setting the flags with 0 or 1.
+  */
+  syntax KItem ::= setOverflow(MInt) 
+  syntax KItem ::= setZeroFlag(MInt) 
+  syntax KItem ::= setSignFlag(MInt) 
+  syntax KItem ::= setAuxCarryFlag(MInt) 
+  syntax KItem ::= setCarryFlag(MInt) 
+  syntax KItem ::= setParityFlag(MInt) 
+
+  rule 
+  <k> setOverflow(MI) => . ...</k>
+  <of> _ => MI </of>
+
+  rule 
+  <k> setZeroFlag(MI) => . ...</k>
+  <zf> _ => MI </zf>
+
+  rule 
+  <k> setSignFlag(MI) => . ...</k>
+  <sf> _ => MI </sf>
+
+  rule 
+  <k> setAuxCarryFlag(MI) => . ...</k>
+  <af> _ => MI </af>
+
+  rule 
+  <k> setCarryFlag(MI) => . ...</k>
+  <cf> _ => MI </cf>
+
+  rule 
+  <k> setParityFlag(MI) => . ...</k>
+  <pf> _ => MI </pf>
+
 endmodule  
 
 module X86-REGISTER-SEMANTICS

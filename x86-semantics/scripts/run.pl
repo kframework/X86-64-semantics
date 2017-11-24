@@ -77,8 +77,11 @@ if ( "" ne $compare ) {
     my $filex = "$outdir/$basename.xstate";
     my @kstates = processKFile($filek);
     my @xstates = processXFile($filex);
-    #print @kstates. "\n"; 
-    #print @xstates . "\n"; 
+
+    my $krec = join(':', @kstates);
+    my $xrec = join(':', @xstates);
+    print "Kstates:". $krec . "\n"; 
+    print "Xstates:". $xrec . "\n"; 
 
     compareStates(\@kstates, \@xstates);
 }

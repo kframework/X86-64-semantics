@@ -1,2 +1,5 @@
 x86-add.tmpl
 x86-adc.tmpl
+x86-cmove.tmpl
+x86-or.tmpl
+x86-xor.tmpl
