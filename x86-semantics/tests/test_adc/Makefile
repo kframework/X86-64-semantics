@@ -37,6 +37,11 @@ allclean:
 	@echo "All Cleaning"
 	rm -rf ${OUTDIR}
 
+clean:
+	@echo "Cleaning .exe & .o"
+	rm -rf ${OUTDIR}/*.exec
+	rm -rf ${OUTDIR}/*.o
+
 cleankstate:
 	@echo "K Cleaning"
 	rm -rf ${OUTDIR}/*.kstate
