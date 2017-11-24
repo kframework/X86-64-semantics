@@ -16,6 +16,9 @@ module X86-SYNTAX
                   | "adcw"    
                   | "adcl"    
                   | "adcq"    
+                  | "cmoveq"    
+                  | "orq"    
+                  | "xorq"    
                   | "nop"    
 
   syntax AbstractValue ::= Int | MInt

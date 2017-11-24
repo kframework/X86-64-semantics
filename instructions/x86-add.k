@@ -9,24 +9,30 @@ module ADD-IMM-R8
 
   rule
   <k>
-    execinstr(addq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, .Typedoperands )) =>
-      updateReg(addMInt(MIsrc1, MIsrc2), DestR) 
+    execinstr(addq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult, .Typedoperands )) =>
+      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
+      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIresult, mi(64,0), MIresult) ~> 
+      updateParityFlag(MIresult) ~> 
+      updateReg(MIresult, DestR) 
   ...</k> 
 
   // Unroll START
   rule <k> 
     execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => 
-      execinstr(addq, (%rax, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+      execinstr(addq, (%rax, mi(64, handleImmediate(I)), MI, addMInt(mi(64, handleImmediate(I)), MI), .Typedoperands)) 
   ...</k>
   <rax> MI </rax>
   rule <k> 
     execinstr ( addq , (I:Imm ,  (%rbx , .Typedoperands)) ) => 
-      execinstr(addq, (%rbx, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+      execinstr(addq, (%rbx, mi(64, handleImmediate(I)), MI, addMInt(mi(64, handleImmediate(I)), MI), .Typedoperands)) 
   ...</k>
   <rbx> MI </rbx>
   rule <k> 
     execinstr ( addq , (I:Imm ,  (%rcx , .Typedoperands)) ) => 
-      execinstr(addq, (%rcx, mi(64, handleImmediate(I)), MI, .Typedoperands)) 
+      execinstr(addq, (%rcx, mi(64, handleImmediate(I)), MI, addMInt(mi(64, handleImmediate(I)), MI), .Typedoperands)) 
   ...</k>
   <rcx> MI </rcx>
   // Unroll End

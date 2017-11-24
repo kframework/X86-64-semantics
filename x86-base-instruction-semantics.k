@@ -1,5 +1,8 @@
 requires "x86-adc.k"
 requires "x86-add.k"
+requires "x86-cmove.k"
+requires "x86-or.k"
+requires "x86-xor.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
@@ -26,4 +29,7 @@ requires "x86-add.k"
 module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports ADC-SEMANTICS
   imports ADD-SEMANTICS
+  imports CMOVE-SEMANTICS
+  imports OR-SEMANTICS
+  imports XOR-SEMANTICS
 endmodule

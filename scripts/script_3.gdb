@@ -34,5 +34,5 @@ end
 
 b _start
 r
-nstep 6
+nstep 10
 q

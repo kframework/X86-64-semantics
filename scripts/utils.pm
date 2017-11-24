@@ -215,7 +215,10 @@ sub compareStates {
    my @kstates = @{ $k_ref };      
    my @xstates = @{ $x_ref };
 
-    for(my $i = 0 ; $i < $regcount and $i != 6; $i ++) {
+    for(my $i = 0 ; $i < $regcount; $i ++) {
+      if($i == 6) {
+        next;
+      }
     if($kstates[$i] ne $xstates[$i]) {
       failInfo("Failed: $regMap{$i}");
       return;
