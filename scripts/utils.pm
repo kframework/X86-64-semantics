@@ -31,12 +31,12 @@ my @kpatterns = (
     qr/<r13> 64'(\d*) <\/r13>/,
     qr/<r14> 64'(\d*) <\/r14>/,
     qr/<r15> 64'(\d*) <\/r15>/,
-    qr/<cf> 1'(\d*) <\/cf>/,
-    qr/<pf> 1'(\d*) <\/pf>/,
-    qr/<af> 1'(\d*) <\/af>/,
-    qr/<zf> 1'(\d*) <\/zf>/,
-    qr/<sf> 1'(\d*) <\/sf>/,
-    qr/<of> 1'(\d*) <\/of>/,
+    qr/<cf> (1'\d*|\w*) <\/cf>/,
+    qr/<pf> (1'\d*|\w*) <\/pf>/,
+    qr/<af> (1'\d*|\w*) <\/af>/,
+    qr/<zf> (1'\d*|\w*) <\/zf>/,
+    qr/<sf> (1'\d*|\w*) <\/sf>/,
+    qr/<of> (1'\d*|\w*) <\/of>/,
 );
 
 my %regMap = (
@@ -165,9 +165,15 @@ sub processKFile {
         for my $p (@kpatterns) {
             if ( $line =~ m/$p/ ) {
 
-                #print $1. "\n";
+              my $ln = $1;
+              #print $1. "\n";
+              
+              if($ln =~ m/1'(\d*)/) {
                 push @kstates, $1;
+              } else {
+                push @kstates, $ln;
                 last;
+              }
             }
         }
     }
@@ -219,10 +225,16 @@ sub compareStates {
       if($i == 6) {
         next;
       }
-    if($kstates[$i] ne $xstates[$i]) {
-      failInfo("Failed: $regMap{$i}");
-      return;
-    }
+
+      if($kstates[$i] eq "undef") {
+        info("\"undef\" found at $regMap{$i}");
+        next;
+      }
+
+      if($kstates[$i] ne $xstates[$i]) {
+        failInfo("Failed: $regMap{$i}");
+        return;
+      }
   }
   passInfo("Passed: compare");
 }

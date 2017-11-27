@@ -381,4 +381,29 @@ module X86-REGISTER-SEMANTICS
   <r15> MId </r15>
 
 
+  /*@
+    handleImmediate(Imm, W): Compute a MInt corresponding
+    to the Imm value of width W.
+  */
+
+  // TODO: Need a way to convert HexConstant to String
+  //syntax String ::= HexConstant
+  //syntax Int ::= HexStringtToInt(String, Int)  [function, hook(STRING.string2base)]
+  //rule handleImmediate($ H:HexConstant, W:Int) => 
+  //                           mi(W, HexStringtToInt(H, 16)) 
+
+  syntax MInt ::=  handleImmediate(Imm, Int) [function]
+  rule handleImmediate($ I:Int, W:Int) => mi(W,I)
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
