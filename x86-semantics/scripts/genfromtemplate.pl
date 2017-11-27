@@ -30,6 +30,8 @@ my @regs = ( "rax", "rbx", "rcx",);# "rdx", "rsi", "rdi", "rsp", "rbp", "r8", "r
 
 my @r8s = ( "al", "bl", "cl",);# "dl", "sil", "dil", "spl", "bpl", "r8b", "r9b", "r10b", "r11b", "r12b", "r13b", "r14b", "r15b",); 
 
+my @rhs = ( "ah", "bh", "ch", "dh");# "dl", "sil", "dil", "spl", "bpl", "r8b", "r9b", "r10b", "r11b", "r12b", "r13b", "r14b", "r15b",); 
+
 my @r16s = ( "ax", "bx", "cx",);# "dx", "si", "di", "sp", "bp", "r8w", "r9w", "r10w", "r11w", "r12w", "r13w", "r14w", "r15w",); 
 
 my @r32s = ( "eax", "ebx", "ecx",);# "edx", "esi", "edi", "esp", "ebp", "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d");
@@ -39,6 +41,10 @@ my %subReg8ToReg = ( "al" => "rax", "bl" => "rbx", "cl" => "rcx", "dl" => "rdx",
 my %subReg16ToReg = ( "ax" => "rax", "bx" => "rbx", "cx" => "rcx", "dx" => "rdx", "si" => "rsi", "di" => "rdi", "sp" => "rsp", "bp" => "rbp", "r8w" => "r8", "r9w" => "r9", "r10w" => "r10", "r11w" => "r11", "r12w" => "r12", "r13w" => "r13", "r14w" => "r14", "r15w" => "r15",);
 
 my %subReg32ToReg = ( "eax" => "rax", "ebx" => "rbx", "ecx" => "rcx", "edx" => "rdx", "esi" => "rsi", "edi" => "rdi", "esp" => "rsp", "ebp" => "rbp", "r8d" => "r8", "r9d" => "r9", "r10d" => "r10", "r11d" => "r11", "r12d" => "r12", "r13d" => "r13", "r14d" => "r14", "r15d" => "r15",);
+
+my %subReghToReg = ( "ah" => "rax", "bh" => "rbx", "ch" => "rcx", "dh" => "rdx");
+
+my %subReghToSubReg = ( "ah" => "al", "bh" => "bl", "ch" => "cl", "dh" => "dl");
 
 
 my $fileList = "$templatedir/fileList.txt";
@@ -247,9 +253,30 @@ sub unroll {
     }
   }
 
+  # REGH  REG8 REG64 
+  if("12" eq $pattern) {
+    for my $subreg (@rhs) {
+      my $mod1 = $masterline =~ s/REGH/$subreg/gr;
+      my $mod2 = $mod1 =~ s/REG8/$subReghToSubReg{$subreg}/gr;
+      my $mod3 = $mod2 =~ s/REG64/$subReghToReg{$subreg}/gr;
+      print $fd "$mod3";
+    }
+  }
 
-
-
+  # REGH_1  REG8_2 REG64_2 REG64_1
+  if("13" eq $pattern) {
+    for my $subhreg (@rhs) {
+      for my $sub8reg (@r8s) {
+        if($sub8reg ne $subReghToSubReg{$subhreg}) {
+          my $mod1 = $masterline =~ s/REGH_1/$subhreg/gr;
+          my $mod2 = $mod1 =~ s/REG8_2/$sub8reg/gr;
+          my $mod3 = $mod2 =~ s/REG64_1/$subReghToReg{$subhreg}/gr;
+          my $mod4 = $mod3 =~ s/REG64_2/$subReg8ToReg{$sub8reg}/gr;
+          print $fd "$mod4";
+        }
+      }
+    }
+  }
 
   return $retcounter;
 }

@@ -4,7 +4,7 @@ requires "x86-cmove.k"
 requires "x86-or.k"
 requires "x86-xor.k"
 requires "x86-movs.k"
-//requires "x86-mov.k"
+requires "x86-mov.k"
 requires "x86-popcnt.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
@@ -38,6 +38,6 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports OR-SEMANTICS
   imports XOR-SEMANTICS
   imports MOVS-SEMANTICS
- // imports MOV-SEMANTICS
+  imports MOV-SEMANTICS
   imports POPCNT-SEMANTICS
 endmodule
