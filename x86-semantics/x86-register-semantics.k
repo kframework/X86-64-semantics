@@ -213,105 +213,105 @@ module X86-REGISTER-SEMANTICS
   rule <k> updateReg(MI:MInt, %r15) => . ...</k> <r15> _ => MI </r15>
 
 
-  rule <k> extractLSBitsFromRegister(%rax, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rax, 8) => truncate(MI,8) ...</k>
   <rax> MI </rax>
-  rule <k> extractLSBitsFromRegister(%rbx, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rbx, 8) => truncate(MI,8) ...</k>
   <rbx> MI </rbx>
-  rule <k> extractLSBitsFromRegister(%rcx, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rcx, 8) => truncate(MI,8) ...</k>
   <rcx> MI </rcx>
-  rule <k> extractLSBitsFromRegister(%rdx, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rdx, 8) => truncate(MI,8) ...</k>
   <rdx> MI </rdx>
-  rule <k> extractLSBitsFromRegister(%rsi, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rsi, 8) => truncate(MI,8) ...</k>
   <rsi> MI </rsi>
-  rule <k> extractLSBitsFromRegister(%rdi, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rdi, 8) => truncate(MI,8) ...</k>
   <rdi> MI </rdi>
-  rule <k> extractLSBitsFromRegister(%rsp, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rsp, 8) => truncate(MI,8) ...</k>
   <rsp> MI </rsp>
-  rule <k> extractLSBitsFromRegister(%rbp, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%rbp, 8) => truncate(MI,8) ...</k>
   <rbp> MI </rbp>
-  rule <k> extractLSBitsFromRegister(%r8, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r8, 8) => truncate(MI,8) ...</k>
   <r8> MI </r8>
-  rule <k> extractLSBitsFromRegister(%r9, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r9, 8) => truncate(MI,8) ...</k>
   <r9> MI </r9>
-  rule <k> extractLSBitsFromRegister(%r10, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r10, 8) => truncate(MI,8) ...</k>
   <r10> MI </r10>
-  rule <k> extractLSBitsFromRegister(%r11, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r11, 8) => truncate(MI,8) ...</k>
   <r11> MI </r11>
-  rule <k> extractLSBitsFromRegister(%r12, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r12, 8) => truncate(MI,8) ...</k>
   <r12> MI </r12>
-  rule <k> extractLSBitsFromRegister(%r13, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r13, 8) => truncate(MI,8) ...</k>
   <r13> MI </r13>
-  rule <k> extractLSBitsFromRegister(%r14, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r14, 8) => truncate(MI,8) ...</k>
   <r14> MI </r14>
-  rule <k> extractLSBitsFromRegister(%r15, 8) => truncate(MI,64,8) ...</k>
+  rule <k> extractLSBitsFromRegister(%r15, 8) => truncate(MI,8) ...</k>
   <r15> MI </r15>
 
 
-  rule <k> extractLSBitsFromRegister(%rax, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rax, 16) => truncate(MI,16) ...</k>
   <rax> MI </rax>
-  rule <k> extractLSBitsFromRegister(%rbx, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rbx, 16) => truncate(MI,16) ...</k>
   <rbx> MI </rbx>
-  rule <k> extractLSBitsFromRegister(%rcx, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rcx, 16) => truncate(MI,16) ...</k>
   <rcx> MI </rcx>
-  rule <k> extractLSBitsFromRegister(%rdx, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rdx, 16) => truncate(MI,16) ...</k>
   <rdx> MI </rdx>
-  rule <k> extractLSBitsFromRegister(%rsi, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rsi, 16) => truncate(MI,16) ...</k>
   <rsi> MI </rsi>
-  rule <k> extractLSBitsFromRegister(%rdi, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rdi, 16) => truncate(MI,16) ...</k>
   <rdi> MI </rdi>
-  rule <k> extractLSBitsFromRegister(%rsp, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rsp, 16) => truncate(MI,16) ...</k>
   <rsp> MI </rsp>
-  rule <k> extractLSBitsFromRegister(%rbp, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%rbp, 16) => truncate(MI,16) ...</k>
   <rbp> MI </rbp>
-  rule <k> extractLSBitsFromRegister(%r8, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r8, 16) => truncate(MI,16) ...</k>
   <r8> MI </r8>
-  rule <k> extractLSBitsFromRegister(%r9, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r9, 16) => truncate(MI,16) ...</k>
   <r9> MI </r9>
-  rule <k> extractLSBitsFromRegister(%r10, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r10, 16) => truncate(MI,16) ...</k>
   <r10> MI </r10>
-  rule <k> extractLSBitsFromRegister(%r11, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r11, 16) => truncate(MI,16) ...</k>
   <r11> MI </r11>
-  rule <k> extractLSBitsFromRegister(%r12, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r12, 16) => truncate(MI,16) ...</k>
   <r12> MI </r12>
-  rule <k> extractLSBitsFromRegister(%r13, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r13, 16) => truncate(MI,16) ...</k>
   <r13> MI </r13>
-  rule <k> extractLSBitsFromRegister(%r14, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r14, 16) => truncate(MI,16) ...</k>
   <r14> MI </r14>
-  rule <k> extractLSBitsFromRegister(%r15, 16) => truncate(MI,64,16) ...</k>
+  rule <k> extractLSBitsFromRegister(%r15, 16) => truncate(MI,16) ...</k>
   <r15> MI </r15>
 
 
-  rule <k> extractLSBitsFromRegister(%rax, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rax, 32) => truncate(MI,32) ...</k>
   <rax> MI </rax>
-  rule <k> extractLSBitsFromRegister(%rbx, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rbx, 32) => truncate(MI,32) ...</k>
   <rbx> MI </rbx>
-  rule <k> extractLSBitsFromRegister(%rcx, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rcx, 32) => truncate(MI,32) ...</k>
   <rcx> MI </rcx>
-  rule <k> extractLSBitsFromRegister(%rdx, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rdx, 32) => truncate(MI,32) ...</k>
   <rdx> MI </rdx>
-  rule <k> extractLSBitsFromRegister(%rsi, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rsi, 32) => truncate(MI,32) ...</k>
   <rsi> MI </rsi>
-  rule <k> extractLSBitsFromRegister(%rdi, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rdi, 32) => truncate(MI,32) ...</k>
   <rdi> MI </rdi>
-  rule <k> extractLSBitsFromRegister(%rsp, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rsp, 32) => truncate(MI,32) ...</k>
   <rsp> MI </rsp>
-  rule <k> extractLSBitsFromRegister(%rbp, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%rbp, 32) => truncate(MI,32) ...</k>
   <rbp> MI </rbp>
-  rule <k> extractLSBitsFromRegister(%r8, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r8, 32) => truncate(MI,32) ...</k>
   <r8> MI </r8>
-  rule <k> extractLSBitsFromRegister(%r9, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r9, 32) => truncate(MI,32) ...</k>
   <r9> MI </r9>
-  rule <k> extractLSBitsFromRegister(%r10, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r10, 32) => truncate(MI,32) ...</k>
   <r10> MI </r10>
-  rule <k> extractLSBitsFromRegister(%r11, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r11, 32) => truncate(MI,32) ...</k>
   <r11> MI </r11>
-  rule <k> extractLSBitsFromRegister(%r12, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r12, 32) => truncate(MI,32) ...</k>
   <r12> MI </r12>
-  rule <k> extractLSBitsFromRegister(%r13, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r13, 32) => truncate(MI,32) ...</k>
   <r13> MI </r13>
-  rule <k> extractLSBitsFromRegister(%r14, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r14, 32) => truncate(MI,32) ...</k>
   <r14> MI </r14>
-  rule <k> extractLSBitsFromRegister(%r15, 32) => truncate(MI,64,32) ...</k>
+  rule <k> extractLSBitsFromRegister(%r15, 32) => truncate(MI,32) ...</k>
   <r15> MI </r15>
 
 

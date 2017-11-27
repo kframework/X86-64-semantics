@@ -37,13 +37,13 @@ module MINT-WRAPPER
   rule fromBool(B:Bool, W:Int) => mi(W,0)
     requires notBool B
 
-  /*@ truncate(MI, From, To) Truncates a mi(From,V1) to mi(To,V2)
+  /*@ truncate(MI, To) Truncates a mi(From,V1) to mi(To,V2)
     Todo : type check
   */
-  syntax MInt ::= truncate(MInt, Int, Int) [function]
+  syntax MInt ::= truncate(MInt, Int) [function]
 
-  rule truncate(MI, From, To) => 
-    mi(To, svalueMInt(andMInt(MI, mi(From,umaxMInt(To)))))
+  rule truncate(MI, To) => 
+    mi(To, svalueMInt(andMInt(MI, mi(bitwidthMInt(MI),umaxMInt(To)))))
 
   /*@ 
     zeroExtend(MI, N): Zero extend MInt MI to a MInt of
@@ -78,6 +78,40 @@ module MINT-WRAPPER
       zeroExtend(MISrc, bitwidthMInt(MITarget))
     )
     requires bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget)
+
+  /*@ 
+    signExtend(MI, N): Sign extend MInt MI to a MInt of
+      N bitwidth.
+  */
+  syntax MInt ::= signExtend(MInt, Int) [function]
+
+  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI))
+      requires N >Int bitwidthMInt(MI)
+  
+  rule signExtend(MI:MInt, N:Int) => MI
+    requires N <=Int bitwidthMInt(MI)
+
+  /*@ 
+    popCount(MI, N): Count the number of set bits, V, in MI and
+    create a Mint(N, V)
+  */
+  syntax MInt ::= popCount(MInt, Int) [function]
+
+  rule popCount(MI:MInt, N:Int) => mi(N, 0)
+      requires zeroMInt(MI)
+
+  rule popCount(MI:MInt, N:Int) =>
+    addListMInt( 64,
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),1))),  64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),2))),  64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),4))),  64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),8))),  64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),16))), 64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),32))), 64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),64))), 64 )
+      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),128))),64 )
+    )
+      requires notBool zeroMInt(MI)
 endmodule
 
 
@@ -85,3 +119,26 @@ module X86-GENERAL-UTILS
   imports MINT-WRAPPER
   imports STRING-WRAPPER
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

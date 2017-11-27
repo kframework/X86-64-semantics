@@ -3,3 +3,5 @@ x86-adc.tmpl
 x86-cmove.tmpl
 x86-or.tmpl
 x86-xor.tmpl
+x86-movs.tmpl
+x86-popcnt.tmpl
