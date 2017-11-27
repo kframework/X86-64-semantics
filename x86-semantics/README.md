@@ -9,7 +9,7 @@ cd x86-semantics
 ## To test
 ```
 cd  tests
-make kstate // Checks succesful completion of krun and sores the final state (we call kstate).
+make kstate // Checks succesful completion of krun and stores the final state (we call kstate).
 make xstate // Executes gdb scrip to collect the hardware register states (we call xstate)
 make compare // compare the above two states
 make // All the above
