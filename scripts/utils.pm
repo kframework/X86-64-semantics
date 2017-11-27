@@ -15,22 +15,22 @@ $VERSION = 1.00;
 @EXPORT_OK = qw();
 
 my @kpatterns = (
-    qr/<rax> 64'(\d*) <\/rax>/,
-    qr/<rbx> 64'(\d*) <\/rbx>/,
-    qr/<rcx> 64'(\d*) <\/rcx>/,
-    qr/<rdx> 64'(\d*) <\/rdx>/,
-    qr/<rsi> 64'(\d*) <\/rsi>/,
-    qr/<rdi> 64'(\d*) <\/rdi>/,
-    qr/<rsp> 64'(\d*) <\/rsp>/,
-    qr/<rbp> 64'(\d*) <\/rbp>/,
-    qr/<r8> 64'(\d*) <\/r8>/,
-    qr/<r9> 64'(\d*) <\/r9>/,
-    qr/<r10> 64'(\d*) <\/r10>/,
-    qr/<r11> 64'(\d*) <\/r11>/,
-    qr/<r12> 64'(\d*) <\/r12>/,
-    qr/<r13> 64'(\d*) <\/r13>/,
-    qr/<r14> 64'(\d*) <\/r14>/,
-    qr/<r15> 64'(\d*) <\/r15>/,
+    qr/<rax> 64'([-]?\d*) <\/rax>/,
+    qr/<rbx> 64'([-]?\d*) <\/rbx>/,
+    qr/<rcx> 64'([-]?\d*) <\/rcx>/,
+    qr/<rdx> 64'([-]?\d*) <\/rdx>/,
+    qr/<rsi> 64'([-]?\d*) <\/rsi>/,
+    qr/<rdi> 64'([-]?\d*) <\/rdi>/,
+    qr/<rsp> 64'([-]?\d*) <\/rsp>/,
+    qr/<rbp> 64'([-]?\d*) <\/rbp>/,
+     qr/<r8> 64'([-]?\d*) <\/r8>/,
+     qr/<r9> 64'([-]?\d*) <\/r9>/,
+    qr/<r10> 64'([-]?\d*) <\/r10>/,
+    qr/<r11> 64'([-]?\d*) <\/r11>/,
+    qr/<r12> 64'([-]?\d*) <\/r12>/,
+    qr/<r13> 64'([-]?\d*) <\/r13>/,
+    qr/<r14> 64'([-]?\d*) <\/r14>/,
+    qr/<r15> 64'([-]?\d*) <\/r15>/,
     qr/<cf> (1'\d*|\w*) <\/cf>/,
     qr/<pf> (1'\d*|\w*) <\/pf>/,
     qr/<af> (1'\d*|\w*) <\/af>/,
@@ -68,7 +68,7 @@ my $regcount = scalar keys %regMap;
 
 
 
-my @xpatterns = ( qr/$\d* = (\d+)/, qr/$\d* = \[ ([CPAZSOIF ]*) \]/, );
+my @xpatterns = ( qr/$\d* = ([-]?\d+)/, qr/$\d* = \[ ([CPAZSOIF ]*) \]/, );
 
 sub execute {
     my $args = shift @_;

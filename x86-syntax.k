@@ -24,6 +24,15 @@ module X86-SYNTAX
                   | "orq"    
                   | "xorq"    
                   | "nop"    
+                  | "movswq"    
+                  | "movsbq"    
+                  | "movslq"    
+                  | "popcntq"    
+                  | "salq"    
+                  | "sarq"    
+                  | "shrq"    
+                  | "movq"    
+                  | "movb"    
 
   syntax AbstractValue ::= Int | MInt
 

@@ -1,0 +1,50 @@
+<T> 
+<k> exit_0 </k> 
+<entrypoint> 64'0 </entrypoint> 
+<nextLoc> 64'3 </nextLoc> 
+<memstate> 
+<cmem> loc ( 64'3 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( orq , %rax , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'0 ) |-> storedinstr ( addq , ( $ 0 ) , ( %rax , .Typedoperands ) ) </cmem> 
+<dmem> .Map </dmem> </memstate> 
+<regstate> 
+<gpr> 
+<rip> 64'3 </rip> 
+<rax> 64'0 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'0 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'0 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
+<zf> 1'1 </zf> 
+<sf> 1'0 </sf> 
+<of> 1'0 </of> </arithflags> 
+<xmm> 
+<xmm0> 128'0 </xmm0> 
+<xmm1> 128'0 </xmm1> 
+<xmm2> 128'0 </xmm2> 
+<xmm3> 128'0 </xmm3> 
+<xmm4> 128'0 </xmm4> 
+<xmm5> 128'0 </xmm5> 
+<xmm6> 128'0 </xmm6> 
+<xmm7> 128'0 </xmm7> 
+<xmm8> 128'0 </xmm8> 
+<xmm9> 128'0 </xmm9> 
+<xmm11> 128'0 </xmm11> 
+<xmm12> 128'0 </xmm12> 
+<xmm14> 128'0 </xmm14> 
+<xmm13> 128'0 </xmm13> 
+<xmm15> 128'0 </xmm15> </xmm> </regstate> 
+<labels> .Map </labels> </T>

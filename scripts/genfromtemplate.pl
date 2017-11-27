@@ -173,6 +173,36 @@ sub unroll {
     }
   }
 
+  if("6" eq $pattern) {
+    for my $reg (@regs) {
+      for my $subreg (@r8s) {
+          my $mod1 = $masterline =~ s/REG64_2/$reg/gr;
+          my $mod2 = $mod1 =~ s/REG8_1/$subreg/gr;
+          my $mod3 = $mod2 =~ s/REG64_1/$subReg8ToReg{$subreg}/gr;
+          print $fd "$mod3";
+      }
+    }
+  }
+  if("7" eq $pattern) {
+    for my $reg (@regs) {
+      for my $subreg (@r16s) {
+          my $mod1 = $masterline =~ s/REG64_2/$reg/gr;
+          my $mod2 = $mod1 =~ s/REG16_1/$subreg/gr;
+          my $mod3 = $mod2 =~ s/REG64_1/$subReg16ToReg{$subreg}/gr;
+          print $fd "$mod3";
+      }
+    }
+  }
+  if("8" eq $pattern) {
+    for my $reg (@regs) {
+      for my $subreg (@r32s) {
+          my $mod1 = $masterline =~ s/REG64_2/$reg/gr;
+          my $mod2 = $mod1 =~ s/REG32_1/$subreg/gr;
+          my $mod3 = $mod2 =~ s/REG64_1/$subReg32ToReg{$subreg}/gr;
+          print $fd "$mod3";
+      }
+    }
+  }
   return $retcounter;
 }
 
