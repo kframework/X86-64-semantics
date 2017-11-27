@@ -21,7 +21,8 @@ requires "x86-popcnt.k"
   - vmaxpd_ymm_ymm_ymm, vmaxps_ymm_ymm_ymm, vminpd_ymm_ymm_ymm, vminps_ymm_ymm_ymm,
   - vmulpd_ymm_ymm_ymm, vmulps_ymm_ymm_ymm, vrcpps_ymm_ymm,
   - vrsqrtps_ymm_ymm, vsqrtpd_ymm_ymm, vsqrtps_ymm_ymm,
-  - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm, vzeroall,
+  - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm, 
+  - vzeroall,
   - xorq_r64_r64,
 */
 
