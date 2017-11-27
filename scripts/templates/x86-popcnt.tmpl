@@ -12,7 +12,7 @@ module POPCNT-R64-R64
 Unroll START PATTERN-6
   rule <k> 
     execinstr (popcntq , (%REG64_1 ,  (%REG64_2 , .Typedoperands)) ) =>
-      execinstr(popcntq, (%REG64_2, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%REG64_2, popCount(MI), .Typedoperands)) 
   ...</k>
   <REG64_1> MI </REG64_1>
 Unroll END

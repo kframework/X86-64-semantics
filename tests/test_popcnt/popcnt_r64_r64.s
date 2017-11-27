@@ -2,6 +2,9 @@
 .globl _start
 
 _start:
-    addq $127, %rax
+    addq $2147483647, %rax
     popcntq %rax, %rbx
+    popcntq %rbx, %rax
+    popcntq %rax, %rbx
+    popcntq %rbx, %rax
     nop

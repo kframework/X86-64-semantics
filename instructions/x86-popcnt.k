@@ -11,47 +11,47 @@ module POPCNT-R64-R64
   // Unroll START
   rule <k> 
     execinstr (popcntq , (%rax ,  (%rax , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rax, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rax, popCount(MI), .Typedoperands)) 
   ...</k>
   <rax> MI </rax>
   rule <k> 
     execinstr (popcntq , (%rbx ,  (%rax , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rax, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rax, popCount(MI), .Typedoperands)) 
   ...</k>
   <rbx> MI </rbx>
   rule <k> 
     execinstr (popcntq , (%rcx ,  (%rax , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rax, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rax, popCount(MI), .Typedoperands)) 
   ...</k>
   <rcx> MI </rcx>
   rule <k> 
     execinstr (popcntq , (%rax ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rbx, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rbx, popCount(MI), .Typedoperands)) 
   ...</k>
   <rax> MI </rax>
   rule <k> 
     execinstr (popcntq , (%rbx ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rbx, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rbx, popCount(MI), .Typedoperands)) 
   ...</k>
   <rbx> MI </rbx>
   rule <k> 
     execinstr (popcntq , (%rcx ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rbx, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rbx, popCount(MI), .Typedoperands)) 
   ...</k>
   <rcx> MI </rcx>
   rule <k> 
     execinstr (popcntq , (%rax ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rcx, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rcx, popCount(MI), .Typedoperands)) 
   ...</k>
   <rax> MI </rax>
   rule <k> 
     execinstr (popcntq , (%rbx ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rcx, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rcx, popCount(MI), .Typedoperands)) 
   ...</k>
   <rbx> MI </rbx>
   rule <k> 
     execinstr (popcntq , (%rcx ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(popcntq, (%rcx, popCount(MI, 64), .Typedoperands)) 
+      execinstr(popcntq, (%rcx, popCount(MI), .Typedoperands)) 
   ...</k>
   <rcx> MI </rcx>
   // Unroll END

@@ -95,23 +95,18 @@ module MINT-WRAPPER
     popCount(MI, N): Count the number of set bits, V, in MI and
     create a Mint(N, V)
   */
-  syntax MInt ::= popCount(MInt, Int) [function]
+  syntax MInt ::= popCount(MInt) [function]
+  syntax MInt ::= countOnes(MInt, Int) [function]
 
-  rule popCount(MI:MInt, N:Int) => mi(N, 0)
+  rule popCount(MI:MInt) => countOnes(MI, 0)
+
+  rule countOnes(MI:MInt, C:Int) => 
+    countOnes(andMInt(MI, subMInt(MI, mi(bitwidthMInt(MI),1))), C +Int 1)
+      requires notBool zeroMInt(MI)
+
+  rule countOnes(MI:MInt, C:Int) => mi(bitwidthMInt(MI), C) 
       requires zeroMInt(MI)
 
-  rule popCount(MI:MInt, N:Int) =>
-    addListMInt( 64,
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),1))),  64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),2))),  64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),4))),  64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),8))),  64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),16))), 64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),32))), 64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),64))), 64 )
-      fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),128))),64 )
-    )
-      requires notBool zeroMInt(MI)
 endmodule
 
 
@@ -119,6 +114,7 @@ module X86-GENERAL-UTILS
   imports MINT-WRAPPER
   imports STRING-WRAPPER
 endmodule
+
 
 
 
