@@ -4,6 +4,7 @@ requires "x86-cmove.k"
 requires "x86-or.k"
 requires "x86-xor.k"
 requires "x86-movs.k"
+//requires "x86-mov.k"
 requires "x86-popcnt.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
@@ -14,6 +15,8 @@ requires "x86-popcnt.k"
   - orq_r64_r64,
   - popcntq_r64_r64,
   - salq_r64_cl, sarq_r64_cl, shrq_r64_cl,
+  - xorq_r64_r64,
+
   - vaddpd_ymm_ymm_ymm, vaddps_ymm_ymm_ymm,
   - vcvtdq2pd_ymm_ymm, vcvtdq2ps_ymm_ymm, vcvtpd2dq_xmm_ymm, vcvtpd2ps_xmm_ymm, vcvtps2dq_ymm_ymm, vcvtps2pd_ymm_xmm, vcvttpd2dq_xmm_ymm, vcvttps2dq_ymm_ymm,
   - vdivpd_ymm_ymm_ymm, vdivps_ymm_ymm_ymm,
@@ -23,7 +26,6 @@ requires "x86-popcnt.k"
   - vrsqrtps_ymm_ymm, vsqrtpd_ymm_ymm, vsqrtps_ymm_ymm,
   - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm, 
   - vzeroall,
-  - xorq_r64_r64,
 */
 
 
@@ -36,5 +38,6 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports OR-SEMANTICS
   imports XOR-SEMANTICS
   imports MOVS-SEMANTICS
+ // imports MOV-SEMANTICS
   imports POPCNT-SEMANTICS
 endmodule

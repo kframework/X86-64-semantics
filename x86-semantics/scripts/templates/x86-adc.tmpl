@@ -9,18 +9,27 @@ module ADC-R8-R8
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
-Unroll START PATTERN-2
+Unroll START PATTERN-9
   rule <k> 
-    execinstr ( adcb , (%REG8_1 ,  (%REG8_2 , .Typedoperands)) ) =>
-      execinstr(adcb, (%REG64_2, extractLSBitsFromRegister(%REG64_1, 8), extractLSBitsFromRegister(%REG64_2, 8), zeroExtend(MI3,8), .Typedoperands)) 
+    execinstr ( adcb , (%REG8 ,  (%REG8 , .Typedoperands)) ) =>
+      execinstr(adcb, (%REG64, extractMask(MI, 8, 0), extractMask(MI, 8, 0), zeroExtend(MIc,8), .Typedoperands)) 
   ...</k>
-  <cf> MI3 </cf>
+  <cf> MIc </cf>
+  <REG64> MI </REG64>
 Unroll END
   // Unroll END
 
-  //MI,m2 type check
-  context execinstr(adcb, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
-  context execinstr(adcb, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
+  // Unroll START
+Unroll START PATTERN-2
+  rule <k> 
+    execinstr ( adcb , (%REG8_1 ,  (%REG8_2 , .Typedoperands)) ) =>
+      execinstr(adcb, (%REG64_2, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
+  ...</k>
+  <REG64_1> MI1 </REG64_1>
+  <REG64_2> MI2 </REG64_2>
+  <cf> MI3 </cf>
+Unroll END
+  // Unroll END
 
   rule
     execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
@@ -30,8 +39,11 @@ Unroll END
     execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
       execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
 
+  // Unroll START
+Unroll START PATTERN-1
   rule
-    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  <k>
+    execinstr(adcb, ( %REG64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -39,7 +51,12 @@ Unroll END
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      pluginLSBitsToRegister(MIresult, DestR) 
+      updateReg(plugInMask(MI, MIresult, 0), %REG64) 
+  ...</k>
+  <REG64> MI </REG64>
+Unroll END
+  // Unroll END
+
 
 endmodule
 
@@ -47,18 +64,27 @@ module ADC-R16-R16
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
-Unroll START PATTERN-3
+Unroll START PATTERN-10
   rule <k> 
-    execinstr ( adcw , (%REG64_16_1 ,  (%REG64_16_2 , .Typedoperands)) ) =>
-      execinstr(adcw, (%REG64_2, extractLSBitsFromRegister(%REG64_1, 16), extractLSBitsFromRegister(%REG64_2, 16), zeroExtend(MI3,16), .Typedoperands)) 
+    execinstr ( adcw , (%REG16 ,  (%REG16 , .Typedoperands)) ) =>
+      execinstr(adcw, (%REG64, extractMask(MI, 16, 0), extractMask(MI, 16, 0), zeroExtend(MIc,16), .Typedoperands)) 
   ...</k>
-  <cf> MI3 </cf>
+  <cf> MIc </cf>
+  <REG64> MI </REG64>
 Unroll END
   // Unroll END
 
-  //MI,m2 type check
-  context execinstr(adcw, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
-  context execinstr(adcw, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
+  // Unroll START
+Unroll START PATTERN-3
+  rule <k> 
+    execinstr ( adcw , (%REG16_1 ,  (%REG16_2 , .Typedoperands)) ) =>
+      execinstr(adcw, (%REG64_2, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
+  ...</k>
+  <REG64_1> MI1 </REG64_1>
+  <REG64_2> MI2 </REG64_2>
+  <cf> MI3 </cf>
+Unroll END
+  // Unroll END
 
   rule
     execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
@@ -68,8 +94,11 @@ Unroll END
     execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
       execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
 
+  // Unroll START
+Unroll START PATTERN-1
   rule
-    execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  <k>
+    execinstr(adcw, ( %REG64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -77,7 +106,11 @@ Unroll END
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      pluginLSBitsToRegister(MIresult, DestR) 
+      updateReg(plugInMask(MI, MIresult, 0), %REG64)
+  ...</k>
+    <REG64> MI </REG64>
+Unroll END
+  // Unroll END
 
 endmodule
 
@@ -85,18 +118,27 @@ module ADC-R32-R32
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
-Unroll START PATTERN-4
+Unroll START PATTERN-11
   rule <k> 
-    execinstr ( adcl , (%REG32_1 ,  (%REG32_2 , .Typedoperands)) ) =>
-      execinstr(adcl, (%REG64_2, extractLSBitsFromRegister(%REG64_1, 32), extractLSBitsFromRegister(%REG64_2, 32), zeroExtend(MI3,32), .Typedoperands)) 
+    execinstr ( adcl , (%REG32 ,  (%REG32 , .Typedoperands)) ) =>
+      execinstr(adcl, (%REG64, extractMask(MI, 32, 0), extractMask(MI, 32, 0), zeroExtend(MIc,32), .Typedoperands)) 
   ...</k>
-  <cf> MI3 </cf>
+  <cf> MIc </cf>
+  <REG64> MI </REG64>
 Unroll END
   // Unroll END
 
-  //MI,m2 type check
-  context execinstr(adcl, (_:Typeoperand, HOLE:Typeoperand, _:Typeoperand, _:MInt, .Typedoperands))
-  context execinstr(adcl, (_:Typeoperand, MInt,          HOLE:Typeoperand, _:MInt, .Typedoperands))
+  // Unroll START
+Unroll START PATTERN-4
+  rule <k> 
+    execinstr ( adcl , (%REG32_1 ,  (%REG32_2 , .Typedoperands)) ) =>
+      execinstr(adcl, (%REG64_2, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
+  ...</k>
+  <REG64_1> MI1 </REG64_1>
+  <REG64_2> MI2 </REG64_2>
+  <cf> MI3 </cf>
+Unroll END
+  // Unroll END
 
   rule
     execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
@@ -106,8 +148,11 @@ Unroll END
     execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
       execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
 
+  // Unroll START
+Unroll START PATTERN-1
   rule
-    execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  <k>
+    execinstr(adcl, ( %REG64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -115,7 +160,11 @@ Unroll END
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      pluginLSBitsToRegister(MIresult, DestR) 
+      updateReg(plugInMask(MI, MIresult, 0), %REG64)
+  ...</k>
+    <REG64> MI </REG64>
+Unroll END
+  // Unroll END
 
 endmodule
 

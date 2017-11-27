@@ -118,6 +118,7 @@ sub unroll {
     $i ++;
   }
 
+  # REG64
   if("1" eq $pattern) {
     for my $reg (@regs) {
         my $mod = $masterline =~ s/REG64/$reg/gr;
@@ -125,54 +126,65 @@ sub unroll {
     }
   }
 
+  # REG64_1 REG64_2 REG8_1 REG8_2
   if("2" eq $pattern) {
     for my $subreg2 (@r8s) {
       for my $subreg1 (@r8s) {
-        my $mod1 = $masterline =~ s/REG8_1/$subreg1/gr;
-        my $mod2 = $mod1 =~ s/REG8_2/$subreg2/gr;
-        my $mod3 = $mod2 =~ s/REG64_2/$subReg8ToReg{$subreg2}/gr;
-        my $mod4 = $mod3 =~ s/REG64_1/$subReg8ToReg{$subreg1}/gr;
-        print $fd "$mod4";
+        if($subreg2 ne $subreg1) {
+          my $mod1 = $masterline =~ s/REG8_1/$subreg1/gr;
+          my $mod2 = $mod1 =~ s/REG8_2/$subreg2/gr;
+          my $mod3 = $mod2 =~ s/REG64_2/$subReg8ToReg{$subreg2}/gr;
+          my $mod4 = $mod3 =~ s/REG64_1/$subReg8ToReg{$subreg1}/gr;
+          print $fd "$mod4";
+        }
       }
     }
   }
 
+  # REG64_1 REG64_2 REG16_1 REG16_2
   if("3" eq $pattern) {
     for my $subreg2 (@r16s) {
       for my $subreg1 (@r16s) {
-        my $mod1 = $masterline =~ s/REG64_16_1/$subreg1/gr;
-        my $mod2 = $mod1 =~ s/REG64_16_2/$subreg2/gr;
-        my $mod3 = $mod2 =~ s/REG64_2/$subReg16ToReg{$subreg2}/gr;
-        my $mod4 = $mod3 =~ s/REG64_1/$subReg16ToReg{$subreg1}/gr;
-        print $fd "$mod4";
+        if($subreg2 ne $subreg1) {
+          my $mod1 = $masterline =~ s/REG16_1/$subreg1/gr;
+          my $mod2 = $mod1 =~ s/REG16_2/$subreg2/gr;
+          my $mod3 = $mod2 =~ s/REG64_2/$subReg16ToReg{$subreg2}/gr;
+          my $mod4 = $mod3 =~ s/REG64_1/$subReg16ToReg{$subreg1}/gr;
+          print $fd "$mod4";
+        }
       }
     }
   }
 
+  # REG64_1 REG64_2 REG32_1 REG32_2
   if("4" eq $pattern) {
     for my $subreg2 (@r32s) {
       for my $subreg1 (@r32s) {
-        my $mod1 = $masterline =~ s/REG32_1/$subreg1/gr;
-        my $mod2 = $mod1 =~ s/REG32_2/$subreg2/gr;
-        my $mod3 = $mod2 =~ s/REG64_2/$subReg32ToReg{$subreg2}/gr;
-        my $mod4 = $mod3 =~ s/REG64_1/$subReg32ToReg{$subreg1}/gr;
-        print $fd "$mod4";
+        if($subreg2 ne $subreg1) {
+          my $mod1 = $masterline =~ s/REG32_1/$subreg1/gr;
+          my $mod2 = $mod1 =~ s/REG32_2/$subreg2/gr;
+          my $mod3 = $mod2 =~ s/REG64_2/$subReg32ToReg{$subreg2}/gr;
+          my $mod4 = $mod3 =~ s/REG64_1/$subReg32ToReg{$subreg1}/gr;
+          print $fd "$mod4";
+        }
       }
     }
   }
 
+  # REG64_1 REG64_2
   if("5" eq $pattern) {
-    for my $subreg2 (@regs) {
-      for my $subreg1 (@regs) {
-        if($subreg2 ne $subreg1) {
-          my $mod1 = $masterline =~ s/REG64_1/$subreg1/gr;
-          my $mod2 = $mod1 =~ s/REG64_2/$subreg2/gr;
+    for my $reg2 (@regs) {
+      for my $reg1 (@regs) {
+        if($reg2 ne $reg1) {
+          my $mod1 = $masterline =~ s/REG64_1/$reg1/gr;
+          my $mod2 = $mod1 =~ s/REG64_2/$reg2/gr;
           print $fd "$mod2";
         }
       }
     }
   }
 
+  # REG64_1 REG64_2 REG8_1
   if("6" eq $pattern) {
     for my $reg (@regs) {
       for my $subreg (@r8s) {
@@ -183,6 +195,8 @@ sub unroll {
       }
     }
   }
+
+  # REG64_1 REG64_2 REG16_1
   if("7" eq $pattern) {
     for my $reg (@regs) {
       for my $subreg (@r16s) {
@@ -193,6 +207,8 @@ sub unroll {
       }
     }
   }
+
+  # REG64_1 REG64_2 REG32_1
   if("8" eq $pattern) {
     for my $reg (@regs) {
       for my $subreg (@r32s) {
@@ -203,6 +219,38 @@ sub unroll {
       }
     }
   }
+
+  # REG64  REG8
+  if("9" eq $pattern) {
+    for my $subreg (@r8s) {
+      my $mod1 = $masterline =~ s/REG8/$subreg/gr;
+      my $mod2 = $mod1 =~ s/REG64/$subReg8ToReg{$subreg}/gr;
+      print $fd "$mod2";
+    }
+  }
+
+  # REG64  REG16
+  if("10" eq $pattern) {
+    for my $subreg (@r16s) {
+      my $mod1 = $masterline =~ s/REG16/$subreg/gr;
+      my $mod2 = $mod1 =~ s/REG64/$subReg16ToReg{$subreg}/gr;
+      print $fd "$mod2";
+    }
+  }
+
+  # REG64  REG32
+  if("11" eq $pattern) {
+    for my $subreg (@r32s) {
+      my $mod1 = $masterline =~ s/REG32/$subreg/gr;
+      my $mod2 = $mod1 =~ s/REG64/$subReg32ToReg{$subreg}/gr;
+      print $fd "$mod2";
+    }
+  }
+
+
+
+
+
   return $retcounter;
 }
 

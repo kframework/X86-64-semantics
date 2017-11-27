@@ -37,6 +37,19 @@ module MINT-WRAPPER
   rule fromBool(B:Bool, W:Int) => mi(W,0)
     requires notBool B
 
+  /*@ extractMask(MI, W, S) Extracts the lower W bits 
+    from MInt starting from lower significant bit position S.
+
+    Ex: extractMask(MI, 16, 8):
+        MI:64' 0x 00 ff 00 ff 00 ff 00 ff
+        Output:                  <---> 
+          MI:16' 0x                 ff 00
+    Todo :check for MI wodth < W
+  */
+  syntax MInt ::= extractMask(MInt, Int, Int) [function]
+  rule extractMask(MI, W, S) => 
+    truncate(lshrMInt(MI, S), W)
+    
   /*@ truncate(MI, To) Truncates a mi(From,V1) to mi(To,V2)
     Todo : type check
   */
@@ -57,27 +70,37 @@ module MINT-WRAPPER
   requires N <=Int bitwidthMInt(MI)
 
   /*@ 
-    updateLSB(MITarget, MISrc): 
+    plugInMask(MITarget, MISrc, S): 
       Let MITarget == mi(WT, VT)
       Let MISrc == mi(WS, VS)
-      updateLSB updates the lower WS bits of VT with VS.
-  */
-  syntax MInt ::= updateLSB(MInt, MInt) [function]
+      plugInMask updates the lower WS bits of VT starting at 
+      lower significant bit position S with VS.
 
-  rule updateLSB(MITarget, MISrc) => MISrc
+      Ex: plugInMask(MIT,MIS, 8):
+        MIT:64' 0x 00 ff 00 ff 00 ff 00 ff
+        MIS:16' 0x                   55 44
+        Output:
+            64' 0x 00 ff 00 ff 00 55 44 ff
+  */
+  syntax MInt ::= plugInMask(MInt, MInt, Int) [function]
+
+  rule plugInMask(MITarget, MISrc, _) => MISrc
     requires bitwidthMInt(MISrc) >=Int bitwidthMInt(MITarget)
 
-  rule updateLSB(MITarget, MISrc) => 
+  rule plugInMask(MITarget, MISrc, S) => 
     orMInt(
       andMInt(
           MITarget, 
           negateMInt(
-            mi(bitwidthMInt(MITarget), umaxMInt(bitwidthMInt(MISrc)))
+            shlMInt(
+              mi(bitwidthMInt(MITarget), umaxMInt(bitwidthMInt(MISrc))),
+              S)
           )
       ),
-      zeroExtend(MISrc, bitwidthMInt(MITarget))
+      shlMInt(zeroExtend(MISrc, bitwidthMInt(MITarget)), S)
     )
     requires bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget)
+
 
   /*@ 
     signExtend(MI, N): Sign extend MInt MI to a MInt of
