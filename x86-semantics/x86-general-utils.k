@@ -1,3 +1,7 @@
+module STRING-WRAPPER
+  imports STRING
+endmodule
+
 module MINT-WRAPPER
   imports MINT
 
@@ -74,10 +78,10 @@ module MINT-WRAPPER
       zeroExtend(MISrc, bitwidthMInt(MITarget))
     )
     requires bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget)
-
 endmodule
 
 
 module X86-GENERAL-UTILS
   imports MINT-WRAPPER
+  imports STRING-WRAPPER
 endmodule

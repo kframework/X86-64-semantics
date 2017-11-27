@@ -69,7 +69,7 @@ module XOR-R64-R64
       setOverflow(mi(1,0)) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(mi(1,1)) ~> 
+      setAuxCarryFlag(undef) ~> 
       setCarryFlag(mi(1,0)) ~> 
       updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR) 

@@ -18,13 +18,14 @@ module X86-LOADER
   rule I:Instruction Is:Instructions => I ~> Is
 
   /*@
-    Ignore certain contructs for the time being.
+    Ignore certain contructs and comments for the time being.
   */
   rule <k> .section .text  => . ...</k>
   rule <k> .globl _start  => . ...</k>
   // why this does not work 
   // rule <k> L : Label => . ...</k>
   rule <k> _start : => . ...</k>
+  //rule <k> C:Comment => . ...</k>
   // Which rule to take precedence
   // rule <k> nop => . ...</k>
 

@@ -4,12 +4,27 @@ requires "x86-semantic-utils.k"
 module ADD-IMM-R8
   imports X86-SEMANTIC-UTILS
 
-  syntax Int ::= handleImmediate(Imm) [function]
-  rule handleImmediate($ I:Int) => I
+  // Unroll START
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => 
+      execinstr(addq, (%rax, handleImmediate(I, 64), MI, addMInt(handleImmediate(I, 64), MI), .Typedoperands)) 
+  ...</k>
+  <rax> MI </rax>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rbx , .Typedoperands)) ) => 
+      execinstr(addq, (%rbx, handleImmediate(I, 64), MI, addMInt(handleImmediate(I, 64), MI), .Typedoperands)) 
+  ...</k>
+  <rbx> MI </rbx>
+  rule <k> 
+    execinstr ( addq , (I:Imm ,  (%rcx , .Typedoperands)) ) => 
+      execinstr(addq, (%rcx, handleImmediate(I, 64), MI, addMInt(handleImmediate(I, 64), MI), .Typedoperands)) 
+  ...</k>
+  <rcx> MI </rcx>
+  // Unroll End
 
   rule
   <k>
-    execinstr(addq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult, .Typedoperands )) =>
+    execinstr(addq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
@@ -19,23 +34,6 @@ module ADD-IMM-R8
       updateReg(MIresult, DestR) 
   ...</k> 
 
-  // Unroll START
-  rule <k> 
-    execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => 
-      execinstr(addq, (%rax, mi(64, handleImmediate(I)), MI, addMInt(mi(64, handleImmediate(I)), MI), .Typedoperands)) 
-  ...</k>
-  <rax> MI </rax>
-  rule <k> 
-    execinstr ( addq , (I:Imm ,  (%rbx , .Typedoperands)) ) => 
-      execinstr(addq, (%rbx, mi(64, handleImmediate(I)), MI, addMInt(mi(64, handleImmediate(I)), MI), .Typedoperands)) 
-  ...</k>
-  <rbx> MI </rbx>
-  rule <k> 
-    execinstr ( addq , (I:Imm ,  (%rcx , .Typedoperands)) ) => 
-      execinstr(addq, (%rcx, mi(64, handleImmediate(I)), MI, addMInt(mi(64, handleImmediate(I)), MI), .Typedoperands)) 
-  ...</k>
-  <rcx> MI </rcx>
-  // Unroll End
 endmodule
 
 module ADD-SEMANTICS

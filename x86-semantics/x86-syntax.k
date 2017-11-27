@@ -2,8 +2,12 @@
 module X86-SYNTAX
   imports MINT
 
-/*@ The following captures  the At&t syntax of x86 assembly.
-*/
+  /*@ 
+    The following captures  the At&t syntax of x86 assembly.
+  */
+  // syntax Comment ::= ";" r"[^\n]*[\n]" [lableOnly, token, autoReject]
+
+  syntax MInt ::= "undef"
   syntax Instructions ::= List{Instruction, ""}
   syntax Instruction ::= Label 
                        | Opcode Typedoperands
@@ -22,6 +26,8 @@ module X86-SYNTAX
                   | "nop"    
 
   syntax AbstractValue ::= Int | MInt
+
+  syntax HexConstant ::=  r"0x[0-9a-fA-F]*" [token]
 
   syntax Typedoperands ::= List{Typeoperand, ","}
   syntax Typeoperand ::=  Imm
@@ -43,6 +49,7 @@ module X86-SYNTAX
   syntax Offset ::= Int
   // Todo: Support $0xhhhh
   syntax Imm ::= "$" Int
+               | "$" HexConstant
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"
                | "(" Rip ")"
