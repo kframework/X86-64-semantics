@@ -113,14 +113,14 @@ java.lang.AssertionError: Unimplemented yet
 
 ```
 
-### Q3: Hex to String
+### Q3: Hex to String [Asked]
 Detail:
 I would like to parse a hex constant like
 ```
 syntax HexConstant ::=  r"0x[0-9a-fA-F]*" [token]
 ```
-Detail:
-and use the hook  `STRING.string2base` to get the `Int` equivalent, but for that i need the hex as String, which I could not find.
+and use the hook  `STRING.string2base` to get the `Int` equivalent, but for that i need the hex as String, which I could not find how to get.
+
 ```
     syntax Int ::= HexStringtToInt(String, Int)  [function, hook(STRING.string2base)]
 

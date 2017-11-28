@@ -130,6 +130,66 @@ module MINT-WRAPPER
   rule countOnes(MI:MInt, C:Int) => mi(bitwidthMInt(MI), C) 
       requires zeroMInt(MI)
 
+  /*@ 
+    shiftCountMask(MIsrc, N): 
+    if N == 64: return and(MIsrc, 0x3F) 
+    else return and(MIsrc, 0x1F) 
+  */
+  syntax MInt ::= shiftCountMask(MInt, Int) [function]
+
+  rule shiftCountMask(MI:MInt, I:Int) => 
+    andMInt(MI, mi(bitwidthMInt(MI), 63))
+  requires I ==Int 64
+
+  rule shiftCountMask(MI:MInt, I:Int) => 
+    andMInt(MI, mi(bitwidthMInt(MI), 31))
+  requires I =/=Int 64
+
+  /*@ 
+    getSignBit(MI): return mi(1, signBit of MI)
+  */
+  syntax MInt ::= getSignBit(MInt) [function]
+
+  rule getSignBit(MI:MInt) => 
+    fromBool( toBool(
+        andMInt(MI, 
+            mi(bitwidthMInt(MI), sminMInt(bitwidthMInt(MI)))
+        )
+      ), 1)
+
+  /*@ 
+    getBit(MI, I): return Ith bit of MI
+  */
+  syntax MInt ::= getBit(MInt, Int) [function]
+
+  rule getBit(MI:MInt, I:Int) => 
+    fromBool( toBool(
+        andMInt(MI, shlMInt(mi(bitwidthMInt(MI), 1), I))
+        ), 1)
+
+  /*@ 
+    sarOverflow(MI): return the value of SAR
+    operation on MI with count >= bitwidthMInt(MI)
+  */
+  syntax MInt ::= sarOverflow(MInt) [function]
+  rule sarOverflow(MI:MInt) => mi(bitwidthMInt(MI), 0)
+    requires zeroMInt(getSignBit(MI))
+  rule sarOverflow(MI:MInt) => mi(bitwidthMInt(MI), -1)
+    requires notBool zeroMInt(getSignBit(MI))
+
+  /*@ 
+    shrOverflow(MI): return the value of SHR
+    operation on MI with count >= bitwidthMInt(MI)
+  */
+  syntax MInt ::= shrOverflow(MInt) [function]
+  rule shrOverflow(MI:MInt) => mi(bitwidthMInt(MI), 0)
+
+  /*@ 
+    salOverflow(MI): return the value of SAL
+    operation on MI with count >= bitwidthMInt(MI)
+  */
+  syntax MInt ::= salOverflow(MInt) [function]
+  rule salOverflow(MI:MInt) => mi(bitwidthMInt(MI), 0)
 endmodule
 
 

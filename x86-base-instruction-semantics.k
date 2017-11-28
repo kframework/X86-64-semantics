@@ -6,6 +6,9 @@ requires "x86-xor.k"
 requires "x86-movs.k"
 requires "x86-mov.k"
 requires "x86-popcnt.k"
+requires "x86-shr.k"
+requires "x86-sar.k"
+requires "x86-sal.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
@@ -40,4 +43,7 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports MOVS-SEMANTICS
   imports MOV-SEMANTICS
   imports POPCNT-SEMANTICS
+  imports SHR-SEMANTICS
+  imports SAR-SEMANTICS
+  imports SAL-SEMANTICS
 endmodule
