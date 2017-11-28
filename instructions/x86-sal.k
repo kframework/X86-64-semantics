@@ -37,7 +37,7 @@ module SAL-R64-CL
   // If MIcount == 1
   rule
   execinstr ( salq , (DestR:R64,  (MIsrc, MIcount , .Typedoperands)) ) => 
-    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , shlMInt(MIsrc, 1), .Typedoperands)) ) 
+    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , shiftLeft(MIsrc, 1), .Typedoperands)) ) 
   requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
 
   rule
@@ -54,8 +54,8 @@ module SAL-R64-CL
   // If MIcount < bitwidth(MIsrc)
   rule
   execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) =>
-    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , shlMInt(MIsrc, 
-              uvalueMInt(MIcount) -Int 1), shlMInt(MIsrc, uvalueMInt(MIcount)), .Typedoperands)) ) 
+    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , shiftLeft(MIsrc, 
+              uvalueMInt(MIcount) -Int 1), shiftLeft(MIsrc, uvalueMInt(MIcount)), .Typedoperands)) ) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
@@ -85,13 +85,13 @@ module SAL-R64-CL
   rule
   execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
       setOverflow(undef) ~> 
-      setZeroFlag(MIresult) ~> 
-      setSignFlag(MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       // Intel manual is not clear about carry Flag
       // if MIcount == bitwidth; CF == getBit(Misrc, 0); else CF == 0
       setCarryFlag(undef) ~> 
-      setParityFlag(MIresult) ~> 
+      updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR:R64) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 

@@ -11,7 +11,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(createDir execute info passInfo failInfo display processKFile checkKRunStatus processXFile compareStates );
+  qw(createDir execute info passInfo failInfo display processKFile checkKRunStatus processXFile compareStates pprint);
 @EXPORT_OK = qw();
 
 my @kpatterns = (
@@ -219,7 +219,7 @@ sub processXFile {
 sub compareStates {
     my ($k_ref, $x_ref) = @_;
    my @kstates = @{ $k_ref };      
-   my @xstates = @{ $x_ref };
+   my @xstates = @{ $x_ref };;
 
     for(my $i = 0 ; $i < $regcount; $i ++) {
       if($i == 6) {
@@ -238,6 +238,18 @@ sub compareStates {
   }
   passInfo("Passed: compare");
 }
+
+sub pprint {
+  my ($k_ref, $x_ref) = @_;
+  my @kstates = @{ $k_ref };      
+  my @xstates = @{ $x_ref };
+
+  print "\nreg\tkstate\txstate". "\n---------------------\n";
+  for(my $i = 0 ; $i < $regcount; $i++) {
+    print "$regMap{$i}\t$kstates[$i]\t$xstates[$i]". "\n";
+  }
+}
+
 
 sub cleanup {
 }

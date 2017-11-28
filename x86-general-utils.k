@@ -8,6 +8,13 @@ module MINT-WRAPPER
   /*@
     Bitwise negation
   */  
+  syntax MInt ::= shiftLeft(MInt, Int)   [function]
+  rule shiftLeft(MI, I) => 
+    extractMInt(shlMInt(MI, I), 0, bitwidthMInt(MI))
+
+  /*@
+    Bitwise negation
+  */  
   syntax MInt ::= negateMInt(MInt)   [function]
   rule negateMInt(MI) => xorMInt(MI, mi(bitwidthMInt(MI), -1))
 

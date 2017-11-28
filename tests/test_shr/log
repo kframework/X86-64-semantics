@@ -1,0 +1,224 @@
+
+Generate: Output/./shr_r64_cl_1.kstate 
+../../scripts/run.pl --file shr_r64_cl_1.s --krun --output Output/./shr_r64_cl_1.kstate
+krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics shr_r64_cl_1.s --output-file Output//shr_r64_cl_1.kstate 
+cat Output//shr_r64_cl_1.kstate | sed -e 's/\(<[^</]*>\)/\n\1/g' | sed  '/^\s*$/d' 1> /tmp/x  2>&1 
+mv /tmp/x Output//shr_r64_cl_1.kstate 
+[4m[1m[92mPass: krun[0m
+
+Generate: Output/./shr_r64_cl_2.kstate 
+../../scripts/run.pl --file shr_r64_cl_2.s --krun --output Output/./shr_r64_cl_2.kstate
+krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics shr_r64_cl_2.s --output-file Output//shr_r64_cl_2.kstate 
+cat Output//shr_r64_cl_2.kstate | sed -e 's/\(<[^</]*>\)/\n\1/g' | sed  '/^\s*$/d' 1> /tmp/x  2>&1 
+mv /tmp/x Output//shr_r64_cl_2.kstate 
+[4m[1m[92mPass: krun[0m
+
+Generate: Output/./shr_r64_cl_3.kstate 
+../../scripts/run.pl --file shr_r64_cl_3.s --krun --output Output/./shr_r64_cl_3.kstate
+krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics shr_r64_cl_3.s --output-file Output//shr_r64_cl_3.kstate 
+cat Output//shr_r64_cl_3.kstate | sed -e 's/\(<[^</]*>\)/\n\1/g' | sed  '/^\s*$/d' 1> /tmp/x  2>&1 
+mv /tmp/x Output//shr_r64_cl_3.kstate 
+[4m[1m[92mPass: krun[0m
+
+Generate: Output/./shr_r64_cl_4.kstate 
+../../scripts/run.pl --file shr_r64_cl_4.s --krun --output Output/./shr_r64_cl_4.kstate
+krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics shr_r64_cl_4.s --output-file Output//shr_r64_cl_4.kstate 
+cat Output//shr_r64_cl_4.kstate | sed -e 's/\(<[^</]*>\)/\n\1/g' | sed  '/^\s*$/d' 1> /tmp/x  2>&1 
+mv /tmp/x Output//shr_r64_cl_4.kstate 
+[4m[1m[92mPass: krun[0m
+
+Generate: Output/./shr_r64_cl_5.kstate 
+../../scripts/run.pl --file shr_r64_cl_5.s --krun --output Output/./shr_r64_cl_5.kstate
+krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics shr_r64_cl_5.s --output-file Output//shr_r64_cl_5.kstate 
+cat Output//shr_r64_cl_5.kstate | sed -e 's/\(<[^</]*>\)/\n\1/g' | sed  '/^\s*$/d' 1> /tmp/x  2>&1 
+mv /tmp/x Output//shr_r64_cl_5.kstate 
+[4m[1m[92mPass: krun[0m
+
+Generate: Output/./shr_r64_cl_1.xstate 
+../../scripts/run.pl --file shr_r64_cl_1.s --xrun --output Output/./shr_r64_cl_1.xstate
+as shr_r64_cl_1.s -o Output//shr_r64_cl_1.o 
+ld Output//shr_r64_cl_1.o -o Output//shr_r64_cl_1.exec 
+gdb --batch --command=../../scripts/script_3.gdb --args Output//shr_r64_cl_1.exec 1> Output//shr_r64_cl_1.xstate 2>&1 
+
+Generate: Output/./shr_r64_cl_2.xstate 
+../../scripts/run.pl --file shr_r64_cl_2.s --xrun --output Output/./shr_r64_cl_2.xstate
+as shr_r64_cl_2.s -o Output//shr_r64_cl_2.o 
+ld Output//shr_r64_cl_2.o -o Output//shr_r64_cl_2.exec 
+gdb --batch --command=../../scripts/script_3.gdb --args Output//shr_r64_cl_2.exec 1> Output//shr_r64_cl_2.xstate 2>&1 
+
+Generate: Output/./shr_r64_cl_3.xstate 
+../../scripts/run.pl --file shr_r64_cl_3.s --xrun --output Output/./shr_r64_cl_3.xstate
+as shr_r64_cl_3.s -o Output//shr_r64_cl_3.o 
+ld Output//shr_r64_cl_3.o -o Output//shr_r64_cl_3.exec 
+gdb --batch --command=../../scripts/script_3.gdb --args Output//shr_r64_cl_3.exec 1> Output//shr_r64_cl_3.xstate 2>&1 
+
+Generate: Output/./shr_r64_cl_4.xstate 
+../../scripts/run.pl --file shr_r64_cl_4.s --xrun --output Output/./shr_r64_cl_4.xstate
+as shr_r64_cl_4.s -o Output//shr_r64_cl_4.o 
+ld Output//shr_r64_cl_4.o -o Output//shr_r64_cl_4.exec 
+gdb --batch --command=../../scripts/script_3.gdb --args Output//shr_r64_cl_4.exec 1> Output//shr_r64_cl_4.xstate 2>&1 
+
+Generate: Output/./shr_r64_cl_5.xstate 
+../../scripts/run.pl --file shr_r64_cl_5.s --xrun --output Output/./shr_r64_cl_5.xstate
+as shr_r64_cl_5.s -o Output//shr_r64_cl_5.o 
+ld Output//shr_r64_cl_5.o -o Output//shr_r64_cl_5.exec 
+gdb --batch --command=../../scripts/script_3.gdb --args Output//shr_r64_cl_5.exec 1> Output//shr_r64_cl_5.xstate 2>&1 
+
+Compare: Output/shr_r64_cl_1.cstate 
+../../scripts/run.pl --file Output/shr_r64_cl_1.kstate --compare 
+grep --max-count=1  -A 17  "nop"  Output//shr_r64_cl_1.xstate 1> /tmp/xxx 2>&1 
+
+reg	kstate	xstate
+---------------------
+rax	4611686018427387904	4611686018427387904
+rbx	0	0
+rcx	0	0
+rdx	0	0
+rsi	0	0
+rdi	0	0
+rsp	0	140737488347536
+rbp	0	0
+r8	0	0
+r9	0	0
+r10	0	0
+r11	0	0
+r12	0	0
+r13	0	0
+r14	0	0
+r15	0	0
+cf	1	1
+pf	1	1
+af	undef	0
+zf	0	0
+sf	1	0
+of		1
+[4m[1m[34mundef found at af[0m
+[4m[1m[91mFailed: sf[0m
+
+Compare: Output/shr_r64_cl_2.cstate 
+../../scripts/run.pl --file Output/shr_r64_cl_2.kstate --compare 
+grep --max-count=1  -A 17  "nop"  Output//shr_r64_cl_2.xstate 1> /tmp/xxx 2>&1 
+
+reg	kstate	xstate
+---------------------
+rax	4575657221408423936	4575657221408423936
+rbx	0	0
+rcx	0	0
+rdx	0	0
+rsi	0	0
+rdi	0	0
+rsp	0	140737488347536
+rbp	0	0
+r8	0	0
+r9	0	0
+r10	0	0
+r11	0	0
+r12	0	0
+r13	0	0
+r14	0	0
+r15	0	0
+cf	0	0
+pf	1	1
+af	undef	0
+zf	0	0
+sf	0	0
+of		0
+[4m[1m[34mundef found at af[0m
+[4m[1m[91mFailed: of[0m
+
+Compare: Output/shr_r64_cl_3.cstate 
+../../scripts/run.pl --file Output/shr_r64_cl_3.kstate --compare 
+grep --max-count=1  -A 17  "nop"  Output//shr_r64_cl_3.xstate 1> /tmp/xxx 2>&1 
+
+reg	kstate	xstate
+---------------------
+rax	1	1
+rbx	0	0
+rcx	63	63
+rdx	0	0
+rsi	0	0
+rdi	0	0
+rsp	0	140737488347536
+rbp	0	0
+r8	0	0
+r9	0	0
+r10	0	0
+r11	0	0
+r12	0	0
+r13	0	0
+r14	0	0
+r15	0	0
+cf	0	0
+pf	0	0
+af	undef	0
+zf	0	0
+sf	undef	0
+of		1
+[4m[1m[34mundef found at af[0m
+[4m[1m[34mundef found at sf[0m
+[4m[1m[91mFailed: of[0m
+
+Compare: Output/shr_r64_cl_4.cstate 
+../../scripts/run.pl --file Output/shr_r64_cl_4.kstate --compare 
+grep --max-count=1  -A 17  "nop"  Output//shr_r64_cl_4.xstate 1> /tmp/xxx 2>&1 
+
+reg	kstate	xstate
+---------------------
+rax	0	0
+rbx	0	0
+rcx	63	63
+rdx	0	0
+rsi	0	0
+rdi	0	0
+rsp	0	140737488347536
+rbp	0	0
+r8	0	0
+r9	0	0
+r10	0	0
+r11	0	0
+r12	0	0
+r13	0	0
+r14	0	0
+r15	0	0
+cf	1	1
+pf	1	1
+af	undef	0
+zf	1	1
+sf	undef	0
+of		0
+[4m[1m[34mundef found at af[0m
+[4m[1m[34mundef found at sf[0m
+[4m[1m[91mFailed: of[0m
+
+Compare: Output/shr_r64_cl_5.cstate 
+../../scripts/run.pl --file Output/shr_r64_cl_5.kstate --compare 
+grep --max-count=1  -A 17  "nop"  Output//shr_r64_cl_5.xstate 1> /tmp/xxx 2>&1 
+
+reg	kstate	xstate
+---------------------
+rax	1	1
+rbx	0	0
+rcx	66	66
+rdx	0	0
+rsi	0	0
+rdi	0	0
+rsp	0	140737488347536
+rbp	0	0
+r8	0	0
+r9	0	0
+r10	0	0
+r11	0	0
+r12	0	0
+r13	0	0
+r14	0	0
+r15	0	0
+cf	0	0
+pf	0	0
+af	undef	0
+zf	0	0
+sf	undef	0
+of		0
+[4m[1m[34mundef found at af[0m
+[4m[1m[34mundef found at sf[0m
+[4m[1m[91mFailed: of[0m
+rm Output/shr_r64_cl_5.xstate Output/shr_r64_cl_4.kstate Output/shr_r64_cl_2.xstate Output/shr_r64_cl_1.kstate Output/shr_r64_cl_4.xstate Output/shr_r64_cl_3.kstate Output/shr_r64_cl_1.xstate Output/shr_r64_cl_2.kstate Output/shr_r64_cl_5.kstate Output/shr_r64_cl_3.xstate

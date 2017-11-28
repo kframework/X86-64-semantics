@@ -83,11 +83,11 @@ module SAR-R64-CL
   rule
   execinstr ( sarq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
       setOverflow(undef) ~> 
-      setZeroFlag(MIresult) ~> 
-      setSignFlag(MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(getSignBit(MIsrc)) ~> 
-      setParityFlag(MIresult) ~> 
+      updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR:R64) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
