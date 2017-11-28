@@ -36,6 +36,21 @@ my @r16s = ( "ax", "bx", "cx",);# "dx", "si", "di", "sp", "bp", "r8w", "r9w", "r
 
 my @r32s = ( "eax", "ebx", "ecx",);# "edx", "esi", "edi", "esp", "ebp", "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d");
 
+
+=pod
+my @regs = ( "rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rsp", "rbp", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", ); 
+
+my @r8s = ( "al", "bl", "cl", "dl", "sil", "dil", "spl", "bpl", "r8b", "r9b", "r10b", "r11b", "r12b", "r13b", "r14b", "r15b",); 
+
+my @rhs = ( "ah", "bh", "ch", "dh");
+
+my @r16s = ( "ax", "bx", "cx", "dx", "si", "di", "sp", "bp", "r8w", "r9w", "r10w", "r11w", "r12w", "r13w", "r14w", "r15w",); 
+
+my @r32s = ( "eax", "ebx", "ecx", "edx", "esi", "edi", "esp", "ebp", "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d");
+=cut
+
+
+# Maps 
 my %subReg8ToReg = ( "al" => "rax", "bl" => "rbx", "cl" => "rcx", "dl" => "rdx", "sil" => "rsi", "dil" => "rdi", "spl" => "rsp", "bpl" => "rbp", "r8b" => "r8", "r9b" => "r9", "r10b" => "r10", "r11b" => "r11", "r12b" => "r12", "r13b" => "r13", "r14b" => "r14", "r15b" => "r15",);
 
 my %subReg16ToReg = ( "ax" => "rax", "bx" => "rbx", "cx" => "rcx", "dx" => "rdx", "si" => "rsi", "di" => "rdi", "sp" => "rsp", "bp" => "rbp", "r8w" => "r8", "r9w" => "r9", "r10w" => "r10", "r11w" => "r11", "r12w" => "r12", "r13w" => "r13", "r14w" => "r14", "r15w" => "r15",);
@@ -275,6 +290,16 @@ sub unroll {
           print $fd "$mod4";
         }
       }
+    }
+  }
+
+  # REG64 excluding rcx
+  if("14" eq $pattern) {
+    for my $reg (@regs) {
+        if($reg ne "rcx") {
+          my $mod1 = $masterline =~ s/REG64/$reg/gr;
+          print $fd "$mod1";
+        }
     }
   }
 
