@@ -81,8 +81,8 @@ if ( "" ne $compare ) {
     my $krec = join(':', @kstates);
     my $xrec = join(':', @xstates);
     pprint(\@kstates, \@xstates);
-    #print "Kstates:". $krec . "\n"; 
-    #print "Xstates:". $xrec . "\n"; 
+    #print "Kstates:". $krec . "\n";
+    #print "Xstates:". $xrec . "\n";
 
     compareStates(\@kstates, \@xstates);
 }

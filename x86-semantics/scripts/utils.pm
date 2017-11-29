@@ -4,6 +4,9 @@ use File::Compare;
 use File::Basename;
 use strict;
 use File::Path qw(make_path remove_tree);
+use POSIX;
+use bigint;
+use bigint qw/hex oct/;
 
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
@@ -11,7 +14,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(createDir execute info passInfo failInfo display processKFile checkKRunStatus processXFile compareStates pprint);
+  qw(createDir execute info passInfo failInfo display processKFile checkKRunStatus processXFile compareStates pprint toHex toDec printwithspaces dec2bin signExtend);
 @EXPORT_OK = qw();
 
 my @kpatterns = (
@@ -23,8 +26,8 @@ my @kpatterns = (
     qr/<rdi> 64'([-]?\d*) <\/rdi>/,
     qr/<rsp> 64'([-]?\d*) <\/rsp>/,
     qr/<rbp> 64'([-]?\d*) <\/rbp>/,
-     qr/<r8> 64'([-]?\d*) <\/r8>/,
-     qr/<r9> 64'([-]?\d*) <\/r9>/,
+    qr/<r8> 64'([-]?\d*) <\/r8>/,
+    qr/<r9> 64'([-]?\d*) <\/r9>/,
     qr/<r10> 64'([-]?\d*) <\/r10>/,
     qr/<r11> 64'([-]?\d*) <\/r11>/,
     qr/<r12> 64'([-]?\d*) <\/r12>/,
@@ -40,33 +43,30 @@ my @kpatterns = (
 );
 
 my %regMap = (
-   0 => "rax",
-   1 => "rbx",
-   2 => "rcx",
-   3 => "rdx",
-   4 => "rsi",
-   5 => "rdi",
-   6 => "rsp",
-   7 => "rbp",
-   8 => "r8",
-   9 => "r9",
-   10 => "r10",
-   11 => "r11",
-   12 => "r12",
-   13 => "r13",
-   14 => "r14",
-   15 => "r15",
-   16 => "cf",
-   17 => "pf",
-   18 => "af",
-   19 => "zf",
-   20 => "sf",
-   21 => "of",
+    0  => "rax",
+    1  => "rbx",
+    2  => "rcx",
+    3  => "rdx",
+    4  => "rsi",
+    5  => "rdi",
+    6  => "rsp",
+    7  => "rbp",
+    8  => "r8",
+    9  => "r9",
+    10 => "r10",
+    11 => "r11",
+    12 => "r12",
+    13 => "r13",
+    14 => "r14",
+    15 => "r15",
+    16 => "cf",
+    17 => "pf",
+    18 => "af",
+    19 => "zf",
+    20 => "sf",
+    21 => "of",
 );
 my $regcount = scalar keys %regMap;
-
-
-
 
 my @xpatterns = ( qr/$\d* = ([-]?\d+)/, qr/$\d* = \[ ([CPAZSOIF ]*) \]/, );
 
@@ -109,6 +109,115 @@ sub warnInfo {
 sub display {
     my $args = shift @_;
     print "\t$args \n";
+}
+
+# Sign extend a hex value.
+sub signExtend {
+
+    my $hex = shift @_;
+    my $bit = shift @_;
+
+    my @hexstr        = split( //, $hex );
+    my $msb4bits      = $hexstr[0];
+    my $n             = hex($msb4bits);
+    my $ans           = "" . $hex;
+    my $fourBitchunks = $bit / 4;
+    my $tobefilled    = $fourBitchunks - scalar(@hexstr);
+    my $filler        = "0";
+    if ( $n >= 8 ) {
+        $filler = "f";
+    }
+
+    for ( my $i = 0 ; $i < $tobefilled ; $i++ ) {
+        $ans = $filler . $ans;
+    }
+
+    return $ans;
+}
+
+sub toDec {
+
+    my $hex = shift @_;
+    my $bit = shift @_;
+    my $ans = "";
+
+    my @hexstr = split( //, $hex );
+    my $smin = pow( 2, $bit - 1 );
+
+    my $msb4bits = $hexstr[0];
+    my $n        = hex($msb4bits);
+    if ( $n >= 8 ) {
+        my @rest     = @hexstr[ 1 .. @hexstr - 1 ];
+        my $restHex  = join( "", @rest );
+        my $addend   = hex( ( $n - 8 ) . $restHex );
+        my $signed   = $addend - $smin;
+        my $unsigned = hex($hex);
+
+        #print $addend."\n";
+        return $addend - $smin, hex($hex);
+    }
+    else {
+        return ( hex($hex), hex($hex) );
+    }
+}
+
+sub dec2bin {
+    my $num = shift @_;
+    my $bit = shift @_;
+    my $ans = "";
+
+    for ( my $i = 0 ; $i < $bit ; $i++ ) {
+        if ( $num & 1 ) {
+            $ans = "1" . $ans;
+        }
+        else {
+            $ans = "0" . $ans;
+        }
+        $num = $num >> 1;
+    }
+    return $ans;
+}
+
+# Convert a decimal number to `bit` width hex
+sub toHex {
+    my $num = shift @_;
+    my $bit = shift @_;
+
+    if ( $num == 0 ) {
+        return "0";
+    }
+
+    my @hmap = (
+        "0", "1", "2", "3", "4", "5", "6", "7",
+        "8", "9", "a", "b", "c", "d", "e", "f"
+    );
+    my $chunks = $bit / 4;
+
+    my $ans = "";
+    for ( my $i = 0 ; $i < $chunks ; $i++ ) {
+        my $n = $num & 15;
+        $ans = $hmap[$n] . $ans;
+        $num = $num >> 4;
+    }
+    return $ans;
+}
+
+sub printwithspaces {
+    my $value = shift @_;
+    my $space = shift @_;
+
+    my $ans = "";
+    my @arr = split( //, $value );
+
+    for ( my $i = 0 ; $i < scalar(@arr) ; $i++ ) {
+        if ( $i != 0 and ( $i % $space ) == 0 ) {
+            $ans = $ans . " " . $arr[$i];
+        }
+        else {
+            $ans = $ans . $arr[$i];
+        }
+    }
+    return $ans;
 }
 
 sub split_filename {
@@ -165,15 +274,17 @@ sub processKFile {
         for my $p (@kpatterns) {
             if ( $line =~ m/$p/ ) {
 
-              my $ln = $1;
-              #print $1. "\n";
-              
-              if($ln =~ m/1'(\d*)/) {
-                push @kstates, $1;
-              } else {
-                push @kstates, $ln;
-                last;
-              }
+                my $ln = $1;
+
+                #print $1. "\n";
+
+                if ( $ln =~ m/1'(\d*)/ ) {
+                    push @kstates, $1;
+                }
+                else {
+                    push @kstates, $ln;
+                    last;
+                }
             }
         }
     }
@@ -192,9 +303,11 @@ sub processXFile {
     my @lines = <$fp>;
     for my $line (@lines) {
         chomp $line;
+
         #print $line."\n";
         if ( $line =~ m/$xpatterns[0]/ ) {
-          #print $1. "\n";
+
+            #print $1. "\n";
             push @xstates, $1;
             $gprcollected = 1;
         }
@@ -214,42 +327,60 @@ sub processXFile {
         }
     }
     return @xstates;
-} 
+}
+
+sub compareInts {
+    my $num1 = shift @_;
+    my $num2 = shift @_;
+
+    if ( $num1 == $num2 ) {
+        return 1;
+    }
+
+    my $hexnum1 = toHex( $num1, 64 );
+    my $hexnum2 = toHex( $num2, 64 );
+    my ( $signed1, $unsigned1 ) = toDec($hexnum1, 64);
+    my ( $signed2, $unsigned2 ) = toDec($hexnum2, 64);
+
+    if ( $signed1 == $signed2 and $unsigned1 == $unsigned2 ) {
+        return 1;
+    }
+    return 0;
+}
 
 sub compareStates {
-    my ($k_ref, $x_ref) = @_;
-   my @kstates = @{ $k_ref };      
-   my @xstates = @{ $x_ref };;
+    my ( $k_ref, $x_ref ) = @_;
+    my @kstates = @{$k_ref};
+    my @xstates = @{$x_ref};
 
-    for(my $i = 0 ; $i < $regcount; $i ++) {
-      if($i == 6) {
-        next;
-      }
+    for ( my $i = 0 ; $i < $regcount ; $i++ ) {
+        if ( $i == 6 ) {
+            next;
+        }
 
-      if($kstates[$i] eq "undef") {
-        info("\"undef\" found at $regMap{$i}");
-        next;
-      }
+        if ( $kstates[$i] eq "undef" ) {
+            info("\"undef\" found at $regMap{$i}");
+            next;
+        }
 
-      if($kstates[$i] ne $xstates[$i]) {
-        failInfo("Failed: $regMap{$i}");
-        return;
-      }
-  }
-  passInfo("Passed: compare");
+        if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
+            failInfo("Failed: $regMap{$i}");
+            return;
+        }
+    }
+    passInfo("Passed: compare");
 }
 
 sub pprint {
-  my ($k_ref, $x_ref) = @_;
-  my @kstates = @{ $k_ref };      
-  my @xstates = @{ $x_ref };
+    my ( $k_ref, $x_ref ) = @_;
+    my @kstates = @{$k_ref};
+    my @xstates = @{$x_ref};
 
-  print "\nreg\tkstate\txstate". "\n---------------------\n";
-  for(my $i = 0 ; $i < $regcount; $i++) {
-    print "$regMap{$i}\t$kstates[$i]\t$xstates[$i]". "\n";
-  }
+    print "\nreg\tkstate\txstate" . "\n---------------------\n";
+    for ( my $i = 0 ; $i < $regcount ; $i++ ) {
+        print "$regMap{$i}\t$kstates[$i]\t$xstates[$i]" . "\n";
+    }
 }
-
 
 sub cleanup {
 }
