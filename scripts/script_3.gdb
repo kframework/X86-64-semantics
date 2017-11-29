@@ -5,22 +5,22 @@ set verbose off
 set disassemble-next-line on
 
 define process_instr
-        p/u $rax 
-        p/u $rbx 
-        p/u $rcx 
-        p/u $rdx 
-        p/u $rsi 
-        p/u $rdi 
-        p/u $rsp 
-        p/u $rbp 
-        p/u $r8 
-        p/u $r9 
-        p/u $r10 
-        p/u $r11 
-        p/u $r12 
-        p/u $r13 
-        p/u $r14 
-        p/u $r15 
+        p/d $rax 
+        p/d $rbx 
+        p/d $rcx 
+        p/d $rdx 
+        p/d $rsi 
+        p/d $rdi 
+        p/d $rsp 
+        p/d $rbp 
+        p/d $r8 
+        p/d $r9 
+        p/d $r10 
+        p/d $r11 
+        p/d $r12 
+        p/d $r13 
+        p/d $r14 
+        p/d $r15 
         p $eflags
 end
 
