@@ -1,40 +1,42 @@
 requires "x86-syntax.k"
+requires "x86-general-utils.k"
 
 module X86-CONFIGURATION
   imports X86-SYNTAX
-  imports MINT
+  imports MINT-WRAPPER-SYNTAX
 
+  syntax AbstractValue ::= Int | MInt
   syntax KResult ::= AbstractValue
   syntax KItem ::= "fetch"
   syntax Opcode ::= "sentinal"
 
   configuration <T>
     <k> $PGM:Instructions ~> fetch </k>
-    <entrypoint> mi(64,0) </entrypoint>
-    <nextLoc> mi(64,0) </nextLoc>
+    <entrypoint> zeroMIntW64 </entrypoint>
+    <nextLoc> zeroMIntW64 </nextLoc>
     <memstate>
       <cmem> .Map </cmem>
       <dmem> .Map </dmem>
     </memstate>
     <regstate>
       <gpr>
-        <rip> mi(64,0) </rip>
-        <rax> mi(64,0) </rax>
-        <rbx> mi(64,0) </rbx>
-        <rcx> mi(64,0) </rcx>
-        <rdx> mi(64,0) </rdx>
-        <rsi> mi(64,0) </rsi>
-        <rdi> mi(64,0) </rdi>
-        <rsp> mi(64,0) </rsp>
-        <rbp> mi(64,0) </rbp>
-        <r8> mi(64,0) </r8>
-        <r9> mi(64,0) </r9>
-        <r10> mi(64,0) </r10>
-        <r11> mi(64,0) </r11>
-        <r12> mi(64,0) </r12>
-        <r13> mi(64,0) </r13>
-        <r14> mi(64,0) </r14>
-        <r15> mi(64,0) </r15>
+        <rip> zeroMIntW64 </rip>
+        <rax> zeroMIntW64 </rax>
+        <rbx> zeroMIntW64 </rbx>
+        <rcx> zeroMIntW64 </rcx>
+        <rdx> zeroMIntW64 </rdx>
+        <rsi> zeroMIntW64 </rsi>
+        <rdi> zeroMIntW64 </rdi>
+        <rsp> zeroMIntW64 </rsp>
+        <rbp> zeroMIntW64 </rbp>
+        <r8>  zeroMIntW64 </r8>
+        <r9>  zeroMIntW64 </r9>
+        <r10> zeroMIntW64 </r10>
+        <r11> zeroMIntW64 </r11>
+        <r12> zeroMIntW64 </r12>
+        <r13> zeroMIntW64 </r13>
+        <r14> zeroMIntW64 </r14>
+        <r15> zeroMIntW64 </r15>
       </gpr>
 
       <arithflags>
@@ -58,33 +60,33 @@ module X86-CONFIGURATION
         System flags)
 
       */
-        <cf> mi(1,0) </cf>
-        <pf> mi(1,0) </pf>
-        <af> mi(1,0) </af>
-        <zf> mi(1,0) </zf>
-        <sf> mi(1,0) </sf>
-        <of> mi(1,0) </of>
+        <cf> zeroMIntW1 </cf>
+        <pf> zeroMIntW1 </pf>
+        <af> zeroMIntW1 </af>
+        <zf> zeroMIntW1 </zf>
+        <sf> zeroMIntW1 </sf>
+        <of> zeroMIntW1 </of>
       </arithflags>
 
-      /*@ 128 bit xmm registers
+      /*@ 256 bit ymm registers
       */
-      <xmm>
-        <xmm0>  mi(128,0)   </xmm0>
-        <xmm1>  mi(128,0)   </xmm1>
-        <xmm2>  mi(128,0)   </xmm2>
-        <xmm3>  mi(128,0)   </xmm3>
-        <xmm4>  mi(128,0)   </xmm4>
-        <xmm5>  mi(128,0)   </xmm5>
-        <xmm6>  mi(128,0)   </xmm6>
-        <xmm7>  mi(128,0)   </xmm7>
-        <xmm8>  mi(128,0)   </xmm8>
-        <xmm9>  mi(128,0)   </xmm9>
-        <xmm11> mi(128,0)   </xmm11>
-        <xmm12> mi(128,0)   </xmm12>
-        <xmm14> mi(128,0)   </xmm14>
-        <xmm13> mi(128,0)   </xmm13>
-        <xmm15> mi(128,0)   </xmm15>
-      </xmm>
+      <ymm>
+        <ymm0>  zeroMIntW256 </ymm0>
+        <ymm1>  zeroMIntW256 </ymm1>
+        <ymm2>  zeroMIntW256 </ymm2>
+        <ymm3>  zeroMIntW256 </ymm3>
+        <ymm4>  zeroMIntW256 </ymm4>
+        <ymm5>  zeroMIntW256 </ymm5>
+        <ymm6>  zeroMIntW256 </ymm6>
+        <ymm7>  zeroMIntW256 </ymm7>
+        <ymm8>  zeroMIntW256 </ymm8>
+        <ymm9>  zeroMIntW256 </ymm9>
+        <ymm11> zeroMIntW256 </ymm11>
+        <ymm12> zeroMIntW256 </ymm12>
+        <ymm14> zeroMIntW256 </ymm14>
+        <ymm13> zeroMIntW256 </ymm13>
+        <ymm15> zeroMIntW256 </ymm15>
+      </ymm>
     </regstate>
 
     <labels> .Map </labels>

@@ -66,11 +66,11 @@ module OR-R64-R64
   rule
       execinstr(orq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) 
     => 
-      setOverflow(mi(1,0)) ~> 
+      setOverflow(zeroMIntW1) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
-      setCarryFlag(mi(1,0)) ~> 
+      setCarryFlag(zeroMIntW1) ~> 
       updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR) 
 

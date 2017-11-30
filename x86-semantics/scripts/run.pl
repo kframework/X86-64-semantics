@@ -40,7 +40,9 @@ if ($help) {
 }
 
 if ( "" ne $compile ) {
-    execute("kompile x86-semantics.k --syntax-module X86-SYNTAX -I ./instructions --debug -v");
+    execute(
+"time kompile x86-semantics.k --syntax-module X86-SYNTAX -I ./instructions --debug -v"
+    );
 }
 
 if ( "" ne $krun ) {
@@ -48,7 +50,7 @@ if ( "" ne $krun ) {
 
     $output = "$outdir/$basename.kstate";
 
-    execute("krun -d $kdefn $basename.$ext --output-file $output");
+    execute("time krun -d $kdefn $basename.$ext --output-file $output");
     execute(
 "cat $output | sed -e 's/\\(<[^</]*>\\)/\\n\\1/g' | sed  '/^\\s*\$/d' 1> /tmp/x  2>&1"
     );
@@ -66,6 +68,7 @@ if ( "" ne $xrun ) {
     execute(
 "gdb --batch --command=../../scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1"
     );
+
     #execute("rm -rf $outdir/$basename.exec");
     #execute("rm -rf $outdir/$basename.o");
 }
@@ -73,18 +76,19 @@ if ( "" ne $xrun ) {
 if ( "" ne $compare ) {
     my ( $basename, $ext ) = utils::split_filename($file);
 
-    my $filek = "$outdir/$basename.kstate";
-    my $filex = "$outdir/$basename.xstate";
+    my $filek   = "$outdir/$basename.kstate";
+    my $filex   = "$outdir/$basename.xstate";
     my @kstates = processKFile($filek);
     my @xstates = processXFile($filex);
 
-    my $krec = join(':', @kstates);
-    my $xrec = join(':', @xstates);
-    pprint(\@kstates, \@xstates);
+    my $krec = join( ':', @kstates );
+    my $xrec = join( ':', @xstates );
+    pprint( \@kstates, \@xstates );
+
     #print "Kstates:". $krec . "\n";
     #print "Xstates:". $xrec . "\n";
 
-    compareStates(\@kstates, \@xstates);
+    compareStates( \@kstates, \@xstates );
 }
 
 exit;

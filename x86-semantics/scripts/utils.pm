@@ -339,8 +339,8 @@ sub compareInts {
 
     my $hexnum1 = toHex( $num1, 64 );
     my $hexnum2 = toHex( $num2, 64 );
-    my ( $signed1, $unsigned1 ) = toDec($hexnum1, 64);
-    my ( $signed2, $unsigned2 ) = toDec($hexnum2, 64);
+    my ( $signed1, $unsigned1 ) = toDec( $hexnum1, 64 );
+    my ( $signed2, $unsigned2 ) = toDec( $hexnum2, 64 );
 
     if ( $signed1 == $signed2 and $unsigned1 == $unsigned2 ) {
         return 1;

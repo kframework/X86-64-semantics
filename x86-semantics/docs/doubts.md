@@ -1,46 +1,15 @@
-### Q1 [open]
-
+### Q [open]
 ```
-requires "domains.k"
+ rule concatSymbol(S1:Symbol, S2:Symbol, Del:String) =>
+       #parseToken("Symbol@X86-ABSTRACT-SORTS",
+                   Symbol2String(S1) +String Del +String Symbol2String(S2))
 
-module NEGMINT-TEST-SYNTAX
-    imports MINT
-
-    syntax Comment ::= "comment" [token]
-
-    syntax Task ::=  "add" "(" Int "," Int ")" [function]
-                  | Comment
-    syntax Tasks ::= List{Task, ""}
-endmodule
-
-module NEGMINT-TEST
-    imports NEGMINT-TEST-SYNTAX
-
-    configuration <k>$PGM:Tasks</k>
-
-    rule T:Task Ts:Tasks => T ~> Ts
-    rule <k> comment   => . ...</k> // Rule 1
-    rule add(W:Int, I:Int) => W +Int I
-endmodule
+  rule enumSymbol(S1:Symbol, I:Int) =>
+       #parseToken("Symbol@X86-ABSTRACT-SORTS",
+                   Symbol2String(S1) +String "#" +String Int2String(I))
 ```
 
-In the above snippet,  why the ``Rule 1`` in bold is not
-triggered with input
-
-> comment
-> add(64,170)
-> add(64,-171)
-
-The output that I am getting is:
-> <k> comment  ( 234  ( -107  .Tasks ) ) </k>
-
-If i remove `function` atribute, then I am getting
-> <k> 234 ~> ( add ( 64 , -171 )  .Tasks ) </k>
-
-as expected.
-
-
-### Q2 [open]
+### Q [open]
 ```
 requires "domains.k"
 
@@ -112,8 +81,57 @@ java.lang.AssertionError: Unimplemented yet
 	at org.kframework.main.Main.main(Main.java:73)
 
 ```
+### Q [closed]
 
-### Q3: Hex to String [Asked]
+```
+requires "domains.k"
+
+module NEGMINT-TEST-SYNTAX
+    imports MINT
+
+    syntax Comment ::= "comment" [token]
+
+    syntax Task ::=  "add" "(" Int "," Int ")" [function]
+                  | Comment
+                  | Int
+    syntax Tasks ::= List{Task, ""}
+endmodule
+
+module NEGMINT-TEST
+    imports NEGMINT-TEST-SYNTAX
+
+    configuration <k>$PGM:Tasks</k>
+
+    rule T:Task Ts:Tasks => T ~> Ts
+    rule <k> comment   => . ...</k> // Rule 1
+    rule add(W:Int, I:Int) => W +Int I
+endmodule
+```
+
+In the above snippet,  why the ``Rule 1`` in bold is not
+triggered with input
+
+> comment
+> add(64,170)
+> add(64,-171)
+
+The output that I am getting is:
+> <k> comment  ( 234  ( -107  .Tasks ) ) </k>
+
+If i remove `function` atribute, then I am getting
+> <k> 234 ~> ( add ( 64 , -171 )  .Tasks ) </k>
+
+as expected.
+
+Soln: At the very beginning we have
+<k> comment  ( 234  ( -107  .Tasks ) ) </k>
+and now
+```
+rule T:Task Ts:Tasks => T ~> Ts
+```
+does not match.
+
+### Q: Hex to String [Asked]
 Detail:
 I would like to parse a hex constant like
 ```
