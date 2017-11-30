@@ -41,7 +41,7 @@ module SAR-R64-CL
 
   rule
   execinstr ( sarq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
-      setOverflow(mi(1,0)) ~> 
+      setOverflow(zeroMIntW1) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 

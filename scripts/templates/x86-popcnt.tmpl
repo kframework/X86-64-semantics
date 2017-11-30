@@ -20,23 +20,23 @@ Unroll END
 
   rule
     execinstr(popcntq, ( DestR:R64, MIsrc:MInt, .Typedoperands )) => 
-    setOverflow(mi(1,0)) ~>
-    setZeroFlag(mi(1,0)) ~>
-    setSignFlag(mi(1,0)) ~>
-    setAuxCarryFlag(mi(1,0)) ~>
-    setCarryFlag(mi(1,0)) ~>
-    setParityFlag(mi(1,0)) ~>
+    setOverflow(zeroMIntW1) ~>
+    setZeroFlag(zeroMIntW1) ~>
+    setSignFlag(zeroMIntW1) ~>
+    setAuxCarryFlag(zeroMIntW1) ~>
+    setCarryFlag(zeroMIntW1) ~>
+    setParityFlag(zeroMIntW1) ~>
     updateReg(MIsrc, DestR) 
       requires notBool zeroMInt(MIsrc)
 
   rule
     execinstr(popcntq, ( DestR:R64, MIsrc:MInt, .Typedoperands )) => 
-    setOverflow(mi(1,0)) ~>
-    setZeroFlag(mi(1,1)) ~>
-    setSignFlag(mi(1,0)) ~>
-    setAuxCarryFlag(mi(1,0)) ~>
-    setCarryFlag(mi(1,0)) ~>
-    setParityFlag(mi(1,0)) ~>
+    setOverflow(zeroMIntW1) ~>
+    setZeroFlag(oneMIntW1) ~>
+    setSignFlag(zeroMIntW1) ~>
+    setAuxCarryFlag(zeroMIntW1) ~>
+    setCarryFlag(zeroMIntW1) ~>
+    setParityFlag(zeroMIntW1) ~>
     updateReg(MIsrc, DestR) 
       requires zeroMInt(MIsrc)
 

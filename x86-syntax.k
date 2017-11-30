@@ -1,48 +1,43 @@
 //requires "domains.k "
 module X86-SYNTAX
-  imports MINT
-
+  // syntax Comment ::= ";" r"[^\n]*[\n]" [lableOnly, token, autoReject]
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
   */
-  // syntax Comment ::= ";" r"[^\n]*[\n]" [lableOnly, token, autoReject]
-
-  syntax MInt ::= "undef"
-  syntax Instructions ::= List{Instruction, ""}
+  syntax Instructions ::= List{Instruction, ""} [klabel(instructionlist)]
   syntax Instruction ::= Label 
                        | Opcode Typedoperands
-                       | ".section" ".text"
-                       | ".globl" "_start"
-  syntax Label ::=  "_start" ":"
+                       | ".section" ".text" [token]
+                       | ".globl" "_start"  [token]
+  syntax Label ::=  "_start" ":" [token]
         
-  syntax Opcode ::= "addq"
-                  | "adcb"    
-                  | "adcw"    
-                  | "adcl"    
-                  | "adcq"    
-                  | "cmoveq"    
-                  | "orq"    
-                  | "xorq"    
-                  | "nop"    
-                  | "movswq"    
-                  | "movsbq"    
-                  | "movslq"    
-                  | "popcntq"    
-                  | "salq"    
-                  | "sarq"    
-                  | "shrq"    
-                  | "movq"    
-                  | "movb"    
+  syntax Opcode ::= "addq"    [token] 
+                  | "adcb"    [token]
+                  | "adcw"    [token]
+                  | "adcl"    [token]
+                  | "adcq"    [token]
+                  | "cmoveq"  [token]  
+                  | "orq"     [token]
+                  | "xorq"    [token]
+                  | "nop"     [token] 
+                  | "movswq"  [token]  
+                  | "movsbq"  [token]  
+                  | "movslq"  [token]  
+                  | "popcntq" [token]   
+                  | "salq"    [token]
+                  | "sarq"    [token]
+                  | "shrq"    [token]
+                  | "movq"    [token]
+                  | "movb"    [token]
 
-  syntax AbstractValue ::= Int | MInt
 
-  syntax HexConstant ::=  r"0x[0-9a-fA-F]*" [token]
+  syntax HexConstant ::=  r"[0-9a-fA-F]*" [token]
 
-  syntax Typedoperands ::= List{Typeoperand, ","}
+  syntax Typedoperands ::= List{Typeoperand, ","} [klabel(typeoperandlist)]
   syntax Typeoperand ::=  Imm
                        | Mm
                        | Sreg
-                       | St
+//                     | St
                        | Memoffs
                        | Mem
                        | Register
@@ -56,9 +51,8 @@ module X86-SYNTAX
   syntax Memoffs ::= Offset
                    | Sreg ":" Offset
   syntax Offset ::= Int
-  // Todo: Support $0xhhhh
   syntax Imm ::= "$" Int
-               | "$" HexConstant
+               | "$0x" HexConstant
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"
                | "(" Rip ")"
@@ -190,6 +184,7 @@ module X86-SYNTAX
                 | "%ds"
                 | "%fs"
                 | "%gs"
+/*                
   syntax St ::= "%st"
               | "%st(0)"
               | "%st(1)"
@@ -199,6 +194,7 @@ module X86-SYNTAX
               | "%st(5)"
               | "%st(6)"
               | "%st(7)"
+*/
   syntax Xmm ::= "%xmm0"
                | "%xmm1"
                | "%xmm2"

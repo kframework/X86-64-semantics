@@ -11,17 +11,17 @@ module XOR-R64-R64
   // Unroll START
   rule <k> 
     execinstr (xorq, (%rax ,  (%rax , .Typedoperands)) ) => 
-      execinstr (xorq, %rax ,  MI, MI, mi(64,0) , .Typedoperands )  
+      execinstr (xorq, %rax ,  MI, MI, zeroMIntW64 , .Typedoperands )  
   ...</k>
   <rax> MI </rax>
   rule <k> 
     execinstr (xorq, (%rbx ,  (%rbx , .Typedoperands)) ) => 
-      execinstr (xorq, %rbx ,  MI, MI, mi(64,0) , .Typedoperands )  
+      execinstr (xorq, %rbx ,  MI, MI, zeroMIntW64 , .Typedoperands )  
   ...</k>
   <rbx> MI </rbx>
   rule <k> 
     execinstr (xorq, (%rcx ,  (%rcx , .Typedoperands)) ) => 
-      execinstr (xorq, %rcx ,  MI, MI, mi(64,0) , .Typedoperands )  
+      execinstr (xorq, %rcx ,  MI, MI, zeroMIntW64 , .Typedoperands )  
   ...</k>
   <rcx> MI </rcx>
 
@@ -66,11 +66,11 @@ module XOR-R64-R64
   rule
       execinstr(xorq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) 
     => 
-      setOverflow(mi(1,0)) ~> 
+      setOverflow(zeroMIntW1) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
-      setCarryFlag(mi(1,0)) ~> 
+      setCarryFlag(zeroMIntW1) ~> 
       updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR) 
 

@@ -29,7 +29,7 @@ module ADD-IMM-R8
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIresult, mi(64,0), MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIresult, zeroMIntW64, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR) 
   ...</k> 

@@ -12,7 +12,7 @@ module XOR-R64-R64
 Unroll START PATTERN-1
   rule <k> 
     execinstr (xorq, (%REG64 ,  (%REG64 , .Typedoperands)) ) => 
-      execinstr (xorq, %REG64 ,  MI, MI, mi(64,0) , .Typedoperands )  
+      execinstr (xorq, %REG64 ,  MI, MI, zeroMIntW64 , .Typedoperands )  
   ...</k>
   <REG64> MI </REG64>
 Unroll END
@@ -30,11 +30,11 @@ Unroll END
   rule
       execinstr(xorq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) 
     => 
-      setOverflow(mi(1,0)) ~> 
+      setOverflow(zeroMIntW1) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
-      setCarryFlag(mi(1,0)) ~> 
+      setCarryFlag(zeroMIntW1) ~> 
       updateParityFlag(MIresult) ~> 
       updateReg(MIresult, DestR) 
 

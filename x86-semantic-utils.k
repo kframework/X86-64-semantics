@@ -1,12 +1,12 @@
-requires "x86-syntax.k"
-requires "x86-configuration.k"
-requires "x86-general-utils.k"
-requires "x86-register-semantics.k"
 requires "x86-loader.k"
+requires "x86-flag-checks.k"
+requires "x86-register-operations.k"
+
 
 module  X86-SEMANTIC-UTILS
   imports X86-LOADER
-  imports X86-REGISTER-SEMANTICS
+  imports X86-FLAG-CHECKS
+  imports X86-REGISTER-OPERATIONS
 
   /*@
     Final Exit.

@@ -2,7 +2,7 @@
 .globl _start
 
 _start:
-    addq $2147483647, %rax
+    addq $0x000000007fffffff, %rax
     popcntq %rax, %rbx
     popcntq %rbx, %rax
     popcntq %rax, %rbx

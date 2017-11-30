@@ -49,11 +49,11 @@ else {
     ( $decimalnum, $unsigneddecimalnum ) = toDec( $hexnum, $bit );
 }
 
-$binarynum = dec2bin($decimalnum, $bit);
+$binarynum = dec2bin( $decimalnum, $bit );
 
 print("Input: $num Bitwidth: $bit\n");
 print("\tDecimal:\n");
-print("\t\tSigned: $decimalnum\n");
+print("\t\tSigned:  $decimalnum\n");
 print("\t\tUnsigned: $unsigneddecimalnum\n");
 print( "\tHex: " . printwithspaces( $hexnum, 2 ), "\n" );
-print( "\t\t2's Compliment binary: ", printwithspaces( $binarynum, 4 ) . "\n" );
+print( "\t\t2's Compliment binary: ", printwithspaces( $binarynum, 8 ) . "\n" );
