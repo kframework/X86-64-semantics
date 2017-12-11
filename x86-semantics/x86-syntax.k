@@ -29,6 +29,21 @@ module X86-SYNTAX
                   | "shrq"    [token]
                   | "movq"    [token]
                   | "movb"    [token]
+                  | "addpd"    [token]
+                  | "addps"    [token]
+                  | "subpd"    [token]
+                  | "subps"    [token]
+                  | "mulpd"    [token]
+                  | "mulps"    [token]
+                  | "divpd"    [token]
+                  | "divps"    [token]
+                  | "maxpd"    [token]
+                  | "maxps"    [token]
+                  | "minpd"    [token]
+                  | "minps"    [token]
+                  | "sqrtps"    [token]
+                  | "sqrtpd"    [token]
+                  | "zeroall"    [token]
 
 
   syntax HexConstant ::=  r"[0-9a-fA-F]*" [token]
@@ -46,7 +61,7 @@ module X86-SYNTAX
                     | R16
                     | R32
                     | R64
-                    | Xmm
+//                    | Xmm
                     | Ymm
   syntax Memoffs ::= Offset
                    | Sreg ":" Offset
@@ -195,7 +210,8 @@ module X86-SYNTAX
               | "%st(6)"
               | "%st(7)"
 */
-  syntax Xmm ::= "%xmm0"
+/*
+   syntax Xmm ::= "%xmm0"
                | "%xmm1"
                | "%xmm2"
                | "%xmm3"
@@ -211,6 +227,7 @@ module X86-SYNTAX
                | "%xmm13"
                | "%xmm14"
                | "%xmm15"
+               */
   syntax Ymm ::= "%ymm0"
                | "%ymm1"
                | "%ymm2"

@@ -16,8 +16,10 @@ use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
 use utils;
 
 # Get environment Variable
-my $home       = $ENV{'HOME'};
-my $hexPattern = qr/0x([0-9A-Za-z]+)/;
+my $home         = $ENV{'HOME'};
+my $hexPattern   = qr/0x([0-9A-Za-z]+)/;
+my $binPattern   = qr/0b([01]+)/;
+my $floatPattern = qr/(\d*\.\d+)|(inf)|(-inf)/;
 
 # Using GetOPtions
 my $bit     = 64;
@@ -38,8 +40,23 @@ if ( "" ne $help ) {
 
 my ( $hexnum, $decimalnum, $binarynum, $unsigneddecimalnum );
 
+if ( $num =~ m/$floatPattern/ ) {
+    print("Input: $num Bitwidth: $bit\n");
+    my ( $bin, $hex ) = float2binary( $num, $bit );
+
+    print("Binary: $bin\n");
+    print( "Hex: " . printwithspaces( $hex, 2 ) . "\n" );
+    exit(0);
+}
+
 if ( $num =~ m/$hexPattern/ ) {
     $hexnum = $1;
+    $hexnum = signExtend( $hexnum, $bit );
+    ( $decimalnum, $unsigneddecimalnum ) = toDec( $hexnum, $bit );
+}
+elsif ( $num =~ m/$binPattern/ ) {
+    my $bin = $1;
+    $hexnum = bin2hex( $bin );
     $hexnum = signExtend( $hexnum, $bit );
     ( $decimalnum, $unsigneddecimalnum ) = toDec( $hexnum, $bit );
 }
