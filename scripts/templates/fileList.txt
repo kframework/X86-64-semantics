@@ -9,3 +9,11 @@ x86-mov.tmpl
 x86-shr.tmpl
 x86-sar.tmpl
 x86-sal.tmpl
+x86-vadd.tmpl
+x86-vsub.tmpl
+x86-vmul.tmpl
+x86-vdiv.tmpl
+x86-vmax.tmpl
+x86-vmin.tmpl
+x86-vsqrt.tmpl
+x86-vzeroall.tmpl

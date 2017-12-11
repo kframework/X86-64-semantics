@@ -9,6 +9,14 @@ requires "x86-popcnt.k"
 requires "x86-shr.k"
 requires "x86-sar.k"
 requires "x86-sal.k"
+requires "x86-vadd.k"
+requires "x86-vsub.k"
+requires "x86-vmul.k"
+requires "x86-vdiv.k"
+requires "x86-vmax.k"
+requires "x86-vmin.k"
+requires "x86-vsqrt.k"
+requires "x86-vzeroall.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
@@ -21,14 +29,15 @@ requires "x86-sal.k"
   - xorq_r64_r64,
 
   - vaddpd_ymm_ymm_ymm, vaddps_ymm_ymm_ymm,
-  - vcvtdq2pd_ymm_ymm, vcvtdq2ps_ymm_ymm, vcvtpd2dq_xmm_ymm, vcvtpd2ps_xmm_ymm, vcvtps2dq_ymm_ymm, vcvtps2pd_ymm_xmm, vcvttpd2dq_xmm_ymm, vcvttps2dq_ymm_ymm,
-  - vdivpd_ymm_ymm_ymm, vdivps_ymm_ymm_ymm,
-  - vfmadd132pd_ymm_ymm_ymm, vfmadd132ps_ymm_ymm_ymm, vfmsub132pd_ymm_ymm_ymm, vfmsub132ps_ymm_ymm_ymm, vfnmadd132pd_ymm_ymm_ymm, vfnmadd132ps_ymm_ymm_ymm, vfnmsub132pd_ymm_ymm_ymm, vfnmsub132ps_ymm_ymm_ymm,
-  - vmaxpd_ymm_ymm_ymm, vmaxps_ymm_ymm_ymm, vminpd_ymm_ymm_ymm, vminps_ymm_ymm_ymm,
+  - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm,
   - vmulpd_ymm_ymm_ymm, vmulps_ymm_ymm_ymm, vrcpps_ymm_ymm,
+  - vdivpd_ymm_ymm_ymm, vdivps_ymm_ymm_ymm,
+  - vmaxpd_ymm_ymm_ymm, vmaxps_ymm_ymm_ymm, vminpd_ymm_ymm_ymm, vminps_ymm_ymm_ymm,
   - vrsqrtps_ymm_ymm, vsqrtpd_ymm_ymm, vsqrtps_ymm_ymm,
-  - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm, 
   - vzeroall,
+  - vcvtdq2pd_ymm_ymm, vcvtdq2ps_ymm_ymm, vcvtpd2dq_xmm_ymm, vcvtpd2ps_xmm_ymm, vcvtps2dq_ymm_ymm, vcvtps2pd_ymm_xmm, vcvttpd2dq_xmm_ymm, vcvttps2dq_ymm_ymm,
+
+  - vfmadd132pd_ymm_ymm_ymm, vfmadd132ps_ymm_ymm_ymm, vfmsub132pd_ymm_ymm_ymm, vfmsub132ps_ymm_ymm_ymm, vfnmadd132pd_ymm_ymm_ymm, vfnmadd132ps_ymm_ymm_ymm, vfnmsub132pd_ymm_ymm_ymm, vfnmsub132ps_ymm_ymm_ymm,
 */
 
 
@@ -46,4 +55,12 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports SHR-SEMANTICS
   imports SAR-SEMANTICS
   imports SAL-SEMANTICS
+  imports VADD-SEMANTICS
+  imports VSUB-SEMANTICS
+  imports VMUL-SEMANTICS
+  imports VDIV-SEMANTICS
+  imports VMAX-SEMANTICS
+  imports VMIN-SEMANTICS
+  imports VSQRT-SEMANTICS
+  imports VZEROALL-SEMANTICS
 endmodule

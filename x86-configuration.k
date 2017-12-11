@@ -81,6 +81,7 @@ module X86-CONFIGURATION
         <ymm7>  zeroMIntW256 </ymm7>
         <ymm8>  zeroMIntW256 </ymm8>
         <ymm9>  zeroMIntW256 </ymm9>
+        <ymm10> zeroMIntW256 </ymm10>
         <ymm11> zeroMIntW256 </ymm11>
         <ymm12> zeroMIntW256 </ymm12>
         <ymm14> zeroMIntW256 </ymm14>
