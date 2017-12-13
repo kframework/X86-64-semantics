@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vsqrtpd_ymm_ymm_ymm, vsqrtps_ymm_ymm_ymm,
 */
 
-module VSQRTPD_YMM_YMM_YMM
+module VSQRTPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -29,7 +29,7 @@ module VSQRTPD_YMM_YMM_YMM
   rule <k> execinstr(sqrtpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VSQRTPS_YMM_YMM_YMM
+module VSQRTPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -55,6 +55,6 @@ endmodule
 
 
 module VSQRT-SEMANTICS
-  imports VSQRTPD_YMM_YMM_YMM
-  imports VSQRTPS_YMM_YMM_YMM
+  imports VSQRTPD-YMM-YMM-YMM
+  imports VSQRTPS-YMM-YMM-YMM
 endmodule

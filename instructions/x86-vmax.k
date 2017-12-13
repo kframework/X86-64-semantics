@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vmaxpd_ymm_ymm_ymm, vmaxps_ymm_ymm_ymm,
 */
 
-module VMAXPD_YMM_YMM_YMM
+module VMAXPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -86,7 +86,7 @@ module VMAXPD_YMM_YMM_YMM
   rule <k> execinstr(maxpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VMAXPS_YMM_YMM_YMM
+module VMAXPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -169,6 +169,6 @@ endmodule
 
 
 module VMAX-SEMANTICS
-  imports VMAXPD_YMM_YMM_YMM
-  imports VMAXPS_YMM_YMM_YMM
+  imports VMAXPD-YMM-YMM-YMM
+  imports VMAXPS-YMM-YMM-YMM
 endmodule

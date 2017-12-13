@@ -3,14 +3,14 @@
 <entrypoint> 64'0 </entrypoint> 
 <nextLoc> 64'5 </nextLoc> 
 <memstate> 
-<cmem> loc ( 64'5 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'3 ) |-> storedinstr ( movswq , %bx , ( %rcx , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( movswq , %ax , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( addq , ( $ 32767 ) , ( %rbx , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( addq , ( $ 65535 ) , ( %rax , .Typedoperands ) ) </cmem> 
+<cmem> loc ( 64'5 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'3 ) |-> storedinstr ( movswq , %bx , ( %rcx , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( movswq , %ax , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( addq , ( $ 2147483647 ) , ( %rbx , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( movq , ( $ 4294967295 ) , ( %rax , .Typedoperands ) ) </cmem> 
 <dmem> .Map </dmem> </memstate> 
 <regstate> 
 <gpr> 
 <rip> 64'5 </rip> 
 <rax> 64'-1 </rax> 
-<rbx> 64'32767 </rbx> 
-<rcx> 64'32767 </rcx> 
+<rbx> 64'2147483647 </rbx> 
+<rcx> 64'-1 </rcx> 
 <rdx> 64'0 </rdx> 
 <rsi> 64'0 </rsi> 
 <rdi> 64'0 </rdi> 
@@ -31,20 +31,21 @@
 <zf> 1'0 </zf> 
 <sf> 1'0 </sf> 
 <of> 1'0 </of> </arithflags> 
-<xmm> 
-<xmm0> 128'0 </xmm0> 
-<xmm1> 128'0 </xmm1> 
-<xmm2> 128'0 </xmm2> 
-<xmm3> 128'0 </xmm3> 
-<xmm4> 128'0 </xmm4> 
-<xmm5> 128'0 </xmm5> 
-<xmm6> 128'0 </xmm6> 
-<xmm7> 128'0 </xmm7> 
-<xmm8> 128'0 </xmm8> 
-<xmm9> 128'0 </xmm9> 
-<xmm11> 128'0 </xmm11> 
-<xmm12> 128'0 </xmm12> 
-<xmm14> 128'0 </xmm14> 
-<xmm13> 128'0 </xmm13> 
-<xmm15> 128'0 </xmm15> </xmm> </regstate> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate> 
 <labels> .Map </labels> </T>

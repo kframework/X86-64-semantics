@@ -41,7 +41,7 @@ if ($help) {
 
 if ( "" ne $compile ) {
     execute(
-"time kompile x86-semantics.k --syntax-module X86-SYNTAX -I ./instructions --debug -v"
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX -I ./instructions --debug -v"
     );
 }
 

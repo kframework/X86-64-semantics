@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vdivpd_ymm_ymm_ymm, vdivps_ymm_ymm_ymm,
 */
 
-module VDIVPD_YMM_YMM_YMM
+module VDIVPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -86,7 +86,7 @@ module VDIVPD_YMM_YMM_YMM
   rule <k> execinstr(divpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VDIVPS_YMM_YMM_YMM
+module VDIVPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -169,6 +169,6 @@ endmodule
 
 
 module VDIV-SEMANTICS
-  imports VDIVPD_YMM_YMM_YMM
-  imports VDIVPS_YMM_YMM_YMM
+  imports VDIVPD-YMM-YMM-YMM
+  imports VDIVPS-YMM-YMM-YMM
 endmodule
