@@ -63,6 +63,10 @@ my %subReghToReg = ( "ah" => "rax", "bh" => "rbx", "ch" => "rcx", "dh" => "rdx")
 
 my %subReghToSubReg = ( "ah" => "al", "bh" => "bl", "ch" => "cl", "dh" => "dl");
 
+my %xmmToymm = ( "xmm0" =>   "ymm0", "xmm1" =>   "ymm1", "xmm2" =>   "ymm2", "xmm3" =>   "ymm3", "xmm4" =>   "ymm4", "xmm5" =>   "ymm5", "xmm6" =>   "ymm6", "xmm7" =>   "ymm7", "xmm8" =>   "ymm8", "xmm9" =>   "ymm9", "xmm10" =>  "ymm10", "xmm11" =>  "ymm11", "xmm12" =>  "ymm12", "xmm13" =>  "ymm13", "xmm14" =>  "ymm14", "xmm15" =>  "ymm15",);
+
+my %ymmToxmm = ( "ymm0" => "xmm0", "ymm1" => "xmm1", "ymm2" => "xmm2", "ymm3" => "xmm3", "ymm4" => "xmm4", "ymm5" => "xmm5", "ymm6" => "xmm6", "ymm7" => "xmm7", "ymm8" => "xmm8", "ymm9" => "xmm9", "ymm10" => "xmm10", "ymm11" => "xmm11", "ymm12" => "xmm12", "ymm13" => "xmm13", "ymm14" => "xmm14", "ymm15" => "xmm15",
+);
 
 my $fileList = "$templatedir/fileList.txt";
 if(!(-e $fileList )) {
@@ -313,7 +317,7 @@ sub unroll {
     }
   }
 
-  # YMM1 
+  # YMM1 YMM2 
   if("16" eq $pattern) {
     for my $ymm1 (@ymms) {
       for my $ymm2 (@ymms) {
@@ -326,55 +330,31 @@ sub unroll {
     }
   }
 
+  # YMM1 YMM2 YMM3
+  if("17" eq $pattern) {
+    for my $ymm1 (@ymms) {
+      for my $ymm2 (@ymms) {
+        for my $ymm3 (@ymms) {
+          if($ymm1 ne $ymm2 and $ymm2 ne $ymm3 and $ymm1 ne $ymm3) {
+            my $mod1 = $masterline =~ s/YMM1/$ymm1/gr;
+            my $mod2 = $mod1 =~ s/YMM2/$ymm2/gr;
+            my $mod3 = $mod2 =~ s/YMM3/$ymm3/gr;
+            print $fd "$mod3";
+          }
+        }
+      }
+    }
+  }
+
+  # XMM => YMM
+  if("18" eq $pattern) {
+    for my $ymm (@ymms) {
+      my $mod1 = $masterline =~ s/YMM/$ymm/gr;
+      my $mod2 = $mod1 =~ s/XMM/$ymmToxmm{$ymm}/gr;
+      print $fd "$mod2";
+    }
+  }
+
   return $retcounter;
 }
-
-#generate(\@regs, \@r8s, \%subRegToReg);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

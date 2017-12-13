@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm,
 */
 
-module VSUBPD_YMM_YMM_YMM
+module VSUBPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -86,7 +86,7 @@ module VSUBPD_YMM_YMM_YMM
   rule <k> execinstr(subpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VSUBPS_YMM_YMM_YMM
+module VSUBPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -169,6 +169,6 @@ endmodule
 
 
 module VSUB-SEMANTICS
-  imports VSUBPD_YMM_YMM_YMM
-  imports VSUBPS_YMM_YMM_YMM
+  imports VSUBPD-YMM-YMM-YMM
+  imports VSUBPS-YMM-YMM-YMM
 endmodule

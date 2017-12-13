@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vzeroall_ymm_ymm_ymm
 */
 
-module VZEROALL_YMM_YMM_YMM
+module VZEROALL-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   rule <k>
@@ -20,5 +20,5 @@ module VZEROALL_YMM_YMM_YMM
 endmodule
 
 module VZEROALL-SEMANTICS
-  imports VZEROALL_YMM_YMM_YMM
+  imports VZEROALL-YMM-YMM-YMM
 endmodule

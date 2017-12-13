@@ -11,39 +11,55 @@ module X86-SYNTAX
                        | ".globl" "_start"  [token]
   syntax Label ::=  "_start" ":" [token]
         
-  syntax Opcode ::= "addq"    [token] 
-                  | "adcb"    [token]
-                  | "adcw"    [token]
-                  | "adcl"    [token]
-                  | "adcq"    [token]
-                  | "cmoveq"  [token]  
-                  | "orq"     [token]
-                  | "xorq"    [token]
-                  | "nop"     [token] 
-                  | "movswq"  [token]  
-                  | "movsbq"  [token]  
-                  | "movslq"  [token]  
-                  | "popcntq" [token]   
-                  | "salq"    [token]
-                  | "sarq"    [token]
-                  | "shrq"    [token]
-                  | "movq"    [token]
-                  | "movb"    [token]
-                  | "addpd"    [token]
-                  | "addps"    [token]
-                  | "subpd"    [token]
-                  | "subps"    [token]
-                  | "mulpd"    [token]
-                  | "mulps"    [token]
-                  | "divpd"    [token]
-                  | "divps"    [token]
-                  | "maxpd"    [token]
-                  | "maxps"    [token]
-                  | "minpd"    [token]
-                  | "minps"    [token]
-                  | "sqrtps"    [token]
-                  | "sqrtpd"    [token]
-                  | "zeroall"    [token]
+  syntax Opcode ::= "addq"            [token] 
+                  | "adcb"            [token]
+                  | "adcw"            [token]
+                  | "adcl"            [token]
+                  | "adcq"            [token]
+                  | "cmoveq"          [token]  
+                  | "orq"             [token]
+                  | "xorq"            [token]
+                  | "nop"             [token] 
+                  | "movswq"          [token]  
+                  | "movsbq"          [token]  
+                  | "movslq"          [token]  
+                  | "popcntq"         [token]   
+                  | "salq"            [token]
+                  | "sarq"            [token]
+                  | "shrq"            [token]
+                  | "movq"            [token]
+                  | "movb"            [token]
+                  | "addpd"           [token]
+                  | "addps"           [token]
+                  | "subpd"           [token]
+                  | "subps"           [token]
+                  | "mulpd"           [token]
+                  | "mulps"           [token]
+                  | "divpd"           [token]
+                  | "divps"           [token]
+                  | "maxpd"           [token]
+                  | "maxps"           [token]
+                  | "minpd"           [token]
+                  | "minps"           [token]
+                  | "sqrtps"          [token]
+                  | "sqrtpd"          [token]
+                  | "zeroall"         [token]
+                  | "fmadd132pd"      [token]
+                  | "fmadd132ps"      [token]
+                  | "fmsub132pd"      [token]
+                  | "fmsub132ps"      [token]
+                  | "fnmadd132pd"     [token]
+                  | "fnmadd132ps"     [token]
+                  | "fnmsub132pd"     [token]
+                  | "fnmsub132ps"     [token]
+                  | "cvtdq2pd"        [token]
+                  | "cvtdq2ps"        [token]
+                  | "cvtpd2dq"        [token]
+                  | "cvtps2dq"        [token]
+                  | "cvtpd2ps"        [token]
+                  | "cvtps2pd"        [token]
+                  | "cvttpd2dq"       [token]
+                  | "cvttps2dq"       [token]
 
 
   syntax HexConstant ::=  r"[0-9a-fA-F]*" [token]
@@ -61,7 +77,7 @@ module X86-SYNTAX
                     | R16
                     | R32
                     | R64
-//                    | Xmm
+                    | Xmm
                     | Ymm
   syntax Memoffs ::= Offset
                    | Sreg ":" Offset
@@ -210,8 +226,7 @@ module X86-SYNTAX
               | "%st(6)"
               | "%st(7)"
 */
-/*
-   syntax Xmm ::= "%xmm0"
+  syntax Xmm ::= "%xmm0"
                | "%xmm1"
                | "%xmm2"
                | "%xmm3"
@@ -227,7 +242,6 @@ module X86-SYNTAX
                | "%xmm13"
                | "%xmm14"
                | "%xmm15"
-               */
   syntax Ymm ::= "%ymm0"
                | "%ymm1"
                | "%ymm2"

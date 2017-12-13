@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vaddpd_ymm_ymm_ymm, vaddps_ymm_ymm_ymm,
 */
 
-module VADDPD_YMM_YMM_YMM
+module VADDPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -86,7 +86,7 @@ module VADDPD_YMM_YMM_YMM
   rule <k> execinstr(addpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VADDPS_YMM_YMM_YMM
+module VADDPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -169,6 +169,6 @@ endmodule
 
 
 module VADD-SEMANTICS
-  imports VADDPD_YMM_YMM_YMM
-  imports VADDPS_YMM_YMM_YMM
+  imports VADDPD-YMM-YMM-YMM
+  imports VADDPS-YMM-YMM-YMM
 endmodule

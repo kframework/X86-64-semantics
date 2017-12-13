@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vminpd_ymm_ymm_ymm, vminps_ymm_ymm_ymm,
 */
 
-module VMINPD_YMM_YMM_YMM
+module VMINPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -86,7 +86,7 @@ module VMINPD_YMM_YMM_YMM
   rule <k> execinstr(minpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VMINPS_YMM_YMM_YMM
+module VMINPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -169,6 +169,6 @@ endmodule
 
 
 module VMIN-SEMANTICS
-  imports VMINPD_YMM_YMM_YMM
-  imports VMINPS_YMM_YMM_YMM
+  imports VMINPD-YMM-YMM-YMM
+  imports VMINPS-YMM-YMM-YMM
 endmodule

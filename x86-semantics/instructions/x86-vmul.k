@@ -5,7 +5,7 @@ requires "x86-semantic-utils.k"
   - vmulpd_ymm_ymm_ymm, vmulps_ymm_ymm_ymm,
 */
 
-module VMULPD_YMM_YMM_YMM
+module VMULPD-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -86,7 +86,7 @@ module VMULPD_YMM_YMM_YMM
   rule <k> execinstr(mulpd, DestR:Ymm, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
-module VMULPS_YMM_YMM_YMM
+module VMULPS-YMM-YMM-YMM
   imports X86-SEMANTIC-UTILS
 
   // Unroll START
@@ -169,6 +169,6 @@ endmodule
 
 
 module VMUL-SEMANTICS
-  imports VMULPD_YMM_YMM_YMM
-  imports VMULPS_YMM_YMM_YMM
+  imports VMULPD-YMM-YMM-YMM
+  imports VMULPS-YMM-YMM-YMM
 endmodule

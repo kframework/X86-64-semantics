@@ -17,3 +17,8 @@ x86-vmax.tmpl
 x86-vmin.tmpl
 x86-vsqrt.tmpl
 x86-vzeroall.tmpl
+x86-vfmadd132.tmpl
+x86-vfmsub132.tmpl
+x86-vfnmadd132.tmpl
+x86-vfnmsub132.tmpl
+x86-vcvt.tmpl

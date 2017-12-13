@@ -11,6 +11,43 @@ module MINT-WRAPPER-SYNTAX
 
 
   syntax MInts ::= List{MInt, ""} [klabel(mintlist)]
+  syntax Floats ::= List{Float, ""} [klabel(floatlist)]
+  syntax Ints ::= List{Int, ""} [klabel(intlist)]
+
+  /*@
+    Covert MInts to Signed Ints.
+  */
+  syntax Ints ::= convertMIntsToSInts(MInts) [function]
+
+  /*@
+    Covert MInts to Floats(or BigFloats).
+  */
+  syntax Floats ::= convertMIntsToFps(MInts, Int, Int) [function]
+
+  /*@
+    Covert Ints to Floats(or BigFloats).
+  */
+  syntax Floats ::= convertIntsToFps(Ints, Int, Int) [function]
+
+  /*@
+    Covert Floats to Ints.
+  */
+  syntax Ints ::= convertFpsToInts(Floats) [function]
+
+  /*@
+    Covert Floats to MInts.
+  */
+  syntax MInts ::= convertFpsToMInts(Floats, Int) [function]
+
+  /*@
+    Covert Ints to MInts.
+  */
+  syntax MInts ::= convertIntsToMInts(Ints, Int) [function]
+
+  /*@
+    Covert Single Precision Float to Double preceson Float.
+  */
+  syntax Floats ::= convertFloatsToDoubles(Floats) [function]
 
   /*@
     splitVector(MI, W): Splits the Bitvector MI into a List of
@@ -36,15 +73,18 @@ module MINT-WRAPPER-SYNTAX
                       | "vfdiv" [token]                  
                       | "vfmax" [token]                  
                       | "vfmin" [token]                  
-                      | "vfsqrt" [token]                  
                       | "viadd" [token]                  
                       | "visub" [token]                  
                       | "vimul" [token]                  
                       | "vidiv" [token]                  
-  syntax MInts ::= operateOnVector(MInts, MInts, VOperation, Int) [function]
-  syntax MInts ::= operateOnVectorHelper(MInts, MInts, VOperation, Int, Int) [function]
-  syntax MInts ::= operateOnVector(MInts, VOperation, Int) [function]
-  syntax MInts ::= operateOnVectorHelper(MInts, VOperation, Int, Int) [function]
+                      // Unary operators                   
+                      | "vfsqrt" [token]                  
+                      | "vfnegate" [token]                  
+
+  syntax MInts ::= operateOnVector(MInts, MInts, VOperation, Int) [function, klabel(binaryoperateonvector)]
+  syntax MInts ::= operateOnVectorHelper(MInts, MInts, VOperation, Int, Int) [function, klabel(binaryoperateonvectorhelper)]
+  syntax MInts ::= operateOnVector(MInts, VOperation, Int) [function, klabel(unaryoperateonvector)] 
+  syntax MInts ::= operateOnVectorHelper(MInts, VOperation, Int, Int) [function, klabel(unaryoperateonvectorhelper)]
 
   /*@
     Bitwise negation
@@ -165,6 +205,48 @@ module MINT-WRAPPER
   rule oneMIntW64   =>  mi(64, 1) [macro]
 
   /*@
+    Covert MInts to Signed Ints.
+  */
+  rule convertMIntsToSInts(MI MIs) => svalueMInt(MI) convertMIntsToSInts(MIs)
+  rule convertMIntsToSInts(.MInts) => .Ints
+
+  /*@
+    Covert MInts to Floats(or BigFloats).
+  */
+  rule convertMIntsToFps(MI MIs, P, E) => MInt2Float(MI, P, E) convertMIntsToFps(MIs, P, E)
+  rule convertMIntsToFps(.MInts, _, _) => .Floats
+
+  /*@
+    Covert Ints to Floats(or BigFloats).
+  */
+  rule convertIntsToFps(I Is, P, E) => Int2Float(I, P, E) convertIntsToFps(Is, P, E)
+  rule convertIntsToFps(.Ints, _, _) => .Floats
+
+  /*@
+    Covert Floats to Ints.
+  */
+  rule convertFpsToInts(F Fs) => Float2Int(F) convertFpsToInts(Fs)
+  rule convertFpsToInts(.Floats) => .Ints
+
+  /*@
+    Covert Floats to MInts.
+  */
+  rule convertFpsToMInts(F Fs, W) => Float2MInt(F, W) convertFpsToMInts(Fs, W)
+  rule convertFpsToMints(.Floats, _) => .MInts
+
+  /*@
+    Covert Ints to MInts.
+  */
+  rule convertIntsToMInts(I Is, W) => mi(I, W) convertIntsToMInts(Is, W)
+  rule convertIntsToMInts(.Ints, _) => .MInts
+
+  /*@
+    Covert Single Precision Float to Double preceson Float.
+  */
+  rule convertFloatsToDoubles(F Fs) => Float2Double(F) convertFloatsToDoubles(Fs)
+  rule convertFloatsToDoubles(.Floats) => .Floats
+
+  /*@
     splitVector(MI, W): Splits the Bitvector MI into a List of
     bitwidthMInt(MI)/W Bitvectors each of width W.
   */
@@ -184,8 +266,8 @@ module MINT-WRAPPER
     joinVector(MIs): Concatenates a list of Bitvectors MIs to a
     single Bitvector of size equals added bitwidths.
   */
-  rule joinVector(MI .MInts) => MI
-  rule joinVector(MI Rest) => concatenateMInt(MI, joinVector(Rest))
+  rule joinVector(MI:MInt .MInts) => MI
+  rule joinVector(MI:MInt Rest) => concatenateMInt(MI, joinVector(Rest))
 
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
@@ -227,6 +309,9 @@ module MINT-WRAPPER
 
   rule operateOnVectorHelper(MI MIs, vfsqrt, P, E) => 
     Float2MInt(sqrtFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfsqrt, P, E)
+
+  rule operateOnVectorHelper(MI MIs, vfnegate, P, E) => 
+    Float2MInt(negateFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfnegate, P, E)
 
   rule operateOnVectorHelper(.MInts, .MInts, _, _, _) => .MInts
 
