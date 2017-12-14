@@ -1,3 +1,5 @@
 *-kompiled
-*.xstate
-*.kstate
+*.exec
+.idea/
+*.iml
+*.pruned.s
