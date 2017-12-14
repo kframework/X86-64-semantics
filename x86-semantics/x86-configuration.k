@@ -7,8 +7,8 @@ module X86-CONFIGURATION
 
   syntax AbstractValue ::= Int | MInt
   syntax KResult ::= AbstractValue
-  syntax KItem ::= "fetch"
-  syntax Opcode ::= "sentinal"
+  syntax KItem ::= "fetch" [token]
+  syntax Opcode ::= "sentinal" [token]
 
   configuration <T>
     <k> $PGM:Instructions ~> fetch </k>
@@ -68,7 +68,8 @@ module X86-CONFIGURATION
         <of> zeroMIntW1 </of>
       </arithflags>
 
-      /*@ 256 bit ymm registers
+      /*@ 
+        256 bit ymm registers
       */
       <ymm>
         <ymm0>  zeroMIntW256 </ymm0>
@@ -90,7 +91,12 @@ module X86-CONFIGURATION
       </ymm>
     </regstate>
 
-    <labels> .Map </labels>
+    /*@
+      The following configuration is used to store the intermediate 
+      regstate at instruction boundary. Used in debug/testing purposes.
+    */
+    <regstatequeue> .List </regstatequeue>
+
   </T>
 
 

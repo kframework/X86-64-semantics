@@ -11,7 +11,9 @@ module X86-SYNTAX
                        | ".globl" "_start"  [token]
   syntax Label ::=  "_start" ":" [token]
         
-  syntax Opcode ::= "addq"            [token] 
+  syntax Opcode ::= "inforegisters"   [token]
+		  // Base Instructions. 	
+                  | "addq"            [token] 
                   | "adcb"            [token]
                   | "adcw"            [token]
                   | "adcl"            [token]

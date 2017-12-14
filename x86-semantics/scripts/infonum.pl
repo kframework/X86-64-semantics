@@ -12,7 +12,7 @@ use File::Path qw(make_path remove_tree);
 use Env;
 Getopt::Long::Configure('prefix=+');
 
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
 # Get environment Variable
@@ -56,7 +56,7 @@ if ( $num =~ m/$hexPattern/ ) {
 }
 elsif ( $num =~ m/$binPattern/ ) {
     my $bin = $1;
-    $hexnum = bin2hex( $bin );
+    $hexnum = bin2hex($bin);
     $hexnum = signExtend( $hexnum, $bit );
     ( $decimalnum, $unsigneddecimalnum ) = toDec( $hexnum, $bit );
 }
