@@ -35,7 +35,7 @@ requires "x86-vcvt.k"
     - salq_r64_cl, sarq_r64_cl, shrq_r64_cl,
     - xorq_r64_r64,
 
-  - Integer Variants
+  - Float Variants
     - vaddpd_ymm_ymm_ymm, vaddps_ymm_ymm_ymm,
     - vsubpd_ymm_ymm_ymm, vsubps_ymm_ymm_ymm,
     - vmulpd_ymm_ymm_ymm, vmulps_ymm_ymm_ymm, vrcpps_ymm_ymm,
