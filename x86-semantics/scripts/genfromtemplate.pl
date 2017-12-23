@@ -6,7 +6,7 @@ use File::Compare;
 use File::Basename;
 
 use lib qw( ./ );
-use utils;
+use ktestutils;
 
 my $gendir = "";
 my $templatedir = "";
@@ -36,9 +36,6 @@ my @r16s = ( "ax", "bx", "cx",);# "dx", "si", "di", "sp", "bp", "r8w", "r9w", "r
 
 my @r32s = ( "eax", "ebx", "ecx",);# "edx", "esi", "edi", "esp", "ebp", "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d");
 
-my @ymms = ( "ymm1", "ymm2", "ymm3",);# "ymm4", "ymm5", "ymm6", "ymm7", "ymm8", "ymm9", "ymm10", "ymm11", "ymm12", "ymm13", "ymm14", "ymm15"); 
-
-my @xmms = ( "xmm1", "xmm2", "xmm3", "xmm4", "xmm5", "xmm6", "xmm7", "xmm8", "xmm9", "xmm10", "xmm11", "xmm12", "xmm13", "xmm14", "xmm15"); 
 =pod
 my @regs = ( "rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rsp", "rbp", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", ); 
 
@@ -51,6 +48,8 @@ my @r16s = ( "ax", "bx", "cx", "dx", "si", "di", "sp", "bp", "r8w", "r9w", "r10w
 my @r32s = ( "eax", "ebx", "ecx", "edx", "esi", "edi", "esp", "ebp", "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d");
 =cut
 
+my @ymms = ( "ymm1", "ymm2", "ymm3",);# "ymm4", "ymm5", "ymm6", "ymm7", "ymm8", "ymm9", "ymm10", "ymm11", "ymm12", "ymm13", "ymm14", "ymm15"); 
+my @xmms = ( "xmm1", "xmm2", "xmm3", "xmm4", "xmm5", "xmm6", "xmm7", "xmm8", "xmm9", "xmm10", "xmm11", "xmm12", "xmm13", "xmm14", "xmm15"); 
 
 # Maps 
 my %subReg8ToReg = ( "al" => "rax", "bl" => "rbx", "cl" => "rcx", "dl" => "rdx", "sil" => "rsi", "dil" => "rdi", "spl" => "rsp", "bpl" => "rbp", "r8b" => "r8", "r9b" => "r9", "r10b" => "r10", "r11b" => "r11", "r12b" => "r12", "r13b" => "r13", "r14b" => "r14", "r15b" => "r15",);

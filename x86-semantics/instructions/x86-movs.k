@@ -2,7 +2,7 @@
 requires "x86-semantic-utils.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
-  - movswq_r64_r16, movsbq_r64_r8, movslq_r64_r32,
+  - movswq_r64_r16, movsbq_r64_r8, movswq_r64_r32,
 
 */
 
