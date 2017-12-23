@@ -47,17 +47,26 @@ module X86-LOADER
         <entrypoint> LoadAddr </entrypoint>
 
   /*@
-    Fetch the instructions from Code memory.
+    Fetch the instructions from Code memory for exection & debugging.
   */
-  rule <k> fetch => execinstr(OpC,OpR) ~> fetch ... </k>
-  <cmem>... loc(PC) |-> storedinstr(OpC,OpR)   ...</cmem>
-  <rip> PC => addMInt(PC,  mi(64,getISize(OpC,OpR))) </rip>
+  rule 
+    <k> fetch => execinstr(OpC,OpR) ~> inforegisters ~> fetch ... </k>
+    <cmem>... loc(PC) |-> storedinstr(OpC,OpR)   ...</cmem>
+    <rip> PC => addMInt(PC,  mi(64,getISize(OpC,OpR))) </rip>
+
+  /*@
+    inforegisters prints all the register states for debug purposes.
+  */
+  rule  
+    <k> inforegisters => . ... </k>
+    <regstatequeue> ... .List => ListItem(REGSTATE) </regstatequeue>
+    <regstate> REGSTATE </regstate> 
 
   /*@
     Once the sentinal instrcution is fetched, the execution stops.
   */
-  rule <k> execinstr ( sentinal , .Typedoperands ) ~> fetch => . ... </k>
-  rule <k> execinstr ( nop , .Typedoperands ) ~> fetch => . ... </k>
+  rule <k> execinstr ( sentinal , .Typedoperands ) ~> inforegisters ~> fetch => . ... </k>
+  rule <k> execinstr ( nop , .Typedoperands ) ~> inforegisters ~> fetch => . ... </k>
 
 
 endmodule

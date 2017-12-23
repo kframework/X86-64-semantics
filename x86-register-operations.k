@@ -8,17 +8,9 @@ module X86-REGISTER-OPERATIONS
   imports X86-GENERAL-UTILS
 
   /*@
-    Opcode inforegisters is to print all the register states.
-  */  
-  rule <k> execinstr( inforegisters, .Typedoperands) => . 
-  ...</k> 
-    <regstatequeue> ... .List => ListItem(REGSTATE) </regstatequeue>
-  <regstate> REGSTATE </regstate> 
-
-  /*@
     Update the registers with supplied values.
   */
-  syntax KItem ::= updateReg(K, Register) [strict(1)]
+  syntax KItem ::= updateReg(MInt, Register)
   syntax Typeoperand ::= MInt
 
   rule <k> updateReg(MI:MInt, %rax) => .  ...</k> <rax> _ => MI </rax>

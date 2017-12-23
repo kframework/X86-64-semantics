@@ -1,13 +1,13 @@
 <T> 
 <k> exit_0 </k> 
 <entrypoint> 64'0 </entrypoint> 
-<nextLoc> 64'42 </nextLoc> 
+<nextLoc> 64'21 </nextLoc> 
 <memstate> 
-<cmem> loc ( 64'37 ) |-> storedinstr ( movq , ( $ 66 ) , ( %rcx , .Typedoperands ) ) loc ( 64'22 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'3 ) |-> storedinstr ( movq , ( $ 1 ) , ( %rcx , .Typedoperands ) ) loc ( 64'41 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'26 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'7 ) |-> storedinstr ( movq , ( $ 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'30 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'11 ) |-> storedinstr ( movq , ( $ 9151314442816847872 ) , ( %rax , .Typedoperands ) ) loc ( 64'34 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'15 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'21 ) |-> storedinstr ( movq , ( $ 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'6 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'36 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'25 ) |-> storedinstr ( movq , ( $ 63 ) , ( %rcx , .Typedoperands ) ) loc ( 64'10 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'40 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'29 ) |-> storedinstr ( movq , ( $ 4611686018427387904 ) , ( %rax , .Typedoperands ) ) loc ( 64'14 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'33 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'18 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'5 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'35 ) |-> storedinstr ( movq , ( $ 4 ) , ( %rax , .Typedoperands ) ) loc ( 64'20 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'9 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'39 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'24 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'13 ) |-> storedinstr ( movq , ( $ 1 ) , ( %rcx , .Typedoperands ) ) loc ( 64'28 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'17 ) |-> storedinstr ( movq , ( $ 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'32 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'38 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'19 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'42 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'23 ) |-> storedinstr ( movq , ( $ -9223372036854775808 ) , ( %rax , .Typedoperands ) ) loc ( 64'8 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'27 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'12 ) |-> storedinstr ( inforegisters , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( movq , ( $ -9223372036854775807 ) , ( %rax , .Typedoperands ) ) loc ( 64'31 ) |-> storedinstr ( movq , ( $ 63 ) , ( %rcx , .Typedoperands ) ) loc ( 64'16 ) |-> storedinstr ( inforegisters , .Typedoperands ) </cmem> 
+<cmem> loc ( 64'5 ) |-> storedinstr ( movq , ( $ 9151314442816847872 ) , ( %rax , .Typedoperands ) ) loc ( 64'3 ) |-> storedinstr ( movq , ( $ 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'20 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'9 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'7 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'13 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'11 ) |-> storedinstr ( movq , ( $ -9223372036854775808 ) , ( %rax , .Typedoperands ) ) loc ( 64'17 ) |-> storedinstr ( movq , ( $ 4 ) , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'15 ) |-> storedinstr ( movq , ( $ 63 ) , ( %rcx , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( movq , ( $ -9223372036854775807 ) , ( %rax , .Typedoperands ) ) loc ( 64'21 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'6 ) |-> storedinstr ( movq , ( $ 1 ) , ( %rcx , .Typedoperands ) ) loc ( 64'19 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'10 ) |-> storedinstr ( movq , ( $ 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'8 ) |-> storedinstr ( movq , ( $ 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'14 ) |-> storedinstr ( movq , ( $ 4611686018427387904 ) , ( %rax , .Typedoperands ) ) loc ( 64'12 ) |-> storedinstr ( movq , ( $ 63 ) , ( %rcx , .Typedoperands ) ) loc ( 64'1 ) |-> storedinstr ( movq , ( $ 1 ) , ( %rcx , .Typedoperands ) ) loc ( 64'18 ) |-> storedinstr ( movq , ( $ 66 ) , ( %rcx , .Typedoperands ) ) loc ( 64'16 ) |-> storedinstr ( sarq , %cl , ( %rax , .Typedoperands ) ) </cmem> 
 <dmem> .Map </dmem> </memstate> 
 <regstate> 
 <gpr> 
-<rip> 64'42 </rip> 
+<rip> 64'21 </rip> 
 <rax> 64'1 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'66 </rcx> 
@@ -51,7 +51,7 @@
 <regstatequeue> ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'1 </rip> 
+<rip> 64'0 </rip> 
 <rax> 64'0 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'0 </rcx> 
@@ -94,7 +94,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'3 </rip> 
+<rip> 64'1 </rip> 
 <rax> 64'-9223372036854775807 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'0 </rcx> 
@@ -117,6 +117,135 @@
 <af> 1'0 </af> 
 <zf> 1'0 </zf> 
 <sf> 1'0 </sf> 
+<of> 1'0 </of> </arithflags> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
+<regstate>-fragment 
+<gpr> 
+<rip> 64'2 </rip> 
+<rax> 64'-9223372036854775807 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'1 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'0 </cf> 
+<pf> 1'0 </pf> 
+<af> 1'0 </af> 
+<zf> 1'0 </zf> 
+<sf> 1'0 </sf> 
+<of> 1'0 </of> </arithflags> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
+<regstate>-fragment 
+<gpr> 
+<rip> 64'3 </rip> 
+<rax> 64'-4611686018427387904 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'1 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'1 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
+<zf> 1'0 </zf> 
+<sf> 1'1 </sf> 
+<of> 1'0 </of> </arithflags> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
+<regstate>-fragment 
+<gpr> 
+<rip> 64'4 </rip> 
+<rax> 64'-4611686018427387904 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'0 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'1 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
+<zf> 1'0 </zf> 
+<sf> 1'1 </sf> 
 <of> 1'0 </of> </arithflags> 
 <ymm> 
 <ymm0> 256'0 </ymm0> 
@@ -138,9 +267,9 @@
 <regstate>-fragment 
 <gpr> 
 <rip> 64'5 </rip> 
-<rax> 64'-9223372036854775807 </rax> 
+<rax> 64'-4611686018427387904 </rax> 
 <rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
+<rcx> 64'0 </rcx> 
 <rdx> 64'0 </rdx> 
 <rsi> 64'0 </rsi> 
 <rdi> 64'0 </rdi> 
@@ -155,11 +284,54 @@
 <r14> 64'0 </r14> 
 <r15> 64'0 </r15> </gpr> 
 <arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> 1'0 </af> 
+<cf> 1'1 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
 <zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
+<sf> 1'1 </sf> 
+<of> 1'0 </of> </arithflags> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
+<regstate>-fragment 
+<gpr> 
+<rip> 64'6 </rip> 
+<rax> 64'9151314442816847872 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'0 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'1 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
+<zf> 1'0 </zf> 
+<sf> 1'1 </sf> 
 <of> 1'0 </of> </arithflags> 
 <ymm> 
 <ymm0> 256'0 </ymm0> 
@@ -181,7 +353,7 @@
 <regstate>-fragment 
 <gpr> 
 <rip> 64'7 </rip> 
-<rax> 64'-4611686018427387904 </rax> 
+<rax> 64'9151314442816847872 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'1 </rcx> 
 <rdx> 64'0 </rdx> 
@@ -203,6 +375,49 @@
 <af> undef </af> 
 <zf> 1'0 </zf> 
 <sf> 1'1 </sf> 
+<of> 1'0 </of> </arithflags> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
+<regstate>-fragment 
+<gpr> 
+<rip> 64'8 </rip> 
+<rax> 64'4575657221408423936 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'1 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'0 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
+<zf> 1'0 </zf> 
+<sf> 1'0 </sf> 
 <of> 1'0 </of> </arithflags> 
 <ymm> 
 <ymm0> 256'0 </ymm0> 
@@ -224,7 +439,7 @@
 <regstate>-fragment 
 <gpr> 
 <rip> 64'9 </rip> 
-<rax> 64'-4611686018427387904 </rax> 
+<rax> 64'4575657221408423936 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'0 </rcx> 
 <rdx> 64'0 </rdx> 
@@ -241,11 +456,54 @@
 <r14> 64'0 </r14> 
 <r15> 64'0 </r15> </gpr> 
 <arithflags> 
-<cf> 1'1 </cf> 
+<cf> 1'0 </cf> 
 <pf> 1'1 </pf> 
 <af> undef </af> 
 <zf> 1'0 </zf> 
-<sf> 1'1 </sf> 
+<sf> 1'0 </sf> 
+<of> 1'0 </of> </arithflags> 
+<ymm> 
+<ymm0> 256'0 </ymm0> 
+<ymm1> 256'0 </ymm1> 
+<ymm2> 256'0 </ymm2> 
+<ymm3> 256'0 </ymm3> 
+<ymm4> 256'0 </ymm4> 
+<ymm5> 256'0 </ymm5> 
+<ymm6> 256'0 </ymm6> 
+<ymm7> 256'0 </ymm7> 
+<ymm8> 256'0 </ymm8> 
+<ymm9> 256'0 </ymm9> 
+<ymm10> 256'0 </ymm10> 
+<ymm11> 256'0 </ymm11> 
+<ymm12> 256'0 </ymm12> 
+<ymm14> 256'0 </ymm14> 
+<ymm13> 256'0 </ymm13> 
+<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
+<regstate>-fragment 
+<gpr> 
+<rip> 64'10 </rip> 
+<rax> 64'4575657221408423936 </rax> 
+<rbx> 64'0 </rbx> 
+<rcx> 64'0 </rcx> 
+<rdx> 64'0 </rdx> 
+<rsi> 64'0 </rsi> 
+<rdi> 64'0 </rdi> 
+<rsp> 64'0 </rsp> 
+<rbp> 64'0 </rbp> 
+<r8> 64'0 </r8> 
+<r9> 64'0 </r9> 
+<r10> 64'0 </r10> 
+<r11> 64'0 </r11> 
+<r12> 64'0 </r12> 
+<r13> 64'0 </r13> 
+<r14> 64'0 </r14> 
+<r15> 64'0 </r15> </gpr> 
+<arithflags> 
+<cf> 1'0 </cf> 
+<pf> 1'1 </pf> 
+<af> undef </af> 
+<zf> 1'0 </zf> 
+<sf> 1'0 </sf> 
 <of> 1'0 </of> </arithflags> 
 <ymm> 
 <ymm0> 256'0 </ymm0> 
@@ -267,178 +525,6 @@
 <regstate>-fragment 
 <gpr> 
 <rip> 64'11 </rip> 
-<rax> 64'-4611686018427387904 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'1 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'13 </rip> 
-<rax> 64'9151314442816847872 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'1 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'15 </rip> 
-<rax> 64'9151314442816847872 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'1 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'17 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'19 </rip> 
 <rax> 64'4575657221408423936 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'0 </rcx> 
@@ -481,93 +567,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'21 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'23 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'25 </rip> 
+<rip> 64'12 </rip> 
 <rax> 64'-9223372036854775808 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'0 </rcx> 
@@ -610,7 +610,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'27 </rip> 
+<rip> 64'13 </rip> 
 <rax> 64'-9223372036854775808 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'63 </rcx> 
@@ -653,7 +653,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'29 </rip> 
+<rip> 64'14 </rip> 
 <rax> 64'-1 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'63 </rcx> 
@@ -696,7 +696,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'31 </rip> 
+<rip> 64'15 </rip> 
 <rax> 64'4611686018427387904 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'63 </rcx> 
@@ -739,7 +739,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'33 </rip> 
+<rip> 64'16 </rip> 
 <rax> 64'4611686018427387904 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'63 </rcx> 
@@ -782,7 +782,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'35 </rip> 
+<rip> 64'17 </rip> 
 <rax> 64'0 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'63 </rcx> 
@@ -825,7 +825,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'37 </rip> 
+<rip> 64'18 </rip> 
 <rax> 64'4 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'63 </rcx> 
@@ -868,7 +868,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'39 </rip> 
+<rip> 64'19 </rip> 
 <rax> 64'4 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'66 </rcx> 
@@ -911,7 +911,7 @@
 <ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
 <regstate>-fragment 
 <gpr> 
-<rip> 64'41 </rip> 
+<rip> 64'20 </rip> 
 <rax> 64'1 </rax> 
 <rbx> 64'0 </rbx> 
 <rcx> 64'66 </rcx> 
