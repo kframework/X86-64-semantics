@@ -3,9 +3,6 @@
 
 _start:
     // Init rax
-    inforegisters
     addq $0, %rax
-    inforegisters
     orq %rax,%rax
-    inforegisters
     nop

@@ -8,10 +8,11 @@ module X86-CONFIGURATION
   syntax AbstractValue ::= Int | MInt
   syntax KResult ::= AbstractValue
   syntax KItem ::= "fetch" [token]
+  syntax KItem ::= "inforegisters" [token]
   syntax Opcode ::= "sentinal" [token]
 
   configuration <T>
-    <k> $PGM:Instructions ~> fetch </k>
+    <k> $PGM:Instructions ~> inforegisters ~> fetch </k>
     <entrypoint> zeroMIntW64 </entrypoint>
     <nextLoc> zeroMIntW64 </nextLoc>
     <memstate>

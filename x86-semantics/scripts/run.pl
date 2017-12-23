@@ -65,11 +65,7 @@ if ( "" ne $xrun ) {
 
     $output = "$outdir/$basename.xstate";
 
-    # Remove the "inforegisters" opcodes.
-    execute(
-"cat $basename.$ext | sed -e '/inforegisters/d' 1> $outdir/$basename.pruned.$ext 2>&1"
-    );
-    execute("as $outdir/$basename.pruned.$ext -o $outdir/$basename.o");
+    execute("as $basename.$ext -o $outdir/$basename.o");
     execute("ld $outdir/$basename.o -o $outdir/$basename.exec");
     execute(
 "gdb --batch --command=../../scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1"
