@@ -10,84 +10,21 @@ module ADC-R8-R8
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr ( adcb , (%al ,  (%al , .Typedoperands)) ) =>
-      execinstr(adcb, (%rax, extractMask(MI, 8, 0), extractMask(MI, 8, 0), zeroExtend(MIc,8), .Typedoperands)) 
+    execinstr (adcb (R1:R8,  (R2:R8, .Typedoperands)) ) =>
+      execinstr(adcb (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
+            zeroExtend(getFlag("CF", RSMap), 8), .Typedoperands)) 
   ...</k>
-  <cf> MIc </cf>
-  <rax> MI </rax>
-  rule <k> 
-    execinstr ( adcb , (%bl ,  (%bl , .Typedoperands)) ) =>
-      execinstr(adcb, (%rbx, extractMask(MI, 8, 0), extractMask(MI, 8, 0), zeroExtend(MIc,8), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rbx> MI </rbx>
-  rule <k> 
-    execinstr ( adcb , (%cl ,  (%cl , .Typedoperands)) ) =>
-      execinstr(adcb, (%rcx, extractMask(MI, 8, 0), extractMask(MI, 8, 0), zeroExtend(MIc,8), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rcx> MI </rcx>
-  // Unroll END
+  <regstate> RSMap </regstate>
 
-  // Unroll START
-  rule <k> 
-    execinstr ( adcb , (%bl ,  (%al , .Typedoperands)) ) =>
-      execinstr(adcb, (%rax, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
+  rule <k>
+    execinstr(adcb ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
+      execinstr(adcb ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
+            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
   ...</k>
-  <rbx> MI1 </rbx>
-  <rax> MI2 </rax>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcb , (%cl ,  (%al , .Typedoperands)) ) =>
-      execinstr(adcb, (%rax, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
-  ...</k>
-  <rcx> MI1 </rcx>
-  <rax> MI2 </rax>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcb , (%al ,  (%bl , .Typedoperands)) ) =>
-      execinstr(adcb, (%rbx, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
-  ...</k>
-  <rax> MI1 </rax>
-  <rbx> MI2 </rbx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcb , (%cl ,  (%bl , .Typedoperands)) ) =>
-      execinstr(adcb, (%rbx, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
-  ...</k>
-  <rcx> MI1 </rcx>
-  <rbx> MI2 </rbx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcb , (%al ,  (%cl , .Typedoperands)) ) =>
-      execinstr(adcb, (%rcx, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
-  ...</k>
-  <rax> MI1 </rax>
-  <rcx> MI2 </rcx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcb , (%bl ,  (%cl , .Typedoperands)) ) =>
-      execinstr(adcb, (%rcx, extractMask(MI1, 8, 0), extractMask(MI2, 8, 0), zeroExtend(MI3,8), .Typedoperands)) 
-  ...</k>
-  <rbx> MI1 </rbx>
-  <rcx> MI2 </rcx>
-  <cf> MI3 </cf>
-  // Unroll END
-
-  rule
-    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), .Typedoperands )) 
   
-  rule
-    execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
-      execinstr(adcb, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
-
-  // Unroll START
-  rule
-  <k>
-    execinstr(adcb, ( %rax, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  rule <k>
+    execinstr(adcb ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -95,37 +32,8 @@ module ADC-R8-R8
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rax) 
+      setRegisterValue(MIresult, DestR) 
   ...</k>
-  <rax> MI </rax>
-  rule
-  <k>
-    execinstr(adcb, ( %rbx, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rbx) 
-  ...</k>
-  <rbx> MI </rbx>
-  rule
-  <k>
-    execinstr(adcb, ( %rcx, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rcx) 
-  ...</k>
-  <rcx> MI </rcx>
-  // Unroll END
-
 
 endmodule
 
@@ -133,84 +41,21 @@ module ADC-R16-R16
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr ( adcw , (%ax ,  (%ax , .Typedoperands)) ) =>
-      execinstr(adcw, (%rax, extractMask(MI, 16, 0), extractMask(MI, 16, 0), zeroExtend(MIc,16), .Typedoperands)) 
+    execinstr (adcw (R1:R16,  (R2:R16, .Typedoperands)) ) =>
+      execinstr(adcw (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
+            zeroExtend(getFlag("CF", RSMap), 16), .Typedoperands)) 
   ...</k>
-  <cf> MIc </cf>
-  <rax> MI </rax>
-  rule <k> 
-    execinstr ( adcw , (%bx ,  (%bx , .Typedoperands)) ) =>
-      execinstr(adcw, (%rbx, extractMask(MI, 16, 0), extractMask(MI, 16, 0), zeroExtend(MIc,16), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rbx> MI </rbx>
-  rule <k> 
-    execinstr ( adcw , (%cx ,  (%cx , .Typedoperands)) ) =>
-      execinstr(adcw, (%rcx, extractMask(MI, 16, 0), extractMask(MI, 16, 0), zeroExtend(MIc,16), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rcx> MI </rcx>
-  // Unroll END
+  <regstate> RSMap </regstate>
 
-  // Unroll START
-  rule <k> 
-    execinstr ( adcw , (%bx ,  (%ax , .Typedoperands)) ) =>
-      execinstr(adcw, (%rax, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
+  rule <k>
+    execinstr(adcw ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
+      execinstr(adcw ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
+            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
   ...</k>
-  <rbx> MI1 </rbx>
-  <rax> MI2 </rax>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcw , (%cx ,  (%ax , .Typedoperands)) ) =>
-      execinstr(adcw, (%rax, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
-  ...</k>
-  <rcx> MI1 </rcx>
-  <rax> MI2 </rax>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcw , (%ax ,  (%bx , .Typedoperands)) ) =>
-      execinstr(adcw, (%rbx, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
-  ...</k>
-  <rax> MI1 </rax>
-  <rbx> MI2 </rbx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcw , (%cx ,  (%bx , .Typedoperands)) ) =>
-      execinstr(adcw, (%rbx, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
-  ...</k>
-  <rcx> MI1 </rcx>
-  <rbx> MI2 </rbx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcw , (%ax ,  (%cx , .Typedoperands)) ) =>
-      execinstr(adcw, (%rcx, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
-  ...</k>
-  <rax> MI1 </rax>
-  <rcx> MI2 </rcx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcw , (%bx ,  (%cx , .Typedoperands)) ) =>
-      execinstr(adcw, (%rcx, extractMask(MI1, 16, 0), extractMask(MI2, 16, 0), zeroExtend(MI3,16), .Typedoperands)) 
-  ...</k>
-  <rbx> MI1 </rbx>
-  <rcx> MI2 </rcx>
-  <cf> MI3 </cf>
-  // Unroll END
-
-  rule
-    execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), .Typedoperands )) 
   
-  rule
-    execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
-      execinstr(adcw, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
-
-  // Unroll START
-  rule
-  <k>
-    execinstr(adcw, ( %rax, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  rule <k>
+    execinstr(adcw ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -218,36 +63,8 @@ module ADC-R16-R16
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rax)
+      setRegisterValue(MIresult, DestR) 
   ...</k>
-    <rax> MI </rax>
-  rule
-  <k>
-    execinstr(adcw, ( %rbx, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rbx)
-  ...</k>
-    <rbx> MI </rbx>
-  rule
-  <k>
-    execinstr(adcw, ( %rcx, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rcx)
-  ...</k>
-    <rcx> MI </rcx>
-  // Unroll END
 
 endmodule
 
@@ -255,84 +72,21 @@ module ADC-R32-R32
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr ( adcl , (%eax ,  (%eax , .Typedoperands)) ) =>
-      execinstr(adcl, (%rax, extractMask(MI, 32, 0), extractMask(MI, 32, 0), zeroExtend(MIc,32), .Typedoperands)) 
+    execinstr (adcl (R1:R32,  (R2:R32, .Typedoperands)) ) =>
+      execinstr(adcl (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
+            zeroExtend(getFlag("CF", RSMap), 32), .Typedoperands)) 
   ...</k>
-  <cf> MIc </cf>
-  <rax> MI </rax>
-  rule <k> 
-    execinstr ( adcl , (%ebx ,  (%ebx , .Typedoperands)) ) =>
-      execinstr(adcl, (%rbx, extractMask(MI, 32, 0), extractMask(MI, 32, 0), zeroExtend(MIc,32), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rbx> MI </rbx>
-  rule <k> 
-    execinstr ( adcl , (%ecx ,  (%ecx , .Typedoperands)) ) =>
-      execinstr(adcl, (%rcx, extractMask(MI, 32, 0), extractMask(MI, 32, 0), zeroExtend(MIc,32), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rcx> MI </rcx>
-  // Unroll END
+  <regstate> RSMap </regstate>
 
-  // Unroll START
   rule <k> 
-    execinstr ( adcl , (%ebx ,  (%eax , .Typedoperands)) ) =>
-      execinstr(adcl, (%rax, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
+    execinstr(adcl ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
+      execinstr(adcl ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
+            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
   ...</k>
-  <rbx> MI1 </rbx>
-  <rax> MI2 </rax>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcl , (%ecx ,  (%eax , .Typedoperands)) ) =>
-      execinstr(adcl, (%rax, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
-  ...</k>
-  <rcx> MI1 </rcx>
-  <rax> MI2 </rax>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcl , (%eax ,  (%ebx , .Typedoperands)) ) =>
-      execinstr(adcl, (%rbx, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
-  ...</k>
-  <rax> MI1 </rax>
-  <rbx> MI2 </rbx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcl , (%ecx ,  (%ebx , .Typedoperands)) ) =>
-      execinstr(adcl, (%rbx, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
-  ...</k>
-  <rcx> MI1 </rcx>
-  <rbx> MI2 </rbx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcl , (%eax ,  (%ecx , .Typedoperands)) ) =>
-      execinstr(adcl, (%rcx, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
-  ...</k>
-  <rax> MI1 </rax>
-  <rcx> MI2 </rcx>
-  <cf> MI3 </cf>
-  rule <k> 
-    execinstr ( adcl , (%ebx ,  (%ecx , .Typedoperands)) ) =>
-      execinstr(adcl, (%rcx, extractMask(MI1, 32, 0), extractMask(MI2, 32, 0), zeroExtend(MI3,32), .Typedoperands)) 
-  ...</k>
-  <rbx> MI1 </rbx>
-  <rcx> MI2 </rcx>
-  <cf> MI3 </cf>
-  // Unroll END
-
-  rule
-    execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), .Typedoperands )) 
   
-  rule
-    execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
-      execinstr(adcl, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
-
-  // Unroll START
-  rule
-  <k>
-    execinstr(adcl, ( %rax, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  rule <k>
+    execinstr(adcl ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -340,36 +94,8 @@ module ADC-R32-R32
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rax)
+      setRegisterValue(MIresult, DestR) 
   ...</k>
-    <rax> MI </rax>
-  rule
-  <k>
-    execinstr(adcl, ( %rbx, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rbx)
-  ...</k>
-    <rbx> MI </rbx>
-  rule
-  <k>
-    execinstr(adcl, ( %rcx, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
-    => 
-      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
-      updateZeroFlag(MIresult) ~> 
-      updateSignFlag(MIresult) ~> 
-      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
-      updateParityFlag(MIresult) ~> 
-      updateReg(plugInMask(MI, MIresult, 0), %rcx)
-  ...</k>
-    <rcx> MI </rcx>
-  // Unroll END
 
 endmodule
 
@@ -377,80 +103,21 @@ module ADC-R64-R64
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr ( adcq , (%rax ,  (%rax , .Typedoperands)) ) =>
-      execinstr(adcq, (%rax, MIsrc, MIsrc, zeroExtend(MIc,64), .Typedoperands)) 
+    execinstr (adcq (R1:R64,  (R2:R64, .Typedoperands)) ) =>
+      execinstr(adcq (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
+            zeroExtend(getFlag("CF", RSMap), 64), .Typedoperands)) 
   ...</k>
-  <cf> MIc </cf>
-  <rax> MIsrc </rax>
-  rule <k> 
-    execinstr ( adcq , (%rbx ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(adcq, (%rbx, MIsrc, MIsrc, zeroExtend(MIc,64), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rbx> MIsrc </rbx>
-  rule <k> 
-    execinstr ( adcq , (%rcx ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(adcq, (%rcx, MIsrc, MIsrc, zeroExtend(MIc,64), .Typedoperands)) 
-  ...</k>
-  <cf> MIc </cf>
-  <rcx> MIsrc </rcx>
+  <regstate> RSMap </regstate>
 
   rule <k> 
-    execinstr ( adcq , (%rbx ,  (%rax , .Typedoperands)) ) =>
-      execinstr(adcq, (%rax, MIsrc1, MIsrc2, zeroExtend(MI3,64), .Typedoperands)) 
+    execinstr(adcq ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
+      execinstr(adcq ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
+            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
   ...</k>
-  <cf> MI3 </cf>
-  <rbx> MIsrc1 </rbx>
-  <rax> MIsrc2 </rax>
-  rule <k> 
-    execinstr ( adcq , (%rcx ,  (%rax , .Typedoperands)) ) =>
-      execinstr(adcq, (%rax, MIsrc1, MIsrc2, zeroExtend(MI3,64), .Typedoperands)) 
-  ...</k>
-  <cf> MI3 </cf>
-  <rcx> MIsrc1 </rcx>
-  <rax> MIsrc2 </rax>
-  rule <k> 
-    execinstr ( adcq , (%rax ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(adcq, (%rbx, MIsrc1, MIsrc2, zeroExtend(MI3,64), .Typedoperands)) 
-  ...</k>
-  <cf> MI3 </cf>
-  <rax> MIsrc1 </rax>
-  <rbx> MIsrc2 </rbx>
-  rule <k> 
-    execinstr ( adcq , (%rcx ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(adcq, (%rbx, MIsrc1, MIsrc2, zeroExtend(MI3,64), .Typedoperands)) 
-  ...</k>
-  <cf> MI3 </cf>
-  <rcx> MIsrc1 </rcx>
-  <rbx> MIsrc2 </rbx>
-  rule <k> 
-    execinstr ( adcq , (%rax ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(adcq, (%rcx, MIsrc1, MIsrc2, zeroExtend(MI3,64), .Typedoperands)) 
-  ...</k>
-  <cf> MI3 </cf>
-  <rax> MIsrc1 </rax>
-  <rcx> MIsrc2 </rcx>
-  rule <k> 
-    execinstr ( adcq , (%rbx ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(adcq, (%rcx, MIsrc1, MIsrc2, zeroExtend(MI3,64), .Typedoperands)) 
-  ...</k>
-  <cf> MI3 </cf>
-  <rbx> MIsrc1 </rbx>
-  <rcx> MIsrc2 </rcx>
-  // Unroll END
-
-  rule
-    execinstr(adcq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), .Typedoperands )) 
   
-  rule
-    execinstr(adcq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, .Typedoperands )) => 
-      execinstr(adcq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry, MIsum, addMInt(MIsum, MIcarry), .Typedoperands ))
-
-  rule
-    execinstr(adcq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+  rule <k>
+    execinstr(adcq ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -458,7 +125,8 @@ module ADC-R64-R64
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR) 
+      setRegisterValue(MIresult, DestR) 
+  ...</k>
 
 endmodule
 

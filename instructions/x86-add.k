@@ -6,34 +6,24 @@ module ADD-IMM-R8
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr ( addq , (I:Imm ,  (%rax , .Typedoperands)) ) => 
-      execinstr(addq, (%rax, handleImmediate(I, 64), MI, addMInt(handleImmediate(I, 64), MI), .Typedoperands)) 
+    execinstr(addq  (I:Imm ,  (R:R64 , .Typedoperands)) ) => 
+      execinstr(addq  (R, handleImmediate(I, 64), getRegisterValue(R, RSMap), 
+            addMInt(handleImmediate(I, 64), getRegisterValue(R, RSMap)), 
+            .Typedoperands)) 
   ...</k>
-  <rax> MI </rax>
-  rule <k> 
-    execinstr ( addq , (I:Imm ,  (%rbx , .Typedoperands)) ) => 
-      execinstr(addq, (%rbx, handleImmediate(I, 64), MI, addMInt(handleImmediate(I, 64), MI), .Typedoperands)) 
-  ...</k>
-  <rbx> MI </rbx>
-  rule <k> 
-    execinstr ( addq , (I:Imm ,  (%rcx , .Typedoperands)) ) => 
-      execinstr(addq, (%rcx, handleImmediate(I, 64), MI, addMInt(handleImmediate(I, 64), MI), .Typedoperands)) 
-  ...</k>
-  <rcx> MI </rcx>
-  // Unroll End
+  <regstate> RSMap </regstate>
 
   rule
   <k>
-    execinstr(addq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
+    execinstr(addq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIresult, zeroMIntW64, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR) 
+      setRegisterValue(MIresult, DestR) 
   ...</k> 
 
 endmodule

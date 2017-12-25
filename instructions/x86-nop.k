@@ -6,6 +6,6 @@ module NOP-SEMANTICS
 
   // Unroll START
   rule <k> 
-    execinstr ( nop , .Typedoperands) ~> inforegisters ~> fetch => .
+    execinstr (nop .Typedoperands) ~> inforegisters ~> fetch => .
   ...</k>
 endmodule

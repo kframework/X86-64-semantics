@@ -11,66 +11,52 @@ module SAL-R64-CL
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr ( salq , (%cl,  (%rcx , .Typedoperands)) ) =>
-      execinstr ( salq , (%rcx ,  (MI, shiftCountMask(extractMask(MI, 8, 0), bitwidthMInt(MI)) , .Typedoperands)) )
+    execinstr(salq  (%cl,  (R:R64, .Typedoperands)) ) =>
+      execinstr(salq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
+                bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
   ...</k>
-  <rcx> MI </rcx>
-
-  // Unroll START
-  rule <k> 
-    execinstr ( salq , (%cl,  (%rax , .Typedoperands)) ) =>
-      execinstr ( salq , (%rax ,  (MI, shiftCountMask(extractMask(MIrcx, 8, 0), bitwidthMInt(MI)), .Typedoperands)) )
-  ...</k>
-  <rax> MI </rax>
-  <rcx> MIrcx </rcx>
-  rule <k> 
-    execinstr ( salq , (%cl,  (%rbx , .Typedoperands)) ) =>
-      execinstr ( salq , (%rbx ,  (MI, shiftCountMask(extractMask(MIrcx, 8, 0), bitwidthMInt(MI)), .Typedoperands)) )
-  ...</k>
-  <rbx> MI </rbx>
-  <rcx> MIrcx </rcx>
-  // Unroll END
+    <regstate> RSMap</regstate>
 
   // If MIcount == 0, no flags are affected
   rule
-  execinstr ( salq , (DestR:R64,  (MIsrc, MIcount , .Typedoperands)) ) => .
+  execinstr(salq  (_,  (MIsrc, MIcount, .Typedoperands)) ) => .
     requires zeroMInt(MIcount)
     
   // If MIcount == 1
   rule
-  execinstr ( salq , (DestR:R64,  (MIsrc, MIcount , .Typedoperands)) ) => 
-    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , shiftLeft(MIsrc, 1), .Typedoperands)) ) 
+  execinstr(salq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
+    execinstr(salq  (R,  (MIsrc, MIcount, shiftLeft(MIsrc, 1), .Typedoperands)) ) 
   requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
 
   rule
-  execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
+  execinstr(salq  (R,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
       setOverflow(xorMInt(getSignBit(MIsrc), getSignBit(MIresult))) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(getSignBit(MIsrc)) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR:R64) 
+      setRegisterValue(MIresult, R) 
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
   
   // If MIcount < bitwidth(MIsrc)
   rule
-  execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) =>
-    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , shiftLeft(MIsrc, 
+  execinstr(salq  (R,  (MIsrc, MIcount, .Typedoperands)) ) =>
+    execinstr(salq  (R,  (MIsrc, MIcount, shiftLeft(MIsrc, 
               uvalueMInt(MIcount) -Int 1), shiftLeft(MIsrc, uvalueMInt(MIcount)), .Typedoperands)) ) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
 
   rule
-  execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , MIintermed, MIresult, .Typedoperands)) ) =>
+  execinstr(salq  (R,  (MIsrc, MIcount, MIintermed, MIresult, .Typedoperands)) ) =>
       setOverflow(undef) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(getSignBit(MIintermed)) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR:R64) 
+      setRegisterValue(MIresult, R) 
     requires  notBool zeroMInt(MIcount) andBool 
               neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
               ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
@@ -78,14 +64,14 @@ module SAL-R64-CL
 
   // If MIcount >= bitwidth(MIsrc)
   rule
-  execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) =>
-    execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , salOverflow(MIsrc),  .Typedoperands)) )
+  execinstr(salq  (R,  (MIsrc, MIcount, .Typedoperands)) ) =>
+    execinstr(salq  (R,  (MIsrc, MIcount, salOverflow(MIsrc),  .Typedoperands)) )
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ugeMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
 
   rule
-  execinstr ( salq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
+  execinstr(salq  (R,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
       setOverflow(undef) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
@@ -94,7 +80,7 @@ module SAL-R64-CL
       // if MIcount == bitwidth; CF == getBit(Misrc, 0); else CF == 0
       setCarryFlag(undef) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR:R64) 
+      setRegisterValue(MIresult, R) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ugeMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))

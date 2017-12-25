@@ -54,7 +54,7 @@ if ( "" ne $krun ) {
 
     execute("time krun -d $kdefn $basename.$ext --output-file $output");
     execute(
-"cat $output | sed -e 's/\\(<[^</]*>\\)/\\n\\1/g' | sed  '/^\\s*\$/d' 1> /tmp/x  2>&1"
+"cat $output | sed -e 's/\\(<[^</]*>\\)/\\n\\1/g' | sed  '/^\\s*\$/d' | sed 's/ListItem (/\\nListItem/g' | sed 's/ \"/\\n\"/g' 1> /tmp/x  2>&1"
     );
     execute("mv /tmp/x $output");
     checkKRunStatus("$outdir/$basename.kstate");

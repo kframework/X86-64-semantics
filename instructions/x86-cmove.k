@@ -10,95 +10,19 @@ module CMOVE-R64-R64
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr ( cmoveq , (%rax ,  (%rax , .Typedoperands)) ) => .
+    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => .
   ...</k>
-  rule <k> 
-    execinstr ( cmoveq , (%rbx ,  (%rbx , .Typedoperands)) ) => .
-  ...</k>
-  rule <k> 
-    execinstr ( cmoveq , (%rcx ,  (%rcx , .Typedoperands)) ) => .
-  ...</k>
-  // Unroll END
+    <regstate> RSMap</regstate>
+    requires sameRegisters(R1, R2) orBool zeroMInt(getFlag("ZF", RSMap))
 
-  // Unroll START
-  rule <k> 
-    execinstr ( cmoveq , (%rbx ,  (%rax , .Typedoperands)) ) => .
-  ...</k>
-  <zf> ZI </zf>
-  requires zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rcx ,  (%rax , .Typedoperands)) ) => .
-  ...</k>
-  <zf> ZI </zf>
-  requires zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rax ,  (%rbx , .Typedoperands)) ) => .
-  ...</k>
-  <zf> ZI </zf>
-  requires zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rcx ,  (%rbx , .Typedoperands)) ) => .
-  ...</k>
-  <zf> ZI </zf>
-  requires zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rax ,  (%rcx , .Typedoperands)) ) => .
-  ...</k>
-  <zf> ZI </zf>
-  requires zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rbx ,  (%rcx , .Typedoperands)) ) => .
-  ...</k>
-  <zf> ZI </zf>
-  requires zeroMInt(ZI)
-  // Unroll END
 
-  // Unroll START
   rule <k> 
-    execinstr ( cmoveq , (%rbx ,  (%rax , .Typedoperands)) ) => 
-      updateReg(MI, %rax)
+    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => 
+      setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
-  <rbx> MI </rbx>
-  <zf> ZI </zf>
-    requires  notBool zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rcx ,  (%rax , .Typedoperands)) ) => 
-      updateReg(MI, %rax)
-  ...</k>
-  <rcx> MI </rcx>
-  <zf> ZI </zf>
-    requires  notBool zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rax ,  (%rbx , .Typedoperands)) ) => 
-      updateReg(MI, %rbx)
-  ...</k>
-  <rax> MI </rax>
-  <zf> ZI </zf>
-    requires  notBool zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rcx ,  (%rbx , .Typedoperands)) ) => 
-      updateReg(MI, %rbx)
-  ...</k>
-  <rcx> MI </rcx>
-  <zf> ZI </zf>
-    requires  notBool zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rax ,  (%rcx , .Typedoperands)) ) => 
-      updateReg(MI, %rcx)
-  ...</k>
-  <rax> MI </rax>
-  <zf> ZI </zf>
-    requires  notBool zeroMInt(ZI)
-  rule <k> 
-    execinstr ( cmoveq , (%rbx ,  (%rcx , .Typedoperands)) ) => 
-      updateReg(MI, %rcx)
-  ...</k>
-  <rbx> MI </rbx>
-  <zf> ZI </zf>
-    requires  notBool zeroMInt(ZI)
-  // Unroll END
+    <regstate> RSMap</regstate>
+    requires  (notBool sameRegisters(R1, R2)) andBool (notBool zeroMInt(getFlag("ZF", RSMap)))
 
 endmodule
 

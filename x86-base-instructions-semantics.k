@@ -24,7 +24,7 @@ requires "x86-vfnmadd132.k"
 requires "x86-vfnmsub132.k"
 requires "x86-vcvt.k"
 
-/*@ 
+/*@
   This file defines the semantics of following 51 base instructions.
   - Integer Variants
     - adcw_r16_r16, adcl_r32_r32, adcq_r64_r64, adcb_r8_r8,
@@ -45,8 +45,8 @@ requires "x86-vcvt.k"
     - vrsqrtps_ymm_ymm, vsqrtpd_ymm_ymm, vsqrtps_ymm_ymm,
     - vzeroall,
     - vfmadd132pd_ymm_ymm_ymm, vfmadd132ps_ymm_ymm_ymm,
-    vfmsub132pd_ymm_ymm_ymm, vfmsub132ps_ymm_ymm_ymm, 
-    vfnmadd132pd_ymm_ymm_ymm, vfnmadd132ps_ymm_ymm_ymm, 
+    vfmsub132pd_ymm_ymm_ymm, vfmsub132ps_ymm_ymm_ymm,
+    vfnmadd132pd_ymm_ymm_ymm, vfnmadd132ps_ymm_ymm_ymm,
     vfnmsub132pd_ymm_ymm_ymm, vfnmsub132ps_ymm_ymm_ymm,
     - vcvtdq2pd_ymm_ymm, vcvtdq2ps_ymm_ymm, vcvtpd2dq_xmm_ymm,
     vcvtpd2ps_xmm_ymm, vcvtps2dq_ymm_ymm, vcvtps2pd_ymm_xmm,

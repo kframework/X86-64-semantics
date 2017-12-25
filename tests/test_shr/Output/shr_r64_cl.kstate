@@ -3,952 +3,886 @@
 <entrypoint> 64'0 </entrypoint> 
 <nextLoc> 64'21 </nextLoc> 
 <memstate> 
-<cmem> loc ( 64'5 ) |-> storedinstr ( movq , ( $0x 7f00000000000000 ) , ( %rax , .Typedoperands ) ) loc ( 64'3 ) |-> storedinstr ( movq , ( $0x 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'20 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'9 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'7 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'13 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'11 ) |-> storedinstr ( movq , ( $0x 8000000000000000 ) , ( %rax , .Typedoperands ) ) loc ( 64'17 ) |-> storedinstr ( movq , ( $0x 4 ) , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'15 ) |-> storedinstr ( movq , ( $0x 000000000000003f ) , ( %rcx , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( movq , ( $0x 8000000000000001 ) , ( %rax , .Typedoperands ) ) loc ( 64'6 ) |-> storedinstr ( movq , ( $0x 1 ) , ( %rcx , .Typedoperands ) ) loc ( 64'19 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) loc ( 64'10 ) |-> storedinstr ( movq , ( $0x 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'8 ) |-> storedinstr ( movq , ( $0x 0 ) , ( %rcx , .Typedoperands ) ) loc ( 64'14 ) |-> storedinstr ( movq , ( $0x 4000000000000000 ) , ( %rax , .Typedoperands ) ) loc ( 64'12 ) |-> storedinstr ( movq , ( $0x 000000000000003f ) , ( %rcx , .Typedoperands ) ) loc ( 64'1 ) |-> storedinstr ( movq , ( $0x 1 ) , ( %rcx , .Typedoperands ) ) loc ( 64'18 ) |-> storedinstr ( movq , ( $0x 0000000000000042 ) , ( %rcx , .Typedoperands ) ) loc ( 64'16 ) |-> storedinstr ( shrq , %cl , ( %rax , .Typedoperands ) ) </cmem> 
+<cmem> loc ( 64'5 ) |-> storedinstr ( movq ( ( $0x 7f00000000000000 ) , ( %rax , .Typedoperands ) ) ) loc ( 64'3 ) |-> storedinstr ( movq ( ( $0x 0 ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'20 ) |-> storedinstr ( nop .Typedoperands ) loc ( 64'9 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) loc ( 64'7 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) loc ( 64'13 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) loc ( 64'11 ) |-> storedinstr ( movq ( ( $0x 8000000000000000 ) , ( %rax , .Typedoperands ) ) ) loc ( 64'17 ) |-> storedinstr ( movq ( ( $0x 4 ) , ( %rax , .Typedoperands ) ) ) loc ( 64'2 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) loc ( 64'15 ) |-> storedinstr ( movq ( ( $0x 000000000000003f ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'0 ) |-> storedinstr ( movq ( ( $0x 8000000000000001 ) , ( %rax , .Typedoperands ) ) ) loc ( 64'6 ) |-> storedinstr ( movq ( ( $0x 1 ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'19 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) loc ( 64'4 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) loc ( 64'10 ) |-> storedinstr ( movq ( ( $0x 0 ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'8 ) |-> storedinstr ( movq ( ( $0x 0 ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'14 ) |-> storedinstr ( movq ( ( $0x 4000000000000000 ) , ( %rax , .Typedoperands ) ) ) loc ( 64'12 ) |-> storedinstr ( movq ( ( $0x 000000000000003f ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'1 ) |-> storedinstr ( movq ( ( $0x 1 ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'18 ) |-> storedinstr ( movq ( ( $0x 0000000000000042 ) , ( %rcx , .Typedoperands ) ) ) loc ( 64'16 ) |-> storedinstr ( shrq ( %cl , ( %rax , .Typedoperands ) ) ) </cmem> 
 <dmem> .Map </dmem> </memstate> 
-<regstate> 
-<gpr> 
-<rip> 64'21 </rip> 
-<rax> 64'1 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'66 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate> 
-<regstatequeue> ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'0 </rip> 
-<rax> 64'0 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> 1'0 </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'1 </rip> 
-<rax> 64'9223372036854775809 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> 1'0 </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'2 </rip> 
-<rax> 64'9223372036854775809 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> 1'0 </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'3 </rip> 
-<rax> 64'4611686018427387904 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'1 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'4 </rip> 
-<rax> 64'4611686018427387904 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'1 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'5 </rip> 
-<rax> 64'4611686018427387904 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'1 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'6 </rip> 
-<rax> 64'9151314442816847872 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'1 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'7 </rip> 
-<rax> 64'9151314442816847872 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'1 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'8 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'1 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'9 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'10 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'11 </rip> 
-<rax> 64'4575657221408423936 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'12 </rip> 
-<rax> 64'9223372036854775808 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'0 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'13 </rip> 
-<rax> 64'9223372036854775808 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'63 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> 1'0 </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'14 </rip> 
-<rax> 64'1 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'63 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'15 </rip> 
-<rax> 64'4611686018427387904 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'63 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'16 </rip> 
-<rax> 64'4611686018427387904 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'63 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'17 </rip> 
-<rax> 64'0 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'63 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'1 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'18 </rip> 
-<rax> 64'4 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'63 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'1 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'19 </rip> 
-<rax> 64'4 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'66 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'1 </cf> 
-<pf> 1'1 </pf> 
-<af> undef </af> 
-<zf> 1'1 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) ListItem ( 
-<regstate>-fragment 
-<gpr> 
-<rip> 64'20 </rip> 
-<rax> 64'1 </rax> 
-<rbx> 64'0 </rbx> 
-<rcx> 64'66 </rcx> 
-<rdx> 64'0 </rdx> 
-<rsi> 64'0 </rsi> 
-<rdi> 64'0 </rdi> 
-<rsp> 64'0 </rsp> 
-<rbp> 64'0 </rbp> 
-<r8> 64'0 </r8> 
-<r9> 64'0 </r9> 
-<r10> 64'0 </r10> 
-<r11> 64'0 </r11> 
-<r12> 64'0 </r12> 
-<r13> 64'0 </r13> 
-<r14> 64'0 </r14> 
-<r15> 64'0 </r15> </gpr> 
-<arithflags> 
-<cf> 1'0 </cf> 
-<pf> 1'0 </pf> 
-<af> undef </af> 
-<zf> 1'0 </zf> 
-<sf> 1'0 </sf> 
-<of> undef </of> </arithflags> 
-<ymm> 
-<ymm0> 256'0 </ymm0> 
-<ymm1> 256'0 </ymm1> 
-<ymm2> 256'0 </ymm2> 
-<ymm3> 256'0 </ymm3> 
-<ymm4> 256'0 </ymm4> 
-<ymm5> 256'0 </ymm5> 
-<ymm6> 256'0 </ymm6> 
-<ymm7> 256'0 </ymm7> 
-<ymm8> 256'0 </ymm8> 
-<ymm9> 256'0 </ymm9> 
-<ymm10> 256'0 </ymm10> 
-<ymm11> 256'0 </ymm11> 
-<ymm12> 256'0 </ymm12> 
-<ymm14> 256'0 </ymm14> 
-<ymm13> 256'0 </ymm13> 
-<ymm15> 256'0 </ymm15> </ymm> </regstate>-fragment ) </regstatequeue> </T>
+<regstate>
+"RCX" |-> 64'66
+"RAX" |-> 64'1
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'21
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 </regstate> 
+<regstatequeue> 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'0
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> 1'0
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'0
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'9223372036854775809
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> 1'0
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'1
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'1
+"RAX" |-> 64'9223372036854775809
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> 1'0
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'2
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'1
+"RAX" |-> 64'4611686018427387904
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'1
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'3
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'4611686018427387904
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'1
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'4
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'4611686018427387904
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'1
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'5
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'9151314442816847872
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'1
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'6
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'1
+"RAX" |-> 64'9151314442816847872
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'1
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'7
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'1
+"RAX" |-> 64'4575657221408423936
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'8
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'4575657221408423936
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'9
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'4575657221408423936
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'10
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'4575657221408423936
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'11
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'0
+"RAX" |-> 64'9223372036854775808
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'12
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'63
+"RAX" |-> 64'9223372036854775808
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> 1'0
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'13
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'63
+"RAX" |-> 64'1
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'14
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'63
+"RAX" |-> 64'4611686018427387904
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'15
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'63
+"RAX" |-> 64'4611686018427387904
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'16
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'63
+"RAX" |-> 64'0
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'1
+"RSP" |-> 64'17
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'63
+"RAX" |-> 64'4
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'1
+"RSP" |-> 64'18
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'66
+"RAX" |-> 64'4
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'1
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'1
+"RSP" |-> 64'19
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'1
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) 
+ListItem
+"RCX" |-> 64'66
+"RAX" |-> 64'1
+"YMM9" |-> 256'0
+"YMM12" |-> 256'0
+"YMM13" |-> 256'0
+"YMM10" |-> 256'0
+"SF" |-> 1'0
+"YMM11" |-> 256'0
+"RDI" |-> 64'0
+"YMM14" |-> 256'0
+"OF" |-> undef
+"YMM15" |-> 256'0
+"RBP" |-> 64'0
+"CF" |-> 1'0
+"AF" |-> undef
+"R8" |-> 64'0
+"RDX" |-> 64'0
+"R9" |-> 64'0
+"RBX" |-> 64'0
+"RSI" |-> 64'0
+"ZF" |-> 1'0
+"RSP" |-> 64'20
+"R10" |-> 64'0
+"YMM2" |-> 256'0
+"YMM1" |-> 256'0
+"R12" |-> 64'0
+"YMM4" |-> 256'0
+"R11" |-> 64'0
+"YMM3" |-> 256'0
+"R14" |-> 64'0
+"YMM6" |-> 256'0
+"R13" |-> 64'0
+"YMM5" |-> 256'0
+"PF" |-> 1'0
+"YMM8" |-> 256'0
+"R15" |-> 64'0
+"YMM7" |-> 256'0
+"RIP" |-> 64'0
+"YMM0" |-> 256'0 ) </regstatequeue> </T>
