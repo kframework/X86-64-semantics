@@ -1,11 +1,12 @@
-requires "x86-syntax.k"
-requires "x86-configuration.k"
 requires "x86-general-utils.k"
+requires "x86-configuration.k"
 
-module X86-REGISTER-OPERATIONS
-  imports X86-SYNTAX
+module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
   imports X86-GENERAL-UTILS
+
+  rule getISize(OpC, OpR) => 1
+
 
   /*@
     Update the registers with supplied values.

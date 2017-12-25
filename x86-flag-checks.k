@@ -1,11 +1,9 @@
-requires "x86-syntax.k"
 requires "x86-configuration.k"
-requires "x86-general-utils.k"
+requires "x86-flag-checks-syntax.k"
 
 module X86-FLAG-CHECKS
-  imports X86-SYNTAX
+  imports X86-FLAG-CHECKS-SYNTAX
   imports X86-CONFIGURATION
-  imports X86-GENERAL-UTILS
 
   /*@
     http://teaching.idallen.com/dat2343/10f/notes/040_overflow.txt
@@ -14,8 +12,6 @@ module X86-FLAG-CHECKS
   /*@
     Update Overflow Flag.
   */  
-  syntax KItem ::= updateOverflowAdd(MInt, MInt, MInt) 
-
   rule 
   <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
   <of> _ => fromBool( 
@@ -39,7 +35,6 @@ module X86-FLAG-CHECKS
   /*@
     Update Zero Flag.
   */  
-  syntax KItem ::= updateZeroFlag(MInt) 
   rule 
   <k> updateZeroFlag(MI) => . ...</k>
   <zf> _ => fromBool(zeroMInt(MI),1) </zf>
@@ -47,7 +42,6 @@ module X86-FLAG-CHECKS
   /*@
     Update Sign Flag.
   */  
-  syntax KItem ::= updateSignFlag(MInt) 
   rule 
   <k> updateSignFlag(MI) => . ...</k>
   <sf> _ => fromBool( 
@@ -60,7 +54,6 @@ module X86-FLAG-CHECKS
   /*@
     Update AuxCarry Flag.
   */  
-  syntax KItem ::= updateAuxCarryFlag(MInt,MInt, MInt) 
   rule <k> updateAuxCarryFlag(MIsrc1, MIsrc2, MIres) => . ...</k>
   <af> _ =>  fromBool( 
               toBool(  
@@ -78,11 +71,9 @@ module X86-FLAG-CHECKS
   /*@
     Update Carry Flag.
   */  
-  syntax Bool ::= carryHelperAdd(MInt,MInt, MInt) [function]
   rule  carryHelperAdd(MIsrc1, MIsrc2, MIres) => 
       ultMInt( MIres, MIsrc1) orBool ultMInt( MIres, MIsrc2)
 
-  syntax KItem ::= updateCarryFlagAdd(MInt,MInt, MInt, MInt, MInt) 
   rule <k> updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) => . ...</k>
   <cf> _ => fromBool( carryHelperAdd(MIsrc1, MIsrc2, MIsum) orBool carryHelperAdd(MIsum, MIcarry, MIresult) , 1)
   </cf>
@@ -90,7 +81,6 @@ module X86-FLAG-CHECKS
   /*@
     Update Parity Flag.
   */  
-  syntax KItem ::= updateParityFlag(MInt) 
   rule <k> updateParityFlag(MI:MInt) => . ...</k>
   <pf> _ => 
           fromBool(
@@ -118,13 +108,6 @@ module X86-FLAG-CHECKS
   /*@
     Setting the flags with 0 or 1.
   */
-  syntax KItem ::= setOverflow(MInt) 
-  syntax KItem ::= setZeroFlag(MInt) 
-  syntax KItem ::= setSignFlag(MInt) 
-  syntax KItem ::= setAuxCarryFlag(MInt) 
-  syntax KItem ::= setCarryFlag(MInt) 
-  syntax KItem ::= setParityFlag(MInt) 
-
   rule 
   <k> setOverflow(MI) => . ...</k>
   <of> _ => MI </of>

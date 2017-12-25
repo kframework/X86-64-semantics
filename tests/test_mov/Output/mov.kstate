@@ -3,7 +3,7 @@
 <entrypoint> 64'0 </entrypoint> 
 <nextLoc> 64'9 </nextLoc> 
 <memstate> 
-<cmem> loc ( 64'5 ) |-> storedinstr ( movb , %ah , ( %al , .Typedoperands ) ) loc ( 64'6 ) |-> storedinstr ( movq , ( $ 255 ) , ( %rcx , .Typedoperands ) ) loc ( 64'3 ) |-> storedinstr ( movq , %rbx , ( %rax , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( movq , %rcx , ( %rbx , .Typedoperands ) ) loc ( 64'9 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'7 ) |-> storedinstr ( movb , %cl , ( %ah , .Typedoperands ) ) loc ( 64'8 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( movq , ( $ 71777214294589695 ) , ( %rbx , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( movq , %rax , ( %rcx , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( movq , ( $ -71777214294589696 ) , ( %rax , .Typedoperands ) ) </cmem> 
+<cmem> loc ( 64'5 ) |-> storedinstr ( movb , %ah , ( %al , .Typedoperands ) ) loc ( 64'6 ) |-> storedinstr ( movq , ( $ 255 ) , ( %rcx , .Typedoperands ) ) loc ( 64'3 ) |-> storedinstr ( movq , %rbx , ( %rax , .Typedoperands ) ) loc ( 64'4 ) |-> storedinstr ( movq , %rcx , ( %rbx , .Typedoperands ) ) loc ( 64'7 ) |-> storedinstr ( movb , %cl , ( %ah , .Typedoperands ) ) loc ( 64'8 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( movq , ( $ 71777214294589695 ) , ( %rbx , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( movq , %rax , ( %rcx , .Typedoperands ) ) loc ( 64'0 ) |-> storedinstr ( movq , ( $ -71777214294589696 ) , ( %rax , .Typedoperands ) ) </cmem> 
 <dmem> .Map </dmem> </memstate> 
 <regstate> 
 <gpr> 
