@@ -21,7 +21,8 @@ $VERSION = 1.00;
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
-my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
+#my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
+my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
 my @xpatterns = (
     qr/$\d* = ([-]?\d+)/,
     qr/$\d* = \{([\dabcdef]+, [\dabcdef]+)\}/,
@@ -94,12 +95,17 @@ sub checkKRunStatus {
 }
 
 sub processKFile {
-    my $file    = shift @_;
-    my $tmpfile = "/tmp/yyy";
-    my @kstates = ();
+    my $file          = shift @_;
+    my $tmpfile       = "/tmp/yyy";
+    my @kstates       = ();
+    my @sortedkstates = ();
+    my %kstateMap     = ();
 
+#execute(
+#"grep  -A 43  \"<regstate>-fragment\"  $file  | sed -e '/rip/d' 1> ${tmpfile} 2>&1"
+#    );
     execute(
-"grep  -A 43  \"<regstate>-fragment\"  $file  | sed -e '/rip/d' 1> ${tmpfile} 2>&1"
+"grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1"
     );
 
     open( my $fp, "<", "$tmpfile" ) or die "Cannot
@@ -111,15 +117,51 @@ sub processKFile {
         #print "Line: " . $line . "\n";
         if ( $line =~ m/$kpatterns[0]/ ) {
 
-            #print "Match: " . $1 . "\n";
-            push @kstates, $1;
+            #print "Match: " . $1 . "=>" . $2 . "\n";
+            push( @{ $kstateMap{$1} }, $2 );
         }
         elsif ( $line =~ m/$kpatterns[1]/ ) {
 
             #print "Match: " . $1 . "\n";
-            push @kstates, $1;
-        } 
+            push @{ $kstateMap{$1} }, $2;
+        }
     }
+
+    # Number of Instructions
+    my $numOfInstrs = 0;
+    for my $key ( keys %kstateMap ) {
+        $numOfInstrs += scalar( @{ $kstateMap{$key} } );
+    }
+    $numOfInstrs /= 38;
+    print( "numOfInstrs: " . $numOfInstrs . "\n" );
+
+    my @orderedKeys = (
+        "RAX",   "RBX",  "RCX",   "RDX",   "RSI",   "RDI",
+        "RSP",   "RBP",  "R8",    "R9",    "R10",   "R11",
+        "R12",   "R13",  "R14",   "R15",   "CF",    "PF",
+        "AF",    "ZF",   "SF",    "OF",    "YMM0",  "YMM1",
+        "YMM2",  "YMM3", "YMM4",  "YMM5",  "YMM6",  "YMM7",
+        "YMM8",  "YMM9", "YMM10", "YMM11", "YMM12", "YMM13",
+        "YMM14", "YMM15",
+    );
+
+    for my $key (@orderedKeys) {
+        if ( $numOfInstrs != scalar( @{ $kstateMap{$key} } ) ) {
+            failInfo("Count of $key is not same as $numOfInstrs\n");
+            return @kstates;
+        }
+    }
+
+    for ( my $instrCount = 0 ; $instrCount < $numOfInstrs ; $instrCount++ ) {
+        for my $key (@orderedKeys) {
+            push @kstates, $kstateMap{$key}[$instrCount];
+
+        }
+    }
+
+    print join( " : ", @kstates );
+    print "\n";
+
     return @kstates;
 }
 

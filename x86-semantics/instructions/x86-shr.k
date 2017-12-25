@@ -11,87 +11,73 @@ module SHR-R64-CL
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr ( shrq , (%cl,  (%rcx , .Typedoperands)) ) =>
-      execinstr ( shrq , (%rcx ,  (MI, shiftCountMask(extractMask(MI, 8, 0), bitwidthMInt(MI)) , .Typedoperands)) )
+    execinstr(shrq  (%cl,  (R:R64, .Typedoperands)) ) =>
+      execinstr(shrq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
+                bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
   ...</k>
-  <rcx> MI </rcx>
-
-  // Unroll START
-  rule <k> 
-    execinstr ( shrq , (%cl,  (%rax , .Typedoperands)) ) =>
-      execinstr ( shrq , (%rax ,  (MI, shiftCountMask(extractMask(MIrcx, 8, 0), bitwidthMInt(MI)), .Typedoperands)) )
-  ...</k>
-  <rax> MI </rax>
-  <rcx> MIrcx </rcx>
-  rule <k> 
-    execinstr ( shrq , (%cl,  (%rbx , .Typedoperands)) ) =>
-      execinstr ( shrq , (%rbx ,  (MI, shiftCountMask(extractMask(MIrcx, 8, 0), bitwidthMInt(MI)), .Typedoperands)) )
-  ...</k>
-  <rbx> MI </rbx>
-  <rcx> MIrcx </rcx>
-  // Unroll END
+    <regstate> RSMap</regstate>
 
   // If MIcount == 0, no flags are affected
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) => .
+  execinstr(shrq  (_,  (MIsrc, MIcount, .Typedoperands)) ) => .
     requires zeroMInt(MIcount)
     
   // If MIcount == 1
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) => 
-    execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , lshrMInt(MIsrc, 1), .Typedoperands)) ) 
+  execinstr(shrq  (DestR,  (MIsrc, MIcount, .Typedoperands)) ) => 
+    execinstr(shrq  (DestR,  (MIsrc, MIcount, lshrMInt(MIsrc, 1), .Typedoperands)) ) 
   requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
 
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
+  execinstr(shrq  (DestR,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
       setOverflow(getSignBit(MIsrc)) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(getBit(MIsrc, 0)) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR:R64) 
+      setRegisterValue(MIresult, DestR) 
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
   
   // If MIcount < bitwidth(MIsrc)
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) =>
-    execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , lshrMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 
+  execinstr(shrq  (DestR,  (MIsrc, MIcount, .Typedoperands)) ) =>
+    execinstr(shrq  (DestR,  (MIsrc, MIcount, lshrMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 
                 lshrMInt(MIsrc, uvalueMInt(MIcount)), .Typedoperands)) ) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
 
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , MIintermed, MIresult, .Typedoperands)) ) =>
+  execinstr(shrq  (DestR,  (MIsrc, MIcount, MIintermed, MIresult, .Typedoperands)) ) =>
       setOverflow(undef) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(getBit(MIintermed, 0)) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR:R64) 
+      setRegisterValue(MIresult, DestR) 
     requires  notBool zeroMInt(MIcount) andBool 
               neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
               ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
 
   // If MIcount >= bitwidth(MIsrc)
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , .Typedoperands)) ) =>
-    execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , shrOverflow(MIsrc), .Typedoperands)) )
+  execinstr(shrq  (DestR,  (MIsrc, MIcount, .Typedoperands)) ) =>
+    execinstr(shrq  (DestR,  (MIsrc, MIcount, shrOverflow(MIsrc), .Typedoperands)) )
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ugeMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
 
   rule
-  execinstr ( shrq , (DestR:R64 ,  (MIsrc, MIcount , MIresult, .Typedoperands)) ) =>
+  execinstr(shrq  (DestR,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
       setOverflow(undef) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(undef) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR:R64) 
+      setRegisterValue(MIresult, DestR) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ugeMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))

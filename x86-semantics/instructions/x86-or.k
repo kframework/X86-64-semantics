@@ -10,63 +10,15 @@ module OR-R64-R64
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
-  // Unroll START
   rule <k> 
-    execinstr (orq, (%rax ,  (%rax , .Typedoperands)) ) => 
-      execinstr(orq, (%rax, MI, MI, MI, .Typedoperands)) 
+    execinstr(orq  (R1:R64,  (R2:R64, .Typedoperands)) ) => 
+      execinstr(orq  (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
+            orMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Typedoperands)) 
   ...</k>
-  <rax> MI </rax>
-  rule <k> 
-    execinstr (orq, (%rbx ,  (%rbx , .Typedoperands)) ) => 
-      execinstr(orq, (%rbx, MI, MI, MI, .Typedoperands)) 
-  ...</k>
-  <rbx> MI </rbx>
-  rule <k> 
-    execinstr (orq, (%rcx ,  (%rcx , .Typedoperands)) ) => 
-      execinstr(orq, (%rcx, MI, MI, MI, .Typedoperands)) 
-  ...</k>
-  <rcx> MI </rcx>
-
-  rule <k> 
-    execinstr ( orq , (%rbx ,  (%rax , .Typedoperands)) ) =>
-      execinstr(orq, (%rax, MIsrc1, MIsrc2, orMInt(MIsrc1, MIsrc2), .Typedoperands)) 
-  ...</k>
-  <rbx> MIsrc1 </rbx>
-  <rax> MIsrc2 </rax>
-  rule <k> 
-    execinstr ( orq , (%rcx ,  (%rax , .Typedoperands)) ) =>
-      execinstr(orq, (%rax, MIsrc1, MIsrc2, orMInt(MIsrc1, MIsrc2), .Typedoperands)) 
-  ...</k>
-  <rcx> MIsrc1 </rcx>
-  <rax> MIsrc2 </rax>
-  rule <k> 
-    execinstr ( orq , (%rax ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(orq, (%rbx, MIsrc1, MIsrc2, orMInt(MIsrc1, MIsrc2), .Typedoperands)) 
-  ...</k>
-  <rax> MIsrc1 </rax>
-  <rbx> MIsrc2 </rbx>
-  rule <k> 
-    execinstr ( orq , (%rcx ,  (%rbx , .Typedoperands)) ) =>
-      execinstr(orq, (%rbx, MIsrc1, MIsrc2, orMInt(MIsrc1, MIsrc2), .Typedoperands)) 
-  ...</k>
-  <rcx> MIsrc1 </rcx>
-  <rbx> MIsrc2 </rbx>
-  rule <k> 
-    execinstr ( orq , (%rax ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(orq, (%rcx, MIsrc1, MIsrc2, orMInt(MIsrc1, MIsrc2), .Typedoperands)) 
-  ...</k>
-  <rax> MIsrc1 </rax>
-  <rcx> MIsrc2 </rcx>
-  rule <k> 
-    execinstr ( orq , (%rbx ,  (%rcx , .Typedoperands)) ) =>
-      execinstr(orq, (%rcx, MIsrc1, MIsrc2, orMInt(MIsrc1, MIsrc2), .Typedoperands)) 
-  ...</k>
-  <rbx> MIsrc1 </rbx>
-  <rcx> MIsrc2 </rcx>
-  // Unroll END
+    <regstate> RSMap</regstate>
 
   rule
-      execinstr(orq, ( DestR:R64, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) 
+      execinstr(orq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) 
     => 
       setOverflow(zeroMIntW1) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -74,7 +26,7 @@ module OR-R64-R64
       setAuxCarryFlag(undef) ~> 
       setCarryFlag(zeroMIntW1) ~> 
       updateParityFlag(MIresult) ~> 
-      updateReg(MIresult, DestR) 
+      setRegisterValue(MIresult, DestR) 
 
 endmodule
 

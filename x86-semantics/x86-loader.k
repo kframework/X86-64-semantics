@@ -21,13 +21,12 @@ module X86-LOADER
     Load the instructions into Code memory.
   */
   rule  <k> OpC:Opcode OpR:Typedoperands => . ...</k>
-        <cmem> CMap:Map => CMap[loc(L) <- storedinstr(OpC, OpR)] </cmem>
-        <nextLoc> L => addMInt(L, mi(64, getISize(OpC, OpR))) </nextLoc>
+        <cmem>... .Map => loc(L) |-> storedinstr(OpC OpR) ...</cmem>
+        <nextLoc> L => addMInt(L, mi(64, getISize(OpC OpR))) </nextLoc>
   /*@
     After loading the last instrution to Code memory, rip is set to the next instrcution to execute.
   */
   rule  <k>.Instructions => .K ...</k>
-        <rip> _ => LoadAddr </rip>
+        <regstate> RSMap => RSMap["RIP" <- LoadAddr] </regstate>
         <entrypoint> LoadAddr </entrypoint>
-
 endmodule
