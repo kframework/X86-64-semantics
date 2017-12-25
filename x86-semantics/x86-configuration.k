@@ -1,15 +1,9 @@
-requires "x86-syntax.k"
 requires "x86-general-utils.k"
+requires "x86-abstract-syntax.k"
 
 module X86-CONFIGURATION
-  imports X86-SYNTAX
   imports MINT-WRAPPER-SYNTAX
-
-  syntax AbstractValue ::= Int | MInt
-  syntax KResult ::= AbstractValue
-  syntax KItem ::= "fetch" [token]
-  syntax KItem ::= "inforegisters" [token]
-  syntax Opcode ::= "sentinal" [token]
+  imports X86-ASBTRACT-SYNTAX
 
   configuration <T>
     <k> $PGM:Instructions ~> inforegisters ~> fetch </k>

@@ -1,3 +1,4 @@
+requires "x86-nop.k"
 requires "x86-adc.k"
 requires "x86-add.k"
 requires "x86-cmove.k"
@@ -53,6 +54,7 @@ requires "x86-vcvt.k"
 */
 
 module X86-BASE-INSTRUCTIONS-SEMANTICS
+  imports NOP-SEMANTICS
   imports ADC-SEMANTICS
   imports ADD-SEMANTICS
   imports CMOVE-SEMANTICS

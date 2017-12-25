@@ -3,7 +3,7 @@
 <entrypoint> 64'0 </entrypoint> 
 <nextLoc> 64'3 </nextLoc> 
 <memstate> 
-<cmem> loc ( 64'3 ) |-> storedinstr ( sentinal , .Typedoperands ) loc ( 64'1 ) |-> storedinstr ( orq , %rax , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'0 ) |-> storedinstr ( addq , ( $ 0 ) , ( %rax , .Typedoperands ) ) </cmem> 
+<cmem> loc ( 64'1 ) |-> storedinstr ( orq , %rax , ( %rax , .Typedoperands ) ) loc ( 64'2 ) |-> storedinstr ( nop , .Typedoperands ) loc ( 64'0 ) |-> storedinstr ( addq , ( $ 0 ) , ( %rax , .Typedoperands ) ) </cmem> 
 <dmem> .Map </dmem> </memstate> 
 <regstate> 
 <gpr> 

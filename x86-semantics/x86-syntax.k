@@ -1,6 +1,4 @@
-//requires "domains.k "
 module X86-SYNTAX
-  // syntax Comment ::= ";" r"[^\n]*[\n]" [lableOnly, token, autoReject]
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
   */
