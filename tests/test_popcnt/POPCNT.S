@@ -1,10 +1,8 @@
-.section .text
-.globl _start
+TEST_BEGIN(OR1, 0)
 
-_start:
     addq $0x000000007fffffff, %rax
     popcntq %rax, %rbx
     popcntq %rbx, %rax
     popcntq %rax, %rbx
     popcntq %rbx, %rax
-    nop
+TEST_END

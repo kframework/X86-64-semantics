@@ -1,7 +1,5 @@
-.section .text
-.globl _start
+TEST_BEGIN_64(MOVQ1, 0)
 
-_start:
     // swap %rax %rbx using %rcx
     movq $-71777214294589696, %rax
     movq $71777214294589695, %rbx
@@ -15,5 +13,27 @@ _start:
     movq $255, %rcx
     movb %cl, %ah
     // %rax: 00000000 11111111 00000000 11111111 00000000 11111111 11111111 00000000
+TEST_END_64
+  
+  
+TEST_BEGIN_64(MOVr64r64, 2)
+TEST_INPUTS(
+    0, 0xFFFFFFFFFFFFFFFF,
+    1, 0xFFFFFFFFFFFFFFFF,
+    0x41, 0xFFFFFFFFFFFFFFFF,
+    0x4141, 0xFFFFFFFFFFFFFFFF,
+    0x41414141, 0xFFFFFFFFFFFFFFFF,
+    0x4141414141414141, 0xFFFFFFFFFFFFFFFF)
 
-    nop
+    movq ARG1_64, %rax 
+    movq ARG2_64, %rbx 
+    movq %rax, %rbx
+TEST_END_64
+
+TEST_BEGIN_64(MOVr64i32, 1)
+TEST_INPUTS(
+    0xFFFFFFFFFFFFFFFF)
+    movq ARG1_64, %rax 
+    movq $0x41414141, %rbx 
+    movq %rbx, %rax
+TEST_END_64

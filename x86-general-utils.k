@@ -191,6 +191,15 @@ module MINT-WRAPPER-SYNTAX
     operation on MI with count >= bitwidthMInt(MI)
   */
   syntax MInt ::= salOverflow(MInt) [function]
+
+  /*@
+    aShiftRightMInt(MI):
+    ashrMInt works only if the the Biginteger value in MInt is signed
+    and java BigInteger::shiftRight works on signed numbers.
+    But as the MInt may contain unsigned Biginteger value, so we have to deliberately
+    pass signed value of the MInt
+  */  
+  syntax MInt ::= aShiftRightMInt(MInt, Int) [function]
 endmodule
 
 
@@ -481,6 +490,15 @@ module MINT-WRAPPER
     operation on MI with count >= bitwidthMInt(MI)
   */
   rule salOverflow(MI:MInt) => mi(bitwidthMInt(MI), 0)
+
+  /*@
+    aShiftRightMInt(MI):
+    ashrMInt works only if the the Biginteger value in MInt is signed
+    and java BigInteger::shiftRight works on signed numbers.
+    But as the MInt may contain unsigned Biginteger value, so we have to deliberately
+    pass signed value of the MInt
+  */  
+  rule aShiftRightMInt(MI, I) => ashrMInt(mi(bitwidthMInt(MI), svalueMInt(MI)), I)
 endmodule
 
 

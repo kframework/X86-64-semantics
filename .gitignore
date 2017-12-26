@@ -2,4 +2,4 @@
 *.exec
 .idea/
 *.iml
-*.pruned.s
+*.s
