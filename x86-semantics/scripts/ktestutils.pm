@@ -105,7 +105,7 @@ sub processKFile {
 #"grep  -A 43  \"<regstate>-fragment\"  $file  | sed -e '/rip/d' 1> ${tmpfile} 2>&1"
 #    );
     execute(
-"grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1"
+        "grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1"
     );
 
     open( my $fp, "<", "$tmpfile" ) or die "Cannot
@@ -261,19 +261,21 @@ sub compareStates {
 
     for ( my $i = 0 ; $i < scalar(@kstates) ; $i++ ) {
         if ( 6 == ( $i % $regcount ) ) {
-            info("Skip $regMap{$i % $regcount}");
+            #info("Skip $regMap{$i % $regcount}");
             next;
         }
 
         if ( $kstates[$i] eq "undef" ) {
-            info("\"undef\" found at $regMap{$i % $regcount}");
+            #info("\"undef\" found at $regMap{$i % $regcount}");
             next;
         }
 
         if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
-            failInfo(
-                "$regMap{$i % $regcount} after instrcount: " . $instrcount );
+            failInfo( "$regMap{$i % $regcount} at instrcount: " . $instrcount );
             return;
+        }
+        else {
+            #info("$instrcount matched");
         }
 
         if ( 0 == $i % $regcount ) {

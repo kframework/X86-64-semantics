@@ -24,7 +24,7 @@ module SAR-R64-CL
   // If MIcount == 1
   rule
   execinstr(sarq  (DestR,  (MIsrc, MIcount, .Typedoperands)) ) => 
-    execinstr(sarq  (DestR,  (MIsrc, MIcount, ashrMInt(MIsrc, 1), .Typedoperands)) ) 
+    execinstr(sarq  (DestR,  (MIsrc, MIcount, aShiftRightMInt(MIsrc, 1), .Typedoperands)) ) 
   requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
 
   rule
@@ -41,8 +41,8 @@ module SAR-R64-CL
   // If MIcount < bitwidth(MIsrc)
   rule
   execinstr(sarq  (DestR,  (MIsrc, MIcount, .Typedoperands)) ) =>
-    execinstr(sarq  (DestR,  (MIsrc, MIcount, ashrMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 
-                ashrMInt(MIsrc, uvalueMInt(MIcount)), .Typedoperands)) ) 
+    execinstr(sarq  (DestR,  (MIsrc, MIcount, aShiftRightMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 
+                aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), .Typedoperands)) ) 
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
