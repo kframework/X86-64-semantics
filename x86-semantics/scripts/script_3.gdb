@@ -50,5 +50,5 @@ end
 
 b _start
 r
-nstep 20
+nstep 10000
 q

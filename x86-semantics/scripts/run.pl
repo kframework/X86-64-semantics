@@ -48,7 +48,7 @@ if ( "" ne $compile ) {
 }
 
 if ( "" ne $krun ) {
-    my ( $basename, $ext ) = utils::split_filename($file);
+    my ( $dir, $basename, $ext ) = utils::split_filename($file);
 
     $output = "$outdir/$basename.kstate";
 
@@ -61,7 +61,7 @@ if ( "" ne $krun ) {
 }
 
 if ( "" ne $xrun ) {
-    my ( $basename, $ext ) = utils::split_filename($file);
+    my ( $dir, $basename, $ext ) = utils::split_filename($file);
 
     $output = "$outdir/$basename.xstate";
 
@@ -76,7 +76,7 @@ if ( "" ne $xrun ) {
 }
 
 if ( "" ne $compare ) {
-    my ( $basename, $ext ) = utils::split_filename($file);
+    my ( $dir, $basename, $ext ) = utils::split_filename($file);
 
     my $filek   = "$outdir/$basename.kstate";
     my $filex   = "$outdir/$basename.xstate";
