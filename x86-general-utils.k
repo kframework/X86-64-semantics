@@ -170,9 +170,9 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= getSignBit(MInt) [function]
 
   /*@ 
-    getBit(MI, I): return Ith bit of MI
+    getBitFromMInt(MI, I): return Ith bit of MI
   */
-  syntax MInt ::= getBit(MInt, Int) [function]
+  syntax MInt ::= getBitFromMInt(MInt, Int) [function]
 
   /*@ 
     sarOverflow(MI): return the value of SAR
@@ -363,10 +363,26 @@ module MINT-WRAPPER
         MI:64' 0x 00 ff 00 ff 00 ff 00 ff
         Output:                  <---> 
           MI:16' 0x                 ff 00
-    Todo :check for MI wodth < W
+
+    extractMask(MI, 4, 1)  
+      6 5 4 3 2 1 0
+      * * * * * * * 
+          ------^
+
+    extractMask(MI, NUM, P) <==> extractMInt(MI, S , S + NUM)  
+      where S = bitwidthMInt(MI) - (P + NUM)
+
+    Example, extractMInt(MI, 2, 6) // Bits in range [2..6) 
+
+      0 1 2 3 4 5 6
+      * * * * * * * 
+          ^-------^
   */
-  rule extractMask(MI, W, S) => 
-    truncate(lshrMInt(MI, S), W)
+  rule extractMask(MI, NUM, P) => extractMInt(MI, bitwidthMInt(MI) -Int P -Int NUM, 
+      bitwidthMInt(MI) -Int P)
+    requires (P +Int NUM) <=Int bitwidthMInt(MI)
+
+  //  truncate(lshrMInt(MI, P), NUM)
     
   /*@ truncate(MI, To) Truncates a mi(From,V1) to mi(To,V2)
     Todo : type check
@@ -374,21 +390,22 @@ module MINT-WRAPPER
 
   rule truncate(MI, To) => 
     mi(To, svalueMInt(andMInt(MI, mi(bitwidthMInt(MI),umaxMInt(To)))))
+
   /*@ 
     zeroExtend(MI, N): Zero extend MInt MI to a MInt of
       N bitwidth.
   */
   rule zeroExtend(MI:MInt, N:Int) => mi(N, uvalueMInt(MI))
-  requires N >Int bitwidthMInt(MI)
+    requires N >Int bitwidthMInt(MI)
   rule zeroExtend(MI:MInt, N:Int) => MI
-  requires N <=Int bitwidthMInt(MI)
+    requires N <=Int bitwidthMInt(MI)
 
   /*@ 
-    plugInMask(MITarget, MISrc, S): 
+    plugInMask(MITarget, MISrc, P): 
       Let MITarget == mi(WT, VT)
       Let MISrc == mi(WS, VS)
       plugInMask updates the lower WS bits of VT starting at 
-      lower significant bit position S with VS.
+      lower significant bit position P with VS.
 
       Ex: plugInMask(MIT,MIS, 8):
         MIT:64' 0x 00 ff 00 ff 00 ff 00 ff
@@ -396,22 +413,22 @@ module MINT-WRAPPER
         Output:
             64' 0x 00 ff 00 ff 00 55 44 ff
   */
-  rule plugInMask(MITarget, MISrc, _) => MISrc
-    requires bitwidthMInt(MISrc) >=Int bitwidthMInt(MITarget)
+  rule plugInMask(MITarget, MISrc, P) => MISrc
+    requires (P ==Int 0) andBool (bitwidthMInt(MISrc) ==Int bitwidthMInt(MITarget))
 
-  rule plugInMask(MITarget, MISrc, S) => 
+  rule plugInMask(MITarget, MISrc, P) => 
     orMInt(
       andMInt(
           MITarget, 
           negateMInt(
             shlMInt(
               mi(bitwidthMInt(MITarget), umaxMInt(bitwidthMInt(MISrc))),
-              S)
+              P)
           )
       ),
-      shlMInt(zeroExtend(MISrc, bitwidthMInt(MITarget)), S)
+      shlMInt(zeroExtend(MISrc, bitwidthMInt(MITarget)), P)
     )
-    requires bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget)
+    requires (P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget)
 
 
   /*@ 
@@ -463,9 +480,11 @@ module MINT-WRAPPER
       ), 1)
 
   /*@ 
-    getBit(MI, I): return Ith bit of MI
+    getBitFromMInt(MI, I): return Ith bit of MI
+
+    Deprecated to etractMask
   */
-  rule getBit(MI:MInt, I:Int) => 
+  rule getBitFromMInt(MI:MInt, I:Int) => 
     fromBool( toBool(
         andMInt(MI, shlMInt(mi(bitwidthMInt(MI), 1), I))
         ), 1)

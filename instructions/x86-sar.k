@@ -29,11 +29,11 @@ module SAR-R64-CL
 
   rule
   execinstr(sarq  (DestR,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
-      setOverflow(zeroMIntW1) ~> 
+      setFlag(zeroMIntW1, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getBit(MIsrc, 0)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(extractMask(MIsrc, 1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
@@ -49,11 +49,11 @@ module SAR-R64-CL
 
   rule
   execinstr(sarq  (DestR,  (MIsrc, MIcount, MIintermed, MIresult, .Typedoperands)) ) =>
-      setOverflow(undef) ~> 
+      setFlag(undef, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getBit(MIintermed, 0)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(extractMask(MIintermed, 1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
     requires  notBool zeroMInt(MIcount) andBool 
@@ -70,11 +70,11 @@ module SAR-R64-CL
 
   rule
   execinstr(sarq  (DestR,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
-      setOverflow(undef) ~> 
+      setFlag(undef, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getSignBit(MIsrc)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(getSignBit(MIsrc), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
       requires  notBool zeroMInt(MIcount) andBool 

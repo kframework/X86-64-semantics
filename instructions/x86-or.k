@@ -20,11 +20,11 @@ module OR-R64-R64
   rule
       execinstr(orq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) 
     => 
-      setOverflow(zeroMIntW1) ~> 
+      setFlag(zeroMIntW1, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(zeroMIntW1) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(zeroMIntW1, "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
 

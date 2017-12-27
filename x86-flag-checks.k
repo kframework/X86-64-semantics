@@ -125,39 +125,9 @@ module X86-FLAG-CHECKS
     Setting the flags with 0 or 1.
   */
   rule 
-  <k> setOverflow(MI) => . ...</k>
+  <k> setFlag(MI, FL) => . ...</k>
   <regstate>  
-    RMap => RMap["OF" <- MI] 
-  </regstate>
-
-  rule 
-  <k> setZeroFlag(MI) => . ...</k>
-  <regstate>  
-    RMap => RMap["ZF" <- MI] 
-  </regstate>
-
-  rule 
-  <k> setSignFlag(MI) => . ...</k>
-  <regstate>  
-    RMap => RMap["SF" <- MI] 
-  </regstate>
-
-  rule 
-  <k> setAuxCarryFlag(MI) => . ...</k>
-  <regstate>  
-    RMap => RMap["AF" <- MI] 
-  </regstate>
-
-  rule 
-  <k> setCarryFlag(MI) => . ...</k>
-  <regstate>  
-    RMap => RMap["CF" <- MI] 
-  </regstate>
-
-  rule 
-  <k> setParityFlag(MI) => . ...</k>
-  <regstate>  
-    RMap => RMap["PF" <- MI] 
+    RMap => RMap[FL <- MI] 
   </regstate>
 
   rule getFlag(FName, RSMap) => RSMap[FName]:>MInt 

@@ -10,12 +10,7 @@ module X86-FLAG-CHECKS-SYNTAX
   syntax KItem ::= updateCarryFlagAdd(MInt,MInt, MInt, MInt, MInt) 
   syntax KItem ::= updateParityFlag(MInt) 
 
-  syntax KItem ::= setOverflow(MInt) 
-  syntax KItem ::= setZeroFlag(MInt) 
-  syntax KItem ::= setSignFlag(MInt) 
-  syntax KItem ::= setAuxCarryFlag(MInt) 
-  syntax KItem ::= setCarryFlag(MInt) 
-  syntax KItem ::= setParityFlag(MInt) 
+  syntax KItem ::= setFlag(MInt, String) 
 
   syntax MInt  ::= getFlag(String, Map) [function]    
 endmodule

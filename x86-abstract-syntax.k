@@ -36,8 +36,13 @@ module X86-ASBTRACT-SYNTAX
 
   /*@
     Set the registers values.
-    Assumption: `MInt` must be of the same bitwidth size
-    as the `Register` width.
+    
+    setRegisterValue(MI, R:RW)
+    Assumption: bitwidthMInt(MI) == W
+    Updates W bits of `underlying Register`.
+
+    Ex. setRegisterValue(M8, %ah): Updates 8 bits in rax
+      starting from lsb 8.
   */
   syntax KItem ::= setRegisterValue(MInt, Register)
 
@@ -60,5 +65,24 @@ module X86-ASBTRACT-SYNTAX
     Check if two registers are the same
   */  
   syntax Bool ::= sameRegisters(Register, Register) [function]
+
+  /*@ 
+    setRegisterBitsAtPositon(MI, R, P) 
+      Update bitwidthMInt(MI) bits of input register  R starting at 
+    position P.
+  */  
+  syntax MInt ::= setRegisterBitsAtPositon(MInt, Register, Int) 
+
+  /*@ 
+    getRegisterBitsAtPositon(R, P, N) 
+      Returns N bits of input register  R starting at 
+    position P.
+  */  
+  syntax MInt ::= getRegisterBitsAtPositon(Register, Int, Int, Map) [function]
+
+  /*@ 
+    Get Register size based on the variant used.
+  */  
+  syntax Int ::= getRegisterSize(Register) [function] 
 
 endmodule

@@ -16,24 +16,24 @@ module POPCNT-R64-R64
 
   rule <k>
     execinstr(popcntq  ( DestR, MIsrc, .Typedoperands )) => 
-    setOverflow(zeroMIntW1) ~>
-    setZeroFlag(zeroMIntW1) ~>
-    setSignFlag(zeroMIntW1) ~>
-    setAuxCarryFlag(zeroMIntW1) ~>
-    setCarryFlag(zeroMIntW1) ~>
-    setParityFlag(zeroMIntW1) ~>
+    setFlag(zeroMIntW1, "OF") ~>
+    setFlag(zeroMIntW1, "ZF") ~>
+    setFlag(zeroMIntW1, "SF") ~>
+    setFlag(zeroMIntW1, "AF") ~>
+    setFlag(zeroMIntW1, "CF") ~>
+    setFlag(zeroMIntW1, "PF") ~>
     setRegisterValue(MIsrc, DestR) 
   ...</k>
       requires notBool zeroMInt(MIsrc)
 
   rule <k>
     execinstr(popcntq  ( DestR:R64, MIsrc, .Typedoperands )) => 
-    setOverflow(zeroMIntW1) ~>
-    setZeroFlag(oneMIntW1) ~>
-    setSignFlag(zeroMIntW1) ~>
-    setAuxCarryFlag(zeroMIntW1) ~>
-    setCarryFlag(zeroMIntW1) ~>
-    setParityFlag(zeroMIntW1) ~>
+    setFlag(zeroMIntW1, "OF") ~>
+    setFlag(oneMIntW1,  "ZF") ~>
+    setFlag(zeroMIntW1, "SF") ~>
+    setFlag(zeroMIntW1, "AF") ~>
+    setFlag(zeroMIntW1, "CF") ~>
+    setFlag(zeroMIntW1, "PF") ~>
     setRegisterValue(MIsrc, DestR) 
   ...</k>
       requires zeroMInt(MIsrc)

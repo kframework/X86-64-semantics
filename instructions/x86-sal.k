@@ -30,11 +30,11 @@ module SAL-R64-CL
 
   rule
   execinstr(salq  (R,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
-      setOverflow(xorMInt(getSignBit(MIsrc), getSignBit(MIresult))) ~> 
+      setFlag(xorMInt(getSignBit(MIsrc), getSignBit(MIresult)), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getSignBit(MIsrc)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(getSignBit(MIsrc), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, R) 
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
@@ -50,11 +50,11 @@ module SAL-R64-CL
 
   rule
   execinstr(salq  (R,  (MIsrc, MIcount, MIintermed, MIresult, .Typedoperands)) ) =>
-      setOverflow(undef) ~> 
+      setFlag(undef, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getSignBit(MIintermed)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(getSignBit(MIintermed), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, R) 
     requires  notBool zeroMInt(MIcount) andBool 
@@ -72,13 +72,13 @@ module SAL-R64-CL
 
   rule
   execinstr(salq  (R,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
-      setOverflow(undef) ~> 
+      setFlag(undef, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
+      setFlag(undef, "AF") ~> 
       // Intel manual is not clear about carry Flag
-      // if MIcount == bitwidth; CF == getBit(Misrc, 0); else CF == 0
-      setCarryFlag(undef) ~> 
+      // if MIcount == bitwidth; CF == extractMask(Misrc, 1, 0); else CF == 0
+      setFlag(undef, "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, R) 
       requires  notBool zeroMInt(MIcount) andBool 

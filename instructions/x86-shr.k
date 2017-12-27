@@ -30,11 +30,11 @@ module SHR-R64-CL
 
   rule
   execinstr(shrq  (DestR,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
-      setOverflow(getSignBit(MIsrc)) ~> 
+      setFlag(getSignBit(MIsrc), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getBit(MIsrc, 0)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(extractMask(MIsrc, 1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
@@ -50,11 +50,11 @@ module SHR-R64-CL
 
   rule
   execinstr(shrq  (DestR,  (MIsrc, MIcount, MIintermed, MIresult, .Typedoperands)) ) =>
-      setOverflow(undef) ~> 
+      setFlag(undef, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(getBit(MIintermed, 0)) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(extractMask(MIintermed, 1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
     requires  notBool zeroMInt(MIcount) andBool 
@@ -71,11 +71,11 @@ module SHR-R64-CL
 
   rule
   execinstr(shrq  (DestR,  (MIsrc, MIcount, MIresult, .Typedoperands)) ) =>
-      setOverflow(undef) ~> 
+      setFlag(undef, "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
-      setAuxCarryFlag(undef) ~> 
-      setCarryFlag(undef) ~> 
+      setFlag(undef, "AF") ~> 
+      setFlag(undef, "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
       requires  notBool zeroMInt(MIcount) andBool 
