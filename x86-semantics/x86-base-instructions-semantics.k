@@ -23,6 +23,7 @@ requires "x86-vfmsub132.k"
 requires "x86-vfnmadd132.k"
 requires "x86-vfnmsub132.k"
 requires "x86-vcvt.k"
+requires "x86-pseudo-instr.k"
 
 /*@
   This file defines the semantics of following 51 base instructions.
@@ -79,4 +80,5 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports VFNMADD132-SEMANTICS
   imports VFNMSUB132-SEMANTICS
   imports VCVT-SEMANTICS
+  imports PSEUDO-INSTR-SEMANTICS
 endmodule

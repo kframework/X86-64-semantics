@@ -169,8 +169,20 @@ module X86-ABSTRACT-SEMANTICS
 
   /*@
     Set the registers values.
+    
+    setRegisterValue(MI, R:RW)
+    Updates W bits of `underlying Register`.
+    
+    Assumption: bitwidthMInt(MI) == W
+      Need to zeroExtend or signExtend if bitwidthMInt(MI) < W
 
-    <regstate> RSMap => RSMap[convToRegKeys(R) <- MInew] </regstate>
+    If bitwidthMInt(MI) > W, then more bits than W in `underlying register`
+      will be clobbered.
+    If bitwidthMInt(MI) < W, then lesser bits than W in `underlying register`
+      will be clobbered.
+
+    Ex. setRegisterValue(M8, %ah): Updates 8 bits in rax
+      starting from lsb 8.
   */
   rule <k> setRegisterValue(MI64, R:R64) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> (_ => MI64) ...</regstate>
@@ -194,7 +206,7 @@ module X86-ABSTRACT-SEMANTICS
     <regstate>... convToRegKeys(Y) |-> (_ => MI256) ...</regstate>
 
   /*@
-    Getting the registers values.
+    Getting the registers values according to the register variants.
   */
   rule getRegisterValue(R:R8,  RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 8, 0)
   rule getRegisterValue(R:R16, RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 16, 0)
@@ -219,4 +231,47 @@ module X86-ABSTRACT-SEMANTICS
     Check if two registers are the same
   */  
   rule sameRegisters(R1, R2) =>  convToRegKeys(R1) ==String  convToRegKeys(R2)
+
+  /*@ 
+    Update Register's value at arbitrary position.
+  */  
+  rule <k> setRegisterBitsAtPositon(MInew, R, P) => . ...</k>
+    <regstate>... convToRegKeys(R) |-> ( MIold => plugInMask(MIold, MInew, P)) ...</regstate>
+      requires (P +Int bitwidthMInt(MInew)) <=Int bitwidthMInt(MIold)
+
+  /*@ 
+    getRegisterBitsAtPositon(R, P, N) 
+      Returns N bits of input register  R starting at 
+    position P.
+  */  
+  rule getRegisterBitsAtPositon(R, N, P, RSMap) => extractMask(getRegisterValue(R, RSMap), N, P) 
+
+  /*@ 
+    Get Register size based on the variant used.
+  */  
+  rule getRegisterSize(R:R8)  => 8
+  rule getRegisterSize(R:Rh)  => 8
+  rule getRegisterSize(R:R16) => 16
+  rule getRegisterSize(R:R32) => 32
+  rule getRegisterSize(R:R64) => 64
+  rule getRegisterSize(X:Xmm) => 128
+  rule getRegisterSize(Y:Ymm) => 256
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
