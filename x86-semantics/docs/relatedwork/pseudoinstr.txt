@@ -223,8 +223,8 @@
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move_032_128_xmm8_xmm9_xmm10_xmm11_xmm1.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move_032_128_xmm8_xmm9_xmm10_xmm11_xmm2.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move_032_128_xmm8_xmm9_xmm10_xmm11_xmm3.s
-  - 
-  - Split and combine registers.(108)
+
+- Split and combine registers.(108)
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move_016_032_r8w_r9w_ecx.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move_064_032_rdx_r10d_r11d.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move_016_032_r10w_r11w_ebx.s
