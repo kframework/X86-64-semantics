@@ -9,7 +9,7 @@ module X86-FETCH-EXECUTE
   rule
     <k> fetch => execinstr(OpC OpR) ~> inforegisters ~> fetch ... </k>
       <cmem>... loc(PC) |-> storedinstr(OpC OpR)   ...</cmem>
-      <regstate>... "RSP" |-> ( PC => addMInt(PC,  mi(64,getISize(OpC OpR))))  ...</regstate>
+      <regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64,getISize(OpC OpR))))  ...</regstate>
 
   /*@ This rule need to used in future. Currently the execution is
     terminated by a nop instruction.
@@ -26,8 +26,8 @@ module X86-FETCH-EXECUTE
   */
   rule
     <k> inforegisters => . ... </k>
-    <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
-    <regstate> RSMap </regstate>
+      <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
+      <regstate> RSMap </regstate>
 
   /*@
     Final Exit.
