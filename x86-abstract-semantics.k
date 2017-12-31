@@ -237,7 +237,6 @@ module X86-ABSTRACT-SEMANTICS
   */  
   rule <k> setRegisterBitsAtPositon(MInew, R, P) => . ...</k>
     <regstate>... convToRegKeys(R) |-> ( MIold => plugInMask(MIold, MInew, P)) ...</regstate>
-      requires (P +Int bitwidthMInt(MInew)) <=Int bitwidthMInt(MIold)
 
   /*@ 
     getRegisterBitsAtPositon(R, P, N) 
