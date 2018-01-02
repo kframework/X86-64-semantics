@@ -10,7 +10,7 @@ module POPCNT-R64-R64
 
   rule <k> 
     execinstr(popcntq  (R1:R64,  (R2:R64, .Typedoperands)) ) =>
-      execinstr(popcntq  (R2, popCount(getRegisterValue(R1, RSMap)), .Typedoperands)) 
+      execinstr(popcntq  (R2, mi(getRegisterSize(R1), popCount(getRegisterValue(R1, RSMap))), .Typedoperands)) 
   ...</k>
     <regstate> RSMap </regstate>
 

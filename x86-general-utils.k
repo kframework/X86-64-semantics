@@ -154,8 +154,8 @@ module MINT-WRAPPER-SYNTAX
     popCount(MI, N): Count the number of set bits, V, in MI and
     create a Mint(N, V)
   */
-  syntax MInt ::= popCount(MInt) [function]
-  syntax MInt ::= countOnes(MInt, Int) [function]
+  syntax Int ::= popCount(MInt) [function]
+  syntax Int ::= countOnes(MInt, Int) [function]
 
   /*@ 
     shiftCountMask(MIsrc, N): 
@@ -259,10 +259,12 @@ module MINT-WRAPPER
     splitVector(MI, W): Splits the Bitvector MI into a List of
     bitwidthMInt(MI)/W Bitvectors each of width W.
   */
-  rule splitVector(MI, W) => splitVectorHelper(MI, W, 0)
-      requires bitwidthMInt(MI) >=Int W andBool 0 =/=Int W
-  rule splitVector(MI, W) => .MInts 
-     requires bitwidthMInt(MI) <Int W orBool 0 ==Int W
+  rule splitVector(MI, W) => #if bitwidthMInt(MI) >=Int W andBool 0 =/=Int W 
+                              #then 
+                                splitVectorHelper(MI, W, 0) 
+                              #else 
+                                .MInts 
+                             #fi
 
   rule splitVectorHelper(MI, W, P) => 
     extractMInt(MI, P, P +Int W) splitVectorHelper(MI, W, P +Int W)
@@ -346,15 +348,15 @@ module MINT-WRAPPER
   /*@ 
     Conversion from/to MInt and Bool
   */  
-  rule toBool(MI) => true
-    requires uvalueMInt(MI) =/=Int 0
-  rule toBool(MI) => false
-    requires uvalueMInt(MI) ==Int 0
+  rule toBool(MI) => #if uvalueMInt(MI) =/=Int 0 
+                      #then true 
+                      #else false 
+                     #fi
 
-  rule fromBool(B:Bool, W:Int) => mi(W,1)
-    requires B
-  rule fromBool(B:Bool, W:Int) => mi(W,0)
-    requires notBool B
+  rule fromBool(B:Bool, W:Int) => #if B 
+                                    #then mi(W,1) 
+                                    #else mi(W,0) 
+                                  #fi
 
   /*@ extractMask(MI, W, S) Extracts the lower W bits 
     from MInt starting from lower significant bit position S.
@@ -396,9 +398,7 @@ module MINT-WRAPPER
       N bitwidth.
   */
   rule zeroExtend(MI:MInt, N:Int) => mi(N, uvalueMInt(MI))
-    requires N >Int bitwidthMInt(MI)
-  rule zeroExtend(MI:MInt, N:Int) => MI
-    requires N <=Int bitwidthMInt(MI)
+    requires N >=Int bitwidthMInt(MI)
 
   /*@ 
     plugInMask(MITarget, MISrc, P): 
@@ -430,19 +430,13 @@ module MINT-WRAPPER
     )
     requires (P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget)
 
-
   /*@ 
     signExtend(MI, N): Sign extend MInt MI to a MInt of
       N bitwidth.
   */
-  syntax MInt ::= signExtend(MInt, Int) [function]
-
-  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI))
-      requires N >Int bitwidthMInt(MI)
+  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI)) 
+    requires N >=Int bitwidthMInt(MI)
   
-  rule signExtend(MI:MInt, N:Int) => MI
-    requires N <=Int bitwidthMInt(MI)
-
   /*@ 
     popCount(MI, N): Count the number of set bits, V, in MI and
     create a Mint(N, V)
@@ -453,7 +447,7 @@ module MINT-WRAPPER
     countOnes(andMInt(MI, subMInt(MI, mi(bitwidthMInt(MI),1))), C +Int 1)
       requires notBool zeroMInt(MI)
 
-  rule countOnes(MI:MInt, C:Int) => mi(bitwidthMInt(MI), C) 
+  rule countOnes(MI:MInt, C:Int) =>  C 
       requires zeroMInt(MI)
 
   /*@ 
@@ -461,13 +455,10 @@ module MINT-WRAPPER
     if N == 64: return and(MIsrc, 0x3F) 
     else return and(MIsrc, 0x1F) 
   */
-  rule shiftCountMask(MI:MInt, I:Int) => 
-    andMInt(MI, mi(bitwidthMInt(MI), 63))
-  requires I ==Int 64
-
-  rule shiftCountMask(MI:MInt, I:Int) => 
-    andMInt(MI, mi(bitwidthMInt(MI), 31))
-  requires I =/=Int 64
+  rule shiftCountMask(MI:MInt, I:Int) => #if I ==Int 64 
+                                          #then andMInt(MI, mi(bitwidthMInt(MI), 63)) 
+                                          #else andMInt(MI, mi(bitwidthMInt(MI), 31)) 
+                                         #fi
 
   /*@ 
     getSignBit(MI): return mi(1, signBit of MI)
@@ -493,10 +484,10 @@ module MINT-WRAPPER
     sarOverflow(MI): return the value of SAR
     operation on MI with count >= bitwidthMInt(MI)
   */
-  rule sarOverflow(MI:MInt) => mi(bitwidthMInt(MI), 0)
-    requires zeroMInt(getSignBit(MI))
-  rule sarOverflow(MI:MInt) => mi(bitwidthMInt(MI), -1)
-    requires notBool zeroMInt(getSignBit(MI))
+  rule sarOverflow(MI:MInt) => #if zeroMInt(getSignBit(MI)) 
+                                #then mi(bitwidthMInt(MI), 0) 
+                                #else mi(bitwidthMInt(MI), -1) 
+                               #fi
 
   /*@ 
     shrOverflow(MI): return the value of SHR
@@ -518,6 +509,7 @@ module MINT-WRAPPER
     pass signed value of the MInt
   */  
   rule aShiftRightMInt(MI, I) => ashrMInt(mi(bitwidthMInt(MI), svalueMInt(MI)), I)
+
 endmodule
 
 

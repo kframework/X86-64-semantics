@@ -103,17 +103,8 @@ module X86-FLAG-CHECKS
         toBool(
           xorMInt(
             andMInt(
-              addListMInt(
-                  64,
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),1))),   64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),2))),   64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),4))),   64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),8))),   64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),16))),  64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),32))),  64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),64))),  64)
-                  fromBool(toBool(andMInt(MI, mi(bitwidthMInt(MI),128))), 64)
-              ), 
+              mi(64, popCount(extractMask(MI, 8, 0)))
+              , 
               oneMIntW64),
             oneMIntW64)
         ), 
