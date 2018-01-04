@@ -39,8 +39,11 @@ module MINT-LEMMAS
 
   rule subMInt(mi(W, I), mi(W, I)) => mi(W, 0)                 [lemma]
 
-  rule addMInt(mi(W:Int, I:Int), mi(W:Int, 0)) => mi(W, I)     [lemma]
-  rule addMInt(MI:MInt, mi(8, 0)) => MI                    [lemma]
+  rule addMInt(MI:MInt, ZMI:MInt) => MI                   
+    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+
+  rule addMInt(ZMI:MInt, MI:MInt) => MI                  
+    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
 
 endmodule
 

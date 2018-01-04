@@ -10,6 +10,15 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= "oneMIntW64"
 
 
+  /*@
+    If Else Then for Sorts 
+  */
+  syntax MInt ::= "#ifMInt" Bool "#then" MInt "#else" MInt "#fi" [function, smtlib(ite)]
+  syntax MInt ::= "#ifBool" Bool "#then" Bool "#else" Bool "#fi" [function, smtlib(ite)]
+
+  /*@
+    Sort List
+  */
   syntax MInts ::= List{MInt, ""} [klabel(mintlist)]
   syntax Floats ::= List{Float, ""} [klabel(floatlist)]
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
@@ -214,7 +223,15 @@ module MINT-WRAPPER
   rule oneMIntW64   =>  mi(64, 1) [macro]
 
   /*@
-    Covert MInts to Signed Ints.
+    If Else Then for Sorts
+  */
+  rule #ifMInt B #then W #else _ #fi => W requires B
+  rule #ifMInt B #then _ #else W #fi => W requires notBool B
+  rule #ifBool B #then W #else _ #fi => W requires B
+  rule #ifBool B #then _ #else W #fi => W requires notBool B
+
+  /*@
+    Convert MInts to Signed Ints.
   */
   rule convertMIntsToSInts(MI MIs) => svalueMInt(MI) convertMIntsToSInts(MIs)
   rule convertMIntsToSInts(.MInts) => .Ints
@@ -348,12 +365,12 @@ module MINT-WRAPPER
   /*@ 
     Conversion from/to MInt and Bool
   */  
-  rule toBool(MI) => #if uvalueMInt(MI) =/=Int 0 
+  rule toBool(MI) => #ifBool uvalueMInt(MI) =/=Int 0 
                       #then true 
                       #else false 
                      #fi
 
-  rule fromBool(B:Bool, W:Int) => #if B 
+  rule fromBool(B:Bool, W:Int) => #ifMInt B 
                                     #then mi(W,1) 
                                     #else mi(W,0) 
                                   #fi
@@ -455,7 +472,7 @@ module MINT-WRAPPER
     if N == 64: return and(MIsrc, 0x3F) 
     else return and(MIsrc, 0x1F) 
   */
-  rule shiftCountMask(MI:MInt, I:Int) => #if I ==Int 64 
+  rule shiftCountMask(MI:MInt, I:Int) => #ifMInt I ==Int 64 
                                           #then andMInt(MI, mi(bitwidthMInt(MI), 63)) 
                                           #else andMInt(MI, mi(bitwidthMInt(MI), 31)) 
                                          #fi
@@ -484,7 +501,7 @@ module MINT-WRAPPER
     sarOverflow(MI): return the value of SAR
     operation on MI with count >= bitwidthMInt(MI)
   */
-  rule sarOverflow(MI:MInt) => #if zeroMInt(getSignBit(MI)) 
+  rule sarOverflow(MI:MInt) => #ifMInt zeroMInt(getSignBit(MI)) 
                                 #then mi(bitwidthMInt(MI), 0) 
                                 #else mi(bitwidthMInt(MI), -1) 
                                #fi
