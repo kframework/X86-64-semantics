@@ -1,4 +1,4 @@
-package ktestutils;
+package kutils;
 
 use File::Compare;
 use File::Basename;
@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(createDir execute info passInfo failInfo display processKFile checkKRunStatus processXFile compareStates pprint toHex toDec printwithspaces dec2bin signExtend float2binary bin2hex);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -261,11 +261,13 @@ sub compareStates {
 
     for ( my $i = 0 ; $i < scalar(@kstates) ; $i++ ) {
         if ( 6 == ( $i % $regcount ) ) {
+
             #info("Skip $regMap{$i % $regcount}");
             next;
         }
 
         if ( $kstates[$i] eq "undef" ) {
+
             #info("\"undef\" found at $regMap{$i % $regcount}");
             next;
         }
@@ -307,4 +309,209 @@ sub pprint {
 
 sub cleanup {
 }
+
+## Generate Specs
+
+sub instr_to_opcode {
+    my $instr = shift @_;
+    my $binpath =
+      "/home/sdasgup3/Install/strata/stoke/src/ext/x64asm/bin/instr_info";
+    execute("echo $instr | $binpath 1>/tmp/xxx 2>&1");
+    my $debugprint = shift @_;
+
+    my $filepath = "/tmp/xxx";
+    open( my $fp, "<", $filepath )
+      or die "[instr_to_opcode]cannot open $filepath: $!";
+    my @lines = <$fp>;
+    for my $line (@lines) {
+        chomp $line;
+        debugInfo( $line . "\n", $debugprint );
+        if ( $line =~ m/opcode:\s*(\S*)/ ) {
+            debugInfo( "[instr_to_opcode]opcode: $1" . "\n", $debugprint );
+            return $1;
+        }
+    }
+
+    return "No Opcode";
+}
+
+sub find_stratum {
+    my $opcode      = shift @_;
+    my $strata_path = shift @_;
+    my $debugprint  = shift @_;
+    my $depth       = 0;
+    my $count       = 0;
+
+    my $filepath = $strata_path . "/" . $opcode . ".s";
+    debugInfo( "In file : " . $filepath . "\n", $debugprint );
+    open( my $fp, "<", $filepath )
+      or die "[find_stratum]cannot open $filepath: $!";
+
+    my @lines = <$fp>;
+    for my $line (@lines) {
+        chomp $line;
+
+        if ( $line =~ m/\.text|\.globl|\.type|^#.*|\.target|\.size/ ) {
+            next;
+        }
+
+        debugInfo( $line . "\n", $debugprint );
+
+        if ( $line =~ m/^(.*)#.*OPC=(.*)/ ) {
+            my $instr = $1;
+
+            my $test = $2;
+            $instr = utils::trim($instr);
+
+            # Instr might contain immediates with $, need to
+            # escape that.
+            $instr =~ s/\$/\\\$/g;
+
+            $test =~ s/\s*//g;
+
+            my $encode = instr_to_opcode( $instr, $debugprint );
+
+            if ( $test ne $encode ) {
+                if (
+                    (
+                            $test eq "movq_r64_imm64"
+                        and $encode eq "movq_r64_imm32"
+                    )
+                    or
+                    ( $test eq "xchgw_r16_r16" and $encode eq "xchgw_r16_ax" )
+                    or
+                    ( $test eq "xchgl_r32_r32" and $encode eq "xchgl_r32_eax" )
+                    or
+                    ( $test eq "xchgq_r64_r64" and $encode eq "xchgq_rax_r64" )
+                    or
+                    ( $test eq "xchgq_r64_r64" and $encode eq "xchgq_r64_rax" )
+                  )
+                {
+                    # Ok causes
+                    $encode = $test;
+                }
+                else {
+                    print("$opcode::$test::$encode::\n");
+                    failInfo("$opcode::$test::$encode::\n");
+                }
+            }
+
+            debugInfo( $instr . "::" . $encode . "::\n", $debugprint );
+
+            if (   $encode eq "adcw_r16_r16"
+                or $encode eq "adcl_r32_r32"
+                or $encode eq "adcq_r64_r64"
+                or $encode eq "adcb_r8_r8"
+                or $encode eq "cmoveq_r64_r64"
+                or $encode eq "movq_r64_imm32"
+                or $encode eq "movq_r64_imm64"
+                or $encode eq "movq_r64_r64"
+                or $encode eq "movb_r8_rh"
+                or $encode eq "movb_rh_r8"
+                or $encode eq "movswq_r64_r16"
+                or $encode eq "movsbq_r64_r8"
+                or $encode eq "movslq_r64_r32"
+                or $encode eq "orq_r64_r64"
+                or $encode eq "popcntq_r64_r64"
+                or $encode eq "salq_r64_cl"
+                or $encode eq "sarq_r64_cl"
+                or $encode eq "shrq_r64_cl"
+                or $encode eq "xorq_r64_r64"
+                or $encode eq "vaddpd_ymm_ymm_ymm"
+                or $encode eq "vaddps_ymm_ymm_ymm"
+                or $encode eq "vsubpd_ymm_ymm_ymm"
+                or $encode eq "vsubps_ymm_ymm_ymm"
+                or $encode eq "vmulpd_ymm_ymm_ymm"
+                or $encode eq "vmulps_ymm_ymm_ymm"
+                or $encode eq "vrcpps_ymm_ymm"
+                or $encode eq "vdivpd_ymm_ymm_ymm"
+                or $encode eq "vdivps_ymm_ymm_ymm"
+                or $encode eq "vmaxpd_ymm_ymm_ymm"
+                or $encode eq "vmaxps_ymm_ymm_ymm"
+                or $encode eq "vminpd_ymm_ymm_ymm"
+                or $encode eq "vminps_ymm_ymm_ymm"
+                or $encode eq "vrsqrtps_ymm_ymm"
+                or $encode eq "vsqrtpd_ymm_ymm"
+                or $encode eq "vsqrtps_ymm_ymm"
+                or $encode eq "vzeroall"
+                or $encode eq "vfmadd132pd_ymm_ymm_ymm"
+                or $encode eq "vfmadd132ps_ymm_ymm_ymm"
+                or $encode eq "vfmsub132pd_ymm_ymm_ymm"
+                or $encode eq "vfmsub132ps_ymm_ymm_ymm"
+                or $encode eq "vfnmadd132pd_ymm_ymm_ymm"
+                or $encode eq "vfnmadd132ps_ymm_ymm_ymm"
+                or $encode eq "vfnmsub132pd_ymm_ymm_ymm"
+                or $encode eq "vfnmsub132ps_ymm_ymm_ymm"
+                or $encode eq "vcvtdq2pd_ymm_ymm"
+                or $encode eq "vcvtdq2ps_ymm_ymm"
+                or $encode eq "vcvtpd2dq_xmm_ymm"
+                or $encode eq "vcvtpd2ps_xmm_ymm"
+                or $encode eq "vcvtps2dq_ymm_ymm"
+                or $encode eq "vcvtps2pd_ymm_xmm"
+                or $encode eq "vcvttpd2dq_xmm_ymm"
+                or $encode eq "vcvttps2dq_ymm_ymm" )
+            {
+                #print $line . "\n";
+                $count++;
+            }
+            elsif ( $encode eq "callq_label" ) {
+
+                #print $line . "\n";
+                $count++;
+            }
+            elsif ( $encode eq "retq" ) {
+            }
+            else {
+                my $nextopcode = $encode;
+                my ( $temp_depth, $temp_count ) =
+                  find_stratum( $nextopcode, $strata_path, $debugprint );
+                $depth = 1 + $temp_depth;
+                $count = $count + $temp_count;
+            }
+        }
+    }
+
+    return ( $depth, $count );
+}
+
+sub getReadMod {
+    my $opcode     = shift @_;
+    my $path       = shift @_;
+    my $debugprint = shift @_;
+
+    my $filepath = $path . "/" . $opcode . "/" . $opcode . ".s";
+    my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
+    my $instr    = "";
+    my $metadata = "";
+
+    # Find the concrete instruction.
+    debugInfo( "In file : " . $filepath . "\n", $debugprint );
+    open( my $fp, "<", $filepath ) or die "cannot open $filepath: $!";
+    my @lines = <$fp>;
+    for my $line (@lines) {
+        chomp $line;
+
+        if ( $line =~ m/\.text|\.globl|\.type|^#.*|\.target|\.size/ ) {
+            next;
+        }
+        $instr = $line;
+
+    }
+
+    # Find the meta data of concrete instruction.
+    debugInfo( "In file : " . $metapath . "\n", $debugprint );
+    open( my $fp, "<", $metapath ) or die "cannot open $metapath: $!";
+    my @lines = <$fp>;
+    for my $line (@lines) {
+
+        if ( $line =~ m/def_in|live_out|def_in_formal|live_out_formal|/ ) {
+            next;
+        }
+        $metadata = $metadata . $line;
+
+    }
+
+    return ( $instr, $metadata );
+}
+
 1;
