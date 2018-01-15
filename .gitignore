@@ -13,7 +13,6 @@ ELF_64_linux.bc
 alltogether.log
 build/*
 *.ll
-*.log
 *.cfg
 *.coverage.csv
 *.native

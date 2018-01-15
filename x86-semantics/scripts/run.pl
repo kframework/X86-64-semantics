@@ -6,7 +6,7 @@ use File::Compare;
 use File::Basename;
 
 use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
-use ktestutils;
+use kutils;
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
