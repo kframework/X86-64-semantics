@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template get_circuit);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template get_circuit selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -27,6 +27,105 @@ my @xpatterns = (
     qr/$\d* = ([-]?\d+)/,
     qr/$\d* = \{([\dabcdef]+, [\dabcdef]+)\}/,
     qr/$\d* = \[ ([CPAZSOIF ]*) \]/,
+);
+
+my @r64s = (
+    "rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rsp", "rbp",
+    "r8",  "r9",  "r10", "r11", "r12", "r13", "r14", "r15",
+);
+
+my @r8s = (
+    "al",  "bl",  "cl",   "dl",   "sil",  "dil",  "spl",  "bpl",
+    "r8b", "r9b", "r10b", "r11b", "r12b", "r13b", "r14b", "r15b",
+);
+
+my @rhs = ( "ah", "bh", "ch", "dh" );
+
+my @r16s = (
+    "ax",  "bx",  "cx",   "dx",   "si",   "di",   "sp",   "bp",
+    "r8w", "r9w", "r10w", "r11w", "r12w", "r13w", "r14w", "r15w",
+);
+
+my @r32s = (
+    "eax", "ebx", "ecx",  "edx",  "esi",  "edi",  "esp",  "ebp",
+    "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d"
+);
+
+my %subRegToReg = (
+    "al"    => "rax",
+    "bl"    => "rbx",
+    "cl"    => "rcx",
+    "dl"    => "rdx",
+    "sil"   => "rsi",
+    "dil"   => "rdi",
+    "spl"   => "rsp",
+    "bpl"   => "rbp",
+    "r8b"   => "r8",
+    "r9b"   => "r9",
+    "r10b"  => "r10",
+    "r11b"  => "r11",
+    "r12b"  => "r12",
+    "r13b"  => "r13",
+    "r14b"  => "r14",
+    "r15b"  => "r15",
+    "ax"    => "rax",
+    "bx"    => "rbx",
+    "cx"    => "rcx",
+    "dx"    => "rdx",
+    "si"    => "rsi",
+    "di"    => "rdi",
+    "sp"    => "rsp",
+    "bp"    => "rbp",
+    "r8w"   => "r8",
+    "r9w"   => "r9",
+    "r10w"  => "r10",
+    "r11w"  => "r11",
+    "r12w"  => "r12",
+    "r13w"  => "r13",
+    "r14w"  => "r14",
+    "r15w"  => "r15",
+    "eax"   => "rax",
+    "ebx"   => "rbx",
+    "ecx"   => "rcx",
+    "edx"   => "rdx",
+    "esi"   => "rsi",
+    "edi"   => "rdi",
+    "esp"   => "rsp",
+    "ebp"   => "rbp",
+    "r8d"   => "r8",
+    "r9d"   => "r9",
+    "r10d"  => "r10",
+    "r11d"  => "r11",
+    "r12d"  => "r12",
+    "r13d"  => "r13",
+    "r14d"  => "r14",
+    "r15d"  => "r15",
+    "ah"    => "rax",
+    "bh"    => "rbx",
+    "ch"    => "rcx",
+    "dh"    => "rdx",
+    "xmm0"  => "ymm0",
+    "xmm1"  => "ymm1",
+    "xmm2"  => "ymm2",
+    "xmm3"  => "ymm3",
+    "xmm4"  => "ymm4",
+    "xmm5"  => "ymm5",
+    "xmm6"  => "ymm6",
+    "xmm7"  => "ymm7",
+    "xmm8"  => "ymm8",
+    "xmm9"  => "ymm9",
+    "xmm10" => "ymm10",
+    "xmm11" => "ymm11",
+    "xmm12" => "ymm12",
+    "xmm13" => "ymm13",
+    "xmm14" => "ymm14",
+    "xmm15" => "ymm15",
+    "af"    => "af",
+    "pf"    => "pf",
+    "sf"    => "sf",
+    "zf"    => "zf",
+    "cf"    => "cf",
+    "of"    => "of",
 );
 
 my %regMap = (
@@ -564,6 +663,7 @@ sub getReadMod {
             next;
         }
         $instr = $line;
+        $instr = utils::trim($instr);
     }
 
     # Find the read/write set using metadata.
@@ -637,6 +737,7 @@ sub get_circuit {
 
             my $test = $2;
             $instr = utils::trim($instr);
+
             #$instr =~ s/\$/\\\$/g;
 
             #debugInfo( $instr . "::\n", $debugprint );
@@ -645,6 +746,460 @@ sub get_circuit {
     }
     debugInfo( join( ' ', @instr_arr, ) . "::\n", $debugprint );
     return @instr_arr;
+}
+
+sub mixfix2infix {
+    my $arg        = shift @_;
+    my $debugprint = shift @_;
+
+    my $bin_op      = (qr/orBool|==K|\+Int|\-Int|/);
+    my $unary_op    = (qr/notBool/);
+    my $terniary_op = (qr/_#then_#else_#fi/);
+    while (1) {
+        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool)$terniary_op(.+)/ ) {
+            my $pre  = $1;
+            my $opr  = $2;
+            my $post = $3;
+
+            debugInfo( "Got Terniary op\n", $debugprint );
+            my ( $op_arg, $rest ) = selectbraces( $post, 1 );
+            my @args = findArgs( $op_arg, 3 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+            debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+            my $explicitCast = "";
+            if ( $opr eq "#ifMInt" ) {
+                $explicitCast = "";
+            }
+            elsif ( $opr eq "#ifBool" ) {
+                $explicitCast = ":>Bool";
+            }
+
+            if ( $explicitCast eq "" ) {
+                $arg =
+                    $pre
+                  . "$opr ("
+                  . $args[0]
+                  . " ) #then ( "
+                  . $args[1]
+                  . " ) #else ( "
+                  . $args[2]
+                  . " ) #fi "
+                  . $rest;
+            }
+            else {
+                $arg =
+                    $pre
+                  . "($opr ("
+                  . $args[0]
+                  . " ) #then ( "
+                  . $args[1]
+                  . " ) #else ( "
+                  . $args[2]
+                  . " ) #fi)$explicitCast "
+                  . $rest;
+            }
+
+            #print "\n" . $arg . "\n";
+        }
+        elsif ( $arg =~ m/(.+)_($bin_op)\_(.+)/ ) {
+
+            #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+            my $op = $2;
+            debugInfo( "Got Binary op: $op\n", $debugprint );
+
+            #print "Arg: " . $op_arg . "\n";
+            #print "Rest: " . $rest . "\n";
+
+            my @args = findArgs( $op_arg, 2 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+            $arg =
+                $1 . " ( "
+              . $args[0] . " " . " $op " . " "
+              . $args[1] . " ) "
+              . $rest;
+
+            #print "\n" . $arg . "\n";
+        }
+        elsif ( $arg =~ m/(.+)($unary_op)\_(.+)/ ) {
+
+            #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+            my $op = $2;
+            debugInfo( "Got unary op: $op\n", $debugprint );
+
+            #print "Arg: " . $op_arg . "\n";
+            #print "Rest: " . $rest . "\n";
+
+            my @args = findArgs( $op_arg, 1 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+
+            $arg = $1 . " $op " . " ( " . $args[0] . " ) " . $rest;
+
+            #print "\n" . $arg . "\n";
+        }
+        else {
+            last;
+        }
+    }
+
+    return $arg;
+}
+
+sub findArgs {
+    my $line     = shift @_;
+    my $num_args = shift @_;
+    my @args     = ();
+
+    for ( my $i = 0 ; $i < $num_args ; $i++ ) {
+        if ( $i == $num_args - 1 ) {
+            push @args, $line;
+            last;
+        }
+        if ( $line =~ m/^true\s*,\s*(.*)/ ) {
+            push @args, "true";
+            $line = $1;
+        }
+        elsif ( $line =~ m/^false\s*,\s*(.*)/ ) {
+            push @args, "false";
+            $line = $1;
+        }
+        elsif ( $line =~ m/^(\d+)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
+        }
+        else {
+            my ( $op_arg, $rest ) = selectbraces( $line, 0 );
+            push @args, $op_arg;
+            $rest =~ s/\s*,\s*//;
+            $line = $rest;
+        }
+    }
+    return @args;
+}
+
+sub selectbraces {
+    my $arg     = shift @_;
+    my $remove  = shift @_;
+    my $op_arg  = "";
+    my $rest    = "";
+    my $counter = 0;
+
+    my @arr = split( //, $arg );
+    my $first = 0;
+    for ( my $i = 0 ; $i < scalar(@arr) ; $i++ ) {
+        if ( $arr[$i] eq "(" ) {
+            $counter++;
+            $first = 1;
+        }
+        if ( $arr[$i] eq ")" ) {
+            $counter--;
+        }
+        $op_arg = $op_arg . $arr[$i];
+        if ( 0 != $first and $counter == 0 ) {
+            $rest = join( "", @arr[ $i + 1 .. scalar(@arr) - 1 ] );
+            last;
+        }
+    }
+
+    $op_arg =~ s/\((.*)\)/$1/ if $remove == 1;
+    return ( $op_arg, $rest );
+}
+
+sub processSpecOutput {
+    my $specoutput = shift @_;
+    my $debugprint = shift @_;
+
+    my %rsmap     = ();
+    my %rev_rsmap = ();
+    my @reglines  = ();
+
+    open( my $fp, "<", $specoutput )
+      or die " [create_spec] cannot open $specoutput : $! ";
+    my @lines = <$fp>;
+    close($fp);
+
+    # Preprocess
+    for ( my $i = 0 ; $i < scalar(@lines) ; $i++ ) {
+        my $line = $lines[$i];
+        chomp $line;
+
+        ## Obtaiing the register values from Init term.
+        if ( $line =~ m/^InitialTerm:/ ) {
+            my $initTerm = $lines[ $i + 1 ];
+
+            #print "InitialTerm: " . $initTerm . "\n";
+
+            my @matches = $initTerm =~
+m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _\d+:Int\@INT-SYNTAX\)/g;
+
+            #debugInfo( print join( "\n", @matches ), $debugprint );
+
+            for my $match (@matches) {
+
+                #print "Matching Lines: " . $match . "\n";
+                if ( $match =~
+m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\d+):Int\@INT-SYNTAX\)/
+                  )
+                {
+                    $rsmap{"$1"} = $2;
+                    $rev_rsmap{$2} = "$1";
+                }
+            }
+
+            #for my $key ( keys %rsmap ) {
+            #    print "$key -> " . $rsmap{$key} . "\n";
+            #}
+        }
+
+        # Obtaining the final values of registers.
+        if ( $line =~ m/^FinalTerm:/ ) {
+            my $finalTerm = $lines[ $i + 1 ];
+
+            #print "FinalTerm: " . $finalTerm . "\n\n";
+            my $regstate;
+            if ( $finalTerm =~ m/<regstate>(.*)<regstatequeue>/ ) {
+                $regstate = $1;
+
+                #print "Regstate: " . $regstate . "\n";
+            }
+            if ( !defined($regstate) ) {
+                failInfo("Error 1");
+            }
+            @reglines = split( /String\@STRING-SYNTAX/, $regstate );
+        }
+    }
+
+    #print join( "\n", @reglines );
+
+    return ( \%rsmap, \%rev_rsmap, \@reglines );
+}
+
+sub sanitizeSpecOutput {
+    my (
+        $rsmap_ref,    $rev_rsmap_ref, $reglines_ref,
+        $specfile_ref, $debugprint_ref
+    ) = @_;
+    my %rsmap      = %{$rsmap_ref};
+    my %rev_rsmap  = %{$rev_rsmap_ref};
+    my @reglines   = @{$reglines_ref};
+    my $specfile   = ${$specfile_ref};
+    my $debugprint = ${$debugprint_ref};
+
+    my $returnInfo = "";
+
+    open( my $fp, "<", $specfile )
+      or die " [sanitizeSpecOutput] cannot open $specfile : $! ";
+    my @lines = <$fp>;
+
+    ## Obtain the read/write set
+    my %readSet  = ();
+    my %writeSet = ();
+    my %undefSet = ();
+    my $opcode   = "";
+    my $instr    = "";
+
+    for my $line (@lines) {
+        chomp $line;
+        if ( $line =~ m/opcode:(.*)/ ) {
+            $opcode = utils::trim($1);
+        }
+        if ( $line =~ m/instr:(.*)/ ) {
+            $instr = utils::trim($1);
+        }
+
+        if ( $line =~ m/(maybe|must) read:\{(.*)\}/ ) {
+            my @regs = split( / /, $2 );
+            for my $reg (@regs) {
+                $reg =~ s/%//g;
+                $reg = utils::trim($reg);
+                $readSet{ uc( $subRegToReg{$reg} ) } = 1;
+            }
+        }
+        if ( $line =~ m/(maybe|must) write:\{(.*)\}/ ) {
+            my @regs = split( / /, $2 );
+            for my $reg (@regs) {
+                $reg =~ s/%//g;
+                $reg = utils::trim($reg);
+                $writeSet{ uc( $subRegToReg{$reg} ) } = 1;
+            }
+        }
+        if ( $line =~ m/(maybe|must) undef:\{(.*)\}/ ) {
+            my @regs = split( / /, $2 );
+            for my $reg (@regs) {
+                $reg =~ s/%//g;
+                $reg = utils::trim($reg);
+                $undefSet{ uc( $subRegToReg{$reg} ) } = 1;
+            }
+        }
+    }
+    for my $keys ( keys %readSet ) {
+        debugInfo( "::" . $keys . "::\n", $debugprint );
+    }
+    for my $keys ( keys %writeSet ) {
+        debugInfo( "::" . $keys . "::\n", $debugprint );
+    }
+
+    ## Obtain the correspondence between the generic opcode
+    ## and its particular instance.
+    my %actual2psedoRegs = ();
+    debugInfo( $instr . "\n", $debugprint );
+
+    if ( $instr =~ m/(\w+)\s+(\S+)\s+(\S+)\s+(\S+)/ ) {
+        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
+          "R1";
+        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $3, "%" ) } ) } =
+          "R2";
+        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $4, "%" ) } ) } =
+          "R3";
+    }
+    elsif ( $instr =~ m/(\w+)\s+(\S+)\s+(\S+)/ ) {
+        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
+          "R1";
+        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $3, "%" ) } ) } =
+          "R2";
+    }
+    elsif ( $instr =~ m/(\w+)\s+(\S+)/ ) {
+        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
+          "R1";
+    }
+    for my $key ( keys %actual2psedoRegs ) {
+        debugInfo( "::$key::$actual2psedoRegs{$key}::" . "\n", $debugprint );
+    }
+
+    ## Process begin
+    for my $line (@reglines) {
+        chomp $line;
+
+        debugInfo( $line, $debugprint );
+
+        if ( $line =~ m/RIP/ ) {
+            next;
+        }
+
+        my $mod = $line;
+
+        # sanitization
+        $mod =~ s/,,/,/g;
+        $mod =~ s/""/"/g;
+        $mod =~ s/Int\@INT-SYNTAX\(#"(\d+)"\)/$1/g;
+        $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/_(\d+):Int\@INT-SYNTAX/_$1/g;
+        $mod =~ s/MInt\@MINT\(#"(\d+)'(\d+)"\)/mi($1, $2)/g;
+        $mod =~ s/\(#"(\w+)"\)/"$1"/g;
+        $mod =~ s/\($//g;
+
+        my $result = "";
+
+        debugInfo( "Stage 1: " . $mod . "\n\n", $debugprint );
+        $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
+        debugInfo( "Stage 2: " . $mod . "\n\n", $debugprint );
+
+        if ( $mod =~ /_/ ) {
+            $result = mixfix2infix( $mod, $debugprint );
+        }
+        else {
+            $result = $mod;
+        }
+
+        # Local Optimzations
+        ## Replace mi(64, _NUM) => MINUM
+        $result =~ s/mi\(64, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
+
+        ## If the register is not in read/write/undef sets, remove it.
+        if ( $result =~ m/"(\w+)" \|-> (.*)/ ) {
+            my $reg = $1;
+            my $val = $2;
+            if (    !exists( $readSet{$reg} )
+                and !exists( $writeSet{$reg} )
+                and !exists( $undefSet{$reg} ) )
+            {
+                $returnInfo = $returnInfo . "//" . $result . "\n\n";
+            }
+            else {
+                ## Convert concrete reg to generic ones.
+                if ( exists $actual2psedoRegs{$reg} ) {
+                    $returnInfo =
+                        $returnInfo
+                      . "convToRegKeys($actual2psedoRegs{$reg}) |-> $val"
+                      . "\n\n";
+                }
+                else {
+                    $returnInfo = $returnInfo . $result . "\n\n";
+                }
+            }
+        }
+    }
+
+    # Global Optimzations
+    ## "R" |-> (MINUM => ...) and MINUM does not occur elsewhere then Replace
+    ## MINUM with _
+    for my $key ( keys %rsmap ) {
+        my $val     = "MI" . %rsmap{$key};
+        my @matches = $returnInfo =~ m/$val/g;
+        if ( 1 == scalar(@matches) ) {
+            $returnInfo =~ s/$val/_/;
+        }
+    }
+
+    ## Remove or comment out the reglines which are not written
+
+    debugInfo( $returnInfo, $debugprint );
+    return $returnInfo;
+}
+
+sub writeKDefn {
+    my $semantics  = shift @_;
+    my $koutput    = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
+
+    my $module_name             = $opcode =~ s/_/-/gr;
+    my $module_name_uc          = uc($module_name);
+    my $semantic_module_name    = $opcode =~ s/_.*//gr;
+    my $semantic_module_name_uc = uc($semantic_module_name);
+    my $operands                = "";
+    if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
+        $operands =
+          "R1:" . uc($2) . ", R2:" . uc($3) . ", R3:" . uc($4) . ", ";
+    }
+    elsif ( $opcode =~ m/(\w+)_(.*)_(.*)/ ) {
+        $operands = "R1:" . uc($2) . ", R2:" . uc($3) . ", ";
+    }
+    elsif ( $opcode =~ m/(\w+)_(.*)/ ) {
+        $operands = "R1:" . uc($2) . ", ";
+    }
+
+    open( my $fp, ">", $koutput )
+      or die " [writeKDefn] cannot open $koutput : $! ";
+
+    my $template = qq(// Autogenerated using stratification.
+requires "x86-configuration.k"
+
+module $module_name_uc
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr (decb $operands .Typedoperands) => .
+  ...</k>
+    <regstate> ...
+$semantics
+    ...</regstate>
+endmodule
+
+module $semantic_module_name_uc-SEMANTICS
+  imports $module_name_uc
+endmodule
+  );
+
+    print $fp $template;
 }
 
 1;
