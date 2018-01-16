@@ -63,7 +63,7 @@ loc ( mi(64, 3)) |-> storedinstr ( nop .Typedoperands )
 endmodule
 /*
 opcode:decb_r8
-instr:  decb %bl
+instr:decb %bl
 maybe read:{ %bl }
 must read:{ %bl }
 maybe write:{ %bl %pf %af %zf %sf %of }
