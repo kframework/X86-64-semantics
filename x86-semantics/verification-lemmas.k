@@ -31,13 +31,27 @@ endmodule
 module MINT-LEMMAS
   import MINT
 
-  rule bitwidthMInt(mi(W:Int, _:Int)) => W                     [lemma]
+  // bitwidthMInt    
+  rule bitwidthMInt(addMInt(mi(W, _), _)) => W [lemma]  
+  rule bitwidthMInt(addMInt(extractMask(_,_,_), mi(W,_))) => W [lemma]  
+  rule bitwidthMInt(addMInt(extractMask(_,_,_), MIC)) => bitwidthMInt(MIC) [lemma]  
+  rule bitwidthMInt(addMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
 
+  // xorMInt
   rule xorMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, 0) [lemma]
-  rule xorMInt(MI:MInt, MI:MInt) => mi(bitwidthMInt(MI), 0)    [lemma]
+  rule xorMInt(MI:MInt, MI:MInt) => mi(bitwidthMInt(MI), 0) [lemma]
+
+  // orMInt
+  rule orMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, I) [lemma]
+  rule orMInt(MI:MInt, MI:MInt) =>  MI [lemma]
+
+  // ultMInt
+  rule ultMInt(_, MI) =>  false                         
+    requires  eqMInt(MI, mi(bitwidthMInt(MI), 0))
 
 
-  rule subMInt(mi(W, I), mi(W, I)) => mi(W, 0)                 [lemma]
+  // addMInt
+  rule subMInt(mi(W, I), mi(W, I)) => mi(W, 0) [lemma]
 
   rule addMInt(MI:MInt, ZMI:MInt) => MI                   
     requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))

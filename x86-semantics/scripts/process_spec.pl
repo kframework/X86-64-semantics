@@ -53,7 +53,10 @@ my $debugprint = 0;
 if ( "" ne $createspec ) {
     for my $opcode (@lines) {
         chomp $opcode;
+
         my $specfile = "$specdir/x86-semantics_${opcode}_spec.k";
+        utils::info("createspec $opcode: $specfile");
+
         open( my $fp, ">", $specfile )
           or die "[create_spec] cannot open $specfile: $!";
         my @instr_arr =
@@ -87,6 +90,7 @@ if ( "" ne $createspec ) {
 if ( "" ne $kprove ) {
     for my $opcode (@lines) {
         chomp $opcode;
+        utils::info("kprove $opcode");
         my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
         my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
         execute(
@@ -105,19 +109,19 @@ if ( "" ne $postprocess ) {
         my $koutput    = "$specdir/x86-${opcode}.k";
 
         # Map to store the register value binding
-        utils::info("processSpecOutput");
+        utils::info("processSpecOutput $opcode");
         my ( $rsmap_ref, $rev_rsmap_ref, $reglines_ref ) =
           kutils::processSpecOutput( $specoutput, $debugprint );
 
         # Do simple sanitization and mixfix to infix conversion.
-        utils::info("sanitizeSpecOutput");
+        utils::info("sanitizeSpecOutput $opcode");
         my $returnInfo = kutils::sanitizeSpecOutput(
             $rsmap_ref, $rev_rsmap_ref, $reglines_ref,
             \$specfile, \$debugprint
         );
 
         # write to k file.
-        utils::info("writeKDefn");
+        utils::info("writeKDefn $opcode: $koutput");
         kutils::writeKDefn( $returnInfo, $koutput, $opcode, $debugprint );
     }
     exit(0);

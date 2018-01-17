@@ -8,49 +8,49 @@ module ADDQ-R64-R64
     execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-// "RBP" |-> ( MI404 => MI404 )
+// "RBP" |-> ( MI419 => MI419 )
 
- "CF" |-> ( _ => #ifMInt ( (  ( ultMInt(addMInt(MI399, orMInt(MI398, MI398)), MI399)  orBool  ultMInt(addMInt(MI399, orMInt(MI398, MI398)), orMInt(MI398, MI398)) )  orBool  ( ultMInt(addMInt(MI399, orMInt(MI398, MI398)), addMInt(MI399, orMInt(MI398, MI398)))  orBool  ultMInt(addMInt(MI399, orMInt(MI398, MI398)), mi(64, 0)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "CF" |-> ( _ => #ifMInt ( (  ( ultMInt(addMInt(MI414, MI413), MI414)  orBool  ultMInt(addMInt(MI414, MI413), MI413) )  orBool  ultMInt(addMInt(MI414, MI413), addMInt(MI414, MI413)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
- "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI399, orMInt(MI398, MI398)), addMInt(MI399, orMInt(MI398, MI398))), 4), mi(bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398))), 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+ "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI414, MI413), addMInt(MI414, MI413)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
 
-convToRegKeys(R1) |-> ( MI399 => MI399 )
+convToRegKeys(R1) |-> ( MI414 => MI414 )
 
-// "R8" |-> ( MI405 => MI405 )
+// "R8" |-> ( MI420 => MI420 )
 
-// "RDX" |-> ( MI400 => MI400 )
+// "RDX" |-> ( MI415 => MI415 )
 
-// "R9" |-> ( MI430 => MI430 )
+// "R9" |-> ( MI445 => MI445 )
 
-// "RAX" |-> ( MI397 => MI397 )
+// "RAX" |-> ( MI412 => MI412 )
 
-convToRegKeys(R2) |-> ( MI398 => addMInt(MI399, orMInt(MI398, MI398)) )
+convToRegKeys(R2) |-> ( MI413 => addMInt(MI414, MI413) )
 
-// "RSI" |-> ( MI401 => MI401 )
+// "RSI" |-> ( MI416 => MI416 )
 
- "ZF" |-> ( _ => #ifMInt (eqMInt(addMInt(MI399, orMInt(MI398, MI398)), mi(bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398))), 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "ZF" |-> ( _ => #ifMInt (eqMInt(addMInt(MI414, MI413), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
-// "RSP" |-> ( MI403 => MI403 )
+// "RSP" |-> ( MI418 => MI418 )
 
-// "R10" |-> ( MI431 => MI431 )
+// "R10" |-> ( MI446 => MI446 )
 
-// "R12" |-> ( MI433 => MI433 )
+// "R12" |-> ( MI448 => MI448 )
 
-// "R11" |-> ( MI432 => MI432 )
+// "R11" |-> ( MI447 => MI447 )
 
- "SF" |-> ( _ => #ifMInt (eqMInt(mi(bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398))), 1), lshrMInt(addMInt(MI399, orMInt(MI398, MI398)),  ( bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398)))  -Int  1 ) )) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "SF" |-> ( _ => #ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI414, MI413), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
-// "R14" |-> ( MI435 => MI435 )
+// "R14" |-> ( MI450 => MI450 )
 
-// "R13" |-> ( MI434 => MI434 )
+// "R13" |-> ( MI449 => MI449 )
 
-// "RDI" |-> ( MI402 => MI402 )
+// "RDI" |-> ( MI417 => MI417 )
 
- "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMask(addMInt(MI399, orMInt(MI398, MI398)), 8, 0), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+ "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI414, MI413), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
 
-// "R15" |-> ( MI436 => MI436 )
+// "R15" |-> ( MI451 => MI451 )
 
- "OF" |-> ( _ => #ifMInt (eqMInt(mi(bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398))), 2), addMInt(xorMInt(lshrMInt(MI399,  ( bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398)))  -Int  1 ) ), lshrMInt(addMInt(MI399, orMInt(MI398, MI398)),  ( bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398)))  -Int  1 ) )), xorMInt(lshrMInt(orMInt(MI398, MI398),  ( bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398)))  -Int  1 ) ), lshrMInt(addMInt(MI399, orMInt(MI398, MI398)),  ( bitwidthMInt(addMInt(MI399, orMInt(MI398, MI398)))  -Int  1 ) )))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "OF" |-> ( _ => #ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI414, 63), lshrMInt(addMInt(MI414, MI413), 63)), xorMInt(lshrMInt(MI413, 63), lshrMInt(addMInt(MI414, MI413), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
 
     ...</regstate>
