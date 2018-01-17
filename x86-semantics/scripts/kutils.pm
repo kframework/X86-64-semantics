@@ -126,6 +126,23 @@ my %subRegToReg = (
     "zf"    => "zf",
     "cf"    => "cf",
     "of"    => "of",
+
+    "rax" => "rax",
+    "rbx" => "rbx",
+    "rcx" => "rcx",
+    "rdx" => "rdx",
+    "rsi" => "rsi",
+    "rdi" => "rdi",
+    "rsp" => "rsp",
+    "rbp" => "rbp",
+    "r8"  => "r8",
+    "r9"  => "r9",
+    "r10" => "r10",
+    "r11" => "r11",
+    "r12" => "r12",
+    "r13" => "r13",
+    "r14" => "r14",
+    "r15" => "r15",
 );
 
 my %regMap = (
@@ -1008,10 +1025,10 @@ sub sanitizeSpecOutput {
 
     for my $line (@lines) {
         chomp $line;
-        if ( $line =~ m/opcode:(.*)/ ) {
+        if ( $line =~ m/^opcode:(.*)/ ) {
             $opcode = utils::trim($1);
         }
-        if ( $line =~ m/instr:(.*)/ ) {
+        if ( $line =~ m/^instr:(.*)/ ) {
             $instr = utils::trim($1);
         }
 
@@ -1050,9 +1067,10 @@ sub sanitizeSpecOutput {
     ## Obtain the correspondence between the generic opcode
     ## and its particular instance.
     my %actual2psedoRegs = ();
-    debugInfo( $instr . "\n", $debugprint );
+    debugInfo( "::" . $instr . "::\n", $debugprint );
 
-    if ( $instr =~ m/(\w+)\s+(\S+)\s+(\S+)\s+(\S+)/ ) {
+    if ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
+        debugInfo( "Three operands\n", $debugprint );
         $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
           "R1";
         $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $3, "%" ) } ) } =
@@ -1060,18 +1078,28 @@ sub sanitizeSpecOutput {
         $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $4, "%" ) } ) } =
           "R3";
     }
-    elsif ( $instr =~ m/(\w+)\s+(\S+)\s+(\S+)/ ) {
+    elsif ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)/ ) {
+        debugInfo(
+            "Two operands::"
+              . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $3, "%" ) } )
+              . ":: \n ",
+            $debugprint
+        );
         $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
           "R1";
         $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $3, "%" ) } ) } =
           "R2";
+
     }
     elsif ( $instr =~ m/(\w+)\s+(\S+)/ ) {
         $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
           "R1";
     }
+
     for my $key ( keys %actual2psedoRegs ) {
-        debugInfo( "::$key::$actual2psedoRegs{$key}::" . "\n", $debugprint );
+        debugInfo( " :: $key::$actual2psedoRegs{$key} :: " . " \n ",
+            $debugprint );
     }
 
     ## Process begin
@@ -1187,7 +1215,7 @@ module $module_name_uc
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (decb $operands .Typedoperands) => .
+    execinstr ($semantic_module_name $operands .Typedoperands) => .
   ...</k>
     <regstate> ...
 $semantics
