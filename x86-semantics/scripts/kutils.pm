@@ -659,7 +659,9 @@ sub find_stratum {
     return ( $depth, $count );
 }
 
+#################################################
 sub getReadMod {
+################################################
     my $opcode     = shift @_;
     my $path       = shift @_;
     my $debugprint = shift @_;
@@ -704,7 +706,9 @@ sub getReadMod {
 
 ## Input: Concrete Instruction.
 ## Output: Read/Write reg set.
+###########################################
 sub instr_to_rwset {
+###########################################
     my $instr = shift @_;
     my $binpath =
       "/home/sdasgup3/Install/strata/stoke/src/ext/x64asm/bin/instr_info";
@@ -999,7 +1003,126 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
     return ( \%rsmap, \%rev_rsmap, \@reglines );
 }
 
+#############################
+## watchdog to check if must != may
+sub processRWSET {
+##############################
+    my $opcode     = shift @_;
+    my $lines_ref  = shift @_;
+    my $debugprint = shift @_;
+    my @lines      = @{$lines_ref};
+
+    my %mayRS  = ();
+    my %mustRS = ();
+    my %mayWS  = ();
+    my %mustWS = ();
+    my %mayUS  = ();
+    my %mustUS = ();
+
+    for my $line (@lines) {
+        chomp $line;
+
+        if ( $line =~ m/(maybe|must) (read|write|undef):\{(.*)\}/ ) {
+            my @regs      = split( / /, $3 );
+            my $mayOrmust = $1;
+            my $RWU       = $2;
+            for my $reg (@regs) {
+                $reg =~ s/%//g;
+                $reg = utils::trim($reg);
+                if ( $RWU eq "read" ) {
+                    if ( $mayOrmust eq "maybe" ) {
+                        $mayRS{ uc( $subRegToReg{$reg} ) } = 1;
+                    }
+                    else {
+                        $mustRS{ uc( $subRegToReg{$reg} ) } = 1;
+                    }
+                }
+                elsif ( $RWU eq "write" ) {
+
+                    if ( $mayOrmust eq "maybe" ) {
+                        $mayWS{ uc( $subRegToReg{$reg} ) } = 1;
+                    }
+                    else {
+                        $mustWS{ uc( $subRegToReg{$reg} ) } = 1;
+                    }
+                }
+                elsif ( $RWU eq "undef" ) {
+
+                    if ( $mayOrmust eq "maybe" ) {
+                        $mayUS{ uc( $subRegToReg{$reg} ) } = 1;
+                    }
+                    else {
+                        $mustUS{ uc( $subRegToReg{$reg} ) } = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    my $alarm = 0;
+    utils::info("$opcode: Check if May == Must");
+    ## Check if may == must for Read Set
+    for my $key ( keys %mayRS ) {
+        if ( !exists $mustRS{$key} ) {
+            $alarm = 1;
+            utils::warnInfo("May Read gte Must Read");
+        }
+    }
+    for my $key ( keys %mustRS ) {
+        if ( !exists $mayRS{$key} ) {
+            $alarm = 1;
+            utils::warnInfo("Must Read gte May Read");
+        }
+    }
+
+    ## Check if may == must for Write Set
+    for my $key ( keys %mayWS ) {
+        if ( !exists $mustWS{$key} ) {
+            $alarm = 1;
+            utils::warnInfo("May Write gte Must Write");
+        }
+    }
+    for my $key ( keys %mustWS ) {
+        if ( !exists $mayWS{$key} ) {
+            $alarm = 1;
+            utils::warnInfo("Must Write gte May Write");
+        }
+    }
+
+    ## Check if may == must for Undef Set
+    for my $key ( keys %mayUS ) {
+        if ( !exists $mustUS{$key} ) {
+            $alarm = 1;
+            utils::warnInfo("May Undef gte Must Undef");
+        }
+    }
+    for my $key ( keys %mustUS ) {
+        if ( !exists $mayUS{$key} ) {
+            $alarm = 1;
+            utils::warnInfo("Must Undef gte May Undef");
+        }
+    }
+
+    if ( 0 == $alarm ) {
+        utils::passInfo("equal");
+    }
+
+    for my $key ( keys %mustRS ) {
+        debugInfo( "::" . $key . "::\n", $debugprint );
+    }
+    for my $key ( keys %mustWS ) {
+        debugInfo( "::" . $key . "::\n", $debugprint );
+    }
+    for my $key ( keys %mustUS ) {
+        debugInfo( "::" . $key . "::\n", $debugprint );
+    }
+    return ( %mustRS, %mustWS, %mustUS );
+
+}
+
+##########################################
 sub sanitizeSpecOutput {
+##########################################
     my (
         $rsmap_ref,    $rev_rsmap_ref, $reglines_ref,
         $specfile_ref, $debugprint_ref
@@ -1016,13 +1139,9 @@ sub sanitizeSpecOutput {
       or die " [sanitizeSpecOutput] cannot open $specfile : $! ";
     my @lines = <$fp>;
 
-    ## Obtain the read/write set
-    my %readSet  = ();
-    my %writeSet = ();
-    my %undefSet = ();
-    my $opcode   = "";
-    my $instr    = "";
-
+    ## Obtain the opcode and instr
+    my $opcode = "";
+    my $instr  = "";
     for my $line (@lines) {
         chomp $line;
         if ( $line =~ m/^opcode:(.*)/ ) {
@@ -1031,38 +1150,11 @@ sub sanitizeSpecOutput {
         if ( $line =~ m/^instr:(.*)/ ) {
             $instr = utils::trim($1);
         }
+    }
 
-        if ( $line =~ m/(maybe|must) read:\{(.*)\}/ ) {
-            my @regs = split( / /, $2 );
-            for my $reg (@regs) {
-                $reg =~ s/%//g;
-                $reg = utils::trim($reg);
-                $readSet{ uc( $subRegToReg{$reg} ) } = 1;
-            }
-        }
-        if ( $line =~ m/(maybe|must) write:\{(.*)\}/ ) {
-            my @regs = split( / /, $2 );
-            for my $reg (@regs) {
-                $reg =~ s/%//g;
-                $reg = utils::trim($reg);
-                $writeSet{ uc( $subRegToReg{$reg} ) } = 1;
-            }
-        }
-        if ( $line =~ m/(maybe|must) undef:\{(.*)\}/ ) {
-            my @regs = split( / /, $2 );
-            for my $reg (@regs) {
-                $reg =~ s/%//g;
-                $reg = utils::trim($reg);
-                $undefSet{ uc( $subRegToReg{$reg} ) } = 1;
-            }
-        }
-    }
-    for my $keys ( keys %readSet ) {
-        debugInfo( "::" . $keys . "::\n", $debugprint );
-    }
-    for my $keys ( keys %writeSet ) {
-        debugInfo( "::" . $keys . "::\n", $debugprint );
-    }
+    ## Obtain the RW set.
+    my ( %readSet, %writeSet, %undefSet ) =
+      processRWSET( $opcode, \@lines, $debugprint );
 
     ## Obtain the correspondence between the generic opcode
     ## and its particular instance.
