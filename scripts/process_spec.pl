@@ -94,7 +94,7 @@ if ( "" ne $kprove ) {
         my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
         my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
         execute(
-"krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
+"time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
             1
         );
     }
