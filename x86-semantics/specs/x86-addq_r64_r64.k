@@ -8,21 +8,21 @@ module ADDQ-R64-R64
     execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "CF" |-> ( _ => #ifMInt ( (  ( ultMInt(addMInt(MI520, MI519), MI520)  orBool  ultMInt(addMInt(MI520, MI519), MI519) )  orBool  ultMInt(addMInt(MI520, MI519), addMInt(MI520, MI519)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "CF" |-> ( _ => #ifMInt ( ( ultMInt(addMInt(MI521, MI520), MI521)  orBool  ultMInt(addMInt(MI521, MI520), MI520) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
- "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI520, MI519), addMInt(MI520, MI519)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+ "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI521, MI520), addMInt(MI521, MI520)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
 
-convToRegKeys(R1) |-> ( MI520 => MI520 )
+convToRegKeys(R1) |-> ( MI521 => MI521 )
 
-convToRegKeys(R2) |-> ( MI519 => addMInt(MI520, MI519) )
+convToRegKeys(R2) |-> ( MI520 => addMInt(MI521, MI520) )
 
- "ZF" |-> ( _ => #ifMInt (eqMInt(addMInt(MI520, MI519), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "ZF" |-> ( _ => #ifMInt (eqMInt(addMInt(MI521, MI520), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
- "SF" |-> ( _ => #ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI520, MI519), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "SF" |-> ( _ => #ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI521, MI520), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
- "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI520, MI519), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+ "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI521, MI520), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
 
- "OF" |-> ( _ => #ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI520, 63), lshrMInt(addMInt(MI520, MI519), 63)), xorMInt(lshrMInt(MI519, 63), lshrMInt(addMInt(MI520, MI519), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "OF" |-> ( _ => #ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI521, 63), lshrMInt(addMInt(MI521, MI520), 63)), xorMInt(lshrMInt(MI520, 63), lshrMInt(addMInt(MI521, MI520), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
 
     ...</regstate>
