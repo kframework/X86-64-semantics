@@ -59,30 +59,29 @@ if ( "" ne $createspec ) {
 
         open( my $fp, ">", $specfile )
           or die "[create_spec] cannot open $specfile: $!";
-        my @instr_arr =
+        my ( $instr_arr_ref, $orig_circuit ) =
           kutils::get_circuit( $opcode, $strata_path, $debugprint );
+        my @instr_arr = @{$instr_arr_ref};
 
-        my $counter   = 0;
+        ## Create the <K> spec code</k>
         my $spec_code = "";
         for my $instr (@instr_arr) {
-            $spec_code =
-                $spec_code
-              . "loc ( mi(64, $counter)) |-> storedinstr ( $instr , .Typedoperands )"
-              . "\n";
-            $counter++;
+            $spec_code = $spec_code . $instr . " ~> ";
         }
-        $spec_code =
-          $spec_code
-          . "loc ( mi(64, $counter)) |-> storedinstr ( nop .Typedoperands )";
+        $spec_code = $spec_code
+          . "execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch";
+
         debugInfo( $spec_code . "\n", $debugprint );
         print $fp kutils::spec_template($spec_code);
 
+        ## Comment section in specfile.
         my ( $targetinstr, $metadata, $rwset ) =
           kutils::getReadMod( $opcode, $instantiated_instr_path, $debugprint );
         print $fp "\n/*" . "\n"
           . "opcode:$opcode" . "\n"
           . "instr:$targetinstr" . "\n"
-          . $rwset . "*/";
+          . $rwset . "\n"
+          . $orig_circuit . "*/";
     }
 }
 

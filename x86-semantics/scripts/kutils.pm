@@ -195,59 +195,16 @@ sub spec_template {
   imports X86-SEMANTICS
 
   rule
-    <k> fetch => exit_0 </k>
+    <k> $spec_code => exit_0 </k>
     <entrypoint> zeroMIntW64 </entrypoint>
     <nextLoc> zeroMIntW64  </nextLoc>
     <memstate>
-      <cmem>
-$spec_code
-      </cmem>
+      <cmem> .Map </cmem>
       <dmem> .Map </dmem>
     </memstate>
 
     <regstate>
-      "RIP" |->    (mi(64, 0) => _)
-
-      "RAX" |->    (mi(64,?I1 :Int):MInt => _ )
-      "RBX" |->    (mi(64,?I2 :Int):MInt => _ )
-      "RCX" |->    (mi(64,?I3 :Int):MInt => _ )
-      "RDX" |->    (mi(64,?I4 :Int):MInt => _ )
-      "RSI" |->    (mi(64,?I5 :Int):MInt => _ )
-      "RDI" |->    (mi(64,?I6 :Int):MInt => _ )
-      "RSP" |->    (mi(64,?I7 :Int):MInt => _ )
-      "RBP" |->    (mi(64,?I8 :Int):MInt => _ )
-      "R8"  |->    (mi(64,?I9 :Int):MInt => _ )
-      "R9"  |->    (mi(64,?I10:Int):MInt => _ )
-      "R10" |->    (mi(64,?I11:Int):MInt => _ )
-      "R11" |->    (mi(64,?I12:Int):MInt => _ )
-      "R12" |->    (mi(64,?I13:Int):MInt => _ )
-      "R13" |->    (mi(64,?I14:Int):MInt => _ )
-      "R14" |->    (mi(64,?I15:Int):MInt => _ )
-      "R15" |->    (mi(64,?I16:Int):MInt => _ )
-      "CF" |->     (mi(1, ?I17:Int):MInt => _ )
-      "PF" |->     (mi(1, ?I18:Int):MInt => _ )
-      "AF" |->     (mi(1, ?I19:Int):MInt => _ )
-      "ZF" |->     (mi(1, ?I20:Int):MInt => _ )
-      "SF" |->     (mi(1, ?I21:Int):MInt => _ )
-      "OF" |->     (mi(1, ?I22:Int):MInt => _ )
-      /*
-      "YMM0"  |->  (?MI23:MInt => _ )
-      "YMM1"  |->  (?MI24:MInt => _ )
-      "YMM2"  |->  (?MI25:MInt => _ )
-      "YMM3"  |->  (?MI26:MInt => _ )
-      "YMM4"  |->  (?MI27:MInt => _ )
-      "YMM5"  |->  (?MI28:MInt => _ )
-      "YMM6"  |->  (?MI29:MInt => _ )
-      "YMM7"  |->  (?MI30:MInt => _ )
-      "YMM8"  |->  (?MI31:MInt => _ )
-      "YMM9"  |->  (?MI32:MInt => _ )
-      "YMM10" |->  (?MI33:MInt => _ )
-      "YMM11" |->  (?MI34:MInt => _ )
-      "YMM12" |->  (?MI35:MInt => _ )
-      "YMM13" |->  (?MI36:MInt => _ )
-      "YMM14" |->  (?MI37:MInt => _ )
-      "YMM15" |->  (?MI38:MInt => _ )
-      */
+      regstateInitConfig => regstateFinalConfig
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
 endmodule);
@@ -543,17 +500,14 @@ sub find_stratum {
         debugInfo( $line . "\n", $debugprint );
 
         if ( $line =~ m/^(.*)#.*OPC=(.*)/ ) {
-            my $instr = $1;
-
-            my $test = $2;
-            $instr = utils::trim($instr);
+            my $instr = utils::trim($1);
+            my $test  = utils::trim($2);
 
             # Instr might contain immediates with $, need to
             # escape that.
             $instr =~ s/\$/\\\$/g;
 
-            $test =~ s/\s*//g;
-
+            ## Alternative way to find opcode
             my $encode = instr_to_opcode( $instr, $debugprint );
 
             if ( $test ne $encode ) {
@@ -732,16 +686,117 @@ sub instr_to_rwset {
     return $returnInfo;
 }
 
+##################################################
+sub replaceCallWithPseudoInsr {
+##################################################
+    my $instr      = shift @_;
+    my $debugprint = shift @_;
+
+    debugInfo( "::" . $instr . "::", $debugprint );
+
+    if ( $instr =~ m/\.clear_(\w+)/ ) {
+        my $flag = $1;
+        return "setFlag(mi(1, 0), " . "\"" . uc($flag) . "\"" . ")";
+    }
+
+    if ( $instr =~ m/\.set_(of|cf|zf|pf|af|sf)/ ) {
+        my $flag = $1;
+        return "setFlag(mi(1, 1), \"" . uc($flag) . "\")";
+    }
+
+    if ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
+        my $r    = "%" . $1;
+        my $flag = $2;
+        return "writeRegisterToFlag(" . $r . ", \"" . uc($flag) . "\")";
+    }
+
+    if ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
+        my $flag = $1;
+        my $r    = "%" . $2;
+        return "readFlagToRegister(\"" . uc($flag) . "\", " . $r . ")";
+    }
+
+    if ( $instr =~ m/set_szp_for_(\w+)/ ) {
+        my $r = "%" . $1;
+        return "setSZPForRegister(" . $r . ")";
+    }
+
+    if ( $instr =~ m/move_(\w+)_to_byte_(\d+)_of_(\w+)/ ) {
+        my $r8     = "%" . $1;
+        my $bitnum = $2;
+        my $rN     = "%" . $3;
+        return "movByteToPosOfReg(" . $r8 . ", " . $bitnum . ", " . $rN . ")";
+    }
+
+    if ( $instr =~ m/move_byte_(\d+)_of_(\w+)_to_(\w+)/ ) {
+        my $bitnum = $1;
+        my $rN     = "%" . $2;
+        my $r8     = "%" . $3;
+        return "movPosOfRegToByte(" . $bitnum . ", " . $rN . ", " . $r8 . ")";
+    }
+
+    if ( $instr =~ m/move_128_032_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
+        my $x  = "%" . $1;
+        my $r1 = "%" . $2;
+        my $r2 = "%" . $3;
+        my $r3 = "%" . $4;
+        my $r4 = "%" . $5;
+        return
+            "splitXmmtoRegsIn32("
+          . $x . ", "
+          . $r1 . ", "
+          . $r2 . ", "
+          . $r3 . ", "
+          . $r4 . " )";
+    }
+
+    if ( $instr =~ m/move_032_128_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
+        my $x1 = "%" . $1;
+        my $x2 = "%" . $2;
+        my $x3 = "%" . $3;
+        my $x4 = "%" . $4;
+        my $x5 = "%" . $5;
+        return
+            "combineRegsIn32ToXmm("
+          . $x1 . ", "
+          . $x2 . ", "
+          . $x3 . ", "
+          . $x4 . ", "
+          . $x5 . ")";
+    }
+
+    if ( $instr =~ m/move_(\d+)_(\d+)_(\w+)_(\w+)_(\w+)/ ) {
+        my $m  = $1;
+        my $n  = $2;
+        my $r1 = "%" . $3;
+        my $r2 = "%" . $4;
+        my $r3 = "%" . $5;
+        if ( $m == 2 * $n ) {
+            return "split2NToN(" . $r1 . ", " . $r2 . ", " . $r3 . ")";
+        }
+
+        if ( $n == 2 * $m ) {
+            return "combineNTo2N(" . $r1 . ", " . $r2 . ", " . $r3 . ")";
+        }
+    }
+
+    print("Unknown call label: $instr\n");
+    return "";
+}
+
+##################################################
 sub get_circuit {
-    my $opcode      = shift @_;
-    my $strata_path = shift @_;
-    my $debugprint  = shift @_;
-    my @instr_arr   = ();
+##################################################
+    my $opcode       = shift @_;
+    my $strata_path  = shift @_;
+    my $debugprint   = shift @_;
+    my @instr_arr    = ();
+    my $orig_circuit = "";
 
     my $filepath = $strata_path . "/" . $opcode . ".s";
     debugInfo( "In file : " . $filepath . "\n", $debugprint );
     open( my $fp, "<", $filepath )
-      or die "[find_stratum]cannot open $filepath: $!";
+      or die "[get_circuit]cannot open $filepath: $!";
 
     my @lines = <$fp>;
     for my $line (@lines) {
@@ -751,22 +806,32 @@ sub get_circuit {
             next;
         }
 
-        debugInfo( $line . "\n", $debugprint );
+        debugInfo( "Line::" . $line . "\n", $debugprint );
 
         if ( $line =~ m/^(.*)#.*OPC=(.*)/ ) {
-            my $instr = $1;
-
-            my $test = $2;
+            my $instr  = $1;
+            my $encode = $2;
             $instr = utils::trim($instr);
 
-            #$instr =~ s/\$/\\\$/g;
+            if ( $instr =~ m/callq/ ) {
+                $instr = replaceCallWithPseudoInsr( $instr, $debugprint );
+            }
+            else {
+                if ( opcHasOperand($encode) ) {
+                    $instr = "execinstr ( $instr , .Typedoperands )";
+                }
+                else {
+                    $instr = "execinstr ( $instr  .Typedoperands )";
+                }
+            }
 
-            #debugInfo( $instr . "::\n", $debugprint );
+            debugInfo( "Instr::" . $instr . "::\n", $debugprint );
             push @instr_arr, $instr;
+            $orig_circuit = $orig_circuit . "circuit:" . $line . "\n";
         }
     }
     debugInfo( join( ' ', @instr_arr, ) . "::\n", $debugprint );
-    return @instr_arr;
+    return ( \@instr_arr, $orig_circuit );
 }
 
 sub mixfix2infix {
@@ -934,7 +999,9 @@ sub selectbraces {
     return ( $op_arg, $rest );
 }
 
+######################################
 sub processSpecOutput {
+######################################
     my $specoutput = shift @_;
     my $debugprint = shift @_;
 
@@ -999,7 +1066,9 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
     }
 
     #print join( "\n", @reglines );
-
+    if ( scalar(@reglines) == 0 ) {
+        failInfo("processSpecOutput: No FinalTerm in $specoutput");
+    }
     return ( \%rsmap, \%rev_rsmap, \@reglines );
 }
 
@@ -1062,45 +1131,54 @@ sub processRWSET {
     my $alarm = 0;
     utils::info("$opcode: Check if May == Must");
     ## Check if may == must for Read Set
+    my %RS = ();
     for my $key ( keys %mayRS ) {
         if ( !exists $mustRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Read gte Must Read");
+            utils::warnInfo("May Read gt Must Read");
         }
+        $RS{$key} = 1;
     }
     for my $key ( keys %mustRS ) {
         if ( !exists $mayRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Read gte May Read");
+            utils::warnInfo("Must Read gt May Read");
         }
+        $RS{$key} = 1;
     }
 
     ## Check if may == must for Write Set
+    my %WS = ();
     for my $key ( keys %mayWS ) {
         if ( !exists $mustWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Write gte Must Write");
+            utils::warnInfo("May Write gt Must Write");
         }
+        $WS{$key} = 1;
     }
     for my $key ( keys %mustWS ) {
         if ( !exists $mayWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Write gte May Write");
+            utils::warnInfo("Must Write gt May Write");
         }
+        $WS{$key} = 1;
     }
 
     ## Check if may == must for Undef Set
+    my %US = ();
     for my $key ( keys %mayUS ) {
         if ( !exists $mustUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Undef gte Must Undef");
+            utils::warnInfo("May Undef gt Must Undef");
         }
+        $US{$key} = 1;
     }
     for my $key ( keys %mustUS ) {
         if ( !exists $mayUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Undef gte May Undef");
+            utils::warnInfo("Must Undef gt May Undef");
         }
+        $US{$key} = 1;
     }
 
     if ( 0 == $alarm ) {
@@ -1116,7 +1194,8 @@ sub processRWSET {
     for my $key ( keys %mustUS ) {
         debugInfo( "::" . $key . "::\n", $debugprint );
     }
-    return ( %mustRS, %mustWS, %mustUS );
+
+    return ( %RS, %WS, %US );
 
 }
 
@@ -1273,6 +1352,14 @@ sub sanitizeSpecOutput {
 
     debugInfo( $returnInfo, $debugprint );
     return $returnInfo;
+}
+
+sub opcHasOperand {
+    my $opcode = shift @_;
+    chomp $opcode;
+    $opcode = utils::trim($opcode);
+    my @components = split( /_/, $opcode );
+    return scalar(@components) > 1;
 }
 
 sub writeKDefn {
