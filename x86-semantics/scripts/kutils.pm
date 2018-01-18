@@ -1241,7 +1241,7 @@ sub sanitizeSpecOutput {
                 and !exists( $writeSet{$reg} )
                 and !exists( $undefSet{$reg} ) )
             {
-                $returnInfo = $returnInfo . "//" . $result . "\n\n";
+                #$returnInfo = $returnInfo . "//" . $result . "\n\n";
             }
             else {
                 ## Convert concrete reg to generic ones.
