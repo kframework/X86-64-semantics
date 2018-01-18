@@ -48,6 +48,7 @@ module MINT-LEMMAS
   // ultMInt
   rule ultMInt(_, MI) =>  false                         
     requires  eqMInt(MI, mi(bitwidthMInt(MI), 0))
+  rule ultMInt(MI:MInt, MI:MInt) =>  false                         
 
 
   // addMInt
