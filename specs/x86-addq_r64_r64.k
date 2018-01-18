@@ -8,49 +8,21 @@ module ADDQ-R64-R64
     execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-// "RBP" |-> ( MI419 => MI419 )
+ "CF" |-> ( _ => #ifMInt ( (  ( ultMInt(addMInt(MI520, MI519), MI520)  orBool  ultMInt(addMInt(MI520, MI519), MI519) )  orBool  ultMInt(addMInt(MI520, MI519), addMInt(MI520, MI519)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
- "CF" |-> ( _ => #ifMInt ( (  ( ultMInt(addMInt(MI414, MI413), MI414)  orBool  ultMInt(addMInt(MI414, MI413), MI413) )  orBool  ultMInt(addMInt(MI414, MI413), addMInt(MI414, MI413)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI520, MI519), addMInt(MI520, MI519)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
 
- "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI414, MI413), addMInt(MI414, MI413)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+convToRegKeys(R1) |-> ( MI520 => MI520 )
 
-convToRegKeys(R1) |-> ( MI414 => MI414 )
+convToRegKeys(R2) |-> ( MI519 => addMInt(MI520, MI519) )
 
-// "R8" |-> ( MI420 => MI420 )
+ "ZF" |-> ( _ => #ifMInt (eqMInt(addMInt(MI520, MI519), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
-// "RDX" |-> ( MI415 => MI415 )
+ "SF" |-> ( _ => #ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI520, MI519), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
-// "R9" |-> ( MI445 => MI445 )
+ "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI520, MI519), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
 
-// "RAX" |-> ( MI412 => MI412 )
-
-convToRegKeys(R2) |-> ( MI413 => addMInt(MI414, MI413) )
-
-// "RSI" |-> ( MI416 => MI416 )
-
- "ZF" |-> ( _ => #ifMInt (eqMInt(addMInt(MI414, MI413), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
-
-// "RSP" |-> ( MI418 => MI418 )
-
-// "R10" |-> ( MI446 => MI446 )
-
-// "R12" |-> ( MI448 => MI448 )
-
-// "R11" |-> ( MI447 => MI447 )
-
- "SF" |-> ( _ => #ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI414, MI413), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
-
-// "R14" |-> ( MI450 => MI450 )
-
-// "R13" |-> ( MI449 => MI449 )
-
-// "RDI" |-> ( MI417 => MI417 )
-
- "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI414, MI413), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
-
-// "R15" |-> ( MI451 => MI451 )
-
- "OF" |-> ( _ => #ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI414, 63), lshrMInt(addMInt(MI414, MI413), 63)), xorMInt(lshrMInt(MI413, 63), lshrMInt(addMInt(MI414, MI413), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "OF" |-> ( _ => #ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI520, 63), lshrMInt(addMInt(MI520, MI519), 63)), xorMInt(lshrMInt(MI519, 63), lshrMInt(addMInt(MI520, MI519), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
 
 
     ...</regstate>
