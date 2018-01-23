@@ -1,0 +1,32 @@
+module X86-SEMANTICS-SPEC
+  imports X86-SEMANTICS
+
+  rule
+    <k>
+execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
+ => exit_0
+    </k>
+    <entrypoint> zeroMIntW64 </entrypoint>
+    <nextLoc> zeroMIntW64  </nextLoc>
+    <memstate>
+      <cmem> .Map </cmem>
+      <dmem> .Map </dmem>
+    </memstate>
+
+    <regstate>
+      regstateInitConfig => regstateFinalConfig
+    </regstate>
+    <regstatequeue> .List => _ </regstatequeue>
+endmodule
+/*
+opcode:nopl_r32
+instr:nopl %ebx
+maybe read:{ }
+must read:{ }
+maybe write:{ }
+must write:{ }
+maybe undef:{ }
+must undef:{ }
+required flags:{ nopl }
+
+*/
