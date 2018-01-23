@@ -736,6 +736,9 @@ sub instr_to_rwset {
     my $instr = shift @_;
     my $binpath =
       "/home/sdasgup3/Install/strata/stoke/src/ext/x64asm/bin/instr_info";
+
+    # Escape the $ sign (if present)
+    $instr =~ s/\$/\\\$/g;
     execute("echo $instr | $binpath 1>/tmp/xxx 2>&1");
     my $debugprint = shift @_;
     my $returnInfo = "";
@@ -752,7 +755,8 @@ sub instr_to_rwset {
             $returnInfo = $returnInfo . utils::trim($line) . "\n";
         }
     }
-    debugInfo( "[instr_to_rwset] rw set: $returnInfo" . "\n", $debugprint );
+    debugInfo( "[instr_to_rwset] rw set: $instr::$returnInfo" . "\n",
+        $debugprint );
     return $returnInfo;
 }
 
@@ -1158,9 +1162,7 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
                 }
             }
 
-            for my $key ( keys %rsmap ) {
-                print "$key -> " . $rsmap{$key} . "\n";
-            }
+            printMap(\%rsmap, "REG -> NUM", $debugprint);
         }
 
         # Obtaining the final values of registers.
@@ -1414,8 +1416,8 @@ sub selectRules {
         }
     }
 
-    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n", 1 ); #undo
-    utils::printMap( \%deleteIndex, "Deleted Index", 1 );
+    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n", $debugprint );
+    utils::printMap( \%deleteIndex, "Deleted Index", $debugprint );
 
     ## Remove the included elements from the workList
     my @prunedWL = ();
@@ -1428,8 +1430,8 @@ sub selectRules {
         }
     }
 
-    utils::printArray( \@prunedWL, "Pruned WL", 1 );    ##undo
-    utils::printMap( \%collectedMINUMs, "Used MINUMS", 1 );
+    utils::printArray( \@prunedWL, "Pruned WL", $debugprint );
+    utils::printMap( \%collectedMINUMs, "Used MINUMS", $debugprint );
 
     ## At this point pruned workList includes thoses rules which are not in read/write/undef sets
     ## But they might include the definition of minums used in those included.
@@ -1573,12 +1575,12 @@ sub sanitizeSpecOutput {
         push @workList, $result;
     }
 
-    utils::printArray( \@workList, "Init Worklist", 1 );    #undo
+    utils::printArray( \@workList, "Init Worklist", $debugprint );
 
     my $returnInfo = selectRules( \@workList, \%readSet, \%writeSet, \%undefSet,
         \%actual2psedoRegs, \%rsmap, \%rev_rsmap, $debugprint );
 
-    debugInfo( "Rules Before GOPT: $returnInfo\n", 1 );     #undo
+    debugInfo( "Rules Before GOPT: $returnInfo\n", $debugprint );
 
     # Global Optimzations
     ## "R" |-> (MINUM => ...) and MINUM does not occur elsewhere then Replace
@@ -1593,7 +1595,7 @@ sub sanitizeSpecOutput {
 
     ## Remove or comment out the reglines which are not written
 
-    debugInfo( "Rules After GOPT: $returnInfo\n", 1 );    #undo
+    debugInfo( "Rules After GOPT: $returnInfo\n", $debugprint ); 
     return $returnInfo;
 }
 
@@ -1616,6 +1618,9 @@ sub getRegSort {
     if ( $reg eq "ymm" ) {
         return "Ymm";
     }
+    if ( $reg eq "one" ) {
+        return "\$0x1";
+    }
     return uc($reg);
 }
 
@@ -1631,18 +1636,67 @@ sub writeKDefn {
     my $semantic_module_name_uc = uc($semantic_module_name);
     my $operands                = "";
     if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
+        my $op3 = $2;
+        my $op2 = $3;
+        my $op1 = $4;
 
-        $operands =
-            "R1:"
-          . getRegSort($2) . ", R2:"
-          . getRegSort($3) . ", R3:"
-          . getRegSort($4) . ", ";
+        my $sort = getRegSort($op1);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $operands = "R1:$sort";
+        }
+        else {
+            $operands = $sort;
+        }
+
+        $sort = getRegSort($op2);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $operands = $operands . ", R2:$sort";
+        }
+        else {
+            $operands = $operands . ", " . $sort;
+        }
+
+        $sort = getRegSort($op3);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $operands = $operands . ", R3:$sort";
+        }
+        else {
+            $operands = $operands . ", " . $sort;
+        }
+        $operands = $operands . ", ";
     }
     elsif ( $opcode =~ m/(\w+)_(.*)_(.*)/ ) {
-        $operands = "R1:" . getRegSort($2) . ", R2:" . getRegSort($3) . ", ";
+        my $op2 = $2;
+        my $op1 = $3;
+        my $sort = getRegSort($op1);
+#print "::$sort\::\n";
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $operands = "R1:$sort";
+        }
+        else {
+            $operands = $sort;
+        }
+
+#print $op2. "\n";
+        $sort = getRegSort($op2);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $operands = $operands . ", R2:$sort";
+        }
+        else {
+            $operands = $operands . ", " . $sort;
+        }
+        $operands = $operands . ", ";
     }
     elsif ( $opcode =~ m/(\w+)_(.*)/ ) {
-        $operands = "R1:" . getRegSort($2) . ", ";
+        my $op1 = $2;
+        my $sort = getRegSort($op1);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $operands = "R1:$sort";
+        }
+        else {
+            $operands = $sort;
+        }
+        $operands = $operands . ", ";
     }
 
     open( my $fp, ">", $koutput )
@@ -1695,6 +1749,13 @@ sub createSpecFile {
     ## Comment section in specfile.
     my ( $targetinstr, $metadata, $rwset ) =
       kutils::getReadMod( $opcode, $instantiated_instr_path, $debugprint );
+
+    if ( "" eq $targetinstr or "" eq $rwset ) {
+        utils::failInfo(
+"$opcode: Either of targetinstr/rwset is missing from comment section"
+        );
+    }
+
     print $fp "\n/*" . "\n"
       . "opcode:$opcode" . "\n"
       . "instr:$targetinstr" . "\n"

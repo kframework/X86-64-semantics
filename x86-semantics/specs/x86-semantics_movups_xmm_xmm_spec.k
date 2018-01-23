@@ -1,0 +1,36 @@
+module X86-SEMANTICS-SPEC
+  imports X86-SEMANTICS
+
+  rule
+    <k>
+splitXmmToRegsIn32( %xmm2, %xmm4, %xmm5, %xmm6, %xmm7 ) ~>
+combineRegsIn32ToXmm( %xmm4, %xmm5, %xmm6, %xmm7, %xmm1 ) ~>
+execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
+ => exit_0
+    </k>
+    <entrypoint> zeroMIntW64 </entrypoint>
+    <nextLoc> zeroMIntW64  </nextLoc>
+    <memstate>
+      <cmem> .Map </cmem>
+      <dmem> .Map </dmem>
+    </memstate>
+
+    <regstate>
+      regstateInitConfig => regstateFinalConfig
+    </regstate>
+    <regstatequeue> .List => _ </regstatequeue>
+endmodule
+/*
+opcode:movups_xmm_xmm
+instr:movups %xmm2, %xmm1
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %xmm1 }
+must write:{ %xmm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ sse }
+
+circuit:callq .move_128_032_xmm2_xmm4_xmm5_xmm6_xmm7  #  1     0    5      OPC=callq_label
+circuit:callq .move_032_128_xmm4_xmm5_xmm6_xmm7_xmm1  #  2     0x5  5      OPC=callq_label
+*/
