@@ -56,10 +56,10 @@ module SPLIT-COMBINE-XMMS
   // moves the lowest 32 bits of xmm to R1, the next 32 bits to
   //  R2, the next to R3 and the highest 32 bits to R4.
   // ----------------------------------------------------------------------------
-  syntax Abstractinstruction ::= splitXmmtoRegsIn32(Xmm, Register, Register, Register, Register)
+  syntax Abstractinstruction ::= splitXmmToRegsIn32(Xmm, Register, Register, Register, Register)
 
   rule <k>
-    splitXmmtoRegsIn32(X, R1, R2, R3, R4) => 
+    splitXmmToRegsIn32(X, R1, R2, R3, R4) => 
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32,  0),  getRegisterSize(R1)), R1) ~>
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32, 32),  getRegisterSize(R2)), R2) ~>
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32, 64),  getRegisterSize(R3)), R3) ~>
@@ -115,7 +115,7 @@ module SPLIT-COMBINE-2N
         ) 
   ...</k>
     <regstate> RSMap </regstate>
-      requires getRegisterSize(R1) ==Int (getRegisterSize(R2) +Int getRegisterSize(R3))
+      //requires getRegisterSize(R1) ==Int (getRegisterSize(R2) +Int getRegisterSize(R3))
 
   // ----------------------------------------------------------------------------
   // moves the lowest n bits of R1 to R3[n-1:0]
@@ -131,7 +131,7 @@ module SPLIT-COMBINE-2N
       ) 
   ...</k>
     <regstate> RSMap </regstate>
-      requires getRegisterSize(R3) ==Int (getRegisterSize(R1) +Int getRegisterSize(R2))
+      // requires getRegisterSize(R3) ==Int (getRegisterSize(R1) +Int getRegisterSize(R2))
 
 
 endmodule

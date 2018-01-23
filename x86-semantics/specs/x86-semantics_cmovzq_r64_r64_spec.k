@@ -3,8 +3,7 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-execinstr ( orq %rbx, %rbx , .Typedoperands ) ~>
-execinstr ( adcq %rcx, %rbx , .Typedoperands ) ~>
+execinstr ( cmoveq %rcx, %rbx , .Typedoperands ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -21,14 +20,15 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     <regstatequeue> .List => _ </regstatequeue>
 endmodule
 /*
-opcode:addq_r64_r64
-instr:addq %rcx, %rbx
-maybe read:{ %rcx %rbx }
-must read:{ %rcx %rbx }
-maybe write:{ %rbx %cf %pf %af %zf %sf %of }
-must write:{ %rbx %cf %pf %af %zf %sf %of }
+opcode:cmovzq_r64_r64
+instr:cmovzq %rcx, %rbx
+maybe read:{ %rcx %zf }
+must read:{ %rcx %zf }
+maybe write:{ %rbx }
+must write:{ }
 maybe undef:{ }
 must undef:{ }
-required flags:{ }
+required flags:{ cmov }
 
+circuit:cmoveq %rcx, %rbx  #  1     0    4      OPC=cmoveq_r64_r64
 */

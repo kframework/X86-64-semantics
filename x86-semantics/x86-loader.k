@@ -19,6 +19,8 @@ module X86-LOADER
 
   /*@
     Load the instructions into Code memory.
+    The reason for parsing instruction as (OpC OpR) is to 
+    avoid on instructions like .section ...
   */
   rule  <k> OpC:Opcode OpR:Typedoperands => . ...</k>
         <cmem>... .Map => loc(L) |-> storedinstr(OpC OpR) ...</cmem>

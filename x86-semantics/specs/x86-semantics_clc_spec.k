@@ -3,10 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-execinstr ( orq %rbx, %rbx , .Typedoperands ) ~>
-execinstr ( adcq %rcx, %rbx , .Typedoperands ) ~>
+execinstr ( xorq %rax, %rax , .Typedoperands ) ~>
+execinstr ( adcb %al, %al , .Typedoperands ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
- => exit_0
+ => exit_0 
     </k>
     <entrypoint> zeroMIntW64 </entrypoint>
     <nextLoc> zeroMIntW64  </nextLoc>
@@ -21,14 +21,16 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     <regstatequeue> .List => _ </regstatequeue>
 endmodule
 /*
-opcode:addq_r64_r64
-instr:addq %rcx, %rbx
-maybe read:{ %rcx %rbx }
-must read:{ %rcx %rbx }
-maybe write:{ %rbx %cf %pf %af %zf %sf %of }
-must write:{ %rbx %cf %pf %af %zf %sf %of }
+opcode:clc
+instr:clc
+maybe read:{ }
+must read:{ }
+maybe write:{ %cf }
+must write:{ %cf }
 maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:  xorq %rax, %rax  #  1     0    3      OPC=xorq_r64_r64  
+circuit:  adcb %al, %al    #  2     0x3  2      OPC=adcb_r8_r8    
 */

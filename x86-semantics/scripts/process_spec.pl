@@ -27,12 +27,16 @@ my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 my $specdir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/specs/";
-my $help    = "";
-my $stratum = "";
-my $readmod = "";
+my $derivedInstructions =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/derivedInstructions/";
+my $help        = "";
+my $stratum     = "";
+my $readmod     = "";
 my $createspec  = "";
 my $postprocess = "";
 my $kprove      = "";
+my $getoplist   = "";
+my $all         = "";
 
 GetOptions(
     "help"          => \$help,
@@ -40,8 +44,10 @@ GetOptions(
     "stratum"       => \$stratum,
     "readmod"       => \$readmod,
     "createspec"    => \$createspec,
+    "getoplist"     => \$getoplist,
     "kprove"        => \$kprove,
     "postprocess"   => \$postprocess,
+    "all"           => \$all,
     "strata_path:s" => \$strata_path,
 ) or die("Error in command line arguments\n");
 
@@ -52,78 +58,43 @@ my $debugprint = 0;
 ## Create a spec file
 if ( "" ne $createspec ) {
     for my $opcode (@lines) {
-        chomp $opcode;
-
-        my $specfile = "$specdir/x86-semantics_${opcode}_spec.k";
-        utils::info("createspec $opcode: $specfile");
-
-        open( my $fp, ">", $specfile )
-          or die "[create_spec] cannot open $specfile: $!";
-        my ( $instr_arr_ref, $orig_circuit ) =
-          kutils::get_circuit( $opcode, $strata_path, $debugprint );
-        my @instr_arr = @{$instr_arr_ref};
-
-        ## Create the <K> spec code</k>
-        my $spec_code = "";
-        for my $instr (@instr_arr) {
-            $spec_code = $spec_code . $instr . " ~> ";
-        }
-        $spec_code = $spec_code
-          . "execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch";
-
-        debugInfo( $spec_code . "\n", $debugprint );
-        print $fp kutils::spec_template($spec_code);
-
-        ## Comment section in specfile.
-        my ( $targetinstr, $metadata, $rwset ) =
-          kutils::getReadMod( $opcode, $instantiated_instr_path, $debugprint );
-        print $fp "\n/*" . "\n"
-          . "opcode:$opcode" . "\n"
-          . "instr:$targetinstr" . "\n"
-          . $rwset . "\n"
-          . $orig_circuit . "*/";
+        kutils::createSpecFile( $opcode, $strata_path, $specdir,
+            $instantiated_instr_path, $debugprint );
     }
 }
 
 ## Run krpove on spec file
 if ( "" ne $kprove ) {
     for my $opcode (@lines) {
-        chomp $opcode;
-        utils::info("kprove $opcode");
-        my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
-        execute(
-"time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
-            1
-        );
+        kutils::runkprove( $opcode, $specdir, $debugprint );
     }
 }
 
 ## Post process
 if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
-        chomp $opcode;
-        my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
-        my $koutput    = "$specdir/x86-${opcode}.k";
-
-        # Map to store the register value binding
-        utils::info("processSpecOutput $opcode");
-        my ( $rsmap_ref, $rev_rsmap_ref, $reglines_ref ) =
-          kutils::processSpecOutput( $specoutput, $debugprint );
-
-        # Do simple sanitization and mixfix to infix conversion.
-        utils::info("sanitizeSpecOutput $opcode");
-        my $returnInfo = kutils::sanitizeSpecOutput(
-            $rsmap_ref, $rev_rsmap_ref, $reglines_ref,
-            \$specfile, \$debugprint
-        );
-
-        # write to k file.
-        utils::info("writeKDefn $opcode: $koutput");
-        kutils::writeKDefn( $returnInfo, $koutput, $opcode, $debugprint );
+        kutils::postProcess( $opcode, $specdir, $derivedInstructions,
+            $debugprint );
     }
-    exit(0);
+}
+
+if ( "" ne $all ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
+        kutils::createSpecFile( $opcode, $strata_path, $specdir,
+            $instantiated_instr_path, $debugprint );
+        kutils::runkprove( $opcode, $specdir, $debugprint );
+        kutils::postProcess( $opcode, $specdir, $derivedInstructions,
+            $debugprint );
+        print "\n";
+    }
 }
 
 ## Get the stratum and num of instr of a particular circuit
@@ -155,6 +126,18 @@ if ( "" ne $readmod ) {
           . $instr . " \n "
           . $metadata . " \n "
           . $rwset . " \n ";
+    }
+    exit(0);
+}
+
+## Get all the registers involved in a circuit
+if ( "" ne $getoplist ) {
+
+    #info(" Using strata_path = $strata_path ");
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $opList = kutils::getOpList( $opcode, $strata_path, $debugprint );
+        print $opList;
     }
     exit(0);
 }
