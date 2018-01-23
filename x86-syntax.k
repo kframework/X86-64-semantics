@@ -55,11 +55,21 @@ module X86-SYNTAX
                   | "cvtpd2dq"        [token]
                   | "cvtps2dq"        [token]
                   | "cvtpd2ps"        [token]
-                  | "cvtps2pd"        [token]
+                  | "vcvtps2pd"       [token]
                   | "cvttpd2dq"       [token]
                   | "cvttps2dq"       [token]
                   // Derived
                   | "decb"            [token]
+                  | "addq"  [token]
+                  | "andnq" [token]
+                  | "cbtw" [token]
+                  | "clc" [token]
+                  | "cltq" [token]
+                  | "cmovzq" [token]
+                  | "cmovzw" [token]
+                  | "cvtss2sd" [token]
+                  | "decb" [token]
+                  | "incl" [token]
 
 
   syntax HexConstant ::=  r"[0-9a-fA-F]*" [token]

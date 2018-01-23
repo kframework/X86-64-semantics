@@ -13,8 +13,9 @@ module MINT-WRAPPER-SYNTAX
   /*@
     If Else Then for Sorts 
   */
-  syntax MInt ::= "#ifMInt" Bool "#then" MInt "#else" MInt "#fi" [function, smtlib(ite)]
-  syntax MInt ::= "#ifBool" Bool "#then" Bool "#else" Bool "#fi" [function, smtlib(ite)]
+  syntax MInt ::= "#ifMInt"   Bool "#then" MInt  "#else" MInt  "#fi" [function, smtlib(ite)]
+  syntax Bool ::= "#ifBool"   Bool "#then" Bool  "#else" Bool  "#fi" [function, smtlib(ite)]
+  syntax MInts ::= "#ifMInts" Bool "#then" MInts "#else" MInts "#fi" [function, smtlib(ite)]
 
   /*@
     Sort List
@@ -161,7 +162,7 @@ module MINT-WRAPPER-SYNTAX
 
   /*@ 
     popCount(MI, N): Count the number of set bits, V, in MI and
-    create a Mint(N, V)
+    create a MInt(N, V)
   */
   syntax Int ::= popCount(MInt) [function]
   syntax Int ::= countOnes(MInt, Int) [function]
@@ -229,6 +230,8 @@ module MINT-WRAPPER
   rule #ifMInt B #then _ #else W #fi => W requires notBool B
   rule #ifBool B #then W #else _ #fi => W requires B
   rule #ifBool B #then _ #else W #fi => W requires notBool B
+  rule #ifMInts B #then W #else _ #fi => W requires B
+  rule #ifMInts B #then _ #else W #fi => W requires notBool B
 
   /*@
     Convert MInts to Signed Ints.
@@ -258,7 +261,7 @@ module MINT-WRAPPER
     Covert Floats to MInts.
   */
   rule convertFpsToMInts(F Fs, W) => Float2MInt(F, W) convertFpsToMInts(Fs, W)
-  rule convertFpsToMints(.Floats, _) => .MInts
+  rule convertFpsToMInts(.Floats, _) => .MInts
 
   /*@
     Covert Ints to MInts.
@@ -276,7 +279,7 @@ module MINT-WRAPPER
     splitVector(MI, W): Splits the Bitvector MI into a List of
     bitwidthMInt(MI)/W Bitvectors each of width W.
   */
-  rule splitVector(MI, W) => #if bitwidthMInt(MI) >=Int W andBool 0 =/=Int W 
+  rule splitVector(MI, W) => #ifMInts bitwidthMInt(MI) >=Int W andBool 0 =/=Int W 
                               #then 
                                 splitVectorHelper(MI, W, 0) 
                               #else 
@@ -456,7 +459,7 @@ module MINT-WRAPPER
   
   /*@ 
     popCount(MI, N): Count the number of set bits, V, in MI and
-    create a Mint(N, V)
+    create a MINt(N, V)
   */
   rule popCount(MI:MInt) => countOnes(MI, 0)
 

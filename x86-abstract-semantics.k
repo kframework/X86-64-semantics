@@ -289,24 +289,10 @@ module X86-ABSTRACT-SEMANTICS
       ("ZF" |->     (mi(1,   ?I20:Int):MInt))
       ("SF" |->     (mi(1,   ?I21:Int):MInt))
       ("OF" |->     (mi(1,   ?I22:Int):MInt))
-      /*
-      ("YMM0"  |->  (mi(256, ?I23:Int):MInt))
       ("YMM1"  |->  (mi(256, ?I24:Int):MInt))
       ("YMM2"  |->  (mi(256, ?I25:Int):MInt))
-      ("YMM3"  |->  (mi(256, ?I26:Int):MInt))
-      ("YMM4"  |->  (mi(256, ?I27:Int):MInt))
-      ("YMM5"  |->  (mi(256, ?I28:Int):MInt))
-      ("YMM6"  |->  (mi(256, ?I29:Int):MInt))
-      ("YMM7"  |->  (mi(256, ?I30:Int):MInt))
-      ("YMM8"  |->  (mi(256, ?I31:Int):MInt))
-      ("YMM9"  |->  (mi(256, ?I32:Int):MInt))
-      ("YMM10" |->  (mi(256, ?I33:Int):MInt))
-      ("YMM11" |->  (mi(256, ?I34:Int):MInt))
       ("YMM12" |->  (mi(256, ?I35:Int):MInt))
       ("YMM13" |->  (mi(256, ?I36:Int):MInt))
-      ("YMM14" |->  (mi(256, ?I37:Int):MInt))
-      ("YMM15" |->  (mi(256, ?I38:Int):MInt))
-      */
 
     rule regstateFinalConfig =>  
       ("RIP" |->    ?K1:K) 
@@ -332,24 +318,10 @@ module X86-ABSTRACT-SEMANTICS
       ("ZF" |->     ?K21:K)
       ("SF" |->     ?K22:K)
       ("OF" |->     ?K23:K)
-      /*
-      ("YMM0"  |->  ?K24:K)
       ("YMM1"  |->  ?K25:K)
       ("YMM2"  |->  ?K26:K)
-      ("YMM3"  |->  ?K27:K)
-      ("YMM4"  |->  ?K28:K)
-      ("YMM5"  |->  ?K29:K)
-      ("YMM6"  |->  ?K30:K)
-      ("YMM7"  |->  ?K31:K)
-      ("YMM8"  |->  ?K32:K)
-      ("YMM9"  |->  ?K33:K)
-      ("YMM10" |->  ?K34:K)
-      ("YMM11" |->  ?K35:K)
       ("YMM12" |->  ?K36:K)
       ("YMM13" |->  ?K37:K)
-      ("YMM14" |->  ?K38:K)
-      ("YMM15" |->  ?K39:K)
-      */
 endmodule
 
 

@@ -3,8 +3,10 @@ requires "x86-configuration.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - vcvtdq2pd_ymm_ymm, vcvtdq2ps_ymm_ymm,  32 Int -> 64 doubles or 32 floats
-  - vcvtpd2dq_xmm_ymm, vcvtps2dq_ymm_ymm   64 doubles or 32 floats -> 32 Ints
   - vcvtpd2ps_xmm_ymm,, vcvtps2pd_ymm_xmm, doubles <-> floats
+
+  // Not implemented
+  - vcvtpd2dq_xmm_ymm, vcvtps2dq_ymm_ymm   64 doubles or 32 floats -> 32 Ints
   - vcvttpd2dq_xmm_ymm, vcvttps2dq_ymm_ymm,
 
 */
@@ -15,7 +17,7 @@ module VCVTDQ2PD-YMM-XMM
   rule <k>
     execinstr(cvtdq2pd  X:Xmm,  Y:Ymm, .Typedoperands) =>
       setRegisterValue(
-          joinVector(convertFpsToMints(convertIntsToFps(convertMIntsToSInts(splitVector(getRegisterValue(X, RSMap), 32)), 53, 11), 64)),  
+          joinVector(convertFpsToMInts(convertIntsToFps(convertMIntsToSInts(splitVector(getRegisterValue(X, RSMap), 32)), 53, 11), 64)),  
           Y)  
   ...</k>
     <regstate> RSMap</regstate>
@@ -27,7 +29,7 @@ module VCVTDQ2PS-YMM-YMM
   rule <k>
     execinstr(cvtdq2ps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       setRegisterValue(
-          joinVector(convertFpsToMints(convertIntsToFps(convertMIntsToSInts(splitVector(getRegisterValue(Y1, RSMap), 32)), 24, 8), 32)),  
+          joinVector(convertFpsToMInts(convertIntsToFps(convertMIntsToSInts(splitVector(getRegisterValue(Y1, RSMap), 32)), 24, 8), 32)),  
           Y2)  
   ...</k>
     <regstate> RSMap</regstate>
@@ -37,9 +39,9 @@ module VCVTPS2PD-YMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(cvtps2pd  X:Xmm,  Y:Ymm, .Typedoperands) =>
+    execinstr(vcvtps2pd  X:Xmm,  Y:Ymm, .Typedoperands) =>
       setRegisterValue(
-          joinVector(convertFpsToMints(convertFloatsToDoubles(convertMIntsToFps(splitVector(getRegisterValue(X, RSMap), 32), 24, 8)), 64)),  
+          joinVector(convertFpsToMInts(convertFloatsToDoubles(convertMIntsToFps(splitVector(getRegisterValue(X, RSMap), 32), 24, 8)), 64)),  
           Y)
   ...</k>
     <regstate> RSMap</regstate>

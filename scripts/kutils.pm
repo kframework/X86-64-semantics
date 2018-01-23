@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template get_circuit selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -126,23 +126,22 @@ my %subRegToReg = (
     "zf"    => "zf",
     "cf"    => "cf",
     "of"    => "of",
-
-    "rax" => "rax",
-    "rbx" => "rbx",
-    "rcx" => "rcx",
-    "rdx" => "rdx",
-    "rsi" => "rsi",
-    "rdi" => "rdi",
-    "rsp" => "rsp",
-    "rbp" => "rbp",
-    "r8"  => "r8",
-    "r9"  => "r9",
-    "r10" => "r10",
-    "r11" => "r11",
-    "r12" => "r12",
-    "r13" => "r13",
-    "r14" => "r14",
-    "r15" => "r15",
+    "rax"   => "rax",
+    "rbx"   => "rbx",
+    "rcx"   => "rcx",
+    "rdx"   => "rdx",
+    "rsi"   => "rsi",
+    "rdi"   => "rdi",
+    "rsp"   => "rsp",
+    "rbp"   => "rbp",
+    "r8"    => "r8",
+    "r9"    => "r9",
+    "r10"   => "r10",
+    "r11"   => "r11",
+    "r12"   => "r12",
+    "r13"   => "r13",
+    "r14"   => "r14",
+    "r15"   => "r15",
 );
 
 my %regMap = (
@@ -195,7 +194,9 @@ sub spec_template {
   imports X86-SEMANTICS
 
   rule
-    <k> $spec_code => exit_0 </k>
+    <k>
+$spec_code => exit_0
+    </k>
     <entrypoint> zeroMIntW64 </entrypoint>
     <nextLoc> zeroMIntW64  </nextLoc>
     <memstate>
@@ -477,6 +478,74 @@ sub instr_to_opcode {
     return "No Opcode";
 }
 
+####################################
+sub checkBaseInstr {
+###################################
+    my $encode = shift @_;
+    if (
+           $encode eq "adcw_r16_r16"
+        or $encode eq "adcl_r32_r32"
+        or $encode eq "adcq_r64_r64"
+        or $encode eq "adcb_r8_r8"
+        or $encode eq "cmoveq_r64_r64"
+        or $encode eq "movq_r64_imm32"
+        or $encode eq "movq_r64_imm64"
+        or $encode eq "movq_r64_r64"
+        or $encode eq "movb_r8_rh"
+        or $encode eq "movb_rh_r8"
+        or $encode eq "movswq_r64_r16"
+        or $encode eq "movsbq_r64_r8"
+        or $encode eq "movslq_r64_r32"
+        or $encode eq "orq_r64_r64"
+        or $encode eq "popcntq_r64_r64"
+        or $encode eq "salq_r64_cl"
+        or $encode eq "sarq_r64_cl"
+        or $encode eq "shrq_r64_cl"
+        or $encode eq "xorq_r64_r64"
+        or $encode eq "vaddpd_ymm_ymm_ymm"
+        or $encode eq "vaddps_ymm_ymm_ymm"
+        or $encode eq "vsubpd_ymm_ymm_ymm"
+        or $encode eq "vsubps_ymm_ymm_ymm"
+        or $encode eq "vmulpd_ymm_ymm_ymm"
+        or $encode eq "vmulps_ymm_ymm_ymm"
+        or $encode eq "vrcpps_ymm_ymm"
+        or $encode eq "vdivpd_ymm_ymm_ymm"
+        or $encode eq "vdivps_ymm_ymm_ymm"
+        or $encode eq "vmaxpd_ymm_ymm_ymm"
+        or $encode eq "vmaxps_ymm_ymm_ymm"
+        or $encode eq "vminpd_ymm_ymm_ymm"
+        or $encode eq "vminps_ymm_ymm_ymm"
+        or $encode eq "vrsqrtps_ymm_ymm"
+        or $encode eq "vsqrtpd_ymm_ymm"
+        or $encode eq "vsqrtps_ymm_ymm"
+        or $encode eq "vzeroall"
+        or $encode eq "vfmadd132pd_ymm_ymm_ymm"
+        or $encode eq "vfmadd132ps_ymm_ymm_ymm"
+        or $encode eq "vfmsub132pd_ymm_ymm_ymm"
+        or $encode eq "vfmsub132ps_ymm_ymm_ymm"
+        or $encode eq "vfnmadd132pd_ymm_ymm_ymm"
+        or $encode eq "vfnmadd132ps_ymm_ymm_ymm"
+        or $encode eq "vfnmsub132pd_ymm_ymm_ymm"
+        or $encode eq "vfnmsub132ps_ymm_ymm_ymm"
+        or $encode eq "vcvtdq2pd_ymm_ymm"
+        or $encode eq "vcvtdq2ps_ymm_ymm"
+
+        #or $encode eq "vcvtpd2dq_xmm_ymm"
+        #or $encode eq "vcvtpd2ps_xmm_ymm"
+        #or $encode eq "vcvtps2dq_ymm_ymm"
+        or $encode eq "vcvtps2pd_ymm_xmm"
+
+        #or $encode eq "vcvttpd2dq_xmm_ymm"
+        #or $encode eq "vcvttps2dq_ymm_ymm"
+        or $encode eq "callq_label"
+      )
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 sub find_stratum {
     my $opcode      = shift @_;
     my $strata_path = shift @_;
@@ -537,59 +606,8 @@ sub find_stratum {
 
             debugInfo( $instr . "::" . $encode . "::\n", $debugprint );
 
-            if (   $encode eq "adcw_r16_r16"
-                or $encode eq "adcl_r32_r32"
-                or $encode eq "adcq_r64_r64"
-                or $encode eq "adcb_r8_r8"
-                or $encode eq "cmoveq_r64_r64"
-                or $encode eq "movq_r64_imm32"
-                or $encode eq "movq_r64_imm64"
-                or $encode eq "movq_r64_r64"
-                or $encode eq "movb_r8_rh"
-                or $encode eq "movb_rh_r8"
-                or $encode eq "movswq_r64_r16"
-                or $encode eq "movsbq_r64_r8"
-                or $encode eq "movslq_r64_r32"
-                or $encode eq "orq_r64_r64"
-                or $encode eq "popcntq_r64_r64"
-                or $encode eq "salq_r64_cl"
-                or $encode eq "sarq_r64_cl"
-                or $encode eq "shrq_r64_cl"
-                or $encode eq "xorq_r64_r64"
-                or $encode eq "vaddpd_ymm_ymm_ymm"
-                or $encode eq "vaddps_ymm_ymm_ymm"
-                or $encode eq "vsubpd_ymm_ymm_ymm"
-                or $encode eq "vsubps_ymm_ymm_ymm"
-                or $encode eq "vmulpd_ymm_ymm_ymm"
-                or $encode eq "vmulps_ymm_ymm_ymm"
-                or $encode eq "vrcpps_ymm_ymm"
-                or $encode eq "vdivpd_ymm_ymm_ymm"
-                or $encode eq "vdivps_ymm_ymm_ymm"
-                or $encode eq "vmaxpd_ymm_ymm_ymm"
-                or $encode eq "vmaxps_ymm_ymm_ymm"
-                or $encode eq "vminpd_ymm_ymm_ymm"
-                or $encode eq "vminps_ymm_ymm_ymm"
-                or $encode eq "vrsqrtps_ymm_ymm"
-                or $encode eq "vsqrtpd_ymm_ymm"
-                or $encode eq "vsqrtps_ymm_ymm"
-                or $encode eq "vzeroall"
-                or $encode eq "vfmadd132pd_ymm_ymm_ymm"
-                or $encode eq "vfmadd132ps_ymm_ymm_ymm"
-                or $encode eq "vfmsub132pd_ymm_ymm_ymm"
-                or $encode eq "vfmsub132ps_ymm_ymm_ymm"
-                or $encode eq "vfnmadd132pd_ymm_ymm_ymm"
-                or $encode eq "vfnmadd132ps_ymm_ymm_ymm"
-                or $encode eq "vfnmsub132pd_ymm_ymm_ymm"
-                or $encode eq "vfnmsub132ps_ymm_ymm_ymm"
-                or $encode eq "vcvtdq2pd_ymm_ymm"
-                or $encode eq "vcvtdq2ps_ymm_ymm"
-                or $encode eq "vcvtpd2dq_xmm_ymm"
-                or $encode eq "vcvtpd2ps_xmm_ymm"
-                or $encode eq "vcvtps2dq_ymm_ymm"
-                or $encode eq "vcvtps2pd_ymm_xmm"
-                or $encode eq "vcvttpd2dq_xmm_ymm"
-                or $encode eq "vcvttps2dq_ymm_ymm" )
-            {
+            if ( checkBaseInstr($encode) ) {
+
                 #print $line . "\n";
                 $count++;
             }
@@ -658,6 +676,58 @@ sub getReadMod {
     return ( $instr, $metadata, $rwset );
 }
 
+#####################################
+sub instrGetOperands {
+#####################################
+    my $instr      = shift @_;
+    my @returnInfo = ();
+    my @components = split( / /, $instr );
+    if ( scalar(@components) == 1 ) {
+        return @returnInfo;
+    }
+
+    for ( my $i = 1 ; $i < scalar(@components) ; $i++ ) {
+        my $opr = $components[$i];
+        $opr = utils::trim( $opr, "," );
+        push @returnInfo, $opr;
+    }
+
+    return @returnInfo;
+}
+
+#################################################
+sub getOpList {
+################################################
+    my $opcode     = shift @_;
+    my $path       = shift @_;
+    my $debugprint = shift @_;
+
+    my $filepath = $path . "/" . $opcode . ".s";
+
+    open( my $fp, "<", $filepath ) or die "cannot open $filepath: $!";
+    my @lines      = <$fp>;
+    my $returnInfo = "$opcode=>";
+
+    for my $line (@lines) {
+        chomp $line;
+
+        if ( $line =~ m/\.text|\.globl|\.type|^#.*|\.target|\.size|retq/ ) {
+            next;
+        }
+
+        if ( $line =~ m/^(.*)#.*OPC=(.*)/ ) {
+            $returnInfo = $returnInfo . " ";
+            my $instr  = $1;
+            my $encode = $2;
+            $instr = utils::trim($instr);
+            my @opList = instrGetOperands($instr);
+            $returnInfo = $returnInfo . join( " ", @opList );
+        }
+    }
+    $returnInfo = $returnInfo . "\n";
+    return $returnInfo;
+}
+
 ## Input: Concrete Instruction.
 ## Output: Read/Write reg set.
 ###########################################
@@ -696,43 +766,43 @@ sub replaceCallWithPseudoInsr {
 
     if ( $instr =~ m/\.clear_(\w+)/ ) {
         my $flag = $1;
-        return "setFlag(mi(1, 0), " . "\"" . uc($flag) . "\"" . ")";
+        return "setFlag( mi(1, 0), " . "\"" . uc($flag) . "\")";
     }
 
     if ( $instr =~ m/\.set_(of|cf|zf|pf|af|sf)/ ) {
         my $flag = $1;
-        return "setFlag(mi(1, 1), \"" . uc($flag) . "\")";
+        return "setFlag( mi(1, 1), \"" . uc($flag) . "\")";
     }
 
     if ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
         my $r    = "%" . $1;
         my $flag = $2;
-        return "writeRegisterToFlag(" . $r . ", \"" . uc($flag) . "\")";
+        return "writeRegisterToflag( " . $r . ", \"" . uc($flag) . "\")";
     }
 
     if ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
         my $flag = $1;
         my $r    = "%" . $2;
-        return "readFlagToRegister(\"" . uc($flag) . "\", " . $r . ")";
+        return "readFlagToRegister( \"" . uc($flag) . "\", " . $r . " )";
     }
 
     if ( $instr =~ m/set_szp_for_(\w+)/ ) {
         my $r = "%" . $1;
-        return "setSZPForRegister(" . $r . ")";
+        return "setSZPForRegister( " . $r . " )";
     }
 
     if ( $instr =~ m/move_(\w+)_to_byte_(\d+)_of_(\w+)/ ) {
         my $r8     = "%" . $1;
         my $bitnum = $2;
         my $rN     = "%" . $3;
-        return "movByteToPosOfReg(" . $r8 . ", " . $bitnum . ", " . $rN . ")";
+        return "movByteToPosOfReg( " . $r8 . ", " . $bitnum . ", " . $rN . " )";
     }
 
     if ( $instr =~ m/move_byte_(\d+)_of_(\w+)_to_(\w+)/ ) {
         my $bitnum = $1;
         my $rN     = "%" . $2;
         my $r8     = "%" . $3;
-        return "movPosOfRegToByte(" . $bitnum . ", " . $rN . ", " . $r8 . ")";
+        return "movPosOfRegToByte( " . $bitnum . ", " . $rN . ", " . $r8 . " )";
     }
 
     if ( $instr =~ m/move_128_032_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
@@ -742,7 +812,7 @@ sub replaceCallWithPseudoInsr {
         my $r3 = "%" . $4;
         my $r4 = "%" . $5;
         return
-            "splitXmmtoRegsIn32("
+            "splitXmmToRegsIn32( "
           . $x . ", "
           . $r1 . ", "
           . $r2 . ", "
@@ -757,12 +827,12 @@ sub replaceCallWithPseudoInsr {
         my $x4 = "%" . $4;
         my $x5 = "%" . $5;
         return
-            "combineRegsIn32ToXmm("
+            "combineRegsIn32ToXmm( "
           . $x1 . ", "
           . $x2 . ", "
           . $x3 . ", "
           . $x4 . ", "
-          . $x5 . ")";
+          . $x5 . " )";
     }
 
     if ( $instr =~ m/move_(\d+)_(\d+)_(\w+)_(\w+)_(\w+)/ ) {
@@ -772,11 +842,11 @@ sub replaceCallWithPseudoInsr {
         my $r2 = "%" . $4;
         my $r3 = "%" . $5;
         if ( $m == 2 * $n ) {
-            return "split2NToN(" . $r1 . ", " . $r2 . ", " . $r3 . ")";
+            return "split2NToN( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
         }
 
         if ( $n == 2 * $m ) {
-            return "combineNTo2N(" . $r1 . ", " . $r2 . ", " . $r3 . ")";
+            return "combineNTo2N( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
         }
     }
 
@@ -784,20 +854,22 @@ sub replaceCallWithPseudoInsr {
     return "";
 }
 
-##################################################
-sub get_circuit {
-##################################################
+########################################
+sub getInstrFromCircuit {
+#####################################
     my $opcode       = shift @_;
     my $strata_path  = shift @_;
     my $debugprint   = shift @_;
     my @instr_arr    = ();
-    my $orig_circuit = "";
+    my @encode_arr   = ();
+    my @orig_circuit = ();
 
     my $filepath = $strata_path . "/" . $opcode . ".s";
     debugInfo( "In file : " . $filepath . "\n", $debugprint );
     open( my $fp, "<", $filepath )
-      or die "[get_circuit]cannot open $filepath: $!";
+      or die "[getInstrFromCircuit] cannot open $filepath: $!";
 
+    utils::info("Reading circuit from $filepath");
     my @lines = <$fp>;
     for my $line (@lines) {
         chomp $line;
@@ -811,38 +883,74 @@ sub get_circuit {
         if ( $line =~ m/^(.*)#.*OPC=(.*)/ ) {
             my $instr  = $1;
             my $encode = $2;
-            $instr = utils::trim($instr);
-
-            if ( $instr =~ m/callq/ ) {
-                $instr = replaceCallWithPseudoInsr( $instr, $debugprint );
-            }
-            else {
-                if ( opcHasOperand($encode) ) {
-                    $instr = "execinstr ( $instr , .Typedoperands )";
-                }
-                else {
-                    $instr = "execinstr ( $instr  .Typedoperands )";
-                }
-            }
-
-            debugInfo( "Instr::" . $instr . "::\n", $debugprint );
-            push @instr_arr, $instr;
-            $orig_circuit = $orig_circuit . "circuit:" . $line . "\n";
+            $instr  = utils::trim($instr);
+            $encode = utils::trim($encode);
+            $line   = utils::trim($line);
+            push @instr_arr,    $instr;
+            push @encode_arr,   $encode;
+            push @orig_circuit, $line;
         }
     }
-    debugInfo( join( ' ', @instr_arr, ) . "::\n", $debugprint );
-    return ( \@instr_arr, $orig_circuit );
+    return \@instr_arr, \@encode_arr, \@orig_circuit;
+}
+
+##################################################
+sub getSpecCode {
+##################################################
+    my $opcode      = shift @_;
+    my $strata_path = shift @_;
+    my $debugprint  = shift @_;
+
+    my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
+      getInstrFromCircuit( $opcode, $strata_path, $debugprint );
+    my @instr_arr        = @{$instr_arr_ref};
+    my @encode_arr       = @{$encode_arr_ref};
+    my @orig_circuit_arr = @{$orig_circuit_ref};
+
+    my $orig_circuit = "";
+    for my $val (@orig_circuit_arr) {
+        $orig_circuit = $orig_circuit . "circuit:" . $val . "\n";
+    }
+
+    my $spec_code = "";
+    for ( my $i = 0 ; $i < scalar(@instr_arr) ; $i++ ) {
+        my $instr  = $instr_arr[$i];
+        my $encode = $encode_arr[$i];
+
+        if ( $instr =~ m/callq/ ) {
+            $instr = replaceCallWithPseudoInsr( $instr, $debugprint );
+            $spec_code = $spec_code . $instr . " ~>\n";
+        }
+        else {
+            if ( opcHasOperand($encode) ) {
+                $spec_code =
+                  $spec_code
+                  . "execinstr ( $instr , .Typedoperands )" . " ~>\n";
+            }
+            else {
+                $spec_code =
+                  $spec_code . "execinstr ( $instr  .Typedoperands )" . " ~>\n";
+            }
+        }
+        debugInfo( "Instr::" . $instr . "::\n", $debugprint );
+    }
+
+    $spec_code = $spec_code
+      . "execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch" . "\n";
+    debugInfo( $spec_code . "\n", $debugprint );
+
+    return ( $spec_code, $orig_circuit );
 }
 
 sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
-    my $bin_op      = (qr/orBool|==K|\+Int|\-Int|/);
+    my $bin_op      = (qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int/);
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
     while (1) {
-        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool)$terniary_op(.+)/ ) {
+        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|ifMInts)$terniary_op(.+)/ ) {
             my $pre  = $1;
             my $opr  = $2;
             my $post = $3;
@@ -863,6 +971,7 @@ sub mixfix2infix {
                 $explicitCast = ":>Bool";
             }
 
+            #print "\nBefore:" . $arg . "\n";
             if ( $explicitCast eq "" ) {
                 $arg =
                     $pre
@@ -888,7 +997,7 @@ sub mixfix2infix {
                   . $rest;
             }
 
-            #print "\n" . $arg . "\n";
+            #print "\nAfter:" . $arg . "\n";
         }
         elsif ( $arg =~ m/(.+)_($bin_op)\_(.+)/ ) {
 
@@ -996,6 +1105,13 @@ sub selectbraces {
     }
 
     $op_arg =~ s/\((.*)\)/$1/ if $remove == 1;
+
+    ## Handling ():>Bool
+    if ( $rest =~ m/^:>Bool/ ) {
+        $rest =~ s/^:>Bool//;
+        $op_arg = $op_arg . ":>Bool";
+    }
+
     return ( $op_arg, $rest );
 }
 
@@ -1042,9 +1158,9 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
                 }
             }
 
-            #for my $key ( keys %rsmap ) {
-            #    print "$key -> " . $rsmap{$key} . "\n";
-            #}
+            for my $key ( keys %rsmap ) {
+                print "$key -> " . $rsmap{$key} . "\n";
+            }
         }
 
         # Obtaining the final values of registers.
@@ -1098,6 +1214,11 @@ sub processRWSET {
             for my $reg (@regs) {
                 $reg =~ s/%//g;
                 $reg = utils::trim($reg);
+
+                if ( "" eq $reg ) {
+                    next;
+                }
+
                 if ( $RWU eq "read" ) {
                     if ( $mayOrmust eq "maybe" ) {
                         $mayRS{ uc( $subRegToReg{$reg} ) } = 1;
@@ -1105,6 +1226,7 @@ sub processRWSET {
                     else {
                         $mustRS{ uc( $subRegToReg{$reg} ) } = 1;
                     }
+
                 }
                 elsif ( $RWU eq "write" ) {
 
@@ -1195,8 +1317,139 @@ sub processRWSET {
         debugInfo( "::" . $key . "::\n", $debugprint );
     }
 
-    return ( %RS, %WS, %US );
+    return ( \%RS, \%WS, \%US );
 
+}
+
+sub selectRules {
+    my $workList_ref         = shift @_;
+    my $readSet_ref          = shift @_;
+    my $writeSet_ref         = shift @_;
+    my $undefSet_ref         = shift @_;
+    my $actual2psedoRegs_ref = shift @_;
+    my $rsmap_ref            = shift @_;
+    my $rev_rsmap_ref        = shift @_;
+    my $debugprint           = shift @_;
+
+    my @workList         = @{$workList_ref};
+    my %readSet          = %{$readSet_ref};
+    my %writeSet         = %{$writeSet_ref};
+    my %undefSet         = %{$undefSet_ref};
+    my %actual2psedoRegs = %{$actual2psedoRegs_ref};
+    my %rsmap            = %{$rsmap_ref};
+    my %rev_rsmap        = %{$rev_rsmap_ref};
+
+    my $returnInfo      = "";
+    my %deleteIndex     = ();
+    my %collectedMINUMs = ();
+
+    for ( my $i = 0 ; $i < scalar(@workList) ; $i++ ) {
+        my $result = $workList[$i];
+        if ( $result =~ m/"(\w+)" \|-> (.*)/ ) {
+            my $reg = $1;
+            my $val = $2;
+
+            ## If the register is not in read/write/undef sets, remove it.
+            if (    !exists( $readSet{$reg} )
+                and !exists( $writeSet{$reg} )
+                and !exists( $undefSet{$reg} ) )
+            {
+                #$returnInfo = $returnInfo . "//" . $result . "\n\n";
+                next;
+            }
+
+            #push @deleteIndex, $i;
+            $deleteIndex{$i} = 1;
+            ## If the register is write or undef sets, include it
+            if ( exists $undefSet{$reg} ) {
+                $returnInfo =
+                  $returnInfo
+                  . " \"$reg\" |-> (MI$rsmap{$reg} => undef)" . "\n\n";
+                next;
+            }
+
+            if ( exists( $writeSet{$reg} ) ) {
+
+                ## Convert concrete reg to generic ones.
+                if ( exists $actual2psedoRegs{$reg} ) {
+                    $returnInfo =
+                        $returnInfo
+                      . "convToRegKeys($actual2psedoRegs{$reg}) |-> $val"
+                      . "\n\n";
+                }
+                else {
+                    ## Implicit registers inc flags
+                    $returnInfo = $returnInfo . $result . "\n\n";
+                }
+
+                ## Check the val part to collect the MINUMs
+                ## This denotes the minums used in the included rule section.
+                my @MINUMS = $val =~ m/MI\d+/g;
+                for my $minum (@MINUMS) {
+                    $collectedMINUMs{$minum} = 1;
+                }
+
+                next;
+
+            }
+
+            ## exists($readSet{$reg} and !exists(write and undef set))
+            ## Strata generated formulas agrees wih the target's write
+            ## sets only => Even the read set can clobbered
+            ## For example if R1 is in read set but nit in write set, then the following
+            ## convToRegKeys(R1) |-> ( MI550 => xorMInt(MI549, orMInt(MI549, MI550)) )
+            ## need to converted to
+            ## convToRegKeys(R1) |-> ( MI550 => MI550 )
+            if ( exists $actual2psedoRegs{$reg} ) {
+                $returnInfo =
+                    $returnInfo
+                  . "convToRegKeys($actual2psedoRegs{$reg}) |-> (MI$rsmap{$reg} => MI$rsmap{$reg})"
+                  . "\n\n";
+            }
+            else {
+                $returnInfo =
+                  $returnInfo
+                  . " \"$reg\" |-> (MI$rsmap{$reg} => MI$rsmap{$reg})" . "\n\n";
+            }
+        }
+    }
+
+    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n", 1 ); #undo
+    utils::printMap( \%deleteIndex, "Deleted Index", 1 );
+
+    ## Remove the included elements from the workList
+    my @prunedWL = ();
+    for ( my $i = 0 ; $i < scalar(@workList) ; $i++ ) {
+        if ( exists $deleteIndex{$i} ) {
+
+        }
+        else {
+            push @prunedWL, $workList[$i];
+        }
+    }
+
+    utils::printArray( \@prunedWL, "Pruned WL", 1 );    ##undo
+    utils::printMap( \%collectedMINUMs, "Used MINUMS", 1 );
+
+    ## At this point pruned workList includes thoses rules which are not in read/write/undef sets
+    ## But they might include the definition of minums used in those included.
+    ## We need to include those definitions
+    for my $result (@prunedWL) {
+        if ( $result =~ m/"(\w+)" \|-> \(\s*(MI\d+)\s*=> .*/ ) {
+            my $reg       = $1;
+            my $defnminum = $2;
+            my $val       = $3;
+
+            ## If the register is not in read/write/undef sets, remove it.
+            if ( exists( $collectedMINUMs{$defnminum} ) ) {
+                $returnInfo =
+                  $returnInfo
+                  . " \"$reg\" |-> ($defnminum => $defnminum)" . "\n\n";
+            }
+        }
+    }
+
+    return $returnInfo;
 }
 
 ##########################################
@@ -1211,8 +1464,6 @@ sub sanitizeSpecOutput {
     my @reglines   = @{$reglines_ref};
     my $specfile   = ${$specfile_ref};
     my $debugprint = ${$debugprint_ref};
-
-    my $returnInfo = "";
 
     open( my $fp, "<", $specfile )
       or die " [sanitizeSpecOutput] cannot open $specfile : $! ";
@@ -1232,8 +1483,11 @@ sub sanitizeSpecOutput {
     }
 
     ## Obtain the RW set.
-    my ( %readSet, %writeSet, %undefSet ) =
+    my ( $readSet_ref, $writeSet_ref, $undefSet_ref ) =
       processRWSET( $opcode, \@lines, $debugprint );
+    my %readSet  = %{$readSet_ref};
+    my %writeSet = %{$writeSet_ref};
+    my %undefSet = %{$undefSet_ref};
 
     ## Obtain the correspondence between the generic opcode
     ## and its particular instance.
@@ -1274,6 +1528,8 @@ sub sanitizeSpecOutput {
     }
 
     ## Process begin
+    ## stage 1
+    my @workList = ();
     for my $line (@reglines) {
         chomp $line;
 
@@ -1292,14 +1548,15 @@ sub sanitizeSpecOutput {
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/_(\d+):Int\@INT-SYNTAX/_$1/g;
         $mod =~ s/MInt\@MINT\(#"(\d+)'(\d+)"\)/mi($1, $2)/g;
+        $mod =~ s/\.List\{"mintlist"\}\(\.KList\@BASIC-K\)/.MInts/g;
         $mod =~ s/\(#"(\w+)"\)/"$1"/g;
         $mod =~ s/\($//g;
 
         my $result = "";
 
-        debugInfo( "Stage 1: " . $mod . "\n\n", $debugprint );
+        debugInfo( "Stage 1.1: " . $mod . "\n\n", $debugprint );
         $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
-        debugInfo( "Stage 2: " . $mod . "\n\n", $debugprint );
+        debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
 
         if ( $mod =~ /_/ ) {
             $result = mixfix2infix( $mod, $debugprint );
@@ -1309,33 +1566,19 @@ sub sanitizeSpecOutput {
         }
 
         # Local Optimzations
-        ## Replace mi(64, _NUM) => MINUM
-        $result =~ s/mi\(64, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
+        ## Replace mi(W, _NUM) => MINUM
+        $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
+        debugInfo( "Result:$result\n", $debugprint );
 
-        ## If the register is not in read/write/undef sets, remove it.
-        if ( $result =~ m/"(\w+)" \|-> (.*)/ ) {
-            my $reg = $1;
-            my $val = $2;
-            if (    !exists( $readSet{$reg} )
-                and !exists( $writeSet{$reg} )
-                and !exists( $undefSet{$reg} ) )
-            {
-                #$returnInfo = $returnInfo . "//" . $result . "\n\n";
-            }
-            else {
-                ## Convert concrete reg to generic ones.
-                if ( exists $actual2psedoRegs{$reg} ) {
-                    $returnInfo =
-                        $returnInfo
-                      . "convToRegKeys($actual2psedoRegs{$reg}) |-> $val"
-                      . "\n\n";
-                }
-                else {
-                    $returnInfo = $returnInfo . $result . "\n\n";
-                }
-            }
-        }
+        push @workList, $result;
     }
+
+    utils::printArray( \@workList, "Init Worklist", 1 );    #undo
+
+    my $returnInfo = selectRules( \@workList, \%readSet, \%writeSet, \%undefSet,
+        \%actual2psedoRegs, \%rsmap, \%rev_rsmap, $debugprint );
+
+    debugInfo( "Rules Before GOPT: $returnInfo\n", 1 );     #undo
 
     # Global Optimzations
     ## "R" |-> (MINUM => ...) and MINUM does not occur elsewhere then Replace
@@ -1350,7 +1593,7 @@ sub sanitizeSpecOutput {
 
     ## Remove or comment out the reglines which are not written
 
-    debugInfo( $returnInfo, $debugprint );
+    debugInfo( "Rules After GOPT: $returnInfo\n", 1 );    #undo
     return $returnInfo;
 }
 
@@ -1360,6 +1603,20 @@ sub opcHasOperand {
     $opcode = utils::trim($opcode);
     my @components = split( /_/, $opcode );
     return scalar(@components) > 1;
+}
+
+sub getRegSort {
+    my $reg = shift @_;
+
+    chomp $reg;
+
+    if ( $reg eq "xmm" ) {
+        return "Xmm";
+    }
+    if ( $reg eq "ymm" ) {
+        return "Ymm";
+    }
+    return uc($reg);
 }
 
 sub writeKDefn {
@@ -1374,14 +1631,18 @@ sub writeKDefn {
     my $semantic_module_name_uc = uc($semantic_module_name);
     my $operands                = "";
     if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
+
         $operands =
-          "R1:" . uc($2) . ", R2:" . uc($3) . ", R3:" . uc($4) . ", ";
+            "R1:"
+          . getRegSort($2) . ", R2:"
+          . getRegSort($3) . ", R3:"
+          . getRegSort($4) . ", ";
     }
     elsif ( $opcode =~ m/(\w+)_(.*)_(.*)/ ) {
-        $operands = "R1:" . uc($2) . ", R2:" . uc($3) . ", ";
+        $operands = "R1:" . getRegSort($2) . ", R2:" . getRegSort($3) . ", ";
     }
     elsif ( $opcode =~ m/(\w+)_(.*)/ ) {
-        $operands = "R1:" . uc($2) . ", ";
+        $operands = "R1:" . getRegSort($2) . ", ";
     }
 
     open( my $fp, ">", $koutput )
@@ -1407,6 +1668,114 @@ endmodule
   );
 
     print $fp $template;
+}
+
+sub createSpecFile {
+    my $opcode                  = shift @_;
+    my $strata_path             = shift @_;
+    my $specdir                 = shift @_;
+    my $instantiated_instr_path = shift @_;
+    my $debugprint              = shift @_;
+
+    chomp $opcode;
+
+    my $specfile = "$specdir/x86-semantics_${opcode}_spec.k";
+    utils::info("createspec $opcode: $specfile");
+
+    open( my $fp, ">", $specfile )
+      or die "[create_spec] cannot open $specfile: $!";
+
+    #my ( $instr_arr_ref, $orig_circuit ) =
+    ## Create the <cmem> spec code</cmem>
+    my ( $spec_code, $orig_circuit ) =
+      kutils::getSpecCode( $opcode, $strata_path, $debugprint );
+
+    print $fp kutils::spec_template($spec_code);
+
+    ## Comment section in specfile.
+    my ( $targetinstr, $metadata, $rwset ) =
+      kutils::getReadMod( $opcode, $instantiated_instr_path, $debugprint );
+    print $fp "\n/*" . "\n"
+      . "opcode:$opcode" . "\n"
+      . "instr:$targetinstr" . "\n"
+      . $rwset . "\n"
+      . $orig_circuit . "*/";
+}
+
+sub runkprove {
+    my $opcode     = shift @_;
+    my $specdir    = shift @_;
+    my $debugprint = shift @_;
+
+    chomp $opcode;
+    utils::info("kprove $opcode");
+    my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
+    my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
+    execute(
+"time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
+        1
+    );
+}
+
+########################################
+sub checkSupported {
+########################################
+    my $opcode      = shift @_;
+    my $strata_path = shift @_;
+    my $derivedPath = shift @_;
+    my $debugprint  = shift @_;
+
+    chomp $opcode;
+
+    my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
+      getInstrFromCircuit( $opcode, $strata_path, $debugprint );
+
+    my @instr_arr  = @{$instr_arr_ref};
+    my @encode_arr = @{$encode_arr_ref};
+
+    for ( my $i = 0 ; $i < scalar(@instr_arr) ; $i++ ) {
+        my $encode       = $encode_arr[$i];
+        my $derivedInstr = "$derivedPath/$encode.s";
+
+        #print "-" . $encode . "\n";
+
+        if ( ( 0 == checkBaseInstr($encode) ) and !( -e $derivedInstr ) ) {
+            print $opcode. " "
+              . checkBaseInstr($opcode) . " "
+              . $derivedInstr . "\n";
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+sub postProcess {
+    my $opcode              = shift @_;
+    my $specdir             = shift @_;
+    my $derivedInstructions = shift @_;
+    my $debugprint          = shift @_;
+
+    chomp $opcode;
+    my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
+    my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
+    my $koutput    = "$derivedInstructions/x86-${opcode}.k";
+
+    # Map to store the register value binding
+    utils::info("processSpecOutput $opcode");
+    my ( $rsmap_ref, $rev_rsmap_ref, $reglines_ref ) =
+      kutils::processSpecOutput( $specoutput, $debugprint );
+
+    # Do simple sanitization and mixfix to infix conversion.
+    utils::info("sanitizeSpecOutput $opcode");
+    my $returnInfo =
+      kutils::sanitizeSpecOutput( $rsmap_ref, $rev_rsmap_ref, $reglines_ref,
+        \$specfile, \$debugprint );
+
+    # write to k file.
+    utils::info("writeKDefn $opcode: $koutput");
+    kutils::writeKDefn( $returnInfo, $koutput, $opcode, $debugprint );
+
 }
 
 1;
