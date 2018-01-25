@@ -5,7 +5,7 @@ module MOVZBW-R16-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movzbw R1:RH, R2:R16,  .Typedoperands) => .
+    execinstr (movzbw R1:Rh, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
 convToRegKeys(R1) |-> (MI554 => MI554)
@@ -16,7 +16,7 @@ convToRegKeys(R2) |-> ( _ => plugInMask(mi(64, 0), extractMask(MI554, 8, 8), 0) 
     ...</regstate>
 endmodule
 
-module MOVZBW-SEMANTICS
+module MOVZBW-R16-RH-SEMANTICS
   imports MOVZBW-R16-RH
 endmodule
   

@@ -265,6 +265,7 @@ module X86-ABSTRACT-SEMANTICS
   syntax Map ::= "regstateInitConfig"  [function]
   syntax Map ::= "regstateFinalConfig" [function]
 
+  /*
   rule regstateInitConfig =>  
       ("RIP" |->    (mi(64,  0:Int):MInt   )) 
       ("RAX" |->    (mi(64,   ?I1 :Int):MInt)) 
@@ -346,6 +347,7 @@ module X86-ABSTRACT-SEMANTICS
       ("YMM13" |->  ?K37:K)
       ("YMM14" |->  ?K38:K)
       ("YMM15" |->  ?K39:K)
+      */
 endmodule
 
 

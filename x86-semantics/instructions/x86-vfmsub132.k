@@ -9,8 +9,8 @@ module VFMSUB132PD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(fmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
-      execinstr(fmsub132pd  Y1, 
+    execinstr(vfmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+      execinstr(vfmsub132pd  Y1, 
       joinVector(
         operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 64), 
           operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
@@ -20,15 +20,15 @@ module VFMSUB132PD-YMM-YMM-YMM
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(fmsub132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfmsub132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VFMSUB132PS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(fmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
-      execinstr(fmsub132ps  Y1, 
+    execinstr(vfmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+      execinstr(vfmsub132ps  Y1, 
       joinVector(
         operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 32), 
           operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
@@ -39,7 +39,7 @@ module VFMSUB132PS-YMM-YMM-YMM
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(fmsub132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfmsub132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VFMSUB132-SEMANTICS

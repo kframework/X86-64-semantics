@@ -7,9 +7,6 @@ module NOPW-R16
   rule <k>
     execinstr (nopw R1:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-
-    ...</regstate>
 endmodule
 
 module NOPW-SEMANTICS

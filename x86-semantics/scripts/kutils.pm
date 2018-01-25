@@ -1621,6 +1621,9 @@ sub getRegSort {
     if ( $reg eq "one" ) {
         return "\$0x1";
     }
+    if ( $reg eq "rh" ) {
+        return "Rh";
+    }
     return uc($reg);
 }
 

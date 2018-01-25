@@ -9,7 +9,7 @@ module VZEROALL-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(zeroall  .Typedoperands) => .
+    execinstr(vzeroall  .Typedoperands) => .
   ...</k>
     <regstate> RSMap => updateMap(RSMap,
                           ("YMM0"  |->  zeroMIntW256) 

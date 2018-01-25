@@ -9,30 +9,30 @@ module VMAXPD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(maxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
-      execinstr(maxpd  Y3, 
+    execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      execinstr(vmaxpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
           splitVector(getRegisterValue(Y2, RSMap), 64), vfmax, 64)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(maxpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmaxpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VMAXPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(maxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
-      execinstr(maxps  Y3, 
+    execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      execinstr(vmaxps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
           splitVector(getRegisterValue(Y2, RSMap), 32), vfmax, 32)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(maxps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmaxps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 
