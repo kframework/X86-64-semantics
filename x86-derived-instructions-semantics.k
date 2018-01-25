@@ -1,13 +1,33 @@
-requires "x86-addq_r64_r64.k"  
-requires "x86-andnq_r64_r64_r64.k"  
-requires "x86-cbtw.k"  
-requires "x86-clc.k"  
-requires "x86-cltq.k"	
-requires "x86-cmovzq_r64_r64.k"  
-requires "x86-cmovzw_r16_r16.k"  
-requires "x86-cvtss2sd_xmm_xmm.k"  
+requires "x86-addq_r64_r64.k"
+requires "x86-andnq_r64_r64_r64.k"
+requires "x86-cbtw.k"
+requires "x86-clc.k"
+requires "x86-cltq.k"
+requires "x86-cmovzq_r64_r64.k"
+requires "x86-cmovzw_r16_r16.k"
+requires "x86-cvtss2sd_xmm_xmm.k"
 requires "x86-decb_r8.k"
 requires "x86-incl_r32.k"
+requires "x86-incw_r16.k"
+requires "x86-movapd_xmm_xmm.k"
+requires "x86-movaps_xmm_xmm.k"
+requires "x86-movddup_xmm_xmm.k"
+requires "x86-movdqa_xmm_xmm.k"
+requires "x86-movdqu_xmm_xmm.k"
+requires "x86-movd_r32_xmm.k"
+requires "x86-movsbl_r32_r8.k"
+requires "x86-movups_xmm_xmm.k"
+requires "x86-movw_r16_r16.k"
+requires "x86-movzbl_r32_rh.k"
+requires "x86-movzbw_r16_r8.k"
+requires "x86-movzbw_r16_rh.k"
+requires "x86-movzwl_r32_r16.k"
+requires "x86-nop.k"
+requires "x86-nopl_r32.k"
+requires "x86-nopw_r16.k"
+requires "x86-rcll_r32_one.k"
+requires "x86-rclq_r64_one.k"
+requires "x86-rclw_r16_one.k"
 
 
 module X86-DERIVED-INSTRUCTIONS-SEMANTICS
@@ -21,4 +41,24 @@ module X86-DERIVED-INSTRUCTIONS-SEMANTICS
   imports CVTSS2SD-SEMANTICS
   imports DECB-SEMANTICS
   imports INCL-SEMANTICS
+  imports INCW-SEMANTICS
+  imports MOVAPD-SEMANTICS
+  imports MOVAPS-SEMANTICS
+  imports MOVDDUP-SEMANTICS
+  imports MOVDQA-SEMANTICS
+  imports MOVDQU-SEMANTICS
+  imports MOVD-SEMANTICS
+  imports MOVSBL-SEMANTICS
+  imports MOVUPS-SEMANTICS
+  imports MOVW-SEMANTICS
+  imports MOVZBL-SEMANTICS
+  imports MOVZBW-R16-RH-SEMANTICS
+  imports MOVZBW-R16-R8-SEMANTICS
+  imports MOVZWL-SEMANTICS
+  imports NOP-SEMANTICS
+  imports NOPL-SEMANTICS
+  imports NOPW-SEMANTICS
+  imports RCLL-SEMANTICS
+  imports RCLQ-SEMANTICS
+  imports RCLW-SEMANTICS
 endmodule

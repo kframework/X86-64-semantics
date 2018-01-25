@@ -9,28 +9,28 @@ module VMULPD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(mulpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
-      execinstr(mulpd  Y3, 
+    execinstr(vmulpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      execinstr(vmulpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), splitVector(getRegisterValue(Y2, RSMap), 64), vfmul, 64)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(mulpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmulpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VMULPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(mulps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
-      execinstr(mulps  Y3, 
+    execinstr(vmulps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      execinstr(vmulps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), splitVector(getRegisterValue(Y2, RSMap), 32), vfmul, 32)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(mulps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmulps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 

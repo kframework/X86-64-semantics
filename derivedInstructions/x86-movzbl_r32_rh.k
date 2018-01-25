@@ -5,7 +5,7 @@ module MOVZBL-R32-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movzbl R1:RH, R2:R32,  .Typedoperands) => .
+    execinstr (movzbl R1:Rh, R2:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
 convToRegKeys(R1) |-> (MI554 => MI554)

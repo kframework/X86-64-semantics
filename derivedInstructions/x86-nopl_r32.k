@@ -7,9 +7,6 @@ module NOPL-R32
   rule <k>
     execinstr (nopl R1:R32,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-
-    ...</regstate>
 endmodule
 
 module NOPL-SEMANTICS

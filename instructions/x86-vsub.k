@@ -9,8 +9,8 @@ module VSUBPD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
    rule <k>
-    execinstr(subpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
-      execinstr(subpd  Y3, 
+    execinstr(vsubpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      execinstr(vsubpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
           splitVector(getRegisterValue(Y2, RSMap), 64), vfsub, 64)), 
       .Typedoperands)
@@ -18,22 +18,22 @@ module VSUBPD-YMM-YMM-YMM
     <regstate> RSMap</regstate>
 
 
-  rule <k> execinstr(subpd  DestR, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsubpd  DestR, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
 module VSUBPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
    rule <k>
-    execinstr(subps  Y1:Ymm,  Y2:Ymm, DestR, .Typedoperands) =>
-      execinstr(subps  DestR, 
+    execinstr(vsubps  Y1:Ymm,  Y2:Ymm, DestR, .Typedoperands) =>
+      execinstr(vsubps  DestR, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
           splitVector(getRegisterValue(Y2, RSMap), 32), vfsub, 32)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(subps  DestR, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsubps  DestR, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
 endmodule
 
 

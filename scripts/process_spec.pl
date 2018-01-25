@@ -58,6 +58,14 @@ my $debugprint = 0;
 ## Create a spec file
 if ( "" ne $createspec ) {
     for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
     }
@@ -66,6 +74,14 @@ if ( "" ne $createspec ) {
 ## Run krpove on spec file
 if ( "" ne $kprove ) {
     for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
         kutils::runkprove( $opcode, $specdir, $debugprint );
     }
 }
@@ -73,6 +89,14 @@ if ( "" ne $kprove ) {
 ## Post process
 if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
         kutils::postProcess( $opcode, $specdir, $derivedInstructions,
             $debugprint );
     }
