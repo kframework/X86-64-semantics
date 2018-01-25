@@ -15,8 +15,124 @@ module SAL-R64-CL
       execinstr(salq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
                 bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
   ...</k>
-    <regstate> RSMap</regstate>
+    <regstate> RSMap </regstate>
 
+  rule <k>
+  execinstr(salq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
+    setFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        getFlag("OF", RSMap)
+      #else
+        #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
+        #then
+          xorMInt(getSignBit(MIsrc), getSignBit(shiftLeft(getRegisterValue(R, RSMap), 1)))
+        #else
+          undef
+        #fi 
+      #fi  
+        , 
+        "OF") ~> 
+
+    updateZeroFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
+        #then
+          mi(8, 0)
+        #else
+          mi(8, 1)
+        #fi  
+      #else
+        #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+        #then
+          shiftLeft(MIsrc, uvalueMInt(MIcount))
+        #else 
+          salOverflow(MIsrc)
+        #fi 
+      #fi  
+        ) ~> 
+
+    updateSignFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
+        #then
+          mi(8, -128)
+        #else
+          mi(8, 0)
+        #fi  
+      #else
+        #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+        #then
+          shiftLeft(MIsrc, uvalueMInt(MIcount))
+        #else 
+          salOverflow(MIsrc)
+        #fi 
+      #fi  
+        ) ~> 
+
+    setFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        getFlag("AF", RSMap)
+      #else
+        undef
+      #fi  
+        , 
+        "AF") ~> 
+
+    setFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        getFlag("CF", RSMap)
+      #else
+        #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
+        #then
+          getSignBit(MIsrc)
+        #else
+          #ifMInt ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+          #then
+            getSignBit(shiftLeft(MIsrc, uvalueMInt(MIcount) -Int 1))
+          #else  
+            undef
+          #fi  
+        #fi 
+      #fi  
+        , 
+        "CF") ~> 
+
+    updateParityFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
+        #then
+          mi(8, 0)
+        #else
+          mi(8, 1)
+        #fi  
+      #else
+        #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+        #then
+          shiftLeft(MIsrc, uvalueMInt(MIcount))
+        #else 
+          salOverflow(MIsrc)
+        #fi 
+      #fi  
+        ) ~> 
+
+    setRegisterValue(
+      #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+      #then
+        shiftLeft(MIsrc, uvalueMInt(MIcount))
+      #else 
+        salOverflow(MIsrc)
+      #fi 
+      , R) 
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  /*
   // If MIcount == 0, no flags are affected
   rule
   execinstr(salq  (_,  (MIsrc, MIcount, .Typedoperands)) ) => .
@@ -84,6 +200,7 @@ module SAL-R64-CL
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ugeMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+  */
 endmodule
 
 module SAL-SEMANTICS

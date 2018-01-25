@@ -17,6 +17,121 @@ module SHR-R64-CL
   ...</k>
     <regstate> RSMap</regstate>
 
+  rule <k>
+  execinstr(shrq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
+    setFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        getFlag("OF", RSMap)
+      #else
+        #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
+        #then
+          getSignBit(MIsrc)
+        #else
+          undef
+        #fi 
+      #fi  
+        , 
+        "OF") ~> 
+
+    updateZeroFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
+        #then
+          mi(8, 0)
+        #else
+          mi(8, 1)
+        #fi  
+      #else
+        #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+        #then
+          lshrMInt(MIsrc, uvalueMInt(MIcount))
+        #else 
+          shrOverflow(MIsrc)
+        #fi 
+      #fi  
+        ) ~> 
+
+    updateSignFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
+        #then
+          mi(8, -128)
+        #else
+          mi(8, 0)
+        #fi  
+      #else
+        #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+        #then
+          lshrMInt(MIsrc, uvalueMInt(MIcount))
+        #else 
+          shrOverflow(MIsrc)
+        #fi 
+      #fi  
+        ) ~> 
+
+    setFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        getFlag("AF", RSMap)
+      #else
+        undef
+      #fi  
+        , 
+        "AF") ~> 
+
+    setFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        getFlag("CF", RSMap)
+      #else
+        #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
+        #then
+          extractMask(MIsrc, 1, 0) 
+        #else
+          #ifMInt ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+          #then
+            extractMask(lshrMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 1, 0)
+          #else  
+            getSignBit(MIsrc)
+          #fi  
+        #fi 
+      #fi  
+        , 
+        "CF") ~> 
+
+    updateParityFlag(
+      #ifMInt zeroMInt(MIcount)
+      #then
+        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
+        #then
+          mi(8, 0)
+        #else
+          mi(8, 1)
+        #fi  
+      #else
+        #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+        #then
+          lshrMInt(MIsrc, uvalueMInt(MIcount))
+        #else 
+          shrOverflow(MIsrc)
+        #fi 
+      #fi  
+        ) ~> 
+
+    setRegisterValue(
+      #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+      #then
+        lshrMInt(MIsrc, uvalueMInt(MIcount))
+      #else 
+        shrOverflow(MIsrc)
+      #fi 
+      , R) 
+  ...</k>
+    <regstate> RSMap </regstate>
+  /*
   // If MIcount == 0, no flags are affected
   rule
   execinstr(shrq  (_,  (MIsrc, MIcount, .Typedoperands)) ) => .
@@ -81,6 +196,7 @@ module SHR-R64-CL
       requires  notBool zeroMInt(MIcount) andBool 
                 neMInt(MIcount, mi(bitwidthMInt(MIcount),1)) andBool 
                 ugeMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
+  */
 endmodule
 
 module SHR-SEMANTICS
