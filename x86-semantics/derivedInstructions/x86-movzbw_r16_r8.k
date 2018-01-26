@@ -8,11 +8,11 @@ module MOVZBW-R16-R8
     execinstr (movzbw R1:R8, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI556 => MI556)
+convToRegKeys(R1) |-> (MI663 => MI663)
 
-convToRegKeys(R2) |-> ( _ => plugInMask(mi(64, 5), concatenateMInt(extractMask(plugInMask(MI541, mi(32, 0), 0), 8, 0), extractMask(signExtend(extractMask(MI556, 8, 0), 64), 8, 0)), 0) )
+convToRegKeys(R2) |-> ( _ => orMInt(mi(64, 0), shlMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI636, mi(64, -4294967296)), mi(64, 0)), 56, 64), extractMInt(mi(64, svalueMInt(extractMInt(MI663, 56, 64))), 56, 64)))), 0)) )
 
- "R13" |-> (MI541 => MI541)
+ "R13" |-> (MI636 => MI636)
 
 
     ...</regstate>

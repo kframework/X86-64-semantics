@@ -8,21 +8,21 @@ module ADDQ-R64-R64
     execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI556 => MI556)
+convToRegKeys(R1) |-> (MI648 => MI648)
 
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI556, MI555), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI648, MI647), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI556, 63), lshrMInt(addMInt(MI556, MI555), 63)), xorMInt(lshrMInt(MI555, 63), lshrMInt(addMInt(MI556, MI555), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI648, 63), lshrMInt(addMInt(MI648, MI647), 63)), xorMInt(lshrMInt(MI647, 63), lshrMInt(addMInt(MI648, MI647), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "CF" |-> ( _ => (#ifMInt ( ( ultMInt(addMInt(MI556, MI555), MI556)  orBool  ultMInt(addMInt(MI556, MI555), MI555) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> ( _ => (#ifMInt ( ( ultMInt(addMInt(MI648, MI647), MI648)  orBool  ultMInt(addMInt(MI648, MI647), MI647) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI556, MI555), addMInt(MI556, MI555)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI648, MI647), addMInt(MI648, MI647)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI555 => addMInt(MI556, MI555) )
+convToRegKeys(R2) |-> ( MI647 => addMInt(MI648, MI647) )
 
- "ZF" |-> ( _ => (#ifMInt (eqMInt(addMInt(MI556, MI555), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "ZF" |-> ( _ => (#ifMInt (eqMInt(addMInt(MI648, MI647), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI556, MI555), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI648, MI647), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 
     ...</regstate>

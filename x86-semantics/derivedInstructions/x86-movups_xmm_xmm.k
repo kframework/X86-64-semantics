@@ -8,17 +8,17 @@ module MOVUPS-XMM-XMM
     execinstr (movups R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI624 => MI624)
+convToRegKeys(R1) |-> (MI645 => MI645)
 
-convToRegKeys(R2) |-> ( MI623 => plugInMask(MI623, concatenateMInt(concatenateMInt(extractMask(extractMask(plugInMask(MI629, zeroExtend(extractMask(extractMask(MI624, 128, 0), 32, 96), 128), 0), 128, 0), 32, 0), extractMask(extractMask(plugInMask(MI628, zeroExtend(extractMask(extractMask(MI624, 128, 0), 32, 64), 128), 0), 128, 0), 32, 0)), concatenateMInt(extractMask(extractMask(plugInMask(MI627, zeroExtend(extractMask(extractMask(MI624, 128, 0), 32, 32), 128), 0), 128, 0), 32, 0), extractMask(extractMask(plugInMask(MI626, zeroExtend(extractMask(extractMask(MI624, 128, 0), 32, 0), 128), 0), 128, 0), 32, 0))), 0) )
+convToRegKeys(R2) |-> ( MI644 => orMInt(andMInt(MI644, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(concatenateMInt(concatenateMInt(extractMInt(extractMInt(orMInt(andMInt(MI650, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI645, 128, 256), 0, 32))))), 0)), 128, 256), 96, 128), extractMInt(extractMInt(orMInt(andMInt(MI649, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI645, 128, 256), 32, 64))))), 0)), 128, 256), 96, 128)), concatenateMInt(extractMInt(extractMInt(orMInt(andMInt(MI648, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI645, 128, 256), 64, 96))))), 0)), 128, 256), 96, 128), extractMInt(extractMInt(orMInt(andMInt(MI647, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI645, 128, 256), 96, 128))))), 0)), 128, 256), 96, 128))))), 0)) )
 
- "YMM4" |-> (MI626 => MI626)
+ "YMM4" |-> (MI647 => MI647)
 
- "YMM6" |-> (MI628 => MI628)
+ "YMM6" |-> (MI649 => MI649)
 
- "YMM5" |-> (MI627 => MI627)
+ "YMM5" |-> (MI648 => MI648)
 
- "YMM7" |-> (MI629 => MI629)
+ "YMM7" |-> (MI650 => MI650)
 
 
     ...</regstate>

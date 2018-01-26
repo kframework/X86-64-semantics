@@ -32,10 +32,24 @@ module MINT-LEMMAS
   import MINT
 
   // bitwidthMInt    
-  rule bitwidthMInt(addMInt(mi(W, _), _)) => W [lemma]  
-  rule bitwidthMInt(addMInt(extractMask(_,_,_), mi(W,_))) => W [lemma]  
-  rule bitwidthMInt(addMInt(extractMask(_,_,_), MIC)) => bitwidthMInt(MIC) [lemma]  
-  rule bitwidthMInt(addMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(addMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(xorMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(orMInt(MIC,   _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(andMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(mulMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(lshrMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(ashrMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(shlMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(negMInt(MIC))     => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(concatenateMInt(MI1:MInt, MI2:MInt)) => bitwidthMInt(MI1) +Int bitwidthMInt(MI2) [lemma]
+  rule bitwidthMInt(Float2MInt(_:Float, W:Int)) => W [lemma]
+
+  rule bitwidthMInt(mi(W:Int, _)) => W [lemma]
+  rule bitwidthMInt(extractMask(_, W:Int, _)) => W [lemma]
+  rule bitwidthMInt(extractMInt(_, S:Int, E:Int)) => E -Int S [lemma]
+
+  //rule bitwidthMInt(addMInt(extractMask(_,_,_), mi(W,_))) => W [lemma]  
+  //rule bitwidthMInt(addMInt(extractMask(_,_,_), MIC)) => bitwidthMInt(MIC) [lemma]  
 
   // xorMInt
   rule xorMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, 0) [lemma]

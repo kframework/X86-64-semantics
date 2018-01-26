@@ -8,9 +8,9 @@ module MOVZBW-R16-RH
     execinstr (movzbw R1:Rh, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI554 => MI554)
+convToRegKeys(R1) |-> (MI648 => MI648)
 
-convToRegKeys(R2) |-> ( _ => plugInMask(mi(64, 0), extractMask(MI554, 8, 8), 0) )
+convToRegKeys(R2) |-> ( _ => orMInt(mi(64, 0), shlMInt(mi(64, uvalueMInt(extractMInt(MI648, 48, 56))), 0)) )
 
 
     ...</regstate>

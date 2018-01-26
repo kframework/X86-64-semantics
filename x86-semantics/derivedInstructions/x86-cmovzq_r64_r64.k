@@ -8,11 +8,11 @@ module CMOVZQ-R64-R64
     execinstr (cmovzq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI556 => MI556)
+convToRegKeys(R1) |-> (MI648 => MI648)
 
-convToRegKeys(R2) |-> ( MI555 => (#ifMInt (eqMInt(MI547, mi(1, 0)) ) #then ( MI555 ) #else ( MI556 ) #fi)  )
+convToRegKeys(R2) |-> ( MI647 => (#ifMInt (eqMInt(MI627, mi(1, 0)) ) #then ( MI647 ) #else ( MI648 ) #fi)  )
 
- "ZF" |-> (MI547 => MI547)
+ "ZF" |-> (MI627 => MI627)
 
 
     ...</regstate>
