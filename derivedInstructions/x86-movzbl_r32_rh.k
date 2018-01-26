@@ -8,9 +8,9 @@ module MOVZBL-R32-RH
     execinstr (movzbl R1:Rh, R2:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI554 => MI554)
+convToRegKeys(R1) |-> (MI659 => MI659)
 
-convToRegKeys(R2) |-> ( _ => plugInMask(mi(64, 64), extractMask(MI554, 8, 8), 0) )
+convToRegKeys(R2) |-> ( _ => orMInt(mi(64, 0), shlMInt(mi(64, uvalueMInt(extractMInt(MI659, 48, 56))), 0)) )
 
 
     ...</regstate>

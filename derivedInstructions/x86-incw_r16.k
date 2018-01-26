@@ -8,17 +8,17 @@ module INCW-R16
     execinstr (incw R1:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(bitwidthMInt(extractMask(plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0), 16, 0)), 1), lshrMInt(extractMask(plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0), 16, 0),  ( bitwidthMInt(extractMask(plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0), 16, 0))  -Int  1 ) )) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> ( _ => (#ifMInt (eqMInt(mi(16, 1), lshrMInt(extractMInt(orMInt(andMInt(MI660, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(addMInt(extractMInt(MI660, 48, 64), mi(16, 1)))), 0)), 48, 64), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(bitwidthMInt(extractMask(MI639, 16, 0)), 2), addMInt(xorMInt(lshrMInt(mi(16, 0),  ( bitwidthMInt(extractMask(MI639, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(extractMask(MI639, 16, 0), mi(16, 1)),  ( bitwidthMInt(extractMask(MI639, 16, 0))  -Int  1 ) )), xorMInt(lshrMInt(extractMask(MI639, 16, 0),  ( bitwidthMInt(extractMask(MI639, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(extractMask(MI639, 16, 0), mi(16, 1)),  ( bitwidthMInt(extractMask(MI639, 16, 0))  -Int  1 ) )))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(mi(16, 0), lshrMInt(addMInt(extractMInt(MI660, 48, 64), mi(16, 1)), 15)), xorMInt(lshrMInt(extractMInt(MI660, 48, 64), 15), lshrMInt(addMInt(extractMInt(MI660, 48, 64), mi(16, 1)), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(16, 0), extractMask(MI639, 16, 0)), addMInt(extractMask(MI639, 16, 0), mi(16, 1))), 4), mi(bitwidthMInt(extractMask(MI639, 16, 0)), 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(16, 0), extractMInt(MI660, 48, 64)), addMInt(extractMInt(MI660, 48, 64), mi(16, 1))), 4), mi(16, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R1) |-> ( MI639 => plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0) )
+convToRegKeys(R1) |-> ( MI660 => orMInt(andMInt(MI660, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(addMInt(extractMInt(MI660, 48, 64), mi(16, 1)))), 0)) )
 
- "ZF" |-> ( _ => (#ifMInt (eqMInt(extractMask(plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0), 16, 0), mi(bitwidthMInt(extractMask(plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0), 16, 0)), 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "ZF" |-> ( _ => (#ifMInt (eqMInt(extractMInt(orMInt(andMInt(MI660, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(addMInt(extractMInt(MI660, 48, 64), mi(16, 1)))), 0)), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMask(extractMask(plugInMask(MI639, addMInt(extractMask(MI639, 16, 0), mi(16, 1)), 0), 16, 0), 8, 0), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(extractMInt(orMInt(andMInt(MI660, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(addMInt(extractMInt(MI660, 48, 64), mi(16, 1)))), 0)), 48, 64), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 
     ...</regstate>

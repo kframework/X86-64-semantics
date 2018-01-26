@@ -8,7 +8,7 @@ module CLTQ
     execinstr (cltq  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "RAX" |-> ( MI547 => signExtend(extractMask(plugInMask(MI547, extractMask(MI547, 32, 0), 0), 32, 0), 64) )
+ "RAX" |-> ( MI659 => mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI659, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI659, 32, 64))), 0)), 32, 64))) )
 
 
     ...</regstate>

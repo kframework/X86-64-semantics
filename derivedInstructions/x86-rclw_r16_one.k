@@ -8,11 +8,11 @@ module RCLW-R16-ONE
     execinstr (rclw $0x1, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(bitwidthMInt(extractMask(MI555, 16, 0)), 2), addMInt(xorMInt(lshrMInt(extractMask(MI555, 16, 0),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) )), xorMInt(lshrMInt(extractMask(MI555, 16, 0),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) )))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(MI647, 48, 64), 15), lshrMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), 15)), xorMInt(lshrMInt(extractMInt(MI647, 48, 64), 15), lshrMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "CF" |-> ( MI544 => (#ifMInt ( (  ( ultMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), extractMask(MI555, 16, 0))  orBool  ultMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), extractMask(MI555, 16, 0)) )  orBool  ( ultMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)))  orBool  ultMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), zeroExtend(MI544, 16)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> ( MI624 => (#ifMInt ( (  ( ultMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), extractMInt(MI647, 48, 64))  orBool  ultMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), extractMInt(MI647, 48, 64)) )  orBool  ( ultMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), mi(16, uvalueMInt(MI624))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI555 => plugInMask(MI555, addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), 0) )
+convToRegKeys(R2) |-> ( MI647 => orMInt(andMInt(MI647, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))))), 0)) )
 
 
     ...</regstate>

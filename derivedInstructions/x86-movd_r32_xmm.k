@@ -8,13 +8,13 @@ module MOVD-R32-XMM
     execinstr (movd R1:Xmm, R2:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMask(extractMask(extractMask(concatenateMInt(extractMask(plugInMask(MI631, zeroExtend(extractMask(extractMask(MI623, 128, 0), 32, 32), 128), 0), 128, 0), extractMask(plugInMask(MI630, zeroExtend(extractMask(extractMask(MI623, 128, 0), 32, 0), 128), 0), 128, 0)), 128, 0), 64, 64), 32, 0), extractMask(extractMask(extractMask(concatenateMInt(extractMask(plugInMask(MI631, zeroExtend(extractMask(extractMask(MI623, 128, 0), 32, 32), 128), 0), 128, 0), extractMask(plugInMask(MI630, zeroExtend(extractMask(extractMask(MI623, 128, 0), 32, 0), 128), 0), 128, 0)), 128, 0), 64, 0), 32, 0)) )
+convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(extractMInt(extractMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI652, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 64, 96))))), 0)), 128, 256), extractMInt(orMInt(andMInt(MI651, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 96, 128))))), 0)), 128, 256)), 128, 256), 0, 64), 32, 64), extractMInt(extractMInt(extractMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI652, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 64, 96))))), 0)), 128, 256), extractMInt(orMInt(andMInt(MI651, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 96, 128))))), 0)), 128, 256)), 128, 256), 64, 128), 32, 64)) )
 
-convToRegKeys(R1) |-> (MI623 => MI623)
+convToRegKeys(R1) |-> (MI644 => MI644)
 
- "YMM9" |-> (MI631 => MI631)
+ "YMM9" |-> (MI652 => MI652)
 
- "YMM8" |-> (MI630 => MI630)
+ "YMM8" |-> (MI651 => MI651)
 
 
     ...</regstate>

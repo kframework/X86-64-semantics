@@ -38,6 +38,7 @@ my $kprove      = "";
 my $getoplist   = "";
 my $all         = "";
 my $genincludes = "";
+my $checksanity = "";
 
 GetOptions(
     "help"          => \$help,
@@ -50,6 +51,7 @@ GetOptions(
     "postprocess"   => \$postprocess,
     "all"           => \$all,
     "genincludes"   => \$genincludes,
+    "checksanity"   => \$checksanity,
     "strata_path:s" => \$strata_path,
 ) or die("Error in command line arguments\n");
 
@@ -172,6 +174,44 @@ if ( "" ne $genincludes ) {
     print "\n";
 
     print join("\n", @syntaxs);
+}
+
+if ( "" ne $checksanity ) {
+    my @reqs = ();
+    my @imports = ();
+    my @syntaxs = ();
+
+    my @patterns = (
+        "bitwidthMInt", 
+        "plugInMask", 
+        "extractMask", 
+        "zeroExtend", 
+        "signExtend", 
+        "splitVectorHelper");
+
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
+        my $koutput    = "$derivedInstructions/x86-${opcode}.k";
+        
+
+        for my $pattern (@patterns) {
+          my $matches_ref = utils::myGrep($pattern, $koutput);
+          my @matches = @{$matches_ref};
+
+          if(scalar(@matches) > 0) {
+            utils::failInfo("$pattern: $koutput");
+          }
+        }
+
+        print "\n";
+    }
 }
 
 ## Get the stratum and num of instr of a particular circuit

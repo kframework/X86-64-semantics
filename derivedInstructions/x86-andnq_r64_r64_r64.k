@@ -8,9 +8,9 @@ module ANDNQ-R64-R64-R64
     execinstr (andnq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> (MI556 => MI556)
+convToRegKeys(R2) |-> (MI648 => MI648)
 
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(bitwidthMInt(xorMInt(MI556, orMInt(MI556, MI557))), 1), lshrMInt(xorMInt(MI556, orMInt(MI556, MI557)),  ( bitwidthMInt(xorMInt(MI556, orMInt(MI556, MI557)))  -Int  1 ) )) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(MI648, orMInt(MI648, MI649)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> ( _ => mi(1, 0) )
 
@@ -18,11 +18,11 @@ convToRegKeys(R2) |-> (MI556 => MI556)
 
  "AF" |-> (_ => undef)
 
-convToRegKeys(R1) |-> (MI557 => MI557)
+convToRegKeys(R1) |-> (MI649 => MI649)
 
-convToRegKeys(R3) |-> ( _ => xorMInt(MI556, orMInt(MI556, MI557)) )
+convToRegKeys(R3) |-> ( _ => xorMInt(MI648, orMInt(MI648, MI649)) )
 
- "ZF" |-> ( _ => (#ifMInt (eqMInt(xorMInt(MI556, orMInt(MI556, MI557)), mi(bitwidthMInt(xorMInt(MI556, orMInt(MI556, MI557))), 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "ZF" |-> ( _ => (#ifMInt (eqMInt(xorMInt(MI648, orMInt(MI648, MI649)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "PF" |-> (_ => undef)
 
