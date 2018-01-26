@@ -8,23 +8,22 @@ module INCL-R32
     execinstr (incl R1:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "SF" |-> ( _ => #ifMInt (eqMInt(mi(bitwidthMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0)), 1), lshrMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0),  ( bitwidthMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0))  -Int  1 ) )) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "SF" |-> ( _ => (#ifMInt (eqMInt(mi(bitwidthMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0)), 1), lshrMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0),  ( bitwidthMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0))  -Int  1 ) )) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ( _ => #ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(mi(32, 0), lshrMInt(addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 31)), xorMInt(lshrMInt(extractMask(MI548, 32, 0), 31), lshrMInt(addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(mi(32, 0), lshrMInt(addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 31)), xorMInt(lshrMInt(extractMask(MI548, 32, 0), 31), lshrMInt(addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(32, 1), extractMask(MI548, 32, 0)), addMInt(mi(32, 1), extractMask(MI548, 32, 0))), 4), mi(32, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+ "AF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(32, 1), extractMask(MI548, 32, 0)), addMInt(mi(32, 1), extractMask(MI548, 32, 0))), 4), mi(32, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) , 1) )
 
 convToRegKeys(R1) |-> ( MI548 => plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0) )
 
- "ZF" |-> ( _ => #ifMInt (eqMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0), mi(bitwidthMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0)), 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "ZF" |-> ( _ => (#ifMInt (eqMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0), mi(bitwidthMInt(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0)), 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMask(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0), 8, 0), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi):>Bool , 1) )
+ "PF" |-> ( _ => fromBool((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMask(extractMask(plugInMask(MI548, addMInt(mi(32, 1), extractMask(MI548, 32, 0)), 0), 32, 0), 8, 0), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) , 1) )
 
 
     ...</regstate>
 endmodule
 
-module INCL-SEMANTICS
+module INCL-R32-SEMANTICS
   imports INCL-R32
 endmodule
-  

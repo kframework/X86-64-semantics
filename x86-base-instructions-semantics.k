@@ -13,10 +13,12 @@ requires "x86-sal.k"
 requires "x86-vadd.k"
 requires "x86-vsub.k"
 requires "x86-vmul.k"
+requires "x86-vrcpps_ymm_ymm.k"
 requires "x86-vdiv.k"
 requires "x86-vmax.k"
 requires "x86-vmin.k"
 requires "x86-vsqrt.k"
+requires "x86-vrsqrtps_ymm_ymm.k"
 requires "x86-vzeroall.k"
 requires "x86-vfmadd132.k"
 requires "x86-vfmsub132.k"
@@ -70,10 +72,12 @@ module X86-BASE-INSTRUCTIONS-SEMANTICS
   imports VADD-SEMANTICS
   imports VSUB-SEMANTICS
   imports VMUL-SEMANTICS
+  imports VRCPPS-YMM-YMM-SEMANTICS
   imports VDIV-SEMANTICS
   imports VMAX-SEMANTICS
   imports VMIN-SEMANTICS
   imports VSQRT-SEMANTICS
+  imports VRSQRTPS-YMM-YMM-SEMANTICS
   imports VZEROALL-SEMANTICS
   imports VFMADD132-SEMANTICS
   imports VFMSUB132-SEMANTICS

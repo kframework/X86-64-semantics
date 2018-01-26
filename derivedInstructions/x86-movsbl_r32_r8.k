@@ -18,7 +18,6 @@ convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMask(plugInMask(MI539, mi(32
     ...</regstate>
 endmodule
 
-module MOVSBL-SEMANTICS
+module MOVSBL-R32-R8-SEMANTICS
   imports MOVSBL-R32-R8
 endmodule
-  

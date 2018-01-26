@@ -20,7 +20,6 @@ convToRegKeys(R1) |-> (MI623 => MI623)
     ...</regstate>
 endmodule
 
-module MOVD-SEMANTICS
+module MOVD-R32-XMM-SEMANTICS
   imports MOVD-R32-XMM
 endmodule
-  

@@ -9,7 +9,6 @@ module NOPW-R16
   ...</k>
 endmodule
 
-module NOPW-SEMANTICS
+module NOPW-R16-SEMANTICS
   imports NOPW-R16
 endmodule
-  

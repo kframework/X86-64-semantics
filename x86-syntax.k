@@ -32,6 +32,7 @@ module X86-SYNTAX
                       | "vsubps"          [token]
                       | "vmulpd"          [token]
                       | "vmulps"          [token]
+                      | "vrcpps"          [token]
                       | "vdivpd"          [token]
                       | "vdivps"          [token]
                       | "vmaxpd"          [token]
@@ -40,6 +41,7 @@ module X86-SYNTAX
                       | "vminps"          [token]
                       | "vsqrtps"         [token]
                       | "vsqrtpd"         [token]
+                      | "vrsqrtps"        [token]
                       | "vzeroall"        [token]
                       | "vfmadd132pd"     [token]
                       | "vfmadd132ps"     [token]
@@ -255,8 +257,7 @@ module X86-SYNTAX
                | "%ymm14"
                | "%ymm15"
 
-  syntax DerivedOpcode ::= "decb"            [token]
-                              |  "addq"  [token]
+  syntax DerivedOpcode ::=       "addq" [token]
                               |  "andnq" [token]
                               |  "cbtw" [token]
                               |  "clc" [token]
@@ -280,8 +281,8 @@ module X86-SYNTAX
                               |  "movzbw" [token]
                               |  "movzbw" [token]
                               |  "movzwl" [token]
-                              |  "nop" [token]
                               |  "nopl" [token]
+                              |  "nop" [token]
                               |  "nopw" [token]
                               |  "rcll" [token]
                               |  "rclq" [token]

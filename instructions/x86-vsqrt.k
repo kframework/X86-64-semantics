@@ -5,7 +5,7 @@ requires "x86-configuration.k"
   - vsqrtpd_ymm_ymm_ymm, vsqrtps_ymm_ymm_ymm,
 */
 
-module VSQRTPD-YMM-YMM-YMM
+module VSQRTPD-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
@@ -17,7 +17,7 @@ module VSQRTPD-YMM-YMM-YMM
   rule <k> execinstr(vsqrtpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
-module VSQRTPS-YMM-YMM-YMM
+module VSQRTPS-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
@@ -31,6 +31,6 @@ endmodule
 
 
 module VSQRT-SEMANTICS
-  imports VSQRTPD-YMM-YMM-YMM
-  imports VSQRTPS-YMM-YMM-YMM
+  imports VSQRTPD-YMM-YMM
+  imports VSQRTPS-YMM-YMM
 endmodule

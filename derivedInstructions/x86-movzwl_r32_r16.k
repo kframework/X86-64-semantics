@@ -20,7 +20,6 @@ convToRegKeys(R2) |-> ( _ => plugInMask(mi(64, 32), concatenateMInt(extractMask(
     ...</regstate>
 endmodule
 
-module MOVZWL-SEMANTICS
+module MOVZWL-R32-R16-SEMANTICS
   imports MOVZWL-R32-R16
 endmodule
-  

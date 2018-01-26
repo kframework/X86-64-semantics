@@ -17,4 +17,3 @@ endmodule
 module CLTQ-SEMANTICS
   imports CLTQ
 endmodule
-  

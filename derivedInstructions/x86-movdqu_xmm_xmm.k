@@ -20,7 +20,6 @@ convToRegKeys(R2) |-> ( MI623 => plugInMask(MI623, concatenateMInt(extractMask(p
     ...</regstate>
 endmodule
 
-module MOVDQU-SEMANTICS
+module MOVDQU-XMM-XMM-SEMANTICS
   imports MOVDQU-XMM-XMM
 endmodule
-  

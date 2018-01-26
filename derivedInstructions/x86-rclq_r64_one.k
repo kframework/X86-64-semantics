@@ -8,9 +8,9 @@ module RCLQ-R64-ONE
     execinstr (rclq $0x1, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "OF" |-> ( _ => #ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI555, 63), lshrMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), 63)), xorMInt(lshrMInt(MI555, 63), lshrMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI555, 63), lshrMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), 63)), xorMInt(lshrMInt(MI555, 63), lshrMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "CF" |-> ( MI544 => #ifMInt ( (  ( ultMInt(addMInt(MI555, MI555), MI555)  orBool  ultMInt(addMInt(MI555, MI555), MI555) )  orBool  ( ultMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), addMInt(MI555, MI555))  orBool  ultMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), zeroExtend(MI544, 64)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "CF" |-> ( MI544 => (#ifMInt ( (  ( ultMInt(addMInt(MI555, MI555), MI555)  orBool  ultMInt(addMInt(MI555, MI555), MI555) )  orBool  ( ultMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), addMInt(MI555, MI555))  orBool  ultMInt(addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)), zeroExtend(MI544, 64)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 convToRegKeys(R2) |-> ( MI555 => addMInt(addMInt(MI555, MI555), zeroExtend(MI544, 64)) )
 
@@ -18,7 +18,6 @@ convToRegKeys(R2) |-> ( MI555 => addMInt(addMInt(MI555, MI555), zeroExtend(MI544
     ...</regstate>
 endmodule
 
-module RCLQ-SEMANTICS
+module RCLQ-R64-ONE-SEMANTICS
   imports RCLQ-R64-ONE
 endmodule
-  

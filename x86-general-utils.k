@@ -77,19 +77,21 @@ module MINT-WRAPPER-SYNTAX
     Vop elementwise on two lists MI1, MI2 of MInts.
     OpW: Width of the operation. Typical values: 32 or 64.
   */
-  syntax VOperation ::= "vfadd" [token]
-                      | "vfsub" [token]                  
-                      | "vfmul" [token]                  
-                      | "vfdiv" [token]                  
-                      | "vfmax" [token]                  
-                      | "vfmin" [token]                  
-                      | "viadd" [token]                  
-                      | "visub" [token]                  
-                      | "vimul" [token]                  
-                      | "vidiv" [token]                  
+  syntax VOperation ::= "vfadd"         [token]
+                      | "vfsub"         [token]                  
+                      | "vfmul"         [token]                  
+                      | "vfdiv"         [token]                  
+                      | "vfmax"         [token]                  
+                      | "vfmin"         [token]                  
+                      | "viadd"         [token]                  
+                      | "visub"         [token]                  
+                      | "vimul"         [token]                  
+                      | "vidiv"         [token]                  
                       // Unary operators                   
-                      | "vfsqrt" [token]                  
-                      | "vfnegate" [token]                  
+                      | "vfsqrt"        [token]                  
+                      | "vfrsqrt"       [token]                  
+                      | "vfnegate"      [token]                  
+                      | "vfreciprocal"  [token]                  
 
   syntax MInts ::= operateOnVector(MInts, MInts, VOperation, Int) [function, klabel(binaryoperateonvector)]
   syntax MInts ::= operateOnVectorHelper(MInts, MInts, VOperation, Int, Int) [function, klabel(binaryoperateonvectorhelper)]
@@ -97,7 +99,7 @@ module MINT-WRAPPER-SYNTAX
   syntax MInts ::= operateOnVectorHelper(MInts, VOperation, Int, Int) [function, klabel(unaryoperateonvectorhelper)]
 
   /*@
-    Bitwise negation
+    Deprecated
   */  
   syntax MInt ::= shiftLeft(MInt, Int)   [function]
 
@@ -341,13 +343,19 @@ module MINT-WRAPPER
   rule operateOnVectorHelper(MI MIs, vfsqrt, P, E) => 
     Float2MInt(sqrtFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfsqrt, P, E)
 
+  rule operateOnVectorHelper(MI MIs, vfrsqrt, P, E) => 
+    Float2MInt(1.0 /Float sqrtFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfrsqrt, P, E)
+
   rule operateOnVectorHelper(MI MIs, vfnegate, P, E) => 
     Float2MInt(negateFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfnegate, P, E)
+
+  rule operateOnVectorHelper(MI MIs, vfreciprocal, P, E) => 
+    Float2MInt(1.0 /Float MInt2Float(MI, P, E), P +Int E)  operateOnVectorHelper(MIs, vfreciprocal, P, E)
 
   rule operateOnVectorHelper(.MInts, .MInts, _, _, _) => .MInts
 
   /*@
-    Bitwise negation
+    Deprecated
   */  
   rule shiftLeft(MI, I) => 
     extractMInt(shlMInt(MI, I), 0, bitwidthMInt(MI))
