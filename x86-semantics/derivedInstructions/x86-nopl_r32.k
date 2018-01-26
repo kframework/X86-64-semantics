@@ -9,7 +9,6 @@ module NOPL-R32
   ...</k>
 endmodule
 
-module NOPL-SEMANTICS
+module NOPL-R32-SEMANTICS
   imports NOPL-R32
 endmodule
-  

@@ -21,4 +21,3 @@ endmodule
 module MOVZBW-R16-R8-SEMANTICS
   imports MOVZBW-R16-R8
 endmodule
-  

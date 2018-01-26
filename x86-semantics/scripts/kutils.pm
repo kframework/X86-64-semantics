@@ -950,11 +950,11 @@ sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
-    my $bin_op      = (qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int/);
+    my $bin_op = (qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int/);
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
     while (1) {
-        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|ifMInts)$terniary_op(.+)/ ) {
+        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
             my $pre  = $1;
             my $opr  = $2;
             my $post = $3;
@@ -967,41 +967,18 @@ sub mixfix2infix {
             debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
             debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
 
-            my $explicitCast = "";
-            if ( $opr eq "#ifMInt" ) {
-                $explicitCast = "";
-            }
-            elsif ( $opr eq "#ifBool" ) {
-                $explicitCast = ":>Bool";
-            }
+            $arg =
+                $pre
+              . "($opr ("
+              . $args[0]
+              . " ) #then ( "
+              . $args[1]
+              . " ) #else ( "
+              . $args[2]
+              . " ) #fi) "
+              . $rest;
 
-            #print "\nBefore:" . $arg . "\n";
-            if ( $explicitCast eq "" ) {
-                $arg =
-                    $pre
-                  . "$opr ("
-                  . $args[0]
-                  . " ) #then ( "
-                  . $args[1]
-                  . " ) #else ( "
-                  . $args[2]
-                  . " ) #fi "
-                  . $rest;
-            }
-            else {
-                $arg =
-                    $pre
-                  . "($opr ("
-                  . $args[0]
-                  . " ) #then ( "
-                  . $args[1]
-                  . " ) #else ( "
-                  . $args[2]
-                  . " ) #fi)$explicitCast "
-                  . $rest;
-            }
-
-            #print "\nAfter:" . $arg . "\n";
+            #print "\nAfter:" . $arg . "\n\n";
         }
         elsif ( $arg =~ m/(.+)_($bin_op)\_(.+)/ ) {
 
@@ -1162,7 +1139,7 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
                 }
             }
 
-            printMap(\%rsmap, "REG -> NUM", $debugprint);
+            printMap( \%rsmap, "REG -> NUM", $debugprint );
         }
 
         # Obtaining the final values of registers.
@@ -1259,14 +1236,14 @@ sub processRWSET {
     for my $key ( keys %mayRS ) {
         if ( !exists $mustRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Read gt Must Read");
+            utils::warnInfo("May Read $key does not belong to Must Read");
         }
         $RS{$key} = 1;
     }
     for my $key ( keys %mustRS ) {
         if ( !exists $mayRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Read gt May Read");
+            utils::warnInfo("Must Read $key does not belong to May Read");
         }
         $RS{$key} = 1;
     }
@@ -1276,14 +1253,14 @@ sub processRWSET {
     for my $key ( keys %mayWS ) {
         if ( !exists $mustWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Write gt Must Write");
+            utils::warnInfo("May Write $key does not belong to Must Write");
         }
         $WS{$key} = 1;
     }
     for my $key ( keys %mustWS ) {
         if ( !exists $mayWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Write gt May Write");
+            utils::warnInfo("Must Write $key does not belong to May Write");
         }
         $WS{$key} = 1;
     }
@@ -1293,14 +1270,14 @@ sub processRWSET {
     for my $key ( keys %mayUS ) {
         if ( !exists $mustUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Undef gt Must Undef");
+            utils::warnInfo("May Undef $key does not belong to Must Undef");
         }
         $US{$key} = 1;
     }
     for my $key ( keys %mustUS ) {
         if ( !exists $mayUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Undef gt May Undef");
+            utils::warnInfo("Must Undef ($key) does not belong to May Undef");
         }
         $US{$key} = 1;
     }
@@ -1319,8 +1296,7 @@ sub processRWSET {
         debugInfo( "::" . $key . "::\n", $debugprint );
     }
 
-    return ( \%RS, \%WS, \%US );
-
+    return ( \%RS, \%WS, \%US, \%mustUS );
 }
 
 sub selectRules {
@@ -1328,6 +1304,7 @@ sub selectRules {
     my $readSet_ref          = shift @_;
     my $writeSet_ref         = shift @_;
     my $undefSet_ref         = shift @_;
+    my $mustUndefSet_ref     = shift @_;
     my $actual2psedoRegs_ref = shift @_;
     my $rsmap_ref            = shift @_;
     my $rev_rsmap_ref        = shift @_;
@@ -1337,6 +1314,7 @@ sub selectRules {
     my %readSet          = %{$readSet_ref};
     my %writeSet         = %{$writeSet_ref};
     my %undefSet         = %{$undefSet_ref};
+    my %mustUndefSet     = %{$mustUndefSet_ref};
     my %actual2psedoRegs = %{$actual2psedoRegs_ref};
     my %rsmap            = %{$rsmap_ref};
     my %rev_rsmap        = %{$rev_rsmap_ref};
@@ -1344,6 +1322,12 @@ sub selectRules {
     my $returnInfo      = "";
     my %deleteIndex     = ();
     my %collectedMINUMs = ();
+
+    utils::printMap( \%readSet,  "selectRules: Read Set",  $debugprint );
+    utils::printMap( \%writeSet, "selectRules: Write Set", $debugprint );
+    utils::printMap( \%undefSet, "selectRules: Undef Set", $debugprint );
+    utils::printMap( \%mustUndefSet, "selectRules: Must Undef Set",
+        $debugprint );
 
     for ( my $i = 0 ; $i < scalar(@workList) ; $i++ ) {
         my $result = $workList[$i];
@@ -1362,15 +1346,16 @@ sub selectRules {
 
             #push @deleteIndex, $i;
             $deleteIndex{$i} = 1;
-            ## If the register is write or undef sets, include it
-            if ( exists $undefSet{$reg} ) {
+            ## If the register is must undef sets, include it
+            if ( exists $mustUndefSet{$reg} ) {
                 $returnInfo =
                   $returnInfo
                   . " \"$reg\" |-> (MI$rsmap{$reg} => undef)" . "\n\n";
                 next;
             }
 
-            if ( exists( $writeSet{$reg} ) ) {
+            ## If the register is in write or may undef set, include it
+            if ( exists( $writeSet{$reg} ) or exists( $undefSet{$reg} ) ) {
 
                 ## Convert concrete reg to generic ones.
                 if ( exists $actual2psedoRegs{$reg} ) {
@@ -1416,7 +1401,8 @@ sub selectRules {
         }
     }
 
-    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n", $debugprint );
+    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n",
+        $debugprint );
     utils::printMap( \%deleteIndex, "Deleted Index", $debugprint );
 
     ## Remove the included elements from the workList
@@ -1483,51 +1469,44 @@ sub sanitizeSpecOutput {
             $instr = utils::trim($1);
         }
     }
+    debugInfo( "::" . $instr . "::" . $opcode . "::\n", $debugprint );
 
     ## Obtain the RW set.
-    my ( $readSet_ref, $writeSet_ref, $undefSet_ref ) =
+    my ( $readSet_ref, $writeSet_ref, $undefSet_ref, $mustUndefSet_ref ) =
       processRWSET( $opcode, \@lines, $debugprint );
-    my %readSet  = %{$readSet_ref};
-    my %writeSet = %{$writeSet_ref};
-    my %undefSet = %{$undefSet_ref};
+    my %readSet      = %{$readSet_ref};
+    my %writeSet     = %{$writeSet_ref};
+    my %undefSet     = %{$undefSet_ref};
+    my %mustUndefSet = %{$mustUndefSet_ref};
 
     ## Obtain the correspondence between the generic opcode
     ## and its particular instance.
     my %actual2psedoRegs = ();
-    debugInfo( "::" . $instr . "::\n", $debugprint );
+    my $operandListFromOpcode_ref =
+      getOperandListFromOpcode( $opcode, $debugprint );
+    my $operandListFromInstr_ref =
+      getOperandListFromInstr( $instr, $debugprint );
+    my @operandListFromOpcode = @{$operandListFromOpcode_ref};
+    my @operandListFromInstr  = @{$operandListFromInstr_ref};
 
-    if ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
-        debugInfo( "Three operands\n", $debugprint );
-        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
-          "R1";
-        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $3, "%" ) } ) } =
-          "R2";
-        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $4, "%" ) } ) } =
-          "R3";
-    }
-    elsif ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)/ ) {
-        debugInfo(
-            "Two operands::"
-              . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
-              . uc( $subRegToReg{ utils::trim( $3, "%" ) } )
-              . ":: \n ",
-            $debugprint
-        );
-        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
-          "R1";
-        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $3, "%" ) } ) } =
-          "R2";
-
-    }
-    elsif ( $instr =~ m/(\w+)\s+(\S+)/ ) {
-        $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $2, "%" ) } ) } =
-          "R1";
+    if ( scalar(@operandListFromOpcode) != scalar(@operandListFromInstr) ) {
+        utils::failInfo("Fatal Error opcode not matching actual instr");
     }
 
-    for my $key ( keys %actual2psedoRegs ) {
-        debugInfo( " :: $key::$actual2psedoRegs{$key} :: " . " \n ",
-            $debugprint );
+    my $counter = 0;
+    for ( my $i = 0 ; $i < scalar(@operandListFromOpcode) ; $i++ ) {
+        my $op1 = $operandListFromOpcode[$i];
+        my $op2 = $operandListFromInstr[$i];
+
+        $counter++;
+        my $sort = getRegSort($op1);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $op2, "%" ) } ) }
+              = "R$counter";
+        }
     }
+
+    utils::printMap( \%actual2psedoRegs, "ActualToPseduRegs", $debugprint );
 
     ## Process begin
     ## stage 1
@@ -1535,7 +1514,7 @@ sub sanitizeSpecOutput {
     for my $line (@reglines) {
         chomp $line;
 
-        debugInfo( $line, $debugprint );
+        debugInfo( "Unsanitied Lines:$line\n", $debugprint );
 
         if ( $line =~ m/RIP/ ) {
             next;
@@ -1546,11 +1525,12 @@ sub sanitizeSpecOutput {
         # sanitization
         $mod =~ s/,,/,/g;
         $mod =~ s/""/"/g;
-        $mod =~ s/Int\@INT-SYNTAX\(#"(\d+)"\)/$1/g;
+        $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/_(\d+):Int\@INT-SYNTAX/_$1/g;
-        $mod =~ s/MInt\@MINT\(#"(\d+)'(\d+)"\)/mi($1, $2)/g;
+        $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
+        $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;
         $mod =~ s/\.List\{"mintlist"\}\(\.KList\@BASIC-K\)/.MInts/g;
+        $mod =~ s/undef\(\.KList\@BASIC-K\)/undef/g;
         $mod =~ s/\(#"(\w+)"\)/"$1"/g;
         $mod =~ s/\($//g;
 
@@ -1577,8 +1557,11 @@ sub sanitizeSpecOutput {
 
     utils::printArray( \@workList, "Init Worklist", $debugprint );
 
-    my $returnInfo = selectRules( \@workList, \%readSet, \%writeSet, \%undefSet,
-        \%actual2psedoRegs, \%rsmap, \%rev_rsmap, $debugprint );
+    my $returnInfo = selectRules(
+        \@workList, \%readSet,      \%writeSet,
+        \%undefSet, \%mustUndefSet, \%actual2psedoRegs,
+        \%rsmap,    \%rev_rsmap,    $debugprint
+    );
 
     debugInfo( "Rules Before GOPT: $returnInfo\n", $debugprint );
 
@@ -1595,7 +1578,7 @@ sub sanitizeSpecOutput {
 
     ## Remove or comment out the reglines which are not written
 
-    debugInfo( "Rules After GOPT: $returnInfo\n", $debugprint ); 
+    debugInfo( "Rules After GOPT: $returnInfo\n", $debugprint );
     return $returnInfo;
 }
 
@@ -1624,7 +1607,81 @@ sub getRegSort {
     if ( $reg eq "rh" ) {
         return "Rh";
     }
+    if ( $reg eq "cl" ) {
+        return "\%cl";
+    }
     return uc($reg);
+}
+
+sub getOperandListFromInstr {
+    my $instr       = shift @_;
+    my $debugprint  = shift @_;
+    my @operamdList = ();
+
+    if ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
+        debugInfo(
+            "Three operands::"
+              . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $3, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $4, "%" ) } )
+              . ":: \n ",
+            $debugprint
+        );
+        push @operamdList, $2;
+        push @operamdList, $3;
+        push @operamdList, $4;
+    }
+    elsif ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)/ ) {
+        debugInfo(
+            "Two operands::"
+              . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $3, "%" ) } )
+              . ":: \n ",
+            $debugprint
+        );
+        push @operamdList, $2;
+        push @operamdList, $3;
+    }
+    elsif ( $instr =~ m/(\w+)\s+(\S+)/ ) {
+        debugInfo(
+            "One operands::"
+              . uc( $subRegToReg{ utils::trim( $2, "%" ) } )
+              . ":: \n ",
+            $debugprint
+        );
+        push @operamdList, $2;
+    }
+
+    return \@operamdList;
+}
+
+sub getOperandListFromOpcode {
+    my $opcode      = shift @_;
+    my $debugprint  = shift @_;
+    my @operamdList = ();
+
+    if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
+        my $op3 = $2;
+        my $op2 = $3;
+        my $op1 = $4;
+
+        push @operamdList, $op1;
+        push @operamdList, $op2;
+        push @operamdList, $op3;
+
+    }
+    elsif ( $opcode =~ m/(\w+)_(.*)_(.*)/ ) {
+        my $op2 = $2;
+        my $op1 = $3;
+        push @operamdList, $op1;
+        push @operamdList, $op2;
+    }
+    elsif ( $opcode =~ m/(\w+)_(.*)/ ) {
+        my $op1 = $2;
+        push @operamdList, $op1;
+    }
+
+    return \@operamdList;
 }
 
 sub writeKDefn {
@@ -1635,94 +1692,78 @@ sub writeKDefn {
 
     my $module_name             = $opcode =~ s/_/-/gr;
     my $module_name_uc          = uc($module_name);
-    my $semantic_module_name    = $opcode =~ s/_.*//gr;
-    my $semantic_module_name_uc = uc($semantic_module_name);
+    my $enc                     = $opcode =~ s/_.*//gr;
     my $operands                = "";
-    if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
-        my $op3 = $2;
-        my $op2 = $3;
-        my $op1 = $4;
 
-        my $sort = getRegSort($op1);
+    my $operamdList_ref = getOperandListFromOpcode( $opcode, $debugprint );
+    my @operamdList     = @{$operamdList_ref};
+    my $counter         = 0;
+    for my $op (@operamdList) {
+        $counter++;
+        my $sort = getRegSort($op);
         if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
-            $operands = "R1:$sort";
+            if ( 1 == $counter ) {
+                $operands = "R$counter:$sort";
+            }
+            else {
+                $operands = $operands . ", R$counter:$sort";
+            }
         }
         else {
-            $operands = $sort;
+            if ( 1 == $counter ) {
+                $operands = $sort;
+            }
+            else {
+                $operands = $operands . ", " . $sort;
+            }
         }
-
-        $sort = getRegSort($op2);
-        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
-            $operands = $operands . ", R2:$sort";
-        }
-        else {
-            $operands = $operands . ", " . $sort;
-        }
-
-        $sort = getRegSort($op3);
-        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
-            $operands = $operands . ", R3:$sort";
-        }
-        else {
-            $operands = $operands . ", " . $sort;
-        }
-        $operands = $operands . ", ";
     }
-    elsif ( $opcode =~ m/(\w+)_(.*)_(.*)/ ) {
-        my $op2 = $2;
-        my $op1 = $3;
-        my $sort = getRegSort($op1);
-#print "::$sort\::\n";
-        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
-            $operands = "R1:$sort";
-        }
-        else {
-            $operands = $sort;
-        }
 
-#print $op2. "\n";
-        $sort = getRegSort($op2);
-        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
-            $operands = $operands . ", R2:$sort";
-        }
-        else {
-            $operands = $operands . ", " . $sort;
-        }
-        $operands = $operands . ", ";
-    }
-    elsif ( $opcode =~ m/(\w+)_(.*)/ ) {
-        my $op1 = $2;
-        my $sort = getRegSort($op1);
-        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
-            $operands = "R1:$sort";
-        }
-        else {
-            $operands = $sort;
-        }
+    if ( $counter != 0 ) {
         $operands = $operands . ", ";
     }
 
     open( my $fp, ">", $koutput )
       or die " [writeKDefn] cannot open $koutput : $! ";
 
-    my $template = qq(// Autogenerated using stratification.
+    my $template = "";
+    if ( "" eq $semantics ) {
+        $template = qq(// Autogenerated using stratification.
 requires "x86-configuration.k"
 
 module $module_name_uc
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr ($semantic_module_name $operands .Typedoperands) => .
+    execinstr ($enc $operands .Typedoperands) => .
+  ...</k>
+endmodule
+
+module $module_name_uc-SEMANTICS
+  imports $module_name_uc
+endmodule
+);
+    }
+    else {
+        $template = qq(// Autogenerated using stratification.
+requires "x86-configuration.k"
+
+module $module_name_uc
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr ($enc $operands .Typedoperands) => .
   ...</k>
     <regstate> ...
 $semantics
     ...</regstate>
 endmodule
 
-module $semantic_module_name_uc-SEMANTICS
+module $module_name_uc-SEMANTICS
   imports $module_name_uc
 endmodule
-  );
+);
+    }
 
     print $fp $template;
 }
@@ -1790,6 +1831,8 @@ sub checkSupported {
     my $debugprint  = shift @_;
 
     chomp $opcode;
+
+    utils::info("Check if supported: $opcode");
 
     my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
       getInstrFromCircuit( $opcode, $strata_path, $debugprint );

@@ -16,7 +16,6 @@ convToRegKeys(R2) |-> ( _ => plugInMask(mi(64, 64), extractMask(MI554, 8, 8), 0)
     ...</regstate>
 endmodule
 
-module MOVZBL-SEMANTICS
+module MOVZBL-R32-RH-SEMANTICS
   imports MOVZBL-R32-RH
 endmodule
-  

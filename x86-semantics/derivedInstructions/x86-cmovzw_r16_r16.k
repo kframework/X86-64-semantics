@@ -10,7 +10,7 @@ module CMOVZW-R16-R16
     <regstate> ...
 convToRegKeys(R1) |-> (MI556 => MI556)
 
-convToRegKeys(R2) |-> ( MI555 => #ifMInt (eqMInt(MI547, mi(1, 0)) ) #then ( MI555 ) #else ( signExtend(extractMask(signExtend(extractMask(MI556, 16, 0), 64), 32, 0), 64) ) #fi  )
+convToRegKeys(R2) |-> ( MI555 => (#ifMInt (eqMInt(MI547, mi(1, 0)) ) #then ( MI555 ) #else ( signExtend(extractMask(signExtend(extractMask(MI556, 16, 0), 64), 32, 0), 64) ) #fi)  )
 
  "ZF" |-> (MI547 => MI547)
 
@@ -18,7 +18,6 @@ convToRegKeys(R2) |-> ( MI555 => #ifMInt (eqMInt(MI547, mi(1, 0)) ) #then ( MI55
     ...</regstate>
 endmodule
 
-module CMOVZW-SEMANTICS
+module CMOVZW-R16-R16-SEMANTICS
   imports CMOVZW-R16-R16
 endmodule
-  

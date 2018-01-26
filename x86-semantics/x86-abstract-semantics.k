@@ -345,23 +345,5 @@ module X86-ABSTRACT-SEMANTICS
       ("YMM13" |->  ?K37:K)
       ("YMM14" |->  ?K38:K)
       ("YMM15" |->  ?K39:K)
-  */  
+      */
 endmodule
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

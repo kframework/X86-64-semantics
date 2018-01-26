@@ -16,7 +16,6 @@ convToRegKeys(R2) |-> ( _ => signExtend(extractMask(MI556, 16, 0), 64) )
     ...</regstate>
 endmodule
 
-module MOVW-SEMANTICS
+module MOVW-R16-R16-SEMANTICS
   imports MOVW-R16-R16
 endmodule
-  

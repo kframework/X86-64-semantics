@@ -12,25 +12,24 @@ module SAL-R64-CL
 
   rule <k> 
     execinstr(salq  (%cl,  (R:R64, .Typedoperands)) ) =>
-      execinstr(salq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
-                bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
+      execinstr(salq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)) )
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(salq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
+  execinstr(salq  (R,  (MIsrc:MInt, MIcount:MInt, .Typedoperands)) ) => 
     setFlag(
-      #ifMInt zeroMInt(MIcount)
+      (#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
         #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
         #then
-          xorMInt(getSignBit(MIsrc), getSignBit(shiftLeft(getRegisterValue(R, RSMap), 1)))
+          xorMInt(getSignBit(MIsrc), getSignBit(shlMInt(MIsrc, 1)))
         #else
           undef
         #fi 
-      #fi  
+      #fi):>MInt  
         , 
         "OF") ~> 
 
@@ -46,7 +45,7 @@ module SAL-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shiftLeft(MIsrc, uvalueMInt(MIcount))
+          shlMInt(MIsrc, uvalueMInt(MIcount))
         #else 
           salOverflow(MIsrc)
         #fi 
@@ -65,7 +64,7 @@ module SAL-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shiftLeft(MIsrc, uvalueMInt(MIcount))
+          shlMInt(MIsrc, uvalueMInt(MIcount))
         #else 
           salOverflow(MIsrc)
         #fi 
@@ -93,7 +92,7 @@ module SAL-R64-CL
         #else
           #ifMInt ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
           #then
-            getSignBit(shiftLeft(MIsrc, uvalueMInt(MIcount) -Int 1))
+            getSignBit(shlMInt(MIsrc, uvalueMInt(MIcount) -Int 1))
           #else  
             undef
           #fi  
@@ -114,7 +113,7 @@ module SAL-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shiftLeft(MIsrc, uvalueMInt(MIcount))
+          shlMInt(MIsrc, uvalueMInt(MIcount))
         #else 
           salOverflow(MIsrc)
         #fi 
@@ -124,7 +123,7 @@ module SAL-R64-CL
     setRegisterValue(
       #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
       #then
-        shiftLeft(MIsrc, uvalueMInt(MIcount))
+        shlMInt(MIsrc, uvalueMInt(MIcount))
       #else 
         salOverflow(MIsrc)
       #fi 

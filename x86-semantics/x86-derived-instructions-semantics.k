@@ -22,8 +22,8 @@ requires "x86-movzbl_r32_rh.k"
 requires "x86-movzbw_r16_r8.k"
 requires "x86-movzbw_r16_rh.k"
 requires "x86-movzwl_r32_r16.k"
-requires "x86-nop.k"
 requires "x86-nopl_r32.k"
+requires "x86-nop.k"
 requires "x86-nopw_r16.k"
 requires "x86-rcll_r32_one.k"
 requires "x86-rclq_r64_one.k"
@@ -31,34 +31,34 @@ requires "x86-rclw_r16_one.k"
 
 
 module X86-DERIVED-INSTRUCTIONS-SEMANTICS
-  imports ADDQ-SEMANTICS
-  imports ANDNQ-SEMANTICS
+  imports ADDQ-R64-R64-SEMANTICS
+  imports ANDNQ-R64-R64-R64-SEMANTICS
   imports CBTW-SEMANTICS
   imports CLC-SEMANTICS
   imports CLTQ-SEMANTICS
-  imports CMOVZQ-SEMANTICS
-  imports CMOVZW-SEMANTICS
-  imports CVTSS2SD-SEMANTICS
-  imports DECB-SEMANTICS
-  imports INCL-SEMANTICS
-  imports INCW-SEMANTICS
-  imports MOVAPD-SEMANTICS
-  imports MOVAPS-SEMANTICS
-  imports MOVDDUP-SEMANTICS
-  imports MOVDQA-SEMANTICS
-  imports MOVDQU-SEMANTICS
-  imports MOVD-SEMANTICS
-  imports MOVSBL-SEMANTICS
-  imports MOVUPS-SEMANTICS
-  imports MOVW-SEMANTICS
-  imports MOVZBL-SEMANTICS
-  imports MOVZBW-R16-RH-SEMANTICS
+  imports CMOVZQ-R64-R64-SEMANTICS
+  imports CMOVZW-R16-R16-SEMANTICS
+  imports CVTSS2SD-XMM-XMM-SEMANTICS
+  imports DECB-R8-SEMANTICS
+  imports INCL-R32-SEMANTICS
+  imports INCW-R16-SEMANTICS
+  imports MOVAPD-XMM-XMM-SEMANTICS
+  imports MOVAPS-XMM-XMM-SEMANTICS
+  imports MOVDDUP-XMM-XMM-SEMANTICS
+  imports MOVDQA-XMM-XMM-SEMANTICS
+  imports MOVDQU-XMM-XMM-SEMANTICS
+  imports MOVD-R32-XMM-SEMANTICS
+  imports MOVSBL-R32-R8-SEMANTICS
+  imports MOVUPS-XMM-XMM-SEMANTICS
+  imports MOVW-R16-R16-SEMANTICS
+  imports MOVZBL-R32-RH-SEMANTICS
   imports MOVZBW-R16-R8-SEMANTICS
-  imports MOVZWL-SEMANTICS
+  imports MOVZBW-R16-RH-SEMANTICS
+  imports MOVZWL-R32-R16-SEMANTICS
+  imports NOPL-R32-SEMANTICS
   imports NOP-SEMANTICS
-  imports NOPL-SEMANTICS
-  imports NOPW-SEMANTICS
-  imports RCLL-SEMANTICS
-  imports RCLQ-SEMANTICS
-  imports RCLW-SEMANTICS
+  imports NOPW-R16-SEMANTICS
+  imports RCLL-R32-ONE-SEMANTICS
+  imports RCLQ-R64-ONE-SEMANTICS
+  imports RCLW-R16-ONE-SEMANTICS
 endmodule

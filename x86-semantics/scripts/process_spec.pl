@@ -37,6 +37,7 @@ my $postprocess = "";
 my $kprove      = "";
 my $getoplist   = "";
 my $all         = "";
+my $genincludes = "";
 
 GetOptions(
     "help"          => \$help,
@@ -48,6 +49,7 @@ GetOptions(
     "kprove"        => \$kprove,
     "postprocess"   => \$postprocess,
     "all"           => \$all,
+    "genincludes"   => \$genincludes,
     "strata_path:s" => \$strata_path,
 ) or die("Error in command line arguments\n");
 
@@ -68,6 +70,7 @@ if ( "" ne $createspec ) {
         }
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
+        print "\n";
     }
 }
 
@@ -83,6 +86,7 @@ if ( "" ne $kprove ) {
             next;
         }
         kutils::runkprove( $opcode, $specdir, $debugprint );
+        print "\n";
     }
 }
 
@@ -99,6 +103,7 @@ if ( "" ne $postprocess ) {
         }
         kutils::postProcess( $opcode, $specdir, $derivedInstructions,
             $debugprint );
+        print "\n";
     }
 }
 
@@ -119,6 +124,54 @@ if ( "" ne $all ) {
             $debugprint );
         print "\n";
     }
+}
+
+if ( "" ne $genincludes ) {
+    my @reqs = ();
+    my @imports = ();
+    my @syntaxs = ();
+
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
+        my $req    = "requires \"x86-${opcode}.k\"";
+        my $koutput    = "$derivedInstructions/x86-${opcode}.k";
+        my $matches_ref = utils::myGrep("-SEMANTICS", $koutput);
+        my @matches = @{$matches_ref};
+
+        if(scalar(@matches) > 1) {
+          utils::failInfo("$opcode: More that one top level module");
+        }
+
+        my $semantic_module = $matches[0];
+        $semantic_module =~ s/module //g; 
+        $semantic_module = utils::trim($semantic_module);  
+        my $import = "  imports $semantic_module";
+
+        my $syntax = $opcode =~ s/_.*//gr;
+        $syntax =  "                              |  \"$syntax\" [token]";
+
+        push @reqs, $req;
+        push @imports, $import;
+        push @syntaxs, $syntax;
+
+    }
+
+    print join("\n", @reqs);
+
+    print "\n";
+
+    print join("\n", @imports);
+
+    print "\n";
+
+    print join("\n", @syntaxs);
 }
 
 ## Get the stratum and num of instr of a particular circuit

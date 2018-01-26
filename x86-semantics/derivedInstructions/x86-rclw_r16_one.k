@@ -8,9 +8,9 @@ module RCLW-R16-ONE
     execinstr (rclw $0x1, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "OF" |-> ( _ => #ifMInt (eqMInt(mi(bitwidthMInt(extractMask(MI555, 16, 0)), 2), addMInt(xorMInt(lshrMInt(extractMask(MI555, 16, 0),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) )), xorMInt(lshrMInt(extractMask(MI555, 16, 0),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) )))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(bitwidthMInt(extractMask(MI555, 16, 0)), 2), addMInt(xorMInt(lshrMInt(extractMask(MI555, 16, 0),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) )), xorMInt(lshrMInt(extractMask(MI555, 16, 0),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) ), lshrMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)),  ( bitwidthMInt(extractMask(MI555, 16, 0))  -Int  1 ) )))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "CF" |-> ( MI544 => #ifMInt ( (  ( ultMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), extractMask(MI555, 16, 0))  orBool  ultMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), extractMask(MI555, 16, 0)) )  orBool  ( ultMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)))  orBool  ultMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), zeroExtend(MI544, 16)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi  )
+ "CF" |-> ( MI544 => (#ifMInt ( (  ( ultMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), extractMask(MI555, 16, 0))  orBool  ultMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), extractMask(MI555, 16, 0)) )  orBool  ( ultMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)))  orBool  ultMInt(addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), zeroExtend(MI544, 16)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 convToRegKeys(R2) |-> ( MI555 => plugInMask(MI555, addMInt(addMInt(extractMask(MI555, 16, 0), extractMask(MI555, 16, 0)), zeroExtend(MI544, 16)), 0) )
 
@@ -18,7 +18,6 @@ convToRegKeys(R2) |-> ( MI555 => plugInMask(MI555, addMInt(addMInt(extractMask(M
     ...</regstate>
 endmodule
 
-module RCLW-SEMANTICS
+module RCLW-R16-ONE-SEMANTICS
   imports RCLW-R16-ONE
 endmodule
-  

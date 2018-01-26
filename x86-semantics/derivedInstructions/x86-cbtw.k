@@ -19,4 +19,3 @@ endmodule
 module CBTW-SEMANTICS
   imports CBTW
 endmodule
-  

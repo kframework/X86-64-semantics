@@ -17,4 +17,3 @@ endmodule
 module CLC-SEMANTICS
   imports CLC
 endmodule
-  

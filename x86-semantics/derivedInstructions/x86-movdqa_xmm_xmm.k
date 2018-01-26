@@ -16,7 +16,6 @@ convToRegKeys(R2) |-> ( MI550 => plugInMask(MI550, concatenateMInt(extractMask(e
     ...</regstate>
 endmodule
 
-module MOVDQA-SEMANTICS
+module MOVDQA-XMM-XMM-SEMANTICS
   imports MOVDQA-XMM-XMM
 endmodule
-  

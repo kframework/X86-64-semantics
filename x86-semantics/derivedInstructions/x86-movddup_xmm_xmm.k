@@ -16,7 +16,6 @@ convToRegKeys(R2) |-> ( MI550 => plugInMask(MI550, concatenateMInt(extractMask(e
     ...</regstate>
 endmodule
 
-module MOVDDUP-SEMANTICS
+module MOVDDUP-XMM-XMM-SEMANTICS
   imports MOVDDUP-XMM-XMM
 endmodule
-  

@@ -10,7 +10,7 @@ module CVTSS2SD-XMM-XMM
     <regstate> ...
 convToRegKeys(R1) |-> (MI551 => MI551)
 
-convToRegKeys(R2) |-> ( MI550 => plugInMask(MI550, concatenateMInt(extractMask(plugInMask(MI553, extractMask(extractMask(MI550, 128, 0), 64, 64), 0), 128, 0), extractMask(joinVector(convertFpsToMInts(convertFloatsToDoubles(convertMIntsToFps(#ifMInts ( ( bitwidthMInt(extractMask(MI551, 128, 0))  >=Int  32 )  ) #then ( splitVectorHelper(extractMask(MI551, 128, 0), 32, 0) ) #else ( .MInts ) #fi , 24, 8)), 64)), 128, 0)), 0) )
+convToRegKeys(R2) |-> ( MI550 => plugInMask(MI550, concatenateMInt(extractMask(plugInMask(MI553, extractMask(extractMask(MI550, 128, 0), 64, 64), 0), 128, 0), extractMask(joinVector(convertFpsToMInts(convertFloatsToDoubles(convertMIntsToFps((#ifMInts ( ( bitwidthMInt(extractMask(MI551, 128, 0))  >=Int  32 )  ) #then ( splitVectorHelper(extractMask(MI551, 128, 0), 32, 0) ) #else ( .MInts ) #fi) , 24, 8)), 64)), 128, 0)), 0) )
 
  "YMM13" |-> (MI553 => MI553)
 
@@ -18,7 +18,6 @@ convToRegKeys(R2) |-> ( MI550 => plugInMask(MI550, concatenateMInt(extractMask(p
     ...</regstate>
 endmodule
 
-module CVTSS2SD-SEMANTICS
+module CVTSS2SD-XMM-XMM-SEMANTICS
   imports CVTSS2SD-XMM-XMM
 endmodule
-  

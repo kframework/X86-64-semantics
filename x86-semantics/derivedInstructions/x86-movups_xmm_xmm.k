@@ -24,7 +24,6 @@ convToRegKeys(R2) |-> ( MI623 => plugInMask(MI623, concatenateMInt(concatenateMI
     ...</regstate>
 endmodule
 
-module MOVUPS-SEMANTICS
+module MOVUPS-XMM-XMM-SEMANTICS
   imports MOVUPS-XMM-XMM
 endmodule
-  
