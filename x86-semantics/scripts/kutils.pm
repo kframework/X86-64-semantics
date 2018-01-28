@@ -120,6 +120,22 @@ my %subRegToReg = (
     "xmm13" => "ymm13",
     "xmm14" => "ymm14",
     "xmm15" => "ymm15",
+    "ymm0"  => "ymm0",
+    "ymm1"  => "ymm1",
+    "ymm2"  => "ymm2",
+    "ymm3"  => "ymm3",
+    "ymm4"  => "ymm4",
+    "ymm5"  => "ymm5",
+    "ymm6"  => "ymm6",
+    "ymm7"  => "ymm7",
+    "ymm8"  => "ymm8",
+    "ymm9"  => "ymm9",
+    "ymm10" => "ymm10",
+    "ymm11" => "ymm11",
+    "ymm12" => "ymm12",
+    "ymm13" => "ymm13",
+    "ymm14" => "ymm14",
+    "ymm15" => "ymm15",
     "af"    => "af",
     "pf"    => "pf",
     "sf"    => "sf",
@@ -950,7 +966,7 @@ sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
-    my $bin_op = (qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int/);
+    my $bin_op = (qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float/);
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
     while (1) {
@@ -982,13 +998,13 @@ sub mixfix2infix {
         }
         elsif ( $arg =~ m/(.+)_($bin_op)\_(.+)/ ) {
 
+            my $op = $2;
+            debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
             #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
             my ( $op_arg, $rest ) = selectbraces( $3, 1 );
-            my $op = $2;
-            debugInfo( "Got Binary op: $op\n", $debugprint );
 
-            #print "Arg: " . $op_arg . "\n";
-            #print "Rest: " . $rest . "\n";
+            debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+            debugInfo( "Rest: " . $rest . "\n", $debugprint );
 
             my @args = findArgs( $op_arg, 2 );
 
@@ -1001,7 +1017,7 @@ sub mixfix2infix {
               . $args[1] . " ) "
               . $rest;
 
-            #print "\n" . $arg . "\n";
+            #print "\nAfter:" . $arg . "\n";
         }
         elsif ( $arg =~ m/(.+)($unary_op)\_(.+)/ ) {
 
@@ -1047,7 +1063,7 @@ sub findArgs {
             push @args, "false";
             $line = $1;
         }
-        elsif ( $line =~ m/^(\d+)\s*,\s*(.*)/ ) {
+        elsif ( $line =~ m/^([-]?[e\.\+\d]+)\s*,\s*(.*)/ ) {
             push @args, $1;
             $line = $2;
         }
@@ -1479,6 +1495,12 @@ sub sanitizeSpecOutput {
     my %undefSet     = %{$undefSet_ref};
     my %mustUndefSet = %{$mustUndefSet_ref};
 
+    utils::printMap( \%readSet,  "selectRules: Read Set",  $debugprint );
+    utils::printMap( \%writeSet, "selectRules: Write Set", $debugprint );
+    utils::printMap( \%undefSet, "selectRules: Undef Set", $debugprint );
+    utils::printMap( \%mustUndefSet, "selectRules: Must Undef Set",
+        $debugprint );
+
     ## Obtain the correspondence between the generic opcode
     ## and its particular instance.
     my %actual2psedoRegs = ();
@@ -1526,6 +1548,7 @@ sub sanitizeSpecOutput {
         $mod =~ s/,,/,/g;
         $mod =~ s/""/"/g;
         $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
+        $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\d]+)"\)/$1/g;
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
         $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;

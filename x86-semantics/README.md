@@ -15,9 +15,17 @@ make compare // compare the above two states
 make // All the above
 ```
 
-## Autogenerate k files
-We have templates file in `scripts/templates/*.tmpl` to be used for auto generating k files
+## Autogenerate k rules from strata
+Let --file input is a file containing lst of all the opcodes which strata has the formula generated.
+
+### Generated spec file to be use with kprove (tool used for smbolic execution)
 ```
-cd x86-semantics/scripts/
-./genfromtemplate.pl --templatedir templates/ -gendir ../instructions/
+./scripts/process_spec.pl --file docs/relatedwork/strata/non_vector_opcodes.txt --createspec
 ```
+### Run kprove
+```
+./scripts/process_spec.pl --file docs/relatedwork/strata/non_vector_opcodes.txt --kprove
+```
+### Run Sanitization over the rules generated and create the k files
+```
+./scripts/process_spec.pl --file docs/relatedwork/strata/non_vector_opcodes.txt --postprocess

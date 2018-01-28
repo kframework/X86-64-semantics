@@ -187,7 +187,13 @@ if ( "" ne $checksanity ) {
         "extractMask", 
         "zeroExtend", 
         "signExtend", 
-        "splitVectorHelper");
+        "splitVectorHelper",
+        "minFloat",
+        "maxFloat",
+        "Float2MInt\\\(MInt2Float",
+        "MInt2Float\\\(Float2MInt",
+        "_\\\\s+",
+        );
 
     for my $opcode (@lines) {
         chomp $opcode;
@@ -201,6 +207,7 @@ if ( "" ne $checksanity ) {
         my $koutput    = "$derivedInstructions/x86-${opcode}.k";
         
 
+        utils::info("$opcode: Check Sanity");
         for my $pattern (@patterns) {
           my $matches_ref = utils::myGrep($pattern, $koutput);
           my @matches = @{$matches_ref};

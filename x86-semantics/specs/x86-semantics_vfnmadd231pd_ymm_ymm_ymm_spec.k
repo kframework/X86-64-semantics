@@ -1,0 +1,38 @@
+module X86-SEMANTICS-SPEC
+  imports X86-SEMANTICS
+
+  rule
+    <k>
+execinstr ( vfnmadd132pd %ymm3, %ymm1, %ymm2 , .Typedoperands ) ~>
+split2NToN( %ymm2, %xmm10, %xmm11 ) ~>
+combineNTo2N( %xmm10, %xmm11, %ymm1 ) ~>
+execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
+ => exit_0
+    </k>
+    <entrypoint> zeroMIntW64 </entrypoint>
+    <nextLoc> zeroMIntW64  </nextLoc>
+    <memstate>
+      <cmem> .Map </cmem>
+      <dmem> .Map </dmem>
+    </memstate>
+
+    <regstate>
+      regstateInitConfig => regstateFinalConfig
+    </regstate>
+    <regstatequeue> .List => _ </regstatequeue>
+endmodule
+/*
+opcode:vfnmadd231pd_ymm_ymm_ymm
+instr:vfnmadd231pd %ymm3, %ymm2, %ymm1
+maybe read:{ %ymm1 %ymm2 %ymm3 }
+must read:{ %ymm1 %ymm2 %ymm3 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ fma }
+
+circuit:vfnmadd132pd %ymm3, %ymm1, %ymm2      #  1     0    5      OPC=vfnmadd132pd_ymm_ymm_ymm
+circuit:callq .move_256_128_ymm2_xmm10_xmm11  #  2     0x5  5      OPC=callq_label
+circuit:callq .move_128_256_xmm10_xmm11_ymm1  #  3     0xa  5      OPC=callq_label
+*/

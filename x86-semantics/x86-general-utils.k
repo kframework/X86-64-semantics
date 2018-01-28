@@ -353,6 +353,7 @@ module MINT-WRAPPER
     Float2MInt(1.0 /Float MInt2Float(MI, P, E), P +Int E)  operateOnVectorHelper(MIs, vfreciprocal, P, E)
 
   rule operateOnVectorHelper(.MInts, .MInts, _, _, _) => .MInts
+  rule operateOnVectorHelper(.MInts, _, _, _) => .MInts
 
   /*@
     Deprecated

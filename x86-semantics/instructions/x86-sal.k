@@ -38,9 +38,9 @@ module SAL-R64-CL
       #then
         #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
         #then
-          mi(8, 0)
+          mi(64, 0)
         #else
-          mi(8, 1)
+          mi(64, 1)
         #fi  
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
@@ -57,9 +57,9 @@ module SAL-R64-CL
       #then
         #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
         #then
-          mi(8, -128)
+          mi(64, -9223372036854775808)
         #else
-          mi(8, 0)
+          mi(64, 0)
         #fi  
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
@@ -106,9 +106,9 @@ module SAL-R64-CL
       #then
         #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
         #then
-          mi(8, 0)
+          mi(64, 0)
         #else
-          mi(8, 1)
+          mi(64, 1)
         #fi  
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))

@@ -8,7 +8,22 @@ requires "x86-configuration.k"
 module VMINPD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
-   rule <k>
+  rule <k>
+    execinstr(vminpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      setRegisterValue(
+        #ifMInt sameRegisters(Y1, Y2)
+        #then
+          getRegisterValue(Y1, RSMap)
+        #else
+          joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
+            splitVector(getRegisterValue(Y2, RSMap), 64), vfmin, 64)) 
+        #fi
+          ,Y3)
+  ...</k>
+    <regstate> RSMap</regstate>
+
+  /*
+  rule <k>
     execinstr(vminpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vminpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
@@ -16,14 +31,39 @@ module VMINPD-YMM-YMM-YMM
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
+      requires notBool sameRegisters(Y1, Y2)
 
-  rule <k> execinstr(vminpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> 
+    execinstr(vminpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) 
+  ...</k>
+  */
 endmodule
 
 module VMINPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
-   rule <k>
+  rule <k>
+    execinstr(vminps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      setRegisterValue(
+        #ifMInt sameRegisters(Y1, Y2)
+        #then
+          getRegisterValue(Y1, RSMap)
+        #else
+          joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
+            splitVector(getRegisterValue(Y2, RSMap), 32), vfmin, 32)) 
+        #fi
+          ,Y3)
+  ...</k>
+    <regstate> RSMap</regstate>
+
+  /*
+  rule <k>
+    execinstr(vminps  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Typedoperands) =>
+      execinstr(vminps  Y2, getRegisterValue(Y1, RSMap), .Typedoperands) 
+  ...</k>
+    <regstate> RSMap</regstate>
+
+  rule <k>
     execinstr(vminps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vminps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
@@ -32,7 +72,10 @@ module VMINPS-YMM-YMM-YMM
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vminps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> 
+    execinstr(vminps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) 
+  ...</k>
+  */
 endmodule
 
 

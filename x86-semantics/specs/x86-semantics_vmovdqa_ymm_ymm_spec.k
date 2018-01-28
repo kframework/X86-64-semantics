@@ -1,0 +1,34 @@
+module X86-SEMANTICS-SPEC
+  imports X86-SEMANTICS
+
+  rule
+    <k>
+execinstr ( vminpd %ymm2, %ymm2, %ymm1 , .Typedoperands ) ~>
+execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
+ => exit_0
+    </k>
+    <entrypoint> zeroMIntW64 </entrypoint>
+    <nextLoc> zeroMIntW64  </nextLoc>
+    <memstate>
+      <cmem> .Map </cmem>
+      <dmem> .Map </dmem>
+    </memstate>
+
+    <regstate>
+      regstateInitConfig => regstateFinalConfig
+    </regstate>
+    <regstatequeue> .List => _ </regstatequeue>
+endmodule
+/*
+opcode:vmovdqa_ymm_ymm
+instr:vmovdqa %ymm2, %ymm1
+maybe read:{ %ymm2 }
+must read:{ %ymm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:vminpd %ymm2, %ymm2, %ymm1  #  1     0    4      OPC=vminpd_ymm_ymm_ymm
+*/
