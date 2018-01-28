@@ -1,0 +1,36 @@
+module X86-SEMANTICS-SPEC
+  imports X86-SEMANTICS
+
+  rule
+    <k>
+readFlagToRegister( "CF", %rbx ) ~>
+execinstr ( movb %bl, %ah , .Typedoperands ) ~>
+execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
+ => exit_0
+    </k>
+    <entrypoint> zeroMIntW64 </entrypoint>
+    <nextLoc> zeroMIntW64  </nextLoc>
+    <memstate>
+      <cmem> .Map </cmem>
+      <dmem> .Map </dmem>
+    </memstate>
+
+    <regstate>
+      regstateInitConfig => regstateFinalConfig
+    </regstate>
+    <regstatequeue> .List => _ </regstatequeue>
+endmodule
+/*
+opcode:setnae_rh
+instr:setnae %ah
+maybe read:{ %cf }
+must read:{ %cf }
+maybe write:{ %ah }
+must write:{ %ah }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .read_cf_into_rbx  #  1     0    5      OPC=callq_label
+circuit:movb %bl, %ah            #  2     0x5  2      OPC=movb_rh_r8
+*/

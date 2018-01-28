@@ -1,4 +1,5 @@
 requires "x86-syntax.k"
+//requires "x86-sort.k"
 
 module X86-ASBTRACT-SORT
 
@@ -10,6 +11,7 @@ module X86-ASBTRACT-SYNTAX
   imports X86-ASBTRACT-SORT
   imports MINT
   imports X86-SYNTAX
+  //imports X86-SORT
 
   syntax Abstractinstruction ::= storedinstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)

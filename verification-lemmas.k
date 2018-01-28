@@ -1,5 +1,6 @@
+requires "x86-general-utils.k"
+
 module INTEGER-LEMMAS
-  import DOMAINS
   rule 0 +Int I:Int => I
   rule I:Int +Int 0 => I
   rule I:Int -Int 0 => I
@@ -21,7 +22,6 @@ module INTEGER-LEMMAS
 endmodule
 
 module BOOLEAN-LEMMAS
-  import DOMAINS
   rule true orBool _ => true
   rule _ orBool true => true
   rule false andBool _ => false
@@ -29,9 +29,12 @@ module BOOLEAN-LEMMAS
 endmodule
 
 module MINT-LEMMAS
-  import MINT
+  imports MINT
+  imports FLOAT
+  imports MINT-WRAPPER-SYNTAX
 
   // bitwidthMInt    
+  // Recursive rules
   rule bitwidthMInt(addMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(xorMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(orMInt(MIC,   _)) => bitwidthMInt(MIC) [lemma]
@@ -42,11 +45,15 @@ module MINT-LEMMAS
   rule bitwidthMInt(shlMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(negMInt(MIC))     => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(concatenateMInt(MI1:MInt, MI2:MInt)) => bitwidthMInt(MI1) +Int bitwidthMInt(MI2) [lemma]
-  rule bitwidthMInt(Float2MInt(_:Float, W:Int)) => W [lemma]
+  rule bitwidthMInt(#ifMInt B:Bool #then MI1 #else MI2 #fi) => bitwidthMInt(MI1) [lemma]
 
+  // Base Rules
   rule bitwidthMInt(mi(W:Int, _)) => W [lemma]
   rule bitwidthMInt(extractMask(_, W:Int, _)) => W [lemma]
   rule bitwidthMInt(extractMInt(_, S:Int, E:Int)) => E -Int S [lemma]
+  rule bitwidthMInt(Float2MInt(_:Float, W:Int)) => W [lemma]
+  rule bitwidthMInt(zeroExtend(_:MInt, W:Int)) => W [lemma]
+  rule bitwidthMInt(signExtend(_:MInt, W:Int)) => W [lemma]
 
   //rule bitwidthMInt(addMInt(extractMask(_,_,_), mi(W,_))) => W [lemma]  
   //rule bitwidthMInt(addMInt(extractMask(_,_,_), MIC)) => bitwidthMInt(MIC) [lemma]  
@@ -73,6 +80,16 @@ module MINT-LEMMAS
 
   rule addMInt(ZMI:MInt, MI:MInt) => MI                  
     requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+
+  // minFloat
+  rule minFloat(F:Float, F:Float) => F [lemma]
+  rule maxFloat(F:Float, F:Float) => F [lemma]
+
+  // Float2MInt/MInt2Float
+  rule Float2MInt(MInt2Float(MI:MInt, 53, 11), 64) => MI [lemma]
+  rule MInt2Float(Float2MInt(F:Float, 64), 53, 11) => F [lemma]
+  rule Float2MInt(MInt2Float(MI:MInt, 24, 8), 32)  => MI [lemma]
+  rule MInt2Float(Float2MInt(F:Float, 32), 24, 8)  => F [lemma]
 
 endmodule
 

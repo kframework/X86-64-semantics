@@ -10,6 +10,27 @@ module VMAXPD-YMM-YMM-YMM
 
   rule <k>
     execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      setRegisterValue(
+        #ifMInt sameRegisters(Y1, Y2)
+        #then
+          getRegisterValue(Y1, RSMap)
+        #else
+          joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
+            splitVector(getRegisterValue(Y2, RSMap), 64), vfmax, 64)) 
+        #fi
+          ,Y3)
+  ...</k>
+    <regstate> RSMap</regstate>
+
+  /*
+  rule <k>
+    execinstr(vmaxpd  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Typedoperands) =>
+      execinstr(vmaxpd  Y2, getRegisterValue(Y1, RSMap), .Typedoperands)
+  ...</k>
+    <regstate> RSMap</regstate>
+
+  rule <k>
+    execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vmaxpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
           splitVector(getRegisterValue(Y2, RSMap), 64), vfmax, 64)), 
@@ -18,10 +39,31 @@ module VMAXPD-YMM-YMM-YMM
     <regstate> RSMap</regstate>
 
   rule <k> execinstr(vmaxpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  */
 endmodule
 
 module VMAXPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+      setRegisterValue(
+        #ifMInt sameRegisters(Y1, Y2)
+        #then
+          getRegisterValue(Y1, RSMap)
+        #else
+          joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
+            splitVector(getRegisterValue(Y2, RSMap), 32), vfmax, 32)) 
+        #fi
+          ,Y3)
+  ...</k>
+    <regstate> RSMap</regstate>
+  /*
+  rule <k>
+    execinstr(vmaxps  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Typedoperands) =>
+      execinstr(vmaxps  Y2, getRegisterValue(Y1, RSMap), .Typedoperands)
+  ...</k>
+    <regstate> RSMap</regstate>
 
   rule <k>
     execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
@@ -33,6 +75,7 @@ module VMAXPS-YMM-YMM-YMM
     <regstate> RSMap</regstate>
 
   rule <k> execinstr(vmaxps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  */
 endmodule
 
 

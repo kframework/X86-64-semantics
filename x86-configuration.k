@@ -15,9 +15,9 @@ module X86-CONFIGURATION
     </memstate>
 
     <regstate>
+      .Map
       /*@
         General purpose registers.
-      */
       ("RIP" |-> zeroMIntW64)
       ("RAX" |-> zeroMIntW64)
       ("RBX" |-> zeroMIntW64)
@@ -35,18 +35,20 @@ module X86-CONFIGURATION
       ("R13" |-> zeroMIntW64)
       ("R14" |-> zeroMIntW64)
       ("R15" |-> zeroMIntW64)
+      */
+
       /*@
         General purpose registers.
-      */
       ("CF" |-> zeroMIntW1)
       ("PF" |-> zeroMIntW1)
       ("AF" |-> zeroMIntW1)
       ("ZF" |-> zeroMIntW1)
       ("SF" |-> zeroMIntW1)
       ("OF" |-> zeroMIntW1)
+      */
+
       /*@ 
         256 bit ymm registers
-      */
       ("YMM0"  |->  zeroMIntW256) 
       ("YMM1"  |->  zeroMIntW256) 
       ("YMM2"  |->  zeroMIntW256) 
@@ -63,6 +65,7 @@ module X86-CONFIGURATION
       ("YMM13" |->  zeroMIntW256) 
       ("YMM14" |->  zeroMIntW256) 
       ("YMM15" |->  zeroMIntW256) 
+      */
     </regstate>
 
     /*@
