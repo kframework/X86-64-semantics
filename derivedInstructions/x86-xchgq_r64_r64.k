@@ -8,15 +8,15 @@ module XCHGQ-R64-R64
     execinstr (xchgq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( MI673 => concatenateMInt(extractMInt(orMInt(andMInt(orMInt(andMInt(MI642, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI672, 0, 32))), 0)), mi(64, -65536)), shlMInt(mi(64, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI674, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI642, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI672, 0, 32))), 0)), 48, 64), extractMInt(orMInt(andMInt(MI679, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI672, 32, 64))), 0)), 48, 64)))), 0)), 32, 64), 0, 16))), 0)), 32, 64), extractMInt(orMInt(andMInt(orMInt(andMInt(MI679, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI672, 32, 64))), 0)), mi(64, -65536)), shlMInt(mi(64, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI674, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI642, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI672, 0, 32))), 0)), 48, 64), extractMInt(orMInt(andMInt(MI679, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI672, 32, 64))), 0)), 48, 64)))), 0)), 32, 64), 16, 32))), 0)), 32, 64)) )
+convToRegKeys(R1) |-> ( MI692 => concatenateMInt(extractMInt(orMInt(andMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 0, 32)))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI693, mi(64, -4294967296)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 0, 32)))), 48, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 32, 64)))), 48, 64))))), 32, 64), 0, 16)))), 32, 64), extractMInt(orMInt(andMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 32, 64)))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI693, mi(64, -4294967296)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 0, 32)))), 48, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 32, 64)))), 48, 64))))), 32, 64), 16, 32)))), 32, 64)) )
 
-convToRegKeys(R2) |-> ( MI672 => MI673 )
+convToRegKeys(R2) |-> ( MI691 => MI692 )
 
- "R8" |-> (MI679 => MI679)
+ "R8" |-> (MI698 => MI698)
 
- "R9" |-> (MI642 => MI642)
+ "R9" |-> (MI661 => MI661)
 
- "RDX" |-> (MI674 => MI674)
+ "RDX" |-> (MI693 => MI693)
 
 
     ...</regstate>

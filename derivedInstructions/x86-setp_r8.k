@@ -8,9 +8,9 @@ module SETP-R8
     execinstr (setp R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI650)) )
+convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI669)) )
 
- "PF" |-> (MI650 => MI650)
+ "PF" |-> (MI669 => MI669)
 
 
     ...</regstate>

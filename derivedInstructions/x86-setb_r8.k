@@ -8,9 +8,9 @@ module SETB-R8
     execinstr (setb R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "CF" |-> (MI649 => MI649)
+ "CF" |-> (MI668 => MI668)
 
-convToRegKeys(R1) |-> ( _ => orMInt(mi(64, uvalueMInt(MI649)), mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(MI649)), 56, 64)))) )
+convToRegKeys(R1) |-> ( _ => orMInt(mi(64, uvalueMInt(MI668)), mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(MI668)), 56, 64)))) )
 
 
     ...</regstate>

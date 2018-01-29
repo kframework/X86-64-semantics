@@ -65,6 +65,8 @@ module MINT-LEMMAS
   // orMInt
   rule orMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, I) [lemma]
   rule orMInt(MI:MInt, MI:MInt) =>  MI [lemma]
+  rule orMInt(MIZ, MI:MInt) =>  MI 
+    requires zeroMInt(MIZ)
 
   // ultMInt
   rule ultMInt(_, MI) =>  false                         
@@ -90,6 +92,17 @@ module MINT-LEMMAS
   rule MInt2Float(Float2MInt(F:Float, 64), 53, 11) => F [lemma]
   rule Float2MInt(MInt2Float(MI:MInt, 24, 8), 32)  => MI [lemma]
   rule MInt2Float(Float2MInt(F:Float, 32), 24, 8)  => F [lemma]
+
+  // shlMInt / ashrMInt / lshrMInt
+  rule shlMInt(MI:MInt, 0) => MI  [lemma]
+  rule ashrMInt(MI:MInt, 0) => MI [lemma]
+  rule lshrMInt(MI:MInt, 0) => MI [lemma]
+
+  // concatenateMInt / extractMInt
+  rule concatenateMInt(extractMInt(MI, S1, E1), extractMInt(MI, S2, E2)) => extractMInt(MI, S1, E2) 
+    requires E1 ==Int S2
+  rule extractMInt(MI, S, E) => MI
+    requires (bitwidthMInt(MI) ==Int E) andBool (S ==Int 0)
 
 endmodule
 

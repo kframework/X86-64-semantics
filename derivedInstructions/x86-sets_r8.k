@@ -8,9 +8,9 @@ module SETS-R8
     execinstr (sets R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "SF" |-> (MI653 => MI653)
+ "SF" |-> (MI672 => MI672)
 
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI653)) )
+convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI672)) )
 
 
     ...</regstate>

@@ -8,9 +8,9 @@ module VMOVUPD-YMM-YMM
     execinstr (vmovupd R1:Ymm, R2:Ymm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI663 => MI663)
+convToRegKeys(R1) |-> (MI676 => MI676)
 
-convToRegKeys(R2) |-> ( _ => orMInt(andMInt(concatenateMInt(extractMInt(MI663, 0, 32), concatenateMInt(extractMInt(MI663, 32, 64), concatenateMInt(extractMInt(MI663, 64, 96), concatenateMInt(extractMInt(MI663, 96, 128), concatenateMInt(extractMInt(MI663, 128, 160), concatenateMInt(extractMInt(MI663, 160, 192), concatenateMInt(extractMInt(MI663, 192, 224), extractMInt(MI663, 224, 256)))))))), mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI663, 128, 256), 0, 64), extractMInt(extractMInt(MI663, 128, 256), 64, 128)))), 0)) )
+convToRegKeys(R2) |-> ( _ => orMInt(andMInt(MI676, mi(256, -340282366920938463463374607431768211456)), mi(256, uvalueMInt(extractMInt(MI676, 128, 256)))) )
 
 
     ...</regstate>

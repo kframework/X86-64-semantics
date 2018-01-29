@@ -8,9 +8,9 @@ module VCVTPS2PD-XMM-XMM
     execinstr (vcvtps2pd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI657 => MI657)
+convToRegKeys(R1) |-> (MI676 => MI676)
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(mi(128, 0), extractMInt(concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)), 128, 256), 0, 32), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)), 128, 256), 32, 64), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)), 128, 256), 64, 96), 24, 8)), 64), Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)), 128, 256), 96, 128), 24, 8)), 64)))), 128, 256)) )
+convToRegKeys(R2) |-> ( _ => concatenateMInt(mi(128, 0), extractMInt(concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 0, 32), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 32, 64), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 64, 96), 24, 8)), 64), Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 96, 128), 24, 8)), 64)))), 128, 256)) )
 
 
     ...</regstate>

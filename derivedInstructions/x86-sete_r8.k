@@ -8,9 +8,9 @@ module SETE-R8
     execinstr (sete R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI652)) )
+convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI671)) )
 
- "ZF" |-> (MI652 => MI652)
+ "ZF" |-> (MI671 => MI671)
 
 
     ...</regstate>

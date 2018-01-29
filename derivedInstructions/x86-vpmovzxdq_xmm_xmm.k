@@ -8,9 +8,9 @@ module VPMOVZXDQ-XMM-XMM
     execinstr (vpmovzxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI657 => MI657)
+convToRegKeys(R1) |-> (MI676 => MI676)
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(andMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), mi(64, -256)), mi(64, 0)), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)), 128, 256), 64, 96))))), 0)), 128, 256), extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(andMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), mi(64, -256)), mi(64, 0)), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)), 128, 256), 96, 128))))), 0)), 128, 256)) )
+convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(andMInt(extractMInt(extractMInt(MI676, 128, 256), 0, 64), mi(64, -256)), mi(64, 0)), extractMInt(extractMInt(MI676, 128, 256), 64, 128)))), 128, 256), 64, 96))))), 128, 256), extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(andMInt(extractMInt(extractMInt(MI676, 128, 256), 0, 64), mi(64, -256)), mi(64, 0)), extractMInt(extractMInt(MI676, 128, 256), 64, 128)))), 128, 256), 96, 128))))), 128, 256)) )
 
 
     ...</regstate>

@@ -8,19 +8,19 @@ module SARXQ-R64-R64-R64
     execinstr (sarxq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> (MI673 => MI673)
+convToRegKeys(R2) |-> (MI692 => MI692)
 
-convToRegKeys(R1) |-> (MI674 => MI674)
+convToRegKeys(R1) |-> (MI693 => MI693)
 
-convToRegKeys(R3) |-> ( _ => (#ifMInt (ultMInt(andMInt(extractMInt(orMInt(andMInt(MI673, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI644, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI674, 0, 32))), 0)), 56, 64), extractMInt(orMInt(andMInt(MI643, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI674, 32, 64))), 0)), 56, 64)))), 0)), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( ashrMInt(mi(64, svalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI642, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI673, 0, 32))), 0)), 32, 64), extractMInt(orMInt(andMInt(MI679, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI673, 32, 64))), 0)), 32, 64)))), uvalueMInt(andMInt(extractMInt(orMInt(andMInt(MI673, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI644, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI674, 0, 32))), 0)), 56, 64), extractMInt(orMInt(andMInt(MI643, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI674, 32, 64))), 0)), 56, 64)))), 0)), 56, 64), mi(8, 63)))) ) #else ( (#ifMInt (eqMInt((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI642, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI673, 0, 32))), 0)), 32, 64), extractMInt(orMInt(andMInt(MI679, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(extractMInt(MI673, 32, 64))), 0)), 32, 64)), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , mi(1, 0)) ) #then ( mi(64, 0) ) #else ( mi(64, -1) ) #fi)  ) #fi)  )
+convToRegKeys(R3) |-> ( _ => (#ifMInt (ultMInt(andMInt(extractMInt(orMInt(andMInt(MI692, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI663, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 0, 32)))), 56, 64), extractMInt(orMInt(andMInt(MI662, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 32, 64)))), 56, 64))))), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( ashrMInt(mi(64, svalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI692, 0, 32)))), 32, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI692, 32, 64)))), 32, 64)))), uvalueMInt(andMInt(extractMInt(orMInt(andMInt(MI692, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI663, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 0, 32)))), 56, 64), extractMInt(orMInt(andMInt(MI662, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 32, 64)))), 56, 64))))), 56, 64), mi(8, 63)))) ) #else ( (#ifMInt (eqMInt((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI692, 0, 32)))), 32, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI692, 32, 64)))), 32, 64)), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , mi(1, 0)) ) #then ( mi(64, 0) ) #else ( mi(64, -1) ) #fi)  ) #fi)  )
 
- "R8" |-> (MI679 => MI679)
+ "R8" |-> (MI698 => MI698)
 
- "R9" |-> (MI642 => MI642)
+ "R9" |-> (MI661 => MI661)
 
- "R10" |-> (MI643 => MI643)
+ "R10" |-> (MI662 => MI662)
 
- "R11" |-> (MI644 => MI644)
+ "R11" |-> (MI663 => MI663)
 
 
     ...</regstate>

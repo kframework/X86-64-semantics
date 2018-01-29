@@ -27,8 +27,9 @@ module X86-ASBTRACT-SYNTAX
   /*@
     Subregs to Regs
   */
-  syntax R64 ::= convSubRegsToRegs(Register) [function]
-  syntax Ymm ::= convSubRegsToRegs(Register) [function]
+  syntax Register ::= convSubRegsToRegs(Register) [function]
+  //syntax R64 ::= convSubRegsToRegs(Register) [function]
+  //syntax Ymm ::= convSubRegsToRegs(Register) [function]
 
   /*@
     Reg to Regtstate keys

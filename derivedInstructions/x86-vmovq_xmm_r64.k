@@ -8,9 +8,9 @@ module VMOVQ-XMM-R64
     execinstr (vmovq R1:R64, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI672 => MI672)
+convToRegKeys(R1) |-> (MI691 => MI691)
 
-convToRegKeys(R2) |-> ( _ => orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(mi(64, 0), xorMInt(MI672, mi(64, 0))))), 0)) )
+convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(mi(64, 0), xorMInt(MI691, mi(64, 0))))) )
 
 
     ...</regstate>
