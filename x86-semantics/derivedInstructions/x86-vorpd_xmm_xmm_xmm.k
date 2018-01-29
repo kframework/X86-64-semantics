@@ -8,11 +8,11 @@ module VORPD-XMM-XMM-XMM
     execinstr (vorpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> (MI657 => MI657)
+convToRegKeys(R2) |-> (MI676 => MI676)
 
-convToRegKeys(R3) |-> ( _ => orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), extractMInt(extractMInt(MI658, 128, 256), 0, 64)), orMInt(extractMInt(extractMInt(MI657, 128, 256), 64, 128), extractMInt(extractMInt(MI658, 128, 256), 64, 128))))), 0)) )
+convToRegKeys(R3) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(orMInt(extractMInt(extractMInt(MI676, 128, 256), 0, 64), extractMInt(extractMInt(MI677, 128, 256), 0, 64)), orMInt(extractMInt(extractMInt(MI676, 128, 256), 64, 128), extractMInt(extractMInt(MI677, 128, 256), 64, 128))))) )
 
-convToRegKeys(R1) |-> (MI658 => MI658)
+convToRegKeys(R1) |-> (MI677 => MI677)
 
 
     ...</regstate>

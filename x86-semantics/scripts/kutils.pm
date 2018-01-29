@@ -1633,6 +1633,12 @@ sub getRegSort {
     if ( $reg eq "cl" ) {
         return "\%cl";
     }
+    if ( $reg eq "ax" ) {
+        return "\%ax";
+    }
+    if ( $reg eq "eax" ) {
+        return "\%eax";
+    }
     return uc($reg);
 }
 

@@ -8,9 +8,9 @@ module SETC-RH
     execinstr (setc R1:Rh,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( MI671 => orMInt(andMInt(MI671, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(MI649)), 56, 64))), 8)) )
+convToRegKeys(R1) |-> ( MI690 => orMInt(andMInt(MI690, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(MI668)), 56, 64))), 8)) )
 
- "CF" |-> (MI649 => MI649)
+ "CF" |-> (MI668 => MI668)
 
 
     ...</regstate>

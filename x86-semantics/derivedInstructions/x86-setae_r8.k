@@ -8,9 +8,9 @@ module SETAE-R8
     execinstr (setae R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "CF" |-> (MI649 => MI649)
+ "CF" |-> (MI668 => MI668)
 
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI649)), 56, 64), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
+convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI668)), 56, 64), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
 
 
     ...</regstate>

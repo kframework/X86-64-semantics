@@ -9,7 +9,7 @@ module X86-SYNTAX
                        | ".globl" "_start"  [token]
   syntax Label ::=  "_start" ":" [token]
         
-  syntax HexConstant ::=  r"[0-9a-fA-F]*" [token]
+  syntax HexConstant ::=  r"[0-9a-fA-F]+" [token]
 
   syntax Typedoperands ::= List{Typeoperand, ","} [klabel(typeoperandlist)]
   syntax Typeoperand ::=  Imm

@@ -8,9 +8,9 @@ module SETNP-R8
     execinstr (setnp R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI650)), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
+convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI669)), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
 
- "PF" |-> (MI650 => MI650)
+ "PF" |-> (MI669 => MI669)
 
 
     ...</regstate>

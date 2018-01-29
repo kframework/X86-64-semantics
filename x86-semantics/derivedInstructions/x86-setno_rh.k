@@ -8,9 +8,9 @@ module SETNO-RH
     execinstr (setno R1:Rh,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( MI671 => orMInt(andMInt(MI671, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI654)), 32, 64), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 56, 64))), 8)) )
+convToRegKeys(R1) |-> ( MI690 => orMInt(andMInt(MI690, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI673)), 32, 64), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 56, 64))), 8)) )
 
- "OF" |-> (MI654 => MI654)
+ "OF" |-> (MI673 => MI673)
 
 
     ...</regstate>

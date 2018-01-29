@@ -8,9 +8,9 @@ module VMOVDQA-YMM-YMM
     execinstr (vmovdqa R1:Ymm, R2:Ymm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI663 => MI663)
+convToRegKeys(R1) |-> (MI676:MInt => MI676)
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(MI663, 0, 64), concatenateMInt(extractMInt(MI663, 64, 128), concatenateMInt(extractMInt(MI663, 128, 192), extractMInt(MI663, 192, 256)))) )
+convToRegKeys(R2) |-> ( _ => MI676 )
 
 
     ...</regstate>

@@ -8,9 +8,9 @@ module VMOVAPD-XMM-XMM
     execinstr (vmovapd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI657 => MI657)
+convToRegKeys(R1) |-> (MI676 => MI676)
 
-convToRegKeys(R2) |-> ( _ => orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI657, 128, 256), 0, 64), extractMInt(extractMInt(MI657, 128, 256), 64, 128)))), 0)) )
+convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(extractMInt(MI676, 128, 256))) )
 
 
     ...</regstate>

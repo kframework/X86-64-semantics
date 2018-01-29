@@ -8,9 +8,9 @@ module VMOVDQU-YMM-YMM
     execinstr (vmovdqu R1:Ymm, R2:Ymm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI663 => MI663)
+convToRegKeys(R1) |-> (MI676:MInt => MI676)
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(Float2MInt(maxFloat(MInt2Float(extractMInt(concatenateMInt(extractMInt(MI663, 0, 32), concatenateMInt(extractMInt(MI663, 32, 64), concatenateMInt(extractMInt(MI663, 64, 96), concatenateMInt(extractMInt(MI663, 96, 128), concatenateMInt(extractMInt(MI663, 128, 160), concatenateMInt(extractMInt(MI663, 160, 192), concatenateMInt(extractMInt(MI663, 192, 224), extractMInt(MI663, 224, 256)))))))), 0, 64), 53, 11), MInt2Float(extractMInt(MI663, 0, 64), 53, 11)), 64), concatenateMInt(Float2MInt(maxFloat(MInt2Float(extractMInt(concatenateMInt(extractMInt(MI663, 0, 32), concatenateMInt(extractMInt(MI663, 32, 64), concatenateMInt(extractMInt(MI663, 64, 96), concatenateMInt(extractMInt(MI663, 96, 128), concatenateMInt(extractMInt(MI663, 128, 160), concatenateMInt(extractMInt(MI663, 160, 192), concatenateMInt(extractMInt(MI663, 192, 224), extractMInt(MI663, 224, 256)))))))), 64, 128), 53, 11), MInt2Float(extractMInt(MI663, 64, 128), 53, 11)), 64), concatenateMInt(Float2MInt(maxFloat(MInt2Float(extractMInt(concatenateMInt(extractMInt(MI663, 0, 32), concatenateMInt(extractMInt(MI663, 32, 64), concatenateMInt(extractMInt(MI663, 64, 96), concatenateMInt(extractMInt(MI663, 96, 128), concatenateMInt(extractMInt(MI663, 128, 160), concatenateMInt(extractMInt(MI663, 160, 192), concatenateMInt(extractMInt(MI663, 192, 224), extractMInt(MI663, 224, 256)))))))), 128, 192), 53, 11), MInt2Float(extractMInt(MI663, 128, 192), 53, 11)), 64), Float2MInt(maxFloat(MInt2Float(extractMInt(concatenateMInt(extractMInt(MI663, 0, 32), concatenateMInt(extractMInt(MI663, 32, 64), concatenateMInt(extractMInt(MI663, 64, 96), concatenateMInt(extractMInt(MI663, 96, 128), concatenateMInt(extractMInt(MI663, 128, 160), concatenateMInt(extractMInt(MI663, 160, 192), concatenateMInt(extractMInt(MI663, 192, 224), extractMInt(MI663, 224, 256)))))))), 192, 256), 53, 11), MInt2Float(extractMInt(MI663, 192, 256), 53, 11)), 64)))) )
+convToRegKeys(R2) |-> ( _ => MI676 )
 
 
     ...</regstate>

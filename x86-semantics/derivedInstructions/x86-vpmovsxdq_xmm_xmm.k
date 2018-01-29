@@ -8,13 +8,13 @@ module VPMOVSXDQ-XMM-XMM
     execinstr (vpmovsxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI657 => MI657)
+convToRegKeys(R1) |-> (MI676 => MI676)
 
-convToRegKeys(R2) |-> ( _ => orMInt(mi(256, 0), shlMInt(mi(256, uvalueMInt(concatenateMInt(mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI674, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI657, 128, 256), 64, 96))))), 0)), 32, 64))), mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI671, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI657, 128, 256), 96, 128))))), 0)), 32, 64)))))), 0)) )
+convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI693, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI676, 128, 256), 64, 96)))))), 32, 64))), mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI690, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI676, 128, 256), 96, 128)))))), 32, 64)))))) )
 
- "RAX" |-> (MI671 => MI671)
+ "RAX" |-> (MI690 => MI690)
 
- "RDX" |-> (MI674 => MI674)
+ "RDX" |-> (MI693 => MI693)
 
 
     ...</regstate>
