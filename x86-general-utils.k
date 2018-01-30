@@ -445,6 +445,7 @@ module MINT-WRAPPER
   rule plugInMask(MITarget, MISrc, P) => MISrc
     requires (P ==Int 0) andBool (bitwidthMInt(MISrc) ==Int bitwidthMInt(MITarget))
 
+  /*
   rule plugInMask(MITarget, MISrc, P) => 
     orMInt(
       andMInt(
@@ -458,6 +459,26 @@ module MINT-WRAPPER
       shlMInt(zeroExtend(MISrc, bitwidthMInt(MITarget)), P)
     )
     requires (P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget)
+    */
+
+    rule plugInMask(MITarget, MISrc, P) => concatenateMInt(
+          extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) , bitwidthMInt(MISrc)), 
+          MISrc
+          )
+      requires (P ==Int 0) andBool ((P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget))
+
+    rule plugInMask(MITarget, MISrc, P) => concatenateMInt(MISrc, extractMask(MITarget, P, 0))
+      requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) ==Int bitwidthMInt(MITarget))
+    
+
+    rule plugInMask(MITarget, MISrc, P) => concatenateMInt( 
+          extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) -Int P , bitwidthMInt(MISrc) +Int P), 
+          concatenateMInt(
+            MISrc,
+            extractMask(MITarget, P, 0)
+            )
+        )
+      requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget))
 
   /*@ 
     signExtend(MI, N): Sign extend MInt MI to a MInt of

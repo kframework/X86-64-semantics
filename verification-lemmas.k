@@ -103,6 +103,10 @@ module MINT-LEMMAS
     requires E1 ==Int S2
   rule extractMInt(MI, S, E) => MI
     requires (bitwidthMInt(MI) ==Int E) andBool (S ==Int 0)
+  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => MI2
+    requires S ==Int bitwidthMInt(MI1) andBool E ==Int bitwidthMInt(MI1) +Int bitwidthMInt(MI2)
+  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => MI1
+    requires S ==Int 0 andBool E ==Int bitwidthMInt(MI1)
 
 endmodule
 
