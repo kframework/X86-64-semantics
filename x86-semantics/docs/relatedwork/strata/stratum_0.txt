@@ -22,7 +22,6 @@ movzbl_r32_rh
 movzbw_r16_r8
 movzbw_r16_rh
 movzwl_r32_r16
-nop
 nopl_r32
 nopw_r16
 rcll_r32_one
