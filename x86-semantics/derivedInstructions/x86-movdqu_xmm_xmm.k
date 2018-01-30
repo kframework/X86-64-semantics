@@ -8,13 +8,9 @@ module MOVDQU-XMM-XMM
     execinstr (movdqu R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI645 => MI645)
+convToRegKeys(R1) |-> (MI436 => MI436)
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(orMInt(andMInt(MI654, mi(256, -18446744073709551616)), shlMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI645, 128, 256), 0, 64))), 0)), 128, 256), extractMInt(orMInt(andMInt(MI653, mi(256, -18446744073709551616)), shlMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI645, 128, 256), 64, 128))), 0)), 128, 256)) )
-
- "YMM10" |-> (MI653 => MI653)
-
- "YMM11" |-> (MI654 => MI654)
+convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI436, 128, 256), 0, 64))), 128, 256), extractMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI436, 128, 256), 64, 128))), 128, 256)) )
 
 
     ...</regstate>

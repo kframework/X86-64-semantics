@@ -8,11 +8,11 @@ module CMOVZW-R16-R16
     execinstr (cmovzw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI648 => MI648)
+convToRegKeys(R2) |-> ( MI438 => (#ifMInt (eqMInt(MI439, mi(1, 0)) ) #then ( MI438 ) #else ( mi(64, svalueMInt(extractMInt(mi(64, svalueMInt(extractMInt(MI437, 48, 64))), 32, 64))) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI647 => (#ifMInt (eqMInt(MI627, mi(1, 0)) ) #then ( MI647 ) #else ( mi(64, svalueMInt(extractMInt(mi(64, svalueMInt(extractMInt(MI648, 48, 64))), 32, 64))) ) #fi)  )
+ "ZF" |-> (MI439 => MI439)
 
- "ZF" |-> (MI627 => MI627)
+convToRegKeys(R1) |-> (MI437 => MI437)
 
 
     ...</regstate>

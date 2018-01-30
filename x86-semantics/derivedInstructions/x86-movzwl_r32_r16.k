@@ -8,13 +8,9 @@ module MOVZWL-R32-R16
     execinstr (movzwl R1:R16, R2:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI661 => MI661)
+convToRegKeys(R2) |-> ( _ => mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI437, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI437, 48, 64), 8, 16))), 56, 64)))) )
 
-convToRegKeys(R2) |-> ( _ => orMInt(mi(64, 0), shlMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI634, mi(64, -256)), shlMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI661, 48, 64), 0, 8))), 0)), 56, 64), extractMInt(orMInt(andMInt(MI633, mi(64, -256)), shlMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI661, 48, 64), 8, 16))), 0)), 56, 64)))), 0)) )
-
- "R12" |-> (MI633 => MI633)
-
- "R13" |-> (MI634 => MI634)
+convToRegKeys(R1) |-> (MI437 => MI437)
 
 
     ...</regstate>

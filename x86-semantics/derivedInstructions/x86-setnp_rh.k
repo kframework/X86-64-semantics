@@ -8,11 +8,9 @@ module SETNP-RH
     execinstr (setnp R1:Rh,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( MI690 => orMInt(andMInt(MI690, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(orMInt(andMInt(mi(64, uvalueMInt(MI669)), mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(orMInt(andMInt(MI698, mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(MI669)), 32, 64), 16, 32)))), 56, 64))), 8)), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 56, 64))), 8)) )
+ "PF" |-> (MI439 => MI439)
 
- "PF" |-> (MI669 => MI669)
-
- "R8" |-> (MI698 => MI698)
+convToRegKeys(R1) |-> ( MI440 => orMInt(andMInt(MI440, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(orMInt(andMInt(mi(64, uvalueMInt(MI439)), mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(MI439)), 32, 64), 16, 32))), 56, 64))), 8)), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 56, 64))), 8)) )
 
 
     ...</regstate>

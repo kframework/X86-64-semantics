@@ -8,9 +8,9 @@ module MOVAPD-XMM-XMM
     execinstr (movapd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI634 => MI634)
+convToRegKeys(R1) |-> (MI437 => MI437)
 
-convToRegKeys(R2) |-> ( MI633 => orMInt(andMInt(MI633, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI634, 128, 256), 0, 64), extractMInt(extractMInt(MI634, 128, 256), 64, 128)))), 0)) )
+convToRegKeys(R2) |-> ( MI436 => orMInt(andMInt(MI436, mi(256, -340282366920938463463374607431768211456)), mi(256, uvalueMInt(extractMInt(MI437, 128, 256)))) )
 
 
     ...</regstate>

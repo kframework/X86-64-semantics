@@ -8,13 +8,9 @@ module VPMOVSXDQ-XMM-XMM
     execinstr (vpmovsxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+convToRegKeys(R1) |-> (MI454 => MI454)
 
-convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI693, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI676, 128, 256), 64, 96)))))), 32, 64))), mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI690, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI676, 128, 256), 96, 128)))))), 32, 64)))))) )
-
- "RAX" |-> (MI690 => MI690)
-
- "RDX" |-> (MI693 => MI693)
+convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI454, 128, 256), 64, 96))))), 32, 64))), mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI454, 128, 256), 96, 128))))), 32, 64)))))) )
 
 
     ...</regstate>

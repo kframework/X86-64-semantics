@@ -8,11 +8,9 @@ module CVTSS2SD-XMM-XMM
     execinstr (cvtss2sd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI647 => MI647)
+convToRegKeys(R1) |-> (MI437 => MI437)
 
-convToRegKeys(R2) |-> ( MI646 => concatenateMInt(extractMInt(orMInt(andMInt(MI658, mi(256, -18446744073709551616)), shlMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI646, 128, 256), 0, 64))), 0)), 128, 256), extractMInt(concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI647, 128, 256), 0, 32), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI647, 128, 256), 32, 64), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI647, 128, 256), 64, 96), 24, 8)), 64), Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI647, 128, 256), 96, 128), 24, 8)), 64)))), 128, 256)) )
-
- "YMM13" |-> (MI658 => MI658)
+convToRegKeys(R2) |-> ( MI436 => concatenateMInt(extractMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI436, 128, 256), 0, 64))), 128, 256), extractMInt(concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI437, 128, 256), 0, 32), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI437, 128, 256), 32, 64), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI437, 128, 256), 64, 96), 24, 8)), 64), Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(MI437, 128, 256), 96, 128), 24, 8)), 64)))), 128, 256)) )
 
 
     ...</regstate>

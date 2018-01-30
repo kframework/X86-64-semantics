@@ -8,19 +8,11 @@ module SHLXQ-R64-R64-R64
     execinstr (shlxq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> (MI692 => MI692)
+convToRegKeys(R2) |-> (MI447 => MI447)
 
-convToRegKeys(R1) |-> (MI693 => MI693)
+convToRegKeys(R1) |-> (MI448 => MI448)
 
-convToRegKeys(R3) |-> ( _ => (#ifMInt (ultMInt(andMInt(extractMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 0, 32)))), 32, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 32, 64)))), 32, 64)), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI663, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI692, 0, 32)))), 32, 64), extractMInt(orMInt(andMInt(MI662, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI692, 32, 64)))), 32, 64)), uvalueMInt(andMInt(extractMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 0, 32)))), 32, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI693, 32, 64)))), 32, 64)), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  )
-
- "R8" |-> (MI698 => MI698)
-
- "R9" |-> (MI661 => MI661)
-
- "R10" |-> (MI662 => MI662)
-
- "R11" |-> (MI663 => MI663)
+convToRegKeys(R3) |-> ( _ => (#ifMInt (ultMInt(andMInt(extractMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI448, 0, 32))), 32, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI448, 32, 64))), 32, 64)), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI447, 0, 32))), 32, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI447, 32, 64))), 32, 64)), uvalueMInt(andMInt(extractMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI448, 0, 32))), 32, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI448, 32, 64))), 32, 64)), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  )
 
 
     ...</regstate>

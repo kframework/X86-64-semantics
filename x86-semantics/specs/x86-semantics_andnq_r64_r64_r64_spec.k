@@ -17,7 +17,17 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     </memstate>
 
     <regstate>
-      regstateInitConfig => regstateFinalConfig
+"RIP" |->    (mi(64, 0) => _)
+"RCX" |-> (mi(64, ?I1:Int):MInt => _)
+"OF" |-> (mi(1, ?I2:Int):MInt => _)
+"AF" |-> (mi(1, ?I3:Int):MInt => _)
+"CF" |-> (mi(1, ?I4:Int):MInt => _)
+"RBX" |-> (mi(64, ?I5:Int):MInt => _)
+"SF" |-> (mi(1, ?I6:Int):MInt => _)
+"ZF" |-> (mi(1, ?I7:Int):MInt => _)
+"PF" |-> (mi(1, ?I8:Int):MInt => _)
+"RDX" |-> (mi(64, ?I9:Int):MInt => _)
+
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
 endmodule
@@ -32,4 +42,7 @@ maybe undef:{ %pf %af }
 must undef:{ %pf %af }
 required flags:{ bmi1 }
 
+circuit:orq %rcx, %rdx   #  1     0    3      OPC=orq_r64_r64
+circuit:xorq %rcx, %rdx  #  2     0x3  3      OPC=xorq_r64_r64
+circuit:movq %rdx, %rbx  #  3     0x6  3      OPC=movq_r64_r64
 */

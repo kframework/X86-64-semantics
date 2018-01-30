@@ -8,9 +8,7 @@ module CBTW
     execinstr (cbtw  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "RAX" |-> ( MI659 => orMInt(andMInt(MI659, mi(64, -4294967296)), shlMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI644, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(concatenateMInt(mi(64, 16), mi(64, svalueMInt(extractMInt(MI659, 56, 64)))))), 0)), 128, 256), 96, 128))))), 0)) )
-
- "YMM1" |-> (MI644 => MI644)
+ "RAX" |-> ( MI436 => orMInt(andMInt(MI436, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(mi(256, uvalueMInt(concatenateMInt(mi(64, 16), mi(64, svalueMInt(extractMInt(MI436, 56, 64)))))), 128, 256), 96, 128)))))) )
 
 
     ...</regstate>

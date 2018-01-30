@@ -16,7 +16,14 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     </memstate>
 
     <regstate>
-      regstateInitConfig => regstateFinalConfig
+"RIP" |->    (mi(64, 0) => _)
+"R12" |-> (mi(64, 0):MInt => _)
+"R13" |-> (mi(64, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
+"R11" |-> (mi(64, 0):MInt => _)
+"RBX" |-> (mi(64, ?I1:Int):MInt => _)
+"YMM1" |-> (mi(256, ?I2:Int):MInt => _)
+
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
 endmodule

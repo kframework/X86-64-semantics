@@ -194,6 +194,8 @@ if ( "" ne $checksanity ) {
         "MInt2Float\\\(Float2MInt",
         "_\\\\s+",
         );
+    
+    my $antipattern = "convTo\|CF\|ZF\|SF\|PF\|OF\|AF";
 
     for my $opcode (@lines) {
         chomp $opcode;
@@ -209,12 +211,18 @@ if ( "" ne $checksanity ) {
 
         utils::info("$opcode: Check Sanity");
         for my $pattern (@patterns) {
-          my $matches_ref = utils::myGrep($pattern, $koutput);
+          my $matches_ref = utils::myGrep($pattern, "sdasgup3", $koutput);
           my @matches = @{$matches_ref};
 
           if(scalar(@matches) > 0) {
             utils::failInfo("$pattern: $koutput");
           }
+        }
+
+        my $matches_ref = utils::myGrep("\\|->", $antipattern, $koutput);
+        my @matches = @{$matches_ref};
+        if(scalar(@matches) > 0) {
+          utils::failInfo("Scratch Pad:" . $koutput);
         }
 
         print "\n";

@@ -8,11 +8,9 @@ module SETO-R8
     execinstr (seto R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "OF" |-> (MI673 => MI673)
+convToRegKeys(R1) |-> ( _ => orMInt(andMInt(mi(64, uvalueMInt(MI436)), mi(64, -280375465082881)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(MI436)), 16, 24))), 56, 64))), 40)) )
 
-convToRegKeys(R1) |-> ( _ => orMInt(andMInt(mi(64, uvalueMInt(MI673)), mi(64, -280375465082881)), shlMInt(mi(64, uvalueMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -256)), mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(MI673)), 16, 24)))), 56, 64))), 40)) )
-
- "R9" |-> (MI661 => MI661)
+ "OF" |-> (MI436 => MI436)
 
 
     ...</regstate>

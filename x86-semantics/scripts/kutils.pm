@@ -204,9 +204,10 @@ my %regMap = (
 my $regcount = scalar keys %regMap;
 
 sub spec_template {
-    my $spec_code = shift @_;
+    my $spec_code      = shift @_;
+    my $regstateConfig = shift @_;
 
-    my $spec_template = qq(module X86-SEMANTICS-SPEC
+    my $spectemplate = qq(module X86-SEMANTICS-SPEC
   imports X86-SEMANTICS
 
   rule
@@ -221,12 +222,12 @@ $spec_code => exit_0
     </memstate>
 
     <regstate>
-      regstateInitConfig => regstateFinalConfig
+$regstateConfig
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
 endmodule);
 
-    return $spec_template;
+    return $spectemplate;
 }
 
 sub checkKRunStatus {
@@ -546,13 +547,17 @@ sub checkBaseInstr {
         or $encode eq "vcvtdq2pd_ymm_ymm"
         or $encode eq "vcvtdq2ps_ymm_ymm"
 
+        # 3 Not implemented
         #or $encode eq "vcvtpd2dq_xmm_ymm"
         #or $encode eq "vcvtpd2ps_xmm_ymm"
         #or $encode eq "vcvtps2dq_ymm_ymm"
+
         or $encode eq "vcvtps2pd_ymm_xmm"
 
+        # 2 Not implemented
         #or $encode eq "vcvttpd2dq_xmm_ymm"
         #or $encode eq "vcvttps2dq_ymm_ymm"
+
         or $encode eq "callq_label"
       )
     {
@@ -570,7 +575,8 @@ sub find_stratum {
     my $count       = 0;
 
     my $filepath = $strata_path . "/" . $opcode . ".s";
-    debugInfo( "In file : " . $filepath . "\n", $debugprint );
+
+    #debugInfo( "In file : " . $filepath . "\n", 1 );
     open( my $fp, "<", $filepath )
       or die "[find_stratum]cannot open $filepath: $!";
 
@@ -593,34 +599,35 @@ sub find_stratum {
             $instr =~ s/\$/\\\$/g;
 
             ## Alternative way to find opcode
-            my $encode = instr_to_opcode( $instr, $debugprint );
+#            my $encode = instr_to_opcode( $instr, $debugprint );
+#
+#            if ( $test ne $encode ) {
+#                if (
+#                    (
+#                            $test eq "movq_r64_imm64"
+#                        and $encode eq "movq_r64_imm32"
+#                    )
+#                    or
+#                    ( $test eq "xchgw_r16_r16" and $encode eq "xchgw_r16_ax" )
+#                    or
+#                    ( $test eq "xchgl_r32_r32" and $encode eq "xchgl_r32_eax" )
+#                    or
+#                    ( $test eq "xchgq_r64_r64" and $encode eq "xchgq_rax_r64" )
+#                    or
+#                    ( $test eq "xchgq_r64_r64" and $encode eq "xchgq_r64_rax" )
+#                  )
+#                {
+#                    # Ok causes
+#                    $encode = $test;
+#                }
+#                else {
+#                    print("$opcode::$test::$encode::\n");
+#                    failInfo("$opcode::$test::$encode::\n");
+#                }
+#            }
+            my $encode = $test;
 
-            if ( $test ne $encode ) {
-                if (
-                    (
-                            $test eq "movq_r64_imm64"
-                        and $encode eq "movq_r64_imm32"
-                    )
-                    or
-                    ( $test eq "xchgw_r16_r16" and $encode eq "xchgw_r16_ax" )
-                    or
-                    ( $test eq "xchgl_r32_r32" and $encode eq "xchgl_r32_eax" )
-                    or
-                    ( $test eq "xchgq_r64_r64" and $encode eq "xchgq_rax_r64" )
-                    or
-                    ( $test eq "xchgq_r64_r64" and $encode eq "xchgq_r64_rax" )
-                  )
-                {
-                    # Ok causes
-                    $encode = $test;
-                }
-                else {
-                    print("$opcode::$test::$encode::\n");
-                    failInfo("$opcode::$test::$encode::\n");
-                }
-            }
-
-            debugInfo( $instr . "::" . $encode . "::\n", $debugprint );
+            #debugInfo( $instr . "::" . $encode . "::\n", 1 );
 
             if ( checkBaseInstr($encode) ) {
 
@@ -638,7 +645,7 @@ sub find_stratum {
                 my $nextopcode = $encode;
                 my ( $temp_depth, $temp_count ) =
                   find_stratum( $nextopcode, $strata_path, $debugprint );
-                $depth = 1 + $temp_depth;
+                $depth = utils::max( $depth, 1 + $temp_depth );
                 $count = $count + $temp_count;
             }
         }
@@ -684,10 +691,8 @@ sub getReadMod {
         }
     }
 
-    # Find the read/write set for the concrete instr.
-    my $rwset = instr_to_rwset( $instr, $debugprint );
-
-    # Compare the RW sets obtained via 2 different methods.
+    # Find the texual read/write set for the concrete instr.
+    my ( $rwset, $store_ref ) = instr_to_rwset( $instr, $debugprint );
 
     return ( $instr, $metadata, $rwset );
 }
@@ -749,31 +754,93 @@ sub getOpList {
 ###########################################
 sub instr_to_rwset {
 ###########################################
-    my $instr = shift @_;
+    my $instr      = shift @_;
+    my $debugprint = shift @_;
     my $binpath =
       "/home/sdasgup3/Install/strata/stoke/src/ext/x64asm/bin/instr_info";
+    my $returnInfo = "";
+    my %store      = ();
+
+    if ( $instr =~ m/callq \.(.*)/ ) {
+        my $pseduInstr = $1;
+        if ( $pseduInstr =~ m/clear_(.*)/ ) {
+            $store{"%$1"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/write_(.*)_to_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/read_(.*)_into_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/set_szp_for_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%sf"} = 1;
+            $store{"%zf"} = 1;
+            $store{"%pf"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/move_(.*)_to_byte_\d+_of_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/move_byte_\d+_of_(.*)_to_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/move_128_032_(.*)_(.*)_(.*)_(.*)_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+            $store{"%$3"} = 1;
+            $store{"%$4"} = 1;
+            $store{"%$5"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/move_032_128_(.*)_(.*)_(.*)_(.*)_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+            $store{"%$3"} = 1;
+            $store{"%$4"} = 1;
+            $store{"%$5"} = 1;
+        }
+        elsif ( $pseduInstr =~ m/move_\d+_\d+_(.*)_(.*)_(.*)/ ) {
+            $store{"%$1"} = 1;
+            $store{"%$2"} = 1;
+            $store{"%$3"} = 1;
+        }
+
+        return ( $returnInfo, \%store );
+    }
 
     # Escape the $ sign (if present)
     $instr =~ s/\$/\\\$/g;
     execute("echo $instr | $binpath 1>/tmp/xxx 2>&1");
-    my $debugprint = shift @_;
-    my $returnInfo = "";
 
     my $filepath = "/tmp/xxx";
     open( my $fp, "<", $filepath )
       or die "[instr_to_opcode]cannot open $filepath: $!";
     my @lines = <$fp>;
+
     for my $line (@lines) {
         chomp $line;
 
         #debugInfo( $line . "\n", $debugprint );
         if ( $line =~ m/read|write|undef|flags/ ) {
             $returnInfo = $returnInfo . utils::trim($line) . "\n";
+            if ( $line =~ m/:\{(.*)\}/ ) {
+                my @temps = split( " ", $1 );
+                for my $temp (@temps) {
+                    $temp = utils::trim($temp);
+                    if ( "" ne $temp ) {
+                        $store{$temp} = 1;
+                    }
+                }
+
+            }
         }
     }
     debugInfo( "[instr_to_rwset] rw set: $instr::$returnInfo" . "\n",
         $debugprint );
-    return $returnInfo;
+    return ( $returnInfo, \%store );
 }
 
 ##################################################
@@ -966,7 +1033,9 @@ sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
-    my $bin_op = (qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float/);
+    my $bin_op = (
+qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float/
+    );
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
     while (1) {
@@ -1000,11 +1069,12 @@ sub mixfix2infix {
 
             my $op = $2;
             debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
+
             #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
             my ( $op_arg, $rest ) = selectbraces( $3, 1 );
 
             debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
-            debugInfo( "Rest: " . $rest . "\n", $debugprint );
+            debugInfo( "Rest: " . $rest . "\n",  $debugprint );
 
             my @args = findArgs( $op_arg, 2 );
 
@@ -1164,10 +1234,10 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
 
             #print "FinalTerm: " . $finalTerm . "\n\n";
             my $regstate;
-            if ( $finalTerm =~ m/<regstate>(.*)<regstatequeue>/ ) {
+            if ( $finalTerm =~ m/<regstate>\((.*)\s*\),,\s*<regstatequeue>/ ) {
                 $regstate = $1;
 
-                #print "Regstate: " . $regstate . "\n";
+            #print "Regstate: " . $regstate . "\n";
             }
             if ( !defined($regstate) ) {
                 failInfo("Error 1");
@@ -1175,6 +1245,8 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
             @reglines = split( /String\@STRING-SYNTAX/, $regstate );
         }
     }
+
+    printArray(\@reglines, "In processSpecOutput", $debugprint);
 
     #print join( "\n", @reglines );
     if ( scalar(@reglines) == 0 ) {
@@ -1719,10 +1791,10 @@ sub writeKDefn {
     my $opcode     = shift @_;
     my $debugprint = shift @_;
 
-    my $module_name             = $opcode =~ s/_/-/gr;
-    my $module_name_uc          = uc($module_name);
-    my $enc                     = $opcode =~ s/_.*//gr;
-    my $operands                = "";
+    my $module_name    = $opcode =~ s/_/-/gr;
+    my $module_name_uc = uc($module_name);
+    my $enc            = $opcode =~ s/_.*//gr;
+    my $operands       = "";
 
     my $operamdList_ref = getOperandListFromOpcode( $opcode, $debugprint );
     my @operamdList     = @{$operamdList_ref};
@@ -1812,12 +1884,9 @@ sub createSpecFile {
     open( my $fp, ">", $specfile )
       or die "[create_spec] cannot open $specfile: $!";
 
-    #my ( $instr_arr_ref, $orig_circuit ) =
-    ## Create the <cmem> spec code</cmem>
+    ## Create the <cmem> spec code </cmem>
     my ( $spec_code, $orig_circuit ) =
       kutils::getSpecCode( $opcode, $strata_path, $debugprint );
-
-    print $fp kutils::spec_template($spec_code);
 
     ## Comment section in specfile.
     my ( $targetinstr, $metadata, $rwset ) =
@@ -1829,6 +1898,67 @@ sub createSpecFile {
         );
     }
 
+    ## Get the init config ie. <regstate> here </regstate>
+    ### Get the list of instr constituting the circuit of opcode
+    my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
+      getInstrFromCircuit( $opcode, $strata_path, $debugprint );
+    my @instr_arr = @{$instr_arr_ref};
+
+    ### Get the RW Set of the constituing circuit insructions.
+    my %circuitRWStore = ();
+    for my $cinstr (@instr_arr) {
+        my $store_ref = instr_to_rwset( $cinstr, $debugprint );
+        my %store = %{$store_ref};
+        printMap( \%store, "Circuit: $cinstr", 1 );
+        for my $key ( keys %store ) {
+            $circuitRWStore{uc($subRegToReg{utils::trim($key, "%")})} = 1;
+        }
+    }
+    printMap( \%circuitRWStore, "Total Circuit", 1 );
+
+    ### Get the RW Set of the target instruction.
+    my $store_ref = instr_to_rwset( $targetinstr, $debugprint );
+    my %store = %{$store_ref};
+    my %targetInstrRWStore = ();
+    for my $key ( keys %store ) {
+      $targetInstrRWStore{uc($subRegToReg{utils::trim($key, "%")})} = 1;
+    }
+    printMap( \%targetInstrRWStore, "Target", 1 );
+
+    my $regstateConfig = "";
+    my $counter        = 1;
+    $regstateConfig = "\"RIP\" |->    (mi(64, 0) => _)" . "\n";
+
+    ### If the constituing RW set belongs to target's RW set, then then need to kept
+    ### symbolic, else keep then zeroed out.
+    for my $key ( keys %circuitRWStore ) {
+        if("" eq $key) {
+          next;
+        }
+        my $mintSize = 64;
+        if ( $key =~ m/YMM/ ) {
+            $mintSize = 256;
+        }
+        elsif ( $key =~ m/CF|PF|AF|ZF|SF|OF/ ) {
+            $mintSize = 1;
+        }
+
+        if ( exists $targetInstrRWStore{$key} ) {
+
+            $regstateConfig =
+              $regstateConfig
+              . "\"$key\" |-> (mi($mintSize, ?I$counter:Int):MInt => _)" . "\n";
+            $counter++;
+        }
+        else {
+            $regstateConfig =
+              $regstateConfig
+              . "\"$key\" |-> (mi($mintSize, 0):MInt => _)" . "\n";
+        }
+    }
+
+    ## Dump
+    print $fp kutils::spec_template( $spec_code, $regstateConfig );
     print $fp "\n/*" . "\n"
       . "opcode:$opcode" . "\n"
       . "instr:$targetinstr" . "\n"
@@ -1871,9 +2001,7 @@ sub checkSupported {
 
     for ( my $i = 0 ; $i < scalar(@instr_arr) ; $i++ ) {
         my $encode       = $encode_arr[$i];
-        my $derivedInstr = "$derivedPath/$encode.s";
-
-        #print "-" . $encode . "\n";
+        my $derivedInstr = "$derivedPath/x86-$encode.k";
 
         if ( ( 0 == checkBaseInstr($encode) ) and !( -e $derivedInstr ) ) {
             print $opcode. " "

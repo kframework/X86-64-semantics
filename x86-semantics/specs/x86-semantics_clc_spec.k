@@ -6,7 +6,7 @@ module X86-SEMANTICS-SPEC
 execinstr ( xorq %rax, %rax , .Typedoperands ) ~>
 execinstr ( adcb %al, %al , .Typedoperands ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
- => exit_0 
+ => exit_0
     </k>
     <entrypoint> zeroMIntW64 </entrypoint>
     <nextLoc> zeroMIntW64  </nextLoc>
@@ -16,7 +16,15 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     </memstate>
 
     <regstate>
-      regstateInitConfig => regstateFinalConfig
+"RIP" |->    (mi(64, 0) => _)
+"SF" |-> (mi(1, 0):MInt => _)
+"ZF" |-> (mi(1, 0):MInt => _)
+"PF" |-> (mi(1, 0):MInt => _)
+"OF" |-> (mi(1, 0):MInt => _)
+"RAX" |-> (mi(64, 0):MInt => _)
+"AF" |-> (mi(1, 0):MInt => _)
+"CF" |-> (mi(1, ?I1:Int):MInt => _)
+
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
 endmodule
@@ -31,6 +39,6 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
-circuit:  xorq %rax, %rax  #  1     0    3      OPC=xorq_r64_r64  
-circuit:  adcb %al, %al    #  2     0x3  2      OPC=adcb_r8_r8    
+circuit:xorq %rax, %rax  #  1     0    3      OPC=xorq_r64_r64
+circuit:adcb %al, %al    #  2     0x3  2      OPC=adcb_r8_r8
 */
