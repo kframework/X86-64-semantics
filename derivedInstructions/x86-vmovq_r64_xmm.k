@@ -8,13 +8,9 @@ module VMOVQ-R64-XMM
     execinstr (vmovq R1:Xmm, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(orMInt(andMInt(MI663, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI675, 128, 256), 64, 96)))))), 32, 64), extractMInt(orMInt(andMInt(MI662, mi(64, -4294967296)), mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI675, 128, 256), 96, 128)))))), 32, 64)) )
+convToRegKeys(R1) |-> (MI439 => MI439)
 
-convToRegKeys(R1) |-> (MI675 => MI675)
-
- "R10" |-> (MI662 => MI662)
-
- "R11" |-> (MI663 => MI663)
+convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI439, 128, 256), 64, 96))))), 32, 64), extractMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI439, 128, 256), 96, 128))))), 32, 64))   )
 
 
     ...</regstate>

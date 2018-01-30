@@ -8,13 +8,11 @@ module SETBE-R8
     execinstr (setbe R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "CF" |-> (MI668 => MI668)
+ "CF" |-> (MI440 => MI440)
 
-convToRegKeys(R1) |-> ( _ => orMInt(andMInt((#ifMInt (eqMInt(MI671, mi(1, 0)) ) #then ( mi(64, uvalueMInt(MI668)) ) #else ( mi(64, uvalueMInt(MI671)) ) #fi) , mi(64, -71776119061217281)), shlMInt(mi(64, uvalueMInt(extractMInt(orMInt(andMInt(MI698, mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(MI671)), 32, 64), 16, 32)))), 56, 64))), 48)) )
+convToRegKeys(R1) |-> ( _ => orMInt(andMInt((#ifMInt (eqMInt(MI439, mi(1, 0)) ) #then ( mi(64, uvalueMInt(MI440)) ) #else ( mi(64, uvalueMInt(MI439)) ) #fi) , mi(64, -71776119061217281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(MI439)), 32, 64), 16, 32))), 56, 64))), 48)) )
 
- "ZF" |-> (MI671 => MI671)
-
- "R8" |-> (MI698 => MI698)
+ "ZF" |-> (MI439 => MI439)
 
 
     ...</regstate>

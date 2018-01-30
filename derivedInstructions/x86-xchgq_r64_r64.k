@@ -8,15 +8,9 @@ module XCHGQ-R64-R64
     execinstr (xchgq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( MI692 => concatenateMInt(extractMInt(orMInt(andMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 0, 32)))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI693, mi(64, -4294967296)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 0, 32)))), 48, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 32, 64)))), 48, 64))))), 32, 64), 0, 16)))), 32, 64), extractMInt(orMInt(andMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 32, 64)))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(orMInt(andMInt(MI693, mi(64, -4294967296)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 0, 32)))), 48, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI691, 32, 64)))), 48, 64))))), 32, 64), 16, 32)))), 32, 64)) )
+convToRegKeys(R2) |-> ( MI437 => MI438 )
 
-convToRegKeys(R2) |-> ( MI691 => MI692 )
-
- "R8" |-> (MI698 => MI698)
-
- "R9" |-> (MI661 => MI661)
-
- "RDX" |-> (MI693 => MI693)
+convToRegKeys(R1) |-> ( MI438 => concatenateMInt(extractMInt(orMInt(andMInt(mi(64, uvalueMInt(extractMInt(MI437, 0, 32))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 0, 32))), 48, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 32, 64))), 48, 64)))), 32, 64), 0, 16)))), 32, 64), extractMInt(orMInt(andMInt(mi(64, uvalueMInt(extractMInt(MI437, 32, 64))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 0, 32))), 48, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 32, 64))), 48, 64)))), 32, 64), 16, 32)))), 32, 64)) )
 
 
     ...</regstate>

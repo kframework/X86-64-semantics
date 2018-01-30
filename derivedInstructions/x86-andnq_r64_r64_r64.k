@@ -8,23 +8,23 @@ module ANDNQ-R64-R64-R64
     execinstr (andnq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> (MI648 => MI648)
-
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(MI648, orMInt(MI648, MI649)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
-
- "OF" |-> ( _ => mi(1, 0) )
-
  "CF" |-> ( _ => mi(1, 0) )
+
+ "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(MI448, orMInt(MI448, MI456)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "AF" |-> (_ => undef)
 
-convToRegKeys(R1) |-> (MI649 => MI649)
-
-convToRegKeys(R3) |-> ( _ => xorMInt(MI648, orMInt(MI648, MI649)) )
-
- "ZF" |-> ( _ => (#ifMInt (eqMInt(xorMInt(MI648, orMInt(MI648, MI649)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+convToRegKeys(R2) |-> (MI448 => MI448)
 
  "PF" |-> (_ => undef)
+
+convToRegKeys(R1) |-> (MI456 => MI456)
+
+ "OF" |-> ( _ => mi(1, 0) )
+
+convToRegKeys(R3) |-> ( _ => xorMInt(MI448, orMInt(MI448, MI456)) )
+
+ "ZF" |-> ( _ => (#ifMInt (eqMInt(xorMInt(MI448, orMInt(MI448, MI456)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
     ...</regstate>

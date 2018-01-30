@@ -8,17 +8,9 @@ module XCHGW-R16-R16
     execinstr (xchgw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> ( MI692 => orMInt(andMInt(MI692, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI663, mi(64, -256)), mi(64, uvalueMInt(extractMInt(extractMInt(MI691, 48, 64), 0, 8)))), 56, 64), extractMInt(orMInt(andMInt(MI662, mi(64, -256)), mi(64, uvalueMInt(extractMInt(extractMInt(MI691, 48, 64), 8, 16)))), 56, 64))))) )
+convToRegKeys(R1) |-> ( MI439 => orMInt(andMInt(MI439, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI438, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI438, 48, 64), 8, 16))), 56, 64))))) )
 
-convToRegKeys(R2) |-> ( MI691 => orMInt(andMInt(MI691, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI661, mi(64, -256)), mi(64, uvalueMInt(extractMInt(extractMInt(MI692, 48, 64), 0, 8)))), 56, 64), extractMInt(orMInt(andMInt(MI698, mi(64, -256)), mi(64, uvalueMInt(extractMInt(extractMInt(MI692, 48, 64), 8, 16)))), 56, 64))))) )
-
- "R8" |-> (MI698 => MI698)
-
- "R9" |-> (MI661 => MI661)
-
- "R10" |-> (MI662 => MI662)
-
- "R11" |-> (MI663 => MI663)
+convToRegKeys(R2) |-> ( MI438 => orMInt(andMInt(MI438, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI439, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI439, 48, 64), 8, 16))), 56, 64)))))   )
 
 
     ...</regstate>

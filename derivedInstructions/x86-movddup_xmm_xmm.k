@@ -8,9 +8,9 @@ module MOVDDUP-XMM-XMM
     execinstr (movddup R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI634 => MI634)
+convToRegKeys(R1) |-> (MI436 => MI436)
 
-convToRegKeys(R2) |-> ( MI633 => orMInt(andMInt(MI633, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI634, 128, 256), 64, 128), extractMInt(extractMInt(MI634, 128, 256), 64, 128)))), 0)) )
+convToRegKeys(R2) |-> ( MI437 => orMInt(andMInt(MI437, mi(256, -340282366920938463463374607431768211456)), mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI436, 128, 256), 64, 128), extractMInt(extractMInt(MI436, 128, 256), 64, 128))))) )
 
 
     ...</regstate>

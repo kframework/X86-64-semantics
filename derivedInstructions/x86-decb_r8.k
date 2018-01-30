@@ -8,17 +8,17 @@ module DECB-R8
     execinstr (decb R1:R8,  .Typedoperands) => .
   ...</k>
     <regstate> ...
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(mi(8, 255), extractMInt(MI647, 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> ( _ => (#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(mi(8, 255), extractMInt(MI445, 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(mi(8, 1), lshrMInt(addMInt(mi(8, 255), extractMInt(MI647, 56, 64)), 7)), xorMInt(lshrMInt(extractMInt(MI647, 56, 64), 7), lshrMInt(addMInt(mi(8, 255), extractMInt(MI647, 56, 64)), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 1), extractMInt(MI445, 56, 64)), addMInt(mi(8, 255), extractMInt(MI445, 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 1), extractMInt(MI647, 56, 64)), addMInt(mi(8, 255), extractMInt(MI647, 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(mi(8, 255), extractMInt(MI445, 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R1) |-> ( MI647 => orMInt(andMInt(MI647, mi(64, -256)), shlMInt(mi(64, uvalueMInt(addMInt(mi(8, 255), extractMInt(MI647, 56, 64)))), 0)) )
+ "OF" |-> ( _ => (#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(mi(8, 1), lshrMInt(addMInt(mi(8, 255), extractMInt(MI445, 56, 64)), 7)), xorMInt(lshrMInt(extractMInt(MI445, 56, 64), 7), lshrMInt(addMInt(mi(8, 255), extractMInt(MI445, 56, 64)), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "ZF" |-> ( _ => (#ifMInt (eqMInt(addMInt(mi(8, 255), extractMInt(MI647, 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+convToRegKeys(R1) |-> ( MI445 => orMInt(andMInt(MI445, mi(64, -256)), mi(64, uvalueMInt(addMInt(mi(8, 255), extractMInt(MI445, 56, 64))))) )
 
- "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(mi(8, 255), extractMInt(MI647, 56, 64)), 0, 8), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "ZF" |-> ( _ => (#ifMInt (eqMInt(addMInt(mi(8, 255), extractMInt(MI445, 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
     ...</regstate>

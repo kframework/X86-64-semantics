@@ -261,7 +261,6 @@ module X86-ABSTRACT-SEMANTICS
     Following states are using to define the initial and final
     states of register in the spec file. This is used to improve
     the runtime of kprove.
-  */
   syntax Map ::= "regstateInitConfig"  [function]
   syntax Map ::= "regstateFinalConfig" [function]
 
@@ -346,4 +345,5 @@ module X86-ABSTRACT-SEMANTICS
       ("YMM13" |->  ?K37:K)
       ("YMM14" |->  ?K38:K)
       ("YMM15" |->  ?K39:K)
+  */
 endmodule

@@ -8,9 +8,9 @@ module MOVW-R16-R16
     execinstr (movw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI648 => MI648)
+convToRegKeys(R2) |-> ( _ => mi(64, svalueMInt(extractMInt(MI434, 48, 64))) )
 
-convToRegKeys(R2) |-> ( _ => mi(64, svalueMInt(extractMInt(MI648, 48, 64))) )
+convToRegKeys(R1) |-> (MI434 => MI434)
 
 
     ...</regstate>

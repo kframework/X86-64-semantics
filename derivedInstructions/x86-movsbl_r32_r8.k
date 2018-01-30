@@ -8,11 +8,9 @@ module MOVSBL-R32-R8
     execinstr (movsbl R1:R8, R2:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R1) |-> (MI661 => MI661)
+convToRegKeys(R2) |-> ( _ => concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(extractMInt(MI437, 56, 64))), 32, 64)) )
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(orMInt(andMInt(MI632, mi(64, -4294967296)), mi(64, 0)), 32, 64), extractMInt(mi(64, svalueMInt(extractMInt(MI661, 56, 64))), 32, 64)) )
-
- "R11" |-> (MI632 => MI632)
+convToRegKeys(R1) |-> (MI437 => MI437)
 
 
     ...</regstate>

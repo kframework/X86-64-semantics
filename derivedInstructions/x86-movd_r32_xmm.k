@@ -8,13 +8,9 @@ module MOVD-R32-XMM
     execinstr (movd R1:Xmm, R2:R32,  .Typedoperands) => .
   ...</k>
     <regstate> ...
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(extractMInt(extractMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI652, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 64, 96))))), 0)), 128, 256), extractMInt(orMInt(andMInt(MI651, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 96, 128))))), 0)), 128, 256)), 128, 256), 0, 64), 32, 64), extractMInt(extractMInt(extractMInt(concatenateMInt(extractMInt(orMInt(andMInt(MI652, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 64, 96))))), 0)), 128, 256), extractMInt(orMInt(andMInt(MI651, mi(256, -340282366920938463463374607431768211456)), shlMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI644, 128, 256), 96, 128))))), 0)), 128, 256)), 128, 256), 64, 128), 32, 64)) )
+convToRegKeys(R1) |-> (MI441 => MI441)
 
-convToRegKeys(R1) |-> (MI644 => MI644)
-
- "YMM9" |-> (MI652 => MI652)
-
- "YMM8" |-> (MI651 => MI651)
+convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(extractMInt(extractMInt(concatenateMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI441, 128, 256), 64, 96))))), 128, 256), extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI441, 128, 256), 96, 128))))), 128, 256)), 128, 256), 0, 64), 32, 64), extractMInt(extractMInt(extractMInt(concatenateMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI441, 128, 256), 64, 96))))), 128, 256), extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI441, 128, 256), 96, 128))))), 128, 256)), 128, 256), 64, 128), 32, 64)) )
 
 
     ...</regstate>
