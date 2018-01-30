@@ -1,3 +1,4 @@
+// Statum 0
 requires "x86-addq_r64_r64.k"
 requires "x86-andnq_r64_r64_r64.k"
 requires "x86-cbtw.k"
@@ -91,8 +92,92 @@ requires "x86-xchgl_r32_r32.k"
 requires "x86-xchgq_r64_r64.k"
 requires "x86-xchgw_r16_r16.k"
 requires "x86-xorw_r16_r16.k"
+// Stratum 1
+requires "x86-adcb_rh_r8.k"
+requires "x86-addpd_xmm_xmm.k"
+requires "x86-addw_r16_r16.k"
+requires "x86-cmovnzw_r16_r16.k"
+requires "x86-cqto.k"
+requires "x86-cvtps2pd_xmm_xmm.k"
+requires "x86-decq_r64.k"
+requires "x86-divpd_xmm_xmm.k"
+requires "x86-divps_xmm_xmm.k"
+requires "x86-incb_r8.k"
+requires "x86-movb_rh_rh.k"
+requires "x86-movlhps_xmm_xmm.k"
+requires "x86-movq_r64_xmm.k"
+requires "x86-movq_xmm_xmm.k"
+requires "x86-movsbl_r32_rh.k"
+requires "x86-movsbw_r16_rh.k"
+requires "x86-movsd_xmm_xmm.k"
+requires "x86-movss_xmm_xmm.k"
+requires "x86-movswl_r32_r16.k"
+requires "x86-movupd_xmm_xmm.k"
+requires "x86-movzbq_r64_r8.k"
+requires "x86-mulpd_xmm_xmm.k"
+requires "x86-mulps_xmm_xmm.k"
+requires "x86-mulsd_xmm_xmm.k"
+requires "x86-mulss_xmm_xmm.k"
+requires "x86-notw_r16.k"
+requires "x86-orps_xmm_xmm.k"
+requires "x86-orw_r16_r16.k"
+requires "x86-paddq_xmm_xmm.k"
+requires "x86-pmovsxdq_xmm_xmm.k"
+requires "x86-pmovzxwq_xmm_xmm.k"
+requires "x86-popcntw_r16_r16.k"
+requires "x86-por_xmm_xmm.k"
+requires "x86-rcpps_xmm_xmm.k"
+requires "x86-rcpss_xmm_xmm.k"
+requires "x86-rolq_r64_one.k"
+requires "x86-rolw_r16_one.k"
+requires "x86-rsqrtps_xmm_xmm.k"
+requires "x86-setb_rh.k"
+requires "x86-setc_r8.k"
+requires "x86-setnge_rh.k"
+requires "x86-setno_r8.k"
+requires "x86-setnz_rh.k"
+requires "x86-setpo_r8.k"
+requires "x86-shlb_r8_one.k"
+requires "x86-shll_r32_one.k"
+requires "x86-shlq_r64_one.k"
+requires "x86-sqrtps_xmm_xmm.k"
+requires "x86-unpcklpd_xmm_xmm.k"
+requires "x86-vaddps_xmm_xmm_xmm.k"
+requires "x86-vbroadcastsd_ymm_xmm.k"
+requires "x86-vbroadcastss_xmm_xmm.k"
+requires "x86-vcvtss2sd_xmm_xmm_xmm.k"
+requires "x86-vfmadd231pd_ymm_ymm_ymm.k"
+requires "x86-vfmadd231ps_xmm_xmm_xmm.k"
+requires "x86-vfmsub132ps_xmm_xmm_xmm.k"
+requires "x86-vfnmsub231ps_xmm_xmm_xmm.k"
+requires "x86-vmaxps_xmm_xmm_xmm.k"
+requires "x86-vminps_xmm_xmm_xmm.k"
+requires "x86-vmovapd_ymm_ymm.k"
+requires "x86-vmovaps_ymm_ymm.k"
+requires "x86-vmovddup_xmm_xmm.k"
+requires "x86-vmovlhps_xmm_xmm_xmm.k"
+requires "x86-vmovsd_xmm_xmm_xmm.k"
+requires "x86-vmovss_xmm_xmm_xmm.k"
+requires "x86-vmovups_ymm_ymm.k"
+requires "x86-vorps_xmm_xmm_xmm.k"
+requires "x86-vpbroadcastq_ymm_xmm.k"
+requires "x86-vpxor_xmm_xmm_xmm.k"
+requires "x86-vsqrtpd_xmm_xmm.k"
+requires "x86-vsubpd_xmm_xmm_xmm.k"
+requires "x86-xaddb_r8_r8.k"
+requires "x86-xaddl_r32_r32.k"
+requires "x86-xaddq_r64_r64.k"
+requires "x86-xchgl_eax_r32.k"
+requires "x86-xchgl_r32_eax.k"
+requires "x86-xchgq_r64_rax.k"
+requires "x86-xchgq_rax_r64.k"
+requires "x86-xchgw_r16_ax.k"
+requires "x86-xorb_r8_rh.k"
+requires "x86-xorl_r32_r32.k"
+requires "x86-xorps_xmm_xmm.k"
 
 module X86-DERIVED-INSTRUCTIONS-SEMANTICS
+  // Stratum 0
   imports ADDQ-R64-R64-SEMANTICS
   imports ANDNQ-R64-R64-R64-SEMANTICS
   imports CBTW-SEMANTICS
@@ -186,4 +271,87 @@ module X86-DERIVED-INSTRUCTIONS-SEMANTICS
   imports XCHGQ-R64-R64-SEMANTICS
   imports XCHGW-R16-R16-SEMANTICS
   imports XORW-R16-R16-SEMANTICS
+  // Statum 1
+  imports ADCB-RH-R8-SEMANTICS
+  imports ADDPD-XMM-XMM-SEMANTICS
+  imports ADDW-R16-R16-SEMANTICS
+  imports CMOVNZW-R16-R16-SEMANTICS
+  imports CQTO-SEMANTICS
+  imports CVTPS2PD-XMM-XMM-SEMANTICS
+  imports DECQ-R64-SEMANTICS
+  imports DIVPD-XMM-XMM-SEMANTICS
+  imports DIVPS-XMM-XMM-SEMANTICS
+  imports INCB-R8-SEMANTICS
+  imports MOVB-RH-RH-SEMANTICS
+  imports MOVLHPS-XMM-XMM-SEMANTICS
+  imports MOVQ-R64-XMM-SEMANTICS
+  imports MOVQ-XMM-XMM-SEMANTICS
+  imports MOVSBL-R32-RH-SEMANTICS
+  imports MOVSBW-R16-RH-SEMANTICS
+  imports MOVSD-XMM-XMM-SEMANTICS
+  imports MOVSS-XMM-XMM-SEMANTICS
+  imports MOVSWL-R32-R16-SEMANTICS
+  imports MOVUPD-XMM-XMM-SEMANTICS
+  imports MOVZBQ-R64-R8-SEMANTICS
+  imports MULPD-XMM-XMM-SEMANTICS
+  imports MULPS-XMM-XMM-SEMANTICS
+  imports MULSD-XMM-XMM-SEMANTICS
+  imports MULSS-XMM-XMM-SEMANTICS
+  imports NOTW-R16-SEMANTICS
+  imports ORPS-XMM-XMM-SEMANTICS
+  imports ORW-R16-R16-SEMANTICS
+  imports PADDQ-XMM-XMM-SEMANTICS
+  imports PMOVSXDQ-XMM-XMM-SEMANTICS
+  imports PMOVZXWQ-XMM-XMM-SEMANTICS
+  imports POPCNTW-R16-R16-SEMANTICS
+  imports POR-XMM-XMM-SEMANTICS
+  imports RCPPS-XMM-XMM-SEMANTICS
+  imports RCPSS-XMM-XMM-SEMANTICS
+  imports ROLQ-R64-ONE-SEMANTICS
+  imports ROLW-R16-ONE-SEMANTICS
+  imports RSQRTPS-XMM-XMM-SEMANTICS
+  imports SETB-RH-SEMANTICS
+  imports SETC-R8-SEMANTICS
+  imports SETNGE-RH-SEMANTICS
+  imports SETNO-R8-SEMANTICS
+  imports SETNZ-RH-SEMANTICS
+  imports SETPO-R8-SEMANTICS
+  imports SHLB-R8-ONE-SEMANTICS
+  imports SHLL-R32-ONE-SEMANTICS
+  imports SHLQ-R64-ONE-SEMANTICS
+  imports SQRTPS-XMM-XMM-SEMANTICS
+  imports UNPCKLPD-XMM-XMM-SEMANTICS
+  imports VADDPS-XMM-XMM-XMM-SEMANTICS
+  imports VBROADCASTSD-YMM-XMM-SEMANTICS
+  imports VBROADCASTSS-XMM-XMM-SEMANTICS
+  imports VCVTSS2SD-XMM-XMM-XMM-SEMANTICS
+  imports VFMADD231PD-YMM-YMM-YMM-SEMANTICS
+  imports VFMADD231PS-XMM-XMM-XMM-SEMANTICS
+  imports VFMSUB132PS-XMM-XMM-XMM-SEMANTICS
+  imports VFNMSUB231PS-XMM-XMM-XMM-SEMANTICS
+  imports VMAXPS-XMM-XMM-XMM-SEMANTICS
+  imports VMINPS-XMM-XMM-XMM-SEMANTICS
+  imports VMOVAPD-YMM-YMM-SEMANTICS
+  imports VMOVAPS-YMM-YMM-SEMANTICS
+  imports VMOVDDUP-XMM-XMM-SEMANTICS
+  imports VMOVLHPS-XMM-XMM-XMM-SEMANTICS
+  imports VMOVSD-XMM-XMM-XMM-SEMANTICS
+  imports VMOVSS-XMM-XMM-XMM-SEMANTICS
+  imports VMOVUPS-YMM-YMM-SEMANTICS
+  imports VORPS-XMM-XMM-XMM-SEMANTICS
+  imports VPBROADCASTQ-YMM-XMM-SEMANTICS
+  imports VPXOR-XMM-XMM-XMM-SEMANTICS
+  imports VSQRTPD-XMM-XMM-SEMANTICS
+  imports VSUBPD-XMM-XMM-XMM-SEMANTICS
+  imports XADDB-R8-R8-SEMANTICS
+  imports XADDL-R32-R32-SEMANTICS
+  imports XADDQ-R64-R64-SEMANTICS
+  imports XCHGL-EAX-R32-SEMANTICS
+  imports XCHGL-R32-EAX-SEMANTICS
+  imports XCHGQ-R64-RAX-SEMANTICS
+  imports XCHGQ-RAX-R64-SEMANTICS
+  imports XCHGW-R16-AX-SEMANTICS
+  imports XORB-R8-RH-SEMANTICS
+  imports XORL-R32-R32-SEMANTICS
+  imports XORPS-XMM-XMM-SEMANTICS
 endmodule
