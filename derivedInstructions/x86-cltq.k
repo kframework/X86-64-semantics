@@ -7,13 +7,209 @@ module CLTQ
   rule <k>
     execinstr (cltq  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "RAX" |-> ( MI440 => mi(64, svalueMInt(extractMInt(orMInt(andMInt(MI440, mi(64, -4294967296)), mi(64, uvalueMInt(extractMInt(MI440, 32, 64)))), 32, 64))) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+
+ "RAX" |-> (mi(64, svalueMInt(extractMInt(getParentValue(%rax, RSMap), 32, 64))) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module CLTQ-SEMANTICS
   imports CLTQ
 endmodule
+
+
+/*circuit:xorq %rsi, %rsi    #  1     0    3      OPC=xorq_r64_r64
+circuit:movslq %esi, %r9   #  2     0x3  3      OPC=movslq_r64_r32
+circuit:adcl %r9d, %eax    #  3     0x6  3      OPC=adcl_r32_r32
+circuit:movslq %eax, %rax  #  4     0x9  3      OPC=movslq_r64_r32
+
+
+maybe read:{ %eax }
+must read:{ %eax }
+maybe write:{ %rax }
+must write:{ %rax }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+cltq 
+
+
+
+  maybe read:      { %eax }
+
+  must read:       { %eax }
+
+  maybe write:     { %rax }
+
+  must write:      { %rax }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for xorq %rsi, %rsi
+
+
+
+Final state:
+
+%rsi/%rsi: %rsi_cltq ⊕ %rsi_cltq
+
+
+
+%cf: false
+
+%pf: !((%rsi_cltq ⊕ %rsi_cltq)[7:0][0:0] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][1:1] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][2:2] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][3:3] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][4:4] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][5:5] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][6:6] = 0x1₁ ⊕ (%rsi_cltq ⊕ %rsi_cltq)[7:0][7:7] = 0x1₁)
+
+%zf: (%rsi_cltq ⊕ %rsi_cltq) = 0x0₆₄
+
+%sf: (%rsi_cltq ⊕ %rsi_cltq)[63:63] = 0x1₁
+
+%of: false
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for movslq %esi, %r9
+
+
+
+Final state:
+
+%r9/%r9: sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for adcl %r9d, %eax
+
+
+
+Final state:
+
+%rax/%rax: 0x0₃₂ ∘ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0]
+
+
+
+%cf: ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[32:32] = 0x1₁
+
+%pf: !(((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][7:0][7:7] = 0x1₁)
+
+%af: (0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0][3:0] + 0x0₁ ∘ %rax_cltq[31:0][3:0])[4:4] = 0x1₁
+
+%zf: ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0] = 0x0₃₂
+
+%sf: ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0][31:31] = 0x1₁
+
+%of: (sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0][31:31] = 0x1₁ ↔ %rax_cltq[31:0][31:31] = 0x1₁) ∧ !(sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0][31:31] = 0x1₁ ↔ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:31] = 0x1₁)
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for movslq %eax, %rax
+
+
+
+Final state:
+
+%rax/%rax: sign-extend-64((0x0₃₂ ∘ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0])[31:0])
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for cltq 
+
+
+
+.target:
+
+xorq %rsi, %rsi
+
+movslq %esi, %r9
+
+adcl %r9d, %eax
+
+movslq %eax, %rax
+
+retq 
+
+
+
+Initial state:
+
+%rax/%rax: %rax
+
+
+
+State for specgen instruction: cltq :
+
+%rax/%rax: sign-extend-64((0x0₃₂ ∘ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0])[31:0])
+
+
+
+Register        -> %rax
+
+  translates to => %rax
+
+Value is               -> sign-extend-64((0x0₃₂ ∘ ((false ? 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64((%rsi_cltq ⊕ %rsi_cltq)[31:0])[31:0]) + 0x0₁ ∘ %rax_cltq[31:0])[31:0])[31:0])
+
+  after renaming it is => sign-extend-64(%rax[31:0])
+
+
+
+Final state
+
+%rax/%rax: sign-extend-64(%rax[31:0])
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rax   : sign-extend-64(%rax[31:0])
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

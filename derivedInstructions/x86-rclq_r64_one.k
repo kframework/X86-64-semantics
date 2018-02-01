@@ -7,17 +7,174 @@ module RCLQ-R64-ONE
   rule <k>
     execinstr (rclq $0x1, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI647, 63), lshrMInt(addMInt(addMInt(MI647, MI647), mi(64, uvalueMInt(MI624))), 63)), xorMInt(lshrMInt(MI647, 63), lshrMInt(addMInt(addMInt(MI647, MI647), mi(64, uvalueMInt(MI624))), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
- "CF" |-> ( MI624 => (#ifMInt ( (  ( ultMInt(addMInt(MI647, MI647), MI647)  orBool  ultMInt(addMInt(MI647, MI647), MI647) )  orBool  ( ultMInt(addMInt(addMInt(MI647, MI647), mi(64, uvalueMInt(MI624))), addMInt(MI647, MI647))  orBool  ultMInt(addMInt(addMInt(MI647, MI647), mi(64, uvalueMInt(MI624))), mi(64, uvalueMInt(MI624))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> ((#ifMInt ( (  ( ultMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap))  orBool  ultMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)) )  orBool  ( ultMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, uvalueMInt(getFlag("CF", RSMap)))), addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)))  orBool  ultMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, uvalueMInt(getFlag("CF", RSMap)))), mi(64, uvalueMInt(getFlag("CF", RSMap)))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI647 => addMInt(addMInt(MI647, MI647), mi(64, uvalueMInt(MI624))) )
+ "OF" |-> ((#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(getParentValue(R2, RSMap), 63), lshrMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, uvalueMInt(getFlag("CF", RSMap)))), 63)), xorMInt(lshrMInt(getParentValue(R2, RSMap), 63), lshrMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, uvalueMInt(getFlag("CF", RSMap)))), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, uvalueMInt(getFlag("CF", RSMap)))) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module RCLQ-R64-ONE-SEMANTICS
   imports RCLQ-R64-ONE
 endmodule
+
+
+/*circuit:adcq %rbx, %rbx  #  1     0    3      OPC=adcq_r64_r64
+
+
+maybe read:{ %rbx %cf }
+must read:{ %rbx %cf }
+maybe write:{ %rbx %cf %of }
+must write:{ %rbx %cf %of }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+rclq $0x1, %rbx
+
+
+
+  maybe read:      { %rbx %cf }
+
+  must read:       { %rbx %cf }
+
+  maybe write:     { %rbx %cf %of }
+
+  must write:      { %rbx %cf %of }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for adcq %rbx, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0]
+
+
+
+%cf: ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[64:64] = 0x1₁
+
+%pf: !(((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][0:0] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][1:1] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][2:2] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][3:3] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][4:4] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][5:5] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][6:6] = 0x1₁ ⊕ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][7:0][7:7] = 0x1₁)
+
+%af: (0x0₁ ∘ %rbx_rclq_r64_one[3:0] + 0x0₁ ∘ %rbx_rclq_r64_one[3:0])[4:4] = 0x1₁
+
+%zf: ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0] = 0x0₆₄
+
+%sf: ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0][63:63] = 0x1₁
+
+%of: (%rbx_rclq_r64_one[63:63] = 0x1₁ ↔ %rbx_rclq_r64_one[63:63] = 0x1₁) ∧ !(%rbx_rclq_r64_one[63:63] = 0x1₁ ↔ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:63] = 0x1₁)
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for rclq $0x1, %rbx
+
+
+
+.target:
+
+adcq %rbx, %rbx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%rbx: %rbx
+
+
+
+%cf: %cf
+
+%of: %of
+
+
+
+State for specgen instruction: rclq $0x1, %rbx:
+
+%rbx/%rbx: ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0]
+
+
+
+%cf: ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[64:64] = 0x1₁
+
+%of: (%rbx_rclq_r64_one[63:63] = 0x1₁ ↔ %rbx_rclq_r64_one[63:63] = 0x1₁) ∧ !(%rbx_rclq_r64_one[63:63] = 0x1₁ ↔ ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:63] = 0x1₁)
+
+
+
+Register        -> %rbx
+
+  translates to => %rbx
+
+Value is               -> ((%cf_rclq_r64_one ? 0x0₁ ∘ %rbx_rclq_r64_one + 0x1₆₅ : 0x0₁ ∘ %rbx_rclq_r64_one) + 0x0₁ ∘ %rbx_rclq_r64_one)[63:0]
+
+  after renaming it is => ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[63:0]
+
+
+
+Final state
+
+%rbx/%rbx: ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[63:0]
+
+
+
+%cf: ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
+
+%of: (%rbx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rbx[63:63] = 0x1₁ ↔ ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[63:0]
+
+
+
+%cf    : ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
+
+%of    : (%rbx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rbx[63:63] = 0x1₁ ↔ ((%cf ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

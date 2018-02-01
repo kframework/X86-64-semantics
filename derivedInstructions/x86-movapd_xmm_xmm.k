@@ -7,15 +7,155 @@ module MOVAPD-XMM-XMM
   rule <k>
     execinstr (movapd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI437 => MI437)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R2) |-> ( MI436 => orMInt(andMInt(MI436, mi(256, -340282366920938463463374607431768211456)), mi(256, uvalueMInt(extractMInt(MI437, 128, 256)))) )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), extractMInt(getParentValue(R1, RSMap), 128, 256)) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module MOVAPD-XMM-XMM-SEMANTICS
   imports MOVAPD-XMM-XMM
 endmodule
+
+
+/*circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
+circuit:callq .move_064_128_r12_r13_xmm1  #  2     0x5  5      OPC=callq_label
+
+
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %xmm1 }
+must write:{ %xmm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ sse2 }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+movapd %xmm2, %xmm1
+
+
+
+  maybe read:      { %xmm2 }
+
+  must read:       { %xmm2 }
+
+  maybe write:     { %xmm1 }
+
+  must write:      { %xmm1 }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { sse2 }
+
+
+
+-------------------------------------
+
+Getting base circuit for callq .move_128_064_xmm2_r12_r13
+
+
+
+Final state:
+
+%rax/%rax: %rax_movapd_xmm_xmm
+
+%rdx/%rdx: %rdx_movapd_xmm_xmm
+
+
+
+%xmm0: %ymm0_movapd_xmm_xmm[127:0]
+
+%xmm1: %ymm1_movapd_xmm_xmm[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .move_064_128_r12_r13_xmm1
+
+
+
+Final state:
+
+%rax/%rax: %rax_movapd_xmm_xmm
+
+%rdx/%rdx: %rdx_movapd_xmm_xmm
+
+
+
+%xmm0: %ymm0_movapd_xmm_xmm[127:0]
+
+%xmm1: (%ymm1_movapd_xmm_xmm[255:128] ∘ (%ymm2_movapd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_movapd_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for movapd %xmm2, %xmm1
+
+
+
+.target:
+
+callq .move_128_064_xmm2_r12_r13
+
+callq .move_064_128_r12_r13_xmm1
+
+retq 
+
+
+
+Initial state:
+
+%xmm1: %ymm1[127:0]
+
+
+
+State for specgen instruction: movapd %xmm2, %xmm1:
+
+%xmm1: (%ymm1_movapd_xmm_xmm[255:128] ∘ (%ymm2_movapd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_movapd_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+
+
+Final state
+
+%xmm1: (%ymm1[255:128] ∘ %ymm2[127:0])[127:0]
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%ymm1  : %ymm1[255:128] ∘ %ymm2[127:0]
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

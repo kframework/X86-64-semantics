@@ -7,15 +7,190 @@ module SETAE-R8
   rule <k>
     execinstr (setae R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> (MI668 => MI668)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(MI668)), 56, 64), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
+convToRegKeys(R1) |-> (mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(mi(64, uvalueMInt(getFlag("CF", RSMap))), 56, 64), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module SETAE-R8-SEMANTICS
   imports SETAE-R8
 endmodule
+
+
+/*circuit:callq .read_cf_into_rbx  #  1     0    5      OPC=callq_label
+circuit:callq .set_szp_for_bl    #  2     0x5  5      OPC=callq_label
+circuit:callq .read_zf_into_rbx  #  3     0xa  5      OPC=callq_label
+
+
+maybe read:{ %cf }
+must read:{ %cf }
+maybe write:{ %bl }
+must write:{ %bl }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+setae %bl
+
+
+
+  maybe read:      { %cf }
+
+  must read:       { %cf }
+
+  maybe write:     { %bl }
+
+  must write:      { %bl }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for callq .read_cf_into_rbx
+
+
+
+Final state:
+
+%rax/%rax: %rax_setae_r8
+
+%rdx/%rdx: %rdx_setae_r8
+
+
+
+%xmm0: %ymm0_setae_r8[127:0]
+
+%xmm1: %ymm1_setae_r8[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .set_szp_for_bl
+
+
+
+Final state:
+
+%rax/%rax: %rax_setae_r8
+
+%rdx/%rdx: %rdx_setae_r8
+
+
+
+%xmm0: %ymm0_setae_r8[127:0]
+
+%xmm1: %ymm1_setae_r8[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .read_zf_into_rbx
+
+
+
+Final state:
+
+%rax/%rax: %rax_setae_r8
+
+%rdx/%rdx: %rdx_setae_r8
+
+
+
+%xmm0: %ymm0_setae_r8[127:0]
+
+%xmm1: %ymm1_setae_r8[127:0]
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for setae %bl
+
+
+
+.target:
+
+callq .read_cf_into_rbx
+
+callq .set_szp_for_bl
+
+callq .read_zf_into_rbx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%bl: %rbx
+
+
+
+State for specgen instruction: setae %bl:
+
+%rbx/%bl: 0x0₆₃ ∘ ((0x0₆₃ ∘ (%cf_setae_r8 ? 0x1₁ : 0x0₁))[7:0] = 0x0₈ ? 0x1₁ : 0x0₁)
+
+
+
+Register        -> %bl
+
+  translates to => %bl
+
+Value is               -> (0x0₆₃ ∘ ((0x0₆₃ ∘ (%cf_setae_r8 ? 0x1₁ : 0x0₁))[7:0] = 0x0₈ ? 0x1₁ : 0x0₁))[7:0]
+
+  after renaming it is => (%cf ? 0x1₈ : 0x0₈) = 0x0₈ ? 0x1₈ : 0x0₈
+
+
+
+Final state
+
+%rbx/%bl: %rbx[63:8] ∘ ((%cf ? 0x1₈ : 0x0₈) = 0x0₈ ? 0x1₈ : 0x0₈)
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : %rbx[63:8] ∘ ((%cf ? 0x1₈ : 0x0₈) = 0x0₈ ? 0x1₈ : 0x0₈)
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

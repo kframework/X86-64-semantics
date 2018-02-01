@@ -7,29 +7,242 @@ module ANDNQ-R64-R64-R64
   rule <k>
     execinstr (andnq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> ( _ => mi(1, 0) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(MI448, orMInt(MI448, MI456)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> (mi(1, 0) )
 
- "AF" |-> (_ => undef)
+ "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(R2, RSMap), getParentValue(R1, RSMap))), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> (MI448 => MI448)
+ "AF" |-> (undef)
 
- "PF" |-> (_ => undef)
+ "PF" |-> (undef)
 
-convToRegKeys(R1) |-> (MI456 => MI456)
+ "OF" |-> (mi(1, 0) )
 
- "OF" |-> ( _ => mi(1, 0) )
+convToRegKeys(R3) |-> (xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(R2, RSMap), getParentValue(R1, RSMap))) )
 
-convToRegKeys(R3) |-> ( _ => xorMInt(MI448, orMInt(MI448, MI456)) )
-
- "ZF" |-> ( _ => (#ifMInt (eqMInt(xorMInt(MI448, orMInt(MI448, MI456)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+ "ZF" |-> ((#ifMInt (eqMInt(xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(R2, RSMap), getParentValue(R1, RSMap))), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module ANDNQ-R64-R64-R64-SEMANTICS
   imports ANDNQ-R64-R64-R64
 endmodule
+
+
+/*circuit:orq %rcx, %rdx   #  1     0    3      OPC=orq_r64_r64
+circuit:xorq %rcx, %rdx  #  2     0x3  3      OPC=xorq_r64_r64
+circuit:movq %rdx, %rbx  #  3     0x6  3      OPC=movq_r64_r64
+
+
+maybe read:{ %rcx %rdx }
+must read:{ %rcx %rdx }
+maybe write:{ %rbx %cf %zf %sf %of }
+must write:{ %rbx %cf %zf %sf %of }
+maybe undef:{ %pf %af }
+must undef:{ %pf %af }
+required flags:{ bmi1 }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+andnq %rdx, %rcx, %rbx
+
+
+
+  maybe read:      { %rcx %rdx }
+
+  must read:       { %rcx %rdx }
+
+  maybe write:     { %rbx %cf %zf %sf %of }
+
+  must write:      { %rbx %cf %zf %sf %of }
+
+  maybe undef:     { %pf %af }
+
+  must undef:      { %pf %af }
+
+  required flags:  { bmi1 }
+
+
+
+-------------------------------------
+
+Getting base circuit for orq %rcx, %rdx
+
+
+
+Final state:
+
+%rdx/%rdx: %rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64
+
+
+
+%cf: false
+
+%pf: !((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][0:0] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][1:1] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][2:2] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][3:3] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][4:4] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][5:5] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][6:6] = 0x1₁ ⊕ (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[7:0][7:7] = 0x1₁)
+
+%zf: (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) = 0x0₆₄
+
+%sf: (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64)[63:63] = 0x1₁
+
+%of: false
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for xorq %rcx, %rdx
+
+
+
+Final state:
+
+%rdx/%rdx: (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64
+
+
+
+%cf: false
+
+%pf: !(((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][0:0] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][1:1] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][2:2] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][3:3] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][4:4] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][5:5] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][6:6] = 0x1₁ ⊕ ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[7:0][7:7] = 0x1₁)
+
+%zf: ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64) = 0x0₆₄
+
+%sf: ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[63:63] = 0x1₁
+
+%of: false
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for movq %rdx, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for andnq %rdx, %rcx, %rbx
+
+
+
+.target:
+
+orq %rcx, %rdx
+
+xorq %rcx, %rdx
+
+movq %rdx, %rbx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%rbx: %rbx
+
+
+
+%cf: %cf
+
+%zf: %zf
+
+%sf: %sf
+
+%of: %of
+
+
+
+State for specgen instruction: andnq %rdx, %rcx, %rbx:
+
+%rbx/%rbx: (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64
+
+
+
+%cf: false
+
+%zf: ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64) = 0x0₆₄
+
+%sf: ((%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64)[63:63] = 0x1₁
+
+%of: false
+
+
+
+Register        -> %rbx
+
+  translates to => %rbx
+
+Value is               -> (%rdx_andnq_r64_r64_r64 | %rcx_andnq_r64_r64_r64) ⊕ %rcx_andnq_r64_r64_r64
+
+  after renaming it is => (%rdx | %rcx) ⊕ %rcx
+
+
+
+Final state
+
+%rbx/%rbx: (%rdx | %rcx) ⊕ %rcx
+
+
+
+%cf: false
+
+%zf: ((%rdx | %rcx) ⊕ %rcx) = 0x0₆₄
+
+%sf: ((%rdx[63:63] | %rcx[63:63]) ⊕ %rcx[63:63]) = 0x1₁
+
+%of: false
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : (%rdx | %rcx) ⊕ %rcx
+
+
+
+%cf    : false
+
+%zf    : ((%rdx | %rcx) ⊕ %rcx) = 0x0₆₄
+
+%sf    : ((%rdx[63:63] | %rcx[63:63]) ⊕ %rcx[63:63]) = 0x1₁
+
+%of    : false
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

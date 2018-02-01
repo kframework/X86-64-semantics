@@ -7,17 +7,174 @@ module RCLW-R16-ONE
   rule <k>
     execinstr (rclw $0x1, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(MI647, 48, 64), 15), lshrMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), 15)), xorMInt(lshrMInt(extractMInt(MI647, 48, 64), 15), lshrMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
- "CF" |-> ( MI624 => (#ifMInt ( (  ( ultMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), extractMInt(MI647, 48, 64))  orBool  ultMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), extractMInt(MI647, 48, 64)) )  orBool  ( ultMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))), mi(16, uvalueMInt(MI624))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> ((#ifMInt ( (  ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), extractMInt(getParentValue(R2, RSMap), 48, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), extractMInt(getParentValue(R2, RSMap), 48, 64)) )  orBool  ( ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, uvalueMInt(getFlag("CF", RSMap)))), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, uvalueMInt(getFlag("CF", RSMap)))), mi(16, uvalueMInt(getFlag("CF", RSMap)))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI647 => orMInt(andMInt(MI647, mi(64, -65536)), shlMInt(mi(64, uvalueMInt(addMInt(addMInt(extractMInt(MI647, 48, 64), extractMInt(MI647, 48, 64)), mi(16, uvalueMInt(MI624))))), 0)) )
+ "OF" |-> ((#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), 15), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, uvalueMInt(getFlag("CF", RSMap)))), 15)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), 15), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, uvalueMInt(getFlag("CF", RSMap)))), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, uvalueMInt(getFlag("CF", RSMap))))) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module RCLW-R16-ONE-SEMANTICS
   imports RCLW-R16-ONE
 endmodule
+
+
+/*circuit:adcw %bx, %bx  #  1     0    3      OPC=adcw_r16_r16
+
+
+maybe read:{ %bx %cf }
+must read:{ %bx %cf }
+maybe write:{ %bx %cf %of }
+must write:{ %bx %cf %of }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+rclw $0x1, %bx
+
+
+
+  maybe read:      { %bx %cf }
+
+  must read:       { %bx %cf }
+
+  maybe write:     { %bx %cf %of }
+
+  must write:      { %bx %cf %of }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for adcw %bx, %bx
+
+
+
+Final state:
+
+%rbx/%bx: %rbx_rclw_r16_one[63:16] ∘ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0]
+
+
+
+%cf: ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[16:16] = 0x1₁
+
+%pf: !(((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][0:0] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][1:1] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][2:2] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][3:3] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][4:4] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][5:5] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][6:6] = 0x1₁ ⊕ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][7:0][7:7] = 0x1₁)
+
+%af: (0x0₁ ∘ %rbx_rclw_r16_one[15:0][3:0] + 0x0₁ ∘ %rbx_rclw_r16_one[15:0][3:0])[4:4] = 0x1₁
+
+%zf: ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0] = 0x0₁₆
+
+%sf: ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0][15:15] = 0x1₁
+
+%of: (%rbx_rclw_r16_one[15:0][15:15] = 0x1₁ ↔ %rbx_rclw_r16_one[15:0][15:15] = 0x1₁) ∧ !(%rbx_rclw_r16_one[15:0][15:15] = 0x1₁ ↔ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:15] = 0x1₁)
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for rclw $0x1, %bx
+
+
+
+.target:
+
+adcw %bx, %bx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%bx: %rbx
+
+
+
+%cf: %cf
+
+%of: %of
+
+
+
+State for specgen instruction: rclw $0x1, %bx:
+
+%rbx/%bx: %rbx_rclw_r16_one[63:16] ∘ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0]
+
+
+
+%cf: ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[16:16] = 0x1₁
+
+%of: (%rbx_rclw_r16_one[15:0][15:15] = 0x1₁ ↔ %rbx_rclw_r16_one[15:0][15:15] = 0x1₁) ∧ !(%rbx_rclw_r16_one[15:0][15:15] = 0x1₁ ↔ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:15] = 0x1₁)
+
+
+
+Register        -> %bx
+
+  translates to => %bx
+
+Value is               -> (%rbx_rclw_r16_one[63:16] ∘ ((%cf_rclw_r16_one ? 0x0₁ ∘ %rbx_rclw_r16_one[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx_rclw_r16_one[15:0]) + 0x0₁ ∘ %rbx_rclw_r16_one[15:0])[15:0])[15:0]
+
+  after renaming it is => ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[15:0]
+
+
+
+Final state
+
+%rbx/%bx: %rbx[63:16] ∘ ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[15:0]
+
+
+
+%cf: ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[16:16] = 0x1₁
+
+%of: (%rbx[15:15] = 0x1₁ ↔ %rbx[15:15] = 0x1₁) ∧ !(%rbx[15:15] = 0x1₁ ↔ ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[15:15] = 0x1₁)
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : %rbx[63:16] ∘ ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[15:0]
+
+
+
+%cf    : ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[16:16] = 0x1₁
+
+%of    : (%rbx[15:15] = 0x1₁ ↔ %rbx[15:15] = 0x1₁) ∧ !(%rbx[15:15] = 0x1₁ ↔ ((%cf ? 0x0₁ ∘ %rbx[15:0] + 0x1₁₇ : 0x0₁ ∘ %rbx[15:0]) + 0x0₁ ∘ %rbx[15:0])[15:15] = 0x1₁)
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

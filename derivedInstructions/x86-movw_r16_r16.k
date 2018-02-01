@@ -7,15 +7,132 @@ module MOVW-R16-R16
   rule <k>
     execinstr (movw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> ( _ => mi(64, svalueMInt(extractMInt(MI434, 48, 64))) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R1) |-> (MI434 => MI434)
+convToRegKeys(R2) |-> (mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 48, 64))) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module MOVW-R16-R16-SEMANTICS
   imports MOVW-R16-R16
 endmodule
+
+
+/*circuit:movswq %cx, %rbx  #  1     0    4      OPC=movswq_r64_r16
+
+
+maybe read:{ %cx }
+must read:{ %cx }
+maybe write:{ %bx }
+must write:{ %bx }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+movw %cx, %bx
+
+
+
+  maybe read:      { %cx }
+
+  must read:       { %cx }
+
+  maybe write:     { %bx }
+
+  must write:      { %bx }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for movswq %cx, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: sign-extend-64(%rcx_movw_r16_r16[15:0])
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for movw %cx, %bx
+
+
+
+.target:
+
+movswq %cx, %rbx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%bx: %rbx
+
+
+
+State for specgen instruction: movw %cx, %bx:
+
+%rbx/%bx: sign-extend-64(%rcx_movw_r16_r16[15:0])
+
+
+
+Register        -> %bx
+
+  translates to => %bx
+
+Value is               -> sign-extend-64(%rcx_movw_r16_r16[15:0])[15:0]
+
+  after renaming it is => %rcx[15:0]
+
+
+
+Final state
+
+%rbx/%bx: %rbx[63:16] ∘ %rcx[15:0]
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : %rbx[63:16] ∘ %rcx[15:0]
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/
