@@ -94,7 +94,7 @@ module ADC-R32-R32
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
       updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
       updateParityFlag(MIresult) ~> 
-      setRegisterValue(MIresult, DestR) 
+      setRegisterValue(concatenateMInt(mi(32, 0), MIresult), convSubRegsToRegs(DestR)) 
   ...</k>
 
 endmodule
