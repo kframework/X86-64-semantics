@@ -7,15 +7,186 @@ module MOVZBW-R16-RH
   rule <k>
     execinstr (movzbw R1:Rh, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI648 => MI648)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R2) |-> ( _ => orMInt(mi(64, 0), shlMInt(mi(64, uvalueMInt(extractMInt(MI648, 48, 56))), 0)) )
+convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1, RSMap), 48, 56)) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module MOVZBW-R16-RH-SEMANTICS
   imports MOVZBW-R16-RH
 endmodule
+
+
+/*circuit:xorq %rcx, %rcx          #  1     0    3      OPC=xorq_r64_r64
+circuit:callq .read_sf_into_rbx  #  2     0x3  5      OPC=callq_label
+circuit:movb %ah, %bl            #  3     0x8  2      OPC=movb_r8_rh
+
+
+maybe read:{ %ah }
+must read:{ %ah }
+maybe write:{ %bx }
+must write:{ %bx }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+movzbw %ah, %bx
+
+
+
+  maybe read:      { %ah }
+
+  must read:       { %ah }
+
+  maybe write:     { %bx }
+
+  must write:      { %bx }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for xorq %rcx, %rcx
+
+
+
+Final state:
+
+%rcx/%rcx: %rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh
+
+
+
+%cf: false
+
+%pf: !((%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][0:0] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][1:1] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][2:2] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][3:3] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][4:4] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][5:5] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][6:6] = 0x1₁ ⊕ (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[7:0][7:7] = 0x1₁)
+
+%zf: (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh) = 0x0₆₄
+
+%sf: (%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[63:63] = 0x1₁
+
+%of: false
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .read_sf_into_rbx
+
+
+
+Final state:
+
+%rax/%rax: %rax_movzbw_r16_rh
+
+%rdx/%rdx: %rdx_movzbw_r16_rh
+
+
+
+%xmm0: %ymm0_movzbw_r16_rh[127:0]
+
+%xmm1: %ymm1_movzbw_r16_rh[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for movb %ah, %bl
+
+
+
+Final state:
+
+%rbx/%bl: (0x0₆₃ ∘ ((%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[63:63] = 0x1₁ ? 0x1₁ : 0x0₁))[63:8] ∘ %rax_movzbw_r16_rh[15:8]
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for movzbw %ah, %bx
+
+
+
+.target:
+
+xorq %rcx, %rcx
+
+callq .read_sf_into_rbx
+
+movb %ah, %bl
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%bx: %rbx
+
+
+
+State for specgen instruction: movzbw %ah, %bx:
+
+%rbx/%bx: (0x0₆₃ ∘ ((%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[63:63] = 0x1₁ ? 0x1₁ : 0x0₁))[63:8] ∘ %rax_movzbw_r16_rh[15:8]
+
+
+
+Register        -> %bx
+
+  translates to => %bx
+
+Value is               -> ((0x0₆₃ ∘ ((%rcx_movzbw_r16_rh ⊕ %rcx_movzbw_r16_rh)[63:63] = 0x1₁ ? 0x1₁ : 0x0₁))[63:8] ∘ %rax_movzbw_r16_rh[15:8])[15:0]
+
+  after renaming it is => 0x0₈ ∘ %rax[15:8]
+
+
+
+Final state
+
+%rbx/%bx: %rbx[63:16] ∘ (0x0₈ ∘ %rax[15:8])
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : %rbx[63:16] ∘ (0x0₈ ∘ %rax[15:8])
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

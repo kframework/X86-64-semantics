@@ -7,27 +7,243 @@ module ADDQ-R64-R64
   rule <k>
     execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> ( _ => (#ifMInt ( ( ultMInt(addMInt(MI448, MI451), MI448)  orBool  ultMInt(addMInt(MI448, MI451), MI451) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(MI448, MI451), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R1, RSMap))  orBool  ultMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "AF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(MI448, MI451), addMInt(MI448, MI451)), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R1) |-> (MI448 => MI448)
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap))), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(MI448, MI451), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ( _ => (#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(MI448, 63), lshrMInt(addMInt(MI448, MI451), 63)), xorMInt(lshrMInt(MI451, 63), lshrMInt(addMInt(MI448, MI451), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(getParentValue(R1, RSMap), 63), lshrMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), 63)), xorMInt(lshrMInt(getParentValue(R2, RSMap), 63), lshrMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI451 => addMInt(MI448, MI451) )
+convToRegKeys(R2) |-> (addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)) )
 
- "ZF" |-> ( _ => (#ifMInt (eqMInt(addMInt(MI448, MI451), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module ADDQ-R64-R64-SEMANTICS
   imports ADDQ-R64-R64
 endmodule
+
+
+/*circuit:orq %rbx, %rbx   #  1     0    3      OPC=orq_r64_r64
+circuit:adcq %rcx, %rbx  #  2     0x3  3      OPC=adcq_r64_r64
+
+
+maybe read:{ %rcx %rbx }
+must read:{ %rcx %rbx }
+maybe write:{ %rbx %cf %pf %af %zf %sf %of }
+must write:{ %rbx %cf %pf %af %zf %sf %of }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+addq %rcx, %rbx
+
+
+
+  maybe read:      { %rcx %rbx }
+
+  must read:       { %rcx %rbx }
+
+  maybe write:     { %rbx %cf %pf %af %zf %sf %of }
+
+  must write:      { %rbx %cf %pf %af %zf %sf %of }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for orq %rbx, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: %rbx_addq_r64_r64 | %rbx_addq_r64_r64
+
+
+
+%cf: false
+
+%pf: !((%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][0:0] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][1:1] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][2:2] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][3:3] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][4:4] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][5:5] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][6:6] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][7:7] = 0x1₁)
+
+%zf: (%rbx_addq_r64_r64 | %rbx_addq_r64_r64) = 0x0₆₄
+
+%sf: (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[63:63] = 0x1₁
+
+%of: false
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for adcq %rcx, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0]
+
+
+
+%cf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[64:64] = 0x1₁
+
+%pf: !(((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][7:7] = 0x1₁)
+
+%af: (0x0₁ ∘ %rcx_addq_r64_r64[3:0] + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[3:0])[4:4] = 0x1₁
+
+%zf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0] = 0x0₆₄
+
+%sf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][63:63] = 0x1₁
+
+%of: (%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[63:63] = 0x1₁) ∧ !(%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:63] = 0x1₁)
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for addq %rcx, %rbx
+
+
+
+.target:
+
+orq %rbx, %rbx
+
+adcq %rcx, %rbx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%rbx: %rbx
+
+
+
+%cf: %cf
+
+%pf: %pf
+
+%af: %af
+
+%zf: %zf
+
+%sf: %sf
+
+%of: %of
+
+
+
+State for specgen instruction: addq %rcx, %rbx:
+
+%rbx/%rbx: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0]
+
+
+
+%cf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[64:64] = 0x1₁
+
+%pf: !(((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][7:7] = 0x1₁)
+
+%af: (0x0₁ ∘ %rcx_addq_r64_r64[3:0] + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[3:0])[4:4] = 0x1₁
+
+%zf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0] = 0x0₆₄
+
+%sf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][63:63] = 0x1₁
+
+%of: (%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[63:63] = 0x1₁) ∧ !(%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:63] = 0x1₁)
+
+
+
+Register        -> %rbx
+
+  translates to => %rbx
+
+Value is               -> ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0]
+
+  after renaming it is => (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
+
+
+
+Final state
+
+%rbx/%rbx: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
+
+
+
+%cf: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
+
+%pf: !((0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[7:7] = 0x1₁)
+
+%af: (0x0₁ ∘ %rcx[3:0] + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
+
+%zf: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0] = 0x0₆₄
+
+%sf: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁
+
+%of: (%rcx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rcx[63:63] = 0x1₁ ↔ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
+
+
+
+%cf    : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
+
+%pf    : !((0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[7:7] = 0x1₁)
+
+%af    : (0x0₁ ∘ %rcx[3:0] + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
+
+%zf    : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0] = 0x0₆₄
+
+%sf    : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁
+
+%of    : (%rcx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rcx[63:63] = 0x1₁ ↔ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

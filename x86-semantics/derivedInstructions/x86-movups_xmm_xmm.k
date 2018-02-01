@@ -7,15 +7,155 @@ module MOVUPS-XMM-XMM
   rule <k>
     execinstr (movups R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI438 => MI438)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R2) |-> ( MI439 => orMInt(andMInt(MI439, mi(256, -340282366920938463463374607431768211456)), mi(256, uvalueMInt(concatenateMInt(concatenateMInt(extractMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI438, 128, 256), 0, 32))))), 128, 256), 96, 128), extractMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI438, 128, 256), 32, 64))))), 128, 256), 96, 128)), concatenateMInt(extractMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI438, 128, 256), 64, 96))))), 128, 256), 96, 128), extractMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(MI438, 128, 256), 96, 128))))), 128, 256), 96, 128)))))) )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), extractMInt(getParentValue(R1, RSMap), 128, 256)) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module MOVUPS-XMM-XMM-SEMANTICS
   imports MOVUPS-XMM-XMM
 endmodule
+
+
+/*circuit:callq .move_128_032_xmm2_xmm4_xmm5_xmm6_xmm7  #  1     0    5      OPC=callq_label
+circuit:callq .move_032_128_xmm4_xmm5_xmm6_xmm7_xmm1  #  2     0x5  5      OPC=callq_label
+
+
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %xmm1 }
+must write:{ %xmm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ sse }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+movups %xmm2, %xmm1
+
+
+
+  maybe read:      { %xmm2 }
+
+  must read:       { %xmm2 }
+
+  maybe write:     { %xmm1 }
+
+  must write:      { %xmm1 }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { sse }
+
+
+
+-------------------------------------
+
+Getting base circuit for callq .move_128_032_xmm2_xmm4_xmm5_xmm6_xmm7
+
+
+
+Final state:
+
+%rax/%rax: %rax_movups_xmm_xmm
+
+%rdx/%rdx: %rdx_movups_xmm_xmm
+
+
+
+%xmm0: %ymm0_movups_xmm_xmm[127:0]
+
+%xmm1: %ymm1_movups_xmm_xmm[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .move_032_128_xmm4_xmm5_xmm6_xmm7_xmm1
+
+
+
+Final state:
+
+%rax/%rax: %rax_movups_xmm_xmm
+
+%rdx/%rdx: %rdx_movups_xmm_xmm
+
+
+
+%xmm0: %ymm0_movups_xmm_xmm[127:0]
+
+%xmm1: (%ymm1_movups_xmm_xmm[255:128] ∘ ((%ymm7_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][127:96]))[127:0][31:0] ∘ (%ymm6_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][95:64]))[127:0][31:0] ∘ (%ymm5_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][63:32]))[127:0][31:0] ∘ (%ymm4_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][31:0]))[127:0][31:0]))[127:0]
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for movups %xmm2, %xmm1
+
+
+
+.target:
+
+callq .move_128_032_xmm2_xmm4_xmm5_xmm6_xmm7
+
+callq .move_032_128_xmm4_xmm5_xmm6_xmm7_xmm1
+
+retq 
+
+
+
+Initial state:
+
+%xmm1: %ymm1[127:0]
+
+
+
+State for specgen instruction: movups %xmm2, %xmm1:
+
+%xmm1: (%ymm1_movups_xmm_xmm[255:128] ∘ ((%ymm7_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][127:96]))[127:0][31:0] ∘ (%ymm6_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][95:64]))[127:0][31:0] ∘ (%ymm5_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][63:32]))[127:0][31:0] ∘ (%ymm4_movups_xmm_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm2_movups_xmm_xmm[127:0][31:0]))[127:0][31:0]))[127:0]
+
+
+
+Final state
+
+%xmm1: (%ymm1[255:128] ∘ %ymm2[127:0])[127:0]
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%ymm1  : %ymm1[255:128] ∘ %ymm2[127:0]
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

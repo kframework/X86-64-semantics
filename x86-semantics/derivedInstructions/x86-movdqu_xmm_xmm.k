@@ -7,15 +7,155 @@ module MOVDQU-XMM-XMM
   rule <k>
     execinstr (movdqu R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI436 => MI436)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI436, 128, 256), 0, 64))), 128, 256), extractMInt(mi(256, uvalueMInt(extractMInt(extractMInt(MI436, 128, 256), 64, 128))), 128, 256)) )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), extractMInt(getParentValue(R1, RSMap), 128, 256)) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module MOVDQU-XMM-XMM-SEMANTICS
   imports MOVDQU-XMM-XMM
 endmodule
+
+
+/*circuit:callq .move_128_64_xmm2_xmm10_xmm11  #  1     0    5      OPC=callq_label
+circuit:callq .move_64_128_xmm10_xmm11_xmm1  #  2     0x5  5      OPC=callq_label
+
+
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %xmm1 }
+must write:{ %xmm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ sse2 }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+movdqu %xmm2, %xmm1
+
+
+
+  maybe read:      { %xmm2 }
+
+  must read:       { %xmm2 }
+
+  maybe write:     { %xmm1 }
+
+  must write:      { %xmm1 }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { sse2 }
+
+
+
+-------------------------------------
+
+Getting base circuit for callq .move_128_64_xmm2_xmm10_xmm11
+
+
+
+Final state:
+
+%rax/%rax: %rax_movdqu_xmm_xmm
+
+%rdx/%rdx: %rdx_movdqu_xmm_xmm
+
+
+
+%xmm0: %ymm0_movdqu_xmm_xmm[127:0]
+
+%xmm1: %ymm1_movdqu_xmm_xmm[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .move_64_128_xmm10_xmm11_xmm1
+
+
+
+Final state:
+
+%rax/%rax: %rax_movdqu_xmm_xmm
+
+%rdx/%rdx: %rdx_movdqu_xmm_xmm
+
+
+
+%xmm0: %ymm0_movdqu_xmm_xmm[127:0]
+
+%xmm1: (%ymm1_movdqu_xmm_xmm[255:128] ∘ ((%ymm11_movdqu_xmm_xmm[255:128] ∘ (0x0₆₄ ∘ %ymm2_movdqu_xmm_xmm[127:0][127:64]))[127:0][63:0] ∘ (%ymm10_movdqu_xmm_xmm[255:128] ∘ (0x0₆₄ ∘ %ymm2_movdqu_xmm_xmm[127:0][63:0]))[127:0][63:0]))[127:0]
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for movdqu %xmm2, %xmm1
+
+
+
+.target:
+
+callq .move_128_64_xmm2_xmm10_xmm11
+
+callq .move_64_128_xmm10_xmm11_xmm1
+
+retq 
+
+
+
+Initial state:
+
+%xmm1: %ymm1[127:0]
+
+
+
+State for specgen instruction: movdqu %xmm2, %xmm1:
+
+%xmm1: (%ymm1_movdqu_xmm_xmm[255:128] ∘ ((%ymm11_movdqu_xmm_xmm[255:128] ∘ (0x0₆₄ ∘ %ymm2_movdqu_xmm_xmm[127:0][127:64]))[127:0][63:0] ∘ (%ymm10_movdqu_xmm_xmm[255:128] ∘ (0x0₆₄ ∘ %ymm2_movdqu_xmm_xmm[127:0][63:0]))[127:0][63:0]))[127:0]
+
+
+
+Final state
+
+%xmm1: (%ymm1[255:128] ∘ %ymm2[127:0])[127:0]
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%ymm1  : %ymm1[255:128] ∘ %ymm2[127:0]
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

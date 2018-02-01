@@ -7,15 +7,186 @@ module SETB-R8
   rule <k>
     execinstr (setb R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> (MI668 => MI668)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R1) |-> ( _ => orMInt(mi(64, uvalueMInt(MI668)), mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(MI668)), 56, 64)))) )
+convToRegKeys(R1) |-> (orMInt(concatenateMInt(mi(63, 0), getFlag("CF", RSMap)), mi(64, svalueMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap))))) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module SETB-R8-SEMANTICS
   imports SETB-R8
 endmodule
+
+
+/*circuit:callq .read_cf_into_rcx  #  1     0    5      OPC=callq_label
+circuit:movsbq %cl, %rbx         #  2     0x5  4      OPC=movsbq_r64_r8
+circuit:orq %rcx, %rbx           #  3     0x9  3      OPC=orq_r64_r64
+
+
+maybe read:{ %cf }
+must read:{ %cf }
+maybe write:{ %bl }
+must write:{ %bl }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+setb %bl
+
+
+
+  maybe read:      { %cf }
+
+  must read:       { %cf }
+
+  maybe write:     { %bl }
+
+  must write:      { %bl }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for callq .read_cf_into_rcx
+
+
+
+Final state:
+
+%rax/%rax: %rax_setb_r8
+
+%rdx/%rdx: %rdx_setb_r8
+
+
+
+%xmm0: %ymm0_setb_r8[127:0]
+
+%xmm1: %ymm1_setb_r8[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for movsbq %cl, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0])
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for orq %rcx, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁)
+
+
+
+%cf: false
+
+%pf: !((sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][0:0] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][1:1] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][2:2] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][3:3] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][4:4] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][5:5] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][6:6] = 0x1₁ ⊕ (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0][7:7] = 0x1₁)
+
+%zf: (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁)) = 0x0₆₄
+
+%sf: (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[63:63] = 0x1₁
+
+%of: false
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for setb %bl
+
+
+
+.target:
+
+callq .read_cf_into_rcx
+
+movsbq %cl, %rbx
+
+orq %rcx, %rbx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%bl: %rbx
+
+
+
+State for specgen instruction: setb %bl:
+
+%rbx/%bl: sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁)
+
+
+
+Register        -> %bl
+
+  translates to => %bl
+
+Value is               -> (sign-extend-64((0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]) | 0x0₆₃ ∘ (%cf_setb_r8 ? 0x1₁ : 0x0₁))[7:0]
+
+  after renaming it is => %cf ? 0x1₈ : 0x0₈
+
+
+
+Final state
+
+%rbx/%bl: %rbx[63:8] ∘ (%cf ? 0x1₈ : 0x0₈)
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : %rbx[63:8] ∘ (%cf ? 0x1₈ : 0x0₈)
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/

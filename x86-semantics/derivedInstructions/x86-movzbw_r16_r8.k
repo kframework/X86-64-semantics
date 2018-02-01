@@ -7,15 +7,199 @@ module MOVZBW-R16-R8
   rule <k>
     execinstr (movzbw R1:R8, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> ( _ => mi(64, uvalueMInt(concatenateMInt(mi(8, 0), extractMInt(mi(64, svalueMInt(extractMInt(MI436, 56, 64))), 56, 64)))) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R1) |-> (MI436 => MI436)
+convToRegKeys(R2) |-> (concatenateMInt(mi(48, 0), concatenateMInt(mi(8, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
 
-    ...</regstate>
+
+)
+    </regstate>
 endmodule
 
 module MOVZBW-R16-R8-SEMANTICS
   imports MOVZBW-R16-R8
 endmodule
+
+
+/*circuit:movq $0x5, %rbx                    #  1     0     10     OPC=movq_r64_imm64
+circuit:callq .move_064_032_rbx_r12d_r13d  #  2     0xa   5      OPC=callq_label
+circuit:movsbq %cl, %r12                   #  3     0xf   4      OPC=movsbq_r64_r8
+circuit:callq .move_008_016_r12b_r13b_bx   #  4     0x13  5      OPC=callq_label
+
+
+maybe read:{ %cl }
+must read:{ %cl }
+maybe write:{ %bx }
+must write:{ %bx }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+
+WARNING: No live out values provided, assuming { }
+
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+
+Target
+
+
+
+movzbw %cl, %bx
+
+
+
+  maybe read:      { %cl }
+
+  must read:       { %cl }
+
+  maybe write:     { %bx }
+
+  must write:      { %bx }
+
+  maybe undef:     { }
+
+  must undef:      { }
+
+  required flags:  { }
+
+
+
+-------------------------------------
+
+Getting base circuit for movq $0x5, %rbx
+
+
+
+Final state:
+
+%rbx/%rbx: 0x5₆₄
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .move_064_032_rbx_r12d_r13d
+
+
+
+Final state:
+
+%rax/%rax: %rax_movzbw_r16_r8
+
+%rdx/%rdx: %rdx_movzbw_r16_r8
+
+
+
+%xmm0: %ymm0_movzbw_r16_r8[127:0]
+
+%xmm1: %ymm1_movzbw_r16_r8[127:0]
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for movsbq %cl, %r12
+
+
+
+Final state:
+
+%r12/%r12: sign-extend-64(%rcx_movzbw_r16_r8[7:0])
+
+
+
+-------------------------------------
+
+-------------------------------------
+
+Getting base circuit for callq .move_008_016_r12b_r13b_bx
+
+
+
+Final state:
+
+%rax/%rax: %rax_movzbw_r16_r8
+
+%rdx/%rdx: %rdx_movzbw_r16_r8
+
+
+
+%xmm0: %ymm0_movzbw_r16_r8[127:0]
+
+%xmm1: %ymm1_movzbw_r16_r8[127:0]
+
+
+
+-------------------------------------
+
+=====================================
+
+Computing circuit for movzbw %cl, %bx
+
+
+
+.target:
+
+movq $0x5, %rbx
+
+callq .move_064_032_rbx_r12d_r13d
+
+movsbq %cl, %r12
+
+callq .move_008_016_r12b_r13b_bx
+
+retq 
+
+
+
+Initial state:
+
+%rbx/%bx: %rbx
+
+
+
+State for specgen instruction: movzbw %cl, %bx:
+
+%rbx/%bx: 0x5₆₄[63:16] ∘ ((0x0₃₂ ∘ 0x5₆₄[63:32])[7:0][7:0] ∘ sign-extend-64(%rcx_movzbw_r16_r8[7:0])[7:0][7:0])
+
+
+
+Register        -> %bx
+
+  translates to => %bx
+
+Value is               -> (0x5₆₄[63:16] ∘ ((0x0₃₂ ∘ 0x5₆₄[63:32])[7:0][7:0] ∘ sign-extend-64(%rcx_movzbw_r16_r8[7:0])[7:0][7:0]))[15:0]
+
+  after renaming it is => 0x0₈ ∘ %rcx[7:0]
+
+
+
+Final state
+
+%rbx/%bx: %rbx[63:16] ∘ (0x0₈ ∘ %rcx[7:0])
+
+
+
+=====================================
+
+Circuits:
+
+
+
+%rbx   : %rbx[63:16] ∘ (0x0₈ ∘ %rcx[7:0])
+
+
+
+sigfpe  : sigfpe
+
+sigbus  : sigbus
+
+sigsegv : sigsegv
+
+*/
