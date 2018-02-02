@@ -7,17 +7,101 @@ module VFNMADD231PS-YMM-YMM-YMM
   rule <k>
     execinstr (vfnmadd231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> (MI438 => MI438)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 0, 32), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 0, 32), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 0, 32), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 32, 64), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 32, 64), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 32, 64), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 64, 96), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 64, 96), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 64, 96), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 96, 128), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 96, 128), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 96, 128), 24, 8) ) ) ) , 32)))), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 160), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 160, 192), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 224), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) ) ) , 32))))) )
 
-convToRegKeys(R3) |-> ( MI440 => concatenateMInt(extractMInt(mi(256, uvalueMInt(extractMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 0, 32), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 0, 32), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 0, 32), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 32, 64), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 32, 64), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 32, 64), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 64, 96), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 64, 96), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 64, 96), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 96, 128), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 96, 128), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 96, 128), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 128, 160), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 128, 160), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 160, 192), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 160, 192), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 192, 224), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(MI440, 224, 256), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 224, 256), 24, 8) ) ) ) , 32)))))))), 0, 128))), 128, 256), extractMInt(mi(256, uvalueMInt(extractMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 0, 32), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 0, 32), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 0, 32), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 32, 64), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 32, 64), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 32, 64), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 64, 96), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 64, 96), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 64, 96), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 96, 128), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 96, 128), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 96, 128), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 128, 160), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 128, 160), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 160, 192), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 160, 192), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI440, 192, 224), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(MI440, 224, 256), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(MI438, 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(MI439, 224, 256), 24, 8) ) ) ) , 32)))))))), 128, 256))), 128, 256)) )
+  
+)   
 
-convToRegKeys(R1) |-> (MI439 => MI439)
-
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VFNMADD231PS-YMM-YMM-YMM-SEMANTICS
   imports VFNMADD231PS-YMM-YMM-YMM
 endmodule
+/*
+vfnmadd231ps %ymm3, %ymm2, %ymm1
+maybe read:{ %ymm1 %ymm2 %ymm3 }
+must read:{ %ymm1 %ymm2 %ymm3 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ fma }
+
+circuit:vfnmadd132ps %ymm3, %ymm1, %ymm2      #  1     0    5      OPC=vfnmadd132ps_ymm_ymm_ymm
+circuit:callq .move_256_128_ymm2_xmm12_xmm13  #  2     0x5  5      OPC=callq_label
+circuit:callq .move_128_256_xmm12_xmm13_ymm1  #  3     0xa  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vfnmadd231ps %ymm3, %ymm2, %ymm1
+
+  maybe read:      { %ymm1 %ymm2 %ymm3 }
+  must read:       { %ymm1 %ymm2 %ymm3 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { fma }
+
+-------------------------------------
+Getting base circuit for vfnmadd132ps %ymm3, %ymm1, %ymm2
+
+Final state:
+%ymm2: vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm1_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm3_vfnmadd231ps_ymm_ymm_ymm[255:224]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm1_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm3_vfnmadd231ps_ymm_ymm_ymm[223:192]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm1_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm3_vfnmadd231ps_ymm_ymm_ymm[191:160]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm1_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm3_vfnmadd231ps_ymm_ymm_ymm[159:128]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm1_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm3_vfnmadd231ps_ymm_ymm_ymm[127:96]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm1_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm3_vfnmadd231ps_ymm_ymm_ymm[95:64]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm1_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm3_vfnmadd231ps_ymm_ymm_ymm[63:32]) ∘ vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm1_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm3_vfnmadd231ps_ymm_ymm_ymm[31:0])))))))
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_256_128_ymm2_xmm12_xmm13
+
+Final state:
+%rax/%rax: %rax_vfnmadd231ps_ymm_ymm_ymm
+%rdx/%rdx: %rdx_vfnmadd231ps_ymm_ymm_ymm
+
+%xmm0: %ymm0_vfnmadd231ps_ymm_ymm_ymm[127:0]
+%xmm1: %ymm1_vfnmadd231ps_ymm_ymm_ymm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_256_xmm12_xmm13_ymm1
+
+Final state:
+%rax/%rax: %rax_vfnmadd231ps_ymm_ymm_ymm
+%rdx/%rdx: %rdx_vfnmadd231ps_ymm_ymm_ymm
+
+%xmm0: %ymm0_vfnmadd231ps_ymm_ymm_ymm[127:0]
+%xmm1: ((%ymm13_vfnmadd231ps_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm1_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm3_vfnmadd231ps_ymm_ymm_ymm[255:224]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm1_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm3_vfnmadd231ps_ymm_ymm_ymm[223:192]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm1_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm3_vfnmadd231ps_ymm_ymm_ymm[191:160]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm1_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm3_vfnmadd231ps_ymm_ymm_ymm[159:128]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm1_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm3_vfnmadd231ps_ymm_ymm_ymm[127:96]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm1_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm3_vfnmadd231ps_ymm_ymm_ymm[95:64]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm1_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm3_vfnmadd231ps_ymm_ymm_ymm[63:32]) ∘ vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm1_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm3_vfnmadd231ps_ymm_ymm_ymm[31:0]))))))))[255:128])[127:0][127:0] ∘ (%ymm12_vfnmadd231ps_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm1_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm3_vfnmadd231ps_ymm_ymm_ymm[255:224]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm1_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm3_vfnmadd231ps_ymm_ymm_ymm[223:192]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm1_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm3_vfnmadd231ps_ymm_ymm_ymm[191:160]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm1_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm3_vfnmadd231ps_ymm_ymm_ymm[159:128]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm1_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm3_vfnmadd231ps_ymm_ymm_ymm[127:96]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm1_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm3_vfnmadd231ps_ymm_ymm_ymm[95:64]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm1_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm3_vfnmadd231ps_ymm_ymm_ymm[63:32]) ∘ vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm1_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm3_vfnmadd231ps_ymm_ymm_ymm[31:0]))))))))[127:0])[127:0][127:0])[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vfnmadd231ps %ymm3, %ymm2, %ymm1
+
+.target:
+vfnmadd132ps %ymm3, %ymm1, %ymm2
+callq .move_256_128_ymm2_xmm12_xmm13
+callq .move_128_256_xmm12_xmm13_ymm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vfnmadd231ps %ymm3, %ymm2, %ymm1:
+%ymm1: (%ymm13_vfnmadd231ps_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm1_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm3_vfnmadd231ps_ymm_ymm_ymm[255:224]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm1_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm3_vfnmadd231ps_ymm_ymm_ymm[223:192]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm1_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm3_vfnmadd231ps_ymm_ymm_ymm[191:160]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm1_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm3_vfnmadd231ps_ymm_ymm_ymm[159:128]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm1_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm3_vfnmadd231ps_ymm_ymm_ymm[127:96]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm1_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm3_vfnmadd231ps_ymm_ymm_ymm[95:64]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm1_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm3_vfnmadd231ps_ymm_ymm_ymm[63:32]) ∘ vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm1_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm3_vfnmadd231ps_ymm_ymm_ymm[31:0]))))))))[255:128])[127:0][127:0] ∘ (%ymm12_vfnmadd231ps_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm1_vfnmadd231ps_ymm_ymm_ymm[255:224], %ymm3_vfnmadd231ps_ymm_ymm_ymm[255:224]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm1_vfnmadd231ps_ymm_ymm_ymm[223:192], %ymm3_vfnmadd231ps_ymm_ymm_ymm[223:192]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm1_vfnmadd231ps_ymm_ymm_ymm[191:160], %ymm3_vfnmadd231ps_ymm_ymm_ymm[191:160]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm1_vfnmadd231ps_ymm_ymm_ymm[159:128], %ymm3_vfnmadd231ps_ymm_ymm_ymm[159:128]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm1_vfnmadd231ps_ymm_ymm_ymm[127:96], %ymm3_vfnmadd231ps_ymm_ymm_ymm[127:96]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm1_vfnmadd231ps_ymm_ymm_ymm[95:64], %ymm3_vfnmadd231ps_ymm_ymm_ymm[95:64]) ∘ (vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm1_vfnmadd231ps_ymm_ymm_ymm[63:32], %ymm3_vfnmadd231ps_ymm_ymm_ymm[63:32]) ∘ vfnmadd132_single(%ymm2_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm1_vfnmadd231ps_ymm_ymm_ymm[31:0], %ymm3_vfnmadd231ps_ymm_ymm_ymm[31:0]))))))))[127:0])[127:0][127:0]
+
+Final state
+%ymm1: vfnmadd132_single(%ymm2[255:224], %ymm1[255:224], %ymm3[255:224]) ∘ (vfnmadd132_single(%ymm2[223:192], %ymm1[223:192], %ymm3[223:192]) ∘ (vfnmadd132_single(%ymm2[191:160], %ymm1[191:160], %ymm3[191:160]) ∘ vfnmadd132_single(%ymm2[159:128], %ymm1[159:128], %ymm3[159:128]))) ∘ (vfnmadd132_single(%ymm2[127:96], %ymm1[127:96], %ymm3[127:96]) ∘ (vfnmadd132_single(%ymm2[95:64], %ymm1[95:64], %ymm3[95:64]) ∘ (vfnmadd132_single(%ymm2[63:32], %ymm1[63:32], %ymm3[63:32]) ∘ vfnmadd132_single(%ymm2[31:0], %ymm1[31:0], %ymm3[31:0]))))
+
+=====================================
+Circuits:
+
+%ymm1  : vfnmadd132_single(%ymm2[255:224], %ymm1[255:224], %ymm3[255:224]) ∘ (vfnmadd132_single(%ymm2[223:192], %ymm1[223:192], %ymm3[223:192]) ∘ (vfnmadd132_single(%ymm2[191:160], %ymm1[191:160], %ymm3[191:160]) ∘ vfnmadd132_single(%ymm2[159:128], %ymm1[159:128], %ymm3[159:128]))) ∘ (vfnmadd132_single(%ymm2[127:96], %ymm1[127:96], %ymm3[127:96]) ∘ (vfnmadd132_single(%ymm2[95:64], %ymm1[95:64], %ymm3[95:64]) ∘ (vfnmadd132_single(%ymm2[63:32], %ymm1[63:32], %ymm3[63:32]) ∘ vfnmadd132_single(%ymm2[31:0], %ymm1[31:0], %ymm3[31:0]))))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

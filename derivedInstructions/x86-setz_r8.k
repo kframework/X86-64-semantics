@@ -7,15 +7,84 @@ module SETZ-R8
   rule <k>
     execinstr (setz R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI671)) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(mi(63, 0), getFlag("ZF", RSMap))   )
 
- "ZF" |-> (MI671 => MI671)
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module SETZ-R8-SEMANTICS
   imports SETZ-R8
 endmodule
+/*
+setz %bl
+maybe read:{ %zf }
+must read:{ %zf }
+maybe write:{ %bl }
+must write:{ %bl }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .read_zf_into_rbx  #  1     0    5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+setz %bl
+
+  maybe read:      { %zf }
+  must read:       { %zf }
+  maybe write:     { %bl }
+  must write:      { %bl }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .read_zf_into_rbx
+
+Final state:
+%rax/%rax: %rax_setz_r8
+%rdx/%rdx: %rdx_setz_r8
+
+%xmm0: %ymm0_setz_r8[127:0]
+%xmm1: %ymm1_setz_r8[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for setz %bl
+
+.target:
+callq .read_zf_into_rbx
+retq 
+
+Initial state:
+%rbx/%bl: %rbx
+
+State for specgen instruction: setz %bl:
+%rbx/%bl: 0x0₆₃ ∘ (%zf_setz_r8 ? 0x1₁ : 0x0₁)
+
+Register        -> %bl
+  translates to => %bl
+Value is               -> (0x0₆₃ ∘ (%zf_setz_r8 ? 0x1₁ : 0x0₁))[7:0]
+  after renaming it is => %zf ? 0x1₈ : 0x0₈
+
+Final state
+%rbx/%bl: %rbx[63:8] ∘ (%zf ? 0x1₈ : 0x0₈)
+
+=====================================
+Circuits:
+
+%rbx   : %rbx[63:8] ∘ (%zf ? 0x1₈ : 0x0₈)
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

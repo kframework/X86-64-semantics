@@ -7,15 +7,101 @@ module VMOVUPD-YMM-YMM
   rule <k>
     execinstr (vmovupd R1:Ymm, R2:Ymm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 
-convToRegKeys(R2) |-> ( _ => orMInt(andMInt(MI676, mi(256, -340282366920938463463374607431768211456)), mi(256, uvalueMInt(extractMInt(MI676, 128, 256)))) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VMOVUPD-YMM-YMM-SEMANTICS
   imports VMOVUPD-YMM-YMM
 endmodule
+/*
+vmovupd %ymm2, %ymm1
+maybe read:{ %ymm2 }
+must read:{ %ymm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
+circuit:vminps %ymm2, %ymm2, %ymm1        #  2     0x5  4      OPC=vminps_ymm_ymm_ymm
+circuit:callq .move_064_128_r12_r13_xmm1  #  3     0x9  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vmovupd %ymm2, %ymm1
+
+  maybe read:      { %ymm2 }
+  must read:       { %ymm2 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r12_r13
+
+Final state:
+%rax/%rax: %rax_vmovupd_ymm_ymm
+%rdx/%rdx: %rdx_vmovupd_ymm_ymm
+
+%xmm0: %ymm0_vmovupd_ymm_ymm[127:0]
+%xmm1: %ymm1_vmovupd_ymm_ymm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vminps %ymm2, %ymm2, %ymm1
+
+Final state:
+%ymm1: (mincmp_single(%ymm2_vmovupd_ymm_ymm[255:224], %ymm2_vmovupd_ymm_ymm[255:224])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[255:224] : %ymm2_vmovupd_ymm_ymm[255:224]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[223:192], %ymm2_vmovupd_ymm_ymm[223:192])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[223:192] : %ymm2_vmovupd_ymm_ymm[223:192]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[191:160], %ymm2_vmovupd_ymm_ymm[191:160])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[191:160] : %ymm2_vmovupd_ymm_ymm[191:160]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[159:128], %ymm2_vmovupd_ymm_ymm[159:128])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[159:128] : %ymm2_vmovupd_ymm_ymm[159:128]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[127:96], %ymm2_vmovupd_ymm_ymm[127:96])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[127:96] : %ymm2_vmovupd_ymm_ymm[127:96]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[95:64], %ymm2_vmovupd_ymm_ymm[95:64])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[95:64] : %ymm2_vmovupd_ymm_ymm[95:64]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[63:32], %ymm2_vmovupd_ymm_ymm[63:32])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[63:32] : %ymm2_vmovupd_ymm_ymm[63:32]) ∘ (mincmp_single(%ymm2_vmovupd_ymm_ymm[31:0], %ymm2_vmovupd_ymm_ymm[31:0])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[31:0] : %ymm2_vmovupd_ymm_ymm[31:0])))))))
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r12_r13_xmm1
+
+Final state:
+%rax/%rax: %rax_vmovupd_ymm_ymm
+%rdx/%rdx: %rdx_vmovupd_ymm_ymm
+
+%xmm0: %ymm0_vmovupd_ymm_ymm[127:0]
+%xmm1: (((mincmp_single(%ymm2_vmovupd_ymm_ymm[255:224], %ymm2_vmovupd_ymm_ymm[255:224])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[255:224] : %ymm2_vmovupd_ymm_ymm[255:224]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[223:192], %ymm2_vmovupd_ymm_ymm[223:192])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[223:192] : %ymm2_vmovupd_ymm_ymm[223:192]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[191:160], %ymm2_vmovupd_ymm_ymm[191:160])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[191:160] : %ymm2_vmovupd_ymm_ymm[191:160]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[159:128], %ymm2_vmovupd_ymm_ymm[159:128])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[159:128] : %ymm2_vmovupd_ymm_ymm[159:128]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[127:96], %ymm2_vmovupd_ymm_ymm[127:96])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[127:96] : %ymm2_vmovupd_ymm_ymm[127:96]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[95:64], %ymm2_vmovupd_ymm_ymm[95:64])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[95:64] : %ymm2_vmovupd_ymm_ymm[95:64]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[63:32], %ymm2_vmovupd_ymm_ymm[63:32])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[63:32] : %ymm2_vmovupd_ymm_ymm[63:32]) ∘ (mincmp_single(%ymm2_vmovupd_ymm_ymm[31:0], %ymm2_vmovupd_ymm_ymm[31:0])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[31:0] : %ymm2_vmovupd_ymm_ymm[31:0]))))))))[255:128] ∘ (%ymm2_vmovupd_ymm_ymm[127:0][127:64][63:0] ∘ %ymm2_vmovupd_ymm_ymm[127:0][63:0][63:0]))[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vmovupd %ymm2, %ymm1
+
+.target:
+callq .move_128_064_xmm2_r12_r13
+vminps %ymm2, %ymm2, %ymm1
+callq .move_064_128_r12_r13_xmm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vmovupd %ymm2, %ymm1:
+%ymm1: ((mincmp_single(%ymm2_vmovupd_ymm_ymm[255:224], %ymm2_vmovupd_ymm_ymm[255:224])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[255:224] : %ymm2_vmovupd_ymm_ymm[255:224]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[223:192], %ymm2_vmovupd_ymm_ymm[223:192])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[223:192] : %ymm2_vmovupd_ymm_ymm[223:192]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[191:160], %ymm2_vmovupd_ymm_ymm[191:160])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[191:160] : %ymm2_vmovupd_ymm_ymm[191:160]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[159:128], %ymm2_vmovupd_ymm_ymm[159:128])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[159:128] : %ymm2_vmovupd_ymm_ymm[159:128]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[127:96], %ymm2_vmovupd_ymm_ymm[127:96])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[127:96] : %ymm2_vmovupd_ymm_ymm[127:96]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[95:64], %ymm2_vmovupd_ymm_ymm[95:64])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[95:64] : %ymm2_vmovupd_ymm_ymm[95:64]) ∘ ((mincmp_single(%ymm2_vmovupd_ymm_ymm[63:32], %ymm2_vmovupd_ymm_ymm[63:32])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[63:32] : %ymm2_vmovupd_ymm_ymm[63:32]) ∘ (mincmp_single(%ymm2_vmovupd_ymm_ymm[31:0], %ymm2_vmovupd_ymm_ymm[31:0])[0:0] = 0x1₁ ? %ymm2_vmovupd_ymm_ymm[31:0] : %ymm2_vmovupd_ymm_ymm[31:0]))))))))[255:128] ∘ (%ymm2_vmovupd_ymm_ymm[127:0][127:64][63:0] ∘ %ymm2_vmovupd_ymm_ymm[127:0][63:0][63:0])
+
+Final state
+%ymm1: %ymm2
+
+=====================================
+Circuits:
+
+%ymm1  : %ymm2
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

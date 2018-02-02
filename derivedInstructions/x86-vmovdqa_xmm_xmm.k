@@ -7,15 +7,116 @@ module VMOVDQA-XMM-XMM
   rule <k>
     execinstr (vmovdqa R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1, RSMap), 128, 256)) )
 
-convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(extractMInt(MI676, 128, 256))) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VMOVDQA-XMM-XMM-SEMANTICS
   imports VMOVDQA-XMM-XMM
 endmodule
+/*
+vmovdqa %xmm2, %xmm1
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
+circuit:vzeroall                          #  2     0x5  3      OPC=vzeroall
+circuit:callq .move_064_128_r12_r13_xmm1  #  3     0x8  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vmovdqa %xmm2, %xmm1
+
+  maybe read:      { %xmm2 }
+  must read:       { %xmm2 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r12_r13
+
+Final state:
+%rax/%rax: %rax_vmovdqa_xmm_xmm
+%rdx/%rdx: %rdx_vmovdqa_xmm_xmm
+
+%xmm0: %ymm0_vmovdqa_xmm_xmm[127:0]
+%xmm1: %ymm1_vmovdqa_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r12_r13_xmm1
+
+Final state:
+%rax/%rax: %rax_vmovdqa_xmm_xmm
+%rdx/%rdx: %rdx_vmovdqa_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (%ymm2_vmovdqa_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmovdqa_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vmovdqa %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm2_r12_r13
+vzeroall 
+callq .move_064_128_r12_r13_xmm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vmovdqa %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[255:128] ∘ (%ymm2_vmovdqa_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmovdqa_xmm_xmm[127:0][63:0][63:0])
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ %ymm2[127:0]
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ %ymm2[127:0]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

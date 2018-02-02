@@ -7,15 +7,84 @@ module SETS-R8
   rule <k>
     execinstr (sets R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "SF" |-> (MI672 => MI672)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(mi(63, 0), getFlag("SF", RSMap)) )
 
-convToRegKeys(R1) |-> ( _ => mi(64, uvalueMInt(MI672)) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module SETS-R8-SEMANTICS
   imports SETS-R8
 endmodule
+/*
+sets %bl
+maybe read:{ %sf }
+must read:{ %sf }
+maybe write:{ %bl }
+must write:{ %bl }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .read_sf_into_rbx  #  1     0    5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+sets %bl
+
+  maybe read:      { %sf }
+  must read:       { %sf }
+  maybe write:     { %bl }
+  must write:      { %bl }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .read_sf_into_rbx
+
+Final state:
+%rax/%rax: %rax_sets_r8
+%rdx/%rdx: %rdx_sets_r8
+
+%xmm0: %ymm0_sets_r8[127:0]
+%xmm1: %ymm1_sets_r8[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for sets %bl
+
+.target:
+callq .read_sf_into_rbx
+retq 
+
+Initial state:
+%rbx/%bl: %rbx
+
+State for specgen instruction: sets %bl:
+%rbx/%bl: 0x0₆₃ ∘ (%sf_sets_r8 ? 0x1₁ : 0x0₁)
+
+Register        -> %bl
+  translates to => %bl
+Value is               -> (0x0₆₃ ∘ (%sf_sets_r8 ? 0x1₁ : 0x0₁))[7:0]
+  after renaming it is => %sf ? 0x1₈ : 0x0₈
+
+Final state
+%rbx/%bl: %rbx[63:8] ∘ (%sf ? 0x1₈ : 0x0₈)
+
+=====================================
+Circuits:
+
+%rbx   : %rbx[63:8] ∘ (%sf ? 0x1₈ : 0x0₈)
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

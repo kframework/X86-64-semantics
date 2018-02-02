@@ -20,7 +20,34 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     </memstate>
 
     <regstate>
-      regstateInitConfig => regstateFinalConfig
+"RIP" |->    (mi(64, 0) => _)
+"ZF" |-> (mi(1, 0):MInt => _)
+"YMM7" |-> (mi(256, 0):MInt => _)
+"YMM6" |-> (mi(256, 0):MInt => _)
+"YMM1" |-> (mi(256, ?I1:Int):MInt => _)
+"YMM5" |-> (mi(256, 0):MInt => _)
+"YMM13" |-> (mi(256, 0):MInt => _)
+"R9" |-> (mi(64, 0):MInt => _)
+"AF" |-> (mi(1, 0):MInt => _)
+"R11" |-> (mi(64, 0):MInt => _)
+"SF" |-> (mi(1, 0):MInt => _)
+"YMM11" |-> (mi(256, 0):MInt => _)
+"YMM3" |-> (mi(256, ?I2:Int):MInt => _)
+"YMM12" |-> (mi(256, 0):MInt => _)
+"YMM9" |-> (mi(256, 0):MInt => _)
+"PF" |-> (mi(1, 0):MInt => _)
+"CF" |-> (mi(1, 0):MInt => _)
+"YMM14" |-> (mi(256, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
+"OF" |-> (mi(1, 0):MInt => _)
+"YMM0" |-> (mi(256, 0):MInt => _)
+"YMM8" |-> (mi(256, 0):MInt => _)
+"YMM4" |-> (mi(256, 0):MInt => _)
+"YMM10" |-> (mi(256, 0):MInt => _)
+"YMM15" |-> (mi(256, 0):MInt => _)
+"YMM2" |-> (mi(256, ?I3:Int):MInt => _)
+
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
 endmodule

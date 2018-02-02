@@ -186,7 +186,8 @@ module MOV-SINGLE-BYTE
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= movByteToPosOfReg(R8, Int, Register)
   rule <k>
-    movByteToPosOfReg(R1, BNUM, R2) => setRegisterBitsAtPositon(getRegisterValue(R1, RSMap), R2, (BNUM -Int 1) *Int 8)
+    //movByteToPosOfReg(R1, BNUM, R2) => setRegisterBitsAtPositon(getRegisterValue(R1, RSMap), R2, (BNUM -Int 1) *Int 8)
+    movByteToPosOfReg(R1, BNUM, R2) => setRegisterBitsAtPositon(getRegisterValue(R1, RSMap), R2, (BNUM) *Int 8)
   ...</k>
     <regstate> RSMap </regstate>
       requires getRegisterSize(R1) ==Int 8
@@ -196,7 +197,8 @@ module MOV-SINGLE-BYTE
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= movPosOfRegToByte(Int, Register, R8)
   rule <k>
-    movPosOfRegToByte(BNUM, R1, R2) => setRegisterValue(getRegisterBitsAtPositon(R1, 8, (BNUM -Int 1) *Int 8, RSMap), R2)
+    //movPosOfRegToByte(BNUM, R1, R2) => setRegisterValue(getRegisterBitsAtPositon(R1, 8, (BNUM -Int 1) *Int 8, RSMap), R2)
+    movPosOfRegToByte(BNUM, R1, R2) => setRegisterValue(getRegisterBitsAtPositon(R1, 8, (BNUM) *Int 8, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>
       requires getRegisterSize(R2) ==Int 8

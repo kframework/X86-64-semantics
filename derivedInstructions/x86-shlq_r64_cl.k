@@ -7,27 +7,122 @@ module SHLQ-R64-CL
   rule <k>
     execinstr (shlq %cl, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> ( MI448 => (#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( MI448 ) #else ( (#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 1)) ) #then ( (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(MI450, mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(shlMInt(MI450,  ( uvalueMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)))  -Int  1 ) ), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ) #else ( undef ) #fi)  ) #fi)  ) #fi)  )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+ "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt((#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( (#ifMInt (eqMInt(getFlag("SF", RSMap), mi(1, 1)) ) #then ( mi(64, -9223372036854775808) ) #else ( mi(64, 0) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(getParentValue(R2, RSMap), uvalueMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  ) #fi) , 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "SF" |-> ( MI451 => (#ifMInt (eqMInt(mi(64, 1), lshrMInt((#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( (#ifMInt (eqMInt(MI451, mi(1, 1)) ) #then ( mi(64, -9223372036854775808) ) #else ( mi(64, 0) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(MI450, uvalueMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  ) #fi) , 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> ((#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( getFlag("CF", RSMap) ) #else ( (#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) ) #then ( (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(getParentValue(R2, RSMap), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(shlMInt(getParentValue(R2, RSMap),  ( uvalueMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))  -Int  1 ) ), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ) #else ( undef ) #fi)  ) #fi)  ) #fi)  )
 
- "AF" |-> ( MI447 => (#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( MI447 ) #else ( undef ) #fi)  )
+ "AF" |-> ((#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( getFlag("AF", RSMap) ) #else ( undef ) #fi)  )
 
- "RCX" |-> (MI446 => MI446)
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt((#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( (#ifMInt (eqMInt(getFlag("PF", RSMap), mi(1, 1)) ) #then ( mi(64, 0) ) #else ( mi(64, 1) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(getParentValue(R2, RSMap), uvalueMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  ) #fi) , 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ( MI453 => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt((#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( (#ifMInt (eqMInt(MI453, mi(1, 1)) ) #then ( mi(64, 0) ) #else ( mi(64, 1) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(MI450, uvalueMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  ) #fi) , 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( getFlag("OF", RSMap) ) #else ( (#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) ) #then ( xorMInt((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(getParentValue(R2, RSMap), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(shlMInt(getParentValue(R2, RSMap), 1), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ) ) #else ( undef ) #fi)  ) #fi)  )
 
- "OF" |-> ( MI452 => (#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( MI452 ) #else ( (#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 1)) ) #then ( xorMInt((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(MI450, mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(shlMInt(MI450, 1), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ) ) #else ( undef ) #fi)  ) #fi)  )
+convToRegKeys(R2) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(getParentValue(R2, RSMap), uvalueMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> ( MI450 => (#ifMInt (ultMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(MI450, uvalueMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  )
+ "ZF" |-> ((#ifMInt (eqMInt((#ifMInt (eqMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 1)) ) #then ( mi(64, 0) ) #else ( mi(64, 1) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(getParentValue(R2, RSMap), uvalueMInt(andMInt(extractMInt(getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  ) #fi) , mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
- "ZF" |-> ( MI449 => (#ifMInt (eqMInt((#ifMInt (eqMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 0)) ) #then ( (#ifMInt (eqMInt(MI449, mi(1, 1)) ) #then ( mi(64, 0) ) #else ( mi(64, 1) ) #fi) ) #else ( (#ifMInt (ultMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( shlMInt(MI450, uvalueMInt(andMInt(extractMInt(MI446, 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  ) #fi) , mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module SHLQ-R64-CL-SEMANTICS
   imports SHLQ-R64-CL
 endmodule
+/*
+shlq %cl, %rbx
+maybe read:{ %cl %rbx }
+must read:{ %cl %rbx }
+maybe write:{ %rbx %cf %pf %zf %sf %of }
+must write:{ %rbx }
+maybe undef:{ %cf %af %of }
+must undef:{ }
+required flags:{ }
+
+circuit:salq %cl, %rbx  #  1     0    3      OPC=salq_r64_cl
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+shlq %cl, %rbx
+
+  maybe read:      { %cl %rbx }
+  must read:       { %cl %rbx }
+  maybe write:     { %rbx %cf %pf %zf %sf %of }
+  must write:      { %rbx }
+  maybe undef:     { %cf %af %of }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for salq %cl, %rbx
+
+Final state:
+%rbx/%rbx: (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0]
+
+%cf: (0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈) ∧ (!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %cf_shlq_r64_cl)
+%pf: !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ !((0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][7:7] = 0x1₁) ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %pf_shlq_r64_cl
+%zf: !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0] = 0x0₆₄ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %zf_shlq_r64_cl
+%sf: !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][63:63] = 0x1₁ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %sf_shlq_r64_cl
+%of: (0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x1₈ ∧ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈) ∧ (!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %cf_shlq_r64_cl) ↔ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][63:63] = 0x1₁) ∨ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x1₈) ∧ %of_shlq_r64_cl
+
+-------------------------------------
+=====================================
+Computing circuit for shlq %cl, %rbx
+
+.target:
+salq %cl, %rbx
+retq 
+
+Initial state:
+%rbx/%rbx: %rbx
+
+%cf: %cf
+%pf: %pf
+%zf: %zf
+%sf: %sf
+%of: %of
+
+State for specgen instruction: shlq %cl, %rbx:
+%rbx/%rbx: (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0]
+
+%cf: (0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈) ∧ (!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %cf_shlq_r64_cl)
+%pf: !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ !((0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][7:0][7:7] = 0x1₁) ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %pf_shlq_r64_cl
+%zf: !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0] = 0x0₆₄ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %zf_shlq_r64_cl
+%sf: !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][63:63] = 0x1₁ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %sf_shlq_r64_cl
+%of: (0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x1₈ ∧ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] ≥ 0x40₈) ∧ (!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %cf_shlq_r64_cl) ↔ (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0][63:63] = 0x1₁) ∨ !((0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[7:0] = 0x1₈) ∧ %of_shlq_r64_cl
+
+Register        -> %rbx
+  translates to => %rbx
+Value is               -> (0x0₁ ∘ %rbx_shlq_r64_cl << 0x0₅₇ ∘ (%rcx_shlq_r64_cl[7:0][7:0] & 0x3f₈))[63:0]
+  after renaming it is => (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:0]
+
+Final state
+%rbx/%rbx: (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:0]
+
+%cf: (%rcx[7:0] & 0x3f₈) ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((%rcx[7:0] & 0x3f₈) ≥ 0x40₈) ∧ (!((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %cf)
+%pf: !((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ !((0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[7:7] = 0x1₁) ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %pf
+%zf: !((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:0] = 0x0₆₄ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %zf
+%sf: !((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:63] = 0x1₁ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %sf
+%of: (%rcx[7:0] & 0x3f₈) = 0x1₈ ∧ !((%rcx[7:0] & 0x3f₈) ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((%rcx[7:0] & 0x3f₈) ≥ 0x40₈) ∧ (!((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %cf) ↔ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:63] = 0x1₁) ∨ !((%rcx[7:0] & 0x3f₈) = 0x1₈) ∧ %of
+
+=====================================
+Circuits:
+
+%rbx   : (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:0]
+
+%cf    : (%rcx[7:0] & 0x3f₈) ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((%rcx[7:0] & 0x3f₈) ≥ 0x40₈) ∧ (!((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %cf)
+%pf    : !((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ !((0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[7:7] = 0x1₁) ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %pf
+%zf    : !((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:0] = 0x0₆₄ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %zf
+%sf    : !((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:63] = 0x1₁ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %sf
+%of    : (%rcx[7:0] & 0x3f₈) = 0x1₈ ∧ !((%rcx[7:0] & 0x3f₈) ≥ 0x40₈ ∧ TMP_BOOL_0 ∨ !((%rcx[7:0] & 0x3f₈) ≥ 0x40₈) ∧ (!((%rcx[7:0] & 0x3f₈) = 0x0₈) ∧ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[64:64] = 0x1₁ ∨ !(!((%rcx[7:0] & 0x3f₈) = 0x0₈)) ∧ %cf) ↔ (0x0₁ ∘ %rbx << 0x0₅₇ ∘ (%rcx[7:0] & 0x3f₈))[63:63] = 0x1₁) ∨ !((%rcx[7:0] & 0x3f₈) = 0x1₈) ∧ %of
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

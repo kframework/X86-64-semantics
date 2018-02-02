@@ -7,13 +7,79 @@ module STC
   rule <k>
     execinstr (stc  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> ( _ => mi(1, 1) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> (mi(1, 1)   )
 
+  
+)   
 
-    ...</regstate>
+    </regstate>
 endmodule
 
 module STC-SEMANTICS
   imports STC
 endmodule
+/*
+stc
+maybe read:{ }
+must read:{ }
+maybe write:{ %cf }
+must write:{ %cf }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .set_cf  #  1     0    5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+stc 
+
+  maybe read:      { }
+  must read:       { }
+  maybe write:     { %cf }
+  must write:      { %cf }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .set_cf
+
+Final state:
+%rax/%rax: %rax_stc
+%rdx/%rdx: %rdx_stc
+
+%xmm0: %ymm0_stc[127:0]
+%xmm1: %ymm1_stc[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for stc 
+
+.target:
+callq .set_cf
+retq 
+
+Initial state:
+%cf: %cf
+
+State for specgen instruction: stc :
+%cf: true
+
+Final state
+%cf: true
+
+=====================================
+Circuits:
+
+%cf    : true
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

@@ -7,15 +7,145 @@ module SETNP-RH
   rule <k>
     execinstr (setnp R1:Rh,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "PF" |-> (MI439 => MI439)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(concatenateMInt(mi(7, 0), (#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0), getFlag("PF", RSMap)), concatenateMInt(mi(7, 0), getFlag("PF", RSMap))), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
-convToRegKeys(R1) |-> ( MI440 => orMInt(andMInt(MI440, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(extractMInt(orMInt(andMInt(mi(64, uvalueMInt(MI439)), mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(MI439)), 32, 64), 16, 32))), 56, 64))), 8)), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 56, 64))), 8)) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module SETNP-RH-SEMANTICS
   imports SETNP-RH
 endmodule
+/*
+setnp %ah
+maybe read:{ %pf }
+must read:{ %pf }
+maybe write:{ %ah }
+must write:{ %ah }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .read_pf_into_rbx           #  1     0     5      OPC=callq_label
+circuit:callq .move_032_016_ebx_r8w_r9w   #  2     0x5   5      OPC=callq_label
+circuit:callq .move_r8b_to_byte_2_of_rbx  #  3     0xa   5      OPC=callq_label
+circuit:callq .set_szp_for_bx             #  4     0xf   5      OPC=callq_label
+circuit:callq .read_zf_into_rbx           #  5     0x14  5      OPC=callq_label
+circuit:movb %bl, %ah                     #  6     0x19  2      OPC=movb_rh_r8
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+setnp %ah
+
+  maybe read:      { %pf }
+  must read:       { %pf }
+  maybe write:     { %ah }
+  must write:      { %ah }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .read_pf_into_rbx
+
+Final state:
+%rax/%rax: %rax_setnp_rh
+%rdx/%rdx: %rdx_setnp_rh
+
+%xmm0: %ymm0_setnp_rh[127:0]
+%xmm1: %ymm1_setnp_rh[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_032_016_ebx_r8w_r9w
+
+Final state:
+%rax/%rax: %rax_setnp_rh
+%rdx/%rdx: %rdx_setnp_rh
+
+%xmm0: %ymm0_setnp_rh[127:0]
+%xmm1: %ymm1_setnp_rh[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_r8b_to_byte_2_of_rbx
+
+Final state:
+%rax/%rax: %rax_setnp_rh
+%rdx/%rdx: %rdx_setnp_rh
+
+%xmm0: %ymm0_setnp_rh[127:0]
+%xmm1: %ymm1_setnp_rh[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .set_szp_for_bx
+
+Final state:
+%rax/%rax: %rax_setnp_rh
+%rdx/%rdx: %rdx_setnp_rh
+
+%xmm0: %ymm0_setnp_rh[127:0]
+%xmm1: %ymm1_setnp_rh[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .read_zf_into_rbx
+
+Final state:
+%rax/%rax: %rax_setnp_rh
+%rdx/%rdx: %rdx_setnp_rh
+
+%xmm0: %ymm0_setnp_rh[127:0]
+%xmm1: %ymm1_setnp_rh[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movb %bl, %ah
+
+Final state:
+%rax/%ah: %rax_setnp_rh[63:16] ∘ (0x0₆₃ ∘ (((0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[63:24] ∘ (%r8_setnp_rh[63:16] ∘ (0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[31:0][15:0])[7:0] ∘ (0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[15:0])[15:0] = 0x0₁₆ ? 0x1₁ : 0x0₁))[7:0] ∘ %rax_setnp_rh[7:0]
+
+-------------------------------------
+=====================================
+Computing circuit for setnp %ah
+
+.target:
+callq .read_pf_into_rbx
+callq .move_032_016_ebx_r8w_r9w
+callq .move_r8b_to_byte_2_of_rbx
+callq .set_szp_for_bx
+callq .read_zf_into_rbx
+movb %bl, %ah
+retq 
+
+Initial state:
+%rax/%ah: %rax
+
+State for specgen instruction: setnp %ah:
+%rax/%ah: %rax_setnp_rh[63:16] ∘ (0x0₆₃ ∘ (((0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[63:24] ∘ (%r8_setnp_rh[63:16] ∘ (0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[31:0][15:0])[7:0] ∘ (0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[15:0])[15:0] = 0x0₁₆ ? 0x1₁ : 0x0₁))[7:0] ∘ %rax_setnp_rh[7:0]
+
+Register        -> %ah
+  translates to => %ah
+Value is               -> (%rax_setnp_rh[63:16] ∘ (0x0₆₃ ∘ (((0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[63:24] ∘ (%r8_setnp_rh[63:16] ∘ (0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[31:0][15:0])[7:0] ∘ (0x0₆₃ ∘ (%pf_setnp_rh ? 0x1₁ : 0x0₁))[15:0])[15:0] = 0x0₁₆ ? 0x1₁ : 0x0₁))[7:0] ∘ %rax_setnp_rh[7:0])[15:8]
+  after renaming it is => (%pf ? 0x1₁₆ : 0x0₁₆) = 0x0₁₆ ? 0x1₈ : 0x0₈
+
+Final state
+%rax/%ah: %rax[63:16] ∘ ((%pf ? 0x1₁₆ : 0x0₁₆) = 0x0₁₆ ? 0x1₈ : 0x0₈) ∘ %rax[7:0]
+
+=====================================
+Circuits:
+
+%rax   : %rax[63:16] ∘ ((%pf ? 0x1₁₆ : 0x0₁₆) = 0x0₁₆ ? 0x1₈ : 0x0₈) ∘ %rax[7:0]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

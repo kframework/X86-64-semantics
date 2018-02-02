@@ -7,15 +7,155 @@ module VPMOVZXDQ-XMM-XMM
   rule <k>
     execinstr (vpmovzxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 192, 224)), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 224, 256)))) )
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(andMInt(extractMInt(extractMInt(MI676, 128, 256), 0, 64), mi(64, -256)), mi(64, 0)), extractMInt(extractMInt(MI676, 128, 256), 64, 128)))), 128, 256), 64, 96))))), 128, 256), extractMInt(mi(256, uvalueMInt(mi(128, uvalueMInt(extractMInt(extractMInt(mi(256, uvalueMInt(concatenateMInt(orMInt(andMInt(extractMInt(extractMInt(MI676, 128, 256), 0, 64), mi(64, -256)), mi(64, 0)), extractMInt(extractMInt(MI676, 128, 256), 64, 128)))), 128, 256), 96, 128))))), 128, 256)) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VPMOVZXDQ-XMM-XMM-SEMANTICS
   imports VPMOVZXDQ-XMM-XMM
 endmodule
+/*
+vpmovzxdq %xmm2, %xmm1
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm2_r8_r9                  #  1     0     5      OPC=callq_label
+circuit:vzeroall                                        #  2     0x5   3      OPC=vzeroall
+circuit:callq .move_byte_5_of_ymm1_to_r9b               #  3     0x8   5      OPC=callq_label
+circuit:callq .move_064_128_r8_r9_xmm2                  #  4     0xd   5      OPC=callq_label
+circuit:callq .move_128_032_xmm2_xmm8_xmm9_xmm10_xmm11  #  5     0x12  5      OPC=callq_label
+circuit:callq .move_64_128_xmm8_xmm9_xmm1               #  6     0x17  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vpmovzxdq %xmm2, %xmm1
+
+  maybe read:      { %xmm2 }
+  must read:       { %xmm2 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r8_r9
+
+Final state:
+%rax/%rax: %rax_vpmovzxdq_xmm_xmm
+%rdx/%rdx: %rdx_vpmovzxdq_xmm_xmm
+
+%xmm0: %ymm0_vpmovzxdq_xmm_xmm[127:0]
+%xmm1: %ymm1_vpmovzxdq_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_byte_5_of_ymm1_to_r9b
+
+Final state:
+%rax/%rax: %rax_vpmovzxdq_xmm_xmm
+%rdx/%rdx: %rdx_vpmovzxdq_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: 0x0₂₅₆[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r8_r9_xmm2
+
+Final state:
+%rax/%rax: %rax_vpmovzxdq_xmm_xmm
+%rdx/%rdx: %rdx_vpmovzxdq_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: 0x0₂₅₆[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_032_xmm2_xmm8_xmm9_xmm10_xmm11
+
+Final state:
+%rax/%rax: %rax_vpmovzxdq_xmm_xmm
+%rdx/%rdx: %rdx_vpmovzxdq_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: 0x0₂₅₆[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_64_128_xmm8_xmm9_xmm1
+
+Final state:
+%rax/%rax: %rax_vpmovzxdq_xmm_xmm
+%rdx/%rdx: %rdx_vpmovzxdq_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ ((0x0₂₅₆[255:128] ∘ (0x0₉₆ ∘ (0x0₂₅₆[255:128] ∘ ((%ymm2_vpmovzxdq_xmm_xmm[127:0][127:64][63:8] ∘ 0x0₂₅₆[47:40])[63:0] ∘ %ymm2_vpmovzxdq_xmm_xmm[127:0][63:0][63:0]))[127:0][63:32]))[127:0][63:0] ∘ (0x0₂₅₆[255:128] ∘ (0x0₉₆ ∘ (0x0₂₅₆[255:128] ∘ ((%ymm2_vpmovzxdq_xmm_xmm[127:0][127:64][63:8] ∘ 0x0₂₅₆[47:40])[63:0] ∘ %ymm2_vpmovzxdq_xmm_xmm[127:0][63:0][63:0]))[127:0][31:0]))[127:0][63:0]))[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vpmovzxdq %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm2_r8_r9
+vzeroall 
+callq .move_byte_5_of_ymm1_to_r9b
+callq .move_064_128_r8_r9_xmm2
+callq .move_128_032_xmm2_xmm8_xmm9_xmm10_xmm11
+callq .move_64_128_xmm8_xmm9_xmm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vpmovzxdq %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[255:128] ∘ ((0x0₂₅₆[255:128] ∘ (0x0₉₆ ∘ (0x0₂₅₆[255:128] ∘ ((%ymm2_vpmovzxdq_xmm_xmm[127:0][127:64][63:8] ∘ 0x0₂₅₆[47:40])[63:0] ∘ %ymm2_vpmovzxdq_xmm_xmm[127:0][63:0][63:0]))[127:0][63:32]))[127:0][63:0] ∘ (0x0₂₅₆[255:128] ∘ (0x0₉₆ ∘ (0x0₂₅₆[255:128] ∘ ((%ymm2_vpmovzxdq_xmm_xmm[127:0][127:64][63:8] ∘ 0x0₂₅₆[47:40])[63:0] ∘ %ymm2_vpmovzxdq_xmm_xmm[127:0][63:0][63:0]))[127:0][31:0]))[127:0][63:0])
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ (0x0₃₂ ∘ %ymm2[63:32] ∘ (0x0₃₂ ∘ %ymm2[31:0]))
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ (0x0₃₂ ∘ %ymm2[63:32] ∘ (0x0₃₂ ∘ %ymm2[31:0]))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

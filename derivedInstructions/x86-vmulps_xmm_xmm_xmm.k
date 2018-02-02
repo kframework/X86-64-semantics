@@ -7,17 +7,151 @@ module VMULPS-XMM-XMM-XMM
   rule <k>
     execinstr (vmulps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(32, 0), concatenateMInt(mi(32, 0), concatenateMInt(mi(32, 0), concatenateMInt(mi(32, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8) ) , 32)))))))) )
 
-convToRegKeys(R3) |-> ( _ => concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 0, 32), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 0, 32), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 32, 64), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 32, 64), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 64, 96), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 64, 96), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 96, 128), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 96, 128), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 160), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 160, 192), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 192, 224), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI677, 128, 256))), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 224, 256), 24, 8) ) , 32)))))))) )
+  
+)   
 
-convToRegKeys(R1) |-> (MI677 => MI677)
-
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VMULPS-XMM-XMM-XMM-SEMANTICS
   imports VMULPS-XMM-XMM-XMM
 endmodule
+/*
+vmulps %xmm3, %xmm2, %xmm1
+maybe read:{ %xmm2 %xmm3 }
+must read:{ %xmm2 %xmm3 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm3_r10_r11  #  1     0     5      OPC=callq_label
+circuit:callq .move_128_064_xmm2_r8_r9    #  2     0x5   5      OPC=callq_label
+circuit:vzeroall                          #  3     0xa   3      OPC=vzeroall
+circuit:callq .move_064_128_r10_r11_xmm1  #  4     0xd   5      OPC=callq_label
+circuit:callq .move_064_128_r8_r9_xmm2    #  5     0x12  5      OPC=callq_label
+circuit:vmulps %ymm1, %ymm2, %ymm1        #  6     0x17  4      OPC=vmulps_ymm_ymm_ymm
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vmulps %xmm3, %xmm2, %xmm1
+
+  maybe read:      { %xmm2 %xmm3 }
+  must read:       { %xmm2 %xmm3 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm3_r10_r11
+
+Final state:
+%rax/%rax: %rax_vmulps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmulps_xmm_xmm_xmm
+
+%xmm0: %ymm0_vmulps_xmm_xmm_xmm[127:0]
+%xmm1: %ymm1_vmulps_xmm_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r8_r9
+
+Final state:
+%rax/%rax: %rax_vmulps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmulps_xmm_xmm_xmm
+
+%xmm0: %ymm0_vmulps_xmm_xmm_xmm[127:0]
+%xmm1: %ymm1_vmulps_xmm_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r10_r11_xmm1
+
+Final state:
+%rax/%rax: %rax_vmulps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmulps_xmm_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r8_r9_xmm2
+
+Final state:
+%rax/%rax: %rax_vmulps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmulps_xmm_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vmulps %ymm1, %ymm2, %ymm1
+
+Final state:
+%ymm1: mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[255:224], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[255:224]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[223:192], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[223:192]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[191:160], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[191:160]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[159:128], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[159:128]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[127:96], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[127:96]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[95:64], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[95:64]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[63:32], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[63:32]) ∘ mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[31:0], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[31:0])))))))
+
+-------------------------------------
+=====================================
+Computing circuit for vmulps %xmm3, %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm3_r10_r11
+callq .move_128_064_xmm2_r8_r9
+vzeroall 
+callq .move_064_128_r10_r11_xmm1
+callq .move_064_128_r8_r9_xmm2
+vmulps %ymm1, %ymm2, %ymm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vmulps %xmm3, %xmm2, %xmm1:
+%ymm1: mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[255:224], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[255:224]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[223:192], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[223:192]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[191:160], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[191:160]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[159:128], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[159:128]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[127:96], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[127:96]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[95:64], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[95:64]) ∘ (mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[63:32], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[63:32]) ∘ mul_single((0x0₂₅₆[255:128] ∘ (%ymm2_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[31:0], (0x0₂₅₆[255:128] ∘ (%ymm3_vmulps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmulps_xmm_xmm_xmm[127:0][63:0][63:0]))[31:0])))))))
+
+Final state
+%ymm1: 0x0₃₂ ∘ (0x0₃₂ ∘ (0x0₃₂ ∘ (0x0₃₂ ∘ (mul_single(%ymm2[127:96], %ymm3[127:96]) ∘ (mul_single(%ymm2[95:64], %ymm3[95:64]) ∘ (mul_single(%ymm2[63:32], %ymm3[63:32]) ∘ mul_single(%ymm2[31:0], %ymm3[31:0])))))))
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₃₂ ∘ (0x0₃₂ ∘ (0x0₃₂ ∘ (0x0₃₂ ∘ (mul_single(%ymm2[127:96], %ymm3[127:96]) ∘ (mul_single(%ymm2[95:64], %ymm3[95:64]) ∘ (mul_single(%ymm2[63:32], %ymm3[63:32]) ∘ mul_single(%ymm2[31:0], %ymm3[31:0])))))))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

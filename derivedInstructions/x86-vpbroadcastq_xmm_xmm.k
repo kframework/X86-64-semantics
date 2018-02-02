@@ -7,15 +7,125 @@ module VPBROADCASTQ-XMM-XMM
   rule <k>
     execinstr (vpbroadcastq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R1, RSMap), 192, 256))) )
 
-convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI676, 128, 256), 64, 128), extractMInt(extractMInt(MI676, 128, 256), 64, 128)))) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VPBROADCASTQ-XMM-XMM-SEMANTICS
   imports VPBROADCASTQ-XMM-XMM
 endmodule
+/*
+vpbroadcastq %xmm2, %xmm1
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx2 }
+
+circuit:callq .move_128_064_xmm2_r10_r11  #  1     0     5      OPC=callq_label
+circuit:vzeroall                          #  2     0x5   3      OPC=vzeroall
+circuit:movq %r10, %r11                   #  3     0x8   3      OPC=movq_r64_r64
+circuit:callq .move_064_128_r10_r11_xmm1  #  4     0xb   5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vpbroadcastq %xmm2, %xmm1
+
+  maybe read:      { %xmm2 }
+  must read:       { %xmm2 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx2 }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r10_r11
+
+Final state:
+%rax/%rax: %rax_vpbroadcastq_xmm_xmm
+%rdx/%rdx: %rdx_vpbroadcastq_xmm_xmm
+
+%xmm0: %ymm0_vpbroadcastq_xmm_xmm[127:0]
+%xmm1: %ymm1_vpbroadcastq_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movq %r10, %r11
+
+Final state:
+%r11/%r11: %ymm2_vpbroadcastq_xmm_xmm[127:0][63:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r10_r11_xmm1
+
+Final state:
+%rax/%rax: %rax_vpbroadcastq_xmm_xmm
+%rdx/%rdx: %rdx_vpbroadcastq_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (%ymm2_vpbroadcastq_xmm_xmm[127:0][63:0][63:0] ∘ %ymm2_vpbroadcastq_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vpbroadcastq %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm2_r10_r11
+vzeroall 
+movq %r10, %r11
+callq .move_064_128_r10_r11_xmm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vpbroadcastq %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[255:128] ∘ (%ymm2_vpbroadcastq_xmm_xmm[127:0][63:0][63:0] ∘ %ymm2_vpbroadcastq_xmm_xmm[127:0][63:0][63:0])
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ (%ymm2[63:0] ∘ %ymm2[63:0])
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ (%ymm2[63:0] ∘ %ymm2[63:0])
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

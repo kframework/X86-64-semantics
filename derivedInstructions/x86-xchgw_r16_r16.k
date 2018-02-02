@@ -7,15 +7,134 @@ module XCHGW-R16-R16
   rule <k>
     execinstr (xchgw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> ( MI439 => orMInt(andMInt(MI439, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI438, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI438, 48, 64), 8, 16))), 56, 64))))) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), extractMInt(getParentValue(R2, RSMap), 48, 64)) )
 
-convToRegKeys(R2) |-> ( MI438 => orMInt(andMInt(MI438, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI439, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI439, 48, 64), 8, 16))), 56, 64)))))   )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), extractMInt(getParentValue(R1, RSMap), 48, 64))   )
 
+  
+)   
 
-    ...</regstate>
+    </regstate>
 endmodule
 
 module XCHGW-R16-R16-SEMANTICS
   imports XCHGW-R16-R16
 endmodule
+/*
+xchgw %cx, %bx
+maybe read:{ %cx %bx }
+must read:{ %cx %bx }
+maybe write:{ %cx %bx }
+must write:{ %cx %bx }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .move_016_008_bx_r10b_r11b  #  1     0     5      OPC=callq_label
+circuit:callq .move_016_008_cx_r8b_r9b    #  2     0x5   5      OPC=callq_label
+circuit:callq .move_008_016_r10b_r11b_cx  #  3     0xa   5      OPC=callq_label
+circuit:callq .move_008_016_r8b_r9b_bx    #  4     0xf   5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+xchgw %cx, %bx
+
+  maybe read:      { %cx %bx }
+  must read:       { %cx %bx }
+  maybe write:     { %cx %bx }
+  must write:      { %cx %bx }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .move_016_008_bx_r10b_r11b
+
+Final state:
+%rax/%rax: %rax_xchgw_r16_r16
+%rdx/%rdx: %rdx_xchgw_r16_r16
+
+%xmm0: %ymm0_xchgw_r16_r16[127:0]
+%xmm1: %ymm1_xchgw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_016_008_cx_r8b_r9b
+
+Final state:
+%rax/%rax: %rax_xchgw_r16_r16
+%rdx/%rdx: %rdx_xchgw_r16_r16
+
+%xmm0: %ymm0_xchgw_r16_r16[127:0]
+%xmm1: %ymm1_xchgw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_008_016_r10b_r11b_cx
+
+Final state:
+%rax/%rax: %rax_xchgw_r16_r16
+%rdx/%rdx: %rdx_xchgw_r16_r16
+
+%xmm0: %ymm0_xchgw_r16_r16[127:0]
+%xmm1: %ymm1_xchgw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_008_016_r8b_r9b_bx
+
+Final state:
+%rax/%rax: %rax_xchgw_r16_r16
+%rdx/%rdx: %rdx_xchgw_r16_r16
+
+%xmm0: %ymm0_xchgw_r16_r16[127:0]
+%xmm1: %ymm1_xchgw_r16_r16[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for xchgw %cx, %bx
+
+.target:
+callq .move_016_008_bx_r10b_r11b
+callq .move_016_008_cx_r8b_r9b
+callq .move_008_016_r10b_r11b_cx
+callq .move_008_016_r8b_r9b_bx
+retq 
+
+Initial state:
+%rcx/%cx: %rcx
+%rbx/%bx: %rbx
+
+State for specgen instruction: xchgw %cx, %bx:
+%rcx/%cx: %rcx_xchgw_r16_r16[63:16] ∘ ((%r11_xchgw_r16_r16[63:8] ∘ %rbx_xchgw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r10_xchgw_r16_r16[63:8] ∘ %rbx_xchgw_r16_r16[15:0][7:0])[7:0][7:0])
+%rbx/%bx: %rbx_xchgw_r16_r16[63:16] ∘ ((%r9_xchgw_r16_r16[63:8] ∘ %rcx_xchgw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xchgw_r16_r16[63:8] ∘ %rcx_xchgw_r16_r16[15:0][7:0])[7:0][7:0])
+
+Register        -> %cx
+  translates to => %cx
+Value is               -> (%rcx_xchgw_r16_r16[63:16] ∘ ((%r11_xchgw_r16_r16[63:8] ∘ %rbx_xchgw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r10_xchgw_r16_r16[63:8] ∘ %rbx_xchgw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0]
+  after renaming it is => %rbx[15:0]
+
+Register        -> %bx
+  translates to => %bx
+Value is               -> (%rbx_xchgw_r16_r16[63:16] ∘ ((%r9_xchgw_r16_r16[63:8] ∘ %rcx_xchgw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xchgw_r16_r16[63:8] ∘ %rcx_xchgw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0]
+  after renaming it is => %rcx[15:0]
+
+Final state
+%rcx/%cx: %rcx[63:16] ∘ %rbx[15:0]
+%rbx/%bx: %rbx[63:16] ∘ %rcx[15:0]
+
+=====================================
+Circuits:
+
+%rcx   : %rcx[63:16] ∘ %rbx[15:0]
+%rbx   : %rbx[63:16] ∘ %rcx[15:0]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

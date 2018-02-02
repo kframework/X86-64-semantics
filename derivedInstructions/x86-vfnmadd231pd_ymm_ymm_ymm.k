@@ -7,17 +7,101 @@ module VFNMADD231PD-YMM-YMM-YMM
   rule <k>
     execinstr (vfnmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> (MI440 => MI440)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 0, 64), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 0, 64), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 0, 64), 53, 11) ) ) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 64, 128), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 64, 128), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 64, 128), 53, 11) ) ) ) , 64)), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 192), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11) ) ) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) ) ) ) , 64))) )
 
-convToRegKeys(R3) |-> ( MI438 => concatenateMInt(extractMInt(mi(256, uvalueMInt(extractMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI438, 0, 64), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 0, 64), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 0, 64), 53, 11) ) ) ) , 64), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI438, 64, 128), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 64, 128), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 64, 128), 53, 11) ) ) ) , 64), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI438, 128, 192), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 128, 192), 53, 11) ) ) ) , 64), Float2MInt( ( MInt2Float(extractMInt(MI438, 192, 256), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 192, 256), 53, 11) ) ) ) , 64)))), 0, 128))), 128, 256), extractMInt(mi(256, uvalueMInt(extractMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI438, 0, 64), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 0, 64), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 0, 64), 53, 11) ) ) ) , 64), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI438, 64, 128), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 64, 128), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 64, 128), 53, 11) ) ) ) , 64), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(MI438, 128, 192), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 128, 192), 53, 11) ) ) ) , 64), Float2MInt( ( MInt2Float(extractMInt(MI438, 192, 256), 53, 11)  +Float  negateFloat( ( MInt2Float(extractMInt(MI440, 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(MI439, 192, 256), 53, 11) ) ) ) , 64)))), 128, 256))), 128, 256)) )
+  
+)   
 
-convToRegKeys(R1) |-> (MI439 => MI439)
-
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VFNMADD231PD-YMM-YMM-YMM-SEMANTICS
   imports VFNMADD231PD-YMM-YMM-YMM
 endmodule
+/*
+vfnmadd231pd %ymm3, %ymm2, %ymm1
+maybe read:{ %ymm1 %ymm2 %ymm3 }
+must read:{ %ymm1 %ymm2 %ymm3 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ fma }
+
+circuit:vfnmadd132pd %ymm3, %ymm1, %ymm2      #  1     0    5      OPC=vfnmadd132pd_ymm_ymm_ymm
+circuit:callq .move_256_128_ymm2_xmm10_xmm11  #  2     0x5  5      OPC=callq_label
+circuit:callq .move_128_256_xmm10_xmm11_ymm1  #  3     0xa  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vfnmadd231pd %ymm3, %ymm2, %ymm1
+
+  maybe read:      { %ymm1 %ymm2 %ymm3 }
+  must read:       { %ymm1 %ymm2 %ymm3 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { fma }
+
+-------------------------------------
+Getting base circuit for vfnmadd132pd %ymm3, %ymm1, %ymm2
+
+Final state:
+%ymm2: vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm1_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm3_vfnmadd231pd_ymm_ymm_ymm[255:192]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm1_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm3_vfnmadd231pd_ymm_ymm_ymm[191:128]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm1_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm3_vfnmadd231pd_ymm_ymm_ymm[127:64]) ∘ vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm1_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm3_vfnmadd231pd_ymm_ymm_ymm[63:0])))
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_256_128_ymm2_xmm10_xmm11
+
+Final state:
+%rax/%rax: %rax_vfnmadd231pd_ymm_ymm_ymm
+%rdx/%rdx: %rdx_vfnmadd231pd_ymm_ymm_ymm
+
+%xmm0: %ymm0_vfnmadd231pd_ymm_ymm_ymm[127:0]
+%xmm1: %ymm1_vfnmadd231pd_ymm_ymm_ymm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_256_xmm10_xmm11_ymm1
+
+Final state:
+%rax/%rax: %rax_vfnmadd231pd_ymm_ymm_ymm
+%rdx/%rdx: %rdx_vfnmadd231pd_ymm_ymm_ymm
+
+%xmm0: %ymm0_vfnmadd231pd_ymm_ymm_ymm[127:0]
+%xmm1: ((%ymm11_vfnmadd231pd_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm1_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm3_vfnmadd231pd_ymm_ymm_ymm[255:192]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm1_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm3_vfnmadd231pd_ymm_ymm_ymm[191:128]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm1_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm3_vfnmadd231pd_ymm_ymm_ymm[127:64]) ∘ vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm1_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm3_vfnmadd231pd_ymm_ymm_ymm[63:0]))))[255:128])[127:0][127:0] ∘ (%ymm10_vfnmadd231pd_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm1_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm3_vfnmadd231pd_ymm_ymm_ymm[255:192]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm1_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm3_vfnmadd231pd_ymm_ymm_ymm[191:128]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm1_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm3_vfnmadd231pd_ymm_ymm_ymm[127:64]) ∘ vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm1_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm3_vfnmadd231pd_ymm_ymm_ymm[63:0]))))[127:0])[127:0][127:0])[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vfnmadd231pd %ymm3, %ymm2, %ymm1
+
+.target:
+vfnmadd132pd %ymm3, %ymm1, %ymm2
+callq .move_256_128_ymm2_xmm10_xmm11
+callq .move_128_256_xmm10_xmm11_ymm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vfnmadd231pd %ymm3, %ymm2, %ymm1:
+%ymm1: (%ymm11_vfnmadd231pd_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm1_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm3_vfnmadd231pd_ymm_ymm_ymm[255:192]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm1_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm3_vfnmadd231pd_ymm_ymm_ymm[191:128]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm1_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm3_vfnmadd231pd_ymm_ymm_ymm[127:64]) ∘ vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm1_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm3_vfnmadd231pd_ymm_ymm_ymm[63:0]))))[255:128])[127:0][127:0] ∘ (%ymm10_vfnmadd231pd_ymm_ymm_ymm[255:128] ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm1_vfnmadd231pd_ymm_ymm_ymm[255:192], %ymm3_vfnmadd231pd_ymm_ymm_ymm[255:192]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm1_vfnmadd231pd_ymm_ymm_ymm[191:128], %ymm3_vfnmadd231pd_ymm_ymm_ymm[191:128]) ∘ (vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm1_vfnmadd231pd_ymm_ymm_ymm[127:64], %ymm3_vfnmadd231pd_ymm_ymm_ymm[127:64]) ∘ vfnmadd132_double(%ymm2_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm1_vfnmadd231pd_ymm_ymm_ymm[63:0], %ymm3_vfnmadd231pd_ymm_ymm_ymm[63:0]))))[127:0])[127:0][127:0]
+
+Final state
+%ymm1: vfnmadd132_double(%ymm2[255:192], %ymm1[255:192], %ymm3[255:192]) ∘ vfnmadd132_double(%ymm2[191:128], %ymm1[191:128], %ymm3[191:128]) ∘ (vfnmadd132_double(%ymm2[127:64], %ymm1[127:64], %ymm3[127:64]) ∘ vfnmadd132_double(%ymm2[63:0], %ymm1[63:0], %ymm3[63:0]))
+
+=====================================
+Circuits:
+
+%ymm1  : vfnmadd132_double(%ymm2[255:192], %ymm1[255:192], %ymm3[255:192]) ∘ vfnmadd132_double(%ymm2[191:128], %ymm1[191:128], %ymm3[191:128]) ∘ (vfnmadd132_double(%ymm2[127:64], %ymm1[127:64], %ymm3[127:64]) ∘ vfnmadd132_double(%ymm2[63:0], %ymm1[63:0], %ymm3[63:0]))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/
