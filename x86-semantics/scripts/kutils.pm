@@ -399,9 +399,11 @@ sub compareInts {
         return 0;
     }
 
-    #print "Check2: " . $khexnum . " " . $xhexnum . "\n";
-    if ( $xhexnum == $khexnum ) {
-        return 1;
+    # print "Check2: " . $khexnum . " " . $xhexnum . "\n";
+    if ( $xhexnum eq $khexnum ) {
+      return 1;
+    } else {
+      failInfo("$xhexnum != $khexnum\n");
     }
     return 0;
 }
@@ -780,6 +782,9 @@ sub instr_to_rwset {
             $store{"%zf"} = 1;
             $store{"%pf"} = 1;
         }
+        elsif ( $pseduInstr =~ m/set_(of|cf|zf|pf|af|sf)/ ) {
+            $store{"%$1"} = 1;
+        }
         elsif ( $pseduInstr =~ m/move_(.*)_to_byte_\d+_of_(.*)/ ) {
             $store{"%$1"} = 1;
             $store{"%$2"} = 1;
@@ -843,6 +848,24 @@ sub instr_to_rwset {
     return ( $returnInfo, \%store );
 }
 
+sub getStrataBVFormula {
+  my $instr = shift @_;
+  my $debugprint = shift @_;
+  my $binpath = "/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
+
+  # Escape the $ sign (if present)
+  $instr =~ s/\$/\\\$/g;
+  execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1", 1);
+
+    my $filepath = "/tmp/yyy";
+    open( my $fp, "<", $filepath )
+      or die "[instr_to_opcode]cannot open $filepath: $!";
+    my @lines = <$fp>;
+
+    return join("", @lines);
+
+}
+
 ##################################################
 sub replaceCallWithPseudoInsr {
 ##################################################
@@ -854,45 +877,31 @@ sub replaceCallWithPseudoInsr {
     if ( $instr =~ m/\.clear_(\w+)/ ) {
         my $flag = $1;
         return "setFlag( mi(1, 0), " . "\"" . uc($flag) . "\")";
-    }
-
-    if ( $instr =~ m/\.set_(of|cf|zf|pf|af|sf)/ ) {
+    } elsif ( $instr =~ m/\.set_(of|cf|zf|pf|af|sf)/ ) {
         my $flag = $1;
         return "setFlag( mi(1, 1), \"" . uc($flag) . "\")";
-    }
-
-    if ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
+    } elsif ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
         my $r    = "%" . $1;
         my $flag = $2;
         return "writeRegisterToflag( " . $r . ", \"" . uc($flag) . "\")";
-    }
-
-    if ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
+    } elsif ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
         my $flag = $1;
         my $r    = "%" . $2;
         return "readFlagToRegister( \"" . uc($flag) . "\", " . $r . " )";
-    }
-
-    if ( $instr =~ m/set_szp_for_(\w+)/ ) {
+    } elsif ( $instr =~ m/set_szp_for_(\w+)/ ) {
         my $r = "%" . $1;
         return "setSZPForRegister( " . $r . " )";
-    }
-
-    if ( $instr =~ m/move_(\w+)_to_byte_(\d+)_of_(\w+)/ ) {
+    } elsif ( $instr =~ m/move_(\w+)_to_byte_(\d+)_of_(\w+)/ ) {
         my $r8     = "%" . $1;
         my $bitnum = $2;
         my $rN     = "%" . $3;
         return "movByteToPosOfReg( " . $r8 . ", " . $bitnum . ", " . $rN . " )";
-    }
-
-    if ( $instr =~ m/move_byte_(\d+)_of_(\w+)_to_(\w+)/ ) {
+    } elsif ( $instr =~ m/move_byte_(\d+)_of_(\w+)_to_(\w+)/ ) {
         my $bitnum = $1;
         my $rN     = "%" . $2;
         my $r8     = "%" . $3;
         return "movPosOfRegToByte( " . $bitnum . ", " . $rN . ", " . $r8 . " )";
-    }
-
-    if ( $instr =~ m/move_128_032_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
+    } elsif ( $instr =~ m/move_128_032_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
         my $x  = "%" . $1;
         my $r1 = "%" . $2;
         my $r2 = "%" . $3;
@@ -905,9 +914,7 @@ sub replaceCallWithPseudoInsr {
           . $r2 . ", "
           . $r3 . ", "
           . $r4 . " )";
-    }
-
-    if ( $instr =~ m/move_032_128_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
+    } elsif ( $instr =~ m/move_032_128_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
         my $x1 = "%" . $1;
         my $x2 = "%" . $2;
         my $x3 = "%" . $3;
@@ -920,9 +927,7 @@ sub replaceCallWithPseudoInsr {
           . $x3 . ", "
           . $x4 . ", "
           . $x5 . " )";
-    }
-
-    if ( $instr =~ m/move_(\d+)_(\d+)_(\w+)_(\w+)_(\w+)/ ) {
+    } elsif ( $instr =~ m/move_(\d+)_(\d+)_(\w+)_(\w+)_(\w+)/ ) {
         my $m  = $1;
         my $n  = $2;
         my $r1 = "%" . $3;
@@ -1867,6 +1872,23 @@ endmodule
     }
 
     print $fp $template;
+
+    ## Dump the circuit and the BVFormula
+
+    my ( $spec_code, $orig_circuit ) =
+      kutils::getSpecCode( $opcode, "/home/sdasgup3/Github/strata-data/circuits/", $debugprint );
+
+    ## Comment section in specfile.
+    my ( $targetinstr, $metadata, $rwset ) =
+      kutils::getReadMod( $opcode, "/home/sdasgup3/Github/strata-data/data-regs/instructions/", $debugprint );
+
+    my $strata_BVFormula = getStrataBVFormula($targetinstr, $debugprint);
+
+    print $fp "/*"        . "\n" .
+            $targetinstr  . "\n" .
+            $orig_circuit . "\n" .
+            $strata_BVFormula . "\n" .
+            "*/";  
 }
 
 sub createSpecFile {

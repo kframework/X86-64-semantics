@@ -10,7 +10,7 @@ module SETB-R8
     <regstate> 
 RSMap:Map => updateMap(RSMap,
 
-convToRegKeys(R1) |-> (orMInt(concatenateMInt(mi(63, 0), getFlag("CF", RSMap)), mi(64, svalueMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap))))) )
+convToRegKeys(R1) |-> (concatenateMInt(mi(63, 0), getFlag("CF", RSMap)) )
 
 
 

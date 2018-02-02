@@ -144,7 +144,7 @@ if ( "" ne $genincludes ) {
         }
         my $req    = "requires \"x86-${opcode}.k\"";
         my $koutput    = "$derivedInstructions/x86-${opcode}.k";
-        my $matches_ref = utils::myGrep("-SEMANTICS", $koutput);
+        my $matches_ref = utils::myGrep("-SEMANTICS", "sdasgup3", $koutput);
         my @matches = @{$matches_ref};
 
         if(scalar(@matches) > 1) {
@@ -193,6 +193,7 @@ if ( "" ne $checksanity ) {
         "Float2MInt\\\(MInt2Float",
         "MInt2Float\\\(Float2MInt",
         "_\\\\s+",
+        "regstate",
         );
     
     my $antipattern = "convTo\|CF\|ZF\|SF\|PF\|OF\|AF";
@@ -214,7 +215,11 @@ if ( "" ne $checksanity ) {
           my $matches_ref = utils::myGrep($pattern, "sdasgup3", $koutput);
           my @matches = @{$matches_ref};
 
-          if(scalar(@matches) > 0) {
+          if(($pattern eq "regstate")) {
+            if((scalar(@matches) == 0)) {
+              utils::failInfo("$pattern: $koutput");
+            }
+          } elsif (scalar(@matches) > 0) {
             utils::failInfo("$pattern: $koutput");
           }
         }
