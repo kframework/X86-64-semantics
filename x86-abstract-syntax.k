@@ -59,6 +59,17 @@ module X86-ASBTRACT-SYNTAX
   syntax MInt  ::= getRegisterValue(Register, Map) [function]
 
   /*@
+    Getting the Parent register's values.
+      Ex. getRegisterValue(%al) -> 64 bits of %rax
+      Ex. getRegisterValue(%ah) -> 64 bits of %rax
+      Ex. getRegisterValue(%eax)-> 64 bits of %rax
+      Ex. getRegisterValue(%rax)-> 64 bits of %rax
+      Ex. getRegisterValue(%xmm1)-> 256 bits of %ymm1
+      Ex. getRegisterValue(%ymm1)-> 256 bits of %ymm1
+  */  
+  syntax MInt  ::= getParentValue(Register, Map) [function]
+
+  /*@
     handleImmediate(Imm, W): Compute a MInt corresponding
     to the Imm value of width W.
   */

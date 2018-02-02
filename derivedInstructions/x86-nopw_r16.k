@@ -12,10 +12,8 @@ endmodule
 module NOPW-R16-SEMANTICS
   imports NOPW-R16
 endmodule
-
-
 /*
-
+nopw %bx
 maybe read:{ }
 must read:{ }
 maybe write:{ }
@@ -26,61 +24,33 @@ required flags:{ nopl }
 
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 nopw %bx
 
-
-
   maybe read:      { }
-
   must read:       { }
-
   maybe write:     { }
-
   must write:      { }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { nopl }
 
-
-
 =====================================
-
 Computing circuit for nopw %bx
 
-
-
 .target:
-
 retq 
 
-
-
 Initial state:
-
 State for specgen instruction: nopw %bx:
-
 Final state
-
 =====================================
-
 Circuits:
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

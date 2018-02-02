@@ -215,6 +215,7 @@ module X86-ABSTRACT-SEMANTICS
   rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 8, 8)
   rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask(RSMap[convToRegKeys(X)]:>MInt, 128, 0)
   rule getRegisterValue(Y:Ymm, RSMap)  =>  RSMap[convToRegKeys(Y)]:>MInt
+  rule getParentValue(R:Register, RSMap) => getRegisterValue(convSubRegsToRegs(R), RSMap)
 
   /*@
     handleImmediate(Imm, W): Compute a MInt corresponding

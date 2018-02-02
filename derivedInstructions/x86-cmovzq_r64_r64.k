@@ -9,23 +9,19 @@ module CMOVZQ-R64-R64
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( getParentValue(R2, RSMap) ) #else ( getParentValue(R1, RSMap) ) #fi)  )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module CMOVZQ-R64-R64-SEMANTICS
   imports CMOVZQ-R64-R64
 endmodule
-
-
-/*circuit:cmoveq %rcx, %rbx  #  1     0    4      OPC=cmoveq_r64_r64
-
-
+/*
+cmovzq %rcx, %rbx
 maybe read:{ %rcx %zf }
 must read:{ %rcx %zf }
 maybe write:{ %rbx }
@@ -34,105 +30,57 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ cmov }
 
+circuit:cmoveq %rcx, %rbx  #  1     0    4      OPC=cmoveq_r64_r64
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 cmovzq %rcx, %rbx
 
-
-
   maybe read:      { %rcx %zf }
-
   must read:       { %rcx %zf }
-
   maybe write:     { %rbx }
-
   must write:      { }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { cmov }
 
-
-
 -------------------------------------
-
 Getting base circuit for cmoveq %rcx, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: %zf_cmovzq_r64_r64 ? %rcx_cmovzq_r64_r64 : %rbx_cmovzq_r64_r64
-
-
 
 -------------------------------------
-
 =====================================
-
 Computing circuit for cmovzq %rcx, %rbx
 
-
-
 .target:
-
 cmoveq %rcx, %rbx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 State for specgen instruction: cmovzq %rcx, %rbx:
-
 %rbx/%rbx: %zf_cmovzq_r64_r64 ? %rcx_cmovzq_r64_r64 : %rbx_cmovzq_r64_r64
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> %zf_cmovzq_r64_r64 ? %rcx_cmovzq_r64_r64 : %rbx_cmovzq_r64_r64
-
   after renaming it is => %zf ? %rcx : %rbx
 
-
-
 Final state
-
 %rbx/%rbx: %zf ? %rcx : %rbx
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : %zf ? %rcx : %rbx
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

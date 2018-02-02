@@ -5,7 +5,7 @@ module X86-SEMANTICS-SPEC
     <k>
 split2NToN( %xmm1, %xmm12, %xmm13 ) ~>
 execinstr ( vcvtps2pd %xmm2, %ymm12 , .Typedoperands ) ~>
-combineNTo2N( %xmm12, %xmm13, %xmm1 ) ~>
+combineLower64OfXmmTo128( %xmm12, %xmm13, %xmm1 ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -18,10 +18,10 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"YMM13" |-> (mi(256, 0):MInt => _)
 "YMM12" |-> (mi(256, 0):MInt => _)
 "YMM2" |-> (mi(256, ?I1:Int):MInt => _)
 "YMM1" |-> (mi(256, ?I2:Int):MInt => _)
+"YMM13" |-> (mi(256, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

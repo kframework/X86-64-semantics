@@ -9,7 +9,6 @@ module ADDQ-R64-R64
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
  "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R1, RSMap))  orBool  ultMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
@@ -24,21 +23,17 @@ convToRegKeys(R2) |-> (addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSM
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module ADDQ-R64-R64-SEMANTICS
   imports ADDQ-R64-R64
 endmodule
-
-
-/*circuit:orq %rbx, %rbx   #  1     0    3      OPC=orq_r64_r64
-circuit:adcq %rcx, %rbx  #  2     0x3  3      OPC=adcq_r64_r64
-
-
+/*
+addq %rcx, %rbx
 maybe read:{ %rcx %rbx }
 must read:{ %rcx %rbx }
 maybe write:{ %rbx %cf %pf %af %zf %sf %of }
@@ -47,203 +42,107 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:orq %rbx, %rbx   #  1     0    3      OPC=orq_r64_r64
+circuit:adcq %rcx, %rbx  #  2     0x3  3      OPC=adcq_r64_r64
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 addq %rcx, %rbx
 
-
-
   maybe read:      { %rcx %rbx }
-
   must read:       { %rcx %rbx }
-
   maybe write:     { %rbx %cf %pf %af %zf %sf %of }
-
   must write:      { %rbx %cf %pf %af %zf %sf %of }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for orq %rbx, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: %rbx_addq_r64_r64 | %rbx_addq_r64_r64
 
-
-
 %cf: false
-
 %pf: !((%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][0:0] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][1:1] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][2:2] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][3:3] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][4:4] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][5:5] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][6:6] = 0x1₁ ⊕ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[7:0][7:7] = 0x1₁)
-
 %zf: (%rbx_addq_r64_r64 | %rbx_addq_r64_r64) = 0x0₆₄
-
 %sf: (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[63:63] = 0x1₁
-
 %of: false
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for adcq %rcx, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0]
 
-
-
 %cf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[64:64] = 0x1₁
-
 %pf: !(((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ %rcx_addq_r64_r64[3:0] + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[3:0])[4:4] = 0x1₁
-
 %zf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0] = 0x0₆₄
-
 %sf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][63:63] = 0x1₁
-
 %of: (%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[63:63] = 0x1₁) ∧ !(%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:63] = 0x1₁)
-
-
 
 -------------------------------------
-
 =====================================
-
 Computing circuit for addq %rcx, %rbx
 
-
-
 .target:
-
 orq %rbx, %rbx
-
 adcq %rcx, %rbx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 %cf: %cf
-
 %pf: %pf
-
 %af: %af
-
 %zf: %zf
-
 %sf: %sf
-
 %of: %of
 
-
-
 State for specgen instruction: addq %rcx, %rbx:
-
 %rbx/%rbx: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0]
 
-
-
 %cf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[64:64] = 0x1₁
-
 %pf: !(((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ %rcx_addq_r64_r64[3:0] + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[3:0])[4:4] = 0x1₁
-
 %zf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0] = 0x0₆₄
-
 %sf: ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0][63:63] = 0x1₁
-
 %of: (%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64)[63:63] = 0x1₁) ∧ !(%rcx_addq_r64_r64[63:63] = 0x1₁ ↔ ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:63] = 0x1₁)
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> ((false ? 0x0₁ ∘ %rcx_addq_r64_r64 + 0x1₆₅ : 0x0₁ ∘ %rcx_addq_r64_r64) + 0x0₁ ∘ (%rbx_addq_r64_r64 | %rbx_addq_r64_r64))[63:0]
-
   after renaming it is => (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
 
-
-
 Final state
-
 %rbx/%rbx: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
 
-
-
 %cf: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
-
 %pf: !((0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ %rcx[3:0] + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-
 %zf: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0] = 0x0₆₄
-
 %sf: (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁
-
 %of: (%rcx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rcx[63:63] = 0x1₁ ↔ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
 
-
-
 %cf    : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
-
 %pf    : !((0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[7:7] = 0x1₁)
-
 %af    : (0x0₁ ∘ %rcx[3:0] + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-
 %zf    : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0] = 0x0₆₄
-
 %sf    : (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁
-
 %of    : (%rcx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rcx[63:63] = 0x1₁ ↔ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

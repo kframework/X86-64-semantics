@@ -9,27 +9,19 @@ module MOVSBL-R32-R8
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 56, 64))), 32, 64)) )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module MOVSBL-R32-R8-SEMANTICS
   imports MOVSBL-R32-R8
 endmodule
-
-
-/*circuit:callq .set_of                      #  1     0     5      OPC=callq_label
-circuit:callq .read_of_into_rbx            #  2     0x5   5      OPC=callq_label
-circuit:callq .move_064_032_rbx_r10d_r11d  #  3     0xa   5      OPC=callq_label
-circuit:movsbq %cl, %r10                   #  4     0xf   4      OPC=movsbq_r64_r8
-circuit:callq .move_032_064_r10d_r11d_rbx  #  5     0x13  5      OPC=callq_label
-
-
+/*
+movsbl %cl, %ebx
 maybe read:{ %cl }
 must read:{ %cl }
 maybe write:{ %rbx }
@@ -38,201 +30,109 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:callq .set_of                      #  1     0     5      OPC=callq_label
+circuit:callq .read_of_into_rbx            #  2     0x5   5      OPC=callq_label
+circuit:callq .move_064_032_rbx_r10d_r11d  #  3     0xa   5      OPC=callq_label
+circuit:movsbq %cl, %r10                   #  4     0xf   4      OPC=movsbq_r64_r8
+circuit:callq .move_032_064_r10d_r11d_rbx  #  5     0x13  5      OPC=callq_label
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 movsbl %cl, %ebx
 
-
-
   maybe read:      { %cl }
-
   must read:       { %cl }
-
   maybe write:     { %rbx }
-
   must write:      { %rbx }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for callq .set_of
 
-
-
 Final state:
-
 %rax/%rax: %rax_movsbl_r32_r8
-
 %rdx/%rdx: %rdx_movsbl_r32_r8
 
-
-
 %xmm0: %ymm0_movsbl_r32_r8[127:0]
-
 %xmm1: %ymm1_movsbl_r32_r8[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .read_of_into_rbx
 
-
-
 Final state:
-
 %rax/%rax: %rax_movsbl_r32_r8
-
 %rdx/%rdx: %rdx_movsbl_r32_r8
 
-
-
 %xmm0: %ymm0_movsbl_r32_r8[127:0]
-
 %xmm1: %ymm1_movsbl_r32_r8[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_064_032_rbx_r10d_r11d
 
-
-
 Final state:
-
 %rax/%rax: %rax_movsbl_r32_r8
-
 %rdx/%rdx: %rdx_movsbl_r32_r8
 
-
-
 %xmm0: %ymm0_movsbl_r32_r8[127:0]
-
 %xmm1: %ymm1_movsbl_r32_r8[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for movsbq %cl, %r10
 
-
-
 Final state:
-
 %r10/%r10: sign-extend-64(%rcx_movsbl_r32_r8[7:0])
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_032_064_r10d_r11d_rbx
 
-
-
 Final state:
-
 %rax/%rax: %rax_movsbl_r32_r8
-
 %rdx/%rdx: %rdx_movsbl_r32_r8
 
-
-
 %xmm0: %ymm0_movsbl_r32_r8[127:0]
-
 %xmm1: %ymm1_movsbl_r32_r8[127:0]
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for movsbl %cl, %ebx
 
-
-
 .target:
-
 callq .set_of
-
 callq .read_of_into_rbx
-
 callq .move_064_032_rbx_r10d_r11d
-
 movsbq %cl, %r10
-
 callq .move_032_064_r10d_r11d_rbx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 State for specgen instruction: movsbl %cl, %ebx:
-
 %rbx/%rbx: (0x0₃₂ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[63:32])[31:0][31:0] ∘ sign-extend-64(%rcx_movsbl_r32_r8[7:0])[31:0][31:0]
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> (0x0₃₂ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[63:32])[31:0][31:0] ∘ sign-extend-64(%rcx_movsbl_r32_r8[7:0])[31:0][31:0]
-
   after renaming it is => 0x0₃₂ ∘ sign-extend-64(%rcx[7:0])[31:0]
 
-
-
 Final state
-
 %rbx/%rbx: 0x0₃₂ ∘ sign-extend-64(%rcx[7:0])[31:0]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : 0x0₃₂ ∘ sign-extend-64(%rcx[7:0])[31:0]
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

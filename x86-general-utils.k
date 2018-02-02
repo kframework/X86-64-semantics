@@ -425,9 +425,14 @@ module MINT-WRAPPER
   /*@ 
     zeroExtend(MI, N): Zero extend MInt MI to a MInt of
       N bitwidth.
-  */
   rule zeroExtend(MI:MInt, N:Int) => mi(N, uvalueMInt(MI))
     requires N >=Int bitwidthMInt(MI)
+  */
+  rule zeroExtend(MI:MInt, N:Int) => MI
+    requires N ==Int bitwidthMInt(MI)
+
+  rule zeroExtend(MI:MInt, N:Int) => concatenateMInt(mi(N -Int bitwidthMInt(MI), 0), MI)
+    requires N >Int bitwidthMInt(MI)
 
   /*@ 
     plugInMask(MITarget, MISrc, P): 
@@ -465,7 +470,7 @@ module MINT-WRAPPER
           extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) , bitwidthMInt(MISrc)), 
           MISrc
           )
-      requires (P ==Int 0) andBool ((P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget))
+      requires (P ==Int 0) andBool (bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget))
 
     rule plugInMask(MITarget, MISrc, P) => concatenateMInt(MISrc, extractMask(MITarget, P, 0))
       requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) ==Int bitwidthMInt(MITarget))
@@ -478,7 +483,7 @@ module MINT-WRAPPER
             extractMask(MITarget, P, 0)
             )
         )
-      requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) <=Int bitwidthMInt(MITarget))
+      requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) <Int bitwidthMInt(MITarget))
 
   /*@ 
     signExtend(MI, N): Sign extend MInt MI to a MInt of

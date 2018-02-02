@@ -9,25 +9,19 @@ module MOVDDUP-XMM-XMM
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R1, RSMap), 192, 256))) )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module MOVDDUP-XMM-XMM-SEMANTICS
   imports MOVDDUP-XMM-XMM
 endmodule
-
-
-/*circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
-circuit:movq %r12, %r13                   #  2     0x5  3      OPC=movq_r64_r64
-circuit:callq .move_064_128_r12_r13_xmm1  #  3     0x8  5      OPC=callq_label
-
-
+/*
+movddup %xmm2, %xmm1
 maybe read:{ %xmm2 }
 must read:{ %xmm2 }
 maybe write:{ %xmm1 }
@@ -36,143 +30,78 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ pni }
 
+circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
+circuit:movq %r12, %r13                   #  2     0x5  3      OPC=movq_r64_r64
+circuit:callq .move_064_128_r12_r13_xmm1  #  3     0x8  5      OPC=callq_label
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 movddup %xmm2, %xmm1
 
-
-
   maybe read:      { %xmm2 }
-
   must read:       { %xmm2 }
-
   maybe write:     { %xmm1 }
-
   must write:      { %xmm1 }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { pni }
 
-
-
 -------------------------------------
-
 Getting base circuit for callq .move_128_064_xmm2_r12_r13
 
-
-
 Final state:
-
 %rax/%rax: %rax_movddup_xmm_xmm
-
 %rdx/%rdx: %rdx_movddup_xmm_xmm
 
-
-
 %xmm0: %ymm0_movddup_xmm_xmm[127:0]
-
 %xmm1: %ymm1_movddup_xmm_xmm[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for movq %r12, %r13
 
-
-
 Final state:
-
 %r13/%r13: %ymm2_movddup_xmm_xmm[127:0][63:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_064_128_r12_r13_xmm1
 
-
-
 Final state:
-
 %rax/%rax: %rax_movddup_xmm_xmm
-
 %rdx/%rdx: %rdx_movddup_xmm_xmm
 
-
-
 %xmm0: %ymm0_movddup_xmm_xmm[127:0]
-
 %xmm1: (%ymm1_movddup_xmm_xmm[255:128] ∘ (%ymm2_movddup_xmm_xmm[127:0][63:0][63:0] ∘ %ymm2_movddup_xmm_xmm[127:0][63:0][63:0]))[127:0]
-
-
 
 -------------------------------------
-
 =====================================
-
 Computing circuit for movddup %xmm2, %xmm1
 
-
-
 .target:
-
 callq .move_128_064_xmm2_r12_r13
-
 movq %r12, %r13
-
 callq .move_064_128_r12_r13_xmm1
-
 retq 
 
-
-
 Initial state:
-
 %xmm1: %ymm1[127:0]
 
-
-
 State for specgen instruction: movddup %xmm2, %xmm1:
-
 %xmm1: (%ymm1_movddup_xmm_xmm[255:128] ∘ (%ymm2_movddup_xmm_xmm[127:0][63:0][63:0] ∘ %ymm2_movddup_xmm_xmm[127:0][63:0][63:0]))[127:0]
 
-
-
 Final state
-
 %xmm1: (%ymm1[255:128] ∘ (%ymm2[63:0] ∘ %ymm2[63:0]))[127:0]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %ymm1  : %ymm1[255:128] ∘ (%ymm2[63:0] ∘ %ymm2[63:0])
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

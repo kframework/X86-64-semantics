@@ -7,7 +7,7 @@ use File::Basename;
 use File::Find;
 
 use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
-use ktestutils;
+use kutils;
 
 my $help = "";
 my $home = $ENV{'HOME'};

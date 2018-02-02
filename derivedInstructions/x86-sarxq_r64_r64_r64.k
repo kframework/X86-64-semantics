@@ -9,27 +9,19 @@ module SARXQ-R64-R64-R64
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R3) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( ashrMInt(mi(64, svalueMInt(getParentValue(R2, RSMap))), uvalueMInt(andMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), mi(8, 63)))) ) #else ( (#ifMInt (eqMInt((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(getParentValue(R2, RSMap), mi(64, -9223372036854775808)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , mi(1, 0)) ) #then ( mi(64, 0) ) #else ( mi(64, -1) ) #fi)  ) #fi)  )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module SARXQ-R64-R64-R64-SEMANTICS
   imports SARXQ-R64-R64-R64
 endmodule
-
-
-/*circuit:callq .move_064_032_rdx_r10d_r11d  #  1     0     5      OPC=callq_label
-circuit:callq .move_064_032_rcx_r8d_r9d    #  2     0x5   5      OPC=callq_label
-circuit:callq .move_008_016_r10b_r11b_cx   #  3     0xa   5      OPC=callq_label
-circuit:callq .move_032_064_r8d_r9d_rbx    #  4     0xf   5      OPC=callq_label
-circuit:sarq %cl, %rbx                     #  5     0x14  3      OPC=sarq_r64_cl
-
-
+/*
+sarxq %rdx, %rcx, %rbx
 maybe read:{ %rcx %rdx }
 must read:{ %rcx %rdx }
 maybe write:{ %rbx }
@@ -38,213 +30,115 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ bmi2 }
 
+circuit:callq .move_064_032_rdx_r10d_r11d  #  1     0     5      OPC=callq_label
+circuit:callq .move_064_032_rcx_r8d_r9d    #  2     0x5   5      OPC=callq_label
+circuit:callq .move_008_016_r10b_r11b_cx   #  3     0xa   5      OPC=callq_label
+circuit:callq .move_032_064_r8d_r9d_rbx    #  4     0xf   5      OPC=callq_label
+circuit:sarq %cl, %rbx                     #  5     0x14  3      OPC=sarq_r64_cl
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 sarxq %rdx, %rcx, %rbx
 
-
-
   maybe read:      { %rcx %rdx }
-
   must read:       { %rcx %rdx }
-
   maybe write:     { %rbx }
-
   must write:      { %rbx }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { bmi2 }
 
-
-
 -------------------------------------
-
 Getting base circuit for callq .move_064_032_rdx_r10d_r11d
 
-
-
 Final state:
-
 %rax/%rax: %rax_sarxq_r64_r64_r64
-
 %rdx/%rdx: %rdx_sarxq_r64_r64_r64
 
-
-
 %xmm0: %ymm0_sarxq_r64_r64_r64[127:0]
-
 %xmm1: %ymm1_sarxq_r64_r64_r64[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_064_032_rcx_r8d_r9d
 
-
-
 Final state:
-
 %rax/%rax: %rax_sarxq_r64_r64_r64
-
 %rdx/%rdx: %rdx_sarxq_r64_r64_r64
 
-
-
 %xmm0: %ymm0_sarxq_r64_r64_r64[127:0]
-
 %xmm1: %ymm1_sarxq_r64_r64_r64[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_008_016_r10b_r11b_cx
 
-
-
 Final state:
-
 %rax/%rax: %rax_sarxq_r64_r64_r64
-
 %rdx/%rdx: %rdx_sarxq_r64_r64_r64
 
-
-
 %xmm0: %ymm0_sarxq_r64_r64_r64[127:0]
-
 %xmm1: %ymm1_sarxq_r64_r64_r64[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_032_064_r8d_r9d_rbx
 
-
-
 Final state:
-
 %rax/%rax: %rax_sarxq_r64_r64_r64
-
 %rdx/%rdx: %rdx_sarxq_r64_r64_r64
 
-
-
 %xmm0: %ymm0_sarxq_r64_r64_r64[127:0]
-
 %xmm1: %ymm1_sarxq_r64_r64_r64[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for sarq %cl, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1]
-
-
 
 %cf: !((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[0:0] = 0x1₁ ∨ !(!((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %cf_sarxq_r64_r64_r64
-
 %pf: !((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ !(((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][0:0] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][1:1] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][2:2] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][3:3] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][4:4] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][5:5] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][6:6] = 0x1₁ ⊕ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][7:0][7:7] = 0x1₁) ∨ !(!((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %pf_sarxq_r64_r64_r64
-
 %zf: !((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1] = 0x0₆₄ ∨ !(!((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %zf_sarxq_r64_r64_r64
-
 %sf: !((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈) ∧ ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1][63:63] = 0x1₁ ∨ !(!((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x0₈)) ∧ %sf_sarxq_r64_r64_r64
-
 %of: (0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x1₈ ∧ false ∨ !((0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[7:0] = 0x1₈) ∧ %of_sarxq_r64_r64_r64
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for sarxq %rdx, %rcx, %rbx
 
-
-
 .target:
-
 callq .move_064_032_rdx_r10d_r11d
-
 callq .move_064_032_rcx_r8d_r9d
-
 callq .move_008_016_r10b_r11b_cx
-
 callq .move_032_064_r8d_r9d_rbx
-
 sarq %cl, %rbx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 State for specgen instruction: sarxq %rdx, %rcx, %rbx:
-
 %rbx/%rbx: ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1]
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> ((0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[63:32])[31:0][31:0] ∘ (0x0₃₂ ∘ %rcx_sarxq_r64_r64_r64[31:0])[31:0][31:0] ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ ((%rcx_sarxq_r64_r64_r64[63:16] ∘ ((0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[63:32])[7:0][7:0] ∘ (0x0₃₂ ∘ %rdx_sarxq_r64_r64_r64[31:0])[7:0][7:0]))[7:0][7:0] & 0x3f₈))[64:1]
-
   after renaming it is => (%rcx ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ (%rdx[7:0] & 0x3f₈))[64:1]
 
-
-
 Final state
-
 %rbx/%rbx: (%rcx ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ (%rdx[7:0] & 0x3f₈))[64:1]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : (%rcx ∘ 0x0₁ sign_shift_right 0x0₅₇ ∘ (%rdx[7:0] & 0x3f₈))[64:1]
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

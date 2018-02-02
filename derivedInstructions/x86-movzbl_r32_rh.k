@@ -9,24 +9,19 @@ module MOVZBL-R32-RH
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1, RSMap), 48, 56))   )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module MOVZBL-R32-RH-SEMANTICS
   imports MOVZBL-R32-RH
 endmodule
-
-
-/*circuit:movq $0x40, %rbx  #  1     0    10     OPC=movq_r64_imm64
-circuit:movb %ah, %bl     #  2     0xa  2      OPC=movb_r8_rh
-
-
+/*
+movzbl %ah, %ebx
 maybe read:{ %ah }
 must read:{ %ah }
 maybe write:{ %rbx }
@@ -35,121 +30,66 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:movq $0x40, %rbx  #  1     0    10     OPC=movq_r64_imm64
+circuit:movb %ah, %bl     #  2     0xa  2      OPC=movb_r8_rh
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 movzbl %ah, %ebx
 
-
-
   maybe read:      { %ah }
-
   must read:       { %ah }
-
   maybe write:     { %rbx }
-
   must write:      { %rbx }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for movq $0x40, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: 0x40₆₄
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for movb %ah, %bl
 
-
-
 Final state:
-
 %rbx/%bl: 0x40₆₄[63:8] ∘ %rax_movzbl_r32_rh[15:8]
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for movzbl %ah, %ebx
 
-
-
 .target:
-
 movq $0x40, %rbx
-
 movb %ah, %bl
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 State for specgen instruction: movzbl %ah, %ebx:
-
 %rbx/%rbx: 0x40₆₄[63:8] ∘ %rax_movzbl_r32_rh[15:8]
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> 0x40₆₄[63:8] ∘ %rax_movzbl_r32_rh[15:8]
-
   after renaming it is => 0x0₅₆ ∘ %rax[15:8]
 
-
-
 Final state
-
 %rbx/%rbx: 0x0₅₆ ∘ %rax[15:8]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : 0x0₅₆ ∘ %rax[15:8]
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

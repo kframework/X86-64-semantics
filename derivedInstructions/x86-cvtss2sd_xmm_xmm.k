@@ -9,25 +9,19 @@ module CVTSS2SD-XMM-XMM
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), Float2MInt(Float2Double(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)), 64))) )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module CVTSS2SD-XMM-XMM-SEMANTICS
   imports CVTSS2SD-XMM-XMM
 endmodule
-
-
-/*circuit:callq .move_128_64_xmm1_xmm12_xmm13  #  1     0    5      OPC=callq_label
-circuit:vcvtps2pd %xmm2, %ymm12              #  2     0x5  4      OPC=vcvtps2pd_ymm_xmm
-circuit:callq .move_64_128_xmm12_xmm13_xmm1  #  3     0x9  5      OPC=callq_label
-
-
+/*
+cvtss2sd %xmm2, %xmm1
 maybe read:{ %xmm1 %xmm2 %mxcsr::rc[0] }
 must read:{ %xmm1 %xmm2 %mxcsr::rc[0] }
 maybe write:{ %xmm1 }
@@ -36,143 +30,78 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ sse2 }
 
+circuit:callq .move_128_64_xmm1_xmm12_xmm13  #  1     0    5      OPC=callq_label
+circuit:vcvtps2pd %xmm2, %ymm12              #  2     0x5  4      OPC=vcvtps2pd_ymm_xmm
+circuit:callq .move_64_128_xmm12_xmm13_xmm1  #  3     0x9  5      OPC=callq_label
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 cvtss2sd %xmm2, %xmm1
 
-
-
   maybe read:      { %xmm1 %xmm2 %mxcsr::rc[0] }
-
   must read:       { %xmm1 %xmm2 %mxcsr::rc[0] }
-
   maybe write:     { %xmm1 }
-
   must write:      { %xmm1 }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { sse2 }
 
-
-
 -------------------------------------
-
 Getting base circuit for callq .move_128_64_xmm1_xmm12_xmm13
 
-
-
 Final state:
-
 %rax/%rax: %rax_cvtss2sd_xmm_xmm
-
 %rdx/%rdx: %rdx_cvtss2sd_xmm_xmm
 
-
-
 %xmm0: %ymm0_cvtss2sd_xmm_xmm[127:0]
-
 %xmm1: %ymm1_cvtss2sd_xmm_xmm[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for vcvtps2pd %xmm2, %ymm12
 
-
-
 Final state:
-
 %ymm12: cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][127:96]) ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][95:64]) ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][63:32]) ∘ cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][31:0])))
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_64_128_xmm12_xmm13_xmm1
 
-
-
 Final state:
-
 %rax/%rax: %rax_cvtss2sd_xmm_xmm
-
 %rdx/%rdx: %rdx_cvtss2sd_xmm_xmm
 
-
-
 %xmm0: %ymm0_cvtss2sd_xmm_xmm[127:0]
-
 %xmm1: (%ymm1_cvtss2sd_xmm_xmm[255:128] ∘ ((%ymm13_cvtss2sd_xmm_xmm[255:128] ∘ (0x0₆₄ ∘ %ymm1_cvtss2sd_xmm_xmm[127:0][127:64]))[127:0][63:0] ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][127:96]) ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][95:64]) ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][63:32]) ∘ cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][31:0]))))[127:0][63:0]))[127:0]
-
-
 
 -------------------------------------
-
 =====================================
-
 Computing circuit for cvtss2sd %xmm2, %xmm1
 
-
-
 .target:
-
 callq .move_128_64_xmm1_xmm12_xmm13
-
 vcvtps2pd %xmm2, %ymm12
-
 callq .move_64_128_xmm12_xmm13_xmm1
-
 retq 
 
-
-
 Initial state:
-
 %xmm1: %ymm1[127:0]
 
-
-
 State for specgen instruction: cvtss2sd %xmm2, %xmm1:
-
 %xmm1: (%ymm1_cvtss2sd_xmm_xmm[255:128] ∘ ((%ymm13_cvtss2sd_xmm_xmm[255:128] ∘ (0x0₆₄ ∘ %ymm1_cvtss2sd_xmm_xmm[127:0][127:64]))[127:0][63:0] ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][127:96]) ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][95:64]) ∘ (cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][63:32]) ∘ cvt_single_to_double(%ymm2_cvtss2sd_xmm_xmm[127:0][31:0]))))[127:0][63:0]))[127:0]
 
-
-
 Final state
-
 %xmm1: (%ymm1[255:128] ∘ (%ymm1[127:64] ∘ cvt_single_to_double(%ymm2[31:0])))[127:0]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %ymm1  : %ymm1[255:128] ∘ (%ymm1[127:64] ∘ cvt_single_to_double(%ymm2[31:0]))
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

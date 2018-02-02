@@ -21,10 +21,10 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
 "RBX" |-> (mi(64, ?I1:Int):MInt => _)
-"RCX" |-> (mi(64, ?I2:Int):MInt => _)
 "OF" |-> (mi(1, 0):MInt => _)
-"R10" |-> (mi(64, 0):MInt => _)
+"RCX" |-> (mi(64, ?I2:Int):MInt => _)
 "R11" |-> (mi(64, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

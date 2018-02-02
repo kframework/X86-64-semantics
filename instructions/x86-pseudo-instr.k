@@ -55,15 +55,34 @@ module SPLIT-COMBINE-XMMS
   // ----------------------------------------------------------------------------
   // moves the lowest 32 bits of xmm to R1, the next 32 bits to
   //  R2, the next to R3 and the highest 32 bits to R4.
+  // Note: R1, R2, R3, R4 could be Xmm, R32 or R64
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= splitXmmToRegsIn32(Xmm, Register, Register, Register, Register)
 
+  /*
   rule <k>
     splitXmmToRegsIn32(X, R1, R2, R3, R4) => 
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32,  0),  getRegisterSize(R1)), R1) ~>
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32, 32),  getRegisterSize(R2)), R2) ~>
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32, 64),  getRegisterSize(R3)), R3) ~>
         setRegisterValue(zeroExtend(extractMask(getRegisterValue(X, RSMap), 32, 96),  getRegisterSize(R4)), R4) 
+  ...</k>
+  */
+
+  rule <k>
+    splitXmmToRegsIn32(X, R1, R2, R3, R4) => 
+        setRegisterValue(
+            plugInMask(getRegisterValue(R1, RSMap), extractMask(getRegisterValue(X, RSMap), 32,  0), 0), 
+            R1) ~>
+        setRegisterValue(
+            plugInMask(getRegisterValue(R2, RSMap), extractMask(getRegisterValue(X, RSMap), 32, 32), 0), 
+            R2) ~>
+        setRegisterValue(
+            plugInMask(getRegisterValue(R3, RSMap), extractMask(getRegisterValue(X, RSMap), 32, 64), 0), 
+            R3) ~>
+        setRegisterValue(
+            plugInMask(getRegisterValue(R4, RSMap), extractMask(getRegisterValue(X, RSMap), 32, 96), 0), 
+            R4)
   ...</k>
     <regstate> RSMap </regstate>
       requires  getRegisterSize(R1) >=Int 32 andBool
@@ -77,23 +96,28 @@ module SPLIT-COMBINE-XMMS
   // moves the lowest 32 bits of R2 to X[63-32]
   // moves the lowest 32 bits of R3 to X[95-64]
   // moves the lowest 32 bits of R4 to X[128-96]
+  // Note: R1, R2, R3, R4 are all Xmm
   // ----------------------------------------------------------------------------
-  syntax Abstractinstruction ::= combineRegsIn32ToXmm(Register, Register, Register, Register, Xmm)
+  syntax Abstractinstruction ::= combineRegsIn32ToXmm(Xmm, Xmm, Xmm, Xmm, Xmm)
 
   rule <k>
-    combineRegsIn32ToXmm(R1, R2, R3, R4, X) => 
+    combineRegsIn32ToXmm(X1, X2, X3, X4, X) => 
       setRegisterValue(
         concatenateMInt(  
-          concatenateMInt(extractMask(getRegisterValue(R4, RSMap), 32, 0), extractMask(getRegisterValue(R3, RSMap), 32, 0)), 
-          concatenateMInt(extractMask(getRegisterValue(R2, RSMap), 32, 0), extractMask(getRegisterValue(R1, RSMap), 32, 0)) 
+          concatenateMInt(
+            extractMask(getRegisterValue(X4, RSMap), 32, 0), extractMask(getRegisterValue(X3, RSMap), 32, 0)), 
+          concatenateMInt(
+            extractMask(getRegisterValue(X2, RSMap), 32, 0), extractMask(getRegisterValue(X1, RSMap), 32, 0)) 
         ), 
       X)
   ...</k>
     <regstate> RSMap </regstate>
+    /*
       requires  getRegisterSize(R1) >=Int 32 andBool
                 getRegisterSize(R2) >=Int 32 andBool
                 getRegisterSize(R3) >=Int 32 andBool
                 getRegisterSize(R4) >=Int 32 
+    */
 endmodule
 
 module SPLIT-COMBINE-2N
@@ -101,6 +125,8 @@ module SPLIT-COMBINE-2N
 
   // ----------------------------------------------------------------------------
   // split the value of a 2N-bit register R1 to 2 N-bit registers R2(low N-bits) and R3(high N-bits)
+  // Note: For N==64, sortof(R2), sortof(R3) could be a R64 or Xmm, but sizeof(R1) is always 2*N
+  // For N =/= 64, sizeof(R2) == sizeof(R3) == N and sizeof(R1) == 2*N
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= split2NToN(Register, Register, Register)
   rule <k>
@@ -120,8 +146,13 @@ module SPLIT-COMBINE-2N
   // ----------------------------------------------------------------------------
   // moves the lowest n bits of R1 to R3[n-1:0]
   // moves the lowest n bits of R2 to R3[2n-1:n]
+  // Note: For N==64, sortof(R3) == Xmm, sortof(R1) or sortof(R2) could be a R64 or Xmm
+  // For N =/= 64, sizeof(R1) == sizeof(R2) == N and sizeof(R3) == 2*N
+  // So for N == 64, we will introduce another version of combineLower64OfXmmTo128,
+  //   when   sortof(R1) or sortof(R2) == Xmm
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= combineNTo2N(Register, Register, Register)
+  syntax Abstractinstruction ::= combineLower64OfXmmTo128(Xmm, Xmm, Xmm)
 
   rule <k>
     combineNTo2N(R1, R2, R3) => 
@@ -133,6 +164,17 @@ module SPLIT-COMBINE-2N
     <regstate> RSMap </regstate>
       // requires getRegisterSize(R3) ==Int (getRegisterSize(R1) +Int getRegisterSize(R2))
 
+  rule <k>
+    combineLower64OfXmmTo128(X1, X2, X3) => 
+      setRegisterValue(
+        concatenateMInt(
+          extractMask(getRegisterValue(X2, RSMap), 64, 0), 
+          extractMask(getRegisterValue(X1, RSMap), 64, 0)
+          ), 
+        X3
+      ) 
+  ...</k>
+    <regstate> RSMap </regstate>
 
 endmodule
 
