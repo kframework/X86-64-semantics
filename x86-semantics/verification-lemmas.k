@@ -99,14 +99,51 @@ module MINT-LEMMAS
   rule lshrMInt(MI:MInt, 0) => MI [lemma]
 
   // concatenateMInt / extractMInt
+  // split <--> join
   rule concatenateMInt(extractMInt(MI, S1, E1), extractMInt(MI, S2, E2)) => extractMInt(MI, S1, E2) 
     requires E1 ==Int S2
+
+  // extracting the whole bitvector
   rule extractMInt(MI, S, E) => MI
     requires (bitwidthMInt(MI) ==Int E) andBool (S ==Int 0)
-  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => MI2
-    requires S ==Int bitwidthMInt(MI1) andBool E ==Int bitwidthMInt(MI1) +Int bitwidthMInt(MI2)
-  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => MI1
-    requires S ==Int 0 andBool E ==Int bitwidthMInt(MI1)
+
+  // extracting from a 0 bitvector returns a zero bitvector.
+  rule extractMInt(MI, S, E) => mi(E -Int S, 0)
+    requires zeroMInt(MI)
+
+  // extracting a subpart of a concatenateMInt
+  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => extractMInt(MI2, S -Int bitwidthMInt(MI1), E -Int bitwidthMInt(MI1))
+    requires S >=Int bitwidthMInt(MI1) 
+
+  // extracting a subpart of a concatenateMInt
+  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => extractMInt(MI1, S , E)
+    requires E <=Int bitwidthMInt(MI1) 
+
+  // extracting a subpart of a concatenateMInt
+  rule extractMInt(concatenateMInt(MI1, MI2), S, E) => concatenateMInt(extractMInt(MI1, S, bitwidthMInt(MI1)), extractMInt(MI2, 0, E -Int bitwidthMInt(MI1)))
+    requires S <Int bitwidthMInt(MI1) andBool E >Int bitwidthMInt(MI1)  
+
+  // Reducing mutiple extraction.
+  rule extractMInt(extractMInt(MI, S1, E1), S2, E2) => extractMInt(MI, S1 +Int S2, S1 +Int E2)
+
+  // extract over signExtensions
+  rule extractMInt(mi(W, svalueMInt(extractMInt(MI, S, E))), S, E) => extractMInt(MI, S, E)
+
+  rule mi(W:Int, svalueMInt(concatenateMInt(MI1, MI2))) => zeroExtend(MI2, W)
+    requires zeroMInt(MI1)
+
+  //rule extractMInt(concatenateMInt(MI1, MI2), S, E) => MI2
+  //  requires S ==Int bitwidthMInt(MI1) andBool E ==Int bitwidthMInt(MI1) +Int bitwidthMInt(MI2)
+
+  //rule extractMInt(concatenateMInt(MI1, MI2), S, E) => MI1
+  //  requires S ==Int 0 andBool E ==Int bitwidthMInt(MI1)
+
+  //rule extractMInt(concatenateMInt(MI1, MI2), S, E) => mi(E -Int S, 0) 
+  //  requires zeroMInt(MI1) andBool E <=Int bitwidthMInt(MI1)
+  
+  //rule extractMInt(concatenateMInt(MI1, MI2), S, E) => mi(E -Int S, 0) 
+  //  requires zeroMInt(MI2) andBool S >=Int bitwidthMInt(MI1)
+
 
 endmodule
 

@@ -9,25 +9,19 @@ module CMOVZW-R16-R16
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( getParentValue(R2, RSMap) ) #else ( mi(64, svalueMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 48, 64))), 32, 64))) ) #fi)  )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module CMOVZW-R16-R16-SEMANTICS
   imports CMOVZW-R16-R16
 endmodule
-
-
-/*circuit:movswq %cx, %r13    #  1     0    4      OPC=movswq_r64_r16
-circuit:movslq %r13d, %r13  #  2     0x4  3      OPC=movslq_r64_r32
-circuit:cmoveq %r13, %rbx   #  3     0x7  4      OPC=cmoveq_r64_r64
-
-
+/*
+cmovzw %cx, %bx
 maybe read:{ %cx %zf }
 must read:{ %cx %zf }
 maybe write:{ %bx }
@@ -36,137 +30,75 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ cmov }
 
+circuit:movswq %cx, %r13    #  1     0    4      OPC=movswq_r64_r16
+circuit:movslq %r13d, %r13  #  2     0x4  3      OPC=movslq_r64_r32
+circuit:cmoveq %r13, %rbx   #  3     0x7  4      OPC=cmoveq_r64_r64
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 cmovzw %cx, %bx
 
-
-
   maybe read:      { %cx %zf }
-
   must read:       { %cx %zf }
-
   maybe write:     { %bx }
-
   must write:      { }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { cmov }
 
-
-
 -------------------------------------
-
 Getting base circuit for movswq %cx, %r13
 
-
-
 Final state:
-
 %r13/%r13: sign-extend-64(%rcx_cmovzw_r16_r16[15:0])
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for movslq %r13d, %r13
 
-
-
 Final state:
-
 %r13/%r13: sign-extend-64(sign-extend-64(%rcx_cmovzw_r16_r16[15:0])[31:0])
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for cmoveq %r13, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: %zf_cmovzw_r16_r16 ? sign-extend-64(sign-extend-64(%rcx_cmovzw_r16_r16[15:0])[31:0]) : %rbx_cmovzw_r16_r16
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for cmovzw %cx, %bx
 
-
-
 .target:
-
 movswq %cx, %r13
-
 movslq %r13d, %r13
-
 cmoveq %r13, %rbx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%bx: %rbx
 
-
-
 State for specgen instruction: cmovzw %cx, %bx:
-
 %rbx/%bx: %zf_cmovzw_r16_r16 ? sign-extend-64(sign-extend-64(%rcx_cmovzw_r16_r16[15:0])[31:0]) : %rbx_cmovzw_r16_r16
 
-
-
 Register        -> %bx
-
   translates to => %bx
-
 Value is               -> (%zf_cmovzw_r16_r16 ? sign-extend-64(sign-extend-64(%rcx_cmovzw_r16_r16[15:0])[31:0]) : %rbx_cmovzw_r16_r16)[15:0]
-
   after renaming it is => %zf ? %rcx[15:0] : %rbx[15:0]
 
-
-
 Final state
-
 %rbx/%bx: %rbx[63:16] ∘ (%zf ? %rcx[15:0] : %rbx[15:0])
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : %rbx[63:16] ∘ (%zf ? %rcx[15:0] : %rbx[15:0])
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

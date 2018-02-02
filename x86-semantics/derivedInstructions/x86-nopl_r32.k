@@ -12,10 +12,8 @@ endmodule
 module NOPL-R32-SEMANTICS
   imports NOPL-R32
 endmodule
-
-
 /*
-
+nopl %ebx
 maybe read:{ }
 must read:{ }
 maybe write:{ }
@@ -26,61 +24,33 @@ required flags:{ nopl }
 
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 nopl %ebx
 
-
-
   maybe read:      { }
-
   must read:       { }
-
   maybe write:     { }
-
   must write:      { }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { nopl }
 
-
-
 =====================================
-
 Computing circuit for nopl %ebx
 
-
-
 .target:
-
 retq 
 
-
-
 Initial state:
-
 State for specgen instruction: nopl %ebx:
-
 Final state
-
 =====================================
-
 Circuits:
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

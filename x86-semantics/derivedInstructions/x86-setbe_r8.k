@@ -7,17 +7,132 @@ module SETBE-R8
   rule <k>
     execinstr (setbe R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> (MI440 => MI440)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(63, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(63, 0), getFlag("ZF", RSMap)) ) #fi) , 0, 8), concatenateMInt(concatenateMInt(mi(7, 0), getFlag("ZF", RSMap)), extractMInt((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(63, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(63, 0), getFlag("ZF", RSMap)) ) #fi) , 16, 64))) )
 
-convToRegKeys(R1) |-> ( _ => orMInt(andMInt((#ifMInt (eqMInt(MI439, mi(1, 0)) ) #then ( mi(64, uvalueMInt(MI440)) ) #else ( mi(64, uvalueMInt(MI439)) ) #fi) , mi(64, -71776119061217281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(MI439)), 32, 64), 16, 32))), 56, 64))), 48)) )
+  
+)   
 
- "ZF" |-> (MI439 => MI439)
-
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module SETBE-R8-SEMANTICS
   imports SETBE-R8
 endmodule
+/*
+setbe %bl
+maybe read:{ %cf %zf }
+must read:{ %cf %zf }
+maybe write:{ %bl }
+must write:{ %bl }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .read_zf_into_rcx           #  1     0     5      OPC=callq_label
+circuit:callq .read_cf_into_rbx           #  2     0x5   5      OPC=callq_label
+circuit:cmoveq %rcx, %rbx                 #  3     0xa   4      OPC=cmoveq_r64_r64
+circuit:callq .move_032_016_ecx_r8w_r9w   #  4     0xe   5      OPC=callq_label
+circuit:callq .move_r8b_to_byte_7_of_rbx  #  5     0x13  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+setbe %bl
+
+  maybe read:      { %cf %zf }
+  must read:       { %cf %zf }
+  maybe write:     { %bl }
+  must write:      { %bl }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .read_zf_into_rcx
+
+Final state:
+%rax/%rax: %rax_setbe_r8
+%rdx/%rdx: %rdx_setbe_r8
+
+%xmm0: %ymm0_setbe_r8[127:0]
+%xmm1: %ymm1_setbe_r8[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .read_cf_into_rbx
+
+Final state:
+%rax/%rax: %rax_setbe_r8
+%rdx/%rdx: %rdx_setbe_r8
+
+%xmm0: %ymm0_setbe_r8[127:0]
+%xmm1: %ymm1_setbe_r8[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for cmoveq %rcx, %rbx
+
+Final state:
+%rbx/%rbx: %zf_setbe_r8 ? 0x0₆₃ ∘ (%zf_setbe_r8 ? 0x1₁ : 0x0₁) : 0x0₆₃ ∘ (%cf_setbe_r8 ? 0x1₁ : 0x0₁)
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_032_016_ecx_r8w_r9w
+
+Final state:
+%rax/%rax: %rax_setbe_r8
+%rdx/%rdx: %rdx_setbe_r8
+
+%xmm0: %ymm0_setbe_r8[127:0]
+%xmm1: %ymm1_setbe_r8[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_r8b_to_byte_7_of_rbx
+
+Final state:
+%rax/%rax: %rax_setbe_r8
+%rdx/%rdx: %rdx_setbe_r8
+
+%xmm0: %ymm0_setbe_r8[127:0]
+%xmm1: %ymm1_setbe_r8[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for setbe %bl
+
+.target:
+callq .read_zf_into_rcx
+callq .read_cf_into_rbx
+cmoveq %rcx, %rbx
+callq .move_032_016_ecx_r8w_r9w
+callq .move_r8b_to_byte_7_of_rbx
+retq 
+
+Initial state:
+%rbx/%bl: %rbx
+
+State for specgen instruction: setbe %bl:
+%rbx/%bl: (%r8_setbe_r8[63:16] ∘ (0x0₆₃ ∘ (%zf_setbe_r8 ? 0x1₁ : 0x0₁))[31:0][15:0])[7:0] ∘ (%zf_setbe_r8 ? 0x0₆₃ ∘ (%zf_setbe_r8 ? 0x1₁ : 0x0₁) : 0x0₆₃ ∘ (%cf_setbe_r8 ? 0x1₁ : 0x0₁))[55:0]
+
+Register        -> %bl
+  translates to => %bl
+Value is               -> ((%r8_setbe_r8[63:16] ∘ (0x0₆₃ ∘ (%zf_setbe_r8 ? 0x1₁ : 0x0₁))[31:0][15:0])[7:0] ∘ (%zf_setbe_r8 ? 0x0₆₃ ∘ (%zf_setbe_r8 ? 0x1₁ : 0x0₁) : 0x0₆₃ ∘ (%cf_setbe_r8 ? 0x1₁ : 0x0₁))[55:0])[7:0]
+  after renaming it is => %zf ? %zf ? 0x1₈ : 0x0₈ : %cf ? 0x1₈ : 0x0₈
+
+Final state
+%rbx/%bl: %rbx[63:8] ∘ (%zf ? %zf ? 0x1₈ : 0x0₈ : %cf ? 0x1₈ : 0x0₈)
+
+=====================================
+Circuits:
+
+%rbx   : %rbx[63:8] ∘ (%zf ? %zf ? 0x1₈ : 0x0₈ : %cf ? 0x1₈ : 0x0₈)
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

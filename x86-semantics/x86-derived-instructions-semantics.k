@@ -24,7 +24,7 @@ requires "x86-movzbw_r16_r8.k"
 requires "x86-movzbw_r16_rh.k"
 requires "x86-movzwl_r32_r16.k"
 requires "x86-nopl_r32.k"
-requires "x86-nop.k"
+//requires "x86-nop.k"
 requires "x86-nopw_r16.k"
 requires "x86-rcll_r32_one.k"
 requires "x86-rclq_r64_one.k"
@@ -177,7 +177,9 @@ requires "x86-xorl_r32_r32.k"
 requires "x86-xorps_xmm_xmm.k"
 
 module X86-DERIVED-INSTRUCTIONS-SEMANTICS
-  // Stratum 0
+  /* 
+     Stratum 0
+  */   
   imports ADDQ-R64-R64-SEMANTICS
   imports ANDNQ-R64-R64-R64-SEMANTICS
   imports CBTW-SEMANTICS
@@ -203,7 +205,7 @@ module X86-DERIVED-INSTRUCTIONS-SEMANTICS
   imports MOVZBW-R16-RH-SEMANTICS
   imports MOVZWL-R32-R16-SEMANTICS
   imports NOPL-R32-SEMANTICS
-  imports NOP-SEMANTICS
+  //imports NOP-SEMANTICS
   imports NOPW-R16-SEMANTICS
   imports RCLL-R32-ONE-SEMANTICS
   imports RCLQ-R64-ONE-SEMANTICS
@@ -271,7 +273,10 @@ module X86-DERIVED-INSTRUCTIONS-SEMANTICS
   imports XCHGQ-R64-R64-SEMANTICS
   imports XCHGW-R16-R16-SEMANTICS
   imports XORW-R16-R16-SEMANTICS
-  // Statum 1
+
+  /* 
+     Stratum 1
+  */   
   imports ADCB-RH-R8-SEMANTICS
   imports ADDPD-XMM-XMM-SEMANTICS
   imports ADDW-R16-R16-SEMANTICS

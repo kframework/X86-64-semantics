@@ -9,7 +9,6 @@ module INCL-R32
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
  "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(addMInt(mi(32, 1), extractMInt(getParentValue(R1, RSMap), 32, 64)), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(32, 1), extractMInt(getParentValue(R1, RSMap), 32, 64)), addMInt(mi(32, 1), extractMInt(getParentValue(R1, RSMap), 32, 64))), 4), mi(32, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
@@ -22,24 +21,17 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), addMInt(mi(32, 1), extractMInt
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(mi(32, 1), extractMInt(getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module INCL-R32-SEMANTICS
   imports INCL-R32
 endmodule
-
-
-/*circuit:callq .clear_cf          #  1     0     5      OPC=callq_label
-circuit:callq .set_pf            #  2     0x5   5      OPC=callq_label
-circuit:callq .read_pf_into_rcx  #  3     0xa   5      OPC=callq_label
-circuit:adcl %ecx, %ebx          #  4     0xf   2      OPC=adcl_r32_r32
-circuit:callq .set_szp_for_ebx   #  5     0x11  5      OPC=callq_label
-
-
+/*
+incl %ebx
 maybe read:{ %ebx }
 must read:{ %ebx }
 maybe write:{ %rbx %pf %af %zf %sf %of }
@@ -48,263 +40,140 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:callq .clear_cf          #  1     0     5      OPC=callq_label
+circuit:callq .set_pf            #  2     0x5   5      OPC=callq_label
+circuit:callq .read_pf_into_rcx  #  3     0xa   5      OPC=callq_label
+circuit:adcl %ecx, %ebx          #  4     0xf   2      OPC=adcl_r32_r32
+circuit:callq .set_szp_for_ebx   #  5     0x11  5      OPC=callq_label
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 incl %ebx
 
-
-
   maybe read:      { %ebx }
-
   must read:       { %ebx }
-
   maybe write:     { %rbx %pf %af %zf %sf %of }
-
   must write:      { %rbx %pf %af %zf %sf %of }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for callq .clear_cf
 
-
-
 Final state:
-
 %rax/%rax: %rax_incl_r32
-
 %rdx/%rdx: %rdx_incl_r32
 
-
-
 %xmm0: %ymm0_incl_r32[127:0]
-
 %xmm1: %ymm1_incl_r32[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .set_pf
 
-
-
 Final state:
-
 %rax/%rax: %rax_incl_r32
-
 %rdx/%rdx: %rdx_incl_r32
 
-
-
 %xmm0: %ymm0_incl_r32[127:0]
-
 %xmm1: %ymm1_incl_r32[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .read_pf_into_rcx
 
-
-
 Final state:
-
 %rax/%rax: %rax_incl_r32
-
 %rdx/%rdx: %rdx_incl_r32
 
-
-
 %xmm0: %ymm0_incl_r32[127:0]
-
 %xmm1: %ymm1_incl_r32[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for adcl %ecx, %ebx
 
-
-
 Final state:
-
 %rbx/%rbx: 0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0]
-
-
 
 %cf: ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[32:32] = 0x1₁
-
 %pf: !(((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0][3:0] + 0x0₁ ∘ %rbx_incl_r32[31:0][3:0])[4:4] = 0x1₁
-
 %zf: ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0] = 0x0₃₂
-
 %sf: ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0][31:31] = 0x1₁
-
 %of: ((0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0][31:31] = 0x1₁ ↔ %rbx_incl_r32[31:0][31:31] = 0x1₁) ∧ !((0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0][31:31] = 0x1₁ ↔ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:31] = 0x1₁)
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .set_szp_for_ebx
 
-
-
 Final state:
-
 %rax/%rax: %rax_incl_r32
-
 %rdx/%rdx: %rdx_incl_r32
 
-
-
 %xmm0: %ymm0_incl_r32[127:0]
-
 %xmm1: %ymm1_incl_r32[127:0]
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for incl %ebx
 
-
-
 .target:
-
 callq .clear_cf
-
 callq .set_pf
-
 callq .read_pf_into_rcx
-
 adcl %ecx, %ebx
-
 callq .set_szp_for_ebx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 %pf: %pf
-
 %af: %af
-
 %zf: %zf
-
 %sf: %sf
-
 %of: %of
 
-
-
 State for specgen instruction: incl %ebx:
-
 %rbx/%rbx: 0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0]
 
-
-
 %pf: !((0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][0:0] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][1:1] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][2:2] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][3:3] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][4:4] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][5:5] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][6:6] = 0x1₁ ⊕ (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0][3:0] + 0x0₁ ∘ %rbx_incl_r32[31:0][3:0])[4:4] = 0x1₁
-
 %zf: (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0] = 0x0₃₂
-
 %sf: (0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0])[31:0][31:31] = 0x1₁
-
 %of: ((0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0][31:31] = 0x1₁ ↔ %rbx_incl_r32[31:0][31:31] = 0x1₁) ∧ !((0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0][31:31] = 0x1₁ ↔ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:31] = 0x1₁)
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> 0x0₃₂ ∘ ((false ? 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0] + 0x1₃₃ : 0x0₁ ∘ (0x0₆₃ ∘ (true ? 0x1₁ : 0x0₁))[31:0]) + 0x0₁ ∘ %rbx_incl_r32[31:0])[31:0]
-
   after renaming it is => 0x0₃₂ ∘ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:0]
 
-
-
 Final state
-
 %rbx/%rbx: 0x0₃₂ ∘ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:0]
 
-
-
 %pf: !((0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[0:0] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[1:1] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[2:2] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[3:3] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[4:4] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[5:5] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[6:6] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[7:7] = 0x1₁)
-
 %af: (0x1₅ + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-
 %zf: (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:0] = 0x0₃₂
-
 %sf: (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁
-
 %of: (false ↔ %rbx[31:31] = 0x1₁) ∧ !(false ↔ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁)
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : 0x0₃₂ ∘ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:0]
 
-
-
 %pf    : !((0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[0:0] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[1:1] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[2:2] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[3:3] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[4:4] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[5:5] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[6:6] = 0x1₁ ⊕ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[7:7] = 0x1₁)
-
 %af    : (0x1₅ + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-
 %zf    : (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:0] = 0x0₃₂
-
 %sf    : (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁
-
 %of    : (false ↔ %rbx[31:31] = 0x1₁) ∧ !(false ↔ (0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁)
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

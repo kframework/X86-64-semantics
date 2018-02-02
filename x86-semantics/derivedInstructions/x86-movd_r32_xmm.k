@@ -9,26 +9,19 @@ module MOVD-R32-XMM
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 224, 256)) )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module MOVD-R32-XMM-SEMANTICS
   imports MOVD-R32-XMM
 endmodule
-
-
-/*circuit:callq .move_128_032_xmm1_xmm8_xmm9_xmm10_xmm11  #  1     0     5      OPC=callq_label
-circuit:callq .move_128_256_xmm8_xmm9_ymm1              #  2     0x5   5      OPC=callq_label
-circuit:callq .move_128_064_xmm1_r10_r11                #  3     0xa   5      OPC=callq_label
-circuit:callq .move_032_064_r10d_r11d_rbx               #  4     0xf   5      OPC=callq_label
-
-
+/*
+movd %xmm1, %ebx
 maybe read:{ %xmm1 }
 must read:{ %xmm1 }
 maybe write:{ %rbx }
@@ -37,185 +30,100 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ sse2 }
 
+circuit:callq .move_128_032_xmm1_xmm8_xmm9_xmm10_xmm11  #  1     0     5      OPC=callq_label
+circuit:callq .move_128_256_xmm8_xmm9_ymm1              #  2     0x5   5      OPC=callq_label
+circuit:callq .move_128_064_xmm1_r10_r11                #  3     0xa   5      OPC=callq_label
+circuit:callq .move_032_064_r10d_r11d_rbx               #  4     0xf   5      OPC=callq_label
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 movd %xmm1, %ebx
 
-
-
   maybe read:      { %xmm1 }
-
   must read:       { %xmm1 }
-
   maybe write:     { %rbx }
-
   must write:      { %rbx }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { sse2 }
 
-
-
 -------------------------------------
-
 Getting base circuit for callq .move_128_032_xmm1_xmm8_xmm9_xmm10_xmm11
 
-
-
 Final state:
-
 %rax/%rax: %rax_movd_r32_xmm
-
 %rdx/%rdx: %rdx_movd_r32_xmm
 
-
-
 %xmm0: %ymm0_movd_r32_xmm[127:0]
-
 %xmm1: %ymm1_movd_r32_xmm[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_128_256_xmm8_xmm9_ymm1
 
-
-
 Final state:
-
 %rax/%rax: %rax_movd_r32_xmm
-
 %rdx/%rdx: %rdx_movd_r32_xmm
 
-
-
 %xmm0: %ymm0_movd_r32_xmm[127:0]
-
 %xmm1: ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_128_064_xmm1_r10_r11
 
-
-
 Final state:
-
 %rax/%rax: %rax_movd_r32_xmm
-
 %rdx/%rdx: %rdx_movd_r32_xmm
 
-
-
 %xmm0: %ymm0_movd_r32_xmm[127:0]
-
 %xmm1: ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_032_064_r10d_r11d_rbx
 
-
-
 Final state:
-
 %rax/%rax: %rax_movd_r32_xmm
-
 %rdx/%rdx: %rdx_movd_r32_xmm
 
-
-
 %xmm0: %ymm0_movd_r32_xmm[127:0]
-
 %xmm1: ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0]
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for movd %xmm1, %ebx
 
-
-
 .target:
-
 callq .move_128_032_xmm1_xmm8_xmm9_xmm10_xmm11
-
 callq .move_128_256_xmm8_xmm9_ymm1
-
 callq .move_128_064_xmm1_r10_r11
-
 callq .move_032_064_r10d_r11d_rbx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 State for specgen instruction: movd %xmm1, %ebx:
-
 %rbx/%rbx: ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0][127:64][31:0][31:0] ∘ ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0][63:0][31:0][31:0]
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0][127:64][31:0][31:0] ∘ ((%ymm9_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][63:32]))[127:0][127:0] ∘ (%ymm8_movd_r32_xmm[255:128] ∘ (0x0₉₆ ∘ %ymm1_movd_r32_xmm[127:0][31:0]))[127:0][127:0])[127:0][63:0][31:0][31:0]
-
   after renaming it is => 0x0₃₂ ∘ %ymm1[31:0]
 
-
-
 Final state
-
 %rbx/%rbx: 0x0₃₂ ∘ %ymm1[31:0]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : 0x0₃₂ ∘ %ymm1[31:0]
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

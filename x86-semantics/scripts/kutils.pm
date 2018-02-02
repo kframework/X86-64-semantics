@@ -855,15 +855,14 @@ sub getStrataBVFormula {
 
   # Escape the $ sign (if present)
   $instr =~ s/\$/\\\$/g;
-  execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1", 1);
+  execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1");
 
-    my $filepath = "/tmp/yyy";
-    open( my $fp, "<", $filepath )
-      or die "[instr_to_opcode]cannot open $filepath: $!";
-    my @lines = <$fp>;
+  my $filepath = "/tmp/yyy";
+  open( my $fp, "<", $filepath )
+    or die "[instr_to_opcode]cannot open $filepath: $!";
+  my @lines = <$fp>;
 
-    return join("", @lines);
-
+  return join("", @lines);
 }
 
 ##################################################
@@ -937,8 +936,14 @@ sub replaceCallWithPseudoInsr {
             return "split2NToN( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
         }
 
-        if ( $n == 2 * $m ) {
+        if ( $n == 2 * $m and $m != 64) {
             return "combineNTo2N( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+        } else {
+            if($m eq "64") {
+              return "combineLower64OfXmmTo128( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+            } else {
+              return "combineNTo2N( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+            }
         }
     }
 
@@ -1443,7 +1448,8 @@ sub selectRules {
             if ( exists $mustUndefSet{$reg} ) {
                 $returnInfo =
                   $returnInfo
-                  . " \"$reg\" |-> (MI$rsmap{$reg} => undef)" . "\n\n";
+#. " \"$reg\" |-> (MI$rsmap{$reg} => undef)" . "\n\n";
+                  . " \"$reg\" |-> (undef)" . "\n\n";
                 next;
             }
 
@@ -1480,18 +1486,34 @@ sub selectRules {
             ## convToRegKeys(R1) |-> ( MI550 => xorMInt(MI549, orMInt(MI549, MI550)) )
             ## need to converted to
             ## convToRegKeys(R1) |-> ( MI550 => MI550 )
-            if ( exists $actual2psedoRegs{$reg} ) {
-                $returnInfo =
-                    $returnInfo
-                  . "convToRegKeys($actual2psedoRegs{$reg}) |-> (MI$rsmap{$reg} => MI$rsmap{$reg})"
-                  . "\n\n";
-            }
-            else {
-                $returnInfo =
-                  $returnInfo
-                  . " \"$reg\" |-> (MI$rsmap{$reg} => MI$rsmap{$reg})" . "\n\n";
-            }
+#            if ( exists $actual2psedoRegs{$reg} ) {
+#                $returnInfo =
+#                    $returnInfo
+#                  . "convToRegKeys($actual2psedoRegs{$reg}) |-> (MI$rsmap{$reg} => MI$rsmap{$reg})"
+#                  . "\n\n";
+#            }
+#            else {
+#                $returnInfo =
+#                  $returnInfo
+#                  . " \"$reg\" |-> (MI$rsmap{$reg} => MI$rsmap{$reg})" . "\n\n";
+#            }
         }
+    }
+
+    ## All the collected MIs should be converted to getParentValue or getFlag
+    for my $minum (keys %collectedMINUMs) {
+      my $num = $minum =~ s/MI(\d+)/$1/gr; 
+      my $regKey = $rev_rsmap{$num};
+      if(exists $actual2psedoRegs{$regKey}) {
+        $returnInfo =~ s/$minum/getParentValue($actual2psedoRegs{$regKey}, RSMap)/g;
+      } else {
+        if( $regKey =~ m/CF|PF|AF|ZF|SF|OF/ ) {
+          $returnInfo =~ s/$minum/getFlag(\"$regKey\", RSMap)/g;
+        } else {
+          my $realreg = "%" . lc($regKey);
+          $returnInfo =~ s/$minum/getParentValue($realreg, RSMap)/g;
+        }
+      }
     }
 
     debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n",
@@ -1523,9 +1545,10 @@ sub selectRules {
 
             ## If the register is not in read/write/undef sets, remove it.
             if ( exists( $collectedMINUMs{$defnminum} ) ) {
-                $returnInfo =
-                  $returnInfo
-                  . " \"$reg\" |-> ($defnminum => $defnminum)" . "\n\n";
+#                $returnInfo =
+#                  $returnInfo
+#                  . " \"$reg\" |-> ($defnminum => $defnminum)" . "\n\n";
+              utils::failInfo("Sratch Pad found");  
             }
         }
     }
@@ -1637,8 +1660,9 @@ sub sanitizeSpecOutput {
         my $result = "";
 
         debugInfo( "Stage 1.1: " . $mod . "\n\n", $debugprint );
-        $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
-        debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
+#$mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
+        $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ($2)/g;
+#debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
 
         if ( $mod =~ /_/ ) {
             $result = mixfix2infix( $mod, $debugprint );
@@ -1668,14 +1692,14 @@ sub sanitizeSpecOutput {
     # Global Optimzations
     ## "R" |-> (MINUM => ...) and MINUM does not occur elsewhere then Replace
     ## MINUM with _
-    for my $key ( keys %rsmap ) {
-        my $val     = "MI" . %rsmap{$key};
-        my @matches = $returnInfo =~ m/$val/g;
-        if ( 1 == scalar(@matches) ) {
-            $returnInfo =~ s/$val/_/;
-        }
-    }
-
+#    for my $key ( keys %rsmap ) {
+#        my $val     = "MI" . %rsmap{$key};
+#        my @matches = $returnInfo =~ m/$val/g;
+#        if ( 1 == scalar(@matches) ) {
+#            $returnInfo =~ s/$val/_/;
+#        }
+#    }
+#
     ## Remove or comment out the reglines which are not written
 
     debugInfo( "Rules After GOPT: $returnInfo\n", $debugprint );
@@ -1860,9 +1884,12 @@ module $module_name_uc
   rule <k>
     execinstr ($enc $operands .Typedoperands) => .
   ...</k>
-    <regstate> ...
-$semantics
-    ...</regstate>
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+$semantics  
+)   
+
+    </regstate>
 endmodule
 
 module $module_name_uc-SEMANTICS
@@ -1886,6 +1913,7 @@ endmodule
 
     print $fp "/*"        . "\n" .
             $targetinstr  . "\n" .
+            $rwset        . "\n" .
             $orig_circuit . "\n" .
             $strata_BVFormula . "\n" .
             "*/";  

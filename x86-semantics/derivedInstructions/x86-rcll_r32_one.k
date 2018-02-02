@@ -9,28 +9,23 @@ module RCLL-R32-ONE
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( (  ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), extractMInt(getParentValue(R2, RSMap), 32, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), extractMInt(getParentValue(R2, RSMap), 32, 64)) )  orBool  ( ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "CF" |-> ((#ifMInt ( (  ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), extractMInt(getParentValue(R2, RSMap), 32, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), extractMInt(getParentValue(R2, RSMap), 32, 64)) )  orBool  ( ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), mi(32, uvalueMInt(getFlag("CF", RSMap)))), addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), mi(32, uvalueMInt(getFlag("CF", RSMap)))), mi(32, uvalueMInt(getFlag("CF", RSMap)))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), 31)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ((#ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), mi(32, uvalueMInt(getFlag("CF", RSMap)))), 31)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), mi(32, uvalueMInt(getFlag("CF", RSMap)))), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap)))) )
 
-convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), mi(32, uvalueMInt(getFlag("CF", RSMap))))) )
+  
+)   
 
-
-
-)
     </regstate>
 endmodule
 
 module RCLL-R32-ONE-SEMANTICS
   imports RCLL-R32-ONE
 endmodule
-
-
-/*circuit:movslq %ebx, %rbx  #  1     0    3      OPC=movslq_r64_r32
-circuit:adcl %ebx, %ebx    #  2     0x3  2      OPC=adcl_r32_r32
-
-
+/*
+rcll $0x1, %ebx
 maybe read:{ %ebx %cf }
 must read:{ %ebx %cf }
 maybe write:{ %rbx %cf %of }
@@ -39,159 +34,85 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:movslq %ebx, %rbx  #  1     0    3      OPC=movslq_r64_r32
+circuit:adcl %ebx, %ebx    #  2     0x3  2      OPC=adcl_r32_r32
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 rcll $0x1, %ebx
 
-
-
   maybe read:      { %ebx %cf }
-
   must read:       { %ebx %cf }
-
   maybe write:     { %rbx %cf %of }
-
   must write:      { %rbx %cf %of }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for movslq %ebx, %rbx
 
-
-
 Final state:
-
 %rbx/%rbx: sign-extend-64(%rbx_rcll_r32_one[31:0])
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for adcl %ebx, %ebx
 
-
-
 Final state:
-
 %rbx/%rbx: 0x0₃₂ ∘ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0]
 
-
-
 %cf: ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[32:32] = 0x1₁
-
 %pf: !(((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][0:0] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][1:1] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][2:2] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][3:3] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][4:4] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][5:5] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][6:6] = 0x1₁ ⊕ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][3:0] + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][3:0])[4:4] = 0x1₁
-
 %zf: ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0] = 0x0₃₂
-
 %sf: ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0][31:31] = 0x1₁
-
 %of: (sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][31:31] = 0x1₁ ↔ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][31:31] = 0x1₁) ∧ !(sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][31:31] = 0x1₁ ↔ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:31] = 0x1₁)
-
-
 
 -------------------------------------
-
 =====================================
-
 Computing circuit for rcll $0x1, %ebx
 
-
-
 .target:
-
 movslq %ebx, %rbx
-
 adcl %ebx, %ebx
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%rbx: %rbx
 
-
-
 %cf: %cf
-
 %of: %of
 
-
-
 State for specgen instruction: rcll $0x1, %ebx:
-
 %rbx/%rbx: 0x0₃₂ ∘ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0]
 
-
-
 %cf: ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[32:32] = 0x1₁
-
 %of: (sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][31:31] = 0x1₁ ↔ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][31:31] = 0x1₁) ∧ !(sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0][31:31] = 0x1₁ ↔ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:31] = 0x1₁)
 
-
-
 Register        -> %rbx
-
   translates to => %rbx
-
 Value is               -> 0x0₃₂ ∘ ((%cf_rcll_r32_one ? 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0] + 0x1₃₃ : 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0]) + 0x0₁ ∘ sign-extend-64(%rbx_rcll_r32_one[31:0])[31:0])[31:0]
-
   after renaming it is => 0x0₃₂ ∘ ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[31:0]
 
-
-
 Final state
-
 %rbx/%rbx: 0x0₃₂ ∘ ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[31:0]
 
-
-
 %cf: ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[32:32] = 0x1₁
-
 %of: (%rbx[31:31] = 0x1₁ ↔ %rbx[31:31] = 0x1₁) ∧ !(%rbx[31:31] = 0x1₁ ↔ ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁)
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : 0x0₃₂ ∘ ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[31:0]
 
-
-
 %cf    : ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[32:32] = 0x1₁
-
 %of    : (%rbx[31:31] = 0x1₁ ↔ %rbx[31:31] = 0x1₁) ∧ !(%rbx[31:31] = 0x1₁ ↔ ((%cf ? 0x0₁ ∘ %rbx[31:0] + 0x1₃₃ : 0x0₁ ∘ %rbx[31:0]) + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁)
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

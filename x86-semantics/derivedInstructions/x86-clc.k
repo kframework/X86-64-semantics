@@ -9,24 +9,19 @@ module CLC
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
  "CF" |-> (mi(1, 0) )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module CLC-SEMANTICS
   imports CLC
 endmodule
-
-
-/*circuit:xorq %rax, %rax  #  1     0    3      OPC=xorq_r64_r64
-circuit:adcb %al, %al    #  2     0x3  2      OPC=adcb_r8_r8
-
-
+/*
+clc
 maybe read:{ }
 must read:{ }
 maybe write:{ %cf }
@@ -35,137 +30,74 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:xorq %rax, %rax  #  1     0    3      OPC=xorq_r64_r64
+circuit:adcb %al, %al    #  2     0x3  2      OPC=adcb_r8_r8
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 clc 
 
-
-
   maybe read:      { }
-
   must read:       { }
-
   maybe write:     { %cf }
-
   must write:      { %cf }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for xorq %rax, %rax
 
-
-
 Final state:
-
 %rax/%rax: %rax_clc ⊕ %rax_clc
 
-
-
 %cf: false
-
 %pf: !((%rax_clc ⊕ %rax_clc)[7:0][0:0] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][1:1] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][2:2] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][3:3] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][4:4] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][5:5] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][6:6] = 0x1₁ ⊕ (%rax_clc ⊕ %rax_clc)[7:0][7:7] = 0x1₁)
-
 %zf: (%rax_clc ⊕ %rax_clc) = 0x0₆₄
-
 %sf: (%rax_clc ⊕ %rax_clc)[63:63] = 0x1₁
-
 %of: false
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for adcb %al, %al
 
-
-
 Final state:
-
 %rax/%al: (%rax_clc ⊕ %rax_clc)[63:8] ∘ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0]
 
-
-
 %cf: ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[8:8] = 0x1₁
-
 %pf: !(((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0][3:0] + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0][3:0])[4:4] = 0x1₁
-
 %zf: ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0] = 0x0₈
-
 %sf: ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:0][7:7] = 0x1₁
-
 %of: ((%rax_clc ⊕ %rax_clc)[7:0][7:7] = 0x1₁ ↔ (%rax_clc ⊕ %rax_clc)[7:0][7:7] = 0x1₁) ∧ !((%rax_clc ⊕ %rax_clc)[7:0][7:7] = 0x1₁ ↔ ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[7:7] = 0x1₁)
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for clc 
 
-
-
 .target:
-
 xorq %rax, %rax
-
 adcb %al, %al
-
 retq 
 
-
-
 Initial state:
-
 %cf: %cf
 
-
-
 State for specgen instruction: clc :
-
 %cf: ((false ? 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0] + 0x1₉ : 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0]) + 0x0₁ ∘ (%rax_clc ⊕ %rax_clc)[7:0])[8:8] = 0x1₁
 
-
-
 Final state
-
 %cf: false
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %cf    : false
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

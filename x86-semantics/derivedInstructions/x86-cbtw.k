@@ -9,26 +9,19 @@ module CBTW
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
  "RAX" |-> (concatenateMInt(extractMInt(getParentValue(%rax, RSMap), 0, 32), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64))), 32, 64)) )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module CBTW-SEMANTICS
   imports CBTW
 endmodule
-
-
-/*circuit:movsbq %al, %r8                           #  1     0     4      OPC=movsbq_r64_r8
-circuit:movq $0x10, %r9                           #  2     0x4   10     OPC=movq_r64_imm64
-circuit:callq .move_064_128_r8_r9_xmm1            #  3     0xe   5      OPC=callq_label
-circuit:callq .move_128_032_xmm1_eax_edx_r8d_r9d  #  4     0x13  5      OPC=callq_label
-
-
+/*
+cbtw
 maybe read:{ %al }
 must read:{ %al }
 maybe write:{ %ax }
@@ -37,169 +30,92 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:movsbq %al, %r8                           #  1     0     4      OPC=movsbq_r64_r8
+circuit:movq $0x10, %r9                           #  2     0x4   10     OPC=movq_r64_imm64
+circuit:callq .move_064_128_r8_r9_xmm1            #  3     0xe   5      OPC=callq_label
+circuit:callq .move_128_032_xmm1_eax_edx_r8d_r9d  #  4     0x13  5      OPC=callq_label
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 cbtw 
 
-
-
   maybe read:      { %al }
-
   must read:       { %al }
-
   maybe write:     { %ax }
-
   must write:      { %ax }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for movsbq %al, %r8
 
-
-
 Final state:
-
 %r8/%r8: sign-extend-64(%rax_cbtw[7:0])
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for movq $0x10, %r9
 
-
-
 Final state:
-
 %r9/%r9: 0x10₆₄
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_064_128_r8_r9_xmm1
 
-
-
 Final state:
-
 %rax/%rax: %rax_cbtw
-
 %rdx/%rdx: %rdx_cbtw
 
-
-
 %xmm0: %ymm0_cbtw[127:0]
-
 %xmm1: (%ymm1_cbtw[255:128] ∘ (0x10₆₄[63:0] ∘ sign-extend-64(%rax_cbtw[7:0])[63:0]))[127:0]
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for callq .move_128_032_xmm1_eax_edx_r8d_r9d
 
-
-
 Final state:
-
 %rax/%rax: 0x0₃₂ ∘ (%ymm1_cbtw[255:128] ∘ (0x10₆₄[63:0] ∘ sign-extend-64(%rax_cbtw[7:0])[63:0]))[127:0][31:0]
-
 %rdx/%rdx: 0x0₃₂ ∘ (%ymm1_cbtw[255:128] ∘ (0x10₆₄[63:0] ∘ sign-extend-64(%rax_cbtw[7:0])[63:0]))[127:0][63:32]
 
-
-
 %xmm0: %ymm0_cbtw[127:0]
-
 %xmm1: (%ymm1_cbtw[255:128] ∘ (0x10₆₄[63:0] ∘ sign-extend-64(%rax_cbtw[7:0])[63:0]))[127:0]
 
-
-
 -------------------------------------
-
 =====================================
-
 Computing circuit for cbtw 
 
-
-
 .target:
-
 movsbq %al, %r8
-
 movq $0x10, %r9
-
 callq .move_064_128_r8_r9_xmm1
-
 callq .move_128_032_xmm1_eax_edx_r8d_r9d
-
 retq 
 
-
-
 Initial state:
-
 %rax/%ax: %rax
 
-
-
 State for specgen instruction: cbtw :
-
 %rax/%ax: 0x0₃₂ ∘ (%ymm1_cbtw[255:128] ∘ (0x10₆₄[63:0] ∘ sign-extend-64(%rax_cbtw[7:0])[63:0]))[127:0][31:0]
 
-
-
 Register        -> %ax
-
   translates to => %ax
-
 Value is               -> (0x0₃₂ ∘ (%ymm1_cbtw[255:128] ∘ (0x10₆₄[63:0] ∘ sign-extend-64(%rax_cbtw[7:0])[63:0]))[127:0][31:0])[15:0]
-
   after renaming it is => sign-extend-64(%rax[7:0])[15:0]
 
-
-
 Final state
-
 %rax/%ax: %rax[63:16] ∘ sign-extend-64(%rax[7:0])[15:0]
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rax   : %rax[63:16] ∘ sign-extend-64(%rax[7:0])[15:0]
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */

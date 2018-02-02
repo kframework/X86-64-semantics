@@ -18,7 +18,7 @@ module VSUBPD-YMM-YMM-YMM
     <regstate> RSMap</regstate>
 
 
-  rule <k> execinstr(vsubpd  DestR, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsubpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VSUBPS-YMM-YMM-YMM
@@ -33,7 +33,7 @@ module VSUBPS-YMM-YMM-YMM
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vsubps  DestR, MIsrc:MInt, .Typedoperands ) => updateReg(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsubps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 

@@ -61,3 +61,134 @@ module MOV-SEMANTICS
   imports MOV-R8-RH
   imports MOV-RH-R8
 endmodule
+
+
+/*
+Target
+
+movq %rax, %rbx
+
+  maybe read:      { %rax }
+  must read:       { %rax }
+  maybe write:     { %rbx }
+  must write:      { %rbx }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+Circuits:
+
+%rbx   : %rax
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+Target
+
+movq %rax, %rax
+
+  maybe read:      { %rax }
+  must read:       { %rax }
+  maybe write:     { %rax }
+  must write:      { %rax }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+Circuits:
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+  
+
+
+Target
+
+movb %al, %bh
+
+  maybe read:      { %al }
+  must read:       { %al }
+  maybe write:     { %bh }
+  must write:      { %bh }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+Circuits:
+
+%rbx   : %rbx[63:16] ∘ %rax[7:0] ∘ %rbx[7:0]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+movb %al, %ah
+
+  maybe read:      { %al }
+  must read:       { %al }
+  maybe write:     { %ah }
+  must write:      { %ah }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+Circuits:
+
+%rax   : %rax[63:16] ∘ %rax[7:0] ∘ %rax[7:0]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+Target
+
+movb %ah, %bl
+
+  maybe read:      { %ah }
+  must read:       { %ah }
+  maybe write:     { %bl }
+  must write:      { %bl }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+Circuits:
+
+%rbx   : %rbx[63:8] ∘ %rax[15:8]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+movb %ah, %al
+
+  maybe read:      { %ah }
+  must read:       { %ah }
+  maybe write:     { %al }
+  must write:      { %al }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+Circuits:
+
+%rax   : %rax[63:8] ∘ %rax[15:8]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+
+
+*/   

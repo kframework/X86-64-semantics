@@ -9,7 +9,6 @@ module DECB-R8
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-
  "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
@@ -22,22 +21,17 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
+  
+)   
 
-
-)
     </regstate>
 endmodule
 
 module DECB-R8-SEMANTICS
   imports DECB-R8
 endmodule
-
-
-/*circuit:movq $0xffffffffffffffff, %r9  #  1     0     10     OPC=movq_r64_imm64
-circuit:xorq %rcx, %rcx                #  2     0xa   3      OPC=xorq_r64_r64
-circuit:adcb %r9b, %bl                 #  3     0xd   3      OPC=adcb_r8_r8
-
-
+/*
+decb %bl
 maybe read:{ %bl }
 must read:{ %bl }
 maybe write:{ %bl %pf %af %zf %sf %of }
@@ -46,211 +40,112 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+circuit:movq $0xffffffffffffffff, %r9  #  1     0     10     OPC=movq_r64_imm64
+circuit:xorq %rcx, %rcx                #  2     0xa   3      OPC=xorq_r64_r64
+circuit:adcb %r9b, %bl                 #  3     0xd   3      OPC=adcb_r8_r8
 
 WARNING: No live out values provided, assuming { }
-
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-
 Target
-
-
 
 decb %bl
 
-
-
   maybe read:      { %bl }
-
   must read:       { %bl }
-
   maybe write:     { %bl %pf %af %zf %sf %of }
-
   must write:      { %bl %pf %af %zf %sf %of }
-
   maybe undef:     { }
-
   must undef:      { }
-
   required flags:  { }
 
-
-
 -------------------------------------
-
 Getting base circuit for movq $0xffffffffffffffff, %r9
 
-
-
 Final state:
-
 %r9/%r9: 0xffffffffffffffff₆₄
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for xorq %rcx, %rcx
 
-
-
 Final state:
-
 %rcx/%rcx: %rcx_decb_r8 ⊕ %rcx_decb_r8
 
-
-
 %cf: false
-
 %pf: !((%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][0:0] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][1:1] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][2:2] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][3:3] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][4:4] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][5:5] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][6:6] = 0x1₁ ⊕ (%rcx_decb_r8 ⊕ %rcx_decb_r8)[7:0][7:7] = 0x1₁)
-
 %zf: (%rcx_decb_r8 ⊕ %rcx_decb_r8) = 0x0₆₄
-
 %sf: (%rcx_decb_r8 ⊕ %rcx_decb_r8)[63:63] = 0x1₁
-
 %of: false
 
-
-
 -------------------------------------
-
 -------------------------------------
-
 Getting base circuit for adcb %r9b, %bl
 
-
-
 Final state:
-
 %rbx/%bl: %rbx_decb_r8[63:8] ∘ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0]
-
-
 
 %cf: ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[8:8] = 0x1₁
-
 %pf: !(((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ 0xffffffffffffffff₆₄[7:0][3:0] + 0x0₁ ∘ %rbx_decb_r8[7:0][3:0])[4:4] = 0x1₁
-
 %zf: ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0] = 0x0₈
-
 %sf: ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:7] = 0x1₁
-
 %of: (0xffffffffffffffff₆₄[7:0][7:7] = 0x1₁ ↔ %rbx_decb_r8[7:0][7:7] = 0x1₁) ∧ !(0xffffffffffffffff₆₄[7:0][7:7] = 0x1₁ ↔ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:7] = 0x1₁)
-
-
 
 -------------------------------------
-
 =====================================
-
 Computing circuit for decb %bl
 
-
-
 .target:
-
 movq $0xffffffffffffffff, %r9
-
 xorq %rcx, %rcx
-
 adcb %r9b, %bl
-
 retq 
 
-
-
 Initial state:
-
 %rbx/%bl: %rbx
 
-
-
 %pf: %pf
-
 %af: %af
-
 %zf: %zf
-
 %sf: %sf
-
 %of: %of
 
-
-
 State for specgen instruction: decb %bl:
-
 %rbx/%bl: %rbx_decb_r8[63:8] ∘ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0]
 
-
-
 %pf: !(((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][0:0] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][1:1] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][2:2] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][3:3] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][4:4] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][5:5] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][6:6] = 0x1₁ ⊕ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:0][7:7] = 0x1₁)
-
 %af: (0x0₁ ∘ 0xffffffffffffffff₆₄[7:0][3:0] + 0x0₁ ∘ %rbx_decb_r8[7:0][3:0])[4:4] = 0x1₁
-
 %zf: ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0] = 0x0₈
-
 %sf: ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0][7:7] = 0x1₁
-
 %of: (0xffffffffffffffff₆₄[7:0][7:7] = 0x1₁ ↔ %rbx_decb_r8[7:0][7:7] = 0x1₁) ∧ !(0xffffffffffffffff₆₄[7:0][7:7] = 0x1₁ ↔ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:7] = 0x1₁)
 
-
-
 Register        -> %bl
-
   translates to => %bl
-
 Value is               -> (%rbx_decb_r8[63:8] ∘ ((false ? 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0] + 0x1₉ : 0x0₁ ∘ 0xffffffffffffffff₆₄[7:0]) + 0x0₁ ∘ %rbx_decb_r8[7:0])[7:0])[7:0]
-
   after renaming it is => (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:0]
 
-
-
 Final state
-
 %rbx/%bl: %rbx[63:8] ∘ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:0]
 
-
-
 %pf: !((0xff₉ + 0x0₁ ∘ %rbx[7:0])[0:0] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[1:1] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[2:2] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[3:3] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[4:4] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[5:5] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[6:6] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:7] = 0x1₁)
-
 %af: (0xf₅ + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-
 %zf: (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:0] = 0x0₈
-
 %sf: (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:7] = 0x1₁
-
 %of: (true ↔ %rbx[7:7] = 0x1₁) ∧ !(true ↔ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:7] = 0x1₁)
 
-
-
 =====================================
-
 Circuits:
-
-
 
 %rbx   : %rbx[63:8] ∘ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:0]
 
-
-
 %pf    : !((0xff₉ + 0x0₁ ∘ %rbx[7:0])[0:0] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[1:1] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[2:2] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[3:3] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[4:4] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[5:5] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[6:6] = 0x1₁ ⊕ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:7] = 0x1₁)
-
 %af    : (0xf₅ + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-
 %zf    : (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:0] = 0x0₈
-
 %sf    : (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:7] = 0x1₁
-
 %of    : (true ↔ %rbx[7:7] = 0x1₁) ∧ !(true ↔ (0xff₉ + 0x0₁ ∘ %rbx[7:0])[7:7] = 0x1₁)
 
-
-
 sigfpe  : sigfpe
-
 sigbus  : sigbus
-
 sigsegv : sigsegv
 
 */
