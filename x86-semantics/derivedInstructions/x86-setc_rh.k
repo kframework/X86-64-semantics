@@ -7,15 +7,93 @@ module SETC-RH
   rule <k>
     execinstr (setc R1:Rh,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> ( MI690 => orMInt(andMInt(MI690, mi(64, -65281)), shlMInt(mi(64, uvalueMInt(extractMInt(mi(64, uvalueMInt(MI668)), 56, 64))), 8)) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap)), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
- "CF" |-> (MI668 => MI668)
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module SETC-RH-SEMANTICS
   imports SETC-RH
 endmodule
+/*
+setc %ah
+maybe read:{ %cf }
+must read:{ %cf }
+maybe write:{ %ah }
+must write:{ %ah }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .read_cf_into_rcx  #  1     0    5      OPC=callq_label
+circuit:movb %cl, %ah            #  2     0x5  2      OPC=movb_rh_r8
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+setc %ah
+
+  maybe read:      { %cf }
+  must read:       { %cf }
+  maybe write:     { %ah }
+  must write:      { %ah }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .read_cf_into_rcx
+
+Final state:
+%rax/%rax: %rax_setc_rh
+%rdx/%rdx: %rdx_setc_rh
+
+%xmm0: %ymm0_setc_rh[127:0]
+%xmm1: %ymm1_setc_rh[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movb %cl, %ah
+
+Final state:
+%rax/%ah: %rax_setc_rh[63:16] ∘ (0x0₆₃ ∘ (%cf_setc_rh ? 0x1₁ : 0x0₁))[7:0] ∘ %rax_setc_rh[7:0]
+
+-------------------------------------
+=====================================
+Computing circuit for setc %ah
+
+.target:
+callq .read_cf_into_rcx
+movb %cl, %ah
+retq 
+
+Initial state:
+%rax/%ah: %rax
+
+State for specgen instruction: setc %ah:
+%rax/%ah: %rax_setc_rh[63:16] ∘ (0x0₆₃ ∘ (%cf_setc_rh ? 0x1₁ : 0x0₁))[7:0] ∘ %rax_setc_rh[7:0]
+
+Register        -> %ah
+  translates to => %ah
+Value is               -> (%rax_setc_rh[63:16] ∘ (0x0₆₃ ∘ (%cf_setc_rh ? 0x1₁ : 0x0₁))[7:0] ∘ %rax_setc_rh[7:0])[15:8]
+  after renaming it is => %cf ? 0x1₈ : 0x0₈
+
+Final state
+%rax/%ah: %rax[63:16] ∘ (%cf ? 0x1₈ : 0x0₈) ∘ %rax[7:0]
+
+=====================================
+Circuits:
+
+%rax   : %rax[63:16] ∘ (%cf ? 0x1₈ : 0x0₈) ∘ %rax[7:0]
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

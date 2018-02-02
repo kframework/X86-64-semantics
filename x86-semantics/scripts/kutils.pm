@@ -1500,10 +1500,16 @@ sub selectRules {
         }
     }
 
+    printMap(\%collectedMINUMs, "CollecTed MINUNS", $debugprint);
+    printMap(\%actual2psedoRegs, "Actual to Psedu Regs", $debugprint);
+    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n",
+        $debugprint );
+
     ## All the collected MIs should be converted to getParentValue or getFlag
     for my $minum (keys %collectedMINUMs) {
       my $num = $minum =~ s/MI(\d+)/$1/gr; 
       my $regKey = $rev_rsmap{$num};
+      print "$regKey\n";
       if(exists $actual2psedoRegs{$regKey}) {
         $returnInfo =~ s/$minum/getParentValue($actual2psedoRegs{$regKey}, RSMap)/g;
       } else {
@@ -1516,7 +1522,7 @@ sub selectRules {
       }
     }
 
-    debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n",
+    debugInfo( "[selectRules] After removeing readSet: $returnInfo\n",
         $debugprint );
     utils::printMap( \%deleteIndex, "Deleted Index", $debugprint );
 

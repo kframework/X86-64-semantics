@@ -7,15 +7,138 @@ module VCVTPS2PD-XMM-XMM
   rule <k>
     execinstr (vcvtps2pd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8)), 64), Float2MInt(Float2Double(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)), 64))) )
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(mi(128, 0), extractMInt(concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 0, 32), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 32, 64), 24, 8)), 64), concatenateMInt(Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 64, 96), 24, 8)), 64), Float2MInt(Float2Double(MInt2Float(extractMInt(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 256), 96, 128), 24, 8)), 64)))), 128, 256)) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VCVTPS2PD-XMM-XMM-SEMANTICS
   imports VCVTPS2PD-XMM-XMM
 endmodule
+/*
+vcvtps2pd %xmm2, %xmm1
+maybe read:{ %xmm2 %mxcsr::rc[0] }
+must read:{ %xmm2 %mxcsr::rc[0] }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm2_r8_r9        #  1     0     5      OPC=callq_label
+circuit:vzeroall                              #  2     0x5   3      OPC=vzeroall
+circuit:callq .move_064_128_r8_r9_xmm1        #  3     0x8   5      OPC=callq_label
+circuit:vcvtps2pd %xmm1, %ymm10               #  4     0xd   4      OPC=vcvtps2pd_ymm_xmm
+circuit:callq .move_128_256_xmm10_xmm11_ymm1  #  5     0x11  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vcvtps2pd %xmm2, %xmm1
+
+  maybe read:      { %xmm2 %mxcsr::rc[0] }
+  must read:       { %xmm2 %mxcsr::rc[0] }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r8_r9
+
+Final state:
+%rax/%rax: %rax_vcvtps2pd_xmm_xmm
+%rdx/%rdx: %rdx_vcvtps2pd_xmm_xmm
+
+%xmm0: %ymm0_vcvtps2pd_xmm_xmm[127:0]
+%xmm1: %ymm1_vcvtps2pd_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r8_r9_xmm1
+
+Final state:
+%rax/%rax: %rax_vcvtps2pd_xmm_xmm
+%rdx/%rdx: %rdx_vcvtps2pd_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vcvtps2pd %xmm1, %ymm10
+
+Final state:
+%ymm10: cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][127:96]) ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][95:64]) ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][63:32]) ∘ cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][31:0])))
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_256_xmm10_xmm11_ymm1
+
+Final state:
+%rax/%rax: %rax_vcvtps2pd_xmm_xmm
+%rdx/%rdx: %rdx_vcvtps2pd_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[127:0][127:0] ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][127:96]) ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][95:64]) ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][63:32]) ∘ cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][31:0]))))[127:0][127:0])[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vcvtps2pd %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm2_r8_r9
+vzeroall 
+callq .move_064_128_r8_r9_xmm1
+vcvtps2pd %xmm1, %ymm10
+callq .move_128_256_xmm10_xmm11_ymm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vcvtps2pd %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[127:0][127:0] ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][127:96]) ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][95:64]) ∘ (cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][63:32]) ∘ cvt_single_to_double((0x0₂₅₆[255:128] ∘ (%ymm2_vcvtps2pd_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vcvtps2pd_xmm_xmm[127:0][63:0][63:0]))[127:0][31:0]))))[127:0][127:0]
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ (cvt_single_to_double(%ymm2[63:32]) ∘ cvt_single_to_double(%ymm2[31:0]))
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ (cvt_single_to_double(%ymm2[63:32]) ∘ cvt_single_to_double(%ymm2[31:0]))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

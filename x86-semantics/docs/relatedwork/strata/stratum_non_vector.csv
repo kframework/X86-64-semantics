@@ -32,17 +32,18 @@ sarxq_r64_r64_r64	0	5
 setae_r8	0	3:Y
 setb_r8	0	3:Y
 setbe_r8	0	5:Y
+
 setc_rh	0	2
-sete_r8	0	1
+sete_r8	0	1:Y
 setnae_rh	0	2
 setno_rh	0	4
-setnp_r8	0	3
-setnp_rh	0	6
-seto_r8	0	3
-setp_r8	0	1
-sets_r8	0	1
-setz_r8	0	1
-shlq_r64_cl	0	1
+setnp_r8	0	3:Y
+setnp_rh	0	6:C
+seto_r8	0	3:Y
+setp_r8	0	1:Y
+sets_r8	0	1:Y
+setz_r8	0	1:Y
+shlq_r64_cl	0:OPT	1
 shlxq_r64_r64_r64	0	5
 stc	0	1
 vaddpd_xmm_xmm_xmm	0	6
@@ -89,10 +90,11 @@ vrcpps_xmm_xmm	0	5
 vrsqrtps_xmm_xmm	0	5
 vsqrtps_xmm_xmm	0	5
 vxorps_xmm_xmm_xmm	0	6
-xchgl_r32_r32	0	6
+xchgl_r32_r32	0	6:C
 xchgq_r64_r64	0	5
 xchgw_r16_r16	0	4
-xorw_r16_r16	0	9
+xorw_r16_r16	0	9:Y
+
 adcb_rh_r8	1	5
 addpd_xmm_xmm	1	9
 addw_r16_r16	1	4

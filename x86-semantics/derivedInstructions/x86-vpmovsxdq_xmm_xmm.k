@@ -7,15 +7,134 @@ module VPMOVSXDQ-XMM-XMM
   rule <k>
     execinstr (vpmovsxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI454 => MI454)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 192, 224))), mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 224, 256))))) )
 
-convToRegKeys(R2) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI454, 128, 256), 64, 96))))), 32, 64))), mi(64, svalueMInt(extractMInt(mi(64, uvalueMInt(mi(32, uvalueMInt(extractMInt(extractMInt(MI454, 128, 256), 96, 128))))), 32, 64)))))) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VPMOVSXDQ-XMM-XMM-SEMANTICS
   imports VPMOVSXDQ-XMM-XMM
 endmodule
+/*
+vpmovsxdq %xmm2, %xmm1
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_032_xmm2_eax_edx_r8d_r9d  #  1     0     5      OPC=callq_label
+circuit:movslq %edx, %r11                         #  2     0x5   3      OPC=movslq_r64_r32
+circuit:vzeroall                                  #  3     0x8   3      OPC=vzeroall
+circuit:movslq %eax, %r10                         #  4     0xb   3      OPC=movslq_r64_r32
+circuit:callq .move_064_128_r10_r11_xmm1          #  5     0xe   5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vpmovsxdq %xmm2, %xmm1
+
+  maybe read:      { %xmm2 }
+  must read:       { %xmm2 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_032_xmm2_eax_edx_r8d_r9d
+
+Final state:
+%rax/%rax: 0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][31:0]
+%rdx/%rdx: 0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][63:32]
+
+%xmm0: %ymm0_vpmovsxdq_xmm_xmm[127:0]
+%xmm1: %ymm1_vpmovsxdq_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movslq %edx, %r11
+
+Final state:
+%r11/%r11: sign-extend-64((0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][63:32])[31:0])
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movslq %eax, %r10
+
+Final state:
+%r10/%r10: sign-extend-64((0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][31:0])[31:0])
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r10_r11_xmm1
+
+Final state:
+%rax/%rax: 0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][31:0]
+%rdx/%rdx: 0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][63:32]
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (sign-extend-64((0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][63:32])[31:0])[63:0] ∘ sign-extend-64((0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][31:0])[31:0])[63:0]))[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vpmovsxdq %xmm2, %xmm1
+
+.target:
+callq .move_128_032_xmm2_eax_edx_r8d_r9d
+movslq %edx, %r11
+vzeroall 
+movslq %eax, %r10
+callq .move_064_128_r10_r11_xmm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vpmovsxdq %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[255:128] ∘ (sign-extend-64((0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][63:32])[31:0])[63:0] ∘ sign-extend-64((0x0₃₂ ∘ %ymm2_vpmovsxdq_xmm_xmm[127:0][31:0])[31:0])[63:0])
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ (sign-extend-64(%ymm2[63:32]) ∘ sign-extend-64(%ymm2[31:0]))
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ (sign-extend-64(%ymm2[63:32]) ∘ sign-extend-64(%ymm2[31:0]))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

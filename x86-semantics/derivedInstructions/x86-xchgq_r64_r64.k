@@ -7,15 +7,143 @@ module XCHGQ-R64-R64
   rule <k>
     execinstr (xchgq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> ( MI437 => MI438 )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 
-convToRegKeys(R1) |-> ( MI438 => concatenateMInt(extractMInt(orMInt(andMInt(mi(64, uvalueMInt(extractMInt(MI437, 0, 32))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 0, 32))), 48, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 32, 64))), 48, 64)))), 32, 64), 0, 16)))), 32, 64), extractMInt(orMInt(andMInt(mi(64, uvalueMInt(extractMInt(MI437, 32, 64))), mi(64, -65536)), mi(64, uvalueMInt(extractMInt(extractMInt(mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 0, 32))), 48, 64), extractMInt(mi(64, uvalueMInt(extractMInt(MI437, 32, 64))), 48, 64)))), 32, 64), 16, 32)))), 32, 64)) )
+convToRegKeys(R1) |-> (getParentValue(R2, RSMap) )
 
+  
+)   
 
-    ...</regstate>
+    </regstate>
 endmodule
 
 module XCHGQ-R64-R64-SEMANTICS
   imports XCHGQ-R64-R64
 endmodule
+/*
+xchgq %rcx, %rbx
+maybe read:{ %rcx %rbx }
+must read:{ %rcx %rbx }
+maybe write:{ %rcx %rbx }
+must write:{ %rcx %rbx }
+maybe undef:{ }
+must undef:{ }
+required flags:{ }
+
+circuit:callq .move_064_032_rbx_r8d_r9d  #  1     0     5      OPC=callq_label
+circuit:movq %rcx, %rbx                  #  2     0x5   3      OPC=movq_r64_r64
+circuit:callq .move_016_032_r8w_r9w_edx  #  3     0x8   5      OPC=callq_label
+circuit:callq .move_032_016_edx_r8w_r9w  #  4     0xd   5      OPC=callq_label
+circuit:callq .move_032_064_r8d_r9d_rcx  #  5     0x12  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+xchgq %rcx, %rbx
+
+  maybe read:      { %rcx %rbx }
+  must read:       { %rcx %rbx }
+  maybe write:     { %rcx %rbx }
+  must write:      { %rcx %rbx }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .move_064_032_rbx_r8d_r9d
+
+Final state:
+%rax/%rax: %rax_xchgq_r64_r64
+%rdx/%rdx: %rdx_xchgq_r64_r64
+
+%xmm0: %ymm0_xchgq_r64_r64[127:0]
+%xmm1: %ymm1_xchgq_r64_r64[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movq %rcx, %rbx
+
+Final state:
+%rbx/%rbx: %rcx_xchgq_r64_r64
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_016_032_r8w_r9w_edx
+
+Final state:
+%rax/%rax: %rax_xchgq_r64_r64
+%rdx/%rdx: 0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0])
+
+%xmm0: %ymm0_xchgq_r64_r64[127:0]
+%xmm1: %ymm1_xchgq_r64_r64[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_032_016_edx_r8w_r9w
+
+Final state:
+%rax/%rax: %rax_xchgq_r64_r64
+%rdx/%rdx: 0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0])
+
+%xmm0: %ymm0_xchgq_r64_r64[127:0]
+%xmm1: %ymm1_xchgq_r64_r64[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_032_064_r8d_r9d_rcx
+
+Final state:
+%rax/%rax: %rax_xchgq_r64_r64
+%rdx/%rdx: 0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0])
+
+%xmm0: %ymm0_xchgq_r64_r64[127:0]
+%xmm1: %ymm1_xchgq_r64_r64[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for xchgq %rcx, %rbx
+
+.target:
+callq .move_064_032_rbx_r8d_r9d
+movq %rcx, %rbx
+callq .move_016_032_r8w_r9w_edx
+callq .move_032_016_edx_r8w_r9w
+callq .move_032_064_r8d_r9d_rcx
+retq 
+
+Initial state:
+%rcx/%rcx: %rcx
+%rbx/%rbx: %rbx
+
+State for specgen instruction: xchgq %rcx, %rbx:
+%rcx/%rcx: ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[63:16] ∘ (0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0]))[31:0][31:16])[31:0][31:0] ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[63:16] ∘ (0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0]))[31:0][15:0])[31:0][31:0]
+%rbx/%rbx: %rcx_xchgq_r64_r64
+
+Register        -> %rcx
+  translates to => %rcx
+Value is               -> ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[63:16] ∘ (0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0]))[31:0][31:16])[31:0][31:0] ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[63:16] ∘ (0x0₃₂ ∘ ((0x0₃₂ ∘ %rbx_xchgq_r64_r64[63:32])[15:0][15:0] ∘ (0x0₃₂ ∘ %rbx_xchgq_r64_r64[31:0])[15:0][15:0]))[31:0][15:0])[31:0][31:0]
+  after renaming it is => %rbx
+
+Register        -> %rbx
+  translates to => %rbx
+Value is               -> %rcx_xchgq_r64_r64
+  after renaming it is => %rcx
+
+Final state
+%rcx/%rcx: %rbx
+%rbx/%rbx: %rcx
+
+=====================================
+Circuits:
+
+%rcx   : %rbx
+%rbx   : %rcx
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

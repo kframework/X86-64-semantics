@@ -7,17 +7,138 @@ module VMOVHLPS-XMM-XMM-XMM
   rule <k>
     execinstr (vmovhlps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R2) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), extractMInt(getParentValue(R1, RSMap), 128, 192))) )
 
-convToRegKeys(R3) |-> ( _ => mi(256, uvalueMInt(concatenateMInt(extractMInt(extractMInt(MI676, 128, 256), 0, 64), extractMInt(extractMInt(MI677, 128, 256), 0, 64)))) )
+  
+)   
 
-convToRegKeys(R1) |-> (MI677 => MI677)
-
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VMOVHLPS-XMM-XMM-XMM-SEMANTICS
   imports VMOVHLPS-XMM-XMM-XMM
 endmodule
+/*
+vmovhlps %xmm3, %xmm2, %xmm1
+maybe read:{ %xmm2 %xmm3 }
+must read:{ %xmm2 %xmm3 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm3_r10_r11  #  1     0     5      OPC=callq_label
+circuit:callq .move_128_064_xmm2_r12_r13  #  2     0x5   5      OPC=callq_label
+circuit:vzeroall                          #  3     0xa   3      OPC=vzeroall
+circuit:movq %r11, %r12                   #  4     0xd   3      OPC=movq_r64_r64
+circuit:callq .move_064_128_r12_r13_xmm1  #  5     0x10  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vmovhlps %xmm3, %xmm2, %xmm1
+
+  maybe read:      { %xmm2 %xmm3 }
+  must read:       { %xmm2 %xmm3 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm3_r10_r11
+
+Final state:
+%rax/%rax: %rax_vmovhlps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmovhlps_xmm_xmm_xmm
+
+%xmm0: %ymm0_vmovhlps_xmm_xmm_xmm[127:0]
+%xmm1: %ymm1_vmovhlps_xmm_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r12_r13
+
+Final state:
+%rax/%rax: %rax_vmovhlps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmovhlps_xmm_xmm_xmm
+
+%xmm0: %ymm0_vmovhlps_xmm_xmm_xmm[127:0]
+%xmm1: %ymm1_vmovhlps_xmm_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movq %r11, %r12
+
+Final state:
+%r12/%r12: %ymm3_vmovhlps_xmm_xmm_xmm[127:0][127:64]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r12_r13_xmm1
+
+Final state:
+%rax/%rax: %rax_vmovhlps_xmm_xmm_xmm
+%rdx/%rdx: %rdx_vmovhlps_xmm_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[255:128] ∘ (%ymm2_vmovhlps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmovhlps_xmm_xmm_xmm[127:0][127:64][63:0]))[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vmovhlps %xmm3, %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm3_r10_r11
+callq .move_128_064_xmm2_r12_r13
+vzeroall 
+movq %r11, %r12
+callq .move_064_128_r12_r13_xmm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vmovhlps %xmm3, %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[255:128] ∘ (%ymm2_vmovhlps_xmm_xmm_xmm[127:0][127:64][63:0] ∘ %ymm3_vmovhlps_xmm_xmm_xmm[127:0][127:64][63:0])
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ (%ymm2[127:64] ∘ %ymm3[127:64])
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ (%ymm2[127:64] ∘ %ymm3[127:64])
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

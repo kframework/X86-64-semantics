@@ -7,27 +7,218 @@ module XORW-R16-R16
   rule <k>
     execinstr (xorw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
- "CF" |-> ( _ => mi(1, 0) )
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> (mi(1, 0) )
 
- "AF" |-> (_ => undef)
+ "AF" |-> (undef)
 
-convToRegKeys(R1) |-> (MI456 => MI456)
+convToRegKeys(R2) |-> (mi(64, svalueMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)))) )
 
-convToRegKeys(R2) |-> ( MI452 => mi(64, svalueMInt(extractMInt(xorMInt(orMInt(andMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(mi(16, 1), lshrMInt(extractMInt(orMInt(andMInt(MI452, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), 48, 64), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), mi(64, svalueMInt(extractMInt(MI452, 48, 64)))), 48, 64))) )
+ "ZF" |-> ((#ifMInt (eqMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "ZF" |-> ( _ => (#ifMInt (eqMInt(extractMInt(mi(64, svalueMInt(extractMInt(xorMInt(orMInt(andMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(mi(16, 1), lshrMInt(extractMInt(orMInt(andMInt(MI452, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), 48, 64), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), mi(64, svalueMInt(extractMInt(MI452, 48, 64)))), 48, 64))), 48, 64), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> ((#ifMInt (eqMInt(mi(16, 1), lshrMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "SF" |-> ( _ => (#ifMInt (eqMInt(mi(16, 1), lshrMInt(extractMInt(mi(64, svalueMInt(extractMInt(xorMInt(orMInt(andMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(mi(16, 1), lshrMInt(extractMInt(orMInt(andMInt(MI452, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), 48, 64), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), mi(64, svalueMInt(extractMInt(MI452, 48, 64)))), 48, 64))), 48, 64), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(xorMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ( _ => (#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(extractMInt(mi(64, svalueMInt(extractMInt(xorMInt(orMInt(andMInt(mi(64, uvalueMInt((#ifMInt (eqMInt(mi(16, 1), lshrMInt(extractMInt(orMInt(andMInt(MI452, mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), 48, 64), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), mi(64, -65536)), mi(64, uvalueMInt(concatenateMInt(extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 0, 8))), 56, 64), extractMInt(mi(64, uvalueMInt(extractMInt(extractMInt(MI456, 48, 64), 8, 16))), 56, 64))))), mi(64, svalueMInt(extractMInt(MI452, 48, 64)))), 48, 64))), 48, 64), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> (mi(1, 0) )
 
- "OF" |-> ( _ => mi(1, 0) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module XORW-R16-R16-SEMANTICS
   imports XORW-R16-R16
 endmodule
+/*
+xorw %cx, %bx
+maybe read:{ %cx %bx }
+must read:{ %cx %bx }
+maybe write:{ %bx %cf %pf %zf %sf %of }
+must write:{ %bx %cf %pf %zf %sf %of }
+maybe undef:{ %af }
+must undef:{ %af }
+required flags:{ }
+
+circuit:callq .move_016_008_cx_r8b_r9b  #  1     0     5      OPC=callq_label
+circuit:movswq %bx, %r12                #  2     0x5   4      OPC=movswq_r64_r16
+circuit:callq .move_008_016_r8b_r9b_bx  #  3     0x9   5      OPC=callq_label
+circuit:callq .set_szp_for_bx           #  4     0xe   5      OPC=callq_label
+circuit:callq .read_sf_into_rbx         #  5     0x13  5      OPC=callq_label
+circuit:callq .move_008_016_r8b_r9b_bx  #  6     0x18  5      OPC=callq_label
+circuit:xorq %rbx, %r12                 #  7     0x1d  3      OPC=xorq_r64_r64
+circuit:movswq %r12w, %rbx              #  8     0x20  4      OPC=movswq_r64_r16
+circuit:callq .set_szp_for_bx           #  9     0x24  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+xorw %cx, %bx
+
+  maybe read:      { %cx %bx }
+  must read:       { %cx %bx }
+  maybe write:     { %bx %cf %pf %zf %sf %of }
+  must write:      { %bx %cf %pf %zf %sf %of }
+  maybe undef:     { %af }
+  must undef:      { %af }
+  required flags:  { }
+
+-------------------------------------
+Getting base circuit for callq .move_016_008_cx_r8b_r9b
+
+Final state:
+%rax/%rax: %rax_xorw_r16_r16
+%rdx/%rdx: %rdx_xorw_r16_r16
+
+%xmm0: %ymm0_xorw_r16_r16[127:0]
+%xmm1: %ymm1_xorw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movswq %bx, %r12
+
+Final state:
+%r12/%r12: sign-extend-64(%rbx_xorw_r16_r16[15:0])
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_008_016_r8b_r9b_bx
+
+Final state:
+%rax/%rax: %rax_xorw_r16_r16
+%rdx/%rdx: %rdx_xorw_r16_r16
+
+%xmm0: %ymm0_xorw_r16_r16[127:0]
+%xmm1: %ymm1_xorw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .set_szp_for_bx
+
+Final state:
+%rax/%rax: %rax_xorw_r16_r16
+%rdx/%rdx: %rdx_xorw_r16_r16
+
+%xmm0: %ymm0_xorw_r16_r16[127:0]
+%xmm1: %ymm1_xorw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .read_sf_into_rbx
+
+Final state:
+%rax/%rax: %rax_xorw_r16_r16
+%rdx/%rdx: %rdx_xorw_r16_r16
+
+%xmm0: %ymm0_xorw_r16_r16[127:0]
+%xmm1: %ymm1_xorw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_008_016_r8b_r9b_bx
+
+Final state:
+%rax/%rax: %rax_xorw_r16_r16
+%rdx/%rdx: %rdx_xorw_r16_r16
+
+%xmm0: %ymm0_xorw_r16_r16[127:0]
+%xmm1: %ymm1_xorw_r16_r16[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for xorq %rbx, %r12
+
+Final state:
+%r12/%r12: sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0])
+
+%cf: false
+%pf: !((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][0:0] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][1:1] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][2:2] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][3:3] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][4:4] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][5:5] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][6:6] = 0x1₁ ⊕ (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[7:0][7:7] = 0x1₁)
+%zf: (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0])) = 0x0₆₄
+%sf: (sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[63:63] = 0x1₁
+%of: false
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for movswq %r12w, %rbx
+
+Final state:
+%rbx/%rbx: sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .set_szp_for_bx
+
+Final state:
+%rax/%rax: %rax_xorw_r16_r16
+%rdx/%rdx: %rdx_xorw_r16_r16
+
+%xmm0: %ymm0_xorw_r16_r16[127:0]
+%xmm1: %ymm1_xorw_r16_r16[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for xorw %cx, %bx
+
+.target:
+callq .move_016_008_cx_r8b_r9b
+movswq %bx, %r12
+callq .move_008_016_r8b_r9b_bx
+callq .set_szp_for_bx
+callq .read_sf_into_rbx
+callq .move_008_016_r8b_r9b_bx
+xorq %rbx, %r12
+movswq %r12w, %rbx
+callq .set_szp_for_bx
+retq 
+
+Initial state:
+%rbx/%bx: %rbx
+
+%cf: %cf
+%pf: %pf
+%zf: %zf
+%sf: %sf
+%of: %of
+
+State for specgen instruction: xorw %cx, %bx:
+%rbx/%bx: sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])
+
+%cf: false
+%pf: !(sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][0:0] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][1:1] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][2:2] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][3:3] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][4:4] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][5:5] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][6:6] = 0x1₁ ⊕ sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][7:0][7:7] = 0x1₁)
+%zf: sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0] = 0x0₁₆
+%sf: sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0][15:15] = 0x1₁
+%of: false
+
+Register        -> %bx
+  translates to => %bx
+Value is               -> sign-extend-64((sign-extend-64(%rbx_xorw_r16_r16[15:0]) ⊕ (0x0₆₃ ∘ ((%rbx_xorw_r16_r16[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0][15:15] = 0x1₁ ? 0x1₁ : 0x0₁))[63:16] ∘ ((%r9_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][15:8])[7:0][7:0] ∘ (%r8_xorw_r16_r16[63:8] ∘ %rcx_xorw_r16_r16[15:0][7:0])[7:0][7:0]))[15:0])[15:0]
+  after renaming it is => %rbx[15:0] ⊕ %rcx[15:0]
+
+Final state
+%rbx/%bx: %rbx[63:16] ∘ (%rbx[15:0] ⊕ %rcx[15:0])
+
+%cf: false
+%pf: !((%rbx[0:0] ⊕ %rcx[0:0]) = 0x1₁ ⊕ (%rbx[1:1] ⊕ %rcx[1:1]) = 0x1₁ ⊕ (%rbx[2:2] ⊕ %rcx[2:2]) = 0x1₁ ⊕ (%rbx[3:3] ⊕ %rcx[3:3]) = 0x1₁ ⊕ (%rbx[4:4] ⊕ %rcx[4:4]) = 0x1₁ ⊕ (%rbx[5:5] ⊕ %rcx[5:5]) = 0x1₁ ⊕ (%rbx[6:6] ⊕ %rcx[6:6]) = 0x1₁ ⊕ (%rbx[7:7] ⊕ %rcx[7:7]) = 0x1₁)
+%zf: (%rbx[15:0] ⊕ %rcx[15:0]) = 0x0₁₆
+%sf: (%rbx[15:15] ⊕ %rcx[15:15]) = 0x1₁
+%of: false
+
+=====================================
+Circuits:
+
+%rbx   : %rbx[63:16] ∘ (%rbx[15:0] ⊕ %rcx[15:0])
+
+%cf    : false
+%pf    : !((%rbx[0:0] ⊕ %rcx[0:0]) = 0x1₁ ⊕ (%rbx[1:1] ⊕ %rcx[1:1]) = 0x1₁ ⊕ (%rbx[2:2] ⊕ %rcx[2:2]) = 0x1₁ ⊕ (%rbx[3:3] ⊕ %rcx[3:3]) = 0x1₁ ⊕ (%rbx[4:4] ⊕ %rcx[4:4]) = 0x1₁ ⊕ (%rbx[5:5] ⊕ %rcx[5:5]) = 0x1₁ ⊕ (%rbx[6:6] ⊕ %rcx[6:6]) = 0x1₁ ⊕ (%rbx[7:7] ⊕ %rcx[7:7]) = 0x1₁)
+%zf    : (%rbx[15:0] ⊕ %rcx[15:0]) = 0x0₁₆
+%sf    : (%rbx[15:15] ⊕ %rcx[15:15]) = 0x1₁
+%of    : false
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/

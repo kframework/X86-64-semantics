@@ -7,15 +7,138 @@ module VSQRTPS-XMM-XMM
   rule <k>
     execinstr (vsqrtps R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> ...
-convToRegKeys(R1) |-> (MI676 => MI676)
+    <regstate> 
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8), 2), 32), Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8), 2), 32))))) )
 
-convToRegKeys(R2) |-> ( _ => concatenateMInt(mi(128, 0), extractMInt(concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 0, 32), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 32, 64), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 64, 96), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 96, 128), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 128, 160), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 160, 192), 24, 8), 2), 32), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 192, 224), 24, 8), 2), 32), Float2MInt(rootFloat(MInt2Float(extractMInt(mi(256, uvalueMInt(extractMInt(MI676, 128, 256))), 224, 256), 24, 8), 2), 32)))))))), 128, 256)) )
+  
+)   
 
-
-    ...</regstate>
+    </regstate>
 endmodule
 
 module VSQRTPS-XMM-XMM-SEMANTICS
   imports VSQRTPS-XMM-XMM
 endmodule
+/*
+vsqrtps %xmm2, %xmm1
+maybe read:{ %xmm2 }
+must read:{ %xmm2 }
+maybe write:{ %ymm1 }
+must write:{ %ymm1 }
+maybe undef:{ }
+must undef:{ }
+required flags:{ avx }
+
+circuit:callq .move_128_064_xmm2_r8_r9        #  1     0     5      OPC=callq_label
+circuit:vzeroall                              #  2     0x5   3      OPC=vzeroall
+circuit:callq .move_064_128_r8_r9_xmm2        #  3     0x8   5      OPC=callq_label
+circuit:vsqrtps %ymm2, %ymm10                 #  4     0xd   4      OPC=vsqrtps_ymm_ymm
+circuit:callq .move_128_256_xmm10_xmm11_ymm1  #  5     0x11  5      OPC=callq_label
+
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+vsqrtps %xmm2, %xmm1
+
+  maybe read:      { %xmm2 }
+  must read:       { %xmm2 }
+  maybe write:     { %ymm1 }
+  must write:      { %ymm1 }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { avx }
+
+-------------------------------------
+Getting base circuit for callq .move_128_064_xmm2_r8_r9
+
+Final state:
+%rax/%rax: %rax_vsqrtps_xmm_xmm
+%rdx/%rdx: %rdx_vsqrtps_xmm_xmm
+
+%xmm0: %ymm0_vsqrtps_xmm_xmm[127:0]
+%xmm1: %ymm1_vsqrtps_xmm_xmm[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vzeroall 
+
+Final state:
+%ymm0: 0x0₂₅₆
+%ymm1: 0x0₂₅₆
+%ymm2: 0x0₂₅₆
+%ymm3: 0x0₂₅₆
+%ymm4: 0x0₂₅₆
+%ymm5: 0x0₂₅₆
+%ymm6: 0x0₂₅₆
+%ymm7: 0x0₂₅₆
+%ymm8: 0x0₂₅₆
+%ymm9: 0x0₂₅₆
+%ymm10: 0x0₂₅₆
+%ymm11: 0x0₂₅₆
+%ymm12: 0x0₂₅₆
+%ymm13: 0x0₂₅₆
+%ymm14: 0x0₂₅₆
+%ymm15: 0x0₂₅₆
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_064_128_r8_r9_xmm2
+
+Final state:
+%rax/%rax: %rax_vsqrtps_xmm_xmm
+%rdx/%rdx: %rdx_vsqrtps_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: 0x0₂₅₆[127:0]
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for vsqrtps %ymm2, %ymm10
+
+Final state:
+%ymm10: sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[255:224]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[223:192]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[191:160]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[159:128]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[127:96]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[95:64]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[63:32]) ∘ sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[31:0])))))))
+
+-------------------------------------
+-------------------------------------
+Getting base circuit for callq .move_128_256_xmm10_xmm11_ymm1
+
+Final state:
+%rax/%rax: %rax_vsqrtps_xmm_xmm
+%rdx/%rdx: %rdx_vsqrtps_xmm_xmm
+
+%xmm0: 0x0₂₅₆[127:0]
+%xmm1: (0x0₂₅₆[127:0][127:0] ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[255:224]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[223:192]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[191:160]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[159:128]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[127:96]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[95:64]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[63:32]) ∘ sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[31:0]))))))))[127:0][127:0])[127:0]
+
+-------------------------------------
+=====================================
+Computing circuit for vsqrtps %xmm2, %xmm1
+
+.target:
+callq .move_128_064_xmm2_r8_r9
+vzeroall 
+callq .move_064_128_r8_r9_xmm2
+vsqrtps %ymm2, %ymm10
+callq .move_128_256_xmm10_xmm11_ymm1
+retq 
+
+Initial state:
+%ymm1: %ymm1
+
+State for specgen instruction: vsqrtps %xmm2, %xmm1:
+%ymm1: 0x0₂₅₆[127:0][127:0] ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[255:224]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[223:192]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[191:160]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[159:128]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[127:96]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[95:64]) ∘ (sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[63:32]) ∘ sqrt_single((0x0₂₅₆[255:128] ∘ (%ymm2_vsqrtps_xmm_xmm[127:0][127:64][63:0] ∘ %ymm2_vsqrtps_xmm_xmm[127:0][63:0][63:0]))[31:0]))))))))[127:0][127:0]
+
+Final state
+%ymm1: 0x0₁₂₈ ∘ (sqrt_single(%ymm2[127:96]) ∘ (sqrt_single(%ymm2[95:64]) ∘ (sqrt_single(%ymm2[63:32]) ∘ sqrt_single(%ymm2[31:0]))))
+
+=====================================
+Circuits:
+
+%ymm1  : 0x0₁₂₈ ∘ (sqrt_single(%ymm2[127:96]) ∘ (sqrt_single(%ymm2[95:64]) ∘ (sqrt_single(%ymm2[63:32]) ∘ sqrt_single(%ymm2[31:0]))))
+
+sigfpe  : sigfpe
+sigbus  : sigbus
+sigsegv : sigsegv
+
+*/
