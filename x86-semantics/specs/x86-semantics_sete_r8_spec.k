@@ -3,7 +3,9 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%rbx, 56, "SPAD1") ~>
 readFlagToRegister( "ZF", %rbx ) ~>
+restoreRegister("SPAD1", 56, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -16,6 +18,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "RBX" |-> (mi(64, ?I1:Int):MInt => _)
 "ZF" |-> (mi(1, ?I2:Int):MInt => _)
 

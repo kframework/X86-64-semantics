@@ -3,9 +3,11 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%ymm1, 128, "SPAD1") ~>
 split2NToN(%xmm1,  %xmm12, %xmm13 , 64) ~>
 execinstr ( vcvtps2pd %xmm2, %ymm12 , .Typedoperands ) ~>
 combineNTo2N(%xmm12,  %xmm13, %xmm1, 64, 128, 128) ~>
+restoreRegister("SPAD1", 128, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -18,6 +20,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "YMM1" |-> (mi(256, ?I1:Int):MInt => _)
 "YMM12" |-> (mi(256, 0):MInt => _)
 "YMM13" |-> (mi(256, 0):MInt => _)

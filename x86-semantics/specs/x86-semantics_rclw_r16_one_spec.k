@@ -3,7 +3,9 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%rbx, 48, "SPAD1") ~>
 execinstr ( adcw %bx, %bx , .Typedoperands ) ~>
+restoreRegister("SPAD1", 48, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -16,6 +18,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "AF" |-> (mi(1, 0):MInt => _)
 "CF" |-> (mi(1, ?I1:Int):MInt => _)
 "OF" |-> (mi(1, ?I2:Int):MInt => _)

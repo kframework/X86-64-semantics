@@ -11,7 +11,7 @@ module DECB-R8
 RSMap:Map => updateMap(RSMap,
  "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 1), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 

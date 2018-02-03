@@ -207,7 +207,6 @@ module MOV-SINGLE-BYTE
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= movByteToPosOfReg(R8, Int, Register)
   rule <k>
-    //movByteToPosOfReg(R1, BNUM, R2) => setRegisterBitsAtPositon(getRegisterValue(R1, RSMap), R2, (BNUM -Int 1) *Int 8)
     movByteToPosOfReg(R1, BNUM, R2) => setRegisterBitsAtPositon(getRegisterValue(R1, RSMap), R2, (BNUM) *Int 8)
   ...</k>
     <regstate> RSMap </regstate>
@@ -218,11 +217,43 @@ module MOV-SINGLE-BYTE
   // ----------------------------------------------------------------------------
   syntax Abstractinstruction ::= movPosOfRegToByte(Int, Register, R8)
   rule <k>
-    //movPosOfRegToByte(BNUM, R1, R2) => setRegisterValue(getRegisterBitsAtPositon(R1, 8, (BNUM -Int 1) *Int 8, RSMap), R2)
     movPosOfRegToByte(BNUM, R1, R2) => setRegisterValue(getRegisterBitsAtPositon(R1, 8, (BNUM) *Int 8, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>
       requires getRegisterSize(R2) ==Int 8
+endmodule
+
+module SAVE-RESTORE
+  imports X86-CONFIGURATION
+
+  // ----------------------------------------------------------------------------
+  // Saves the highrer N bits of Register R to Sratch Pad register "S" starting 
+  // at 0
+  // ----------------------------------------------------------------------------
+  syntax Abstractinstruction ::= saveRegister(Register, Int, String)
+  rule <k>
+    saveRegister(R, N, S) => .
+  ...</k>
+    <regstate> RSMap:Map => updateMap(RSMap, 
+      S |-> plugInMask(RSMap[S]:>MInt, extractMInt(getRegisterValue(R, RSMap), 0, N), 0)
+    )
+    </regstate>
+
+  // ----------------------------------------------------------------------------
+  // A:Restores lower N bit from Sratch Pad register S
+  // B:Extracts lower M bits from Register R
+  // C: Store concatenate(A, B) to R 
+  // ----------------------------------------------------------------------------
+  syntax Abstractinstruction ::= restoreRegister(String, Int, Int, Register)
+  rule <k>
+    restoreRegister(S, N, M, R) => 
+      setRegisterValue(
+          concatenateMInt(
+            extractMask(RSMap[S]:>MInt, N, 0),
+            extractMask(getRegisterValue(R, RSMap), M, 0))
+          , R)
+  ...</k>
+    <regstate> RSMap </regstate>
 endmodule
 
 module PSEUDO-INSTR-SEMANTICS
@@ -232,4 +263,5 @@ module PSEUDO-INSTR-SEMANTICS
   imports SPLIT-COMBINE-XMMS
   imports SPLIT-COMBINE-2N
   imports MOV-SINGLE-BYTE
+  imports SAVE-RESTORE
 endmodule

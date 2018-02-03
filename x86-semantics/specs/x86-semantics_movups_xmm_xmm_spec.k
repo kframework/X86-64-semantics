@@ -3,8 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%ymm1, 128, "SPAD1") ~>
 splitXmmToR32( %xmm2, %xmm4, %xmm5, %xmm6, %xmm7, 128 ) ~>
 combineR32ToXmm( %xmm4, %xmm5, %xmm6, %xmm7, %xmm1 ) ~>
+restoreRegister("SPAD1", 128, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -17,6 +19,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "YMM1" |-> (mi(256, ?I1:Int):MInt => _)
 "YMM2" |-> (mi(256, ?I2:Int):MInt => _)
 "YMM4" |-> (mi(256, 0):MInt => _)

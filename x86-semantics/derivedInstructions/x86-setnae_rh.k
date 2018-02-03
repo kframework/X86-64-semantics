@@ -9,7 +9,7 @@ module SETNAE-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap)), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+convToRegKeys(R1) |-> (getParentValue(R1, RSMap) )
 
 
 )

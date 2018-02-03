@@ -3,6 +3,7 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%rbx, 48, "SPAD1") ~>
 split2NToN(%cx,  %r8b, %r9b , 08) ~>
 execinstr ( movswq %bx, %r12 , .Typedoperands ) ~>
 combineNTo2N(%r8b,  %r9b, %bx, 08, 16, 08) ~>
@@ -12,6 +13,7 @@ combineNTo2N(%r8b,  %r9b, %bx, 08, 16, 08) ~>
 execinstr ( xorq %rbx, %r12 , .Typedoperands ) ~>
 execinstr ( movswq %r12w, %rbx , .Typedoperands ) ~>
 setSZPForRegister( %bx ) ~>
+restoreRegister("SPAD1", 48, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -24,6 +26,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "AF" |-> (mi(1, ?I1:Int):MInt => _)
 "CF" |-> (mi(1, ?I2:Int):MInt => _)
 "OF" |-> (mi(1, ?I3:Int):MInt => _)

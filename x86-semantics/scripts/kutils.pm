@@ -161,6 +161,115 @@ my %subRegToReg = (
     "r15"   => "r15",
 );
 
+my %getRegSize = (
+    "al"    => 8,
+    "bl"    => 8,
+    "cl"    => 8,
+    "dl"    => 8,
+    "sil"   => 8,
+    "dil"   => 8,
+    "spl"   => 8,
+    "bpl"   => 8,
+    "r8b"   => 8,
+    "r9b"   => 8,
+    "r10b"  => 8,
+    "r11b"  => 8,
+    "r12b"  => 8,
+    "r13b"  => 8,
+    "r14b"  => 8,
+    "r15b"  => 8,
+    "ax"    => 16,
+    "bx"    => 16,
+    "cx"    => 16,
+    "dx"    => 16,
+    "si"    => 16,
+    "di"    => 16,
+    "sp"    => 16,
+    "bp"    => 16,
+    "r8w"   => 16,
+    "r9w"   => 16,
+    "r10w"  => 16,
+    "r11w"  => 16,
+    "r12w"  => 16,
+    "r13w"  => 16,
+    "r14w"  => 16,
+    "r15w"  => 16,
+    "eax"   => 32,
+    "ebx"   => 32,
+    "ecx"   => 32,
+    "edx"   => 32,
+    "esi"   => 32,
+    "edi"   => 32,
+    "esp"   => 32,
+    "ebp"   => 32,
+    "r8d"   => 32,
+    "r9d"   => 32,
+    "r10d"  => 32,
+    "r11d"  => 32,
+    "r12d"  => 32,
+    "r13d"  => 32,
+    "r14d"  => 32,
+    "r15d"  => 32,
+    "ah"    => 8,
+    "bh"    => 8,
+    "ch"    => 8,
+    "dh"    => 8,
+    "xmm0"  => 128,
+    "xmm1"  => 128,
+    "xmm2"  => 128,
+    "xmm3"  => 128,
+    "xmm4"  => 128,
+    "xmm5"  => 128,
+    "xmm6"  => 128,
+    "xmm7"  => 128,
+    "xmm8"  => 128,
+    "xmm9"  => 128,
+    "xmm10" => 128,
+    "xmm11" => 128,
+    "xmm12" => 128,
+    "xmm13" => 128,
+    "xmm14" => 128,
+    "xmm15" => 128,
+    "ymm0"  => 256,
+    "ymm1"  => 256,
+    "ymm2"  => 256,
+    "ymm3"  => 256,
+    "ymm4"  => 256,
+    "ymm5"  => 256,
+    "ymm6"  => 256,
+    "ymm7"  => 256,
+    "ymm8"  => 256,
+    "ymm9"  => 256,
+    "ymm10" => 256,
+    "ymm11" => 256,
+    "ymm12" => 256,
+    "ymm13" => 256,
+    "ymm14" => 256,
+    "ymm15" => 256,
+    "af"    => 1,
+    "pf"    => 1,
+    "sf"    => 1,
+    "zf"    => 1,
+    "cf"    => 1,
+    "of"    => 1,
+    "rax"   => 64,
+    "rbx"   => 64,
+    "rcx"   => 64,
+    "rdx"   => 64,
+    "rsi"   => 64,
+    "rdi"   => 64,
+    "rsp"   => 64,
+    "rbp"   => 64,
+    "r8"    => 64,
+    "r9"    => 64,
+    "r10"   => 64,
+    "r11"   => 64,
+    "r12"   => 64,
+    "r13"   => 64,
+    "r14"   => 64,
+    "r15"   => 64,
+);
+
 my %regMap = (
     0  => "rax",
     1  => "rbx",
@@ -1044,7 +1153,49 @@ sub getSpecCode {
     my @encode_arr       = @{$encode_arr_ref};
     my @orig_circuit_arr = @{$orig_circuit_ref};
 
-    my $spec_code = "";
+    ## Obtain the Process RW set.
+    my ( $dc1, $writeSet_ref, $undefSet_ref, $dc2 ) =
+      processRWSET( $opcode, $debugprint, 1 );
+    my %writeSet     = %{$writeSet_ref};
+
+    ## Issue a "need to inspect" warning if we have undefined set.
+    if(scalar(keys %{$undefSet_ref})) {
+      utils::warnInfo("[getSpecCode] Undef Present: $opcode");
+    }
+
+
+    ## Generate the save rstore code for resgisters which are cloberred 
+    ## more that what is guarenteed by the R/W set.
+    my $saveCode = "";
+    my $restoreCode = "";
+    my $counter = 0;
+    for my $reg (keys %writeSet) {
+      if($reg eq "") {
+        next;
+      }
+
+      ## Check if $rw is the parent reg
+      my $preg = $subRegToReg{$reg};
+      if($preg ne $reg) {
+        $counter++;
+        if($counter == 3) {
+          utils::failInfo("Cannot handle $counter save restores\n");
+        }
+        my $regS = $getRegSize{$reg};
+        my $pregS = $getRegSize{$preg};
+        my $bitWToSave = ($pregS - $regS);
+        $reg  = "%".$reg;
+        $preg = "%".$preg;
+
+        $saveCode = $saveCode .  
+          "saveRegister($preg, $bitWToSave, \"SPAD$counter\") ~>\n";
+        $restoreCode = $restoreCode .  
+          "restoreRegister(\"SPAD$counter\", $bitWToSave, $regS, $preg) ~>\n";
+      }
+    }
+
+
+    my $spec_code = $saveCode;
     for ( my $i = 0 ; $i < scalar(@instr_arr) ; $i++ ) {
         my $instr  = $instr_arr[$i];
         my $encode = $encode_arr[$i];
@@ -1067,11 +1218,16 @@ sub getSpecCode {
         debugInfo( "Instr::" . $instr . "::\n", $debugprint );
     }
 
+    if("" ne $restoreCode) {
+      $spec_code = $spec_code . $restoreCode; 
+    }
+
     $spec_code = $spec_code
       . "execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch" . "\n";
+
     debugInfo( $spec_code . "\n", $debugprint );
 
-    return ( $spec_code);
+    return ( $spec_code, $counter);
 }
 
 sub mixfix2infix {
@@ -1306,6 +1462,7 @@ sub processRWSET {
 ##############################
     my $opcode     = shift @_;
     my $debugprint = shift @_;
+    my $storeRegs = shift @_;
 
     my %mayRS  = ();
     my %mustRS = ();
@@ -1334,31 +1491,36 @@ sub processRWSET {
                     next;
                 }
 
+                my $storeVal = uc( $subRegToReg{$reg} );
+                if(defined($storeRegs) and $storeRegs == 1) {
+                  $storeVal = $reg;    
+                }  
+
                 if ( $RWU eq "read" ) {
                     if ( $mayOrmust eq "maybe" ) {
-                        $mayRS{ uc( $subRegToReg{$reg} ) } = 1;
+                        $mayRS{$storeVal} = 1;
                     }
                     else {
-                        $mustRS{ uc( $subRegToReg{$reg} ) } = 1;
+                        $mustRS{$storeVal} = 1;
                     }
 
                 }
                 elsif ( $RWU eq "write" ) {
 
                     if ( $mayOrmust eq "maybe" ) {
-                        $mayWS{ uc( $subRegToReg{$reg} ) } = 1;
+                        $mayWS{$storeVal} = 1;
                     }
                     else {
-                        $mustWS{ uc( $subRegToReg{$reg} ) } = 1;
+                        $mustWS{$storeVal} = 1;
                     }
                 }
                 elsif ( $RWU eq "undef" ) {
 
                     if ( $mayOrmust eq "maybe" ) {
-                        $mayUS{ uc( $subRegToReg{$reg} ) } = 1;
+                        $mayUS{$storeVal} = 1;
                     }
                     else {
-                        $mustUS{ uc( $subRegToReg{$reg} ) } = 1;
+                        $mustUS{$storeVal} = 1;
                     }
                 }
             }
@@ -1619,7 +1781,7 @@ sub sanitizeSpecOutput {
 
     my $instr  = getTargetInstr($opcode, $debugprint);
 
-    ## Obtain the RW set.
+    ## Obtain the Process RW set.
     my ( $readSet_ref, $writeSet_ref, $undefSet_ref, $mustUndefSet_ref ) =
       processRWSET( $opcode, $debugprint );
     my %readSet      = %{$readSet_ref};
@@ -1972,7 +2134,7 @@ sub createSpecFile {
       or die "[create_spec] cannot open $specfile: $!";
 
     ## Create the <cmem> spec code </cmem>
-    my $spec_code = kutils::getSpecCode( $opcode, $debugprint );
+    my ($spec_code, $saveRestoreCount) = kutils::getSpecCode( $opcode, $debugprint );
 
     ## Comment section in specfile.
     ## Get Orig circuit
@@ -2024,6 +2186,14 @@ sub createSpecFile {
     my $regstateConfig = "";
     my $counter        = 1;
     $regstateConfig = "\"RIP\" |->    (mi(64, 0) => _)" . "\n";
+
+    ## Add scratch pad regisers for save restores.
+    if(0 != $saveRestoreCount) {
+      for (my $i = 1 ; $i <= $saveRestoreCount; $i++)  {
+        $regstateConfig = $regstateConfig .
+          "\"SPAD$i\" |->    (mi(256, 0) => _)" . "\n";
+      }
+    }
 
     ### If the constituing RW set belongs to target's RW set, then then need to kept
     ### symbolic, else keep then zeroed out.
