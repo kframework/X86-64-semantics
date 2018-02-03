@@ -1183,14 +1183,36 @@ sub getSpecCode {
         }
         my $regS = $getRegSize{$reg};
         my $pregS = $getRegSize{$preg};
-        my $bitWToSave = ($pregS - $regS);
+##my $bitWToSave = ($pregS - $regS);
+
+        ## lets assume that we might have to save 2 chucks
+        ## chuckSize[1]...chuckStart[1]  chuckSize[0]...chuckStart[0]
+        my @chuckStart = (0, 0);
+        my @chuckSize =  (0, 0);
+        my $regStart = 0;
+
+        if($reg =~ m/ah|bh|ch|dh/) {
+          $chuckStart[0] = 0;
+          $chuckSize[0] = 8;
+
+          $chuckStart[1] = 16;
+          $chuckSize[1] = ($pregS - 16);;
+
+          $regStart = 8;
+        } else {
+          $chuckStart[0] = $regS;
+          $chuckSize[0] = ($pregS - $regS);
+          $regStart = 0;
+        }
+
         $reg  = "%".$reg;
         $preg = "%".$preg;
 
         $saveCode = $saveCode .  
-          "saveRegister($preg, $bitWToSave, \"SPAD$counter\") ~>\n";
+          "saveRegister($preg, \"SPAD$counter\") ~>\n";
         $restoreCode = $restoreCode .  
-          "restoreRegister(\"SPAD$counter\", $bitWToSave, $regS, $preg) ~>\n";
+          "restoreRegister(\"SPAD$counter\", $chuckStart[0], $chuckSize[0], $chuckStart[1], $chuckSize[1], 
+          $regStart, $regS, $preg) ~>\n";
       }
     }
 
