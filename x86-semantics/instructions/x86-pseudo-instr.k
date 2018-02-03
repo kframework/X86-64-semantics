@@ -226,16 +226,17 @@ endmodule
 module SAVE-RESTORE
   imports X86-CONFIGURATION
 
-  // ----------------------------------------------------------------------------
-  // Saves the highrer N bits of Register R to Sratch Pad register "S" starting 
-  // at 0
-  // ----------------------------------------------------------------------------
-  syntax Abstractinstruction ::= saveRegister(Register, Int, String)
+  /*
+  ** Saves Register R in scratchpad S.
+  **
+  */
+  syntax Abstractinstruction ::= saveRegister(Register, String)
+
   rule <k>
-    saveRegister(R, N, S) => .
+    saveRegister(R, S) => .
   ...</k>
     <regstate> RSMap:Map => updateMap(RSMap, 
-      S |-> plugInMask(RSMap[S]:>MInt, extractMInt(getRegisterValue(R, RSMap), 0, N), 0)
+      S |-> plugInMask(RSMap[S]:>MInt, getRegisterValue(R, RSMap), 0)
     )
     </regstate>
 
@@ -244,16 +245,30 @@ module SAVE-RESTORE
   // B:Extracts lower M bits from Register R
   // C: Store concatenate(A, B) to R 
   // ----------------------------------------------------------------------------
-  syntax Abstractinstruction ::= restoreRegister(String, Int, Int, Register)
+  syntax Abstractinstruction ::= restoreRegister(String, Int, Int, Int, Int, Int, Int, Register)
   rule <k>
-    restoreRegister(S, N, M, R) => 
+    restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 
       setRegisterValue(
           concatenateMInt(
-            extractMask(RSMap[S]:>MInt, N, 0),
-            extractMask(getRegisterValue(R, RSMap), M, 0))
+            extractMask(RSMap[S]:>MInt, W1, S1),
+            extractMask(getRegisterValue(R, RSMap), RW, RS))
           , R)
   ...</k>
     <regstate> RSMap </regstate>
+      requires W2 ==Int 0
+
+  rule <k>
+    restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 
+      setRegisterValue(
+          concatenateMInt(
+            extractMask(RSMap[S]:>MInt, W2, S2),
+            concatenateMInt( 
+              extractMask(getRegisterValue(R, RSMap), RW, RS),
+              extractMask(RSMap[S]:>MInt, W1, S1))
+            ) , R)
+  ...</k>
+    <regstate> RSMap </regstate>
+      requires W2 =/=Int 0
 endmodule
 
 module PSEUDO-INSTR-SEMANTICS

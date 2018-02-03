@@ -3,10 +3,11 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rax, 56, "SPAD1") ~>
+saveRegister(%rax, "SPAD1") ~>
 readFlagToRegister( "CF", %rcx ) ~>
 execinstr ( movb %cl, %ah , .Typedoperands ) ~>
-restoreRegister("SPAD1", 56, 8, %rax) ~>
+restoreRegister("SPAD1", 0, 8, 16, 48, 
+          8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
