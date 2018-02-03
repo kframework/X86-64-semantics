@@ -9,9 +9,9 @@ module XCHGL-R32-R32
   ...</k>
     <regstate> 
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (concatenateMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R2, RSMap), 48, 64))), 0, 32), extractMInt(getParentValue(R2, RSMap), 32, 64)) )
+convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 32, 64)) )
 
-convToRegKeys(R2) |-> (concatenateMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R2, RSMap), 32, 64))), 0, 32), extractMInt(getParentValue(R1, RSMap), 32, 64))   )
+convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))   )
 
   
 )   
