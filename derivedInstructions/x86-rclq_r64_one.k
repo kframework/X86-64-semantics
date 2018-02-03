@@ -25,7 +25,9 @@ module RCLQ-R64-ONE-SEMANTICS
   imports RCLQ-R64-ONE
 endmodule
 /*
+TargetInstr:
 rclq $0x1, %rbx
+RWSet:
 maybe read:{ %rbx %cf }
 must read:{ %rbx %cf }
 maybe write:{ %rbx %cf %of }
@@ -34,8 +36,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:adcq %rbx, %rbx  #  1     0    3      OPC=adcq_r64_r64
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

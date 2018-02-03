@@ -33,7 +33,9 @@ module ADDQ-R64-R64-SEMANTICS
   imports ADDQ-R64-R64
 endmodule
 /*
+TargetInstr:
 addq %rcx, %rbx
+RWSet:
 maybe read:{ %rcx %rbx }
 must read:{ %rcx %rbx }
 maybe write:{ %rbx %cf %pf %af %zf %sf %of }
@@ -42,9 +44,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:orq %rbx, %rbx   #  1     0    3      OPC=orq_r64_r64
 circuit:adcq %rcx, %rbx  #  2     0x3  3      OPC=adcq_r64_r64
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

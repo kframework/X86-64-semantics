@@ -21,7 +21,9 @@ module VMOVQ-R64-XMM-SEMANTICS
   imports VMOVQ-R64-XMM
 endmodule
 /*
+TargetInstr:
 vmovq %xmm1, %rbx
+RWSet:
 maybe read:{ %xmm1 }
 must read:{ %xmm1 }
 maybe write:{ %rbx }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_032_xmm1_r10d_r11d_r12d_r13d  #  1     0    5      OPC=callq_label
 circuit:callq .move_032_064_r10d_r11d_rbx             #  2     0x5  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

@@ -21,7 +21,9 @@ module MOVZBL-R32-RH-SEMANTICS
   imports MOVZBL-R32-RH
 endmodule
 /*
+TargetInstr:
 movzbl %ah, %ebx
+RWSet:
 maybe read:{ %ah }
 must read:{ %ah }
 maybe write:{ %rbx }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:movq $0x40, %rbx  #  1     0    10     OPC=movq_r64_imm64
 circuit:movb %ah, %bl     #  2     0xa  2      OPC=movb_r8_rh
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

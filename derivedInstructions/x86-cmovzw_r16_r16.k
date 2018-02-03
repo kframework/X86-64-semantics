@@ -21,7 +21,9 @@ module CMOVZW-R16-R16-SEMANTICS
   imports CMOVZW-R16-R16
 endmodule
 /*
+TargetInstr:
 cmovzw %cx, %bx
+RWSet:
 maybe read:{ %cx %zf }
 must read:{ %cx %zf }
 maybe write:{ %bx }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ cmov }
 
+Circuit:
 circuit:movswq %cx, %r13    #  1     0    4      OPC=movswq_r64_r16
 circuit:movslq %r13d, %r13  #  2     0x4  3      OPC=movslq_r64_r32
 circuit:cmoveq %r13, %rbx   #  3     0x7  4      OPC=cmoveq_r64_r64
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

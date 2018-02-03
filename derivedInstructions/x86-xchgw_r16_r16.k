@@ -23,7 +23,9 @@ module XCHGW-R16-R16-SEMANTICS
   imports XCHGW-R16-R16
 endmodule
 /*
+TargetInstr:
 xchgw %cx, %bx
+RWSet:
 maybe read:{ %cx %bx }
 must read:{ %cx %bx }
 maybe write:{ %cx %bx }
@@ -32,11 +34,12 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .move_016_008_bx_r10b_r11b  #  1     0     5      OPC=callq_label
 circuit:callq .move_016_008_cx_r8b_r9b    #  2     0x5   5      OPC=callq_label
 circuit:callq .move_008_016_r10b_r11b_cx  #  3     0xa   5      OPC=callq_label
 circuit:callq .move_008_016_r8b_r9b_bx    #  4     0xf   5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

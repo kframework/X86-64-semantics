@@ -21,7 +21,9 @@ module CVTSS2SD-XMM-XMM-SEMANTICS
   imports CVTSS2SD-XMM-XMM
 endmodule
 /*
+TargetInstr:
 cvtss2sd %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm1 %xmm2 %mxcsr::rc[0] }
 must read:{ %xmm1 %xmm2 %mxcsr::rc[0] }
 maybe write:{ %xmm1 }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ sse2 }
 
+Circuit:
 circuit:callq .move_128_64_xmm1_xmm12_xmm13  #  1     0    5      OPC=callq_label
 circuit:vcvtps2pd %xmm2, %ymm12              #  2     0x5  4      OPC=vcvtps2pd_ymm_xmm
 circuit:callq .move_64_128_xmm12_xmm13_xmm1  #  3     0x9  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

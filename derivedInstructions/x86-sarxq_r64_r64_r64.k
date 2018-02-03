@@ -21,7 +21,9 @@ module SARXQ-R64-R64-R64-SEMANTICS
   imports SARXQ-R64-R64-R64
 endmodule
 /*
+TargetInstr:
 sarxq %rdx, %rcx, %rbx
+RWSet:
 maybe read:{ %rcx %rdx }
 must read:{ %rcx %rdx }
 maybe write:{ %rbx }
@@ -30,12 +32,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ bmi2 }
 
+Circuit:
 circuit:callq .move_064_032_rdx_r10d_r11d  #  1     0     5      OPC=callq_label
 circuit:callq .move_064_032_rcx_r8d_r9d    #  2     0x5   5      OPC=callq_label
 circuit:callq .move_008_016_r10b_r11b_cx   #  3     0xa   5      OPC=callq_label
 circuit:callq .move_032_064_r8d_r9d_rbx    #  4     0xf   5      OPC=callq_label
 circuit:sarq %cl, %rbx                     #  5     0x14  3      OPC=sarq_r64_cl
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

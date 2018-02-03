@@ -21,7 +21,9 @@ module VFNMADD231PD-YMM-YMM-YMM-SEMANTICS
   imports VFNMADD231PD-YMM-YMM-YMM
 endmodule
 /*
+TargetInstr:
 vfnmadd231pd %ymm3, %ymm2, %ymm1
+RWSet:
 maybe read:{ %ymm1 %ymm2 %ymm3 }
 must read:{ %ymm1 %ymm2 %ymm3 }
 maybe write:{ %ymm1 }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ fma }
 
+Circuit:
 circuit:vfnmadd132pd %ymm3, %ymm1, %ymm2      #  1     0    5      OPC=vfnmadd132pd_ymm_ymm_ymm
 circuit:callq .move_256_128_ymm2_xmm10_xmm11  #  2     0x5  5      OPC=callq_label
 circuit:callq .move_128_256_xmm10_xmm11_ymm1  #  3     0xa  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

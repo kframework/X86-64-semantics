@@ -21,7 +21,9 @@ module MOVUPS-XMM-XMM-SEMANTICS
   imports MOVUPS-XMM-XMM
 endmodule
 /*
+TargetInstr:
 movups %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 }
 must read:{ %xmm2 }
 maybe write:{ %xmm1 }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ sse }
 
+Circuit:
 circuit:callq .move_128_032_xmm2_xmm4_xmm5_xmm6_xmm7  #  1     0    5      OPC=callq_label
 circuit:callq .move_032_128_xmm4_xmm5_xmm6_xmm7_xmm1  #  2     0x5  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

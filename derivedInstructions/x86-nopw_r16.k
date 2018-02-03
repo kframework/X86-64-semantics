@@ -13,7 +13,9 @@ module NOPW-R16-SEMANTICS
   imports NOPW-R16
 endmodule
 /*
+TargetInstr:
 nopw %bx
+RWSet:
 maybe read:{ }
 must read:{ }
 maybe write:{ }
@@ -22,7 +24,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ nopl }
 
+Circuit:
 
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

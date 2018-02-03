@@ -33,7 +33,9 @@ module ANDNQ-R64-R64-R64-SEMANTICS
   imports ANDNQ-R64-R64-R64
 endmodule
 /*
+TargetInstr:
 andnq %rdx, %rcx, %rbx
+RWSet:
 maybe read:{ %rcx %rdx }
 must read:{ %rcx %rdx }
 maybe write:{ %rbx %cf %zf %sf %of }
@@ -42,10 +44,11 @@ maybe undef:{ %pf %af }
 must undef:{ %pf %af }
 required flags:{ bmi1 }
 
+Circuit:
 circuit:orq %rcx, %rdx   #  1     0    3      OPC=orq_r64_r64
 circuit:xorq %rcx, %rdx  #  2     0x3  3      OPC=xorq_r64_r64
 circuit:movq %rdx, %rbx  #  3     0x6  3      OPC=movq_r64_r64
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

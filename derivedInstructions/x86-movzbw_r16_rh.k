@@ -21,7 +21,9 @@ module MOVZBW-R16-RH-SEMANTICS
   imports MOVZBW-R16-RH
 endmodule
 /*
+TargetInstr:
 movzbw %ah, %bx
+RWSet:
 maybe read:{ %ah }
 must read:{ %ah }
 maybe write:{ %bx }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:xorq %rcx, %rcx          #  1     0    3      OPC=xorq_r64_r64
 circuit:callq .read_sf_into_rbx  #  2     0x3  5      OPC=callq_label
 circuit:movb %ah, %bl            #  3     0x8  2      OPC=movb_r8_rh
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

@@ -21,7 +21,9 @@ module VPMOVZXWQ-XMM-XMM-SEMANTICS
   imports VPMOVZXWQ-XMM-XMM
 endmodule
 /*
+TargetInstr:
 vpmovzxwq %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 }
 must read:{ %xmm2 }
 maybe write:{ %ymm1 }
@@ -30,13 +32,14 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r12_r13   #  1     0     5      OPC=callq_label
 circuit:vzeroall                           #  2     0x5   3      OPC=vzeroall
 circuit:callq .move_128_064_xmm2_r10_r11   #  3     0x8   5      OPC=callq_label
 circuit:callq .move_032_064_r12d_r13d_rdx  #  4     0xd   5      OPC=callq_label
 circuit:callq .move_032_016_edx_r10w_r11w  #  5     0x12  5      OPC=callq_label
 circuit:callq .move_064_128_r10_r11_xmm1   #  6     0x17  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

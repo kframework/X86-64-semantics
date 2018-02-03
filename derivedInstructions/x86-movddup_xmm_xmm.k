@@ -21,7 +21,9 @@ module MOVDDUP-XMM-XMM-SEMANTICS
   imports MOVDDUP-XMM-XMM
 endmodule
 /*
+TargetInstr:
 movddup %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 }
 must read:{ %xmm2 }
 maybe write:{ %xmm1 }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ pni }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
 circuit:movq %r12, %r13                   #  2     0x5  3      OPC=movq_r64_r64
 circuit:callq .move_064_128_r12_r13_xmm1  #  3     0x8  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

@@ -31,7 +31,9 @@ module DECB-R8-SEMANTICS
   imports DECB-R8
 endmodule
 /*
+TargetInstr:
 decb %bl
+RWSet:
 maybe read:{ %bl }
 must read:{ %bl }
 maybe write:{ %bl %pf %af %zf %sf %of }
@@ -40,10 +42,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:movq $0xffffffffffffffff, %r9  #  1     0     10     OPC=movq_r64_imm64
 circuit:xorq %rcx, %rcx                #  2     0xa   3      OPC=xorq_r64_r64
 circuit:adcb %r9b, %bl                 #  3     0xd   3      OPC=adcb_r8_r8
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

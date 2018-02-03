@@ -25,7 +25,9 @@ module RCLL-R32-ONE-SEMANTICS
   imports RCLL-R32-ONE
 endmodule
 /*
+TargetInstr:
 rcll $0x1, %ebx
+RWSet:
 maybe read:{ %ebx %cf }
 must read:{ %ebx %cf }
 maybe write:{ %rbx %cf %of }
@@ -34,9 +36,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:movslq %ebx, %rbx  #  1     0    3      OPC=movslq_r64_r32
 circuit:adcl %ebx, %ebx    #  2     0x3  2      OPC=adcl_r32_r32
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

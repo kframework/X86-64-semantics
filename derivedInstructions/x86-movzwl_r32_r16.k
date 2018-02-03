@@ -21,7 +21,9 @@ module MOVZWL-R32-R16-SEMANTICS
   imports MOVZWL-R32-R16
 endmodule
 /*
+TargetInstr:
 movzwl %cx, %ebx
+RWSet:
 maybe read:{ %cx }
 must read:{ %cx }
 maybe write:{ %rbx }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:movq $0x20, %rbx                  #  1     0     10     OPC=movq_r64_imm64
 circuit:callq .move_016_008_cx_r12b_r13b  #  2     0xa   5      OPC=callq_label
 circuit:callq .move_008_016_r12b_r13b_bx  #  3     0xf   5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

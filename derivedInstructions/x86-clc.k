@@ -21,7 +21,9 @@ module CLC-SEMANTICS
   imports CLC
 endmodule
 /*
+TargetInstr:
 clc
+RWSet:
 maybe read:{ }
 must read:{ }
 maybe write:{ %cf }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:xorq %rax, %rax  #  1     0    3      OPC=xorq_r64_r64
 circuit:adcb %al, %al    #  2     0x3  2      OPC=adcb_r8_r8
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

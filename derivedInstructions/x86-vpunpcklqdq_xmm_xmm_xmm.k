@@ -21,7 +21,9 @@ module VPUNPCKLQDQ-XMM-XMM-XMM-SEMANTICS
   imports VPUNPCKLQDQ-XMM-XMM-XMM
 endmodule
 /*
+TargetInstr:
 vpunpcklqdq %xmm3, %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 %xmm3 }
 must read:{ %xmm2 %xmm3 }
 maybe write:{ %ymm1 }
@@ -30,12 +32,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_064_xmm3_r8_r9    #  1     0     5      OPC=callq_label
 circuit:callq .move_128_064_xmm2_r10_r11  #  2     0x5   5      OPC=callq_label
 circuit:vzeroall                          #  3     0xa   3      OPC=vzeroall
 circuit:movq %r8, %r11                    #  4     0xd   3      OPC=movq_r64_r64
 circuit:callq .move_064_128_r10_r11_xmm1  #  5     0x10  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

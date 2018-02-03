@@ -23,7 +23,9 @@ module XCHGL-R32-R32-SEMANTICS
   imports XCHGL-R32-R32
 endmodule
 /*
+TargetInstr:
 xchgl %ecx, %ebx
+RWSet:
 maybe read:{ %ecx %ebx }
 must read:{ %ecx %ebx }
 maybe write:{ %rcx %rbx }
@@ -32,13 +34,14 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:movswq %bx, %r10                   #  1     0     4      OPC=movswq_r64_r16
 circuit:movslq %ebx, %rbx                  #  2     0x4   3      OPC=movslq_r64_r32
 circuit:callq .move_032_016_ecx_r8w_r9w    #  3     0x7   5      OPC=callq_label
 circuit:callq .move_064_032_rbx_r10d_r11d  #  4     0xc   5      OPC=callq_label
 circuit:movq %r10, %rcx                    #  5     0x11  3      OPC=movq_r64_r64
 circuit:callq .move_016_032_r8w_r9w_ebx    #  6     0x14  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

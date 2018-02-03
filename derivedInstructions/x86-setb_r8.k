@@ -21,7 +21,9 @@ module SETB-R8-SEMANTICS
   imports SETB-R8
 endmodule
 /*
+TargetInstr:
 setb %bl
+RWSet:
 maybe read:{ %cf }
 must read:{ %cf }
 maybe write:{ %bl }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_cf_into_rcx  #  1     0    5      OPC=callq_label
 circuit:movsbq %cl, %rbx         #  2     0x5  4      OPC=movsbq_r64_r8
 circuit:orq %rcx, %rbx           #  3     0x9  3      OPC=orq_r64_r64
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

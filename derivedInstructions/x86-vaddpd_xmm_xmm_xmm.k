@@ -21,7 +21,9 @@ module VADDPD-XMM-XMM-XMM-SEMANTICS
   imports VADDPD-XMM-XMM-XMM
 endmodule
 /*
+TargetInstr:
 vaddpd %xmm3, %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 %xmm3 }
 must read:{ %xmm2 %xmm3 }
 maybe write:{ %ymm1 }
@@ -30,13 +32,14 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r10_r11  #  1     0     5      OPC=callq_label
 circuit:callq .move_128_064_xmm3_r8_r9    #  2     0x5   5      OPC=callq_label
 circuit:vzeroall                          #  3     0xa   3      OPC=vzeroall
 circuit:callq .move_064_128_r10_r11_xmm1  #  4     0xd   5      OPC=callq_label
 circuit:callq .move_064_128_r8_r9_xmm3    #  5     0x12  5      OPC=callq_label
 circuit:vaddpd %ymm3, %ymm1, %ymm1        #  6     0x17  4      OPC=vaddpd_ymm_ymm_ymm
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

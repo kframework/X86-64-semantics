@@ -31,7 +31,9 @@ module INCW-R16-SEMANTICS
   imports INCW-R16
 endmodule
 /*
+TargetInstr:
 incw %bx
+RWSet:
 maybe read:{ %bx }
 must read:{ %bx }
 maybe write:{ %bx %pf %af %zf %sf %of }
@@ -40,11 +42,12 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:xorq %rax, %rax        #  1     0     3      OPC=xorq_r64_r64
 circuit:callq .set_cf          #  2     0x3   5      OPC=callq_label
 circuit:adcw %ax, %bx          #  3     0x8   3      OPC=adcw_r16_r16
 circuit:callq .set_szp_for_bx  #  4     0xb   5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

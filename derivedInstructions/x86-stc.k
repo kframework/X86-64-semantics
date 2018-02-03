@@ -21,7 +21,9 @@ module STC-SEMANTICS
   imports STC
 endmodule
 /*
+TargetInstr:
 stc
+RWSet:
 maybe read:{ }
 must read:{ }
 maybe write:{ %cf }
@@ -30,8 +32,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .set_cf  #  1     0    5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

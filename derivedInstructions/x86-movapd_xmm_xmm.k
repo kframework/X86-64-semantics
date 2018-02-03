@@ -21,7 +21,9 @@ module MOVAPD-XMM-XMM-SEMANTICS
   imports MOVAPD-XMM-XMM
 endmodule
 /*
+TargetInstr:
 movapd %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 }
 must read:{ %xmm2 }
 maybe write:{ %xmm1 }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ sse2 }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
 circuit:callq .move_064_128_r12_r13_xmm1  #  2     0x5  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target
