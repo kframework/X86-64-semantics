@@ -401,9 +401,10 @@ sub compareInts {
 
     # print "Check2: " . $khexnum . " " . $xhexnum . "\n";
     if ( $xhexnum eq $khexnum ) {
-      return 1;
-    } else {
-      failInfo("$xhexnum != $khexnum\n");
+        return 1;
+    }
+    else {
+        failInfo("$xhexnum != $khexnum\n");
     }
     return 0;
 }
@@ -849,20 +850,21 @@ sub instr_to_rwset {
 }
 
 sub getStrataBVFormula {
-  my $instr = shift @_;
-  my $debugprint = shift @_;
-  my $binpath = "/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
+    my $instr      = shift @_;
+    my $debugprint = shift @_;
+    my $binpath =
+"/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
 
-  # Escape the $ sign (if present)
-  $instr =~ s/\$/\\\$/g;
-  execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1");
+    # Escape the $ sign (if present)
+    $instr =~ s/\$/\\\$/g;
+    execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1");
 
-  my $filepath = "/tmp/yyy";
-  open( my $fp, "<", $filepath )
-    or die "[instr_to_opcode]cannot open $filepath: $!";
-  my @lines = <$fp>;
+    my $filepath = "/tmp/yyy";
+    open( my $fp, "<", $filepath )
+      or die "[instr_to_opcode]cannot open $filepath: $!";
+    my @lines = <$fp>;
 
-  return join("", @lines);
+    return join( "", @lines );
 }
 
 ##################################################
@@ -876,41 +878,48 @@ sub replaceCallWithPseudoInsr {
     if ( $instr =~ m/\.clear_(\w+)/ ) {
         my $flag = $1;
         return "setFlag( mi(1, 0), " . "\"" . uc($flag) . "\")";
-    } elsif ( $instr =~ m/\.set_(of|cf|zf|pf|af|sf)/ ) {
+    }
+    elsif ( $instr =~ m/\.set_(of|cf|zf|pf|af|sf)/ ) {
         my $flag = $1;
         return "setFlag( mi(1, 1), \"" . uc($flag) . "\")";
-    } elsif ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
         my $r    = "%" . $1;
         my $flag = $2;
         return "writeRegisterToflag( " . $r . ", \"" . uc($flag) . "\")";
-    } elsif ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
         my $flag = $1;
         my $r    = "%" . $2;
         return "readFlagToRegister( \"" . uc($flag) . "\", " . $r . " )";
-    } elsif ( $instr =~ m/set_szp_for_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/set_szp_for_(\w+)/ ) {
         my $r = "%" . $1;
         return "setSZPForRegister( " . $r . " )";
-    } elsif ( $instr =~ m/move_(\w+)_to_byte_(\d+)_of_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/move_(\w+)_to_byte_(\d+)_of_(\w+)/ ) {
         my $r8     = "%" . $1;
         my $bitnum = $2;
         my $rN     = "%" . $3;
         return "movByteToPosOfReg( " . $r8 . ", " . $bitnum . ", " . $rN . " )";
-    } elsif ( $instr =~ m/move_byte_(\d+)_of_(\w+)_to_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/move_byte_(\d+)_of_(\w+)_to_(\w+)/ ) {
         my $bitnum = $1;
         my $rN     = "%" . $2;
         my $r8     = "%" . $3;
         return "movPosOfRegToByte( " . $bitnum . ", " . $rN . ", " . $r8 . " )";
-    } elsif ( $instr =~ m/move_128_032_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/move_128_032_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
         my $x  = "%" . $1;
         my $r1 = "%" . $2;
         my $r2 = "%" . $3;
         my $r3 = "%" . $4;
         my $r4 = "%" . $5;
 
-        # R1, R2, R3, R4 could be Xmm, R32 
+        # R1, R2, R3, R4 could be Xmm, R32
         my $destW = 32;
-        if($r1 =~ m/xmm/) {
-          $destW = 128;
+        if ( $r1 =~ m/xmm/ ) {
+            $destW = 128;
         }
 
         return
@@ -921,7 +930,8 @@ sub replaceCallWithPseudoInsr {
           . $r3 . ", "
           . $r4 . ", "
           . $destW . " )";
-    } elsif ( $instr =~ m/move_032_128_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/move_032_128_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
         my $x1 = "%" . $1;
         my $x2 = "%" . $2;
         my $x3 = "%" . $3;
@@ -934,7 +944,8 @@ sub replaceCallWithPseudoInsr {
           . $x3 . ", "
           . $x4 . ", "
           . $x5 . " )";
-    } elsif ( $instr =~ m/move_(\d+)_(\d+)_(\w+)_(\w+)_(\w+)/ ) {
+    }
+    elsif ( $instr =~ m/move_(\d+)_(\d+)_(\w+)_(\w+)_(\w+)/ ) {
         my $m  = $1;
         my $n  = $2;
         my $r1 = "%" . $3;
@@ -948,13 +959,15 @@ sub replaceCallWithPseudoInsr {
             return "split2NToN($r1,  $r2, $r3 , $n)";
         }
 
-        if ( $n == 2 * $m and $m != 64) {
+        if ( $n == 2 * $m and $m != 64 ) {
             return "combineNTo2N($r1,  $r2, $r3, $m, $n, $m)";
-        } else {
-            if($r1 =~ m/xmm/) {
-              return "combineNTo2N($r1,  $r2, $r3, 64, 128, 128)";
-            } else {
-              return "combineNTo2N($r1,  $r2, $r3, 64, 128, 64)";
+        }
+        else {
+            if ( $r1 =~ m/xmm/ ) {
+                return "combineNTo2N($r1,  $r2, $r3, 64, 128, 128)";
+            }
+            else {
+                return "combineNTo2N($r1,  $r2, $r3, 64, 128, 64)";
             }
         }
     }
@@ -1259,7 +1272,7 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
             if ( $finalTerm =~ m/<regstate>\((.*)\s*\),,\s*<regstatequeue>/ ) {
                 $regstate = $1;
 
-            #print "Regstate: " . $regstate . "\n";
+                #print "Regstate: " . $regstate . "\n";
             }
             if ( !defined($regstate) ) {
                 failInfo("Error 1");
@@ -1268,7 +1281,7 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
         }
     }
 
-    printArray(\@reglines, "In processSpecOutput", $debugprint);
+    printArray( \@reglines, "In processSpecOutput", $debugprint );
 
     #print join( "\n", @reglines );
     if ( scalar(@reglines) == 0 ) {
@@ -1458,9 +1471,9 @@ sub selectRules {
             $deleteIndex{$i} = 1;
             ## If the register is must undef sets, include it
             if ( exists $mustUndefSet{$reg} ) {
-                $returnInfo =
-                  $returnInfo
-#. " \"$reg\" |-> (MI$rsmap{$reg} => undef)" . "\n\n";
+                $returnInfo = $returnInfo
+
+                  #. " \"$reg\" |-> (MI$rsmap{$reg} => undef)" . "\n\n";
                   . " \"$reg\" |-> (undef)" . "\n\n";
                 next;
             }
@@ -1512,26 +1525,29 @@ sub selectRules {
         }
     }
 
-    printMap(\%collectedMINUMs, "CollecTed MINUNS", $debugprint);
-    printMap(\%actual2psedoRegs, "Actual to Psedu Regs", $debugprint);
+    printMap( \%collectedMINUMs,  "CollecTed MINUNS",     $debugprint );
+    printMap( \%actual2psedoRegs, "Actual to Psedu Regs", $debugprint );
     debugInfo( "[selectRules] Included based on R/WU: $returnInfo\n",
         $debugprint );
 
     ## All the collected MIs should be converted to getParentValue or getFlag
-    for my $minum (keys %collectedMINUMs) {
-      my $num = $minum =~ s/MI(\d+)/$1/gr; 
-      my $regKey = $rev_rsmap{$num};
-      print "$regKey\n";
-      if(exists $actual2psedoRegs{$regKey}) {
-        $returnInfo =~ s/$minum/getParentValue($actual2psedoRegs{$regKey}, RSMap)/g;
-      } else {
-        if( $regKey =~ m/CF|PF|AF|ZF|SF|OF/ ) {
-          $returnInfo =~ s/$minum/getFlag(\"$regKey\", RSMap)/g;
-        } else {
-          my $realreg = "%" . lc($regKey);
-          $returnInfo =~ s/$minum/getParentValue($realreg, RSMap)/g;
+    for my $minum ( keys %collectedMINUMs ) {
+        my $num    = $minum =~ s/MI(\d+)/$1/gr;
+        my $regKey = $rev_rsmap{$num};
+        print "$regKey\n";
+        if ( exists $actual2psedoRegs{$regKey} ) {
+            $returnInfo =~
+              s/$minum/getParentValue($actual2psedoRegs{$regKey}, RSMap)/g;
         }
-      }
+        else {
+            if ( $regKey =~ m/CF|PF|AF|ZF|SF|OF/ ) {
+                $returnInfo =~ s/$minum/getFlag(\"$regKey\", RSMap)/g;
+            }
+            else {
+                my $realreg = "%" . lc($regKey);
+                $returnInfo =~ s/$minum/getParentValue($realreg, RSMap)/g;
+            }
+        }
     }
 
     debugInfo( "[selectRules] After removeing readSet: $returnInfo\n",
@@ -1563,10 +1579,11 @@ sub selectRules {
 
             ## If the register is not in read/write/undef sets, remove it.
             if ( exists( $collectedMINUMs{$defnminum} ) ) {
-#                $returnInfo =
-#                  $returnInfo
-#                  . " \"$reg\" |-> ($defnminum => $defnminum)" . "\n\n";
-              utils::failInfo("Sratch Pad found");  
+
+       #                $returnInfo =
+       #                  $returnInfo
+       #                  . " \"$reg\" |-> ($defnminum => $defnminum)" . "\n\n";
+                utils::failInfo("Sratch Pad found");
             }
         }
     }
@@ -1678,9 +1695,11 @@ sub sanitizeSpecOutput {
         my $result = "";
 
         debugInfo( "Stage 1.1: " . $mod . "\n\n", $debugprint );
-#$mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
+
+        #$mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
         $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ($2)/g;
-#debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
+
+        #debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
 
         if ( $mod =~ /_/ ) {
             $result = mixfix2infix( $mod, $debugprint );
@@ -1710,14 +1729,14 @@ sub sanitizeSpecOutput {
     # Global Optimzations
     ## "R" |-> (MINUM => ...) and MINUM does not occur elsewhere then Replace
     ## MINUM with _
-#    for my $key ( keys %rsmap ) {
-#        my $val     = "MI" . %rsmap{$key};
-#        my @matches = $returnInfo =~ m/$val/g;
-#        if ( 1 == scalar(@matches) ) {
-#            $returnInfo =~ s/$val/_/;
-#        }
-#    }
-#
+    #    for my $key ( keys %rsmap ) {
+    #        my $val     = "MI" . %rsmap{$key};
+    #        my @matches = $returnInfo =~ m/$val/g;
+    #        if ( 1 == scalar(@matches) ) {
+    #            $returnInfo =~ s/$val/_/;
+    #        }
+    #    }
+    #
     ## Remove or comment out the reglines which are not written
 
     debugInfo( "Rules After GOPT: $returnInfo\n", $debugprint );
@@ -1902,10 +1921,10 @@ module $module_name_uc
   rule <k>
     execinstr ($enc $operands .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
-$semantics  
-)   
+$semantics
+)
 
     </regstate>
 endmodule
@@ -1921,20 +1940,22 @@ endmodule
     ## Dump the circuit and the BVFormula
 
     my ( $spec_code, $orig_circuit ) =
-      kutils::getSpecCode( $opcode, "/home/sdasgup3/Github/strata-data/circuits/", $debugprint );
+      kutils::getSpecCode( $opcode,
+        "/home/sdasgup3/Github/strata-data/circuits/", $debugprint );
 
     ## Comment section in specfile.
     my ( $targetinstr, $metadata, $rwset ) =
-      kutils::getReadMod( $opcode, "/home/sdasgup3/Github/strata-data/data-regs/instructions/", $debugprint );
+      kutils::getReadMod( $opcode,
+        "/home/sdasgup3/Github/strata-data/data-regs/instructions/",
+        $debugprint );
 
-    my $strata_BVFormula = getStrataBVFormula($targetinstr, $debugprint);
+    my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint );
 
-    print $fp "/*"        . "\n" .
-            $targetinstr  . "\n" .
-            $rwset        . "\n" .
-            $orig_circuit . "\n" .
-            $strata_BVFormula . "\n" .
-            "*/";  
+    print $fp "/*" . "\n"
+      . $targetinstr . "\n"
+      . $rwset . "\n"
+      . $orig_circuit . "\n"
+      . $strata_BVFormula . "\n" . "*/";
 }
 
 sub createSpecFile {
@@ -1979,17 +2000,19 @@ sub createSpecFile {
         my %store = %{$store_ref};
         printMap( \%store, "Circuit: $cinstr", 1 );
         for my $key ( keys %store ) {
-            $circuitRWStore{uc($subRegToReg{utils::trim($key, "%")})} = 1;
+            $circuitRWStore{ uc( $subRegToReg{ utils::trim( $key, "%" ) } ) } =
+              1;
         }
     }
     printMap( \%circuitRWStore, "Total Circuit", 1 );
 
     ### Get the RW Set of the target instruction.
-    my $store_ref = instr_to_rwset( $targetinstr, $debugprint );
-    my %store = %{$store_ref};
+    my $store_ref          = instr_to_rwset( $targetinstr, $debugprint );
+    my %store              = %{$store_ref};
     my %targetInstrRWStore = ();
     for my $key ( keys %store ) {
-      $targetInstrRWStore{uc($subRegToReg{utils::trim($key, "%")})} = 1;
+        $targetInstrRWStore{ uc( $subRegToReg{ utils::trim( $key, "%" ) } ) } =
+          1;
     }
     printMap( \%targetInstrRWStore, "Target", 1 );
 
@@ -2000,8 +2023,8 @@ sub createSpecFile {
     ### If the constituing RW set belongs to target's RW set, then then need to kept
     ### symbolic, else keep then zeroed out.
     for my $key ( keys %circuitRWStore ) {
-        if("" eq $key) {
-          next;
+        if ( "" eq $key ) {
+            next;
         }
         my $mintSize = 64;
         if ( $key =~ m/YMM/ ) {
