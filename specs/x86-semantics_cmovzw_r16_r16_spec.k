@@ -3,9 +3,11 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%rbx, 48, "SPAD1") ~>
 execinstr ( movswq %cx, %r13 , .Typedoperands ) ~>
 execinstr ( movslq %r13d, %r13 , .Typedoperands ) ~>
 execinstr ( cmoveq %r13, %rbx , .Typedoperands ) ~>
+restoreRegister("SPAD1", 48, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -18,6 +20,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "R13" |-> (mi(64, 0):MInt => _)
 "RBX" |-> (mi(64, ?I1:Int):MInt => _)
 "RCX" |-> (mi(64, ?I2:Int):MInt => _)

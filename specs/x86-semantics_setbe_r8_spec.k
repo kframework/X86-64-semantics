@@ -3,11 +3,13 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
+saveRegister(%rbx, 56, "SPAD1") ~>
 readFlagToRegister( "ZF", %rcx ) ~>
 readFlagToRegister( "CF", %rbx ) ~>
 execinstr ( cmoveq %rcx, %rbx , .Typedoperands ) ~>
 split2NToN(%ecx,  %r8w, %r9w , 16) ~>
 movByteToPosOfReg( %r8b, 7, %rbx ) ~>
+restoreRegister("SPAD1", 56, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -20,6 +22,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"SPAD1" |->    (mi(256, 0) => _)
 "CF" |-> (mi(1, ?I1:Int):MInt => _)
 "R8" |-> (mi(64, 0):MInt => _)
 "R9" |-> (mi(64, 0):MInt => _)

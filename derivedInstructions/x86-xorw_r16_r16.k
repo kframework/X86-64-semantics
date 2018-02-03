@@ -13,7 +13,7 @@ RSMap:Map => updateMap(RSMap,
 
  "AF" |-> (undef)
 
-convToRegKeys(R2) |-> (mi(64, svalueMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)))) )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64))) )
 
  "ZF" |-> ((#ifMInt (eqMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
