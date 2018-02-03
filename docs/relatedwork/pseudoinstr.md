@@ -200,7 +200,9 @@
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_byte\_27\_of\_ymm1\_to\_r8b.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_r8b\_to\_byte\_22\_of\_ymm1.s
 
-- 128 bit reg <-> 32 bit reg (18)
+- 128 bit reg <-> 32 bit reg (18) 
+  // 128 -> R32 : Zero out the higher 32 bits
+  // 128 -> 128 : Precerve higher 32 bits
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_128\_032\_xmm1\_xmm8\_xmm9\_xmm10\_xmm11.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_128\_032\_xmm1\_xmm4\_xmm5\_xmm6\_xmm7.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_128\_032\_xmm2\_xmm8\_xmm9\_xmm10\_xmm11.s
@@ -215,7 +217,7 @@
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_128\_032\_xmm1\_r10d\_r11d\_r12d\_r13d.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_128\_032\_xmm2\_r10d\_r11d\_r12d\_r13d.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_128\_032\_xmm3\_r10d\_r11d\_r12d\_r13d.s
-  - 
+
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_032\_128\_xmm4\_xmm5\_xmm6\_xmm7\_xmm1.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_032\_128\_xmm4\_xmm5\_xmm6\_xmm7\_xmm2.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_032\_128\_xmm4\_xmm5\_xmm6\_xmm7\_xmm3.s
@@ -233,6 +235,7 @@
   - For Other
     = Source register == N and dest register == 2N
   
+  // Higher 32 bits if Dest R is zeroed  
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_016\_032\_r8w\_r9w\_ecx.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_016\_032\_r10w\_r11w\_ebx.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_016\_032\_r12w\_r13w\_ecx.s
@@ -298,6 +301,7 @@
   -  For N == 64, Source register == 2n, but dest register > N
   -  For N == 064, Source register == 2n, but dest register == N
 
+  // higher 32 bits of dest R64 is zerod
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_064\_032\_rdx\_r10d\_r11d.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_064\_032\_rdx\_r12d\_r13d.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_064\_032\_rbx\_r10d\_r11d.s
@@ -348,6 +352,7 @@
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_016\_008\_dx\_r10b\_r11b.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_016\_008\_bx\_r8b\_r9b.s
 
+  // The higher 48 bits of Dest R are preseerved
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_032\_016\_ecx\_r10w\_r11w.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_032\_016\_ebx\_r10w\_r11w.s
   - /home/sdasgup3/Github/strata-data/data-regs/functions/move\_032\_016\_edx\_r8w\_r9w.s

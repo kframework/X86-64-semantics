@@ -906,13 +906,21 @@ sub replaceCallWithPseudoInsr {
         my $r2 = "%" . $3;
         my $r3 = "%" . $4;
         my $r4 = "%" . $5;
+
+        # R1, R2, R3, R4 could be Xmm, R32 
+        my $destW = 32;
+        if($r1 =~ m/xmm/) {
+          $destW = 128;
+        }
+
         return
-            "splitXmmToRegsIn32( "
+            "splitXmmToR32( "
           . $x . ", "
           . $r1 . ", "
           . $r2 . ", "
           . $r3 . ", "
-          . $r4 . " )";
+          . $r4 . ", "
+          . $destW . " )";
     } elsif ( $instr =~ m/move_032_128_(\w+)_(\w+)_(\w+)_(\w+)_(\w+)/ ) {
         my $x1 = "%" . $1;
         my $x2 = "%" . $2;
@@ -920,7 +928,7 @@ sub replaceCallWithPseudoInsr {
         my $x4 = "%" . $4;
         my $x5 = "%" . $5;
         return
-            "combineRegsIn32ToXmm( "
+            "combineR32ToXmm( "
           . $x1 . ", "
           . $x2 . ", "
           . $x3 . ", "
@@ -932,17 +940,21 @@ sub replaceCallWithPseudoInsr {
         my $r1 = "%" . $3;
         my $r2 = "%" . $4;
         my $r3 = "%" . $5;
+
+        $m =~ s/^0//;
+        $n =~ s/^0//;
+
         if ( $m == 2 * $n ) {
-            return "split2NToN( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+            return "split2NToN($r1,  $r2, $r3 , $n)";
         }
 
         if ( $n == 2 * $m and $m != 64) {
-            return "combineNTo2N( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+            return "combineNTo2N($r1,  $r2, $r3, $m, $n, $m)";
         } else {
-            if($m eq "64") {
-              return "combineLower64OfXmmTo128( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+            if($r1 =~ m/xmm/) {
+              return "combineNTo2N($r1,  $r2, $r3, 64, 128, 128)";
             } else {
-              return "combineNTo2N( " . $r1 . ", " . $r2 . ", " . $r3 . " )";
+              return "combineNTo2N($r1,  $r2, $r3, 64, 128, 64)";
             }
         }
     }

@@ -5,10 +5,10 @@ module X86-SEMANTICS-SPEC
     <k>
 execinstr ( movswq %bx, %r10 , .Typedoperands ) ~>
 execinstr ( movslq %ebx, %rbx , .Typedoperands ) ~>
-split2NToN( %ecx, %r8w, %r9w ) ~>
-split2NToN( %rbx, %r10d, %r11d ) ~>
+split2NToN(%ecx,  %r8w, %r9w , 16) ~>
+split2NToN(%rbx,  %r10d, %r11d , 32) ~>
 execinstr ( movq %r10, %rcx , .Typedoperands ) ~>
-combineNTo2N( %r8w, %r9w, %ebx ) ~>
+combineNTo2N(%r8w,  %r9w, %ebx, 16, 32, 16) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -21,12 +21,12 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"RCX" |-> (mi(64, ?I1:Int):MInt => _)
 "R10" |-> (mi(64, 0):MInt => _)
-"R8" |-> (mi(64, 0):MInt => _)
-"R9" |-> (mi(64, 0):MInt => _)
 "R11" |-> (mi(64, 0):MInt => _)
+"RCX" |-> (mi(64, ?I1:Int):MInt => _)
+"R9" |-> (mi(64, 0):MInt => _)
 "RBX" |-> (mi(64, ?I2:Int):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
