@@ -1,4 +1,3 @@
-//requires "x86-base-instruction-semantics.k"
 requires "x86-loader.k"
 requires "x86-fetch-execute.k"
 requires "x86-abstract-semantics.k"
