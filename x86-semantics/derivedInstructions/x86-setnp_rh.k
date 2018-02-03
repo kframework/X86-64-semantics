@@ -21,7 +21,9 @@ module SETNP-RH-SEMANTICS
   imports SETNP-RH
 endmodule
 /*
+TargetInstr:
 setnp %ah
+RWSet:
 maybe read:{ %pf }
 must read:{ %pf }
 maybe write:{ %ah }
@@ -30,13 +32,14 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_pf_into_rbx           #  1     0     5      OPC=callq_label
 circuit:callq .move_032_016_ebx_r8w_r9w   #  2     0x5   5      OPC=callq_label
 circuit:callq .move_r8b_to_byte_2_of_rbx  #  3     0xa   5      OPC=callq_label
 circuit:callq .set_szp_for_bx             #  4     0xf   5      OPC=callq_label
 circuit:callq .read_zf_into_rbx           #  5     0x14  5      OPC=callq_label
 circuit:movb %bl, %ah                     #  6     0x19  2      OPC=movb_rh_r8
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

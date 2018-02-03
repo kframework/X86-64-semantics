@@ -21,7 +21,9 @@ module VMOVDQA-YMM-YMM-SEMANTICS
   imports VMOVDQA-YMM-YMM
 endmodule
 /*
+TargetInstr:
 vmovdqa %ymm2, %ymm1
+RWSet:
 maybe read:{ %ymm2 }
 must read:{ %ymm2 }
 maybe write:{ %ymm1 }
@@ -30,8 +32,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:vminpd %ymm2, %ymm2, %ymm1  #  1     0    4      OPC=vminpd_ymm_ymm_ymm
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

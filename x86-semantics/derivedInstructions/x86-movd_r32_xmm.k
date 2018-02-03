@@ -21,7 +21,9 @@ module MOVD-R32-XMM-SEMANTICS
   imports MOVD-R32-XMM
 endmodule
 /*
+TargetInstr:
 movd %xmm1, %ebx
+RWSet:
 maybe read:{ %xmm1 }
 must read:{ %xmm1 }
 maybe write:{ %rbx }
@@ -30,11 +32,12 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ sse2 }
 
+Circuit:
 circuit:callq .move_128_032_xmm1_xmm8_xmm9_xmm10_xmm11  #  1     0     5      OPC=callq_label
 circuit:callq .move_128_256_xmm8_xmm9_ymm1              #  2     0x5   5      OPC=callq_label
 circuit:callq .move_128_064_xmm1_r10_r11                #  3     0xa   5      OPC=callq_label
 circuit:callq .move_032_064_r10d_r11d_rbx               #  4     0xf   5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

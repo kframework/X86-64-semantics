@@ -25,7 +25,9 @@ module RCLW-R16-ONE-SEMANTICS
   imports RCLW-R16-ONE
 endmodule
 /*
+TargetInstr:
 rclw $0x1, %bx
+RWSet:
 maybe read:{ %bx %cf }
 must read:{ %bx %cf }
 maybe write:{ %bx %cf %of }
@@ -34,8 +36,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:adcw %bx, %bx  #  1     0    3      OPC=adcw_r16_r16
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

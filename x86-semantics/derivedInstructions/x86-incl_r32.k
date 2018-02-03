@@ -31,7 +31,9 @@ module INCL-R32-SEMANTICS
   imports INCL-R32
 endmodule
 /*
+TargetInstr:
 incl %ebx
+RWSet:
 maybe read:{ %ebx }
 must read:{ %ebx }
 maybe write:{ %rbx %pf %af %zf %sf %of }
@@ -40,12 +42,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .clear_cf          #  1     0     5      OPC=callq_label
 circuit:callq .set_pf            #  2     0x5   5      OPC=callq_label
 circuit:callq .read_pf_into_rcx  #  3     0xa   5      OPC=callq_label
 circuit:adcl %ecx, %ebx          #  4     0xf   2      OPC=adcl_r32_r32
 circuit:callq .set_szp_for_ebx   #  5     0x11  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

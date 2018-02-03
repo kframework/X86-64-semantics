@@ -21,7 +21,9 @@ module SETO-R8-SEMANTICS
   imports SETO-R8
 endmodule
 /*
+TargetInstr:
 seto %bl
+RWSet:
 maybe read:{ %of }
 must read:{ %of }
 maybe write:{ %bl }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_of_into_rbx           #  1     0    5      OPC=callq_label
 circuit:callq .move_byte_6_of_rbx_to_r9b  #  2     0x5  5      OPC=callq_label
 circuit:callq .move_r9b_to_byte_6_of_rbx  #  3     0xa  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

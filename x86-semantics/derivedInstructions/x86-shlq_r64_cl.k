@@ -33,7 +33,9 @@ module SHLQ-R64-CL-SEMANTICS
   imports SHLQ-R64-CL
 endmodule
 /*
+TargetInstr:
 shlq %cl, %rbx
+RWSet:
 maybe read:{ %cl %rbx }
 must read:{ %cl %rbx }
 maybe write:{ %rbx %cf %pf %zf %sf %of }
@@ -42,8 +44,9 @@ maybe undef:{ %cf %af %of }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:salq %cl, %rbx  #  1     0    3      OPC=salq_r64_cl
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

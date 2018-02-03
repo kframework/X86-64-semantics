@@ -21,7 +21,9 @@ module VFNMSUB213PS-YMM-YMM-YMM-SEMANTICS
   imports VFNMSUB213PS-YMM-YMM-YMM
 endmodule
 /*
+TargetInstr:
 vfnmsub213ps %ymm3, %ymm2, %ymm1
+RWSet:
 maybe read:{ %ymm1 %ymm2 %ymm3 }
 must read:{ %ymm1 %ymm2 %ymm3 }
 maybe write:{ %ymm1 }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ fma }
 
+Circuit:
 circuit:vfnmsub132ps %ymm1, %ymm3, %ymm2  #  1     0    5      OPC=vfnmsub132ps_ymm_ymm_ymm
 circuit:vmaxps %ymm2, %ymm2, %ymm1        #  2     0x5  4      OPC=vmaxps_ymm_ymm_ymm
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

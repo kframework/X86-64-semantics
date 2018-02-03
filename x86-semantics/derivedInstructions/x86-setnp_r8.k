@@ -21,7 +21,9 @@ module SETNP-R8-SEMANTICS
   imports SETNP-R8
 endmodule
 /*
+TargetInstr:
 setnp %bl
+RWSet:
 maybe read:{ %pf }
 must read:{ %pf }
 maybe write:{ %bl }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_pf_into_rbx  #  1     0    5      OPC=callq_label
 circuit:callq .set_szp_for_bx    #  2     0x5  5      OPC=callq_label
 circuit:callq .read_zf_into_rbx  #  3     0xa  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

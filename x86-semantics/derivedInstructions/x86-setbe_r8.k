@@ -21,7 +21,9 @@ module SETBE-R8-SEMANTICS
   imports SETBE-R8
 endmodule
 /*
+TargetInstr:
 setbe %bl
+RWSet:
 maybe read:{ %cf %zf }
 must read:{ %cf %zf }
 maybe write:{ %bl }
@@ -30,12 +32,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_zf_into_rcx           #  1     0     5      OPC=callq_label
 circuit:callq .read_cf_into_rbx           #  2     0x5   5      OPC=callq_label
 circuit:cmoveq %rcx, %rbx                 #  3     0xa   4      OPC=cmoveq_r64_r64
 circuit:callq .move_032_016_ecx_r8w_r9w   #  4     0xe   5      OPC=callq_label
 circuit:callq .move_r8b_to_byte_7_of_rbx  #  5     0x13  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

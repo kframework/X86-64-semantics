@@ -21,7 +21,9 @@ module SETNAE-RH-SEMANTICS
   imports SETNAE-RH
 endmodule
 /*
+TargetInstr:
 setnae %ah
+RWSet:
 maybe read:{ %cf }
 must read:{ %cf }
 maybe write:{ %ah }
@@ -30,9 +32,10 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_cf_into_rbx  #  1     0    5      OPC=callq_label
 circuit:movb %bl, %ah            #  2     0x5  2      OPC=movb_rh_r8
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

@@ -21,7 +21,9 @@ module MOVSBL-R32-R8-SEMANTICS
   imports MOVSBL-R32-R8
 endmodule
 /*
+TargetInstr:
 movsbl %cl, %ebx
+RWSet:
 maybe read:{ %cl }
 must read:{ %cl }
 maybe write:{ %rbx }
@@ -30,12 +32,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .set_of                      #  1     0     5      OPC=callq_label
 circuit:callq .read_of_into_rbx            #  2     0x5   5      OPC=callq_label
 circuit:callq .move_064_032_rbx_r10d_r11d  #  3     0xa   5      OPC=callq_label
 circuit:movsbq %cl, %r10                   #  4     0xf   4      OPC=movsbq_r64_r8
 circuit:callq .move_032_064_r10d_r11d_rbx  #  5     0x13  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

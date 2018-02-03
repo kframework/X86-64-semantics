@@ -21,7 +21,9 @@ module VRSQRTPS-XMM-XMM-SEMANTICS
   imports VRSQRTPS-XMM-XMM
 endmodule
 /*
+TargetInstr:
 vrsqrtps %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 }
 must read:{ %xmm2 }
 maybe write:{ %ymm1 }
@@ -30,12 +32,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r8_r9        #  1     0     5      OPC=callq_label
 circuit:vzeroall                              #  2     0x5   3      OPC=vzeroall
 circuit:callq .move_064_128_r8_r9_xmm3        #  3     0x8   5      OPC=callq_label
 circuit:vrsqrtps %ymm3, %ymm12                #  4     0xd   4      OPC=vrsqrtps_ymm_ymm
 circuit:callq .move_128_256_xmm12_xmm13_ymm1  #  5     0x11  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

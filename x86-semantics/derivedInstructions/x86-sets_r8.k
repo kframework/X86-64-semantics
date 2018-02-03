@@ -21,7 +21,9 @@ module SETS-R8-SEMANTICS
   imports SETS-R8
 endmodule
 /*
+TargetInstr:
 sets %bl
+RWSet:
 maybe read:{ %sf }
 must read:{ %sf }
 maybe write:{ %bl }
@@ -30,8 +32,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_sf_into_rbx  #  1     0    5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

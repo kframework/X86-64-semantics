@@ -21,7 +21,9 @@ module SETNO-RH-SEMANTICS
   imports SETNO-RH
 endmodule
 /*
+TargetInstr:
 setno %ah
+RWSet:
 maybe read:{ %of }
 must read:{ %of }
 maybe write:{ %ah }
@@ -30,11 +32,12 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .read_of_into_rbx  #  1     0     5      OPC=callq_label
 circuit:callq .set_szp_for_ebx   #  2     0x5   5      OPC=callq_label
 circuit:callq .read_zf_into_rcx  #  3     0xa   5      OPC=callq_label
 circuit:movb %cl, %ah            #  4     0xf   2      OPC=movb_rh_r8
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

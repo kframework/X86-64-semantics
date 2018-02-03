@@ -21,7 +21,9 @@ module CLTQ-SEMANTICS
   imports CLTQ
 endmodule
 /*
+TargetInstr:
 cltq
+RWSet:
 maybe read:{ %eax }
 must read:{ %eax }
 maybe write:{ %rax }
@@ -30,11 +32,12 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:xorq %rsi, %rsi    #  1     0    3      OPC=xorq_r64_r64
 circuit:movslq %esi, %r9   #  2     0x3  3      OPC=movslq_r64_r32
 circuit:adcl %r9d, %eax    #  3     0x6  3      OPC=adcl_r32_r32
 circuit:movslq %eax, %rax  #  4     0x9  3      OPC=movslq_r64_r32
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

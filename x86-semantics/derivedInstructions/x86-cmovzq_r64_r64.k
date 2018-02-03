@@ -21,7 +21,9 @@ module CMOVZQ-R64-R64-SEMANTICS
   imports CMOVZQ-R64-R64
 endmodule
 /*
+TargetInstr:
 cmovzq %rcx, %rbx
+RWSet:
 maybe read:{ %rcx %zf }
 must read:{ %rcx %zf }
 maybe write:{ %rbx }
@@ -30,8 +32,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ cmov }
 
+Circuit:
 circuit:cmoveq %rcx, %rbx  #  1     0    4      OPC=cmoveq_r64_r64
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

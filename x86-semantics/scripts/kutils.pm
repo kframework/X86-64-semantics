@@ -21,6 +21,7 @@ $VERSION = 1.00;
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
+my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 #my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
 my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
 my @xpatterns = (
@@ -657,12 +658,14 @@ sub find_stratum {
     return ( $depth, $count );
 }
 
-#################################################
-sub getReadMod {
-################################################
+# Given opcode get the instr from the data-reg/instructions
+#############################################
+sub getTargetInstr {
+#############################################
     my $opcode     = shift @_;
     my $path       = shift @_;
     my $debugprint = shift @_;
+    my $path       = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 
     my $filepath = $path . "/" . $opcode . "/" . $opcode . ".s";
     my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
@@ -670,7 +673,7 @@ sub getReadMod {
     my $metadata = "";
 
     # Find the concrete instruction.
-    debugInfo( "In file : " . $filepath . "\n", $debugprint );
+    debugInfo( "[getTargetInstr] In file : " . $filepath . "\n", $debugprint );
     open( my $fp, "<", $filepath ) or die "cannot open $filepath: $!";
     my @lines = <$fp>;
     for my $line (@lines) {
@@ -683,8 +686,22 @@ sub getReadMod {
         $instr = utils::trim($instr);
     }
 
+    return  $instr;
+}
+
+# Given opcode get the .etadata from the data-reg/instructions
+#############################################
+sub getMDFromOpcode {
+#############################################
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
+    my $path       = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+
+    my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
+    my $metadata = "";
+
     # Find the read/write set using metadata.
-    debugInfo( "In file : " . $metapath . "\n", $debugprint );
+    debugInfo( "[getMDFromOpcode] In file : " . $metapath . "\n", $debugprint );
     open( my $fp, "<", $metapath ) or die "cannot open $metapath: $!";
     my @lines = <$fp>;
     for my $line (@lines) {
@@ -694,10 +711,7 @@ sub getReadMod {
         }
     }
 
-    # Find the texual read/write set for the concrete instr.
-    my ( $rwset, $store_ref ) = instr_to_rwset( $instr, $debugprint );
-
-    return ( $instr, $metadata, $rwset );
+    return $metadata;  
 }
 
 #####################################
@@ -753,9 +767,9 @@ sub getOpList {
 }
 
 ## Input: Concrete Instruction.
-## Output: Read/Write reg set.
+## Output: Read/Write reg set in a store, no way to distiguish between R/W/U
 ###########################################
-sub instr_to_rwset {
+sub getRWsetOfInstr {
 ###########################################
     my $instr      = shift @_;
     my $debugprint = shift @_;
@@ -844,7 +858,7 @@ sub instr_to_rwset {
             }
         }
     }
-    debugInfo( "[instr_to_rwset] rw set: $instr::$returnInfo" . "\n",
+    debugInfo( "[getRWsetOfInstr] rw set: $instr::$returnInfo" . "\n",
         $debugprint );
     return ( $returnInfo, \%store );
 }
@@ -977,7 +991,7 @@ sub replaceCallWithPseudoInsr {
 }
 
 ########################################
-sub getInstrFromCircuit {
+sub getInstrsFromCircuit {
 #####################################
     my $opcode       = shift @_;
     my $strata_path  = shift @_;
@@ -989,7 +1003,7 @@ sub getInstrFromCircuit {
     my $filepath = $strata_path . "/" . $opcode . ".s";
     debugInfo( "In file : " . $filepath . "\n", $debugprint );
     open( my $fp, "<", $filepath )
-      or die "[getInstrFromCircuit] cannot open $filepath: $!";
+      or die "[getInstrsFromCircuit] cannot open $filepath: $!";
 
     utils::info("Reading circuit from $filepath");
     my @lines = <$fp>;
@@ -1010,29 +1024,25 @@ sub getInstrFromCircuit {
             $line   = utils::trim($line);
             push @instr_arr,    $instr;
             push @encode_arr,   $encode;
-            push @orig_circuit, $line;
+            push @orig_circuit, "circuit:". $line;
         }
     }
     return \@instr_arr, \@encode_arr, \@orig_circuit;
 }
 
+# Get the spec code used in <cmem> </cmem>
+# Handles converting call tp pseudo instr
 ##################################################
 sub getSpecCode {
 ##################################################
     my $opcode      = shift @_;
-    my $strata_path = shift @_;
     my $debugprint  = shift @_;
 
     my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
-      getInstrFromCircuit( $opcode, $strata_path, $debugprint );
+      getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
     my @instr_arr        = @{$instr_arr_ref};
     my @encode_arr       = @{$encode_arr_ref};
     my @orig_circuit_arr = @{$orig_circuit_ref};
-
-    my $orig_circuit = "";
-    for my $val (@orig_circuit_arr) {
-        $orig_circuit = $orig_circuit . "circuit:" . $val . "\n";
-    }
 
     my $spec_code = "";
     for ( my $i = 0 ; $i < scalar(@instr_arr) ; $i++ ) {
@@ -1061,7 +1071,7 @@ sub getSpecCode {
       . "execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch" . "\n";
     debugInfo( $spec_code . "\n", $debugprint );
 
-    return ( $spec_code, $orig_circuit );
+    return ( $spec_code);
 }
 
 sub mixfix2infix {
@@ -1295,9 +1305,7 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
 sub processRWSET {
 ##############################
     my $opcode     = shift @_;
-    my $lines_ref  = shift @_;
     my $debugprint = shift @_;
-    my @lines      = @{$lines_ref};
 
     my %mayRS  = ();
     my %mustRS = ();
@@ -1305,6 +1313,11 @@ sub processRWSET {
     my %mustWS = ();
     my %mayUS  = ();
     my %mustUS = ();
+
+
+    my $targetinstr = getTargetInstr($opcode);
+    my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
+    my @lines = split("\n", $rwset);
 
     for my $line (@lines) {
         chomp $line;
@@ -1595,7 +1608,7 @@ sub selectRules {
 sub sanitizeSpecOutput {
 ##########################################
     my (
-        $rsmap_ref,    $rev_rsmap_ref, $reglines_ref,
+        $opcode, $rsmap_ref,    $rev_rsmap_ref, $reglines_ref,
         $specfile_ref, $debugprint_ref
     ) = @_;
     my %rsmap      = %{$rsmap_ref};
@@ -1604,27 +1617,11 @@ sub sanitizeSpecOutput {
     my $specfile   = ${$specfile_ref};
     my $debugprint = ${$debugprint_ref};
 
-    open( my $fp, "<", $specfile )
-      or die " [sanitizeSpecOutput] cannot open $specfile : $! ";
-    my @lines = <$fp>;
-
-    ## Obtain the opcode and instr
-    my $opcode = "";
-    my $instr  = "";
-    for my $line (@lines) {
-        chomp $line;
-        if ( $line =~ m/^opcode:(.*)/ ) {
-            $opcode = utils::trim($1);
-        }
-        if ( $line =~ m/^instr:(.*)/ ) {
-            $instr = utils::trim($1);
-        }
-    }
-    debugInfo( "::" . $instr . "::" . $opcode . "::\n", $debugprint );
+    my $instr  = getTargetInstr($opcode, $debugprint);
 
     ## Obtain the RW set.
     my ( $readSet_ref, $writeSet_ref, $undefSet_ref, $mustUndefSet_ref ) =
-      processRWSET( $opcode, \@lines, $debugprint );
+      processRWSET( $opcode, $debugprint );
     my %readSet      = %{$readSet_ref};
     my %writeSet     = %{$writeSet_ref};
     my %undefSet     = %{$undefSet_ref};
@@ -1937,24 +1934,25 @@ endmodule
 
     print $fp $template;
 
-    ## Dump the circuit and the BVFormula
+    ## Comment section in k file.
+    ## Get Orig circuit
+    my ($dc1, $dc2, $orig_circuit_ref ) =
+      getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
+    my $orig_circuit = join("\n", @{$orig_circuit_ref});
 
-    my ( $spec_code, $orig_circuit ) =
-      kutils::getSpecCode( $opcode,
-        "/home/sdasgup3/Github/strata-data/circuits/", $debugprint );
+    ## get TargetInstr 
+    my $targetinstr = getTargetInstr($opcode, $debugprint);
 
-    ## Comment section in specfile.
-    my ( $targetinstr, $metadata, $rwset ) =
-      kutils::getReadMod( $opcode,
-        "/home/sdasgup3/Github/strata-data/data-regs/instructions/",
-        $debugprint );
+    ## get RW set 
+    my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
 
+    ## get BV formula
     my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint );
 
-    print $fp "/*" . "\n"
-      . $targetinstr . "\n"
-      . $rwset . "\n"
-      . $orig_circuit . "\n"
+    print $fp "/*" . "\nTargetInstr:\n"
+      . $targetinstr . "\nRWSet:\n"
+      . $rwset . "\nCircuit:\n"
+      . $orig_circuit . "\nBVF:\n"
       . $strata_BVFormula . "\n" . "*/";
 }
 
@@ -1974,12 +1972,19 @@ sub createSpecFile {
       or die "[create_spec] cannot open $specfile: $!";
 
     ## Create the <cmem> spec code </cmem>
-    my ( $spec_code, $orig_circuit ) =
-      kutils::getSpecCode( $opcode, $strata_path, $debugprint );
+    my $spec_code = kutils::getSpecCode( $opcode, $debugprint );
 
     ## Comment section in specfile.
-    my ( $targetinstr, $metadata, $rwset ) =
-      kutils::getReadMod( $opcode, $instantiated_instr_path, $debugprint );
+    ## Get Orig circuit
+    my ($dc1, $dc2, $orig_circuit_ref ) =
+      getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
+    my $orig_circuit = join("\n", @{$orig_circuit_ref});
+
+    ## get TargetInstr 
+    my $targetinstr = getTargetInstr($opcode, $debugprint);
+
+    ## get RW set 
+    my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
 
     if ( "" eq $targetinstr or "" eq $rwset ) {
         utils::failInfo(
@@ -1990,13 +1995,13 @@ sub createSpecFile {
     ## Get the init config ie. <regstate> here </regstate>
     ### Get the list of instr constituting the circuit of opcode
     my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
-      getInstrFromCircuit( $opcode, $strata_path, $debugprint );
+      getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
     my @instr_arr = @{$instr_arr_ref};
 
     ### Get the RW Set of the constituing circuit insructions.
     my %circuitRWStore = ();
     for my $cinstr (@instr_arr) {
-        my $store_ref = instr_to_rwset( $cinstr, $debugprint );
+        my $store_ref = getRWsetOfInstr( $cinstr, $debugprint );
         my %store = %{$store_ref};
         printMap( \%store, "Circuit: $cinstr", 1 );
         for my $key ( keys %store ) {
@@ -2007,7 +2012,7 @@ sub createSpecFile {
     printMap( \%circuitRWStore, "Total Circuit", 1 );
 
     ### Get the RW Set of the target instruction.
-    my $store_ref          = instr_to_rwset( $targetinstr, $debugprint );
+    my $store_ref          = getRWsetOfInstr( $targetinstr, $debugprint );
     my %store              = %{$store_ref};
     my %targetInstrRWStore = ();
     for my $key ( keys %store ) {
@@ -2022,7 +2027,7 @@ sub createSpecFile {
 
     ### If the constituing RW set belongs to target's RW set, then then need to kept
     ### symbolic, else keep then zeroed out.
-    for my $key ( keys %circuitRWStore ) {
+    for my $key (sort keys %circuitRWStore ) {
         if ( "" eq $key ) {
             next;
         }
@@ -2054,7 +2059,7 @@ sub createSpecFile {
       . "opcode:$opcode" . "\n"
       . "instr:$targetinstr" . "\n"
       . $rwset . "\n"
-      . $orig_circuit . "*/";
+      . $orig_circuit . "\n*/";
 }
 
 sub runkprove {
@@ -2085,7 +2090,7 @@ sub checkSupported {
     utils::info("Check if supported: $opcode");
 
     my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
-      getInstrFromCircuit( $opcode, $strata_path, $debugprint );
+      getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
 
     my @instr_arr  = @{$instr_arr_ref};
     my @encode_arr = @{$encode_arr_ref};
@@ -2124,7 +2129,7 @@ sub postProcess {
     # Do simple sanitization and mixfix to infix conversion.
     utils::info("sanitizeSpecOutput $opcode");
     my $returnInfo =
-      kutils::sanitizeSpecOutput( $rsmap_ref, $rev_rsmap_ref, $reglines_ref,
+      kutils::sanitizeSpecOutput($opcode, $rsmap_ref, $rev_rsmap_ref, $reglines_ref,
         \$specfile, \$debugprint );
 
     # write to k file.

@@ -21,7 +21,9 @@ module VMOVUPD-YMM-YMM-SEMANTICS
   imports VMOVUPD-YMM-YMM
 endmodule
 /*
+TargetInstr:
 vmovupd %ymm2, %ymm1
+RWSet:
 maybe read:{ %ymm2 }
 must read:{ %ymm2 }
 maybe write:{ %ymm1 }
@@ -30,10 +32,11 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r12_r13  #  1     0    5      OPC=callq_label
 circuit:vminps %ymm2, %ymm2, %ymm1        #  2     0x5  4      OPC=vminps_ymm_ymm_ymm
 circuit:callq .move_064_128_r12_r13_xmm1  #  3     0x9  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

@@ -23,7 +23,9 @@ module XCHGQ-R64-R64-SEMANTICS
   imports XCHGQ-R64-R64
 endmodule
 /*
+TargetInstr:
 xchgq %rcx, %rbx
+RWSet:
 maybe read:{ %rcx %rbx }
 must read:{ %rcx %rbx }
 maybe write:{ %rcx %rbx }
@@ -32,12 +34,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:callq .move_064_032_rbx_r8d_r9d  #  1     0     5      OPC=callq_label
 circuit:movq %rcx, %rbx                  #  2     0x5   3      OPC=movq_r64_r64
 circuit:callq .move_016_032_r8w_r9w_edx  #  3     0x8   5      OPC=callq_label
 circuit:callq .move_032_016_edx_r8w_r9w  #  4     0xd   5      OPC=callq_label
 circuit:callq .move_032_064_r8d_r9d_rcx  #  5     0x12  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

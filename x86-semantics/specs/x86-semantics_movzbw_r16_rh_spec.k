@@ -19,14 +19,14 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
 "AF" |-> (mi(1, 0):MInt => _)
+"CF" |-> (mi(1, 0):MInt => _)
 "OF" |-> (mi(1, 0):MInt => _)
 "PF" |-> (mi(1, 0):MInt => _)
-"SF" |-> (mi(1, 0):MInt => _)
+"RAX" |-> (mi(64, ?I1:Int):MInt => _)
+"RBX" |-> (mi(64, ?I2:Int):MInt => _)
 "RCX" |-> (mi(64, 0):MInt => _)
-"RBX" |-> (mi(64, ?I1:Int):MInt => _)
-"RAX" |-> (mi(64, ?I2:Int):MInt => _)
+"SF" |-> (mi(1, 0):MInt => _)
 "ZF" |-> (mi(1, 0):MInt => _)
-"CF" |-> (mi(1, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

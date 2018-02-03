@@ -21,7 +21,9 @@ module MOVW-R16-R16-SEMANTICS
   imports MOVW-R16-R16
 endmodule
 /*
+TargetInstr:
 movw %cx, %bx
+RWSet:
 maybe read:{ %cx }
 must read:{ %cx }
 maybe write:{ %bx }
@@ -30,8 +32,9 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ }
 
+Circuit:
 circuit:movswq %cx, %rbx  #  1     0    4      OPC=movswq_r64_r16
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

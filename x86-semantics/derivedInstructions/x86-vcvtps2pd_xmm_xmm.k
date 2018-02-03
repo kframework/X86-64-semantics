@@ -21,7 +21,9 @@ module VCVTPS2PD-XMM-XMM-SEMANTICS
   imports VCVTPS2PD-XMM-XMM
 endmodule
 /*
+TargetInstr:
 vcvtps2pd %xmm2, %xmm1
+RWSet:
 maybe read:{ %xmm2 %mxcsr::rc[0] }
 must read:{ %xmm2 %mxcsr::rc[0] }
 maybe write:{ %ymm1 }
@@ -30,12 +32,13 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ avx }
 
+Circuit:
 circuit:callq .move_128_064_xmm2_r8_r9        #  1     0     5      OPC=callq_label
 circuit:vzeroall                              #  2     0x5   3      OPC=vzeroall
 circuit:callq .move_064_128_r8_r9_xmm1        #  3     0x8   5      OPC=callq_label
 circuit:vcvtps2pd %xmm1, %ymm10               #  4     0xd   4      OPC=vcvtps2pd_ymm_xmm
 circuit:callq .move_128_256_xmm10_xmm11_ymm1  #  5     0x11  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

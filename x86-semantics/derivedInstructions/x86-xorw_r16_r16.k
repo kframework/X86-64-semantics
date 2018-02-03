@@ -33,7 +33,9 @@ module XORW-R16-R16-SEMANTICS
   imports XORW-R16-R16
 endmodule
 /*
+TargetInstr:
 xorw %cx, %bx
+RWSet:
 maybe read:{ %cx %bx }
 must read:{ %cx %bx }
 maybe write:{ %bx %cf %pf %zf %sf %of }
@@ -42,6 +44,7 @@ maybe undef:{ %af }
 must undef:{ %af }
 required flags:{ }
 
+Circuit:
 circuit:callq .move_016_008_cx_r8b_r9b  #  1     0     5      OPC=callq_label
 circuit:movswq %bx, %r12                #  2     0x5   4      OPC=movswq_r64_r16
 circuit:callq .move_008_016_r8b_r9b_bx  #  3     0x9   5      OPC=callq_label
@@ -51,7 +54,7 @@ circuit:callq .move_008_016_r8b_r9b_bx  #  6     0x18  5      OPC=callq_label
 circuit:xorq %rbx, %r12                 #  7     0x1d  3      OPC=xorq_r64_r64
 circuit:movswq %r12w, %rbx              #  8     0x20  4      OPC=movswq_r64_r16
 circuit:callq .set_szp_for_bx           #  9     0x24  5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target

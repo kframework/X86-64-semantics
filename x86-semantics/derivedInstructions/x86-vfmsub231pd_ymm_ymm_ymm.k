@@ -21,7 +21,9 @@ module VFMSUB231PD-YMM-YMM-YMM-SEMANTICS
   imports VFMSUB231PD-YMM-YMM-YMM
 endmodule
 /*
+TargetInstr:
 vfmsub231pd %ymm3, %ymm2, %ymm1
+RWSet:
 maybe read:{ %ymm1 %ymm2 %ymm3 }
 must read:{ %ymm1 %ymm2 %ymm3 }
 maybe write:{ %ymm1 }
@@ -30,11 +32,12 @@ maybe undef:{ }
 must undef:{ }
 required flags:{ fma }
 
+Circuit:
 circuit:vfmsub132pd %ymm3, %ymm1, %ymm2   #  1     0     5      OPC=vfmsub132pd_ymm_ymm_ymm
 circuit:callq .move_128_064_xmm2_r10_r11  #  2     0x5   5      OPC=callq_label
 circuit:vminpd %ymm2, %ymm2, %ymm1        #  3     0xa   4      OPC=vminpd_ymm_ymm_ymm
 circuit:callq .move_064_128_r10_r11_xmm1  #  4     0xe   5      OPC=callq_label
-
+BVF:
 WARNING: No live out values provided, assuming { }
 WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
 Target
