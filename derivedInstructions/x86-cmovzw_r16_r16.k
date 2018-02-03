@@ -7,12 +7,12 @@ module CMOVZW-R16-R16
   rule <k>
     execinstr (cmovzw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( getParentValue(R2, RSMap) ) #else ( mi(64, svalueMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 48, 64))), 32, 64))) ) #fi)  )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

@@ -7,12 +7,12 @@ module VMOVDQA-YMM-YMM
   rule <k>
     execinstr (vmovdqa R1:Ymm, R2:Ymm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (getParentValue(R1, RSMap)   )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

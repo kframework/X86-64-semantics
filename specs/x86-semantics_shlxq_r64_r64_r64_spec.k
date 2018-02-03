@@ -3,10 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %rcx, %r10d, %r11d ) ~>
-split2NToN( %rdx, %r8d, %r9d ) ~>
-combineNTo2N( %r10d, %r11d, %rbx ) ~>
-combineNTo2N( %r8d, %r9d, %rcx ) ~>
+split2NToN(%rcx,  %r10d, %r11d , 32) ~>
+split2NToN(%rdx,  %r8d, %r9d , 32) ~>
+combineNTo2N(%r10d,  %r11d, %rbx, 32, 64, 32) ~>
+combineNTo2N(%r8d,  %r9d, %rcx, 32, 64, 32) ~>
 execinstr ( salq %cl, %rbx , .Typedoperands ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
@@ -20,19 +20,19 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"RBX" |-> (mi(64, ?I1:Int):MInt => _)
-"SF" |-> (mi(1, 0):MInt => _)
-"R11" |-> (mi(64, 0):MInt => _)
-"RDX" |-> (mi(64, ?I2:Int):MInt => _)
-"PF" |-> (mi(1, 0):MInt => _)
-"R10" |-> (mi(64, 0):MInt => _)
-"R8" |-> (mi(64, 0):MInt => _)
-"RCX" |-> (mi(64, ?I3:Int):MInt => _)
-"CF" |-> (mi(1, 0):MInt => _)
-"ZF" |-> (mi(1, 0):MInt => _)
-"R9" |-> (mi(64, 0):MInt => _)
 "AF" |-> (mi(1, 0):MInt => _)
+"PF" |-> (mi(1, 0):MInt => _)
 "OF" |-> (mi(1, 0):MInt => _)
+"R11" |-> (mi(64, 0):MInt => _)
+"RDX" |-> (mi(64, ?I1:Int):MInt => _)
+"SF" |-> (mi(1, 0):MInt => _)
+"RCX" |-> (mi(64, ?I2:Int):MInt => _)
+"RBX" |-> (mi(64, ?I3:Int):MInt => _)
+"R9" |-> (mi(64, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
+"CF" |-> (mi(1, 0):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
+"ZF" |-> (mi(1, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

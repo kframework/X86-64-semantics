@@ -7,12 +7,12 @@ module STC
   rule <k>
     execinstr (stc  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 1)   )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

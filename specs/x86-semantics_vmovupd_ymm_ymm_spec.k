@@ -3,9 +3,9 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %xmm2, %r12, %r13 ) ~>
+split2NToN(%xmm2,  %r12, %r13 , 64) ~>
 execinstr ( vminps %ymm2, %ymm2, %ymm1 , .Typedoperands ) ~>
-combineNTo2N( %r12, %r13, %xmm1 ) ~>
+combineNTo2N(%r12,  %r13, %xmm1, 64, 128, 64) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>

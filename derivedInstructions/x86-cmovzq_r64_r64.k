@@ -7,12 +7,12 @@ module CMOVZQ-R64-R64
   rule <k>
     execinstr (cmovzq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( getParentValue(R2, RSMap) ) #else ( getParentValue(R1, RSMap) ) #fi)  )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

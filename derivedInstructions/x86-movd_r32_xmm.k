@@ -7,12 +7,12 @@ module MOVD-R32-XMM
   rule <k>
     execinstr (movd R1:Xmm, R2:R32,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 224, 256)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

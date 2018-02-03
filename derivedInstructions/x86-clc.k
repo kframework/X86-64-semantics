@@ -7,12 +7,12 @@ module CLC
   rule <k>
     execinstr (clc  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

@@ -7,7 +7,7 @@ module ANDNQ-R64-R64-R64
   rule <k>
     execinstr (andnq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
@@ -23,8 +23,8 @@ convToRegKeys(R3) |-> (xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(
 
  "ZF" |-> ((#ifMInt (eqMInt(xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(R2, RSMap), getParentValue(R1, RSMap))), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

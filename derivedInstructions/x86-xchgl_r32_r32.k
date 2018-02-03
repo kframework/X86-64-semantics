@@ -7,14 +7,14 @@ module XCHGL-R32-R32
   rule <k>
     execinstr (xchgl R1:R32, R2:R32,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 32, 64)) )
 
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))   )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

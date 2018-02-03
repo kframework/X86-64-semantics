@@ -7,12 +7,12 @@ module SETZ-R8
   rule <k>
     execinstr (setz R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(mi(63, 0), getFlag("ZF", RSMap))   )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

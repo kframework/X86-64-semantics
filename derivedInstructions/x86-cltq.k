@@ -7,12 +7,12 @@ module CLTQ
   rule <k>
     execinstr (cltq  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "RAX" |-> (mi(64, svalueMInt(extractMInt(getParentValue(%rax, RSMap), 32, 64))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

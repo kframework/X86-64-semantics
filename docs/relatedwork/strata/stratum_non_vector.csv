@@ -47,8 +47,8 @@ shlxq_r64_r64_r64	0	5
 stc	0	1
 vaddpd_xmm_xmm_xmm	0	6
 vcvtdq2ps_xmm_xmm	0	5
-vcvtpd2ps_xmm_xmm	0	4
-vcvtps2dq_xmm_xmm	0	4
+vcvtpd2ps_xmm_xmm	0	4:US
+vcvtps2dq_xmm_xmm	0	4:US
 vcvtps2pd_xmm_xmm	0	5
 vfmadd213pd_ymm_ymm_ymm	0	2
 vfmadd213ps_ymm_ymm_ymm	0	2

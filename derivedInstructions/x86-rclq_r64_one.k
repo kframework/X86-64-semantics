@@ -7,7 +7,7 @@ module RCLQ-R64-ONE
   rule <k>
     execinstr (rclq $0x1, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> ((#ifMInt ( (  ( ultMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap))  orBool  ultMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)) )  orBool  ( ultMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), concatenateMInt(mi(63, 0), getFlag("CF", RSMap))), addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)))  orBool  ultMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), concatenateMInt(mi(63, 0), getFlag("CF", RSMap))), concatenateMInt(mi(63, 0), getFlag("CF", RSMap))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
@@ -15,8 +15,8 @@ RSMap:Map => updateMap(RSMap,
 
 convToRegKeys(R2) |-> (addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), concatenateMInt(mi(63, 0), getFlag("CF", RSMap))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

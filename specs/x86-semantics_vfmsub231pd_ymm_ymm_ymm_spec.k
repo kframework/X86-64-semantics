@@ -4,9 +4,9 @@ module X86-SEMANTICS-SPEC
   rule
     <k>
 execinstr ( vfmsub132pd %ymm3, %ymm1, %ymm2 , .Typedoperands ) ~>
-split2NToN( %xmm2, %r10, %r11 ) ~>
+split2NToN(%xmm2,  %r10, %r11 , 64) ~>
 execinstr ( vminpd %ymm2, %ymm2, %ymm1 , .Typedoperands ) ~>
-combineNTo2N( %r10, %r11, %xmm1 ) ~>
+combineNTo2N(%r10,  %r11, %xmm1, 64, 128, 64) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -21,9 +21,9 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 "RIP" |->    (mi(64, 0) => _)
 "YMM2" |-> (mi(256, ?I1:Int):MInt => _)
 "R10" |-> (mi(64, 0):MInt => _)
-"YMM3" |-> (mi(256, ?I2:Int):MInt => _)
+"YMM1" |-> (mi(256, ?I2:Int):MInt => _)
 "R11" |-> (mi(64, 0):MInt => _)
-"YMM1" |-> (mi(256, ?I3:Int):MInt => _)
+"YMM3" |-> (mi(256, ?I3:Int):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

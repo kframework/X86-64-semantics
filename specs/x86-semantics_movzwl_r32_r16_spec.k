@@ -4,8 +4,8 @@ module X86-SEMANTICS-SPEC
   rule
     <k>
 execinstr ( movq $0x20, %rbx , .Typedoperands ) ~>
-split2NToN( %cx, %r12b, %r13b ) ~>
-combineNTo2N( %r12b, %r13b, %bx ) ~>
+split2NToN(%cx,  %r12b, %r13b , 08) ~>
+combineNTo2N(%r12b,  %r13b, %bx, 08, 16, 08) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -18,9 +18,9 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"RBX" |-> (mi(64, ?I1:Int):MInt => _)
 "R13" |-> (mi(64, 0):MInt => _)
 "R12" |-> (mi(64, 0):MInt => _)
+"RBX" |-> (mi(64, ?I1:Int):MInt => _)
 "RCX" |-> (mi(64, ?I2:Int):MInt => _)
 
     </regstate>

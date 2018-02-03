@@ -3,10 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %xmm2, %r10, %r11 ) ~>
+split2NToN(%xmm2,  %r10, %r11 , 64) ~>
 execinstr ( vzeroall  .Typedoperands ) ~>
 execinstr ( movq %r10, %r11 , .Typedoperands ) ~>
-combineNTo2N( %r10, %r11, %xmm1 ) ~>
+combineNTo2N(%r10,  %r11, %xmm1, 64, 128, 64) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -19,24 +19,24 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"YMM3" |-> (mi(256, 0):MInt => _)
-"YMM11" |-> (mi(256, 0):MInt => _)
-"R11" |-> (mi(64, 0):MInt => _)
-"YMM9" |-> (mi(256, 0):MInt => _)
-"YMM12" |-> (mi(256, 0):MInt => _)
-"YMM1" |-> (mi(256, ?I1:Int):MInt => _)
-"YMM6" |-> (mi(256, 0):MInt => _)
-"YMM7" |-> (mi(256, 0):MInt => _)
-"YMM13" |-> (mi(256, 0):MInt => _)
-"YMM5" |-> (mi(256, 0):MInt => _)
-"YMM8" |-> (mi(256, 0):MInt => _)
-"YMM2" |-> (mi(256, ?I2:Int):MInt => _)
-"YMM15" |-> (mi(256, 0):MInt => _)
-"YMM4" |-> (mi(256, 0):MInt => _)
-"YMM10" |-> (mi(256, 0):MInt => _)
-"R10" |-> (mi(64, 0):MInt => _)
-"YMM14" |-> (mi(256, 0):MInt => _)
 "YMM0" |-> (mi(256, 0):MInt => _)
+"YMM11" |-> (mi(256, 0):MInt => _)
+"YMM14" |-> (mi(256, 0):MInt => _)
+"YMM2" |-> (mi(256, ?I1:Int):MInt => _)
+"YMM12" |-> (mi(256, 0):MInt => _)
+"YMM7" |-> (mi(256, 0):MInt => _)
+"YMM8" |-> (mi(256, 0):MInt => _)
+"R11" |-> (mi(64, 0):MInt => _)
+"YMM3" |-> (mi(256, 0):MInt => _)
+"YMM1" |-> (mi(256, ?I2:Int):MInt => _)
+"YMM4" |-> (mi(256, 0):MInt => _)
+"YMM13" |-> (mi(256, 0):MInt => _)
+"YMM9" |-> (mi(256, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
+"YMM15" |-> (mi(256, 0):MInt => _)
+"YMM6" |-> (mi(256, 0):MInt => _)
+"YMM5" |-> (mi(256, 0):MInt => _)
+"YMM10" |-> (mi(256, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

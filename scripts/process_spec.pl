@@ -39,6 +39,7 @@ my $getoplist   = "";
 my $all         = "";
 my $genincludes = "";
 my $checksanity = "";
+my $diff = "";
 
 GetOptions(
     "help"          => \$help,

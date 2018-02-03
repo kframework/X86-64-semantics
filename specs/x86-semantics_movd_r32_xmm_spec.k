@@ -3,10 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-splitXmmToRegsIn32( %xmm1, %xmm8, %xmm9, %xmm10, %xmm11 ) ~>
-combineNTo2N( %xmm8, %xmm9, %ymm1 ) ~>
-split2NToN( %xmm1, %r10, %r11 ) ~>
-combineNTo2N( %r10d, %r11d, %rbx ) ~>
+splitXmmToR32( %xmm1, %xmm8, %xmm9, %xmm10, %xmm11, 128 ) ~>
+combineNTo2N(%xmm8,  %xmm9, %ymm1, 128, 256, 128) ~>
+split2NToN(%xmm1,  %r10, %r11 , 64) ~>
+combineNTo2N(%r10d,  %r11d, %rbx, 32, 64, 32) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -19,14 +19,14 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"YMM8" |-> (mi(256, 0):MInt => _)
-"YMM9" |-> (mi(256, 0):MInt => _)
 "R11" |-> (mi(64, 0):MInt => _)
-"YMM10" |-> (mi(256, 0):MInt => _)
-"R10" |-> (mi(64, 0):MInt => _)
-"RBX" |-> (mi(64, ?I1:Int):MInt => _)
-"YMM1" |-> (mi(256, ?I2:Int):MInt => _)
+"YMM1" |-> (mi(256, ?I1:Int):MInt => _)
+"YMM9" |-> (mi(256, 0):MInt => _)
 "YMM11" |-> (mi(256, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
+"YMM10" |-> (mi(256, 0):MInt => _)
+"YMM8" |-> (mi(256, 0):MInt => _)
+"RBX" |-> (mi(64, ?I2:Int):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

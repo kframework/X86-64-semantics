@@ -3,10 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %rdx, %r10d, %r11d ) ~>
-split2NToN( %rcx, %r8d, %r9d ) ~>
-combineNTo2N( %r10b, %r11b, %cx ) ~>
-combineNTo2N( %r8d, %r9d, %rbx ) ~>
+split2NToN(%rdx,  %r10d, %r11d , 32) ~>
+split2NToN(%rcx,  %r8d, %r9d , 32) ~>
+combineNTo2N(%r10b,  %r11b, %cx, 08, 16, 08) ~>
+combineNTo2N(%r8d,  %r9d, %rbx, 32, 64, 32) ~>
 execinstr ( sarq %cl, %rbx , .Typedoperands ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
@@ -20,19 +20,19 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"SF" |-> (mi(1, 0):MInt => _)
 "ZF" |-> (mi(1, 0):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
+"CF" |-> (mi(1, 0):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
 "RBX" |-> (mi(64, ?I1:Int):MInt => _)
+"R9" |-> (mi(64, 0):MInt => _)
 "RCX" |-> (mi(64, ?I2:Int):MInt => _)
+"SF" |-> (mi(1, 0):MInt => _)
+"OF" |-> (mi(1, 0):MInt => _)
+"RDX" |-> (mi(64, ?I3:Int):MInt => _)
 "PF" |-> (mi(1, 0):MInt => _)
 "R11" |-> (mi(64, 0):MInt => _)
-"R8" |-> (mi(64, 0):MInt => _)
-"OF" |-> (mi(1, 0):MInt => _)
-"CF" |-> (mi(1, 0):MInt => _)
-"RDX" |-> (mi(64, ?I3:Int):MInt => _)
-"R10" |-> (mi(64, 0):MInt => _)
 "AF" |-> (mi(1, 0):MInt => _)
-"R9" |-> (mi(64, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

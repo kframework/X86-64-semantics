@@ -7,12 +7,12 @@ module MOVZBL-R32-RH
   rule <k>
     execinstr (movzbl R1:Rh, R2:R32,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1, RSMap), 48, 56))   )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

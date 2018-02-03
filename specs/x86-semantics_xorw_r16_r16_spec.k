@@ -3,12 +3,12 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %cx, %r8b, %r9b ) ~>
+split2NToN(%cx,  %r8b, %r9b , 08) ~>
 execinstr ( movswq %bx, %r12 , .Typedoperands ) ~>
-combineNTo2N( %r8b, %r9b, %bx ) ~>
+combineNTo2N(%r8b,  %r9b, %bx, 08, 16, 08) ~>
 setSZPForRegister( %bx ) ~>
 readFlagToRegister( "SF", %rbx ) ~>
-combineNTo2N( %r8b, %r9b, %bx ) ~>
+combineNTo2N(%r8b,  %r9b, %bx, 08, 16, 08) ~>
 execinstr ( xorq %rbx, %r12 , .Typedoperands ) ~>
 execinstr ( movswq %r12w, %rbx , .Typedoperands ) ~>
 setSZPForRegister( %bx ) ~>
@@ -24,17 +24,17 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"AF" |-> (mi(1, ?I1:Int):MInt => _)
 "R12" |-> (mi(64, 0):MInt => _)
-"ZF" |-> (mi(1, ?I2:Int):MInt => _)
-"R8" |-> (mi(64, 0):MInt => _)
-"OF" |-> (mi(1, ?I3:Int):MInt => _)
 "R9" |-> (mi(64, 0):MInt => _)
-"RCX" |-> (mi(64, ?I4:Int):MInt => _)
-"RBX" |-> (mi(64, ?I5:Int):MInt => _)
-"PF" |-> (mi(1, ?I6:Int):MInt => _)
-"CF" |-> (mi(1, ?I7:Int):MInt => _)
-"SF" |-> (mi(1, ?I8:Int):MInt => _)
+"CF" |-> (mi(1, ?I1:Int):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
+"AF" |-> (mi(1, ?I2:Int):MInt => _)
+"OF" |-> (mi(1, ?I3:Int):MInt => _)
+"SF" |-> (mi(1, ?I4:Int):MInt => _)
+"RCX" |-> (mi(64, ?I5:Int):MInt => _)
+"RBX" |-> (mi(64, ?I6:Int):MInt => _)
+"ZF" |-> (mi(1, ?I7:Int):MInt => _)
+"PF" |-> (mi(1, ?I8:Int):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

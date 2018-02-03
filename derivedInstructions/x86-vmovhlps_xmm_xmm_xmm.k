@@ -7,12 +7,12 @@ module VMOVHLPS-XMM-XMM-XMM
   rule <k>
     execinstr (vmovhlps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), extractMInt(getParentValue(R1, RSMap), 128, 192))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

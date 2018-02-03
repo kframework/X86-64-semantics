@@ -3,8 +3,8 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %xmm2, %r8, %r9 ) ~>
-combineNTo2N( %r8, %r9, %xmm1 ) ~>
+split2NToN(%xmm2,  %r8, %r9 , 64) ~>
+combineNTo2N(%r8,  %r9, %xmm1, 64, 128, 64) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -18,9 +18,9 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
 "YMM1" |-> (mi(256, ?I1:Int):MInt => _)
-"R8" |-> (mi(64, 0):MInt => _)
-"YMM2" |-> (mi(256, ?I2:Int):MInt => _)
 "R9" |-> (mi(64, 0):MInt => _)
+"YMM2" |-> (mi(256, ?I2:Int):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>
