@@ -7,7 +7,7 @@ module ADDQ-R64-R64
   rule <k>
     execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R1, RSMap))  orBool  ultMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
@@ -23,8 +23,8 @@ convToRegKeys(R2) |-> (addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSM
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(getParentValue(R1, RSMap), getParentValue(R2, RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

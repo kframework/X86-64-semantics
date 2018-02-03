@@ -7,12 +7,12 @@ module VXORPS-XMM-XMM-XMM
   rule <k>
     execinstr (vxorps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192)), xorMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256)))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

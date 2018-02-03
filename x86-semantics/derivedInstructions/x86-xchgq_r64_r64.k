@@ -7,14 +7,14 @@ module XCHGQ-R64-R64
   rule <k>
     execinstr (xchgq R1:R64, R2:R64,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 
 convToRegKeys(R1) |-> (getParentValue(R2, RSMap) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

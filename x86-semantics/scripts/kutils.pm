@@ -1534,7 +1534,7 @@ sub selectRules {
     for my $minum ( keys %collectedMINUMs ) {
         my $num    = $minum =~ s/MI(\d+)/$1/gr;
         my $regKey = $rev_rsmap{$num};
-        print "$regKey\n";
+#print "$regKey\n";
         if ( exists $actual2psedoRegs{$regKey} ) {
             $returnInfo =~
               s/$minum/getParentValue($actual2psedoRegs{$regKey}, RSMap)/g;

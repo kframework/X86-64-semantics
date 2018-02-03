@@ -7,12 +7,12 @@ module CBTW
   rule <k>
     execinstr (cbtw  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
- "RAX" |-> (concatenateMInt(extractMInt(getParentValue(%rax, RSMap), 0, 32), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64))), 32, 64)) )
+ "RAX" |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64))), 32, 64)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

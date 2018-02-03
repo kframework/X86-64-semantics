@@ -7,12 +7,12 @@ module SETBE-R8
   rule <k>
     execinstr (setbe R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (concatenateMInt(extractMInt((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(63, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(63, 0), getFlag("ZF", RSMap)) ) #fi) , 0, 8), concatenateMInt(concatenateMInt(mi(7, 0), getFlag("ZF", RSMap)), extractMInt((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(63, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(63, 0), getFlag("ZF", RSMap)) ) #fi) , 16, 64))) )
+convToRegKeys(R1) |-> (concatenateMInt(concatenateMInt(mi(7, 0), getFlag("ZF", RSMap)), (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(55, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(55, 0), getFlag("ZF", RSMap)) ) #fi) ) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

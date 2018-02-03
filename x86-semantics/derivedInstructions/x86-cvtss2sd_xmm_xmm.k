@@ -7,12 +7,12 @@ module CVTSS2SD-XMM-XMM
   rule <k>
     execinstr (cvtss2sd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), Float2MInt(Float2Double(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)), 64))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

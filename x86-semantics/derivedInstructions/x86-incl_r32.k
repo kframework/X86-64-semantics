@@ -7,7 +7,7 @@ module INCL-R32
   rule <k>
     execinstr (incl R1:R32,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(addMInt(mi(32, 1), extractMInt(getParentValue(R1, RSMap), 32, 64)), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
@@ -21,8 +21,8 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), addMInt(mi(32, 1), extractMInt
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(mi(32, 1), extractMInt(getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

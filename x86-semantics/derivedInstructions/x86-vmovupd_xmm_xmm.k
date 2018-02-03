@@ -7,12 +7,12 @@ module VMOVUPD-XMM-XMM
   rule <k>
     execinstr (vmovupd R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1, RSMap), 128, 256)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

@@ -3,10 +3,10 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-split2NToN( %bx, %r10b, %r11b ) ~>
-split2NToN( %cx, %r8b, %r9b ) ~>
-combineNTo2N( %r10b, %r11b, %cx ) ~>
-combineNTo2N( %r8b, %r9b, %bx ) ~>
+split2NToN(%bx,  %r10b, %r11b , 08) ~>
+split2NToN(%cx,  %r8b, %r9b , 08) ~>
+combineNTo2N(%r10b,  %r11b, %cx, 08, 16, 08) ~>
+combineNTo2N(%r8b,  %r9b, %bx, 08, 16, 08) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -20,11 +20,11 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
 "R9" |-> (mi(64, 0):MInt => _)
-"RCX" |-> (mi(64, ?I1:Int):MInt => _)
-"R11" |-> (mi(64, 0):MInt => _)
-"R10" |-> (mi(64, 0):MInt => _)
 "R8" |-> (mi(64, 0):MInt => _)
-"RBX" |-> (mi(64, ?I2:Int):MInt => _)
+"RBX" |-> (mi(64, ?I1:Int):MInt => _)
+"RCX" |-> (mi(64, ?I2:Int):MInt => _)
+"R10" |-> (mi(64, 0):MInt => _)
+"R11" |-> (mi(64, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

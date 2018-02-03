@@ -7,12 +7,12 @@ module VPUNPCKLQDQ-XMM-XMM-XMM
   rule <k>
     execinstr (vpunpcklqdq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

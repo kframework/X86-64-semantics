@@ -7,7 +7,7 @@ module XORW-R16-R16
   rule <k>
     execinstr (xorw R1:R16, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
@@ -23,8 +23,8 @@ convToRegKeys(R2) |-> (mi(64, svalueMInt(xorMInt(extractMInt(getParentValue(R1, 
 
  "OF" |-> (mi(1, 0) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

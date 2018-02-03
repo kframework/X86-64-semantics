@@ -7,12 +7,12 @@ module VMOVQ-XMM-R64
   rule <k>
     execinstr (vmovq R1:R64, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(mi(64, 0), xorMInt(getParentValue(R1, RSMap), mi(64, 0)))) )
+convToRegKeys(R2) |-> (concatenateMInt(mi(192, 0), xorMInt(getParentValue(R1, RSMap), mi(64, 0))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

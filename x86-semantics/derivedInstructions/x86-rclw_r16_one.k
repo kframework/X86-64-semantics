@@ -7,7 +7,7 @@ module RCLW-R16-ONE
   rule <k>
     execinstr (rclw $0x1, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> ((#ifMInt ( (  ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), extractMInt(getParentValue(R2, RSMap), 48, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), extractMInt(getParentValue(R2, RSMap), 48, 64)) )  orBool  ( ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), concatenateMInt(mi(15, 0), getFlag("CF", RSMap))), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), concatenateMInt(mi(15, 0), getFlag("CF", RSMap))), concatenateMInt(mi(15, 0), getFlag("CF", RSMap))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
@@ -15,8 +15,8 @@ RSMap:Map => updateMap(RSMap,
 
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R2, RSMap), 48, 64)), concatenateMInt(mi(15, 0), getFlag("CF", RSMap)))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

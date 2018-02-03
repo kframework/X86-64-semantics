@@ -7,12 +7,12 @@ module MOVSBL-R32-R8
   rule <k>
     execinstr (movsbl R1:R8, R2:R32,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 56, 64))), 32, 64)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

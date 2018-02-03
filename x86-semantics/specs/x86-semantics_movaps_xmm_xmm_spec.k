@@ -3,8 +3,8 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-splitXmmToRegsIn32( %xmm2, %xmm4, %xmm5, %xmm6, %xmm7 ) ~>
-combineRegsIn32ToXmm( %xmm4, %xmm5, %xmm6, %xmm7, %xmm1 ) ~>
+splitXmmToR32( %xmm2, %xmm4, %xmm5, %xmm6, %xmm7, 128 ) ~>
+combineR32ToXmm( %xmm4, %xmm5, %xmm6, %xmm7, %xmm1 ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -17,12 +17,12 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"YMM4" |-> (mi(256, 0):MInt => _)
 "YMM1" |-> (mi(256, ?I1:Int):MInt => _)
-"YMM5" |-> (mi(256, 0):MInt => _)
+"YMM4" |-> (mi(256, 0):MInt => _)
 "YMM2" |-> (mi(256, ?I2:Int):MInt => _)
-"YMM6" |-> (mi(256, 0):MInt => _)
 "YMM7" |-> (mi(256, 0):MInt => _)
+"YMM5" |-> (mi(256, 0):MInt => _)
+"YMM6" |-> (mi(256, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

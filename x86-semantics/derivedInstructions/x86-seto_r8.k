@@ -7,12 +7,12 @@ module SETO-R8
   rule <k>
     execinstr (seto R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(mi(63, 0), getFlag("OF", RSMap)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

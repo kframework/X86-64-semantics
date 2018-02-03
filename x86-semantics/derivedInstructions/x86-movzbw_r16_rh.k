@@ -7,12 +7,12 @@ module MOVZBW-R16-RH
   rule <k>
     execinstr (movzbw R1:Rh, R2:R16,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1, RSMap), 48, 56)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

@@ -7,12 +7,12 @@ module SETP-R8
   rule <k>
     execinstr (setp R1:R8,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(mi(63, 0), getFlag("PF", RSMap)) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

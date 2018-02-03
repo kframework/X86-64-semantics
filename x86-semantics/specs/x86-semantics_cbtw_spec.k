@@ -5,8 +5,8 @@ module X86-SEMANTICS-SPEC
     <k>
 execinstr ( movsbq %al, %r8 , .Typedoperands ) ~>
 execinstr ( movq $0x10, %r9 , .Typedoperands ) ~>
-combineNTo2N( %r8, %r9, %xmm1 ) ~>
-splitXmmToRegsIn32( %xmm1, %eax, %edx, %r8d, %r9d ) ~>
+combineNTo2N(%r8,  %r9, %xmm1, 64, 128, 64) ~>
+splitXmmToR32( %xmm1, %eax, %edx, %r8d, %r9d, 32 ) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -19,11 +19,11 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
+"RAX" |-> (mi(64, ?I1:Int):MInt => _)
+"R9" |-> (mi(64, 0):MInt => _)
+"R8" |-> (mi(64, 0):MInt => _)
 "YMM1" |-> (mi(256, 0):MInt => _)
 "RDX" |-> (mi(64, 0):MInt => _)
-"R9" |-> (mi(64, 0):MInt => _)
-"RAX" |-> (mi(64, ?I1:Int):MInt => _)
-"R8" |-> (mi(64, 0):MInt => _)
 
     </regstate>
     <regstatequeue> .List => _ </regstatequeue>

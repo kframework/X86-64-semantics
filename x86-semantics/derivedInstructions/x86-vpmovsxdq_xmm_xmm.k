@@ -7,12 +7,12 @@ module VPMOVSXDQ-XMM-XMM
   rule <k>
     execinstr (vpmovsxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
   ...</k>
-    <regstate> 
+    <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 192, 224))), mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 224, 256))))) )
 
-  
-)   
+
+)
 
     </regstate>
 endmodule

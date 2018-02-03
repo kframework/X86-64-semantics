@@ -4,8 +4,8 @@ module X86-SEMANTICS-SPEC
   rule
     <k>
 execinstr ( vfnmadd132ps %ymm3, %ymm1, %ymm2 , .Typedoperands ) ~>
-split2NToN( %ymm2, %xmm12, %xmm13 ) ~>
-combineNTo2N( %xmm12, %xmm13, %ymm1 ) ~>
+split2NToN(%ymm2,  %xmm12, %xmm13 , 128) ~>
+combineNTo2N(%xmm12,  %xmm13, %ymm1, 128, 256, 128) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
@@ -18,8 +18,8 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 
     <regstate>
 "RIP" |->    (mi(64, 0) => _)
-"YMM1" |-> (mi(256, ?I1:Int):MInt => _)
 "YMM13" |-> (mi(256, 0):MInt => _)
+"YMM1" |-> (mi(256, ?I1:Int):MInt => _)
 "YMM3" |-> (mi(256, ?I2:Int):MInt => _)
 "YMM12" |-> (mi(256, 0):MInt => _)
 "YMM2" |-> (mi(256, ?I3:Int):MInt => _)
