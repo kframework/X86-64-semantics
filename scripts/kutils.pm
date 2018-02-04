@@ -662,8 +662,9 @@ sub checkBaseInstr {
 
         # 3 Not implemented
         #or $encode eq "vcvtpd2dq_xmm_ymm"
-        #or $encode eq "vcvtpd2ps_xmm_ymm"
         #or $encode eq "vcvtps2dq_ymm_ymm"
+
+        #or $encode eq "vcvtpd2ps_xmm_ymm"
 
         or $encode eq "vcvtps2pd_ymm_xmm"
 

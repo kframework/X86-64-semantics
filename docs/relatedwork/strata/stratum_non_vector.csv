@@ -207,6 +207,7 @@ addps_xmm_xmm	2	14
 addsd_xmm_xmm	2	10	
 addss_xmm_xmm	2	20	
 cvtdq2pd_xmm_xmm	2	10	
+
 cvtdq2ps_xmm_xmm	2	7	
 cvtpd2ps_xmm_xmm	2	7:US	
 cvtsd2sil_r32_xmm	2	14:US	

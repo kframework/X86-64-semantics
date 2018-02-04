@@ -215,6 +215,7 @@ module X86-SYNTAX
                        | "popcntq" [token]   
                        | "sarxq" [token]   
                        | "movq" [token]   
+                       | "vcvtdq2pd" [token]
                        | "nop" [token]   
   */
                
