@@ -108,6 +108,12 @@ module MINT-LEMMAS
     requires E1 ==Int S2
 
   /* 
+  ** Concatenation of non-consecutive extracts.
+  */
+  rule concatenateMInt(extractMInt(MI1, S1, E1), concatenateMInt(extractMInt(MI1, S2, E2), MI2)) => concatenateMInt(extractMInt(MI1, S1, E2), MI2) 
+    requires E1 ==Int S2
+
+  /* 
   ** Extracting the whole bitvector
   */
   rule extractMInt(MI, S, E) => MI
