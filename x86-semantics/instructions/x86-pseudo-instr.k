@@ -240,11 +240,19 @@ module SAVE-RESTORE
     )
     </regstate>
 
-  // ----------------------------------------------------------------------------
-  // A:Restores lower N bit from Sratch Pad register S
-  // B:Extracts lower M bits from Register R
-  // C: Store concatenate(A, B) to R 
-  // ----------------------------------------------------------------------------
+  /*
+  ** For W2 == 0, which is the simple case of restoring the higher bits of scratchpad S. 
+  **  A:Extracts lower W1 bit from Sratch Pad register S starting from S1
+  **  B:Extracts lower RW bits from Register R starting from RS
+  **  C: Store concatenate(A, B) to R 
+  ** 
+  ** For W2 != 0, which means we have 2 chuncks to restore from scratchpad S.
+  **  A:Extracts lower W1 bit from Sratch Pad register S starting from S1
+  **  B:Extracts lower RW bits from Register R starting from RS
+  **  C: Store concatenate(B, A) 
+  **  D:Extracts lower W2 bit from Sratch Pad register S starting from S2
+  **  E: Store concatenate(D, C) to R 
+  */
   syntax Abstractinstruction ::= restoreRegister(String, Int, Int, Int, Int, Int, Int, Register)
   rule <k>
     restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 

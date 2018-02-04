@@ -3,11 +3,12 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rbx, 48, "SPAD1") ~>
+saveRegister(%rbx, "SPAD1") ~>
 execinstr ( movswq %cx, %r13 , .Typedoperands ) ~>
 execinstr ( movslq %r13d, %r13 , .Typedoperands ) ~>
 execinstr ( cmoveq %r13, %rbx , .Typedoperands ) ~>
-restoreRegister("SPAD1", 48, 16, %rbx) ~>
+restoreRegister("SPAD1", 16, 48, 0, 0, 
+          0, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
