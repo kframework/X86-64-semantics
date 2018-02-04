@@ -1,3 +1,6 @@
+R1: Optimizing sal/sar/shr and the flag updates
+
+
 Stratum 0	95		
 addq_r64_r64	0	2	
 andnq_r64_r64_r64	0	3	
@@ -29,7 +32,7 @@ nopw_r16	0	0
 rcll_r32_one	0	2	
 rclq_r64_one	0	1	
 rclw_r16_one	0	1	
-sarxq_r64_r64_r64	0	5:CT:OPT	
+sarxq_r64_r64_r64	0	5:CT:OPT:R1
 setae_r8	0	3	YD
 setb_r8	0	3	YD
 setbe_r8	0	5	YD
@@ -43,7 +46,7 @@ seto_r8	0	3	YD
 setp_r8	0	1	YD
 sets_r8	0	1	YD
 setz_r8	0	1	YD
-shlq_r64_cl	0	1	OPT
+shlq_r64_cl	0	1	OPT:R1
 shlxq_r64_r64_r64	0	5	
 stc	0	1	
 vaddpd_xmm_xmm_xmm	0	6	

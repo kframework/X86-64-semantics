@@ -26,6 +26,9 @@ module BOOLEAN-LEMMAS
   rule _ orBool true => true
   rule false andBool _ => false
   rule _ andBool false => false
+
+  rule B:Bool orBool B:Bool => B
+  rule B:Bool andBool B:Bool => B
 endmodule
 
 module MINT-LEMMAS
