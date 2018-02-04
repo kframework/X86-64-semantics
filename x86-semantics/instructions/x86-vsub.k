@@ -11,8 +11,8 @@ module VSUBPD-YMM-YMM-YMM
    rule <k>
     execinstr(vsubpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vsubpd  Y3, 
-      joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
-          splitVector(getRegisterValue(Y2, RSMap), 64), vfsub, 64)), 
+      joinVector(operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 64), 
+          splitVector(getRegisterValue(Y1, RSMap), 64), vfsub, 64)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
@@ -27,8 +27,8 @@ module VSUBPS-YMM-YMM-YMM
    rule <k>
     execinstr(vsubps  Y1:Ymm,  Y2:Ymm, DestR, .Typedoperands) =>
       execinstr(vsubps  DestR, 
-      joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
-          splitVector(getRegisterValue(Y2, RSMap), 32), vfsub, 32)), 
+      joinVector(operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 32), 
+          splitVector(getRegisterValue(Y1, RSMap), 32), vfsub, 32)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>

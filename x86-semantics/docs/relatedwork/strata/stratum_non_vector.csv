@@ -1,3 +1,4 @@
+Stratum 1	95		
 addq_r64_r64	0	2	
 andnq_r64_r64_r64	0	3	
 cbtw	0	4	YD   
@@ -28,7 +29,7 @@ nopw_r16	0	0
 rcll_r32_one	0	2	
 rclq_r64_one	0	1	
 rclw_r16_one	0	1	
-sarxq_r64_r64_r64	0	5	
+sarxq_r64_r64_r64	0	5:C	
 setae_r8	0	3	YD
 setb_r8	0	3	YD
 setbe_r8	0	5	YD
@@ -104,7 +105,7 @@ cvtps2dq_xmm_xmm	1	6	US
 cvtps2pd_xmm_xmm	1	3	
 cvtss2sil_r32_xmm	1	8	US
 cvttss2sil_r32_xmm	1	9	US
-decq_r64	1	3:C	
+decq_r64	1	3:AF	
 divpd_xmm_xmm	1	9	
 divps_xmm_xmm	1	9	
 incb_r8	1	5	
@@ -168,18 +169,18 @@ vmovlhps_xmm_xmm_xmm	1	8
 vmovsd_xmm_xmm_xmm	1	9	
 vmovss_xmm_xmm_xmm	1	12:OPT	
 vmovups_ymm_ymm	1	5:CCKRT	
-vorps_xmm_xmm_xmm	1	6:C	
+vorps_xmm_xmm_xmm	1	6	
 vpbroadcastq_ymm_xmm	1	9	
 vpxor_xmm_xmm_xmm	1	8	
 vsqrtpd_xmm_xmm	1	8	
-vsubpd_xmm_xmm_xmm	1	7:C	
+vsubpd_xmm_xmm_xmm	1	7	
 xaddb_r8_r8	1	14	
 xaddl_r32_r32	1	8	
 xaddq_r64_r64	1	8	
 xchgl_eax_r32	1	6	
 xchgl_r32_eax	1	8	
-xchgq_r64_rax	1	7:C	
-xchgq_rax_r64	1	5:C	
+xchgq_r64_rax	1	7
+xchgq_rax_r64	1	5
 xchgw_r16_ax	1	6	
 xorb_r8_rh	1	9	
 xorl_r32_r32	1	8	

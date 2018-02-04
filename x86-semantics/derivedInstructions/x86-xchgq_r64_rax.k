@@ -5,13 +5,13 @@ module XCHGQ-R64-RAX
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xchgq R1:RAX, R2:R64,  .Typedoperands) => .
+    execinstr (xchgq %rax, R2:R64,  .Typedoperands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (getParentValue(R2, RSMap) )
+ "RAX" |-> (getParentValue(R2, RSMap) )
 
-convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
+convToRegKeys(R2) |-> (getParentValue(%rax, RSMap) )
 
 
 )
