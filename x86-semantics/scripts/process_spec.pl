@@ -39,7 +39,8 @@ my $getoplist   = "";
 my $all         = "";
 my $genincludes = "";
 my $checksanity = "";
-my $diff = "";
+my $gitdiff = "";
+my $gitadd = "";
 
 GetOptions(
     "help"          => \$help,
@@ -53,12 +54,49 @@ GetOptions(
     "all"           => \$all,
     "genincludes"   => \$genincludes,
     "checksanity"   => \$checksanity,
+    "gitdiff"   => \$gitdiff,
+    "gitaddspec"   => \$gitadd,
     "strata_path:s" => \$strata_path,
 ) or die("Error in command line arguments\n");
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines      = <$fp>;
 my $debugprint = 0;
+
+## Git diff
+if ( "" ne $gitdiff ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
+
+        my $koutput = "$derivedInstructions/x86-${opcode}.k";
+        execute("git diff -U0 $koutput");
+    }
+}
+
+## Git add
+if ( "" ne $gitadd ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $isSupported =
+          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+            $debugprint );
+        if ( 0 == $isSupported ) {
+            utils::warnInfo("$opcode: Unsupported");
+            next;
+        }
+
+        my $specfile = "$specdir/x86-semantics_${opcode}_spec.k";
+        execute("git add $specfile");
+    }
+}
+
 
 ## Create a spec file
 if ( "" ne $createspec ) {
