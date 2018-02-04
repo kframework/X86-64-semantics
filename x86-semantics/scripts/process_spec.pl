@@ -41,6 +41,7 @@ my $genincludes = "";
 my $checksanity = "";
 my $gitdiff = "";
 my $gitadd = "";
+my $speconly = "";
 
 GetOptions(
     "help"          => \$help,
@@ -55,6 +56,7 @@ GetOptions(
     "genincludes"   => \$genincludes,
     "checksanity"   => \$checksanity,
     "gitdiff"   => \$gitdiff,
+    "speconly"   => \$speconly,
     "gitaddspec"   => \$gitadd,
     "strata_path:s" => \$strata_path,
 ) or die("Error in command line arguments\n");
@@ -92,10 +94,17 @@ if ( "" ne $gitadd ) {
             next;
         }
 
+        my $filesToAdd = "";
         my $specfile = "$specdir/x86-semantics_${opcode}_spec.k";
         my $specout = "$specdir/x86-semantics_${opcode}_spec.output";
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
-        execute("git add $specfile $specout $koutput");
+
+        if($speconly eq "") {
+          $filesToAdd = "$specfile $specout $koutput";
+        } else {
+          $filesToAdd = $specfile;
+        }
+        execute("git add $filesToAdd");
     }
 }
 
