@@ -1,6 +1,7 @@
 OPTD: OPT Done
 YD: Written to extract write set
 CTD: Test Done
+US: Unsupported
 
 R1: Optimizing sal/sar/shr and the flag updates; Is the path count mask > 64 ever reached, Testing of sarxq_r64_r64_r64 shows its not.
 #R2: concate over extract cm(ex1, cm(ex2,...)) can we concat ex1 and ex2 
@@ -207,10 +208,10 @@ addsd_xmm_xmm	2	10
 addss_xmm_xmm	2	20	
 cvtdq2pd_xmm_xmm	2	10	
 cvtdq2ps_xmm_xmm	2	7	
-cvtpd2ps_xmm_xmm	2	7	
-cvtsd2sil_r32_xmm	2	14	
-cvtsd2ss_xmm_xmm	2	21	
-cvttpd2dq_xmm_xmm	2	8	
+cvtpd2ps_xmm_xmm	2	7:US	
+cvtsd2sil_r32_xmm	2	14:US	
+cvtsd2ss_xmm_xmm	2	21:US	
+cvttpd2dq_xmm_xmm	2	8:US	
 cwtl	2	26	
 decl_r32	2	15	
 decw_r16	2	13	
@@ -251,12 +252,12 @@ unpckhpd_xmm_xmm	2	6
 vaddss_xmm_xmm_xmm	2	24	
 vandnps_xmm_xmm_xmm	2	14	
 vbroadcastss_ymm_xmm	2	22	
-vcvtpd2dqx_xmm_xmm	2	10	
+vcvtpd2dqx_xmm_xmm	2	10:US	
 vdivpd_xmm_xmm_xmm	2	18	
 vdivps_xmm_xmm_xmm	2	16	
 vfmadd213ss_xmm_xmm_xmm	2	25	
 vfmsub231ps_xmm_xmm_xmm	2	13	
-vfmsub231ss_xmm_xmm_xmm	2	20	
+vfmsub231ss_xmm_xmm_xmm	2	20:US	
 vfnmadd213ps_xmm_xmm_xmm	2	18	
 vfnmsub132ps_xmm_xmm_xmm	2	20	
 vfnmsub132ss_xmm_xmm_xmm	2	28	
