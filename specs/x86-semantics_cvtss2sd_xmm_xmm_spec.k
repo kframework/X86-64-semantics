@@ -3,11 +3,12 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%ymm1, 128, "SPAD1") ~>
+saveRegister(%ymm1, "SPAD1") ~>
 split2NToN(%xmm1,  %xmm12, %xmm13 , 64) ~>
 execinstr ( vcvtps2pd %xmm2, %ymm12 , .Typedoperands ) ~>
 combineNTo2N(%xmm12,  %xmm13, %xmm1, 64, 128, 128) ~>
-restoreRegister("SPAD1", 128, 128, %ymm1) ~>
+restoreRegister("SPAD1", 128, 128, 0, 0, 
+          0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>

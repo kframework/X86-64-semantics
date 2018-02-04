@@ -3,11 +3,12 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rbx, 56, "SPAD1") ~>
+saveRegister(%rbx, "SPAD1") ~>
 readFlagToRegister( "OF", %rbx ) ~>
 movPosOfRegToByte( 6, %rbx, %r9b ) ~>
 movByteToPosOfReg( %r9b, 6, %rbx ) ~>
-restoreRegister("SPAD1", 56, 8, %rbx) ~>
+restoreRegister("SPAD1", 8, 56, 0, 0, 
+          0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
