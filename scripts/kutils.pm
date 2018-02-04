@@ -1958,6 +1958,9 @@ sub getRegSort {
     if ( $reg eq "eax" ) {
         return "\%eax";
     }
+    if ( $reg eq "rax" ) {
+        return "\%rax";
+    }
     return uc($reg);
 }
 
