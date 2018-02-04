@@ -94,15 +94,16 @@ xchgq_r64_r64	0	5
 xchgw_r16_r16	0	4
 xorw_r16_r16	0	9:YD
 
+
 adcb_rh_r8	1	5
 addpd_xmm_xmm	1	9
 addw_r16_r16	1	4
 cmovnzw_r16_r16	1	6
 cqto	1	6
-cvtps2dq_xmm_xmm	1	6
+cvtps2dq_xmm_xmm	1	6:US
 cvtps2pd_xmm_xmm	1	3
-cvtss2sil_r32_xmm	1	8
-cvttss2sil_r32_xmm	1	9
+cvtss2sil_r32_xmm	1	8:US
+cvttss2sil_r32_xmm	1	9:US
 decq_r64	1	3
 divpd_xmm_xmm	1	9
 divps_xmm_xmm	1	9
@@ -149,11 +150,11 @@ unpcklpd_xmm_xmm	1	7
 vaddps_xmm_xmm_xmm	1	12
 vbroadcastsd_ymm_xmm	1	9
 vbroadcastss_xmm_xmm	1	10
-vcvtsd2sil_r32_xmm	1	14
+vcvtsd2sil_r32_xmm	1	14:US
 vcvtss2sd_xmm_xmm_xmm	1	6
-vcvtss2sil_r32_xmm	1	9
-vcvttpd2dq_xmm_xmm	1	6
-vcvttsd2sil_r32_xmm	1	8
+vcvtss2sil_r32_xmm	1	9:US
+vcvttpd2dq_xmm_xmm	1	6:US
+vcvttsd2sil_r32_xmm	1	8:US
 vfmadd231pd_ymm_ymm_ymm	1	2
 vfmadd231ps_xmm_xmm_xmm	1	13
 vfmsub132ps_xmm_xmm_xmm	1	10
@@ -183,6 +184,8 @@ xchgw_r16_ax	1	6
 xorb_r8_rh	1	9
 xorl_r32_r32	1	8
 xorps_xmm_xmm	1	8
+
+
 adcb_r8_rh	2	7
 adcb_rh_rh	2	11
 addb_r8_r8	2	15
