@@ -94,7 +94,9 @@ requires "x86-xchgq_r64_r64.k"
 requires "x86-xchgw_r16_r16.k"
 requires "x86-xorw_r16_r16.k"
 
-/* Stratum 1
+/* 
+**  Stratum 1
+*/   
 requires "x86-adcb_rh_r8.k"
 requires "x86-addpd_xmm_xmm.k"
 requires "x86-addw_r16_r16.k"
@@ -177,7 +179,6 @@ requires "x86-xchgw_r16_ax.k"
 requires "x86-xorb_r8_rh.k"
 requires "x86-xorl_r32_r32.k"
 requires "x86-xorps_xmm_xmm.k"
-*/
 
 module X86-DERIVED-INSTRUCTIONS-SEMANTICS
   /* 
@@ -278,6 +279,7 @@ module X86-DERIVED-INSTRUCTIONS-SEMANTICS
 
   /* 
   ** Stratum 1
+  */
   imports ADCB-RH-R8-SEMANTICS
   imports ADDPD-XMM-XMM-SEMANTICS
   imports ADDW-R16-R16-SEMANTICS
@@ -360,5 +362,4 @@ module X86-DERIVED-INSTRUCTIONS-SEMANTICS
   imports XORB-R8-RH-SEMANTICS
   imports XORL-R32-R32-SEMANTICS
   imports XORPS-XMM-XMM-SEMANTICS
-  */   
 endmodule
