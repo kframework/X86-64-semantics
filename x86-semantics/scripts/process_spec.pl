@@ -93,7 +93,9 @@ if ( "" ne $gitadd ) {
         }
 
         my $specfile = "$specdir/x86-semantics_${opcode}_spec.k";
-        execute("git add $specfile");
+        my $specout = "$specdir/x86-semantics_${opcode}_spec.output";
+        my $koutput = "$derivedInstructions/x86-${opcode}.k";
+        execute("git add $specfile $specout $koutput");
     }
 }
 
