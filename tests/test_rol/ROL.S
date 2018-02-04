@@ -1,5 +1,5 @@
-TEST_BEGIN(POPCNT, 1)
-  TEST_INPUTS(
+TEST_BEGIN_64(TEST2, 1)
+TEST_INPUTS(
     0x0,                
     0x1,                
     0x80,               
@@ -24,26 +24,20 @@ TEST_BEGIN(POPCNT, 1)
     0x0F0F0F0F,         
     0xF7F7F7F7,         
     0xFEFEFEFE,         
-    0x7FFFFFFF,         
-    0xFFFFFFFF,         
+    0x7FFFFFFF,              
+    0xFFFFFFFF,              
     0x8000000000000000, 
     0x5500000000000000, 
     0xAA00000000000000,   
     0x0F0F0F0F0F0F0F0F, 
     0xF7F7F7F7F7F7F7F7, 
-    0xFEFEFEFEFEFEFEFE,
+    0xFEFEFEFEFEFEFEFE, 
     0x7FFFFFFFFFFFFFFF,
     0xFFFFFFFFFFFFFFFF)
 
-    movq ARG1_64, %rax
-    popcntq %rax, %rbx
-    popcntq %rbx, %rax
-    popcntq %rax, %rbx
-    popcntq %rbx, %rax
 
+    movq ARG1_64, %rax
     movq ARG1_64, %rbx
-    popcntw %ax, %bx
-    popcntw %bx, %ax
-    popcntw %ax, %bx
-    popcntw %bx, %ax
+    rolq $0x1, %rax
+    rolw $0x1, %bx
 TEST_END

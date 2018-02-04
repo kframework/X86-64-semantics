@@ -1,7 +1,8 @@
 OPTD: OPT Done
 YD: Written to extract write set
+CTD: Test Done
 
-R1: Optimizing sal/sar/shr and the flag updates
+R1: Optimizing sal/sar/shr and the flag updates; Is the path count mask > 64 ever reached, Testing of sarxq_r64_r64_r64 shows its not.
 #R2: concate over extract cm(ex1, cm(ex2,...)) can we concat ex1 and ex2 
 R3: adc flags
 #R4: B orBool B
@@ -39,7 +40,7 @@ nopw_r16	0	0
 rcll_r32_one	0	2	
 rclq_r64_one	0	1	
 rclw_r16_one	0	1	
-sarxq_r64_r64_r64	0	5:CT:OPT:R1
+sarxq_r64_r64_r64	0	5:CTD:OPT:R1
 setae_r8	0	3	YD
 setb_r8	0	3	YD
 setbe_r8	0	5	YD
@@ -140,12 +141,12 @@ orw_r16_r16	1	8
 paddq_xmm_xmm	1	11	
 pmovsxdq_xmm_xmm	1	7	
 pmovzxwq_xmm_xmm	1	12	
-popcntw_r16_r16	1	7:CT	
+popcntw_r16_r16	1	7:CTD	
 por_xmm_xmm	1	11	
 rcpps_xmm_xmm	1	7	
 rcpss_xmm_xmm	1	10:OPTD:R2	
-rolq_r64_one	1	10:CT:OPT:R3:OPTD:R4	
-rolw_r16_one	1	5:CT:OPT:R3:OPTD:R4	
+rolq_r64_one	1	10:CTD:OPT:R3:OPTD:R4	
+rolw_r16_one	1	5:CTD:OPT:R3:OPTD:R4	
 rsqrtps_xmm_xmm	1	7	
 setb_rh	1	2	
 setc_r8	1	3	

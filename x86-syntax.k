@@ -206,6 +206,18 @@ module X86-SYNTAX
                | "%ymm14"
                | "%ymm15"
 
+
+  /* Testing individual derived instructions
+  syntax Opcode ::= TestOpcode
+  syntax TestOpcode ::= "rolq" [token]
+                       | "rolw" [token]   
+                       | "popcntw" [token]   
+                       | "popcntq" [token]   
+                       | "sarxq" [token]   
+                       | "movq" [token]   
+                       | "nop" [token]   
+  */
+               
   syntax Opcode ::= BaseOpcode | Derivedopcode
   //syntax Opcode ::= BaseOpcode 
   syntax BaseOpcode ::= "nop" [token]
