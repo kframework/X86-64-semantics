@@ -221,783 +221,783 @@ module X86-SYNTAX
                
   syntax Opcode ::= BaseOpcode | Derivedopcode
   //syntax Opcode ::= BaseOpcode 
-  syntax BaseOpcode ::= "nop" [token]
-                      | "adcb" [token]
-                      | "adcl" [token]
-                      | "adcq" [token]
-                      | "adcw" [token]
-                      | "addq" [token]
-                      | "cmoveq" [token]
-                      | "movb" [token]
-                      | "movq" [token]
-                      | "movsbq" [token]
-                      | "movslq" [token]
-                      | "movswq" [token]
-                      | "orq" [token]
-                      | "popcntq" [token]
-                      | "salq" [token]
-                      | "sarq" [token]
-                      | "shrq" [token]
-                      | "vaddpd" [token]
-                      | "vaddps" [token]
-                      | "vcvtdq2pd" [token]
-                      | "vcvtdq2ps" [token]
-                      | "vcvtps2pd" [token]
-                      | "vdivpd" [token]
-                      | "vdivps" [token]
-                      | "vfmadd132pd" [token]
-                      | "vfmadd132ps" [token]
-                      | "vfmsub132pd" [token]
-                      | "vfmsub132ps" [token]
-                      | "vfnmadd132pd" [token]
-                      | "vfnmadd132ps" [token]
-                      | "vfnmsub132pd" [token]
-                      | "vfnmsub132ps" [token]
-                      | "vmaxpd" [token]
-                      | "vmaxps" [token]
-                      | "vminpd" [token]
-                      | "vminps" [token]
-                      | "vmulpd" [token]
-                      | "vmulps" [token]
-                      | "vrcpps" [token]
-                      | "vrsqrtps" [token]
-                      | "vsqrtpd" [token]
-                      | "vsqrtps" [token]
-                      | "vsubpd" [token]
-                      | "vsubps" [token]
-                      | "vzeroall" [token]
-                      | "xorq" [token]
+  syntax BaseOpcode ::= "nop" 
+                      | "adcb" 
+                      | "adcl" 
+                      | "adcq" 
+                      | "adcw" 
+                      | "addq" 
+                      | "cmoveq" 
+                      | "movb" 
+                      | "movq" 
+                      | "movsbq" 
+                      | "movslq" 
+                      | "movswq" 
+                      | "orq" 
+                      | "popcntq" 
+                      | "salq" 
+                      | "sarq" 
+                      | "shrq" 
+                      | "vaddpd" 
+                      | "vaddps" 
+                      | "vcvtdq2pd" 
+                      | "vcvtdq2ps" 
+                      | "vcvtps2pd" 
+                      | "vdivpd" 
+                      | "vdivps" 
+                      | "vfmadd132pd" 
+                      | "vfmadd132ps" 
+                      | "vfmsub132pd" 
+                      | "vfmsub132ps" 
+                      | "vfnmadd132pd" 
+                      | "vfnmadd132ps" 
+                      | "vfnmsub132pd" 
+                      | "vfnmsub132ps" 
+                      | "vmaxpd" 
+                      | "vmaxps" 
+                      | "vminpd" 
+                      | "vminps" 
+                      | "vmulpd" 
+                      | "vmulps" 
+                      | "vrcpps" 
+                      | "vrsqrtps" 
+                      | "vsqrtpd" 
+                      | "vsqrtps" 
+                      | "vsubpd" 
+                      | "vsubps" 
+                      | "vzeroall" 
+                      | "xorq" 
 
-  syntax Derivedopcode ::= "addb" [token]
-                  | "addl" [token]
-                  | "addpd" [token]
-                  | "addps" [token]
-                  | "addsd" [token]
-                  | "addss" [token]
-                  | "addsubpd" [token]
-                  | "addsubps" [token]
-                  | "addw" [token]
-                  | "andb" [token]
-                  | "andl" [token]
-                  | "andnl" [token]
-                  | "andnpd" [token]
-                  | "andnps" [token]
-                  | "andnq" [token]
-                  | "andpd" [token]
-                  | "andps" [token]
-                  | "andq" [token]
-                  | "andw" [token]
-                  | "bextrl" [token]
-                  | "bextrq" [token]
-                  | "blendvpd" [token]
-                  | "blendvps" [token]
-                  | "blsil" [token]
-                  | "blsiq" [token]
-                  | "blsmskl" [token]
-                  | "blsmskq" [token]
-                  | "blsrl" [token]
-                  | "blsrq" [token]
-                  | "bswap" [token]
-                  | "btcl" [token]
-                  | "btcq" [token]
-                  | "btcw" [token]
-                  | "btl" [token]
-                  | "btq" [token]
-                  | "btrl" [token]
-                  | "btrq" [token]
-                  | "btrw" [token]
-                  | "btsl" [token]
-                  | "btsq" [token]
-                  | "btsw" [token]
-                  | "btw" [token]
-                  | "bzhil" [token]
-                  | "bzhiq" [token]
-                  | "cbtw" [token]
-                  | "clc" [token]
-                  | "cltd" [token]
-                  | "cltq" [token]
-                  | "cmc" [token]
-                  | "cmovael" [token]
-                  | "cmovaeq" [token]
-                  | "cmovaew" [token]
-                  | "cmoval" [token]
-                  | "cmovaq" [token]
-                  | "cmovaw" [token]
-                  | "cmovbel" [token]
-                  | "cmovbeq" [token]
-                  | "cmovbew" [token]
-                  | "cmovbl" [token]
-                  | "cmovbq" [token]
-                  | "cmovbw" [token]
-                  | "cmovcl" [token]
-                  | "cmovcq" [token]
-                  | "cmovcw" [token]
-                  | "cmovel" [token]
-                  | "cmovew" [token]
-                  | "cmovgel" [token]
-                  | "cmovgeq" [token]
-                  | "cmovgew" [token]
-                  | "cmovgl" [token]
-                  | "cmovgq" [token]
-                  | "cmovgw" [token]
-                  | "cmovlel" [token]
-                  | "cmovleq" [token]
-                  | "cmovlew" [token]
-                  | "cmovll" [token]
-                  | "cmovlq" [token]
-                  | "cmovlw" [token]
-                  | "cmovnael" [token]
-                  | "cmovnaeq" [token]
-                  | "cmovnaew" [token]
-                  | "cmovnal" [token]
-                  | "cmovnaq" [token]
-                  | "cmovnaw" [token]
-                  | "cmovnbel" [token]
-                  | "cmovnbeq" [token]
-                  | "cmovnbew" [token]
-                  | "cmovnbl" [token]
-                  | "cmovnbq" [token]
-                  | "cmovnbw" [token]
-                  | "cmovncl" [token]
-                  | "cmovncq" [token]
-                  | "cmovncw" [token]
-                  | "cmovnel" [token]
-                  | "cmovneq" [token]
-                  | "cmovnew" [token]
-                  | "cmovngel" [token]
-                  | "cmovngeq" [token]
-                  | "cmovngew" [token]
-                  | "cmovngl" [token]
-                  | "cmovngq" [token]
-                  | "cmovngw" [token]
-                  | "cmovnlel" [token]
-                  | "cmovnleq" [token]
-                  | "cmovnlew" [token]
-                  | "cmovnll" [token]
-                  | "cmovnlq" [token]
-                  | "cmovnlw" [token]
-                  | "cmovnol" [token]
-                  | "cmovnoq" [token]
-                  | "cmovnow" [token]
-                  | "cmovnpl" [token]
-                  | "cmovnpq" [token]
-                  | "cmovnpw" [token]
-                  | "cmovnsl" [token]
-                  | "cmovnsq" [token]
-                  | "cmovnsw" [token]
-                  | "cmovnzl" [token]
-                  | "cmovnzq" [token]
-                  | "cmovnzw" [token]
-                  | "cmovol" [token]
-                  | "cmovoq" [token]
-                  | "cmovow" [token]
-                  | "cmovpel" [token]
-                  | "cmovpeq" [token]
-                  | "cmovpew" [token]
-                  | "cmovpl" [token]
-                  | "cmovpol" [token]
-                  | "cmovpoq" [token]
-                  | "cmovpow" [token]
-                  | "cmovpq" [token]
-                  | "cmovpw" [token]
-                  | "cmovsl" [token]
-                  | "cmovsq" [token]
-                  | "cmovsw" [token]
-                  | "cmovzl" [token]
-                  | "cmovzq" [token]
-                  | "cmovzw" [token]
-                  | "cmpb" [token]
-                  | "cmpl" [token]
-                  | "cmpq" [token]
-                  | "cmpw" [token]
-                  | "cmpxchgb" [token]
-                  | "cmpxchgl" [token]
-                  | "cmpxchgq" [token]
-                  | "cmpxchgw" [token]
-                  | "comisd" [token]
-                  | "comiss" [token]
-                  | "cqto" [token]
-                  | "cvtdq2pd" [token]
-                  | "cvtdq2ps" [token]
-                  | "cvtpd2dq" [token]
-                  | "cvtpd2ps" [token]
-                  | "cvtps2dq" [token]
-                  | "cvtps2pd" [token]
-                  | "cvtsd2sil" [token]
-                  | "cvtsd2siq" [token]
-                  | "cvtsd2ss" [token]
-                  | "cvtsi2sdl" [token]
-                  | "cvtsi2sdq" [token]
-                  | "cvtsi2ssl" [token]
-                  | "cvtsi2ssq" [token]
-                  | "cvtss2sd" [token]
-                  | "cvtss2sil" [token]
-                  | "cvtss2siq" [token]
-                  | "cvttpd2dq" [token]
-                  | "cvttps2dq" [token]
-                  | "cvttsd2sil" [token]
-                  | "cvttsd2siq" [token]
-                  | "cvttss2sil" [token]
-                  | "cvttss2siq" [token]
-                  | "cwtd" [token]
-                  | "cwtl" [token]
-                  | "decb" [token]
-                  | "decl" [token]
-                  | "decq" [token]
-                  | "decw" [token]
-                  | "divb" [token]
-                  | "divl" [token]
-                  | "divpd" [token]
-                  | "divps" [token]
-                  | "divq" [token]
-                  | "divsd" [token]
-                  | "divss" [token]
-                  | "divw" [token]
-                  | "haddpd" [token]
-                  | "haddps" [token]
-                  | "hsubpd" [token]
-                  | "hsubps" [token]
-                  | "idivb" [token]
-                  | "idivl" [token]
-                  | "idivq" [token]
-                  | "idivw" [token]
-                  | "imulb" [token]
-                  | "imull" [token]
-                  | "imulq" [token]
-                  | "imulw" [token]
-                  | "incb" [token]
-                  | "incl" [token]
-                  | "incq" [token]
-                  | "incw" [token]
-                  | "lzcntl" [token]
-                  | "lzcntq" [token]
-                  | "lzcntw" [token]
-                  | "maxpd" [token]
-                  | "maxps" [token]
-                  | "maxsd" [token]
-                  | "maxss" [token]
-                  | "minpd" [token]
-                  | "minps" [token]
-                  | "minsd" [token]
-                  | "minss" [token]
-                  | "movapd" [token]
-                  | "movaps" [token]
-                  | "movd" [token]
-                  | "movddup" [token]
-                  | "movdqa" [token]
-                  | "movdqu" [token]
-                  | "movhlps" [token]
-                  | "movl" [token]
-                  | "movlhps" [token]
-                  | "movmskpd" [token]
-                  | "movmskps" [token]
-                  | "movsbl" [token]
-                  | "movsbw" [token]
-                  | "movsd" [token]
-                  | "movshdup" [token]
-                  | "movsldup" [token]
-                  | "movss" [token]
-                  | "movswl" [token]
-                  | "movupd" [token]
-                  | "movups" [token]
-                  | "movw" [token]
-                  | "movzbl" [token]
-                  | "movzbq" [token]
-                  | "movzbw" [token]
-                  | "movzwl" [token]
-                  | "movzwq" [token]
-                  | "mulb" [token]
-                  | "mull" [token]
-                  | "mulpd" [token]
-                  | "mulps" [token]
-                  | "mulq" [token]
-                  | "mulsd" [token]
-                  | "mulss" [token]
-                  | "mulw" [token]
-                  | "mulxl" [token]
-                  | "mulxq" [token]
-                  | "negb" [token]
-                  | "negl" [token]
-                  | "negq" [token]
-                  | "negw" [token]
-                  | "nopl" [token]
-                  | "nopw" [token]
-                  | "notb" [token]
-                  | "notl" [token]
-                  | "notq" [token]
-                  | "notw" [token]
-                  | "orb" [token]
-                  | "orl" [token]
-                  | "orpd" [token]
-                  | "orps" [token]
-                  | "orw" [token]
-                  | "pabsb" [token]
-                  | "pabsd" [token]
-                  | "pabsw" [token]
-                  | "packssdw" [token]
-                  | "packsswb" [token]
-                  | "packusdw" [token]
-                  | "packuswb" [token]
-                  | "paddb" [token]
-                  | "paddd" [token]
-                  | "paddq" [token]
-                  | "paddsb" [token]
-                  | "paddsw" [token]
-                  | "paddusb" [token]
-                  | "paddusw" [token]
-                  | "paddw" [token]
-                  | "pand" [token]
-                  | "pandn" [token]
-                  | "pavgb" [token]
-                  | "pavgw" [token]
-                  | "pblendvb" [token]
-                  | "pcmpeqb" [token]
-                  | "pcmpeqd" [token]
-                  | "pcmpeqq" [token]
-                  | "pcmpeqw" [token]
-                  | "pcmpgtb" [token]
-                  | "pcmpgtd" [token]
-                  | "pcmpgtq" [token]
-                  | "pcmpgtw" [token]
-                  | "pdepl" [token]
-                  | "pdepq" [token]
-                  | "pextl" [token]
-                  | "pextq" [token]
-                  | "phaddd" [token]
-                  | "phaddsw" [token]
-                  | "phaddw" [token]
-                  | "phminposuw" [token]
-                  | "phsubd" [token]
-                  | "phsubsw" [token]
-                  | "phsubw" [token]
-                  | "pmaddubsw" [token]
-                  | "pmaddwd" [token]
-                  | "pmaxsb" [token]
-                  | "pmaxsd" [token]
-                  | "pmaxsw" [token]
-                  | "pmaxub" [token]
-                  | "pmaxud" [token]
-                  | "pmaxuw" [token]
-                  | "pminsb" [token]
-                  | "pminsd" [token]
-                  | "pminsw" [token]
-                  | "pminub" [token]
-                  | "pminud" [token]
-                  | "pminuw" [token]
-                  | "pmovmskb" [token]
-                  | "pmovsxbd" [token]
-                  | "pmovsxbq" [token]
-                  | "pmovsxbw" [token]
-                  | "pmovsxdq" [token]
-                  | "pmovsxwd" [token]
-                  | "pmovsxwq" [token]
-                  | "pmovzxbd" [token]
-                  | "pmovzxbq" [token]
-                  | "pmovzxbw" [token]
-                  | "pmovzxdq" [token]
-                  | "pmovzxwd" [token]
-                  | "pmovzxwq" [token]
-                  | "pmuldq" [token]
-                  | "pmulhrsw" [token]
-                  | "pmulhuw" [token]
-                  | "pmulhw" [token]
-                  | "pmulld" [token]
-                  | "pmullw" [token]
-                  | "pmuludq" [token]
-                  | "popcntl" [token]
-                  | "popcntw" [token]
-                  | "por" [token]
-                  | "psadbw" [token]
-                  | "pshufb" [token]
-                  | "psignb" [token]
-                  | "psignd" [token]
-                  | "psignw" [token]
-                  | "pslld" [token]
-                  | "psllq" [token]
-                  | "psllw" [token]
-                  | "psrad" [token]
-                  | "psraw" [token]
-                  | "psrld" [token]
-                  | "psrlq" [token]
-                  | "psrlw" [token]
-                  | "psubb" [token]
-                  | "psubd" [token]
-                  | "psubq" [token]
-                  | "psubsb" [token]
-                  | "psubsw" [token]
-                  | "psubusb" [token]
-                  | "psubusw" [token]
-                  | "psubw" [token]
-                  | "ptest" [token]
-                  | "punpckhbw" [token]
-                  | "punpckhdq" [token]
-                  | "punpckhqdq" [token]
-                  | "punpckhwd" [token]
-                  | "punpcklbw" [token]
-                  | "punpckldq" [token]
-                  | "punpcklqdq" [token]
-                  | "punpcklwd" [token]
-                  | "pxor" [token]
-                  | "rclb" [token]
-                  | "rcll" [token]
-                  | "rclq" [token]
-                  | "rclw" [token]
-                  | "rcpps" [token]
-                  | "rcpss" [token]
-                  | "rcrb" [token]
-                  | "rcrl" [token]
-                  | "rcrq" [token]
-                  | "rcrw" [token]
-                  | "rolb" [token]
-                  | "roll" [token]
-                  | "rolq" [token]
-                  | "rolw" [token]
-                  | "rorb" [token]
-                  | "rorl" [token]
-                  | "rorq" [token]
-                  | "rorw" [token]
-                  | "rsqrtps" [token]
-                  | "rsqrtss" [token]
-                  | "salb" [token]
-                  | "sall" [token]
-                  | "salw" [token]
-                  | "sarb" [token]
-                  | "sarl" [token]
-                  | "sarw" [token]
-                  | "sarxl" [token]
-                  | "sarxq" [token]
-                  | "sbbb" [token]
-                  | "sbbl" [token]
-                  | "sbbq" [token]
-                  | "sbbw" [token]
-                  | "seta" [token]
-                  | "setae" [token]
-                  | "setb" [token]
-                  | "setbe" [token]
-                  | "setc" [token]
-                  | "sete" [token]
-                  | "setg" [token]
-                  | "setge" [token]
-                  | "setl" [token]
-                  | "setle" [token]
-                  | "setna" [token]
-                  | "setnae" [token]
-                  | "setnb" [token]
-                  | "setnbe" [token]
-                  | "setnc" [token]
-                  | "setne" [token]
-                  | "setng" [token]
-                  | "setnge" [token]
-                  | "setnl" [token]
-                  | "setnle" [token]
-                  | "setno" [token]
-                  | "setnp" [token]
-                  | "setns" [token]
-                  | "setnz" [token]
-                  | "seto" [token]
-                  | "setp" [token]
-                  | "setpe" [token]
-                  | "setpo" [token]
-                  | "sets" [token]
-                  | "setz" [token]
-                  | "shlb" [token]
-                  | "shll" [token]
-                  | "shlq" [token]
-                  | "shlw" [token]
-                  | "shlxl" [token]
-                  | "shlxq" [token]
-                  | "shrb" [token]
-                  | "shrl" [token]
-                  | "shrw" [token]
-                  | "shrxl" [token]
-                  | "shrxq" [token]
-                  | "sqrtpd" [token]
-                  | "sqrtps" [token]
-                  | "sqrtsd" [token]
-                  | "sqrtss" [token]
-                  | "stc" [token]
-                  | "subb" [token]
-                  | "subl" [token]
-                  | "subpd" [token]
-                  | "subps" [token]
-                  | "subq" [token]
-                  | "subsd" [token]
-                  | "subss" [token]
-                  | "subw" [token]
-                  | "testb" [token]
-                  | "testl" [token]
-                  | "testq" [token]
-                  | "testw" [token]
-                  | "tzcntl" [token]
-                  | "tzcntq" [token]
-                  | "tzcntw" [token]
-                  | "ucomisd" [token]
-                  | "ucomiss" [token]
-                  | "unpckhpd" [token]
-                  | "unpckhps" [token]
-                  | "unpcklpd" [token]
-                  | "unpcklps" [token]
-                  | "vaddsd" [token]
-                  | "vaddss" [token]
-                  | "vaddsubpd" [token]
-                  | "vaddsubps" [token]
-                  | "vandnpd" [token]
-                  | "vandnps" [token]
-                  | "vandpd" [token]
-                  | "vandps" [token]
-                  | "vblendvpd" [token]
-                  | "vblendvps" [token]
-                  | "vbroadcastsd" [token]
-                  | "vbroadcastss" [token]
-                  | "vcomisd" [token]
-                  | "vcomiss" [token]
-                  | "vcvtpd2dq" [token]
-                  | "vcvtpd2dqx" [token]
-                  | "vcvtpd2ps" [token]
-                  | "vcvtph2ps" [token]
-                  | "vcvtps2dq" [token]
-                  | "vcvtsd2sil" [token]
-                  | "vcvtsd2siq" [token]
-                  | "vcvtsd2ss" [token]
-                  | "vcvtsi2sdl" [token]
-                  | "vcvtsi2sdq" [token]
-                  | "vcvtsi2ssl" [token]
-                  | "vcvtsi2ssq" [token]
-                  | "vcvtss2sd" [token]
-                  | "vcvtss2sil" [token]
-                  | "vcvtss2siq" [token]
-                  | "vcvttpd2dq" [token]
-                  | "vcvttps2dq" [token]
-                  | "vcvttsd2sil" [token]
-                  | "vcvttsd2siq" [token]
-                  | "vcvttss2sil" [token]
-                  | "vcvttss2siq" [token]
-                  | "vdivsd" [token]
-                  | "vdivss" [token]
-                  | "vfmadd132sd" [token]
-                  | "vfmadd132ss" [token]
-                  | "vfmadd213pd" [token]
-                  | "vfmadd213ps" [token]
-                  | "vfmadd213sd" [token]
-                  | "vfmadd213ss" [token]
-                  | "vfmadd231pd" [token]
-                  | "vfmadd231ps" [token]
-                  | "vfmadd231sd" [token]
-                  | "vfmadd231ss" [token]
-                  | "vfmaddsub132pd" [token]
-                  | "vfmaddsub132ps" [token]
-                  | "vfmaddsub213pd" [token]
-                  | "vfmaddsub213ps" [token]
-                  | "vfmaddsub231pd" [token]
-                  | "vfmaddsub231ps" [token]
-                  | "vfmsub132sd" [token]
-                  | "vfmsub132ss" [token]
-                  | "vfmsub213pd" [token]
-                  | "vfmsub213ps" [token]
-                  | "vfmsub213sd" [token]
-                  | "vfmsub213ss" [token]
-                  | "vfmsub231pd" [token]
-                  | "vfmsub231ps" [token]
-                  | "vfmsub231sd" [token]
-                  | "vfmsub231ss" [token]
-                  | "vfmsubadd132pd" [token]
-                  | "vfmsubadd132ps" [token]
-                  | "vfmsubadd213pd" [token]
-                  | "vfmsubadd213ps" [token]
-                  | "vfmsubadd231pd" [token]
-                  | "vfmsubadd231ps" [token]
-                  | "vfnmadd132sd" [token]
-                  | "vfnmadd132ss" [token]
-                  | "vfnmadd213pd" [token]
-                  | "vfnmadd213ps" [token]
-                  | "vfnmadd213sd" [token]
-                  | "vfnmadd213ss" [token]
-                  | "vfnmadd231pd" [token]
-                  | "vfnmadd231ps" [token]
-                  | "vfnmadd231sd" [token]
-                  | "vfnmadd231ss" [token]
-                  | "vfnmsub132sd" [token]
-                  | "vfnmsub132ss" [token]
-                  | "vfnmsub213pd" [token]
-                  | "vfnmsub213ps" [token]
-                  | "vfnmsub213sd" [token]
-                  | "vfnmsub213ss" [token]
-                  | "vfnmsub231pd" [token]
-                  | "vfnmsub231ps" [token]
-                  | "vfnmsub231sd" [token]
-                  | "vfnmsub231ss" [token]
-                  | "vhaddpd" [token]
-                  | "vhaddps" [token]
-                  | "vhsubpd" [token]
-                  | "vhsubps" [token]
-                  | "vmaxsd" [token]
-                  | "vmaxss" [token]
-                  | "vminsd" [token]
-                  | "vminss" [token]
-                  | "vmovapd" [token]
-                  | "vmovaps" [token]
-                  | "vmovd" [token]
-                  | "vmovddup" [token]
-                  | "vmovdqa" [token]
-                  | "vmovdqu" [token]
-                  | "vmovhlps" [token]
-                  | "vmovlhps" [token]
-                  | "vmovmskpd" [token]
-                  | "vmovmskps" [token]
-                  | "vmovq" [token]
-                  | "vmovsd" [token]
-                  | "vmovshdup" [token]
-                  | "vmovsldup" [token]
-                  | "vmovss" [token]
-                  | "vmovupd" [token]
-                  | "vmovups" [token]
-                  | "vmulsd" [token]
-                  | "vmulss" [token]
-                  | "vorpd" [token]
-                  | "vorps" [token]
-                  | "vpabsb" [token]
-                  | "vpabsd" [token]
-                  | "vpabsw" [token]
-                  | "vpackssdw" [token]
-                  | "vpacksswb" [token]
-                  | "vpackusdw" [token]
-                  | "vpackuswb" [token]
-                  | "vpaddb" [token]
-                  | "vpaddd" [token]
-                  | "vpaddq" [token]
-                  | "vpaddsb" [token]
-                  | "vpaddsw" [token]
-                  | "vpaddusb" [token]
-                  | "vpaddusw" [token]
-                  | "vpaddw" [token]
-                  | "vpand" [token]
-                  | "vpandn" [token]
-                  | "vpavgb" [token]
-                  | "vpavgw" [token]
-                  | "vpblendvb" [token]
-                  | "vpbroadcastb" [token]
-                  | "vpbroadcastd" [token]
-                  | "vpbroadcastq" [token]
-                  | "vpbroadcastw" [token]
-                  | "vpcmpeqb" [token]
-                  | "vpcmpeqd" [token]
-                  | "vpcmpeqq" [token]
-                  | "vpcmpeqw" [token]
-                  | "vpcmpgtb" [token]
-                  | "vpcmpgtd" [token]
-                  | "vpcmpgtq" [token]
-                  | "vpcmpgtw" [token]
-                  | "vpermd" [token]
-                  | "vpermilpd" [token]
-                  | "vpermilps" [token]
-                  | "vpermps" [token]
-                  | "vphaddd" [token]
-                  | "vphaddsw" [token]
-                  | "vphaddw" [token]
-                  | "vphminposuw" [token]
-                  | "vphsubd" [token]
-                  | "vphsubsw" [token]
-                  | "vphsubw" [token]
-                  | "vpmaddubsw" [token]
-                  | "vpmaddwd" [token]
-                  | "vpmaxsb" [token]
-                  | "vpmaxsd" [token]
-                  | "vpmaxsw" [token]
-                  | "vpmaxub" [token]
-                  | "vpmaxud" [token]
-                  | "vpmaxuw" [token]
-                  | "vpminsb" [token]
-                  | "vpminsd" [token]
-                  | "vpminsw" [token]
-                  | "vpminub" [token]
-                  | "vpminud" [token]
-                  | "vpminuw" [token]
-                  | "vpmovmskb" [token]
-                  | "vpmovsxbd" [token]
-                  | "vpmovsxbq" [token]
-                  | "vpmovsxbw" [token]
-                  | "vpmovsxdq" [token]
-                  | "vpmovsxwd" [token]
-                  | "vpmovsxwq" [token]
-                  | "vpmovzxbd" [token]
-                  | "vpmovzxbq" [token]
-                  | "vpmovzxbw" [token]
-                  | "vpmovzxdq" [token]
-                  | "vpmovzxwd" [token]
-                  | "vpmovzxwq" [token]
-                  | "vpmuldq" [token]
-                  | "vpmulhrsw" [token]
-                  | "vpmulhuw" [token]
-                  | "vpmulhw" [token]
-                  | "vpmulld" [token]
-                  | "vpmullw" [token]
-                  | "vpmuludq" [token]
-                  | "vpor" [token]
-                  | "vpsadbw" [token]
-                  | "vpshufb" [token]
-                  | "vpsignb" [token]
-                  | "vpsignd" [token]
-                  | "vpsignw" [token]
-                  | "vpslld" [token]
-                  | "vpsllq" [token]
-                  | "vpsllvd" [token]
-                  | "vpsllvq" [token]
-                  | "vpsllw" [token]
-                  | "vpsrad" [token]
-                  | "vpsravd" [token]
-                  | "vpsraw" [token]
-                  | "vpsrld" [token]
-                  | "vpsrlq" [token]
-                  | "vpsrlvd" [token]
-                  | "vpsrlvq" [token]
-                  | "vpsrlw" [token]
-                  | "vpsubb" [token]
-                  | "vpsubd" [token]
-                  | "vpsubq" [token]
-                  | "vpsubsb" [token]
-                  | "vpsubsw" [token]
-                  | "vpsubusb" [token]
-                  | "vpsubusw" [token]
-                  | "vpsubw" [token]
-                  | "vptest" [token]
-                  | "vpunpckhbw" [token]
-                  | "vpunpckhdq" [token]
-                  | "vpunpckhqdq" [token]
-                  | "vpunpckhwd" [token]
-                  | "vpunpcklbw" [token]
-                  | "vpunpckldq" [token]
-                  | "vpunpcklqdq" [token]
-                  | "vpunpcklwd" [token]
-                  | "vpvmpgtq" [token]
-                  | "vpxor" [token]
-                  | "vrcpss" [token]
-                  | "vrsqrtss" [token]
-                  | "vsqrtsd" [token]
-                  | "vsqrtss" [token]
-                  | "vsubsd" [token]
-                  | "vsubss" [token]
-                  | "vtestpd" [token]
-                  | "vtestps" [token]
-                  | "vucomisd" [token]
-                  | "vucomiss" [token]
-                  | "vunpckhpd" [token]
-                  | "vunpckhps" [token]
-                  | "vunpcklpd" [token]
-                  | "vunpcklps" [token]
-                  | "vxorpd" [token]
-                  | "vxorps" [token]
-                  | "vzeroupper" [token]
-                  | "xaddb" [token]
-                  | "xaddl" [token]
-                  | "xaddq" [token]
-                  | "xaddw" [token]
-                  | "xchgb" [token]
-                  | "xchgl" [token]
-                  | "xchgq" [token]
-                  | "xchgw" [token]
-                  | "xorb" [token]
-                  | "xorl" [token]
-                  | "xorpd" [token]
-                  | "xorps" [token]
-                  | "xorw" [token]
+  syntax Derivedopcode ::= "addb" 
+                  | "addl" 
+                  | "addpd" 
+                  | "addps" 
+                  | "addsd" 
+                  | "addss" 
+                  | "addsubpd" 
+                  | "addsubps" 
+                  | "addw" 
+                  | "andb" 
+                  | "andl" 
+                  | "andnl" 
+                  | "andnpd" 
+                  | "andnps" 
+                  | "andnq" 
+                  | "andpd" 
+                  | "andps" 
+                  | "andq" 
+                  | "andw" 
+                  | "bextrl" 
+                  | "bextrq" 
+                  | "blendvpd" 
+                  | "blendvps" 
+                  | "blsil" 
+                  | "blsiq" 
+                  | "blsmskl" 
+                  | "blsmskq" 
+                  | "blsrl" 
+                  | "blsrq" 
+                  | "bswap" 
+                  | "btcl" 
+                  | "btcq" 
+                  | "btcw" 
+                  | "btl" 
+                  | "btq" 
+                  | "btrl" 
+                  | "btrq" 
+                  | "btrw" 
+                  | "btsl" 
+                  | "btsq" 
+                  | "btsw" 
+                  | "btw" 
+                  | "bzhil" 
+                  | "bzhiq" 
+                  | "cbtw" 
+                  | "clc" 
+                  | "cltd" 
+                  | "cltq" 
+                  | "cmc" 
+                  | "cmovael" 
+                  | "cmovaeq" 
+                  | "cmovaew" 
+                  | "cmoval" 
+                  | "cmovaq" 
+                  | "cmovaw" 
+                  | "cmovbel" 
+                  | "cmovbeq" 
+                  | "cmovbew" 
+                  | "cmovbl" 
+                  | "cmovbq" 
+                  | "cmovbw" 
+                  | "cmovcl" 
+                  | "cmovcq" 
+                  | "cmovcw" 
+                  | "cmovel" 
+                  | "cmovew" 
+                  | "cmovgel" 
+                  | "cmovgeq" 
+                  | "cmovgew" 
+                  | "cmovgl" 
+                  | "cmovgq" 
+                  | "cmovgw" 
+                  | "cmovlel" 
+                  | "cmovleq" 
+                  | "cmovlew" 
+                  | "cmovll" 
+                  | "cmovlq" 
+                  | "cmovlw" 
+                  | "cmovnael" 
+                  | "cmovnaeq" 
+                  | "cmovnaew" 
+                  | "cmovnal" 
+                  | "cmovnaq" 
+                  | "cmovnaw" 
+                  | "cmovnbel" 
+                  | "cmovnbeq" 
+                  | "cmovnbew" 
+                  | "cmovnbl" 
+                  | "cmovnbq" 
+                  | "cmovnbw" 
+                  | "cmovncl" 
+                  | "cmovncq" 
+                  | "cmovncw" 
+                  | "cmovnel" 
+                  | "cmovneq" 
+                  | "cmovnew" 
+                  | "cmovngel" 
+                  | "cmovngeq" 
+                  | "cmovngew" 
+                  | "cmovngl" 
+                  | "cmovngq" 
+                  | "cmovngw" 
+                  | "cmovnlel" 
+                  | "cmovnleq" 
+                  | "cmovnlew" 
+                  | "cmovnll" 
+                  | "cmovnlq" 
+                  | "cmovnlw" 
+                  | "cmovnol" 
+                  | "cmovnoq" 
+                  | "cmovnow" 
+                  | "cmovnpl" 
+                  | "cmovnpq" 
+                  | "cmovnpw" 
+                  | "cmovnsl" 
+                  | "cmovnsq" 
+                  | "cmovnsw" 
+                  | "cmovnzl" 
+                  | "cmovnzq" 
+                  | "cmovnzw" 
+                  | "cmovol" 
+                  | "cmovoq" 
+                  | "cmovow" 
+                  | "cmovpel" 
+                  | "cmovpeq" 
+                  | "cmovpew" 
+                  | "cmovpl" 
+                  | "cmovpol" 
+                  | "cmovpoq" 
+                  | "cmovpow" 
+                  | "cmovpq" 
+                  | "cmovpw" 
+                  | "cmovsl" 
+                  | "cmovsq" 
+                  | "cmovsw" 
+                  | "cmovzl" 
+                  | "cmovzq" 
+                  | "cmovzw" 
+                  | "cmpb" 
+                  | "cmpl" 
+                  | "cmpq" 
+                  | "cmpw" 
+                  | "cmpxchgb" 
+                  | "cmpxchgl" 
+                  | "cmpxchgq" 
+                  | "cmpxchgw" 
+                  | "comisd" 
+                  | "comiss" 
+                  | "cqto" 
+                  | "cvtdq2pd" 
+                  | "cvtdq2ps" 
+                  | "cvtpd2dq" 
+                  | "cvtpd2ps" 
+                  | "cvtps2dq" 
+                  | "cvtps2pd" 
+                  | "cvtsd2sil" 
+                  | "cvtsd2siq" 
+                  | "cvtsd2ss" 
+                  | "cvtsi2sdl" 
+                  | "cvtsi2sdq" 
+                  | "cvtsi2ssl" 
+                  | "cvtsi2ssq" 
+                  | "cvtss2sd" 
+                  | "cvtss2sil" 
+                  | "cvtss2siq" 
+                  | "cvttpd2dq" 
+                  | "cvttps2dq" 
+                  | "cvttsd2sil" 
+                  | "cvttsd2siq" 
+                  | "cvttss2sil" 
+                  | "cvttss2siq" 
+                  | "cwtd" 
+                  | "cwtl" 
+                  | "decb" 
+                  | "decl" 
+                  | "decq" 
+                  | "decw" 
+                  | "divb" 
+                  | "divl" 
+                  | "divpd" 
+                  | "divps" 
+                  | "divq" 
+                  | "divsd" 
+                  | "divss" 
+                  | "divw" 
+                  | "haddpd" 
+                  | "haddps" 
+                  | "hsubpd" 
+                  | "hsubps" 
+                  | "idivb" 
+                  | "idivl" 
+                  | "idivq" 
+                  | "idivw" 
+                  | "imulb" 
+                  | "imull" 
+                  | "imulq" 
+                  | "imulw" 
+                  | "incb" 
+                  | "incl" 
+                  | "incq" 
+                  | "incw" 
+                  | "lzcntl" 
+                  | "lzcntq" 
+                  | "lzcntw" 
+                  | "maxpd" 
+                  | "maxps" 
+                  | "maxsd" 
+                  | "maxss" 
+                  | "minpd" 
+                  | "minps" 
+                  | "minsd" 
+                  | "minss" 
+                  | "movapd" 
+                  | "movaps" 
+                  | "movd" 
+                  | "movddup" 
+                  | "movdqa" 
+                  | "movdqu" 
+                  | "movhlps" 
+                  | "movl" 
+                  | "movlhps" 
+                  | "movmskpd" 
+                  | "movmskps" 
+                  | "movsbl" 
+                  | "movsbw" 
+                  | "movsd" 
+                  | "movshdup" 
+                  | "movsldup" 
+                  | "movss" 
+                  | "movswl" 
+                  | "movupd" 
+                  | "movups" 
+                  | "movw" 
+                  | "movzbl" 
+                  | "movzbq" 
+                  | "movzbw" 
+                  | "movzwl" 
+                  | "movzwq" 
+                  | "mulb" 
+                  | "mull" 
+                  | "mulpd" 
+                  | "mulps" 
+                  | "mulq" 
+                  | "mulsd" 
+                  | "mulss" 
+                  | "mulw" 
+                  | "mulxl" 
+                  | "mulxq" 
+                  | "negb" 
+                  | "negl" 
+                  | "negq" 
+                  | "negw" 
+                  | "nopl" 
+                  | "nopw" 
+                  | "notb" 
+                  | "notl" 
+                  | "notq" 
+                  | "notw" 
+                  | "orb" 
+                  | "orl" 
+                  | "orpd" 
+                  | "orps" 
+                  | "orw" 
+                  | "pabsb" 
+                  | "pabsd" 
+                  | "pabsw" 
+                  | "packssdw" 
+                  | "packsswb" 
+                  | "packusdw" 
+                  | "packuswb" 
+                  | "paddb" 
+                  | "paddd" 
+                  | "paddq" 
+                  | "paddsb" 
+                  | "paddsw" 
+                  | "paddusb" 
+                  | "paddusw" 
+                  | "paddw" 
+                  | "pand" 
+                  | "pandn" 
+                  | "pavgb" 
+                  | "pavgw" 
+                  | "pblendvb" 
+                  | "pcmpeqb" 
+                  | "pcmpeqd" 
+                  | "pcmpeqq" 
+                  | "pcmpeqw" 
+                  | "pcmpgtb" 
+                  | "pcmpgtd" 
+                  | "pcmpgtq" 
+                  | "pcmpgtw" 
+                  | "pdepl" 
+                  | "pdepq" 
+                  | "pextl" 
+                  | "pextq" 
+                  | "phaddd" 
+                  | "phaddsw" 
+                  | "phaddw" 
+                  | "phminposuw" 
+                  | "phsubd" 
+                  | "phsubsw" 
+                  | "phsubw" 
+                  | "pmaddubsw" 
+                  | "pmaddwd" 
+                  | "pmaxsb" 
+                  | "pmaxsd" 
+                  | "pmaxsw" 
+                  | "pmaxub" 
+                  | "pmaxud" 
+                  | "pmaxuw" 
+                  | "pminsb" 
+                  | "pminsd" 
+                  | "pminsw" 
+                  | "pminub" 
+                  | "pminud" 
+                  | "pminuw" 
+                  | "pmovmskb" 
+                  | "pmovsxbd" 
+                  | "pmovsxbq" 
+                  | "pmovsxbw" 
+                  | "pmovsxdq" 
+                  | "pmovsxwd" 
+                  | "pmovsxwq" 
+                  | "pmovzxbd" 
+                  | "pmovzxbq" 
+                  | "pmovzxbw" 
+                  | "pmovzxdq" 
+                  | "pmovzxwd" 
+                  | "pmovzxwq" 
+                  | "pmuldq" 
+                  | "pmulhrsw" 
+                  | "pmulhuw" 
+                  | "pmulhw" 
+                  | "pmulld" 
+                  | "pmullw" 
+                  | "pmuludq" 
+                  | "popcntl" 
+                  | "popcntw" 
+                  | "por" 
+                  | "psadbw" 
+                  | "pshufb" 
+                  | "psignb" 
+                  | "psignd" 
+                  | "psignw" 
+                  | "pslld" 
+                  | "psllq" 
+                  | "psllw" 
+                  | "psrad" 
+                  | "psraw" 
+                  | "psrld" 
+                  | "psrlq" 
+                  | "psrlw" 
+                  | "psubb" 
+                  | "psubd" 
+                  | "psubq" 
+                  | "psubsb" 
+                  | "psubsw" 
+                  | "psubusb" 
+                  | "psubusw" 
+                  | "psubw" 
+                  | "ptest" 
+                  | "punpckhbw" 
+                  | "punpckhdq" 
+                  | "punpckhqdq" 
+                  | "punpckhwd" 
+                  | "punpcklbw" 
+                  | "punpckldq" 
+                  | "punpcklqdq" 
+                  | "punpcklwd" 
+                  | "pxor" 
+                  | "rclb" 
+                  | "rcll" 
+                  | "rclq" 
+                  | "rclw" 
+                  | "rcpps" 
+                  | "rcpss" 
+                  | "rcrb" 
+                  | "rcrl" 
+                  | "rcrq" 
+                  | "rcrw" 
+                  | "rolb" 
+                  | "roll" 
+                  | "rolq" 
+                  | "rolw" 
+                  | "rorb" 
+                  | "rorl" 
+                  | "rorq" 
+                  | "rorw" 
+                  | "rsqrtps" 
+                  | "rsqrtss" 
+                  | "salb" 
+                  | "sall" 
+                  | "salw" 
+                  | "sarb" 
+                  | "sarl" 
+                  | "sarw" 
+                  | "sarxl" 
+                  | "sarxq" 
+                  | "sbbb" 
+                  | "sbbl" 
+                  | "sbbq" 
+                  | "sbbw" 
+                  | "seta" 
+                  | "setae" 
+                  | "setb" 
+                  | "setbe" 
+                  | "setc" 
+                  | "sete" 
+                  | "setg" 
+                  | "setge" 
+                  | "setl" 
+                  | "setle" 
+                  | "setna" 
+                  | "setnae" 
+                  | "setnb" 
+                  | "setnbe" 
+                  | "setnc" 
+                  | "setne" 
+                  | "setng" 
+                  | "setnge" 
+                  | "setnl" 
+                  | "setnle" 
+                  | "setno" 
+                  | "setnp" 
+                  | "setns" 
+                  | "setnz" 
+                  | "seto" 
+                  | "setp" 
+                  | "setpe" 
+                  | "setpo" 
+                  | "sets" 
+                  | "setz" 
+                  | "shlb" 
+                  | "shll" 
+                  | "shlq" 
+                  | "shlw" 
+                  | "shlxl" 
+                  | "shlxq" 
+                  | "shrb" 
+                  | "shrl" 
+                  | "shrw" 
+                  | "shrxl" 
+                  | "shrxq" 
+                  | "sqrtpd" 
+                  | "sqrtps" 
+                  | "sqrtsd" 
+                  | "sqrtss" 
+                  | "stc" 
+                  | "subb" 
+                  | "subl" 
+                  | "subpd" 
+                  | "subps" 
+                  | "subq" 
+                  | "subsd" 
+                  | "subss" 
+                  | "subw" 
+                  | "testb" 
+                  | "testl" 
+                  | "testq" 
+                  | "testw" 
+                  | "tzcntl" 
+                  | "tzcntq" 
+                  | "tzcntw" 
+                  | "ucomisd" 
+                  | "ucomiss" 
+                  | "unpckhpd" 
+                  | "unpckhps" 
+                  | "unpcklpd" 
+                  | "unpcklps" 
+                  | "vaddsd" 
+                  | "vaddss" 
+                  | "vaddsubpd" 
+                  | "vaddsubps" 
+                  | "vandnpd" 
+                  | "vandnps" 
+                  | "vandpd" 
+                  | "vandps" 
+                  | "vblendvpd" 
+                  | "vblendvps" 
+                  | "vbroadcastsd" 
+                  | "vbroadcastss" 
+                  | "vcomisd" 
+                  | "vcomiss" 
+                  | "vcvtpd2dq" 
+                  | "vcvtpd2dqx" 
+                  | "vcvtpd2ps" 
+                  | "vcvtph2ps" 
+                  | "vcvtps2dq" 
+                  | "vcvtsd2sil" 
+                  | "vcvtsd2siq" 
+                  | "vcvtsd2ss" 
+                  | "vcvtsi2sdl" 
+                  | "vcvtsi2sdq" 
+                  | "vcvtsi2ssl" 
+                  | "vcvtsi2ssq" 
+                  | "vcvtss2sd" 
+                  | "vcvtss2sil" 
+                  | "vcvtss2siq" 
+                  | "vcvttpd2dq" 
+                  | "vcvttps2dq" 
+                  | "vcvttsd2sil" 
+                  | "vcvttsd2siq" 
+                  | "vcvttss2sil" 
+                  | "vcvttss2siq" 
+                  | "vdivsd" 
+                  | "vdivss" 
+                  | "vfmadd132sd" 
+                  | "vfmadd132ss" 
+                  | "vfmadd213pd" 
+                  | "vfmadd213ps" 
+                  | "vfmadd213sd" 
+                  | "vfmadd213ss" 
+                  | "vfmadd231pd" 
+                  | "vfmadd231ps" 
+                  | "vfmadd231sd" 
+                  | "vfmadd231ss" 
+                  | "vfmaddsub132pd" 
+                  | "vfmaddsub132ps" 
+                  | "vfmaddsub213pd" 
+                  | "vfmaddsub213ps" 
+                  | "vfmaddsub231pd" 
+                  | "vfmaddsub231ps" 
+                  | "vfmsub132sd" 
+                  | "vfmsub132ss" 
+                  | "vfmsub213pd" 
+                  | "vfmsub213ps" 
+                  | "vfmsub213sd" 
+                  | "vfmsub213ss" 
+                  | "vfmsub231pd" 
+                  | "vfmsub231ps" 
+                  | "vfmsub231sd" 
+                  | "vfmsub231ss" 
+                  | "vfmsubadd132pd" 
+                  | "vfmsubadd132ps" 
+                  | "vfmsubadd213pd" 
+                  | "vfmsubadd213ps" 
+                  | "vfmsubadd231pd" 
+                  | "vfmsubadd231ps" 
+                  | "vfnmadd132sd" 
+                  | "vfnmadd132ss" 
+                  | "vfnmadd213pd" 
+                  | "vfnmadd213ps" 
+                  | "vfnmadd213sd" 
+                  | "vfnmadd213ss" 
+                  | "vfnmadd231pd" 
+                  | "vfnmadd231ps" 
+                  | "vfnmadd231sd" 
+                  | "vfnmadd231ss" 
+                  | "vfnmsub132sd" 
+                  | "vfnmsub132ss" 
+                  | "vfnmsub213pd" 
+                  | "vfnmsub213ps" 
+                  | "vfnmsub213sd" 
+                  | "vfnmsub213ss" 
+                  | "vfnmsub231pd" 
+                  | "vfnmsub231ps" 
+                  | "vfnmsub231sd" 
+                  | "vfnmsub231ss" 
+                  | "vhaddpd" 
+                  | "vhaddps" 
+                  | "vhsubpd" 
+                  | "vhsubps" 
+                  | "vmaxsd" 
+                  | "vmaxss" 
+                  | "vminsd" 
+                  | "vminss" 
+                  | "vmovapd" 
+                  | "vmovaps" 
+                  | "vmovd" 
+                  | "vmovddup" 
+                  | "vmovdqa" 
+                  | "vmovdqu" 
+                  | "vmovhlps" 
+                  | "vmovlhps" 
+                  | "vmovmskpd" 
+                  | "vmovmskps" 
+                  | "vmovq" 
+                  | "vmovsd" 
+                  | "vmovshdup" 
+                  | "vmovsldup" 
+                  | "vmovss" 
+                  | "vmovupd" 
+                  | "vmovups" 
+                  | "vmulsd" 
+                  | "vmulss" 
+                  | "vorpd" 
+                  | "vorps" 
+                  | "vpabsb" 
+                  | "vpabsd" 
+                  | "vpabsw" 
+                  | "vpackssdw" 
+                  | "vpacksswb" 
+                  | "vpackusdw" 
+                  | "vpackuswb" 
+                  | "vpaddb" 
+                  | "vpaddd" 
+                  | "vpaddq" 
+                  | "vpaddsb" 
+                  | "vpaddsw" 
+                  | "vpaddusb" 
+                  | "vpaddusw" 
+                  | "vpaddw" 
+                  | "vpand" 
+                  | "vpandn" 
+                  | "vpavgb" 
+                  | "vpavgw" 
+                  | "vpblendvb" 
+                  | "vpbroadcastb" 
+                  | "vpbroadcastd" 
+                  | "vpbroadcastq" 
+                  | "vpbroadcastw" 
+                  | "vpcmpeqb" 
+                  | "vpcmpeqd" 
+                  | "vpcmpeqq" 
+                  | "vpcmpeqw" 
+                  | "vpcmpgtb" 
+                  | "vpcmpgtd" 
+                  | "vpcmpgtq" 
+                  | "vpcmpgtw" 
+                  | "vpermd" 
+                  | "vpermilpd" 
+                  | "vpermilps" 
+                  | "vpermps" 
+                  | "vphaddd" 
+                  | "vphaddsw" 
+                  | "vphaddw" 
+                  | "vphminposuw" 
+                  | "vphsubd" 
+                  | "vphsubsw" 
+                  | "vphsubw" 
+                  | "vpmaddubsw" 
+                  | "vpmaddwd" 
+                  | "vpmaxsb" 
+                  | "vpmaxsd" 
+                  | "vpmaxsw" 
+                  | "vpmaxub" 
+                  | "vpmaxud" 
+                  | "vpmaxuw" 
+                  | "vpminsb" 
+                  | "vpminsd" 
+                  | "vpminsw" 
+                  | "vpminub" 
+                  | "vpminud" 
+                  | "vpminuw" 
+                  | "vpmovmskb" 
+                  | "vpmovsxbd" 
+                  | "vpmovsxbq" 
+                  | "vpmovsxbw" 
+                  | "vpmovsxdq" 
+                  | "vpmovsxwd" 
+                  | "vpmovsxwq" 
+                  | "vpmovzxbd" 
+                  | "vpmovzxbq" 
+                  | "vpmovzxbw" 
+                  | "vpmovzxdq" 
+                  | "vpmovzxwd" 
+                  | "vpmovzxwq" 
+                  | "vpmuldq" 
+                  | "vpmulhrsw" 
+                  | "vpmulhuw" 
+                  | "vpmulhw" 
+                  | "vpmulld" 
+                  | "vpmullw" 
+                  | "vpmuludq" 
+                  | "vpor" 
+                  | "vpsadbw" 
+                  | "vpshufb" 
+                  | "vpsignb" 
+                  | "vpsignd" 
+                  | "vpsignw" 
+                  | "vpslld" 
+                  | "vpsllq" 
+                  | "vpsllvd" 
+                  | "vpsllvq" 
+                  | "vpsllw" 
+                  | "vpsrad" 
+                  | "vpsravd" 
+                  | "vpsraw" 
+                  | "vpsrld" 
+                  | "vpsrlq" 
+                  | "vpsrlvd" 
+                  | "vpsrlvq" 
+                  | "vpsrlw" 
+                  | "vpsubb" 
+                  | "vpsubd" 
+                  | "vpsubq" 
+                  | "vpsubsb" 
+                  | "vpsubsw" 
+                  | "vpsubusb" 
+                  | "vpsubusw" 
+                  | "vpsubw" 
+                  | "vptest" 
+                  | "vpunpckhbw" 
+                  | "vpunpckhdq" 
+                  | "vpunpckhqdq" 
+                  | "vpunpckhwd" 
+                  | "vpunpcklbw" 
+                  | "vpunpckldq" 
+                  | "vpunpcklqdq" 
+                  | "vpunpcklwd" 
+                  | "vpvmpgtq" 
+                  | "vpxor" 
+                  | "vrcpss" 
+                  | "vrsqrtss" 
+                  | "vsqrtsd" 
+                  | "vsqrtss" 
+                  | "vsubsd" 
+                  | "vsubss" 
+                  | "vtestpd" 
+                  | "vtestps" 
+                  | "vucomisd" 
+                  | "vucomiss" 
+                  | "vunpckhpd" 
+                  | "vunpckhps" 
+                  | "vunpcklpd" 
+                  | "vunpcklps" 
+                  | "vxorpd" 
+                  | "vxorps" 
+                  | "vzeroupper" 
+                  | "xaddb" 
+                  | "xaddl" 
+                  | "xaddq" 
+                  | "xaddw" 
+                  | "xchgb" 
+                  | "xchgl" 
+                  | "xchgq" 
+                  | "xchgw" 
+                  | "xorb" 
+                  | "xorl" 
+                  | "xorpd" 
+                  | "xorps" 
+                  | "xorw" 
 endmodule
