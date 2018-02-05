@@ -5,7 +5,7 @@ module X86-SEMANTICS-SPEC
     <k>
 saveRegister(%rax, "SPAD1") ~>
 readFlagToRegister( "CF", %rcx ) ~>
-writeRegisterToflag( %cl, "ZF") ~>
+writeRegisterToFlag( %cl, "ZF") ~>
 execinstr ( setnz %ah , .Typedoperands ) ~>
 restoreRegister("SPAD1", 0, 8, 16, 48, 
           8, 8, %rax) ~>

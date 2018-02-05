@@ -152,3 +152,36 @@ by fixing the rule for splitXmmToRegsIn32 (avoid zeroExtend)
     requires zeroMInt(MI1) andBool E <=Int bitwidthMInt(MI1)
   rule extractMInt(concatenateMInt(MI1, MI2), S, E) => mi(E -Int S, 0) 
     requires zeroMInt(MI2) andBool S >=Int bitwidthMInt(MI1)
+
+
+
+  Example
+  =======
+    rule <k>
+    execinstr (setpe R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), extractMInt(mi(64, countOnes(concatenateMInt(mi(63, 0), getFlag("PF", RSMap)), 0)), 56, 64)) )
+
+
+)
+
+    </regstate>
+
+    module SETPE-R8
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr (setpe R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), getFlag("PF", RSMap))) )
+
+
+)
+
+    </regstate>
+endmodule
+

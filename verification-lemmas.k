@@ -146,11 +146,27 @@ module MINT-LEMMAS
   rule extractMInt(extractMInt(MI, S1, E1), S2, E2) => extractMInt(MI, S1 +Int S2, S1 +Int E2)
 
   /* 
-  ** Extract over signExtend
+  ** Extract over signExtend: When the Etract overlaps with the signExtended MInt.
+  ** We cannot easily reason about the externsion part (could be all zeroes or all 1's, so
+  ** we cannot have rules of that.
   */
-  // rule extractMInt(mi(W, svalueMInt(extractMInt(MI, S1, E1))), S2, E2) => extractMInt(MI, S, E)
   rule extractMInt(mi(W, svalueMInt(MI)), S, E) => extractMInt(MI, S -Int W +Int bitwidthMInt(MI), E -Int W +Int bitwidthMInt(MI))
     requires S >=Int W -Int bitwidthMInt(MI)
+
+  /* 
+  ** Extract over zeroExtend: 
+  ** When the Etract overlaps with the signExtended MInt.
+  ** When the Etract DOES NOT overlap with the signExtended MInt.
+  */
+  rule extractMInt(mi(W, uvalueMInt(MI)), S, E) => extractMInt(MI, S -Int W +Int bitwidthMInt(MI), E -Int W +Int bitwidthMInt(MI))
+    requires S >=Int W -Int bitwidthMInt(MI)
+
+  rule extractMInt(mi(W, uvalueMInt(MI)), S, E) => mi(E -Int S, 0)
+    requires E <=Int W -Int bitwidthMInt(MI)
+
+  rule extractMInt(mi(W, uvalueMInt(MI)), S, E) => 
+      concatenateMInt(mi(W -Int bitwidthMInt(MI) -Int S, 0), extractMInt(MI, 0, E -Int W +Int bitwidthMInt(MI)))
+    requires (S <Int W -Int bitwidthMInt(MI)) andBool (E >Int W -Int bitwidthMInt(MI))
 
   /* 
   ** Convert signExtension to zeroExtension
@@ -179,6 +195,14 @@ module MINT-LEMMAS
   */
   rule extractMInt(#ifMInt B:Bool #then MI1:MInt #else MI2:MInt #fi, S, E) => 
     #ifMInt B #then extractMInt(MI1, S, E) #else extractMInt(MI2, S, E) #fi
+
+  /*
+  ** countOnes 
+  */
+  rule countOnes(concatenateMInt(MI1, MI2), I:Int) => countOnes(MI2, I)
+    requires zeroMInt(MI1)
+  rule countOnes(MI, I:Int) => uvalueMInt(MI)
+    requires bitwidthMInt(MI) ==Int 1
 
 endmodule
 

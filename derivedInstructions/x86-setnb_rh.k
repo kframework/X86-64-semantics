@@ -7,6 +7,14 @@ module SETNB-RH
   rule <k>
     execinstr (setnb R1:Rh,  .Typedoperands) => .
   ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt((#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1, 0)) ) #then ( mi(8, 1) ) #else ( mi(8, 0) ) #fi) , extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+
+
+)
+
+    </regstate>
 endmodule
 
 module SETNB-RH-SEMANTICS
