@@ -941,6 +941,7 @@ sub getRWsetOfInstr {
         return ( $returnInfo, \%store );
     }
 
+    ## Run instr_info to get the R/W set
     # Escape the $ sign (if present)
     $instr =~ s/\$/\\\$/g;
     execute("echo $instr | $binpath 1>/tmp/xxx 2>&1");
@@ -968,6 +969,16 @@ sub getRWsetOfInstr {
             }
         }
     }
+    
+    ## For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is null.
+    ## As the dest is simply zeroed.
+    ## So its better to add the operand from the instr itself. 
+    my $operandListFromInstr_ref =
+      getOperandListFromInstr( $instr, $debugprint );
+    for my $temp (@{$operandListFromInstr_ref}) {
+      $store{$temp} = 1;  
+    }
+
     debugInfo( "[getRWsetOfInstr] rw set: $instr::$returnInfo" . "\n",
         $debugprint );
     return ( $returnInfo, \%store );

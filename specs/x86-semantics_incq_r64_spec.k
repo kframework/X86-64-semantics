@@ -30,6 +30,7 @@ execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
 "RBX" |-> (mi(64, ?I4:Int):MInt => _)
 "SF" |-> (mi(1, ?I5:Int):MInt => _)
 "YMM1" |-> (mi(256, 0):MInt => _)
+"YMM2" |-> (mi(256, 0):MInt => _)
 "YMM7" |-> (mi(256, 0):MInt => _)
 "ZF" |-> (mi(1, ?I6:Int):MInt => _)
 
