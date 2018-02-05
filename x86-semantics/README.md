@@ -1,4 +1,4 @@
-![docs/import_graph.png](Dependency tree of Source Code)
+![Dependency tree of Source Code](docs/import_graph.png)
 
 ## To compile
 
