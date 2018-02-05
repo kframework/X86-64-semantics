@@ -3,8 +3,7 @@ requires "x86-fetch-execute.k"
 requires "x86-abstract-semantics.k"
 requires "x86-flag-checks.k"
 requires "verification-lemmas.k"
-requires "x86-base-instructions-semantics.k"
-requires "x86-derived-instructions-semantics.k"
+requires "x86-instructions-semantics.k"
 
 
 /* Testing individual derived instructions
@@ -33,8 +32,7 @@ module X86-SEMANTICS
   imports X86-ABSTRACT-SEMANTICS
   imports X86-FLAG-CHECKS
   imports VERIFICATION-LEMMAS
-  imports X86-BASE-INSTRUCTIONS-SEMANTICS
-  imports X86-DERIVED-INSTRUCTIONS-SEMANTICS
+  imports X86-INSTRUCTIONS-SEMANTICS
 
   //imports X86-TEST-SEMANTICS
 endmodule
