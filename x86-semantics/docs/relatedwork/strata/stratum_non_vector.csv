@@ -10,6 +10,8 @@ R3: adc flags
 R5: Keeping if else form will help cotactl resolve certain exp rather than otherwise; Ex- CF? A or B Vs expr(CF)
 R6: countOnes(mi1, mi2) == countOnes(mi2) if mi1 ==0; countOnes(getFlag(S)) == getFlag(S); extractMInt(mi(W, I), S, E) => mi(E-S, I)
 
+R7: Same key; xaddb
+R8:For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is null; So its better to add the operand from the instr itself.
 
 P1: K rule optmization is better that Strata's
 
@@ -298,7 +300,7 @@ Stratum 3	78
 addb_r8_rh	3	17	
 addb_rh_r8	3	21	
 bswap_r32	3	17	
-cmovbeq_r64_r64	3	29	
+cmovbeq_r64_r64	3	29:C:R7	
 cmovnzl_r32_r32	3	10	
 cvtpd2dq_xmm_xmm	3	12:US	
 cvttsd2sil_r32_xmm	3	25:US	
@@ -306,7 +308,8 @@ cwtd	3	11
 divss_xmm_xmm	3	24	
 haddpd_xmm_xmm	3	24	
 incb_rh	3	17	
-incq_r64	3	57	
+incq_r64	3	57:CD:R8	
+
 maxpd_xmm_xmm	3	13	
 maxsd_xmm_xmm	3	20	
 maxss_xmm_xmm	3	21	
@@ -323,7 +326,7 @@ pandn_xmm_xmm	3	19
 popcntl_r32_r32	3	10	
 punpckhqdq_xmm_xmm	3	6	
 rclb_r8_one	3	10	
-rolb_rh_one	3	55	
+rolb_rh_one	3	55:C:R7	
 roll_r32_one	3	21	
 rsqrtss_xmm_xmm	3	26	
 salb_rh_one	3	13	
@@ -334,10 +337,10 @@ sete_rh	3	27
 setge_rh	3	29	
 setl_r8	3	14	
 setle_rh	3	20	
-setne_r8	3	28	
+setne_r8	3	28:C:R7	
 setnge_r8	3	39	
 setnl_r8	3	26	
-setnz_r8	3	23	
+setnz_r8	3	23:C:R7	
 seto_rh	3	28	
 setpo_rh	3	40	
 setz_rh	3	21	
@@ -373,7 +376,7 @@ xchgb_r8_r8	3	43
 xchgb_rh_r8	3	19	
 xorb_rh_r8	3	45	
 xorpd_xmm_xmm	3	8	
-			
+
 Stratum 4	59		
 addb_rh_rh	4	23	
 addsubpd_xmm_xmm	4	70	
