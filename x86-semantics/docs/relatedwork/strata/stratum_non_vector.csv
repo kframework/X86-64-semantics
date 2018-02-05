@@ -300,8 +300,8 @@ addb_rh_r8	3	21
 bswap_r32	3	17	
 cmovbeq_r64_r64	3	29	
 cmovnzl_r32_r32	3	10	
-cvtpd2dq_xmm_xmm	3	12	
-cvttsd2sil_r32_xmm	3	25	
+cvtpd2dq_xmm_xmm	3	12:US	
+cvttsd2sil_r32_xmm	3	25:US	
 cwtd	3	11	
 divss_xmm_xmm	3	24	
 haddpd_xmm_xmm	3	24	
@@ -347,8 +347,8 @@ subss_xmm_xmm	3	21
 vaddsd_xmm_xmm_xmm	3	13	
 vandnpd_xmm_xmm_xmm	3	20	
 vcvtdq2pd_xmm_xmm	3	13	
-vcvtsd2ss_xmm_xmm_xmm	3	24	
-vcvttss2sil_r32_xmm	3	26	
+vcvtsd2ss_xmm_xmm_xmm	3	24:US	
+vcvttss2sil_r32_xmm	3	26:US	
 vdivsd_xmm_xmm_xmm	3	14	
 vfmadd231ss_xmm_xmm_xmm	3	36	
 vfmsub132pd_xmm_xmm_xmm	3	41	

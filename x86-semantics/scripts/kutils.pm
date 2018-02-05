@@ -1557,14 +1557,14 @@ sub processRWSET {
     for my $key ( keys %mayRS ) {
         if ( !exists $mustRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Read $key does not belong to Must Read");
+            utils::warnInfo("May Read $key does not belong to Must Read: $opcode");
         }
         $RS{$key} = 1;
     }
     for my $key ( keys %mustRS ) {
         if ( !exists $mayRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Read $key does not belong to May Read");
+            utils::warnInfo("Must Read $key does not belong to May Read: $opcode");
         }
         $RS{$key} = 1;
     }
@@ -1574,14 +1574,14 @@ sub processRWSET {
     for my $key ( keys %mayWS ) {
         if ( !exists $mustWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Write $key does not belong to Must Write");
+            utils::warnInfo("May Write $key does not belong to Must Write: $opcode");
         }
         $WS{$key} = 1;
     }
     for my $key ( keys %mustWS ) {
         if ( !exists $mayWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Write $key does not belong to May Write");
+            utils::warnInfo("Must Write $key does not belong to May Write: $opcode");
         }
         $WS{$key} = 1;
     }
@@ -1591,14 +1591,14 @@ sub processRWSET {
     for my $key ( keys %mayUS ) {
         if ( !exists $mustUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Undef $key does not belong to Must Undef");
+            utils::warnInfo("May Undef $key does not belong to Must Undef: $opcode");
         }
         $US{$key} = 1;
     }
     for my $key ( keys %mustUS ) {
         if ( !exists $mayUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Undef ($key) does not belong to May Undef");
+            utils::warnInfo("Must Undef ($key) does not belong to May Undef: $opcode");
         }
         $US{$key} = 1;
     }
