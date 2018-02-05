@@ -22,6 +22,7 @@ use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
+
 #my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
 my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
 my @xpatterns = (
@@ -775,7 +776,7 @@ sub getTargetInstr {
     my $opcode     = shift @_;
     my $path       = shift @_;
     my $debugprint = shift @_;
-    my $path       = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+    my $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 
     my $filepath = $path . "/" . $opcode . "/" . $opcode . ".s";
     my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
@@ -796,7 +797,7 @@ sub getTargetInstr {
         $instr = utils::trim($instr);
     }
 
-    return  $instr;
+    return $instr;
 }
 
 # Given opcode get the .etadata from the data-reg/instructions
@@ -805,7 +806,7 @@ sub getMDFromOpcode {
 #############################################
     my $opcode     = shift @_;
     my $debugprint = shift @_;
-    my $path       = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+    my $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 
     my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
     my $metadata = "";
@@ -821,7 +822,7 @@ sub getMDFromOpcode {
         }
     }
 
-    return $metadata;  
+    return $metadata;
 }
 
 #####################################
@@ -969,14 +970,14 @@ sub getRWsetOfInstr {
             }
         }
     }
-    
+
     ## For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is null.
     ## As the dest is simply zeroed.
-    ## So its better to add the operand from the instr itself. 
+    ## So its better to add the operand from the instr itself.
     my $operandListFromInstr_ref =
       getOperandListFromInstr( $instr, $debugprint );
-    for my $temp (@{$operandListFromInstr_ref}) {
-      $store{$temp} = 1;  
+    for my $temp ( @{$operandListFromInstr_ref} ) {
+        $store{$temp} = 1;
     }
 
     debugInfo( "[getRWsetOfInstr] rw set: $instr::$returnInfo" . "\n",
@@ -1145,7 +1146,7 @@ sub getInstrsFromCircuit {
             $line   = utils::trim($line);
             push @instr_arr,    $instr;
             push @encode_arr,   $encode;
-            push @orig_circuit, "circuit:". $line;
+            push @orig_circuit, "circuit:" . $line;
         }
     }
     return \@instr_arr, \@encode_arr, \@orig_circuit;
@@ -1156,8 +1157,8 @@ sub getInstrsFromCircuit {
 ##################################################
 sub getSpecCode {
 ##################################################
-    my $opcode      = shift @_;
-    my $debugprint  = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
 
     my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
       getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
@@ -1168,66 +1169,65 @@ sub getSpecCode {
     ## Obtain the Process RW set.
     my ( $dc1, $writeSet_ref, $undefSet_ref, $dc2 ) =
       processRWSET( $opcode, $debugprint, 1 );
-    my %writeSet     = %{$writeSet_ref};
+    my %writeSet = %{$writeSet_ref};
 
     ## Issue a "need to inspect" warning if we have undefined set.
-    if(scalar(keys %{$undefSet_ref})) {
-      utils::warnInfo("[getSpecCode] Undef Present: $opcode");
+    if ( scalar( keys %{$undefSet_ref} ) ) {
+        utils::warnInfo("[getSpecCode] Undef Present: $opcode");
     }
 
-
-    ## Generate the save rstore code for resgisters which are cloberred 
+    ## Generate the save rstore code for resgisters which are cloberred
     ## more that what is guarenteed by the R/W set.
-    my $saveCode = "";
+    my $saveCode    = "";
     my $restoreCode = "";
-    my $counter = 0;
-    for my $reg (keys %writeSet) {
-      if($reg eq "") {
-        next;
-      }
-
-      ## Check if $rw is the parent reg
-      my $preg = $subRegToReg{$reg};
-      if($preg ne $reg) {
-        $counter++;
-        if($counter == 3) {
-          utils::failInfo("Cannot handle $counter save restores\n");
+    my $counter     = 0;
+    for my $reg ( keys %writeSet ) {
+        if ( $reg eq "" ) {
+            next;
         }
-        my $regS = $getRegSize{$reg};
-        my $pregS = $getRegSize{$preg};
+
+        ## Check if $rw is the parent reg
+        my $preg = $subRegToReg{$reg};
+        if ( $preg ne $reg ) {
+            $counter++;
+            if ( $counter == 3 ) {
+                utils::failInfo("Cannot handle $counter save restores\n");
+            }
+            my $regS  = $getRegSize{$reg};
+            my $pregS = $getRegSize{$preg};
 ##my $bitWToSave = ($pregS - $regS);
 
-        ## lets assume that we might have to save 2 chucks
-        ## chuckSize[1]...chuckStart[1]  chuckSize[0]...chuckStart[0]
-        my @chuckStart = (0, 0);
-        my @chuckSize =  (0, 0);
-        my $regStart = 0;
+            ## lets assume that we might have to save 2 chucks
+            ## chuckSize[1]...chuckStart[1]  chuckSize[0]...chuckStart[0]
+            my @chuckStart = ( 0, 0 );
+            my @chuckSize  = ( 0, 0 );
+            my $regStart   = 0;
 
-        if($reg =~ m/ah|bh|ch|dh/) {
-          $chuckStart[0] = 0;
-          $chuckSize[0] = 8;
+            if ( $reg =~ m/ah|bh|ch|dh/ ) {
+                $chuckStart[0] = 0;
+                $chuckSize[0]  = 8;
 
-          $chuckStart[1] = 16;
-          $chuckSize[1] = ($pregS - 16);;
+                $chuckStart[1] = 16;
+                $chuckSize[1]  = ( $pregS - 16 );
 
-          $regStart = 8;
-        } else {
-          $chuckStart[0] = $regS;
-          $chuckSize[0] = ($pregS - $regS);
-          $regStart = 0;
-        }
+                $regStart = 8;
+            }
+            else {
+                $chuckStart[0] = $regS;
+                $chuckSize[0]  = ( $pregS - $regS );
+                $regStart      = 0;
+            }
 
-        $reg  = "%".$reg;
-        $preg = "%".$preg;
+            $reg  = "%" . $reg;
+            $preg = "%" . $preg;
 
-        $saveCode = $saveCode .  
-          "saveRegister($preg, \"SPAD$counter\") ~>\n";
-        $restoreCode = $restoreCode .  
-          "restoreRegister(\"SPAD$counter\", $chuckStart[0], $chuckSize[0], $chuckStart[1], $chuckSize[1], 
+            $saveCode =
+              $saveCode . "saveRegister($preg, \"SPAD$counter\") ~>\n";
+            $restoreCode = $restoreCode
+              . "restoreRegister(\"SPAD$counter\", $chuckStart[0], $chuckSize[0], $chuckStart[1], $chuckSize[1],
           $regStart, $regS, $preg) ~>\n";
-      }
+        }
     }
-
 
     my $spec_code = $saveCode;
     for ( my $i = 0 ; $i < scalar(@instr_arr) ; $i++ ) {
@@ -1252,8 +1252,8 @@ sub getSpecCode {
         debugInfo( "Instr::" . $instr . "::\n", $debugprint );
     }
 
-    if("" ne $restoreCode) {
-      $spec_code = $spec_code . $restoreCode; 
+    if ( "" ne $restoreCode ) {
+        $spec_code = $spec_code . $restoreCode;
     }
 
     $spec_code = $spec_code
@@ -1261,7 +1261,7 @@ sub getSpecCode {
 
     debugInfo( $spec_code . "\n", $debugprint );
 
-    return ( $spec_code, $counter);
+    return ( $spec_code, $counter );
 }
 
 sub mixfix2infix {
@@ -1496,7 +1496,7 @@ sub processRWSET {
 ##############################
     my $opcode     = shift @_;
     my $debugprint = shift @_;
-    my $storeRegs = shift @_;
+    my $storeRegs  = shift @_;
 
     my %mayRS  = ();
     my %mustRS = ();
@@ -1505,10 +1505,9 @@ sub processRWSET {
     my %mayUS  = ();
     my %mustUS = ();
 
-
     my $targetinstr = getTargetInstr($opcode);
     my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
-    my @lines = split("\n", $rwset);
+    my @lines = split( "\n", $rwset );
 
     for my $line (@lines) {
         chomp $line;
@@ -1526,9 +1525,9 @@ sub processRWSET {
                 }
 
                 my $storeVal = uc( $subRegToReg{$reg} );
-                if(defined($storeRegs) and $storeRegs == 1) {
-                  $storeVal = $reg;    
-                }  
+                if ( defined($storeRegs) and $storeRegs == 1 ) {
+                    $storeVal = $reg;
+                }
 
                 if ( $RWU eq "read" ) {
                     if ( $mayOrmust eq "maybe" ) {
@@ -1568,14 +1567,16 @@ sub processRWSET {
     for my $key ( keys %mayRS ) {
         if ( !exists $mustRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Read $key does not belong to Must Read: $opcode");
+            utils::warnInfo(
+                "May Read $key does not belong to Must Read: $opcode");
         }
         $RS{$key} = 1;
     }
     for my $key ( keys %mustRS ) {
         if ( !exists $mayRS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Read $key does not belong to May Read: $opcode");
+            utils::warnInfo(
+                "Must Read $key does not belong to May Read: $opcode");
         }
         $RS{$key} = 1;
     }
@@ -1585,14 +1586,16 @@ sub processRWSET {
     for my $key ( keys %mayWS ) {
         if ( !exists $mustWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Write $key does not belong to Must Write: $opcode");
+            utils::warnInfo(
+                "May Write $key does not belong to Must Write: $opcode");
         }
         $WS{$key} = 1;
     }
     for my $key ( keys %mustWS ) {
         if ( !exists $mayWS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Write $key does not belong to May Write: $opcode");
+            utils::warnInfo(
+                "Must Write $key does not belong to May Write: $opcode");
         }
         $WS{$key} = 1;
     }
@@ -1602,14 +1605,16 @@ sub processRWSET {
     for my $key ( keys %mayUS ) {
         if ( !exists $mustUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("May Undef $key does not belong to Must Undef: $opcode");
+            utils::warnInfo(
+                "May Undef $key does not belong to Must Undef: $opcode");
         }
         $US{$key} = 1;
     }
     for my $key ( keys %mustUS ) {
         if ( !exists $mayUS{$key} ) {
             $alarm = 1;
-            utils::warnInfo("Must Undef ($key) does not belong to May Undef: $opcode");
+            utils::warnInfo(
+                "Must Undef ($key) does not belong to May Undef: $opcode");
         }
         $US{$key} = 1;
     }
@@ -1743,7 +1748,8 @@ sub selectRules {
     for my $minum ( keys %collectedMINUMs ) {
         my $num    = $minum =~ s/MI(\d+)/$1/gr;
         my $regKey = $rev_rsmap{$num};
-#print "$regKey\n";
+
+        #print "$regKey\n";
         if ( exists $actual2psedoRegs{$regKey} ) {
             $returnInfo =~
               s/$minum/getParentValue($actual2psedoRegs{$regKey}, RSMap)/g;
@@ -1804,8 +1810,8 @@ sub selectRules {
 sub sanitizeSpecOutput {
 ##########################################
     my (
-        $opcode, $rsmap_ref,    $rev_rsmap_ref, $reglines_ref,
-        $specfile_ref, $debugprint_ref
+        $opcode,       $rsmap_ref,    $rev_rsmap_ref,
+        $reglines_ref, $specfile_ref, $debugprint_ref
     ) = @_;
     my %rsmap      = %{$rsmap_ref};
     my %rev_rsmap  = %{$rev_rsmap_ref};
@@ -1813,7 +1819,7 @@ sub sanitizeSpecOutput {
     my $specfile   = ${$specfile_ref};
     my $debugprint = ${$debugprint_ref};
 
-    my $instr  = getTargetInstr($opcode, $debugprint);
+    my $instr = getTargetInstr( $opcode, $debugprint );
 
     ## Obtain the Process RW set.
     my ( $readSet_ref, $writeSet_ref, $undefSet_ref, $mustUndefSet_ref ) =
@@ -2135,23 +2141,27 @@ endmodule
 
     ## Comment section in k file.
     ## Get Orig circuit
-    my ($dc1, $dc2, $orig_circuit_ref ) =
+    my ( $dc1, $dc2, $orig_circuit_ref ) =
       getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
-    my $orig_circuit = join("\n", @{$orig_circuit_ref});
+    my $orig_circuit = join( "\n", @{$orig_circuit_ref} );
 
-    ## get TargetInstr 
-    my $targetinstr = getTargetInstr($opcode, $debugprint);
+    ## get TargetInstr
+    my $targetinstr = getTargetInstr( $opcode, $debugprint );
 
-    ## get RW set 
+    ## get RW set
     my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
 
     ## get BV formula
     my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint );
 
-    print $fp "/*" . "\nTargetInstr:\n"
-      . $targetinstr . "\nRWSet:\n"
-      . $rwset . "\nCircuit:\n"
-      . $orig_circuit . "\nBVF:\n"
+    print $fp "/*"
+      . "\nTargetInstr:\n"
+      . $targetinstr
+      . "\nRWSet:\n"
+      . $rwset
+      . "\nCircuit:\n"
+      . $orig_circuit
+      . "\nBVF:\n"
       . $strata_BVFormula . "\n" . "*/";
 }
 
@@ -2171,18 +2181,19 @@ sub createSpecFile {
       or die "[create_spec] cannot open $specfile: $!";
 
     ## Create the <cmem> spec code </cmem>
-    my ($spec_code, $saveRestoreCount) = kutils::getSpecCode( $opcode, $debugprint );
+    my ( $spec_code, $saveRestoreCount ) =
+      kutils::getSpecCode( $opcode, $debugprint );
 
     ## Comment section in specfile.
     ## Get Orig circuit
-    my ($dc1, $dc2, $orig_circuit_ref ) =
+    my ( $dc1, $dc2, $orig_circuit_ref ) =
       getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
-    my $orig_circuit = join("\n", @{$orig_circuit_ref});
+    my $orig_circuit = join( "\n", @{$orig_circuit_ref} );
 
-    ## get TargetInstr 
-    my $targetinstr = getTargetInstr($opcode, $debugprint);
+    ## get TargetInstr
+    my $targetinstr = getTargetInstr( $opcode, $debugprint );
 
-    ## get RW set 
+    ## get RW set
     my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
 
     if ( "" eq $targetinstr or "" eq $rwset ) {
@@ -2225,16 +2236,16 @@ sub createSpecFile {
     $regstateConfig = "\"RIP\" |->    (mi(64, 0) => _)" . "\n";
 
     ## Add scratch pad regisers for save restores.
-    if(0 != $saveRestoreCount) {
-      for (my $i = 1 ; $i <= $saveRestoreCount; $i++)  {
-        $regstateConfig = $regstateConfig .
-          "\"SPAD$i\" |->    (mi(256, 0) => _)" . "\n";
-      }
+    if ( 0 != $saveRestoreCount ) {
+        for ( my $i = 1 ; $i <= $saveRestoreCount ; $i++ ) {
+            $regstateConfig =
+              $regstateConfig . "\"SPAD$i\" |->    (mi(256, 0) => _)" . "\n";
+        }
     }
 
     ### If the constituing RW set belongs to target's RW set, then then need to kept
     ### symbolic, else keep then zeroed out.
-    for my $key (sort keys %circuitRWStore ) {
+    for my $key ( sort keys %circuitRWStore ) {
         if ( "" eq $key ) {
             next;
         }
@@ -2336,8 +2347,8 @@ sub postProcess {
     # Do simple sanitization and mixfix to infix conversion.
     utils::info("sanitizeSpecOutput $opcode");
     my $returnInfo =
-      kutils::sanitizeSpecOutput($opcode, $rsmap_ref, $rev_rsmap_ref, $reglines_ref,
-        \$specfile, \$debugprint );
+      kutils::sanitizeSpecOutput( $opcode, $rsmap_ref, $rev_rsmap_ref,
+        $reglines_ref, \$specfile, \$debugprint );
 
     # write to k file.
     utils::info("writeKDefn $opcode: $koutput");
