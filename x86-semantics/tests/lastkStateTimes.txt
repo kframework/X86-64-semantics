@@ -1,0 +1,104 @@
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_adc'
+
+Generate: Output/./ADC.kstate 
+../../scripts/run.pl --file ADC.s --krun --output Output/./ADC.kstate
+105.34user 6.88system 0:22.44elapsed 500%CPU (0avgtext+0avgdata 2791272maxresident)k
+8inputs+4360outputs (0major+131461minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_adc'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_cmov'
+
+Generate: Output/./CMOVE.kstate 
+../../scripts/run.pl --file CMOVE.s --krun --output Output/./CMOVE.kstate
+36.43user 3.22system 0:09.85elapsed 402%CPU (0avgtext+0avgdata 1302372maxresident)k
+0inputs+3616outputs (0major+76648minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_cmov'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_dec'
+
+Generate: Output/./DEC.kstate 
+../../scripts/run.pl --file DEC.s --krun --output Output/./DEC.kstate
+41.48user 2.66system 0:10.34elapsed 426%CPU (0avgtext+0avgdata 1335364maxresident)k
+8inputs+3632outputs (0major+73206minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_dec'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_mov'
+
+Generate: Output/./MOV.kstate 
+../../scripts/run.pl --file MOV.s --krun --output Output/./MOV.kstate
+42.94user 2.35system 0:10.48elapsed 432%CPU (0avgtext+0avgdata 1277820maxresident)k
+0inputs+3688outputs (0major+72264minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_mov'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_movs'
+
+Generate: Output/./MOVS.kstate 
+../../scripts/run.pl --file MOVS.s --krun --output Output/./MOVS.kstate
+39.44user 2.61system 0:10.40elapsed 404%CPU (0avgtext+0avgdata 1250224maxresident)k
+0inputs+3728outputs (0major+71088minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_movs'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_or'
+
+Generate: Output/./OR.kstate 
+../../scripts/run.pl --file OR.s --krun --output Output/./OR.kstate
+71.78user 4.40system 0:16.31elapsed 467%CPU (0avgtext+0avgdata 1874628maxresident)k
+0inputs+4040outputs (0major+126453minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_or'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_popcnt'
+
+Generate: Output/./POPCNT.kstate 
+../../scripts/run.pl --file POPCNT.s --krun --output Output/./POPCNT.kstate
+70.69user 4.38system 0:16.30elapsed 460%CPU (0avgtext+0avgdata 1938220maxresident)k
+0inputs+4160outputs (0major+130119minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_popcnt'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_rol'
+
+Generate: Output/./ROL.kstate 
+../../scripts/run.pl --file ROL.s --krun --output Output/./ROL.kstate
+54.13user 3.49system 0:12.96elapsed 444%CPU (0avgtext+0avgdata 1584276maxresident)k
+0inputs+3800outputs (0major+109003minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_rol'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_sal'
+
+Generate: Output/./SAL.kstate 
+../../scripts/run.pl --file SAL.s --krun --output Output/./SAL.kstate
+369.29user 7.80system 1:02.51elapsed 603%CPU (0avgtext+0avgdata 4437328maxresident)k
+0inputs+4808outputs (0major+548493minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_sal'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_sar'
+
+Generate: Output/./SAR.kstate 
+../../scripts/run.pl --file SAR.s --krun --output Output/./SAR.kstate
+219.54user 11.30system 0:43.43elapsed 531%CPU (0avgtext+0avgdata 4423492maxresident)k
+8inputs+4848outputs (0major+547832minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_sar'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_sarx'
+
+Generate: Output/./SARX.kstate 
+../../scripts/run.pl --file SARX.s --krun --output Output/./SARX.kstate
+126.32user 6.82system 0:25.91elapsed 513%CPU (0avgtext+0avgdata 3134712maxresident)k
+0inputs+4328outputs (0major+216030minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_sarx'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_shr'
+
+Generate: Output/./SHR.kstate 
+../../scripts/run.pl --file SHR.s --krun --output Output/./SHR.kstate
+391.23user 8.08system 1:05.28elapsed 611%CPU (0avgtext+0avgdata 4416892maxresident)k
+0inputs+4848outputs (0major+543987minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_shr'
+make[1]: Entering directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_xor'
+
+Generate: Output/./XOR.kstate 
+../../scripts/run.pl --file XOR.s --krun --output Output/./XOR.kstate
+75.95user 4.46system 0:16.94elapsed 474%CPU (0avgtext+0avgdata 1862324maxresident)k
+8inputs+4040outputs (0major+123709minor)pagefaults 0swaps
+Passed:[4m[1m[92mPass: krun[0m
+make[1]: Leaving directory '/home/sdasgup3/Github/binary-decompilation/x86-semantics/tests/test_xor'

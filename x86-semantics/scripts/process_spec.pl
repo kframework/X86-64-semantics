@@ -74,32 +74,33 @@ my $removeComment;
 
 if ( "" ne $singlefiledefn) {
 
-    my $singleFile = "test1.k";
+    my $singleFile = "x86-instructions-semantics.k";
     open( $sfp, ">", $singleFile ) or die "Can't open: $!";
     $removeComment = 0;
 
     print $sfp "requires \"x86-configuration.k\"" . "\n";
     print $sfp "requires \"x86-flag-checks-syntax.k\"" . "\n\n";
-    print $sfp "module X86-BASE-INSTRUCTIONS-SEMANTICS" . "\n";
+    print $sfp "module X86-INSTRUCTIONS-SEMANTICS" . "\n";
     print $sfp "  imports X86-CONFIGURATION" . "\n";
     print $sfp "  imports X86-FLAG-CHECKS-SYNTAX" . "\n";
 
     find(\&mergeToSingleFile, "instructions/" );
 
-    print $sfp "endmodule";
-    close($sfp);
+#print $sfp "endmodule";
+#    close($sfp);
 
-    $singleFile = "test2.k";
-    open( $sfp, ">", $singleFile ) or die "Can't open: $!";
+#    $singleFile = "test2.k";
+#    open( $sfp, ">", $singleFile ) or die "Can't open: $!";
     $removeComment = 1;
 
-    print $sfp "requires \"x86-configuration.k\"" . "\n\n";
-    print $sfp "module X86-DERIVED-INSTRUCTIONS-SEMANTICS" . "\n";
-    print $sfp "  imports X86-CONFIGURATION" . "\n";
+#    print $sfp "requires \"x86-configuration.k\"" . "\n\n";
+#    print $sfp "module X86-DERIVED-INSTRUCTIONS-SEMANTICS" . "\n";
+#    print $sfp "  imports X86-CONFIGURATION" . "\n";
 
     find(\&mergeToSingleFile, "derivedInstructions/" );
 
     print $sfp "endmodule";
+    close($sfp);
 
     exit(0);
 }

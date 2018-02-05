@@ -219,9 +219,7 @@ module X86-SYNTAX
                        | "nop" [token]   
   */
                
-  syntax Opcode ::= BaseOpcode | Derivedopcode
-  //syntax Opcode ::= BaseOpcode 
-  syntax BaseOpcode ::= "nop" 
+  syntax Opcode ::=   "nop" 
                       | "adcb" 
                       | "adcl" 
                       | "adcq" 
@@ -267,8 +265,7 @@ module X86-SYNTAX
                       | "vsubps" 
                       | "vzeroall" 
                       | "xorq" 
-
-  syntax Derivedopcode ::= "addb" 
+                  | "addb" 
                   | "addl" 
                   | "addpd" 
                   | "addps" 
