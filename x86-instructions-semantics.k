@@ -1943,6 +1943,21 @@ convToRegKeys(R2) |-> (addMInt(getParentValue(R2, RSMap), getParentValue(R1, RSM
     </regstate>
 
 
+// sqrtsd-xmm-xmm
+
+  rule <k>
+    execinstr (sqrtsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 192), Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11), 2), 64)) )
+
+
+)
+
+    </regstate>
+
+
 // rclw-r16-one
 
   rule <k>
@@ -2145,6 +2160,33 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// salb-r8-one
+
+  rule <k>
+    execinstr (salb $0x1, R2:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> (undef)
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), 7), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), 7), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 56), addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
 // movsbl-r32-r8
 
   rule <k>
@@ -2229,6 +2271,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// notl-r32
+
+  rule <k>
+    execinstr (notl R1:R32,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (xorMInt(mi(64, 4294967295), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))) )
+
+
+)
+
+    </regstate>
+
+
 // vmovups-ymm-ymm
 
   rule <k>
@@ -2237,6 +2294,33 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
+
+
+)
+
+    </regstate>
+
+
+// xorb-r8-r8
+
+  rule <k>
+    execinstr (xorb R1:R8, R2:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> (mi(1, 0) )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> (undef)
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(xorMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> (mi(1, 0) )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 56), xorMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
 )
@@ -2349,6 +2433,21 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
     </regstate>
 
 
+// vhaddpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vhaddpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11)  +Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)  +Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
+
+
+)
+
+    </regstate>
+
+
 // vmovdqu-ymm-ymm
 
   rule <k>
@@ -2357,6 +2456,21 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
+
+
+)
+
+    </regstate>
+
+
+// minps-xmm-xmm
+
+  rule <k>
+    execinstr (minps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(concatenateMInt(Float2MInt(minFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)), 32), Float2MInt(minFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)), 32)), concatenateMInt(Float2MInt(minFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)), 32), Float2MInt(minFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)), 32)))) )
 
 
 )
@@ -2424,6 +2538,36 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
     </regstate>
 
 
+// vfnmsub132ps-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vfnmsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) ) ) , 32))))) )
+
+
+)
+
+    </regstate>
+
+
+// setpe-r8
+
+  rule <k>
+    execinstr (setpe R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), getFlag("PF", RSMap))) )
+
+
+)
+
+    </regstate>
+
+
 // vfmsub213ps-ymm-ymm-ymm
 
   rule <k>
@@ -2462,6 +2606,21 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(orMInt(extrac
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 0, 64), 53, 11)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 0, 64), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 0, 64), 53, 11) )  ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 64, 128), 53, 11)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 64, 128), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 64, 128), 53, 11) )  ) , 64)), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 192), 53, 11)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11) )  ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) )  ) , 64))) )
+
+
+)
+
+    </regstate>
+
+
+// movb-r8-r8
+
+  rule <k>
+    execinstr (movb R1:R8, R2:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)) )
 
 
 )
@@ -2544,6 +2703,21 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
     </regstate>
 
 
+// vpor-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vpor R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(orMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), extractMInt(getParentValue(R1, RSMap), 128, 192)), orMInt(extractMInt(getParentValue(R2, RSMap), 192, 256), extractMInt(getParentValue(R1, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
 // vpunpckhqdq-xmm-xmm-xmm
 
   rule <k>
@@ -2552,6 +2726,21 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192))) )
+
+
+)
+
+    </regstate>
+
+
+// pmovzxdq-xmm-xmm
+
+  rule <k>
+    execinstr (pmovzxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(concatenateMInt(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 192, 224)), mi(32, 0)), extractMInt(getParentValue(R1, RSMap), 224, 256))) )
 
 
 )
@@ -2619,6 +2808,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// vmulpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vmulpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
+
+
+)
+
+    </regstate>
+
+
 // xchgw-r16-r16
 
   rule <k>
@@ -2678,6 +2882,33 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     </regstate>
 
 
+// shlb-rh-one
+
+  rule <k>
+    execinstr (shlb $0x1, R2:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), extractMInt(getParentValue(R2, RSMap), 48, 56)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> (undef)
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), 7), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), 7)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), 7), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), concatenateMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
 // setae-r8
 
   rule <k>
@@ -2686,6 +2917,36 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), (#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
+
+
+)
+
+    </regstate>
+
+
+// vfmsub231ps-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vfmsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 160), 24, 8)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8) )  ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 160, 192), 24, 8)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8) )  ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 224), 24, 8)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8) )  ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) )  ) , 32))))) )
+
+
+)
+
+    </regstate>
+
+
+// cwtl
+
+  rule <k>
+    execinstr (cwtl  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "RAX" |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%rax, RSMap), 48, 64))), 32, 64)) )
 
 
 )
@@ -2753,6 +3014,38 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     </regstate>
 
 
+// xchgb-r8-rh
+
+  rule <k>
+    execinstr (xchgb R1:Rh, R2:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 56), extractMInt(getParentValue(R1, RSMap), 48, 56)) )
+
+
+)
+
+    </regstate>
+
+
+// maxps-xmm-xmm
+
+  rule <k>
+    execinstr (maxps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(concatenateMInt(Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)), 32), Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)), 32)), concatenateMInt(Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)), 32), Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)), 32)))) )
+
+
+)
+
+    </regstate>
+
+
 // movzwl-r32-r16
 
   rule <k>
@@ -2776,6 +3069,21 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(48, 0), extractMInt(getParentValue(R1,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap)), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+
+
+)
+
+    </regstate>
+
+
+// vmovddup-ymm-ymm
+
+  rule <k>
+    execinstr (vmovddup R1:Ymm, R2:Ymm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 64, 128), extractMInt(getParentValue(R1, RSMap), 64, 128)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R1, RSMap), 192, 256))) )
 
 
 )
@@ -2848,6 +3156,33 @@ RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)) )
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
+// sall-r32-one
+
+  rule <k>
+    execinstr (sall $0x1, R2:R32,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), extractMInt(getParentValue(R2, RSMap), 32, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> (undef)
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), 24, 32), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), 31)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
 )
@@ -2953,6 +3288,36 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 160), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 160, 192), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 224), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) ) ) , 32))))) )
+
+
+)
+
+    </regstate>
+
+
+// pxor-xmm-xmm
+
+  rule <k>
+    execinstr (pxor R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192)), xorMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
+// vmaxpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vmaxpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11), MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)), 64), Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11), MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)), 64))) )
 
 
 )
@@ -3114,6 +3479,33 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
     </regstate>
 
 
+// negw-r16
+
+  rule <k>
+    execinstr (negw R1:R16,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), extractMInt(getParentValue(R1, RSMap), 48, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), mi(16, 65535)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(16, 1), lshrMInt(addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1)), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(16, 0), xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64))), addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1))), 4), mi(16, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1)), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(mi(16, 0), lshrMInt(addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1)), 15)), xorMInt(lshrMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15), lshrMInt(addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1)), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(xorMInt(mi(16, 65535), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 1)), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
 // movq-xmm-xmm
 
   rule <k>
@@ -3137,6 +3529,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), Float2MInt(Float2Double(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)), 64))) )
+
+
+)
+
+    </regstate>
+
+
+// movl-r32-r32
+
+  rule <k>
+    execinstr (movl R1:R32, R2:R32,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64)) )
 
 
 )
@@ -3201,6 +3608,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// vmovsldup-xmm-xmm
+
+  rule <k>
+    execinstr (vmovsldup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 160, 192), extractMInt(getParentValue(R1, RSMap), 160, 192)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)))) )
+
+
+)
+
+    </regstate>
+
+
 // shlxq-r64-r64-r64
 
   rule <k>
@@ -3251,6 +3673,21 @@ RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R1, RSMap), 32, 64))) )
 
  "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
+// divsd-xmm-xmm
+
+  rule <k>
+    execinstr (divsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 192), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64)) )
 
 
 )
@@ -3323,6 +3760,61 @@ RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), orMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64))) )
 
  "ZF" |-> ((#ifMInt (eqMInt(orMInt(mi(64, svalueMInt(extractMInt(getParentValue(R2, RSMap), 48, 64))), mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 48, 64)))), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
+// vmaxsd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vmaxsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11), MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)), 64))) )
+
+
+)
+
+    </regstate>
+
+
+// decl-r32
+
+  rule <k>
+    execinstr (decl R1:R32,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1)), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1)), addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1))), 4), mi(32, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1)), 24, 32), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), 31), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1)), 31)), xorMInt(mi(32, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1)), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 32, 64), mi(32, -1)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
+// vfnmadd213ps-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vfnmadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( 0e+00f, negateFloat(0e+00f)  +Float   ) , 32), concatenateMInt(Float2MInt( ( 0e+00f, negateFloat(0e+00f)  +Float   ) , 32), concatenateMInt(Float2MInt( ( 0e+00f, negateFloat(0e+00f)  +Float   ) , 32), Float2MInt( ( 0e+00f, negateFloat(0e+00f)  +Float   ) , 32)))), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(orMInt(extractMInt(getParentValue(R3, RSMap), 128, 160), mi(32, 0)), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(orMInt(extractMInt(getParentValue(R3, RSMap), 160, 192), mi(32, 0)), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  +Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8) ) ) ) , 32))))) )
 
 
 )
@@ -3456,6 +3948,40 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// rolb-r8-one
+
+  rule <k>
+    execinstr (rolb $0x1, R2:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64))  orBool  ( ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), concatenateMInt(mi(7, 0), (#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), concatenateMInt(mi(7, 0), (#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), concatenateMInt(mi(7, 0), (#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), 7), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), concatenateMInt(mi(7, 0), (#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 7)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), 7), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), concatenateMInt(mi(7, 0), (#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 56), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), concatenateMInt(mi(7, 0), (#ifMInt (ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) ))) )
+
+
+)
+
+    </regstate>
+
+
+// vmulss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vmulss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 224), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8) ) , 32))) )
+
+
+)
+
+    </regstate>
+
+
 // stc
 
   rule <k>
@@ -3464,6 +3990,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 1)   )
+
+
+)
+
+    </regstate>
+
+
+// vdivps-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vdivps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8) ) , 32)), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8) ) , 32)))) )
 
 
 )
@@ -3518,6 +4059,51 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// vpaddq-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vpaddq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), extractMInt(getParentValue(R1, RSMap), 128, 192)), addMInt(extractMInt(getParentValue(R2, RSMap), 192, 256), extractMInt(getParentValue(R1, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
+// sqrtss-xmm-xmm
+
+  rule <k>
+    execinstr (sqrtss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 224), Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8), 2), 32)) )
+
+
+)
+
+    </regstate>
+
+
+// vbroadcastss-ymm-xmm
+
+  rule <k>
+    execinstr (vbroadcastss R1:Xmm, R2:Ymm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256))), concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)))) )
+
+
+)
+
+    </regstate>
+
+
 // rclq-r64-one
 
   rule <k>
@@ -3545,6 +4131,21 @@ convToRegKeys(R2) |-> (addMInt(addMInt(getParentValue(R2, RSMap), getParentValue
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
+
+
+)
+
+    </regstate>
+
+
+// setge-r8
+
+  rule <k>
+    execinstr (setge R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), xorMInt(xorMInt(concatenateMInt(mi(7, 0), getFlag("SF", RSMap)), concatenateMInt(mi(7, 0), getFlag("OF", RSMap))), mi(8, 1))) )
 
 
 )
@@ -3590,6 +4191,21 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1, RSMap), 128, 256)) )
+
+
+)
+
+    </regstate>
+
+
+// orpd-xmm-xmm
+
+  rule <k>
+    execinstr (orpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(orMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192)), orMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256)))) )
 
 
 )
@@ -3686,6 +4302,35 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), addMInt(extractMInt(getParentV
     </regstate>
 
 
+// xaddw-r16-r16
+
+  rule <k>
+    execinstr (xaddw R1:R16, R2:R16,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), extractMInt(getParentValue(R2, RSMap), 48, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), extractMInt(getParentValue(R1, RSMap), 48, 64)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(16, 1), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64))), 4), mi(16, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), extractMInt(getParentValue(R2, RSMap), 48, 64)) )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), 15), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15)), xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), 15), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
 // vmovaps-xmm-xmm
 
   rule <k>
@@ -3731,6 +4376,21 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
     </regstate>
 
 
+// vandnps-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vandnps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192)), extractMInt(getParentValue(R2, RSMap), 128, 192)), xorMInt(orMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256)), extractMInt(getParentValue(R2, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
 // cmovnzw-r16-r16
 
   rule <k>
@@ -3739,6 +4399,68 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( extractMInt(getParentValue(R1, RSMap), 48, 64) ) #else ( extractMInt(getParentValue(R2, RSMap), 48, 64) ) #fi) ) )
+
+
+)
+
+    </regstate>
+
+
+// movzbl-r32-r8
+
+  rule <k>
+    execinstr (movzbl R1:R8, R2:R32,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1, RSMap), 56, 64)) )
+
+
+)
+
+    </regstate>
+
+
+// vminpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vminpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(minFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11), MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)), 64), Float2MInt(minFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11), MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)), 64))) )
+
+
+)
+
+    </regstate>
+
+
+// xchgw-ax-r16
+
+  rule <k>
+    execinstr (xchgw R1:R16, %ax,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "RAX" |-> (concatenateMInt(extractMInt(getParentValue(%rax, RSMap), 0, 48), extractMInt(getParentValue(R1, RSMap), 48, 64)) )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), extractMInt(getParentValue(%rax, RSMap), 48, 64)) )
+
+
+)
+
+    </regstate>
+
+
+// vaddss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vaddss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 224), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  +Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8) ) , 32))) )
 
 
 )
@@ -3776,6 +4498,51 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// sqrtpd-xmm-xmm
+
+  rule <k>
+    execinstr (sqrtpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11), 2), 64), Float2MInt(rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11), 2), 64))) )
+
+
+)
+
+    </regstate>
+
+
+// vxorpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vxorpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), extractMInt(getParentValue(R1, RSMap), 128, 192)), xorMInt(extractMInt(getParentValue(R2, RSMap), 192, 256), extractMInt(getParentValue(R1, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
+// vfmadd213ss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vfmadd213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R3, RSMap), 128, 224), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  +Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8) )  ) , 32))) )
+
+
+)
+
+    </regstate>
+
+
 // mulps-xmm-xmm
 
   rule <k>
@@ -3784,6 +4551,50 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8) ) , 32)), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8) ) , 32)))) )
+
+
+)
+
+    </regstate>
+
+
+// xaddb-r8-rh
+
+  rule <k>
+    execinstr (xaddb R1:Rh, R2:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R1, RSMap), 48, 56))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 56), addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), 7), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), 7), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64)), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+
+)
+
+    </regstate>
+
+
+// notq-r64
+
+  rule <k>
+    execinstr (notq R1:R64,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (xorMInt(mi(64, 18446744073709551615), getParentValue(R1, RSMap)) )
 
 
 )
@@ -3863,6 +4674,33 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// salq-r64-one
+
+  rule <k>
+    execinstr (salq $0x1, R2:R64,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt (ultMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> (undef)
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(64, 2), addMInt(xorMInt(lshrMInt(getParentValue(R2, RSMap), 63), lshrMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 63)), xorMInt(lshrMInt(getParentValue(R2, RSMap), 63), lshrMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 63)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
 // movdqu-xmm-xmm
 
   rule <k>
@@ -3886,6 +4724,81 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(orMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192)), orMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
+// vmaxss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vmaxss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(getParentValue(R2, RSMap), 128, 224)), Float2MInt(maxFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8), MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)), 32)) )
+
+
+)
+
+    </regstate>
+
+
+// subsd-xmm-xmm
+
+  rule <k>
+    execinstr (subsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 192), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  -Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) ) , 64)) )
+
+
+)
+
+    </regstate>
+
+
+// setns-r8
+
+  rule <k>
+    execinstr (setns R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), (#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("SF", RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
+
+
+)
+
+    </regstate>
+
+
+// vpbroadcastd-ymm-xmm
+
+  rule <k>
+    execinstr (vpbroadcastd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256))), concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)))) )
+
+
+)
+
+    </regstate>
+
+
+// setnb-rh
+
+  rule <k>
+    execinstr (setnb R1:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt((#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1, 0)) ) #then ( mi(8, 1) ) #else ( mi(8, 0) ) #fi) , extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
 
 )
@@ -4008,6 +4921,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// setnbe-r8
+
+  rule <k>
+    execinstr (setnbe R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), (#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMInt(concatenateMInt(mi(7, 0), getFlag("CF", RSMap)), concatenateMInt(mi(7, 0), getFlag("ZF", RSMap)))), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) )) )
+
+
+)
+
+    </regstate>
+
+
 // setb-r8
 
   rule <k>
@@ -4031,6 +4959,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11)  +Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11)  +Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
+
+
+)
+
+    </regstate>
+
+
+// vmulsd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vmulsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
 
 
 )
@@ -4098,6 +5041,21 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), concatenateMInt(mi(8, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+
+
+)
+
+    </regstate>
+
+
+// setl-rh
+
+  rule <k>
+    execinstr (setl R1:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(xorMInt(concatenateMInt(mi(7, 0), getFlag("SF", RSMap)), concatenateMInt(mi(7, 0), getFlag("OF", RSMap))), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
 
 )
@@ -4192,6 +5150,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// shrxq-r64-r64-r64
+
+  rule <k>
+    execinstr (shrxq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) ) #then ( lshrMInt(getParentValue(R2, RSMap), uvalueMInt(andMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), mi(8, 63)))) ) #else ( mi(64, 0) ) #fi)  )
+
+
+)
+
+    </regstate>
+
+
 // movzbl-r32-rh
 
   rule <k>
@@ -4270,6 +5243,21 @@ convToRegKeys(R2) |-> (addMInt(addMInt(getParentValue(R2, RSMap), getParentValue
     </regstate>
 
 
+// vsubss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vsubss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 224), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  -Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) , 32))) )
+
+
+)
+
+    </regstate>
+
+
 // xchgq-r64-r64
 
   rule <k>
@@ -4280,6 +5268,21 @@ RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 
 convToRegKeys(R1) |-> (getParentValue(R2, RSMap) )
+
+
+)
+
+    </regstate>
+
+
+// vmovd-r32-xmm
+
+  rule <k>
+    execinstr (vmovd R1:Xmm, R2:R32,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 224, 256)) )
 
 
 )
@@ -4344,6 +5347,31 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
     </regstate>
 
 
+// decw-r16
+
+  rule <k>
+    execinstr (decw R1:R16,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "SF" |-> ((#ifMInt (eqMInt(mi(16, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535))), 4), mi(16, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), 15), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 15)), xorMInt(mi(16, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
 // vpbroadcastq-xmm-xmm
 
   rule <k>
@@ -4376,6 +5404,21 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(%ra
     </regstate>
 
 
+// subps-xmm-xmm
+
+  rule <k>
+    execinstr (subps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  -Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  -Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  -Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  -Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) , 32))))) )
+
+
+)
+
+    </regstate>
+
+
 // unpcklpd-xmm-xmm
 
   rule <k>
@@ -4384,6 +5427,38 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(%ra
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256))) )
+
+
+)
+
+    </regstate>
+
+
+// vmovq-xmm-xmm
+
+  rule <k>
+    execinstr (vmovq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(192, 0), extractMInt(getParentValue(R1, RSMap), 192, 256)) )
+
+
+)
+
+    </regstate>
+
+
+// xchgb-rh-rh
+
+  rule <k>
+    execinstr (xchgb R1:Rh, R2:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
 
 )
@@ -4421,6 +5496,21 @@ convToRegKeys(R2) |-> (extractMInt(getParentValue(R1, RSMap), 192, 256) )
     </regstate>
 
 
+// vunpcklpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vunpcklpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256))) )
+
+
+)
+
+    </regstate>
+
+
 // xchgl-r32-r32
 
   rule <k>
@@ -4431,6 +5521,50 @@ RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 32, 64)) )
 
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))   )
+
+
+)
+
+    </regstate>
+
+
+// xaddb-rh-r8
+
+  rule <k>
+    execinstr (xaddb R1:R8, R2:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 48, 56))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), extractMInt(getParentValue(R1, RSMap), 56, 64)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), 7), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), 7)), xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 56, 64), 7), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), concatenateMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+
+
+// unpckhpd-xmm-xmm
+
+  rule <k>
+    execinstr (unpckhpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192))) )
 
 
 )
@@ -4538,6 +5672,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     </regstate>
 
 
+// punpcklqdq-xmm-xmm
+
+  rule <k>
+    execinstr (punpcklqdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256))) )
+
+
+)
+
+    </regstate>
+
+
 // vrsqrtps-xmm-xmm
 
   rule <k>
@@ -4546,6 +5695,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( 1e+00  /Float  rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8), 2) ) , 32), concatenateMInt(Float2MInt( ( 1e+00  /Float  rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8), 2) ) , 32), concatenateMInt(Float2MInt( ( 1e+00  /Float  rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8), 2) ) , 32), Float2MInt( ( 1e+00  /Float  rootFloat(MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8), 2) ) , 32))))) )
+
+
+)
+
+    </regstate>
+
+
+// setnc-rh
+
+  rule <k>
+    execinstr (setnc R1:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt(extractMInt(addMInt(concatenateMInt(mi(8, 0), addMInt(mi(8, 255), concatenateMInt(mi(7, 0), getFlag("CF", RSMap)))), mi(16, 4)), 0, 8), extractMInt(getParentValue(R1, RSMap), 56, 64))) )
 
 
 )
@@ -4583,6 +5747,21 @@ RSMap:Map => updateMap(RSMap,
     </regstate>
 
 
+// cvtdq2ps-xmm-xmm
+
+  rule <k>
+    execinstr (cvtdq2ps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 128), concatenateMInt(Float2MInt(Int2Float(svalueMInt(extractMInt(getParentValue(R1, RSMap), 128, 160)), 24, 8), 32), concatenateMInt(Float2MInt(Int2Float(svalueMInt(extractMInt(getParentValue(R1, RSMap), 160, 192)), 24, 8), 32), concatenateMInt(Float2MInt(Int2Float(svalueMInt(extractMInt(getParentValue(R1, RSMap), 192, 224)), 24, 8), 32), Float2MInt(Int2Float(svalueMInt(extractMInt(getParentValue(R1, RSMap), 224, 256)), 24, 8), 32))))) )
+
+
+)
+
+    </regstate>
+
+
 // mulsd-xmm-xmm
 
   rule <k>
@@ -4603,6 +5782,21 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
   rule <k>
     execinstr (nopw R1:R16,  .Typedoperands) => .
   ...</k>
+
+
+// setnae-r8
+
+  rule <k>
+    execinstr (setnae R1:R8,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), getFlag("CF", RSMap))) )
+
+
+)
+
+    </regstate>
 
 
 // setbe-r8
@@ -4643,6 +5837,36 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(Fl
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(R1, RSMap), 48, 56))), 48, 64)) )
+
+
+)
+
+    </regstate>
+
+
+// vfnmsub132ss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vfnmsub132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R3, RSMap), 128, 224), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) ) ) , 32))) )
+
+
+)
+
+    </regstate>
+
+
+// vfnmsub213ps-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vfnmsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 160), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 160), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 160), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 160, 192), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 160, 192), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 160, 192), 24, 8) ) ) ) , 32), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 224), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 224), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 224), 24, 8) ) ) ) , 32), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 224, 256), 24, 8) ) ) ) , 32))))) )
 
 
 )
@@ -4796,6 +6020,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     </regstate>
 
 
+// setne-rh
+
+  rule <k>
+    execinstr (setne R1:Rh,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), concatenateMInt((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( mi(8, 1) ) #else ( mi(8, 0) ) #fi) , extractMInt(getParentValue(R1, RSMap), 56, 64))) )
+
+
+)
+
+    </regstate>
+
+
 // vmovdqa-ymm-ymm
 
   rule <k>
@@ -4845,6 +6084,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     </regstate>
 
 
+// vrcpss-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vrcpss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(getParentValue(R2, RSMap), 128, 224)), Float2MInt( ( 1e+00  /Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8) ) , 32)) )
+
+
+)
+
+    </regstate>
+
+
 // vpxor-xmm-xmm-xmm
 
   rule <k>
@@ -4853,6 +6107,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 128, 192), extractMInt(getParentValue(R2, RSMap), 128, 192)), xorMInt(extractMInt(getParentValue(R1, RSMap), 192, 256), extractMInt(getParentValue(R2, RSMap), 192, 256)))) )
+
+
+)
+
+    </regstate>
+
+
+// vdivpd-xmm-xmm-xmm
+
+  rule <k>
+    execinstr (vdivpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11) ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11)  /Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
 
 
 )
@@ -4930,6 +6199,21 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     <regstate>
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 224), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R1, RSMap), 224, 256), 24, 8)  *Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 224, 256), 24, 8) ) , 32)) )
+
+
+)
+
+    </regstate>
+
+
+// vpbroadcastd-xmm-xmm
+
+  rule <k>
+    execinstr (vpbroadcastd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 224, 256), extractMInt(getParentValue(R1, RSMap), 224, 256)))) )
 
 
 )
