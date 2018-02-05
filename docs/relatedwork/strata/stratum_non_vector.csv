@@ -8,6 +8,7 @@ R1: Optimizing sal/sar/shr and the flag updates; Is the path count mask > 64 eve
 R3: adc flags
 #R4: B orBool B
 
+P1: K rule optmization is better that Strata's
 
 
 Stratum 0	95		
@@ -206,7 +207,7 @@ addl_r32_r32	2	9
 addps_xmm_xmm	2	14	
 addsd_xmm_xmm	2	10	
 addss_xmm_xmm	2	20	
-cvtdq2pd_xmm_xmm	2	10	
+cvtdq2pd_xmm_xmm	2	10:PLUS:P1	
 
 cvtdq2ps_xmm_xmm	2	7	
 cvtpd2ps_xmm_xmm	2	7:US	
