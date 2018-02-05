@@ -1010,7 +1010,7 @@ sub replaceCallWithPseudoInsr {
     elsif ( $instr =~ m/\.write_(\w+)_to_(\w+)/ ) {
         my $r    = "%" . $1;
         my $flag = $2;
-        return "writeRegisterToflag( " . $r . ", \"" . uc($flag) . "\")";
+        return "writeRegisterToFlag( " . $r . ", \"" . uc($flag) . "\")";
     }
     elsif ( $instr =~ m/\.read_(\w+)_into_(\w+)/ ) {
         my $flag = $1;
@@ -1865,7 +1865,7 @@ sub sanitizeSpecOutput {
         $mod =~ s/,,/,/g;
         $mod =~ s/""/"/g;
         $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
-        $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\d]+)"\)/$1/g;
+        $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\dfd]+)"\)/$1/g;
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
         $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;

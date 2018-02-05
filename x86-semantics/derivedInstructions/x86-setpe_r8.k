@@ -9,7 +9,7 @@ module SETPE-R8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), extractMInt(mi(64, countOnes(concatenateMInt(mi(63, 0), getFlag("PF", RSMap)), 0)), 56, 64)) )
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), concatenateMInt(mi(7, 0), getFlag("PF", RSMap))) )
 
 
 )

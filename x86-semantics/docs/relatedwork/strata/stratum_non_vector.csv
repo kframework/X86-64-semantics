@@ -7,6 +7,9 @@ R1: Optimizing sal/sar/shr and the flag updates; Is the path count mask > 64 eve
 #R2: concate over extract cm(ex1, cm(ex2,...)) can we concat ex1 and ex2 
 R3: adc flags
 #R4: B orBool B
+R5: Keeping if else form will help cotactl resolve certain exp rather than otherwise; Ex- CF? A or B Vs expr(CF)
+R6: countOnes(mi1, mi2) == countOnes(mi2) if mi1 ==0; countOnes(getFlag(S)) == getFlag(S); extractMInt(mi(W, I), S, E) => mi(E-S, I)
+
 
 P1: K rule optmization is better that Strata's
 
@@ -229,19 +232,19 @@ orpd_xmm_xmm	2	9
 pmovzxdq_xmm_xmm	2	21	
 punpcklqdq_xmm_xmm	2	5	
 pxor_xmm_xmm	2	8	
-rolb_r8_one	2	18:C	
+rolb_r8_one	2	18
 salb_r8_one	2	8	
 sall_r32_one	2	7	
 salq_r64_one	2	13	
 setge_r8	2	26:PLUS:P1	
 setl_rh	2	13	
 setnae_r8	2	7	
-setnb_rh	2	7:C	
+setnb_rh	2	7
 setnbe_r8	2	14	
-setnc_rh	2	9:C	
+setnc_rh	2	9:OPT:R5	
 setne_rh	2	5	
 setns_r8	2	12	
-setpe_r8	2	8:OPT	
+setpe_r8	2	8:OPTD:R6	
 shlb_rh_one	2	13	
 shrxq_r64_r64_r64	2	20:CT	
 sqrtpd_xmm_xmm	2	12	
@@ -259,7 +262,7 @@ vdivps_xmm_xmm_xmm	2	16
 vfmadd213ss_xmm_xmm_xmm	2	25	
 vfmsub231ps_xmm_xmm_xmm	2	13	
 vfmsub231ss_xmm_xmm_xmm	2	20:US	
-vfnmadd213ps_xmm_xmm_xmm	2	18:C	
+vfnmadd213ps_xmm_xmm_xmm	2	18
 vfnmsub132ps_xmm_xmm_xmm	2	20	
 vfnmsub132ss_xmm_xmm_xmm	2	28	
 vfnmsub213ps_xmm_xmm_xmm	2	20	
