@@ -1,14 +1,7 @@
 requires "x86-syntax.k"
-//requires "x86-sort.k"
-
-module X86-ASBTRACT-SORT
-
-  syntax Abstractinstruction
-
-endmodule
 
 module X86-ASBTRACT-SYNTAX
-  imports X86-ASBTRACT-SORT
+  imports MAP
   imports MINT
   imports X86-SYNTAX
 
