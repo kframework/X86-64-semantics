@@ -1357,7 +1357,7 @@ sub findArgs {
             push @args, "false";
             $line = $1;
         }
-        elsif ( $line =~ m/^([-]?[e\.\+\d]+)\s*,\s*(.*)/ ) {
+        elsif ( $line =~ m/^([-]?[e\.\+\dfd]+)\s*,\s*(.*)/ ) {
             push @args, $1;
             $line = $2;
         }
