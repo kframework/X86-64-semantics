@@ -16,6 +16,7 @@ R8:For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is nul
 P1: K rule optmization is better that Strata's
 
 
+
 Stratum 0	95		
 addq_r64_r64	0	2	
 andnq_r64_r64_r64	0	3	
@@ -108,9 +109,9 @@ vrcpps_xmm_xmm	0	5
 vrsqrtps_xmm_xmm	0	5	
 vsqrtps_xmm_xmm	0	5	
 vxorps_xmm_xmm_xmm	0	6	
-xchgl_r32_r32	0	6	
-xchgq_r64_r64	0	5	
-xchgw_r16_r16	0	4	
+xchgl_r32_r32	0	6:CD:R7	
+xchgq_r64_r64	0	5:CD:R7	
+xchgw_r16_r16	0	4:CD:R7	
 xorw_r16_r16	0	9	YD
 
 Stratum 1	89		
@@ -192,14 +193,14 @@ vpbroadcastq_ymm_xmm	1	9
 vpxor_xmm_xmm_xmm	1	8	
 vsqrtpd_xmm_xmm	1	8	
 vsubpd_xmm_xmm_xmm	1	7	
-xaddb_r8_r8	1	14	
-xaddl_r32_r32	1	8	
-xaddq_r64_r64	1	8	
-xchgl_eax_r32	1	6	
-xchgl_r32_eax	1	8	
-xchgq_r64_rax	1	7
-xchgq_rax_r64	1	5
-xchgw_r16_ax	1	6	
+xaddb_r8_r8	1	14:C:R7	
+xaddl_r32_r32	1	8:C:R7	
+xaddq_r64_r64	1	8:C:R7	
+xchgl_eax_r32	1	6:CD:R7	
+xchgl_r32_eax	1	8:CD:R7	
+xchgq_r64_rax	1	7:CD:R7
+xchgq_rax_r64	1	5:CD:R7
+xchgw_r16_ax	1	6:CD:R7	
 xorb_r8_rh	1	9	
 xorl_r32_r32	1	8	
 xorps_xmm_xmm	1	8	
@@ -288,12 +289,12 @@ vrcpss_xmm_xmm_xmm	2	25
 vsubss_xmm_xmm_xmm	2	22	
 vunpcklpd_xmm_xmm_xmm	2	7	
 vxorpd_xmm_xmm_xmm	2	11	
-xaddb_r8_rh	2	19	
-xaddb_rh_r8	2	17	
-xaddw_r16_r16	2	8	
-xchgb_r8_rh	2	19	
-xchgb_rh_rh	2	30	
-xchgw_ax_r16	2	6	
+xaddb_r8_rh	2	19:C:R7	
+xaddb_rh_r8	2	17:C:R7	
+xaddw_r16_r16	2	8:C:R7	
+xchgb_r8_rh	2	19:CD:R7	
+xchgb_rh_rh	2	30:CD:R7	
+xchgw_ax_r16	2	6:CD:R7	
 xorb_r8_r8	2	11	
 
 Stratum 3	78		
@@ -372,8 +373,8 @@ vsubps_xmm_xmm_xmm	3	29
 vsubsd_xmm_xmm_xmm	3	15	
 vunpckhpd_ymm_ymm_ymm	3	15	
 vunpckhps_xmm_xmm_xmm	3	26	
-xchgb_r8_r8	3	43	
-xchgb_rh_r8	3	19	
+xchgb_r8_r8	3	43:CD:R7	
+xchgb_rh_r8	3	19:CD:R7	
 xorb_rh_r8	3	45	
 xorpd_xmm_xmm	3	8	
 
