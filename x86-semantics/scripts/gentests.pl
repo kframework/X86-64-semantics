@@ -10,15 +10,91 @@ use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
 use kutils;
 
 my $help = "";
+my $emittests = "";
+my $arg2 = "";
 my $home = $ENV{'HOME'};
 
-GetOptions( "help" => \$help, )
+GetOptions( 
+    "help" => \$help, 
+    "emittests" => \$emittests, 
+    "arg2" => \$arg2, 
+    )
   or die("Error in command line arguments\n");
 
 if ($help) {
     print("perl gentests.pl");
     exit(1);
 }
+
+my @corpus = (
+       "0",
+       "1", 
+
+    "0x41",
+    "0x51",
+    "0x80",
+    "0x55",
+    "0xAA",
+    "0x0F",
+    "0xF7",
+    "0xFE",
+    "0xEF",
+    "0x7F",
+    "0xFF",
+
+    "0x4141",
+    "0x5151",
+    "0x8000",
+    "0x5500",
+    "0x5555",
+    "0xAA00",
+    "0xAAAA",
+    "0x0F0F",
+    "0xF7F7",
+    "0xFEFE",
+    "0xEFEF",
+    "0x7FFF",
+    "0xFFFF",
+
+    "0x41414141",
+    "0x51515151",
+    "0x55000000",
+    "0x55555555",
+    "0xAAFFFFFF",
+    "0xAAAAAAAA",
+    "0x0F0F0F0F",
+    "0xF7F7F7F7",
+    "0xFEFEFEFE",
+    "0xEFEFEFEF",
+    "0x7FFFFFFF",
+    "0xFFFFFFFF",
+
+    "0x4141414141414141",
+    "0x5115151515115151",
+    "0x8000000000000000",
+    "0x5500000000000000",
+    "0x5555555555555555",
+    "0xAA00000000000000",
+    "0xAAAAAAAAAAAAAAAA",
+    "0x0F0F0F0F0F0F0F0F",
+    "0xF7F7F7F7F7F7F7F7",
+    "0xEFEFEFEFEFEFEFEF",
+    "0xFEFEFEFEFEFEFEFE",
+    "0x7FFFFFFFFFFFFFFF",
+    "0xFFFFFFFFFFFFFFFF",
+    );
+
+
+if ("" ne $emittests) {
+  if("" ne $arg2) {
+    my $len = scalar(@corpus);
+    for (my $i = 0; $i < scalar(@corpus); $i++) {
+      print $corpus[$i] . ", " . $corpus[$len - 1 - $i], "\n"; 
+    }
+  }
+
+}
+
 
 my $myydir = ".";
 find( \&process_file, $myydir );
