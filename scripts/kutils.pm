@@ -1492,6 +1492,7 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\
 
 #############################
 ## watchdog to check if must != may
+## storeRegs whether we want to store the al or RAX
 sub processRWSET {
 ##############################
     my $opcode     = shift @_;
@@ -1829,6 +1830,22 @@ sub sanitizeSpecOutput {
     my %undefSet     = %{$undefSet_ref};
     my %mustUndefSet = %{$mustUndefSet_ref};
 
+
+    ## Check if the Write set has more than one reg Keys.
+    ## If yes, they may need to be scheduled.
+    if(scalar(keys %writeSet) > 1) {
+      my $count = 0;
+      for my $key (keys %writeSet) {
+        if ( $key !~ m/CF|PF|AF|ZF|SF|OF/ ) {
+          $count++
+        } 
+      }
+      if($count > 1) {
+        utils::warnInfo("$opcode: More that one writes. May Need to schedule.")
+      }
+    }
+
+
     utils::printMap( \%readSet,  "selectRules: Read Set",  $debugprint );
     utils::printMap( \%writeSet, "selectRules: Write Set", $debugprint );
     utils::printMap( \%undefSet, "selectRules: Undef Set", $debugprint );
@@ -1923,22 +1940,8 @@ sub sanitizeSpecOutput {
         \%rsmap,    \%rev_rsmap,    $debugprint
     );
 
-    debugInfo( "Rules Before GOPT: $returnInfo\n", $debugprint );
+    debugInfo( "Final Rules : $returnInfo\n", $debugprint );
 
-    # Global Optimzations
-    ## "R" |-> (MINUM => ...) and MINUM does not occur elsewhere then Replace
-    ## MINUM with _
-    #    for my $key ( keys %rsmap ) {
-    #        my $val     = "MI" . %rsmap{$key};
-    #        my @matches = $returnInfo =~ m/$val/g;
-    #        if ( 1 == scalar(@matches) ) {
-    #            $returnInfo =~ s/$val/_/;
-    #        }
-    #    }
-    #
-    ## Remove or comment out the reglines which are not written
-
-    debugInfo( "Rules After GOPT: $returnInfo\n", $debugprint );
     return $returnInfo;
 }
 
