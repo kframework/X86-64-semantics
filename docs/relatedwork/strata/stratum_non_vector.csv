@@ -193,9 +193,9 @@ vpbroadcastq_ymm_xmm	1	9
 vpxor_xmm_xmm_xmm	1	8	
 vsqrtpd_xmm_xmm	1	8	
 vsubpd_xmm_xmm_xmm	1	7	
-xaddb_r8_r8	1	14:C:R7	
-xaddl_r32_r32	1	8:C:R7	
-xaddq_r64_r64	1	8:C:R7	
+xaddb_r8_r8	1	14:CD:R7:CT	
+xaddl_r32_r32	1	8:CD:R7:CT	
+xaddq_r64_r64	1	8:CD:R7:CT	
 xchgl_eax_r32	1	6:CD:R7	
 xchgl_r32_eax	1	8:CD:R7	
 xchgq_r64_rax	1	7:CD:R7
@@ -289,9 +289,9 @@ vrcpss_xmm_xmm_xmm	2	25
 vsubss_xmm_xmm_xmm	2	22	
 vunpcklpd_xmm_xmm_xmm	2	7	
 vxorpd_xmm_xmm_xmm	2	11	
-xaddb_r8_rh	2	19:C:R7	
-xaddb_rh_r8	2	17:C:R7	
-xaddw_r16_r16	2	8:C:R7	
+xaddb_r8_rh	2	19:CD:R7:CT	
+xaddb_rh_r8	2	17:CD:R7:CT	
+xaddw_r16_r16	2	8:CD:R7:CT	
 xchgb_r8_rh	2	19:CD:R7	
 xchgb_rh_rh	2	30:CD:R7	
 xchgw_ax_r16	2	6:CD:R7	

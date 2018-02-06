@@ -2310,6 +2310,18 @@ sub checkSupported {
 
     utils::info("Check if supported: $opcode");
 
+    if(
+        $opcode eq "xchgl_eax_r32" or
+        $opcode eq "xchgl_r32_eax" or
+        $opcode eq "xchgq_r64_rax" or
+        $opcode eq "xchgq_rax_r64" or
+        $opcode eq "xchgw_r16_ax"  or
+        $opcode eq "xchgw_ax_r16"
+    ) {
+      return 0;
+
+    }
+
     my ( $instr_arr_ref, $encode_arr_ref, $orig_circuit_ref ) =
       getInstrsFromCircuit( $opcode, $strata_path, $debugprint );
 
