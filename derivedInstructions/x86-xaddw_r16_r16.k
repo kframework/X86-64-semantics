@@ -29,6 +29,32 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 )
 
     </regstate>
+      requires notBool sameRegisters(R1, R2)
+
+  rule <k>
+    execinstr (xaddw R1:R16, R2:R16,  .Typedoperands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+ "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), extractMInt(getParentValue(R2, RSMap), 48, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), extractMInt(getParentValue(R1, RSMap), 48, 64)) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "SF" |-> ((#ifMInt (eqMInt(mi(16, 1), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64))), 4), mi(16, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+ "OF" |-> ((#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), 15), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15)), xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), 15), lshrMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64))) )
+
+ "ZF" |-> ((#ifMInt (eqMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 64), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(16, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+
+
+)
+
+    </regstate>
+      requires sameRegisters(R1, R2)
 endmodule
 
 module XADDW-R16-R16-SEMANTICS
