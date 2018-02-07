@@ -22,22 +22,22 @@ define process_instr
         p/u $r14 
         p/u $r15 
         p $eflags
-        p/u $ymm0.v2_int128 
-        p/u $ymm1.v2_int128  
-        p/u $ymm2.v2_int128  
-        p/u $ymm3.v2_int128  
-        p/u $ymm4.v2_int128  
-        p/u $ymm5.v2_int128  
-        p/u $ymm6.v2_int128  
-        p/u $ymm7.v2_int128  
-        p/u $ymm8.v2_int128  
-        p/u $ymm9.v2_int128  
-        p/u $ymm10.v2_int128 
-        p/u $ymm11.v2_int128 
-        p/u $ymm12.v2_int128 
-        p/u $ymm13.v2_int128 
-        p/u $ymm14.v2_int128 
-        p/u $ymm15.v2_int128 
+        p/x $ymm0.v2_int128 
+        p/x $ymm1.v2_int128  
+        p/x $ymm2.v2_int128  
+        p/x $ymm3.v2_int128  
+        p/x $ymm4.v2_int128  
+        p/x $ymm5.v2_int128  
+        p/x $ymm6.v2_int128  
+        p/x $ymm7.v2_int128  
+        p/x $ymm8.v2_int128  
+        p/x $ymm9.v2_int128  
+        p/x $ymm10.v2_int128 
+        p/x $ymm11.v2_int128 
+        p/x $ymm12.v2_int128 
+        p/x $ymm13.v2_int128 
+        p/x $ymm14.v2_int128 
+        p/x $ymm15.v2_int128 
 end
 
 define nstep
