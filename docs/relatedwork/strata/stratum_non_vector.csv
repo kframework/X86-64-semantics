@@ -12,6 +12,7 @@ R6	 countOnes(mi1, mi2) == countOnes(mi2) if mi1 ==0; countOnes(getFlag(S)) == g
 							
 R7	 Same key; xaddb						
 R8	For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is null; So its better to add the operand from the instr itself.						
+R9	Float lemmas
 							
 P1	 K rule optmization is better that Strata's						
 							
@@ -552,7 +553,7 @@ vfnmadd132sd_xmm_xmm_xmm	6	64
 vfnmadd213ss_xmm_xmm_xmm	6	146					
 vfnmsub213pd_xmm_xmm_xmm	6	50					
 vmovmskpd_r32_ymm	6	134					
-vpbroadcastb_ymm_xmm	6	127:C					
+vpbroadcastb_ymm_xmm	6	127:OPTD:R9					
 vphaddd_xmm_xmm_xmm	6	129					
 vphaddd_ymm_ymm_ymm	6	243					
 vpmovzxbq_ymm_xmm	6	79					

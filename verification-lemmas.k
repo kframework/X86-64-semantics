@@ -31,6 +31,36 @@ module BOOLEAN-LEMMAS
   rule B:Bool andBool B:Bool => B
 endmodule
 
+module FLOAT-LEMMAS
+  imports FLOAT
+
+  // add
+  rule F:Float +Float 0e+00 => F
+  rule 0e+00 +Float F:Float  => F
+
+  // sub
+  rule F:Float -Float 0e+00 => F
+
+  // mul
+  rule 0e+00:Float *Float F:Float  => 0e+00
+  rule F:Float *Float 0e+00  => 0e+00
+
+  // mul
+  rule 0e+00 /Float F:Float  => 0e+00
+
+  // max/min
+  rule maxFloat(F:Float, F:Float) => F
+  rule minFloat(F:Float, F:Float) => F
+
+  // root
+  rule rootFloat(0e+00, _:Int) => 0e+00
+
+  // compare
+  rule F:Float <Float F:Float => false
+  rule F:Float >Float F:Float => false
+  rule F:Float =/=Float F:Float => false
+endmodule
+
 module MINT-LEMMAS
   imports MINT
   imports FLOAT
@@ -210,4 +240,5 @@ module VERIFICATION-LEMMAS
   imports INTEGER-LEMMAS
   imports BOOLEAN-LEMMAS
   imports MINT-LEMMAS
+  imports FLOAT-LEMMAS
 endmodule
