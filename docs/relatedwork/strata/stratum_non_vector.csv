@@ -310,7 +310,6 @@ divss_xmm_xmm	3	24
 haddpd_xmm_xmm	3	24	
 incb_rh	3	17	
 incq_r64	3	57:CD:R8	
-
 maxpd_xmm_xmm	3	13	
 maxsd_xmm_xmm	3	20	
 maxss_xmm_xmm	3	21	
@@ -388,7 +387,7 @@ andnps_xmm_xmm	4	21
 blsmskl_r32_r32	4	31	
 cmovew_r16_r16	4	46	
 cmovnael_r32_r32	4	27	
-cmovnaq_r64_r64	4	29	
+cmovnaq_r64_r64	4	29
 cmovnel_r32_r32	4	10	
 cmovneq_r64_r64	4	35	
 cmovnew_r16_r16	4	32	
@@ -503,7 +502,7 @@ vunpckhpd_xmm_xmm_xmm	5	16
 vunpckhps_ymm_ymm_ymm	5	105	
 vunpcklpd_ymm_ymm_ymm	5	39	
 xaddb_rh_rh	5	63	
-			
+
 Stratum 6	55		
 andb_r8_r8	6	65	
 blsrl_r32_r32	6	103	
@@ -560,8 +559,8 @@ vpmovzxbq_ymm_xmm	6	79
 vpunpckhdq_ymm_ymm_ymm	6	106	
 vpunpckldq_xmm_xmm_xmm	6	141	
 vunpcklps_ymm_ymm_ymm	6	134	
-			
-	46		
+
+Stratum 7  46		
 cmovaeq_r64_r64	7	248	
 cmovbel_r32_r32	7	81	
 cmovcq_r64_r64	7	30	
@@ -610,6 +609,7 @@ vxorpd_ymm_ymm_ymm	7	172
 vxorps_ymm_ymm_ymm	7	170	
 			
 			
+Stratu 8
 andb_rh_rh	8	169	
 andq_r64_r64	8	109	
 blsil_r32_r32	8	244	
@@ -657,6 +657,8 @@ vmovmskps_r32_xmm	8	282
 vmovmskps_r64_xmm	8	282	
 vpand_ymm_ymm_ymm	8	78	
 vpxor_ymm_ymm_ymm	8	170	
+
+Stratum 9
 andw_r16_r16	9	242	
 cmovaew_r16_r16	9	83	
 cmovgeq_r64_r64	9	411	
@@ -678,6 +680,8 @@ vfmsubadd231pd_xmm_xmm_xmm	9	168
 vhaddps_ymm_ymm_ymm	9	425	
 vphsubd_xmm_xmm_xmm	9	648	
 vpmovzxwd_xmm_xmm	9	391	
+
+Stratum 10
 btl_r32_r32	10	353	
 cmovlq_r64_r64	10	393	
 cmovnlew_r16_r16	10	102	
@@ -694,6 +698,7 @@ vpmovzxbd_xmm_xmm	10	513
 vpmovzxwd_ymm_xmm	10	787	
 vpmovzxwq_ymm_xmm	10	475	
 vpsubd_xmm_xmm_xmm	10	780	
+
 cmovngeq_r64_r64	11	393	
 cmovnlq_r64_r64	11	398	
 cmovnsq_r64_r64	11	394	
@@ -708,6 +713,7 @@ vfmsubadd231ps_xmm_xmm_xmm	11	723
 vpmovzxbd_ymm_xmm	11	1048	
 vpsubd_ymm_ymm_ymm	11	1476	
 cmovnpq_r64_r64	12	524	
+
 pmovsxbd_xmm_xmm	12	802	
 punpckhwd_xmm_xmm	12	1344	
 vfmsub213ss_xmm_xmm_xmm	12	583	
@@ -716,14 +722,17 @@ vfmsubadd213ps_xmm_xmm_xmm	12	740
 vpmovsxwd_ymm_xmm	12	3366	
 vpmovsxwq_xmm_xmm	12	1681	
 vpunpcklwd_xmm_xmm_xmm	12	1334	
+
 pmovsxwq_xmm_xmm	13	1683	
 vpmovsxbd_xmm_xmm	13	805	
 vpmovsxwd_xmm_xmm	13	3380	
 vpmovsxwq_ymm_xmm	13	3526	
 vpunpckhwd_xmm_xmm_xmm	13	1338	
 vpunpcklwd_ymm_ymm_ymm	13	2671	
+
 vpmovsxbd_ymm_xmm	14	1612	
 vpmovsxbq_ymm_xmm	14	820	
 vpunpckhwd_ymm_ymm_ymm	14	2701	
+
 pmovsxbq_xmm_xmm	15	1624	
 vpmovsxbq_xmm_xmm	15	825	
