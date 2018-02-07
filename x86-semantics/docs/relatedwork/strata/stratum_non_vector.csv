@@ -193,9 +193,9 @@ vpbroadcastq_ymm_xmm	1	9
 vpxor_xmm_xmm_xmm	1	8	
 vsqrtpd_xmm_xmm	1	8	
 vsubpd_xmm_xmm_xmm	1	7	
-xaddb_r8_r8	1	14:CD:R7:CT	
-xaddl_r32_r32	1	8:CD:R7:CT	
-xaddq_r64_r64	1	8:CD:R7:CT	
+xaddb_r8_r8	1	14:CD:R7:CTD	
+xaddl_r32_r32	1	8:CD:R7:CTD	
+xaddq_r64_r64	1	8:CD:R7:CTD	
 xchgl_eax_r32	1	6:CD:R7	
 xchgl_r32_eax	1	8:CD:R7	
 xchgq_r64_rax	1	7:CD:R7
@@ -249,7 +249,7 @@ setne_rh	2	5
 setns_r8	2	12	
 setpe_r8	2	8:OPTD:R6	
 shlb_rh_one	2	13	
-shrxq_r64_r64_r64	2	20:CT	
+shrxq_r64_r64_r64	2	20:CTD	
 sqrtpd_xmm_xmm	2	12	
 sqrtsd_xmm_xmm	2	20	
 sqrtss_xmm_xmm	2	23	
@@ -289,9 +289,9 @@ vrcpss_xmm_xmm_xmm	2	25
 vsubss_xmm_xmm_xmm	2	22	
 vunpcklpd_xmm_xmm_xmm	2	7	
 vxorpd_xmm_xmm_xmm	2	11	
-xaddb_r8_rh	2	19:CD:R7:CT	
-xaddb_rh_r8	2	17:CD:R7:CT	
-xaddw_r16_r16	2	8:CD:R7:CT	
+xaddb_r8_rh	2	19:CD:R7:CTD	
+xaddb_rh_r8	2	17:CD:R7:CTD	
+xaddw_r16_r16	2	8:CD:R7:CTD	
 xchgb_r8_rh	2	19:CD:R7	
 xchgb_rh_rh	2	30:CD:R7	
 xchgw_ax_r16	2	6:CD:R7	
@@ -301,7 +301,7 @@ Stratum 3	78
 addb_r8_rh	3	17	
 addb_rh_r8	3	21	
 bswap_r32	3	17	
-cmovbeq_r64_r64	3	29:C:R7	
+cmovbeq_r64_r64	3	29:CD:R7:CTD	
 cmovnzl_r32_r32	3	10	
 cvtpd2dq_xmm_xmm	3	12:US	
 cvttsd2sil_r32_xmm	3	25:US	
@@ -327,7 +327,7 @@ pandn_xmm_xmm	3	19
 popcntl_r32_r32	3	10	
 punpckhqdq_xmm_xmm	3	6	
 rclb_r8_one	3	10	
-rolb_rh_one	3	55:C:R7	
+rolb_rh_one	3	55:CD:R7	
 roll_r32_one	3	21	
 rsqrtss_xmm_xmm	3	26	
 salb_rh_one	3	13	
@@ -338,10 +338,10 @@ sete_rh	3	27
 setge_rh	3	29	
 setl_r8	3	14	
 setle_rh	3	20	
-setne_r8	3	28:C:R7	
+setne_r8	3	28:CD:R7	
 setnge_r8	3	39	
 setnl_r8	3	26	
-setnz_r8	3	23:C:R7	
+setnz_r8	3	23:CD:R7	
 seto_rh	3	28	
 setpo_rh	3	40	
 setz_rh	3	21	
@@ -438,7 +438,7 @@ vpunpckhqdq_ymm_ymm_ymm	4	15
 vpunpcklqdq_ymm_ymm_ymm	4	39	
 vrsqrtss_xmm_xmm_xmm	4	29	
 xorb_rh_rh	4	73	
-			
+
 Stratum 5	63		
 andb_rh_r8	5	99	
 andl_r32_r32	5	59	
