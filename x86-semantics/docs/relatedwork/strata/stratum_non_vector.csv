@@ -530,7 +530,7 @@ punpckldq_xmm_xmm	6	94
 sarb_r8_one	6	86					
 sarl_r32_one	6	94					
 sarw_r16_one	6	89					
-sbbb_rh_r8	6	210					
+sbbb_rh_r8	6	210:C					
 sbbb_rh_rh	6	241					
 sbbl_r32_r32	6	192					
 sbbq_r64_r64	6	188					
@@ -542,7 +542,7 @@ testb_r8_r8	6	61
 testw_r16_r16	6	79					
 vandps_ymm_ymm_ymm	6	78					
 vcvtsi2ssl_xmm_xmm_r32	6	70					
-vcvttps2dq_xmm_xmm	6	36					
+vcvttps2dq_xmm_xmm	6	36:US					
 vfmadd132pd_xmm_xmm_xmm	6	74					
 vfmadd132sd_xmm_xmm_xmm	6	81					
 vfmadd213ps_xmm_xmm_xmm	6	94					
@@ -552,7 +552,7 @@ vfnmadd132sd_xmm_xmm_xmm	6	64
 vfnmadd213ss_xmm_xmm_xmm	6	146					
 vfnmsub213pd_xmm_xmm_xmm	6	50					
 vmovmskpd_r32_ymm	6	134					
-vpbroadcastb_ymm_xmm	6	127					
+vpbroadcastb_ymm_xmm	6	127:C					
 vphaddd_xmm_xmm_xmm	6	129					
 vphaddd_ymm_ymm_ymm	6	243					
 vpmovzxbq_ymm_xmm	6	79					
