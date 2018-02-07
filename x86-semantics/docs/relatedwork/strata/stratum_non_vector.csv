@@ -427,7 +427,7 @@ vhaddpd_ymm_ymm_ymm	4	52
 vhsubpd_xmm_xmm_xmm	4	44					
 vminss_xmm_xmm_xmm	4	19					
 vmovd_xmm_r32	4	52					
-vmovmskpd_r32_xmm	4	46:CT					
+vmovmskpd_r32_xmm	4	46:CTD					
 vmovshdup_ymm_ymm	4	156					
 vorps_ymm_ymm_ymm	4	23					
 vpmovzxbq_xmm_xmm	4	31					
@@ -465,7 +465,7 @@ cvtsi2ssl_xmm_r32	5	65
 decb_rh	5	82					
 hsubpd_xmm_xmm	5	46					
 movd_xmm_r32	5	54					
-movmskpd_r64_xmm	5	46:CT					
+movmskpd_r64_xmm	5	46:CTD					
 orb_r8_r8	5	81					
 phaddd_xmm_xmm	5	120					
 pmovzxbq_xmm_xmm	5	64					
@@ -491,8 +491,8 @@ vfmsub213sd_xmm_xmm_xmm	5	69
 vfnmadd231ss_xmm_xmm_xmm	5	125					
 vfnmsub132pd_xmm_xmm_xmm	5	47					
 vhsubpd_ymm_ymm_ymm	5	56					
-vmovmskpd_r64_xmm	5	47:CT					
-vmovmskpd_r64_ymm	5	125:CT					
+vmovmskpd_r64_xmm	5	47:CTD					
+vmovmskpd_r64_ymm	5	125:CTD					
 vpand_xmm_xmm_xmm	5	38					
 vpandn_ymm_ymm_ymm	5	68					
 vpbroadcastb_xmm_xmm	5	63					
