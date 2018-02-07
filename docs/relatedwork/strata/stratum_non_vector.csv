@@ -531,8 +531,8 @@ punpckldq_xmm_xmm	6	94
 sarb_r8_one	6	86					
 sarl_r32_one	6	94					
 sarw_r16_one	6	89					
-sbbb_rh_r8	6	210:C					
-sbbb_rh_rh	6	241					
+sbbb_rh_r8	6	210:OPT:R3					
+sbbb_rh_rh	6	241:OPT:R3					
 sbbl_r32_r32	6	192					
 sbbq_r64_r64	6	188					
 sbbw_r16_r16	6	194					
