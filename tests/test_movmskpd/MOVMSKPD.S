@@ -58,10 +58,23 @@ TEST_INPUTS(
   movddup %xmm0, %xmm1
   movsldup %xmm0, %xmm2
   movshdup %xmm0, %xmm3
+  vbroadcastsd %xmm0, %ymm4
+  vbroadcastss %xmm0, %ymm5
 
   vmovmskpd %xmm1, %ebx
   vmovmskpd %xmm2, %ecx
   vmovmskpd %xmm3, %edx
+
+  vmovmskpd %xmm1, %rbx
+  vmovmskpd %xmm2, %rcx
+  vmovmskpd %xmm3, %rdx
+
+  movmskpd %xmm1, %rbx
+  movmskpd %xmm2, %rcx
+  movmskpd %xmm3, %rdx
+
+  vmovmskpd %ymm4, %rdi
+  vmovmskpd %ymm5, %rsi
 
 TEST_END
 
