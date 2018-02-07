@@ -1,0 +1,2 @@
+pmovsxbq_xmm_xmm
+vpmovsxbq_xmm_xmm

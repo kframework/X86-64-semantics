@@ -1,0 +1,8 @@
+pmovsxbd_xmm_xmm
+punpckhwd_xmm_xmm
+vfmsub213ss_xmm_xmm_xmm
+vfmsubadd132ps_xmm_xmm_xmm
+vfmsubadd213ps_xmm_xmm_xmm
+vpmovsxwd_ymm_xmm
+vpmovsxwq_xmm_xmm
+vpunpcklwd_xmm_xmm_xmm

@@ -1,0 +1,14 @@
+cmovngeq_r64_r64
+cmovnlq_r64_r64
+cmovnsq_r64_r64
+cmovpoq_r64_r64
+cmpxchgb_r8_rh
+pmovsxwd_xmm_xmm
+pmovzxbd_xmm_xmm
+psubd_xmm_xmm
+punpcklwd_xmm_xmm
+vfmaddsub213pd_xmm_xmm_xmm
+vfmsubadd231ps_xmm_xmm_xmm
+vpmovzxbd_ymm_xmm
+vpsubd_ymm_ymm_ymm
+cmovnpq_r64_r64

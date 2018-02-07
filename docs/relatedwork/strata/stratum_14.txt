@@ -1,0 +1,3 @@
+vpmovsxbd_ymm_xmm
+vpmovsxbq_ymm_xmm
+vpunpckhwd_ymm_ymm_ymm
