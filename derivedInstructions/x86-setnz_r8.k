@@ -7,6 +7,14 @@ module SETNZ-R8
   rule <k>
     execinstr (setnz R1:R8,  .Typedoperands) => .
   ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( mi(8, 1) ) #else ( mi(8, 0) ) #fi) ) )
+
+
+)
+
+    </regstate>
 endmodule
 
 module SETNZ-R8-SEMANTICS
