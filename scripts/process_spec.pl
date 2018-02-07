@@ -47,6 +47,7 @@ my $gitadd         = "";
 my $speconly       = "";
 my $singlefiledefn = "";
 my $path           = "";
+my $getimm           = "";
 
 GetOptions(
     "help"           => \$help,
@@ -64,6 +65,7 @@ GetOptions(
     "speconly"       => \$speconly,
     "gitaddspec"     => \$gitadd,
     "singlefiledefn" => \$singlefiledefn,
+    "getimm" => \$getimm,
     "path:s"         => \$path,
     "strata_path:s"  => \$strata_path,
 ) or die("Error in command line arguments\n");
