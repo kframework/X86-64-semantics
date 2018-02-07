@@ -1174,6 +1174,7 @@ sub getSpecCode {
     ## Issue a "need to inspect" warning if we have undefined set.
     if ( scalar( keys %{$undefSet_ref} ) ) {
         utils::warnInfo("[getSpecCode] Undef Present: $opcode");
+        utils::printMap(\%{$undefSet_ref}, "Undef Set", 1);
     }
 
     ## Generate the save rstore code for resgisters which are cloberred
