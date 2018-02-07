@@ -230,6 +230,7 @@ if ( "" ne $kprove ) {
 if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
         chomp $opcode;
+        
         my $isSupported =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
@@ -237,6 +238,13 @@ if ( "" ne $postprocess ) {
             utils::warnInfo("$opcode: Unsupported");
             next;
         }
+        
+        my $isManuallyGenerated = kutils::checkManuallyGenerated( $opcode, $debugprint);
+        if ( 1 == $isManuallyGenerated ) {
+            utils::warnInfo("$opcode: Manually Generated");
+            next;
+        }
+
         kutils::postProcess( $opcode, $specdir, $derivedInstructions,
             $debugprint );
         print "\n";
