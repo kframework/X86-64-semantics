@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -27,7 +27,8 @@ my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
 my @xpatterns = (
     qr/$\d* = ([-]?\d+)/,
-    qr/$\d* = \{([\dabcdef]+, [\dabcdef]+)\}/,
+#qr/$\d* = \{(0x[\dabcdef]+, 0x[\dabcdef]+)\}/,
+    qr/$\d* = \{0x([\dabcdef]+), 0x([\dabcdef]+)\}/,
     qr/$\d* = \[ ([CPAZSOIF ]*) \]/,
 );
 
@@ -456,7 +457,7 @@ sub processXFile {
         if ( $line =~ m/$xpatterns[1]/ ) {
 
             #print "Ys".$1. "\n";
-            push @xstates, $1;
+            push @xstates, "0x".$2.$1;
         }
 
         if ( $line =~ m/$xpatterns[2]/ ) {
@@ -497,8 +498,10 @@ sub compareInts {
         $khexnum = toHex( $knum, $bit );
     }
 
-    if ( $xnum =~ /([\dabcdef]+), ([\dabcdef]+)/ ) {
-        $xhexnum = $1 . $2;
+#if ( $xnum =~ /([\dabcdef]+), ([\dabcdef]+)/ ) {
+    if ( $xnum =~ /0x([\dabcdef]+)/ ) {
+#$xhexnum = $1 . $2;
+        $xhexnum = $1;
     }
     else {
         #print "Check3: ".$xnum."\n";
@@ -543,7 +546,7 @@ sub compareStates {
             #info("\"undef\" found at $regMap{$i % $regcount}");
             next;
         }
-
+        
         if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
             failInfo( "$regMap{$i % $regcount} at instrcount: " . $instrcount );
             return;
@@ -2370,6 +2373,17 @@ sub postProcess {
     utils::info("writeKDefn $opcode: $koutput");
     kutils::writeKDefn( $returnInfo, $koutput, $opcode, $debugprint );
 
+}
+
+sub checkManuallyGenerated {
+  my $opcode              = shift @_;
+  my $debugprint          = shift @_;
+
+  if($opcode eq "vmovmskpd_r32_xmm") {
+    return 1;
+  }
+
+  return 0;
 }
 
 1;
