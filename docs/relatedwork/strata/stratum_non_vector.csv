@@ -13,6 +13,7 @@ R6	 countOnes(mi1, mi2) == countOnes(mi2) if mi1 ==0; countOnes(getFlag(S)) == g
 R7	 Same key; xaddb						
 R8	For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is null; So its better to add the operand from the instr itself.						
 R9	Float lemmas
+R10: distribute extratctMInt over addMInt
 							
 P1	 K rule optmization is better that Strata's						
 							
@@ -575,18 +576,18 @@ cmovnol_r32_r32	7	34
 cmovol_r32_r32	7	32					
 cmovpw_r16_r16	7	49					
 cmovsw_r16_r16	7	137					
-cmpb_r8_rh	7	260					
+cmpb_r8_rh	7	260:OPT:R3					
 cmpq_r64_r64	7	99					
-cvttps2dq_xmm_xmm	7	38					
+cvttps2dq_xmm_xmm	7	38:US					
 hsubps_xmm_xmm	7	367					
-negq_r64	7	189					
+negq_r64	7	189:US					
 rorb_r8_one	7	103					
 sarb_rh_one	7	115					
-sbbb_r8_r8	7	233					
-sbbb_r8_rh	7	235					
+sbbb_r8_r8	7	233:OPT:R3					
+sbbb_r8_rh	7	235:OPT:R3					
 setg_rh	7	88					
-subb_rh_r8	7	292					
-subb_rh_rh	7	252					
+subb_rh_r8	7	292:OPT:R3					
+subb_rh_rh	7	252:OPT:R3					
 subl_r32_r32	7	200					
 subw_r16_r16	7	405					
 testb_r8_rh	7	64					
@@ -595,19 +596,19 @@ vandpd_ymm_ymm_ymm	7	78
 vfmadd132ps_xmm_xmm_xmm	7	103					
 vfmadd213pd_xmm_xmm_xmm	7	77					
 vfmadd231sd_xmm_xmm_xmm	7	84					
-vfmaddsub213ps_xmm_xmm_xmm	7	186					
+vfmaddsub213ps_xmm_xmm_xmm	7	186:C					
 vfnmsub213sd_xmm_xmm_xmm	7	161					
 vfnmsub231pd_xmm_xmm_xmm	7	61					
 vhaddps_xmm_xmm_xmm	7	206					
 vhsubps_ymm_ymm_ymm	7	508					
 vpaddd_xmm_xmm_xmm	7	243					
-vpaddd_ymm_ymm_ymm	7	483					
+vpaddd_ymm_ymm_ymm	7	483:OPT:R10					
 vpmovsxdq_ymm_xmm	7	157					
 vpsubq_xmm_xmm_xmm	7	202					
 vpunpckldq_ymm_ymm_ymm	7	135					
 vunpcklps_xmm_xmm_xmm	7	144					
-vxorpd_ymm_ymm_ymm	7	172					
-vxorps_ymm_ymm_ymm	7	170					
+vxorpd_ymm_ymm_ymm	7	172:CT					
+vxorps_ymm_ymm_ymm	7	170:C					
 							
 
 Stratum 8	47						

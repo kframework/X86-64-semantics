@@ -47,6 +47,7 @@ my $gitadd         = "";
 my $speconly       = "";
 my $singlefiledefn = "";
 my $path           = "";
+my $nightlyrun           = "";
 my $getimm           = "";
 
 GetOptions(
@@ -66,6 +67,7 @@ GetOptions(
     "gitaddspec"     => \$gitadd,
     "singlefiledefn" => \$singlefiledefn,
     "getimm" => \$getimm,
+    "nightlyrun" => \$nightlyrun,
     "path:s"         => \$path,
     "strata_path:s"  => \$strata_path,
 ) or die("Error in command line arguments\n");
@@ -145,6 +147,31 @@ sub mergeToSingleFile {
         }
         print $sfp $line;
     }
+}
+
+if("" ne $nightlyrun) {
+  my @fnames = (
+  "stratum_8",
+  "stratum_9",
+  "stratum_10",
+  "stratum_11",
+  "stratum_12",
+  "stratum_13",
+  "stratum_14",
+  "stratum_15",
+      );
+  my @counts = ( 47, 21, 16, 14, 8, 6, 3, 2,);
+
+  for (my $i = 0 ; $i < scalar(@fnames); $i++ ) {  
+    my $file = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/$fnames[$i].txt";
+    my $numOfOpcodes = $counts[$i];
+
+    execute("./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ", 2);
+    execute("./scripts/process_spec.pl --singlefiledefn ", 2);
+    execute("./scripts/run.pl --compile ", 2);
+  }
+  
+  exit(0);
 }
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
