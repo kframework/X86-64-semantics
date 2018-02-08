@@ -728,17 +728,17 @@ vpmovsxwq_xmm_xmm	12	1681
 vpunpcklwd_xmm_xmm_xmm	12	1334:C:-Float  0e+00f					
 							
 Stratum 13	6						
-pmovsxwq_xmm_xmm	13	1683					
-vpmovsxbd_xmm_xmm	13	805					
-vpmovsxwd_xmm_xmm	13	3380					
-vpmovsxwq_ymm_xmm	13	3526					
-vpunpckhwd_xmm_xmm_xmm	13	1338					
-vpunpcklwd_ymm_ymm_ymm	13	2671					
+pmovsxwq_xmm_xmm	13	1683:C					
+vpmovsxbd_xmm_xmm	13	805:C					
+vpmovsxwd_xmm_xmm	13	3380:C					
+vpmovsxwq_ymm_xmm	13	3526:C					
+vpunpckhwd_xmm_xmm_xmm	13	1338:C:-Float  0e+00f 					
+vpunpcklwd_ymm_ymm_ymm	13	2671:C:-Float  0e+00f					
 							
 Stratum 14	3						
 vpmovsxbd_ymm_xmm	14	1612					
 vpmovsxbq_ymm_xmm	14	820					
-vpunpckhwd_ymm_ymm_ymm	14	2701					
+vpunpckhwd_ymm_ymm_ymm	14	2701:C					
 							
 Stratum 15	2						
 pmovsxbq_xmm_xmm	15	1624					
