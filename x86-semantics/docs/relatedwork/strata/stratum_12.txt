@@ -1,3 +1,4 @@
+cmovnpq_r64_r64
 pmovsxbd_xmm_xmm
 punpckhwd_xmm_xmm
 vfmsub213ss_xmm_xmm_xmm

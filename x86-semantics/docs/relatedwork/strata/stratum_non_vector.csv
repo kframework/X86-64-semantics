@@ -701,31 +701,31 @@ vpmovzxwd_ymm_xmm	10	787
 vpmovzxwq_ymm_xmm	10	475					
 vpsubd_xmm_xmm_xmm	10	780:US					
 							
-Stratum 11	14						
+Stratum 11	13						
 cmovngeq_r64_r64	11	393					
-cmovnlq_r64_r64	11	398					
+cmovnlq_r64_r64	11	398:C
 cmovnsq_r64_r64	11	394					
-cmovpoq_r64_r64	11	524					
-cmpxchgb_r8_rh	11	383:CRITICAL					
+cmovpoq_r64_r64	11	524:C:OPT					
+cmpxchgb_r8_rh	11	383:CRITICAL
 pmovsxwd_xmm_xmm	11	1676					
 pmovzxbd_xmm_xmm	11	515					
-psubd_xmm_xmm	11	782					
+psubd_xmm_xmm	11	782:US					
 punpcklwd_xmm_xmm	11	1331					
 vfmaddsub213pd_xmm_xmm_xmm	11	436					
 vfmsubadd231ps_xmm_xmm_xmm	11	723					
 vpmovzxbd_ymm_xmm	11	1048					
-vpsubd_ymm_ymm_ymm	11	1476					
-cmovnpq_r64_r64	12	524					
+vpsubd_ymm_ymm_ymm	11	1476:US					
 							
-Stratum 12	8						
-pmovsxbd_xmm_xmm	12	802					
-punpckhwd_xmm_xmm	12	1344					
+Stratum 12	9						
+cmovnpq_r64_r64	12	524:C:OPT
+pmovsxbd_xmm_xmm	12	802
+punpckhwd_xmm_xmm	12	1344
 vfmsub213ss_xmm_xmm_xmm	12	583					
-vfmsubadd132ps_xmm_xmm_xmm	12	726					
-vfmsubadd213ps_xmm_xmm_xmm	12	740					
+vfmsubadd132ps_xmm_xmm_xmm	12	726:C: 0e+00f  -Float  negateFloat(0e+00f)					
+vfmsubadd213ps_xmm_xmm_xmm	12	740:C: 0e+00f  -Float  negateFloat(0e+00f)
 vpmovsxwd_ymm_xmm	12	3366					
 vpmovsxwq_xmm_xmm	12	1681					
-vpunpcklwd_xmm_xmm_xmm	12	1334					
+vpunpcklwd_xmm_xmm_xmm	12	1334:C:-Float  0e+00f					
 							
 Stratum 13	6						
 pmovsxwq_xmm_xmm	13	1683					
