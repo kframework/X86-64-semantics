@@ -399,7 +399,7 @@ minsd_xmm_xmm	4	22
 movhlps_xmm_xmm	4	8					
 movsbw_r16_r8	4	28					
 movshdup_xmm_xmm	4	67					
-negb_rh	4	65					
+negb_rh	4	65:C:R3					
 notb_rh	4	50					
 orb_r8_rh	4	65					
 orb_rh_rh	4	49					
@@ -663,7 +663,7 @@ vpxor_ymm_ymm_ymm	8	170:C
 Stratum 9	21						
 andw_r16_r16	9	242					
 cmovaew_r16_r16	9	83					
-cmovgeq_r64_r64	9	411:C:OPT					
+cmovgeq_r64_r64	9	411:C:OPT: distribute concate over ite: xor(cocate(00, 1bit), concate(00, 1 bit))					
 cmovgw_r16_r16	9	102					
 cmovlel_r32_r32	9	102					
 cmovnaw_r16_r16	9	94					
@@ -672,7 +672,7 @@ cmovnbq_r64_r64	9	281
 cmovncw_r16_r16	9	61					
 cmovngw_r16_r16	9	105					
 cmovnlw_r16_r16	9	61					
-cmpxchgb_rh_r8	9	372:C:R3					
+cmpxchgb_rh_r8	9	372:C:R3:CRITICAL					
 cmpxchgw_r16_r16	9	441:C:R3					
 movmskps_r32_xmm	9	287					
 rorw_r16_one	9	323:C:R3					
@@ -685,28 +685,28 @@ vpmovzxwd_xmm_xmm	9	391
 
 Stratum 10	16						
 btl_r32_r32	10	353					
-cmovlq_r64_r64	10	393					
+cmovlq_r64_r64	10	393:C					
 cmovnlew_r16_r16	10	102					
-cmovnoq_r64_r64	10	412					
-cmovoq_r64_r64	10	412					
+cmovnoq_r64_r64	10	412:C:OPT					
+cmovoq_r64_r64	10	412:C:OPT					
 cmovsq_r64_r64	10	412					
-cmpxchgb_r8_r8	10	380					
+cmpxchgb_r8_r8	10	380:CRITICAL					
 movmskps_r64_xmm	10	287					
 pmovzxwd_xmm_xmm	10	415					
 vfmaddsub231pd_xmm_xmm_xmm	10	422					
 vfmsubadd132pd_xmm_xmm_xmm	10	171					
-vphsubd_ymm_ymm_ymm	10	1236					
+vphsubd_ymm_ymm_ymm	10	1236:US					
 vpmovzxbd_xmm_xmm	10	513					
 vpmovzxwd_ymm_xmm	10	787					
 vpmovzxwq_ymm_xmm	10	475					
-vpsubd_xmm_xmm_xmm	10	780					
+vpsubd_xmm_xmm_xmm	10	780:US					
 							
 Stratum 11	14						
 cmovngeq_r64_r64	11	393					
 cmovnlq_r64_r64	11	398					
 cmovnsq_r64_r64	11	394					
 cmovpoq_r64_r64	11	524					
-cmpxchgb_r8_rh	11	383					
+cmpxchgb_r8_rh	11	383:CRITICAL					
 pmovsxwd_xmm_xmm	11	1676					
 pmovzxbd_xmm_xmm	11	515					
 psubd_xmm_xmm	11	782					
