@@ -35,15 +35,20 @@ module FLOAT-LEMMAS
   imports FLOAT
 
   // add
-  rule F:Float +Float 0e+00 => F
-  rule 0e+00 +Float F:Float  => F
+  rule F:Float +Float 0e+00f => F
+  rule 0e+00f +Float F:Float  => F
 
   // sub
-  rule F:Float -Float 0e+00 => F
+  rule F:Float -Float 0e+00f => F
 
   // mul
-  rule 0e+00:Float *Float F:Float  => 0e+00
-  rule F:Float *Float 0e+00  => 0e+00
+  rule 0e+00f:Float *Float F:Float  => 0e+00f
+  rule 0e+00d:Float *Float F:Float  => 0e+00d
+  rule F:Float *Float 0e+00f  => 0e+00f
+  rule F:Float *Float 0e+00d  => 0e+00d
+
+  // negate
+  rule F:Float -Float negateFloat(0e+00f) => F
 
   // mul
   rule 0e+00 /Float F:Float  => 0e+00
