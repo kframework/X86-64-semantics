@@ -11,4 +11,3 @@ vfmaddsub213pd_xmm_xmm_xmm
 vfmsubadd231ps_xmm_xmm_xmm
 vpmovzxbd_ymm_xmm
 vpsubd_ymm_ymm_ymm
-cmovnpq_r64_r64
