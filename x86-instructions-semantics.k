@@ -724,9 +724,13 @@ vcvtpd2ps_xmm_ymm
       execinstr(vfnmsub132pd  Y1, 
       joinVector(
         operateOnVector(
+          operateOnVector(
+            operateOnVector(
+              splitVector(getRegisterValue(Y1, RSMap), 64), 
+              splitVector(getRegisterValue(Y3, RSMap), 64), vfmul, 64), 
+            vfnegate, 64), 
           splitVector(getRegisterValue(Y2, RSMap), 64), 
-          operateOnVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
-              splitVector(getRegisterValue(Y3, RSMap), 64), vfmul, 64), vfnegate, 64), vfsub, 64)
+          vfsub, 64)
       ), 
       .Typedoperands)
   ...</k>
@@ -742,9 +746,14 @@ vcvtpd2ps_xmm_ymm
       execinstr(vfnmsub132ps  Y1, 
       joinVector(
         operateOnVector(
+          operateOnVector(
+            operateOnVector(
+              splitVector(getRegisterValue(Y1, RSMap), 32), 
+              splitVector(getRegisterValue(Y3, RSMap), 32), 
+              vfmul, 32), 
+            vfnegate, 32), 
           splitVector(getRegisterValue(Y2, RSMap), 32), 
-          operateOnVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
-              splitVector(getRegisterValue(Y3, RSMap), 32), vfmul, 32), vfnegate, 32), vfsub, 32)
+          vfsub, 32)
       ), 
       .Typedoperands)
   ...</k>
@@ -8139,7 +8148,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (  ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 192), 53, 11)  -Float  negateFloat(0e+00) )  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11) )  ) , 64), Float2MInt( (  ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  -Float  negateFloat(0e+00) )  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) )  ) , 64))) )
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 128, 192), 53, 11)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 128, 192), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 128, 192), 53, 11) )  ) , 64), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  -Float  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) )  ) , 64))) )
 
 
 )
