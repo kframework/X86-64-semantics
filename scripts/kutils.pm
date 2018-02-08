@@ -24,7 +24,8 @@ use utils;
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 
 #my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
-my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
+#my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
+my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 my @xpatterns = (
     qr/$\d* = ([-]?\d+)/,
 #qr/$\d* = \{(0x[\dabcdef]+, 0x[\dabcdef]+)\}/,
@@ -381,6 +382,7 @@ sub processKFile {
     open( my $fp, "<", "$tmpfile" ) or die "Cannot
  open: $!";
     my @lines = <$fp>;
+    my $counter =0 ;
     for my $line (@lines) {
         chomp $line;
 
@@ -391,9 +393,13 @@ sub processKFile {
             push( @{ $kstateMap{$1} }, $2 );
         }
         elsif ( $line =~ m/$kpatterns[1]/ ) {
-
-            #print "Match: " . $1 . "\n";
-            push @{ $kstateMap{$1} }, $2;
+            my $reg = $1;
+            my $val = utils::trim($2);
+            if($val =~ m/NaN/) {
+              push @{ $kstateMap{$reg} }, "NaN";
+            } else {
+              push @{ $kstateMap{$reg} }, $val;
+            }
         }
     }
 
@@ -544,6 +550,11 @@ sub compareStates {
         if ( $kstates[$i] eq "undef" ) {
 
             #info("\"undef\" found at $regMap{$i % $regcount}");
+            next;
+        }
+        if ( $kstates[$i] eq "NaN" ) {
+
+            info("\"NaN\" found");
             next;
         }
         
