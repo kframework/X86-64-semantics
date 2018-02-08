@@ -16,3 +16,6 @@ rorw_r16_one
 shrxl_r32_r32_r32
 tzcntw_r16_r16
 vfmsubadd231pd_xmm_xmm_xmm
+vhaddps_ymm_ymm_ymm
+vphsubd_xmm_xmm_xmm
+vpmovzxwd_xmm_xmm
