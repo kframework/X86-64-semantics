@@ -1459,7 +1459,7 @@ sub processSpecOutput {
             #print "InitialTerm: " . $initTerm . "\n";
 
             my @matches = $initTerm =~
-m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _\d+:Int\@INT-SYNTAX\)/g;
+m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, .*?_\d+:Int\@INT-SYNTAX\)/g;
 
             #debugInfo( print join( "\n", @matches ), $debugprint );
 
@@ -1467,7 +1467,7 @@ m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _\d+:
 
                 #print "Matching Lines: " . $match . "\n";
                 if ( $match =~
-m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, _(\d+):Int\@INT-SYNTAX\)/
+m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, .*?_(\d+):Int\@INT-SYNTAX\)/
                   )
                 {
                     $rsmap{"$1"} = $2;
@@ -1941,7 +1941,7 @@ sub sanitizeSpecOutput {
 
         # Local Optimzations
         ## Replace mi(W, _NUM) => MINUM
-        $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
+        $result =~ s/mi\(\d+, .*?_(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
         debugInfo( "Result:$result\n", $debugprint );
 
         push @workList, $result;

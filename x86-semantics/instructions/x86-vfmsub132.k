@@ -12,9 +12,13 @@ module VFMSUB132PD-YMM-YMM-YMM
     execinstr(vfmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
       execinstr(vfmsub132pd  Y1, 
       joinVector(
-        operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 64), 
-          operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
-            splitVector(getRegisterValue(Y3, RSMap), 64), vfmul, 64), vfsub, 64)
+        operateOnVector(
+          operateOnVector(
+            splitVector(getRegisterValue(Y1, RSMap), 64), 
+            splitVector(getRegisterValue(Y3, RSMap), 64), 
+            vfmul, 64), 
+          splitVector(getRegisterValue(Y2, RSMap), 64), 
+          vfsub, 64)
       ), 
       .Typedoperands)
   ...</k>
@@ -30,9 +34,13 @@ module VFMSUB132PS-YMM-YMM-YMM
     execinstr(vfmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
       execinstr(vfmsub132ps  Y1, 
       joinVector(
-        operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 32), 
-          operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
-            splitVector(getRegisterValue(Y3, RSMap), 32), vfmul, 32), vfsub, 32)
+        operateOnVector(
+          operateOnVector(
+            splitVector(getRegisterValue(Y1, RSMap), 32), 
+            splitVector(getRegisterValue(Y3, RSMap), 32), 
+            vfmul, 32), 
+          splitVector(getRegisterValue(Y2, RSMap), 32), 
+          vfsub, 32)
 
       ), 
       .Typedoperands)
