@@ -663,7 +663,7 @@ vpxor_ymm_ymm_ymm	8	170:C
 Stratum 9	21						
 andw_r16_r16	9	242					
 cmovaew_r16_r16	9	83					
-cmovgeq_r64_r64	9	411					
+cmovgeq_r64_r64	9	411:C:OPT					
 cmovgw_r16_r16	9	102					
 cmovlel_r32_r32	9	102					
 cmovnaw_r16_r16	9	94					
@@ -672,15 +672,15 @@ cmovnbq_r64_r64	9	281
 cmovncw_r16_r16	9	61					
 cmovngw_r16_r16	9	105					
 cmovnlw_r16_r16	9	61					
-cmpxchgb_rh_r8	9	372					
-cmpxchgw_r16_r16	9	441					
+cmpxchgb_rh_r8	9	372:C:R3					
+cmpxchgw_r16_r16	9	441:C:R3					
 movmskps_r32_xmm	9	287					
-rorw_r16_one	9	323					
+rorw_r16_one	9	323:C:R3					
 shrxl_r32_r32_r32	9	269					
-tzcntw_r16_r16	9	192					
+tzcntw_r16_r16	9	192:C:R3					
 vfmsubadd231pd_xmm_xmm_xmm	9	168					
 vhaddps_ymm_ymm_ymm	9	425					
-vphsubd_xmm_xmm_xmm	9	648					
+vphsubd_xmm_xmm_xmm	9	648:US					
 vpmovzxwd_xmm_xmm	9	391					
 
 Stratum 10	16						
