@@ -2379,7 +2379,10 @@ sub checkManuallyGenerated {
   my $opcode              = shift @_;
   my $debugprint          = shift @_;
 
-  if($opcode eq "vmovmskpd_r32_xmm") {
+  if(
+      $opcode eq "vmovmskpd_r32_xmm" or 
+      $opcode eq "blsil_r32_r32"
+      ) {
     return 1;
   }
 
