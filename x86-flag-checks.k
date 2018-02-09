@@ -135,7 +135,6 @@ module X86-FLAG-CHECKS
 
   /*@
     Update Parity Flag.
-  */  
   rule <k> updateParityFlag(MI:MInt) => . ...</k>
   <regstate>  
     RMap => RMap["PF" <- 
@@ -149,6 +148,13 @@ module X86-FLAG-CHECKS
             oneMIntW64)
         ), 
       1)
+    ] 
+  </regstate>
+  */  
+  rule <k> updateParityFlag(MI:MInt) => . ...</k>
+  <regstate>  
+    RMap => RMap["PF" <- 
+      fromBool((popCount(extractMask(MI, 8, 0)) &Int 1) ==Int 0, 1)
     ] 
   </regstate>
 

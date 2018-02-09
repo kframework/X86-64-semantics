@@ -33,43 +33,34 @@ module SAL-R64-CL
         , 
         "OF") ~> 
 
-    updateZeroFlag(
-      #ifMInt zeroMInt(MIcount)
-      #then
-        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
+        getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shlMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(zeroMInt(shlMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          salOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,
+      "ZF"
         ) ~> 
 
-    updateSignFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, -9223372036854775808)
-        #else
-          mi(64, 0)
-        #fi  
+        getFlag("SF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shlMInt(MIsrc, uvalueMInt(MIcount))
+          extractMInt(shlMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          salOverflow(MIsrc)
+          mi(1, 0)
         #fi 
-      #fi  
-        ) ~> 
+      #fi):>MInt,
+      "SF"
+      ) ~> 
 
     setFlag(
       #ifMInt zeroMInt(MIcount)
@@ -101,23 +92,25 @@ module SAL-R64-CL
         , 
         "CF") ~> 
 
-    updateParityFlag(
+    setFlag(
       #ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("PF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shlMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(  
+            (popCount(
+              extractMask(
+                shlMInt(MIsrc, uvalueMInt(MIcount)), 
+                8, 0)
+            ) &Int 1) ==Int 0 ,
+          1)
         #else 
-          salOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,  
+      "PF"
         ) ~> 
 
     setRegisterValue(
