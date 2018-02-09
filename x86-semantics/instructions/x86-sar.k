@@ -11,16 +11,14 @@ module SAR-R64-CL
 
   rule <k> 
     execinstr(sarq  (%cl,  (R:R64, .Typedoperands)) ) =>
-      execinstr(sarq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
-                bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
+      execinstr(sarq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)) )
   ...</k>
-    <regstate> RSMap</regstate>
-
+    <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(sarq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
+  execinstr(sarq  (R,  (MIsrc:MInt, MIcount:MInt, .Typedoperands)) ) => 
     setFlag(
-      #ifMInt zeroMInt(MIcount)
+      (#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
@@ -30,47 +28,38 @@ module SAR-R64-CL
         #else
           undef
         #fi 
-      #fi  
+      #fi):>MInt  
         , 
         "OF") ~> 
 
-    updateZeroFlag(
-      #ifMInt zeroMInt(MIcount)
-      #then
-        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
+        getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          sarOverflow(MIsrc)
+          fromBool(zeroMInt(getSignBit(MI)), 1)
         #fi 
-      #fi  
+      #fi):>MInt,
+      "ZF"
         ) ~> 
 
-    updateSignFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, -9223372036854775808)
-        #else
-          mi(64, 0)
-        #fi  
+        getFlag("SF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+          extractMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          sarOverflow(MIsrc)
+          getSignBit(MI)
         #fi 
-      #fi  
-        ) ~> 
+      #fi):>MInt,
+      "SF"
+      ) ~> 
 
     setFlag(
       #ifMInt zeroMInt(MIcount)
@@ -102,23 +91,25 @@ module SAR-R64-CL
         , 
         "CF") ~> 
 
-    updateParityFlag(
+    setFlag(
       #ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("PF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(  
+            (popCount(
+              extractMask(
+                aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 
+                8, 0)
+            ) &Int 1) ==Int 0 ,
+          1)
         #else 
-          sarOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,  
+      "PF"
         ) ~> 
 
     setRegisterValue(
