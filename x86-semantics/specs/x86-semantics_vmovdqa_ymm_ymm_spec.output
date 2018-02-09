@@ -27,5 +27,5 @@ FinalTerm:
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""YMM2"") |-> mi(Int@INT-SYNTAX(#"256"),, ?I2_529:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""YMM1"") |-> mi(Int@INT-SYNTAX(#"256"),, ?I2_529:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
 [Warning] Critical: missing SMTLib translation for mi
-171.76user 4.43system 0:47.35elapsed 372%CPU (0avgtext+0avgdata 3035012maxresident)k
-0inputs+3704outputs (0major+501494minor)pagefaults 0swaps
+145.27user 3.50system 0:41.74elapsed 356%CPU (0avgtext+0avgdata 2584996maxresident)k
+0inputs+3704outputs (0major+441633minor)pagefaults 0swaps

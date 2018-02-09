@@ -37,5 +37,5 @@ FinalTerm:
 true
 [Warning] Critical: missing SMTLib translation for Float2MInt
 [Warning] Critical: missing SMTLib translation for mi
-167.54user 3.76system 0:45.83elapsed 373%CPU (0avgtext+0avgdata 2940260maxresident)k
-0inputs+3768outputs (0major+474403minor)pagefaults 0swaps
+167.56user 3.21system 0:44.23elapsed 386%CPU (0avgtext+0avgdata 2871004maxresident)k
+0inputs+3768outputs (0major+453872minor)pagefaults 0swaps
