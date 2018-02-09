@@ -42,6 +42,8 @@ if ($help) {
 }
 
 if ( "" ne $compile ) {
+    execute("./scripts/process_spec.pl --singlefiledefn", 1);
+    execute("git status x86-instructions-semantics.k");
     execute(
 "time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS -I ./instructions -I ./derivedInstructions --debug -v"
     );
