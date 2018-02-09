@@ -1036,16 +1036,14 @@ vcvtpd2ps_xmm_ymm
 
   rule <k> 
     execinstr(sarq  (%cl,  (R:R64, .Typedoperands)) ) =>
-      execinstr(sarq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
-                bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
+      execinstr(sarq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)) )
   ...</k>
-    <regstate> RSMap</regstate>
-
+    <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(sarq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
+  execinstr(sarq  (R,  (MIsrc:MInt, MIcount:MInt, .Typedoperands)) ) => 
     setFlag(
-      #ifMInt zeroMInt(MIcount)
+      (#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
@@ -1055,47 +1053,39 @@ vcvtpd2ps_xmm_ymm
         #else
           undef
         #fi 
-      #fi  
+      #fi):>MInt  
         , 
         "OF") ~> 
 
-    updateZeroFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          sarOverflow(MIsrc)
+          fromBool(zeroMInt(getSignBit(MIsrc)), 1)
         #fi 
-      #fi  
+      #fi):>MInt,
+      "ZF"
         ) ~> 
 
-    updateSignFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, -9223372036854775808)
-        #else
-          mi(64, 0)
-        #fi  
+        getFlag("SF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+          extractMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          sarOverflow(MIsrc)
+          getSignBit(MIsrc)
         #fi 
-      #fi  
-        ) ~> 
+      #fi):>MInt,
+      "SF"
+      ) ~> 
 
     setFlag(
       #ifMInt zeroMInt(MIcount)
@@ -1127,23 +1117,25 @@ vcvtpd2ps_xmm_ymm
         , 
         "CF") ~> 
 
-    updateParityFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("PF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(  
+            (popCount(
+              extractMask(
+                aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 
+                8, 0)
+            ) &Int 1) ==Int 0 ,
+          1)
         #else 
-          sarOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,  
+      "PF"
         ) ~> 
 
     setRegisterValue(
@@ -1451,15 +1443,14 @@ vcvtpd2ps_xmm_ymm
 
   rule <k> 
     execinstr(shrq  (%cl,  (R:R64, .Typedoperands)) ) =>
-      execinstr(shrq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 
-                bitwidthMInt(getRegisterValue(R, RSMap))), .Typedoperands)) )
+      execinstr(shrq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)) )
   ...</k>
-    <regstate> RSMap</regstate>
+    <regstate> RSMap </regstate>
 
   rule <k>
   execinstr(shrq  (R,  (MIsrc, MIcount, .Typedoperands)) ) => 
     setFlag(
-      #ifMInt zeroMInt(MIcount)
+      (#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
@@ -1469,47 +1460,39 @@ vcvtpd2ps_xmm_ymm
         #else
           undef
         #fi 
-      #fi  
+      #fi):>MInt  
         , 
         "OF") ~> 
 
-    updateZeroFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          lshrMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(zeroMInt(lshrMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          shrOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,
+      "ZF"
         ) ~> 
 
-    updateSignFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, -9223372036854775808)
-        #else
-          mi(64, 0)
-        #fi  
+        getFlag("SF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          lshrMInt(MIsrc, uvalueMInt(MIcount))
+          extractMInt(lshrMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          shrOverflow(MIsrc)
+          mi(1, 0)
         #fi 
-      #fi  
-        ) ~> 
+      #fi):>MInt,
+      "SF"
+      ) ~> 
 
     setFlag(
       #ifMInt zeroMInt(MIcount)
@@ -1541,23 +1524,25 @@ vcvtpd2ps_xmm_ymm
         , 
         "CF") ~> 
 
-    updateParityFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("PF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          lshrMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(  
+            (popCount(
+              extractMask(
+                lshrMInt(MIsrc, uvalueMInt(MIcount)), 
+                8, 0)
+            ) &Int 1) ==Int 0 ,
+          1)
         #else 
-          shrOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,  
+      "PF"
         ) ~> 
 
     setRegisterValue(
@@ -1670,43 +1655,35 @@ vcvtpd2ps_xmm_ymm
         , 
         "OF") ~> 
 
-    updateZeroFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("ZF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shlMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(zeroMInt(shlMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          salOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,
+      "ZF"
         ) ~> 
 
-    updateSignFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("SF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, -9223372036854775808)
-        #else
-          mi(64, 0)
-        #fi  
+        getFlag("SF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shlMInt(MIsrc, uvalueMInt(MIcount))
+          extractMInt(shlMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          salOverflow(MIsrc)
+          mi(1, 0)
         #fi 
-      #fi  
-        ) ~> 
+      #fi):>MInt,
+      "SF"
+      ) ~> 
 
     setFlag(
       #ifMInt zeroMInt(MIcount)
@@ -1738,23 +1715,25 @@ vcvtpd2ps_xmm_ymm
         , 
         "CF") ~> 
 
-    updateParityFlag(
-      #ifMInt zeroMInt(MIcount)
+    setFlag(
+      (#ifMInt zeroMInt(MIcount)
       #then
-        #ifMInt eqMInt( getFlag("PF", RSMap), mi(1, 1)) 
-        #then
-          mi(64, 0)
-        #else
-          mi(64, 1)
-        #fi  
+        getFlag("PF", RSMap)
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          shlMInt(MIsrc, uvalueMInt(MIcount))
+          fromBool(  
+            (popCount(
+              extractMask(
+                shlMInt(MIsrc, uvalueMInt(MIcount)), 
+                8, 0)
+            ) &Int 1) ==Int 0 ,
+          1)
         #else 
-          salOverflow(MIsrc)
+          mi(1,1)
         #fi 
-      #fi  
+      #fi):>MInt,  
+      "PF"
         ) ~> 
 
     setRegisterValue(
@@ -10516,7 +10495,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1,
 RSMap:Map => updateMap(RSMap,
  "SF" |-> (extractMInt(addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), 0, 1) )
 
- "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(mi(8, 1), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(mi(8, 255), extractMInt(getParentValue(R1, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 

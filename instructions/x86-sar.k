@@ -34,13 +34,14 @@ module SAR-R64-CL
 
     setFlag(
       (#ifMInt zeroMInt(MIcount)
+      #then
         getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
           fromBool(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          fromBool(zeroMInt(getSignBit(MI)), 1)
+          fromBool(zeroMInt(getSignBit(MIsrc)), 1)
         #fi 
       #fi):>MInt,
       "ZF"
@@ -55,7 +56,7 @@ module SAR-R64-CL
         #then
           extractMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          getSignBit(MI)
+          getSignBit(MIsrc)
         #fi 
       #fi):>MInt,
       "SF"
@@ -92,7 +93,7 @@ module SAR-R64-CL
         "CF") ~> 
 
     setFlag(
-      #ifMInt zeroMInt(MIcount)
+      (#ifMInt zeroMInt(MIcount)
       #then
         getFlag("PF", RSMap)
       #else

@@ -35,6 +35,7 @@ module SHR-R64-CL
 
     setFlag(
       (#ifMInt zeroMInt(MIcount)
+      #then
         getFlag("ZF", RSMap)    
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
@@ -93,7 +94,7 @@ module SHR-R64-CL
         "CF") ~> 
 
     setFlag(
-      #ifMInt zeroMInt(MIcount)
+      (#ifMInt zeroMInt(MIcount)
       #then
         getFlag("PF", RSMap)
       #else
