@@ -517,23 +517,24 @@ module MINT-WRAPPER
 
   /*@ 
     getSignBit(MI): return mi(1, signBit of MI)
-  */
   rule getSignBit(MI:MInt) => 
     fromBool( toBool(
         andMInt(MI, 
             mi(bitwidthMInt(MI), sminMInt(bitwidthMInt(MI)))
         )
       ), 1)
+  */
+  rule getSignBit(MI:MInt) => extractMInt(MI, 0, 1)
 
   /*@ 
     getBitFromMInt(MI, I): return Ith bit of MI
 
     Deprecated to etractMask
-  */
   rule getBitFromMInt(MI:MInt, I:Int) => 
     fromBool( toBool(
         andMInt(MI, shlMInt(mi(bitwidthMInt(MI), 1), I))
         ), 1)
+  */
 
   /*@ 
     sarOverflow(MI): return the value of SAR

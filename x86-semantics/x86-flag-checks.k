@@ -11,7 +11,6 @@ module X86-FLAG-CHECKS
   
   /*@
     Update Overflow Flag.
-  */  
   rule 
   <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
   <regstate>  
@@ -33,6 +32,28 @@ module X86-FLAG-CHECKS
       , 1)
     ] 
   </regstate>
+  */
+  rule 
+  <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
+  <regstate>  
+    RMap => RMap["OF" <-  
+      fromBool(
+        eqMInt(
+          getSignBit(MIsrc1),
+          getSignBit(MIsrc2)
+        ) 
+
+        andBool 
+        
+        ( notBool 
+          eqMInt(
+            getSignBit(MIsrc1),
+            getSignBit(MIres)
+          )
+        )  
+      , 1)
+    ] 
+  </regstate>
 
 
   /*@
@@ -46,7 +67,6 @@ module X86-FLAG-CHECKS
 
   /*@
     Update Sign Flag.
-  */  
   rule 
   <k> updateSignFlag(MI) => . ...</k>
   <regstate>  
@@ -57,6 +77,12 @@ module X86-FLAG-CHECKS
             lshrMInt(MI, bitwidthMInt(MI) -Int 1)) , 
           1) 
     ] 
+  </regstate>
+  */  
+  rule 
+  <k> updateSignFlag(MI) => . ...</k>
+  <regstate>  
+    RMap => RMap["SF" <- extractMInt(MI, 0, 1)]
   </regstate>
 
   /*@
@@ -81,7 +107,6 @@ module X86-FLAG-CHECKS
 
   /*@
     Update Carry Flag.
-  */  
   rule  carryHelperAdd(MIsrc1, MIsrc2, MIres) => 
       ultMInt( MIres, MIsrc1) orBool ultMInt( MIres, MIsrc2)
 
@@ -90,6 +115,21 @@ module X86-FLAG-CHECKS
     RMap => RMap["CF" <- 
       fromBool( carryHelperAdd(MIsrc1, MIsrc2, MIsum) orBool 
           carryHelperAdd(MIsum, MIcarry, MIresult) , 1)
+    ] 
+  </regstate>
+  */  
+  rule <k> updateCarryFlagAdd(MIsrc1, MIsrc2, MIcarry) => . ...</k>
+  <regstate>  
+    RMap => RMap["CF" <- 
+      extractMInt(
+        addMInt(
+          addMInt(
+            concatenateMInt(mi(1, 0), MIsrc1),
+            concatenateMInt(mi(1, 0), MIsrc2)
+          ),
+          concatenateMInt(mi(1, 0), MIcarry)
+        ),
+      0, 1)
     ] 
   </regstate>
 
