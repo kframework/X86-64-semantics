@@ -10,7 +10,7 @@ execinstr ( addq %r10, %r8 , .Typedoperands ) ~>
 execinstr ( xchgw %r8w, %r8w , .Typedoperands ) ~>
 execinstr ( addq %r11, %r9 , .Typedoperands ) ~>
 combineNTo2N(%r8,  %r9, %xmm1, 64, 128, 64) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

@@ -10,7 +10,7 @@ execinstr ( vmovdqa %xmm4, %xmm14 , .Typedoperands ) ~>
 combineNTo2N(%xmm12,  %xmm13, %ymm3, 128, 256, 128) ~>
 execinstr ( vmulpd %ymm14, %ymm3, %ymm12 , .Typedoperands ) ~>
 combineNTo2N(%xmm12,  %xmm13, %xmm1, 64, 128, 128) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

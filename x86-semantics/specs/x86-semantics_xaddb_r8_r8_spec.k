@@ -3,18 +3,18 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rbx, "SPAD1") ~>
-saveRegister(%rcx, "SPAD2") ~>
+saveRegister(%rcx, "SPAD1") ~>
+saveRegister(%rbx, "SPAD2") ~>
 setFlag( mi(1, 0), "CF") ~>
 execinstr ( movsbl %cl, %r13d , .Typedoperands ) ~>
 execinstr ( movsbl %bl, %r15d , .Typedoperands ) ~>
 execinstr ( movsbq %r15b, %rcx , .Typedoperands ) ~>
 execinstr ( adcb %cl, %r13b , .Typedoperands ) ~>
 execinstr ( movslq %r13d, %rbx , .Typedoperands ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
-          0, 8, %rbx) ~>
-restoreRegister("SPAD2", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rcx) ~>
+restoreRegister("SPAD2", 8, 56, 0, 0,
+          0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>

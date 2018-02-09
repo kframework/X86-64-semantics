@@ -3,16 +3,16 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rbx, "SPAD1") ~>
-saveRegister(%rax, "SPAD2") ~>
+saveRegister(%rax, "SPAD1") ~>
+saveRegister(%rbx, "SPAD2") ~>
 split2NToN(%bx,  %r12b, %r13b , 08) ~>
 execinstr ( movswq %ax, %rbx , .Typedoperands ) ~>
 combineNTo2N(%r12b,  %r13b, %cx, 08, 16, 08) ~>
 execinstr ( movzwl %cx, %eax , .Typedoperands ) ~>
-restoreRegister("SPAD1", 16, 48, 0, 0, 
-          0, 16, %rbx) ~>
-restoreRegister("SPAD2", 16, 48, 0, 0, 
+restoreRegister("SPAD1", 16, 48, 0, 0,
           0, 16, %rax) ~>
+restoreRegister("SPAD2", 16, 48, 0, 0,
+          0, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>

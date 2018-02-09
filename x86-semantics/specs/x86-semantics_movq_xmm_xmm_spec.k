@@ -6,7 +6,7 @@ module X86-SEMANTICS-SPEC
 saveRegister(%ymm1, "SPAD1") ~>
 split2NToN(%xmm2,  %xmm10, %xmm11 , 64) ~>
 execinstr ( movdqa %xmm10, %xmm1 , .Typedoperands ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

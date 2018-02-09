@@ -9,7 +9,7 @@ readFlagToRegister( "SF", %rbx ) ~>
 execinstr ( xorw %bx, %cx , .Typedoperands ) ~>
 execinstr ( movslq %ecx, %rdx , .Typedoperands ) ~>
 execinstr ( movb %dl, %ah , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

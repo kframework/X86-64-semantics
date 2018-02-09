@@ -186,3 +186,12 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 endmodule
 
 
+
+Prove same
+=============
+convToRegKeys(R2) |-> (addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), concatenateMInt(mi(63, 0), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1))) )
+
+  %rbx   : (((0x0₁ ∘ %rbx + 0x0₁ ∘ %rbx)[64:64] = 0x1₁ ? 0x0₁ ∘ %rbx + 0x1₆₅ : 0x0₁ ∘ %rbx) + 0x0₁ ∘ %rbx)[63:0]
+
+  
+

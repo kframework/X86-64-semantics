@@ -2335,7 +2335,7 @@ sub checkSupported {
         $opcode eq "xchgw_r16_ax"  or
         $opcode eq "xchgw_ax_r16"
     ) {
-      return 0;
+      return (0, "Redundant Instructions");
 
     }
 
@@ -2353,11 +2353,11 @@ sub checkSupported {
             print $opcode. " "
               . checkBaseInstr($opcode) . " "
               . $derivedInstr . "\n";
-            return 0;
+            return (0, "UnSupported");
         }
     }
 
-    return 1;
+    return (1, "");
 }
 
 sub postProcess {
