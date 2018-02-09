@@ -168,9 +168,75 @@ if ( "" ne $nightlyrun ) {
     exit(0);
 }
 
+if ("" ne $getimm) {
+  my $allinstrs = "/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
+  my $semanticsknown = "/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/strata/all_known_sema_opcodes.txt";
+
+
+  ## Create a map of known semantics 
+  open( my $fp, "<", $semanticsknown ) or die "cannot open: $!";
+  my @lines      = <$fp>;
+  my %knownSemaMap = ();
+  my %auxMap = ();
+
+  for my $line (@lines) {
+    chomp $line;
+    my $opcode = $line =~ s/_.*//gr; 
+    if("" eq $opcode) {
+      next;
+    }   
+    push @{$knownSemaMap{$opcode}}, $line;
+    $auxMap{$opcode} = 0;
+  }
+  close $fp;
+
+  print "Unique opcode in semantic map: ". 
+    scalar(keys %knownSemaMap). "\n";
+
+  ## For each imm instr find the relevant known semantics
+  my @semaNotFlound = ();
+  my $countSemaFound = 0;
+  open( $fp, "<", $allinstrs ) or die "cannot open: $!";
+  @lines      = <$fp>;
+
+  for my $line (@lines) {
+    chomp $line;
+    if($line =~ m/imm/g) {
+      my $opcode = $line =~ s/_.*//gr; 
+
+      if(! exists $knownSemaMap{$opcode}) {  
+        push  @semaNotFlound, $line;
+        next;
+      }
+     
+      $auxMap{$opcode} = 1;
+      $countSemaFound++;
+      my @variants = @{$knownSemaMap{$opcode}};
+      print $line. "\n";    
+      for my $var (@variants) {
+#if($var =~ m/$opcode\_/)
+        print "\t->". $var. "\n";    
+      }
+    }
+  }
+
+  print "\n".$countSemaFound. "\n";
+  print "\n\nKnown Semantics not utilized for imm: ". scalar(keys %auxMap). "\n";
+  for my $temp (keys %auxMap) {
+    if($auxMap{$temp} == 0) {
+      print $temp . "\n";
+    }
+  }
+
+  printArray(\@semaNotFlound, "Semantics Not found", 1);
+  exit(0);
+}
+
+
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines      = <$fp>;
 my $debugprint = 0;
+
 
 ## Git diff
 if ( "" ne $gitdiff ) {
