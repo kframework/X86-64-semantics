@@ -42,5 +42,5 @@ FinalTerm:
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> concatenateMInt(MInt@MINT(#"48'0"),, extractMInt(mi(Int@INT-SYNTAX(#"64"),, ?I2_531:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"48"),, Int@INT-SYNTAX(#"64"))) String@STRING-SYNTAX(#""R12"") |-> concatenateMInt(MInt@MINT(#"56'0"),, extractMInt(mi(Int@INT-SYNTAX(#"64"),, ?I2_531:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"56"),, Int@INT-SYNTAX(#"64"))) String@STRING-SYNTAX(#""R13"") |-> concatenateMInt(MInt@MINT(#"56'0"),, extractMInt(mi(Int@INT-SYNTAX(#"64"),, ?I2_531:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"48"),, Int@INT-SYNTAX(#"56"))) String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_531:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
 [Warning] Critical: missing SMTLib translation for mi
-185.90user 3.73system 0:48.28elapsed 392%CPU (0avgtext+0avgdata 2947040maxresident)k
-8inputs+3896outputs (0major+483532minor)pagefaults 0swaps
+166.46user 3.73system 0:42.92elapsed 396%CPU (0avgtext+0avgdata 3009516maxresident)k
+0inputs+3720outputs (0major+490139minor)pagefaults 0swaps

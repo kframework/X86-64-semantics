@@ -56,5 +56,5 @@ true
 [Warning] Critical: missing SMTLib translation for Float2MInt
 [Warning] Critical: missing SMTLib translation for mi
 [Warning] Internal: Ignored exception thrown by hook _/Float_
-183.52user 4.52system 0:49.37elapsed 380%CPU (0avgtext+0avgdata 3211996maxresident)k
-0inputs+3792outputs (0major+531222minor)pagefaults 0swaps
+198.60user 3.72system 0:47.77elapsed 423%CPU (0avgtext+0avgdata 3439396maxresident)k
+0inputs+3792outputs (0major+587939minor)pagefaults 0swaps

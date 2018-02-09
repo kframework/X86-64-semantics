@@ -20,5 +20,5 @@ IntermediateTerm:
 FinalTerm: 
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
-169.70user 4.00system 0:46.45elapsed 373%CPU (0avgtext+0avgdata 3013428maxresident)k
-8inputs+3696outputs (0major+514898minor)pagefaults 0swaps
+148.83user 3.47system 0:39.62elapsed 384%CPU (0avgtext+0avgdata 2642188maxresident)k
+8inputs+3776outputs (0major+445196minor)pagefaults 0swaps

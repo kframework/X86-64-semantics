@@ -36,5 +36,5 @@ FinalTerm:
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> concatenateMInt(extractMInt(mi(Int@INT-SYNTAX(#"64"),, ?I1_529:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"0"),, Int@INT-SYNTAX(#"56")),, concatenateMInt(MInt@MINT(#"7'0"),, mi(Int@INT-SYNTAX(#"1"),, ?I2_530:Int@INT-SYNTAX))) String@STRING-SYNTAX(#""SF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I2_530:Int@INT-SYNTAX) String@STRING-SYNTAX(#""SPAD1"") |-> concatenateMInt(MInt@MINT(#"192'0"),, mi(Int@INT-SYNTAX(#"64"),, ?I1_529:Int@INT-SYNTAX))   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
 [Warning] Critical: missing SMTLib translation for mi
-170.06user 3.54system 0:46.05elapsed 376%CPU (0avgtext+0avgdata 3061300maxresident)k
-0inputs+3672outputs (0major+503012minor)pagefaults 0swaps
+166.08user 3.59system 0:42.14elapsed 402%CPU (0avgtext+0avgdata 2882512maxresident)k
+0inputs+3792outputs (0major+457433minor)pagefaults 0swaps
