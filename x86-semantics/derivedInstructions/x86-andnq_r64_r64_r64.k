@@ -11,7 +11,7 @@ module ANDNQ-R64-R64-R64
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(R2, RSMap), getParentValue(R1, RSMap))), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (xorMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), orMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(getParentValue(R1, RSMap), 0, 1))) )
 
  "AF" |-> (undef)
 

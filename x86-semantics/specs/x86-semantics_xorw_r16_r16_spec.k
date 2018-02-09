@@ -13,7 +13,7 @@ combineNTo2N(%r8b,  %r9b, %bx, 08, 16, 08) ~>
 execinstr ( xorq %rbx, %r12 , .Typedoperands ) ~>
 execinstr ( movswq %r12w, %rbx , .Typedoperands ) ~>
 setSZPForRegister( %bx ) ~>
-restoreRegister("SPAD1", 16, 48, 0, 0, 
+restoreRegister("SPAD1", 16, 48, 0, 0,
           0, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

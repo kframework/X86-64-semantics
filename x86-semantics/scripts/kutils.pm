@@ -1284,7 +1284,7 @@ sub mixfix2infix {
     my $debugprint = shift @_;
 
     my $bin_op = (
-qr/orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float/
+qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float/
     );
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
@@ -1459,7 +1459,7 @@ sub processSpecOutput {
             #print "InitialTerm: " . $initTerm . "\n";
 
             my @matches = $initTerm =~
-m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, .*?_\d+:Int\@INT-SYNTAX\)/g;
+m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, \?I\d+_\d+:Int\@INT-SYNTAX\)/g;
 
             #debugInfo( print join( "\n", @matches ), $debugprint );
 
@@ -1467,7 +1467,7 @@ m/String\@STRING-SYNTAX\(#""\w+""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, .*?_\
 
                 #print "Matching Lines: " . $match . "\n";
                 if ( $match =~
-m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, .*?_(\d+):Int\@INT-SYNTAX\)/
+m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, \?I\d+_(\d+):Int\@INT-SYNTAX\)/
                   )
                 {
                     $rsmap{"$1"} = $2;
@@ -1922,6 +1922,7 @@ sub sanitizeSpecOutput {
         $mod =~ s/undef\(\.KList\@BASIC-K\)/undef/g;
         $mod =~ s/\(#"(\w+)"\)/"$1"/g;
         $mod =~ s/\($//g;
+        $mod =~ s/\?I\d+_(\d+)/_$1/g;
 
         my $result = "";
 
@@ -1941,8 +1942,9 @@ sub sanitizeSpecOutput {
 
         # Local Optimzations
         ## Replace mi(W, _NUM) => MINUM
-        $result =~ s/mi\(\d+, .*?_(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
-        debugInfo( "Result:$result\n", $debugprint );
+        debugInfo( "PreResult:$result\n", 1 );
+        $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
+        debugInfo( "Result:$result\n", 1 );
 
         push @workList, $result;
     }

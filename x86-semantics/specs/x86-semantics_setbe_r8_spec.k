@@ -9,7 +9,7 @@ readFlagToRegister( "CF", %rbx ) ~>
 execinstr ( cmoveq %rcx, %rbx , .Typedoperands ) ~>
 split2NToN(%ecx,  %r8w, %r9w , 16) ~>
 movByteToPosOfReg( %r8b, 7, %rbx ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

@@ -9,9 +9,9 @@ module RCLL-R32-ONE
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
- "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), extractMInt(getParentValue(R2, RSMap), 32, 64))  orBool  ( ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)))  orBool  ultMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 32, 64))), concatenateMInt(mi(32, 0), getFlag("CF", RSMap))), 0, 1) )
 
- "OF" |-> ((#ifMInt (eqMInt(mi(32, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), 31)), xorMInt(lshrMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), 31), lshrMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), 31)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 32, 33), extractMInt(getParentValue(R2, RSMap), 32, 33))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 32, 33), extractMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap))), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 32, 64), extractMInt(getParentValue(R2, RSMap), 32, 64)), concatenateMInt(mi(31, 0), getFlag("CF", RSMap)))) )
 
