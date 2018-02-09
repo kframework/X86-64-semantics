@@ -7,7 +7,7 @@ saveRegister(%ymm1, "SPAD1") ~>
 execinstr ( vaddpd %xmm2, %xmm1, %xmm9 , .Typedoperands ) ~>
 execinstr ( vminpd %ymm9, %ymm9, %ymm12 , .Typedoperands ) ~>
 execinstr ( movaps %xmm12, %xmm1 , .Typedoperands ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

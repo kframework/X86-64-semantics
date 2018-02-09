@@ -8,7 +8,7 @@ execinstr ( vrcpps %xmm2, %xmm3 , .Typedoperands ) ~>
 splitXmmToR32( %xmm1, %xmm4, %xmm5, %xmm6, %xmm7, 128 ) ~>
 execinstr ( vmovupd %xmm3, %xmm4 , .Typedoperands ) ~>
 combineR32ToXmm( %xmm4, %xmm5, %xmm6, %xmm7, %xmm1 ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

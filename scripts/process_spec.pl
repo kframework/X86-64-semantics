@@ -182,16 +182,21 @@ my $debugprint = 0;
 if ( "" ne $gitdiff ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
 
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
-        execute("git diff -U0 $koutput");
+#execute("git diff -U0 $koutput");
+        execute("git diff  $koutput");
     }
 }
 
@@ -199,12 +204,16 @@ if ( "" ne $gitdiff ) {
 if ( "" ne $gitadd ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
+        }
+
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
         }
 
         my $filesToAdd = "";
@@ -226,13 +235,17 @@ if ( "" ne $gitadd ) {
 if ( "" ne $createspec ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
         print "\n";
@@ -243,13 +256,17 @@ if ( "" ne $createspec ) {
 if ( "" ne $kprove ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         kutils::runkprove( $opcode, $specdir, $debugprint );
         print "\n";
     }
@@ -260,14 +277,18 @@ if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
         chomp $opcode;
         
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
         
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         my $isManuallyGenerated = kutils::checkManuallyGenerated( $opcode, $debugprint);
         if ( 1 == $isManuallyGenerated ) {
             utils::warnInfo("$opcode: Manually Generated");
@@ -283,13 +304,17 @@ if ( "" ne $postprocess ) {
 if ( "" ne $all ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
         kutils::runkprove( $opcode, $specdir, $debugprint );
@@ -306,13 +331,17 @@ if ( "" ne $genincludes ) {
 
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         my $req         = "requires \"x86-${opcode}.k\"";
         my $koutput     = "$derivedInstructions/x86-${opcode}.k";
         my $matches_ref = utils::myGrep( "-SEMANTICS", "sdasgup3", $koutput );
@@ -365,13 +394,17 @@ if ( "" ne $checksanity ) {
 
     for my $opcode (@lines) {
         chomp $opcode;
-        my $isSupported =
+        my ($isSupported, $reason) =
           kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
             $debugprint );
         if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: Unsupported");
+            utils::warnInfo("$opcode: $reason");
             next;
         }
+        if("" ne $reason) {
+          utils::warnInfo("$opcode: $reason");
+        }
+
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
 
         utils::info("$opcode: Check Sanity");

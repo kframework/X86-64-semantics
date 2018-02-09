@@ -7,7 +7,7 @@ saveRegister(%ymm1, "SPAD1") ~>
 split2NToN(%xmm1,  %xmm8, %xmm9 , 64) ~>
 execinstr ( movups %xmm2, %xmm8 , .Typedoperands ) ~>
 combineNTo2N(%xmm8,  %xmm9, %xmm1, 64, 128, 128) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

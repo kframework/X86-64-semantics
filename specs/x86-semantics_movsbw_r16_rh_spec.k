@@ -6,7 +6,7 @@ module X86-SEMANTICS-SPEC
 saveRegister(%rbx, "SPAD1") ~>
 execinstr ( movb %ah, %cl , .Typedoperands ) ~>
 execinstr ( movsbl %cl, %ebx , .Typedoperands ) ~>
-restoreRegister("SPAD1", 16, 48, 0, 0, 
+restoreRegister("SPAD1", 16, 48, 0, 0,
           0, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

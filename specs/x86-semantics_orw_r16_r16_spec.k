@@ -9,7 +9,7 @@ execinstr ( xchgw %cx, %bx , .Typedoperands ) ~>
 execinstr ( movswq %cx, %rax , .Typedoperands ) ~>
 execinstr ( orq %rax, %rdx , .Typedoperands ) ~>
 execinstr ( movslq %edx, %rbx , .Typedoperands ) ~>
-restoreRegister("SPAD1", 16, 48, 0, 0, 
+restoreRegister("SPAD1", 16, 48, 0, 0,
           0, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

@@ -11,7 +11,7 @@ execinstr ( xchgl %r8d, %r9d , .Typedoperands ) ~>
 execinstr ( xorq %rbx, %rbx , .Typedoperands ) ~>
 readFlagToRegister( "PF", %rbx ) ~>
 execinstr ( xorq %r9, %rbx , .Typedoperands ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

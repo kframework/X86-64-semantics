@@ -8,7 +8,7 @@ execinstr ( movdqa %xmm1, %xmm0 , .Typedoperands ) ~>
 splitXmmToR32( %xmm1, %xmm8, %xmm9, %xmm10, %xmm11, 128 ) ~>
 execinstr ( vmulps %xmm2, %xmm0, %xmm8 , .Typedoperands ) ~>
 combineR32ToXmm( %xmm8, %xmm9, %xmm10, %xmm11, %xmm1 ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

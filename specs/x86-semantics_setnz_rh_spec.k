@@ -8,7 +8,7 @@ setFlag( mi(1, 1), "CF") ~>
 execinstr ( setnae %ah , .Typedoperands ) ~>
 readFlagToRegister( "CF", %rcx ) ~>
 execinstr ( cmoveq %rcx, %rax , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

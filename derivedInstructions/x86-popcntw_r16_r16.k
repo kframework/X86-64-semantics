@@ -19,7 +19,7 @@ RSMap:Map => updateMap(RSMap,
 
  "OF" |-> (mi(1, 0) )
 
-convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), extractMInt(mi(64, countOnes(concatenateMInt(mi(48, 0), extractMInt(getParentValue(R1, RSMap), 48, 64)), 0)), 48, 64)) )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), extractMInt(mi(64, countOnes(extractMInt(getParentValue(R1, RSMap), 48, 64), 0)), 48, 64)) )
 
  "ZF" |-> ((#ifMInt (eqMInt(concatenateMInt(mi(48, 0), extractMInt(getParentValue(R1, RSMap), 48, 64)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
