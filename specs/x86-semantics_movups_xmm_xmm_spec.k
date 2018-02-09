@@ -6,7 +6,7 @@ module X86-SEMANTICS-SPEC
 saveRegister(%ymm1, "SPAD1") ~>
 splitXmmToR32( %xmm2, %xmm4, %xmm5, %xmm6, %xmm7, 128 ) ~>
 combineR32ToXmm( %xmm4, %xmm5, %xmm6, %xmm7, %xmm1 ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

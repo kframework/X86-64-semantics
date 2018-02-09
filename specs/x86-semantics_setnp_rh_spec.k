@@ -10,7 +10,7 @@ movByteToPosOfReg( %r8b, 2, %rbx ) ~>
 setSZPForRegister( %bx ) ~>
 readFlagToRegister( "ZF", %rbx ) ~>
 execinstr ( movb %bl, %ah , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

@@ -5,7 +5,7 @@ module X86-SEMANTICS-SPEC
     <k>
 saveRegister(%rbx, "SPAD1") ~>
 readFlagToRegister( "PF", %rbx ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
