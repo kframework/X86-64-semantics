@@ -50,6 +50,7 @@ my $singlefiledefn = "";
 my $nightlyrun     = "";
 my $start          = "";
 my $getimm         = "";
+my $getmem           = "";
 
 GetOptions(
     "help"           => \$help,
@@ -69,6 +70,7 @@ GetOptions(
     "gitco"          => \$gitco,
     "singlefiledefn" => \$singlefiledefn,
     "getimm"         => \$getimm,
+    "getmem"         => \$getmem,
     "nightlyrun"     => \$nightlyrun,
     "start:s"        => \$start,
     "strata_path:s"  => \$strata_path,
@@ -168,9 +170,14 @@ if ( "" ne $nightlyrun ) {
     exit(0);
 }
 
-if ("" ne $getimm) {
+if ("" ne $getimm or "" ne $getmem) {
   my $allinstrs = "/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
   my $semanticsknown = "/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/strata/all_known_sema_opcodes.txt";
+
+  my $patt = "_m8|_16|_m32|_m64|_m128|_m256";
+  if("" ne $getimm) {
+    $patt = "_imm";
+  }
 
 
   ## Create a map of known semantics 
@@ -188,10 +195,17 @@ if ("" ne $getimm) {
     push @{$knownSemaMap{$opcode}}, $line;
     $auxMap{$opcode} = 0;
   }
+
+  ## Sanity check on map
+  my $count = 0;
+  for my $key (keys %knownSemaMap) {
+    $count += scalar(@{$knownSemaMap{$key}});
+  }
   close $fp;
 
+  print "Total number of instr in semantic map (743): ". $count."\n";
   print "Unique opcode in semantic map: ". 
-    scalar(keys %knownSemaMap). "\n";
+    scalar(keys %knownSemaMap). "\n\n";
 
   ## For each imm instr find the relevant known semantics
   my @semaNotFlound = ();
@@ -201,7 +215,7 @@ if ("" ne $getimm) {
 
   for my $line (@lines) {
     chomp $line;
-    if($line =~ m/imm/g) {
+    if($line =~ m/$patt/g) {
       my $opcode = $line =~ s/_.*//gr; 
 
       if(! exists $knownSemaMap{$opcode}) {  
@@ -220,15 +234,22 @@ if ("" ne $getimm) {
     }
   }
 
-  print "\n".$countSemaFound. "\n";
-  print "\n\nKnown Semantics not utilized for imm: ". scalar(keys %auxMap). "\n";
+  my @notUtilized = ();
+  my $countUtilized = 0;
   for my $temp (keys %auxMap) {
     if($auxMap{$temp} == 0) {
-      print $temp . "\n";
+      push @notUtilized, $temp;
+    } else {
+      $countUtilized ++;
     }
   }
+  print "\n\nKnown Semantics (not utilized/utilized/total) for imm: ". 
+    scalar(@notUtilized). "/". $countUtilized."/".scalar(keys %auxMap). "\n";
+#printArray(\@notUtilized, "Semantics Not Utilized", 1);
 
-  printArray(\@semaNotFlound, "Semantics Not found", 1);
+  print "\nInstr whose reg sema is present/absent: ".
+    $countSemaFound. "/". scalar(@semaNotFlound). "\n";
+#printArray(\@semaNotFlound, "Semantics Not found", 1);
   exit(0);
 }
 
