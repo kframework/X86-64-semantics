@@ -11,26 +11,24 @@ module ADC-R8-R8
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcb (R1:R8,  (R2:R8, .Typedoperands)) ) =>
-      execinstr(adcb (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            zeroExtend(getFlag("CF", RSMap), 8), .Typedoperands)) 
+    execinstr (adcb R1:R8, R2:R8, .Typedoperands) =>
+      execinstr(adcb R2, 
+          getRegisterValue(R1, RSMap), 
+          getRegisterValue(R2, RSMap), 
+          zeroExtend(getFlag("CF", RSMap), 8),
+          addMInt(addMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 8)),
+          .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>
-
-  rule <k>
-    execinstr(adcb ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcb ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
-            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
-  ...</k>
   
   rule <k>
-    execinstr(adcb ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+    execinstr(adcb DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIcarry) ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
   ...</k>
@@ -42,26 +40,24 @@ module ADC-R16-R16
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcw (R1:R16,  (R2:R16, .Typedoperands)) ) =>
-      execinstr(adcw (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            zeroExtend(getFlag("CF", RSMap), 16), .Typedoperands)) 
+    execinstr (adcw R1:R16,  R2:R16, .Typedoperands) =>
+      execinstr(adcw R2, 
+          getRegisterValue(R1, RSMap), 
+          getRegisterValue(R2, RSMap), 
+          zeroExtend(getFlag("CF", RSMap), 16), 
+          addMInt(addMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 16)),
+          .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(adcw ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcw ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
-            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
-  ...</k>
-  
-  rule <k>
-    execinstr(adcw ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+    execinstr(adcw DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIcarry) ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
   ...</k>
@@ -73,26 +69,24 @@ module ADC-R32-R32
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcl (R1:R32,  (R2:R32, .Typedoperands)) ) =>
-      execinstr(adcl (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            zeroExtend(getFlag("CF", RSMap), 32), .Typedoperands)) 
+    execinstr (adcl R1:R32,  R2:R32, .Typedoperands) =>
+      execinstr(adcl R2, 
+          getRegisterValue(R1, RSMap), 
+          getRegisterValue(R2, RSMap), 
+          zeroExtend(getFlag("CF", RSMap), 32), 
+          addMInt(addMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 32)),
+          .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>
 
-  rule <k> 
-    execinstr(adcl ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcl ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
-            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
-  ...</k>
-  
   rule <k>
-    execinstr(adcl ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIcarry) ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(concatenateMInt(mi(32, 0), MIresult), convSubRegsToRegs(DestR)) 
   ...</k>
@@ -104,26 +98,24 @@ module ADC-R64-R64
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcq (R1:R64,  (R2:R64, .Typedoperands)) ) =>
-      execinstr(adcq (R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            zeroExtend(getFlag("CF", RSMap), 64), .Typedoperands)) 
+    execinstr (adcq R1:R64,  R2:R64, .Typedoperands) =>
+      execinstr(adcq R2, 
+          getRegisterValue(R1, RSMap), 
+          getRegisterValue(R2, RSMap), 
+          zeroExtend(getFlag("CF", RSMap), 64), 
+          addMInt(addMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 64)),
+          .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>
-
-  rule <k> 
-    execinstr(adcq ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, .Typedoperands )) => 
-      execinstr(adcq ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry, addMInt(MIsrc1, MIsrc2), 
-            addMInt(addMInt(MIsrc1, MIsrc2), MIcarry), .Typedoperands )) 
-  ...</k>
   
   rule <k>
-    execinstr(adcq ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIsum:MInt, MIresult:MInt, .Typedoperands )) 
+    execinstr(adcq DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIcarry) ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
   ...</k>
