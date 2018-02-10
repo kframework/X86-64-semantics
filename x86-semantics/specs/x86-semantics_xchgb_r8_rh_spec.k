@@ -10,9 +10,9 @@ execinstr ( movb %ch, %cl , .Typedoperands ) ~>
 execinstr ( movzbl %ah, %edx , .Typedoperands ) ~>
 execinstr ( xaddb %bl, %dl , .Typedoperands ) ~>
 execinstr ( movb %cl, %ah , .Typedoperands ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
-restoreRegister("SPAD2", 0, 8, 16, 48, 
+restoreRegister("SPAD2", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

@@ -9,13 +9,13 @@ module DECW-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
- "SF" |-> ((#ifMInt (eqMInt(mi(16, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 15)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (extractMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 0, 1) )
 
  "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535))), 4), mi(16, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 8, 16), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(extractMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 8, 16), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ((#ifMInt (eqMInt(mi(16, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), 15), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 15)), xorMInt(mi(16, 1), lshrMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 15)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R1, RSMap), 48, 49), mi(1, 1))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R1, RSMap), 48, 49), extractMInt(addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535)), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 48), addMInt(extractMInt(getParentValue(R1, RSMap), 48, 64), mi(16, 65535))) )
 

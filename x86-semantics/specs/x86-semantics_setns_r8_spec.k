@@ -10,7 +10,7 @@ combineNTo2N(%r12w,  %r13w, %edx, 16, 32, 16) ~>
 split2NToN(%edx,  %r10w, %r11w , 16) ~>
 execinstr ( popcntw %r10w, %r10w , .Typedoperands ) ~>
 execinstr ( sete %bl , .Typedoperands ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
