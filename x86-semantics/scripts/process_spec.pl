@@ -11,7 +11,7 @@ use Cwd;
 use File::Path qw(make_path remove_tree);
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+use lib qw( /home/sdasgup3/Github/x86_semantics_immm/x86-semantics/scripts/ );
 use kutils;
 use File::Find;
 use File::chdir;
@@ -170,86 +170,13 @@ if ( "" ne $nightlyrun ) {
     exit(0);
 }
 
-if ("" ne $getimm or "" ne $getmem) {
-  my $allinstrs = "/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
-  my $semanticsknown = "/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/strata/all_known_sema_opcodes.txt";
+if ("" ne $getimm) {
+  kutils::getImmInstrs();
+  exit(0);
+}
 
-  my $patt = "_m8|_16|_m32|_m64|_m128|_m256";
-  if("" ne $getimm) {
-    $patt = "_imm";
-  }
-
-
-  ## Create a map of known semantics 
-  open( my $fp, "<", $semanticsknown ) or die "cannot open: $!";
-  my @lines      = <$fp>;
-  my %knownSemaMap = ();
-  my %auxMap = ();
-
-  for my $line (@lines) {
-    chomp $line;
-    my $opcode = $line =~ s/_.*//gr; 
-    if("" eq $opcode) {
-      next;
-    }   
-    push @{$knownSemaMap{$opcode}}, $line;
-    $auxMap{$opcode} = 0;
-  }
-
-  ## Sanity check on map
-  my $count = 0;
-  for my $key (keys %knownSemaMap) {
-    $count += scalar(@{$knownSemaMap{$key}});
-  }
-  close $fp;
-
-  print "Total number of instr in semantic map (743): ". $count."\n";
-  print "Unique opcode in semantic map: ". 
-    scalar(keys %knownSemaMap). "\n\n";
-
-  ## For each imm instr find the relevant known semantics
-  my @semaNotFlound = ();
-  my $countSemaFound = 0;
-  open( $fp, "<", $allinstrs ) or die "cannot open: $!";
-  @lines      = <$fp>;
-
-  for my $line (@lines) {
-    chomp $line;
-    if($line =~ m/$patt/g) {
-      my $opcode = $line =~ s/_.*//gr; 
-
-      if(! exists $knownSemaMap{$opcode}) {  
-        push  @semaNotFlound, $line;
-        next;
-      }
-     
-      $auxMap{$opcode} = 1;
-      $countSemaFound++;
-      my @variants = @{$knownSemaMap{$opcode}};
-      print $line. "\n";    
-      for my $var (@variants) {
-#if($var =~ m/$opcode\_/)
-        print "\t->". $var. "\n";    
-      }
-    }
-  }
-
-  my @notUtilized = ();
-  my $countUtilized = 0;
-  for my $temp (keys %auxMap) {
-    if($auxMap{$temp} == 0) {
-      push @notUtilized, $temp;
-    } else {
-      $countUtilized ++;
-    }
-  }
-  print "\n\nKnown Semantics (not utilized/utilized/total) for imm: ". 
-    scalar(@notUtilized). "/". $countUtilized."/".scalar(keys %auxMap). "\n";
-#printArray(\@notUtilized, "Semantics Not Utilized", 1);
-
-  print "\nInstr whose reg sema is present/absent: ".
-    $countSemaFound. "/". scalar(@semaNotFlound). "\n";
-#printArray(\@semaNotFlound, "Semantics Not found", 1);
+if ("" ne $getmem) {
+  kutils::getMemInstrs();
   exit(0);
 }
 
