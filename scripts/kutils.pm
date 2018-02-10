@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -2400,6 +2400,148 @@ sub checkManuallyGenerated {
     }
 
     return 0;
+}
+
+sub getMemInstrs {
+    my $patt = "_m8|_16|_m32|_m64|_m128|_m256";
+
+}
+
+sub getImmInstrs {
+    my $allinstrs =
+"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
+    my $semanticsknown =
+"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/strata/all_known_sema_opcodes.txt";
+
+    ## Create a map of known semantics
+    open( my $fp, "<", $semanticsknown ) or die "cannot open: $!";
+    my @lines        = <$fp>;
+    my %knownSemaMap = ();
+    my %auxMap       = ();
+
+    for my $line (@lines) {
+        chomp $line;
+        my $opcode = $line =~ s/_.*//gr;
+        if ( "" eq $opcode ) {
+            next;
+        }
+        push @{ $knownSemaMap{$opcode} }, $line;
+        $auxMap{$opcode} = 0;
+    }
+
+    ## Sanity check on map
+    my $count = 0;
+    for my $key ( keys %knownSemaMap ) {
+        $count += scalar( @{ $knownSemaMap{$key} } );
+    }
+    close $fp;
+
+    print "Total number of instr in semantic map (743): " . $count . "\n";
+    print "Unique opcode in semantic map: "
+      . scalar( keys %knownSemaMap ) . "\n\n";
+
+    ## For each imm instr find the relevant known semantics
+    my @semaNotFlound  = ();
+    my $countSemaFound = 0;
+    open( $fp, "<", $allinstrs ) or die "cannot open: $!";
+    @lines = <$fp>;
+
+    ### Imm patterns
+    my $patt     = qr/imm(\d+)/;
+    my $antipatt = qr/_m16|_m8|_m32|_m64|_m128|_m256/;
+
+    for my $line (@lines) {
+        chomp $line;
+        my $hack = $line;  
+
+        ## Check if the instr is an imm-reg instr
+        #print "$line\n";
+        if ( $line =~ m/$patt/g ) {
+            my $immSize = $1;
+
+            if ( $hack =~ m/$antipatt/g ) {
+                next;
+            }
+
+
+            my $opcode = $line =~ s/_.*//gr;
+
+            if ( !exists $knownSemaMap{$opcode} ) {
+                push @semaNotFlound, $line;
+                next;
+            }
+
+            ## Collect Stats
+            $auxMap{$opcode} = 1;
+            $countSemaFound++;
+
+            my @variants = @{ $knownSemaMap{$opcode} };
+            print "\nImm Instr: " . $line . "\n";
+
+            ## Guess the register variant
+            my $replReg = "";
+
+            if ( $immSize == 8 ) {
+                $replReg = "r8";
+            }
+            if ( $immSize == 16 ) {
+                $replReg = "r16";
+            }
+            if ( $immSize == 32 ) {
+                $replReg = "r32";
+            }
+            if ( $immSize == 64 ) {
+                $replReg = "r64";
+            }
+
+            my $mod1 = $line =~ s/imm(\d+)/$replReg/gr;
+            my $mod2 = $mod1 =~ s/rax/r64/gr;
+            my $mod3 = $mod2 =~ s/eax/r32/gr;
+            my $mod4 = $mod3 =~ s/ax/r16/gr;
+            my $mod5 = $mod4 =~ s/al/r8/gr;
+
+            my $guess = $mod5;
+            print "Guess: " . $guess . "\n";
+
+            my $foundOne = 0;
+            for my $var (@variants) {
+                if ( $guess eq $var ) {
+                    $foundOne = 1;
+                    print "\t->" . $var . "\n";
+                }
+            }
+
+            if ( 0 == $foundOne ) {
+                print("$line has no register variant");
+                printArray( \@variants, "Available known Semantics", 1 );
+            }
+
+        }
+    }
+
+    my @notUtilized   = ();
+    my $countUtilized = 0;
+    for my $temp ( keys %auxMap ) {
+        if ( $auxMap{$temp} == 0 ) {
+            push @notUtilized, $temp;
+        }
+        else {
+            $countUtilized++;
+        }
+    }
+    print "\n\nKnown Semantics (not utilized/utilized/total) for imm: "
+      . scalar(@notUtilized) . "/"
+      . $countUtilized . "/"
+      . scalar( keys %auxMap ) . "\n";
+
+    #printArray(\@notUtilized, "Semantics Not Utilized", 1);
+
+    print "\nInstr whose reg sema is present/absent: "
+      . $countSemaFound . "/"
+      . scalar(@semaNotFlound) . "\n";
+
+    #printArray(\@semaNotFlound, "Semantics Not found", 1);
+
 }
 
 1;
