@@ -9,7 +9,7 @@ execinstr ( vmovaps %ymm0, %ymm2 , .Typedoperands ) ~>
 execinstr ( vcvtdq2pd %ymm2, %ymm3 , .Typedoperands ) ~>
 split2NToN(%ymm3,  %xmm12, %xmm13 , 128) ~>
 combineNTo2N(%xmm12,  %xmm13, %xmm1, 64, 128, 128) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

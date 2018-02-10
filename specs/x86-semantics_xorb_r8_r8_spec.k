@@ -7,7 +7,7 @@ saveRegister(%rbx, "SPAD1") ~>
 execinstr ( movb %cl, %bh , .Typedoperands ) ~>
 execinstr ( xorb %bh, %bl , .Typedoperands ) ~>
 setSZPForRegister( %bl ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

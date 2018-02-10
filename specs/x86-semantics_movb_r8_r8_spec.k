@@ -9,7 +9,7 @@ setSZPForRegister( %rbx ) ~>
 execinstr ( movzbq %cl, %r15 , .Typedoperands ) ~>
 readFlagToRegister( "SF", %rbx ) ~>
 execinstr ( xaddb %r15b, %bl , .Typedoperands ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

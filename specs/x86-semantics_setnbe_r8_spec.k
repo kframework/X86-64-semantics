@@ -10,7 +10,7 @@ split2NToN(%rbx,  %r12d, %r13d , 32) ~>
 combineNTo2N(%r12d,  %r13d, %rbx, 32, 64, 32) ~>
 execinstr ( xaddl %r13d, %ebx , .Typedoperands ) ~>
 readFlagToRegister( "ZF", %rbx ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
