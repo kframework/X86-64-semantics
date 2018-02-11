@@ -5,7 +5,7 @@ module X86-SEMANTICS-SPEC
     <k>
 saveRegister(%ymm1, "SPAD1") ~>
 execinstr ( pxor %xmm2, %xmm1 , .Typedoperands ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

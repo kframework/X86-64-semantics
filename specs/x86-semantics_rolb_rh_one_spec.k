@@ -9,7 +9,7 @@ execinstr ( setns %al , .Typedoperands ) ~>
 execinstr ( xaddb %ah, %al , .Typedoperands ) ~>
 execinstr ( xaddb %ah, %al , .Typedoperands ) ~>
 execinstr ( addw %ax, %ax , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

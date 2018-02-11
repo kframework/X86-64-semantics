@@ -8,7 +8,7 @@ execinstr ( movzbl %bl, %r14d , .Typedoperands ) ~>
 execinstr ( negw %r14w , .Typedoperands ) ~>
 execinstr ( xaddb %bl, %r14b , .Typedoperands ) ~>
 setSZPForRegister( %bl ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

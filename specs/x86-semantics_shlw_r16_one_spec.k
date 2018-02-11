@@ -10,7 +10,7 @@ execinstr ( cltq  .Typedoperands ) ~>
 execinstr ( cltq  .Typedoperands ) ~>
 execinstr ( adcw %ax, %bx , .Typedoperands ) ~>
 execinstr ( addw %bx, %bx , .Typedoperands ) ~>
-restoreRegister("SPAD1", 16, 48, 0, 0, 
+restoreRegister("SPAD1", 16, 48, 0, 0,
           0, 16, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

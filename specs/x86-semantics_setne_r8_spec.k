@@ -10,7 +10,7 @@ split2NToN(%bx,  %r8b, %r9b , 08) ~>
 movByteToPosOfReg( %r9b, 6, %rbx ) ~>
 execinstr ( xaddb %bh, %bl , .Typedoperands ) ~>
 movByteToPosOfReg( %r8b, 5, %rbx ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

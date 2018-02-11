@@ -8,7 +8,7 @@ execinstr ( vmovdqu %xmm1, %xmm14 , .Typedoperands ) ~>
 execinstr ( vunpcklpd %xmm14, %xmm2, %xmm8 , .Typedoperands ) ~>
 execinstr ( vsubps %ymm8, %ymm14, %ymm11 , .Typedoperands ) ~>
 execinstr ( movss %xmm11, %xmm1 , .Typedoperands ) ~>
-restoreRegister("SPAD1", 128, 128, 0, 0, 
+restoreRegister("SPAD1", 128, 128, 0, 0,
           0, 128, %ymm1) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

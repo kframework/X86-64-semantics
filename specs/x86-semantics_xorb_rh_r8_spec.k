@@ -11,7 +11,7 @@ execinstr ( xorb %ah, %bl , .Typedoperands ) ~>
 execinstr ( popcntw %r8w, %ax , .Typedoperands ) ~>
 execinstr ( xaddb %ah, %bl , .Typedoperands ) ~>
 execinstr ( rcll $0x1, %edi , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

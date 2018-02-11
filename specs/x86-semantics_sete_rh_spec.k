@@ -7,7 +7,7 @@ saveRegister(%rax, "SPAD1") ~>
 readFlagToRegister( "ZF", %rbx ) ~>
 execinstr ( xorw %ax, %ax , .Typedoperands ) ~>
 execinstr ( xaddb %bl, %ah , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
