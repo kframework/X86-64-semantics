@@ -35,11 +35,21 @@ module FLOAT-LEMMAS
   imports FLOAT
 
   // add
+  rule F:Float +Float 0e+00 => F
   rule F:Float +Float 0e+00f => F
+  rule F:Float +Float -0e+00f => F
   rule 0e+00f +Float F:Float  => F
+  rule -0e+00f +Float F:Float  => F
 
   // sub
   rule F:Float -Float 0e+00f => F
+  rule F:Float -Float -0e+00f => F
+
+  // computation simplifications
+  rule F1:Float -Float (0e+00f  -Float F2) => F1:Float +Float F2
+  rule F1:Float -Float (-0e+00f -Float F2) => F1:Float +Float F2
+  rule F1:Float +Float (0e+00f  -Float F2) => F1:Float -Float F2
+  rule F1:Float +Float (-0e+00f -Float F2) => F1:Float -Float F2
 
   // mul
   rule 0e+00f:Float *Float F:Float  => 0e+00f
@@ -100,11 +110,21 @@ module MINT-LEMMAS
   rule xorMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, 0) [lemma]
   rule xorMInt(MI:MInt, MI:MInt) => mi(bitwidthMInt(MI), 0) [lemma]
 
+  // Cannot use zeroMInt here, becuase of inf recursion triggered
+  // while evaluating function xorMInt, zeroMInt
+  rule xorMInt (ZMI:MInt, MI:MInt) => MI
+    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+  rule xorMInt (MI:MInt, ZMI:MInt) => MI
+    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+
   // orMInt
   rule orMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, I) [lemma]
   rule orMInt(MI:MInt, MI:MInt) =>  MI [lemma]
-  rule orMInt(MIZ, MI:MInt) =>  MI 
-    requires zeroMInt(MIZ)
+
+  rule orMInt(ZMI:MInt, MI:MInt) =>  MI 
+    requires zeroMInt(ZMI)
+  rule orMInt(MI, ZMI:MInt) =>  MI 
+    requires zeroMInt(ZMI)
 
   // ultMInt
   rule ultMInt(_, MI) =>  false                         

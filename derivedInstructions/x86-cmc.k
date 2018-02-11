@@ -9,7 +9,7 @@ module CMC
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
- "CF" |-> ((#ifMInt (ultMInt(addMInt(extractMInt(addMInt(concatenateMInt(mi(15, 0), getFlag("CF", RSMap)), mi(16, 65535)), 8, 16), extractMInt(addMInt(concatenateMInt(mi(15, 0), getFlag("CF", RSMap)), mi(16, 65535)), 8, 16)), extractMInt(addMInt(concatenateMInt(mi(15, 0), getFlag("CF", RSMap)), mi(16, 65535)), 8, 16)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(addMInt(concatenateMInt(mi(15, 0), getFlag("CF", RSMap)), mi(16, 65535)), 8, 16)), concatenateMInt(mi(1, 0), extractMInt(addMInt(concatenateMInt(mi(15, 0), getFlag("CF", RSMap)), mi(16, 65535)), 8, 16))), 0, 1) )
 
 
 )
