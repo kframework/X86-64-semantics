@@ -2462,57 +2462,87 @@ sub getImmInstrs {
             if ( $hack =~ m/$antipatt/g ) {
                 next;
             }
+            if ( $hack =~ m/imm(\d+)_1/g ) {
+                next;
+            }
 
 
             my $opcode = $line =~ s/_.*//gr;
 
+            ## Collect Stats
             if ( !exists $knownSemaMap{$opcode} ) {
                 push @semaNotFlound, $line;
                 next;
             }
 
-            ## Collect Stats
             $auxMap{$opcode} = 1;
             $countSemaFound++;
+            #####
 
             my @variants = @{ $knownSemaMap{$opcode} };
             print "\nImm Instr: " . $line . "\n";
 
-            ## Guess the register variant
-            my $replReg = "";
+            ## Some simple modofications of imm inst
+            ## inorder to get a match.
+            my $mod1 = $line =~ s/_rax/_r64/gr;
+            my $mod2 = $mod1 =~ s/_eax/_r32/gr;
+            my $mod3 = $mod2 =~ s/_ax/_r16/gr;
+            my $mod4 = $mod3 =~ s/_al/_r8/gr;
+            my $mod5 = "";
 
+            my @guesses = ();
+            my $foundOne = 0;
+
+#print "Check For exact operand size\n";
+
+            push @guesses, "Type Exact";
             if ( $immSize == 8 ) {
-                $replReg = "r8";
+                push @guesses, $mod4 =~ s/imm(\d+)/r8/gr;
+                push @guesses, $mod4 =~ s/imm(\d+)/cl/gr;
             }
             if ( $immSize == 16 ) {
-                $replReg = "r16";
+                push @guesses, $mod4 =~ s/imm(\d+)/r16/gr;
             }
             if ( $immSize == 32 ) {
-                $replReg = "r32";
+                push @guesses, $mod4 =~ s/imm(\d+)/r32/gr;
             }
             if ( $immSize == 64 ) {
-                $replReg = "r64";
+                push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
             }
 
-            my $mod1 = $line =~ s/imm(\d+)/$replReg/gr;
-            my $mod2 = $mod1 =~ s/rax/r64/gr;
-            my $mod3 = $mod2 =~ s/eax/r32/gr;
-            my $mod4 = $mod3 =~ s/ax/r16/gr;
-            my $mod5 = $mod4 =~ s/al/r8/gr;
+#print "Check For \"Require Extension\"\n";
 
-            my $guess = $mod5;
-            print "Guess: " . $guess . "\n";
+            push @guesses, "Type Extend";
+            if ( $immSize == 8 ) {
+                push @guesses, $mod4 =~ s/imm(\d+)/r16/gr;
+                push @guesses, $mod4 =~ s/imm(\d+)/r32/gr;
+                push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+            }
+            if ( $immSize == 16 ) {
+                push @guesses, $mod4 =~ s/imm(\d+)/r32/gr;
+                push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+            }
+            if ( $immSize == 32 ) {
+                push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+            }
 
-            my $foundOne = 0;
+            printArray( \@guesses, "Guesses", 1 );
+            my $matchType = "";
             for my $var (@variants) {
+              for my $guess (@guesses) {
+                if($guess =~ m/Type (\w+)/g) {
+                  $matchType = $1;
+                }
                 if ( $guess eq $var ) {
                     $foundOne = 1;
-                    print "\t->" . $var . "\n";
+                    print "\t-$matchType->" . $var . "\n";
                 }
+
+              }
             }
 
             if ( 0 == $foundOne ) {
-                print("$line has no register variant");
+                print("$line has no register variant\n");
                 printArray( \@variants, "Available known Semantics", 1 );
             }
 
