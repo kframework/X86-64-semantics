@@ -76,6 +76,7 @@ TEST_INPUTS(
     xaddb %al,  %al
     xaddb %al,  %ah
     xaddb %ah,  %al
+    xaddb %ah,  %ah
     xaddw %ax,  %ax
     xaddl %eax,  %eax
     xaddq %rax,  %rax
@@ -87,6 +88,7 @@ TEST_INPUTS(
     xaddb %bl,  %al
     xaddb %bl,  %ah
     xaddb %bh,  %al
+    xaddb %bh,  %ah
     xaddw %bx,  %ax
     xaddl %ebx,  %eax
     xaddq %rbx,  %rax

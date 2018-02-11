@@ -14,6 +14,7 @@ R7	 Same key; xaddb
 R8	For instrs like vxorps $xmm2, %xmm2, %xm7 the R provided by instr_info is null; So its better to add the operand from the instr itself.						
 R9	Float lemmas
 R10: distribute extratctMInt over addMInt
+R11: adding Float associative rules over 0/-0
 							
 P1	 K rule optmization is better that Strata's						
 							
@@ -50,7 +51,7 @@ nopw_r16	0	0
 rcll_r32_one	0	2					
 rclq_r64_one	0	1					
 rclw_r16_one	0	1					
-sarxq_r64_r64_r64	0	5	CTD	OPT	R1		
+sarxq_r64_r64_r64	0	5	CTD	OPTD	R1		
 setae_r8	0	3	YD				
 setb_r8	0	3	YD				
 setbe_r8	0	5	YD				
@@ -246,7 +247,7 @@ setl_rh	2	13
 setnae_r8	2	7					
 setnb_rh	2	7					
 setnbe_r8	2	14					
-setnc_rh	2	9	OPT	R5			
+setnc_rh	2	9	OPT:CRITICAL	R5			
 setne_rh	2	5					
 setns_r8	2	12					
 setpe_r8	2	8	OPTD	R6			
@@ -429,7 +430,7 @@ vhaddpd_ymm_ymm_ymm	4	52
 vhsubpd_xmm_xmm_xmm	4	44					
 vminss_xmm_xmm_xmm	4	19					
 vmovd_xmm_r32	4	52					
-vmovmskpd_r32_xmm	4	46:CTD					
+vmovmskpd_r32_xmm	4	46:CTD:Manually Generated					
 vmovshdup_ymm_ymm	4	156					
 vorps_ymm_ymm_ymm	4	23					
 vpmovzxbq_xmm_xmm	4	31					
@@ -467,7 +468,7 @@ cvtsi2ssl_xmm_r32	5	65
 decb_rh	5	82					
 hsubpd_xmm_xmm	5	46					
 movd_xmm_r32	5	54					
-movmskpd_r64_xmm	5	46:CTD					
+movmskpd_r64_xmm	5	46:CTD:OPTD					
 orb_r8_r8	5	81					
 phaddd_xmm_xmm	5	120					
 pmovzxbq_xmm_xmm	5	64					
@@ -493,8 +494,8 @@ vfmsub213sd_xmm_xmm_xmm	5	69
 vfnmadd231ss_xmm_xmm_xmm	5	125					
 vfnmsub132pd_xmm_xmm_xmm	5	47					
 vhsubpd_ymm_ymm_ymm	5	56					
-vmovmskpd_r64_xmm	5	47:CTD					
-vmovmskpd_r64_ymm	5	125:CTD					
+vmovmskpd_r64_xmm	5	47:CTD:OPTD					
+vmovmskpd_r64_ymm	5	125:CTD:OPTD					
 vpand_xmm_xmm_xmm	5	38					
 vpandn_ymm_ymm_ymm	5	68					
 vpbroadcastb_xmm_xmm	5	63					
@@ -554,7 +555,7 @@ vfnmadd132sd_xmm_xmm_xmm	6	64
 vfnmadd213ss_xmm_xmm_xmm	6	146					
 vfnmsub213pd_xmm_xmm_xmm	6	50					
 vmovmskpd_r32_ymm	6	134					
-vpbroadcastb_ymm_xmm	6	127:OPTD:R9					
+vpbroadcastb_ymm_xmm	6	127:OPTD:R9
 vphaddd_xmm_xmm_xmm	6	129					
 vphaddd_ymm_ymm_ymm	6	243					
 vpmovzxbq_ymm_xmm	6	79					
@@ -596,7 +597,7 @@ vandpd_ymm_ymm_ymm	7	78
 vfmadd132ps_xmm_xmm_xmm	7	103					
 vfmadd213pd_xmm_xmm_xmm	7	77					
 vfmadd231sd_xmm_xmm_xmm	7	84					
-vfmaddsub213ps_xmm_xmm_xmm	7	186:C					
+vfmaddsub213ps_xmm_xmm_xmm	7	186:CD:R11
 vfnmsub213sd_xmm_xmm_xmm	7	161					
 vfnmsub231pd_xmm_xmm_xmm	7	61					
 vhaddps_xmm_xmm_xmm	7	206					
@@ -607,8 +608,8 @@ vpmovsxdq_ymm_xmm	7	157
 vpsubq_xmm_xmm_xmm	7	202					
 vpunpckldq_ymm_ymm_ymm	7	135					
 vunpcklps_xmm_xmm_xmm	7	144					
-vxorpd_ymm_ymm_ymm	7	172:CT					
-vxorps_ymm_ymm_ymm	7	170:C					
+vxorpd_ymm_ymm_ymm	7	172
+vxorps_ymm_ymm_ymm	7	170
 							
 
 Stratum 8	47						
