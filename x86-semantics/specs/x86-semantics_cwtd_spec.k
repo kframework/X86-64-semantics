@@ -8,7 +8,7 @@ execinstr ( movswq %ax, %rbx , .Typedoperands ) ~>
 split2NToN(%rbx,  %r10d, %r11d , 32) ~>
 execinstr ( movq $0xffffffffffffffff, %rdx , .Typedoperands ) ~>
 execinstr ( xaddw %dx, %r11w , .Typedoperands ) ~>
-restoreRegister("SPAD1", 16, 48, 0, 0, 
+restoreRegister("SPAD1", 16, 48, 0, 0,
           0, 16, %rdx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

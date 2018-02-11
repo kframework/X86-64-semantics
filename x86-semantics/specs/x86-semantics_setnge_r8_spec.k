@@ -12,7 +12,7 @@ execinstr ( rolb $0x1, %r13b , .Typedoperands ) ~>
 execinstr ( xorl %ecx, %ebx , .Typedoperands ) ~>
 execinstr ( xaddw %r9w, %r13w , .Typedoperands ) ~>
 movByteToPosOfReg( %r9b, 5, %rbx ) ~>
-restoreRegister("SPAD1", 8, 56, 0, 0, 
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0

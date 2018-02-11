@@ -8,7 +8,7 @@ readFlagToRegister( "ZF", %rbx ) ~>
 execinstr ( setnc %ah , .Typedoperands ) ~>
 execinstr ( decb %bl , .Typedoperands ) ~>
 execinstr ( cmovzq %rbx, %rax , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48, 
+restoreRegister("SPAD1", 0, 8, 16, 48,
           8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
