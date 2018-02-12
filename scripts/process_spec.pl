@@ -46,8 +46,8 @@ my $gitdiff        = "";
 my $gitadd         = "";
 my $speconly       = "";
 my $singlefiledefn = "";
-my $path           = "";
 my $nightlyrun           = "";
+my $start           = "";
 my $getimm           = "";
 
 GetOptions(
@@ -68,7 +68,7 @@ GetOptions(
     "singlefiledefn" => \$singlefiledefn,
     "getimm" => \$getimm,
     "nightlyrun" => \$nightlyrun,
-    "path:s"         => \$path,
+    "start:s" => \$start,
     "strata_path:s"  => \$strata_path,
 ) or die("Error in command line arguments\n");
 
@@ -150,25 +150,16 @@ sub mergeToSingleFile {
 }
 
 if("" ne $nightlyrun) {
-  my @fnames = (
-  "stratum_8",
-  "stratum_9",
-  "stratum_10",
-  "stratum_11",
-  "stratum_12",
-  "stratum_13",
-  "stratum_14",
-  "stratum_15",
-      );
-  my @counts = ( 47, 21, 16, 14, 8, 6, 3, 2,);
 
-  for (my $i = 0 ; $i < scalar(@fnames); $i++ ) {  
-    my $file = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/$fnames[$i].txt";
-    my $numOfOpcodes = $counts[$i];
+  if("" eq $start) {
+    $start = 0;
+  }
 
-    execute("./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ", 2);
-    execute("./scripts/process_spec.pl --singlefiledefn ", 2);
-    execute("./scripts/run.pl --compile ", 2);
+  for (my $i = $start ; $i <= 15; $i++ ) {  
+    my $file = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/stratum_$i.txt";
+
+    execute("./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ", 1);
+    execute("./scripts/run.pl --compile ", 1);
   }
   
   exit(0);
@@ -313,6 +304,12 @@ if ( "" ne $all ) {
         }
         if("" ne $reason) {
           utils::warnInfo("$opcode: $reason");
+        }
+
+        my $isManuallyGenerated = kutils::checkManuallyGenerated( $opcode, $debugprint);
+        if ( 1 == $isManuallyGenerated ) {
+            utils::warnInfo("$opcode: Manually Generated");
+            next;
         }
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,

@@ -9,7 +9,7 @@ module VFNMSUB132SD-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R3, RSMap), 128, 192), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  -Float  negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) ) ) ) , 64))) )
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R3, RSMap), 128, 192), Float2MInt( ( negateFloat( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) ) )  -Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) ) , 64))) )
 
 
 )

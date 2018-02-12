@@ -9,7 +9,7 @@ module VFNMSUB231SD-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R3, RSMap), 128, 192), Float2MInt( ( MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11)  -Float  (  ( MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11)  -Float  negateFloat( ( minFloat(MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 224, 256)), 53, 11), MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 160, 192)), 53, 11))  *Float  minFloat(MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 224, 256)), 53, 11), MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 160, 192)), 53, 11)) ) ) )  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) )  ) , 64))) )
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R3, RSMap), 128, 192), Float2MInt( (  (  ( negateFloat( ( minFloat(MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 224, 256)), 53, 11), MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 160, 192)), 53, 11))  *Float  minFloat(MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 224, 256)), 53, 11), MInt2Float(concatenateMInt(mi(32, 0), extractMInt(getParentValue(R2, RSMap), 160, 192)), 53, 11)) ) )  -Float  MInt2Float(extractMInt(getParentValue(R2, RSMap), 192, 256), 53, 11) )  *Float  MInt2Float(extractMInt(getParentValue(R1, RSMap), 192, 256), 53, 11) )  -Float  MInt2Float(extractMInt(getParentValue(R3, RSMap), 192, 256), 53, 11) ) , 64))) )
 
 
 )
