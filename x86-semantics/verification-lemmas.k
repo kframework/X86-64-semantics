@@ -126,6 +126,29 @@ module MINT-LEMMAS
   rule orMInt(MI, ZMI:MInt) =>  MI 
     requires zeroMInt(ZMI)
 
+  rule orMInt(_:MInt, MI_ALL_ONES:MInt) => MI_ALL_ONES
+    requires svalueMInt(MI_ALL_ONES) ==Int -1
+  rule orMInt(MI_ALL_ONES:MInt, _:MInt) => MI_ALL_ONES
+    requires svalueMInt(MI_ALL_ONES) ==Int -1
+
+  // andMInt
+  rule andMInt(MI:MInt, MI:MInt) =>  MI 
+
+  rule andMInt(ZMI:MInt, MI:MInt) =>  ZMI
+    requires zeroMInt(ZMI)
+  rule andMInt(MI, ZMI:MInt) => ZMI
+    requires zeroMInt(ZMI)
+
+  rule andMInt(MI:MInt, MI_ALL_ONES:MInt) => MI
+    requires svalueMInt(MI_ALL_ONES) ==Int -1
+  rule andMInt(MI_ALL_ONES:MInt, MI:MInt) => MI
+    requires svalueMInt(MI_ALL_ONES) ==Int -1
+
+  rule addMInt(MI:MInt, xorMInt(MI:MInt, MI_MINUS_ONE:MInt)) => MI_MINUS_ONE
+    requires svalueMInt(MI_MINUS_ONE) ==Int -1
+  rule addMInt(MI:MInt, xorMInt(MI_MINUS_ONE:MInt, MI:MInt)) => MI_MINUS_ONE
+    requires svalueMInt(MI_MINUS_ONE) ==Int -1
+
   // ultMInt
   rule ultMInt(_, MI) =>  false                         
     requires  eqMInt(MI, mi(bitwidthMInt(MI), 0))
@@ -252,12 +275,99 @@ module MINT-LEMMAS
     #ifMInt B #then extractMInt(MI1, S, E) #else extractMInt(MI2, S, E) #fi
 
   /*
+  ** Distribute Concatenate over ITE
+  */
+  rule concatenateMInt(MI1, (#ifMInt B:Bool #then MI2:MInt #else MI3:MInt #fi)) => 
+    (#ifMInt B:Bool #then concatenateMInt(MI1, MI2) #else concatenateMInt(MI1, MI3) #fi)
+
+  /*
   ** countOnes 
   */
   rule countOnes(concatenateMInt(MI1, MI2), I:Int) => countOnes(MI2, I)
     requires zeroMInt(MI1)
   rule countOnes(MI, I:Int) => uvalueMInt(MI)
     requires bitwidthMInt(MI) ==Int 1
+
+  /*
+  ** ite: Nested ITE
+  */
+  rule 
+  (#ifMInt(
+    eqMInt(
+      (#ifMInt(
+          eqMInt(MI:MInt, MIA:MInt))
+      #then
+          MIB:MInt
+      #else    
+          MIC:MInt
+      #fi),
+      MIC))
+  #then
+    MIX:MInt
+  #else
+    MIY:MInt
+  #fi) 
+  =>
+  (#ifMInt(
+      eqMInt(MI:MInt, MIA:MInt))
+  #then
+      MIY:MInt
+  #else    
+      MIX:MInt
+  #fi)
+
+  /*
+  ** Distribute addMInt over ITE
+  */
+  rule 
+  addMInt(
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then addMInt(MIA, MIC) #else addMInt(MIB, MID) #fi)
+
+  /*
+  rule 
+  addMInt(
+    MI:MInt,
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
+  */
+
+  /*
+  ** Distribute eqMInt over ITE
+  rule 
+  eqMInt
+  (
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    MIC:MInt
+  )
+  =>
+    (#ifBool B:Bool 
+      #then eqMInt(MIA:MInt, MIC:MInt) 
+      #else eqMInt(MIB:MInt, MIC:MInt) 
+    #fi)
+  */
+
+  /*
+  ** Carry flag idioms
+  */
+  rule 
+  addMInt(concatenateMInt(MIZ, MIF), MI_MINUS_ONE) 
+    =>
+  (#ifMInt 
+    eqMInt(MIF, mi(1, 1)) 
+  #then 
+    mi(bitwidthMInt(MI_MINUS_ONE), 0)  
+  #else 
+    MI_MINUS_ONE
+  #fi)
+    requires  (bitwidthMInt(MIF) ==Int 1) andBool 
+              zeroMInt(MIZ) andBool
+              (svalueMInt(MI_MINUS_ONE) ==Int -1)
 
 endmodule
 
