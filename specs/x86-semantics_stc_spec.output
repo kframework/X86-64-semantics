@@ -1,15 +1,15 @@
 -Xms64m -Xmx1024m -Xss32m -XX:+TieredCompilation -Xmx8g
 
 InitialTerm: 
-<T>(<k>(#KSequence(setFlag(MInt@MINT(#"1'1"),, String@STRING-SYNTAX(#""CF"")), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""CF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I1_526:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+<T>(<k>(#KSequence(setFlag(MInt@MINT(#"1'1"),, String@STRING-SYNTAX(#""CF"")), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""CF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I1_600:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 
 TargetTerm: 
-<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""CF"") |-> _68_528:K@SORT-K String@STRING-SYNTAX(#""RIP"") |-> _67_527:K@SORT-K   ),, <regstatequeue>(_69_529:List@LIST)) /\ _==K_(Bool@BOOL-SYNTAX(#"true"),, Bool@BOOL-SYNTAX(#"true"))
+<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""CF"") |-> _70_602:K@SORT-K String@STRING-SYNTAX(#""RIP"") |-> _69_601:K@SORT-K   ),, <regstatequeue>(_71_603:List@LIST)) /\ _==K_(Bool@BOOL-SYNTAX(#"true"),, Bool@BOOL-SYNTAX(#"true"))
 
 
 
 IntermediateTerm: 
-<T>(<k>(#KSequence(setFlag(MInt@MINT(#"1'1"),, String@STRING-SYNTAX(#""CF"")), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""CF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I1_526:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+<T>(<k>(#KSequence(setFlag(MInt@MINT(#"1'1"),, String@STRING-SYNTAX(#""CF"")), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""CF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I1_600:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 
 IntermediateTerm: 
 <T>(<k>(#KSequence(execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""CF"") |-> MInt@MINT(#"1'1")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
@@ -23,5 +23,5 @@ IntermediateTerm:
 FinalTerm: 
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""CF"") |-> MInt@MINT(#"1'1")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
-147.45user 3.44system 0:40.17elapsed 375%CPU (0avgtext+0avgdata 2636236maxresident)k
-8inputs+3736outputs (0major+394082minor)pagefaults 0swaps
+89.15user 7.25system 0:26.04elapsed 370%CPU (0avgtext+0avgdata 2736636maxresident)k
+0inputs+3696outputs (0major+84991minor)pagefaults 0swaps
