@@ -22,6 +22,8 @@ module INTEGER-LEMMAS
 endmodule
 
 module BOOLEAN-LEMMAS
+  imports MINT-WRAPPER-SYNTAX
+
   rule true orBool _ => true
   rule _ orBool true => true
   rule false andBool _ => false
@@ -29,6 +31,42 @@ module BOOLEAN-LEMMAS
 
   rule B:Bool orBool B:Bool => B
   rule B:Bool andBool B:Bool => B
+
+  /*
+  ** Bool ITE
+  */
+  rule (#ifBool B:Bool #then B1:Bool #else B1:Bool #fi) => B1  
+
+  rule 
+  (#ifBool 
+      B:Bool 
+  #then B1 
+  #else 
+      (#ifBool 
+        B:Bool 
+      #then B1 
+      #else B2 
+      #fi) 
+  #fi) 
+  =>   
+  (#ifBool 
+      B:Bool 
+  #then B1 
+  #else B2 
+  #fi) 
+
+  rule 
+  (#ifBool 
+    (#ifBool B:Bool #then false #else true #fi)    
+  #then B1 
+  #else B2 
+  #fi) 
+  =>   
+  (#ifBool 
+      B:Bool 
+  #then B2 
+  #else B1 
+  #fi) 
 endmodule
 
 module FLOAT-LEMMAS
@@ -107,18 +145,18 @@ module MINT-LEMMAS
   //rule bitwidthMInt(addMInt(extractMask(_,_,_), MIC)) => bitwidthMInt(MIC) [lemma]  
 
   // xorMInt
-  rule xorMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, 0) [lemma]
+  //rule xorMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, 0) [lemma]
   rule xorMInt(MI:MInt, MI:MInt) => mi(bitwidthMInt(MI), 0) [lemma]
 
   // Cannot use zeroMInt here, becuase of inf recursion triggered
   // while evaluating function xorMInt, zeroMInt
-  rule xorMInt (ZMI:MInt, MI:MInt) => MI
-    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
-  rule xorMInt (MI:MInt, ZMI:MInt) => MI
-    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+  //rule xorMInt (ZMI:MInt, MI:MInt) => MI
+  //  requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+  //rule xorMInt (MI:MInt, ZMI:MInt) => MI
+  //  requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
 
   // orMInt
-  rule orMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, I) [lemma]
+  //rule orMInt(mi(W:Int, I:Int), mi(W:Int, I:Int)) => mi(W, I) [lemma]
   rule orMInt(MI:MInt, MI:MInt) =>  MI [lemma]
 
   rule orMInt(ZMI:MInt, MI:MInt) =>  MI 
@@ -155,13 +193,11 @@ module MINT-LEMMAS
   rule ultMInt(MI:MInt, MI:MInt) =>  false                         
 
 
-  // addMInt
-  rule subMInt(mi(W, I), mi(W, I)) => mi(W, 0) [lemma]
+  // subMInt
+  //rule subMInt(mi(W, I), mi(W, I)) => mi(W, 0) [lemma]
+  rule subMInt(MI, MI) => mi(bitwidthMInt(MI), 0) [lemma]
 
-  rule addMInt(MI:MInt, ZMI:MInt) => MI                   
-    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
-
-  rule addMInt(ZMI:MInt, MI:MInt) => MI                  
+  rule subMInt(MI:MInt, ZMI:MInt) => MI                   
     requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
 
   // minFloat
@@ -289,6 +325,12 @@ module MINT-LEMMAS
     requires bitwidthMInt(MI) ==Int 1
 
   /*
+  ** ITE
+  rule (#ifBool B:Bool #then MI #else MI #fi) => MI  
+  */
+
+
+  /*
   ** ite: Nested ITE
   */
   rule 
@@ -327,18 +369,25 @@ module MINT-LEMMAS
   =>
   (#ifMInt B:Bool #then addMInt(MIA, MIC) #else addMInt(MIB, MID) #fi)
 
-  /*
-  rule 
+  rule
   addMInt(
     MI:MInt,
     (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
   )
   =>
   (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
-  */
+
+  rule
+  addMInt(
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi),
+    MI:MInt
+  )
+  =>
+  (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
 
   /*
   ** Distribute eqMInt over ITE
+  */
   rule 
   eqMInt
   (
@@ -350,7 +399,6 @@ module MINT-LEMMAS
       #then eqMInt(MIA:MInt, MIC:MInt) 
       #else eqMInt(MIB:MInt, MIC:MInt) 
     #fi)
-  */
 
   /*
   ** Carry flag idioms
@@ -369,6 +417,39 @@ module MINT-LEMMAS
               zeroMInt(MIZ) andBool
               (svalueMInt(MI_MINUS_ONE) ==Int -1)
 
+  /*
+  ** Redundant MInt ITE
+  */
+  rule (#ifMInt B:Bool #then MI:MInt #else MI:MInt #fi) => MI
+
+  /*
+  ** Redundant ifBool within ifMInt
+  */
+  rule 
+  (#ifMInt 
+    (#ifBool B:Bool #then false #else true #fi)    
+  #then MI1 
+  #else MI2 
+  #fi) 
+  =>   
+  (#ifMInt 
+      B:Bool 
+  #then MI2 
+  #else MI1 
+  #fi) 
+
+  rule 
+  (#ifMInt 
+    (#ifBool B:Bool #then true #else false #fi)    
+  #then MI1 
+  #else MI2 
+  #fi) 
+  =>   
+  (#ifMInt 
+      B:Bool 
+  #then MI1 
+  #else MI2 
+  #fi) 
 endmodule
 
 module VERIFICATION-LEMMAS

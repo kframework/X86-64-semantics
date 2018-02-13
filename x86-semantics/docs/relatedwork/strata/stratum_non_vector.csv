@@ -567,7 +567,7 @@ vpunpckldq_xmm_xmm_xmm	6	141
 vunpcklps_ymm_ymm_ymm	6	134					
 
 Stratum 7  46							
-cmovaeq_r64_r64	7	248:OPT:CRITICAL:R12 					
+cmovaeq_r64_r64	7	248:OPTD:R12 					
 cmovbel_r32_r32	7	81					
 cmovcq_r64_r64	7	30					
 cmovleq_r64_r64	7	120					
@@ -664,10 +664,10 @@ vmovmskps_r64_xmm	8	282
 vpand_ymm_ymm_ymm	8	78					
 vpxor_ymm_ymm_ymm	8	170
 
-Stratum 9	21	*Here					
+Stratum 9	21	
 andw_r16_r16	9	242					
 cmovaew_r16_r16	9	83					
-cmovgeq_r64_r64	9	411:C:OPT: distribute concate over ite: xor(cocate(00, 1bit), concate(00, 1 bit)):CRITICAL					
+cmovgeq_r64_r64	9	411:C:OPTD:R12
 cmovgw_r16_r16	9	102					
 cmovlel_r32_r32	9	102					
 cmovnaw_r16_r16	9	94					
@@ -681,13 +681,13 @@ cmpxchgw_r16_r16	9	441:C:R3: what about same keys
 movmskps_r32_xmm	9	287					
 rorw_r16_one	9	323
 shrxl_r32_r32_r32	9	269					
-tzcntw_r16_r16	9	192:C:R3:CRITICAL					
+tzcntw_r16_r16	9	192
 vfmsubadd231pd_xmm_xmm_xmm	9	168					
 vhaddps_ymm_ymm_ymm	9	425					
 vphsubd_xmm_xmm_xmm	9	648:US					
 vpmovzxwd_xmm_xmm	9	391					
 
-Stratum 10	16						
+Stratum 10	16		*Here				
 btl_r32_r32	10	353					
 cmovlq_r64_r64	10	393:C					
 cmovnlew_r16_r16	10	102					
