@@ -257,8 +257,8 @@ module X86-INSTRUCTIONS-SEMANTICS
 
   rule <k> 
     execinstr(addq  (I:Imm ,  (R:R64 , .Typedoperands)) ) => 
-      execinstr(addq  (R, handleImmediate(I, 64), getRegisterValue(R, RSMap), 
-            addMInt(handleImmediate(I, 64), getRegisterValue(R, RSMap)), 
+      execinstr(addq  (R, handleImmediateWithSignExtend(I, 64 64), getRegisterValue(R, RSMap), 
+            addMInt(handleImmediateWithSignExtend(I, 64, 64), getRegisterValue(R, RSMap)), 
             .Typedoperands)) 
   ...</k>
   <regstate> RSMap </regstate>
@@ -521,7 +521,7 @@ vcvtpd2ps_xmm_ymm
 
   rule <k> 
     execinstr(movq  (I:Imm,  (R:R64, .Typedoperands)) ) =>
-      setRegisterValue(handleImmediate(I, 64), R)
+      setRegisterValue(handleImmediateWithSignExtend(I, 64, 64), R)
   ...</k>
 
 

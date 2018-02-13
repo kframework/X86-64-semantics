@@ -218,15 +218,17 @@ module X86-ABSTRACT-SEMANTICS
   rule getParentValue(R:Register, RSMap) => getRegisterValue(convSubRegsToRegs(R), RSMap)
 
   /*@
-    handleImmediate(Imm, W): Compute a MInt corresponding
-    to the Imm value of width W.
+    handleImmediateWithSignExtend(Imm, M, N): Compute a MInt corresponding
+    to the Imm value of width M and sign extend to N.
   */
+
   // Imm could be an Int
-  rule handleImmediate($ I:Int, W:Int) => mi(W,I)
+  rule handleImmediateWithSignExtend($ I:Int, M:Int, N:Int) => signExtend(mi(M,I), N)
+
   // Or a HexConstant
   syntax String ::= HexConstant2String ( HexConstant )    [function, hook(STRING.token2string)]
-  rule handleImmediate($0x H:HexConstant, W:Int) =>
-    mi(W, String2Base(HexConstant2String(H), 16))
+  rule handleImmediateWithSignExtend($0x H:HexConstant, M:Int, N:Int) =>
+    signExtend(mi(M, String2Base(HexConstant2String(H), 16)), N)
 
   /*@ 
     Check if two registers are the same
