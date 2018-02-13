@@ -9,7 +9,7 @@ module CMOVAEQ-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> ((#ifMInt (eqMInt(addMInt(mi(16, 65535), (#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1, 1)) ) #then ( mi(16, 0) ) #else ( mi(16, 1) ) #fi) ), mi(16, 0)) ) #then ( getParentValue(R1, RSMap) ) #else ( getParentValue(R2, RSMap) ) #fi)  )
+convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(getFlag("CF", RSMap), mi(1, 1)) ) #then ( true ) #else ( false ) #fi) ) #then ( getParentValue(R2, RSMap) ) #else ( getParentValue(R1, RSMap) ) #fi)  )
 
 
 )
