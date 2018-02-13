@@ -29,7 +29,7 @@ module MOV-R64-IMM64
 
   rule <k> 
     execinstr(movq  (I:Imm,  (R:R64, .Typedoperands)) ) =>
-      setRegisterValue(handleImmediate(I, 64), R)
+      setRegisterValue(handleImmediateWithSignExtend(I, 64, 64), R)
   ...</k>
 endmodule
 

@@ -62,10 +62,11 @@ module X86-ASBTRACT-SYNTAX
   syntax MInt  ::= getParentValue(Register, Map) [function]
 
   /*@
-    handleImmediate(Imm, W): Compute a MInt corresponding
-    to the Imm value of width W.
+    handleImmediateWithSignExtend(Imm, M, N): Compute a MInt corresponding
+    to the Imm value of width M and Sign Extend to bitwidth 
+    N.
   */
-  syntax MInt ::=  handleImmediate(Imm, Int) [function]
+  syntax MInt ::=  handleImmediateWithSignExtend(Imm, Int, Int) [function]
 
   /*@ 
     Check if two registers are the same
