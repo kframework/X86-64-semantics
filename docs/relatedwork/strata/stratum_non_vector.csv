@@ -687,12 +687,12 @@ vhaddps_ymm_ymm_ymm	9	425
 vphsubd_xmm_xmm_xmm	9	648:US					
 vpmovzxwd_xmm_xmm	9	391					
 
-Stratum 10	16		*Here				
+Stratum 10	16		
 btl_r32_r32	10	353					
-cmovlq_r64_r64	10	393:C					
+cmovlq_r64_r64	10	393:PLUS					
 cmovnlew_r16_r16	10	102					
-cmovnoq_r64_r64	10	412:C:OPT					
-cmovoq_r64_r64	10	412:C:OPT					
+cmovnoq_r64_r64	10	412:PLUS
+cmovoq_r64_r64	10	412:PLUS
 cmovsq_r64_r64	10	412					
 cmpxchgb_r8_r8	10	380:CRITICAL					
 movmskps_r64_xmm	10	287					
@@ -705,7 +705,7 @@ vpmovzxwd_ymm_xmm	10	787
 vpmovzxwq_ymm_xmm	10	475					
 vpsubd_xmm_xmm_xmm	10	780:US					
 							
-Stratum 11	13						
+Stratum 11	13	*Here									
 cmovngeq_r64_r64	11	393					
 cmovnlq_r64_r64	11	398:C
 cmovnsq_r64_r64	11	394					

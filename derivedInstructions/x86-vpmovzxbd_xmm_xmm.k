@@ -9,7 +9,7 @@ module VPMOVZXBD-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMInt(Float2MInt( ( 0e+00f  +Float  MInt2Float(concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 224, 232)), 24, 8) ) , 32), Float2MInt( ( 0e+00f  +Float  MInt2Float(concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 232, 240)), 24, 8) ) , 32)), concatenateMInt(Float2MInt( ( 0e+00f  +Float  MInt2Float(concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 240, 248)), 24, 8) ) , 32), Float2MInt( ( 0e+00f  +Float  MInt2Float(concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 248, 256)), 24, 8) ) , 32)))) )
+convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMInt(concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 224, 232)), concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 232, 240))), concatenateMInt(concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 240, 248)), concatenateMInt(mi(24, 0), extractMInt(getParentValue(R1, RSMap), 248, 256))))) )
 
 
 )
