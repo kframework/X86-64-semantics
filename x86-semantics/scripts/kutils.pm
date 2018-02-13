@@ -28,7 +28,8 @@ my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 my @xpatterns = (
     qr/$\d* = ([-]?\d+)/,
-#qr/$\d* = \{(0x[\dabcdef]+, 0x[\dabcdef]+)\}/,
+
+    #qr/$\d* = \{(0x[\dabcdef]+, 0x[\dabcdef]+)\}/,
     qr/$\d* = \{0x([\dabcdef]+), 0x([\dabcdef]+)\}/,
     qr/$\d* = \[ ([CPAZSOIF ]*) \]/,
 );
@@ -381,8 +382,8 @@ sub processKFile {
 
     open( my $fp, "<", "$tmpfile" ) or die "Cannot
  open: $!";
-    my @lines = <$fp>;
-    my $counter =0 ;
+    my @lines   = <$fp>;
+    my $counter = 0;
     for my $line (@lines) {
         chomp $line;
 
@@ -395,10 +396,11 @@ sub processKFile {
         elsif ( $line =~ m/$kpatterns[1]/ ) {
             my $reg = $1;
             my $val = utils::trim($2);
-            if($val =~ m/NaN/) {
-              push @{ $kstateMap{$reg} }, "NaN";
-            } else {
-              push @{ $kstateMap{$reg} }, $val;
+            if ( $val =~ m/NaN/ ) {
+                push @{ $kstateMap{$reg} }, "NaN";
+            }
+            else {
+                push @{ $kstateMap{$reg} }, $val;
             }
         }
     }
@@ -463,7 +465,7 @@ sub processXFile {
         if ( $line =~ m/$xpatterns[1]/ ) {
 
             #print "Ys".$1. "\n";
-            push @xstates, "0x".$2.$1;
+            push @xstates, "0x" . $2 . $1;
         }
 
         if ( $line =~ m/$xpatterns[2]/ ) {
@@ -504,9 +506,10 @@ sub compareInts {
         $khexnum = toHex( $knum, $bit );
     }
 
-#if ( $xnum =~ /([\dabcdef]+), ([\dabcdef]+)/ ) {
+    #if ( $xnum =~ /([\dabcdef]+), ([\dabcdef]+)/ ) {
     if ( $xnum =~ /0x([\dabcdef]+)/ ) {
-#$xhexnum = $1 . $2;
+
+        #$xhexnum = $1 . $2;
         $xhexnum = $1;
     }
     else {
@@ -557,7 +560,7 @@ sub compareStates {
             info("\"NaN\" found");
             next;
         }
-        
+
         if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
             failInfo( "$regMap{$i % $regcount} at instrcount: " . $instrcount );
             return;
@@ -1188,7 +1191,7 @@ sub getSpecCode {
     ## Issue a "need to inspect" warning if we have undefined set.
     if ( scalar( keys %{$undefSet_ref} ) ) {
         utils::warnInfo("[getSpecCode] Undef Present: $opcode");
-        utils::printMap(\%{$undefSet_ref}, "Undef Set", 1);
+        utils::printMap( \%{$undefSet_ref}, "Undef Set", 1 );
     }
 
     ## Generate the save rstore code for resgisters which are cloberred
@@ -1845,21 +1848,20 @@ sub sanitizeSpecOutput {
     my %undefSet     = %{$undefSet_ref};
     my %mustUndefSet = %{$mustUndefSet_ref};
 
-
     ## Check if the Write set has more than one reg Keys.
     ## If yes, they may need to be scheduled.
-    if(scalar(keys %writeSet) > 1) {
-      my $count = 0;
-      for my $key (keys %writeSet) {
-        if ( $key !~ m/CF|PF|AF|ZF|SF|OF/ ) {
-          $count++
-        } 
-      }
-      if($count > 1) {
-        utils::warnInfo("$opcode: More that one writes. May Need to schedule.")
-      }
+    if ( scalar( keys %writeSet ) > 1 ) {
+        my $count = 0;
+        for my $key ( keys %writeSet ) {
+            if ( $key !~ m/CF|PF|AF|ZF|SF|OF/ ) {
+                $count++;
+            }
+        }
+        if ( $count > 1 ) {
+            utils::warnInfo(
+                "$opcode: More that one writes. May Need to schedule.");
+        }
     }
-
 
     utils::printMap( \%readSet,  "selectRules: Read Set",  $debugprint );
     utils::printMap( \%writeSet, "selectRules: Write Set", $debugprint );
@@ -2327,15 +2329,14 @@ sub checkSupported {
 
     utils::info("Check if supported: $opcode");
 
-    if(
-        $opcode eq "xchgl_eax_r32" or
-        $opcode eq "xchgl_r32_eax" or
-        $opcode eq "xchgq_r64_rax" or
-        $opcode eq "xchgq_rax_r64" or
-        $opcode eq "xchgw_r16_ax"  or
-        $opcode eq "xchgw_ax_r16"
-    ) {
-      return (0, "Redundant Instructions");
+    if (   $opcode eq "xchgl_eax_r32"
+        or $opcode eq "xchgl_r32_eax"
+        or $opcode eq "xchgq_r64_rax"
+        or $opcode eq "xchgq_rax_r64"
+        or $opcode eq "xchgw_r16_ax"
+        or $opcode eq "xchgw_ax_r16" )
+    {
+        return ( 0, "Redundant Instructions" );
 
     }
 
@@ -2353,11 +2354,11 @@ sub checkSupported {
             print $opcode. " "
               . checkBaseInstr($opcode) . " "
               . $derivedInstr . "\n";
-            return (0, "UnSupported");
+            return ( 0, "UnSupported" );
         }
     }
 
-    return (1, "");
+    return ( 1, "" );
 }
 
 sub postProcess {
@@ -2389,17 +2390,16 @@ sub postProcess {
 }
 
 sub checkManuallyGenerated {
-  my $opcode              = shift @_;
-  my $debugprint          = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
 
-  if(
-      $opcode eq "vmovmskpd_r32_xmm" or 
-      $opcode eq "blsil_r32_r32"
-      ) {
-    return 1;
-  }
+    if (   $opcode eq "vmovmskpd_r32_xmm"
+        or $opcode eq "blsil_r32_r32" )
+    {
+        return 1;
+    }
 
-  return 0;
+    return 0;
 }
 
 1;
