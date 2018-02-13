@@ -34,5 +34,5 @@ FinalTerm:
 true
 [Warning] Critical: missing SMTLib translation for mi
 [Warning] Critical: missing SMTLib translation for svalueMInt
-108.81user 6.90system 0:30.12elapsed 384%CPU (0avgtext+0avgdata 2660100maxresident)k
-0inputs+3624outputs (0major+84906minor)pagefaults 0swaps
+106.30user 6.77system 0:28.29elapsed 399%CPU (0avgtext+0avgdata 2746672maxresident)k
+0inputs+3832outputs (0major+82986minor)pagefaults 0swaps

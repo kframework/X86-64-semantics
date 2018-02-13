@@ -177,7 +177,7 @@ if ( "" ne $gitdiff ) {
     for my $opcode (@lines) {
         chomp $opcode;
           
-        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
           next;
         }
 
@@ -192,7 +192,7 @@ if ( "" ne $gitadd ) {
     for my $opcode (@lines) {
         chomp $opcode;
          
-        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
           next;
         }
 
@@ -240,7 +240,7 @@ if ( "" ne $createspec ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
           next;
         }
 
@@ -255,7 +255,7 @@ if ( "" ne $kprove ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
           next;
         }
 
@@ -269,7 +269,7 @@ if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
           next;
         }
 
@@ -283,7 +283,7 @@ if ( "" ne $all ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
           next;
         }
 

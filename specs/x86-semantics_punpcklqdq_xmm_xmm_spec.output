@@ -33,5 +33,5 @@ FinalTerm:
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""YMM2"") |-> mi(Int@INT-SYNTAX(#"256"),, ?I2_604:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""YMM1"") |-> concatenateMInt(extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I1_603:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"0"),, Int@INT-SYNTAX(#"128")),, concatenateMInt(extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I2_604:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"192"),, Int@INT-SYNTAX(#"256")),, extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I1_603:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"192"),, Int@INT-SYNTAX(#"256")))) String@STRING-SYNTAX(#""SPAD1"") |-> mi(Int@INT-SYNTAX(#"256"),, ?I1_603:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
 [Warning] Critical: missing SMTLib translation for mi
-85.96user 8.43system 0:27.68elapsed 340%CPU (0avgtext+0avgdata 2982676maxresident)k
-0inputs+3672outputs (0major+104418minor)pagefaults 0swaps
+106.54user 6.97system 0:28.65elapsed 396%CPU (0avgtext+0avgdata 2761112maxresident)k
+0inputs+3744outputs (0major+83074minor)pagefaults 0swaps

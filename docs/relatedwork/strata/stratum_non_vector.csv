@@ -379,7 +379,7 @@ vsubsd_xmm_xmm_xmm	3	15
 vunpckhpd_ymm_ymm_ymm	3	15					
 vunpckhps_xmm_xmm_xmm	3	26					
 xchgb_r8_r8	3	43	CD	R7			
-xchgb_rh_r8	3	19	CD	R7			
+xchgb_rh_r8	3	19	CD	R7:Must Schedule			
 xorb_rh_r8	3	45					
 xorpd_xmm_xmm	3	8					
 
