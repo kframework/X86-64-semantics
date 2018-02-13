@@ -182,16 +182,22 @@ module MINT-LEMMAS
   rule andMInt(MI_ALL_ONES:MInt, MI:MInt) => MI
     requires svalueMInt(MI_ALL_ONES) ==Int -1
 
-  rule addMInt(MI:MInt, xorMInt(MI:MInt, MI_MINUS_ONE:MInt)) => MI_MINUS_ONE
-    requires svalueMInt(MI_MINUS_ONE) ==Int -1
-  rule addMInt(MI:MInt, xorMInt(MI_MINUS_ONE:MInt, MI:MInt)) => MI_MINUS_ONE
-    requires svalueMInt(MI_MINUS_ONE) ==Int -1
-
   // ultMInt
   rule ultMInt(_, MI) =>  false                         
     requires  eqMInt(MI, mi(bitwidthMInt(MI), 0))
   rule ultMInt(MI:MInt, MI:MInt) =>  false                         
 
+   // addMInt
+  rule addMInt(MI:MInt, ZMI:MInt) => MI                   
+    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+
+  rule addMInt(ZMI:MInt, MI:MInt) => MI                  
+    requires eqMInt(ZMI, mi(bitwidthMInt(ZMI), 0))
+
+  rule addMInt(MI:MInt, xorMInt(MI:MInt, MI_MINUS_ONE:MInt)) => MI_MINUS_ONE
+    requires svalueMInt(MI_MINUS_ONE) ==Int -1
+  rule addMInt(MI:MInt, xorMInt(MI_MINUS_ONE:MInt, MI:MInt)) => MI_MINUS_ONE
+    requires svalueMInt(MI_MINUS_ONE) ==Int -1
 
   // subMInt
   //rule subMInt(mi(W, I), mi(W, I)) => mi(W, 0) [lemma]
