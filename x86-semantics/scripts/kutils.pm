@@ -2530,9 +2530,16 @@ sub getImmInstrs {
             my $matchType = "";
             for my $var (@variants) {
               for my $guess (@guesses) {
-                if($guess =~ m/Type (\w+)/g) {
-                  $matchType = $1;
+
+#print "$var\::$guess\::$matchType\n";
+                if($guess eq "Type Exact") {
+                  $matchType = "Exact";
+                  next;
+                } elsif($guess eq "Type Extend") {
+                  $matchType = "Extend";
+                  next;
                 }
+
                 if ( $guess eq $var ) {
                     $foundOne = 1;
                     print "\t-$matchType->" . $var . "\n";
