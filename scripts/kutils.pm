@@ -1144,7 +1144,7 @@ sub getInstrsFromCircuit {
     open( my $fp, "<", $filepath )
       or die "[getInstrsFromCircuit] cannot open $filepath: $!";
 
-    utils::info("Reading circuit from $filepath");
+#utils::info("Reading circuit from $filepath");
     my @lines = <$fp>;
     for my $line (@lines) {
         chomp $line;

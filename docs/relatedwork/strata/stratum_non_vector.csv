@@ -199,14 +199,14 @@ vpbroadcastq_ymm_xmm	1	9
 vpxor_xmm_xmm_xmm	1	8					
 vsqrtpd_xmm_xmm	1	8					
 vsubpd_xmm_xmm_xmm	1	7					
-xaddb_r8_r8	1	14	CD	R7	CTD		
-xaddl_r32_r32	1	8	CD	R7	CTD		
-xaddq_r64_r64	1	8	CD	R7	CTD		
-xchgl_eax_r32	1	6	CD	R7			
-xchgl_r32_eax	1	8	CD	R7			
-xchgq_r64_rax	1	7	CD	R7			
-xchgq_rax_r64	1	5	CD	R7			
-xchgw_r16_ax	1	6	CD	R7			
+xaddb_r8_r8	1	14	CD	R7	CTD:Must Schedule
+xaddl_r32_r32	1	8	CD	R7	CTD:Must Schedule		
+xaddq_r64_r64	1	8	CD	R7	CTD:Must Schedule		
+xchgl_eax_r32	1	6	CD	R7:Redundant			
+xchgl_r32_eax	1	8	CD	R7:Redundant			
+xchgq_r64_rax	1	7	CD	R7:Redundant			
+xchgq_rax_r64	1	5	CD	R7:Redundant			
+xchgw_r16_ax	1	6	CD	R7:Redundant			
 xorb_r8_rh	1	9					
 xorl_r32_r32	1	8					
 xorps_xmm_xmm	1	8					
@@ -295,12 +295,12 @@ vrcpss_xmm_xmm_xmm	2	25
 vsubss_xmm_xmm_xmm	2	22					
 vunpcklpd_xmm_xmm_xmm	2	7					
 vxorpd_xmm_xmm_xmm	2	11					
-xaddb_r8_rh	2	19	CD	R7	CTD		
-xaddb_rh_r8	2	17	CD	R7	CTD		
-xaddw_r16_r16	2	8	CD	R7	CTD		
-xchgb_r8_rh	2	19	CD	R7			
-xchgb_rh_rh	2	30	CD	R7			
-xchgw_ax_r16	2	6	CD	R7			
+xaddb_r8_rh	2	19	CD	R7	CTD:Must Schedule		
+xaddb_rh_r8	2	17	CD	R7	CTD:Must Schedule		
+xaddw_r16_r16	2	8	CD	R7	CTD:Must Schedule		
+xchgb_r8_rh	2	19	CD	R7:Must Schedule			
+xchgb_rh_rh	2	30	CD	R7:Must Schedule			
+xchgw_ax_r16	2	6	CD	R7:Redundant			
 xorb_r8_r8	2	11					
 
 Stratum 3	78						

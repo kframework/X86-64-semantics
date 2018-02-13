@@ -44,6 +44,7 @@ my $genincludes    = "";
 my $checksanity    = "";
 my $gitdiff        = "";
 my $gitadd         = "";
+my $gitco         = "";
 my $speconly       = "";
 my $singlefiledefn = "";
 my $nightlyrun     = "";
@@ -64,7 +65,8 @@ GetOptions(
     "checksanity"    => \$checksanity,
     "gitdiff"        => \$gitdiff,
     "speconly"       => \$speconly,
-    "gitaddspec"     => \$gitadd,
+    "gitadd"         => \$gitadd,
+    "gitco"          => \$gitco,
     "singlefiledefn" => \$singlefiledefn,
     "getimm"         => \$getimm,
     "nightlyrun"     => \$nightlyrun,
@@ -155,17 +157,14 @@ if ( "" ne $nightlyrun ) {
         $start = 0;
     }
 
+    my $cmd = "";
     for ( my $i = $start ; $i <= 15 ; $i++ ) {
-        my $file =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/stratum_$i.txt";
-
-        execute(
-"./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ",
-            1
-        );
-        execute( "./scripts/run.pl --compile ", 1 );
+        my $file = "docs/relatedwork/strata/stratum_$i.txt";
+        $cmd = $cmd . 
+          "./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ; ./scripts/run.pl --compile ; ";
     }
 
+    execute($cmd, 1);
     exit(0);
 }
 
@@ -177,21 +176,13 @@ my $debugprint = 0;
 if ( "" ne $gitdiff ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
+          
+        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
 
-        #execute("git diff -U0 $koutput");
         execute("git diff  $koutput");
     }
 }
@@ -200,16 +191,9 @@ if ( "" ne $gitdiff ) {
 if ( "" ne $gitadd ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
+         
+        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         my $filesToAdd = "";
@@ -227,19 +211,37 @@ if ( "" ne $gitadd ) {
     }
 }
 
+## Git checkout
+if ( "" ne $gitco ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+        
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
+        }
+
+        my $filesToRestore = "";
+        my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
+        my $specout    = "$specdir/x86-semantics_${opcode}_spec.output";
+        my $koutput    = "$derivedInstructions/x86-${opcode}.k";
+
+        if ( $speconly eq "" ) {
+            $filesToRestore = "$specfile $specout $koutput";
+        }
+        else {
+            $filesToRestore = $specfile;
+        }
+        execute("git checkout $filesToRestore");
+    }
+}
+
 ## Create a spec file
 if ( "" ne $createspec ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
+
+        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
@@ -252,15 +254,9 @@ if ( "" ne $createspec ) {
 if ( "" ne $kprove ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
+
+        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         kutils::runkprove( $opcode, $specdir, $debugprint );
@@ -273,23 +269,8 @@ if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
-        }
-
-        my $isManuallyGenerated =
-          kutils::checkManuallyGenerated( $opcode, $debugprint );
-        if ( 1 == $isManuallyGenerated ) {
-            utils::warnInfo("$opcode: Manually Generated");
-            next;
+        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         kutils::postProcess( $opcode, $specdir, $derivedInstructions,
@@ -301,22 +282,9 @@ if ( "" ne $postprocess ) {
 if ( "" ne $all ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
-        }
 
-        my $isManuallyGenerated =
-          kutils::checkManuallyGenerated( $opcode, $debugprint );
-        if ( 1 == $isManuallyGenerated ) {
-            utils::warnInfo("$opcode: Manually Generated");
-            next;
+        if(checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
@@ -328,57 +296,31 @@ if ( "" ne $all ) {
     }
 }
 
-if ( "" ne $genincludes ) {
-    my @reqs    = ();
-    my @imports = ();
-    my @syntaxs = ();
+sub checkSuppOrManuallyGen {
+  my $opcode = shift @_;
+  my $debugprint = shift @_;
 
-    for my $opcode (@lines) {
-        chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
-        }
+  my ( $isSupported, $reason ) =
+    kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+      $debugprint );
+  if ( 0 == $isSupported ) {
+      utils::warnInfo("$opcode: $reason");
+      return 0;
+  }
+  if ( "" ne $reason ) {
+      utils::warnInfo("$opcode: $reason");
+  }
 
-        my $req         = "requires \"x86-${opcode}.k\"";
-        my $koutput     = "$derivedInstructions/x86-${opcode}.k";
-        my $matches_ref = utils::myGrep( "-SEMANTICS", "sdasgup3", $koutput );
-        my @matches     = @{$matches_ref};
+  my $isManuallyGenerated =
+    kutils::checkManuallyGenerated( $opcode, $debugprint );
+  if ( 1 == $isManuallyGenerated ) {
+      utils::warnInfo("$opcode: Manually Generated");
+      return 0;
+  }
 
-        if ( scalar(@matches) > 1 ) {
-            utils::failInfo("$opcode: More that one top level module");
-        }
-
-        my $semantic_module = $matches[0];
-        $semantic_module =~ s/module //g;
-        $semantic_module = utils::trim($semantic_module);
-        my $import = "  imports $semantic_module";
-
-        my $syntax = $opcode =~ s/_.*//gr;
-        $syntax = "                              |  \"$syntax\" [token]";
-
-        push @reqs,    $req;
-        push @imports, $import;
-        push @syntaxs, $syntax;
-
-    }
-
-    print join( "\n", @reqs );
-
-    print "\n";
-
-    print join( "\n", @imports );
-
-    print "\n";
-
-    print join( "\n", @syntaxs );
+  return 1;
 }
+
 
 if ( "" ne $checksanity ) {
     my @reqs    = ();
