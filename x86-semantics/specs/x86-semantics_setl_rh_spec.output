@@ -33,5 +33,5 @@ FinalTerm:
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RAX"") |-> concatenateMInt(extractMInt(mi(Int@INT-SYNTAX(#"64"),, ?I2_606:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"0"),, Int@INT-SYNTAX(#"48")),, concatenateMInt(xorMInt(concatenateMInt(MInt@MINT(#"7'0"),, mi(Int@INT-SYNTAX(#"1"),, ?I3_607:Int@INT-SYNTAX)),, concatenateMInt(MInt@MINT(#"7'0"),, mi(Int@INT-SYNTAX(#"1"),, ?I1_605:Int@INT-SYNTAX))),, extractMInt(mi(Int@INT-SYNTAX(#"64"),, ?I2_606:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"56"),, Int@INT-SYNTAX(#"64")))) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""SF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_607:Int@INT-SYNTAX) String@STRING-SYNTAX(#""SPAD1"") |-> concatenateMInt(MInt@MINT(#"192'0"),, mi(Int@INT-SYNTAX(#"64"),, ?I2_606:Int@INT-SYNTAX)) String@STRING-SYNTAX(#""OF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I1_605:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
 [Warning] Critical: missing SMTLib translation for mi
-100.13user 7.70system 0:29.19elapsed 369%CPU (0avgtext+0avgdata 2659024maxresident)k
-0inputs+3672outputs (0major+80068minor)pagefaults 0swaps
+105.89user 7.34system 0:28.19elapsed 401%CPU (0avgtext+0avgdata 2763632maxresident)k
+0inputs+3712outputs (0major+82256minor)pagefaults 0swaps

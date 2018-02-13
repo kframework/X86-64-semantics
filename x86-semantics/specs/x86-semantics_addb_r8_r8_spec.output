@@ -48,5 +48,5 @@ true
 [Warning] Critical: missing SMTLib translation for countOnes
 [Warning] Critical: missing SMTLib translation for mi
 [Warning] Critical: missing SMTLib translation for svalueMInt
-115.35user 6.92system 0:31.37elapsed 389%CPU (0avgtext+0avgdata 2696632maxresident)k
-0inputs+3832outputs (0major+86656minor)pagefaults 0swaps
+107.73user 6.18system 0:29.09elapsed 391%CPU (0avgtext+0avgdata 2414320maxresident)k
+0inputs+3704outputs (0major+87131minor)pagefaults 0swaps

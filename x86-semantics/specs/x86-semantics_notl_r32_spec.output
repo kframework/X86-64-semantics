@@ -38,5 +38,5 @@ true
 [Warning] Critical: missing SMTLib translation for _&Int_
 [Warning] Critical: missing SMTLib translation for countOnes
 [Warning] Critical: missing SMTLib translation for mi
-99.08user 6.66system 0:27.84elapsed 379%CPU (0avgtext+0avgdata 2638364maxresident)k
-0inputs+3760outputs (0major+84517minor)pagefaults 0swaps
+107.51user 6.33system 0:29.70elapsed 383%CPU (0avgtext+0avgdata 2768824maxresident)k
+0inputs+3680outputs (0major+93789minor)pagefaults 0swaps
