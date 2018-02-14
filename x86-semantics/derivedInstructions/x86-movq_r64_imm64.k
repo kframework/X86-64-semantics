@@ -7,17 +7,9 @@ module MOVQ-R64-IMM64
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movq I1_64:Imm, R2:R64, .Typedoperands) => .
-  ...</k>
-    <regstate> RSMap </regstate>
-      requires sameRegisters(R1, R2)
-  
-
-  rule <k> 
     execinstr(movq I1_64:Imm, R2:R64, .Typedoperands) =>
       setRegisterValue(handleImmediateWithSignExtend(I1_64, 64, 64 ), R2)
   ...</k>
     <regstate> RSMap </regstate>
-      requires notBool sameRegisters(R1, R2)
   
 endmodule
