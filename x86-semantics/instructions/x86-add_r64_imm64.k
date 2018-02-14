@@ -27,7 +27,3 @@ module ADD-IMM-R8
   ...</k> 
 
 endmodule
-
-module ADD-SEMANTICS
-  imports ADD-IMM-R8
-endmodule

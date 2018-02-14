@@ -79,6 +79,7 @@ GetOptions(
 ##
 my $sfp;
 my $removeComment;
+my $debugprint = 0;
 
 if ( "" ne $singlefiledefn ) {
 
@@ -171,7 +172,7 @@ if ( "" ne $nightlyrun ) {
 }
 
 if ("" ne $getimm) {
-  kutils::getImmInstrs();
+  kutils::getImmInstrs($debugprint);
   exit(0);
 }
 
@@ -183,7 +184,6 @@ if ("" ne $getmem) {
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines      = <$fp>;
-my $debugprint = 0;
 
 
 ## Git diff
