@@ -8,7 +8,7 @@ module POPCNT-R64-R64
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(popcntq  (R1:R64,  (R2:R64, .Typedoperands)) ) =>
+    execinstr(popcntq R1:R64, R2:R64, .Typedoperands) =>
       setFlag(zeroMIntW1, "OF") ~>
       setFlag(zeroMIntW1, "SF") ~>
       setFlag(zeroMIntW1, "AF") ~>

@@ -8,7 +8,7 @@ module MOV-RH-R8
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movb  (R1:R8,  (R2:Rh, .Typedoperands)) ) =>
+    execinstr(movb R1:R8, R2:Rh, .Typedoperands) =>
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>

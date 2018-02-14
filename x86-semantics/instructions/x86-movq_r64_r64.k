@@ -7,14 +7,14 @@ module MOV-R64-R64
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movq  (R1:R64,  (R2:R64, .Typedoperands)) ) => .
+    execinstr(movq R1:R64, R2:R64, .Typedoperands) => .
   ...</k>
     <regstate> RSMap </regstate>
       requires sameRegisters(R1, R2)
   
 
   rule <k> 
-    execinstr(movq  (R1:R64,  (R2:R64, .Typedoperands)) ) =>
+    execinstr(movq R1:R64, R2:R64, .Typedoperands) =>
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>

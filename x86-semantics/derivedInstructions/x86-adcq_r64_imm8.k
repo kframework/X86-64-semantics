@@ -1,0 +1,31 @@
+requires "x86-configuration.k"
+requires "x86-flag-checks-syntax.k"
+
+module ADCQ-R64-IMM8
+  imports X86-CONFIGURATION
+  imports X86-FLAG-CHECKS-SYNTAX
+
+  rule <k> 
+    execinstr (adcq I1_8:Imm,  R2:R64, .Typedoperands) =>
+      execinstr(adcq R2, 
+          handleImmediateWithSignExtend(I1_8, 8, 64 ), 
+          getRegisterValue(R2, RSMap), 
+          zeroExtend(getFlag("CF", RSMap), 64), 
+          addMInt(addMInt(handleImmediateWithSignExtend(I1_8, 8, 64 ), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 64)),
+          .Typedoperands) 
+  ...</k>
+  <regstate> RSMap </regstate>
+  
+  rule <k>
+    execinstr(adcq DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    => 
+      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
+      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, MIcarry) ~> 
+      updateParityFlag(MIresult) ~> 
+      setRegisterValue(MIresult, DestR) 
+  ...</k>
+
+endmodule

@@ -10,13 +10,13 @@ module SAL-R64-CL
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(salq  (%cl,  (R:R64, .Typedoperands)) ) =>
-      execinstr(salq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)) )
+    execinstr(salq  %cl, R:R64, .Typedoperands) =>
+      execinstr(salq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(salq  (R,  (MIsrc:MInt, MIcount:MInt, .Typedoperands)) ) => 
+  execinstr(salq R, MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
     setFlag(
       (#ifMInt zeroMInt(MIcount)
       #then

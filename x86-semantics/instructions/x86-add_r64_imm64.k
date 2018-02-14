@@ -7,10 +7,10 @@ module ADD-IMM-R8
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(addq  (I:Imm ,  (R:R64 , .Typedoperands)) ) => 
-      execinstr(addq  (R, handleImmediateWithSignExtend(I, 64 64), getRegisterValue(R, RSMap), 
+    execinstr(addq I:Imm , R:R64 , .Typedoperands) => 
+      execinstr(addq  R, handleImmediateWithSignExtend(I, 64 64), getRegisterValue(R, RSMap), 
             addMInt(handleImmediateWithSignExtend(I, 64, 64), getRegisterValue(R, RSMap)), 
-            .Typedoperands)) 
+            .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>
 
