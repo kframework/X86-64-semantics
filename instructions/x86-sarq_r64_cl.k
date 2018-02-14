@@ -9,13 +9,13 @@ module SAR-R64-CL
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(sarq  (%cl,  (R:R64, .Typedoperands)) ) =>
-      execinstr(sarq  (R,  (getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)) )
+    execinstr(sarq  %cl,  R:R64, .Typedoperands) =>
+      execinstr(sarq R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(sarq  (R,  (MIsrc:MInt, MIcount:MInt, .Typedoperands)) ) => 
+  execinstr(sarq R,  MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
     setFlag(
       (#ifMInt zeroMInt(MIcount)
       #then

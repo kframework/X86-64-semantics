@@ -25,7 +25,7 @@ module CMOVE-R64-R64
       requires  (notBool sameRegisters(R1, R2)) andBool (notBool zeroMInt(getFlag("ZF", RSMap)))
       */
   rule <k> 
-    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => 
+    execinstr(cmoveq R1:R64, R2:R64, .Typedoperands) => 
       setRegisterValue(
           #ifMInt zeroMInt(getFlag("ZF", RSMap)) #then 
             getRegisterValue(R2, RSMap) #else 

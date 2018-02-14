@@ -2524,6 +2524,7 @@ sub getRegVaraintForImm {
 
 sub getImmInstrs {
     my $debugprint = shift @_;
+    my $getimmdiff = shift @_;
 
 #my $allinstrs =
 #"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
@@ -2587,7 +2588,11 @@ sub getImmInstrs {
             print("$line has no register variant\n");
         }
 
-createImmFromRegVariant($line, $regVar, $matchType, $debugprint);
+        if(defined($getimmdiff) and $getimmdiff == 1) {
+          diffImmReg($line, $regVar, $debugprint);
+        } else {
+          createImmFromRegVariant($line, $regVar, $matchType, $debugprint);
+        }
     }
 
     my @notUtilized   = ();
@@ -2615,11 +2620,27 @@ createImmFromRegVariant($line, $regVar, $matchType, $debugprint);
 
 }
 
+sub diffImmReg {
+  my $immInstr = shift @_;
+  my $regInstr = shift @_;
+  my $debugprint = shift @_;
+
+  my $outfile = "derivedInstructions/x86-$immInstr.k";
+  my $template = "derivedInstructions/x86-$regInstr.k";
+  if(!(-e $template)) {
+    $template = "instructions/x86-$regInstr.k";
+  }
+
+  execute("diff $template $outfile", 1);
+
+}
+
 sub createImmFromRegVariant {
   my $immInstr = shift @_;
   my $regInstr = shift @_;
   my $matchType = shift @_;
-  my $debugprint = shift @_;
+#my $debugprint = shift @_;
+  my $debugprint = 1;
 
   my $outfile = "derivedInstructions/x86-$immInstr.k";
   my $template = "derivedInstructions/x86-$regInstr.k";
@@ -2637,7 +2658,8 @@ sub createImmFromRegVariant {
 
   my $operamdList_ref = getOperandListFromOpcode( $immInstr, $debugprint );
   my @operamdList     = @{$operamdList_ref};
-  printArray(\@operamdList, "Operand List", 1);
+
+  printArray(\@operamdList, "Operand List", $debugprint);
 
   my $immSize = 0;
   if ( $immInstr =~ m/imm(\d+)/g ) {
@@ -2649,77 +2671,93 @@ sub createImmFromRegVariant {
   for my $line (@lines) {
     chomp $line;
 
+    my $modulename = $immInstr =~ s/_/-/gr; 
+    $modulename = uc($modulename);
     if($line =~ m/^module/) {
-      my $modulename = $immInstr =~ s/_/-/gr; 
-      $modulename = uc($modulename);
       $contents = $contents. "module $modulename\n";
-      
       next;
     }
 
+    if($line =~ m/^endmodule/) {
+      $contents = $contents. "endmodule\n";
+      last;
+    }
+
+
     ## Modify the execinstr
-    if($line =~ m/execinstr\s*\(\w+ R1:R(\d+), R2:R(\d+), R3:R(\d+), .Typedoperands\)/) {
+    if($line =~ m/execinstr\s*\(\w+\s*R1:R(.+),\s*R2:R(.+),\s*R3:R(.+),\s*.Typedoperands\)/) {
+      utils::debugInfo( "3 operand\n", $debugprint);
+      $sizes{"R1"} = $1 =~ s/h/8/gr;
+      $sizes{"R2"} = $2 =~ s/h/8/gr;
+      $sizes{"R3"} = $3 =~ s/h/8/gr;
+
       $assoc{"R1"} = $operamdList[0];
       $assoc{"R2"} = $operamdList[1];
       $assoc{"R3"} = $operamdList[2];
-      $sizes{"R1"} = $1;
-      $sizes{"R2"} = $2;
-      $sizes{"R3"} = $3;
-    } elsif ($line =~ m/execinstr\s*\(\w+ R1:R(\d), R2:R(\d), .Typedoperands\)/) {
+    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*R2:R(\w+),\s*.Typedoperands\)/) {
+      utils::debugInfo( "2 operand\n", $debugprint);
+      $sizes{"R1"} = $1 =~ s/h/8/gr;
+      $sizes{"R2"} = $2 =~ s/h/8/gr;
+
       $assoc{"R1"} = $operamdList[0];
       $assoc{"R2"} = $operamdList[1];
-      $sizes{"R1"} = $1;
-      $sizes{"R2"} = $2;
-    } elsif ($line =~ m/execinstr\s*\(\w+ R1:R(\d), .Typedoperands\)/) {
-      $assoc{"R1"} = $operamdList[0];
-      $sizes{"R1"} = $1;
-    }
+    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*.Typedoperands\)/) {
+      utils::debugInfo( "1 operand\n", $debugprint);
+      $sizes{"R1"} = $1 =~ s/h/8/gr;
 
+      $assoc{"R1"} = $operamdList[0];
+    } 
+    
     $contents = $contents.$line."\n";  
   }
 
-  printMap(\%assoc, "Association Map", 1);
-  printMap(\%sizes, "Size Map", 1);
+  printMap(\%sizes, "Size Map", $debugprint);
+  printMap(\%assoc, "Association Map", $debugprint);
 
-  my $mod;
-  if(exists $assoc{"R1"}) {
-    if($assoc{R1} eq "al") {
-      $mod = $contents =~ s/R1/%al/gr;
-    } elsif($assoc{R1} =~ m/imm/) {
-      $mod = $contents =~ s/R1:R$sizes{R1}/I:Imm/gr;
-      $mod = $mod =~ s/getRegisterValue\(R1, RSMap\)/handleImmediateWithSignExtend(I, $immSize, $sizes{R1} )/gr;
-    } 
+
+  for my $key (keys %assoc) {
+    my $regNum = 0;
+    if($key =~ m/R(\d+)/) {
+      $regNum = $1;
+    }
+    if( 
+        $assoc{$key} eq "r8" or 
+        $assoc{$key} eq "rh" or 
+        $assoc{$key} eq "r16" or 
+        $assoc{$key} eq "r32" or 
+        $assoc{$key} eq "r64" 
+        ) {
+          $assoc{$key} = $key;
+    } else {
+        if($assoc{$key} =~ m/imm/ ) {
+          $assoc{$key} = "I".$regNum."_".$immSize;
+        } else {
+          $assoc{$key} = "%".$assoc{$key};
+        }
+    }
   }
+  printMap(\%assoc, "After Association Map", $debugprint);
 
-  $contents = $mod;
 
-  if(exists $assoc{"R2"}) {
-    if($assoc{R2} eq "al") {
-      $mod = $contents =~ s/R2/%al/gr;
-    } elsif($assoc{R2} =~ m/imm/) {
-      $mod = $contents =~ s/R2:$sizes{R2}/I:Imm/gr;
-      $mod = $mod =~ s/getRegisterValue\(R2, RSMap\)/handleImmediateWithSignExtend(I, $immSize, $sizes{R2} )/gr;
-    } 
+  my $mod = $contents;
+  for my $key (keys %assoc) {
+
+    if($assoc{$key} =~ m/I(\d+)_(\d+)/ ) {
+      $mod =~ s/$key:R$sizes{$key}/$assoc{$key}:Imm/g;
+      $mod =~ s/getRegisterValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+      if($sizes{$key} == 64) {
+        $mod =~ s/getParentValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+      } else {
+        $mod =~ s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+      }
+    } else {
+      $mod =~ s/$key/$assoc{$key}/g;
+    }
   }
-
-  $contents = $mod;
-
-  if(exists $assoc{"R3"}) {
-    if($assoc{R3} eq "al") {
-      $mod = $contents =~ s/R3/%al/gr;
-    } elsif($assoc{R3} =~ m/imm/) {
-      $mod = $contents =~ s/R3:$sizes{R3}/I:Imm/gr;
-      $mod = $mod =~ s/getRegisterValue\(R3, RSMap\)/handleImmediateWithSignExtend(I, $immSize, $sizes{R3} )/gr;
-    } 
-  }
-
-  $contents = $mod;
-
-
 
 
   open( my $fp, ">", $outfile ) or die "Can't open: $!";
-  print $fp $contents;
+  print $fp $mod;
   close $fp;
 }
 

@@ -50,6 +50,7 @@ my $singlefiledefn = "";
 my $nightlyrun     = "";
 my $start          = "";
 my $getimm         = "";
+my $getimmdiff           = "";
 my $getmem           = "";
 
 GetOptions(
@@ -70,6 +71,7 @@ GetOptions(
     "gitco"          => \$gitco,
     "singlefiledefn" => \$singlefiledefn,
     "getimm"         => \$getimm,
+    "getimmdiff"     => \$getimmdiff,
     "getmem"         => \$getmem,
     "nightlyrun"     => \$nightlyrun,
     "start:s"        => \$start,
@@ -172,7 +174,7 @@ if ( "" ne $nightlyrun ) {
 }
 
 if ("" ne $getimm) {
-  kutils::getImmInstrs($debugprint);
+  kutils::getImmInstrs($debugprint, $getimmdiff);
   exit(0);
 }
 
