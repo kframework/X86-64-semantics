@@ -3,8 +3,8 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rax, "SPAD1") ~>
-saveRegister(%rbx, "SPAD2") ~>
+saveRegister(%rbx, "SPAD1") ~>
+saveRegister(%rax, "SPAD2") ~>
 execinstr ( movzbw %ah, %si , .Typedoperands ) ~>
 execinstr ( movzbq %bl, %r12 , .Typedoperands ) ~>
 execinstr ( movslq %r12d, %rdx , .Typedoperands ) ~>
@@ -14,10 +14,10 @@ execinstr ( movb %dl, %ah , .Typedoperands ) ~>
 movByteToPosOfReg( %r9b, 6, %rbx ) ~>
 execinstr ( popcntq %rdx, %r9 , .Typedoperands ) ~>
 execinstr ( adcb %sil, %bl , .Typedoperands ) ~>
-restoreRegister("SPAD1", 0, 8, 16, 48,
-          8, 8, %rax) ~>
-restoreRegister("SPAD2", 8, 56, 0, 0,
+restoreRegister("SPAD1", 8, 56, 0, 0,
           0, 8, %rbx) ~>
+restoreRegister("SPAD2", 0, 8, 16, 48,
+          8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>

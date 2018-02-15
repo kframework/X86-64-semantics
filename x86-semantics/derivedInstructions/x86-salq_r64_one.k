@@ -11,17 +11,17 @@ module SALQ-R64-ONE
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1) )
 
- "SF" |-> (extractMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 0, 1) )
+ "SF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 1, 2) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ( (  ( countOnes(extractMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 56, 64), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 57, 65), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(getParentValue(R2, RSMap), 0, 1))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(getParentValue(R2, RSMap), 0, 1))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 1, 2)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> (addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)) )
+convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 1, 65) )
 
- "ZF" |-> ((#ifMInt (eqMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+ "ZF" |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 1, 65), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
 )
