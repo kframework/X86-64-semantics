@@ -11,9 +11,9 @@ module ROLQ-R64-ONE
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), concatenateMInt(mi(64, 0), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1))), 0, 1) )
 
- "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(getParentValue(R2, RSMap), 0, 1))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), concatenateMInt(mi(63, 0), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1))), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(getParentValue(R2, RSMap), 0, 1))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 0, 1), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), concatenateMInt(mi(64, 0), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1))), 1, 2)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> (addMInt(addMInt(getParentValue(R2, RSMap), getParentValue(R2, RSMap)), concatenateMInt(mi(63, 0), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1))) )
+convToRegKeys(R2) |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), concatenateMInt(mi(64, 0), extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R2, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 0, 1))), 1, 65) )
 
 
 )
