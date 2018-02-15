@@ -11,7 +11,8 @@ use Cwd;
 use File::Path qw(make_path remove_tree);
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+#use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+use lib qw( scripts/ );
 use kutils;
 use File::Find;
 use File::chdir;
@@ -50,8 +51,9 @@ my $singlefiledefn = "";
 my $nightlyrun     = "";
 my $start          = "";
 my $getimm         = "";
-my $getimmdiff           = "";
-my $getmem           = "";
+my $getimmdiff     = "";
+my $getmem         = "";
+my $getz3formula   = "";
 
 GetOptions(
     "help"           => \$help,
@@ -74,6 +76,7 @@ GetOptions(
     "getimmdiff"     => \$getimmdiff,
     "getmem"         => \$getmem,
     "nightlyrun"     => \$nightlyrun,
+    "getz3formula"   => \$getz3formula,
     "start:s"        => \$start,
     "strata_path:s"  => \$strata_path,
 ) or die("Error in command line arguments\n");
@@ -186,6 +189,19 @@ if ("" ne $getmem) {
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines      = <$fp>;
+ 
+
+## Get z3 Formulas
+if ( "" ne $getz3formula ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+          
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
+        }
+        generateZ3Formula($opcode, $debugprint);
+    }
+}
 
 
 ## Git diff

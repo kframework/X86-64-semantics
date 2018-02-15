@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -791,7 +791,6 @@ sub find_stratum {
 sub getTargetInstr {
 #############################################
     my $opcode     = shift @_;
-    my $path       = shift @_;
     my $debugprint = shift @_;
     my $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 
@@ -2767,6 +2766,116 @@ sub createImmFromRegVariant {
   open( my $fp, ">", $outfile ) or die "Can't open: $!";
   print $fp $mod;
   close $fp;
+}
+
+## This generates formulas for register only derived instr
+sub generateZ3Formula {
+  my $opcode = shift @_;
+  my $debugprint = shift @_;
+
+  ## Find the registre association
+  my %assoc = ();
+  my $targetinstr = getTargetInstr($opcode);
+  my $operandListFromInstr_ref = getOperandListFromInstr( $targetinstr, $debugprint );
+  my @operandListFromInstr  = @{$operandListFromInstr_ref};
+
+  my $counter = 1;
+  $assoc{"%cf"}  = "CF";
+  $assoc{"%pf"} = "PF";
+  $assoc{"%af"}  = "AF";
+  $assoc{"%zf"}  = "ZF";
+  $assoc{"%sf"}  = "SF";
+  $assoc{"%of"}  = "OF";
+  for my $opr (@operandListFromInstr) {
+    $assoc{$opr} = "R".$counter;
+    $counter++;
+  }
+
+  print $targetinstr."\n";
+  printMap(\%assoc, "Association Map", 1);
+
+  ## Prepare the file to write
+  my $z3file = "z3EquivFormulas//x86-$opcode.py";
+  open( my $zfp, ">", $z3file ) or die "Can't open $z3file: $!";
+  my $template = qq(from z3 import *
+s = Solver();
+def prove(f):
+  print f
+  s = Solver()
+  s.add(Not(f))
+  if s.check() == unsat:
+    print "proved"
+  else:
+    print "failed to prove"
+
+); 
+  print $zfp $template;
+
+
+  my %kruleMap = ();
+  my %strataBVF = ();
+
+  ## Find the pair of rules to match
+  my $koutput = "derivedInstructions/x86-$opcode.k";
+  open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
+  my @lines = <$fp>;
+  close $fp;
+
+
+  my $founrCircuit = 0;
+  for my $line (@lines) {
+    chomp $line;
+
+    if ( $line =~ m/"(\w+)" \|-> (.*)/ ) {
+      $kruleMap{$1} = $2;   
+      next;
+    }
+
+    if ( $line =~ m/convToRegKeys\((\w+)\) \|-> (.*)/ ) {
+      $kruleMap{$1} = $2;   
+      next;
+    }
+
+    if($line =~ m/Circuits:/) {
+      $founrCircuit = 1;
+      next;
+    }
+
+    if($founrCircuit == 1) {
+      if($line =~ m/(\w+)\s*: (.*)/) {
+        my $lhs = $1;
+        my $rhs = $2;
+
+        if(
+            $lhs eq "sigfpe" or 
+            $lhs eq "sigbus" or 
+            $lhs eq "sigsegv") {
+          next;
+        }
+
+        $strataBVF{"%".$1} = $2; 
+      }
+    }
+
+  }
+
+  printMap(\%kruleMap, "Krules", 1);
+  printMap(\%strataBVF, "BVF", 1);
+
+  my $counter = 1;
+  for my $key (sort keys %strataBVF) {
+    if(exists $kruleMap{$assoc{$key}}) {
+      print $zfp "P".$counter . " = " . $strataBVF{$key} ." <-> " . $kruleMap{$assoc{$key}}. "\n";
+      print $zfp "s.add(P". $counter . ")\n\n";
+      $counter++;
+    }
+  }
+
+
+  print $zfp "s.check()\n";
+
+  close $zfp;
+
 }
 
 1;
