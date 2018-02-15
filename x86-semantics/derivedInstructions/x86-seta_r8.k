@@ -9,7 +9,7 @@ module SETA-R8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), (#ifMInt (eqMInt((#ifMInt (eqMInt(addMInt(mi(8, 255), concatenateMInt(mi(7, 0), getFlag("ZF", RSMap))), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , mi(1, 0)) ) #then ( extractMInt(addMInt(concatenateMInt(mi(8, 0), addMInt(mi(8, 255), concatenateMInt(mi(7, 0), getFlag("CF", RSMap)))), mi(16, 4)), 0, 8) ) #else ( mi(8, 0) ) #fi) ) )
+convToRegKeys(R1) |-> ((#ifMInt (eqMInt(addMInt(mi(8, 255), concatenateMInt(mi(7, 0), getFlag("ZF", RSMap))), mi(8, 0)) ) #then ( concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), mi(8, 0)) ) #else ( concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0, 56), extractMInt(addMInt(concatenateMInt(mi(8, 0), addMInt(mi(8, 255), concatenateMInt(mi(7, 0), getFlag("CF", RSMap)))), mi(16, 4)), 0, 8)) ) #fi)  )
 
 
 )
