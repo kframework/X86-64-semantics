@@ -460,7 +460,7 @@ cmovcw_r16_r16	5	49
 cmovel_r32_r32	5	17					
 cmovgew_r16_r16	5	67					
 cmovnbel_r32_r32	5	75:OPTD:R13					
-cmovnbeq_r64_r64	5	47					
+cmovnbeq_r64_r64	5	47:C					
 cmovncl_r32_r32	5	35					
 cmovnpl_r32_r32	5	29					
 cmovnpw_r16_r16	5	32					

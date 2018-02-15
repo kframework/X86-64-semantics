@@ -9,15 +9,15 @@ module ADDB-AL-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
- "CF" |-> ((#ifMInt ( ( ultMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), extractMInt(getParentValue(%al, RSMap), 56, 64))  orBool  ultMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), handleImmediateWithSignExtend(I1_8, 8, 8 )) )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "CF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(%al, RSMap), 56, 64)), concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I1_8, 8, 8 ))), 0, 1) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (extractMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 0, 1) )
 
- "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 ))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ((#ifMInt ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 ))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ((#ifMInt (eqMInt(mi(8, 2), addMInt(xorMInt(lshrMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), 7), lshrMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 7)), xorMInt(lshrMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), 7), lshrMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 7)))) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(%al, RSMap), 56, 57), handleImmediateWithSignExtend(I1_8, 8, 8 ))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(%al, RSMap), 56, 57), extractMInt(addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
 convToRegKeys(%al) |-> (concatenateMInt(extractMInt(getParentValue(%al, RSMap), 0, 56), addMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 ))) )
 

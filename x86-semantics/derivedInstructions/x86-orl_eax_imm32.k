@@ -11,11 +11,11 @@ module ORL-EAX-IMM32
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(orMInt(handleImmediateWithSignExtend(I1_32, 32, 32 ), extractMInt(getParentValue(%eax, RSMap), 32, 64)), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (orMInt(handleImmediateWithSignExtend(I1_32, 32, 32 ), extractMInt(getParentValue(%eax, RSMap), 32, 33)) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(orMInt(handleImmediateWithSignExtend(I1_32, 32, 32 ), extractMInt(getParentValue(%eax, RSMap), 56, 64)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(orMInt(handleImmediateWithSignExtend(I1_32, 32, 32 ), extractMInt(getParentValue(%eax, RSMap), 56, 64)), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 

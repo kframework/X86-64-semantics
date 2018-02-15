@@ -13,13 +13,13 @@ RSMap:Map => updateMap(RSMap,
 
  "AF" |-> (undef)
 
-convToRegKeys(%rax) |-> (xorMInt(orMInt(xorMInt(xorMInt(getParentValue(%rax, RSMap), mi(64, 0)), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0))), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0))), xorMInt(xorMInt(getParentValue(%rax, RSMap), mi(64, 0)), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0)))) )
+convToRegKeys(%rax) |-> (xorMInt(orMInt(xorMInt(getParentValue(%rax, RSMap), handleImmediateWithSignExtend(I1_32, 32, 64 )), handleImmediateWithSignExtend(I1_32, 32, 64 )), xorMInt(getParentValue(%rax, RSMap), handleImmediateWithSignExtend(I1_32, 32, 64 ))) )
 
- "ZF" |-> ((#ifMInt (eqMInt(xorMInt(orMInt(xorMInt(xorMInt(getParentValue(%rax, RSMap), mi(64, 0)), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0))), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0))), xorMInt(xorMInt(getParentValue(%rax, RSMap), mi(64, 0)), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0)))), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "ZF" |-> ((#ifMInt (eqMInt(xorMInt(orMInt(xorMInt(getParentValue(%rax, RSMap), handleImmediateWithSignExtend(I1_32, 32, 64 )), handleImmediateWithSignExtend(I1_32, 32, 64 )), xorMInt(getParentValue(%rax, RSMap), handleImmediateWithSignExtend(I1_32, 32, 64 ))), mi(64, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(xorMInt(orMInt(xorMInt(xorMInt(getParentValue(%rax, RSMap), mi(64, 0)), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0))), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0))), xorMInt(xorMInt(getParentValue(%rax, RSMap), mi(64, 0)), xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), mi(64, 0)))), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (xorMInt(orMInt(xorMInt(extractMInt(getParentValue(%rax, RSMap), 0, 1), extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 0, 1)), extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 0, 1)), xorMInt(extractMInt(getParentValue(%rax, RSMap), 0, 1), extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 0, 1))) )
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(xorMInt(orMInt(xorMInt(xorMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64), mi(8, 0)), xorMInt(extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 56, 64), mi(8, 0))), xorMInt(extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 56, 64), mi(8, 0))), xorMInt(xorMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64), mi(8, 0)), xorMInt(extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 56, 64), mi(8, 0)))), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(xorMInt(orMInt(xorMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64), extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 56, 64)), extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 56, 64)), xorMInt(extractMInt(getParentValue(%rax, RSMap), 56, 64), extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 56, 64))), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 

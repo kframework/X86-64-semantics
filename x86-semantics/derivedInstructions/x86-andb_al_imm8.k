@@ -11,11 +11,11 @@ module ANDB-AL-IMM8
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(xorMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%al, RSMap), 56, 64))), 32, 64), xorMInt(extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ))), 32, 64), orMInt(extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ))), 32, 64), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%al, RSMap), 56, 64))), 32, 64)))), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (xorMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%al, RSMap), 56, 64))), 32, 33), xorMInt(extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ))), 32, 33), orMInt(extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ))), 32, 33), extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%al, RSMap), 56, 64))), 32, 33)))) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(xorMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), xorMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), orMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), extractMInt(getParentValue(%al, RSMap), 56, 64)))), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(xorMInt(extractMInt(getParentValue(%al, RSMap), 56, 64), xorMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), orMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), extractMInt(getParentValue(%al, RSMap), 56, 64)))), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 

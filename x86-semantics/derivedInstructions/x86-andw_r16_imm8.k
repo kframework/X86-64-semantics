@@ -11,11 +11,11 @@ module ANDW-R16-IMM8
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(mi(64, svalueMInt(concatenateMInt(xorMInt(orMInt(xorMInt(mi(8, 255), extractMInt(getParentValue(R2, RSMap), 48, 56)), handleImmediateWithSignExtend(I1_8, 8, 16 )), xorMInt(mi(8, 255), extractMInt(getParentValue(R2, RSMap), 48, 56))), xorMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), xorMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), orMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), extractMInt(getParentValue(R2, RSMap), 56, 64))))))), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (extractMInt(mi(64, svalueMInt(concatenateMInt(xorMInt(orMInt(xorMInt(mi(8, 255), extractMInt(getParentValue(R2, RSMap), 48, 56)), handleImmediateWithSignExtend(I1_8, 8, 16 )), xorMInt(mi(8, 255), extractMInt(getParentValue(R2, RSMap), 48, 56))), xorMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), xorMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), orMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), extractMInt(getParentValue(R2, RSMap), 56, 64))))))), 0, 1) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(xorMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), xorMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), orMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), extractMInt(getParentValue(R2, RSMap), 56, 64)))), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(xorMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), xorMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), orMInt(handleImmediateWithSignExtend(I1_8, 8, 16 ), extractMInt(getParentValue(R2, RSMap), 56, 64)))), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 
