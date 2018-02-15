@@ -12,7 +12,15 @@ module ADC-R32-R32
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
           zeroExtend(getFlag("CF", RSMap), 32), 
-          addMInt(addMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 32)),
+          extractMask(
+            addMInt(
+              addMInt(
+                concatenateMInt(mi(1, 0), getRegisterValue(R1, RSMap)), 
+                concatenateMInt(mi(1, 0), getRegisterValue(R2, RSMap))
+              ), 
+              concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 32))
+            ), 32, 0
+          ),
           .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>

@@ -11,7 +11,15 @@ module ADC-R8-R8
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
           zeroExtend(getFlag("CF", RSMap), 8),
-          addMInt(addMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 8)),
+          extractMask(
+            addMInt(
+              addMInt(
+                concatenateMInt(mi(1, 0), getRegisterValue(R1, RSMap)), 
+                concatenateMInt(mi(1, 0), getRegisterValue(R2, RSMap))
+              ), 
+              concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 8))
+            ), 8, 0
+          ), 
           .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>

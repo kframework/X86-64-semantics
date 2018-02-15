@@ -9,7 +9,11 @@ module ADD-IMM-R8
   rule <k> 
     execinstr(addq I:Imm , R:R64 , .Typedoperands) => 
       execinstr(addq  R, handleImmediateWithSignExtend(I, 64, 64), getRegisterValue(R, RSMap), 
-            addMInt(handleImmediateWithSignExtend(I, 64, 64), getRegisterValue(R, RSMap)), 
+            extractMask(
+              addMInt(
+                concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I, 64, 64)), 
+                concatenateMInt(mi(1, 0), getRegisterValue(R, RSMap))
+              ), 64, 0 ),
             .Typedoperands) 
   ...</k>
   <regstate> RSMap </regstate>

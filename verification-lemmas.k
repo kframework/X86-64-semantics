@@ -31,42 +31,6 @@ module BOOLEAN-LEMMAS
 
   rule B:Bool orBool B:Bool => B
   rule B:Bool andBool B:Bool => B
-
-  /*
-  ** Bool ITE
-  */
-  rule (#ifBool B:Bool #then B1:Bool #else B1:Bool #fi) => B1  
-
-  rule 
-  (#ifBool 
-      B:Bool 
-  #then B1 
-  #else 
-      (#ifBool 
-        B:Bool 
-      #then B1 
-      #else B2 
-      #fi) 
-  #fi) 
-  =>   
-  (#ifBool 
-      B:Bool 
-  #then B1 
-  #else B2 
-  #fi) 
-
-  rule 
-  (#ifBool 
-    (#ifBool B:Bool #then false #else true #fi)    
-  #then B1 
-  #else B2 
-  #fi) 
-  =>   
-  (#ifBool 
-      B:Bool 
-  #then B2 
-  #else B1 
-  #fi) 
 endmodule
 
 module FLOAT-LEMMAS
@@ -115,8 +79,6 @@ module FLOAT-LEMMAS
 endmodule
 
 module MINT-LEMMAS
-  imports MINT
-  imports FLOAT
   imports MINT-WRAPPER-SYNTAX
 
   // bitwidthMInt    
@@ -311,100 +273,12 @@ module MINT-LEMMAS
   rule extractMInt(xorMInt(MI1, MI2), S, E) =>  xorMInt(extractMInt(MI1, S, E), extractMInt(MI2, S, E))
 
   /*
-  ** Distribute Extract over ITE
-  */
-  rule extractMInt(#ifMInt B:Bool #then MI1:MInt #else MI2:MInt #fi, S, E) => 
-    #ifMInt B #then extractMInt(MI1, S, E) #else extractMInt(MI2, S, E) #fi
-
-  /*
-  ** Distribute Concatenate over ITE
-  */
-  rule concatenateMInt(MI1, (#ifMInt B:Bool #then MI2:MInt #else MI3:MInt #fi)) => 
-    (#ifMInt B:Bool #then concatenateMInt(MI1, MI2) #else concatenateMInt(MI1, MI3) #fi)
-
-  /*
   ** countOnes 
   */
   rule countOnes(concatenateMInt(MI1, MI2), I:Int) => countOnes(MI2, I)
     requires zeroMInt(MI1)
   rule countOnes(MI, I:Int) => uvalueMInt(MI)
     requires bitwidthMInt(MI) ==Int 1
-
-  /*
-  ** ITE
-  rule (#ifBool B:Bool #then MI #else MI #fi) => MI  
-  */
-
-
-  /*
-  ** ite: Nested ITE
-  */
-  rule 
-  (#ifMInt(
-    eqMInt(
-      (#ifMInt(
-          eqMInt(MI:MInt, MIA:MInt))
-      #then
-          MIB:MInt
-      #else    
-          MIC:MInt
-      #fi),
-      MIC))
-  #then
-    MIX:MInt
-  #else
-    MIY:MInt
-  #fi) 
-  =>
-  (#ifMInt(
-      eqMInt(MI:MInt, MIA:MInt))
-  #then
-      MIY:MInt
-  #else    
-      MIX:MInt
-  #fi)
-
-  /*
-  ** Distribute addMInt over ITE
-  */
-  rule 
-  addMInt(
-    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
-    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
-  )
-  =>
-  (#ifMInt B:Bool #then addMInt(MIA, MIC) #else addMInt(MIB, MID) #fi)
-
-  rule
-  addMInt(
-    MI:MInt,
-    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
-  )
-  =>
-  (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
-
-  rule
-  addMInt(
-    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi),
-    MI:MInt
-  )
-  =>
-  (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
-
-  /*
-  ** Distribute eqMInt over ITE
-  */
-  rule 
-  eqMInt
-  (
-    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
-    MIC:MInt
-  )
-  =>
-    (#ifBool B:Bool 
-      #then eqMInt(MIA:MInt, MIC:MInt) 
-      #else eqMInt(MIB:MInt, MIC:MInt) 
-    #fi)
 
   /*
   ** Carry flag idioms
@@ -422,15 +296,110 @@ module MINT-LEMMAS
     requires  (bitwidthMInt(MIF) ==Int 1) andBool 
               zeroMInt(MIZ) andBool
               (svalueMInt(MI_MINUS_ONE) ==Int -1)
+endmodule
+
+module ITE-LEMMAS
+  imports MINT-WRAPPER-SYNTAX
+  /*
+  ** Distribute Extract over ITE
+  */
+  rule extractMInt((#ifMInt B:Bool #then MI1:MInt #else MI2:MInt #fi), S, E) => 
+    (#ifMInt B #then extractMInt(MI1, S, E) #else extractMInt(MI2, S, E) #fi)
 
   /*
-  ** Redundant MInt ITE
+  ** Distribute Concatenate over ITE
   */
+  rule concatenateMInt(MI1, (#ifMInt B:Bool #then MI2:MInt #else MI3:MInt #fi)) => 
+    (#ifMInt B:Bool #then concatenateMInt(MI1, MI2) #else concatenateMInt(MI1, MI3) #fi)
+
+  rule concatenateMInt((#ifMInt B:Bool #then MI1:MInt #else MI2:MInt #fi), MI3) => 
+    (#ifMInt B:Bool #then concatenateMInt(MI1, MI3) #else concatenateMInt(MI2, MI3) #fi)
+
+  /*
+  ** Distribute add.xor/or/and over ITE
+  */
+  // add
+  rule 
+  addMInt(
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then addMInt(MIA, MIC) #else addMInt(MIB, MID) #fi)
+
+  // xor
+  rule 
+  xorMInt(
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then xorMInt(MIA, MIC) #else xorMInt(MIB, MID) #fi)
+
+  // or
+  rule 
+  orMInt(
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then orMInt(MIA, MIC) #else orMInt(MIB, MID) #fi)
+
+  // and
+  rule 
+  andMInt(
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then andMInt(MIA, MIC) #else andMInt(MIB, MID) #fi)
+
+
+  /*
+  rule
+  addMInt(
+    MI:MInt,
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi)
+  )
+  =>
+  (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
+
+  rule
+  addMInt(
+    (#ifMInt B:Bool #then MIC:MInt #else MID:MInt #fi),
+    MI:MInt
+  )
+  =>
+  (#ifMInt B:Bool #then addMInt(MI, MIC) #else addMInt(MI, MID) #fi)
+  */
+
+  /*
+  ** Distribute eqMInt over ITE
+  */
+  rule 
+  eqMInt
+  (
+    (#ifMInt B:Bool #then MIA:MInt #else MIB:MInt #fi),
+    MIC:MInt
+  )
+  =>
+    (#ifBool B:Bool 
+      #then eqMInt(MIA:MInt, MIC:MInt) 
+      #else eqMInt(MIB:MInt, MIC:MInt) 
+    #fi)
+
+  /*
+  **
+  ** Redundant ITEs
+  **
+  */   
+
+  // Both then/else same
+
   rule (#ifMInt B:Bool #then MI:MInt #else MI:MInt #fi) => MI
+  rule (#ifBool B:Bool #then B1:Bool #else B1:Bool #fi) => B1  
 
-  /*
-  ** Redundant ifBool within ifMInt
-  */
+  // Redundant ifBool within ifMInt or ifBool
   rule 
   (#ifMInt 
     (#ifBool B:Bool #then false #else true #fi)    
@@ -456,6 +425,80 @@ module MINT-LEMMAS
   #then MI1 
   #else MI2 
   #fi) 
+
+  rule 
+  (#ifBool 
+    (#ifBool B:Bool #then false #else true #fi)    
+  #then B1 
+  #else B2 
+  #fi) 
+  =>   
+  (#ifBool 
+      B:Bool 
+  #then B2 
+  #else B1 
+  #fi) 
+
+  rule 
+  (#ifBool 
+    (#ifBool B:Bool #then true #else false #fi)    
+  #then B1 
+  #else B2 
+  #fi) 
+  =>   
+  (#ifBool 
+      B:Bool 
+  #then B1 
+  #else B2 
+  #fi) 
+
+  /*
+  rule 
+  (#ifBool 
+      B:Bool 
+  #then B1 
+  #else 
+      (#ifBool 
+        B:Bool 
+      #then B1 
+      #else B2 
+      #fi) 
+  #fi) 
+  =>   
+  (#ifBool 
+      B:Bool 
+  #then B1 
+  #else B2 
+  #fi) 
+  */
+
+  /*
+  ** ite: Nested ITE
+  rule 
+  (#ifMInt(
+    eqMInt(
+      (#ifMInt(
+          eqMInt(MI:MInt, MIA:MInt))
+      #then
+          MIB:MInt
+      #else    
+          MIC:MInt
+      #fi),
+      MIC))
+  #then
+    MIX:MInt
+  #else
+    MIY:MInt
+  #fi) 
+  =>
+  (#ifMInt(
+      eqMInt(MI:MInt, MIA:MInt))
+  #then
+      MIY:MInt
+  #else    
+      MIX:MInt
+  #fi)
+  */
 endmodule
 
 module VERIFICATION-LEMMAS
@@ -463,4 +506,5 @@ module VERIFICATION-LEMMAS
   imports BOOLEAN-LEMMAS
   imports MINT-LEMMAS
   imports FLOAT-LEMMAS
+  imports ITE-LEMMAS
 endmodule
