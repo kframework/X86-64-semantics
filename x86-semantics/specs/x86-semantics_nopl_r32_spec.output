@@ -4,7 +4,7 @@ InitialTerm:
 <T>(<k>(#KSequence(execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 
 TargetTerm: 
-<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> _69_598:K@SORT-K   ),, <regstatequeue>(_70_599:List@LIST)) /\ _==K_(Bool@BOOL-SYNTAX(#"true"),, Bool@BOOL-SYNTAX(#"true"))
+<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> _69_607:K@SORT-K   ),, <regstatequeue>(_70_608:List@LIST)) /\ _==K_(Bool@BOOL-SYNTAX(#"true"),, Bool@BOOL-SYNTAX(#"true"))
 
 
 
@@ -20,5 +20,5 @@ IntermediateTerm:
 FinalTerm: 
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0")   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
-104.94user 7.20system 0:27.40elapsed 409%CPU (0avgtext+0avgdata 2968476maxresident)k
-0inputs+3816outputs (0major+87796minor)pagefaults 0swaps
+143.14user 6.88system 0:39.30elapsed 381%CPU (0avgtext+0avgdata 2834824maxresident)k
+0inputs+3656outputs (0major+79319minor)pagefaults 0swaps
