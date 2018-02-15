@@ -2768,14 +2768,14 @@ sub createImmFromRegVariant {
   close $fp;
 }
 
-## This generates formulas for register only derived instr
-sub generateZ3Formula {
+
+sub findRegisterAssoc {
   my $opcode = shift @_;
   my $debugprint = shift @_;
 
   ## Find the registre association
   my %assoc = ();
-  my $targetinstr = getTargetInstr($opcode);
+  my $targetinstr = getTargetInstr($opcode, $debugprint);
   my $operandListFromInstr_ref = getOperandListFromInstr( $targetinstr, $debugprint );
   my @operandListFromInstr  = @{$operandListFromInstr_ref};
 
@@ -2786,18 +2786,120 @@ sub generateZ3Formula {
   $assoc{"%zf"}  = "ZF";
   $assoc{"%sf"}  = "SF";
   $assoc{"%of"}  = "OF";
-  for my $opr (@operandListFromInstr) {
-    $assoc{$opr} = "R".$counter;
-    $counter++;
+
+  my $koutput = "derivedInstructions/x86-$opcode.k";
+  open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
+  my @lines = <$fp>;
+  close $fp;
+
+  my @formalList = ();
+  my @formalSizes = ();
+  for my $line (@lines) {
+    chomp $line;
+    if($line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/) {
+      push @formalList, $1;
+      push @formalList, $3;
+      push @formalList, $5;
+
+      if($2 eq "Xmm" or $2 eq "Ymm") {
+        push @formalSizes, 256;
+      } else {
+        push @formalSizes, 64;
+      }
+      if($4 eq "Xmm" or $4 eq "Ymm") {
+        push @formalSizes, 256;
+      } else {
+        push @formalSizes, 64;
+      }
+      if($4 eq "Xmm" or $4 eq "Ymm") {
+        push @formalSizes, 256;
+      } else {
+        push @formalSizes, 64;
+      }
+
+      $assoc{$operandListFromInstr[0]} = $formalList[0];
+      $assoc{$operandListFromInstr[1]} = $formalList[1];
+      $assoc{$operandListFromInstr[2]} = $formalList[2];
+
+      last;
+    } elsif ($line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/) {
+      push @formalList, $1;
+      push @formalList, $3;
+
+      if($2 eq "Xmm" or $2 eq "Ymm") {
+        push @formalSizes, 256;
+      } else {
+        push @formalSizes, 64;
+      }
+      if($4 eq "Xmm" or $4 eq "Ymm") {
+        push @formalSizes, 256;
+      } else {
+        push @formalSizes, 64;
+      }
+
+      $assoc{$operandListFromInstr[0]} = $formalList[0];
+      $assoc{$operandListFromInstr[1]} = $formalList[1];
+      last;
+
+    } elsif ($line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*.Typedoperands\)/) {
+      push @formalList, $1;
+
+      if($2 eq "Xmm" or $2 eq "Ymm") {
+        push @formalSizes, 256;
+      } else {
+        push @formalSizes, 64;
+      }
+
+      $assoc{$operandListFromInstr[0]} = $formalList[0];
+      last;
+    } 
   }
 
   print $targetinstr."\n";
-  printMap(\%assoc, "Association Map", 1);
+  printMap(\%assoc, "[findRegisterAssoc]Association Map", 1);
+  printArray(\@formalSizes, "[findRegisterAssoc]Sizes", 1);
+
+  return (\%assoc,\@formalSizes);
+
+}
+
+## This generates formulas for register only derived instr
+sub generateZ3Formula {
+  my $opcode = shift @_;
+  my $debugprint = shift @_;
+
+
+  ## find the register assoc
+  my ($assoc_ref, $formalSizes_ref) = findRegisterAssoc($opcode, $debugprint);
+  my %assoc = %{$assoc_ref};
+  my @formalSizes = @{$formalSizes_ref};
 
   ## Prepare the file to write
+  # Have the declarations
+  my $decl = "";
+  my $counter = 1;
+  for my $frml (@formalSizes) {
+    $decl = $decl . "R$counter = BitVec('R$counter', $frml)\n";
+    $counter++;
+  }
+
   my $z3file = "z3EquivFormulas//x86-$opcode.py";
   open( my $zfp, ">", $z3file ) or die "Can't open $z3file: $!";
   my $template = qq(from z3 import *
+
+# Declarations
+CF = BitVec('CF', 1)
+PF = BitVec('PF', 1)
+AF = BitVec('AF', 1)
+ZF = BitVec('ZF', 1)
+SF = BitVec('SF', 1)
+OF = BitVec('OF', 1)
+ZERO1 = BitVecVal(0, 1)
+ONE1 = BitVecVal(1, 1)
+ZERO64 = BitVecVal(0, 64)
+ONE64 = BitVecVal(1, 64)
+$decl
+
 s = Solver();
 def prove(f):
   print f
@@ -2859,13 +2961,21 @@ def prove(f):
 
   }
 
+
   printMap(\%kruleMap, "Krules", 1);
   printMap(\%strataBVF, "BVF", 1);
 
   my $counter = 1;
   for my $key (sort keys %strataBVF) {
+    if($key eq "%af") {
+      next;
+    }
     if(exists $kruleMap{$assoc{$key}}) {
-      print $zfp "P".$counter . " = " . $strataBVF{$key} ." <-> " . $kruleMap{$assoc{$key}}. "\n";
+
+      my $rule1 = simplifyKRules($kruleMap{$assoc{$key}}, $debugprint);
+      my $rule2 = simplifySRules($strataBVF{$key}, $debugprint);
+
+      print $zfp "P".$counter . " = " . $rule1 ." == " . $rule2. "\n";
       print $zfp "s.add(P". $counter . ")\n\n";
       $counter++;
     }
@@ -2878,4 +2988,45 @@ def prove(f):
 
 }
 
+sub simplifyKRules {
+  my $rule = shift @_;
+  my $debugprint = shift @_;
+
+  $rule =~ s/#ifMInt/If/g;
+  $rule =~ s/\) #then/,/g;
+  $rule =~ s/#else/,/g;
+  $rule =~ s/#fi//g;
+  $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
+  $rule =~ s/mi\(1, 0\)/ZERO1/g;
+  $rule =~ s/mi\(1, 1\)/ONE1/g;
+  $rule =~ s/mi\(64, 0\)/ZERO64/g;
+  $rule =~ s/mi\(64, 1\)/ONE64/g;
+  $rule =~ s/concatenateMInt/Concat/g;
+
+  return $rule;
+}
+
+sub simplifySRules {
+  my $rule = shift @_;
+  my $debugprint = shift @_;
+
+  return $rule;
+}
+
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

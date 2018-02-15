@@ -198,9 +198,14 @@ from z3 import *
 # print eq(f(x, x).decl(), f)
 
 
-a = BitVecVal(-1, 16)
-b = BitVecVal(65535, 16)
-print simplify(a + b)
+#a = BitVecVal(-1, 16)
+#b = BitVecVal(65535, 16)
+#print simplify(a + b)
+
+x = Int('x')
+y = Int('y')
+max = If(x > y, (x, y))
+print simplify(max)
 
 
 
