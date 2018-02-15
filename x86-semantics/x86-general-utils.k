@@ -489,9 +489,12 @@ module MINT-WRAPPER
     signExtend(MI, N): Sign extend MInt MI to a MInt of
       N bitwidth.
   */
-  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI)) 
-    requires N >=Int bitwidthMInt(MI)
+  rule signExtend(MI:MInt, N:Int) => MI
+    requires N ==Int bitwidthMInt(MI)
   
+  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI)) 
+    requires N >Int bitwidthMInt(MI)
+
   /*@ 
     popCount(MI, N): Count the number of set bits, V, in MI and
     create a MINt(N, V)

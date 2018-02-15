@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -2400,6 +2400,365 @@ sub checkManuallyGenerated {
     }
 
     return 0;
+}
+
+sub getMemInstrs {
+    my $patt = "_m8|_16|_m32|_m64|_m128|_m256";
+
+}
+
+sub getRegVaraintForImm {
+    my $line             = shift @_;
+    my $knownSemaMap_ref = shift @_;
+
+    my %knownSemaMap = %{$knownSemaMap_ref};
+
+    ### Imm patterns
+    my $patt     = qr/imm(\d+)/;
+    my $antipatt = qr/_m16|_m8|_m32|_m64|_m128|_m256/;
+
+    ## Check if the instr is an imm-reg instr
+    if ( $line !~ m/imm/ ) {
+        return ( "NotImmOnly", 0, "" );
+    }
+
+    if ( $line =~ m/$antipatt/g ) {
+        return ( "NotImmOnly", 0, "" );
+    }
+
+    if ( $line =~ m/imm(\d+)_1/g ) {
+        return ( "NotImmOnly", 0, "" );
+    }
+
+    my $immSize = 0;
+    if ( $line =~ m/$patt/g ) {
+        $immSize = $1;
+    }
+
+    my $opcode = $line =~ s/_.*//gr;
+
+    ## Collect Stats
+    if ( !exists $knownSemaMap{$opcode} ) {
+        return ( "NotFoundInKnownSema", 0, "" );
+    }
+
+    my @variants = @{ $knownSemaMap{$opcode} };
+    print "\nImm Instr: " . $line . "\n";
+
+    ## Some simple modofications of imm inst
+    ## inorder to get a match.
+    my $mod1 = $line =~ s/_rax/_r64/gr;
+    my $mod2 = $mod1 =~ s/_eax/_r32/gr;
+    my $mod3 = $mod2 =~ s/_ax/_r16/gr;
+    my $mod4 = $mod3 =~ s/_al/_r8/gr;
+    my $mod5 = "";
+
+    my @guesses  = ();
+    my $foundOne = 0;
+
+    #print "Check For exact operand size\n";
+
+    push @guesses, "Type Exact";
+    if ( $immSize == 8 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r8/gr;
+        push @guesses, $mod4 =~ s/imm(\d+)/cl/gr;
+    }
+    if ( $immSize == 16 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r16/gr;
+    }
+    if ( $immSize == 32 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r32/gr;
+    }
+    if ( $immSize == 64 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+    }
+
+    #p "Check For \"Require Extension\"\n";
+
+    push @guesses, "Type Extend";
+    if ( $immSize == 8 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r16/gr;
+        push @guesses, $mod4 =~ s/imm(\d+)/r32/gr;
+        push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+    }
+    if ( $immSize == 16 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r32/gr;
+        push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+    }
+    if ( $immSize == 32 ) {
+        push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
+    }
+
+#printArray( \@guesses, "Guesses", 1 );
+    my $matchType = "";
+    for my $var (@variants) {
+        for my $guess (@guesses) {
+
+            #p "$var\::$guess\::$matchType\n";
+            if ( $guess eq "Type Exact" ) {
+                $matchType = "Exact";
+                next;
+            }
+            elsif ( $guess eq "Type Extend" ) {
+                $matchType = "Extend";
+                next;
+            }
+
+            if ( $guess eq $var ) {
+                $foundOne = 1;
+                print "\t-$matchType->" . $var . "\n";
+                return ( $var, 1, $matchType );
+            }
+
+        }
+    }
+
+    if ( 0 == $foundOne ) {
+        printArray( \@variants, "Available known Semantics", 1 );
+        return ( "NoMatchInKnownSema", 0, "" );
+    }
+
+    #}
+
+}
+
+sub getImmInstrs {
+    my $debugprint = shift @_;
+    my $getimmdiff = shift @_;
+
+#my $allinstrs =
+#"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
+    my $allinstrs = "docs/relatedwork/strata/generalizedImms.txt";
+    my $semanticsknown =
+"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/strata/all_known_sema_opcodes.txt";
+
+    ## Create a map of known semantics
+    open( my $fp, "<", $semanticsknown ) or die "cannot open: $!";
+    my @lines        = <$fp>;
+    my %knownSemaMap = ();
+    my %auxMap       = ();
+
+    for my $line (@lines) {
+        chomp $line;
+        my $opcode = $line =~ s/_.*//gr;
+        if ( "" eq $opcode ) {
+            next;
+        }
+        push @{ $knownSemaMap{$opcode} }, $line;
+        $auxMap{$opcode} = 0;
+    }
+
+    ## Sanity check on map
+    my $count = 0;
+    for my $key ( keys %knownSemaMap ) {
+        $count += scalar( @{ $knownSemaMap{$key} } );
+    }
+    close $fp;
+
+    print "Total number of instr in semantic map (743): " . $count . "\n";
+    print "Unique opcode in semantic map: "
+      . scalar( keys %knownSemaMap ) . "\n\n";
+
+    ## For each imm instr find the relevant known semantics
+    my @semaNotFlound  = ();
+    my $countSemaFound = 0;
+    open( $fp, "<", $allinstrs ) or die "cannot open: $!";
+    @lines = <$fp>;
+
+    for my $line (@lines) {
+        chomp $line;
+        my $opcode = $line =~ s/_.*//gr;
+
+        my ( $regVar, $found, $matchType ) =
+          getRegVaraintForImm( $line, \%knownSemaMap );
+
+        if ( 0 == $found and ( $regVar eq "NotImmOnly" ) ) {
+            next;
+        }
+
+        if ( 0 == $found and ( $regVar eq "NotFoundInKnownSema" ) ) {
+            push @semaNotFlound, $line;
+            next;
+        }
+
+        $auxMap{$opcode} = 1;
+        $countSemaFound++;
+
+        if ( 0 == $found and $regVar eq "NoMatchInKnownSema" ) {
+            print("$line has no register variant\n");
+        }
+
+        if(defined($getimmdiff) and $getimmdiff == 1) {
+          diffImmReg($line, $regVar, $debugprint);
+        } else {
+          createImmFromRegVariant($line, $regVar, $matchType, $debugprint);
+        }
+    }
+
+    my @notUtilized   = ();
+    my $countUtilized = 0;
+    for my $temp ( keys %auxMap ) {
+        if ( $auxMap{$temp} == 0 ) {
+            push @notUtilized, $temp;
+        }
+        else {
+            $countUtilized++;
+        }
+    }
+    print "\n\nKnown Semantics (not utilized/utilized/total) for imm: "
+      . scalar(@notUtilized) . "/"
+      . $countUtilized . "/"
+      . scalar( keys %auxMap ) . "\n";
+
+    #printArray(\@notUtilized, "Semantics Not Utilized", 1);
+
+    print "\nInstr whose reg sema is present/absent: "
+      . $countSemaFound . "/"
+      . scalar(@semaNotFlound) . "\n";
+
+    #printArray(\@semaNotFlound, "Semantics Not found", 1);
+
+}
+
+sub diffImmReg {
+  my $immInstr = shift @_;
+  my $regInstr = shift @_;
+  my $debugprint = shift @_;
+
+  my $outfile = "derivedInstructions/x86-$immInstr.k";
+  my $template = "derivedInstructions/x86-$regInstr.k";
+  if(!(-e $template)) {
+    $template = "instructions/x86-$regInstr.k";
+  }
+
+  execute("diff $template $outfile", 1);
+
+}
+
+sub createImmFromRegVariant {
+  my $immInstr = shift @_;
+  my $regInstr = shift @_;
+  my $matchType = shift @_;
+#my $debugprint = shift @_;
+  my $debugprint = 1;
+
+  my $outfile = "derivedInstructions/x86-$immInstr.k";
+  my $template = "derivedInstructions/x86-$regInstr.k";
+  if(!(-e $template)) {
+    $template = "instructions/x86-$regInstr.k";
+  }
+
+  open( my $rfp, "<", $template ) or die "Can't open: $!";
+  my @lines = <$rfp>;
+  close $rfp;
+
+  my $contents = "";
+  my %assoc = ();
+  my %sizes = ();
+
+  my $operamdList_ref = getOperandListFromOpcode( $immInstr, $debugprint );
+  my @operamdList     = @{$operamdList_ref};
+
+  printArray(\@operamdList, "Operand List", $debugprint);
+
+  my $immSize = 0;
+  if ( $immInstr =~ m/imm(\d+)/g ) {
+      $immSize = $1;
+  }
+
+
+
+  for my $line (@lines) {
+    chomp $line;
+
+    my $modulename = $immInstr =~ s/_/-/gr; 
+    $modulename = uc($modulename);
+    if($line =~ m/^module/) {
+      $contents = $contents. "module $modulename\n";
+      next;
+    }
+
+    if($line =~ m/^endmodule/) {
+      $contents = $contents. "endmodule\n";
+      last;
+    }
+
+
+    ## Modify the execinstr
+    if($line =~ m/execinstr\s*\(\w+\s*R1:R(.+),\s*R2:R(.+),\s*R3:R(.+),\s*.Typedoperands\)/) {
+      utils::debugInfo( "3 operand\n", $debugprint);
+      $sizes{"R1"} = $1 =~ s/h/8/gr;
+      $sizes{"R2"} = $2 =~ s/h/8/gr;
+      $sizes{"R3"} = $3 =~ s/h/8/gr;
+
+      $assoc{"R1"} = $operamdList[0];
+      $assoc{"R2"} = $operamdList[1];
+      $assoc{"R3"} = $operamdList[2];
+    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*R2:R(\w+),\s*.Typedoperands\)/) {
+      utils::debugInfo( "2 operand\n", $debugprint);
+      $sizes{"R1"} = $1 =~ s/h/8/gr;
+      $sizes{"R2"} = $2 =~ s/h/8/gr;
+
+      $assoc{"R1"} = $operamdList[0];
+      $assoc{"R2"} = $operamdList[1];
+    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*.Typedoperands\)/) {
+      utils::debugInfo( "1 operand\n", $debugprint);
+      $sizes{"R1"} = $1 =~ s/h/8/gr;
+
+      $assoc{"R1"} = $operamdList[0];
+    } 
+    
+    $contents = $contents.$line."\n";  
+  }
+
+  printMap(\%sizes, "Size Map", $debugprint);
+  printMap(\%assoc, "Association Map", $debugprint);
+
+
+  for my $key (keys %assoc) {
+    my $regNum = 0;
+    if($key =~ m/R(\d+)/) {
+      $regNum = $1;
+    }
+    if( 
+        $assoc{$key} eq "r8" or 
+        $assoc{$key} eq "rh" or 
+        $assoc{$key} eq "r16" or 
+        $assoc{$key} eq "r32" or 
+        $assoc{$key} eq "r64" 
+        ) {
+          $assoc{$key} = $key;
+    } else {
+        if($assoc{$key} =~ m/imm/ ) {
+          $assoc{$key} = "I".$regNum."_".$immSize;
+        } else {
+          $assoc{$key} = "%".$assoc{$key};
+        }
+    }
+  }
+  printMap(\%assoc, "After Association Map", $debugprint);
+
+
+  my $mod = $contents;
+  for my $key (keys %assoc) {
+
+    if($assoc{$key} =~ m/I(\d+)_(\d+)/ ) {
+      $mod =~ s/$key:R$sizes{$key}/$assoc{$key}:Imm/g;
+      $mod =~ s/getRegisterValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+      if($sizes{$key} == 64) {
+        $mod =~ s/getParentValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+      } else {
+        $mod =~ s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+      }
+    } else {
+      $mod =~ s/$key/$assoc{$key}/g;
+    }
+  }
+
+
+  open( my $fp, ">", $outfile ) or die "Can't open: $!";
+  print $fp $mod;
+  close $fp;
 }
 
 1;

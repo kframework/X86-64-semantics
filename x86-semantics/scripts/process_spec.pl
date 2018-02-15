@@ -11,7 +11,7 @@ use Cwd;
 use File::Path qw(make_path remove_tree);
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+use lib qw( /home/sdasgup3/Github/x86_semantics_immm/x86-semantics/scripts/ );
 use kutils;
 use File::Find;
 use File::chdir;
@@ -50,6 +50,8 @@ my $singlefiledefn = "";
 my $nightlyrun     = "";
 my $start          = "";
 my $getimm         = "";
+my $getimmdiff           = "";
+my $getmem           = "";
 
 GetOptions(
     "help"           => \$help,
@@ -69,6 +71,8 @@ GetOptions(
     "gitco"          => \$gitco,
     "singlefiledefn" => \$singlefiledefn,
     "getimm"         => \$getimm,
+    "getimmdiff"     => \$getimmdiff,
+    "getmem"         => \$getmem,
     "nightlyrun"     => \$nightlyrun,
     "start:s"        => \$start,
     "strata_path:s"  => \$strata_path,
@@ -77,6 +81,7 @@ GetOptions(
 ##
 my $sfp;
 my $removeComment;
+my $debugprint = 0;
 
 if ( "" ne $singlefiledefn ) {
 
@@ -168,9 +173,20 @@ if ( "" ne $nightlyrun ) {
     exit(0);
 }
 
+if ("" ne $getimm) {
+  kutils::getImmInstrs($debugprint, $getimmdiff);
+  exit(0);
+}
+
+if ("" ne $getmem) {
+  kutils::getMemInstrs();
+  exit(0);
+}
+
+
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines      = <$fp>;
-my $debugprint = 0;
+
 
 ## Git diff
 if ( "" ne $gitdiff ) {
