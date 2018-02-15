@@ -11,11 +11,11 @@ module ORB-R8-IMM8
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(8, 1), lshrMInt(orMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 7)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (orMInt(extractMInt(getParentValue(R2, RSMap), 56, 57), handleImmediateWithSignExtend(I1_8, 8, 8 )) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(orMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(orMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), handleImmediateWithSignExtend(I1_8, 8, 8 )), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 

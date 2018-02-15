@@ -2526,11 +2526,8 @@ sub getImmInstrs {
     my $debugprint = shift @_;
     my $getimmdiff = shift @_;
 
-#my $allinstrs =
-#"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/all.instrs";
     my $allinstrs = "docs/relatedwork/strata/generalizedImms.txt";
-    my $semanticsknown =
-"/home/sdasgup3/Github/x86_semantics_immm/x86-semantics/docs/relatedwork/strata/all_known_sema_opcodes.txt";
+    my $semanticsknown = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
 
     ## Create a map of known semantics
     open( my $fp, "<", $semanticsknown ) or die "cannot open: $!";
@@ -2565,6 +2562,12 @@ sub getImmInstrs {
     open( $fp, "<", $allinstrs ) or die "cannot open: $!";
     @lines = <$fp>;
 
+    ## Bypass list
+    my %bypassList = (
+        "movq_r64_imm32" => 1,
+        "movq_r64_imm64" => 1,
+        );
+
     for my $line (@lines) {
         chomp $line;
         my $opcode = $line =~ s/_.*//gr;
@@ -2579,6 +2582,11 @@ sub getImmInstrs {
         if ( 0 == $found and ( $regVar eq "NotFoundInKnownSema" ) ) {
             push @semaNotFlound, $line;
             next;
+        }
+
+        if(exists $bypassList{$line}) {
+          utils::warnInfo("Skipped:$line");
+          next;
         }
 
         $auxMap{$opcode} = 1;
@@ -2639,8 +2647,8 @@ sub createImmFromRegVariant {
   my $immInstr = shift @_;
   my $regInstr = shift @_;
   my $matchType = shift @_;
-#my $debugprint = shift @_;
-  my $debugprint = 1;
+  my $debugprint = shift @_;
+#my $debugprint = 1;
 
   my $outfile = "derivedInstructions/x86-$immInstr.k";
   my $template = "derivedInstructions/x86-$regInstr.k";

@@ -11,11 +11,11 @@ module ORB-RH-IMM8
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(64, 1), lshrMInt(orMInt(mi(64, svalueMInt(concatenateMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), handleImmediateWithSignExtend(I1_8, 8, 8 )))), mi(64, svalueMInt(concatenateMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56))))), 63)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (orMInt(extractMInt(mi(64, svalueMInt(concatenateMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), handleImmediateWithSignExtend(I1_8, 8, 8 )))), 0, 1), extractMInt(mi(64, svalueMInt(concatenateMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R2, RSMap), 48, 56)))), 0, 1)) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(orMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), extractMInt(getParentValue(R2, RSMap), 48, 56)), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(orMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), extractMInt(getParentValue(R2, RSMap), 48, 56)), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 

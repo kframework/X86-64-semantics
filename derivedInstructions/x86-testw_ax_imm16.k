@@ -11,11 +11,11 @@ module TESTW-AX-IMM16
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (mi(1, 0) )
 
- "SF" |-> ((#ifMInt (eqMInt(mi(32, 1), lshrMInt(xorMInt(extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_16, 16, 16 ))), 32, 64), xorMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%ax, RSMap), 48, 64))), 32, 64), orMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%ax, RSMap), 48, 64))), 32, 64), extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_16, 16, 16 ))), 32, 64)))), 31)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "SF" |-> (xorMInt(extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_16, 16, 16 ))), 32, 33), xorMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%ax, RSMap), 48, 64))), 32, 33), orMInt(extractMInt(mi(64, svalueMInt(extractMInt(getParentValue(%ax, RSMap), 48, 64))), 32, 33), extractMInt(mi(64, svalueMInt(handleImmediateWithSignExtend(I1_16, 16, 16 ))), 32, 33)))) )
 
  "AF" |-> (undef)
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(xorMInt(handleImmediateWithSignExtend(I1_16, 16, 16 ), xorMInt(extractMInt(getParentValue(%ax, RSMap), 56, 64), orMInt(extractMInt(getParentValue(%ax, RSMap), 56, 64), handleImmediateWithSignExtend(I1_16, 16, 16 )))), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(xorMInt(handleImmediateWithSignExtend(I1_16, 16, 16 ), xorMInt(extractMInt(getParentValue(%ax, RSMap), 56, 64), orMInt(extractMInt(getParentValue(%ax, RSMap), 56, 64), handleImmediateWithSignExtend(I1_16, 16, 16 )))), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> (mi(1, 0) )
 

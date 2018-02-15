@@ -13,9 +13,9 @@ RSMap:Map => updateMap(RSMap,
 
  "SF" |-> (extractMInt(addMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap)), 0, 1) )
 
- "AF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap)), addMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap))), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ((#ifMInt ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap)), addMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap))), 4), mi(64, 1)))  ==K  0 )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ((#ifMInt ((#ifBool ( notBool  (  ( uvalueMInt(xorMInt(andMInt(mi(64, countOnes(extractMInt(addMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap)), 56, 64), 0)), mi(64, 1)), mi(64, 1)))  ==K  0 )  )  ) #then ( true ) #else ( false ) #fi) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(extractMInt(addMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap)), 56, 64), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
  "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 0, 1), extractMInt(getParentValue(%rax, RSMap), 0, 1))  andBool   notBool  ( eqMInt(extractMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), 0, 1), extractMInt(addMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getParentValue(%rax, RSMap)), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
