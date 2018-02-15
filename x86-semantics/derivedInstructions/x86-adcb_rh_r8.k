@@ -11,17 +11,17 @@ module ADCB-RH-R8
 RSMap:Map => updateMap(RSMap,
  "CF" |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 0, 1) )
 
- "SF" |-> (extractMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), concatenateMInt(mi(7, 0), getFlag("CF", RSMap))), 0, 1) )
+ "SF" |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 2) )
 
- "AF" |-> ((#ifMInt ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), concatenateMInt(mi(7, 0), getFlag("CF", RSMap)))), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "AF" |-> ((#ifMInt ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 9)), 4), mi(8, 1)))  ==K  0 )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "PF" |-> ((#ifMInt ( (  ( countOnes(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), concatenateMInt(mi(7, 0), getFlag("CF", RSMap))), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "PF" |-> ((#ifMInt ( (  ( countOnes(extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 9), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
- "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 48, 49), extractMInt(getParentValue(R1, RSMap), 56, 57))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 48, 49), extractMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), concatenateMInt(mi(7, 0), getFlag("CF", RSMap))), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(getParentValue(R2, RSMap), 48, 49), extractMInt(getParentValue(R1, RSMap), 56, 57))  andBool   notBool  ( eqMInt(extractMInt(getParentValue(R2, RSMap), 48, 49), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 2)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), concatenateMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), concatenateMInt(mi(7, 0), getFlag("CF", RSMap))), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
+convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 48), concatenateMInt(extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 9), extractMInt(getParentValue(R2, RSMap), 56, 64))) )
 
- "ZF" |-> ((#ifMInt (eqMInt(addMInt(addMInt(extractMInt(getParentValue(R2, RSMap), 48, 56), extractMInt(getParentValue(R1, RSMap), 56, 64)), concatenateMInt(mi(7, 0), getFlag("CF", RSMap))), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+ "ZF" |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 48, 56)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R1, RSMap), 56, 64))), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 9), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
 )
