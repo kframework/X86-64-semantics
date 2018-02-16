@@ -9,7 +9,7 @@ module CMOVNBEQ-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> ((#ifMInt (eqMInt((#ifMInt (eqMInt(addMInt((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(7, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(7, 0), getFlag("ZF", RSMap)) ) #fi) , (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( concatenateMInt(mi(7, 0), getFlag("CF", RSMap)) ) #else ( concatenateMInt(mi(7, 0), getFlag("ZF", RSMap)) ) #fi) ), mi(8, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi) , mi(1, 0)) ) #then ( getParentValue(R2, RSMap) ) #else ( getParentValue(R1, RSMap) ) #fi)  )
+convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then ( eqMInt(extractMInt(addMInt(concatenateMInt(mi(8, 0), getFlag("CF", RSMap)), concatenateMInt(mi(8, 0), getFlag("CF", RSMap))), 1, 9), mi(8, 0)) ) #else ( eqMInt(extractMInt(addMInt(concatenateMInt(mi(8, 0), getFlag("ZF", RSMap)), concatenateMInt(mi(8, 0), getFlag("ZF", RSMap))), 1, 9), mi(8, 0)) ) #fi) ) #then ( getParentValue(R1, RSMap) ) #else ( getParentValue(R2, RSMap) ) #fi)  )
 
 
 )
