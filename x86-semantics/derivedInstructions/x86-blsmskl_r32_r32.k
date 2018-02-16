@@ -9,19 +9,19 @@ module BLSMSKL-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
- "CF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 24)), concatenateMInt(mi(1, 0), extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 24))), 0, 1) )
+ "CF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 25)), concatenateMInt(mi(1, 0), extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 25))), 0, 1) )
 
- "SF" |-> (xorMInt(extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 32, 33), extractMInt(getParentValue(R1, RSMap), 32, 33)) )
+ "SF" |-> (xorMInt(extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 33, 34), extractMInt(getParentValue(R1, RSMap), 32, 33)) )
 
  "AF" |-> (undef)
 
  "PF" |-> (undef)
 
- "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 17), extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 17))  andBool   notBool  ( eqMInt(extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 17), extractMInt(addMInt(extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 24), extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 16, 24)), 0, 1)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+ "OF" |-> ((#ifMInt ( ( eqMInt(extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 18), extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 18))  andBool   notBool  ( eqMInt(extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 18), extractMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 25)), concatenateMInt(mi(1, 0), extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 17, 25))), 1, 2)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 
-convToRegKeys(R2) |-> (xorMInt(concatenateMInt(mi(32, 0), extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 32, 64)), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))) )
+convToRegKeys(R2) |-> (xorMInt(concatenateMInt(mi(32, 0), extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 33, 65)), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))) )
 
- "ZF" |-> ((#ifMInt (eqMInt(xorMInt(extractMInt(addMInt(mi(64, 18446744073709551615), concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 32, 64), extractMInt(getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
+ "ZF" |-> ((#ifMInt (eqMInt(xorMInt(extractMInt(addMInt(mi(65, 18446744073709551615), concatenateMInt(mi(33, 0), extractMInt(getParentValue(R1, RSMap), 32, 64))), 33, 65), extractMInt(getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
 
 
 )
