@@ -3000,6 +3000,9 @@ sub generateZ3Formula {
     my $opcode     = shift @_;
     my $debugprint = shift @_;
 
+    chomp $opcode;
+
+    utils::info("Generating Z3 formula for $opcode\n");
     ## find the register assoc
     my ( $assoc_ref, $formalSizes_ref ) =
       findRegisterAssoc( $opcode, $debugprint );
@@ -3018,7 +3021,7 @@ sub generateZ3Formula {
     my $z3file = "z3EquivFormulas//x86-$opcode.py";
     open( my $zfp, ">", $z3file ) or die "Can't open $z3file: $!";
     my $template = qq(from z3 import *
-
+import proverUtils
 # Declarations
 CF = BitVec('CF', 1)
 PF = BitVec('PF', 1)
@@ -3040,15 +3043,7 @@ ZERO64 = BitVecVal(0, 64)
 ONE64 = BitVecVal(1, 64)
 $decl
 
-s = Solver();
-def prove(f):
-  print f
-  s = Solver()
-  s.add(Not(f))
-  if s.check() == unsat:
-    print "proved"
-  else:
-    print "failed to prove"
+print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
 
 );
     print $zfp $template;
@@ -3093,8 +3088,8 @@ def prove(f):
 
     }
 
-    printMap( \%kruleMap,  "Krules", 1 );
-    printMap( \%strataBVF, "BVF",    1 );
+    printMap( \%kruleMap,  "Krules", $debugprint );
+    printMap( \%strataBVF, "BVF",    $debugprint );
 
     for my $key ( sort keys %strataBVF ) {
         if (   $key eq "%af"
@@ -3121,7 +3116,7 @@ def prove(f):
             my $rule2 = convertBVFToSMT2( $strataBVF{$key}, \%assoc, $debugprint );
 
             print $zfp "PS_" . $assoc{$key} . " = " . $rule2 . "\n"; 
-            print $zfp "prove( PK_$assoc{$key} == PS_$assoc{$key} )\n\n";
+            print $zfp "proverUtils.prove( PK_$assoc{$key} == PS_$assoc{$key} )\n\n";
         }
     }
 
@@ -3149,6 +3144,8 @@ sub preProcessBVFToSMT2 {
     $rule =~ s/<0x1\|64>/(ONE64)/g;
     $rule =~ s/<0x0\|1>/(ZERO1)/g;
     $rule =~ s/<0x0\|64>/(ZERO64)/g;
+    $rule =~ s/FALSE/False/g;
+    $rule =~ s/TRUE/True/g;
     debugInfo("After removing Consts: $rule", $debugprint);
 
     while(1) {
@@ -3184,25 +3181,26 @@ sub convertBVFToSMT2_helper {
     my $debugprint = shift @_;
 
 
-    debugInfo("[convertBVFToSMT2_helper] ->$rule\n", 1);
+    debugInfo("[convertBVFToSMT2_helper] ->$rule\n", $debugprint);
     if(
         $rule =~ m/^\(ONE(\d+)\)$/ or 
         $rule =~ m/^\(ZERO(\d+)\)$/ or 
+        $rule =~ m/^\(R(\d+)\)$/ or
         $rule =~ m/^\(R(\d+)\)$/ 
         ) {
-      debugInfo("[convertBVFToSMT2_helper]  Base\n", 1);
+      debugInfo("[convertBVFToSMT2_helper]  Base\n", $debugprint);
       return $rule;
     }
 
-    my $bin_op = qr/==|plus|concat|and|not/;
+    my $bin_op = qr/==|plus|concat|and|not|or|xor/;
 
-    debugInfo("[convertBVFToSMT2_helper] Non Base\n", 1);
+    debugInfo("[convertBVFToSMT2_helper] Non Base\n", $debugprint);
 
     if($rule =~ m/^(.+)\[(\d+):(\d+)\]$/) {
       my $arg   = $1;
       my $high  = $2;
       my $low   = $3;
-      debugInfo("[convertBVFToSMT2_helper] Processing $arg with extract\n", 1);
+      debugInfo("[convertBVFToSMT2_helper] Processing $arg with extract\n", $debugprint);
 
       $rule = "(Extract ($high, $low, (" . convertBVFToSMT2_helper($arg) . ")))";
     }
@@ -3219,6 +3217,12 @@ sub convertBVFToSMT2_helper {
       }
       if($op eq "==") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " == " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "or") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " | " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "xor") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " ^ " . convertBVFToSMT2_helper($retargs[1]). ")";
       }
       if($op eq "concat") {
         $rule = "(Concat(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
@@ -3302,6 +3306,8 @@ sub convertKRuleToSMT2 {
 
     my %retMap = ();
 
+    printArray(\@{scalarToArray($returnInfo, "\n")}, "[convertKRuleToSMT2]", 1);
+
     for my $item (@{scalarToArray($returnInfo, "\n")}) {
         chomp $item;
         trim($item);
@@ -3321,7 +3327,6 @@ sub convertKRuleToSMT2 {
         } 
     }
 
-    printMap(\%retMap,"", 1);
     return \%retMap;
 
 }
@@ -3331,10 +3336,6 @@ sub convertKRuleToSMT2_helper {
   my $rule       = shift @_;
   my $debugprint = shift @_;
 
-  $rule =~ s/#ifMInt/If(/g;
-    $rule =~ s/#then/,/g;
-    $rule =~ s/#else/,/g;
-    $rule =~ s/#fi/)/g;
     $rule =~ s/mi\(1, 0\)/ZERO1/g;
     $rule =~ s/mi\(1, 1\)/ONE1/g;
     $rule =~ s/mi\(64, 0\)/ZERO64/g;
@@ -3344,69 +3345,79 @@ sub convertKRuleToSMT2_helper {
 
     ##qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
     my $bin_op = (
-qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|eqMInt/
+qr/extractMInt|addMInt|orMInt|andMInt|eqMInt/
     );
     my $arg = $rule;
     while (1) {
-        if ( $arg =~ m/(.+)($bin_op)(.+)/ ) {
+        my $op = "";
+        my $pre = "";
+        my $post = "";
 
-            my $op = $2;
-            debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
-            debugInfo( "\n\nBefore Rule: $arg\n", $debugprint );
+        if ( $arg =~ m/(.+)(xorMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } elsif ($arg =~ m/(.+)($bin_op)(.+)/) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
 
-            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+        } else {
+          last;
+        }
 
-            debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
-            debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+        debugInfo( "\n\nGot Binary op: $op\n", 1 );
+        debugInfo( "\n\nBefore Rule: $arg\n", 1 );
 
-            my @args = ();
-            if ( $op eq "extractMInt" ) {
-                @args = findArgs( $op_arg, 3 );
-            }
-            else {
-                @args = findArgs( $op_arg, 2 );
-            }
+        my ( $op_arg, $rest ) = selectbraces( $post, 1 );
 
-            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
-            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
-            if($op eq "extractMInt") {
+        debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+        debugInfo( "Rest: " . $rest . "\n",  $debugprint );
 
-            }
-            if ( $op eq "eqMInt" ) {
-                $arg = $1 . "( $args[0] == $args[1] ) $rest";
-            }
-            if ( $op eq "addMInt" ) {
-                $arg = $1 . "( $args[0] + $args[1] ) $rest";
-            }
-            if ( $op eq "orMInt" ) {
-                $arg = $1 . "( $args[0] | $args[1] ) $rest";
-            }
-            if ( $op eq "andMInt" ) {
-                $arg = $1 . "( $args[0] & $args[1] ) $rest";
-            }
-            if ( $op eq "xorMInt" ) {
-                $arg = $1 . "( $args[0] ^ $args[1] ) $rest";
-            }
-            if ( $op eq "andBool" ) {
-                $arg = $1 . "And" . "( $args[0] , $args[1] ) $rest";
-            }
-            if ( $op eq "orBool" ) {
-                $arg = $1 . "Or" . "( $args[0] , $args[1] ) $rest";
-            }
-            if ( $op eq "extractMInt" ) {
-                my $size  = $args[0] . ".size()";
-                my $start = $args[1];
-                my $end   = $args[2];
-                $arg =
-                    $1 
-                  . "Extract"
-                  . "( $size - $start - 1, $size - $end, $args[0]  ) $rest";
-            }
-            debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
+        my @args = ();
+        if ( $op eq "extractMInt" ) {
+            @args = findArgs( $op_arg, 3 );
         }
         else {
-            last;
+            @args = findArgs( $op_arg, 2 );
         }
+
+        debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+        debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+        if($op eq "extractMInt") {
+
+        }
+        if ( $op eq "eqMInt" ) {
+            $arg = $pre . "( $args[0] == $args[1] ) $rest";
+        }
+        if ( $op eq "addMInt" ) {
+            $arg = $pre . "( $args[0] + $args[1] ) $rest";
+        }
+        if ( $op eq "orMInt" ) {
+            $arg = $pre . "( $args[0] | $args[1] ) $rest";
+        }
+        if ( $op eq "andMInt" ) {
+            $arg = $pre . "( $args[0] & $args[1] ) $rest";
+        }
+        if ( $op eq "xorMInt" ) {
+            $arg = $pre . "( $args[0] ^ $args[1] ) $rest";
+        }
+        if ( $op eq "andBool" ) {
+            $arg = $pre . "And" . "( $args[0] , $args[1] ) $rest";
+        }
+        if ( $op eq "orBool" ) {
+            $arg = $pre . "Or" . "( $args[0] , $args[1] ) $rest";
+        }
+        if ( $op eq "extractMInt" ) {
+            my $size  = $args[0] . ".size()";
+            my $start = $args[1];
+            my $end   = $args[2];
+            $arg =
+                $pre 
+              . "Extract"
+              . "( $size - $start - 1, $size - $end, $args[0]  ) $rest";
+        }
+        debugInfo( "\n\nAfter Rule: $arg\n", 1 );
     }
     $rule = $arg;
     $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
