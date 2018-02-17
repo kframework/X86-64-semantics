@@ -137,13 +137,6 @@ from z3 import *
 # demorgan = And(p, q) == Not(Or(Not(p), Not(q)))
 # print demorgan
 # 
-# def prove(f):
-#     s = Solver()
-#     s.add(Not(f))
-#     if s.check() == unsat:
-#         print "proved"
-#     else:
-#         print "failed to prove"
 # 
 # print "Proving demorgan..."
 # prove(demorgan)
@@ -198,14 +191,75 @@ from z3 import *
 # print eq(f(x, x).decl(), f)
 
 
-#a = BitVecVal(-1, 16)
-#b = BitVecVal(65535, 16)
-#print simplify(a + b)
 
-x = Int('x')
-y = Int('y')
-max = If(x > y, (x, y))
-print simplify(max)
+# x = Int('x')
+# y = Int('y')
+# max = If(x > y, (x, y))
+# print simplify(max)
+
+# a = BitVecVal(-1, 16)
+# b = BitVecVal(65535, 16)
+# print simplify(a + b)
+# print a.size()
+
+# x = Real("x")
+# 
+# rule = x > 0
+# goal = x < 0
+#z3.prove(z3.Implies(rule, goal))  
+# z3.prove(Implies(And(rule, x != -1, x != -2), goal))  
+
+
+
+# p, q = Bools('p q')
+# print simplify(Implies(p, q))
+# print simplify(And(Implies(p, q), Implies(q,p)))
+# print simplify(p == q)
+
+
+#print parse_smt2_string('(declare-const x Int) (assert (> x 0)) (assert (< x 10))')
+
+
+def prove(f):
+    s = Solver()
+    s.add(Not(f))
+    if s.check() == unsat:
+        print "proved"
+    else:
+       print "failed to prove"
+
+# a = BitVec('x', 4)
+# b = BitVec('y', 4)
+# z = Not(ULE(a, b) == (a <= b))
+# prove(z)
+# z3.prove(z)
+
+
+
+#a =  parse_smt2_string('(declare-const a (_ BitVec 4)) (declare-const b (_ BitVec 4)) (assert (not (= (bvule a b) (bvsle a b)))) ')
+#print a
+#print z3.prove(a)
+
+
+
+#(concat <%rbx|64>[63:8] (plus (if <%cf> then (plus (concat <0x0|1> <%rax|64>[7:0]) <0x1|9>) else (concat <0x0|1> <%rax|64>[7:0])) (concat <0x0|1> <%rbx|64>[7:0]))[7:0])
+#(concat rbx[63:8] (plus (if cf then (plus (concat ZERO1 rax[7:0]) ) else (concat ZERO1> rax[7:0])) (concat ZERO1> rax[7:0]))[7:0])
+rbx = BitVec('rbx', 64)
+cf = Bool('cf')
+ONE1 = BitVecVal(1, 1)
+ONE9 = BitVecVal(1, 9)
+ZERO1 = BitVecVal(0, 1)
+a = parse_smt2_string('(declare-const rbx (_ BitVec 64)) (_ concat rbx rbx )')
+
+
+
+
+
+
+
+
+
+
 
 
 
