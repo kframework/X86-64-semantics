@@ -1004,12 +1004,14 @@ sub getRWsetOfInstr {
 sub getStrataBVFormula {
     my $instr      = shift @_;
     my $debugprint = shift @_;
+    my $smtlib_format = shift @_;
+
     my $binpath =
-"/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
+"/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit $smtlib_format --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
 
     # Escape the $ sign (if present)
     $instr =~ s/\$/\\\$/g;
-    execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1");
+    execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1", 1);
 
     my $filepath = "/tmp/yyy";
     open( my $fp, "<", $filepath )
@@ -1143,7 +1145,7 @@ sub getInstrsFromCircuit {
     open( my $fp, "<", $filepath )
       or die "[getInstrsFromCircuit] cannot open $filepath: $!";
 
-#utils::info("Reading circuit from $filepath");
+    #utils::info("Reading circuit from $filepath");
     my @lines = <$fp>;
     for my $line (@lines) {
         chomp $line;
@@ -1391,6 +1393,7 @@ sub findArgs {
         }
         else {
             my ( $op_arg, $rest ) = selectbraces( $line, 0 );
+#print "$op_arg\::$rest\n";
             push @args, $op_arg;
             $rest =~ s/\s*,\s*//;
             $line = $rest;
@@ -1943,9 +1946,9 @@ sub sanitizeSpecOutput {
 
         # Local Optimzations
         ## Replace mi(W, _NUM) => MINUM
-        debugInfo( "PreResult:$result\n", 1 );
+        debugInfo( "PreResult:$result\n", $debugprint );
         $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
-        debugInfo( "Result:$result\n", 1 );
+        debugInfo( "Result:$result\n", $debugprint );
 
         push @workList, $result;
     }
@@ -2173,7 +2176,7 @@ endmodule
     my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
 
     ## get BV formula
-    my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint );
+    my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint , "--smtlib_format");
 
     print $fp "/*"
       . "\nTargetInstr:\n"
@@ -2488,7 +2491,7 @@ sub getRegVaraintForImm {
         push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
     }
 
-#printArray( \@guesses, "Guesses", 1 );
+    #printArray( \@guesses, "Guesses", 1 );
     my $matchType = "";
     for my $var (@variants) {
         for my $guess (@guesses) {
@@ -2525,7 +2528,7 @@ sub getImmInstrs {
     my $debugprint = shift @_;
     my $getimmdiff = shift @_;
 
-    my $allinstrs = "docs/relatedwork/strata/generalizedImms.txt";
+    my $allinstrs      = "docs/relatedwork/strata/generalizedImms.txt";
     my $semanticsknown = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
 
     ## Create a map of known semantics
@@ -2565,7 +2568,7 @@ sub getImmInstrs {
     my %bypassList = (
         "movq_r64_imm32" => 1,
         "movq_r64_imm64" => 1,
-        );
+    );
 
     for my $line (@lines) {
         chomp $line;
@@ -2583,9 +2586,9 @@ sub getImmInstrs {
             next;
         }
 
-        if(exists $bypassList{$line}) {
-          utils::warnInfo("Skipped:$line");
-          next;
+        if ( exists $bypassList{$line} ) {
+            utils::warnInfo("Skipped:$line");
+            next;
         }
 
         $auxMap{$opcode} = 1;
@@ -2595,10 +2598,11 @@ sub getImmInstrs {
             print("$line has no register variant\n");
         }
 
-        if(defined($getimmdiff) and $getimmdiff == 1) {
-          diffImmReg($line, $regVar, $debugprint);
-        } else {
-          createImmFromRegVariant($line, $regVar, $matchType, $debugprint);
+        if ( defined($getimmdiff) and $getimmdiff == 1 ) {
+            diffImmReg( $line, $regVar, $debugprint );
+        }
+        else {
+            createImmFromRegVariant( $line, $regVar, $matchType, $debugprint );
         }
     }
 
@@ -2628,264 +2632,289 @@ sub getImmInstrs {
 }
 
 sub diffImmReg {
-  my $immInstr = shift @_;
-  my $regInstr = shift @_;
-  my $debugprint = shift @_;
+    my $immInstr   = shift @_;
+    my $regInstr   = shift @_;
+    my $debugprint = shift @_;
 
-  my $outfile = "derivedInstructions/x86-$immInstr.k";
-  my $template = "derivedInstructions/x86-$regInstr.k";
-  if(!(-e $template)) {
-    $template = "instructions/x86-$regInstr.k";
-  }
+    my $outfile  = "derivedInstructions/x86-$immInstr.k";
+    my $template = "derivedInstructions/x86-$regInstr.k";
+    if ( !( -e $template ) ) {
+        $template = "instructions/x86-$regInstr.k";
+    }
 
-  execute("diff $template $outfile", 1);
+    execute( "diff $template $outfile", 1 );
 
 }
 
 sub createImmFromRegVariant {
-  my $immInstr = shift @_;
-  my $regInstr = shift @_;
-  my $matchType = shift @_;
-  my $debugprint = shift @_;
-#my $debugprint = 1;
+    my $immInstr   = shift @_;
+    my $regInstr   = shift @_;
+    my $matchType  = shift @_;
+    my $debugprint = shift @_;
 
-  my $outfile = "derivedInstructions/x86-$immInstr.k";
-  my $template = "derivedInstructions/x86-$regInstr.k";
-  if(!(-e $template)) {
-    $template = "instructions/x86-$regInstr.k";
-  }
+    #my $debugprint = 1;
 
-  open( my $rfp, "<", $template ) or die "Can't open: $!";
-  my @lines = <$rfp>;
-  close $rfp;
-
-  my $contents = "";
-  my %assoc = ();
-  my %sizes = ();
-
-  my $operamdList_ref = getOperandListFromOpcode( $immInstr, $debugprint );
-  my @operamdList     = @{$operamdList_ref};
-
-  printArray(\@operamdList, "Operand List", $debugprint);
-
-  my $immSize = 0;
-  if ( $immInstr =~ m/imm(\d+)/g ) {
-      $immSize = $1;
-  }
-
-
-
-  for my $line (@lines) {
-    chomp $line;
-
-    my $modulename = $immInstr =~ s/_/-/gr; 
-    $modulename = uc($modulename);
-    if($line =~ m/^module/) {
-      $contents = $contents. "module $modulename\n";
-      next;
+    my $outfile  = "derivedInstructions/x86-$immInstr.k";
+    my $template = "derivedInstructions/x86-$regInstr.k";
+    if ( !( -e $template ) ) {
+        $template = "instructions/x86-$regInstr.k";
     }
 
-    if($line =~ m/^endmodule/) {
-      $contents = $contents. "endmodule\n";
-      last;
+    open( my $rfp, "<", $template ) or die "Can't open: $!";
+    my @lines = <$rfp>;
+    close $rfp;
+
+    my $contents = "";
+    my %assoc    = ();
+    my %sizes    = ();
+
+    my $operamdList_ref = getOperandListFromOpcode( $immInstr, $debugprint );
+    my @operamdList = @{$operamdList_ref};
+
+    printArray( \@operamdList, "Operand List", $debugprint );
+
+    my $immSize = 0;
+    if ( $immInstr =~ m/imm(\d+)/g ) {
+        $immSize = $1;
     }
 
+    for my $line (@lines) {
+        chomp $line;
 
-    ## Modify the execinstr
-    if($line =~ m/execinstr\s*\(\w+\s*R1:R(.+),\s*R2:R(.+),\s*R3:R(.+),\s*.Typedoperands\)/) {
-      utils::debugInfo( "3 operand\n", $debugprint);
-      $sizes{"R1"} = $1 =~ s/h/8/gr;
-      $sizes{"R2"} = $2 =~ s/h/8/gr;
-      $sizes{"R3"} = $3 =~ s/h/8/gr;
+        my $modulename = $immInstr =~ s/_/-/gr;
+        $modulename = uc($modulename);
+        if ( $line =~ m/^module/ ) {
+            $contents = $contents . "module $modulename\n";
+            next;
+        }
 
-      $assoc{"R1"} = $operamdList[0];
-      $assoc{"R2"} = $operamdList[1];
-      $assoc{"R3"} = $operamdList[2];
-    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*R2:R(\w+),\s*.Typedoperands\)/) {
-      utils::debugInfo( "2 operand\n", $debugprint);
-      $sizes{"R1"} = $1 =~ s/h/8/gr;
-      $sizes{"R2"} = $2 =~ s/h/8/gr;
+        if ( $line =~ m/^endmodule/ ) {
+            $contents = $contents . "endmodule\n";
+            last;
+        }
 
-      $assoc{"R1"} = $operamdList[0];
-      $assoc{"R2"} = $operamdList[1];
-    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*.Typedoperands\)/) {
-      utils::debugInfo( "1 operand\n", $debugprint);
-      $sizes{"R1"} = $1 =~ s/h/8/gr;
+        ## Modify the execinstr
+        if ( $line =~
+m/execinstr\s*\(\w+\s*R1:R(.+),\s*R2:R(.+),\s*R3:R(.+),\s*.Typedoperands\)/
+          )
+        {
+            utils::debugInfo( "3 operand\n", $debugprint );
+            $sizes{"R1"} = $1 =~ s/h/8/gr;
+            $sizes{"R2"} = $2 =~ s/h/8/gr;
+            $sizes{"R3"} = $3 =~ s/h/8/gr;
 
-      $assoc{"R1"} = $operamdList[0];
-    } 
-    
-    $contents = $contents.$line."\n";  
-  }
+            $assoc{"R1"} = $operamdList[0];
+            $assoc{"R2"} = $operamdList[1];
+            $assoc{"R3"} = $operamdList[2];
+        }
+        elsif ( $line =~
+            m/execinstr\s*\(\w+\s*R1:R(\w+),\s*R2:R(\w+),\s*.Typedoperands\)/ )
+        {
+            utils::debugInfo( "2 operand\n", $debugprint );
+            $sizes{"R1"} = $1 =~ s/h/8/gr;
+            $sizes{"R2"} = $2 =~ s/h/8/gr;
 
-  printMap(\%sizes, "Size Map", $debugprint);
-  printMap(\%assoc, "Association Map", $debugprint);
+            $assoc{"R1"} = $operamdList[0];
+            $assoc{"R2"} = $operamdList[1];
+        }
+        elsif ( $line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*.Typedoperands\)/ )
+        {
+            utils::debugInfo( "1 operand\n", $debugprint );
+            $sizes{"R1"} = $1 =~ s/h/8/gr;
 
+            $assoc{"R1"} = $operamdList[0];
+        }
 
-  for my $key (keys %assoc) {
-    my $regNum = 0;
-    if($key =~ m/R(\d+)/) {
-      $regNum = $1;
+        $contents = $contents . $line . "\n";
     }
-    if( 
-        $assoc{$key} eq "r8" or 
-        $assoc{$key} eq "rh" or 
-        $assoc{$key} eq "r16" or 
-        $assoc{$key} eq "r32" or 
-        $assoc{$key} eq "r64" 
-        ) {
-          $assoc{$key} = $key;
-    } else {
-        if($assoc{$key} =~ m/imm/ ) {
-          $assoc{$key} = "I".$regNum."_".$immSize;
-        } else {
-          $assoc{$key} = "%".$assoc{$key};
+
+    printMap( \%sizes, "Size Map",        $debugprint );
+    printMap( \%assoc, "Association Map", $debugprint );
+
+    for my $key ( keys %assoc ) {
+        my $regNum = 0;
+        if ( $key =~ m/R(\d+)/ ) {
+            $regNum = $1;
+        }
+        if (   $assoc{$key} eq "r8"
+            or $assoc{$key} eq "rh"
+            or $assoc{$key} eq "r16"
+            or $assoc{$key} eq "r32"
+            or $assoc{$key} eq "r64" )
+        {
+            $assoc{$key} = $key;
+        }
+        else {
+            if ( $assoc{$key} =~ m/imm/ ) {
+                $assoc{$key} = "I" . $regNum . "_" . $immSize;
+            }
+            else {
+                $assoc{$key} = "%" . $assoc{$key};
+            }
         }
     }
-  }
-  printMap(\%assoc, "After Association Map", $debugprint);
+    printMap( \%assoc, "After Association Map", $debugprint );
 
+    my $mod = $contents;
+    for my $key ( keys %assoc ) {
 
-  my $mod = $contents;
-  for my $key (keys %assoc) {
-
-    if($assoc{$key} =~ m/I(\d+)_(\d+)/ ) {
-      $mod =~ s/$key:R$sizes{$key}/$assoc{$key}:Imm/g;
-      $mod =~ s/getRegisterValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
-      if($sizes{$key} == 64) {
-        $mod =~ s/getParentValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
-      } else {
-        $mod =~ s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
-      }
-    } else {
-      $mod =~ s/$key/$assoc{$key}/g;
+        if ( $assoc{$key} =~ m/I(\d+)_(\d+)/ ) {
+            $mod =~ s/$key:R$sizes{$key}/$assoc{$key}:Imm/g;
+            $mod =~
+s/getRegisterValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+            if ( $sizes{$key} == 64 ) {
+                $mod =~
+s/getParentValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+            }
+            else {
+                $mod =~
+s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+            }
+        }
+        else {
+            $mod =~ s/$key/$assoc{$key}/g;
+        }
     }
-  }
 
-
-  open( my $fp, ">", $outfile ) or die "Can't open: $!";
-  print $fp $mod;
-  close $fp;
+    open( my $fp, ">", $outfile ) or die "Can't open: $!";
+    print $fp $mod;
+    close $fp;
 }
 
-
 sub findRegisterAssoc {
-  my $opcode = shift @_;
-  my $debugprint = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
 
-  ## Find the registre association
-  my %assoc = ();
-  my $targetinstr = getTargetInstr($opcode, $debugprint);
-  my $operandListFromInstr_ref = getOperandListFromInstr( $targetinstr, $debugprint );
-  my @operandListFromInstr  = @{$operandListFromInstr_ref};
+    ## Find the registre association
+    my %assoc = ();
+    my $targetinstr = getTargetInstr( $opcode, $debugprint );
+    my $operandListFromInstr_ref =
+      getOperandListFromInstr( $targetinstr, $debugprint );
+    my @operandListFromInstr = @{$operandListFromInstr_ref};
 
-  my $counter = 1;
-  $assoc{"%cf"}  = "CF";
-  $assoc{"%pf"} = "PF";
-  $assoc{"%af"}  = "AF";
-  $assoc{"%zf"}  = "ZF";
-  $assoc{"%sf"}  = "SF";
-  $assoc{"%of"}  = "OF";
+    my $counter = 1;
+    $assoc{"%cf"} = "CF";
+    $assoc{"%pf"} = "PF";
+    $assoc{"%af"} = "AF";
+    $assoc{"%zf"} = "ZF";
+    $assoc{"%sf"} = "SF";
+    $assoc{"%of"} = "OF";
 
-  my $koutput = "derivedInstructions/x86-$opcode.k";
-  open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
-  my @lines = <$fp>;
-  close $fp;
+    my $koutput = "derivedInstructions/x86-$opcode.k";
+    open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
+    my @lines = <$fp>;
+    close $fp;
 
-  my @formalList = ();
-  my @formalSizes = ();
-  for my $line (@lines) {
-    chomp $line;
-    if($line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/) {
-      push @formalList, $1;
-      push @formalList, $3;
-      push @formalList, $5;
+    my @formalList  = ();
+    my @formalSizes = ();
+    for my $line (@lines) {
+        chomp $line;
+        if ( $line =~
+m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/
+          )
+        {
+            push @formalList, $1;
+            push @formalList, $3;
+            push @formalList, $5;
 
-      if($2 eq "Xmm" or $2 eq "Ymm") {
-        push @formalSizes, 256;
-      } else {
-        push @formalSizes, 64;
-      }
-      if($4 eq "Xmm" or $4 eq "Ymm") {
-        push @formalSizes, 256;
-      } else {
-        push @formalSizes, 64;
-      }
-      if($4 eq "Xmm" or $4 eq "Ymm") {
-        push @formalSizes, 256;
-      } else {
-        push @formalSizes, 64;
-      }
+            if ( $2 eq "Xmm" or $2 eq "Ymm" ) {
+                push @formalSizes, 256;
+            }
+            else {
+                push @formalSizes, 64;
+            }
+            if ( $4 eq "Xmm" or $4 eq "Ymm" ) {
+                push @formalSizes, 256;
+            }
+            else {
+                push @formalSizes, 64;
+            }
+            if ( $4 eq "Xmm" or $4 eq "Ymm" ) {
+                push @formalSizes, 256;
+            }
+            else {
+                push @formalSizes, 64;
+            }
 
-      $assoc{$operandListFromInstr[0]} = $formalList[0];
-      $assoc{$operandListFromInstr[1]} = $formalList[1];
-      $assoc{$operandListFromInstr[2]} = $formalList[2];
+            $assoc{ $operandListFromInstr[0] } = $formalList[0];
+            $assoc{ $operandListFromInstr[1] } = $formalList[1];
+            $assoc{ $operandListFromInstr[2] } = $formalList[2];
 
-      last;
-    } elsif ($line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/) {
-      push @formalList, $1;
-      push @formalList, $3;
+            last;
+        }
+        elsif ( $line =~
+m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/
+          )
+        {
+            push @formalList, $1;
+            push @formalList, $3;
 
-      if($2 eq "Xmm" or $2 eq "Ymm") {
-        push @formalSizes, 256;
-      } else {
-        push @formalSizes, 64;
-      }
-      if($4 eq "Xmm" or $4 eq "Ymm") {
-        push @formalSizes, 256;
-      } else {
-        push @formalSizes, 64;
-      }
+            if ( $2 eq "Xmm" or $2 eq "Ymm" ) {
+                push @formalSizes, 256;
+            }
+            else {
+                push @formalSizes, 64;
+            }
+            if ( $4 eq "Xmm" or $4 eq "Ymm" ) {
+                push @formalSizes, 256;
+            }
+            else {
+                push @formalSizes, 64;
+            }
 
-      $assoc{$operandListFromInstr[0]} = $formalList[0];
-      $assoc{$operandListFromInstr[1]} = $formalList[1];
-      last;
+            $assoc{ $operandListFromInstr[0] } = $formalList[0];
+            $assoc{ $operandListFromInstr[1] } = $formalList[1];
+            last;
 
-    } elsif ($line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*.Typedoperands\)/) {
-      push @formalList, $1;
+        }
+        elsif (
+            $line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*.Typedoperands\)/ )
+        {
+            push @formalList, $1;
 
-      if($2 eq "Xmm" or $2 eq "Ymm") {
-        push @formalSizes, 256;
-      } else {
-        push @formalSizes, 64;
-      }
+            if ( $2 eq "Xmm" or $2 eq "Ymm" ) {
+                push @formalSizes, 256;
+            }
+            else {
+                push @formalSizes, 64;
+            }
 
-      $assoc{$operandListFromInstr[0]} = $formalList[0];
-      last;
-    } 
-  }
+            $assoc{ $operandListFromInstr[0] } = $formalList[0];
+            last;
+        }
+    }
 
-  print $targetinstr."\n";
-  printMap(\%assoc, "[findRegisterAssoc]Association Map", 1);
-  printArray(\@formalSizes, "[findRegisterAssoc]Sizes", 1);
+    print $targetinstr. "\n";
+    printMap( \%assoc, "[findRegisterAssoc]Association Map", 1 );
+    printArray( \@formalSizes, "[findRegisterAssoc]Sizes", 1 );
 
-  return (\%assoc,\@formalSizes);
+    return ( \%assoc, \@formalSizes );
 
 }
 
 ## This generates formulas for register only derived instr
 sub generateZ3Formula {
-  my $opcode = shift @_;
-  my $debugprint = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
 
+    ## find the register assoc
+    my ( $assoc_ref, $formalSizes_ref ) =
+      findRegisterAssoc( $opcode, $debugprint );
+    my %assoc       = %{$assoc_ref};
+    my @formalSizes = @{$formalSizes_ref};
 
-  ## find the register assoc
-  my ($assoc_ref, $formalSizes_ref) = findRegisterAssoc($opcode, $debugprint);
-  my %assoc = %{$assoc_ref};
-  my @formalSizes = @{$formalSizes_ref};
+    ## Prepare the file to write
+    # Have the declarations
+    my $decl    = "";
+    my $counter = 1;
+    for my $frml (@formalSizes) {
+        $decl = $decl . "R$counter = BitVec('R$counter', $frml)\n";
+        $counter++;
+    }
 
-  ## Prepare the file to write
-  # Have the declarations
-  my $decl = "";
-  my $counter = 1;
-  for my $frml (@formalSizes) {
-    $decl = $decl . "R$counter = BitVec('R$counter', $frml)\n";
-    $counter++;
-  }
-
-  my $z3file = "z3EquivFormulas//x86-$opcode.py";
-  open( my $zfp, ">", $z3file ) or die "Can't open $z3file: $!";
-  my $template = qq(from z3 import *
+    my $z3file = "z3EquivFormulas//x86-$opcode.py";
+    open( my $zfp, ">", $z3file ) or die "Can't open $z3file: $!";
+    my $template = qq(from z3 import *
 
 # Declarations
 CF = BitVec('CF', 1)
@@ -2910,123 +2939,187 @@ def prove(f):
   else:
     print "failed to prove"
 
-); 
-  print $zfp $template;
+);
+    print $zfp $template;
 
+    my %kruleMap  = ();
+    my %strataBVF = ();
 
-  my %kruleMap = ();
-  my %strataBVF = ();
+    ## Find the pair of rules to match
+    my $koutput = "derivedInstructions/x86-$opcode.k";
+    open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
+    my @lines = <$fp>;
+    close $fp;
 
-  ## Find the pair of rules to match
-  my $koutput = "derivedInstructions/x86-$opcode.k";
-  open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
-  my @lines = <$fp>;
-  close $fp;
+    my $founrCircuit = 0;
+    for my $line (@lines) {
+        chomp $line;
 
-
-  my $founrCircuit = 0;
-  for my $line (@lines) {
-    chomp $line;
-
-    if ( $line =~ m/"(\w+)" \|-> (.*)/ ) {
-      $kruleMap{$1} = $2;   
-      next;
-    }
-
-    if ( $line =~ m/convToRegKeys\((\w+)\) \|-> (.*)/ ) {
-      $kruleMap{$1} = $2;   
-      next;
-    }
-
-    if($line =~ m/Circuits:/) {
-      $founrCircuit = 1;
-      next;
-    }
-
-    if($founrCircuit == 1) {
-      if($line =~ m/(\w+)\s*: (.*)/) {
-        my $lhs = $1;
-        my $rhs = $2;
-
-        if(
-            $lhs eq "sigfpe" or 
-            $lhs eq "sigbus" or 
-            $lhs eq "sigsegv") {
-          next;
+        if ( $line =~ m/"(\w+)" \|-> (.*)/ ) {
+            $kruleMap{$1} = $2;
+            next;
         }
 
-        $strataBVF{"%".$1} = $2; 
-      }
+        if ( $line =~ m/convToRegKeys\((\w+)\) \|-> (.*)/ ) {
+            $kruleMap{$1} = $2;
+            next;
+        }
+
+        if ( $line =~ m/Circuits:/ ) {
+            $founrCircuit = 1;
+            next;
+        }
+
+        if ( $founrCircuit == 1 ) {
+            if ( $line =~ m/(\w+)\s*: (.*)/ ) {
+                my $lhs = $1;
+                my $rhs = $2;
+
+                if (   $lhs eq "sigfpe"
+                    or $lhs eq "sigbus"
+                    or $lhs eq "sigsegv" )
+                {
+                    next;
+                }
+
+                $strataBVF{ "%" . $1 } = $2;
+            }
+        }
+
     }
 
-  }
+    printMap( \%kruleMap,  "Krules", 1 );
+    printMap( \%strataBVF, "BVF",    1 );
+
+    for my $key ( sort keys %strataBVF ) {
+        if (   $key eq "%af"
+            or $key eq "%pf" )
+        {
+            next;
+        }
+        if ( exists $kruleMap{ $assoc{$key} } ) {
+
+            my $rule1 =
+              simplifyKRules( $kruleMap{ $assoc{$key} }, $debugprint );
+            if( 
+                $key eq "%af" or
+                $key eq "%pf" or
+                $key eq "%sf" or
+                $key eq "%zf" or
+                $key eq "%of" or
+                $key eq "%cf" 
+                ) {
+                  $rule1 = $rule1 . " == ONE1";
+            }
+            print $zfp "PK_" . $assoc{$key} . " = " . $rule1 . "\n"; 
 
 
-  printMap(\%kruleMap, "Krules", 1);
-  printMap(\%strataBVF, "BVF", 1);
+            my $rule2 = simplifySRules( $strataBVF{$key}, $debugprint );
 
-  my $counter = 1;
-  for my $key (sort keys %strataBVF) {
-    if($key eq "%af") {
-      next;
+            print $zfp "PS_" . $assoc{$key} . " = " . $rule2 . "\n"; 
+            print $zfp "prove( PK_$assoc{$key} == PS_$assoc{$key} )\n\n";
+        }
     }
-    if(exists $kruleMap{$assoc{$key}}) {
 
-      my $rule1 = simplifyKRules($kruleMap{$assoc{$key}}, $debugprint);
-      my $rule2 = simplifySRules($strataBVF{$key}, $debugprint);
-
-      print $zfp "P".$counter . " = " . $rule1 ." == " . $rule2. "\n";
-      print $zfp "s.add(P". $counter . ")\n\n";
-      $counter++;
-    }
-  }
-
-
-  print $zfp "s.check()\n";
-
-  close $zfp;
+    close $zfp;
 
 }
 
 sub simplifyKRules {
-  my $rule = shift @_;
-  my $debugprint = shift @_;
+    my $rule       = shift @_;
+    my $debugprint = shift @_;
+    $debugprint = 1;
 
-  $rule =~ s/#ifMInt/If/g;
-  $rule =~ s/\) #then/,/g;
-  $rule =~ s/#else/,/g;
-  $rule =~ s/#fi//g;
-  $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
-  $rule =~ s/mi\(1, 0\)/ZERO1/g;
-  $rule =~ s/mi\(1, 1\)/ONE1/g;
-  $rule =~ s/mi\(64, 0\)/ZERO64/g;
-  $rule =~ s/mi\(64, 1\)/ONE64/g;
-  $rule =~ s/concatenateMInt/Concat/g;
 
-  return $rule;
+    $rule =~ s/#ifMInt/If(/g;
+    $rule =~ s/#then/,/g;
+    $rule =~ s/#else/,/g;
+    $rule =~ s/#fi/)/g;
+    $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
+    $rule =~ s/mi\(1, 0\)/ZERO1/g;
+    $rule =~ s/mi\(1, 1\)/ONE1/g;
+    $rule =~ s/mi\(64, 0\)/ZERO64/g;
+    $rule =~ s/mi\(64, 1\)/ONE64/g;
+    $rule =~ s/concatenateMInt/Concat/g;
+    $rule =~ s/notBool/Not/g;
+
+    ##qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
+    my $bin_op = (
+qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|andBool|orBool|eqMInt/
+    );
+    my $arg = $rule;
+    while (1) {
+        if ( $arg =~ m/(.+)($bin_op)(.+)/ ) {
+
+            my $op = $2;
+            debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
+            debugInfo( "\n\nBefore Rule: $arg\n", $debugprint );
+
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+
+            debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+            debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+            my @args = ();
+            if ( $op eq "extractMInt" ) {
+                @args = findArgs( $op_arg, 3 );
+            }
+            else {
+                @args = findArgs( $op_arg, 2 );
+            }
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+            if($op eq "extractMInt") {
+
+            }
+
+            if ( $op eq "eqMInt" ) {
+                $arg = $1 . "( $args[0] , $args[1] ) $rest";
+            }
+            if ( $op eq "addMInt" ) {
+                $arg = $1 . "( $args[0] + $args[1] ) $rest";
+            }
+            if ( $op eq "orMInt" ) {
+                $arg = $1 . "( $args[0] | $args[1] ) $rest";
+            }
+            if ( $op eq "andMInt" ) {
+                $arg = $1 . "( $args[0] & $args[1] ) $rest";
+            }
+            if ( $op eq "xorMInt" ) {
+                $arg = $1 . "( $args[0] ^ $args[1] ) $rest";
+            }
+            if ( $op eq "andBool" ) {
+                $arg = $1 . "And" . "( $args[0] , $args[1] ) $rest";
+            }
+            if ( $op eq "orBool" ) {
+                $arg = $1 . "Or" . "( $args[0] , $args[1] ) $rest";
+            }
+            if ( $op eq "extractMInt" ) {
+                my $size  = $args[0] . ".size()";
+                my $start = $args[1];
+                my $end   = $args[2];
+                $arg =
+                    $1 
+                  . "Extract"
+                  . "( $size - $start - 1, $size - $end, $args[0]  ) $rest";
+            }
+            debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
+        }
+        else {
+            last;
+        }
+    }
+
+    $rule = $arg;
+    return $rule;
 }
 
 sub simplifySRules {
-  my $rule = shift @_;
-  my $debugprint = shift @_;
+    my $rule       = shift @_;
+    my $debugprint = shift @_;
 
-  return $rule;
+    return $rule;
 }
 
 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -32,7 +32,7 @@ my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 my $specdir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/specs/";
 my $derivedInstructions =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/derivedInstructions/";
+"derivedInstructions/";
 my $help           = "";
 my $stratum        = "";
 my $readmod        = "";

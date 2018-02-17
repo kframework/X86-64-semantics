@@ -25,22 +25,23 @@ def prove(f):
   else:
     print "failed to prove"
 
-P1 = (extractMInt(addMInt(Concat(ZERO1, R1), Concat(ZERO1, R2)), 0, 1) ) == (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[64:64] = 0x1₁
-s.add(P1)
+PK_CF = (Extract( ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 0 - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) )  )  ) == ONE1
+PS_CF = (== (plus (concat <0x0|1> <%rcx|64>) (concat <0x0|1> <%rbx|64>))[64:64] <0x1|1>)
+prove( PK_CF == PS_CF )
 
-P2 = ((If ( ( eqMInt(extractMInt(R1, 0, 1), extractMInt(R2, 0, 1))  andBool   notBool  ( eqMInt(extractMInt(R1, 0, 1), extractMInt(addMInt(Concat(ZERO1, R1), Concat(ZERO1, R2)), 1, 2)) )  )  , ( ONE1 ) , ( ZERO1 ) )  ) == (%rcx[63:63] = 0x1₁ ↔ %rbx[63:63] = 0x1₁) ∧ !(%rcx[63:63] = 0x1₁ ↔ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁)
-s.add(P2)
+PK_OF = ((If( ( ( ( Extract( R1, 0, 1.size() -  - 1, R1, 0, 1.size() - , R1, 0, 1  ) , Extract( R2, 0, 1.size() -  - 1, R2, 0, 1.size() - , R2, 0, 1  )  )   And(    Not   ( Extract( R1, 0, 1.size() -  - 1, R1, 0, 1.size() - , R1, 0, 1  ) , Extract( ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 1 - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 2, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) )  )  ) ,    )   )  ) , ( ONE1 ) , ( ZERO1 ) ))  ) == ONE1
+PS_OF = (and (== (== <%rcx|64>[63:63] <0x1|1>) (== <%rbx|64>[63:63] <0x1|1>)) (not (== (== <%rcx|64>[63:63] <0x1|1>) (== (plus (concat <0x0|1> <%rcx|64>) (concat <0x0|1> <%rbx|64>))[63:63] <0x1|1>))))
+prove( PK_OF == PS_OF )
 
-P3 = ((If ( (  ( countOnes(extractMInt(addMInt(Concat(ZERO1, R1), Concat(ZERO1, R2)), 57, 65), 0)  &Int  1 )  ==K  0 )  , ( ONE1 ) , ( ZERO1 ) )  ) == !((0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[0:0] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[1:1] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[2:2] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[3:3] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[4:4] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[5:5] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[6:6] = 0x1₁ ⊕ (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[7:7] = 0x1₁)
-s.add(P3)
+PK_R2 = (Extract( ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 1 - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 65, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) )  )  )
+PS_R2 = (plus (concat <0x0|1> <%rcx|64>) (concat <0x0|1> <%rbx|64>))[63:0]
+prove( PK_R2 == PS_R2 )
 
-P4 = (extractMInt(addMInt(Concat(ZERO1, R1), Concat(ZERO1, R2)), 1, 65) ) == (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0]
-s.add(P4)
+PK_SF = (Extract( ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 1 - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 2, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) )  )  ) == ONE1
+PS_SF = (== (plus (concat <0x0|1> <%rcx|64>) (concat <0x0|1> <%rbx|64>))[63:63] <0x1|1>)
+prove( PK_SF == PS_SF )
 
-P5 = (extractMInt(addMInt(Concat(ZERO1, R1), Concat(ZERO1, R2)), 1, 2) ) == (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:63] = 0x1₁
-s.add(P5)
+PK_ZF = ((If( (( Extract( ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 1 - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 65, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) )  ) , ZERO64 )  ) , ( ONE1 ) , ( ZERO1 ) ))    ) == ONE1
+PS_ZF = (== (plus (concat <0x0|1> <%rcx|64>) (concat <0x0|1> <%rbx|64>))[63:0] <0x0|64>)
+prove( PK_ZF == PS_ZF )
 
-P6 = ((If (eqMInt(extractMInt(addMInt(Concat(ZERO1, R1), Concat(ZERO1, R2)), 1, 65), ZERO64) , ( ONE1 ) , ( ZERO1 ) )    ) == (0x0₁ ∘ %rcx + 0x0₁ ∘ %rbx)[63:0] = 0x0₆₄
-s.add(P6)
-
-s.check()
