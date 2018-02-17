@@ -2923,6 +2923,14 @@ AF = BitVec('AF', 1)
 ZF = BitVec('ZF', 1)
 SF = BitVec('SF', 1)
 OF = BitVec('OF', 1)
+
+cf = Bool('cf')
+pf = Bool('pf')
+af = Bool('af')
+zf = Bool('zf')
+sf = Bool('sf')
+of = Bool('of')
+
 ZERO1 = BitVecVal(0, 1)
 ONE1 = BitVecVal(1, 1)
 ZERO64 = BitVecVal(0, 64)
@@ -3000,7 +3008,7 @@ def prove(f):
         if ( exists $kruleMap{ $assoc{$key} } ) {
 
             my $rule1 =
-              simplifyKRules( $kruleMap{ $assoc{$key} }, $debugprint );
+              convertKRuleToSMT2( $kruleMap{ $assoc{$key} }, $debugprint );
             if( 
                 $key eq "%af" or
                 $key eq "%pf" or
@@ -3014,7 +3022,7 @@ def prove(f):
             print $zfp "PK_" . $assoc{$key} . " = " . $rule1 . "\n"; 
 
 
-            my $rule2 = simplifySRules( $strataBVF{$key}, $debugprint );
+            my $rule2 = convertBVFToSMT2( $strataBVF{$key}, \%assoc, $debugprint );
 
             print $zfp "PS_" . $assoc{$key} . " = " . $rule2 . "\n"; 
             print $zfp "prove( PK_$assoc{$key} == PS_$assoc{$key} )\n\n";
@@ -3025,17 +3033,171 @@ def prove(f):
 
 }
 
-sub simplifyKRules {
+sub convertBVFToSMT2 {
+    my $rule       = shift @_;
+    my $assoc_ref  = shift @_;
+    my $debugprint = shift @_;
+
+    return preProcessBVFToSMT2($rule, $assoc_ref, $debugprint);
+}
+
+sub preProcessBVFToSMT2 {
+    my $rule       = shift @_;
+    my $assoc_ref  = shift @_;
+    my $debugprint = shift @_;
+
+    my %assoc = %{$assoc_ref};
+
+    debugInfo("Before removing Consts: $rule", $debugprint);
+    $rule =~ s/<0x1\|1>/(ONE1)/g;
+    $rule =~ s/<0x1\|64>/(ONE64)/g;
+    $rule =~ s/<0x0\|1>/(ZERO1)/g;
+    $rule =~ s/<0x0\|64>/(ZERO64)/g;
+    debugInfo("After removing Consts: $rule", $debugprint);
+
+    while(1) {
+      if($rule =~ m/<(%\w+)\|(\d+)>/) {
+        my $r = $1;
+        my $s = $2;
+        if( 
+            $r eq "%af" or
+            $r eq "%pf" or
+            $r eq "%sf" or
+            $r eq "%zf" or
+            $r eq "%of" or
+            $r eq "%cf" 
+            ) {
+              $rule =~ s/<$r\|$s>/utils::trim($r, "%")/g;
+        } else {
+              $rule =~ s/<$r\|$s>/($assoc{$r})/g;
+
+        }
+      } else {
+        last;
+      }
+    }
+    debugInfo("After removing syms: $rule\n", $debugprint);
+
+    $rule = convertBVFToSMT2_helper($rule, $debugprint);
+    return $rule;
+}
+
+
+sub convertBVFToSMT2_helper {
     my $rule       = shift @_;
     my $debugprint = shift @_;
-    $debugprint = 1;
+
+
+    debugInfo("[convertBVFToSMT2_helper] ->$rule\n", 1);
+    if(
+        $rule =~ m/^\(ONE(\d+)\)$/ or 
+        $rule =~ m/^\(ZERO(\d+)\)$/ or 
+        $rule =~ m/^\(R(\d+)\)$/ 
+        ) {
+      debugInfo("[convertBVFToSMT2_helper]  Base\n", 1);
+      return $rule;
+    }
+
+    my $bin_op = qr/==|plus|concat|and|not/;
+
+    debugInfo("[convertBVFToSMT2_helper] Non Base\n", 1);
+
+    if($rule =~ m/^(.+)\[(\d+):(\d+)\]$/) {
+      my $arg   = $1;
+      my $high  = $2;
+      my $low   = $3;
+      debugInfo("[convertBVFToSMT2_helper] Processing $arg with extract\n", 1);
+
+      $rule = "(Extract ($high, $low, (" . convertBVFToSMT2_helper($arg) . ")))";
+    }
+
+    if($rule =~ m/^\(($bin_op) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+      my $args_ref = mineArgs($args, $debugprint);
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing $op wo extract\n", 1);
+
+      if($op eq "plus") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " + " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "==") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " == " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "concat") {
+        $rule = "(Concat(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "and") {
+        $rule = "(And(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "not") {
+        $rule = "(Not(" . convertBVFToSMT2_helper($retargs[0]) . "))";
+      }
+
+    }
+
+    return $rule;
+}
+
+sub mineArgs {
+   my $args       = shift @_;
+   my $debugprint = shift @_;
+
+   my @arr = split( //, $args );
+   my $inArgs = 0;
+   my @retArgs = ();
+ 
+   my $op_arg = "";
+   my $counter = 0;
+   for ( my $i = 0 ; $i < scalar(@arr) ; $i++ ) {
+        if($arr[$i] eq " " and $inArgs == 0) {
+          next;
+        }
+        if ( $arr[$i] eq "(" ) {
+            $inArgs = 1;
+            $counter++;
+        }
+        if ( $arr[$i] eq ")" ) {
+            $inArgs = 0;
+            $counter--;
+        }
+        $op_arg = $op_arg . $arr[$i];
+
+        if ($counter == 0 ) {
+
+            if(($i+1) < scalar(@arr) and ($arr[$i+1] eq "[")) {
+              # Add the extraction [h:l]
+              my $k = $i+1;
+              for ( ; $k < scalar(@arr) ; $k++ ) {
+                $op_arg = $op_arg . $arr[$k];
+                if($arr[$k] eq "]") {
+                  $i = $k;
+                  last;
+                }
+              }
+            }
+            push @retArgs, $op_arg;
+            $op_arg = "";
+        }
+    }
+
+   print "[mineArgs]$args\n";
+   printArray(\@retArgs, "[mineArgs]Return:", 1);
+
+   return \@retArgs;
+
+}
+
+sub convertKRuleToSMT2 {
+    my $rule       = shift @_;
+    my $debugprint = shift @_;
+#$debugprint = 1;
 
 
     $rule =~ s/#ifMInt/If(/g;
     $rule =~ s/#then/,/g;
     $rule =~ s/#else/,/g;
     $rule =~ s/#fi/)/g;
-    $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
     $rule =~ s/mi\(1, 0\)/ZERO1/g;
     $rule =~ s/mi\(1, 1\)/ONE1/g;
     $rule =~ s/mi\(64, 0\)/ZERO64/g;
@@ -3075,7 +3237,7 @@ qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|andBool|orBool|eqMInt/
             }
 
             if ( $op eq "eqMInt" ) {
-                $arg = $1 . "( $args[0] , $args[1] ) $rest";
+                $arg = $1 . "( $args[0] == $args[1] ) $rest";
             }
             if ( $op eq "addMInt" ) {
                 $arg = $1 . "( $args[0] + $args[1] ) $rest";
@@ -3110,16 +3272,9 @@ qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|andBool|orBool|eqMInt/
             last;
         }
     }
-
     $rule = $arg;
-    return $rule;
-}
-
-sub simplifySRules {
-    my $rule       = shift @_;
-    my $debugprint = shift @_;
+    $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
 
     return $rule;
 }
-
 1;
