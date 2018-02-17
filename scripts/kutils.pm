@@ -1283,6 +1283,104 @@ sub getSpecCode {
     return ( $spec_code, $counter );
 }
 
+sub mixfix2smt {
+    my $arg        = shift @_;
+    my $debugprint = shift @_;
+
+    my $bin_op = (
+qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
+    );
+    my $unary_op    = (qr/notBool/);
+    my $terniary_op = (qr/_#then_#else_#fi/);
+    while (1) {
+        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
+            my $pre  = $1;
+            my $opr  = $2;
+            my $post = $3;
+
+            debugInfo( "Got Terniary op\n", $debugprint );
+            my ( $op_arg, $rest ) = selectbraces( $post, 1 );
+            my @args = findArgs( $op_arg, 3 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+            debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+            $arg =
+                $pre
+              . "(If (("
+              . $args[0]
+              . " ) , ( "
+              . $args[1]
+              . " ) , ( "
+              . $args[2]
+              . " ) )) "
+              . $rest;
+
+            #print "\nAfter:" . $arg . "\n\n";
+        }
+        elsif ( $arg =~ m/(.+)_($bin_op)\_(.+)/ ) {
+
+            my $op = $2;
+            debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
+
+            #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+
+            debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+            debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+            my @args = findArgs( $op_arg, 2 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+            if($op eq "andBool") {
+              $arg =
+                  $1 . " (And( "
+                . $args[0] . ", " . $args[1] . " )) "
+                . $rest;
+            } elsif($op eq "orBool") {
+              $arg =
+                  $1 . " (Or( "
+                . $args[0] . ", " . $args[1] . " )) "
+                . $rest;
+            } else {
+              $arg =
+                  $1 . " ( "
+                . $args[0] . " " . " $op " . " "
+                . $args[1] . " ) "
+                . $rest;
+            }
+
+            #print "\nAfter:" . $arg . "\n";
+        }
+        elsif ( $arg =~ m/(.+)($unary_op)\_(.+)/ ) {
+
+            #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+            my $op = $2;
+            debugInfo( "Got unary op: $op\n", $debugprint );
+
+            #print "Arg: " . $op_arg . "\n";
+            #print "Rest: " . $rest . "\n";
+
+            my @args = findArgs( $op_arg, 1 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+
+            $arg = $1 . " (Not " . " ( " . $args[0] . " )) " . $rest;
+
+            #print "\n" . $arg . "\n";
+        }
+        else {
+            last;
+        }
+    }
+
+    return $arg;
+}
+
 sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
@@ -1832,7 +1930,8 @@ sub sanitizeSpecOutput {
 ##########################################
     my (
         $opcode,       $rsmap_ref,    $rev_rsmap_ref,
-        $reglines_ref, $specfile_ref, $debugprint_ref
+        $reglines_ref, $specfile_ref, $debugprint_ref,
+        $tosmt
     ) = @_;
     my %rsmap      = %{$rsmap_ref};
     my %rev_rsmap  = %{$rev_rsmap_ref};
@@ -1938,7 +2037,11 @@ sub sanitizeSpecOutput {
         #debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
 
         if ( $mod =~ /_/ ) {
-            $result = mixfix2infix( $mod, $debugprint );
+            if(defined($tosmt) and $tosmt == 1) {
+              $result = mixfix2smt( $mod, $debugprint );
+            } else {
+              $result = mixfix2infix( $mod, $debugprint );
+            }
         }
         else {
             $result = $mod;
@@ -2383,7 +2486,7 @@ sub postProcess {
     utils::info("sanitizeSpecOutput $opcode");
     my $returnInfo =
       kutils::sanitizeSpecOutput( $opcode, $rsmap_ref, $rev_rsmap_ref,
-        $reglines_ref, \$specfile, \$debugprint );
+        $reglines_ref, \$specfile, \$debugprint, 0 );
 
     # write to k file.
     utils::info("writeKDefn $opcode: $koutput");
@@ -2950,8 +3053,11 @@ def prove(f):
 );
     print $zfp $template;
 
-    my %kruleMap  = ();
+    my $kruleMap_ref  = convertKRuleToSMT2($opcode, $debugprint);
+    my %kruleMap = %{$kruleMap_ref};
     my %strataBVF = ();
+
+
 
     ## Find the pair of rules to match
     my $koutput = "derivedInstructions/x86-$opcode.k";
@@ -2959,19 +3065,10 @@ def prove(f):
     my @lines = <$fp>;
     close $fp;
 
+    ## Get the BVFs
     my $founrCircuit = 0;
     for my $line (@lines) {
         chomp $line;
-
-        if ( $line =~ m/"(\w+)" \|-> (.*)/ ) {
-            $kruleMap{$1} = $2;
-            next;
-        }
-
-        if ( $line =~ m/convToRegKeys\((\w+)\) \|-> (.*)/ ) {
-            $kruleMap{$1} = $2;
-            next;
-        }
 
         if ( $line =~ m/Circuits:/ ) {
             $founrCircuit = 1;
@@ -3007,8 +3104,7 @@ def prove(f):
         }
         if ( exists $kruleMap{ $assoc{$key} } ) {
 
-            my $rule1 =
-              convertKRuleToSMT2( $kruleMap{ $assoc{$key} }, $debugprint );
+            my $rule1 = $kruleMap{ $assoc{$key} };
             if( 
                 $key eq "%af" or
                 $key eq "%pf" or
@@ -3139,6 +3235,7 @@ sub convertBVFToSMT2_helper {
     return $rule;
 }
 
+## Parse inputs of the form (.*) (*) (.*) ...
 sub mineArgs {
    my $args       = shift @_;
    my $debugprint = shift @_;
@@ -3189,12 +3286,52 @@ sub mineArgs {
 }
 
 sub convertKRuleToSMT2 {
-    my $rule       = shift @_;
+    my $opcode       = shift @_;
     my $debugprint = shift @_;
-#$debugprint = 1;
+
+    chomp $opcode;
+    my $specfile   = "specs/x86-semantics_${opcode}_spec.k";
+    my $specoutput = "specs/x86-semantics_${opcode}_spec.output";
+
+    my ( $rsmap_ref, $rev_rsmap_ref, $reglines_ref ) =
+      kutils::processSpecOutput( $specoutput, $debugprint );
+
+    my $returnInfo =
+      kutils::sanitizeSpecOutput( $opcode, $rsmap_ref, $rev_rsmap_ref,
+        $reglines_ref, \$specfile, \$debugprint, 1 );
+
+    my %retMap = ();
+
+    for my $item (@{scalarToArray($returnInfo, "\n")}) {
+        chomp $item;
+        trim($item);
+
+        if ( $item eq "" ) {
+            next;
+        }
+        my @splt = split( "\\|->", $item );
+        $splt[0] = trim( $splt[0]);
+        $splt[1] = trim( $splt[1]);
+
+        if($splt[0] =~m/"(\w+)"/) {
+          $retMap{$1} = convertKRuleToSMT2_helper($splt[1]);  
+        } 
+        if($splt[0] =~m/convToRegKeys\((\w+)\)/ ) {
+          $retMap{$1} = convertKRuleToSMT2_helper($splt[1]);
+        } 
+    }
+
+    printMap(\%retMap,"", 1);
+    return \%retMap;
+
+}
 
 
-    $rule =~ s/#ifMInt/If(/g;
+sub convertKRuleToSMT2_helper {
+  my $rule       = shift @_;
+  my $debugprint = shift @_;
+
+  $rule =~ s/#ifMInt/If(/g;
     $rule =~ s/#then/,/g;
     $rule =~ s/#else/,/g;
     $rule =~ s/#fi/)/g;
@@ -3207,7 +3344,7 @@ sub convertKRuleToSMT2 {
 
     ##qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
     my $bin_op = (
-qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|andBool|orBool|eqMInt/
+qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|eqMInt/
     );
     my $arg = $rule;
     while (1) {
@@ -3235,7 +3372,6 @@ qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|andBool|orBool|eqMInt/
             if($op eq "extractMInt") {
 
             }
-
             if ( $op eq "eqMInt" ) {
                 $arg = $1 . "( $args[0] == $args[1] ) $rest";
             }
@@ -3276,5 +3412,12 @@ qr/extractMInt|addMInt|orMInt|xorMInt|andMInt|andBool|orBool|eqMInt/
     $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
 
     return $rule;
+
+
 }
+
+
+
 1;
+
+

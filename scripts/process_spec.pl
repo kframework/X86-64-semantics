@@ -30,7 +30,7 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
-my $specdir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/specs/";
+my $specdir = "specs/";
 my $derivedInstructions =
 "derivedInstructions/";
 my $help           = "";
