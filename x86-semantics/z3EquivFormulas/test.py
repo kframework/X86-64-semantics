@@ -242,15 +242,9 @@ def prove(f):
 
 
 
-#(concat <%rbx|64>[63:8] (plus (if <%cf> then (plus (concat <0x0|1> <%rax|64>[7:0]) <0x1|9>) else (concat <0x0|1> <%rax|64>[7:0])) (concat <0x0|1> <%rbx|64>[7:0]))[7:0])
-#(concat rbx[63:8] (plus (if cf then (plus (concat ZERO1 rax[7:0]) ) else (concat ZERO1> rax[7:0])) (concat ZERO1> rax[7:0]))[7:0])
-rbx = BitVec('rbx', 64)
-cf = Bool('cf')
-ONE1 = BitVecVal(1, 1)
-ONE9 = BitVecVal(1, 9)
-ZERO1 = BitVecVal(0, 1)
-a = parse_smt2_string('(declare-const rbx (_ BitVec 64)) (_ concat rbx rbx )')
 
+a = BitVecVal(0xff, 16)
+print a.sexpr()
 
 
 
