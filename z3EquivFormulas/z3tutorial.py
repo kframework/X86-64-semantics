@@ -243,9 +243,22 @@ def prove(f):
 
 
 
-a = BitVecVal(0xff, 16)
-print a.sexpr()
+#a = BitVecVal(0xff, 16)
+#print a.sexpr()
+R1 = BitVec('R1', 64)
+R2 = BitVec('R2', 64)
+R3 = BitVec('R3', 64)
+CONST_BV_S8_V63 = BitVecVal(63, 8)
+CONST_BV_S8_V64 = BitVecVal(64, 8)
+CONST_BV_S1_V0 = BitVecVal(0, 1)
+CONST_BV_S64_V0 = BitVecVal(0, 64)
+CONST_BV_S64_VNEG1 = BitVecVal(-1, 64)
+CONST_BV_S57_V0 = BitVecVal(0x0, 57)
+CONST_BV_S8_V3f = BitVecVal(0x3f, 8)
 
+a =  BitVecVal( BV2Int( CONST_BV_S8_V63 , is_signed=False), 64)   
+
+    
 
 
 

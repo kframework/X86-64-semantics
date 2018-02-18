@@ -1481,6 +1481,10 @@ sub findArgs {
             push @args, $1;
             $line = $2;
         }
+        if ( $line =~ m/^(CONST_BV_S\d+_VNEG\d+)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
+        }
         elsif ( $line =~ m/^true\s*,\s*(.*)/ ) {
             push @args, "true";
             $line = $1;
@@ -2900,6 +2904,7 @@ sub findRegisterAssoc {
     my $operandListFromInstr_ref =
       getOperandListFromInstr( $targetinstr, $debugprint );
     my @operandListFromInstr = @{$operandListFromInstr_ref};
+    printArray( $operandListFromInstr_ref, "[findRegisterAssoc] Opr List", 1 );
 
     my $counter = 1;
     $assoc{"cf"} = "CF";
@@ -2916,82 +2921,35 @@ sub findRegisterAssoc {
 
     my @formalList  = ();
     my @formalSizes = ();
+    my $i = 0;
     for my $line (@lines) {
         chomp $line;
-        if ( $line =~
-m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/
-          )
-        {
-            push @formalList, $1;
-            push @formalList, $3;
-            push @formalList, $5;
 
-            if ( $2 eq "Xmm" or $2 eq "Ymm" ) {
+        if($line =~ m/execinstr/) {
+          my @matches = $line =~ m/(R\d+:Rh)|(R\d+:R\d+)|(%\w+:R\d+)|(R\d+:Xmm)|(R\d+:Ymm)|(\$0x[\dabcdef]+)/g;
+          for my $match (@matches) {
+#if($match =~ m/(R\d+):(R\d+)|%(\w+):(R\d+)|(R\d+):(Xmm)|(R\d+):(Ymm)|\$0x([\dabcdef]+)/) {
+            if(
+                ($match =~ m/(R\d+):(Rh)/)  or 
+                ($match =~ m/(R\d+):(R\d+)/)  or 
+                ($match =~ m/%(\w+):(R\d+)/)   or
+                ($match =~ m/(R\d+):(Xmm)/)    or
+                ($match =~ m/(R\d+):(Ymm)/)    or
+                ($match =~ m/\$0x([\dabcdef]+)/)
+                ) {
+#print $match ."-$1-$2\n";
+              if (defined($2) and ( $2 eq "Xmm" or $2 eq "Ymm" )) {
                 push @formalSizes, 256;
-            }
-            else {
+              } else {
                 push @formalSizes, 64;
+              }
+              $assoc{ $subRegToReg{utils::trim($operandListFromInstr[$i], "%")} } = uc($1);
+              $i++;
             }
-            if ( $4 eq "Xmm" or $4 eq "Ymm" ) {
-                push @formalSizes, 256;
-            }
-            else {
-                push @formalSizes, 64;
-            }
-            if ( $4 eq "Xmm" or $4 eq "Ymm" ) {
-                push @formalSizes, 256;
-            }
-            else {
-                push @formalSizes, 64;
-            }
-
-            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[0], "%")} } = $formalList[0];
-            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[1], "%")} } = $formalList[1];
-            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[2], "%")} } = $formalList[2];
-
-            last;
-        }
-        elsif ( $line =~
-m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/
-          )
-        {
-            push @formalList, $1;
-            push @formalList, $3;
-
-            if ( $2 eq "Xmm" or $2 eq "Ymm" ) {
-                push @formalSizes, 256;
-            }
-            else {
-                push @formalSizes, 64;
-            }
-            if ( $4 eq "Xmm" or $4 eq "Ymm" ) {
-                push @formalSizes, 256;
-            }
-            else {
-                push @formalSizes, 64;
-            }
-
-            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[0], "%")} } = $formalList[0];
-            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[1], "%")} } = $formalList[1];
-            last;
-
-        }
-        elsif (
-            $line =~ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*.Typedoperands\)/ )
-        {
-            push @formalList, $1;
-
-            if ( $2 eq "Xmm" or $2 eq "Ymm" ) {
-                push @formalSizes, 256;
-            }
-            else {
-                push @formalSizes, 64;
-            }
-
-            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[0], "%")} } = $formalList[0];
-            last;
+          }
         }
     }
+
 
     print $targetinstr. "\n";
     printMap( \%assoc, "[findRegisterAssoc]Association Map", 1 );
@@ -3101,13 +3059,19 @@ print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
     ## Find the consts decls
     my %uniq = ();
     for my $key (sort keys %kruleMap) {
-      my @matches = $kruleMap{$key} =~ m/CONST_BV_S\d+_V\d+/g;
+      my @matches = $kruleMap{$key} =~ m/CONST_BV_S\d+_V\d+|CONST_BV_S\d+_VNEG\d+/g;
       for my $match (@matches) {
-        if($match =~ m/CONST_BV_S(\d+)_V(\d+)/) {
-          my $name = "CONST_BV_S$1_V$2";
-#print "$name\n";
+        if(
+            ($match =~ m/CONST_BV_S(\d+)_V(\d+)/) or
+            ($match =~ m/CONST_BV_S(\d+)_VNEG(\d+)/)
+            ) {
+          my $name = $match;
+          my $val = $2;
+          my $size = $1;
+          $val = -1 * $val  if ($name =~ m/VNEG/);
+#print "$name \:: $val\n";
           if(!exists $uniq{$name}) {
-            $decl = $decl . "$name = BitVecVal($2, $1)". "\n";
+            $decl = $decl . "$name = BitVecVal($val, $size)". "\n";
             $uniq{$name} = 1;
           }
         }
@@ -3249,6 +3213,7 @@ sub convertBVFToSMT2_helper {
 
     if(
         $rule =~ m/^\(CONST_BV_S(\d+)_V(\d+)\)$/ or 
+        $rule =~ m/^\(CONST_BV_S(\d+)_VNEG(\d+)\)$/ or 
         $rule =~ m/^\(R(\d+)\)$/ or
         $rule =~ m/^\(R(\d+)\)$/ 
         ) {
@@ -3256,7 +3221,7 @@ sub convertBVFToSMT2_helper {
       return $rule;
     }
 
-    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double/;
+    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double|s_shr|&|\||\^/;
 
     debugInfo("[convertBVFToSMT2_helper] Non Base\n", $debugprint);
 
@@ -3285,10 +3250,13 @@ sub convertBVFToSMT2_helper {
       if($op eq "==") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " == " . convertBVFToSMT2_helper($retargs[1]). ")";
       }
-      if($op eq "or") {
+      if($op eq "&") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " & " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "|") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " | " . convertBVFToSMT2_helper($retargs[1]). ")";
       }
-      if($op eq "xor") {
+      if($op eq "^") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " ^ " . convertBVFToSMT2_helper($retargs[1]). ")";
       }
       if($op eq "concat") {
@@ -3296,6 +3264,12 @@ sub convertBVFToSMT2_helper {
       }
       if($op eq "and") {
         $rule = "(And(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "or") {
+        $rule = "(Or(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "xor") {
+        $rule = "(Xor(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
       }
       if($op eq "not") {
         $rule = "(Not(" . convertBVFToSMT2_helper($retargs[0]) . "))";
@@ -3311,9 +3285,9 @@ sub convertBVFToSMT2_helper {
       if($op eq "cvt_single_to_double") {
         $rule = "( fpToIEEEBV(fpFPToFP(RNE(),  fpBVToFP ( " . convertBVFToSMT2_helper($retargs[0]). ", Float32()), Float64())))";
       }
-
-
-
+      if($op eq "s_shr") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " >> " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
     }
 
     return $rule;
@@ -3425,12 +3399,13 @@ sub convertKRuleToSMT2_helper {
 #$debugprint = 1;
 
     $rule =~ s/mi\((\d+), (\d+)\)/(CONST_BV_S$1_V$2)/g;
+    $rule =~ s/mi\((\d+), -(\d+)\)/(CONST_BV_S$1_VNEG$2)/g;
     $rule =~ s/concatenateMInt/Concat/g;
     $rule =~ s/notBool/Not/g;
 
     ##qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
     my $bin_op = (
-qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt/
+qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|ashrMInt|lshrMInt|shlMInt|ultMInt/
     );
     my $arg = $rule;
     while (1) {
@@ -3482,6 +3457,9 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt/
         if ( $op eq "addMInt" ) {
             $arg = $pre . "( $args[0] + $args[1] ) $rest";
         }
+        if ( $op eq "ultMInt" ) {
+            $arg = $pre . "ULT( $args[0], $args[1] ) $rest";
+        }
         if ( $op eq "orMInt" ) {
             $arg = $pre . "( $args[0] | $args[1] ) $rest";
         }
@@ -3505,6 +3483,21 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt/
                 $pre 
               . "Extract"
               . "( $size - $start - 1, $size - $end, $args[0]  ) $rest";
+        }
+        if ( $op eq "ashrMInt" ) {
+            $args[1] =~ s/^uvalueMInt//;
+#$arg = $pre . "( $args[0] >> $args[1] ) $rest";
+#$arg = $pre . "( $args[0] >> BitVecVal(BV2Int($args[1]), $args[0].size()) ) $rest";
+            $arg = $pre . "( $args[0] >> Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+
+        }
+        if ( $op eq "lshrMInt" ) {
+            $args[1] =~ s/^uvalueMInt//;
+            $arg = $pre . "LShr( $args[0], Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+        }
+        if ( $op eq "shlMInt" ) {
+            $args[1] =~ s/^uvalueMInt//;
+            $arg = $pre . "( $args[0] << Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
         }
         if ( $op eq "MInt2Float" ) {
             my $fOrd = $args[1];
