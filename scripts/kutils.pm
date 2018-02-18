@@ -1477,7 +1477,11 @@ sub findArgs {
             push @args, $line;
             last;
         }
-        if ( $line =~ m/^true\s*,\s*(.*)/ ) {
+        if ( $line =~ m/^(CONST_BV_S\d+_V\d+)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
+        }
+        elsif ( $line =~ m/^true\s*,\s*(.*)/ ) {
             push @args, "true";
             $line = $1;
         }
@@ -2884,6 +2888,8 @@ s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSign
     close $fp;
 }
 
+## Find the association between 
+## execInstr (R1 R2 ..) and the tergetInst
 sub findRegisterAssoc {
     my $opcode     = shift @_;
     my $debugprint = shift @_;
@@ -2896,12 +2902,12 @@ sub findRegisterAssoc {
     my @operandListFromInstr = @{$operandListFromInstr_ref};
 
     my $counter = 1;
-    $assoc{"%cf"} = "CF";
-    $assoc{"%pf"} = "PF";
-    $assoc{"%af"} = "AF";
-    $assoc{"%zf"} = "ZF";
-    $assoc{"%sf"} = "SF";
-    $assoc{"%of"} = "OF";
+    $assoc{"cf"} = "CF";
+    $assoc{"pf"} = "PF";
+    $assoc{"af"} = "AF";
+    $assoc{"zf"} = "ZF";
+    $assoc{"sf"} = "SF";
+    $assoc{"of"} = "OF";
 
     my $koutput = "derivedInstructions/x86-$opcode.k";
     open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
@@ -2939,9 +2945,9 @@ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperand
                 push @formalSizes, 64;
             }
 
-            $assoc{ $operandListFromInstr[0] } = $formalList[0];
-            $assoc{ $operandListFromInstr[1] } = $formalList[1];
-            $assoc{ $operandListFromInstr[2] } = $formalList[2];
+            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[0], "%")} } = $formalList[0];
+            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[1], "%")} } = $formalList[1];
+            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[2], "%")} } = $formalList[2];
 
             last;
         }
@@ -2965,8 +2971,8 @@ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/
                 push @formalSizes, 64;
             }
 
-            $assoc{ $operandListFromInstr[0] } = $formalList[0];
-            $assoc{ $operandListFromInstr[1] } = $formalList[1];
+            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[0], "%")} } = $formalList[0];
+            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[1], "%")} } = $formalList[1];
             last;
 
         }
@@ -2982,7 +2988,7 @@ m/execinstr\s*\(\w+\s*(\w+):(\w+),\s*(\w+):(\w+),\s*.Typedoperands\)/
                 push @formalSizes, 64;
             }
 
-            $assoc{ $operandListFromInstr[0] } = $formalList[0];
+            $assoc{ $subRegToReg{utils::trim($operandListFromInstr[0], "%")} } = $formalList[0];
             last;
         }
     }
@@ -3030,18 +3036,18 @@ ZF = BitVec('ZF', 1)
 SF = BitVec('SF', 1)
 OF = BitVec('OF', 1)
 
-cf = Bool('cf')
-pf = Bool('pf')
-af = Bool('af')
-zf = Bool('zf')
-sf = Bool('sf')
-of = Bool('of')
-
+RAX = BitVec('RAX', 64)
+RCX = BitVec('RCX', 64)
 ZERO1 = BitVecVal(0, 1)
 ONE1 = BitVecVal(1, 1)
-ZERO64 = BitVecVal(0, 64)
-ONE64 = BitVecVal(1, 64)
-$decl
+
+cf = (CF == ONE1)
+pf = (PF == ONE1)
+af = (AF == ONE1)
+zf = (ZF == ONE1)
+sf = (SF == ONE1)
+of = (OF == ONE1)
+
 
 print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
 
@@ -3051,7 +3057,6 @@ print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
     my $kruleMap_ref  = convertKRuleToSMT2($opcode, $debugprint);
     my %kruleMap = %{$kruleMap_ref};
     my %strataBVF = ();
-
 
 
     ## Find the pair of rules to match
@@ -3082,41 +3087,85 @@ print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
                     next;
                 }
 
-                $strataBVF{ "%" . $1 } = $2;
+                $strataBVF{$1} = $2;
             }
         }
 
     }
 
+    ## Print the formulas
     printMap( \%kruleMap,  "Krules", $debugprint );
     printMap( \%strataBVF, "BVF",    $debugprint );
 
+
+    ## Find the consts decls
+    my %uniq = ();
+    for my $key (sort keys %kruleMap) {
+      my @matches = $kruleMap{$key} =~ m/CONST_BV_S\d+_V\d+/g;
+      for my $match (@matches) {
+        if($match =~ m/CONST_BV_S(\d+)_V(\d+)/) {
+          my $name = "CONST_BV_S$1_V$2";
+#print "$name\n";
+          if(!exists $uniq{$name}) {
+            $decl = $decl . "$name = BitVecVal($2, $1)". "\n";
+            $uniq{$name} = 1;
+          }
+        }
+      }
+    }
+
+    for my $key (sort keys %strataBVF) {
+      my @matches = $strataBVF{$key} =~ m/(<0x[\dabcdef]+\|\d+>)/g;
+      for my $match (@matches) {
+        if($match =~ m/<0x([\dabcdef]+)\|(\d+)>/) {
+          my $name = "CONST_BV_S$2_V$1";
+          if(!exists $uniq{$name}) {
+            $decl = $decl . "$name = BitVecVal(0x$1, $2)". "\n";
+            $uniq{$name} = 1;
+          }
+        }
+      }
+    }
+
+    print $zfp $decl."\n";
+
     for my $key ( sort keys %strataBVF ) {
-        if (   $key eq "%af"
-            or $key eq "%pf" )
+        if (   $key eq "af"
+            or $key eq "pf" )
         {
             next;
         }
-        if ( exists $kruleMap{ $assoc{$key} } ) {
 
-            my $rule1 = $kruleMap{ $assoc{$key} };
+
+        
+        my $kruleMapKey = $assoc{$key};
+        if (! exists $kruleMap{ $kruleMapKey } ) {
+          $kruleMapKey = uc($key);
+        }
+
+        if ( exists $kruleMap{ $kruleMapKey } ) {
+
+            my $rule1 = $kruleMap{ $kruleMapKey };
             if( 
-                $key eq "%af" or
-                $key eq "%pf" or
-                $key eq "%sf" or
-                $key eq "%zf" or
-                $key eq "%of" or
-                $key eq "%cf" 
+                $key eq "af" or
+                $key eq "pf" or
+                $key eq "sf" or
+                $key eq "zf" or
+                $key eq "of" or
+                $key eq "cf" 
                 ) {
                   $rule1 = $rule1 . " == ONE1";
             }
-            print $zfp "PK_" . $assoc{$key} . " = " . $rule1 . "\n"; 
+            print $zfp "PK_" . $kruleMapKey . " = " . $rule1 . "\n"; 
 
 
             my $rule2 = convertBVFToSMT2( $strataBVF{$key}, \%assoc, $debugprint );
 
-            print $zfp "PS_" . $assoc{$key} . " = " . $rule2 . "\n"; 
-            print $zfp "proverUtils.prove( PK_$assoc{$key} == PS_$assoc{$key} )\n\n";
+            print $zfp "PS_" . $kruleMapKey . " = " . $rule2 . "\n"; 
+            print $zfp "proverUtils.prove( PK_$kruleMapKey == PS_$kruleMapKey )\n\n";
+        } else {
+          utils::failInfo("$opcode: No K rule $kruleMapKey for S rule $key\n");
+
         }
     }
 
@@ -3140,29 +3189,32 @@ sub preProcessBVFToSMT2 {
     my %assoc = %{$assoc_ref};
 
     debugInfo("Before removing Consts: $rule", $debugprint);
-    $rule =~ s/<0x1\|1>/(ONE1)/g;
-    $rule =~ s/<0x1\|64>/(ONE64)/g;
-    $rule =~ s/<0x0\|1>/(ZERO1)/g;
-    $rule =~ s/<0x0\|64>/(ZERO64)/g;
-    $rule =~ s/FALSE/False/g;
-    $rule =~ s/TRUE/True/g;
+    $rule =~ s/<0x([\dabcdef]+)\|(\d+)>/(CONST_BV_S$2_V$1)/g;
+    $rule =~ s/FALSE/(False)/g;
+    $rule =~ s/TRUE/(True)/g;
+    $rule =~ s/<%(\w+)>/($1)/g;
     debugInfo("After removing Consts: $rule", $debugprint);
 
     while(1) {
-      if($rule =~ m/<(%\w+)\|(\d+)>/) {
+      if($rule =~ m/<%(\w+)\|(\d+)>/) {
         my $r = $1;
         my $s = $2;
         if( 
-            $r eq "%af" or
-            $r eq "%pf" or
-            $r eq "%sf" or
-            $r eq "%zf" or
-            $r eq "%of" or
-            $r eq "%cf" 
+            $r eq "af" or
+            $r eq "pf" or
+            $r eq "sf" or
+            $r eq "zf" or
+            $r eq "of" or
+            $r eq "cf" 
             ) {
-              $rule =~ s/<$r\|$s>/utils::trim($r, "%")/g;
+              $rule =~ s/<$r\|$s>/$r/g;
         } else {
-              $rule =~ s/<$r\|$s>/($assoc{$r})/g;
+              if(exists $assoc{$r}) {
+                $rule =~ s/<%$r\|$s>/($assoc{$r})/g;
+              } else {
+                my $t =  uc($r);
+                $rule =~ s/<%$r\|$s>/($t)/g;
+              }
 
         }
       } else {
@@ -3170,21 +3222,33 @@ sub preProcessBVFToSMT2 {
       }
     }
     debugInfo("After removing syms: $rule\n", $debugprint);
+    ## we dont want to replace <%cf> to (CF == ONE1) at this point 
+    ## as this will break the format of the rule (op () ()) and
+    ## introduce (a == ONE1)
+
+    ## Replace cvt_single_to_double
+    $rule =~ s/cvt_single_to_double\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_single_to_double $1)/g;
 
     $rule = convertBVFToSMT2_helper($rule, $debugprint);
+
+    
     return $rule;
 }
 
 
+#
+# BVF2SMT
+#
 sub convertBVFToSMT2_helper {
     my $rule       = shift @_;
     my $debugprint = shift @_;
 
+#$debugprint = 1;
 
     debugInfo("[convertBVFToSMT2_helper] ->$rule\n", $debugprint);
+
     if(
-        $rule =~ m/^\(ONE(\d+)\)$/ or 
-        $rule =~ m/^\(ZERO(\d+)\)$/ or 
+        $rule =~ m/^\(CONST_BV_S(\d+)_V(\d+)\)$/ or 
         $rule =~ m/^\(R(\d+)\)$/ or
         $rule =~ m/^\(R(\d+)\)$/ 
         ) {
@@ -3192,7 +3256,7 @@ sub convertBVFToSMT2_helper {
       return $rule;
     }
 
-    my $bin_op = qr/==|plus|concat|and|not|or|xor/;
+    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double/;
 
     debugInfo("[convertBVFToSMT2_helper] Non Base\n", $debugprint);
 
@@ -3208,9 +3272,12 @@ sub convertBVFToSMT2_helper {
     if($rule =~ m/^\(($bin_op) (.+)\)$/) {
       my $op   = $1;
       my $args = $2;
+
       my $args_ref = mineArgs($args, $debugprint);
+
+
       my @retargs = @{$args_ref};
-      debugInfo("[convertBVFToSMT2_helper] Processing $op wo extract\n", 1);
+      debugInfo("[convertBVFToSMT2_helper] Processing $op wo extract\n", $debugprint);
 
       if($op eq "plus") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " + " . convertBVFToSMT2_helper($retargs[1]). ")";
@@ -3233,6 +3300,19 @@ sub convertBVFToSMT2_helper {
       if($op eq "not") {
         $rule = "(Not(" . convertBVFToSMT2_helper($retargs[0]) . "))";
       }
+      if($op =~ m/sign-extend-(\d+)/) {
+        my $n = $1;
+        $rule = "(SignExt( $n - " . convertBVFToSMT2_helper($retargs[0]) . ".size(), " . convertBVFToSMT2_helper($retargs[0]) . "))";
+      }
+      if($op eq "if") {
+        $rule = "(If( " . convertBVFToSMT2_helper($retargs[0]) . "," . convertBVFToSMT2_helper($retargs[1]) . 
+          "," . convertBVFToSMT2_helper($retargs[2]) . "))";
+      }
+      if($op eq "cvt_single_to_double") {
+        $rule = "( fpToIEEEBV(fpFPToFP(RNE(),  fpBVToFP ( " . convertBVFToSMT2_helper($retargs[0]). ", Float32()), Float64())))";
+      }
+
+
 
     }
 
@@ -3244,6 +3324,7 @@ sub mineArgs {
    my $args       = shift @_;
    my $debugprint = shift @_;
 
+   debugInfo( "[mineArgs]$args\n", $debugprint);
    my @arr = split( //, $args );
    my $inArgs = 0;
    my @retArgs = ();
@@ -3251,7 +3332,8 @@ sub mineArgs {
    my $op_arg = "";
    my $counter = 0;
    for ( my $i = 0 ; $i < scalar(@arr) ; $i++ ) {
-        if($arr[$i] eq " " and $inArgs == 0) {
+#print $arr[$i] . "-$i" . "/" . scalar(@arr). "-";
+        if($arr[$i] ne "(" and $inArgs == 0) {
           next;
         }
         if ( $arr[$i] eq "(" ) {
@@ -3259,17 +3341,19 @@ sub mineArgs {
             $counter++;
         }
         if ( $arr[$i] eq ")" ) {
-            $inArgs = 0;
             $counter--;
         }
         $op_arg = $op_arg . $arr[$i];
 
         if ($counter == 0 ) {
+            $inArgs = 0;
+#            print "*";
 
             if(($i+1) < scalar(@arr) and ($arr[$i+1] eq "[")) {
               # Add the extraction [h:l]
               my $k = $i+1;
               for ( ; $k < scalar(@arr) ; $k++ ) {
+#        print $arr[$k] . " ";
                 $op_arg = $op_arg . $arr[$k];
                 if($arr[$k] eq "]") {
                   $i = $k;
@@ -3282,8 +3366,7 @@ sub mineArgs {
         }
     }
 
-   print "[mineArgs]$args\n";
-   printArray(\@retArgs, "[mineArgs]Return:", 1);
+   printArray(\@retArgs, "\n[mineArgs]Return:", $debugprint);
 
    return \@retArgs;
 
@@ -3306,7 +3389,7 @@ sub convertKRuleToSMT2 {
 
     my %retMap = ();
 
-    printArray(\@{scalarToArray($returnInfo, "\n")}, "[convertKRuleToSMT2]", 1);
+    printArray(\@{scalarToArray($returnInfo, "\n")}, "[convertKRuleToSMT2]", $debugprint);
 
     for my $item (@{scalarToArray($returnInfo, "\n")}) {
         chomp $item;
@@ -3332,20 +3415,22 @@ sub convertKRuleToSMT2 {
 }
 
 
+#
+# K2SMT
+#
 sub convertKRuleToSMT2_helper {
   my $rule       = shift @_;
   my $debugprint = shift @_;
 
-    $rule =~ s/mi\(1, 0\)/ZERO1/g;
-    $rule =~ s/mi\(1, 1\)/ONE1/g;
-    $rule =~ s/mi\(64, 0\)/ZERO64/g;
-    $rule =~ s/mi\(64, 1\)/ONE64/g;
+#$debugprint = 1;
+
+    $rule =~ s/mi\((\d+), (\d+)\)/(CONST_BV_S$1_V$2)/g;
     $rule =~ s/concatenateMInt/Concat/g;
     $rule =~ s/notBool/Not/g;
 
     ##qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
     my $bin_op = (
-qr/extractMInt|addMInt|orMInt|andMInt|eqMInt/
+qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt/
     );
     my $arg = $rule;
     while (1) {
@@ -3366,8 +3451,8 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt/
           last;
         }
 
-        debugInfo( "\n\nGot Binary op: $op\n", 1 );
-        debugInfo( "\n\nBefore Rule: $arg\n", 1 );
+        debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
+        debugInfo( "\n\nBefore Rule: $arg\n", $debugprint );
 
         my ( $op_arg, $rest ) = selectbraces( $post, 1 );
 
@@ -3375,8 +3460,15 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt/
         debugInfo( "Rest: " . $rest . "\n",  $debugprint );
 
         my @args = ();
-        if ( $op eq "extractMInt" ) {
+        if ( 
+            $op eq "extractMInt"  or
+            $op eq "MInt2Float"  
+            ) {
             @args = findArgs( $op_arg, 3 );
+        } elsif(
+            $op eq "Float2Double"
+            ) {
+            @args = findArgs( $op_arg, 1);
         }
         else {
             @args = findArgs( $op_arg, 2 );
@@ -3384,9 +3476,6 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt/
 
         debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
         debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
-        if($op eq "extractMInt") {
-
-        }
         if ( $op eq "eqMInt" ) {
             $arg = $pre . "( $args[0] == $args[1] ) $rest";
         }
@@ -3417,11 +3506,90 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt/
               . "Extract"
               . "( $size - $start - 1, $size - $end, $args[0]  ) $rest";
         }
-        debugInfo( "\n\nAfter Rule: $arg\n", 1 );
+        if ( $op eq "MInt2Float" ) {
+            my $fOrd = $args[1];
+            if($fOrd eq 24) {
+              $fOrd = "Float32()";
+            } else {
+              $fOrd = "Float64()";
+            }
+
+            $arg =
+                $pre 
+              . "fpBVToFP"
+              . "( $args[0], $fOrd ) $rest";
+        }
+        if ( $op eq "Float2Double" ) {
+            $arg =
+                $pre 
+              . "fpFPToFP"
+              . "( RNE(), $args[0], Float64() ) $rest";
+        }
+        if ( $op eq "Float2MInt" ) {
+            $arg =
+                $pre 
+              . "fpToIEEEBV"
+              . "( $args[0] ) $rest";
+        }
+        debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
     }
     $rule = $arg;
-    $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
+    
+    ## Remove Extension
 
+#$debugprint = 1;
+    $arg = $rule;
+    while (1) {
+        my $n = "";
+        my $pre = "";
+        my $post = "";
+
+        if ( $arg =~ m/(.+)mi\((\d+), svalueMInt(.+)/ ) {
+          $pre  = $1;
+          $n  = $2;
+          $post = $3;
+        } else {
+          last;
+        }
+
+        my $actualPost = "($n, svalueMInt$post";
+
+        debugInfo( "\n\nGot SExt:\n", $debugprint );
+        debugInfo( "\n\nBefore Rule : $arg\n", $debugprint );
+        debugInfo( "\n\nBefore Rule Pre: $pre\n", $debugprint );
+        debugInfo( "\n\nBefore Rule Post: $actualPost\n", $debugprint );
+
+        my ( $op_arg, $rest ) = selectbraces( $actualPost, 1 );
+
+        debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+        debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+        my @args =  findArgs( $op_arg, 2 );
+
+        debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+        debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+        ## $args[1] contain svalueMInt to be removed
+        $args[1] =~ s/^svalueMInt//;
+
+        $arg =  $pre . 
+                "SignExt(" . 
+                $args[0] .  
+                " - " . 
+                $args[1] . 
+                ".size(), " . 
+                $args[1] . 
+                ")" . 
+                $rest;
+        debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
+    }
+
+
+    $rule = $arg;
+    $rule =~ s/getParentValue\(%(\w+), RSMap\)/uc($1)/ge;
+    $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
+    $rule =~ s/getFlag\("(\w+)", RSMap\)/$1/g;
+      
     return $rule;
 
 
