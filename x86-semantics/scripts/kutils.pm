@@ -3191,7 +3191,7 @@ of = (OF == ONE1)
 undef = BitVecVal(0, 1)
 cvt_int32_to_single = Function('cvt_int32_to_single', IntSort(), Float32())
 
-# Uninterpreted function declaration
+# Uninterpreted binary function declaration
 add_double = Function('add_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
 add_single = Function('add_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
 
@@ -3210,12 +3210,23 @@ maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVec
 mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
 mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
 
+# Uninterpreted binary function declaration
+approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_single = Function('approx_reciprocal_single', BitVecSort(32), BitVecSort(32))
+
 sqrt_double = Function('sqrt_double', BitVecSort(64), BitVecSort(64))
 sqrt_single = Function('sqrt_single', BitVecSort(32), BitVecSort(32))
 
-approx_reciprocal_sqrt_double_double = Function('approx_reciprocal_sqrt_double_double', BitVecSort(64), BitVecSort(64))
-approx_reciprocal_sqrt_double_single = Function('approx_reciprocal_sqrt_double_single', BitVecSort(32), BitVecSort(32))
+approx_reciprocal_sqrt_double = Function('approx_reciprocal_sqrt_double_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_sqrt_single = Function('approx_reciprocal_sqrt_double_single', BitVecSort(32), BitVecSort(32))
 
+cvt_single_to_double  = Function('cvt_single_to_double', BitVecSort(32), BitVecSort(64))
+cvt_single_to_int32   = Function('cvt_single_to_int32', BitVecSort(32), BitVecSort(32))
+cvt_single_to_int64   = Function('cvt_single_to_int64', BitVecSort(32), BitVecSort(64))
+cvt_int32_to_single   = Function('cvt_int32_to_single', BitVecSort(32), BitVecSort(32))
+cvt_int32_to_double   = Function('cvt_int32_to_double', BitVecSort(32), BitVecSort(64))
+
+# Uninterpreted ternary function declaration
 vfmadd132_double = Function('vfmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
 vfmadd132_single = Function('vfmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
 
@@ -3318,7 +3329,8 @@ print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
 
     for my $key ( sort keys %strataBVF ) {
         if (   $key eq "af"
-            or $key eq "pf" )
+            or $key eq "pf" 
+            )
         {
             next;
         }
@@ -3419,14 +3431,13 @@ sub preProcessBVFToSMT2 {
     ## Orders are also changed here
     debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
 
-    $rule =~ s/cvt_single_to_double\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_single_to_double $1)/g;
-    $rule =~ s/cvt_int32_to_single\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_int32_to_single $1)/g;
-    $rule =~ s/add_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(add_double $1)/g;
-    $rule =~ s/add_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(add_double $1)/g;
-    $rule =~ s/vfmadd132_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmadd132_double $1)/g;
-    $rule =~ s/vfmadd132_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmadd132_single $1)/g;
-    $rule =~ s/vfmsub132_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmsub132_double $1)/g;
-    $rule =~ s/vfmsub132_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmsub132_single $1)/g;
+    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
+    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
+    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
+    $rule =~ s/($uif_terop)\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
+    $rule =~ s/($uif_binop)\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
+    $rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
 
     debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
     $rule = convertBVFToSMT2_helper($rule);
@@ -3456,7 +3467,6 @@ sub convertBVFToSMT2_helper {
       return $rule;
     }
 
-    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double|s_shr|&|\||\^|<=|>=|<<|>>|add_double|cvt_int32_to_single|vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single/;
 
     debugInfo("[convertBVFToSMT2_helper] Non Base\n", $debugprint);
 
@@ -3469,6 +3479,8 @@ sub convertBVFToSMT2_helper {
       $rule = "(Extract ($high, $low, (" . convertBVFToSMT2_helper($arg) . ")))";
     }
 
+    ## Process normal operators
+    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double|s_shr|&|\||\^|<=|>=|<<|>>/;
     if($rule =~ m/^\(($bin_op) (.+)\)$/) {
       my $op   = $1;
       my $args = $2;
@@ -3529,15 +3541,6 @@ sub convertBVFToSMT2_helper {
         $rule = "(If( " . convertBVFToSMT2_helper($retargs[0]) . "," . convertBVFToSMT2_helper($retargs[1]) . 
           "," . convertBVFToSMT2_helper($retargs[2]) . "))";
       }
-      if($op eq "cvt_single_to_double") {
-        $rule = "( fpToIEEEBV(fpFPToFP(RNE(),  fpBVToFP ( " . convertBVFToSMT2_helper($retargs[0]). ", Float32()), Float64())))";
-      }
-      if($op eq "cvt_int32_to_single") {
-        $rule = "( fpToIEEEBV (cvt_int32_to_single ( BV2Int (" . convertBVFToSMT2_helper($retargs[0]). ", is_signed=True))))";
-      }
-      if($op eq "add_double") {
-         $rule = "( add_double ( " . convertBVFToSMT2_helper($retargs[1]). ", ". convertBVFToSMT2_helper($retargs[0]) . "))";
-      }
       if($op eq "s_shr") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " >> " . convertBVFToSMT2_helper($retargs[1]). ")";
       }
@@ -3547,42 +3550,51 @@ sub convertBVFToSMT2_helper {
       if($op eq ">>") {
         $rule = "(LShr( " . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
       }
-      if($op eq "vfmadd132_double") {
-        $rule = "(fpToIEEEBV (" .
-          "(".
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float64())" . " * " .
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float64())" .
-          ") + " . 
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float64())" .
-            "))";
-      }
-      if($op eq "vfmadd132_double") {
-        $rule = "(fpToIEEEBV (" .
-          "(".
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float32())" . " * " .
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float32())" .
-          ") + " . 
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float32())" .
-            "))";
-      }
-      if($op eq "vfmsub132_double") {
-        $rule = "(fpToIEEEBV (" .
-          "(".
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float64())" . " * " .
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float64())" .
-          ") - " . 
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float64())" .
-            "))";
-      }
-      if($op eq "vfmsub132_double") {
-        $rule = "(fpToIEEEBV (" .
-          "(".
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float32())" . " * " .
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float32())" .
-          ") - " . 
-            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float32())" .
-            "))";
-      }
+    }
+
+    ## Process UIFs
+    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
+    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
+    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
+    if($rule =~ m/^\(($uif_uop) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
+
+
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]) . "))";
+    }
+
+    if($rule =~ m/^\(($uif_binop) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
+
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[1]). ", ". convertBVFToSMT2_helper($retargs[0]) . "))";
+    }
+
+    if($rule =~ m/^\(($uif_terop) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
+
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]). ", " . convertBVFToSMT2_helper($retargs[1]) . ", " . convertBVFToSMT2_helper($retargs[2]) .  "))";
     }
 
     return $rule;

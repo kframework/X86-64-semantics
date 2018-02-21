@@ -95,11 +95,49 @@ module MINT-LEMMAS
   rule bitwidthMInt(concatenateMInt(MI1:MInt, MI2:MInt)) => bitwidthMInt(MI1) +Int bitwidthMInt(MI2) [lemma]
   rule bitwidthMInt(#ifMInt B:Bool #then MI1 #else MI2 #fi) => bitwidthMInt(MI1) [lemma]
 
+  // 64 bitwidth UIFs
+  rule bitwidthMInt(add_double(MI1, MI2))           => 64
+  rule bitwidthMInt(sub_double(MI1, MI2))           => 64
+  rule bitwidthMInt(mul_double(MI1, MI2))           => 64
+  rule bitwidthMInt(div_double(MI1, MI2))           => 64
+  rule bitwidthMInt(maxcmp_double(MI1, MI2))        => 64
+  rule bitwidthMInt(mincmp_double(MI1, MI2))        => 64
+
+  rule bitwidthMInt(vfmadd132_double(MI1, MI2, MI3))  => 64
+  rule bitwidthMInt(vfmsub132_double(MI1, MI2, MI3))  => 64
+  rule bitwidthMInt(vfnmadd132_double(MI1, MI2, MI3)) => 64
+  rule bitwidthMInt(vfnmsub132_double(MI1, MI2, MI3)) => 64
+
+  rule bitwidthMInt(approx_reciprocal_double(MI1))       => 64
+  rule bitwidthMInt(sqrt_double(MI1))                    => 64
+  rule bitwidthMInt(approx_reciprocal_sqrt_double(MI1))  => 64
+  rule bitwidthMInt(cvt_single_to_double(MI1))           => 64
+  rule bitwidthMInt(cvt_single_to_int64(MI1))            => 64
+  rule bitwidthMInt(cvt_int32_to_double(MI1))            => 64
+
+  // 32 bitwidth UIFs
+  rule bitwidthMInt(add_single(MI1, MI2))           => 32
+  rule bitwidthMInt(sub_single(MI1, MI2))           => 32
+  rule bitwidthMInt(mul_single(MI1, MI2))           => 32
+  rule bitwidthMInt(div_single(MI1, MI2))           => 32
+  rule bitwidthMInt(maxcmp_single(MI1, MI2))        => 32
+  rule bitwidthMInt(mincmp_single(MI1, MI2))        => 32
+
+  rule bitwidthMInt(vfmadd132_single(MI1, MI2, MI3))  => 32
+  rule bitwidthMInt(vfmsub132_single(MI1, MI2, MI3))  => 32
+  rule bitwidthMInt(vfnmadd132_single(MI1, MI2, MI3)) => 32
+  rule bitwidthMInt(vfnmsub132_single(MI1, MI2, MI3)) => 32
+
+  rule bitwidthMInt(approx_reciprocal_single(MI1))       => 32
+  rule bitwidthMInt(sqrt_single(MI1))                    => 32
+  rule bitwidthMInt(approx_reciprocal_sqrt_single(MI1))  => 32
+  rule bitwidthMInt(cvt_single_to_int32(MI1))            => 32
+  rule bitwidthMInt(cvt_int32_to_single(MI1))            => 32
+
   // Base Rules
   rule bitwidthMInt(mi(W:Int, _)) => W [lemma]
   rule bitwidthMInt(extractMask(_, W:Int, _)) => W [lemma]
   rule bitwidthMInt(extractMInt(_, S:Int, E:Int)) => E -Int S [lemma]
-  rule bitwidthMInt(Float2MInt(_:Float, W:Int)) => W [lemma]
   rule bitwidthMInt(zeroExtend(_:MInt, W:Int)) => W [lemma]
   rule bitwidthMInt(signExtend(_:MInt, W:Int)) => W [lemma]
 
