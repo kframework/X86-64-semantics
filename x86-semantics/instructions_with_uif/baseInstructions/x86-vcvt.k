@@ -21,14 +21,7 @@ module VCVTDQ2PD-YMM-YMM
   rule <k>
     execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       setRegisterValue(
-          joinVector(
-            convertFpsToMInts(
-              convertIntsToFps(
-                convertMIntsToSInts(
-                  splitVector(
-                    extractMask(getRegisterValue(Y1, RSMap), 128, 0), 
-                    32)), 
-                53, 11), 64)),  
+          cvt_int32_to_double(getRegisterValue(Y1, RSMap)),
           Y2)  
   ...</k>
     <regstate> RSMap</regstate>
