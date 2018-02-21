@@ -452,6 +452,17 @@ module ITE-LEMMAS
   #else B2 
   #fi) 
 
+
+  /*
+  ** Verification lemmas for UIFs.  
+  ** 
+  */
+  rule add_double(MI1, MI2) => MI2
+    requires zeroMInt(MI1)
+  rule add_double(MI1, MI2) => MI1
+    requires zeroMInt(MI2)
+
+
   /*
   rule 
   (#ifBool 

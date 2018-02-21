@@ -15,7 +15,10 @@ module VMAXPD-YMM-YMM-YMM
         #then
           getRegisterValue(Y1, RSMap)
         #else
-          maxcmp_double(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap))
+          joinVector(
+            applyUIFs(
+              splitVector(getRegisterValue(Y1, RSMap), 64), 
+              splitVector(getRegisterValue(Y2, RSMap), 64), maxcmp_double))
         #fi
           ,Y3)
   ...</k>
@@ -33,7 +36,10 @@ module VMAXPS-YMM-YMM-YMM
         #then
           getRegisterValue(Y1, RSMap)
         #else
-          maxcmp_single(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap))
+          joinVector(
+            applyUIFs(
+              splitVector(getRegisterValue(Y1, RSMap), 64), 
+              splitVector(getRegisterValue(Y2, RSMap), 64), maxcmp_single))
         #fi
           ,Y3)
   ...</k>

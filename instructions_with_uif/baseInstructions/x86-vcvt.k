@@ -21,7 +21,7 @@ module VCVTDQ2PD-YMM-YMM
   rule <k>
     execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       setRegisterValue(
-          cvt_int32_to_double(getRegisterValue(Y1, RSMap)),
+          joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32), cvt_int32_to_double)),
           Y2)  
   ...</k>
     <regstate> RSMap</regstate>
@@ -33,7 +33,7 @@ module VCVTDQ2PS-YMM-YMM
   rule <k>
     execinstr(vcvtdq2ps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       setRegisterValue(
-          cvt_int32_to_single(getRegisterValue(Y1, RSMap)),
+          joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32), cvt_int32_to_single)),
           Y2)  
   ...</k>
     <regstate> RSMap</regstate>
@@ -45,7 +45,7 @@ module VCVTPS2PD-YMM-XMM
   rule <k>
     execinstr(vcvtps2pd  X:Xmm,  Y:Ymm, .Typedoperands) =>
       setRegisterValue(
-          cvt_single_to_double(getRegisterValue(X, RSMap)),
+          joinVector(applyUIFs(splitVector(getRegisterValue(X, RSMap), 32), cvt_single_to_double)),
           Y)
   ...</k>
     <regstate> RSMap</regstate>

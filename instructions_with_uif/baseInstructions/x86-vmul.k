@@ -11,7 +11,10 @@ module VMULPD-YMM-YMM-YMM
   rule <k>
     execinstr(vmulpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vmulpd  Y3, 
-      mul_double(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap)),
+      joinVector(
+        applyUIFs(
+          splitVector(getRegisterValue(Y1, RSMap), 64), 
+          splitVector(getRegisterValue(Y2, RSMap), 64), mul_double)),
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
@@ -25,7 +28,10 @@ module VMULPS-YMM-YMM-YMM
   rule <k>
     execinstr(vmulps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vmulps  Y3, 
-      mul_single(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap)),
+      joinVector(
+        applyUIFs(
+          splitVector(getRegisterValue(Y1, RSMap), 32), 
+          splitVector(getRegisterValue(Y2, RSMap), 32), mul_single)),
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>

@@ -11,7 +11,10 @@ module VADDPD-YMM-YMM-YMM
   rule <k>
     execinstr(vaddpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vaddpd  Y3, 
-      add_double(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap)),
+      joinVector(
+        applyUIFs(
+          splitVector(getRegisterValue(Y1, RSMap), 64), 
+          splitVector(getRegisterValue(Y2, RSMap), 64), add_double)), 
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>  
@@ -25,7 +28,10 @@ module VADDPS-YMM-YMM-YMM
   rule <k>
     execinstr(vaddps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
       execinstr(vaddps  Y3, 
-      add_single(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap)),
+      joinVector(
+        applyUIFs(
+          splitVector(getRegisterValue(Y1, RSMap), 32), 
+          splitVector(getRegisterValue(Y2, RSMap), 32), add_single)),
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>  

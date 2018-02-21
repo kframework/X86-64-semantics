@@ -11,7 +11,7 @@ module VRCPPS-YMM-YMM
   rule <k>
     execinstr(vrcpps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       execinstr(vrcpps  Y2, 
-          approx_reciprocal_single(getRegisterValue(Y1, RSMap)),
+          joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32), approx_reciprocal_single)),
           .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
