@@ -2,20 +2,21 @@ requires "x86-configuration.k"
 requires "x86-flag-checks-syntax.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
-  - sarq_r64_cl
+  - shrq_r64_cl
 */
-module SAR-R64-CL
+
+module SHRQ-R64-IMM8
   imports X86-CONFIGURATION
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(sarq  %cl,  R:R64, .Typedoperands) =>
-      execinstr(sarq R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
+    execinstr(shrq  %cl,  R:R64, .Typedoperands) =>
+      execinstr(shrq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(sarq R,  MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
+  execinstr(shrq  R,  MIsrc, MIcount, .Typedoperands) => 
     setFlag(
       (#ifMInt zeroMInt(MIcount)
       #then
@@ -23,7 +24,7 @@ module SAR-R64-CL
       #else
         #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
         #then
-          zeroMIntW1
+          getSignBit(MIsrc)
         #else
           undef
         #fi 
@@ -38,9 +39,9 @@ module SAR-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBool(zeroMInt(lshrMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          fromBool(zeroMInt(getSignBit(MIsrc)), 1)
+          mi(1,1)
         #fi 
       #fi):>MInt,
       "ZF"
@@ -53,9 +54,9 @@ module SAR-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          extractMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
+          extractMInt(lshrMInt(MIsrc, uvalueMInt(MIcount)), 0, 1)
         #else 
-          getSignBit(MIsrc)
+          mi(1, 0)
         #fi 
       #fi):>MInt,
       "SF"
@@ -82,7 +83,7 @@ module SAR-R64-CL
         #else
           #ifMInt ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
           #then
-            extractMask(aShiftRightMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 1, 0)
+            extractMask(lshrMInt(MIsrc, uvalueMInt(MIcount) -Int 1), 1, 0)
           #else  
             getSignBit(MIsrc)
           #fi  
@@ -101,7 +102,7 @@ module SAR-R64-CL
           fromBool(  
             (popCount(
               extractMask(
-                aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 
+                lshrMInt(MIsrc, uvalueMInt(MIcount)), 
                 8, 0)
             ) &Int 1) ==Int 0 ,
           1)
@@ -115,9 +116,9 @@ module SAR-R64-CL
     setRegisterValue(
       #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
       #then
-        aShiftRightMInt(MIsrc, uvalueMInt(MIcount))
+        lshrMInt(MIsrc, uvalueMInt(MIcount))
       #else 
-        sarOverflow(MIsrc)
+        shrOverflow(MIsrc)
       #fi 
       , R) 
   ...</k>

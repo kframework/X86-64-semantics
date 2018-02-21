@@ -245,20 +245,60 @@ def prove(f):
 
 #a = BitVecVal(0xff, 16)
 #print a.sexpr()
-R1 = BitVec('R1', 64)
-R2 = BitVec('R2', 64)
-R3 = BitVec('R3', 64)
-CONST_BV_S8_V63 = BitVecVal(63, 8)
-CONST_BV_S8_V64 = BitVecVal(64, 8)
-CONST_BV_S1_V0 = BitVecVal(0, 1)
-CONST_BV_S64_V0 = BitVecVal(0, 64)
-CONST_BV_S64_VNEG1 = BitVecVal(-1, 64)
-CONST_BV_S57_V0 = BitVecVal(0x0, 57)
-CONST_BV_S8_V3f = BitVecVal(0x3f, 8)
-
-a =  BitVecVal( BV2Int( CONST_BV_S8_V63 , is_signed=False), 64)   
+# R1 = BitVec('R1', 64)
+# R2 = BitVec('R2', 64)
+# R3 = BitVec('R3', 64)
+# CONST_BV_S8_V63 = BitVecVal(63, 8)
+# CONST_BV_S8_V64 = BitVecVal(64, 8)
+# CONST_BV_S1_V0 = BitVecVal(0, 1)
+# CONST_BV_S64_V0 = BitVecVal(0, 64)
+# CONST_BV_S64_VNEG1 = BitVecVal(-1, 64)
+# CONST_BV_S57_V0 = BitVecVal(0x0, 57)
+# CONST_BV_S8_V3f = BitVecVal(0x3f, 8)
+# 
+# a =  BitVecVal( BV2Int( CONST_BV_S8_V63 , is_signed=False), 64)   
 
     
+# Declarations
+CF = BitVec('CF', 1)
+PF = BitVec('PF', 1)
+AF = BitVec('AF', 1)
+ZF = BitVec('ZF', 1)
+SF = BitVec('SF', 1)
+OF = BitVec('OF', 1)
+
+RAX = BitVec('RAX', 64)
+RCX = BitVec('RCX', 64)
+ZERO1 = BitVecVal(0, 1)
+ONE1 = BitVecVal(1, 1)
+
+cf = (CF == ONE1)
+pf = (PF == ONE1)
+af = (AF == ONE1)
+zf = (ZF == ONE1)
+sf = (SF == ONE1)
+of = (OF == ONE1)
+
+cvt_int32_to_single = Function('f', IntSort(), Float32())
+XX = Function('t', BitVecSort(32), IntSort())
+
+print('[6;30;44m' + 'Opcode:vcvtdq2ps_xmm_xmm' + '[0m')
+
+R1 = BitVec('R1', 256)
+R2 = BitVec('R2', 256)
+CONST_BV_S128_V0 = BitVecVal(0, 128)
+
+#PK_R2 = Concat(CONST_BV_S128_V0, fpToIEEEBV (cvt_int32_to_single ( Extract (127, 96, R1))))
+#PS_R2 = Concat(CONST_BV_S128_V0, fpToIEEEBV (cvt_int32_to_single ( Extract (127, 96, R1))))
+
+PK_R2 = fpToIEEEBV (cvt_int32_to_single ( XX(Extract (127, 96, R1))))
+PS_R2 = fpToIEEEBV (cvt_int32_to_single ( XX(Extract (127, 96, R1))))
+
+print simplify(PK_R2)
+print simplify(PS_R2)
+
+print eq(PK_R2, PS_R2)  
+print prove(PK_R2 == PS_R2)  
 
 
 
