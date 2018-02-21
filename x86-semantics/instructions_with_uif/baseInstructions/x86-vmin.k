@@ -15,7 +15,10 @@ module VMINPD-YMM-YMM-YMM
         #then
           getRegisterValue(Y1, RSMap)
         #else
-          mincmp_double(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap))
+          joinVector(
+            applyUIFs(
+              splitVector(getRegisterValue(Y1, RSMap), 64), 
+              splitVector(getRegisterValue(Y2, RSMap), 64), mincmp_double))
         #fi
           ,Y3)
   ...</k>
@@ -32,7 +35,10 @@ module VMINPS-YMM-YMM-YMM
         #then
           getRegisterValue(Y1, RSMap)
         #else
-          mincmp_single(getRegisterValue(Y1, RSMap), getRegisterValue(Y2, RSMap))
+          joinVector(
+            applyUIFs(
+              splitVector(getRegisterValue(Y1, RSMap), 32), 
+              splitVector(getRegisterValue(Y2, RSMap), 32), mincmp_single))
         #fi
           ,Y3)
   ...</k>

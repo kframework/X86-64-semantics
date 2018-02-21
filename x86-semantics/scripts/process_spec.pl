@@ -29,9 +29,6 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
-my $specdir = "specs/";
-my $derivedInstructions =
-"derivedInstructions/";
 my $help           = "";
 my $stratum        = "";
 my $readmod        = "";
@@ -100,6 +97,14 @@ if ( "" ne $compile ) {
     exit(0);
 }
 
+
+my $derivedInstructions = "derivedInstructions/";
+my $specdir = "kproveSpecs/";
+my $specoutdir = "kproveOutput/";
+if("" ne $useuif) {
+  $derivedInstructions = "instructions_with_uif/derivedInstructions/";
+  $specoutdir = "instructions_with_uif/kproveOutput/";
+}
 
 
 sub createSingleFileDefn {
@@ -265,7 +270,7 @@ if ( "" ne $gitadd ) {
 
         my $filesToAdd = "";
         my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specout    = "$specdir/x86-semantics_${opcode}_spec.output";
+        my $specout    = "$specoutdir/x86-semantics_${opcode}_spec.output";
         my $koutput    = "$derivedInstructions/x86-${opcode}.k";
 
         if ( $speconly eq "" ) {
@@ -289,7 +294,7 @@ if ( "" ne $gitco ) {
 
         my $filesToRestore = "";
         my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specout    = "$specdir/x86-semantics_${opcode}_spec.output";
+        my $specout    = "$specoutdir/x86-semantics_${opcode}_spec.output";
         my $koutput    = "$derivedInstructions/x86-${opcode}.k";
 
         if ( $speconly eq "" ) {
@@ -326,7 +331,7 @@ if ( "" ne $kprove ) {
           next;
         }
 
-        kutils::runkprove( $opcode, $specdir, $debugprint );
+        kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
         print "\n";
     }
 }
@@ -340,7 +345,7 @@ if ( "" ne $postprocess ) {
           next;
         }
 
-        kutils::postProcess( $opcode, $specdir, $derivedInstructions,
+        kutils::postProcess( $opcode, $specdir, $specoutdir,  $derivedInstructions,
             $debugprint );
         print "\n";
     }
@@ -356,8 +361,8 @@ if ( "" ne $all ) {
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
-        kutils::runkprove( $opcode, $specdir, $debugprint );
-        kutils::postProcess( $opcode, $specdir, $derivedInstructions,
+        kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
+        kutils::postProcess( $opcode, $specdir, $specoutdir, $derivedInstructions,
             $debugprint );
         print "\n";
     }

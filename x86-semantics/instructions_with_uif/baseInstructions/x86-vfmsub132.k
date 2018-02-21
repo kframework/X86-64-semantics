@@ -11,7 +11,11 @@ module VFMSUB132PD-YMM-YMM-YMM
   rule <k>
     execinstr(vfmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
       execinstr(vfmsub132pd  Y1, 
-      vfmsub132_double(getRegisterValue(Y1, RSMap), getRegisterValue(Y3, RSMap), getRegisterValue(Y2, RSMap)),
+      joinVector(
+        applyUIFs(
+          splitVector(getRegisterValue(Y1, RSMap), 64), 
+          splitVector(getRegisterValue(Y2, RSMap), 64), 
+          splitVector(getRegisterValue(Y3, RSMap), 64),  vfmsub132_double)),
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>
@@ -25,7 +29,11 @@ module VFMSUB132PS-YMM-YMM-YMM
   rule <k>
     execinstr(vfmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
       execinstr(vfmsub132ps  Y1, 
-      vfmsub132_single(getRegisterValue(Y1, RSMap), getRegisterValue(Y3, RSMap), getRegisterValue(Y2, RSMap)),
+      joinVector(
+        applyUIFs(
+          splitVector(getRegisterValue(Y1, RSMap), 32), 
+          splitVector(getRegisterValue(Y2, RSMap), 32), 
+          splitVector(getRegisterValue(Y3, RSMap), 32),  vfmsub132_single)),
       .Typedoperands)
   ...</k>
     <regstate> RSMap</regstate>

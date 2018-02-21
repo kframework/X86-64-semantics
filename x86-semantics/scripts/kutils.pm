@@ -1292,6 +1292,11 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
     );
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
+
+    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
+    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
+    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
     while (1) {
         if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
             my $pre  = $1;
@@ -1380,6 +1385,77 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
 
             #print "\n" . $arg . "\n";
         }
+        elsif($arg =~ m/(.+)\_\(\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF U op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 2 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Binary op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 3 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Ter op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 4 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+           debugInfo( "Arg4: " . $args[3] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . ", "
+             . $args[3] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
         else {
             last;
         }
@@ -1392,11 +1468,18 @@ sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
+    $debugprint = 1;
+
     my $bin_op = (
 qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
     );
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
+
+    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
+    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
+    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
     while (1) {
         if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
             my $pre  = $1;
@@ -1466,6 +1549,77 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
 
             #print "\n" . $arg . "\n";
         }
+        elsif($arg =~ m/(.+)\_\(\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF U op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 2 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Binary op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 3 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Ter op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 4 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+           debugInfo( "Arg4: " . $args[3] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . ", "
+             . $args[3] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
         else {
             last;
         }
@@ -1479,10 +1633,16 @@ sub findArgs {
     my $num_args = shift @_;
     my @args     = ();
 
+    my $uif_ops = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single|approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single|vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
     for ( my $i = 0 ; $i < $num_args ; $i++ ) {
         if ( $i == $num_args - 1 ) {
             push @args, $line;
             last;
+        }
+        if ( $line =~ m/^($uif_ops)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
         }
         if ( $line =~ m/^(CONST_BV_S\d+_V\d+)\s*,\s*(.*)/ ) {
             push @args, $1;
@@ -1559,6 +1719,8 @@ sub processSpecOutput {
     my %rsmap     = ();
     my %rev_rsmap = ();
     my @reglines  = ();
+
+    print "Using $specoutput\n";
 
     open( my $fp, "<", $specoutput )
       or die " [create_spec] cannot open $specoutput : $! ";
@@ -2034,6 +2196,9 @@ sub sanitizeSpecOutput {
         $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
         $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\dfd]+)"\)/$1/g;
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFUOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFTerOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
         $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;
         $mod =~ s/\.List\{"mintlist"\}\(\.KList\@BASIC-K\)/.MInts/g;
@@ -2425,12 +2590,13 @@ sub createSpecFile {
 sub runkprove {
     my $opcode     = shift @_;
     my $specdir    = shift @_;
+    my $specoutdir    = shift @_;
     my $debugprint = shift @_;
 
     chomp $opcode;
     utils::info("kprove $opcode");
     my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-    my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
+    my $specoutput = "$specoutdir/x86-semantics_${opcode}_spec.output";
     execute(
 "time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
         1
@@ -2484,12 +2650,13 @@ sub checkSupported {
 sub postProcess {
     my $opcode              = shift @_;
     my $specdir             = shift @_;
+    my $specoutdir             = shift @_;
     my $derivedInstructions = shift @_;
     my $debugprint          = shift @_;
 
     chomp $opcode;
     my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-    my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
+    my $specoutput = "$specoutdir/x86-semantics_${opcode}_spec.output";
     my $koutput    = "$derivedInstructions/x86-${opcode}.k";
 
     # Map to store the register value binding
@@ -2921,7 +3088,7 @@ sub findRegisterAssoc {
     $assoc{"sf"} = "SF";
     $assoc{"of"} = "OF";
 
-    my $koutput = "derivedInstructions/x86-$opcode.k";
+    my $koutput = "instructions_with_uif/derivedInstructions/x86-$opcode.k";
     open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
     my @lines = <$fp>;
     close $fp;
@@ -3074,7 +3241,7 @@ print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
 
 
     ## Find the pair of rules to match
-    my $koutput = "derivedInstructions/x86-$opcode.k";
+    my $koutput = "instructions_with_uif/derivedInstructions/x86-$opcode.k";
     open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
     my @lines = <$fp>;
     close $fp;
@@ -3249,14 +3416,19 @@ sub preProcessBVFToSMT2 {
     ## introduce (a == ONE1)
 
     ## Replace cvt_single_to_double
+    ## Orders are also changed here
+    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
+
     $rule =~ s/cvt_single_to_double\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_single_to_double $1)/g;
     $rule =~ s/cvt_int32_to_single\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_int32_to_single $1)/g;
-    $rule =~ s/add_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(add_double $1 $2)/g;
+    $rule =~ s/add_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(add_double $1)/g;
+    $rule =~ s/add_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(add_double $1)/g;
     $rule =~ s/vfmadd132_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmadd132_double $1)/g;
     $rule =~ s/vfmadd132_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmadd132_single $1)/g;
     $rule =~ s/vfmsub132_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmsub132_double $1)/g;
     $rule =~ s/vfmsub132_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmsub132_single $1)/g;
 
+    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
     $rule = convertBVFToSMT2_helper($rule);
 
     
@@ -3269,7 +3441,7 @@ sub preProcessBVFToSMT2 {
 #
 sub convertBVFToSMT2_helper {
     my $rule       = shift @_;
-    my $debugprint = 1;
+    my $debugprint = 0;
 
 
     debugInfo("[convertBVFToSMT2_helper] ->$rule\n", $debugprint);
@@ -3364,7 +3536,7 @@ sub convertBVFToSMT2_helper {
         $rule = "( fpToIEEEBV (cvt_int32_to_single ( BV2Int (" . convertBVFToSMT2_helper($retargs[0]). ", is_signed=True))))";
       }
       if($op eq "add_double") {
-         $rule = "( fpToIEEEBV(fpBVToFP ( " . convertBVFToSMT2_helper($retargs[0]). ", Float64()) + fpBVToFP ( ". convertBVFToSMT2_helper($retargs[1]) . ", Float64())))";
+         $rule = "( add_double ( " . convertBVFToSMT2_helper($retargs[1]). ", ". convertBVFToSMT2_helper($retargs[0]) . "))";
       }
       if($op eq "s_shr") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " >> " . convertBVFToSMT2_helper($retargs[1]). ")";
@@ -3474,8 +3646,8 @@ sub convertKRuleToSMT2 {
     my $debugprint = shift @_;
 
     chomp $opcode;
-    my $specfile   = "specs/x86-semantics_${opcode}_spec.k";
-    my $specoutput = "specs/x86-semantics_${opcode}_spec.output";
+    my $specfile   = "kproveSpecs/x86-semantics_${opcode}_spec.k";
+    my $specoutput = "instructions_with_uif/kproveOutput/x86-semantics_${opcode}_spec.output";
 
     my ( $rsmap_ref, $rev_rsmap_ref, $reglines_ref ) =
       kutils::processSpecOutput( $specoutput, $debugprint );
