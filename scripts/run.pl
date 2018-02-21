@@ -5,7 +5,7 @@ use Getopt::Long;
 use File::Compare;
 use File::Basename;
 
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+use lib qw( scripts/ );
 use kutils;
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
@@ -19,7 +19,7 @@ my $krun    = "";
 my $xrun    = "";
 my $compare = "";
 my $output  = "";
-my $kdefn   = "/home/sdasgup3/Github/binary-decompilation/x86-semantics";
+my $kdefn   = ".";
 my $outdir  = "Output/";
 my $home    = $ENV{'HOME'};
 
@@ -28,7 +28,6 @@ GetOptions(
     "print"    => \$print,
     "file:s"   => \$file,
     "output:s" => \$output,
-    "compile"  => \$compile,
     "krun"     => \$krun,
     "xrun"     => \$xrun,
     "compare"  => \$compare,
@@ -39,14 +38,6 @@ GetOptions(
 if ($help) {
     print("");
     exit(1);
-}
-
-if ( "" ne $compile ) {
-    execute("./scripts/process_spec.pl --singlefiledefn", 1);
-    execute("git status x86-instructions-semantics.k");
-    execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS -I ./instructions -I ./derivedInstructions --debug -v"
-    );
 }
 
 if ( "" ne $krun ) {

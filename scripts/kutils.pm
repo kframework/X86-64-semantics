@@ -1346,14 +1346,21 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
                 . $args[0] . ", " . $args[1] . " )) "
                 . $rest;
             } else {
+
+              my $pre = $1;
+
+              $op =~ s/Int//g; 
+              $op =~ s/==K/==/g; 
+              $op =~ s/Float//g; 
+              print "$op\n";
               $arg =
-                  $1 . " ( "
+                  $pre . " ( "
                 . $args[0] . " " . " $op " . " "
                 . $args[1] . " ) "
                 . $rest;
             }
 
-            #print "\nAfter:" . $arg . "\n";
+#print "\n[mixfix2smt]After:" . $arg . "\n";
         }
         elsif ( $arg =~ m/(.+)($unary_op)\_(.+)/ ) {
 
@@ -2763,7 +2770,7 @@ sub createImmFromRegVariant {
     my $matchType  = shift @_;
     my $debugprint = shift @_;
 
-    #my $debugprint = 1;
+    my $debugprint = 1;
 
     my $outfile  = "derivedInstructions/x86-$immInstr.k";
     my $template = "derivedInstructions/x86-$regInstr.k";
@@ -2926,24 +2933,32 @@ sub findRegisterAssoc {
         chomp $line;
 
         if($line =~ m/execinstr/) {
-          my @matches = $line =~ m/(R\d+:Rh)|(R\d+:R\d+)|(%\w+:R\d+)|(R\d+:Xmm)|(R\d+:Ymm)|(\$0x[\dabcdef]+)/g;
+          my @matches = $line =~ m/(R\d+:Rh)|(R\d+:R\d+)|(%\w+:R\d+)|(R\d+:Xmm)|(R\d+:Ymm)|(\$0x[\dabcdef]+)|(%\w+)/g;
           for my $match (@matches) {
 #if($match =~ m/(R\d+):(R\d+)|%(\w+):(R\d+)|(R\d+):(Xmm)|(R\d+):(Ymm)|\$0x([\dabcdef]+)/) {
             if(
                 ($match =~ m/(R\d+):(Rh)/)  or 
                 ($match =~ m/(R\d+):(R\d+)/)  or 
                 ($match =~ m/%(\w+):(R\d+)/)   or
+                ($match =~ m/%(\w+)/)   or
                 ($match =~ m/(R\d+):(Xmm)/)    or
                 ($match =~ m/(R\d+):(Ymm)/)    or
                 ($match =~ m/\$0x([\dabcdef]+)/)
                 ) {
-#print $match ."-$1-$2\n";
+#print $match ."\n";
+              my $reg = $1;
+#print $match ."-$reg-\n";
               if (defined($2) and ( $2 eq "Xmm" or $2 eq "Ymm" )) {
                 push @formalSizes, 256;
               } else {
                 push @formalSizes, 64;
               }
-              $assoc{ $subRegToReg{utils::trim($operandListFromInstr[$i], "%")} } = uc($1);
+              if($reg =~ m/R(\d+)/) {
+                $assoc{ $subRegToReg{utils::trim($operandListFromInstr[$i], "%")} } = uc($reg);
+              } else {
+                $assoc{ $subRegToReg{utils::trim($operandListFromInstr[$i], "%")} } = 
+                  uc($subRegToReg{$reg});
+              }
               $i++;
             }
           }
@@ -3005,6 +3020,47 @@ af = (AF == ONE1)
 zf = (ZF == ONE1)
 sf = (SF == ONE1)
 of = (OF == ONE1)
+
+undef = BitVecVal(0, 1)
+cvt_int32_to_single = Function('cvt_int32_to_single', IntSort(), Float32())
+
+# Uninterpreted function declaration
+add_double = Function('add_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+add_single = Function('add_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+sub_double = Function('sub_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+sub_single = Function('sub_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+mul_double = Function('mul_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+sqrt_double = Function('sqrt_double', BitVecSort(64), BitVecSort(64))
+sqrt_single = Function('sqrt_single', BitVecSort(32), BitVecSort(32))
+
+approx_reciprocal_sqrt_double_double = Function('approx_reciprocal_sqrt_double_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_sqrt_double_single = Function('approx_reciprocal_sqrt_double_single', BitVecSort(32), BitVecSort(32))
+
+vfmadd132_double = Function('vfmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfmadd132_single = Function('vfmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfmsub132_double = Function('vfmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfmsub132_single = Function('vfmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfnmadd132_double = Function('vfnmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfnmadd132_single = Function('vfnmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfnmsub132_double = Function('vfnmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfnmsub132_single = Function('vfnmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
 
 
 print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
@@ -3156,6 +3212,8 @@ sub preProcessBVFToSMT2 {
     $rule =~ s/<0x([\dabcdef]+)\|(\d+)>/(CONST_BV_S$2_V$1)/g;
     $rule =~ s/FALSE/(False)/g;
     $rule =~ s/TRUE/(True)/g;
+    $rule =~ s/<TMP_BOOL_0>/(False)/g;
+    $rule =~ s/<TMP_BOOL_1>/(True)/g;
     $rule =~ s/<%(\w+)>/($1)/g;
     debugInfo("After removing Consts: $rule", $debugprint);
 
@@ -3192,8 +3250,14 @@ sub preProcessBVFToSMT2 {
 
     ## Replace cvt_single_to_double
     $rule =~ s/cvt_single_to_double\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_single_to_double $1)/g;
+    $rule =~ s/cvt_int32_to_single\((\(R\d+\)(\[\d+:\d+\])?)\)/(cvt_int32_to_single $1)/g;
+    $rule =~ s/add_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(add_double $1 $2)/g;
+    $rule =~ s/vfmadd132_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmadd132_double $1)/g;
+    $rule =~ s/vfmadd132_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmadd132_single $1)/g;
+    $rule =~ s/vfmsub132_double\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmsub132_double $1)/g;
+    $rule =~ s/vfmsub132_single\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/(vfmsub132_single $1)/g;
 
-    $rule = convertBVFToSMT2_helper($rule, $debugprint);
+    $rule = convertBVFToSMT2_helper($rule);
 
     
     return $rule;
@@ -3205,9 +3269,8 @@ sub preProcessBVFToSMT2 {
 #
 sub convertBVFToSMT2_helper {
     my $rule       = shift @_;
-    my $debugprint = shift @_;
+    my $debugprint = 1;
 
-#$debugprint = 1;
 
     debugInfo("[convertBVFToSMT2_helper] ->$rule\n", $debugprint);
 
@@ -3221,7 +3284,7 @@ sub convertBVFToSMT2_helper {
       return $rule;
     }
 
-    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double|s_shr|&|\||\^/;
+    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double|s_shr|&|\||\^|<=|>=|<<|>>|add_double|cvt_int32_to_single|vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single/;
 
     debugInfo("[convertBVFToSMT2_helper] Non Base\n", $debugprint);
 
@@ -3271,6 +3334,18 @@ sub convertBVFToSMT2_helper {
       if($op eq "xor") {
         $rule = "(Xor(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
       }
+      if($op eq ">=") {
+        $rule = "(UGE(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq ">") {
+        $rule = "(UGT(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "<=") {
+        $rule = "(ULE(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "<") {
+        $rule = "(ULT(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
       if($op eq "not") {
         $rule = "(Not(" . convertBVFToSMT2_helper($retargs[0]) . "))";
       }
@@ -3285,8 +3360,56 @@ sub convertBVFToSMT2_helper {
       if($op eq "cvt_single_to_double") {
         $rule = "( fpToIEEEBV(fpFPToFP(RNE(),  fpBVToFP ( " . convertBVFToSMT2_helper($retargs[0]). ", Float32()), Float64())))";
       }
+      if($op eq "cvt_int32_to_single") {
+        $rule = "( fpToIEEEBV (cvt_int32_to_single ( BV2Int (" . convertBVFToSMT2_helper($retargs[0]). ", is_signed=True))))";
+      }
+      if($op eq "add_double") {
+         $rule = "( fpToIEEEBV(fpBVToFP ( " . convertBVFToSMT2_helper($retargs[0]). ", Float64()) + fpBVToFP ( ". convertBVFToSMT2_helper($retargs[1]) . ", Float64())))";
+      }
       if($op eq "s_shr") {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " >> " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "<<") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " << " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq ">>") {
+        $rule = "(LShr( " . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "vfmadd132_double") {
+        $rule = "(fpToIEEEBV (" .
+          "(".
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float64())" . " * " .
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float64())" .
+          ") + " . 
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float64())" .
+            "))";
+      }
+      if($op eq "vfmadd132_double") {
+        $rule = "(fpToIEEEBV (" .
+          "(".
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float32())" . " * " .
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float32())" .
+          ") + " . 
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float32())" .
+            "))";
+      }
+      if($op eq "vfmsub132_double") {
+        $rule = "(fpToIEEEBV (" .
+          "(".
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float64())" . " * " .
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float64())" .
+          ") - " . 
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float64())" .
+            "))";
+      }
+      if($op eq "vfmsub132_double") {
+        $rule = "(fpToIEEEBV (" .
+          "(".
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[0]).  ", Float32())" . " * " .
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[2]).  ", Float32())" .
+          ") - " . 
+            "fpBVToFP( " . convertBVFToSMT2_helper($retargs[1]).  ", Float32())" .
+            "))";
       }
     }
 
@@ -3403,9 +3526,15 @@ sub convertKRuleToSMT2_helper {
     $rule =~ s/concatenateMInt/Concat/g;
     $rule =~ s/notBool/Not/g;
 
-    ##qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
-    my $bin_op = (
-qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|ashrMInt|lshrMInt|shlMInt|ultMInt/
+#   syntax Int ::= Float2Int(Float)    [function, latex({\\it{}Float2Int}), hook(FLOAT.float2int)]
+#   syntax Float ::= Float2Double(Float)    [function, latex({\\it{}Float2Double}), hook(FLOAT.float2double)]
+
+#   syntax Float ::= MInt2Float(MInt, Int, Int)    [function, latex({\\it{}MInt2Float}), hook(FLOAT.mint2float)]
+#   syntax Float ::= Int2Float(Int, Int, Int)    [function, latex({\\it{}Int2Float}), hook(FLOAT.int2float)]
+
+#   syntax MInt ::= Float2MInt(Float, Int)    [function, latex({\\it{}Float2MInt}), hook(FLOAT.float2mint)]
+     my $bin_op = (
+qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|lshrMInt|shlMInt|ultMInt|Int2Float|svalueMInt/
     );
     my $arg = $rule;
     while (1) {
@@ -3414,6 +3543,10 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
         my $post = "";
 
         if ( $arg =~ m/(.+)(xorMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } elsif ($arg =~ m/(.+)(MInt2Float)(.+)/) {
           $pre  = $1;
           $op   = $2;
           $post = $3;
@@ -3437,11 +3570,14 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
         my @args = ();
         if ( 
             $op eq "extractMInt"  or
-            $op eq "MInt2Float"  
+            $op eq "MInt2Float"   or
+            $op eq "Int2Float"  
             ) {
             @args = findArgs( $op_arg, 3 );
         } elsif(
-            $op eq "Float2Double"
+            $op eq "Float2Double" or
+            $op eq "Float2Int" or
+            $op eq "svalueMInt"
             ) {
             @args = findArgs( $op_arg, 1);
         }
@@ -3449,8 +3585,11 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
             @args = findArgs( $op_arg, 2 );
         }
 
-        debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
-        debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+        for(my $i = 0 ; $i < scalar(@args); $i++) {
+          $args[$i] = utils::trim($args[$i]);    
+          debugInfo( "Arg$i: " . $args[$i] . "\n", $debugprint );
+        }
+
         if ( $op eq "eqMInt" ) {
             $arg = $pre . "( $args[0] == $args[1] ) $rest";
         }
@@ -3459,6 +3598,9 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
         }
         if ( $op eq "ultMInt" ) {
             $arg = $pre . "ULT( $args[0], $args[1] ) $rest";
+        }
+        if ( $op eq "svalueMInt" ) {
+            $arg = $pre . "BV2Int( $args[0], is_signed=True) $rest";
         }
         if ( $op eq "orMInt" ) {
             $arg = $pre . "( $args[0] | $args[1] ) $rest";
@@ -3486,18 +3628,40 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
         }
         if ( $op eq "ashrMInt" ) {
             $args[1] =~ s/^uvalueMInt//;
-#$arg = $pre . "( $args[0] >> $args[1] ) $rest";
-#$arg = $pre . "( $args[0] >> BitVecVal(BV2Int($args[1]), $args[0].size()) ) $rest";
-            $arg = $pre . "( $args[0] >> Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
-
+            if($args[1] =~ m/^(\d+)$/) {
+              $arg = $pre . "( $args[0] >> BitVecVal($args[1], $args[0].size()) ) $rest";
+            } else {
+              $arg = $pre . "( $args[0] >> Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            }
         }
         if ( $op eq "lshrMInt" ) {
             $args[1] =~ s/^uvalueMInt//;
-            $arg = $pre . "LShr( $args[0], Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            if($args[1] =~ m/^(\d+)$/) {
+              $arg = $pre . "LShr( $args[0], BitVecVal($args[1], $args[0].size())) $rest";
+            } else {
+              $arg = $pre . "LShr( $args[0], Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            }
         }
         if ( $op eq "shlMInt" ) {
             $args[1] =~ s/^uvalueMInt//;
-            $arg = $pre . "( $args[0] << Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            if($args[1] =~ m/^(\d+)$/) {
+              $arg = $pre . "( $args[0] <<  BitVecVal($args[1], $args[0].size())) $rest";
+            } else {
+              $arg = $pre . "( $args[0] << Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            }
+        }
+
+        if ( $op eq "Float2Double" ) {
+            $arg =
+                $pre 
+              . "fpFPToFP"
+              . "( RNE(), $args[0], Float64() ) $rest";
+        }
+        if ( $op eq "Float2MInt" ) {
+            $arg =
+                $pre 
+              . "fpToIEEEBV"
+              . "( $args[0] ) $rest";
         }
         if ( $op eq "MInt2Float" ) {
             my $fOrd = $args[1];
@@ -3512,22 +3676,26 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
               . "fpBVToFP"
               . "( $args[0], $fOrd ) $rest";
         }
-        if ( $op eq "Float2Double" ) {
+        if ( $op eq "Int2Float" ) {
+            my $fOrd = $args[1];
+            if($fOrd eq 24) {
+              $fOrd = "32";
+            } else {
+              $fOrd = "64";
+            }
+
             $arg =
                 $pre 
-              . "fpFPToFP"
-              . "( RNE(), $args[0], Float64() ) $rest";
-        }
-        if ( $op eq "Float2MInt" ) {
-            $arg =
-                $pre 
-              . "fpToIEEEBV"
+              . "cvt_int$fOrd\_to_single"
               . "( $args[0] ) $rest";
         }
         debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
     }
     $rule = $arg;
     
+#   syntax Int ::= Float2Int(Float)    [function, latex({\\it{}Float2Int}), hook(FLOAT.float2int)]
+
+
     ## Remove Extension
 
 #$debugprint = 1;
@@ -3537,7 +3705,7 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
         my $pre = "";
         my $post = "";
 
-        if ( $arg =~ m/(.+)mi\((\d+), svalueMInt(.+)/ ) {
+        if ( $arg =~ m/(.+)mi\((\d+), BV2Int(.+)/ ) {
           $pre  = $1;
           $n  = $2;
           $post = $3;
@@ -3545,7 +3713,7 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
           last;
         }
 
-        my $actualPost = "($n, svalueMInt$post";
+        my $actualPost = "($n, BV2Int$post";
 
         debugInfo( "\n\nGot SExt:\n", $debugprint );
         debugInfo( "\n\nBefore Rule : $arg\n", $debugprint );
@@ -3563,7 +3731,9 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|MInt2Float|Float2Double|Float2MInt|
         debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
 
         ## $args[1] contain svalueMInt to be removed
-        $args[1] =~ s/^svalueMInt//;
+        $args[1] =~ s/^BV2Int//;
+        $args[1] =~ s/, is\_signed=True//;
+        $args[1] = utils::trim($args[1]);
 
         $arg =  $pre . 
                 "SignExt(" . 

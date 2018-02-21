@@ -18,6 +18,55 @@ module MINT-WRAPPER-SYNTAX
   syntax MInts ::= "#ifMInts" Bool "#then" MInts "#else" MInts "#fi" [function, smtlib(ite)]
 
   /*@
+    The following are the uninterpreted functions F(BitVector theory) -> Bitvector Theory
+    Help to prove equivalence between K rule and Strata's BVFs.
+  */
+  syntax MInt ::= "add_double"                    "(" MInt "," MInt ")" 
+  syntax MInt ::= "add_single"                    "(" MInt "," MInt ")" 
+
+  syntax MInt ::= "sub_double"                    "(" MInt "," MInt ")" 
+  syntax MInt ::= "sub_single"                    "(" MInt "," MInt ")" 
+
+  syntax MInt ::= "vfmadd132_double"              "(" MInt "," MInt "," MInt ")" 
+  syntax MInt ::= "vfmadd132_single"              "(" MInt "," MInt "," MInt ")" 
+
+  syntax MInt ::= "vfmsub132_double"              "(" MInt "," MInt "," MInt ")" 
+  syntax MInt ::= "vfmsub132_single"              "(" MInt "," MInt "," MInt ")" 
+
+  syntax MInt ::= "vfnmadd132_double"             "(" MInt "," MInt "," MInt ")"  
+  syntax MInt ::= "vfnmadd132_single"             "(" MInt "," MInt "," MInt ")"  
+
+  syntax MInt ::= "vfnmsub132_double"             "(" MInt "," MInt "," MInt ")"  
+  syntax MInt ::= "vfnmsub132_single"             "(" MInt "," MInt "," MInt ")"  
+
+  syntax MInt ::= "mul_double"                    "(" MInt "," MInt ")"
+  syntax MInt ::= "mul_single"                    "(" MInt "," MInt ")"
+
+  syntax MInt ::= "div_double"                    "(" MInt "," MInt ")"
+  syntax MInt ::= "div_single"                    "(" MInt "," MInt ")"
+
+  syntax MInt ::= "approx_reciprocal_double"      "(" MInt ")" 
+  syntax MInt ::= "approx_reciprocal_single"      "(" MInt ")" 
+
+  syntax MInt ::= "sqrt_double"                   "(" MInt ")" 
+  syntax MInt ::= "sqrt_single"                   "(" MInt ")" 
+
+  syntax MInt ::= "approx_reciprocal_sqrt_double" "(" MInt ")" 
+  syntax MInt ::= "approx_reciprocal_sqrt_single" "(" MInt ")" 
+
+  syntax MInt ::= "maxcmp_double"                 "(" MInt "," MInt ")" 
+  syntax MInt ::= "maxcmp_single"                 "(" MInt "," MInt ")" 
+
+  syntax MInt ::= "mincmp_double"                 "(" MInt "," MInt ")" 
+  syntax MInt ::= "mincmp_single"                 "(" MInt "," MInt ")" 
+
+  syntax MInt ::= "cvt_single_to_double"          "(" MInt ")" 
+  syntax MInt ::= "cvt_single_to_int32"           "(" MInt ")" 
+  syntax MInt ::= "cvt_single_to_int64"           "(" MInt ")" 
+  syntax MInt ::= "cvt_int32_to_single"           "(" MInt ")" 
+  syntax MInt ::= "cvt_int32_to_double"           "(" MInt ")" 
+
+  /*@
     Sort List
   */
   syntax MInts ::= List{MInt, ""} [klabel(mintlist)]
