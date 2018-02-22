@@ -36,11 +36,11 @@ mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(3
 div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
 div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
 
-maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
 
-mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
 
 # Uninterpreted binary function declaration
 approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))

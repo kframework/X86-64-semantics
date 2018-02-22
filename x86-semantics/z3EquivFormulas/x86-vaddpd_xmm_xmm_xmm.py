@@ -36,11 +36,11 @@ mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(3
 div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
 div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
 
-maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
 
-mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
 
 # Uninterpreted binary function declaration
 approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))
@@ -81,7 +81,7 @@ R3 = BitVec('R3', 256)
 CONST_BV_S128_V0 = BitVecVal(0, 128)
 CONST_BV_S64_V0 = BitVecVal(0x0, 64)
 
-PK_R3 = (Concat((CONST_BV_S128_V0), Concat( add_double ( Extract( R1.size() - 128 - 1, R1.size() - 192, R1  ) , Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  ) ,  add_double ( Extract( R1.size() - 192 - 1, R1.size() - 256, R1  ) , Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  ) )) )
-PS_R3 = (Concat((CONST_BV_S64_V0), (Concat((CONST_BV_S64_V0), (Concat(( add_double ( (Extract (127, 64, ((R1)))), (Extract (127, 64, ((R2)))))), ( add_double ( (Extract (63, 0, ((R1)))), (Extract (63, 0, ((R2))))))))))))
+PK_R3 = (Concat((CONST_BV_S128_V0), Concat( add_double ( Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) , Extract( R1.size() - 128 - 1, R1.size() - 192, R1  )  ) ,  add_double ( Extract( R2.size() - 192 - 1, R2.size() - 256, R2  ) , Extract( R1.size() - 192 - 1, R1.size() - 256, R1  )  ) )) )
+PS_R3 = (Concat((CONST_BV_S64_V0), (Concat((CONST_BV_S64_V0), (Concat(( add_double ( (Extract (127, 64, ((R2)))), (Extract (127, 64, ((R1)))))), ( add_double ( (Extract (63, 0, ((R2)))), (Extract (63, 0, ((R1))))))))))))
 proverUtils.prove( PK_R3 == PS_R3 )
 
