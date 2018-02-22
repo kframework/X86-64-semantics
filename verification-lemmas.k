@@ -78,23 +78,12 @@ module FLOAT-LEMMAS
   rule F:Float =/=Float F:Float => false
 endmodule
 
-module MINT-LEMMAS
+
+module UIF-LEMMAS
   imports MINT-WRAPPER-SYNTAX
-
-  // bitwidthMInt    
-  // Recursive rules
-  rule bitwidthMInt(addMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(xorMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(orMInt(MIC,   _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(andMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(mulMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(lshrMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(ashrMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(shlMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(negMInt(MIC))     => bitwidthMInt(MIC) [lemma]
-  rule bitwidthMInt(concatenateMInt(MI1:MInt, MI2:MInt)) => bitwidthMInt(MI1) +Int bitwidthMInt(MI2) [lemma]
-  rule bitwidthMInt(#ifMInt B:Bool #then MI1 #else MI2 #fi) => bitwidthMInt(MI1) [lemma]
-
+  /*
+  ** Bitwidth 
+  */
   // 64 bitwidth UIFs
   rule bitwidthMInt(add_double(MI1, MI2))           => 64
   rule bitwidthMInt(sub_double(MI1, MI2))           => 64
@@ -133,6 +122,84 @@ module MINT-LEMMAS
   rule bitwidthMInt(approx_reciprocal_sqrt_single(MI1))  => 32
   rule bitwidthMInt(cvt_single_to_int32(MI1))            => 32
   rule bitwidthMInt(cvt_int32_to_single(MI1))            => 32
+
+  /*
+  ** add_double/add_single
+  */
+  rule add_double(MI1, MI2) => MI2
+    requires zeroMInt(MI1)
+  rule add_double(MI1, MI2) => MI1
+    requires zeroMInt(MI2)
+  rule add_single(MI1, MI2) => MI2
+    requires zeroMInt(MI1)
+  rule add_single(MI1, MI2) => MI1
+    requires zeroMInt(MI2)
+
+  /*
+  ** sub_double/sub_single
+  */
+  rule sub_double(MI1, MI2) => MI2
+    requires zeroMInt(MI1)
+  rule sub_double(MI1, MI2) => MI1
+    requires zeroMInt(MI2)
+  rule sub_single(MI1, MI2) => MI2
+    requires zeroMInt(MI1)
+  rule sub_single(MI1, MI2) => MI1
+    requires zeroMInt(MI2)
+
+  /*
+  ** mul_double/mul_single
+  */
+  rule mul_double(MI1, MI2) => mi(bitwidthMInt(MI1), 0)
+    requires zeroMInt(MI1)
+  rule mul_double(MI1, MI2) => mi(bitwidthMInt(MI1), 0)
+    requires zeroMInt(MI2)
+  rule mul_single(MI1, MI2) => mi(bitwidthMInt(MI1), 0)
+    requires zeroMInt(MI1)
+  rule mul_single(MI1, MI2) => mi(bitwidthMInt(MI1), 0)
+    requires zeroMInt(MI2)
+
+  /*
+  ** div_double/div_single
+  */
+  rule div_double(MI1, MI2) => mi(bitwidthMInt(MI1), 0)
+    requires zeroMInt(MI1)
+  rule div_single(MI1, MI2) => mi(bitwidthMInt(MI1), 0)
+    requires zeroMInt(MI1)
+
+  /*
+  ** max/min
+  */
+  rule maxcmp_double(MI, MI) => MI
+  rule maxcmp_single(MI, MI) => MI
+  rule mincmp_double(MI, MI) => MI
+  rule mincmp_single(MI, MI) => MI
+
+  /*
+  ** sqrt_double/sqrt_single
+  */
+  rule sqrt_double(MI) => mi(bitwidthMInt(MI), 0)
+    requires zeroMInt(MI)
+  rule sqrt_single(MI) => mi(bitwidthMInt(MI), 0)
+    requires zeroMInt(MI)
+endmodule
+
+module MINT-LEMMAS
+  imports MINT-WRAPPER-SYNTAX
+
+  // bitwidthMInt    
+  // Recursive rules
+  rule bitwidthMInt(addMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(xorMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(orMInt(MIC,   _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(andMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(mulMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(lshrMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(ashrMInt(MIC, _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(shlMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(negMInt(MIC))     => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(concatenateMInt(MI1:MInt, MI2:MInt)) => bitwidthMInt(MI1) +Int bitwidthMInt(MI2) [lemma]
+  rule bitwidthMInt(#ifMInt B:Bool #then MI1 #else MI2 #fi) => bitwidthMInt(MI1) [lemma]
 
   // Base Rules
   rule bitwidthMInt(mi(W:Int, _)) => W [lemma]
@@ -490,17 +557,6 @@ module ITE-LEMMAS
   #else B2 
   #fi) 
 
-
-  /*
-  ** Verification lemmas for UIFs.  
-  ** 
-  */
-  rule add_double(MI1, MI2) => MI2
-    requires zeroMInt(MI1)
-  rule add_double(MI1, MI2) => MI1
-    requires zeroMInt(MI2)
-
-
   /*
   rule 
   (#ifBool 
@@ -556,4 +612,5 @@ module VERIFICATION-LEMMAS
   imports MINT-LEMMAS
   imports FLOAT-LEMMAS
   imports ITE-LEMMAS
+  imports UIF-LEMMAS
 endmodule

@@ -10,8 +10,7 @@ module VRSQRTPS-YMM-YMM
 
   rule <k>
     execinstr(vrsqrtps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vsqrtps  Y2, 
-          approx_reciprocal_sqrt_single(getRegisterValue(Y1, RSMap)),
+      execinstr(vrsqrtps  Y2, 
           joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32), approx_reciprocal_sqrt_single)),
           .Typedoperands)
   ...</k>

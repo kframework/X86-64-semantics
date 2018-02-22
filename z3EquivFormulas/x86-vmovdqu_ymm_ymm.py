@@ -78,7 +78,7 @@ print('[6;30;44m' + 'Opcode:vmovdqu_ymm_ymm' + '[0m')
 R1 = BitVec('R1', 256)
 R2 = BitVec('R2', 256)
 
-PK_R2 = (Concat( maxcmp_double ( Extract( R1.size() - 0 - 1, R1.size() - 64, R1  ) , Extract( R1.size() - 0 - 1, R1.size() - 64, R1  )  ) , Concat( maxcmp_double ( Extract( R1.size() - 64 - 1, R1.size() - 128, R1  ) , Extract( R1.size() - 64 - 1, R1.size() - 128, R1  )  ) , Concat( maxcmp_double ( Extract( R1.size() - 128 - 1, R1.size() - 192, R1  ) , Extract( R1.size() - 128 - 1, R1.size() - 192, R1  )  ) ,  maxcmp_double ( Extract( R1.size() - 192 - 1, R1.size() - 256, R1  ) , Extract( R1.size() - 192 - 1, R1.size() - 256, R1  )  ) ))) )
+PK_R2 = (R1 )
 PS_R2 = (R1)
 proverUtils.prove( PK_R2 == PS_R2 )
 
