@@ -3435,6 +3435,9 @@ sub preProcessBVFToSMT2 {
     my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
     my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
 
+    ## Fix a strata's bu
+    $rule =~ s/vnfmsub132_double/vfnmsub132_double/g;
+
     $rule =~ s/($uif_terop)\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
     $rule =~ s/($uif_binop)\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
     $rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;

@@ -81,13 +81,13 @@ cd x86-semantics
 ### How to generate the z3 formulas 
 ```
 cd x86-semantics
-./scripts/process_spec.pl --getz3formula --useuif 
+./scripts/process_spec.pl --getz3formula 
 ```
 
 ### How to prove equivalence between K and Strata' rules
 ```
 cd x86-semantics
-./scripts/process_spec.pl --z3prove --useuif 
+./scripts/process_spec.pl --z3prove 
 ```
 
 ## Autogenerate k rules from strata for imm-register instruction variants

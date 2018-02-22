@@ -78,9 +78,10 @@ print('[6;30;44m' + 'Opcode:vmulps_xmm_xmm_xmm' + '[0m')
 R1 = BitVec('R1', 256)
 R2 = BitVec('R2', 256)
 R3 = BitVec('R3', 256)
-CONST_BV_S32_V0 = BitVecVal(0, 32)
+CONST_BV_S128_V0 = BitVecVal(0, 128)
+CONST_BV_S32_V0 = BitVecVal(0x0, 32)
 
-PK_R3 = (Concat( mul_single ( (CONST_BV_S32_V0), (CONST_BV_S32_V0) ) , Concat( mul_single ( (CONST_BV_S32_V0), (CONST_BV_S32_V0) ) , Concat( mul_single ( (CONST_BV_S32_V0), (CONST_BV_S32_V0) ) , Concat( mul_single ( (CONST_BV_S32_V0), (CONST_BV_S32_V0) ) , Concat( mul_single ( Extract( R1.size() - 128 - 1, R1.size() - 160, R1  ) , Extract( R2.size() - 128 - 1, R2.size() - 160, R2  )  ) , Concat( mul_single ( Extract( R1.size() - 160 - 1, R1.size() - 192, R1  ) , Extract( R2.size() - 160 - 1, R2.size() - 192, R2  )  ) , Concat( mul_single ( Extract( R1.size() - 192 - 1, R1.size() - 224, R1  ) , Extract( R2.size() - 192 - 1, R2.size() - 224, R2  )  ) ,  mul_single ( Extract( R1.size() - 224 - 1, R1.size() - 256, R1  ) , Extract( R2.size() - 224 - 1, R2.size() - 256, R2  )  ) ))))))) )
+PK_R3 = (Concat((CONST_BV_S128_V0), Concat( mul_single ( Extract( R1.size() - 128 - 1, R1.size() - 160, R1  ) , Extract( R2.size() - 128 - 1, R2.size() - 160, R2  )  ) , Concat( mul_single ( Extract( R1.size() - 160 - 1, R1.size() - 192, R1  ) , Extract( R2.size() - 160 - 1, R2.size() - 192, R2  )  ) , Concat( mul_single ( Extract( R1.size() - 192 - 1, R1.size() - 224, R1  ) , Extract( R2.size() - 192 - 1, R2.size() - 224, R2  )  ) ,  mul_single ( Extract( R1.size() - 224 - 1, R1.size() - 256, R1  ) , Extract( R2.size() - 224 - 1, R2.size() - 256, R2  )  ) )))) )
 PS_R3 = (Concat((CONST_BV_S32_V0), (Concat((CONST_BV_S32_V0), (Concat((CONST_BV_S32_V0), (Concat((CONST_BV_S32_V0), (Concat(( mul_single ( (Extract (127, 96, ((R1)))), (Extract (127, 96, ((R2)))))), (Concat(( mul_single ( (Extract (95, 64, ((R1)))), (Extract (95, 64, ((R2)))))), (Concat(( mul_single ( (Extract (63, 32, ((R1)))), (Extract (63, 32, ((R2)))))), ( mul_single ( (Extract (31, 0, ((R1)))), (Extract (31, 0, ((R2))))))))))))))))))))
 proverUtils.prove( PK_R3 == PS_R3 )
 

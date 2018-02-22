@@ -80,6 +80,6 @@ R2 = BitVec('R2', 256)
 R3 = BitVec('R3', 256)
 
 PK_R3 = (Concat( vfnmsub132_double ( Extract( R2.size() - 0 - 1, R2.size() - 64, R2  ) , Extract( R3.size() - 0 - 1, R3.size() - 64, R3  ) , Extract( R1.size() - 0 - 1, R1.size() - 64, R1  )  ) , Concat( vfnmsub132_double ( Extract( R2.size() - 64 - 1, R2.size() - 128, R2  ) , Extract( R3.size() - 64 - 1, R3.size() - 128, R3  ) , Extract( R1.size() - 64 - 1, R1.size() - 128, R1  )  ) , Concat( vfnmsub132_double ( Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) , Extract( R3.size() - 128 - 1, R3.size() - 192, R3  ) , Extract( R1.size() - 128 - 1, R1.size() - 192, R1  )  ) ,  vfnmsub132_double ( Extract( R2.size() - 192 - 1, R2.size() - 256, R2  ) , Extract( R3.size() - 192 - 1, R3.size() - 256, R3  ) , Extract( R1.size() - 192 - 1, R1.size() - 256, R1  )  ) ))) )
-PS_R3 = (Concat(((R2)[255:192], (R3)[255:192], (R1)[255:192]), (Concat(((R2)[191:128], (R3)[191:128], (R1)[191:128]), (Concat(((R2)[127:64], (R3)[127:64], (R1)[127:64]), ((R2)[63:0], (R3)[63:0], (R1)[63:0])))))))
+PS_R3 = (Concat(( vfnmsub132_double ( (Extract (255, 192, ((R2)))), (Extract (255, 192, ((R3)))), (Extract (255, 192, ((R1)))))), (Concat(( vfnmsub132_double ( (Extract (191, 128, ((R2)))), (Extract (191, 128, ((R3)))), (Extract (191, 128, ((R1)))))), (Concat(( vfnmsub132_double ( (Extract (127, 64, ((R2)))), (Extract (127, 64, ((R3)))), (Extract (127, 64, ((R1)))))), ( vfnmsub132_double ( (Extract (63, 0, ((R2)))), (Extract (63, 0, ((R3)))), (Extract (63, 0, ((R1))))))))))))
 proverUtils.prove( PK_R3 == PS_R3 )
 
