@@ -38,8 +38,8 @@ module VMAXPS-YMM-YMM-YMM
         #else
           joinVector(
             applyUIFs(
-              splitVector(getRegisterValue(Y1, RSMap), 64), 
-              splitVector(getRegisterValue(Y2, RSMap), 64), maxcmp_single))
+              splitVector(getRegisterValue(Y1, RSMap), 32), 
+              splitVector(getRegisterValue(Y2, RSMap), 32), maxcmp_single))
         #fi
           ,Y3)
   ...</k>

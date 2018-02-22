@@ -311,8 +311,21 @@ def prove(f):
 
 
 
+CONST_BV_S1_V1 = BitVecVal(0x1, 1)
 
+b = Int('b')
+Y2 = Function('Y', IntSort(), IntSort(), IntSort())
 
+a = Int('a')
+def X(a):
+      return a
+
+z3.prove( X(a) == a )
+
+def Y1(a,b):
+  return Y2(b,a)
+
+z3.prove( Y1(a, b) == Y2(b, a) )
 
 
 

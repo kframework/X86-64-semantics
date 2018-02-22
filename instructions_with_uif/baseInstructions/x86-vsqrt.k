@@ -11,7 +11,6 @@ module VSQRTPD-YMM-YMM
   rule <k>
     execinstr(vsqrtpd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       execinstr(vsqrtpd  Y2, 
-          sqrt_double(getRegisterValue(Y1, RSMap)),
           joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 64), sqrt_double)),
           .Typedoperands)
   ...</k>

@@ -34,6 +34,11 @@ my @xpatterns = (
     qr/$\d* = \[ ([CPAZSOIF ]*) \]/,
 );
 
+my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
+my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
+my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
+
 my @r64s = (
     "rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rsp", "rbp",
     "r8",  "r9",  "r10", "r11", "r12", "r13", "r14", "r15",
@@ -1293,10 +1298,6 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
 
-    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
-    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
-    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
-
     while (1) {
         if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
             my $pre  = $1;
@@ -1421,11 +1422,26 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
            debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
 
-           $arg =
-               $1 . " $args[0] ( "
-             . $args[1] . ", "
-             . $args[2] . " ) "
-             . $rest;
+           ## Orders are NOT  changed here
+           if(
+               $args[0] eq "maxcmp_double" or
+               $args[0] eq "maxcmp_single" or
+               $args[0] eq "mincmp_double" or
+               $args[0] eq "mincmp_single" 
+               ) {
+             $arg =
+                 $1 . " (If( $args[0] ( "
+               . $args[2] . ", "
+               . $args[1] . " ) == ONE1, $args[2], $args[1]))"
+               . $rest;
+
+           } else {
+             $arg =
+                 $1 . " $args[0] ( "
+               . $args[2] . ", "
+               . $args[1] . " ) "
+               . $rest;
+           }
 
            #print "\nAfter:" . $arg . "\n";
 
@@ -1475,10 +1491,6 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
     );
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
-
-    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
-    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
-    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
 
     while (1) {
         if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
@@ -2196,6 +2208,8 @@ sub sanitizeSpecOutput {
         $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
         $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\dfd]+)"\)/$1/g;
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperationII\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperationI\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/UIFBinOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/UIFUOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/UIFTerOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
@@ -2939,7 +2953,7 @@ sub createImmFromRegVariant {
 
     my $debugprint = 1;
 
-    my $outfile  = "derivedInstructions/x86-$immInstr.k";
+    my $outfile  = "derivedImmInstructions/x86-$immInstr.k";
     my $template = "derivedInstructions/x86-$regInstr.k";
     if ( !( -e $template ) ) {
         $template = "instructions/x86-$regInstr.k";
@@ -2979,37 +2993,37 @@ sub createImmFromRegVariant {
         }
 
         ## Modify the execinstr
-        if ( $line =~
-m/execinstr\s*\(\w+\s*R1:R(.+),\s*R2:R(.+),\s*R3:R(.+),\s*.Typedoperands\)/
-          )
-        {
-            utils::debugInfo( "3 operand\n", $debugprint );
-            $sizes{"R1"} = $1 =~ s/h/8/gr;
-            $sizes{"R2"} = $2 =~ s/h/8/gr;
-            $sizes{"R3"} = $3 =~ s/h/8/gr;
-
-            $assoc{"R1"} = $operamdList[0];
-            $assoc{"R2"} = $operamdList[1];
-            $assoc{"R3"} = $operamdList[2];
+        if($line =~ m/execinstr/) {
+          my $i = 0;
+          my @matches = $line =~ m/(R\d+:Rh)|(R\d+:R\d+)|(%\w+:R\d+)|(R\d+:Xmm)|(R\d+:Ymm)|(\$0x[\dabcdef]+)|(%\w+)/g;
+          for my $match (@matches) {
+            if(
+                ($match =~ m/(R\d+):(Rh)/)  or 
+                ($match =~ m/(R\d+):(R\d+)/)  or 
+                ($match =~ m/%(\w+):(R\d+)/)   or
+                ($match =~ m/%(\w+)/)   or
+                ($match =~ m/(R\d+):(Xmm)/)    or
+                ($match =~ m/(R\d+):(Ymm)/)    or
+                ($match =~ m/\$0x([\dabcdef]+)/)
+                ) {
+              my $reg = $1;
+              my $size_exp = $2;
+              if (defined($2)) {
+                if($size_exp eq "Rh") {
+                  $sizes{uc($reg)} = 8;
+                } elsif($size_exp eq "Xmm") {
+                  $sizes{uc($reg)} = 128;
+                } elsif($size_exp eq "Ymm") {
+                  $sizes{uc($reg)} = 256;
+                } elsif($size_exp =~ m/R(\d+)/) {
+                  $sizes{uc($reg)} = $1;
+                }
+              }
+              $assoc{uc($reg)} = $operamdList[$i];
+              $i++;
+            }
+          }
         }
-        elsif ( $line =~
-            m/execinstr\s*\(\w+\s*R1:R(\w+),\s*R2:R(\w+),\s*.Typedoperands\)/ )
-        {
-            utils::debugInfo( "2 operand\n", $debugprint );
-            $sizes{"R1"} = $1 =~ s/h/8/gr;
-            $sizes{"R2"} = $2 =~ s/h/8/gr;
-
-            $assoc{"R1"} = $operamdList[0];
-            $assoc{"R2"} = $operamdList[1];
-        }
-        elsif ( $line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*.Typedoperands\)/ )
-        {
-            utils::debugInfo( "1 operand\n", $debugprint );
-            $sizes{"R1"} = $1 =~ s/h/8/gr;
-
-            $assoc{"R1"} = $operamdList[0];
-        }
-
         $contents = $contents . $line . "\n";
     }
 
@@ -3204,11 +3218,11 @@ mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(3
 div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
 div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
 
-maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
 
-mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
 
 # Uninterpreted binary function declaration
 approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))
@@ -3428,19 +3442,14 @@ sub preProcessBVFToSMT2 {
     ## introduce (a == ONE1)
 
     ## Replace cvt_single_to_double
-    ## Orders are also changed here
     debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
-
-    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
-    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
-    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
 
     ## Fix a strata's bu
     $rule =~ s/vnfmsub132_double/vfnmsub132_double/g;
 
-    $rule =~ s/($uif_terop)\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
-    $rule =~ s/($uif_binop)\((\(R\d+\)(\[\d+:\d+\])?, \(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
-    $rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?)\)/($1 $2)/g;
+    $rule =~ s/($uif_terop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
+    $rule =~ s/($uif_binop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
+    $rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\))\)/($1 $2)/g;
 
     debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
     $rule = convertBVFToSMT2_helper($rule);
@@ -3556,10 +3565,6 @@ sub convertBVFToSMT2_helper {
     }
 
     ## Process UIFs
-    my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
-    my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
-    my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
-
     if($rule =~ m/^\(($uif_uop) (.+)\)$/) {
       my $op   = $1;
       my $args = $2;
@@ -3584,7 +3589,7 @@ sub convertBVFToSMT2_helper {
       my @retargs = @{$args_ref};
       debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
 
-      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[1]). ", ". convertBVFToSMT2_helper($retargs[0]) . "))";
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]). ", ". convertBVFToSMT2_helper($retargs[1]) . "))";
     }
 
     if($rule =~ m/^\(($uif_terop) (.+)\)$/) {
@@ -3713,13 +3718,6 @@ sub convertKRuleToSMT2_helper {
     $rule =~ s/concatenateMInt/Concat/g;
     $rule =~ s/notBool/Not/g;
 
-#   syntax Int ::= Float2Int(Float)    [function, latex({\\it{}Float2Int}), hook(FLOAT.float2int)]
-#   syntax Float ::= Float2Double(Float)    [function, latex({\\it{}Float2Double}), hook(FLOAT.float2double)]
-
-#   syntax Float ::= MInt2Float(MInt, Int, Int)    [function, latex({\\it{}MInt2Float}), hook(FLOAT.mint2float)]
-#   syntax Float ::= Int2Float(Int, Int, Int)    [function, latex({\\it{}Int2Float}), hook(FLOAT.int2float)]
-
-#   syntax MInt ::= Float2MInt(Float, Int)    [function, latex({\\it{}Float2MInt}), hook(FLOAT.float2mint)]
      my $bin_op = (
 qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|lshrMInt|shlMInt|ultMInt|Int2Float|svalueMInt/
     );
