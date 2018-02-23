@@ -1483,6 +1483,7 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
 sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
+    $debugprint = 1;
 
 #$debugprint = 1;
 
@@ -1687,12 +1688,27 @@ sub findArgs {
     return @args;
 }
 
+## Given abc()xyz reuturns abc() and xyz
 sub selectbraces {
     my $arg     = shift @_;
     my $remove  = shift @_;
     my $op_arg  = "";
     my $rest    = "";
     my $counter = 0;
+
+    ## for $arg == _(_,_,_)(...)xyz return _(_,_,_)(...) and xyz  
+#print("--$arg\n\n");
+    if($arg =~ m/^(\_\(\_,\_,\_\))(.+)/) {
+      $op_arg = $1;
+      $arg = $2;
+    } elsif($arg =~ m/^(\_\(\_,\_\))(.+)/) {
+      $op_arg = $1;
+      $arg = $2;
+    } elsif($arg =~ m/^(\_\(\_\))(.+)/) {
+      $op_arg = $1;
+      $arg = $2;
+    }
+
 
     my @arr = split( //, $arg );
     my $first = 0;
@@ -3404,14 +3420,14 @@ sub preProcessBVFToSMT2 {
 
     my %assoc = %{$assoc_ref};
 
-    debugInfo("Before removing Consts: $rule\n\n", 1);
+    debugInfo("Before removing Consts: $rule\n\n", $debugprint);
     $rule =~ s/<0x([\dabcdef]+)\|(\d+)>/(CONST_BV_S$2_V$1)/g;
     $rule =~ s/FALSE/(False)/g;
     $rule =~ s/TRUE/(True)/g;
     $rule =~ s/<TMP_BOOL_0>/(False)/g;
     $rule =~ s/<TMP_BOOL_1>/(True)/g;
     $rule =~ s/<%(\w+)>/($1)/g;
-    debugInfo("After removing Consts: $rule\n\n", 1);
+    debugInfo("After removing Consts: $rule\n\n", $debugprint);
 
     while(1) {
       if($rule =~ m/<%(\w+)\|(\d+)>/) {
@@ -3444,13 +3460,13 @@ sub preProcessBVFToSMT2 {
         last;
       }
     }
-    debugInfo("After removing syms: $rule\n\n", 1);
+    debugInfo("After removing syms: $rule\n\n", $debugprint);
     ## we dont want to replace <%cf> to (CF == ONE1) at this point 
     ## as this will break the format of the rule (op () ()) and
     ## introduce (a == ONE1)
 
     ## Replace cvt_single_to_double
-    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n\n", 1);
+    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n\n", $debugprint);
 
     ## Fix a strata's bug
     $rule =~ s/vnfmsub132_double/vfnmsub132_double/g;
@@ -3470,12 +3486,12 @@ sub preProcessBVFToSMT2 {
       if ($prevRule eq $rule) {
         last
       } else {
-        print $prevRule . "\n". $rule . "\n\n";
+#print $prevRule . "\n". $rule . "\n\n";
       }
       $prevRule = $rule;
     }
 
-    debugInfo("[PreProcessBVFToSMT2]After Rule: $rule\n\n", 1);
+    debugInfo("[PreProcessBVFToSMT2]After Rule: $rule\n\n", $debugprint);
     $rule = convertBVFToSMT2_helper($rule);
 
     
@@ -3744,6 +3760,8 @@ sub convertKRuleToSMT2_helper {
     $rule =~ s/mi\((\d+), -(\d+)\)/(CONST_BV_S$1_VNEG$2)/g;
     $rule =~ s/concatenateMInt/Concat/g;
     $rule =~ s/notBool/Not/g;
+    $rule =~ s/true/True/g;
+    $rule =~ s/false/False/g;
 
      my $bin_op = (
 qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|lshrMInt|shlMInt|ultMInt|Int2Float|svalueMInt/
