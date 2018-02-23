@@ -80,9 +80,8 @@ R1 = BitVec('R1', 64)
 R2 = BitVec('R2', 256)
 R3 = BitVec('R3', 256)
 CONST_BV_S128_V0 = BitVecVal(0, 128)
-CONST_BV_S32_V0 = BitVecVal(0, 32)
 
-PK_R3 = (Concat((CONST_BV_S128_V0), Concat(Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) ,  cvt_int32_to_double ( (CONST_BV_S32_V0) ) )) )
+PK_R3 = (Concat((CONST_BV_S128_V0), Concat(Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) ,  cvt_int32_to_double ( Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  ) )) )
 PS_R3 = (Concat((CONST_BV_S128_V0), (Concat((Extract (127, 64, ((R2)))), ( cvt_int32_to_double ( (Extract (31, 0, ((R1))))))))))
 proverUtils.prove( PK_R3 == PS_R3 )
 
