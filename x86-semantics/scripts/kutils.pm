@@ -1484,7 +1484,7 @@ sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
-    $debugprint = 1;
+#$debugprint = 1;
 
     my $bin_op = (
 qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
@@ -2714,6 +2714,7 @@ sub getRegVaraintForImm {
 
     my %knownSemaMap = %{$knownSemaMap_ref};
 
+
     ### Imm patterns
     my $patt     = qr/imm(\d+)/;
     my $antipatt = qr/_m16|_m8|_m32|_m64|_m128|_m256/;
@@ -2938,7 +2939,7 @@ sub diffImmReg {
     my $outfile  = "derivedInstructions/x86-$immInstr.k";
     my $template = "derivedInstructions/x86-$regInstr.k";
     if ( !( -e $template ) ) {
-        $template = "instructions/x86-$regInstr.k";
+        $template = "baseInstructions//x86-$regInstr.k";
     }
 
     execute( "diff $template $outfile", 1 );
@@ -2956,10 +2957,10 @@ sub createImmFromRegVariant {
     my $outfile  = "derivedImmInstructions/x86-$immInstr.k";
     my $template = "derivedInstructions/x86-$regInstr.k";
     if ( !( -e $template ) ) {
-        $template = "instructions/x86-$regInstr.k";
+        $template = "baseInstructions//x86-$regInstr.k";
     }
 
-    open( my $rfp, "<", $template ) or die "Can't open: $!";
+    open( my $rfp, "<", $template ) or die "Can't open $template: $!";
     my @lines = <$rfp>;
     close $rfp;
 
@@ -3000,26 +3001,25 @@ sub createImmFromRegVariant {
             if(
                 ($match =~ m/(R\d+):(Rh)/)  or 
                 ($match =~ m/(R\d+):(R\d+)/)  or 
-                ($match =~ m/%(\w+):(R\d+)/)   or
-                ($match =~ m/%(\w+)/)   or
+                ($match =~ m/(%\w+):(R\d+)/)   or
+                ($match =~ m/(%\w+)/)   or
                 ($match =~ m/(R\d+):(Xmm)/)    or
-                ($match =~ m/(R\d+):(Ymm)/)    or
-                ($match =~ m/\$0x([\dabcdef]+)/)
+                ($match =~ m/(R\d+):(Ymm)/) 
                 ) {
               my $reg = $1;
               my $size_exp = $2;
               if (defined($2)) {
                 if($size_exp eq "Rh") {
-                  $sizes{uc($reg)} = 8;
+                  $sizes{$reg} = 8;
                 } elsif($size_exp eq "Xmm") {
-                  $sizes{uc($reg)} = 128;
+                  $sizes{$reg} = 128;
                 } elsif($size_exp eq "Ymm") {
-                  $sizes{uc($reg)} = 256;
+                  $sizes{$reg} = 256;
                 } elsif($size_exp =~ m/R(\d+)/) {
-                  $sizes{uc($reg)} = $1;
+                  $sizes{$reg} = $1;
                 }
               }
-              $assoc{uc($reg)} = $operamdList[$i];
+              $assoc{$reg} = $operamdList[$i];
               $i++;
             }
           }
@@ -3028,12 +3028,14 @@ sub createImmFromRegVariant {
     }
 
     printMap( \%sizes, "Size Map",        $debugprint );
-    printMap( \%assoc, "Association Map", $debugprint );
+    printMap( \%assoc, "Before Association Map", $debugprint );
 
     for my $key ( keys %assoc ) {
         my $regNum = 0;
         if ( $key =~ m/R(\d+)/ ) {
             $regNum = $1;
+        } else {
+            $regNum = $key;
         }
         if (   $assoc{$key} eq "r8"
             or $assoc{$key} eq "rh"
@@ -3192,6 +3194,7 @@ OF = BitVec('OF', 1)
 
 RAX = BitVec('RAX', 64)
 RCX = BitVec('RCX', 64)
+RDX = BitVec('RDX', 64)
 ZERO1 = BitVecVal(0, 1)
 ONE1 = BitVecVal(1, 1)
 
@@ -3401,14 +3404,14 @@ sub preProcessBVFToSMT2 {
 
     my %assoc = %{$assoc_ref};
 
-    debugInfo("Before removing Consts: $rule", $debugprint);
+    debugInfo("Before removing Consts: $rule\n\n", 1);
     $rule =~ s/<0x([\dabcdef]+)\|(\d+)>/(CONST_BV_S$2_V$1)/g;
     $rule =~ s/FALSE/(False)/g;
     $rule =~ s/TRUE/(True)/g;
     $rule =~ s/<TMP_BOOL_0>/(False)/g;
     $rule =~ s/<TMP_BOOL_1>/(True)/g;
     $rule =~ s/<%(\w+)>/($1)/g;
-    debugInfo("After removing Consts: $rule", $debugprint);
+    debugInfo("After removing Consts: $rule\n\n", 1);
 
     while(1) {
       if($rule =~ m/<%(\w+)\|(\d+)>/) {
@@ -3425,9 +3428,14 @@ sub preProcessBVFToSMT2 {
               $rule =~ s/<$r\|$s>/$r/g;
         } else {
               if(exists $assoc{$r}) {
+#      print "0.". $rule."\n";
+#                $rule =~ s/<%$r\|$s>(\[\d+:\d+\])/(($assoc{$r})$1)/g;
+#      print "1.". $rule."\n";
                 $rule =~ s/<%$r\|$s>/($assoc{$r})/g;
+#      print "2.". $rule."\n";
               } else {
                 my $t =  uc($r);
+#                $rule =~ s/<%$r\|$s>(\[\d+:\d+\])/(($t)$1)/g;
                 $rule =~ s/<%$r\|$s>/($t)/g;
               }
 
@@ -3436,22 +3444,38 @@ sub preProcessBVFToSMT2 {
         last;
       }
     }
-    debugInfo("After removing syms: $rule\n", $debugprint);
+    debugInfo("After removing syms: $rule\n\n", 1);
     ## we dont want to replace <%cf> to (CF == ONE1) at this point 
     ## as this will break the format of the rule (op () ()) and
     ## introduce (a == ONE1)
 
     ## Replace cvt_single_to_double
-    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
+    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n\n", 1);
 
-    ## Fix a strata's bu
+    ## Fix a strata's bug
     $rule =~ s/vnfmsub132_double/vfnmsub132_double/g;
 
-    $rule =~ s/($uif_terop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
-    $rule =~ s/($uif_binop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
-    $rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\))\)/($1 $2)/g;
+    ## Format change OP(R1,R2) => (OP R1 R2)
+#$rule =~ s/($uif_terop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
+#$rule =~ s/($uif_binop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
+#$rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\))\)/($1 $2)/g;
 
-    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n", 1);
+
+    my $prevRule = $rule;
+    while(1) {
+      $rule =~ s/($uif_terop)\((.*?, .*?, .*?)\)/($1 $2)/;
+      $rule =~ s/($uif_binop)\((.*?, .*?)\)/($1 $2)/;
+      $rule =~ s/($uif_uop)\((.*?)\)/($1 $2)/;
+
+      if ($prevRule eq $rule) {
+        last
+      } else {
+        print $prevRule . "\n". $rule . "\n\n";
+      }
+      $prevRule = $rule;
+    }
+
+    debugInfo("[PreProcessBVFToSMT2]After Rule: $rule\n\n", 1);
     $rule = convertBVFToSMT2_helper($rule);
 
     
@@ -3560,7 +3584,7 @@ sub convertBVFToSMT2_helper {
         $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " << " . convertBVFToSMT2_helper($retargs[1]). ")";
       }
       if($op eq ">>") {
-        $rule = "(LShr( " . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+        $rule = "(LShR( " . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
       }
     }
 
@@ -3604,6 +3628,8 @@ sub convertBVFToSMT2_helper {
 
       $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]). ", " . convertBVFToSMT2_helper($retargs[1]) . ", " . convertBVFToSMT2_helper($retargs[2]) .  "))";
     }
+    debugInfo("[convertBVFToSMT2_helper] Transformed rule $rule\n", $debugprint);
+
 
     return $rule;
 }
@@ -3612,6 +3638,7 @@ sub convertBVFToSMT2_helper {
 sub mineArgs {
    my $args       = shift @_;
    my $debugprint = shift @_;
+   $debugprint = 0;
 
    debugInfo( "[mineArgs]$args\n", $debugprint);
    my @arr = split( //, $args );
@@ -3822,9 +3849,9 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|ls
         if ( $op eq "lshrMInt" ) {
             $args[1] =~ s/^uvalueMInt//;
             if($args[1] =~ m/^(\d+)$/) {
-              $arg = $pre . "LShr( $args[0], BitVecVal($args[1], $args[0].size())) $rest";
+              $arg = $pre . "LShR( $args[0], BitVecVal($args[1], $args[0].size())) $rest";
             } else {
-              $arg = $pre . "LShr( $args[0], Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+              $arg = $pre . "LShR( $args[0], Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
             }
         }
         if ( $op eq "shlMInt" ) {

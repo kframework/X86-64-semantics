@@ -10,6 +10,7 @@ OF = BitVec('OF', 1)
 
 RAX = BitVec('RAX', 64)
 RCX = BitVec('RCX', 64)
+RDX = BitVec('RDX', 64)
 ZERO1 = BitVecVal(0, 1)
 ONE1 = BitVecVal(1, 1)
 
@@ -77,6 +78,8 @@ print('[6;30;44m' + 'Opcode:xaddq_r64_r64' + '[0m')
 
 R1 = BitVec('R1', 64)
 R2 = BitVec('R2', 64)
+R3 = BitVec('R3', 64)
+R4 = BitVec('R4', 64)
 CONST_BV_S1_V0 = BitVecVal(0, 1)
 CONST_BV_S64_V1 = BitVecVal(1, 64)
 CONST_BV_S1_V1 = BitVecVal(1, 1)

@@ -115,9 +115,9 @@ vrcpps_xmm_xmm	0	5
 vrsqrtps_xmm_xmm	0	5					
 vsqrtps_xmm_xmm	0	5					
 vxorps_xmm_xmm_xmm	0	6					
-xchgl_r32_r32	0	6	CD	R7			
-xchgq_r64_r64	0	5	CD	R7			
-xchgw_r16_r16	0	4	CD	R7			
+xchgl_r32_r32	0	6	CD	R7:Must Schedule:Syntactically Equal
+xchgq_r64_r64	0	5	CD	R7:Must Schedule:Syntactically Equal			
+xchgw_r16_r16	0	4	CD	R7:Must Schedule:Syntactically Equal			
 xorw_r16_r16	0	9	YD				
 
 Stratum 1	89						
@@ -299,7 +299,7 @@ xaddb_r8_rh	2	19	CD	R7	CTD:Must Schedule
 xaddb_rh_r8	2	17	CD	R7	CTD:Must Schedule		
 xaddw_r16_r16	2	8	CD	R7	CTD:Must Schedule		
 xchgb_r8_rh	2	19	CD	R7:Must Schedule			
-xchgb_rh_rh	2	30	CD	R7:Must Schedule			
+xchgb_rh_rh	2	30	CD	R7:Must Schedule:Syntactically Equal			
 xchgw_ax_r16	2	6	CD	R7:Redundant			
 xorb_r8_r8	2	11					
 
@@ -378,7 +378,7 @@ vsubps_xmm_xmm_xmm	3	29
 vsubsd_xmm_xmm_xmm	3	15					
 vunpckhpd_ymm_ymm_ymm	3	15					
 vunpckhps_xmm_xmm_xmm	3	26					
-xchgb_r8_r8	3	43	CD	R7			
+xchgb_r8_r8	3	43	CD	R7:Must Schedule:Syntactically Equal			
 xchgb_rh_r8	3	19	CD	R7:Must Schedule			
 xorb_rh_r8	3	45					
 xorpd_xmm_xmm	3	8					
