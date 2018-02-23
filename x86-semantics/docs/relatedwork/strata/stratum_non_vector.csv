@@ -507,7 +507,7 @@ vpunpckhdq_xmm_xmm_xmm	5	31
 vunpckhpd_xmm_xmm_xmm	5	16					
 vunpckhps_ymm_ymm_ymm	5	105					
 vunpcklpd_ymm_ymm_ymm	5	39					
-xaddb_rh_rh	5	63					
+xaddb_rh_rh	5	63:Must Schedule					
 
 Stratum 6	55						
 andb_r8_r8	6	65					
