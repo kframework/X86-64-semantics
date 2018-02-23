@@ -21,7 +21,12 @@ module VCVTDQ2PD-YMM-YMM
   rule <k>
     execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
       setRegisterValue(
-          joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32), cvt_int32_to_double)),
+          joinVector(
+            applyUIFs(
+              splitVector(
+                extractMask(getRegisterValue(Y1, RSMap), 128, 0), 
+                32), 
+              cvt_int32_to_double)),
           Y2)  
   ...</k>
     <regstate> RSMap</regstate>

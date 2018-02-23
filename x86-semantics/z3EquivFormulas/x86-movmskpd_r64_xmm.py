@@ -78,7 +78,7 @@ print('[6;30;44m' + 'Opcode:movmskpd_r64_xmm' + '[0m')
 
 R1 = BitVec('R1', 256)
 R2 = BitVec('R2', 64)
-CONST_BV_S30_V0 = BitVecVal(0, 30)
+CONST_BV_S62_V0 = BitVecVal(0, 62)
 CONST_BV_S32_V0 = BitVecVal(0x0, 32)
 CONST_BV_S1_V0 = BitVecVal(0x0, 1)
 CONST_BV_S1_V1 = BitVecVal(0x1, 1)
@@ -86,7 +86,7 @@ CONST_BV_S33_V1 = BitVecVal(0x1, 33)
 CONST_BV_S33_V2 = BitVecVal(0x2, 33)
 CONST_BV_S33_V0 = BitVecVal(0x0, 33)
 
-PK_R2 = (Concat(Extract( R2.size() - 0 - 1, R2.size() - 32, R2  ) , Concat((CONST_BV_S30_V0), Concat(Extract( R1.size() - 128 - 1, R1.size() - 129, R1  ) , Extract( R1.size() - 192 - 1, R1.size() - 193, R1  ) )))   )
+PK_R2 = (Concat((CONST_BV_S62_V0), Concat(Extract( R1.size() - 128 - 1, R1.size() - 129, R1  ) , Extract( R1.size() - 192 - 1, R1.size() - 193, R1  ) ))   )
 PS_R2 = (Concat((CONST_BV_S32_V0), (Extract (31, 0, (((If( ((Extract (32, 32, (((If( ((Extract (32, 32, (((Concat((CONST_BV_S1_V0), (Extract (63, 32, ((R1)))))) + (Concat((CONST_BV_S1_V0), (Extract (63, 32, ((R1)))))))))) == (CONST_BV_S1_V1)),((Concat((CONST_BV_S1_V0), (Extract (63, 32, ((R1)))))) + (CONST_BV_S33_V1)),(Concat((CONST_BV_S1_V0), (Extract (63, 32, ((R1)))))))) + (Concat((CONST_BV_S1_V0), (Extract (63, 32, ((R1)))))))))) == (CONST_BV_S1_V1)),(If( ((Extract (32, 32, (((If( ((Extract (32, 32, (((Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))) + (Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))))) == (CONST_BV_S1_V1)),((Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))) + (CONST_BV_S33_V1)),(Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))) + (Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))))) == (CONST_BV_S1_V1)),(CONST_BV_S33_V2),(CONST_BV_S33_V1))),(If( ((Extract (32, 32, (((If( ((Extract (32, 32, (((Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))) + (Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))))) == (CONST_BV_S1_V1)),((Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))) + (CONST_BV_S33_V1)),(Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))) + (Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))))) == (CONST_BV_S1_V1)),(CONST_BV_S33_V1),(CONST_BV_S33_V0))))) + (If( ((Extract (32, 32, (((If( ((Extract (32, 32, (((Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))) + (Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))))) == (CONST_BV_S1_V1)),((Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))) + (CONST_BV_S33_V1)),(Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))) + (Concat((CONST_BV_S1_V0), (Extract (127, 96, ((R1)))))))))) == (CONST_BV_S1_V1)),(CONST_BV_S33_V1),(CONST_BV_S33_V0)))))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 

@@ -30,5 +30,5 @@ FinalTerm:
 <T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> concatenateMInt(MInt@MINT(#"62'0"),, concatenateMInt(extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I2_721:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"128"),, Int@INT-SYNTAX(#"129")),, extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I2_721:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"192"),, Int@INT-SYNTAX(#"193")))) String@STRING-SYNTAX(#""YMM1"") |-> mi(Int@INT-SYNTAX(#"256"),, ?I2_721:Int@INT-SYNTAX) String@STRING-SYNTAX(#""R12"") |-> concatenateMInt(MInt@MINT(#"62'0"),, concatenateMInt(extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I2_721:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"128"),, Int@INT-SYNTAX(#"129")),, extractMInt(mi(Int@INT-SYNTAX(#"256"),, ?I2_721:Int@INT-SYNTAX),, Int@INT-SYNTAX(#"192"),, Int@INT-SYNTAX(#"193"))))   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
 true
 [Warning] Critical: missing SMTLib translation for mi
-59.03user 0.78system 0:17.05elapsed 350%CPU (0avgtext+0avgdata 1726092maxresident)k
-0inputs+3672outputs (0major+393381minor)pagefaults 0swaps
+82.22user 1.00system 0:20.51elapsed 405%CPU (0avgtext+0avgdata 1972084maxresident)k
+32inputs+3712outputs (0major+450621minor)pagefaults 0swaps

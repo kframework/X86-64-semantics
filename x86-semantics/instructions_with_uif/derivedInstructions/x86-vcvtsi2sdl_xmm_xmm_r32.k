@@ -9,7 +9,7 @@ module VCVTSI2SDL-XMM-XMM-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192),  cvt_int32_to_double ( mi(32, 0) ) )) )
+convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(getParentValue(R2, RSMap), 128, 192),  cvt_int32_to_double ( extractMInt(getParentValue(R1, RSMap), 32, 64) ) )) )
 
 
 )

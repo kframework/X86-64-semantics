@@ -9,7 +9,7 @@ module MOVMSKPD-R64-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0, 32), concatenateMInt(mi(30, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 128, 129), extractMInt(getParentValue(R1, RSMap), 192, 193))))   )
+convToRegKeys(R2) |-> (concatenateMInt(mi(62, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 128, 129), extractMInt(getParentValue(R1, RSMap), 192, 193)))   )
 
 
 )
