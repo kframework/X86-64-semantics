@@ -412,15 +412,9 @@ if ( "" ne $checksanity ) {
 
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
+
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         my $koutput = "$derivedInstructions/x86-${opcode}.k";

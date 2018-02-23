@@ -327,9 +327,15 @@ def Y1(a,b):
 
 z3.prove( Y1(a, b) == Y2(b, a) )
 
+def X(a):
+  if(a==3):
+    return 1
+  else:
+    return 2
 
 
 
+print(X(a) == If (a == 3, 1, 2))
 
 
 

@@ -10,6 +10,7 @@ OF = BitVec('OF', 1)
 
 RAX = BitVec('RAX', 64)
 RCX = BitVec('RCX', 64)
+RDX = BitVec('RDX', 64)
 ZERO1 = BitVecVal(0, 1)
 ONE1 = BitVecVal(1, 1)
 

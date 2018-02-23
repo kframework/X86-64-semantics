@@ -42,61 +42,17 @@ Let --file input is a file containing lst of all the opcodes which strata has th
 ### z3 formula directory 
 `z3EquivFormulas/` contain one Python file for each instruction. The file contains the encoded z3 formula for K and strata's rule and the code to prove the equivalence between them.
 
-### More info and corresponding [Issue Link](https://github.com/sdasgup3/binary-decompilation/issues/49)
-The idea is to convert the K rules like
-```
-convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentValue(R1, RSMap)), concatenateMInt(mi(1, 0), getParentValue(R2, RSMap))), 1, 65) )
-```
-to smt2 format:
-```
-PK_R2 = (Extract( ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 1 - 1, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) ).size() - 65, ( Concat(ZERO1, R1) + Concat(ZERO1, R2) )  )  )
-```
-Also to convert the strata's bit-vector formula or rule  like
-```
-%rbx   : (plus (concat <0x0|1> <%rcx|64>) (concat <0x0|1> <%rbx|64>))[63:0]
-```
-to smt2 format
-```
-PS_R2 = (Extract (63, 0, (((Concat((ZERO1), (R1))) + (Concat((ZERO1), (R2)))))))
-```
-and to check if
-```
-Not (PK_R2 == PS_R2)  is unsat
-```
-
-In case of floating point instructions, it is not possible for efficiently encode the K rules as the resultant z3 formula span multiple Z3 theories (bit-vector, Int, Float), making z3 super slow.
-On the other hand, strata's rule does not care about the operation semantics of those instruction, instead they represent it as uninterpreted function. 
-In order to prove formal equivalence of K and strata's rule we decided to emit k rules involving the same uninterpreted functions as strata generates. 
-
-For that purpose, there are different version of base Instructions `instructions_with_uif/baseInstructions/` and derived instructions `instructions_with_uif/derivedInstructions/` and they are used **ONLY** for proving equivalences. Having said that, we have other scripts to compile the rules in the above folders and generating and proving he formulas.
-
-Following are the walk-through of the entire process:
-
-### How to compile using the uninterpreted version of base and derived Instructions  
-```
-cd x86-semantics
-./scripts/process_spec.pl --compile --useuif 
-```
-
-### How to generate the z3 formulas 
-```
-cd x86-semantics
-./scripts/process_spec.pl --getz3formula 
-```
-
-### How to prove equivalence between K and Strata' rules
-```
-cd x86-semantics
-./scripts/process_spec.pl --z3prove 
-```
+### More info and corresponding 
+  - [Wiki Link](https://github.com/sdasgup3/binary-decompilation/wiki/Proving-Equivalence-of-K-Rules-and-Strata's-BitVector-Formulas(BVFs))
+  - [Issue Link](https://github.com/sdasgup3/binary-decompilation/issues/49)
 
 ## Autogenerate k rules from strata for imm-register instruction variants
 ### To generate
 ```
-./scripts/process_spec.pl --file docs/relatedwork/strata/generalizedImm.txt --getimm
+./scripts/process_spec.pl  --getimm
 ```
 
 ### To diff with corresponding register variant
 ```
-./scripts/process_spec.pl --file docs/relatedwork/strata/generalizedImm.txt --getimmdiff
+./scripts/process_spec.pl --getimmdiff
 ```
