@@ -42,7 +42,7 @@ Let --file input is a file containing lst of all the opcodes which strata has th
 ### z3 formula directory 
 `z3EquivFormulas/` contain one Python file for each instruction. The file contains the encoded z3 formula for K and strata's rule and the code to prove the equivalence between them.
 
-### More info and corresponding 
+### More info 
   - [Wiki Link](https://github.com/sdasgup3/binary-decompilation/wiki/Proving-Equivalence-of-K-Rules-and-Strata's-BitVector-Formulas(BVFs))
   - [Issue Link](https://github.com/sdasgup3/binary-decompilation/issues/49)
 
