@@ -1,0 +1,4 @@
+-Xms64m -Xmx1024m -Xss32m -XX:+TieredCompilation -Xmx8g
+Command terminated by signal 2
+9.72user 0.27system 0:02.69elapsed 371%CPU (0avgtext+0avgdata 467736maxresident)k
+0inputs+296outputs (0major+70421minor)pagefaults 0swaps

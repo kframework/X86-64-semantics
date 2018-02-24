@@ -9,6 +9,12 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= "oneMIntW1"
   syntax MInt ::= "oneMIntW64"
 
+  /*@
+    Sort List
+  */
+  syntax MInts ::= List{MInt, ""} [klabel(mintlist)]
+  syntax Floats ::= List{Float, ""} [klabel(floatlist)]
+  syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
     If Else Then for Sorts 
@@ -16,13 +22,6 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= "#ifMInt"   Bool "#then" MInt  "#else" MInt  "#fi" [function, smtlib(ite)]
   syntax Bool ::= "#ifBool"   Bool "#then" Bool  "#else" Bool  "#fi" [function, smtlib(ite)]
   syntax MInts ::= "#ifMInts" Bool "#then" MInts "#else" MInts "#fi" [function, smtlib(ite)]
-
-  /*@
-    Sort List
-  */
-  syntax MInts ::= List{MInt, ""} [klabel(mintlist)]
-  syntax Floats ::= List{Float, ""} [klabel(floatlist)]
-  syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
     Covert MInts to Signed Ints.
@@ -98,10 +97,59 @@ module MINT-WRAPPER-SYNTAX
   syntax MInts ::= operateOnVector(MInts, VOperation, Int) [function, klabel(unaryoperateonvector)] 
   syntax MInts ::= operateOnVectorHelper(MInts, VOperation, Int, Int) [function, klabel(unaryoperateonvectorhelper)]
 
+  // UIF operations
+  syntax UIFBinOperation ::= "add_double"               [token] 
+                      | "add_single"                    [token]                    
+                      | "sub_double"                    [token]                    
+                      | "sub_single"                    [token]                    
+                      | "maxcmp_double"                 [token] 
+                      | "maxcmp_single"                 [token] 
+                      | "mincmp_double"                 [token] 
+                      | "mincmp_single"                 [token] 
+                      | "mul_double"                    [token] 
+                      | "mul_single"                    [token] 
+                      | "div_double"                    [token] 
+                      | "div_single"                    [token] 
+
+  syntax UIFTerOperation ::= "vfmadd132_double"             [token]
+                          | "vfmadd132_single"              [token]
+                          | "vfmsub132_double"              [token]
+                          | "vfmsub132_single"              [token]
+                          | "vfnmadd132_double"             [token]
+                          | "vfnmadd132_single"             [token]  
+                          | "vfnmsub132_double"             [token]
+                          | "vfnmsub132_single"             [token]
+                          | "vfmadd132_double"              [token]
+
+  syntax UIFUOperation ::= "approx_reciprocal_double"     [token] 
+                        | "approx_reciprocal_single"      [token] 
+                        | "sqrt_double"                   [token] 
+                        | "sqrt_single"                   [token] 
+                        | "approx_reciprocal_sqrt_double" [token] 
+                        | "approx_reciprocal_sqrt_single" [token] 
+                        | "cvt_single_to_double"          [token] 
+                        | "cvt_single_to_int32"           [token] 
+                        | "cvt_single_to_int64"           [token] 
+                        | "cvt_int32_to_single"           [token] 
+                        | "cvt_int32_to_double"           [token] 
+
+
+  syntax MInts ::= applyUIFs(MInts, UIFUOperation ) [function, klabel(unaryoperateonuifs)]
+  syntax MInts ::= applyUIFs(MInts, MInts,  UIFBinOperation) [function, klabel(binaryoperateonuifs)]
+  syntax MInts ::= applyUIFs(MInts, MInts, MInts,  UIFTerOperation) [function, klabel(ternaryoperateonuifs)]
+
+  /*@
+    The following are the uninterpreted functions F(BitVector theory) -> Bitvector Theory
+    Help to prove equivalence between K rule and Strata's BVFs.
+  */
+  syntax MInt ::= UIFUOperation   "(" MInt ")"                [function]
+  syntax MInt ::= UIFBinOperation "(" MInt "," MInt ")"       [function]
+  syntax MInt ::= UIFTerOperation "(" MInt "," MInt "," MInt ")" [function]
+
   /*@
     Deprecated
-  */  
   syntax MInt ::= shiftLeft(MInt, Int)   [function]
+  */  
 
   /*@
     Bitwise negation
@@ -299,8 +347,11 @@ module MINT-WRAPPER
     joinVector(MIs): Concatenates a list of Bitvectors MIs to a
     single Bitvector of size equals added bitwidths.
   */
-  rule joinVector(MI:MInt .MInts) => MI
+  rule joinVector(MI:MInt Rest) => MI
+    requires Rest ==K .MInts                   
+
   rule joinVector(MI:MInt Rest) => concatenateMInt(MI, joinVector(Rest))
+    requires Rest =/=K .MInts                   
 
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
@@ -356,10 +407,32 @@ module MINT-WRAPPER
   rule operateOnVectorHelper(.MInts, _, _, _) => .MInts
 
   /*@
+    Operate on UIFs
+  */
+  rule 
+    applyUIFs(MI1:MInt MI1s, UIF_U_OP:UIFUOperation) 
+    => 
+    UIF_U_OP(MI1) applyUIFs(MI1s, UIF_U_OP)
+
+  rule 
+    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, UIF_BIN_OP:UIFBinOperation) 
+    => 
+    UIF_BIN_OP(MI1, MI2) applyUIFs(MI1s, MI2s, UIF_BIN_OP)
+
+  rule 
+    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, MI3:MInt MI3s, UIF_TER_OP:UIFTerOperation) 
+    => 
+    UIF_TER_OP(MI1, MI2, MI3) applyUIFs(MI1s, MI2s, MI3s, UIF_TER_OP)
+
+  rule applyUIFs(.MInts, _:UIFUOperation) => .MInts
+  rule applyUIFs(.MInts, .MInts, _:UIFBinOperation) => .MInts
+  rule applyUIFs(.MInts, .MInts, .MInts, _:UIFTerOperation) => .MInts
+
+  /*@
     Deprecated
-  */  
   rule shiftLeft(MI, I) => 
     extractMInt(shlMInt(MI, I), 0, bitwidthMInt(MI))
+  */  
 
   /*@
     Bitwise negation

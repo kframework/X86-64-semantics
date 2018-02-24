@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -33,6 +33,11 @@ my @xpatterns = (
     qr/$\d* = \{0x([\dabcdef]+), 0x([\dabcdef]+)\}/,
     qr/$\d* = \[ ([CPAZSOIF ]*) \]/,
 );
+
+my $uif_binop = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/);
+my $uif_uop = (qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/);
+my $uif_terop = (qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
 
 my @r64s = (
     "rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rsp", "rbp",
@@ -791,7 +796,6 @@ sub find_stratum {
 sub getTargetInstr {
 #############################################
     my $opcode     = shift @_;
-    my $path       = shift @_;
     my $debugprint = shift @_;
     my $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 
@@ -1005,12 +1009,14 @@ sub getRWsetOfInstr {
 sub getStrataBVFormula {
     my $instr      = shift @_;
     my $debugprint = shift @_;
+    my $smtlib_format = shift @_;
+
     my $binpath =
-"/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
+"/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit $smtlib_format --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
 
     # Escape the $ sign (if present)
     $instr =~ s/\$/\\\$/g;
-    execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1");
+    execute("$binpath \"$instr\" 1>/tmp/yyy 2>&1", 1);
 
     my $filepath = "/tmp/yyy";
     open( my $fp, "<", $filepath )
@@ -1144,7 +1150,7 @@ sub getInstrsFromCircuit {
     open( my $fp, "<", $filepath )
       or die "[getInstrsFromCircuit] cannot open $filepath: $!";
 
-#utils::info("Reading circuit from $filepath");
+    #utils::info("Reading circuit from $filepath");
     my @lines = <$fp>;
     for my $line (@lines) {
         chomp $line;
@@ -1282,7 +1288,7 @@ sub getSpecCode {
     return ( $spec_code, $counter );
 }
 
-sub mixfix2infix {
+sub mixfix2smt {
     my $arg        = shift @_;
     my $debugprint = shift @_;
 
@@ -1291,6 +1297,201 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
     );
     my $unary_op    = (qr/notBool/);
     my $terniary_op = (qr/_#then_#else_#fi/);
+
+    while (1) {
+        if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
+            my $pre  = $1;
+            my $opr  = $2;
+            my $post = $3;
+
+            debugInfo( "Got Terniary op\n", $debugprint );
+            my ( $op_arg, $rest ) = selectbraces( $post, 1 );
+            my @args = findArgs( $op_arg, 3 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+            debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+            $arg =
+                $pre
+              . "(If (("
+              . $args[0]
+              . " ) , ( "
+              . $args[1]
+              . " ) , ( "
+              . $args[2]
+              . " ) )) "
+              . $rest;
+
+            #print "\nAfter:" . $arg . "\n\n";
+        }
+        elsif ( $arg =~ m/(.+)_($bin_op)\_(.+)/ ) {
+
+            my $op = $2;
+            debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
+
+            #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+
+            debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+            debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+            my @args = findArgs( $op_arg, 2 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+            debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+            if($op eq "andBool") {
+              $arg =
+                  $1 . " (And( "
+                . $args[0] . ", " . $args[1] . " )) "
+                . $rest;
+            } elsif($op eq "orBool") {
+              $arg =
+                  $1 . " (Or( "
+                . $args[0] . ", " . $args[1] . " )) "
+                . $rest;
+            } else {
+
+              my $pre = $1;
+
+              $op =~ s/Int//g; 
+              $op =~ s/==K/==/g; 
+              $op =~ s/Float//g; 
+              print "$op\n";
+              $arg =
+                  $pre . " ( "
+                . $args[0] . " " . " $op " . " "
+                . $args[1] . " ) "
+                . $rest;
+            }
+
+#print "\n[mixfix2smt]After:" . $arg . "\n";
+        }
+        elsif ( $arg =~ m/(.+)($unary_op)\_(.+)/ ) {
+
+            #print "Front: " . $1 . "\n\n" . " Back: " . $3 . "\n\n";
+            my ( $op_arg, $rest ) = selectbraces( $3, 1 );
+            my $op = $2;
+            debugInfo( "Got unary op: $op\n", $debugprint );
+
+            #print "Arg: " . $op_arg . "\n";
+            #print "Rest: " . $rest . "\n";
+
+            my @args = findArgs( $op_arg, 1 );
+
+            debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+
+            $arg = $1 . " (Not " . " ( " . $args[0] . " )) " . $rest;
+
+            #print "\n" . $arg . "\n";
+        }
+        elsif($arg =~ m/(.+)\_\(\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF U op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 2 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Binary op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 3 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+           ## Orders are NOT  changed here
+           if(
+               $args[0] eq "maxcmp_double" or
+               $args[0] eq "maxcmp_single" or
+               $args[0] eq "mincmp_double" or
+               $args[0] eq "mincmp_single" 
+               ) {
+             $arg =
+                 $1 . " (If( $args[0] ( "
+               . $args[2] . ", "
+               . $args[1] . " ) == ONE1, $args[2], $args[1]))"
+               . $rest;
+
+           } else {
+             $arg =
+                 $1 . " $args[0] ( "
+               . $args[2] . ", "
+               . $args[1] . " ) "
+               . $rest;
+           }
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Ter op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 4 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+           debugInfo( "Arg4: " . $args[3] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . ", "
+             . $args[3] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
+        else {
+            last;
+        }
+    }
+
+    return $arg;
+}
+
+sub mixfix2infix {
+    my $arg        = shift @_;
+    my $debugprint = shift @_;
+
+#$debugprint = 1;
+
+    my $bin_op = (
+qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Float|\/Float|\-Float|\&Int/
+    );
+    my $unary_op    = (qr/notBool/);
+    my $terniary_op = (qr/_#then_#else_#fi/);
+
     while (1) {
         if ( $arg =~ m/(.+)(#if|#ifMInt|#ifBool|#ifMInts)$terniary_op(.+)/ ) {
             my $pre  = $1;
@@ -1360,6 +1561,77 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
 
             #print "\n" . $arg . "\n";
         }
+        elsif($arg =~ m/(.+)\_\(\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF U op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 2 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Binary op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 3 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
+        elsif($arg =~ m/(.+)\_\(\_,\_,\_\)(.+)/) {
+           my $op = $2;
+           debugInfo( "\n\nGot UIF Ter op: $op\n", $debugprint );
+
+           my ( $op_arg, $rest ) = selectbraces( $2, 1 );
+
+           debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+           debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+           my @args = findArgs( $op_arg, 4 );
+
+           debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+           debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+           debugInfo( "Arg3: " . $args[2] . "\n", $debugprint );
+           debugInfo( "Arg4: " . $args[3] . "\n", $debugprint );
+
+           $arg =
+               $1 . " $args[0] ( "
+             . $args[1] . ", "
+             . $args[2] . ", "
+             . $args[3] . " ) "
+             . $rest;
+
+           #print "\nAfter:" . $arg . "\n";
+
+        }
         else {
             last;
         }
@@ -1373,12 +1645,26 @@ sub findArgs {
     my $num_args = shift @_;
     my @args     = ();
 
+    my $uif_ops = (qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single|approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single|vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/);
+
     for ( my $i = 0 ; $i < $num_args ; $i++ ) {
         if ( $i == $num_args - 1 ) {
             push @args, $line;
             last;
         }
-        if ( $line =~ m/^true\s*,\s*(.*)/ ) {
+        if ( $line =~ m/^($uif_ops)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
+        }
+        if ( $line =~ m/^(CONST_BV_S\d+_V\d+)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
+        }
+        if ( $line =~ m/^(CONST_BV_S\d+_VNEG\d+)\s*,\s*(.*)/ ) {
+            push @args, $1;
+            $line = $2;
+        }
+        elsif ( $line =~ m/^true\s*,\s*(.*)/ ) {
             push @args, "true";
             $line = $1;
         }
@@ -1392,6 +1678,7 @@ sub findArgs {
         }
         else {
             my ( $op_arg, $rest ) = selectbraces( $line, 0 );
+#print "$op_arg\::$rest\n";
             push @args, $op_arg;
             $rest =~ s/\s*,\s*//;
             $line = $rest;
@@ -1400,12 +1687,30 @@ sub findArgs {
     return @args;
 }
 
+## Given abc()xyz reuturns abc() and xyz
 sub selectbraces {
     my $arg     = shift @_;
     my $remove  = shift @_;
     my $op_arg  = "";
     my $rest    = "";
     my $counter = 0;
+
+#   utils::info("In selectbraces");
+
+    ## for $arg == _(_,_,_)(...)xyz return _(_,_,_)(...) and xyz  
+      ## print("--$arg\n\n");
+
+    if($arg =~ m/^(\_\(\_,\_,\_\))(.+)/) {
+      $op_arg = $1;
+      $arg = $2;
+    } elsif($arg =~ m/^(\_\(\_,\_\))(.+)/) {
+      $op_arg = $1;
+      $arg = $2;
+    } elsif($arg =~ m/^(\_\(\_\))(.+)/) {
+      $op_arg = $1;
+      $arg = $2;
+    }
+
 
     my @arr = split( //, $arg );
     my $first = 0;
@@ -1432,6 +1737,7 @@ sub selectbraces {
         $op_arg = $op_arg . ":>Bool";
     }
 
+#   utils::info("Out selectbraces");
     return ( $op_arg, $rest );
 }
 
@@ -1444,6 +1750,9 @@ sub processSpecOutput {
     my %rsmap     = ();
     my %rev_rsmap = ();
     my @reglines  = ();
+
+    utils::info("In processSpecOutput");
+    print "Using $specoutput\n";
 
     open( my $fp, "<", $specoutput )
       or die " [create_spec] cannot open $specoutput : $! ";
@@ -1505,6 +1814,8 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, \?I
     if ( scalar(@reglines) == 0 ) {
         failInfo("processSpecOutput: No FinalTerm in $specoutput");
     }
+
+    utils::info("Out processSpecOutput");
     return ( \%rsmap, \%rev_rsmap, \@reglines );
 }
 
@@ -1830,13 +2141,16 @@ sub sanitizeSpecOutput {
 ##########################################
     my (
         $opcode,       $rsmap_ref,    $rev_rsmap_ref,
-        $reglines_ref, $specfile_ref, $debugprint_ref
+        $reglines_ref, $specfile_ref, $debugprint_ref,
+        $tosmt
     ) = @_;
     my %rsmap      = %{$rsmap_ref};
     my %rev_rsmap  = %{$rev_rsmap_ref};
     my @reglines   = @{$reglines_ref};
     my $specfile   = ${$specfile_ref};
     my $debugprint = ${$debugprint_ref};
+
+    utils::info("In sanitizeSpecOutput");
 
     my $instr = getTargetInstr( $opcode, $debugprint );
 
@@ -1918,6 +2232,11 @@ sub sanitizeSpecOutput {
         $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
         $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\dfd]+)"\)/$1/g;
         $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperationII\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperationI\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFUOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFTerOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
         $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
         $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;
         $mod =~ s/\.List\{"mintlist"\}\(\.KList\@BASIC-K\)/.MInts/g;
@@ -1936,7 +2255,11 @@ sub sanitizeSpecOutput {
         #debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
 
         if ( $mod =~ /_/ ) {
-            $result = mixfix2infix( $mod, $debugprint );
+            if(defined($tosmt) and $tosmt == 1) {
+              $result = mixfix2smt( $mod, $debugprint );
+            } else {
+              $result = mixfix2infix( $mod, $debugprint );
+            }
         }
         else {
             $result = $mod;
@@ -1944,9 +2267,9 @@ sub sanitizeSpecOutput {
 
         # Local Optimzations
         ## Replace mi(W, _NUM) => MINUM
-        debugInfo( "PreResult:$result\n", 1 );
+        debugInfo( "PreResult:$result\n", $debugprint );
         $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
-        debugInfo( "Result:$result\n", 1 );
+        debugInfo( "Result:$result\n", $debugprint );
 
         push @workList, $result;
     }
@@ -1961,6 +2284,7 @@ sub sanitizeSpecOutput {
 
     debugInfo( "Final Rules : $returnInfo\n", $debugprint );
 
+    utils::info("Out sanitizeSpecOutput");
     return $returnInfo;
 }
 
@@ -2174,7 +2498,7 @@ endmodule
     my ( $rwset, $store_ref ) = getRWsetOfInstr( $targetinstr, $debugprint );
 
     ## get BV formula
-    my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint );
+    my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint , "--smtlib_format");
 
     print $fp "/*"
       . "\nTargetInstr:\n"
@@ -2305,12 +2629,13 @@ sub createSpecFile {
 sub runkprove {
     my $opcode     = shift @_;
     my $specdir    = shift @_;
+    my $specoutdir    = shift @_;
     my $debugprint = shift @_;
 
     chomp $opcode;
     utils::info("kprove $opcode");
     my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-    my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
+    my $specoutput = "$specoutdir/x86-semantics_${opcode}_spec.output";
     execute(
 "time krun --prove $specfile ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>$specoutput 2>&1",
         1
@@ -2364,12 +2689,13 @@ sub checkSupported {
 sub postProcess {
     my $opcode              = shift @_;
     my $specdir             = shift @_;
+    my $specoutdir             = shift @_;
     my $derivedInstructions = shift @_;
     my $debugprint          = shift @_;
 
     chomp $opcode;
     my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-    my $specoutput = "$specdir/x86-semantics_${opcode}_spec.output";
+    my $specoutput = "$specoutdir/x86-semantics_${opcode}_spec.output";
     my $koutput    = "$derivedInstructions/x86-${opcode}.k";
 
     # Map to store the register value binding
@@ -2381,7 +2707,7 @@ sub postProcess {
     utils::info("sanitizeSpecOutput $opcode");
     my $returnInfo =
       kutils::sanitizeSpecOutput( $opcode, $rsmap_ref, $rev_rsmap_ref,
-        $reglines_ref, \$specfile, \$debugprint );
+        $reglines_ref, \$specfile, \$debugprint, 0 );
 
     # write to k file.
     utils::info("writeKDefn $opcode: $koutput");
@@ -2412,6 +2738,7 @@ sub getRegVaraintForImm {
     my $knownSemaMap_ref = shift @_;
 
     my %knownSemaMap = %{$knownSemaMap_ref};
+
 
     ### Imm patterns
     my $patt     = qr/imm(\d+)/;
@@ -2489,7 +2816,7 @@ sub getRegVaraintForImm {
         push @guesses, $mod4 =~ s/imm(\d+)/r64/gr;
     }
 
-#printArray( \@guesses, "Guesses", 1 );
+    #printArray( \@guesses, "Guesses", 1 );
     my $matchType = "";
     for my $var (@variants) {
         for my $guess (@guesses) {
@@ -2526,7 +2853,7 @@ sub getImmInstrs {
     my $debugprint = shift @_;
     my $getimmdiff = shift @_;
 
-    my $allinstrs = "docs/relatedwork/strata/generalizedImms.txt";
+    my $allinstrs      = "docs/relatedwork/strata/generalizedImms.txt";
     my $semanticsknown = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
 
     ## Create a map of known semantics
@@ -2566,7 +2893,7 @@ sub getImmInstrs {
     my %bypassList = (
         "movq_r64_imm32" => 1,
         "movq_r64_imm64" => 1,
-        );
+    );
 
     for my $line (@lines) {
         chomp $line;
@@ -2584,9 +2911,9 @@ sub getImmInstrs {
             next;
         }
 
-        if(exists $bypassList{$line}) {
-          utils::warnInfo("Skipped:$line");
-          next;
+        if ( exists $bypassList{$line} ) {
+            utils::warnInfo("Skipped:$line");
+            next;
         }
 
         $auxMap{$opcode} = 1;
@@ -2596,10 +2923,11 @@ sub getImmInstrs {
             print("$line has no register variant\n");
         }
 
-        if(defined($getimmdiff) and $getimmdiff == 1) {
-          diffImmReg($line, $regVar, $debugprint);
-        } else {
-          createImmFromRegVariant($line, $regVar, $matchType, $debugprint);
+        if ( defined($getimmdiff) and $getimmdiff == 1 ) {
+            diffImmReg( $line, $regVar, $debugprint );
+        }
+        else {
+            createImmFromRegVariant( $line, $regVar, $matchType, $debugprint );
         }
     }
 
@@ -2629,144 +2957,1074 @@ sub getImmInstrs {
 }
 
 sub diffImmReg {
-  my $immInstr = shift @_;
-  my $regInstr = shift @_;
-  my $debugprint = shift @_;
+    my $immInstr   = shift @_;
+    my $regInstr   = shift @_;
+    my $debugprint = shift @_;
 
-  my $outfile = "derivedInstructions/x86-$immInstr.k";
-  my $template = "derivedInstructions/x86-$regInstr.k";
-  if(!(-e $template)) {
-    $template = "instructions/x86-$regInstr.k";
-  }
+    my $outfile  = "derivedInstructions/x86-$immInstr.k";
+    my $template = "derivedInstructions/x86-$regInstr.k";
+    if ( !( -e $template ) ) {
+        $template = "baseInstructions//x86-$regInstr.k";
+    }
 
-  execute("diff $template $outfile", 1);
+    execute( "diff $template $outfile", 1 );
 
 }
 
 sub createImmFromRegVariant {
-  my $immInstr = shift @_;
-  my $regInstr = shift @_;
-  my $matchType = shift @_;
-  my $debugprint = shift @_;
-#my $debugprint = 1;
+    my $immInstr   = shift @_;
+    my $regInstr   = shift @_;
+    my $matchType  = shift @_;
+    my $debugprint = shift @_;
 
-  my $outfile = "derivedInstructions/x86-$immInstr.k";
-  my $template = "derivedInstructions/x86-$regInstr.k";
-  if(!(-e $template)) {
-    $template = "instructions/x86-$regInstr.k";
-  }
+    my $debugprint = 1;
 
-  open( my $rfp, "<", $template ) or die "Can't open: $!";
-  my @lines = <$rfp>;
-  close $rfp;
-
-  my $contents = "";
-  my %assoc = ();
-  my %sizes = ();
-
-  my $operamdList_ref = getOperandListFromOpcode( $immInstr, $debugprint );
-  my @operamdList     = @{$operamdList_ref};
-
-  printArray(\@operamdList, "Operand List", $debugprint);
-
-  my $immSize = 0;
-  if ( $immInstr =~ m/imm(\d+)/g ) {
-      $immSize = $1;
-  }
-
-
-
-  for my $line (@lines) {
-    chomp $line;
-
-    my $modulename = $immInstr =~ s/_/-/gr; 
-    $modulename = uc($modulename);
-    if($line =~ m/^module/) {
-      $contents = $contents. "module $modulename\n";
-      next;
+    my $outfile  = "derivedImmInstructions/x86-$immInstr.k";
+    my $template = "derivedInstructions/x86-$regInstr.k";
+    if ( !( -e $template ) ) {
+        $template = "baseInstructions//x86-$regInstr.k";
     }
 
-    if($line =~ m/^endmodule/) {
-      $contents = $contents. "endmodule\n";
-      last;
+    open( my $rfp, "<", $template ) or die "Can't open $template: $!";
+    my @lines = <$rfp>;
+    close $rfp;
+
+    my $contents = "";
+    my %assoc    = ();
+    my %sizes    = ();
+
+    my $operamdList_ref = getOperandListFromOpcode( $immInstr, $debugprint );
+    my @operamdList = @{$operamdList_ref};
+
+    printArray( \@operamdList, "Operand List", $debugprint );
+
+    my $immSize = 0;
+    if ( $immInstr =~ m/imm(\d+)/g ) {
+        $immSize = $1;
     }
 
+    for my $line (@lines) {
+        chomp $line;
 
-    ## Modify the execinstr
-    if($line =~ m/execinstr\s*\(\w+\s*R1:R(.+),\s*R2:R(.+),\s*R3:R(.+),\s*.Typedoperands\)/) {
-      utils::debugInfo( "3 operand\n", $debugprint);
-      $sizes{"R1"} = $1 =~ s/h/8/gr;
-      $sizes{"R2"} = $2 =~ s/h/8/gr;
-      $sizes{"R3"} = $3 =~ s/h/8/gr;
+        my $modulename = $immInstr =~ s/_/-/gr;
+        $modulename = uc($modulename);
+        if ( $line =~ m/^module/ ) {
+            $contents = $contents . "module $modulename\n";
+            next;
+        }
 
-      $assoc{"R1"} = $operamdList[0];
-      $assoc{"R2"} = $operamdList[1];
-      $assoc{"R3"} = $operamdList[2];
-    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*R2:R(\w+),\s*.Typedoperands\)/) {
-      utils::debugInfo( "2 operand\n", $debugprint);
-      $sizes{"R1"} = $1 =~ s/h/8/gr;
-      $sizes{"R2"} = $2 =~ s/h/8/gr;
+        if ( $line =~ m/^endmodule/ ) {
+            $contents = $contents . "endmodule\n";
+            last;
+        }
 
-      $assoc{"R1"} = $operamdList[0];
-      $assoc{"R2"} = $operamdList[1];
-    } elsif ($line =~ m/execinstr\s*\(\w+\s*R1:R(\w+),\s*.Typedoperands\)/) {
-      utils::debugInfo( "1 operand\n", $debugprint);
-      $sizes{"R1"} = $1 =~ s/h/8/gr;
-
-      $assoc{"R1"} = $operamdList[0];
-    } 
-    
-    $contents = $contents.$line."\n";  
-  }
-
-  printMap(\%sizes, "Size Map", $debugprint);
-  printMap(\%assoc, "Association Map", $debugprint);
-
-
-  for my $key (keys %assoc) {
-    my $regNum = 0;
-    if($key =~ m/R(\d+)/) {
-      $regNum = $1;
+        ## Modify the execinstr
+        if($line =~ m/execinstr/) {
+          my $i = 0;
+          my @matches = $line =~ m/(R\d+:Rh)|(R\d+:R\d+)|(%\w+:R\d+)|(R\d+:Xmm)|(R\d+:Ymm)|(\$0x[\dabcdef]+)|(%\w+)/g;
+          for my $match (@matches) {
+            if(
+                ($match =~ m/(R\d+):(Rh)/)  or 
+                ($match =~ m/(R\d+):(R\d+)/)  or 
+                ($match =~ m/(%\w+):(R\d+)/)   or
+                ($match =~ m/(%\w+)/)   or
+                ($match =~ m/(R\d+):(Xmm)/)    or
+                ($match =~ m/(R\d+):(Ymm)/) 
+                ) {
+              my $reg = $1;
+              my $size_exp = $2;
+              if (defined($2)) {
+                if($size_exp eq "Rh") {
+                  $sizes{$reg} = 8;
+                } elsif($size_exp eq "Xmm") {
+                  $sizes{$reg} = 128;
+                } elsif($size_exp eq "Ymm") {
+                  $sizes{$reg} = 256;
+                } elsif($size_exp =~ m/R(\d+)/) {
+                  $sizes{$reg} = $1;
+                }
+              }
+              $assoc{$reg} = $operamdList[$i];
+              $i++;
+            }
+          }
+        }
+        $contents = $contents . $line . "\n";
     }
-    if( 
-        $assoc{$key} eq "r8" or 
-        $assoc{$key} eq "rh" or 
-        $assoc{$key} eq "r16" or 
-        $assoc{$key} eq "r32" or 
-        $assoc{$key} eq "r64" 
-        ) {
-          $assoc{$key} = $key;
-    } else {
-        if($assoc{$key} =~ m/imm/ ) {
-          $assoc{$key} = "I".$regNum."_".$immSize;
+
+    printMap( \%sizes, "Size Map",        $debugprint );
+    printMap( \%assoc, "Before Association Map", $debugprint );
+
+    for my $key ( keys %assoc ) {
+        my $regNum = 0;
+        if ( $key =~ m/R(\d+)/ ) {
+            $regNum = $1;
         } else {
-          $assoc{$key} = "%".$assoc{$key};
+            $regNum = $key;
+        }
+        if (   $assoc{$key} eq "r8"
+            or $assoc{$key} eq "rh"
+            or $assoc{$key} eq "r16"
+            or $assoc{$key} eq "r32"
+            or $assoc{$key} eq "r64" )
+        {
+            $assoc{$key} = $key;
+        }
+        else {
+            if ( $assoc{$key} =~ m/imm/ ) {
+                $assoc{$key} = "I" . $regNum . "_" . $immSize;
+            }
+            else {
+                $assoc{$key} = "%" . $assoc{$key};
+            }
         }
     }
-  }
-  printMap(\%assoc, "After Association Map", $debugprint);
+    printMap( \%assoc, "After Association Map", $debugprint );
 
+    my $mod = $contents;
+    for my $key ( keys %assoc ) {
 
-  my $mod = $contents;
-  for my $key (keys %assoc) {
-
-    if($assoc{$key} =~ m/I(\d+)_(\d+)/ ) {
-      $mod =~ s/$key:R$sizes{$key}/$assoc{$key}:Imm/g;
-      $mod =~ s/getRegisterValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
-      if($sizes{$key} == 64) {
-        $mod =~ s/getParentValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
-      } else {
-        $mod =~ s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
-      }
-    } else {
-      $mod =~ s/$key/$assoc{$key}/g;
+        if ( $assoc{$key} =~ m/I(\d+)_(\d+)/ ) {
+            $mod =~ s/$key:R$sizes{$key}/$assoc{$key}:Imm/g;
+            $mod =~
+s/getRegisterValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+            if ( $sizes{$key} == 64 ) {
+                $mod =~
+s/getParentValue\($key, RSMap\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+            }
+            else {
+                $mod =~
+s/extractMInt\(getParentValue\($key, RSMap\), \d+, \d+\)/handleImmediateWithSignExtend($assoc{$key}, $immSize, $sizes{$key} )/g;
+            }
+        }
+        else {
+            $mod =~ s/$key/$assoc{$key}/g;
+        }
     }
-  }
 
-
-  open( my $fp, ">", $outfile ) or die "Can't open: $!";
-  print $fp $mod;
-  close $fp;
+    open( my $fp, ">", $outfile ) or die "Can't open: $!";
+    print $fp $mod;
+    close $fp;
 }
 
+## Find the association between 
+## execInstr (R1 R2 ..) and the tergetInst
+sub findRegisterAssoc {
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
+
+    ## Find the registre association
+    my %assoc = ();
+    my $targetinstr = getTargetInstr( $opcode, $debugprint );
+    my $operandListFromInstr_ref =
+      getOperandListFromInstr( $targetinstr, $debugprint );
+    my @operandListFromInstr = @{$operandListFromInstr_ref};
+    printArray( $operandListFromInstr_ref, "[findRegisterAssoc] Opr List", 1 );
+
+    my $counter = 1;
+    $assoc{"cf"} = "CF";
+    $assoc{"pf"} = "PF";
+    $assoc{"af"} = "AF";
+    $assoc{"zf"} = "ZF";
+    $assoc{"sf"} = "SF";
+    $assoc{"of"} = "OF";
+
+    my $koutput = "instructions_with_uif/derivedInstructions/x86-$opcode.k";
+    open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
+    my @lines = <$fp>;
+    close $fp;
+
+    my @formalList  = ();
+    my @formalSizes = ();
+    my $i = 0;
+    for my $line (@lines) {
+        chomp $line;
+
+        if($line =~ m/execinstr/) {
+          my @matches = $line =~ m/(R\d+:Rh)|(R\d+:R\d+)|(%\w+:R\d+)|(R\d+:Xmm)|(R\d+:Ymm)|(\$0x[\dabcdef]+)|(%\w+)/g;
+          for my $match (@matches) {
+#if($match =~ m/(R\d+):(R\d+)|%(\w+):(R\d+)|(R\d+):(Xmm)|(R\d+):(Ymm)|\$0x([\dabcdef]+)/) {
+            if(
+                ($match =~ m/(R\d+):(Rh)/)  or 
+                ($match =~ m/(R\d+):(R\d+)/)  or 
+                ($match =~ m/%(\w+):(R\d+)/)   or
+                ($match =~ m/%(\w+)/)   or
+                ($match =~ m/(R\d+):(Xmm)/)    or
+                ($match =~ m/(R\d+):(Ymm)/)    or
+                ($match =~ m/\$0x([\dabcdef]+)/)
+                ) {
+#print $match ."\n";
+              my $reg = $1;
+#print $match ."-$reg-\n";
+              if (defined($2) and ( $2 eq "Xmm" or $2 eq "Ymm" )) {
+                push @formalSizes, 256;
+              } else {
+                push @formalSizes, 64;
+              }
+              if($reg =~ m/R(\d+)/) {
+                $assoc{ $subRegToReg{utils::trim($operandListFromInstr[$i], "%")} } = uc($reg);
+              } else {
+                $assoc{ $subRegToReg{utils::trim($operandListFromInstr[$i], "%")} } = 
+                  uc($subRegToReg{$reg});
+              }
+              $i++;
+            }
+          }
+        }
+    }
+
+
+    print $targetinstr. "\n";
+    printMap( \%assoc, "[findRegisterAssoc]Association Map", 1 );
+    printArray( \@formalSizes, "[findRegisterAssoc]Sizes", 1 );
+
+    return ( \%assoc, \@formalSizes );
+
+}
+
+## This generates formulas for register only derived instr
+sub generateZ3Formula {
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
+
+    chomp $opcode;
+
+    utils::info("Generating Z3 formula for $opcode\n");
+    ## find the register assoc
+    my ( $assoc_ref, $formalSizes_ref ) =
+      findRegisterAssoc( $opcode, $debugprint );
+    my %assoc       = %{$assoc_ref};
+    my @formalSizes = @{$formalSizes_ref};
+
+    ## Prepare the file to write
+    # Have the declarations
+    my $decl    = "";
+    my $counter = 1;
+    for my $frml (@formalSizes) {
+        $decl = $decl . "R$counter = BitVec('R$counter', $frml)\n";
+        $counter++;
+    }
+
+    my $z3file = "z3EquivFormulas//x86-$opcode.py";
+    open( my $zfp, ">", $z3file ) or die "Can't open $z3file: $!";
+    my $template = qq(from z3 import *
+import proverUtils
+# Declarations
+CF = BitVec('CF', 1)
+PF = BitVec('PF', 1)
+AF = BitVec('AF', 1)
+ZF = BitVec('ZF', 1)
+SF = BitVec('SF', 1)
+OF = BitVec('OF', 1)
+
+RAX = BitVec('RAX', 64)
+RCX = BitVec('RCX', 64)
+RDX = BitVec('RDX', 64)
+ZERO1 = BitVecVal(0, 1)
+ONE1 = BitVecVal(1, 1)
+
+cf = (CF == ONE1)
+pf = (PF == ONE1)
+af = (AF == ONE1)
+zf = (ZF == ONE1)
+sf = (SF == ONE1)
+of = (OF == ONE1)
+
+undef = BitVecVal(0, 1)
+cvt_int32_to_single = Function('cvt_int32_to_single', IntSort(), Float32())
+
+# Uninterpreted binary function declaration
+add_double = Function('add_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+add_single = Function('add_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+sub_double = Function('sub_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+sub_single = Function('sub_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+mul_double = Function('mul_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
+
+mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
+
+# Uninterpreted binary function declaration
+approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_single = Function('approx_reciprocal_single', BitVecSort(32), BitVecSort(32))
+
+sqrt_double = Function('sqrt_double', BitVecSort(64), BitVecSort(64))
+sqrt_single = Function('sqrt_single', BitVecSort(32), BitVecSort(32))
+
+approx_reciprocal_sqrt_double = Function('approx_reciprocal_sqrt_double_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_sqrt_single = Function('approx_reciprocal_sqrt_double_single', BitVecSort(32), BitVecSort(32))
+
+cvt_single_to_double  = Function('cvt_single_to_double', BitVecSort(32), BitVecSort(64))
+cvt_single_to_int32   = Function('cvt_single_to_int32', BitVecSort(32), BitVecSort(32))
+cvt_single_to_int64   = Function('cvt_single_to_int64', BitVecSort(32), BitVecSort(64))
+cvt_int32_to_single   = Function('cvt_int32_to_single', BitVecSort(32), BitVecSort(32))
+cvt_int32_to_double   = Function('cvt_int32_to_double', BitVecSort(32), BitVecSort(64))
+
+# Uninterpreted ternary function declaration
+vfmadd132_double = Function('vfmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfmadd132_single = Function('vfmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfmsub132_double = Function('vfmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfmsub132_single = Function('vfmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfnmadd132_double = Function('vfnmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfnmadd132_single = Function('vfnmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfnmsub132_double = Function('vfnmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfnmsub132_single = Function('vfnmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+
+
+print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
+
+);
+    print $zfp $template;
+
+    my $kruleMap_ref  = convertKRuleToSMT2($opcode, $debugprint);
+    my %kruleMap = %{$kruleMap_ref};
+    my %strataBVF = ();
+
+
+    ## Find the pair of rules to match
+    my $koutput = "instructions_with_uif/derivedInstructions/x86-$opcode.k";
+    open( my $fp, "<", $koutput ) or die "Can't open $koutput: $!";
+    my @lines = <$fp>;
+    close $fp;
+
+    ## Get the BVFs
+    my $founrCircuit = 0;
+    for my $line (@lines) {
+        chomp $line;
+
+        if ( $line =~ m/Circuits:/ ) {
+            $founrCircuit = 1;
+            next;
+        }
+
+        if ( $founrCircuit == 1 ) {
+            if ( $line =~ m/(\w+)\s*: (.*)/ ) {
+                my $lhs = $1;
+                my $rhs = $2;
+
+                if (   $lhs eq "sigfpe"
+                    or $lhs eq "sigbus"
+                    or $lhs eq "sigsegv" )
+                {
+                    next;
+                }
+
+                $strataBVF{$1} = $2;
+            }
+        }
+
+    }
+
+    ## Print the formulas
+    printMap( \%kruleMap,  "Krules", $debugprint );
+    printMap( \%strataBVF, "BVF",    $debugprint );
+
+
+    ## Find the consts decls
+    my %uniq = ();
+    for my $key (sort keys %kruleMap) {
+      my @matches = $kruleMap{$key} =~ m/CONST_BV_S\d+_V\d+|CONST_BV_S\d+_VNEG\d+/g;
+      for my $match (@matches) {
+        if(
+            ($match =~ m/CONST_BV_S(\d+)_V(\d+)/) or
+            ($match =~ m/CONST_BV_S(\d+)_VNEG(\d+)/)
+            ) {
+          my $name = $match;
+          my $val = $2;
+          my $size = $1;
+          $val = -1 * $val  if ($name =~ m/VNEG/);
+#print "$name \:: $val\n";
+          if(!exists $uniq{$name}) {
+            $decl = $decl . "$name = BitVecVal($val, $size)". "\n";
+            $uniq{$name} = 1;
+          }
+        }
+      }
+    }
+
+    for my $key (sort keys %strataBVF) {
+      my @matches = $strataBVF{$key} =~ m/(<0x[\dabcdef]+\|\d+>)/g;
+      for my $match (@matches) {
+        if($match =~ m/<0x([\dabcdef]+)\|(\d+)>/) {
+          my $name = "CONST_BV_S$2_V$1";
+          if(!exists $uniq{$name}) {
+            $decl = $decl . "$name = BitVecVal(0x$1, $2)". "\n";
+            $uniq{$name} = 1;
+          }
+        }
+      }
+    }
+
+    print $zfp $decl."\n";
+
+    for my $key ( sort keys %strataBVF ) {
+        if (   $key eq "af"
+            or $key eq "pf" 
+            )
+        {
+            next;
+        }
+
+
+        
+        my $kruleMapKey = $assoc{$key};
+        if (! exists $kruleMap{ $kruleMapKey } ) {
+          $kruleMapKey = uc($key);
+        }
+
+        if ( exists $kruleMap{ $kruleMapKey } ) {
+
+            my $rule1 = $kruleMap{ $kruleMapKey };
+            if( 
+                $key eq "af" or
+                $key eq "pf" or
+                $key eq "sf" or
+                $key eq "zf" or
+                $key eq "of" or
+                $key eq "cf" 
+                ) {
+                  $rule1 = $rule1 . " == ONE1";
+            }
+            print $zfp "PK_" . $kruleMapKey . " = " . $rule1 . "\n"; 
+
+
+            my $rule2 = convertBVFToSMT2( $strataBVF{$key}, \%assoc, $debugprint );
+
+            print $zfp "PS_" . $kruleMapKey . " = " . $rule2 . "\n"; 
+            print $zfp "proverUtils.prove( PK_$kruleMapKey == PS_$kruleMapKey )\n\n";
+        } else {
+          utils::failInfo("$opcode: No K rule $kruleMapKey for S rule $key\n");
+
+        }
+    }
+
+    close $zfp;
+
+}
+
+sub convertBVFToSMT2 {
+    my $rule       = shift @_;
+    my $assoc_ref  = shift @_;
+    my $debugprint = shift @_;
+
+    return preProcessBVFToSMT2($rule, $assoc_ref, $debugprint);
+}
+
+sub preProcessBVFToSMT2 {
+    my $rule       = shift @_;
+    my $assoc_ref  = shift @_;
+    my $debugprint = shift @_;
+
+    utils::info("Converting Stratas rule to SMT");
+    my %assoc = %{$assoc_ref};
+
+    debugInfo("Before removing Consts: $rule\n\n", $debugprint);
+    $rule =~ s/<0x([\dabcdef]+)\|(\d+)>/(CONST_BV_S$2_V$1)/g;
+    $rule =~ s/FALSE/(False)/g;
+    $rule =~ s/TRUE/(True)/g;
+    $rule =~ s/<TMP_BOOL_0>/(False)/g;
+    $rule =~ s/<TMP_BOOL_1>/(True)/g;
+    $rule =~ s/<%(\w+)>/($1)/g;
+    debugInfo("After removing Consts: $rule\n\n", $debugprint);
+
+    while(1) {
+      if($rule =~ m/<%(\w+)\|(\d+)>/) {
+        my $r = $1;
+        my $s = $2;
+        if( 
+            $r eq "af" or
+            $r eq "pf" or
+            $r eq "sf" or
+            $r eq "zf" or
+            $r eq "of" or
+            $r eq "cf" 
+            ) {
+              $rule =~ s/<$r\|$s>/$r/g;
+        } else {
+              if(exists $assoc{$r}) {
+#      print "0.". $rule."\n";
+#                $rule =~ s/<%$r\|$s>(\[\d+:\d+\])/(($assoc{$r})$1)/g;
+#      print "1.". $rule."\n";
+                $rule =~ s/<%$r\|$s>/($assoc{$r})/g;
+#      print "2.". $rule."\n";
+              } else {
+                my $t =  uc($r);
+#                $rule =~ s/<%$r\|$s>(\[\d+:\d+\])/(($t)$1)/g;
+                $rule =~ s/<%$r\|$s>/($t)/g;
+              }
+
+        }
+      } else {
+        last;
+      }
+    }
+    debugInfo("After removing syms: $rule\n\n", $debugprint);
+    ## we dont want to replace <%cf> to (CF == ONE1) at this point 
+    ## as this will break the format of the rule (op () ()) and
+    ## introduce (a == ONE1)
+
+    ## Replace cvt_single_to_double
+    debugInfo("[PreProcessBVFToSMT2]Before Rule: $rule\n\n", $debugprint);
+
+    ## Fix a strata's bug
+    $rule =~ s/vnfmsub132_double/vfnmsub132_double/g;
+
+    ## Format change OP(R1,R2) => (OP R1 R2)
+    my $prevRule = $rule;
+    while(1) {
+      $rule =~ s/($uif_terop)\((.*?, .*?, .*?)\)/($1 $2)/;
+      $rule =~ s/($uif_binop)\((.*?, .*?)\)/($1 $2)/;
+      $rule =~ s/($uif_uop)\((.*?)\)/($1 $2)/;
+
+      if ($prevRule eq $rule) {
+        last
+      } else {
+#print $prevRule . "\n". $rule . "\n\n";
+      }
+      $prevRule = $rule;
+    }
+
+    debugInfo("[PreProcessBVFToSMT2]After Rule: $rule\n\n", $debugprint);
+    $rule = convertBVFToSMT2_helper($rule);
+
+    
+    utils::info("Done");
+    return $rule;
+}
+
+
+#
+# BVF2SMT
+#
+sub convertBVFToSMT2_helper {
+    my $rule       = shift @_;
+    my $debugprint = 0;
+
+
+    debugInfo("[convertBVFToSMT2_helper] ->$rule\n", $debugprint);
+
+    if(
+        $rule =~ m/^\(CONST_BV_S(\d+)_V(\d+)\)$/ or 
+        $rule =~ m/^\(CONST_BV_S(\d+)_VNEG(\d+)\)$/ or 
+        $rule =~ m/^\(R(\d+)\)$/ or
+        $rule =~ m/^\(R(\d+)\)$/ 
+        ) {
+      debugInfo("[convertBVFToSMT2_helper]  Base\n", $debugprint);
+      return $rule;
+    }
+
+
+    debugInfo("[convertBVFToSMT2_helper] Non Base\n", $debugprint);
+
+    if($rule =~ m/^(.+)\[(\d+):(\d+)\]$/) {
+      my $arg   = $1;
+      my $high  = $2;
+      my $low   = $3;
+      debugInfo("[convertBVFToSMT2_helper] Processing $arg with extract\n", $debugprint);
+
+      $rule = "(Extract ($high, $low, (" . convertBVFToSMT2_helper($arg) . ")))";
+    }
+
+    ## Process normal operators
+    my $bin_op = qr/==|plus|concat|and|not|or|xor|sign-extend-\d+|if|cvt_single_to_double|s_shr|&|\||\^|<=|>=|<<|>>/;
+    if($rule =~ m/^\(($bin_op) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing $op wo extract\n", $debugprint);
+
+      if($op eq "plus") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " + " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "==") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " == " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "&") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " & " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "|") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " | " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "^") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " ^ " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "concat") {
+        $rule = "(Concat(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "and") {
+        $rule = "(And(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "or") {
+        $rule = "(Or(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "xor") {
+        $rule = "(Xor(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq ">=") {
+        $rule = "(UGE(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq ">") {
+        $rule = "(UGT(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "<=") {
+        $rule = "(ULE(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "<") {
+        $rule = "(ULT(" . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+      if($op eq "not") {
+        $rule = "(Not(" . convertBVFToSMT2_helper($retargs[0]) . "))";
+      }
+      if($op =~ m/sign-extend-(\d+)/) {
+        my $n = $1;
+        $rule = "(SignExt( $n - " . convertBVFToSMT2_helper($retargs[0]) . ".size(), " . convertBVFToSMT2_helper($retargs[0]) . "))";
+      }
+      if($op eq "if") {
+        $rule = "(If( " . convertBVFToSMT2_helper($retargs[0]) . "," . convertBVFToSMT2_helper($retargs[1]) . 
+          "," . convertBVFToSMT2_helper($retargs[2]) . "))";
+      }
+      if($op eq "s_shr") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " >> " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq "<<") {
+        $rule = "(" . convertBVFToSMT2_helper($retargs[0]) . " << " . convertBVFToSMT2_helper($retargs[1]). ")";
+      }
+      if($op eq ">>") {
+        $rule = "(LShR( " . convertBVFToSMT2_helper($retargs[0]) . ", " . convertBVFToSMT2_helper($retargs[1]). "))";
+      }
+    }
+
+    ## Process UIFs
+    if($rule =~ m/^\(($uif_uop) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
+
+
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]) . "))";
+    }
+
+    if($rule =~ m/^\(($uif_binop) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
+
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]). ", ". convertBVFToSMT2_helper($retargs[1]) . "))";
+    }
+
+    if($rule =~ m/^\(($uif_terop) (.+)\)$/) {
+      my $op   = $1;
+      my $args = $2;
+
+      my $args_ref = mineArgs($args, $debugprint);
+
+
+      my @retargs = @{$args_ref};
+      debugInfo("[convertBVFToSMT2_helper] Processing UIF $op\n", $debugprint);
+
+      $rule = "( $op ( " . convertBVFToSMT2_helper($retargs[0]). ", " . convertBVFToSMT2_helper($retargs[1]) . ", " . convertBVFToSMT2_helper($retargs[2]) .  "))";
+    }
+    debugInfo("[convertBVFToSMT2_helper] Transformed rule $rule\n", $debugprint);
+
+
+    return $rule;
+}
+
+## Parse inputs of the form (.*) (*) (.*) ...
+sub mineArgs {
+   my $args       = shift @_;
+   my $debugprint = shift @_;
+   $debugprint = 0;
+
+   debugInfo( "[mineArgs]$args\n", $debugprint);
+   my @arr = split( //, $args );
+   my $inArgs = 0;
+   my @retArgs = ();
+ 
+   my $op_arg = "";
+   my $counter = 0;
+   for ( my $i = 0 ; $i < scalar(@arr) ; $i++ ) {
+#print $arr[$i] . "-$i" . "/" . scalar(@arr). "-";
+        if($arr[$i] ne "(" and $inArgs == 0) {
+          next;
+        }
+        if ( $arr[$i] eq "(" ) {
+            $inArgs = 1;
+            $counter++;
+        }
+        if ( $arr[$i] eq ")" ) {
+            $counter--;
+        }
+        $op_arg = $op_arg . $arr[$i];
+
+        if ($counter == 0 ) {
+            $inArgs = 0;
+#            print "*";
+
+            if(($i+1) < scalar(@arr) and ($arr[$i+1] eq "[")) {
+              # Add the extraction [h:l]
+              my $k = $i+1;
+              for ( ; $k < scalar(@arr) ; $k++ ) {
+#        print $arr[$k] . " ";
+                $op_arg = $op_arg . $arr[$k];
+                if($arr[$k] eq "]") {
+                  $i = $k;
+                  last;
+                }
+              }
+            }
+            push @retArgs, $op_arg;
+            $op_arg = "";
+        }
+    }
+
+   printArray(\@retArgs, "\n[mineArgs]Return:", $debugprint);
+
+   return \@retArgs;
+
+}
+
+sub convertKRuleToSMT2 {
+    my $opcode       = shift @_;
+    my $debugprint = shift @_;
+
+    utils::info("Converting K rule to SMT");
+
+    chomp $opcode;
+    my $specfile   = "kproveSpecs/x86-semantics_${opcode}_spec.k";
+    my $specoutput = "instructions_with_uif/kproveOutput/x86-semantics_${opcode}_spec.output";
+
+    my ( $rsmap_ref, $rev_rsmap_ref, $reglines_ref ) =
+      kutils::processSpecOutput( $specoutput, $debugprint );
+
+    my $returnInfo =
+      kutils::sanitizeSpecOutput( $opcode, $rsmap_ref, $rev_rsmap_ref,
+        $reglines_ref, \$specfile, \$debugprint, 1 );
+
+    my %retMap = ();
+
+    printArray(\@{scalarToArray($returnInfo, "\n")}, "[convertKRuleToSMT2]", $debugprint);
+
+    for my $item (@{scalarToArray($returnInfo, "\n")}) {
+        chomp $item;
+        trim($item);
+
+        if ( $item eq "" ) {
+            next;
+        }
+        my @splt = split( "\\|->", $item );
+        $splt[0] = trim( $splt[0]);
+        $splt[1] = trim( $splt[1]);
+
+        if($splt[0] =~m/"(\w+)"/) {
+          $retMap{$1} = convertKRuleToSMT2_helper($splt[1]);  
+        } 
+        if($splt[0] =~m/convToRegKeys\((\w+)\)/ ) {
+          $retMap{$1} = convertKRuleToSMT2_helper($splt[1]);
+        } 
+    }
+    utils::info("Done\n");
+
+    return \%retMap;
+
+}
+
+
+#
+# K2SMT
+#
+sub convertKRuleToSMT2_helper {
+  my $rule       = shift @_;
+  my $debugprint = shift @_;
+
+  utils::info("In convertKRuleToSMT2_helper");
+
+#$debugprint = 1;
+
+    $rule =~ s/mi\((\d+), (\d+)\)/(CONST_BV_S$1_V$2)/g;
+    $rule =~ s/mi\((\d+), -(\d+)\)/(CONST_BV_S$1_VNEG$2)/g;
+    $rule =~ s/concatenateMInt/Concat/g;
+    $rule =~ s/notBool/Not/g;
+    $rule =~ s/true/True/g;
+    $rule =~ s/false/False/g;
+
+     my $bin_op = (
+qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|svalueMInt/
+    );
+    my $arg = $rule;
+    my %cnt = (
+        "addMInt" => 0,
+        "andMInt" => 0,
+        "eqMInt" => 0,
+        "ultMInt" => 0,
+        "extractMInt" => 0,
+        "svalueMInt" => 0,
+        "xorMInt" => 0,
+        "orMInt" => 0,
+        );
+
+    while (1) {
+        my $op = "";
+        my $pre = "";
+        my $post = "";
+
+        utils::info("Before");
+        if ( $arg =~ m/(.+)(xorMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(ultMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(eqMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(orMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(addMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(andMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(svalueMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(extractMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        }
+        elsif ( $arg =~ m/(.+)(lshrMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(ashrMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(shlMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } else {
+          last;
+        }
+
+#        elsif ($arg =~ m/(.+)(extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|svalueMInt)(.+)/) {
+#          $pre  = $1;
+#          $op   = $2;
+#          $post = $3;
+#
+#        } else {
+#          last;
+#        }
+        utils::info("After2");
+
+        debugInfo( "\n\nGot Binary op: $op\n", 1 );
+        debugInfo( "\n\nBefore Rule: $arg\n", 1 );
+$cnt{$op}++;
+        printMap(\%cnt, "op count map", 1);
+
+
+        utils::info("Before selectbraces");
+        my ( $op_arg, $rest ) = selectbraces( $post, 1 );
+        utils::info("After selectbraces");
+
+        debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+        debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+        my @args = ();
+#        utils::info("Before findArgs");
+        if ( 
+            $op eq "extractMInt" 
+            ) {
+            @args = findArgs( $op_arg, 3 );
+        } elsif(
+            $op eq "svalueMInt"
+            ) {
+            @args = findArgs( $op_arg, 1);
+        }
+        else {
+            @args = findArgs( $op_arg, 2 );
+        }
+#        utils::info("After findArgs");
+
+        for(my $i = 0 ; $i < scalar(@args); $i++) {
+          $args[$i] = utils::trim($args[$i]);    
+          debugInfo( "Arg$i: " . $args[$i] . "\n", $debugprint );
+        }
+
+        if ( $op eq "eqMInt" ) {
+            $arg = $pre . "( $args[0] == $args[1] ) $rest";
+        }
+        if ( $op eq "addMInt" ) {
+            $arg = $pre . "( $args[0] + $args[1] ) $rest";
+        }
+        if ( $op eq "ultMInt" ) {
+            $arg = $pre . "ULT( $args[0], $args[1] ) $rest";
+        }
+        if ( $op eq "svalueMInt" ) {
+            $arg = $pre . "BV2Int( $args[0], is_signed=True) $rest";
+        }
+        if ( $op eq "orMInt" ) {
+            $arg = $pre . "( $args[0] | $args[1] ) $rest";
+        }
+        if ( $op eq "andMInt" ) {
+            $arg = $pre . "( $args[0] & $args[1] ) $rest";
+        }
+        if ( $op eq "xorMInt" ) {
+            $arg = $pre . "( $args[0] ^ $args[1] ) $rest";
+        }
+        if ( $op eq "andBool" ) {
+            $arg = $pre . "And" . "( $args[0] , $args[1] ) $rest";
+        }
+        if ( $op eq "orBool" ) {
+            $arg = $pre . "Or" . "( $args[0] , $args[1] ) $rest";
+        }
+        if ( $op eq "extractMInt" ) {
+            my $size  = $args[0] . ".size()";
+            my $start = $args[1];
+            my $end   = $args[2];
+            $arg =
+                $pre 
+              . "Extract"
+              . "( $size - $start - 1, $size - $end, $args[0]  ) $rest";
+        }
+        if ( $op eq "ashrMInt" ) {
+            $args[1] =~ s/^uvalueMInt//;
+            if($args[1] =~ m/^(\d+)$/) {
+              $arg = $pre . "( $args[0] >> BitVecVal($args[1], $args[0].size()) ) $rest";
+            } else {
+              $arg = $pre . "( $args[0] >> Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            }
+        }
+        if ( $op eq "lshrMInt" ) {
+            $args[1] =~ s/^uvalueMInt//;
+            if($args[1] =~ m/^(\d+)$/) {
+              $arg = $pre . "LShR( $args[0], BitVecVal($args[1], $args[0].size())) $rest";
+            } else {
+              $arg = $pre . "LShR( $args[0], Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            }
+        }
+        if ( $op eq "shlMInt" ) {
+            $args[1] =~ s/^uvalueMInt//;
+            if($args[1] =~ m/^(\d+)$/) {
+              $arg = $pre . "( $args[0] <<  BitVecVal($args[1], $args[0].size())) $rest";
+            } else {
+              $arg = $pre . "( $args[0] << Concat( BitVecVal(0, $args[0].size() - $args[1].size()), $args[1]) ) $rest";
+            }
+        }
+
+        debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
+    }
+    $rule = $arg;
+    
+    ## Remove Sign Extension
+
+#$debugprint = 1;
+    $arg = $rule;
+    while (1) {
+        my $n = "";
+        my $pre = "";
+        my $post = "";
+
+        if ( $arg =~ m/(.+)mi\((\d+), BV2Int(.+)/ ) {
+          $pre  = $1;
+          $n  = $2;
+          $post = $3;
+        } else {
+          last;
+        }
+
+        my $actualPost = "($n, BV2Int$post";
+
+        debugInfo( "\n\nGot SExt:\n", $debugprint );
+        debugInfo( "\n\nBefore Rule : $arg\n", $debugprint );
+        debugInfo( "\n\nBefore Rule Pre: $pre\n", $debugprint );
+        debugInfo( "\n\nBefore Rule Post: $actualPost\n", $debugprint );
+
+        my ( $op_arg, $rest ) = selectbraces( $actualPost, 1 );
+
+        debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
+        debugInfo( "Rest: " . $rest . "\n",  $debugprint );
+
+        my @args =  findArgs( $op_arg, 2 );
+
+        debugInfo( "Arg1: " . $args[0] . "\n", $debugprint );
+        debugInfo( "Arg2: " . $args[1] . "\n", $debugprint );
+
+        ## $args[1] contain svalueMInt to be removed
+        $args[1] =~ s/^BV2Int//;
+        $args[1] =~ s/, is\_signed=True//;
+        $args[1] = utils::trim($args[1]);
+
+        $arg =  $pre . 
+                "SignExt(" . 
+                $args[0] .  
+                " - " . 
+                $args[1] . 
+                ".size(), " . 
+                $args[1] . 
+                ")" . 
+                $rest;
+        debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
+    }
+
+
+    $rule = $arg;
+    $rule =~ s/getParentValue\(%(\w+), RSMap\)/uc($1)/ge;
+    $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
+    $rule =~ s/getFlag\("(\w+)", RSMap\)/$1/g;
+      
+    utils::info("Out convertKRuleToSMT2_helper");
+    return $rule;
+}
+
+
+
 1;
+
+
