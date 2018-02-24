@@ -99,7 +99,7 @@ PK_OF = ((If (( (And( ( Extract( RAX.size() - 56 - 1, RAX.size() - 57, RAX  )  =
 PS_OF = (And((((Extract (7, 7, ((RAX)))) == (CONST_BV_S1_V1)) == (((CONST_BV_S1_V1) ^ (Extract (7, 7, ((R2))))) == (CONST_BV_S1_V1))), (Not((((Extract (7, 7, ((RAX)))) == (CONST_BV_S1_V1)) == ((Extract (7, 7, ((((Concat((CONST_BV_S1_V0), (Extract (7, 0, ((RAX)))))) + (CONST_BV_S9_V1)) + (Concat((CONST_BV_S1_V0), ((CONST_BV_S8_Vff) ^ (Extract (7, 0, ((R2))))))))))) == (CONST_BV_S1_V1)))))))
 proverUtils.prove( PK_OF == PS_OF )
 
-PK_RAX = (RAX )
+PK_RAX = (Concat(Extract( RAX.size() - 0 - 1, RAX.size() - 56, RAX  ) , Extract( R2.size() - 56 - 1, R2.size() - 64, R2  ) ) )
 PS_RAX = (Concat((Extract (63, 8, ((RAX)))), (Extract (7, 0, ((R2))))))
 proverUtils.prove( PK_RAX == PS_RAX )
 

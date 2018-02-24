@@ -694,7 +694,7 @@ cmovnlew_r16_r16	10	102
 cmovnoq_r64_r64	10	412:PLUS
 cmovoq_r64_r64	10	412:PLUS
 cmovsq_r64_r64	10	412					
-cmpxchgb_r8_r8	10	380:Must Schedule:Z3 Pending					
+cmpxchgb_r8_r8	10	380:Must Schedule
 movmskps_r64_xmm	10	287					
 pmovzxwd_xmm_xmm	10	415					
 vfmaddsub231pd_xmm_xmm_xmm	10	422					
@@ -710,7 +710,7 @@ cmovngeq_r64_r64	11	393
 cmovnlq_r64_r64	11	398:PLUS
 cmovnsq_r64_r64	11	394					
 cmovpoq_r64_r64	11	524:C:PLUS
-cmpxchgb_r8_rh	11	383:Z3 Pending
+cmpxchgb_r8_rh	11	383:Must Schedule
 pmovsxwd_xmm_xmm	11	1676					
 pmovzxbd_xmm_xmm	11	515					
 psubd_xmm_xmm	11	782:US					
