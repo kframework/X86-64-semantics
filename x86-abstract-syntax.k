@@ -71,7 +71,8 @@ module X86-ASBTRACT-SYNTAX
   /*@ 
     Check if two registers are the same
   */  
-  syntax Bool ::= sameRegisters(Register, Register) [function]
+  syntax Bool ::= sameRegisters(Register, Register) [function, klabel(registerargs)]
+  syntax Bool ::= sameRegisters(Register, String) [function, klabel(nonregisterargs)]
 
   /*@ 
     setRegisterBitsAtPositon(MI, R, P) 

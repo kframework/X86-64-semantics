@@ -638,8 +638,8 @@ cmpb_rh_r8	8	292
 cmpb_rh_rh	8	252
 cmpl_r32_r32	8	200
 cmpw_r16_r16	8	405
-cmpxchgb_rh_rh	8	371: WHat about same keys
-cmpxchgq_r64_r64	8	135: WHat about same keys
+cmpxchgb_rh_rh	8	371:Must Schedule
+cmpxchgq_r64_r64	8:Must Schedule	
 haddps_xmm_xmm	8	211					
 phsubd_xmm_xmm	8	582					
 psubq_xmm_xmm	8	204					
