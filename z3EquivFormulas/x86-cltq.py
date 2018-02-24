@@ -77,7 +77,7 @@ vfnmsub132_single = Function('vfnmsub132_single', BitVecSort(32), BitVecSort(32)
 print('[6;30;44m' + 'Opcode:cltq' + '[0m')
 
 
-PK_RAX = (SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ))) )
+PK_RAX = (SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) )) )
 PS_RAX = (SignExt( 64 - (Extract (31, 0, ((RAX)))).size(), (Extract (31, 0, ((RAX))))))
 proverUtils.prove( PK_RAX == PS_RAX )
 

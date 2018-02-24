@@ -82,7 +82,7 @@ CONST_BV_S8_V0 = BitVecVal(0, 8)
 CONST_BV_S9_V1 = BitVecVal(0x1, 9)
 CONST_BV_S9_V0 = BitVecVal(0x0, 9)
 
-PK_R2 = ((If ((( Extract( ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 1 - 1, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 9, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) )  ) == (CONST_BV_S8_V0) )  ) , ( R1 ) , ( R2 ) ))  )
+PK_R2 = ((If ((( Extract( ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 1 - 1, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 9, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) )  )  == (CONST_BV_S8_V0) )  ) , ( R1 ) , ( R2 ) ))  )
 PS_R2 = (If( ((Extract (7, 0, (((If( (zf),(CONST_BV_S9_V1),(CONST_BV_S9_V0))) + (If( (zf),(CONST_BV_S9_V1),(CONST_BV_S9_V0))))))) == (CONST_BV_S8_V0)),(R1),(R2)))
 proverUtils.prove( PK_R2 == PS_R2 )
 

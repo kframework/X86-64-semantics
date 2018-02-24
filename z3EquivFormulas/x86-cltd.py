@@ -78,7 +78,7 @@ print('[6;30;44m' + 'Opcode:cltd' + '[0m')
 
 CONST_BV_S32_V0 = BitVecVal(0, 32)
 
-PK_RDX = (Concat((CONST_BV_S32_V0), ( Extract( SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ))).size() - 0 - 1, SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ))).size() - 32, SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  )))  )  ^ (CONST_BV_S32_V0) ) ) )
+PK_RDX = (Concat((CONST_BV_S32_V0), ( Extract( SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) )).size() - 0 - 1, SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) )).size() - 32, SignExt(64 - ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 32 - 1, RAX.size() - 64, RAX  ) ))  )  ^ (CONST_BV_S32_V0) ) ) )
 PS_RDX = (Concat((CONST_BV_S32_V0), ((CONST_BV_S32_V0) ^ (Extract (63, 32, ((SignExt( 64 - (Extract (31, 0, ((RAX)))).size(), (Extract (31, 0, ((RAX))))))))))))
 proverUtils.prove( PK_RDX == PS_RDX )
 

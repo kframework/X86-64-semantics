@@ -78,9 +78,5 @@ print('[6;30;44m' + 'Opcode:vmovdqu_xmm_xmm' + '[0m')
 
 R1 = BitVec('R1', 256)
 R2 = BitVec('R2', 256)
-CONST_BV_S128_V0 = BitVecVal(0, 128)
-
-PK_R2 = (Concat((CONST_BV_S128_V0), Extract( R1.size() - 128 - 1, R1.size() - 256, R1  ) ) )
-PS_R2 = (Concat((CONST_BV_S128_V0), (Extract (127, 0, ((R1))))))
-proverUtils.prove( PK_R2 == PS_R2 )
+CONST_BV_S128_V0 = BitVecVal(0x0, 128)
 

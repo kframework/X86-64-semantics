@@ -79,7 +79,7 @@ print('[6;30;44m' + 'Opcode:movsbw_r16_r8' + '[0m')
 R1 = BitVec('R1', 64)
 R2 = BitVec('R2', 64)
 
-PK_R2 = (Concat(Extract( R2.size() - 0 - 1, R2.size() - 48, R2  ) , Extract( SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ))).size() - 48 - 1, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ))).size() - 64, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )))  ) ) )
+PK_R2 = (Concat(Extract( R2.size() - 0 - 1, R2.size() - 48, R2  ) , Extract( SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) )).size() - 48 - 1, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) )).size() - 64, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ))  ) ) )
 PS_R2 = (Concat((Extract (63, 16, ((R2)))), (Extract (15, 0, ((SignExt( 64 - (Extract (7, 0, ((R1)))).size(), (Extract (7, 0, ((R1)))))))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 

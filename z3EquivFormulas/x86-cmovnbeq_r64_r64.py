@@ -82,7 +82,7 @@ CONST_BV_S1_V0 = BitVecVal(0, 1)
 CONST_BV_S8_V0 = BitVecVal(0, 8)
 CONST_BV_S8_V1 = BitVecVal(0x1, 8)
 
-PK_R2 = ((If (((If ((( ZF == (CONST_BV_S1_V0) )  ) , ( ( Extract( ( Concat((CONST_BV_S8_V0), CF) + Concat((CONST_BV_S8_V0), CF) ).size() - 1 - 1, ( Concat((CONST_BV_S8_V0), CF) + Concat((CONST_BV_S8_V0), CF) ).size() - 9, ( Concat((CONST_BV_S8_V0), CF) + Concat((CONST_BV_S8_V0), CF) )  ) == (CONST_BV_S8_V0) )  ) , ( ( Extract( ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 1 - 1, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 9, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) )  ) == (CONST_BV_S8_V0) )  ) )) ) , ( R1 ) , ( R2 ) ))  )
+PK_R2 = ((If (((If ((( ZF == (CONST_BV_S1_V0) )  ) , ( ( Extract( ( Concat((CONST_BV_S8_V0), CF) + Concat((CONST_BV_S8_V0), CF) ).size() - 1 - 1, ( Concat((CONST_BV_S8_V0), CF) + Concat((CONST_BV_S8_V0), CF) ).size() - 9, ( Concat((CONST_BV_S8_V0), CF) + Concat((CONST_BV_S8_V0), CF) )  )  == (CONST_BV_S8_V0) )  ) , ( ( Extract( ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 1 - 1, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) ).size() - 9, ( Concat((CONST_BV_S8_V0), ZF) + Concat((CONST_BV_S8_V0), ZF) )  )  == (CONST_BV_S8_V0) )  ) )) ) , ( R1 ) , ( R2 ) ))  )
 PS_R2 = (If( ((Extract (7, 0, (((Concat((CONST_BV_S1_V0), (If( (zf),(If( (zf),(CONST_BV_S8_V1),(CONST_BV_S8_V0))),(If( (cf),(CONST_BV_S8_V1),(CONST_BV_S8_V0))))))) + (Concat((CONST_BV_S1_V0), (If( (zf),(If( (zf),(CONST_BV_S8_V1),(CONST_BV_S8_V0))),(If( (cf),(CONST_BV_S8_V1),(CONST_BV_S8_V0))))))))))) == (CONST_BV_S8_V0)),(R1),(R2)))
 proverUtils.prove( PK_R2 == PS_R2 )
 
