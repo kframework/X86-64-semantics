@@ -29,7 +29,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 )
 
     </regstate>
-      requires not sameRegsters(R2, "RAX")
+      requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
     execinstr (cmpxchgb R1:Rh, R2:Rh,  .Typedoperands) => .
@@ -54,7 +54,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 )
 
     </regstate>
-      requires sameRegsters(R2, "RAX")
+      requires sameRegisters(R2, "RAX")
 endmodule
 
 module CMPXCHGB-RH-RH-SEMANTICS
