@@ -96,11 +96,11 @@ PK_R2 = (( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).
 PS_R2 = (Extract (64, 1, (((Concat((R2), (CONST_BV_S1_V0))) >> (Concat((CONST_BV_S57_V0), (CONST_BV_S8_V1)))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 
-PK_SF = (Extract( ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) ).size() - 0 - 1, ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) ).size() - 1, ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) )  )  ) == ONE1
+PK_SF = (Extract( ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) ) .size() - 0 - 1, ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) ) .size() - 1, ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) )   )  ) == ONE1
 PS_SF = ((Extract (64, 64, (((Concat((R2), (CONST_BV_S1_V0))) >> (Concat((CONST_BV_S57_V0), (CONST_BV_S8_V1))))))) == (CONST_BV_S1_V1))
 proverUtils.prove( PK_SF == PS_SF )
 
-PK_ZF = ((If ((( ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) ) == (CONST_BV_S64_V0) )  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))    ) == ONE1
+PK_ZF = ((If ((( ( SignExt(64 - ( R2).size(), ( R2)) >> BitVecVal(1, SignExt(64 - ( R2).size(), ( R2)).size()) )  == (CONST_BV_S64_V0) )  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))    ) == ONE1
 PS_ZF = ((Extract (64, 1, (((Concat((R2), (CONST_BV_S1_V0))) >> (Concat((CONST_BV_S57_V0), (CONST_BV_S8_V1))))))) == (CONST_BV_S64_V0))
 proverUtils.prove( PK_ZF == PS_ZF )
 

@@ -84,7 +84,7 @@ CONST_BV_S1_V1 = BitVecVal(1, 1)
 CONST_BV_S8_V0 = BitVecVal(0, 8)
 CONST_BV_S5_V1 = BitVecVal(0x1, 5)
 
-PK_OF = ((If (( (And( ( (CONST_BV_S1_V0) == Extract( R1.size() - 56 - 1, R1.size() - 57, R1  ) ) ,  (Not  ( ( (CONST_BV_S1_V0) == Extract( ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 1 - 1, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 2, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) )  ) )  ))  ))  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))  ) == ONE1
+PK_OF = ((If (( (And( ( (CONST_BV_S1_V0) == Extract( R1.size() - 56 - 1, R1.size() - 57, R1  )  ) ,  (Not  ( ( (CONST_BV_S1_V0) == Extract( ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 1 - 1, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 2, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) )  )  )  ))  ))  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))  ) == ONE1
 PS_OF = (And(((False) == ((Extract (7, 7, ((R1)))) == (CONST_BV_S1_V1))), (Not(((False) == ((Extract (7, 7, (((CONST_BV_S9_V1) + (Concat((CONST_BV_S1_V0), (Extract (7, 0, ((R1)))))))))) == (CONST_BV_S1_V1)))))))
 proverUtils.prove( PK_OF == PS_OF )
 
@@ -96,7 +96,7 @@ PK_SF = (Extract( ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size
 PS_SF = ((Extract (7, 7, (((CONST_BV_S9_V1) + (Concat((CONST_BV_S1_V0), (Extract (7, 0, ((R1)))))))))) == (CONST_BV_S1_V1))
 proverUtils.prove( PK_SF == PS_SF )
 
-PK_ZF = ((If ((( Extract( ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 1 - 1, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 9, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) )  ) == (CONST_BV_S8_V0) )  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))    ) == ONE1
+PK_ZF = ((If ((( Extract( ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 1 - 1, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) ).size() - 9, ( (CONST_BV_S9_V1) + Concat((CONST_BV_S1_V0), Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ) )  )  == (CONST_BV_S8_V0) )  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))    ) == ONE1
 PS_ZF = ((Extract (7, 0, (((CONST_BV_S9_V1) + (Concat((CONST_BV_S1_V0), (Extract (7, 0, ((R1)))))))))) == (CONST_BV_S8_V0))
 proverUtils.prove( PK_ZF == PS_ZF )
 

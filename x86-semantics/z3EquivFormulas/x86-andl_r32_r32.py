@@ -90,15 +90,15 @@ PK_OF = ((CONST_BV_S1_V0) ) == ONE1
 PS_OF = (False)
 proverUtils.prove( PK_OF == PS_OF )
 
-PK_R2 = (Concat((CONST_BV_S32_V0), ( Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  ) | Extract( R1.size() - 32 - 1, R1.size() - 64, R1  ) )  ) ) ) )
+PK_R2 = (Concat((CONST_BV_S32_V0), ( Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  )  | Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  )  ) ) ) )
 PS_R2 = (Concat((CONST_BV_S32_V0), ((((Extract (31, 0, ((R1)))) | (Extract (31, 0, ((R2))))) ^ (Extract (31, 0, ((R2))))) ^ (Extract (31, 0, ((R1)))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 
-PK_SF = (( Extract( R1.size() - 32 - 1, R1.size() - 33, R1  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 33, R2  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 33, R2  ) | Extract( R1.size() - 32 - 1, R1.size() - 33, R1  ) )  ) )  ) == ONE1
+PK_SF = (( Extract( R1.size() - 32 - 1, R1.size() - 33, R1  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 33, R2  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 33, R2  )  | Extract( R1.size() - 32 - 1, R1.size() - 33, R1  )  )  ) )  ) == ONE1
 PS_SF = (((((Extract (31, 31, ((R1)))) | (Extract (31, 31, ((R2))))) ^ (Extract (31, 31, ((R2))))) ^ (Extract (31, 31, ((R1))))) == (CONST_BV_S1_V1))
 proverUtils.prove( PK_SF == PS_SF )
 
-PK_ZF = ((If ((( ( Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  ) | Extract( R1.size() - 32 - 1, R1.size() - 64, R1  ) )  ) ) == (CONST_BV_S32_V0) )  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))    ) == ONE1
+PK_ZF = ((If ((( ( Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  )  ^ ( Extract( R2.size() - 32 - 1, R2.size() - 64, R2  )  | Extract( R1.size() - 32 - 1, R1.size() - 64, R1  )  )  ) ) == (CONST_BV_S32_V0) )  ) , ( (CONST_BV_S1_V1) ) , ( (CONST_BV_S1_V0) ) ))    ) == ONE1
 PS_ZF = (((((Extract (31, 0, ((R1)))) | (Extract (31, 0, ((R2))))) ^ (Extract (31, 0, ((R2))))) ^ (Extract (31, 0, ((R1))))) == (CONST_BV_S32_V0))
 proverUtils.prove( PK_ZF == PS_ZF )
 

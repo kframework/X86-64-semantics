@@ -95,7 +95,7 @@ PK_R3 = (( R2 ^ ( R2 | R1 )  )  )
 PS_R3 = (((R1) | (R2)) ^ (R2))
 proverUtils.prove( PK_R3 == PS_R3 )
 
-PK_SF = (( Extract( R2.size() - 0 - 1, R2.size() - 1, R2  )  ^ ( Extract( R2.size() - 0 - 1, R2.size() - 1, R2  ) | Extract( R1.size() - 0 - 1, R1.size() - 1, R1  ) )  )  ) == ONE1
+PK_SF = (( Extract( R2.size() - 0 - 1, R2.size() - 1, R2  )  ^ ( Extract( R2.size() - 0 - 1, R2.size() - 1, R2  )  | Extract( R1.size() - 0 - 1, R1.size() - 1, R1  )  )  )  ) == ONE1
 PS_SF = ((((Extract (63, 63, ((R1)))) | (Extract (63, 63, ((R2))))) ^ (Extract (63, 63, ((R2))))) == (CONST_BV_S1_V1))
 proverUtils.prove( PK_SF == PS_SF )
 

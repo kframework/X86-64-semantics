@@ -80,7 +80,7 @@ R1 = BitVec('R1', 64)
 R2 = BitVec('R2', 64)
 CONST_BV_S32_V0 = BitVecVal(0, 32)
 
-PK_R2 = (Concat((CONST_BV_S32_V0), Extract( SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ))).size() - 32 - 1, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ))).size() - 64, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  )))  ) ) )
+PK_R2 = (Concat((CONST_BV_S32_V0), Extract( SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) )).size() - 32 - 1, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) )).size() - 64, SignExt(64 - ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ).size(), ( Extract( R1.size() - 56 - 1, R1.size() - 64, R1  ) ))  ) ) )
 PS_R2 = (Concat((CONST_BV_S32_V0), (Extract (31, 0, ((SignExt( 64 - (Extract (7, 0, ((R1)))).size(), (Extract (7, 0, ((R1)))))))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 

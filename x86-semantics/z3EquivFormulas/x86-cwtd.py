@@ -77,7 +77,7 @@ vfnmsub132_single = Function('vfnmsub132_single', BitVecSort(32), BitVecSort(32)
 print('[6;30;44m' + 'Opcode:cwtd' + '[0m')
 
 
-PK_RDX = (Concat(Extract( RDX.size() - 0 - 1, RDX.size() - 48, RDX  ) , Extract( SignExt(64 - ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ))).size() - 16 - 1, SignExt(64 - ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ))).size() - 32, SignExt(64 - ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  )).size(), ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  )))  ) ) )
+PK_RDX = (Concat(Extract( RDX.size() - 0 - 1, RDX.size() - 48, RDX  ) , Extract( SignExt(64 - ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ) )).size() - 16 - 1, SignExt(64 - ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ) )).size() - 32, SignExt(64 - ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ) ).size(), ( Extract( RAX.size() - 48 - 1, RAX.size() - 64, RAX  ) ))  ) ) )
 PS_RDX = (Concat((Extract (63, 16, ((RDX)))), (Extract (47, 32, ((SignExt( 64 - (Extract (15, 0, ((RAX)))).size(), (Extract (15, 0, ((RAX)))))))))))
 proverUtils.prove( PK_RDX == PS_RDX )
 

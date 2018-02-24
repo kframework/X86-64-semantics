@@ -1358,7 +1358,6 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
               $op =~ s/Int//g; 
               $op =~ s/==K/==/g; 
               $op =~ s/Float//g; 
-              print "$op\n";
               $arg =
                   $pre . " ( "
                 . $args[0] . " " . " $op " . " "
@@ -3119,7 +3118,7 @@ sub findRegisterAssoc {
     my $operandListFromInstr_ref =
       getOperandListFromInstr( $targetinstr, $debugprint );
     my @operandListFromInstr = @{$operandListFromInstr_ref};
-    printArray( $operandListFromInstr_ref, "[findRegisterAssoc] Opr List", 1 );
+    printArray( $operandListFromInstr_ref, "[findRegisterAssoc] Opr List", $debugprint );
 
     my $counter = 1;
     $assoc{"cf"} = "CF";
@@ -3174,9 +3173,8 @@ sub findRegisterAssoc {
     }
 
 
-    print $targetinstr. "\n";
-    printMap( \%assoc, "[findRegisterAssoc]Association Map", 1 );
-    printArray( \@formalSizes, "[findRegisterAssoc]Sizes", 1 );
+    printMap( \%assoc, "[findRegisterAssoc]Association Map", $debugprint );
+    printArray( \@formalSizes, "[findRegisterAssoc]Sizes", $debugprint );
 
     return ( \%assoc, \@formalSizes );
 
@@ -3189,7 +3187,8 @@ sub generateZ3Formula {
 
     chomp $opcode;
 
-    utils::info("Generating Z3 formula for $opcode\n");
+    print "\n\n";
+    utils::info("Generating Z3 formula for $opcode");
     ## find the register assoc
     my ( $assoc_ref, $formalSizes_ref ) =
       findRegisterAssoc( $opcode, $debugprint );
@@ -3749,7 +3748,7 @@ sub convertKRuleToSMT2 {
           $retMap{$1} = convertKRuleToSMT2_helper($splt[1]);
         } 
     }
-    utils::info("Done\n");
+    utils::info("Done");
 
     return \%retMap;
 
@@ -3763,7 +3762,7 @@ sub convertKRuleToSMT2_helper {
   my $rule       = shift @_;
   my $debugprint = shift @_;
 
-  utils::info("In convertKRuleToSMT2_helper");
+#  utils::info("In convertKRuleToSMT2_helper");
 
 #$debugprint = 1;
 
@@ -3794,7 +3793,7 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|s
         my $pre = "";
         my $post = "";
 
-        utils::info("Before");
+#        utils::info("Before");
         if ( $arg =~ m/(.+)(xorMInt)(.+)/ ) {
           $pre  = $1;
           $op   = $2;
@@ -3861,17 +3860,17 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|s
 #        } else {
 #          last;
 #        }
-        utils::info("After2");
+#        utils::info("After2");
 
-        debugInfo( "\n\nGot Binary op: $op\n", 1 );
-        debugInfo( "\n\nBefore Rule: $arg\n", 1 );
-$cnt{$op}++;
-        printMap(\%cnt, "op count map", 1);
+        debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
+        debugInfo( "\n\nBefore Rule: $arg\n", $debugprint );
+#$cnt{$op}++;
+#        printMap(\%cnt, "op count map", 1);
 
 
-        utils::info("Before selectbraces");
+#        utils::info("Before selectbraces");
         my ( $op_arg, $rest ) = selectbraces( $post, 1 );
-        utils::info("After selectbraces");
+#        utils::info("After selectbraces");
 
         debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
         debugInfo( "Rest: " . $rest . "\n",  $debugprint );
@@ -3958,7 +3957,7 @@ $cnt{$op}++;
             }
         }
 
-        debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
+#        debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
     }
     $rule = $arg;
     
@@ -4019,7 +4018,7 @@ $cnt{$op}++;
     $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
     $rule =~ s/getFlag\("(\w+)", RSMap\)/$1/g;
       
-    utils::info("Out convertKRuleToSMT2_helper");
+#    utils::info("Out convertKRuleToSMT2_helper");
     return $rule;
 }
 

@@ -79,7 +79,7 @@ print('[6;30;44m' + 'Opcode:pandn_xmm_xmm' + '[0m')
 R1 = BitVec('R1', 256)
 R2 = BitVec('R2', 256)
 
-PK_R2 = (Concat(Extract( R2.size() - 0 - 1, R2.size() - 128, R2  ) , Concat(( ( Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) | Extract( R1.size() - 128 - 1, R1.size() - 192, R1  ) )  ^ Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  ) , ( ( Extract( R2.size() - 192 - 1, R2.size() - 256, R2  ) | Extract( R1.size() - 192 - 1, R1.size() - 256, R1  ) )  ^ Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  ) )) )
+PK_R2 = (Concat(Extract( R2.size() - 0 - 1, R2.size() - 128, R2  ) , Concat(( ( Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  | Extract( R1.size() - 128 - 1, R1.size() - 192, R1  )  )  ^ Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  ) , ( ( Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  | Extract( R1.size() - 192 - 1, R1.size() - 256, R1  )  )  ^ Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  ) )) )
 PS_R2 = (Concat((Extract (255, 128, ((R2)))), (Concat(((Extract (127, 64, ((R2)))) ^ ((Extract (127, 64, ((R1)))) | (Extract (127, 64, ((R2)))))), ((Extract (63, 0, ((R2)))) ^ ((Extract (63, 0, ((R1)))) | (Extract (63, 0, ((R2))))))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 

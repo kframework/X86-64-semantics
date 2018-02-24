@@ -10,6 +10,7 @@ OF = BitVec('OF', 1)
 
 RAX = BitVec('RAX', 64)
 RCX = BitVec('RCX', 64)
+RDX = BitVec('RDX', 64)
 ZERO1 = BitVecVal(0, 1)
 ONE1 = BitVecVal(1, 1)
 
@@ -80,7 +81,7 @@ R2 = BitVec('R2', 256)
 R3 = BitVec('R3', 256)
 CONST_BV_S128_V0 = BitVecVal(0, 128)
 
-PK_R3 = (Concat((CONST_BV_S128_V0), Concat(( ( Extract( R1.size() - 128 - 1, R1.size() - 192, R1  ) | Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) )  ^ Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  ) , ( ( Extract( R1.size() - 192 - 1, R1.size() - 256, R1  ) | Extract( R2.size() - 192 - 1, R2.size() - 256, R2  ) )  ^ Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  ) )) )
+PK_R3 = (Concat((CONST_BV_S128_V0), Concat(( ( Extract( R1.size() - 128 - 1, R1.size() - 192, R1  )  | Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  )  ^ Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  ) , ( ( Extract( R1.size() - 192 - 1, R1.size() - 256, R1  )  | Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  )  ^ Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  ) )) )
 PS_R3 = (Concat((CONST_BV_S128_V0), (Concat(((Extract (127, 64, ((R2)))) ^ ((Extract (127, 64, ((R2)))) | (Extract (127, 64, ((R1)))))), ((Extract (63, 0, ((R2)))) ^ ((Extract (63, 0, ((R2)))) | (Extract (63, 0, ((R1))))))))))
 proverUtils.prove( PK_R3 == PS_R3 )
 

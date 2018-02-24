@@ -80,7 +80,7 @@ R1 = BitVec('R1', 256)
 R2 = BitVec('R2', 256)
 R3 = BitVec('R3', 256)
 
-PK_R3 = (Concat(Concat(( Extract( R1.size() - 0 - 1, R1.size() - 64, R1  ) | Extract( R2.size() - 0 - 1, R2.size() - 64, R2  ) ) , ( Extract( R1.size() - 64 - 1, R1.size() - 128, R1  ) | Extract( R2.size() - 64 - 1, R2.size() - 128, R2  ) ) ), Concat(( Extract( R1.size() - 128 - 1, R1.size() - 192, R1  ) | Extract( R2.size() - 128 - 1, R2.size() - 192, R2  ) ) , ( Extract( R1.size() - 192 - 1, R1.size() - 256, R1  ) | Extract( R2.size() - 192 - 1, R2.size() - 256, R2  ) ) )) )
+PK_R3 = (Concat(Concat(( Extract( R1.size() - 0 - 1, R1.size() - 64, R1  )  | Extract( R2.size() - 0 - 1, R2.size() - 64, R2  )  ) , ( Extract( R1.size() - 64 - 1, R1.size() - 128, R1  )  | Extract( R2.size() - 64 - 1, R2.size() - 128, R2  )  ) ), Concat(( Extract( R1.size() - 128 - 1, R1.size() - 192, R1  )  | Extract( R2.size() - 128 - 1, R2.size() - 192, R2  )  ) , ( Extract( R1.size() - 192 - 1, R1.size() - 256, R1  )  | Extract( R2.size() - 192 - 1, R2.size() - 256, R2  )  ) )) )
 PS_R3 = (Concat(((Extract (255, 192, ((R2)))) | (Extract (255, 192, ((R1))))), (Concat(((Extract (191, 128, ((R2)))) | (Extract (191, 128, ((R1))))), (Concat(((Extract (127, 64, ((R2)))) | (Extract (127, 64, ((R1))))), ((Extract (63, 0, ((R2)))) | (Extract (63, 0, ((R1)))))))))))
 proverUtils.prove( PK_R3 == PS_R3 )
 

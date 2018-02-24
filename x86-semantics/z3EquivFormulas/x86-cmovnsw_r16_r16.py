@@ -82,7 +82,7 @@ CONST_BV_S32_V0 = BitVecVal(0, 32)
 CONST_BV_S33_V4294967295 = BitVecVal(4294967295, 33)
 CONST_BV_S32_Vffffffff = BitVecVal(0xffffffff, 32)
 
-PK_R2 = ((If ((( Extract( ( Concat((CONST_BV_S32_V0), SF) + (CONST_BV_S33_V4294967295) ).size() - 1 - 1, ( Concat((CONST_BV_S32_V0), SF) + (CONST_BV_S33_V4294967295) ).size() - 33, ( Concat((CONST_BV_S32_V0), SF) + (CONST_BV_S33_V4294967295) )  ) == (CONST_BV_S32_V0) )  ) , ( R2 ) , ( Concat(Extract( R2.size() - 0 - 1, R2.size() - 48, R2  ) , Extract( R1.size() - 48 - 1, R1.size() - 64, R1  ) ) ) ))  )
+PK_R2 = ((If ((( Extract( ( Concat((CONST_BV_S32_V0), SF) + (CONST_BV_S33_V4294967295) ).size() - 1 - 1, ( Concat((CONST_BV_S32_V0), SF) + (CONST_BV_S33_V4294967295) ).size() - 33, ( Concat((CONST_BV_S32_V0), SF) + (CONST_BV_S33_V4294967295) )  )  == (CONST_BV_S32_V0) )  ) , ( R2 ) , ( Concat(Extract( R2.size() - 0 - 1, R2.size() - 48, R2  ) , Extract( R1.size() - 48 - 1, R1.size() - 64, R1  ) ) ) ))  )
 PS_R2 = (Concat((Extract (63, 16, ((R2)))), (If( ((If( (sf),(CONST_BV_S32_V0),(CONST_BV_S32_Vffffffff))) == (CONST_BV_S32_V0)),(Extract (15, 0, ((R2)))),(Extract (15, 0, ((R1))))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 

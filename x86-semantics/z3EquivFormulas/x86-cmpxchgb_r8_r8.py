@@ -78,6 +78,8 @@ print('[6;30;44m' + 'Opcode:cmpxchgb_r8_r8' + '[0m')
 
 R1 = BitVec('R1', 64)
 R2 = BitVec('R2', 64)
+R3 = BitVec('R3', 64)
+R4 = BitVec('R4', 64)
 CONST_BV_S8_V255 = BitVecVal(255, 8)
 CONST_BV_S1_V0 = BitVecVal(0, 1)
 CONST_BV_S9_V1 = BitVecVal(1, 9)
