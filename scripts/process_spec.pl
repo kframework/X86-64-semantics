@@ -29,63 +29,62 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
-my $help           = "";
-my $stratum        = "";
-my $readmod        = "";
-my $createspec     = "";
-my $postprocess    = "";
-my $kprove         = "";
-my $getoplist      = "";
-my $all            = "";
-my $genincludes    = "";
-my $checksanity    = "";
-my $gitdiff        = "";
-my $gitadd         = "";
-my $gitco          = "";
-my $speconly       = "";
-my $nightlyrun     = "";
-my $start          = "";
-my $getimm         = "";
-my $getimmdiff     = "";
-my $getmem         = "";
-my $getz3formula   = "";
-my $z3prove        = "";
-my $useuif         = "";
-my $compile         = "";
+my $help         = "";
+my $stratum      = "";
+my $readmod      = "";
+my $createspec   = "";
+my $postprocess  = "";
+my $kprove       = "";
+my $getoplist    = "";
+my $all          = "";
+my $genincludes  = "";
+my $checksanity  = "";
+my $gitdiff      = "";
+my $gitadd       = "";
+my $gitco        = "";
+my $speconly     = "";
+my $nightlyrun   = "";
+my $start        = "";
+my $getimm       = "";
+my $getimmdiff   = "";
+my $getmem       = "";
+my $getz3formula = "";
+my $z3prove      = "";
+my $useuif       = "";
+my $compile      = "";
 
 GetOptions(
-    "help"           => \$help,
-    "file:s"         => \$file,
-    "stratum"        => \$stratum,
-    "readmod"        => \$readmod,
-    "createspec"     => \$createspec,
-    "getoplist"      => \$getoplist,
-    "kprove"         => \$kprove,
-    "postprocess"    => \$postprocess,
-    "all"            => \$all,
-    "genincludes"    => \$genincludes,
-    "checksanity"    => \$checksanity,
-    "gitdiff"        => \$gitdiff,
-    "speconly"       => \$speconly,
-    "gitadd"         => \$gitadd,
-    "gitco"          => \$gitco,
-    "getimm"         => \$getimm,
-    "getimmdiff"     => \$getimmdiff,
-    "getmem"         => \$getmem,
-    "nightlyrun"     => \$nightlyrun,
-    "getz3formula"   => \$getz3formula,
-    "z3prove"        => \$z3prove,
-    "useuif"         => \$useuif,
-    "compile"         => \$compile,
-    "start:s"        => \$start,
-    "strata_path:s"  => \$strata_path,
+    "help"          => \$help,
+    "file:s"        => \$file,
+    "stratum"       => \$stratum,
+    "readmod"       => \$readmod,
+    "createspec"    => \$createspec,
+    "getoplist"     => \$getoplist,
+    "kprove"        => \$kprove,
+    "postprocess"   => \$postprocess,
+    "all"           => \$all,
+    "genincludes"   => \$genincludes,
+    "checksanity"   => \$checksanity,
+    "gitdiff"       => \$gitdiff,
+    "speconly"      => \$speconly,
+    "gitadd"        => \$gitadd,
+    "gitco"         => \$gitco,
+    "getimm"        => \$getimm,
+    "getimmdiff"    => \$getimmdiff,
+    "getmem"        => \$getmem,
+    "nightlyrun"    => \$nightlyrun,
+    "getz3formula"  => \$getz3formula,
+    "z3prove"       => \$z3prove,
+    "useuif"        => \$useuif,
+    "compile"       => \$compile,
+    "start:s"       => \$start,
+    "strata_path:s" => \$strata_path,
 ) or die("Error in command line arguments\n");
 
 ##
 my $sfp;
 my $removeComment;
 my $debugprint = 0;
-
 
 if ( "" ne $compile ) {
     createSingleFileDefn();
@@ -97,15 +96,13 @@ if ( "" ne $compile ) {
     exit(0);
 }
 
-
 my $derivedInstructions = "derivedInstructions/";
-my $specdir = "kproveSpecs/";
-my $specoutdir = "kproveOutput/";
-if("" ne $useuif) {
-  $derivedInstructions = "instructions_with_uif/derivedInstructions/";
-  $specoutdir = "instructions_with_uif/kproveOutput/";
+my $specdir             = "kproveSpecs/";
+my $specoutdir          = "kproveOutput/";
+if ( "" ne $useuif ) {
+    $derivedInstructions = "instructions_with_uif/derivedInstructions/";
+    $specoutdir          = "instructions_with_uif/kproveOutput/";
 }
-
 
 sub createSingleFileDefn {
 
@@ -119,12 +116,12 @@ sub createSingleFileDefn {
     print $sfp "  imports X86-CONFIGURATION" . "\n";
     print $sfp "  imports X86-FLAG-CHECKS-SYNTAX" . "\n";
 
-    my $baseInstrPath = "baseInstructions/";
+    my $baseInstrPath    = "baseInstructions/";
     my $derivedInstrPath = "derivedInstructions/";
 
-    if("" ne $useuif) {
-      $baseInstrPath = "instructions_with_uif/baseInstructions/";
-      $derivedInstrPath = "instructions_with_uif/derivedInstructions/";
+    if ( "" ne $useuif ) {
+        $baseInstrPath    = "instructions_with_uif/baseInstructions/";
+        $derivedInstrPath = "instructions_with_uif/derivedInstructions/";
     }
 
     print("\tMerging $baseInstrPath\n");
@@ -197,35 +194,34 @@ if ( "" ne $nightlyrun ) {
     my $cmd = "";
     for ( my $i = $start ; $i <= 15 ; $i++ ) {
         my $file = "docs/relatedwork/strata/stratum_$i.txt";
-        $cmd = $cmd . 
-          "./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ; ./scripts/run.pl --compile ; ";
+        $cmd = $cmd
+          . "./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ; ./scripts/run.pl --compile ; ";
     }
 
-    execute($cmd, 1);
+    execute( $cmd, 1 );
     exit(0);
 }
 
-if ("" ne $getimm) {
-  kutils::getImmInstrs($debugprint, $getimmdiff);
-  exit(0);
+if ( "" ne $getimm ) {
+    kutils::getImmInstrs( $debugprint, $getimmdiff );
+    exit(0);
 }
 
-if ("" ne $getmem) {
-  kutils::getMemInstrs();
-  exit(0);
+if ( "" ne $getmem ) {
+    kutils::getMemInstrs();
+    exit(0);
 }
-
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
-my @lines      = <$fp>;
- 
+my @lines = <$fp>;
+
 ## Run the Z3 prover
 if ( "" ne $z3prove ) {
     for my $opcode (@lines) {
         chomp $opcode;
-          
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
         execute("python z3EquivFormulas/x86-$opcode.py");
     }
@@ -235,22 +231,21 @@ if ( "" ne $z3prove ) {
 if ( "" ne $getz3formula ) {
     for my $opcode (@lines) {
         chomp $opcode;
-          
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
-        generateZ3Formula($opcode, $debugprint);
+        generateZ3Formula( $opcode, $debugprint );
     }
 }
-
 
 ## Git diff
 if ( "" ne $gitdiff ) {
     for my $opcode (@lines) {
         chomp $opcode;
-          
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
@@ -263,9 +258,9 @@ if ( "" ne $gitdiff ) {
 if ( "" ne $gitadd ) {
     for my $opcode (@lines) {
         chomp $opcode;
-         
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         my $filesToAdd = "";
@@ -287,15 +282,15 @@ if ( "" ne $gitadd ) {
 if ( "" ne $gitco ) {
     for my $opcode (@lines) {
         chomp $opcode;
-        
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         my $filesToRestore = "";
-        my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specout    = "$specoutdir/x86-semantics_${opcode}_spec.output";
-        my $koutput    = "$derivedInstructions/x86-${opcode}.k";
+        my $specfile       = "$specdir/x86-semantics_${opcode}_spec.k";
+        my $specout        = "$specoutdir/x86-semantics_${opcode}_spec.output";
+        my $koutput        = "$derivedInstructions/x86-${opcode}.k";
 
         if ( $speconly eq "" ) {
             $filesToRestore = "$specfile $specout $koutput";
@@ -312,8 +307,8 @@ if ( "" ne $createspec ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
@@ -327,8 +322,8 @@ if ( "" ne $kprove ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
@@ -341,12 +336,12 @@ if ( "" ne $postprocess ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
-        kutils::postProcess( $opcode, $specdir, $specoutdir,  $derivedInstructions,
-            $debugprint );
+        kutils::postProcess( $opcode, $specdir, $specoutdir,
+            $derivedInstructions, $debugprint, $useuif );
         print "\n";
     }
 }
@@ -355,44 +350,43 @@ if ( "" ne $all ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
         kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
-        kutils::postProcess( $opcode, $specdir, $specoutdir, $derivedInstructions,
-            $debugprint );
+        kutils::postProcess( $opcode, $specdir, $specoutdir,
+            $derivedInstructions, $debugprint );
         print "\n";
     }
 }
 
 sub checkSuppOrManuallyGen {
-  my $opcode = shift @_;
-  my $debugprint = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
 
-  my ( $isSupported, $reason ) =
-    kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-      $debugprint );
-  if ( 0 == $isSupported ) {
-      utils::warnInfo("$opcode: $reason");
-      return 0;
-  }
-  if ( "" ne $reason ) {
-      utils::warnInfo("$opcode: $reason");
-  }
+    my ( $isSupported, $reason ) =
+      kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
+        $debugprint );
+    if ( 0 == $isSupported ) {
+        utils::warnInfo("$opcode: $reason");
+        return 0;
+    }
+    if ( "" ne $reason ) {
+        utils::warnInfo("$opcode: $reason");
+    }
 
-  my $isManuallyGenerated =
-    kutils::checkManuallyGenerated( $opcode, $debugprint );
-  if ( 1 == $isManuallyGenerated ) {
-      utils::warnInfo("$opcode: Manually Generated");
-      return 0;
-  }
+    my $isManuallyGenerated =
+      kutils::checkManuallyGenerated( $opcode, $debugprint );
+    if ( 1 == $isManuallyGenerated ) {
+        utils::warnInfo("$opcode: Manually Generated");
+        return 0;
+    }
 
-  return 1;
+    return 1;
 }
-
 
 if ( "" ne $checksanity ) {
     my @reqs    = ();
@@ -413,8 +407,8 @@ if ( "" ne $checksanity ) {
     for my $opcode (@lines) {
         chomp $opcode;
 
-        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
-          next;
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
         }
 
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
