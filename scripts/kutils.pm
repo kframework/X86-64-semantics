@@ -1483,7 +1483,6 @@ qr/andBool|orBool|==K|\+Int|\-Int|>=Int|<=Int|>Int|<Int|==Int|<<Int|\+Float|\*Fl
 sub mixfix2infix {
     my $arg        = shift @_;
     my $debugprint = shift @_;
-    $debugprint = 1;
 
 #$debugprint = 1;
 
@@ -1696,6 +1695,8 @@ sub selectbraces {
     my $rest    = "";
     my $counter = 0;
 
+#    utils::info("In selectbraces");
+
     ## for $arg == _(_,_,_)(...)xyz return _(_,_,_)(...) and xyz  
 #print("--$arg\n\n");
     if($arg =~ m/^(\_\(\_,\_,\_\))(.+)/) {
@@ -1735,6 +1736,7 @@ sub selectbraces {
         $op_arg = $op_arg . ":>Bool";
     }
 
+#    utils::info("Out selectbraces");
     return ( $op_arg, $rest );
 }
 
@@ -1748,6 +1750,7 @@ sub processSpecOutput {
     my %rev_rsmap = ();
     my @reglines  = ();
 
+    utils::info("In processSpecOutput");
     print "Using $specoutput\n";
 
     open( my $fp, "<", $specoutput )
@@ -1810,6 +1813,8 @@ m/String\@STRING-SYNTAX\(#""(\w+)""\) \|\-\> mi\(Int\@INT-SYNTAX\(#"\d+"\),, \?I
     if ( scalar(@reglines) == 0 ) {
         failInfo("processSpecOutput: No FinalTerm in $specoutput");
     }
+
+    utils::info("Out processSpecOutput");
     return ( \%rsmap, \%rev_rsmap, \@reglines );
 }
 
@@ -2144,6 +2149,8 @@ sub sanitizeSpecOutput {
     my $specfile   = ${$specfile_ref};
     my $debugprint = ${$debugprint_ref};
 
+    utils::info("In sanitizeSpecOutput");
+
     my $instr = getTargetInstr( $opcode, $debugprint );
 
     ## Obtain the Process RW set.
@@ -2276,6 +2283,7 @@ sub sanitizeSpecOutput {
 
     debugInfo( "Final Rules : $returnInfo\n", $debugprint );
 
+    utils::info("Out sanitizeSpecOutput");
     return $returnInfo;
 }
 
@@ -3418,6 +3426,7 @@ sub preProcessBVFToSMT2 {
     my $assoc_ref  = shift @_;
     my $debugprint = shift @_;
 
+    utils::info("Converting Stratas rule to SMT");
     my %assoc = %{$assoc_ref};
 
     debugInfo("Before removing Consts: $rule\n\n", $debugprint);
@@ -3472,11 +3481,6 @@ sub preProcessBVFToSMT2 {
     $rule =~ s/vnfmsub132_double/vfnmsub132_double/g;
 
     ## Format change OP(R1,R2) => (OP R1 R2)
-#$rule =~ s/($uif_terop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
-#$rule =~ s/($uif_binop)\(((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)), (\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\)))\)/($1 $2)/g;
-#$rule =~ s/($uif_uop)\((\(R\d+\)(\[\d+:\d+\])?|\(CONST_BV_S\d+_V\d+\))\)/($1 $2)/g;
-
-
     my $prevRule = $rule;
     while(1) {
       $rule =~ s/($uif_terop)\((.*?, .*?, .*?)\)/($1 $2)/;
@@ -3495,6 +3499,7 @@ sub preProcessBVFToSMT2 {
     $rule = convertBVFToSMT2_helper($rule);
 
     
+    utils::info("Done");
     return $rule;
 }
 
@@ -3708,6 +3713,8 @@ sub convertKRuleToSMT2 {
     my $opcode       = shift @_;
     my $debugprint = shift @_;
 
+    utils::info("Converting K rule to SMT");
+
     chomp $opcode;
     my $specfile   = "kproveSpecs/x86-semantics_${opcode}_spec.k";
     my $specoutput = "instructions_with_uif/kproveOutput/x86-semantics_${opcode}_spec.output";
@@ -3741,6 +3748,7 @@ sub convertKRuleToSMT2 {
           $retMap{$1} = convertKRuleToSMT2_helper($splt[1]);
         } 
     }
+    utils::info("Done\n");
 
     return \%retMap;
 
@@ -3754,6 +3762,8 @@ sub convertKRuleToSMT2_helper {
   my $rule       = shift @_;
   my $debugprint = shift @_;
 
+  utils::info("In convertKRuleToSMT2_helper");
+
 #$debugprint = 1;
 
     $rule =~ s/mi\((\d+), (\d+)\)/(CONST_BV_S$1_V$2)/g;
@@ -3764,49 +3774,114 @@ sub convertKRuleToSMT2_helper {
     $rule =~ s/false/False/g;
 
      my $bin_op = (
-qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|lshrMInt|shlMInt|ultMInt|Int2Float|svalueMInt/
+qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|svalueMInt/
     );
     my $arg = $rule;
+    my %cnt = (
+        "addMInt" => 0,
+        "andMInt" => 0,
+        "eqMInt" => 0,
+        "ultMInt" => 0,
+        "extractMInt" => 0,
+        "svalueMInt" => 0,
+        "xorMInt" => 0,
+        "orMInt" => 0,
+        );
+
     while (1) {
         my $op = "";
         my $pre = "";
         my $post = "";
 
+#        utils::info("Before");
         if ( $arg =~ m/(.+)(xorMInt)(.+)/ ) {
           $pre  = $1;
           $op   = $2;
           $post = $3;
-        } elsif ($arg =~ m/(.+)(MInt2Float)(.+)/) {
+        } 
+        elsif ( $arg =~ m/(.+)(ultMInt)(.+)/ ) {
           $pre  = $1;
           $op   = $2;
           $post = $3;
-        } elsif ($arg =~ m/(.+)($bin_op)(.+)/) {
+        } 
+        elsif ( $arg =~ m/(.+)(eqMInt)(.+)/ ) {
           $pre  = $1;
           $op   = $2;
           $post = $3;
-
+        } 
+        elsif ( $arg =~ m/(.+)(orMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(addMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(andMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(svalueMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(extractMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        }
+        elsif ( $arg =~ m/(.+)(lshrMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(ashrMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
+        } 
+        elsif ( $arg =~ m/(.+)(shlMInt)(.+)/ ) {
+          $pre  = $1;
+          $op   = $2;
+          $post = $3;
         } else {
           last;
         }
 
+#        elsif ($arg =~ m/(.+)(extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|svalueMInt)(.+)/) {
+#          $pre  = $1;
+#          $op   = $2;
+#          $post = $3;
+#
+#        } else {
+#          last;
+#        }
+#        utils::info("After2");
+
         debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
         debugInfo( "\n\nBefore Rule: $arg\n", $debugprint );
+#$cnt{$op}++;
+#        printMap(\%cnt, "op count map", 1);
 
+
+#        utils::info("Before selectbraces");
         my ( $op_arg, $rest ) = selectbraces( $post, 1 );
+#        utils::info("After selectbraces");
 
         debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
         debugInfo( "Rest: " . $rest . "\n",  $debugprint );
 
         my @args = ();
+#        utils::info("Before findArgs");
         if ( 
-            $op eq "extractMInt"  or
-            $op eq "MInt2Float"   or
-            $op eq "Int2Float"  
+            $op eq "extractMInt" 
             ) {
             @args = findArgs( $op_arg, 3 );
         } elsif(
-            $op eq "Float2Double" or
-            $op eq "Float2Int" or
             $op eq "svalueMInt"
             ) {
             @args = findArgs( $op_arg, 1);
@@ -3814,6 +3889,7 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|ls
         else {
             @args = findArgs( $op_arg, 2 );
         }
+#        utils::info("After findArgs");
 
         for(my $i = 0 ; $i < scalar(@args); $i++) {
           $args[$i] = utils::trim($args[$i]);    
@@ -3881,52 +3957,11 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|ls
             }
         }
 
-        if ( $op eq "Float2Double" ) {
-            $arg =
-                $pre 
-              . "fpFPToFP"
-              . "( RNE(), $args[0], Float64() ) $rest";
-        }
-        if ( $op eq "Float2MInt" ) {
-            $arg =
-                $pre 
-              . "fpToIEEEBV"
-              . "( $args[0] ) $rest";
-        }
-        if ( $op eq "MInt2Float" ) {
-            my $fOrd = $args[1];
-            if($fOrd eq 24) {
-              $fOrd = "Float32()";
-            } else {
-              $fOrd = "Float64()";
-            }
-
-            $arg =
-                $pre 
-              . "fpBVToFP"
-              . "( $args[0], $fOrd ) $rest";
-        }
-        if ( $op eq "Int2Float" ) {
-            my $fOrd = $args[1];
-            if($fOrd eq 24) {
-              $fOrd = "32";
-            } else {
-              $fOrd = "64";
-            }
-
-            $arg =
-                $pre 
-              . "cvt_int$fOrd\_to_single"
-              . "( $args[0] ) $rest";
-        }
         debugInfo( "\n\nAfter Rule: $arg\n", $debugprint );
     }
     $rule = $arg;
     
-#   syntax Int ::= Float2Int(Float)    [function, latex({\\it{}Float2Int}), hook(FLOAT.float2int)]
-
-
-    ## Remove Extension
+    ## Remove Sign Extension
 
 #$debugprint = 1;
     $arg = $rule;
@@ -3983,9 +4018,8 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|Float2Double|Float2MInt|ashrMInt|ls
     $rule =~ s/getParentValue\((\w+), RSMap\)/$1/g;
     $rule =~ s/getFlag\("(\w+)", RSMap\)/$1/g;
       
+    utils::info("Out convertKRuleToSMT2_helper");
     return $rule;
-
-
 }
 
 

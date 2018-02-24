@@ -82,7 +82,7 @@ CONST_BV_S9_V255 = BitVecVal(255, 9)
 CONST_BV_S8_V0 = BitVecVal(0, 8)
 CONST_BV_S8_Vff = BitVecVal(0xff, 8)
 
-PK_R2 = ((If ((( Extract( ( (CONST_BV_S9_V255) + Concat((CONST_BV_S8_V0), OF) ).size() - 1 - 1, ( (CONST_BV_S9_V255) + Concat((CONST_BV_S8_V0), OF) ).size() - 9, ( (CONST_BV_S9_V255) + Concat((CONST_BV_S8_V0), OF) )  ) == (CONST_BV_S8_V0) )  ) , ( Concat(Extract( R2.size() - 0 - 1, R2.size() - 48, R2  ) , Extract( R1.size() - 48 - 1, R1.size() - 64, R1  ) ) ) , ( R2 ) ))  )
+PK_R2 = ((If ((( Extract( ( (CONST_BV_S9_V255) + Concat((CONST_BV_S8_V0), OF) ).size() - 1 - 1, ( (CONST_BV_S9_V255) + Concat((CONST_BV_S8_V0), OF) ).size() - 9, ( (CONST_BV_S9_V255) + Concat((CONST_BV_S8_V0), OF) )  )  == (CONST_BV_S8_V0) )  ) , ( Concat(Extract( R2.size() - 0 - 1, R2.size() - 48, R2  ) , Extract( R1.size() - 48 - 1, R1.size() - 64, R1  ) ) ) , ( R2 ) ))  )
 PS_R2 = (Concat((Extract (63, 16, ((R2)))), (If( ((If( (of),(CONST_BV_S8_V0),(CONST_BV_S8_Vff))) == (CONST_BV_S8_V0)),(Extract (15, 0, ((R1)))),(Extract (15, 0, ((R2))))))))
 proverUtils.prove( PK_R2 == PS_R2 )
 
