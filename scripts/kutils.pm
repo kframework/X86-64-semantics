@@ -1695,7 +1695,7 @@ sub selectbraces {
     my $rest    = "";
     my $counter = 0;
 
-#    utils::info("In selectbraces");
+    utils::info("In selectbraces");
 
     ## for $arg == _(_,_,_)(...)xyz return _(_,_,_)(...) and xyz  
 #print("--$arg\n\n");
@@ -1736,7 +1736,7 @@ sub selectbraces {
         $op_arg = $op_arg . ":>Bool";
     }
 
-#    utils::info("Out selectbraces");
+    utils::info("Out selectbraces");
     return ( $op_arg, $rest );
 }
 
@@ -3793,7 +3793,7 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|s
         my $pre = "";
         my $post = "";
 
-#        utils::info("Before");
+        utils::info("Before");
         if ( $arg =~ m/(.+)(xorMInt)(.+)/ ) {
           $pre  = $1;
           $op   = $2;
@@ -3860,17 +3860,17 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|s
 #        } else {
 #          last;
 #        }
-#        utils::info("After2");
+        utils::info("After2");
 
-        debugInfo( "\n\nGot Binary op: $op\n", $debugprint );
-        debugInfo( "\n\nBefore Rule: $arg\n", $debugprint );
-#$cnt{$op}++;
-#        printMap(\%cnt, "op count map", 1);
+        debugInfo( "\n\nGot Binary op: $op\n", 1 );
+        debugInfo( "\n\nBefore Rule: $arg\n", 1 );
+$cnt{$op}++;
+        printMap(\%cnt, "op count map", 1);
 
 
-#        utils::info("Before selectbraces");
+        utils::info("Before selectbraces");
         my ( $op_arg, $rest ) = selectbraces( $post, 1 );
-#        utils::info("After selectbraces");
+        utils::info("After selectbraces");
 
         debugInfo( "Arg: " . $op_arg . "\n", $debugprint );
         debugInfo( "Rest: " . $rest . "\n",  $debugprint );
