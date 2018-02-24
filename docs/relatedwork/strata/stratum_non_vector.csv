@@ -115,9 +115,9 @@ vrcpps_xmm_xmm	0	5
 vrsqrtps_xmm_xmm	0	5					
 vsqrtps_xmm_xmm	0	5					
 vxorps_xmm_xmm_xmm	0	6					
-xchgl_r32_r32	0	6	CD	R7			
-xchgq_r64_r64	0	5	CD	R7			
-xchgw_r16_r16	0	4	CD	R7			
+xchgl_r32_r32	0	6	CD	R7:Must Schedule:Syntactically Equal
+xchgq_r64_r64	0	5	CD	R7:Must Schedule:Syntactically Equal			
+xchgw_r16_r16	0	4	CD	R7:Must Schedule:Syntactically Equal			
 xorw_r16_r16	0	9	YD				
 
 Stratum 1	89						
@@ -299,7 +299,7 @@ xaddb_r8_rh	2	19	CD	R7	CTD:Must Schedule
 xaddb_rh_r8	2	17	CD	R7	CTD:Must Schedule		
 xaddw_r16_r16	2	8	CD	R7	CTD:Must Schedule		
 xchgb_r8_rh	2	19	CD	R7:Must Schedule			
-xchgb_rh_rh	2	30	CD	R7:Must Schedule			
+xchgb_rh_rh	2	30	CD	R7:Must Schedule:Syntactically Equal			
 xchgw_ax_r16	2	6	CD	R7:Redundant			
 xorb_r8_r8	2	11					
 
@@ -378,7 +378,7 @@ vsubps_xmm_xmm_xmm	3	29
 vsubsd_xmm_xmm_xmm	3	15					
 vunpckhpd_ymm_ymm_ymm	3	15					
 vunpckhps_xmm_xmm_xmm	3	26					
-xchgb_r8_r8	3	43	CD	R7			
+xchgb_r8_r8	3	43	CD	R7:Must Schedule:Syntactically Equal			
 xchgb_rh_r8	3	19	CD	R7:Must Schedule			
 xorb_rh_r8	3	45					
 xorpd_xmm_xmm	3	8					
@@ -507,7 +507,7 @@ vpunpckhdq_xmm_xmm_xmm	5	31
 vunpckhpd_xmm_xmm_xmm	5	16					
 vunpckhps_ymm_ymm_ymm	5	105					
 vunpcklpd_ymm_ymm_ymm	5	39					
-xaddb_rh_rh	5	63					
+xaddb_rh_rh	5	63:Must Schedule					
 
 Stratum 6	55						
 andb_r8_r8	6	65					
@@ -638,8 +638,8 @@ cmpb_rh_r8	8	292
 cmpb_rh_rh	8	252
 cmpl_r32_r32	8	200
 cmpw_r16_r16	8	405
-cmpxchgb_rh_rh	8	371: WHat about same keys
-cmpxchgq_r64_r64	8	135: WHat about same keys
+cmpxchgb_rh_rh	8	371:Must Schedule
+cmpxchgq_r64_r64	8:Must Schedule	
 haddps_xmm_xmm	8	211					
 phsubd_xmm_xmm	8	582					
 psubq_xmm_xmm	8	204					
@@ -676,12 +676,12 @@ cmovnbq_r64_r64	9	281
 cmovncw_r16_r16	9	61					
 cmovngw_r16_r16	9	105					
 cmovnlw_r16_r16	9	61					
-cmpxchgb_rh_r8	9	372:C:R3:CRITICAL: what about same keys					
-cmpxchgw_r16_r16	9	441:C:R3: what about same keys					
+cmpxchgb_rh_r8	9	372:C:R3:Must Schedule
+cmpxchgw_r16_r16	9	441:C:R3:Must Schedule
 movmskps_r32_xmm	9	287					
-rorw_r16_one	9	323
+rorw_r16_one	9	323:Z3 Pending
 shrxl_r32_r32_r32	9	269					
-tzcntw_r16_r16	9	192
+tzcntw_r16_r16	9	192:Z3 Pending
 vfmsubadd231pd_xmm_xmm_xmm	9	168					
 vhaddps_ymm_ymm_ymm	9	425					
 vphsubd_xmm_xmm_xmm	9	648:US					
@@ -694,7 +694,7 @@ cmovnlew_r16_r16	10	102
 cmovnoq_r64_r64	10	412:PLUS
 cmovoq_r64_r64	10	412:PLUS
 cmovsq_r64_r64	10	412					
-cmpxchgb_r8_r8	10	380:CRITICAL					
+cmpxchgb_r8_r8	10	380:Must Schedule
 movmskps_r64_xmm	10	287					
 pmovzxwd_xmm_xmm	10	415					
 vfmaddsub231pd_xmm_xmm_xmm	10	422					
@@ -710,7 +710,7 @@ cmovngeq_r64_r64	11	393
 cmovnlq_r64_r64	11	398:PLUS
 cmovnsq_r64_r64	11	394					
 cmovpoq_r64_r64	11	524:C:PLUS
-cmpxchgb_r8_rh	11	383:CRITICAL
+cmpxchgb_r8_rh	11	383:Must Schedule
 pmovsxwd_xmm_xmm	11	1676					
 pmovzxbd_xmm_xmm	11	515					
 psubd_xmm_xmm	11	782:US					
@@ -720,7 +720,7 @@ vfmsubadd231ps_xmm_xmm_xmm	11	723
 vpmovzxbd_ymm_xmm	11	1048					
 vpsubd_ymm_ymm_ymm	11	1476:US					
 							
-Stratum 12	9		
+Stratum 12	9 (Generate at a stretch)		
 cmovnpq_r64_r64	12	524:PLUS
 pmovsxbd_xmm_xmm	12	802:C
 punpckhwd_xmm_xmm	12	1344:C

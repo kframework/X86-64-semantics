@@ -11,7 +11,7 @@ use Cwd;
 use File::Path qw(make_path remove_tree);
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
-use lib qw( /home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/ );
+use lib qw( scripts/ );
 use kutils;
 use File::Find;
 use File::chdir;
@@ -29,9 +29,6 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
-my $specdir = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/specs/";
-my $derivedInstructions =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/derivedInstructions/";
 my $help           = "";
 my $stratum        = "";
 my $readmod        = "";
@@ -44,14 +41,17 @@ my $genincludes    = "";
 my $checksanity    = "";
 my $gitdiff        = "";
 my $gitadd         = "";
-my $gitco         = "";
+my $gitco          = "";
 my $speconly       = "";
-my $singlefiledefn = "";
 my $nightlyrun     = "";
 my $start          = "";
 my $getimm         = "";
-my $getimmdiff           = "";
-my $getmem           = "";
+my $getimmdiff     = "";
+my $getmem         = "";
+my $getz3formula   = "";
+my $z3prove        = "";
+my $useuif         = "";
+my $compile         = "";
 
 GetOptions(
     "help"           => \$help,
@@ -69,11 +69,14 @@ GetOptions(
     "speconly"       => \$speconly,
     "gitadd"         => \$gitadd,
     "gitco"          => \$gitco,
-    "singlefiledefn" => \$singlefiledefn,
     "getimm"         => \$getimm,
     "getimmdiff"     => \$getimmdiff,
     "getmem"         => \$getmem,
     "nightlyrun"     => \$nightlyrun,
+    "getz3formula"   => \$getz3formula,
+    "z3prove"        => \$z3prove,
+    "useuif"         => \$useuif,
+    "compile"         => \$compile,
     "start:s"        => \$start,
     "strata_path:s"  => \$strata_path,
 ) or die("Error in command line arguments\n");
@@ -83,7 +86,28 @@ my $sfp;
 my $removeComment;
 my $debugprint = 0;
 
-if ( "" ne $singlefiledefn ) {
+
+if ( "" ne $compile ) {
+    createSingleFileDefn();
+    execute("git status x86-instructions-semantics.k");
+    execute(
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v"
+    );
+
+    exit(0);
+}
+
+
+my $derivedInstructions = "derivedInstructions/";
+my $specdir = "kproveSpecs/";
+my $specoutdir = "kproveOutput/";
+if("" ne $useuif) {
+  $derivedInstructions = "instructions_with_uif/derivedInstructions/";
+  $specoutdir = "instructions_with_uif/kproveOutput/";
+}
+
+
+sub createSingleFileDefn {
 
     my $singleFile = "x86-instructions-semantics.k";
     open( $sfp, ">", $singleFile ) or die "Can't open: $!";
@@ -95,7 +119,16 @@ if ( "" ne $singlefiledefn ) {
     print $sfp "  imports X86-CONFIGURATION" . "\n";
     print $sfp "  imports X86-FLAG-CHECKS-SYNTAX" . "\n";
 
-    find( \&mergeToSingleFile, "instructions/" );
+    my $baseInstrPath = "baseInstructions/";
+    my $derivedInstrPath = "derivedInstructions/";
+
+    if("" ne $useuif) {
+      $baseInstrPath = "instructions_with_uif/baseInstructions/";
+      $derivedInstrPath = "instructions_with_uif/derivedInstructions/";
+    }
+
+    print("\tMerging $baseInstrPath\n");
+    find( \&mergeToSingleFile, $baseInstrPath );
 
     #print $sfp "endmodule";
     #    close($sfp);
@@ -108,12 +141,13 @@ if ( "" ne $singlefiledefn ) {
     #    print $sfp "module X86-DERIVED-INSTRUCTIONS-SEMANTICS" . "\n";
     #    print $sfp "  imports X86-CONFIGURATION" . "\n";
 
-    find( \&mergeToSingleFile, "derivedInstructions/" );
+    print("\tMerging $derivedInstrPath\n");
+    find( \&mergeToSingleFile, $derivedInstrPath );
 
     print $sfp "endmodule";
     close($sfp);
 
-    exit(0);
+    return;
 }
 
 sub mergeToSingleFile {
@@ -123,8 +157,6 @@ sub mergeToSingleFile {
     }
 
     my $koutput = "$file";
-
-    #print "Merging $koutput\n";
 
     open( my $fp, "<", $koutput ) or die "Can't open ::$koutput\:: $!";
     my @lines = <$fp>;
@@ -186,6 +218,30 @@ if ("" ne $getmem) {
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines      = <$fp>;
+ 
+## Run the Z3 prover
+if ( "" ne $z3prove ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+          
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
+        }
+        execute("python z3EquivFormulas/x86-$opcode.py");
+    }
+}
+
+## Get z3 Formulas
+if ( "" ne $getz3formula ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+          
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
+        }
+        generateZ3Formula($opcode, $debugprint);
+    }
+}
 
 
 ## Git diff
@@ -214,7 +270,7 @@ if ( "" ne $gitadd ) {
 
         my $filesToAdd = "";
         my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specout    = "$specdir/x86-semantics_${opcode}_spec.output";
+        my $specout    = "$specoutdir/x86-semantics_${opcode}_spec.output";
         my $koutput    = "$derivedInstructions/x86-${opcode}.k";
 
         if ( $speconly eq "" ) {
@@ -238,7 +294,7 @@ if ( "" ne $gitco ) {
 
         my $filesToRestore = "";
         my $specfile   = "$specdir/x86-semantics_${opcode}_spec.k";
-        my $specout    = "$specdir/x86-semantics_${opcode}_spec.output";
+        my $specout    = "$specoutdir/x86-semantics_${opcode}_spec.output";
         my $koutput    = "$derivedInstructions/x86-${opcode}.k";
 
         if ( $speconly eq "" ) {
@@ -275,7 +331,7 @@ if ( "" ne $kprove ) {
           next;
         }
 
-        kutils::runkprove( $opcode, $specdir, $debugprint );
+        kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
         print "\n";
     }
 }
@@ -289,7 +345,7 @@ if ( "" ne $postprocess ) {
           next;
         }
 
-        kutils::postProcess( $opcode, $specdir, $derivedInstructions,
+        kutils::postProcess( $opcode, $specdir, $specoutdir,  $derivedInstructions,
             $debugprint );
         print "\n";
     }
@@ -305,8 +361,8 @@ if ( "" ne $all ) {
 
         kutils::createSpecFile( $opcode, $strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
-        kutils::runkprove( $opcode, $specdir, $debugprint );
-        kutils::postProcess( $opcode, $specdir, $derivedInstructions,
+        kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
+        kutils::postProcess( $opcode, $specdir, $specoutdir, $derivedInstructions,
             $debugprint );
         print "\n";
     }
@@ -356,15 +412,9 @@ if ( "" ne $checksanity ) {
 
     for my $opcode (@lines) {
         chomp $opcode;
-        my ( $isSupported, $reason ) =
-          kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-            $debugprint );
-        if ( 0 == $isSupported ) {
-            utils::warnInfo("$opcode: $reason");
-            next;
-        }
-        if ( "" ne $reason ) {
-            utils::warnInfo("$opcode: $reason");
+
+        if(0 == checkSuppOrManuallyGen($opcode, $debugprint)) {
+          next;
         }
 
         my $koutput = "$derivedInstructions/x86-${opcode}.k";

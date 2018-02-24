@@ -1,26 +1,26 @@
 ![Dependency tree of Source Code](docs/import_graph.png)
 
-## To compile
+## To compile the x86-64 semantics encoded in K
 
 ```
 cd x86-semantics
-./scripts/run.pl --compile
+./scripts/process_spec.pl --compile
 ```
 
 
 ## To test
 ```
 cd  tests
-make kstate // Checks succesful completion of krun and stores the final state (we call kstate).
+make kstate // Checks successful completion of krun and stores the final state (we call kstate).
 make xstate // Executes gdb scrip to collect the hardware register states (we call xstate)
 make compare // compare the above two states
 make // All the above
 ```
 
-## Autogenerate k rules from strata for register only instruction variants
+## Auto generate k rules from strata for register only instruction variants
 Let --file input is a file containing lst of all the opcodes which strata has the formula generated.
 
-### Generated spec file to be use with kprove (tool used for smbolic execution)
+### Generated spec file to be use with kprove (tool used for symbolic execution)
 ```
 ./scripts/process_spec.pl --file docs/relatedwork/strata/stratum_0.txt --createspec
 ```
@@ -28,7 +28,7 @@ Let --file input is a file containing lst of all the opcodes which strata has th
 ```
 ./scripts/process_spec.pl --file docs/relatedwork/strata/stratum_0.txt --kprove
 ```
-### Run Sanitization over the rules generated and create the k files
+### Run Sanitation over the rules generated and create the k files
 ```
 ./scripts/process_spec.pl --file docs/relatedwork/strata/non_vector_opcodes.txt --postprocess
 ```
@@ -38,13 +38,21 @@ Let --file input is a file containing lst of all the opcodes which strata has th
 ./scripts/process_spec.pl --file docs/relatedwork/strata/stratum_0.txt --postprocess
 ```
 
+## Equivalence proof of K's rule Vs Strata's bit-vector formula
+### z3 formula directory 
+`z3EquivFormulas/` contain one Python file for each instruction. The file contains the encoded z3 formula for K and strata's rule and the code to prove the equivalence between them.
+
+### More info 
+  - [Wiki Link](https://github.com/sdasgup3/binary-decompilation/wiki/Proving-Equivalence-of-K-Rules-and-Strata's-BitVector-Formulas(BVFs))
+  - [Issue Link](https://github.com/sdasgup3/binary-decompilation/issues/49)
+
 ## Autogenerate k rules from strata for imm-register instruction variants
 ### To generate
 ```
-./scripts/process_spec.pl --file docs/relatedwork/strata/generalizedImm.txt --getimm
+./scripts/process_spec.pl  --getimm
 ```
 
 ### To diff with corresponding register variant
 ```
-./scripts/process_spec.pl --file docs/relatedwork/strata/generalizedImm.txt --getimmdiff
+./scripts/process_spec.pl --getimmdiff
 ```

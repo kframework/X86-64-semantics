@@ -233,7 +233,8 @@ module X86-ABSTRACT-SEMANTICS
   /*@ 
     Check if two registers are the same
   */  
-  rule sameRegisters(R1, R2) =>  convToRegKeys(R1) ==String  convToRegKeys(R2)
+  rule sameRegisters(R1:Register, R2:Register) =>  convToRegKeys(R1) ==String  convToRegKeys(R2)
+  rule sameRegisters(R1:Register, S2:String)   =>  convToRegKeys(R1) ==String  S2
 
   /*@ 
     Update Register's value at arbitrary position.
