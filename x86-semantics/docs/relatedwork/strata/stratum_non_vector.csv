@@ -676,12 +676,12 @@ cmovnbq_r64_r64	9	281
 cmovncw_r16_r16	9	61					
 cmovngw_r16_r16	9	105					
 cmovnlw_r16_r16	9	61					
-cmpxchgb_rh_r8	9	372:C:R3:CRITICAL: what about same keys					
-cmpxchgw_r16_r16	9	441:C:R3: what about same keys					
+cmpxchgb_rh_r8	9	372:C:R3:Must Schedule
+cmpxchgw_r16_r16	9	441:C:R3:Must Schedule
 movmskps_r32_xmm	9	287					
-rorw_r16_one	9	323
+rorw_r16_one	9	323:Z3 Pending
 shrxl_r32_r32_r32	9	269					
-tzcntw_r16_r16	9	192
+tzcntw_r16_r16	9	192:Z3 Pending
 vfmsubadd231pd_xmm_xmm_xmm	9	168					
 vhaddps_ymm_ymm_ymm	9	425					
 vphsubd_xmm_xmm_xmm	9	648:US					
@@ -694,7 +694,7 @@ cmovnlew_r16_r16	10	102
 cmovnoq_r64_r64	10	412:PLUS
 cmovoq_r64_r64	10	412:PLUS
 cmovsq_r64_r64	10	412					
-cmpxchgb_r8_r8	10	380:CRITICAL					
+cmpxchgb_r8_r8	10	380:Must Schedule:Z3 Pending					
 movmskps_r64_xmm	10	287					
 pmovzxwd_xmm_xmm	10	415					
 vfmaddsub231pd_xmm_xmm_xmm	10	422					
@@ -710,7 +710,7 @@ cmovngeq_r64_r64	11	393
 cmovnlq_r64_r64	11	398:PLUS
 cmovnsq_r64_r64	11	394					
 cmovpoq_r64_r64	11	524:C:PLUS
-cmpxchgb_r8_rh	11	383:CRITICAL
+cmpxchgb_r8_rh	11	383:Z3 Pending
 pmovsxwd_xmm_xmm	11	1676					
 pmovzxbd_xmm_xmm	11	515					
 psubd_xmm_xmm	11	782:US					
