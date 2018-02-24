@@ -1695,10 +1695,11 @@ sub selectbraces {
     my $rest    = "";
     my $counter = 0;
 
-    utils::info("In selectbraces");
+#   utils::info("In selectbraces");
 
     ## for $arg == _(_,_,_)(...)xyz return _(_,_,_)(...) and xyz  
-#print("--$arg\n\n");
+      ## print("--$arg\n\n");
+
     if($arg =~ m/^(\_\(\_,\_,\_\))(.+)/) {
       $op_arg = $1;
       $arg = $2;
@@ -1736,7 +1737,7 @@ sub selectbraces {
         $op_arg = $op_arg . ":>Bool";
     }
 
-    utils::info("Out selectbraces");
+#   utils::info("Out selectbraces");
     return ( $op_arg, $rest );
 }
 

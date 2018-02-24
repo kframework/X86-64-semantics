@@ -720,7 +720,7 @@ vfmsubadd231ps_xmm_xmm_xmm	11	723
 vpmovzxbd_ymm_xmm	11	1048					
 vpsubd_ymm_ymm_ymm	11	1476:US					
 							
-Stratum 12	9		
+Stratum 12	9 (Generate at a stretch)		
 cmovnpq_r64_r64	12	524:PLUS
 pmovsxbd_xmm_xmm	12	802:C
 punpckhwd_xmm_xmm	12	1344:C
