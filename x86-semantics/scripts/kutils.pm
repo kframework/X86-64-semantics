@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -4105,6 +4105,111 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|s
     return $rule;
 }
 
+
+sub assocateMcSemaXed {
+  my $filenameMC = shift @_;
+  my $filenameXED = shift @_;
+  my $debugprint = shift @_;
+
+  open( my $fp, "<", $filenameXED ) or die "Can't open: $!";
+  my @lines = <$fp>;
+  close $fp;
+
+  my %model = ();
+  my %revmodel = ();
+
+  ## Create a moel of xed
+  for my $line (@lines) {
+    chomp $line;
+
+    my $key = "";
+    my $name = "";
+    if($line =~ m/^(\d+) (\w+) (\w+) (.*)/g) {
+      $key = $2;
+      $name = $3;
+      my $rest = $4;
+      if($rest =~ m/X87/g) {
+        next;
+      }
+
+      push @{$model{$key}}, $name;
+      $revmodel{$name} =  $key;
+    }
+  }
+
+  my %retmodel = ();
+
+  my $filename = "docs/relatedwork/mcsema/amd64_avx512.txt";
+  open($fp, "<", $filename ) or die "Can't open: $!";
+  @lines = <$fp>;
+  close $fp;
+
+  for my $line (@lines) {
+    chomp $line;
+
+    $line =~ s/^ISEL_//g;
+
+    if($line =~ m/X87/g) {
+      next;
+    }
+
+
+    my $key1 = $line;
+    my $key2 = $line =~ s/_.*//gr;
+
+
+    if(exists $revmodel{$key1}) {
+      push @{$retmodel{$revmodel{$key1}}}, $line;
+    } elsif(exists $model{$key2}) {
+#print "$line\n";
+      push @{$retmodel{$key2}}, $line;
+    } else {
+      ## Special case
+      if($line =~ m/(RET_NEAR).*/g) {
+#print "$1:$line\n";
+        push @{$retmodel{$1}}, $line;
+      } elsif($line =~ m/(CALL_NEAR).*/g) {
+#print "$1:$line\n";
+        push @{$retmodel{$1}}, $line;
+      } else {
+#print "K1:$key1 K2:$key2 L:$line\n";
+      }
+    }
+  }
+
+  return \%retmodel;
+}
+
+sub assocateMcSemaAvail {
+  my $mcsema_supp_ref = shift @_;
+  my $avail_ref = shift @_;
+  my $debugprint = shift @_;
+
+  my %mcsema_supp = %{$mcsema_supp_ref};
+  my %avail = %{$avail_ref};
+
+  my %retmodel = ();
+
+  for my $key (keys %mcsema_supp) {
+    if(exists $avail{lc($key)}) {
+#print "F:$key\n";
+    } else {
+      print "NF1:$key\n";
+    }
+  }
+
+  print "\n";
+
+  for my $key (keys %avail) {
+    if(exists $mcsema_supp{uc($key)}) {
+#print "F:$key\n";
+    } else {
+      print "NF2:$key\n";
+    }
+  }
+  return \%retmodel;
+}
+
 sub modelInstructions {
   my $filename = shift @_;
   my $hint = shift @_;
@@ -4141,6 +4246,15 @@ sub modelInstructions {
     
     if("" eq $hint) {
       $key = $line =~ s/_.*//gr;;
+
+      if($line =~ m/_xmm|_ymm|_mm/) {
+      } else {
+        $key =~ s/b$//g; 
+        $key =~ s/w$//g; 
+        $key =~ s/l$//g; 
+        $key =~ s/q$//g; 
+      }
+
       $name = $line;
     }
     push @{$model{$key}}, $name;
