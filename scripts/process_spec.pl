@@ -53,6 +53,7 @@ my $getz3formula = "";
 my $z3prove      = "";
 my $useuif       = "";
 my $compile      = "";
+my $comparemcsema = "";
 
 GetOptions(
     "help"          => \$help,
@@ -74,6 +75,7 @@ GetOptions(
     "getimm"        => \$getimm,
     "getimmdiff"    => \$getimmdiff,
     "getmem"        => \$getmem,
+    "comparemcsema" => \$comparemcsema,
     "nightlyrun"    => \$nightlyrun,
     "getz3formula"  => \$getz3formula,
     "z3prove"       => \$z3prove,
@@ -87,6 +89,133 @@ GetOptions(
 my $sfp;
 my $removeComment;
 my $debugprint = 0;
+
+if("" ne $comparemcsema) {
+
+#my $mcsema_supp_ref = modelInstructions("docs/relatedwork/mcsema/amd64_avx512.txt", "mcsema");
+  my $xed_ref = modelInstructions("docs/relatedwork/mcsema/xed.txt", "xed");
+  my $avail_ref = modelInstructions("docs/relatedwork/all.instrs", "");
+  my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/all_known_sema_opcodes.txt", "");
+
+#  my %mcsema_supp = %{$mcsema_supp_ref};
+  my %xed = %{$xed_ref};
+  my %avail       = %{$avail_ref};
+  my %strata_supp = %{$strata_supp_ref};
+
+  print "\nXed\n\n";
+  for my $key (sort keys %xed) {
+#    print $key. "\n";
+#    printArray(\@{$xed{$key}},"", 1);
+  }
+
+  my $filename = "docs/relatedwork/mcsema/amd64_avx512.txt";
+  open( my $fp, "<", $filename ) or die "Can't open: $!";
+  my @lines = <$fp>;
+  close $fp;
+
+  print "\nMcSema Xed Sanity Check\n\n";
+  my $mcsemaxedCount = 0;
+  for my $line (@lines) {
+    chomp $line;
+    $line =~ s/^ISEL_//g;
+#    print "B:$line\n";
+    if($line =~ m/MEMv|IMMz|GPRv/g) {
+      $line =~ s/_\d+$//g; 
+    }
+#    print "A:$line\n";
+
+    my $key = $line =~ s/_.*//gr;
+    if(exists $xed{$key}) {
+      my @matches = @{$xed{$key}};
+
+      my $found = 0;
+
+      for my $match (@matches) {
+#print "M:". $match."\n";
+        if($match eq $line) {
+          $found = 1;
+          last;
+        }
+      }
+      if(1 == $found) {
+        $mcsemaxedCount ++;
+      } else {
+        print "Matched $key, but No $line match\n";
+      }
+    } else {
+        print $line." ". $key .  "\n";
+    }
+  }
+
+
+
+  
+
+#  print "\nMcSema Supported\n\n";
+#  for my $key (sort keys %mcsema_supp) {
+#    print $key. "\n";
+#    printArray(\@{$mcsema_supp{$key}},"", 1);
+#  }
+
+  print("Total Xed Instruction: ". scalar(keys %xed). "\n"); 
+#  print("Uniq Instruction McSema support: ". scalar(keys %mcsema_supp). "\n"); 
+  print("Sanity Check Xed McSema: ". $mcsemaxedCount. "\n"); 
+
+
+  
+
+
+
+#  ### Print Reports
+#  print "\nAvailable\n\n";
+#  for my $key (sort keys %avail) {
+#    print $key. "\n";
+#    #printArray(\@{$avail{$key}},"", 1);
+#  }
+#
+#  print "\nStrata Supported\n\n";
+#  for my $key (sort keys %strata_supp) {
+#    print $key. "\n";
+##    printArray(\@{$strata_supp{$key}},"", 1);
+#  }
+#
+#  print "\nMcSema Supported\n\n";
+#  for my $key (sort keys %mcsema_supp) {
+#    print $key. "\n";
+##printArray(\@{$mcsema_supp{$key}},"", 1);
+#  }
+
+
+  ### Instructions supported by McSema - Strata
+#  print "\nSanity Check\n\n";
+#  my $mcsemaAvailMatchCount = 0;
+#  for my $key (sort keys %mcsema_supp) {
+#    my $nkey = lc($key);
+#    if(exists $avail{$nkey}) {
+#      $mcsemaAvailMatchCount++;
+#    } else {
+#      my $found = 0;
+#      for my $suff (@suffix) {
+#        $nkey = $nkey.$suff;
+#        if(exists $avail{$nkey}) {
+#          $mcsemaAvailMatchCount++;
+#          $found = 1;
+#        } 
+#      }
+#      if
+#      print $key. "\n";
+#    }
+#  }
+#
+
+#  print("Total Uniq Instruction: ". scalar(keys %avail). "\n"); 
+#  print("#McSema Uniq Instruction Matching with Avail: ". $mcsemaAvailMatchCount. "\n"); 
+#  print("Uniq Instruction Strata Support: ". scalar(keys %strata_supp). "\n"); 
+#  print("Uniq Instruction McSema support: ". 
+#      scalar(keys %mcsema_supp)."\n");
+#
+  exit(0);
+}
 
 if ( "" ne $compile ) {
     createSingleFileDefn();

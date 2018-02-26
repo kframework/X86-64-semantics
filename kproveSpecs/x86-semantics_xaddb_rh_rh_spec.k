@@ -3,16 +3,16 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rax, "SPAD1") ~>
-saveRegister(%rbx, "SPAD2") ~>
+saveRegister(%rbx, "SPAD1") ~>
+saveRegister(%rax, "SPAD2") ~>
 execinstr ( movzbl %ah, %eax , .Typedoperands ) ~>
 execinstr ( addb %bh, %ah , .Typedoperands ) ~>
 execinstr ( xaddb %bh, %al , .Typedoperands ) ~>
 execinstr ( xchgb %ah, %al , .Typedoperands ) ~>
 restoreRegister("SPAD1", 0, 8, 16, 48,
-          8, 8, %rax) ~>
-restoreRegister("SPAD2", 0, 8, 16, 48,
           8, 8, %rbx) ~>
+restoreRegister("SPAD2", 0, 8, 16, 48,
+          8, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>
