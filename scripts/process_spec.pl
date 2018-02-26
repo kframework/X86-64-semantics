@@ -92,13 +92,11 @@ my $debugprint = 0;
 
 if("" ne $comparemcsema) {
 
-#my $mcsema_supp_ref = modelInstructions("docs/relatedwork/mcsema/amd64_avx512.txt", "mcsema");
   my $xed_ref = modelInstructions("docs/relatedwork/mcsema/xed.txt", "xed");
   my $avail_ref = modelInstructions("docs/relatedwork/all.instrs", "");
   my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/all_known_sema_opcodes.txt", "");
 
-#  my %mcsema_supp = %{$mcsema_supp_ref};
-  my %xed = %{$xed_ref};
+  my %xed         = %{$xed_ref};
   my %avail       = %{$avail_ref};
   my %strata_supp = %{$strata_supp_ref};
 
@@ -107,62 +105,41 @@ if("" ne $comparemcsema) {
 #    print $key. "\n";
 #    printArray(\@{$xed{$key}},"", 1);
   }
+  print("Total Uniq Xed Instruction: ". scalar(keys %xed). "\n"); 
 
   ### Print Reports
   print "\nAvailable\n\n";
   for my $key (sort keys %avail) {
-    #print $key. "\n";
-    #printArray(\@{$avail{$key}},"", 1);
+#print $key. "\n";
+#printArray(\@{$avail{$key}},"", 1);
   }
+  print("Total Uniq Instruction: ". scalar(keys %avail). "\n"); 
 
   print "\nStrata Supported\n\n";
   for my $key (sort keys %strata_supp) {
     #print $key. "\n";
     ##printArray(\@{$strata_supp{$key}},"", 1);
   }
-
-  my $filename = "docs/relatedwork/mcsema/amd64_avx512.txt";
-  open( my $fp, "<", $filename ) or die "Can't open: $!";
-  my @lines = <$fp>;
-  close $fp;
-
-  for my $line (@lines) {
-    chomp $line;
-    $line =~ s/^ISEL_//g;
-    if($line =~ m/MEMv|IMMz|GPRv/g) {
-      $line =~ s/_\d+$//g; 
-    }
-
-  }
-
-
-
-  ### Instructions supported by McSema - Strata
-#  print "\nSanity Check\n\n";
-#  my $mcsemaAvailMatchCount = 0;
-#  for my $key (sort keys %mcsema_supp) {
-#    my $nkey = lc($key);
-#    if(exists $avail{$nkey}) {
-#      $mcsemaAvailMatchCount++;
-#    } else {
-#      my $found = 0;
-#      for my $suff (@suffix) {
-#        $nkey = $nkey.$suff;
-#        if(exists $avail{$nkey}) {
-#          $mcsemaAvailMatchCount++;
-#          $found = 1;
-#        } 
-#      }
-#      if
-#      print $key. "\n";
-#    }
-#  }
-#
-
-  print("Total Xed Instruction: ". scalar(keys %xed). "\n"); 
-  print("Total Uniq Instruction: ". scalar(keys %avail). "\n"); 
-#print("#McSema Uniq Instruction Matching with Avail: ". $mcsemaAvailMatchCount. "\n"); 
   print("Uniq Instruction Strata Support: ". scalar(keys %strata_supp). "\n"); 
+
+  my $mcsema_supp_ref = assocateMcSemaXed("docs/relatedwork/mcsema/amd64_avx512.txt", "docs/relatedwork/mcsema/xed.txt", $debugprint);
+  my %mcsema_supp = %{$mcsema_supp_ref};
+  for my $key (sort keys %mcsema_supp) {
+#print $key. "\n";
+#printArray(\@{$mcsema_supp{$key}},"", 1);
+  }
+  print("Uniq Instruction McSema Support: ". scalar(keys %mcsema_supp). "\n"); 
+
+
+#my $mcsema_avail_ref = assocateMcSemaAvail($mcsema_supp_ref, $avail_ref , $debugprint);
+  my $mcsema_avail_ref = assocateMcSemaAvail($mcsema_supp_ref, $strata_supp_ref, $debugprint);
+  my %mcsema_avail = %{$mcsema_avail_ref};
+  for my $key (sort keys %mcsema_avail) {
+    print $key. "\n";
+    printArray(\@{$mcsema_supp{$key}},"", 1);
+  }
+  print("Uniq Instruction (McSema & Avail) Support: ". scalar(keys %mcsema_supp). "\n"); 
+
   exit(0);
 }
 
