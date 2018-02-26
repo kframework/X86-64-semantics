@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -4103,6 +4103,50 @@ qr/extractMInt|addMInt|orMInt|andMInt|eqMInt|ashrMInt|lshrMInt|shlMInt|ultMInt|s
 
     #    utils::info("Out convertKRuleToSMT2_helper");
     return $rule;
+}
+
+sub modelInstructions {
+  my $filename = shift @_;
+  my $hint = shift @_;
+  my $debugprint = shift @_;
+
+  ## Model instruction in a map.
+  open( my $fp, "<", $filename ) or die "Can't open: $!";
+  my @lines = <$fp>;
+  close $fp;
+
+  my %model = ();
+
+  for my $line (@lines) {
+    chomp $line;
+
+    my $key = "";
+    my $name = "";
+    if("xed" eq $hint ) {
+#print "$line\n";
+      if($line =~ m/^(\d+) (\w+) (\w+)/g) {
+        $key = $2;
+        $name = $3;
+        push @{$model{$key}}, $name;
+      }
+      next;
+    } 
+
+    if("mcsema" eq $hint ) {
+      $line =~ m/^ISEL_(\w+)/g;
+      $key = $1;
+      $name = $line;
+#print "K:$key\nN:$name\n";
+    } 
+    
+    if("" eq $hint) {
+      $key = $line =~ s/_.*//gr;;
+      $name = $line;
+    }
+    push @{$model{$key}}, $name;
+  }
+  
+  return \%model;
 }
 
 1;

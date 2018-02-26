@@ -3,15 +3,15 @@ module X86-SEMANTICS-SPEC
 
   rule
     <k>
-saveRegister(%rax, "SPAD1") ~>
-saveRegister(%rbx, "SPAD2") ~>
+saveRegister(%rbx, "SPAD1") ~>
+saveRegister(%rax, "SPAD2") ~>
 execinstr ( movb %bl, %ah , .Typedoperands ) ~>
 execinstr ( cmpxchgb %cl, %ah , .Typedoperands ) ~>
 execinstr ( movsbl %ah, %ebx , .Typedoperands ) ~>
 restoreRegister("SPAD1", 8, 56, 0, 0,
-          0, 8, %rax) ~>
-restoreRegister("SPAD2", 8, 56, 0, 0,
           0, 8, %rbx) ~>
+restoreRegister("SPAD2", 8, 56, 0, 0,
+          0, 8, %rax) ~>
 execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch
  => exit_0
     </k>

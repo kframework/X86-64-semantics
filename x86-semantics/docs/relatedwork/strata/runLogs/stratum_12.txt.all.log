@@ -1,0 +1,547 @@
+[4m[1m[34mCheck if supported: cmovnpq_r64_r64[0m
+[4m[1m[34mcreatespec cmovnpq_r64_r64: kproveSpecs//x86-semantics_cmovnpq_r64_r64_spec.k[0m
+[4m[1m[34mcmovnpq_r64_r64: Check if May == Must[0m
+Warn: [4m[1m[35mMay Write rbx does not belong to Must Write: cmovnpq_r64_r64[0m
+Circuit: cmovpoq %rcx, %rbx
+%rbx -> 1
+%rcx -> 1
+%pf -> 1
+cmov -> 1
+
+Total Circuit
+PF -> 1
+ -> 1
+RBX -> 1
+RCX -> 1
+
+Target
+ -> 1
+PF -> 1
+RCX -> 1
+RBX -> 1
+
+[4m[1m[34mkprove cmovnpq_r64_r64[0m
+time krun --prove kproveSpecs//x86-semantics_cmovnpq_r64_r64_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_cmovnpq_r64_r64_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput cmovnpq_r64_r64[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_cmovnpq_r64_r64_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput cmovnpq_r64_r64[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mcmovnpq_r64_r64: Check if May == Must[0m
+Warn: [4m[1m[35mMay Write RBX does not belong to Must Write: cmovnpq_r64_r64[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn cmovnpq_r64_r64: derivedInstructions//x86-cmovnpq_r64_r64.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "cmovnpq %rcx, %rbx" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: pmovsxbd_xmm_xmm[0m
+[4m[1m[34mcreatespec pmovsxbd_xmm_xmm: kproveSpecs//x86-semantics_pmovsxbd_xmm_xmm_spec.k[0m
+[4m[1m[34mpmovsxbd_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: movq $0xffffffffffffff80, %rdx
+%rdx -> 1
+\$0xffffffffffffff80 -> 1
+
+Circuit: movq %rdx, %xmm3
+%rdx -> 1
+%xmm3 -> 1
+sse2 -> 1
+
+Circuit: vpbroadcastd %xmm3, %ymm5
+%xmm3 -> 1
+avx2 -> 1
+%ymm5 -> 1
+
+Circuit: movups %xmm5, %xmm14
+%xmm14 -> 1
+%xmm5 -> 1
+sse -> 1
+
+Circuit: pmovzxbd %xmm2, %xmm2
+sse4_1 -> 1
+%xmm2 -> 1
+
+Circuit: vpaddd %xmm14, %xmm2, %xmm6
+avx -> 1
+%xmm6 -> 1
+%xmm2 -> 1
+%ymm6 -> 1
+%xmm14 -> 1
+
+Circuit: xorps %xmm14, %xmm6
+sse -> 1
+%xmm14 -> 1
+%xmm6 -> 1
+
+Circuit: movaps %xmm6, %xmm1
+%xmm1 -> 1
+sse -> 1
+%xmm6 -> 1
+
+Total Circuit
+YMM3 -> 1
+YMM14 -> 1
+YMM1 -> 1
+YMM5 -> 1
+YMM6 -> 1
+YMM2 -> 1
+ -> 1
+RDX -> 1
+
+Target
+YMM2 -> 1
+ -> 1
+YMM1 -> 1
+
+[4m[1m[34mkprove pmovsxbd_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_pmovsxbd_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_pmovsxbd_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput pmovsxbd_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_pmovsxbd_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput pmovsxbd_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mpmovsxbd_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn pmovsxbd_xmm_xmm: derivedInstructions//x86-pmovsxbd_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "pmovsxbd %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: punpckhwd_xmm_xmm[0m
+[4m[1m[34mcreatespec punpckhwd_xmm_xmm: kproveSpecs//x86-semantics_punpckhwd_xmm_xmm_spec.k[0m
+[4m[1m[34mpunpckhwd_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: unpckhpd %xmm2, %xmm1
+sse2 -> 1
+%xmm1 -> 1
+%xmm2 -> 1
+
+Circuit: callq .move_128_032_xmm1_xmm4_xmm5_xmm6_xmm7
+%xmm1 -> 1
+%xmm6 -> 1
+%xmm7 -> 1
+%xmm4 -> 1
+%xmm5 -> 1
+
+Circuit: punpckhqdq %xmm4, %xmm2
+%xmm4 -> 1
+%xmm2 -> 1
+sse2 -> 1
+
+Circuit: punpcklwd %xmm2, %xmm1
+%xmm1 -> 1
+sse2 -> 1
+%xmm2 -> 1
+
+Total Circuit
+YMM7 -> 1
+ -> 1
+YMM5 -> 1
+YMM2 -> 1
+YMM6 -> 1
+YMM4 -> 1
+YMM1 -> 1
+
+Target
+YMM2 -> 1
+ -> 1
+YMM1 -> 1
+
+[4m[1m[34mkprove punpckhwd_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_punpckhwd_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_punpckhwd_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput punpckhwd_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_punpckhwd_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput punpckhwd_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mpunpckhwd_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn punpckhwd_xmm_xmm: derivedInstructions//x86-punpckhwd_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "punpckhwd %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: vfmsub213ss_xmm_xmm_xmm[0m
+[4m[1m[34mcreatespec vfmsub213ss_xmm_xmm_xmm: kproveSpecs//x86-semantics_vfmsub213ss_xmm_xmm_xmm_spec.k[0m
+[4m[1m[34mvfmsub213ss_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: vbroadcastss %xmm3, %ymm0
+%ymm0 -> 1
+avx2 -> 1
+%xmm3 -> 1
+
+Circuit: callq .move_128_032_xmm3_xmm8_xmm9_xmm10_xmm11
+%xmm8 -> 1
+%xmm9 -> 1
+%xmm10 -> 1
+%xmm3 -> 1
+%xmm11 -> 1
+
+Circuit: pmovzxbd %xmm8, %xmm7
+%xmm7 -> 1
+sse4_1 -> 1
+%xmm8 -> 1
+
+Circuit: vfnmsub132ps %xmm7, %xmm0, %xmm8
+%xmm7 -> 1
+%xmm0 -> 1
+%xmm8 -> 1
+fma -> 1
+%ymm8 -> 1
+
+Circuit: vfmadd213ss %xmm8, %xmm2, %xmm1
+%xmm2 -> 1
+%ymm1 -> 1
+%xmm8 -> 1
+%xmm1 -> 1
+fma -> 1
+
+Total Circuit
+YMM8 -> 1
+ -> 1
+YMM7 -> 1
+YMM0 -> 1
+YMM10 -> 1
+YMM2 -> 1
+YMM3 -> 1
+YMM9 -> 1
+YMM1 -> 1
+YMM11 -> 1
+
+Target
+YMM2 -> 1
+ -> 1
+YMM3 -> 1
+YMM1 -> 1
+
+[4m[1m[34mkprove vfmsub213ss_xmm_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_vfmsub213ss_xmm_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_vfmsub213ss_xmm_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput vfmsub213ss_xmm_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_vfmsub213ss_xmm_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput vfmsub213ss_xmm_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mvfmsub213ss_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn vfmsub213ss_xmm_xmm_xmm: derivedInstructions//x86-vfmsub213ss_xmm_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "vfmsub213ss %xmm3, %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: vfmsubadd132ps_xmm_xmm_xmm[0m
+[4m[1m[34mcreatespec vfmsubadd132ps_xmm_xmm_xmm: kproveSpecs//x86-semantics_vfmsubadd132ps_xmm_xmm_xmm_spec.k[0m
+[4m[1m[34mvfmsubadd132ps_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: vfmsubadd231ps %xmm3, %xmm1, %xmm2
+fma -> 1
+%xmm1 -> 1
+%ymm2 -> 1
+%xmm2 -> 1
+%xmm3 -> 1
+
+Circuit: callq .move_128_064_xmm2_r8_r9
+%r8 -> 1
+%xmm2 -> 1
+%r9 -> 1
+
+Circuit: vzeroall
+%ymm3 -> 1
+avx -> 1
+%ymm12 -> 1
+%ymm15 -> 1
+%ymm0 -> 1
+%ymm7 -> 1
+%ymm11 -> 1
+%ymm13 -> 1
+%ymm9 -> 1
+%ymm8 -> 1
+%ymm6 -> 1
+%ymm4 -> 1
+%ymm2 -> 1
+%ymm14 -> 1
+%ymm10 -> 1
+%ymm1 -> 1
+%ymm5 -> 1
+
+Circuit: callq .move_064_128_r8_r9_xmm1
+%r8 -> 1
+%xmm1 -> 1
+%r9 -> 1
+
+Total Circuit
+YMM6 -> 1
+R8 -> 1
+ -> 1
+YMM7 -> 1
+YMM14 -> 1
+R9 -> 1
+YMM1 -> 1
+YMM3 -> 1
+YMM13 -> 1
+YMM12 -> 1
+YMM15 -> 1
+YMM2 -> 1
+YMM5 -> 1
+YMM10 -> 1
+YMM0 -> 1
+YMM8 -> 1
+YMM11 -> 1
+YMM9 -> 1
+YMM4 -> 1
+
+Target
+ -> 1
+YMM1 -> 1
+YMM3 -> 1
+YMM2 -> 1
+
+[4m[1m[34mkprove vfmsubadd132ps_xmm_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_vfmsubadd132ps_xmm_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_vfmsubadd132ps_xmm_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput vfmsubadd132ps_xmm_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_vfmsubadd132ps_xmm_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput vfmsubadd132ps_xmm_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mvfmsubadd132ps_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn vfmsubadd132ps_xmm_xmm_xmm: derivedInstructions//x86-vfmsubadd132ps_xmm_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "vfmsubadd132ps %xmm3, %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: vfmsubadd213ps_xmm_xmm_xmm[0m
+[4m[1m[34mcreatespec vfmsubadd213ps_xmm_xmm_xmm: kproveSpecs//x86-semantics_vfmsubadd213ps_xmm_xmm_xmm_spec.k[0m
+[4m[1m[34mvfmsubadd213ps_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: movapd %xmm3, %xmm7
+sse2 -> 1
+%xmm7 -> 1
+%xmm3 -> 1
+
+Circuit: vfmsubadd231ps %xmm1, %xmm2, %xmm7
+%xmm1 -> 1
+%ymm7 -> 1
+fma -> 1
+%xmm7 -> 1
+%xmm2 -> 1
+
+Circuit: vmulsd %xmm3, %xmm7, %xmm1
+%xmm7 -> 1
+%xmm3 -> 1
+avx -> 1
+%ymm1 -> 1
+%xmm1 -> 1
+
+Circuit: movupd %xmm7, %xmm1
+%xmm1 -> 1
+sse2 -> 1
+%xmm7 -> 1
+
+Total Circuit
+YMM7 -> 1
+ -> 1
+YMM3 -> 1
+YMM1 -> 1
+YMM2 -> 1
+
+Target
+ -> 1
+YMM3 -> 1
+YMM1 -> 1
+YMM2 -> 1
+
+[4m[1m[34mkprove vfmsubadd213ps_xmm_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_vfmsubadd213ps_xmm_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_vfmsubadd213ps_xmm_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput vfmsubadd213ps_xmm_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_vfmsubadd213ps_xmm_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput vfmsubadd213ps_xmm_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mvfmsubadd213ps_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn vfmsubadd213ps_xmm_xmm_xmm: derivedInstructions//x86-vfmsubadd213ps_xmm_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "vfmsubadd213ps %xmm3, %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: vpmovsxwd_ymm_xmm[0m
+[4m[1m[34mcreatespec vpmovsxwd_ymm_xmm: kproveSpecs//x86-semantics_vpmovsxwd_ymm_xmm_spec.k[0m
+[4m[1m[34mvpmovsxwd_ymm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: callq .move_128_64_xmm2_xmm12_xmm13
+%xmm12 -> 1
+%xmm13 -> 1
+%xmm2 -> 1
+
+Circuit: vmovq %xmm12, %xmm11
+%ymm11 -> 1
+%xmm12 -> 1
+avx -> 1
+%xmm11 -> 1
+
+Circuit: pmovsxwd %xmm13, %xmm13
+sse4_1 -> 1
+%xmm13 -> 1
+
+Circuit: pmovsxwd %xmm11, %xmm12
+%xmm11 -> 1
+sse4_1 -> 1
+%xmm12 -> 1
+
+Circuit: callq .move_128_256_xmm12_xmm13_ymm3
+%xmm13 -> 1
+%ymm3 -> 1
+%xmm12 -> 1
+
+Circuit: vmovaps %ymm3, %ymm1
+%ymm1 -> 1
+%ymm3 -> 1
+avx -> 1
+
+Total Circuit
+YMM11 -> 1
+YMM2 -> 1
+YMM1 -> 1
+YMM13 -> 1
+YMM12 -> 1
+YMM3 -> 1
+ -> 1
+
+Target
+YMM2 -> 1
+ -> 1
+YMM1 -> 1
+
+[4m[1m[34mkprove vpmovsxwd_ymm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_vpmovsxwd_ymm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_vpmovsxwd_ymm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput vpmovsxwd_ymm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_vpmovsxwd_ymm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput vpmovsxwd_ymm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mvpmovsxwd_ymm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn vpmovsxwd_ymm_xmm: derivedInstructions//x86-vpmovsxwd_ymm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "vpmovsxwd %xmm2, %ymm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: vpmovsxwq_xmm_xmm[0m
+[4m[1m[34mcreatespec vpmovsxwq_xmm_xmm: kproveSpecs//x86-semantics_vpmovsxwq_xmm_xmm_spec.k[0m
+[4m[1m[34mvpmovsxwq_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: pmovsxwd %xmm2, %xmm0
+%xmm0 -> 1
+sse4_1 -> 1
+%xmm2 -> 1
+
+Circuit: vpmovsxdq %xmm0, %xmm1
+avx -> 1
+%xmm0 -> 1
+%xmm1 -> 1
+%ymm1 -> 1
+
+Total Circuit
+YMM2 -> 1
+YMM0 -> 1
+YMM1 -> 1
+ -> 1
+
+Target
+YMM2 -> 1
+YMM1 -> 1
+ -> 1
+
+[4m[1m[34mkprove vpmovsxwq_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_vpmovsxwq_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_vpmovsxwq_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput vpmovsxwq_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_vpmovsxwq_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput vpmovsxwq_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mvpmovsxwq_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn vpmovsxwq_xmm_xmm: derivedInstructions//x86-vpmovsxwq_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "vpmovsxwq %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
+[4m[1m[34mCheck if supported: vpunpcklwd_xmm_xmm_xmm[0m
+[4m[1m[34mcreatespec vpunpcklwd_xmm_xmm_xmm: kproveSpecs//x86-semantics_vpunpcklwd_xmm_xmm_xmm_spec.k[0m
+[4m[1m[34mvpunpcklwd_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+Circuit: punpcklwd %xmm3, %xmm2
+sse2 -> 1
+%xmm3 -> 1
+%xmm2 -> 1
+
+Circuit: callq .move_128_064_xmm2_r8_r9
+%r8 -> 1
+%r9 -> 1
+%xmm2 -> 1
+
+Circuit: vzeroall
+%ymm10 -> 1
+%ymm1 -> 1
+%ymm5 -> 1
+%ymm4 -> 1
+%ymm14 -> 1
+%ymm2 -> 1
+%ymm12 -> 1
+%ymm15 -> 1
+%ymm0 -> 1
+%ymm3 -> 1
+avx -> 1
+%ymm9 -> 1
+%ymm8 -> 1
+%ymm6 -> 1
+%ymm11 -> 1
+%ymm7 -> 1
+%ymm13 -> 1
+
+Circuit: callq .move_064_128_r8_r9_xmm1
+%r9 -> 1
+%r8 -> 1
+%xmm1 -> 1
+
+Total Circuit
+YMM11 -> 1
+YMM9 -> 1
+YMM4 -> 1
+YMM15 -> 1
+YMM2 -> 1
+YMM10 -> 1
+YMM5 -> 1
+YMM0 -> 1
+YMM8 -> 1
+YMM14 -> 1
+R9 -> 1
+YMM1 -> 1
+YMM3 -> 1
+YMM13 -> 1
+YMM12 -> 1
+YMM6 -> 1
+R8 -> 1
+ -> 1
+YMM7 -> 1
+
+Target
+YMM3 -> 1
+YMM1 -> 1
+ -> 1
+YMM2 -> 1
+
+[4m[1m[34mkprove vpunpcklwd_xmm_xmm_xmm[0m
+time krun --prove kproveSpecs//x86-semantics_vpunpcklwd_xmm_xmm_xmm_spec.k ~/Junk/dummy.k  --smt_prelude /home/sdasgup3/Github/k/k-distribution/include/z3/basic.smt2 1>kproveOutput//x86-semantics_vpunpcklwd_xmm_xmm_xmm_spec.output 2>&1 
+[4m[1m[34mprocessSpecOutput vpunpcklwd_xmm_xmm_xmm[0m
+[4m[1m[34mIn processSpecOutput[0m
+Using kproveOutput//x86-semantics_vpunpcklwd_xmm_xmm_xmm_spec.output
+[4m[1m[34mOut processSpecOutput[0m
+[4m[1m[34msanitizeSpecOutput vpunpcklwd_xmm_xmm_xmm[0m
+[4m[1m[34mIn sanitizeSpecOutput[0m
+[4m[1m[34mvpunpcklwd_xmm_xmm_xmm: Check if May == Must[0m
+Passed:[4m[1m[92mequal[0m
+[4m[1m[34mOut sanitizeSpecOutput[0m
+[4m[1m[34mwriteKDefn vpunpcklwd_xmm_xmm_xmm: derivedInstructions//x86-vpunpcklwd_xmm_xmm_xmm.k[0m
+/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit  --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code "vpunpcklwd %xmm3, %xmm2, %xmm1" 1>/tmp/yyy 2>&1 
+
