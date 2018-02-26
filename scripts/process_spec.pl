@@ -40,6 +40,7 @@ my $all          = "";
 my $genincludes  = "";
 my $checksanity  = "";
 my $gitdiff      = "";
+my $diffwithstrata      = "";
 my $gitadd       = "";
 my $gitco        = "";
 my $speconly     = "";
@@ -66,6 +67,7 @@ GetOptions(
     "genincludes"   => \$genincludes,
     "checksanity"   => \$checksanity,
     "gitdiff"       => \$gitdiff,
+    "diffwithstrata"       => \$diffwithstrata,
     "speconly"      => \$speconly,
     "gitadd"        => \$gitadd,
     "gitco"         => \$gitco,
@@ -236,6 +238,23 @@ if ( "" ne $getz3formula ) {
             next;
         }
         generateZ3Formula( $opcode, $debugprint );
+    }
+}
+
+## diff with strata diffs the current output with the ones
+## proved equivalent to strata BVFs using Z3
+if ( "" ne $diffwithstrata ) {
+    for my $opcode (@lines) {
+        chomp $opcode;
+
+        if ( 0 == checkSuppOrManuallyGen( $opcode, $debugprint ) ) {
+            next;
+        }
+
+        my $koutput = "$derivedInstructions/x86-${opcode}.k";
+        my $oracle = "instructions_with_uif/derivedInstructions/x86-${opcode}.k"; 
+
+        execute("diff $oracle $koutput");
     }
 }
 

@@ -200,6 +200,7 @@ module MINT-LEMMAS
   rule bitwidthMInt(negMInt(MIC))     => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(concatenateMInt(MI1:MInt, MI2:MInt)) => bitwidthMInt(MI1) +Int bitwidthMInt(MI2) [lemma]
   rule bitwidthMInt(#ifMInt B:Bool #then MI1 #else MI2 #fi) => bitwidthMInt(MI1) [lemma]
+  rule bitwidthMInt(Float2MInt(_:Float, W:Int)) => W [lemma]
 
   // Base Rules
   rule bitwidthMInt(mi(W:Int, _)) => W [lemma]
@@ -612,5 +613,7 @@ module VERIFICATION-LEMMAS
   imports MINT-LEMMAS
   imports FLOAT-LEMMAS
   imports ITE-LEMMAS
-  imports UIF-LEMMAS
+  // The following in needed only while generating K rules cotaining
+  // UIFs used for Z3 equiv with Strata's BFVs.
+  // imports UIF-LEMMAS
 endmodule
