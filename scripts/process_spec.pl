@@ -108,82 +108,33 @@ if("" ne $comparemcsema) {
 #    printArray(\@{$xed{$key}},"", 1);
   }
 
+  ### Print Reports
+  print "\nAvailable\n\n";
+  for my $key (sort keys %avail) {
+    #print $key. "\n";
+    #printArray(\@{$avail{$key}},"", 1);
+  }
+
+  print "\nStrata Supported\n\n";
+  for my $key (sort keys %strata_supp) {
+    #print $key. "\n";
+    ##printArray(\@{$strata_supp{$key}},"", 1);
+  }
+
   my $filename = "docs/relatedwork/mcsema/amd64_avx512.txt";
   open( my $fp, "<", $filename ) or die "Can't open: $!";
   my @lines = <$fp>;
   close $fp;
 
-  print "\nMcSema Xed Sanity Check\n\n";
-  my $mcsemaxedCount = 0;
   for my $line (@lines) {
     chomp $line;
     $line =~ s/^ISEL_//g;
-#    print "B:$line\n";
     if($line =~ m/MEMv|IMMz|GPRv/g) {
       $line =~ s/_\d+$//g; 
     }
-#    print "A:$line\n";
 
-    my $key = $line =~ s/_.*//gr;
-    if(exists $xed{$key}) {
-      my @matches = @{$xed{$key}};
-
-      my $found = 0;
-
-      for my $match (@matches) {
-#print "M:". $match."\n";
-        if($match eq $line) {
-          $found = 1;
-          last;
-        }
-      }
-      if(1 == $found) {
-        $mcsemaxedCount ++;
-      } else {
-        print "Matched $key, but No $line match\n";
-      }
-    } else {
-        print $line." ". $key .  "\n";
-    }
   }
 
-
-
-  
-
-#  print "\nMcSema Supported\n\n";
-#  for my $key (sort keys %mcsema_supp) {
-#    print $key. "\n";
-#    printArray(\@{$mcsema_supp{$key}},"", 1);
-#  }
-
-  print("Total Xed Instruction: ". scalar(keys %xed). "\n"); 
-#  print("Uniq Instruction McSema support: ". scalar(keys %mcsema_supp). "\n"); 
-  print("Sanity Check Xed McSema: ". $mcsemaxedCount. "\n"); 
-
-
-  
-
-
-
-#  ### Print Reports
-#  print "\nAvailable\n\n";
-#  for my $key (sort keys %avail) {
-#    print $key. "\n";
-#    #printArray(\@{$avail{$key}},"", 1);
-#  }
-#
-#  print "\nStrata Supported\n\n";
-#  for my $key (sort keys %strata_supp) {
-#    print $key. "\n";
-##    printArray(\@{$strata_supp{$key}},"", 1);
-#  }
-#
-#  print "\nMcSema Supported\n\n";
-#  for my $key (sort keys %mcsema_supp) {
-#    print $key. "\n";
-##printArray(\@{$mcsema_supp{$key}},"", 1);
-#  }
 
 
   ### Instructions supported by McSema - Strata
@@ -208,12 +159,10 @@ if("" ne $comparemcsema) {
 #  }
 #
 
-#  print("Total Uniq Instruction: ". scalar(keys %avail). "\n"); 
-#  print("#McSema Uniq Instruction Matching with Avail: ". $mcsemaAvailMatchCount. "\n"); 
-#  print("Uniq Instruction Strata Support: ". scalar(keys %strata_supp). "\n"); 
-#  print("Uniq Instruction McSema support: ". 
-#      scalar(keys %mcsema_supp)."\n");
-#
+  print("Total Xed Instruction: ". scalar(keys %xed). "\n"); 
+  print("Total Uniq Instruction: ". scalar(keys %avail). "\n"); 
+#print("#McSema Uniq Instruction Matching with Avail: ". $mcsemaAvailMatchCount. "\n"); 
+  print("Uniq Instruction Strata Support: ". scalar(keys %strata_supp). "\n"); 
   exit(0);
 }
 
