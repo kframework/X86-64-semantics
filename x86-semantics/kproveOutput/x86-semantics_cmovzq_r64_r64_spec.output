@@ -1,0 +1,31 @@
+-Xms64m -Xmx1024m -Xss32m -XX:+TieredCompilation -Xmx8g
+
+InitialTerm: 
+<T>(<k>(#KSequence(execinstr(__(cmoveq(.KList@BASIC-K),, typeoperandlist(%rcx(.KList@BASIC-K),, typeoperandlist(%rbx(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))))), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+
+TargetTerm: 
+<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RCX"") |-> _74_637:K@SORT-K String@STRING-SYNTAX(#""RIP"") |-> _72_635:K@SORT-K String@STRING-SYNTAX(#""RBX"") |-> _73_636:K@SORT-K String@STRING-SYNTAX(#""ZF"") |-> _75_638:K@SORT-K   ),, <regstatequeue>(_76_639:List@LIST)) /\ _==K_(Bool@BOOL-SYNTAX(#"true"),, Bool@BOOL-SYNTAX(#"true"))
+
+
+
+IntermediateTerm: 
+<T>(<k>(#KSequence(execinstr(__(cmoveq(.KList@BASIC-K),, typeoperandlist(%rcx(.KList@BASIC-K),, typeoperandlist(%rbx(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))))), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+
+IntermediateTerm: 
+<T>(<k>(#KSequence(setRegisterValue(#ifMInt_#then_#else_#fi(eqMInt(mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX),, MInt@MINT(#"1'0")),, mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX),, mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)),, %rbx(.KList@BASIC-K)), execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+
+IntermediateTerm: 
+<T>(<k>(#KSequence(execinstr(__(nop(.KList@BASIC-K),, .List{"typeoperandlist"}(.KList@BASIC-K))), KItem@BASIC-K(#"inforegisters"), KItem@BASIC-K(#"fetch"))),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> #ifMInt_#then_#else_#fi(eqMInt(mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX),, MInt@MINT(#"1'0")),, mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX),, mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+
+IntermediateTerm: 
+<T>(<k>(#EmptyK()),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> #ifMInt_#then_#else_#fi(eqMInt(mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX),, MInt@MINT(#"1'0")),, mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX),, mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+
+IntermediateTerm: 
+<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> #ifMInt_#then_#else_#fi(eqMInt(mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX),, MInt@MINT(#"1'0")),, mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX),, mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+
+FinalTerm: 
+<T>(<k>(exit_0(.KList@BASIC-K)),, <entrypoint>(MInt@MINT(#"64'0")),, <nextLoc>(MInt@MINT(#"64'0")),, <memstate>(<cmem>(.Map),, <dmem>(.Map)),, <regstate>(String@STRING-SYNTAX(#""RIP"") |-> MInt@MINT(#"64'0") String@STRING-SYNTAX(#""RBX"") |-> #ifMInt_#then_#else_#fi(eqMInt(mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX),, MInt@MINT(#"1'0")),, mi(Int@INT-SYNTAX(#"64"),, ?I1_632:Int@INT-SYNTAX),, mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)) String@STRING-SYNTAX(#""ZF"") |-> mi(Int@INT-SYNTAX(#"1"),, ?I3_634:Int@INT-SYNTAX) String@STRING-SYNTAX(#""RCX"") |-> mi(Int@INT-SYNTAX(#"64"),, ?I2_633:Int@INT-SYNTAX)   ),, <regstatequeue>(.List())) /\ Bool@BOOL-SYNTAX(#"true")
+true
+[Warning] Critical: missing SMTLib translation for mi
+36.50user 0.60system 0:09.20elapsed 403%CPU (0avgtext+0avgdata 942656maxresident)k
+0inputs+3616outputs (0major+218466minor)pagefaults 0swaps
