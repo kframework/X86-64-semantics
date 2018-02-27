@@ -92,53 +92,81 @@ my $debugprint = 0;
 
 if("" ne $comparemcsema) {
 
-  my $xed_ref = modelInstructions("docs/relatedwork/mcsema/xed.txt", "xed");
-  my $avail_ref = modelInstructions("docs/relatedwork/all.instrs", "");
-  my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/all_known_sema_opcodes.txt", "");
+  my $count = 0;
+  ## get intel <-> att
+  my ($intel2att_ref, $att2intel_ref) = assocIntelATT("docs/relatedwork/instruction_statistics/intel_att.txt", $debugprint);
+  my %intel2att = %{$intel2att_ref};
+  my %att2intel = %{$att2intel_ref};
 
-  my %xed         = %{$xed_ref};
-  my %avail       = %{$avail_ref};
+  #printMap(\%att2intel, "", 1);
+#    my @attkeys = @{$intel2att{$intelkey}};
+
+
+  ## Get the strata supported instr
+#my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/all_known_sema_opcodes.txt", "");
+  my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/stratum_vector_immediates.txt", "");
   my %strata_supp = %{$strata_supp_ref};
-
-  print "\nXed\n\n";
-  for my $key (sort keys %xed) {
-#    print $key. "\n";
-#    printArray(\@{$xed{$key}},"", 1);
-  }
-  print("Total Uniq Xed Instruction: ". scalar(keys %xed). "\n"); 
-
-  ### Print Reports
-  print "\nAvailable\n\n";
-  for my $key (sort keys %avail) {
-#print $key. "\n";
-#printArray(\@{$avail{$key}},"", 1);
-  }
-  print("Total Uniq Instruction: ". scalar(keys %avail). "\n"); 
-
-  print "\nStrata Supported\n\n";
   for my $key (sort keys %strata_supp) {
-    #print $key. "\n";
-    ##printArray(\@{$strata_supp{$key}},"", 1);
+#    print $key. "\n";
+#    printArray(\@{$strata_supp{$key}},"", 1);
+    $count += scalar(@{$strata_supp{$key}});
   }
-  print("Uniq Instruction Strata Support: ". scalar(keys %strata_supp). "\n"); 
+  print("Uniq/Total Instruction Strata Support: ". scalar(keys %strata_supp). "/".$count. "\n");
 
-  my $mcsema_supp_ref = assocateMcSemaXed("docs/relatedwork/mcsema/amd64_avx512.txt", "docs/relatedwork/mcsema/xed.txt", $debugprint);
+  ## Get the mcsema supported instr
+  my $mcsema_supp_ref = assocateMcSemaXed("docs/relatedwork/mcsema/amd64.txt", "docs/relatedwork/mcsema/xed.txt", $debugprint);
   my %mcsema_supp = %{$mcsema_supp_ref};
   for my $key (sort keys %mcsema_supp) {
-#print $key. "\n";
-#printArray(\@{$mcsema_supp{$key}},"", 1);
+    #print $key. "\n";
+    #printArray(\@{$mcsema_supp{$key}},"", 1);
   }
   print("Uniq Instruction McSema Support: ". scalar(keys %mcsema_supp). "\n"); 
 
-
-#my $mcsema_avail_ref = assocateMcSemaAvail($mcsema_supp_ref, $avail_ref , $debugprint);
-  my $mcsema_avail_ref = assocateMcSemaAvail($mcsema_supp_ref, $strata_supp_ref, $debugprint);
-  my %mcsema_avail = %{$mcsema_avail_ref};
-  for my $key (sort keys %mcsema_avail) {
-    print $key. "\n";
-    printArray(\@{$mcsema_supp{$key}},"", 1);
+  # Which Strata instructions are supp/unsupp in McSema
+  print "\nStrata        McSema \n";
+  for my $attkey (sort keys %strata_supp) {
+    my $intelkey = $att2intel{$attkey};
+    if(defined $intelkey) {
+      if(exists $mcsema_supp{$intelkey}) {
+        print "$attkey    SUPP:$intelkey\n";
+      } else {
+        print "$attkey    US:$intelkey\n";
+      }
+    } else {
+      print "No intel key for Strata's $attkey\n";
+    }
   }
-  print("Uniq Instruction (McSema & Avail) Support: ". scalar(keys %mcsema_supp). "\n"); 
+
+  # Which Strata instructions are supp/unsupp in McSema
+  print "\nMcSema Supported       Strata Upsupported\n";
+  for my $intelkey (sort keys %mcsema_supp) {
+    if(!exists $intel2att{$intelkey}) {
+#      print "No ATT key for McSema's $intelkey\n";
+      next;
+    }
+    my @attkeys = @{$intel2att{$intelkey}};
+
+    my $found = 0;
+    for my $attkey (@attkeys) {
+      if(exists $strata_supp{$attkey}) {
+        #print "$intelkey -> $attkey\n";
+        $found = 1;
+        last;
+      } 
+    }
+
+    if($found == 0) {
+#print "$intelkey    $attkeys[0]\n";
+    }
+  }
+
+#  my $mcsema_avail_ref = assocateMcSemaAvail($mcsema_supp_ref, $strata_supp_ref, $debugprint);
+#  my %mcsema_avail = %{$mcsema_avail_ref};
+#  for my $key (sort keys %mcsema_avail) {
+#    print $key. "\n";
+#    printArray(\@{$mcsema_supp{$key}},"", 1);
+#  }
+#  print("Uniq Instruction (McSema & Avail) Support: ". scalar(keys %mcsema_supp). "\n"); 
 
   exit(0);
 }
