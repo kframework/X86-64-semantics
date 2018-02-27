@@ -4110,6 +4110,7 @@ sub assocateMcSemaXed {
   my $filenameMC = shift @_;
   my $filenameXED = shift @_;
   my $debugprint = shift @_;
+  my $print = shift @_;
 
   open( my $fp, "<", $filenameXED ) or die "Can't open: $!";
   my @lines = <$fp>;
@@ -4176,6 +4177,13 @@ sub assocateMcSemaXed {
     }
   }
 
+  if(defined ($print) and $print == 1) {
+    for my $key (sort keys %retmodel) {
+      print $key. "\n";
+      printArray(\@{$retmodel{$key}},"", 1);
+    }
+  }
+
   return \%retmodel;
 }
 
@@ -4212,59 +4220,68 @@ sub assocateMcSemaAvail {
 sub modelInstructions {
   my $filename = shift @_;
   my $hint = shift @_;
-  my $debugprint = shift @_;
+  my $print = shift @_;
+
+  ## get intel <-> att
+  my ($intel2att_ref, $att2intel_ref) = assocIntelATT("docs/relatedwork/instruction_statistics/intel_att.txt", 0);
+  my %intel2att = %{$intel2att_ref};
+  my %att2intel = %{$att2intel_ref};
 
   ## Model instruction in a map.
   open( my $fp, "<", $filename ) or die "Can't open: $!";
   my @lines = <$fp>;
   close $fp;
 
-  my %model = ();
+  my %model_att = ();
+  my %model_intel = ();
 
+  my $linecount = 0;
   for my $line (@lines) {
     chomp $line;
+    $linecount ++;
 
     my $key = "";
     my $name = "";
-    if("xed" eq $hint ) {
-#print "$line\n";
-      if($line =~ m/^(\d+) (\w+) (\w+)/g) {
-        $key = $2;
-        $name = $3;
-        push @{$model{$key}}, $name;
-      }
-      next;
-    } 
 
-    if("mcsema" eq $hint ) {
-      $line =~ m/^ISEL_(\w+)/g;
-      $key = $1;
-      $name = $line;
-#print "K:$key\nN:$name\n";
-    } 
-    
     if("" eq $hint) {
       $key = $line =~ s/_.*//gr;;
-
-#      if($line =~ m/_xmm|_ymm|_mm/) {
-#      } else {
-#        $key =~ s/b$//g; 
-#        $key =~ s/w$//g; 
-#        $key =~ s/l$//g; 
-#        $key =~ s/q$//g; 
-#      }
-
       $name = $line;
     }
-    push @{$model{$key}}, $name;
+    push @{$model_att{$key}}, $name;
   }
+
+  my $verifyCount = 0;
+  if(defined ($print) and $print == 1) {
+    for my $key (sort keys %model_att) {
+      print $key. "\n";
+      printArray(\@{$model_att{$key}},"", 1);
+      $verifyCount += scalar(@{$model_att{$key}});
+      $model_intel{$att2intel{$key}} = $key;
+    }
+    
+    if($verifyCount != $linecount) {
+      utils::failInfo("modelInstructions failed");
+    }
+  }
+
+  ## Get the corresponding intel keys
+  for my $attkey (sort keys %model_att) {
+    if(exists $att2intel{$attkey}) {
+      $model_intel{$att2intel{$attkey}} = $attkey;
+    } else {
+      print "$attkey\n";
+    }
+  }
+#printMapArray(\%model_intel, "", 1);
   
-  return \%model;
+  return (\%model_att, \%model_intel);
 }
 
 sub assocIntelATT {
   my $filename = shift @_;
   my $debugprint = shift @_;
+
+  my $verifyCount = 0;
 
   ## Model instruction in a map.
   open( my $fp, "<", $filename ) or die "Can't open: $!";
@@ -4273,12 +4290,33 @@ sub assocIntelATT {
 
   my %intel2att = ();
   my %att2intel = ();
+
   for my $line (@lines) {
     chomp $line;
-    if($line =~ m/(\w+) (\w+)/g) {
-      push @{$intel2att{$1}},  $2;    
-      $att2intel{$2} = $1;    
+    $verifyCount++;
+    if($line =~ m/(\w+) (\w+) (\w+)/g) {
+      my $intel = $1;
+      my $att = $2." ".$3;
+      push @{$intel2att{$intel}},  $att;    
+      $att2intel{$att} = $intel;    
     }
+   elsif($line =~ m/(\w+) (\w+)/g) {
+      my $intel = $1;
+      my $att = $2;
+      push @{$intel2att{$intel}},  $att;    
+      $att2intel{$att} = $intel;    
+  }
+  }
+
+  if($verifyCount != scalar(keys %att2intel) + 6) {
+    print $verifyCount."\n";
+    print scalar(keys %att2intel)."\n";
+    utils::failInfo("assocIntelATT failed");
+  }
+
+  if(defined ($debugprint) and $debugprint == 1) {
+    printMap(\%att2intel, "ATT to Intel", 1);
+    printMapArray(\%intel2att, "Intel to ATT", 1);
   }
 
   return (\%intel2att, \%att2intel);
