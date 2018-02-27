@@ -165,14 +165,14 @@ CALL callq
 CALL callq
 CALL callq
 CALL callq
-CBW	cbtw
-CWDE	cwtl
-CDQE	cltq
-CLC	clc
-CLD	cld
+CBW cbtw
+CWDE cwtl
+CDQE cltq
+CLC clc
+CLD cld
 CLFLUSH clflush
-CLI	cli
-CMC	cmc
+CLI cli
+CMC cmc
 CMOVA cmovaw
 CMOVA cmoval
 CMOVA cmovaq
@@ -295,10 +295,10 @@ CMPS cmps
 CMPS cmps
 CMPS cmps
 CMPS cmps
-CMPSB	cmpsb
-CMPSW	cmpsw
-CMPSD	cmpsl
-CMPSQ	cmpsq
+CMPSB cmpsb
+CMPSW cmpsw
+CMPSD cmpsl
+CMPSQ cmpsq
 CMPSD cmpsd
 VCMPSD vcmpsd
 CMPSS cmpss
@@ -314,7 +314,7 @@ COMISD comisd
 VCOMISD vcomisd
 COMISS comiss
 VCOMISS vcomiss
-CPUID	cpuid
+CPUID cpuid
 CRC32 crc32b
 CRC32 crc32b
 CRC32 crc32w
@@ -379,11 +379,11 @@ CVTTSS2SI cvttss2sil
 CVTTSS2SI cvttss2siq
 VCVTTSS2SI vcvttss2sil
 VCVTTSS2SI vcvttss2siq
-CWD	cwtd
-CDQ	cltd
-CQO	cqto
-DAA	
-DAS	
+CWD cwtd
+CDQ cltd
+CQO cqto
+DAA 
+DAS 
 DEC decb
 DEC decb
 DEC decw
@@ -409,27 +409,27 @@ VDPPD vdppd
 DPPS dpps
 VDPPS vdpps
 VDPPS vdpps
-EMMS	emms
+EMMS emms
 ENTER enterq
 ENTER enterq
 ENTER enterq
 EXTRACTPS extractps
 VEXTRACTPS vextractps
-F2XM1	f2xm1
-FABS	fabs
+F2XM1 f2xm1
+FABS fabs
 FADD fadds
 FADD faddl
 FADD fadd
 FADD fadd
 FADDP faddp
-FADDP	faddp
+FADDP faddp
 FIADD fiaddl
 FIADD fiadd
 FBLD fbld
 FBSTP fbstp
-FCHS	fchs
-FCLEX	fclex
-FNCLEX	fnclex
+FCHS fchs
+FCLEX fclex
+FNCLEX fnclex
 FCMOVB fcmovb
 FCMOVE fcmove
 FCMOVBE fcmovbe
@@ -441,12 +441,12 @@ FCMOVNU fcmovnu
 FCOM fcoms
 FCOM fcoml
 FCOM fcom
-FCOM	fcom
+FCOM fcom
 FCOMP fcomps
 FCOMP fcompl
 FCOMP fcomp
 FCOMP fcomp
-FCOMPP	fcompp
+FCOMPP fcompp
 FCOMI fcomi
 FCOMIP fcomip
 FUCOMI fucomi
@@ -479,7 +479,7 @@ FILD fildl
 FILD fildll
 FINCSTP fincstp
 FINIT finit
-FNINIT	fninit
+FNINIT fninit
 FIST fist
 FIST fistl
 FISTP fistp
@@ -566,7 +566,7 @@ FXRSTOR fxrstor
 FXRSTOR64 fxrstor64
 FXSAVE fxsave
 FXSAVE64 fxsave64
-FXTRACT	fxtract
+FXTRACT fxtract
 FYL2X fyl2x
 FYL2XP1 fyl2xp1
 HADDPD haddpd
@@ -1497,11 +1497,11 @@ PUSH pushq
 PUSH pushq
 PUSH pushq
 PUSH pushq
-PUSHA	
-PUSHAD	
-PUSHF	pushf
-PUSHFD	
-PUSHFQ	pushfq
+PUSHA 
+PUSHAD 
+PUSHF pushf
+PUSHFD 
+PUSHFQ pushfq
 PXOR pxor
 PXOR pxor
 VPXOR vpxor
@@ -1575,13 +1575,13 @@ RDFSBASE rdfsbase
 RDFSBASE rdfsbase
 RDGSBASE rdgsbase
 RDGSBASE rdgsbase
-RDMSR	
-RDPMC	
+RDMSR 
+RDPMC 
 RDRAND rdrand
 RDRAND rdrand
 RDRAND rdrand
-RDTSC	
-RDTSCP	
+RDTSC 
+RDTSCP 
 REP_INS rep insb
 REP_INS rep insb
 REP_INS rep insw
@@ -1627,7 +1627,7 @@ REPNE_SCAS repnz scasb
 REPNE_SCAS repnz scasw
 REPNE_SCAS repnz scasl
 REPNE_SCAS repnz scasq
-RET	retq
+RET retq
 RET lretl
 RET retq
 RET retq
@@ -1643,13 +1643,13 @@ ROUNDSD roundsd
 VROUNDSD vroundsd
 ROUNDSS roundss
 VROUNDSS vroundss
-RSM	
+RSM 
 RSQRTPS rsqrtps
 VRSQRTPS vrsqrtps
 VRSQRTPS vrsqrtps
 RSQRTSS rsqrtss
 VRSQRTSS vrsqrtss
-SAHF	sahf
+SAHF sahf
 SAL salb
 SAL salb
 SAL salb
@@ -1742,10 +1742,10 @@ SCAS scas
 SCAS scas
 SCAS scas
 SCAS scas
-SCASB	scasb
-SCASW	scasw
-SCASD	scasl
-SCASQ	scasq
+SCASB scasb
+SCASW scasw
+SCASD scasl
+SCASQ scasq
 SETA seta
 SETA seta
 SETAE setae
@@ -1806,7 +1806,7 @@ SETS sets
 SETS sets
 SETZ setz
 SETZ setz
-SFENCE	sfence
+SFENCE sfence
 SHLD shldw
 SHLD shldw
 SHLD shldl
@@ -1835,19 +1835,19 @@ SQRTSD sqrtsd
 VSQRTSD vsqrtsd
 SQRTSS sqrtss
 VSQRTSS vsqrtss
-STC	stc
-STD	std
-STI	sti
+STC stc
+STD std
+STI sti
 STMXCSR stmxcsr
 VSTMXCSR vstmxcsr
 STOS stosb
 STOS stosw
 STOS stosl
 STOS stosq
-STOSB	stosb
-STOSW	stosw
-STOSD	stosl
-STOSQ	stosq
+STOSB stosb
+STOSW stosw
+STOSD stosl
+STOSQ stosq
 SUB subb
 SUB subw
 SUB subl
@@ -1880,12 +1880,12 @@ SUBSD subsd
 VSUBSD vsubsd
 SUBSS subss
 VSUBSS vsubss
-SWAPGS	swapgs
-SYSCALL	syscall
-SYSENTER	sysenter
-SYSEXIT	sysexit
+SWAPGS swapgs
+SYSCALL syscall
+SYSENTER sysenter
 SYSEXIT sysexit
-SYSRET	sysret
+SYSEXIT sysexit
+SYSRET sysret
 SYSRET sysret
 TEST testb
 TEST testw
@@ -1908,7 +1908,7 @@ UCOMISD ucomisd
 VUCOMISD vucomisd
 UCOMISS ucomiss
 VUCOMISS vucomiss
-UD2	ud2
+UD2 ud2
 UNPCKHPD unpckhpd
 VUNPCKHPD vunpckhpd
 VUNPCKHPD vunpckhpd
@@ -2105,18 +2105,18 @@ VTESTPS vtestps
 VTESTPS vtestps
 VTESTPD vtestpd
 VTESTPD vtestpd
-VZEROALL	vzeroall
-VZEROUPPER	vzeroupper
-WAIT	wait
-FWAIT	fwait
-WBINVD	
+VZEROALL vzeroall
+VZEROUPPER vzeroupper
+WAIT wait
+FWAIT fwait
+WBINVD 
 WRFSBASE wrfsbase
 WRFSBASE wrfsbase
 WRGSBASE wrgsbase
 WRGSBASE wrgsbase
-WRMSR	
-XACQUIRE	xacquire
-XRELEASE	xrelease
+WRMSR 
+XACQUIRE xacquire
+XRELEASE xrelease
 XABORT xabort
 XADD xaddb
 XADD xaddb
@@ -2141,11 +2141,11 @@ XCHG xchgl
 XCHG xchgq
 XCHG xchgl
 XCHG xchgq
-XEND	xend
-XGETBV	xgetbv
+XEND xend
+XGETBV xgetbv
 XLAT xlat
-XLATB	xlatb
-XLATB	xlatb
+XLATB xlatb
+XLATB xlatb
 XOR xorb
 XOR xorw
 XOR xorl
@@ -2180,4 +2180,4 @@ XSAVE xsave
 XSAVE64 xsave64
 XSAVEOPT xsaveopt
 XSAVEOPT64 xsaveopt64
-XTEST	xtest
+XTEST xtest
