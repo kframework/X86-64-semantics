@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -4139,8 +4139,7 @@ sub assocateMcSemaXed {
 
   my %retmodel = ();
 
-  my $filename = "docs/relatedwork/mcsema/amd64_avx512.txt";
-  open($fp, "<", $filename ) or die "Can't open: $!";
+  open($fp, "<", $filenameMC ) or die "Can't open: $!";
   @lines = <$fp>;
   close $fp;
 
@@ -4194,7 +4193,7 @@ sub assocateMcSemaAvail {
     if(exists $avail{lc($key)}) {
 #print "F:$key\n";
     } else {
-      print "NF1:$key\n";
+#print "NF1:$key\n";
     }
   }
 
@@ -4204,7 +4203,7 @@ sub assocateMcSemaAvail {
     if(exists $mcsema_supp{uc($key)}) {
 #print "F:$key\n";
     } else {
-      print "NF2:$key\n";
+#     print "NF2:$key\n";
     }
   }
   return \%retmodel;
@@ -4247,13 +4246,13 @@ sub modelInstructions {
     if("" eq $hint) {
       $key = $line =~ s/_.*//gr;;
 
-      if($line =~ m/_xmm|_ymm|_mm/) {
-      } else {
-        $key =~ s/b$//g; 
-        $key =~ s/w$//g; 
-        $key =~ s/l$//g; 
-        $key =~ s/q$//g; 
-      }
+#      if($line =~ m/_xmm|_ymm|_mm/) {
+#      } else {
+#        $key =~ s/b$//g; 
+#        $key =~ s/w$//g; 
+#        $key =~ s/l$//g; 
+#        $key =~ s/q$//g; 
+#      }
 
       $name = $line;
     }
@@ -4262,5 +4261,28 @@ sub modelInstructions {
   
   return \%model;
 }
+
+sub assocIntelATT {
+  my $filename = shift @_;
+  my $debugprint = shift @_;
+
+  ## Model instruction in a map.
+  open( my $fp, "<", $filename ) or die "Can't open: $!";
+  my @lines = <$fp>;
+  close $fp;
+
+  my %intel2att = ();
+  my %att2intel = ();
+  for my $line (@lines) {
+    chomp $line;
+    if($line =~ m/(\w+) (\w+)/g) {
+      push @{$intel2att{$1}},  $2;    
+      $att2intel{$2} = $1;    
+    }
+  }
+
+  return (\%intel2att, \%att2intel);
+}
+
 
 1;
