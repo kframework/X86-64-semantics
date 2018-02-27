@@ -91,82 +91,86 @@ my $removeComment;
 my $debugprint = 0;
 
 if("" ne $comparemcsema) {
+  ## file names
+  my $availfile = "docs/relatedwork/all.instrs"; 
+  my $stratafile = "docs/relatedwork/strata/all_known_sema_opcodes.txt"; 
+  my $stratavecimmfile = "docs/relatedwork/strata/stratum_vector_immediates.txt";
+  my $intelatt = "docs/relatedwork/instruction_statistics/intel_att.txt";
+  my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
+  my $xedfile = "docs/relatedwork/mcsema/xed.txt";
 
-  my $count = 0;
+
   ## get intel <-> att
-  my ($intel2att_ref, $att2intel_ref) = assocIntelATT("docs/relatedwork/instruction_statistics/intel_att.txt", $debugprint);
+  my ($intel2att_ref, $att2intel_ref) = assocIntelATT($intelatt, $debugprint);
   my %intel2att = %{$intel2att_ref};
   my %att2intel = %{$att2intel_ref};
+  print("Att/Intel Opcodes: ". 
+      scalar(keys %{att2intel}). "/". scalar(keys %{intel2att}) . "\n");
 
-  #printMap(\%att2intel, "", 1);
-#    my @attkeys = @{$intel2att{$intelkey}};
+  ## Get the total instructions
+  my ($avail_att_ref, $avail_intel_ref) = modelInstructions($availfile, "", 0);
+  my %avail_att = %{$avail_att_ref};
+  my %avail_intel = %{$avail_intel_ref};
+  print("Uniq Instructions total(att/intel): ". 
+      scalar(keys %{avail_att}). "/". scalar(keys %{avail_intel}) . "\n");
 
 
   ## Get the strata supported instr
-#my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/all_known_sema_opcodes.txt", "");
-  my $strata_supp_ref = modelInstructions("docs/relatedwork/strata/stratum_vector_immediates.txt", "");
-  my %strata_supp = %{$strata_supp_ref};
-  for my $key (sort keys %strata_supp) {
-#    print $key. "\n";
-#    printArray(\@{$strata_supp{$key}},"", 1);
-    $count += scalar(@{$strata_supp{$key}});
-  }
-  print("Uniq/Total Instruction Strata Support: ". scalar(keys %strata_supp). "/".$count. "\n");
+  my ($strata_supp_att_ref, $strata_supp_intel_ref) = modelInstructions($stratafile, "", 0);
+  my %strata_supp_att = %{$strata_supp_att_ref};
+  my %strata_supp_intel = %{$strata_supp_intel_ref};
+  print("Uniq Instruction Strata Support(att/intel): ". 
+      scalar(keys %strata_supp_att). "/" . scalar(keys %strata_supp_intel) . "\n");
 
   ## Get the mcsema supported instr
-  my $mcsema_supp_ref = assocateMcSemaXed("docs/relatedwork/mcsema/amd64.txt", "docs/relatedwork/mcsema/xed.txt", $debugprint);
-  my %mcsema_supp = %{$mcsema_supp_ref};
-  for my $key (sort keys %mcsema_supp) {
-    #print $key. "\n";
-    #printArray(\@{$mcsema_supp{$key}},"", 1);
-  }
-  print("Uniq Instruction McSema Support: ". scalar(keys %mcsema_supp). "\n"); 
+  my $mcsema_supp_intel_ref = assocateMcSemaXed($mcsemafile, $xedfile, $debugprint);
+  my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
+  print("Uniq Instruction McSema Support(Intel): ". scalar(keys %mcsema_supp_intel). "\n"); 
 
   # Which Strata instructions are supp/unsupp in McSema
-  print "\nStrata        McSema \n";
-  for my $attkey (sort keys %strata_supp) {
-    my $intelkey = $att2intel{$attkey};
-    if(defined $intelkey) {
-      if(exists $mcsema_supp{$intelkey}) {
-        print "$attkey    SUPP:$intelkey\n";
-      } else {
-        print "$attkey    US:$intelkey\n";
-      }
+  my $supp = 0;
+  my $unsupp = 0;
+  for my $intelkey (sort keys %strata_supp_intel) {
+    if(exists $mcsema_supp_intel{$intelkey}) {
+#print "SUPP:$intelkey\n";
+      $supp++;
     } else {
-      print "No intel key for Strata's $attkey\n";
+#      print "US:$intelkey\n";
+      $unsupp++;
     }
   }
+  print("How well Strata Uniq Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
 
-  # Which Strata instructions are supp/unsupp in McSema
-  print "\nMcSema Supported       Strata Upsupported\n";
-  for my $intelkey (sort keys %mcsema_supp) {
-    if(!exists $intel2att{$intelkey}) {
-#      print "No ATT key for McSema's $intelkey\n";
-      next;
-    }
-    my @attkeys = @{$intel2att{$intelkey}};
-
-    my $found = 0;
-    for my $attkey (@attkeys) {
-      if(exists $strata_supp{$attkey}) {
-        #print "$intelkey -> $attkey\n";
-        $found = 1;
-        last;
-      } 
-    }
-
-    if($found == 0) {
-#print "$intelkey    $attkeys[0]\n";
+  # Which McSema instructions are supp/unsupp in Strata
+  $supp = 0;
+  $unsupp = 0;
+  for my $intelkey (sort keys %mcsema_supp_intel) {
+    if(exists $strata_supp_intel{$intelkey}) {
+      $supp++;
+#print "SUPP:$intelkey\n";
+    } else {
+      $unsupp++;
+#print "US:$intelkey\n";
     }
   }
+  print("How well McSema Uniq Instructions are supported by Strata (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
 
-#  my $mcsema_avail_ref = assocateMcSemaAvail($mcsema_supp_ref, $strata_supp_ref, $debugprint);
-#  my %mcsema_avail = %{$mcsema_avail_ref};
-#  for my $key (sort keys %mcsema_avail) {
-#    print $key. "\n";
-#    printArray(\@{$mcsema_supp{$key}},"", 1);
-#  }
-#  print("Uniq Instruction (McSema & Avail) Support: ". scalar(keys %mcsema_supp). "\n"); 
+
+  ## Which of the vector immediates are supprted by McSema
+  my ($strata_vectorimms_att_ref, $strata_vectorimms_intel_ref) = modelInstructions($stratavecimmfile, "", 0);
+  my %strata_vectorimms_intel = %{$strata_vectorimms_intel_ref};
+  $supp = 0;
+  $unsupp = 0;
+  for my $intelkey (sort keys %strata_vectorimms_intel) {
+    if(exists $mcsema_supp_intel{$intelkey}) {
+#print "SUPP:$intelkey\n";
+      $supp++;
+    } else {
+#print "US:$intelkey\n";
+      $unsupp++;
+    }
+  }
+  print("How well Strata Uniq Vector Imm Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
 
   exit(0);
 }
