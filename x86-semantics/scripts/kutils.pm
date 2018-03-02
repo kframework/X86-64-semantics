@@ -4243,25 +4243,31 @@ sub modelInstructions {
     my $key = "";
     my $name = "";
 
-    if("" eq $hint) {
-      $key = $line =~ s/_.*//gr;;
-      $name = $line;
-    }
+    $key = $line =~ s/_.*//gr;;
+    $name = $line;
     push @{$model_att{$key}}, $name;
   }
+#printMapArray(\%model_att, "", 1);
 
   my $verifyCount = 0;
+  for my $key (sort keys %model_att) {
+    $verifyCount += scalar(@{$model_att{$key}});
+  }
+    
+  if($verifyCount != $linecount) {
+    utils::failInfo("modelInstructions failed");
+  }
+
   if(defined ($print) and $print == 1) {
     for my $key (sort keys %model_att) {
       print $key. "\n";
       printArray(\@{$model_att{$key}},"", 1);
-      $verifyCount += scalar(@{$model_att{$key}});
-      $model_intel{$att2intel{$key}} = $key;
     }
-    
-    if($verifyCount != $linecount) {
-      utils::failInfo("modelInstructions failed");
-    }
+  }
+
+
+  if($hint eq "inIntel") {
+    return (\%model_att, \%model_att);
   }
 
   ## Get the corresponding intel keys
@@ -4272,7 +4278,6 @@ sub modelInstructions {
       print "$attkey\n";
     }
   }
-#printMapArray(\%model_intel, "", 1);
   
   return (\%model_att, \%model_intel);
 }

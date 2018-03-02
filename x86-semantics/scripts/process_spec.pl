@@ -53,7 +53,7 @@ my $getz3formula = "";
 my $z3prove      = "";
 my $useuif       = "";
 my $compile      = "";
-my $comparemcsema = "";
+my $compareother = "";
 
 GetOptions(
     "help"          => \$help,
@@ -75,7 +75,7 @@ GetOptions(
     "getimm"        => \$getimm,
     "getimmdiff"    => \$getimmdiff,
     "getmem"        => \$getmem,
-    "comparemcsema" => \$comparemcsema,
+    "compareother" => \$compareother,
     "nightlyrun"    => \$nightlyrun,
     "getz3formula"  => \$getz3formula,
     "z3prove"       => \$z3prove,
@@ -90,7 +90,7 @@ my $sfp;
 my $removeComment;
 my $debugprint = 0;
 
-if("" ne $comparemcsema) {
+if("" ne $compareother) {
   ## file names
   my $availfile = "docs/relatedwork/all.instrs"; 
   my $stratafile = "docs/relatedwork/strata/all_known_sema_opcodes.txt"; 
@@ -98,6 +98,7 @@ if("" ne $comparemcsema) {
   my $intelatt = "docs/relatedwork/instruction_statistics/intel_att.txt";
   my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
   my $xedfile = "docs/relatedwork/mcsema/xed.txt";
+  my $acl2file = "docs/relatedwork/acl2/supportedOPcodes.txt";
 
 
   ## get intel <-> att
@@ -127,49 +128,40 @@ if("" ne $comparemcsema) {
   my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
   print("Uniq Instruction McSema Support(Intel): ". scalar(keys %mcsema_supp_intel). "\n"); 
 
-  # Which Strata instructions are supp/unsupp in McSema
-  my $supp = 0;
-  my $unsupp = 0;
-  for my $intelkey (sort keys %strata_supp_intel) {
-    if(exists $mcsema_supp_intel{$intelkey}) {
-#print "SUPP:$intelkey\n";
-      $supp++;
-    } else {
-#      print "US1:$intelkey\n";
-      $unsupp++;
-    }
-  }
-  print("How well Strata Uniq Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
+  ## Get the acl2 supported instr
+  my $acl2_intel_ref = modelInstructions($acl2file, "inIntel", $debugprint);
+  my %acl2_intel = %{$acl2_intel_ref};
+  print("Uniq Instruction ACL2 Support(Intel): ". scalar(keys %acl2_intel). "\n");
 
-  # Which McSema instructions are supp/unsupp in Strata
-  $supp = 0;
-  $unsupp = 0;
-  for my $intelkey (sort keys %mcsema_supp_intel) {
-    if(exists $strata_supp_intel{$intelkey}) {
-      $supp++;
-#print "SUPP:$intelkey\n";
-    } else {
-      $unsupp++;
-#      print "US2:$intelkey\n";
-    }
-  }
+  print "\n\n";
+
+  # Compare ACL2 Vs Strata
+  my ($supp, $unsupp) = belongsTo(\%acl2_intel, \%strata_supp_intel, $debugprint);
+  print("How well ACL2 Uniq Instructions are supported by Strata (Intel) (S/U): ". "$supp/$unsupp" . "\n");
+  ($supp, $unsupp) = belongsTo(\%strata_supp_intel, \%acl2_intel, $debugprint);
+  print("How well Strata Uniq Instructions are supported by ALC2 (Intel) (S/U): ". "$supp/$unsupp" . "\n");
+
+  # Compare ACL2 Vs McSema
+  my ($supp, $unsupp) = belongsTo(\%acl2_intel, \%mcsema_supp_intel, $debugprint);
+  print("How well ACL2 Uniq Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n");
+  ($supp, $unsupp) = belongsTo(\%mcsema_supp_intel, \%acl2_intel, $debugprint);
+  print("How well McSema Uniq Instructions are supported by ALC2 (Intel) (S/U): ". "$supp/$unsupp" . "\n");
+
+  # Strata Vs McSema
+  ($supp, $unsupp) = belongsTo(\%strata_supp_intel, \%mcsema_supp_intel, $debugprint);
+  print("How well Strata Uniq Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
+  ($supp, $unsupp) = belongsTo(\%mcsema_supp_intel, \%strata_supp_intel, $debugprint);
   print("How well McSema Uniq Instructions are supported by Strata (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
+
+  # Strata Vs McSema Vs ACL2
+  ($supp, $unsupp) = belongsTo3(\%strata_supp_intel, \%mcsema_supp_intel, \%acl2_intel, $debugprint);
+  print("Uniq Instructions supported by McSema/Strata/ACL2 (Intel) (S): ". $supp . "\n"); 
 
 
   ## Which of the vector immediates are supprted by McSema
   my ($strata_vectorimms_att_ref, $strata_vectorimms_intel_ref) = modelInstructions($stratavecimmfile, "", 0);
   my %strata_vectorimms_intel = %{$strata_vectorimms_intel_ref};
-  $supp = 0;
-  $unsupp = 0;
-  for my $intelkey (sort keys %strata_vectorimms_intel) {
-    if(exists $mcsema_supp_intel{$intelkey}) {
-#      print "SUPP:$intelkey\n";
-      $supp++;
-    } else {
-#print "US3:$intelkey\n";
-      $unsupp++;
-    }
-  }
+  ($supp, $unsupp) = belongsTo(\%strata_vectorimms_intel, \%mcsema_supp_intel, $debugprint);
   print("How well Strata Uniq Vector Imm Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
 
   exit(0);
