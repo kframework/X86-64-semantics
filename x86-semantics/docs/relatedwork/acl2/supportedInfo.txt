@@ -1,0 +1,830 @@
+Opcode: 00 Extension: NIL Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 01 Extension: NIL Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 02 Extension: NIL Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 03 Extension: NIL Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 04 Extension: NIL Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 05 Extension: NIL Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 08 Extension: NIL Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 09 Extension: NIL Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 0A Extension: NIL Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 0B Extension: NIL Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 0C Extension: NIL Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 0D Extension: NIL Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 10 Extension: NIL Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 11 Extension: NIL Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 12 Extension: NIL Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 13 Extension: NIL Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 14 Extension: NIL Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 15 Extension: NIL Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 18 Extension: NIL Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 19 Extension: NIL Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 1A Extension: NIL Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 1B Extension: NIL Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 1C Extension: NIL Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 1D Extension: NIL Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 20 Extension: NIL Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 21 Extension: NIL Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 22 Extension: NIL Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 23 Extension: NIL Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 24 Extension: NIL Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 25 Extension: NIL Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 28 Extension: NIL Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 29 Extension: NIL Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 2A Extension: NIL Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 2B Extension: NIL Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 2C Extension: NIL Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 2D Extension: NIL Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 30 Extension: NIL Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 31 Extension: NIL Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 32 Extension: NIL Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 33 Extension: NIL Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 34 Extension: NIL Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 35 Extension: NIL Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 38 Extension: NIL Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 39 Extension: NIL Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 3A Extension: NIL Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 3B Extension: NIL Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-g-e
+Opcode: 3C Extension: NIL Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 3D Extension: NIL Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: 50 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 51 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 52 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 53 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 54 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 55 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 56 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 57 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-general-register
+Opcode: 58 Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 59 Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 5A Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 5B Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 5C Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 5D Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 5E Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 5F Extension: NIL Mnemonic: POP 
+Semantic Function: x86-pop-general-register
+Opcode: 60 Extension: NIL Mnemonic: PUSHA 
+Semantic Function: x86-pusha
+Opcode: 61 Extension: NIL Mnemonic: POPA 
+Semantic Function: x86-popa
+Opcode: 63 Extension: NIL Mnemonic: MOVSXD 
+Semantic Function: x86-one-byte-movsxd
+Opcode: 68 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-i
+Opcode: 69 Extension: NIL Mnemonic: PUSHF 
+Semantic Function: x86-imul-op/en-rmi
+Opcode: 6A Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-i
+Opcode: 6B Extension: NIL Mnemonic: PUSHF 
+Semantic Function: x86-imul-op/en-rmi
+Opcode: 70 Extension: NIL Mnemonic: JO 
+Semantic Function: x86-one-byte-jcc
+Opcode: 71 Extension: NIL Mnemonic: JNO 
+Semantic Function: x86-one-byte-jcc
+Opcode: 72 Extension: NIL Mnemonic: JC 
+Semantic Function: x86-one-byte-jcc
+Opcode: 73 Extension: NIL Mnemonic: JNC 
+Semantic Function: x86-one-byte-jcc
+Opcode: 74 Extension: NIL Mnemonic: JZ 
+Semantic Function: x86-one-byte-jcc
+Opcode: 75 Extension: NIL Mnemonic: JNZ 
+Semantic Function: x86-one-byte-jcc
+Opcode: 76 Extension: NIL Mnemonic: JBE 
+Semantic Function: x86-one-byte-jcc
+Opcode: 77 Extension: NIL Mnemonic: JNBE 
+Semantic Function: x86-one-byte-jcc
+Opcode: 78 Extension: NIL Mnemonic: JS 
+Semantic Function: x86-one-byte-jcc
+Opcode: 79 Extension: NIL Mnemonic: JNS 
+Semantic Function: x86-one-byte-jcc
+Opcode: 7A Extension: NIL Mnemonic: JP 
+Semantic Function: x86-one-byte-jcc
+Opcode: 7B Extension: NIL Mnemonic: JNP 
+Semantic Function: x86-one-byte-jcc
+Opcode: 7C Extension: NIL Mnemonic: JL 
+Semantic Function: x86-one-byte-jcc
+Opcode: 7D Extension: NIL Mnemonic: JNL 
+Semantic Function: x86-one-byte-jcc
+Opcode: 7E Extension: NIL Mnemonic: JLE 
+Semantic Function: x86-one-byte-jcc
+Opcode: 7F Extension: NIL Mnemonic: JNLE 
+Semantic Function: x86-one-byte-jcc
+Opcode: 80 Extension: (:REG 7) Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 6) Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 5) Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 4) Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 3) Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 2) Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 1) Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 80 Extension: (:REG 0) Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 7) Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 6) Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 5) Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 4) Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 3) Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 2) Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 1) Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 81 Extension: (:REG 0) Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 7) Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 6) Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 5) Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 4) Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 3) Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 2) Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 1) Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 82 Extension: (:REG 0) Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 7) Mnemonic: CMP 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 6) Mnemonic: XOR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 5) Mnemonic: SUB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 4) Mnemonic: AND 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 3) Mnemonic: SBB 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 2) Mnemonic: ADC 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 1) Mnemonic: OR 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 83 Extension: (:REG 0) Mnemonic: ADD 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: 84 Extension: NIL Mnemonic: TEST 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 85 Extension: NIL Mnemonic: TEST 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g
+Opcode: 86 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 87 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 88 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-mr
+Opcode: 89 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-mr
+Opcode: 8A Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-rm
+Opcode: 8B Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-rm
+Opcode: 8D Extension: NIL Mnemonic: LEA 
+Semantic Function: x86-lea
+Opcode: 8F Extension: (:REG 0) Mnemonic: POP 
+Semantic Function: x86-pop-ev
+Opcode: 90 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 91 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 92 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 93 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 94 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 95 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 96 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 97 Extension: NIL Mnemonic: XCHG 
+Semantic Function: x86-xchg
+Opcode: 98 Extension: NIL Mnemonic: CBW 
+Semantic Function: x86-cbw/cwd/cdqe
+Opcode: 99 Extension: NIL Mnemonic: CWD 
+Semantic Function: x86-cwd/cdq/cqo
+Opcode: 9C Extension: NIL Mnemonic: PUSHF 
+Semantic Function: x86-pushf
+Opcode: 9D Extension: NIL Mnemonic: POPF 
+Semantic Function: x86-popf
+Opcode: 9E Extension: NIL Mnemonic: SAHF 
+Semantic Function: x86-sahf
+Opcode: 9F Extension: NIL Mnemonic: LAHF 
+Semantic Function: x86-lahf
+Opcode: A0 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-fd
+Opcode: A1 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-fd
+Opcode: A4 Extension: NIL Mnemonic: MOVS 
+Semantic Function: x86-movs
+Opcode: A5 Extension: NIL Mnemonic: MOVS 
+Semantic Function: x86-movs
+Opcode: A6 Extension: NIL Mnemonic: CMPS 
+Semantic Function: x86-cmps
+Opcode: A7 Extension: NIL Mnemonic: CMPS 
+Semantic Function: x86-cmps
+Opcode: A8 Extension: NIL Mnemonic: TEST 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: A9 Extension: NIL Mnemonic: TEST 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i
+Opcode: AA Extension: NIL Mnemonic: STOS 
+Semantic Function: x86-stos
+Opcode: AB Extension: NIL Mnemonic: STOS 
+Semantic Function: x86-stos
+Opcode: B0 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B1 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B2 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B3 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B4 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B5 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B6 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B7 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B8 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: B9 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: BA Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: BB Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: BC Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: BD Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: BE Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: BF Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-oi
+Opcode: C0 Extension: (:REG 7) Mnemonic: SAR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C0 Extension: (:REG 5) Mnemonic: SHR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C0 Extension: (:REG 4) Mnemonic: SAL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C0 Extension: (:REG 3) Mnemonic: RCR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C0 Extension: (:REG 2) Mnemonic: RCL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C0 Extension: (:REG 1) Mnemonic: ROR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C0 Extension: (:REG 0) Mnemonic: ROL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 7) Mnemonic: SAR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 5) Mnemonic: SHR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 4) Mnemonic: SAL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 3) Mnemonic: RCR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 2) Mnemonic: RCL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 1) Mnemonic: ROR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C1 Extension: (:REG 0) Mnemonic: ROL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: C2 Extension: NIL Mnemonic: RET 
+Semantic Function: x86-ret
+Opcode: C3 Extension: NIL Mnemonic: RET 
+Semantic Function: x86-ret
+Opcode: C6 Extension: (:REG 0) Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-mi
+Opcode: C7 Extension: (:REG 0) Mnemonic: MOV 
+Semantic Function: x86-mov-op/en-mi
+Opcode: C9 Extension: NIL Mnemonic: LEAVE 
+Semantic Function: x86-leave
+Opcode: D0 Extension: (:REG 7) Mnemonic: SAR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D0 Extension: (:REG 5) Mnemonic: SHR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D0 Extension: (:REG 4) Mnemonic: SAL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D0 Extension: (:REG 3) Mnemonic: RCR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D0 Extension: (:REG 2) Mnemonic: RCL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D0 Extension: (:REG 1) Mnemonic: ROR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D0 Extension: (:REG 0) Mnemonic: ROL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 7) Mnemonic: SAR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 5) Mnemonic: SHR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 4) Mnemonic: SAL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 3) Mnemonic: RCR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 2) Mnemonic: RCL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 1) Mnemonic: ROR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D1 Extension: (:REG 0) Mnemonic: ROL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 7) Mnemonic: SAR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 5) Mnemonic: SHR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 4) Mnemonic: SAL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 3) Mnemonic: RCR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 2) Mnemonic: RCL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 1) Mnemonic: ROR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D2 Extension: (:REG 0) Mnemonic: ROL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 7) Mnemonic: SAR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 5) Mnemonic: SHR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 4) Mnemonic: SAL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 3) Mnemonic: RCR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 2) Mnemonic: RCL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 1) Mnemonic: ROR 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: D3 Extension: (:REG 0) Mnemonic: ROL 
+Semantic Function: x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+Opcode: E0 Extension: NIL Mnemonic: LOOP 
+Semantic Function: x86-loop
+Opcode: E1 Extension: NIL Mnemonic: LOOP 
+Semantic Function: x86-loop
+Opcode: E2 Extension: NIL Mnemonic: LOOP 
+Semantic Function: x86-loop
+Opcode: E3 Extension: NIL Mnemonic: JRCXZ 
+Semantic Function: x86-jrcxz
+Opcode: E8 Extension: NIL Mnemonic: CALL 
+Semantic Function: x86-call-e8-op/en-m
+Opcode: E9 Extension: NIL Mnemonic: JMP 
+Semantic Function: x86-near-jmp-op/en-d
+Opcode: EB Extension: NIL Mnemonic: JMP 
+Semantic Function: x86-near-jmp-op/en-d
+Opcode: F4 Extension: NIL Mnemonic: HLT 
+Semantic Function: x86-hlt
+Opcode: F5 Extension: NIL Mnemonic: CMC 
+Semantic Function: x86-cmc/clc/stc/cld/std
+Opcode: F6 Extension: (:REG 5) Mnemonic: IMUL 
+Semantic Function: x86-imul-op/en-m
+Opcode: F6 Extension: (:REG 4) Mnemonic: MUL 
+Semantic Function: x86-mul
+Opcode: F6 Extension: (:REG 7) Mnemonic: IDIV 
+Semantic Function: x86-idiv
+Opcode: F6 Extension: (:REG 6) Mnemonic: DIV 
+Semantic Function: x86-div
+Opcode: F6 Extension: (:REG 3) Mnemonic: NOT 
+Semantic Function: x86-not/neg-f6-f7
+Opcode: F6 Extension: (:REG 2) Mnemonic: NOT 
+Semantic Function: x86-not/neg-f6-f7
+Opcode: F6 Extension: (:REG 0) Mnemonic: TEST 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: F7 Extension: (:REG 5) Mnemonic: IMUL 
+Semantic Function: x86-imul-op/en-m
+Opcode: F7 Extension: (:REG 4) Mnemonic: MUL 
+Semantic Function: x86-mul
+Opcode: F7 Extension: (:REG 7) Mnemonic: IDIV 
+Semantic Function: x86-idiv
+Opcode: F7 Extension: (:REG 6) Mnemonic: DIV 
+Semantic Function: x86-div
+Opcode: F7 Extension: (:REG 3) Mnemonic: NEG 
+Semantic Function: x86-not/neg-f6-f7
+Opcode: F7 Extension: (:REG 2) Mnemonic: NEG 
+Semantic Function: x86-not/neg-f6-f7
+Opcode: F7 Extension: (:REG 0) Mnemonic: TEST 
+Semantic Function: x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i
+Opcode: F8 Extension: NIL Mnemonic: CLC 
+Semantic Function: x86-cmc/clc/stc/cld/std
+Opcode: F9 Extension: NIL Mnemonic: STC 
+Semantic Function: x86-cmc/clc/stc/cld/std
+Opcode: FC Extension: NIL Mnemonic: CLD 
+Semantic Function: x86-cmc/clc/stc/cld/std
+Opcode: FD Extension: NIL Mnemonic: STD 
+Semantic Function: x86-cmc/clc/stc/cld/std
+Opcode: FE Extension: (:REG 1) Mnemonic: DEC 
+Semantic Function: x86-inc/dec-fe-ff
+Opcode: FE Extension: (:REG 0) Mnemonic: INC 
+Semantic Function: x86-inc/dec-fe-ff
+Opcode: FF Extension: (:REG 2) Mnemonic: CALL 
+Semantic Function: x86-call-ff/2-op/en-m
+Opcode: FF Extension: (:REG 6) Mnemonic: PUSH 
+Semantic Function: x86-push-ev
+Opcode: FF Extension: (:REG 5) Mnemonic: JMP 
+Semantic Function: x86-far-jmp-op/en-d
+Opcode: FF Extension: (:REG 4) Mnemonic: JMP 
+Semantic Function: x86-near-jmp-op/en-m
+Opcode: FF Extension: (:REG 1) Mnemonic: DEC 
+Semantic Function: x86-inc/dec-fe-ff
+Opcode: FF Extension: (:REG 0) Mnemonic: INC 
+Semantic Function: x86-inc/dec-fe-ff
+Opcode: 0F00 Extension: (:REG 2) Mnemonic: LLDT 
+Semantic Function: x86-lldt
+Opcode: 0F01 Extension: (:REG 3) Mnemonic: LIDT 
+Semantic Function: x86-lidt
+Opcode: 0F01 Extension: (:REG 2) Mnemonic: LGDT 
+Semantic Function: x86-lgdt
+Opcode: 0F05 Extension: NIL Mnemonic: SYSCALL 
+Semantic Function: x86-syscall
+Opcode: 0F07 Extension: NIL Mnemonic: SYSRET 
+Semantic Function: x86-sysret
+Opcode: 0F10 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVUPD 
+Semantic Function: x86-movups/movupd/movdqu-op/en-rm
+Opcode: 0F10 Extension: NIL Mnemonic: MOVUPS 
+Semantic Function: x86-movups/movupd/movdqu-op/en-rm
+Opcode: 0F10 Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MOVSD 
+Semantic Function: x86-movss/movsd-op/en-rm
+Opcode: 0F10 Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MOVSS 
+Semantic Function: x86-movss/movsd-op/en-rm
+Opcode: 0F11 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVUPD 
+Semantic Function: x86-movups/movupd/movdqu-op/en-mr
+Opcode: 0F11 Extension: NIL Mnemonic: MOVUPS 
+Semantic Function: x86-movups/movupd/movdqu-op/en-mr
+Opcode: 0F11 Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MOVSD 
+Semantic Function: x86-movss/movsd-op/en-mr
+Opcode: 0F11 Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MOVSS 
+Semantic Function: x86-movss/movsd-op/en-mr
+Opcode: 0F12 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVLPD 
+Semantic Function: x86-movlps/movlpd-op/en-rm
+Opcode: 0F12 Extension: NIL Mnemonic: MOVLPS 
+Semantic Function: x86-movlps/movlpd-op/en-rm
+Opcode: 0F13 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVLPD 
+Semantic Function: x86-movlps/movlpd-op/en-mr
+Opcode: 0F13 Extension: NIL Mnemonic: MOVLPS 
+Semantic Function: x86-movlps/movlpd-op/en-mr
+Opcode: 0F14 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: UNPCKLPD 
+Semantic Function: x86-unpck?pd-op/en-rm
+Opcode: 0F14 Extension: NIL Mnemonic: UNPCKLPS 
+Semantic Function: x86-unpck?ps-op/en-rm
+Opcode: 0F15 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: UNPCKHPD 
+Semantic Function: x86-unpck?pd-op/en-rm
+Opcode: 0F15 Extension: NIL Mnemonic: UNPCKHPS 
+Semantic Function: x86-unpck?ps-op/en-rm
+Opcode: 0F16 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVHPD 
+Semantic Function: x86-movhps/movhpd-op/en-rm
+Opcode: 0F16 Extension: NIL Mnemonic: MOVHPS 
+Semantic Function: x86-movhps/movhpd-op/en-rm
+Opcode: 0F17 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVLPD 
+Semantic Function: x86-movhps/movhpd-op/en-mr
+Opcode: 0F17 Extension: NIL Mnemonic: MOVLPS 
+Semantic Function: x86-movhps/movhpd-op/en-mr
+Opcode: 0F1F Extension: (:REG 0) Mnemonic: NOP 
+Semantic Function: x86-two-byte-nop
+Opcode: 0F20 Extension: NIL Mnemonic: MOV 
+Semantic Function: x86-mov-control-regs-op/en-mr
+Opcode: 0F28 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVAPD 
+Semantic Function: x86-movaps/movapd-op/en-rm
+Opcode: 0F28 Extension: NIL Mnemonic: MOVAPS 
+Semantic Function: x86-movaps/movapd-op/en-rm
+Opcode: 0F29 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MOVAPD 
+Semantic Function: x86-movaps/movapd-op/en-mr
+Opcode: 0F29 Extension: NIL Mnemonic: MOVAPS 
+Semantic Function: x86-movaps/movapd-op/en-mr
+Opcode: 0F2A Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES)) (LOGBITP 3 REX-BYTE)) Mnemonic: CVTSI2SD 
+Semantic Function: x86-cvtsi2s?-op/en-rm
+Opcode: 0F2A Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTSI2SD 
+Semantic Function: x86-cvtsi2s?-op/en-rm
+Opcode: 0F2A Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES)) (LOGBITP 3 REX-BYTE)) Mnemonic: CVTSI2SS 
+Semantic Function: x86-cvtsi2s?-op/en-rm
+Opcode: 0F2A Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTSI2SS 
+Semantic Function: x86-cvtsi2s?-op/en-rm
+Opcode: 0F2C Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES)) (LOGBITP 3 REX-BYTE)) Mnemonic: CVTTSD2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2C Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTTSD2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2C Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES)) (LOGBITP 3 REX-BYTE)) Mnemonic: CVTTSS2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2C Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTTSS2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2D Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES)) (LOGBITP 3 REX-BYTE)) Mnemonic: CVTSD2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2D Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTSD2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2D Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES)) (LOGBITP 3 REX-BYTE)) Mnemonic: CVTSS2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2D Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTSS2SI 
+Semantic Function: x86-cvts?2si/cvtts?2si-op/en-rm
+Opcode: 0F2E Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: UCOMISD 
+Semantic Function: x86-comis?/ucomis?-op/en-rm
+Opcode: 0F2E Extension: NIL Mnemonic: UCOMISS 
+Semantic Function: x86-comis?/ucomis?-op/en-rm
+Opcode: 0F2F Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: COMISD 
+Semantic Function: x86-comis?/ucomis?-op/en-rm
+Opcode: 0F2F Extension: NIL Mnemonic: COMISS 
+Semantic Function: x86-comis?/ucomis?-op/en-rm
+Opcode: 0F40 Extension: NIL Mnemonic: CMOVO 
+Semantic Function: x86-cmovcc
+Opcode: 0F41 Extension: NIL Mnemonic: CMOVNO 
+Semantic Function: x86-cmovcc
+Opcode: 0F42 Extension: NIL Mnemonic: CMOVC 
+Semantic Function: x86-cmovcc
+Opcode: 0F43 Extension: NIL Mnemonic: CMOVNC 
+Semantic Function: x86-cmovcc
+Opcode: 0F44 Extension: NIL Mnemonic: CMOVZ 
+Semantic Function: x86-cmovcc
+Opcode: 0F45 Extension: NIL Mnemonic: CMOVNZ 
+Semantic Function: x86-cmovcc
+Opcode: 0F46 Extension: NIL Mnemonic: CMOVBE 
+Semantic Function: x86-cmovcc
+Opcode: 0F47 Extension: NIL Mnemonic: CMOVNBE 
+Semantic Function: x86-cmovcc
+Opcode: 0F48 Extension: NIL Mnemonic: CMOVS 
+Semantic Function: x86-cmovcc
+Opcode: 0F49 Extension: NIL Mnemonic: CMOVNS 
+Semantic Function: x86-cmovcc
+Opcode: 0F4A Extension: NIL Mnemonic: CMOVP 
+Semantic Function: x86-cmovcc
+Opcode: 0F4B Extension: NIL Mnemonic: CMOVNP 
+Semantic Function: x86-cmovcc
+Opcode: 0F4C Extension: NIL Mnemonic: CMOVL 
+Semantic Function: x86-cmovcc
+Opcode: 0F4D Extension: NIL Mnemonic: CMOVNL 
+Semantic Function: x86-cmovcc
+Opcode: 0F4E Extension: NIL Mnemonic: CMOVLE 
+Semantic Function: x86-cmovcc
+Opcode: 0F4F Extension: NIL Mnemonic: CMOVNLE 
+Semantic Function: x86-cmovcc
+Opcode: 0F51 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: SQRTPD 
+Semantic Function: x86-sqrtpd-op/en-rm
+Opcode: 0F51 Extension: NIL Mnemonic: SQRTPS 
+Semantic Function: x86-sqrtps-op/en-rm
+Opcode: 0F51 Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: SQRTSD 
+Semantic Function: x86-sqrts?-op/en-rm
+Opcode: 0F51 Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: SQRTSS 
+Semantic Function: x86-sqrts?-op/en-rm
+Opcode: 0F54 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: ANDPD 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F54 Extension: NIL Mnemonic: ANDPS 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F55 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: ANDNPD 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F55 Extension: NIL Mnemonic: ANDNPS 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F56 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: ORPD 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F56 Extension: NIL Mnemonic: ORPS 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F57 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: XORPD 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F57 Extension: NIL Mnemonic: XORPS 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0F58 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: ADDPD 
+Semantic Function: x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm
+Opcode: 0F58 Extension: NIL Mnemonic: ADDPS 
+Semantic Function: x86-addps/subps/mulps/divps/maxps/minps-op/en-rm
+Opcode: 0F58 Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: ADDSD 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F58 Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: ADDSS 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F59 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MULPD 
+Semantic Function: x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm
+Opcode: 0F59 Extension: NIL Mnemonic: MULPS 
+Semantic Function: x86-addps/subps/mulps/divps/maxps/minps-op/en-rm
+Opcode: 0F59 Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MULSD 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F59 Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MULSS 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5A Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: CVTPD2PS 
+Semantic Function: x86-cvtpd2ps-op/en-rm
+Opcode: 0F5A Extension: NIL Mnemonic: CVTPS2PD 
+Semantic Function: x86-cvtps2pd-op/en-rm
+Opcode: 0F5A Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTSD2SS 
+Semantic Function: x86-cvts?2s?-op/en-rm
+Opcode: 0F5A Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CVTSS2SD 
+Semantic Function: x86-cvts?2s?-op/en-rm
+Opcode: 0F5C Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: SUBPD 
+Semantic Function: x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm
+Opcode: 0F5C Extension: NIL Mnemonic: SUBPS 
+Semantic Function: x86-addps/subps/mulps/divps/maxps/minps-op/en-rm
+Opcode: 0F5C Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: SUBSD 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5C Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: SUBSS 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5D Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MINPD 
+Semantic Function: x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm
+Opcode: 0F5D Extension: NIL Mnemonic: MINPS 
+Semantic Function: x86-addps/subps/mulps/divps/maxps/minps-op/en-rm
+Opcode: 0F5D Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MINSD 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5D Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MINSS 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5E Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: DIVPD 
+Semantic Function: x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm
+Opcode: 0F5E Extension: NIL Mnemonic: DIVPS 
+Semantic Function: x86-addps/subps/mulps/divps/maxps/minps-op/en-rm
+Opcode: 0F5E Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: DIVSD 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5E Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: DIVSS 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5F Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: MAXPD 
+Semantic Function: x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm
+Opcode: 0F5F Extension: NIL Mnemonic: MAXPS 
+Semantic Function: x86-addps/subps/mulps/divps/maxps/minps-op/en-rm
+Opcode: 0F5F Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MAXSD 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F5F Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MAXSS 
+Semantic Function: x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm
+Opcode: 0F6F Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MOVDQU 
+Semantic Function: x86-movups/movupd/movdqu-op/en-rm
+Opcode: 0F74 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: PCMPEQB 
+Semantic Function: x86-pcmpeqb-op/en-rm
+Opcode: 0F7F Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: MOVDQU 
+Semantic Function: x86-movups/movupd/movdqu-op/en-mr
+Opcode: 0F80 Extension: NIL Mnemonic: JO 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F81 Extension: NIL Mnemonic: JNO 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F82 Extension: NIL Mnemonic: JC 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F83 Extension: NIL Mnemonic: JNC 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F84 Extension: NIL Mnemonic: JZ 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F85 Extension: NIL Mnemonic: JNZ 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F86 Extension: NIL Mnemonic: JBE 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F87 Extension: NIL Mnemonic: JNBE 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F88 Extension: NIL Mnemonic: JS 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F89 Extension: NIL Mnemonic: JNS 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F8A Extension: NIL Mnemonic: JP 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F8B Extension: NIL Mnemonic: JNP 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F8C Extension: NIL Mnemonic: JL 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F8D Extension: NIL Mnemonic: JNL 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F8E Extension: NIL Mnemonic: JLE 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F8F Extension: NIL Mnemonic: JNLE 
+Semantic Function: x86-two-byte-jcc
+Opcode: 0F90 Extension: NIL Mnemonic: SETO 
+Semantic Function: x86-setcc
+Opcode: 0F91 Extension: NIL Mnemonic: SETNO 
+Semantic Function: x86-setcc
+Opcode: 0F92 Extension: NIL Mnemonic: SETC 
+Semantic Function: x86-setcc
+Opcode: 0F93 Extension: NIL Mnemonic: SETNC 
+Semantic Function: x86-setcc
+Opcode: 0F94 Extension: NIL Mnemonic: SETZ 
+Semantic Function: x86-setcc
+Opcode: 0F95 Extension: NIL Mnemonic: SETNZ 
+Semantic Function: x86-setcc
+Opcode: 0F96 Extension: NIL Mnemonic: SETBE 
+Semantic Function: x86-setcc
+Opcode: 0F97 Extension: NIL Mnemonic: SETNBE 
+Semantic Function: x86-setcc
+Opcode: 0F98 Extension: NIL Mnemonic: SETS 
+Semantic Function: x86-setcc
+Opcode: 0F99 Extension: NIL Mnemonic: SETNS 
+Semantic Function: x86-setcc
+Opcode: 0F9A Extension: NIL Mnemonic: SETP 
+Semantic Function: x86-setcc
+Opcode: 0F9B Extension: NIL Mnemonic: SETNP 
+Semantic Function: x86-setcc
+Opcode: 0F9C Extension: NIL Mnemonic: SETL 
+Semantic Function: x86-setcc
+Opcode: 0F9D Extension: NIL Mnemonic: SETNL 
+Semantic Function: x86-setcc
+Opcode: 0F9E Extension: NIL Mnemonic: SETLE 
+Semantic Function: x86-setcc
+Opcode: 0F9F Extension: NIL Mnemonic: SETNLE 
+Semantic Function: x86-setcc
+Opcode: 0FA0 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-segment-register
+Opcode: 0FA3 Extension: NIL Mnemonic: BT 
+Semantic Function: x86-bt-0f-a3
+Opcode: 0FA8 Extension: NIL Mnemonic: PUSH 
+Semantic Function: x86-push-segment-register
+Opcode: 0FAE Extension: (:MISC (EQL (MRM-REG MODR/M) 3)) Mnemonic: STMXCSR
+Semantic Function: x86-ldmxcsr/stmxcsr-op/en-m
+Opcode: 0FAE Extension: (:MISC (EQL (MRM-REG MODR/M) 2)) Mnemonic: LDMXCSR 
+Semantic Function: x86-ldmxcsr/stmxcsr-op/en-m
+Opcode: 0FAF Extension: NIL Mnemonic: IMUL 
+Semantic Function: x86-imul-op/en-rm
+Opcode: 0FB0 Extension: NIL Mnemonic: CMPXCHG 
+Semantic Function: x86-cmpxchg
+Opcode: 0FB1 Extension: NIL Mnemonic: CMPXCHG 
+Semantic Function: x86-cmpxchg
+Opcode: 0FB6 Extension: NIL Mnemonic: MOVZX 
+Semantic Function: x86-movzx
+Opcode: 0FB7 Extension: NIL Mnemonic: MOVZX 
+Semantic Function: x86-movzx
+Opcode: 0FBA Extension: (:REG 4) Mnemonic: BT 
+Semantic Function: x86-bt-0f-ba
+Opcode: 0FBC Extension: NIL Mnemonic: BSF 
+Semantic Function: x86-bsf-op/en-rm
+Opcode: 0FBE Extension: NIL Mnemonic: MOVSXD 
+Semantic Function: x86-two-byte-movsxd
+Opcode: 0FBF Extension: NIL Mnemonic: MOVSXD 
+Semantic Function: x86-two-byte-movsxd
+Opcode: 0FC2 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: CMPPD 
+Semantic Function: x86-cmppd-op/en-rmi
+Opcode: 0FC2 Extension: NIL Mnemonic: CMPPS 
+Semantic Function: x86-cmpps-op/en-rmi
+Opcode: 0FC2 Extension: (:MISC (EQL 242 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CMPSD 
+Semantic Function: x86-cmpss/cmpsd-op/en-rmi
+Opcode: 0FC2 Extension: (:MISC (EQL 243 (PREFIXES-SLICE :GROUP-1-PREFIX PREFIXES))) Mnemonic: CMPSS 
+Semantic Function: x86-cmpss/cmpsd-op/en-rmi
+Opcode: 0FC6 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: SHUFPD 
+Semantic Function: x86-shufpd-op/en-rmi
+Opcode: 0FC6 Extension: NIL Mnemonic: SHUFPS 
+Semantic Function: x86-shufps-op/en-rmi
+Opcode: 0FC7 Extension: (:REG 6 :MOD 3) Mnemonic: RDRAND 
+Semantic Function: x86-rdrand
+Opcode: 0FD7 Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: PMOVMSKB 
+Semantic Function: x86-pmovmskb-op/en-rm
+Opcode: 0FDB Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: PAND 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0FDF Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: PANDN 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0FEB Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: POR 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm
+Opcode: 0FEF Extension: (:MISC (EQL 102 (PREFIXES-SLICE :GROUP-3-PREFIX PREFIXES))) Mnemonic: PXOR 
+Semantic Function: x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm

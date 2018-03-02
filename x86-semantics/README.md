@@ -46,6 +46,12 @@ Let --file input is a file containing lst of all the opcodes which strata has th
   - [Wiki Link](https://github.com/sdasgup3/binary-decompilation/wiki/Proving-Equivalence-of-K-Rules-and-Strata's-BitVector-Formulas(BVFs))
   - [Issue Link](https://github.com/sdasgup3/binary-decompilation/issues/49)
 
+
+## Get opcode support statistics of Strata and McSema
+```
+./scripts/process_spec.pl --comparemcsema
+```
+
 ## Autogenerate k rules from strata for imm-register instruction variants
 ### To generate
 ```
