@@ -135,7 +135,7 @@ if("" ne $comparemcsema) {
 #print "SUPP:$intelkey\n";
       $supp++;
     } else {
-#      print "US:$intelkey\n";
+#      print "US1:$intelkey\n";
       $unsupp++;
     }
   }
@@ -150,7 +150,7 @@ if("" ne $comparemcsema) {
 #print "SUPP:$intelkey\n";
     } else {
       $unsupp++;
-#print "US:$intelkey\n";
+#      print "US2:$intelkey\n";
     }
   }
   print("How well McSema Uniq Instructions are supported by Strata (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
@@ -163,10 +163,10 @@ if("" ne $comparemcsema) {
   $unsupp = 0;
   for my $intelkey (sort keys %strata_vectorimms_intel) {
     if(exists $mcsema_supp_intel{$intelkey}) {
-#print "SUPP:$intelkey\n";
+#      print "SUPP:$intelkey\n";
       $supp++;
     } else {
-#print "US:$intelkey\n";
+#print "US3:$intelkey\n";
       $unsupp++;
     }
   }
