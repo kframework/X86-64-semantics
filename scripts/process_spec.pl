@@ -29,60 +29,60 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
-my $help         = "";
-my $stratum      = "";
-my $readmod      = "";
-my $createspec   = "";
-my $postprocess  = "";
-my $kprove       = "";
-my $getoplist    = "";
-my $all          = "";
-my $genincludes  = "";
-my $checksanity  = "";
-my $gitdiff      = "";
-my $diffwithstrata      = "";
-my $gitadd       = "";
-my $gitco        = "";
-my $speconly     = "";
-my $nightlyrun   = "";
-my $start        = "";
-my $getimm       = "";
-my $getimmdiff   = "";
-my $getmem       = "";
-my $getz3formula = "";
-my $z3prove      = "";
-my $useuif       = "";
-my $compile      = "";
-my $compareother = "";
+my $help           = "";
+my $stratum        = "";
+my $readmod        = "";
+my $createspec     = "";
+my $postprocess    = "";
+my $kprove         = "";
+my $getoplist      = "";
+my $all            = "";
+my $genincludes    = "";
+my $checksanity    = "";
+my $gitdiff        = "";
+my $diffwithstrata = "";
+my $gitadd         = "";
+my $gitco          = "";
+my $speconly       = "";
+my $nightlyrun     = "";
+my $start          = "";
+my $getimm         = "";
+my $getimmdiff     = "";
+my $getmem         = "";
+my $getz3formula   = "";
+my $z3prove        = "";
+my $useuif         = "";
+my $compile        = "";
+my $compareother   = "";
 
 GetOptions(
-    "help"          => \$help,
-    "file:s"        => \$file,
-    "stratum"       => \$stratum,
-    "readmod"       => \$readmod,
-    "createspec"    => \$createspec,
-    "getoplist"     => \$getoplist,
-    "kprove"        => \$kprove,
-    "postprocess"   => \$postprocess,
-    "all"           => \$all,
-    "genincludes"   => \$genincludes,
-    "checksanity"   => \$checksanity,
-    "gitdiff"       => \$gitdiff,
-    "diffwithstrata"       => \$diffwithstrata,
-    "speconly"      => \$speconly,
-    "gitadd"        => \$gitadd,
-    "gitco"         => \$gitco,
-    "getimm"        => \$getimm,
-    "getimmdiff"    => \$getimmdiff,
-    "getmem"        => \$getmem,
-    "compareother" => \$compareother,
-    "nightlyrun"    => \$nightlyrun,
-    "getz3formula"  => \$getz3formula,
-    "z3prove"       => \$z3prove,
-    "useuif"        => \$useuif,
-    "compile"       => \$compile,
-    "start:s"       => \$start,
-    "strata_path:s" => \$strata_path,
+    "help"           => \$help,
+    "file:s"         => \$file,
+    "stratum"        => \$stratum,
+    "readmod"        => \$readmod,
+    "createspec"     => \$createspec,
+    "getoplist"      => \$getoplist,
+    "kprove"         => \$kprove,
+    "postprocess"    => \$postprocess,
+    "all"            => \$all,
+    "genincludes"    => \$genincludes,
+    "checksanity"    => \$checksanity,
+    "gitdiff"        => \$gitdiff,
+    "diffwithstrata" => \$diffwithstrata,
+    "speconly"       => \$speconly,
+    "gitadd"         => \$gitadd,
+    "gitco"          => \$gitco,
+    "getimm"         => \$getimm,
+    "getimmdiff"     => \$getimmdiff,
+    "getmem"         => \$getmem,
+    "compareother"   => \$compareother,
+    "nightlyrun"     => \$nightlyrun,
+    "getz3formula"   => \$getz3formula,
+    "z3prove"        => \$z3prove,
+    "useuif"         => \$useuif,
+    "compile"        => \$compile,
+    "start:s"        => \$start,
+    "strata_path:s"  => \$strata_path,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -90,81 +90,128 @@ my $sfp;
 my $removeComment;
 my $debugprint = 0;
 
-if("" ne $compareother) {
-  ## file names
-  my $availfile = "docs/relatedwork/all.instrs"; 
-  my $stratafile = "docs/relatedwork/strata/all_known_sema_opcodes.txt"; 
-  my $stratavecimmfile = "docs/relatedwork/strata/stratum_vector_immediates.txt";
-  my $intelatt = "docs/relatedwork/instruction_statistics/intel_att.txt";
-  my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
-  my $xedfile = "docs/relatedwork/mcsema/xed.txt";
-  my $acl2file = "docs/relatedwork/acl2/supportedOPcodes.txt";
+if ( "" ne $compareother ) {
+    ## file names
+    my $availfile = "docs/instruction_manuals/all.instrs";
+    my $intelatt  = "docs/instruction_manuals/intel_att.txt";
 
+    my $stratafile = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
+    my $stratavecimmfile =
+      "docs/relatedwork/strata/stratum_vector_immediates.txt";
+    my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
+    my $xedfile    = "docs/relatedwork/mcsema/xed.txt";
+    my $acl2file   = "docs/relatedwork/acl2/supportedOPcodes.txt";
 
-  ## get intel <-> att
-  my ($intel2att_ref, $att2intel_ref) = assocIntelATT($intelatt, $debugprint);
-  my %intel2att = %{$intel2att_ref};
-  my %att2intel = %{$att2intel_ref};
-  print("Att/Intel Opcodes: ". 
-      scalar(keys %{att2intel}). "/". scalar(keys %{intel2att}) . "\n");
+    ## get intel <-> att
+    my ( $intel2att_ref, $att2intel_ref ) =
+      assocIntelATT( $intelatt, $debugprint );
+    my %intel2att = %{$intel2att_ref};
+    my %att2intel = %{$att2intel_ref};
+    print(  "Att/Intel Opcodes: "
+          . scalar( keys %{att2intel} ) . "/"
+          . scalar( keys %{intel2att} )
+          . "\n" );
 
-  ## Get the total instructions
-  my ($avail_att_ref, $avail_intel_ref) = modelInstructions($availfile, "", 0);
-  my %avail_att = %{$avail_att_ref};
-  my %avail_intel = %{$avail_intel_ref};
-  print("Uniq Instructions total(att/intel): ". 
-      scalar(keys %{avail_att}). "/". scalar(keys %{avail_intel}) . "\n");
+    ## Get the total instructions
+    my ( $avail_att_ref, $avail_intel_ref ) =
+      modelInstructions( $availfile, $intelatt, "", 0 );
+    my %avail_att   = %{$avail_att_ref};
+    my %avail_intel = %{$avail_intel_ref};
+    print(  "Uniq Instructions total(att/intel): "
+          . scalar( keys %{avail_att} ) . "/"
+          . scalar( keys %{avail_intel} )
+          . "\n" );
 
+    ## Get the strata supported instr
+    my ( $strata_supp_att_ref, $strata_supp_intel_ref ) =
+      modelInstructions( $stratafile, $intelatt, "", 0 );
+    my %strata_supp_att   = %{$strata_supp_att_ref};
+    my %strata_supp_intel = %{$strata_supp_intel_ref};
+    print(  "Uniq Instruction Strata Support(att/intel): "
+          . scalar( keys %strata_supp_att ) . "/"
+          . scalar( keys %strata_supp_intel )
+          . "\n" );
 
-  ## Get the strata supported instr
-  my ($strata_supp_att_ref, $strata_supp_intel_ref) = modelInstructions($stratafile, "", 0);
-  my %strata_supp_att = %{$strata_supp_att_ref};
-  my %strata_supp_intel = %{$strata_supp_intel_ref};
-  print("Uniq Instruction Strata Support(att/intel): ". 
-      scalar(keys %strata_supp_att). "/" . scalar(keys %strata_supp_intel) . "\n");
+    ## Get the mcsema supported instr
+    my $mcsema_supp_intel_ref =
+      assocateMcSemaXed( $mcsemafile, $xedfile, $debugprint );
+    my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
+    print(  "Uniq Instruction McSema Support(Intel): "
+          . scalar( keys %mcsema_supp_intel )
+          . "\n" );
 
-  ## Get the mcsema supported instr
-  my $mcsema_supp_intel_ref = assocateMcSemaXed($mcsemafile, $xedfile, $debugprint);
-  my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
-  print("Uniq Instruction McSema Support(Intel): ". scalar(keys %mcsema_supp_intel). "\n"); 
+    ## Get the acl2 supported instr
+    my $acl2_intel_ref =
+      modelInstructions( $acl2file, $intelatt, "inIntel", $debugprint );
+    my %acl2_intel = %{$acl2_intel_ref};
+    print(  "Uniq Instruction ACL2 Support(Intel): "
+          . scalar( keys %acl2_intel )
+          . "\n" );
 
-  ## Get the acl2 supported instr
-  my $acl2_intel_ref = modelInstructions($acl2file, "inIntel", $debugprint);
-  my %acl2_intel = %{$acl2_intel_ref};
-  print("Uniq Instruction ACL2 Support(Intel): ". scalar(keys %acl2_intel). "\n");
+    print "\n\n";
 
-  print "\n\n";
+    # Compare ACL2 Vs Strata
+    my ( $supp, $unsupp ) =
+      belongsTo( \%acl2_intel, \%strata_supp_intel, $debugprint );
+    print(
+"How well ACL2 Uniq Instructions are supported by Strata (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
+    ( $supp, $unsupp ) =
+      belongsTo( \%strata_supp_intel, \%acl2_intel, $debugprint );
+    print(
+"How well Strata Uniq Instructions are supported by ALC2 (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
 
-  # Compare ACL2 Vs Strata
-  my ($supp, $unsupp) = belongsTo(\%acl2_intel, \%strata_supp_intel, $debugprint);
-  print("How well ACL2 Uniq Instructions are supported by Strata (Intel) (S/U): ". "$supp/$unsupp" . "\n");
-  ($supp, $unsupp) = belongsTo(\%strata_supp_intel, \%acl2_intel, $debugprint);
-  print("How well Strata Uniq Instructions are supported by ALC2 (Intel) (S/U): ". "$supp/$unsupp" . "\n");
+    # Compare ACL2 Vs McSema
+    ( $supp, $unsupp ) =
+      belongsTo( \%acl2_intel, \%mcsema_supp_intel, $debugprint );
+    print(
+"How well ACL2 Uniq Instructions are supported by McSema (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
+    ( $supp, $unsupp ) =
+      belongsTo( \%mcsema_supp_intel, \%acl2_intel, $debugprint );
+    print(
+"How well McSema Uniq Instructions are supported by ALC2 (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
 
-  # Compare ACL2 Vs McSema
-  my ($supp, $unsupp) = belongsTo(\%acl2_intel, \%mcsema_supp_intel, $debugprint);
-  print("How well ACL2 Uniq Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n");
-  ($supp, $unsupp) = belongsTo(\%mcsema_supp_intel, \%acl2_intel, $debugprint);
-  print("How well McSema Uniq Instructions are supported by ALC2 (Intel) (S/U): ". "$supp/$unsupp" . "\n");
+    # Strata Vs McSema
+    ( $supp, $unsupp ) =
+      belongsTo( \%strata_supp_intel, \%mcsema_supp_intel, $debugprint );
+    print(
+"How well Strata Uniq Instructions are supported by McSema (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
+    ( $supp, $unsupp ) =
+      belongsTo( \%mcsema_supp_intel, \%strata_supp_intel, $debugprint );
+    print(
+"How well McSema Uniq Instructions are supported by Strata (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
 
-  # Strata Vs McSema
-  ($supp, $unsupp) = belongsTo(\%strata_supp_intel, \%mcsema_supp_intel, $debugprint);
-  print("How well Strata Uniq Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
-  ($supp, $unsupp) = belongsTo(\%mcsema_supp_intel, \%strata_supp_intel, $debugprint);
-  print("How well McSema Uniq Instructions are supported by Strata (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
+    # Strata Vs McSema Vs ACL2
+    ( $supp, $unsupp ) =
+      belongsTo3( \%strata_supp_intel, \%mcsema_supp_intel, \%acl2_intel,
+        $debugprint );
+    print(  "Uniq Instructions supported by McSema/Strata/ACL2 (Intel) (S): "
+          . $supp
+          . "\n" );
 
-  # Strata Vs McSema Vs ACL2
-  ($supp, $unsupp) = belongsTo3(\%strata_supp_intel, \%mcsema_supp_intel, \%acl2_intel, $debugprint);
-  print("Uniq Instructions supported by McSema/Strata/ACL2 (Intel) (S): ". $supp . "\n"); 
+    ## Which of the vector immediates are supprted by McSema
+    my ( $strata_vectorimms_att_ref, $strata_vectorimms_intel_ref ) =
+      modelInstructions( $stratavecimmfile, $intelatt, "", 0 );
+    my %strata_vectorimms_intel = %{$strata_vectorimms_intel_ref};
+    ( $supp, $unsupp ) =
+      belongsTo( \%strata_vectorimms_intel, \%mcsema_supp_intel, $debugprint );
+    print(
+"How well Strata Uniq Vector Imm Instructions are supported by McSema (Intel) (S/U): "
+          . "$supp/$unsupp"
+          . "\n" );
 
-
-  ## Which of the vector immediates are supprted by McSema
-  my ($strata_vectorimms_att_ref, $strata_vectorimms_intel_ref) = modelInstructions($stratavecimmfile, "", 0);
-  my %strata_vectorimms_intel = %{$strata_vectorimms_intel_ref};
-  ($supp, $unsupp) = belongsTo(\%strata_vectorimms_intel, \%mcsema_supp_intel, $debugprint);
-  print("How well Strata Uniq Vector Imm Instructions are supported by McSema (Intel) (S/U): ". "$supp/$unsupp" . "\n"); 
-
-  exit(0);
+    exit(0);
 }
 
 if ( "" ne $compile ) {
@@ -331,7 +378,8 @@ if ( "" ne $diffwithstrata ) {
         }
 
         my $koutput = "$derivedInstructions/x86-${opcode}.k";
-        my $oracle = "instructions_with_uif/derivedInstructions/x86-${opcode}.k"; 
+        my $oracle =
+          "instructions_with_uif/derivedInstructions/x86-${opcode}.k";
 
         execute("diff $oracle $koutput");
     }
