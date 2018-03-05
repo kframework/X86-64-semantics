@@ -15,12 +15,14 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
+my $stoke_debug_circuit =
+  "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 
 #my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
@@ -1012,17 +1014,22 @@ sub getRWsetOfInstr {
 }
 
 sub getStrataBVFormula {
-    my $instr      = shift @_;
-    my $debugprint = shift @_;
-    my $useuif     = shift @_;
+    my $instr           = shift @_;
+    my $debugprint      = shift @_;
+    my $useuif          = shift @_;
+    my $use_strata_path = shift @_;
 
     my $smtlib_format = "";
     if ( "" ne $useuif ) {
         $smtlib_format = " --smtlib_format ";
     }
 
-    my $binpath =
-"/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit $smtlib_format --strata_path /home/sdasgup3/Github/strata-data/circuits/ --code";
+    my $ckt_path = "";
+    if ( 1 == $use_strata_path ) {
+        $ckt_path = " --strata_path $strata_path";
+    }
+
+    my $binpath = "$stoke_debug_circuit $smtlib_format  $ckt_path --code";
 
     # Escape the $ sign (if present)
     $instr =~ s/\$/\\\$/g;
@@ -2507,7 +2514,7 @@ endmodule
     ## get BV formula
 #my $strata_BVFormula = getStrataBVFormula( $targetinstr, $debugprint , "--smtlib_format");
     my $strata_BVFormula =
-      getStrataBVFormula( $targetinstr, $debugprint, $useuif );
+      getStrataBVFormula( $targetinstr, $debugprint, $useuif, 1 );
 
     print $fp "/*"
       . "\nTargetInstr:\n"
@@ -4252,7 +4259,12 @@ sub modelInstructions {
         my $key  = "";
         my $name = "";
 
-        $key  = $line =~ s/_.*//gr;
+        if ( $hint eq "keep_instruction" ) {
+            $key = $line;
+        }
+        else {
+            $key = $line =~ s/_.*//gr;
+        }
         $name = $line;
         push @{ $model_att{$key} }, $name;
     }
@@ -4272,10 +4284,13 @@ sub modelInstructions {
         for my $key ( sort keys %model_att ) {
             print $key. "\n";
             printArray( \@{ $model_att{$key} }, "", 1 );
+            print "Intel Key:" . $att2intel{$key} . "\n";
         }
     }
 
-    if ( $hint eq "inIntel" ) {
+    if (   ( $hint eq "inIntel" )
+        or ( $hint eq "keep_instruction" ) )
+    {
         return ( \%model_att, \%model_att );
     }
 
@@ -4335,6 +4350,109 @@ sub assocIntelATT {
     }
 
     return ( \%intel2att, \%att2intel );
+}
+
+sub getRegVaraint {
+    my $line          = shift @_;
+    my $allregmap_ref = shift @_;
+
+    my %allregmap = %{$allregmap_ref};
+
+    #line is already a reg variant
+
+    if ( exists $allregmap{$line} ) {
+        return ( $allregmap{$line}[0], 1, "register" );
+    }
+
+    if ( $line =~ m/_\d+$/g ) {
+        return ( "skip", 1, "" );
+    }
+
+    my $size = 0;
+    if ( $line =~ m/_imm(\d+)/ ) {
+        $size = $1;
+    }
+    elsif ( $line =~ m/_m(\d+)/ ) {
+        $size = $1;
+    }
+
+    my @guesses  = ();
+    my $foundOne = 0;
+
+    ## Some simple modofications of imm inst
+    ## inorder to get a match.
+    my $mod1 = $line =~ s/_rax/_r64/gr;
+    my $mod2 = $mod1 =~ s/_eax/_r32/gr;
+    my $mod3 = $mod2 =~ s/_ax/_r16/gr;
+    my $mod4 = $mod3 =~ s/_al/_r8/gr;
+
+    #    print "$mod4\::$imm_or_mem\n";
+
+    push @guesses, "Type Exact";
+    if ( $size == 8 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r8/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_cl/gr;
+    }
+    if ( $size == 16 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r16/gr;
+    }
+    if ( $size == 32 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r32/gr;
+    }
+    if ( $size == 64 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
+    }
+    if ( $size == 128 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    }
+    if ( $size == 256 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_ymm/gr;
+    }
+
+    push @guesses, "Type Extend";
+    if ( $size == 8 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r16/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r32/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    }
+    if ( $size == 16 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r32/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    }
+    if ( $size == 32 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    }
+    if ( $size == 64 ) {
+        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    }
+
+    #printArray(\@guesses, "", 1);
+
+    my $matchType = "";
+    for my $guess (@guesses) {
+
+        #p "$var\::$guess\::$matchType\n";
+        if ( $guess eq "Type Exact" ) {
+            $matchType = "Exact";
+            next;
+        }
+        elsif ( $guess eq "Type Extend" ) {
+            $matchType = "Extend";
+            next;
+        }
+
+        if ( exists $allregmap{$guess} ) {
+            $foundOne = 1;
+            return ( $allregmap{$guess}[0], 1, $matchType );
+        }
+    }
+
+    if ( 0 == $foundOne ) {
+        return ( "nomatch", 0, "" );
+    }
 }
 
 1;
