@@ -1,6 +1,0 @@
-pmovsxwq_xmm_xmm
-vpmovsxbd_xmm_xmm
-vpmovsxwd_xmm_xmm
-vpmovsxwq_ymm_xmm
-vpunpckhwd_xmm_xmm_xmm
-vpunpcklwd_ymm_ymm_ymm

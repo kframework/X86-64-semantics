@@ -29,6 +29,10 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+
+#my $stoke_debug_circuit = "/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit";
+my $stoke_debug_circuit =
+  "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
 my $help           = "";
 my $stratum        = "";
 my $readmod        = "";
@@ -52,8 +56,11 @@ my $getmem         = "";
 my $getz3formula   = "";
 my $z3prove        = "";
 my $useuif         = "";
+my $getregvariant  = "";
 my $compile        = "";
 my $compareother   = "";
+my $comparemaps    = "";
+my $getbvfs        = "";
 
 GetOptions(
     "help"           => \$help,
@@ -76,6 +83,9 @@ GetOptions(
     "getimmdiff"     => \$getimmdiff,
     "getmem"         => \$getmem,
     "compareother"   => \$compareother,
+    "getbvfs"        => \$getbvfs,
+    "getregvariant"  => \$getregvariant,
+    "comparemaps"    => \$comparemaps,
     "nightlyrun"     => \$nightlyrun,
     "getz3formula"   => \$getz3formula,
     "z3prove"        => \$z3prove,
@@ -90,6 +100,43 @@ my $sfp;
 my $removeComment;
 my $debugprint = 0;
 
+if ( "" ne $comparemaps ) {
+    my $allfile    = "docs/instruction_manuals/all.instrs";
+    my $stokefile  = "docs/relatedwork/strata/all_concrete_instructions.txt";
+    my $intelatt   = "docs/instruction_manuals/intel_att.txt";
+    my $stratafile = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
+
+    ## get intel <-> att
+    my ( $intel2att_ref, $att2intel_ref ) =
+      assocIntelATT( $intelatt, $debugprint );
+    my %intel2att = %{$intel2att_ref};
+    my %att2intel = %{$att2intel_ref};
+    print(  "Att/Intel Opcodes: "
+          . scalar( keys %{att2intel} ) . "/"
+          . scalar( keys %{intel2att} )
+          . "\n" );
+
+    my ( $all_att_ref, $all_intel_ref ) =
+      modelInstructions( $allfile, $intelatt, "keep_instruction", 0 );
+
+    my ( $stoke_att_ref, $stoke_intel_ref ) =
+      modelInstructions( $stokefile, $intelatt, "keep_instruction", 0 );
+
+    my ( $strata_att_ref, $strata_intel_ref ) =
+      modelInstructions( $stratafile, $intelatt, "keep_instruction", 0 );
+
+    # Compare file1 Vs file2
+    print "\nMap1: All Map2: Stoke\n";
+    utils::compareMaps( $all_att_ref, $stoke_att_ref, $debugprint );
+
+    # Compare Stoke Vs Strata
+    print "\nMap1: Stoke Map2: Strata\n";
+    utils::compareMaps( $stoke_att_ref, $strata_att_ref, $debugprint );
+
+    exit(0);
+
+}
+
 if ( "" ne $compareother ) {
     ## file names
     my $availfile = "docs/instruction_manuals/all.instrs";
@@ -101,6 +148,8 @@ if ( "" ne $compareother ) {
     my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
     my $xedfile    = "docs/relatedwork/mcsema/xed.txt";
     my $acl2file   = "docs/relatedwork/acl2/supportedOPcodes.txt";
+    my $stokefile  = "docs/relatedwork/strata/all_concrete_instructions.txt";
+    my $stokeunsuppfile = "docs/relatedwork/strata/stoke_upsupported.txt";
 
     ## get intel <-> att
     my ( $intel2att_ref, $att2intel_ref ) =
@@ -148,68 +197,54 @@ if ( "" ne $compareother ) {
           . scalar( keys %acl2_intel )
           . "\n" );
 
+    ## Get the stoke supported opcodes
+    my ( $stoke_supp_att_ref, $stoke_supp_intel_ref ) =
+      modelInstructions( $stokefile, $intelatt, "", 0 );
+    print(  "Uniq Instruction Stoke Support(Intel): "
+          . scalar( keys %{$stoke_supp_intel_ref} )
+          . "\n" );
+
     print "\n\n";
 
-    # Compare ACL2 Vs Strata
-    my ( $supp, $unsupp ) =
-      belongsTo( \%acl2_intel, \%strata_supp_intel, $debugprint );
-    print(
-"How well ACL2 Uniq Instructions are supported by Strata (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
-    ( $supp, $unsupp ) =
-      belongsTo( \%strata_supp_intel, \%acl2_intel, $debugprint );
-    print(
-"How well Strata Uniq Instructions are supported by ALC2 (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
+    # Compare Stoke Vs Strata
+    print "\nMap1: Stoke Map2: Strata\n";
+    utils::compareMaps( $stoke_supp_intel_ref, $strata_supp_intel_ref,
+        $debugprint );
 
-    # Compare ACL2 Vs McSema
-    ( $supp, $unsupp ) =
-      belongsTo( \%acl2_intel, \%mcsema_supp_intel, $debugprint );
-    print(
-"How well ACL2 Uniq Instructions are supported by McSema (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
-    ( $supp, $unsupp ) =
-      belongsTo( \%mcsema_supp_intel, \%acl2_intel, $debugprint );
-    print(
-"How well McSema Uniq Instructions are supported by ALC2 (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
+    # Compare Stoke Vs McSema
+    print "\nMap1: Stoke Map2: McSema\n";
+    utils::compareMaps( $stoke_supp_intel_ref, $mcsema_supp_intel_ref,
+        $debugprint );
+
+    ## Stoke Unsupported  Vs McSema
+    my ( $stoke_us_att_ref, $stoke_us_intel_ref ) =
+      modelInstructions( $stokeunsuppfile, $intelatt, "", 0 );
+    print "\nMap1: Stoke US  Map2: McSema\n";
+    utils::compareMaps( $stoke_us_intel_ref, \%mcsema_supp_intel, $debugprint );
 
     # Strata Vs McSema
-    ( $supp, $unsupp ) =
-      belongsTo( \%strata_supp_intel, \%mcsema_supp_intel, $debugprint );
-    print(
-"How well Strata Uniq Instructions are supported by McSema (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
-    ( $supp, $unsupp ) =
-      belongsTo( \%mcsema_supp_intel, \%strata_supp_intel, $debugprint );
-    print(
-"How well McSema Uniq Instructions are supported by Strata (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
+    print "\nMap1: Strata Map2: McSema\n";
+    utils::compareMaps( \%strata_supp_intel, \%mcsema_supp_intel, $debugprint );
 
-    # Strata Vs McSema Vs ACL2
-    ( $supp, $unsupp ) =
-      belongsTo3( \%strata_supp_intel, \%mcsema_supp_intel, \%acl2_intel,
-        $debugprint );
-    print(  "Uniq Instructions supported by McSema/Strata/ACL2 (Intel) (S): "
-          . $supp
-          . "\n" );
-
-    ## Which of the vector immediates are supprted by McSema
+    ## Strata vector immediates Vs McSema
     my ( $strata_vectorimms_att_ref, $strata_vectorimms_intel_ref ) =
       modelInstructions( $stratavecimmfile, $intelatt, "", 0 );
-    my %strata_vectorimms_intel = %{$strata_vectorimms_intel_ref};
-    ( $supp, $unsupp ) =
-      belongsTo( \%strata_vectorimms_intel, \%mcsema_supp_intel, $debugprint );
-    print(
-"How well Strata Uniq Vector Imm Instructions are supported by McSema (Intel) (S/U): "
-          . "$supp/$unsupp"
-          . "\n" );
+    print "\nMap1: Strata Vector Imms Map2: McSema\n";
+    utils::compareMaps( $strata_vectorimms_intel_ref, \%mcsema_supp_intel,
+        $debugprint );
+
+    ##  Strata vector immediates Vs Stoke Unsupported
+    print "\nMap1: Stoke Unsupported Imms Map2: Strata Vector Imms\n";
+    utils::compareMaps( $stoke_us_intel_ref, $strata_vectorimms_intel_ref,
+        $debugprint );
+
+    # Compare ACL2 Vs Strata
+    #    print "\nMap1: ACL2 Map2: Strata\n";
+    #    utils::compareMaps(\%acl2_intel, \%strata_supp_intel, $debugprint);
+    #
+    #    # Compare ACL2 Vs McSema
+    #    print "\nMap1: ACL2 Map2: McSema\n";
+    #    utils::compareMaps(\%acl2_intel, \%mcsema_supp_intel, $debugprint);
 
     exit(0);
 }
@@ -342,6 +377,52 @@ if ( "" ne $getmem ) {
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines = <$fp>;
+
+## Find Register Variant for a reg/imm/mem instruction
+if ( "" ne $getregvariant ) {
+    my $stokefile = "docs/relatedwork/strata/all_concrete_instructions.txt";
+    my $intelatt  = "docs/instruction_manuals/intel_att.txt";
+    my $basefile  = "docs/relatedwork/strata/Misc/base-opcodes.txt";
+    my ( $stoke_att_ref, $stoke_intel_ref ) =
+      modelInstructions( $stokefile, $intelatt, "keep_instruction", 0 );
+    my ( $base_att_ref, $base_intel_ref ) =
+      modelInstructions( $basefile, $intelatt, "keep_instruction", 0 );
+
+    for my $line (@lines) {
+        chomp $line;
+        my ( $regVar, $found, $exact ) = getRegVaraint( $line, $base_att_ref );
+        if ( $found == 1 ) {
+
+            #print "$exact:$line -> $regVar\n";
+            next;
+        }
+        ( $regVar, $found, $exact ) = getRegVaraint( $line, $stoke_att_ref );
+        if ( $found == 0 ) {
+            print "$exact:$line -> $regVar\n";
+        }
+    }
+}
+
+## Get the bvfs
+if ( "" ne $getbvfs ) {
+    my $counter = 1;
+    for my $opcode (@lines) {
+        chomp $opcode;
+        my $targetinstr = getTargetInstr( $opcode, $debugprint );
+        print "\n\n$counter> $opcode ($targetinstr)\n";
+        my $strata_BVFormula =
+          getStrataBVFormula( $targetinstr, $debugprint, "", 0 );
+
+        if ( $strata_BVFormula =~ m/unsupported/g ) {
+            print "Unsupported:$opcode:$targetinstr";
+        }
+        else {
+            print "$strata_BVFormula";
+        }
+        $counter = $counter + 1;
+    }
+
+}
 
 ## Run the Z3 prover
 if ( "" ne $z3prove ) {

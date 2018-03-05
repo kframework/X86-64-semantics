@@ -1,0 +1,121 @@
+blendvpd_xmm_xmm_xmm0:blendvpd %xmm0, %xmm2, %xmm1
+blendvps_xmm_xmm_xmm0:blendvps %xmm0, %xmm2, %xmm1
+blsiq_r64_r64:blsiq %rcx, %rbx
+blsmskq_r64_r64:blsmskq %rcx, %rbx
+bzhil_r32_r32_r32:bzhil %edx, %ecx, %ebx
+bzhiq_r64_r64_r64:bzhiq %rdx, %rcx, %rbx
+cmpxchgl_r32_r32:cmpxchgl %ecx, %ebx
+comisd_xmm_xmm:comisd %xmm2, %xmm1
+comiss_xmm_xmm:comiss %xmm2, %xmm1
+lzcntl_r32_r32:lzcntl %ecx, %ebx
+lzcntq_r64_r64:lzcntq %rcx, %rbx
+lzcntw_r16_r16:lzcntw %cx, %bx
+movd_xmm_r32:movd %ebx, %xmm1
+mulxl_r32_r32_r32:mulxl %ecx, %ebx, %eax
+mulxq_r64_r64_r64:mulxq %rcx, %rbx, %rax
+packssdw_xmm_xmm:packssdw %xmm2, %xmm1
+packsswb_xmm_xmm:packsswb %xmm2, %xmm1
+packusdw_xmm_xmm:packusdw %xmm2, %xmm1
+packuswb_xmm_xmm:packuswb %xmm2, %xmm1
+paddsb_xmm_xmm:paddsb %xmm2, %xmm1
+paddsw_xmm_xmm:paddsw %xmm2, %xmm1
+pblendvb_xmm_xmm_xmm0:pblendvb %xmm0, %xmm2, %xmm1
+pdepl_r32_r32_r32:pdepl %edx, %ecx, %ebx
+pdepq_r64_r64_r64:pdepq %rdx, %rcx, %rbx
+pextl_r32_r32_r32:pextl %edx, %ecx, %ebx
+pextq_r64_r64_r64:pextq %rdx, %rcx, %rbx
+phaddsw_xmm_xmm:phaddsw %xmm2, %xmm1
+phminposuw_xmm_xmm:phminposuw %xmm2, %xmm1
+phsubsw_xmm_xmm:phsubsw %xmm2, %xmm1
+pmaddubsw_xmm_xmm:pmaddubsw %xmm2, %xmm1
+pmaddwd_xmm_xmm:pmaddwd %xmm2, %xmm1
+pmulhrsw_xmm_xmm:pmulhrsw %xmm2, %xmm1
+pmulhuw_xmm_xmm:pmulhuw %xmm2, %xmm1
+pmuludq_xmm_xmm:pmuludq %xmm2, %xmm1
+psadbw_xmm_xmm:psadbw %xmm2, %xmm1
+pshufb_xmm_xmm:pshufb %xmm2, %xmm1
+psrad_xmm_xmm:psrad %xmm2, %xmm1
+psraw_xmm_xmm:psraw %xmm2, %xmm1
+ptest_xmm_xmm:ptest %xmm2, %xmm1
+sarxl_r32_r32_r32:sarxl %edx, %ecx, %ebx
+shlxl_r32_r32_r32:shlxl %edx, %ecx, %ebx
+tzcntq_r64_r64:tzcntq %rcx, %rbx
+ucomisd_xmm_xmm:ucomisd %xmm2, %xmm1
+ucomiss_xmm_xmm:ucomiss %xmm2, %xmm1
+vaddsubpd_ymm_ymm_ymm:vaddsubpd %ymm3, %ymm2, %ymm1
+vaddsubps_ymm_ymm_ymm:vaddsubps %ymm3, %ymm2, %ymm1
+vblendvpd_xmm_xmm_xmm_xmm:vblendvpd %xmm4, %xmm3, %xmm2, %xmm1
+vblendvpd_ymm_ymm_ymm_ymm:vblendvpd %ymm4, %ymm3, %ymm2, %ymm1
+vblendvps_xmm_xmm_xmm_xmm:vblendvps %xmm4, %xmm3, %xmm2, %xmm1
+vblendvps_ymm_ymm_ymm_ymm:vblendvps %ymm4, %ymm3, %ymm2, %ymm1
+vcomisd_xmm_xmm:vcomisd %xmm2, %xmm1
+vcomiss_xmm_xmm:vcomiss %xmm2, %xmm1
+vcvtph2ps_xmm_xmm:vcvtph2ps %xmm2, %xmm1
+vcvtph2ps_ymm_xmm:vcvtph2ps %xmm2, %ymm1
+vcvtsi2sdq_xmm_xmm_r64:vcvtsi2sdq %rbx, %xmm2, %xmm1
+vcvtsi2ssq_xmm_xmm_r64:vcvtsi2ssq %rbx, %xmm2, %xmm1
+vfmaddsub132pd_ymm_ymm_ymm:vfmaddsub132pd %ymm3, %ymm2, %ymm1
+vfmaddsub132ps_ymm_ymm_ymm:vfmaddsub132ps %ymm3, %ymm2, %ymm1
+vfmaddsub213pd_ymm_ymm_ymm:vfmaddsub213pd %ymm3, %ymm2, %ymm1
+vfmaddsub213ps_ymm_ymm_ymm:vfmaddsub213ps %ymm3, %ymm2, %ymm1
+vfmaddsub231pd_ymm_ymm_ymm:vfmaddsub231pd %ymm3, %ymm2, %ymm1
+vfmaddsub231ps_ymm_ymm_ymm:vfmaddsub231ps %ymm3, %ymm2, %ymm1
+vfmsubadd132pd_ymm_ymm_ymm:vfmsubadd132pd %ymm3, %ymm2, %ymm1
+vfmsubadd132ps_ymm_ymm_ymm:vfmsubadd132ps %ymm3, %ymm2, %ymm1
+vfmsubadd213pd_ymm_ymm_ymm:vfmsubadd213pd %ymm3, %ymm2, %ymm1
+vfmsubadd213ps_ymm_ymm_ymm:vfmsubadd213ps %ymm3, %ymm2, %ymm1
+vfmsubadd231pd_ymm_ymm_ymm:vfmsubadd231pd %ymm3, %ymm2, %ymm1
+vfmsubadd231ps_ymm_ymm_ymm:vfmsubadd231ps %ymm3, %ymm2, %ymm1
+vmovmskps_r32_ymm:vmovmskps %ymm1, %ebx
+vmovmskps_r64_ymm:vmovmskps %ymm1, %rbx
+vpackssdw_xmm_xmm_xmm:vpackssdw %xmm3, %xmm2, %xmm1
+vpackssdw_ymm_ymm_ymm:vpackssdw %ymm3, %ymm2, %ymm1
+vpacksswb_xmm_xmm_xmm:vpacksswb %xmm3, %xmm2, %xmm1
+vpacksswb_ymm_ymm_ymm:vpacksswb %ymm3, %ymm2, %ymm1
+vpackusdw_xmm_xmm_xmm:vpackusdw %xmm3, %xmm2, %xmm1
+vpackusdw_ymm_ymm_ymm:vpackusdw %ymm3, %ymm2, %ymm1
+vpackuswb_xmm_xmm_xmm:vpackuswb %xmm3, %xmm2, %xmm1
+vpackuswb_ymm_ymm_ymm:vpackuswb %ymm3, %ymm2, %ymm1
+vpaddsb_xmm_xmm_xmm:vpaddsb %xmm3, %xmm2, %xmm1
+vpaddsb_ymm_ymm_ymm:vpaddsb %ymm3, %ymm2, %ymm1
+vpaddsw_xmm_xmm_xmm:vpaddsw %xmm3, %xmm2, %xmm1
+vpaddsw_ymm_ymm_ymm:vpaddsw %ymm3, %ymm2, %ymm1
+vpblendvb_xmm_xmm_xmm_xmm:vpblendvb %xmm4, %xmm3, %xmm2, %xmm1
+vpblendvb_ymm_ymm_ymm_ymm:vpblendvb %ymm4, %ymm3, %ymm2, %ymm1
+vpermd_ymm_ymm_ymm:vpermd %ymm3, %ymm2, %ymm1
+vpermilpd_xmm_xmm_xmm:vpermilpd %xmm3, %xmm2, %xmm1
+vpermilpd_ymm_ymm_ymm:vpermilpd %ymm3, %ymm2, %ymm1
+vpermilps_xmm_xmm_xmm:vpermilps %xmm3, %xmm2, %xmm1
+vpermilps_ymm_ymm_ymm:vpermilps %ymm3, %ymm2, %ymm1
+vpermps_ymm_ymm_ymm:vpermps %ymm3, %ymm2, %ymm1
+vphaddsw_xmm_xmm_xmm:vphaddsw %xmm3, %xmm2, %xmm1
+vphaddsw_ymm_ymm_ymm:vphaddsw %ymm3, %ymm2, %ymm1
+vphminposuw_xmm_xmm:vphminposuw %xmm2, %xmm1
+vphsubsw_xmm_xmm_xmm:vphsubsw %xmm3, %xmm2, %xmm1
+vphsubsw_ymm_ymm_ymm:vphsubsw %ymm3, %ymm2, %ymm1
+vpmaddubsw_xmm_xmm_xmm:vpmaddubsw %xmm3, %xmm2, %xmm1
+vpmaddubsw_ymm_ymm_ymm:vpmaddubsw %ymm3, %ymm2, %ymm1
+vpmaddwd_xmm_xmm_xmm:vpmaddwd %xmm3, %xmm2, %xmm1
+vpmaddwd_ymm_ymm_ymm:vpmaddwd %ymm3, %ymm2, %ymm1
+vpmulhrsw_xmm_xmm_xmm:vpmulhrsw %xmm3, %xmm2, %xmm1
+vpmulhrsw_ymm_ymm_ymm:vpmulhrsw %ymm3, %ymm2, %ymm1
+vpmulhuw_xmm_xmm_xmm:vpmulhuw %xmm3, %xmm2, %xmm1
+vpmulhuw_ymm_ymm_ymm:vpmulhuw %ymm3, %ymm2, %ymm1
+vpmuludq_xmm_xmm_xmm:vpmuludq %xmm3, %xmm2, %xmm1
+vpmuludq_ymm_ymm_ymm:vpmuludq %ymm3, %ymm2, %ymm1
+vpsadbw_xmm_xmm_xmm:vpsadbw %xmm3, %xmm2, %xmm1
+vpsadbw_ymm_ymm_ymm:vpsadbw %ymm3, %ymm2, %ymm1
+vpsrad_xmm_xmm_xmm:vpsrad %xmm3, %xmm2, %xmm1
+vpsrad_ymm_ymm_xmm:vpsrad %xmm3, %ymm2, %ymm1
+vpsravd_xmm_xmm_xmm:vpsravd %xmm3, %xmm2, %xmm1
+vpsravd_ymm_ymm_ymm:vpsravd %ymm3, %ymm2, %ymm1
+vpsraw_xmm_xmm_xmm:vpsraw %xmm3, %xmm2, %xmm1
+vpsraw_ymm_ymm_xmm:vpsraw %xmm3, %ymm2, %ymm1
+vptest_xmm_xmm:vptest %xmm2, %xmm1
+vptest_ymm_ymm:vptest %ymm2, %ymm1
+vtestpd_xmm_xmm:vtestpd %xmm2, %xmm1
+vtestpd_ymm_ymm:vtestpd %ymm2, %ymm1
+vtestps_xmm_xmm:vtestps %xmm2, %xmm1
+vtestps_ymm_ymm:vtestps %ymm2, %ymm1
+vucomisd_xmm_xmm:vucomisd %xmm2, %xmm1
+vucomiss_xmm_xmm:vucomiss %xmm2, %xmm1
