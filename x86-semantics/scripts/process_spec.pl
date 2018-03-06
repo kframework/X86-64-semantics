@@ -388,19 +388,122 @@ if ( "" ne $getregvariant ) {
     my ( $base_att_ref, $base_intel_ref ) =
       modelInstructions( $basefile, $intelatt, "keep_instruction", 0 );
 
+    my $regVarCount = 0;
+    my $immVarCount = 0;
+    my $memVarCount = 0;
+    my $immmemVarCount = 0;
+    my $noExtendCount = 0;
+    my $extendCount = 0;
+    my $skipped = 0;
+    my $noMatchCount = 0;
+    my $matchCount = 0;
+    my $cryptoCount = 0;
+    my $x87Count = 0;
+    my $mmxCount = 0;
+    my $callJumpsCount = 0;
+    my $sysCount = 0;
+    my $vecimmsCount = 0;
+    my $legacyCount = 0;
+
+    my $counter = 0;
     for my $line (@lines) {
         chomp $line;
-        my ( $regVar, $found, $exact ) = getRegVaraint( $line, $base_att_ref );
-        if ( $found == 1 ) {
+        $counter++;
 
-            #print "$exact:$line -> $regVar\n";
-            next;
+
+        my ( $regVar, $found, $imm_or_mem, $type ) = getRegVaraint( $line, $base_att_ref, $debugprint );
+#print "$regVar $found $imm_or_mem $type \n";
+
+        if($imm_or_mem eq "register") {
+          $regVarCount++;  
+        } elsif($imm_or_mem eq "imm") {
+          $immVarCount++;
+        } elsif($imm_or_mem eq "mem") {
+          $memVarCount++;
+        } elsif($imm_or_mem eq "imm_mem") {
+          $immmemVarCount++;
         }
-        ( $regVar, $found, $exact ) = getRegVaraint( $line, $stoke_att_ref );
-        if ( $found == 0 ) {
-            print "$exact:$line -> $regVar\n";
+
+
+        if($type eq "skipped") {
+          $skipped++;  
+          next;
+        } elsif($type eq "no_extend") {
+          $noExtendCount++;  
+          next;
+        } elsif($type eq "extend") {
+          $extendCount++;  
+          next;
+        } elsif($type eq "match") {
+          $matchCount++;
+          next;
         }
+
+        ( $regVar, $found, $imm_or_mem, $type ) = getRegVaraint( $line, $stoke_att_ref, $debugprint );
+
+        if($type eq "no_extend") {
+          $noExtendCount++;  
+          next;
+        } elsif($type eq "extend") {
+          $extendCount++;  
+          next;
+        } elsif($type eq "no_match") {
+          my $retVal = categorizeInstruction($line);
+
+          if($retVal eq "crypto") {
+            $cryptoCount ++;
+          } elsif($retVal eq "x87") {
+            $x87Count ++;
+          } elsif($retVal eq "mmx") {
+            $mmxCount ++;
+          } elsif($retVal eq "cjumps") {
+            $callJumpsCount ++;
+          } elsif($retVal eq "sys") {
+            $sysCount ++;
+          } elsif($retVal eq "vecimms") {
+            $vecimmsCount ++;
+          } elsif($retVal eq "legacy") {
+            $legacyCount ++;
+          } else {
+            print $line. "\n";
+            $noMatchCount++;
+          }
+
+        } elsif($type eq "match") {
+          $matchCount++;
+          next;
+        }
+
     }
+
+    if($counter != ($regVarCount + $immVarCount + $memVarCount + $immmemVarCount)) {
+      print $counter."\n";
+      utils::failInfo("Sanity Check 1 failed");
+    }
+    if($counter != 
+        ($skipped + $noMatchCount + $noExtendCount + $extendCount + 
+         $matchCount + $cryptoCount + $x87Count + $mmxCount + 
+         $callJumpsCount + $sysCount+ $vecimmsCount + $legacyCount)) {
+      utils::failInfo("Sanity Check 2 failed");
+    }
+
+    print "\n\nregVarCount: $regVarCount" . "\n" .
+          "immVarCount: $immVarCount" . "\n" .
+          "memVarCount: $memVarCount" . "\n" .
+          "immmemVarCount: $immmemVarCount" . "\n\n" .
+          "noExtendCount: $noExtendCount" . "\n" .
+          "extendCount: $extendCount" . "\n" .
+          "skipped: $skipped" . "\n" .
+          "noMatch: 
+            \n\t legacyCount: $legacyCount 
+            \n\t sysCount: $sysCount 
+            \n\t vecimmsCount: $vecimmsCount 
+            \n\t callJumpsCount: $callJumpsCount 
+            \n\t mmxCount: $x87Count 
+            \n\t x87Count: $x87Count 
+            \n\t cryptoCount: $cryptoCount 
+            \n\t  noMatchCount:$noMatchCount" . "\n" .
+          "Match: $matchCount" . "\n" ;
 }
 
 ## Get the bvfs
