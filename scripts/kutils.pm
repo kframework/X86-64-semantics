@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint categorizeInstruction);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -4352,29 +4352,138 @@ sub assocIntelATT {
     return ( \%intel2att, \%att2intel );
 }
 
+## Find the variant of the att instructions
+## register, imm, or mem or imm_mem
+## return the sizes
+## sizes[0] == imm size
+## sizes[1] == mem size
+sub getVariant {
+    my $line          = shift @_;
+
+
+    my $imm_or_mem = "";
+    my @sizes = (); 
+
+    if(($line =~ m/_imm(\d+)/) and ($line =~ m/_m(\d+)/)) {
+
+      if ( $line =~ m/_imm(\d+)/ ) {
+        push @sizes, $1;
+      }
+      if ( $line =~ m/_m(\d+)/ ) {
+        push @sizes, $1;
+      }
+
+      $imm_or_mem = "imm_mem";
+
+    } elsif( $line =~ m/_imm(\d+)/ ) {
+        push @sizes, $1;
+        push @sizes, 0;
+        $imm_or_mem = "imm";
+    } elsif ( $line =~ m/_m(\d+)/ ) {
+        push @sizes, 0;
+        push @sizes, $1;
+        $imm_or_mem = "mem";
+    } else {
+        push @sizes, 0;
+        push @sizes, 0;
+        $imm_or_mem = "register";
+    }
+    
+    return ($imm_or_mem, \@sizes);
+}
+
+
+sub createGuesses {
+  my $line = shift @_;
+  my $immSizes_ref = shift @_;
+  my $memSizes_ref = shift @_;
+
+  my @immSizes = @{$immSizes_ref};
+  my @memSizes = @{$memSizes_ref};
+
+  my @immRepls = ();
+  my @memRepls = ();
+
+  for my $immSize (@immSizes) {
+    if(0 != $immSize) {
+      if(128 == $immSize) {
+        push @immRepls, "xmm";
+      } elsif(256 == $immSize) {
+        push @immRepls, "ymm";
+      } elsif(8 == $immSize) {
+        push @immRepls, "r8";
+        push @immRepls, "cl";
+      } else {
+        push @immRepls, "r$immSize";
+      }
+    }
+  }
+
+  for my $memSize (@memSizes) {
+    if(0 != $memSize) {
+      if(128 == $memSize) {
+        push @memRepls, "xmm";
+      } elsif(256 == $memSize) {
+        push @memRepls, "ymm";
+      } elsif(8 == $memSize) {
+        push @memRepls, "r8";
+        push @memRepls, "cl";
+      } else {
+        push @memRepls, "r$memSize";
+      }
+    }
+  }
+
+  my @returnVals = ();
+  if(0 != scalar(@immRepls) and 0 != scalar(@memRepls)) {
+    for my $immRepl (@immRepls) {
+      for my $memRepl (@memRepls) {
+        my $mod1 = $line =~ s/_imm(\d+)/_$immRepl/gr; 
+        my $mod2 = $mod1 =~ s/_m(\d+)/_$memRepl/gr; 
+        push @returnVals, $mod2;
+      }
+    }
+  } elsif(0 != scalar(@immRepls)) {
+    for my $immRepl (@immRepls) {
+        my $mod1 = $line =~ s/_imm(\d+)/_$immRepl/gr; 
+        push @returnVals, $mod1;
+    }
+  } elsif(0 != scalar(@memRepls)) {
+    for my $memRepl (@memRepls) {
+        my $mod1 = $line =~ s/_m(\d+)/_$memRepl/gr; 
+        push @returnVals, $mod1;
+    }
+  }
+
+  return \@returnVals;
+}
+
 sub getRegVaraint {
     my $line          = shift @_;
     my $allregmap_ref = shift @_;
+    my $debugprint = shift @_;
+#$debugprint = 1;
 
     my %allregmap = %{$allregmap_ref};
 
     #line is already a reg variant
 
     if ( exists $allregmap{$line} ) {
-        return ( $allregmap{$line}[0], 1, "register" );
+        return ( $allregmap{$line}[0], 1, "register", "match" );
     }
 
-    if ( $line =~ m/_\d+$/g ) {
-        return ( "skip", 1, "" );
+    my ($imm_or_mem, $sizes_ref) = getVariant($line);
+
+    if($line =~ m/_\d+$/g) {
+      return ( "", 0, $imm_or_mem, "skipped" );
+    }
+    if($imm_or_mem eq "register") {
+      return ( "", 0, "register", "no_match" );
     }
 
-    my $size = 0;
-    if ( $line =~ m/_imm(\d+)/ ) {
-        $size = $1;
-    }
-    elsif ( $line =~ m/_m(\d+)/ ) {
-        $size = $1;
-    }
+    my @sizes  = @{$sizes_ref};
+    my $immSize = $sizes[0]; 
+    my $memSize = $sizes[1];
 
     my @guesses  = ();
     my $foundOne = 0;
@@ -4388,71 +4497,108 @@ sub getRegVaraint {
 
     #    print "$mod4\::$imm_or_mem\n";
 
-    push @guesses, "Type Exact";
-    if ( $size == 8 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r8/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_cl/gr;
+    my @guesses = ();
+    my @immSizes = ();
+    my @memSizes = ();
+
+
+    push @guesses, "Type No Extend";
+    push @immSizes,  $immSize;
+    push @memSizes,  $memSize;
+    if($debugprint == 1) {
+      print "$line: Type No Extend \n";
+      printArray(\@immSizes, "Imm Sizes no Extend", $debugprint);
+      printArray(\@memSizes, "Mem Sizes No Extend", $debugprint);
     }
-    if ( $size == 16 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r16/gr;
+    my  $retGueses_ref =  createGuesses($mod4, \@immSizes, \@memSizes); 
+    push @guesses, @{$retGueses_ref};
+    if($debugprint == 1) {
+      printArray(\@guesses, "Guesses No Extend", $debugprint);
     }
-    if ( $size == 32 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r32/gr;
-    }
-    if ( $size == 64 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
-    }
-    if ( $size == 128 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
-    }
-    if ( $size == 256 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_ymm/gr;
-    }
+
 
     push @guesses, "Type Extend";
-    if ( $size == 8 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r16/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r32/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    @immSizes = ();
+    @memSizes = ();
+    for(my $i = $immSize; $i != 0 and  $i <= 256; $i = $i*2) {
+      push @immSizes,  $i;
     }
-    if ( $size == 16 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r32/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
-    }
-    if ( $size == 32 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_r64/gr;
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
-    }
-    if ( $size == 64 ) {
-        push @guesses, $mod4 =~ s/_imm(\d+)|_m(\d+)/_xmm/gr;
+    for(my $i = $memSize; $i != 0 and $i <= 256; $i = $i*2) {
+      push @memSizes,  $i;
     }
 
-    #printArray(\@guesses, "", 1);
+    if($debugprint == 1) {
+      print "$line: Type Extend \n";
+      printArray(\@immSizes, "Imm Sizes Extend", $debugprint);
+      printArray(\@memSizes, "Mem Sizes Extend", $debugprint);
+    }
+
+    $retGueses_ref =  createGuesses($mod4, \@immSizes, \@memSizes); 
+    push @guesses, @{$retGueses_ref};
+    if($debugprint == 1) {
+      printArray(\@guesses, "Guesses Extend", $debugprint);
+    }
 
     my $matchType = "";
     for my $guess (@guesses) {
 
-        #p "$var\::$guess\::$matchType\n";
-        if ( $guess eq "Type Exact" ) {
-            $matchType = "Exact";
+        if ( $guess eq "Type No Extend" ) {
+            $matchType = "no_extend";
             next;
         }
         elsif ( $guess eq "Type Extend" ) {
-            $matchType = "Extend";
+            $matchType = "extend";
             next;
         }
 
+#print "-> $guess\n";
         if ( exists $allregmap{$guess} ) {
             $foundOne = 1;
-            return ( $allregmap{$guess}[0], 1, $matchType );
+            return ( $allregmap{$guess}[0], 1, $imm_or_mem, $matchType );
         }
     }
 
     if ( 0 == $foundOne ) {
-        return ( "nomatch", 0, "" );
+        return ( "", 0, $imm_or_mem, "no_match" );
     }
+}
+
+sub categorizeInstruction {
+  my $line = shift @_;
+  my $retVal = "";
+
+  if($line =~ m/^vaes|^aes|^crc/g) {
+    $retVal = "crypto"; 
+  }
+
+  if($line =~ m/^f|emms/g) {
+    $retVal = "x87"; 
+  }
+
+  if($line =~ m/_mm/g) {
+    $retVal = "mmx"; 
+  }
+
+  if($line =~ m/call|^j|push|pop|leave|^ret/g) {
+    $retVal = "cjumps"; 
+  }
+
+  if($line =~ m/moff|sreg|cld|cli|enter|lar|fence|^rep|save|rstor|clflush|cpuid|iret|^in|^out|prefetch|^x|^w/g) {
+    $retVal = "sys"; 
+  }
+
+  if($line =~ m/imm8/g) {
+    $retVal = "vecimms"; 
+  }
+
+  if($line =~ m/lod|^sto|^cmps/g) {
+    $retVal = "legacy"; 
+  }
+
+
+
+
+  return $retVal;
 }
 
 1;
