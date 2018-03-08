@@ -4569,34 +4569,38 @@ sub categorizeInstruction {
 
   if($line =~ m/^vaes|^aes|^crc/g) {
     $retVal = "crypto"; 
+    return $retVal;
   }
 
   if($line =~ m/^f|emms/g) {
     $retVal = "x87"; 
+    return $retVal;
   }
 
   if($line =~ m/_mm/g) {
     $retVal = "mmx"; 
+    return $retVal;
   }
 
   if($line =~ m/call|^j|push|pop|leave|^ret/g) {
     $retVal = "cjumps"; 
+    return $retVal;
   }
 
   if($line =~ m/moff|sreg|cld|cli|enter|lar|fence|^rep|save|rstor|clflush|cpuid|iret|^in|^out|prefetch|^x|^w/g) {
     $retVal = "sys"; 
+    return $retVal;
   }
 
   if($line =~ m/imm8/g) {
     $retVal = "vecimms"; 
+    return $retVal;
   }
 
   if($line =~ m/lod|^sto|^cmps/g) {
     $retVal = "legacy"; 
+    return $retVal;
   }
-
-
-
 
   return $retVal;
 }
