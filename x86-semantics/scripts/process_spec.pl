@@ -126,12 +126,10 @@ if ( "" ne $comparemaps ) {
       modelInstructions( $stratafile, $intelatt, "keep_instruction", 0 );
 
     # Compare file1 Vs file2
-    print "\nMap1: All Map2: Stoke\n";
-    utils::compareMaps( $all_att_ref, $stoke_att_ref, $debugprint );
+    utils::compareMaps( $all_att_ref, $stoke_att_ref, $debugprint, "A: All B: Stoke Total" );
 
     # Compare Stoke Vs Strata
-    print "\nMap1: Stoke Map2: Strata\n";
-    utils::compareMaps( $stoke_att_ref, $strata_att_ref, $debugprint );
+    utils::compareMaps( $stoke_att_ref, $strata_att_ref, $debugprint, "A: Stoke Total B: Strata" );
 
     exit(0);
 
@@ -150,101 +148,104 @@ if ( "" ne $compareother ) {
     my $acl2file   = "docs/relatedwork/acl2/supportedOPcodes.txt";
     my $stokefile  = "docs/relatedwork/strata/all_concrete_instructions.txt";
     my $stokeunsuppfile = "docs/relatedwork/strata/stoke_upsupported.txt";
+    my $stokeunsuppfile2 = "docs/relatedwork/strata/stoke_upsupported2.txt";
 
     ## get intel <-> att
     my ( $intel2att_ref, $att2intel_ref ) =
       assocIntelATT( $intelatt, $debugprint );
     my %intel2att = %{$intel2att_ref};
     my %att2intel = %{$att2intel_ref};
-    print(  "Att/Intel Opcodes: "
+    print(  " | Att/Intel Opcodes |"
           . scalar( keys %{att2intel} ) . "/"
           . scalar( keys %{intel2att} )
-          . "\n" );
+          . "|\n" );
 
     ## Get the total instructions
     my ( $avail_att_ref, $avail_intel_ref ) =
       modelInstructions( $availfile, $intelatt, "", 0 );
     my %avail_att   = %{$avail_att_ref};
     my %avail_intel = %{$avail_intel_ref};
-    print(  "Uniq Instructions total(att/intel): "
+    print(  "| Total (att/intel) | "
           . scalar( keys %{avail_att} ) . "/"
           . scalar( keys %{avail_intel} )
-          . "\n" );
+          . "|\n" );
 
     ## Get the strata supported instr
     my ( $strata_supp_att_ref, $strata_supp_intel_ref ) =
       modelInstructions( $stratafile, $intelatt, "", 0 );
     my %strata_supp_att   = %{$strata_supp_att_ref};
     my %strata_supp_intel = %{$strata_supp_intel_ref};
-    print(  "Uniq Instruction Strata Support(att/intel): "
+    print(  "| Strata Support(att/intel)| "
           . scalar( keys %strata_supp_att ) . "/"
           . scalar( keys %strata_supp_intel )
-          . "\n" );
+          . "|\n" );
 
     ## Get the mcsema supported instr
     my $mcsema_supp_intel_ref =
       assocateMcSemaXed( $mcsemafile, $xedfile, $debugprint );
     my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
-    print(  "Uniq Instruction McSema Support(Intel): "
+    print(  "| McSema Support(Intel)| "
           . scalar( keys %mcsema_supp_intel )
-          . "\n" );
+          . "|\n" );
 
     ## Get the acl2 supported instr
     my $acl2_intel_ref =
       modelInstructions( $acl2file, $intelatt, "inIntel", $debugprint );
     my %acl2_intel = %{$acl2_intel_ref};
-    print(  "Uniq Instruction ACL2 Support(Intel): "
+    print(  "| ACL2 Support(Intel)| "
           . scalar( keys %acl2_intel )
-          . "\n" );
+          . "|\n" );
 
     ## Get the stoke supported opcodes
     my ( $stoke_supp_att_ref, $stoke_supp_intel_ref ) =
       modelInstructions( $stokefile, $intelatt, "", 0 );
-    print(  "Uniq Instruction Stoke Support(Intel): "
+    print(  "| Stoke Support(Intel)| "
           . scalar( keys %{$stoke_supp_intel_ref} )
-          . "\n" );
+          . "|\n" );
 
     print "\n\n";
 
-    # Compare Stoke Vs Strata
-    print "\nMap1: Stoke Map2: Strata\n";
+    ## Stoke 2  Vs McSema
+    my ( $stoke2_unsupp_att_ref, $stoke2_unsupp_intel_ref ) =
+      modelInstructions( $stokeunsuppfile2, $intelatt, "", 0 );
+    utils::compareMaps( $stoke2_unsupp_intel_ref, \%mcsema_supp_intel,
+        $debugprint, "A: Stoke 2  B: McSema" );
+
+    # Compare Stoke2 Vs McSema
     utils::compareMaps( $stoke_supp_intel_ref, $strata_supp_intel_ref,
-        $debugprint );
+        $debugprint, "A: Stoke 2 B: McSema" );
+
+    # Compare Stoke Vs Strata
+    utils::compareMaps( $stoke_supp_intel_ref, $strata_supp_intel_ref,
+        $debugprint, "A: Stoke B: Strata" );
 
     # Compare Stoke Vs McSema
-    print "\nMap1: Stoke Map2: McSema\n";
     utils::compareMaps( $stoke_supp_intel_ref, $mcsema_supp_intel_ref,
-        $debugprint );
+        $debugprint, "A: Stoke B: McSema" );
 
     ## Stoke Unsupported  Vs McSema
     my ( $stoke_us_att_ref, $stoke_us_intel_ref ) =
       modelInstructions( $stokeunsuppfile, $intelatt, "", 0 );
-    print "\nMap1: Stoke US  Map2: McSema\n";
-    utils::compareMaps( $stoke_us_intel_ref, \%mcsema_supp_intel, $debugprint );
+    utils::compareMaps( $stoke_us_intel_ref, \%mcsema_supp_intel, $debugprint, "A: Stoke US  B: McSema" );
 
     # Strata Vs McSema
-    print "\nMap1: Strata Map2: McSema\n";
-    utils::compareMaps( \%strata_supp_intel, \%mcsema_supp_intel, $debugprint );
+    utils::compareMaps( \%strata_supp_intel, \%mcsema_supp_intel, $debugprint, "A: Strata B: McSema" );
 
     ## Strata vector immediates Vs McSema
     my ( $strata_vectorimms_att_ref, $strata_vectorimms_intel_ref ) =
       modelInstructions( $stratavecimmfile, $intelatt, "", 0 );
-    print "\nMap1: Strata Vector Imms Map2: McSema\n";
     utils::compareMaps( $strata_vectorimms_intel_ref, \%mcsema_supp_intel,
-        $debugprint );
+        $debugprint, "A: Strata Vector Imms B: McSema" );
 
     ##  Strata vector immediates Vs Stoke Unsupported
-    print "\nMap1: Stoke Unsupported Imms Map2: Strata Vector Imms\n";
     utils::compareMaps( $stoke_us_intel_ref, $strata_vectorimms_intel_ref,
-        $debugprint );
+        $debugprint, "A: Stoke US B: Strata Vector Imms" );
 
     # Compare ACL2 Vs Strata
-    #    print "\nMap1: ACL2 Map2: Strata\n";
-    #    utils::compareMaps(\%acl2_intel, \%strata_supp_intel, $debugprint);
-    #
-    #    # Compare ACL2 Vs McSema
-    #    print "\nMap1: ACL2 Map2: McSema\n";
-    #    utils::compareMaps(\%acl2_intel, \%mcsema_supp_intel, $debugprint);
+        utils::compareMaps(\%acl2_intel, \%strata_supp_intel, $debugprint, "A: ACL2 B: Strata");
+    
+        # Compare ACL2 Vs McSema
+        utils::compareMaps(\%acl2_intel, \%mcsema_supp_intel, $debugprint, "A: ACL2 B: McSema");
 
     exit(0);
 }
@@ -457,10 +458,12 @@ if ( "" ne $getregvariant ) {
           } elsif($retVal eq "mmx") {
             $mmxCount ++;
           } elsif($retVal eq "cjumps") {
+            print $line. "\n";
             $callJumpsCount ++;
           } elsif($retVal eq "sys") {
             $sysCount ++;
           } elsif($retVal eq "vecimms") {
+            print $line. "\n";
             $vecimmsCount ++;
           } elsif($retVal eq "legacy") {
             $legacyCount ++;
@@ -480,30 +483,27 @@ if ( "" ne $getregvariant ) {
       print $counter."\n";
       utils::failInfo("Sanity Check 1 failed");
     }
+
+    my $temp = $cryptoCount + $x87Count + $mmxCount + $callJumpsCount + $sysCount+ $vecimmsCount + $legacyCount + $noMatchCount;
     if($counter != 
-        ($skipped + $noMatchCount + $noExtendCount + $extendCount + 
-         $matchCount + $cryptoCount + $x87Count + $mmxCount + 
-         $callJumpsCount + $sysCount+ $vecimmsCount + $legacyCount)) {
+        ($skipped + $temp + $noExtendCount + $extendCount + $matchCount )) {
       utils::failInfo("Sanity Check 2 failed");
     }
 
-    print "\n\nregVarCount: $regVarCount" . "\n" .
-          "immVarCount: $immVarCount" . "\n" .
-          "memVarCount: $memVarCount" . "\n" .
-          "immmemVarCount: $immmemVarCount" . "\n\n" .
-          "noExtendCount: $noExtendCount" . "\n" .
-          "extendCount: $extendCount" . "\n" .
-          "skipped: $skipped" . "\n" .
-          "noMatch: 
-            \n\t legacyCount: $legacyCount 
-            \n\t sysCount: $sysCount 
-            \n\t vecimmsCount: $vecimmsCount 
-            \n\t callJumpsCount: $callJumpsCount 
-            \n\t mmxCount: $x87Count 
-            \n\t x87Count: $x87Count 
-            \n\t cryptoCount: $cryptoCount 
-            \n\t  noMatchCount:$noMatchCount" . "\n" .
-          "Match: $matchCount" . "\n" ;
+
+
+    print "| Total   | Register Only | Immediate Instructions | Memory Instructions | Both Imm and Memory |\n" .
+      "|----------------------|-----|-----|-------|-------|\n" .
+      "|" . $counter . "|" .  $regVarCount . "|" . $immVarCount . "|" . $memVarCount . "|" . $immmemVarCount . "|\n\n";
+
+    print "| Total   | Exact Match | Generalize to Imm/Mem  w/ extension |  Generalize to Imm/Mem  w/o extension | Skipped | Unspported |\n" .
+      "|----------------------|-----|-----|--|--|--|\n" .
+      "|" . $counter . "|" .  $matchCount . "|" . $extendCount . "|" . $noExtendCount . "|" . $skipped . "|" . $temp . "|\n\n";
+
+    print "| Unsupported (above)   | Lagacy | System |  Vector Imm | Call/Jump/Stack | MMX | X87 | Crypto | Still Unsupported |\n" .
+      "|--|--|--|--|--|--|--|--|--|\n" .
+      "|" . $temp . "|" .  $legacyCount . "|" . $sysCount . "|" . $vecimmsCount . "|" . $callJumpsCount . "|" . $mmxCount . "|" . $x87Count . "|" . $cryptoCount . "|" . $noMatchCount .  "|\n\n";
+
 }
 
 ## Get the bvfs
