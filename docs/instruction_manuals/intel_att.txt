@@ -1,1287 +1,1287 @@
-ADC adcb
-ADC adcl
-ADC adcq
-ADC adcw
-ADD addb
-ADD addl
-ADD addq
-ADD addw
-ADDPD addpd
-ADDPS addps
-ADDSD addsd
-ADDSS addss
-ADDSUBPD addsubpd
-ADDSUBPS addsubps
-AESDEC aesdec
-AESDECLAST aesdeclast
-AESENC aesenc
-AESENCLAST aesenclast
-AESIMC aesimc
-AESKEYGENASSIST aeskeygenassist
-AND andb
-AND andl
-AND andq
-AND andw
-ANDN andnl
-ANDN andnq
-ANDNPD andnpd
-ANDNPS andnps
-ANDPD andpd
-ANDPS andps
-BEXTR bextrl
-BEXTR bextrq
-BLENDPD blendpd
-BLENDPS blendps
-BLENDVPD blendvpd
-BLENDVPS blendvps
-BLSI blsil
-BLSI blsiq
-BLSMSK blsmskl
-BLSMSK blsmskq
-BLSR blsrl
-BLSR blsrq
-BSF bsfl
-BSF bsfq
-BSF bsfw
-BSR bsrl
-BSR bsrq
-BSR bsrw
-BSWAP bswap
-BT btl
-BT btq
-BT btw
-BTC btcl
-BTC btcq
-BTC btcw
-BTR btrl
-BTR btrq
-BTR btrw
-BTS btsl
-BTS btsq
-BTS btsw
-BZHI bzhil
-BZHI bzhiq
-CALL callq
-CBW cbtw
-CDQ cltd
-CDQE cltq
-CLC clc
-CLD cld
-CLFLUSH clflush
-CLI cli
-CMC cmc
-CMOVA cmoval
-CMOVA cmovaq
-CMOVA cmovaw
-CMOVAE cmovael
-CMOVAE cmovaeq
-CMOVAE cmovaew
-CMOVB cmovbl
-CMOVB cmovbq
-CMOVB cmovbw
-CMOVBE cmovbel
-CMOVBE cmovbeq
-CMOVBE cmovbew
-CMOVC cmovcl
-CMOVC cmovcq
-CMOVC cmovcw
-CMOVE cmovel
-CMOVE cmoveq
-CMOVE cmovew
-CMOVG cmovgl
-CMOVG cmovgq
-CMOVG cmovgw
-CMOVGE cmovgel
-CMOVGE cmovgeq
-CMOVGE cmovgew
-CMOVL cmovll
-CMOVL cmovlq
-CMOVL cmovlw
-CMOVLE cmovlel
-CMOVLE cmovleq
-CMOVLE cmovlew
-CMOVNA cmovnal
-CMOVNA cmovnaq
-CMOVNA cmovnaw
-CMOVNAE cmovnael
-CMOVNAE cmovnaeq
-CMOVNAE cmovnaew
-CMOVNB cmovnbl
-CMOVNB cmovnbq
-CMOVNB cmovnbw
-CMOVNBE cmovnbel
-CMOVNBE cmovnbeq
-CMOVNBE cmovnbew
-CMOVNC cmovncl
-CMOVNC cmovncq
-CMOVNC cmovncw
-CMOVNE cmovnel
-CMOVNE cmovneq
-CMOVNE cmovnew
-CMOVNG cmovngl
-CMOVNG cmovngq
-CMOVNG cmovngw
-CMOVNGE cmovngel
-CMOVNGE cmovngeq
-CMOVNGE cmovngew
-CMOVNL cmovnll
-CMOVNL cmovnlq
-CMOVNL cmovnlw
-CMOVNLE cmovnlel
-CMOVNLE cmovnleq
-CMOVNLE cmovnlew
-CMOVNO cmovnol
-CMOVNO cmovnoq
-CMOVNO cmovnow
-CMOVNP cmovnpl
-CMOVNP cmovnpq
-CMOVNP cmovnpw
-CMOVNS cmovnsl
-CMOVNS cmovnsq
-CMOVNS cmovnsw
-CMOVNZ cmovnzl
-CMOVNZ cmovnzq
-CMOVNZ cmovnzw
-CMOVO cmovol
-CMOVO cmovoq
-CMOVO cmovow
-CMOVP cmovpl
-CMOVP cmovpq
-CMOVP cmovpw
-CMOVPE cmovpel
-CMOVPE cmovpeq
-CMOVPE cmovpew
-CMOVPO cmovpol
-CMOVPO cmovpoq
-CMOVPO cmovpow
-CMOVS cmovsl
-CMOVS cmovsq
-CMOVS cmovsw
-CMOVZ cmovzl
-CMOVZ cmovzq
-CMOVZ cmovzw
-CMP cmpb
-CMP cmpl
-CMP cmpq
-CMP cmpw
-CMPPD cmppd
-CMPPS cmpps
-CMPSB cmpsb
-CMPS cmps
-CMPSD cmpsd
-CMPSD cmpsl
-CMPSQ cmpsq
-CMPSS cmpss
-CMPSW cmpsw
-CMPXCHG16B cmpxchg16b
-CMPXCHG8B cmpxchg8b
-CMPXCHG cmpxchgb
-CMPXCHG cmpxchgl
-CMPXCHG cmpxchgq
-CMPXCHG cmpxchgw
-COMISD comisd
-COMISS comiss
-CPUID cpuid
-CQO cqto
-CRC32 crc32b
-CRC32 crc32l
-CRC32 crc32q
-CRC32 crc32w
-CVTDQ2PD cvtdq2pd
-CVTDQ2PS cvtdq2ps
-CVTPD2DQ cvtpd2dq
-CVTPD2PI cvtpd2pi
-CVTPD2PS cvtpd2ps
-CVTPI2PD cvtpi2pd
-CVTPI2PS cvtpi2ps
-CVTPS2DQ cvtps2dq
-CVTPS2PD cvtps2pd
-CVTPS2PI cvtps2pi
-CVTSD2SI cvtsd2sil
-CVTSD2SI cvtsd2siq
-CVTSD2SS cvtsd2ss
-CVTSI2SD cvtsi2sdl
-CVTSI2SD cvtsi2sdq
-CVTSI2SS cvtsi2ssl
-CVTSI2SS cvtsi2ssq
-CVTSS2SD cvtss2sd
-CVTSS2SI cvtss2sil
-CVTSS2SI cvtss2siq
-CVTTPD2DQ cvttpd2dq
-CVTTPD2PI cvttpd2pi
-CVTTPS2DQ cvttps2dq
-CVTTPS2PI cvttps2pi
-CVTTSD2SI cvttsd2sil
-CVTTSD2SI cvttsd2siq
-CVTTSS2SI cvttss2sil
-CVTTSS2SI cvttss2siq
-CWD cwtd
-CWDE cwtl
-DEC decb
-DEC decl
-DEC decq
-DEC decw
-DIV divb
-DIV divl
-DIV divq
-DIV divw
-DIVPD divpd
-DIVPS divps
-DIVSD divsd
-DIVSS divss
-DPPD dppd
-DPPS dpps
-EMMS emms
-ENTER enterq
-EXTRACTPS extractps
-F2XM1 f2xm1
-FABS fabs
-FADD fadd
-FADD faddl
-FADD fadds
-FADDP faddp
-FBLD fbld
-FBSTP fbstp
-FCHS fchs
-FCLEX fclex
-FCMOVBE fcmovbe
-FCMOVB fcmovb
-FCMOVE fcmove
-FCMOVNBE fcmovnbe
-FCMOVNB fcmovnb
-FCMOVNE fcmovne
-FCMOVNU fcmovnu
-FCMOVU fcmovu
-FCOM fcom
-FCOM fcoml
-FCOM fcoms
-FCOMI fcomi
-FCOMIP fcomip
-FCOMP fcomp
-FCOMP fcompl
-FCOMP fcomps
-FCOMPP fcompp
-FCOS fcos
-FDECSTP fdecstp
-FDIV fdiv
-FDIV fdivl
-FDIV fdivs
-FDIVP fdivp
-FDIVR fdivr
-FDIVR fdivrl
-FDIVR fdivrs
-FDIVRP fdivrp
-FFREE ffreep
-FIADD fiadd
-FIADD fiaddl
-FICOM ficom
-FICOM ficoml
-FICOMP ficomp
-FICOMP ficompl
-FIDIV fidiv
-FIDIV fidivl
-FIDIVR fidivr
-FIDIVR fidivrl
-FILD fild
-FILD fildl
-FILD fildll
-FIMUL fimul
-FIMUL fimull
-FINCSTP fincstp
-FINIT finit
-FIST fist
-FIST fistl
-FISTP fistp
-FISTP fistpl
-FISTP fistpll
-FISTTP fisttp
-FISTTP fisttpl
-FISTTP fisttpll
-FISUB fisub
-FISUB fisubl
-FISUBR fisubr
-FISUBR fisubrl
-FLD1 fld1
-FLDCW fldcw
-FLDENV fldenvl
-FLD fld
-FLD fldl
-FLD flds
-FLD fldt
-FLDL2E fldl2e
-FLDL2T fldl2t
-FLDLG2 fldlg2
-FLDLN2 fldln2
-FLDPI fldpi
-FLDZ fldz
-FMUL fmul
-FMUL fmull
-FMUL fmuls
-FMULP fmulp
-FNCLEX fnclex
-FNINIT fninit
-FNOP fnop
-FNSAVE fnsave
-FNSTCW fnstcw
-FNSTENV fnstenvl
-FNSTSW fnstsw
-FPATAN fpatan
-FPREM1 fprem1
-FPREM fprem
-FPTAN fptan
-FRNDINT frndint
-FRSTOR frstor
-FSAVE fsave
-FSCALE fscale
-FSINCOS fsincos
-FSIN fsin
-FSQRT fsqrt
-FSTCW fstcw
-FSTENV fstenvl
-FST fst
-FST fstl
-FST fsts
-FSTP fstp
-FSTP fstpl
-FSTP fstps
-FSTP fstpt
-FSTSW fstsw
-FSUB fsub
-FSUB fsubl
-FSUB fsubs
-FSUBP fsubp
-FSUBR fsubr
-FSUBR fsubrl
-FSUBR fsubrs
-FSUBRP fsubrp
-FTST ftst
-FUCOM fucom
-FUCOMI fucomi
-FUCOMIP fucomip
-FUCOMP fucomp
-FUCOMPP fucompp
-FWAIT fwait
-FXAM fxam
-FXCH fxch
-FXRSTOR64 fxrstor64
-FXRSTOR fxrstor
-FXSAVE64 fxsave64
-FXSAVE fxsave
-FXTRACT fxtract
-FYL2X fyl2x
-FYL2XP1 fyl2xp1
-HADDPD haddpd
-HADDPS haddps
-HSUBPD hsubpd
-HSUBPS hsubps
-IDIV idivb
-IDIV idivl
-IDIV idivq
-IDIV idivw
-IMUL imulb
-IMUL imull
-IMUL imulq
-IMUL imulw
-INC incb
-INC incl
-INC incq
-INC incw
-IN inb
-IN inl
-IN inw
-INSB insb
-INSD insl
-INSERTPS insertps
-INS ins
-INSW insw
-INT int
-INVPCID invpcid
-IRETD iretl
-IRET iretw
-IRETQ iretq
-JAE jae
-JA ja
-JBE jbe
-JB jb
-JC jc
-JECXZ jecxz
-JE je
-JGE jge
-JG jg
-JLE jle
-JL jl
-JMP jmpq
-JNAE jnae
-JNA jna
-JNBE jnbe
-JNB jnb
-JNC jnc
-JNE jne
-JNGE jnge
-JNG jng
-JNLE jnle
-JNL jnl
-JNO jno
-JNP jnp
-JNS jns
-JNZ jnz
-JO jo
-JPE jpe
-JP jp
-JPO jpo
-JRCXZ jrcxz
-JS js
-JZ jz
-LAHF lahf
-LAR lar
-LAR larw
-LDDQU lddqu
-LDMXCSR ldmxcsr
-LEA leal
-LEA leaq
-LEA leaw
-LEAVE leaveq
-LEAVE leavew
-LFENCE lfence
-LFS lfs
-LFS lfsl
-LFS lfsw
-LGS lgs
-LGS lgsl
-LGS lgsw
-LOCK lock
-LODSB lodsb
-LODSD lodsl
-LODS lods
-LODSQ lodsq
-LODSW lodsw
-LOOPE loope
-LOOP loop
-LOOPNE loopne
-LSL lsl
-LSL lslw
-LSS lss
-LSS lssl
-LSS lssw
-LZCNT lzcntl
-LZCNT lzcntq
-LZCNT lzcntw
-MASKMOVDQU maskmovdqu
-MASKMOVQ maskmovq
-MAXPD maxpd
-MAXPS maxps
-MAXSD maxsd
-MAXSS maxss
-MFENCE mfence
-MINPD minpd
-MINPS minps
-MINSD minsd
-MINSS minss
-MONITOR monitor
-MOVAPD movapd
-MOVAPS movaps
-MOVBE movbel
-MOVBE movbeq
-MOVBE movbew
-MOVDDUP movddup
-MOVD movd
-MOVDQ2Q movdq2q
-MOVDQA movdqa
-MOVDQU movdqu
-MOVHLPS movhlps
-MOVHPD movhpd
-MOVHPS movhps
-MOVLHPS movlhps
-MOVLPD movlpd
-MOVLPS movlps
-MOV mov
-MOV movabsb
-MOV movabsl
-MOV movabsq
-MOV movabsw
-MOV movb
-MOV movl
-MOV movq
-MOV movw
-MOVMSKPD movmskpd
-MOVMSKPS movmskps
-MOVNTDQA movntdqa
-MOVNTDQ movntdq
-MOVNTI movnti
-MOVNTPD movntpd
-MOVNTPS movntps
-MOVNTQ movntq
-MOVQ2DQ movq2dq
-MOVQ movq
-MOVSB movsb
-MOVSD movsd
-MOVSD movsl
-MOVSHDUP movshdup
-MOVSLDUP movsldup
-MOVS movs
-MOVSQ movsq
-MOVSS movss
-MOVSW movsw
-MOVSXD movslq
-MOVSX movsbl
-MOVSX movsbq
-MOVSX movsbw
-MOVSX movswl
-MOVSX movswq
-MOVUPD movupd
-MOVUPS movups
-MOVZX movzbl
-MOVZX movzbq
-MOVZX movzbw
-MOVZX movzwl
-MOVZX movzwq
-MPSADBW mpsadbw
-MUL mulb
-MUL mull
-MUL mulq
-MUL mulw
-MULPD mulpd
-MULPS mulps
-MULSD mulsd
-MULSS mulss
-MULX mulxl
-MULX mulxq
-MWAIT mwait
-NEG negb
-NEG negl
-NEG negq
-NEG negw
-NOP nop
-NOP nopl
-NOP nopw
-NOT notb
-NOT notl
-NOT notq
-NOT notw
-OR orb
-OR orl
-OR orq
-OR orw
-ORPD orpd
-ORPS orps
-OUT outb
-OUT outl
-OUT outw
-OUTSB outsb
-OUTSD outsl
-OUTS outs
-OUTSW outsw
-PABSB pabsb
-PABSD pabsd
-PABSW pabsw
-PACKSSDW packssdw
-PACKSSWB packsswb
-PACKUSDW packusdw
-PACKUSWB packuswb
-PADDB paddb
-PADDD paddd
-PADDQ paddq
-PADDSB paddsb
-PADDSW paddsw
-PADDUSB paddusb
-PADDUSW paddusw
-PADDW paddw
-PALIGNR palignr
-PANDN pandn
-PAND pand
-PAUSE pause
-PAVGB pavgb
-PAVGW pavgw
-PBLENDVB pblendvb
-PBLENDW pblendw
-PCLMULQDQ pclmulqdq
-PCMPEQB pcmpeqb
-PCMPEQD pcmpeqd
-PCMPEQQ pcmpeqq
-PCMPEQW pcmpeqw
-PCMPESTRI pcmpestri
-PCMPESTRM pcmpestrm
-PCMPGTB pcmpgtb
-PCMPGTD pcmpgtd
-PCMPGTQ pcmpgtq
-PCMPGTW pcmpgtw
-PCMPISTRI pcmpistri
-PCMPISTRM pcmpistrm
-PDEP pdepl
-PDEP pdepq
-PEXT pextl
-PEXT pextq
-PEXTRB pextrb
-PEXTRD pextrd
-PEXTRQ pextrq
-PEXTRW pextrw
-PHADDD phaddd
-PHADDSW phaddsw
-PHADDW phaddw
-PHMINPOSUW phminposuw
-PHSUBD phsubd
-PHSUBSW phsubsw
-PHSUBW phsubw
-PINSRB pinsrb
-PINSRD pinsrd
-PINSRQ pinsrq
-PINSRW pinsrw
-PMADDUBSW pmaddubsw
-PMADDWD pmaddwd
-PMAXSB pmaxsb
-PMAXSD pmaxsd
-PMAXSW pmaxsw
-PMAXUB pmaxub
-PMAXUD pmaxud
-PMAXUW pmaxuw
-PMINSB pminsb
-PMINSD pminsd
-PMINSW pminsw
-PMINUB pminub
-PMINUD pminud
-PMINUW pminuw
-PMOVMSKB pmovmskb
-PMOVSXBD pmovsxbd
-PMOVSXBQ pmovsxbq
-PMOVSXBW pmovsxbw
-PMOVSXDQ pmovsxdq
-PMOVSXWD pmovsxwd
-PMOVSXWQ pmovsxwq
-PMOVZXBD pmovzxbd
-PMOVZXBQ pmovzxbq
-PMOVZXBW pmovzxbw
-PMOVZXDQ pmovzxdq
-PMOVZXWD pmovzxwd
-PMOVZXWQ pmovzxwq
-PMULDQ pmuldq
-PMULHRSW pmulhrsw
-PMULHUW pmulhuw
-PMULHW pmulhw
-PMULLD pmulld
-PMULLW pmullw
-PMULUDQ pmuludq
-POPCNT popcntl
-POPCNT popcntq
-POPCNT popcntw
-POPF popf
-POPFQ popfq
-POP popq
-POP popw
-POR por
-PREFETCHNTA prefetchnta
-PREFETCHT0 prefetcht0
-PREFETCHT1 prefetcht1
-PREFETCHT2 prefetcht2
-PSADBW psadbw
-PSHUFB pshufb
-PSHUFD pshufd
-PSHUFHW pshufhw
-PSHUFLW pshuflw
-PSHUFW pshufw
-PSIGNB psignb
-PSIGND psignd
-PSIGNW psignw
-PSLLD pslld
-PSLLDQ pslldq
-PSLLQ psllq
-PSLLW psllw
-PSRAD psrad
-PSRAW psraw
-PSRLD psrld
-PSRLDQ psrldq
-PSRLQ psrlq
-PSRLW psrlw
-PSUBB psubb
-PSUBD psubd
-PSUBQ psubq
-PSUBSB psubsb
-PSUBSW psubsw
-PSUBUSB psubusb
-PSUBUSW psubusw
-PSUBW psubw
-PTEST ptest
-PUNPCKHBW punpckhbw
-PUNPCKHDQ punpckhdq
-PUNPCKHQDQ punpckhqdq
-PUNPCKHWD punpckhwd
-PUNPCKLBW punpcklbw
-PUNPCKLDQ punpckldq
-PUNPCKLQDQ punpcklqdq
-PUNPCKLWD punpcklwd
-PUSHF pushf
-PUSHFQ pushfq
-PUSH pushq
-PUSH pushw
-PXOR pxor
-RCL rclb
-RCL rcll
-RCL rclq
-RCL rclw
-RCPPS rcpps
-RCPSS rcpss
-RCR rcrb
-RCR rcrl
-RCR rcrq
-RCR rcrw
-RDFSBASE rdfsbase
-RDGSBASE rdgsbase
-RDRAND rdrand
-REPE_CMPS repz cmpsb
-REPE_CMPS repz cmpsl
-REPE_CMPS repz cmpsq
-REPE_CMPS repz cmpsw
-REPE_SCAS repz scasb
-REPE_SCAS repz scasl
-REPE_SCAS repz scasq
-REPE_SCAS repz scasw
-REP_INS rep insb
-REP_INS rep insl
-REP_INS rep insq
-REP_INS rep insw
-REP_LODS rep lodsb
-REP_LODS rep lodsl
-REP_LODS rep lodsq
-REP_LODS rep lodsw
-REP_MOVS rep movsb
-REP_MOVS rep movsl
-REP_MOVS rep movsq
-REP_MOVS rep movsw
-REPNE_CMPS repnz cmpsb
-REPNE_CMPS repnz cmpsl
-REPNE_CMPS repnz cmpsq
-REPNE_CMPS repnz cmpsw
-REPNE_SCAS repnz scasb
-REPNE_SCAS repnz scasl
-REPNE_SCAS repnz scasq
-REPNE_SCAS repnz scasw
-REP_OUTS rep outsb
-REP_OUTS rep outsl
-REP_OUTS rep outsq
-REP_OUTS rep outsw
-REP_STOS rep stosb
-REP_STOS rep stosl
-REP_STOS rep stosq
-REP_STOS rep stosw
-RET lretl
-RET retq
-ROL rolb
-ROL roll
-ROL rolq
-ROL rolw
-ROR rorb
-ROR rorl
-ROR rorq
-ROR rorw
-RORX rorxl
-RORX rorxq
-ROUNDPD roundpd
-ROUNDPS roundps
-ROUNDSD roundsd
-ROUNDSS roundss
-RSQRTPS rsqrtps
-RSQRTSS rsqrtss
-SAHF sahf
-SAL salb
-SAL sall
-SAL salq
-SAL salw
-SAR sarb
-SAR sarl
-SAR sarq
-SAR sarw
-SARX sarxl
-SARX sarxq
-SBB sbbb
-SBB sbbl
-SBB sbbq
-SBB sbbw
-SCASB scasb
-SCASD scasl
-SCASQ scasq
-SCAS scas
-SCASW scasw
-SETAE setae
-SETA seta
-SETBE setbe
-SETB setb
-SETC setc
-SETE sete
-SETGE setge
-SETG setg
-SETLE setle
-SETL setl
-SETNAE setnae
-SETNA setna
-SETNBE setnbe
-SETNB setnb
-SETNC setnc
-SETNE setne
-SETNGE setnge
-SETNG setng
-SETNLE setnle
-SETNL setnl
-SETNO setno
-SETNP setnp
-SETNS setns
-SETNZ setnz
-SETO seto
-SETPE setpe
-SETPO setpo
-SETP setp
-SETS sets
-SETZ setz
-SFENCE sfence
-SHLD shldl
-SHLD shldq
-SHLD shldw
-SHL shlb
-SHL shll
-SHL shlq
-SHL shlw
-SHLX shlxl
-SHLX shlxq
-SHRD shrdl
-SHRD shrdq
-SHRD shrdw
-SHR shrb
-SHR shrl
-SHR shrq
-SHR shrw
-SHRX shrxl
-SHRX shrxq
-SHUFPD shufpd
-SHUFPS shufps
-SQRTPD sqrtpd
-SQRTPS sqrtps
-SQRTSD sqrtsd
-SQRTSS sqrtss
-STC stc
-STD std
-STI sti
-STMXCSR stmxcsr
-STOSB stosb
-STOSD stosl
-STOSQ stosq
-STOS stosb
-STOS stosl
-STOS stosq
-STOS stosw
-STOSW stosw
-SUBPD subpd
-SUBPS subps
-SUBSD subsd
-SUBSS subss
-SUB subb
-SUB subl
-SUB subq
-SUB subw
-SWAPGS swapgs
-SYSCALL syscall
-SYSENTER sysenter
-SYSEXIT sysexit
-SYSRET sysret
-TEST testb
-TEST testl
-TEST testq
-TEST testw
-TZCNT tzcntl
-TZCNT tzcntq
-TZCNT tzcntw
-UCOMISD ucomisd
-UCOMISS ucomiss
-UD2 ud2
-UNPCKHPD unpckhpd
-UNPCKHPS unpckhps
-UNPCKLPD unpcklpd
-UNPCKLPS unpcklps
-VADDPD vaddpd
-VADDPS vaddps
-VADDSD vaddsd
-VADDSS vaddss
-VADDSUBPD vaddsubpd
-VADDSUBPS vaddsubps
-VAESDECLAST vaesdeclast
-VAESDEC vaesdec
-VAESENCLAST vaesenclast
-VAESENC vaesenc
-VAESIMC vaesimc
-VAESKEYGENASSIST vaeskeygenassist
-VANDNPD vandnpd
-VANDNPS vandnps
-VANDPD vandpd
-VANDPS vandps
-VBLENDPD vblendpd
-VBLENDPS vblendps
-VBLENDVPD vblendvpd
-VBLENDVPS vblendvps
-VBROADCASTF128 vbroadcastf128
-VBROADCASTI128 vpbroadcasti128
-VBROADCASTSD vbroadcastsd
-VBROADCASTSS vbroadcastss
-VCMPPD vcmppd
-VCMPPS vcmpps
-VCMPSD vcmpsd
-VCMPSS vcmpss
-VCOMISD vcomisd
-VCOMISS vcomiss
-VCVTDQ2PD vcvtdq2pd
-VCVTDQ2PS vcvtdq2ps
-VCVTPD2DQ vcvtpd2dq
-VCVTPD2DQ vcvtpd2dqx
-VCVTPD2PS vcvtpd2ps
-VCVTPH2PS vcvtph2ps
-VCVTPS2DQ vcvtps2dq
-VCVTPS2PD vcvtps2pd
-VCVTPS2PH vcvtps2ph
-VCVTSD2SI vcvtsd2sil
-VCVTSD2SI vcvtsd2siq
-VCVTSD2SS vcvtsd2ss
-VCVTSI2SD vcvtsi2sdl
-VCVTSI2SD vcvtsi2sdq
-VCVTSI2SS vcvtsi2ssl
-VCVTSI2SS vcvtsi2ssq
-VCVTSS2SD vcvtss2sd
-VCVTSS2SI vcvtss2sil
-VCVTSS2SI vcvtss2siq
-VCVTTPD2DQ vcvttpd2dq
-VCVTTPS2DQ vcvttps2dq
-VCVTTSD2SI vcvttsd2sil
-VCVTTSD2SI vcvttsd2siq
-VCVTTSS2SI vcvttss2sil
-VCVTTSS2SI vcvttss2siq
-VDIVPD vdivpd
-VDIVPS vdivps
-VDIVSD vdivsd
-VDIVSS vdivss
-VDPPD vdppd
-VDPPS vdpps
-VERR verr
-VERW verw
-VEXTRACTF128 vextractf128
-VEXTRACTI128 vextracti128
-VEXTRACTPS vextractps
-VFMADD132PD vfmadd132pd
-VFMADD132PS vfmadd132ps
-VFMADD132SD vfmadd132sd
-VFMADD132SS vfmadd132ss
-VFMADD213PD vfmadd213pd
-VFMADD213PS vfmadd213ps
-VFMADD213SD vfmadd213sd
-VFMADD213SS vfmadd213ss
-VFMADD231PD vfmadd231pd
-VFMADD231PS vfmadd231ps
-VFMADD231SD vfmadd231sd
-VFMADD231SS vfmadd231ss
-VFMADDSUB132PD vfmaddsub132pd
-VFMADDSUB132PS vfmaddsub132ps
-VFMADDSUB213PD vfmaddsub213pd
-VFMADDSUB213PS vfmaddsub213ps
-VFMADDSUB231PD vfmaddsub231pd
-VFMADDSUB231PS vfmaddsub231ps
-VFMSUB132PD vfmsub132pd
-VFMSUB132PS vfmsub132ps
-VFMSUB132SD vfmsub132sd
-VFMSUB132SS vfmsub132ss
-VFMSUB213PD vfmsub213pd
-VFMSUB213PS vfmsub213ps
-VFMSUB213SD vfmsub213sd
-VFMSUB213SS vfmsub213ss
-VFMSUB231PD vfmsub231pd
-VFMSUB231PS vfmsub231ps
-VFMSUB231SD vfmsub231sd
-VFMSUB231SS vfmsub231ss
-VFMSUBADD132PD vfmsubadd132pd
-VFMSUBADD132PS vfmsubadd132ps
-VFMSUBADD213PD vfmsubadd213pd
-VFMSUBADD213PS vfmsubadd213ps
-VFMSUBADD231PD vfmsubadd231pd
-VFMSUBADD231PS vfmsubadd231ps
-VFNMADD132PD vfnmadd132pd
-VFNMADD132PS vfnmadd132ps
-VFNMADD132SD vfnmadd132sd
-VFNMADD132SS vfnmadd132ss
-VFNMADD213PD vfnmadd213pd
-VFNMADD213PS vfnmadd213ps
-VFNMADD213SD vfnmadd213sd
-VFNMADD213SS vfnmadd213ss
-VFNMADD231PD vfnmadd231pd
-VFNMADD231PS vfnmadd231ps
-VFNMADD231SD vfnmadd231sd
-VFNMADD231SS vfnmadd231ss
-VFNMSUB132PD vfnmsub132pd
-VFNMSUB132PS vfnmsub132ps
-VFNMSUB132SD vfnmsub132sd
-VFNMSUB132SS vfnmsub132ss
-VFNMSUB213PD vfnmsub213pd
-VFNMSUB213PS vfnmsub213ps
-VFNMSUB213SD vfnmsub213sd
-VFNMSUB213SS vfnmsub213ss
-VFNMSUB231PD vfnmsub231pd
-VFNMSUB231PS vfnmsub231ps
-VFNMSUB231SD vfnmsub231sd
-VFNMSUB231SS vfnmsub231ss
-VGATHERDPD vgatherdpd
-VGATHERDPS vgatherdps
-VGATHERQPD vgatherqpd
-VGATHERQPS vgatherqps
-VHADDPD vhaddpd
-VHADDPS vhaddps
-VHSUBPD vhsubpd
-VHSUBPS vhsubps
-VINSERTF128 vinsertf128
-VINSERTI128 vinserti128
-VINSERTPS vinsertps
-VLDDQU vlddqu
-VLDMXCSR vldmxcsr
-VMASKMOVDQU vmaskmovdqu
-VMASKMOVPD vmaskmovpd
-VMASKMOVPS vmaskmovps
-VMAXPD vmaxpd
-VMAXPS vmaxps
-VMAXSD vmaxsd
-VMAXSS vmaxss
-VMINPD vminpd
-VMINPS vminps
-VMINSD vminsd
-VMINSS vminss
-VMOVAPD vmovapd
-VMOVAPS vmovaps
-VMOVDDUP vmovddup
-VMOVDQA vmovdqa
-VMOVDQU vmovdqu
-VMOVD vmovd
-VMOVHLPS vmovhlps
-VMOVHPD vmovhpd
-VMOVHPS vmovhps
-VMOVLHPS vmovlhps
-VMOVLPD vmovlpd
-VMOVLPS vmovlps
-VMOVMSKPD vmovmskpd
-VMOVMSKPS vmovmskps
-VMOVNTDQA vmovntdqa
-VMOVNTDQ vmovntdqa
-VMOVNTPD vmovntpd
-VMOVNTPS vmovntps
-VMOVQ vmovq
-VMOVSD vmovsd
-VMOVSHDUP vmovshdup
-VMOVSLDUP vmovsldup
-VMOVSS vmovss
-VMOVUPD vmovupd
-VMOVUPS vmovups
-VMPSADBW vmpsadbw
-VMULPD vmulpd
-VMULPS vmulps
-VMULSD vmulsd
-VMULSS vmulss
-VORPD vorpd
-VORPS vorps
-VPABSB vpabsb
-VPABSD vpabsd
-VPABSW vpabsw
-VPACKSSDW vpackssdw
-VPACKSSWB vpacksswb
-VPACKUSDW vpackusdw
-VPACKUSWB vpackuswb
-VPADDB vpaddb
-VPADDD vpaddd
-VPADDQ vpaddq
-VPADDSB vpaddsb
-VPADDSW vpaddsw
-VPADDUSB vpaddusb
-VPADDUSW vpaddusw
-VPADDW vpaddw
-VPALIGNR vpalignr
-VPANDN vpandn
-VPAND vpand
-VPAVGB vpavgb
-VPAVGW vpavgw
-VPBLENDD vpblendd
-VPBLENDVB vpblendvb
-VPBLENDW vpblendw
-VPBROADCASTB vpbroadcastb
-VPBROADCASTD vpbroadcastd
-VPBROADCASTQ vpbroadcastq
-VPBROADCASTW vpbroadcastw
-VPCLMULQDQ vpclmulqdq
-VPCMPEQB vpcmpeqb
-VPCMPEQD vpcmpeqd
-VPCMPEQQ vpcmpeqq
-VPCMPEQW vpcmpeqw
-VPCMPESTRI vpcmpestri
-VPCMPESTRM vpcmpestrm
-VPCMPGTB vpcmpgtb
-VPCMPGTD vpcmpgtd
-VPCMPGTQ vpcmpgtq
-VPCMPGTQ vpvmpgtq
-VPCMPGTW vpcmpgtw
-VPCMPISTRI vpcmpistri
-VPCMPISTRM vpcmpistrm
-VPERM2F128 vperm2f128
-VPERM2I128 vperm2i128
-VPERMD vpermd
-VPERMILPD vpermilpd
-VPERMILPS vpermilps
-VPERMPD vpermpd
-VPERMPS vpermps
-VPERMQ vpermq
-VPEXTRB vpextrb
-VPEXTRD vpextrd
-VPEXTRQ vpextrq
-VPEXTRW vpextrw
-VPGATHERDD vpgatherdd
-VPGATHERDQ vpgatherdq
-VPGATHERQD vpgatherqd
-VPGATHERQQ vpgatherqq
-VPHADDD vphaddd
-VPHADDSW vphaddsw
-VPHADDW vphaddw
-VPHMINPOSUW vphminposuw
-VPHSUBD vphsubd
-VPHSUBSW vphsubsw
-VPHSUBW vphsubw
-VPINSRB vpinsrb
-VPINSRD vpinsrd
-VPINSRQ vpinsrq
-VPINSRW vpinsrw
-VPMADDUBSW vpmaddubsw
-VPMADDWD vpmaddwd
-VPMASKMOVD vpmaskmovd
-VPMASKMOVQ vpmaskmovq
-VPMAXSB vpmaxsb
-VPMAXSD vpmaxsd
-VPMAXSW vpmaxsw
-VPMAXUB vpmaxub
-VPMAXUD vpmaxud
-VPMAXUW vpmaxuw
-VPMINSB vpminsb
-VPMINSD vpminsd
-VPMINSW vpminsw
-VPMINUB vpminub
-VPMINUD vpminud
-VPMINUW vpminuw
-VPMOVMSKB vpmovmskb
-VPMOVSXBD vpmovsxbd
-VPMOVSXBQ vpmovsxbq
-VPMOVSXBW vpmovsxbw
-VPMOVSXDQ vpmovsxdq
-VPMOVSXWD vpmovsxwd
-VPMOVSXWQ vpmovsxwq
-VPMOVZXBD vpmovzxbd
-VPMOVZXBQ vpmovzxbq
-VPMOVZXBW vpmovzxbw
-VPMOVZXDQ vpmovzxdq
-VPMOVZXWD vpmovzxwd
-VPMOVZXWQ vpmovzxwq
-VPMULDQ vpmuldq
-VPMULHRSW vpmulhrsw
-VPMULHUW vpmulhuw
-VPMULHW vpmulhw
-VPMULLD vpmulld
-VPMULLW vpmullw
-VPMULUDQ vpmuludq
-VPOR vpor
-VPSADBW vpsadbw
-VPSHUFB vpshufb
-VPSHUFD vpshufd
-VPSHUFHW vpshufhw
-VPSHUFLW vpshuflw
-VPSIGNB vpsignb
-VPSIGND vpsignd
-VPSIGNW vpsignw
-VPSLLDQ vpslldq
-VPSLLD vpslld
-VPSLLQ vpsllq
-VPSLLVD vpsllvd
-VPSLLVQ vpsllvq
-VPSLLW vpsllw
-VPSRAD vpsrad
-VPSRAVD vpsravd
-VPSRAW vpsraw
-VPSRLDQ vpsrldq
-VPSRLD vpsrld
-VPSRLQ vpsrlq
-VPSRLVD vpsrlvd
-VPSRLVQ vpsrlvq
-VPSRLW vpsrlw
-VPSUBB vpsubb
-VPSUBD vpsubd
-VPSUBQ vpsubq
-VPSUBSB vpsubsb
-VPSUBSW vpsubsw
-VPSUBUSB vpsubusb
-VPSUBUSW vpsubusw
-VPSUBW vpsubw
-VPTEST vptest
-VPUNPCKHBW vpunpckhbw
-VPUNPCKHDQ vpunpckhdq
-VPUNPCKHQDQ vpunpckhqdq
-VPUNPCKHWD vpunpckhwd
-VPUNPCKLBW vpunpcklbw
-VPUNPCKLDQ vpunpckldq
-VPUNPCKLQDQ vpunpcklqdq
-VPUNPCKLWD vpunpcklwd
-VPXOR vpxor
-VRCPPS vrcpps
-VRCPSS vrcpss
-VROUNDPD vroundpd
-VROUNDPS vroundps
-VROUNDSD vroundsd
-VROUNDSS vroundss
-VRSQRTPS vrsqrtps
-VRSQRTSS vrsqrtss
-VSHUFPD vshufpd
-VSHUFPS vshufps
-VSQRTPD vsqrtpd
-VSQRTPS vsqrtps
-VSQRTSD vsqrtsd
-VSQRTSS vsqrtss
-VSTMXCSR vstmxcsr
-VSUBPD vsubpd
-VSUBPS vsubps
-VSUBSD vsubsd
-VSUBSS vsubss
-VTESTPD vtestpd
-VTESTPS vtestps
-VUCOMISD vucomisd
-VUCOMISS vucomiss
-VUNPCKHPD vunpckhpd
-VUNPCKHPS vunpckhps
-VUNPCKLPD vunpcklpd
-VUNPCKLPS vunpcklps
-VXORPD vxorpd
-VXORPS vxorps
-VZEROALL vzeroall
-VZEROUPPER vzeroupper
-WAIT wait
-WRFSBASE wrfsbase
-WRGSBASE wrgsbase
-XABORT xabort
-XACQUIRE xacquire
-XADD xaddb
-XADD xaddl
-XADD xaddq
-XADD xaddw
-XBEGIN xbegin
-XCHG xchgb
-XCHG xchgl
-XCHG xchgq
-XCHG xchgw
-XEND xend
-XGETBV xgetbv
-XLATB xlatb
-XLAT xlat
-XORPD xorpd
-XORPS xorps
-XOR xorb
-XOR xorl
-XOR xorq
-XOR xorw
-XRELEASE xrelease
-XRSTOR64 xrstor64
-XRSTOR xrstor
-XSAVE64 xsave64
-XSAVEOPT64 xsaveopt64
-XSAVEOPT xsaveopt
-XSAVE xsave
-XTEST xtest
+ADC:adcb
+ADC:adcl
+ADC:adcq
+ADC:adcw
+ADD:addb
+ADD:addl
+ADD:addq
+ADD:addw
+ADDPD:addpd
+ADDPS:addps
+ADDSD:addsd
+ADDSS:addss
+ADDSUBPD:addsubpd
+ADDSUBPS:addsubps
+AESDEC:aesdec
+AESDECLAST:aesdeclast
+AESENC:aesenc
+AESENCLAST:aesenclast
+AESIMC:aesimc
+AESKEYGENASSIST:aeskeygenassist
+AND:andb
+AND:andl
+AND:andq
+AND:andw
+ANDN:andnl
+ANDN:andnq
+ANDNPD:andnpd
+ANDNPS:andnps
+ANDPD:andpd
+ANDPS:andps
+BEXTR:bextrl
+BEXTR:bextrq
+BLENDPD:blendpd
+BLENDPS:blendps
+BLENDVPD:blendvpd
+BLENDVPS:blendvps
+BLSI:blsil
+BLSI:blsiq
+BLSMSK:blsmskl
+BLSMSK:blsmskq
+BLSR:blsrl
+BLSR:blsrq
+BSF:bsfl
+BSF:bsfq
+BSF:bsfw
+BSR:bsrl
+BSR:bsrq
+BSR:bsrw
+BSWAP:bswap
+BT:btl
+BT:btq
+BT:btw
+BTC:btcl
+BTC:btcq
+BTC:btcw
+BTR:btrl
+BTR:btrq
+BTR:btrw
+BTS:btsl
+BTS:btsq
+BTS:btsw
+BZHI:bzhil
+BZHI:bzhiq
+CALL:callq
+CBW:cbtw
+CDQ:cltd
+CDQE:cltq
+CLC:clc
+CLD:cld
+CLFLUSH:clflush
+CLI:cli
+CMC:cmc
+CMOVA:cmoval
+CMOVA:cmovaq
+CMOVA:cmovaw
+CMOVAE:cmovael
+CMOVAE:cmovaeq
+CMOVAE:cmovaew
+CMOVB:cmovbl
+CMOVB:cmovbq
+CMOVB:cmovbw
+CMOVBE:cmovbel
+CMOVBE:cmovbeq
+CMOVBE:cmovbew
+CMOVC:cmovcl
+CMOVC:cmovcq
+CMOVC:cmovcw
+CMOVE:cmovel
+CMOVE:cmoveq
+CMOVE:cmovew
+CMOVG:cmovgl
+CMOVG:cmovgq
+CMOVG:cmovgw
+CMOVGE:cmovgel
+CMOVGE:cmovgeq
+CMOVGE:cmovgew
+CMOVL:cmovll
+CMOVL:cmovlq
+CMOVL:cmovlw
+CMOVLE:cmovlel
+CMOVLE:cmovleq
+CMOVLE:cmovlew
+CMOVNA:cmovnal
+CMOVNA:cmovnaq
+CMOVNA:cmovnaw
+CMOVNAE:cmovnael
+CMOVNAE:cmovnaeq
+CMOVNAE:cmovnaew
+CMOVNB:cmovnbl
+CMOVNB:cmovnbq
+CMOVNB:cmovnbw
+CMOVNBE:cmovnbel
+CMOVNBE:cmovnbeq
+CMOVNBE:cmovnbew
+CMOVNC:cmovncl
+CMOVNC:cmovncq
+CMOVNC:cmovncw
+CMOVNE:cmovnel
+CMOVNE:cmovneq
+CMOVNE:cmovnew
+CMOVNG:cmovngl
+CMOVNG:cmovngq
+CMOVNG:cmovngw
+CMOVNGE:cmovngel
+CMOVNGE:cmovngeq
+CMOVNGE:cmovngew
+CMOVNL:cmovnll
+CMOVNL:cmovnlq
+CMOVNL:cmovnlw
+CMOVNLE:cmovnlel
+CMOVNLE:cmovnleq
+CMOVNLE:cmovnlew
+CMOVNO:cmovnol
+CMOVNO:cmovnoq
+CMOVNO:cmovnow
+CMOVNP:cmovnpl
+CMOVNP:cmovnpq
+CMOVNP:cmovnpw
+CMOVNS:cmovnsl
+CMOVNS:cmovnsq
+CMOVNS:cmovnsw
+CMOVNZ:cmovnzl
+CMOVNZ:cmovnzq
+CMOVNZ:cmovnzw
+CMOVO:cmovol
+CMOVO:cmovoq
+CMOVO:cmovow
+CMOVP:cmovpl
+CMOVP:cmovpq
+CMOVP:cmovpw
+CMOVPE:cmovpel
+CMOVPE:cmovpeq
+CMOVPE:cmovpew
+CMOVPO:cmovpol
+CMOVPO:cmovpoq
+CMOVPO:cmovpow
+CMOVS:cmovsl
+CMOVS:cmovsq
+CMOVS:cmovsw
+CMOVZ:cmovzl
+CMOVZ:cmovzq
+CMOVZ:cmovzw
+CMP:cmpb
+CMP:cmpl
+CMP:cmpq
+CMP:cmpw
+CMPPD:cmppd
+CMPPS:cmpps
+CMPSB:cmpsb
+CMPS:cmps
+CMPSD:cmpsd
+CMPSD:cmpsl
+CMPSQ:cmpsq
+CMPSS:cmpss
+CMPSW:cmpsw
+CMPXCHG16B:cmpxchg16b
+CMPXCHG8B:cmpxchg8b
+CMPXCHG:cmpxchgb
+CMPXCHG:cmpxchgl
+CMPXCHG:cmpxchgq
+CMPXCHG:cmpxchgw
+COMISD:comisd
+COMISS:comiss
+CPUID:cpuid
+CQO:cqto
+CRC32:crc32b
+CRC32:crc32l
+CRC32:crc32q
+CRC32:crc32w
+CVTDQ2PD:cvtdq2pd
+CVTDQ2PS:cvtdq2ps
+CVTPD2DQ:cvtpd2dq
+CVTPD2PI:cvtpd2pi
+CVTPD2PS:cvtpd2ps
+CVTPI2PD:cvtpi2pd
+CVTPI2PS:cvtpi2ps
+CVTPS2DQ:cvtps2dq
+CVTPS2PD:cvtps2pd
+CVTPS2PI:cvtps2pi
+CVTSD2SI:cvtsd2sil
+CVTSD2SI:cvtsd2siq
+CVTSD2SS:cvtsd2ss
+CVTSI2SD:cvtsi2sdl
+CVTSI2SD:cvtsi2sdq
+CVTSI2SS:cvtsi2ssl
+CVTSI2SS:cvtsi2ssq
+CVTSS2SD:cvtss2sd
+CVTSS2SI:cvtss2sil
+CVTSS2SI:cvtss2siq
+CVTTPD2DQ:cvttpd2dq
+CVTTPD2PI:cvttpd2pi
+CVTTPS2DQ:cvttps2dq
+CVTTPS2PI:cvttps2pi
+CVTTSD2SI:cvttsd2sil
+CVTTSD2SI:cvttsd2siq
+CVTTSS2SI:cvttss2sil
+CVTTSS2SI:cvttss2siq
+CWD:cwtd
+CWDE:cwtl
+DEC:decb
+DEC:decl
+DEC:decq
+DEC:decw
+DIV:divb
+DIV:divl
+DIV:divq
+DIV:divw
+DIVPD:divpd
+DIVPS:divps
+DIVSD:divsd
+DIVSS:divss
+DPPD:dppd
+DPPS:dpps
+EMMS:emms
+ENTER:enterq
+EXTRACTPS:extractps
+F2XM1:f2xm1
+FABS:fabs
+FADD:fadd
+FADD:faddl
+FADD:fadds
+FADDP:faddp
+FBLD:fbld
+FBSTP:fbstp
+FCHS:fchs
+FCLEX:fclex
+FCMOVBE:fcmovbe
+FCMOVB:fcmovb
+FCMOVE:fcmove
+FCMOVNBE:fcmovnbe
+FCMOVNB:fcmovnb
+FCMOVNE:fcmovne
+FCMOVNU:fcmovnu
+FCMOVU:fcmovu
+FCOM:fcom
+FCOM:fcoml
+FCOM:fcoms
+FCOMI:fcomi
+FCOMIP:fcomip
+FCOMP:fcomp
+FCOMP:fcompl
+FCOMP:fcomps
+FCOMPP:fcompp
+FCOS:fcos
+FDECSTP:fdecstp
+FDIV:fdiv
+FDIV:fdivl
+FDIV:fdivs
+FDIVP:fdivp
+FDIVR:fdivr
+FDIVR:fdivrl
+FDIVR:fdivrs
+FDIVRP:fdivrp
+FFREE:ffreep
+FIADD:fiadd
+FIADD:fiaddl
+FICOM:ficom
+FICOM:ficoml
+FICOMP:ficomp
+FICOMP:ficompl
+FIDIV:fidiv
+FIDIV:fidivl
+FIDIVR:fidivr
+FIDIVR:fidivrl
+FILD:fild
+FILD:fildl
+FILD:fildll
+FIMUL:fimul
+FIMUL:fimull
+FINCSTP:fincstp
+FINIT:finit
+FIST:fist
+FIST:fistl
+FISTP:fistp
+FISTP:fistpl
+FISTP:fistpll
+FISTTP:fisttp
+FISTTP:fisttpl
+FISTTP:fisttpll
+FISUB:fisub
+FISUB:fisubl
+FISUBR:fisubr
+FISUBR:fisubrl
+FLD1:fld1
+FLDCW:fldcw
+FLDENV:fldenvl
+FLD:fld
+FLD:fldl
+FLD:flds
+FLD:fldt
+FLDL2E:fldl2e
+FLDL2T:fldl2t
+FLDLG2:fldlg2
+FLDLN2:fldln2
+FLDPI:fldpi
+FLDZ:fldz
+FMUL:fmul
+FMUL:fmull
+FMUL:fmuls
+FMULP:fmulp
+FNCLEX:fnclex
+FNINIT:fninit
+FNOP:fnop
+FNSAVE:fnsave
+FNSTCW:fnstcw
+FNSTENV:fnstenvl
+FNSTSW:fnstsw
+FPATAN:fpatan
+FPREM1:fprem1
+FPREM:fprem
+FPTAN:fptan
+FRNDINT:frndint
+FRSTOR:frstor
+FSAVE:fsave
+FSCALE:fscale
+FSINCOS:fsincos
+FSIN:fsin
+FSQRT:fsqrt
+FSTCW:fstcw
+FSTENV:fstenvl
+FST:fst
+FST:fstl
+FST:fsts
+FSTP:fstp
+FSTP:fstpl
+FSTP:fstps
+FSTP:fstpt
+FSTSW:fstsw
+FSUB:fsub
+FSUB:fsubl
+FSUB:fsubs
+FSUBP:fsubp
+FSUBR:fsubr
+FSUBR:fsubrl
+FSUBR:fsubrs
+FSUBRP:fsubrp
+FTST:ftst
+FUCOM:fucom
+FUCOMI:fucomi
+FUCOMIP:fucomip
+FUCOMP:fucomp
+FUCOMPP:fucompp
+FWAIT:fwait
+FXAM:fxam
+FXCH:fxch
+FXRSTOR64:fxrstor64
+FXRSTOR:fxrstor
+FXSAVE64:fxsave64
+FXSAVE:fxsave
+FXTRACT:fxtract
+FYL2X:fyl2x
+FYL2XP1:fyl2xp1
+HADDPD:haddpd
+HADDPS:haddps
+HSUBPD:hsubpd
+HSUBPS:hsubps
+IDIV:idivb
+IDIV:idivl
+IDIV:idivq
+IDIV:idivw
+IMUL:imulb
+IMUL:imull
+IMUL:imulq
+IMUL:imulw
+INC:incb
+INC:incl
+INC:incq
+INC:incw
+IN:inb
+IN:inl
+IN:inw
+INSB:insb
+INSD:insl
+INSERTPS:insertps
+INS:ins
+INSW:insw
+INT:int
+INVPCID:invpcid
+IRETD:iretl
+IRET:iretw
+IRETQ:iretq
+JAE:jae
+JA:ja
+JBE:jbe
+JB:jb
+JC:jc
+JECXZ:jecxz
+JE:je
+JGE:jge
+JG:jg
+JLE:jle
+JL:jl
+JMP:jmpq
+JNAE:jnae
+JNA:jna
+JNBE:jnbe
+JNB:jnb
+JNC:jnc
+JNE:jne
+JNGE:jnge
+JNG:jng
+JNLE:jnle
+JNL:jnl
+JNO:jno
+JNP:jnp
+JNS:jns
+JNZ:jnz
+JO:jo
+JPE:jpe
+JP:jp
+JPO:jpo
+JRCXZ:jrcxz
+JS:js
+JZ:jz
+LAHF:lahf
+LAR:lar
+LAR:larw
+LDDQU:lddqu
+LDMXCSR:ldmxcsr
+LEA:leal
+LEA:leaq
+LEA:leaw
+LEAVE:leaveq
+LEAVE:leavew
+LFENCE:lfence
+LFS:lfs
+LFS:lfsl
+LFS:lfsw
+LGS:lgs
+LGS:lgsl
+LGS:lgsw
+LOCK:lock
+LODSB:lodsb
+LODSD:lodsl
+LODS:lods
+LODSQ:lodsq
+LODSW:lodsw
+LOOPE:loope
+LOOP:loop
+LOOPNE:loopne
+LSL:lsl
+LSL:lslw
+LSS:lss
+LSS:lssl
+LSS:lssw
+LZCNT:lzcntl
+LZCNT:lzcntq
+LZCNT:lzcntw
+MASKMOVDQU:maskmovdqu
+MASKMOVQ:maskmovq
+MAXPD:maxpd
+MAXPS:maxps
+MAXSD:maxsd
+MAXSS:maxss
+MFENCE:mfence
+MINPD:minpd
+MINPS:minps
+MINSD:minsd
+MINSS:minss
+MONITOR:monitor
+MOVAPD:movapd
+MOVAPS:movaps
+MOVBE:movbel
+MOVBE:movbeq
+MOVBE:movbew
+MOVDDUP:movddup
+MOVD:movd
+MOVDQ2Q:movdq2q
+MOVDQA:movdqa
+MOVDQU:movdqu
+MOVHLPS:movhlps
+MOVHPD:movhpd
+MOVHPS:movhps
+MOVLHPS:movlhps
+MOVLPD:movlpd
+MOVLPS:movlps
+MOV:mov
+MOV:movabsb
+MOV:movabsl
+MOV:movabsq
+MOV:movabsw
+MOV:movb
+MOV:movl
+MOV:movq
+MOV:movw
+MOVMSKPD:movmskpd
+MOVMSKPS:movmskps
+MOVNTDQA:movntdqa
+MOVNTDQ:movntdq
+MOVNTI:movnti
+MOVNTPD:movntpd
+MOVNTPS:movntps
+MOVNTQ:movntq
+MOVQ2DQ:movq2dq
+MOVQ:movq
+MOVSB:movsb
+MOVSD:movsd
+MOVSD:movsl
+MOVSHDUP:movshdup
+MOVSLDUP:movsldup
+MOVS:movs
+MOVSQ:movsq
+MOVSS:movss
+MOVSW:movsw
+MOVSXD:movslq
+MOVSX:movsbl
+MOVSX:movsbq
+MOVSX:movsbw
+MOVSX:movswl
+MOVSX:movswq
+MOVUPD:movupd
+MOVUPS:movups
+MOVZX:movzbl
+MOVZX:movzbq
+MOVZX:movzbw
+MOVZX:movzwl
+MOVZX:movzwq
+MPSADBW:mpsadbw
+MUL:mulb
+MUL:mull
+MUL:mulq
+MUL:mulw
+MULPD:mulpd
+MULPS:mulps
+MULSD:mulsd
+MULSS:mulss
+MULX:mulxl
+MULX:mulxq
+MWAIT:mwait
+NEG:negb
+NEG:negl
+NEG:negq
+NEG:negw
+NOP:nop
+NOP:nopl
+NOP:nopw
+NOT:notb
+NOT:notl
+NOT:notq
+NOT:notw
+OR:orb
+OR:orl
+OR:orq
+OR:orw
+ORPD:orpd
+ORPS:orps
+OUT:outb
+OUT:outl
+OUT:outw
+OUTSB:outsb
+OUTSD:outsl
+OUTS:outs
+OUTSW:outsw
+PABSB:pabsb
+PABSD:pabsd
+PABSW:pabsw
+PACKSSDW:packssdw
+PACKSSWB:packsswb
+PACKUSDW:packusdw
+PACKUSWB:packuswb
+PADDB:paddb
+PADDD:paddd
+PADDQ:paddq
+PADDSB:paddsb
+PADDSW:paddsw
+PADDUSB:paddusb
+PADDUSW:paddusw
+PADDW:paddw
+PALIGNR:palignr
+PANDN:pandn
+PAND:pand
+PAUSE:pause
+PAVGB:pavgb
+PAVGW:pavgw
+PBLENDVB:pblendvb
+PBLENDW:pblendw
+PCLMULQDQ:pclmulqdq
+PCMPEQB:pcmpeqb
+PCMPEQD:pcmpeqd
+PCMPEQQ:pcmpeqq
+PCMPEQW:pcmpeqw
+PCMPESTRI:pcmpestri
+PCMPESTRM:pcmpestrm
+PCMPGTB:pcmpgtb
+PCMPGTD:pcmpgtd
+PCMPGTQ:pcmpgtq
+PCMPGTW:pcmpgtw
+PCMPISTRI:pcmpistri
+PCMPISTRM:pcmpistrm
+PDEP:pdepl
+PDEP:pdepq
+PEXT:pextl
+PEXT:pextq
+PEXTRB:pextrb
+PEXTRD:pextrd
+PEXTRQ:pextrq
+PEXTRW:pextrw
+PHADDD:phaddd
+PHADDSW:phaddsw
+PHADDW:phaddw
+PHMINPOSUW:phminposuw
+PHSUBD:phsubd
+PHSUBSW:phsubsw
+PHSUBW:phsubw
+PINSRB:pinsrb
+PINSRD:pinsrd
+PINSRQ:pinsrq
+PINSRW:pinsrw
+PMADDUBSW:pmaddubsw
+PMADDWD:pmaddwd
+PMAXSB:pmaxsb
+PMAXSD:pmaxsd
+PMAXSW:pmaxsw
+PMAXUB:pmaxub
+PMAXUD:pmaxud
+PMAXUW:pmaxuw
+PMINSB:pminsb
+PMINSD:pminsd
+PMINSW:pminsw
+PMINUB:pminub
+PMINUD:pminud
+PMINUW:pminuw
+PMOVMSKB:pmovmskb
+PMOVSXBD:pmovsxbd
+PMOVSXBQ:pmovsxbq
+PMOVSXBW:pmovsxbw
+PMOVSXDQ:pmovsxdq
+PMOVSXWD:pmovsxwd
+PMOVSXWQ:pmovsxwq
+PMOVZXBD:pmovzxbd
+PMOVZXBQ:pmovzxbq
+PMOVZXBW:pmovzxbw
+PMOVZXDQ:pmovzxdq
+PMOVZXWD:pmovzxwd
+PMOVZXWQ:pmovzxwq
+PMULDQ:pmuldq
+PMULHRSW:pmulhrsw
+PMULHUW:pmulhuw
+PMULHW:pmulhw
+PMULLD:pmulld
+PMULLW:pmullw
+PMULUDQ:pmuludq
+POPCNT:popcntl
+POPCNT:popcntq
+POPCNT:popcntw
+POPF:popf
+POPFQ:popfq
+POP:popq
+POP:popw
+POR:por
+PREFETCHNTA:prefetchnta
+PREFETCHT0:prefetcht0
+PREFETCHT1:prefetcht1
+PREFETCHT2:prefetcht2
+PSADBW:psadbw
+PSHUFB:pshufb
+PSHUFD:pshufd
+PSHUFHW:pshufhw
+PSHUFLW:pshuflw
+PSHUFW:pshufw
+PSIGNB:psignb
+PSIGND:psignd
+PSIGNW:psignw
+PSLLD:pslld
+PSLLDQ:pslldq
+PSLLQ:psllq
+PSLLW:psllw
+PSRAD:psrad
+PSRAW:psraw
+PSRLD:psrld
+PSRLDQ:psrldq
+PSRLQ:psrlq
+PSRLW:psrlw
+PSUBB:psubb
+PSUBD:psubd
+PSUBQ:psubq
+PSUBSB:psubsb
+PSUBSW:psubsw
+PSUBUSB:psubusb
+PSUBUSW:psubusw
+PSUBW:psubw
+PTEST:ptest
+PUNPCKHBW:punpckhbw
+PUNPCKHDQ:punpckhdq
+PUNPCKHQDQ:punpckhqdq
+PUNPCKHWD:punpckhwd
+PUNPCKLBW:punpcklbw
+PUNPCKLDQ:punpckldq
+PUNPCKLQDQ:punpcklqdq
+PUNPCKLWD:punpcklwd
+PUSHF:pushf
+PUSHFQ:pushfq
+PUSH:pushq
+PUSH:pushw
+PXOR:pxor
+RCL:rclb
+RCL:rcll
+RCL:rclq
+RCL:rclw
+RCPPS:rcpps
+RCPSS:rcpss
+RCR:rcrb
+RCR:rcrl
+RCR:rcrq
+RCR:rcrw
+RDFSBASE:rdfsbase
+RDGSBASE:rdgsbase
+RDRAND:rdrand
+REPE_CMPS:repz cmpsb
+REPE_CMPS:repz cmpsl
+REPE_CMPS:repz cmpsq
+REPE_CMPS:repz cmpsw
+REPE_SCAS:repz scasb
+REPE_SCAS:repz scasl
+REPE_SCAS:repz scasq
+REPE_SCAS:repz scasw
+REP_INS:rep insb
+REP_INS:rep insl
+REP_INS:rep insq
+REP_INS:rep insw
+REP_LODS:rep lodsb
+REP_LODS:rep lodsl
+REP_LODS:rep lodsq
+REP_LODS:rep lodsw
+REP_MOVS:rep movsb
+REP_MOVS:rep movsl
+REP_MOVS:rep movsq
+REP_MOVS:rep movsw
+REPNE_CMPS:repnz cmpsb
+REPNE_CMPS:repnz cmpsl
+REPNE_CMPS:repnz cmpsq
+REPNE_CMPS:repnz cmpsw
+REPNE_SCAS:repnz scasb
+REPNE_SCAS:repnz scasl
+REPNE_SCAS:repnz scasq
+REPNE_SCAS:repnz scasw
+REP_OUTS:rep outsb
+REP_OUTS:rep outsl
+REP_OUTS:rep outsq
+REP_OUTS:rep outsw
+REP_STOS:rep stosb
+REP_STOS:rep stosl
+REP_STOS:rep stosq
+REP_STOS:rep stosw
+RET:lretl
+RET:retq
+ROL:rolb
+ROL:roll
+ROL:rolq
+ROL:rolw
+ROR:rorb
+ROR:rorl
+ROR:rorq
+ROR:rorw
+RORX:rorxl
+RORX:rorxq
+ROUNDPD:roundpd
+ROUNDPS:roundps
+ROUNDSD:roundsd
+ROUNDSS:roundss
+RSQRTPS:rsqrtps
+RSQRTSS:rsqrtss
+SAHF:sahf
+SAL:salb
+SAL:sall
+SAL:salq
+SAL:salw
+SAR:sarb
+SAR:sarl
+SAR:sarq
+SAR:sarw
+SARX:sarxl
+SARX:sarxq
+SBB:sbbb
+SBB:sbbl
+SBB:sbbq
+SBB:sbbw
+SCASB:scasb
+SCASD:scasl
+SCASQ:scasq
+SCAS:scas
+SCASW:scasw
+SETAE:setae
+SETA:seta
+SETBE:setbe
+SETB:setb
+SETC:setc
+SETE:sete
+SETGE:setge
+SETG:setg
+SETLE:setle
+SETL:setl
+SETNAE:setnae
+SETNA:setna
+SETNBE:setnbe
+SETNB:setnb
+SETNC:setnc
+SETNE:setne
+SETNGE:setnge
+SETNG:setng
+SETNLE:setnle
+SETNL:setnl
+SETNO:setno
+SETNP:setnp
+SETNS:setns
+SETNZ:setnz
+SETO:seto
+SETPE:setpe
+SETPO:setpo
+SETP:setp
+SETS:sets
+SETZ:setz
+SFENCE:sfence
+SHLD:shldl
+SHLD:shldq
+SHLD:shldw
+SHL:shlb
+SHL:shll
+SHL:shlq
+SHL:shlw
+SHLX:shlxl
+SHLX:shlxq
+SHRD:shrdl
+SHRD:shrdq
+SHRD:shrdw
+SHR:shrb
+SHR:shrl
+SHR:shrq
+SHR:shrw
+SHRX:shrxl
+SHRX:shrxq
+SHUFPD:shufpd
+SHUFPS:shufps
+SQRTPD:sqrtpd
+SQRTPS:sqrtps
+SQRTSD:sqrtsd
+SQRTSS:sqrtss
+STC:stc
+STD:std
+STI:sti
+STMXCSR:stmxcsr
+STOSB:stosb
+STOSD:stosl
+STOSQ:stosq
+STOS:stosb
+STOS:stosl
+STOS:stosq
+STOS:stosw
+STOSW:stosw
+SUBPD:subpd
+SUBPS:subps
+SUBSD:subsd
+SUBSS:subss
+SUB:subb
+SUB:subl
+SUB:subq
+SUB:subw
+SWAPGS:swapgs
+SYSCALL:syscall
+SYSENTER:sysenter
+SYSEXIT:sysexit
+SYSRET:sysret
+TEST:testb
+TEST:testl
+TEST:testq
+TEST:testw
+TZCNT:tzcntl
+TZCNT:tzcntq
+TZCNT:tzcntw
+UCOMISD:ucomisd
+UCOMISS:ucomiss
+UD2:ud2
+UNPCKHPD:unpckhpd
+UNPCKHPS:unpckhps
+UNPCKLPD:unpcklpd
+UNPCKLPS:unpcklps
+VADDPD:vaddpd
+VADDPS:vaddps
+VADDSD:vaddsd
+VADDSS:vaddss
+VADDSUBPD:vaddsubpd
+VADDSUBPS:vaddsubps
+VAESDECLAST:vaesdeclast
+VAESDEC:vaesdec
+VAESENCLAST:vaesenclast
+VAESENC:vaesenc
+VAESIMC:vaesimc
+VAESKEYGENASSIST:vaeskeygenassist
+VANDNPD:vandnpd
+VANDNPS:vandnps
+VANDPD:vandpd
+VANDPS:vandps
+VBLENDPD:vblendpd
+VBLENDPS:vblendps
+VBLENDVPD:vblendvpd
+VBLENDVPS:vblendvps
+VBROADCASTF128:vbroadcastf128
+VBROADCASTI128:vpbroadcasti128
+VBROADCASTSD:vbroadcastsd
+VBROADCASTSS:vbroadcastss
+VCMPPD:vcmppd
+VCMPPS:vcmpps
+VCMPSD:vcmpsd
+VCMPSS:vcmpss
+VCOMISD:vcomisd
+VCOMISS:vcomiss
+VCVTDQ2PD:vcvtdq2pd
+VCVTDQ2PS:vcvtdq2ps
+VCVTPD2DQ:vcvtpd2dq
+VCVTPD2DQ:vcvtpd2dqx
+VCVTPD2PS:vcvtpd2ps
+VCVTPH2PS:vcvtph2ps
+VCVTPS2DQ:vcvtps2dq
+VCVTPS2PD:vcvtps2pd
+VCVTPS2PH:vcvtps2ph
+VCVTSD2SI:vcvtsd2sil
+VCVTSD2SI:vcvtsd2siq
+VCVTSD2SS:vcvtsd2ss
+VCVTSI2SD:vcvtsi2sdl
+VCVTSI2SD:vcvtsi2sdq
+VCVTSI2SS:vcvtsi2ssl
+VCVTSI2SS:vcvtsi2ssq
+VCVTSS2SD:vcvtss2sd
+VCVTSS2SI:vcvtss2sil
+VCVTSS2SI:vcvtss2siq
+VCVTTPD2DQ:vcvttpd2dq
+VCVTTPS2DQ:vcvttps2dq
+VCVTTSD2SI:vcvttsd2sil
+VCVTTSD2SI:vcvttsd2siq
+VCVTTSS2SI:vcvttss2sil
+VCVTTSS2SI:vcvttss2siq
+VDIVPD:vdivpd
+VDIVPS:vdivps
+VDIVSD:vdivsd
+VDIVSS:vdivss
+VDPPD:vdppd
+VDPPS:vdpps
+VERR:verr
+VERW:verw
+VEXTRACTF128:vextractf128
+VEXTRACTI128:vextracti128
+VEXTRACTPS:vextractps
+VFMADD132PD:vfmadd132pd
+VFMADD132PS:vfmadd132ps
+VFMADD132SD:vfmadd132sd
+VFMADD132SS:vfmadd132ss
+VFMADD213PD:vfmadd213pd
+VFMADD213PS:vfmadd213ps
+VFMADD213SD:vfmadd213sd
+VFMADD213SS:vfmadd213ss
+VFMADD231PD:vfmadd231pd
+VFMADD231PS:vfmadd231ps
+VFMADD231SD:vfmadd231sd
+VFMADD231SS:vfmadd231ss
+VFMADDSUB132PD:vfmaddsub132pd
+VFMADDSUB132PS:vfmaddsub132ps
+VFMADDSUB213PD:vfmaddsub213pd
+VFMADDSUB213PS:vfmaddsub213ps
+VFMADDSUB231PD:vfmaddsub231pd
+VFMADDSUB231PS:vfmaddsub231ps
+VFMSUB132PD:vfmsub132pd
+VFMSUB132PS:vfmsub132ps
+VFMSUB132SD:vfmsub132sd
+VFMSUB132SS:vfmsub132ss
+VFMSUB213PD:vfmsub213pd
+VFMSUB213PS:vfmsub213ps
+VFMSUB213SD:vfmsub213sd
+VFMSUB213SS:vfmsub213ss
+VFMSUB231PD:vfmsub231pd
+VFMSUB231PS:vfmsub231ps
+VFMSUB231SD:vfmsub231sd
+VFMSUB231SS:vfmsub231ss
+VFMSUBADD132PD:vfmsubadd132pd
+VFMSUBADD132PS:vfmsubadd132ps
+VFMSUBADD213PD:vfmsubadd213pd
+VFMSUBADD213PS:vfmsubadd213ps
+VFMSUBADD231PD:vfmsubadd231pd
+VFMSUBADD231PS:vfmsubadd231ps
+VFNMADD132PD:vfnmadd132pd
+VFNMADD132PS:vfnmadd132ps
+VFNMADD132SD:vfnmadd132sd
+VFNMADD132SS:vfnmadd132ss
+VFNMADD213PD:vfnmadd213pd
+VFNMADD213PS:vfnmadd213ps
+VFNMADD213SD:vfnmadd213sd
+VFNMADD213SS:vfnmadd213ss
+VFNMADD231PD:vfnmadd231pd
+VFNMADD231PS:vfnmadd231ps
+VFNMADD231SD:vfnmadd231sd
+VFNMADD231SS:vfnmadd231ss
+VFNMSUB132PD:vfnmsub132pd
+VFNMSUB132PS:vfnmsub132ps
+VFNMSUB132SD:vfnmsub132sd
+VFNMSUB132SS:vfnmsub132ss
+VFNMSUB213PD:vfnmsub213pd
+VFNMSUB213PS:vfnmsub213ps
+VFNMSUB213SD:vfnmsub213sd
+VFNMSUB213SS:vfnmsub213ss
+VFNMSUB231PD:vfnmsub231pd
+VFNMSUB231PS:vfnmsub231ps
+VFNMSUB231SD:vfnmsub231sd
+VFNMSUB231SS:vfnmsub231ss
+VGATHERDPD:vgatherdpd
+VGATHERDPS:vgatherdps
+VGATHERQPD:vgatherqpd
+VGATHERQPS:vgatherqps
+VHADDPD:vhaddpd
+VHADDPS:vhaddps
+VHSUBPD:vhsubpd
+VHSUBPS:vhsubps
+VINSERTF128:vinsertf128
+VINSERTI128:vinserti128
+VINSERTPS:vinsertps
+VLDDQU:vlddqu
+VLDMXCSR:vldmxcsr
+VMASKMOVDQU:vmaskmovdqu
+VMASKMOVPD:vmaskmovpd
+VMASKMOVPS:vmaskmovps
+VMAXPD:vmaxpd
+VMAXPS:vmaxps
+VMAXSD:vmaxsd
+VMAXSS:vmaxss
+VMINPD:vminpd
+VMINPS:vminps
+VMINSD:vminsd
+VMINSS:vminss
+VMOVAPD:vmovapd
+VMOVAPS:vmovaps
+VMOVDDUP:vmovddup
+VMOVDQA:vmovdqa
+VMOVDQU:vmovdqu
+VMOVD:vmovd
+VMOVHLPS:vmovhlps
+VMOVHPD:vmovhpd
+VMOVHPS:vmovhps
+VMOVLHPS:vmovlhps
+VMOVLPD:vmovlpd
+VMOVLPS:vmovlps
+VMOVMSKPD:vmovmskpd
+VMOVMSKPS:vmovmskps
+VMOVNTDQA:vmovntdqa
+VMOVNTDQ:vmovntdqa
+VMOVNTPD:vmovntpd
+VMOVNTPS:vmovntps
+VMOVQ:vmovq
+VMOVSD:vmovsd
+VMOVSHDUP:vmovshdup
+VMOVSLDUP:vmovsldup
+VMOVSS:vmovss
+VMOVUPD:vmovupd
+VMOVUPS:vmovups
+VMPSADBW:vmpsadbw
+VMULPD:vmulpd
+VMULPS:vmulps
+VMULSD:vmulsd
+VMULSS:vmulss
+VORPD:vorpd
+VORPS:vorps
+VPABSB:vpabsb
+VPABSD:vpabsd
+VPABSW:vpabsw
+VPACKSSDW:vpackssdw
+VPACKSSWB:vpacksswb
+VPACKUSDW:vpackusdw
+VPACKUSWB:vpackuswb
+VPADDB:vpaddb
+VPADDD:vpaddd
+VPADDQ:vpaddq
+VPADDSB:vpaddsb
+VPADDSW:vpaddsw
+VPADDUSB:vpaddusb
+VPADDUSW:vpaddusw
+VPADDW:vpaddw
+VPALIGNR:vpalignr
+VPANDN:vpandn
+VPAND:vpand
+VPAVGB:vpavgb
+VPAVGW:vpavgw
+VPBLENDD:vpblendd
+VPBLENDVB:vpblendvb
+VPBLENDW:vpblendw
+VPBROADCASTB:vpbroadcastb
+VPBROADCASTD:vpbroadcastd
+VPBROADCASTQ:vpbroadcastq
+VPBROADCASTW:vpbroadcastw
+VPCLMULQDQ:vpclmulqdq
+VPCMPEQB:vpcmpeqb
+VPCMPEQD:vpcmpeqd
+VPCMPEQQ:vpcmpeqq
+VPCMPEQW:vpcmpeqw
+VPCMPESTRI:vpcmpestri
+VPCMPESTRM:vpcmpestrm
+VPCMPGTB:vpcmpgtb
+VPCMPGTD:vpcmpgtd
+VPCMPGTQ:vpcmpgtq
+VPCMPGTQ:vpvmpgtq
+VPCMPGTW:vpcmpgtw
+VPCMPISTRI:vpcmpistri
+VPCMPISTRM:vpcmpistrm
+VPERM2F128:vperm2f128
+VPERM2I128:vperm2i128
+VPERMD:vpermd
+VPERMILPD:vpermilpd
+VPERMILPS:vpermilps
+VPERMPD:vpermpd
+VPERMPS:vpermps
+VPERMQ:vpermq
+VPEXTRB:vpextrb
+VPEXTRD:vpextrd
+VPEXTRQ:vpextrq
+VPEXTRW:vpextrw
+VPGATHERDD:vpgatherdd
+VPGATHERDQ:vpgatherdq
+VPGATHERQD:vpgatherqd
+VPGATHERQQ:vpgatherqq
+VPHADDD:vphaddd
+VPHADDSW:vphaddsw
+VPHADDW:vphaddw
+VPHMINPOSUW:vphminposuw
+VPHSUBD:vphsubd
+VPHSUBSW:vphsubsw
+VPHSUBW:vphsubw
+VPINSRB:vpinsrb
+VPINSRD:vpinsrd
+VPINSRQ:vpinsrq
+VPINSRW:vpinsrw
+VPMADDUBSW:vpmaddubsw
+VPMADDWD:vpmaddwd
+VPMASKMOVD:vpmaskmovd
+VPMASKMOVQ:vpmaskmovq
+VPMAXSB:vpmaxsb
+VPMAXSD:vpmaxsd
+VPMAXSW:vpmaxsw
+VPMAXUB:vpmaxub
+VPMAXUD:vpmaxud
+VPMAXUW:vpmaxuw
+VPMINSB:vpminsb
+VPMINSD:vpminsd
+VPMINSW:vpminsw
+VPMINUB:vpminub
+VPMINUD:vpminud
+VPMINUW:vpminuw
+VPMOVMSKB:vpmovmskb
+VPMOVSXBD:vpmovsxbd
+VPMOVSXBQ:vpmovsxbq
+VPMOVSXBW:vpmovsxbw
+VPMOVSXDQ:vpmovsxdq
+VPMOVSXWD:vpmovsxwd
+VPMOVSXWQ:vpmovsxwq
+VPMOVZXBD:vpmovzxbd
+VPMOVZXBQ:vpmovzxbq
+VPMOVZXBW:vpmovzxbw
+VPMOVZXDQ:vpmovzxdq
+VPMOVZXWD:vpmovzxwd
+VPMOVZXWQ:vpmovzxwq
+VPMULDQ:vpmuldq
+VPMULHRSW:vpmulhrsw
+VPMULHUW:vpmulhuw
+VPMULHW:vpmulhw
+VPMULLD:vpmulld
+VPMULLW:vpmullw
+VPMULUDQ:vpmuludq
+VPOR:vpor
+VPSADBW:vpsadbw
+VPSHUFB:vpshufb
+VPSHUFD:vpshufd
+VPSHUFHW:vpshufhw
+VPSHUFLW:vpshuflw
+VPSIGNB:vpsignb
+VPSIGND:vpsignd
+VPSIGNW:vpsignw
+VPSLLDQ:vpslldq
+VPSLLD:vpslld
+VPSLLQ:vpsllq
+VPSLLVD:vpsllvd
+VPSLLVQ:vpsllvq
+VPSLLW:vpsllw
+VPSRAD:vpsrad
+VPSRAVD:vpsravd
+VPSRAW:vpsraw
+VPSRLDQ:vpsrldq
+VPSRLD:vpsrld
+VPSRLQ:vpsrlq
+VPSRLVD:vpsrlvd
+VPSRLVQ:vpsrlvq
+VPSRLW:vpsrlw
+VPSUBB:vpsubb
+VPSUBD:vpsubd
+VPSUBQ:vpsubq
+VPSUBSB:vpsubsb
+VPSUBSW:vpsubsw
+VPSUBUSB:vpsubusb
+VPSUBUSW:vpsubusw
+VPSUBW:vpsubw
+VPTEST:vptest
+VPUNPCKHBW:vpunpckhbw
+VPUNPCKHDQ:vpunpckhdq
+VPUNPCKHQDQ:vpunpckhqdq
+VPUNPCKHWD:vpunpckhwd
+VPUNPCKLBW:vpunpcklbw
+VPUNPCKLDQ:vpunpckldq
+VPUNPCKLQDQ:vpunpcklqdq
+VPUNPCKLWD:vpunpcklwd
+VPXOR:vpxor
+VRCPPS:vrcpps
+VRCPSS:vrcpss
+VROUNDPD:vroundpd
+VROUNDPS:vroundps
+VROUNDSD:vroundsd
+VROUNDSS:vroundss
+VRSQRTPS:vrsqrtps
+VRSQRTSS:vrsqrtss
+VSHUFPD:vshufpd
+VSHUFPS:vshufps
+VSQRTPD:vsqrtpd
+VSQRTPS:vsqrtps
+VSQRTSD:vsqrtsd
+VSQRTSS:vsqrtss
+VSTMXCSR:vstmxcsr
+VSUBPD:vsubpd
+VSUBPS:vsubps
+VSUBSD:vsubsd
+VSUBSS:vsubss
+VTESTPD:vtestpd
+VTESTPS:vtestps
+VUCOMISD:vucomisd
+VUCOMISS:vucomiss
+VUNPCKHPD:vunpckhpd
+VUNPCKHPS:vunpckhps
+VUNPCKLPD:vunpcklpd
+VUNPCKLPS:vunpcklps
+VXORPD:vxorpd
+VXORPS:vxorps
+VZEROALL:vzeroall
+VZEROUPPER:vzeroupper
+WAIT:wait
+WRFSBASE:wrfsbase
+WRGSBASE:wrgsbase
+XABORT:xabort
+XACQUIRE:xacquire
+XADD:xaddb
+XADD:xaddl
+XADD:xaddq
+XADD:xaddw
+XBEGIN:xbegin
+XCHG:xchgb
+XCHG:xchgl
+XCHG:xchgq
+XCHG:xchgw
+XEND:xend
+XGETBV:xgetbv
+XLATB:xlatb
+XLAT:xlat
+XORPD:xorpd
+XORPS:xorps
+XOR:xorb
+XOR:xorl
+XOR:xorq
+XOR:xorw
+XRELEASE:xrelease
+XRSTOR64:xrstor64
+XRSTOR:xrstor
+XSAVE64:xsave64
+XSAVEOPT64:xsaveopt64
+XSAVEOPT:xsaveopt
+XSAVE:xsave
+XTEST:xtest
