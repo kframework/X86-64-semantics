@@ -17,13 +17,6 @@ use File::Find;
 use File::chdir;
 use Cwd;
 
-=pod
-This file is used to create the *spec.k files used for krpove.
-
-perl create_spec.pl --file  <file> --strata_path <path to circuits>
-  where file contains list of opcodes.
-=cut
-
 # Using GetOPtions
 my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
@@ -85,7 +78,6 @@ GetOptions(
     "compareother"   => \$compareother,
     "getbvfs"        => \$getbvfs,
     "getregvariant"  => \$getregvariant,
-    "comparemaps"    => \$comparemaps,
     "nightlyrun"     => \$nightlyrun,
     "getz3formula"   => \$getz3formula,
     "z3prove"        => \$z3prove,
@@ -100,41 +92,6 @@ my $sfp;
 my $removeComment;
 my $debugprint = 0;
 
-if ( "" ne $comparemaps ) {
-    my $allfile    = "docs/instruction_manuals/all.instrs";
-    my $stokefile  = "docs/relatedwork/strata/all_concrete_instructions.txt";
-    my $intelatt   = "docs/instruction_manuals/intel_att.txt";
-    my $stratafile = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
-
-    ## get intel <-> att
-    my ( $intel2att_ref, $att2intel_ref ) =
-      assocIntelATT( $intelatt, $debugprint );
-    my %intel2att = %{$intel2att_ref};
-    my %att2intel = %{$att2intel_ref};
-    print(  "Att/Intel Opcodes: "
-          . scalar( keys %{att2intel} ) . "/"
-          . scalar( keys %{intel2att} )
-          . "\n" );
-
-    my ( $all_att_ref, $all_intel_ref ) =
-      modelInstructions( $allfile, $intelatt, "keep_instruction", 0 );
-
-    my ( $stoke_att_ref, $stoke_intel_ref ) =
-      modelInstructions( $stokefile, $intelatt, "keep_instruction", 0 );
-
-    my ( $strata_att_ref, $strata_intel_ref ) =
-      modelInstructions( $stratafile, $intelatt, "keep_instruction", 0 );
-
-    # Compare file1 Vs file2
-    utils::compareMaps( $all_att_ref, $stoke_att_ref, $debugprint, "A: All B: Stoke Total" );
-
-    # Compare Stoke Vs Strata
-    utils::compareMaps( $stoke_att_ref, $strata_att_ref, $debugprint, "A: Stoke Total B: Strata" );
-
-    exit(0);
-
-}
-
 if ( "" ne $compareother ) {
     ## file names
     my $availfile = "docs/instruction_manuals/all.instrs";
@@ -146,8 +103,8 @@ if ( "" ne $compareother ) {
     my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
     my $xedfile    = "docs/relatedwork/mcsema/xed.txt";
     my $acl2file   = "docs/relatedwork/acl2/supportedOPcodes.txt";
-    my $stokefile  = "docs/relatedwork/strata/all_concrete_instructions.txt";
-    my $stokeunsuppfile = "docs/relatedwork/strata/stoke_upsupported.txt";
+    my $stokefile  = "docs/relatedwork/strata/initial_goal.instrs";
+    my $stokeunsuppfile  = "docs/relatedwork/strata/stoke_upsupported.txt";
     my $stokeunsuppfile2 = "docs/relatedwork/strata/stoke_upsupported2.txt";
 
     ## get intel <-> att
@@ -158,16 +115,6 @@ if ( "" ne $compareother ) {
     print(  " | Att/Intel Opcodes |"
           . scalar( keys %{att2intel} ) . "/"
           . scalar( keys %{intel2att} )
-          . "|\n" );
-
-    ## Get the total instructions
-    my ( $avail_att_ref, $avail_intel_ref ) =
-      modelInstructions( $availfile, $intelatt, "", 0 );
-    my %avail_att   = %{$avail_att_ref};
-    my %avail_intel = %{$avail_intel_ref};
-    print(  "| Total (att/intel) | "
-          . scalar( keys %{avail_att} ) . "/"
-          . scalar( keys %{avail_intel} )
           . "|\n" );
 
     ## Get the strata supported instr
@@ -192,9 +139,7 @@ if ( "" ne $compareother ) {
     my $acl2_intel_ref =
       modelInstructions( $acl2file, $intelatt, "inIntel", $debugprint );
     my %acl2_intel = %{$acl2_intel_ref};
-    print(  "| ACL2 Support(Intel)| "
-          . scalar( keys %acl2_intel )
-          . "|\n" );
+    print( "| ACL2 Support(Intel)| " . scalar( keys %acl2_intel ) . "|\n" );
 
     ## Get the stoke supported opcodes
     my ( $stoke_supp_att_ref, $stoke_supp_intel_ref ) =
@@ -212,24 +157,36 @@ if ( "" ne $compareother ) {
         $debugprint, "A: Stoke 2  B: McSema" );
 
     # Compare Stoke2 Vs McSema
-    utils::compareMaps( $stoke_supp_intel_ref, $strata_supp_intel_ref,
-        $debugprint, "A: Stoke 2 B: McSema" );
+    utils::compareMaps(
+        $stoke_supp_intel_ref, $strata_supp_intel_ref,
+        $debugprint,           "A: Stoke 2 B: McSema"
+    );
 
     # Compare Stoke Vs Strata
-    utils::compareMaps( $stoke_supp_intel_ref, $strata_supp_intel_ref,
-        $debugprint, "A: Stoke B: Strata" );
+    utils::compareMaps(
+        $stoke_supp_intel_ref, $strata_supp_intel_ref,
+        $debugprint,           "A: Stoke B: Strata"
+    );
 
     # Compare Stoke Vs McSema
-    utils::compareMaps( $stoke_supp_intel_ref, $mcsema_supp_intel_ref,
-        $debugprint, "A: Stoke B: McSema" );
+    utils::compareMaps(
+        $stoke_supp_intel_ref, $mcsema_supp_intel_ref,
+        $debugprint,           "A: Stoke B: McSema"
+    );
 
     ## Stoke Unsupported  Vs McSema
     my ( $stoke_us_att_ref, $stoke_us_intel_ref ) =
       modelInstructions( $stokeunsuppfile, $intelatt, "", 0 );
-    utils::compareMaps( $stoke_us_intel_ref, \%mcsema_supp_intel, $debugprint, "A: Stoke US  B: McSema" );
+    utils::compareMaps(
+        $stoke_us_intel_ref, \%mcsema_supp_intel,
+        $debugprint,         "A: Stoke US  B: McSema"
+    );
 
     # Strata Vs McSema
-    utils::compareMaps( \%strata_supp_intel, \%mcsema_supp_intel, $debugprint, "A: Strata B: McSema" );
+    utils::compareMaps(
+        \%strata_supp_intel, \%mcsema_supp_intel,
+        $debugprint,         "A: Strata B: McSema"
+    );
 
     ## Strata vector immediates Vs McSema
     my ( $strata_vectorimms_att_ref, $strata_vectorimms_intel_ref ) =
@@ -238,14 +195,18 @@ if ( "" ne $compareother ) {
         $debugprint, "A: Strata Vector Imms B: McSema" );
 
     ##  Strata vector immediates Vs Stoke Unsupported
-    utils::compareMaps( $stoke_us_intel_ref, $strata_vectorimms_intel_ref,
-        $debugprint, "A: Stoke US B: Strata Vector Imms" );
+    utils::compareMaps(
+        $stoke_us_intel_ref, $strata_vectorimms_intel_ref,
+        $debugprint,         "A: Stoke US B: Strata Vector Imms"
+    );
 
     # Compare ACL2 Vs Strata
-        utils::compareMaps(\%acl2_intel, \%strata_supp_intel, $debugprint, "A: ACL2 B: Strata");
-    
-        # Compare ACL2 Vs McSema
-        utils::compareMaps(\%acl2_intel, \%mcsema_supp_intel, $debugprint, "A: ACL2 B: McSema");
+    utils::compareMaps( \%acl2_intel, \%strata_supp_intel, $debugprint,
+        "A: ACL2 B: Strata" );
+
+    # Compare ACL2 Vs McSema
+    utils::compareMaps( \%acl2_intel, \%mcsema_supp_intel, $debugprint,
+        "A: ACL2 B: McSema" );
 
     exit(0);
 }
@@ -381,128 +342,174 @@ my @lines = <$fp>;
 
 ## Find Register Variant for a reg/imm/mem instruction
 if ( "" ne $getregvariant ) {
-    my $stokefile = "docs/relatedwork/strata/all_concrete_instructions.txt";
+    my $stokefile = "docs/relatedwork/strata/strata_unsupported.txt";
     my $intelatt  = "docs/instruction_manuals/intel_att.txt";
-    my $basefile  = "docs/relatedwork/strata/Misc/base-opcodes.txt";
+    my $basefile  = "docs/relatedwork/strata/Misc/base-instructions.txt";
     my ( $stoke_att_ref, $stoke_intel_ref ) =
       modelInstructions( $stokefile, $intelatt, "keep_instruction", 0 );
     my ( $base_att_ref, $base_intel_ref ) =
       modelInstructions( $basefile, $intelatt, "keep_instruction", 0 );
 
-    my $regVarCount = 0;
-    my $immVarCount = 0;
-    my $memVarCount = 0;
+    my $regVarCount    = 0;
+    my $immVarCount    = 0;
+    my $memVarCount    = 0;
     my $immmemVarCount = 0;
-    my $noExtendCount = 0;
-    my $extendCount = 0;
-    my $skipped = 0;
-    my $noMatchCount = 0;
-    my $matchCount = 0;
-    my $cryptoCount = 0;
-    my $x87Count = 0;
-    my $mmxCount = 0;
+    my $noExtendCount  = 0;
+    my $extendCount    = 0;
+    my $skipped        = 0;
+    my $noMatchCount   = 0;
+    my $matchCount     = 0;
+    my $cryptoCount    = 0;
+    my $x87Count       = 0;
+    my $mmxCount       = 0;
     my $callJumpsCount = 0;
-    my $sysCount = 0;
-    my $vecimmsCount = 0;
-    my $legacyCount = 0;
+    my $sysCount       = 0;
+    my $vecimmsCount   = 0;
+    my $legacyCount    = 0;
 
     my $counter = 0;
     for my $line (@lines) {
         chomp $line;
         $counter++;
 
+        my ( $regVar, $found, $imm_or_mem, $type ) =
+          getRegVaraint( $line, $base_att_ref, $debugprint );
 
-        my ( $regVar, $found, $imm_or_mem, $type ) = getRegVaraint( $line, $base_att_ref, $debugprint );
-#print "$regVar $found $imm_or_mem $type \n";
+        #print "$regVar $found $imm_or_mem $type \n";
 
-        if($imm_or_mem eq "register") {
-          $regVarCount++;  
-        } elsif($imm_or_mem eq "imm") {
-          $immVarCount++;
-        } elsif($imm_or_mem eq "mem") {
-          $memVarCount++;
-        } elsif($imm_or_mem eq "imm_mem") {
-          $immmemVarCount++;
+        if ( $imm_or_mem eq "register" ) {
+            $regVarCount++;
+        }
+        elsif ( $imm_or_mem eq "imm" ) {
+            $immVarCount++;
+        }
+        elsif ( $imm_or_mem eq "mem" ) {
+            $memVarCount++;
+        }
+        elsif ( $imm_or_mem eq "imm_mem" ) {
+            $immmemVarCount++;
         }
 
-
-        if($type eq "skipped") {
-          $skipped++;  
-          next;
-        } elsif($type eq "no_extend") {
-          $noExtendCount++;  
-          next;
-        } elsif($type eq "extend") {
-          $extendCount++;  
-          next;
-        } elsif($type eq "match") {
-          $matchCount++;
-          next;
+        if ( $type eq "skipped" ) {
+            $skipped++;
+            next;
+        }
+        elsif ( $type eq "no_extend" ) {
+            $noExtendCount++;
+            next;
+        }
+        elsif ( $type eq "extend" ) {
+            $extendCount++;
+            next;
+        }
+        elsif ( $type eq "match" ) {
+            $matchCount++;
+            next;
         }
 
-        ( $regVar, $found, $imm_or_mem, $type ) = getRegVaraint( $line, $stoke_att_ref, $debugprint );
+        ( $regVar, $found, $imm_or_mem, $type ) =
+          getRegVaraint( $line, $stoke_att_ref, $debugprint );
 
-        if($type eq "no_extend") {
-          $noExtendCount++;  
-          next;
-        } elsif($type eq "extend") {
-          $extendCount++;  
-          next;
-        } elsif($type eq "no_match") {
-          my $retVal = categorizeInstruction($line);
+        if ( $type eq "no_extend" ) {
+            $noExtendCount++;
+            next;
+        }
+        elsif ( $type eq "extend" ) {
+            $extendCount++;
+            next;
+        }
+        elsif ( $type eq "no_match" ) {
+            my $retVal = categorizeInstruction($line);
 
-          if($retVal eq "crypto") {
-            $cryptoCount ++;
-          } elsif($retVal eq "x87") {
-            $x87Count ++;
-          } elsif($retVal eq "mmx") {
-            $mmxCount ++;
-          } elsif($retVal eq "cjumps") {
-            print $line. "\n";
-            $callJumpsCount ++;
-          } elsif($retVal eq "sys") {
-            $sysCount ++;
-          } elsif($retVal eq "vecimms") {
-            print $line. "\n";
-            $vecimmsCount ++;
-          } elsif($retVal eq "legacy") {
-            $legacyCount ++;
-          } else {
-            print $line. "\n";
-            $noMatchCount++;
-          }
+            if ( $retVal eq "crypto" ) {
+                $cryptoCount++;
+            }
+            elsif ( $retVal eq "x87" ) {
+                $x87Count++;
+            }
+            elsif ( $retVal eq "mmx" ) {
+                $mmxCount++;
+            }
+            elsif ( $retVal eq "cjumps" ) {
+                print $line. "\n";
+                $callJumpsCount++;
+            }
+            elsif ( $retVal eq "sys" ) {
+                $sysCount++;
+            }
+            elsif ( $retVal eq "vecimms" ) {
+                print $line. "\n";
+                $vecimmsCount++;
+            }
+            elsif ( $retVal eq "legacy" ) {
+                $legacyCount++;
+            }
+            else {
+                print $line. "\n";
+                $noMatchCount++;
+            }
 
-        } elsif($type eq "match") {
-          $matchCount++;
-          next;
+        }
+        elsif ( $type eq "match" ) {
+            $matchCount++;
+            next;
         }
 
     }
 
-    if($counter != ($regVarCount + $immVarCount + $memVarCount + $immmemVarCount)) {
-      print $counter."\n";
-      utils::failInfo("Sanity Check 1 failed");
+    if ( $counter !=
+        ( $regVarCount + $immVarCount + $memVarCount + $immmemVarCount ) )
+    {
+        print $counter. "\n";
+        utils::failInfo("Sanity Check 1 failed");
     }
 
-    my $temp = $cryptoCount + $x87Count + $mmxCount + $callJumpsCount + $sysCount+ $vecimmsCount + $legacyCount + $noMatchCount;
-    if($counter != 
-        ($skipped + $temp + $noExtendCount + $extendCount + $matchCount )) {
-      utils::failInfo("Sanity Check 2 failed");
+    my $temp =
+      $cryptoCount +
+      $x87Count +
+      $mmxCount +
+      $callJumpsCount +
+      $sysCount +
+      $vecimmsCount +
+      $legacyCount +
+      $noMatchCount;
+    if ( $counter !=
+        ( $skipped + $temp + $noExtendCount + $extendCount + $matchCount ) )
+    {
+        utils::failInfo("Sanity Check 2 failed");
     }
 
+    print
+"| Total   | Register Only | Immediate Instructions | Memory Instructions | Both Imm and Memory |\n"
+      . "|----------------------|-----|-----|-------|-------|\n" . "|"
+      . $counter . "|"
+      . $regVarCount . "|"
+      . $immVarCount . "|"
+      . $memVarCount . "|"
+      . $immmemVarCount . "|\n\n";
 
+    print
+"| Total   | Exact Match | Generalize to Imm/Mem  w/ extension |  Generalize to Imm/Mem  w/o extension | Skipped | Unspported |\n"
+      . "|----------------------|-----|-----|--|--|--|\n" . "|"
+      . $counter . "|"
+      . $matchCount . "|"
+      . $extendCount . "|"
+      . $noExtendCount . "|"
+      . $skipped . "|"
+      . $temp . "|\n\n";
 
-    print "| Total   | Register Only | Immediate Instructions | Memory Instructions | Both Imm and Memory |\n" .
-      "|----------------------|-----|-----|-------|-------|\n" .
-      "|" . $counter . "|" .  $regVarCount . "|" . $immVarCount . "|" . $memVarCount . "|" . $immmemVarCount . "|\n\n";
-
-    print "| Total   | Exact Match | Generalize to Imm/Mem  w/ extension |  Generalize to Imm/Mem  w/o extension | Skipped | Unspported |\n" .
-      "|----------------------|-----|-----|--|--|--|\n" .
-      "|" . $counter . "|" .  $matchCount . "|" . $extendCount . "|" . $noExtendCount . "|" . $skipped . "|" . $temp . "|\n\n";
-
-    print "| Unsupported (above)   | Lagacy | System |  Vector Imm | Call/Jump/Stack | MMX | X87 | Crypto | Still Unsupported |\n" .
-      "|--|--|--|--|--|--|--|--|--|\n" .
-      "|" . $temp . "|" .  $legacyCount . "|" . $sysCount . "|" . $vecimmsCount . "|" . $callJumpsCount . "|" . $mmxCount . "|" . $x87Count . "|" . $cryptoCount . "|" . $noMatchCount .  "|\n\n";
+    print
+"| Unsupported (above)   | Lagacy | System |  Vector Imm | Call/Jump/Stack | MMX | X87 | Crypto | Still Unsupported |\n"
+      . "|--|--|--|--|--|--|--|--|--|\n" . "|"
+      . $temp . "|"
+      . $legacyCount . "|"
+      . $sysCount . "|"
+      . $vecimmsCount . "|"
+      . $callJumpsCount . "|"
+      . $mmxCount . "|"
+      . $x87Count . "|"
+      . $cryptoCount . "|"
+      . $noMatchCount . "|\n\n";
 
 }
 

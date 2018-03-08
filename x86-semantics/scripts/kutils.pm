@@ -1,4 +1,4 @@
-package kutils;
+ackage kutils;
 
 use File::Compare;
 use File::Basename;
@@ -2870,7 +2870,7 @@ sub getImmInstrs {
     my $getimmdiff = shift @_;
 
     my $allinstrs      = "docs/relatedwork/strata/generalizedImms.txt";
-    my $semanticsknown = "docs/relatedwork/strata/all_known_sema_opcodes.txt";
+    my $semanticsknown = "docs/relatedwork/strata/strata_supported.txt";
 
     ## Create a map of known semantics
     open( my $fp, "<", $semanticsknown ) or die "cannot open: $!";
@@ -4324,13 +4324,13 @@ sub assocIntelATT {
     for my $line (@lines) {
         chomp $line;
         $verifyCount++;
-        if ( $line =~ m/(\w+) (\w+) (\w+)/g ) {
+        if ( $line =~ m/(\w+):(\w+) (\w+)/g ) {
             my $intel = $1;
             my $att   = $2 . " " . $3;
             push @{ $intel2att{$intel} }, $att;
             $att2intel{$att} = $intel;
         }
-        elsif ( $line =~ m/(\w+) (\w+)/g ) {
+        elsif ( $line =~ m/(\w+):(\w+)/g ) {
             my $intel = $1;
             my $att   = $2;
             push @{ $intel2att{$intel} }, $att;
@@ -4358,111 +4358,121 @@ sub assocIntelATT {
 ## sizes[0] == imm size
 ## sizes[1] == mem size
 sub getVariant {
-    my $line          = shift @_;
-
+    my $line = shift @_;
 
     my $imm_or_mem = "";
-    my @sizes = (); 
+    my @sizes      = ();
 
-    if(($line =~ m/_imm(\d+)/) and ($line =~ m/_m(\d+)/)) {
+    if ( ( $line =~ m/_imm(\d+)/ ) and ( $line =~ m/_m(\d+)/ ) ) {
 
-      if ( $line =~ m/_imm(\d+)/ ) {
-        push @sizes, $1;
-      }
-      if ( $line =~ m/_m(\d+)/ ) {
-        push @sizes, $1;
-      }
+        if ( $line =~ m/_imm(\d+)/ ) {
+            push @sizes, $1;
+        }
+        if ( $line =~ m/_m(\d+)/ ) {
+            push @sizes, $1;
+        }
 
-      $imm_or_mem = "imm_mem";
+        $imm_or_mem = "imm_mem";
 
-    } elsif( $line =~ m/_imm(\d+)/ ) {
+    }
+    elsif ( $line =~ m/_imm(\d+)/ ) {
         push @sizes, $1;
         push @sizes, 0;
         $imm_or_mem = "imm";
-    } elsif ( $line =~ m/_m(\d+)/ ) {
+    }
+    elsif ( $line =~ m/_m(\d+)/ ) {
         push @sizes, 0;
         push @sizes, $1;
         $imm_or_mem = "mem";
-    } else {
+    }
+    else {
         push @sizes, 0;
         push @sizes, 0;
         $imm_or_mem = "register";
     }
-    
-    return ($imm_or_mem, \@sizes);
+
+    return ( $imm_or_mem, \@sizes );
 }
 
-
 sub createGuesses {
-  my $line = shift @_;
-  my $immSizes_ref = shift @_;
-  my $memSizes_ref = shift @_;
+    my $line         = shift @_;
+    my $immSizes_ref = shift @_;
+    my $memSizes_ref = shift @_;
 
-  my @immSizes = @{$immSizes_ref};
-  my @memSizes = @{$memSizes_ref};
+    my @immSizes = @{$immSizes_ref};
+    my @memSizes = @{$memSizes_ref};
 
-  my @immRepls = ();
-  my @memRepls = ();
+    my @immRepls = ();
+    my @memRepls = ();
 
-  for my $immSize (@immSizes) {
-    if(0 != $immSize) {
-      if(128 == $immSize) {
-        push @immRepls, "xmm";
-      } elsif(256 == $immSize) {
-        push @immRepls, "ymm";
-      } elsif(8 == $immSize) {
-        push @immRepls, "r8";
-        push @immRepls, "cl";
-      } else {
-        push @immRepls, "r$immSize";
-      }
+    for my $immSize (@immSizes) {
+        if ( 0 != $immSize ) {
+            if ( 128 == $immSize ) {
+                push @immRepls, "xmm";
+            }
+            elsif ( 256 == $immSize ) {
+                push @immRepls, "ymm";
+            }
+            elsif ( 8 == $immSize ) {
+                push @immRepls, "r8";
+                push @immRepls, "cl";
+            }
+            else {
+                push @immRepls, "r$immSize";
+            }
+        }
     }
-  }
 
-  for my $memSize (@memSizes) {
-    if(0 != $memSize) {
-      if(128 == $memSize) {
-        push @memRepls, "xmm";
-      } elsif(256 == $memSize) {
-        push @memRepls, "ymm";
-      } elsif(8 == $memSize) {
-        push @memRepls, "r8";
-        push @memRepls, "cl";
-      } else {
-        push @memRepls, "r$memSize";
-      }
+    for my $memSize (@memSizes) {
+        if ( 0 != $memSize ) {
+            if ( 128 == $memSize ) {
+                push @memRepls, "xmm";
+            }
+            elsif ( 256 == $memSize ) {
+                push @memRepls, "ymm";
+            }
+            elsif ( 8 == $memSize ) {
+                push @memRepls, "r8";
+                push @memRepls, "cl";
+            }
+            else {
+                push @memRepls, "r$memSize";
+            }
+        }
     }
-  }
 
-  my @returnVals = ();
-  if(0 != scalar(@immRepls) and 0 != scalar(@memRepls)) {
-    for my $immRepl (@immRepls) {
-      for my $memRepl (@memRepls) {
-        my $mod1 = $line =~ s/_imm(\d+)/_$immRepl/gr; 
-        my $mod2 = $mod1 =~ s/_m(\d+)/_$memRepl/gr; 
-        push @returnVals, $mod2;
-      }
+    my @returnVals = ();
+    if ( 0 != scalar(@immRepls) and 0 != scalar(@memRepls) ) {
+        for my $immRepl (@immRepls) {
+            for my $memRepl (@memRepls) {
+                my $mod1 = $line =~ s/_imm(\d+)/_$immRepl/gr;
+                my $mod2 = $mod1 =~ s/_m(\d+)/_$memRepl/gr;
+                push @returnVals, $mod2;
+            }
+        }
     }
-  } elsif(0 != scalar(@immRepls)) {
-    for my $immRepl (@immRepls) {
-        my $mod1 = $line =~ s/_imm(\d+)/_$immRepl/gr; 
-        push @returnVals, $mod1;
+    elsif ( 0 != scalar(@immRepls) ) {
+        for my $immRepl (@immRepls) {
+            my $mod1 = $line =~ s/_imm(\d+)/_$immRepl/gr;
+            push @returnVals, $mod1;
+        }
     }
-  } elsif(0 != scalar(@memRepls)) {
-    for my $memRepl (@memRepls) {
-        my $mod1 = $line =~ s/_m(\d+)/_$memRepl/gr; 
-        push @returnVals, $mod1;
+    elsif ( 0 != scalar(@memRepls) ) {
+        for my $memRepl (@memRepls) {
+            my $mod1 = $line =~ s/_m(\d+)/_$memRepl/gr;
+            push @returnVals, $mod1;
+        }
     }
-  }
 
-  return \@returnVals;
+    return \@returnVals;
 }
 
 sub getRegVaraint {
     my $line          = shift @_;
     my $allregmap_ref = shift @_;
-    my $debugprint = shift @_;
-#$debugprint = 1;
+    my $debugprint    = shift @_;
+
+    #$debugprint = 1;
 
     my %allregmap = %{$allregmap_ref};
 
@@ -4472,17 +4482,17 @@ sub getRegVaraint {
         return ( $allregmap{$line}[0], 1, "register", "match" );
     }
 
-    my ($imm_or_mem, $sizes_ref) = getVariant($line);
+    my ( $imm_or_mem, $sizes_ref ) = getVariant($line);
 
-    if($line =~ m/_\d+$/g) {
-      return ( "", 0, $imm_or_mem, "skipped" );
+    if ( $line =~ m/_\d+$/g ) {
+        return ( "", 0, $imm_or_mem, "skipped" );
     }
-    if($imm_or_mem eq "register") {
-      return ( "", 0, "register", "no_match" );
+    if ( $imm_or_mem eq "register" ) {
+        return ( "", 0, "register", "no_match" );
     }
 
-    my @sizes  = @{$sizes_ref};
-    my $immSize = $sizes[0]; 
+    my @sizes   = @{$sizes_ref};
+    my $immSize = $sizes[0];
     my $memSize = $sizes[1];
 
     my @guesses  = ();
@@ -4497,46 +4507,44 @@ sub getRegVaraint {
 
     #    print "$mod4\::$imm_or_mem\n";
 
-    my @guesses = ();
+    my @guesses  = ();
     my @immSizes = ();
     my @memSizes = ();
 
-
-    push @guesses, "Type No Extend";
-    push @immSizes,  $immSize;
-    push @memSizes,  $memSize;
-    if($debugprint == 1) {
-      print "$line: Type No Extend \n";
-      printArray(\@immSizes, "Imm Sizes no Extend", $debugprint);
-      printArray(\@memSizes, "Mem Sizes No Extend", $debugprint);
+    push @guesses,  "Type No Extend";
+    push @immSizes, $immSize;
+    push @memSizes, $memSize;
+    if ( $debugprint == 1 ) {
+        print "$line: Type No Extend \n";
+        printArray( \@immSizes, "Imm Sizes no Extend", $debugprint );
+        printArray( \@memSizes, "Mem Sizes No Extend", $debugprint );
     }
-    my  $retGueses_ref =  createGuesses($mod4, \@immSizes, \@memSizes); 
+    my $retGueses_ref = createGuesses( $mod4, \@immSizes, \@memSizes );
     push @guesses, @{$retGueses_ref};
-    if($debugprint == 1) {
-      printArray(\@guesses, "Guesses No Extend", $debugprint);
+    if ( $debugprint == 1 ) {
+        printArray( \@guesses, "Guesses No Extend", $debugprint );
     }
-
 
     push @guesses, "Type Extend";
     @immSizes = ();
     @memSizes = ();
-    for(my $i = $immSize; $i != 0 and  $i <= 256; $i = $i*2) {
-      push @immSizes,  $i;
+    for ( my $i = $immSize ; $i != 0 and $i <= 256 ; $i = $i * 2 ) {
+        push @immSizes, $i;
     }
-    for(my $i = $memSize; $i != 0 and $i <= 256; $i = $i*2) {
-      push @memSizes,  $i;
-    }
-
-    if($debugprint == 1) {
-      print "$line: Type Extend \n";
-      printArray(\@immSizes, "Imm Sizes Extend", $debugprint);
-      printArray(\@memSizes, "Mem Sizes Extend", $debugprint);
+    for ( my $i = $memSize ; $i != 0 and $i <= 256 ; $i = $i * 2 ) {
+        push @memSizes, $i;
     }
 
-    $retGueses_ref =  createGuesses($mod4, \@immSizes, \@memSizes); 
+    if ( $debugprint == 1 ) {
+        print "$line: Type Extend \n";
+        printArray( \@immSizes, "Imm Sizes Extend", $debugprint );
+        printArray( \@memSizes, "Mem Sizes Extend", $debugprint );
+    }
+
+    $retGueses_ref = createGuesses( $mod4, \@immSizes, \@memSizes );
     push @guesses, @{$retGueses_ref};
-    if($debugprint == 1) {
-      printArray(\@guesses, "Guesses Extend", $debugprint);
+    if ( $debugprint == 1 ) {
+        printArray( \@guesses, "Guesses Extend", $debugprint );
     }
 
     my $matchType = "";
@@ -4551,7 +4559,7 @@ sub getRegVaraint {
             next;
         }
 
-#print "-> $guess\n";
+        #print "-> $guess\n";
         if ( exists $allregmap{$guess} ) {
             $foundOne = 1;
             return ( $allregmap{$guess}[0], 1, $imm_or_mem, $matchType );
@@ -4564,45 +4572,48 @@ sub getRegVaraint {
 }
 
 sub categorizeInstruction {
-  my $line = shift @_;
-  my $retVal = "";
+    my $line   = shift @_;
+    my $retVal = "";
 
-  if($line =~ m/^vaes|^aes|^crc/g) {
-    $retVal = "crypto"; 
+    if ( $line =~ m/^vaes|^aes|^crc/g ) {
+        $retVal = "crypto";
+        return $retVal;
+    }
+
+    if ( $line =~ m/^f|emms/g ) {
+        $retVal = "x87";
+        return $retVal;
+    }
+
+    if ( $line =~ m/_mm/g ) {
+        $retVal = "mmx";
+        return $retVal;
+    }
+
+    if ( $line =~ m/call|^j|push|pop|leave|^ret/g ) {
+        $retVal = "cjumps";
+        return $retVal;
+    }
+
+    if ( $line =~
+m/moff|sreg|cld|cli|enter|lar|fence|^rep|save|rstor|clflush|cpuid|iret|^in|^out|prefetch|^x|^w/g
+      )
+    {
+        $retVal = "sys";
+        return $retVal;
+    }
+
+    if ( $line =~ m/imm8/g ) {
+        $retVal = "vecimms";
+        return $retVal;
+    }
+
+    if ( $line =~ m/lod|^sto|^cmps/g ) {
+        $retVal = "legacy";
+        return $retVal;
+    }
+
     return $retVal;
-  }
-
-  if($line =~ m/^f|emms/g) {
-    $retVal = "x87"; 
-    return $retVal;
-  }
-
-  if($line =~ m/_mm/g) {
-    $retVal = "mmx"; 
-    return $retVal;
-  }
-
-  if($line =~ m/call|^j|push|pop|leave|^ret/g) {
-    $retVal = "cjumps"; 
-    return $retVal;
-  }
-
-  if($line =~ m/moff|sreg|cld|cli|enter|lar|fence|^rep|save|rstor|clflush|cpuid|iret|^in|^out|prefetch|^x|^w/g) {
-    $retVal = "sys"; 
-    return $retVal;
-  }
-
-  if($line =~ m/imm8/g) {
-    $retVal = "vecimms"; 
-    return $retVal;
-  }
-
-  if($line =~ m/lod|^sto|^cmps/g) {
-    $retVal = "legacy"; 
-    return $retVal;
-  }
-
-  return $retVal;
 }
 
 1;
