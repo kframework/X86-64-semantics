@@ -226,7 +226,6 @@ vpbroadcastq_xmm_xmm
 vpbroadcastq_ymm_xmm
 vpbroadcastw_xmm_xmm
 vpbroadcastw_ymm_xmm
-vpvmpgtq_ymm_ymm_ymm
 vpermd_ymm_ymm_ymm
 vpermilpd_xmm_xmm_xmm
 vpermilpd_ymm_ymm_ymm
