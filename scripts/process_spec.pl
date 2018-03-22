@@ -11,11 +11,12 @@ use Cwd;
 use File::Path qw(make_path remove_tree);
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
-use lib qw( scripts/ );
+use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
 use File::Find;
 use File::chdir;
 use Cwd;
+use threads;
 
 # Using GetOPtions
 my $file        = "";
@@ -26,6 +27,10 @@ my $instantiated_instr_path =
 #my $stoke_debug_circuit = "/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit";
 my $stoke_debug_circuit =
   "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
+my $stoke_check_circuit =
+  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
+my $functions_dir  = "/home/sdasgup3/Github/strata-data/data-regs/functions";
+my $testcases      = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
 my $help           = "";
 my $stratum        = "";
 my $readmod        = "";
@@ -54,37 +59,43 @@ my $compile        = "";
 my $compareintel   = "";
 my $comparemaps    = "";
 my $getbvfs        = "";
+my $check_stoke    = "";
+my $match_strata_stoke = "";
+my $single_thread      = "";
 
 GetOptions(
-    "help"           => \$help,
-    "file:s"         => \$file,
-    "stratum"        => \$stratum,
-    "readmod"        => \$readmod,
-    "createspec"     => \$createspec,
-    "getoplist"      => \$getoplist,
-    "kprove"         => \$kprove,
-    "postprocess"    => \$postprocess,
-    "all"            => \$all,
-    "genincludes"    => \$genincludes,
-    "checksanity"    => \$checksanity,
-    "gitdiff"        => \$gitdiff,
-    "diffwithstrata" => \$diffwithstrata,
-    "speconly"       => \$speconly,
-    "gitadd"         => \$gitadd,
-    "gitco"          => \$gitco,
-    "getimm"         => \$getimm,
-    "getimmdiff"     => \$getimmdiff,
-    "getmem"         => \$getmem,
-    "compareintel"   => \$compareintel,
-    "getbvfs"        => \$getbvfs,
-    "getregvariant"  => \$getregvariant,
-    "nightlyrun"     => \$nightlyrun,
-    "getz3formula"   => \$getz3formula,
-    "z3prove"        => \$z3prove,
-    "useuif"         => \$useuif,
-    "compile"        => \$compile,
-    "start:s"        => \$start,
-    "strata_path:s"  => \$strata_path,
+    "help"               => \$help,
+    "file:s"             => \$file,
+    "stratum"            => \$stratum,
+    "readmod"            => \$readmod,
+    "createspec"         => \$createspec,
+    "getoplist"          => \$getoplist,
+    "kprove"             => \$kprove,
+    "postprocess"        => \$postprocess,
+    "all"                => \$all,
+    "genincludes"        => \$genincludes,
+    "checksanity"        => \$checksanity,
+    "gitdiff"            => \$gitdiff,
+    "diffwithstrata"     => \$diffwithstrata,
+    "speconly"           => \$speconly,
+    "gitadd"             => \$gitadd,
+    "gitco"              => \$gitco,
+    "getimm"             => \$getimm,
+    "getimmdiff"         => \$getimmdiff,
+    "getmem"             => \$getmem,
+    "check_stoke"        => \$check_stoke,
+    "match_strata_stoke" => \$match_strata_stoke,
+    "compareintel"       => \$compareintel,
+    "getbvfs"            => \$getbvfs,
+    "getregvariant"      => \$getregvariant,
+    "nightlyrun"         => \$nightlyrun,
+    "getz3formula"       => \$getz3formula,
+    "z3prove"            => \$z3prove,
+    "useuif"             => \$useuif,
+    "compile"            => \$compile,
+    "start:s"            => \$start,
+    "single_thread"      => \$single_thread,
+    "strata_path:s"      => \$strata_path,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -307,6 +318,81 @@ if ( "" ne $getmem ) {
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines = <$fp>;
+
+if ( "" ne $check_stoke ) {
+    my @thrds = utils::initThreads( scalar(@lines) );
+    my $i     = 0;
+    for my $line (@lines) {
+        chomp $line;
+        #print $line. "\n";
+        if ( "" eq $single_thread ) {
+            $thrds[$i] = threads->create( \&threadop_check_stoke, $line, );
+        }
+        else {
+            threadop_check_stoke($line);
+        }
+        $i++;
+    }
+    if ( "" eq $single_thread ) {
+        foreach (@thrds) {
+            $_->join();
+        }
+    }
+    exit(0);
+}
+
+sub threadop_check_stoke {
+    my $file = shift @_;
+    my $id   = "";
+    if ( "" eq $single_thread ) {
+        $id = threads->tid();
+        print "Thread $id start: $file\n";
+    }
+
+    my $target = "$instantiated_instr_path/$file/$file.s";
+    my $meta   = "$instantiated_instr_path/$file/$file.meta.json";
+    open( my $fpt, "<", $meta ) or die "Can't open $meta: $!";
+    my @linest = <$fpt>;
+    close($fpt);
+
+    my $def_in   = "";
+    my $live_out = "";
+    for my $line (@linest) {
+        chomp $line;
+
+        #print $line . "\n";
+        if ( $line =~ m/"def_in":\s*(.*),/g ) {
+            $def_in = $1;
+            next;
+        }
+        if ( $line =~ m/"live_out":\s*(.*),/g ) {
+            $live_out = $1;
+            next;
+        }
+    }
+
+    execute(
+"$stoke_check_circuit --target $target --functions $functions_dir --testcases $testcases --def_in $def_in --live_out $live_out",
+        1
+    );
+
+    if ( "" eq $single_thread ) {
+        print "Thread $id done!\n";
+        threads->exit();
+    }
+    return;
+}
+
+if ( "" ne $match_strata_stoke ) {
+    my $circuit_dir =
+      "/home/sdasgup3/Github/strata-data/output-strata/circuits";
+    my $specgen = "/home/sdasgup3/Github/strata/stoke/bin/specgen";
+    for my $line (@lines) {
+        chomp $line;
+        execute("$specgen compare --circuit_dir $circuit_dir --opcode $line");
+    }
+    exit(0);
+}
 
 ## Find Register Variant for a reg/imm/mem instruction
 if ( "" ne $getregvariant ) {
