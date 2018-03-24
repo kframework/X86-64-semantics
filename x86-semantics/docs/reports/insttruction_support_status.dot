@@ -43,8 +43,8 @@ digraph graphname {
   // Registers
   REGS_STRATA [label="Stratified\n692"] 
   REGS_UNSTRATA [label="Strata Unsupported\n391"] 
-  REGS_UNSTRATA_STOKED [label="Strata Unsupported, Stoked\n262"] 
-  REGS_TBI [label="To Be Implemented\n129"]
+  REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#4\nStrata Unsupported, Stoked\n262"] 
+  REGS_TBI [fontcolor=red; color=red; label="#5\nTo Be Implemented\n129"]
 
   REGS -> REGS_STRATA
   REGS -> REGS_UNSTRATA
@@ -67,13 +67,13 @@ digraph graphname {
   /***************************************************/
   // Immediates
   G [label="Generalized from regs\nwo/w extend: 107/83\n190"] 
-  UG [label="UnGeneralized\n118"] 
   S1 [label="Stratified\n28"] 
-  S2 [label="Stratified\n78"] 
   S [label="Strata\n106"] 
-  TBI [label="To Be Implemented\n31"]
+  UG [label="UnGeneralized\n118"] 
   UGUS [label="UnGeneralized UnStratified\n40"]
-  UGUSS [label="UnGeneralized UnStratified Stoked \n9"]
+  S2 [fontcolor=red; color=red; label="#1\nStratified\n78"] 
+  UGUSS [fontcolor=red; color=red; label="#2\nUnGeneralized UnStratified Stoked \n9"]
+  TBI [fontcolor=red; color=red; label="#3\nTo Be Implemented\n31"]
 
   IMMS -> G
   IMMS -> UG
