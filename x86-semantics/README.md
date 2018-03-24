@@ -1,4 +1,4 @@
-![Dependency tree of Source Code](docs/import_graph.png)
+![Dependency tree of Source Code](https://github.com/sdasgup3/binary-decompilation/blob/master/x86-semantics/docs/reports/import_graph.png)
 
 ## To compile the x86-64 semantics encoded in K
 
