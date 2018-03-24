@@ -1,0 +1,96 @@
+// dot -Tps imm_stats.dot -o imm_stats.ps
+digraph graphname {
+    
+      
+  T [label="Total\n3868"]
+    SYS      [label="System\n203"] 
+    CRYPTO      [label="Crypto\n35"] 
+    X87      [label="X87\n155"] 
+    BASE      [label="Base\n51"] 
+    REM        [label="Remaining\n2878"]
+    US      [label="Sanbox Unsupported\n103"] 
+    JMP      [label="Jump\n263"] 
+    MMX      [label="mmx operand\n180"] 
+  
+  T -> SYS  
+  T -> CRYPTO  
+  T -> X87  
+  T -> US  
+  T -> BASE  
+  T -> REM
+  T -> JMP  
+  T -> MMX  
+
+  {rank = same; T; }
+  {rank = same; SYS; CRYPTO; X87; US; JMP; MMX;  }
+  {rank = same; REM, BASE}
+
+  /***************************************************/
+  // Remaining
+
+  DUP      [label="Duplicate\n120"] 
+  MEM      [label="Memory\n1367"] 
+  IMMS [label="Immediates\n308"]
+  REGS [label="Registers\n1083"]
+
+  REM -> DUP
+  REM -> MEM
+  REM -> IMMS
+  REM -> REGS
+  {rank = same; DUP; MEM; IMMS; REGS;}
+
+  /***************************************************/
+  // Registers
+  REGS_STRATA [label="Stratified\n692"] 
+  REGS_UNSTRATA [label="Strata Unsupported\n391"] 
+  REGS_UNSTRATA_STOKED [label="Strata Unsupported, Stoked\n262"] 
+  REGS_TBI [label="To Be Implemented\n129"]
+
+  REGS -> REGS_STRATA
+  REGS -> REGS_UNSTRATA
+  REGS_UNSTRATA -> REGS_UNSTRATA_STOKED
+  REGS_UNSTRATA -> REGS_TBI
+
+  {rank = same; REGS_STRATA; REGS_UNSTRATA; }
+  {rank = same; REGS_UNSTRATA_STOKED; REGS_TBI; }
+
+  /***************************************************/
+  // Memory
+  MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n1185"]
+  MEM_UG [label="UnGeneralized\n182"]
+
+  MEM -> MEM_G
+  MEM -> MEM_UG
+
+  {rank = same; MEM_UG; MEM_G; }
+
+  /***************************************************/
+  // Immediates
+  G [label="Generalized from regs\nwo/w extend: 107/83\n190"] 
+  UG [label="UnGeneralized\n118"] 
+  S1 [label="Stratified\n28"] 
+  S2 [label="Stratified\n78"] 
+  S [label="Strata\n106"] 
+  TBI [label="To Be Implemented\n31"]
+  UGUS [label="UnGeneralized UnStratified\n40"]
+  UGUSS [label="UnGeneralized UnStratified Stoked \n9"]
+
+  IMMS -> G
+  IMMS -> UG
+
+  G -> S1 -> S
+  G -> 162
+  UG -> S2 -> S
+  UG -> UGUS -> UGUSS
+  UGUS -> TBI
+
+  {rank = same; IMMS; }
+  {rank = same; G; UG; }
+  {rank = same; S1; S2; UGUS }
+  {rank = same; S; TBI  }
+
+
+
+
+
+ }
