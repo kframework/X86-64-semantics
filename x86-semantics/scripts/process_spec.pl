@@ -320,23 +320,55 @@ open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines = <$fp>;
 
 if ( "" ne $check_stoke ) {
-    my @thrds = utils::initThreads( scalar(@lines) );
-    my $i     = 0;
-    for my $line (@lines) {
-        chomp $line;
-        #print $line. "\n";
-        if ( "" eq $single_thread ) {
-            $thrds[$i] = threads->create( \&threadop_check_stoke, $line, );
+    my $cores_used = 6;
+    my @thrds      = utils::initThreads( scalar(@lines) );
+    my $i          = 0;
+    my $remaining  = scalar(@lines);
+    my $size       = scalar(@lines);
+
+    for ( my $k = 0 ; $k < $size ; $k = $k + $cores_used ) {
+        if ( $k + $cores_used - 1 < $size ) {
+
+            utils::info("Firing $cores_used.");
+
+            my $start = $i;
+            for ( my $j = $i ; $j < $start + $cores_used ; $j++ ) {
+                my $line = $lines[$i];
+                chomp $line;
+
+                if ( "" eq $single_thread ) {
+                    $thrds[$i] =
+                      threads->create( \&threadop_check_stoke, $line );
+                }
+                else {
+                    threadop_check_stoke($line);
+                }
+                $i++;
+            }
+
+            if ( "" eq $single_thread ) {
+                for ( my $j = $start ; $j < $i ; $j++ ) {
+                    $thrds[$j]->join();
+                }
+            }
         }
         else {
-            threadop_check_stoke($line);
+            utils::info( "Firing Last " . ( $size - $i ) );
+            my $start = $i;
+            for ( my $j = $i ; $j < $size ; $j++ ) {
+                my $line = $lines[$i];
+                chomp $line;
+                $thrds[$i] = threads->create( \&threadop_check_stoke, $line );
+                $i++;
+            }
+
+            if ( "" eq $single_thread ) {
+                for ( my $j = $start ; $j < $i ; $j++ ) {
+                    $thrds[$j]->join();
+                }
+            }
         }
-        $i++;
-    }
-    if ( "" eq $single_thread ) {
-        foreach (@thrds) {
-            $_->join();
-        }
+
     }
     exit(0);
 }
@@ -377,7 +409,7 @@ sub threadop_check_stoke {
     );
 
     if ( "" eq $single_thread ) {
-        print "Thread $id done!\n";
+        print "Thread $id done!: $file\n";
         threads->exit();
     }
     return;
@@ -389,7 +421,8 @@ if ( "" ne $match_strata_stoke ) {
     my $specgen = "/home/sdasgup3/Github/strata/stoke/bin/specgen";
     for my $line (@lines) {
         chomp $line;
-        execute("$specgen compare --circuit_dir $circuit_dir --opcode $line");
+        execute( "$specgen compare --circuit_dir $circuit_dir --opcode $line",
+            1 );
     }
     exit(0);
 }
