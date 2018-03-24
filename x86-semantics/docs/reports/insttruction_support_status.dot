@@ -43,8 +43,8 @@ digraph graphname {
   // Registers
   REGS_STRATA [label="Stratified\n692"] 
   REGS_UNSTRATA [label="Strata Unsupported\n391"] 
-  REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#4\nStrata Unsupported, Stoked\n262"] 
-  REGS_TBI [fontcolor=red; color=red; label="#5\nTo Be Implemented\n129"]
+  REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStrata Unsupported, Stoked\n262"] 
+  REGS_TBI [fontcolor=red; color=red; label="#2\nTo Be Implemented\n129"]
 
   REGS -> REGS_STRATA
   REGS -> REGS_UNSTRATA
@@ -71,9 +71,11 @@ digraph graphname {
   S [label="Strata\n106"] 
   UG [label="UnGeneralized\n118"] 
   UGUS [label="UnGeneralized UnStratified\n40"]
-  S2 [fontcolor=red; color=red; label="#1\nStratified\n78"] 
-  UGUSS [fontcolor=red; color=red; label="#2\nUnGeneralized UnStratified Stoked \n9"]
-  TBI [fontcolor=red; color=red; label="#3\nTo Be Implemented\n31"]
+  S2 [label="Stratified\n78"] 
+  UGUSS [fontcolor=red; color=red; label="#3\nUnGeneralized UnStratified Stoked \n9"]
+  TBI [fontcolor=red; color=red; label="#4\nTo Be Implemented\n31"]
+  S2_STOKED [fontcolor=red; color=red; label="#5\nStratified & Stoked\n15"]
+  S2_UNSTOKED [fontcolor=red; color=red; label="#6\nStratified & Not Stoked\n63"]
 
   IMMS -> G
   IMMS -> UG
@@ -83,11 +85,14 @@ digraph graphname {
   UG -> S2 -> S
   UG -> UGUS -> UGUSS
   UGUS -> TBI
+  S2 -> S2_STOKED
+  S2 -> S2_UNSTOKED
 
   {rank = same; IMMS; }
   {rank = same; G; UG; }
   {rank = same; S1; S2; UGUS }
   {rank = same; S; TBI  }
+  {rank = same; S2_STOKED;S2_UNSTOKED   }
 
 
 
