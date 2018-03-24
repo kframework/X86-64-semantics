@@ -1,0 +1,9 @@
+imull_r32_r32_imm32
+imull_r32_r32_imm8
+imulq_r64_r64_imm32
+imulq_r64_r64_imm8
+imulw_r16_r16_imm16
+imulw_r16_r16_imm8
+pushq_imm16
+pushq_imm32
+pushq_imm8
