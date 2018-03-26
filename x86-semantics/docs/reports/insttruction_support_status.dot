@@ -66,7 +66,7 @@ digraph instr_supprt {
   subgraph cluster_1 {
     label =  "Memory"
     style=filled;
-    color = cornsilk;
+    color = lightpink;
 
     MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n1185"]
     MEM_UG [label="UnGeneralized\n182"]
@@ -83,7 +83,7 @@ digraph instr_supprt {
   subgraph cluster_2 {
     label =  "Immediate";
     style=filled;
-    color = lightpink;
+    color = cornsilk;
 
     G [label="Generalized from Regs\nwo/w extend: 107/83\n190"] 
     S1 [label="Stratified\n28"] 
