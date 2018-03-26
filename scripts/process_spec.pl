@@ -62,40 +62,42 @@ my $getbvfs        = "";
 my $check_stoke    = "";
 my $match_strata_stoke = "";
 my $single_thread      = "";
+my $instructions_path  = "";
 
 GetOptions(
-    "help"               => \$help,
-    "file:s"             => \$file,
-    "stratum"            => \$stratum,
-    "readmod"            => \$readmod,
-    "createspec"         => \$createspec,
-    "getoplist"          => \$getoplist,
-    "kprove"             => \$kprove,
-    "postprocess"        => \$postprocess,
-    "all"                => \$all,
-    "genincludes"        => \$genincludes,
-    "checksanity"        => \$checksanity,
-    "gitdiff"            => \$gitdiff,
-    "diffwithstrata"     => \$diffwithstrata,
-    "speconly"           => \$speconly,
-    "gitadd"             => \$gitadd,
-    "gitco"              => \$gitco,
-    "getimm"             => \$getimm,
-    "getimmdiff"         => \$getimmdiff,
-    "getmem"             => \$getmem,
-    "check_stoke"        => \$check_stoke,
-    "match_strata_stoke" => \$match_strata_stoke,
-    "compareintel"       => \$compareintel,
-    "getbvfs"            => \$getbvfs,
-    "getregvariant"      => \$getregvariant,
-    "nightlyrun"         => \$nightlyrun,
-    "getz3formula"       => \$getz3formula,
-    "z3prove"            => \$z3prove,
-    "useuif"             => \$useuif,
-    "compile"            => \$compile,
-    "start:s"            => \$start,
-    "single_thread"      => \$single_thread,
-    "strata_path:s"      => \$strata_path,
+    "help"                => \$help,
+    "file:s"              => \$file,
+    "stratum"             => \$stratum,
+    "readmod"             => \$readmod,
+    "createspec"          => \$createspec,
+    "getoplist"           => \$getoplist,
+    "kprove"              => \$kprove,
+    "postprocess"         => \$postprocess,
+    "all"                 => \$all,
+    "genincludes"         => \$genincludes,
+    "checksanity"         => \$checksanity,
+    "gitdiff"             => \$gitdiff,
+    "diffwithstrata"      => \$diffwithstrata,
+    "speconly"            => \$speconly,
+    "gitadd"              => \$gitadd,
+    "gitco"               => \$gitco,
+    "getimm"              => \$getimm,
+    "getimmdiff"          => \$getimmdiff,
+    "getmem"              => \$getmem,
+    "check_stoke"         => \$check_stoke,
+    "match_strata_stoke"  => \$match_strata_stoke,
+    "compareintel"        => \$compareintel,
+    "getbvfs"             => \$getbvfs,
+    "getregvariant"       => \$getregvariant,
+    "nightlyrun"          => \$nightlyrun,
+    "getz3formula"        => \$getz3formula,
+    "z3prove"             => \$z3prove,
+    "useuif"              => \$useuif,
+    "compile"             => \$compile,
+    "start:s"             => \$start,
+    "single_thread"       => \$single_thread,
+    "strata_path:s"       => \$strata_path,
+    "instructions_path:s" => \$instructions_path,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -379,6 +381,10 @@ sub threadop_check_stoke {
     if ( "" eq $single_thread ) {
         $id = threads->tid();
         print "Thread $id start: $file\n";
+    }
+
+    if ( "" ne $instructions_path ) {
+        $instantiated_instr_path = $instructions_path;
     }
 
     my $target = "$instantiated_instr_path/$file/$file.s";

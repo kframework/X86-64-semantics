@@ -1,5 +1,5 @@
 // dot -Tps imm_stats.dot -o imm_stats.ps
-digraph graphname {
+digraph instr_supprt {
     
       
   T [label="Total\n3868"]
@@ -41,61 +41,78 @@ digraph graphname {
 
   /***************************************************/
   // Registers
-  REGS_STRATA [label="Stratified\n692"] 
-  REGS_UNSTRATA [label="Strata Unsupported\n391"] 
-  REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStrata Unsupported, Stoked\n262"] 
-  REGS_TBI [fontcolor=red; color=red; label="#2\nTo Be Implemented\n129"]
+  subgraph cluster_0 {
+    label =  "Register"
+    style=filled;
+    color = cadetblue1;
 
-  REGS -> REGS_STRATA
-  REGS -> REGS_UNSTRATA
-  REGS_UNSTRATA -> REGS_UNSTRATA_STOKED
-  REGS_UNSTRATA -> REGS_TBI
+    REGS_STRATA [label="Stratified\n692"] 
+    REGS_UNSTRATA [label="Strata Unsupported\n391"] 
+    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStrata Unsupported, Stoked\n262"] 
+    REGS_TBI [fontcolor=red; color=red; label="#2\nTo Be Implemented\n129"]
 
-  {rank = same; REGS_STRATA; REGS_UNSTRATA; }
-  {rank = same; REGS_UNSTRATA_STOKED; REGS_TBI; }
+    REGS -> REGS_STRATA
+    REGS -> REGS_UNSTRATA
+    REGS_UNSTRATA -> REGS_UNSTRATA_STOKED
+    REGS_UNSTRATA -> REGS_TBI
+
+    {rank = same; REGS_STRATA; REGS_UNSTRATA; }
+    {rank = same; REGS_UNSTRATA_STOKED; REGS_TBI; }
+  }
+  /***************************************************/
 
   /***************************************************/
   // Memory
-  MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n1185"]
-  MEM_UG [label="UnGeneralized\n182"]
+  subgraph cluster_1 {
+    label =  "Memory"
+    style=filled;
+    color = cornsilk;
 
-  MEM -> MEM_G
-  MEM -> MEM_UG
+    MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n1185"]
+    MEM_UG [label="UnGeneralized\n182"]
 
-  {rank = same; MEM_UG; MEM_G; }
+    MEM -> MEM_G
+    MEM -> MEM_UG
 
+    {rank = same; MEM_UG; MEM_G; }
+  }
   /***************************************************/
-  // Immediates
-  G [label="Generalized from regs\nwo/w extend: 107/83\n190"] 
-  S1 [label="Stratified\n28"] 
-  S [label="Strata\n106"] 
-  UG [label="UnGeneralized\n118"] 
-  UGUS [label="UnGeneralized UnStratified\n40"]
-  S2 [label="Stratified\n78"] 
-  UGUSS [fontcolor=red; color=red; label="#3\nUnGeneralized UnStratified Stoked \n9"]
-  TBI [fontcolor=red; color=red; label="#4\nTo Be Implemented\n31"]
-  S2_STOKED [fontcolor=red; color=red; label="#5\nStratified & Stoked\n15"]
-  S2_UNSTOKED [fontcolor=red; color=red; label="#6\nStratified & Not Stoked\n63"]
 
-  IMMS -> G
-  IMMS -> UG
+ /***************************************************/
+ // Immediates
+  subgraph cluster_2 {
+    label =  "Immediate";
+    style=filled;
+    color = lightpink;
 
-  G -> S1 -> S
-  G -> 162
-  UG -> S2 -> S
-  UG -> UGUS -> UGUSS
-  UGUS -> TBI
-  S2 -> S2_STOKED
-  S2 -> S2_UNSTOKED
+    G [label="Generalized from Regs\nwo/w extend: 107/83\n190"] 
+    S1 [label="Stratified\n28"] 
+    S [label="Strata\n106"] 
+    UG [label="UnGeneralized\n118"] 
+    UGUS [label="UnGeneralized UnStratified\n40"]
+    S2 [label="Stratified\n78"] 
+    UGUSS [fontcolor=red; color=red; label="#3\nUnGeneralized UnStratified Stoked \n9"]
+    TBI [fontcolor=red; color=red; label="#4\nTo Be Implemented\n31"]
+    S2_STOKED [fontcolor=red; color=red; label="#5\nStratified & Stoked\n15"]
+    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nStratified & Not Stoked\n63"]
 
-  {rank = same; IMMS; }
-  {rank = same; G; UG; }
-  {rank = same; S1; S2; UGUS }
-  {rank = same; S; TBI  }
-  {rank = same; S2_STOKED;S2_UNSTOKED   }
+    IMMS -> G
+    IMMS -> UG
 
+    G -> S1 -> S
+    G -> 162
+    UG -> S2 -> S
+    UG -> UGUS -> UGUSS
+    UGUS -> TBI
+    S2 -> S2_STOKED
+    S2 -> S2_UNSTOKED
 
-
-
+    {rank = same; IMMS; }
+    {rank = same; G; UG; }
+    {rank = same; S1; S2; UGUS }
+    {rank = same; S; TBI  }
+    {rank = same; S2_STOKED;S2_UNSTOKED   }
+  }
+ /***************************************************/
 
  }
