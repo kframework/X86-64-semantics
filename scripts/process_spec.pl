@@ -23,81 +23,91 @@ my $file        = "";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+my $script = "~/x86-semantics/scripts/process_spec.pl";
 
-#my $stoke_debug_circuit = "/home/sdasgup3/Install/strata/stoke/bin/stoke_debug_circuit";
-my $stoke_debug_circuit =
-  "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
 my $stoke_check_circuit =
   "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
-my $functions_dir  = "/home/sdasgup3/Github/strata-data/data-regs/functions";
-my $testcases      = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
-my $help           = "";
-my $stratum        = "";
-my $readmod        = "";
-my $createspec     = "";
-my $postprocess    = "";
-my $kprove         = "";
-my $getoplist      = "";
-my $all            = "";
-my $genincludes    = "";
-my $checksanity    = "";
-my $gitdiff        = "";
-my $diffwithstrata = "";
-my $gitadd         = "";
-my $gitco          = "";
-my $speconly       = "";
-my $nightlyrun     = "";
-my $start          = "";
-my $getimm         = "";
-my $getimmdiff     = "";
-my $getmem         = "";
-my $getz3formula   = "";
-my $z3prove        = "";
-my $useuif         = "";
-my $getregvariant  = "";
-my $compile        = "";
-my $compareintel   = "";
-my $comparemaps    = "";
-my $getbvfs        = "";
-my $check_stoke    = "";
-my $match_strata_stoke = "";
-my $single_thread      = "";
-my $instructions_path  = "";
+my $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
+
+my $testcases = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
+
+#my $testcases = "~/Junk/TCS/testcases_100.tc";
+
+my $help                 = "";
+my $stratum              = "";
+my $readmod              = "";
+my $createspec           = "";
+my $postprocess          = "";
+my $kprove               = "";
+my $getoplist            = "";
+my $all                  = "";
+my $genincludes          = "";
+my $checksanity          = "";
+my $gitdiff              = "";
+my $diffwithstrata       = "";
+my $gitadd               = "";
+my $gitco                = "";
+my $speconly             = "";
+my $nightlyrun           = "";
+my $start                = "";
+my $getimm               = "";
+my $getimmdiff           = "";
+my $getmem               = "";
+my $getz3formula         = "";
+my $z3prove              = "";
+my $useuif               = "";
+my $getregvariant        = "";
+my $compile              = "";
+my $compareintel         = "";
+my $comparemaps          = "";
+my $getbvfs              = "";
+my $check_stoke          = "";
+my $match_stoke          = "";
+my $single_thread        = "";
+my $instructions_path    = "";
+my $prepare_concrete_imm = "";
+my $check_stoke_imm      = "";
+my $match_stoke_imm      = "";
+my $prefix               = "";
 
 GetOptions(
-    "help"                => \$help,
-    "file:s"              => \$file,
-    "stratum"             => \$stratum,
-    "readmod"             => \$readmod,
-    "createspec"          => \$createspec,
-    "getoplist"           => \$getoplist,
-    "kprove"              => \$kprove,
-    "postprocess"         => \$postprocess,
-    "all"                 => \$all,
-    "genincludes"         => \$genincludes,
-    "checksanity"         => \$checksanity,
-    "gitdiff"             => \$gitdiff,
-    "diffwithstrata"      => \$diffwithstrata,
-    "speconly"            => \$speconly,
-    "gitadd"              => \$gitadd,
-    "gitco"               => \$gitco,
-    "getimm"              => \$getimm,
-    "getimmdiff"          => \$getimmdiff,
-    "getmem"              => \$getmem,
-    "check_stoke"         => \$check_stoke,
-    "match_strata_stoke"  => \$match_strata_stoke,
-    "compareintel"        => \$compareintel,
-    "getbvfs"             => \$getbvfs,
-    "getregvariant"       => \$getregvariant,
-    "nightlyrun"          => \$nightlyrun,
-    "getz3formula"        => \$getz3formula,
-    "z3prove"             => \$z3prove,
-    "useuif"              => \$useuif,
-    "compile"             => \$compile,
-    "start:s"             => \$start,
-    "single_thread"       => \$single_thread,
-    "strata_path:s"       => \$strata_path,
-    "instructions_path:s" => \$instructions_path,
+    "help"                 => \$help,
+    "file:s"               => \$file,
+    "stratum"              => \$stratum,
+    "readmod"              => \$readmod,
+    "createspec"           => \$createspec,
+    "getoplist"            => \$getoplist,
+    "kprove"               => \$kprove,
+    "postprocess"          => \$postprocess,
+    "all"                  => \$all,
+    "genincludes"          => \$genincludes,
+    "checksanity"          => \$checksanity,
+    "gitdiff"              => \$gitdiff,
+    "diffwithstrata"       => \$diffwithstrata,
+    "speconly"             => \$speconly,
+    "gitadd"               => \$gitadd,
+    "gitco"                => \$gitco,
+    "getimm"               => \$getimm,
+    "getimmdiff"           => \$getimmdiff,
+    "getmem"               => \$getmem,
+    "check_stoke"          => \$check_stoke,
+    "prepare_concrete_imm" => \$prepare_concrete_imm,
+    "check_stoke_imm"      => \$check_stoke_imm,
+    "match_stoke"          => \$match_stoke,
+    "match_stoke_imm"      => \$match_stoke_imm,
+    "compareintel"         => \$compareintel,
+    "getbvfs"              => \$getbvfs,
+    "getregvariant"        => \$getregvariant,
+    "nightlyrun"           => \$nightlyrun,
+    "getz3formula"         => \$getz3formula,
+    "z3prove"              => \$z3prove,
+    "useuif"               => \$useuif,
+    "compile"              => \$compile,
+    "start:s"              => \$start,
+    "single_thread"        => \$single_thread,
+    "strata_path:s"        => \$strata_path,
+    "instructions_path:s"  => \$instructions_path,
+    "prefix:s"             => \$prefix,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -303,7 +313,6 @@ if ( "" ne $nightlyrun ) {
         $cmd = $cmd
           . "./scripts/process_spec.pl --file $file -all 1> $file.all.log 2>&1 ; ./scripts/run.pl --compile ; ";
     }
-
     execute( $cmd, 1 );
     exit(0);
 }
@@ -321,8 +330,112 @@ if ( "" ne $getmem ) {
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines = <$fp>;
 
+######################################################
+if ( "" ne $prepare_concrete_imm ) {
+    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    if ( "" eq $prefix ) {
+        $prefix = "check_stoke";
+    }
+    for my $line (@lines) {
+        chomp $line;
+        my $workdir = "imm_instructions/$line";
+        print "\n\nPreparing workdir $workdir\n";
+        execute( "mkdir -p $workdir", 1 );
+        my $check_stoke_text = "$workdir/$prefix.txt";
+
+        open( my $scfp, ">", $check_stoke_text )
+          or die "cannot open: $!";
+        for ( my $i = 0 ; $i < 256 ; $i++ ) {
+            my $conc_instr = $line . "_" . $i;
+            print $scfp $conc_instr . "\n";
+            execute("$specgen_setup --workdir $workdir --opc $conc_instr");
+        }
+    }
+    exit(0);
+}
+
+if ( "" ne $match_stoke_imm ) {
+    my @thrds = utils::initThreads( scalar(@lines) );
+    my $i     = 0;
+    my $size  = scalar(@lines);
+    for my $line (@lines) {
+        chomp $line;
+        $thrds[$i] = threads->create( \&threadop_match_stoke, $line );
+        $i++;
+    }
+
+    for ( my $j = 0 ; $j < $size ; $j++ ) {
+        $thrds[$j]->join();
+    }
+    exit(0);
+}
+
+sub threadop_match_stoke {
+    my $line = shift @_;
+    $line = utils::trim($line);
+
+    print("\n\n Running Match Stoke on $line\n");
+    my $workdir = "imm_instructions/$line";
+    execute(
+"$script --match_stoke --file $workdir/match_stoke.txt  1>$workdir/match_stoke.log 2>&1",
+        1
+    );
+
+    # populate check_stoke.txt with those whose circuit is absent
+    print("\n Polutating $workdir/check_stoke.txt\n");
+    open( my $msfp, "<", "$workdir/match_stoke.txt" )
+      or die "cannot open: $!";
+    my @mslines = <$msfp>;
+    close $msfp;
+    open( my $csfp, ">", "$workdir/check_stoke.txt" )
+      or die "cannot open: $!";
+
+    for my $line (@mslines) {
+        chomp $line;
+        if ( -e "$strata_path/$line.s" ) {
+
+        }
+        else {
+            print $csfp $line . "\n";
+        }
+    }
+    print "Equiv/Not Equiv/Not Found\n";
+    execute("grep \"Equivalent\" $workdir/match_stoke.log | wc");
+    execute("grep \"not equiv\" $workdir/match_stoke.log | wc");
+    execute("grep \"does not\" $workdir/match_stoke.log | wc");
+    close $csfp;
+    threads->exit();
+    return;
+}
+
+if ( "" ne $match_stoke ) {
+    my $specgen = "/home/sdasgup3/Github/strata/stoke/bin/specgen";
+    for my $line (@lines) {
+        chomp $line;
+        execute( "$specgen compare --circuit_dir $strata_path --opcode $line",
+            1 );
+    }
+    exit(0);
+}
+
+####################################################################
+
+if ( "" ne $check_stoke_imm ) {
+    for my $line (@lines) {
+        chomp $line;
+        print("\n\n Running $line\n");
+        my $workdir = "imm_instructions/$line";
+        execute(
+"$script --check_stoke --file $workdir/check_stoke.txt --instructions_path $workdir/instructions 1>$workdir/check_stoke.log 2>&1",
+            1
+        );
+
+    }
+    exit(0);
+}
+
 if ( "" ne $check_stoke ) {
-    my $cores_used = 6;
+    my $cores_used = 1;
     my @thrds      = utils::initThreads( scalar(@lines) );
     my $i          = 0;
     my $remaining  = scalar(@lines);
@@ -377,7 +490,9 @@ if ( "" ne $check_stoke ) {
 
 sub threadop_check_stoke {
     my $file = shift @_;
-    my $id   = "";
+    $file = utils::trim($file);
+
+    my $id = "";
     if ( "" eq $single_thread ) {
         $id = threads->tid();
         print "Thread $id start: $file\n";
@@ -419,18 +534,6 @@ sub threadop_check_stoke {
         threads->exit();
     }
     return;
-}
-
-if ( "" ne $match_strata_stoke ) {
-    my $circuit_dir =
-      "/home/sdasgup3/Github/strata-data/output-strata/circuits";
-    my $specgen = "/home/sdasgup3/Github/strata/stoke/bin/specgen";
-    for my $line (@lines) {
-        chomp $line;
-        execute( "$specgen compare --circuit_dir $circuit_dir --opcode $line",
-            1 );
-    }
-    exit(0);
 }
 
 ## Find Register Variant for a reg/imm/mem instruction
