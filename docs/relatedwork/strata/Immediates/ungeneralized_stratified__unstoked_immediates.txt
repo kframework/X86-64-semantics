@@ -32,6 +32,24 @@ vpinsrq_xmm_xmm_r64_imm8
 pinsrw_xmm_r32_imm8
 vpinsrw_xmm_xmm_r32_imm8
 
+//next slot
+extractps_r32_xmm_imm8
+extractps_r64_xmm_imm8
+vextractps_r32_xmm_imm8
+vextractf128_xmm_ymm_imm8
+vextracti128_xmm_ymm_imm8
+insertps_xmm_xmm_imm8
+vinsertf128_ymm_ymm_xmm_imm8
+vinserti128_ymm_ymm_xmm_imm8
+vinsertps_xmm_xmm_xmm_imm8
+vperm2f128_ymm_ymm_ymm_imm8
+vperm2i128_ymm_ymm_ymm_imm8
+vpermpd_ymm_ymm_imm8
+vpermq_ymm_ymm_imm8
+pshufhw_xmm_xmm_imm8
+vpshufhw_xmm_xmm_imm8
+vpshufhw_ymm_ymm_imm8
+
 ================================
 dppd_xmm_xmm_imm8
 vcmppd_xmm_xmm_xmm_imm8
@@ -45,21 +63,7 @@ vdppd_xmm_xmm_xmm_imm8
 vdpps_xmm_xmm_xmm_imm8
 vdpps_ymm_ymm_ymm_imm8
 
-extractps_r32_xmm_imm8
-extractps_r64_xmm_imm8
-vextractps_r32_xmm_imm8
-vextractf128_xmm_ymm_imm8
-vextracti128_xmm_ymm_imm8
 
-insertps_xmm_xmm_imm8
-vinsertf128_ymm_ymm_xmm_imm8
-vinserti128_ymm_ymm_xmm_imm8
-vinsertps_xmm_xmm_xmm_imm8
-
-vperm2f128_ymm_ymm_ymm_imm8
-vperm2i128_ymm_ymm_ymm_imm8
-vpermpd_ymm_ymm_imm8
-vpermq_ymm_ymm_imm8
 
 pshufhw_xmm_xmm_imm8
 vpshufhw_xmm_xmm_imm8
