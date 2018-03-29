@@ -1,4 +1,3 @@
-// Pending check stokes of cases not stratified.
 blendpd_xmm_xmm_imm8
 blendps_xmm_xmm_imm8
 vblendpd_xmm_xmm_xmm_imm8
@@ -10,7 +9,6 @@ vpblendd_ymm_ymm_ymm_imm8
 pblendw_xmm_xmm_imm8
 vpblendw_xmm_xmm_xmm_imm8
 vpblendw_ymm_ymm_ymm_imm8
-
 pextrb_r32_xmm_imm8
 pextrb_r64_xmm_imm8
 vpextrb_r32_xmm_imm8
@@ -23,7 +21,6 @@ pextrw_r32_xmm_imm8
 pextrw_r64_xmm_imm8
 vpextrw_r32_xmm_imm8
 vpextrw_r64_xmm_imm8
-
 pinsrb_xmm_r32_imm8
 vpinsrb_xmm_xmm_r32_imm8
 pinsrd_xmm_r32_imm8
@@ -31,7 +28,6 @@ vpinsrd_xmm_xmm_r32_imm8
 vpinsrq_xmm_xmm_r64_imm8
 pinsrw_xmm_r32_imm8
 vpinsrw_xmm_xmm_r32_imm8
-
 //next slot
 extractps_r32_xmm_imm8
 extractps_r64_xmm_imm8
@@ -49,26 +45,17 @@ vpermq_ymm_ymm_imm8
 pshufhw_xmm_xmm_imm8
 vpshufhw_xmm_xmm_imm8
 vpshufhw_ymm_ymm_imm8
-
-================================
+vdppd_xmm_xmm_xmm_imm8
 dppd_xmm_xmm_imm8
+dpps_xmm_xmm_imm8
+vdpps_xmm_xmm_xmm_imm8
+vdpps_ymm_ymm_ymm_imm8
 vcmppd_xmm_xmm_xmm_imm8
 vcmppd_ymm_ymm_ymm_imm8
-dpps_xmm_xmm_imm8
 vcmpps_xmm_xmm_xmm_imm8
 vcmpps_ymm_ymm_ymm_imm8
 vcmpsd_xmm_xmm_xmm_imm8
 vcmpss_xmm_xmm_xmm_imm8
-vdppd_xmm_xmm_xmm_imm8
-vdpps_xmm_xmm_xmm_imm8
-vdpps_ymm_ymm_ymm_imm8
-
-
-
-pshufhw_xmm_xmm_imm8
-vpshufhw_xmm_xmm_imm8
-vpshufhw_ymm_ymm_imm8
-
 pslldq_xmm_imm8
 vpslldq_xmm_xmm_imm8
 vpslldq_ymm_ymm_imm8
