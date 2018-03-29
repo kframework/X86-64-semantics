@@ -27,6 +27,10 @@ my $script = "~/x86-semantics/scripts/process_spec.pl";
 
 my $stoke_check_circuit =
   "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
+
+#my $stoke_check_circuit =
+#"/home/sdasgup3/Github/strata-data/output-strata/nightlyruns/stoke_check_circuit";
+
 my $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
 
 my $testcases = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
