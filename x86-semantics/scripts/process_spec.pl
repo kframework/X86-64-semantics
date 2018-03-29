@@ -435,7 +435,7 @@ if ( "" ne $check_stoke_imm ) {
 }
 
 if ( "" ne $check_stoke ) {
-    my $cores_used = 1;
+    my $cores_used = 6;
     my @thrds      = utils::initThreads( scalar(@lines) );
     my $i          = 0;
     my $remaining  = scalar(@lines);
