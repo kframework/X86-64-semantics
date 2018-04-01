@@ -382,7 +382,7 @@ sub threadop_match_stoke {
     my $workdir = "imm_instructions/$line";
     execute(
 "$script --match_stoke --file $workdir/match_stoke.txt  1>$workdir/match_stoke.log 2>&1",
-        1
+        2
     );
 
     # populate check_stoke
@@ -390,10 +390,13 @@ sub threadop_match_stoke {
       or die "cannot open: $!";
 
     # populate check_stoke with non equivalents
-    my $neqs =
-      utils::myGrep( "(opcode \w+)", "noanti", "$workdir/match_stoke.log" );
+    my $neqs = utils::myGrep( "\\(opcode \\w+\\)",
+        "noanti", "$workdir/match_stoke.log" );
     for my $neq ( @{$neqs} ) {
-        print $csfp $neq . "\n";
+        chomp $neq;
+        if ( $neq =~ m/\(opcode (\w+)\)/g ) {
+            print $csfp $1 . "\n";
+        }
     }
 
     # populate check_stoke.txt with those whose circuit is absent
@@ -412,6 +415,7 @@ sub threadop_match_stoke {
             print $csfp $line . "\n";
         }
     }
+    close $csfp;
 
     print "Equiv/Not Equiv/Not Found/But Equivalent (line )\n";
     my $metric1 =
@@ -422,7 +426,7 @@ sub threadop_match_stoke {
       utils::myGrep( "not equivalent", "noanti", "$workdir/match_stoke.log" );
     my $metric4 =
       utils::myGrep( "does not", "noanti", "$workdir/match_stoke.log" );
-    my $metric5 = -s "$workdir/check_stoke.txt";
+    my $metric5 = utils::numlines("$workdir/check_stoke.txt");
 
     print "\n\n $line\n\teq: "
       . scalar( @{$metric1} ) . "\n\t"
@@ -431,13 +435,14 @@ sub threadop_match_stoke {
       . "Not eq: "
       . scalar( @{$metric3} ) . "\n\t"
       . "Not present: "
-      . scalar( @{$metric4} ) . "\n";
+      . scalar( @{$metric4} ) . "\n\t"
+      . "Size check_stoke: "
+      . $metric5 . "\n";
 
-    if ( $metric5 == ( scalar( @{$metric3} ) + scalar( @{$metric4} ) ) ) {
+    if ( $metric5 != ( scalar( @{$metric3} ) + scalar( @{$metric4} ) ) ) {
         utils::failInfo("check stoke failed polulation: $line");
     }
 
-    close $csfp;
     threads->exit();
     return;
 }
