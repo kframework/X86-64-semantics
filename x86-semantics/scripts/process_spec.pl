@@ -382,7 +382,7 @@ sub threadop_match_stoke {
     my $workdir = "imm_instructions/$line";
     execute(
 "$script --match_stoke --file $workdir/match_stoke.txt  1>$workdir/match_stoke.log 2>&1",
-        2
+        1
     );
 
     # populate check_stoke
