@@ -385,14 +385,23 @@ sub threadop_match_stoke {
         1
     );
 
+    # populate check_stoke
+    open( my $csfp, ">", "$workdir/check_stoke.txt" )
+      or die "cannot open: $!";
+
+    # populate check_stoke with non equivalents
+    my $neqs =
+      utils::myGrep( "(opcode \w+)", "noanti", "$workdir/match_stoke.log" );
+    for my $neq ( @{$neqs} ) {
+        print $csfp $neq . "\n";
+    }
+
     # populate check_stoke.txt with those whose circuit is absent
     print("\n Polutating $workdir/check_stoke.txt\n");
     open( my $msfp, "<", "$workdir/match_stoke.txt" )
       or die "cannot open: $!";
     my @mslines = <$msfp>;
     close $msfp;
-    open( my $csfp, ">", "$workdir/check_stoke.txt" )
-      or die "cannot open: $!";
 
     for my $line (@mslines) {
         chomp $line;
@@ -403,10 +412,31 @@ sub threadop_match_stoke {
             print $csfp $line . "\n";
         }
     }
-    print "Equiv/Not Equiv/Not Found\n";
-    execute("grep \"Equivalent\" $workdir/match_stoke.log | wc");
-    execute("grep \"not equiv\" $workdir/match_stoke.log | wc");
-    execute("grep \"does not\" $workdir/match_stoke.log | wc");
+
+    print "Equiv/Not Equiv/Not Found/But Equivalent (line )\n";
+    my $metric1 =
+      utils::myGrep( "^Equivalent", "noanti", "$workdir/match_stoke.log" );
+    my $metric2 =
+      utils::myGrep( "But Equivalent", "noanti", "$workdir/match_stoke.log" );
+    my $metric3 =
+      utils::myGrep( "not equivalent", "noanti", "$workdir/match_stoke.log" );
+    my $metric4 =
+      utils::myGrep( "does not", "noanti", "$workdir/match_stoke.log" );
+    my $metric5 = -s "$workdir/check_stoke.txt";
+
+    print "\n\n $line\n\teq: "
+      . scalar( @{$metric1} ) . "\n\t"
+      . "But eq: "
+      . scalar( @{$metric2} ) . "\n\t"
+      . "Not eq: "
+      . scalar( @{$metric3} ) . "\n\t"
+      . "Not present: "
+      . scalar( @{$metric4} ) . "\n";
+
+    if ( $metric5 == ( scalar( @{$metric3} ) + scalar( @{$metric4} ) ) ) {
+        utils::failInfo("check stoke failed polulation: $line");
+    }
+
     close $csfp;
     threads->exit();
     return;
