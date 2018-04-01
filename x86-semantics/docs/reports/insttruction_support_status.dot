@@ -86,15 +86,15 @@ digraph instr_supprt {
     color = cornsilk;
 
     G [label="Generalized from Regs\nwo/w extend: 107/83\n190"] 
-    S1 [label="Stratified (Why Stratified if Generalized??)\n28"] 
+    S1 [label="Stratified\n28"] 
     S [label="Strata\n106"] 
     UG [label="UnGeneralized\n118"] 
-    UGUS [label="UnGeneralized UnStratified\n40"]
+    UGUS [label="UnStratified\n40"]
     S2 [label="Stratified\n78"] 
-    UGUSS [fontcolor=red; color=red; label="#3\nUnGeneralized UnStratified Stoked \n9"]
-    UGUSUS [fontcolor=red; color=red; label="#4\nUnGeneralized UnStratified UnStoked\n31"]
-    S2_STOKED [fontcolor=red; color=red; label="#5\nStratified & Stoked\n15"]
-    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nStratified & Not Stoked\n63"]
+    UGUSS [fontcolor=red; color=red; label="#3\nStoked \n9"]
+    UGUSUS [fontcolor=red; color=red; label="#4\nUnStoked\n31"]
+    S2_STOKED [fontcolor=red; color=red; label="#5\nStoked\n15"]
+    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nUnStoked\n63"]
 
     IMMS -> G
     IMMS -> UG
