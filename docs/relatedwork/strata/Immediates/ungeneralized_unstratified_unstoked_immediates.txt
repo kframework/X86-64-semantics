@@ -1,6 +1,6 @@
 // Fired just 100 cases
-pclmulqdq_xmm_xmm_imm8         **
-vpclmulqdq_xmm_xmm_xmm_imm8    **
+pclmulqdq_xmm_xmm_imm8
+vpclmulqdq_xmm_xmm_xmm_imm8
 
 // Fired just 100 cases
 rorxl_r32_r32_imm8
