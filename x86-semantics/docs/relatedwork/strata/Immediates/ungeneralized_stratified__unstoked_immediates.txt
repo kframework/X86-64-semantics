@@ -28,7 +28,6 @@ vpinsrd_xmm_xmm_r32_imm8
 vpinsrq_xmm_xmm_r64_imm8
 pinsrw_xmm_r32_imm8
 vpinsrw_xmm_xmm_r32_imm8
-//next slot
 extractps_r32_xmm_imm8
 extractps_r64_xmm_imm8
 vextractps_r32_xmm_imm8
@@ -46,7 +45,7 @@ pshufhw_xmm_xmm_imm8
 vpshufhw_xmm_xmm_imm8
 vpshufhw_ymm_ymm_imm8
 vdppd_xmm_xmm_xmm_imm8
-dppd_xmm_xmm_imm8
+dppd_xmm_xmm_imm8 // need for simplify before proving
 dpps_xmm_xmm_imm8
 vdpps_xmm_xmm_xmm_imm8
 vdpps_ymm_ymm_ymm_imm8
