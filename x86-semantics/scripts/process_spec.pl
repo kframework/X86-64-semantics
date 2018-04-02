@@ -73,6 +73,7 @@ my $prepare_concrete_imm = "";
 my $check_stoke_imm      = "";
 my $match_stoke_imm      = "";
 my $prefix               = "";
+my $testid               = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -112,6 +113,7 @@ GetOptions(
     "strata_path:s"        => \$strata_path,
     "instructions_path:s"  => \$instructions_path,
     "prefix:s"             => \$prefix,
+    "testid:s"             => \$testid,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -359,6 +361,12 @@ if ( "" ne $prepare_concrete_imm ) {
 }
 
 if ( "" ne $match_stoke_imm ) {
+    my $start = time;
+
+    if ( "" eq $testid ) {
+        utils::warnInfo("You may like to provide testid");
+    }
+
     my @thrds = utils::initThreads( scalar(@lines) );
     my $i     = 0;
     my $size  = scalar(@lines);
@@ -371,6 +379,8 @@ if ( "" ne $match_stoke_imm ) {
     for ( my $j = 0 ; $j < $size ; $j++ ) {
         $thrds[$j]->join();
     }
+    my $duration = time - $start;
+    print "Execution time: $duration s\n";
     exit(0);
 }
 
@@ -380,18 +390,28 @@ sub threadop_match_stoke {
 
     print("\n\n Running Match Stoke on $line\n");
     my $workdir = "imm_instructions/$line";
+
+    my $match_stoke_txt = "$workdir/match_stoke.txt";
+    my $match_stoke_log = "$workdir/match_stoke.log";
+    my $check_stoke_txt = "$workdir/check_stoke.txt";
+    if ( "" ne $testid ) {
+        $match_stoke_txt = "$workdir/match_stoke.$testid.txt";
+        $match_stoke_log = "$workdir/match_stoke.$testid.log";
+        $check_stoke_txt = "$workdir/check_stoke.$testid.txt";
+    }
+
     execute(
-"$script --match_stoke --file $workdir/match_stoke.txt  1>$workdir/match_stoke.log 2>&1",
-        2
+"$script --match_stoke --file $match_stoke_txt  1>m$match_stoke_log 2>&1",
+        1
     );
 
     # populate check_stoke
-    open( my $csfp, ">", "$workdir/check_stoke.txt" )
+    open( my $csfp, ">", "$check_stoke_txt" )
       or die "cannot open: $!";
 
     # populate check_stoke with non equivalents
-    my $neqs = utils::myGrep( "\\(opcode \\w+\\)",
-        "noanti", "$workdir/match_stoke.log" );
+    my $neqs =
+      utils::myGrep( "\\(opcode \\w+\\)", "noanti", "$match_stoke_log" );
     for my $neq ( @{$neqs} ) {
         chomp $neq;
         if ( $neq =~ m/\(opcode (\w+)\)/g ) {
@@ -400,8 +420,8 @@ sub threadop_match_stoke {
     }
 
     # populate check_stoke.txt with those whose circuit is absent
-    print("\n\n Populating $workdir/check_stoke.txt\n");
-    open( my $msfp, "<", "$workdir/match_stoke.txt" )
+    print("\n\n Populating $check_stoke_txt\n");
+    open( my $msfp, "<", "$match_stoke_txt" )
       or die "cannot open: $!";
     my @mslines = <$msfp>;
     close $msfp;
@@ -418,15 +438,13 @@ sub threadop_match_stoke {
     close $csfp;
 
     #print "Equiv/Not Equiv/Not Found/But Equivalent (line )\n";
-    my $metric1 =
-      utils::myGrep( "^Equivalent", "noanti", "$workdir/match_stoke.log" );
+    my $metric1 = utils::myGrep( "^Equivalent", "noanti", "$match_stoke_log" );
     my $metric2 =
-      utils::myGrep( "But Equivalent", "noanti", "$workdir/match_stoke.log" );
+      utils::myGrep( "But Equivalent", "noanti", "$match_stoke_log" );
     my $metric3 =
-      utils::myGrep( "not equivalent", "noanti", "$workdir/match_stoke.log" );
-    my $metric4 =
-      utils::myGrep( "does not", "noanti", "$workdir/match_stoke.log" );
-    my $metric5 = utils::numlines("$workdir/check_stoke.txt");
+      utils::myGrep( "not equivalent", "noanti", "$match_stoke_log" );
+    my $metric4 = utils::myGrep( "does not", "noanti", "$match_stoke_log" );
+    my $metric5 = utils::numlines("$check_stoke_txt");
 
     print "$line\n\teq: "
       . scalar( @{$metric1} ) . "\n\t"
@@ -462,16 +480,30 @@ if ( "" ne $match_stoke ) {
 ####################################################################
 
 if ( "" ne $check_stoke_imm ) {
+    my $start = time;
+    if ( "" eq $testid ) {
+        utils::warnInfo("You may like to provide testid");
+    }
+
     for my $line (@lines) {
         chomp $line;
         print("\n\n Running $line\n");
-        my $workdir = "imm_instructions/$line";
+        my $workdir         = "imm_instructions/$line";
+        my $check_stoke_txt = "$workdir/check_stoke.txt";
+        my $check_stoke_log = "$workdir/check_stoke.log";
+        if ( "" ne $testid ) {
+            $check_stoke_txt = "$workdir/check_stoke.$testid.txt";
+            $check_stoke_log = "$workdir/check_stoke.$testid.log";
+        }
         execute(
-"$script --check_stoke --file $workdir/check_stoke.txt --instructions_path $workdir/instructions 1>$workdir/check_stoke.log 2>&1",
+"$script --check_stoke --file $check_stoke_txt --instructions_path $workdir/instructions 1>$check_stoke_log 2>&1",
             1
         );
 
     }
+    
+    my $duration = time - $start;
+    print "Execution time: $duration s\n";
     exit(0);
 }
 
