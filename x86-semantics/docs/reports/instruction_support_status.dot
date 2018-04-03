@@ -48,8 +48,8 @@ digraph instr_supprt {
 
     REGS_STRATA [label="Stratified\n692"] 
     REGS_UNSTRATA [label="Strata Unsupported\n391"] 
-    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStrata Unsupported, Stoked\n262"] 
-    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nTo Be Implemented\n129"]
+    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStoked\n!! == TS !!\n262"] 
+    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nUnstoked\n!!Extend Stratification!!\n129"]
 
     REGS -> REGS_STRATA
     REGS -> REGS_UNSTRATA
@@ -91,10 +91,10 @@ digraph instr_supprt {
     UG [label="UnGeneralized\n118"] 
     UGUS [label="UnStratified\n40"]
     S2 [label="Stratified\n78"] 
-    UGUSS [fontcolor=red; color=red; label="#3\nStoked \n9"]
-    UGUSUS [fontcolor=red; color=red; label="#4\nUnStoked\n31"]
-    S2_STOKED [fontcolor=red; color=red; label="#5\nStoked\n15"]
-    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nUnStoked\n63"]
+    UGUSS [fontcolor=red; color=red; label="#3\nStoked\n!!&#8704;I:  == TS !!\n9"]
+    UGUSUS [fontcolor=red; color=red; label="#4\nUnStoked\n!!&#8704;I:  == TS !!\n31"]
+    S2_STOKED [fontcolor=red; color=red; label="#5\nStoked\n !! &#8704;I: Stoke SMT(I) == Strata SMT_I !!\n15"]
+    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nUnStoked\n&#8704;I: Stoke SMT(I) == Strata SMT_I !!\n63"]
 
     IMMS -> G
     IMMS -> UG
