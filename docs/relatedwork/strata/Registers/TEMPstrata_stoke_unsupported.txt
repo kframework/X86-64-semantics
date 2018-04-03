@@ -1,14 +1,12 @@
 blsiq_r64_r64
-
-bzhil_r32_r32_r32**
-bzhiq_r64_r64_r64**
-blsmskq_r64_r64**
+bzhil_r32_r32_r32
+bzhiq_r64_r64_r64
+blsmskq_r64_r64 // checked with  strata version (l)
+sarxl_r32_r32_r32
+shlxl_r32_r32_r32
 cmpxchgl_r32_r32**
-sarxl_r32_r32_r32**
-shlxl_r32_r32_r32**
 pextl_r32_r32_r32**
 pextq_r64_r64_r64**
-
 pshufb_xmm_xmm // Borrowed from master stoke
 mulxl_r32_r32_r32
 mulxq_r64_r64_r64
