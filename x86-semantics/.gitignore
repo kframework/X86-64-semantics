@@ -5,3 +5,5 @@
 *.s
 !*.dot
 *.pyc
+*.swp
+*.swo
