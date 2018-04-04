@@ -29,7 +29,7 @@ my $stoke_check_circuit =
   "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
 
 #my $stoke_check_circuit =
-#"/home/sdasgup3/Github/strata-data/output-strata/nightlyruns/stoke_check_circuit";
+#  "/home/sdasgup3/Github/stoke/./bin/stoke_check_circuit";
 
 my $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
 
@@ -501,7 +501,7 @@ if ( "" ne $check_stoke_imm ) {
         );
 
     }
-    
+
     my $duration = time - $start;
     print "Execution time: $duration s\n";
     exit(0);
