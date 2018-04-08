@@ -1,0 +1,8 @@
+{
+  "def_in": "{ %ymm1 }",
+  "live_out": "{ %rbx }",
+  "def_in_formal": "{ %ymm1 }",
+  "live_out_formal": "{ %rbx }",
+  "search_without_uif": false,
+  "delim": 0
+}

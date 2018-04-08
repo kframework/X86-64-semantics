@@ -1,0 +1,8 @@
+{
+  "def_in": "{ %cx %bx }",
+  "live_out": "{ %bx %cf }",
+  "def_in_formal": "{ %cx %bx }",
+  "live_out_formal": "{ %bx %cf }",
+  "search_without_uif": false,
+  "delim": 0
+}
