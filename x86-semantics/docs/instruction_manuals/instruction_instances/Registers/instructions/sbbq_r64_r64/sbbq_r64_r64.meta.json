@@ -1,0 +1,8 @@
+{
+  "def_in": "{ %rcx %rbx %cf }",
+  "live_out": "{ %rbx %cf %pf %zf %sf %of }",
+  "def_in_formal": "{ %rcx %rbx %cf }",
+  "live_out_formal": "{ %rbx %cf %pf %zf %sf %of }",
+  "search_without_uif": false,
+  "delim": 0
+}

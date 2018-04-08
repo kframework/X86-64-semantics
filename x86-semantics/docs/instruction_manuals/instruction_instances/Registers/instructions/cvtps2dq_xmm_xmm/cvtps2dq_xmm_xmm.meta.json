@@ -1,0 +1,8 @@
+{
+  "def_in": "{ %xmm2 %mxcsr::rc[0] }",
+  "live_out": "{ %xmm1 }",
+  "def_in_formal": "{ %xmm2 %mxcsr::rc[0] }",
+  "live_out_formal": "{ %xmm1 }",
+  "search_without_uif": false,
+  "delim": 0
+}

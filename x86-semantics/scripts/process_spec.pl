@@ -74,6 +74,8 @@ my $check_stoke_imm      = "";
 my $match_stoke_imm      = "";
 my $prefix               = "";
 my $testid               = "";
+my $prepare_concrete     = "";
+my $radare2_support      = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -97,6 +99,8 @@ GetOptions(
     "getmem"               => \$getmem,
     "check_stoke"          => \$check_stoke,
     "prepare_concrete_imm" => \$prepare_concrete_imm,
+    "prepare_concrete"     => \$prepare_concrete,
+    "radare2_support"      => \$radare2_support,
     "check_stoke_imm"      => \$check_stoke_imm,
     "match_stoke"          => \$match_stoke,
     "match_stoke_imm"      => \$match_stoke_imm,
@@ -335,6 +339,20 @@ if ( "" ne $getmem ) {
 
 open( my $fp, "<", $file ) or die "cannot open: $!";
 my @lines = <$fp>;
+
+##########################################################
+if ( "" ne $prepare_concrete ) {
+    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+
+    for my $line (@lines) {
+        chomp $line;
+        my $workdir = "./";
+        print "\n\nInstantiating  $line\n";
+        execute( "mkdir -p $workdir", 1 );
+        execute("$specgen_setup --workdir $workdir --opc $line");
+    }
+    exit(0);
+}
 
 ######################################################
 if ( "" ne $prepare_concrete_imm ) {
@@ -1023,6 +1041,29 @@ if ( "" ne $getoplist ) {
         chomp $opcode;
         my $opList = kutils::getOpList( $opcode, $strata_path, $debugprint );
         print $opList;
+    }
+    exit(0);
+}
+
+################## radare2_support ########################################
+if ( "" ne $radare2_support ) {
+    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+
+    for my $line (@lines) {
+        chomp $line;
+        my $instance = "./instructions/$line/$line.s";
+        my $output   = "./instructions/$line/$line.o";
+        print "\n\nESIL for $line\n";
+
+        #Display the instructions
+        execute("cat $instance");
+
+        # Assemble
+        execute("as $instance -o $output");
+
+        # Run r2
+        execute("r2 -a x64 -b 64 -qc   'e asm.esil = true; pd 2'   $output ");
+
     }
     exit(0);
 }

@@ -46,10 +46,10 @@ digraph instr_supprt {
     style=filled;
     color = cadetblue1;
 
-    REGS_STRATA [label="Stratified\n692"] 
-    REGS_UNSTRATA [label="Strata Unsupported\n391"] 
-    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStoked\n!! == TS !!\n262"] 
-    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nUnstoked\n!!Extend Stratification!!\n129"]
+    REGS_STRATA [sides=5; shape=polygon; label="Stratified\n#692"] 
+    REGS_UNSTRATA [label="Strata Unsupported\n#391"] 
+    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStoked\n!! == TS !!\n#262"] 
+    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nUnstoked\n!!Extend Stratification!!\n#129"]
 
     REGS -> REGS_STRATA
     REGS -> REGS_UNSTRATA
@@ -68,8 +68,8 @@ digraph instr_supprt {
     style=filled;
     color = lightpink;
 
-    MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n1185"]
-    MEM_UG [label="UnGeneralized\n182"]
+    MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n#1185"]
+    MEM_UG [label="UnGeneralized\n#182"]
 
     MEM -> MEM_G
     MEM -> MEM_UG
@@ -85,23 +85,26 @@ digraph instr_supprt {
     style=filled;
     color = cornsilk;
 
-    G [label="Generalized from Regs\nwo/w extend: 107/83\n190"] 
-    S1 [label="Stratified\n28"] 
-    S [label="Strata\n106"] 
-    UG [label="UnGeneralized\n118"] 
-    UGUS [label="UnStratified\n40"]
-    S2 [label="Stratified\n78"] 
-    UGUSS [fontcolor=red; color=red; label="#3\nStoked\n!!&#8704;I:  == TS !!\n9"]
-    UGUSUS [fontcolor=red; color=red; label="#4\nUnStoked\n!!&#8704;I:  == TS !!\n31"]
-    S2_STOKED [fontcolor=red; color=red; label="#5\nStoked\n !! &#8704;I: Stoke SMT(I) == Strata SMT_I !!\n15"]
-    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nUnStoked\n&#8704;I: Stoke SMT(I) == Strata SMT_I !!\n63"]
+    G [label="Generalized from Regs\nwo/w extend: 107/83\n#190"] 
+    S1 [sides=5; shape=polygon; label="Stratified\n#28"] 
+    //S [label="Strata\n106"] 
+    UG [label="UnGeneralized\n#118"] 
+    UGUS [label="UnStratified\n#40"]
+    S2 [sides=5; shape=polygon; label="Stratified\n#78"] 
+    UGUSS [fontcolor=red; color=red; label="#3\nStoked\n!!&#8704;I &isin;[1..255]:  == TS !!\n#9\n(size 8: 4; size > 8: 5)"]
+    UGUSUS [fontcolor=red; color=red; label="#4\nUnStoked\n!!&#8704;I:  == TS !!\n#31"]
+    S2_STOKED [fontcolor=red; color=red; label="#5\nStoked\n !! &#8704;I: Stoke SMT(I) == Strata SMT_I !!\n#15"]
+    S2_UNSTOKED [fontcolor=red; color=red; label="#6\nUnStoked\n !! &#8704;I: Stoke SMT(I) == Strata SMT_I !!\n#63"]
+    GUS [fontcolor=red; color=red; label="#7\nRegister versions from strata or stoke\n !! &#8704;I &isin;[1..255]: ==TS !!\n#162 \n(size 8: 105; size > 8: 57)"]
 
     IMMS -> G
     IMMS -> UG
 
-    G -> S1 -> S
-    G -> 162
-    UG -> S2 -> S
+    //G -> S1 -> S
+    //UG -> S2 -> S
+    G -> S1
+    UG -> S2
+    G -> GUS
     UG -> UGUS -> UGUSS
     UGUS -> UGUSUS
     S2 -> S2_STOKED
@@ -110,7 +113,7 @@ digraph instr_supprt {
     {rank = same; IMMS; }
     {rank = same; G; UG; }
     {rank = same; S1; S2; UGUS }
-    {rank = same; S; UGUSUS  }
+    {rank = same; UGUSUS  }
     {rank = same; S2_STOKED;S2_UNSTOKED   }
   }
  /***************************************************/
