@@ -1,0 +1,7 @@
+WARNING | 2018-04-08 20:50:38,751 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+Traceback (most recent call last):
+  File "./instructions/vpvmpgtq_ymm_ymm_ymm/vpvmpgtq_ymm_ymm_ymm.gen.vex.py", line 2, in <module>
+    proj = angr.Project('./instructions/vpvmpgtq_ymm_ymm_ymm/vpvmpgtq_ymm_ymm_ymm.o')
+  File "/home/sdasgup3/.local/lib/python2.7/site-packages/angr/project.py", line 159, in __init__
+    raise Exception("Not a valid binary file: %s" % repr(thing))
+Exception: Not a valid binary file: './instructions/vpvmpgtq_ymm_ymm_ymm/vpvmpgtq_ymm_ymm_ymm.o'

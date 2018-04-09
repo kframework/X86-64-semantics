@@ -1,0 +1,41 @@
+WARNING | 2018-04-08 20:49:04,089 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:49:04,104 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:49:04,115 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vfmsubadd213pd_xmm_xmm_xmm/vfmsubadd213pd_xmm_xmm_xmm.o
+IRSB {
+   t0:Ity_V128 t1:Ity_V128 t2:Ity_V128 t3:Ity_I64 t4:Ity_F64 t5:Ity_I64 t6:Ity_F64 t7:Ity_I64 t8:Ity_F64 t9:Ity_F64 t10:Ity_I64 t11:Ity_F64 t12:Ity_F64 t13:Ity_I64 t14:Ity_F64 t15:Ity_I64 t16:Ity_F64 t17:Ity_F64 t18:Ity_I64 t19:Ity_I64 t20:Ity_I64 t21:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:V128(xmm1)
+   02 | t1 = GET:V128(xmm2)
+   03 | t2 = GET:V128(xmm3)
+   04 | t3 = V128to64(t2)
+   05 | t4 = ReinterpI64asF64(t3)
+   06 | t5 = V128to64(t0)
+   07 | t6 = ReinterpI64asF64(t5)
+   08 | t7 = V128to64(t1)
+   09 | t8 = ReinterpI64asF64(t7)
+   10 | t9 = MAddF64(0x00000000,t8,t6,t4)
+   11 | PUT(ymm1) = t9
+   12 | t10 = V128HIto64(t2)
+   13 | t11 = ReinterpI64asF64(t10)
+   14 | t12 = NegF64(t11)
+   15 | t13 = V128HIto64(t0)
+   16 | t14 = ReinterpI64asF64(t13)
+   17 | t15 = V128HIto64(t1)
+   18 | t16 = ReinterpI64asF64(t15)
+   19 | t17 = MAddF64(0x00000000,t16,t14,t12)
+   20 | PUT(264) = t17
+   21 | PUT(272) = 0
+   22 | PUT(pc) = 0x0000000000400005
+   23 | ------ IMark(0x400005, 1, 0) ------
+   24 | t18 = GET:I64(rsp)
+   25 | t19 = LDle:I64(t18)
+   26 | t20 = Add64(t18,0x0000000000000008)
+   27 | PUT(rsp) = t20
+   28 | t21 = Sub64(t20,0x0000000000000080)
+   29 | ====== AbiHint(0xt21, 128, t19) ======
+   NEXT: PUT(rip) = t19; Ijk_Ret
+}

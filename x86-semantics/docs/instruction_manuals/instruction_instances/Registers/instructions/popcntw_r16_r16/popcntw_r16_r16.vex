@@ -1,0 +1,46 @@
+WARNING | 2018-04-08 20:47:39,984 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:47:40,000 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:47:40,043 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/popcntw_r16_r16/popcntw_r16_r16.o
+IRSB {
+   t0:Ity_I16 t1:Ity_I16 t2:Ity_I16 t3:Ity_I16 t4:Ity_I16 t5:Ity_I16 t6:Ity_I16 t7:Ity_I16 t8:Ity_I16 t9:Ity_I16 t10:Ity_I16 t11:Ity_I16 t12:Ity_I16 t13:Ity_I16 t14:Ity_I16 t15:Ity_I16 t16:Ity_I16 t17:Ity_I64 t18:Ity_I1 t19:Ity_I64 t20:Ity_I64 t21:Ity_I64 t22:Ity_I64 t23:Ity_I64 t24:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:I16(cx)
+   02 | t1 = Shr16(t0,0x01)
+   03 | t2 = And16(t1,0x5555)
+   04 | t3 = And16(t0,0x5555)
+   05 | t4 = Add16(t3,t2)
+   06 | t5 = Shr16(t4,0x02)
+   07 | t6 = And16(t5,0x3333)
+   08 | t7 = And16(t4,0x3333)
+   09 | t8 = Add16(t7,t6)
+   10 | t9 = Shr16(t8,0x04)
+   11 | t10 = And16(t9,0x0f0f)
+   12 | t11 = And16(t8,0x0f0f)
+   13 | t12 = Add16(t11,t10)
+   14 | t13 = Shr16(t12,0x08)
+   15 | t14 = And16(t13,0x00ff)
+   16 | t15 = And16(t12,0x00ff)
+   17 | t16 = Add16(t15,t14)
+   18 | PUT(bx) = t16
+   19 | PUT(cc_op) = 0x0000000000000000
+   20 | PUT(cc_dep2) = 0x0000000000000000
+   21 | PUT(cc_ndep) = 0x0000000000000000
+   22 | t17 = 16Uto64(t0)
+   23 | t18 = CmpEQ64(t17,0x0000000000000000)
+   24 | t19 = 1Uto64(t18)
+   25 | t20 = Shl64(t19,0x06)
+   26 | PUT(cc_dep1) = t20
+   27 | PUT(pc) = 0x0000000000400005
+   28 | ------ IMark(0x400005, 1, 0) ------
+   29 | t21 = GET:I64(rsp)
+   30 | t22 = LDle:I64(t21)
+   31 | t23 = Add64(t21,0x0000000000000008)
+   32 | PUT(rsp) = t23
+   33 | t24 = Sub64(t23,0x0000000000000080)
+   34 | ====== AbiHint(0xt24, 128, t22) ======
+   NEXT: PUT(rip) = t22; Ijk_Ret
+}

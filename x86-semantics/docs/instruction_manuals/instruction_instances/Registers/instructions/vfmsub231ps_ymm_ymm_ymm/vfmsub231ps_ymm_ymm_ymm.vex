@@ -1,0 +1,107 @@
+WARNING | 2018-04-08 20:49:02,197 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:49:02,215 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:49:02,255 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vfmsub231ps_ymm_ymm_ymm/vfmsub231ps_ymm_ymm_ymm.o
+IRSB {
+   t0:Ity_V256 t1:Ity_V256 t2:Ity_V256 t3:Ity_I64 t4:Ity_I64 t5:Ity_I64 t6:Ity_I64 t7:Ity_I64 t8:Ity_I64 t9:Ity_I64 t10:Ity_I64 t11:Ity_I64 t12:Ity_I64 t13:Ity_I64 t14:Ity_I64 t15:Ity_I32 t16:Ity_F32 t17:Ity_F32 t18:Ity_I32 t19:Ity_F32 t20:Ity_I32 t21:Ity_F32 t22:Ity_F32 t23:Ity_I32 t24:Ity_F32 t25:Ity_F32 t26:Ity_I32 t27:Ity_F32 t28:Ity_I32 t29:Ity_F32 t30:Ity_F32 t31:Ity_I32 t32:Ity_F32 t33:Ity_F32 t34:Ity_I32 t35:Ity_F32 t36:Ity_I32 t37:Ity_F32 t38:Ity_F32 t39:Ity_I32 t40:Ity_F32 t41:Ity_F32 t42:Ity_I32 t43:Ity_F32 t44:Ity_I32 t45:Ity_F32 t46:Ity_F32 t47:Ity_I32 t48:Ity_F32 t49:Ity_F32 t50:Ity_I32 t51:Ity_F32 t52:Ity_I32 t53:Ity_F32 t54:Ity_F32 t55:Ity_I32 t56:Ity_F32 t57:Ity_F32 t58:Ity_I32 t59:Ity_F32 t60:Ity_I32 t61:Ity_F32 t62:Ity_F32 t63:Ity_I32 t64:Ity_F32 t65:Ity_F32 t66:Ity_I32 t67:Ity_F32 t68:Ity_I32 t69:Ity_F32 t70:Ity_F32 t71:Ity_I32 t72:Ity_F32 t73:Ity_F32 t74:Ity_I32 t75:Ity_F32 t76:Ity_I32 t77:Ity_F32 t78:Ity_F32 t79:Ity_I64 t80:Ity_I64 t81:Ity_I64 t82:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:V256(ymm1)
+   02 | t1 = GET:V256(ymm2)
+   03 | t2 = GET:V256(ymm3)
+   04 | t3 = V256to64_0(t1)
+   05 | t4 = V256to64_0(t2)
+   06 | t5 = V256to64_0(t0)
+   07 | t6 = V256to64_1(t1)
+   08 | t7 = V256to64_1(t2)
+   09 | t8 = V256to64_1(t0)
+   10 | t9 = V256to64_2(t1)
+   11 | t10 = V256to64_2(t2)
+   12 | t11 = V256to64_2(t0)
+   13 | t12 = V256to64_3(t1)
+   14 | t13 = V256to64_3(t2)
+   15 | t14 = V256to64_3(t0)
+   16 | t15 = 64to32(t5)
+   17 | t16 = ReinterpI32asF32(t15)
+   18 | t17 = NegF32(t16)
+   19 | t18 = 64to32(t4)
+   20 | t19 = ReinterpI32asF32(t18)
+   21 | t20 = 64to32(t3)
+   22 | t21 = ReinterpI32asF32(t20)
+   23 | t22 = MAddF32(0x00000000,t21,t19,t17)
+   24 | PUT(ymm1) = t22
+   25 | t23 = 64HIto32(t5)
+   26 | t24 = ReinterpI32asF32(t23)
+   27 | t25 = NegF32(t24)
+   28 | t26 = 64HIto32(t4)
+   29 | t27 = ReinterpI32asF32(t26)
+   30 | t28 = 64HIto32(t3)
+   31 | t29 = ReinterpI32asF32(t28)
+   32 | t30 = MAddF32(0x00000000,t29,t27,t25)
+   33 | PUT(260) = t30
+   34 | t31 = 64to32(t8)
+   35 | t32 = ReinterpI32asF32(t31)
+   36 | t33 = NegF32(t32)
+   37 | t34 = 64to32(t7)
+   38 | t35 = ReinterpI32asF32(t34)
+   39 | t36 = 64to32(t6)
+   40 | t37 = ReinterpI32asF32(t36)
+   41 | t38 = MAddF32(0x00000000,t37,t35,t33)
+   42 | PUT(264) = t38
+   43 | t39 = 64HIto32(t8)
+   44 | t40 = ReinterpI32asF32(t39)
+   45 | t41 = NegF32(t40)
+   46 | t42 = 64HIto32(t7)
+   47 | t43 = ReinterpI32asF32(t42)
+   48 | t44 = 64HIto32(t6)
+   49 | t45 = ReinterpI32asF32(t44)
+   50 | t46 = MAddF32(0x00000000,t45,t43,t41)
+   51 | PUT(268) = t46
+   52 | t47 = 64to32(t11)
+   53 | t48 = ReinterpI32asF32(t47)
+   54 | t49 = NegF32(t48)
+   55 | t50 = 64to32(t10)
+   56 | t51 = ReinterpI32asF32(t50)
+   57 | t52 = 64to32(t9)
+   58 | t53 = ReinterpI32asF32(t52)
+   59 | t54 = MAddF32(0x00000000,t53,t51,t49)
+   60 | PUT(272) = t54
+   61 | t55 = 64HIto32(t11)
+   62 | t56 = ReinterpI32asF32(t55)
+   63 | t57 = NegF32(t56)
+   64 | t58 = 64HIto32(t10)
+   65 | t59 = ReinterpI32asF32(t58)
+   66 | t60 = 64HIto32(t9)
+   67 | t61 = ReinterpI32asF32(t60)
+   68 | t62 = MAddF32(0x00000000,t61,t59,t57)
+   69 | PUT(276) = t62
+   70 | t63 = 64to32(t14)
+   71 | t64 = ReinterpI32asF32(t63)
+   72 | t65 = NegF32(t64)
+   73 | t66 = 64to32(t13)
+   74 | t67 = ReinterpI32asF32(t66)
+   75 | t68 = 64to32(t12)
+   76 | t69 = ReinterpI32asF32(t68)
+   77 | t70 = MAddF32(0x00000000,t69,t67,t65)
+   78 | PUT(280) = t70
+   79 | t71 = 64HIto32(t14)
+   80 | t72 = ReinterpI32asF32(t71)
+   81 | t73 = NegF32(t72)
+   82 | t74 = 64HIto32(t13)
+   83 | t75 = ReinterpI32asF32(t74)
+   84 | t76 = 64HIto32(t12)
+   85 | t77 = ReinterpI32asF32(t76)
+   86 | t78 = MAddF32(0x00000000,t77,t75,t73)
+   87 | PUT(284) = t78
+   88 | PUT(pc) = 0x0000000000400005
+   89 | ------ IMark(0x400005, 1, 0) ------
+   90 | t79 = GET:I64(rsp)
+   91 | t80 = LDle:I64(t79)
+   92 | t81 = Add64(t79,0x0000000000000008)
+   93 | PUT(rsp) = t81
+   94 | t82 = Sub64(t81,0x0000000000000080)
+   95 | ====== AbiHint(0xt82, 128, t80) ======
+   NEXT: PUT(rip) = t80; Ijk_Ret
+}

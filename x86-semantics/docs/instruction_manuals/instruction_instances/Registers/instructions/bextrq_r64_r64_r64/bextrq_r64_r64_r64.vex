@@ -1,0 +1,45 @@
+WARNING | 2018-04-08 20:46:30,183 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:46:30,383 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:46:30,528 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/bextrq_r64_r64_r64/bextrq_r64_r64_r64.o
+IRSB {
+   t0:Ity_I64 t1:Ity_I64 t2:Ity_I16 t3:Ity_I8 t4:Ity_I8 t5:Ity_I64 t6:Ity_I32 t7:Ity_I1 t8:Ity_I64 t9:Ity_I8 t10:Ity_I8 t11:Ity_I8 t12:Ity_I64 t13:Ity_I64 t14:Ity_I1 t15:Ity_I64 t16:Ity_I32 t17:Ity_I32 t18:Ity_I32 t19:Ity_I1 t20:Ity_I64 t21:Ity_I64 t22:Ity_I64 t23:Ity_I64 t24:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:I64(rdx)
+   02 | t1 = GET:I64(rcx)
+   03 | t2 = 64to16(t0)
+   04 | t3 = 16to8(t2)
+   05 | t4 = 16HIto8(t2)
+   06 | t5 = Shr64(t1,t3)
+   07 | t6 = 8Uto32(t3)
+   08 | t7 = CmpLT32U(t6,0x00000040)
+   09 | t8 = ITE(t7,t5,0x0000000000000000)
+   10 | t9 = Sub8(0x40,t4)
+   11 | t10 = Sub8(0x40,t3)
+   12 | t11 = Sub8(t10,t4)
+   13 | t12 = Shl64(t1,t11)
+   14 | t13 = Shr64(t12,t9)
+   15 | t14 = CmpEQ8(t4,0x00)
+   16 | t15 = ITE(t14,0x0000000000000000,t13)
+   17 | t16 = 8Uto32(t4)
+   18 | t17 = 8Uto32(t3)
+   19 | t18 = Add32(t17,t16)
+   20 | t19 = CmpLT32U(t18,0x00000040)
+   21 | t20 = ITE(t19,t15,t8)
+   22 | PUT(rbx) = t20
+   23 | PUT(cc_op) = 0x0000000000000036
+   24 | PUT(cc_dep1) = t20
+   25 | PUT(cc_dep2) = 0x0000000000000000
+   26 | PUT(pc) = 0x0000000000400005
+   27 | ------ IMark(0x400005, 1, 0) ------
+   28 | t21 = GET:I64(rsp)
+   29 | t22 = LDle:I64(t21)
+   30 | t23 = Add64(t21,0x0000000000000008)
+   31 | PUT(rsp) = t23
+   32 | t24 = Sub64(t23,0x0000000000000080)
+   33 | ====== AbiHint(0xt24, 128, t22) ======
+   NEXT: PUT(rip) = t22; Ijk_Ret
+}
