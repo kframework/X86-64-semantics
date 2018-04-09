@@ -1062,7 +1062,8 @@ if ( "" ne $radare2_support ) {
         execute("as $instance -o $output");
 
         # Run r2
-        execute("r2 -a x64 -b 64 -qc   'e asm.esil = true; pd 2'   $output ");
+        execute( "r2 -a x64 -b 64 -qc   'e asm.esil = true; pd 2'   $output ",
+            1 );
 
     }
     exit(0);
