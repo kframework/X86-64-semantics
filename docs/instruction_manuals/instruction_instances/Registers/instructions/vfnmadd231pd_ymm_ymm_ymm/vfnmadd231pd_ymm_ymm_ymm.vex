@@ -1,0 +1,63 @@
+WARNING | 2018-04-08 20:49:09,350 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:49:09,400 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:49:09,417 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vfnmadd231pd_ymm_ymm_ymm/vfnmadd231pd_ymm_ymm_ymm.o
+IRSB {
+   t0:Ity_V256 t1:Ity_V256 t2:Ity_V256 t3:Ity_I64 t4:Ity_F64 t5:Ity_F64 t6:Ity_I64 t7:Ity_F64 t8:Ity_I64 t9:Ity_F64 t10:Ity_F64 t11:Ity_F64 t12:Ity_I64 t13:Ity_F64 t14:Ity_F64 t15:Ity_I64 t16:Ity_F64 t17:Ity_I64 t18:Ity_F64 t19:Ity_F64 t20:Ity_F64 t21:Ity_I64 t22:Ity_F64 t23:Ity_F64 t24:Ity_I64 t25:Ity_F64 t26:Ity_I64 t27:Ity_F64 t28:Ity_F64 t29:Ity_F64 t30:Ity_I64 t31:Ity_F64 t32:Ity_F64 t33:Ity_I64 t34:Ity_F64 t35:Ity_I64 t36:Ity_F64 t37:Ity_F64 t38:Ity_F64 t39:Ity_I64 t40:Ity_I64 t41:Ity_I64 t42:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:V256(ymm1)
+   02 | t1 = GET:V256(ymm2)
+   03 | t2 = GET:V256(ymm3)
+   04 | t3 = V256to64_0(t0)
+   05 | t4 = ReinterpI64asF64(t3)
+   06 | t5 = NegF64(t4)
+   07 | t6 = V256to64_0(t2)
+   08 | t7 = ReinterpI64asF64(t6)
+   09 | t8 = V256to64_0(t1)
+   10 | t9 = ReinterpI64asF64(t8)
+   11 | t10 = MAddF64(0x00000000,t9,t7,t5)
+   12 | t11 = NegF64(t10)
+   13 | PUT(ymm1) = t11
+   14 | t12 = V256to64_1(t0)
+   15 | t13 = ReinterpI64asF64(t12)
+   16 | t14 = NegF64(t13)
+   17 | t15 = V256to64_1(t2)
+   18 | t16 = ReinterpI64asF64(t15)
+   19 | t17 = V256to64_1(t1)
+   20 | t18 = ReinterpI64asF64(t17)
+   21 | t19 = MAddF64(0x00000000,t18,t16,t14)
+   22 | t20 = NegF64(t19)
+   23 | PUT(264) = t20
+   24 | t21 = V256to64_2(t0)
+   25 | t22 = ReinterpI64asF64(t21)
+   26 | t23 = NegF64(t22)
+   27 | t24 = V256to64_2(t2)
+   28 | t25 = ReinterpI64asF64(t24)
+   29 | t26 = V256to64_2(t1)
+   30 | t27 = ReinterpI64asF64(t26)
+   31 | t28 = MAddF64(0x00000000,t27,t25,t23)
+   32 | t29 = NegF64(t28)
+   33 | PUT(272) = t29
+   34 | t30 = V256to64_3(t0)
+   35 | t31 = ReinterpI64asF64(t30)
+   36 | t32 = NegF64(t31)
+   37 | t33 = V256to64_3(t2)
+   38 | t34 = ReinterpI64asF64(t33)
+   39 | t35 = V256to64_3(t1)
+   40 | t36 = ReinterpI64asF64(t35)
+   41 | t37 = MAddF64(0x00000000,t36,t34,t32)
+   42 | t38 = NegF64(t37)
+   43 | PUT(280) = t38
+   44 | PUT(pc) = 0x0000000000400005
+   45 | ------ IMark(0x400005, 1, 0) ------
+   46 | t39 = GET:I64(rsp)
+   47 | t40 = LDle:I64(t39)
+   48 | t41 = Add64(t39,0x0000000000000008)
+   49 | PUT(rsp) = t41
+   50 | t42 = Sub64(t41,0x0000000000000080)
+   51 | ====== AbiHint(0xt42, 128, t40) ======
+   NEXT: PUT(rip) = t40; Ijk_Ret
+}

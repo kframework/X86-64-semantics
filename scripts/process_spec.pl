@@ -76,6 +76,7 @@ my $prefix               = "";
 my $testid               = "";
 my $prepare_concrete     = "";
 my $radare2_support      = "";
+my $angr_support         = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -101,6 +102,7 @@ GetOptions(
     "prepare_concrete_imm" => \$prepare_concrete_imm,
     "prepare_concrete"     => \$prepare_concrete,
     "radare2_support"      => \$radare2_support,
+    "angr_support"         => \$angr_support,
     "check_stoke_imm"      => \$check_stoke_imm,
     "match_stoke"          => \$match_stoke,
     "match_stoke_imm"      => \$match_stoke_imm,
@@ -1067,4 +1069,56 @@ if ( "" ne $radare2_support ) {
 
     }
     exit(0);
+}
+
+if ( "" ne $angr_support ) {
+
+    my $start = time;
+    my @thrds = utils::initThreads( scalar(@lines) );
+    my $i     = 0;
+    my $size  = scalar(@lines);
+
+    for my $line (@lines) {
+        chomp $line;
+        $thrds[$i] = threads->create( \&angr_support_task, $line );
+        $i++;
+    }
+
+    for ( my $j = 0 ; $j < $size ; $j++ ) {
+        $thrds[$j]->join();
+    }
+
+    my $duration = time - $start;
+    print "Execution time: $duration s\n";
+    exit(0);
+}
+
+sub angr_support_task {
+    my $line     = shift @_;
+    my $instance = "./instructions/$line/$line.s";
+    my $outbin   = "./instructions/$line/$line.o";
+    my $pyfile   = "./instructions/$line/$line.gen.vex.py";
+    my $outfile  = "./instructions/$line/$line.vex";
+    open( $sfp, ">", $pyfile ) or die "Can't open $pyfile: $!";
+
+    print $sfp "import angr" . "\n"
+      . "proj = angr.Project('$outbin')" . "\n"
+      . "print proj.arch" . "\n"
+      . "print proj.entry" . "\n"
+      . "print proj.filename" . "\n"
+      . "irsb = proj.factory.block(proj.entry).vex" . "\n"
+      . "irsb.pp()";
+
+    close $sfp;
+
+    print "\n\nVEX for $line\n";
+
+    #Display the instructions
+    execute("cat $instance 1 >$outfile 2>&1");
+
+    # Assemble
+    #execute("as $instance -o $output");
+
+    # Run angr
+    execute( "python $pyfile 1 >$outfile 2>&1", 1 );
 }

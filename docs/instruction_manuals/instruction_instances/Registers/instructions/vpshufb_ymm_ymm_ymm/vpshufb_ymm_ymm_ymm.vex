@@ -1,0 +1,86 @@
+WARNING | 2018-04-08 20:50:19,899 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:50:19,924 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:50:19,957 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vpshufb_ymm_ymm_ymm/vpshufb_ymm_ymm_ymm.o
+IRSB {
+   t0:Ity_V256 t1:Ity_V256 t2:Ity_V128 t3:Ity_V128 t4:Ity_V128 t5:Ity_V128 t6:Ity_I64 t7:Ity_I64 t8:Ity_I64 t9:Ity_I64 t10:Ity_I64 t11:Ity_I64 t12:Ity_I64 t13:Ity_I64 t14:Ity_I64 t15:Ity_I64 t16:Ity_I64 t17:Ity_I64 t18:Ity_I64 t19:Ity_I64 t20:Ity_I64 t21:Ity_I64 t22:Ity_I64 t23:Ity_I64 t24:Ity_I64 t25:Ity_I64 t26:Ity_I64 t27:Ity_I64 t28:Ity_I64 t29:Ity_I64 t30:Ity_I64 t31:Ity_I64 t32:Ity_I64 t33:Ity_I64 t34:Ity_V128 t35:Ity_I64 t36:Ity_I64 t37:Ity_I64 t38:Ity_I64 t39:Ity_I64 t40:Ity_I64 t41:Ity_I64 t42:Ity_I64 t43:Ity_I64 t44:Ity_I64 t45:Ity_I64 t46:Ity_I64 t47:Ity_I64 t48:Ity_I64 t49:Ity_I64 t50:Ity_I64 t51:Ity_I64 t52:Ity_I64 t53:Ity_I64 t54:Ity_I64 t55:Ity_I64 t56:Ity_I64 t57:Ity_I64 t58:Ity_I64 t59:Ity_I64 t60:Ity_I64 t61:Ity_I64 t62:Ity_I64 t63:Ity_V128 t64:Ity_V256 t65:Ity_I64 t66:Ity_I64 t67:Ity_I64 t68:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:V256(ymm2)
+   02 | t1 = GET:V256(ymm3)
+   03 | t2 = V256toV128_1(t0)
+   04 | t3 = V256toV128_0(t0)
+   05 | t4 = V256toV128_1(t1)
+   06 | t5 = V256toV128_0(t1)
+   07 | t6 = V128HIto64(t3)
+   08 | t7 = V128to64(t3)
+   09 | t8 = V128HIto64(t5)
+   10 | t9 = V128to64(t5)
+   11 | t10 = SarN8x8(t8,0x07)
+   12 | t11 = Not64(t10)
+   13 | t12 = ShlN8x8(t8,0x04)
+   14 | t13 = SarN8x8(t12,0x07)
+   15 | t14 = And64(t8,0x0707070707070707)
+   16 | t15 = Not64(t13)
+   17 | t16 = Perm8x8(t7,t14)
+   18 | t17 = And64(t16,t15)
+   19 | t18 = Perm8x8(t6,t14)
+   20 | t19 = And64(t18,t13)
+   21 | t20 = Or64(t19,t17)
+   22 | t21 = And64(t20,t11)
+   23 | t22 = SarN8x8(t9,0x07)
+   24 | t23 = Not64(t22)
+   25 | t24 = ShlN8x8(t9,0x04)
+   26 | t25 = SarN8x8(t24,0x07)
+   27 | t26 = And64(t9,0x0707070707070707)
+   28 | t27 = Not64(t25)
+   29 | t28 = Perm8x8(t7,t26)
+   30 | t29 = And64(t28,t27)
+   31 | t30 = Perm8x8(t6,t26)
+   32 | t31 = And64(t30,t25)
+   33 | t32 = Or64(t31,t29)
+   34 | t33 = And64(t32,t23)
+   35 | t34 = 64HLtoV128(t21,t33)
+   36 | t35 = V128HIto64(t2)
+   37 | t36 = V128to64(t2)
+   38 | t37 = V128HIto64(t4)
+   39 | t38 = V128to64(t4)
+   40 | t39 = SarN8x8(t37,0x07)
+   41 | t40 = Not64(t39)
+   42 | t41 = ShlN8x8(t37,0x04)
+   43 | t42 = SarN8x8(t41,0x07)
+   44 | t43 = And64(t37,0x0707070707070707)
+   45 | t44 = Not64(t42)
+   46 | t45 = Perm8x8(t36,t43)
+   47 | t46 = And64(t45,t44)
+   48 | t47 = Perm8x8(t35,t43)
+   49 | t48 = And64(t47,t42)
+   50 | t49 = Or64(t48,t46)
+   51 | t50 = And64(t49,t40)
+   52 | t51 = SarN8x8(t38,0x07)
+   53 | t52 = Not64(t51)
+   54 | t53 = ShlN8x8(t38,0x04)
+   55 | t54 = SarN8x8(t53,0x07)
+   56 | t55 = And64(t38,0x0707070707070707)
+   57 | t56 = Not64(t54)
+   58 | t57 = Perm8x8(t36,t55)
+   59 | t58 = And64(t57,t56)
+   60 | t59 = Perm8x8(t35,t55)
+   61 | t60 = And64(t59,t54)
+   62 | t61 = Or64(t60,t58)
+   63 | t62 = And64(t61,t52)
+   64 | t63 = 64HLtoV128(t50,t62)
+   65 | t64 = V128HLtoV256(t63,t34)
+   66 | PUT(ymm1) = t64
+   67 | PUT(pc) = 0x0000000000400005
+   68 | ------ IMark(0x400005, 1, 0) ------
+   69 | t65 = GET:I64(rsp)
+   70 | t66 = LDle:I64(t65)
+   71 | t67 = Add64(t65,0x0000000000000008)
+   72 | PUT(rsp) = t67
+   73 | t68 = Sub64(t67,0x0000000000000080)
+   74 | ====== AbiHint(0xt68, 128, t66) ======
+   NEXT: PUT(rip) = t66; Ijk_Ret
+}

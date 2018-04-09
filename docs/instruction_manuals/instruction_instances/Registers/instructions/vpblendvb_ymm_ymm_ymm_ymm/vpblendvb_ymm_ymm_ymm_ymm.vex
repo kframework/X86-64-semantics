@@ -1,0 +1,33 @@
+WARNING | 2018-04-08 20:49:44,659 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:49:44,678 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:49:44,686 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vpblendvb_ymm_ymm_ymm_ymm/vpblendvb_ymm_ymm_ymm_ymm.o
+IRSB {
+   t0:Ity_V256 t1:Ity_V256 t2:Ity_V256 t3:Ity_V128 t4:Ity_V128 t5:Ity_V128 t6:Ity_V128 t7:Ity_V256 t8:Ity_V256 t9:Ity_V256 t10:Ity_V256 t11:Ity_V256 t12:Ity_I64 t13:Ity_I64 t14:Ity_I64 t15:Ity_I64
+
+   00 | ------ IMark(0x400000, 6, 0) ------
+   01 | t0 = GET:V256(ymm3)
+   02 | t1 = GET:V256(ymm2)
+   03 | t2 = GET:V256(ymm4)
+   04 | t3 = V256toV128_1(t2)
+   05 | t4 = V256toV128_0(t2)
+   06 | t5 = SarN8x16(t4,0x07)
+   07 | t6 = SarN8x16(t3,0x07)
+   08 | t7 = V128HLtoV256(t6,t5)
+   09 | t8 = NotV256(t7)
+   10 | t9 = AndV256(t1,t8)
+   11 | t10 = AndV256(t0,t7)
+   12 | t11 = OrV256(t10,t9)
+   13 | PUT(ymm1) = t11
+   14 | PUT(pc) = 0x0000000000400006
+   15 | ------ IMark(0x400006, 1, 0) ------
+   16 | t12 = GET:I64(rsp)
+   17 | t13 = LDle:I64(t12)
+   18 | t14 = Add64(t12,0x0000000000000008)
+   19 | PUT(rsp) = t14
+   20 | t15 = Sub64(t14,0x0000000000000080)
+   21 | ====== AbiHint(0xt15, 128, t13) ======
+   NEXT: PUT(rip) = t13; Ijk_Ret
+}

@@ -1,0 +1,50 @@
+WARNING | 2018-04-08 20:50:27,455 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:50:27,467 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:50:27,494 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vpsrlvq_ymm_ymm_ymm/vpsrlvq_ymm_ymm_ymm.o
+IRSB {
+   t0:Ity_V256 t1:Ity_V256 t2:Ity_I64 t3:Ity_I64 t4:Ity_I64 t5:Ity_I64 t6:Ity_I64 t7:Ity_I64 t8:Ity_I64 t9:Ity_I64 t10:Ity_I8 t11:Ity_I64 t12:Ity_I1 t13:Ity_I64 t14:Ity_I8 t15:Ity_I64 t16:Ity_I1 t17:Ity_I64 t18:Ity_I8 t19:Ity_I64 t20:Ity_I1 t21:Ity_I64 t22:Ity_I8 t23:Ity_I64 t24:Ity_I1 t25:Ity_I64 t26:Ity_I64 t27:Ity_I64 t28:Ity_I64 t29:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:V256(ymm3)
+   02 | t1 = GET:V256(ymm2)
+   03 | t2 = V256to64_0(t1)
+   04 | t3 = V256to64_1(t1)
+   05 | t4 = V256to64_2(t1)
+   06 | t5 = V256to64_3(t1)
+   07 | t6 = V256to64_0(t0)
+   08 | t7 = V256to64_1(t0)
+   09 | t8 = V256to64_2(t0)
+   10 | t9 = V256to64_3(t0)
+   11 | t10 = 64to8(t6)
+   12 | t11 = Shr64(t2,t10)
+   13 | t12 = CmpLT64U(t6,0x0000000000000040)
+   14 | t13 = ITE(t12,t11,0x0000000000000000)
+   15 | t14 = 64to8(t7)
+   16 | t15 = Shr64(t3,t14)
+   17 | t16 = CmpLT64U(t7,0x0000000000000040)
+   18 | t17 = ITE(t16,t15,0x0000000000000000)
+   19 | t18 = 64to8(t8)
+   20 | t19 = Shr64(t4,t18)
+   21 | t20 = CmpLT64U(t8,0x0000000000000040)
+   22 | t21 = ITE(t20,t19,0x0000000000000000)
+   23 | t22 = 64to8(t9)
+   24 | t23 = Shr64(t5,t22)
+   25 | t24 = CmpLT64U(t9,0x0000000000000040)
+   26 | t25 = ITE(t24,t23,0x0000000000000000)
+   27 | PUT(ymm1) = t13
+   28 | PUT(264) = t17
+   29 | PUT(272) = t21
+   30 | PUT(280) = t25
+   31 | PUT(pc) = 0x0000000000400005
+   32 | ------ IMark(0x400005, 1, 0) ------
+   33 | t26 = GET:I64(rsp)
+   34 | t27 = LDle:I64(t26)
+   35 | t28 = Add64(t26,0x0000000000000008)
+   36 | PUT(rsp) = t28
+   37 | t29 = Sub64(t28,0x0000000000000080)
+   38 | ====== AbiHint(0xt29, 128, t27) ======
+   NEXT: PUT(rip) = t27; Ijk_Ret
+}

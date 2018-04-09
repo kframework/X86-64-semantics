@@ -1,0 +1,63 @@
+WARNING | 2018-04-08 20:50:15,558 | [34mangr.analyses.disassembly_utils[0m | [34mYour verison of capstone does not support MIPS instruction groups.[0m
+WARNING | 2018-04-08 20:50:15,578 | [37mcle.elf[0m | [37mno segments identified in PT_LOAD[0m
+WARNING | 2018-04-08 20:50:15,587 | [33mcle.loader[0m | [33mThe main binary is a position-independent executable. It is being loaded with a base address of 0x400000.[0m
+<Arch AMD64 (LE)>
+4194304
+./instructions/vpmulhrsw_xmm_xmm_xmm/vpmulhrsw_xmm_xmm_xmm.o
+IRSB {
+   t0:Ity_V128 t1:Ity_V128 t2:Ity_I64 t3:Ity_I64 t4:Ity_I64 t5:Ity_I64 t6:Ity_I64 t7:Ity_I64 t8:Ity_I64 t9:Ity_I64 t10:Ity_I64 t11:Ity_I64 t12:Ity_I64 t13:Ity_I64 t14:Ity_I64 t15:Ity_I64 t16:Ity_I64 t17:Ity_I64 t18:Ity_I64 t19:Ity_I64 t20:Ity_I64 t21:Ity_I64 t22:Ity_I64 t23:Ity_I64 t24:Ity_I64 t25:Ity_I64 t26:Ity_I64 t27:Ity_I64 t28:Ity_I64 t29:Ity_I64 t30:Ity_I64 t31:Ity_I64 t32:Ity_I64 t33:Ity_I64 t34:Ity_I64 t35:Ity_I64 t36:Ity_I64 t37:Ity_I64 t38:Ity_I64 t39:Ity_I64 t40:Ity_V128 t41:Ity_I64 t42:Ity_I64 t43:Ity_I64 t44:Ity_I64
+
+   00 | ------ IMark(0x400000, 5, 0) ------
+   01 | t0 = GET:V128(xmm2)
+   02 | t1 = GET:V128(xmm3)
+   03 | t2 = V128to64(t0)
+   04 | t3 = V128HIto64(t0)
+   05 | t4 = V128to64(t1)
+   06 | t5 = V128HIto64(t1)
+   07 | t6 = InterleaveHI16x4(t4,t4)
+   08 | t7 = SarN32x2(t6,0x10)
+   09 | t8 = InterleaveLO16x4(t4,t4)
+   10 | t9 = SarN32x2(t8,0x10)
+   11 | t10 = InterleaveHI16x4(t2,t2)
+   12 | t11 = SarN32x2(t10,0x10)
+   13 | t12 = InterleaveLO16x4(t2,t2)
+   14 | t13 = SarN32x2(t12,0x10)
+   15 | t14 = Mul32x2(t7,t11)
+   16 | t15 = ShrN32x2(t14,0x0e)
+   17 | t16 = Add32x2(t15,0x0000000100000001)
+   18 | t17 = ShrN32x2(t16,0x01)
+   19 | t18 = Mul32x2(t9,t13)
+   20 | t19 = ShrN32x2(t18,0x0e)
+   21 | t20 = Add32x2(t19,0x0000000100000001)
+   22 | t21 = ShrN32x2(t20,0x01)
+   23 | t22 = InterleaveHI16x4(t5,t5)
+   24 | t23 = SarN32x2(t22,0x10)
+   25 | t24 = InterleaveLO16x4(t5,t5)
+   26 | t25 = SarN32x2(t24,0x10)
+   27 | t26 = InterleaveHI16x4(t3,t3)
+   28 | t27 = SarN32x2(t26,0x10)
+   29 | t28 = InterleaveLO16x4(t3,t3)
+   30 | t29 = SarN32x2(t28,0x10)
+   31 | t30 = Mul32x2(t23,t27)
+   32 | t31 = ShrN32x2(t30,0x0e)
+   33 | t32 = Add32x2(t31,0x0000000100000001)
+   34 | t33 = ShrN32x2(t32,0x01)
+   35 | t34 = Mul32x2(t25,t29)
+   36 | t35 = ShrN32x2(t34,0x0e)
+   37 | t36 = Add32x2(t35,0x0000000100000001)
+   38 | t37 = ShrN32x2(t36,0x01)
+   39 | t38 = CatEvenLanes16x4(t17,t21)
+   40 | t39 = CatEvenLanes16x4(t33,t37)
+   41 | t40 = 64HLtoV128(t39,t38)
+   42 | PUT(xmm1) = t40
+   43 | PUT(272) = 0
+   44 | PUT(pc) = 0x0000000000400005
+   45 | ------ IMark(0x400005, 1, 0) ------
+   46 | t41 = GET:I64(rsp)
+   47 | t42 = LDle:I64(t41)
+   48 | t43 = Add64(t41,0x0000000000000008)
+   49 | PUT(rsp) = t43
+   50 | t44 = Sub64(t43,0x0000000000000080)
+   51 | ====== AbiHint(0xt44, 128, t42) ======
+   NEXT: PUT(rip) = t42; Ijk_Ret
+}
