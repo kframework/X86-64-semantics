@@ -1,4 +1,3 @@
-<label>
 adcb_al_imm8
 adcw_ax_imm16
 adcl_eax_imm32

@@ -77,6 +77,7 @@ my $testid               = "";
 my $prepare_concrete     = "";
 my $radare2_support      = "";
 my $angr_support         = "";
+my $workdir              = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -120,6 +121,7 @@ GetOptions(
     "instructions_path:s"  => \$instructions_path,
     "prefix:s"             => \$prefix,
     "testid:s"             => \$testid,
+    "workdir:s"            => \$workdir,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -345,13 +347,16 @@ my @lines = <$fp>;
 ##########################################################
 if ( "" ne $prepare_concrete ) {
     my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    if ( "" eq $workdir ) {
+        $workdir = "./";
+    }
 
     for my $line (@lines) {
         chomp $line;
-        my $workdir = "./";
+
         print "\n\nInstantiating  $line\n";
-        execute( "mkdir -p $workdir", 1 );
-        execute("$specgen_setup --workdir $workdir --opc $line");
+        execute("mkdir -p $workdir");
+        execute( "$specgen_setup --workdir $workdir --opc $line", 1 );
     }
     exit(0);
 }
