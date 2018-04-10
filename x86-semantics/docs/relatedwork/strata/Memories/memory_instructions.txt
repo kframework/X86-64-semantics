@@ -1,3 +1,5 @@
+adcw_m16_imm16
+adcw_m16_imm8
 adcw_m16_r16
 adcl_m32_imm32
 adcl_m32_imm8
