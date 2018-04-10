@@ -1,3 +1,6 @@
 [submodule "x86-semantics/docs/instruction_manuals/instruction-summary"]
 	path = x86-semantics/docs/instruction_manuals/instruction-summary
 	url = https://github.com/sdasgup3/x86-64-instruction-summary
+[submodule "x86-semantics/docs/instruction-summary"]
+	path = x86-semantics/docs/instruction-summary
+	url = https://github.com/sdasgup3/x86-64-instruction-summary
