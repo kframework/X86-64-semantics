@@ -1,0 +1,8 @@
+{
+  "def_in": "{ %ecx }",
+  "live_out": "{ %rbx }",
+  "def_in_formal": "{ %ecx }",
+  "live_out_formal": "{ %rbx }",
+  "search_without_uif": false,
+  "delim": 0
+}
