@@ -1,8 +1,0 @@
-{
-  "def_in": "{ %ymm1 }",
-  "live_out": "{ %ymm1 }",
-  "def_in_formal": "{ %ymm1 }",
-  "live_out_formal": "{ %ymm1 }",
-  "search_without_uif": false,
-  "delim": 0
-}
