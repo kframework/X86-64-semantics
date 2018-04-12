@@ -1580,9 +1580,13 @@ vcvtsd2si_r32_xmm
 vcvtsd2ss_xmm_xmm_m64
 vcvtsd2ss_xmm_xmm_xmm
 vcvtsi2sdl_xmm_xmm_m32
+vcvtsi2sdq_xmm_xmm_m64
 vcvtsi2sdl_xmm_xmm_r32
+vcvtsi2sdq_xmm_xmm_r64
 vcvtsi2ssl_xmm_xmm_m32
+vcvtsi2ssq_xmm_xmm_m64
 vcvtsi2ssl_xmm_xmm_r32
+vcvtsi2ssq_xmm_xmm_r64
 vcvtss2sd_xmm_xmm_m32
 vcvtss2sd_xmm_xmm_xmm
 vcvtss2si_r32_m32
