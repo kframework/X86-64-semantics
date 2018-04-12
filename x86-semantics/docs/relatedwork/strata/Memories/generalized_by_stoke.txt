@@ -421,8 +421,6 @@ pcmpgtb_xmm_m128
 pcmpgtd_xmm_m128
 pcmpgtq_xmm_m128
 pcmpgtw_xmm_m128
-pdepl_r32_r32_m32
-pdepq_r64_r64_m64
 pextrb_m8_xmm_imm8
 pextrd_m32_xmm_imm8
 pextrq_m64_xmm_imm8
@@ -1294,3 +1292,5 @@ xorw_m16_imm16
 xorw_m16_imm8
 xorw_m16_r16
 xorw_r16_m16
+pdepl_r32_r32_m32
+pdepq_r64_r64_m64
