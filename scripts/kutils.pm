@@ -42,7 +42,8 @@ qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincm
 my $uif_uop = (
 qr/approx_reciprocal_double|approx_reciprocal_single|sqrt_double|sqrt_single|approx_reciprocal_sqrt_double|approx_reciprocal_sqrt_single|cvt_single_to_double|cvt_single_to_int32|cvt_single_to_int64|cvt_int32_to_double|cvt_int32_to_single/
 );
-my $uif_terop = (
+
+our $uif_terop = (
 qr/vfmadd132_double|vfmadd132_single|vfmsub132_double|vfmsub132_single|vfnmadd132_double|vfnmadd132_single|vfnmsub132_double|vfnmsub132_single/
 );
 
@@ -325,6 +326,151 @@ my %regMap = (
     35 => "ymm13",
     36 => "ymm14",
     37 => "ymm15",
+);
+
+our $z3_decl_template = qq(
+
+(declare-const TMP_BV_8 (_ BitVec 8))
+(declare-const TMP_BV_16 (_ BitVec 16))
+(declare-const TMP_BV_32 (_ BitVec 32))
+(declare-const TMP_BV_64 (_ BitVec 64))
+(declare-const TMP_BV_128 (_ BitVec 128))
+(declare-const TMP_BV_256 (_ BitVec 256))
+(declare-const TMP_BOOL Bool)
+(declare-const rbx (_ BitVec 64))
+(declare-const rax (_ BitVec 64))
+(declare-const rcx (_ BitVec 64))
+(declare-const rdx (_ BitVec 64))
+(declare-const rsp (_ BitVec 64))
+(declare-const rip (_ BitVec 64))
+(declare-const ymm1 (_ BitVec 256))
+(declare-const ymm2 (_ BitVec 256))
+(declare-const ymm3 (_ BitVec 256))
+(declare-const ymm0 (_ BitVec 256))
+(declare-const zf Bool)
+(declare-const sf Bool)
+(declare-const cf Bool)
+(declare-const pf Bool)
+(declare-const af Bool)
+(declare-const of Bool)
+
+
+
+; Uninterpreted binary function declaration
+(declare-fun add_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun add_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun sub_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun sub_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun div_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun div_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun mul_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun mul_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun maxcmp_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 1))
+(declare-fun maxcmp_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 1))
+(declare-fun mincmp_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 1))
+(declare-fun mincmp_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 1))
+
+(declare-fun idiv_quotient_int8   ((_ BitVec 16) (_ BitVec 8)) (_ BitVec 8))
+(declare-fun idiv_remainder_int8  ((_ BitVec 16) (_ BitVec 8)) (_ BitVec 8))
+(declare-fun idiv_quotient_int16  ((_ BitVec 32) (_ BitVec 16)) (_ BitVec 16))
+(declare-fun idiv_remainder_int16 ((_ BitVec 32) (_ BitVec 16)) (_ BitVec 16))
+(declare-fun idiv_quotient_int32  ((_ BitVec 64) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun idiv_remainder_int32 ((_ BitVec 64) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun idiv_quotient_int64  ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun idiv_remainder_int64 ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun div_quotient_int8   ((_ BitVec 16) (_ BitVec 8)) (_ BitVec 8))
+(declare-fun div_remainder_int8  ((_ BitVec 16) (_ BitVec 8)) (_ BitVec 8))
+(declare-fun div_quotient_int16  ((_ BitVec 32) (_ BitVec 16)) (_ BitVec 16))
+(declare-fun div_remainder_int16 ((_ BitVec 32) (_ BitVec 16)) (_ BitVec 16))
+(declare-fun div_quotient_int32  ((_ BitVec 64) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun div_remainder_int32 ((_ BitVec 64) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun div_quotient_int64  ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun div_remainder_int64 ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))  
+
+; Uninterpreted unary function declaration
+(declare-fun approx_reciprocal_double       ((_ BitVec 64)) (_ BitVec 64) )
+(declare-fun approx_reciprocal_single       ((_ BitVec 32)) (_ BitVec 32) )
+(declare-fun sqrt_double                    ((_ BitVec 64)) (_ BitVec 64) )
+(declare-fun sqrt_single                    ((_ BitVec 32)) (_ BitVec 32) )
+(declare-fun approx_reciprocal_sqrt_double  ((_ BitVec 64)) (_ BitVec 64) )
+(declare-fun approx_reciprocal_sqrt_single  ((_ BitVec 32)) (_ BitVec 32) )
+
+(declare-fun cvt_single_to_double           ((_ BitVec 32)) (_ BitVec 64) )
+(declare-fun cvt_double_to_single           ((_ BitVec 64)) (_ BitVec 32) )
+
+(declare-fun cvt_single_to_int32            ((_ BitVec 32)) (_ BitVec 32) )
+(declare-fun cvt_single_to_int32_truncate   ((_ BitVec 32)) (_ BitVec 32) )
+(declare-fun cvt_single_to_int64            ((_ BitVec 32)) (_ BitVec 64) )
+(declare-fun cvt_double_to_int32            ((_ BitVec 64)) (_ BitVec 32) )
+(declare-fun cvt_double_to_int32_truncate   ((_ BitVec 64)) (_ BitVec 32) )
+(declare-fun cvt_double_to_int64            ((_ BitVec 64)) (_ BitVec 64) )
+
+(declare-fun cvt_int32_to_single            ((_ BitVec 32)) (_ BitVec 32) )
+(declare-fun cvt_int32_to_double            ((_ BitVec 32)) (_ BitVec 64) )
+(declare-fun cvt_int64_to_single            ((_ BitVec 64)) (_ BitVec 32) )
+(declare-fun cvt_int64_to_double            ((_ BitVec 64)) (_ BitVec 64) )
+
+; Uninterpreted ternary function declaration
+(declare-fun vfmadd132_double ((_ BitVec 64) (_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun vfmadd132_single ((_ BitVec 32) (_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun vfmsub132_double ((_ BitVec 64) (_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun vfmsub132_single ((_ BitVec 32) (_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun vfnmadd132_double ((_ BitVec 64) (_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun vfnmadd132_single ((_ BitVec 32) (_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+(declare-fun vfnmsub132_double ((_ BitVec 64) (_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
+(declare-fun vfnmsub132_single ((_ BitVec 32) (_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
+);
+
+our $uif_z3py_template = qq(
+cvt_int32_to_single = Function('cvt_int32_to_single', IntSort(), Float32())
+
+# Uninterpreted binary function declaration
+add_double = Function('add_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+add_single = Function('add_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+sub_double = Function('sub_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+sub_single = Function('sub_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+mul_double = Function('mul_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
+div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
+
+mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
+mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
+
+# Uninterpreted binary function declaration
+approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_single = Function('approx_reciprocal_single', BitVecSort(32), BitVecSort(32))
+
+sqrt_double = Function('sqrt_double', BitVecSort(64), BitVecSort(64))
+sqrt_single = Function('sqrt_single', BitVecSort(32), BitVecSort(32))
+
+approx_reciprocal_sqrt_double = Function('approx_reciprocal_sqrt_double_double', BitVecSort(64), BitVecSort(64))
+approx_reciprocal_sqrt_single = Function('approx_reciprocal_sqrt_double_single', BitVecSort(32), BitVecSort(32))
+
+cvt_single_to_double  = Function('cvt_single_to_double', BitVecSort(32), BitVecSort(64))
+cvt_single_to_int32   = Function('cvt_single_to_int32', BitVecSort(32), BitVecSort(32))
+cvt_single_to_int64   = Function('cvt_single_to_int64', BitVecSort(32), BitVecSort(64))
+cvt_int32_to_single   = Function('cvt_int32_to_single', BitVecSort(32), BitVecSort(32))
+cvt_int32_to_double   = Function('cvt_int32_to_double', BitVecSort(32), BitVecSort(64))
+
+# Uninterpreted ternary function declaration
+vfmadd132_double = Function('vfmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfmadd132_single = Function('vfmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfmsub132_double = Function('vfmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfmsub132_single = Function('vfmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfnmadd132_double = Function('vfnmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfnmadd132_single = Function('vfnmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
+
+vfnmsub132_double = Function('vfnmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
+vfnmsub132_single = Function('vfnmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
 );
 
 my $regcount = scalar keys %regMap;
@@ -3258,56 +3404,7 @@ sf = (SF == ONE1)
 of = (OF == ONE1)
 
 undef = BitVecVal(0, 1)
-cvt_int32_to_single = Function('cvt_int32_to_single', IntSort(), Float32())
-
-# Uninterpreted binary function declaration
-add_double = Function('add_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-add_single = Function('add_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-sub_double = Function('sub_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-sub_single = Function('sub_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-mul_double = Function('mul_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-mul_single = Function('mul_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-div_double = Function('div_double', BitVecSort(64), BitVecSort(64), BitVecSort(64))
-div_single = Function('div_single', BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-maxcmp_double = Function('maxcmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
-maxcmp_single = Function('maxcmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
-
-mincmp_double = Function('mincmp_double', BitVecSort(64), BitVecSort(64), BitVecSort(1))
-mincmp_single = Function('mincmp_single', BitVecSort(32), BitVecSort(32), BitVecSort(1))
-
-# Uninterpreted binary function declaration
-approx_reciprocal_double = Function('approx_reciprocal_double', BitVecSort(64), BitVecSort(64))
-approx_reciprocal_single = Function('approx_reciprocal_single', BitVecSort(32), BitVecSort(32))
-
-sqrt_double = Function('sqrt_double', BitVecSort(64), BitVecSort(64))
-sqrt_single = Function('sqrt_single', BitVecSort(32), BitVecSort(32))
-
-approx_reciprocal_sqrt_double = Function('approx_reciprocal_sqrt_double_double', BitVecSort(64), BitVecSort(64))
-approx_reciprocal_sqrt_single = Function('approx_reciprocal_sqrt_double_single', BitVecSort(32), BitVecSort(32))
-
-cvt_single_to_double  = Function('cvt_single_to_double', BitVecSort(32), BitVecSort(64))
-cvt_single_to_int32   = Function('cvt_single_to_int32', BitVecSort(32), BitVecSort(32))
-cvt_single_to_int64   = Function('cvt_single_to_int64', BitVecSort(32), BitVecSort(64))
-cvt_int32_to_single   = Function('cvt_int32_to_single', BitVecSort(32), BitVecSort(32))
-cvt_int32_to_double   = Function('cvt_int32_to_double', BitVecSort(32), BitVecSort(64))
-
-# Uninterpreted ternary function declaration
-vfmadd132_double = Function('vfmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
-vfmadd132_single = Function('vfmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-vfmsub132_double = Function('vfmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
-vfmsub132_single = Function('vfmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-vfnmadd132_double = Function('vfnmadd132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
-vfnmadd132_single = Function('vfnmadd132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
-vfnmsub132_double = Function('vfnmsub132_double', BitVecSort(64), BitVecSort(64), BitVecSort(64), BitVecSort(64))
-vfnmsub132_single = Function('vfnmsub132_single', BitVecSort(32), BitVecSort(32), BitVecSort(32), BitVecSort(32))
-
+$uif_z3py_template
 
 
 print('\x1b[6;30;44m' + 'Opcode:$opcode' + '\x1b[0m')
