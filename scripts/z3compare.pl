@@ -111,7 +111,7 @@ sub processLines {
         }
 
         if ( $line =~
-m/maybe|must|required|read|write|Value|adress|sigfpe|sigbus|sigsegv|Formula|Hindex|code/g
+m/maybe|must|required|read|write|Value|adress|sigfpe|sigbus|sigsegv|Formula|Hindex|code|info/g
           )
         {
             $appendRules        = 0;
@@ -119,7 +119,18 @@ m/maybe|must|required|read|write|Value|adress|sigfpe|sigbus|sigsegv|Formula|Hind
             next;
         }
 
-        # Normalize the rule
+        # Check if multiple diff  memory reads are used.
+        # This is a wistel blower to our normalization
+        # strategy, which will make those diff read equal.
+        my @matches_bv   = $line =~ m/TMP_BV_\d+_\d+/g;
+        my @matches_bool = $line =~ m/TMP_BOOL_\d+/g;
+        if ( 0 == utils::arrayAllSame( \@matches_bv ) ) {
+            utils::warnInfo("$opcode: All Memory reads not same");
+        }
+        if ( 0 == utils::arrayAllSame( \@matches_bool ) ) {
+            utils::warnInfo("$opcode: All Memory reads not same");
+        }
+
         $line =~ s/TMP_BV_(\d+)_\d+/TMP_BV_$1/g;
         $line =~ s/TMP_BOOL_\d+/TMP_BOOL/g;
         $line =~ s/%(\w+)/$1/g;
