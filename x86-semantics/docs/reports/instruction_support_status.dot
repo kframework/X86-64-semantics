@@ -66,12 +66,21 @@ digraph instr_supprt {
   subgraph cluster_1 {
     label =  "Memory"
     style=filled;
-    color = lightpink;
+    color = lightgrey;
 
-    MEM_G [label="Generalized from regs\nwo/w extend: 996/189\n#1185"]
-    MEM_UG [label="UnGeneralized\n#182"]
+    MEM_G [label="Gen. from Regs\n#1312"]
+    MEM_G_STRATA_STOKE [fontcolor=red; color=red;label="#8\nStrata & Master \nbranches.\n#1103"]
+    MEM_G_STRATA_ONLY [label="Strata only \n#209"]
+    MEM_G_STRATA_MANUAL_ADDITION [label=" Gen. from Regs \nadded manually\n#200"]
+    MEM_G_STRATA_MANUAL_NAME_CONFLICT [label="Gen. from Stratified Regs \n(name conflicts)\n#9"]
+
+    MEM_UG [label="UnGeneralized\n#55"]
 
     MEM -> MEM_G
+    MEM_G -> MEM_G_STRATA_STOKE
+    MEM_G -> MEM_G_STRATA_ONLY
+    MEM_G_STRATA_ONLY -> MEM_G_STRATA_MANUAL_ADDITION
+    MEM_G_STRATA_ONLY -> MEM_G_STRATA_MANUAL_NAME_CONFLICT
     MEM -> MEM_UG
 
     {rank = same; MEM_UG; MEM_G; }
