@@ -67,8 +67,24 @@ for my $key0 ( keys %map0 ) {
         my $rule0 = $map0{$key0};
         my $rule1 = $map1{$key0};
 
+        my $writesize0 = 0;
+        my $writesize1 = 0;
+        if ( $rule0 =~ m/\((\d+) bytes\)/g ) {
+            $writesize0 = $1;
+            $rule0 =~ s/\(\d+ bytes\)\.//g;
+        }
+        if ( $rule1 =~ m/\((\d+) bytes\)/g ) {
+            $writesize1 = $1;
+            $rule1 =~ s/\(\d+ bytes\)\.//g;
+        }
+
+        if ( $writesize1 != $writesize0 ) {
+            utils::failInfo("$opcode: write size mismatch");
+        }
+
+        print $fp "( echo \"$opcode::$key0\")\n";
         print $fp "(assert (not (=" . "\n"
-          . $rule0 . "\n"
+          . $rule0 . "\n\n"
           . $rule1 . "\n"
           . ")))\n(check-sat)"
           . "\n\n\n\n";
@@ -83,8 +99,9 @@ sub processLines {
 
     my %map = ();
 
-    my $currRuleName = "";
-    my $appendRules  = 0;
+    my $currRuleName       = "";
+    my $appendRules        = 0;
+    my $appendAddressRules = 0;
     for my $line (@lines) {
         chomp $line;
         $line = utils::trim($line);
@@ -94,10 +111,11 @@ sub processLines {
         }
 
         if ( $line =~
-m/maybe|must|required|read|write|Value|adress|Address|sigfpe|sigbus|sigsegv|Formula|Hindex|code|bytes/g
+m/maybe|must|required|read|write|Value|adress|sigfpe|sigbus|sigsegv|Formula|Hindex|code/g
           )
         {
-            $appendRules = 0;
+            $appendRules        = 0;
+            $appendAddressRules = 0;
             next;
         }
 
@@ -106,13 +124,29 @@ m/maybe|must|required|read|write|Value|adress|Address|sigfpe|sigbus|sigsegv|Form
         $line =~ s/TMP_BOOL_\d+/TMP_BOOL/g;
         $line =~ s/%(\w+)/$1/g;
 
+        if ( $line =~ m/Address (.*) was updated to/g ) {
+            my $ruleName = "WA";
+            my $rule     = $1;
+            $map{$ruleName}     = $rule;
+            $map{"WD"}          = "";
+            $appendAddressRules = 1;
+            $appendRules        = 0;
+
+            $currRuleName = "WD";
+        }
+        elsif ( 1 == $appendAddressRules ) {
+            my $ruleName = $currRuleName;
+            $map{$ruleName} = $map{$ruleName} . "\n" . $line;
+        }
+
         if ( $line =~ m/(\w+)\s*:\s*(.*)$/g ) {
             my $ruleName = $1;
             my $rule     = $2;
 
-            $map{$ruleName} = $rule;
-            $currRuleName   = $ruleName;
-            $appendRules    = 1;
+            $map{$ruleName}     = $rule;
+            $currRuleName       = $ruleName;
+            $appendRules        = 1;
+            $appendAddressRules = 0;
         }
         elsif ( 1 == $appendRules ) {
             my $ruleName = $currRuleName;
