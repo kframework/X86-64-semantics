@@ -1,0 +1,58 @@
+//  , COMISD_XMM_XMM // COMISD xmm, xmm; extend stratification
+//  , COMISS_XMM_XMM // COMISS xmm, xmm; extend stratification
+//  , PACKSSDW_XMM_XMM // PACKSSDW xmm, xmm
+//  , PACKSSWB_XMM_XMM // PACKSSWB xmm, xmm
+//  , PACKUSDW_XMM_XMM // PACKUSDW xmm, xmm
+//  , PACKUSWB_XMM_XMM // PACKUSWB xmm, xmm
+//  , PADDSB_XMM_XMM // PADDSB xmm, xmm; extend stratification
+//  , PADDSW_XMM_XMM // PADDSW xmm, xmm; extend stratification
+//  , PHADDSW_XMM_XMM // PHADDSW xmm, xmm; extend stratification
+//  , PMOVMSKB_R32_XMM // PMOVMSKB r32, xmm; extend stratification
+//  , PMOVMSKB_R64_XMM // PMOVMSKB r64, xmm; extend stratification
+//  , PSADBW_XMM_XMM // PSADBW xmm, xmm; extend stratification
+//  , PSLLD_XMM_XMM // PSLLD xmm, xmm; extend stratification
+//  , PSLLQ_XMM_XMM // PSLLQ xmm, xmm; extend stratification
+//  , PSLLW_XMM_XMM // PSLLW xmm, xmm; extend stratification
+//  , PSRAD_XMM_XMM // PSRAD xmm, xmm; extend stratification
+//  , PSRAW_XMM_XMM // PSRAW xmm, xmm; extend stratification
+//  , PSRLD_XMM_XMM // PSRLD xmm, xmm; extend stratification
+//  , PSRLQ_XMM_XMM // PSRLQ xmm, xmm; extend stratification
+//  , PSRLW_XMM_XMM // PSRLW xmm, xmm; extend stratification
+//  , VCOMISD_XMM_XMM // VCOMISD xmm, xmm; extend stratification
+//  , VCOMISS_XMM_XMM // VCOMISS xmm, xmm; extend stratification
+//  , VPABSB_YMM_YMM // VPABSB ymm, ymm; extend stratification
+//  , VPABSD_YMM_YMM // VPABSD ymm, ymm; extend stratification
+//  , VPABSW_YMM_YMM // VPABSW ymm, ymm; extend stratification
+//  , VPACKSSDW_XMM_XMM_XMM // VPACKSSDW xmm, xmm, xmm
+//  , VPACKSSDW_YMM_YMM_YMM // VPACKSSDW ymm, ymm, ymm; extend stratification
+//  , VPACKSSWB_XMM_XMM_XMM // VPACKSSWB xmm, xmm, xmm
+//  , VPACKSSWB_YMM_YMM_YMM // VPACKSSWB ymm, ymm, ymm; extend stratification
+//  , VPACKUSDW_XMM_XMM_XMM // VPACKUSDW xmm, xmm, xmm
+//  , VPACKUSDW_YMM_YMM_YMM // VPACKUSDW ymm, ymm, ymm; extend stratification
+//  , VPACKUSWB_XMM_XMM_XMM // VPACKUSWB xmm, xmm, xmm
+//  , VPACKUSWB_YMM_YMM_YMM // VPACKUSWB ymm, ymm, ymm; extend stratification
+//  , VPADDSB_XMM_XMM_XMM // VPADDSB xmm, xmm, xmm; extend stratification
+//  , VPADDSW_XMM_XMM_XMM // VPADDSW xmm, xmm, xmm; extend stratification
+//  , VPBLENDVB_YMM_YMM_YMM_YMM // VPBLENDVB ymm, ymm, ymm, ymm; extend stratification
+// , VPHADDSW_XMM_XMM_XMM // VPHADDSW xmm, xmm, xmm; extend stratification
+//  , VPMOVMSKB_R32_XMM // VPMOVMSKB r32, xmm; extend stratification
+//  , VPMOVMSKB_R32_YMM // VPMOVMSKB r32, ymm; extend stratification
+//  , VPMOVMSKB_R64_XMM // VPMOVMSKB r64, xmm; extend stratification
+//  , VPMOVMSKB_R64_YMM // VPMOVMSKB r64, ymm; extend stratification
+//  , VPSADBW_XMM_XMM_XMM // VPSADBW xmm, xmm, xmm; extend stratification
+//  , VPSLLD_XMM_XMM_XMM // VPSLLD xmm, xmm, xmm; extend stratification
+//  , VPSLLQ_XMM_XMM_XMM // VPSLLQ xmm, xmm, xmm; extend stratification
+//  , VPSLLVD_YMM_YMM_YMM // VPSLLVD ymm, ymm, ymm; extend stratification
+//  , VPSLLVQ_YMM_YMM_YMM // VPSLLVQ ymm, ymm, ymm; extend stratification
+//  , VPSLLW_XMM_XMM_XMM // VPSLLW xmm, xmm, xmm; extend stratification
+//  , VPSRAD_XMM_XMM_XMM // VPSRAD xmm, xmm, xmm; extend stratification
+//  , VPSRAVD_YMM_YMM_YMM // VPSRAVD ymm, ymm, ymm; extend stratification
+//  , VPSRAW_XMM_XMM_XMM // VPSRAW xmm, xmm, xmm; extend stratification
+//  , VPSRLD_XMM_XMM_XMM // VPSRLD xmm, xmm, xmm; extend stratification
+//  , VPSRLQ_XMM_XMM_XMM // VPSRLQ xmm, xmm, xmm; extend stratification
+//  , VPSRLVD_YMM_YMM_YMM // VPSRLVD ymm, ymm, ymm; extend stratification
+//  , VPSRLVQ_YMM_YMM_YMM // VPSRLVQ ymm, ymm, ymm; extend stratification
+//  , VPSRLW_XMM_XMM_XMM // VPSRLW xmm, xmm, xmm; extend stratification
+//  , VPTEST_YMM_YMM // VPTEST ymm, ymm; extend stratification
+//  , VTESTPD_YMM_YMM // VTESTPD ymm, ymm; extend stratification
+//  , VTESTPS_YMM_YMM // VTESTPS ymm, ymm; extend stratification
