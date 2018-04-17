@@ -54,7 +54,9 @@ $kutils::z3_decl_template
 
 );
 
-my $workfile = "/home/sdasgup3/Junk/LOCKER/$opcode.z3";
+my ( $dir, $base, $ext ) = utils::split_filename( $file[0] );
+
+my $workfile = "$dir/$opcode.prove.z3";
 open( my $fp, ">", $workfile ) or die "cannot open: $workfile: $!";
 
 print $fp $decls;
@@ -62,7 +64,7 @@ print $fp $decls;
 my %map0 = %{$map0_ref};
 my %map1 = %{$map1_ref};
 
-for my $key0 ( keys %map0 ) {
+for my $key0 ( sort keys %map0 ) {
     if ( exists $map1{$key0} ) {
         my $rule0 = $map0{$key0};
         my $rule1 = $map1{$key0};
@@ -90,6 +92,8 @@ for my $key0 ( keys %map0 ) {
           . "\n\n\n\n";
     }
 }
+
+print "Formulas written to $workfile\n";
 
 exit(0);
 

@@ -25,18 +25,6 @@ my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 my $script = "~/x86-semantics/scripts/process_spec.pl";
 
-my $stoke_check_circuit =
-  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
-
-#my $stoke_check_circuit =
-#  "/home/sdasgup3/Github/stoke/./bin/stoke_check_circuit";
-
-my $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
-
-my $testcases = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
-
-#my $testcases = "~/Junk/TCS/testcases_100.tc";
-
 my $help                 = "";
 my $stratum              = "";
 my $readmod              = "";
@@ -69,8 +57,10 @@ my $check_stoke          = "";
 my $match_stoke          = "";
 my $single_thread        = "";
 my $instructions_path    = "";
+my $testcases_path       = "";
 my $prepare_concrete_imm = "";
 my $check_stoke_imm      = "";
+my $check_stoke_mem      = "";
 my $match_stoke_imm      = "";
 my $prefix               = "";
 my $testid               = "";
@@ -78,6 +68,8 @@ my $prepare_concrete     = "";
 my $radare2_support      = "";
 my $angr_support         = "";
 my $workdir              = "";
+my $opcode               = "";
+my $update_tc            = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -105,6 +97,8 @@ GetOptions(
     "radare2_support"      => \$radare2_support,
     "angr_support"         => \$angr_support,
     "check_stoke_imm"      => \$check_stoke_imm,
+    "check_stoke_mem"      => \$check_stoke_mem,
+    "update_tc"            => \$update_tc,
     "match_stoke"          => \$match_stoke,
     "match_stoke_imm"      => \$match_stoke_imm,
     "compareintel"         => \$compareintel,
@@ -119,9 +113,11 @@ GetOptions(
     "single_thread"        => \$single_thread,
     "strata_path:s"        => \$strata_path,
     "instructions_path:s"  => \$instructions_path,
+    "testcases_path:s"     => \$testcases_path,
     "prefix:s"             => \$prefix,
     "testid:s"             => \$testid,
     "workdir:s"            => \$workdir,
+    "opcode:s"             => \$opcode,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -341,25 +337,27 @@ if ( "" ne $getmem ) {
     exit(0);
 }
 
-open( my $fp, "<", $file ) or die "cannot open: $!";
-my @lines = <$fp>;
-
 ##########################################################
 if ( "" ne $prepare_concrete ) {
     my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
     if ( "" eq $workdir ) {
-        $workdir = "./";
+        utils::failInfo("Provide workdir arg");
+        exit(0);
     }
 
-    for my $line (@lines) {
-        chomp $line;
+    print "\n\nInstantiating  $opcode\n";
+    execute("mkdir -p $workdir");
+    execute( "$specgen_setup --workdir $workdir --opc $opcode", 1 );
 
-        print "\n\nInstantiating  $line\n";
-        execute("mkdir -p $workdir");
-        execute( "$specgen_setup --workdir $workdir --opc $line", 1 );
-    }
     exit(0);
 }
+
+####################################################################
+####################################################################
+####################################################################
+
+open( my $fp, "<", $file ) or die "cannot open $file: $!";
+my @lines = <$fp>;
 
 ######################################################
 if ( "" ne $prepare_concrete_imm ) {
@@ -384,6 +382,177 @@ if ( "" ne $prepare_concrete_imm ) {
     }
     exit(0);
 }
+
+####################################################################
+if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
+    my $start = time;
+
+    if ( "" eq $testid ) {
+        utils::failInfo("You may like to provide testid ");
+        exit(0);
+    }
+
+    my $basedir = "imm_instructions";
+    if ( "" ne $check_stoke_mem ) {
+        $basedir = "concrete_instances/memory-variants";
+    }
+
+    for my $line (@lines) {
+        chomp $line;
+        print("\n\n Running $line\n");
+        my $workdir         = "$basedir/$line";
+        my $check_stoke_txt = "$workdir/check_stoke.txt";
+        my $check_stoke_log = "$workdir/check_stoke.log";
+        if ( "" ne $testid ) {
+            $check_stoke_txt = "$workdir/check_stoke.$testid.txt";
+            $check_stoke_log = "$workdir/check_stoke.$testid.log";
+        }
+        if ( "" ne $check_stoke_mem ) {
+            execute(
+"$script --check_stoke --file $check_stoke_txt --instructions_path $workdir/instructions --update_tc 1>$check_stoke_log 2>&1",
+                1
+            );
+        }
+        else {
+            execute(
+"$script --check_stoke --file $check_stoke_txt --instructions_path $workdir/instructions  1>$check_stoke_log 2>&1",
+                1
+            );
+        }
+
+    }
+
+    my $duration = time - $start;
+    print "Execution time: $duration s\n";
+    exit(0);
+}
+
+if ( "" ne $check_stoke ) {
+    my $cores_used = 6;
+    my @thrds      = utils::initThreads( scalar(@lines) );
+    my $i          = 0;
+    my $remaining  = scalar(@lines);
+    my $size       = scalar(@lines);
+    for ( my $k = 0 ; $k < $size ; $k = $k + $cores_used ) {
+        if ( $k + $cores_used - 1 < $size ) {
+
+            utils::info("Firing $cores_used.");
+
+            my $start = $i;
+            for ( my $j = $i ; $j < $start + $cores_used ; $j++ ) {
+                my $line = $lines[$i];
+                chomp $line;
+
+                if ( "" eq $single_thread ) {
+                    $thrds[$i] =
+                      threads->create( \&threadop_check_stoke, $line );
+                }
+                else {
+                    threadop_check_stoke($line);
+                }
+                $i++;
+            }
+
+            if ( "" eq $single_thread ) {
+                for ( my $j = $start ; $j < $i ; $j++ ) {
+                    $thrds[$j]->join();
+                }
+            }
+        }
+        else {
+            utils::info( "Firing Last " . ( $size - $i ) );
+            my $start = $i;
+            for ( my $j = $i ; $j < $size ; $j++ ) {
+                my $line = $lines[$i];
+                chomp $line;
+                $thrds[$i] = threads->create( \&threadop_check_stoke, $line );
+                $i++;
+            }
+
+            if ( "" eq $single_thread ) {
+                for ( my $j = $start ; $j < $i ; $j++ ) {
+                    $thrds[$j]->join();
+                }
+            }
+        }
+
+    }
+    exit(0);
+}
+
+sub threadop_check_stoke {
+    my $file = shift @_;
+
+    my $start = time;
+
+    $file = utils::trim($file);
+
+    my $id = "";
+    if ( "" eq $single_thread ) {
+        $id = threads->tid();
+        print "Thread $id start: $file\n";
+    }
+
+    if ( "" eq $instructions_path ) {
+        utils::failInfo("instructions_path not provided");
+    }
+
+    my $target = "$instructions_path/$file/$file.s";
+    my $meta   = "$instructions_path/$file/$file.meta.json";
+    open( my $fpt, "<", $meta ) or die "Can't open $meta: $!";
+    my @linest = <$fpt>;
+    close($fpt);
+
+    my $def_in   = "";
+    my $live_out = "";
+    for my $line (@linest) {
+        chomp $line;
+
+        #print $line . "\n";
+        if ( $line =~ m/"def_in":\s*(.*),/g ) {
+            $def_in = $1;
+            next;
+        }
+        if ( $line =~ m/"live_out":\s*(.*),/g ) {
+            $live_out = $1;
+            next;
+        }
+    }
+
+    my $testcases_path = $kutils::testcases;
+    if ( "" ne $update_tc ) {
+        ## Find the memory operand
+        open( my $fp, "<", $target ) or die "Can't open $target: $!";
+        my @lines = <$fp>;
+        close($fp);
+
+        my $mem_operand = "";
+        for my $line (@lines) {
+            chomp $line;
+            if ( $line =~ m/\((%.*)\)/g ) {
+                $mem_operand = $1;
+                next;
+            }
+        }
+        $testcases_path =
+          kutils::mem_modify_testcases( $file, $testcases_path, $mem_operand );
+    }
+
+    execute(
+"$kutils::stoke_check_circuit --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
+        1
+    );
+
+    if ( "" eq $single_thread ) {
+        print "Thread $id done!: $file\n";
+        threads->exit();
+    }
+    my $duration = time - $start;
+    print "Execution time $file: $duration s\n";
+    return;
+}
+
+################ Match Stoke ########################
 
 if ( "" ne $match_stoke_imm ) {
     my $start = time;
@@ -500,138 +669,6 @@ if ( "" ne $match_stoke ) {
             1 );
     }
     exit(0);
-}
-
-####################################################################
-
-if ( "" ne $check_stoke_imm ) {
-    my $start = time;
-    if ( "" eq $testid ) {
-        utils::warnInfo("You may like to provide testid");
-    }
-
-    for my $line (@lines) {
-        chomp $line;
-        print("\n\n Running $line\n");
-        my $workdir         = "imm_instructions/$line";
-        my $check_stoke_txt = "$workdir/check_stoke.txt";
-        my $check_stoke_log = "$workdir/check_stoke.log";
-        if ( "" ne $testid ) {
-            $check_stoke_txt = "$workdir/check_stoke.$testid.txt";
-            $check_stoke_log = "$workdir/check_stoke.$testid.log";
-        }
-        execute(
-"$script --check_stoke --file $check_stoke_txt --instructions_path $workdir/instructions 1>$check_stoke_log 2>&1",
-            1
-        );
-
-    }
-
-    my $duration = time - $start;
-    print "Execution time: $duration s\n";
-    exit(0);
-}
-
-if ( "" ne $check_stoke ) {
-    my $cores_used = 6;
-    my @thrds      = utils::initThreads( scalar(@lines) );
-    my $i          = 0;
-    my $remaining  = scalar(@lines);
-    my $size       = scalar(@lines);
-
-    for ( my $k = 0 ; $k < $size ; $k = $k + $cores_used ) {
-        if ( $k + $cores_used - 1 < $size ) {
-
-            utils::info("Firing $cores_used.");
-
-            my $start = $i;
-            for ( my $j = $i ; $j < $start + $cores_used ; $j++ ) {
-                my $line = $lines[$i];
-                chomp $line;
-
-                if ( "" eq $single_thread ) {
-                    $thrds[$i] =
-                      threads->create( \&threadop_check_stoke, $line );
-                }
-                else {
-                    threadop_check_stoke($line);
-                }
-                $i++;
-            }
-
-            if ( "" eq $single_thread ) {
-                for ( my $j = $start ; $j < $i ; $j++ ) {
-                    $thrds[$j]->join();
-                }
-            }
-        }
-        else {
-            utils::info( "Firing Last " . ( $size - $i ) );
-            my $start = $i;
-            for ( my $j = $i ; $j < $size ; $j++ ) {
-                my $line = $lines[$i];
-                chomp $line;
-                $thrds[$i] = threads->create( \&threadop_check_stoke, $line );
-                $i++;
-            }
-
-            if ( "" eq $single_thread ) {
-                for ( my $j = $start ; $j < $i ; $j++ ) {
-                    $thrds[$j]->join();
-                }
-            }
-        }
-
-    }
-    exit(0);
-}
-
-sub threadop_check_stoke {
-    my $file = shift @_;
-    $file = utils::trim($file);
-
-    my $id = "";
-    if ( "" eq $single_thread ) {
-        $id = threads->tid();
-        print "Thread $id start: $file\n";
-    }
-
-    if ( "" ne $instructions_path ) {
-        $instantiated_instr_path = $instructions_path;
-    }
-
-    my $target = "$instantiated_instr_path/$file/$file.s";
-    my $meta   = "$instantiated_instr_path/$file/$file.meta.json";
-    open( my $fpt, "<", $meta ) or die "Can't open $meta: $!";
-    my @linest = <$fpt>;
-    close($fpt);
-
-    my $def_in   = "";
-    my $live_out = "";
-    for my $line (@linest) {
-        chomp $line;
-
-        #print $line . "\n";
-        if ( $line =~ m/"def_in":\s*(.*),/g ) {
-            $def_in = $1;
-            next;
-        }
-        if ( $line =~ m/"live_out":\s*(.*),/g ) {
-            $live_out = $1;
-            next;
-        }
-    }
-
-    execute(
-"$stoke_check_circuit --target $target --functions $functions_dir --testcases $testcases --def_in $def_in --live_out $live_out",
-        1
-    );
-
-    if ( "" eq $single_thread ) {
-        print "Thread $id done!: $file\n";
-        threads->exit();
-    }
-    return;
 }
 
 ## Find Register Variant for a reg/imm/mem instruction
