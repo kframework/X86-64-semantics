@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint check_stoke_base);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -24,6 +24,10 @@ use utils;
 my $stoke_debug_circuit =
   "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
 my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
+our $stoke_check_circuit =
+  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
+our $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
+our $testcases     = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
 
 #my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
 #my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
@@ -385,7 +389,7 @@ our $z3_decl_template = qq(
 (declare-fun div_quotient_int32  ((_ BitVec 64) (_ BitVec 32)) (_ BitVec 32))
 (declare-fun div_remainder_int32 ((_ BitVec 64) (_ BitVec 32)) (_ BitVec 32))
 (declare-fun div_quotient_int64  ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))
-(declare-fun div_remainder_int64 ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))  
+(declare-fun div_remainder_int64 ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))
 
 ; Uninterpreted unary function declaration
 (declare-fun approx_reciprocal_double       ((_ BitVec 64)) (_ BitVec 64) )
@@ -4666,6 +4670,104 @@ sub getRegVaraint {
     if ( 0 == $foundOne ) {
         return ( "", 0, $imm_or_mem, "no_match" );
     }
+}
+
+##########################################################
+sub check_stoke_base {
+    my $opcode                  = shift @_;
+    my $instantiated_instr_path = shift @_;
+    my $logfile                 = shift @_;
+    my $modify_testcases        = shift @_;
+
+    my $testcases_path = $testcases;
+    $opcode = utils::trim($opcode);
+
+    my $target = "$instantiated_instr_path/$opcode/$opcode.s";
+    my $meta   = "$instantiated_instr_path/$opcode/$opcode.meta.json";
+    open( my $fpt, "<", $meta ) or die "Can't open $meta: $!";
+    my @linest = <$fpt>;
+    close($fpt);
+
+    ## Find def_in/def_out
+    my $def_in   = "";
+    my $live_out = "";
+    for my $line (@linest) {
+        chomp $line;
+
+        #print $line . "\n";
+        if ( $line =~ m/"def_in":\s*(.*),/g ) {
+            $def_in = $1;
+            next;
+        }
+        if ( $line =~ m/"live_out":\s*(.*),/g ) {
+            $live_out = $1;
+            next;
+        }
+    }
+
+    if ( defined($modify_testcases) and 1 == $modify_testcases ) {
+        ## Find the memory operand
+        open( my $fp, "<", $target ) or die "Can't open $target: $!";
+        my @lines = <$fp>;
+        close($fp);
+
+        my $mem_operand = "";
+        for my $line (@lines) {
+            chomp $line;
+            if ( $line =~ m/\((%.*)\)/g ) {
+                $mem_operand = $1;
+                next;
+            }
+        }
+        $testcases_path =
+          mem_modify_testcases( $opcode, $testcases_path, $mem_operand );
+    }
+
+    my $checklog = "";
+    if ( defined($logfile) ) {
+        $checklog = "1>$logfile 2>&1";
+    }
+    execute(
+"$stoke_check_circuit --target $target --functions $functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out $checklog",
+        2
+    );
+
+    return;
+}
+
+sub mem_modify_testcases {
+    my $opcode         = shift @_;
+    my $testcases_path = shift @_;
+    my $mem_operand    = shift @_;
+
+    print "Modiy $testcases_path using $mem_operand\n";
+
+    open( my $fp, "<", $testcases_path )
+      or die "Can't open $testcases_path: $!";
+    my @lines = <$fp>;
+    close($fp);
+
+    my $modified_testcases = "/home/sdasgup3/Junk/LOCKER/$opcode.tc";
+    open( my $fpn, ">", $modified_testcases )
+      or die "Can't open $modified_testcases: $!";
+
+    for my $line (@lines) {
+        my $cpyline = $line;
+        chomp $cpyline;
+        if ( $cpyline =~ m/$mem_operand/g ) {
+
+           #print $line . "\n";
+           #$cpyline =~ s/^($mem_operand\w+)(\W.*)/$1 00 00 00 06 ff ff ff e0/g;
+            print $fpn "$mem_operand     00 00 00 06 ff ff ff e0" . "\n";
+        }
+        else {
+            print $fpn $line;
+        }
+    }
+
+    close $fpn;
+    print "Modiied: $modified_testcases\n";
+    return $modified_testcases;
 }
 
 1;
