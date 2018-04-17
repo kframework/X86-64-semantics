@@ -6,7 +6,7 @@ use warnings;
 use Getopt::Long;
 use File::Compare;
 use File::Basename;
-use File::chdir;
+#use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -14,7 +14,7 @@ use utils;
 use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
 use File::Find;
-use File::chdir;
+#use File::chdir;
 use Cwd;
 use threads;
 
@@ -337,7 +337,6 @@ if ( "" ne $getmem ) {
     exit(0);
 }
 
-##########################################################
 if ( "" ne $prepare_concrete ) {
     my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
     if ( "" eq $workdir ) {
@@ -428,7 +427,7 @@ if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
 }
 
 if ( "" ne $check_stoke ) {
-    my $cores_used = 6;
+    my $cores_used = 20;
     my @thrds      = utils::initThreads( scalar(@lines) );
     my $i          = 0;
     my $remaining  = scalar(@lines);
