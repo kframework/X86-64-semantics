@@ -427,6 +427,11 @@ if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
 }
 
 if ( "" ne $check_stoke ) {
+    if ( "" eq $testid ) {
+        utils::failInfo("You may like to provide testid ");
+        exit(0);
+    }
+
     my $cores_used = 20;
     my @thrds      = utils::initThreads( scalar(@lines) );
     my $i          = 0;
@@ -533,8 +538,8 @@ sub threadop_check_stoke {
                 next;
             }
         }
-        $testcases_path =
-          kutils::mem_modify_testcases( $file, $testcases_path, $mem_operand );
+        $testcases_path = "$instructions_path/../testcases.$testid.tc";
+        kutils::mem_modify_testcases( $file, $mem_operand, $testcases_path );
     }
 
     execute(
