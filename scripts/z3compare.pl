@@ -84,12 +84,14 @@ for my $key0 ( sort keys %map0 ) {
             utils::failInfo("$opcode: write size mismatch");
         }
 
+        print $fp "( push )\n";
         print $fp "( echo \"$opcode::$key0\")\n";
         print $fp "(assert (not (=" . "\n"
           . $rule0 . "\n\n"
           . $rule1 . "\n"
-          . ")))\n(check-sat)"
-          . "\n\n\n\n";
+          . ")))\n(check-sat)" . "\n";
+        print $fp "( pop )\n";
+        print $fp "\n\n\n";
     }
 }
 
