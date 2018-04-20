@@ -21,9 +21,9 @@ $VERSION = 1.00;
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
-my $stoke_debug_circuit =
+our $stoke_debug_circuit =
   "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
-my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
+our $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
 our $stoke_check_circuit =
   "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
 our $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
