@@ -6,6 +6,7 @@ use warnings;
 use Getopt::Long;
 use File::Compare;
 use File::Basename;
+
 #use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
@@ -14,13 +15,13 @@ use utils;
 use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
 use File::Find;
+
 #use File::chdir;
 use Cwd;
 use threads;
 
 # Using GetOPtions
-my $file        = "";
-my $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
+my $file = "";
 my $instantiated_instr_path =
   "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
 my $script = "~/x86-semantics/scripts/process_spec.pl";
@@ -70,6 +71,7 @@ my $angr_support         = "";
 my $workdir              = "";
 my $opcode               = "";
 my $update_tc            = "";
+my $no_strata_handler    = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -92,6 +94,7 @@ GetOptions(
     "getimmdiff"           => \$getimmdiff,
     "getmem"               => \$getmem,
     "check_stoke"          => \$check_stoke,
+    "no_strata_handler"    => \$no_strata_handler,
     "prepare_concrete_imm" => \$prepare_concrete_imm,
     "prepare_concrete"     => \$prepare_concrete,
     "radare2_support"      => \$radare2_support,
@@ -111,7 +114,6 @@ GetOptions(
     "compile"              => \$compile,
     "start:s"              => \$start,
     "single_thread"        => \$single_thread,
-    "strata_path:s"        => \$strata_path,
     "instructions_path:s"  => \$instructions_path,
     "testcases_path:s"     => \$testcases_path,
     "prefix:s"             => \$prefix,
@@ -542,8 +544,12 @@ sub threadop_check_stoke {
         kutils::mem_modify_testcases( $file, $mem_operand, $testcases_path );
     }
 
+    my $strata_path_switch = "--strata_path $kutils::strata_path";
+    if ( "" ne $no_strata_handler ) {
+        $strata_path_switch = "";
+    }
     execute(
-"$kutils::stoke_check_circuit --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
+"$kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
         1
     );
 
@@ -626,7 +632,7 @@ sub threadop_match_stoke {
 
     for my $line (@mslines) {
         chomp $line;
-        if ( -e "$strata_path/$line.s" ) {
+        if ( -e "$kutils::strata_path/$line.s" ) {
 
         }
         else {
@@ -669,8 +675,10 @@ if ( "" ne $match_stoke ) {
     my $specgen = "/home/sdasgup3/Github/strata/stoke/bin/specgen";
     for my $line (@lines) {
         chomp $line;
-        execute( "$specgen compare --circuit_dir $strata_path --opcode $line",
-            1 );
+        execute(
+            "$specgen compare --circuit_dir $kutils::trata_path --opcode $line",
+            1
+        );
     }
     exit(0);
 }
@@ -921,7 +929,7 @@ if ( "" ne $createspec ) {
             next;
         }
 
-        kutils::createSpecFile( $opcode, $strata_path, $specdir,
+        kutils::createSpecFile( $opcode, $kutils::strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
         print "\n";
     }
@@ -964,7 +972,7 @@ if ( "" ne $all ) {
             next;
         }
 
-        kutils::createSpecFile( $opcode, $strata_path, $specdir,
+        kutils::createSpecFile( $opcode, $kutils::strata_path, $specdir,
             $instantiated_instr_path, $debugprint );
         kutils::runkprove( $opcode, $specdir, $specoutdir, $debugprint );
         kutils::postProcess( $opcode, $specdir, $specoutdir,
@@ -978,8 +986,8 @@ sub checkSuppOrManuallyGen {
     my $debugprint = shift @_;
 
     my ( $isSupported, $reason ) =
-      kutils::checkSupported( $opcode, $strata_path, $derivedInstructions,
-        $debugprint );
+      kutils::checkSupported( $opcode, $kutils::strata_path,
+        $derivedInstructions, $debugprint );
     if ( 0 == $isSupported ) {
         utils::warnInfo("$opcode: $reason");
         return 0;
@@ -1050,7 +1058,7 @@ if ( "" ne $checksanity ) {
 
 ## Get the stratum and num of instr of a particular circuit
 if ( "" ne $stratum ) {
-    if ( "" eq $strata_path ) {
+    if ( "" eq $kutils::trata_path ) {
         info(" Need-- strata_path ");
         exit(0);
     }
@@ -1059,7 +1067,7 @@ if ( "" ne $stratum ) {
     for my $opcode (@lines) {
         chomp $opcode;
         my ( $depth, $count ) =
-          kutils::find_stratum( $opcode, $strata_path, $debugprint );
+          kutils::find_stratum( $opcode, $kutils::strata_path, $debugprint );
         print " \n $opcode" . " \t " . $depth . " \t " . $count . " \n ";
     }
     exit(0);
@@ -1087,7 +1095,7 @@ if ( "" ne $getoplist ) {
     #info(" Using strata_path = $strata_path ");
     for my $opcode (@lines) {
         chomp $opcode;
-        my $opList = kutils::getOpList( $opcode, $strata_path, $debugprint );
+        my $opList = kutils::getOpList( $opcode, $kutils::trata_path, $debugprint );
         print $opList;
     }
     exit(0);
