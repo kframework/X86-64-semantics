@@ -71,6 +71,7 @@ my $angr_support         = "";
 my $workdir              = "";
 my $opcode               = "";
 my $update_tc            = "";
+my $use_updated_tc       = "";
 my $no_strata_handler    = "";
 
 GetOptions(
@@ -102,6 +103,7 @@ GetOptions(
     "check_stoke_imm"      => \$check_stoke_imm,
     "check_stoke_mem"      => \$check_stoke_mem,
     "update_tc"            => \$update_tc,
+    "use_updated_tc"       => \$use_updated_tc,
     "match_stoke"          => \$match_stoke,
     "match_stoke_imm"      => \$match_stoke_imm,
     "compareintel"         => \$compareintel,
@@ -353,6 +355,35 @@ if ( "" ne $prepare_concrete ) {
     exit(0);
 }
 
+if ( "" ne $update_tc ) {
+    if ( "" eq $opcode ) {
+        utils::failInfo("opcode not provided");
+    }
+    if ( "" eq $instructions_path ) {
+        utils::failInfo("instructions_path not provided");
+    }
+    if ( "" eq $testid ) {
+        utils::failInfo("testid not provided");
+    }
+    my $target = "$instructions_path/$opcode/$opcode.s";
+    open( my $fp, "<", $target ) or die "Can't open $target: $!";
+    my @lines = <$fp>;
+    close($fp);
+
+    my $mem_operand = "";
+    for my $line (@lines) {
+        chomp $line;
+        if ( $line =~ m/\((%.*)\)/g ) {
+            $mem_operand = $1;
+            next;
+        }
+    }
+    my $testcases_path = "$instructions_path/../testcases.$testid.tc";
+    kutils::mem_modify_testcases( $opcode, $mem_operand, $testcases_path );
+
+    exit(0);
+}
+
 ####################################################################
 ####################################################################
 ####################################################################
@@ -526,22 +557,8 @@ sub threadop_check_stoke {
     }
 
     my $testcases_path = $kutils::testcases;
-    if ( "" ne $update_tc ) {
-        ## Find the memory operand
-        open( my $fp, "<", $target ) or die "Can't open $target: $!";
-        my @lines = <$fp>;
-        close($fp);
-
-        my $mem_operand = "";
-        for my $line (@lines) {
-            chomp $line;
-            if ( $line =~ m/\((%.*)\)/g ) {
-                $mem_operand = $1;
-                next;
-            }
-        }
+    if ( "" ne $use_updated_tc ) {
         $testcases_path = "$instructions_path/../testcases.$testid.tc";
-        kutils::mem_modify_testcases( $file, $mem_operand, $testcases_path );
     }
 
     my $strata_path_switch = "--strata_path $kutils::strata_path";
@@ -1095,7 +1112,8 @@ if ( "" ne $getoplist ) {
     #info(" Using strata_path = $strata_path ");
     for my $opcode (@lines) {
         chomp $opcode;
-        my $opList = kutils::getOpList( $opcode, $kutils::trata_path, $debugprint );
+        my $opList =
+          kutils::getOpList( $opcode, $kutils::trata_path, $debugprint );
         print $opList;
     }
     exit(0);

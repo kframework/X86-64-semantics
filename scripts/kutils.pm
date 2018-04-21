@@ -4699,7 +4699,40 @@ sub mem_modify_testcases {
             print $fpn "$mem_operand     00 00 00 06 ff ff ff e0" . "\n";
         }
         else {
-            print $fpn $line;
+
+            #if ( $cpyline =~
+            #    m/00000006 ffffffe0   v v v v v v v v\s*(\d.*)00\s*$/g )
+            #{
+
+            #print $fpn "00000006 ffffffe0   v v v v v v v v   $1ff"."\n";
+            #print $1. "\n";
+            #}
+            if ( $cpyline =~ m/%rsp/g ) {
+                print $fpn "%rsp     00 00 00 06 ff ff ff f8" . "\n";
+            }
+            else {
+                print $fpn $line;
+            }
+
+            #    my $temp = $cpyline =~
+            #      s/%rcx\s*\S\S \S\S \S\S \S\S \S\S \S\S \S\S (\S\S)/$1/gr;
+            #    my $hextemp = hex($temp);
+            #    my $num     = sprintf( "%02x", $hextemp & 0x0f );
+            #    my $newline = "00 00 00 00 00 00 00 $num";
+            #    print $fpn "%rcx    $newline" . "\n";
+            #}
+            #else {
+            #    print $fpn $line;
+            #}
+            #if ( $cpyline =~ m/%rcx/g ) {
+            #    my $temp = $cpyline =~
+            #      s/%rcx\s*\S\S \S\S \S\S \S\S \S\S \S\S \S\S (\S\S)/$1/gr;
+            #    my $hextemp = hex($temp);
+            #    my $num     = sprintf( "%02x", $hextemp & 0x0f );
+            #    my $newline = "00 00 00 00 00 00 00 $num";
+            #    print $fpn "%rcx    $newline" . "\n";
+            #}
+
         }
     }
 
