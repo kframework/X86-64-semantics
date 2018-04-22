@@ -217,8 +217,6 @@ comisd_xmm_m64
 comiss_xmm_m32
 cvtdq2pd_xmm_m64
 cvtdq2ps_xmm_m128
-cvtpd2dq_xmm_m128
-cvtpd2ps_xmm_m128
 cvtpi2pd_xmm_m64
 cvtpi2ps_xmm_m64
 cvtps2dq_xmm_m128
@@ -233,7 +231,6 @@ cvtsi2ssq_xmm_m64
 cvtss2sd_xmm_m32
 cvtss2sil_r32_m32
 cvtss2siq_r64_m32
-cvttpd2dq_xmm_m128
 cvttps2dq_xmm_m128
 cvttsd2sil_r32_m64
 cvttsd2siq_r64_m64
@@ -731,8 +728,6 @@ vaddpd_xmm_xmm_m128
 vaddpd_ymm_ymm_m256
 vaddps_xmm_xmm_m128
 vaddps_ymm_ymm_m256
-vaddsd_xmm_xmm_m64
-vaddss_xmm_xmm_m32
 vaddsubpd_xmm_xmm_m128
 vaddsubpd_ymm_ymm_m256
 vaddsubps_xmm_xmm_m128
@@ -770,8 +765,6 @@ vcvtdq2pd_ymm_m128
 vcvtdq2ps_xmm_m128
 vcvtdq2ps_ymm_m256
 vcvtpd2dq_xmm_m256
-vcvtpd2ps_xmm_m128
-vcvtpd2ps_xmm_m256
 vcvtph2ps_xmm_m64
 vcvtph2ps_ymm_m128
 vcvtps2dq_xmm_m128
@@ -782,16 +775,12 @@ vcvtps2ph_m128_ymm_imm8
 vcvtps2ph_m64_xmm_imm8
 vcvtsd2sil_r32_m64
 vcvtsd2siq_r64_m64
-vcvtsd2ss_xmm_xmm_m64
 vcvtsi2sdl_xmm_xmm_m32
 vcvtsi2sdq_xmm_xmm_m64
 vcvtsi2ssl_xmm_xmm_m32
 vcvtsi2ssq_xmm_xmm_m64
-vcvtss2sd_xmm_xmm_m32
 vcvtss2sil_r32_m32
 vcvtss2siq_r64_m32
-vcvttpd2dq_xmm_m128
-vcvttpd2dq_xmm_m256
 vcvttps2dq_xmm_m128
 vcvttps2dq_ymm_m256
 vcvttsd2sil_r32_m64
@@ -802,8 +791,6 @@ vdivpd_xmm_xmm_m128
 vdivpd_ymm_ymm_m256
 vdivps_xmm_xmm_m128
 vdivps_ymm_ymm_m256
-vdivsd_xmm_xmm_m64
-vdivss_xmm_xmm_m32
 vdppd_xmm_xmm_m128_imm8
 vdpps_xmm_xmm_m128_imm8
 vdpps_ymm_ymm_m256_imm8
@@ -920,8 +907,6 @@ vmulpd_xmm_xmm_m128
 vmulpd_ymm_ymm_m256
 vmulps_xmm_xmm_m128
 vmulps_ymm_ymm_m256
-vmulsd_xmm_xmm_m64
-vmulss_xmm_xmm_m32
 vorpd_xmm_xmm_m128
 vorpd_ymm_ymm_m256
 vorps_xmm_xmm_m128
@@ -1181,7 +1166,6 @@ vpxor_xmm_xmm_m128
 vpxor_ymm_ymm_m256
 vrcpps_xmm_m128
 vrcpps_ymm_m256
-vrcpss_xmm_xmm_m32
 vroundpd_xmm_m128_imm8
 vroundpd_ymm_m256_imm8
 vroundps_xmm_m128_imm8
@@ -1190,7 +1174,6 @@ vroundsd_xmm_xmm_m64_imm8
 vroundss_xmm_xmm_m32_imm8
 vrsqrtps_xmm_m128
 vrsqrtps_ymm_m256
-vrsqrtss_xmm_xmm_m32
 vshufpd_xmm_xmm_m128_imm8
 vshufpd_ymm_ymm_m256_imm8
 vshufps_xmm_xmm_m128_imm8
@@ -1199,14 +1182,10 @@ vsqrtpd_xmm_m128
 vsqrtpd_ymm_m256
 vsqrtps_xmm_m128
 vsqrtps_ymm_m256
-vsqrtsd_xmm_xmm_m64
-vsqrtss_xmm_xmm_m32
 vsubpd_xmm_xmm_m128
 vsubpd_ymm_ymm_m256
 vsubps_xmm_xmm_m128
 vsubps_ymm_ymm_m256
-vsubsd_xmm_xmm_m64
-vsubss_xmm_xmm_m32
 vtestpd_xmm_m128
 vtestpd_ymm_m256
 vtestps_xmm_m128
