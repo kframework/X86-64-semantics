@@ -17,20 +17,22 @@ use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
 
 # Using GetOPtions
-my @file   = ();
-my @show   = ();
-my $opcode = "";
-my $debug  = "";
+my @file     = ();
+my @show     = ();
+my $opcode   = "";
+my $debug    = "";
+my $workfile = "";
 
 GetOptions(
-    "file:s"   => \@file,
-    "show:s"   => \@show,
-    "opcode:s" => \$opcode,
-    "debug"    => \$debug,
+    "file:s"     => \@file,
+    "show:s"     => \@show,
+    "opcode:s"   => \$opcode,
+    "workfile:s" => \$workfile,
+    "debug"      => \$debug,
 ) or die("Error in command line arguments\n");
 
-if ( ( $opcode eq "" ) or ( scalar(@file) < 2 ) ) {
-    print "Provide --file and  --opcode args\n\n";
+if ( ( $opcode eq "" ) or ( scalar(@file) < 2 ) or ( "" eq $workfile ) ) {
+    print "Provide --file, --workfile and  --opcode args\n\n";
     exit(0);
 }
 
@@ -56,7 +58,7 @@ $kutils::z3_decl_template
 
 my ( $dir, $base, $ext ) = utils::split_filename( $file[0] );
 
-my $workfile = "$dir/$opcode.prove.z3";
+#my $workfile = "$dir/$opcode.prove.z3";
 open( my $fp, ">", $workfile ) or die "cannot open: $workfile: $!";
 
 print $fp $decls;
