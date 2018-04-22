@@ -903,6 +903,7 @@ vpcmpgtb_ymm_ymm_m256
 vpcmpgtd_xmm_xmm_m128
 vpcmpgtd_ymm_ymm_m256
 vpcmpgtq_xmm_xmm_m128
+vpcmpgtq_ymm_ymm_m256
 vpcmpgtw_xmm_xmm_m128
 vpcmpgtw_ymm_ymm_m256
 vphaddd_xmm_xmm_m128
