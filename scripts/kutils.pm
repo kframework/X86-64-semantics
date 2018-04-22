@@ -358,9 +358,13 @@ our $z3_decl_template = qq(
 (declare-const af Bool)
 (declare-const of Bool)
 
-
-
 ; Uninterpreted binary function declaration
+(declare-fun comisd ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 2))
+(declare-fun comiss ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 2))
+(declare-fun    cvt_single_to_fp16_rm   ((_ BitVec 32) (_ BitVec 8)) (_ BitVec 16) )
+(declare-fun    cvt_single_to_int32_rm  ((_ BitVec 32) (_ BitVec 8)) (_ BitVec 32) )
+(declare-fun    cvt_double_to_int64_rm  ((_ BitVec 64) (_ BitVec 8)) (_ BitVec 64) )
+
 (declare-fun add_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
 (declare-fun add_single ((_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
 (declare-fun sub_double ((_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
@@ -392,6 +396,10 @@ our $z3_decl_template = qq(
 (declare-fun div_remainder_int64 ((_ BitVec 128) (_ BitVec 64)) (_ BitVec 64))
 
 ; Uninterpreted unary function declaration
+(declare-fun    cvt_half_to_single      ((_ BitVec 16)) (_ BitVec 32) )
+(declare-fun    cvt_double_to_int64_truncate     ((_ BitVec 64)) (_ BitVec 64) )
+(declare-fun    cvt_single_to_int64_truncate     ((_ BitVec 32)) (_ BitVec 64) )
+
 (declare-fun approx_reciprocal_double       ((_ BitVec 64)) (_ BitVec 64) )
 (declare-fun approx_reciprocal_single       ((_ BitVec 32)) (_ BitVec 32) )
 (declare-fun sqrt_double                    ((_ BitVec 64)) (_ BitVec 64) )
@@ -415,6 +423,9 @@ our $z3_decl_template = qq(
 (declare-fun cvt_int64_to_double            ((_ BitVec 64)) (_ BitVec 64) )
 
 ; Uninterpreted ternary function declaration
+(declare-fun cmp_double_pred ((_ BitVec 64) (_ BitVec 64) (_ BitVec 8)) (_ BitVec 1))
+(declare-fun cmp_single_pred ((_ BitVec 32) (_ BitVec 32) (_ BitVec 8)) (_ BitVec 1))
+
 (declare-fun vfmadd132_double ((_ BitVec 64) (_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
 (declare-fun vfmadd132_single ((_ BitVec 32) (_ BitVec 32) (_ BitVec 32)) (_ BitVec 32))
 (declare-fun vfmadd231_double ((_ BitVec 64) (_ BitVec 64) (_ BitVec 64)) (_ BitVec 64))
