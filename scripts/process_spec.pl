@@ -566,16 +566,17 @@ sub threadop_check_stoke {
         $strata_path_switch = "";
     }
     execute(
-"$kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
+"timeout 30m  $kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
         1
     );
+    my $duration = time - $start;
+    print "Execution time $file: $duration s\n";
 
     if ( "" eq $single_thread ) {
         print "Thread $id done!: $file\n";
         threads->exit();
     }
-    my $duration = time - $start;
-    print "Execution time $file: $duration s\n";
+
     return;
 }
 
