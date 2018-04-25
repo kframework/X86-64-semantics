@@ -381,7 +381,7 @@ vpunpckhbw_xmm_xmm_xmm
 vpunpckhbw_ymm_ymm_ymm
 vpunpcklbw_xmm_xmm_xmm
 vpunpcklbw_ymm_ymm_ymm
-vpvmpgtq_ymm_ymm_ymm
+vpcmpgtq_ymm_ymm_ymm
 vtestpd_xmm_xmm
 vtestpd_ymm_ymm
 vtestps_xmm_xmm
