@@ -107,7 +107,7 @@ module X86-INSTRUCTIONS-SEMANTICS
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
-      updateCarryFlagAdd(MIsrc1, MIsrc2, zeroMIntW64) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, mi(64, 0)) ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
   ...</k> 
@@ -122,18 +122,18 @@ module X86-INSTRUCTIONS-SEMANTICS
 
   rule <k> 
     execinstr(popcntq R1:R64, R2:R64, .Typedoperands) =>
-      setFlag(zeroMIntW1, "OF") ~>
-      setFlag(zeroMIntW1, "SF") ~>
-      setFlag(zeroMIntW1, "AF") ~>
-      setFlag(zeroMIntW1, "CF") ~>
-      setFlag(zeroMIntW1, "PF") ~>
+      setFlag(mi(1, 0), "OF") ~>
+      setFlag(mi(1, 0), "SF") ~>
+      setFlag(mi(1, 0), "AF") ~>
+      setFlag(mi(1, 0), "CF") ~>
+      setFlag(mi(1, 0), "PF") ~>
       setFlag(
-          (#ifMInt zeroMInt(getRegisterValue(R1, RSMap))
+          {(#ifMInt zeroMInt(getRegisterValue(R1, RSMap))
       #then
-          oneMIntW1
+          mi(1, 1)
       #else
-          zeroMIntW1
-      #fi):>MInt 
+          mi(1, 0)
+      #fi)}:>MInt 
           , "ZF") ~>
       setRegisterValue(mi(getRegisterSize(R2), popCount(getRegisterValue(R1, RSMap))), R2) 
   ...</k>
@@ -148,24 +148,24 @@ module X86-INSTRUCTIONS-SEMANTICS
 
   rule <k>
     execinstr(popcntq  ( DestR, MIsrc, .Typedoperands )) => 
-    setFlag(zeroMIntW1, "OF") ~>
-    setFlag(zeroMIntW1, "ZF") ~>
-    setFlag(zeroMIntW1, "SF") ~>
-    setFlag(zeroMIntW1, "AF") ~>
-    setFlag(zeroMIntW1, "CF") ~>
-    setFlag(zeroMIntW1, "PF") ~>
+    setFlag(mi(1, 0), "OF") ~>
+    setFlag(mi(1, 0), "ZF") ~>
+    setFlag(mi(1, 0), "SF") ~>
+    setFlag(mi(1, 0), "AF") ~>
+    setFlag(mi(1, 0), "CF") ~>
+    setFlag(mi(1, 0), "PF") ~>
     setRegisterValue(MIsrc, DestR) 
   ...</k>
       requires notBool zeroMInt(MIsrc)
 
   rule <k>
     execinstr(popcntq  ( DestR:R64, MIsrc, .Typedoperands )) => 
-    setFlag(zeroMIntW1, "OF") ~>
-    setFlag(oneMIntW1,  "ZF") ~>
-    setFlag(zeroMIntW1, "SF") ~>
-    setFlag(zeroMIntW1, "AF") ~>
-    setFlag(zeroMIntW1, "CF") ~>
-    setFlag(zeroMIntW1, "PF") ~>
+    setFlag(mi(1, 0), "OF") ~>
+    setFlag(mi(1, 1),  "ZF") ~>
+    setFlag(mi(1, 0), "SF") ~>
+    setFlag(mi(1, 0), "AF") ~>
+    setFlag(mi(1, 0), "CF") ~>
+    setFlag(mi(1, 0), "PF") ~>
     setRegisterValue(MIsrc, DestR) 
   ...</k>
       requires zeroMInt(MIsrc)
@@ -187,22 +187,22 @@ module X86-INSTRUCTIONS-SEMANTICS
   rule <k>
   execinstr(sarq R,  MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
         #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
         #then
-          zeroMIntW1
+          mi(1, 0)
         #else
           undef
         #fi 
-      #fi):>MInt  
+      #fi)}:>MInt  
         , 
         "OF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("ZF", RSMap)    
       #else
@@ -212,12 +212,12 @@ module X86-INSTRUCTIONS-SEMANTICS
         #else 
           fromBool(zeroMInt(getSignBit(MIsrc)), 1)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "ZF"
         ) ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("SF", RSMap)
       #else
@@ -227,7 +227,7 @@ module X86-INSTRUCTIONS-SEMANTICS
         #else 
           getSignBit(MIsrc)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "SF"
       ) ~> 
 
@@ -263,7 +263,7 @@ module X86-INSTRUCTIONS-SEMANTICS
         "CF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("PF", RSMap)
       #else
@@ -279,7 +279,7 @@ module X86-INSTRUCTIONS-SEMANTICS
         #else 
           mi(1,1)
         #fi 
-      #fi):>MInt,  
+      #fi)}:>MInt,  
       "PF"
         ) ~> 
 
@@ -701,7 +701,7 @@ vcvtpd2ps_xmm_ymm
   rule <k>
   execinstr(salq R, MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
@@ -711,12 +711,12 @@ vcvtpd2ps_xmm_ymm
         #else
           undef
         #fi 
-      #fi):>MInt  
+      #fi)}:>MInt  
         , 
         "OF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("ZF", RSMap)    
       #else
@@ -726,12 +726,12 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1,1)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "ZF"
         ) ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("SF", RSMap)
       #else
@@ -741,7 +741,7 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1, 0)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "SF"
       ) ~> 
 
@@ -777,7 +777,7 @@ vcvtpd2ps_xmm_ymm
         "CF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("PF", RSMap)
       #else
@@ -793,7 +793,7 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1,1)
         #fi 
-      #fi):>MInt,  
+      #fi)}:>MInt,  
       "PF"
         ) ~> 
 
@@ -1156,7 +1156,7 @@ vcvtpd2ps_xmm_ymm
     saveRegister(R, S) => .
   ...</k>
     <regstate> RSMap:Map => updateMap(RSMap, 
-      S |-> plugInMask(RSMap[S]:>MInt, getRegisterValue(R, RSMap), 0)
+      S |-> plugInMask({RSMap[S]}:>MInt, getRegisterValue(R, RSMap), 0)
     )
     </regstate>
 
@@ -1178,7 +1178,7 @@ vcvtpd2ps_xmm_ymm
     restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 
       setRegisterValue(
           concatenateMInt(
-            extractMask(RSMap[S]:>MInt, W1, S1),
+            extractMask({RSMap[S]}:>MInt, W1, S1),
             extractMask(getRegisterValue(R, RSMap), RW, RS))
           , R)
   ...</k>
@@ -1189,10 +1189,10 @@ vcvtpd2ps_xmm_ymm
     restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 
       setRegisterValue(
           concatenateMInt(
-            extractMask(RSMap[S]:>MInt, W2, S2),
+            extractMask({RSMap[S]}:>MInt, W2, S2),
             concatenateMInt( 
               extractMask(getRegisterValue(R, RSMap), RW, RS),
-              extractMask(RSMap[S]:>MInt, W1, S1))
+              extractMask({RSMap[S]}:>MInt, W1, S1))
             ) , R)
   ...</k>
     <regstate> RSMap </regstate>
@@ -1218,11 +1218,11 @@ vcvtpd2ps_xmm_ymm
   rule
       execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Typedoperands )) 
     => 
-      setFlag(zeroMIntW1, "OF") ~> 
+      setFlag(mi(1, 0), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setFlag(undef, "AF") ~> 
-      setFlag(zeroMIntW1, "CF") ~> 
+      setFlag(mi(1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
 
@@ -1238,22 +1238,22 @@ vcvtpd2ps_xmm_ymm
     execinstr(vzeroall  .Typedoperands) => .
   ...</k>
     <regstate> RSMap => updateMap(RSMap,
-                          ("YMM0"  |->  zeroMIntW256) 
-                          ("YMM1"  |->  zeroMIntW256) 
-                          ("YMM2"  |->  zeroMIntW256) 
-                          ("YMM3"  |->  zeroMIntW256) 
-                          ("YMM4"  |->  zeroMIntW256) 
-                          ("YMM5"  |->  zeroMIntW256) 
-                          ("YMM6"  |->  zeroMIntW256) 
-                          ("YMM7"  |->  zeroMIntW256) 
-                          ("YMM8"  |->  zeroMIntW256) 
-                          ("YMM9"  |->  zeroMIntW256) 
-                          ("YMM10" |->  zeroMIntW256) 
-                          ("YMM11" |->  zeroMIntW256) 
-                          ("YMM12" |->  zeroMIntW256) 
-                          ("YMM13" |->  zeroMIntW256) 
-                          ("YMM14" |->  zeroMIntW256) 
-                          ("YMM15" |->  zeroMIntW256) 
+                          ("YMM0"  |->  mi(256, 0)) 
+                          ("YMM1"  |->  mi(256, 0)) 
+                          ("YMM2"  |->  mi(256, 0)) 
+                          ("YMM3"  |->  mi(256, 0)) 
+                          ("YMM4"  |->  mi(256, 0)) 
+                          ("YMM5"  |->  mi(256, 0)) 
+                          ("YMM6"  |->  mi(256, 0)) 
+                          ("YMM7"  |->  mi(256, 0)) 
+                          ("YMM8"  |->  mi(256, 0)) 
+                          ("YMM9"  |->  mi(256, 0)) 
+                          ("YMM10" |->  mi(256, 0)) 
+                          ("YMM11" |->  mi(256, 0)) 
+                          ("YMM12" |->  mi(256, 0)) 
+                          ("YMM13" |->  mi(256, 0)) 
+                          ("YMM14" |->  mi(256, 0)) 
+                          ("YMM15" |->  mi(256, 0)) 
                         ) 
     </regstate>
 
@@ -1541,11 +1541,11 @@ vcvtpd2ps_xmm_ymm
   rule
       execinstr(orq  DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands ) 
     => 
-      setFlag(zeroMIntW1, "OF") ~> 
+      setFlag(mi(1, 0), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setFlag(undef, "AF") ~> 
-      setFlag(zeroMIntW1, "CF") ~> 
+      setFlag(mi(1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
 
@@ -1566,7 +1566,7 @@ vcvtpd2ps_xmm_ymm
   rule <k>
   execinstr(shrq  R,  MIsrc, MIcount, .Typedoperands) => 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
@@ -1576,12 +1576,12 @@ vcvtpd2ps_xmm_ymm
         #else
           undef
         #fi 
-      #fi):>MInt  
+      #fi)}:>MInt  
         , 
         "OF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("ZF", RSMap)    
       #else
@@ -1591,12 +1591,12 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1,1)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "ZF"
         ) ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("SF", RSMap)
       #else
@@ -1606,7 +1606,7 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1, 0)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "SF"
       ) ~> 
 
@@ -1642,7 +1642,7 @@ vcvtpd2ps_xmm_ymm
         "CF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("PF", RSMap)
       #else
@@ -1658,7 +1658,7 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1,1)
         #fi 
-      #fi):>MInt,  
+      #fi)}:>MInt,  
       "PF"
         ) ~> 
 
@@ -5977,7 +5977,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 )
 
     </regstate>
-      requires notBool sameRegistes(R2, "RAX")
+      requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
     execinstr (cmpxchgq R1:R64, R2:R64,  .Typedoperands) => .
@@ -6002,7 +6002,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 )
 
     </regstate>
-      requires sameRegistes(R2, "RAX")
+      requires sameRegisters(R2, "RAX")
       
 
 
