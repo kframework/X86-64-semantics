@@ -16,7 +16,7 @@ module X86-SYNTAX
 
   syntax Typedoperands ::= List{Typeoperand, ","} [klabel(typeoperandlist)]
   syntax Typeoperand ::=  Imm
-                       | Mm
+//                     | Mm
                        | Sreg
 //                     | St
                        | Memoffs
@@ -79,10 +79,15 @@ module X86-SYNTAX
                | Sreg ":" Offset "(" R32 "," R32 ")"
                | Sreg ":" Offset "(" R64 "," R64 ")"
   syntax Rip ::= "%rip"
+  syntax Scale ::= Int
+  /*
   syntax Scale ::= "1"
                  | "2"
                  | "3"
                  | "4"
+  */
+
+  /*
   syntax Mm ::= "%mm0"
               | "%mm1"
               | "%mm2"
@@ -91,6 +96,7 @@ module X86-SYNTAX
               | "%mm5"
               | "%mm6"
               | "%mm7"
+  */
   syntax Rh ::= "%ah"
               | "%bh"
               | "%ch"
