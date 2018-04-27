@@ -29,9 +29,6 @@ our $stoke_check_circuit =
 our $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
 our $testcases     = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
 
-#my @kpatterns = ( qr/<\w*> (\d+'[-]?\d+) <\/\w*>/, qr/<\w*> (\w+) <\/\w*>/ );
-#my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (\w+)/ );
-my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 my @xpatterns = (
     qr/$\d* = ([-]?\d+)/,
 
@@ -576,16 +573,13 @@ sub processKFile {
     my @sortedkstates = ();
     my %kstateMap     = ();
     print "$basename\n\n";
+    my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 
-#execute(
-#"grep  -A 43  \"<regstate>-fragment\"  $file  | sed -e '/rip/d' 1> ${tmpfile} 2>&1"
-#    );
     execute(
         "grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1"
     );
 
-    open( my $fp, "<", "$tmpfile" ) or die "Cannot
- open: $!";
+    open( my $fp, "<", "$tmpfile" ) or die "Cannot open: $!";
     my @lines   = <$fp>;
     my $counter = 0;
     for my $line (@lines) {
@@ -606,6 +600,12 @@ sub processKFile {
             else {
                 push @{ $kstateMap{$reg} }, $val;
             }
+        }
+        elsif ( $line =~ m/ListItem/g ) {
+
+        }
+        else {
+            print("Skipped::$line");
         }
     }
 
@@ -641,8 +641,8 @@ sub processKFile {
         }
     }
 
-    print join( " : ", @kstates );
-    print "\n";
+    #print join( " : ", @kstates );
+    #print "\n";
 
     return @kstates;
 }
@@ -748,6 +748,15 @@ sub compareStates {
         failInfo("Either of xstate or kstate is Empty\n");
         return;
     }
+    if ( scalar(@kstates) != scalar(@xstates) ) {
+        my $msg =
+            "kstates = "
+          . scalar(@kstates) . "\n"
+          . "xstates = "
+          . scalar(@xstates) . "\n\n";
+        info("$msg");
+        return;
+    }
 
     for ( my $i = 0 ; $i < scalar(@kstates) ; $i++ ) {
         if ( 6 == ( $i % $regcount ) ) {
@@ -768,6 +777,7 @@ sub compareStates {
         }
 
         if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
+            print $kstates[$i] . "\n" . $xstates[$i] . "\n";
             failInfo( "$regMap{$i % $regcount} at instrcount: " . $instrcount );
             return;
         }
