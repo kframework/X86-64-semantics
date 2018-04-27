@@ -236,7 +236,7 @@ module SAVE-RESTORE
     saveRegister(R, S) => .
   ...</k>
     <regstate> RSMap:Map => updateMap(RSMap, 
-      S |-> plugInMask(RSMap[S]:>MInt, getRegisterValue(R, RSMap), 0)
+      S |-> plugInMask({RSMap[S]}:>MInt, getRegisterValue(R, RSMap), 0)
     )
     </regstate>
 
@@ -258,7 +258,7 @@ module SAVE-RESTORE
     restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 
       setRegisterValue(
           concatenateMInt(
-            extractMask(RSMap[S]:>MInt, W1, S1),
+            extractMask({RSMap[S]}:>MInt, W1, S1),
             extractMask(getRegisterValue(R, RSMap), RW, RS))
           , R)
   ...</k>
@@ -269,10 +269,10 @@ module SAVE-RESTORE
     restoreRegister(S, S1, W1, S2, W2, RS, RW, R) => 
       setRegisterValue(
           concatenateMInt(
-            extractMask(RSMap[S]:>MInt, W2, S2),
+            extractMask({RSMap[S]}:>MInt, W2, S2),
             concatenateMInt( 
               extractMask(getRegisterValue(R, RSMap), RW, RS),
-              extractMask(RSMap[S]:>MInt, W1, S1))
+              extractMask({RSMap[S]}:>MInt, W1, S1))
             ) , R)
   ...</k>
     <regstate> RSMap </regstate>

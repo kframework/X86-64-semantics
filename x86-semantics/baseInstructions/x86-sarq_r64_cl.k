@@ -17,22 +17,22 @@ module SAR-R64-CL
   rule <k>
   execinstr(sarq R,  MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("OF", RSMap)
       #else
         #ifMInt eqMInt(MIcount, mi(bitwidthMInt(MIcount),1))
         #then
-          zeroMIntW1
+          mi(1, 0)
         #else
           undef
         #fi 
-      #fi):>MInt  
+      #fi)}:>MInt  
         , 
         "OF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("ZF", RSMap)    
       #else
@@ -42,12 +42,12 @@ module SAR-R64-CL
         #else 
           fromBool(zeroMInt(getSignBit(MIsrc)), 1)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "ZF"
         ) ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("SF", RSMap)
       #else
@@ -57,7 +57,7 @@ module SAR-R64-CL
         #else 
           getSignBit(MIsrc)
         #fi 
-      #fi):>MInt,
+      #fi)}:>MInt,
       "SF"
       ) ~> 
 
@@ -93,7 +93,7 @@ module SAR-R64-CL
         "CF") ~> 
 
     setFlag(
-      (#ifMInt zeroMInt(MIcount)
+        {(#ifMInt zeroMInt(MIcount)
       #then
         getFlag("PF", RSMap)
       #else
@@ -109,7 +109,7 @@ module SAR-R64-CL
         #else 
           mi(1,1)
         #fi 
-      #fi):>MInt,  
+      #fi)}:>MInt,
       "PF"
         ) ~> 
 
