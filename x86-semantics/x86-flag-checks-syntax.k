@@ -1,6 +1,7 @@
 module X86-FLAG-CHECKS-SYNTAX
   imports MINT
   imports MAP
+  imports STRING-SYNTAX
 
   syntax KItem ::= updateOverflowAdd(MInt, MInt, MInt) 
   syntax KItem ::= updateZeroFlag(MInt) 
