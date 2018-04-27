@@ -1,6 +1,8 @@
 requires "x86-general-utils.k"
 
 module INTEGER-LEMMAS
+  imports INT
+
   rule 0 +Int I:Int => I
   rule I:Int +Int 0 => I
   rule I:Int -Int 0 => I
