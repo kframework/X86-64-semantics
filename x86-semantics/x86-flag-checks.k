@@ -167,6 +167,6 @@ module X86-FLAG-CHECKS
     RMap => RMap[FL <- MI] 
   </regstate>
 
-  rule getFlag(FName, RSMap) => RSMap[FName]:>MInt 
+  rule getFlag(FName, RSMap) => {RSMap[FName]}:>MInt 
 
 endmodule  

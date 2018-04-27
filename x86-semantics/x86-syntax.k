@@ -12,7 +12,7 @@ module X86-SYNTAX
                        | ".globl" "_start"  [token]
   syntax Label ::=  "_start" ":" [token]
         
-  syntax HexConstant ::=  r"[0-9a-fA-F]+" [token]
+  syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
 
   syntax Typedoperands ::= List{Typeoperand, ","} [klabel(typeoperandlist)]
   syntax Typeoperand ::=  Imm
@@ -33,7 +33,7 @@ module X86-SYNTAX
                    | Sreg ":" Offset
   syntax Offset ::= Int
   syntax Imm ::= "$" Int
-               | "$0x" HexConstant
+               | HexConstant
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"
                | "(" Rip ")"
