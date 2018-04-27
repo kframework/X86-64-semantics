@@ -19,11 +19,11 @@ module XOR-R64-R64
   rule
       execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Typedoperands )) 
     => 
-      setFlag(zeroMIntW1, "OF") ~> 
+      setFlag(mi(1, 0), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
       setFlag(undef, "AF") ~> 
-      setFlag(zeroMIntW1, "CF") ~> 
+      setFlag(mi(1, 0), "CF") ~> 
       updateParityFlag(MIresult) ~> 
       setRegisterValue(MIresult, DestR) 
 
