@@ -1,5 +1,5 @@
-requires "x86-configuration.k"
-requires "x86-general-utils.k"
+require "x86-configuration.k"
+require "x86-general-utils.k"
 
 module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
@@ -208,13 +208,13 @@ module X86-ABSTRACT-SEMANTICS
   /*@
     Getting the registers values according to the register variants.
   */
-  rule getRegisterValue(R:R8,  RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 8, 0)
-  rule getRegisterValue(R:R16, RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 16, 0)
-  rule getRegisterValue(R:R32, RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 32, 0)
-  rule getRegisterValue(R:R64, RSMap)  =>  RSMap[convToRegKeys(R)]:>MInt
-  rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask(RSMap[convToRegKeys(R)]:>MInt, 8, 8)
-  rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask(RSMap[convToRegKeys(X)]:>MInt, 128, 0)
-  rule getRegisterValue(Y:Ymm, RSMap)  =>  RSMap[convToRegKeys(Y)]:>MInt
+  rule getRegisterValue(R:R8,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 0)
+  rule getRegisterValue(R:R16, RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 16, 0)
+  rule getRegisterValue(R:R32, RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 32, 0)
+  rule getRegisterValue(R:R64, RSMap)  =>  {RSMap[convToRegKeys(R)]}:>MInt
+  rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 8)
+  rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask({RSMap[convToRegKeys(X)]}:>MInt, 128, 0)
+  rule getRegisterValue(Y:Ymm, RSMap)  =>  {RSMap[convToRegKeys(Y)]}:>MInt
   rule getParentValue(R:Register, RSMap) => getRegisterValue(convSubRegsToRegs(R), RSMap)
 
   /*@
@@ -223,12 +223,15 @@ module X86-ABSTRACT-SEMANTICS
   */
 
   // Imm could be an Int
-  rule handleImmediateWithSignExtend($ I:Int, M:Int, N:Int) => signExtend(mi(M,I), N)
+  rule handleImmediateWithSignExtend(($ I:Int):Imm, M:Int, N:Int) => signExtend(mi(M,I), N)
 
-  // Or a HexConstant
+  // Or a HexConstant: For hexconstants ike 0x800, we have to provide the substr 800
+  // as an argument to  String2Base                                          
   syntax String ::= HexConstant2String ( HexConstant )    [function, hook(STRING.token2string)]
-  rule handleImmediateWithSignExtend($0x H:HexConstant, M:Int, N:Int) =>
-    signExtend(mi(M, String2Base(HexConstant2String(H), 16)), N)
+  //rule handleImmediateWithSignExtend($0x H:HexConstant, M:Int, N:Int) =>
+  //  signExtend(mi(M, String2Base(HexConstant2String(H), 16)), N)
+  rule handleImmediateWithSignExtend((H:HexConstant):Imm, M:Int, N:Int) =>
+    signExtend(mi(M, String2Base(substrString(HexConstant2String(H), 3, lengthString(HexConstant2String(H))), 16)), N)
 
   /*@ 
     Check if two registers are the same
