@@ -9,15 +9,15 @@ module POPCNT-R64-R64
 
   rule <k> 
     execinstr(popcntq R1:R64, R2:R64, .Typedoperands) =>
-      setFlag(zeroMIntW1, "OF") ~>
-      setFlag(zeroMIntW1, "SF") ~>
-      setFlag(zeroMIntW1, "AF") ~>
-      setFlag(zeroMIntW1, "CF") ~>
-      setFlag(zeroMIntW1, "PF") ~>
+      setFlag(mi(1, 0), "OF") ~>
+      setFlag(mi(1, 0), "SF") ~>
+      setFlag(mi(1, 0), "AF") ~>
+      setFlag(mi(1, 0), "CF") ~>
+      setFlag(mi(1, 0), "PF") ~>
       setFlag(
           {(#ifMInt zeroMInt(getRegisterValue(R1, RSMap))
       #then
-          oneMIntW1
+          mi(1, 1)
       #else
           mi(1, 0)
       #fi)}:>MInt 
@@ -35,24 +35,24 @@ module POPCNT-R64-R64
 
   rule <k>
     execinstr(popcntq  ( DestR, MIsrc, .Typedoperands )) => 
-    setFlag(zeroMIntW1, "OF") ~>
-    setFlag(zeroMIntW1, "ZF") ~>
-    setFlag(zeroMIntW1, "SF") ~>
-    setFlag(zeroMIntW1, "AF") ~>
-    setFlag(zeroMIntW1, "CF") ~>
-    setFlag(zeroMIntW1, "PF") ~>
+    setFlag(mi(1, 0), "OF") ~>
+    setFlag(mi(1, 0), "ZF") ~>
+    setFlag(mi(1, 0), "SF") ~>
+    setFlag(mi(1, 0), "AF") ~>
+    setFlag(mi(1, 0), "CF") ~>
+    setFlag(mi(1, 0), "PF") ~>
     setRegisterValue(MIsrc, DestR) 
   ...</k>
       requires notBool zeroMInt(MIsrc)
 
   rule <k>
     execinstr(popcntq  ( DestR:R64, MIsrc, .Typedoperands )) => 
-    setFlag(zeroMIntW1, "OF") ~>
-    setFlag(oneMIntW1,  "ZF") ~>
-    setFlag(zeroMIntW1, "SF") ~>
-    setFlag(zeroMIntW1, "AF") ~>
-    setFlag(zeroMIntW1, "CF") ~>
-    setFlag(zeroMIntW1, "PF") ~>
+    setFlag(mi(1, 0), "OF") ~>
+    setFlag(mi(1, 1),  "ZF") ~>
+    setFlag(mi(1, 0), "SF") ~>
+    setFlag(mi(1, 0), "AF") ~>
+    setFlag(mi(1, 0), "CF") ~>
+    setFlag(mi(1, 0), "PF") ~>
     setRegisterValue(MIsrc, DestR) 
   ...</k>
       requires zeroMInt(MIsrc)
