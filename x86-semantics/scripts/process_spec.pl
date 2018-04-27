@@ -220,7 +220,8 @@ if ( "" ne $compile ) {
     createSingleFileDefn();
     execute("git status x86-instructions-semantics.k");
     execute(
-"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v"
+"time  kompile x86-semantics.k --syntax-module X86-SYNTAX --main-module X86-SEMANTICS --debug -v --backend java",
+        1
     );
 
     exit(0);
