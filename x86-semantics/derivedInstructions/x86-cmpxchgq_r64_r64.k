@@ -29,7 +29,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 )
 
     </regstate>
-      requires notBool sameRegistes(R2, "RAX")
+      requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
     execinstr (cmpxchgq R1:R64, R2:R64,  .Typedoperands) => .
@@ -54,7 +54,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 )
 
     </regstate>
-      requires sameRegistes(R2, "RAX")
+      requires sameRegisters(R2, "RAX")
       
 
 endmodule
