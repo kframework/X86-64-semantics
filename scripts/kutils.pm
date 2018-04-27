@@ -540,13 +540,22 @@ endmodule);
 sub checkKRunStatus {
     my $file = shift @_;
 
-    my $kcell = qr/<k> (.*) <\/k>/;
+    #my $kcell = qr/<k> (.*) <\/k>/;
+    my $kcellStart = qr/\s*<k>\s*/;
+    my $kcellEnd   = qr/\s*<\/k>\s*/;
     open( my $fp, "<", "$file" ) or die "Can't open: $!";
     my @lines = <$fp>;
+
+    my $criticalSection = 0;
     for my $line (@lines) {
         chomp $line;
-        if ( $line =~ m/$kcell/ ) {
-            if ( $1 eq "exit_0" ) {
+        if ( $line =~ m/$kcellStart/ ) {
+            $criticalSection = 1;
+            next;
+        }
+        if ($criticalSection) {
+            my $txt = utils::trim($line);
+            if ( $txt eq "exit_0" ) {
                 passInfo("Pass: krun");
                 return;
             }
@@ -560,11 +569,13 @@ sub checkKRunStatus {
 }
 
 sub processKFile {
+    my $basename      = shift @_;
     my $file          = shift @_;
-    my $tmpfile       = "/tmp/yyy";
+    my $tmpfile       = "/tmp/$basename.yyy";
     my @kstates       = ();
     my @sortedkstates = ();
     my %kstateMap     = ();
+    print "$basename\n\n";
 
 #execute(
 #"grep  -A 43  \"<regstate>-fragment\"  $file  | sed -e '/rip/d' 1> ${tmpfile} 2>&1"
@@ -637,9 +648,10 @@ sub processKFile {
 }
 
 sub processXFile {
-    my $file    = shift @_;
-    my $tmpfile = "/tmp/xxx";
-    my @xstates = ();
+    my $basename = shift @_;
+    my $file     = shift @_;
+    my $tmpfile  = "/tmp/$basename.xxx";
+    my @xstates  = ();
 
     execute("grep   -A 33  \"_start+\"  $file 1> ${tmpfile} 2>&1");
 
@@ -726,11 +738,12 @@ sub compareInts {
 }
 
 sub compareStates {
-    my ( $k_ref, $x_ref ) = @_;
+    my ( $basename, $k_ref, $x_ref ) = @_;
     my @kstates    = @{$k_ref};
     my @xstates    = @{$x_ref};
     my $instrcount = 0;
 
+    utils::info("$basename Compare Results :");
     if ( 0 == scalar(@kstates) or 0 == scalar(@xstates) ) {
         failInfo("Either of xstate or kstate is Empty\n");
         return;
@@ -766,7 +779,7 @@ sub compareStates {
             $instrcount++;
         }
     }
-    passInfo("Passed: compare");
+    passInfo("Passed");
 }
 
 sub pprint {
