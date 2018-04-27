@@ -567,7 +567,7 @@ sub threadop_check_stoke {
         $strata_path_switch = "";
     }
     execute(
-"timeout 30m  $kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
+"timeout 15m  $kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
         1
     );
     my $duration = time - $start;
