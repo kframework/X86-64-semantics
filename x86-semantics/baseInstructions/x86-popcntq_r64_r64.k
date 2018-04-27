@@ -15,12 +15,12 @@ module POPCNT-R64-R64
       setFlag(zeroMIntW1, "CF") ~>
       setFlag(zeroMIntW1, "PF") ~>
       setFlag(
-          (#ifMInt zeroMInt(getRegisterValue(R1, RSMap))
+          {(#ifMInt zeroMInt(getRegisterValue(R1, RSMap))
       #then
           oneMIntW1
       #else
-          zeroMIntW1
-      #fi):>MInt 
+          mi(1, 0)
+      #fi)}:>MInt 
           , "ZF") ~>
       setRegisterValue(mi(getRegisterSize(R2), popCount(getRegisterValue(R1, RSMap))), R2) 
   ...</k>
