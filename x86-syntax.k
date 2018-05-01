@@ -1,6 +1,6 @@
 module X86-SYNTAX
-  imports DOMAINS-SYNTAX
-  imports INT-SYNTAX
+  imports INT
+  imports STRING
 
   /*@ 
     The following captures  the At&t syntax of x86 assembly.

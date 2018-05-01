@@ -3,7 +3,8 @@ require "x86-general-utils.k"
 
 module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
-  imports X86-GENERAL-UTILS
+  //imports X86-GENERAL-UTILS
+  imports MINT-WRAPPER
 
   rule getISize((OpC:Opcode OpR:Typedoperands):Instruction) => 1
 

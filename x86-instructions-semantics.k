@@ -279,7 +279,7 @@ module X86-INSTRUCTIONS-SEMANTICS
         #else 
           mi(1,1)
         #fi 
-      #fi)}:>MInt,  
+      #fi)}:>MInt,
       "PF"
         ) ~> 
 
@@ -793,7 +793,7 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1,1)
         #fi 
-      #fi)}:>MInt,  
+      #fi)}:>MInt,
       "PF"
         ) ~> 
 
@@ -1658,7 +1658,7 @@ vcvtpd2ps_xmm_ymm
         #else 
           mi(1,1)
         #fi 
-      #fi)}:>MInt,  
+      #fi)}:>MInt,
       "PF"
         ) ~> 
 
