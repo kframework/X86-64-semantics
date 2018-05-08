@@ -17,6 +17,11 @@ module MINT-WRAPPER-SYNTAX
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
+    Create a list of indef MInts  
+  */
+  syntax MInts ::= makeUndefMInts ( Int ) [function]
+
+  /*@
     If Else Then for Sorts 
   */
   syntax MInt ::= "#ifMInt"   Bool "#then" MInt  "#else" MInt  "#fi" [function, smtlib(ite)]
@@ -272,6 +277,18 @@ module MINT-WRAPPER
   rule zeroMIntW256 =>  mi(256,0) [macro]
   rule oneMIntW1    =>  mi(1,  1) [macro]
   rule oneMIntW64   =>  mi(64, 1) [macro]
+
+  /*@
+    Create a list of indef MInts  
+  */
+  rule makeUndefMInts ( N:Int ) => makeUndefMIntsAux(N, 0, .MInts)
+
+  syntax MInts ::=  makeUndefMIntsAux(Int, Int, MInts) [function]
+
+  rule makeUndefMIntsAux(N:Int, N, MIL:MInts) => MIL
+  rule makeUndefMIntsAux(N:Int, I, MIL:MInts) => 
+    makeUndefMIntsAux(N, I +Int 1, undef MIL)
+      requires I <Int N
 
   /*@
     If Else Then for Sorts

@@ -15,6 +15,7 @@ module X86-CONFIGURATION
       <text> .Map </text>
       <stack>
         <memory/>
+        <stackbase> .K </stackbase>
       </stack>
     </memstate>
 
