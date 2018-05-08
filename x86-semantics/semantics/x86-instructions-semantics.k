@@ -208,9 +208,9 @@ module X86-INSTRUCTIONS-SEMANTICS
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBoolToMInt(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          fromBool(zeroMInt(getSignBit(MIsrc)), 1)
+          fromBoolToMInt(zeroMInt(getSignBit(MIsrc)), 1)
         #fi 
       #fi)}:>MInt,
       "ZF"
@@ -269,7 +269,7 @@ module X86-INSTRUCTIONS-SEMANTICS
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(  
+          fromBoolToMInt(  
             (popCount(
               extractMask(
                 aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 
@@ -722,7 +722,7 @@ vcvtpd2ps_xmm_ymm
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(shlMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBoolToMInt(zeroMInt(shlMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
           mi(1,1)
         #fi 
@@ -783,7 +783,7 @@ vcvtpd2ps_xmm_ymm
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(  
+          fromBoolToMInt(  
             (popCount(
               extractMask(
                 shlMInt(MIsrc, uvalueMInt(MIcount)), 
@@ -1587,7 +1587,7 @@ vcvtpd2ps_xmm_ymm
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(lshrMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBoolToMInt(zeroMInt(lshrMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
           mi(1,1)
         #fi 
@@ -1648,7 +1648,7 @@ vcvtpd2ps_xmm_ymm
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(  
+          fromBoolToMInt(  
             (popCount(
               extractMask(
                 lshrMInt(MIsrc, uvalueMInt(MIcount)), 

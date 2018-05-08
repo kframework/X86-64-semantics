@@ -165,7 +165,7 @@ module MINT-WRAPPER-SYNTAX
     Conversion from/to MInt and Bool
   */  
   syntax Bool ::= toBool(MInt) [function]
-  syntax MInt ::= fromBool(Bool, Int) [function]
+  syntax MInt ::= fromBoolToMInt(Bool, Int) [function]
 
   /*@ extractMask(MI, W, S) Extracts the lower W bits 
     from MInt starting from lower significant bit position S.
@@ -455,7 +455,7 @@ module MINT-WRAPPER
                       #else false 
                      #fi
 
-  rule fromBool(B:Bool, W:Int) => #ifMInt B 
+  rule fromBoolToMInt(B:Bool, W:Int) => #ifMInt B 
                                     #then mi(W,1) 
                                     #else mi(W,0) 
                                   #fi
@@ -594,7 +594,7 @@ module MINT-WRAPPER
   /*@ 
     getSignBit(MI): return mi(1, signBit of MI)
   rule getSignBit(MI:MInt) => 
-    fromBool( toBool(
+    fromBoolToMInt( toBool(
         andMInt(MI, 
             mi(bitwidthMInt(MI), sminMInt(bitwidthMInt(MI)))
         )
@@ -607,7 +607,7 @@ module MINT-WRAPPER
 
     Deprecated to etractMask
   rule getBitFromMInt(MI:MInt, I:Int) => 
-    fromBool( toBool(
+    fromBoolToMInt( toBool(
         andMInt(MI, shlMInt(mi(bitwidthMInt(MI), 1), I))
         ), 1)
   */

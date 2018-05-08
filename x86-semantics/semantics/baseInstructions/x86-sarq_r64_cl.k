@@ -38,9 +38,9 @@ module SAR-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBoolToMInt(zeroMInt(aShiftRightMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
-          fromBool(zeroMInt(getSignBit(MIsrc)), 1)
+          fromBoolToMInt(zeroMInt(getSignBit(MIsrc)), 1)
         #fi 
       #fi)}:>MInt,
       "ZF"
@@ -99,7 +99,7 @@ module SAR-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(  
+          fromBoolToMInt(  
             (popCount(
               extractMask(
                 aShiftRightMInt(MIsrc, uvalueMInt(MIcount)), 

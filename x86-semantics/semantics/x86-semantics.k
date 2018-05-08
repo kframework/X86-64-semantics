@@ -1,9 +1,11 @@
-requires "x86-loader.k"
-requires "x86-fetch-execute.k"
-requires "x86-abstract-semantics.k"
-requires "x86-flag-checks.k"
-requires "verification-lemmas.k"
-requires "x86-instructions-semantics.k"
+require "x86-loader.k"
+require "x86-fetch-execute.k"
+require "x86-abstract-semantics.k"
+require "x86-flag-checks.k"
+require "x86-verification-lemmas.k"
+require "x86-instructions-semantics.k"
+require "x86-memory.k"
+require "common/common.k"
 
 
 /* Testing individual derived instructions
@@ -31,8 +33,10 @@ module X86-SEMANTICS
   imports X86-FETCH-EXECUTE
   imports X86-ABSTRACT-SEMANTICS
   imports X86-FLAG-CHECKS
-  imports VERIFICATION-LEMMAS
+  imports X86-VERIFICATION-LEMMAS
   imports X86-INSTRUCTIONS-SEMANTICS
+  imports X86-MEMORY
+  imports COMMON
 
   //imports X86-TEST-SEMANTICS
 endmodule

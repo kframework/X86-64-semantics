@@ -39,7 +39,7 @@ module SAL-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(shlMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBoolToMInt(zeroMInt(shlMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
           mi(1,1)
         #fi 
@@ -100,7 +100,7 @@ module SAL-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(  
+          fromBoolToMInt(  
             (popCount(
               extractMask(
                 shlMInt(MIsrc, uvalueMInt(MIcount)), 

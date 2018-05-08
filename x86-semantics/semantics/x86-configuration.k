@@ -1,17 +1,21 @@
-requires "x86-general-utils.k"
-requires "x86-abstract-syntax.k"
+require "x86-general-utils.k"
+require "x86-abstract-syntax.k"
+require "common/common-memory.k"
 
 module X86-CONFIGURATION
   imports MINT-WRAPPER-SYNTAX
   imports X86-ASBTRACT-SYNTAX
+  imports COMMON-MEMORY-CONFIGURATION
 
   configuration <T>
     <k> $PGM:Instructions ~> inforegisters ~> fetch </k>
     <entrypoint> mi(64, 0) </entrypoint>
-    <nextLoc> mi(64, 0) </nextLoc>
+    <nextLocPc> mi(64, 0) </nextLocPc>
     <memstate>
-      <cmem> .Map </cmem>
-      <dmem> .Map </dmem>
+      <text> .Map </text>
+      <stack>
+        <memory/>
+      </stack>
     </memstate>
 
     <regstate>

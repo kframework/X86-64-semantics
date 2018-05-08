@@ -8,7 +8,7 @@ module X86-ASBTRACT-SYNTAX
   syntax Abstractinstruction ::= storedinstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)
 
-  syntax Int ::= loc(MInt)
+  syntax Int ::= locpc(MInt)
   syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]

@@ -39,7 +39,7 @@ module SHR-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(zeroMInt(lshrMInt(MIsrc, uvalueMInt(MIcount))), 1)
+          fromBoolToMInt(zeroMInt(lshrMInt(MIsrc, uvalueMInt(MIcount))), 1)
         #else 
           mi(1,1)
         #fi 
@@ -100,7 +100,7 @@ module SHR-R64-CL
       #else
         #ifMInt  ultMInt(MIcount, mi(bitwidthMInt(MIcount),bitwidthMInt(MIsrc)))
         #then
-          fromBool(  
+          fromBoolToMInt(  
             (popCount(
               extractMask(
                 lshrMInt(MIsrc, uvalueMInt(MIcount)), 

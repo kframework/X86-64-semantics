@@ -15,7 +15,7 @@ module X86-FLAG-CHECKS
   <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
   <regstate>  
     RMap => RMap["OF" <- 
-      fromBool( 
+      fromBoolToMInt( 
         eqMInt( 
           mi(bitwidthMInt(MIres),2), 
           addMInt(
@@ -37,7 +37,7 @@ module X86-FLAG-CHECKS
   <k> updateOverflowAdd(MIsrc1, MIsrc2, MIres) => . ...</k>
   <regstate>  
     RMap => RMap["OF" <-  
-      fromBool(
+      fromBoolToMInt(
         eqMInt(
           getSignBit(MIsrc1),
           getSignBit(MIsrc2)
@@ -62,7 +62,7 @@ module X86-FLAG-CHECKS
   rule 
   <k> updateZeroFlag(MI) => . ...</k>
   <regstate>  
-    RMap => RMap["ZF" <- fromBool(zeroMInt(MI),1)] 
+    RMap => RMap["ZF" <- fromBoolToMInt(zeroMInt(MI),1)] 
   </regstate>
 
   /*@
@@ -71,7 +71,7 @@ module X86-FLAG-CHECKS
   <k> updateSignFlag(MI) => . ...</k>
   <regstate>  
     RMap => RMap["SF" <- 
-        fromBool( 
+        fromBoolToMInt( 
           eqMInt(
             mi(bitwidthMInt(MI),1), 
             lshrMInt(MI, bitwidthMInt(MI) -Int 1)) , 
@@ -91,7 +91,7 @@ module X86-FLAG-CHECKS
   rule <k> updateAuxCarryFlag(MIsrc1, MIsrc2, MIres) => . ...</k>
   <regstate>  
     RMap => RMap["AF" <- 
-      fromBool( 
+      fromBoolToMInt( 
         toBool(  
           andMInt( 
             lshrMInt(
@@ -113,7 +113,7 @@ module X86-FLAG-CHECKS
   rule <k> updateCarryFlagAdd(MIsrc1, MIsrc2, MIsum, MIcarry, MIresult) => . ...</k>
   <regstate>  
     RMap => RMap["CF" <- 
-      fromBool( carryHelperAdd(MIsrc1, MIsrc2, MIsum) orBool 
+      fromBoolToMInt( carryHelperAdd(MIsrc1, MIsrc2, MIsum) orBool 
           carryHelperAdd(MIsum, MIcarry, MIresult) , 1)
     ] 
   </regstate>
@@ -138,7 +138,7 @@ module X86-FLAG-CHECKS
   rule <k> updateParityFlag(MI:MInt) => . ...</k>
   <regstate>  
     RMap => RMap["PF" <- 
-      fromBool(
+      fromBoolToMInt(
         toBool(
           xorMInt(
             andMInt(
@@ -154,7 +154,7 @@ module X86-FLAG-CHECKS
   rule <k> updateParityFlag(MI:MInt) => . ...</k>
   <regstate>  
     RMap => RMap["PF" <- 
-      fromBool((popCount(extractMask(MI, 8, 0)) &Int 1) ==Int 0, 1)
+      fromBoolToMInt((popCount(extractMask(MI, 8, 0)) &Int 1) ==Int 0, 1)
     ] 
   </regstate>
 
