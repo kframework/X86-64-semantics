@@ -8,7 +8,7 @@ module X86-FETCH-EXECUTE
   */
   rule
     <k> fetch => execinstr(OpC OpR) ~> inforegisters ~> fetch ... </k>
-      <cmem>... loc(PC) |-> storedinstr(OpC OpR)   ...</cmem>
+      <text>... locpc(PC) |-> storedinstr(OpC OpR)   ...</text>
       <regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64,getISize(OpC OpR))))  ...</regstate>
 
   /*@ This rule need to used in future. Currently the execution is
@@ -16,9 +16,9 @@ module X86-FETCH-EXECUTE
     After  execution of last instrcution, no more fecthes.
   rule
     <k> fetch => .  ... </k>
-      <cmem> CMap </cmem>
+      <text> CMap </text>
       <rip> PC  </rip>
-        requires notBool loc(PC) in_keys ( CMap )
+        requires notBool locpc(PC) in_keys ( CMap )
   */
 
   /*@
