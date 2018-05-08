@@ -17,7 +17,7 @@ module MINT-WRAPPER-SYNTAX
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
-    Create a list of indef MInts  
+    Create a list of size N:Int with "undef" MInt  
   */
   syntax MInts ::= makeUndefMInts ( Int ) [function]
 
