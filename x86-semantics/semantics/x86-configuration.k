@@ -1,14 +1,17 @@
 require "x86-general-utils.k"
 require "x86-abstract-syntax.k"
 require "common/common-memory.k"
+require "x86-memory.k"
 
 module X86-CONFIGURATION
   imports MINT-WRAPPER-SYNTAX
   imports X86-ASBTRACT-SYNTAX
   imports COMMON-MEMORY-CONFIGURATION
+  imports X86-MEMORY-SYNTAX
 
   configuration <T>
-    <k> $PGM:Instructions ~> inforegisters ~> fetch </k>
+    //<k> $PGM:Instructions ~> inforegisters ~> allocateMemory(64) ~> fetch ~> freeMemory </k>
+    <k> $PGM:Instructions ~> inforegisters ~> allocateMemory(64) ~> fetch </k>
     <entrypoint> mi(64, 0) </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
     <memstate>
@@ -31,7 +34,7 @@ module X86-CONFIGURATION
       ("RDX" |-> mi(64, 0))
       ("RSI" |-> mi(64, 0))
       ("RDI" |-> mi(64, 0))
-      ("RSP" |-> mi(64, 0))
+      ("RSP" |-> mi(64, 56))
       ("RBP" |-> mi(64, 0))
       ("R8"  |-> mi(64, 0))
       ("R9"  |-> mi(64, 0))

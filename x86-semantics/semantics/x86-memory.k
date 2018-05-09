@@ -11,12 +11,12 @@ module X86-MEMORY-SYNTAX
   /*@
     Allocate memory: Used for allocating stack memory
   */
-  syntax KItem ::= allocateMemory( Int )
+  syntax KItem ::= allocateMemory(Int)
 
   /*@
     Free memory allocated for stack.
   */
-  syntax KItem ::= freeMemory()
+  syntax KItem ::= "freeMemory" [token]
 
   /*@
     Load memory at Address represented by MInt for Int bits
@@ -84,13 +84,27 @@ module X86-MEMORY
     requires Rest =/=K .MemData      
 
   // x86 memory API implementation
-  rule <k> allocateMemory(N:Int) => . 
-       ... </k>  
-    <stackbase> mAlloc(mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)), 0) </stackbase>
+
+  /*@
+    Allocate memory: Used for allocating stack memory
+  */  
+  rule <k> allocateMemory(N:Int) =>  saveAllocPointer(
+          mAlloc(
+            mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
+            0))
+  ... </k>  
+
+  /*@
+    Save the allocation id for later reads/writes/free.
+  */  
+  syntax KItem ::=  saveAllocPointer(K) [strict(1)]
+  rule <k> saveAllocPointer(L:MemLoc) => .
+  ... </k>
+    <stackbase> _:K => L:MemLoc </stackbase>
     
 
-  rule <k> freeMemory() => mClear(Loc) ... </k>  
-    <stackbase> Loc </stackbase>
+  rule <k> freeMemory => mClear(Loc) ... </k>  
+    <stackbase> Loc:MemLoc </stackbase>
 
   rule <k> 
     loadFromMemory(AddrMI:MInt, Nbits:Int) => 
