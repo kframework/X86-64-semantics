@@ -412,7 +412,7 @@ vcvtpd2ps_xmm_ymm
 // movq-m64-r64
 
   rule <k> 
-    execinstr (movq R1:R64,  (R2:R64), .Typedoperands) => 
+    execinstr (movq R1:R64,  (R2:R64):Mem, .Typedoperands) => 
       storeToMemory(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 64)
   ...</k>
   <regstate> RSMap </regstate>
@@ -1209,6 +1209,17 @@ vcvtpd2ps_xmm_ymm
 
 
 // pseudo-instr-semantics
+
+
+// movq-r64-m64
+
+  rule <k> 
+    execinstr (movq (R1:R64):Mem,  R2:R64, .Typedoperands) => 
+      setRegisterValue(
+          loadFromMemory(getRegisterValue(R1, RSMap), 64), 
+          R2)                         
+  ...</k>
+  <regstate> RSMap </regstate>
 
 
 /*@ This file defines the semantics of following 51 base instructions.

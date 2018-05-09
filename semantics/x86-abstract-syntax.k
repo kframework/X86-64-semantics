@@ -39,7 +39,8 @@ module X86-ASBTRACT-SYNTAX
     Ex. setRegisterValue(M8, %ah): Updates 8 bits in rax
       starting from lsb 8.
   */
-  syntax KItem ::= setRegisterValue(MInt, Register)
+  syntax KItem ::= setRegisterValue(K, Register) [strict(1)]
+  syntax KResult ::= MInt
 
   /*@
     Getting the registers values.

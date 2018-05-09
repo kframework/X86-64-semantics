@@ -34,7 +34,7 @@ module X86-CONFIGURATION
       ("RDX" |-> mi(64, 0))
       ("RSI" |-> mi(64, 0))
       ("RDI" |-> mi(64, 0))
-      ("RSP" |-> mi(64, 56))
+      ("RSP" |-> mi(64, 0))
       ("RBP" |-> mi(64, 0))
       ("R8"  |-> mi(64, 0))
       ("R9"  |-> mi(64, 0))
