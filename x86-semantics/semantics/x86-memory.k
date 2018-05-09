@@ -26,7 +26,7 @@ module X86-MEMORY-SYNTAX
                       /* Load size in bits */ Int)
 
   /*@
-    Store memory at Address represented by MInt for Int bits
+    Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
   syntax KItem ::=  storeToMemory(   
                       /* Data */ MInt, 
@@ -106,15 +106,21 @@ module X86-MEMORY
   rule <k> freeMemory => mClear(Loc) ... </k>  
     <stackbase> Loc:MemLoc </stackbase>
 
+  /*@
+    Load memory Nbits:Int bits from Address represented AddrMI:MInt
+  */
   rule <k> 
     loadFromMemory(AddrMI:MInt, Nbits:Int) => 
-      fromMemValue(mRead(L, uvalueMInt(AddrMI), Nbits /Int 8, 8), Nbits) 
+      fromMemValue(mRead(L, uvalueMInt(AddrMI) *Int 8, Nbits /Int 8, 8), Nbits) 
   ... </k>
     <stackbase> L </stackbase>
       requires Nbits %Int 8 ==Int 0 
 
+  /*@
+    Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
+  */
   rule <k>
-    storeToMemory(Val:MInt, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI), toMemValue(Val, Nbits))
+    storeToMemory(Val:MInt, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
   ... </k>
     <stackbase> L </stackbase>
       requires Nbits %Int 8 ==Int 0

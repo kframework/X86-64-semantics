@@ -6,7 +6,7 @@ module MOVQ-M64-R64
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (movq R1:R64,  (R2:R64), .Typedoperands) => 
+    execinstr (movq R1:R64,  (R2:R64):Mem, .Typedoperands) => 
       storeToMemory(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 64)
   ...</k>
   <regstate> RSMap </regstate>

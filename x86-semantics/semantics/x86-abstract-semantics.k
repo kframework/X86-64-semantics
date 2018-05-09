@@ -185,25 +185,25 @@ module X86-ABSTRACT-SEMANTICS
     Ex. setRegisterValue(M8, %ah): Updates 8 bits in rax
       starting from lsb 8.
   */
-  rule <k> setRegisterValue(MI64, R:R64) => .  ...</k>
+  rule <k> setRegisterValue(MI64:MInt, R:R64) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> (_ => MI64) ...</regstate>
 
-  rule <k> setRegisterValue(MI32, R:R32) => .  ...</k>
+  rule <k> setRegisterValue(MI32:MInt, R:R32) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> ( MI64 => plugInMask(MI64,  MI32,  0)) ...</regstate>
 
-  rule <k> setRegisterValue(MI16, R:R16) => .  ...</k>
+  rule <k> setRegisterValue(MI16:MInt, R:R16) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> ( MI64 => plugInMask(MI64,  MI16,  0)) ...</regstate>
 
-  rule <k> setRegisterValue(MI8, R:R8) => .  ...</k>
+  rule <k> setRegisterValue(MI8:MInt, R:R8) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> ( MI64 => plugInMask(MI64,  MI8,   0)) ...</regstate>
 
-  rule <k> setRegisterValue(MI8, R:Rh) => .  ...</k>
+  rule <k> setRegisterValue(MI8:MInt, R:Rh) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> ( MI64 => plugInMask(MI64,  MI8,   8)) ...</regstate>
 
-  rule <k> setRegisterValue(MI128, X:Xmm) => .  ...</k>
+  rule <k> setRegisterValue(MI128:MInt, X:Xmm) => .  ...</k>
     <regstate>... convToRegKeys(X) |-> ( MI256 => plugInMask(MI256, MI128, 0)) ...</regstate>
 
-  rule <k> setRegisterValue(MI256, Y:Ymm) => .  ...</k>
+  rule <k> setRegisterValue(MI256:MInt, Y:Ymm) => .  ...</k>
     <regstate>... convToRegKeys(Y) |-> (_ => MI256) ...</regstate>
 
   /*@
