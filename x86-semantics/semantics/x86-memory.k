@@ -21,16 +21,16 @@ module X86-MEMORY-SYNTAX
   /*@
     Load memory at Address represented by MInt for Int bits
   */
-  syntax KItem ::=  loadFromMemory(  
-                      /* Address */ MInt, 
+  syntax KItem ::=  loadFromMemory(
+                      /* Address */ MInt,
                       /* Load size in bits */ Int)
 
   /*@
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
-  syntax KItem ::=  storeToMemory(   
-                      /* Data */ MInt, 
-                      /* Address */ MInt, 
+  syntax KItem ::=  storeToMemory(
+                      /* Data */ MInt,
+                      /* Address */ MInt,
                       /* Store size in bits*/ Int)
 
 endmodule
@@ -38,7 +38,6 @@ endmodule
 
 module X86-MEMORY
   imports COMMON-MEMORY-SYNTAX
-  imports X86-MEMORY-SYNTAX
   imports X86-CONFIGURATION
 
   /// Decomposition of a dynamic value into bytes
@@ -54,7 +53,7 @@ module X86-MEMORY
   syntax MemData ::= toMemData(MInt, Int, MemData)  [function, klabel(toMemDataMInt)]
   rule toMemData(MI:MInt, N:Int, Bytes:MemData) => appendMemData(Bytes, toBytes(N, MI))
 
-  
+
   syntax MemData ::= toMemDataArray(MInts, Int, Int, MemData) [function]
   rule toMemDataArray(_:MInts, N:Int, N, Bytes:MemData) => Bytes
   rule toMemDataArray(MI MIs:MInts, I:Int, N:Int, Bytes:MemData) =>
@@ -72,49 +71,49 @@ module X86-MEMORY
        toBytesAux(N -Int 1, MI, byte(N -Int 1, MI) Bytes)
     requires N >Int 0
 
-      
+
   // x86 memory helper API implementation for load.
   syntax KItem ::= fromMemValue(K, Int) [strict(1)]
   rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => fromBytes(takeMemData(N /Int 8, Bytes))
 
   syntax MInt ::= fromBytes(MemData) [function]
   rule fromBytes(byte(I:Int, MI:MInt) Rest) => extractMask(MI, 8, I *Int 8)
-    requires Rest ==K .MemData                   
+    requires Rest ==K .MemData
   rule fromBytes(byte(I:Int, MI:MInt) Rest:MemData) => concatenateMInt(fromBytes(Rest), extractMask(MI, 8, I *Int 8))
-    requires Rest =/=K .MemData      
+    requires Rest =/=K .MemData
 
   // x86 memory API implementation
 
   /*@
     Allocate memory: Used for allocating stack memory
-  */  
+  */
   rule <k> allocateMemory(N:Int) =>  saveAllocPointer(
           mAlloc(
             mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
             0))
-  ... </k>  
+  ... </k>
 
   /*@
     Save the allocation id for later reads/writes/free.
-  */  
+  */
   syntax KItem ::=  saveAllocPointer(K) [strict(1)]
   rule <k> saveAllocPointer(L:MemLoc) => .
   ... </k>
     <stackbase> _:K => L:MemLoc </stackbase>
-    
 
-  rule <k> freeMemory => mClear(Loc) ... </k>  
+
+  rule <k> freeMemory => mClear(Loc) ... </k>
     <stackbase> Loc:MemLoc </stackbase>
 
   /*@
     Load memory Nbits:Int bits from Address represented AddrMI:MInt
   */
-  rule <k> 
-    loadFromMemory(AddrMI:MInt, Nbits:Int) => 
-      fromMemValue(mRead(L, uvalueMInt(AddrMI) *Int 8, Nbits /Int 8, 8), Nbits) 
+  rule <k>
+    loadFromMemory(AddrMI:MInt, Nbits:Int) =>
+      fromMemValue(mRead(L, uvalueMInt(AddrMI) *Int 8, Nbits /Int 8, 8), Nbits)
   ... </k>
     <stackbase> L </stackbase>
-      requires Nbits %Int 8 ==Int 0 
+      requires Nbits %Int 8 ==Int 0
 
   /*@
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'

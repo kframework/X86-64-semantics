@@ -4,7 +4,6 @@ require "common/common-memory.k"
 require "x86-memory.k"
 
 module X86-CONFIGURATION
-  imports MINT-WRAPPER-SYNTAX
   imports X86-ASBTRACT-SYNTAX
   imports COMMON-MEMORY-CONFIGURATION
   imports X86-MEMORY-SYNTAX
@@ -55,29 +54,29 @@ module X86-CONFIGURATION
       ("SF" |-> mi(1, 0))
       ("OF" |-> mi(1, 0))
 
-      /*@ 
+      /*@
         256 bit ymm registers
       */
-      ("YMM0"  |->  mi(256, 0)) 
-      ("YMM1"  |->  mi(256, 0)) 
-      ("YMM2"  |->  mi(256, 0)) 
-      ("YMM3"  |->  mi(256, 0)) 
-      ("YMM4"  |->  mi(256, 0)) 
-      ("YMM5"  |->  mi(256, 0)) 
-      ("YMM6"  |->  mi(256, 0)) 
-      ("YMM7"  |->  mi(256, 0)) 
-      ("YMM8"  |->  mi(256, 0)) 
-      ("YMM9"  |->  mi(256, 0)) 
-      ("YMM10" |->  mi(256, 0)) 
-      ("YMM11" |->  mi(256, 0)) 
-      ("YMM12" |->  mi(256, 0)) 
-      ("YMM13" |->  mi(256, 0)) 
-      ("YMM14" |->  mi(256, 0)) 
-      ("YMM15" |->  mi(256, 0)) 
+      ("YMM0"  |->  mi(256, 0))
+      ("YMM1"  |->  mi(256, 0))
+      ("YMM2"  |->  mi(256, 0))
+      ("YMM3"  |->  mi(256, 0))
+      ("YMM4"  |->  mi(256, 0))
+      ("YMM5"  |->  mi(256, 0))
+      ("YMM6"  |->  mi(256, 0))
+      ("YMM7"  |->  mi(256, 0))
+      ("YMM8"  |->  mi(256, 0))
+      ("YMM9"  |->  mi(256, 0))
+      ("YMM10" |->  mi(256, 0))
+      ("YMM11" |->  mi(256, 0))
+      ("YMM12" |->  mi(256, 0))
+      ("YMM13" |->  mi(256, 0))
+      ("YMM14" |->  mi(256, 0))
+      ("YMM15" |->  mi(256, 0))
     </regstate>
 
     /*@
-      The following configuration is used to store the intermediate 
+      The following configuration is used to store the intermediate
       regstate at instruction boundary. Used in debug/testing purposes.
     */
     <regstatequeue> .List </regstatequeue>
