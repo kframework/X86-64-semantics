@@ -47,7 +47,7 @@ module X86-MEMORY
   // AbstractValue sort defintion for x86 semantics
   syntax AbstractValue ::= ByteVal
 
-  // x86 helper memory API implementation for allocation and store.
+  // x86 memory helper API implementation for allocation and store.
   syntax MemValue ::= toMemValue(MInt, Int)  [function, klabel(toMemValueMInt)]
   rule toMemValue(MI:MInt, N:Int) => mList(N /Int 8, 8, toMemData(MI, N, .MemData))
 
@@ -73,7 +73,7 @@ module X86-MEMORY
     requires N >Int 0
 
       
-  // x86 helper memory API implementation for load.
+  // x86 memory helper API implementation for load.
   syntax KItem ::= fromMemValue(K, Int) [strict(1)]
   rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => fromBytes(takeMemData(N /Int 8, Bytes))
 
