@@ -409,6 +409,15 @@ vcvtpd2ps_xmm_ymm
 // vcvt-semantics
 
 
+// movq-m64-r64
+
+  rule <k> 
+    execinstr (movq R1:R64,  (R2:R64), .Typedoperands) => 
+      storeToMemory(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 64)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
 /*@ This file defines the semantics of following 51 base instructions.
   - vaddpd_ymm_ymm_ymm, vaddps_ymm_ymm_ymm,
 */

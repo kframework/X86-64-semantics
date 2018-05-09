@@ -19,9 +19,10 @@ my $krun    = "";
 my $xrun    = "";
 my $compare = "";
 my $output  = "";
-my $kdefn   = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/";
-my $outdir  = "Output/";
-my $home    = $ENV{'HOME'};
+my $kdefn =
+  "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/";
+my $outdir = "Output/";
+my $home   = $ENV{'HOME'};
 
 GetOptions(
     "help"     => \$help,
