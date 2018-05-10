@@ -86,7 +86,7 @@ module X86-MEMORY
 
   /*@
     MIntMap -> MemData
-    Assumption: size(minmap(M)) == N/8
+    Assumption: size(minmap(M)) == N/8, i.e. The Val to be stored  is put in Map in byte granularity
   */
   rule toMemData(mimap(M):MIntMap, N:Int, Bytes:MemData) => toMemDataFromMIntMap(M, 0, N /Int 8, Bytes)
     requires size(M) ==Int (N /Int 8)                        
@@ -146,7 +146,8 @@ module X86-MEMORY
 
   /*@
     Allocate memory: Used for allocating local memory
-    Allocate N undefs each of 1 byte.
+    `makeUndefMIntMap(N)` creates N 1 byte undef and return a Map storing them
+    in byte granularity, which are then store in memory.
   */
   rule <k> allocateLocalMemory(N:Int, A:Int) => 
           mAlloc(
