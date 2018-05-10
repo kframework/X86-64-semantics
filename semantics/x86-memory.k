@@ -80,24 +80,23 @@ module X86-MEMORY
     MInt -> MemData
   */
   rule toMemData(V:MInt, N:Int, Bytes:MemData) => toMemDataFromMInt(V, N, Bytes)
+    requires bitwidthMInt(V) ==Int N 
 
   syntax MemData ::= toMemDataFromMInt(MInt, Int, MemData) [function]
   rule toMemDataFromMInt(MI:MInt, N:Int, Bytes:MemData) => appendMemData(Bytes, toBytes(N, MI))
 
   /*@
     MIntMap -> MemData
-    Assumption: size(minmap(M)) == N/8, i.e. The Val to be stored  is put in Map in byte granularity
   */
-  rule toMemData(mimap(M):MIntMap, N:Int, Bytes:MemData) => toMemDataFromMIntMap(M, 0, N /Int 8, Bytes)
-    requires size(M) ==Int (N /Int 8)                        
+  rule toMemData(mimap(M):MIntMap, N:Int, Bytes:MemData) => toMemDataFromMIntMap(M, 0, size(M), Bytes)
+    requires bitwidthMInt({M[0]}:>MInt) *Int size(M) ==Int N 
 
   syntax MemData ::= toMemDataFromMIntMap(Map, Int, Int, MemData) [function]
 
   rule toMemDataFromMIntMap(_:Map, N:Int, N, Bytes:MemData) => Bytes
   rule toMemDataFromMIntMap(M:Map, I:Int, N:Int, Bytes:MemData) =>
-        toMemDataFromMIntMap(M, I +Int 1, N, toMemData({M[I]}:>MInt, 8, Bytes))
+        toMemDataFromMIntMap(M, I +Int 1, N, toMemData({M[I]}:>MInt, bitwidthMInt({M[I]}:>MInt), Bytes))
     requires I <Int N
-
 
   /*@
     toBytes(N:Int, MI:MInt)
@@ -152,7 +151,6 @@ module X86-MEMORY
   rule <k> allocateLocalMemory(N:Int, A:Int) => 
           mAlloc(
             toMemValue(makeUndefMIntMap(N), N *Int 8),
-            // mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
             A)
   ... </k>
 

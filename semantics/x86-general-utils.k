@@ -287,6 +287,13 @@ module MINT-WRAPPER
   rule oneMIntW1    =>  mi(1,  1) [macro]
   rule oneMIntW64   =>  mi(64, 1) [macro]
 
+
+  /*@
+    The bitwodth of undef is defined as 8 bits.
+    Used while allocating the undef stack memory,
+  */
+  rule bitwidthMInt(undef) => 8 [lemma]
+
   /*@
     Create a list of indef MInts  
   */
