@@ -7,10 +7,10 @@ module X86-CONFIGURATION
   imports X86-ASBTRACT-SYNTAX
   imports COMMON-MEMORY-CONFIGURATION
   imports X86-MEMORY-SYNTAX
+  imports X86-INIT-SYNTAX
 
   configuration <T>
-    //<k> $PGM:Instructions ~> inforegisters ~> allocateMemory(64) ~> fetch ~> freeMemory </k>
-    <k> $PGM:Instructions ~> inforegisters ~> allocateStackMemory(128, 16 *Int 8) ~> fetch </k>
+    <k> $PGM:Instructions ~> inforegisters ~> initEnvironment($ARGV:List) ~> fetch </k>
     <entrypoint> mi(64, 0) </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
     <memstate>
@@ -20,6 +20,11 @@ module X86-CONFIGURATION
         <stackbase> .K </stackbase>
       </stack>
     </memstate>
+
+    <environment>
+      <argc> .K </argc>
+      <argv> .K </argv>
+    </environment>
 
     <regstate>
       .Map
