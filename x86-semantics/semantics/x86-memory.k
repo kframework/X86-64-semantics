@@ -9,9 +9,20 @@ module X86-MEMORY-SYNTAX
                     /* Address */ MInt) [function]
 
   /*@
-    Allocate memory: Used for allocating stack memory
+    Allocate memory: Used for allocating stack and envionment memory
+    If N is the number of stack slots allocated, the upper 64 slots are used for 
+    environment memory.
   */
-  syntax KItem ::= allocateMemory(Int)
+  syntax KItem ::= allocateStackMemory(
+      /* Number of elements */ Int,
+      /* Alignment in bits */ Int)
+
+  /*@
+    Allocate memory: Used for allocating local memory
+  */
+  syntax KItem ::= allocateLocalMemory(
+      /* Number of elements */ Int,
+      /* Alignment in bits */ Int)
 
   /*@
     Free memory allocated for stack.
@@ -85,13 +96,13 @@ module X86-MEMORY
   // x86 memory API implementation
 
   /*@
-    Allocate memory: Used for allocating stack memory
+    Allocate stack memory: Used for allocating stack memory and saving the stack base address
+    N ::= Environment Memor (upper 64 slots) + Stack Memory (Rest)
   */
-  rule <k> allocateMemory(N:Int) =>  saveAllocPointer(
-          mAlloc(
-            mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
-            0))
-  ... </k>
+  rule <k> allocateStackMemory(N:Int, A:Int) =>  
+    saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
+      <regstate> RSMAP => RSMAP["RSP" <- mi(64, N -Int 64)] </regstate>
+      //<argv> _ => mi(64, N -Int 64) </argv>
 
   /*@
     Save the allocation id for later reads/writes/free.
@@ -101,6 +112,14 @@ module X86-MEMORY
   ... </k>
     <stackbase> _:K => L:MemLoc </stackbase>
 
+  /*@
+    Allocate memory: Used for allocating local memory
+  */
+  rule <k> allocateLocalMemory(N:Int, A:Int) => 
+          mAlloc(
+            mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
+            A)
+  ... </k>
 
   rule <k> freeMemory => mClear(Loc) ... </k>
     <stackbase> Loc:MemLoc </stackbase>

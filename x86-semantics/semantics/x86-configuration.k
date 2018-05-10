@@ -10,7 +10,7 @@ module X86-CONFIGURATION
 
   configuration <T>
     //<k> $PGM:Instructions ~> inforegisters ~> allocateMemory(64) ~> fetch ~> freeMemory </k>
-    <k> $PGM:Instructions ~> inforegisters ~> allocateMemory(64) ~> fetch </k>
+    <k> $PGM:Instructions ~> inforegisters ~> allocateStackMemory(128, 16 *Int 8) ~> fetch </k>
     <entrypoint> mi(64, 0) </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
     <memstate>
