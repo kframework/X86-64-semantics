@@ -26,6 +26,11 @@ module MINT-WRAPPER-SYNTAX
   syntax MIntMap ::= makeUndefMIntMap ( Int ) [function]
 
   /*@
+    Create a map of mints from the elems of string.   
+  */
+  syntax MIntMap ::=  createMIntMapFromString(String) [function]
+
+  /*@
     If Else Then for Sorts 
   */
   syntax MInt ::= "#ifMInt"   Bool "#then" MInt  "#else" MInt  "#fi" [function, smtlib(ite)]
@@ -293,6 +298,26 @@ module MINT-WRAPPER
   rule makeUndefMIntMapAux(N:Int, I, M:Map) => 
     makeUndefMIntMapAux(N, I +Int 1, M[I <- undef])
       requires I <Int N
+
+  /*@
+    Create a map of MInt from the elems of String.   
+  */
+  rule createMIntMapFromString(S:String) => createMIntMapFromStringAux(0, S, .Map)
+
+  syntax MIntMap ::= createMIntMapFromStringAux(Int, String, Map) [function]
+
+  rule createMIntMapFromStringAux(N:Int, S:String, M:Map) => mimap(M)
+    requires N ==Int lengthString(S)
+
+  rule createMIntMapFromStringAux(I:Int, S:String, M:Map) =>
+    createMIntMapFromStringAux(I +Int 1, S, M[ I <- mi(8, charAt(S, I)) ])
+      requires I <Int lengthString(S)
+  
+  /*@
+    Get Ascii value of a char.
+  */
+  syntax Int ::= charAt(String, Int) [function]
+  rule charAt(S:String, I:Int) => ordChar(substrString(S, I, I +Int 1))
 
   /*@
     If Else Then for Sorts
