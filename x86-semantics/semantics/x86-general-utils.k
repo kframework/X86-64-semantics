@@ -1,6 +1,9 @@
 module MINT-WRAPPER-SYNTAX
   imports MINT
   imports FLOAT
+  imports STRING
+  imports MAP
+  imports INT
 
   syntax MInt ::= "undef"
   syntax MInt ::= "zeroMIntW1"
@@ -12,14 +15,15 @@ module MINT-WRAPPER-SYNTAX
   /*@
     Sort List
   */
+  syntax MIntMap ::= mimap( Map ) [klabel(mimap)]
   syntax MInts ::= List{MInt, ""} [klabel(mintlist)]
   syntax Floats ::= List{Float, ""} [klabel(floatlist)]
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
-    Create a list of size N:Int with "undef" MInt  
+    Create a map of size N:Int with "undef" MInt  
   */
-  syntax MInts ::= makeUndefMInts ( Int ) [function]
+  syntax MIntMap ::= makeUndefMIntMap ( Int ) [function]
 
   /*@
     If Else Then for Sorts 
@@ -281,13 +285,13 @@ module MINT-WRAPPER
   /*@
     Create a list of indef MInts  
   */
-  rule makeUndefMInts ( N:Int ) => makeUndefMIntsAux(N, 0, .MInts)
+  rule makeUndefMIntMap ( N:Int ) => makeUndefMIntMapAux(N, 0, .Map)
 
-  syntax MInts ::=  makeUndefMIntsAux(Int, Int, MInts) [function]
+  syntax MIntMap ::=  makeUndefMIntMapAux(Int, Int, Map) [function]
 
-  rule makeUndefMIntsAux(N:Int, N, MIL:MInts) => MIL
-  rule makeUndefMIntsAux(N:Int, I, MIL:MInts) => 
-    makeUndefMIntsAux(N, I +Int 1, undef MIL)
+  rule makeUndefMIntMapAux(N:Int, N, M:Map) => mimap(M)
+  rule makeUndefMIntMapAux(N:Int, I, M:Map) => 
+    makeUndefMIntMapAux(N, I +Int 1, M[I <- undef])
       requires I <Int N
 
   /*@

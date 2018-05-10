@@ -412,8 +412,10 @@ vcvtpd2ps_xmm_ymm
 // movq-m64-r64
 
   rule <k> 
-    execinstr (movq R1:R64,  (R2:R64):Mem, .Typedoperands) => 
-      storeToMemory(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 64)
+    execinstr (movq R1:R64,  I:Int ( R2:R64 ), .Typedoperands) => 
+      storeToMemory(getRegisterValue(R1, RSMap), 
+          addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
+          64)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1214,9 +1216,11 @@ vcvtpd2ps_xmm_ymm
 // movq-r64-m64
 
   rule <k> 
-    execinstr (movq (R1:R64):Mem,  R2:R64, .Typedoperands) => 
+    execinstr (movq I:Int (R1:R64):Mem,  R2:R64, .Typedoperands) => 
       setRegisterValue(
-          loadFromMemory(getRegisterValue(R1, RSMap), 64), 
+          loadFromMemory(
+            addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
+            64), 
           R2)                         
   ...</k>
   <regstate> RSMap </regstate>
