@@ -6,19 +6,16 @@
     64'0
   </entrypoint>
   <nextLocPc>
-    64'9
+    64'6
   </nextLocPc>
   <memstate>
     <text>
-      locpc ( 64'0 ) |-> storedinstr ( movq $ 56 , %rsp , .Typedoperands )
-      locpc ( 64'1 ) |-> storedinstr ( movq $ 61438 , %rax , .Typedoperands )
-      locpc ( 64'2 ) |-> storedinstr ( movq %rax , ( %rsp ) , .Typedoperands )
-      locpc ( 64'3 ) |-> storedinstr ( movq $ 48 , %rsp , .Typedoperands )
-      locpc ( 64'4 ) |-> storedinstr ( addq $0xabcd234500000000 , %rax , .Typedoperands )
-      locpc ( 64'5 ) |-> storedinstr ( movq %rax , ( %rsp ) , .Typedoperands )
-      locpc ( 64'6 ) |-> storedinstr ( movq $ 52 , %rsp , .Typedoperands )
-      locpc ( 64'7 ) |-> storedinstr ( movq ( %rsp ) , %rbx , .Typedoperands )
-      locpc ( 64'8 ) |-> storedinstr ( nop .Typedoperands )
+      locpc ( 64'0 ) |-> storedinstr ( movq $ 61438 , %rax , .Typedoperands )
+      locpc ( 64'1 ) |-> storedinstr ( movq %rax , -8 ( %rsp ) , .Typedoperands )
+      locpc ( 64'2 ) |-> storedinstr ( addq $0xabcd234500000000 , %rax , .Typedoperands )
+      locpc ( 64'3 ) |-> storedinstr ( movq %rax , -16 ( %rsp ) , .Typedoperands )
+      locpc ( 64'4 ) |-> storedinstr ( movq -12 ( %rsp ) , %rbx , .Typedoperands )
+      locpc ( 64'5 ) |-> storedinstr ( nop .Typedoperands )
     </text>
     <stack>
       <memory>
@@ -26,7 +23,7 @@
           2
         </nextLoc>
         <objects>
-          mem ( symloc ( 1 , 0 ) |-> mVector ( 64 , 8 , 0 |-> byte ( 0 , undef )
+          mem ( symloc ( 1 , 128 ) |-> mVector ( 128 , 8 , 0 |-> byte ( 0 , undef )
           1 |-> byte ( 0 , undef )
           2 |-> byte ( 0 , undef )
           3 |-> byte ( 0 , undef )
@@ -89,11 +86,75 @@
           60 |-> byte ( 4 , 64'61438 )
           61 |-> byte ( 5 , 64'61438 )
           62 |-> byte ( 6 , 64'61438 )
-          63 |-> byte ( 7 , 64'61438 ) ) )
+          63 |-> byte ( 7 , 64'61438 )
+          64 |-> byte ( 0 , undef )
+          65 |-> byte ( 0 , undef )
+          66 |-> byte ( 0 , undef )
+          67 |-> byte ( 0 , undef )
+          68 |-> byte ( 0 , undef )
+          69 |-> byte ( 0 , undef )
+          70 |-> byte ( 0 , undef )
+          71 |-> byte ( 0 , undef )
+          72 |-> byte ( 0 , undef )
+          73 |-> byte ( 0 , undef )
+          74 |-> byte ( 0 , undef )
+          75 |-> byte ( 0 , undef )
+          76 |-> byte ( 0 , undef )
+          77 |-> byte ( 0 , undef )
+          78 |-> byte ( 0 , undef )
+          79 |-> byte ( 0 , undef )
+          80 |-> byte ( 0 , undef )
+          81 |-> byte ( 0 , undef )
+          82 |-> byte ( 0 , undef )
+          83 |-> byte ( 0 , undef )
+          84 |-> byte ( 0 , undef )
+          85 |-> byte ( 0 , undef )
+          86 |-> byte ( 0 , undef )
+          87 |-> byte ( 0 , undef )
+          88 |-> byte ( 0 , undef )
+          89 |-> byte ( 0 , undef )
+          90 |-> byte ( 0 , undef )
+          91 |-> byte ( 0 , undef )
+          92 |-> byte ( 0 , undef )
+          93 |-> byte ( 0 , undef )
+          94 |-> byte ( 0 , undef )
+          95 |-> byte ( 0 , undef )
+          96 |-> byte ( 0 , undef )
+          97 |-> byte ( 0 , undef )
+          98 |-> byte ( 0 , undef )
+          99 |-> byte ( 0 , undef )
+          100 |-> byte ( 0 , undef )
+          101 |-> byte ( 0 , undef )
+          102 |-> byte ( 0 , undef )
+          103 |-> byte ( 0 , undef )
+          104 |-> byte ( 0 , undef )
+          105 |-> byte ( 0 , undef )
+          106 |-> byte ( 0 , undef )
+          107 |-> byte ( 0 , undef )
+          108 |-> byte ( 0 , undef )
+          109 |-> byte ( 0 , undef )
+          110 |-> byte ( 0 , undef )
+          111 |-> byte ( 0 , undef )
+          112 |-> byte ( 0 , undef )
+          113 |-> byte ( 0 , undef )
+          114 |-> byte ( 0 , undef )
+          115 |-> byte ( 0 , undef )
+          116 |-> byte ( 0 , undef )
+          117 |-> byte ( 0 , undef )
+          118 |-> byte ( 0 , undef )
+          119 |-> byte ( 0 , undef )
+          120 |-> byte ( 0 , undef )
+          121 |-> byte ( 0 , undef )
+          122 |-> byte ( 0 , undef )
+          123 |-> byte ( 0 , undef )
+          124 |-> byte ( 0 , undef )
+          125 |-> byte ( 0 , undef )
+          126 |-> byte ( 0 , undef )
+          127 |-> byte ( 0 , undef ) ) )
         </objects>
       </memory>
       <stackbase>
-        symloc ( 1 , 0 )
+        symloc ( 1 , 128 )
       </stackbase>
     </stack>
   </memstate>
@@ -116,9 +177,9 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'9
+    "RIP" |-> 64'6
     "RSI" |-> 64'0
-    "RSP" |-> 64'52
+    "RSP" |-> 64'64
     "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -190,7 +251,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'0
+    "RAX" |-> 64'61438
     "RBP" |-> 64'0
     "RBX" |-> 64'0
     "RCX" |-> 64'0
@@ -198,7 +259,7 @@
     "RDX" |-> 64'0
     "RIP" |-> 64'1
     "RSI" |-> 64'0
-    "RSP" |-> 64'56
+    "RSP" |-> 64'64
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -237,7 +298,7 @@
     "RDX" |-> 64'0
     "RIP" |-> 64'2
     "RSI" |-> 64'0
-    "RSP" |-> 64'56
+    "RSP" |-> 64'64
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -268,7 +329,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'61438
+    "RAX" |-> 64'12379589729971138558
     "RBP" |-> 64'0
     "RBX" |-> 64'0
     "RCX" |-> 64'0
@@ -276,8 +337,8 @@
     "RDX" |-> 64'0
     "RIP" |-> 64'3
     "RSI" |-> 64'0
-    "RSP" |-> 64'56
-    "SF" |-> 1'0
+    "RSP" |-> 64'64
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -307,7 +368,7 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'61438
+    "RAX" |-> 64'12379589729971138558
     "RBP" |-> 64'0
     "RBX" |-> 64'0
     "RCX" |-> 64'0
@@ -315,124 +376,7 @@
     "RDX" |-> 64'0
     "RIP" |-> 64'4
     "RSI" |-> 64'0
-    "RSP" |-> 64'48
-    "SF" |-> 1'0
-    "YMM0" |-> 256'0
-    "YMM1" |-> 256'0
-    "YMM2" |-> 256'0
-    "YMM3" |-> 256'0
-    "YMM4" |-> 256'0
-    "YMM5" |-> 256'0
-    "YMM6" |-> 256'0
-    "YMM7" |-> 256'0
-    "YMM8" |-> 256'0
-    "YMM9" |-> 256'0
-    "YMM10" |-> 256'0
-    "YMM11" |-> 256'0
-    "YMM12" |-> 256'0
-    "YMM13" |-> 256'0
-    "YMM14" |-> 256'0
-    "YMM15" |-> 256'0
-    "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
-    "CF" |-> 1'0
-    "OF" |-> 1'0
-    "PF" |-> 1'0
-    "R8" |-> 64'0
-    "R9" |-> 64'0
-    "R10" |-> 64'0
-    "R11" |-> 64'0
-    "R12" |-> 64'0
-    "R13" |-> 64'0
-    "R14" |-> 64'0
-    "R15" |-> 64'0
-    "RAX" |-> 64'12379589729971138558
-    "RBP" |-> 64'0
-    "RBX" |-> 64'0
-    "RCX" |-> 64'0
-    "RDI" |-> 64'0
-    "RDX" |-> 64'0
-    "RIP" |-> 64'5
-    "RSI" |-> 64'0
-    "RSP" |-> 64'48
-    "SF" |-> 1'1
-    "YMM0" |-> 256'0
-    "YMM1" |-> 256'0
-    "YMM2" |-> 256'0
-    "YMM3" |-> 256'0
-    "YMM4" |-> 256'0
-    "YMM5" |-> 256'0
-    "YMM6" |-> 256'0
-    "YMM7" |-> 256'0
-    "YMM8" |-> 256'0
-    "YMM9" |-> 256'0
-    "YMM10" |-> 256'0
-    "YMM11" |-> 256'0
-    "YMM12" |-> 256'0
-    "YMM13" |-> 256'0
-    "YMM14" |-> 256'0
-    "YMM15" |-> 256'0
-    "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
-    "CF" |-> 1'0
-    "OF" |-> 1'0
-    "PF" |-> 1'0
-    "R8" |-> 64'0
-    "R9" |-> 64'0
-    "R10" |-> 64'0
-    "R11" |-> 64'0
-    "R12" |-> 64'0
-    "R13" |-> 64'0
-    "R14" |-> 64'0
-    "R15" |-> 64'0
-    "RAX" |-> 64'12379589729971138558
-    "RBP" |-> 64'0
-    "RBX" |-> 64'0
-    "RCX" |-> 64'0
-    "RDI" |-> 64'0
-    "RDX" |-> 64'0
-    "RIP" |-> 64'6
-    "RSI" |-> 64'0
-    "RSP" |-> 64'48
-    "SF" |-> 1'1
-    "YMM0" |-> 256'0
-    "YMM1" |-> 256'0
-    "YMM2" |-> 256'0
-    "YMM3" |-> 256'0
-    "YMM4" |-> 256'0
-    "YMM5" |-> 256'0
-    "YMM6" |-> 256'0
-    "YMM7" |-> 256'0
-    "YMM8" |-> 256'0
-    "YMM9" |-> 256'0
-    "YMM10" |-> 256'0
-    "YMM11" |-> 256'0
-    "YMM12" |-> 256'0
-    "YMM13" |-> 256'0
-    "YMM14" |-> 256'0
-    "YMM15" |-> 256'0
-    "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
-    "CF" |-> 1'0
-    "OF" |-> 1'0
-    "PF" |-> 1'0
-    "R8" |-> 64'0
-    "R9" |-> 64'0
-    "R10" |-> 64'0
-    "R11" |-> 64'0
-    "R12" |-> 64'0
-    "R13" |-> 64'0
-    "R14" |-> 64'0
-    "R15" |-> 64'0
-    "RAX" |-> 64'12379589729971138558
-    "RBP" |-> 64'0
-    "RBX" |-> 64'0
-    "RCX" |-> 64'0
-    "RDI" |-> 64'0
-    "RDX" |-> 64'0
-    "RIP" |-> 64'7
-    "RSI" |-> 64'0
-    "RSP" |-> 64'52
+    "RSP" |-> 64'64
     "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -469,9 +413,9 @@
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
-    "RIP" |-> 64'8
+    "RIP" |-> 64'5
     "RSI" |-> 64'0
-    "RSP" |-> 64'52
+    "RSP" |-> 64'64
     "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
