@@ -37,6 +37,11 @@ module X86-MEMORY-SYNTAX
                       /* Load size in bits */ Int)
 
   /*@
+    Sorts to be stored in memory.
+  */  
+  syntax StoreVal ::= MInt | MIntMap
+
+  /*@
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
   syntax KItem ::=  storeToMemory(
@@ -58,20 +63,47 @@ module X86-MEMORY
   syntax AbstractValue ::= ByteVal
 
   // x86 memory helper API implementation for allocation and store.
-  syntax MemValue ::= toMemValue(MInt, Int)  [function, klabel(toMemValueMInt)]
-  rule toMemValue(MI:MInt, N:Int) => mList(N /Int 8, 8, toMemData(MI, N, .MemData))
-
-  syntax MemData ::= toMemData(MInt, Int, MemData)  [function, klabel(toMemDataMInt)]
-  rule toMemData(MI:MInt, N:Int, Bytes:MemData) => appendMemData(Bytes, toBytes(N, MI))
 
 
-  syntax MemData ::= toMemDataArray(MInts, Int, Int, MemData) [function]
-  rule toMemDataArray(_:MInts, N:Int, N, Bytes:MemData) => Bytes
-  rule toMemDataArray(MI MIs:MInts, I:Int, N:Int, Bytes:MemData) =>
-        toMemDataArray(MIs, I +Int 1, N, toMemData(MI, 8, Bytes))
+  /*@
+    Create a MemValue out of a storeVal of size Nbits
+  */
+  syntax MemValue ::= toMemValue(StoreVal, Int)  [function]
+  rule toMemValue(V:StoreVal, N:Int) => mList(N /Int 8, 8, toMemData(V, N, .MemData))
+
+  /*@
+    Create a MemData out of a storeVal of size Nbits
+  */
+  syntax MemData ::= toMemData(StoreVal, Int, MemData)  [function, klabel(toMemDataMInt)]
+
+  /*@
+    MInt -> MemData
+  */
+  rule toMemData(V:MInt, N:Int, Bytes:MemData) => toMemDataFromMInt(V, N, Bytes)
+
+  syntax MemData ::= toMemDataFromMInt(MInt, Int, MemData) [function]
+  rule toMemDataFromMInt(MI:MInt, N:Int, Bytes:MemData) => appendMemData(Bytes, toBytes(N, MI))
+
+  /*@
+    MIntMap -> MemData
+    Assumption: size(minmap(M)) == N/8
+  */
+  rule toMemData(mimap(M):MIntMap, N:Int, Bytes:MemData) => toMemDataFromMIntMap(M, 0, N /Int 8, Bytes)
+    requires size(M) ==Int (N /Int 8)                        
+
+  syntax MemData ::= toMemDataFromMIntMap(Map, Int, Int, MemData) [function]
+
+  rule toMemDataFromMIntMap(_:Map, N:Int, N, Bytes:MemData) => Bytes
+  rule toMemDataFromMIntMap(M:Map, I:Int, N:Int, Bytes:MemData) =>
+        toMemDataFromMIntMap(M, I +Int 1, N, toMemData({M[I]}:>MInt, 8, Bytes))
     requires I <Int N
 
 
+  /*@
+    toBytes(N:Int, MI:MInt)
+    Convert MI to 
+      List{ byte(0, MI)  byte(1, MI) ... byte(M-1, MI) } where M = N / 8
+  */  
   syntax MemData ::= toBytes(Int, MInt) [function]
   rule toBytes(N:Int, MI:MInt) => toBytesAux(N /Int 8, MI, .MemData)
 
@@ -114,10 +146,12 @@ module X86-MEMORY
 
   /*@
     Allocate memory: Used for allocating local memory
+    Allocate N undefs each of 1 byte.
   */
   rule <k> allocateLocalMemory(N:Int, A:Int) => 
           mAlloc(
-            mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
+            toMemValue(makeUndefMIntMap(N), N *Int 8),
+            // mList(N, 8, toMemDataArray(makeUndefMInts(N), 0, N, .MemData)),
             A)
   ... </k>
 
