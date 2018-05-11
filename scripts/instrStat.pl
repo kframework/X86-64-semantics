@@ -24,10 +24,11 @@ if ($help) {
 }
 
 open( my $fp, "<", $file ) or die "Can't open ::$file: $!";
-my @lines  = <$fp>;
-my %imap   = ();
-my @output = ();
-my %uimap  = ();
+my @lines     = <$fp>;
+my %imap      = ();
+my @output    = ();
+my %uimap     = ();
+my %arity_map = ();
 
 sub isSame {
     my $arg1 = shift @_;
@@ -50,6 +51,8 @@ for my $line (@lines) {
     my @pieces = split( /_/, $line );
 
     $uimap{ $pieces[0] } = 1;
+    $arity_map{ scalar(@pieces) }++;
+
     if ( scalar(@pieces) == 1 ) {
         next;
     }
@@ -95,6 +98,7 @@ for my $out (@output) {
     printArray( \@{ $imap{$out} }, "IMap Array" );
 }
 
-print "Results: " . scalar(@output);
+print "Results: " . scalar(@output)."\n";
 
+printMap( \%arity_map, "Arity Map" );
 exit 0;
