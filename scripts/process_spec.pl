@@ -247,8 +247,11 @@ sub createSingleFileDefn {
     print $sfp "  imports X86-CONFIGURATION" . "\n";
     print $sfp "  imports X86-FLAG-CHECKS-SYNTAX" . "\n";
 
-    my $baseInstrPath    = "baseInstructions/";
-    my $derivedInstrPath = "derivedInstructions/";
+    my $baseInstrPath             = "baseInstructions/";
+    my $derivedInstrPath          = "derivedInstructions/";
+    my $registerInstructionsPath  = "registerInstructions/";
+    my $immediateInstructionsPath = "immediateInstructions/";
+    my $memoryInstructionsPath    = "memoryInstructions/";
 
     if ( "" ne $useuif ) {
         $baseInstrPath    = "instructions_with_uif/baseInstructions/";
@@ -257,6 +260,12 @@ sub createSingleFileDefn {
 
     print("\tMerging $baseInstrPath\n");
     find( \&mergeToSingleFile, $baseInstrPath );
+    print("\tMerging $registerInstructionsPath\n");
+    find( \&mergeToSingleFile, $registerInstructionsPath );
+    print("\tMerging $immediateInstructionsPath\n");
+    find( \&mergeToSingleFile, $immediateInstructionsPath );
+    print("\tMerging $memoryInstructionsPath\n");
+    find( \&mergeToSingleFile, $memoryInstructionsPath );
 
     #print $sfp "endmodule";
     #    close($sfp);

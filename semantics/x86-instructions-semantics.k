@@ -1746,6 +1746,56 @@ vcvtpd2ps_xmm_ymm
   
 
 
+// pushw-r16
+
+  rule <k> 
+    execinstr (pushw R1:R16, .Typedoperands) =>
+      decRSPInBytes(2) ~> 
+      storeToMemory(
+          getRegisterValue(R1, RSMap), 
+          getRegisterValue(%rsp, RSMap), 
+          16)    
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// popq-r64
+
+  rule <k> 
+    execinstr (popq R1:R64, .Typedoperands) =>
+      setRegisterValue(
+          loadFromMemory(getRegisterValue(%rsp, RSMap), 64), 
+          R1) 
+      ~> incRSPInBytes(8)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// popw-r16
+
+  rule <k> 
+    execinstr (popw R1:R16, .Typedoperands) =>
+      setRegisterValue(
+          loadFromMemory(getRegisterValue(%rsp, RSMap), 16), 
+          R1) 
+      ~> incRSPInBytes(2)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// pushq-r64
+
+  rule <k> 
+    execinstr (pushq R1:R64, .Typedoperands) =>
+      decRSPInBytes(8) ~> 
+      storeToMemory(
+          getRegisterValue(R1, RSMap), 
+          getRegisterValue(%rsp, RSMap), 
+          64)    
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
 // vfnmsub231pd-xmm-xmm-xmm
 
   rule <k>

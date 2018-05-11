@@ -97,4 +97,10 @@ module X86-ASBTRACT-SYNTAX
   */  
   syntax Int ::= getRegisterSize(Register) [function] 
 
+  /*@ 
+    Incr/Dec RSP. Used for push/pop instructions.
+  */  
+  syntax KItem ::= decRSPInBytes(Int) 
+  syntax KItem ::= incRSPInBytes(Int) 
+
 endmodule
