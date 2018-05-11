@@ -10,7 +10,9 @@ module X86-CONFIGURATION
   imports X86-INIT-SYNTAX
 
   configuration <T>
-    <k> $PGM:Instructions ~> inforegisters ~> initEnvironment($ARGV:List) ~> fetch </k>
+    // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment($ARGV:List) ~> fetch </k>
+    // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(ListItem("a.out")  .List) ~> fetch </k>
+    <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> fetch </k>
     <entrypoint> mi(64, 0) </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
     <memstate>
