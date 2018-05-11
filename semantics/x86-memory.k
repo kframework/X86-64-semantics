@@ -132,7 +132,11 @@ module X86-MEMORY
   */
   rule <k> allocateStackMemory(N:Int, A:Int) =>  
     saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
-      <regstate> RSMAP => RSMAP["RSP" <- mi(addrSize, N -Int 64)] </regstate>
+      //<regstate> RSMAP => RSMAP["RSP" <- mi(addrSize, N -Int 64)] </regstate>
+      <regstate> RSMap => updateMap(RSMap,
+                          ("RSP"  |->  mi(addrSize, N -Int 64)) 
+                          ("RBP"  |->  mi(addrSize, N -Int 64)) ) 
+      </regstate>
       <argv> _ => mi(addrSize, N -Int 64) </argv>
 
   /*@

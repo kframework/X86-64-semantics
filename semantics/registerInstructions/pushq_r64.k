@@ -8,7 +8,7 @@ module PUSHQ-R64
       decRSPInBytes(8) ~> 
       storeToMemory(
           getRegisterValue(R1, RSMap), 
-          getRegisterValue(%rsp, RSMap), 
+          subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 
           64)    
   ...</k>
   <regstate> RSMap </regstate>
