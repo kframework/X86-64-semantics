@@ -45,7 +45,7 @@ module X86-MEMORY-SYNTAX
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
   syntax KItem ::=  storeToMemory(
-                      /* Data */ MInt,
+                      /* Data */ StoreVal,
                       /* Address */ MInt,
                       /* Store size in bits*/ Int)
 
@@ -132,8 +132,8 @@ module X86-MEMORY
   */
   rule <k> allocateStackMemory(N:Int, A:Int) =>  
     saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
-      <regstate> RSMAP => RSMAP["RSP" <- mi(64, N -Int 64)] </regstate>
-      //<argv> _ => mi(64, N -Int 64) </argv>
+      <regstate> RSMAP => RSMAP["RSP" <- mi(addrSize, N -Int 64)] </regstate>
+      <argv> _ => mi(addrSize, N -Int 64) </argv>
 
   /*@
     Save the allocation id for later reads/writes/free.
@@ -171,7 +171,7 @@ module X86-MEMORY
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
   rule <k>
-    storeToMemory(Val:MInt, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
+    storeToMemory(Val:StoreVal, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
   ... </k>
     <stackbase> L </stackbase>
       requires Nbits %Int 8 ==Int 0
