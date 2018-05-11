@@ -5,7 +5,7 @@ module BSWAP-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (bswap R1:R32,  .Typedoperands) => .
+    execinstr (bswap R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

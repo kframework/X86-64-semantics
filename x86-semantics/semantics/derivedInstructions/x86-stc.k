@@ -5,7 +5,7 @@ module STC
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (stc  .Typedoperands) => .
+    execinstr (stc  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

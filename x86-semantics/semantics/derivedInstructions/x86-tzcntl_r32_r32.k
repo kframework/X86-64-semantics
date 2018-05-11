@@ -5,7 +5,7 @@ module TZCNTL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (tzcntl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (tzcntl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

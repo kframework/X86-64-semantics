@@ -5,7 +5,7 @@ module INCW-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (incw R1:R16,  .Typedoperands) => .
+    execinstr (incw R1:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

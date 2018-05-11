@@ -5,7 +5,7 @@ module TESTW-AX-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (testw I1_16:Imm, %ax:R16,  .Typedoperands) => .
+    execinstr (testw I1_16:Imm, %ax:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

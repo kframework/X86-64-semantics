@@ -5,7 +5,7 @@ module NOPL-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (nopl R1:R32,  .Typedoperands) => .
+    execinstr (nopl R1:R32,  .Operands) => .
   ...</k>
 endmodule
 

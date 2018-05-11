@@ -5,7 +5,7 @@ module TESTB-AL-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (testb I1_8:Imm, %al:R8,  .Typedoperands) => .
+    execinstr (testb I1_8:Imm, %al:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

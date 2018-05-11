@@ -5,7 +5,7 @@ module VORPD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vorpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vorpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

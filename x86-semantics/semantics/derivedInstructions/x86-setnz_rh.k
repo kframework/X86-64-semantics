@@ -5,7 +5,7 @@ module SETNZ-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setnz R1:Rh,  .Typedoperands) => .
+    execinstr (setnz R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

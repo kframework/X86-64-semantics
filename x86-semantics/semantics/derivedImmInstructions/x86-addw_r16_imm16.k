@@ -5,7 +5,7 @@ module ADDW-R16-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (addw I1_16:Imm, R2:R16,  .Typedoperands) => .
+    execinstr (addw I1_16:Imm, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

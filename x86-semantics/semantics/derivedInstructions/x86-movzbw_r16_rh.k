@@ -5,7 +5,7 @@ module MOVZBW-R16-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movzbw R1:Rh, R2:R16,  .Typedoperands) => .
+    execinstr (movzbw R1:Rh, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

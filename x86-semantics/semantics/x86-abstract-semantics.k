@@ -6,7 +6,7 @@ module X86-ABSTRACT-SEMANTICS
   //imports X86-GENERAL-UTILS
   imports MINT-WRAPPER
 
-  rule getISize((OpC:Opcode OpR:Typedoperands):Instruction) => 1
+  rule getISize((OpC:Opcode OpR:Operands):Instruction) => 1
 
   /*@
     Reg to Regtstate keys

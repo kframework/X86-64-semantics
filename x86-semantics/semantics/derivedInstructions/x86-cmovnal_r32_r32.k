@@ -5,7 +5,7 @@ module CMOVNAL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmovnal R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnal R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

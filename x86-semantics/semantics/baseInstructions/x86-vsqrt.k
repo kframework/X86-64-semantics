@@ -9,24 +9,24 @@ module VSQRTPD-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vsqrtpd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vsqrtpd  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), vfsqrt, 64)), .Typedoperands)
+    execinstr(vsqrtpd  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vsqrtpd  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), vfsqrt, 64)), .Operands)
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> execinstr(vsqrtpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsqrtpd  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VSQRTPS-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vsqrtps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfsqrt, 32)), .Typedoperands)
+    execinstr(vsqrtps  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfsqrt, 32)), .Operands)
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> execinstr(vsqrtps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsqrtps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 

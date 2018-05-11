@@ -5,7 +5,7 @@ module XORW-AX-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xorw I1_16:Imm, %ax:R16,  .Typedoperands) => .
+    execinstr (xorw I1_16:Imm, %ax:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module CMOVZQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmovzq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovzq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

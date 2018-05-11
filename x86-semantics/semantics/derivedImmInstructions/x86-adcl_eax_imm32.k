@@ -7,18 +7,18 @@ module ADCL-EAX-IMM32
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcl I1_32:Imm,  %eax:R32, .Typedoperands) =>
+    execinstr (adcl I1_32:Imm,  %eax:R32, .Operands) =>
       execinstr(adcl %eax, 
           handleImmediateWithSignExtend(I1_32, 32, 32 ), 
           getRegisterValue(%eax, RSMap), 
           zeroExtend(getFlag("CF", RSMap), 32), 
           addMInt(addMInt(handleImmediateWithSignExtend(I1_32, 32, 32 ), getRegisterValue(%eax, RSMap)), zeroExtend(getFlag("CF", RSMap), 32)),
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 

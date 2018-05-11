@@ -5,7 +5,7 @@ module SETL-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setl R1:Rh,  .Typedoperands) => .
+    execinstr (setl R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

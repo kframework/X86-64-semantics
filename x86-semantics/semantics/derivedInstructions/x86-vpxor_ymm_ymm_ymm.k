@@ -5,7 +5,7 @@ module VPXOR-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpxor R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpxor R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

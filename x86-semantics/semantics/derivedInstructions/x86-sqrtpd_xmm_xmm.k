@@ -5,7 +5,7 @@ module SQRTPD-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (sqrtpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (sqrtpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

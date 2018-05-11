@@ -5,7 +5,7 @@ module MOVD-R32-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movd R1:Xmm, R2:R32,  .Typedoperands) => .
+    execinstr (movd R1:Xmm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

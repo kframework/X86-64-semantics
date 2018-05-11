@@ -5,7 +5,7 @@ module ORL-R32-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (orl I1_32:Imm, R2:R32,  .Typedoperands) => .
+    execinstr (orl I1_32:Imm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

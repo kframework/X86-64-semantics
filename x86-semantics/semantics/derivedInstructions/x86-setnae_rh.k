@@ -5,7 +5,7 @@ module SETNAE-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setnae R1:Rh,  .Typedoperands) => .
+    execinstr (setnae R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

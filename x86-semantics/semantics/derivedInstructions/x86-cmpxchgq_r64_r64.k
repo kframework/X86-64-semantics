@@ -5,7 +5,7 @@ module CMPXCHGQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpxchgq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmpxchgq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -32,7 +32,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
       requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmpxchgq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

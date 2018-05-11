@@ -5,7 +5,7 @@ module SHLQ-R64-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shlq $0x1, R2:R64,  .Typedoperands) => .
+    execinstr (shlq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

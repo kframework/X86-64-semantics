@@ -5,7 +5,7 @@ module NOPW-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (nopw R1:R16,  .Typedoperands) => .
+    execinstr (nopw R1:R16,  .Operands) => .
   ...</k>
 endmodule
 

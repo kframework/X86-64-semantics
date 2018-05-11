@@ -5,7 +5,7 @@ module SETS-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (sets R1:R8,  .Typedoperands) => .
+    execinstr (sets R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

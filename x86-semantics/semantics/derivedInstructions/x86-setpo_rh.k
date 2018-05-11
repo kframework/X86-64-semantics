@@ -5,7 +5,7 @@ module SETPO-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setpo R1:Rh,  .Typedoperands) => .
+    execinstr (setpo R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

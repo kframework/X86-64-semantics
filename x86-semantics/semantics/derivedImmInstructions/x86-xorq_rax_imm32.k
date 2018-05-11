@@ -10,14 +10,14 @@ module XORQ-RAX-IMM32
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(xorq  I1_32:Imm,  %rax:R64, .Typedoperands) =>
+    execinstr(xorq  I1_32:Imm,  %rax:R64, .Operands) =>
       execinstr(xorq  %rax, handleImmediateWithSignExtend(I1_32, 32, 64 ), getRegisterValue(%rax, RSMap), 
-            xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getRegisterValue(%rax, RSMap)), .Typedoperands) 
+            xorMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getRegisterValue(%rax, RSMap)), .Operands) 
   ...</k>
     <regstate> RSMap</regstate>  
 
   rule
-      execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Typedoperands )) 
+      execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Operands )) 
     => 
       setFlag(zeroMIntW1, "OF") ~> 
       updateZeroFlag(MIresult) ~> 

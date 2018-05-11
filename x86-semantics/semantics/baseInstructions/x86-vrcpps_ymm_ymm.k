@@ -9,12 +9,12 @@ module VRCPPS-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vrcpps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vrcpps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfreciprocal, 32)), .Typedoperands)
+    execinstr(vrcpps  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vrcpps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfreciprocal, 32)), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vrcpps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vrcpps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 

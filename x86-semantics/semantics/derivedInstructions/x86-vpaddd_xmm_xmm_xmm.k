@@ -5,7 +5,7 @@ module VPADDD-XMM-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpaddd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpaddd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

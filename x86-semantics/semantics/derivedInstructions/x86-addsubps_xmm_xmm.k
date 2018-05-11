@@ -5,7 +5,7 @@ module ADDSUBPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (addsubps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addsubps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

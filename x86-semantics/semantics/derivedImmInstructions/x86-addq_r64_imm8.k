@@ -5,7 +5,7 @@ module ADDQ-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (addq I1_8:Imm, R2:R64,  .Typedoperands) => .
+    execinstr (addq I1_8:Imm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

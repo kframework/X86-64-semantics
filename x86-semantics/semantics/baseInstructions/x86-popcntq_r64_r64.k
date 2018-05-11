@@ -8,7 +8,7 @@ module POPCNT-R64-R64
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(popcntq R1:R64, R2:R64, .Typedoperands) =>
+    execinstr(popcntq R1:R64, R2:R64, .Operands) =>
       setFlag(mi(1, 0), "OF") ~>
       setFlag(mi(1, 0), "SF") ~>
       setFlag(mi(1, 0), "AF") ~>
@@ -28,13 +28,13 @@ module POPCNT-R64-R64
 
   /*
   rule <k> 
-    execinstr(popcntq  (R1:R64,  (R2:R64, .Typedoperands)) ) =>
-      execinstr(popcntq  (R2, mi(getRegisterSize(R1), popCount(getRegisterValue(R1, RSMap))), .Typedoperands)) 
+    execinstr(popcntq  (R1:R64,  (R2:R64, .Operands)) ) =>
+      execinstr(popcntq  (R2, mi(getRegisterSize(R1), popCount(getRegisterValue(R1, RSMap))), .Operands)) 
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(popcntq  ( DestR, MIsrc, .Typedoperands )) => 
+    execinstr(popcntq  ( DestR, MIsrc, .Operands )) => 
     setFlag(mi(1, 0), "OF") ~>
     setFlag(mi(1, 0), "ZF") ~>
     setFlag(mi(1, 0), "SF") ~>
@@ -46,7 +46,7 @@ module POPCNT-R64-R64
       requires notBool zeroMInt(MIsrc)
 
   rule <k>
-    execinstr(popcntq  ( DestR:R64, MIsrc, .Typedoperands )) => 
+    execinstr(popcntq  ( DestR:R64, MIsrc, .Operands )) => 
     setFlag(mi(1, 0), "OF") ~>
     setFlag(mi(1, 1),  "ZF") ~>
     setFlag(mi(1, 0), "SF") ~>

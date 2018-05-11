@@ -10,14 +10,14 @@ module ORQ-R64-IMM32
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(orq I1_32:Imm, R2:R64, .Typedoperands) => 
+    execinstr(orq I1_32:Imm, R2:R64, .Operands) => 
       execinstr(orq  R2, handleImmediateWithSignExtend(I1_32, 32, 64 ), getRegisterValue(R2, RSMap), 
-            orMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getRegisterValue(R2, RSMap)), .Typedoperands) 
+            orMInt(handleImmediateWithSignExtend(I1_32, 32, 64 ), getRegisterValue(R2, RSMap)), .Operands) 
   ...</k>
     <regstate> RSMap</regstate>
 
   rule
-      execinstr(orq  DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands ) 
+      execinstr(orq  DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Operands ) 
     => 
       setFlag(zeroMIntW1, "OF") ~> 
       updateZeroFlag(MIresult) ~> 

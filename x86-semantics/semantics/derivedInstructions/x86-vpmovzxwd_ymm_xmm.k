@@ -5,7 +5,7 @@ module VPMOVZXWD-YMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpmovzxwd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovzxwd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

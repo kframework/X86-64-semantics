@@ -5,7 +5,7 @@ module SETS-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (sets R1:Rh,  .Typedoperands) => .
+    execinstr (sets R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

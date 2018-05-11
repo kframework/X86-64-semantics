@@ -5,7 +5,7 @@ module VMOVDQU-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vmovdqu R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovdqu R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

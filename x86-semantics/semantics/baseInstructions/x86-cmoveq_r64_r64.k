@@ -11,21 +11,21 @@ module CMOVE-R64-R64
 
   /*
   rule <k> 
-    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => .
+    execinstr(cmoveq  (R1:R64,  (R2:R64, .Operands)) ) => .
   ...</k>
     <regstate> RSMap</regstate>
       requires sameRegisters(R1, R2) orBool zeroMInt(getFlag("ZF", RSMap))
 
 
   rule <k> 
-    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => 
+    execinstr(cmoveq  (R1:R64,  (R2:R64, .Operands)) ) => 
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap</regstate>
       requires  (notBool sameRegisters(R1, R2)) andBool (notBool zeroMInt(getFlag("ZF", RSMap)))
       */
   rule <k> 
-    execinstr(cmoveq R1:R64, R2:R64, .Typedoperands) => 
+    execinstr(cmoveq R1:R64, R2:R64, .Operands) => 
       setRegisterValue(
           #ifMInt zeroMInt(getFlag("ZF", RSMap)) #then 
             getRegisterValue(R2, RSMap) #else 

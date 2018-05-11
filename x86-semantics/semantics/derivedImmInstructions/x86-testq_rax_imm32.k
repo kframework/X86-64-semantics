@@ -5,7 +5,7 @@ module TESTQ-RAX-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (testq I1_32:Imm, %rax:R64,  .Typedoperands) => .
+    execinstr (testq I1_32:Imm, %rax:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

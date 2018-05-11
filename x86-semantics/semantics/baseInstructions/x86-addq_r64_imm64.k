@@ -7,20 +7,20 @@ module ADD-IMM-R8
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(addq I:Imm , R:R64 , .Typedoperands) => 
+    execinstr(addq I:Imm , R:R64 , .Operands) => 
       execinstr(addq  R, handleImmediateWithSignExtend(I, 64, 64), getRegisterValue(R, RSMap), 
             extractMask(
               addMInt(
                 concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I, 64, 64)), 
                 concatenateMInt(mi(1, 0), getRegisterValue(R, RSMap))
               ), 64, 0 ),
-            .Typedoperands) 
+            .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule
   <k>
-    execinstr(addq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
+    execinstr(addq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Operands )) =>
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 

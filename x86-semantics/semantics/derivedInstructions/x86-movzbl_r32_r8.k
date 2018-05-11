@@ -5,7 +5,7 @@ module MOVZBL-R32-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movzbl R1:R8, R2:R32,  .Typedoperands) => .
+    execinstr (movzbl R1:R8, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

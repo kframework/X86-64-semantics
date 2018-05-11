@@ -5,7 +5,7 @@ module SETNBE-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setnbe R1:R8,  .Typedoperands) => .
+    execinstr (setnbe R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

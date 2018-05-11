@@ -5,7 +5,7 @@ module XADDQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xaddq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (xaddq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -32,7 +32,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentVa
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (xaddq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module XCHGB-RH-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xchgb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xchgb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module SBBW-R16-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (sbbw I1_8:Imm, R2:R16,  .Typedoperands) => .
+    execinstr (sbbw I1_8:Imm, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

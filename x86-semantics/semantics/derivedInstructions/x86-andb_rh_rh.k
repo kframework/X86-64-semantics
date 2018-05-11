@@ -5,7 +5,7 @@ module ANDB-RH-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (andb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (andb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

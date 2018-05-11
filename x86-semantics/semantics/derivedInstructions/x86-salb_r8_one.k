@@ -5,7 +5,7 @@ module SALB-R8-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (salb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (salb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

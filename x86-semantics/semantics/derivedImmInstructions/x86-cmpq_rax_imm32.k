@@ -5,7 +5,7 @@ module CMPQ-RAX-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpq I1_32:Imm, %rax:R64,  .Typedoperands) => .
+    execinstr (cmpq I1_32:Imm, %rax:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

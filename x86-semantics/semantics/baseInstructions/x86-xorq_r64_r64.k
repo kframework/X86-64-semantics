@@ -10,14 +10,14 @@ module XOR-R64-R64
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(xorq  R1:R64,  R2:R64, .Typedoperands) =>
+    execinstr(xorq  R1:R64,  R2:R64, .Operands) =>
       execinstr(xorq  R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            xorMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Typedoperands) 
+            xorMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Operands) 
   ...</k>
     <regstate> RSMap</regstate>  
 
   rule
-      execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Typedoperands )) 
+      execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Operands )) 
     => 
       setFlag(mi(1, 0), "OF") ~> 
       updateZeroFlag(MIresult) ~> 

@@ -5,7 +5,7 @@ module ORB-RH-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (orb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (orb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

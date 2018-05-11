@@ -5,7 +5,7 @@ module RCLB-RH-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rclb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (rclb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

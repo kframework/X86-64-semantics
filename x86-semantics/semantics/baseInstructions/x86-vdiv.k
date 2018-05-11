@@ -9,28 +9,28 @@ module VDIVPD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vdivpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vdivpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vdivpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
-          splitVector(getRegisterValue(Y2, RSMap), 64), vfdiv, 64)), .Typedoperands)
+          splitVector(getRegisterValue(Y2, RSMap), 64), vfdiv, 64)), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vdivpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vdivpd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VDIVPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vdivps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vdivps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vdivps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
-          splitVector(getRegisterValue(Y2, RSMap), 32), vfdiv, 32)), .Typedoperands)
+          splitVector(getRegisterValue(Y2, RSMap), 32), vfdiv, 32)), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vdivps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vdivps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 

@@ -9,7 +9,7 @@ module VFNMADD132PD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vfnmadd132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfnmadd132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfnmadd132pd  Y1, 
       joinVector(
         operateOnVector(
@@ -17,18 +17,18 @@ module VFNMADD132PD-YMM-YMM-YMM
           operateOnVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
               splitVector(getRegisterValue(Y3, RSMap), 64), vfmul, 64), vfnegate, 64), vfadd, 64)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vfnmadd132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfnmadd132pd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VFNMADD132PS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vfnmadd132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfnmadd132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfnmadd132ps  Y1, 
       joinVector(
         operateOnVector(
@@ -36,11 +36,11 @@ module VFNMADD132PS-YMM-YMM-YMM
           operateOnVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
               splitVector(getRegisterValue(Y3, RSMap), 32), vfmul, 32), vfnegate, 32), vfadd, 32)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vfnmadd132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfnmadd132ps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 module VFNMADD132-SEMANTICS

@@ -5,7 +5,7 @@ module MINPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (minps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (minps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

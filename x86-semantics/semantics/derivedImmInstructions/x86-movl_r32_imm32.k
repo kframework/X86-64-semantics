@@ -5,7 +5,7 @@ module MOVL-R32-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movl I1_32:Imm, R2:R32,  .Typedoperands) => .
+    execinstr (movl I1_32:Imm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

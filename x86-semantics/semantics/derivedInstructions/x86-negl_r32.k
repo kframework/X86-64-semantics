@@ -5,7 +5,7 @@ module NEGL-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (negl R1:R32,  .Typedoperands) => .
+    execinstr (negl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

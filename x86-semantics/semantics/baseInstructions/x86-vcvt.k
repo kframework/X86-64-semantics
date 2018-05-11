@@ -19,7 +19,7 @@ module VCVTDQ2PD-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
+    execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Operands) =>
       setRegisterValue(
           joinVector(
             convertFpsToMInts(
@@ -38,7 +38,7 @@ module VCVTDQ2PS-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vcvtdq2ps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
+    execinstr(vcvtdq2ps  Y1:Ymm,  Y2:Ymm, .Operands) =>
       setRegisterValue(
           joinVector(convertFpsToMInts(convertIntsToFps(convertMIntsToSInts(splitVector(getRegisterValue(Y1, RSMap), 32)), 24, 8), 32)),  
           Y2)  
@@ -50,7 +50,7 @@ module VCVTPS2PD-YMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vcvtps2pd  X:Xmm,  Y:Ymm, .Typedoperands) =>
+    execinstr(vcvtps2pd  X:Xmm,  Y:Ymm, .Operands) =>
       setRegisterValue(
           joinVector(convertFpsToMInts(convertFloatsToDoubles(convertMIntsToFps(splitVector(getRegisterValue(X, RSMap), 32), 24, 8)), 64)),  
           Y)

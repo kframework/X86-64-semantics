@@ -5,7 +5,7 @@ module ANDL-R32-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (andl I1_8:Imm, R2:R32,  .Typedoperands) => .
+    execinstr (andl I1_8:Imm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

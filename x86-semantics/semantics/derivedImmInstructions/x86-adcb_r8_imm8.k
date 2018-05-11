@@ -6,18 +6,18 @@ module ADCB-R8-IMM8
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcb I1_8:Imm, R2:R8, .Typedoperands) =>
+    execinstr (adcb I1_8:Imm, R2:R8, .Operands) =>
       execinstr(adcb R2, 
           handleImmediateWithSignExtend(I1_8, 8, 8 ), 
           getRegisterValue(R2, RSMap), 
           zeroExtend(getFlag("CF", RSMap), 8),
           addMInt(addMInt(handleImmediateWithSignExtend(I1_8, 8, 8 ), getRegisterValue(R2, RSMap)), zeroExtend(getFlag("CF", RSMap), 8)),
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
   
   rule <k>
-    execinstr(adcb DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcb DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 

@@ -5,7 +5,7 @@ module VADDSS-XMM-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vaddss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

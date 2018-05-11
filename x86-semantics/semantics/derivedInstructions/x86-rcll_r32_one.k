@@ -5,7 +5,7 @@ module RCLL-R32-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rcll $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (rcll $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
