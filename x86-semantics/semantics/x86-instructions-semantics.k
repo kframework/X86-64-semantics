@@ -409,17 +409,6 @@ vcvtpd2ps_xmm_ymm
 // vcvt-semantics
 
 
-// movq-m64-r64
-
-  rule <k> 
-    execinstr (movq R1:R64,  I:Int ( R2:R64 ), .Typedoperands) => 
-      storeToMemory(getRegisterValue(R1, RSMap), 
-          addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
-          64)
-  ...</k>
-  <regstate> RSMap </regstate>
-
-
 /*@ This file defines the semantics of following 51 base instructions.
   - vaddpd_ymm_ymm_ymm, vaddps_ymm_ymm_ymm,
 */
@@ -1213,19 +1202,6 @@ vcvtpd2ps_xmm_ymm
 // pseudo-instr-semantics
 
 
-// movq-r64-m64
-
-  rule <k> 
-    execinstr (movq I:Int (R1:R64):Mem,  R2:R64, .Typedoperands) => 
-      setRegisterValue(
-          loadFromMemory(
-            addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
-            64), 
-          R2)                         
-  ...</k>
-  <regstate> RSMap </regstate>
-
-
 /*@ This file defines the semantics of following 51 base instructions.
   - xorq_r64_r64,
 */
@@ -1790,10 +1766,114 @@ vcvtpd2ps_xmm_ymm
       decRSPInBytes(8) ~> 
       storeToMemory(
           getRegisterValue(R1, RSMap), 
-          getRegisterValue(%rsp, RSMap), 
+          subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 
           64)    
   ...</k>
   <regstate> RSMap </regstate>
+
+
+// movl-m32-imm32
+
+  rule <k> 
+    execinstr(movl IMM:Imm , O:Int ( R2:R64 ) , .Typedoperands) => 
+         storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32),
+          addMInt(getRegisterValue(R2, RSMap), mi(64, O)), 
+          32)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// addl-r32-imm32
+
+  rule <k> 
+    execinstr(addl I:Imm , R:R32 , .Typedoperands) => 
+      execinstr(addl  R, handleImmediateWithSignExtend(I, 32, 32), getRegisterValue(R, RSMap), 
+            extractMask(
+              addMInt(
+                concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I, 32, 32)), 
+                concatenateMInt(mi(1, 0), getRegisterValue(R, RSMap))
+              ), 32, 0 ),
+            .Typedoperands) 
+  ...</k>
+  <regstate> RSMap </regstate>
+
+  rule
+  <k>
+    execinstr(addl  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
+      updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
+      updateZeroFlag(MIresult) ~> 
+      updateSignFlag(MIresult) ~> 
+      updateAuxCarryFlag(MIsrc1, MIsrc2, MIresult) ~> 
+      updateCarryFlagAdd(MIsrc1, MIsrc2, mi(32, 0)) ~> 
+      updateParityFlag(MIresult) ~> 
+      setRegisterValue(MIresult, DestR) 
+  ...</k> 
+
+
+
+// movl-m32-r32
+
+  rule <k> 
+    execinstr (movl R1:R32,  I:Int ( R2:R64 ), .Typedoperands) => 
+      storeToMemory(getRegisterValue(R1, RSMap), 
+          addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
+          32)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// movb-r8-m8
+
+  rule <k> 
+    execinstr (movb I:Int (R1:R64):Mem,  R2:R8, .Typedoperands) => 
+      setRegisterValue(
+          loadFromMemory(
+            addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
+            8), 
+          R2)                         
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// movq-m64-r64
+
+  rule <k> 
+    execinstr (movq R1:R64,  I:Int ( R2:R64 ), .Typedoperands) => 
+      storeToMemory(getRegisterValue(R1, RSMap), 
+          addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
+          64)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// movq-r64-m64
+
+  rule <k> 
+    execinstr (movq I:Int (R1:R64):Mem,  R2:R64, .Typedoperands) => 
+      setRegisterValue(
+          loadFromMemory(
+            addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
+            64), 
+          R2)                         
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// movsbl-r32-m8
+
+  context 
+    execinstr (movsbl HOLE:Mem, R2:R32,  .Typedoperands)  
+
+  rule <k> (Off:Int (R:R64)):Mem => loadFromMemory(
+      addMInt(getRegisterValue(R, RSMap), mi(64, Off)), 8)
+  ...</k>
+    <regstate> RSMap </regstate>
+    
+  rule <k>
+    execinstr (movsbl MV:MInt, R2:R32,  .Typedoperands) => 
+      setRegisterValue( mi(32, svalueMInt(MV)), R2)
+  ...</k>
+    <regstate> RSMap </regstate>
 
 
 // vfnmsub231pd-xmm-xmm-xmm
