@@ -17,7 +17,7 @@ module X86-ASBTRACT-SYNTAX
   syntax KItem ::= "fetch" [token]
   syntax KItem ::= "inforegisters" [token]
 
-  syntax Typeoperand ::= MInt
+  syntax Operand ::= MInt
 
   /*@
     Subregs to Regs

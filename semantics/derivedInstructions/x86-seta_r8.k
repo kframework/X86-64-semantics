@@ -5,7 +5,7 @@ module SETA-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (seta R1:R8,  .Typedoperands) => .
+    execinstr (seta R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

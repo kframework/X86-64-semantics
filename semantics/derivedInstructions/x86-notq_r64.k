@@ -5,7 +5,7 @@ module NOTQ-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (notq R1:R64,  .Typedoperands) => .
+    execinstr (notq R1:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

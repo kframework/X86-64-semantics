@@ -7,15 +7,15 @@ module X86-SYNTAX
   */
   syntax Instructions ::= List{Instruction, ""} [klabel(instructionlist)]
   syntax Instruction ::= Label 
-                       | Opcode Typedoperands
+                       | Opcode Operands
                        | ".section" ".text" [token]
                        | ".globl" "_start"  [token]
   syntax Label ::=  "_start" ":" [token]
         
   syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
 
-  syntax Typedoperands ::= List{Typeoperand, ","} [klabel(typeoperandlist)]
-  syntax Typeoperand ::=  Imm
+  syntax Operands ::= List{Operand, ","} [klabel(typeoperandlist)]
+  syntax Operand ::=  Imm
 //                     | Mm
                        | Sreg
 //                     | St

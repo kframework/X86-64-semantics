@@ -4,7 +4,7 @@ module PUSHQ-R64
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr (pushq R1:R64, .Typedoperands) =>
+    execinstr (pushq R1:R64, .Operands) =>
       decRSPInBytes(8) ~> 
       storeToMemory(
           getRegisterValue(R1, RSMap), 

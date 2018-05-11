@@ -5,7 +5,7 @@ module CLTQ
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cltq  .Typedoperands) => .
+    execinstr (cltq  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

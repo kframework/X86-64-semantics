@@ -5,7 +5,7 @@ module ROLB-R8-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rolb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (rolb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

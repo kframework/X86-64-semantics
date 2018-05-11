@@ -5,7 +5,7 @@ module SBBQ-R64-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (sbbq I1_32:Imm, R2:R64,  .Typedoperands) => .
+    execinstr (sbbq I1_32:Imm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module ADDL-EAX-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (addl I1_32:Imm, %eax:R32,  .Typedoperands) => .
+    execinstr (addl I1_32:Imm, %eax:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

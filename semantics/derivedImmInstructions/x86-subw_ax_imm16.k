@@ -5,7 +5,7 @@ module SUBW-AX-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (subw I1_16:Imm, %ax:R16,  .Typedoperands) => .
+    execinstr (subw I1_16:Imm, %ax:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

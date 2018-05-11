@@ -7,7 +7,7 @@ module MOVQ-R64-IMM32
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movq I1_32:Imm, R2:R64, .Typedoperands) =>
+    execinstr(movq I1_32:Imm, R2:R64, .Operands) =>
       setRegisterValue(handleImmediateWithSignExtend(I1_32, 32, 64 ), R2)
   ...</k>
     <regstate> RSMap </regstate>

@@ -4,7 +4,7 @@ module PUSHW-R16
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr (pushw R1:R16, .Typedoperands) =>
+    execinstr (pushw R1:R16, .Operands) =>
       decRSPInBytes(2) ~> 
       storeToMemory(
           getRegisterValue(R1, RSMap), 

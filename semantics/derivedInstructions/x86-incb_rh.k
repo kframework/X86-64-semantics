@@ -5,7 +5,7 @@ module INCB-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (incb R1:Rh,  .Typedoperands) => .
+    execinstr (incb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

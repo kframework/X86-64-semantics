@@ -10,13 +10,13 @@ module SALQ-R64-IMM8
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(salq  %cl, R:R64, .Typedoperands) =>
-      execinstr(salq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
+    execinstr(salq  %cl, R:R64, .Operands) =>
+      execinstr(salq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(salq R, MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
+  execinstr(salq R, MIsrc:MInt, MIcount:MInt, .Operands) => 
     setFlag(
       (#ifMInt zeroMInt(MIcount)
       #then

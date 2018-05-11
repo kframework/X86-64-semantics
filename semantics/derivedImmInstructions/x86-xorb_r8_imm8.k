@@ -5,7 +5,7 @@ module XORB-R8-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xorb I1_8:Imm, R2:R8,  .Typedoperands) => .
+    execinstr (xorb I1_8:Imm, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

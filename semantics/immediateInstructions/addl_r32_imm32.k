@@ -6,20 +6,20 @@ module ADDL-R32-IMM32
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(addl I:Imm , R:R32 , .Typedoperands) => 
+    execinstr(addl I:Imm , R:R32 , .Operands) => 
       execinstr(addl  R, handleImmediateWithSignExtend(I, 32, 32), getRegisterValue(R, RSMap), 
             extractMask(
               addMInt(
                 concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I, 32, 32)), 
                 concatenateMInt(mi(1, 0), getRegisterValue(R, RSMap))
               ), 32, 0 ),
-            .Typedoperands) 
+            .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule
   <k>
-    execinstr(addl  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
+    execinstr(addl  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Operands )) =>
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 

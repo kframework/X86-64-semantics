@@ -5,7 +5,7 @@ module CLC
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (clc  .Typedoperands) => .
+    execinstr (clc  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -12,30 +12,30 @@ module X86-INSTRUCTIONS-SEMANTICS
 // vsubpd-ymm-ymm-ymm
 
    rule <k>
-    execinstr(vsubpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vsubpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vsubpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 64), 
           splitVector(getRegisterValue(Y1, RSMap), 64), vfsub, 64)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
 
-  rule <k> execinstr(vsubpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsubpd  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vsubps-ymm-ymm-ymm
 
    rule <k>
-    execinstr(vsubps  Y1:Ymm,  Y2:Ymm, DestR, .Typedoperands) =>
+    execinstr(vsubps  Y1:Ymm,  Y2:Ymm, DestR, .Operands) =>
       execinstr(vsubps  DestR, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 32), 
           splitVector(getRegisterValue(Y1, RSMap), 32), vfsub, 32)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vsubps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsubps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -49,27 +49,27 @@ module X86-INSTRUCTIONS-SEMANTICS
 // vdivpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vdivpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vdivpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vdivpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
-          splitVector(getRegisterValue(Y2, RSMap), 64), vfdiv, 64)), .Typedoperands)
+          splitVector(getRegisterValue(Y2, RSMap), 64), vfdiv, 64)), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vdivpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vdivpd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vdivps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vdivps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vdivps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vdivps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
-          splitVector(getRegisterValue(Y2, RSMap), 32), vfdiv, 32)), .Typedoperands)
+          splitVector(getRegisterValue(Y2, RSMap), 32), vfdiv, 32)), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vdivps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vdivps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -79,7 +79,7 @@ module X86-INSTRUCTIONS-SEMANTICS
 // nop
 
   rule <k>
-    execinstr (nop  .Typedoperands) ~> inforegisters ~> fetch => .
+    execinstr (nop  .Operands) ~> inforegisters ~> fetch => .
   ...</k>
 
 
@@ -89,20 +89,20 @@ module X86-INSTRUCTIONS-SEMANTICS
 // add-imm-r8
 
   rule <k> 
-    execinstr(addq I:Imm , R:R64 , .Typedoperands) => 
+    execinstr(addq I:Imm , R:R64 , .Operands) => 
       execinstr(addq  R, handleImmediateWithSignExtend(I, 64, 64), getRegisterValue(R, RSMap), 
             extractMask(
               addMInt(
                 concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I, 64, 64)), 
                 concatenateMInt(mi(1, 0), getRegisterValue(R, RSMap))
               ), 64, 0 ),
-            .Typedoperands) 
+            .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule
   <k>
-    execinstr(addq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
+    execinstr(addq  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Operands )) =>
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
@@ -121,7 +121,7 @@ module X86-INSTRUCTIONS-SEMANTICS
 // popcnt-r64-r64
 
   rule <k> 
-    execinstr(popcntq R1:R64, R2:R64, .Typedoperands) =>
+    execinstr(popcntq R1:R64, R2:R64, .Operands) =>
       setFlag(mi(1, 0), "OF") ~>
       setFlag(mi(1, 0), "SF") ~>
       setFlag(mi(1, 0), "AF") ~>
@@ -141,13 +141,13 @@ module X86-INSTRUCTIONS-SEMANTICS
 
   /*
   rule <k> 
-    execinstr(popcntq  (R1:R64,  (R2:R64, .Typedoperands)) ) =>
-      execinstr(popcntq  (R2, mi(getRegisterSize(R1), popCount(getRegisterValue(R1, RSMap))), .Typedoperands)) 
+    execinstr(popcntq  (R1:R64,  (R2:R64, .Operands)) ) =>
+      execinstr(popcntq  (R2, mi(getRegisterSize(R1), popCount(getRegisterValue(R1, RSMap))), .Operands)) 
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(popcntq  ( DestR, MIsrc, .Typedoperands )) => 
+    execinstr(popcntq  ( DestR, MIsrc, .Operands )) => 
     setFlag(mi(1, 0), "OF") ~>
     setFlag(mi(1, 0), "ZF") ~>
     setFlag(mi(1, 0), "SF") ~>
@@ -159,7 +159,7 @@ module X86-INSTRUCTIONS-SEMANTICS
       requires notBool zeroMInt(MIsrc)
 
   rule <k>
-    execinstr(popcntq  ( DestR:R64, MIsrc, .Typedoperands )) => 
+    execinstr(popcntq  ( DestR:R64, MIsrc, .Operands )) => 
     setFlag(mi(1, 0), "OF") ~>
     setFlag(mi(1, 1),  "ZF") ~>
     setFlag(mi(1, 0), "SF") ~>
@@ -179,13 +179,13 @@ module X86-INSTRUCTIONS-SEMANTICS
 // sar-r64-cl
 
   rule <k> 
-    execinstr(sarq  %cl,  R:R64, .Typedoperands) =>
-      execinstr(sarq R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
+    execinstr(sarq  %cl,  R:R64, .Operands) =>
+      execinstr(sarq R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(sarq R,  MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
+  execinstr(sarq R,  MIsrc:MInt, MIcount:MInt, .Operands) => 
     setFlag(
         {(#ifMInt zeroMInt(MIcount)
       #then
@@ -301,14 +301,14 @@ module X86-INSTRUCTIONS-SEMANTICS
 // mov-r64-r64
 
   rule <k> 
-    execinstr(movq R1:R64, R2:R64, .Typedoperands) => .
+    execinstr(movq R1:R64, R2:R64, .Operands) => .
   ...</k>
     <regstate> RSMap </regstate>
       requires sameRegisters(R1, R2)
   
 
   rule <k> 
-    execinstr(movq R1:R64, R2:R64, .Typedoperands) =>
+    execinstr(movq R1:R64, R2:R64, .Operands) =>
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>
@@ -319,7 +319,7 @@ module X86-INSTRUCTIONS-SEMANTICS
 // adc-r16-r16
 
   rule <k> 
-    execinstr (adcw R1:R16,  R2:R16, .Typedoperands) =>
+    execinstr (adcw R1:R16,  R2:R16, .Operands) =>
       execinstr(adcw R2, 
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
@@ -333,12 +333,12 @@ module X86-INSTRUCTIONS-SEMANTICS
               concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 16))
             ), 16, 0
           ), 
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(adcw DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcw DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -369,7 +369,7 @@ vcvtpd2ps_xmm_ymm
 // vcvtdq2pd-ymm-ymm
 
   rule <k>
-    execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
+    execinstr(vcvtdq2pd  Y1:Ymm,  Y2:Ymm, .Operands) =>
       setRegisterValue(
           joinVector(
             convertFpsToMInts(
@@ -387,7 +387,7 @@ vcvtpd2ps_xmm_ymm
 // vcvtdq2ps-ymm-ymm
 
   rule <k>
-    execinstr(vcvtdq2ps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
+    execinstr(vcvtdq2ps  Y1:Ymm,  Y2:Ymm, .Operands) =>
       setRegisterValue(
           joinVector(convertFpsToMInts(convertIntsToFps(convertMIntsToSInts(splitVector(getRegisterValue(Y1, RSMap), 32)), 24, 8), 32)),  
           Y2)  
@@ -398,7 +398,7 @@ vcvtpd2ps_xmm_ymm
 // vcvtps2pd-ymm-xmm
 
   rule <k>
-    execinstr(vcvtps2pd  X:Xmm,  Y:Ymm, .Typedoperands) =>
+    execinstr(vcvtps2pd  X:Xmm,  Y:Ymm, .Operands) =>
       setRegisterValue(
           joinVector(convertFpsToMInts(convertFloatsToDoubles(convertMIntsToFps(splitVector(getRegisterValue(X, RSMap), 32), 24, 8)), 64)),  
           Y)
@@ -416,29 +416,29 @@ vcvtpd2ps_xmm_ymm
 // vaddpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vaddpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vaddpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vaddpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), splitVector(getRegisterValue(Y2, RSMap), 64), 
           vfadd, 64)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>  
 
-  rule <k> execinstr(vaddpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vaddpd  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vaddps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vaddps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vaddps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vaddps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), splitVector(getRegisterValue(Y2, RSMap), 32), 
           vfadd, 32)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>  
 
-  rule <k> execinstr(vaddps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vaddps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -453,21 +453,21 @@ vcvtpd2ps_xmm_ymm
 
   /*
   rule <k> 
-    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => .
+    execinstr(cmoveq  (R1:R64,  (R2:R64, .Operands)) ) => .
   ...</k>
     <regstate> RSMap</regstate>
       requires sameRegisters(R1, R2) orBool zeroMInt(getFlag("ZF", RSMap))
 
 
   rule <k> 
-    execinstr(cmoveq  (R1:R64,  (R2:R64, .Typedoperands)) ) => 
+    execinstr(cmoveq  (R1:R64,  (R2:R64, .Operands)) ) => 
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap</regstate>
       requires  (notBool sameRegisters(R1, R2)) andBool (notBool zeroMInt(getFlag("ZF", RSMap)))
       */
   rule <k> 
-    execinstr(cmoveq R1:R64, R2:R64, .Typedoperands) => 
+    execinstr(cmoveq R1:R64, R2:R64, .Operands) => 
       setRegisterValue(
           #ifMInt zeroMInt(getFlag("ZF", RSMap)) #then 
             getRegisterValue(R2, RSMap) #else 
@@ -485,7 +485,7 @@ vcvtpd2ps_xmm_ymm
 // vmaxpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       setRegisterValue(
         #ifMInt sameRegisters(Y1, Y2)
         #then
@@ -500,28 +500,28 @@ vcvtpd2ps_xmm_ymm
 
   /*
   rule <k>
-    execinstr(vmaxpd  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Typedoperands) =>
-      execinstr(vmaxpd  Y2, getRegisterValue(Y1, RSMap), .Typedoperands)
+    execinstr(vmaxpd  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Operands) =>
+      execinstr(vmaxpd  Y2, getRegisterValue(Y1, RSMap), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
   rule <k>
-    execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vmaxpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vmaxpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
           splitVector(getRegisterValue(Y2, RSMap), 64), vfmax, 64)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vmaxpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmaxpd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
   */
 
 
 // vmaxps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       setRegisterValue(
         #ifMInt sameRegisters(Y1, Y2)
         #then
@@ -535,21 +535,21 @@ vcvtpd2ps_xmm_ymm
     <regstate> RSMap</regstate>
   /*
   rule <k>
-    execinstr(vmaxps  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Typedoperands) =>
-      execinstr(vmaxps  Y2, getRegisterValue(Y1, RSMap), .Typedoperands)
+    execinstr(vmaxps  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Operands) =>
+      execinstr(vmaxps  Y2, getRegisterValue(Y1, RSMap), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
   rule <k>
-    execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vmaxps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vmaxps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
           splitVector(getRegisterValue(Y2, RSMap), 32), vfmax, 32)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vmaxps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmaxps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
   */
 
 
@@ -564,7 +564,7 @@ vcvtpd2ps_xmm_ymm
 // vfnmadd132pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfnmadd132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfnmadd132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfnmadd132pd  Y1, 
       joinVector(
         operateOnVector(
@@ -572,17 +572,17 @@ vcvtpd2ps_xmm_ymm
           operateOnVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
               splitVector(getRegisterValue(Y3, RSMap), 64), vfmul, 64), vfnegate, 64), vfadd, 64)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vfnmadd132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfnmadd132pd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfnmadd132ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfnmadd132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfnmadd132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfnmadd132ps  Y1, 
       joinVector(
         operateOnVector(
@@ -590,11 +590,11 @@ vcvtpd2ps_xmm_ymm
           operateOnVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
               splitVector(getRegisterValue(Y3, RSMap), 32), vfmul, 32), vfnegate, 32), vfadd, 32)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vfnmadd132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfnmadd132ps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfnmadd132-semantics
@@ -607,35 +607,35 @@ vcvtpd2ps_xmm_ymm
 // vfmadd132pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfmadd132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfmadd132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfmadd132pd  Y1, 
       joinVector(
         operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 64), 
           operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
             splitVector(getRegisterValue(Y3, RSMap), 64), vfmul, 64), vfadd, 64)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate> 
 
-  rule <k> execinstr(vfmadd132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfmadd132pd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfmadd132ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfmadd132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfmadd132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfmadd132ps  Y1, 
       joinVector(
         operateOnVector(splitVector(getRegisterValue(Y2, RSMap), 32), 
           operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
             splitVector(getRegisterValue(Y3, RSMap), 32), vfmul, 32), vfadd, 32)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate> 
 
-  rule <k> execinstr(vfmadd132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfmadd132ps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfmadd132-semantics
@@ -649,7 +649,7 @@ vcvtpd2ps_xmm_ymm
 // movs-r64-r32
 
   rule <k> 
-    execinstr(movslq R1:R32, R2:R64, .Typedoperands) =>
+    execinstr(movslq R1:R32, R2:R64, .Operands) =>
       setRegisterValue(signExtend(getRegisterValue(R1, RSMap), 64), R2) 
   ...</k>
     <regstate> RSMap</regstate>
@@ -663,23 +663,23 @@ vcvtpd2ps_xmm_ymm
 // vsqrtpd-ymm-ymm
 
   rule <k>
-    execinstr(vsqrtpd  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vsqrtpd  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), vfsqrt, 64)), .Typedoperands)
+    execinstr(vsqrtpd  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vsqrtpd  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), vfsqrt, 64)), .Operands)
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> execinstr(vsqrtpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsqrtpd  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vsqrtps-ymm-ymm
 
   rule <k>
-    execinstr(vsqrtps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfsqrt, 32)), .Typedoperands)
+    execinstr(vsqrtps  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfsqrt, 32)), .Operands)
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> execinstr(vsqrtps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vsqrtps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -693,13 +693,13 @@ vcvtpd2ps_xmm_ymm
 // sal-r64-cl
 
   rule <k> 
-    execinstr(salq  %cl, R:R64, .Typedoperands) =>
-      execinstr(salq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
+    execinstr(salq  %cl, R:R64, .Operands) =>
+      execinstr(salq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(salq R, MIsrc:MInt, MIcount:MInt, .Typedoperands) => 
+  execinstr(salq R, MIsrc:MInt, MIcount:MInt, .Operands) => 
     setFlag(
         {(#ifMInt zeroMInt(MIcount)
       #then
@@ -817,7 +817,7 @@ vcvtpd2ps_xmm_ymm
 // mov-rh-r8
 
   rule <k> 
-    execinstr(movb R1:R8, R2:Rh, .Typedoperands) =>
+    execinstr(movb R1:R8, R2:Rh, .Operands) =>
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>
@@ -827,7 +827,7 @@ vcvtpd2ps_xmm_ymm
 // adc-r8-r8
 
   rule <k> 
-    execinstr (adcb R1:R8, R2:R8, .Typedoperands) =>
+    execinstr (adcb R1:R8, R2:R8, .Operands) =>
       execinstr(adcb R2, 
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
@@ -841,12 +841,12 @@ vcvtpd2ps_xmm_ymm
               concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 8))
             ), 8, 0
           ), 
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
   
   rule <k>
-    execinstr(adcb DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcb DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -866,12 +866,12 @@ vcvtpd2ps_xmm_ymm
 // vrsqrtps-ymm-ymm
 
   rule <k>
-    execinstr(vrsqrtps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vrsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfrsqrt, 32)), .Typedoperands)
+    execinstr(vrsqrtps  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vrsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfrsqrt, 32)), .Operands)
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> execinstr(vrsqrtps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vrsqrtps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -885,7 +885,7 @@ vcvtpd2ps_xmm_ymm
 // vfnmsub132pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfnmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfnmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfnmsub132pd  Y1, 
       joinVector(
         operateOnVector(
@@ -897,17 +897,17 @@ vcvtpd2ps_xmm_ymm
           splitVector(getRegisterValue(Y2, RSMap), 64), 
           vfsub, 64)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate> 
 
-  rule <k> execinstr(vfnmsub132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfnmsub132pd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfnmsub132ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfnmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfnmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfnmsub132ps  Y1, 
       joinVector(
         operateOnVector(
@@ -920,11 +920,11 @@ vcvtpd2ps_xmm_ymm
           splitVector(getRegisterValue(Y2, RSMap), 32), 
           vfsub, 32)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate> 
 
-  rule <k> execinstr(vfnmsub132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfnmsub132ps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfnmsub132-semantics
@@ -1209,14 +1209,14 @@ vcvtpd2ps_xmm_ymm
 // xor-r64-r64
 
   rule <k> 
-    execinstr(xorq  R1:R64,  R2:R64, .Typedoperands) =>
+    execinstr(xorq  R1:R64,  R2:R64, .Operands) =>
       execinstr(xorq  R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            xorMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Typedoperands) 
+            xorMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Operands) 
   ...</k>
     <regstate> RSMap</regstate>  
 
   rule
-      execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Typedoperands )) 
+      execinstr(xorq  ( DestR, MIsrc1, MIsrc2, MIresult, .Operands )) 
     => 
       setFlag(mi(1, 0), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
@@ -1235,7 +1235,7 @@ vcvtpd2ps_xmm_ymm
 // vzeroall-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vzeroall  .Typedoperands) => .
+    execinstr(vzeroall  .Operands) => .
   ...</k>
     <regstate> RSMap => updateMap(RSMap,
                           ("YMM0"  |->  mi(256, 0)) 
@@ -1269,7 +1269,7 @@ vcvtpd2ps_xmm_ymm
 // vfmsub132pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfmsub132pd  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfmsub132pd  Y1, 
       joinVector(
         operateOnVector(
@@ -1280,17 +1280,17 @@ vcvtpd2ps_xmm_ymm
           splitVector(getRegisterValue(Y2, RSMap), 64), 
           vfsub, 64)
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vfmsub132pd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfmsub132pd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfmsub132ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vfmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Typedoperands) =>
+    execinstr(vfmsub132ps  Y3:Ymm,  Y2:Ymm, Y1:Ymm, .Operands) =>
       execinstr(vfmsub132ps  Y1, 
       joinVector(
         operateOnVector(
@@ -1302,11 +1302,11 @@ vcvtpd2ps_xmm_ymm
           vfsub, 32)
 
       ), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vfmsub132ps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vfmsub132ps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vfmsub132-semantics
@@ -1319,7 +1319,7 @@ vcvtpd2ps_xmm_ymm
 // movs-r64-r16
 
   rule <k> 
-    execinstr(movswq R1:R16, R2:R64, .Typedoperands) =>
+    execinstr(movswq R1:R16, R2:R64, .Operands) =>
       setRegisterValue(signExtend(getRegisterValue(R1, RSMap), 64), R2) 
   ...</k>
     <regstate> RSMap</regstate>
@@ -1334,12 +1334,12 @@ vcvtpd2ps_xmm_ymm
 // vrcpps-ymm-ymm
 
   rule <k>
-    execinstr(vrcpps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vrcpps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfreciprocal, 32)), .Typedoperands)
+    execinstr(vrcpps  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vrcpps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfreciprocal, 32)), .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vrcpps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vrcpps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -1354,7 +1354,7 @@ vcvtpd2ps_xmm_ymm
 // movs-r64-r8
 
   rule <k> 
-    execinstr(movsbq R1:R8, R2:R64, .Typedoperands) =>
+    execinstr(movsbq R1:R8, R2:R64, .Operands) =>
       setRegisterValue(signExtend(getRegisterValue(R1, RSMap), 64), R2) 
   ...</k>
     <regstate> RSMap</regstate>
@@ -1366,7 +1366,7 @@ vcvtpd2ps_xmm_ymm
 // adc-r32-r32
 
   rule <k> 
-    execinstr (adcl R1:R32,  R2:R32, .Typedoperands) =>
+    execinstr (adcl R1:R32,  R2:R32, .Operands) =>
       execinstr(adcl R2, 
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
@@ -1380,12 +1380,12 @@ vcvtpd2ps_xmm_ymm
               concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 32))
             ), 32, 0
           ),
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -1405,27 +1405,27 @@ vcvtpd2ps_xmm_ymm
 // vmulpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vmulpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vmulpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vmulpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), splitVector(getRegisterValue(Y2, RSMap), 64), vfmul, 64)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vmulpd  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmulpd  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 // vmulps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vmulps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vmulps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vmulps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), splitVector(getRegisterValue(Y2, RSMap), 32), vfmul, 32)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
-  rule <k> execinstr(vmulps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vmulps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 
 
 
@@ -1439,7 +1439,7 @@ vcvtpd2ps_xmm_ymm
 // mov-r8-rh
 
   rule <k> 
-    execinstr(movb R1:Rh, R2:R8, .Typedoperands) =>
+    execinstr(movb R1:Rh, R2:R8, .Operands) =>
       setRegisterValue(getRegisterValue(R1, RSMap), R2)
   ...</k>
     <regstate> RSMap </regstate>
@@ -1453,7 +1453,7 @@ vcvtpd2ps_xmm_ymm
 // vminpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vminpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vminpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       setRegisterValue(
         #ifMInt sameRegisters(Y1, Y2)
         #then
@@ -1468,17 +1468,17 @@ vcvtpd2ps_xmm_ymm
 
   /*
   rule <k>
-    execinstr(vminpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vminpd  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vminpd  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 64), 
           splitVector(getRegisterValue(Y2, RSMap), 64), vfmin, 64)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
       requires notBool sameRegisters(Y1, Y2)
 
   rule <k> 
-    execinstr(vminpd  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) 
+    execinstr(vminpd  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) 
   ...</k>
   */
 
@@ -1486,7 +1486,7 @@ vcvtpd2ps_xmm_ymm
 // vminps-ymm-ymm-ymm
 
   rule <k>
-    execinstr(vminps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vminps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       setRegisterValue(
         #ifMInt sameRegisters(Y1, Y2)
         #then
@@ -1501,22 +1501,22 @@ vcvtpd2ps_xmm_ymm
 
   /*
   rule <k>
-    execinstr(vminps  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Typedoperands) =>
-      execinstr(vminps  Y2, getRegisterValue(Y1, RSMap), .Typedoperands) 
+    execinstr(vminps  Y1:Ymm,  Y1:Ymm, Y2:Ymm, .Operands) =>
+      execinstr(vminps  Y2, getRegisterValue(Y1, RSMap), .Operands) 
   ...</k>
     <regstate> RSMap</regstate>
 
   rule <k>
-    execinstr(vminps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Typedoperands) =>
+    execinstr(vminps  Y1:Ymm,  Y2:Ymm, Y3:Ymm, .Operands) =>
       execinstr(vminps  Y3, 
       joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), 
           splitVector(getRegisterValue(Y2, RSMap), 32), vfmin, 32)), 
-      .Typedoperands)
+      .Operands)
   ...</k>
     <regstate> RSMap</regstate>
 
   rule <k> 
-    execinstr(vminps  DestR:Ymm, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) 
+    execinstr(vminps  DestR:Ymm, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) 
   ...</k>
   */
 
@@ -1532,14 +1532,14 @@ vcvtpd2ps_xmm_ymm
 // or-r64-r64
 
   rule <k> 
-    execinstr(orq R1:R64, R2:R64, .Typedoperands) => 
+    execinstr(orq R1:R64, R2:R64, .Operands) => 
       execinstr(orq  R2, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
-            orMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Typedoperands) 
+            orMInt(getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap)), .Operands) 
   ...</k>
     <regstate> RSMap</regstate>
 
   rule
-      execinstr(orq  DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands ) 
+      execinstr(orq  DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Operands ) 
     => 
       setFlag(mi(1, 0), "OF") ~> 
       updateZeroFlag(MIresult) ~> 
@@ -1558,13 +1558,13 @@ vcvtpd2ps_xmm_ymm
 // shr-r64-cl
 
   rule <k> 
-    execinstr(shrq  %cl,  R:R64, .Typedoperands) =>
-      execinstr(shrq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
+    execinstr(shrq  %cl,  R:R64, .Operands) =>
+      execinstr(shrq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(shrq  R,  MIsrc, MIcount, .Typedoperands) => 
+  execinstr(shrq  R,  MIsrc, MIcount, .Operands) => 
     setFlag(
         {(#ifMInt zeroMInt(MIcount)
       #then
@@ -1677,7 +1677,7 @@ vcvtpd2ps_xmm_ymm
 // adc-r64-r64
 
   rule <k> 
-    execinstr (adcq R1:R64,  R2:R64, .Typedoperands) =>
+    execinstr (adcq R1:R64,  R2:R64, .Operands) =>
       execinstr(adcq R2, 
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
@@ -1691,12 +1691,12 @@ vcvtpd2ps_xmm_ymm
               concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 64))
             ), 64, 0
           ),
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
   
   rule <k>
-    execinstr(adcq DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcq DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
@@ -1715,7 +1715,7 @@ vcvtpd2ps_xmm_ymm
 // movq-r64-imm64
 
   rule <k> 
-    execinstr(movq I1_64:Imm, R2:R64, .Typedoperands) =>
+    execinstr(movq I1_64:Imm, R2:R64, .Operands) =>
       setRegisterValue(handleImmediateWithSignExtend(I1_64, 64, 64 ), R2)
   ...</k>
     <regstate> RSMap </regstate>
@@ -1725,7 +1725,7 @@ vcvtpd2ps_xmm_ymm
 // pushw-r16
 
   rule <k> 
-    execinstr (pushw R1:R16, .Typedoperands) =>
+    execinstr (pushw R1:R16, .Operands) =>
       decRSPInBytes(2) ~> 
       storeToMemory(
           getRegisterValue(R1, RSMap), 
@@ -1738,7 +1738,7 @@ vcvtpd2ps_xmm_ymm
 // popq-r64
 
   rule <k> 
-    execinstr (popq R1:R64, .Typedoperands) =>
+    execinstr (popq R1:R64, .Operands) =>
       setRegisterValue(
           loadFromMemory(getRegisterValue(%rsp, RSMap), 64), 
           R1) 
@@ -1750,7 +1750,7 @@ vcvtpd2ps_xmm_ymm
 // popw-r16
 
   rule <k> 
-    execinstr (popw R1:R16, .Typedoperands) =>
+    execinstr (popw R1:R16, .Operands) =>
       setRegisterValue(
           loadFromMemory(getRegisterValue(%rsp, RSMap), 16), 
           R1) 
@@ -1762,7 +1762,7 @@ vcvtpd2ps_xmm_ymm
 // pushq-r64
 
   rule <k> 
-    execinstr (pushq R1:R64, .Typedoperands) =>
+    execinstr (pushq R1:R64, .Operands) =>
       decRSPInBytes(8) ~> 
       storeToMemory(
           getRegisterValue(R1, RSMap), 
@@ -1775,7 +1775,7 @@ vcvtpd2ps_xmm_ymm
 // movl-m32-imm32
 
   rule <k> 
-    execinstr(movl IMM:Imm , O:Int ( R2:R64 ) , .Typedoperands) => 
+    execinstr(movl IMM:Imm , O:Int ( R2:R64 ) , .Operands) => 
          storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32),
           addMInt(getRegisterValue(R2, RSMap), mi(64, O)), 
           32)
@@ -1786,20 +1786,20 @@ vcvtpd2ps_xmm_ymm
 // addl-r32-imm32
 
   rule <k> 
-    execinstr(addl I:Imm , R:R32 , .Typedoperands) => 
+    execinstr(addl I:Imm , R:R32 , .Operands) => 
       execinstr(addl  R, handleImmediateWithSignExtend(I, 32, 32), getRegisterValue(R, RSMap), 
             extractMask(
               addMInt(
                 concatenateMInt(mi(1, 0), handleImmediateWithSignExtend(I, 32, 32)), 
                 concatenateMInt(mi(1, 0), getRegisterValue(R, RSMap))
               ), 32, 0 ),
-            .Typedoperands) 
+            .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule
   <k>
-    execinstr(addl  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Typedoperands )) =>
+    execinstr(addl  ( DestR, MIsrc1:MInt, MIsrc2:MInt, MIresult:MInt, .Operands )) =>
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateSignFlag(MIresult) ~> 
@@ -1814,7 +1814,7 @@ vcvtpd2ps_xmm_ymm
 // movl-m32-r32
 
   rule <k> 
-    execinstr (movl R1:R32,  I:Int ( R2:R64 ), .Typedoperands) => 
+    execinstr (movl R1:R32,  I:Int ( R2:R64 ), .Operands) => 
       storeToMemory(getRegisterValue(R1, RSMap), 
           addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
           32)
@@ -1825,7 +1825,7 @@ vcvtpd2ps_xmm_ymm
 // movb-r8-m8
 
   rule <k> 
-    execinstr (movb I:Int (R1:R64):Mem,  R2:R8, .Typedoperands) => 
+    execinstr (movb I:Int (R1:R64):Mem,  R2:R8, .Operands) => 
       setRegisterValue(
           loadFromMemory(
             addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
@@ -1838,7 +1838,7 @@ vcvtpd2ps_xmm_ymm
 // movq-m64-r64
 
   rule <k> 
-    execinstr (movq R1:R64,  I:Int ( R2:R64 ), .Typedoperands) => 
+    execinstr (movq R1:R64,  I:Int ( R2:R64 ), .Operands) => 
       storeToMemory(getRegisterValue(R1, RSMap), 
           addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
           64)
@@ -1849,7 +1849,7 @@ vcvtpd2ps_xmm_ymm
 // movq-r64-m64
 
   rule <k> 
-    execinstr (movq I:Int (R1:R64):Mem,  R2:R64, .Typedoperands) => 
+    execinstr (movq I:Int (R1:R64):Mem,  R2:R64, .Operands) => 
       setRegisterValue(
           loadFromMemory(
             addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
@@ -1862,7 +1862,7 @@ vcvtpd2ps_xmm_ymm
 // movsbl-r32-m8
 
   context 
-    execinstr (movsbl HOLE:Mem, R2:R32,  .Typedoperands)  
+    execinstr (movsbl HOLE:Mem, R2:R32,  .Operands)  
 
   rule <k> (Off:Int (R:R64)):Mem => loadFromMemory(
       addMInt(getRegisterValue(R, RSMap), mi(64, Off)), 8)
@@ -1870,7 +1870,7 @@ vcvtpd2ps_xmm_ymm
     <regstate> RSMap </regstate>
     
   rule <k>
-    execinstr (movsbl MV:MInt, R2:R32,  .Typedoperands) => 
+    execinstr (movsbl MV:MInt, R2:R32,  .Operands) => 
       setRegisterValue( mi(32, svalueMInt(MV)), R2)
   ...</k>
     <regstate> RSMap </regstate>
@@ -1879,7 +1879,7 @@ vcvtpd2ps_xmm_ymm
 // vfnmsub231pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1894,7 +1894,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // cmovnbel-r32-r32
 
   rule <k>
-    execinstr (cmovnbel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnbel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1909,7 +1909,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // negb-rh
 
   rule <k>
-    execinstr (negb R1:Rh,  .Typedoperands) => .
+    execinstr (negb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1936,7 +1936,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // unpckhps-xmm-xmm
 
   rule <k>
-    execinstr (unpckhps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (unpckhps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1951,7 +1951,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vandps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vandps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vandps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1966,7 +1966,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMIn
 // setnb-r8
 
   rule <k>
-    execinstr (setnb R1:R8,  .Typedoperands) => .
+    execinstr (setnb R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1981,7 +1981,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovbew-r16-r16
 
   rule <k>
-    execinstr (cmovbew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovbew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -1996,7 +1996,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // movzbq-r64-r8
 
   rule <k>
-    execinstr (movzbq R1:R8, R2:R64,  .Typedoperands) => .
+    execinstr (movzbq R1:R8, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2011,7 +2011,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1,
 // vunpcklps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vunpcklps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vunpcklps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2026,7 +2026,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // setns-rh
 
   rule <k>
-    execinstr (setns R1:Rh,  .Typedoperands) => .
+    execinstr (setns R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2041,7 +2041,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // xaddq-r64-r64
 
   rule <k>
-    execinstr (xaddq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (xaddq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2068,7 +2068,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentVa
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (xaddq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2096,7 +2096,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentVa
 // btl-r32-r32
 
   rule <k>
-    execinstr (btl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (btl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2119,7 +2119,7 @@ RSMap:Map => updateMap(RSMap,
 // sqrtsd-xmm-xmm
 
   rule <k>
-    execinstr (sqrtsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (sqrtsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2134,7 +2134,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // rclw-r16-one
 
   rule <k>
-    execinstr (rclw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (rclw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2153,7 +2153,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andps-xmm-xmm
 
   rule <k>
-    execinstr (andps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (andps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2168,7 +2168,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpunpckhwd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpunpckhwd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpunpckhwd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2183,7 +2183,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(xorMI
 // cmovel-r32-r32
 
   rule <k>
-    execinstr (cmovel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2198,7 +2198,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // sarb-rh-one
 
   rule <k>
-    execinstr (sarb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (sarb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2225,7 +2225,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // xorps-xmm-xmm
 
   rule <k>
-    execinstr (xorps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (xorps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2240,7 +2240,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // pmovsxwd-xmm-xmm
 
   rule <k>
-    execinstr (pmovsxwd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovsxwd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2255,7 +2255,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // addw-r16-r16
 
   rule <k>
-    execinstr (addw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (addw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2282,7 +2282,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovgl-r32-r32
 
   rule <k>
-    execinstr (cmovgl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovgl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2297,7 +2297,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // cmovbel-r32-r32
 
   rule <k>
-    execinstr (cmovbel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovbel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2312,7 +2312,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // vmovhlps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmovhlps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmovhlps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2327,7 +2327,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vfmsubadd132ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsubadd132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsubadd132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2342,7 +2342,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // movss-xmm-xmm
 
   rule <k>
-    execinstr (movss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2357,7 +2357,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmsub231pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmsub231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmsub231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2372,7 +2372,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( negateFloat( ( MInt2Float(e
 // cmovnpl-r32-r32
 
   rule <k>
-    execinstr (cmovnpl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnpl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2387,7 +2387,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // vpbroadcastb-ymm-xmm
 
   rule <k>
-    execinstr (vpbroadcastb R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpbroadcastb R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2402,7 +2402,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(concatena
 // vphaddd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vphaddd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vphaddd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2417,7 +2417,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // andw-r16-r16
 
   rule <k>
-    execinstr (andw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (andw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2444,7 +2444,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vminps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vminps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vminps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2459,7 +2459,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(mi
 // cmovpoq-r64-r64
 
   rule <k>
-    execinstr (cmovpoq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovpoq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2474,7 +2474,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vpunpcklwd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpunpcklwd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpunpcklwd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2489,7 +2489,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(xorMI
 // vhaddps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vhaddps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vhaddps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2504,7 +2504,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(Float2MIn
 // phaddd-xmm-xmm
 
   rule <k>
-    execinstr (phaddd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (phaddd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2519,7 +2519,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andnpd-xmm-xmm
 
   rule <k>
-    execinstr (andnpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (andnpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2534,7 +2534,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vrcpps-xmm-xmm
 
   rule <k>
-    execinstr (vrcpps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vrcpps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2549,7 +2549,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // cmovnbl-r32-r32
 
   rule <k>
-    execinstr (cmovnbl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnbl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2564,7 +2564,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // shlq-r64-cl
 
   rule <k>
-    execinstr (shlq %cl, R2:R64,  .Typedoperands) => .
+    execinstr (shlq %cl, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2591,7 +2591,7 @@ convToRegKeys(R2) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(%rcx
 // vfmaddsub132ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmaddsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmaddsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2606,7 +2606,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // movups-xmm-xmm
 
   rule <k>
-    execinstr (movups R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movups R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2621,7 +2621,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpor-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpor R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpor R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2636,7 +2636,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(orMInt(extractMInt(getPar
 // salb-r8-one
 
   rule <k>
-    execinstr (salb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (salb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2663,7 +2663,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movsbl-r32-r8
 
   rule <k>
-    execinstr (movsbl R1:R8, R2:R32,  .Typedoperands) => .
+    execinstr (movsbl R1:R8, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2678,7 +2678,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(
 // cmovnbew-r16-r16
 
   rule <k>
-    execinstr (cmovnbew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnbew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2693,7 +2693,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // xorw-r16-r16
 
   rule <k>
-    execinstr (xorw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (xorw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2720,7 +2720,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmsub231pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2735,7 +2735,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // setc-r8
 
   rule <k>
-    execinstr (setc R1:R8,  .Typedoperands) => .
+    execinstr (setc R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2750,7 +2750,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vpxor-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpxor R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpxor R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2765,7 +2765,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(orMInt(ext
 // vpmovzxbd-ymm-xmm
 
   rule <k>
-    execinstr (vpmovzxbd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovzxbd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2780,7 +2780,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(concatena
 // adcb-rh-r8
 
   rule <k>
-    execinstr (adcb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (adcb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2807,7 +2807,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // subb-r8-r8
 
   rule <k>
-    execinstr (subb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (subb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2834,7 +2834,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // seta-r8
 
   rule <k>
-    execinstr (seta R1:R8,  .Typedoperands) => .
+    execinstr (seta R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2849,7 +2849,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(mi(9, 255), concaten
 // cmovlew-r16-r16
 
   rule <k>
-    execinstr (cmovlew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovlew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2864,7 +2864,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // setnz-r8
 
   rule <k>
-    execinstr (setnz R1:R8,  .Typedoperands) => .
+    execinstr (setnz R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2879,7 +2879,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // notl-r32
 
   rule <k>
-    execinstr (notl R1:R32,  .Typedoperands) => .
+    execinstr (notl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2894,7 +2894,7 @@ convToRegKeys(R1) |-> (xorMInt(mi(64, 4294967295), concatenateMInt(mi(32, 0), ex
 // vpmovsxdq-ymm-xmm
 
   rule <k>
-    execinstr (vpmovsxdq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovsxdq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2909,7 +2909,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(mi(64, svalueMInt(extract
 // sete-rh
 
   rule <k>
-    execinstr (sete R1:Rh,  .Typedoperands) => .
+    execinstr (sete R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2924,7 +2924,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // sbbl-r32-r32
 
   rule <k>
-    execinstr (sbbl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (sbbl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2951,7 +2951,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(addMInt(co
 // vhsubpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vhsubpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vhsubpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2966,7 +2966,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // cmovncw-r16-r16
 
   rule <k>
-    execinstr (cmovncw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovncw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -2981,7 +2981,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // cmpl-r32-r32
 
   rule <k>
-    execinstr (cmpl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmpl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3006,7 +3006,7 @@ RSMap:Map => updateMap(RSMap,
 // vmovups-ymm-ymm
 
   rule <k>
-    execinstr (vmovups R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovups R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3021,7 +3021,7 @@ convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 // cvtsi2ssl-xmm-r32
 
   rule <k>
-    execinstr (cvtsi2ssl R1:R32, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtsi2ssl R1:R32, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3036,7 +3036,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setbe-rh
 
   rule <k>
-    execinstr (setbe R1:Rh,  .Typedoperands) => .
+    execinstr (setbe R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3051,7 +3051,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // cmpb-rh-r8
 
   rule <k>
-    execinstr (cmpb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3076,7 +3076,7 @@ RSMap:Map => updateMap(RSMap,
 // vfmadd231sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3091,7 +3091,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmoval-r32-r32
 
   rule <k>
-    execinstr (cmoval R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmoval R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3106,7 +3106,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // xorb-r8-r8
 
   rule <k>
-    execinstr (xorb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (xorb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3133,7 +3133,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movswl-r32-r16
 
   rule <k>
-    execinstr (movswl R1:R16, R2:R32,  .Typedoperands) => .
+    execinstr (movswl R1:R16, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3148,7 +3148,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(
 // vcvtsi2sdl-xmm-xmm-r32
 
   rule <k>
-    execinstr (vcvtsi2sdl R1:R32, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vcvtsi2sdl R1:R32, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3163,7 +3163,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vxorps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vxorps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vxorps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3178,7 +3178,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extra
 // tzcntw-r16-r16
 
   rule <k>
-    execinstr (tzcntw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (tzcntw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3205,7 +3205,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // vpunpcklqdq-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpunpcklqdq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpunpcklqdq R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3220,7 +3220,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vpmovsxwq-xmm-xmm
 
   rule <k>
-    execinstr (vpmovsxwq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovsxwq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3235,7 +3235,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(mi(64, svalue
 // setle-r8
 
   rule <k>
-    execinstr (setle R1:R8,  .Typedoperands) => .
+    execinstr (setle R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3250,7 +3250,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(xorMInt(concatenateMInt(
 // vrsqrtss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vrsqrtss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vrsqrtss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3265,7 +3265,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // sete-r8
 
   rule <k>
-    execinstr (sete R1:R8,  .Typedoperands) => .
+    execinstr (sete R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3280,7 +3280,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vpmovzxbq-xmm-xmm
 
   rule <k>
-    execinstr (vpmovzxbq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovzxbq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3295,7 +3295,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(184, 0), concatenateMInt(extractMInt(g
 // vfnmsub213ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3310,7 +3310,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vfmadd132pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3325,7 +3325,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // sarb-r8-one
 
   rule <k>
-    execinstr (sarb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (sarb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3352,7 +3352,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vaddps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vaddps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3367,7 +3367,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vfmsub213ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3382,7 +3382,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vpbroadcastw-ymm-xmm
 
   rule <k>
-    execinstr (vpbroadcastw R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpbroadcastw R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3397,7 +3397,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(concatena
 // vfmsub231ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmsub231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmsub231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3412,7 +3412,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( (  ( MInt2Float(extractMInt(g
 // vfnmadd213ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmadd213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmadd213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3427,7 +3427,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // cmovngel-r32-r32
 
   rule <k>
-    execinstr (cmovngel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovngel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3442,7 +3442,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), getFlag("O
 // vfnmadd132ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3457,7 +3457,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmovew-r16-r16
 
   rule <k>
-    execinstr (cmovew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3472,7 +3472,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vhaddpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vhaddpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vhaddpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3487,7 +3487,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vpmovsxbd-xmm-xmm
 
   rule <k>
-    execinstr (vpmovsxbd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovsxbd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3502,7 +3502,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(mi(64
 // sbbw-r16-r16
 
   rule <k>
-    execinstr (sbbw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (sbbw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3529,7 +3529,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovdqu-ymm-ymm
 
   rule <k>
-    execinstr (vmovdqu R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovdqu R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3544,7 +3544,7 @@ convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 // minps-xmm-xmm
 
   rule <k>
-    execinstr (minps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (minps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3559,7 +3559,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpmovzxwd-xmm-xmm
 
   rule <k>
-    execinstr (vpmovzxwd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovzxwd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3574,7 +3574,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // cvtdq2pd-xmm-xmm
 
   rule <k>
-    execinstr (cvtdq2pd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtdq2pd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3589,7 +3589,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovncq-r64-r64
 
   rule <k>
-    execinstr (cmovncq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovncq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3604,7 +3604,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vfmsubadd231ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsubadd231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsubadd231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3619,7 +3619,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // cmovpew-r16-r16
 
   rule <k>
-    execinstr (cmovpew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovpew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3634,7 +3634,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(8
 // vpmovsxdq-xmm-xmm
 
   rule <k>
-    execinstr (vpmovsxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovsxdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3649,7 +3649,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(mi(64, svalue
 // divpd-xmm-xmm
 
   rule <k>
-    execinstr (divpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (divpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3664,7 +3664,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // orl-r32-r32
 
   rule <k>
-    execinstr (orl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (orl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3691,7 +3691,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), orMInt(extractMInt(getParentVa
 // maxpd-xmm-xmm
 
   rule <k>
-    execinstr (maxpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (maxpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3706,7 +3706,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmpxchgb-r8-r8
 
   rule <k>
-    execinstr (cmpxchgb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3733,7 +3733,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
       requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3764,7 +3764,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vsubpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vsubpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vsubpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3779,7 +3779,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vfmsub132ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3794,7 +3794,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vfnmsub132ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3809,7 +3809,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // haddps-xmm-xmm
 
   rule <k>
-    execinstr (haddps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (haddps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3824,7 +3824,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnlel-r32-r32
 
   rule <k>
-    execinstr (cmovnlel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnlel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3839,7 +3839,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // negb-r8
 
   rule <k>
-    execinstr (negb R1:R8,  .Typedoperands) => .
+    execinstr (negb R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3866,7 +3866,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // setpe-r8
 
   rule <k>
-    execinstr (setpe R1:R8,  .Typedoperands) => .
+    execinstr (setpe R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3881,7 +3881,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovgq-r64-r64
 
   rule <k>
-    execinstr (cmovgq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovgq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3896,7 +3896,7 @@ convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(getFlag("ZF", RSMap), mi(1, 0)
 // divss-xmm-xmm
 
   rule <k>
-    execinstr (divss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (divss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3911,7 +3911,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vxorpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vxorpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vxorpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3926,7 +3926,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(orMInt(ext
 // vmovd-xmm-r32
 
   rule <k>
-    execinstr (vmovd R1:R32, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovd R1:R32, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3941,7 +3941,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(224, 0), extractMInt(getParentValue(R1
 // vunpckhpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vunpckhpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vunpckhpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3956,7 +3956,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // vfmsub213ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmsub213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmsub213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3971,7 +3971,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( (  ( MInt2Float(extractMInt(g
 // vorpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vorpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vorpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -3986,7 +3986,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(orMInt(extrac
 // cmovbeq-r64-r64
 
   rule <k>
-    execinstr (cmovbeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovbeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4001,7 +4001,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMI
 // vfmsub231pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmsub231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmsub231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4016,7 +4016,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( (  ( MInt2Flo
 // andq-r64-r64
 
   rule <k>
-    execinstr (andq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (andq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4043,7 +4043,7 @@ convToRegKeys(R2) |-> (xorMInt(orMInt(xorMInt(xorMInt(getParentValue(R2, RSMap),
 // movb-r8-r8
 
   rule <k>
-    execinstr (movb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (movb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4058,7 +4058,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpmovzxdq-ymm-xmm
 
   rule <k>
-    execinstr (vpmovzxdq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovzxdq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4073,7 +4073,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(concatena
 // notb-r8
 
   rule <k>
-    execinstr (notb R1:R8,  .Typedoperands) => .
+    execinstr (notb R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4088,7 +4088,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // negl-r32
 
   rule <k>
-    execinstr (negl R1:R32,  .Typedoperands) => .
+    execinstr (negl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4115,7 +4115,7 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // cmovnol-r32-r32
 
   rule <k>
-    execinstr (cmovnol R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnol R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4130,7 +4130,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(mi(1, 1), getFlag("OF", RSMap)),
 // vfmadd213ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmadd213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmadd213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4145,7 +4145,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // cmovaeq-r64-r64
 
   rule <k>
-    execinstr (cmovaeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovaeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4160,7 +4160,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // cmovbq-r64-r64
 
   rule <k>
-    execinstr (cmovbq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovbq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4175,7 +4175,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMI
 // setne-r8
 
   rule <k>
-    execinstr (setne R1:R8,  .Typedoperands) => .
+    execinstr (setne R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4190,7 +4190,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // movw-r16-r16
 
   rule <k>
-    execinstr (movw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (movw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4205,7 +4205,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpmovzxdq-xmm-xmm
 
   rule <k>
-    execinstr (vpmovzxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovzxdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4220,7 +4220,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vmovq-xmm-r64
 
   rule <k>
-    execinstr (vmovq R1:R64, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovq R1:R64, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4235,7 +4235,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(192, 0), xorMInt(getParentValue(R1, RS
 // vmovss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmovss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmovss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4250,7 +4250,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // incb-rh
 
   rule <k>
-    execinstr (incb R1:Rh,  .Typedoperands) => .
+    execinstr (incb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4275,7 +4275,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // btq-r64-r64
 
   rule <k>
-    execinstr (btq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (btq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4298,7 +4298,7 @@ RSMap:Map => updateMap(RSMap,
 // vpor-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpor R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpor R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4313,7 +4313,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(orMInt(extrac
 // vpunpckhqdq-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpunpckhqdq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpunpckhqdq R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4328,7 +4328,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmovll-r32-r32
 
   rule <k>
-    execinstr (cmovll R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovll R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4343,7 +4343,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(xorMInt(concatenateMInt(mi(7, 0)
 // vpmovzxbd-xmm-xmm
 
   rule <k>
-    execinstr (vpmovzxbd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovzxbd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4358,7 +4358,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // cmovaw-r16-r16
 
   rule <k>
-    execinstr (cmovaw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovaw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4373,7 +4373,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // cvtsi2sdl-xmm-r32
 
   rule <k>
-    execinstr (cvtsi2sdl R1:R32, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtsi2sdl R1:R32, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4388,7 +4388,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovneq-r64-r64
 
   rule <k>
-    execinstr (cmovneq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovneq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4403,7 +4403,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(8
 // cmovpq-r64-r64
 
   rule <k>
-    execinstr (cmovpq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovpq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4418,7 +4418,7 @@ convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(extractMInt(addMInt(concatenat
 // punpckhqdq-xmm-xmm
 
   rule <k>
-    execinstr (punpckhqdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (punpckhqdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4433,7 +4433,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmadd213sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4448,7 +4448,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // pmovzxdq-xmm-xmm
 
   rule <k>
-    execinstr (pmovzxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovzxdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4463,7 +4463,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmsub231sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4478,7 +4478,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // unpcklps-xmm-xmm
 
   rule <k>
-    execinstr (unpcklps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (unpcklps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4493,7 +4493,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // testb-r8-rh
 
   rule <k>
-    execinstr (testb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (testb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4518,7 +4518,7 @@ RSMap:Map => updateMap(RSMap,
 // andb-r8-rh
 
   rule <k>
-    execinstr (andb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (andb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4545,7 +4545,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmsub213ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4560,7 +4560,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vpunpckhqdq-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpunpckhqdq R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpunpckhqdq R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4575,7 +4575,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // movd-r32-xmm
 
   rule <k>
-    execinstr (movd R1:Xmm, R2:R32,  .Typedoperands) => .
+    execinstr (movd R1:Xmm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4590,7 +4590,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1,
 // rsqrtps-xmm-xmm
 
   rule <k>
-    execinstr (rsqrtps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (rsqrtps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4605,7 +4605,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovaq-r64-r64
 
   rule <k>
-    execinstr (cmovaq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovaq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4620,7 +4620,7 @@ convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(getFlag("ZF", RSMap), mi(1, 0)
 // por-xmm-xmm
 
   rule <k>
-    execinstr (por R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (por R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4635,7 +4635,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpbroadcastw-xmm-xmm
 
   rule <k>
-    execinstr (vpbroadcastw R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpbroadcastw R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4650,7 +4650,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // sqrtps-xmm-xmm
 
   rule <k>
-    execinstr (sqrtps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (sqrtps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4665,7 +4665,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmulpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmulpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmulpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4680,7 +4680,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // xchgw-r16-r16
 
   rule <k>
-    execinstr (xchgw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (xchgw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4697,7 +4697,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andnq-r64-r64-r64
 
   rule <k>
-    execinstr (andnq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
+    execinstr (andnq R1:R64, R2:R64, R3:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4724,7 +4724,7 @@ convToRegKeys(R3) |-> (xorMInt(getParentValue(R2, RSMap), orMInt(getParentValue(
 // orb-rh-rh
 
   rule <k>
-    execinstr (orb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (orb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4751,7 +4751,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andb-rh-rh
 
   rule <k>
-    execinstr (andb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (andb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4778,7 +4778,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnz-rh
 
   rule <k>
-    execinstr (setnz R1:Rh,  .Typedoperands) => .
+    execinstr (setnz R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4793,7 +4793,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // shlb-rh-one
 
   rule <k>
-    execinstr (shlb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (shlb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4820,7 +4820,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setae-r8
 
   rule <k>
-    execinstr (setae R1:R8,  .Typedoperands) => .
+    execinstr (setae R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4835,7 +4835,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // vpunpckhwd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpunpckhwd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpunpckhwd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4850,7 +4850,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(xorMInt(orMInt(co
 // vfmsub231ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4865,7 +4865,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vpmovzxwd-ymm-xmm
 
   rule <k>
-    execinstr (vpmovzxwd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovzxwd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4880,7 +4880,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(concatena
 // cmovnbeq-r64-r64
 
   rule <k>
-    execinstr (cmovnbeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnbeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4895,7 +4895,7 @@ convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(getFlag("ZF", RSMap), mi(1, 0)
 // vfnmsub231ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub231ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub231ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4910,7 +4910,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cwtl
 
   rule <k>
-    execinstr (cwtl  .Typedoperands) => .
+    execinstr (cwtl  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4925,7 +4925,7 @@ RSMap:Map => updateMap(RSMap,
 // vfmaddsub231ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmaddsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmaddsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4940,7 +4940,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vpunpckldq-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpunpckldq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpunpckldq R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4955,7 +4955,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vfmadd231pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4970,7 +4970,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // movsbl-r32-rh
 
   rule <k>
-    execinstr (movsbl R1:Rh, R2:R32,  .Typedoperands) => .
+    execinstr (movsbl R1:Rh, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -4985,7 +4985,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(mi(64, svalueMInt(
 // vpand-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpand R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpand R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5000,7 +5000,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(xorMInt(ex
 // decb-rh
 
   rule <k>
-    execinstr (decb R1:Rh,  .Typedoperands) => .
+    execinstr (decb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5025,7 +5025,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // testb-r8-r8
 
   rule <k>
-    execinstr (testb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (testb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5050,7 +5050,7 @@ RSMap:Map => updateMap(RSMap,
 // vsqrtps-xmm-xmm
 
   rule <k>
-    execinstr (vsqrtps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vsqrtps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5065,7 +5065,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(ro
 // vunpcklps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vunpcklps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vunpcklps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5080,7 +5080,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // cmovpw-r16-r16
 
   rule <k>
-    execinstr (cmovpw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovpw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5095,7 +5095,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // vhsubpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vhsubpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vhsubpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5110,7 +5110,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // setno-rh
 
   rule <k>
-    execinstr (setno R1:Rh,  .Typedoperands) => .
+    execinstr (setno R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5125,7 +5125,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(31, 0), getFlag("OF",
 // xchgb-r8-rh
 
   rule <k>
-    execinstr (xchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5140,7 +5140,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
      rule <k>
-    execinstr (xchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5156,7 +5156,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // setnl-rh
 
   rule <k>
-    execinstr (setnl R1:Rh,  .Typedoperands) => .
+    execinstr (setnl R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5171,7 +5171,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // maxps-xmm-xmm
 
   rule <k>
-    execinstr (maxps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (maxps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5186,7 +5186,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movzwl-r32-r16
 
   rule <k>
-    execinstr (movzwl R1:R16, R2:R32,  .Typedoperands) => .
+    execinstr (movzwl R1:R16, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5201,7 +5201,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(48, 0), extractMInt(getParentValue(R1,
 // vaddsubpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vaddsubpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddsubpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5216,7 +5216,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vminsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vminsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vminsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5231,7 +5231,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmovnael-r32-r32
 
   rule <k>
-    execinstr (cmovnael R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnael R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5246,7 +5246,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // vxorps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vxorps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vxorps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5261,7 +5261,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(orMInt(ext
 // orb-rh-r8
 
   rule <k>
-    execinstr (orb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (orb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5288,7 +5288,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmadd213pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5303,7 +5303,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // setc-rh
 
   rule <k>
-    execinstr (setc R1:Rh,  .Typedoperands) => .
+    execinstr (setc R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5318,7 +5318,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vmovddup-ymm-ymm
 
   rule <k>
-    execinstr (vmovddup R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovddup R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5333,7 +5333,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // vmovapd-xmm-xmm
 
   rule <k>
-    execinstr (vmovapd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovapd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5348,7 +5348,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1
 // setnge-rh
 
   rule <k>
-    execinstr (setnge R1:Rh,  .Typedoperands) => .
+    execinstr (setnge R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5363,7 +5363,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // testw-r16-r16
 
   rule <k>
-    execinstr (testw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (testw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5388,7 +5388,7 @@ RSMap:Map => updateMap(RSMap,
 // seto-r8
 
   rule <k>
-    execinstr (seto R1:R8,  .Typedoperands) => .
+    execinstr (seto R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5403,7 +5403,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // orb-r8-rh
 
   rule <k>
-    execinstr (orb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (orb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5430,7 +5430,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // shlq-r64-one
 
   rule <k>
-    execinstr (shlq $0x1, R2:R64,  .Typedoperands) => .
+    execinstr (shlq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5457,7 +5457,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentVa
 // vfmsubadd213pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsubadd213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsubadd213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5472,7 +5472,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // andnps-xmm-xmm
 
   rule <k>
-    execinstr (andnps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (andnps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5487,7 +5487,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // sall-r32-one
 
   rule <k>
-    execinstr (sall $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (sall $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5514,7 +5514,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // cmovngeq-r64-r64
 
   rule <k>
-    execinstr (cmovngeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovngeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5529,7 +5529,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // addss-xmm-xmm
 
   rule <k>
-    execinstr (addss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5544,7 +5544,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmadd231ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmadd231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmadd231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5559,7 +5559,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(
 // cmovcq-r64-r64
 
   rule <k>
-    execinstr (cmovcq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovcq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5574,7 +5574,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMI
 // addsd-xmm-xmm
 
   rule <k>
-    execinstr (addsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5589,7 +5589,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpbroadcastb-xmm-xmm
 
   rule <k>
-    execinstr (vpbroadcastb R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpbroadcastb R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5604,7 +5604,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // cmpq-r64-r64
 
   rule <k>
-    execinstr (cmpq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmpq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5629,7 +5629,7 @@ RSMap:Map => updateMap(RSMap,
 // setg-rh
 
   rule <k>
-    execinstr (setg R1:Rh,  .Typedoperands) => .
+    execinstr (setg R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5644,7 +5644,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vfnmadd132pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5659,7 +5659,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // setp-rh
 
   rule <k>
-    execinstr (setp R1:Rh,  .Typedoperands) => .
+    execinstr (setp R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5674,7 +5674,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovnbq-r64-r64
 
   rule <k>
-    execinstr (cmovnbq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnbq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5689,7 +5689,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // blsrl-r32-r32
 
   rule <k>
-    execinstr (blsrl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (blsrl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5716,7 +5716,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), xorMInt(extractMInt(getParentV
 // salb-rh-one
 
   rule <k>
-    execinstr (salb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (salb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5743,7 +5743,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cqto
 
   rule <k>
-    execinstr (cqto  .Typedoperands) => .
+    execinstr (cqto  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5758,7 +5758,7 @@ RSMap:Map => updateMap(RSMap,
 // pmovsxwq-xmm-xmm
 
   rule <k>
-    execinstr (pmovsxwq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovsxwq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5773,7 +5773,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vsubsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vsubsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vsubsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5788,7 +5788,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // notw-r16
 
   rule <k>
-    execinstr (notw R1:R16,  .Typedoperands) => .
+    execinstr (notw R1:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5803,7 +5803,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vmulps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmulps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmulps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5818,7 +5818,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // cmovngw-r16-r16
 
   rule <k>
-    execinstr (cmovngw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovngw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5833,7 +5833,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // cmpb-r8-r8
 
   rule <k>
-    execinstr (cmpb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (cmpb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5858,7 +5858,7 @@ RSMap:Map => updateMap(RSMap,
 // vfnmsub231ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5873,7 +5873,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vorps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vorps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vorps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5888,7 +5888,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(orMInt(extractMInt(getPar
 // pxor-xmm-xmm
 
   rule <k>
-    execinstr (pxor R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pxor R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5903,7 +5903,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andpd-xmm-xmm
 
   rule <k>
-    execinstr (andpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (andpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5918,7 +5918,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnow-r16-r16
 
   rule <k>
-    execinstr (cmovnow R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnow R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5933,7 +5933,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(mi(1, 1), getFlag("OF", RSMap)),
 // vmaxpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmaxpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmaxpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5948,7 +5948,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(ma
 // vaddsubps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vaddsubps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddsubps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5963,7 +5963,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vmovapd-ymm-ymm
 
   rule <k>
-    execinstr (vmovapd R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovapd R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5978,7 +5978,7 @@ convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 // cmovaew-r16-r16
 
   rule <k>
-    execinstr (cmovaew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovaew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -5993,7 +5993,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // vmovaps-ymm-ymm
 
   rule <k>
-    execinstr (vmovaps R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovaps R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6008,7 +6008,7 @@ convToRegKeys(R2) |-> (getParentValue(R1, RSMap)   )
 // cmovngew-r16-r16
 
   rule <k>
-    execinstr (cmovngew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovngew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6023,7 +6023,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), getFlag("O
 // vmovdqa-xmm-xmm
 
   rule <k>
-    execinstr (vmovdqa R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovdqa R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6038,7 +6038,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1
 // addsubpd-xmm-xmm
 
   rule <k>
-    execinstr (addsubpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addsubpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6053,7 +6053,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // subb-rh-rh
 
   rule <k>
-    execinstr (subb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (subb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6080,7 +6080,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // xorb-r8-rh
 
   rule <k>
-    execinstr (xorb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xorb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6107,7 +6107,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmpxchgq-r64-r64
 
   rule <k>
-    execinstr (cmpxchgq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmpxchgq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6134,7 +6134,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
       requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmpxchgq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6164,7 +6164,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // incw-r16
 
   rule <k>
-    execinstr (incw R1:R16,  .Typedoperands) => .
+    execinstr (incw R1:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6189,7 +6189,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // incl-r32
 
   rule <k>
-    execinstr (incl R1:R32,  .Typedoperands) => .
+    execinstr (incl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6214,7 +6214,7 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(mi(33, 1),
 // vpbroadcastq-ymm-xmm
 
   rule <k>
-    execinstr (vpbroadcastq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpbroadcastq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6229,7 +6229,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // sarw-r16-one
 
   rule <k>
-    execinstr (sarw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (sarw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6256,7 +6256,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // pmovzxbd-xmm-xmm
 
   rule <k>
-    execinstr (pmovzxbd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovzxbd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6271,7 +6271,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnlw-r16-r16
 
   rule <k>
-    execinstr (cmovnlw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnlw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6286,7 +6286,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), getFlag("O
 // vfmaddsub132pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmaddsub132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmaddsub132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6301,7 +6301,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vcvtdq2pd-xmm-xmm
 
   rule <k>
-    execinstr (vcvtdq2pd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vcvtdq2pd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6316,7 +6316,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(In
 // pmovzxbq-xmm-xmm
 
   rule <k>
-    execinstr (pmovzxbq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovzxbq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6331,7 +6331,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movzwq-r64-r16
 
   rule <k>
-    execinstr (movzwq R1:R16, R2:R64,  .Typedoperands) => .
+    execinstr (movzwq R1:R16, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6346,7 +6346,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(48, 0), extractMInt(getParentValue(R1,
 // minpd-xmm-xmm
 
   rule <k>
-    execinstr (minpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (minpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6361,7 +6361,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // addb-rh-rh
 
   rule <k>
-    execinstr (addb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (addb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6388,7 +6388,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // negw-r16
 
   rule <k>
-    execinstr (negw R1:R16,  .Typedoperands) => .
+    execinstr (negw R1:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6415,7 +6415,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // popcntl-r32-r32
 
   rule <k>
-    execinstr (popcntl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (popcntl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6442,7 +6442,7 @@ convToRegKeys(R2) |-> (mi(64, countOnes(extractMInt(getParentValue(R1, RSMap), 3
 // vfmadd132ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6457,7 +6457,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // movq-xmm-xmm
 
   rule <k>
-    execinstr (movq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6472,7 +6472,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmadd213ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6487,7 +6487,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // cvtss2sd-xmm-xmm
 
   rule <k>
-    execinstr (cvtss2sd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtss2sd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6502,7 +6502,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movl-r32-r32
 
   rule <k>
-    execinstr (movl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (movl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6517,7 +6517,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1,
 // vmovq-r64-xmm
 
   rule <k>
-    execinstr (vmovq R1:Xmm, R2:R64,  .Typedoperands) => .
+    execinstr (vmovq R1:Xmm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6532,7 +6532,7 @@ convToRegKeys(R2) |-> (extractMInt(getParentValue(R1, RSMap), 192, 256)   )
 // paddq-xmm-xmm
 
   rule <k>
-    execinstr (paddq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (paddq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6547,7 +6547,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovol-r32-r32
 
   rule <k>
-    execinstr (cmovol R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovol R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6562,7 +6562,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(mi(9, 255), concaten
 // adcb-rh-rh
 
   rule <k>
-    execinstr (adcb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (adcb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6589,7 +6589,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovsldup-xmm-xmm
 
   rule <k>
-    execinstr (vmovsldup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovsldup R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6604,7 +6604,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // cmovnew-r16-r16
 
   rule <k>
-    execinstr (cmovnew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6619,7 +6619,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // shlxq-r64-r64-r64
 
   rule <k>
-    execinstr (shlxq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
+    execinstr (shlxq R1:R64, R2:R64, R3:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6634,7 +6634,7 @@ convToRegKeys(R3) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(R1, 
 // vbroadcastsd-ymm-xmm
 
   rule <k>
-    execinstr (vbroadcastsd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vbroadcastsd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6649,7 +6649,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // addl-r32-r32
 
   rule <k>
-    execinstr (addl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (addl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6676,7 +6676,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // cmovnsq-r64-r64
 
   rule <k>
-    execinstr (cmovnsq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnsq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6691,7 +6691,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // subq-r64-r64
 
   rule <k>
-    execinstr (subq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (subq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6718,7 +6718,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xor
 // divsd-xmm-xmm
 
   rule <k>
-    execinstr (divsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (divsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6733,7 +6733,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmadd132ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6748,7 +6748,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vfnmadd213pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmadd213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmadd213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6763,7 +6763,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // vmaxps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmaxps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmaxps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6778,7 +6778,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(ma
 // roll-r32-one
 
   rule <k>
-    execinstr (roll $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (roll $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6797,7 +6797,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(addMInt(co
 // rsqrtss-xmm-xmm
 
   rule <k>
-    execinstr (rsqrtss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (rsqrtss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6812,7 +6812,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // addpd-xmm-xmm
 
   rule <k>
-    execinstr (addpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6827,7 +6827,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // orw-r16-r16
 
   rule <k>
-    execinstr (orw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (orw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6854,7 +6854,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // xorpd-xmm-xmm
 
   rule <k>
-    execinstr (xorpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (xorpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6869,7 +6869,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmaxsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmaxsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmaxsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6884,7 +6884,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // decl-r32
 
   rule <k>
-    execinstr (decl R1:R32,  .Typedoperands) => .
+    execinstr (decl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6909,7 +6909,7 @@ convToRegKeys(R1) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // vfnmadd213ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6924,7 +6924,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // sbbb-rh-r8
 
   rule <k>
-    execinstr (sbbb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (sbbb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6951,7 +6951,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // adcb-r8-rh
 
   rule <k>
-    execinstr (adcb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (adcb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6978,7 +6978,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // bswap-r32
 
   rule <k>
-    execinstr (bswap R1:R32,  .Typedoperands) => .
+    execinstr (bswap R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -6993,7 +6993,7 @@ convToRegKeys(R1) |-> (concatenateMInt(concatenateMInt(mi(32, 0), extractMInt(ge
 // vmovupd-ymm-ymm
 
   rule <k>
-    execinstr (vmovupd R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovupd R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7008,7 +7008,7 @@ convToRegKeys(R2) |-> (getParentValue(R1, RSMap) )
 // sarl-r32-one
 
   rule <k>
-    execinstr (sarl $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (sarl $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7035,7 +7035,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(ashrMInt(mi(64, sv
 // addb-rh-r8
 
   rule <k>
-    execinstr (addb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (addb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7062,7 +7062,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setpe-rh
 
   rule <k>
-    execinstr (setpe R1:Rh,  .Typedoperands) => .
+    execinstr (setpe R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7077,7 +7077,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // sets-r8
 
   rule <k>
-    execinstr (sets R1:R8,  .Typedoperands) => .
+    execinstr (sets R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7092,7 +7092,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // setnle-r8
 
   rule <k>
-    execinstr (setnle R1:R8,  .Typedoperands) => .
+    execinstr (setnle R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7107,7 +7107,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // xorl-r32-r32
 
   rule <k>
-    execinstr (xorl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xorl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7134,7 +7134,7 @@ convToRegKeys(R2) |-> (xorMInt(concatenateMInt(mi(32, 0), extractMInt(getParentV
 // cmovnleq-r64-r64
 
   rule <k>
-    execinstr (cmovnleq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnleq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7149,7 +7149,7 @@ convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(getFlag("ZF", RSMap), mi(1, 0)
 // vpsubq-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpsubq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpsubq R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7164,7 +7164,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(a
 // movdqa-xmm-xmm
 
   rule <k>
-    execinstr (movdqa R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movdqa R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7179,7 +7179,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // shlb-r8-one
 
   rule <k>
-    execinstr (shlb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (shlb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7206,7 +7206,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovpel-r32-r32
 
   rule <k>
-    execinstr (cmovpel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovpel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7221,7 +7221,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // cmovpow-r16-r16
 
   rule <k>
-    execinstr (cmovpow R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovpow R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7236,7 +7236,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // rolb-r8-one
 
   rule <k>
-    execinstr (rolb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (rolb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7255,7 +7255,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpmovsxwd-xmm-xmm
 
   rule <k>
-    execinstr (vpmovsxwd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovsxwd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7270,7 +7270,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(a
 // notb-rh
 
   rule <k>
-    execinstr (notb R1:Rh,  .Typedoperands) => .
+    execinstr (notb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7285,7 +7285,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vmulss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmulss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmulss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7300,7 +7300,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // sbbb-r8-r8
 
   rule <k>
-    execinstr (sbbb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (sbbb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7327,7 +7327,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovlel-r32-r32
 
   rule <k>
-    execinstr (cmovlel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovlel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7342,7 +7342,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // stc
 
   rule <k>
-    execinstr (stc  .Typedoperands) => .
+    execinstr (stc  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7357,7 +7357,7 @@ RSMap:Map => updateMap(RSMap,
 // vdivps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vdivps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vdivps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7372,7 +7372,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // cmovcl-r32-r32
 
   rule <k>
-    execinstr (cmovcl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovcl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7387,7 +7387,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // vpmovsxbd-ymm-xmm
 
   rule <k>
-    execinstr (vpmovsxbd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovsxbd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7402,7 +7402,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(xorMInt(mi(64, 1844674352
 // cmovnaw-r16-r16
 
   rule <k>
-    execinstr (cmovnaw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnaw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7417,7 +7417,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // setpo-rh
 
   rule <k>
-    execinstr (setpo R1:Rh,  .Typedoperands) => .
+    execinstr (setpo R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7432,7 +7432,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovoq-r64-r64
 
   rule <k>
-    execinstr (cmovoq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovoq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7447,7 +7447,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // cmovbl-r32-r32
 
   rule <k>
-    execinstr (cmovbl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovbl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7462,7 +7462,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // cmpb-rh-rh
 
   rule <k>
-    execinstr (cmpb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7487,7 +7487,7 @@ RSMap:Map => updateMap(RSMap,
 // sarxq-r64-r64-r64
 
   rule <k>
-    execinstr (sarxq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
+    execinstr (sarxq R1:R64, R2:R64, R3:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7502,7 +7502,7 @@ convToRegKeys(R3) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(R1, 
 // vandnpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vandnpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vandnpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7517,7 +7517,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(extractMIn
 // divps-xmm-xmm
 
   rule <k>
-    execinstr (divps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (divps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7532,7 +7532,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vorpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vorpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vorpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7547,7 +7547,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(orMInt(extractMInt(getPar
 // vpaddq-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpaddq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpaddq R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7562,7 +7562,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(a
 // sqrtss-xmm-xmm
 
   rule <k>
-    execinstr (sqrtss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (sqrtss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7577,7 +7577,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnbe-rh
 
   rule <k>
-    execinstr (setnbe R1:Rh,  .Typedoperands) => .
+    execinstr (setnbe R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7592,7 +7592,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(mi(9, 255), concaten
 // haddpd-xmm-xmm
 
   rule <k>
-    execinstr (haddpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (haddpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7607,7 +7607,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // subw-r16-r16
 
   rule <k>
-    execinstr (subw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (subw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7634,7 +7634,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // punpckhwd-xmm-xmm
 
   rule <k>
-    execinstr (punpckhwd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (punpckhwd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7649,7 +7649,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vsubps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vsubps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vsubps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7664,7 +7664,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vbroadcastss-ymm-xmm
 
   rule <k>
-    execinstr (vbroadcastss R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vbroadcastss R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7679,7 +7679,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // cmovncl-r32-r32
 
   rule <k>
-    execinstr (cmovncl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovncl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7694,7 +7694,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // cmovbw-r16-r16
 
   rule <k>
-    execinstr (cmovbw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovbw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7709,7 +7709,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // rclq-r64-one
 
   rule <k>
-    execinstr (rclq $0x1, R2:R64,  .Typedoperands) => .
+    execinstr (rclq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7728,7 +7728,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), get
 // mulpd-xmm-xmm
 
   rule <k>
-    execinstr (mulpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (mulpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7743,7 +7743,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpaddd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpaddd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpaddd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7758,7 +7758,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // setge-r8
 
   rule <k>
-    execinstr (setge R1:R8,  .Typedoperands) => .
+    execinstr (setge R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7773,7 +7773,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vpandn-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpandn R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpandn R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7788,7 +7788,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMIn
 // setnp-r8
 
   rule <k>
-    execinstr (setnp R1:R8,  .Typedoperands) => .
+    execinstr (setnp R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7803,7 +7803,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(15, 0), getFlag("PF",
 // vpmovzxwq-xmm-xmm
 
   rule <k>
-    execinstr (vpmovzxwq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovzxwq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7818,7 +7818,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // subl-r32-r32
 
   rule <k>
-    execinstr (subl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (subl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7845,7 +7845,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(addMInt(co
 // salw-r16-one
 
   rule <k>
-    execinstr (salw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (salw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7872,7 +7872,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovupd-xmm-xmm
 
   rule <k>
-    execinstr (vmovupd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovupd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7887,7 +7887,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1
 // orpd-xmm-xmm
 
   rule <k>
-    execinstr (orpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (orpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7902,7 +7902,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovzq-r64-r64
 
   rule <k>
-    execinstr (cmovzq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovzq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7917,7 +7917,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vfnmsub213pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmsub213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmsub213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7932,7 +7932,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( negateFloat( ( MInt2Float(e
 // cmovael-r32-r32
 
   rule <k>
-    execinstr (cmovael R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovael R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7947,7 +7947,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // vfmaddsub231pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmaddsub231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmaddsub231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7962,7 +7962,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vsqrtsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vsqrtsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vsqrtsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7977,7 +7977,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // rclb-r8-one
 
   rule <k>
-    execinstr (rclb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (rclb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -7996,7 +7996,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // testb-rh-r8
 
   rule <k>
-    execinstr (testb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (testb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8021,7 +8021,7 @@ RSMap:Map => updateMap(RSMap,
 // pmovsxbq-xmm-xmm
 
   rule <k>
-    execinstr (pmovsxbq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovsxbq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8036,7 +8036,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setge-rh
 
   rule <k>
-    execinstr (setge R1:Rh,  .Typedoperands) => .
+    execinstr (setge R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8051,7 +8051,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vfmadd231pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8066,7 +8066,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vfmsubadd213ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsubadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsubadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8081,7 +8081,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vmovups-xmm-xmm
 
   rule <k>
-    execinstr (vmovups R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovups R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8096,7 +8096,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1
 // cwtd
 
   rule <k>
-    execinstr (cwtd  .Typedoperands) => .
+    execinstr (cwtd  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8111,7 +8111,7 @@ RSMap:Map => updateMap(RSMap,
 // pmovzxwd-xmm-xmm
 
   rule <k>
-    execinstr (pmovzxwd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovzxwd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8126,7 +8126,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmadd231pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8141,7 +8141,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(
 // xaddl-r32-r32
 
   rule <k>
-    execinstr (xaddl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xaddl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8168,7 +8168,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xaddl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8196,7 +8196,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // xaddw-r16-r16
 
   rule <k>
-    execinstr (xaddw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (xaddw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8223,7 +8223,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (xaddw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8251,7 +8251,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovaps-xmm-xmm
 
   rule <k>
-    execinstr (vmovaps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovaps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8266,7 +8266,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1
 // movshdup-xmm-xmm
 
   rule <k>
-    execinstr (movshdup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movshdup R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8281,7 +8281,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // sets-rh
 
   rule <k>
-    execinstr (sets R1:Rh,  .Typedoperands) => .
+    execinstr (sets R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8296,7 +8296,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vpand-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpand R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpand R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8311,7 +8311,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMIn
 // vbroadcastss-xmm-xmm
 
   rule <k>
-    execinstr (vbroadcastss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vbroadcastss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8326,7 +8326,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // pmovsxbd-xmm-xmm
 
   rule <k>
-    execinstr (pmovsxbd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovsxbd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8341,7 +8341,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmadd213pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmadd213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmadd213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8356,7 +8356,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // vandnps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vandnps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vandnps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8371,7 +8371,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMIn
 // setz-rh
 
   rule <k>
-    execinstr (setz R1:Rh,  .Typedoperands) => .
+    execinstr (setz R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8386,7 +8386,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vfnmadd231ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd231ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd231ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8401,7 +8401,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // hsubpd-xmm-xmm
 
   rule <k>
-    execinstr (hsubpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (hsubpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8416,7 +8416,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnzw-r16-r16
 
   rule <k>
-    execinstr (cmovnzw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnzw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8431,7 +8431,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // movzbl-r32-r8
 
   rule <k>
-    execinstr (movzbl R1:R8, R2:R32,  .Typedoperands) => .
+    execinstr (movzbl R1:R8, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8446,7 +8446,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1,
 // vminpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vminpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vminpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8461,7 +8461,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(mi
 // tzcntl-r32-r32
 
   rule <k>
-    execinstr (tzcntl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (tzcntl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8488,7 +8488,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // vcvtsi2ssl-xmm-xmm-r32
 
   rule <k>
-    execinstr (vcvtsi2ssl R1:R32, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vcvtsi2ssl R1:R32, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8503,7 +8503,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // xchgb-r8-r8
 
   rule <k>
-    execinstr (xchgb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (xchgb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8520,7 +8520,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vaddss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vaddss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8535,7 +8535,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vsqrtss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vsqrtss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vsqrtss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8550,7 +8550,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // vfnmsub213ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmsub213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmsub213ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8565,7 +8565,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( negateFloat( ( MInt2Float(e
 // rclb-rh-one
 
   rule <k>
-    execinstr (rclb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (rclb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8584,7 +8584,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cvtps2pd-xmm-xmm
 
   rule <k>
-    execinstr (cvtps2pd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtps2pd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8599,7 +8599,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vandpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vandpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vandpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8614,7 +8614,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(xorMInt(ex
 // sqrtpd-xmm-xmm
 
   rule <k>
-    execinstr (sqrtpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (sqrtpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8629,7 +8629,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovngl-r32-r32
 
   rule <k>
-    execinstr (cmovngl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovngl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8644,7 +8644,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // cmovnaeq-r64-r64
 
   rule <k>
-    execinstr (cmovnaeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnaeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8659,7 +8659,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMI
 // seta-rh
 
   rule <k>
-    execinstr (seta R1:Rh,  .Typedoperands) => .
+    execinstr (seta R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8674,7 +8674,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(mi(9, 255), concaten
 // vxorpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vxorpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vxorpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8689,7 +8689,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extra
 // vfmadd213ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd213ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8704,7 +8704,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmovnaew-r16-r16
 
   rule <k>
-    execinstr (cmovnaew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnaew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8719,7 +8719,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // mulps-xmm-xmm
 
   rule <k>
-    execinstr (mulps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (mulps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8734,7 +8734,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // xaddb-r8-rh
 
   rule <k>
-    execinstr (xaddb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xaddb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8761,7 +8761,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xaddb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8794,7 +8794,7 @@ convToRegKeys(R2) |-> (concatenateMInt(
 // notq-r64
 
   rule <k>
-    execinstr (notq R1:R64,  .Typedoperands) => .
+    execinstr (notq R1:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8809,7 +8809,7 @@ convToRegKeys(R1) |-> (xorMInt(mi(64, 18446744073709551615), getParentValue(R1, 
 // shrxl-r32-r32-r32
 
   rule <k>
-    execinstr (shrxl R1:R32, R2:R32, R3:R32,  .Typedoperands) => .
+    execinstr (shrxl R1:R32, R2:R32, R3:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8824,7 +8824,7 @@ convToRegKeys(R3) |-> ((#ifMInt (ultMInt(andMInt(xorMInt(mi(8, 32), orMInt(mi(8,
 // vmovsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmovsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmovsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8839,7 +8839,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // setl-r8
 
   rule <k>
-    execinstr (setl R1:R8,  .Typedoperands) => .
+    execinstr (setl R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8854,7 +8854,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // movddup-xmm-xmm
 
   rule <k>
-    execinstr (movddup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movddup R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8869,7 +8869,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // phsubd-xmm-xmm
 
   rule <k>
-    execinstr (phsubd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (phsubd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8884,7 +8884,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // addb-r8-r8
 
   rule <k>
-    execinstr (addb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (addb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8911,7 +8911,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovsq-r64-r64
 
   rule <k>
-    execinstr (cmovsq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovsq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8926,7 +8926,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // movapd-xmm-xmm
 
   rule <k>
-    execinstr (movapd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movapd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8941,7 +8941,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnsw-r16-r16
 
   rule <k>
-    execinstr (cmovnsw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnsw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8956,7 +8956,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(3
 // salq-r64-one
 
   rule <k>
-    execinstr (salq $0x1, R2:R64,  .Typedoperands) => .
+    execinstr (salq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8983,7 +8983,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentVa
 // movdqu-xmm-xmm
 
   rule <k>
-    execinstr (movdqu R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movdqu R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -8998,7 +8998,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andb-r8-r8
 
   rule <k>
-    execinstr (andb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (andb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9025,7 +9025,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // orps-xmm-xmm
 
   rule <k>
-    execinstr (orps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (orps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9040,7 +9040,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmaxss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmaxss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmaxss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9055,7 +9055,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // vpmovsxbq-ymm-xmm
 
   rule <k>
-    execinstr (vpmovsxbq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovsxbq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9070,7 +9070,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(mi(64, svalueMInt(xorMInt
 // subsd-xmm-xmm
 
   rule <k>
-    execinstr (subsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (subsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9085,7 +9085,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnsl-r32-r32
 
   rule <k>
-    execinstr (cmovnsl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnsl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9100,7 +9100,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(3
 // setns-r8
 
   rule <k>
-    execinstr (setns R1:R8,  .Typedoperands) => .
+    execinstr (setns R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9115,7 +9115,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("SF",
 // vpbroadcastd-ymm-xmm
 
   rule <k>
-    execinstr (vpbroadcastd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpbroadcastd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9130,7 +9130,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // xchgb-rh-r8
 
   rule <k>
-    execinstr (xchgb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (xchgb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9145,7 +9145,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xchgb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (xchgb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9162,7 +9162,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnb-rh
 
   rule <k>
-    execinstr (setnb R1:Rh,  .Typedoperands) => .
+    execinstr (setnb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9177,7 +9177,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1, 0)) ) #then 
 // vmovddup-xmm-xmm
 
   rule <k>
-    execinstr (vmovddup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovddup R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9192,7 +9192,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmovnbw-r16-r16
 
   rule <k>
-    execinstr (cmovnbw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnbw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9207,7 +9207,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // cmovpol-r32-r32
 
   rule <k>
-    execinstr (cmovpol R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovpol R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9222,7 +9222,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // vhaddpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vhaddpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vhaddpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9237,7 +9237,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(
 // vfnmadd132ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9252,7 +9252,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // punpcklwd-xmm-xmm
 
   rule <k>
-    execinstr (punpcklwd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (punpcklwd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9267,7 +9267,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vorps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vorps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vorps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9282,7 +9282,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(orMInt(extrac
 // vfnmadd231pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9297,7 +9297,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // cmovzl-r32-r32
 
   rule <k>
-    execinstr (cmovzl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovzl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9312,7 +9312,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // cltd
 
   rule <k>
-    execinstr (cltd  .Typedoperands) => .
+    execinstr (cltd  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9327,7 +9327,7 @@ RSMap:Map => updateMap(RSMap,
 // rorb-r8-one
 
   rule <k>
-    execinstr (rorb $0x1, R2:R8,  .Typedoperands) => .
+    execinstr (rorb $0x1, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9346,7 +9346,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // decq-r64
 
   rule <k>
-    execinstr (decq R1:R64,  .Typedoperands) => .
+    execinstr (decq R1:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9371,7 +9371,7 @@ convToRegKeys(R1) |-> (extractMInt(addMInt(mi(65, 18446744073709551615), concate
 // cmovcw-r16-r16
 
   rule <k>
-    execinstr (cmovcw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovcw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9386,7 +9386,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(concatenateMInt(mi(7, 0)
 // vpmovzxwq-ymm-xmm
 
   rule <k>
-    execinstr (vpmovzxwq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovzxwq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9401,7 +9401,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(mi(48, 0)
 // cmovnll-r32-r32
 
   rule <k>
-    execinstr (cmovnll R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnll R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9416,7 +9416,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), getFlag("O
 // cmovlw-r16-r16
 
   rule <k>
-    execinstr (cmovlw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovlw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9431,7 +9431,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), getFlag("O
 // vpaddd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpaddd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpaddd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9446,7 +9446,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // xorb-rh-r8
 
   rule <k>
-    execinstr (xorb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (xorb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9473,7 +9473,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movq-xmm-r64
 
   rule <k>
-    execinstr (movq R1:R64, R2:Xmm,  .Typedoperands) => .
+    execinstr (movq R1:R64, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9488,7 +9488,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // andb-rh-r8
 
   rule <k>
-    execinstr (andb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (andb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9515,7 +9515,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovsl-r32-r32
 
   rule <k>
-    execinstr (cmovsl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovsl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9530,7 +9530,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), mi(1, 1)),
 // cmovnpw-r16-r16
 
   rule <k>
-    execinstr (cmovnpw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnpw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9545,7 +9545,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // setng-rh
 
   rule <k>
-    execinstr (setng R1:Rh,  .Typedoperands) => .
+    execinstr (setng R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9560,7 +9560,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(xorMInt(concatenateMInt(
 // vmovlhps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmovlhps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmovlhps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9575,7 +9575,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vfnmsub132pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9590,7 +9590,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // cmpb-r8-rh
 
   rule <k>
-    execinstr (cmpb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (cmpb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9615,7 +9615,7 @@ RSMap:Map => updateMap(RSMap,
 // vfmsubadd132pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsubadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsubadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9630,7 +9630,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // addsubps-xmm-xmm
 
   rule <k>
-    execinstr (addsubps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addsubps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9645,7 +9645,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // addb-r8-rh
 
   rule <k>
-    execinstr (addb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (addb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9672,7 +9672,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setg-r8
 
   rule <k>
-    execinstr (setg R1:R8,  .Typedoperands) => .
+    execinstr (setg R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9687,7 +9687,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // movzbw-r16-rh
 
   rule <k>
-    execinstr (movzbw R1:Rh, R2:R16,  .Typedoperands) => .
+    execinstr (movzbw R1:Rh, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9702,7 +9702,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // punpckldq-xmm-xmm
 
   rule <k>
-    execinstr (punpckldq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (punpckldq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9717,7 +9717,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpunpckldq-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpunpckldq R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpunpckldq R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9732,7 +9732,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // clc
 
   rule <k>
-    execinstr (clc  .Typedoperands) => .
+    execinstr (clc  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9747,7 +9747,7 @@ RSMap:Map => updateMap(RSMap,
 // addps-xmm-xmm
 
   rule <k>
-    execinstr (addps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (addps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9762,7 +9762,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnbe-r8
 
   rule <k>
-    execinstr (setnbe R1:R8,  .Typedoperands) => .
+    execinstr (setnbe R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9777,7 +9777,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMI
 // setb-r8
 
   rule <k>
-    execinstr (setb R1:R8,  .Typedoperands) => .
+    execinstr (setb R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9792,7 +9792,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vaddpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vaddpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9807,7 +9807,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vmovshdup-ymm-ymm
 
   rule <k>
-    execinstr (vmovshdup R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovshdup R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9822,7 +9822,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // vmulsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vmulsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vmulsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9837,14 +9837,14 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // nopl-r32
 
   rule <k>
-    execinstr (nopl R1:R32,  .Typedoperands) => .
+    execinstr (nopl R1:R32,  .Operands) => .
   ...</k>
 
 
 // setnle-rh
 
   rule <k>
-    execinstr (setnle R1:Rh,  .Typedoperands) => .
+    execinstr (setnle R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9859,7 +9859,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // rcpps-xmm-xmm
 
   rule <k>
-    execinstr (rcpps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (rcpps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9874,7 +9874,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnc-r8
 
   rule <k>
-    execinstr (setnc R1:R8,  .Typedoperands) => .
+    execinstr (setnc R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9889,7 +9889,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmpxchgw-r16-r16
 
   rule <k>
-    execinstr (cmpxchgw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmpxchgw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9918,7 +9918,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 
 
   rule <k>
-    execinstr (cmpxchgw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmpxchgw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9946,7 +9946,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vfmsub132pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9961,7 +9961,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // movsd-xmm-xmm
 
   rule <k>
-    execinstr (movsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9976,7 +9976,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmsub132sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -9991,7 +9991,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // setnl-r8
 
   rule <k>
-    execinstr (setnl R1:R8,  .Typedoperands) => .
+    execinstr (setnl R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10006,7 +10006,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vfmsub132ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub132ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10021,7 +10021,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vfmsubadd231pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsubadd231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsubadd231pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10036,7 +10036,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // movzbw-r16-r8
 
   rule <k>
-    execinstr (movzbw R1:R8, R2:R16,  .Typedoperands) => .
+    execinstr (movzbw R1:R8, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10051,7 +10051,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vunpckhps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vunpckhps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vunpckhps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10066,7 +10066,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // setl-rh
 
   rule <k>
-    execinstr (setl R1:Rh,  .Typedoperands) => .
+    execinstr (setl R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10081,7 +10081,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vunpckhps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vunpckhps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vunpckhps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10096,7 +10096,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vfmadd231ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10111,7 +10111,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // sbbq-r64-r64
 
   rule <k>
-    execinstr (sbbq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (sbbq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10138,7 +10138,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xor
 // vminss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vminss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vminss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10153,7 +10153,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // cmovpl-r32-r32
 
   rule <k>
-    execinstr (cmovpl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovpl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10168,7 +10168,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(63, 0), getFlag("PF",
 // rcpss-xmm-xmm
 
   rule <k>
-    execinstr (rcpss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (rcpss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10183,7 +10183,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnal-r32-r32
 
   rule <k>
-    execinstr (cmovnal R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnal R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10198,7 +10198,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(7, 0), getFlag("CF", 
 // shll-r32-one
 
   rule <k>
-    execinstr (shll $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (shll $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10225,7 +10225,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
 // vsqrtpd-xmm-xmm
 
   rule <k>
-    execinstr (vsqrtpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vsqrtpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10240,7 +10240,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(ro
 // testl-r32-r32
 
   rule <k>
-    execinstr (testl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (testl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10265,7 +10265,7 @@ RSMap:Map => updateMap(RSMap,
 // cmc
 
   rule <k>
-    execinstr (cmc  .Typedoperands) => .
+    execinstr (cmc  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10280,7 +10280,7 @@ RSMap:Map => updateMap(RSMap,
 // pmovzxwq-xmm-xmm
 
   rule <k>
-    execinstr (pmovzxwq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovzxwq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10295,7 +10295,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmadd213ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10310,7 +10310,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // movsbw-r16-r8
 
   rule <k>
-    execinstr (movsbw R1:R8, R2:R16,  .Typedoperands) => .
+    execinstr (movsbw R1:R8, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10325,7 +10325,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovlq-r64-r64
 
   rule <k>
-    execinstr (cmovlq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovlq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10340,7 +10340,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // shrxq-r64-r64-r64
 
   rule <k>
-    execinstr (shrxq R1:R64, R2:R64, R3:R64,  .Typedoperands) => .
+    execinstr (shrxq R1:R64, R2:R64, R3:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10355,7 +10355,7 @@ convToRegKeys(R3) |-> ((#ifMInt (ultMInt(andMInt(extractMInt(getParentValue(R1, 
 // vhaddps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vhaddps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vhaddps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10370,7 +10370,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // minsd-xmm-xmm
 
   rule <k>
-    execinstr (minsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (minsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10385,7 +10385,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovpeq-r64-r64
 
   rule <k>
-    execinstr (cmovpeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovpeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10400,7 +10400,7 @@ convToRegKeys(R2) |-> ((#ifMInt ((#ifBool (eqMInt(extractMInt(addMInt(concatenat
 // vdivss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vdivss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vdivss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10415,7 +10415,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // movzbl-r32-rh
 
   rule <k>
-    execinstr (movzbl R1:Rh, R2:R32,  .Typedoperands) => .
+    execinstr (movzbl R1:Rh, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10430,7 +10430,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(56, 0), extractMInt(getParentValue(R1,
 // decb-r8
 
   rule <k>
-    execinstr (decb R1:R8,  .Typedoperands) => .
+    execinstr (decb R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10455,7 +10455,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // rolw-r16-one
 
   rule <k>
-    execinstr (rolw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (rolw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10474,7 +10474,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnel-r32-r32
 
   rule <k>
-    execinstr (cmovnel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10489,7 +10489,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vpmovzxbq-ymm-xmm
 
   rule <k>
-    execinstr (vpmovzxbq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovzxbq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10504,7 +10504,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(mi(56, 0)
 // testq-r64-r64
 
   rule <k>
-    execinstr (testq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (testq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10529,7 +10529,7 @@ RSMap:Map => updateMap(RSMap,
 // vandps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vandps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vandps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10544,7 +10544,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(xorMInt(ex
 // rolq-r64-one
 
   rule <k>
-    execinstr (rolq $0x1, R2:R64,  .Typedoperands) => .
+    execinstr (rolq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10563,7 +10563,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), get
 // vhsubps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vhsubps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vhsubps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10578,7 +10578,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( ( MInt2Float(extractMInt(getP
 // vsubss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vsubss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vsubss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10593,7 +10593,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // sbbb-r8-rh
 
   rule <k>
-    execinstr (sbbb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (sbbb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10620,7 +10620,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // xchgq-r64-r64
 
   rule <k>
-    execinstr (xchgq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (xchgq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10637,7 +10637,7 @@ convToRegKeys(R1) |-> (getParentValue(R2, RSMap) )
 // vmovd-r32-xmm
 
   rule <k>
-    execinstr (vmovd R1:Xmm, R2:R32,  .Typedoperands) => .
+    execinstr (vmovd R1:Xmm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10652,7 +10652,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1,
 // pmovsxdq-xmm-xmm
 
   rule <k>
-    execinstr (pmovsxdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pmovsxdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10667,7 +10667,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovdqu-xmm-xmm
 
   rule <k>
-    execinstr (vmovdqu R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovdqu R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10682,7 +10682,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), extractMInt(getParentValue(R1
 // vpunpcklwd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpunpcklwd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpunpcklwd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10697,7 +10697,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(xorMInt(orMInt(co
 // hsubps-xmm-xmm
 
   rule <k>
-    execinstr (hsubps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (hsubps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10712,7 +10712,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmadd231sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10727,7 +10727,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // popcntw-r16-r16
 
   rule <k>
-    execinstr (popcntw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (popcntw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10754,7 +10754,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vandnps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vandnps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vandnps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10769,7 +10769,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(extractMIn
 // andl-r32-r32
 
   rule <k>
-    execinstr (andl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (andl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10796,7 +10796,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), xorMInt(extractMInt(getParentV
 // cmovsw-r16-r16
 
   rule <k>
-    execinstr (cmovsw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovsw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10811,7 +10811,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(3
 // decw-r16
 
   rule <k>
-    execinstr (decw R1:R16,  .Typedoperands) => .
+    execinstr (decw R1:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10836,7 +10836,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovngq-r64-r64
 
   rule <k>
-    execinstr (cmovngq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovngq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10851,7 +10851,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt((#ifMInt (eqMInt(getFlag("ZF", R
 // vfmsub213sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10866,7 +10866,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vpbroadcastq-xmm-xmm
 
   rule <k>
-    execinstr (vpbroadcastq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpbroadcastq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10881,7 +10881,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // subps-xmm-xmm
 
   rule <k>
-    execinstr (subps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (subps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10896,7 +10896,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vaddsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vaddsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vaddsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10911,7 +10911,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vpunpckhdq-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpunpckhdq R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpunpckhdq R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10926,7 +10926,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vfnmsub213sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10941,7 +10941,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(mi(64
 // setle-rh
 
   rule <k>
-    execinstr (setle R1:Rh,  .Typedoperands) => .
+    execinstr (setle R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10956,7 +10956,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(xorMInt(concatenateMInt(
 // cmpxchgb-rh-r8
 
   rule <k>
-    execinstr (cmpxchgb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -10983,7 +10983,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
       requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11014,7 +11014,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // pandn-xmm-xmm
 
   rule <k>
-    execinstr (pandn R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pandn R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11029,7 +11029,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // unpcklpd-xmm-xmm
 
   rule <k>
-    execinstr (unpcklpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (unpcklpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11044,7 +11044,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpunpcklqdq-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpunpcklqdq R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpunpcklqdq R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11059,7 +11059,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // movhlps-xmm-xmm
 
   rule <k>
-    execinstr (movhlps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movhlps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11074,7 +11074,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovgel-r32-r32
 
   rule <k>
-    execinstr (cmovgel R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovgel R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11089,7 +11089,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt(getFlag("SF", RSMap), getFlag("O
 // cmovnzl-r32-r32
 
   rule <k>
-    execinstr (cmovnzl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovnzl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11104,7 +11104,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // subpd-xmm-xmm
 
   rule <k>
-    execinstr (subpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (subpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11119,7 +11119,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovq-xmm-xmm
 
   rule <k>
-    execinstr (vmovq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11134,7 +11134,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(192, 0), extractMInt(getParentValue(R1
 // vhsubps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vhsubps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vhsubps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11149,7 +11149,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // xaddb-rh-rh
 
   rule <k>
-    execinstr (xaddb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xaddb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11176,7 +11176,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
     rule <k>
-    execinstr (xaddb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xaddb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11205,7 +11205,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // xchgb-rh-rh
 
   rule <k>
-    execinstr (xchgb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xchgb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11222,7 +11222,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmpw-r16-r16
 
   rule <k>
-    execinstr (cmpw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmpw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11247,7 +11247,7 @@ RSMap:Map => updateMap(RSMap,
 // vpmovsxwd-ymm-xmm
 
   rule <k>
-    execinstr (vpmovsxwd R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovsxwd R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11262,7 +11262,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(extractMInt(addMInt(addMI
 // movlhps-xmm-xmm
 
   rule <k>
-    execinstr (movlhps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movlhps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11277,7 +11277,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movq-r64-xmm
 
   rule <k>
-    execinstr (movq R1:Xmm, R2:R64,  .Typedoperands) => .
+    execinstr (movq R1:Xmm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11292,7 +11292,7 @@ convToRegKeys(R2) |-> (extractMInt(getParentValue(R1, RSMap), 192, 256) )
 // vunpcklpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vunpcklpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vunpcklpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11307,7 +11307,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vmovshdup-xmm-xmm
 
   rule <k>
-    execinstr (vmovshdup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovshdup R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11322,7 +11322,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // xchgl-r32-r32
 
   rule <k>
-    execinstr (xchgl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xchgl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11339,7 +11339,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(getParentValue(R1,
 // bswap-r64
 
   rule <k>
-    execinstr (bswap R1:R64,  .Typedoperands) => .
+    execinstr (bswap R1:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11354,7 +11354,7 @@ convToRegKeys(R1) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // cmovnoq-r64-r64
 
   rule <k>
-    execinstr (cmovnoq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnoq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11369,7 +11369,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vunpcklpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vunpcklpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vunpcklpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11384,7 +11384,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // cmovgeq-r64-r64
 
   rule <k>
-    execinstr (cmovgeq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovgeq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11399,7 +11399,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // setna-rh
 
   rule <k>
-    execinstr (setna R1:Rh,  .Typedoperands) => .
+    execinstr (setna R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11414,7 +11414,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // subb-r8-rh
 
   rule <k>
-    execinstr (subb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (subb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11441,7 +11441,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setng-r8
 
   rule <k>
-    execinstr (setng R1:R8,  .Typedoperands) => .
+    execinstr (setng R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11456,7 +11456,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(xorMInt(concatenateMInt(
 // xaddb-rh-r8
 
   rule <k>
-    execinstr (xaddb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (xaddb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11482,7 +11482,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
     </regstate>
       requires notBool sameRegisters(R1, R2)
   rule <k>
-    execinstr (xaddb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (xaddb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11510,7 +11510,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // testb-rh-rh
 
   rule <k>
-    execinstr (testb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (testb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11535,7 +11535,7 @@ RSMap:Map => updateMap(RSMap,
 // vfmsub213pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11550,7 +11550,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // shlw-r16-one
 
   rule <k>
-    execinstr (shlw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (shlw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11577,7 +11577,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movsldup-xmm-xmm
 
   rule <k>
-    execinstr (movsldup R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movsldup R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11592,7 +11592,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // unpckhpd-xmm-xmm
 
   rule <k>
-    execinstr (unpckhpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (unpckhpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11607,7 +11607,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnge-r8
 
   rule <k>
-    execinstr (setnge R1:R8,  .Typedoperands) => .
+    execinstr (setnge R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11622,7 +11622,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmpxchgb-r8-rh
 
   rule <k>
-    execinstr (cmpxchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11649,7 +11649,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
   requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11677,7 +11677,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vpmovsxbq-xmm-xmm
 
   rule <k>
-    execinstr (vpmovsxbq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovsxbq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11692,7 +11692,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(mi(64, svalue
 // setb-rh
 
   rule <k>
-    execinstr (setb R1:Rh,  .Typedoperands) => .
+    execinstr (setb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11707,7 +11707,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovnzq-r64-r64
 
   rule <k>
-    execinstr (cmovnzq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnzq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11722,7 +11722,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(concatenateMInt(mi(8
 // movb-rh-rh
 
   rule <k>
-    execinstr (movb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (movb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11737,7 +11737,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnp-rh
 
   rule <k>
-    execinstr (setnp R1:Rh,  .Typedoperands) => .
+    execinstr (setnp R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11752,7 +11752,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(15, 0), getFlag("PF",
 // paddd-xmm-xmm
 
   rule <k>
-    execinstr (paddd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (paddd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11767,7 +11767,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vcvtss2sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vcvtss2sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vcvtss2sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11782,7 +11782,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // cmovzw-r16-r16
 
   rule <k>
-    execinstr (cmovzw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovzw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11797,7 +11797,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // cmpxchgb-rh-rh
 
   rule <k>
-    execinstr (cmpxchgb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11824,7 +11824,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
       requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11852,7 +11852,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // cmovgw-r16-r16
 
   rule <k>
-    execinstr (cmovgw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovgw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11867,7 +11867,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // incb-r8
 
   rule <k>
-    execinstr (incb R1:R8,  .Typedoperands) => .
+    execinstr (incb R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11892,7 +11892,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // punpcklqdq-xmm-xmm
 
   rule <k>
-    execinstr (punpcklqdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (punpcklqdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11907,7 +11907,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // blsmskl-r32-r32
 
   rule <k>
-    execinstr (blsmskl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (blsmskl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11934,7 +11934,7 @@ convToRegKeys(R2) |-> (xorMInt(concatenateMInt(mi(32, 0), extractMInt(addMInt(mi
 // vpunpckhdq-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpunpckhdq R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpunpckhdq R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11949,7 +11949,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // andnl-r32-r32-r32
 
   rule <k>
-    execinstr (andnl R1:R32, R2:R32, R3:R32,  .Typedoperands) => .
+    execinstr (andnl R1:R32, R2:R32, R3:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11976,7 +11976,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(32, 0), xorMInt(extractMInt(getParentV
 // vrsqrtps-xmm-xmm
 
   rule <k>
-    execinstr (vrsqrtps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vrsqrtps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -11991,7 +11991,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // rorw-r16-one
 
   rule <k>
-    execinstr (rorw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (rorw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12010,7 +12010,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vdivsd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vdivsd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vdivsd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12025,7 +12025,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // setnc-rh
 
   rule <k>
-    execinstr (setnc R1:Rh,  .Typedoperands) => .
+    execinstr (setnc R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12040,7 +12040,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vunpckhpd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vunpckhpd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vunpckhpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12055,7 +12055,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(extractMInt(getParentValu
 // vfnmsub231ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfnmsub231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfnmsub231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12070,7 +12070,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( negateFloat
 // subb-rh-r8
 
   rule <k>
-    execinstr (subb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (subb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12097,7 +12097,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cbtw
 
   rule <k>
-    execinstr (cbtw  .Typedoperands) => .
+    execinstr (cbtw  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12112,7 +12112,7 @@ RSMap:Map => updateMap(RSMap,
 // cmovleq-r64-r64
 
   rule <k>
-    execinstr (cmovleq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovleq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12127,7 +12127,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(xorMInt((#ifMInt (eqMInt(getFlag("ZF", R
 // cvtdq2ps-xmm-xmm
 
   rule <k>
-    execinstr (cvtdq2ps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtdq2ps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12142,7 +12142,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // mulsd-xmm-xmm
 
   rule <k>
-    execinstr (mulsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (mulsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12157,7 +12157,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // punpckhdq-xmm-xmm
 
   rule <k>
-    execinstr (punpckhdq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (punpckhdq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12172,14 +12172,14 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // nopw-r16
 
   rule <k>
-    execinstr (nopw R1:R16,  .Typedoperands) => .
+    execinstr (nopw R1:R16,  .Operands) => .
   ...</k>
 
 
 // vfnmsub213pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12194,7 +12194,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // maxss-xmm-xmm
 
   rule <k>
-    execinstr (maxss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (maxss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12209,7 +12209,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setnae-r8
 
   rule <k>
-    execinstr (setnae R1:R8,  .Typedoperands) => .
+    execinstr (setnae R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12224,7 +12224,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // setbe-r8
 
   rule <k>
-    execinstr (setbe R1:R8,  .Typedoperands) => .
+    execinstr (setbe R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12239,7 +12239,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vcvtps2pd-xmm-xmm
 
   rule <k>
-    execinstr (vcvtps2pd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vcvtps2pd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12254,7 +12254,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt(Fl
 // movsbw-r16-rh
 
   rule <k>
-    execinstr (movsbw R1:Rh, R2:R16,  .Typedoperands) => .
+    execinstr (movsbw R1:Rh, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12269,7 +12269,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // incq-r64
 
   rule <k>
-    execinstr (incq R1:R64,  .Typedoperands) => .
+    execinstr (incq R1:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12294,7 +12294,7 @@ convToRegKeys(R1) |-> (extractMInt(addMInt(mi(65, 1), concatenateMInt(mi(1, 0), 
 // vfnmsub132ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub132ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12309,7 +12309,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // minss-xmm-xmm
 
   rule <k>
-    execinstr (minss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (minss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12324,7 +12324,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmsub213ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12339,7 +12339,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // vphaddd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vphaddd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vphaddd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12354,7 +12354,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vfnmadd132sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12369,7 +12369,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extra
 // movupd-xmm-xmm
 
   rule <k>
-    execinstr (movupd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movupd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12384,7 +12384,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfmadd213pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12399,7 +12399,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // addq-r64-r64
 
   rule <k>
-    execinstr (addq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (addq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12426,7 +12426,7 @@ convToRegKeys(R2) |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), getParentVa
 // setz-r8
 
   rule <k>
-    execinstr (setz R1:R8,  .Typedoperands) => .
+    execinstr (setz R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12441,7 +12441,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vfmadd231ps-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmadd231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmadd231ps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12456,7 +12456,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(Float2MInt( ( MInt2Float(
 // cmovow-r16-r16
 
   rule <k>
-    execinstr (cmovow R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovow R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12471,7 +12471,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(mi(9, 255), concaten
 // setno-r8
 
   rule <k>
-    execinstr (setno R1:R8,  .Typedoperands) => .
+    execinstr (setno R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12486,7 +12486,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovnlew-r16-r16
 
   rule <k>
-    execinstr (cmovnlew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovnlew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12501,7 +12501,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // xaddb-r8-r8
 
   rule <k>
-    execinstr (xaddb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (xaddb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12528,7 +12528,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (xaddb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12556,7 +12556,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setae-rh
 
   rule <k>
-    execinstr (setae R1:Rh,  .Typedoperands) => .
+    execinstr (setae R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12571,7 +12571,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // subss-xmm-xmm
 
   rule <k>
-    execinstr (subss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (subss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12586,7 +12586,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vandpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vandpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vandpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12601,7 +12601,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMIn
 // sarq-r64-one
 
   rule <k>
-    execinstr (sarq $0x1, R2:R64,  .Typedoperands) => .
+    execinstr (sarq $0x1, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12628,7 +12628,7 @@ convToRegKeys(R2) |-> (ashrMInt(mi(64, svalueMInt(getParentValue(R2, RSMap))), 1
 // movaps-xmm-xmm
 
   rule <k>
-    execinstr (movaps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movaps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12643,7 +12643,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // setp-r8
 
   rule <k>
-    execinstr (setp R1:R8,  .Typedoperands) => .
+    execinstr (setp R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12658,7 +12658,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vfmaddsub213ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmaddsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmaddsub213ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12673,7 +12673,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vfnmadd213sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd213sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12688,7 +12688,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(mi(64
 // cmovnpq-r64-r64
 
   rule <k>
-    execinstr (cmovnpq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnpq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12703,7 +12703,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // vandnpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vandnpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vandnpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12718,7 +12718,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(orMIn
 // seto-rh
 
   rule <k>
-    execinstr (seto R1:Rh,  .Typedoperands) => .
+    execinstr (seto R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12733,7 +12733,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // setne-rh
 
   rule <k>
-    execinstr (setne R1:Rh,  .Typedoperands) => .
+    execinstr (setne R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12748,7 +12748,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vmovdqa-ymm-ymm
 
   rule <k>
-    execinstr (vmovdqa R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovdqa R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12763,7 +12763,7 @@ convToRegKeys(R2) |-> (getParentValue(R1, RSMap)   )
 // rcll-r32-one
 
   rule <k>
-    execinstr (rcll $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (rcll $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12782,7 +12782,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(addMInt(co
 // pand-xmm-xmm
 
   rule <k>
-    execinstr (pand R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (pand R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12797,7 +12797,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpandn-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vpandn R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vpandn R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12812,7 +12812,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(xorMInt(orMInt(extractMIn
 // setnae-rh
 
   rule <k>
-    execinstr (setnae R1:Rh,  .Typedoperands) => .
+    execinstr (setnae R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12827,7 +12827,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // vfmadd132sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12842,7 +12842,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vfmsub132sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmsub132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmsub132sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12857,7 +12857,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // vrcpss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vrcpss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vrcpss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12872,7 +12872,7 @@ convToRegKeys(R3) |-> (concatenateMInt(concatenateMInt(mi(128, 0), extractMInt(g
 // setna-r8
 
   rule <k>
-    execinstr (setna R1:R8,  .Typedoperands) => .
+    execinstr (setna R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12887,7 +12887,7 @@ convToRegKeys(R1) |-> ((#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1, 0)) ) #then 
 // vfmadd231ss-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmadd231ss R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd231ss R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12902,7 +12902,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // maxsd-xmm-xmm
 
   rule <k>
-    execinstr (maxsd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (maxsd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12917,7 +12917,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpxor-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vpxor R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vpxor R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12932,7 +12932,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(xorMInt(extra
 // orb-r8-r8
 
   rule <k>
-    execinstr (orb R1:R8, R2:R8,  .Typedoperands) => .
+    execinstr (orb R1:R8, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12959,7 +12959,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vdivpd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vdivpd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vdivpd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12974,7 +12974,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // cltq
 
   rule <k>
-    execinstr (cltq  .Typedoperands) => .
+    execinstr (cltq  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -12989,7 +12989,7 @@ RSMap:Map => updateMap(RSMap,
 // vfmsub213pd-ymm-ymm-ymm
 
   rule <k>
-    execinstr (vfmsub213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmsub213pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13004,7 +13004,7 @@ convToRegKeys(R3) |-> (concatenateMInt(Float2MInt( (  ( MInt2Float(extractMInt(g
 // xorb-rh-rh
 
   rule <k>
-    execinstr (xorb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xorb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13031,7 +13031,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // psubq-xmm-xmm
 
   rule <k>
-    execinstr (psubq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (psubq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13046,7 +13046,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vfnmsub231sd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmsub231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmsub231sd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13061,7 +13061,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(extractMInt(g
 // rorb-rh-one
 
   rule <k>
-    execinstr (rorb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (rorb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13080,7 +13080,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // cmovnaq-r64-r64
 
   rule <k>
-    execinstr (cmovnaq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnaq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13095,7 +13095,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(16, 0), concatenateMI
 // vfmaddsub213pd-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfmaddsub213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmaddsub213pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13110,7 +13110,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(Float2MInt( (
 // rolb-rh-one
 
   rule <k>
-    execinstr (rolb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (rolb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13129,7 +13129,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpmovsxwq-ymm-xmm
 
   rule <k>
-    execinstr (vpmovsxwq R1:Xmm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vpmovsxwq R1:Xmm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13144,7 +13144,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(mi(64, svalueMInt(extract
 // vfnmadd231ps-xmm-xmm-xmm
 
   rule <k>
-    execinstr (vfnmadd231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfnmadd231ps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13159,7 +13159,7 @@ convToRegKeys(R3) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // setpo-r8
 
   rule <k>
-    execinstr (setpo R1:R8,  .Typedoperands) => .
+    execinstr (setpo R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13174,7 +13174,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
 // cmovgew-r16-r16
 
   rule <k>
-    execinstr (cmovgew R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmovgew R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13189,7 +13189,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(concatenateMInt(mi(56, 0), xorMInt(xorMI
 // sbbb-rh-rh
 
   rule <k>
-    execinstr (sbbb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (sbbb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13216,7 +13216,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // movd-xmm-r32
 
   rule <k>
-    execinstr (movd R1:R32, R2:Xmm,  .Typedoperands) => .
+    execinstr (movd R1:R32, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13231,7 +13231,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vmovsldup-ymm-ymm
 
   rule <k>
-    execinstr (vmovsldup R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovsldup R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13246,7 +13246,7 @@ convToRegKeys(R2) |-> (concatenateMInt(concatenateMInt(concatenateMInt(extractMI
 // cmovnlq-r64-r64
 
   rule <k>
-    execinstr (cmovnlq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovnlq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13261,7 +13261,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 // mulss-xmm-xmm
 
   rule <k>
-    execinstr (mulss R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (mulss R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13276,7 +13276,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
 // vpbroadcastd-xmm-xmm
 
   rule <k>
-    execinstr (vpbroadcastd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpbroadcastd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -13291,7 +13291,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(128, 0), concatenateMInt(concatenateMI
 // vcvtdq2ps-xmm-xmm
 
   rule <k>
-    execinstr (vcvtdq2ps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vcvtdq2ps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module XORB-RH-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xorb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xorb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

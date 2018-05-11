@@ -5,7 +5,7 @@ module CQTO
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cqto  .Typedoperands) => .
+    execinstr (cqto  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -9,7 +9,7 @@ module MOVS-R64-R8
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movsbq R1:R8, R2:R64, .Typedoperands) =>
+    execinstr(movsbq R1:R8, R2:R64, .Operands) =>
       setRegisterValue(signExtend(getRegisterValue(R1, RSMap), 64), R2) 
   ...</k>
     <regstate> RSMap</regstate>

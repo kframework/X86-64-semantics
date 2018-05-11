@@ -5,7 +5,7 @@ module ADCB-RH-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (adcb R1:R8, R2:Rh,  .Typedoperands) => .
+    execinstr (adcb R1:R8, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

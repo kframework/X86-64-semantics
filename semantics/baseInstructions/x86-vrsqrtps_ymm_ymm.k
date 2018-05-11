@@ -9,12 +9,12 @@ module VRSQRTPS-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vrsqrtps  Y1:Ymm,  Y2:Ymm, .Typedoperands) =>
-      execinstr(vrsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfrsqrt, 32)), .Typedoperands)
+    execinstr(vrsqrtps  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      execinstr(vrsqrtps  Y2, joinVector(operateOnVector(splitVector(getRegisterValue(Y1, RSMap), 32), vfrsqrt, 32)), .Operands)
   ...</k>
       <regstate> RSMap </regstate>
 
-  rule <k> execinstr(vrsqrtps  DestR, MIsrc:MInt, .Typedoperands ) => setRegisterValue(MIsrc, DestR) ...</k>
+  rule <k> execinstr(vrsqrtps  DestR, MIsrc:MInt, .Operands ) => setRegisterValue(MIsrc, DestR) ...</k>
 endmodule
 
 

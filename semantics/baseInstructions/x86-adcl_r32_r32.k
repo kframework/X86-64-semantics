@@ -7,7 +7,7 @@ module ADC-R32-R32
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr (adcl R1:R32,  R2:R32, .Typedoperands) =>
+    execinstr (adcl R1:R32,  R2:R32, .Operands) =>
       execinstr(adcl R2, 
           getRegisterValue(R1, RSMap), 
           getRegisterValue(R2, RSMap), 
@@ -21,12 +21,12 @@ module ADC-R32-R32
               concatenateMInt(mi(1, 0), zeroExtend(getFlag("CF", RSMap), 32))
             ), 32, 0
           ),
-          .Typedoperands) 
+          .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Typedoperands) 
+    execinstr(adcl DestR, MIsrc1:MInt, MIsrc2:MInt, MIcarry:MInt, MIresult:MInt, .Operands) 
     => 
       updateOverflowAdd(MIsrc1, MIsrc2, MIresult) ~> 
       updateZeroFlag(MIresult) ~> 

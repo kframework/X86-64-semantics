@@ -5,7 +5,7 @@ module MOVSBL-R32-M8
   imports X86-CONFIGURATION
 
   context 
-    execinstr (movsbl HOLE:Mem, R2:R32,  .Typedoperands)  
+    execinstr (movsbl HOLE:Mem, R2:R32,  .Operands)  
 
   rule <k> (Off:Int (R:R64)):Mem => loadFromMemory(
       addMInt(getRegisterValue(R, RSMap), mi(64, Off)), 8)
@@ -13,7 +13,7 @@ module MOVSBL-R32-M8
     <regstate> RSMap </regstate>
     
   rule <k>
-    execinstr (movsbl MV:MInt, R2:R32,  .Typedoperands) => 
+    execinstr (movsbl MV:MInt, R2:R32,  .Operands) => 
       setRegisterValue( mi(32, svalueMInt(MV)), R2)
   ...</k>
     <regstate> RSMap </regstate>

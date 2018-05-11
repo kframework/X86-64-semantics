@@ -22,7 +22,7 @@ module X86-LOADER
     The reason for parsing instruction as (OpC OpR) is to 
     avoid on instructions like .section ...
   */
-  rule  <k> OpC:Opcode OpR:Typedoperands => . ...</k>
+  rule  <k> OpC:Opcode OpR:Operands => . ...</k>
         <text>... .Map => locpc(L) |-> storedinstr(OpC OpR) ...</text>
         <nextLocPc> L => addMInt(L, mi(64, getISize(OpC OpR))) </nextLocPc>
   /*@

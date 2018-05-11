@@ -5,7 +5,7 @@ module SHRXL-R32-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shrxl R1:R32, R2:R32, R3:R32,  .Typedoperands) => .
+    execinstr (shrxl R1:R32, R2:R32, R3:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

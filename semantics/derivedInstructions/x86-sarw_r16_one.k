@@ -5,7 +5,7 @@ module SARW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (sarw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (sarw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

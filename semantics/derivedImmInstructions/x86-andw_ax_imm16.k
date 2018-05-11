@@ -5,7 +5,7 @@ module ANDW-AX-IMM16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (andw I1_16:Imm, %ax:R16,  .Typedoperands) => .
+    execinstr (andw I1_16:Imm, %ax:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

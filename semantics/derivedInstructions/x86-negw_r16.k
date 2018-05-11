@@ -5,7 +5,7 @@ module NEGW-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (negw R1:R16,  .Typedoperands) => .
+    execinstr (negw R1:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

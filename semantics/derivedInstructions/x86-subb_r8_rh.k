@@ -5,7 +5,7 @@ module SUBB-R8-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (subb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (subb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

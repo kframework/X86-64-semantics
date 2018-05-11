@@ -5,7 +5,7 @@ module CMPXCHGW-R16-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpxchgw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmpxchgw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -34,7 +34,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
 
 
   rule <k>
-    execinstr (cmpxchgw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (cmpxchgw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

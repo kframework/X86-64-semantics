@@ -5,7 +5,7 @@ module ANDQ-RAX-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (andq I1_32:Imm, %rax:R64,  .Typedoperands) => .
+    execinstr (andq I1_32:Imm, %rax:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module CMPL-R32-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpl I1_8:Imm, R2:R32,  .Typedoperands) => .
+    execinstr (cmpl I1_8:Imm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module DECL-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (decl R1:R32,  .Typedoperands) => .
+    execinstr (decl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

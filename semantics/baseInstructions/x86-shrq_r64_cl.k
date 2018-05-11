@@ -10,13 +10,13 @@ module SHR-R64-CL
   imports X86-FLAG-CHECKS-SYNTAX
 
   rule <k> 
-    execinstr(shrq  %cl,  R:R64, .Typedoperands) =>
-      execinstr(shrq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Typedoperands)
+    execinstr(shrq  %cl,  R:R64, .Operands) =>
+      execinstr(shrq  R, getRegisterValue(R, RSMap), shiftCountMask(getRegisterValue(%cl, RSMap), 64), .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-  execinstr(shrq  R,  MIsrc, MIcount, .Typedoperands) => 
+  execinstr(shrq  R,  MIsrc, MIcount, .Operands) => 
     setFlag(
         {(#ifMInt zeroMInt(MIcount)
       #then

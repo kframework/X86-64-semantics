@@ -5,7 +5,7 @@ module SETC-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setc R1:R8,  .Typedoperands) => .
+    execinstr (setc R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

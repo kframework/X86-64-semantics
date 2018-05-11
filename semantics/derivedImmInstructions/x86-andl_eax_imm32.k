@@ -5,7 +5,7 @@ module ANDL-EAX-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (andl I1_32:Imm, %eax:R32,  .Typedoperands) => .
+    execinstr (andl I1_32:Imm, %eax:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module SUBL-EAX-IMM32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (subl I1_32:Imm, %eax:R32,  .Typedoperands) => .
+    execinstr (subl I1_32:Imm, %eax:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module NOP
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (nop  .Typedoperands) ~> inforegisters ~> fetch => .
+    execinstr (nop  .Operands) ~> inforegisters ~> fetch => .
   ...</k>
 endmodule
 

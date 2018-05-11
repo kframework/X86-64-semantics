@@ -5,7 +5,7 @@ module NEGB-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (negb R1:Rh,  .Typedoperands) => .
+    execinstr (negb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

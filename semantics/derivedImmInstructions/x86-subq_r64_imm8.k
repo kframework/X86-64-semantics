@@ -5,7 +5,7 @@ module SUBQ-R64-IMM8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (subq I1_8:Imm, R2:R64,  .Typedoperands) => .
+    execinstr (subq I1_8:Imm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

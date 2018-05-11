@@ -5,7 +5,7 @@ module SHLW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shlw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (shlw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

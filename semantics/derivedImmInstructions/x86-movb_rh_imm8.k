@@ -8,7 +8,7 @@ module MOVB-RH-IMM8
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movb I1_8:Imm, R2:Rh, .Typedoperands) =>
+    execinstr(movb I1_8:Imm, R2:Rh, .Operands) =>
       setRegisterValue(handleImmediateWithSignExtend(I1_8, 8, 8 ), R2)
   ...</k>
     <regstate> RSMap </regstate>

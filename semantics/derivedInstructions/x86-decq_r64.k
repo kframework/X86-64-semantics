@@ -5,7 +5,7 @@ module DECQ-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (decq R1:R64,  .Typedoperands) => .
+    execinstr (decq R1:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
