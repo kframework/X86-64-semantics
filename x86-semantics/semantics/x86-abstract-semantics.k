@@ -264,6 +264,22 @@ module X86-ABSTRACT-SEMANTICS
   rule getRegisterSize(X:Xmm) => 128
   rule getRegisterSize(Y:Ymm) => 256
 
+  
+  /*@ 
+    Incr/Dec RSP. Used for push/pop instructions.
+  */  
+  rule <k> decRSPInBytes(I:Int) => .  ...</k>
+    <regstate> RSMap:Map => updateMap(
+        RSMap, 
+        "RSP" |-> subMInt({RSMap["RSP"]}:>MInt, mi(64, I)))
+    </regstate>
+
+  rule <k> incRSPInBytes(I:Int) => .  ...</k>
+    <regstate> RSMap:Map => updateMap(
+        RSMap, 
+        "RSP" |-> addMInt({RSMap["RSP"]}:>MInt, mi(64, I)))
+    </regstate>
+
 
   /*@
     Following states are using to define the initial and final

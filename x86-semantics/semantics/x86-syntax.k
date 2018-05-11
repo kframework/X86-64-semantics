@@ -1006,4 +1006,8 @@ module X86-SYNTAX
                   | "xorpd" 
                   | "xorps" 
                   | "xorw" 
+                  | "pushq" 
+                  | "pushw" 
+                  | "popq" 
+                  | "popw" 
 endmodule
