@@ -5,6 +5,7 @@ module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
   imports MINT-WRAPPER
 
+  /*
   context execinstr(_:Opcode (HOLE:Mem, .Operands):Operands)
 
   context execinstr(_:Opcode (HOLE:Mem, _:Operand, .Operands):Operands)
@@ -18,7 +19,11 @@ module X86-ABSTRACT-SEMANTICS
   context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
   context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
   context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
+  */
 
+  /*@
+  
+  */
   rule <k> (R1:R64):Mem => 
     memoffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1))))) 
   ...</k>

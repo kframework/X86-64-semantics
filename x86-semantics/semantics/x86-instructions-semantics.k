@@ -1802,6 +1802,7 @@ vcvtpd2ps_xmm_ymm
 
 // movl-m32-r32
 
+  context execinstr(movl:Opcode (_:R32, HOLE:Mem, .Operands):Operands)
   rule <k> 
     execinstr (movl R1:R32,  memoffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 32)
   ...</k>
@@ -1810,6 +1811,7 @@ vcvtpd2ps_xmm_ymm
 
 // movb-r8-m8
 
+  context execinstr(movb:Opcode (HOLE:Mem, _:R8, .Operands):Operands)
   rule <k> 
     execinstr (movb memoffset( MemOff:MInt):MemOffset ,  R2:R8, .Operands) => setRegisterValue( loadFromMemory( MemOff, 8), R2)                         
   ...</k>
@@ -1818,6 +1820,7 @@ vcvtpd2ps_xmm_ymm
 
 // movq-m64-r64
 
+  context execinstr(movq:Opcode (_:R64, HOLE:Mem, .Operands):Operands)
   rule <k> 
     execinstr (movq R1:R64,  memoffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
   ...</k>
@@ -1826,6 +1829,7 @@ vcvtpd2ps_xmm_ymm
 
 // movl-m32-imm32
 
+  context execinstr(movl:Opcode (_:Imm, HOLE:Mem, .Operands):Operands)
   rule <k> 
     execinstr(movl IMM:Imm , memoffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
   ...</k>
@@ -1834,6 +1838,7 @@ vcvtpd2ps_xmm_ymm
 
 // movq-r64-m64
 
+  context execinstr(movq:Opcode (HOLE:Mem, _:R64, .Operands):Operands)
   rule <k> 
     execinstr (movq memoffset( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => setRegisterValue( loadFromMemory( MemOff, 64), R2)                         
   ...</k>
@@ -1841,11 +1846,10 @@ vcvtpd2ps_xmm_ymm
 
 
 // movsbl-r32-m8
-/*
 
-  context 
-    execinstr (movsbl HOLE:Mem, R2:R32,  .Operands)  
+  context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)
 
+                                                               /*
   rule <k>
     execinstr (movsbl MemOff:MInt, R2:R32,  .Operands) => execinstr( movsbl memVal(loadFromMemory(MemOff, 8)), R2:R32, .Operands)
   ...</k>
