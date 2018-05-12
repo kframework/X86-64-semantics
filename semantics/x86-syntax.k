@@ -30,6 +30,10 @@ module X86-SYNTAX
 
   syntax Simpleoperand ::= Register | Imm | MemOffset
   syntax Operand ::= Simpleoperand
+
+  /*@ 
+    MemOffset is a KResult as Mem is evaluated to MemOffset
+  */  
   syntax KResult ::= MemOffset
 
   syntax Register ::= Rh
