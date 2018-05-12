@@ -2,12 +2,11 @@
 requires "x86-configuration.k"
 
 module MOVSBL-R32-M8
-/*
   imports X86-CONFIGURATION
 
-  context 
-    execinstr (movsbl HOLE:Mem, R2:R32,  .Operands)  
+  context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)
 
+                                                               /*
   rule <k>
     execinstr (movsbl MemOff:MInt, R2:R32,  .Operands) => execinstr( movsbl memVal(loadFromMemory(MemOff, 8)), R2:R32, .Operands)
   ...</k>
