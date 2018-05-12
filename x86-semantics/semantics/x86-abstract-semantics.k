@@ -5,24 +5,23 @@ module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
   imports MINT-WRAPPER
 
-  /*
-  context execinstr(_:Opcode (HOLE:Mem, .Operands):Operands)
-
-  context execinstr(_:Opcode (HOLE:Mem, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, .Operands):Operands)
-
-  context execinstr(_:Opcode (HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
-
-  context execinstr(_:Opcode (HOLE:Mem, _:Operand, _:Operand, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
-  */
-
   /*@
-  
+    X86-64 mnemonic allows the following ways of computing memory offsets.
+      (%rax)
+      -8 (%rax)
+      (, %rbx)
+      ( , %rbx, 4)
+      -8 (, %rbx)
+      -8 (, %rbx, 4)
+      (%rax, %rbx)
+      (%rax, %rbx, 4)
+      -8 (%rax, %rbx)
+      -8 (%rax, %rbx, 4)
+    
+    This means a memory instruction like `movq m64 R64` can have different variants. 
+
+    The following code streamlines the offset calculation so as to have a single rule for each memory 
+    instrcution.    
   */
   rule <k> (R1:R64):Mem => 
     memoffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1))))) 
@@ -352,6 +351,24 @@ module X86-ABSTRACT-SEMANTICS
     </regstate>
 
 
+endmodule
+
+  /*
+  context execinstr(_:Opcode (HOLE:Mem, .Operands):Operands)
+
+  context execinstr(_:Opcode (HOLE:Mem, _:Operand, .Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, .Operands):Operands)
+
+  context execinstr(_:Opcode (HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
+
+  context execinstr(_:Opcode (HOLE:Mem, _:Operand, _:Operand, _:Operand, .Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
+  */
+
   /*@
     Following states are using to define the initial and final
     states of register in the spec file. This is used to improve
@@ -441,4 +458,3 @@ module X86-ABSTRACT-SEMANTICS
       ("YMM14" |->  ?K38:K)
       ("YMM15" |->  ?K39:K)
   */
-endmodule
