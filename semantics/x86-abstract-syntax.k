@@ -17,6 +17,14 @@ module X86-ASBTRACT-SYNTAX
   syntax KItem ::= "fetch" [token]
   syntax KItem ::= "inforegisters" [token]
 
+  /*@
+    Functions like getRegisterValue 
+      execinstr(Opcode (R:Operand .Operands):Operands) are sometimes writen to 
+        execinstr(Opcode getRegisterValue(R) .Operands) 
+      which requires MInt to be a subSort of Operand.  
+
+      TODO: We can avoid such writes in baseInstruction and hence this subsorting.
+  */  
   syntax Operand ::= MInt
 
   /*@

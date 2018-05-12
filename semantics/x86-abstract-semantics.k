@@ -3,9 +3,56 @@ require "x86-general-utils.k"
 
 module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
-  //imports X86-GENERAL-UTILS
   imports MINT-WRAPPER
 
+  context execinstr(_:Opcode (HOLE:Operand, _:Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Operand, _:Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Operand, _:Operands):Operands)
+  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, _:Simpleoperand, HOLE:Operand, .Operands):Operands)
+
+  rule <k> (R1:R64):Mem => 
+    addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> I:Int (R1:R64):Mem => 
+    addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> (, R2:R64):Mem => 
+    addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> ( , R2:R64, S:Int):Mem => 
+    addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> I:Int (, R2:R64):Mem => 
+    addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> I:Int (, R2:R64, S:Int):Mem => 
+    addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> (R1:R64, R2:R64):Mem => 
+    addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> (R1:R64, R2:R64, S:Int):Mem => 
+    addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> I:Int (R1:R64, R2:R64):Mem => 
+    addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  rule <k> I:Int (R1:R64, R2:R64, S:Int):Mem => 
+    addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+      <regstate> RSMap </regstate>
+
+  /*@
+    Size of instructions.
+  */  
   rule getISize((OpC:Opcode OpR:Operands):Instruction) => 1
 
   /*@

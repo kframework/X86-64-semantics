@@ -2,19 +2,20 @@
 requires "x86-configuration.k"
 
 module MOVSBL-R32-M8
+/*
   imports X86-CONFIGURATION
 
   context 
     execinstr (movsbl HOLE:Mem, R2:R32,  .Operands)  
 
-  rule <k> (Off:Int (R:R64)):Mem => loadFromMemory(
-      addMInt(getRegisterValue(R, RSMap), mi(64, Off)), 8)
-  ...</k>
-    <regstate> RSMap </regstate>
-    
   rule <k>
-    execinstr (movsbl MV:MInt, R2:R32,  .Operands) => 
-      setRegisterValue( mi(32, svalueMInt(MV)), R2)
+    execinstr (movsbl MemOff:MInt, R2:R32,  .Operands) => execinstr( movsbl memVal(loadFromMemory(MemOff, 8)), R2:R32, .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr( movsbl MemVal:MInt, R2:R32, .Operands) =>
+      setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
+  ...</k>
+  */
 endmodule
