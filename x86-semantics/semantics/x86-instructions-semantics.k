@@ -1772,17 +1772,6 @@ vcvtpd2ps_xmm_ymm
   <regstate> RSMap </regstate>
 
 
-// movl-m32-imm32
-
-  rule <k> 
-    execinstr(movl IMM:Imm , O:Int ( R2:R64 ) , .Operands) => 
-         storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32),
-          addMInt(getRegisterValue(R2, RSMap), mi(64, O)), 
-          32)
-  ...</k>
-  <regstate> RSMap </regstate>
-
-
 // addl-r32-imm32
 
   rule <k> 
@@ -1814,10 +1803,7 @@ vcvtpd2ps_xmm_ymm
 // movl-m32-r32
 
   rule <k> 
-    execinstr (movl R1:R32,  I:Int ( R2:R64 ), .Operands) => 
-      storeToMemory(getRegisterValue(R1, RSMap), 
-          addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
-          32)
+    execinstr (movl R1:R32,  MemOff:MInt, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 32)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1825,12 +1811,7 @@ vcvtpd2ps_xmm_ymm
 // movb-r8-m8
 
   rule <k> 
-    execinstr (movb I:Int (R1:R64):Mem,  R2:R8, .Operands) => 
-      setRegisterValue(
-          loadFromMemory(
-            addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
-            8), 
-          R2)                         
+    execinstr (movb MemOff:MInt,  R2:R8, .Operands) => setRegisterValue( loadFromMemory( MemOff, 8), R2)                         
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1838,10 +1819,15 @@ vcvtpd2ps_xmm_ymm
 // movq-m64-r64
 
   rule <k> 
-    execinstr (movq R1:R64,  I:Int ( R2:R64 ), .Operands) => 
-      storeToMemory(getRegisterValue(R1, RSMap), 
-          addMInt(getRegisterValue(R2, RSMap), mi(64, I)), 
-          64)
+    execinstr (movq R1:R64,  MemOff:MInt, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// movl-m32-imm32
+
+  rule <k> 
+    execinstr(movl IMM:Imm , MemOff , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1849,31 +1835,27 @@ vcvtpd2ps_xmm_ymm
 // movq-r64-m64
 
   rule <k> 
-    execinstr (movq I:Int (R1:R64):Mem,  R2:R64, .Operands) => 
-      setRegisterValue(
-          loadFromMemory(
-            addMInt(getRegisterValue(R1, RSMap), mi(64, I)), 
-            64), 
-          R2)                         
+    execinstr (movq MemOff:MInt,  R2:R64, .Operands) => setRegisterValue( loadFromMemory( MemOff, 64), R2)                         
   ...</k>
   <regstate> RSMap </regstate>
 
 
 // movsbl-r32-m8
+/*
 
   context 
     execinstr (movsbl HOLE:Mem, R2:R32,  .Operands)  
 
-  rule <k> (Off:Int (R:R64)):Mem => loadFromMemory(
-      addMInt(getRegisterValue(R, RSMap), mi(64, Off)), 8)
-  ...</k>
-    <regstate> RSMap </regstate>
-    
   rule <k>
-    execinstr (movsbl MV:MInt, R2:R32,  .Operands) => 
-      setRegisterValue( mi(32, svalueMInt(MV)), R2)
+    execinstr (movsbl MemOff:MInt, R2:R32,  .Operands) => execinstr( movsbl memVal(loadFromMemory(MemOff, 8)), R2:R32, .Operands)
   ...</k>
     <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr( movsbl MemVal:MInt, R2:R32, .Operands) =>
+      setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
+  ...</k>
+  */
 
 
 // vfnmsub231pd-xmm-xmm-xmm

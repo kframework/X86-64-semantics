@@ -6,13 +6,13 @@ _start:
   movq $61438, %rax
   movq %rax, (%rsp)
 
-  addq $0xabcd, %rax
+  movq $0xabcd, %rax
   movq %rax, -8(%rsp)
 
-  addq $0xdcba, %rax
+  movq $0xdcba, %rax
   movq %rax, -16(, %rsp)
 
-  addq $0xdcba, %rax
+  movq $0xacbd, %rax
   movq %rax, -32(, %rsp, 1)
 
   movq (,%rsp), %rbx

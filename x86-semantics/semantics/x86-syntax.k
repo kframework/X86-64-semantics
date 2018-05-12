@@ -1,6 +1,7 @@
 module X86-SYNTAX
   imports INT
   imports STRING
+  imports MINT
 
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
@@ -14,14 +15,19 @@ module X86-SYNTAX
         
   syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
 
-  syntax Operands ::= List{Operand, ","} [klabel(typeoperandlist)]
+  syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
   syntax Operand ::=  Imm
 //                     | Mm
                        | Sreg
 //                     | St
-                       | Memoffs
-                       | Mem
+//                       | Memoffs
+                       | Mem 
                        | Register
+
+  syntax Simpleoperand ::= Register | Imm | MInt 
+  syntax Operand ::= Simpleoperand
+  syntax KResult ::= Simpleoperand
+
   syntax Register ::= Rh
                     | R8
                     | R16
@@ -29,55 +35,55 @@ module X86-SYNTAX
                     | R64
                     | Xmm
                     | Ymm
-  syntax Memoffs ::= Offset
-                   | Sreg ":" Offset
+//  syntax Memoffs ::= Offset
+//                   | Sreg ":" Offset
   syntax Offset ::= Int
   syntax Imm ::= "$" Int
                | HexConstant
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"
                | "(" Rip ")"
-               | Sreg ":" "(" R32 ")"
-               | Sreg ":" "(" R64 ")"
-               | Sreg ":" "(" Rip ")"
+ //              | Sreg ":" "(" R32 ")"
+ //              | Sreg ":" "(" R64 ")"
+ //              | Sreg ":" "(" Rip ")"
                | Offset "(" R32 ")"
                | Offset "(" R64 ")"
                | Offset "(" Rip ")"
-               | Sreg ":" Offset "(" R32 ")"
-               | Sreg ":" Offset "(" R64 ")"
-               | Sreg ":" Offset "(" Rip ")"
+//               | Sreg ":" Offset "(" R32 ")"
+//               | Sreg ":" Offset "(" R64 ")"
+//               | Sreg ":" Offset "(" Rip ")"
                | "(" "," R32 "," Scale ")"
                | "(" "," R64 "," Scale ")"
                | "(" "," R32 ")"
                | "(" "," R64 ")"
-               | Sreg ":" "(" "," R32 "," Scale ")"
-               | Sreg ":" "(" "," R64 "," Scale ")"
-               | Sreg ":" "(" "," R32 ")"
-               | Sreg ":" "(" "," R64 ")"
+//               | Sreg ":" "(" "," R32 "," Scale ")"
+//               | Sreg ":" "(" "," R64 "," Scale ")"
+//               | Sreg ":" "(" "," R32 ")"
+//               | Sreg ":" "(" "," R64 ")"
                | Offset "(" "," R32 "," Scale ")"
                | Offset "(" "," R64 "," Scale ")"
                | Offset "(" "," R32 ")"
                | Offset "(" "," R64 ")"
-               | Sreg ":" Offset "(" "," R32 "," Scale ")"
-               | Sreg ":" Offset "(" "," R64 "," Scale ")"
-               | Sreg ":" Offset "(" "," R32 ")"
-               | Sreg ":" Offset "(" "," R64 ")"
+//               | Sreg ":" Offset "(" "," R32 "," Scale ")"
+//               | Sreg ":" Offset "(" "," R64 "," Scale ")"
+//               | Sreg ":" Offset "(" "," R32 ")"
+//               | Sreg ":" Offset "(" "," R64 ")"
                | "(" R32 "," R32 "," Scale ")"
                | "(" R64 "," R64 "," Scale ")"
                | "(" R32 "," R32 ")"
                | "(" R64 "," R64 ")"
-               | Sreg ":" "(" R32 "," R32 "," Scale ")"
-               | Sreg ":" "(" R64 "," R64 "," Scale ")"
-               | Sreg ":" "(" R32 "," R32 ")"
-               | Sreg ":" "(" R64 "," R64 ")"
+//               | Sreg ":" "(" R32 "," R32 "," Scale ")"
+//               | Sreg ":" "(" R64 "," R64 "," Scale ")"
+//               | Sreg ":" "(" R32 "," R32 ")"
+//               | Sreg ":" "(" R64 "," R64 ")"
                | Offset "(" R32 "," R32 "," Scale ")"
                | Offset "(" R64 "," R64 "," Scale ")"
                | Offset "(" R32 "," R32 ")"
                | Offset "(" R64 "," R64 ")"
-               | Sreg ":" Offset "(" R32 "," R32 "," Scale ")"
-               | Sreg ":" Offset "(" R64 "," R64 "," Scale ")"
-               | Sreg ":" Offset "(" R32 "," R32 ")"
-               | Sreg ":" Offset "(" R64 "," R64 ")"
+//               | Sreg ":" Offset "(" R32 "," R32 "," Scale ")"
+//               | Sreg ":" Offset "(" R64 "," R64 "," Scale ")"
+//               | Sreg ":" Offset "(" R32 "," R32 ")"
+//               | Sreg ":" Offset "(" R64 "," R64 ")"
   syntax Rip ::= "%rip"
   syntax Scale ::= Int
   /*
