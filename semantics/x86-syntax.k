@@ -16,6 +16,8 @@ module X86-SYNTAX
   syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
 
   syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
+
+  syntax MemOffset ::= "memoffset" "(" MInt ")"                      
   syntax Operand ::=  Imm
 //                     | Mm
                        | Sreg
@@ -23,8 +25,10 @@ module X86-SYNTAX
 //                       | Memoffs
                        | Mem 
                        | Register
+                       | MemOffset
 
-  syntax Simpleoperand ::= Register | Imm | MInt 
+
+  syntax Simpleoperand ::= Register | Imm | MemOffset
   syntax Operand ::= Simpleoperand
   syntax KResult ::= Simpleoperand
 

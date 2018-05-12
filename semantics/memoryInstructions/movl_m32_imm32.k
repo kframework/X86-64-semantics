@@ -4,7 +4,7 @@ module MOVL-M32-IMM32
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr(movl IMM:Imm , MemOff , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
+    execinstr(movl IMM:Imm , memoffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
   ...</k>
   <regstate> RSMap </regstate>
 endmodule

@@ -11,43 +11,53 @@ module X86-ABSTRACT-SEMANTICS
   context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, _:Simpleoperand, HOLE:Operand, .Operands):Operands)
 
   rule <k> (R1:R64):Mem => 
-    addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))) ...</k>
+    memoffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1))))) 
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> I:Int (R1:R64):Mem => 
-    addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))) ...</k>
+    memoffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> (, R2:R64):Mem => 
-    addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+    memoffset( addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> ( , R2:R64, S:Int):Mem => 
-    addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+    memoffset( addMInt(mi(64, 0), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> I:Int (, R2:R64):Mem => 
-    addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+    memoffset( addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> I:Int (, R2:R64, S:Int):Mem => 
-    addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+    memoffset( addMInt(mi(64, I), addMInt(mi(64, 0), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> (R1:R64, R2:R64):Mem => 
-    addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+    memoffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> (R1:R64, R2:R64, S:Int):Mem => 
-    addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+    memoffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> I:Int (R1:R64, R2:R64):Mem => 
-    addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))) ...</k>
+    memoffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, 1)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   rule <k> I:Int (R1:R64, R2:R64, S:Int):Mem => 
-    addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))) ...</k>
+    memoffset( addMInt(mi(64, I), addMInt(getRegisterValue(R1, RSMap), mulMInt(getRegisterValue(R2, RSMap), mi(64, S)))))
+  ...</k>
       <regstate> RSMap </regstate>
 
   /*@
