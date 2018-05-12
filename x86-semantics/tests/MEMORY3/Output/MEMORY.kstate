@@ -10,18 +10,18 @@
   </nextLocPc>
   <memstate>
     <text>
-      locpc ( 64'0 ) |-> storedinstr ( pushq %rbp , .Typedoperands )
-      locpc ( 64'1 ) |-> storedinstr ( movq %rsp , %rbp , .Typedoperands )
-      locpc ( 64'2 ) |-> storedinstr ( movl $ 0 , -4 ( %rbp ) , .Typedoperands )
-      locpc ( 64'3 ) |-> storedinstr ( movl %edi , -8 ( %rbp ) , .Typedoperands )
-      locpc ( 64'4 ) |-> storedinstr ( movq %rsi , -16 ( %rbp ) , .Typedoperands )
-      locpc ( 64'5 ) |-> storedinstr ( movq -16 ( %rbp ) , %rsi , .Typedoperands )
-      locpc ( 64'6 ) |-> storedinstr ( movq 8 ( %rsi ) , %rsi , .Typedoperands )
-      locpc ( 64'7 ) |-> storedinstr ( movsbl 0 ( %rsi ) , %edi , .Typedoperands )
-      locpc ( 64'8 ) |-> storedinstr ( addl $ 42 , %edi , .Typedoperands )
-      locpc ( 64'9 ) |-> storedinstr ( movl %edi , %eax , .Typedoperands )
-      locpc ( 64'10 ) |-> storedinstr ( popq %rbp , .Typedoperands )
-      locpc ( 64'11 ) |-> storedinstr ( nop .Typedoperands )
+      locpc ( 64'0 ) |-> storedinstr ( pushq %rbp , .Operands )
+      locpc ( 64'1 ) |-> storedinstr ( movq %rsp , %rbp , .Operands )
+      locpc ( 64'2 ) |-> storedinstr ( movl $ 0 , -4 ( %rbp ) , .Operands )
+      locpc ( 64'3 ) |-> storedinstr ( movl %edi , -8 ( %rbp ) , .Operands )
+      locpc ( 64'4 ) |-> storedinstr ( movq %rsi , -16 ( %rbp ) , .Operands )
+      locpc ( 64'5 ) |-> storedinstr ( movq -16 ( %rbp ) , %rsi , .Operands )
+      locpc ( 64'6 ) |-> storedinstr ( movq 8 ( %rsi ) , %rsi , .Operands )
+      locpc ( 64'7 ) |-> storedinstr ( movsbl 0 ( %rsi ) , %edi , .Operands )
+      locpc ( 64'8 ) |-> storedinstr ( addl $ 42 , %edi , .Operands )
+      locpc ( 64'9 ) |-> storedinstr ( movl %edi , %eax , .Operands )
+      locpc ( 64'10 ) |-> storedinstr ( popq %rbp , .Operands )
+      locpc ( 64'11 ) |-> storedinstr ( nop .Operands )
     </text>
     <stack>
       <memory>
@@ -214,7 +214,8 @@
     "ZF" |-> 1'0
   </regstate>
   <regstatequeue>
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -253,7 +254,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -292,7 +294,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -331,7 +334,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -370,7 +374,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -409,7 +414,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -448,7 +454,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -487,7 +494,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -526,7 +534,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -565,7 +574,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -604,7 +614,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -643,7 +654,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
