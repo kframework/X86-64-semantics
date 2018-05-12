@@ -85,7 +85,7 @@ if ( "" ne $compare ) {
     my @kstates = processKFile( $basename, $filek );
     my @xstates = processXFile( $basename, $filex );
 
-    pprint( \@kstates, \@xstates );
+    #pprint( \@kstates, \@xstates );
 
     compareStates( $basename, \@kstates, \@xstates );
 }
