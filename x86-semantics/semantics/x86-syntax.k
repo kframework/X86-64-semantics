@@ -30,7 +30,7 @@ module X86-SYNTAX
 
   syntax Simpleoperand ::= Register | Imm | MemOffset
   syntax Operand ::= Simpleoperand
-  syntax KResult ::= Simpleoperand
+  syntax KResult ::= MemOffset
 
   syntax Register ::= Rh
                     | R8
