@@ -5,7 +5,7 @@ module MOVL-M32-IMM32
 
   context execinstr(movl:Opcode (_:Imm, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
-    execinstr(movl IMM:Imm , memoffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
+    execinstr(movl IMM:Imm , memOffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
   ...</k>
   <regstate> RSMap </regstate>
 endmodule

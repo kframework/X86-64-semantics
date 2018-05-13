@@ -5,10 +5,10 @@ module POPW-R16
 
   rule <k> 
     execinstr (popw R1:R16, .Operands) =>
+      incRSPInBytes(2) ~>
       setRegisterValue(
           loadFromMemory(getRegisterValue(%rsp, RSMap), 16), 
           R1) 
-      ~> incRSPInBytes(2)
   ...</k>
   <regstate> RSMap </regstate>
 endmodule

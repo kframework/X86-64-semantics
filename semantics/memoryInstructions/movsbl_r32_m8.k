@@ -6,12 +6,12 @@ module MOVSBL-R32-M8
 
   context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)  [result(MemOffset)]
 
-  rule <k> execinstr(movsbl:Opcode memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) => 
-    loadFromMemory( MemOff, 8) ~> execinstr(movsbl memoffset(MemOff), R2, .Operands)
+  rule <k> execinstr(movsbl:Opcode memOffset(MemOff:MInt):MemOffset, R2:R32, .Operands) => 
+    loadFromMemory( MemOff, 8) ~> execinstr(movsbl memOffset(MemOff), R2, .Operands)
   ...</k>
 
   rule <k>
-    memLoadValue (MemVal:MInt) ~> execinstr( movsbl memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
+    memLoadValue (MemVal:MInt) ~> execinstr( movsbl memOffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
       setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
   ...</k>
 endmodule

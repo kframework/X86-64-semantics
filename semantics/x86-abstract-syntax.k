@@ -10,6 +10,9 @@ module X86-ASBTRACT-SYNTAX
   syntax Abstractinstruction ::= storedinstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)
 
+  syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
+  syntax MemOffset ::= memOffset ( MInt )
+
   syntax Int ::= "addrSize"
   rule addrSize => 64 [macro]
 
@@ -56,6 +59,7 @@ module X86-ASBTRACT-SYNTAX
 
   syntax KResult ::= MInt               // joinVector evaluates to MInt 
                     | MemLoadValue      // loadFromMemory evaluates to MemLoadValue 
+                    | MemOffset         // evaluateMemOffset evaluate to MemOffset
 
   /*@
     Getting the registers values.
