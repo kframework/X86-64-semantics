@@ -124,7 +124,7 @@ module X86-MEMORY
 
 
   // x86 memory helper API implementation for load.
-  syntax MemLoadValue ::= fromMemValue(K, Int) [strict(1)]
+  syntax KItem ::= fromMemValue(K, Int) [strict(1)]
   rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => 
    memLoadValue ( fromBytes(takeMemData(N /Int 8, Bytes)) )
 
