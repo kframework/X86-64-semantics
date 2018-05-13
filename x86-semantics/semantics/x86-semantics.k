@@ -97,6 +97,7 @@ module X86-SEMANTICS
   imports X86-VERIFICATION-LEMMAS
   imports X86-INSTRUCTIONS-SEMANTICS
   imports X86-MEMORY
+  imports MINT-WRAPPER
   imports COMMON
 
 endmodule

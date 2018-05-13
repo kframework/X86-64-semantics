@@ -6,7 +6,9 @@ endmodule
 
 module X86-MEMORY-SYNTAX
   imports X86-MEMORY-SORT
-  imports MINT-WRAPPER-SYNTAX
+  imports MINT-WRAPPER-SORT
+  imports MINT
+  imports INT
 
   /*@
     Load Return Value Sort

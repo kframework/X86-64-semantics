@@ -4,10 +4,12 @@ require "common/common-memory.k"
 require "x86-memory.k"
 
 module X86-CONFIGURATION
+  imports X86-SYNTAX
   imports X86-ASBTRACT-SYNTAX
   imports COMMON-MEMORY-CONFIGURATION
   imports X86-MEMORY-SYNTAX
   imports X86-INIT-SYNTAX
+  imports MINT-WRAPPER-SYNTAX
 
   configuration <T>
     // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment($ARGV:List) ~> fetch </k>
