@@ -1,4 +1,4 @@
-requires "x86-general-utils.k"
+requires "x86-mint-wrapper.k"
 
 /*
 module INTEGER-LEMMAS

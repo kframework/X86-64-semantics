@@ -1,5 +1,4 @@
 require "x86-configuration.k"
-require "x86-general-utils.k"
 
 module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
