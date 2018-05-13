@@ -45,7 +45,6 @@ module X86-SYNTAX
 
   syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
 
-  syntax MemOffset ::= "memoffset" "(" MInt ")"                      
   syntax Operand ::=  Imm
 //                     | Mm
                        | Sreg

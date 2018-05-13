@@ -1722,52 +1722,22 @@ vcvtpd2ps_xmm_ymm
   
 
 
-// pushw-r16
+
+/*@
+  Push R: 
+  1. ValTostore = R
+  2. *(RSP-8)  = ValTostore
+  3. RSP = RSP - 8
+*/  
+// pushq-imm32
 
   rule <k> 
-    execinstr (pushw R1:R16, .Operands) =>
-      decRSPInBytes(2) ~> 
+    execinstr (pushq IMM_32:Imm, .Operands) =>
       storeToMemory(
-          getRegisterValue(R1, RSMap), 
-          getRegisterValue(%rsp, RSMap), 
-          16)    
-  ...</k>
-  <regstate> RSMap </regstate>
-
-
-// popq-r64
-
-  rule <k> 
-    execinstr (popq R1:R64, .Operands) =>
-      setRegisterValue(
-          loadFromMemory(getRegisterValue(%rsp, RSMap), 64), 
-          R1) 
-      ~> incRSPInBytes(8)
-  ...</k>
-  <regstate> RSMap </regstate>
-
-
-// popw-r16
-
-  rule <k> 
-    execinstr (popw R1:R16, .Operands) =>
-      setRegisterValue(
-          loadFromMemory(getRegisterValue(%rsp, RSMap), 16), 
-          R1) 
-      ~> incRSPInBytes(2)
-  ...</k>
-  <regstate> RSMap </regstate>
-
-
-// pushq-r64
-
-  rule <k> 
-    execinstr (pushq R1:R64, .Operands) =>
-      decRSPInBytes(8) ~> 
-      storeToMemory(
-          getRegisterValue(R1, RSMap), 
+          handleImmediateWithSignExtend(IMM_32, 32, 64), 
           subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 
-          64)    
+          64)  ~>  
+      decRSPInBytes(8)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1804,7 +1774,34 @@ vcvtpd2ps_xmm_ymm
 
   context execinstr(movl:Opcode (_:R32, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
-    execinstr (movl R1:R32,  memoffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 32)
+    execinstr (movl R1:R32,  memOffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 32)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+
+/*@
+  Push (R): 
+  1. ValTostore = (R)
+  2. *(RSP-8)  = ValTostore
+  3. RSP = RSP - 2
+*/  
+// pushw-m16
+
+  context execinstr(pushw:Opcode (HOLE:Mem, .Operands):Operands) [result(MemOffset)]
+  rule <k> 
+    execinstr (pushw memOffset ( MemOff:MInt ):MemOffset, .Operands) =>
+      loadFromMemory(MemOff, 16) ~> execinstr (pushw memOffset ( MemOff ), .Operands)
+  ...</k>
+
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (pushw memOffset ( MemOff:MInt ):MemOffset, .Operands)
+  =>
+      storeToMemory(MemVal, 
+          subMInt(getRegisterValue(%rsp, RSMap), mi(64, 2)), 
+          16)  ~>  
+      decRSPInBytes(2)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1813,7 +1810,7 @@ vcvtpd2ps_xmm_ymm
 
   context execinstr(movb:Opcode (HOLE:Mem, _:R8, .Operands):Operands) [result(MemOffset)]
   rule <k> 
-    execinstr (movb memoffset( MemOff:MInt):MemOffset ,  R2:R8, .Operands) => setRegisterValue( loadFromMemory( MemOff, 8), R2)                         
+    execinstr (movb memOffset( MemOff:MInt):MemOffset ,  R2:R8, .Operands) => setRegisterValue( loadFromMemory( MemOff, 8), R2)                         
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1822,16 +1819,99 @@ vcvtpd2ps_xmm_ymm
 
   context execinstr(movq:Opcode (_:R64, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
-    execinstr (movq R1:R64,  memoffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
+    execinstr (movq R1:R64,  memOffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
   ...</k>
   <regstate> RSMap </regstate>
+
+
+/*@
+  Pop (R): 
+  1. RSP = RSP + 8
+  2. ValTostore = *(RSP - 8)
+  3. *R =  ValTostore
+*/  
+// popq-m64
+
+
+  rule <k> 
+    execinstr (popq M64:Mem, .Operands) =>
+      incRSPInBytes(8) ~> 
+      loadFromMemory(getRegisterValue(%rsp, RSMap), 64) ~>
+      execinstr (popq M64, .Operands)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (popq M64:Mem, .Operands) =>
+      evaluateMemOffset(M64) ~> execinstr (popq M64:Mem, MemVal, .Operands)                          
+  ...</k>
+
+  rule <k> 
+    evaluateMemOffset( memOffset(MemOff:MInt):MemOffset ) ~> execinstr (popq _:Mem, MemVal:MInt, .Operands) => storeToMemory(MemVal, MemOff, 64) 
+  ...</k>
+
+
+
+/*@
+  Push (R): 
+  1. ValTostore = *(R)
+  2. *(RSP-8)  = ValTostore
+  3. RSP = RSP - 8
+*/  
+// pushq-m64
+
+  context execinstr(pushq:Opcode (HOLE:Mem, .Operands):Operands) [result(MemOffset)]
+  rule <k> 
+    execinstr (pushq memOffset ( MemOff:MInt ):MemOffset, .Operands) =>
+      loadFromMemory(MemOff, 64) ~> execinstr (pushq memOffset ( MemOff ), .Operands)
+  ...</k>
+
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (pushq memOffset ( MemOff:MInt ):MemOffset, .Operands)
+  =>
+      storeToMemory(MemVal, 
+          subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 
+          64)  ~>  
+      decRSPInBytes(8)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+/*@
+  Pop (R): 
+  1. RSP = RSP + 2
+  2. ValTostore = *(RSP - 2)
+  3. *R =  ValTostore
+*/  
+// popq-m64
+
+
+  rule <k> 
+    execinstr (popw M16:Mem, .Operands) =>
+      incRSPInBytes(2) ~> 
+      loadFromMemory(getRegisterValue(%rsp, RSMap), 16) ~>
+      execinstr (popw M16, .Operands)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (popw M16:Mem, .Operands) =>
+      evaluateMemOffset(M16) ~> execinstr (popw M16:Mem, MemVal, .Operands)                          
+  ...</k>
+
+  rule <k> 
+    evaluateMemOffset( memOffset(MemOff:MInt):MemOffset ) ~> execinstr (popw _:Mem, MemVal:MInt, .Operands) => storeToMemory(MemVal, MemOff, 16) 
+  ...</k>
+
+
 
 
 // movl-m32-imm32
 
   context execinstr(movl:Opcode (_:Imm, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
-    execinstr(movl IMM:Imm , memoffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
+    execinstr(movl IMM:Imm , memOffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1841,12 +1921,12 @@ vcvtpd2ps_xmm_ymm
   context execinstr(movq:Opcode (HOLE:Mem, _:R64, .Operands):Operands) [result(MemOffset)]
 
   rule <k> 
-    execinstr (movq memoffset( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => 
-      loadFromMemory(MemOff, 64)  ~> execinstr (movq memoffset( MemOff ),  R2, .Operands)
+    execinstr (movq memOffset( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => 
+      loadFromMemory(MemOff, 64)  ~> execinstr (movq memOffset( MemOff ),  R2, .Operands)
   ...</k>
 
   rule <k> 
-   memLoadValue (MemVal:MInt) ~> execinstr (movq memoffset ( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => setRegisterValue( MemVal, R2)                         
+   memLoadValue (MemVal:MInt) ~> execinstr (movq memOffset ( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => setRegisterValue( MemVal, R2)                         
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -1855,14 +1935,77 @@ vcvtpd2ps_xmm_ymm
 
   context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)  [result(MemOffset)]
 
-  rule <k> execinstr(movsbl:Opcode memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) => 
-    loadFromMemory( MemOff, 8) ~> execinstr(movsbl memoffset(MemOff), R2, .Operands)
+  rule <k> execinstr(movsbl:Opcode memOffset(MemOff:MInt):MemOffset, R2:R32, .Operands) => 
+    loadFromMemory( MemOff, 8) ~> execinstr(movsbl memOffset(MemOff), R2, .Operands)
   ...</k>
 
   rule <k>
-    memLoadValue (MemVal:MInt) ~> execinstr( movsbl memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
+    memLoadValue (MemVal:MInt) ~> execinstr( movsbl memOffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
       setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
   ...</k>
+
+
+// pushw-r16
+
+  rule <k> 
+    execinstr (pushw R1:R16, .Operands) =>
+      storeToMemory(
+          getRegisterValue(R1, RSMap), 
+          subMInt(getRegisterValue(%rsp, RSMap), mi(64, 2)),
+          16) ~>    
+      decRSPInBytes(2)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+// popw-r16
+
+  rule <k> 
+    execinstr (popw R1:R16, .Operands) =>
+      incRSPInBytes(2) ~>
+      setRegisterValue(
+          loadFromMemory(getRegisterValue(%rsp, RSMap), 16), 
+          R1) 
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+
+/*@
+  Push R: 
+  1. ValTostore = R
+  2. *(RSP-8)  = ValTostore
+  3. RSP = RSP - 8
+*/  
+// pushq-r64
+
+  rule <k> 
+    execinstr (pushq R1:R64, .Operands) =>
+      storeToMemory(
+          getRegisterValue(R1, RSMap), 
+          subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 
+          64)  ~>  
+      decRSPInBytes(8)
+  ...</k>
+  <regstate> RSMap </regstate>
+
+
+/*@
+  Pop R: 
+  1. RSP = RSP + 8
+  2. ValTostore = *(RSP - 8)
+  3. R =  ValTostore)
+*/  
+// popq-r64
+
+  rule <k> 
+    execinstr (popq R1:R64, .Operands) =>
+      incRSPInBytes(8) ~>
+      setRegisterValue(
+          loadFromMemory(getRegisterValue(%rsp, RSMap), 64), 
+          R1) 
+  ...</k>
+  <regstate> RSMap </regstate>
 
 
 // vfnmsub231pd-xmm-xmm-xmm

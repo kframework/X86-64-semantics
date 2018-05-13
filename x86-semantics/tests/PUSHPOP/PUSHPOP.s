@@ -21,4 +21,7 @@ _start:
   pushw 24(%rsp)
   popw 8(%rsp) 
 
+  pushq $0xabcd
+  popw -16(%rsp)
+
   nop
