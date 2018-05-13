@@ -1,6 +1,8 @@
 requires "x86-syntax.k"
+requires "x86-memory.k"
 
 module X86-ASBTRACT-SYNTAX
+  imports X86-MEMORY-SORT
   imports MAP
   imports MINT
   imports X86-SYNTAX
@@ -51,7 +53,9 @@ module X86-ASBTRACT-SYNTAX
       starting from lsb 8.
   */
   syntax KItem ::= setRegisterValue(K, Register) [strict(1)]
-  syntax KResult ::= MInt
+
+  syntax KResult ::= MInt               // joinVector evaluates to MInt 
+                    | MemLoadValue      // loadFromMemory evaluates to MemLoadValue 
 
   /*@
     Getting the registers values.

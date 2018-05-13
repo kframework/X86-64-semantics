@@ -1,8 +1,17 @@
 require "x86-configuration.k"
 
+module X86-MEMORY-SORT
+  syntax MemLoadValue
+endmodule
+
 module X86-MEMORY-SYNTAX
+  imports X86-MEMORY-SORT
   imports MINT-WRAPPER-SYNTAX
 
+  /*@
+    Load Return Value Sort
+  */
+  syntax MemLoadValue ::= memLoadValue ( MInt )
 
   syntax Bool ::= isAddressAlignedAt(
                     /* alignment requirement in bits */ Int,
@@ -115,13 +124,15 @@ module X86-MEMORY
 
 
   // x86 memory helper API implementation for load.
-  syntax KItem ::= fromMemValue(K, Int) [strict(1)]
-  rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => fromBytes(takeMemData(N /Int 8, Bytes))
+  syntax MemLoadValue ::= fromMemValue(K, Int) [strict(1)]
+  rule fromMemValue(mList(_:Int, 8, Bytes:MemData), N:Int) => 
+   memLoadValue ( fromBytes(takeMemData(N /Int 8, Bytes)) )
+
 
   syntax MInt ::= fromBytes(MemData) [function]
-  rule fromBytes(byte(I:Int, MI:MInt) Rest) => extractMask(MI, 8, I *Int 8)
+  rule fromBytes(byte(I:Int, MI:MInt) Rest) =>  extractMask(MI, 8, I *Int 8)
     requires Rest ==K .MemData
-  rule fromBytes(byte(I:Int, MI:MInt) Rest:MemData) => concatenateMInt(fromBytes(Rest), extractMask(MI, 8, I *Int 8))
+  rule fromBytes(byte(I:Int, MI:MInt) Rest:MemData) =>  concatenateMInt(fromBytes(Rest), extractMask(MI, 8, I *Int 8))
     requires Rest =/=K .MemData
 
   // x86 memory API implementation

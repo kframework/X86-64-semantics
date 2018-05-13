@@ -1802,7 +1802,7 @@ vcvtpd2ps_xmm_ymm
 
 // movl-m32-r32
 
-  context execinstr(movl:Opcode (_:R32, HOLE:Mem, .Operands):Operands)
+  context execinstr(movl:Opcode (_:R32, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
     execinstr (movl R1:R32,  memoffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 32)
   ...</k>
@@ -1811,7 +1811,7 @@ vcvtpd2ps_xmm_ymm
 
 // movb-r8-m8
 
-  context execinstr(movb:Opcode (HOLE:Mem, _:R8, .Operands):Operands)
+  context execinstr(movb:Opcode (HOLE:Mem, _:R8, .Operands):Operands) [result(MemOffset)]
   rule <k> 
     execinstr (movb memoffset( MemOff:MInt):MemOffset ,  R2:R8, .Operands) => setRegisterValue( loadFromMemory( MemOff, 8), R2)                         
   ...</k>
@@ -1820,7 +1820,7 @@ vcvtpd2ps_xmm_ymm
 
 // movq-m64-r64
 
-  context execinstr(movq:Opcode (_:R64, HOLE:Mem, .Operands):Operands)
+  context execinstr(movq:Opcode (_:R64, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
     execinstr (movq R1:R64,  memoffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
   ...</k>
@@ -1829,7 +1829,7 @@ vcvtpd2ps_xmm_ymm
 
 // movl-m32-imm32
 
-  context execinstr(movl:Opcode (_:Imm, HOLE:Mem, .Operands):Operands)
+  context execinstr(movl:Opcode (_:Imm, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
     execinstr(movl IMM:Imm , memoffset( MemOff ):MemOffset , .Operands) => storeToMemory(handleImmediateWithSignExtend(IMM, 32, 32), MemOff,   32)
   ...</k>
@@ -1838,28 +1838,31 @@ vcvtpd2ps_xmm_ymm
 
 // movq-r64-m64
 
-  context execinstr(movq:Opcode (HOLE:Mem, _:R64, .Operands):Operands)
+  context execinstr(movq:Opcode (HOLE:Mem, _:R64, .Operands):Operands) [result(MemOffset)]
+
   rule <k> 
-    execinstr (movq memoffset( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => setRegisterValue( loadFromMemory( MemOff, 64), R2)                         
+    execinstr (movq memoffset( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => 
+      loadFromMemory(MemOff, 64)  ~> execinstr (movq memoffset( MemOff ),  R2, .Operands)
+  ...</k>
+
+  rule <k> 
+   memLoadValue (MemVal:MInt) ~> execinstr (movq memoffset ( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => setRegisterValue( MemVal, R2)                         
   ...</k>
   <regstate> RSMap </regstate>
 
 
 // movsbl-r32-m8
 
-  context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)
+  context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)  [result(MemOffset)]
 
-                                                               /*
-  rule <k>
-    execinstr (movsbl MemOff:MInt, R2:R32,  .Operands) => execinstr( movsbl memVal(loadFromMemory(MemOff, 8)), R2:R32, .Operands)
+  rule <k> execinstr(movsbl:Opcode memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) => 
+    loadFromMemory( MemOff, 8) ~> execinstr(movsbl memoffset(MemOff), R2, .Operands)
   ...</k>
-    <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr( movsbl MemVal:MInt, R2:R32, .Operands) =>
+    memLoadValue (MemVal:MInt) ~> execinstr( movsbl memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
       setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
   ...</k>
-  */
 
 
 // vfnmsub231pd-xmm-xmm-xmm
