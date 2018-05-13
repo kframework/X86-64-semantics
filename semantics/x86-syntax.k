@@ -1,4 +1,32 @@
+module X86-SORT
+  syntax Instructions
+  syntax Instruction
+  syntax Label
+  syntax HexConstant
+  syntax Operands
+  syntax MemOffset
+  syntax Operand
+  syntax Simpleoperand
+  syntax Operand
+  syntax Register
+  syntax Offset
+  syntax Imm
+  syntax Mem
+  syntax Rip
+  syntax Scale
+  syntax Rh
+  syntax R8
+  syntax R16
+  syntax R32
+  syntax R64
+  syntax Sreg
+  syntax Xmm
+  syntax Ymm
+  syntax Opcode
+endmodule
+
 module X86-SYNTAX
+  imports X86-SORT
   imports INT
   imports STRING
   imports MINT

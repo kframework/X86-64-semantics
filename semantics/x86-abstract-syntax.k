@@ -1,11 +1,11 @@
-requires "x86-syntax.k"
-requires "x86-memory.k"
+require "x86-syntax.k"
+require "x86-memory.k"
 
 module X86-ASBTRACT-SYNTAX
   imports X86-MEMORY-SORT
   imports MAP
   imports MINT
-  imports X86-SYNTAX
+  imports X86-SORT
 
   syntax Abstractinstruction ::= storedinstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)

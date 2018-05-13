@@ -1,4 +1,12 @@
+module MINT-WRAPPER-SORT
+  syntax MIntMap
+  syntax MInts
+  syntax Floats
+  syntax Ints
+endmodule
+
 module MINT-WRAPPER-SYNTAX
+  imports MINT-WRAPPER-SORT
   imports MINT
   imports FLOAT
   imports STRING
