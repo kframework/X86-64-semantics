@@ -2,7 +2,6 @@
 *.exec
 .idea/
 *.iml
-!*.dot
 *.pyc
 *.swp
 *.swo
