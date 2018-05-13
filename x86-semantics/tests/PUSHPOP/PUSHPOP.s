@@ -10,14 +10,15 @@ _start:
   pushw %sp
   popw %sp
 
-  movq $0xabcd, (%rsp)
-  pushq (%rsp)
+  pushq %rsp
+  pushw %sp
+  popw %bx
+  popq %rax
+
+  pushq 16(%rsp)
   popq (%rsp) 
   
-  pushw (%rsp)
-  popw (%rsp) 
-
-  pushq $0xef89
-  popq (%rsp)
+  pushw 24(%rsp)
+  popw 8(%rsp) 
 
   nop
