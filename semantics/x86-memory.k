@@ -1,4 +1,5 @@
 require "x86-configuration.k"
+require "x86-mint-wrapper.k"
 
 module X86-MEMORY-SORT
   syntax MemLoadValue

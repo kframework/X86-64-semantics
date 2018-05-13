@@ -1,7 +1,9 @@
-require "x86-general-utils.k"
+require "x86-syntax.k"
 require "x86-abstract-syntax.k"
 require "common/common-memory.k"
 require "x86-memory.k"
+require "x86-env-init.k"
+require "x86-mint-wrapper.k"
 
 module X86-CONFIGURATION
   imports X86-SYNTAX
