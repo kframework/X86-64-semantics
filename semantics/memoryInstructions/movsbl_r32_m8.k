@@ -4,17 +4,14 @@ requires "x86-configuration.k"
 module MOVSBL-R32-M8
   imports X86-CONFIGURATION
 
-  context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)
+  context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)  [result(MemOffset)]
 
-                                                               /*
-  rule <k>
-    execinstr (movsbl MemOff:MInt, R2:R32,  .Operands) => execinstr( movsbl memVal(loadFromMemory(MemOff, 8)), R2:R32, .Operands)
+  rule <k> execinstr(movsbl:Opcode memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) => 
+    loadFromMemory( MemOff, 8) ~> execinstr(movsbl memoffset(MemOff), R2, .Operands)
   ...</k>
-    <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr( movsbl MemVal:MInt, R2:R32, .Operands) =>
+    memLoadValue (MemVal:MInt) ~> execinstr( movsbl memoffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
       setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
   ...</k>
-  */
 endmodule

@@ -255,6 +255,8 @@ module X86-ABSTRACT-SEMANTICS
     Ex. setRegisterValue(M8, %ah): Updates 8 bits in rax
       starting from lsb 8.
   */
+  rule <k> setRegisterValue(memLoadValue( MI:MInt ):MemLoadValue, R:Register) => setRegisterValue(MI, R)  ...</k>
+
   rule <k> setRegisterValue(MI64:MInt, R:R64) => .  ...</k>
     <regstate>... convToRegKeys(R) |-> (_ => MI64) ...</regstate>
 
