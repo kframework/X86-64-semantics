@@ -142,16 +142,22 @@ module X86-MEMORY
 
   /*@
     Allocate stack memory: Used for allocating stack memory and saving the stack base address
-    N ::= Environment Memor (upper 64 slots) + Stack Memory (Rest)
+    N ::= Environment Memory (8 byte fake return address + upper 64 slots) + Stack Memory (Rest)
+
+      *    *
+   A: *----* <-- rsp, rbp
+      *    *                |
+ A+8: *    * <-- argv       |
+      *    *                v (High Adress)
   */
   rule <k> allocateStackMemory(N:Int, A:Int) =>  
     saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
-      //<regstate> RSMAP => RSMAP["RSP" <- mi(addrSize, N -Int 64)] </regstate>
       <regstate> RSMap => updateMap(RSMap,
                           ("RSP"  |->  mi(addrSize, N -Int 64)) 
                           ("RBP"  |->  mi(addrSize, N -Int 64)) ) 
       </regstate>
-      <argv> _ => mi(addrSize, N -Int 64) </argv>
+      <argv> _ => mi(addrSize, N -Int 64 +Int 8) </argv>
+      <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, N -Int 64))  </stackbase>
 
   /*@
     Save the allocation id for later reads/writes/free.
@@ -159,7 +165,8 @@ module X86-MEMORY
   syntax KItem ::=  saveAllocPointer(K) [strict(1)]
   rule <k> saveAllocPointer(L:MemLoc) => .
   ... </k>
-    <stackbase> _:K => L:MemLoc </stackbase>
+    //<stackbase> _:K => L:MemLoc </stackbase>
+    <stackbase> stackBaseInfo(_:K => L, _:K)  </stackbase>
 
   /*@
     Allocate memory: Used for allocating local memory
@@ -173,7 +180,7 @@ module X86-MEMORY
   ... </k>
 
   rule <k> freeMemory => mClear(Loc) ... </k>
-    <stackbase> Loc:MemLoc </stackbase>
+    <stackbase> stackBaseInfo( Loc:MemLoc, _:K) </stackbase>
 
   /*@
     Load memory Nbits:Int bits from Address represented AddrMI:MInt
@@ -182,7 +189,7 @@ module X86-MEMORY
     loadFromMemory(AddrMI:MInt, Nbits:Int) =>
       fromMemValue(mRead(L, uvalueMInt(AddrMI) *Int 8, Nbits /Int 8, 8), Nbits)
   ... </k>
-    <stackbase> L </stackbase>
+    <stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
       requires Nbits %Int 8 ==Int 0
 
   /*@
@@ -191,7 +198,7 @@ module X86-MEMORY
   rule <k>
     storeToMemory(Val:StoreVal, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
   ... </k>
-    <stackbase> L </stackbase>
+    <stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
       requires Nbits %Int 8 ==Int 0
 
 endmodule
