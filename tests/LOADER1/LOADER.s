@@ -1,4 +1,4 @@
-_main:
+main:
   pushq %rbp
   movq %rsp, %rbp
   //subq $16, %rsp
@@ -11,7 +11,7 @@ _main:
   // leave
   // ret
 
-_testFunction:
+testFunction:
   pushq %rbp
   movq %rsp, %rbp
   //movl %edi, -4(%rbp)

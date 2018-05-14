@@ -3,8 +3,8 @@
     exit_0
   </k>
   <functargets>
-    _main |-> 64'0
-    _testFunction |-> 64'3
+    "main" |-> 64'0
+    "testFunction" |-> 64'3
   </functargets>
   <entrypoint>
     64'0
