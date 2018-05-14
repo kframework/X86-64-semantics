@@ -79,7 +79,8 @@ module X86-INSTRUCTIONS-SEMANTICS
 // nop
 
   rule <k>
-    execinstr (nop  .Operands) ~> inforegisters ~> fetch => .
+    //execinstr (nop  .Operands) ~> inforegisters ~> fetch => .
+    execinstr (nop  .Operands)  => .
   ...</k>
 
 
@@ -1958,6 +1959,61 @@ vcvtpd2ps_xmm_ymm
   <regstate> RSMap </regstate>
 
 
+
+// retq
+
+  rule <k> 
+    execinstr (retq .Operands) => 
+    incRSPInBytes(8) ~>
+    loadFromMemory(getRegisterValue(%rsp, RSMap), 64)
+    ~> execinstr(retq .Operands)
+  ...</k>
+    <regstate> RSMap </regstate>
+
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (retq .Operands) =>  .
+  ...</k>
+      <regstate>... "RIP" |-> ( PC => MemVal)  ...</regstate>
+
+// jge-label
+
+  rule <k> 
+    execinstr (jge LabelId:Id, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap) 
+        andBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+
+
+
+// jmpq-label
+
+  rule <k> 
+    execinstr (jmpq LabelId:Id, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap)
+
+// jl-label
+
+  rule <k> 
+    execinstr (jl LabelId:Id, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap) 
+        andBool ( 
+              notBool 
+                eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+                )
+
+
 // popw-r16
 
   rule <k> 
@@ -1968,6 +2024,52 @@ vcvtpd2ps_xmm_ymm
           R1) 
   ...</k>
   <regstate> RSMap </regstate>
+
+
+
+// je-label
+
+  rule <k> 
+    execinstr (je LabelId:Id, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap) andBool eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1))
+
+
+
+// callq-m64
+
+  context execinstr(callq:Opcode (HOLE:Mem, .Operands):Operands) [result(MemOffset)]
+
+  rule <k> 
+    execinstr (callq memOffset(MemOff:MInt):MemOffset, .Operands) => 
+      loadFromMemory(MemOff, 64) ~> execinstr (callq memOffset ( MemOff ), .Operands)
+  ...</k>
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (callq memOffset(MemOff:MInt):MemOffset, .Operands) => 
+      storeToMemory({RSMap["RIP"]}:>MInt, subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 64)  
+      ~>  decRSPInBytes(8)
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> MemVal))</regstate>
+
+
+
+// jmpq-m64
+
+  context execinstr(jmpq:Opcode (HOLE:Mem, .Operands):Operands) [result(MemOffset)]
+
+  rule <k> 
+    execinstr (jmpq memOffset(MemOff:MInt):MemOffset, .Operands) => 
+      loadFromMemory(MemOff, 64) ~> execinstr (jmpq memOffset ( MemOff ), .Operands)
+  ...</k>
+
+  rule <k> 
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (jmpq memOffset(MemOff:MInt):MemOffset, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> MemVal))</regstate>
 
 
 
@@ -1990,6 +2092,46 @@ vcvtpd2ps_xmm_ymm
   <regstate> RSMap </regstate>
 
 
+
+// retq
+
+  rule <k> 
+    execinstr (leaveq .Operands) => 
+      execinstr(movq %rbp, %rsp, .Operands) ~> 
+      execinstr(popq %rbp, .Operands)
+  ...</k>
+
+
+
+// callq-label
+
+  rule <k> 
+    execinstr (callq LabelId:Id, .Operands) => 
+      storeToMemory({RSMap["RIP"]}:>MInt, subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 64)  
+      ~>  decRSPInBytes(8)
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap)
+
+// jle-label
+
+  rule <k> 
+    execinstr (jle LabelId:Id, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap) 
+        andBool ( 
+              eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1)) 
+            orBool 
+              notBool 
+                eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+                )
+
+
 /*@
   Pop R: 
   1. RSP = RSP + 8
@@ -2006,6 +2148,43 @@ vcvtpd2ps_xmm_ymm
           R1) 
   ...</k>
   <regstate> RSMap </regstate>
+
+// jg-label
+
+  rule <k> 
+    execinstr (jg LabelId:Id, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      </regstate>
+      <functargets> LabelMap </functargets>
+        requires Id2String(LabelId) in_keys (LabelMap) 
+        andBool ( 
+              eqMInt({RSMap["ZF"]}:>MInt, mi(1, 0)) 
+            andBool 
+                eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+                )
+
+
+
+
+// jmpq-r64
+
+  rule <k> 
+    execinstr (jmpq R1:R64, .Operands) => .
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> getRegisterValue(R1, RSMap)))</regstate>
+
+
+
+
+// callq-r64
+
+  rule <k> 
+    execinstr (callq R1:R64, .Operands) => 
+      storeToMemory({RSMap["RIP"]}:>MInt, subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 64)  
+      ~>  decRSPInBytes(8)
+  ...</k>
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> getRegisterValue(R1, RSMap)))</regstate>
 
 
 // vfnmsub231pd-xmm-xmm-xmm

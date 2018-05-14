@@ -41,7 +41,7 @@ module X86-SYNTAX
                        | ".section" ".text" [token]
                        | ".globl" "_start"  [token]
 
-  syntax LabelID ::= r"\\_[a-zA-Z\\.\\_\\-\\$][0-9a-zA-Z\\.\\_\\-\\$]*" [token, notInRules]
+  //syntax LabelID ::= r"\\_[a-zA-Z\\.\\_\\-\\$][0-9a-zA-Z\\.\\_\\-\\$]*" [token, notInRules]
   //syntax Label ::= LabelID ":"
   syntax Label ::= Id ":"
                      
@@ -59,6 +59,7 @@ module X86-SYNTAX
                        | Mem 
                        | Register
                        | MemOffset
+                       | Id 
 
 
   syntax Simpleoperand ::= Register | Imm | MemOffset 
@@ -1171,4 +1172,13 @@ module X86-SYNTAX
                   | "xorps"
                   | "xorq"
                   | "xorw"
+                  | "callq"
+                  | "retq"
+                  | "leaveq"
+                  | "jmpq"
+                  | "je"
+                  | "jle"
+                  | "jg"
+                  | "jge"
+                  | "jl"
 endmodule

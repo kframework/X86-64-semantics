@@ -8,12 +8,20 @@ module X86-ASBTRACT-SYNTAX
   imports X86-MEMORY-SORT
 
 
+  /*@
+    Sorts of config cell entities
+  */  
   syntax CodeInMemory ::= code(/*iloc(MInt) -> storeInstr(Instruction)*/ Map)
   syntax Int ::= iloc(MInt)
+  syntax StackBaseInfo ::= stackBaseInfo(/*MemLoc, Intial Offset*/ K, K)
 
   syntax Abstractinstruction ::= storedInstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)
 
+  /*@
+    Used for late evaluation of memory offset in case of instructions
+    like popq_m64
+  */
   syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
   syntax MemOffset ::= memOffset ( MInt )
 

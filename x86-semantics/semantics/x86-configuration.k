@@ -18,7 +18,12 @@ module X86-CONFIGURATION
     // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(ListItem("a.out")  .List) ~> fetch </k>
 
     // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(.List) ~> fetch </k>
-    <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> fetch </k>
+    <k> 
+	$PGM:Instructions ~> 
+	initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
+	inforegisters ~> 
+	fetch 
+    </k>
 
     <functargets> .Map </functargets> 
     <entrypoint> mi(64, 0) </entrypoint>
@@ -28,7 +33,7 @@ module X86-CONFIGURATION
       <text> code( .Map ) </text>
       <stack>
         <memory/>
-        <stackbase> .K </stackbase>
+        <stackbase> stackBaseInfo(.K, .K) </stackbase>
       </stack>
     </memstate>
 
