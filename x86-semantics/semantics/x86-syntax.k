@@ -39,7 +39,11 @@ module X86-SYNTAX
                        | Opcode Operands
                        | ".section" ".text" [token]
                        | ".globl" "_start"  [token]
-  syntax Label ::=  "_start" ":" [token]
+
+  syntax LabelID ::= r"\\_[a-zA-Z\\.\\_\\-\\$][0-9a-zA-Z\\.\\_\\-\\$]*" [token, notInRules]
+  syntax Label ::= LabelID ":"
+                     
+  //syntax Label ::=  NamedID ":" 
         
   syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
 

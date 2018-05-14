@@ -13,9 +13,13 @@ module X86-LOADER
   */
   rule <k> .section .text  => . ...</k>
   rule <k> .globl _start  => . ...</k>
+
+
   // Both will work
-  //rule <k> L:Label => . ...</k>
-  rule <k> _start: => . ...</k>
+  //rule <k> _start: => . ...</k>
+  rule <k> (LabelName:LabelID:):Label => . ...</k>
+        <functargets> FMap:Map => FMap[LabelName <- L] </functargets>
+        <nextLocPc> L </nextLocPc>
 
   /*@
     Load the instructions into Code memory.
@@ -23,8 +27,9 @@ module X86-LOADER
     avoid on instructions like .section ...
   */
   rule  <k> OpC:Opcode OpR:Operands => . ...</k>
-        <text>... .Map => iloc(L) |-> storedinstr(OpC OpR) ...</text>
-        <nextLocPc> L => addMInt(L, mi(64, getISize(OpC OpR))) </nextLocPc>
+        <text> code(M:Map => M[iloc(L) <- storedInstr(OpC OpR)])</text>
+        //<nextLocPc> L:MInt => addMInt(L, mi(64, getISize(OpC OpR))) </nextLocPc>
+        <nextLocPc> L:MInt => addMInt(L, mi(64, 1)) </nextLocPc>
   /*@
     After loading the last instrution to Code memory, rip is set to the next instrcution to execute.
   */

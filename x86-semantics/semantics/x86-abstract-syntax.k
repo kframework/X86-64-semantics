@@ -7,7 +7,11 @@ module X86-ASBTRACT-SYNTAX
   imports X86-SORT
   imports X86-MEMORY-SORT
 
-  syntax Abstractinstruction ::= storedinstr(Instruction)
+
+  syntax CodeInMemory ::= code(/*iloc(MInt) -> storeInstr(Instruction)*/ Map)
+  syntax Int ::= iloc(MInt)
+
+  syntax Abstractinstruction ::= storedInstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)
 
   syntax KItem ::= evaluateMemOffset (K) [strict(1)] 
@@ -16,7 +20,6 @@ module X86-ASBTRACT-SYNTAX
   syntax Int ::= "addrSize"
   rule addrSize => 64 [macro]
 
-  syntax Int ::= iloc(MInt)
   syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]

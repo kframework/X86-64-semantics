@@ -8,7 +8,7 @@ module X86-FETCH-EXECUTE
   */
   rule
     <k> fetch => execinstr(OpC OpR) ~> inforegisters ~> fetch ... </k>
-      <text>... iloc(PC) |-> storedinstr(OpC OpR)   ...</text>
+      <text>code(iloc(PC) |-> storedInstr(OpC OpR) _:Map) </text>
       <regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64,getISize(OpC OpR))))  ...</regstate>
 
   /*@ This rule need to used in future. Currently the execution is
