@@ -2,6 +2,7 @@ requires "x86-configuration.k"
 
 module X86-LOADER
   imports X86-CONFIGURATION
+  imports ID
 
   /*@
     Unroll intructions into KList.
@@ -17,8 +18,8 @@ module X86-LOADER
 
   // Both will work
   //rule <k> _start: => . ...</k>
-  rule <k> (LabelName:LabelID:):Label => . ...</k>
-        <functargets> FMap:Map => FMap[LabelName <- L] </functargets>
+  rule <k> (LabelName:Id:):Label => . ...</k>
+        <functargets> FMap:Map => FMap[Id2String(LabelName) <- L] </functargets>
         <nextLocPc> L </nextLocPc>
 
   /*@

@@ -30,6 +30,7 @@ module X86-SYNTAX
   imports INT
   imports STRING
   imports MINT
+  imports ID
 
   /*@ 
     The following captures  the At&t syntax of x86 assembly.
@@ -41,7 +42,8 @@ module X86-SYNTAX
                        | ".globl" "_start"  [token]
 
   syntax LabelID ::= r"\\_[a-zA-Z\\.\\_\\-\\$][0-9a-zA-Z\\.\\_\\-\\$]*" [token, notInRules]
-  syntax Label ::= LabelID ":"
+  //syntax Label ::= LabelID ":"
+  syntax Label ::= Id ":"
                      
   //syntax Label ::=  NamedID ":" 
         
