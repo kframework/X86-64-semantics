@@ -23,7 +23,7 @@ module X86-LOADER
     avoid on instructions like .section ...
   */
   rule  <k> OpC:Opcode OpR:Operands => . ...</k>
-        <text>... .Map => locpc(L) |-> storedinstr(OpC OpR) ...</text>
+        <text>... .Map => iloc(L) |-> storedinstr(OpC OpR) ...</text>
         <nextLocPc> L => addMInt(L, mi(64, getISize(OpC OpR))) </nextLocPc>
   /*@
     After loading the last instrution to Code memory, rip is set to the next instrcution to execute.

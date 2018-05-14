@@ -16,7 +16,7 @@ module X86-ASBTRACT-SYNTAX
   syntax Int ::= "addrSize"
   rule addrSize => 64 [macro]
 
-  syntax Int ::= locpc(MInt)
+  syntax Int ::= iloc(MInt)
   syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]

@@ -21,6 +21,7 @@ module X86-CONFIGURATION
     <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> fetch </k>
     <entrypoint> mi(64, 0) </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
+
     <memstate>
       <text> .Map </text>
       <stack>
