@@ -1,6 +1,11 @@
 requires "x86-configuration.k"
 
+module X86-LOADER-SYNTAX
+  syntax KItem ::= "loadEntryPoint" 
+endmodule
+
 module X86-LOADER
+  imports X86-LOADER-SYNTAX
   imports X86-CONFIGURATION
   imports ID
 
@@ -17,10 +22,11 @@ module X86-LOADER
   rule <k> _:AssemblerDirective  => . ...</k>
 
 
-  // Both will work
-  //rule <k> _start: => . ...</k>
-  rule <k> (LabelName:Id:):Label => . ...</k>
-        <functargets> FMap:Map => FMap[LabelName <- L] </functargets>
+  /*@
+    Record the PC corresponding to labels. 
+  */  
+  rule <k> (LabelId:X86Id:):Label => . ...</k>
+        <functargets> FMap:Map => FMap[LabelId <- L] </functargets>
         <nextLocPc> L </nextLocPc>
 
   /*@
@@ -30,14 +36,22 @@ module X86-LOADER
   */
   rule  <k> OpC:Opcode OpR:Operands => . ...</k>
         <text> code(M:Map => M[iloc(L) <- storedInstr(OpC OpR)])</text>
-        //<nextLocPc> L:MInt => addMInt(L, mi(64, getISize(OpC OpR))) </nextLocPc>
         <nextLocPc> L:MInt => addMInt(L, mi(64, 1)) </nextLocPc>
 
-  /*@
-    After loading the last instrution to Code memory, 
-    RIP is set to the entry point address to begin execution.
-  */
   rule  <k>.Instructions => .K ...</k>
+
+  /*@
+    RIP is set to the entry point address corresponding to labels
+    'main' or '_start' in order to begin execution.
+  */
+  rule  <k> loadEntryPoint => .K ...</k>
         <regstate> RSMap => RSMap["RIP" <- LoadAddr] </regstate>
-        <entrypoint> LoadAddr </entrypoint>
+        <entrypoint> _:K => LoadAddr </entrypoint>
+        <functargets>...  main:X86Id |-> LoadAddr:MInt  ...</functargets>
+
+  rule  <k> loadEntryPoint => .K ...</k>
+        <regstate> RSMap => RSMap["RIP" <- LoadAddr] </regstate>
+        <entrypoint> _:K => LoadAddr </entrypoint>
+        <functargets>...  _start:X86Id |-> LoadAddr:MInt  ...</functargets>
+
 endmodule

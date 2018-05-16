@@ -41,6 +41,13 @@ module X86-SYNTAX
                        | Label
 
   syntax X86Id ::= Id
+
+  /*@
+    Special symbols.
+  */  
+  syntax X86Id ::= "main" [token]
+                | "_start" [token] 
+
   syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
 
   syntax AssemblerDirective ::=  ".section" SectionName 
@@ -62,7 +69,7 @@ module X86-SYNTAX
                        | Mem 
                        | Register
                        | MemOffset
-                       | Id 
+                       | X86Id 
 
 
   syntax Simpleoperand ::= Register | Imm | MemOffset 
@@ -1175,11 +1182,12 @@ module X86-SYNTAX
                   | "xorps"
                   | "xorq"
                   | "xorw"
-                  | "callq"
-                  | "retq"
-                  | "leaveq"
-                  | "jmpq"
+                  | "call"
+                  | "ret"
+                  | "leave"
+                  | "jmp"
                   | "je"
+                  | "jne"
                   | "jle"
                   | "jg"
                   | "jge"
