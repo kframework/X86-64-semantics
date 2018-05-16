@@ -16,11 +16,13 @@ kstate: ${KSTATES}
 xstate: ${XSTATES}
 compare:${CSTATES}
 
+ARGS=a.out HelloWorld!
+
 ${OUTDIR}/%.kstate: %.s
 	@echo ""
 	@echo  "Generate: $@ "
 	@mkdir -p ${OUTDIR}
-	${RUN_SH} --file $< --krun --output $@
+	${RUN_SH} --file $< --krun --output $@ --args "a.out" --args "HelloWorld!"
 
 ${OUTDIR}/%.xstate: %.s
 	@echo ""

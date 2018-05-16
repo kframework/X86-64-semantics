@@ -19,6 +19,7 @@ my $krun    = "";
 my $xrun    = "";
 my $compare = "";
 my $output  = "";
+my @args    = ();
 my $kdefn =
   "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/";
 my $outdir = "Output/";
@@ -28,6 +29,7 @@ GetOptions(
     "help"     => \$help,
     "print"    => \$print,
     "file:s"   => \$file,
+    "args:s"   => \@args,
     "output:s" => \$output,
     "krun"     => \$krun,
     "xrun"     => \$xrun,
@@ -41,12 +43,32 @@ if ($help) {
     exit(1);
 }
 
+sub createEnv {
+
+#'-cARGV=`_List_`(`ListItem`(#token("\"a.out\"","String")),`_List_`(`ListItem`(#token("\"HelloWorld!\"","String")),`.List`(.KList))))))'    '-pARGV=printf %s'
+    my $args_ref = shift @_;
+    my @args     = @{$args_ref};
+    my $cargs    = "";
+
+    for my $arg (@args) {
+        $cargs =
+          $cargs
+          . "`_List_`(`ListItem`(#token(\"\\\"$arg\\\"\",\"String\"))" . ",";
+    }
+
+    $cargs = "'-cARGV=$cargs`.List`(.KList))))))'" . " " . "'-pARGV=printf %s'";
+    return $cargs;
+}
+
 if ( "" ne $krun ) {
     my ( $dir, $basename, $ext ) = utils::split_filename($file);
 
     $output = "$outdir/$basename.kstate";
 
-    execute( "time krun -d $kdefn $basename.$ext --output-file $output", 1 );
+    my $envArgs = createEnv( \@args );
+    execute(
+        "time krun -d $kdefn $basename.$ext $envArgs --output-file $output",
+        1 );
 
 #    execute(
 #"cat $output | sed -e 's/\\(<[^</]*>\\)/\\n\\1/g' | sed  '/^\\s*\$/d' | sed 's/ListItem (/\\nListItem/g' | sed 's/ \"/\\n\"/g' 1> /tmp/x  2>&1",
