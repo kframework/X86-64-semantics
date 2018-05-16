@@ -4,7 +4,7 @@
 _start:
   // Read a char from env anf increment t and store in eax
   // int main(int argc, char** argv) {
-  //      return argv[0][1] + 42;
+  //      return argv[1][0] + 42;
   //  }
   
   pushq %rbp
