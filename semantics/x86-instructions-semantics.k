@@ -79,7 +79,6 @@ module X86-INSTRUCTIONS-SEMANTICS
 // nop
 
   rule <k>
-    //execinstr (nop  .Operands) ~> inforegisters ~> fetch => .
     execinstr (nop  .Operands)  => .
   ...</k>
 

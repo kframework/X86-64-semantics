@@ -20,7 +20,8 @@ module X86-CONFIGURATION
     // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(.List) ~> fetch </k>
     <k> 
 	$PGM:Instructions ~> 
-	initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
+	//initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
+	initEnvironment($ARGV:List) ~> 
 	inforegisters ~> 
 	fetch 
     </k>
