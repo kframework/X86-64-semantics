@@ -15,11 +15,11 @@ _start:
   popw %bx
   popq %rax
 
-  pushq 16(%rsp)
-  popq (%rsp) 
+  pushq 24(%rsp)
+  popq 8(%rsp) 
   
-  pushw 24(%rsp)
-  popw 8(%rsp) 
+  pushw 32(%rsp)
+  popw 16(%rsp) 
 
   pushq $0xabcd
   popw -16(%rsp)

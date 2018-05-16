@@ -21,10 +21,10 @@
       iloc ( 64'5 ) |-> storedInstr ( pushw %sp , .Operands )
       iloc ( 64'6 ) |-> storedInstr ( popw %bx , .Operands )
       iloc ( 64'7 ) |-> storedInstr ( popq %rax , .Operands )
-      iloc ( 64'8 ) |-> storedInstr ( pushq 16 ( %rsp ) , .Operands )
-      iloc ( 64'9 ) |-> storedInstr ( popq ( %rsp ) , .Operands )
-      iloc ( 64'10 ) |-> storedInstr ( pushw 24 ( %rsp ) , .Operands )
-      iloc ( 64'11 ) |-> storedInstr ( popw 8 ( %rsp ) , .Operands )
+      iloc ( 64'8 ) |-> storedInstr ( pushq 24 ( %rsp ) , .Operands )
+      iloc ( 64'9 ) |-> storedInstr ( popq 8 ( %rsp ) , .Operands )
+      iloc ( 64'10 ) |-> storedInstr ( pushw 32 ( %rsp ) , .Operands )
+      iloc ( 64'11 ) |-> storedInstr ( popw 16 ( %rsp ) , .Operands )
       iloc ( 64'12 ) |-> storedInstr ( pushq $0xabcd , .Operands )
       iloc ( 64'13 ) |-> storedInstr ( popw -16 ( %rsp ) , .Operands )
       iloc ( 64'14 ) |-> storedInstr ( nop .Operands ) )
@@ -99,24 +99,24 @@
           61 |-> byte ( 5 , 64'43981 )
           62 |-> byte ( 6 , 64'43981 )
           63 |-> byte ( 7 , 64'43981 )
-          64 |-> byte ( 0 , 64'94 )
-          65 |-> byte ( 1 , 64'94 )
-          66 |-> byte ( 2 , 64'94 )
-          67 |-> byte ( 3 , 64'94 )
-          68 |-> byte ( 4 , 64'94 )
-          69 |-> byte ( 5 , 64'94 )
-          70 |-> byte ( 6 , 64'94 )
-          71 |-> byte ( 7 , 64'94 )
-          72 |-> byte ( 0 , 16'11873 )
-          73 |-> byte ( 1 , 16'11873 )
-          74 |-> byte ( 2 , 64'88 )
-          75 |-> byte ( 3 , 64'88 )
-          76 |-> byte ( 4 , 64'88 )
-          77 |-> byte ( 5 , 64'88 )
-          78 |-> byte ( 6 , 64'88 )
-          79 |-> byte ( 7 , 64'88 )
-          80 |-> byte ( 0 , 64'94 )
-          81 |-> byte ( 1 , 64'94 )
+          64 |-> byte ( 0 , 64'-1 )
+          65 |-> byte ( 1 , 64'-1 )
+          66 |-> byte ( 2 , 64'-1 )
+          67 |-> byte ( 3 , 64'-1 )
+          68 |-> byte ( 4 , 64'-1 )
+          69 |-> byte ( 5 , 64'-1 )
+          70 |-> byte ( 6 , 64'-1 )
+          71 |-> byte ( 7 , 64'-1 )
+          72 |-> byte ( 0 , 64'7298083696340315745 )
+          73 |-> byte ( 1 , 64'7298083696340315745 )
+          74 |-> byte ( 2 , 64'7298083696340315745 )
+          75 |-> byte ( 3 , 64'7298083696340315745 )
+          76 |-> byte ( 4 , 64'7298083696340315745 )
+          77 |-> byte ( 5 , 64'7298083696340315745 )
+          78 |-> byte ( 6 , 64'7298083696340315745 )
+          79 |-> byte ( 7 , 64'7298083696340315745 )
+          80 |-> byte ( 0 , 16'27756 )
+          81 |-> byte ( 1 , 16'27756 )
           82 |-> byte ( 2 , 64'94 )
           83 |-> byte ( 3 , 64'94 )
           84 |-> byte ( 4 , 64'94 )
@@ -220,8 +220,7 @@
     "ZF" |-> 1'0
   </regstate>
   <regstatequeue>
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -260,8 +259,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -300,8 +298,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -340,8 +337,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -380,8 +376,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -420,8 +415,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -460,8 +454,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -500,8 +493,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -540,8 +532,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -580,8 +571,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -620,8 +610,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -660,8 +649,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -700,8 +688,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -740,8 +727,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -780,8 +766,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -820,8 +805,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
