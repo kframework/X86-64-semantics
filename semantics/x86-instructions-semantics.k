@@ -1981,11 +1981,10 @@ vcvtpd2ps_xmm_ymm
   rule <k> 
     execinstr (jge LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap) 
-        andBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+      <functargets>... LabelId |-> Target  ...</functargets>
+        requires  eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
 
 
 
@@ -1994,24 +1993,20 @@ vcvtpd2ps_xmm_ymm
   rule <k> 
     execinstr (jmpq LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap)
+      <functargets>... LabelId |-> Target  ...</functargets>
 
 // jl-label
 
   rule <k> 
     execinstr (jl LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap) 
-        andBool ( 
-              notBool 
-                eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
-                )
+      <functargets>... LabelId |-> Target  ...</functargets>
+        requires notBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+                
 
 
 // popw-r16
@@ -2032,10 +2027,10 @@ vcvtpd2ps_xmm_ymm
   rule <k> 
     execinstr (je LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap) andBool eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1))
+      <functargets>... LabelId |-> Target  ...</functargets>
+        requires eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1))
 
 
 
@@ -2110,26 +2105,21 @@ vcvtpd2ps_xmm_ymm
       storeToMemory({RSMap["RIP"]}:>MInt, subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 64)  
       ~>  decRSPInBytes(8)
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap)
+      <functargets>... LabelId |-> Target  ...</functargets>
 
 // jle-label
 
   rule <k> 
     execinstr (jle LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap) 
-        andBool ( 
-              eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1)) 
-            orBool 
-              notBool 
-                eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
-                )
+      <functargets>... LabelId |-> Target  ...</functargets>
+        requires  eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1)) 
+                    orBool 
+                  (notBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt))
 
 
 /*@
@@ -2154,15 +2144,12 @@ vcvtpd2ps_xmm_ymm
   rule <k> 
     execinstr (jg LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap) 
-        andBool ( 
-              eqMInt({RSMap["ZF"]}:>MInt, mi(1, 0)) 
-            andBool 
-                eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
-                )
+      <functargets>... LabelId |-> Target  ...</functargets>
+        requires  eqMInt({RSMap["ZF"]}:>MInt, mi(1, 0)) 
+                    andBool 
+                  eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
 
 
 

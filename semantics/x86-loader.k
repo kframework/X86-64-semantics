@@ -12,14 +12,15 @@ module X86-LOADER
   /*@
     Ignore certain contructs for the time being.
   */
-  rule <k> .section .text  => . ...</k>
-  rule <k> .globl _start  => . ...</k>
+  // rule <k> .section .text  => . ...</k>
+  // rule <k> .globl _start  => . ...</k>
+  rule <k> _:AssemblerDirective  => . ...</k>
 
 
   // Both will work
   //rule <k> _start: => . ...</k>
   rule <k> (LabelName:Id:):Label => . ...</k>
-        <functargets> FMap:Map => FMap[Id2String(LabelName) <- L] </functargets>
+        <functargets> FMap:Map => FMap[LabelName <- L] </functargets>
         <nextLocPc> L </nextLocPc>
 
   /*@
@@ -31,8 +32,10 @@ module X86-LOADER
         <text> code(M:Map => M[iloc(L) <- storedInstr(OpC OpR)])</text>
         //<nextLocPc> L:MInt => addMInt(L, mi(64, getISize(OpC OpR))) </nextLocPc>
         <nextLocPc> L:MInt => addMInt(L, mi(64, 1)) </nextLocPc>
+
   /*@
-    After loading the last instrution to Code memory, rip is set to the next instrcution to execute.
+    After loading the last instrution to Code memory, 
+    RIP is set to the entry point address to begin execution.
   */
   rule  <k>.Instructions => .K ...</k>
         <regstate> RSMap => RSMap["RIP" <- LoadAddr] </regstate>
