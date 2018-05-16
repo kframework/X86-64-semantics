@@ -2,6 +2,9 @@
   <k>
     exit_0
   </k>
+  <functargets>
+    _start |-> 64'0
+  </functargets>
   <entrypoint>
     64'0
   </entrypoint>
@@ -10,160 +13,160 @@
   </nextLocPc>
   <memstate>
     <text>
-      locpc ( 64'0 ) |-> storedinstr ( movq $ 0 , %rax , .Operands )
-      locpc ( 64'1 ) |-> storedinstr ( movq $ 0 , %rbx , .Operands )
-      locpc ( 64'2 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'3 ) |-> storedinstr ( movq $ 1 , %rax , .Operands )
-      locpc ( 64'4 ) |-> storedinstr ( movq $ 1 , %rbx , .Operands )
-      locpc ( 64'5 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'6 ) |-> storedinstr ( movq $0x41 , %rax , .Operands )
-      locpc ( 64'7 ) |-> storedinstr ( movq $0x41 , %rbx , .Operands )
-      locpc ( 64'8 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'9 ) |-> storedinstr ( movq $0x51 , %rax , .Operands )
-      locpc ( 64'10 ) |-> storedinstr ( movq $0x51 , %rbx , .Operands )
-      locpc ( 64'11 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'12 ) |-> storedinstr ( movq $0x80 , %rax , .Operands )
-      locpc ( 64'13 ) |-> storedinstr ( movq $0x80 , %rbx , .Operands )
-      locpc ( 64'14 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'15 ) |-> storedinstr ( movq $0x55 , %rax , .Operands )
-      locpc ( 64'16 ) |-> storedinstr ( movq $0x55 , %rbx , .Operands )
-      locpc ( 64'17 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'18 ) |-> storedinstr ( movq $0xAA , %rax , .Operands )
-      locpc ( 64'19 ) |-> storedinstr ( movq $0xAA , %rbx , .Operands )
-      locpc ( 64'20 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'21 ) |-> storedinstr ( movq $0x0F , %rax , .Operands )
-      locpc ( 64'22 ) |-> storedinstr ( movq $0x0F , %rbx , .Operands )
-      locpc ( 64'23 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'24 ) |-> storedinstr ( movq $0xF7 , %rax , .Operands )
-      locpc ( 64'25 ) |-> storedinstr ( movq $0xF7 , %rbx , .Operands )
-      locpc ( 64'26 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'27 ) |-> storedinstr ( movq $0xFE , %rax , .Operands )
-      locpc ( 64'28 ) |-> storedinstr ( movq $0xFE , %rbx , .Operands )
-      locpc ( 64'29 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'30 ) |-> storedinstr ( movq $0xEF , %rax , .Operands )
-      locpc ( 64'31 ) |-> storedinstr ( movq $0xEF , %rbx , .Operands )
-      locpc ( 64'32 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'33 ) |-> storedinstr ( movq $0x7F , %rax , .Operands )
-      locpc ( 64'34 ) |-> storedinstr ( movq $0x7F , %rbx , .Operands )
-      locpc ( 64'35 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'36 ) |-> storedinstr ( movq $0xFF , %rax , .Operands )
-      locpc ( 64'37 ) |-> storedinstr ( movq $0xFF , %rbx , .Operands )
-      locpc ( 64'38 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'39 ) |-> storedinstr ( movq $0x4141 , %rax , .Operands )
-      locpc ( 64'40 ) |-> storedinstr ( movq $0x4141 , %rbx , .Operands )
-      locpc ( 64'41 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'42 ) |-> storedinstr ( movq $0x5151 , %rax , .Operands )
-      locpc ( 64'43 ) |-> storedinstr ( movq $0x5151 , %rbx , .Operands )
-      locpc ( 64'44 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'45 ) |-> storedinstr ( movq $0x8000 , %rax , .Operands )
-      locpc ( 64'46 ) |-> storedinstr ( movq $0x8000 , %rbx , .Operands )
-      locpc ( 64'47 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'48 ) |-> storedinstr ( movq $0x5500 , %rax , .Operands )
-      locpc ( 64'49 ) |-> storedinstr ( movq $0x5500 , %rbx , .Operands )
-      locpc ( 64'50 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'51 ) |-> storedinstr ( movq $0x5555 , %rax , .Operands )
-      locpc ( 64'52 ) |-> storedinstr ( movq $0x5555 , %rbx , .Operands )
-      locpc ( 64'53 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'54 ) |-> storedinstr ( movq $0xAA00 , %rax , .Operands )
-      locpc ( 64'55 ) |-> storedinstr ( movq $0xAA00 , %rbx , .Operands )
-      locpc ( 64'56 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'57 ) |-> storedinstr ( movq $0xAAAA , %rax , .Operands )
-      locpc ( 64'58 ) |-> storedinstr ( movq $0xAAAA , %rbx , .Operands )
-      locpc ( 64'59 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'60 ) |-> storedinstr ( movq $0x0F0F , %rax , .Operands )
-      locpc ( 64'61 ) |-> storedinstr ( movq $0x0F0F , %rbx , .Operands )
-      locpc ( 64'62 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'63 ) |-> storedinstr ( movq $0xF7F7 , %rax , .Operands )
-      locpc ( 64'64 ) |-> storedinstr ( movq $0xF7F7 , %rbx , .Operands )
-      locpc ( 64'65 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'66 ) |-> storedinstr ( movq $0xFEFE , %rax , .Operands )
-      locpc ( 64'67 ) |-> storedinstr ( movq $0xFEFE , %rbx , .Operands )
-      locpc ( 64'68 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'69 ) |-> storedinstr ( movq $0xEFEF , %rax , .Operands )
-      locpc ( 64'70 ) |-> storedinstr ( movq $0xEFEF , %rbx , .Operands )
-      locpc ( 64'71 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'72 ) |-> storedinstr ( movq $0x7FFF , %rax , .Operands )
-      locpc ( 64'73 ) |-> storedinstr ( movq $0x7FFF , %rbx , .Operands )
-      locpc ( 64'74 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'75 ) |-> storedinstr ( movq $0xFFFF , %rax , .Operands )
-      locpc ( 64'76 ) |-> storedinstr ( movq $0xFFFF , %rbx , .Operands )
-      locpc ( 64'77 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'78 ) |-> storedinstr ( movq $0x41414141 , %rax , .Operands )
-      locpc ( 64'79 ) |-> storedinstr ( movq $0x41414141 , %rbx , .Operands )
-      locpc ( 64'80 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'81 ) |-> storedinstr ( movq $0x51515151 , %rax , .Operands )
-      locpc ( 64'82 ) |-> storedinstr ( movq $0x51515151 , %rbx , .Operands )
-      locpc ( 64'83 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'84 ) |-> storedinstr ( movq $0x55000000 , %rax , .Operands )
-      locpc ( 64'85 ) |-> storedinstr ( movq $0x55000000 , %rbx , .Operands )
-      locpc ( 64'86 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'87 ) |-> storedinstr ( movq $0x55555555 , %rax , .Operands )
-      locpc ( 64'88 ) |-> storedinstr ( movq $0x55555555 , %rbx , .Operands )
-      locpc ( 64'89 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'90 ) |-> storedinstr ( movq $0xAAFFFFFF , %rax , .Operands )
-      locpc ( 64'91 ) |-> storedinstr ( movq $0xAAFFFFFF , %rbx , .Operands )
-      locpc ( 64'92 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'93 ) |-> storedinstr ( movq $0xAAAAAAAA , %rax , .Operands )
-      locpc ( 64'94 ) |-> storedinstr ( movq $0xAAAAAAAA , %rbx , .Operands )
-      locpc ( 64'95 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'96 ) |-> storedinstr ( movq $0x0F0F0F0F , %rax , .Operands )
-      locpc ( 64'97 ) |-> storedinstr ( movq $0x0F0F0F0F , %rbx , .Operands )
-      locpc ( 64'98 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'99 ) |-> storedinstr ( movq $0xF7F7F7F7 , %rax , .Operands )
-      locpc ( 64'100 ) |-> storedinstr ( movq $0xF7F7F7F7 , %rbx , .Operands )
-      locpc ( 64'101 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'102 ) |-> storedinstr ( movq $0xFEFEFEFE , %rax , .Operands )
-      locpc ( 64'103 ) |-> storedinstr ( movq $0xFEFEFEFE , %rbx , .Operands )
-      locpc ( 64'104 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'105 ) |-> storedinstr ( movq $0xEFEFEFEF , %rax , .Operands )
-      locpc ( 64'106 ) |-> storedinstr ( movq $0xEFEFEFEF , %rbx , .Operands )
-      locpc ( 64'107 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'108 ) |-> storedinstr ( movq $0x7FFFFFFF , %rax , .Operands )
-      locpc ( 64'109 ) |-> storedinstr ( movq $0x7FFFFFFF , %rbx , .Operands )
-      locpc ( 64'110 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'111 ) |-> storedinstr ( movq $0xFFFFFFFF , %rax , .Operands )
-      locpc ( 64'112 ) |-> storedinstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      locpc ( 64'113 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'114 ) |-> storedinstr ( movq $0x4141414141414141 , %rax , .Operands )
-      locpc ( 64'115 ) |-> storedinstr ( movq $0x4141414141414141 , %rbx , .Operands )
-      locpc ( 64'116 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'117 ) |-> storedinstr ( movq $0x5115151515115151 , %rax , .Operands )
-      locpc ( 64'118 ) |-> storedinstr ( movq $0x5115151515115151 , %rbx , .Operands )
-      locpc ( 64'119 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'120 ) |-> storedinstr ( movq $0x8000000000000000 , %rax , .Operands )
-      locpc ( 64'121 ) |-> storedinstr ( movq $0x8000000000000000 , %rbx , .Operands )
-      locpc ( 64'122 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'123 ) |-> storedinstr ( movq $0x5500000000000000 , %rax , .Operands )
-      locpc ( 64'124 ) |-> storedinstr ( movq $0x5500000000000000 , %rbx , .Operands )
-      locpc ( 64'125 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'126 ) |-> storedinstr ( movq $0x5555555555555555 , %rax , .Operands )
-      locpc ( 64'127 ) |-> storedinstr ( movq $0x5555555555555555 , %rbx , .Operands )
-      locpc ( 64'128 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'129 ) |-> storedinstr ( movq $0xAA00000000000000 , %rax , .Operands )
-      locpc ( 64'130 ) |-> storedinstr ( movq $0xAA00000000000000 , %rbx , .Operands )
-      locpc ( 64'131 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'132 ) |-> storedinstr ( movq $0xAAAAAAAAAAAAAAAA , %rax , .Operands )
-      locpc ( 64'133 ) |-> storedinstr ( movq $0xAAAAAAAAAAAAAAAA , %rbx , .Operands )
-      locpc ( 64'134 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'135 ) |-> storedinstr ( movq $0x0F0F0F0F0F0F0F0F , %rax , .Operands )
-      locpc ( 64'136 ) |-> storedinstr ( movq $0x0F0F0F0F0F0F0F0F , %rbx , .Operands )
-      locpc ( 64'137 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'138 ) |-> storedinstr ( movq $0xF7F7F7F7F7F7F7F7 , %rax , .Operands )
-      locpc ( 64'139 ) |-> storedinstr ( movq $0xF7F7F7F7F7F7F7F7 , %rbx , .Operands )
-      locpc ( 64'140 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'141 ) |-> storedinstr ( movq $0xEFEFEFEFEFEFEFEF , %rax , .Operands )
-      locpc ( 64'142 ) |-> storedinstr ( movq $0xEFEFEFEFEFEFEFEF , %rbx , .Operands )
-      locpc ( 64'143 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'144 ) |-> storedinstr ( movq $0xFEFEFEFEFEFEFEFE , %rax , .Operands )
-      locpc ( 64'145 ) |-> storedinstr ( movq $0xFEFEFEFEFEFEFEFE , %rbx , .Operands )
-      locpc ( 64'146 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'147 ) |-> storedinstr ( movq $0x7FFFFFFFFFFFFFFF , %rax , .Operands )
-      locpc ( 64'148 ) |-> storedinstr ( movq $0x7FFFFFFFFFFFFFFF , %rbx , .Operands )
-      locpc ( 64'149 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'150 ) |-> storedinstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
-      locpc ( 64'151 ) |-> storedinstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      locpc ( 64'152 ) |-> storedinstr ( cmovbeq %rax , %rbx , .Operands )
-      locpc ( 64'153 ) |-> storedinstr ( nop .Operands )
+      code ( iloc ( 64'0 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
+      iloc ( 64'1 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
+      iloc ( 64'2 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'3 ) |-> storedInstr ( movq $ 1 , %rax , .Operands )
+      iloc ( 64'4 ) |-> storedInstr ( movq $ 1 , %rbx , .Operands )
+      iloc ( 64'5 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'6 ) |-> storedInstr ( movq $0x41 , %rax , .Operands )
+      iloc ( 64'7 ) |-> storedInstr ( movq $0x41 , %rbx , .Operands )
+      iloc ( 64'8 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'9 ) |-> storedInstr ( movq $0x51 , %rax , .Operands )
+      iloc ( 64'10 ) |-> storedInstr ( movq $0x51 , %rbx , .Operands )
+      iloc ( 64'11 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'12 ) |-> storedInstr ( movq $0x80 , %rax , .Operands )
+      iloc ( 64'13 ) |-> storedInstr ( movq $0x80 , %rbx , .Operands )
+      iloc ( 64'14 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'15 ) |-> storedInstr ( movq $0x55 , %rax , .Operands )
+      iloc ( 64'16 ) |-> storedInstr ( movq $0x55 , %rbx , .Operands )
+      iloc ( 64'17 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'18 ) |-> storedInstr ( movq $0xAA , %rax , .Operands )
+      iloc ( 64'19 ) |-> storedInstr ( movq $0xAA , %rbx , .Operands )
+      iloc ( 64'20 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'21 ) |-> storedInstr ( movq $0x0F , %rax , .Operands )
+      iloc ( 64'22 ) |-> storedInstr ( movq $0x0F , %rbx , .Operands )
+      iloc ( 64'23 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'24 ) |-> storedInstr ( movq $0xF7 , %rax , .Operands )
+      iloc ( 64'25 ) |-> storedInstr ( movq $0xF7 , %rbx , .Operands )
+      iloc ( 64'26 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'27 ) |-> storedInstr ( movq $0xFE , %rax , .Operands )
+      iloc ( 64'28 ) |-> storedInstr ( movq $0xFE , %rbx , .Operands )
+      iloc ( 64'29 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'30 ) |-> storedInstr ( movq $0xEF , %rax , .Operands )
+      iloc ( 64'31 ) |-> storedInstr ( movq $0xEF , %rbx , .Operands )
+      iloc ( 64'32 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'33 ) |-> storedInstr ( movq $0x7F , %rax , .Operands )
+      iloc ( 64'34 ) |-> storedInstr ( movq $0x7F , %rbx , .Operands )
+      iloc ( 64'35 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'36 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
+      iloc ( 64'37 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
+      iloc ( 64'38 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'39 ) |-> storedInstr ( movq $0x4141 , %rax , .Operands )
+      iloc ( 64'40 ) |-> storedInstr ( movq $0x4141 , %rbx , .Operands )
+      iloc ( 64'41 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'42 ) |-> storedInstr ( movq $0x5151 , %rax , .Operands )
+      iloc ( 64'43 ) |-> storedInstr ( movq $0x5151 , %rbx , .Operands )
+      iloc ( 64'44 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'45 ) |-> storedInstr ( movq $0x8000 , %rax , .Operands )
+      iloc ( 64'46 ) |-> storedInstr ( movq $0x8000 , %rbx , .Operands )
+      iloc ( 64'47 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'48 ) |-> storedInstr ( movq $0x5500 , %rax , .Operands )
+      iloc ( 64'49 ) |-> storedInstr ( movq $0x5500 , %rbx , .Operands )
+      iloc ( 64'50 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'51 ) |-> storedInstr ( movq $0x5555 , %rax , .Operands )
+      iloc ( 64'52 ) |-> storedInstr ( movq $0x5555 , %rbx , .Operands )
+      iloc ( 64'53 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'54 ) |-> storedInstr ( movq $0xAA00 , %rax , .Operands )
+      iloc ( 64'55 ) |-> storedInstr ( movq $0xAA00 , %rbx , .Operands )
+      iloc ( 64'56 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'57 ) |-> storedInstr ( movq $0xAAAA , %rax , .Operands )
+      iloc ( 64'58 ) |-> storedInstr ( movq $0xAAAA , %rbx , .Operands )
+      iloc ( 64'59 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'60 ) |-> storedInstr ( movq $0x0F0F , %rax , .Operands )
+      iloc ( 64'61 ) |-> storedInstr ( movq $0x0F0F , %rbx , .Operands )
+      iloc ( 64'62 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'63 ) |-> storedInstr ( movq $0xF7F7 , %rax , .Operands )
+      iloc ( 64'64 ) |-> storedInstr ( movq $0xF7F7 , %rbx , .Operands )
+      iloc ( 64'65 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'66 ) |-> storedInstr ( movq $0xFEFE , %rax , .Operands )
+      iloc ( 64'67 ) |-> storedInstr ( movq $0xFEFE , %rbx , .Operands )
+      iloc ( 64'68 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'69 ) |-> storedInstr ( movq $0xEFEF , %rax , .Operands )
+      iloc ( 64'70 ) |-> storedInstr ( movq $0xEFEF , %rbx , .Operands )
+      iloc ( 64'71 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'72 ) |-> storedInstr ( movq $0x7FFF , %rax , .Operands )
+      iloc ( 64'73 ) |-> storedInstr ( movq $0x7FFF , %rbx , .Operands )
+      iloc ( 64'74 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'75 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
+      iloc ( 64'76 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
+      iloc ( 64'77 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'78 ) |-> storedInstr ( movq $0x41414141 , %rax , .Operands )
+      iloc ( 64'79 ) |-> storedInstr ( movq $0x41414141 , %rbx , .Operands )
+      iloc ( 64'80 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'81 ) |-> storedInstr ( movq $0x51515151 , %rax , .Operands )
+      iloc ( 64'82 ) |-> storedInstr ( movq $0x51515151 , %rbx , .Operands )
+      iloc ( 64'83 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'84 ) |-> storedInstr ( movq $0x55000000 , %rax , .Operands )
+      iloc ( 64'85 ) |-> storedInstr ( movq $0x55000000 , %rbx , .Operands )
+      iloc ( 64'86 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'87 ) |-> storedInstr ( movq $0x55555555 , %rax , .Operands )
+      iloc ( 64'88 ) |-> storedInstr ( movq $0x55555555 , %rbx , .Operands )
+      iloc ( 64'89 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'90 ) |-> storedInstr ( movq $0xAAFFFFFF , %rax , .Operands )
+      iloc ( 64'91 ) |-> storedInstr ( movq $0xAAFFFFFF , %rbx , .Operands )
+      iloc ( 64'92 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'93 ) |-> storedInstr ( movq $0xAAAAAAAA , %rax , .Operands )
+      iloc ( 64'94 ) |-> storedInstr ( movq $0xAAAAAAAA , %rbx , .Operands )
+      iloc ( 64'95 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'96 ) |-> storedInstr ( movq $0x0F0F0F0F , %rax , .Operands )
+      iloc ( 64'97 ) |-> storedInstr ( movq $0x0F0F0F0F , %rbx , .Operands )
+      iloc ( 64'98 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'99 ) |-> storedInstr ( movq $0xF7F7F7F7 , %rax , .Operands )
+      iloc ( 64'100 ) |-> storedInstr ( movq $0xF7F7F7F7 , %rbx , .Operands )
+      iloc ( 64'101 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'102 ) |-> storedInstr ( movq $0xFEFEFEFE , %rax , .Operands )
+      iloc ( 64'103 ) |-> storedInstr ( movq $0xFEFEFEFE , %rbx , .Operands )
+      iloc ( 64'104 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'105 ) |-> storedInstr ( movq $0xEFEFEFEF , %rax , .Operands )
+      iloc ( 64'106 ) |-> storedInstr ( movq $0xEFEFEFEF , %rbx , .Operands )
+      iloc ( 64'107 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'108 ) |-> storedInstr ( movq $0x7FFFFFFF , %rax , .Operands )
+      iloc ( 64'109 ) |-> storedInstr ( movq $0x7FFFFFFF , %rbx , .Operands )
+      iloc ( 64'110 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'111 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
+      iloc ( 64'112 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
+      iloc ( 64'113 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'114 ) |-> storedInstr ( movq $0x4141414141414141 , %rax , .Operands )
+      iloc ( 64'115 ) |-> storedInstr ( movq $0x4141414141414141 , %rbx , .Operands )
+      iloc ( 64'116 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'117 ) |-> storedInstr ( movq $0x5115151515115151 , %rax , .Operands )
+      iloc ( 64'118 ) |-> storedInstr ( movq $0x5115151515115151 , %rbx , .Operands )
+      iloc ( 64'119 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'120 ) |-> storedInstr ( movq $0x8000000000000000 , %rax , .Operands )
+      iloc ( 64'121 ) |-> storedInstr ( movq $0x8000000000000000 , %rbx , .Operands )
+      iloc ( 64'122 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'123 ) |-> storedInstr ( movq $0x5500000000000000 , %rax , .Operands )
+      iloc ( 64'124 ) |-> storedInstr ( movq $0x5500000000000000 , %rbx , .Operands )
+      iloc ( 64'125 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'126 ) |-> storedInstr ( movq $0x5555555555555555 , %rax , .Operands )
+      iloc ( 64'127 ) |-> storedInstr ( movq $0x5555555555555555 , %rbx , .Operands )
+      iloc ( 64'128 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'129 ) |-> storedInstr ( movq $0xAA00000000000000 , %rax , .Operands )
+      iloc ( 64'130 ) |-> storedInstr ( movq $0xAA00000000000000 , %rbx , .Operands )
+      iloc ( 64'131 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'132 ) |-> storedInstr ( movq $0xAAAAAAAAAAAAAAAA , %rax , .Operands )
+      iloc ( 64'133 ) |-> storedInstr ( movq $0xAAAAAAAAAAAAAAAA , %rbx , .Operands )
+      iloc ( 64'134 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'135 ) |-> storedInstr ( movq $0x0F0F0F0F0F0F0F0F , %rax , .Operands )
+      iloc ( 64'136 ) |-> storedInstr ( movq $0x0F0F0F0F0F0F0F0F , %rbx , .Operands )
+      iloc ( 64'137 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'138 ) |-> storedInstr ( movq $0xF7F7F7F7F7F7F7F7 , %rax , .Operands )
+      iloc ( 64'139 ) |-> storedInstr ( movq $0xF7F7F7F7F7F7F7F7 , %rbx , .Operands )
+      iloc ( 64'140 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'141 ) |-> storedInstr ( movq $0xEFEFEFEFEFEFEFEF , %rax , .Operands )
+      iloc ( 64'142 ) |-> storedInstr ( movq $0xEFEFEFEFEFEFEFEF , %rbx , .Operands )
+      iloc ( 64'143 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'144 ) |-> storedInstr ( movq $0xFEFEFEFEFEFEFEFE , %rax , .Operands )
+      iloc ( 64'145 ) |-> storedInstr ( movq $0xFEFEFEFEFEFEFEFE , %rbx , .Operands )
+      iloc ( 64'146 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'147 ) |-> storedInstr ( movq $0x7FFFFFFFFFFFFFFF , %rax , .Operands )
+      iloc ( 64'148 ) |-> storedInstr ( movq $0x7FFFFFFFFFFFFFFF , %rbx , .Operands )
+      iloc ( 64'149 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'150 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
+      iloc ( 64'151 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
+      iloc ( 64'152 ) |-> storedInstr ( cmovbeq %rax , %rbx , .Operands )
+      iloc ( 64'153 ) |-> storedInstr ( nop .Operands ) )
     </text>
     <stack>
       <memory>
@@ -235,14 +238,14 @@
           61 |-> byte ( 0 , undef )
           62 |-> byte ( 0 , undef )
           63 |-> byte ( 0 , undef )
-          64 |-> byte ( 0 , undef )
-          65 |-> byte ( 0 , undef )
-          66 |-> byte ( 0 , undef )
-          67 |-> byte ( 0 , undef )
-          68 |-> byte ( 0 , undef )
-          69 |-> byte ( 0 , undef )
-          70 |-> byte ( 0 , undef )
-          71 |-> byte ( 0 , undef )
+          64 |-> byte ( 0 , 64'-1 )
+          65 |-> byte ( 1 , 64'-1 )
+          66 |-> byte ( 2 , 64'-1 )
+          67 |-> byte ( 3 , 64'-1 )
+          68 |-> byte ( 4 , 64'-1 )
+          69 |-> byte ( 5 , 64'-1 )
+          70 |-> byte ( 6 , 64'-1 )
+          71 |-> byte ( 7 , 64'-1 )
           72 |-> byte ( 0 , undef )
           73 |-> byte ( 0 , undef )
           74 |-> byte ( 0 , undef )
@@ -302,7 +305,7 @@
         </objects>
       </memory>
       <stackbase>
-        symloc ( 1 , 128 )
+        stackBaseInfo ( symloc ( 1 , 128 ) , 64'64 )
       </stackbase>
     </stack>
   </memstate>
@@ -311,7 +314,7 @@
       0
     </argc>
     <argv>
-      64'64
+      64'72
     </argv>
   </environment>
   <regstate>
@@ -370,14 +373,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'0
+    "RBP" |-> 64'64
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'0
     "RSI" |-> 64'0
-    "RSP" |-> 64'0
+    "RSP" |-> 64'64
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -6496,6 +6499,46 @@
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'153
+    "RSI" |-> 64'0
+    "RSP" |-> 64'64
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem (
+"AF" |-> 1'0
+    "CF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'18446744073709551615
+    "RBP" |-> 64'64
+    "RBX" |-> 64'18446744073709551615
+    "RCX" |-> 64'0
+    "RDI" |-> 64'0
+    "RDX" |-> 64'0
+    "RIP" |-> 64'154
     "RSI" |-> 64'0
     "RSP" |-> 64'64
     "SF" |-> 1'0

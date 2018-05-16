@@ -2,6 +2,9 @@
   <k>
     exit_0
   </k>
+  <functargets>
+    _start |-> 64'0
+  </functargets>
   <entrypoint>
     64'0
   </entrypoint>
@@ -10,67 +13,67 @@
   </nextLocPc>
   <memstate>
     <text>
-      locpc ( 64'0 ) |-> storedinstr ( addq $ 65535 , %rax , .Operands )
-      locpc ( 64'1 ) |-> storedinstr ( movswq %ax , %rax , .Operands )
-      locpc ( 64'2 ) |-> storedinstr ( addq $ 32767 , %rbx , .Operands )
-      locpc ( 64'3 ) |-> storedinstr ( movswq %bx , %rcx , .Operands )
-      locpc ( 64'4 ) |-> storedinstr ( movq $ 4294967295 , %rax , .Operands )
-      locpc ( 64'5 ) |-> storedinstr ( movslq %eax , %rax , .Operands )
-      locpc ( 64'6 ) |-> storedinstr ( addq $ 2147483647 , %rbx , .Operands )
-      locpc ( 64'7 ) |-> storedinstr ( movslq %ebx , %rcx , .Operands )
-      locpc ( 64'8 ) |-> storedinstr ( addq $ 255 , %rax , .Operands )
-      locpc ( 64'9 ) |-> storedinstr ( movsbq %al , %rax , .Operands )
-      locpc ( 64'10 ) |-> storedinstr ( addq $ 127 , %rbx , .Operands )
-      locpc ( 64'11 ) |-> storedinstr ( movsbq %bl , %rcx , .Operands )
-      locpc ( 64'12 ) |-> storedinstr ( movq $0x48 , %r8 , .Operands )
-      locpc ( 64'13 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'14 ) |-> storedinstr ( movq $0x48 , %r8 , .Operands )
-      locpc ( 64'15 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'16 ) |-> storedinstr ( movq $0x48 , %r8 , .Operands )
-      locpc ( 64'17 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'18 ) |-> storedinstr ( movq $0x8d , %r8 , .Operands )
-      locpc ( 64'19 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'20 ) |-> storedinstr ( movq $0x8d , %r8 , .Operands )
-      locpc ( 64'21 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'22 ) |-> storedinstr ( movq $0x8d , %r8 , .Operands )
-      locpc ( 64'23 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'24 ) |-> storedinstr ( movq $0x7c , %r8 , .Operands )
-      locpc ( 64'25 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'26 ) |-> storedinstr ( movq $0x7c , %r8 , .Operands )
-      locpc ( 64'27 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'28 ) |-> storedinstr ( movq $0x7c , %r8 , .Operands )
-      locpc ( 64'29 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'30 ) |-> storedinstr ( movq $0x24 , %r8 , .Operands )
-      locpc ( 64'31 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'32 ) |-> storedinstr ( movq $0x24 , %r8 , .Operands )
-      locpc ( 64'33 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'34 ) |-> storedinstr ( movq $0x24 , %r8 , .Operands )
-      locpc ( 64'35 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'36 ) |-> storedinstr ( movq $0xf8 , %r8 , .Operands )
-      locpc ( 64'37 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'38 ) |-> storedinstr ( movq $0xf8 , %r8 , .Operands )
-      locpc ( 64'39 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'40 ) |-> storedinstr ( movq $0xf8 , %r8 , .Operands )
-      locpc ( 64'41 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'42 ) |-> storedinstr ( movq $0x74 , %r8 , .Operands )
-      locpc ( 64'43 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'44 ) |-> storedinstr ( movq $0x74 , %r8 , .Operands )
-      locpc ( 64'45 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'46 ) |-> storedinstr ( movq $0x74 , %r8 , .Operands )
-      locpc ( 64'47 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'48 ) |-> storedinstr ( movq $0x24 , %r8 , .Operands )
-      locpc ( 64'49 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'50 ) |-> storedinstr ( movq $0x24 , %r8 , .Operands )
-      locpc ( 64'51 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'52 ) |-> storedinstr ( movq $0x24 , %r8 , .Operands )
-      locpc ( 64'53 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'54 ) |-> storedinstr ( movq $0xf8 , %r8 , .Operands )
-      locpc ( 64'55 ) |-> storedinstr ( movsbq %r8b , %rax , .Operands )
-      locpc ( 64'56 ) |-> storedinstr ( movq $0xf8 , %r8 , .Operands )
-      locpc ( 64'57 ) |-> storedinstr ( movswq %r8w , %rax , .Operands )
-      locpc ( 64'58 ) |-> storedinstr ( movq $0xf8 , %r8 , .Operands )
-      locpc ( 64'59 ) |-> storedinstr ( movslq %r8d , %rax , .Operands )
-      locpc ( 64'60 ) |-> storedinstr ( nop .Operands )
+      code ( iloc ( 64'0 ) |-> storedInstr ( addq $ 65535 , %rax , .Operands )
+      iloc ( 64'1 ) |-> storedInstr ( movswq %ax , %rax , .Operands )
+      iloc ( 64'2 ) |-> storedInstr ( addq $ 32767 , %rbx , .Operands )
+      iloc ( 64'3 ) |-> storedInstr ( movswq %bx , %rcx , .Operands )
+      iloc ( 64'4 ) |-> storedInstr ( movq $ 4294967295 , %rax , .Operands )
+      iloc ( 64'5 ) |-> storedInstr ( movslq %eax , %rax , .Operands )
+      iloc ( 64'6 ) |-> storedInstr ( addq $ 2147483647 , %rbx , .Operands )
+      iloc ( 64'7 ) |-> storedInstr ( movslq %ebx , %rcx , .Operands )
+      iloc ( 64'8 ) |-> storedInstr ( addq $ 255 , %rax , .Operands )
+      iloc ( 64'9 ) |-> storedInstr ( movsbq %al , %rax , .Operands )
+      iloc ( 64'10 ) |-> storedInstr ( addq $ 127 , %rbx , .Operands )
+      iloc ( 64'11 ) |-> storedInstr ( movsbq %bl , %rcx , .Operands )
+      iloc ( 64'12 ) |-> storedInstr ( movq $0x48 , %r8 , .Operands )
+      iloc ( 64'13 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'14 ) |-> storedInstr ( movq $0x48 , %r8 , .Operands )
+      iloc ( 64'15 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'16 ) |-> storedInstr ( movq $0x48 , %r8 , .Operands )
+      iloc ( 64'17 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'18 ) |-> storedInstr ( movq $0x8d , %r8 , .Operands )
+      iloc ( 64'19 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'20 ) |-> storedInstr ( movq $0x8d , %r8 , .Operands )
+      iloc ( 64'21 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'22 ) |-> storedInstr ( movq $0x8d , %r8 , .Operands )
+      iloc ( 64'23 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'24 ) |-> storedInstr ( movq $0x7c , %r8 , .Operands )
+      iloc ( 64'25 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'26 ) |-> storedInstr ( movq $0x7c , %r8 , .Operands )
+      iloc ( 64'27 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'28 ) |-> storedInstr ( movq $0x7c , %r8 , .Operands )
+      iloc ( 64'29 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'30 ) |-> storedInstr ( movq $0x24 , %r8 , .Operands )
+      iloc ( 64'31 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'32 ) |-> storedInstr ( movq $0x24 , %r8 , .Operands )
+      iloc ( 64'33 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'34 ) |-> storedInstr ( movq $0x24 , %r8 , .Operands )
+      iloc ( 64'35 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'36 ) |-> storedInstr ( movq $0xf8 , %r8 , .Operands )
+      iloc ( 64'37 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'38 ) |-> storedInstr ( movq $0xf8 , %r8 , .Operands )
+      iloc ( 64'39 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'40 ) |-> storedInstr ( movq $0xf8 , %r8 , .Operands )
+      iloc ( 64'41 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'42 ) |-> storedInstr ( movq $0x74 , %r8 , .Operands )
+      iloc ( 64'43 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'44 ) |-> storedInstr ( movq $0x74 , %r8 , .Operands )
+      iloc ( 64'45 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'46 ) |-> storedInstr ( movq $0x74 , %r8 , .Operands )
+      iloc ( 64'47 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'48 ) |-> storedInstr ( movq $0x24 , %r8 , .Operands )
+      iloc ( 64'49 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'50 ) |-> storedInstr ( movq $0x24 , %r8 , .Operands )
+      iloc ( 64'51 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'52 ) |-> storedInstr ( movq $0x24 , %r8 , .Operands )
+      iloc ( 64'53 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'54 ) |-> storedInstr ( movq $0xf8 , %r8 , .Operands )
+      iloc ( 64'55 ) |-> storedInstr ( movsbq %r8b , %rax , .Operands )
+      iloc ( 64'56 ) |-> storedInstr ( movq $0xf8 , %r8 , .Operands )
+      iloc ( 64'57 ) |-> storedInstr ( movswq %r8w , %rax , .Operands )
+      iloc ( 64'58 ) |-> storedInstr ( movq $0xf8 , %r8 , .Operands )
+      iloc ( 64'59 ) |-> storedInstr ( movslq %r8d , %rax , .Operands )
+      iloc ( 64'60 ) |-> storedInstr ( nop .Operands ) )
     </text>
     <stack>
       <memory>
@@ -142,14 +145,14 @@
           61 |-> byte ( 0 , undef )
           62 |-> byte ( 0 , undef )
           63 |-> byte ( 0 , undef )
-          64 |-> byte ( 0 , undef )
-          65 |-> byte ( 0 , undef )
-          66 |-> byte ( 0 , undef )
-          67 |-> byte ( 0 , undef )
-          68 |-> byte ( 0 , undef )
-          69 |-> byte ( 0 , undef )
-          70 |-> byte ( 0 , undef )
-          71 |-> byte ( 0 , undef )
+          64 |-> byte ( 0 , 64'-1 )
+          65 |-> byte ( 1 , 64'-1 )
+          66 |-> byte ( 2 , 64'-1 )
+          67 |-> byte ( 3 , 64'-1 )
+          68 |-> byte ( 4 , 64'-1 )
+          69 |-> byte ( 5 , 64'-1 )
+          70 |-> byte ( 6 , 64'-1 )
+          71 |-> byte ( 7 , 64'-1 )
           72 |-> byte ( 0 , undef )
           73 |-> byte ( 0 , undef )
           74 |-> byte ( 0 , undef )
@@ -209,7 +212,7 @@
         </objects>
       </memory>
       <stackbase>
-        symloc ( 1 , 128 )
+        stackBaseInfo ( symloc ( 1 , 128 ) , 64'64 )
       </stackbase>
     </stack>
   </memstate>
@@ -218,7 +221,7 @@
       0
     </argc>
     <argv>
-      64'64
+      64'72
     </argv>
   </environment>
   <regstate>
@@ -277,14 +280,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'0
+    "RBP" |-> 64'64
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'0
     "RSI" |-> 64'0
-    "RSP" |-> 64'0
+    "RSP" |-> 64'64
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2683,6 +2686,46 @@
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'60
+    "RSI" |-> 64'0
+    "RSP" |-> 64'64
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem (
+"AF" |-> 1'1
+    "CF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'1
+    "R8" |-> 64'248
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'248
+    "RBP" |-> 64'64
+    "RBX" |-> 64'2147516541
+    "RCX" |-> 64'125
+    "RDI" |-> 64'0
+    "RDX" |-> 64'0
+    "RIP" |-> 64'61
     "RSI" |-> 64'0
     "RSP" |-> 64'64
     "SF" |-> 1'0
