@@ -20,18 +20,18 @@ ${OUTDIR}/%.kstate: %.s
 	@echo ""
 	@echo  "Generate: $@ "
 	@mkdir -p ${OUTDIR}
-	${RUN_SH} --file $< --krun --output $@ --args "a.out" --args "HelloWorld!"
+	${RUN_SH} --file $< --krun --output $@
 
 ${OUTDIR}/%.xstate: %.s
 	@echo ""
 	@echo  "Generate: $@ "
 	@mkdir -p ${OUTDIR}
-	${RUN_SH} --file $< --xrun --output $@
+	${RUN_SH} --file $< --xrun --output $@ 
 
 %.cstate: ${OUTDIR}/%.kstate ${OUTDIR}/%.xstate
 	@echo ""
 	@echo  "Compare: ${OUTDIR}/$@ "
-	${RUN_SH} --file $< --compare 
+	${RUN_SH} --file $< --compare
 
 allclean:
 	@echo "All Cleaning"
