@@ -36,16 +36,19 @@ module X86-SYNTAX
     The following captures  the At&t syntax of x86 assembly.
   */
   syntax Instructions ::= List{Instruction, ""} [klabel(instructionlist)]
-  syntax Instruction ::= Label 
-                       | Opcode Operands
-                       | ".section" ".text" [token]
-                       | ".globl" "_start"  [token]
+  syntax Instruction ::=  Opcode Operands
+                       | AssemblerDirective
+                       | Label
 
-  //syntax LabelID ::= r"\\_[a-zA-Z\\.\\_\\-\\$][0-9a-zA-Z\\.\\_\\-\\$]*" [token, notInRules]
-  //syntax Label ::= LabelID ":"
-  syntax Label ::= Id ":"
-                     
-  //syntax Label ::=  NamedID ":" 
+  syntax X86Id ::= Id
+  syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
+
+  syntax AssemblerDirective ::=  ".section" SectionName 
+                            | ".globl" X86Id 
+  syntax SectionName ::= ".text"   [token]
+                        | ".data" [token]
+
+  syntax Label ::= X86Id ":"
         
   syntax HexConstant ::=  r"$0x[0-9a-fA-F]+" [token]
 

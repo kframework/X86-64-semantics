@@ -7,9 +7,8 @@ module JGE-LABEL
   rule <k> 
     execinstr (jge LabelId:Id, .Operands) => .
   ...</k>
-      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> {LabelMap[Id2String(LabelId)]}:>MInt))
+      <regstate> RSMap => updateMap(RSMap, ("RIP" |-> Target))
       </regstate>
-      <functargets> LabelMap </functargets>
-        requires Id2String(LabelId) in_keys (LabelMap) 
-        andBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+      <functargets>... LabelId |-> Target  ...</functargets>
+        requires  eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
 endmodule

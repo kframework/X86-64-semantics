@@ -9,17 +9,18 @@ module X86-FETCH-EXECUTE
   rule
     <k> fetch => execinstr(OpC OpR) ~> inforegisters ~> fetch ... </k>
       <text>code(iloc(PC) |-> storedInstr(OpC OpR) _:Map) </text>
-      <regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64,getISize(OpC OpR))))  ...</regstate>
+      <regstate>... "RIP" |-> ( PC => addMInt(PC,  mi(64, 1)))  ...</regstate>
 
-  /*@ This rule need to used in future. Currently the execution is
-    terminated by a nop instruction.
-    After  execution of last instrcution, no more fecthes.
+  /*@ 
+    After execution of last instrcution, no more fecthes. 
+    The last return instruction drive the PC to an invalid location
+    (out of code section)
+  */
   rule
     <k> fetch => .  ... </k>
-      <text> CMap </text>
-      <rip> PC  </rip>
-        requires notBool locpc(PC) in_keys ( CMap )
-  */
+      <text> code (CMap) </text>
+      <regstate> RSMap </regstate>
+        requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
 
   /*@
     inforegisters prints all the register states for debug purposes.
