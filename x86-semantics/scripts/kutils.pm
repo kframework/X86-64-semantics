@@ -759,9 +759,11 @@ sub compareStates {
     }
 
     for ( my $i = 0 ; $i < scalar(@kstates) ; $i++ ) {
-        if (   4 == ( $i % $regcount )
-            or 5 == ( $i % $regcount )
-            or 6 == ( $i % $regcount ) )
+        if ( 
+            #4 == ( $i % $regcount ) or 
+            #5 == ( $i % $regcount ) or 
+            6 == ( $i % $regcount ) or 
+            7 == ( $i % $regcount ) )
         {
 
             #info("Skip $regMap{$i % $regcount}");
