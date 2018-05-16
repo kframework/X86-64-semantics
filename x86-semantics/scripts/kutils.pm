@@ -754,16 +754,23 @@ sub compareStates {
           . scalar(@kstates) . "\n"
           . "xstates = "
           . scalar(@xstates) . "\n\n";
-        info("$msg");
-        return;
+        info("kstate xstate count unequal");
+        print $msg;
+
+        #return;
     }
 
-    for ( my $i = 0 ; $i < scalar(@kstates) ; $i++ ) {
-        if ( 
-            #4 == ( $i % $regcount ) or 
-            #5 == ( $i % $regcount ) or 
-            6 == ( $i % $regcount ) or 
-            7 == ( $i % $regcount ) )
+    my $iter = scalar(@kstates);
+    if ( scalar(@xstates) < scalar(@kstates) ) {
+        $iter = scalar(@xstates);
+    }
+
+    for ( my $i = 0 ; $i < $iter ; $i++ ) {
+        if (
+            #4 == ( $i % $regcount ) or
+            #5 == ( $i % $regcount ) or
+            6 == ( $i % $regcount ) or 7 == ( $i % $regcount )
+          )
         {
 
             #info("Skip $regMap{$i % $regcount}");
