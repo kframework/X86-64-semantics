@@ -74,8 +74,9 @@ if ( "" ne $krun ) {
         "time krun -d $kdefn $basename.$ext $envArgs --output-file $output",
         1 );
 
+    my ( $fh_unused, $tmpfile ) = tempfile( "tmpfileXXXXX", DIR => "/tmp/" );
     execute(
-"cat $output | sed  '/^\\s*\$/d' | sed 's/(\\s*\"/(\\n\"/g'  1> /tmp/x  2>&1 &&  mv /tmp/x $output",
+"cat $output | sed  '/^\\s*\$/d' | sed 's/(\\s*\"/(\\n\"/g'  1> $tmpfile  2>&1 &&  mv $tempfile $output",
         1
     );
 
