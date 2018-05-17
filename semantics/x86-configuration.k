@@ -98,8 +98,12 @@ module X86-CONFIGURATION
     /*@
       The following configuration is used to store the intermediate
       regstate at instruction boundary. Used in debug/testing purposes.
+
+      itracer: For debug purposes
+      regstatequeue: For testing purposes
     */
-    <itracer> .List </itracer>
+
+    // <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
 
   </T>
