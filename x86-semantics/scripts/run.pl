@@ -4,6 +4,7 @@ use warnings;
 use Getopt::Long;
 use File::Compare;
 use File::Basename;
+use File::Temp qw/ tempfile tempdir /;
 
 use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
@@ -76,7 +77,7 @@ if ( "" ne $krun ) {
 
     my ( $fh_unused, $tmpfile ) = tempfile( "tmpfileXXXXX", DIR => "/tmp/" );
     execute(
-"cat $output | sed  '/^\\s*\$/d' | sed 's/(\\s*\"/(\\n\"/g'  1> $tmpfile  2>&1 &&  mv $tempfile $output",
+"cat $output | sed  '/^\\s*\$/d' | sed 's/(\\s*\"/(\\n\"/g'  1> $tmpfile  2>&1 &&  mv $tmpfile $output",
         1
     );
 

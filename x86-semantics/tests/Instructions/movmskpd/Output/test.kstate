@@ -1251,16 +1251,6 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
-  <itracer>
-    ListItem ( storedInstr ( movq $ 0 , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq %rax , %xmm0 , .Operands ) )
-    ListItem ( storedInstr ( movddup %xmm0 , %xmm1 , .Operands ) )
-    ListItem ( storedInstr ( movsldup %xmm0 , %xmm2 , .Operands ) )
-    ListItem ( storedInstr ( movshdup %xmm0 , %xmm3 , .Operands ) )
-    ListItem ( storedInstr ( vbroadcastsd %xmm0 , %ymm4 , .Operands ) )
-    ListItem ( storedInstr ( vbroadcastss %xmm0 , %ymm5 , .Operands ) )
-    ListItem ( storedInstr ( vmovmskpd %xmm1 , %ebx , .Operands ) )
-  </itracer>
   <regstatequeue>
     ListItem (
 "AF" |-> 1'0
