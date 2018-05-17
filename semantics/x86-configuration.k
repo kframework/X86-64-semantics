@@ -12,22 +12,20 @@ module X86-CONFIGURATION
   imports X86-MEMORY-SYNTAX
   imports X86-INIT-SYNTAX
   imports MINT-WRAPPER-SYNTAX
+  imports X86-LOADER-SYNTAX
 
   configuration <T>
-    // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment($ARGV:List) ~> fetch </k>
-    // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(ListItem("a.out")  .List) ~> fetch </k>
-
-    // <k> $PGM:Instructions ~> inforegisters ~> initEnvironment(.List) ~> fetch </k>
+//initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
     <k> 
 	$PGM:Instructions ~> 
-	//initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
 	initEnvironment($ARGV:List) ~> 
+        loadEntryPoint ~>
 	inforegisters ~> 
 	fetch 
     </k>
 
     <functargets> .Map </functargets> 
-    <entrypoint> mi(64, 0) </entrypoint>
+    <entrypoint> .K </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
 
     <memstate>
@@ -101,6 +99,7 @@ module X86-CONFIGURATION
       The following configuration is used to store the intermediate
       regstate at instruction boundary. Used in debug/testing purposes.
     */
+    <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
 
   </T>

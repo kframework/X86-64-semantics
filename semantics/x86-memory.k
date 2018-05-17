@@ -11,6 +11,8 @@ module X86-MEMORY-SYNTAX
   imports MINT
   imports INT
 
+  syntax Int ::= "StackSpaceForEnvs"
+
   /*@
     Load Return Value Sort
   */
@@ -67,6 +69,9 @@ endmodule
 module X86-MEMORY
   imports COMMON-MEMORY-SYNTAX
   imports X86-CONFIGURATION
+
+
+  rule StackSpaceForEnvs => 32 [macro]
 
   /// Decomposition of a dynamic value into bytes
   syntax ByteVal ::= byte(/* position, 0 being the LSB */ Int, MInt)
@@ -142,7 +147,8 @@ module X86-MEMORY
 
   /*@
     Allocate stack memory: Used for allocating stack memory and saving the stack base address
-    N ::= Environment Memory (8 byte fake return address + upper 64 slots) + Stack Memory (Rest)
+    N ::= Environment Memory (8 byte fake return address + upper StackSpaceForEnvs slots) + 
+    Stack Memory (Rest)
 
       *    *
    A: *----* <-- rsp, rbp
@@ -153,11 +159,11 @@ module X86-MEMORY
   rule <k> allocateStackMemory(N:Int, A:Int) =>  
     saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
       <regstate> RSMap => updateMap(RSMap,
-                          ("RSP"  |->  mi(addrSize, N -Int 64)) 
-                          ("RBP"  |->  mi(addrSize, N -Int 64)) ) 
+                          ("RSP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) 
+                          ("RBP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) ) 
       </regstate>
-      <argv> _ => mi(addrSize, N -Int 64 +Int 8) </argv>
-      <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, N -Int 64))  </stackbase>
+      <argv> _ => mi(addrSize, N -Int StackSpaceForEnvs +Int 8) </argv>
+      <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, N -Int StackSpaceForEnvs))  </stackbase>
 
   /*@
     Save the allocation id for later reads/writes/free.

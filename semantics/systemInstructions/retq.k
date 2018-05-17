@@ -5,16 +5,16 @@ module RETQ
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr (retq .Operands) => 
+    execinstr (ret .Operands) => 
     incRSPInBytes(8) ~>
     loadFromMemory(getRegisterValue(%rsp, RSMap), 64)
-    ~> execinstr(retq .Operands)
+    ~> execinstr(ret .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
 
   rule <k> 
-    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (retq .Operands) =>  .
+    memLoadValue(MemVal:MInt):MemLoadValue ~> execinstr (ret .Operands) =>  .
   ...</k>
       <regstate>... "RIP" |-> ( PC => MemVal)  ...</regstate>
 endmodule

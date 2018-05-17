@@ -73,8 +73,8 @@ module X86-ABSTRACT-SEMANTICS
 
   /*@
     Size of instructions.
-  */  
   rule getISize((OpC:Opcode OpR:Operands):Instruction) => 1
+  */  
 
   /*@
     Reg to Regtstate keys
