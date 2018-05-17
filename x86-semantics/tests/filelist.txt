@@ -4,7 +4,6 @@
 ./Programs/bubblesort/
 ./Programs/if3/
 ./Programs/swap/
-./Programs/condswap/
 ./Programs/for_if/
 ./Programs/if2/
 ./Features/memory3/
