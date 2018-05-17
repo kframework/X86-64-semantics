@@ -581,7 +581,7 @@ sub processKFile {
 
     execute(
         "grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1"
-    );
+    , 1);
 
     open( my $fp, "<", "$tmpfile" ) or die "Cannot open: $!";
     my @lines   = <$fp>;
@@ -633,7 +633,7 @@ sub processKFile {
 
     for my $key (@orderedKeys) {
         if ( $numOfInstrs != scalar( @{ $kstateMap{$key} } ) ) {
-            failInfo("Count of $key is not same as $numOfInstrs\n");
+            failInfo("processKFile: Count of $key is not same as $numOfInstrs");
             return @kstates;
         }
     }
