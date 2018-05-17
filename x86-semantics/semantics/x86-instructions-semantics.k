@@ -1973,11 +1973,23 @@ RSMap:Map => updateMap(RSMap,
     </regstate>
 
 
+// movq-m64-imm64
+
+  context execinstr(movq:Opcode (_:Imm, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
+
+  rule <k> 
+    execinstr(movq I1_64:Imm, memOffset( MemOff:MInt ):MemOffset, .Operands) =>
+      storeToMemory(handleImmediateWithSignExtend(I1_64, 64, 64 ), MemOff, 64)
+  ...</k>
+  
+
+
 // movq-m64-r64
 
   context execinstr(movq:Opcode (_:R64, HOLE:Mem, .Operands):Operands) [result(MemOffset)]
   rule <k> 
-    execinstr (movq R1:R64,  memOffset( MemOff:MInt ):MemOffset, .Operands) => storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
+    execinstr (movq R1:R64,  memOffset( MemOff:MInt ):MemOffset, .Operands) => 
+      storeToMemory(getRegisterValue(R1, RSMap), MemOff, 64)
   ...</k>
   <regstate> RSMap </regstate>
 
@@ -2144,6 +2156,15 @@ sigsegv : sigsegv
   ...</k>
 
 
+
+
+// movq-m64-label
+
+  rule <k> 
+    execinstr (movq:Opcode  $ (LabelId):X86Id,  M:Mem, .Operands) => 
+      execinstr (movq $ uvalueMInt(Target),  M:Mem, .Operands)    
+  ...</k>
+    <functargets>...  LabelId:X86Id |-> Target:MInt  ...</functargets>
 
 
 // cmpl-m32-r32

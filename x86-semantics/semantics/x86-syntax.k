@@ -61,7 +61,7 @@ module X86-SYNTAX
 
   syntax Operands ::= List{Operand, ","} [klabel(operandlist)]
 
-  syntax Operand ::=  Imm
+  syntax Operand ::=    Imm
 //                     | Mm
                        | Sreg
 //                     | St
@@ -70,6 +70,7 @@ module X86-SYNTAX
                        | Register
                        | MemOffset
                        | X86Id 
+                       | "$" X86Id
 
 
   syntax Simpleoperand ::= Register | Imm | MemOffset 
