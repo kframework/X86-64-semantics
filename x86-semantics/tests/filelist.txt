@@ -1,0 +1,15 @@
+./Programs/sum_array_elems/
+./Programs/if1/
+./Programs/if4/
+./Programs/bubblesort/
+./Programs/if3/
+./Programs/swap/
+./Programs/condswap/
+./Programs/for_if/
+./Programs/if2/
+./Features/memory3/
+./Features/memory4/
+./Features/pushpop/
+./Features/memory1/
+./Features/memory2/
+./Features/loader/

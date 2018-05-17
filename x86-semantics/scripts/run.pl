@@ -10,32 +10,36 @@ use kutils;
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
 use utils;
 
-my $help    = "";
-my $file    = "";
-my $print   = "";
-my $clean   = "";
-my $compile = "";
-my $krun    = "";
-my $xrun    = "";
-my $compare = "";
-my $output  = "";
-my @args    = ();
+my $help       = "";
+my $file       = "";
+my $print      = "";
+my $clean      = "";
+my $compile    = "";
+my $krun       = "";
+my $xrun       = "";
+my $compare    = "";
+my $output     = "";
+my $linker     = "";
+my @args       = ();
+my $kstateskip = 0;
 my $kdefn =
   "/home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/";
 my $outdir = "Output/";
 my $home   = $ENV{'HOME'};
 
 GetOptions(
-    "help"     => \$help,
-    "print"    => \$print,
-    "file:s"   => \$file,
-    "args:s"   => \@args,
-    "output:s" => \$output,
-    "krun"     => \$krun,
-    "xrun"     => \$xrun,
-    "compare"  => \$compare,
-    "clean"    => \$clean,
-    "outdir:s" => \$outdir,
+    "help"         => \$help,
+    "print"        => \$print,
+    "file:s"       => \$file,
+    "args:s"       => \@args,
+    "output:s"     => \$output,
+    "krun"         => \$krun,
+    "xrun"         => \$xrun,
+    "compare"      => \$compare,
+    "clean"        => \$clean,
+    "outdir:s"     => \$outdir,
+    "kstateskip:s" => \$kstateskip,
+    "linker:s"     => \$linker,
 ) or die("Error in command line arguments\n");
 
 if ($help) {
@@ -70,10 +74,6 @@ if ( "" ne $krun ) {
         "time krun -d $kdefn $basename.$ext $envArgs --output-file $output",
         1 );
 
-#    execute(
-#"cat $output | sed -e 's/\\(<[^</]*>\\)/\\n\\1/g' | sed  '/^\\s*\$/d' | sed 's/ListItem (/\\nListItem/g' | sed 's/ \"/\\n\"/g' 1> /tmp/x  2>&1",
-#        2
-#    );
     execute(
 "cat $output | sed  '/^\\s*\$/d' | sed 's/(\\s*\"/(\\n\"/g'  1> /tmp/x  2>&1 &&  mv /tmp/x $output",
         1
@@ -88,8 +88,11 @@ if ( "" ne $xrun ) {
 
     $output = "$outdir/$basename.xstate";
 
-    execute( "as $basename.$ext -o $outdir/$basename.o",         1 );
-    execute( "ld $outdir/$basename.o -o $outdir/$basename.exec", 1 );
+    if ( "" eq $linker ) {
+        $linker = "ld";
+    }
+    execute( "as $basename.$ext -o $outdir/$basename.o",              1 );
+    execute( "$linker $outdir/$basename.o -o $outdir/$basename.exec", 1 );
     execute(
 "gdb --batch --command=../../scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1",
         1
@@ -107,7 +110,7 @@ if ( "" ne $compare ) {
     my @kstates = processKFile( $basename, $filek );
     my @xstates = processXFile( $basename, $filex );
 
-    #pprint( \@kstates, \@xstates );
+    pprint( \@kstates, \@xstates, $kstateskip );
 
     compareStates( $basename, \@kstates, \@xstates );
 }

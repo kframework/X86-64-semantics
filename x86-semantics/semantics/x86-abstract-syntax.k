@@ -28,7 +28,7 @@ module X86-ASBTRACT-SYNTAX
   syntax Int ::= "addrSize"
   rule addrSize => 64 [macro]
 
-  syntax Int ::= getISize(Instruction) [function]
+  // syntax Int ::= getISize(Instruction) [function]
 
   syntax KItem ::= "fetch" [token]
   syntax KItem ::= "inforegisters" [token]

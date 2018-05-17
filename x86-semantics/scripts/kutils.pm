@@ -805,12 +805,14 @@ sub compareStates {
 }
 
 sub pprint {
-    my ( $k_ref, $x_ref ) = @_;
+    my ( $k_ref, $x_ref, $kstateskip ) = @_;
     my @kstates    = @{$k_ref};
     my @xstates    = @{$x_ref};
     my $instrcount = 0;
 
-    for ( my $i = 0 ; $i < scalar(@kstates) ; $i++ ) {
+    my $i = 0 + $kstateskip * $regcount;
+
+    for ( ; $i < scalar(@kstates) ; $i++ ) {
         if ( 0 == $i % $regcount ) {
             print "\n$instrcount) reg\tkstate\txstate"
               . "\n---------------------\n";
