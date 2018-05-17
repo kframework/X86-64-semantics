@@ -94,7 +94,7 @@ if ( "" ne $xrun ) {
     execute( "as $basename.$ext -o $outdir/$basename.o",              1 );
     execute( "$linker $outdir/$basename.o -o $outdir/$basename.exec", 1 );
     execute(
-"gdb --batch --command=../../scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1",
+"gdb --batch --command=../../../scripts/script_3.gdb --args $outdir/$basename.exec 1> $output 2>&1",
         1
     );
 
