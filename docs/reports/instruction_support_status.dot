@@ -46,10 +46,10 @@ digraph instr_supprt {
     style=filled;
     color = cadetblue1;
 
-    REGS_STRATA [sides=5; shape=polygon; label="Stratified\n#692"] 
-    REGS_UNSTRATA [label="Strata Unsupported\n#391"] 
-    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nStoked\n!! == TS !!\n#262"] 
-    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nUnstoked\n!!Extend Stratification!!\n#129"]
+    REGS_STRATA [sides=5; shape=polygon; label="stratified\n#692"] 
+    REGS_UNSTRATA [label="not-stratified\n#391"] 
+    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nstoked\n!! == TS !!\n#262"] 
+    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nnot-stoked\n!!Extend Stratification!!\n#129"]
 
     REGS -> REGS_STRATA
     REGS -> REGS_UNSTRATA
