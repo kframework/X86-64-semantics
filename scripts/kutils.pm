@@ -6,6 +6,8 @@ use strict;
 use File::Path qw(make_path remove_tree);
 use POSIX;
 
+use File::Temp qw/ tempfile tempdir /;
+
 use bigint;
 use bigint qw/hex oct/;
 
@@ -568,7 +570,9 @@ sub checkKRunStatus {
 sub processKFile {
     my $basename      = shift @_;
     my $file          = shift @_;
-    my $tmpfile       = "/tmp/$basename.yyy";
+
+
+    my ($fh_unused, $tmpfile) = tempfile( "tmpfileXXXXX", DIR => "/tmp/");
     my @kstates       = ();
     my @sortedkstates = ();
     my %kstateMap     = ();
@@ -605,7 +609,7 @@ sub processKFile {
 
         }
         else {
-            print("Skipped::$line");
+            print("Skipped::$line\n");
         }
     }
 
@@ -650,7 +654,7 @@ sub processKFile {
 sub processXFile {
     my $basename = shift @_;
     my $file     = shift @_;
-    my $tmpfile  = "/tmp/$basename.xxx";
+    my ($unused_fh, $tmpfile) = tempfile( "tmpfileXXXXX", DIR => "/tmp/");
     my @xstates  = ();
 
     execute("grep   -A 33  \"_start+\"  $file 1> ${tmpfile} 2>&1");
