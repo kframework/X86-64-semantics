@@ -20,7 +20,7 @@ ${OUTDIR}/%.kstate: %.s
 	@echo ""
 	@echo  "Generate: $@ "
 	@mkdir -p ${OUTDIR}
-	${RUN_SH} --file $< --krun --output $@ --args "a.out" --args "HelloWorld!"
+	${RUN_SH} --file $< --krun --output $@
 
 ${OUTDIR}/%.xstate: %.s
 	@echo ""
