@@ -1,3 +1,6 @@
+.section .text
+.globl main
+
 swap:
   pushq %rbp
   movq %rsp, %rbp
