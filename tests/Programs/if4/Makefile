@@ -6,7 +6,7 @@ XSTATES=$(patsubst %.s, ${OUTDIR}/%.xstate, $(TESTS))
 CSTATES=$(patsubst %.s, %.cstate, $(TESTS))
 
 Mkdir=@mkdir -p $(@D)
-RUN_SH=../../scripts/run.pl
+RUN_SH=../../../scripts/run.pl
 
 
 
