@@ -3,8 +3,8 @@
     exit_0
   </k>
   <functargets>
-    "main" |-> 64'0
-    "testFunction" |-> 64'3
+    main |-> 64'0
+    testFunction |-> 64'3
   </functargets>
   <entrypoint>
     64'0
@@ -27,7 +27,7 @@
           2
         </nextLoc>
         <objects>
-          mem ( symloc ( 1 , 128 ) |-> mVector ( 128 , 8 , 0 |-> byte ( 0 , undef )
+          mem ( symloc ( 1 , 128 ) |-> mVector ( 256 , 8 , 0 |-> byte ( 0 , undef )
           1 |-> byte ( 0 , undef )
           2 |-> byte ( 0 , undef )
           3 |-> byte ( 0 , undef )
@@ -83,48 +83,48 @@
           53 |-> byte ( 0 , undef )
           54 |-> byte ( 0 , undef )
           55 |-> byte ( 0 , undef )
-          56 |-> byte ( 0 , 64'64 )
-          57 |-> byte ( 1 , 64'64 )
-          58 |-> byte ( 2 , 64'64 )
-          59 |-> byte ( 3 , 64'64 )
-          60 |-> byte ( 4 , 64'64 )
-          61 |-> byte ( 5 , 64'64 )
-          62 |-> byte ( 6 , 64'64 )
-          63 |-> byte ( 7 , 64'64 )
-          64 |-> byte ( 0 , 64'80 )
-          65 |-> byte ( 1 , 64'80 )
-          66 |-> byte ( 2 , 64'80 )
-          67 |-> byte ( 3 , 64'80 )
-          68 |-> byte ( 4 , 64'80 )
-          69 |-> byte ( 5 , 64'80 )
-          70 |-> byte ( 6 , 64'80 )
-          71 |-> byte ( 7 , 64'80 )
-          72 |-> byte ( 0 , 64'86 )
-          73 |-> byte ( 1 , 64'86 )
-          74 |-> byte ( 2 , 64'86 )
-          75 |-> byte ( 3 , 64'86 )
-          76 |-> byte ( 4 , 64'86 )
-          77 |-> byte ( 5 , 64'86 )
-          78 |-> byte ( 6 , 64'86 )
-          79 |-> byte ( 7 , 64'86 )
-          80 |-> byte ( 0 , 8'97 )
-          81 |-> byte ( 0 , 8'46 )
-          82 |-> byte ( 0 , 8'111 )
-          83 |-> byte ( 0 , 8'117 )
-          84 |-> byte ( 0 , 8'116 )
-          85 |-> byte ( 0 , 8'0 )
-          86 |-> byte ( 0 , 8'72 )
-          87 |-> byte ( 0 , 8'101 )
-          88 |-> byte ( 0 , 8'108 )
-          89 |-> byte ( 0 , 8'108 )
-          90 |-> byte ( 0 , 8'111 )
-          91 |-> byte ( 0 , 8'87 )
-          92 |-> byte ( 0 , 8'111 )
-          93 |-> byte ( 0 , 8'114 )
-          94 |-> byte ( 0 , 8'108 )
-          95 |-> byte ( 0 , 8'100 )
-          96 |-> byte ( 0 , 8'33 )
-          97 |-> byte ( 0 , 8'0 )
+          56 |-> byte ( 0 , undef )
+          57 |-> byte ( 0 , undef )
+          58 |-> byte ( 0 , undef )
+          59 |-> byte ( 0 , undef )
+          60 |-> byte ( 0 , undef )
+          61 |-> byte ( 0 , undef )
+          62 |-> byte ( 0 , undef )
+          63 |-> byte ( 0 , undef )
+          64 |-> byte ( 0 , undef )
+          65 |-> byte ( 0 , undef )
+          66 |-> byte ( 0 , undef )
+          67 |-> byte ( 0 , undef )
+          68 |-> byte ( 0 , undef )
+          69 |-> byte ( 0 , undef )
+          70 |-> byte ( 0 , undef )
+          71 |-> byte ( 0 , undef )
+          72 |-> byte ( 0 , undef )
+          73 |-> byte ( 0 , undef )
+          74 |-> byte ( 0 , undef )
+          75 |-> byte ( 0 , undef )
+          76 |-> byte ( 0 , undef )
+          77 |-> byte ( 0 , undef )
+          78 |-> byte ( 0 , undef )
+          79 |-> byte ( 0 , undef )
+          80 |-> byte ( 0 , undef )
+          81 |-> byte ( 0 , undef )
+          82 |-> byte ( 0 , undef )
+          83 |-> byte ( 0 , undef )
+          84 |-> byte ( 0 , undef )
+          85 |-> byte ( 0 , undef )
+          86 |-> byte ( 0 , undef )
+          87 |-> byte ( 0 , undef )
+          88 |-> byte ( 0 , undef )
+          89 |-> byte ( 0 , undef )
+          90 |-> byte ( 0 , undef )
+          91 |-> byte ( 0 , undef )
+          92 |-> byte ( 0 , undef )
+          93 |-> byte ( 0 , undef )
+          94 |-> byte ( 0 , undef )
+          95 |-> byte ( 0 , undef )
+          96 |-> byte ( 0 , undef )
+          97 |-> byte ( 0 , undef )
           98 |-> byte ( 0 , undef )
           99 |-> byte ( 0 , undef )
           100 |-> byte ( 0 , undef )
@@ -154,11 +154,139 @@
           124 |-> byte ( 0 , undef )
           125 |-> byte ( 0 , undef )
           126 |-> byte ( 0 , undef )
-          127 |-> byte ( 0 , undef ) ) )
+          127 |-> byte ( 0 , undef )
+          128 |-> byte ( 0 , undef )
+          129 |-> byte ( 0 , undef )
+          130 |-> byte ( 0 , undef )
+          131 |-> byte ( 0 , undef )
+          132 |-> byte ( 0 , undef )
+          133 |-> byte ( 0 , undef )
+          134 |-> byte ( 0 , undef )
+          135 |-> byte ( 0 , undef )
+          136 |-> byte ( 0 , undef )
+          137 |-> byte ( 0 , undef )
+          138 |-> byte ( 0 , undef )
+          139 |-> byte ( 0 , undef )
+          140 |-> byte ( 0 , undef )
+          141 |-> byte ( 0 , undef )
+          142 |-> byte ( 0 , undef )
+          143 |-> byte ( 0 , undef )
+          144 |-> byte ( 0 , undef )
+          145 |-> byte ( 0 , undef )
+          146 |-> byte ( 0 , undef )
+          147 |-> byte ( 0 , undef )
+          148 |-> byte ( 0 , undef )
+          149 |-> byte ( 0 , undef )
+          150 |-> byte ( 0 , undef )
+          151 |-> byte ( 0 , undef )
+          152 |-> byte ( 0 , undef )
+          153 |-> byte ( 0 , undef )
+          154 |-> byte ( 0 , undef )
+          155 |-> byte ( 0 , undef )
+          156 |-> byte ( 0 , undef )
+          157 |-> byte ( 0 , undef )
+          158 |-> byte ( 0 , undef )
+          159 |-> byte ( 0 , undef )
+          160 |-> byte ( 0 , undef )
+          161 |-> byte ( 0 , undef )
+          162 |-> byte ( 0 , undef )
+          163 |-> byte ( 0 , undef )
+          164 |-> byte ( 0 , undef )
+          165 |-> byte ( 0 , undef )
+          166 |-> byte ( 0 , undef )
+          167 |-> byte ( 0 , undef )
+          168 |-> byte ( 0 , undef )
+          169 |-> byte ( 0 , undef )
+          170 |-> byte ( 0 , undef )
+          171 |-> byte ( 0 , undef )
+          172 |-> byte ( 0 , undef )
+          173 |-> byte ( 0 , undef )
+          174 |-> byte ( 0 , undef )
+          175 |-> byte ( 0 , undef )
+          176 |-> byte ( 0 , 64'184 )
+          177 |-> byte ( 1 , 64'184 )
+          178 |-> byte ( 2 , 64'184 )
+          179 |-> byte ( 3 , 64'184 )
+          180 |-> byte ( 4 , 64'184 )
+          181 |-> byte ( 5 , 64'184 )
+          182 |-> byte ( 6 , 64'184 )
+          183 |-> byte ( 7 , 64'184 )
+          184 |-> byte ( 0 , 64'192 )
+          185 |-> byte ( 1 , 64'192 )
+          186 |-> byte ( 2 , 64'192 )
+          187 |-> byte ( 3 , 64'192 )
+          188 |-> byte ( 4 , 64'192 )
+          189 |-> byte ( 5 , 64'192 )
+          190 |-> byte ( 6 , 64'192 )
+          191 |-> byte ( 7 , 64'192 )
+          192 |-> byte ( 0 , 64'-1 )
+          193 |-> byte ( 1 , 64'-1 )
+          194 |-> byte ( 2 , 64'-1 )
+          195 |-> byte ( 3 , 64'-1 )
+          196 |-> byte ( 4 , 64'-1 )
+          197 |-> byte ( 5 , 64'-1 )
+          198 |-> byte ( 6 , 64'-1 )
+          199 |-> byte ( 7 , 64'-1 )
+          200 |-> byte ( 0 , 64'216 )
+          201 |-> byte ( 1 , 64'216 )
+          202 |-> byte ( 2 , 64'216 )
+          203 |-> byte ( 3 , 64'216 )
+          204 |-> byte ( 4 , 64'216 )
+          205 |-> byte ( 5 , 64'216 )
+          206 |-> byte ( 6 , 64'216 )
+          207 |-> byte ( 7 , 64'216 )
+          208 |-> byte ( 0 , 64'222 )
+          209 |-> byte ( 1 , 64'222 )
+          210 |-> byte ( 2 , 64'222 )
+          211 |-> byte ( 3 , 64'222 )
+          212 |-> byte ( 4 , 64'222 )
+          213 |-> byte ( 5 , 64'222 )
+          214 |-> byte ( 6 , 64'222 )
+          215 |-> byte ( 7 , 64'222 )
+          216 |-> byte ( 0 , 8'97 )
+          217 |-> byte ( 0 , 8'46 )
+          218 |-> byte ( 0 , 8'111 )
+          219 |-> byte ( 0 , 8'117 )
+          220 |-> byte ( 0 , 8'116 )
+          221 |-> byte ( 0 , 8'0 )
+          222 |-> byte ( 0 , 8'72 )
+          223 |-> byte ( 0 , 8'101 )
+          224 |-> byte ( 0 , 8'108 )
+          225 |-> byte ( 0 , 8'108 )
+          226 |-> byte ( 0 , 8'111 )
+          227 |-> byte ( 0 , 8'87 )
+          228 |-> byte ( 0 , 8'111 )
+          229 |-> byte ( 0 , 8'114 )
+          230 |-> byte ( 0 , 8'108 )
+          231 |-> byte ( 0 , 8'100 )
+          232 |-> byte ( 0 , 8'33 )
+          233 |-> byte ( 0 , 8'0 )
+          234 |-> byte ( 0 , undef )
+          235 |-> byte ( 0 , undef )
+          236 |-> byte ( 0 , undef )
+          237 |-> byte ( 0 , undef )
+          238 |-> byte ( 0 , undef )
+          239 |-> byte ( 0 , undef )
+          240 |-> byte ( 0 , undef )
+          241 |-> byte ( 0 , undef )
+          242 |-> byte ( 0 , undef )
+          243 |-> byte ( 0 , undef )
+          244 |-> byte ( 0 , undef )
+          245 |-> byte ( 0 , undef )
+          246 |-> byte ( 0 , undef )
+          247 |-> byte ( 0 , undef )
+          248 |-> byte ( 0 , undef )
+          249 |-> byte ( 0 , undef )
+          250 |-> byte ( 0 , undef )
+          251 |-> byte ( 0 , undef )
+          252 |-> byte ( 0 , undef )
+          253 |-> byte ( 0 , undef )
+          254 |-> byte ( 0 , undef )
+          255 |-> byte ( 0 , undef ) ) )
         </objects>
       </memory>
       <stackbase>
-        symloc ( 1 , 128 )
+        stackBaseInfo ( symloc ( 1 , 128 ) , 64'192 )
       </stackbase>
     </stack>
   </memstate>
@@ -167,7 +295,7 @@
       2
     </argc>
     <argv>
-      64'64
+      64'200
     </argv>
   </environment>
   <regstate>
@@ -184,14 +312,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'56
+    "RBP" |-> 64'184
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'2
     "RDX" |-> 64'0
-    "RIP" |-> 64'3
-    "RSI" |-> 64'64
-    "RSP" |-> 64'56
+    "RIP" |-> 64'6
+    "RSI" |-> 64'200
+    "RSP" |-> 64'184
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -211,8 +339,17 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
+  <itracer>
+    ListItem ( storedInstr ( pushq %rbp , .Operands ) )
+    ListItem ( storedInstr ( movq %rsp , %rbp , .Operands ) )
+    ListItem ( storedInstr ( nop .Operands ) )
+    ListItem ( storedInstr ( pushq %rbp , .Operands ) )
+    ListItem ( storedInstr ( movq %rsp , %rbp , .Operands ) )
+    ListItem ( storedInstr ( popq %rbp , .Operands ) )
+  </itracer>
   <regstatequeue>
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -225,14 +362,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'0
+    "RBP" |-> 64'192
     "RBX" |-> 64'0
     "RCX" |-> 64'0
-    "RDI" |-> 64'0
+    "RDI" |-> 64'2
     "RDX" |-> 64'0
     "RIP" |-> 64'0
-    "RSI" |-> 64'0
-    "RSP" |-> 64'0
+    "RSI" |-> 64'200
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -251,7 +388,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -264,14 +402,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'2
     "RDX" |-> 64'0
     "RIP" |-> 64'1
-    "RSI" |-> 64'64
-    "RSP" |-> 64'56
+    "RSI" |-> 64'200
+    "RSP" |-> 64'184
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -290,7 +428,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -303,14 +442,134 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'56
+    "RBP" |-> 64'184
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'2
     "RDX" |-> 64'0
     "RIP" |-> 64'2
-    "RSI" |-> 64'64
-    "RSP" |-> 64'56
+    "RSI" |-> 64'200
+    "RSP" |-> 64'184
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem (
+"AF" |-> 1'0
+    "CF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> 64'184
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> 64'2
+    "RDX" |-> 64'0
+    "RIP" |-> 64'3
+    "RSI" |-> 64'200
+    "RSP" |-> 64'184
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem (
+"AF" |-> 1'0
+    "CF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> 64'184
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> 64'2
+    "RDX" |-> 64'0
+    "RIP" |-> 64'4
+    "RSI" |-> 64'200
+    "RSP" |-> 64'176
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem (
+"AF" |-> 1'0
+    "CF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> 64'176
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> 64'2
+    "RDX" |-> 64'0
+    "RIP" |-> 64'5
+    "RSI" |-> 64'200
+    "RSP" |-> 64'176
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
