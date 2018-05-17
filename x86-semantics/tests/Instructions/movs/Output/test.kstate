@@ -81,7 +81,7 @@
           2
         </nextLoc>
         <objects>
-          mem ( symloc ( 1 , 128 ) |-> mVector ( 128 , 8 , 0 |-> byte ( 0 , undef )
+          mem ( symloc ( 1 , 128 ) |-> mVector ( 256 , 8 , 0 |-> byte ( 0 , undef )
           1 |-> byte ( 0 , undef )
           2 |-> byte ( 0 , undef )
           3 |-> byte ( 0 , undef )
@@ -145,14 +145,14 @@
           61 |-> byte ( 0 , undef )
           62 |-> byte ( 0 , undef )
           63 |-> byte ( 0 , undef )
-          64 |-> byte ( 0 , 64'-1 )
-          65 |-> byte ( 1 , 64'-1 )
-          66 |-> byte ( 2 , 64'-1 )
-          67 |-> byte ( 3 , 64'-1 )
-          68 |-> byte ( 4 , 64'-1 )
-          69 |-> byte ( 5 , 64'-1 )
-          70 |-> byte ( 6 , 64'-1 )
-          71 |-> byte ( 7 , 64'-1 )
+          64 |-> byte ( 0 , undef )
+          65 |-> byte ( 0 , undef )
+          66 |-> byte ( 0 , undef )
+          67 |-> byte ( 0 , undef )
+          68 |-> byte ( 0 , undef )
+          69 |-> byte ( 0 , undef )
+          70 |-> byte ( 0 , undef )
+          71 |-> byte ( 0 , undef )
           72 |-> byte ( 0 , undef )
           73 |-> byte ( 0 , undef )
           74 |-> byte ( 0 , undef )
@@ -208,11 +208,139 @@
           124 |-> byte ( 0 , undef )
           125 |-> byte ( 0 , undef )
           126 |-> byte ( 0 , undef )
-          127 |-> byte ( 0 , undef ) ) )
+          127 |-> byte ( 0 , undef )
+          128 |-> byte ( 0 , undef )
+          129 |-> byte ( 0 , undef )
+          130 |-> byte ( 0 , undef )
+          131 |-> byte ( 0 , undef )
+          132 |-> byte ( 0 , undef )
+          133 |-> byte ( 0 , undef )
+          134 |-> byte ( 0 , undef )
+          135 |-> byte ( 0 , undef )
+          136 |-> byte ( 0 , undef )
+          137 |-> byte ( 0 , undef )
+          138 |-> byte ( 0 , undef )
+          139 |-> byte ( 0 , undef )
+          140 |-> byte ( 0 , undef )
+          141 |-> byte ( 0 , undef )
+          142 |-> byte ( 0 , undef )
+          143 |-> byte ( 0 , undef )
+          144 |-> byte ( 0 , undef )
+          145 |-> byte ( 0 , undef )
+          146 |-> byte ( 0 , undef )
+          147 |-> byte ( 0 , undef )
+          148 |-> byte ( 0 , undef )
+          149 |-> byte ( 0 , undef )
+          150 |-> byte ( 0 , undef )
+          151 |-> byte ( 0 , undef )
+          152 |-> byte ( 0 , undef )
+          153 |-> byte ( 0 , undef )
+          154 |-> byte ( 0 , undef )
+          155 |-> byte ( 0 , undef )
+          156 |-> byte ( 0 , undef )
+          157 |-> byte ( 0 , undef )
+          158 |-> byte ( 0 , undef )
+          159 |-> byte ( 0 , undef )
+          160 |-> byte ( 0 , undef )
+          161 |-> byte ( 0 , undef )
+          162 |-> byte ( 0 , undef )
+          163 |-> byte ( 0 , undef )
+          164 |-> byte ( 0 , undef )
+          165 |-> byte ( 0 , undef )
+          166 |-> byte ( 0 , undef )
+          167 |-> byte ( 0 , undef )
+          168 |-> byte ( 0 , undef )
+          169 |-> byte ( 0 , undef )
+          170 |-> byte ( 0 , undef )
+          171 |-> byte ( 0 , undef )
+          172 |-> byte ( 0 , undef )
+          173 |-> byte ( 0 , undef )
+          174 |-> byte ( 0 , undef )
+          175 |-> byte ( 0 , undef )
+          176 |-> byte ( 0 , undef )
+          177 |-> byte ( 0 , undef )
+          178 |-> byte ( 0 , undef )
+          179 |-> byte ( 0 , undef )
+          180 |-> byte ( 0 , undef )
+          181 |-> byte ( 0 , undef )
+          182 |-> byte ( 0 , undef )
+          183 |-> byte ( 0 , undef )
+          184 |-> byte ( 0 , undef )
+          185 |-> byte ( 0 , undef )
+          186 |-> byte ( 0 , undef )
+          187 |-> byte ( 0 , undef )
+          188 |-> byte ( 0 , undef )
+          189 |-> byte ( 0 , undef )
+          190 |-> byte ( 0 , undef )
+          191 |-> byte ( 0 , undef )
+          192 |-> byte ( 0 , 64'-1 )
+          193 |-> byte ( 1 , 64'-1 )
+          194 |-> byte ( 2 , 64'-1 )
+          195 |-> byte ( 3 , 64'-1 )
+          196 |-> byte ( 4 , 64'-1 )
+          197 |-> byte ( 5 , 64'-1 )
+          198 |-> byte ( 6 , 64'-1 )
+          199 |-> byte ( 7 , 64'-1 )
+          200 |-> byte ( 0 , undef )
+          201 |-> byte ( 0 , undef )
+          202 |-> byte ( 0 , undef )
+          203 |-> byte ( 0 , undef )
+          204 |-> byte ( 0 , undef )
+          205 |-> byte ( 0 , undef )
+          206 |-> byte ( 0 , undef )
+          207 |-> byte ( 0 , undef )
+          208 |-> byte ( 0 , undef )
+          209 |-> byte ( 0 , undef )
+          210 |-> byte ( 0 , undef )
+          211 |-> byte ( 0 , undef )
+          212 |-> byte ( 0 , undef )
+          213 |-> byte ( 0 , undef )
+          214 |-> byte ( 0 , undef )
+          215 |-> byte ( 0 , undef )
+          216 |-> byte ( 0 , undef )
+          217 |-> byte ( 0 , undef )
+          218 |-> byte ( 0 , undef )
+          219 |-> byte ( 0 , undef )
+          220 |-> byte ( 0 , undef )
+          221 |-> byte ( 0 , undef )
+          222 |-> byte ( 0 , undef )
+          223 |-> byte ( 0 , undef )
+          224 |-> byte ( 0 , undef )
+          225 |-> byte ( 0 , undef )
+          226 |-> byte ( 0 , undef )
+          227 |-> byte ( 0 , undef )
+          228 |-> byte ( 0 , undef )
+          229 |-> byte ( 0 , undef )
+          230 |-> byte ( 0 , undef )
+          231 |-> byte ( 0 , undef )
+          232 |-> byte ( 0 , undef )
+          233 |-> byte ( 0 , undef )
+          234 |-> byte ( 0 , undef )
+          235 |-> byte ( 0 , undef )
+          236 |-> byte ( 0 , undef )
+          237 |-> byte ( 0 , undef )
+          238 |-> byte ( 0 , undef )
+          239 |-> byte ( 0 , undef )
+          240 |-> byte ( 0 , undef )
+          241 |-> byte ( 0 , undef )
+          242 |-> byte ( 0 , undef )
+          243 |-> byte ( 0 , undef )
+          244 |-> byte ( 0 , undef )
+          245 |-> byte ( 0 , undef )
+          246 |-> byte ( 0 , undef )
+          247 |-> byte ( 0 , undef )
+          248 |-> byte ( 0 , undef )
+          249 |-> byte ( 0 , undef )
+          250 |-> byte ( 0 , undef )
+          251 |-> byte ( 0 , undef )
+          252 |-> byte ( 0 , undef )
+          253 |-> byte ( 0 , undef )
+          254 |-> byte ( 0 , undef )
+          255 |-> byte ( 0 , undef ) ) )
         </objects>
       </memory>
       <stackbase>
-        stackBaseInfo ( symloc ( 1 , 128 ) , 64'64 )
+        stackBaseInfo ( symloc ( 1 , 128 ) , 64'192 )
       </stackbase>
     </stack>
   </memstate>
@@ -221,7 +349,7 @@
       0
     </argc>
     <argv>
-      64'72
+      64'200
     </argv>
   </environment>
   <regstate>
@@ -238,14 +366,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'61
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -265,9 +393,71 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
+  <itracer>
+    ListItem ( storedInstr ( addq $ 65535 , %rax , .Operands ) )
+    ListItem ( storedInstr ( movswq %ax , %rax , .Operands ) )
+    ListItem ( storedInstr ( addq $ 32767 , %rbx , .Operands ) )
+    ListItem ( storedInstr ( movswq %bx , %rcx , .Operands ) )
+    ListItem ( storedInstr ( movq $ 4294967295 , %rax , .Operands ) )
+    ListItem ( storedInstr ( movslq %eax , %rax , .Operands ) )
+    ListItem ( storedInstr ( addq $ 2147483647 , %rbx , .Operands ) )
+    ListItem ( storedInstr ( movslq %ebx , %rcx , .Operands ) )
+    ListItem ( storedInstr ( addq $ 255 , %rax , .Operands ) )
+    ListItem ( storedInstr ( movsbq %al , %rax , .Operands ) )
+    ListItem ( storedInstr ( addq $ 127 , %rbx , .Operands ) )
+    ListItem ( storedInstr ( movsbq %bl , %rcx , .Operands ) )
+    ListItem ( storedInstr ( movq $0x48 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x48 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x48 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x8d , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x8d , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x8d , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x7c , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x7c , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x7c , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x74 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x74 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x74 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
+    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
+    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
+    ListItem ( storedInstr ( nop .Operands ) )
+  </itracer>
   <regstatequeue>
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -280,14 +470,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'0
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -306,8 +496,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -320,14 +509,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'65535
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'1
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -346,8 +535,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -360,14 +548,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-1
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'2
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -386,8 +574,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -400,14 +587,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-1
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'32767
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'3
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -426,8 +613,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -440,14 +626,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-1
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'32767
     "RCX" |-> 64'32767
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'4
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -466,8 +652,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -480,14 +665,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'32767
     "RCX" |-> 64'32767
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'5
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -506,8 +691,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'0
+    ListItem ( "AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -520,14 +704,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-1
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'32767
     "RCX" |-> 64'32767
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'6
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -546,8 +730,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -560,14 +743,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-1
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516414
     "RCX" |-> 64'32767
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'7
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -586,8 +769,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -600,14 +782,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-1
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516414
     "RCX" |-> 64'-2147450882
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'8
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -626,8 +808,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -640,14 +821,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'254
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516414
     "RCX" |-> 64'-2147450882
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'9
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -666,8 +847,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -680,14 +860,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-2
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516414
     "RCX" |-> 64'-2147450882
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'10
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -706,8 +886,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -720,14 +899,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-2
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'-2147450882
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'11
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -746,8 +925,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -760,14 +938,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-2
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'12
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -786,8 +964,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -800,14 +977,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-2
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'13
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -826,8 +1003,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -840,14 +1016,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'72
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'14
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -866,8 +1042,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -880,14 +1055,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'72
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'15
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -906,8 +1081,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -920,14 +1094,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'72
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'16
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -946,8 +1120,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -960,14 +1133,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'72
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'17
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -986,8 +1159,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1000,14 +1172,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'72
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'18
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1026,8 +1198,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1040,14 +1211,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'72
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'19
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1066,8 +1237,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1080,14 +1250,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-115
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'20
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1106,8 +1276,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1120,14 +1289,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-115
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'21
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1146,8 +1315,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1160,14 +1328,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'141
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'22
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1186,8 +1354,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1200,14 +1367,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'141
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'23
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1226,8 +1393,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1240,14 +1406,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'141
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'24
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1266,8 +1432,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1280,14 +1445,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'141
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'25
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1306,8 +1471,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1320,14 +1484,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'124
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'26
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1346,8 +1510,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1360,14 +1523,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'124
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'27
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1386,8 +1549,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1400,14 +1562,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'124
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'28
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1426,8 +1588,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1440,14 +1601,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'124
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'29
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1466,8 +1627,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1480,14 +1640,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'124
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'30
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1506,8 +1666,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1520,14 +1679,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'124
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'31
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1546,8 +1705,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1560,14 +1718,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'32
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1586,8 +1744,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1600,14 +1757,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'33
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1626,8 +1783,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1640,14 +1796,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'34
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1666,8 +1822,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1680,14 +1835,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'35
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1706,8 +1861,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1720,14 +1874,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'36
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1746,8 +1900,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1760,14 +1913,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'37
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1786,8 +1939,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1800,14 +1952,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-8
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'38
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1826,8 +1978,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1840,14 +1991,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-8
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'39
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1866,8 +2017,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1880,14 +2030,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'40
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1906,8 +2056,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1920,14 +2069,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'41
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1946,8 +2095,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1960,14 +2108,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'42
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -1986,8 +2134,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2000,14 +2147,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'43
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2026,8 +2173,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2040,14 +2186,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'116
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'44
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2066,8 +2212,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2080,14 +2225,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'116
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'45
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2106,8 +2251,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2120,14 +2264,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'116
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'46
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2146,8 +2290,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2160,14 +2303,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'116
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'47
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2186,8 +2329,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2200,14 +2342,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'116
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'48
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2226,8 +2368,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2240,14 +2381,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'116
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'49
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2266,8 +2407,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2280,14 +2420,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'50
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2306,8 +2446,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2320,14 +2459,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'51
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2346,8 +2485,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2360,14 +2498,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'52
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2386,8 +2524,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2400,14 +2537,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'53
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2426,8 +2563,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2440,14 +2576,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'54
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2466,8 +2602,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2480,14 +2615,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'36
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'55
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2506,8 +2641,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2520,14 +2654,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-8
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'56
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2546,8 +2680,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2560,14 +2693,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'-8
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'57
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2586,8 +2719,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2600,14 +2732,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'58
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2626,8 +2758,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2640,14 +2771,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'59
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
@@ -2666,8 +2797,7 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
+    ListItem ( "AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2680,54 +2810,14 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'248
-    "RBP" |-> 64'64
+    "RBP" |-> 64'192
     "RBX" |-> 64'2147516541
     "RCX" |-> 64'125
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'60
     "RSI" |-> 64'0
-    "RSP" |-> 64'64
-    "SF" |-> 1'0
-    "YMM0" |-> 256'0
-    "YMM1" |-> 256'0
-    "YMM2" |-> 256'0
-    "YMM3" |-> 256'0
-    "YMM4" |-> 256'0
-    "YMM5" |-> 256'0
-    "YMM6" |-> 256'0
-    "YMM7" |-> 256'0
-    "YMM8" |-> 256'0
-    "YMM9" |-> 256'0
-    "YMM10" |-> 256'0
-    "YMM11" |-> 256'0
-    "YMM12" |-> 256'0
-    "YMM13" |-> 256'0
-    "YMM14" |-> 256'0
-    "YMM15" |-> 256'0
-    "ZF" |-> 1'0 )
-    ListItem (
-"AF" |-> 1'1
-    "CF" |-> 1'0
-    "OF" |-> 1'0
-    "PF" |-> 1'1
-    "R8" |-> 64'248
-    "R9" |-> 64'0
-    "R10" |-> 64'0
-    "R11" |-> 64'0
-    "R12" |-> 64'0
-    "R13" |-> 64'0
-    "R14" |-> 64'0
-    "R15" |-> 64'0
-    "RAX" |-> 64'248
-    "RBP" |-> 64'64
-    "RBX" |-> 64'2147516541
-    "RCX" |-> 64'125
-    "RDI" |-> 64'0
-    "RDX" |-> 64'0
-    "RIP" |-> 64'61
-    "RSI" |-> 64'0
-    "RSP" |-> 64'64
+    "RSP" |-> 64'192
     "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
