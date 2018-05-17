@@ -1,22 +1,6 @@
 .section .text
 .globl main
 
-main:
-  pushq %rbp
-  movq %rsp, %rbp
-  subq $32, %rsp
-  movl $0, -32(%rbp)
-  movl $1, -28(%rbp)
-  movl $2, -24(%rbp)
-  movl $3, -20(%rbp)
-  movl $4, -16(%rbp)
-  leaq -32(%rbp), %rax
-  movl $5, %esi
-  movq %rax, %rdi
-  call bubbleSort
-  movl $0, %eax
-  leave
-  ret
 swap:
   pushq %rbp
   movq %rsp, %rbp
@@ -91,5 +75,21 @@ L4:
   jmp L7
 L8:
   nop
+  leave
+  ret
+main:
+  pushq %rbp
+  movq %rsp, %rbp
+  subq $32, %rsp
+  movl $4, -32(%rbp)
+  movl $3, -28(%rbp)
+  movl $2, -24(%rbp)
+  movl $1, -20(%rbp)
+  movl $0, -16(%rbp)
+  leaq -32(%rbp), %rax
+  movl $5, %esi
+  movq %rax, %rdi
+  call bubbleSort
+  movl $0, %eax
   leave
   ret
