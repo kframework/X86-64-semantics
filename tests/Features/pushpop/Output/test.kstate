@@ -347,23 +347,6 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
-  <itracer>
-    ListItem ( storedInstr ( pushq %rsp , .Operands ) )
-    ListItem ( storedInstr ( popq %rsp , .Operands ) )
-    ListItem ( storedInstr ( pushw %sp , .Operands ) )
-    ListItem ( storedInstr ( popw %sp , .Operands ) )
-    ListItem ( storedInstr ( pushq %rsp , .Operands ) )
-    ListItem ( storedInstr ( pushw %sp , .Operands ) )
-    ListItem ( storedInstr ( popw %bx , .Operands ) )
-    ListItem ( storedInstr ( popq %rax , .Operands ) )
-    ListItem ( storedInstr ( pushq 24 ( %rsp ) , .Operands ) )
-    ListItem ( storedInstr ( popq 8 ( %rsp ) , .Operands ) )
-    ListItem ( storedInstr ( pushw 32 ( %rsp ) , .Operands ) )
-    ListItem ( storedInstr ( popw 16 ( %rsp ) , .Operands ) )
-    ListItem ( storedInstr ( pushq $0xabcd , .Operands ) )
-    ListItem ( storedInstr ( popw -16 ( %rsp ) , .Operands ) )
-    ListItem ( storedInstr ( nop .Operands ) )
-  </itracer>
   <regstatequeue>
     ListItem (
 "AF" |-> 1'0

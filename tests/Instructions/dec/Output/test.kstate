@@ -353,29 +353,6 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
-  <itracer>
-    ListItem ( storedInstr ( movq $ 0 , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $ 1 , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7F , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0xFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7FFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0xFFFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7FFFFFFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0xFFFFFFFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7FFFFFFFFFFFFFFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands ) )
-    ListItem ( storedInstr ( decb %al , .Operands ) )
-    ListItem ( storedInstr ( nop .Operands ) )
-  </itracer>
   <regstatequeue>
     ListItem (
 "AF" |-> 1'0

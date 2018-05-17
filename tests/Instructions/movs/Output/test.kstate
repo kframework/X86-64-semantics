@@ -393,71 +393,9 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
-  <itracer>
-    ListItem ( storedInstr ( addq $ 65535 , %rax , .Operands ) )
-    ListItem ( storedInstr ( movswq %ax , %rax , .Operands ) )
-    ListItem ( storedInstr ( addq $ 32767 , %rbx , .Operands ) )
-    ListItem ( storedInstr ( movswq %bx , %rcx , .Operands ) )
-    ListItem ( storedInstr ( movq $ 4294967295 , %rax , .Operands ) )
-    ListItem ( storedInstr ( movslq %eax , %rax , .Operands ) )
-    ListItem ( storedInstr ( addq $ 2147483647 , %rbx , .Operands ) )
-    ListItem ( storedInstr ( movslq %ebx , %rcx , .Operands ) )
-    ListItem ( storedInstr ( addq $ 255 , %rax , .Operands ) )
-    ListItem ( storedInstr ( movsbq %al , %rax , .Operands ) )
-    ListItem ( storedInstr ( addq $ 127 , %rbx , .Operands ) )
-    ListItem ( storedInstr ( movsbq %bl , %rcx , .Operands ) )
-    ListItem ( storedInstr ( movq $0x48 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x48 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x48 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x8d , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x8d , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x8d , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7c , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7c , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x7c , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x74 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x74 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x74 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0x24 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movsbq %r8b , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movswq %r8w , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq $0xf8 , %r8 , .Operands ) )
-    ListItem ( storedInstr ( movslq %r8d , %rax , .Operands ) )
-    ListItem ( storedInstr ( nop .Operands ) )
-  </itracer>
   <regstatequeue>
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -496,7 +434,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -535,7 +474,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -574,7 +514,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -613,7 +554,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -652,7 +594,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -691,7 +634,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'0
+    ListItem (
+"AF" |-> 1'0
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -730,7 +674,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -769,7 +714,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -808,7 +754,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -847,7 +794,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
@@ -886,7 +834,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -925,7 +874,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -964,7 +914,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1003,7 +954,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1042,7 +994,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1081,7 +1034,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1120,7 +1074,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1159,7 +1114,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1198,7 +1154,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1237,7 +1194,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1276,7 +1234,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1315,7 +1274,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1354,7 +1314,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1393,7 +1354,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1432,7 +1394,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1471,7 +1434,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1510,7 +1474,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1549,7 +1514,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1588,7 +1554,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1627,7 +1594,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1666,7 +1634,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1705,7 +1674,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1744,7 +1714,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1783,7 +1754,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1822,7 +1794,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1861,7 +1834,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1900,7 +1874,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1939,7 +1914,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -1978,7 +1954,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2017,7 +1994,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2056,7 +2034,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2095,7 +2074,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2134,7 +2114,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2173,7 +2154,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2212,7 +2194,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2251,7 +2234,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2290,7 +2274,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2329,7 +2314,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2368,7 +2354,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2407,7 +2394,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2446,7 +2434,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2485,7 +2474,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2524,7 +2514,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2563,7 +2554,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2602,7 +2594,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2641,7 +2634,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2680,7 +2674,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2719,7 +2714,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2758,7 +2754,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1
@@ -2797,7 +2794,8 @@
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
     "ZF" |-> 1'0 )
-    ListItem ( "AF" |-> 1'1
+    ListItem (
+"AF" |-> 1'1
     "CF" |-> 1'0
     "OF" |-> 1'0
     "PF" |-> 1'1

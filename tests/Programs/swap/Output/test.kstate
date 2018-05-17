@@ -363,38 +363,6 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
-  <itracer>
-    ListItem ( storedInstr ( pushq %rbp , .Operands ) )
-    ListItem ( storedInstr ( movq %rsp , %rbp , .Operands ) )
-    ListItem ( storedInstr ( subq $ 16 , %rsp , .Operands ) )
-    ListItem ( storedInstr ( movl $ 1 , -4 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( movl $ 2 , -8 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( leaq -8 ( %rbp ) , %rdx , .Operands ) )
-    ListItem ( storedInstr ( leaq -4 ( %rbp ) , %rax , .Operands ) )
-    ListItem ( storedInstr ( movq %rdx , %rsi , .Operands ) )
-    ListItem ( storedInstr ( movq %rax , %rdi , .Operands ) )
-    ListItem ( storedInstr ( call swap , .Operands ) )
-    ListItem ( storedInstr ( pushq %rbp , .Operands ) )
-    ListItem ( storedInstr ( movq %rsp , %rbp , .Operands ) )
-    ListItem ( storedInstr ( movq %rdi , -24 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( movq %rsi , -32 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( movq -24 ( %rbp ) , %rax , .Operands ) )
-    ListItem ( storedInstr ( movl ( %rax ) , %eax , .Operands ) )
-    ListItem ( storedInstr ( movl %eax , -4 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( movq -32 ( %rbp ) , %rax , .Operands ) )
-    ListItem ( storedInstr ( movl ( %rax ) , %edx , .Operands ) )
-    ListItem ( storedInstr ( movq -24 ( %rbp ) , %rax , .Operands ) )
-    ListItem ( storedInstr ( movl %edx , ( %rax ) , .Operands ) )
-    ListItem ( storedInstr ( movq -32 ( %rbp ) , %rax , .Operands ) )
-    ListItem ( storedInstr ( movl -4 ( %rbp ) , %edx , .Operands ) )
-    ListItem ( storedInstr ( movl %edx , ( %rax ) , .Operands ) )
-    ListItem ( storedInstr ( nop .Operands ) )
-    ListItem ( storedInstr ( popq %rbp , .Operands ) )
-    ListItem ( storedInstr ( ret .Operands ) )
-    ListItem ( storedInstr ( movl $ 0 , %eax , .Operands ) )
-    ListItem ( storedInstr ( leave .Operands ) )
-    ListItem ( storedInstr ( ret .Operands ) )
-  </itracer>
   <regstatequeue>
     ListItem (
 "AF" |-> 1'0

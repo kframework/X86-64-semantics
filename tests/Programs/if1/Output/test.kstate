@@ -369,25 +369,6 @@
     "YMM15" |-> 256'0
     "ZF" |-> 1'0
   </regstate>
-  <itracer>
-    ListItem ( storedInstr ( pushq %rbp , .Operands ) )
-    ListItem ( storedInstr ( movq %rsp , %rbp , .Operands ) )
-    ListItem ( storedInstr ( movl $ 2 , -8 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( movl $ 3 , -12 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( movl $ 0 , -4 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( cmpl $ 0 , -4 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( jne L2 , .Operands ) )
-    ListItem ( storedInstr ( movl -8 ( %rbp ) , %eax , .Operands ) )
-    ListItem ( storedInstr ( cmpl -12 ( %rbp ) , %eax , .Operands ) )
-    ListItem ( storedInstr ( jge L3 , .Operands ) )
-    ListItem ( storedInstr ( movl -12 ( %rbp ) , %eax , .Operands ) )
-    ListItem ( storedInstr ( subl -8 ( %rbp ) , %eax , .Operands ) )
-    ListItem ( storedInstr ( movl %eax , -4 ( %rbp ) , .Operands ) )
-    ListItem ( storedInstr ( jmp L5 , .Operands ) )
-    ListItem ( storedInstr ( movl -4 ( %rbp ) , %eax , .Operands ) )
-    ListItem ( storedInstr ( popq %rbp , .Operands ) )
-    ListItem ( storedInstr ( ret .Operands ) )
-  </itracer>
   <regstatequeue>
     ListItem (
 "AF" |-> 1'0
