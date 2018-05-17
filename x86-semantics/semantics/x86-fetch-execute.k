@@ -28,9 +28,8 @@ module X86-FETCH-EXECUTE
   rule
     <k> inforegisters => . ... </k>
       <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
-      <itracer> ... .List => ListItem(CMap[iloc( {RSMap["RIP"]}:>MInt )]) </itracer>
+      // <itracer> ... .List => ListItem(CMap[iloc( {RSMap["RIP"]}:>MInt )]) </itracer>
       <regstate> RSMap </regstate>
-      // <text>code(iloc({RSMap["RIP"]}:>MInt) |-> storedInstr(OpC OpR) _:Map) </text>
       <text> code (CMap) </text>
         requires  iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
 
