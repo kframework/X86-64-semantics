@@ -1,0 +1,53 @@
+; This example illustrates different uses of the arrays
+; supported in Z3.
+; This includes Combinatory Array Logic (de Moura & Bjorner, FMCAD 2009).
+;
+(define-sort A () (Array Int Int))
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun z () Int)
+(declare-fun a1 () A)
+(declare-fun a2 () A)
+(declare-fun a3 () A)
+(push) ; illustrate select-store
+(assert (= (select a1 x) x))
+(assert (= (store a1 x y) a1))
+(check-sat)
+(get-model)
+(assert (not (= x y)))
+(check-sat)
+(pop)
+(define-fun all1_array () A ((as const A) 1))
+(simplify (select all1_array x))
+(define-sort IntSet () (Array Int Bool))
+(declare-fun a () IntSet)
+(declare-fun b () IntSet)
+(declare-fun c () IntSet)
+(push) ; illustrate map
+(assert (not (= ((_ map and) a b) ((_ map not) ((_ map or) ((_ map not) b) ((_ map not) a))))))
+(check-sat)
+(pop)
+(push) 
+(assert (and (select ((_ map and) a b) x) (not (select a x))))
+(check-sat)
+(pop)
+(push) 
+(assert (and (select ((_ map or) a b) x) (not (select a x))))
+(check-sat)
+(get-model)
+(assert (and (not (select b x))))
+(check-sat)
+;; unsat, so there is no model.
+(pop)  
+(push) ; illustrate default
+(assert (= (default a1) 1))
+(assert (not (= a1 ((as const A) 1))))  
+(check-sat)
+(get-model)
+(assert (= (default a2) 1))
+(assert (not (= a1 a2)))
+(check-sat)
+(get-model)
+(pop)
+(exit)
+
