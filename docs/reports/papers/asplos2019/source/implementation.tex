@@ -1,18 +1,53 @@
 \section{Implementation}
 
-\subsection{Porting Strata Formulas to K Rules}
+\subsection{Porting Formulas for straified instructions to \K Rules}
 
-Strata could ouput the internal AST, used to model a register state formula, in different
-formats. SUpported backend are SmtLib and Prefix notation. We have added another backend 
-to generate K rule.
+For the purpose, we could have directly converted the \Strata formulas
+to \K rule assuming that the \Strata's symbolic execution over the 
+stratified instruction sequence is correct.
 
-\paragraph{Validate the Porting}
-The K rules generated using the backend are matched against the ones we
-obtained via symbolic execution on stratified instructions
-This had two benefits:
- 
- 1. Gain confidence in porting.  
- 2. In order to get the exact match we need to port all the verification lemma
- from K to strata code, which will later help in generating simplied K rules for
- non-stratified instructions.
+Given that fact the \K's symbolic execution engine is more trusted as 
+that has been used extensively in language-agnostic manner to perform symbolic
+execution, we decided to use ... 
+
+\begin{itemize}
+\item Implementing the base instructions semantics in \K and testing them.
+\item Symbolic execution of the stratified instruction sequences.
+\item Dealing with scratch pad registers.
+\item Simplification of formulas.
+  Simplification generates simpler \K rule (than the corresponding \Strata formula)
+  in some cases. 
+\item Check the the ported \K rules are equivalent to the strata formulas to
+begin with. This helped us in finding a bug in \Strata's symbolic exection 
+engine which is anyway fixed by the outhors in their recent versions.
+
+\end{itemize}
+
+\subsection{Porting \Strata Formulas for unstratified instructions to \K Rules}
+
+\Strata could output the internal AST, used to model a register state formula, in different
+formats. Supported backend are SmtLib and Prefix notation. We have added another backend 
+to generate \K rule. We need some way to validate the backend. 
+
+\paragraph{Validate the Backend}
+
+The \K rules generated using the backend are matched against the ones we already
+obtained via symbolic execution on stratified instructions.  This has an added
+benefit that in order to get the exact match we need to port all the
+verification lemma from \K to strata code, which will later help in generating
+simplied \K rules for non-stratified instructions.
+
+
+Two main challenges in getting an exact match are:
+\begin{itemize}
+
+\item  \Strata rules uses \extract to extract portion of a bitvector. The high
+and low indices of exract are obtainied considering LSB at index 0, whereas \K
+uses \extractMInt for the same purpose, but uses MSB at index zero.
+
+\item  \Strata uses flags as \bool, whereas they are treated as \bv in our
+semantics.
+
+\end{itemize}
+
 

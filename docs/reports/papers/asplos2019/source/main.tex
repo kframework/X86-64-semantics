@@ -1,13 +1,33 @@
 \documentclass[pageno]{styles/jpaper}
 
+\usepackage[normalem]{ulem}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xspace}
+
+
 %replace XXX with the submission number you are given from the ASPLOS submission site.
 \newcommand{\asplossubmissionnumber}{XXX}
 \newcommand{\revisit}[1]{\color{red} #1}
 \newcommand{\cmt}[1]{}
 
-\usepackage[normalem]{ulem}
-\usepackage{listings}
-\usepackage{color}
+
+\newcommand{\Strata}{{\tt Strata}\xspace}
+\newcommand{\Stoke}{{\tt Stoke}\xspace}
+\newcommand{\K}{{\tt K}\xspace}
+\newcommand{\TS}[1]{{\tt #1}}
+\newcommand{\instr}[1]{\texttt{#1}}
+\newcommand{\opcode}[1]{\ensuremath{#1}}
+\newcommand{\cond}[1]{\ensuremath{#1}}
+\newcommand{\extract}{\emph{extract}\xspace}
+\newcommand{\extractMInt}{\emph{extractMInt}\xspace}
+\newcommand{\false}{\textbf{False}}
+\newcommand{\true}{\textbf{True}}
+\newcommand{\bool}{\texttt{Bool}\xspace}
+\newcommand{\bv}{\texttt{Bitvector}\xspace}
+
+
+
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
