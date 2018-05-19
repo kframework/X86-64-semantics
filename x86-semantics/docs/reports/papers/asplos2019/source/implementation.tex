@@ -1,0 +1,18 @@
+\section{Implementation}
+
+\subsection{Porting Strata Formulas to K Rules}
+
+Strata could ouput the internal AST, used to model a register state formula, in different
+formats. SUpported backend are SmtLib and Prefix notation. We have added another backend 
+to generate K rule.
+
+\paragraph{Validate the Porting}
+The K rules generated using the backend are matched against the ones we
+obtained via symbolic execution on stratified instructions
+This had two benefits:
+ 
+ 1. Gain confidence in porting.  
+ 2. In order to get the exact match we need to port all the verification lemma
+ from K to strata code, which will later help in generating simplied K rules for
+ non-stratified instructions.
+
