@@ -84,7 +84,7 @@
 (let ((a!27 (concat (ite a!4 #x7fff (ite a!5 #x8000 a!6))
                     (concat (ite a!7 #x7fff (ite a!8 #x8000 a!9)) a!26))))
   (concat ((_ extract 255 128) %ymm1)
-          (concat (ite a!1 #x7fff (ite a!2 #x8000 a!3)) a!27))))))
+          (concat (ite a!1 #x7fff (ite a!2 #x8000 a!3)) a!27)))))):elim-sign-ext false
   )
 
 
