@@ -1,0 +1,62 @@
+\documentclass[pageno]{styles/jpaper}
+
+%replace XXX with the submission number you are given from the ASPLOS submission site.
+\newcommand{\asplossubmissionnumber}{XXX}
+\newcommand{\revisit}[1]{\color{red} #1}
+\newcommand{\cmt}[1]{}
+
+\usepackage[normalem]{ulem}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\title{
+Near Complete Formal Semantics of X86-64}
+
+\date{}
+\maketitle
+
+\thispagestyle{empty}
+
+\input{abstract.tex}
+\input{introduction.tex}
+\input{challenges.tex}
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{bibs/references,bibs/modeling-X86-semantics}
+
+
+\end{document}
+
+\grid
+\grid
