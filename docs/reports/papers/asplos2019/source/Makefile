@@ -1,11 +1,15 @@
-PAPER = template
+PAPER = main
+
 TEX = $(wildcard *.tex)
-BIB = references.bib
-FIGS = $(wildcard figures/*.pdf figures/*.png graphs/*.pdf graphs/*.png)
+
+BIB = bibs/references.bib \
+      bibs/modeling-X86-semantics.bib
+
+FIGS = $(wildcard figures/*.png)
 
 .PHONY: all clean
 
-$(PAPER).pdf: $(TEX) $(BIB) $(FIGS) jpaper.cls
+$(PAPER).pdf: $(TEX) $(BIB) $(FIGS) styles/jpaper.cls
 	echo $(FIGS)
 	pdflatex $(PAPER)
 	bibtex $(PAPER)
@@ -13,5 +17,5 @@ $(PAPER).pdf: $(TEX) $(BIB) $(FIGS) jpaper.cls
 	pdflatex $(PAPER)
 
 clean:
-	rm -f *.aux *.bbl *.blg *.log *.out $(PAPER).pdf
+	rm -f *.aux *.bbl *.blg *.log *.out 
 

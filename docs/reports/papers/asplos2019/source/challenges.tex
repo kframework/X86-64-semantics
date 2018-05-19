@@ -1,0 +1,62 @@
+\section{Challenges}
+
+\subsection{Using Strata Results}
+ Following are the challenges in using Strata~\cite{Heule2016a} (or Stoke) 
+ formula as is.    
+ 
+\begin{itemize}
+\item
+  Stoke uses C+-functions which define the semantics 
+  of instructions. For example, following is the function to 
+  define the semantics of add instruction. The functions are 
+  generic in the sense that they can be used to obtain obtain 
+  the concrete semantics
+  of any instruction like \texttt{add\ \%rax,\ \%rbx}
+  
+  \begin{lstlisting}[language=C]
+void add(SymBitVector dest, SymBitVector a, SymBitVector b) {
+  set(d, a+b);
+}
+\end{lstlisting}
+  
+  The untested assumption here is the generic formula will behave identically for all
+  the variants. We have tested all the formula for each instruction variant. 
+  
+\item
+  Strata gives the concrete semantics for a concrete instructions. For
+  other variants it generalize from the concrete semantics. Assumption
+  is the generalization is correct. Test all the generalization.
+\item
+  While porting to K rule, we generalize the from a concrete semantics
+  that strata provides. Is this generalization faithful? For instruction
+  like \texttt{xchg,\ xadd,\ cmpxchg}, the formula is different for
+  different operands. So the general K rule we obtain from
+  \texttt{xchgl\ a,b} may not represent the semantics for
+  \texttt{xchgl\ a,\ a}. Fortunately there exists different instruction
+  variants if the their semantics might be different and accordingly we
+  might have different K rules. For example,
+  \texttt{xchgl\_r32\_eax\ and\ xchgl\_r32\_r32}. But even for
+  \texttt{xchgl\_r32\_32} semantics could be different for cases
+  \texttt{r1\ !=r2} and \texttt{r1\ ==\ r2}. Idea: Once lifted as K
+  rule, test the instruction for all variants.
+\end{itemize}
+
+Lets consider \texttt{xaddb\ SRC,\ DEST}, as per manual the semantics is
+\begin{lstlisting}[language=C]
+  Temp = Src + Dest;
+  Src  = Dest;
+  Dest = Temp;
+\end{lstlisting}
+
+So there is an order that need to be followed.
+
+Strata uses \texttt{xaddb\ R1,\ R2}, to obtain the semantics and it
+happened that the ordering is maintained and hence strata can generalize
+the semantics if \texttt{xaddb\ R1,\ R1}. But even if the ordering is
+not maintained the semantics is going to be the same for the case R1 !=
+R2, but the generalization for the \texttt{R1\ ==\ R1} case will mess
+up.
+
+We cannot trust the generalization above generalization by strata. We
+need to test the K rule for all possible operands.
+
