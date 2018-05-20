@@ -17,7 +17,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -568,11 +568,10 @@ sub checkKRunStatus {
 }
 
 sub processKFile {
-    my $basename      = shift @_;
-    my $file          = shift @_;
+    my $basename = shift @_;
+    my $file     = shift @_;
 
-
-    my ($fh_unused, $tmpfile) = tempfile( "tmpfileXXXXX", DIR => "/tmp/");
+    my ( $fh_unused, $tmpfile ) = tempfile( "tmpfileXXXXX", DIR => "/tmp/" );
     my @kstates       = ();
     my @sortedkstates = ();
     my %kstateMap     = ();
@@ -580,8 +579,9 @@ sub processKFile {
     my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 
     execute(
-        "grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1"
-    , 1);
+"grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1",
+        1
+    );
 
     open( my $fp, "<", "$tmpfile" ) or die "Cannot open: $!";
     my @lines   = <$fp>;
@@ -654,8 +654,8 @@ sub processKFile {
 sub processXFile {
     my $basename = shift @_;
     my $file     = shift @_;
-    my ($unused_fh, $tmpfile) = tempfile( "tmpfileXXXXX", DIR => "/tmp/");
-    my @xstates  = ();
+    my ( $unused_fh, $tmpfile ) = tempfile( "tmpfileXXXXX", DIR => "/tmp/" );
+    my @xstates = ();
 
     execute("grep   -A 33  \"_start+\"  $file 1> ${tmpfile} 2>&1");
 
@@ -1026,8 +1026,11 @@ sub getTargetInstr {
 #############################################
     my $opcode     = shift @_;
     my $debugprint = shift @_;
-    my $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+    my $path       = shift @_;
 
+    if ( !defined($path) ) {
+        $path = "/home/sdasgup3/Github/strata-data/data-regs/instructions/";
+    }
     my $filepath = $path . "/" . $opcode . "/" . $opcode . ".s";
     my $metapath = $path . "/" . $opcode . "/" . $opcode . ".meta.json";
     my $instr    = "";
@@ -1045,6 +1048,10 @@ sub getTargetInstr {
         }
         $instr = $line;
         $instr = utils::trim($instr);
+    }
+
+    if ( defined($debugprint) and 1 == $debugprint ) {
+        print "Target: " . $instr . "\n";
     }
 
     return $instr;
@@ -2373,6 +2380,94 @@ sub selectRules {
 }
 
 ##########################################
+sub sanitizeBVF {
+##########################################
+    my ( $opcode, $instr,
+        $reglines_ref, $debugprint)
+      = @_;
+    my @reglines   = @{$reglines_ref};
+
+    utils::info("In sanitizeSpecOutput");
+
+    ## Process begin
+    ## stage 1
+    my @workList = ();
+    for my $line (@reglines) {
+        chomp $line;
+
+        debugInfo( "Unsanitied Lines:$line\n", $debugprint );
+
+        if ( $line =~ m/RIP/ ) {
+            next;
+        }
+
+        my $mod = $line;
+
+        # sanitization
+        $mod =~ s/,,/,/g;
+        $mod =~ s/""/"/g;
+        $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
+        $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\dfd]+)"\)/$1/g;
+        $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperationII\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperationI\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFBinOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFUOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/UIFTerOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
+        $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
+        $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;
+        $mod =~ s/\.List\{"mintlist"\}\(\.KList\@BASIC-K\)/.MInts/g;
+        $mod =~ s/undef\(\.KList\@BASIC-K\)/undef/g;
+        $mod =~ s/\(#"(\w+)"\)/"$1"/g;
+        $mod =~ s/\($//g;
+        $mod =~ s/\?I\d+_(\d+)/_$1/g;
+
+        my $result = "";
+
+        debugInfo( "Stage 1.1: " . $mod . "\n\n", $debugprint );
+
+        #$mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
+        $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ($2)/g;
+
+        #debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
+
+        if ( $mod =~ /_/ ) {
+            if ( defined($tosmt) and $tosmt == 1 ) {
+                $result = mixfix2smt( $mod, $debugprint );
+            }
+            else {
+                $result = mixfix2infix( $mod, $debugprint );
+            }
+        }
+        else {
+            $result = $mod;
+        }
+
+        # Local Optimzations
+        ## Replace mi(W, _NUM) => MINUM
+        debugInfo( "PreResult:$result\n", $debugprint );
+        $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
+        debugInfo( "Result:$result\n", $debugprint );
+
+        push @workList, $result;
+    }
+
+    utils::printArray( \@workList, "Init Worklist", $debugprint );
+
+    my $returnInfo = selectRules(
+        \@workList, \%readSet,      \%writeSet,
+        \%undefSet, \%mustUndefSet, \%actual2psedoRegs,
+        \%rsmap,    \%rev_rsmap,    $debugprint
+    );
+
+    debugInfo( "Final Rules : $returnInfo\n", $debugprint );
+
+    utils::info("Out sanitizeSpecOutput");
+    return $returnInfo;
+}
+
+
+##########################################
 sub sanitizeSpecOutput {
 ##########################################
     my ( $opcode, $rsmap_ref, $rev_rsmap_ref,
@@ -2419,11 +2514,17 @@ sub sanitizeSpecOutput {
 
     ## Obtain the correspondence between the generic opcode
     ## and its particular instance.
-    my %actual2psedoRegs = ();
+
     my $operandListFromOpcode_ref =
       getOperandListFromOpcode( $opcode, $debugprint );
     my $operandListFromInstr_ref =
       getOperandListFromInstr( $instr, $debugprint );
+    my $actual2psedoRegs_ref =
+      getDummyRegsForOperands( $operandListFromOpcode_ref,
+        $operandListFromInstr_ref );
+    my %actual2psedoRegs = %{$actual2psedoRegs_ref};
+
+=pod
     my @operandListFromOpcode = @{$operandListFromOpcode_ref};
     my @operandListFromInstr  = @{$operandListFromInstr_ref};
 
@@ -2443,6 +2544,7 @@ sub sanitizeSpecOutput {
               = "R$counter";
         }
     }
+=cut
 
     utils::printMap( \%actual2psedoRegs, "ActualToPseduRegs", $debugprint );
 
@@ -2570,7 +2672,7 @@ sub getOperandListFromInstr {
 
     if ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
         debugInfo(
-            "Three operands::"
+            "[getOperandListFromInstr]Three operands::"
               . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
               . uc( $subRegToReg{ utils::trim( $3, "%" ) } ) . "::"
               . uc( $subRegToReg{ utils::trim( $4, "%" ) } )
@@ -2583,7 +2685,7 @@ sub getOperandListFromInstr {
     }
     elsif ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)/ ) {
         debugInfo(
-            "Two operands::"
+            "[getOperandListFromInstr]Two operands::"
               . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
               . uc( $subRegToReg{ utils::trim( $3, "%" ) } )
               . ":: \n ",
@@ -2594,7 +2696,7 @@ sub getOperandListFromInstr {
     }
     elsif ( $instr =~ m/(\w+)\s+(\S+)/ ) {
         debugInfo(
-            "One operands::"
+            "[getOperandListFromInstr]One operands::"
               . uc( $subRegToReg{ utils::trim( $2, "%" ) } )
               . ":: \n ",
             $debugprint
@@ -2640,6 +2742,7 @@ sub writeKDefn {
     my $opcode     = shift @_;
     my $debugprint = shift @_;
     my $useuif     = shift @_;
+    my $addComment = shift @_;
 
     my $module_name    = $opcode =~ s/_/-/gr;
     my $module_name_uc = uc($module_name);
@@ -2674,8 +2777,14 @@ sub writeKDefn {
         $operands = $operands . ", ";
     }
 
-    open( my $fp, ">", $koutput )
-      or die " [writeKDefn] cannot open $koutput : $! ";
+    my $fp;
+    if ( "" eq $koutput ) {
+        open( $fp, ">&STDOUT" ) or die " [writeKDefn] cannot open  : $! ";
+    }
+    else {
+        open( $fp, ">", $koutput )
+          or die " [writeKDefn] cannot open $koutput : $! ";
+    }
 
     my $template = "";
     if ( "" eq $semantics ) {
@@ -2721,6 +2830,9 @@ endmodule
 
     print $fp $template;
 
+    if ( defined($addComment) and 0 == $addComment ) {
+        return;
+    }
     ## Comment section in k file.
     ## Get Orig circuit
     my ( $dc1, $dc2, $orig_circuit_ref ) =
@@ -4812,6 +4924,60 @@ sub mem_modify_testcases {
     print "Modiied: $modified_testcases\n";
 
     #return $modified_testcases;
+}
+
+sub getInstrsFolder {
+    my $basepath   = shift @_;
+    my $type       = shift @_;
+    my $opcode     = shift @_;
+    my $debugprint = shift @_;
+
+    my $instfolder = "$basepath" . "/";
+    if ( "register" eq $type ) {
+        $instfolder = $instfolder
+          . "concrete_instances/register-variants/$opcode/instructions/";
+    }
+    elsif ( "memory" eq $type ) {
+        $instfolder = $instfolder
+          . "concrete_instances/memory-variants/$opcode/instructions/";
+    }
+    else {
+        $instfolder = $instfolder
+          . "concrete_instances/immediate-variants/$opcode/instructions/";
+    }
+    if ( 1 eq $debugprint ) {
+        print "$instfolder\n";
+    }
+    return $instfolder;
+}
+
+sub getDummyRegsForOperands {
+    ## Obtain the correspondence between the generic opcode
+    ## and its particular instance.
+    my %actual2psedoRegs          = ();
+    my $operandListFromOpcode_ref = shift @_;
+    my $operandListFromInstr_ref  = shift @_;
+    my @operandListFromOpcode     = @{$operandListFromOpcode_ref};
+    my @operandListFromInstr      = @{$operandListFromInstr_ref};
+
+    if ( scalar(@operandListFromOpcode) != scalar(@operandListFromInstr) ) {
+        utils::failInfo("Fatal Error opcode not matching actual instr");
+    }
+
+    my $counter = 0;
+    for ( my $i = 0 ; $i < scalar(@operandListFromOpcode) ; $i++ ) {
+        my $op1 = $operandListFromOpcode[$i];
+        my $op2 = $operandListFromInstr[$i];
+
+        $counter++;
+        my $sort = getRegSort($op1);
+        if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
+            $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $op2, "%" ) } ) }
+              = "R$counter";
+        }
+    }
+
+    return \%actual2psedoRegs;
 }
 
 1;
