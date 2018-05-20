@@ -14,12 +14,24 @@
     obtain obtain the concrete semantics of any instruction like \texttt{add\
       \%rax,\ \%rbx}
   
+
+{\small \tt 
+  \begin{tabular}[b]{l}
+   S1. {\bf void}  add({\bf SymBitVector} dest, {\bf SymBitVector} a, \\ 
+       \ \ \ \ \ \ \ \ {\bf SymBitVector} b) \{ \\ 
+   S2. \ \ \ \ set(d, a+b); \\
+   S3. \}\\
+  \end{tabular}
+}
+
+\cmt{
 \begin{lstlisting}[language=C]
 
 void add(SymBitVector dest, SymBitVector a, SymBitVector b) {
   set(d, a+b);
 }
   \end{lstlisting}
+}
   
   The untested assumption here is the generic formula will behave identically
   for all the variants. We have tested all the formula for each instruction
