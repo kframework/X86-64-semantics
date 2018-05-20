@@ -1,6 +1,6 @@
 \section{Implementation}
 
-\subsection{Porting Formulas for straified instructions to \K Rules}
+\subsection{Porting Formulas for stratified instructions to \K Rules}
 
 For the purpose, we could have directly converted the \Strata formulas
 to \K rule assuming that the \Strata's symbolic execution over the 
@@ -18,12 +18,23 @@ execution, we decided to use ...
   Simplification generates simpler \K rule (than the corresponding \Strata formula)
   in some cases. 
 \item Check the the ported \K rules are equivalent to the strata formulas to
-begin with. This helped us in finding a bug in \Strata's symbolic exection 
-engine which is anyway fixed by the outhors in their recent versions.
+begin with. This helped us in finding a bug in \Strata's symbolic execution 
+engine which is anyway fixed by the authors in their recent versions.
 
 \end{itemize}
 
-\subsection{Porting \Strata Formulas for unstratified instructions to \K Rules}
+\subsection{Supporting un-stratified instructions \& Porting their formulas to \K Rules}
+
+\subsubsection{Supporting un-stratified instructions}
+\paragraph{Instruction support status}
+
+\begin{figure*}[t]
+\centering
+\fig{figures/instruction_classification}
+\caption{Instruction classification\label{fig:instr_class}}
+\end{figure*}
+
+\subsection{Porting to \K Rules}
 
 \Strata could output the internal AST, used to model a register state formula, in different
 formats. Supported backend are SmtLib and Prefix notation. We have added another backend 
@@ -35,14 +46,14 @@ The \K rules generated using the backend are matched against the ones we already
 obtained via symbolic execution on stratified instructions.  This has an added
 benefit that in order to get the exact match we need to port all the
 verification lemma from \K to strata code, which will later help in generating
-simplied \K rules for non-stratified instructions.
+simplified \K rules for non-stratified instructions.
 
 
 Two main challenges in getting an exact match are:
 \begin{itemize}
 
-\item  \Strata rules uses \extract to extract portion of a bitvector. The high
-and low indices of exract are obtainied considering LSB at index 0, whereas \K
+\item  \Strata rules uses \extract to extract portion of a bit-vector. The high
+and low indices of \extract are obtained considering LSB at index 0, whereas \K
 uses \extractMInt for the same purpose, but uses MSB at index zero.
 
 \item  \Strata uses flags as \bool, whereas they are treated as \bv in our
