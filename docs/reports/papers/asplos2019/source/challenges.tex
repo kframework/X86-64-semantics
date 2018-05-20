@@ -48,12 +48,23 @@ accordingly we might have different \K rules. For example,
 \end{itemize}
 
 Lets consider \instr{xaddb SRC, DEST}, as per manual the semantics is
+as follows:
 
+{\small \tt 
+  \begin{tabular}[b]{l}
+   S1. Temp = Src + Dest \\ 
+   S2. Src  = Dest \\
+   S3. Dest = Temp \\
+  \end{tabular}
+}
+
+\cmt{
 \begin{eqnarray*}
   \TS{Temp} &=& \TS{Src} + \TS{Dest} \\
   \TS{Src} &=& \TS{Dest} \\
   \TS{Dest} &=& \TS{Temp} \\
 \end{eqnarray*}
+}
 
 The point to note here is that the register updates follow an order.  \Strata
 uses \instr{xaddb \%rax, \%rbx}, to obtain the semantics and it happened that
