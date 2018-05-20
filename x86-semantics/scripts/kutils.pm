@@ -17,7 +17,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr sanitizeBVF);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -1511,12 +1511,11 @@ sub getSpecCode {
         else {
             if ( opcHasOperand($encode) ) {
                 $spec_code =
-                  $spec_code
-                  . "execinstr ( $instr , .Typedoperands )" . " ~>\n";
+                  $spec_code . "execinstr ( $instr , .Operands )" . " ~>\n";
             }
             else {
                 $spec_code =
-                  $spec_code . "execinstr ( $instr  .Typedoperands )" . " ~>\n";
+                  $spec_code . "execinstr ( $instr  .Operands )" . " ~>\n";
             }
         }
         debugInfo( "Instr::" . $instr . "::\n", $debugprint );
@@ -1527,7 +1526,7 @@ sub getSpecCode {
     }
 
     $spec_code = $spec_code
-      . "execinstr ( nop .Typedoperands ) ~> inforegisters ~> fetch" . "\n";
+      . "execinstr ( nop .Operands ) ~> inforegisters ~> fetch" . "\n";
 
     debugInfo( $spec_code . "\n", $debugprint );
 
@@ -2382,12 +2381,9 @@ sub selectRules {
 ##########################################
 sub sanitizeBVF {
 ##########################################
-    my ( $opcode, $instr,
-        $reglines_ref, $debugprint)
-      = @_;
-    my @reglines   = @{$reglines_ref};
-
-    utils::info("In sanitizeSpecOutput");
+    my ( $opcode, $reglines_ref, $actual2psedoRegs_ref, $debugprint ) = @_;
+    my @reglines         = @{$reglines_ref};
+    my %actual2psedoRegs = %{$actual2psedoRegs_ref};
 
     ## Process begin
     ## stage 1
@@ -2395,77 +2391,86 @@ sub sanitizeBVF {
     for my $line (@reglines) {
         chomp $line;
 
-        debugInfo( "Unsanitied Lines:$line\n", $debugprint );
-
-        if ( $line =~ m/RIP/ ) {
+        # Skip
+        if (   $line =~ m/^(code:|Formula|sig)/
+            or $line =~ m/\s+(maybe|must|required)/
+            or $line =~ m/^$/ )
+        {
             next;
         }
 
-        my $mod = $line;
-
-        # sanitization
-        $mod =~ s/,,/,/g;
-        $mod =~ s/""/"/g;
-        $mod =~ s/Int\@INT-SYNTAX\(#"([-]?\d+)"\)/$1/g;
-        $mod =~ s/Float\@FLOAT-SYNTAX\(#"([-]?[\+e\.\dfd]+)"\)/$1/g;
-        $mod =~ s/Bool\@BOOL-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/UIFBinOperationII\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/UIFBinOperationI\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/UIFBinOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/UIFUOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/UIFTerOperation\@MINT-WRAPPER-SYNTAX\(#"(\w+)"\)/$1/g;
-        $mod =~ s/_([-]?\d+):Int\@INT-SYNTAX/_$1/g;
-        $mod =~ s/MInt\@MINT\(#"(\d+)'([-]?\d+)"\)/mi($1, $2)/g;
-        $mod =~ s/\.List\{"mintlist"\}\(\.KList\@BASIC-K\)/.MInts/g;
-        $mod =~ s/undef\(\.KList\@BASIC-K\)/undef/g;
-        $mod =~ s/\(#"(\w+)"\)/"$1"/g;
-        $mod =~ s/\($//g;
-        $mod =~ s/\?I\d+_(\d+)/_$1/g;
-
-        my $result = "";
-
-        debugInfo( "Stage 1.1: " . $mod . "\n\n", $debugprint );
-
-        #$mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ( MI$rsmap{$1} => $2)/g;
-        $mod =~ s/"(\w+)" \|-> (.*)/ "$1" |-> ($2)/g;
-
-        #debugInfo( "Stage 1.2: " . $mod . "\n\n", $debugprint );
-
-        if ( $mod =~ /_/ ) {
-            if ( defined($tosmt) and $tosmt == 1 ) {
-                $result = mixfix2smt( $mod, $debugprint );
-            }
-            else {
-                $result = mixfix2infix( $mod, $debugprint );
-            }
+        my ( $reg, $rule ) = ( "", "" );
+        if ( $line =~ m/^%(.*):(.*)/ ) {
+            $reg  = utils::trim($1);
+            $rule = utils::trim($2);
         }
         else {
-            $result = $mod;
+            failInfo("$opcode: Unrecognized line: $line");
         }
 
-        # Local Optimzations
-        ## Replace mi(W, _NUM) => MINUM
-        debugInfo( "PreResult:$result\n", $debugprint );
-        $result =~ s/mi\(\d+, _(\d+)\)/MI$rsmap{$rev_rsmap{$1}}/g;
-        debugInfo( "Result:$result\n", $debugprint );
+        debugInfo( "Unsanitied Lines-->$reg:$rule<--\n", $debugprint );
 
-        push @workList, $result;
+        my $ucReg   = uc( $subRegToReg{$reg} );
+        my $is_flag = 0;
+        if (   $ucReg eq "CF"
+            or $ucReg eq "SF"
+            or $ucReg eq "PF"
+            or $ucReg eq "ZF"
+            or $ucReg eq "AF"
+            or $ucReg eq "OF" )
+        {
+            $is_flag = 1;
+        }
+
+        # Key of the K rule
+        my $K_key = "";
+        if ( exists $actual2psedoRegs{$ucReg} ) {
+            $K_key = "convToRegKeys(" . $actual2psedoRegs{$ucReg} . ")";
+        }
+        else {
+            $K_key = "\"" . $ucReg . "\"";
+        }
+
+        # Action for K rule
+        my $K_rule = $rule;
+        if ( $rule =~ m/TRUE/ ) {
+            $K_rule = "mi(1, 1)";
+        }
+        if ( $rule =~ m/FALSE/ ) {
+            $K_rule = "mi(1, 0)";
+        }
+
+        # For bool regs (cf, af ...), add $ifMINt in K_rule
+        if ( 1 == $is_flag ) {
+            if ( $rule =~ m/^TRUE$/ ) {
+                $K_rule = "mi(1, 1)";
+            }
+            elsif ( $rule =~ m/^FALSE$/ ) {
+                $K_rule = "mi(1, 0)";
+            }
+            elsif ( $rule =~ m/^TMP_BOOL_(\d+)$/ ) {
+                $K_rule = "(undef)";
+            }
+            else {
+                $K_rule = "(#ifMInt $K_rule #then mi(1,1) #else mi(1,0) #fi)";
+            }
+        }
+
+        # Replace all the %r to getRegisterValue
+        for my $k ( keys %actual2psedoRegs ) {
+            my $replace_from = "%" . lc($k);
+            my $replace_to =
+              "getRegisterValue(" . $actual2psedoRegs{$k} . ", RSMap)";
+
+            $K_rule =~ s/$replace_from/$replace_to/g;
+        }
+
+        push @workList, "$K_key |-> $K_rule";
     }
 
-    utils::printArray( \@workList, "Init Worklist", $debugprint );
-
-    my $returnInfo = selectRules(
-        \@workList, \%readSet,      \%writeSet,
-        \%undefSet, \%mustUndefSet, \%actual2psedoRegs,
-        \%rsmap,    \%rev_rsmap,    $debugprint
-    );
-
-    debugInfo( "Final Rules : $returnInfo\n", $debugprint );
-
-    utils::info("Out sanitizeSpecOutput");
-    return $returnInfo;
+    utils::printArray( \@workList, "Final Rules", $debugprint );
+    return join "\n\n", @workList;
 }
-
 
 ##########################################
 sub sanitizeSpecOutput {
@@ -2795,7 +2800,7 @@ module $module_name_uc
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr ($enc $operands .Typedoperands) => .
+    execinstr ($enc $operands .Operands) => .
   ...</k>
 endmodule
 
@@ -2812,7 +2817,7 @@ module $module_name_uc
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr ($enc $operands .Typedoperands) => .
+    execinstr ($enc $operands .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -25,7 +25,7 @@ my $kfile      = "";
 my $opcode     = "";
 my $type       = "";
 my $help       = "";
-my $debugprint = 1;
+my $debugprint = 0;
 
 GetOptions(
     "help"     => \$help,
@@ -76,4 +76,5 @@ my $actual2psedoRegs_ref = getDummyRegsForOperands( $operandListFromOpcode_ref,
 my %actual2psedoRegs = %{$actual2psedoRegs_ref};
 utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", $debugprint );
 
-writeKDefn( "", "", $opcode, 1, 0, 0 );
+writeKDefn( sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint ),
+    "", $opcode, 1, 0, 0 );
