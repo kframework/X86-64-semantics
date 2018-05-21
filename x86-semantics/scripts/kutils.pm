@@ -17,7 +17,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 $VERSION = 1.00;
 @ISA     = qw(Exporter);
 @EXPORT =
-  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr sanitizeBVF);
+  qw(processKFile checkKRunStatus processXFile compareStates pprint find_stratum getReadMod spec_template getSpecCode selectbraces mixfix2infix processSpecOutput sanitizeSpecOutput writeKDefn opcHasOperand instrGetOperands runkprove postProcess createSpecFile checkSupported checkManuallyGenerated getImmInstrs getMemInstrs generateZ3Formula modelInstructions assocateMcSemaXed assocateMcSemaAvail assocIntelATT getTargetInstr getStrataBVFormula getRegVaraint  mem_modify_testcases getInstrsFolder getDummyRegsForOperands getOperandListFromOpcode getOperandListFromInstr sanitizeBVF parseKFile);
 @EXPORT_OK = qw();
 
 use lib qw( /home/sdasgup3/scripts-n-docs/scripts/perl/ );
@@ -2433,12 +2433,15 @@ sub sanitizeBVF {
 
         # Action for K rule
         my $K_rule = $rule;
-        if ( $K_rule =~ m/TRUE/ ) {
+        if ( $K_rule =~ m/^TRUE$/ ) {
             $K_rule = "mi(1, 1)";
         }
-        if ( $K_rule =~ m/FALSE/ ) {
+        if ( $K_rule =~ m/^FALSE$/ ) {
             $K_rule = "mi(1, 0)";
         }
+        $K_rule =~ s/TRUE/true/g;
+        $K_rule =~ s/FALSE/false/g;
+
         if ( $K_rule =~ m/^getParity\((.*)\)$/ ) {
             $K_rule =
 "(#ifMInt ((countOnes($1, 0) &Int 1) ==K 0) #then mi(1,1) #else mi(1,0) #fi)";
@@ -2455,10 +2458,18 @@ sub sanitizeBVF {
         for my $k ( keys %actual2psedoRegs ) {
             my $replace_from = "%" . lc($k);
             my $replace_to =
-              "getRegisterValue(" . $actual2psedoRegs{$k} . ", RSMap)";
+              "getParentValue(" . $actual2psedoRegs{$k} . ", RSMap)";
 
             $K_rule =~ s/$replace_from/$replace_to/g;
         }
+        $K_rule =~ s/%cf/eqMInt(getFlag("CF", RSMap), mi(1,1))/g;
+        $K_rule =~ s/%pf/eqMInt(getFlag("PF", RSMap), mi(1,1))/g;
+        $K_rule =~ s/%af/eqMInt(getFlag("AF", RSMap), mi(1,1))/g;
+        $K_rule =~ s/%sf/eqMInt(getFlag("SF", RSMap), mi(1,1))/g;
+        $K_rule =~ s/%zf/eqMInt(getFlag("ZF", RSMap), mi(1,1))/g;
+        $K_rule =~ s/%of/eqMInt(getFlag("OF", RSMap), mi(1,1))/g;
+
+        $K_rule =~ s/(%\w+)/getParentValue($1, RSMap)/g;
 
         push @workList, "$K_key |-> $K_rule";
     }
@@ -4978,6 +4989,32 @@ sub getDummyRegsForOperands {
     }
 
     return \%actual2psedoRegs;
+}
+
+sub parseKFile {
+    my $lines_ref  = shift @_;
+    my $debugprint = shift @_;
+    my @lines      = @{$lines_ref};
+
+    my %map = ();
+
+    for my $line (@lines) {
+        chomp $line;
+        if ( $line =~ m/^(.*) \|-> (.*)$/ ) {
+            $map{ utils::trim($1) } = utils::trim($2);
+        }
+        if ( $line =~ m/^module (.*)$/ ) {
+            $map{"module"} = utils::trim($1);
+        }
+        if ( $line =~ m/\s+execinstr (.*)$/ ) {
+            $map{"execinstr"} = utils::trim($1);
+        }
+    }
+    if ($debugprint) {
+        printMap( \%map, "" );
+    }
+
+    return \%map;
 }
 
 1;
