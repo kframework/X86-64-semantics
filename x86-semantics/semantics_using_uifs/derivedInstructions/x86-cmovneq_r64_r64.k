@@ -5,7 +5,7 @@ module CMOVNEQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmovneq R1:R64, R2:R64,  .Typedoperands) => .
+    execinstr (cmovneq R1:R64, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

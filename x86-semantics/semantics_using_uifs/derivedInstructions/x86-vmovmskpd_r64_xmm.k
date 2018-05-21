@@ -5,7 +5,7 @@ module VMOVMSKPD-R64-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vmovmskpd R1:Xmm, R2:R64,  .Typedoperands) => .
+    execinstr (vmovmskpd R1:Xmm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

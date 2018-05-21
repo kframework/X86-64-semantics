@@ -5,7 +5,7 @@ module NOTL-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (notl R1:R32,  .Typedoperands) => .
+    execinstr (notl R1:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

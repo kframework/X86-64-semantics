@@ -5,7 +5,7 @@ module MOVSBL-R32-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movsbl R1:Rh, R2:R32,  .Typedoperands) => .
+    execinstr (movsbl R1:Rh, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

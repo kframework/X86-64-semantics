@@ -5,7 +5,7 @@ module ROLW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rolw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (rolw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

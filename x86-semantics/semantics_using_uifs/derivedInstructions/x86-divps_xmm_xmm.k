@@ -5,7 +5,7 @@ module DIVPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (divps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (divps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

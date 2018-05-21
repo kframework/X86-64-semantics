@@ -5,7 +5,7 @@ module CMPB-RH-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (cmpb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

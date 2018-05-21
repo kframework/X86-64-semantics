@@ -5,7 +5,7 @@ module SHLB-RH-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shlb $0x1, R2:Rh,  .Typedoperands) => .
+    execinstr (shlb $0x1, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module ANDPD-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (andpd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (andpd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

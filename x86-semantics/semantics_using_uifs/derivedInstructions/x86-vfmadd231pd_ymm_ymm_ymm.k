@@ -5,7 +5,7 @@ module VFMADD231PD-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vfmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vfmadd231pd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

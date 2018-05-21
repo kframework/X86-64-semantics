@@ -5,7 +5,7 @@ module UNPCKHPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (unpckhps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (unpckhps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

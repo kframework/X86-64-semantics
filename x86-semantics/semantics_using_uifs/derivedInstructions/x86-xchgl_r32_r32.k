@@ -5,7 +5,7 @@ module XCHGL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xchgl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xchgl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

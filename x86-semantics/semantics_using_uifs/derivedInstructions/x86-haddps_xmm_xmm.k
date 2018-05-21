@@ -5,7 +5,7 @@ module HADDPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (haddps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (haddps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module SETO-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (seto R1:Rh,  .Typedoperands) => .
+    execinstr (seto R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

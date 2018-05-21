@@ -5,7 +5,7 @@ module VPMOVZXBD-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpmovzxbd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpmovzxbd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module NOTB-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (notb R1:Rh,  .Typedoperands) => .
+    execinstr (notb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

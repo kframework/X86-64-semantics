@@ -5,7 +5,7 @@ module SALW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (salw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (salw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

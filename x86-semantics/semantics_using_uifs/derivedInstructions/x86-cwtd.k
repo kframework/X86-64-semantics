@@ -5,7 +5,7 @@ module CWTD
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cwtd  .Typedoperands) => .
+    execinstr (cwtd  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

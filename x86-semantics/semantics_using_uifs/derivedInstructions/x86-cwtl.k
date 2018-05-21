@@ -5,7 +5,7 @@ module CWTL
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cwtl  .Typedoperands) => .
+    execinstr (cwtl  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

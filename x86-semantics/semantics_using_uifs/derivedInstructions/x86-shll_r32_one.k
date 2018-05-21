@@ -5,7 +5,7 @@ module SHLL-R32-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shll $0x1, R2:R32,  .Typedoperands) => .
+    execinstr (shll $0x1, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

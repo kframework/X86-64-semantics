@@ -5,7 +5,7 @@ module PHSUBD-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (phsubd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (phsubd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

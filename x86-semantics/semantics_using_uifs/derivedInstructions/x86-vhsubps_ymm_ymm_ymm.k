@@ -5,7 +5,7 @@ module VHSUBPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vhsubps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vhsubps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

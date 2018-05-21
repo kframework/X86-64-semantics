@@ -5,7 +5,7 @@ module SETG-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setg R1:R8,  .Typedoperands) => .
+    execinstr (setg R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

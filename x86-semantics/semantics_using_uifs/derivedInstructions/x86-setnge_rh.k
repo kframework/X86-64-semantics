@@ -5,7 +5,7 @@ module SETNGE-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setnge R1:Rh,  .Typedoperands) => .
+    execinstr (setnge R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

@@ -5,7 +5,7 @@ module CBTW
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cbtw  .Typedoperands) => .
+    execinstr (cbtw  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

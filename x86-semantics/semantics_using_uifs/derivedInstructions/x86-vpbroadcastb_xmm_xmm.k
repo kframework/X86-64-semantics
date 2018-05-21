@@ -5,7 +5,7 @@ module VPBROADCASTB-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vpbroadcastb R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vpbroadcastb R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

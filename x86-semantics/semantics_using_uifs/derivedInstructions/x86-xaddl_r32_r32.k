@@ -5,7 +5,7 @@ module XADDL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xaddl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xaddl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -32,7 +32,7 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(concatenat
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (xaddl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

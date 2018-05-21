@@ -5,7 +5,7 @@ module CMPXCHGB-R8-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpxchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -32,7 +32,7 @@ convToRegKeys(R2) |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateM
   requires notBool sameRegisters(R2, "RAX")
 
   rule <k>
-    execinstr (cmpxchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (cmpxchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

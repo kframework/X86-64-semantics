@@ -5,7 +5,7 @@ module MOVQ-R64-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movq R1:Xmm, R2:R64,  .Typedoperands) => .
+    execinstr (movq R1:Xmm, R2:R64,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

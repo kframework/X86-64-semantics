@@ -5,7 +5,7 @@ module VUNPCKHPS-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vunpckhps R1:Ymm, R2:Ymm, R3:Ymm,  .Typedoperands) => .
+    execinstr (vunpckhps R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

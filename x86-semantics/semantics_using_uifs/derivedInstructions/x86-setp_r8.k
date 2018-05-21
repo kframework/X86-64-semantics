@@ -5,7 +5,7 @@ module SETP-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setp R1:R8,  .Typedoperands) => .
+    execinstr (setp R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

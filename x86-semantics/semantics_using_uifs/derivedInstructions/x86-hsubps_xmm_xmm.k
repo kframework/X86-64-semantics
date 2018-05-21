@@ -5,7 +5,7 @@ module HSUBPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (hsubps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (hsubps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

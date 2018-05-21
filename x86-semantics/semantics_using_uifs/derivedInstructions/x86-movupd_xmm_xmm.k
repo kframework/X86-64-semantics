@@ -5,7 +5,7 @@ module MOVUPD-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movupd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (movupd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

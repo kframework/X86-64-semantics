@@ -5,7 +5,7 @@ module PADDQ-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (paddq R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (paddq R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
