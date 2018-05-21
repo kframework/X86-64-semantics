@@ -5,7 +5,7 @@ module SETNA-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setna R1:R8,  .Typedoperands) => .
+    execinstr (setna R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

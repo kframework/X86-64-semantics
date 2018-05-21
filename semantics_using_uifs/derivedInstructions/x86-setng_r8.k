@@ -5,7 +5,7 @@ module SETNG-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setng R1:R8,  .Typedoperands) => .
+    execinstr (setng R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

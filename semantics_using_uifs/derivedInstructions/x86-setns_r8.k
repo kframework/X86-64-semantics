@@ -5,7 +5,7 @@ module SETNS-R8
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (setns R1:R8,  .Typedoperands) => .
+    execinstr (setns R1:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

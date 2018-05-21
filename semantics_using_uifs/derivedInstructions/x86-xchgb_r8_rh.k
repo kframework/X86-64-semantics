@@ -5,7 +5,7 @@ module XCHGB-R8-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -20,7 +20,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
      rule <k>
-    execinstr (xchgb R1:Rh, R2:R8,  .Typedoperands) => .
+    execinstr (xchgb R1:Rh, R2:R8,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

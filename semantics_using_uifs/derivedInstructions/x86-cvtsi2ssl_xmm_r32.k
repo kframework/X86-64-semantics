@@ -5,7 +5,7 @@ module CVTSI2SSL-XMM-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cvtsi2ssl R1:R32, R2:Xmm,  .Typedoperands) => .
+    execinstr (cvtsi2ssl R1:R32, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

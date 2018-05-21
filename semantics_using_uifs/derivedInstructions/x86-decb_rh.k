@@ -5,7 +5,7 @@ module DECB-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (decb R1:Rh,  .Typedoperands) => .
+    execinstr (decb R1:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

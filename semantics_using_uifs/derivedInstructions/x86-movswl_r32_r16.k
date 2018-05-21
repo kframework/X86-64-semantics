@@ -5,7 +5,7 @@ module MOVSWL-R32-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movswl R1:R16, R2:R32,  .Typedoperands) => .
+    execinstr (movswl R1:R16, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

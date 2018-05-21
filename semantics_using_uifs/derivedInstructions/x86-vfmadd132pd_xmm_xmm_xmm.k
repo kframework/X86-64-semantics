@@ -5,7 +5,7 @@ module VFMADD132PD-XMM-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vfmadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Typedoperands) => .
+    execinstr (vfmadd132pd R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

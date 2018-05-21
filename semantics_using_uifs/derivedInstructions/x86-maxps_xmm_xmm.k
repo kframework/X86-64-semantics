@@ -5,7 +5,7 @@ module MAXPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (maxps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (maxps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

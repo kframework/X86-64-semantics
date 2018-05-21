@@ -5,7 +5,7 @@ module VMOVAPD-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vmovapd R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vmovapd R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

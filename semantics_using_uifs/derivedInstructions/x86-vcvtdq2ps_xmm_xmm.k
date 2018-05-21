@@ -5,7 +5,7 @@ module VCVTDQ2PS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vcvtdq2ps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vcvtdq2ps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

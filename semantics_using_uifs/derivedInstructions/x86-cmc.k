@@ -5,7 +5,7 @@ module CMC
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmc  .Typedoperands) => .
+    execinstr (cmc  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

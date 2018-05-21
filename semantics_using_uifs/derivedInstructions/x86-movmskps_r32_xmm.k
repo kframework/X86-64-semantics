@@ -5,7 +5,7 @@ module MOVMSKPS-R32-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (movmskps R1:Xmm, R2:R32,  .Typedoperands) => .
+    execinstr (movmskps R1:Xmm, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

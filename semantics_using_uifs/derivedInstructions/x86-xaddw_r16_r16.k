@@ -5,7 +5,7 @@ module XADDW-R16-R16
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xaddw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (xaddw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -32,7 +32,7 @@ convToRegKeys(R2) |-> (concatenateMInt(extractMInt(getParentValue(R2, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
   rule <k>
-    execinstr (xaddw R1:R16, R2:R16,  .Typedoperands) => .
+    execinstr (xaddw R1:R16, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

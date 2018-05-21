@@ -5,7 +5,7 @@ module VMOVSHDUP-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vmovshdup R1:Ymm, R2:Ymm,  .Typedoperands) => .
+    execinstr (vmovshdup R1:Ymm, R2:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

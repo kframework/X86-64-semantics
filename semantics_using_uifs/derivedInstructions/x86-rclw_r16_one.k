@@ -5,7 +5,7 @@ module RCLW-R16-ONE
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (rclw $0x1, R2:R16,  .Typedoperands) => .
+    execinstr (rclw $0x1, R2:R16,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

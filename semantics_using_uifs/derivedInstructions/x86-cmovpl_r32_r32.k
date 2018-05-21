@@ -5,7 +5,7 @@ module CMOVPL-R32-R32
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmovpl R1:R32, R2:R32,  .Typedoperands) => .
+    execinstr (cmovpl R1:R32, R2:R32,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

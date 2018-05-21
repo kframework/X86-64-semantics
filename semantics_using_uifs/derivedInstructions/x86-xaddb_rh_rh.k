@@ -5,7 +5,7 @@ module XADDB-RH-RH
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (xaddb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xaddb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
@@ -32,7 +32,7 @@ convToRegKeys(R1) |-> (concatenateMInt(extractMInt(getParentValue(R1, RSMap), 0,
       requires notBool sameRegisters(R1, R2)
 
     rule <k>
-    execinstr (xaddb R1:Rh, R2:Rh,  .Typedoperands) => .
+    execinstr (xaddb R1:Rh, R2:Rh,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,

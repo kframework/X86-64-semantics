@@ -5,7 +5,7 @@ module VSQRTPS-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vsqrtps R1:Xmm, R2:Xmm,  .Typedoperands) => .
+    execinstr (vsqrtps R1:Xmm, R2:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
