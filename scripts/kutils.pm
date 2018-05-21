@@ -2433,26 +2433,21 @@ sub sanitizeBVF {
 
         # Action for K rule
         my $K_rule = $rule;
-        if ( $rule =~ m/TRUE/ ) {
+        if ( $K_rule =~ m/TRUE/ ) {
             $K_rule = "mi(1, 1)";
         }
-        if ( $rule =~ m/FALSE/ ) {
+        if ( $K_rule =~ m/FALSE/ ) {
             $K_rule = "mi(1, 0)";
         }
+        if ( $K_rule =~ m/^getParity\((.*)\)$/ ) {
+            $K_rule =
+"(#ifMInt ((countOnes($1, 0) &Int 1) ==K 0) #then mi(1,1) #else mi(1,0) #fi)";
+        }
 
-        # For bool regs (cf, af ...), add $ifMINt in K_rule
+        # For bool regs (cf, af ...), add undef for TMP_BOOL
         if ( 1 == $is_flag ) {
-            if ( $rule =~ m/^TRUE$/ ) {
-                $K_rule = "mi(1, 1)";
-            }
-            elsif ( $rule =~ m/^FALSE$/ ) {
-                $K_rule = "mi(1, 0)";
-            }
-            elsif ( $rule =~ m/^TMP_BOOL_(\d+)$/ ) {
+            if ( $rule =~ m/TMP_BOOL_(\d+)/ ) {
                 $K_rule = "(undef)";
-            }
-            else {
-                $K_rule = "(#ifMInt $K_rule #then mi(1,1) #else mi(1,0) #fi)";
             }
         }
 
