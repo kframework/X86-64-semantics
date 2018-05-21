@@ -42,14 +42,13 @@ to generate \K rule. We need some way to validate the backend.
 
 \paragraph{Validate the Backend}
 
-The \K rules generated using the backend are matched against the ones we already
-obtained via symbolic execution on stratified instructions.  This has an added
-benefit that in order to get the exact match we need to port all the
-verification lemma from \K to strata code, which will later help in generating
-simplified \K rules for non-stratified instructions.
+The \K rules generated using the backend are matched (syntactically)  against
+the ones we already obtained via symbolic execution on stratified instructions.
+This has an added benefit that in order to get the exact match, we need to port
+all the simplification rules from \K to strata code, which in turn will later
+help in generating simplified \K rules for non-stratified instructions. 
 
-
-Two main challenges in getting an exact match are:
+Main challenges in getting an exact match are:
 \begin{itemize}
 
 \item  \Strata rules uses \extract to extract portion of a bit-vector. The high
@@ -57,7 +56,7 @@ and low indices of \extract are obtained considering LSB at index 0, whereas \K
 uses \extractMInt for the same purpose, but uses MSB at index zero.
 
 \item  \Strata uses flags as \bool, whereas they are treated as \bv in our
-semantics.
+semantics. We modifed strata so as to treat flag registers as 1 bit bitvectors.
 
 \end{itemize}
 
