@@ -6,7 +6,7 @@ use warnings;
 use Getopt::Long;
 use File::Compare;
 use File::Basename;
-use File::chdir;
+#use File::chdir;
 use Cwd;
 use File::Path qw(make_path remove_tree);
 use Env;
