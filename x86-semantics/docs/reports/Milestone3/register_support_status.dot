@@ -1,0 +1,22 @@
+// dot -Tps imm_stats.dot -o imm_stats.ps
+digraph instr_supprt {
+    
+      
+  // Registers
+    label =  "Register"
+    style=filled;
+    color = cadetblue1;
+
+    REGS_STRATA [sides=5; shape=polygon; label="stratified\n#692"] 
+    REGS_UNSTRATA [label="not-stratified\n#391"] 
+    REGS_UNSTRATA_STOKED [fontcolor=red; color=red; label="#1\nstoked\n!! == TS !!\n#262"] 
+    REGS_UGUSUS [fontcolor=red; color=red; label="#2\nnot-stoked\n!!Extend Stratification!!\n#129"]
+
+    REGS -> REGS_STRATA
+    REGS -> REGS_UNSTRATA
+    REGS_UNSTRATA -> REGS_UNSTRATA_STOKED
+    REGS_UNSTRATA -> REGS_UGUSUS
+
+    {rank = same; REGS_STRATA; REGS_UNSTRATA; }
+    {rank = same; REGS_UNSTRATA_STOKED; REGS_UGUSUS; }
+ }
