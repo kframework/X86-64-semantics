@@ -9,7 +9,7 @@ module CBTW
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"RAX" |-> concatenateMInt( extractMInt( getParentValue(%rax, RSMap), 0, 48), extractMInt( signExtend( extractMInt( getParentValue(%rax, RSMap), 56, 64), 64), 48, 64))
+"RAX" |-> concatenateMInt( extractMInt( getParentValue(%rax, RSMap), 0, 48), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 56, 64))), 48, 64))
 )
 
     </regstate>

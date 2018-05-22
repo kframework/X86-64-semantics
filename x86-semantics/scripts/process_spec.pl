@@ -281,8 +281,8 @@ sub createSingleFileDefn {
     #    print $sfp "module X86-DERIVED-INSTRUCTIONS-SEMANTICS" . "\n";
     #    print $sfp "  imports X86-CONFIGURATION" . "\n";
 
-    print("\tMerging $derivedInstrPath\n");
-    find( \&mergeToSingleFile, $derivedInstrPath );
+    #print("\tMerging $derivedInstrPath\n");
+    #find( \&mergeToSingleFile, $derivedInstrPath );
 
     print $sfp "endmodule";
     close($sfp);

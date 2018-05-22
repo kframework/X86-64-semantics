@@ -16,7 +16,10 @@ execution, we decided to use ...
 \item Dealing with scratch pad registers.
 \item Simplification of formulas.
   Simplification generates simpler \K rule (than the corresponding \Strata formula)
-  in some cases. 
+  in some cases. Also it is much easiler to write the simplification rules in
+  \K.\revisit{show the example for concat(A[1:2], concate(B[2:3], X)) ==
+    concate(A[1:3], X)}
+
 \item Check the the ported \K rules are equivalent to the strata formulas to
 begin with. This helped us in finding a bug in \Strata's symbolic execution 
 engine which is anyway fixed by the authors in their recent versions.
@@ -57,6 +60,8 @@ uses \extractMInt for the same purpose, but uses MSB at index zero.
 
 \item  \Strata uses flags as \bool, whereas they are treated as \bv in our
 semantics. We modifed strata so as to treat flag registers as 1 bit bitvectors.
+
+\item Added a lot of simplification rules.
 
 \end{itemize}
 

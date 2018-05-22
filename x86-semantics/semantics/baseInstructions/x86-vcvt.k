@@ -3,10 +3,10 @@ requires "x86-configuration.k"
 
 /*@ This file defines the semantics of following 51 base instructions.
   - vcvtdq2pd_ymm_ymm, vcvtdq2ps_ymm_ymm,  32 Int -> 64 doubles or 32 floats
-  - vcvtpd2ps_xmm_ymm (NOT IMPLEMENTED) , vcvtps2pd_ymm_xmm, doubles <-> floats
+  - vcvtpd2ps_xmm_ymm* (NOT IMPLEMENTED) , vcvtps2pd_ymm_xmm, doubles <-> floats
 
   // Not implemented
-  - vcvtpd2dq_xmm_ymm, vcvtps2dq_ymm_ymm   64 doubles or 32 floats -> 32 Ints
+  - vcvtpd2dq_xmm_ymm, vcvtps2dq_ymm_ymm*   64 doubles or 32 floats -> 32 Ints
   - vcvttpd2dq_xmm_ymm, vcvttps2dq_ymm_ymm,
 
 vcvtdq2pd_ymm_ymm
@@ -58,8 +58,41 @@ module VCVTPS2PD-YMM-XMM
     <regstate> RSMap</regstate>
 endmodule
 
+
+module VCVTPS2DQ-YMM-YMM
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr(vcvtps2dq  Y1:Ymm,  Y2:Ymm, .Operands) =>
+      setRegisterValue(
+        joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32),
+            cvt_single_to_int32)),
+          Y2)
+  ...</k>
+    <regstate> RSMap</regstate>
+endmodule
+
+
+module VCVTPD2PS-XMM-YMM
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr(vcvtpd2ps  Y:Ymm,  X:Xmm, .Operands) =>
+      setRegisterValue(
+        joinVector(applyUIFs(splitVector(getRegisterValue(Y, RSMap), 64),
+            cvt_double_to_single)),
+          X)
+  ...</k>
+    <regstate> RSMap</regstate>
+endmodule
+
+
+
 module VCVT-SEMANTICS
   imports VCVTDQ2PD-YMM-YMM
   imports VCVTDQ2PS-YMM-YMM
   imports VCVTPS2PD-YMM-XMM
+  // Not Implemented
+  imports VCVTPS2DQ-YMM-YMM
+  imports VCVTPD2PS-XMM-YMM
 endmodule

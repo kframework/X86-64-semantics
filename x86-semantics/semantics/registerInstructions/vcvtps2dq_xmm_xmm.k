@@ -9,7 +9,7 @@ module VCVTPS2DQ-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), concatenateMInt( mi(32, 0), concatenateMInt( mi(32, 0), concatenateMInt( mi(32, 0), concatenateMInt( cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 160, 192)), concatenateMInt( cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 192, 224)), cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 224, 256)))))))))
+convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 160, 192)), concatenateMInt( cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 192, 224)), cvt_single_to_int32(extractMInt( getParentValue(R1, RSMap), 224, 256))))))
 )
 
     </regstate>

@@ -67,8 +67,8 @@ for my $key0 ( keys %map0 ) {
         $mod1 =~ s/\)//g;
 
         #my ( $result, $str0, $str1 ) =
-        print "\n\nCheck $key0:\n";
-        utils::printStringDiff( $mod0, $mod1 );
+        #print "\n\nCheck $key0:\n";
+        utils::printStringDiff( $mod0, $mod1, $key0 );
 
         #if ( 1 == $result ) {
         #    print "$key0: Diff::" . "\n" . $str0 . "\n" . $str1 . "\n\n";
