@@ -9,7 +9,7 @@ module CMOVZW-R16-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( getParentValue(R1, RSMap), 48, 64)) #else getParentValue(R2, RSMap) #fi)
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then extractMInt( getParentValue(R1, RSMap), 48, 64) #else extractMInt( getParentValue(R2, RSMap), 48, 64) #fi))
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module SETC-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), mi(8, 1)), extractMInt( getParentValue(R1, RSMap), 56, 64)) #else concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), mi(8, 0)), extractMInt( getParentValue(R1, RSMap), 56, 64)) #fi)
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>

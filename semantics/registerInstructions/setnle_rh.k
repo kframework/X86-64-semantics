@@ -9,7 +9,7 @@ module SETNLE-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then mi(8, 0) #else extractMInt( addMInt( concatenateMInt( mi(1, 0), xorMInt( xorMInt( (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi)), mi(8, 1))), concatenateMInt( mi(8, 0), getParity(mi(8, 16)))), 1, 9) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then mi(8, 0) #else xorMInt( xorMInt( (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi)), mi(8, 1)) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>
