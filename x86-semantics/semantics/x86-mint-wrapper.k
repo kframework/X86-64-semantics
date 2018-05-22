@@ -151,10 +151,13 @@ module MINT-WRAPPER-SYNTAX
                         | "approx_reciprocal_sqrt_single" [token] 
                         | "cvt_single_to_double"          [token] 
                         | "cvt_single_to_int32"           [token] 
+                        | "cvt_double_to_int32"           [token] 
                         | "cvt_single_to_int64"           [token] 
                         | "cvt_int32_to_single"           [token] 
                         | "cvt_int32_to_double"           [token] 
                         | "cvt_double_to_single"          [token] 
+                        | "cvt_single_to_int32_truncate"  [token] 
+                        | "cvt_double_to_int32_truncate"  [token] 
 
 
   syntax MInts ::= applyUIFs(MInts, UIFUOperation ) [function, klabel(unaryoperateonuifs)]

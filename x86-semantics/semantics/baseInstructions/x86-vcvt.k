@@ -86,6 +86,45 @@ module VCVTPD2PS-XMM-YMM
     <regstate> RSMap</regstate>
 endmodule
 
+module VCVTPD2DQ-XMM-YMM
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr(vcvtpd2dq  Y:Ymm,  X:Xmm, .Operands) =>
+      setRegisterValue(
+        joinVector(applyUIFs(splitVector(getRegisterValue(Y, RSMap), 64),
+            cvt_double_to_int32)),
+          X)
+  ...</k>
+    <regstate> RSMap</regstate>
+endmodule
+
+module VCVTTPD2DQ-XMM-YMM
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr(vcvttpd2dq  Y:Ymm,  X:Xmm, .Operands) =>
+      setRegisterValue(
+        joinVector(applyUIFs(splitVector(getRegisterValue(Y, RSMap), 64),
+            cvt_double_to_int32_truncate)),
+          X)
+  ...</k>
+    <regstate> RSMap</regstate>
+endmodule
+
+module VCVTTPS2DQ-YMM-YMM
+  imports X86-CONFIGURATION
+
+  rule <k>
+    execinstr(vcvttps2dq  Y1:Ymm,  X1:Xmm, .Operands) =>
+      setRegisterValue(
+        joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32),
+            cvt_single_to_int32_truncate)),
+          Y2)
+  ...</k>
+    <regstate> RSMap</regstate>
+endmodule
+
 
 
 module VCVT-SEMANTICS
@@ -95,4 +134,7 @@ module VCVT-SEMANTICS
   // Not Implemented
   imports VCVTPS2DQ-YMM-YMM
   imports VCVTPD2PS-XMM-YMM
+  imports VCVTPD2DQ-XMM-YMM
+  imports VCVTTPD2DQ-XMM-YMM
+  imports VCVTTPS2DQ-YMM-YMM
 endmodule
