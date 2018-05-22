@@ -9,7 +9,7 @@ module CMOVGEW-R16-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), (#ifMInt eqMInt( concatenateMInt( mi(56, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), xorMInt( xorMInt( (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi)), mi(8, 1))), concatenateMInt( mi(8, 0), getParity(mi(8, 16)))), 1, 9)), mi(64, 0)) #then extractMInt( getParentValue(R2, RSMap), 48, 64) #else extractMInt( getParentValue(R1, RSMap), 48, 64) #fi))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), (#ifMInt eqMInt( concatenateMInt( mi(56, 0), xorMInt( xorMInt( (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi)), mi(8, 1))), mi(64, 0)) #then extractMInt( getParentValue(R2, RSMap), 48, 64) #else extractMInt( getParentValue(R1, RSMap), 48, 64) #fi))
 )
 
     </regstate>

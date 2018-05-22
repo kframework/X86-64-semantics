@@ -11,7 +11,7 @@ module INCB-RH
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 9)), extractMInt( getParentValue(R1, RSMap), 56, 64))
 
-"PF" |-> (#ifMInt ((countOnes(extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 9), 0) &Int 1) ==K 0) #then mi(1,1) #else mi(1,0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "AF" |-> mi(1, 0)
 

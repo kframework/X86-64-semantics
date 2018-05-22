@@ -9,7 +9,7 @@ module CMOVPEW-R16-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), (#ifMInt eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then mi(9, 1) #else mi(9, 0) #fi), concatenateMInt( mi(1, 0), extractMInt( addMInt( concatenateMInt( mi(16, 0), getParity(mi(8, 16))), mi(17, 65535)), 1, 9))), 1, 9), mi(8, 0)) #then extractMInt( getParentValue(R1, RSMap), 48, 64) #else extractMInt( getParentValue(R2, RSMap), 48, 64) #fi))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then mi(8, 0) #else mi(8, 255) #fi), mi(8, 0)) #then extractMInt( getParentValue(R1, RSMap), 48, 64) #else extractMInt( getParentValue(R2, RSMap), 48, 64) #fi))
 )
 
     </regstate>

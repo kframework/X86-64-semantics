@@ -9,7 +9,7 @@ module SETPO-R8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 56), xorMInt( (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), concatenateMInt( mi(7, 0), getParity(mi(8, 0)))))
+convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 56), (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then mi(8, 0) #else mi(8, 1) #fi))
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module MOVZBL-R32-R8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)), concatenateMInt( mi(8, 0), getParity(mi(8, 16)))), 1, 9))
+convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>
