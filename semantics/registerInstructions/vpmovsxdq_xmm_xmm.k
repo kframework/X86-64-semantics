@@ -9,7 +9,7 @@ module VPMOVSXDQ-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( signExtend( extractMInt( getParentValue(R1, RSMap), 192, 224), 64), signExtend( extractMInt( getParentValue(R1, RSMap), 224, 256), 64)))
+convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 224))), mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256)))))
 )
 
     </regstate>

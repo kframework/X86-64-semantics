@@ -20,10 +20,13 @@ P1	 K rule optmization is better that Strata's
 
 R12: addMInt(MI, xorMInt(MI, -1)) == -1; Distribute Concatenate over ITE; Distribute addMInt over ITE; Carry flag idioms
 R13: nested ite verification lemma
+
+DH:R1: Use K rule of strata handler; af flag is not computed in strata handler
 							
 							
 							
 Stratum 0	95						
+======================================================
 addq_r64_r64	0	2					
 andnq_r64_r64_r64	0	3					
 cbtw	0	4	YD   				
@@ -68,7 +71,7 @@ seto_r8	0	3	YD
 setp_r8	0	1	YD				
 sets_r8	0	1	YD				
 setz_r8	0	1	YD				
-shlq_r64_cl	0	1	OPT	R1			
+shlq_r64_cl	0	1	OPT	R1    DH:R1
 shlxq_r64_r64_r64	0	5					
 stc	0	1					
 vaddpd_xmm_xmm_xmm	0	6					
@@ -121,6 +124,7 @@ xchgw_r16_r16	0	4	CD	R7:Must Schedule:Syntactically Equal
 xorw_r16_r16	0	9	YD				
 
 Stratum 1	89						
+======================================================
 adcb_rh_r8	1	5					
 addpd_xmm_xmm	1	9					
 addw_r16_r16	1	4					

@@ -9,7 +9,7 @@ module CLTQ
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"RAX" |-> signExtend( extractMInt( getParentValue(%rax, RSMap), 32, 64), 64)
+"RAX" |-> mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 32, 64)))
 )
 
     </regstate>

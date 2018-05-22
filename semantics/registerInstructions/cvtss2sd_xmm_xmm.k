@@ -9,7 +9,7 @@ module CVTSS2SD-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), cvt_single_to_double(extractMInt( getParentValue(R1, RSMap), 224, 256))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 192), cvt_single_to_double(extractMInt( getParentValue(R1, RSMap), 224, 256)))
 )
 
     </regstate>

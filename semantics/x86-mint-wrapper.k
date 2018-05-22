@@ -154,6 +154,7 @@ module MINT-WRAPPER-SYNTAX
                         | "cvt_single_to_int64"           [token] 
                         | "cvt_int32_to_single"           [token] 
                         | "cvt_int32_to_double"           [token] 
+                        | "cvt_double_to_single"          [token] 
 
 
   syntax MInts ::= applyUIFs(MInts, UIFUOperation ) [function, klabel(unaryoperateonuifs)]
