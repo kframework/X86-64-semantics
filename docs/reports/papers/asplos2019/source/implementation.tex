@@ -47,9 +47,10 @@ to generate \K rule. We need some way to validate the backend.
 
 The \K rules generated using the backend are matched (syntactically)  against
 the ones we already obtained via symbolic execution on stratified instructions.
-This has an added benefit that in order to get the exact match, we need to port
-all the simplification rules from \K to strata code, which in turn will later
-help in generating simplified \K rules for non-stratified instructions. 
+Other than validaing the backend, this has an added benefit that in order to get
+the exact match, we need to port all the simplification rules from \K to strata
+code, which in turn will later help in generating simplified \K rules for
+non-stratified instructions. 
 
 Main challenges in getting an exact match are:
 \begin{itemize}
@@ -60,8 +61,6 @@ uses \extractMInt for the same purpose, but uses MSB at index zero.
 
 \item  \Strata uses flags as \bool, whereas they are treated as \bv in our
 semantics. We modifed strata so as to treat flag registers as 1 bit bitvectors.
-
-\item Added a lot of simplification rules.
 
 \end{itemize}
 
