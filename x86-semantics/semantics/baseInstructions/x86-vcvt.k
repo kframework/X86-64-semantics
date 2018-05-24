@@ -116,7 +116,7 @@ module VCVTTPS2DQ-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr(vcvttps2dq  Y1:Ymm,  X1:Xmm, .Operands) =>
+    execinstr(vcvttps2dq  Y1:Ymm,  Y2:Ymm, .Operands) =>
       setRegisterValue(
         joinVector(applyUIFs(splitVector(getRegisterValue(Y1, RSMap), 32),
             cvt_single_to_int32_truncate)),

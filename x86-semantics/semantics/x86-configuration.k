@@ -13,7 +13,7 @@ module X86-CONFIGURATION
   imports X86-INIT-SYNTAX
   imports MINT-WRAPPER-SYNTAX
   imports X86-LOADER-SYNTAX
-  imports COMMON-C-LIBRARY-CONFIGURATION
+  //imports COMMON-C-LIBRARY-CONFIGURATION
 
   // configuration <T>
   configuration
@@ -108,5 +108,6 @@ module X86-CONFIGURATION
     // <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
 
-    <c-library/>
+ //   <c-library/>
+ //   <formatting/>
 endmodule
