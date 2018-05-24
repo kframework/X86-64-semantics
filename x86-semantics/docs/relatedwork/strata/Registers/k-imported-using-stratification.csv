@@ -748,5 +748,10 @@ vpmovsxbq_ymm_xmm	14	820
 vpunpckhwd_ymm_ymm_ymm	14	2701
 							
 Stratum 15	2						
-pmovsxbq_xmm_xmm	15	1624					
-vpmovsxbq_xmm_xmm	15	825					
+pmovsxbq_xmm_xmm	15	1624  SR1 
+vpmovsxbq_xmm_xmm	15	825   SR1					
+
+
+
+
+SR1: *Some concat(cons, cons) are not evaluated because the C code has limitation on datatype of 64 bit ints where these concate widths is > 64*	  				
