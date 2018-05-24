@@ -9,7 +9,7 @@ module CVTTPS2DQ-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( cvt_single_to_int32_truncate(xorMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), mi(32, 0)))), concatenateMInt( cvt_single_to_int32_truncate(xorMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R1, RSMap), 160, 192), mi(32, 0)))), concatenateMInt( cvt_single_to_int32_truncate(xorMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R1, RSMap), 192, 224), mi(32, 0)))), cvt_single_to_int32_truncate(xorMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R1, RSMap), 224, 256), mi(32, 0))))))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( cvt_single_to_int32_truncate(extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( cvt_single_to_int32_truncate(extractMInt( getParentValue(R1, RSMap), 160, 192)), concatenateMInt( cvt_single_to_int32_truncate(extractMInt( getParentValue(R1, RSMap), 192, 224)), cvt_single_to_int32_truncate(extractMInt( getParentValue(R1, RSMap), 224, 256))))))
 )
 
     </regstate>

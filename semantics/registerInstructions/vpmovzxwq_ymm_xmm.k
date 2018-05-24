@@ -9,7 +9,7 @@ module VPMOVZXWQ-YMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(32, 0), sub_single(concatenateMInt( mi(16, 0), extractMInt( getParentValue(R1, RSMap), 192, 208)), mi(32, 0))), concatenateMInt( concatenateMInt( mi(32, 0), sub_single(concatenateMInt( mi(16, 0), extractMInt( getParentValue(R1, RSMap), 208, 224)), mi(32, 0))), concatenateMInt( concatenateMInt( mi(32, 0), sub_single(concatenateMInt( mi(16, 0), extractMInt( getParentValue(R1, RSMap), 224, 240)), mi(32, 0))), concatenateMInt( mi(32, 0), sub_single(concatenateMInt( mi(16, 0), extractMInt( getParentValue(R1, RSMap), 240, 256)), mi(32, 0))))))
+convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1, RSMap), 192, 208)), concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1, RSMap), 208, 224)), concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1, RSMap), 224, 240)), concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1, RSMap), 240, 256)))))
 )
 
     </regstate>

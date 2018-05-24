@@ -9,7 +9,7 @@ module VBLENDVPD-XMM-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"YMM1" |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 128, 192) #else extractMInt( getParentValue(R2, RSMap), 128, 192) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 192, 256) #else extractMInt( getParentValue(R2, RSMap), 192, 256) #fi)))
+"YMM1" |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 128, 192) #else extractMInt( getParentValue(R3, RSMap)ymm3, 128, 192) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 192, 256) #else extractMInt( getParentValue(R3, RSMap)ymm3, 192, 256) #fi)))
 )
 
     </regstate>
