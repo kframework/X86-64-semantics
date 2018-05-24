@@ -9,7 +9,7 @@ module NOTW-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), xorMInt( mi(16, 65535), extractMInt( getParentValue(R1, RSMap), 48, 64)))
+convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), xorMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 65535)))
 )
 
     </regstate>

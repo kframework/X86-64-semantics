@@ -9,7 +9,7 @@ module ANDNL-R32-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), xorMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), extractMInt( getParentValue(R1, RSMap), 32, 64))))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), xorMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), extractMInt( getParentValue(R2, RSMap), 32, 64)), extractMInt( getParentValue(R2, RSMap), 32, 64)))
 
 "CF" |-> mi(1, 0)
 
@@ -17,9 +17,9 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), xorMInt( extractMInt( getParen
 
 "AF" |-> (undef)
 
-"ZF" |-> (#ifMInt eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( xorMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), extractMInt( getParentValue(R2, RSMap), 32, 64)), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> xorMInt( extractMInt( getParentValue(R2, RSMap), 32, 33), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 33), extractMInt( getParentValue(R1, RSMap), 32, 33)))
+"SF" |-> xorMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 32, 33), extractMInt( getParentValue(R2, RSMap), 32, 33)), extractMInt( getParentValue(R2, RSMap), 32, 33))
 
 "OF" |-> mi(1, 0)
 )

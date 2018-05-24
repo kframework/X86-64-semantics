@@ -9,7 +9,7 @@ module VFNMADD231PS-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( getParentValue(R3, RSMap), 128, 160), orMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), mi(32, 0))), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R3, RSMap), 160, 192), orMInt( extractMInt( getParentValue(R1, RSMap), 160, 192), mi(32, 0))), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( getParentValue(R3, RSMap), 192, 224), extractMInt( getParentValue(R1, RSMap), 192, 224)), vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R1, RSMap), 224, 256))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( getParentValue(R3, RSMap), 128, 160), orMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R3, RSMap), 160, 192), orMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 160, 192))), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( getParentValue(R3, RSMap), 192, 224), extractMInt( getParentValue(R1, RSMap), 192, 224)), vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R1, RSMap), 224, 256))))))
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module PMOVSXBQ-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( mi(64, svalueMInt(xorMInt( mi(32, 4294967168), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446743528248704896)), concatenateMInt( mi(1, 0), concatenateMInt( mi(32, 4294967168), add_single(concatenateMInt( mi(24, 0), extractMInt( getParentValue(R1, RSMap), 240, 248)), mi(32, 0))))), 33, 65)))), mi(64, svalueMInt(xorMInt( mi(32, 4294967168), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446743528248704896)), concatenateMInt( mi(1, 0), concatenateMInt( mi(32, 4294967168), add_single(concatenateMInt( mi(24, 0), extractMInt( getParentValue(R1, RSMap), 248, 256)), mi(32, 0))))), 33, 65))))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( mi(64, svalueMInt(xorMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446743528248704896)), concatenateMInt( mi(1, 0), concatenateMInt( mi(32, 4294967168), add_single(concatenateMInt( mi(24, 0), extractMInt( getParentValue(R1, RSMap), 240, 248)), mi(32, 0))))), 33, 65), mi(32, 4294967168)))), mi(64, svalueMInt(xorMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446743528248704896)), concatenateMInt( mi(1, 0), concatenateMInt( mi(32, 4294967168), add_single(concatenateMInt( mi(24, 0), extractMInt( getParentValue(R1, RSMap), 248, 256)), mi(32, 0))))), 33, 65), mi(32, 4294967168))))))
 )
 
     </regstate>

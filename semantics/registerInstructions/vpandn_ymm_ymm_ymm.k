@@ -9,7 +9,7 @@ module VPANDN-YMM-YMM-YMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( orMInt( mi(64, 0), xorMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 0, 64), extractMInt( getParentValue(R2, RSMap), 0, 64)), extractMInt( getParentValue(R2, RSMap), 0, 64))), orMInt( mi(64, 0), xorMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 64, 128), extractMInt( getParentValue(R2, RSMap), 64, 128)), extractMInt( getParentValue(R2, RSMap), 64, 128)))), concatenateMInt( xorMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), extractMInt( getParentValue(R2, RSMap), 128, 192)), xorMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)), extractMInt( getParentValue(R2, RSMap), 192, 256))))
+convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( orMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), orMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), extractMInt( getParentValue(R1, RSMap), 0, 64))), mi(64, 0)), orMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), orMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), extractMInt( getParentValue(R1, RSMap), 64, 128))), mi(64, 0))), concatenateMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), orMInt( extractMInt( getParentValue(R1, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192))), xorMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), orMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256)))))
 )
 
     </regstate>

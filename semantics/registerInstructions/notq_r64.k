@@ -9,7 +9,7 @@ module NOTQ-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> xorMInt( mi(64, 18446744073709551615), getParentValue(R1, RSMap))
+convToRegKeys(R1) |-> xorMInt( getParentValue(R1, RSMap), mi(64, 18446744073709551615))
 )
 
     </regstate>

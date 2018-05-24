@@ -9,7 +9,7 @@ module MOVQ-XMM-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( mi(64, 0), xorMInt( getParentValue(R1, RSMap), mi(64, 0))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( mi(64, 0), xorMInt( mi(64, 0), getParentValue(R1, RSMap))))
 )
 
     </regstate>
