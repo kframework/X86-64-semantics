@@ -5,11 +5,11 @@ module VBLENDVPD-YMM-YMM-YMM-YMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vblendvpd R1:Ymm, R2:Ymm, R3:Ymm,  .Operands) => .
+    execinstr (vblendvpd R1:Ymm, R2:Ymm, R3:Ymm, R4:Ymm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"YMM1" |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 0, 1), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 0, 64) #else extractMInt( getParentValue(R3, RSMap)ymm3, 0, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 64, 65), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 64, 128) #else extractMInt( getParentValue(R3, RSMap)ymm3, 64, 128) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 128, 192) #else extractMInt( getParentValue(R3, RSMap)ymm3, 128, 192) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 192, 256) #else extractMInt( getParentValue(R3, RSMap)ymm3, 192, 256) #fi))))
+convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 0, 1), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 0, 64) #else extractMInt( getParentValue(R2, RSMap), 0, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 64, 65), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 64, 128) #else extractMInt( getParentValue(R2, RSMap), 64, 128) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 192) #else extractMInt( getParentValue(R2, RSMap), 128, 192) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 256) #else extractMInt( getParentValue(R2, RSMap), 192, 256) #fi))))
 )
 
     </regstate>

@@ -27,7 +27,12 @@ my $type       = "";
 my $help       = "";
 my $debugprint = 0;
 
-my %opcodeSkipList = ( "pdepq_r64_r64_r64" => 1, "pdepl_r32_r32_r32" => 1 );
+my %opcodeSkipList = (
+    "pdepq_r64_r64_r64" => 1,
+    "pdepl_r32_r32_r32" => 1,
+    "pextl_r32_r32_r32" => 1,
+    "pextq_r64_r64_r64" => 1
+);
 
 GetOptions(
     "help"     => \$help,
@@ -41,13 +46,29 @@ if ( "" eq $opcode or "" eq $kfile or "" eq $type ) {
     exit(0);
 }
 
+## Skip generating K rule for opcodeSkipList
+if ( exists $opcodeSkipList{$opcode} ) {
+
+    #print "$opcode\tSkip\n";
+    utils::info("$opcode: Skip");
+    exit(0);
+}
+
+# Infile
 open( my $fp, "<", $kfile ) or die "Can't open $kfile: $!";
 my @lines = <$fp>;
 
-## Skip generating K rule for opcodeSkipList
-if ( exists $opcodeSkipList{$opcode} ) {
-    print "Skip: $opcode\n";
-    exit(0);
+#Outfile
+my $outFile =
+  "$utils::home/Github/binary-decompilation/x86-semantics/semantics/";
+if ( "register" eq $type ) {
+    $outFile = $outFile . "registerInstructions/$opcode.k";
+}
+if ( "immediate" eq $type ) {
+    $outFile = $outFile . "immediateInstructions/$opcode.k";
+}
+if ( "memory" eq $type ) {
+    $outFile = $outFile . "memoryInstructions/$opcode.k";
 }
 
 my $instrfolder = kutils::getInstrsFolder(
@@ -79,10 +100,14 @@ my $operandListFromOpcode_ref =
 my $operandListFromInstr_ref =
   getOperandListFromInstr( $targetinstr, $debugprint );
 
+#printArray($operandListFromOpcode_ref);
+#printArray($operandListFromInstr_ref);
+
 my $actual2psedoRegs_ref = getDummyRegsForOperands( $operandListFromOpcode_ref,
     $operandListFromInstr_ref );
 my %actual2psedoRegs = %{$actual2psedoRegs_ref};
 utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", $debugprint );
 
+print "$opcode:\tK Rule at $outFile\n";
 writeKDefn( sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint ),
-    "", $opcode, 1, 0, 0 );
+    $outFile, $opcode, 1, 0, 0 );
