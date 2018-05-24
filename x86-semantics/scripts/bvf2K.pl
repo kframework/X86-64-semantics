@@ -27,6 +27,8 @@ my $type       = "";
 my $help       = "";
 my $debugprint = 0;
 
+my %opcodeSkipList = ( "pdepq_r64_r64_r64" => 1, "pdepl_r32_r32_r32" => 1 );
+
 GetOptions(
     "help"     => \$help,
     "kfile:s"  => \$kfile,
@@ -41,6 +43,12 @@ if ( "" eq $opcode or "" eq $kfile or "" eq $type ) {
 
 open( my $fp, "<", $kfile ) or die "Can't open $kfile: $!";
 my @lines = <$fp>;
+
+## Skip generating K rule for opcodeSkipList
+if ( exists $opcodeSkipList{$opcode} ) {
+    print "Skip: $opcode\n";
+    exit(0);
+}
 
 my $instrfolder = kutils::getInstrsFolder(
     "$utils::home/Github/strata-data/output-strata/instruction-summary",

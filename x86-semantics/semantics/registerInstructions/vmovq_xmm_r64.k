@@ -9,7 +9,7 @@ module VMOVQ-XMM-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), xorMInt( mi(64, 0), getParentValue(R1, RSMap)))
+convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), getParentValue(R1, RSMap))
 )
 
     </regstate>
