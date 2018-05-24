@@ -2681,7 +2681,22 @@ sub getOperandListFromInstr {
     my $debugprint  = shift @_;
     my @operamdList = ();
 
-    if ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
+    if ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
+        debugInfo(
+            "[getOperandListFromInstr]Four operands::"
+              . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $3, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $4, "%" ) } ) . "::"
+              . uc( $subRegToReg{ utils::trim( $5, "%" ) } )
+              . ":: \n ",
+            $debugprint
+        );
+        push @operamdList, $2;
+        push @operamdList, $3;
+        push @operamdList, $4;
+        push @operamdList, $5;
+    }
+    elsif ( $instr =~ m/(\w+)\s+(\S+)\s*,\s+(\S+)\s*,\s+(\S+)/ ) {
         debugInfo(
             "[getOperandListFromInstr]Three operands::"
               . uc( $subRegToReg{ utils::trim( $2, "%" ) } ) . "::"
@@ -2723,7 +2738,18 @@ sub getOperandListFromOpcode {
     my $debugprint  = shift @_;
     my @operamdList = ();
 
-    if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
+    if ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)_(.*)/ ) {
+        my $op4 = $2;
+        my $op3 = $3;
+        my $op2 = $4;
+        my $op1 = $5;
+
+        push @operamdList, $op1;
+        push @operamdList, $op2;
+        push @operamdList, $op3;
+        push @operamdList, $op4;
+    }
+    elsif ( $opcode =~ m/(\w+)_(.*)_(.*)_(.*)/ ) {
         my $op3 = $2;
         my $op2 = $3;
         my $op1 = $4;

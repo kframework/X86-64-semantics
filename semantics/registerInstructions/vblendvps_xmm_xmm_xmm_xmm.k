@@ -5,11 +5,11 @@ module VBLENDVPS-XMM-XMM-XMM-XMM
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (vblendvps R1:Xmm, R2:Xmm, R3:Xmm,  .Operands) => .
+    execinstr (vblendvps R1:Xmm, R2:Xmm, R3:Xmm, R4:Xmm,  .Operands) => .
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"YMM1" |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 128, 160) #else extractMInt( getParentValue(R3, RSMap)ymm3, 128, 160) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 160, 161), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 160, 192) #else extractMInt( getParentValue(R3, RSMap)ymm3, 160, 192) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 192, 224) #else extractMInt( getParentValue(R3, RSMap)ymm3, 192, 224) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R3, RSMap)ymm4, 224, 225), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap)ymm2, 224, 256) #else extractMInt( getParentValue(R3, RSMap)ymm3, 224, 256) #fi)))))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 160) #else extractMInt( getParentValue(R2, RSMap), 128, 160) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 160, 161), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 160, 192) #else extractMInt( getParentValue(R2, RSMap), 160, 192) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 224) #else extractMInt( getParentValue(R2, RSMap), 192, 224) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 224, 225), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 224, 256) #else extractMInt( getParentValue(R2, RSMap), 224, 256) #fi)))))
 )
 
     </regstate>
