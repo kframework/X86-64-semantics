@@ -9,7 +9,7 @@ module CLTD
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"RDX" |-> concatenateMInt( mi(32, 0), xorMInt( extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 32, 64))), 0, 32), mi(32, 0)))
+"RDX" |-> concatenateMInt( mi(32, 0), xorMInt( mi(32, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 32, 64))), 0, 32)))
 )
 
     </regstate>

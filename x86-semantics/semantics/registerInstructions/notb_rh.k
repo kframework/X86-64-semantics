@@ -9,7 +9,7 @@ module NOTB-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), xorMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 255))), extractMInt( getParentValue(R1, RSMap), 56, 64))
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), xorMInt( mi(8, 255), extractMInt( getParentValue(R1, RSMap), 48, 56))), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module POR-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192)), orMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), orMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256))))
 )
 
     </regstate>

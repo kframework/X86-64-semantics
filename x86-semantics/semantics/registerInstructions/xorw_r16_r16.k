@@ -9,17 +9,17 @@ module XORW-R16-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), xorMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), extractMInt( getParentValue(R2, RSMap), 48, 64)))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), xorMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), extractMInt( getParentValue(R1, RSMap), 48, 64)))
 
 "CF" |-> mi(1, 0)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 63, 64), extractMInt( getParentValue(R2, RSMap), 63, 64)), mi(1, 1)) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 62, 63), extractMInt( getParentValue(R2, RSMap), 62, 63)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 61, 62), extractMInt( getParentValue(R2, RSMap), 61, 62)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 60, 61), extractMInt( getParentValue(R2, RSMap), 60, 61)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 59, 60), extractMInt( getParentValue(R2, RSMap), 59, 60)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 58, 59), extractMInt( getParentValue(R2, RSMap), 58, 59)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 57, 58), extractMInt( getParentValue(R2, RSMap), 57, 58)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), extractMInt( getParentValue(R2, RSMap), 56, 57)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 63, 64), extractMInt( getParentValue(R1, RSMap), 63, 64)), mi(1, 1)) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 62, 63), extractMInt( getParentValue(R1, RSMap), 62, 63)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 61, 62), extractMInt( getParentValue(R1, RSMap), 61, 62)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 60, 61), extractMInt( getParentValue(R1, RSMap), 60, 61)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 59, 60), extractMInt( getParentValue(R1, RSMap), 59, 60)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 58, 59), extractMInt( getParentValue(R1, RSMap), 58, 59)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 57, 58), extractMInt( getParentValue(R1, RSMap), 57, 58)), mi(1, 1))) xorBool eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), extractMInt( getParentValue(R1, RSMap), 56, 57)), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "AF" |-> (undef)
 
-"ZF" |-> (#ifMInt eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( xorMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), extractMInt( getParentValue(R1, RSMap), 48, 64)), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> xorMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), extractMInt( getParentValue(R2, RSMap), 48, 49))
+"SF" |-> xorMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), extractMInt( getParentValue(R1, RSMap), 48, 49))
 
 "OF" |-> mi(1, 0)
 )

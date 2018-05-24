@@ -9,7 +9,7 @@ module BLSMSKL-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> xorMInt( concatenateMInt( mi(32, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 33, 65)), concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)))
+convToRegKeys(R2) |-> xorMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), concatenateMInt( mi(32, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 33, 65)))
 
 "CF" |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 25)), concatenateMInt( mi(1, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 25))), 0, 1)
 
@@ -17,9 +17,9 @@ convToRegKeys(R2) |-> xorMInt( concatenateMInt( mi(32, 0), extractMInt( addMInt(
 
 "AF" |-> (undef)
 
-"ZF" |-> (#ifMInt eqMInt( xorMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 33, 65), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 33, 65)), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> xorMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 33, 34), extractMInt( getParentValue(R1, RSMap), 32, 33))
+"SF" |-> xorMInt( extractMInt( getParentValue(R1, RSMap), 32, 33), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 33, 34))
 
 "OF" |-> (#ifMInt ((eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 18), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 18), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 18), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 25)), concatenateMInt( mi(1, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), mi(64, 18446744073709551615)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 32, 64))), 17, 25))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
