@@ -2,29 +2,52 @@
 
 \subsection{Porting Formulas for stratified instructions to \K Rules}
 
-For the purpose, we could have directly converted the \Strata formulas
-to \K rule assuming that the \Strata's symbolic execution over the 
+For the purpose of getting  \K rules, we could have directly converted the \Strata formulas
+for an instruction to \K rule assuming that the \Strata's symbolic execution over the 
 stratified instruction sequence is correct.
 
 Given that fact the \K's symbolic execution engine is more trusted as 
 that has been used extensively in language-agnostic manner to perform symbolic
-execution, we decided to use ... 
+execution, we decided to use \K's symbolic executor. Also in order to check 
+if \Strata's symbolic execution engine is correct, we did an equivalence check on 
+the outputs of both the symbolic executions.   
+ 
 
-\begin{itemize}
+\begin{enumerate}
 \item Implementing the base instructions semantics in \K and testing them.
 \item Symbolic execution of the stratified instruction sequences.
 \item Dealing with scratch pad registers.
-\item Simplification of formulas.
-  Simplification generates simpler \K rule (than the corresponding \Strata formula)
-  in some cases. Also it is much easiler to write the simplification rules in
-  \K.\revisit{show the example for concat(A[1:2], concate(B[2:3], X)) ==
+\item Equivalence check between \Strata formula ad the output of 2.
+   
+   All the checks are \emph{unsat}, expect one where the check fail to due a bug in the simplification
+   rules in \Strata, which states the following lemma related to two single precision floating point numbers  {\tt A}  and {\tt B}, which is not correct for {\tt NaNs}. However this bug is fixed in 
+   the latest version of \Stoke. 
+   
+   
+   { \tt  
+        \begin{tabular}[b]{l}
+   \qquad add\_single(A, B) $\equiv$ A if B == 0     
+      \end{tabular}
+  }
+   
+\item {Simplification of formulas:}
+  Simplification generates simple \K rule (sometimes simpler than the corresponding \Strata formula).
+ Also it is much easier to write the simplification rules in
+  \K.\revisit{show the example for concat(A[1:2], concate(B[2:3], X)) $\equiv$
     concate(A[1:3], X)}
 
-\item Check the the ported \K rules are equivalent to the strata formulas to
-begin with. This helped us in finding a bug in \Strata's symbolic execution 
-engine which is anyway fixed by the authors in their recent versions.
 
-\end{itemize}
+\item One of the issue with \Strata formulas is they could be too complex to comprehend at times, which is mainly because 1. \Strata tried to define the semantics of an instruction using other simpler instructions, 2. The simplification rules in \Strata or the ones we define in \K are not sophisticated enough to simplify the complex formulas. An example of one such simplification opportunity is: 
+     { \tt  
+      \begin{tabular}[b]{l}
+          ($0_{32}$ $\cdot$ \%rax[32:0]) $\oplus$ \%rax $\equiv$ \%rax[63:32] $\cdot$  $0_{32}$ 
+      \end{tabular}
+    }
+
+In order to simplify those, we borrowed the hand written formula (provided they ate simpler)  from \Stoke or manually write the simpler formulas  and check equivalence with the stratified formula. If they match on all register state, we employ that in our \K semantics.       
+
+
+\end{enumerate}
 
 \subsection{Supporting un-stratified instructions \& Porting their formulas to \K Rules}
 
