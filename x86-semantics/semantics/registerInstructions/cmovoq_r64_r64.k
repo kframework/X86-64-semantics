@@ -9,7 +9,7 @@ module CMOVOQ-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( addMInt( (#ifMInt eqMInt( (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(1, 0) #else mi(1, 1) #fi), mi(1, 1)) #then mi(1, 0) #else mi(1, 1) #fi), mi(1, 1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64)), mi(17, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64)) #fi), concatenateMInt( mi(1, 0), xorMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 65535)))), 1, 17), mi(16, 0)) #then getParentValue(R1, RSMap) #else getParentValue(R2, RSMap) #fi)
+convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then getParentValue(R1, RSMap) #else getParentValue(R2, RSMap) #fi)
 )
 
     </regstate>

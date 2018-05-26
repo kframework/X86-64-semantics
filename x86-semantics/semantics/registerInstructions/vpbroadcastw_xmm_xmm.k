@@ -9,7 +9,7 @@ module VPBROADCASTW-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), extractMInt( getParentValue(R1, RSMap), 240, 256)), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), extractMInt( getParentValue(R1, RSMap), 240, 256))), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), extractMInt( getParentValue(R1, RSMap), 240, 256))), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), extractMInt( getParentValue(R1, RSMap), 240, 256))))
+convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 240, 256), extractMInt( getParentValue(R1, RSMap), 240, 256)))))))))
 )
 
     </regstate>

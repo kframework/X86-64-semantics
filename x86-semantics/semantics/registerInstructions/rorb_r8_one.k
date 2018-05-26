@@ -9,11 +9,11 @@ module RORB-R8-ONE
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 64))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)))
 
-"CF" |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 64)), concatenateMInt( mi(1, 0), extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 64))), 0, 1)
+"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1)) ==Bool eqMInt( extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 64)), concatenateMInt( mi(1, 0), extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt(concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), extractMInt( getParentValue(R2, RSMap), 56, 64)))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 64))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (undef)
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module CMOVAL-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then extractMInt( getParentValue(R2, RSMap), 32, 64) #else (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(16, 256) #else mi(16, 0) #fi), mi(16, 0)) #then extractMInt( getParentValue(R1, RSMap), 32, 64) #else extractMInt( getParentValue(R2, RSMap), 32, 64) #fi) #fi))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt ((notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) andBool (notBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then extractMInt( getParentValue(R1, RSMap), 32, 64) #else extractMInt( getParentValue(R2, RSMap), 32, 64) #fi))
 )
 
     </regstate>

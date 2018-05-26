@@ -9,7 +9,7 @@ module VUNPCKLPS-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224)), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 224, 256))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224)), extractMInt( getParentValue(R1, RSMap), 224, 256)), extractMInt( getParentValue(R2, RSMap), 224, 256)))
 )
 
     </regstate>

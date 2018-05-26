@@ -9,7 +9,7 @@ module VHSUBPS-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( sub_single(extractMInt( getParentValue(R1, RSMap), 160, 192), extractMInt( getParentValue(R1, RSMap), 128, 160)), sub_single(extractMInt( getParentValue(R1, RSMap), 224, 256), extractMInt( getParentValue(R1, RSMap), 192, 224))), concatenateMInt( sub_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 128, 160)), sub_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 192, 224)))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( concatenateMInt( sub_single(extractMInt( getParentValue(R1, RSMap), 160, 192), extractMInt( getParentValue(R1, RSMap), 128, 160)), sub_single(extractMInt( getParentValue(R1, RSMap), 224, 256), extractMInt( getParentValue(R1, RSMap), 192, 224))), sub_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 128, 160))), sub_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 192, 224))))
 )
 
     </regstate>

@@ -9,17 +9,17 @@ module INCW-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 1, 17))
+convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)))
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 16, 17), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 15, 16), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 9, 10), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 8, 9), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> mi(1, 0)
+"AF" |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 60, 64), mi(4, 15)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 1, 17), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 1, 2)
+"SF" |-> extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((false ==Bool eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1))) andBool (notBool (false ==Bool eqMInt( extractMInt( addMInt( mi(17, 1), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 64))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((notBool eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1))) andBool eqMInt( extractMInt( getParentValue(R1, RSMap), 49, 64), mi(15, 18446744073709551615))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>

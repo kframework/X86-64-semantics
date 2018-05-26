@@ -9,7 +9,7 @@ module NOTL-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> xorMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(64, 4294967295))
+convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64)))
 )
 
     </regstate>

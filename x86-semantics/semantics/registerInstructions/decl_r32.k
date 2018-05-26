@@ -9,17 +9,17 @@ module DECL-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 1, 33))
+convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)))
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 25, 26), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 31, 32), mi(1, 1)) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 25, 26), mi(1, 1))) xorBool eqMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 24, 25), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 60, 64)), mi(5, 15)), 0, 1)
+"AF" |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 60, 64), mi(4, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 1, 33), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 1, 2)
+"SF" |-> extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R1, RSMap), 32, 33), mi(1, 1)) ==Bool true) andBool (notBool (eqMInt( extractMInt( getParentValue(R1, RSMap), 32, 33), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(33, 4294967295)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( getParentValue(R1, RSMap), 32, 33), mi(1, 1)) andBool eqMInt( extractMInt( getParentValue(R1, RSMap), 33, 64), mi(31, 0))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>

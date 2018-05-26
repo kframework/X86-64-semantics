@@ -9,7 +9,7 @@ module CMOVGQ-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> (#ifMInt eqMInt( (#ifMInt eqMInt( (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( mi(64, svalueMInt((#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then mi(8, 0) #else xorMInt( mi(8, 1), xorMInt( (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi))) #fi))), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1))) orBool false) #then mi(32, 256) #else mi(32, 0) #fi), mi(32, 0)) #then mi(8, 2) #else mi(8, 0) #fi), mi(8, 0)) #then getParentValue(R1, RSMap) #else getParentValue(R2, RSMap) #fi)
+convToRegKeys(R2) |-> (#ifMInt ((notBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) andBool (eqMInt(getFlag("SF", RSMap), mi(1,1)) ==Bool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then getParentValue(R1, RSMap) #else getParentValue(R2, RSMap) #fi)
 )
 
     </regstate>

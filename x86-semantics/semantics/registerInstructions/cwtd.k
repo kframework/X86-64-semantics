@@ -9,7 +9,7 @@ module CWTD
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"RDX" |-> concatenateMInt( extractMInt( getParentValue(%rdx, RSMap), 0, 48), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 48, 64))), 16, 32))
+"RDX" |-> concatenateMInt( extractMInt( getParentValue(%rdx, RSMap), 0, 48), extractMInt( mi(32, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 48, 64))), 0, 16))
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module PUNPCKHDQ-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160)), extractMInt( getParentValue(R1, RSMap), 160, 192)), extractMInt( getParentValue(R2, RSMap), 160, 192)))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160)), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 160, 192))))
 )
 
     </regstate>

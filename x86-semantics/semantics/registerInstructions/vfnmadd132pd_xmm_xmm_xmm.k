@@ -9,7 +9,7 @@ module VFNMADD132PD-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_double(extractMInt( getParentValue(R3, RSMap), 128, 192), vfnmsub132_double(mi(64, 0), extractMInt( getParentValue(R2, RSMap), 128, 192), mi(64, 0)), extractMInt( getParentValue(R1, RSMap), 128, 192)), vfnmsub132_double(extractMInt( getParentValue(R3, RSMap), 192, 256), vfnmsub132_double(mi(64, 0), extractMInt( getParentValue(R2, RSMap), 192, 256), concatenateMInt( mi(32, 0), extractMInt( getParentValue(R3, RSMap), 160, 192))), extractMInt( getParentValue(R1, RSMap), 192, 256))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), vfnmadd132_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256))))
 )
 
     </regstate>

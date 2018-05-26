@@ -9,11 +9,11 @@ module RCLQ-R64-ONE
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), mi(65, 1)) #else concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)) #fi), concatenateMInt( mi(1, 0), getParentValue(R2, RSMap))), 1, 65)
+convToRegKeys(R2) |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 65)
 
-"CF" |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), mi(65, 1)) #else concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)) #fi), concatenateMInt( mi(1, 0), getParentValue(R2, RSMap))), 0, 1)
+"CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), mi(65, 1)) #else concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)) #fi), concatenateMInt( mi(1, 0), getParentValue(R2, RSMap))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (undef)
 )
 
     </regstate>

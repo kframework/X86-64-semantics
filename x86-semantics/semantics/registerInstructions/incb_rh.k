@@ -9,17 +9,17 @@ module INCB-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 9)), extractMInt( getParentValue(R1, RSMap), 56, 64))
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1))), extractMInt( getParentValue(R1, RSMap), 56, 64))
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> mi(1, 0)
+"AF" |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 52, 56), mi(4, 15)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 9), mi(8, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), mi(8, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 2)
+"SF" |-> extractMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 48, 56), mi(8, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1)) ==Bool false) andBool (notBool (eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((notBool eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1))) andBool eqMInt( extractMInt( getParentValue(R1, RSMap), 49, 56), mi(7, 18446744073709551615))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>

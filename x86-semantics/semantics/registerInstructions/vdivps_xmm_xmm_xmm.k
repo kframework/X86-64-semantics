@@ -9,7 +9,7 @@ module VDIVPS-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( div_single(extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( getParentValue(R1, RSMap), 128, 160)), div_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R1, RSMap), 160, 192))), concatenateMInt( div_single(extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( getParentValue(R1, RSMap), 192, 224)), div_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R1, RSMap), 224, 256)))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( div_single(extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( div_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R1, RSMap), 160, 192)), concatenateMInt( div_single(extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( getParentValue(R1, RSMap), 192, 224)), div_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R1, RSMap), 224, 256))))))
 )
 
     </regstate>

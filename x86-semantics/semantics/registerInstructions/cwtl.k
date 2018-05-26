@@ -9,7 +9,7 @@ module CWTL
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"RAX" |-> concatenateMInt( mi(32, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 48, 64))), 32, 64))
+"RAX" |-> concatenateMInt( mi(32, 0), mi(32, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 48, 64))))
 )
 
     </regstate>

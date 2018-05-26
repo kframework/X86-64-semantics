@@ -9,7 +9,7 @@ module CQTO
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"RDX" |-> extractMInt( ashrMInt( concatenateMInt( getParentValue(%rax, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 63)))), 0, 64)
+"RDX" |-> extractMInt( mi(128, svalueMInt(getParentValue(%rax, RSMap))), 0, 64)
 )
 
     </regstate>

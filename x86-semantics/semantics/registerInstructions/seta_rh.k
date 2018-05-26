@@ -9,7 +9,7 @@ module SETA-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then mi(8, 0) #else mi(8, 255) #fi), mi(8, 0)) #then mi(8, 0) #else (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(8, 0) #else mi(8, 1) #fi) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt ((notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) andBool (notBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(8, 1) #else mi(8, 0) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>
