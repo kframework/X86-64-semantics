@@ -23,7 +23,7 @@ R13: nested ite verification lemma
 
 DH:R1: Use K rule of strata handler; af flag is not computed in strata handler
 							
-							
+Mising: vfmsubadd132ps_xmm_xmm_xmm							
 							
 Stratum 0	95						
 ======================================================
@@ -759,3 +759,4 @@ limitation on datatype of 64 bit ints where these concate widths is > 64*
 UIF1: Accepting the simpler non strata formula which is neither equivalent to
 Strata formula nor can be tested. Test it when the implementation is ready.
 TR1: Two rules for these cases both coming from non- strata
+
