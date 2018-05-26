@@ -430,7 +430,7 @@ vfmadd132ss_xmm_xmm_xmm	4	58
 vfmsub213pd_xmm_xmm_xmm	4	49					
 vfmsub231pd_xmm_xmm_xmm	4	52					
 vfmsub231sd_xmm_xmm_xmm	4	59					
-vfnmadd132ss_xmm_xmm_xmm	4	83					
+vfnmadd132ss_xmm_xmm_xmm	4	83    UIF1					
 vfnmadd213pd_xmm_xmm_xmm	4	23					
 vfnmadd231ps_xmm_xmm_xmm	4	24					
 vhaddpd_ymm_ymm_ymm	4	52					
@@ -554,15 +554,15 @@ vandps_ymm_ymm_ymm	6	78
 vcvtsi2ssl_xmm_xmm_r32	6	70					
 vcvttps2dq_xmm_xmm	6	36:US					
 vfmadd132pd_xmm_xmm_xmm	6	74					
-vfmadd132sd_xmm_xmm_xmm	6	81					
+vfmadd132sd_xmm_xmm_xmm	6	81    UIF1					
 vfmadd213ps_xmm_xmm_xmm	6	94					
-vfmadd213sd_xmm_xmm_xmm	6	120					
-vfmaddsub132pd_xmm_xmm_xmm	6	141					
+vfmadd213sd_xmm_xmm_xmm	6	120     UIF1					
+vfmaddsub132pd_xmm_xmm_xmm	6	141   UIF1					
 vfnmadd132sd_xmm_xmm_xmm	6	64					
-vfnmadd213ss_xmm_xmm_xmm	6	146					
+vfnmadd213ss_xmm_xmm_xmm	6	146   UIF1					
 vfnmsub213pd_xmm_xmm_xmm	6	50					
 vmovmskpd_r32_ymm	6	134					
-vpbroadcastb_ymm_xmm	6	127:OPTD:R9
+vpbroadcastb_ymm_xmm	6	127:OPTD:R9 UIF1
 vphaddd_xmm_xmm_xmm	6	129					
 vphaddd_ymm_ymm_ymm	6	243					
 vpmovzxbq_ymm_xmm	6	79					
@@ -601,11 +601,11 @@ subw_r16_r16	7	405
 testb_r8_rh	7	64					
 testq_r64_r64	7	102					
 vandpd_ymm_ymm_ymm	7	78					
-vfmadd132ps_xmm_xmm_xmm	7	103					
+vfmadd132ps_xmm_xmm_xmm	7	103   UIF1					
 vfmadd213pd_xmm_xmm_xmm	7	77					
 vfmadd231sd_xmm_xmm_xmm	7	84					
-vfmaddsub213ps_xmm_xmm_xmm	7	186:CD:R11
-vfnmsub213sd_xmm_xmm_xmm	7	161					
+vfmaddsub213ps_xmm_xmm_xmm	7	186:CD:R11 UIF1
+vfnmsub213sd_xmm_xmm_xmm	7	161   UIF1					
 vfnmsub231pd_xmm_xmm_xmm	7	61					
 vhaddps_xmm_xmm_xmm	7	206					
 vhsubps_ymm_ymm_ymm	7	508					
