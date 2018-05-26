@@ -9,7 +9,7 @@ module VBROADCASTSD-YMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)))
+convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)), extractMInt( getParentValue(R1, RSMap), 192, 256)), extractMInt( getParentValue(R1, RSMap), 192, 256))
 )
 
     </regstate>

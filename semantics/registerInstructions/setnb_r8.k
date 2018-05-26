@@ -9,7 +9,7 @@ module SETNB-R8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 56), (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(8, 0) #else mi(8, 1) #fi))
+convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 56), (#ifMInt (notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) #then mi(8, 1) #else mi(8, 0) #fi))
 )
 
     </regstate>

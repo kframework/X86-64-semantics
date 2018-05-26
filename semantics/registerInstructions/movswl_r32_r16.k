@@ -9,7 +9,7 @@ module MOVSWL-R32-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 64))), 32, 64))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), mi(32, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 64))))
 )
 
     </regstate>

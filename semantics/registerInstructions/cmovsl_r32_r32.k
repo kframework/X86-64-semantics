@@ -9,7 +9,7 @@ module CMOVSL-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then mi(1, 0) #else mi(1, 1) #fi), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 32, 64) #else extractMInt( getParentValue(R1, RSMap), 32, 64) #fi))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then extractMInt( getParentValue(R1, RSMap), 32, 64) #else extractMInt( getParentValue(R2, RSMap), 32, 64) #fi))
 )
 
     </regstate>

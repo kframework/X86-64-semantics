@@ -9,11 +9,11 @@ module RCLB-RH-ONE
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56))), 1, 9)), extractMInt( getParentValue(R2, RSMap), 56, 64))
+convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 1, 9)), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56))), 0, 1)
+"CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (undef)
 )
 
     </regstate>

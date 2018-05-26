@@ -9,7 +9,7 @@ module PHADDD-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( addMInt( concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 160, 192))), 33, 65), extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 192, 256)), concatenateMInt( mi(33, 0), extractMInt( getParentValue(R1, RSMap), 192, 224))), 33, 65)), extractMInt( addMInt( concatenateMInt( mi(1, 0), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160))), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 128, 192))), 33, 65)), extractMInt( addMInt( concatenateMInt( mi(1, 0), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224))), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 192, 256))), 33, 65)))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( concatenateMInt( addMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), extractMInt( getParentValue(R1, RSMap), 160, 192)), addMInt( extractMInt( getParentValue(R1, RSMap), 192, 224), extractMInt( getParentValue(R1, RSMap), 224, 256))), addMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 160, 192))), addMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 224, 256))))
 )
 
     </regstate>

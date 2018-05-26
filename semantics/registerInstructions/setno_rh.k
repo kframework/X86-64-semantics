@@ -9,7 +9,7 @@ module SETNO-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then mi(32, 1) #else mi(32, 0) #fi), mi(32, 0)) #then mi(8, 1) #else mi(8, 0) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt (notBool eqMInt(getFlag("OF", RSMap), mi(1,1))) #then mi(8, 1) #else mi(8, 0) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>

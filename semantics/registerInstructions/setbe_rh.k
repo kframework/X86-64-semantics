@@ -9,7 +9,7 @@ module SETBE-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi) #else (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
+convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), (#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1,1)) orBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) #then mi(8, 1) #else mi(8, 0) #fi)), extractMInt( getParentValue(R1, RSMap), 56, 64))
 )
 
     </regstate>

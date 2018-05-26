@@ -9,7 +9,7 @@ module VPSUBQ-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), xorMInt( extractMInt( getParentValue(R1, RSMap), 128, 192), mi(64, 18446744073709551615))), mi(65, 1)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 128, 192))), 1, 65), extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), xorMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), mi(64, 18446744073709551615))), mi(65, 1)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 192, 256))), 1, 65)))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( subMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), subMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256))))
 )
 
     </regstate>

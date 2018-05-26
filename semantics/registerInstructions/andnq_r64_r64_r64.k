@@ -9,7 +9,7 @@ module ANDNQ-R64-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> xorMInt( orMInt( getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap))
+convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentValue(R1, RSMap))
 
 "CF" |-> mi(1, 0)
 
@@ -17,9 +17,9 @@ convToRegKeys(R3) |-> xorMInt( orMInt( getParentValue(R1, RSMap), getParentValue
 
 "AF" |-> (undef)
 
-"ZF" |-> (#ifMInt eqMInt( xorMInt( orMInt( getParentValue(R1, RSMap), getParentValue(R2, RSMap)), getParentValue(R2, RSMap)), mi(64, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( andMInt( negMInt( getParentValue(R2, RSMap)), getParentValue(R1, RSMap)), mi(64, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> xorMInt( orMInt( extractMInt( getParentValue(R1, RSMap), 0, 1), extractMInt( getParentValue(R2, RSMap), 0, 1)), extractMInt( getParentValue(R2, RSMap), 0, 1))
+"SF" |-> andMInt( negMInt( extractMInt( getParentValue(R2, RSMap), 0, 1)), extractMInt( getParentValue(R1, RSMap), 0, 1))
 
 "OF" |-> mi(1, 0)
 )

@@ -9,7 +9,7 @@ module BTQ-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(R1, RSMap), 56, 64), mi(8, 63))))), 0, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63)))))), 63, 64)
 
 "PF" |-> (undef)
 

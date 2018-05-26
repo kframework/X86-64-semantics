@@ -9,7 +9,7 @@ module VPUNPCKHDQ-YMM-YMM-YMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 32), extractMInt( getParentValue(R2, RSMap), 0, 32)), extractMInt( getParentValue(R1, RSMap), 32, 64)), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160)), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 160, 192)))))
+convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 32), extractMInt( getParentValue(R2, RSMap), 0, 32)), concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), extractMInt( getParentValue(R2, RSMap), 32, 64)), concatenateMInt( concatenateMInt( extractMInt( getParentValue(R1, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160)), concatenateMInt( extractMInt( getParentValue(R1, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 160, 192)))))
 )
 
     </regstate>

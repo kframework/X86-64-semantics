@@ -9,7 +9,7 @@ module MAXPD-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( (#ifMInt eqMInt( maxcmp_double(extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 128, 192) #else extractMInt( getParentValue(R1, RSMap), 128, 192) #fi), (#ifMInt eqMInt( maxcmp_double(extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 192, 224) #else extractMInt( getParentValue(R1, RSMap), 192, 224) #fi)), (#ifMInt eqMInt( maxcmp_double(extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 224, 256) #else extractMInt( getParentValue(R1, RSMap), 224, 256) #fi)))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( maxcmp_double(extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 128, 192) #else extractMInt( getParentValue(R1, RSMap), 128, 192) #fi), (#ifMInt eqMInt( maxcmp_double(extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 192, 256) #else extractMInt( getParentValue(R1, RSMap), 192, 256) #fi)))
 )
 
     </regstate>

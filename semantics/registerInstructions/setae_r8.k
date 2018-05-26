@@ -9,7 +9,7 @@ module SETAE-R8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 56), (#ifMInt eqMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(8, 1) #else mi(8, 0) #fi), mi(8, 0)) #then mi(8, 1) #else mi(8, 0) #fi))
+convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 56), (#ifMInt (notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) #then mi(8, 1) #else mi(8, 0) #fi))
 )
 
     </regstate>

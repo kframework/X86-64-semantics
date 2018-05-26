@@ -9,7 +9,7 @@ module VPOR-YMM-YMM-YMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), extractMInt( getParentValue(R1, RSMap), 0, 64)), concatenateMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), extractMInt( getParentValue(R1, RSMap), 64, 128)), concatenateMInt( orMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( getParentValue(R1, RSMap), 128, 192)), orMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R1, RSMap), 192, 256)))))
+convToRegKeys(R3) |-> orMInt( getParentValue(R2, RSMap), getParentValue(R1, RSMap))
 )
 
     </regstate>

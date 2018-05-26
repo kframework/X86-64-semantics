@@ -9,7 +9,7 @@ module MOVSBW-R16-RH
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 56))), 48, 64))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), mi(16, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 56))))
 )
 
     </regstate>

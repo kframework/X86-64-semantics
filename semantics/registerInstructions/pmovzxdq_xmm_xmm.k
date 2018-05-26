@@ -9,7 +9,7 @@ module PMOVZXDQ-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 192, 224)), mi(32, 0)), extractMInt( getParentValue(R1, RSMap), 224, 256)))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 192, 224)), concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1, RSMap), 224, 256))))
 )
 
     </regstate>
