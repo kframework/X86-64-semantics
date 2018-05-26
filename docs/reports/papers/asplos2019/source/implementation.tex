@@ -1,4 +1,4 @@
-\section{Modeling X86-64 Instruction Semantics}
+\section{Modeling X86-64 Instruction Semantics} \label{sec:modelI}
 
 For the purpose we used project \Strata, which automatically synthesized formal semantics  of the input/output behavior for $1796$ Haswell ISA X86-64 instructions. The key to their results is stratified synthesis, where they use a set of instructions whose semantics are known to synthesize the semantics of additional instructions whose semantics are unknown. Using the technique, they 
 come up with the semantics of $692$ register variants and $\sim120$ immediate variants. The rest $\sim984$ are obtained by generalizing the register variants to memory and immediate variants.     
@@ -52,7 +52,7 @@ the outputs of both the symbolic executions.
    
    { \tt  
         \begin{tabular}[b]{l}
-   \qquad add\_single(A, B) $\equiv$ A if B == 0     
+   \qquad sub\_single(A, B) $\equiv$ 0 if A == B     
       \end{tabular}
   }
    
@@ -63,14 +63,19 @@ the outputs of both the symbolic executions.
     concate(A[1:3], X)}
 
 
-\item One of the issue with \Strata formulas is they could be too complex to comprehend at times, which is mainly because 1. \Strata tried to define the semantics of an instruction using other simpler instructions, 2. The simplification rules in \Strata or the ones we define in \K are not sophisticated enough to simplify the complex formulas. An example of one such simplification opportunity is: 
+\item One drawback of the \Strata formulas is they could be non-intuitive and complex at times when the simplification rules are not adequate enough to simplify their complexity to more intuitive formulas. Appendix \ref{sec:AP:A} provides such an example.
+Towards the goal of having intuitive formulas, we borrowed the hand written formula (provided they are simpler) from \Stoke or manually write those  and check equivalence with the stratified formula. If they match on all register state and/or memory, we employ that in our \K semantics.
+
+\cmt{
+An example of one such simplification opportunity is: 
      { \tt  
       \begin{tabular}[b]{l}
           ($0_{32}$ $\cdot$ \%rax[32:0]) $\oplus$ \%rax $\equiv$ \%rax[63:32] $\cdot$  $0_{32}$ 
       \end{tabular}
     }
+}
 
-In order to simplify those, we borrowed the hand written formula (provided they ate simpler)  from \Stoke or manually write the simpler formulas  and check equivalence with the stratified formula. If they match on all register state, we employ that in our \K semantics.       
+       
 
 
 \end{enumerate}
