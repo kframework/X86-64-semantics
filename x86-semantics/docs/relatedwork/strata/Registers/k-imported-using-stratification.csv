@@ -653,12 +653,12 @@ subb_r8_rh	8	247
 testb_rh_r8	8	162					
 testb_rh_rh	8	66					
 tzcntl_r32_r32	8	151:CT:R3:CRITICAL:Could be a PLUS					
-vfmaddsub132ps_xmm_xmm_xmm	8	217					
-vfmaddsub231ps_xmm_xmm_xmm	8	195					
-vfmsubadd213pd_xmm_xmm_xmm	8	212					
-vfnmadd132pd_xmm_xmm_xmm	8	117					
-vfnmadd213sd_xmm_xmm_xmm	8	357					
-vfnmadd231sd_xmm_xmm_xmm	8	169					
+vfmaddsub132ps_xmm_xmm_xmm	8	217   UIF1					
+vfmaddsub231ps_xmm_xmm_xmm	8	195   UIF1					
+vfmsubadd213pd_xmm_xmm_xmm	8	212   UIF1					
+vfnmadd132pd_xmm_xmm_xmm	8	117   UIF1					
+vfnmadd213sd_xmm_xmm_xmm	8	357   UIF1					
+vfnmadd231sd_xmm_xmm_xmm	8	169   UIF1					
 vfnmsub132sd_xmm_xmm_xmm	8	104					
 vfnmsub231sd_xmm_xmm_xmm	8	174					
 vfnmsub231ss_xmm_xmm_xmm	8	181					
@@ -686,7 +686,7 @@ movmskps_r32_xmm	9	287
 rorw_r16_one	9	323:Z3 Pending
 shrxl_r32_r32_r32	9	269					
 tzcntw_r16_r16	9	192:Z3 Pending
-vfmsubadd231pd_xmm_xmm_xmm	9	168					
+vfmsubadd231pd_xmm_xmm_xmm	9	168   UIF1					
 vhaddps_ymm_ymm_ymm	9	425					
 vphsubd_xmm_xmm_xmm	9	648:US					
 vpmovzxwd_xmm_xmm	9	391					
@@ -698,11 +698,11 @@ cmovnlew_r16_r16	10	102
 cmovnoq_r64_r64	10	412:PLUS
 cmovoq_r64_r64	10	412:PLUS
 cmovsq_r64_r64	10	412					
-cmpxchgb_r8_r8	10	380:Must Schedule
+cmpxchgb_r8_r8	10	380:Must Schedule TR1
 movmskps_r64_xmm	10	287					
 pmovzxwd_xmm_xmm	10	415					
-vfmaddsub231pd_xmm_xmm_xmm	10	422					
-vfmsubadd132pd_xmm_xmm_xmm	10	171					
+vfmaddsub231pd_xmm_xmm_xmm	10	422   UIF1					
+vfmsubadd132pd_xmm_xmm_xmm	10	171   UIF1					
 vphsubd_ymm_ymm_ymm	10	1236:US					
 vpmovzxbd_xmm_xmm	10	513					
 vpmovzxwd_ymm_xmm	10	787					
@@ -714,13 +714,13 @@ cmovngeq_r64_r64	11	393
 cmovnlq_r64_r64	11	398:PLUS
 cmovnsq_r64_r64	11	394					
 cmovpoq_r64_r64	11	524:C:PLUS
-cmpxchgb_r8_rh	11	383:Must Schedule
+cmpxchgb_r8_rh	11	383:Must Schedule  TR1
 pmovsxwd_xmm_xmm	11	1676					
 pmovzxbd_xmm_xmm	11	515					
 psubd_xmm_xmm	11	782:US					
 punpcklwd_xmm_xmm	11	1331					
-vfmaddsub213pd_xmm_xmm_xmm	11	436					
-vfmsubadd231ps_xmm_xmm_xmm	11	723					
+vfmaddsub213pd_xmm_xmm_xmm	11	436   UIF1				
+vfmsubadd231ps_xmm_xmm_xmm	11	723   UIF1					
 vpmovzxbd_ymm_xmm	11	1048					
 vpsubd_ymm_ymm_ymm	11	1476:US					
 							
@@ -728,8 +728,8 @@ Stratum 12	9 (Generate at a stretch)
 cmovnpq_r64_r64	12	524:PLUS
 pmovsxbd_xmm_xmm	12	802:C
 punpckhwd_xmm_xmm	12	1344:C
-vfmsub213ss_xmm_xmm_xmm	12	583					
-vfmsubadd213ps_xmm_xmm_xmm	12	740:C
+vfmsub213ss_xmm_xmm_xmm	12	583   UIF1					
+vfmsubadd213ps_xmm_xmm_xmm	12	740:C   UIF1
 vpmovsxwd_ymm_xmm	12	3366					
 vpmovsxwq_xmm_xmm	12	1681					
 vpunpcklwd_xmm_xmm_xmm	12	1334:C
@@ -754,4 +754,8 @@ vpmovsxbq_xmm_xmm	15	825   SR1
 
 
 
-SR1: *Some concat(cons, cons) are not evaluated because the C code has limitation on datatype of 64 bit ints where these concate widths is > 64*	  				
+SR1: *Some concat(cons, cons) are not evaluated because the C code has
+limitation on datatype of 64 bit ints where these concate widths is > 64*
+UIF1: Accepting the simpler non strata formula which is neither equivalent to
+Strata formula nor can be tested. Test it when the implementation is ready.
+TR1: Two rules for these cases both coming from non- strata

@@ -31,7 +31,8 @@ my %opcodeSkipList = (
     "pdepq_r64_r64_r64" => 1,
     "pdepl_r32_r32_r32" => 1,
     "pextl_r32_r32_r32" => 1,
-    "pextq_r64_r64_r64" => 1
+    "pextq_r64_r64_r64" => 1,
+    "cmpxchgb_r8_rh" => 1,
 );
 
 GetOptions(
