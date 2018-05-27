@@ -13,7 +13,7 @@ RSMap:Map => updateMap(RSMap,
 
  "SF" |-> (xorMInt(extractMInt(handleImmediateWithSignExtend(I, 32, 32), 0, 1), xorMInt(extractMInt(getParentValue(R2, RSMap), 32, 33), orMInt(extractMInt(getParentValue(R2, RSMap), 32, 33), extractMInt(handleImmediateWithSignExtend(I, 32, 32), 0, 1)))) )
 
- "AF" |-> (undef)
+ "AF" |-> (undefMInt)
 
  "PF" |-> ((#ifMInt ( (  ( countOnes(xorMInt(extractMInt(handleImmediateWithSignExtend(I, 32, 32), 24, 32), xorMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), orMInt(extractMInt(getParentValue(R2, RSMap), 56, 64), extractMInt(handleImmediateWithSignExtend(I, 32, 32), 24, 32)))), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
 

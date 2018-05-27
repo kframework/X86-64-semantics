@@ -13,7 +13,7 @@ convToRegKeys(R2) |-> rol( getParentValue(R2, RSMap), mi(64, 1))
 
 "CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 63, 64), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (undef)
+"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 63, 64), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>

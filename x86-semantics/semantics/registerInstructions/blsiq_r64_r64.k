@@ -13,9 +13,9 @@ convToRegKeys(R2) |-> andMInt( addMInt(mi(64, 1), negMInt( getParentValue(R1, RS
 
 "CF" |-> (#ifMInt (notBool eqMInt( getParentValue(R1, RSMap), mi(64, 0))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
 "ZF" |-> (#ifMInt eqMInt( andMInt( addMInt(mi(64, 1), negMInt( getParentValue(R1, RSMap))), getParentValue(R1, RSMap)), mi(64, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 

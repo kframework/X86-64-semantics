@@ -13,7 +13,8 @@ module MINT-WRAPPER-SYNTAX
   imports MAP
   imports INT
 
-  syntax MInt ::= "undef"
+  syntax MInt ::= "undefMInt"
+  syntax Bool ::= "undefBool"
   syntax MInt ::= "zeroMIntW1"
   syntax MInt ::= "zeroMIntW64"
   syntax MInt ::= "zeroMIntW256"
@@ -29,7 +30,7 @@ module MINT-WRAPPER-SYNTAX
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
-    Create a map of size N:Int with "undef" MInt
+    Create a map of size N:Int with "undefMInt" MInt
   */
   syntax MIntMap ::= makeUndefMIntMap ( Int ) [function]
 
@@ -358,7 +359,7 @@ module MINT-WRAPPER
     The bitwodth of undef is defined as 8 bits.
     Used while allocating the undef stack memory,
   */
-  rule bitwidthMInt(undef) => 8 [lemma]
+  rule bitwidthMInt(undefMInt) => 8 [lemma]
 
   /*@
     Create a list of indef MInts
@@ -369,7 +370,7 @@ module MINT-WRAPPER
 
   rule makeUndefMIntMapAux(N:Int, N, M:Map) => mimap(M)
   rule makeUndefMIntMapAux(N:Int, I, M:Map) =>
-    makeUndefMIntMapAux(N, I +Int 1, M[I <- undef])
+    makeUndefMIntMapAux(N, I +Int 1, M[I <- undefMInt])
       requires I <Int N
 
   /*@

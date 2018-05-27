@@ -13,15 +13,15 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> (#ifMInt eqMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1)) #then mi(16, 0) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 49, 50), mi(1, 1)) #then mi(16, 1) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 50, 51), mi(1, 1)) #then mi(16, 2) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 51, 52), mi(1, 1)) #then mi(16, 3) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 52, 53), mi(1, 1)) #then mi(16, 4) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 53, 54), mi(1, 1)) #then mi(16, 5) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 54, 55), mi(1, 1)) #then mi(16, 6) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 55, 56), mi(1, 1)) #then mi(16, 7) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1)) #then mi(16, 8) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 57, 58), mi(1, 1)) #then mi(16, 9) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 58, 59), mi(1, 1)) #then mi(16, 10) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 59, 60), mi(1, 1)) #then mi(16, 11) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 60, 61), mi(1, 1)) #then mi(16, 12) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 61, 62), mi(1, 1)) #then mi(16, 13) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 62, 63), mi(1, 1)) #then mi(16, 14) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 63, 64), mi(1, 1)) #then mi(16, 15) #else mi(16, 16) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi), mi(16, 16)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
 "ZF" |-> (#ifMInt eqMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1)) #then mi(16, 0) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 49, 50), mi(1, 1)) #then mi(16, 1) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 50, 51), mi(1, 1)) #then mi(16, 2) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 51, 52), mi(1, 1)) #then mi(16, 3) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 52, 53), mi(1, 1)) #then mi(16, 4) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 53, 54), mi(1, 1)) #then mi(16, 5) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 54, 55), mi(1, 1)) #then mi(16, 6) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 55, 56), mi(1, 1)) #then mi(16, 7) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1)) #then mi(16, 8) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 57, 58), mi(1, 1)) #then mi(16, 9) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 58, 59), mi(1, 1)) #then mi(16, 10) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 59, 60), mi(1, 1)) #then mi(16, 11) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 60, 61), mi(1, 1)) #then mi(16, 12) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 61, 62), mi(1, 1)) #then mi(16, 13) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 62, 63), mi(1, 1)) #then mi(16, 14) #else (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 63, 64), mi(1, 1)) #then mi(16, 15) #else mi(16, 16) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi) #fi), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (undef)
+"SF" |-> (undefMInt)
 
-"OF" |-> (undef)
+"OF" |-> (undefMInt)
 )
 
     </regstate>

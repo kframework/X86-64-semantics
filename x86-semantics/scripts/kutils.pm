@@ -2446,17 +2446,11 @@ sub sanitizeBVF {
         $K_rule =~ s/TRUE/true/g;
         $K_rule =~ s/FALSE/false/g;
 
-        if ( $K_rule =~ m/^getParity\((.*)\)$/ ) {
-            $K_rule =
-"(#ifMInt ((countOnes($1, 0) &Int 1) ==K 0) #then mi(1,1) #else mi(1,0) #fi)";
-        }
-
         # For bool regs (cf, af ...), add undef for TMP_BOOL
-        if ( 1 == $is_flag ) {
-            if ( $rule =~ m/TMP_BOOL_(\d+)/ ) {
-                $K_rule = "(undef)";
-            }
-        }
+        #(#ifMInt TMP_BOOL_0 #then mi(1, 1) #else mi(1, 0) #fi)
+        $K_rule =~
+s/^\(#ifMInt TMP_BOOL_(\d+) #then mi\(1, 1\) #else mi\(1, 0\) #fi\)/(undefMInt)/g;
+        $K_rule =~ s/TMP_BOOL_(\d+)/(undefBool)/g;
 
         # Replace all the %r to getRegisterValue
         for my $k ( keys %actual2psedoRegs ) {
