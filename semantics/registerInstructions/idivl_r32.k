@@ -13,17 +13,17 @@ RSMap:Map => updateMap(RSMap,
 
 "RDX" |-> concatenateMInt( mi(32, 0), idiv_remainder_int32(concatenateMInt( extractMInt( getParentValue(%rdx, RSMap), 32, 64), extractMInt( getParentValue(%rax, RSMap), 32, 64)), extractMInt( getParentValue(R1, RSMap), 32, 64)))
 
-"CF" |-> (undef)
+"CF" |-> (undefMInt)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
-"ZF" |-> (undef)
+"ZF" |-> (undefMInt)
 
-"SF" |-> (undef)
+"SF" |-> (undefMInt)
 
-"OF" |-> (undef)
+"OF" |-> (undefMInt)
 )
 
     </regstate>

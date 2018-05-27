@@ -13,7 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 15, 16), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (undef)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 15, 16), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>

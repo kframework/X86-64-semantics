@@ -176,7 +176,7 @@ module X86-MEMORY
 
   /*@
     Allocate memory: Used for allocating local memory
-    `makeUndefMIntMap(N)` creates N 1 byte undef and return a Map storing them
+    `makeUndefMIntMap(N)` creates N 1 byte undefMInt and return a Map storing them
     in byte granularity, which are then store in memory.
   */
   rule <k> allocateLocalMemory(N:Int, A:Int) => 

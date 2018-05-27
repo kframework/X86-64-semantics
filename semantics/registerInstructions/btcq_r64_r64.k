@@ -13,13 +13,13 @@ convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uv
 
 "CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63)))))), 63, 64)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
-"SF" |-> (undef)
+"SF" |-> (undefMInt)
 
-"OF" |-> (undef)
+"OF" |-> (undefMInt)
 )
 
     </regstate>

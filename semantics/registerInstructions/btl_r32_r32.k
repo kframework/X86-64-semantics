@@ -11,13 +11,13 @@ module BTL-R32-R32
 RSMap:Map => updateMap(RSMap,
 "CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(mi(32, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31)))))), 31, 32)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
-"SF" |-> (undef)
+"SF" |-> (undefMInt)
 
-"OF" |-> (undef)
+"OF" |-> (undefMInt)
 )
 
     </regstate>

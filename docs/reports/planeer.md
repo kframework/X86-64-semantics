@@ -19,6 +19,7 @@ A +- 0 != A
   - K better than strata because of the ease of testing uifs
   - Problem with secondary searches involving uifs.
   - Strata Vs K: For exapme as in pdepl/q we have to write the ast of the result state,where as in K we have to mention the executon semantic. Much easier.
+  - In Strata, reg state of instruction containing undefs are never tested. In K we can test to check in the exec gets haleted when the undef values are used.
 - Test the starta formula
   - Test the mutiple output instruction with same registers
 - Port all the tested starta formula to K
@@ -31,11 +32,12 @@ A +- 0 != A
 - Is the semantics of sal/shr/sar in base instr consistent with what we get from stoke.
 - Undef
   - kompile: are undef represented correctly
-  - - Test shlq_r64_cl using strata handler : what is the bahaviour when the udef is triggered. also the z3 test didnt pass for OF. why: formulation of undef is wrong
+    - For conditional undef they need to be inside experession.
+  - Test shlq_r64_cl using strata handler : what is the bahaviour when the udef is triggered. also the z3 test didnt pass for OF. why: formulation of undef is wrong
 - Test the rules in K. Important for
   - rorate
   - implemented in K only
-  - uifs
+  - uifs including tag `UIF1`
 
 ## Important Points
 - Uses the tc same as the final strata tc

@@ -11,13 +11,13 @@ module BTQ-R64-R64
 RSMap:Map => updateMap(RSMap,
 "CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63)))))), 63, 64)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
-"SF" |-> (undef)
+"SF" |-> (undefMInt)
 
-"OF" |-> (undef)
+"OF" |-> (undefMInt)
 )
 
     </regstate>

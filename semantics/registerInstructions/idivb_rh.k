@@ -11,17 +11,17 @@ module IDIVB-RH
 RSMap:Map => updateMap(RSMap,
 "RAX" |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(%rax, RSMap), 0, 48), idiv_remainder_int8(extractMInt( getParentValue(%rax, RSMap), 48, 64), extractMInt( getParentValue(R1, RSMap), 48, 56))), idiv_quotient_int8(extractMInt( getParentValue(%rax, RSMap), 48, 64), extractMInt( getParentValue(R1, RSMap), 48, 56)))
 
-"CF" |-> (undef)
+"CF" |-> (undefMInt)
 
-"PF" |-> (undef)
+"PF" |-> (undefMInt)
 
-"AF" |-> (undef)
+"AF" |-> (undefMInt)
 
-"ZF" |-> (undef)
+"ZF" |-> (undefMInt)
 
-"SF" |-> (undef)
+"SF" |-> (undefMInt)
 
-"OF" |-> (undef)
+"OF" |-> (undefMInt)
 )
 
     </regstate>
