@@ -29,17 +29,18 @@ module MINT-WRAPPER-SYNTAX
   syntax Ints ::= List{Int, ""} [klabel(intlist)]
 
   /*@
-    Create a map of size N:Int with "undef" MInt  
+    Create a map of size N:Int with "undef" MInt
   */
   syntax MIntMap ::= makeUndefMIntMap ( Int ) [function]
 
   /*@
-    Create a map of mints from the elems of string.   
+    Create a map of mints from the elems of string.
   */
   syntax MIntMap ::=  createMIntMapFromString(String) [function]
 
+
   /*@
-    If Else Then for Sorts 
+    If Else Then for Sorts
   */
   syntax MInt ::= "#ifMInt"   Bool "#then" MInt  "#else" MInt  "#fi" [function, smtlib(ite)]
   syntax Bool ::= "#ifBool"   Bool "#then" Bool  "#else" Bool  "#fi" [function, smtlib(ite)]
@@ -99,65 +100,102 @@ module MINT-WRAPPER-SYNTAX
     OpW: Width of the operation. Typical values: 32 or 64.
   */
   syntax VOperation ::= "vfadd"         [token]
-                      | "vfsub"         [token]                  
-                      | "vfmul"         [token]                  
-                      | "vfdiv"         [token]                  
-                      | "vfmax"         [token]                  
-                      | "vfmin"         [token]                  
-                      | "viadd"         [token]                  
-                      | "visub"         [token]                  
-                      | "vimul"         [token]                  
-                      | "vidiv"         [token]                  
-                      // Unary operators                   
-                      | "vfsqrt"        [token]                  
-                      | "vfrsqrt"       [token]                  
-                      | "vfnegate"      [token]                  
-                      | "vfreciprocal"  [token]                  
+                      | "vfsub"         [token]
+                      | "vfmul"         [token]
+                      | "vfdiv"         [token]
+                      | "vfmax"         [token]
+                      | "vfmin"         [token]
+                      | "viadd"         [token]
+                      | "visub"         [token]
+                      | "vimul"         [token]
+                      | "vidiv"         [token]
+                      // Unary operators
+                      | "vfsqrt"        [token]
+                      | "vfrsqrt"       [token]
+                      | "vfnegate"      [token]
+                      | "vfreciprocal"  [token]
 
   syntax MInts ::= operateOnVector(MInts, MInts, VOperation, Int) [function, klabel(binaryoperateonvector)]
   syntax MInts ::= operateOnVectorHelper(MInts, MInts, VOperation, Int, Int) [function, klabel(binaryoperateonvectorhelper)]
-  syntax MInts ::= operateOnVector(MInts, VOperation, Int) [function, klabel(unaryoperateonvector)] 
+  syntax MInts ::= operateOnVector(MInts, VOperation, Int) [function, klabel(unaryoperateonvector)]
   syntax MInts ::= operateOnVectorHelper(MInts, VOperation, Int, Int) [function, klabel(unaryoperateonvectorhelper)]
 
   // UIF operations
-  syntax UIFBinOperation ::= "add_double"               [token] 
-                      | "add_single"                    [token]                    
-                      | "sub_double"                    [token]                    
-                      | "sub_single"                    [token]                    
-                      | "maxcmp_double"                 [token] 
-                      | "maxcmp_single"                 [token] 
-                      | "mincmp_double"                 [token] 
-                      | "mincmp_single"                 [token] 
-                      | "mul_double"                    [token] 
-                      | "mul_single"                    [token] 
-                      | "div_double"                    [token] 
-                      | "div_single"                    [token] 
+  syntax UIFBinOperation ::= "add_double"               [token]
+                      | "add_single"                    [token]
+                      | "sub_double"                    [token]
+                      | "sub_single"                    [token]
+                      | "maxcmp_double"                 [token]
+                      | "maxcmp_single"                 [token]
+                      | "mincmp_double"                 [token]
+                      | "mincmp_single"                 [token]
+                      | "mul_double"                    [token]
+                      | "mul_single"                    [token]
+                      | "div_double"                    [token]
+                      | "div_single"                    [token]
+    /*Extra bigin*/   | "comiss"                    [token]
+                      | "comisd"                    [token]
+                      | "idiv_quotient_int8"        [token]
+                      | "idiv_remainder_int8"       [token]
+                      | "idiv_quotient_int16"       [token]
+                      | "idiv_remainder_int16"      [token]
+                      | "idiv_quotient_int32"       [token]
+                      | "idiv_remainder_int32"      [token]
+                      | "idiv_quotient_int64"       [token]
+                      | "idiv_remainder_int64"      [token]
+                      | "div_quotient_int8"         [token]
+                      | "div_remainder_int8"        [token]
+                      | "div_quotient_int16"        [token]
+                      | "div_remainder_int16"       [token]
+                      | "div_quotient_int32"        [token]
+                      | "div_remainder_int32"       [token]
+                      | "div_quotient_int64"        [token]
+                      | "div_remainder_int64"       [token]
 
-  syntax UIFTerOperation ::= "vfmadd132_double"             [token]
-                          | "vfmadd132_single"              [token]
-                          | "vfmsub132_double"              [token]
-                          | "vfmsub132_single"              [token]
-                          | "vfnmadd132_double"             [token]
-                          | "vfnmadd132_single"             [token]  
-                          | "vfnmsub132_double"             [token]
-                          | "vfnmsub132_single"             [token]
-                          | "vfmadd132_double"              [token]
+  syntax UIFTerOperation ::=  "cmp_double_pred"     [token]
+                          | "cmp_single_pred"     [token]
+                          | "vfmadd132_double"     [token]
+                          | "vfmadd132_single"     [token]
+                          | "vfmadd231_double"     [token]
+                          | "vfmadd231_single"     [token]
+                          | "vfmadd213_double"     [token]
+                          | "vfmadd213_single"     [token]
+                          | "vfmsub132_double"     [token]
+                          | "vfmsub132_single"     [token]
+                          | "vfmsub231_double"     [token]
+                          | "vfmsub231_single"     [token]
+                          | "vfmsub213_double"     [token]
+                          | "vfmsub213_single"     [token]
+                          | "vfnmadd132_double"     [token]
+                          | "vfnmadd132_single"     [token]
+                          | "vfnmsub132_double"     [token]
+                          | "vfnmsub132_single"     [token]
+                          | "vfnmadd213_double"     [token]
+                          | "vfnmadd231_double"     [token]
+                          | "vfnmsub213_double"     [token]
+                          | "vfnmadd213_single"     [token]
 
-  syntax UIFUOperation ::= "approx_reciprocal_double"     [token] 
-                        | "approx_reciprocal_single"      [token] 
-                        | "sqrt_double"                   [token] 
-                        | "sqrt_single"                   [token] 
-                        | "approx_reciprocal_sqrt_double" [token] 
-                        | "approx_reciprocal_sqrt_single" [token] 
-                        | "cvt_single_to_double"          [token] 
-                        | "cvt_single_to_int32"           [token] 
-                        | "cvt_double_to_int32"           [token] 
-                        | "cvt_single_to_int64"           [token] 
-                        | "cvt_int32_to_single"           [token] 
-                        | "cvt_int32_to_double"           [token] 
-                        | "cvt_double_to_single"          [token] 
-                        | "cvt_single_to_int32_truncate"  [token] 
-                        | "cvt_double_to_int32_truncate"  [token] 
+  syntax UIFUOperation ::= "cvt_half_to_single"    [token]
+                        | "cvt_double_to_int64_truncate"    [token]
+                        | "cvt_single_to_int64_truncate"    [token]
+                        | "approx_reciprocal_double"    [token]
+                        | "approx_reciprocal_single"    [token]
+                        | "sqrt_double"    [token]
+                        | "sqrt_single"    [token]
+                        | "approx_reciprocal_sqrt_double"    [token]
+                        | "approx_reciprocal_sqrt_single"    [token]
+                        | "cvt_single_to_double"    [token]
+                        | "cvt_double_to_single"    [token]
+                        | "cvt_single_to_int32"    [token]
+                        | "cvt_single_to_int32_truncate"    [token]
+                        | "cvt_single_to_int64"    [token]
+                        | "cvt_double_to_int32"    [token]
+                        | "cvt_double_to_int32_truncate"    [token]
+                        | "cvt_double_to_int64"    [token]
+                        | "cvt_int32_to_single"    [token]
+                        | "cvt_int32_to_double"    [token]
+                        | "cvt_int64_to_single"    [token]
+                        | "cvt_int64_to_double"    [token]
 
 
   syntax MInts ::= applyUIFs(MInts, UIFUOperation ) [function, klabel(unaryoperateonuifs)]
@@ -175,30 +213,30 @@ module MINT-WRAPPER-SYNTAX
   /*@
     Deprecated
   syntax MInt ::= shiftLeft(MInt, Int)   [function]
-  */  
+  */
 
   /*@
     Bitwise negation
-  */  
+  */
   syntax MInt ::= negateMInt(MInt)   [function]
 
-  /*@ 
+  /*@
     Adding MInt List.
-  */  
+  */
   syntax MInt ::= addListMInt(Int, MInts) [function]
 
-  /*@ 
+  /*@
     Conversion from/to MInt and Bool
-  */  
+  */
   syntax Bool ::= toBool(MInt) [function]
   syntax MInt ::= fromBoolToMInt(Bool, Int) [function]
 
-  /*@ extractMask(MI, W, S) Extracts the lower W bits 
+  /*@ extractMask(MI, W, S) Extracts the lower W bits
     from MInt starting from lower significant bit position S.
 
     Ex: extractMask(MI, 16, 8):
         MI:64' 0x 00 ff 00 ff 00 ff 00 ff
-        Output:                  <---> 
+        Output:                  <--->
           MI:16' 0x                 ff 00
     Todo :check for MI wodth < W
   */
@@ -209,17 +247,17 @@ module MINT-WRAPPER-SYNTAX
   */
   syntax MInt ::= truncate(MInt, Int) [function]
 
-  /*@ 
+  /*@
     zeroExtend(MI, N): Zero extend MInt MI to a MInt of
       N bitwidth.
   */
   syntax MInt ::= zeroExtend(MInt, Int) [function]
 
-  /*@ 
-    plugInMask(MITarget, MISrc, S): 
+  /*@
+    plugInMask(MITarget, MISrc, S):
       Let MITarget == mi(WT, VT)
       Let MISrc == mi(WS, VS)
-      plugInMask updates the lower WS bits of VT starting at 
+      plugInMask updates the lower WS bits of VT starting at
       lower significant bit position S with VS.
 
       Ex: plugInMask(MIT,MIS, 8):
@@ -230,49 +268,49 @@ module MINT-WRAPPER-SYNTAX
   */
   syntax MInt ::= plugInMask(MInt, MInt, Int) [function]
 
-  /*@ 
+  /*@
     signExtend(MI, N): Sign extend MInt MI to a MInt of
       N bitwidth.
   */
   syntax MInt ::= signExtend(MInt, Int) [function]
 
-  /*@ 
+  /*@
     popCount(MI, N): Count the number of set bits, V, in MI and
     create a MInt(N, V)
   */
   syntax Int ::= popCount(MInt) [function]
   syntax Int ::= countOnes(MInt, Int) [function]
 
-  /*@ 
-    shiftCountMask(MIsrc, N): 
-    if N == 64: return and(MIsrc, 0x3F) 
-    else return and(MIsrc, 0x1F) 
+  /*@
+    shiftCountMask(MIsrc, N):
+    if N == 64: return and(MIsrc, 0x3F)
+    else return and(MIsrc, 0x1F)
   */
   syntax MInt ::= shiftCountMask(MInt, Int) [function]
 
-  /*@ 
+  /*@
     getSignBit(MI): return mi(1, signBit of MI)
   */
   syntax MInt ::= getSignBit(MInt) [function]
 
-  /*@ 
+  /*@
     getBitFromMInt(MI, I): return Ith bit of MI
   */
   syntax MInt ::= getBitFromMInt(MInt, Int) [function]
 
-  /*@ 
+  /*@
     sarOverflow(MI): return the value of SAR
     operation on MI with count >= bitwidthMInt(MI)
   */
   syntax MInt ::= sarOverflow(MInt) [function]
 
-  /*@ 
+  /*@
     shrOverflow(MI): return the value of SHR
     operation on MI with count >= bitwidthMInt(MI)
   */
   syntax MInt ::= shrOverflow(MInt) [function]
 
-  /*@ 
+  /*@
     salOverflow(MI): return the value of SAL
     operation on MI with count >= bitwidthMInt(MI)
   */
@@ -284,8 +322,24 @@ module MINT-WRAPPER-SYNTAX
     and java BigInteger::shiftRight works on signed numbers.
     But as the MInt may contain unsigned Biginteger value, so we have to deliberately
     pass signed value of the MInt
-  */  
+  */
   syntax MInt ::= aShiftRightMInt(MInt, Int) [function]
+
+  /*@
+    shiftLeftMInt(MI):
+    shlMInt may generate mints of larger bitwidth
+    to represent the values. For example,
+    mi(4, 1) << 4 gives 4' 16 which is wrong
+    as 16 cannot be represented in 4 bits
+  */
+  syntax MInt ::= shiftLeftMInt(MInt, Int) [function]  
+
+  /*@
+    roate left/right
+  */
+  syntax MInt ::= rol(MInt, MInt) [function]
+  syntax MInt ::= ror(MInt, MInt) [function]
+
 endmodule
 
 
@@ -307,19 +361,19 @@ module MINT-WRAPPER
   rule bitwidthMInt(undef) => 8 [lemma]
 
   /*@
-    Create a list of indef MInts  
+    Create a list of indef MInts
   */
   rule makeUndefMIntMap ( N:Int ) => makeUndefMIntMapAux(N, 0, .Map)
 
   syntax MIntMap ::=  makeUndefMIntMapAux(Int, Int, Map) [function]
 
   rule makeUndefMIntMapAux(N:Int, N, M:Map) => mimap(M)
-  rule makeUndefMIntMapAux(N:Int, I, M:Map) => 
+  rule makeUndefMIntMapAux(N:Int, I, M:Map) =>
     makeUndefMIntMapAux(N, I +Int 1, M[I <- undef])
       requires I <Int N
 
   /*@
-    Create a map of MInt from the elems of String.   
+    Create a map of MInt from the elems of String.
   */
   rule createMIntMapFromString(S:String) => createMIntMapFromStringAux(0, S, .Map)
 
@@ -331,7 +385,7 @@ module MINT-WRAPPER
   rule createMIntMapFromStringAux(I:Int, S:String, M:Map) =>
     createMIntMapFromStringAux(I +Int 1, S, M[ I <- mi(8, charAt(S, I)) ])
       requires I <Int lengthString(S)
-  
+
   /*@
     Get Ascii value of a char.
   */
@@ -394,14 +448,14 @@ module MINT-WRAPPER
     splitVector(MI, W): Splits the Bitvector MI into a List of
     bitwidthMInt(MI)/W Bitvectors each of width W.
   */
-  rule splitVector(MI, W) => #ifMInts bitwidthMInt(MI) >=Int W andBool 0 =/=Int W 
-                              #then 
-                                splitVectorHelper(MI, W, 0) 
-                              #else 
-                                .MInts 
+  rule splitVector(MI, W) => #ifMInts bitwidthMInt(MI) >=Int W andBool 0 =/=Int W
+                              #then
+                                splitVectorHelper(MI, W, 0)
+                              #else
+                                .MInts
                              #fi
 
-  rule splitVectorHelper(MI, W, P) => 
+  rule splitVectorHelper(MI, W, P) =>
     extractMInt(MI, P, P +Int W) splitVectorHelper(MI, W, P +Int W)
       requires bitwidthMInt(MI) >Int P
 
@@ -413,10 +467,10 @@ module MINT-WRAPPER
     single Bitvector of size equals added bitwidths.
   */
   rule joinVector(MI:MInt Rest) => MI
-    requires Rest ==K .MInts                   
+    requires Rest ==K .MInts
 
   rule joinVector(MI:MInt Rest) => concatenateMInt(MI, joinVector(Rest))
-    requires Rest =/=K .MInts                   
+    requires Rest =/=K .MInts
 
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
@@ -432,40 +486,40 @@ module MINT-WRAPPER
   rule operateOnVector(MI, OP, OPW) => operateOnVectorHelper(MI, OP, 24, 8)
       requires OPW ==Int 32
 
-  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfadd, P, E) => 
-    Float2MInt(MInt2Float(MI1, P, E) +Float MInt2Float(MI2, P, E), P +Int E)  
+  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfadd, P, E) =>
+    Float2MInt(MInt2Float(MI1, P, E) +Float MInt2Float(MI2, P, E), P +Int E)
     operateOnVectorHelper(MI1s, MI2s, vfadd, P, E)
 
-  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfsub, P, E) => 
-    Float2MInt(MInt2Float(MI1, P, E) -Float MInt2Float(MI2, P, E), P +Int E)  
+  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfsub, P, E) =>
+    Float2MInt(MInt2Float(MI1, P, E) -Float MInt2Float(MI2, P, E), P +Int E)
     operateOnVectorHelper(MI1s, MI2s, vfsub, P, E)
 
-  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfmul, P, E) => 
-    Float2MInt(MInt2Float(MI1, P, E) *Float MInt2Float(MI2, P, E), P +Int E)  
+  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfmul, P, E) =>
+    Float2MInt(MInt2Float(MI1, P, E) *Float MInt2Float(MI2, P, E), P +Int E)
     operateOnVectorHelper(MI1s, MI2s, vfmul, P, E)
 
-  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfdiv, P, E) => 
-    Float2MInt(MInt2Float(MI1, P, E) /Float MInt2Float(MI2, P, E), P +Int E)  
+  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfdiv, P, E) =>
+    Float2MInt(MInt2Float(MI1, P, E) /Float MInt2Float(MI2, P, E), P +Int E)
     operateOnVectorHelper(MI1s, MI2s, vfdiv, P, E)
 
-  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfmax, P, E) => 
-    Float2MInt(maxFloat(MInt2Float(MI1, P, E), MInt2Float(MI2, P, E)), P +Int E)  
+  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfmax, P, E) =>
+    Float2MInt(maxFloat(MInt2Float(MI1, P, E), MInt2Float(MI2, P, E)), P +Int E)
     operateOnVectorHelper(MI1s, MI2s, vfmax, P, E)
 
-  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfmin, P, E) => 
-    Float2MInt(minFloat(MInt2Float(MI1, P, E), MInt2Float(MI2, P, E)), P +Int E)  
+  rule operateOnVectorHelper(MI1 MI1s, MI2 MI2s, vfmin, P, E) =>
+    Float2MInt(minFloat(MInt2Float(MI1, P, E), MInt2Float(MI2, P, E)), P +Int E)
     operateOnVectorHelper(MI1s, MI2s, vfmin, P, E)
 
-  rule operateOnVectorHelper(MI MIs, vfsqrt, P, E) => 
+  rule operateOnVectorHelper(MI MIs, vfsqrt, P, E) =>
     Float2MInt(sqrtFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfsqrt, P, E)
 
-  rule operateOnVectorHelper(MI MIs, vfrsqrt, P, E) => 
+  rule operateOnVectorHelper(MI MIs, vfrsqrt, P, E) =>
     Float2MInt(1.0 /Float sqrtFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfrsqrt, P, E)
 
-  rule operateOnVectorHelper(MI MIs, vfnegate, P, E) => 
+  rule operateOnVectorHelper(MI MIs, vfnegate, P, E) =>
     Float2MInt(negateFloat(MInt2Float(MI, P, E)), P +Int E)  operateOnVectorHelper(MIs, vfnegate, P, E)
 
-  rule operateOnVectorHelper(MI MIs, vfreciprocal, P, E) => 
+  rule operateOnVectorHelper(MI MIs, vfreciprocal, P, E) =>
     Float2MInt(1.0 /Float MInt2Float(MI, P, E), P +Int E)  operateOnVectorHelper(MIs, vfreciprocal, P, E)
 
   rule operateOnVectorHelper(.MInts, .MInts, _, _, _) => .MInts
@@ -474,19 +528,19 @@ module MINT-WRAPPER
   /*@
     Operate on UIFs
   */
-  rule 
-    applyUIFs(MI1:MInt MI1s, UIF_U_OP:UIFUOperation) 
-    => 
+  rule
+    applyUIFs(MI1:MInt MI1s, UIF_U_OP:UIFUOperation)
+    =>
     UIF_U_OP(MI1) applyUIFs(MI1s, UIF_U_OP)
 
-  rule 
-    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, UIF_BIN_OP:UIFBinOperation) 
-    => 
+  rule
+    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, UIF_BIN_OP:UIFBinOperation)
+    =>
     UIF_BIN_OP(MI1, MI2) applyUIFs(MI1s, MI2s, UIF_BIN_OP)
 
-  rule 
-    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, MI3:MInt MI3s, UIF_TER_OP:UIFTerOperation) 
-    => 
+  rule
+    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, MI3:MInt MI3s, UIF_TER_OP:UIFTerOperation)
+    =>
     UIF_TER_OP(MI1, MI2, MI3) applyUIFs(MI1s, MI2s, MI3s, UIF_TER_OP)
 
   rule applyUIFs(.MInts, _:UIFUOperation) => .MInts
@@ -495,72 +549,72 @@ module MINT-WRAPPER
 
   /*@
     Deprecated
-  rule shiftLeft(MI, I) => 
+  rule shiftLeft(MI, I) =>
     extractMInt(shlMInt(MI, I), 0, bitwidthMInt(MI))
-  */  
+  */
 
   /*@
     Bitwise negation
-  */  
+  */
   rule negateMInt(MI) => xorMInt(MI, mi(bitwidthMInt(MI), -1))
 
-  /*@ 
+  /*@
     Adding MInt List.
-  */  
-  rule addListMInt(W:Int, MI1:MInt MI2:MInt Rest:MInts) => 
+  */
+  rule addListMInt(W:Int, MI1:MInt MI2:MInt Rest:MInts) =>
     addMInt(addMInt(MI1, MI2), addListMInt(W, Rest))
   rule addListMInt(W:Int, MI:MInt .MInts) => MI
-  rule addListMInt(W:Int, .MInts) => mi(W,0) 
+  rule addListMInt(W:Int, .MInts) => mi(W,0)
 
-  /*@ 
+  /*@
     Conversion from/to MInt and Bool
-  */  
-  rule toBool(MI) => #ifBool uvalueMInt(MI) =/=Int 0 
-                      #then true 
-                      #else false 
+  */
+  rule toBool(MI) => #ifBool uvalueMInt(MI) =/=Int 0
+                      #then true
+                      #else false
                      #fi
 
-  rule fromBoolToMInt(B:Bool, W:Int) => #ifMInt B 
-                                    #then mi(W,1) 
-                                    #else mi(W,0) 
+  rule fromBoolToMInt(B:Bool, W:Int) => #ifMInt B
+                                    #then mi(W,1)
+                                    #else mi(W,0)
                                   #fi
 
-  /*@ extractMask(MI, W, S) Extracts the lower W bits 
+  /*@ extractMask(MI, W, S) Extracts the lower W bits
     from MInt starting from lower significant bit position S.
 
     Ex: extractMask(MI, 16, 8):
         MI:64' 0x 00 ff 00 ff 00 ff 00 ff
-        Output:                  <---> 
+        Output:                  <--->
           MI:16' 0x                 ff 00
 
-    extractMask(MI, 4, 1)  
+    extractMask(MI, 4, 1)
       6 5 4 3 2 1 0
-      * * * * * * * 
+      * * * * * * *
           ------^
 
-    extractMask(MI, NUM, P) <==> extractMInt(MI, S , S + NUM)  
+    extractMask(MI, NUM, P) <==> extractMInt(MI, S , S + NUM)
       where S = bitwidthMInt(MI) - (P + NUM)
 
-    Example, extractMInt(MI, 2, 6) // Bits in range [2..6) 
+    Example, extractMInt(MI, 2, 6) // Bits in range [2..6)
 
       0 1 2 3 4 5 6
-      * * * * * * * 
+      * * * * * * *
           ^-------^
   */
-  rule extractMask(MI, NUM, P) => extractMInt(MI, bitwidthMInt(MI) -Int P -Int NUM, 
+  rule extractMask(MI, NUM, P) => extractMInt(MI, bitwidthMInt(MI) -Int P -Int NUM,
       bitwidthMInt(MI) -Int P)
     requires (P +Int NUM) <=Int bitwidthMInt(MI)
 
   //  truncate(lshrMInt(MI, P), NUM)
-    
+
   /*@ truncate(MI, To) Truncates a mi(From,V1) to mi(To,V2)
     Todo : type check
   */
 
-  rule truncate(MI, To) => 
+  rule truncate(MI, To) =>
     mi(To, svalueMInt(andMInt(MI, mi(bitwidthMInt(MI),umaxMInt(To)))))
 
-  /*@ 
+  /*@
     zeroExtend(MI, N): Zero extend MInt MI to a MInt of
       N bitwidth.
   rule zeroExtend(MI:MInt, N:Int) => mi(N, uvalueMInt(MI))
@@ -572,11 +626,11 @@ module MINT-WRAPPER
   rule zeroExtend(MI:MInt, N:Int) => concatenateMInt(mi(N -Int bitwidthMInt(MI), 0), MI)
     requires N >Int bitwidthMInt(MI)
 
-  /*@ 
-    plugInMask(MITarget, MISrc, P): 
+  /*@
+    plugInMask(MITarget, MISrc, P):
       Let MITarget == mi(WT, VT)
       Let MISrc == mi(WS, VS)
-      plugInMask updates the lower WS bits of VT starting at 
+      plugInMask updates the lower WS bits of VT starting at
       lower significant bit position P with VS.
 
       Ex: plugInMask(MIT,MIS, 8):
@@ -589,10 +643,10 @@ module MINT-WRAPPER
     requires (P ==Int 0) andBool (bitwidthMInt(MISrc) ==Int bitwidthMInt(MITarget))
 
   /*
-  rule plugInMask(MITarget, MISrc, P) => 
+  rule plugInMask(MITarget, MISrc, P) =>
     orMInt(
       andMInt(
-          MITarget, 
+          MITarget,
           negateMInt(
             shlMInt(
               mi(bitwidthMInt(MITarget), umaxMInt(bitwidthMInt(MISrc))),
@@ -605,17 +659,17 @@ module MINT-WRAPPER
     */
 
     rule plugInMask(MITarget, MISrc, P) => concatenateMInt(
-          extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) , bitwidthMInt(MISrc)), 
+          extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) , bitwidthMInt(MISrc)),
           MISrc
           )
       requires (P ==Int 0) andBool (bitwidthMInt(MISrc) <Int bitwidthMInt(MITarget))
 
     rule plugInMask(MITarget, MISrc, P) => concatenateMInt(MISrc, extractMask(MITarget, P, 0))
       requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) ==Int bitwidthMInt(MITarget))
-    
 
-    rule plugInMask(MITarget, MISrc, P) => concatenateMInt( 
-          extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) -Int P , bitwidthMInt(MISrc) +Int P), 
+
+    rule plugInMask(MITarget, MISrc, P) => concatenateMInt(
+          extractMask(MITarget, bitwidthMInt(MITarget) -Int bitwidthMInt(MISrc) -Int P , bitwidthMInt(MISrc) +Int P),
           concatenateMInt(
             MISrc,
             extractMask(MITarget, P, 0)
@@ -623,76 +677,76 @@ module MINT-WRAPPER
         )
       requires (P =/=Int 0) andBool ((P +Int bitwidthMInt(MISrc)) <Int bitwidthMInt(MITarget))
 
-  /*@ 
+  /*@
     signExtend(MI, N): Sign extend MInt MI to a MInt of
       N bitwidth.
   */
   rule signExtend(MI:MInt, N:Int) => MI
     requires N ==Int bitwidthMInt(MI)
-  
-  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI)) 
+
+  rule signExtend(MI:MInt, N:Int) => mi(N, svalueMInt(MI))
     requires N >Int bitwidthMInt(MI)
 
-  /*@ 
+  /*@
     popCount(MI, N): Count the number of set bits, V, in MI and
     create a MINt(N, V)
   */
   rule popCount(MI:MInt) => countOnes(MI, 0)
 
-  rule countOnes(MI:MInt, C:Int) => 
+  rule countOnes(MI:MInt, C:Int) =>
     countOnes(andMInt(MI, subMInt(MI, mi(bitwidthMInt(MI),1))), C +Int 1)
       requires notBool zeroMInt(MI)
 
-  rule countOnes(MI:MInt, C:Int) =>  C 
+  rule countOnes(MI:MInt, C:Int) =>  C
       requires zeroMInt(MI)
 
-  /*@ 
-    shiftCountMask(MIsrc, N): 
-    if N == 64: return and(MIsrc, 0x3F) 
-    else return and(MIsrc, 0x1F) 
+  /*@
+    shiftCountMask(MIsrc, N):
+    if N == 64: return and(MIsrc, 0x3F)
+    else return and(MIsrc, 0x1F)
   */
-  rule shiftCountMask(MI:MInt, I:Int) => #ifMInt I ==Int 64 
-                                          #then andMInt(MI, mi(bitwidthMInt(MI), 63)) 
-                                          #else andMInt(MI, mi(bitwidthMInt(MI), 31)) 
+  rule shiftCountMask(MI:MInt, I:Int) => #ifMInt I ==Int 64
+                                          #then andMInt(MI, mi(bitwidthMInt(MI), 63))
+                                          #else andMInt(MI, mi(bitwidthMInt(MI), 31))
                                          #fi
 
-  /*@ 
+  /*@
     getSignBit(MI): return mi(1, signBit of MI)
-  rule getSignBit(MI:MInt) => 
+  rule getSignBit(MI:MInt) =>
     fromBoolToMInt( toBool(
-        andMInt(MI, 
+        andMInt(MI,
             mi(bitwidthMInt(MI), sminMInt(bitwidthMInt(MI)))
         )
       ), 1)
   */
   rule getSignBit(MI:MInt) => extractMInt(MI, 0, 1)
 
-  /*@ 
+  /*@
     getBitFromMInt(MI, I): return Ith bit of MI
 
     Deprecated to etractMask
-  rule getBitFromMInt(MI:MInt, I:Int) => 
+  rule getBitFromMInt(MI:MInt, I:Int) =>
     fromBoolToMInt( toBool(
         andMInt(MI, shlMInt(mi(bitwidthMInt(MI), 1), I))
         ), 1)
   */
 
-  /*@ 
+  /*@
     sarOverflow(MI): return the value of SAR
     operation on MI with count >= bitwidthMInt(MI)
   */
-  rule sarOverflow(MI:MInt) => #ifMInt zeroMInt(getSignBit(MI)) 
-                                #then mi(bitwidthMInt(MI), 0) 
-                                #else mi(bitwidthMInt(MI), -1) 
+  rule sarOverflow(MI:MInt) => #ifMInt zeroMInt(getSignBit(MI))
+                                #then mi(bitwidthMInt(MI), 0)
+                                #else mi(bitwidthMInt(MI), -1)
                                #fi
 
-  /*@ 
+  /*@
     shrOverflow(MI): return the value of SHR
     operation on MI with count >= bitwidthMInt(MI)
   */
   rule shrOverflow(MI:MInt) => mi(bitwidthMInt(MI), 0)
 
-  /*@ 
+  /*@
     salOverflow(MI): return the value of SAL
     operation on MI with count >= bitwidthMInt(MI)
   */
@@ -704,9 +758,52 @@ module MINT-WRAPPER
     and java BigInteger::shiftRight works on signed numbers.
     But as the MInt may contain unsigned Biginteger value, so we have to deliberately
     pass signed value of the MInt
-  */  
+  */
   rule aShiftRightMInt(MI, I) => ashrMInt(mi(bitwidthMInt(MI), svalueMInt(MI)), I)
 
+  /*@
+    shiftLeftMInt(MI):
+    shlMInt may generate mints of larger bitwidth
+    to represent the values. For example,
+    mi(4, 1) << 4 gives 4' 16 which is wrong
+    as 16 cannot be represented in 4 bits
+  */
+  rule shiftLeftMInt(MI, I) => 
+    extractMInt(shlMInt(MI, I), 0, bitwidthMInt(MI))
+
+  /*@
+    roate left/right
+  */
+  syntax MInt ::= rolHelper(MInt, Int, Int) [function]
+  syntax MInt ::= rorHelper(MInt, Int, Int) [function]
+
+  rule rol(MI1:MInt, MI2:MInt) => rolHelper(MI1, uvalueMInt(MI2),  0)
+  rule ror(MI1:MInt, MI2:MInt) => rorHelper(MI1, uvalueMInt(MI2),  0)
+
+  rule rolHelper(MI:MInt, N:Int, N:Int) => MI
+  rule rolHelper(MI:MInt, N:Int, M:Int) =>
+    rolHelper(
+      addMInt( 
+        shiftLeftMInt(MI, 1), 
+        concatenateMInt(
+          mi(bitwidthMInt(MI) -Int 1, 0), 
+          extractMInt(MI, 0, 1)
+        )
+      ), N, M +Int 1)  
+  requires M <Int N
+
+
+  rule rorHelper(MI:MInt, N:Int, N:Int) => MI
+  rule rorHelper(MI:MInt, N:Int, M:Int) =>
+    rorHelper(
+      addMInt( 
+        lshrMInt(MI, 1), 
+        concatenateMInt(
+          extractMInt(MI, bitwidthMInt(MI) -Int 1, bitwidthMInt(MI)),
+          mi(bitwidthMInt(MI) -Int 1, 0) 
+        )
+      ), N, M +Int 1)  
+  requires M <Int N
 endmodule
 
 /*

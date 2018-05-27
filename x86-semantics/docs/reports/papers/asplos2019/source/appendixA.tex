@@ -3,7 +3,7 @@
 Following is the \Strata formula for an instruction \instr{vpxor \%ymm3, \%ymm2, \%ymm1},
 
 
-\begin{lstlisting}[language=C]
+\begin{lstlisting}[language=Java]
 
 (let ((a!1 (bvxor ((_ extract 255 192) ymm3)
                   ((_ extract 255 192) ymm2)
@@ -57,6 +57,6 @@ Following is the \Strata formula for an instruction \instr{vpxor \%ymm3, \%ymm2,
 where as following is the formula obtained from \Stoke (hand-written) and 
  Z3 took $88.70$ secs to prove that they are equivalent.
 
-\begin{lstlisting}[language=C]
+\begin{lstlisting}[language=Java]
 %ymm1  : (bvxor %ymm2 %ymm3)
 \end{lstlisting}
