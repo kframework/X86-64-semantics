@@ -553,8 +553,9 @@ sub threadop_check_stoke {
     my @linest = <$fpt>;
     close($fpt);
 
-    my $def_in   = "";
-    my $live_out = "";
+    my $def_in          = "";
+    my $live_out        = "";
+    my $maybe_undef_out = "";
     for my $line (@linest) {
         chomp $line;
 
@@ -565,6 +566,10 @@ sub threadop_check_stoke {
         }
         if ( $line =~ m/"live_out":\s*(.*),/g ) {
             $live_out = $1;
+            next;
+        }
+        if ( $line =~ m/"maybe_undef_out":\s*(.*),/g ) {
+            $maybe_undef_out = $1;
             next;
         }
     }
@@ -579,7 +584,7 @@ sub threadop_check_stoke {
         $strata_path_switch = "";
     }
     execute(
-"timeout 30m  $kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out",
+"timeout 30m  $kutils::stoke_check_circuit $strata_path_switch --target $target --functions $kutils::functions_dir --testcases $testcases_path --def_in $def_in --live_out $live_out --maybe_undef_out $maybe_undef_out",
         1
     );
     my $duration = time - $start;
