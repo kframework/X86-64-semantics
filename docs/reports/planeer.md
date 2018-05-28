@@ -24,6 +24,7 @@ A +- 0 != A
   - Test the mutiple output instruction with same registers
 - Port all the tested starta formula to K
 - Fix af
+  - Create a chart of how many are tested. Whats is the reason for not getting tested (undef). How many fails?  
 - Plan for implemnting the uifs
 - Test the lemmas using rise for fun: like add_single(0||x, 0) == 0  Also write about  the importance of this lemma in simplification.
 - Implement "schedule insutcructions" + still unsuported + "huge ones pdepl/q"
@@ -34,10 +35,12 @@ A +- 0 != A
   - kompile: are undef represented correctly
     - For conditional undef they need to be inside experession.
   - Test shlq_r64_cl using strata handler : what is the bahaviour when the udef is triggered. also the z3 test didnt pass for OF. why: formulation of undef is wrong
+  - Ensure that all the instructions obey if it has  a "must undef". Similarly if one has a "may undef" there must be a conditional undef present.
 - Test the rules in K. Important for
   - rorate
   - implemented in K only
   - uifs including tag `UIF1`
+  - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
 
 ## Important Points
 - Uses the tc same as the final strata tc
