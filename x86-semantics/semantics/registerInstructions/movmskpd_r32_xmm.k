@@ -9,7 +9,9 @@ module MOVMSKPD-R32-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> mi(64, svalueMInt(extractMInt( addMInt( (#ifMInt eqMInt( extractMInt( addMInt( (#ifMInt eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 192, 224)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 192, 224))), 0, 1), mi(1, 1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 192, 224)), mi(33, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 192, 224)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 192, 224))), 0, 1), mi(1, 1)) #then addMInt( concatenateMInt( mi(32, 0), extractMInt( addMInt( (#ifMInt eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), 0, 1), mi(1, 1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), mi(33, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), 0, 1)), mi(33, 1)) #else concatenateMInt( mi(32, 0), extractMInt( addMInt( (#ifMInt eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), 0, 1), mi(1, 1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), mi(33, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), 0, 1)) #fi), concatenateMInt( mi(32, 0), extractMInt( addMInt( (#ifMInt eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), 0, 1), mi(1, 1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)), mi(33, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160)) #fi), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 128, 160))), 0, 1))), 1, 33)))
+convToRegKeys(R2) |-> (concatenateMInt(mi(62, 0), concatenateMInt(extractMInt(getParentValue(R1, RSMap), 128, 129), extractMInt(getParentValue(R1, RSMap), 192, 193))) )
+
+
 )
 
     </regstate>
@@ -18,3 +20,42 @@ endmodule
 module MOVMSKPD-R32-XMM-SEMANTICS
   imports MOVMSKPD-R32-XMM
 endmodule
+/*
+TargetInstr:
+movmskpd %xmm1, %ebx
+RWSet:
+maybe read:{ %xmm1 }
+must read:{ %xmm1 }
+maybe write:{ %rbx }
+must write:{ %rbx }
+maybe undef:{ }
+must undef:{ }
+required flags:{ sse2 }
+
+Circuit:
+circuit:movmskpd %xmm1, %r8  #  1     0    5      OPC=movmskpd_r64_xmm
+circuit:movslq %r8d, %rbx    #  2     0x5  3      OPC=movslq_r64_r32
+BVF:
+WARNING: No live out values provided, assuming { }
+WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
+Target
+
+movmskpd %xmm1, %ebx
+
+  maybe read:      { %xmm1 }
+  must read:       { %xmm1 }
+  maybe write:     { %rbx }
+  must write:      { %rbx }
+  maybe undef:     { }
+  must undef:      { }
+  required flags:  { sse2 }
+
+Circuits:
+
+%rbx   : (sign-extend-64 (plus (if (== (plus (if (== (plus (concat <0x0|1> <%ymm1|256>[63:32]) (concat <0x0|1> <%ymm1|256>[63:32]))[32:32] <0x1|1>) then (plus (concat <0x0|1> <%ymm1|256>[63:32]) <0x1|33>) else (concat <0x0|1> <%ymm1|256>[63:32])) (concat <0x0|1> <%ymm1|256>[63:32]))[32:32] <0x1|1>) then (if (== (plus (if (== (plus (concat <0x0|1> <%ymm1|256>[127:96]) (concat <0x0|1> <%ymm1|256>[127:96]))[32:32] <0x1|1>) then (plus (concat <0x0|1> <%ymm1|256>[127:96]) <0x1|33>) else (concat <0x0|1> <%ymm1|256>[127:96])) (concat <0x0|1> <%ymm1|256>[127:96]))[32:32] <0x1|1>) then <0x2|33> else <0x1|33>) else (if (== (plus (if (== (plus (concat <0x0|1> <%ymm1|256>[127:96]) (concat <0x0|1> <%ymm1|256>[127:96]))[32:32] <0x1|1>) then (plus (concat <0x0|1> <%ymm1|256>[127:96]) <0x1|33>) else (concat <0x0|1> <%ymm1|256>[127:96])) (concat <0x0|1> <%ymm1|256>[127:96]))[32:32] <0x1|1>) then <0x1|33> else <0x0|33>)) (if (== (plus (if (== (plus (concat <0x0|1> <%ymm1|256>[127:96]) (concat <0x0|1> <%ymm1|256>[127:96]))[32:32] <0x1|1>) then (plus (concat <0x0|1> <%ymm1|256>[127:96]) <0x1|33>) else (concat <0x0|1> <%ymm1|256>[127:96])) (concat <0x0|1> <%ymm1|256>[127:96]))[32:32] <0x1|1>) then <0x1|33> else <0x0|33>))[31:0])
+
+sigfpe  : <sigfpe>
+sigbus  : <sigbus>
+sigsegv : <sigsegv>
+
+*/

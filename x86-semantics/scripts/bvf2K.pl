@@ -27,12 +27,18 @@ my $type       = "";
 my $help       = "";
 my $debugprint = 0;
 
-my %opcodeSkipList = (
-    "pdepq_r64_r64_r64" => 1,
+my %opcodeSkipList = (        # Reason of manual generation
+    "pdepq_r64_r64_r64" => 1, # impractically huge strata formula.
     "pdepl_r32_r32_r32" => 1,
-    "pextl_r32_r32_r32" => 1,
+    "pextl_r32_r32_r32" => 1, # Difficlt to write the semantics in handlers
     "pextq_r64_r64_r64" => 1,
-    "cmpxchgb_r8_rh" => 1,
+    "cmpxchgb_r8_rh"    => 1, # Schedule instructions
+    "movmskpd_r64_xmm"  => 1, # Huge strata formula.
+    "vmovmskpd_r64_xmm" => 1,
+    "vmovmskpd_r64_ymm" => 1,
+    "vmovmskpd_r32_xmm" => 1,
+    "vmovmskpd_r32_ymm" => 1,
+    "movmskpd_r32_xmm"  => 1,
 );
 
 GetOptions(
