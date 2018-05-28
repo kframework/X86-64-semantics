@@ -27,9 +27,8 @@ A +- 0 != A
   - Create a chart of how many are tested. Whats is the reason for not getting tested (undef). How many fails?
 - Plan for implemnting the uifs
 - Test the lemmas using rise for fun: like add_single(0||x, 0) == 0  Also write about  the importance of this lemma in simplification.
-- Implement "schedule insutcructions" + still unsuported + "huge ones pdepl/q"
+
 - Check if vmovmskpd_r32_xmm is caught in the test as it is not generated in stoke handler. So implement it.
-- Test the ones which are manually implemented in K.
 - Is the semantics of sal/shr/sar in base instr consistent with what we get from stoke.
 - Undef
   - kompile: are undef represented correctly
@@ -38,11 +37,13 @@ A +- 0 != A
   - Ensure that all the instructions obey if it has  a "must undef". Similarly if one has a "may undef" there must be a conditional undef present.
 - Test the rules in K. Important for
   - rorate
-  - implemented in K only
+  - manually implemented in K only
+  - Test pdepl/q pextl/q
   - uifs including tag `UIF1`
   - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
 - Check / Test the instructions mentione in sepcgen_setup for must_write != maybe_write
 - Test all the conditional undefs
+- Implement "schedule insutcructions" 
 
 ## Important Points
 - Uses the tc same as the final strata tc
