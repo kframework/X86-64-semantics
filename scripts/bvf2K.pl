@@ -21,32 +21,12 @@ use Cwd;
 use threads;
 
 # Using GetOPtions
-my $kfile      = "";
-my $opcode     = "";
-my $type       = "";
-my $help       = "";
-my $debugprint = 0;
-
-my %scheduleInstructionsList = (
-    "xchgb_r8_r8"      => 1,
-    "xchgb_r8_rh"      => 1,
-    "xchgb_rh_r8"      => 1,
-    "xchgb_rh_rh"      => 1,
-    "xaddb_r8_r8"      => 1,
-    "xaddb_r8_rh"      => 1,
-    "xaddb_rh_r8"      => 1,
-    "xaddb_rh_rh"      => 1,
-    "xaddl_r32_r32"    => 1,
-    "xaddq_r64_r64"    => 1,
-    "xaddw_r16_r16"    => 1,
-    "cmpxchgb_r8_r8"   => 1,
-    "cmpxchgb_r8_rh"   => 1,
-    "cmpxchgb_rh_r8"   => 1,
-    "cmpxchgb_rh_rh"   => 1,
-    "cmpxchgl_r32_r32" => 1,
-    "cmpxchgq_r64_r64" => 1,
-    "cmpxchgw_r16_r16" => 1,
-);
+my $kfile       = "";
+my $opcode      = "";
+my $type        = "";
+my $help        = "";
+my $debugprint  = 0;
+my $is_schedule = 0;
 
 my %opcodeSkipList = (    # Reason of manual generation
     "pdepq_r64_r64_r64" => 1,    # impractically huge strata formula.
@@ -63,13 +43,11 @@ my %opcodeSkipList = (    # Reason of manual generation
     "xchgl_eax_r32"     => 1,    # Schedule instruction;
     "xchgl_r32_eax"     => 1,
     "xchgl_r32_r32"     => 1,
-    "xchgq_r64_r64"     => 1,
     "xchgq_r64_rax"     => 1,
     "xchgq_rax_r64"     => 1,
     "xchgw_ax_r16"      => 1,
     "xchgw_r16_ax"      => 1,
-    "xchgw_r16_r16"     => 1,
-
+    "xchgq_r64_r64"     => 1,
 );
 
 GetOptions(
@@ -77,6 +55,7 @@ GetOptions(
     "kfile:s"  => \$kfile,
     "type:s"   => \$type,
     "opcode:s" => \$opcode,
+    "schedule" => \$is_schedule,
 ) or die("Error in command line arguments\n");
 
 if ( "" eq $opcode or "" eq $kfile or "" eq $type ) {
@@ -92,20 +71,17 @@ if ( exists $opcodeSkipList{$opcode} ) {
     exit(0);
 }
 
-my $is_schedule = 0;
-
-#if ( exists $scheduleInstructionsList{$opcode} ) {
-#    utils::info("$opcode: Schedule instruction");
-#    $is_schedule = 1;
-#}
-
 my $mainSemantics = getSemantics( $opcode, $kfile, 0 );
 
 my $auxSemantics = "";
 
-#if ($is_schedule) {
-#    $auxSemantics = getSemantics( $opcode, $kfile . ".samereg", 1 );
-#}
+if ($is_schedule) {
+    my $instrfolder = kutils::getInstrsFolder(
+        "$utils::home/Github/strata-data/output-strata/instruction-summary",
+        $type, $opcode );
+    $kfile = $instrfolder . "/$opcode.samereg/$opcode.k_format";
+    $auxSemantics = getSemantics( $opcode, $kfile, 1 );
+}
 
 #Outfile
 my $outFile =
@@ -138,11 +114,12 @@ sub getSemantics {
     close $fp;
 
     my $targetinstr = "";
-    my $instrfolder = kutils::getInstrsFolder(
-        "$utils::home/Github/strata-data/output-strata/instruction-summary",
-        $type, $opcode );
-
     if ( !$is_schedule ) {
+
+        my $instrfolder = kutils::getInstrsFolder(
+            "$utils::home/Github/strata-data/output-strata/instruction-summary",
+            $type, $opcode
+        );
 
         # Read the Target instr
         my $countertargetinstr = "";
@@ -165,11 +142,18 @@ sub getSemantics {
         }
     }
     else {
-        $targetinstr = kutils::getTargetInstr( $opcode . ".samereg",
-            $debugprint, $instrfolder );
+        # Read the Target instr
+        for my $line (@lines) {
+            chomp $line;
+            if ( $line =~ m/code:(.*)/g ) {
+                $targetinstr = utils::trim($1);
+            }
+        }
     }
 
     print "Target: $targetinstr\n";
+
+    #return;
 
     # Get the operands and association with dummy registers R1, R2, ...
     my $operandListFromOpcode_ref =
