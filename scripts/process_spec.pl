@@ -73,6 +73,7 @@ my $opcode               = "";
 my $update_tc            = "";
 my $use_updated_tc       = "";
 my $no_strata_handler    = "";
+my $samereg              = "";
 
 GetOptions(
     "help"                 => \$help,
@@ -122,6 +123,7 @@ GetOptions(
     "testid:s"             => \$testid,
     "workdir:s"            => \$workdir,
     "opcode:s"             => \$opcode,
+    "samereg"              => \$samereg,
 ) or die("Error in command line arguments\n");
 
 ##
@@ -363,7 +365,12 @@ if ( "" ne $prepare_concrete ) {
 
     print "\n\nInstantiating  $opcode\n";
     execute("mkdir -p $workdir");
-    execute( "$specgen_setup --workdir $workdir --opc $opcode", 1 );
+    my $switch_samereg = "";
+    if ("" ne $samereg) {
+        $switch_samereg = "--samereg";
+    }
+    execute( "$specgen_setup --workdir $workdir --opc $opcode $switch_samereg",
+        1 );
 
     exit(0);
 }

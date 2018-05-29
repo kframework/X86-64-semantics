@@ -15,6 +15,19 @@ convToRegKeys(R2) |-> getParentValue(%rax, RSMap)
 )
 
     </regstate>
+      requires notBool sameRegisters(%rax, R2)
+
+    rule <k>
+    execinstr (xchgq %rax, R2:R64,  .Operands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R2) |-> getParentValue(%rax, RSMap)
+)
+
+    </regstate>
+      requires sameRegisters(%rax, R2)
+
 endmodule
 
 module XCHGQ-R64-RAX-SEMANTICS
