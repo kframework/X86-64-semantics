@@ -15,6 +15,19 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+      requires notBool sameRegisters(R1, R2)
+
+    rule <k>
+    execinstr (xchgw R1:R16, R1:R16,  .Operands) => .
+  ...</k>
+    <regstate>
+RSMap:Map => updateMap(RSMap,
+convToRegKeys(R1) |-> getParentValue(R1, RSMap)
+
+)
+
+    </regstate>
+
 endmodule
 
 module XCHGW-R16-R16-SEMANTICS

@@ -15,6 +15,12 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(%r
 )
 
     </regstate>
+      requires notBool sameRegisters(%eax, R2)
+
+  rule <k>
+    execinstr (xchgl %eax, R2:R32,  .Operands) => execinstr(nop  .Operands)
+  ...</k>
+      requires sameRegisters(%eax, R2)
 endmodule
 
 module XCHGL-R32-EAX-SEMANTICS
