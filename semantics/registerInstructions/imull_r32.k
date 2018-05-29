@@ -21,7 +21,7 @@ RSMap:Map => updateMap(RSMap,
 
 "ZF" |-> (undefMInt)
 
-"SF" |-> extractMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 32, 64)))), 32, 33)
+"SF" |-> (undefMInt)
 
 "OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 32, 64)))), mi(64, svalueMInt(extractMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(64, svalueMInt(extractMInt( getParentValue(%rax, RSMap), 32, 64)))), 32, 64))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
