@@ -42,6 +42,25 @@ A +- 0 != A
 - Test all the conditional undefs
 - Implement "schedule insutcructions"
 - There are many 'system instructions' that can be supported. like SHLD
+- Check the of flag for the following as they lacks the undef part.
+  ```
+
+  sarb_r8_cl
+sarb_rh_cl
+sarl_r32_cl
+sarq_r64_cl
+sarw_r16_cl
+shlb_r8_cl
+shlb_rh_cl
+shll_r32_cl
+shlq_r64_cl
+shlw_r16_cl
+shrb_r8_cl
+shrb_rh_cl
+shrl_r32_cl
+shrq_r64_cl
+shrw_r16_cl
+  ```
 
 ## Important Points
 - Uses the tc same as the final strata tc

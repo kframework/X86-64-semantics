@@ -1,141 +1,141 @@
-andb_r8_r8
-andb_r8_rh
-andb_rh_r8
-andb_rh_rh
-andl_r32_r32
-andnl_r32_r32_r32
-andnq_r64_r64_r64
-andq_r64_r64
-andw_r16_r16
-bextrl_r32_r32_r32
-bextrq_r64_r64_r64
-blsil_r32_r32
-blsiq_r64_r64
-blsmskl_r32_r32
-blsmskq_r64_r64
-blsrl_r32_r32
-blsrq_r64_r64
-btcl_r32_r32
-btcq_r64_r64
-btcw_r16_r16
-btl_r32_r32
-btq_r64_r64
-btrl_r32_r32
-btrq_r64_r64
-btrw_r16_r16
-btsl_r32_r32
-btsq_r64_r64
-btsw_r16_r16
-btw_r16_r16
-bzhil_r32_r32_r32
-bzhiq_r64_r64_r64
-divb_r8
-divb_rh
-divl_r32
-divq_r64
-divw_r16
-idivb_r8
-idivb_rh
-idivl_r32
-idivq_r64
-idivw_r16
-imulb_r8
-imulb_rh
-imull_r32
-imull_r32_r32
-imulq_r64
-imulq_r64_r64
-imulw_r16
-imulw_r16_r16
-lzcntl_r32_r32
-lzcntq_r64_r64
-lzcntw_r16_r16
-mulb_r8
-mulb_rh
-mull_r32
-mulq_r64
-mulw_r16
-orb_r8_r8
-orb_r8_rh
-orb_rh_r8
-orb_rh_rh
-orl_r32_r32
-orq_r64_r64
-orw_r16_r16
-rclb_r8_cl
-rclb_rh_cl
-rcll_r32_cl
-rclq_r64_cl
-rclw_r16_cl
-rcrb_r8_cl
-rcrb_rh_cl
-rcrl_r32_cl
-rcrq_r64_cl
-rcrw_r16_cl
-rolb_r8_cl
-rolb_rh_cl
-roll_r32_cl
-rolq_r64_cl
-rolw_r16_cl
-rorb_r8_cl
-rorb_rh_cl
-rorl_r32_cl
-rorq_r64_cl
-rorw_r16_cl
-salb_r8_cl
-salb_r8_one
-salb_rh_cl
-salb_rh_one
-sall_r32_cl
-sall_r32_one
-salq_r64_cl
-salq_r64_one
-salw_r16_cl
-salw_r16_one
-sarb_r8_cl
-sarb_r8_one
-sarb_rh_cl
-sarb_rh_one
-sarl_r32_cl
-sarl_r32_one
-sarq_r64_cl
-sarq_r64_one
-sarw_r16_cl
-sarw_r16_one
-shlb_r8_cl
-shlb_r8_one
-shlb_rh_cl
-shlb_rh_one
-shll_r32_cl
-shll_r32_one
-shlq_r64_cl
-shlq_r64_one
-shlw_r16_cl
-shlw_r16_one
-shrb_r8_cl
-shrb_r8_one
-shrb_rh_cl
-shrb_rh_one
-shrl_r32_cl
-shrl_r32_one
-shrq_r64_cl
-shrq_r64_one
-shrw_r16_cl
-shrw_r16_one
-testb_r8_r8
-testb_r8_rh
-testb_rh_r8
-testb_rh_rh
-testl_r32_r32
-testq_r64_r64
-testw_r16_r16
-tzcntl_r32_r32
-tzcntq_r64_r64
-tzcntw_r16_r16
-xorb_r8_r8
-xorb_r8_rh
-xorb_rh_r8
-xorb_rh_rh
-xorl_r32_r32
-xorq_r64_r64
-xorw_r16_r16
+andb_r8_r8 1
+andb_r8_rh 1
+andb_rh_r8 1
+andb_rh_rh 1
+andl_r32_r32 1
+andnl_r32_r32_r32 2
+andnq_r64_r64_r64 2
+andq_r64_r64 1
+andw_r16_r16 1
+bextrl_r32_r32_r32 3
+bextrq_r64_r64_r64 3
+blsil_r32_r32 2
+blsiq_r64_r64 2
+blsmskl_r32_r32 2
+blsmskq_r64_r64 2
+blsrl_r32_r32 2
+blsrq_r64_r64 2
+btcl_r32_r32 4
+btcq_r64_r64 4
+btcw_r16_r16 4
+btl_r32_r32 4
+btq_r64_r64 4
+btrl_r32_r32 4
+btrq_r64_r64 4
+btrw_r16_r16 4
+btsl_r32_r32 4
+btsq_r64_r64 4
+btsw_r16_r16 4
+btw_r16_r16 4
+bzhil_r32_r32_r32 2
+bzhiq_r64_r64_r64 2
+divb_r8 6
+divb_rh 6
+divl_r32 6
+divq_r64 6
+divw_r16 6
+idivb_r8 6
+idivb_rh 6
+idivl_r32 6
+idivq_r64 6
+idivw_r16 6
+imulb_r8 4
+imulb_rh 4
+imull_r32 4
+imull_r32_r32 4
+imulq_r64 4
+imulq_r64_r64 4
+imulw_r16 4
+imulw_r16_r16 4
+lzcntl_r32_r32 4
+lzcntq_r64_r64 4
+lzcntw_r16_r16 4
+mulb_r8 4
+mulb_rh 4
+mull_r32 4
+mulq_r64 4
+mulw_r16 4
+orb_r8_r8 1
+orb_r8_rh 1
+orb_rh_r8 1
+orb_rh_rh 1
+orl_r32_r32 1
+orq_r64_r64 1
+orw_r16_r16 1
+rclb_r8_cl 1
+rclb_rh_cl 1
+rcll_r32_cl 1
+rclq_r64_cl 1
+rclw_r16_cl 1
+rcrb_r8_cl 1
+rcrb_rh_cl 1
+rcrl_r32_cl 1
+rcrq_r64_cl 1
+rcrw_r16_cl 1
+rolb_r8_cl 1
+rolb_rh_cl 1
+roll_r32_cl 1
+rolq_r64_cl 1
+rolw_r16_cl 1
+rorb_r8_cl 1
+rorb_rh_cl 1
+rorl_r32_cl 1
+rorq_r64_cl 1
+rorw_r16_cl 1
+salb_r8_cl 3
+salb_r8_one 1
+salb_rh_cl 3
+salb_rh_one 1
+sall_r32_cl 3
+sall_r32_one 1
+salq_r64_cl 3
+salq_r64_one 1
+salw_r16_cl 3
+salw_r16_one 1
+sarb_r8_cl 2
+sarb_r8_one 1
+sarb_rh_cl 2
+sarb_rh_one 1
+sarl_r32_cl 2
+sarl_r32_one 1
+sarq_r64_cl 2
+sarq_r64_one 1
+sarw_r16_cl 2
+sarw_r16_one 1
+shlb_r8_cl 3
+shlb_r8_one 1
+shlb_rh_cl 3
+shlb_rh_one 1
+shll_r32_cl 3
+shll_r32_one 1
+shlq_r64_cl 3
+shlq_r64_one 1
+shlw_r16_cl 3
+shlw_r16_one 1
+shrb_r8_cl 3
+shrb_r8_one 1
+shrb_rh_cl 3
+shrb_rh_one 1
+shrl_r32_cl 3
+shrl_r32_one 1
+shrq_r64_cl 3
+shrq_r64_one 1
+shrw_r16_cl 3
+shrw_r16_one 1
+testb_r8_r8 1
+testb_r8_rh 1
+testb_rh_r8 1
+testb_rh_rh 1
+testl_r32_r32 1
+testq_r64_r64 1
+testw_r16_r16 1
+tzcntl_r32_r32 4
+tzcntq_r64_r64 4
+tzcntw_r16_r16 4
+xorb_r8_r8 1
+xorb_r8_rh 1
+xorb_rh_r8 1
+xorb_rh_rh 1
+xorl_r32_r32 1
+xorq_r64_r64 1
+xorw_r16_r16 1
