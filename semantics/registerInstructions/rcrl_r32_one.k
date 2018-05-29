@@ -13,7 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( ror( concatenateM
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 2, 3), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 2, 3), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>

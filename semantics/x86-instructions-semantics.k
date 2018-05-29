@@ -16,6 +16,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaxsb-xmm-xmm-semantics
@@ -32,6 +33,7 @@ convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentVal
 )
 
     </regstate>
+    
 
 
 // vpandn-ymm-ymm-ymm-semantics
@@ -48,6 +50,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpcmpgtw-xmm-xmm-xmm-semantics
@@ -64,6 +67,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsrlw-ymm-ymm-xmm-semantics
@@ -80,6 +84,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_single_t
 )
 
     </regstate>
+    
 
 
 // vcvttps2dq-xmm-xmm-semantics
@@ -96,6 +101,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpminub-ymm-ymm-ymm-semantics
@@ -112,6 +118,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_single_t
 )
 
     </regstate>
+    
 
 
 // vcvtps2dq-xmm-xmm-semantics
@@ -128,6 +135,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( negMInt( extractMInt
 )
 
     </regstate>
+    
 
 
 // vandnpd-xmm-xmm-xmm-semantics
@@ -156,6 +164,7 @@ convToRegKeys(R2) |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), getParent
 )
 
     </regstate>
+    
 
 
 // addq-r64-r64-semantics
@@ -170,20 +179,21 @@ convToRegKeys(R2) |-> extractMInt( addMInt( concatenateMInt( mi(1, 0), getParent
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8)), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt (false orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> mi(1, 0)
 )
 
     </regstate>
+    
 
 
 // sarb-rh-one-semantics
@@ -200,6 +210,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnae-rh-semantics
@@ -216,6 +227,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpgtw-xmm-xmm-semantics
@@ -242,6 +254,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testb-r8-r8-semantics
@@ -258,6 +271,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // haddps-xmm-xmm-semantics
@@ -274,6 +288,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pavgb-xmm-xmm-semantics
@@ -290,6 +305,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // rcpps-xmm-xmm-semantics
@@ -306,6 +322,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setge-r8-semantics
@@ -322,6 +339,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpavgw-xmm-xmm-xmm-semantics
@@ -338,10 +356,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 1, 2), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclb-r8-one-semantics
@@ -358,6 +377,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sqrtss-xmm-xmm-semantics
@@ -374,6 +394,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pminuw-xmm-xmm-semantics
@@ -390,6 +411,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_single_to_int32(extractMIn
 )
 
     </regstate>
+    
 
 
 // cvtss2sil-r32-xmm-semantics
@@ -406,6 +428,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnle-rh-semantics
@@ -434,6 +457,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sbbw-r16-r16-semantics
@@ -450,6 +474,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmadd132sd-xmm-xmm-xmm-semantics
@@ -476,6 +501,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // btrw-r16-r16-semantics
@@ -504,6 +530,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // adcb-r8-rh-semantics
@@ -520,10 +547,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 2, 3), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 2, 3), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrw-r16-one-semantics
@@ -540,6 +568,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsrlq-xmm-xmm-xmm-semantics
@@ -620,6 +649,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vptest-ymm-ymm-semantics
@@ -648,6 +678,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subb-r8-rh-semantics
@@ -664,6 +695,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // seto-rh-semantics
@@ -692,6 +724,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addb-r8-r8-semantics
@@ -706,20 +739,21 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 32))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 24, 25), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 24, 25), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 32), mi(32, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 32), mi(32, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt (false orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> mi(1, 0)
 )
 
     </regstate>
+    
 
 
 // sarl-r32-one-semantics
@@ -746,6 +780,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // incb-rh-semantics
@@ -762,6 +797,7 @@ convToRegKeys(R2) |-> cvt_double_to_int64(extractMInt( getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // cvtsd2siq-r64-xmm-semantics
@@ -778,6 +814,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpackusdw-ymm-ymm-ymm-semantics
@@ -794,6 +831,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("PF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovpoq-r64-r64-semantics
@@ -810,6 +848,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setz-rh-semantics
@@ -826,6 +865,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpgtd-xmm-xmm-semantics
@@ -854,6 +894,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), xorMInt( subMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // blsmskl-r32-r32-semantics
@@ -870,6 +911,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("OF", 
 )
 
     </regstate>
+    
 
 
 // cmovol-r32-r32-semantics
@@ -884,20 +926,21 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("OF", 
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 33))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 33), mi(32, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 33), mi(32, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shll-r32-one-semantics
@@ -926,6 +969,7 @@ convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), getParentValue(R1, RSMa
 )
 
     </regstate>
+    
 
 
 // orq-r64-r64-semantics
@@ -952,6 +996,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // incb-r8-semantics
@@ -968,6 +1013,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( approx_recip
 )
 
     </regstate>
+    
 
 
 // vrsqrtps-xmm-xmm-semantics
@@ -984,6 +1030,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmadd132_single(mi(32,
 )
 
     </regstate>
+    
 
 
 // vfnmadd213ps-xmm-xmm-xmm-semantics
@@ -1066,6 +1113,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpq-r64-r64-semantics
@@ -1096,6 +1144,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // divl-r32-semantics
@@ -1124,6 +1173,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // xorb-rh-rh-semantics
@@ -1140,6 +1190,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_half_to_single(extractMInt( getParent
 )
 
     </regstate>
+    
 
 
 // vcvtph2ps-ymm-xmm-semantics
@@ -1168,6 +1219,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // idivb-r8-semantics
@@ -1184,6 +1236,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmaxsd-ymm-ymm-ymm-semantics
@@ -1200,6 +1253,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sqrtpd-xmm-xmm-semantics
@@ -1216,6 +1270,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("OF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovoq-r64-r64-semantics
@@ -1232,6 +1287,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( mulMInt( con
 )
 
     </regstate>
+    
 
 
 // vpmuludq-xmm-xmm-xmm-semantics
@@ -1256,10 +1312,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlw-r16-cl-semantics
@@ -1276,6 +1333,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtsi2ssq-xmm-r64-semantics
@@ -1292,6 +1350,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // notb-rh-semantics
@@ -1308,6 +1367,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pminsd-xmm-xmm-semantics
@@ -1324,6 +1384,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(24, 0), extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovzxbd-ymm-xmm-semantics
@@ -1340,6 +1401,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddd-xmm-xmm-semantics
@@ -1356,6 +1418,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmadd213ss-xmm-xmm-xmm-semantics
@@ -1372,6 +1435,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( ashrMInt( ex
 )
 
     </regstate>
+    
 
 
 // vpsravd-xmm-xmm-xmm-semantics
@@ -1388,6 +1452,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movups-xmm-xmm-semantics
@@ -1404,6 +1469,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( approx_recip
 )
 
     </regstate>
+    
 
 
 // vrcpps-xmm-xmm-semantics
@@ -1420,6 +1486,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(64, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmovsxdq-ymm-xmm-semantics
@@ -1434,20 +1501,21 @@ convToRegKeys(R2) |-> concatenateMInt( mi(64, svalueMInt(extractMInt( getParentV
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), mi(1, 1))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrb-r8-one-semantics
@@ -1464,10 +1532,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclb-rh-one-semantics
@@ -1484,6 +1553,7 @@ convToRegKeys(R3) |-> concatenateMInt( div_double(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vdivpd-ymm-ymm-ymm-semantics
@@ -1500,6 +1570,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsubusw-xmm-xmm-xmm-semantics
@@ -1516,6 +1587,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpermilps-xmm-xmm-xmm-semantics
@@ -1532,6 +1604,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovupd-xmm-xmm-semantics
@@ -1548,6 +1621,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmulld-xmm-xmm-semantics
@@ -1564,6 +1638,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpcmpeqq-ymm-ymm-ymm-semantics
@@ -1590,6 +1665,7 @@ convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uv
 )
 
     </regstate>
+    
 
 
 // btcq-r64-r64-semantics
@@ -1606,6 +1682,7 @@ convToRegKeys(R3) |-> xorMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // vpxor-ymm-ymm-ymm-semantics
@@ -1622,10 +1699,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 1, 2), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), mi(17, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclw-r16-one-semantics
@@ -1642,6 +1720,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vhaddps-xmm-xmm-xmm-semantics
@@ -1658,6 +1737,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd213_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmaddsub213ps-ymm-ymm-ymm-semantics
@@ -1674,6 +1754,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psignb-xmm-xmm-semantics
@@ -1690,6 +1771,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vpbroadcastd-ymm-xmm-semantics
@@ -1706,6 +1788,7 @@ convToRegKeys(R2) |-> cvt_double_to_int64_truncate(extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vcvttsd2siq-r64-xmm-semantics
@@ -1732,6 +1815,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testb-rh-r8-semantics
@@ -1760,6 +1844,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( subMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // blsrl-r32-r32-semantics
@@ -1786,6 +1871,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // btcw-r16-r16-semantics
@@ -1802,6 +1888,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phaddsw-xmm-xmm-semantics
@@ -1818,6 +1905,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpmullw-xmm-xmm-xmm-semantics
@@ -1836,6 +1924,7 @@ convToRegKeys(R2) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), getParen
 )
 
     </regstate>
+    
 
 
 // mulxq-r64-r64-r64-semantics
@@ -1852,6 +1941,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnbw-r16-r16-semantics
@@ -1868,6 +1958,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpshufb-ymm-ymm-ymm-semantics
@@ -1884,6 +1975,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vmaxps-xmm-xmm-xmm-semantics
@@ -1900,6 +1992,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( mi(64, 0), mi(64, 0)), c
 )
 
     </regstate>
+    
 
 
 // vfmadd213ps-xmm-xmm-xmm-semantics
@@ -1914,20 +2007,21 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( mi(64, 0), mi(64, 0)), c
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 65)
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 65), mi(64, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 65), mi(64, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salq-r64-one-semantics
@@ -1944,6 +2038,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtss2sd-xmm-xmm-semantics
@@ -1960,6 +2055,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vmovmskps-r64-ymm-semantics
@@ -1976,6 +2072,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( subMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpsubd-xmm-xmm-xmm-semantics
@@ -1992,6 +2089,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsignd-xmm-xmm-xmm-semantics
@@ -2008,6 +2106,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpmulld-xmm-xmm-xmm-semantics
@@ -2024,6 +2123,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pabsb-xmm-xmm-semantics
@@ -2040,6 +2140,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( mi(48, 0), addMInt( conc
 )
 
     </regstate>
+    
 
 
 // vpsadbw-ymm-ymm-ymm-semantics
@@ -2056,6 +2157,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmadd132ss-xmm-xmm-xmm-semantics
@@ -2072,6 +2174,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vunpckhps-ymm-ymm-ymm-semantics
@@ -2088,6 +2191,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmsub132_double(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmsub231pd-ymm-ymm-ymm-semantics
@@ -2104,6 +2208,7 @@ convToRegKeys(R2) |-> (#ifMInt ((notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) 
 )
 
     </regstate>
+    
 
 
 // cmovaq-r64-r64-semantics
@@ -2120,6 +2225,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpcmpgtb-ymm-ymm-ymm-semantics
@@ -2136,6 +2242,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpmaxsb-xmm-xmm-xmm-semantics
@@ -2152,6 +2259,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setle-r8-semantics
@@ -2168,6 +2276,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( subMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpsubw-xmm-xmm-xmm-semantics
@@ -2184,6 +2293,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vbroadcastss-ymm-xmm-semantics
@@ -2200,6 +2310,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_s
 )
 
     </regstate>
+    
 
 
 // vfnmadd231ps-xmm-xmm-xmm-semantics
@@ -2228,6 +2339,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // lzcntq-r64-r64-semantics
@@ -2254,6 +2366,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testq-r64-r64-semantics
@@ -2270,6 +2383,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_int32_to_single(extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // vcvtdq2ps-ymm-ymm-semantics
@@ -2298,6 +2412,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), xorMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // xorl-r32-r32-semantics
@@ -2314,6 +2429,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpunpckhdq-xmm-xmm-xmm-semantics
@@ -2344,6 +2460,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // imulw-r16-semantics
@@ -2360,6 +2477,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_s
 )
 
     </regstate>
+    
 
 
 // vfnmsub132ps-xmm-xmm-xmm-semantics
@@ -2376,6 +2494,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub213_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmsubadd213pd-ymm-ymm-ymm-semantics
@@ -2392,6 +2511,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vhaddps-ymm-ymm-ymm-semantics
@@ -2408,6 +2528,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpunpckldq-xmm-xmm-xmm-semantics
@@ -2424,6 +2545,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // unpckhpd-xmm-xmm-semantics
@@ -2440,6 +2562,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnz-rh-semantics
@@ -2456,6 +2579,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_double_to_int32(extractMIn
 )
 
     </regstate>
+    
 
 
 // vcvtsd2sil-r32-xmm-semantics
@@ -2472,6 +2596,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( addMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpaddw-xmm-xmm-xmm-semantics
@@ -2542,6 +2667,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd132_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmaddsub132ps-ymm-ymm-ymm-semantics
@@ -2558,6 +2684,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subsd-xmm-xmm-semantics
@@ -2574,6 +2701,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtpd2dq-xmm-xmm-semantics
@@ -2590,6 +2718,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpcklqdq-ymm-ymm-ymm-semantics
@@ -2606,6 +2735,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psrld-xmm-xmm-semantics
@@ -2622,6 +2752,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 2
 )
 
     </regstate>
+    
 
 
 // vpbroadcastb-ymm-xmm-semantics
@@ -2638,6 +2769,7 @@ convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vblendvps-ymm-ymm-ymm-ymm-semantics
@@ -2666,6 +2798,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( addMInt( (#ifMInt
 )
 
     </regstate>
+    
 
 
 // sbbl-r32-r32-semantics
@@ -2682,6 +2815,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpunpcklwd-xmm-xmm-xmm-semantics
@@ -2698,6 +2832,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // hsubps-xmm-xmm-semantics
@@ -2714,6 +2849,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( ashrMInt( ex
 )
 
     </regstate>
+    
 
 
 // vpsraw-xmm-xmm-xmm-semantics
@@ -2730,6 +2866,7 @@ convToRegKeys(R3) |-> shlMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( ge
 )
 
     </regstate>
+    
 
 
 // shlxq-r64-r64-r64-semantics
@@ -2756,6 +2893,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testw-r16-r16-semantics
@@ -2772,6 +2910,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("SF",
 )
 
     </regstate>
+    
 
 
 // cmovgel-r32-r32-semantics
@@ -2788,10 +2927,11 @@ convToRegKeys(R2) |-> ror( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0)
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( ror( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorq-r64-cl-semantics
@@ -2808,6 +2948,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpckhbw-ymm-ymm-ymm-semantics
@@ -2824,6 +2965,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // movq-r64-r64-semantics
@@ -2840,6 +2982,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( shlMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpsllvd-xmm-xmm-xmm-semantics
@@ -2856,6 +2999,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnbe-r8-semantics
@@ -2872,6 +3016,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtsi2sdq-xmm-r64-semantics
@@ -2888,6 +3033,7 @@ convToRegKeys(R3) |-> concatenateMInt( addMInt( mulMInt( mi(32, svalueMInt(extra
 )
 
     </regstate>
+    
 
 
 // vpmaddwd-ymm-ymm-ymm-semantics
@@ -2914,6 +3060,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vtestps-ymm-ymm-semantics
@@ -2930,6 +3077,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movzbl-r32-rh-semantics
@@ -2946,6 +3094,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pminud-xmm-xmm-semantics
@@ -2992,6 +3141,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vzeroall-semantics
@@ -3008,6 +3158,7 @@ convToRegKeys(R2) |-> concatenateMInt( approx_reciprocal_single(extractMInt( get
 )
 
     </regstate>
+    
 
 
 // vrcpps-ymm-ymm-semantics
@@ -3024,6 +3175,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubw-xmm-xmm-semantics
@@ -3040,6 +3192,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmadd213ss-xmm-xmm-xmm-semantics
@@ -3068,6 +3221,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // mulb-r8-semantics
@@ -3084,6 +3238,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subps-xmm-xmm-semantics
@@ -3112,6 +3267,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // sbbb-rh-rh-semantics
@@ -3128,6 +3284,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(60, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // movmskps-r64-xmm-semantics
@@ -3144,6 +3301,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 
 
 // vpabsw-xmm-xmm-semantics
@@ -3160,6 +3318,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vmovdqa-ymm-ymm-semantics
@@ -3176,6 +3335,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmovss-xmm-xmm-xmm-semantics
@@ -3192,6 +3352,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub231_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmsubadd231pd-ymm-ymm-ymm-semantics
@@ -3208,6 +3369,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovnbq-r64-r64-semantics
@@ -3236,6 +3398,7 @@ convToRegKeys(R2) |-> andMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // andq-r64-r64-semantics
@@ -3252,6 +3415,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovow-r16-r16-semantics
@@ -3268,6 +3432,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovlw-r16-r16-semantics
@@ -3284,6 +3449,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd231_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmaddsub231pd-ymm-ymm-ymm-semantics
@@ -3300,6 +3466,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( mi(10, svalueM
 )
 
     </regstate>
+    
 
 
 // vpsubsb-ymm-ymm-ymm-semantics
@@ -3326,6 +3493,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpw-r16-r16-semantics
@@ -3342,10 +3510,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclw-r16-cl-semantics
@@ -3362,6 +3531,7 @@ convToRegKeys(R3) |-> orMInt( getParentValue(R2, RSMap), getParentValue(R1, RSMa
 )
 
     </regstate>
+    
 
 
 // vorpd-ymm-ymm-ymm-semantics
@@ -3378,6 +3548,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaxuw-xmm-xmm-semantics
@@ -3394,6 +3565,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmadd132_double(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmadd213pd-ymm-ymm-ymm-semantics
@@ -3422,6 +3594,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // xorb-rh-r8-semantics
@@ -3438,6 +3611,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpackusdw-xmm-xmm-xmm-semantics
@@ -3454,6 +3628,7 @@ convToRegKeys(R3) |-> orMInt( getParentValue(R2, RSMap), getParentValue(R1, RSMa
 )
 
     </regstate>
+    
 
 
 // vorps-ymm-ymm-ymm-semantics
@@ -3470,6 +3645,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovnol-r32-r32-semantics
@@ -3486,6 +3662,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(64, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmovsxwq-ymm-xmm-semantics
@@ -3502,6 +3679,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("OF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovnoq-r64-r64-semantics
@@ -3518,6 +3696,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsrld-ymm-ymm-xmm-semantics
@@ -3534,6 +3713,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // xorpd-xmm-xmm-semantics
@@ -3562,6 +3742,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subw-r16-r16-semantics
@@ -3578,6 +3759,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( addMInt( co
 )
 
     </regstate>
+    
 
 
 // vpaddusw-ymm-ymm-ymm-semantics
@@ -3594,6 +3776,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setpe-rh-semantics
@@ -3610,6 +3793,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpcmpgtd-ymm-ymm-ymm-semantics
@@ -3626,6 +3810,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // mulss-xmm-xmm-semantics
@@ -3642,6 +3827,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vandps-xmm-xmm-xmm-semantics
@@ -3658,6 +3844,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( mulMInt( concatenateMInt( mi
 )
 
     </regstate>
+    
 
 
 // vpmulhuw-ymm-ymm-ymm-semantics
@@ -3674,6 +3861,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // mulpd-xmm-xmm-semantics
@@ -3690,6 +3878,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovzxdq-xmm-xmm-semantics
@@ -3718,6 +3907,7 @@ convToRegKeys(R3) |-> (#ifMInt ultMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // bzhiq-r64-r64-r64-semantics
@@ -3734,6 +3924,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pabsw-xmm-xmm-semantics
@@ -3750,6 +3941,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsllq-xmm-xmm-xmm-semantics
@@ -3766,6 +3958,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmadd132_single(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmadd132ps-ymm-ymm-ymm-semantics
@@ -3782,6 +3975,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 
 
 // vpmaxuw-xmm-xmm-xmm-semantics
@@ -3798,6 +3992,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovmskb-r64-xmm-semantics
@@ -3822,10 +4017,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrw-r16-cl-semantics
@@ -3842,6 +4038,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phsubw-xmm-xmm-semantics
@@ -3858,6 +4055,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movl-r32-r32-semantics
@@ -3874,6 +4072,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmadd213_do
 )
 
     </regstate>
+    
 
 
 // vfmaddsub213pd-xmm-xmm-xmm-semantics
@@ -3890,6 +4089,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pavgw-xmm-xmm-semantics
@@ -3906,6 +4106,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmadd231sd-xmm-xmm-xmm-semantics
@@ -3922,6 +4123,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vaddss-xmm-xmm-xmm-semantics
@@ -3950,6 +4152,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), addMInt( concatenateMInt( mi(1
 )
 
     </regstate>
+    
 
 
 // popcntl-r32-r32-semantics
@@ -3966,6 +4169,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmullw-xmm-xmm-semantics
@@ -4051,6 +4255,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpb-r8-rh-semantics
@@ -4079,6 +4284,7 @@ convToRegKeys(R2) |-> extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), 
 )
 
     </regstate>
+    
 
 
 // subq-r64-r64-semantics
@@ -4095,6 +4301,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmsub132_single(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmsub213ps-ymm-ymm-ymm-semantics
@@ -4111,6 +4318,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovngw-r16-r16-semantics
@@ -4127,6 +4335,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpunpckhbw-xmm-xmm-xmm-semantics
@@ -4143,6 +4352,7 @@ convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpblendvb-ymm-ymm-ymm-ymm-semantics
@@ -4159,6 +4369,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movzbq-r64-r8-semantics
@@ -4175,6 +4386,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( subMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpsubq-xmm-xmm-xmm-semantics
@@ -4191,6 +4403,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vminsd-xmm-xmm-xmm-semantics
@@ -4207,6 +4420,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovcq-r64-r64-semantics
@@ -4231,10 +4445,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sarb-r8-cl-semantics
@@ -4251,6 +4466,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( sqrt_double(
 )
 
     </regstate>
+    
 
 
 // vsqrtpd-xmm-xmm-semantics
@@ -4267,6 +4483,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vfmaddsub231ps-xmm-xmm-xmm-semantics
@@ -4283,6 +4500,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pand-xmm-xmm-semantics
@@ -4299,6 +4517,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movzwq-r64-r16-semantics
@@ -4315,6 +4534,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvtsi2ssq-xmm-xmm-r64-semantics
@@ -4331,6 +4551,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpckhbw-xmm-xmm-semantics
@@ -4401,6 +4622,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // movb-rh-r8-semantics
@@ -4429,6 +4651,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // popcntw-r16-r16-semantics
@@ -4457,6 +4680,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 3
 )
 
     </regstate>
+    
 
 
 // lzcntl-r32-r32-semantics
@@ -4483,6 +4707,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // comisd-xmm-xmm-semantics
@@ -4499,6 +4724,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movzbw-r16-r8-semantics
@@ -4515,6 +4741,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpcmpgtw-ymm-ymm-ymm-semantics
@@ -4531,6 +4758,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpackssdw-ymm-ymm-ymm-semantics
@@ -4547,6 +4775,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // maxsd-xmm-xmm-semantics
@@ -4563,6 +4792,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setae-r8-semantics
@@ -4579,6 +4809,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmaxsd-xmm-xmm-xmm-semantics
@@ -4649,6 +4880,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmsub231ss-xmm-xmm-xmm-semantics
@@ -4677,6 +4909,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // lzcntw-r16-r16-semantics
@@ -4693,6 +4926,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vmovdqu-ymm-ymm-semantics
@@ -4709,6 +4943,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andps-xmm-xmm-semantics
@@ -4737,6 +4972,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // subb-rh-rh-semantics
@@ -4753,6 +4989,7 @@ convToRegKeys(R2) |-> mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // movswq-r64-r16-semantics
@@ -4769,6 +5006,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( extract
 )
 
     </regstate>
+    
 
 
 // vbroadcastsd-ymm-xmm-semantics
@@ -4795,6 +5033,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpb-r8-r8-semantics
@@ -4811,6 +5050,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovsxdq-xmm-xmm-semantics
@@ -4835,10 +5075,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( lshrMInt( concate
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 32, 33), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 32, 33), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrl-r32-cl-semantics
@@ -4855,10 +5096,11 @@ convToRegKeys(R2) |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclq-r64-cl-semantics
@@ -4875,6 +5117,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmadd231ss-xmm-xmm-xmm-semantics
@@ -4891,6 +5134,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setl-rh-semantics
@@ -4907,6 +5151,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt slt
 )
 
     </regstate>
+    
 
 
 // vpminsd-xmm-xmm-xmm-semantics
@@ -4923,6 +5168,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( mul_double(e
 )
 
     </regstate>
+    
 
 
 // vmulpd-xmm-xmm-xmm-semantics
@@ -4939,6 +5185,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movlhps-xmm-xmm-semantics
@@ -4955,6 +5202,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movb-r8-rh-semantics
@@ -4971,6 +5219,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( sub_double(extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vhsubpd-ymm-ymm-ymm-semantics
@@ -4987,6 +5236,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( sub_double(e
 )
 
     </regstate>
+    
 
 
 // vhsubpd-xmm-xmm-xmm-semantics
@@ -5013,6 +5263,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vtestps-xmm-xmm-semantics
@@ -5029,6 +5280,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vandpd-xmm-xmm-xmm-semantics
@@ -5045,6 +5297,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovq-xmm-xmm-semantics
@@ -5061,6 +5314,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpacksswb-ymm-ymm-ymm-semantics
@@ -5077,6 +5331,7 @@ convToRegKeys(R2) |-> extractMInt( getParentValue(R1, RSMap), 192, 256)
 )
 
     </regstate>
+    
 
 
 // vmovq-r64-xmm-semantics
@@ -5093,6 +5348,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt ((notBool eqMInt(getF
 )
 
     </regstate>
+    
 
 
 // cmoval-r32-r32-semantics
@@ -5109,6 +5365,7 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1,1)) orBool eqM
 )
 
     </regstate>
+    
 
 
 // cmovbeq-r64-r64-semantics
@@ -5125,6 +5382,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setb-r8-semantics
@@ -5141,6 +5399,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vunpcklps-xmm-xmm-xmm-semantics
@@ -5157,6 +5416,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovlew-r16-r16-semantics
@@ -5173,6 +5433,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pblendvb-xmm-xmm-xmm0-semantics
@@ -5189,6 +5450,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( concatenateMIn
 )
 
     </regstate>
+    
 
 
 // vpsubusb-ymm-ymm-ymm-semantics
@@ -5205,6 +5467,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(16, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmovsxbw-ymm-xmm-semantics
@@ -5221,6 +5484,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_t
 )
 
     </regstate>
+    
 
 
 // vcvtpd2ps-xmm-ymm-semantics
@@ -5237,6 +5501,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmsub213sd-xmm-xmm-xmm-semantics
@@ -5253,6 +5518,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt ((notBool eqMInt(getF
 )
 
     </regstate>
+    
 
 
 // cmovnlel-r32-r32-semantics
@@ -5277,10 +5543,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sarw-r16-cl-semantics
@@ -5297,6 +5564,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(60, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // movmskps-r32-xmm-semantics
@@ -5313,6 +5581,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("CF", 
 )
 
     </regstate>
+    
 
 
 // cmovnael-r32-r32-semantics
@@ -5337,10 +5606,11 @@ convToRegKeys(R2) |-> extractMInt( lshrMInt( concatenateMInt( getParentValue(R2,
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrq-r64-cl-semantics
@@ -5357,6 +5627,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_do
 )
 
     </regstate>
+    
 
 
 // vfmsub132pd-xmm-xmm-xmm-semantics
@@ -5373,6 +5644,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("PF", 
 )
 
     </regstate>
+    
 
 
 // cmovpel-r32-r32-semantics
@@ -5389,6 +5661,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaxsw-xmm-xmm-semantics
@@ -5405,6 +5678,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovaeq-r64-r64-semantics
@@ -5421,6 +5695,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movaps-xmm-xmm-semantics
@@ -5437,6 +5712,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpeqb-xmm-xmm-semantics
@@ -5453,6 +5729,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubusb-xmm-xmm-semantics
@@ -5469,6 +5746,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvtsi2ssl-xmm-xmm-r32-semantics
@@ -5485,6 +5763,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // blendvpd-xmm-xmm-xmm0-semantics
@@ -5501,6 +5780,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmadd132_double(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmadd213pd-ymm-ymm-ymm-semantics
@@ -5529,6 +5809,7 @@ convToRegKeys(R1) |-> addMInt(mi(64, 1), negMInt( getParentValue(R1, RSMap)))
 )
 
     </regstate>
+    
 
 
 // negq-r64-semantics
@@ -5543,12 +5824,13 @@ convToRegKeys(R1) |-> addMInt(mi(64, 1), negMInt( getParentValue(R1, RSMap)))
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 31, 32), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 31, 32), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 31, 32), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 31, 32), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // roll-r32-one-semantics
@@ -5565,6 +5847,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovpol-r32-r32-semantics
@@ -5581,6 +5864,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpbroadcastd-xmm-xmm-semantics
@@ -5597,6 +5881,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pslld-xmm-xmm-semantics
@@ -5621,10 +5906,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salb-rh-cl-semantics
@@ -5672,6 +5958,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("SF",
 )
 
     </regstate>
+    
 
 
 // cmovnll-r32-r32-semantics
@@ -5688,6 +5975,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( add_double(e
 )
 
     </regstate>
+    
 
 
 // vhaddpd-xmm-xmm-xmm-semantics
@@ -5704,6 +5992,7 @@ convToRegKeys(R3) |-> xorMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // vxorps-ymm-ymm-ymm-semantics
@@ -5720,6 +6009,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( mulMInt( mi(32, svalueMInt(e
 )
 
     </regstate>
+    
 
 
 // vpmulhw-ymm-ymm-ymm-semantics
@@ -5736,6 +6026,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmadd132_double(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmadd132pd-ymm-ymm-ymm-semantics
@@ -5760,10 +6051,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sarb-rh-cl-semantics
@@ -5780,6 +6072,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnow-r16-r16-semantics
@@ -5810,6 +6103,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // imull-r32-semantics
@@ -5826,6 +6120,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub213_do
 )
 
     </regstate>
+    
 
 
 // vfmsubadd213pd-xmm-xmm-xmm-semantics
@@ -5842,6 +6137,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // minsd-xmm-xmm-semantics
@@ -5858,6 +6154,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vpand-xmm-xmm-xmm-semantics
@@ -5874,6 +6171,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_do
 )
 
     </regstate>
+    
 
 
 // vfmsubadd132pd-xmm-xmm-xmm-semantics
@@ -5890,6 +6188,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvtsi2sdq-xmm-xmm-r64-semantics
@@ -5906,6 +6205,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpaddsb-xmm-xmm-xmm-semantics
@@ -5922,6 +6222,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpminud-ymm-ymm-ymm-semantics
@@ -5938,6 +6239,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setg-rh-semantics
@@ -5966,6 +6268,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sbbb-r8-r8-semantics
@@ -5982,6 +6285,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpcmpeqq-xmm-xmm-xmm-semantics
@@ -5998,6 +6302,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpckhwd-xmm-xmm-semantics
@@ -6026,6 +6331,7 @@ convToRegKeys(R2) |-> xorMInt( subMInt( getParentValue(R1, RSMap), mi(64, 1)), g
 )
 
     </regstate>
+    
 
 
 // blsmskq-r64-r64-semantics
@@ -6042,6 +6348,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setne-r8-semantics
@@ -6118,6 +6425,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movupd-xmm-xmm-semantics
@@ -6134,6 +6442,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddq-xmm-xmm-semantics
@@ -6204,6 +6513,7 @@ convToRegKeys(R3) |-> concatenateMInt( addMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpaddq-ymm-ymm-ymm-semantics
@@ -6220,6 +6530,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmulss-xmm-xmm-xmm-semantics
@@ -6236,6 +6547,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("CF",
 )
 
     </regstate>
+    
 
 
 // cmovnal-r32-r32-semantics
@@ -6252,6 +6564,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movd-r32-xmm-semantics
@@ -6268,6 +6581,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sqrtps-xmm-xmm-semantics
@@ -6284,6 +6598,7 @@ convToRegKeys(R2) |-> (#ifMInt ((notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) 
 )
 
     </regstate>
+    
 
 
 // cmovnbeq-r64-r64-semantics
@@ -6300,10 +6615,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( rol( concatenateM
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 1, 2), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcll-r32-one-semantics
@@ -6320,6 +6636,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_int32_to
 )
 
     </regstate>
+    
 
 
 // vcvtdq2ps-xmm-xmm-semantics
@@ -6336,6 +6653,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // maxss-xmm-xmm-semantics
@@ -6352,6 +6670,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_single_to_int32(extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // vcvtps2dq-ymm-ymm-semantics
@@ -6378,6 +6697,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vucomiss-xmm-xmm-semantics
@@ -6394,6 +6714,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( addMInt( addMInt( 
 )
 
     </regstate>
+    
 
 
 // vpavgb-ymm-ymm-ymm-semantics
@@ -6410,6 +6731,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setg-r8-semantics
@@ -6426,6 +6748,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovzxwq-ymm-xmm-semantics
@@ -6442,6 +6765,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpcmpeqb-ymm-ymm-ymm-semantics
@@ -6458,6 +6782,7 @@ convToRegKeys(R3) |-> concatenateMInt( shlMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpsllvq-ymm-ymm-ymm-semantics
@@ -6474,6 +6799,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsllq-ymm-ymm-xmm-semantics
@@ -6490,6 +6816,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vunpcklpd-xmm-xmm-xmm-semantics
@@ -6506,6 +6833,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_single_to_int32_truncate(extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvttps2dq-ymm-ymm-semantics
@@ -6522,6 +6850,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_single_to_double(extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vcvtps2pd-ymm-xmm-semantics
@@ -6538,6 +6867,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psignw-xmm-xmm-semantics
@@ -6566,6 +6896,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // orb-r8-rh-semantics
@@ -6582,6 +6913,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addsd-xmm-xmm-semantics
@@ -6598,6 +6930,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vmovapd-ymm-ymm-semantics
@@ -6614,6 +6947,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnbe-rh-semantics
@@ -6630,6 +6964,7 @@ convToRegKeys(R2) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpabsb-ymm-ymm-semantics
@@ -6646,6 +6981,7 @@ convToRegKeys(R2) |-> (#ifMInt ((notBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) 
 )
 
     </regstate>
+    
 
 
 // cmovnleq-r64-r64-semantics
@@ -6662,6 +6998,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt slt
 )
 
     </regstate>
+    
 
 
 // vpminsb-xmm-xmm-xmm-semantics
@@ -6686,10 +7023,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( shlMInt( concaten
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shll-r32-cl-semantics
@@ -6706,6 +7044,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_t
 )
 
     </regstate>
+    
 
 
 // vcvtpd2dq-xmm-ymm-semantics
@@ -6722,6 +7061,7 @@ convToRegKeys(R3) |-> concatenateMInt( mulMInt( concatenateMInt( mi(32, 0), extr
 )
 
     </regstate>
+    
 
 
 // vpmuludq-ymm-ymm-ymm-semantics
@@ -6738,6 +7078,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub132_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmsubadd132ps-ymm-ymm-ymm-semantics
@@ -6754,6 +7095,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmuludq-xmm-xmm-semantics
@@ -6770,6 +7112,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vfmaddsub213ps-xmm-xmm-xmm-semantics
@@ -6786,6 +7129,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andnps-xmm-xmm-semantics
@@ -6802,6 +7146,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // sete-rh-semantics
@@ -6818,6 +7163,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub132_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmsub231pd-ymm-ymm-ymm-semantics
@@ -6834,6 +7180,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movdqa-xmm-xmm-semantics
@@ -6862,6 +7209,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // idivb-rh-semantics
@@ -6878,6 +7226,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddw-xmm-xmm-semantics
@@ -6894,6 +7243,7 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("SF", RSMap), mi(1,1)) ==Bool eqM
 )
 
     </regstate>
+    
 
 
 // cmovnlq-r64-r64-semantics
@@ -6910,10 +7260,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorw-r16-cl-semantics
@@ -6942,6 +7293,7 @@ convToRegKeys(R2) |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap)
 )
 
     </regstate>
+    
 
 
 // sbbq-r64-r64-semantics
@@ -6956,12 +7308,13 @@ convToRegKeys(R2) |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap)
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolb-r8-one-semantics
@@ -6978,10 +7331,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), ror( extractMInt( getParentVal
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorl-r32-cl-semantics
@@ -6998,6 +7352,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(32, 0), extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovzxdq-ymm-xmm-semantics
@@ -7014,6 +7369,7 @@ convToRegKeys(R3) |-> xorMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // vxorpd-ymm-ymm-ymm-semantics
@@ -7030,6 +7386,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vphaddsw-xmm-xmm-xmm-semantics
@@ -7046,6 +7403,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpckldq-ymm-ymm-ymm-semantics
@@ -7062,6 +7420,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmadd132_single(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmadd132ps-ymm-ymm-ymm-semantics
@@ -7078,6 +7437,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_half_to_
 )
 
     </regstate>
+    
 
 
 // vcvtph2ps-xmm-xmm-semantics
@@ -7094,6 +7454,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( div_double(e
 )
 
     </regstate>
+    
 
 
 // vdivpd-xmm-xmm-xmm-semantics
@@ -7110,6 +7471,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // stc-semantics
@@ -7126,10 +7488,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( ror( concatenateM
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrl-r32-cl-semantics
@@ -7146,6 +7509,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // por-xmm-xmm-semantics
@@ -7162,6 +7526,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovaps-xmm-xmm-semantics
@@ -7178,6 +7543,7 @@ convToRegKeys(R2) |-> cvt_single_to_int64(extractMInt( getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // cvtss2siq-r64-xmm-semantics
@@ -7194,6 +7560,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( sub_double(e
 )
 
     </regstate>
+    
 
 
 // vsubpd-xmm-xmm-xmm-semantics
@@ -7210,6 +7577,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmovsxwd-ymm-xmm-semantics
@@ -7256,6 +7624,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vphaddw-xmm-xmm-xmm-semantics
@@ -7272,6 +7641,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( add_double(extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vhaddpd-ymm-ymm-ymm-semantics
@@ -7288,6 +7658,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("PF", 
 )
 
     </regstate>
+    
 
 
 // cmovpl-r32-r32-semantics
@@ -7304,6 +7675,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnp-r8-semantics
@@ -7320,6 +7692,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsllw-ymm-ymm-xmm-semantics
@@ -7336,10 +7709,11 @@ convToRegKeys(R2) |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclq-r64-one-semantics
@@ -7356,6 +7730,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movsbw-r16-rh-semantics
@@ -7372,6 +7747,7 @@ convToRegKeys(R2) |-> concatenateMInt( sqrt_single(extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vsqrtps-ymm-ymm-semantics
@@ -7388,10 +7764,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrb-rh-cl-semantics
@@ -7408,6 +7785,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvtss2sd-xmm-xmm-xmm-semantics
@@ -7438,6 +7816,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // idivl-r32-semantics
@@ -7454,6 +7833,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovpow-r16-r16-semantics
@@ -7470,6 +7850,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( add_single(extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vaddsubps-ymm-ymm-ymm-semantics
@@ -7498,6 +7879,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // adcb-r8-r8-semantics
@@ -7514,6 +7896,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // seto-r8-semantics
@@ -7588,6 +7971,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vphsubd-xmm-xmm-xmm-semantics
@@ -7604,6 +7988,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( lshrMInt( ex
 )
 
     </regstate>
+    
 
 
 // vpsrlvq-xmm-xmm-xmm-semantics
@@ -7620,10 +8005,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( ror( concatenateM
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 2, 3), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), mi(33, 1)), 2, 3), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrl-r32-one-semantics
@@ -7640,6 +8026,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), shlMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // shlxl-r32-r32-r32-semantics
@@ -7656,6 +8043,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andpd-xmm-xmm-semantics
@@ -7680,10 +8068,11 @@ convToRegKeys(R2) |-> extractMInt( ashrMInt( concatenateMInt( getParentValue(R2,
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sarq-r64-cl-semantics
@@ -7700,6 +8089,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmsub132ss-xmm-xmm-xmm-semantics
@@ -7716,6 +8106,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaddubsw-xmm-xmm-semantics
@@ -7732,6 +8123,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vunpckhps-xmm-xmm-xmm-semantics
@@ -7748,6 +8140,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vunpckhpd-ymm-ymm-ymm-semantics
@@ -7764,6 +8157,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(224, 0), extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmovd-xmm-r32-semantics
@@ -7780,6 +8174,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vmovshdup-xmm-xmm-semantics
@@ -7796,6 +8191,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), mi(32, svalueMInt(extractMInt(
 )
 
     </regstate>
+    
 
 
 // movswl-r32-r16-semantics
@@ -7812,6 +8208,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setns-r8-semantics
@@ -7828,6 +8225,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmadd132sd-xmm-xmm-xmm-semantics
@@ -7874,6 +8272,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vzeroupper-semantics
@@ -7890,6 +8289,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( addMInt( mi(32, svalueM
 )
 
     </regstate>
+    
 
 
 // vpaddsw-ymm-ymm-ymm-semantics
@@ -7906,6 +8306,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovnzl-r32-r32-semantics
@@ -7922,6 +8323,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaxud-xmm-xmm-semantics
@@ -7938,6 +8340,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd132_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmadd213ps-ymm-ymm-ymm-semantics
@@ -7954,6 +8357,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpckhwd-ymm-ymm-ymm-semantics
@@ -7970,6 +8374,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addps-xmm-xmm-semantics
@@ -7986,6 +8391,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd132_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmadd231ps-ymm-ymm-ymm-semantics
@@ -8002,6 +8408,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), xorMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vxorps-xmm-xmm-xmm-semantics
@@ -8028,6 +8435,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vptest-xmm-xmm-semantics
@@ -8044,6 +8452,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subss-xmm-xmm-semantics
@@ -8060,6 +8469,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // notb-r8-semantics
@@ -8076,6 +8486,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd132_single(mi(32, 
 )
 
     </regstate>
+    
 
 
 // vfmadd231ps-xmm-xmm-xmm-semantics
@@ -8092,6 +8503,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsignb-xmm-xmm-xmm-semantics
@@ -8108,6 +8520,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmulhrsw-xmm-xmm-semantics
@@ -8124,6 +8537,7 @@ convToRegKeys(R2) |-> cvt_single_to_int64_truncate(extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // cvttss2siq-r64-xmm-semantics
@@ -8140,6 +8554,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( mi(128,
 )
 
     </regstate>
+    
 
 
 // vfmsub213pd-xmm-xmm-xmm-semantics
@@ -8182,6 +8597,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvttps2dq-xmm-xmm-semantics
@@ -8198,6 +8614,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cbtw-semantics
@@ -8212,20 +8629,21 @@ RSMap:Map => updateMap(RSMap,
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 9))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlb-r8-one-semantics
@@ -8242,6 +8660,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsllw-xmm-xmm-xmm-semantics
@@ -8258,6 +8677,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_d
 )
 
     </regstate>
+    
 
 
 // vfnmadd132pd-xmm-xmm-xmm-semantics
@@ -8274,6 +8694,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovncw-r16-r16-semantics
@@ -8290,6 +8711,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovups-xmm-xmm-semantics
@@ -8306,6 +8728,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubd-xmm-xmm-semantics
@@ -8322,6 +8745,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovnbl-r32-r32-semantics
@@ -8338,6 +8762,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( mincmp_double(extractMIn
 )
 
     </regstate>
+    
 
 
 // vminpd-ymm-ymm-ymm-semantics
@@ -8354,6 +8779,7 @@ convToRegKeys(R2) |-> extractMInt( getParentValue(R1, RSMap), 192, 256)
 )
 
     </regstate>
+    
 
 
 // movq-r64-xmm-semantics
@@ -8370,6 +8796,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("CF",
 )
 
     </regstate>
+    
 
 
 // cmovbel-r32-r32-semantics
@@ -8386,6 +8813,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmaxss-xmm-xmm-xmm-semantics
@@ -8402,6 +8830,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpmovzxdq-xmm-xmm-semantics
@@ -8418,6 +8847,7 @@ convToRegKeys(R3) |-> concatenateMInt( subMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpsubw-ymm-ymm-ymm-semantics
@@ -8434,6 +8864,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnb-rh-semantics
@@ -8450,6 +8881,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_do
 )
 
     </regstate>
+    
 
 
 // vfmadd132pd-xmm-xmm-xmm-semantics
@@ -8466,6 +8898,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cwtd-semantics
@@ -8482,6 +8915,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( addMInt( mi(16, svalueM
 )
 
     </regstate>
+    
 
 
 // vpaddsb-ymm-ymm-ymm-semantics
@@ -8498,6 +8932,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_double_to_int32_truncate(e
 )
 
     </regstate>
+    
 
 
 // vcvttsd2sil-r32-xmm-semantics
@@ -8514,6 +8949,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // pshufb-xmm-xmm-semantics
@@ -8530,6 +8966,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovgew-r16-r16-semantics
@@ -8546,6 +8983,7 @@ convToRegKeys(R3) |-> extractMInt( lshrMInt( concatenateMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 
 
 // shrxq-r64-r64-r64-semantics
@@ -8562,6 +9000,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnaw-r16-r16-semantics
@@ -8578,6 +9017,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // rcpss-xmm-xmm-semantics
@@ -8594,6 +9034,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovsxbq-xmm-xmm-semantics
@@ -8622,6 +9063,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sbbb-r8-rh-semantics
@@ -8638,6 +9080,7 @@ convToRegKeys(R3) |-> concatenateMInt( lshrMInt( extractMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 
 
 // vpsrlvq-ymm-ymm-ymm-semantics
@@ -8666,6 +9109,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // orb-r8-r8-semantics
@@ -8680,20 +9124,21 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 65)
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 65), mi(64, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 65), mi(64, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlq-r64-one-semantics
@@ -8710,6 +9155,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovnaeq-r64-r64-semantics
@@ -8724,20 +9170,21 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then getPa
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 9))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salb-r8-one-semantics
@@ -8754,6 +9201,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovmskb-r32-ymm-semantics
@@ -8770,6 +9218,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpmovzxbw-xmm-xmm-semantics
@@ -8786,6 +9235,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // movb-rh-rh-semantics
@@ -8814,6 +9264,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // sbbb-rh-r8-semantics
@@ -8840,6 +9291,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // decw-r16-semantics
@@ -8856,6 +9308,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pminub-xmm-xmm-semantics
@@ -8872,6 +9325,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sete-r8-semantics
@@ -8888,6 +9342,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movsldup-xmm-xmm-semantics
@@ -8904,6 +9359,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmsub213sd-xmm-xmm-xmm-semantics
@@ -8920,6 +9376,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psrad-xmm-xmm-semantics
@@ -8936,6 +9393,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("ZF", 
 )
 
     </regstate>
+    
 
 
 // cmovzl-r32-r32-semantics
@@ -8952,6 +9410,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phsubsw-xmm-xmm-semantics
@@ -8968,6 +9427,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnpw-r16-r16-semantics
@@ -8984,6 +9444,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmadd132_single(extrac
 )
 
     </regstate>
+    
 
 
 // vfnmadd213ps-ymm-ymm-ymm-semantics
@@ -9000,6 +9461,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_double_to_int32(extractMIn
 )
 
     </regstate>
+    
 
 
 // cvtsd2sil-r32-xmm-semantics
@@ -9028,6 +9490,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // negb-r8-semantics
@@ -9044,6 +9507,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movhlps-xmm-xmm-semantics
@@ -9072,6 +9536,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // orw-r16-r16-semantics
@@ -9088,6 +9553,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpunpckhwd-xmm-xmm-xmm-semantics
@@ -9104,6 +9570,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( ashrMInt( ex
 )
 
     </regstate>
+    
 
 
 // vpsrad-xmm-xmm-xmm-semantics
@@ -9132,6 +9599,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // andb-rh-rh-semantics
@@ -9148,6 +9616,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movw-r16-r16-semantics
@@ -9178,6 +9647,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // idivw-r16-semantics
@@ -9194,6 +9664,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmovsd-xmm-xmm-xmm-semantics
@@ -9210,6 +9681,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // maxps-xmm-xmm-semantics
@@ -9226,6 +9698,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_do
 )
 
     </regstate>
+    
 
 
 // vfmadd213pd-xmm-xmm-xmm-semantics
@@ -9242,6 +9715,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setng-r8-semantics
@@ -9322,6 +9796,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpb-rh-r8-semantics
@@ -9338,10 +9813,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclb-rh-cl-semantics
@@ -9368,6 +9844,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vcomiss-xmm-xmm-semantics
@@ -9396,6 +9873,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), addMInt(mi(32, 1), negMInt( ex
 )
 
     </regstate>
+    
 
 
 // negl-r32-semantics
@@ -9412,6 +9890,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovzxwq-xmm-xmm-semantics
@@ -9428,6 +9907,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_s
 )
 
     </regstate>
+    
 
 
 // vfnmsub231ps-xmm-xmm-xmm-semantics
@@ -9454,6 +9934,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vtestpd-xmm-xmm-semantics
@@ -9470,6 +9951,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_si
 )
 
     </regstate>
+    
 
 
 // vfmsub231ps-xmm-xmm-xmm-semantics
@@ -9514,20 +9996,21 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt (false orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> mi(1, 0)
 )
 
     </regstate>
+    
 
 
 // sarb-r8-one-semantics
@@ -9544,6 +10027,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmadd132_double(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmadd132pd-ymm-ymm-ymm-semantics
@@ -9558,12 +10042,13 @@ convToRegKeys(R3) |-> concatenateMInt( vfmadd132_double(extractMInt( getParentVa
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1))), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 1, 2), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorb-rh-one-semantics
@@ -9580,6 +10065,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vmaxpd-xmm-xmm-xmm-semantics
@@ -9596,6 +10082,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovnel-r32-r32-semantics
@@ -9612,6 +10099,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmsub132_double(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmsub213pd-ymm-ymm-ymm-semantics
@@ -9628,6 +10116,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmadd132_si
 )
 
     </regstate>
+    
 
 
 // vfmadd132ps-xmm-xmm-xmm-semantics
@@ -9644,6 +10133,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setge-rh-semantics
@@ -9660,6 +10150,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmaxuw-ymm-ymm-ymm-semantics
@@ -9676,6 +10167,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmadd132_single(extrac
 )
 
     </regstate>
+    
 
 
 // vfnmadd231ps-ymm-ymm-ymm-semantics
@@ -9692,6 +10184,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vphsubd-ymm-ymm-ymm-semantics
@@ -9708,6 +10201,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // vmovd-r32-xmm-semantics
@@ -9724,6 +10218,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpcklwd-ymm-ymm-ymm-semantics
@@ -9740,6 +10235,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovsxwd-xmm-xmm-semantics
@@ -9756,6 +10252,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ult
 )
 
     </regstate>
+    
 
 
 // vpminud-xmm-xmm-xmm-semantics
@@ -9772,6 +10269,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnp-rh-semantics
@@ -9788,6 +10286,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpcmpeqd-xmm-xmm-xmm-semantics
@@ -9804,6 +10303,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd213_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmaddsub213pd-ymm-ymm-ymm-semantics
@@ -9820,6 +10320,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( g
 )
 
     </regstate>
+    
 
 
 // vpmovzxbw-ymm-xmm-semantics
@@ -9836,6 +10337,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("ZF",
 )
 
     </regstate>
+    
 
 
 // cmovlel-r32-r32-semantics
@@ -9852,6 +10354,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnae-r8-semantics
@@ -9880,6 +10383,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // negw-r16-semantics
@@ -9896,6 +10400,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vaddsd-xmm-xmm-xmm-semantics
@@ -9912,6 +10417,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psrlq-xmm-xmm-semantics
@@ -9928,6 +10434,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vphsubsw-xmm-xmm-xmm-semantics
@@ -9944,6 +10451,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phaddw-xmm-xmm-semantics
@@ -9960,6 +10468,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // unpckhps-xmm-xmm-semantics
@@ -9976,6 +10485,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psrlw-xmm-xmm-semantics
@@ -9992,6 +10502,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setle-rh-semantics
@@ -10008,6 +10519,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvtsd2ss-xmm-xmm-xmm-semantics
@@ -10024,6 +10536,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpcklbw-ymm-ymm-ymm-semantics
@@ -10040,6 +10553,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psadbw-xmm-xmm-semantics
@@ -10056,6 +10570,7 @@ convToRegKeys(R2) |-> mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // movslq-r64-r32-semantics
@@ -10072,6 +10587,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movddup-xmm-xmm-semantics
@@ -10088,6 +10604,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( addMInt( mi(32, svalueM
 )
 
     </regstate>
+    
 
 
 // vphaddsw-ymm-ymm-ymm-semantics
@@ -10114,6 +10631,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vcomisd-xmm-xmm-semantics
@@ -10130,6 +10648,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_do
 )
 
     </regstate>
+    
 
 
 // vfmadd231pd-xmm-xmm-xmm-semantics
@@ -10146,6 +10665,7 @@ convToRegKeys(R3) |-> andMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // vpand-ymm-ymm-ymm-semantics
@@ -10172,6 +10692,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), addMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // incl-r32-semantics
@@ -10188,6 +10709,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // xorps-xmm-xmm-semantics
@@ -10204,6 +10726,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovmskb-r32-xmm-semantics
@@ -10218,20 +10741,21 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), concatenateMInt( extractMInt( 
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 64)
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 64), mi(64, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 64), mi(64, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrq-r64-one-semantics
@@ -10248,6 +10772,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( getParentValue(R1,
 )
 
     </regstate>
+    
 
 
 // vpermd-ymm-ymm-ymm-semantics
@@ -10294,6 +10819,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_do
 )
 
     </regstate>
+    
 
 
 // vfmsub231pd-xmm-xmm-xmm-semantics
@@ -10310,6 +10836,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMIn
 )
 
     </regstate>
+    
 
 
 // vminps-ymm-ymm-ymm-semantics
@@ -10326,6 +10853,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vmovups-ymm-ymm-semantics
@@ -10342,6 +10870,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // mulps-xmm-xmm-semantics
@@ -10358,6 +10887,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("SF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovnsq-r64-r64-semantics
@@ -10374,6 +10904,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubsw-xmm-xmm-semantics
@@ -10402,6 +10933,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // addb-rh-r8-semantics
@@ -10418,6 +10950,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( addMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpaddd-xmm-xmm-xmm-semantics
@@ -10434,6 +10967,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psllq-xmm-xmm-semantics
@@ -10462,6 +10996,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // imulb-rh-semantics
@@ -10490,6 +11025,7 @@ convToRegKeys(R2) |-> addMInt( concatenateMInt( mi(32, 0), addMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // popcntq-r64-r64-semantics
@@ -10506,6 +11042,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpacksswb-xmm-xmm-xmm-semantics
@@ -10534,6 +11071,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // xorw-r16-r16-semantics
@@ -10550,6 +11088,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtsi2sdl-xmm-r32-semantics
@@ -10566,6 +11105,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmovsxbd-ymm-xmm-semantics
@@ -10582,6 +11122,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("SF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovsq-r64-r64-semantics
@@ -10598,6 +11139,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmaxud-ymm-ymm-ymm-semantics
@@ -10614,6 +11156,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(60, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vmovmskps-r64-xmm-semantics
@@ -10630,6 +11173,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovzxbw-xmm-xmm-semantics
@@ -10646,6 +11190,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(64, svalu
 )
 
     </regstate>
+    
 
 
 // vpmovsxdq-xmm-xmm-semantics
@@ -10662,6 +11207,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmsub213ss-xmm-xmm-xmm-semantics
@@ -10686,10 +11232,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlb-rh-cl-semantics
@@ -10706,6 +11253,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movdqu-xmm-xmm-semantics
@@ -10722,6 +11270,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), mi(32, svalueMInt(extractMInt(
 )
 
     </regstate>
+    
 
 
 // movsbl-r32-rh-semantics
@@ -10738,6 +11287,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setb-rh-semantics
@@ -10754,6 +11304,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpaddsw-xmm-xmm-xmm-semantics
@@ -10784,6 +11335,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // mulq-r64-semantics
@@ -10830,6 +11382,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnlw-r16-r16-semantics
@@ -10846,6 +11399,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpcmpgtd-xmm-xmm-xmm-semantics
@@ -10862,6 +11416,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovngew-r16-r16-semantics
@@ -10878,6 +11433,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovpw-r16-r16-semantics
@@ -10894,6 +11450,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( concatenateMInt( extract
 )
 
     </regstate>
+    
 
 
 // bswap-r64-semantics
@@ -10910,6 +11467,7 @@ convToRegKeys(R2) |-> concatenateMInt( approx_reciprocal_sqrt_single(extractMInt
 )
 
     </regstate>
+    
 
 
 // vrsqrtps-ymm-ymm-semantics
@@ -10926,6 +11484,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psraw-xmm-xmm-semantics
@@ -10952,6 +11511,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vucomisd-xmm-xmm-semantics
@@ -11022,6 +11582,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmadd231ss-xmm-xmm-xmm-semantics
@@ -11038,6 +11599,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( addMInt( mi(32, svalueM
 )
 
     </regstate>
+    
 
 
 // vpmaddubsw-ymm-ymm-ymm-semantics
@@ -11113,6 +11675,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_d
 )
 
     </regstate>
+    
 
 
 // vfnmsub132pd-xmm-xmm-xmm-semantics
@@ -11129,6 +11692,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( concatenateMInt( mi(32, 
 )
 
     </regstate>
+    
 
 
 // bswap-r32-semantics
@@ -11155,6 +11719,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // decb-rh-semantics
@@ -11171,6 +11736,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd132_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmaddsub132pd-ymm-ymm-ymm-semantics
@@ -11187,6 +11753,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vfmsubadd231ps-xmm-xmm-xmm-semantics
@@ -11203,6 +11770,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("CF", 
 )
 
     </regstate>
+    
 
 
 // cmovbl-r32-r32-semantics
@@ -11219,6 +11787,7 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1,1)) orBool (no
 )
 
     </regstate>
+    
 
 
 // cmovleq-r64-r64-semantics
@@ -11235,6 +11804,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_s
 )
 
     </regstate>
+    
 
 
 // vfnmsub213ps-xmm-xmm-xmm-semantics
@@ -11251,6 +11821,7 @@ convToRegKeys(R3) |-> concatenateMInt( mul_double(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vmulpd-ymm-ymm-ymm-semantics
@@ -11265,12 +11836,13 @@ convToRegKeys(R3) |-> concatenateMInt( mul_double(extractMInt( getParentValue(R2
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 15, 16), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 15, 16), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 15, 16), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 15, 16), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolw-r16-one-semantics
@@ -11287,6 +11859,7 @@ convToRegKeys(R2) |-> (#ifMInt ((notBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) 
 )
 
     </regstate>
+    
 
 
 // cmovgq-r64-r64-semantics
@@ -11303,6 +11876,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt ((notBool eqMInt(getF
 )
 
     </regstate>
+    
 
 
 // cmovnbel-r32-r32-semantics
@@ -11331,6 +11905,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // andl-r32-r32-semantics
@@ -11347,6 +11922,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pxor-xmm-xmm-semantics
@@ -11363,6 +11939,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpcmpgtq-xmm-xmm-xmm-semantics
@@ -11379,6 +11956,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( mul_single(e
 )
 
     </regstate>
+    
 
 
 // vmulps-xmm-xmm-xmm-semantics
@@ -11409,6 +11987,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // idivq-r64-semantics
@@ -11425,6 +12004,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vmovddup-ymm-ymm-semantics
@@ -11441,6 +12021,7 @@ convToRegKeys(R3) |-> concatenateMInt( addMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpaddb-ymm-ymm-ymm-semantics
@@ -11469,6 +12050,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addb-r8-rh-semantics
@@ -11497,6 +12079,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addw-r16-r16-semantics
@@ -11513,6 +12096,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpcklbw-xmm-xmm-semantics
@@ -11529,6 +12113,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpmovzxbd-xmm-xmm-semantics
@@ -11545,6 +12130,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cltd-semantics
@@ -11561,6 +12147,7 @@ convToRegKeys(R3) |-> concatenateMInt( lshrMInt( extractMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 
 
 // vpsrlvd-ymm-ymm-ymm-semantics
@@ -11607,6 +12194,7 @@ convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vblendvpd-ymm-ymm-ymm-ymm-semantics
@@ -11623,6 +12211,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( lshrMInt( ex
 )
 
     </regstate>
+    
 
 
 // vpsrlvd-xmm-xmm-xmm-semantics
@@ -11653,6 +12242,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // mulw-r16-semantics
@@ -11732,6 +12322,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpunpcklqdq-xmm-xmm-xmm-semantics
@@ -11748,6 +12339,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( maxcmp_double(extractMIn
 )
 
     </regstate>
+    
 
 
 // vmaxpd-ymm-ymm-ymm-semantics
@@ -11764,6 +12356,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( add_double(extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vaddsubpd-ymm-ymm-ymm-semantics
@@ -11780,6 +12373,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("PF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovnpq-r64-r64-semantics
@@ -11796,10 +12390,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rclb-r8-cl-semantics
@@ -11816,6 +12411,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtpd2ps-xmm-xmm-semantics
@@ -11830,20 +12426,21 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8)), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 8), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrb-rh-one-semantics
@@ -11860,6 +12457,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmovhlps-xmm-xmm-xmm-semantics
@@ -11900,6 +12498,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // imulq-r64-semantics
@@ -11914,20 +12513,21 @@ RSMap:Map => updateMap(RSMap,
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 9)), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salb-rh-one-semantics
@@ -11998,6 +12598,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sqrtsd-xmm-xmm-semantics
@@ -12014,6 +12615,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_double_t
 )
 
     </regstate>
+    
 
 
 // vcvtpd2ps-xmm-xmm-semantics
@@ -12030,6 +12632,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_si
 )
 
     </regstate>
+    
 
 
 // vfmsub213ps-xmm-xmm-xmm-semantics
@@ -12056,6 +12659,7 @@ convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uva
 )
 
     </regstate>
+    
 
 
 // btsq-r64-r64-semantics
@@ -12072,6 +12676,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( extract
 )
 
     </regstate>
+    
 
 
 // vmovsldup-ymm-ymm-semantics
@@ -12088,6 +12693,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vphaddw-ymm-ymm-ymm-semantics
@@ -12104,6 +12710,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_s
 )
 
     </regstate>
+    
 
 
 // vfnmadd132ps-xmm-xmm-xmm-semantics
@@ -12120,6 +12727,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovaw-r16-r16-semantics
@@ -12144,10 +12752,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salb-r8-cl-semantics
@@ -12164,6 +12773,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpbroadcastw-xmm-xmm-semantics
@@ -12192,6 +12802,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // divb-r8-semantics
@@ -12220,6 +12831,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 6
 )
 
     </regstate>
+    
 
 
 // tzcntq-r64-r64-semantics
@@ -12236,6 +12848,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovapd-xmm-xmm-semantics
@@ -12252,6 +12865,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), negMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // notl-r32-semantics
@@ -12323,6 +12937,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setbe-r8-semantics
@@ -12339,6 +12954,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmsub132_double(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmsub132pd-ymm-ymm-ymm-semantics
@@ -12365,6 +12981,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // btsw-r16-r16-semantics
@@ -12381,6 +12998,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubsb-xmm-xmm-semantics
@@ -12397,6 +13015,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnl-rh-semantics
@@ -12413,6 +13032,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmsub132sd-xmm-xmm-xmm-semantics
@@ -12429,6 +13049,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 
 
 // vpabsb-xmm-xmm-semantics
@@ -12445,6 +13066,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // sets-r8-semantics
@@ -12461,6 +13083,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phaddd-xmm-xmm-semantics
@@ -12477,6 +13100,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt slt
 )
 
     </regstate>
+    
 
 
 // vpminsw-xmm-xmm-xmm-semantics
@@ -12493,6 +13117,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovsw-r16-r16-semantics
@@ -12509,6 +13134,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtsi2ssl-xmm-r32-semantics
@@ -12537,6 +13163,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // adcb-rh-r8-semantics
@@ -12553,6 +13180,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(64, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmovsxbq-ymm-xmm-semantics
@@ -12581,6 +13209,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 6
 )
 
     </regstate>
+    
 
 
 // tzcntl-r32-r32-semantics
@@ -12597,6 +13226,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpbroadcastb-xmm-xmm-semantics
@@ -12613,6 +13243,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmadd132_double(extrac
 )
 
     </regstate>
+    
 
 
 // vfnmadd231pd-ymm-ymm-ymm-semantics
@@ -12641,6 +13272,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andb-r8-r8-semantics
@@ -12681,6 +13313,7 @@ convToRegKeys(R2) |-> concatenateMInt( sqrt_double(extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vsqrtpd-ymm-ymm-semantics
@@ -12697,6 +13330,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_d
 )
 
     </regstate>
+    
 
 
 // vfnmsub231pd-xmm-xmm-xmm-semantics
@@ -12713,6 +13347,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_double_t
 )
 
     </regstate>
+    
 
 
 // vcvtpd2dqx-xmm-xmm-semantics
@@ -12729,6 +13364,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vbroadcastss-xmm-xmm-semantics
@@ -12745,6 +13381,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovbw-r16-r16-semantics
@@ -12771,6 +13408,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // btrl-r32-r32-semantics
@@ -12787,6 +13425,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_single_to_int32(extractMIn
 )
 
     </regstate>
+    
 
 
 // vcvtss2sil-r32-xmm-semantics
@@ -12803,6 +13442,7 @@ convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentVal
 )
 
     </regstate>
+    
 
 
 // vandnps-ymm-ymm-ymm-semantics
@@ -12819,6 +13459,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setpo-rh-semantics
@@ -12835,6 +13476,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // haddpd-xmm-xmm-semantics
@@ -12851,6 +13493,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpcklwd-xmm-xmm-semantics
@@ -12867,6 +13510,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_double_to_int32_truncate(e
 )
 
     </regstate>
+    
 
 
 // cvttsd2sil-r32-xmm-semantics
@@ -12883,6 +13527,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // divsd-xmm-xmm-semantics
@@ -12899,6 +13544,7 @@ convToRegKeys(R3) |-> concatenateMInt( mul_single(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vmulps-ymm-ymm-ymm-semantics
@@ -12915,6 +13561,7 @@ convToRegKeys(R2) |-> cvt_double_to_int64(extractMInt( getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vcvtsd2siq-r64-xmm-semantics
@@ -12931,6 +13578,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_single_to_int32_truncate(e
 )
 
     </regstate>
+    
 
 
 // cvttss2sil-r32-xmm-semantics
@@ -12947,6 +13595,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmaxsb-ymm-ymm-ymm-semantics
@@ -12963,6 +13612,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ult
 )
 
     </regstate>
+    
 
 
 // vphminposuw-xmm-xmm-semantics
@@ -12979,6 +13629,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // rsqrtss-xmm-xmm-semantics
@@ -12995,6 +13646,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpmulhuw-xmm-xmm-xmm-semantics
@@ -13011,6 +13663,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sltMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpminsd-ymm-ymm-ymm-semantics
@@ -13027,6 +13680,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpackuswb-ymm-ymm-ymm-semantics
@@ -13043,6 +13697,7 @@ convToRegKeys(R2) |-> cvt_single_to_int64_truncate(extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vcvttss2siq-r64-xmm-semantics
@@ -13071,6 +13726,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( addMInt(mi(32, 1), ne
 )
 
     </regstate>
+    
 
 
 // blsil-r32-r32-semantics
@@ -13087,6 +13743,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setp-rh-semantics
@@ -13103,6 +13760,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vrsqrtss-xmm-xmm-xmm-semantics
@@ -13133,6 +13791,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // divw-r16-semantics
@@ -13161,6 +13820,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), (#ifMInt ultMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // bzhil-r32-r32-r32-semantics
@@ -13177,6 +13837,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovzq-r64-r64-semantics
@@ -13193,6 +13854,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddusb-xmm-xmm-semantics
@@ -13209,6 +13871,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( addMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpaddb-xmm-xmm-xmm-semantics
@@ -13225,6 +13888,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpgtq-xmm-xmm-semantics
@@ -13253,6 +13917,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( addMInt( concaten
 )
 
     </regstate>
+    
 
 
 // addl-r32-r32-semantics
@@ -13269,6 +13934,7 @@ convToRegKeys(R3) |-> orMInt( getParentValue(R2, RSMap), getParentValue(R1, RSMa
 )
 
     </regstate>
+    
 
 
 // vpor-ymm-ymm-ymm-semantics
@@ -13285,6 +13951,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // unpcklps-xmm-xmm-semantics
@@ -13301,6 +13968,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpsadbw-xmm-xmm-xmm-semantics
@@ -13317,6 +13985,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // divps-xmm-xmm-semantics
@@ -13345,6 +14014,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // orb-rh-r8-semantics
@@ -13361,6 +14031,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovgw-r16-r16-semantics
@@ -13407,20 +14078,21 @@ convToRegKeys(R1) |-> getParentValue(R1, RSMap)
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 9)), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 8, 9), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 7, 8), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 6, 7), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 5, 6), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 4, 5), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 3, 4), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 2, 3), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 9), mi(8, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56)), uvalueMInt(mi(9, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlb-rh-one-semantics
@@ -13437,6 +14109,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), orMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // vorpd-xmm-xmm-xmm-semantics
@@ -13453,6 +14126,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vphsubw-ymm-ymm-ymm-semantics
@@ -13469,6 +14143,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmaxsw-ymm-ymm-ymm-semantics
@@ -13497,6 +14172,7 @@ convToRegKeys(R2) |-> extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap)
 )
 
     </regstate>
+    
 
 
 // adcq-r64-r64-semantics
@@ -13513,6 +14189,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pminsw-xmm-xmm-semantics
@@ -13529,6 +14206,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool (eqMInt(getF
 )
 
     </regstate>
+    
 
 
 // cmovll-r32-r32-semantics
@@ -13545,10 +14223,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( rol( concatenateM
 
 "CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 32, 64)), uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(33, 33)), 25, 33), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcll-r32-cl-semantics
@@ -13565,10 +14244,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 2, 3), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 56)), mi(9, 1)), 2, 3), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrb-rh-one-semantics
@@ -13585,6 +14265,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovsxbd-xmm-xmm-semantics
@@ -13601,6 +14282,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmsub132_double(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmsub132pd-ymm-ymm-ymm-semantics
@@ -13673,6 +14355,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movq-xmm-r64-semantics
@@ -13689,6 +14372,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movss-xmm-xmm-semantics
@@ -13715,6 +14399,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // ucomiss-xmm-xmm-semantics
@@ -13731,6 +14416,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 2
 )
 
     </regstate>
+    
 
 
 // vpbroadcastw-ymm-xmm-semantics
@@ -13772,6 +14458,7 @@ convToRegKeys(R3) |-> concatenateMInt( sub_double(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vsubpd-ymm-ymm-ymm-semantics
@@ -13788,6 +14475,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpckhqdq-xmm-xmm-semantics
@@ -13804,6 +14492,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setno-rh-semantics
@@ -13830,6 +14519,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), xorMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // btcl-r32-r32-semantics
@@ -13846,6 +14536,7 @@ convToRegKeys(R1) |-> negMInt( getParentValue(R1, RSMap))
 )
 
     </regstate>
+    
 
 
 // notq-r64-semantics
@@ -13862,6 +14553,7 @@ convToRegKeys(R2) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpabsw-ymm-ymm-semantics
@@ -13878,6 +14570,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnge-rh-semantics
@@ -13894,10 +14587,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), rol( extractMInt( getParentVal
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 31, 32), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 31, 32), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 32, 64), concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 31, 32), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // roll-r32-cl-semantics
@@ -13924,6 +14618,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testb-rh-rh-semantics
@@ -13952,6 +14647,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andb-r8-rh-semantics
@@ -13968,6 +14664,7 @@ convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentVal
 )
 
     </regstate>
+    
 
 
 // vandnpd-ymm-ymm-ymm-semantics
@@ -13992,10 +14689,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( shlMInt( concaten
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 32))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sall-r32-cl-semantics
@@ -14012,6 +14710,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpgtb-xmm-xmm-semantics
@@ -14028,6 +14727,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ult
 )
 
     </regstate>
+    
 
 
 // vpminub-xmm-xmm-xmm-semantics
@@ -14114,6 +14814,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // imulb-r8-semantics
@@ -14130,6 +14831,7 @@ convToRegKeys(R3) |-> concatenateMInt( subMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpsubq-ymm-ymm-ymm-semantics
@@ -14146,6 +14848,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // seta-r8-semantics
@@ -14162,6 +14865,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), orMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // vorps-xmm-xmm-xmm-semantics
@@ -14178,6 +14882,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovzw-r16-r16-semantics
@@ -14212,10 +14917,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 16))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salw-r16-cl-semantics
@@ -14232,6 +14938,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vmovsldup-xmm-xmm-semantics
@@ -14248,6 +14955,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // minpd-xmm-xmm-semantics
@@ -14264,6 +14972,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vdivss-xmm-xmm-xmm-semantics
@@ -14280,6 +14989,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmovddup-xmm-xmm-semantics
@@ -14296,6 +15006,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmsub132sd-xmm-xmm-xmm-semantics
@@ -14312,6 +15023,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovneq-r64-r64-semantics
@@ -14328,6 +15040,7 @@ convToRegKeys(R3) |-> andMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // vandpd-ymm-ymm-ymm-semantics
@@ -14344,6 +15057,7 @@ convToRegKeys(R2) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpabsd-ymm-ymm-semantics
@@ -14360,6 +15074,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setno-r8-semantics
@@ -14376,6 +15091,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmadd132_double(mi(64,
 )
 
     </regstate>
+    
 
 
 // vfnmadd231pd-xmm-xmm-xmm-semantics
@@ -14392,6 +15108,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vcvtsi2sdl-xmm-xmm-r32-semantics
@@ -14408,6 +15125,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 
 
 // vpabsd-xmm-xmm-semantics
@@ -14424,6 +15142,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(56, 0), extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovzxbq-ymm-xmm-semantics
@@ -14440,6 +15159,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtdq2pd-xmm-xmm-semantics
@@ -14456,6 +15176,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmsub132_single(extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vfnmsub132ps-ymm-ymm-ymm-semantics
@@ -14526,6 +15247,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpcmpeqd-ymm-ymm-ymm-semantics
@@ -14542,6 +15264,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmadd132_d
 )
 
     </regstate>
+    
 
 
 // vfnmadd213pd-xmm-xmm-xmm-semantics
@@ -14566,6 +15289,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // btq-r64-r64-semantics
@@ -14582,6 +15306,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movd-xmm-r32-semantics
@@ -14598,6 +15323,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cqto-semantics
@@ -14614,6 +15340,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_double_t
 )
 
     </regstate>
+    
 
 
 // vcvttpd2dq-xmm-xmm-semantics
@@ -14630,6 +15357,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( mulMInt( mi(
 )
 
     </regstate>
+    
 
 
 // vpmuldq-xmm-xmm-xmm-semantics
@@ -14646,6 +15374,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtsd2ss-xmm-xmm-semantics
@@ -14662,6 +15391,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setns-rh-semantics
@@ -14678,6 +15408,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("SF", 
 )
 
     </regstate>
+    
 
 
 // cmovsl-r32-r32-semantics
@@ -14706,6 +15437,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andw-r16-r16-semantics
@@ -14722,6 +15454,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmadd132_double(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmadd231pd-ymm-ymm-ymm-semantics
@@ -14736,20 +15469,21 @@ convToRegKeys(R3) |-> concatenateMInt( vfmadd132_double(extractMInt( getParentVa
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 17))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 17), mi(16, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 17), mi(16, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salw-r16-one-semantics
@@ -14766,6 +15500,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpckhqdq-ymm-ymm-ymm-semantics
@@ -14782,6 +15517,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psllw-xmm-xmm-semantics
@@ -14798,6 +15534,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // divpd-xmm-xmm-semantics
@@ -14814,6 +15551,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpslld-xmm-xmm-xmm-semantics
@@ -14830,6 +15568,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovzxbd-xmm-xmm-semantics
@@ -14846,6 +15585,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddsb-xmm-xmm-semantics
@@ -14916,6 +15656,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cwtl-semantics
@@ -14932,6 +15673,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vphsubw-xmm-xmm-xmm-semantics
@@ -14948,6 +15690,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmadd231_do
 )
 
     </regstate>
+    
 
 
 // vfmaddsub231pd-xmm-xmm-xmm-semantics
@@ -14964,6 +15707,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpckhdq-xmm-xmm-semantics
@@ -14980,6 +15724,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // rsqrtps-xmm-xmm-semantics
@@ -14996,6 +15741,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setz-r8-semantics
@@ -15012,6 +15758,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vaddsubps-xmm-xmm-xmm-semantics
@@ -15036,6 +15783,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // btl-r32-r32-semantics
@@ -15052,10 +15800,11 @@ convToRegKeys(R2) |-> rol( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0)
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 63, 64), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 63, 64), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), concatenateMInt( mi(56, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)))), 63, 64), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolq-r64-cl-semantics
@@ -15084,6 +15833,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // negb-rh-semantics
@@ -15100,6 +15850,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movzbw-r16-rh-semantics
@@ -15116,10 +15867,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(9, 9)), 1, 9), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrb-r8-cl-semantics
@@ -15136,6 +15888,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpackuswb-xmm-xmm-xmm-semantics
@@ -15152,6 +15905,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsubsb-xmm-xmm-xmm-semantics
@@ -15180,6 +15934,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // xorb-r8-r8-semantics
@@ -15196,6 +15951,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovzxbq-xmm-xmm-semantics
@@ -15212,6 +15968,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // orps-xmm-xmm-semantics
@@ -15228,6 +15985,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( addMInt( addMInt( 
 )
 
     </regstate>
+    
 
 
 // vpavgw-ymm-ymm-ymm-semantics
@@ -15256,6 +16014,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subb-r8-r8-semantics
@@ -15284,6 +16043,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // andb-rh-r8-semantics
@@ -15300,6 +16060,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmulhw-xmm-xmm-semantics
@@ -15316,6 +16077,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubusw-xmm-xmm-semantics
@@ -15332,10 +16094,11 @@ convToRegKeys(R2) |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrq-r64-cl-semantics
@@ -15352,6 +16115,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovdqu-xmm-xmm-semantics
@@ -15378,6 +16142,7 @@ convToRegKeys(R1) |-> subMInt( getParentValue(R1, RSMap), mi(64, 1))
 )
 
     </regstate>
+    
 
 
 // decq-r64-semantics
@@ -15394,6 +16159,7 @@ convToRegKeys(R3) |-> concatenateMInt( add_double(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vaddpd-ymm-ymm-ymm-semantics
@@ -15410,6 +16176,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmoveq-r64-r64-semantics
@@ -15426,6 +16193,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpeqw-xmm-xmm-semantics
@@ -15442,6 +16210,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pminsb-xmm-xmm-semantics
@@ -15456,12 +16225,13 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 1, 2), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorw-r16-one-semantics
@@ -15478,6 +16248,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vphaddd-xmm-xmm-xmm-semantics
@@ -15492,20 +16263,21 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 8, 9), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 8, 9), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16), mi(16, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16), mi(16, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrw-r16-one-semantics
@@ -15522,6 +16294,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpbroadcastq-ymm-xmm-semantics
@@ -15538,6 +16311,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovnzq-r64-r64-semantics
@@ -15554,6 +16328,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // divss-xmm-xmm-semantics
@@ -15570,6 +16345,7 @@ convToRegKeys(R3) |-> concatenateMInt( div_single(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vdivps-ymm-ymm-ymm-semantics
@@ -15586,6 +16362,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(32, svalu
 )
 
     </regstate>
+    
 
 
 // vpmovsxbd-xmm-xmm-semantics
@@ -15602,6 +16379,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // minps-xmm-xmm-semantics
@@ -15630,6 +16408,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // imulw-r16-r16-semantics
@@ -15646,6 +16425,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddusw-xmm-xmm-semantics
@@ -15672,6 +16452,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // comiss-xmm-xmm-semantics
@@ -15688,6 +16469,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpckldq-xmm-xmm-semantics
@@ -15704,6 +16486,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmsub132ss-xmm-xmm-xmm-semantics
@@ -15738,10 +16521,11 @@ convToRegKeys(R2) |-> extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParent
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlq-r64-cl-semantics
@@ -15768,6 +16552,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // decb-r8-semantics
@@ -15784,6 +16569,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub231_do
 )
 
     </regstate>
+    
 
 
 // vfmsubadd231pd-xmm-xmm-xmm-semantics
@@ -15800,6 +16586,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsrlq-ymm-ymm-xmm-semantics
@@ -15828,6 +16615,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // subb-rh-r8-semantics
@@ -15844,6 +16632,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmuldq-xmm-xmm-semantics
@@ -15860,6 +16649,7 @@ convToRegKeys(R3) |-> concatenateMInt( subMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpsubb-ymm-ymm-ymm-semantics
@@ -15876,6 +16666,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pabsd-xmm-xmm-semantics
@@ -15892,6 +16683,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovnpl-r32-r32-semantics
@@ -15908,6 +16700,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnaew-r16-r16-semantics
@@ -15924,6 +16717,7 @@ convToRegKeys(R3) |-> ashrMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( g
 )
 
     </regstate>
+    
 
 
 // sarxq-r64-r64-r64-semantics
@@ -15940,6 +16734,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpcmpeqw-ymm-ymm-ymm-semantics
@@ -15956,6 +16751,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmc-semantics
@@ -15972,10 +16768,11 @@ convToRegKeys(R2) |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrq-r64-one-semantics
@@ -16004,6 +16801,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // divb-rh-semantics
@@ -16020,10 +16818,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 7, 8), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 7, 8), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 7, 8), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolb-r8-cl-semantics
@@ -16040,6 +16839,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfnmsub132_d
 )
 
     </regstate>
+    
 
 
 // vfnmsub213pd-xmm-xmm-xmm-semantics
@@ -16056,6 +16856,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt ((notBool eqMInt(getF
 )
 
     </regstate>
+    
 
 
 // cmovgl-r32-r32-semantics
@@ -16072,6 +16873,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpshufb-xmm-xmm-xmm-semantics
@@ -16102,6 +16904,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // mull-r32-semantics
@@ -16118,6 +16921,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaxsd-xmm-xmm-semantics
@@ -16134,6 +16938,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmsub132_double(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmsub213pd-ymm-ymm-ymm-semantics
@@ -16150,6 +16955,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsubsw-xmm-xmm-xmm-semantics
@@ -16166,6 +16972,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool (eqMInt(getF
 )
 
     </regstate>
+    
 
 
 // cmovngel-r32-r32-semantics
@@ -16182,6 +16989,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setc-r8-semantics
@@ -16198,6 +17006,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnb-r8-semantics
@@ -16214,6 +17023,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddsw-xmm-xmm-semantics
@@ -16230,10 +17040,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorb-rh-cl-semantics
@@ -16250,6 +17061,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpunpckhdq-ymm-ymm-ymm-semantics
@@ -16266,6 +17078,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vrcpss-xmm-xmm-xmm-semantics
@@ -16292,6 +17105,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testb-r8-rh-semantics
@@ -16308,6 +17122,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( add_double(e
 )
 
     </regstate>
+    
 
 
 // vaddsubpd-xmm-xmm-xmm-semantics
@@ -16324,6 +17139,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setbe-rh-semantics
@@ -16340,6 +17156,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( mulMInt( mi(64, svalueMInt(e
 )
 
     </regstate>
+    
 
 
 // vpmulld-ymm-ymm-ymm-semantics
@@ -16356,6 +17173,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( addMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpaddq-xmm-xmm-xmm-semantics
@@ -16372,6 +17190,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(64, svalu
 )
 
     </regstate>
+    
 
 
 // vpmovsxwq-xmm-xmm-semantics
@@ -16388,6 +17207,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpmovzxwd-xmm-xmm-semantics
@@ -16404,6 +17224,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // pmovmskb-r32-xmm-semantics
@@ -16430,6 +17251,7 @@ convToRegKeys(R1) |-> addMInt( getParentValue(R1, RSMap), mi(64, 1))
 )
 
     </regstate>
+    
 
 
 // incq-r64-semantics
@@ -16446,6 +17268,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovcw-r16-r16-semantics
@@ -16462,6 +17285,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubq-xmm-xmm-semantics
@@ -16490,6 +17314,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( addMInt( (#ifMInt
 )
 
     </regstate>
+    
 
 
 // adcl-r32-r32-semantics
@@ -16506,6 +17331,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vphaddd-ymm-ymm-ymm-semantics
@@ -16522,6 +17348,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setp-r8-semantics
@@ -16538,6 +17365,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // notw-r16-semantics
@@ -16554,6 +17382,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovbew-r16-r16-semantics
@@ -16570,6 +17399,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmadd213sd-xmm-xmm-xmm-semantics
@@ -16586,6 +17416,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnlew-r16-r16-semantics
@@ -16602,6 +17433,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addsubps-xmm-xmm-semantics
@@ -16649,6 +17481,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( addMInt( co
 )
 
     </regstate>
+    
 
 
 // vpaddusb-ymm-ymm-ymm-semantics
@@ -16665,6 +17498,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movb-r8-r8-semantics
@@ -16681,6 +17515,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), xorMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vxorpd-xmm-xmm-xmm-semantics
@@ -16697,6 +17532,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vunpcklpd-ymm-ymm-ymm-semantics
@@ -16713,6 +17549,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movzbl-r32-r8-semantics
@@ -16729,6 +17566,7 @@ convToRegKeys(R3) |-> concatenateMInt( ashrMInt( extractMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 
 
 // vpsravd-ymm-ymm-ymm-semantics
@@ -16757,6 +17595,7 @@ convToRegKeys(R3) |-> andMInt( extractMInt( lshrMInt( concatenateMInt( mi(448, 0
 )
 
     </regstate>
+    
 
 
 // bextrq-r64-r64-r64-semantics
@@ -16773,6 +17612,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // subpd-xmm-xmm-semantics
@@ -16789,6 +17629,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movsd-xmm-xmm-semantics
@@ -16805,6 +17646,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmsub132_si
 )
 
     </regstate>
+    
 
 
 // vfmsub132ps-xmm-xmm-xmm-semantics
@@ -16821,6 +17663,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmsub231ss-xmm-xmm-xmm-semantics
@@ -16837,6 +17680,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnbew-r16-r16-semantics
@@ -16853,6 +17697,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpmaxub-ymm-ymm-ymm-semantics
@@ -16869,6 +17714,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpmulhw-xmm-xmm-xmm-semantics
@@ -16885,6 +17731,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(16, svalu
 )
 
     </regstate>
+    
 
 
 // vpmovsxbw-xmm-xmm-semantics
@@ -16911,6 +17758,7 @@ convToRegKeys(R2) |-> andMInt( getParentValue(R2, RSMap), negMInt( shlMInt( mi(6
 )
 
     </regstate>
+    
 
 
 // btrq-r64-r64-semantics
@@ -16927,6 +17775,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaddwd-xmm-xmm-semantics
@@ -16955,6 +17804,7 @@ convToRegKeys(R2) |-> andMInt( addMInt(mi(64, 1), negMInt( getParentValue(R1, RS
 )
 
     </regstate>
+    
 
 
 // blsiq-r64-r64-semantics
@@ -16971,10 +17821,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 48, 64)), uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrw-r16-cl-semantics
@@ -17003,6 +17854,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // adcb-rh-rh-semantics
@@ -17031,6 +17883,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( negMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // andnl-r32-r32-r32-semantics
@@ -17047,6 +17900,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnew-r16-r16-semantics
@@ -17063,6 +17917,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpermilps-ymm-ymm-ymm-semantics
@@ -17079,6 +17934,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnsw-r16-r16-semantics
@@ -17107,6 +17963,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // orb-rh-rh-semantics
@@ -17123,6 +17980,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmadd132ss-xmm-xmm-xmm-semantics
@@ -17139,6 +17997,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ult
 )
 
     </regstate>
+    
 
 
 // vpminuw-xmm-xmm-xmm-semantics
@@ -17155,6 +18014,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpackssdw-xmm-xmm-xmm-semantics
@@ -17171,6 +18031,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // vmovdqa-xmm-xmm-semantics
@@ -17187,6 +18048,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setna-r8-semantics
@@ -17203,6 +18065,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpmaxsd-xmm-xmm-xmm-semantics
@@ -17229,6 +18092,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), subMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // decl-r32-semantics
@@ -17255,6 +18119,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParent
 )
 
     </regstate>
+    
 
 
 // btsl-r32-r32-semantics
@@ -17283,6 +18148,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // mulb-rh-semantics
@@ -17299,6 +18165,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 
 
 // vpmaxub-xmm-xmm-xmm-semantics
@@ -17315,6 +18182,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpcmpeqw-xmm-xmm-xmm-semantics
@@ -17331,6 +18199,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovael-r32-r32-semantics
@@ -17347,6 +18216,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setc-rh-semantics
@@ -17363,6 +18233,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // maxpd-xmm-xmm-semantics
@@ -17377,12 +18248,13 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> ror( getParentValue(R2, RSMap), mi(64, 1))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( getParentValue(R2, RSMap), mi(64, 1)), 1, 2), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( getParentValue(R2, RSMap), mi(64, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorq-r64-one-semantics
@@ -17407,10 +18279,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrb-rh-cl-semantics
@@ -17427,6 +18300,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(64, svalu
 )
 
     </regstate>
+    
 
 
 // vpmovsxbq-xmm-xmm-semantics
@@ -17443,6 +18317,7 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1,1)) orBool (no
 )
 
     </regstate>
+    
 
 
 // cmovngq-r64-r64-semantics
@@ -17457,20 +18332,21 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("ZF", RSMap), mi(1,1)) orBool (no
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 17))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 17), mi(16, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 17), mi(16, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64)), uvalueMInt(mi(17, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlw-r16-one-semantics
@@ -17487,6 +18363,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vmovmskps-r32-ymm-semantics
@@ -17503,6 +18380,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsrlw-xmm-xmm-xmm-semantics
@@ -17519,6 +18397,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmovlhps-xmm-xmm-xmm-semantics
@@ -17533,20 +18412,21 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 16, 17), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 8, 9), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 8, 9), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16), mi(16, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16), mi(16, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt (false orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> mi(1, 0)
 )
 
     </regstate>
+    
 
 
 // sarw-r16-one-semantics
@@ -17575,6 +18455,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( lshrMInt
 )
 
     </regstate>
+    
 
 
 // bextrl-r32-r32-r32-semantics
@@ -17645,6 +18526,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpermilpd-xmm-xmm-xmm-semantics
@@ -17661,6 +18543,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpeqd-xmm-xmm-semantics
@@ -17677,6 +18560,7 @@ convToRegKeys(R3) |-> concatenateMInt( add_single(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vaddps-ymm-ymm-ymm-semantics
@@ -17693,6 +18577,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cltq-semantics
@@ -17709,6 +18594,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpavgb-xmm-xmm-xmm-semantics
@@ -17733,10 +18619,11 @@ convToRegKeys(R2) |-> extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParent
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), getParentValue(R2, RSMap)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // salq-r64-cl-semantics
@@ -17753,6 +18640,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( add_double(e
 )
 
     </regstate>
+    
 
 
 // vaddpd-xmm-xmm-xmm-semantics
@@ -17769,6 +18657,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmsub231sd-xmm-xmm-xmm-semantics
@@ -17785,6 +18674,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // mulsd-xmm-xmm-semantics
@@ -17801,6 +18691,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vfmaddsub132ps-xmm-xmm-xmm-semantics
@@ -17817,6 +18708,7 @@ convToRegKeys(R3) |-> concatenateMInt( addMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpaddd-ymm-ymm-ymm-semantics
@@ -17833,6 +18725,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vmovupd-ymm-ymm-semantics
@@ -17849,6 +18742,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool (eqMInt(getFlag("SF", RSMap), mi(1,1)) =
 )
 
     </regstate>
+    
 
 
 // cmovlq-r64-r64-semantics
@@ -17875,6 +18769,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpb-rh-rh-semantics
@@ -17903,6 +18798,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // adcw-r16-r16-semantics
@@ -17919,6 +18815,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vminss-xmm-xmm-xmm-semantics
@@ -17935,6 +18832,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpcmpgtq-ymm-ymm-ymm-semantics
@@ -17951,6 +18849,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), xorMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // vpxor-xmm-xmm-xmm-semantics
@@ -17967,6 +18866,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addsubpd-xmm-xmm-semantics
@@ -17983,6 +18883,7 @@ convToRegKeys(R2) |-> mi(64, 0)
 )
 
     </regstate>
+    
 
 
 // movq-r64-imm64-semantics
@@ -17999,6 +18900,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 
 
 // movzwl-r32-r16-semantics
@@ -18015,6 +18917,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub213_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmsubadd213ps-ymm-ymm-ymm-semantics
@@ -18031,6 +18934,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // hsubpd-xmm-xmm-semantics
@@ -18047,6 +18951,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vsqrtss-xmm-xmm-xmm-semantics
@@ -18063,6 +18968,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vmulsd-xmm-xmm-xmm-semantics
@@ -18079,6 +18985,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vhsubps-ymm-ymm-ymm-semantics
@@ -18095,6 +19002,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_double_t
 )
 
     </regstate>
+    
 
 
 // vcvttpd2dq-xmm-ymm-semantics
@@ -18111,6 +19019,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( div_single(e
 )
 
     </regstate>
+    
 
 
 // vdivps-xmm-xmm-xmm-semantics
@@ -18181,6 +19090,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // sets-rh-semantics
@@ -18197,6 +19107,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnge-r8-semantics
@@ -18213,6 +19124,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vsubss-xmm-xmm-xmm-semantics
@@ -18229,6 +19141,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_int32_to
 )
 
     </regstate>
+    
 
 
 // vcvtdq2pd-xmm-xmm-semantics
@@ -18275,6 +19188,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setna-rh-semantics
@@ -18291,6 +19205,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setne-rh-semantics
@@ -18307,6 +19222,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( vfmadd132_do
 )
 
     </regstate>
+    
 
 
 // vfmaddsub132pd-xmm-xmm-xmm-semantics
@@ -18323,6 +19239,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( sub_single(e
 )
 
     </regstate>
+    
 
 
 // vsubps-xmm-xmm-xmm-semantics
@@ -18351,6 +19268,7 @@ convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentVal
 )
 
     </regstate>
+    
 
 
 // andnq-r64-r64-r64-semantics
@@ -18367,6 +19285,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( sqrt_single(
 )
 
     </regstate>
+    
 
 
 // vsqrtps-xmm-xmm-semantics
@@ -18383,6 +19302,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpslld-ymm-ymm-xmm-semantics
@@ -18399,6 +19319,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( mulMInt( mi(32, svalueMInt(e
 )
 
     </regstate>
+    
 
 
 // vpmullw-ymm-ymm-ymm-semantics
@@ -18415,6 +19336,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovaew-r16-r16-semantics
@@ -18429,12 +19351,13 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 1, 2), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorb-r8-one-semantics
@@ -18463,6 +19386,7 @@ convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // xorq-r64-r64-semantics
@@ -18479,6 +19403,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vsqrtsd-xmm-xmm-xmm-semantics
@@ -18503,10 +19428,11 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( ashrMInt( concate
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(25, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sarl-r32-cl-semantics
@@ -18523,6 +19449,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( addMInt( mul
 )
 
     </regstate>
+    
 
 
 // vpmaddwd-xmm-xmm-xmm-semantics
@@ -18539,6 +19466,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setpo-r8-semantics
@@ -18555,6 +19483,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), getParentValue(R1, RSMap))
 )
 
     </regstate>
+    
 
 
 // vmovq-xmm-r64-semantics
@@ -18571,6 +19500,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovpeq-r64-r64-semantics
@@ -18587,6 +19517,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_single_t
 )
 
     </regstate>
+    
 
 
 // vcvtps2pd-xmm-xmm-semantics
@@ -18603,6 +19534,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpminuw-ymm-ymm-ymm-semantics
@@ -18619,6 +19551,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtdq2ps-xmm-xmm-semantics
@@ -18635,6 +19568,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( shlMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpsllvq-xmm-xmm-xmm-semantics
@@ -18651,6 +19585,7 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("CF", RSMap), mi(1,1)) orBool eqM
 )
 
     </regstate>
+    
 
 
 // cmovnaq-r64-r64-semantics
@@ -18699,6 +19634,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub231_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmsubadd231ps-ymm-ymm-ymm-semantics
@@ -18715,6 +19651,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnl-r8-semantics
@@ -18741,6 +19678,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // vtestpd-ymm-ymm-semantics
@@ -18757,6 +19695,7 @@ convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // vpsrld-xmm-xmm-xmm-semantics
@@ -18773,6 +19712,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovsxwq-xmm-xmm-semantics
@@ -18789,6 +19729,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(16, 0), extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovzxwd-ymm-xmm-semantics
@@ -18803,12 +19744,13 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(16, 0), extractMInt( 
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 1, 2), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(32, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorl-r32-one-semantics
@@ -18825,6 +19767,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnle-r8-semantics
@@ -18841,6 +19784,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpunpckhqdq-xmm-xmm-xmm-semantics
@@ -18855,12 +19799,13 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> rol( getParentValue(R2, RSMap), mi(64, 1))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 63, 64), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 63, 64), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 63, 64), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( getParentValue(R2, RSMap), mi(64, 1)), 63, 64), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolq-r64-one-semantics
@@ -18877,6 +19822,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( negMInt( extractMInt
 )
 
     </regstate>
+    
 
 
 // vandnps-xmm-xmm-xmm-semantics
@@ -18893,6 +19839,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // paddb-xmm-xmm-semantics
@@ -18909,6 +19856,7 @@ convToRegKeys(R3) |-> concatenateMInt( mulMInt( mi(64, svalueMInt(extractMInt( g
 )
 
     </regstate>
+    
 
 
 // vpmuldq-ymm-ymm-ymm-semantics
@@ -18925,6 +19873,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // punpcklqdq-xmm-xmm-semantics
@@ -18941,6 +19890,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsubusb-xmm-xmm-xmm-semantics
@@ -18967,6 +19917,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // ptest-xmm-xmm-semantics
@@ -18983,6 +19934,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concate
 )
 
     </regstate>
+    
 
 
 // vunpcklps-ymm-ymm-ymm-semantics
@@ -18999,6 +19951,7 @@ convToRegKeys(R2) |-> cvt_single_to_int64(extractMInt( getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vcvtss2siq-r64-xmm-semantics
@@ -19013,12 +19966,13 @@ convToRegKeys(R2) |-> cvt_single_to_int64(extractMInt( getParentValue(R1, RSMap)
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1))), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 7, 8), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 7, 8), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 7, 8), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 7, 8), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolb-rh-one-semantics
@@ -19035,6 +19989,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setae-rh-semantics
@@ -19051,6 +20006,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( concatenateMIn
 )
 
     </regstate>
+    
 
 
 // vpsubusw-ymm-ymm-ymm-semantics
@@ -19067,6 +20023,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("ZF", 
 )
 
     </regstate>
+    
 
 
 // cmovel-r32-r32-semantics
@@ -19083,6 +20040,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // minss-xmm-xmm-semantics
@@ -19099,6 +20057,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpsignw-xmm-xmm-xmm-semantics
@@ -19115,6 +20074,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // packusdw-xmm-xmm-semantics
@@ -19131,6 +20091,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phsubd-xmm-xmm-semantics
@@ -19147,6 +20108,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // unpcklpd-xmm-xmm-semantics
@@ -19163,6 +20125,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( addMInt( lshrMInt( mulMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmulhrsw-ymm-ymm-ymm-semantics
@@ -19179,6 +20142,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // packsswb-xmm-xmm-semantics
@@ -19195,6 +20159,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvttpd2dq-xmm-xmm-semantics
@@ -19211,10 +20176,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 7, 8), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 7, 8), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 56), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 7, 8), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolb-rh-cl-semantics
@@ -19231,6 +20197,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpmovzxbq-xmm-xmm-semantics
@@ -19247,6 +20214,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("CF", 
 )
 
     </regstate>
+    
 
 
 // cmovcl-r32-r32-semantics
@@ -19263,6 +20231,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpbroadcastq-xmm-xmm-semantics
@@ -19279,6 +20248,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vsubsd-xmm-xmm-xmm-semantics
@@ -19295,6 +20265,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpmovzxwq-xmm-xmm-semantics
@@ -19311,6 +20282,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtps2dq-xmm-xmm-semantics
@@ -19327,6 +20299,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // andnpd-xmm-xmm-semantics
@@ -19343,6 +20316,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psignd-xmm-xmm-semantics
@@ -19359,6 +20333,7 @@ convToRegKeys(R2) |-> cvt_double_to_int64_truncate(extractMInt( getParentValue(R
 )
 
     </regstate>
+    
 
 
 // cvttsd2siq-r64-xmm-semantics
@@ -19375,6 +20350,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmadd213sd-xmm-xmm-xmm-semantics
@@ -19391,6 +20367,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( subMInt( ext
 )
 
     </regstate>
+    
 
 
 // vpsubb-xmm-xmm-xmm-semantics
@@ -19419,6 +20396,7 @@ convToRegKeys(R2) |-> extractMInt( mulMInt( mi(128, svalueMInt(getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // imulq-r64-r64-semantics
@@ -19435,6 +20413,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( negMInt( extractMInt
 )
 
     </regstate>
+    
 
 
 // vpandn-xmm-xmm-xmm-semantics
@@ -19451,6 +20430,7 @@ convToRegKeys(R3) |-> concatenateMInt( ashrMInt( extractMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 
 
 // vpsrad-ymm-ymm-xmm-semantics
@@ -19481,6 +20461,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // divq-r64-semantics
@@ -19497,6 +20478,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub132_double(extract
 )
 
     </regstate>
+    
 
 
 // vfmsubadd132pd-ymm-ymm-ymm-semantics
@@ -19513,6 +20495,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_single_to_int32_truncate(e
 )
 
     </regstate>
+    
 
 
 // vcvttss2sil-r32-xmm-semantics
@@ -19539,6 +20522,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // incw-r16-semantics
@@ -19555,6 +20539,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmsub132_single(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmsub132ps-ymm-ymm-ymm-semantics
@@ -19571,6 +20556,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addss-xmm-xmm-semantics
@@ -19587,6 +20573,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpmaxsw-xmm-xmm-xmm-semantics
@@ -19660,6 +20647,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setl-r8-semantics
@@ -19676,6 +20664,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vdivsd-xmm-xmm-xmm-semantics
@@ -19702,6 +20691,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // testl-r32-r32-semantics
@@ -19718,6 +20708,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( add_single(e
 )
 
     </regstate>
+    
 
 
 // vaddps-xmm-xmm-xmm-semantics
@@ -19734,6 +20725,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpmaddubsw-xmm-xmm-xmm-semantics
@@ -19750,6 +20742,7 @@ convToRegKeys(R3) |-> concatenateMInt( addMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpaddw-ymm-ymm-ymm-semantics
@@ -19766,6 +20759,7 @@ convToRegKeys(R2) |-> (#ifMInt (eqMInt(getFlag("SF", RSMap), mi(1,1)) ==Bool eqM
 )
 
     </regstate>
+    
 
 
 // cmovgeq-r64-r64-semantics
@@ -19794,6 +20788,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // xorb-r8-rh-semantics
@@ -19810,6 +20805,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // orpd-xmm-xmm-semantics
@@ -19834,6 +20830,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // btw-r16-r16-semantics
@@ -19850,6 +20847,7 @@ convToRegKeys(R3) |-> concatenateMInt( ashrMInt( extractMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 
 
 // vpsraw-ymm-ymm-xmm-semantics
@@ -19866,6 +20864,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), lshrMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // shrxl-r32-r32-r32-semantics
@@ -19882,6 +20881,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // psubb-xmm-xmm-semantics
@@ -19898,10 +20898,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 15, 16), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 15, 16), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 48, 64), concatenateMInt( mi(8, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 15, 16), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rolw-r16-cl-semantics
@@ -19918,6 +20919,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovbq-r64-r64-semantics
@@ -19934,6 +20936,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovsxbw-xmm-xmm-semantics
@@ -19962,6 +20965,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // tzcntw-r16-r16-semantics
@@ -19978,6 +20982,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movapd-xmm-xmm-semantics
@@ -20060,6 +21065,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( mi(64, s
 )
 
     </regstate>
+    
 
 
 // imull-r32-r32-semantics
@@ -20076,6 +21082,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vpermilpd-ymm-ymm-ymm-semantics
@@ -20092,6 +21099,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vpmulhrsw-xmm-xmm-xmm-semantics
@@ -20108,6 +21116,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sltMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 
 
 // vpminsb-ymm-ymm-ymm-semantics
@@ -20124,6 +21133,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // addpd-xmm-xmm-semantics
@@ -20140,6 +21150,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 
 
 // vpcmpgtb-xmm-xmm-xmm-semantics
@@ -20156,6 +21167,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmovzxwd-xmm-xmm-semantics
@@ -20172,6 +21184,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmsub132_single(extrac
 )
 
     </regstate>
+    
 
 
 // vfnmsub231ps-ymm-ymm-ymm-semantics
@@ -20188,6 +21201,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movshdup-xmm-xmm-semantics
@@ -20204,6 +21218,7 @@ convToRegKeys(R3) |-> andMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 
 
 // vandps-ymm-ymm-ymm-semantics
@@ -20220,6 +21235,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( extract
 )
 
     </regstate>
+    
 
 
 // vmovshdup-ymm-ymm-semantics
@@ -20236,6 +21252,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vminps-xmm-xmm-xmm-semantics
@@ -20252,6 +21269,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), mi(32, svalueMInt(extractMInt(
 )
 
     </regstate>
+    
 
 
 // movsbl-r32-r8-semantics
@@ -20268,6 +21286,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd231_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmaddsub231ps-ymm-ymm-ymm-semantics
@@ -20284,6 +21303,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( getParentValue(R1,
 )
 
     </regstate>
+    
 
 
 // vpermps-ymm-ymm-ymm-semantics
@@ -20300,6 +21320,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movsbw-r16-r8-semantics
@@ -20316,6 +21337,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 
 
 // vpmaxud-xmm-xmm-xmm-semantics
@@ -20332,6 +21354,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnc-r8-semantics
@@ -20348,6 +21371,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmsub213ss-xmm-xmm-xmm-semantics
@@ -20372,10 +21396,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (notBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1))))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 8))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 56, 64)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shlb-r8-cl-semantics
@@ -20392,6 +21417,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // phminposuw-xmm-xmm-semantics
@@ -20408,6 +21434,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpaddusb-xmm-xmm-xmm-semantics
@@ -20424,6 +21451,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovncl-r32-r32-semantics
@@ -20440,6 +21468,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vunpckhpd-xmm-xmm-xmm-semantics
@@ -20456,6 +21485,7 @@ convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vblendvpd-xmm-xmm-xmm-xmm-semantics
@@ -20472,6 +21502,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), ashrMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 
 
 // sarxl-r32-r32-r32-semantics
@@ -20488,6 +21519,7 @@ convToRegKeys(R2) |-> getParentValue(R1, RSMap)
 )
 
     </regstate>
+    
 
 
 // vmovaps-ymm-ymm-semantics
@@ -20504,6 +21536,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pandn-xmm-xmm-semantics
@@ -20520,6 +21553,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (notBool eqMInt(getFl
 )
 
     </regstate>
+    
 
 
 // cmovnsl-r32-r32-semantics
@@ -20536,6 +21570,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovew-r16-r16-semantics
@@ -20562,6 +21597,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // cmpl-r32-r32-semantics
@@ -20578,6 +21614,7 @@ convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vblendvps-xmm-xmm-xmm-xmm-semantics
@@ -20594,6 +21631,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmsub132_single(extract
 )
 
     </regstate>
+    
 
 
 // vfmsub213ps-ymm-ymm-ymm-semantics
@@ -20610,6 +21648,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // packssdw-xmm-xmm-semantics
@@ -20626,6 +21665,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfnmadd231sd-xmm-xmm-xmm-semantics
@@ -20642,6 +21682,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_int32_to_double(extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // vcvtdq2pd-ymm-ymm-semantics
@@ -20670,6 +21711,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParent
 )
 
     </regstate>
+    
 
 
 // orl-r32-r32-semantics
@@ -20686,6 +21728,7 @@ convToRegKeys(R3) |-> concatenateMInt( shlMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpsllvd-ymm-ymm-ymm-semantics
@@ -20702,6 +21745,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(32, svalu
 )
 
     </regstate>
+    
 
 
 // vpmovsxwd-xmm-xmm-semantics
@@ -20718,6 +21762,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vfmsubadd213ps-xmm-xmm-xmm-semantics
@@ -20734,6 +21779,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vhsubps-xmm-xmm-xmm-semantics
@@ -20750,6 +21796,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( mi(32, svalueM
 )
 
     </regstate>
+    
 
 
 // vphsubsw-ymm-ymm-ymm-semantics
@@ -20766,6 +21813,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("ZF",
 )
 
     </regstate>
+    
 
 
 // cmovngl-r32-r32-semantics
@@ -20782,6 +21830,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfmsub132_single(extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // vfmsub231ps-ymm-ymm-ymm-semantics
@@ -20798,6 +21847,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // clc-semantics
@@ -20814,6 +21864,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cvtps2pd-xmm-xmm-semantics
@@ -20830,6 +21881,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( maxcmp_single(extractMIn
 )
 
     </regstate>
+    
 
 
 // vmaxps-ymm-ymm-ymm-semantics
@@ -20846,6 +21898,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 
 
 // vfmsub231sd-xmm-xmm-xmm-semantics
@@ -20862,6 +21915,7 @@ convToRegKeys(R3) |-> concatenateMInt( sub_single(extractMInt( getParentValue(R2
 )
 
     </regstate>
+    
 
 
 // vsubps-ymm-ymm-ymm-semantics
@@ -20878,6 +21932,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmulhuw-xmm-xmm-semantics
@@ -20894,6 +21949,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // pmovmskb-r64-xmm-semantics
@@ -20910,6 +21966,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vfmsubadd132ps-xmm-xmm-xmm-semantics
@@ -20938,6 +21995,7 @@ convToRegKeys(R2) |-> andMInt( subMInt( getParentValue(R1, RSMap), mi(64, 1)), g
 )
 
     </regstate>
+    
 
 
 // blsrq-r64-r64-semantics
@@ -20954,6 +22012,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovpew-r16-r16-semantics
@@ -20970,6 +22029,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setpe-r8-semantics
@@ -20986,6 +22046,7 @@ convToRegKeys(R2) |-> mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 
 
 // movsbq-r64-r8-semantics
@@ -21002,6 +22063,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(60, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vmovmskps-r32-xmm-semantics
@@ -21018,6 +22080,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pcmpeqq-xmm-xmm-semantics
@@ -21034,6 +22097,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vminpd-xmm-xmm-xmm-semantics
@@ -21060,6 +22124,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 
 
 // ucomisd-xmm-xmm-semantics
@@ -21076,6 +22141,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), orMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 
 
 // vpor-xmm-xmm-xmm-semantics
@@ -21092,6 +22158,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateM
 )
 
     </regstate>
+    
 
 
 // vpunpcklbw-xmm-xmm-xmm-semantics
@@ -21108,6 +22175,7 @@ convToRegKeys(R3) |-> concatenateMInt( subMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 
 
 // vpsubd-ymm-ymm-ymm-semantics
@@ -21124,6 +22192,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 
 
 // cmovpq-r64-r64-semantics
@@ -21138,20 +22207,21 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("PF", RSMap), mi(1,1)) #then getPa
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 64)
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 64, 65), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 63, 64), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 62, 63), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 61, 62), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 60, 61), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 59, 60), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 58, 59), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 57, 58), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 56, 57), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 64), mi(64, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 64), mi(64, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( ashrMInt( concatenateMInt( getParentValue(R2, RSMap), mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), mi(8, 1)))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt (false orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> mi(1, 0)
 )
 
     </regstate>
+    
 
 
 // sarq-r64-one-semantics
@@ -21222,6 +22292,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // seta-rh-semantics
@@ -21238,6 +22309,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setng-rh-semantics
@@ -21254,6 +22326,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // setnc-rh-semantics
@@ -21270,6 +22343,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // setnz-r8-semantics
@@ -21286,6 +22360,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 
 
 // vpmovmskb-r64-ymm-semantics
@@ -21302,10 +22377,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 2, 3), mi(1, 1)))) orBool (false andBool ((true andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool (false andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), extractMInt( getParentValue(R2, RSMap), 56, 64)), mi(9, 1)), 2, 3), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rcrb-r8-one-semantics
@@ -21322,6 +22398,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // cmovnzw-r16-r16-semantics
@@ -21338,6 +22415,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) #
 )
 
     </regstate>
+    
 
 
 // cmovncq-r64-r64-semantics
@@ -21354,6 +22432,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // movq-xmm-xmm-semantics
@@ -21378,10 +22457,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(1, 0)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 56, 57), mi(1, 1))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrb-r8-cl-semantics
@@ -21398,10 +22478,11 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "CF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 56, 64), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // rorb-r8-cl-semantics
@@ -21418,6 +22499,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpcmpeqb-xmm-xmm-xmm-semantics
@@ -21436,6 +22518,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concaten
 )
 
     </regstate>
+    
 
 
 // mulxl-r32-r32-r32-semantics
@@ -21464,6 +22547,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( addMInt( addMInt(
 )
 
     </regstate>
+    
 
 
 // subl-r32-r32-semantics
@@ -21480,6 +22564,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // blendvps-xmm-xmm-xmm0-semantics
@@ -21508,6 +22593,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 
 
 // addb-rh-rh-semantics
@@ -21524,6 +22610,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpaddusw-xmm-xmm-xmm-semantics
@@ -21540,6 +22627,7 @@ convToRegKeys(R2) |-> (#ifMInt (notBool (eqMInt(getFlag("SF", RSMap), mi(1,1)) =
 )
 
     </regstate>
+    
 
 
 // cmovngeq-r64-r64-semantics
@@ -21556,6 +22644,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( mi(18, svalueM
 )
 
     </regstate>
+    
 
 
 // vpsubsw-ymm-ymm-ymm-semantics
@@ -21572,6 +22661,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // packuswb-xmm-xmm-semantics
@@ -21588,6 +22678,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 
 
 // pmaxub-xmm-xmm-semantics
@@ -21604,6 +22695,7 @@ convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 
 
 // vpblendvb-xmm-xmm-xmm-xmm-semantics
@@ -21618,20 +22710,21 @@ convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 32))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 24, 25), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1)) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1))) xorBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 24, 25), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 32), mi(32, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 32), mi(32, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), mi(1, 0)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( getParentValue(R2, RSMap), 32, 33), mi(1, 1))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( getParentValue(R2, RSMap), 32, 33), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // shrl-r32-one-semantics
@@ -21646,20 +22739,21 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( lshrMInt( concate
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 33))
 
-"CF" |-> (#ifMInt ((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"PF" |-> (#ifMInt ((true andBool (notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("PF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt ((notBool (((((((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 25, 26), mi(1, 1)))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"AF" |-> (#ifMInt ((true andBool (undefBool)) orBool (false andBool eqMInt(getFlag("AF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"AF" |-> (#ifMInt ((undefBool) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"ZF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 33), mi(32, 0))) orBool (false andBool eqMInt(getFlag("ZF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 33), mi(32, 0)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1))) orBool (false andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"SF" |-> (#ifMInt (eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (notBool (((false andBool (undefBool)) orBool (true andBool ((true andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) ==Bool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1))))) orBool (false andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (((eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 0, 1), mi(1, 1)) orBool false) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(mi(33, 1))), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 
 
 // sall-r32-one-semantics

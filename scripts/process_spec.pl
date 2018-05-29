@@ -366,7 +366,7 @@ if ( "" ne $prepare_concrete ) {
     print "\n\nInstantiating  $opcode\n";
     execute("mkdir -p $workdir");
     my $switch_samereg = "";
-    if ("" ne $samereg) {
+    if ( "" ne $samereg ) {
         $switch_samereg = "--samereg";
     }
     execute( "$specgen_setup --workdir $workdir --opc $opcode $switch_samereg",

@@ -11,9 +11,9 @@ module RORW-R16-ONE
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)))
 
-"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 64), mi(16, 1)), 1, 2), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
