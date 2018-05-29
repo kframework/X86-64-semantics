@@ -11,9 +11,9 @@ module ROLB-R8-ONE
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)))
 
-"CF" |-> (#ifMInt (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( extractMInt( getParentValue(R2, RSMap), 56, 64), mi(8, 1)), 7, 8), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
