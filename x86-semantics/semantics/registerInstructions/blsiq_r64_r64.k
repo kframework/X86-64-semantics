@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> andMInt( addMInt(mi(64, 1), negMInt( getParentValue(R1, RS
 )
 
     </regstate>
+    
 endmodule
 
 module BLSIQ-R64-R64-SEMANTICS

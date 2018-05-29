@@ -25,6 +25,7 @@ convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentVal
 )
 
     </regstate>
+    
 endmodule
 
 module ANDNQ-R64-R64-R64-SEMANTICS

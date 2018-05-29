@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt eqMInt(getFlag("ZF", 
 )
 
     </regstate>
+    
 endmodule
 
 module CMOVZL-R32-R32-SEMANTICS

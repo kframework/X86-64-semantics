@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), 
 )
 
     </regstate>
+    
 endmodule
 
 module SUBQ-R64-R64-SEMANTICS

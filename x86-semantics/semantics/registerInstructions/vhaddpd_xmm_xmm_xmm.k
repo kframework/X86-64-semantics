@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( add_double(e
 )
 
     </regstate>
+    
 endmodule
 
 module VHADDPD-XMM-XMM-XMM-SEMANTICS

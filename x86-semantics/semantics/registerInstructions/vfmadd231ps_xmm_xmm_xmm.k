@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfmadd132_single(mi(32, 
 )
 
     </regstate>
+    
 endmodule
 
 module VFMADD231PS-XMM-XMM-XMM-SEMANTICS

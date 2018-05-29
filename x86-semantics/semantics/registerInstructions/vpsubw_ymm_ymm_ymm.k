@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( subMInt( extractMInt( getParentValue(R2, 
 )
 
     </regstate>
+    
 endmodule
 
 module VPSUBW-YMM-YMM-YMM-SEMANTICS

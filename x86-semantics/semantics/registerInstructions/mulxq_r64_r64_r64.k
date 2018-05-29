@@ -15,6 +15,7 @@ convToRegKeys(R2) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), getParen
 )
 
     </regstate>
+    
 endmodule
 
 module MULXQ-R64-R64-R64-SEMANTICS

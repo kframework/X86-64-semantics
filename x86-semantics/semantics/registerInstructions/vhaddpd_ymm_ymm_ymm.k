@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( add_double(extractMInt( 
 )
 
     </regstate>
+    
 endmodule
 
 module VHADDPD-YMM-YMM-YMM-SEMANTICS

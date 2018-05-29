@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> addMInt( concatenateMInt( mi(32, 0), addMInt( concatenateM
 )
 
     </regstate>
+    
 endmodule
 
 module POPCNTQ-R64-R64-SEMANTICS

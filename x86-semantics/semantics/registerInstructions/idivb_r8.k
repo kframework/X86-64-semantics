@@ -25,6 +25,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module IDIVB-R8-SEMANTICS

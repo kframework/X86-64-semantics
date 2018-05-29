@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> xorMInt( subMInt( getParentValue(R1, RSMap), mi(64, 1)), g
 )
 
     </regstate>
+    
 endmodule
 
 module BLSMSKQ-R64-R64-SEMANTICS

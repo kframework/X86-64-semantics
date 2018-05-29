@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 endmodule
 
 module VMOVDDUP-YMM-YMM-SEMANTICS

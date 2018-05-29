@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt (eqMInt(getFlag("CF",
 )
 
     </regstate>
+    
 endmodule
 
 module CMOVBEL-R32-R32-SEMANTICS

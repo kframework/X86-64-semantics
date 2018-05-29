@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( approx_reciprocal_sqrt_single(extractMInt
 )
 
     </regstate>
+    
 endmodule
 
 module VRSQRTPS-YMM-YMM-SEMANTICS

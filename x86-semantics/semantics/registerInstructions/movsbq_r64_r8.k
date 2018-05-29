@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 endmodule
 
 module MOVSBQ-R64-R8-SEMANTICS

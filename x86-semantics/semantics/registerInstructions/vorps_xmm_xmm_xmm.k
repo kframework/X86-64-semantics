@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), orMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 endmodule
 
 module VORPS-XMM-XMM-XMM-SEMANTICS

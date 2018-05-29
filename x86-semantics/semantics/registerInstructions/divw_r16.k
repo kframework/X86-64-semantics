@@ -27,6 +27,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module DIVW-R16-SEMANTICS

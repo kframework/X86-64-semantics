@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgt
 )
 
     </regstate>
+    
 endmodule
 
 module VPSIGNB-XMM-XMM-XMM-SEMANTICS

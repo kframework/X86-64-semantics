@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_half_to_single(extractMInt( getParent
 )
 
     </regstate>
+    
 endmodule
 
 module VCVTPH2PS-YMM-XMM-SEMANTICS

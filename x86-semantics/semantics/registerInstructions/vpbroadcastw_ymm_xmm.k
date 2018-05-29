@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 2
 )
 
     </regstate>
+    
 endmodule
 
 module VPBROADCASTW-YMM-XMM-SEMANTICS

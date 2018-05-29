@@ -21,6 +21,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module BTW-R16-R16-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( shlMInt( ext
 )
 
     </regstate>
+    
 endmodule
 
 module VPSLLVD-XMM-XMM-XMM-SEMANTICS

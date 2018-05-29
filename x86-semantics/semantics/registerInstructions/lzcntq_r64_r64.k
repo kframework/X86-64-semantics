@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 endmodule
 
 module LZCNTQ-R64-R64-SEMANTICS

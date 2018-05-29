@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> extractMInt( lshrMInt( concatenateMInt( getParentValue(R2,
 )
 
     </regstate>
+    
 endmodule
 
 module SHRXQ-R64-R64-R64-SEMANTICS

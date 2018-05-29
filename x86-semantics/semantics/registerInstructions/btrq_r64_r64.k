@@ -23,6 +23,7 @@ convToRegKeys(R2) |-> andMInt( getParentValue(R2, RSMap), negMInt( shlMInt( mi(6
 )
 
     </regstate>
+    
 endmodule
 
 module BTRQ-R64-R64-SEMANTICS

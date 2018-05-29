@@ -11,12 +11,13 @@ module RORB-RH-ONE
 RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1))), extractMInt( getParentValue(R2, RSMap), 56, 64))
 
-"CF" |-> (#ifMInt ((true andBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1))) orBool (false andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> (#ifMInt (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((true andBool (eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 1, 2), mi(1, 1)))) orBool (false andBool (undefBool))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(8, 1)), 1, 2), mi(1, 1))) orBool false) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 endmodule
 
 module RORB-RH-ONE-SEMANTICS

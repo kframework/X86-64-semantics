@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( concatenateMIn
 )
 
     </regstate>
+    
 endmodule
 
 module VPSUBUSB-YMM-YMM-YMM-SEMANTICS

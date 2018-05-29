@@ -25,6 +25,7 @@ convToRegKeys(R3) |-> (#ifMInt ultMInt( extractMInt( getParentValue(R1, RSMap), 
 )
 
     </regstate>
+    
 endmodule
 
 module BZHIQ-R64-R64-R64-SEMANTICS

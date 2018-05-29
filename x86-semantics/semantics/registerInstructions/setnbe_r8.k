@@ -13,6 +13,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 endmodule
 
 module SETNBE-R8-SEMANTICS

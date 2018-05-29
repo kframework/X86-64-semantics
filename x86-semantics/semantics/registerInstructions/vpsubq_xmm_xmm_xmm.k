@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( subMInt( ext
 )
 
     </regstate>
+    
 endmodule
 
 module VPSUBQ-XMM-XMM-XMM-SEMANTICS

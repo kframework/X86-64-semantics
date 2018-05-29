@@ -27,6 +27,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module IMULW-R16-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), xorMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 endmodule
 
 module VXORPS-XMM-XMM-XMM-SEMANTICS

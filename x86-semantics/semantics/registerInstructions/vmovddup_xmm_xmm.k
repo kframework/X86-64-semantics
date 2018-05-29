@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt(
 )
 
     </regstate>
+    
 endmodule
 
 module VMOVDDUP-XMM-XMM-SEMANTICS

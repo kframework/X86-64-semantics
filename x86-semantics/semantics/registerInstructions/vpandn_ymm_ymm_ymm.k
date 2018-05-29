@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> andMInt( negMInt( getParentValue(R2, RSMap)), getParentVal
 )
 
     </regstate>
+    
 endmodule
 
 module VPANDN-YMM-YMM-YMM-SEMANTICS

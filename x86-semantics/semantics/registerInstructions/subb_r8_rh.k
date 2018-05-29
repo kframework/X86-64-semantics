@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 endmodule
 
 module SUBB-R8-RH-SEMANTICS

@@ -25,6 +25,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), (#ifMInt ultMInt( extractMInt(
 )
 
     </regstate>
+    
 endmodule
 
 module BZHIL-R32-R32-R32-SEMANTICS

@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 endmodule
 
 module ANDL-R32-R32-SEMANTICS

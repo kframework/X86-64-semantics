@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( addMInt( (#ifMInt
 )
 
     </regstate>
+    
 endmodule
 
 module SBBL-R32-R32-SEMANTICS

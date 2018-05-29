@@ -13,6 +13,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), negMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 endmodule
 
 module NOTL-R32-SEMANTICS

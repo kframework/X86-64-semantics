@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
+    
 endmodule
 
 module XORW-R16-R16-SEMANTICS

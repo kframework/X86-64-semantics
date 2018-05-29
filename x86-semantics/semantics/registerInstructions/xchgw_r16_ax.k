@@ -15,7 +15,7 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 )
 
     </regstate>
-      regstate notBool sameRegisters(%ax, R2)
+      requires notBool sameRegisters(%ax, R2)
 
      rule <k>
     execinstr (xchgw %ax, R2:R16,  .Operands) => .
@@ -26,7 +26,7 @@ convToRegKeys(R2) |-> getParentValue(R2, RSMap)
 )
 
     </regstate>
-      regstate sameRegisters(%ax, R2)
+      requires sameRegisters(%ax, R2)
 
 endmodule
 

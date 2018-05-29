@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(60, 0), concatenateMInt( extractMInt( 
 )
 
     </regstate>
+    
 endmodule
 
 module MOVMSKPS-R32-XMM-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), andMInt( negMInt( extractMInt
 )
 
     </regstate>
+    
 endmodule
 
 module VPANDN-XMM-XMM-XMM-SEMANTICS

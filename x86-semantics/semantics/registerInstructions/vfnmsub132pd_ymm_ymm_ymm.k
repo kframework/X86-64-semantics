@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( vfnmsub132_double(extractMInt( getParentV
 )
 
     </regstate>
+    
 endmodule
 
 module VFNMSUB132PD-YMM-YMM-YMM-SEMANTICS

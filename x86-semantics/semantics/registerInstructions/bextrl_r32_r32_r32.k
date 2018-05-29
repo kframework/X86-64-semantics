@@ -25,6 +25,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( lshrMInt
 )
 
     </regstate>
+    
 endmodule
 
 module BEXTRL-R32-R32-R32-SEMANTICS

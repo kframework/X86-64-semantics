@@ -13,6 +13,7 @@ convToRegKeys(R1) |-> negMInt( getParentValue(R1, RSMap))
 )
 
     </regstate>
+    
 endmodule
 
 module NOTQ-R64-SEMANTICS

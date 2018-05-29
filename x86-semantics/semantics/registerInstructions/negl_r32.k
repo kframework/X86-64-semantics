@@ -25,6 +25,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), addMInt(mi(32, 1), negMInt( ex
 )
 
     </regstate>
+    
 endmodule
 
 module NEGL-R32-SEMANTICS

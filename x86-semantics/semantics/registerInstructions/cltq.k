@@ -13,6 +13,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module CLTQ-SEMANTICS
