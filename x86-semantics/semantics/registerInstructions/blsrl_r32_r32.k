@@ -13,6 +13,10 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( subMInt( extractMInt(
 
 "CF" |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
+"PF" |-> (undefMInt)
+
+"AF" |-> (undefMInt)
+
 "ZF" |-> (#ifMInt eqMInt( andMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), extractMInt( getParentValue(R1, RSMap), 32, 64)), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "SF" |-> andMInt( extractMInt( subMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 1)), 0, 1), extractMInt( getParentValue(R1, RSMap), 32, 33))

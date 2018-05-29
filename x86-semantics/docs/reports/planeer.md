@@ -20,15 +20,13 @@ A +- 0 != A
   - Problem with secondary searches involving uifs.
   - Strata Vs K: For exapme as in pdepl/q we have to write the ast of the result state,where as in K we have to mention the executon semantic. Much easier.
   - In Strata, reg state of instruction containing undefs are never tested. In K we can test to check in the exec gets haleted when the undef values are used.
+  - Talk about the manually written K formulas.
 - Test the starta formula
   - Test the mutiple output instruction with same registers
-- Port all the tested starta formula to K
 - Fix af
   - Create a chart of how many are tested. Whats is the reason for not getting tested (undef). How many fails?
 - Plan for implemnting the uifs
 - Test the lemmas using rise for fun: like add_single(0||x, 0) == 0  Also write about  the importance of this lemma in simplification.
-
-- Check if vmovmskpd_r32_xmm is caught in the test as it is not generated in stoke handler. So implement it.
 - Is the semantics of sal/shr/sar in base instr consistent with what we get from stoke.
 - Undef
   - kompile: are undef represented correctly
@@ -41,9 +39,9 @@ A +- 0 != A
   - Test pdepl/q pextl/q
   - uifs including tag `UIF1`
   - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
-- Check / Test the instructions mentione in sepcgen_setup for must_write != maybe_write
 - Test all the conditional undefs
-- Implement "schedule insutcructions" 
+- Implement "schedule insutcructions"
+- There are many 'system instructions' that can be supported. like SHLD
 
 ## Important Points
 - Uses the tc same as the final strata tc
