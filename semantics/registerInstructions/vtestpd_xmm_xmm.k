@@ -23,6 +23,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module VTESTPD-XMM-XMM-SEMANTICS

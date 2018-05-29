@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), xorMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 endmodule
 
 module XORL-R32-R32-SEMANTICS

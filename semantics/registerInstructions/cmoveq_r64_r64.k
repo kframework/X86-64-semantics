@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("ZF", RSMap), mi(1,1)) #then getPa
 )
 
     </regstate>
+    
 endmodule
 
 module CMOVEQ-R64-R64-SEMANTICS

@@ -25,6 +25,7 @@ convToRegKeys(R1) |-> addMInt(mi(64, 1), negMInt( getParentValue(R1, RSMap)))
 )
 
     </regstate>
+    
 endmodule
 
 module NEGQ-R64-SEMANTICS

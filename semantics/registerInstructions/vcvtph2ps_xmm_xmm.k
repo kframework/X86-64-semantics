@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( cvt_half_to_
 )
 
     </regstate>
+    
 endmodule
 
 module VCVTPH2PS-XMM-XMM-SEMANTICS

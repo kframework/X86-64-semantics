@@ -23,6 +23,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module CMPL-R32-R32-SEMANTICS

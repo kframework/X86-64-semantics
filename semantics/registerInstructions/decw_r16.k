@@ -23,6 +23,7 @@ convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0
 )
 
     </regstate>
+    
 endmodule
 
 module DECW-R16-SEMANTICS

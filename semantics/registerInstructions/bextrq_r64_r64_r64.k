@@ -25,6 +25,7 @@ convToRegKeys(R3) |-> andMInt( extractMInt( lshrMInt( concatenateMInt( mi(448, 0
 )
 
     </regstate>
+    
 endmodule
 
 module BEXTRQ-R64-R64-R64-SEMANTICS

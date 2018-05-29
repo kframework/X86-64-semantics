@@ -25,6 +25,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( negMInt( extractMInt(
 )
 
     </regstate>
+    
 endmodule
 
 module ANDNL-R32-R32-R32-SEMANTICS

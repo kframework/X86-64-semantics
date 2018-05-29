@@ -23,6 +23,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module VCOMISS-XMM-XMM-SEMANTICS

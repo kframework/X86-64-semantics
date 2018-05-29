@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( maxcmp_single(extractMIn
 )
 
     </regstate>
+    
 endmodule
 
 module VMAXPS-YMM-YMM-YMM-SEMANTICS

@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), getParentValue(R1, RSMa
 )
 
     </regstate>
+    
 endmodule
 
 module ORQ-R64-R64-SEMANTICS

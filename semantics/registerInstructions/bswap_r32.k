@@ -13,6 +13,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( concatenateMInt( mi(32, 
 )
 
     </regstate>
+    
 endmodule
 
 module BSWAP-R32-SEMANTICS

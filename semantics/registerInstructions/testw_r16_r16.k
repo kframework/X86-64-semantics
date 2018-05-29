@@ -23,6 +23,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module TESTW-R16-R16-SEMANTICS

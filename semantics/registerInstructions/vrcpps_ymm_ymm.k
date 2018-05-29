@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( approx_reciprocal_single(extractMInt( get
 )
 
     </regstate>
+    
 endmodule
 
 module VRCPPS-YMM-YMM-SEMANTICS

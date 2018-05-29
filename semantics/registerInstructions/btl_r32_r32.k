@@ -21,6 +21,7 @@ RSMap:Map => updateMap(RSMap,
 )
 
     </regstate>
+    
 endmodule
 
 module BTL-R32-R32-SEMANTICS

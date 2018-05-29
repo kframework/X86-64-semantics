@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( mi(64, s
 )
 
     </regstate>
+    
 endmodule
 
 module IMULL-R32-R32-SEMANTICS

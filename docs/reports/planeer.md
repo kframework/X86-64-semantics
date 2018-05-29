@@ -5,14 +5,8 @@
 
 ## Todo
 
-- For the following report to strata people
-```
-a - a != 0 as a cold be NaN
-A +- 0 != A
-0 + A != A
-```
-- vpbroadcastb_ymm_xmm simplification helps in getting rid of uifs ... talk about the simplificatiom lemma
-  - checin all the formula and then do the simplification to find which one got optimized.
+
+
 - Paper
   - Problem with secondary searhces in involving UIFs.
   - what about the baseInstructions: should we have our own or just take it from stoke
@@ -21,45 +15,53 @@ A +- 0 != A
   - Strata Vs K: For exapme as in pdepl/q we have to write the ast of the result state,where as in K we have to mention the executon semantic. Much easier.
   - In Strata, reg state of instruction containing undefs are never tested. In K we can test to check in the exec gets haleted when the undef values are used.
   - Talk about the manually written K formulas.
-- Test the starta formula
-  - Test the mutiple output instruction with same registers
-- Fix af
-  - Create a chart of how many are tested. Whats is the reason for not getting tested (undef). How many fails?
-- Plan for implemnting the uifs
-- Test the lemmas using rise for fun: like add_single(0||x, 0) == 0  Also write about  the importance of this lemma in simplification.
-- Is the semantics of sal/shr/sar in base instr consistent with what we get from stoke.
-- Undef
-  - kompile: are undef represented correctly
-    - For conditional undef they need to be inside experession.
-  - Test shlq_r64_cl using strata handler : what is the bahaviour when the udef is triggered. also the z3 test didnt pass for OF. why: formulation of undef is wrong
-  - Ensure that all the instructions obey if it has  a "must undef". Similarly if one has a "may undef" there must be a conditional undef present.
-- Test the rules in K. Important for
-  - rorate
-  - manually implemented in K only
-  - Test pdepl/q pextl/q
-  - uifs including tag `UIF1`
-  - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
-- Test all the conditional undefs
-- Implement "schedule insutcructions"
-- There are many 'system instructions' that can be supported. like SHLD
-- Check the of flag for the following as they lacks the undef part.
-  ```
+  - vpbroadcastb_ymm_xmm simplification helps in getting rid of uifs ... talk about the simplificatiom lemma
+- Checklist
+  - Cupport mutiple output instruction with same registers
+  - Implement "schedule insutcructions"
+  - Fix af
+    - Create a chart of how many are tested. Whats is the reason for not getting tested (undef). How many fails?
+  - Plan for implemnting the uifs
+  - Test the lemmas using rise for fun: like add_single(0||x, 0) == 0  Also write about  the importance of this lemma in simplification.
+  - Undef
+    - kompile: are undef represented correctly
+      - For conditional undef they need to be inside experession.
+    - Test shlq_r64_cl using strata handler : what is the bahaviour when the udef is triggered. also the z3 test didnt pass for OF. why: formulation of undef is wrong
+    - Ensure that all the instructions obey if it has  a "must undef". Similarly if one has a "may undef" there must be a conditional undef present.
+    - Check the of flag for the following as they lacks the undef part.
+      ```
+      sarb_r8_cl
+      sarb_rh_cl
+      sarl_r32_cl
+      sarq_r64_cl
+      sarw_r16_cl
+      shlb_r8_cl
+      shlb_rh_cl
+      shll_r32_cl
+      shlq_r64_cl
+      shlw_r16_cl
+      shrb_r8_cl
+      shrb_rh_cl
+      shrl_r32_cl
+      shrq_r64_cl
+      shrw_r16_cl
+      ```
+- Testing
+  - Test the rules in K. Important for
+    - rorate
+    - manually implemented in K only
+    - Test pdepl/q pextl/q
+    - uifs including tag `UIF1`
+    - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
+  - Test all the conditional undefs
 
-  sarb_r8_cl
-sarb_rh_cl
-sarl_r32_cl
-sarq_r64_cl
-sarw_r16_cl
-shlb_r8_cl
-shlb_rh_cl
-shll_r32_cl
-shlq_r64_cl
-shlw_r16_cl
-shrb_r8_cl
-shrb_rh_cl
-shrl_r32_cl
-shrq_r64_cl
-shrw_r16_cl
+- To Do
+  - There are many 'system instructions' that can be supported. like SHLD
+  - For the following report to strata people
+  ```
+  a - a != 0 as a cold be NaN
+  A +- 0 != A
+  0 + A != A
   ```
 
 ## Important Points

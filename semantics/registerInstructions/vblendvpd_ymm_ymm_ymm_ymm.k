@@ -13,6 +13,7 @@ convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 endmodule
 
 module VBLENDVPD-YMM-YMM-YMM-YMM-SEMANTICS

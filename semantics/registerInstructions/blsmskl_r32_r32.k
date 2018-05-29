@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), xorMInt( subMInt( extractMInt(
 )
 
     </regstate>
+    
 endmodule
 
 module BLSMSKL-R32-R32-SEMANTICS

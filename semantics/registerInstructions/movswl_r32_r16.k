@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), mi(32, svalueMInt(extractMInt(
 )
 
     </regstate>
+    
 endmodule
 
 module MOVSWL-R32-R16-SEMANTICS

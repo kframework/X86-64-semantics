@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
+    
 endmodule
 
 module MOVZWQ-R64-R16-SEMANTICS

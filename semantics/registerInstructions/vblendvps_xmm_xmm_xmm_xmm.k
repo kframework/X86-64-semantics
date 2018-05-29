@@ -13,6 +13,7 @@ convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 endmodule
 
 module VBLENDVPS-XMM-XMM-XMM-XMM-SEMANTICS

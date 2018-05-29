@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> xorMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 endmodule
 
 module VPXOR-YMM-YMM-YMM-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( extractMInt( mulMInt( mi(32, svalueMInt(e
 )
 
     </regstate>
+    
 endmodule
 
 module VPMULHW-YMM-YMM-YMM-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sltMInt( extractMInt( getParentV
 )
 
     </regstate>
+    
 endmodule
 
 module VPMINSB-YMM-YMM-YMM-SEMANTICS

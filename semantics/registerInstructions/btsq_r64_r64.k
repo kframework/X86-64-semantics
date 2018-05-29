@@ -23,6 +23,7 @@ convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uva
 )
 
     </regstate>
+    
 endmodule
 
 module BTSQ-R64-R64-SEMANTICS

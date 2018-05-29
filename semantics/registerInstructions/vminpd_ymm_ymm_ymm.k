@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( mincmp_double(extractMIn
 )
 
     </regstate>
+    
 endmodule
 
 module VMINPD-YMM-YMM-YMM-SEMANTICS

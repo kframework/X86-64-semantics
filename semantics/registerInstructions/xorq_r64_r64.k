@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), getParentValue(R1, RSM
 )
 
     </regstate>
+    
 endmodule
 
 module XORQ-R64-R64-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( approx_recip
 )
 
     </regstate>
+    
 endmodule
 
 module VRCPPS-XMM-XMM-SEMANTICS

@@ -13,10 +13,11 @@ convToRegKeys(R2) |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag
 
 "CF" |-> extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1))) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool (undefBool))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), getParentValue(R2, RSMap)), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 endmodule
 
 module RCRQ-R64-ONE-SEMANTICS

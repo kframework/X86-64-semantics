@@ -23,6 +23,7 @@ convToRegKeys(R1) |-> concatenateMInt( mi(32, 0), addMInt( extractMInt( getParen
 )
 
     </regstate>
+    
 endmodule
 
 module INCL-R32-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( (#ifMInt sgtMInt( subMInt( mi(10, svalueM
 )
 
     </regstate>
+    
 endmodule
 
 module VPSUBSB-YMM-YMM-YMM-SEMANTICS

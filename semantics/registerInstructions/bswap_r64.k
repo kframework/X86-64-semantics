@@ -13,6 +13,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( concatenateMInt( extract
 )
 
     </regstate>
+    
 endmodule
 
 module BSWAP-R64-SEMANTICS

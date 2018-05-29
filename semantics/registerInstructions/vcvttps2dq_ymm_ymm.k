@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( cvt_single_to_int32_truncate(extractMInt(
 )
 
     </regstate>
+    
 endmodule
 
 module VCVTTPS2DQ-YMM-YMM-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> ashrMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( g
 )
 
     </regstate>
+    
 endmodule
 
 module SARXQ-R64-R64-R64-SEMANTICS

@@ -21,10 +21,11 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "SF" |-> (#ifMInt (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ashrMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 48, 56), mi(1, 0)), uvalueMInt(concatenateMInt( mi(1, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("SF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
 )
 
     </regstate>
+    
 endmodule
 
 module SARB-RH-CL-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqM
 )
 
     </regstate>
+    
 endmodule
 
 module PSHUFB-XMM-XMM-SEMANTICS

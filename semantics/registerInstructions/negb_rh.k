@@ -25,6 +25,7 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 )
 
     </regstate>
+    
 endmodule
 
 module NEGB-RH-SEMANTICS

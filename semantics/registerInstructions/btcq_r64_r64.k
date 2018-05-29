@@ -23,6 +23,7 @@ convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uv
 )
 
     </regstate>
+    
 endmodule
 
 module BTCQ-R64-R64-SEMANTICS

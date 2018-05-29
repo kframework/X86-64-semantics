@@ -25,6 +25,7 @@ convToRegKeys(R2) |-> extractMInt( mulMInt( mi(128, svalueMInt(getParentValue(R2
 )
 
     </regstate>
+    
 endmodule
 
 module IMULQ-R64-R64-SEMANTICS

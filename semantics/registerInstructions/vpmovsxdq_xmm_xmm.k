@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( mi(64, svalu
 )
 
     </regstate>
+    
 endmodule
 
 module VPMOVSXDQ-XMM-XMM-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugt
 )
 
     </regstate>
+    
 endmodule
 
 module VPMAXUD-XMM-XMM-XMM-SEMANTICS

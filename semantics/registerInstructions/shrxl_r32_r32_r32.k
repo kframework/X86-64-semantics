@@ -13,6 +13,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), lshrMInt( extractMInt( getPare
 )
 
     </regstate>
+    
 endmodule
 
 module SHRXL-R32-R32-R32-SEMANTICS

@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_single_to_int32(extractMIn
 )
 
     </regstate>
+    
 endmodule
 
 module CVTSS2SIL-R32-XMM-SEMANTICS

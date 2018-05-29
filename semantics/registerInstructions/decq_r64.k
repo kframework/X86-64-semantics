@@ -23,6 +23,7 @@ convToRegKeys(R1) |-> subMInt( getParentValue(R1, RSMap), mi(64, 1))
 )
 
     </regstate>
+    
 endmodule
 
 module DECQ-R64-SEMANTICS

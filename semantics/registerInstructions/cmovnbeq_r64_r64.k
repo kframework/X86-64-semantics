@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> (#ifMInt ((notBool eqMInt(getFlag("CF", RSMap), mi(1,1))) 
 )
 
     </regstate>
+    
 endmodule
 
 module CMOVNBEQ-R64-R64-SEMANTICS

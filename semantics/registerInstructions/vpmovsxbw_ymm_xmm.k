@@ -13,6 +13,7 @@ convToRegKeys(R2) |-> concatenateMInt( mi(16, svalueMInt(extractMInt( getParentV
 )
 
     </regstate>
+    
 endmodule
 
 module VPMOVSXBW-YMM-XMM-SEMANTICS
