@@ -51,6 +51,7 @@
     - uifs including tag `UIF1`
     - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
   - Test all the conditional undefs
+  - Test the local testcases.
 
 - To Do
   - There are many 'system instructions' that can be supported. like SHLD

@@ -2,11 +2,8 @@ cmppd_xmm_xmm_imm8
 cmpps_xmm_xmm_imm8
 cmpsd_xmm_xmm_imm8
 cmpss_xmm_xmm_imm8
-imull_r32_r32_imm32
 imull_r32_r32_imm8
-imulq_r64_r64_imm32
 imulq_r64_r64_imm8
-imulw_r16_r16_imm16
 imulw_r16_r16_imm8
 mpsadbw_xmm_xmm_imm8
 pclmulqdq_xmm_xmm_imm8
@@ -14,8 +11,6 @@ pcmpestri_xmm_xmm_imm8
 pcmpestrm_xmm_xmm_imm8
 pcmpistri_xmm_xmm_imm8
 pcmpistrm_xmm_xmm_imm8
-pushq_imm16
-pushq_imm32
 pushq_imm8
 rorxl_r32_r32_imm8
 rorxq_r64_r64_imm8
@@ -38,3 +33,8 @@ vroundps_xmm_xmm_imm8
 vroundps_ymm_ymm_imm8
 vroundsd_xmm_xmm_xmm_imm8
 vroundss_xmm_xmm_xmm_imm8
+imull_r32_r32_imm32
+imulq_r64_r64_imm32
+imulw_r16_r16_imm16
+pushq_imm16
+pushq_imm32
