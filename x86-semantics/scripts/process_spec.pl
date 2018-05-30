@@ -444,7 +444,7 @@ if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
         exit(0);
     }
 
-    my $basedir = "imm_instructions";
+    my $basedir = "concrete_instances/immediate-variants/";
     if ( "" ne $check_stoke_mem ) {
         $basedir = "concrete_instances/memory-variants";
     }
@@ -636,7 +636,9 @@ sub threadop_match_stoke {
     $line = utils::trim($line);
 
     print("\n\n Running Match Stoke on $line\n");
-    my $workdir = "imm_instructions/$line";
+
+    #my $workdir = "imm_instructions/$line";
+    my $workdir = "concrete_instances/immediate-variants/$line";
 
     my $match_stoke_txt = "$workdir/match_stoke.txt";
     my $match_stoke_log = "$workdir/match_stoke.log";
@@ -648,7 +650,7 @@ sub threadop_match_stoke {
     }
 
     execute(
-"$script --match_stoke --file $match_stoke_txt  1>m$match_stoke_log 2>&1",
+"$script --match_stoke --file $match_stoke_txt  1>$match_stoke_log 2>&1",
         1
     );
 
@@ -695,7 +697,7 @@ sub threadop_match_stoke {
 
     print "$line\n\teq: "
       . scalar( @{$metric1} ) . "\n\t"
-      . "But eq: "
+      . "But eq($line): "
       . scalar( @{$metric2} ) . "\n\t"
       . "Not eq($line): "
       . scalar( @{$metric3} ) . "\n\t"
@@ -719,7 +721,7 @@ if ( "" ne $match_stoke ) {
     for my $line (@lines) {
         chomp $line;
         execute(
-            "$specgen compare --circuit_dir $kutils::trata_path --opcode $line",
+"$specgen compare --circuit_dir $kutils::strata_path --opcode $line",
             1
         );
     }
