@@ -404,6 +404,32 @@ if ( "" ne $update_tc ) {
     exit(0);
 }
 
+if ( "" ne $prepare_concrete_imm ) {
+    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    if ( "" eq $prefix ) {
+        $prefix = "check_stoke";
+    }
+    my $line = $opcode;
+
+    #for my $line (@lines) {
+    chomp $line;
+    my $workdir = "concrete_instances/immediate-variants/$line";
+    print "\n\nPreparing workdir $workdir\n";
+    execute( "mkdir -p $workdir", 1 );
+    my $check_stoke_text = "$workdir/$prefix.txt";
+
+    open( my $scfp, ">", $check_stoke_text )
+      or die "cannot open: $!";
+    for ( my $i = 0 ; $i < 256 ; $i++ ) {
+        my $conc_instr = $line . "_" . $i;
+        print $scfp $conc_instr . "\n";
+        execute("$specgen_setup --workdir $workdir --opc $conc_instr");
+    }
+
+    #}
+    exit(0);
+}
+
 ####################################################################
 ####################################################################
 ####################################################################
@@ -412,28 +438,7 @@ open( my $fp, "<", $file ) or die "cannot open $file: $!";
 my @lines = <$fp>;
 
 ######################################################
-if ( "" ne $prepare_concrete_imm ) {
-    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
-    if ( "" eq $prefix ) {
-        $prefix = "check_stoke";
-    }
-    for my $line (@lines) {
-        chomp $line;
-        my $workdir = "imm_instructions/$line";
-        print "\n\nPreparing workdir $workdir\n";
-        execute( "mkdir -p $workdir", 1 );
-        my $check_stoke_text = "$workdir/$prefix.txt";
 
-        open( my $scfp, ">", $check_stoke_text )
-          or die "cannot open: $!";
-        for ( my $i = 0 ; $i < 256 ; $i++ ) {
-            my $conc_instr = $line . "_" . $i;
-            print $scfp $conc_instr . "\n";
-            execute("$specgen_setup --workdir $workdir --opc $conc_instr");
-        }
-    }
-    exit(0);
-}
 
 ####################################################################
 if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
