@@ -67,6 +67,15 @@
   A & 1 == A
   but not A & 0 == 0
   ```
+  - Wat about the representation of the following insructions:
+  ```
+  imull_r32_r32_imm32 <--- they do not exits in our semantics
+  imull_r32_r32_imm8
+  imulq_r64_r64_imm32
+  imulq_r64_r64_imm8
+  imulw_r16_r16_imm16
+  imulw_r16_r16_imm8
+  ```
 
 ## Important Points
 - Uses the tc same as the final strata tc
