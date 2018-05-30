@@ -467,7 +467,7 @@ if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
         }
         else {
             execute(
-"$script --check_stoke --file $check_stoke_txt --instructions_path $workdir/instructions  1>$check_stoke_log 2>&1",
+"$script --check_stoke --file $check_stoke_txt --instructions_path $workdir/instructions --testid $testid  1>$check_stoke_log 2>&1",
                 1
             );
         }
@@ -485,7 +485,7 @@ if ( "" ne $check_stoke ) {
         exit(0);
     }
 
-    my $cores_used = 20;
+    my $cores_used = 30;
     my @thrds      = utils::initThreads( scalar(@lines) );
     my $i          = 0;
     my $remaining  = scalar(@lines);
