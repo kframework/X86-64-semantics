@@ -4,9 +4,6 @@
    - ~/Github/master_stoke/src/validator/strata_support.cc
 
 ## Todo
-
-
-
 - Paper
   - Problem with secondary searhces in involving UIFs.
   - what about the baseInstructions: should we have our own or just take it from stoke
@@ -62,6 +59,12 @@
   a - a != 0 as a cold be NaN
   A +- 0 != A
   0 + A != A
+  ```
+  - Talk with authors about the simplification
+  ```
+  0 & A == 0
+  A & 1 == A
+  but not A & 0 == 0
   ```
 
 ## Important Points
