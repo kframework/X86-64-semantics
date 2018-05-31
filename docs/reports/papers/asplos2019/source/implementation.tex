@@ -1,7 +1,13 @@
 
 \section{Modeling X86-64 Instruction Semantics} \label{sec:modelI}
 
-In this work we supported formal semantics of the input/output behavior of \supp{} out of \total{}  of the x86-64 Haswell ISA instruction variants. \cmt{Haswell ISA is extensively used used in desktops and servers.} The un-supported ones (\# \unsupp{}) falls in the following  categories: \textbf{Systems} ( 304 variant), \textbf{Cryptography} ( 304 variant), \textbf{X87}, (155 variant), \textbf{MMX} (180 variant) \& \textbf{Jumps} (263 variants). 
+In this work we supported formal semantics of the input/output behavior of
+\supp{} out of \total{}  of the x86-64 Haswell ISA instruction variants.
+\cmt{Haswell ISA is extensively used used in desktops and servers.} The
+un-supported ones (\# \unsupp{}) falls in the following  categories:
+\textbf{Systems} ( 304 variant), \textbf{Cryptography} ( 304 variant),
+  \textbf{X87}, (155 variant), \textbf{MMX} (180 variant) \& \textbf{Jumps} (263
+      variants). 
 
 
 \cmt{
@@ -11,46 +17,127 @@ In this work we supported formal semantics of the input/output behavior of \supp
 \end{tikzpicture}
 }
 
-In order to get semantics of individual instructions, we build on top of project \Strata~\cite{Heule2016a} which automatically synthesized formal semantics  of the input/output behavior for $1796$ Haswell ISA X86-64 instructions. The key to their results is stratified synthesis, where they use a set of instructions whose semantics are known to synthesize the semantics of additional instructions whose semantics are unknown. Using a  technique which is a combination of stochastic search + testing (we refer as {\tt initial search}) and subsequent equivalence checking ({\tt secondary searches}), they 
-first came up with the semantics of $692$ register and $\sim120$ immediate instructions. The rest $\sim984$ are the immediate and memory variants obtained by generalizing the $692$ register instructions.     
+In order to get semantics of individual instructions, we build on top of project
+\Strata~\cite{Heule2016a} which automatically synthesized formal semantics  of
+the input/output behavior for $1796$ Haswell ISA X86-64 instructions. The key to
+their results is stratified synthesis, where they use a set of instructions
+whose semantics are known to synthesize the semantics of additional instructions
+whose semantics are unknown. Using a  technique which is a combination of
+stochastic search + testing (we refer as {\tt initial search}) and subsequent
+equivalence checking ({\tt secondary searches}), they first came up with the
+semantics of $692$ register and $\sim120$ immediate instructions. The rest
+$\sim984$ are the immediate and memory variants obtained by generalizing the
+$692$ register instructions.     
 
 Following are some of the immediate challenges that we need to overcome.
 
 \begin{itemize}
         
     
-    \item  \textbf{CH.1} For immediate  variants that do not have a corresponding register-only instruction, \Strata  learns a separate formula for every possible value of the constant provided the constant value is of width 8 bits. Also in some cases, they learned a formula only for some of the possible constants.
+    \item  \textbf{CH.1} For immediate  variants that do not have a
+    corresponding register-only instruction, \Strata  learns a separate formula
+    for every possible value of the constant provided the constant value is of
+    width 8 bits. Also in some cases, they learned a formula only for some of
+    the possible constants.
     
     In order to have a more intuitive semantics of those instructions, we a generic formula for those  immediate instructions.
 
-    \item \textbf{CH.2} \Strata does not model the \reg{af} flag. This is not a fundamental challenge, but a choice as this isn't a commonly used flag. Supporting this flag fall within the scope of our work.
+    \item \textbf{CH.2} \Strata does not model the \reg{af} flag. This is not a
+    fundamental challenge, but a choice as this isn't a commonly used flag.
+    Supporting this flag fall within the scope of our work.
       
-    \item \textbf{CH.3} There are instructions which conditionally sets some  cpu flags to \emph{undef}. For example, the shift left instruction \instr{salq \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state if the count mask $>1$. 
-    Again there are instructions like \instr{blsr \%eax, \%ebx} which un-conditionally puts flags like \reg{pf} \& \reg{af} into \emph{undef} state.
+    \item \textbf{CH.3} There are instructions which conditionally sets some
+    cpu flags to \emph{undef}. For example, the shift left instruction
+    \instr{salq \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state if the
+    count mask $>1$.  Again there are instructions like \instr{blsr \%eax,
+      \%ebx} which un-conditionally puts flags like \reg{pf} \& \reg{af} into
+      \emph{undef} state.
  
-    \Strata while doing the {\tt initial search} does not test the flags which \emph{may} (for conditional \emph{undef}s)  or \emph{must} (for un-conditional \emph{undef}s) be taking undefined values. We intend to model the semantics of these flags with the same correctness guarantee as the other registers which are defined and hence model by \Strata.
+    \Strata while doing the {\tt initial search} does not test the flags which
+    \emph{may} (for conditional \emph{undef}s)  or \emph{must} (for
+        un-conditional \emph{undef}s) be taking undefined values. We intend to
+    model the semantics of these flags with the same correctness guarantee as
+    the other registers which are defined and hence model by \Strata.
     
-    \item \textbf{CH.4} How reliable is the generalization of register instructions to memory or immediate variants? \Strata states that the claim  for the generalization is based on random testing.
+    \item \textbf{CH.4} How reliable is the generalization of register
+    instructions to memory or immediate variants? \Strata states that the claim
+    for the generalization is based on random testing.
     
-    \item \textbf{CH.5} Finally how to support the unsupported or \emph{un-stratified} ones. The paper ~\cite{Heule2016a} mentions that adding some primitive instructions (like saturated add) as the base instruction might help stratified more instructions. We would like to explore similar directions.   
+    \item \textbf{CH.5} Finally how to support the unsupported or
+    \emph{un-stratified} ones. The paper ~\cite{Heule2016a} mentions that adding
+    some primitive instructions (like saturated add) as the base instruction
+    might help stratified more instructions. We would like to explore similar
+    directions.   
 
 \end{itemize} 
 
-Following is a key observation concerning stratification which help us handle the most of the above mentioned challenges.
+Following is a key observation concerning stratification which help us handle
+the most of the above mentioned challenges.
 
-\paragraph{Observation}
-     In order to get the semantics of a target instruction {\tt I}, \Strata uses \Stoke along with set {\tt TS} of $6580$ test cases to synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which means the output behavior of the instruction sequence matches with the real hardware execution on input {\tt TS}). After having that {\tt initial search}, they keep on searching  additional sequences (which they call {\tt secondary searches} each agreeing with {\tt I} on {\tt TS}) in a hope of getting  one which would prove non-equivalent to existing ones and thereby gaining more confidence on the search and probably a better test-suite (as {\tt TS} might get augmented with a counter example from equivalence checker in the event of non-equivalence). One unfavorable possibility for \Strata is when all subsequent secondary search results proves  equivalent to the one obtained from initial search, in which case it  means that  secondary searches fail to add any ``confidence'' to the initial search result and the final outcome of stratification is having the same correctness guarantee as that provided by the initial search result, which is ``correctness over {\tt TS}''. But in those unfavorable case, the secondary searches might have provided ``better'' choices to pick the final formula from. A better choice of formula do not contain uninterpreted functions or  non-linear arithmetics  and are simple.  
+\paragraph{Observation} In order to get the semantics of a target instruction
+{\tt I}, \Strata uses \Stoke along with set {\tt TS} of $6580$ test cases to
+synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
+    means the output behavior of the instruction sequence matches with the real
+    hardware execution on input {\tt TS}). After having that {\tt initial
+  search}, they keep on searching  additional sequences (which they call {\tt
+      secondary searches} each agreeing with {\tt I} on {\tt TS}) in a hope of
+  getting  one which would prove non-equivalent to existing ones and thereby
+  gaining more confidence on the search and probably a better test-suite (as
+      {\tt TS} might get augmented with a counter example from equivalence
+      checker in the event of non-equivalence). One unfavorable possibility for
+  \Strata is when all subsequent secondary search results proves  equivalent to
+  the one obtained from initial search, in which case it  means that  secondary
+  searches fail to add any ``confidence'' to the initial search result and the
+  final outcome of stratification is having the same correctness guarantee as
+  that provided by the initial search result, which is ``correctness over {\tt
+    TS}''. But in those unfavorable case, the secondary searches might have
+    provided ``better'' choices to pick the final formula from. A better choice
+    of formula do not contain uninterpreted functions or  non-linear arithmetics
+    and are simple.  
     
-   In the paper\cite{Heule2016a}, it is mentioned that there are only $50$ cases, where they found a (valid) counterexample. That means, there are $762 = (692 + 120 - 50)$ cases, where the initial search is sufficient enough to be accepted, as all the later secondary searches results are equivalent to the one obtained from the {\tt initial search}. In other words, in  most of the cases, the correctness guarantee of stratification is same as that of the initial search result. 
+   In the paper\cite{Heule2016a}, it is mentioned that there are only $50$
+   cases, where they found a (valid) counterexample. That means, there are $762
+   = (692 + 120 - 50)$ cases, where the initial search is sufficient enough to
+   be accepted, as all the later secondary searches results are equivalent to
+   the one obtained from the {\tt initial search}. In other words, in  most of
+   the cases, the correctness guarantee of stratification is same as that of the
+   initial search result. 
    
-   For the unstratified instructions, we would need a \emph{semantics generator} to provide us with an initial candidate of the instruction semantics. Once we have that semantics, we could test it against hardware on the same augmented test-suite (containing $6630 = 6580 + 50$ ) that \Stoke uses and if the candidate  matches then we can claim to have the same correctness guarantee as above. 
+   For the unstratified instructions, we would need a \emph{semantics generator}
+   to provide us with an initial candidate of the instruction semantics. Once we
+   have that semantics, we could test it against hardware on the same augmented
+   test-suite (containing $6630 = 6580 + 50$ ) that \Stoke uses and if the
+   candidate  matches then we can claim to have the same correctness guarantee
+   as above. 
    
-   Now the missing piece, the  \emph{semantic generator}, can be  projects like \Stoke, which have manually written instruction semantics (in terms of logical formulas), or can be manually written.  We understand that this is not as efficient as \Stoke, which is fully automatic in getting these formulas, but our contribution is 1. To deliver in cases where \Stoke cannot   2. To cover  as many instruction semantics as possible. Moreover, writing the semantics manually might alleviate the need of secondary search as a means to provide ``better'' formula as we can control the complexity and choice of operations to include in the formula. Also carefully written manual formula tend to need less number of conflicting searches than the onces generated by random search engines like Stoke.
+   Now the missing piece, the  \emph{semantic generator}, can be  projects like
+   \Stoke, which have manually written instruction semantics (in terms of
+       logical formulas), or can be manually written.  We understand that this
+   is not as efficient as \Stoke, which is fully automatic in getting these
+   formulas, but our contribution is 1. To deliver in cases where \Stoke cannot
+   2. To cover  as many instruction semantics as possible. Moreover, writing the
+   semantics manually might alleviate the need of secondary search as a means to
+   provide ``better'' formula as we can control the complexity and choice of
+   operations to include in the formula. Also carefully written manual formula
+   tend to need less number of conflicting searches than the onces generated by
+   random search engines like Stoke.
    
-   \paragraph{Handling CH.1}
-   The instructions in this category either  have a separate formula for all or some of 256 possible values. We refer each of the separate formulas for instruction {\tt I} as a concrete formula \CF{I}{c} for the particular constant value {\tt c}.  
-   In either case, we can get a generic formula, $G^I$ (which works for all possible values of constants)  by either writing it manually or borrowing it from  \Stoke project. In the case where we have a separate \CF{I}{c} $\forall c \in \{0...255\}$, we do a Z3 equivalence check as follows: $\forall c \in \{0..255\}:$ \CF{I}{c} $\equiv$ \GN{I}{c}, where \GN{I}{c} is obtained by replacing the symbolic inputs of $G^I$ with constant value {\tt c}. A successful equivalence check suggest $G^I$ to be a generic formula with the same correctness guarantee that \Strata has for any of the individual concrete formulas. For the case where we have a separate formula for a subset of constant values, we do the same equivalence check as before for that subset. The constants for which we do not have a separate formula we test \GN{I}{c} using {\tt TS}, the final test-suite of \Strata.  
-   \revisit{Provide numbers manual vs stoke}
+   \paragraph{Handling CH.1} The instructions in this category either  have a
+   separate formula for all or some of 256 possible values. We refer each of the
+   separate formulas for instruction {\tt I} as a concrete formula \CF{I}{c} for
+   the particular constant value {\tt c}.  In either case, we can get a generic
+   formula, $G^I$ (which works for all possible values of constants)  by either
+   writing it manually or borrowing it from  \Stoke project. In the case where
+   we have a separate \CF{I}{c} $\forall c \in \{0...255\}$, we do a Z3
+   equivalence check as follows: $\forall c \in \{0..255\}:$ \CF{I}{c} $\equiv$
+   \GN{I}{c}, where \GN{I}{c} is obtained by replacing the symbolic inputs of
+   $G^I$ with constant value {\tt c}. A successful equivalence check suggest
+   $G^I$ to be a generic formula with the same correctness guarantee that
+   \Strata has for any of the individual concrete formulas. For the case where
+   we have a separate formula for a subset of constant values, we do the same
+   equivalence check as before for that subset. The constants for which we do
+   not have a separate formula we test \GN{I}{c} using {\tt TS}, the final
+   test-suite of \Strata.  \revisit{Provide numbers manual vs stoke}
     
    \paragraph{Handling CH.2}
      
@@ -59,15 +146,15 @@ Following is a key observation concerning stratification which help us handle th
 
 \subsection{Porting Formulas for stratified instructions to \K Rules}
 
-For the purpose of getting  \K rules, we could have directly converted the \Strata formulas
-for an instruction to \K rule assuming that the \Strata's symbolic execution over the 
-stratified instruction sequence is correct.
+For the purpose of getting  \K rules, we could have directly converted the
+\Strata formulas for an instruction to \K rule assuming that the \Strata's
+symbolic execution over the stratified instruction sequence is correct.
 
-Given that fact the \K's symbolic execution engine is more trusted as 
-that has been used extensively in language-agnostic manner to perform symbolic
-execution, we decided to use \K's symbolic executor. Also in order to check 
-if \Strata's symbolic execution engine is correct, we did an equivalence check on 
-the outputs of both the symbolic executions.   
+Given that fact the \K's symbolic execution engine is more trusted as that has
+been used extensively in language-agnostic manner to perform symbolic execution,
+     we decided to use \K's symbolic executor. Also in order to check if
+     \Strata's symbolic execution engine is correct, we did an equivalence check
+     on the outputs of both the symbolic executions.   
  
 
 \begin{enumerate}
@@ -76,9 +163,11 @@ the outputs of both the symbolic executions.
 \item Dealing with scratch pad registers.
 \item Equivalence check between \Strata formula ad the output of 2.
    
-   All the checks are \emph{unsat}, expect one where the check fail to due a bug in the simplification
-   rules in \Strata, which states the following lemma related to two single precision floating point numbers  {\tt A}  and {\tt B}, which is not correct for {\tt NaNs}. However this bug is fixed in 
-   the latest version of \Stoke. 
+   All the checks are \emph{unsat}, expect one where the check fail to due a bug
+   in the simplification rules in \Strata, which states the following lemma
+   related to two single precision floating point numbers  {\tt A}  and {\tt B},
+   which is not correct for {\tt NaNs}. However this bug is fixed in the latest
+   version of \Stoke. 
    
    
    { \tt  
@@ -87,15 +176,19 @@ the outputs of both the symbolic executions.
       \end{tabular}
   }
    
-\item {Simplification of formulas:}
-  Simplification generates simple \K rule (sometimes simpler than the corresponding \Strata formula).
- Also it is much easier to write the simplification rules in
-  \K.\revisit{show the example for concat(A[1:2], concate(B[2:3], X)) $\equiv$
-    concate(A[1:3], X)}
+\item {Simplification of formulas:} Simplification generates simple \K rule
+(sometimes simpler than the corresponding \Strata formula).  Also it is much
+easier to write the simplification rules in \K.\revisit{show the example for
+  concat(A[1:2], concate(B[2:3], X)) $\equiv$ concate(A[1:3], X)}
 
 
-\item One drawback of the \Strata formulas is they could be non-intuitive and complex at times when the simplification rules are not adequate enough to simplify their complexity to more intuitive formulas. Appendix \ref{sec:AP:A} provides such an example.
-Towards the goal of having intuitive formulas, we borrowed the hand written formula (provided they are simpler) from \Stoke or manually write those  and check equivalence with the stratified formula. If they match on all register state and/or memory, we employ that in our \K semantics.
+\item One drawback of the \Strata formulas is they could be non-intuitive and
+complex at times when the simplification rules are not adequate enough to
+simplify their complexity to more intuitive formulas. Appendix \ref{sec:AP:A}
+provides such an example.  Towards the goal of having intuitive formulas, we
+borrowed the hand written formula (provided they are simpler) from \Stoke or
+manually write those  and check equivalence with the stratified formula. If they
+match on all register state and/or memory, we employ that in our \K semantics.
 
 \cmt{
 An example of one such simplification opportunity is: 
