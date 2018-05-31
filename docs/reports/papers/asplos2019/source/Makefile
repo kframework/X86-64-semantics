@@ -3,6 +3,7 @@ PAPER = main
 TEX = $(wildcard *.tex)
 
 BIB = bibs/references.bib \
+      bibs/bugs.bib \
       bibs/modeling-X86-semantics.bib
 
 FIGS = $(wildcard figures/*.eps)

@@ -1,148 +1,148 @@
-, "andw_m16_imm16" // AND m16, imm16:1
-, "andw_m16_imm8" // AND m16, imm8:1
-, "andw_m16_r16" // AND m16, r16:1
-, "andl_m32_imm32" // AND m32, imm32:1
-, "andl_m32_imm8" // AND m32, imm8:1
-, "andl_m32_r32" // AND m32, r32:1
-, "andq_m64_imm32" // AND m64, imm32:1
-, "andq_m64_imm8" // AND m64, imm8:1
-, "andq_m64_r64" // AND m64, r64:1
-, "andb_m8_imm8" // AND m8, imm8:1
-, "andb_m8_r8" // AND m8, r8:1
-, "andb_m8_rh" // AND m8, rh:1
-, "andw_r16_m16" // AND r16, m16:1
-, "andl_r32_m32" // AND r32, m32:1
-, "andq_r64_m64" // AND r64, m64:1
-, "andb_r8_m8" // AND r8, m8:1
-, "andb_rh_m8" // AND rh, m8:1
-, "andnl_r32_r32_m32" // ANDN r32, r32, m32:2
-, "andnq_r64_r64_m64" // ANDN r64, r64, m64:2
-, "bextrl_r32_m32_r32" // BEXTR r32, m32, r32:3
-, "bextrq_r64_m64_r64" // BEXTR r64, m64, r64:3
-, "blsil_r32_m32" // BLSI r32, m32:2
-, "blsiq_r64_m64" // BLSI r64, m64:2
-, "blsmskl_r32_m32" // BLSMSK r32, m32:2
-, "blsmskq_r64_m64" // BLSMSK r64, m64:2
-, "blsrl_r32_m32" // BLSR r32, m32:2
-, "blsrq_r64_m64" // BLSR r64, m64:2
-, "bsfl_r32_m32" // BSF r32, m32:5
-, "bsfq_r64_m64" // BSF r64, m64:5
-, "bsrw_r16_m16" // BSR r16, m16:5
-, "bsrl_r32_m32" // BSR r32, m32:5
-, "bsrq_r64_m64" // BSR r64, m64:5
-, "btw_m16_imm8" // BT m16, imm8:4
-, "btw_m16_r16" // BT m16, r16:4
-, "btl_m32_imm8" // BT m32, imm8:4
-, "btl_m32_r32" // BT m32, r32:4
-, "btq_m64_imm8" // BT m64, imm8:4
-, "btq_m64_r64" // BT m64, r64:4
-, "btcw_m16_imm8" // BTC m16, imm8:4
-, "btcw_m16_r16" // BTC m16, r16:4
-, "btcl_m32_imm8" // BTC m32, imm8:4
-, "btcl_m32_r32" // BTC m32, r32:4
-, "btcq_m64_imm8" // BTC m64, imm8:4
-, "btcq_m64_r64" // BTC m64, r64:4
-, "btrw_m16_imm8" // BTR m16, imm8:4
-, "btrw_m16_r16" // BTR m16, r16:4
-, "btrl_m32_imm8" // BTR m32, imm8:4
-, "btrl_m32_r32" // BTR m32, r32:4
-, "btrq_m64_imm8" // BTR m64, imm8:4
-, "btrq_m64_r64" // BTR m64, r64:4
-, "btsw_m16_imm8" // BTS m16, imm8:4
-, "btsw_m16_r16" // BTS m16, r16:4
-, "btsl_m32_imm8" // BTS m32, imm8:4
-, "btsl_m32_r32" // BTS m32, r32:4
-, "btsq_m64_imm8" // BTS m64, imm8:4
-, "btsq_m64_r64" // BTS m64, r64:4
-, "bzhil_r32_m32_r32" // BZHI r32, m32, r32:2
-, "bzhiq_r64_m64_r64" // BZHI r64, m64, r64:2
-, "divw_m16" // DIV m16:6
-, "divl_m32" // DIV m32:6
-, "divq_m64" // DIV m64:6
-, "divb_m8" // DIV m8:6
-, "idivw_m16" // IDIV m16:6
-, "idivl_m32" // IDIV m32:6
-, "idivq_m64" // IDIV m64:6
-, "idivb_m8" // IDIV m8:6
-, "imulw_m16" // IMUL m16:4
-, "imull_m32" // IMUL m32:4
-, "imulq_m64" // IMUL m64:4
-, "imulb_m8" // IMUL m8:4
-, "imulw_r16_m16" // IMUL r16, m16:4
-, "imulw_r16_m16_imm16" // IMUL r16, m16, imm16:4
-, "imulw_r16_m16_imm8" // IMUL r16, m16, imm8:4
-, "imull_r32_m32" // IMUL r32, m32:4
-, "imull_r32_m32_imm32" // IMUL r32, m32, imm32:4
-, "imull_r32_m32_imm8" // IMUL r32, m32, imm8:4
-, "imulq_r64_m64" // IMUL r64, m64:4
-, "imulq_r64_m64_imm32" // IMUL r64, m64, imm32:4
-, "imulq_r64_m64_imm8" // IMUL r64, m64, imm8:4
-, "lzcntw_r16_m16" // LZCNT r16, m16:4
-, "lzcntl_r32_m32" // LZCNT r32, m32:4
-, "lzcntq_r64_m64" // LZCNT r64, m64:4
-, "mulw_m16" // MUL m16:4
-, "mull_m32" // MUL m32:4
-, "mulq_m64" // MUL m64:4
-, "mulb_m8" // MUL m8:4
-, "orw_m16_imm16" // OR m16, imm16:1
-, "orw_m16_imm8" // OR m16, imm8:1
-, "orw_m16_r16" // OR m16, r16:1
-, "orl_m32_imm32" // OR m32, imm32:1
-, "orl_m32_imm8" // OR m32, imm8:1
-, "orl_m32_r32" // OR m32, r32:1
-, "orq_m64_imm32" // OR m64, imm32:1
-, "orq_m64_imm8" // OR m64, imm8:1
-, "orq_m64_r64" // OR m64, r64:1
-, "orb_m8_imm8" // OR m8, imm8:1
-, "orb_m8_r8" // OR m8, r8:1
-, "orb_m8_rh" // OR m8, rh:1
-, "orw_r16_m16" // OR r16, m16:1
-, "orl_r32_m32" // OR r32, m32:1
-, "orq_r64_m64" // OR r64, m64:1
-, "orb_r8_m8" // OR r8, m8:1
-, "orb_rh_m8" // OR rh, m8:1
-, "salw_m16_one" // SAL m16, 1:1
-, "sall_m32_one" // SAL m32, 1:1
-, "salq_m64_one" // SAL m64, 1:1
-, "salb_m8_one" // SAL m8, 1:1
-, "sarw_m16_one" // SAR m16, 1:1
-, "sarl_m32_one" // SAR m32, 1:1
-, "sarq_m64_one" // SAR m64, 1:1
-, "sarb_m8_one" // SAR m8, 1:1
-, "shlw_m16_one" // SHL m16, 1:1
-, "shll_m32_one" // SHL m32, 1:1
-, "shlq_m64_one" // SHL m64, 1:1
-, "shlb_m8_one" // SHL m8, 1:1
-, "shrw_m16_one" // SHR m16, 1:1
-, "shrl_m32_one" // SHR m32, 1:1
-, "shrq_m64_one" // SHR m64, 1:1
-, "shrb_m8_one" // SHR m8, 1:1
-, "testw_m16_imm16" // TEST m16, imm16:1
-, "testw_m16_r16" // TEST m16, r16:1
-, "testl_m32_imm32" // TEST m32, imm32:1
-, "testl_m32_r32" // TEST m32, r32:1
-, "testq_m64_imm32" // TEST m64, imm32:1
-, "testq_m64_r64" // TEST m64, r64:1
-, "testb_m8_imm8" // TEST m8, imm8:1
-, "testb_m8_r8" // TEST m8, r8:1
-, "testb_m8_rh" // TEST m8, rh:1
-, "tzcntw_r16_m16" // TZCNT r16, m16:4
-, "tzcntl_r32_m32" // TZCNT r32, m32:4
-, "tzcntq_r64_m64" // TZCNT r64, m64:4
-, "xorw_m16_imm16" // XOR m16, imm16:1
-, "xorw_m16_imm8" // XOR m16, imm8:1
-, "xorw_m16_r16" // XOR m16, r16:1
-, "xorl_m32_imm32" // XOR m32, imm32:1
-, "xorl_m32_imm8" // XOR m32, imm8:1
-, "xorl_m32_r32" // XOR m32, r32:1
-, "xorq_m64_imm32" // XOR m64, imm32:1
-, "xorq_m64_imm8" // XOR m64, imm8:1
-, "xorq_m64_r64" // XOR m64, r64:1
-, "xorb_m8_imm8" // XOR m8, imm8:1
-, "xorb_m8_r8" // XOR m8, r8:1
-, "xorb_m8_rh" // XOR m8, rh:1
-, "xorw_r16_m16" // XOR r16, m16:1
-, "xorl_r32_m32" // XOR r32, m32:1
-, "xorq_r64_m64" // XOR r64, m64:1
-, "xorb_r8_m8" // XOR r8, m8:1
-, "xorb_rh_m8" // XOR rh, m8:1
+andw_m16_imm16:1
+andw_m16_imm8:1
+andw_m16_r16:1
+andl_m32_imm32:1
+andl_m32_imm8:1
+andl_m32_r32:1
+andq_m64_imm32:1
+andq_m64_imm8:1
+andq_m64_r64:1
+andb_m8_imm8:1
+andb_m8_r8:1
+andb_m8_rh:1
+andw_r16_m16:1
+andl_r32_m32:1
+andq_r64_m64:1
+andb_r8_m8:1
+andb_rh_m8:1
+andnl_r32_r32_m32:2
+andnq_r64_r64_m64:2
+bextrl_r32_m32_r32:3
+bextrq_r64_m64_r64:3
+blsil_r32_m32:2
+blsiq_r64_m64:2
+blsmskl_r32_m32:2
+blsmskq_r64_m64:2
+blsrl_r32_m32:2
+blsrq_r64_m64:2
+bsfl_r32_m32:5
+bsfq_r64_m64:5
+bsrw_r16_m16:5
+bsrl_r32_m32:5
+bsrq_r64_m64:5
+btw_m16_imm8:4
+btw_m16_r16:4
+btl_m32_imm8:4
+btl_m32_r32:4
+btq_m64_imm8:4
+btq_m64_r64:4
+btcw_m16_imm8:4
+btcw_m16_r16:4
+btcl_m32_imm8:4
+btcl_m32_r32:4
+btcq_m64_imm8:4
+btcq_m64_r64:4
+btrw_m16_imm8:4
+btrw_m16_r16:4
+btrl_m32_imm8:4
+btrl_m32_r32:4
+btrq_m64_imm8:4
+btrq_m64_r64:4
+btsw_m16_imm8:4
+btsw_m16_r16:4
+btsl_m32_imm8:4
+btsl_m32_r32:4
+btsq_m64_imm8:4
+btsq_m64_r64:4
+bzhil_r32_m32_r32:2
+bzhiq_r64_m64_r64:2
+divw_m16:6
+divl_m32:6
+divq_m64:6
+divb_m8:6
+idivw_m16:6
+idivl_m32:6
+idivq_m64:6
+idivb_m8:6
+imulw_m16:4
+imull_m32:4
+imulq_m64:4
+imulb_m8:4
+imulw_r16_m16:4
+imulw_r16_m16_imm16:4
+imulw_r16_m16_imm8:4
+imull_r32_m32:4
+imull_r32_m32_imm32:4
+imull_r32_m32_imm8:4
+imulq_r64_m64:4
+imulq_r64_m64_imm32:4
+imulq_r64_m64_imm8:4
+lzcntw_r16_m16:4
+lzcntl_r32_m32:4
+lzcntq_r64_m64:4
+mulw_m16:4
+mull_m32:4
+mulq_m64:4
+mulb_m8:4
+orw_m16_imm16:1
+orw_m16_imm8:1
+orw_m16_r16:1
+orl_m32_imm32:1
+orl_m32_imm8:1
+orl_m32_r32:1
+orq_m64_imm32:1
+orq_m64_imm8:1
+orq_m64_r64:1
+orb_m8_imm8:1
+orb_m8_r8:1
+orb_m8_rh:1
+orw_r16_m16:1
+orl_r32_m32:1
+orq_r64_m64:1
+orb_r8_m8:1
+orb_rh_m8:1
+salw_m16_one:1
+sall_m32_one:1
+salq_m64_one:1
+salb_m8_one:1
+sarw_m16_one:1
+sarl_m32_one:1
+sarq_m64_one:1
+sarb_m8_one:1
+shlw_m16_one:1
+shll_m32_one:1
+shlq_m64_one:1
+shlb_m8_one:1
+shrw_m16_one:1
+shrl_m32_one:1
+shrq_m64_one:1
+shrb_m8_one:1
+testw_m16_imm16:1
+testw_m16_r16:1
+testl_m32_imm32:1
+testl_m32_r32:1
+testq_m64_imm32:1
+testq_m64_r64:1
+testb_m8_imm8:1
+testb_m8_r8:1
+testb_m8_rh:1
+tzcntw_r16_m16:4
+tzcntl_r32_m32:4
+tzcntq_r64_m64:4
+xorw_m16_imm16:1
+xorw_m16_imm8:1
+xorw_m16_r16:1
+xorl_m32_imm32:1
+xorl_m32_imm8:1
+xorl_m32_r32:1
+xorq_m64_imm32:1
+xorq_m64_imm8:1
+xorq_m64_r64:1
+xorb_m8_imm8:1
+xorb_m8_r8:1
+xorb_m8_rh:1
+xorw_r16_m16:1
+xorl_r32_m32:1
+xorq_r64_m64:1
+xorb_r8_m8:1
+xorb_rh_m8:1
