@@ -13,7 +13,7 @@ their results is stratified synthesis, where they use a set of instructions
 whose semantics are known to synthesize the semantics of additional instructions
 whose semantics are unknown. Using a  combination of 
 stochastic search + pruning using testing (we refer as {\tt initial search}) and subsequent refining of the search results using equivalence checking ({\tt referred as secondary searches}), they first came up with the
-semantics of $692$ register and $\sim120$ immediate instructions. The rest
+semantics of $692$ register and \revisit{$\sim120$} immediate instructions. The rest
 $\sim984$ are the immediate and memory variants obtained by generalization of
 $692$ register instructions.     
 
@@ -23,20 +23,15 @@ $692$ register instructions.
 Following are some of the immediate challenges that we needed to address.
 
 \begin{itemize}
-        
+           
     \item 
-    \textbf{CH.1} For \ImmUg{} out of total \ImmTotal{} immediate variants that 
-    do not have a corresponding register-only instruction, 
-    \Strata  learns a separate formula
-    for every possible value of the constant provided the constant value is of
-    width 8 bits. Also in some cases, they learned a formula only for some of
-    the possible constants.
-    
-    In order to have a more intuitive semantics of those instructions, we a generic formula for those  immediate instructions.
+    \textbf{CH.1} The $\sim120$ immediate instructions, mentioned above, 
+    do not have a corresponding register-only instruction to generalized from. 
+    Therefore \Strata tries to learn a separate formula
+    for every possible value of the 8 bit immediate operand.
+    We intend to have a more intuitive generic semantics (that works for all values of the immediate operand) for those instructions. 
 
-    \item \textbf{CH.2} \Strata does not model the \reg{af} flag. This is not a
-    fundamental challenge, but a choice as this isn't a commonly used flag.
-    Supporting this flag fall within the scope of our work.
+    \item \textbf{CH.2} \Strata chose not to model the \reg{af} flag as this is not commonly used. Supporting this flag fall within the scope of our work.
       
     \item \textbf{CH.3} There are instructions which conditionally sets some
     cpu flags to \emph{undef}. For example, the shift left instruction
@@ -59,7 +54,8 @@ Following are some of the immediate challenges that we needed to address.
     \emph{un-stratified} ones. The paper ~\cite{Heule2016a} mentions that adding
     some primitive instructions (like saturated add) as the base instruction
     might help stratified more instructions. We would like to explore similar
-    directions.   
+    directions. Moreover, it would interesting if we can leverage the manually written instruction semantics from project \Stoke. \cmt{ and make
+    sure to have the same correctness guarantee that \Strata provided in most of its cases.}     
 
 \end{itemize} 
 
@@ -117,11 +113,12 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    \paragraph{Handling CH.1} The instructions in this category either  have a
    separate formula for all or some of 256 possible values. We refer each of the
    separate formulas for instruction {\tt I} as a concrete formula \CF{I}{c} for
-   the particular constant value {\tt c}.  In either case, we can get a generic
-   formula, $G^I$ (which works for all possible values of constants)  by either
-   writing it manually or borrowing it from  \Stoke project. In the case where
+   a particular constant value {\tt c} of immediate operand.  In either case, we get a generic formula, $G^I$ either by
+   writing it manually or borrowing it from  \Stoke project.
+   
+   In the case where
    we have a separate \CF{I}{c} $\forall c \in \{0...255\}$, we do a Z3
-   equivalence check as follows: $\forall c \in \{0..255\}:$ \CF{I}{c} $\equiv$
+   equivalence check as follows: $\forall c \in \{0..255\}:$ \CF{I}{c} $\equiv_\text{Z3}$
    \GN{I}{c}, where \GN{I}{c} is obtained by replacing the symbolic inputs of
    $G^I$ with constant value {\tt c}. A successful equivalence check suggest
    $G^I$ to be a generic formula with the same correctness guarantee that
@@ -129,12 +126,18 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    we have a separate formula for a subset of constant values, we do the same
    equivalence check as before for that subset. The constants for which we do
    not have a separate formula we test \GN{I}{c} using {\tt TS}, the final
-   test-suite of \Strata.  \revisit{Provide numbers manual vs stoke}
+   test-suite of \Strata. 
     
    \paragraph{Handling CH.2}
-     
-   
-  
+   \begin{figure}[t]
+       \centering
+       \fig{figures/af_distribution.eps}
+       \caption{Instructions affecting \reg{af} flag.} The numbers represent count of (Register/Immediate/memory) Instructions. 
+       \label{fig:AD}
+   \end{figure}
+
+   Figure \ref{fig:AD} represents the distribution of instructions affecting the \reg{af} flag
+   in a defined or un-defined way. Undefined values can occur conditionally based on some input condition (e.g. \instr{salb \%al \%cl} puts conditional \emph{undef} in \reg{af} based on particular value of count mask). Whereas \instr{orb \%al, \%bl} results in undefined value in \reg{af} unconditionally. We tested all the instructions for the defined cases using {\tt TS}. For conditionally undefined cases, we tested for the scenarios when the condition for undefinedness is not triggered.  For all remaining cases,  we make sure that the \K execution halts when the undefinedness condition is triggered.        
 
 \subsection{Porting Formulas for stratified instructions to \K Rules}
 
