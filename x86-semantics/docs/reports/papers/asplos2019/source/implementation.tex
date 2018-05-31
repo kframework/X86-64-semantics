@@ -31,21 +31,21 @@ Following are some of the immediate challenges that we needed to address.
     for every possible value of the 8 bit immediate operand.
     We intend to have a more intuitive generic semantics (that works for all values of the immediate operand) for those instructions. 
 
-    \item \textbf{CH.2} \Strata chose not to model the \reg{af} flag as this is not commonly used. Supporting this flag fall within the scope of our work.
-      
-    \item \textbf{CH.3} There are instructions which conditionally sets some
-    cpu flags to \emph{undef}. For example, the shift left instruction
-    \instr{salq \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state if the
-    count mask $>1$.  Again there are instructions like \instr{blsr \%eax,
-      \%ebx} which un-conditionally puts flags like \reg{pf} \& \reg{af} into
-      \emph{undef} state.
- 
-    \Strata while doing the {\tt initial search} does not test the flags which
-    \emph{may} (for conditional \emph{undef}s)  or \emph{must} (for
-        un-conditional \emph{undef}s) be taking undefined values. We intend to
-    model the semantics of these flags with the same correctness guarantee as
-    the other registers which are defined and hence model by \Strata.
+ \item \textbf{CH.2} There are instructions which conditionally sets some
+cpu flags to \emph{undef}. For example, the shift left instruction
+\instr{salq \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state if the
+count mask $>1$.  Also there are instructions like \instr{blsr \%eax,
+    \%ebx} which un-conditionally puts flags like \reg{pf} \& \reg{af} into
+\emph{undef} state.
     
+    \Strata while doing the {\tt initial search} does not test the flags which
+\emph{may} (for conditional \emph{undef}s)  or \emph{must} (for
+un-conditional \emph{undef}s) be taking undefined values. We intend to
+model the semantics of these flags with the same correctness guarantee as
+the other registers which do not result in \emph{undef} and hence modeled by \Strata.
+
+    \item \textbf{CH.3} \Strata chose not to model the \reg{af} flag as this is not commonly used. Supporting this flag fall within the scope of our work.
+      
     \item \textbf{CH.4} How reliable is the generalization of register
     instructions to memory or immediate variants? \Strata states that the claim
     for the generalization is based on random testing.
@@ -128,17 +128,29 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    not have a separate formula we test \GN{I}{c} using {\tt TS}, the final
    test-suite of \Strata. 
     
-   \paragraph{Handling CH.2}
+    \paragraph{Handling CH.2}
+    
+    There are $474\ (= 141(\text{Reg}) + 109(\text{Imm}) + 224(\text{Mem}))$ instructions that results in conditional  (or \emph{may}) \emph{undef} ($162\ (= 40 + 46 + 76)$) or un-conditional (or \emph{must}) \emph{undef} ($312\ (= 101 + 63 + 148)$)  in one or more cpu flag. 
+    The semantics of most of the cpu flags (which \emph{may} or \emph{must} take \emph{undef} values) are already modeled in \Stoke. We needed to model the semantics of flag registers for $40$ instructions involving {\tt shifts, rotates}~\cite{BugStoke986}. 
+    
+    For \emph{may undef} cases, we tested against hardware, using {\tt TS}, for the scenarios when the condition for undefinedness is not triggered. 
+    For the remaining cases, (1. \emph{may undef}s where the condition for triggering \emph{undef} is true and 2. \emph{must undef} cases), we make sure that   \K execution halts when the undefinedness condition is triggered. This help is find bugs in the \Stoke implementation of $8$ instructions~\cite{BugStoke986} (Note that these $8$ instructions are not stratified and hence we borrowed it from \Stoke).   
+    
+    
+   \paragraph{Handling CH.3}
    \begin{figure}[t]
        \centering
        \fig{figures/af_distribution.eps}
-       \caption{Instructions affecting \reg{af} flag.} The numbers represent count of (Register/Immediate/memory) Instructions. 
+       \caption{Instructions affecting \reg{af} flag.} The numbers represent count of (Register/Immediate/Memory) Instructions. 
        \label{fig:AD}
    \end{figure}
 
    Figure \ref{fig:AD} represents the distribution of instructions affecting the \reg{af} flag
-   in a defined or un-defined way. Undefined values can occur conditionally based on some input condition (e.g. \instr{salb \%al \%cl} puts conditional \emph{undef} in \reg{af} based on particular value of count mask). Whereas \instr{orb \%al, \%bl} results in undefined value in \reg{af} unconditionally. We tested all the instructions for the defined cases using {\tt TS}. For conditionally undefined cases, we tested for the scenarios when the condition for undefinedness is not triggered.  For all remaining cases,  we make sure that the \K execution halts when the undefinedness condition is triggered.        
-
+   in a defined or un-defined way (which could be conditional or un-conditional). 
+   We tested all the instructions for the defined cases using {\tt TS}. For conditionally undefined cases, we tested for the scenarios when the condition for undefinedness is not triggered.  For all remaining cases,  we make sure that the \K execution halts when the undefinedness condition is triggered.        
+   
+   
+   
 \subsection{Porting Formulas for stratified instructions to \K Rules}
 
 For the purpose of getting  \K rules, we could have directly converted the

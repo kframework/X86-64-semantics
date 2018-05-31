@@ -26,8 +26,10 @@ use utils;
 our $stoke_debug_circuit =
   "/home/sdasgup3/Github/stoke/./bin/stoke_debug_formula";
 our $strata_path = "/home/sdasgup3/Github/strata-data/circuits";
+#our $stoke_check_circuit =
+#  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
 our $stoke_check_circuit =
-  "/home/sdasgup3/Github/strata/stoke/./bin/stoke_check_circuit";
+  "/home/sdasgup3/Github/master_stoke/bin/stoke_check_circuit";
 our $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
 our $testcases     = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
 
