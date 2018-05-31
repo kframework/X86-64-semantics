@@ -66,6 +66,8 @@
   0 & A == 0
   A & 1 == A
   but not A & 0 == 0
+  or
+  add_single(-0, 0) != -0
   ```
   - Wat about the representation of the following insructions:
   ```
