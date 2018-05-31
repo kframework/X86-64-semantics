@@ -14,7 +14,6 @@ DOTS = $(wildcard figures/*.dot)
 	dot -Teps $< -o $@
 
 $(PAPER).pdf: $(TEX) $(BIB) $(FIGS) styles/jpaper.cls
-	echo $(FIGS)
 	pdflatex $(PAPER)
 	bibtex $(PAPER)
 	pdflatex $(PAPER)
