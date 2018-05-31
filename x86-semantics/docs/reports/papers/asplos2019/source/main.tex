@@ -6,7 +6,12 @@
 \usepackage{xspace}
 \usepackage[title]{appendix}
 \usepackage{tikz}
-\usepackage{pgf-pie}
+%\usepackage{pgf-pie}
+\usepackage{tikz-qtree}
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees}
+\usetikzlibrary{shadows,trees}
+\usepackage{forest}
+
 
 
 %replace XXX with the submission number you are given from the ASPLOS submission site.
@@ -35,6 +40,17 @@
 \newcommand{\reg}[1]{\emph{\%#1}}
 \newcommand{\CF}[2]{$F_{#2}^{#1}$}
 \newcommand{\GN}[2]{$G{[#2]}^{#1}$}
+
+%%%%%% Immediates
+\newcommand{\ImmUg}{$146$} % 118 + 28
+\newcommand{\ImmTotal}{$308$}
+\newcommand{\ImmG}{$190$}
+
+%%%%%%% Registers
+\newcommand{\RegTOTAL}{$1133$} % 1083 + 50
+\newcommand{\RegSTRAT}{$742$} % 692 + 50
+\newcommand{\RegSTOK}{$262$}
+\newcommand{\RegMAN}{$129$}
 
 
 \definecolor{codegreen}{rgb}{0,0.6,0}

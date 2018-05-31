@@ -1,41 +1,33 @@
 
 \section{Modeling X86-64 Instruction Semantics} \label{sec:modelI}
+\input{figures/instruction.distribution.tex}
 
 In this work we supported formal semantics of the input/output behavior of
-\supp{} out of \total{}  of the x86-64 Haswell ISA instruction variants.
-\cmt{Haswell ISA is extensively used used in desktops and servers.} The
-un-supported ones (\# \unsupp{}) falls in the following  categories:
-\textbf{Systems} ( 304 variant), \textbf{Cryptography} ( 304 variant),
-  \textbf{X87}, (155 variant), \textbf{MMX} (180 variant) \& \textbf{Jumps} (263
-      variants). 
+\supp{} out of \total{} x86-64 Haswell ISA instruction variants. Figure \ref{fig:IC} shows the classification of the instructions not supported using dotted ovals. \revisit{Why they are not supported??} 
 
-
-\cmt{
-\begin{tikzpicture}
-%\pie [ text=legend, before number={\$} , after number=,]{304/A , 35/B , 155/C}
-\pie [text=legend, before number ={},after number =,]{30/ A ,35/ B , 15/ C , 40/ D }
-\end{tikzpicture}
-}
 
 In order to get semantics of individual instructions, we build on top of project
 \Strata~\cite{Heule2016a} which automatically synthesized formal semantics  of
 the input/output behavior for $1796$ Haswell ISA X86-64 instructions. The key to
 their results is stratified synthesis, where they use a set of instructions
 whose semantics are known to synthesize the semantics of additional instructions
-whose semantics are unknown. Using a  technique which is a combination of
-stochastic search + testing (we refer as {\tt initial search}) and subsequent
-equivalence checking ({\tt secondary searches}), they first came up with the
+whose semantics are unknown. Using a  combination of 
+stochastic search + pruning using testing (we refer as {\tt initial search}) and subsequent refining of the search results using equivalence checking ({\tt referred as secondary searches}), they first came up with the
 semantics of $692$ register and $\sim120$ immediate instructions. The rest
-$\sim984$ are the immediate and memory variants obtained by generalizing the
+$\sim984$ are the immediate and memory variants obtained by generalization of
 $692$ register instructions.     
 
-Following are some of the immediate challenges that we need to overcome.
+
+
+
+Following are some of the immediate challenges that we needed to address.
 
 \begin{itemize}
         
-    
-    \item  \textbf{CH.1} For immediate  variants that do not have a
-    corresponding register-only instruction, \Strata  learns a separate formula
+    \item 
+    \textbf{CH.1} For \ImmUg{} out of total \ImmTotal{} immediate variants that 
+    do not have a corresponding register-only instruction, 
+    \Strata  learns a separate formula
     for every possible value of the constant provided the constant value is of
     width 8 bits. Also in some cases, they learned a formula only for some of
     the possible constants.
@@ -209,11 +201,7 @@ An example of one such simplification opportunity is:
 \subsubsection{Supporting un-stratified instructions}
 \paragraph{Instruction support status}
 
-\begin{figure*}[t]
-\centering
-\fig{figures/instruction_classification}
-\caption{Instruction classification\label{fig:instr_class}}
-\end{figure*}
+
 
 \subsection{Porting to \K Rules}
 
