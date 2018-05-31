@@ -34,13 +34,9 @@ cmpq_r64_imm8
 cmpb_r8_imm8
 cmpq_rax_imm32
 cmpb_rh_imm8
-pcmpestri_xmm_m128_imm8
 pcmpestri_xmm_xmm_imm8
-pcmpestrm_xmm_m128_imm8
 pcmpestrm_xmm_xmm_imm8
-pcmpistri_xmm_m128_imm8
 pcmpistri_xmm_xmm_imm8
-pcmpistrm_xmm_m128_imm8
 pcmpistrm_xmm_xmm_imm8
 sbbb_al_imm8
 sbbw_ax_imm16
@@ -66,11 +62,7 @@ subq_r64_imm8
 subb_r8_imm8
 subq_rax_imm32
 subb_rh_imm8
-vpcmpestri_xmm_m128_imm8
 vpcmpestri_xmm_xmm_imm8
-vpcmpestrm_xmm_m128_imm8
 vpcmpestrm_xmm_xmm_imm8
-vpcmpistri_xmm_m128_imm8
 vpcmpistri_xmm_xmm_imm8
-vpcmpistrm_xmm_m128_imm8
 vpcmpistrm_xmm_xmm_imm8
