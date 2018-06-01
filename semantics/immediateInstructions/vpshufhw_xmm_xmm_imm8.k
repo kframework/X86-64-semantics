@@ -9,7 +9,7 @@ module VPSHUFHW-XMM-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), extractMInt( getParentValue(R2, RSMap), 176, 192)), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), extractMInt( getParentValue(R2, RSMap), 176, 192))), extractMInt( getParentValue(R2, RSMap), 192, 256)))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(128, 4))))), 48, 64), concatenateMInt( extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(128, 4))))), 48, 64), concatenateMInt( extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(128, 4))))), 48, 64), concatenateMInt( extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 4))))), 48, 64), extractMInt( getParentValue(R2, RSMap), 192, 256))))))
 )
 
     </regstate>

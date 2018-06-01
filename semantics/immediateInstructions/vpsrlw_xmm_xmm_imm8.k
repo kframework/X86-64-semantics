@@ -9,7 +9,7 @@ module VPSRLW-XMM-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R2, RSMap), 128, 256))
+convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 15)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 144), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 144, 160), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 160, 176), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 192, 208), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 208, 224), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 224, 240), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), lshrMInt( extractMInt( getParentValue(R2, RSMap), 240, 256), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))))))))))) #fi)
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module VPERMILPD-YMM-YMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), extractMInt( getParentValue(R2, RSMap), 64, 128)), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256)))
+convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 5), mi(1, 0)) #then extractMInt( getParentValue(R2, RSMap), 64, 128) #else extractMInt( getParentValue(R2, RSMap), 0, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), mi(1, 0)) #then extractMInt( getParentValue(R2, RSMap), 64, 128) #else extractMInt( getParentValue(R2, RSMap), 0, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 0)) #then extractMInt( getParentValue(R2, RSMap), 192, 256) #else extractMInt( getParentValue(R2, RSMap), 128, 192) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R2, RSMap), 192, 256) #else extractMInt( getParentValue(R2, RSMap), 128, 192) #fi))))
 )
 
     </regstate>

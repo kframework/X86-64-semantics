@@ -9,7 +9,7 @@ module DPPD-XMM-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( mi(64, 0), mi(64, 0)))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 1)) #then add_double((#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192)) #else mi(64, 0) #fi)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 1)) #then add_double((#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256)) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 1)) #then mul_double(extractMInt( getParentValue(R3, RSMap), 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192)) #else mi(64, 0) #fi)) #else mi(64, 0) #fi)))
 )
 
     </regstate>

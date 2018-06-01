@@ -9,7 +9,7 @@ module VBLENDPD-XMM-XMM-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R3, RSMap), 128, 256))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 192) #else extractMInt( getParentValue(R2, RSMap), 128, 192) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 256) #else extractMInt( getParentValue(R2, RSMap), 192, 256) #fi)))
 )
 
     </regstate>

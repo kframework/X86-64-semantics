@@ -9,7 +9,7 @@ module VINSERTF128-YMM-YMM-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), extractMInt( getParentValue(R2, RSMap), 128, 256))
+convToRegKeys(R4) |-> (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), extractMInt( getParentValue(R2, RSMap), 128, 256)) #else concatenateMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), extractMInt( getParentValue(R3, RSMap), 128, 256)) #fi)
 )
 
     </regstate>
