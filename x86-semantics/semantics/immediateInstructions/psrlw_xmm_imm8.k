@@ -9,7 +9,7 @@ module PSRLW-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> getParentValue(R2, RSMap)
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 15)) #then mi(128, 0) #else concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 144), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 144, 160), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 160, 176), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 192, 208), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 208, 224), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 224, 240), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), lshrMInt( extractMInt( getParentValue(R2, RSMap), 240, 256), uvalueMInt(concatenateMInt( mi(8, 0), handleImmediateWithSignExtend(Imm8, 8, 8))))))))))) #fi))
 )
 
     </regstate>

@@ -9,7 +9,7 @@ module VPINSRW-XMM-XMM-R32-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 240), extractMInt( getParentValue(R2, RSMap), 48, 64)))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shlMInt( mi(128, 65535), uvalueMInt(shlMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))))), andMInt( shlMInt( concatenateMInt( mi(96, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(shlMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))), shlMInt( mi(128, 65535), uvalueMInt(shlMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))))))
 )
 
     </regstate>

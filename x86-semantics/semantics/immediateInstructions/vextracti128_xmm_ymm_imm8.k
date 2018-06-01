@@ -9,7 +9,7 @@ module VEXTRACTI128-XMM-YMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), extractMInt( getParentValue(R3, RSMap), 128, 256))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 256) #else extractMInt( getParentValue(R3, RSMap), 0, 128) #fi))
 )
 
     </regstate>

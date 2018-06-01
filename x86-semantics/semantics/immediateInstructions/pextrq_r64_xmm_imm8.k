@@ -9,7 +9,7 @@ module PEXTRQ-R64-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> extractMInt( getParentValue(R2, RSMap), 192, 256)
+convToRegKeys(R3) |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( concatenateMInt( mi(127, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8)), uvalueMInt(mi(128, 6))))), 64, 128)
 )
 
     </regstate>
