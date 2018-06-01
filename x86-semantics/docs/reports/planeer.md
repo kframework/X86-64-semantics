@@ -14,7 +14,7 @@
   - Talk about the manually written K formulas.
   - vpbroadcastb_ymm_xmm simplification helps in getting rid of uifs ... talk about the simplificatiom lemma
 - Checklist
-  - Cupport mutiple output instruction with same registers
+  - Support mutiple output instruction with same registers
   - Implement "schedule insutcructions"
   - Fix af
     - Create a chart of how many are tested. Whats is the reason for not getting tested (undef). How many fails?
@@ -69,7 +69,7 @@
   or
   add_single(-0, 0) != -0
   ```
-  - Wat about the representation of the following insructions:
+  - What about the representation of the following insructions:
   ```
   imull_r32_r32_imm32 <--- they do not exits in our semantics
   imull_r32_r32_imm8
@@ -78,6 +78,7 @@
   imulw_r16_r16_imm16
   imulw_r16_r16_imm8
   ```
+  - Nan Forwarding for dppd
 
 ## Important Points
 - Uses the tc same as the final strata tc
