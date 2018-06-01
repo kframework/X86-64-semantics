@@ -63,11 +63,11 @@ my %opcodeSkipList = (    # Reason of manual generation
 );
 
 GetOptions(
-    " help "     => \$help,
-    " kfile : s" => \$kfile,
-    "type:s"     => \$type,
-    "opcode:s"   => \$opcode,
-    "schedule"   => \$is_schedule,
+    "help"     => \$help,
+    "kfile:s"  => \$kfile,
+    "type:s"   => \$type,
+    "opcode:s" => \$opcode,
+    "schedule" => \$is_schedule,
 ) or die("Error in command line arguments\n");
 
 if ( "" eq $opcode or "" eq $kfile or "" eq $type ) {
