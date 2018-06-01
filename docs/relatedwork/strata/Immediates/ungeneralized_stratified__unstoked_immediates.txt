@@ -44,8 +44,8 @@ vpermq_ymm_ymm_imm8
 pshufhw_xmm_xmm_imm8
 vpshufhw_xmm_xmm_imm8
 vpshufhw_ymm_ymm_imm8
-vdppd_xmm_xmm_xmm_imm8
-dppd_xmm_xmm_imm8 // need for simplify before proving
+vdppd_xmm_xmm_xmm_imm8  // NaN Formarding; Hence there are error in tesing
+dppd_xmm_xmm_imm8 // need for simplify before proving; same as above
 dpps_xmm_xmm_imm8
 vdpps_xmm_xmm_xmm_imm8
 vdpps_ymm_ymm_ymm_imm8
