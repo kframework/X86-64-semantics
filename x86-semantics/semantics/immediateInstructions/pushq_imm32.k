@@ -11,9 +11,9 @@ module PUSHQ-IMM32
   imports X86-CONFIGURATION
 
   rule <k> 
-    execinstr (pushq IMM_32:Imm, .Operands) =>
+    execinstr (pushq Imm32:Imm, .Operands) =>
       storeToMemory(
-          handleImmediateWithSignExtend(IMM_32, 32, 64), 
+          handleImmediateWithSignExtend(Imm32, 32, 64), 
           subMInt(getRegisterValue(%rsp, RSMap), mi(64, 8)), 
           64)  ~>  
       decRSPInBytes(8)

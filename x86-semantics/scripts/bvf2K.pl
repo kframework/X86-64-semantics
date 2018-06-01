@@ -55,46 +55,19 @@ my %opcodeSkipList = (    # Reason of manual generation
     "vpcmpestri_xmm_xmm_imm8" => 1,
     "vpcmpestrm_xmm_xmm_imm8" => 1,
     "vpcmpistrm_xmm_xmm_imm8" => 1,
-    "vpcmpistri_xmm_xmm_imm8" => 1,
-    "extractps_r32_xmm_imm8"  => 1,
-    "extractps_r64_xmm_imm8"  => 1, #End
-    "palignr_xmm_xmm_imm8"    => 1, # Begin: Implementation diff in strata
-    "pextrb_r32_xmm_imm8"     => 1,
-    "pextrb_r64_xmm_imm8"     => 1,
-    "pextrd_r32_xmm_imm8"     => 1,
-    "pextrq_r64_xmm_imm8"     => 1,
-    "pextrw_r32_xmm_imm8"     => 1,
-    "pextrw_r64_xmm_imm8"     => 1,
-    "pinsrb_xmm_r32_imm8"     => 1,
-    "pinsrd_xmm_r32_imm8"     => 1,
-    "pinsrw_xmm_r32_imm8"     => 1,
-    "pshufd_xmm_xmm_imm8"     => 1,
-    "pshuflw_xmm_xmm_imm8"    => 1,
-    "vextractps_r32_xmm_imm8" => 1,
-    "vpalignr_xmm_xmm_xmm_imm8" => 1,
-    "vpalignr_ymm_ymm_ymm_imm8" => 1,
-    "vpextrb_r32_xmm_imm8"      => 1,
-    "vpextrb_r64_xmm_imm8"      => 1,
-    "vpextrd_r32_xmm_imm8"      => 1,
-    "vpextrq_r64_xmm_imm8"      => 1,
-    "vpextrw_r32_xmm_imm8"      => 1,
-    "vpextrw_r64_xmm_imm8"      => 1,
-    "vpinsrb_xmm_xmm_r32_imm8"  => 1,
-    "vpinsrd_xmm_xmm_r32_imm8"  => 1,
-    "vpinsrq_xmm_xmm_r64_imm8"  => 1,
-    "vpinsrw_xmm_xmm_r32_imm8"  => 1,
-    "vpshufd_xmm_xmm_imm8"      => 1,
-    "vpshufd_ymm_ymm_imm8"      => 1,
-    "vpshuflw_xmm_xmm_imm8"     => 1,
-    "vpshuflw_ymm_ymm_imm8"     => 1, # End
+    "vpcmpistri_xmm_xmm_imm8" => 1,  #End
+    "pushq_imm16"             => 1,  ## Begin: Manual Implemented.
+    "pushq_imm32"             => 1,
+    "pushq_imm8"              => 1,  #End
+
 );
 
 GetOptions(
-    "help"     => \$help,
-    "kfile:s"  => \$kfile,
-    "type:s"   => \$type,
-    "opcode:s" => \$opcode,
-    "schedule" => \$is_schedule,
+    " help "     => \$help,
+    " kfile : s" => \$kfile,
+    "type:s"     => \$type,
+    "opcode:s"   => \$opcode,
+    "schedule"   => \$is_schedule,
 ) or die("Error in command line arguments\n");
 
 if ( "" eq $opcode or "" eq $kfile or "" eq $type ) {
@@ -153,7 +126,7 @@ sub getSemantics {
     close $fp;
 
     my $targetinstr = "";
-    if ( !$is_schedule ) {
+    if ( !$is_schedule and ( "register" eq $type ) ) {
 
         my $instrfolder = kutils::getInstrsFolder(
             "$utils::home/Github/strata-data/output-strata/instruction-summary",
@@ -192,8 +165,6 @@ sub getSemantics {
 
     print "Target: $targetinstr\n";
 
-    #return;
-
     # Get the operands and association with dummy registers R1, R2, ...
     my $operandListFromOpcode_ref =
       getOperandListFromOpcode( $opcode, $debugprint );
@@ -204,13 +175,16 @@ sub getSemantics {
       getDummyRegsForOperands( $operandListFromOpcode_ref,
         $operandListFromInstr_ref );
     my %actual2psedoRegs = %{$actual2psedoRegs_ref};
-    utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", $debugprint );
 
-    #printArray($operandListFromOpcode_ref);
-    #printArray($operandListFromInstr_ref);
+    #utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", 1 );
+
+    #printArray( $operandListFromOpcode_ref, "Operands from opcode" );
+    #printArray( $operandListFromInstr_ref,  "Operands from instr" );
+
     my $semantics =
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
     #print $semantics. "\n";
+    #return;
     return $semantics;
 }
