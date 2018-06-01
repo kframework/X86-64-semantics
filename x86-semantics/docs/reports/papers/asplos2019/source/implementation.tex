@@ -20,15 +20,15 @@ search results using equivalence checking ({\tt referred as secondary
 \revisit{$\sim120$} immediate instructions. The rest $\sim984$ are the immediate
 and memory variants obtained by generalization of $692$ register instructions.     
 
-
+\revisit{Strata Vs Stoke}
 
 
 Following are some of the immediate challenges that we needed to address.
 
 \begin{enumerate}
     
-    \item \textbf{CH.1} Finally how to support the unsupported or
-    \emph{un-stratified} ones. The paper ~\cite{Heule2016a} mentions that adding
+    \item \textbf{CH.1: Supporting 
+    \emph{un-stratified} Instructions} The paper ~\cite{Heule2016a} mentions that adding
     some primitive instructions (like saturated add) as the base instruction
     might help stratified more instructions. We would like to explore similar
     directions. Moreover, it would interesting if we can leverage the manually
@@ -36,14 +36,14 @@ Following are some of the immediate challenges that we needed to address.
         have the same correctness guarantee that \Strata provided in most of its
         cases.} 
            
-    \item \textbf{CH.2} The $\sim120$ immediate instructions, mentioned above,
+    \item \textbf{CH.2: Getting Generic Formula for Immediates} The $\sim120$ immediate instructions, mentioned above,
     do not have a corresponding register-only instruction to generalized from.
     Therefore \Strata tries to learn a separate formula for every possible value
     of the 8 bit immediate operand.  We intend to have a more intuitive generic
     semantics (that works for all values of the immediate operand) for those
     instructions. 
 
- \item \textbf{CH.3} There are instructions which conditionally sets some cpu
+ \item \textbf{CH.3: Modeling \emph{undef} flags} There are instructions which conditionally sets some cpu
  flags to \emph{undef}. For example, the shift left instruction \instr{salq
    \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state if the count mask $>1$.
    Also there are instructions like \instr{blsr \%eax, \%ebx} which
@@ -57,10 +57,10 @@ Following are some of the immediate challenges that we needed to address.
     the other registers which do not result in \emph{undef} and hence modeled by
     \Strata.
 
-    \item \textbf{CH.4} \Strata chose not to model the \reg{af} flag as this is
+    \item \textbf{CH.4: Modeling \reg{af} flag} \Strata chose not to model the \reg{af} flag as this is
     not commonly used. Supporting this flag fall within the scope of our work.
       
-    \item \textbf{CH.5} How reliable is the generalization of register
+    \item \textbf{CH.5: Generalization to Immediate and Memory} How reliable is the generalization of register
     instructions to memory or immediate variants? \Strata states that the claim
     for the generalization is based on random testing.
     
@@ -74,49 +74,57 @@ the most of the above mentioned challenges.
 \paragraph{Observation} In order to get the semantics of a target instruction
 {\tt I}, \Strata uses \Stoke along with a set {\tt TS} of $6580$ test cases to
 synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
-    means the output behavior of the instruction sequence matches with that on real
-    hardware for input {\tt TS}). After having that {\tt initial
-  search}, they keep on searching  additional sequences, called {\tt
-      secondary searches}, each agreeing with {\tt I} on {\tt TS}, in a hope of
-  getting  one which would prove non-equivalent to existing ones and thereby
-  gaining more confidence on the search and probably an augmented test-suite (as
-      {\tt TS} might get augmented with a counter example from equivalence
-      checker in the event of non-equivalence). 
+    means the output behavior of the instruction sequence matches with that on
+    real hardware for input {\tt TS}). After having that {\tt initial search},
+           they keep on searching  additional sequences, called {\tt secondary
+             searches}, each agreeing with {\tt I} on {\tt TS}, in a hope of
+             getting  one which would prove non-equivalent to existing ones and
+             thereby gaining more confidence on the search and probably an
+             augmented test-suite (as {\tt TS} might get augmented with a
+                 counter example from equivalence checker in the event of
+                 non-equivalence). 
       
-      One unfavorable possibility for
-  \Strata is when all subsequent secondary search results proves  equivalent to
-  the one obtained from initial search and hence there are no conflicts among searches, in which case it  means that  secondary
-  searches fail to add any ``confidence'' to the initial search result and end up giving the same correctness guarantee as provided by the initial search result. Even though in such unfavorable case, the secondary searches might have
-    provided ``better'' choices to pick the final formula from. A better choice
-    of formula do not contain uninterpreted functions or  non-linear arithmetics
-    and are simple.  
+      One unfavorable possibility for \Strata is when all subsequent secondary
+      search results proves  equivalent to the one obtained from initial search
+      and hence there are no conflicts among searches, in which case it  means
+      that  secondary searches fail to add any ``confidence'' to the initial
+      search result and end up giving the same correctness guarantee as provided
+      by the initial search result. Even though in such unfavorable case, the
+      secondary searches might have provided ``better'' choices to pick the
+      final formula from. A better choice of formula do not contain
+      uninterpreted functions or  non-linear arithmetics and are simple.  
     
    In the paper\cite{Heule2016a}, it is mentioned that there are only $50$
    cases, where they found a (valid) counterexample. That means, there are $762
-   = (692 + 120 - 50)$ instructions, whose the initial stoke search using augmented test-suite, containing $6630\ (= 6580 + 50$) tests,  is sufficient enough to provide a semantics with the same correctness guarantee which \Strata provides.   In other words, in  most of
-   the cases, the correctness guarantee of secondary searches is same as that of the initial stoke search using the augmented test-suite (henceforth referred as {\tt ATS})  which \Strata ends up with.
+   = (692 + 120 - 50)$ instructions, whose the initial stoke search using
+   augmented test-suite, containing $6630\ (= 6580 + 50$) tests,  is sufficient
+   enough to provide a semantics with the same correctness guarantee which
+   \Strata provides.   In other words, in  most of the cases, the correctness
+   guarantee of secondary searches is same as that of the initial stoke search
+   using the augmented test-suite (henceforth referred as {\tt ATS})  which
+   \Strata ends up with.
       
       
-    \paragraph{Handling CH.1}
-   For an unsupported instruction {\tt I}, we either model its semantics  manually or borrowed it from project \Stoke.   
-   Once we have this candidate, we test it against hardware using {\tt ATS}.
-   Once the test passes we claim (from the above observation) the
-   semantics to have the same correctness guarantee which \Strata provides for 
-   most of its cases.    
+    \paragraph{Handling CH.1} For an unsupported instruction {\tt I}, we either
+    model its semantics  manually or borrowed it from project \Stoke.   Once we
+    have this candidate, we test it against hardware using {\tt ATS}.  Once the
+    test passes we claim (from the above observation) the semantics to have the
+    same correctness guarantee which \Strata provides for most of its cases. This helped us finding instruction semantics bugs in Intel Manual~\cite{BugIntel} and \Stoke~\cite{BugStoke983}.
     
-    We understand that this
-   is not as efficient as \Stoke, which is fully automatic in getting these
-   formulas, and we do not intend to make any contribution towards efficient 
-   generation of instruction semantics. The purpose of above mentioned effort is to deliver in cases where \Stoke cannot without loosing 
-   much on the correctness guarantee. 
+    We understand that this is not as efficient as \Stoke, which is fully
+    automatic in getting these formulas, and we do not intend to make any
+    contribution towards efficient generation of instruction semantics. The
+    purpose of above mentioned effort is to deliver in cases where \Stoke cannot
+    without loosing much on the correctness guarantee. 
    
-   Moreover, writing the
-   semantics manually might alleviate the need of secondary search as a means to
-   provide ``better'' formula as we can control the complexity and choice of
-   operations to include in the formula. Also carefully written manual formula
-   tend to need less number of conflicting searches than the onces generated by
-   random search engines like Stoke.
+   Moreover, writing the semantics manually might alleviate the need of
+   secondary search as a means to provide ``better'' formula as we can control
+   the complexity and choice of operations to include in the formula. Also
+   carefully written manual formula tend to need less number of conflicting
+   searches than the onces generated by random search engines like Stoke.
    
+   
+   \revisit{differential testing}
    \revisit{add base + reduce search space}
    
    
