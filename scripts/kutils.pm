@@ -2469,6 +2469,9 @@ s/^\(#ifMInt TMP_BOOL_(\d+) #then mi\(1, 1\) #else mi\(1, 0\) #fi\)/(undefMInt)/
 
         $K_rule =~ s/(%\w+)/getParentValue($1, RSMap)/g;
 
+        ## Immediates
+        $K_rule =~ s/Imm(\d+)/handleImmediateWithSignExtend(Imm$1, $1, $1)/g;
+
         push @workList, "$K_key |-> $K_rule";
     }
 
@@ -2659,6 +2662,9 @@ sub getRegSort {
     if ( $reg eq "rh" ) {
         return "Rh";
     }
+    if ( $reg eq "al" ) {
+        return "\%al";
+    }
     if ( $reg eq "cl" ) {
         return "\%cl";
     }
@@ -2670,6 +2676,9 @@ sub getRegSort {
     }
     if ( $reg eq "rax" ) {
         return "\%rax";
+    }
+    if ( $reg =~ m/^imm(\d+)/) {
+        return "Imm$1";
     }
     return uc($reg);
 }
@@ -2801,6 +2810,9 @@ sub writeKDefn {
             }
         }
         else {
+            if($sort =~ m/Imm(\d+)/) {
+              $sort = $sort.":Imm";
+            }
             if ( 1 == $counter ) {
                 $operands = $sort;
             }
@@ -2838,6 +2850,7 @@ sub writeKDefn {
       requires sameRegisters(R1, R2)
   )
     }
+
     #print "$auxTemplate\n";
 
     my $template = "";
