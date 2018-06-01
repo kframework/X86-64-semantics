@@ -83,14 +83,7 @@ addq_r64_imm8
   ```
   - Nan Forwarding for dppd
   - Check how `PALIGNR mm1, mm2/m64, imm8` is handled
-  - X1: Talk with authors. Does that mean that had this been tested with %ymm1[127:64] == -0, then stata seq will fail.
-  ```
-  /home/sdasgup3/Github/strata/stoke/bin/specgen compare --circuit_dir /home/sdasgup3/Github/strata-data/circuits --opcode extractps_r64_xmm_imm8_66
-Circuit for 'extractps $0x42, %xmm1, %rbx' (opcode extractps_r64_xmm_imm8_66)
-  not equivalent for '%rbx':
-    strata:        0x0₃₂ ∘ sub_double(%ymm1[127:64], 0x0₆₄)[31:0]
-    hand-written:  0x0₃₂ ∘ (%ymm1[127:0] >> (0x0₁₂₆ ∘ 0x2₂ << 0x5₁₂₈))[31:0]
-  ```
+  
 
 ## Important Points
 - Uses the tc same as the final strata tc

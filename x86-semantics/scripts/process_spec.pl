@@ -416,13 +416,15 @@ if ( "" ne $prepare_concrete_imm ) {
     my $workdir = "concrete_instances/immediate-variants/$line";
     print "\n\nPreparing workdir $workdir\n";
     execute( "mkdir -p $workdir", 1 );
-    my $check_stoke_text = "$workdir/$prefix.txt";
 
-    open( my $scfp, ">", $check_stoke_text )
-      or die "cannot open: $!";
+    #my $check_stoke_text = "$workdir/$prefix.txt";
+
+    #open( my $scfp, ">", $check_stoke_text )
+    #  or die "cannot open: $!";
     for ( my $i = 0 ; $i < 256 ; $i++ ) {
         my $conc_instr = $line . "_" . $i;
-        print $scfp $conc_instr . "\n";
+
+        #print $scfp $conc_instr . "\n";
         execute("$specgen_setup --workdir $workdir --opc $conc_instr");
     }
 
@@ -438,7 +440,6 @@ open( my $fp, "<", $file ) or die "cannot open $file: $!";
 my @lines = <$fp>;
 
 ######################################################
-
 
 ####################################################################
 if ( "" ne $check_stoke_imm or "" ne $check_stoke_mem ) {
