@@ -13,6 +13,7 @@
   - In Strata, reg state of instruction containing undefs are never tested. In K we can test to check in the exec gets haleted when the undef values are used.
   - Talk about the manually written K formulas.
   - vpbroadcastb_ymm_xmm simplification helps in getting rid of uifs ... talk about the simplificatiom lemma
+  - Why be chose not to use strata results: Compes & imvolve UIFS when its not required. and could become wrong Refer:X1
 - Checklist
   - Support mutiple output instruction with same registers
   - Implement "schedule insutcructions"
@@ -77,8 +78,19 @@
   imulq_r64_r64_imm8
   imulw_r16_r16_imm16
   imulw_r16_r16_imm8
+  addq_r64_imm32
+addq_r64_imm8
   ```
   - Nan Forwarding for dppd
+  - Check how `PALIGNR mm1, mm2/m64, imm8` is handled
+  - X1: Talk with authors. Does that mean that had this been tested with %ymm1[127:64] == -0, then stata seq will fail.
+  ```
+  /home/sdasgup3/Github/strata/stoke/bin/specgen compare --circuit_dir /home/sdasgup3/Github/strata-data/circuits --opcode extractps_r64_xmm_imm8_66
+Circuit for 'extractps $0x42, %xmm1, %rbx' (opcode extractps_r64_xmm_imm8_66)
+  not equivalent for '%rbx':
+    strata:        0x0₃₂ ∘ sub_double(%ymm1[127:64], 0x0₆₄)[31:0]
+    hand-written:  0x0₃₂ ∘ (%ymm1[127:0] >> (0x0₁₂₆ ∘ 0x2₂ << 0x5₁₂₈))[31:0]
+  ```
 
 ## Important Points
 - Uses the tc same as the final strata tc
