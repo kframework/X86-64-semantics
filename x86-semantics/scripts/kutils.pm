@@ -2677,7 +2677,7 @@ sub getRegSort {
     if ( $reg eq "rax" ) {
         return "\%rax";
     }
-    if ( $reg =~ m/^imm(\d+)/) {
+    if ( $reg =~ m/^imm(\d+)/ ) {
         return "Imm$1";
     }
     return uc($reg);
@@ -2810,8 +2810,8 @@ sub writeKDefn {
             }
         }
         else {
-            if($sort =~ m/Imm(\d+)/) {
-              $sort = $sort.":Imm";
+            if ( $sort =~ m/Imm(\d+)/ ) {
+                $sort = $sort . ":Imm";
             }
             if ( 1 == $counter ) {
                 $operands = $sort;
@@ -4989,9 +4989,7 @@ sub mem_modify_testcases {
     }
 
     close $fpn;
-    print "Modiied: $modified_testcases\n";
-
-    #return $modified_testcases;
+    print "Modified: $modified_testcases\n";
 }
 
 sub getInstrsFolder {
