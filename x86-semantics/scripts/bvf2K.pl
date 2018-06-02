@@ -59,6 +59,11 @@ my %opcodeSkipList = (    # Reason of manual generation
     "pushq_imm16"             => 1,  ## Begin: Manual Implemented.
     "pushq_imm32"             => 1,
     "pushq_imm8"              => 1,  #End
+    "pclmulqdq_xmm_xmm_imm8"  => 1,  # Begin: HUge formula from stoke
+    "vpclmulqdq_xmm_xmm_xmm_imm8" => 1,
+    "mpsadbw_xmm_xmm_imm8"        => 1,
+    "vmpsadbw_xmm_xmm_xmm_imm8"   => 1,
+    "vmpsadbw_ymm_ymm_ymm_imm8"   => 1,    #End
 
 );
 
