@@ -277,6 +277,17 @@ module X86-ABSTRACT-SEMANTICS
     <regstate>... convToRegKeys(Y) |-> (_ => MI256) ...</regstate>
 
   /*@
+    Setting the Parent register's values.
+      Ex. setParentValue(MI, %ax) -> set MI to %rax
+  */  
+  rule <k> setParentValue(memLoadValue( MI:MInt ):MemLoadValue, R:Register) => 
+    setRegisterValue(memLoadValue( MI:MInt ):MemLoadValue, convSubRegsToRegs(R))                                                    
+  ...</k>
+  rule <k> setParentValue(MI:MInt, R:Register) => 
+    setRegisterValue(MI, convSubRegsToRegs(R))    
+  ...</k>
+
+  /*@
     Getting the registers values according to the register variants.
   */
   rule getRegisterValue(R:R8,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 0)

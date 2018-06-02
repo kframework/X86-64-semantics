@@ -73,6 +73,12 @@ module X86-ASBTRACT-SYNTAX
                     | MemOffset         // evaluateMemOffset evaluate to MemOffset
 
   /*@
+    Setting the Parent register's values.
+      Ex. setParentValue(MI, %ax) -> set MI to %rax
+  */  
+  syntax MInt  ::= setParentValue(K, Register) [strict(1)]
+
+  /*@
     Getting the registers values.
       Ex. getRegisterValue(%al) -> Lower  8 bits of %rax
       Ex. getRegisterValue(%ah) -> higher 8 bits of %rax
@@ -83,12 +89,12 @@ module X86-ASBTRACT-SYNTAX
 
   /*@
     Getting the Parent register's values.
-      Ex. getRegisterValue(%al) -> 64 bits of %rax
-      Ex. getRegisterValue(%ah) -> 64 bits of %rax
-      Ex. getRegisterValue(%eax)-> 64 bits of %rax
-      Ex. getRegisterValue(%rax)-> 64 bits of %rax
-      Ex. getRegisterValue(%xmm1)-> 256 bits of %ymm1
-      Ex. getRegisterValue(%ymm1)-> 256 bits of %ymm1
+      Ex. getParentValue(%al) -> 64 bits of %rax
+      Ex. getParentValue(%ah) -> 64 bits of %rax
+      Ex. getParentValue(%eax)-> 64 bits of %rax
+      Ex. getParentValue(%rax)-> 64 bits of %rax
+      Ex. getParentValue(%xmm1)-> 256 bits of %ymm1
+      Ex. getParentValue(%ymm1)-> 256 bits of %ymm1
   */  
   syntax MInt  ::= getParentValue(Register, Map) [function]
 
