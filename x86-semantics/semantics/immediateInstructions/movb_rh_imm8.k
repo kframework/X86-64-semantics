@@ -9,7 +9,7 @@ module MOVB-RH-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), mi(8, 0)), extractMInt( getParentValue(R2, RSMap), 56, 64))
+convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), handleImmediateWithSignExtend(Imm8, 8, 8)), extractMInt( getParentValue(R2, RSMap), 56, 64))
 )
 
     </regstate>
