@@ -14,6 +14,15 @@
   - Talk about the manually written K formulas.
   - vpbroadcastb_ymm_xmm simplification helps in getting rid of uifs ... talk about the simplificatiom lemma
   - Why be chose not to use strata results: Compes & imvolve UIFS when its not required. and could become wrong Refer:X1
+  - Add this to paper. This is written while handling memory.
+  ```
+  In case we have formulas from multiple sources (like strata or stoke or manually implemented), and all are
+  proved equivalent, then we can pick the least complex one. For example shrxl_r32_m32_r32 has its formula from strata and its hugely complex. We have written a manual one which is equiv but much simpler. To reproduce, remove the bypass condition for the opcode in strata handler and run with starta handler.
+
+  For vpbroadcastb_ymm_xmm, the stratified formula contain uif, where as the manually written one is without uif. To reproduce use sf --strata_path ../../circuits/ --opc vpbroadcastb_ymm_xmm as both master branch and strata branch are using strata handler.
+  ```
+
+
 - Checklist
   - Support mutiple output instruction with same registers
   - Implement "schedule insutcructions"
