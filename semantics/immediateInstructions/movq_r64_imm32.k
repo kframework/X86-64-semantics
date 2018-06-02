@@ -9,7 +9,7 @@ module MOVQ-R64-IMM32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> mi(64, 0)
+convToRegKeys(R2) |-> mi(64, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32)))
 )
 
     </regstate>
