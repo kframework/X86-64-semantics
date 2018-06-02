@@ -152,6 +152,9 @@ module MINT-WRAPPER-SYNTAX
                       | "div_remainder_int32"       [token]
                       | "div_quotient_int64"        [token]
                       | "div_remainder_int64"       [token]
+                        | "cvt_single_to_int32_rm"    [token]
+                        | "cvt_single_to_fp16_rm"    [token]
+                        | "cvt_double_to_int64_rm"    [token]
 
   syntax UIFTerOperation ::=  "cmp_double_pred"     [token]
                           | "cmp_single_pred"     [token]
