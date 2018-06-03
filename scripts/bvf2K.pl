@@ -189,15 +189,15 @@ sub getSemantics {
         $operandListFromInstr_ref );
     my %actual2psedoRegs = %{$actual2psedoRegs_ref};
 
-    utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", 1 );
+    #utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", 1 );
 
-    printArray( $operandListFromOpcode_ref, "Operands from opcode" );
-    printArray( $operandListFromInstr_ref,  "Operands from instr" );
+    #printArray( $operandListFromOpcode_ref, "Operands from opcode" );
+    #printArray( $operandListFromInstr_ref,  "Operands from instr" );
 
     my $semantics =
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
-    print $semantics. "\n";
-    return;
+    #print $semantics. "\n";
+    #return;
     return $semantics;
 }

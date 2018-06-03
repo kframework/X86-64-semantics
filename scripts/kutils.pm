@@ -2384,14 +2384,15 @@ sub selectRules {
 
 ###################################
 sub getMemRWInfo {
-    my $reglines_ref = shift @_;
-    my @reglines     = @{$reglines_ref};
-    my %ReadMemValMap    = ();
-    my %ReadMemSizeMap   = ();
-    my %WriteMemValMap    = ();
-    my %WriteMemSizeMap   = ();
+    my $reglines_ref    = shift @_;
+    my $debugprint      = shift @_;
+    my @reglines        = @{$reglines_ref};
+    my %ReadMemValMap   = ();
+    my %ReadMemSizeMap  = ();
+    my %WriteMemValMap  = ();
+    my %WriteMemSizeMap = ();
 
-    my $memRead = 0;
+    my $memRead  = 0;
     my $memWrite = 0;
 
     my ( $addr, $size, $val ) = ( "", "", "" );
@@ -2409,6 +2410,11 @@ sub getMemRWInfo {
 
         if ( $line =~ m/Information about memory reads:/ ) {
             $memRead = 1;
+            next;
+        }
+        if ( $line =~ m/Information about memory writes:/ ) {
+            $memWrite = 1;
+            next;
         }
 
         if ( 1 == $memRead ) {
@@ -2421,21 +2427,56 @@ sub getMemRWInfo {
                 if ( $addr eq "" or $size eq "" or $val eq "" ) {
                     utils::failInfo("getMemRWInfo Checkpoint 1\n");
                 }
-                if(exists $ReadMemValMap{$addr}) {
-                  utils::info("Double Read\n");
+                if ( exists $ReadMemValMap{$addr} ) {
+                    utils::info("Double Read\n");
                 }
-                $ReadMemValMap{$addr}  = $val;
-                $ReadMemSizeMap{$addr} = $size;
-                $val               = "";
-                $size              = "";
-                $addr              = "";
-                $memRead           = 0;
+                $ReadMemValMap{$addr}  = utils::trim($val);
+                $ReadMemSizeMap{$addr} = utils::trim($size);
+                $val                   = "";
+                $size                  = "";
+                $addr                  = "";
+                $memRead               = 0;
             }
             else {
-                utils::failInfo("Where Am I\n");
+                utils::failInfo("Read: Where Am I\n");
+            }
+        }
+
+        if ( 1 == $memWrite ) {
+            if ( $line =~ m/\s*Address (.*) was updated to/ ) {
+                $addr = $1;
+            }
+            elsif ( $line =~ m/\s*Value (.*) \((\d+) bytes\)\./ ) {
+                $val  = $1;
+                $size = $2;
+                if ( $addr eq "" or $size eq "" or $val eq "" ) {
+                    utils::failInfo("getMemRWInfo Checkpoint 2\n");
+                }
+                if ( exists $WriteMemValMap{$addr} ) {
+                    utils::info("Double Write\n");
+                }
+                $WriteMemValMap{$addr}  = $val;
+                $WriteMemSizeMap{$addr} = $size;
+                $val                    = "";
+                $size                   = "";
+                $addr                   = "";
+                $memWrite               = 0;
+            }
+            else {
+                utils::failInfo("Write: Where Am I\n");
             }
         }
     }
+
+    if ($debugprint) {
+        printMap( \%ReadMemValMap,   "ReadMemValMap" );
+        printMap( \%ReadMemSizeMap,  "ReadMemSizeMap" );
+        printMap( \%WriteMemValMap,  "WriteMemValMap" );
+        printMap( \%WriteMemSizeMap, "WriteMemSizeMap" );
+    }
+
+    return ( \%ReadMemValMap, \%ReadMemSizeMap, \%WriteMemValMap,
+        \%WriteMemSizeMap );
 
 }
 ##################################
@@ -2447,8 +2488,24 @@ sub sanitizeBVF {
     my @reglines         = @{$reglines_ref};
     my %actual2psedoRegs = %{$actual2psedoRegs_ref};
 
-    ## Get info abou memory read/write
-    my ( $memValMap, $memSizeMap ) = getMemRWInfo( $reglines_ref, $debugprint );
+    #$debugprint = 1;
+
+    ## Get info about memory read/write
+    my (
+        $ReadMemValMap_ref,  $ReadMemSizeMap_ref,
+        $WriteMemValMap_ref, $WriteMemSizeMap_ref
+    ) = getMemRWInfo( $reglines_ref, $debugprint );
+    my %ReadMemValMap   = %{$ReadMemValMap_ref};
+    my %ReadMemSizeMap  = %{$ReadMemSizeMap_ref};
+    my %WriteMemValMap  = %{$WriteMemValMap_ref};
+    my %WriteMemSizeMap = %{$WriteMemSizeMap_ref};
+
+    my $is_mem_instr = 0;
+    if (   0 != scalar( keys %ReadMemValMap )
+        or 0 != scalar( keys %WriteMemValMap ) )
+    {
+        $is_mem_instr = 1;
+    }
 
     ## Process begin
     ## stage 1
@@ -2464,7 +2521,13 @@ sub sanitizeBVF {
             next;
         }
 
+        if ( $line !~ m/^%(.*):(.*)/ ) {
+            next;
+        }
+
         my ( $reg, $rule ) = ( "", "" );
+
+        #print "-->" . $line;
         if ( $line =~ m/^%(.*):(.*)/ ) {
             $reg  = utils::trim($1);
             $rule = utils::trim($2);
@@ -2473,7 +2536,7 @@ sub sanitizeBVF {
             failInfo("$opcode: Unrecognized line: $line");
         }
 
-        debugInfo( "Unsanitied Lines-->$reg:$rule<--\n", $debugprint );
+        debugInfo( "\n==>> Unsanitied Lines-->$reg:$rule<--\n", $debugprint );
 
         my $ucReg   = uc( $subRegToReg{$reg} );
         my $is_flag = 0;
