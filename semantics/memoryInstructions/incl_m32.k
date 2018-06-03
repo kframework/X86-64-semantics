@@ -34,5 +34,5 @@ module INCL-M32
 
 "OF" |-> (#ifMInt ((notBool eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1))) andBool eqMInt( extractMInt( Mem32, 1, 32), mi(31, 18446744073709551615))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule
