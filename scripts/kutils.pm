@@ -2381,6 +2381,67 @@ sub selectRules {
 
     return $returnInfo;
 }
+####################################
+
+sub getUniqueMemVals {
+    my $opcode              = shift @_;
+    my $ReadMemValMap_ref   = shift @_;
+    my $ReadMemSizeMap_ref  = shift @_;
+    my $WriteMemValMap_ref  = shift @_;
+    my $WriteMemSizeMap_ref = shift @_;
+
+    #my $uniqUses_ref        = shift @_;
+
+    my %ReadMemValMap   = %{$ReadMemValMap_ref};
+    my %ReadMemSizeMap  = %{$ReadMemSizeMap_ref};
+    my %WriteMemValMap  = %{$WriteMemValMap_ref};
+    my %WriteMemSizeMap = %{$WriteMemSizeMap_ref};
+
+    #my %uniqUses        = %{$uniqUses_ref};
+    my %retMap = ();
+
+    #utils::printMapArray( $ReadMemValMap_ref, "ReadMemValMap" );
+
+    #utils::printMapArray( $ReadMemSizeMap_ref, "ReadMemSizeMap" );
+
+    ### Sanity checks
+    if (   0 == utils::compareMapArray( \%ReadMemValMap, \%ReadMemSizeMap )
+        or 0 == utils::compareMap( \%WriteMemValMap, \%WriteMemSizeMap ) )
+    {
+        utils::failInfo("$opcode: getUniqueMemVals Checkpoint 3\n");
+    }
+
+    if ( scalar( keys %ReadMemValMap ) > 1 ) {
+        utils::info("$opcode: Reads at diff Address\n");
+    }
+
+    if ( scalar( keys %WriteMemValMap ) > 1 ) {
+        utils::info("$opcode: Write at diff Address\n");
+    }
+
+    for my $key ( keys %ReadMemValMap ) {
+        my @vals  = @{ $ReadMemValMap{$key} };
+        my @sizes = @{ $ReadMemSizeMap{$key} };
+
+        #printArray( \@vals, $opcode );
+        my $golden_size = $sizes[0];
+        my $i           = 0;
+        for my $size (@sizes) {
+            if ( $size != $golden_size ) {
+                utils::failInfo("$opcode:  getUniqueMemVals 5");
+            }
+            if ( $vals[$i] =~ m/TMP_BV_(\d+)_\d+/ ) {
+                $retMap{ $vals[$i] } = "Mem$1";
+            }
+            else {
+                utils::failInfo("$opcode:  Wrong formal of Memval");
+            }
+            $i++;
+        }
+    }
+
+    return %retMap;
+}
 
 ###################################
 sub getMemRWInfo {
@@ -2397,12 +2458,14 @@ sub getMemRWInfo {
     my $memRead  = 0;
     my $memWrite = 0;
 
+    #my %uniqUses = ();
+
     my ( $addr, $size, $val ) = ( "", "", "" );
     for my $line (@reglines) {
         chomp $line;
 
         # Skip
-        if (   $line =~ m/^(code:|Formula|sig)/
+        if (   $line =~ m/^(code:|Formula|sig|info)/
             or $line =~ m/\s+(maybe|must|required)/
             or $line =~ m/^$/
             or $line =~ m/^%(.*):(.*)/ )
@@ -2411,11 +2474,13 @@ sub getMemRWInfo {
         }
 
         if ( $line =~ m/Information about memory reads:/ ) {
-            $memRead = 1;
+            $memRead  = 1;
+            $memWrite = 0;
             next;
         }
         if ( $line =~ m/Information about memory writes:/ ) {
             $memWrite = 1;
+            $memRead  = 0;
             next;
         }
 
@@ -2430,14 +2495,14 @@ sub getMemRWInfo {
                     utils::failInfo("getMemRWInfo Checkpoint 1\n");
                 }
                 if ( exists $ReadMemValMap{$addr} ) {
-                    utils::info("$opcode: Conflict Read\n");
+
+                    #utils::info("$opcode: Conflict Read\n");
                 }
-                $ReadMemValMap{$addr}  = utils::trim($val);
-                $ReadMemSizeMap{$addr} = utils::trim($size);
-                $val                   = "";
-                $size                  = "";
-                $addr                  = "";
-                $memRead               = 0;
+                push @{ $ReadMemValMap{$addr} },  utils::trim($val);
+                push @{ $ReadMemSizeMap{$addr} }, utils::trim($size);
+                $val  = "";
+                $size = "";
+                $addr = "";
             }
             else {
                 utils::failInfo("Read: Where Am I\n");
@@ -2455,14 +2520,13 @@ sub getMemRWInfo {
                     utils::failInfo("getMemRWInfo Checkpoint 2\n");
                 }
                 if ( exists $WriteMemValMap{$addr} ) {
-                    utils::info("$opcode: Conflict Write\n");
+                    utils::failInfo("$opcode: Conflict Write\n");
                 }
                 $WriteMemValMap{$addr}  = $val;
                 $WriteMemSizeMap{$addr} = $size;
                 $val                    = "";
                 $size                   = "";
                 $addr                   = "";
-                $memWrite               = 0;
             }
             else {
                 utils::failInfo("Write: Where Am I\n");
@@ -2470,36 +2534,26 @@ sub getMemRWInfo {
         }
     }
 
-    ### Sanity checks
-    if (   ( scalar( keys %ReadMemValMap ) != scalar( keys %ReadMemSizeMap ) )
-        or
-        ( scalar( keys %WriteMemValMap ) != scalar( keys %WriteMemSizeMap ) ) )
-    {
-        utils::failInfo("$opcode: getMemRWInfo Checkpoint 3\n");
-    }
+    # Process unique uses
 
-    if ( scalar( keys %ReadMemValMap ) > 1 ) {
-        utils::info("$opcode: Double Read\n");
-    }
-    if ( scalar( keys %WriteMemValMap ) > 1 ) {
-        utils::info("$opcode: Double Write\n");
-    }
-    if (    scalar( keys %WriteMemValMap ) > 0
-        and scalar( keys %ReadMemValMap ) > 0 )
-    {
-        # is common as add %cl, m8 means memwrite() <- cl + memread()
-        #utils::info("$opcode: Both Read Write\n");
-    }
+    # Get unique memvals which are actuall used.
+    my %UMemVals = getUniqueMemVals(
+        $opcode,          \%ReadMemValMap, \%ReadMemSizeMap,
+        \%WriteMemValMap, \%WriteMemSizeMap
+    );
 
     if ($debugprint) {
-        printMap( \%ReadMemValMap,   "ReadMemValMap" );
-        printMap( \%ReadMemSizeMap,  "ReadMemSizeMap" );
+        printMapArray( \%ReadMemValMap,  "ReadMemValMap" );
+        printMapArray( \%ReadMemSizeMap, "ReadMemSizeMap" );
         printMap( \%WriteMemValMap,  "WriteMemValMap" );
         printMap( \%WriteMemSizeMap, "WriteMemSizeMap" );
+        printMap( \%UMemVals,        "WriteMemSizeMap" );
     }
 
-    return ( \%ReadMemValMap, \%ReadMemSizeMap, \%WriteMemValMap,
-        \%WriteMemSizeMap );
+    return (
+        \%ReadMemValMap,   \%ReadMemSizeMap, \%WriteMemValMap,
+        \%WriteMemSizeMap, \%UMemVals
+    );
 
 }
 ##################################
@@ -2515,19 +2569,42 @@ sub sanitizeBVF {
 
     ## Get info about memory read/write
     my (
-        $ReadMemValMap_ref,  $ReadMemSizeMap_ref,
-        $WriteMemValMap_ref, $WriteMemSizeMap_ref
+        $ReadMemValMap_ref,   $ReadMemSizeMap_ref, $WriteMemValMap_ref,
+        $WriteMemSizeMap_ref, $UMemVals_ref
     ) = getMemRWInfo( $reglines_ref, $opcode, $debugprint );
     my %ReadMemValMap   = %{$ReadMemValMap_ref};
     my %ReadMemSizeMap  = %{$ReadMemSizeMap_ref};
     my %WriteMemValMap  = %{$WriteMemValMap_ref};
     my %WriteMemSizeMap = %{$WriteMemSizeMap_ref};
+    my %UMemVals        = %{$UMemVals_ref};
 
     my $is_mem_instr = 0;
+    my $readSize     = -1;
+    my $writeSize    = 0;
+    my $writeAddr    = 0;
+    my $writeVal     = 0;
     if (   0 != scalar( keys %ReadMemValMap )
         or 0 != scalar( keys %WriteMemValMap ) )
     {
         $is_mem_instr = 1;
+
+        # Read Size
+        my @keys = keys %UMemVals;
+        $readSize = $UMemVals{ $keys[0] };
+        $readSize =~ s/Mem//g;
+
+        #Write Value
+        @keys     = keys %WriteMemValMap;
+        $writeVal = $WriteMemValMap{ $keys[0] };
+        $writeVal =
+          applySanitizationRules( $writeVal, \%actual2psedoRegs, \%UMemVals );
+
+        #Write Size
+        @keys      = keys %WriteMemSizeMap;
+        $writeSize = $WriteMemSizeMap{ $keys[0] };
+        $writeSize = $writeSize*8;
+
+        #print "$readSize\n\n";
     }
 
     ## Process begin
@@ -2537,7 +2614,7 @@ sub sanitizeBVF {
         chomp $line;
 
         # Skip
-        if (   $line =~ m/^(code:|Formula|sig)/
+        if (   $line =~ m/^(code:|Formula|sig|info)/
             or $line =~ m/\s+(maybe|must|required)/
             or $line =~ m/^$/ )
         {
@@ -2583,47 +2660,63 @@ sub sanitizeBVF {
         }
 
         # Action for K rule
-        my $K_rule = $rule;
-        if ( $K_rule =~ m/^TRUE$/ ) {
-            $K_rule = "mi(1, 1)";
-        }
-        if ( $K_rule =~ m/^FALSE$/ ) {
-            $K_rule = "mi(1, 0)";
-        }
-        $K_rule =~ s/TRUE/true/g;
-        $K_rule =~ s/FALSE/false/g;
-
-        # For bool regs (cf, af ...), add undef for TMP_BOOL
-        #(#ifMInt TMP_BOOL_0 #then mi(1, 1) #else mi(1, 0) #fi)
-        $K_rule =~
-s/^\(#ifMInt TMP_BOOL_(\d+) #then mi\(1, 1\) #else mi\(1, 0\) #fi\)/(undefMInt)/g;
-        $K_rule =~ s/TMP_BOOL_(\d+)/(undefBool)/g;
-
-        # Replace all the %r to getRegisterValue
-        for my $k ( keys %actual2psedoRegs ) {
-            my $replace_from = "%" . lc($k);
-            my $replace_to =
-              "getParentValue(" . $actual2psedoRegs{$k} . ", RSMap)";
-
-            $K_rule =~ s/$replace_from/$replace_to/g;
-        }
-        $K_rule =~ s/%cf/eqMInt(getFlag("CF", RSMap), mi(1,1))/g;
-        $K_rule =~ s/%pf/eqMInt(getFlag("PF", RSMap), mi(1,1))/g;
-        $K_rule =~ s/%af/eqMInt(getFlag("AF", RSMap), mi(1,1))/g;
-        $K_rule =~ s/%sf/eqMInt(getFlag("SF", RSMap), mi(1,1))/g;
-        $K_rule =~ s/%zf/eqMInt(getFlag("ZF", RSMap), mi(1,1))/g;
-        $K_rule =~ s/%of/eqMInt(getFlag("OF", RSMap), mi(1,1))/g;
-
-        $K_rule =~ s/(%\w+)/getParentValue($1, RSMap)/g;
-
-        ## Immediates
-        $K_rule =~ s/Imm(\d+)/handleImmediateWithSignExtend(Imm$1, $1, $1)/g;
+        my $K_rule =
+          applySanitizationRules( $rule, \%actual2psedoRegs, \%UMemVals );
 
         push @workList, "$K_key |-> $K_rule";
     }
 
     utils::printArray( \@workList, "Final Rules", $debugprint );
-    return join "\n\n", @workList;
+
+    return ( join "\n\n", @workList ), $readSize, $writeSize, $writeVal;
+}
+
+sub applySanitizationRules {
+    my $K_rule               = shift @_;
+    my $actual2psedoRegs_ref = shift @_;
+    my $UMemVals_ref         = shift @_;
+
+    my %actual2psedoRegs = %{$actual2psedoRegs_ref};
+    my %UMemVals         = %{$UMemVals_ref};
+
+    if ( $K_rule =~ m/^TRUE$/ ) {
+        $K_rule = "mi(1, 1)";
+    }
+    if ( $K_rule =~ m/^FALSE$/ ) {
+        $K_rule = "mi(1, 0)";
+    }
+    $K_rule =~ s/TRUE/true/g;
+    $K_rule =~ s/FALSE/false/g;
+
+    # For bool regs (cf, af ...), add undef for TMP_BOOL
+    #(#ifMInt TMP_BOOL_0 #then mi(1, 1) #else mi(1, 0) #fi)
+    $K_rule =~
+s/^\(#ifMInt TMP_BOOL_(\d+) #then mi\(1, 1\) #else mi\(1, 0\) #fi\)/(undefMInt)/g;
+    $K_rule =~ s/TMP_BOOL_(\d+)/(undefBool)/g;
+
+    # Replace all the %r to getRegisterValue
+    for my $k ( keys %actual2psedoRegs ) {
+        my $replace_from = "%" . lc($k);
+        my $replace_to = "getParentValue(" . $actual2psedoRegs{$k} . ", RSMap)";
+
+        $K_rule =~ s/$replace_from/$replace_to/g;
+    }
+    $K_rule =~ s/%cf/eqMInt(getFlag("CF", RSMap), mi(1,1))/g;
+    $K_rule =~ s/%pf/eqMInt(getFlag("PF", RSMap), mi(1,1))/g;
+    $K_rule =~ s/%af/eqMInt(getFlag("AF", RSMap), mi(1,1))/g;
+    $K_rule =~ s/%sf/eqMInt(getFlag("SF", RSMap), mi(1,1))/g;
+    $K_rule =~ s/%zf/eqMInt(getFlag("ZF", RSMap), mi(1,1))/g;
+    $K_rule =~ s/%of/eqMInt(getFlag("OF", RSMap), mi(1,1))/g;
+
+    $K_rule =~ s/(%\w+)/getParentValue($1, RSMap)/g;
+
+    ## Immediates
+    $K_rule =~ s/Imm(\d+)/handleImmediateWithSignExtend(Imm$1, $1, $1)/g;
+
+    ## Memory
+    $K_rule =~ s/(TMP_BV_\d+_\d+)/$UMemVals{$1}/g;
+
+    return $K_rule;
 }
 
 ##########################################
@@ -2939,6 +3032,9 @@ sub writeKDefn {
     my $addComment   = shift @_;
     my $is_schedule  = shift @_;
     my $auxSemantics = shift @_;
+    my $readSize     = shift @_;
+    my $writeSize    = shift @_;
+    my $writeVal     = shift @_;
 
     my $module_name    = $opcode =~ s/_/-/gr;
     my $module_name_uc = uc($module_name);
@@ -2948,6 +3044,7 @@ sub writeKDefn {
     my $operamdList_ref = getOperandListFromOpcode( $opcode, $debugprint );
     my @operamdList     = @{$operamdList_ref};
     my $counter         = 0;
+    my $is_memory       = 0;
     for my $op (@operamdList) {
         $counter++;
         my $sort = getRegSort($op);
@@ -2962,6 +3059,10 @@ sub writeKDefn {
         else {
             if ( $sort =~ m/Imm(\d+)/ ) {
                 $sort = $sort . ":Imm";
+            }
+            if ( $sort =~ m/Mem(\d+)/ ) {
+                $sort      = "FILLER";
+                $is_memory = 1;
             }
             if ( 1 == $counter ) {
                 $operands = $sort;
@@ -2985,6 +3086,54 @@ sub writeKDefn {
           or die " [writeKDefn] cannot open $koutput : $! ";
     }
 
+    ## Memory template
+    my $memTemplate = "";
+    if ($is_memory) {
+        my $storeTemplate = ".";
+
+        if ( "" ne $writeVal ) {
+            $storeTemplate = qq(
+            storeToMemory(
+              $writeVal,
+              MemOff,
+              $writeSize
+            )
+          );
+        }
+        my $type1_fill = $operands =~ s/FILLER/HOLE:Mem/gr;
+        my $type2_fill =
+          $operands =~ s/FILLER/memOffset( MemOff:MInt):MemOffset/gr;
+        my $type3_fill = $operands =~ s/FILLER/memOffset( MemOff)/gr;
+        $type3_fill =~ s/:Imm//g;
+
+        $memTemplate = qq(// Autogenerated using stratification.
+requires "x86-configuration.k"
+
+module $module_name_uc
+  imports X86-CONFIGURATION
+
+  context execinstr($enc:Opcode $type1_fill .Operands) [result(MemOffset)]
+  rule <k>
+    execinstr ($enc:Opcode $type2_fill .Operands) =>
+      loadFromMemory( MemOff, $readSize) ~> execinstr ($enc $type3_fill .Operands)
+  ...</k>
+
+  rule <k>
+    memLoadValue(Mem$readSize:MInt):MemLoadValue ~> execinstr ($enc:Opcode $type2_fill .Operands) =>
+      $storeTemplate
+  ...</k>
+    <regstate>
+      RSMap:Map => updateMap(RSMap,
+$semantics
+      )
+      </regstate>
+endmodule
+);
+        print $fp $memTemplate;
+        return;
+    }
+
+    ## Craete auxiliary semantics for schedule instr.
     my $auxTemplate = "";
     if ( defined($is_schedule) and $is_schedule ) {
         $auxTemplate = qq(  requires notBool sameRegisters(R1, R2)
@@ -3001,8 +3150,7 @@ sub writeKDefn {
   )
     }
 
-    #print "$auxTemplate\n";
-
+    ## The main Template
     my $template = "";
     if ( "" eq $semantics ) {
         $template = qq(// Autogenerated using stratification.

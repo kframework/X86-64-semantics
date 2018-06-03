@@ -96,7 +96,8 @@ if ( exists $opcodeSkipList{$opcode} ) {
     exit(0);
 }
 
-my $mainSemantics = getSemantics( $opcode, $kfile, 0 );
+my ( $mainSemantics, $readSize, $writeSize, $writeVal ) =
+  getSemantics( $opcode, $kfile, 0 );
 
 my $auxSemantics = "";
 
@@ -105,7 +106,8 @@ if ($is_schedule) {
         "$utils::home/Github/strata-data/output-strata/instruction-summary",
         $type, $opcode );
     $kfile = $instrfolder . "/$opcode.samereg/$opcode.k_format";
-    $auxSemantics = getSemantics( $opcode, $kfile, 1 );
+    ( $auxSemantics, $readSize, $writeSize, $writeVal ) =
+      getSemantics( $opcode, $kfile, 1 );
 }
 
 #Outfile
@@ -123,8 +125,11 @@ if ( "memory" eq $type ) {
 
 print "$opcode:\tK Rule at $outFile\n";
 
-writeKDefn( $mainSemantics,
-    $outFile, $opcode, 1, 0, 0, $is_schedule, $auxSemantics );
+writeKDefn(
+    $mainSemantics, $outFile,   $opcode,      1,
+    0,              0,          $is_schedule, $auxSemantics,
+    $readSize,      $writeSize, $writeVal
+);
 
 ############################## UTILS ####################################
 
@@ -176,7 +181,7 @@ sub getSemantics {
         }
     }
 
-    print "Target: $targetinstr\n";
+    print "\n\nOpcode: $opcode Target: $targetinstr\n";
 
     # Get the operands and association with dummy registers R1, R2, ...
     my $operandListFromOpcode_ref =
@@ -194,10 +199,12 @@ sub getSemantics {
     #printArray( $operandListFromOpcode_ref, "Operands from opcode" );
     #printArray( $operandListFromInstr_ref,  "Operands from instr" );
 
-    my $semantics =
+    my ( $semantics, $readSize, $writeSize, $writeVal ) =
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
     #print $semantics. "\n";
-    return;
-    return $semantics;
+    print "ReadSize: " . $readSize . "\n";
+
+    #return;
+    return ( $semantics, $readSize, $writeSize, $writeVal );
 }
