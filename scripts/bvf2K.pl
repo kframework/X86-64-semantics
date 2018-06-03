@@ -198,6 +198,6 @@ sub getSemantics {
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
     #print $semantics. "\n";
-    #return;
+    return;
     return $semantics;
 }

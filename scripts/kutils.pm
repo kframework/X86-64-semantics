@@ -2385,6 +2385,7 @@ sub selectRules {
 ###################################
 sub getMemRWInfo {
     my $reglines_ref    = shift @_;
+    my $opcode          = shift @_;
     my $debugprint      = shift @_;
     my @reglines        = @{$reglines_ref};
     my %ReadMemValMap   = ();
@@ -2392,6 +2393,7 @@ sub getMemRWInfo {
     my %WriteMemValMap  = ();
     my %WriteMemSizeMap = ();
 
+    $debugprint = 0;
     my $memRead  = 0;
     my $memWrite = 0;
 
@@ -2428,7 +2430,7 @@ sub getMemRWInfo {
                     utils::failInfo("getMemRWInfo Checkpoint 1\n");
                 }
                 if ( exists $ReadMemValMap{$addr} ) {
-                    utils::info("Double Read\n");
+                    utils::info("$opcode: Conflict Read\n");
                 }
                 $ReadMemValMap{$addr}  = utils::trim($val);
                 $ReadMemSizeMap{$addr} = utils::trim($size);
@@ -2453,7 +2455,7 @@ sub getMemRWInfo {
                     utils::failInfo("getMemRWInfo Checkpoint 2\n");
                 }
                 if ( exists $WriteMemValMap{$addr} ) {
-                    utils::info("Double Write\n");
+                    utils::info("$opcode: Conflict Write\n");
                 }
                 $WriteMemValMap{$addr}  = $val;
                 $WriteMemSizeMap{$addr} = $size;
@@ -2466,6 +2468,27 @@ sub getMemRWInfo {
                 utils::failInfo("Write: Where Am I\n");
             }
         }
+    }
+
+    ### Sanity checks
+    if (   ( scalar( keys %ReadMemValMap ) != scalar( keys %ReadMemSizeMap ) )
+        or
+        ( scalar( keys %WriteMemValMap ) != scalar( keys %WriteMemSizeMap ) ) )
+    {
+        utils::failInfo("$opcode: getMemRWInfo Checkpoint 3\n");
+    }
+
+    if ( scalar( keys %ReadMemValMap ) > 1 ) {
+        utils::info("$opcode: Double Read\n");
+    }
+    if ( scalar( keys %WriteMemValMap ) > 1 ) {
+        utils::info("$opcode: Double Write\n");
+    }
+    if (    scalar( keys %WriteMemValMap ) > 0
+        and scalar( keys %ReadMemValMap ) > 0 )
+    {
+        # is common as add %cl, m8 means memwrite() <- cl + memread()
+        #utils::info("$opcode: Both Read Write\n");
     }
 
     if ($debugprint) {
@@ -2494,7 +2517,7 @@ sub sanitizeBVF {
     my (
         $ReadMemValMap_ref,  $ReadMemSizeMap_ref,
         $WriteMemValMap_ref, $WriteMemSizeMap_ref
-    ) = getMemRWInfo( $reglines_ref, $debugprint );
+    ) = getMemRWInfo( $reglines_ref, $opcode, $debugprint );
     my %ReadMemValMap   = %{$ReadMemValMap_ref};
     my %ReadMemSizeMap  = %{$ReadMemSizeMap_ref};
     my %WriteMemValMap  = %{$WriteMemValMap_ref};
