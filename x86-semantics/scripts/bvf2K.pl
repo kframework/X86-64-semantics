@@ -203,7 +203,7 @@ sub getSemantics {
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
     #print $semantics. "\n";
-    print "ReadSize: " . $readSize . "\n";
+  
 
     #return;
     return ( $semantics, $readSize, $writeSize, $writeVal );
