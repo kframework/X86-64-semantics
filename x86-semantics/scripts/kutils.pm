@@ -2593,7 +2593,7 @@ sub sanitizeBVF {
     if ( 0 != scalar( keys %WriteMemValMap ) ) {
 
         #Write Value
-        my @keys     = keys %WriteMemValMap;
+        my @keys = keys %WriteMemValMap;
         $writeVal = $WriteMemValMap{ $keys[0] };
         $writeVal =
           applySanitizationRules( $writeVal, \%actual2psedoRegs, \%UMemVals );
@@ -3115,10 +3115,11 @@ sub writeKDefn {
         my $loadedValue           = "";
         if ( -1 != $readSize ) {
             $loadMemOffsetTemplate = qq(
-          rule <k>
-            execinstr ($enc:Opcode $type2_fill .Operands) =>
-              loadFromMemory( MemOff, $readSize) ~> execinstr ($enc $type3_fill .Operands)
-          ...</k>
+  rule <k>
+    execinstr ($enc:Opcode $type2_fill .Operands) =>
+      loadFromMemory( MemOff, $readSize) ~>
+      execinstr ($enc $type3_fill .Operands)
+  ...</k>
           );
             $loadedValue = qq(memLoadValue(Mem$readSize:MInt):MemLoadValue ~>);
         }

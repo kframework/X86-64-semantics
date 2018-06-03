@@ -4,81 +4,31 @@ requires "x86-configuration.k"
 module CMPL-M32-R32
   imports X86-CONFIGURATION
 
-  context execinstr(cmpl:Opcode (R1:R32,  HOLE:Mem, .Operands):Operands) [result(MemOffset)]
-
+  context execinstr(cmpl:Opcode R1:R32, HOLE:Mem,  .Operands) [result(MemOffset)]
+  
   rule <k>
-    execinstr (cmpl R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) => 
-      loadFromMemory( MemOff, 32) ~> execinstr (cmpl R1:R32, memOffset( MemOff), .Operands)
+    execinstr (cmpl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (cmpl R1, memOffset( MemOff),  .Operands)
   ...</k>
-
-
+          
   rule <k>
-    memLoadValue(MemVal:MInt):MemLoadValue ~> 
-      execinstr (cmpl R1:R32, memOffset( MemOff:MInt):MemOffset, .Operands) => .
+    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (cmpl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      .
   ...</k>
     <regstate>
-RSMap:Map => updateMap(RSMap,
- "CF" |-> (extractMInt(addMInt(concatenateMInt(mi(1, 0), extractMInt(addMInt(concatenateMInt(mi(16, 0), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 0, 1)), mi(17, 65535)), 9, 17)), concatenateMInt(mi(1, 0), extractMInt(addMInt(concatenateMInt(mi(16, 0), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 0, 1)), mi(17, 65535)), 9, 17))), 0, 1) )
+      RSMap:Map => updateMap(RSMap,
+"CF" |-> (#ifMInt (notBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
 
- "SF" |-> (extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 1, 2) )
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 32, 33), mi(1, 1)) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 31, 32), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 30, 31), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 29, 30), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 28, 29), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 27, 28), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 26, 27), mi(1, 1))) xorBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 25, 26), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
- "AF" |-> ((#ifMInt ( notBool  (  ( uvalueMInt(andMInt(lshrMInt(xorMInt(xorMInt(xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64)), MemVal), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 1, 33)), 4), mi(32, 1)))  ==K  0 )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+"AF" |-> xorMInt( xorMInt( extractMInt( getParentValue(R1, RSMap), 59, 60), extractMInt( Mem32, 27, 28)), extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 28, 29))
 
- "PF" |-> ((#ifMInt ( (  ( countOnes(extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 25, 33), 0)  &Int  1 )  ==K  0 )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+"ZF" |-> (#ifMInt eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 1, 33), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
- "OF" |-> ((#ifMInt ( ( eqMInt(xorMInt(mi(1, 1), extractMInt(getParentValue(R1, RSMap), 32, 33)), extractMInt(MemVal, 0, 1))  andBool   notBool  ( eqMInt(xorMInt(mi(1, 1), extractMInt(getParentValue(R1, RSMap), 32, 33)), extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 1, 2)) )  )  ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)  )
+"SF" |-> extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 1, 2)
 
- "ZF" |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), extractMInt(getParentValue(R1, RSMap), 32, 64))), concatenateMInt(mi(1, 0), MemVal)), mi(33, 1)), 1, 33), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
-
-
-)
-
-    </regstate>
+"OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( getParentValue(R1, RSMap), 32, 33)), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( getParentValue(R1, RSMap), 32, 33)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)), concatenateMInt( mi(1, 0), Mem32)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
+      )
+      </regstate>
 endmodule
-
-module CMPL-R32-R32-SEMANTICS
-  imports CMPL-R32-R32
-endmodule
-/*
-TargetInstr:
-cmpl %ecx, %ebx
-RWSet:
-maybe read:{ %ecx %ebx }
-must read:{ %ecx %ebx }
-maybe write:{ %cf %pf %af %zf %sf %of }
-must write:{ %cf %pf %af %zf %sf %of }
-maybe undef:{ }
-must undef:{ }
-required flags:{ }
-
-Circuit:
-circuit:subl %ecx, %ebx  #  1     0    2      OPC=subl_r32_r32
-BVF:
-WARNING: No live out values provided, assuming { }
-WARNING: No def in values provided; assuming { %mxcsr::rc[0] }
-Target
-
-cmpl %ecx, %ebx
-
-  maybe read:      { %ecx %ebx }
-  must read:       { %ecx %ebx }
-  maybe write:     { %cf %pf %af %zf %sf %of }
-  must write:      { %cf %pf %af %zf %sf %of }
-  maybe undef:     { }
-  must undef:      { }
-  required flags:  { }
-
-Circuits:
-
-%cf    : (((0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[32:32] = 0x1₁ ? 0x0₉ : 0xff₉) + ((0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[32:32] = 0x1₁ ? 0x0₉ : 0xff₉))[8:8] = 0x1₁
-%pf    : !((0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[0:0] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[1:1] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[2:2] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[3:3] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[4:4] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[5:5] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[6:6] = 0x1₁ ⊕ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[7:7] = 0x1₁)
-%af    : (0x0₁ ∘ (%rcx[3:0] ⊕ 0xf₄) + 0x0₁ ∘ %rbx[3:0])[4:4] = 0x1₁
-%zf    : (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:0] = 0x0₃₂
-%sf    : (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁
-%of    : ((%rcx[31:31] ⊕ 0x1₁) = 0x1₁ ↔ %rbx[31:31] = 0x1₁) ∧ !((%rcx[31:31] ⊕ 0x1₁) = 0x1₁ ↔ (0x0₁ ∘ (%rcx[31:0] ⊕ 0xffffffff₃₂) + 0x1₃₃ + 0x0₁ ∘ %rbx[31:0])[31:31] = 0x1₁)
-
-sigfpe  : sigfpe
-sigbus  : sigbus
-sigsegv : sigsegv
-
-*/
