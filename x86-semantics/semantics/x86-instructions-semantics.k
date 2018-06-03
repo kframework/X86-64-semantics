@@ -30308,6 +30308,159 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
   <regstate> RSMap </regstate>
 
 
+/*
+
+IF (Imm8[0] = 0 )
+    THEN
+        TEMP1←SRC1 [63:0];
+    ELSE
+        TEMP1←SRC1 [127:64];
+FI
+IF (Imm8[4] = 0 )
+    THEN
+        TEMP2←SRC2 [63:0];
+    ELSE
+        TEMP2←SRC2 [127:64];
+FI
+For i = 0 to 63 {
+    TmpB [ i ]←(TEMP1[ 0 ] and TEMP2[ i ]);
+    For j = 1 to i {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+}
+For i = 64 to 126 {
+    TmpB [ i ]←0;
+    For j = i - 63 to 63 {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+}
+DEST[127] ← 0;
+DEST[MAXVL-1:128] (Unmodified)
+*/
+
+// pclmulqdq-xmm-m128-imm8
+
+  context execinstr(pclmulqdq:Opcode (_:Imm,  HOLE:Mem, R3:Xmm, .Operands):Operands) [result(MemOffset)]
+
+  rule <k>
+    execinstr (pclmulqdq I:Imm, memOffset( MemOff:MInt):MemOffset,  R3:Xmm, .Operands) => 
+      loadFromMemory( MemOff, 128) ~> execinstr (pclmulqdq I, memOffset( MemOff), R3:Xmm, .Operands)                 
+  ...</k>
+
+  
+
+  /*
+    IF (Imm8[0] = 0 )
+        THEN
+            TEMP1←SRC1 [63:0];
+        ELSE
+            TEMP1←SRC1 [127:64];
+    FI
+    IF (Imm8[4] = 0 )
+        THEN
+            TEMP2←SRC2 [63:0];
+        ELSE
+            TEMP2←SRC2 [127:64];
+  */   
+  rule <k>
+    memLoadValue(MemVal:MInt):MemLoadValue ~>
+    execinstr (pclmulqdq Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) => 
+      execinstr(pclmulqdq 
+          selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
+              8, 8), 7, 64, 0),
+          selectSlice(MemVal, handleImmediateWithSignExtend(Imm8,
+              8, 8), 3, 64, 0), R3
+          , .Operands)
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (pclmulqdq TEMP1:MInt, TEMP2:MInt, R3:Xmm,   .Operands) => 
+      setRegisterValue(
+          orMInt(
+            computePCLMULQDQ1(TEMP1, TEMP2, mi(128, 0), 0, 63), 
+            computePCLMULQDQ2(TEMP1, TEMP2, mi(128, 0), 64, 126) 
+            ), R3)
+  ...</k>
+  
+  /*
+    For i = 0 to 63 {
+        TmpB [ i ]←(TEMP1[ 0 ] and TEMP2[ i ]);
+        For j = 1 to i {
+            TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+        }
+        DEST[ i ]←TmpB[ i ];
+    }
+  */   
+  syntax MInt ::= computePCLMULQDQ1(MInt, MInt, MInt, Int, Int) [function]
+  syntax MInt ::= computePCLMULQDQ1Refine(MInt, MInt, Int) [function]
+
+  rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, N:Int, N:Int) => DEST
+
+  rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
+    computePCLMULQDQ1( 
+        TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ1Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
+
+  rule computePCLMULQDQ1Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
+  refineHelper(TEMP1, TEMP2, 1, M, 
+        andMInt( 
+          extractMInt(TEMP1, 63, 64), extractMInt(TEMP2, 63 -Int M, 64 -Int M) 
+          )
+      )
+
+  /*
+     For i = 64 to 126 {
+    TmpB [ i ]←0;
+    For j = i - 63 to 63 {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+  }
+  */
+
+  syntax MInt ::= computePCLMULQDQ2(MInt, MInt, MInt, Int, Int) [function]
+  syntax MInt ::= computePCLMULQDQ2Refine(MInt, MInt, Int) [function]
+
+  rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, N:Int, N:Int) => DEST
+
+  rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
+    computePCLMULQDQ2( 
+        TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ2Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
+
+  rule computePCLMULQDQ2Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
+  refineHelper(TEMP1, TEMP2, M -Int 63, 63,  mi(1, 0))
+
+
+  // Utils
+  syntax MInt ::= refineHelper(MInt, MInt, Int, Int, MInt) [function]
+  rule refineHelper(TEMP1:MInt, TEMP2:MInt, Q:Int, Q:Int,
+      RES:MInt) => RES
+
+  rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int,
+      RES:MInt) => 
+    refineHelper(TEMP1, TEMP2, P +Int 1, Q, 
+        xorMInt(RES, 
+          andMInt(
+            extractMInt(TEMP1, 63 -Int P,         64 -Int P),
+            extractMInt(TEMP2, 63 -Int (P -Int Q), 64 -Int (P -Int Q))
+            )))
+
+  syntax MInt ::= selectSlice(MInt, MInt, Int, Int, Int) [function]
+
+  rule selectSlice(SRC1:MInt, Imm8:MInt, CheckBit:Int, Start1:Int, Start2:Int)
+  => extractMInt(SRC1, Start1, Start1 +Int 64)
+    requires  eqMInt(mi(1, 0), extractMInt(Imm8, CheckBit, CheckBit +Int 1))
+    
+  rule selectSlice(SRC1:MInt, Imm8:MInt, CheckBit:Int, Start1:Int, Start2:Int)
+  => extractMInt(SRC1, Start2, Start2 +Int 64)
+    requires  eqMInt(mi(1, 1), extractMInt(Imm8, CheckBit, CheckBit +Int 1))
+
+
+// pclmulqdq-xmm-xmm-imm8-semantics
+
+
 
 /*@
   Push (R): 
@@ -30958,6 +31111,162 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(addMInt(co
     </regstate>
 
 
+// mpsadbw-xmm-m128-imm8
+
+
+  context execinstr(mpsadbw:Opcode (_:Imm,  HOLE:Mem, R3:Xmm, .Operands):Operands) [result(MemOffset)]
+
+  rule <k>
+    execinstr (mpsadbw I:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, .Operands) => 
+      loadFromMemory( MemOff, 128) ~> execinstr (mpsadbw I, memOffset( MemOff), R3:Xmm, .Operands)                 
+  ...</k>
+
+  
+
+  rule <k>
+    memLoadValue(MemVal:MInt):MemLoadValue ~>
+    execinstr (mpsadbw Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+      execinstr (mpsadbw
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 7 , 0 ),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 15, 8 ),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 23, 16),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 31, 24),
+
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 7 ,  0),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 15,  8),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 23, 16),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 31, 24),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 39, 32),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 47, 40),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 55, 48),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 63, 56),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 71, 64),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 79, 72),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 87, 80),
+        R3:Xmm, 
+        .Operands)
+  ...</k>   
+    <regstate> RSMap </regstate>
+
+  rule <k> 
+    execinstr (mpsadbw 
+        SrcByte0:MInt, SrcByte1:MInt, SrcByte2:MInt, SrcByte3:MInt,
+        DestByte0:MInt, DestByte1:MInt, DestByte2:MInt, DestByte3:MInt,
+        DestByte4:MInt, DestByte5:MInt, DestByte6:MInt, DestByte7:MInt,
+        DestByte8:MInt, DestByte9:MInt, DestByte10:MInt,
+        R3:Xmm,  .Operands) =>
+  setRegisterValue(
+    concatenateMInt(
+
+      concatenateMInt(    
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte7, SrcByte0),
+              absoluteUnsignedDifference(DestByte8, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte9, SrcByte2),
+              absoluteUnsignedDifference(DestByte10, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte6, SrcByte0),
+              absoluteUnsignedDifference(DestByte7, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte8, SrcByte2),
+              absoluteUnsignedDifference(DestByte9, SrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte5, SrcByte0),
+              absoluteUnsignedDifference(DestByte6, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte7, SrcByte2),
+              absoluteUnsignedDifference(DestByte8, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte4, SrcByte0),
+              absoluteUnsignedDifference(DestByte5, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte6, SrcByte2),
+              absoluteUnsignedDifference(DestByte7, SrcByte3))
+          ))
+        ),
+     
+      concatenateMInt(
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte3, SrcByte0),
+              absoluteUnsignedDifference(DestByte4, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte5, SrcByte2),
+              absoluteUnsignedDifference(DestByte6, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte2, SrcByte0),
+              absoluteUnsignedDifference(DestByte3, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte4, SrcByte2),
+              absoluteUnsignedDifference(DestByte5, SrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte1, SrcByte0),
+              absoluteUnsignedDifference(DestByte2, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte3, SrcByte2),
+              absoluteUnsignedDifference(DestByte4, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte0, SrcByte0),
+              absoluteUnsignedDifference(DestByte1, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte2, SrcByte2),
+              absoluteUnsignedDifference(DestByte3, SrcByte3))
+          ))
+      )) , R3)
+
+  ...</k>
+
+  // Utils
+
+  syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(A, B)
+    requires ugtMInt(A, B)
+
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(B, A)
+    requires notBool ugtMInt(A, B)
+
+  syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
+  rule selectSliceMPSAD(DEST:MInt, Offset:MInt, High:Int, Low:Int) =>
+    concatenateMInt(mi(8, 0), extractMInt(DEST, (uvalueMInt(Offset) *Int 32)
+          +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
+
+
+// mpsadbw-xmm-xmm-imm8-semantics
+
+
 // movq-r64-m64
 
   context execinstr(movq:Opcode (HOLE:Mem, _:R64, .Operands):Operands) [result(MemOffset)]
@@ -30971,6 +31280,454 @@ convToRegKeys(R2) |-> (concatenateMInt(mi(32, 0), extractMInt(addMInt(addMInt(co
    memLoadValue (MemVal:MInt) ~> execinstr (movq memOffset ( MemOff:MInt ):MemOffset,  R2:R64, .Operands) => setRegisterValue( MemVal, R2)                         
   ...</k>
   <regstate> RSMap </regstate>
+
+
+// vmpsadbw-ymm-ymm-m256-imm8
+
+  context execinstr(vmpsadbw:Opcode (_:Imm,  HOLE:Mem, R3:Xmm, R4:Xmm, .Operands):Operands) [result(MemOffset)]
+
+  rule <k>
+    execinstr (vmpsadbw I:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm, .Operands) => 
+      loadFromMemory( MemOff, 256) ~> execinstr (vmpsadbw I, memOffset( MemOff), R3:Xmm, R4:Xmm, .Operands)                 
+  ...</k>
+
+
+  rule <k>
+    memLoadValue(MemVal:MInt):MemLoadValue ~>
+    execinstr (vmpsadbw Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) => 
+      execinstr (vmpsadbw
+        //Low slices  
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 7 , 0 ),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 15, 8 ),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 23, 16),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 31, 24),
+
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 7 ,  0),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 15,  8),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 23, 16),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 31, 24),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 39, 32),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 47, 40),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 55, 48),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 63, 56),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 71, 64),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 79, 72),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 87, 80),
+
+        //High slices  
+        selectSliceMPSAD(MemVal,
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 3, 5), 7 +Int
+            128, 0 +Int 128),
+        selectSliceMPSAD(MemVal,
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 3, 5), 15+Int
+            128, 8 +Int 128),
+        selectSliceMPSAD(MemVal,
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 3, 5), 23+Int
+            128, 16+Int 128),
+        selectSliceMPSAD(MemVal,
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 3, 5), 31+Int
+            128, 24+Int 128),
+
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 7
+            +Int 128,  0 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 15
+            +Int 128,  8 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 23
+            +Int 128, 16 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 31
+            +Int 128, 24 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 39
+            +Int 128, 32 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 47
+            +Int 128, 40 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 55
+            +Int 128, 48 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 63
+            +Int 128, 56 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 71
+            +Int 128, 64 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 79
+            +Int 128, 72 +Int 128),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap), 
+            extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), 87
+            +Int 128, 80 +Int 128),
+
+        R4:Ymm, 
+        .Operands)
+  ...</k>   
+    <regstate> RSMap </regstate>
+
+
+  rule <k> 
+    execinstr (vmpsadbw 
+        LowSrcByte0:MInt, LowSrcByte1:MInt, LowSrcByte2:MInt, LowSrcByte3:MInt,
+        LowDestByte0:MInt, LowDestByte1:MInt, LowDestByte2:MInt, LowDestByte3:MInt,
+        LowDestByte4:MInt, LowDestByte5:MInt, LowDestByte6:MInt, LowDestByte7:MInt,
+        LowDestByte8:MInt, LowDestByte9:MInt, LowDestByte10:MInt,
+
+        HighSrcByte0:MInt, HighSrcByte1:MInt, HighSrcByte2:MInt, HighSrcByte3:MInt,
+        HighDestByte0:MInt, HighDestByte1:MInt, HighDestByte2:MInt, HighDestByte3:MInt,
+        HighDestByte4:MInt, HighDestByte5:MInt, HighDestByte6:MInt, HighDestByte7:MInt,
+        HighDestByte8:MInt, HighDestByte9:MInt, HighDestByte10:MInt,
+        R4:Ymm,  .Operands) =>
+  setRegisterValue(
+  concatenateMInt(
+    concatenateMInt(
+
+      concatenateMInt(    
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte7, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte8, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte9, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte10, HighSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte6, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte7, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte8, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte9, HighSrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte5, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte6, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte7, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte8, HighSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte4, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte5, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte6, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte7, HighSrcByte3))
+          ))
+        ),
+     
+      concatenateMInt(
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte3, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte4, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte5, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte6, HighSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte2, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte3, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte4, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte5, HighSrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte1, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte2, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte3, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte4, HighSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte0, HighSrcByte0),
+              absoluteUnsignedDifference(HighDestByte1, HighSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(HighDestByte2, HighSrcByte2),
+              absoluteUnsignedDifference(HighDestByte3, HighSrcByte3))
+          ))
+      )),
+
+      //Lower 
+      
+    concatenateMInt(
+
+      concatenateMInt(    
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte7, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte8, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte9, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte10, LowSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte6, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte7, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte8, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte9, LowSrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte5, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte6, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte7, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte8, LowSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte4, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte5, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte6, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte7, LowSrcByte3))
+          ))
+        ),
+     
+      concatenateMInt(
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte3, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte4, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte5, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte6, LowSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte2, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte3, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte4, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte5, LowSrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte1, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte2, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte3, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte4, LowSrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte0, LowSrcByte0),
+              absoluteUnsignedDifference(LowDestByte1, LowSrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(LowDestByte2, LowSrcByte2),
+              absoluteUnsignedDifference(LowDestByte3, LowSrcByte3))
+          ))
+      ))
+      
+      
+      ) , R4)
+
+  ...</k>
+
+  // Utils
+
+  syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(A, B)
+    requires ugtMInt(A, B)
+
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(B, A)
+    requires notBool ugtMInt(A, B)
+
+  syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
+  rule selectSliceMPSAD(DEST:MInt, Offset:MInt, High:Int, Low:Int) =>
+    concatenateMInt(mi(8, 0), extractMInt(DEST, (uvalueMInt(Offset) *Int 32)
+          +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
+  
+
+
+// vmpsadbw-ymm-ymm-ymm-imm8-semantics
+
+
+// vmpsadbw-xmm-xmm-m128-imm8
+
+  context execinstr(vmpsadbw:Opcode (_:Imm,  HOLE:Mem, R3:Xmm, R4:Xmm, .Operands):Operands) [result(MemOffset)]
+
+  rule <k>
+    execinstr (vmpsadbw I:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm, .Operands) => 
+      loadFromMemory( MemOff, 128) ~> execinstr (vmpsadbw I, memOffset( MemOff), R3:Xmm, R4:Xmm, .Operands)                 
+  ...</k>
+
+
+  rule <k>
+    memLoadValue(MemVal:MInt):MemLoadValue ~>
+    execinstr (vmpsadbw Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) => 
+      execinstr (vmpsadbw
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 7 , 0 ),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 15, 8 ),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 23, 16),
+        selectSliceMPSAD(MemVal,
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8), 31, 24),
+
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 7 ,  0),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 15,  8),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 23, 16),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 31, 24),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 39, 32),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 47, 40),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 55, 48),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 63, 56),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 71, 64),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 79, 72),
+        selectSliceMPSAD(getRegisterValue(R3, RSMap),
+          extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 87, 80),
+        R3:Xmm, 
+        .Operands)
+  ...</k>   
+    <regstate> RSMap </regstate>
+
+  rule <k> 
+    execinstr (vmpsadbw 
+        SrcByte0:MInt, SrcByte1:MInt, SrcByte2:MInt, SrcByte3:MInt,
+        DestByte0:MInt, DestByte1:MInt, DestByte2:MInt, DestByte3:MInt,
+        DestByte4:MInt, DestByte5:MInt, DestByte6:MInt, DestByte7:MInt,
+        DestByte8:MInt, DestByte9:MInt, DestByte10:MInt,
+        R3:Xmm,  .Operands) =>
+  setParentValue(
+  concatenateMInt(mi(128, 0),
+    concatenateMInt(
+
+      concatenateMInt(    
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte7, SrcByte0),
+              absoluteUnsignedDifference(DestByte8, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte9, SrcByte2),
+              absoluteUnsignedDifference(DestByte10, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte6, SrcByte0),
+              absoluteUnsignedDifference(DestByte7, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte8, SrcByte2),
+              absoluteUnsignedDifference(DestByte9, SrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte5, SrcByte0),
+              absoluteUnsignedDifference(DestByte6, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte7, SrcByte2),
+              absoluteUnsignedDifference(DestByte8, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte4, SrcByte0),
+              absoluteUnsignedDifference(DestByte5, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte6, SrcByte2),
+              absoluteUnsignedDifference(DestByte7, SrcByte3))
+          ))
+        ),
+     
+      concatenateMInt(
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte3, SrcByte0),
+              absoluteUnsignedDifference(DestByte4, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte5, SrcByte2),
+              absoluteUnsignedDifference(DestByte6, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte2, SrcByte0),
+              absoluteUnsignedDifference(DestByte3, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte4, SrcByte2),
+              absoluteUnsignedDifference(DestByte5, SrcByte3))
+          )),
+        concatenateMInt(
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte1, SrcByte0),
+              absoluteUnsignedDifference(DestByte2, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte3, SrcByte2),
+              absoluteUnsignedDifference(DestByte4, SrcByte3))
+          ),
+          addMInt(
+            addMInt(
+              absoluteUnsignedDifference(DestByte0, SrcByte0),
+              absoluteUnsignedDifference(DestByte1, SrcByte1)),
+            addMInt(
+              absoluteUnsignedDifference(DestByte2, SrcByte2),
+              absoluteUnsignedDifference(DestByte3, SrcByte3))
+          ))
+      ))) , R3)
+
+  ...</k>
+
+  // Utils
+
+  syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(A, B)
+    requires ugtMInt(A, B)
+
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(B, A)
+    requires notBool ugtMInt(A, B)
+
+  syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
+  rule selectSliceMPSAD(DEST:MInt, Offset:MInt, High:Int, Low:Int) =>
+    concatenateMInt(mi(8, 0), extractMInt(DEST, (uvalueMInt(Offset) *Int 32)
+          +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
+
+
+// vmpsadbw-xmm-xmm-xmm-imm8-semantics
 
 
 // addl-m32-imm
@@ -31024,6 +31781,127 @@ RSMap:Map => updateMap(RSMap,
           convToRegKeys(R2) |-> concatenateMInt(mi(32, 0), extractMInt(MemOff, 32, 64)))
     </regstate>
 
+
+
+// vpclmulqdq-xmm-xmm-m128-imm8
+
+  context execinstr(vpclmulqdq:Opcode (_:Imm,  HOLE:Mem, R3:Xmm, R4:Xmm, .Operands):Operands) [result(MemOffset)]
+
+  rule <k>
+    execinstr (vpclmulqdq I:Imm, memOffset( MemOff:MInt):MemOffset,  R3:Xmm, R4:Xmm, .Operands) => 
+      loadFromMemory( MemOff, 128) ~> execinstr (vpclmulqdq I, memOffset( MemOff), R3:Xmm, R4:Xmm, .Operands)                 
+  ...</k>
+    /*
+    IF (Imm8[0] = 0 )
+        THEN
+            TEMP1←SRC1 [63:0];
+        ELSE
+            TEMP1←SRC1 [127:64];
+    FI
+    IF (Imm8[4] = 0 )
+        THEN
+            TEMP2←SRC2 [63:0];
+        ELSE
+            TEMP2←SRC2 [127:64];
+  */   
+  rule <k>
+    memLoadValue(MemVal:MInt):MemLoadValue ~>
+    execinstr (vpclmulqdq Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm, .Operands) => 
+      execinstr(vpclmulqdq 
+          selectSlice(getRegisterValue(R3, RSMap), handleImmediateWithSignExtend(Imm8,
+              8, 8), 7, 64, 0),
+          selectSlice(MemVal, handleImmediateWithSignExtend(Imm8,
+              8, 8), 3, 64, 0), R4
+          , .Operands)
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (vpclmulqdq TEMP1:MInt, TEMP2:MInt, R4:Xmm,   .Operands) => 
+      setParentValue(
+          concatenateMInt(
+            mi(128, 0), 
+            orMInt(
+              computePCLMULQDQ1(TEMP1, TEMP2, mi(128, 0), 0, 63), 
+              computePCLMULQDQ2(TEMP1, TEMP2, mi(128, 0), 64, 126) 
+            )), R4)
+  ...</k>
+  
+  /*
+    For i = 0 to 63 {
+        TmpB [ i ]←(TEMP1[ 0 ] and TEMP2[ i ]);
+        For j = 1 to i {
+            TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+        }
+        DEST[ i ]←TmpB[ i ];
+    }
+  */   
+  syntax MInt ::= computePCLMULQDQ1(MInt, MInt, MInt, Int, Int) [function]
+  syntax MInt ::= computePCLMULQDQ1Refine(MInt, MInt, Int) [function]
+
+  rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, N:Int, N:Int) => DEST
+
+  rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
+    computePCLMULQDQ1( 
+        TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ1Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
+
+  rule computePCLMULQDQ1Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
+  refineHelper(TEMP1, TEMP2, 1, M, 
+        andMInt( 
+          extractMInt(TEMP1, 63, 64), extractMInt(TEMP2, 63 -Int M, 64 -Int M) 
+          )
+      )
+
+  /*
+     For i = 64 to 126 {
+    TmpB [ i ]←0;
+    For j = i - 63 to 63 {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+  }
+  */
+
+  syntax MInt ::= computePCLMULQDQ2(MInt, MInt, MInt, Int, Int) [function]
+  syntax MInt ::= computePCLMULQDQ2Refine(MInt, MInt, Int) [function]
+
+  rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, N:Int, N:Int) => DEST
+
+  rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
+    computePCLMULQDQ2( 
+        TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ2Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
+
+  rule computePCLMULQDQ2Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
+  refineHelper(TEMP1, TEMP2, M -Int 63, 63,  mi(1, 0))
+
+
+  // Utils
+  syntax MInt ::= refineHelper(MInt, MInt, Int, Int, MInt) [function]
+  rule refineHelper(TEMP1:MInt, TEMP2:MInt, Q:Int, Q:Int,
+      RES:MInt) => RES
+
+  rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int,
+      RES:MInt) => 
+    refineHelper(TEMP1, TEMP2, P +Int 1, Q, 
+        xorMInt(RES, 
+          andMInt(
+            extractMInt(TEMP1, 63 -Int P,         64 -Int P),
+            extractMInt(TEMP2, 63 -Int (P -Int Q), 64 -Int (P -Int Q))
+            )))
+
+  syntax MInt ::= selectSlice(MInt, MInt, Int, Int, Int) [function]
+
+  rule selectSlice(SRC1:MInt, Imm8:MInt, CheckBit:Int, Start1:Int, Start2:Int)
+  => extractMInt(SRC1, Start1, Start1 +Int 64)
+    requires  eqMInt(mi(1, 0), extractMInt(Imm8, CheckBit, CheckBit +Int 1))
+    
+  rule selectSlice(SRC1:MInt, Imm8:MInt, CheckBit:Int, Start1:Int, Start2:Int)
+  => extractMInt(SRC1, Start2, Start2 +Int 64)
+    requires  eqMInt(mi(1, 1), extractMInt(Imm8, CheckBit, CheckBit +Int 1))
+    
+
+
+// vpclmulqdq-xmm-xmm-xmm-imm8-semantics
 
 
 // adcb-m8-rh
