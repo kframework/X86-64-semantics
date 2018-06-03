@@ -78,6 +78,7 @@ insertps_xmm_xmm_imm8
 movw_r16_imm16
 movl_r32_imm32
 movq_r64_imm32
+movq_r64_imm64
 movb_r8_imm8
 movb_rh_imm8
 mpsadbw_xmm_xmm_imm8
