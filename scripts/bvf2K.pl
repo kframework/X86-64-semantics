@@ -55,18 +55,23 @@ my %opcodeSkipList = (    # Reason of manual generation
     "pcmpestrm_xmm_xmm_imm8" => 1,
     "pcmpistri_xmm_xmm_imm8" => 1,
     "pcmpistrm_xmm_xmm_imm8" => 1,
-    "vpcmpestri_xmm_xmm_imm8"     => 1,
-    "vpcmpestrm_xmm_xmm_imm8"     => 1,
-    "vpcmpistrm_xmm_xmm_imm8"     => 1,
-    "vpcmpistri_xmm_xmm_imm8"     => 1,    #End
-    "pushq_imm16"                 => 1,    ## Begin: Manual Implemented.
-    "pushq_imm32"                 => 1,
-    "pushq_imm8"                  => 1,    #End
-    "pclmulqdq_xmm_xmm_imm8"      => 1,    # Begin: HUge formula from stoke
-    "vpclmulqdq_xmm_xmm_xmm_imm8" => 1,
-    "mpsadbw_xmm_xmm_imm8"        => 1,
-    "vmpsadbw_xmm_xmm_xmm_imm8"   => 1,
-    "vmpsadbw_ymm_ymm_ymm_imm8"   => 1,    #End
+    "vpcmpestri_xmm_xmm_imm8"      => 1,
+    "vpcmpestrm_xmm_xmm_imm8"      => 1,
+    "vpcmpistrm_xmm_xmm_imm8"      => 1,
+    "vpcmpistri_xmm_xmm_imm8"      => 1,    #End
+    "pushq_imm16"                  => 1,    ## Begin: Manual Implemented.
+    "pushq_imm32"                  => 1,
+    "pushq_imm8"                   => 1,    #End
+    "pclmulqdq_xmm_xmm_imm8"       => 1,    # Begin: HUge formula from stoke
+    "vpclmulqdq_xmm_xmm_xmm_imm8"  => 1,
+    "pclmulqdq_xmm_m128_imm8"      => 1,
+    "vpclmulqdq_xmm_xmm_m128_imm8" => 1,
+    "mpsadbw_xmm_xmm_imm8"         => 1,
+    "vmpsadbw_xmm_xmm_xmm_imm8"    => 1,
+    "vmpsadbw_ymm_ymm_ymm_imm8"    => 1,
+    "mpsadbw_xmm_m128_imm8"        => 1,
+    "vmpsadbw_xmm_xmm_m128_imm8"   => 1,
+    "vmpsadbw_ymm_ymm_m256_imm8"   => 1,    # End
 
 );
 
