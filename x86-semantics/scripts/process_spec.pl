@@ -60,6 +60,7 @@ my $single_thread        = "";
 my $instructions_path    = "";
 my $testcases_path       = "";
 my $prepare_concrete_imm = "";
+my $prepare_concrete_mem = "";
 my $check_stoke_imm      = "";
 my $check_stoke_mem      = "";
 my $match_stoke_imm      = "";
@@ -98,6 +99,7 @@ GetOptions(
     "check_stoke"          => \$check_stoke,
     "no_strata_handler"    => \$no_strata_handler,
     "prepare_concrete_imm" => \$prepare_concrete_imm,
+    "prepare_concrete_mem" => \$prepare_concrete_mem,
     "prepare_concrete"     => \$prepare_concrete,
     "radare2_support"      => \$radare2_support,
     "angr_support"         => \$angr_support,
@@ -414,6 +416,34 @@ if ( "" ne $prepare_concrete_imm ) {
     #for my $line (@lines) {
     chomp $line;
     my $workdir = "concrete_instances/immediate-variants/$line";
+    print "\n\nPreparing workdir $workdir\n";
+    execute( "mkdir -p $workdir", 1 );
+
+    #my $check_stoke_text = "$workdir/$prefix.txt";
+
+    #open( my $scfp, ">", $check_stoke_text )
+    #  or die "cannot open: $!";
+    for ( my $i = 0 ; $i < 256 ; $i++ ) {
+        my $conc_instr = $line . "_" . $i;
+
+        #print $scfp $conc_instr . "\n";
+        execute("$specgen_setup --workdir $workdir --opc $conc_instr");
+    }
+
+    #}
+    exit(0);
+}
+
+if ( "" ne $prepare_concrete_mem ) {
+    my $specgen_setup = "~/Github/strata/stoke/bin/specgen_setup";
+    if ( "" eq $prefix ) {
+        $prefix = "check_stoke";
+    }
+    my $line = $opcode;
+
+    #for my $line (@lines) {
+    chomp $line;
+    my $workdir = "concrete_instances/memory-variants/$line";
     print "\n\nPreparing workdir $workdir\n";
     execute( "mkdir -p $workdir", 1 );
 
