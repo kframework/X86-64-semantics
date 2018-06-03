@@ -2382,12 +2382,73 @@ sub selectRules {
     return $returnInfo;
 }
 
+###################################
+sub getMemRWInfo {
+    my $reglines_ref = shift @_;
+    my @reglines     = @{$reglines_ref};
+    my %ReadMemValMap    = ();
+    my %ReadMemSizeMap   = ();
+    my %WriteMemValMap    = ();
+    my %WriteMemSizeMap   = ();
+
+    my $memRead = 0;
+    my $memWrite = 0;
+
+    my ( $addr, $size, $val ) = ( "", "", "" );
+    for my $line (@reglines) {
+        chomp $line;
+
+        # Skip
+        if (   $line =~ m/^(code:|Formula|sig)/
+            or $line =~ m/\s+(maybe|must|required)/
+            or $line =~ m/^$/
+            or $line =~ m/^%(.*):(.*)/ )
+        {
+            next;
+        }
+
+        if ( $line =~ m/Information about memory reads:/ ) {
+            $memRead = 1;
+        }
+
+        if ( 1 == $memRead ) {
+            if ( $line =~ m/\s*Value (.*) \((\d+) bytes\)/ ) {
+                $val  = $1;
+                $size = $2;
+            }
+            elsif ( $line =~ m/\s*was read at address (.*)\./ ) {
+                $addr = $1;
+                if ( $addr eq "" or $size eq "" or $val eq "" ) {
+                    utils::failInfo("getMemRWInfo Checkpoint 1\n");
+                }
+                if(exists $ReadMemValMap{$addr}) {
+                  utils::info("Double Read\n");
+                }
+                $ReadMemValMap{$addr}  = $val;
+                $ReadMemSizeMap{$addr} = $size;
+                $val               = "";
+                $size              = "";
+                $addr              = "";
+                $memRead           = 0;
+            }
+            else {
+                utils::failInfo("Where Am I\n");
+            }
+        }
+    }
+
+}
+##################################
+
 ##########################################
 sub sanitizeBVF {
 ##########################################
     my ( $opcode, $reglines_ref, $actual2psedoRegs_ref, $debugprint ) = @_;
     my @reglines         = @{$reglines_ref};
     my %actual2psedoRegs = %{$actual2psedoRegs_ref};
+
+    ## Get info abou memory read/write
+    my ( $memValMap, $memSizeMap ) = getMemRWInfo( $reglines_ref, $debugprint );
 
     ## Process begin
     ## stage 1
@@ -2679,6 +2740,9 @@ sub getRegSort {
     }
     if ( $reg =~ m/^imm(\d+)/ ) {
         return "Imm$1";
+    }
+    if ( $reg =~ m/^m(\d+)/ ) {
+        return "Mem$1";
     }
     return uc($reg);
 }
@@ -5040,6 +5104,12 @@ sub getDummyRegsForOperands {
         if ( $sort =~ m/^Xmm|^Ymm|^R.*/ ) {
             $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $op2, "%" ) } ) }
               = "R$counter";
+        }
+        elsif ( $sort =~ m/Mem(\d+)/ ) {
+            $op2 = utils::trim( $op2, "\\(" );
+            $op2 = utils::trim( $op2, "\\)" );
+            $actual2psedoRegs{ uc( $subRegToReg{ utils::trim( $op2, "%" ) } ) }
+              = $sort;
         }
     }
 

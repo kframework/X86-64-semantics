@@ -30335,6 +30335,16 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
   <regstate> RSMap </regstate>
 
 
+// addsubps-xmm-m128
+
+  rule <k>
+    execinstr (addsubps M128, R2:Xmm,  .Operands) => .
+  ...</k>
+
+
+// addsubps-xmm-m128-semantics
+
+
 // incl-m32
 
 
@@ -30379,6 +30389,63 @@ RSMap:Map => updateMap(RSMap,
   <regstate> RSMap </regstate>
 
 
+// pextq-r64-r64-m64
+
+
+  context execinstr(pextq:Opcode (HOLE:Mem, R2:R64, R3:R64, .Operands):Operands) [result(MemOffset)]
+
+
+  rule <k> 
+  execinstr (pextq memOffset( MemOff:MInt):MemOffset, R2:R64, R3:R64,
+      .Operands) => 
+    loadFromMemory( MemOff, 64) ~> 
+    execinstr (pextq memOffset( MemOff), R2, R3, .Operands) 
+  ...</k>
+
+
+  rule <k> 
+  memLoadValue(MemVal:MInt):MemLoadValue ~> 
+    execinstr (pextq memOffset( MemOff), R2, R3, .Operands) =>
+      setRegisterValue(mi(64, 0), R3) ~> 
+      parallelBitExtract(MemVal, R2, R3, 0, 0)
+  ...</k>
+    <regstate> RSMap:Map </regstate>
+
+  syntax KItem ::= parallelBitExtract(MInt, Register, Register, Int, Int)
+
+  // Base Condition
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, 63:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, 63, RSMap), DestR, K)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 1))
+
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, 63:Int, K:Int) => 
+    .
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 0))
+
+  // General Condition
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, M, RSMap), DestR, K)
+  ~>  parallelBitExtract(Mask, TempR, DestR, M +Int 1, K +Int 1)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 1))
+      
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+        parallelBitExtract(Mask, TempR, DestR, M +Int 1, K)
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 0))
+
+ 
+
+
+
 // cmpl-r32-m32
 
   context execinstr(cmpl:Opcode ( HOLE:Mem, _:R32, .Operands):Operands) [result(MemOffset)]
@@ -30406,6 +30473,64 @@ RSMap:Map => updateMap(RSMap,
        "ZF" |-> ((#ifMInt (eqMInt(extractMInt(addMInt(addMInt(concatenateMInt(mi(1, 0), xorMInt(mi(32, -1), MemVal)), concatenateMInt(mi(1, 0), extractMInt(getParentValue(R2, RSMap), 32, 64))), mi(33, 1)), 1, 33), mi(32, 0)) ) #then ( mi(1, 1) ) #else ( mi(1, 0) ) #fi)    )
       )
     </regstate>
+
+
+// pextl-r32-r32-m32
+
+
+  context execinstr(pextl:Opcode (HOLE:Mem, R2:R32, R3:R32, .Operands):Operands) [result(MemOffset)]
+
+
+  rule <k> 
+  execinstr (pextl memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,
+      .Operands) => 
+    loadFromMemory( MemOff, 32) ~> 
+    execinstr (pextl memOffset( MemOff), R2, R3, .Operands) 
+  ...</k>
+
+
+  rule <k> 
+  memLoadValue(MemVal:MInt):MemLoadValue ~> 
+    execinstr (pextl memOffset( MemOff), R2, R3, .Operands) =>
+      setRegisterValue(mi(32, 0), R3) ~> 
+      parallelBitExtract(MemVal, R2, R3, 0, 0)
+  ...</k>
+    <regstate> RSMap:Map </regstate>
+
+  syntax KItem ::= parallelBitExtract(MInt, Register, Register, Int, Int)
+
+  // Base Condition
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, 31:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, 31, RSMap), DestR, K)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 1))
+
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, 31:Int, K:Int) => 
+    .
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 0))
+
+  // General Condition
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, M, RSMap), DestR, K)
+  ~>  parallelBitExtract(Mask, TempR, DestR, M +Int 1, K +Int 1)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 31 -Int M, 32 -Int M), mi(1, 1))
+      
+  rule <k>
+    parallelBitExtract(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+        parallelBitExtract(Mask, TempR, DestR, M +Int 1, K)
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 31 -Int M, 32 -Int M), mi(1, 0))
+
+ 
+ 
+
 
 
 // movq-m64-imm64
@@ -30593,6 +30718,16 @@ sigsegv : sigsegv
 
 
 
+// blendpd-xmm-m128-imm8
+
+  rule <k>
+    execinstr (blendpd Imm8:Imm, Mem128, R3:Xmm,  .Operands) => .
+  ...</k>
+
+
+// blendpd-xmm-m128-imm8-semantics
+
+
 // movq-m64-label
 
   rule <k> 
@@ -30600,6 +30735,16 @@ sigsegv : sigsegv
       execinstr (movq $ uvalueMInt(Target),  M:Mem, .Operands)    
   ...</k>
     <functargets>...  LabelId:X86Id |-> Target:MInt  ...</functargets>
+
+
+// bzhil-r32-m32-r32
+
+  rule <k>
+    execinstr (bzhil R1:R32, M32, R3:R32,  .Operands) => .
+  ...</k>
+
+
+// bzhil-r32-m32-r32-semantics
 
 
 // cmpl-m32-r32
@@ -30710,6 +30855,74 @@ sigsegv : sigsegv
   <regstate> RSMap </regstate>
 
 
+// adcb-r8-m8
+
+  rule <k>
+    execinstr (adcb M8, R2:R8,  .Operands) => .
+  ...</k>
+
+
+// adcb-r8-m8-semantics
+
+
+// pdepq-r64-r64-m64
+
+
+  context execinstr(pdepq:Opcode (HOLE:Mem, R2:R64, R3:R64, .Operands):Operands) [result(MemOffset)]
+
+
+  rule <k> 
+  execinstr (pdepq memOffset( MemOff:MInt):MemOffset, R2:R64, R3:R64,
+      .Operands) => 
+    loadFromMemory( MemOff, 64) ~> 
+    execinstr (pdepq memOffset( MemOff), R2, R3, .Operands) 
+  ...</k>
+
+
+  rule <k> 
+  memLoadValue(MemVal:MInt):MemLoadValue ~> 
+    execinstr (pdepq memOffset( MemOff), R2, R3, .Operands) =>
+      setRegisterValue(mi(64, 0), R3) ~> 
+      parallelBitDeposit(MemVal, R2, R3, 0, 0)
+  ...</k>
+    <regstate> RSMap:Map </regstate>
+
+
+  syntax KItem ::= parallelBitDeposit(MInt, Register, Register, Int, Int)
+
+  // Base Condition
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, 63:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, K, RSMap),
+          DestR, 63)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 1))
+
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, 63:Int, K:Int) => 
+    .
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 0))
+
+  // General Condition
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, K, RSMap), DestR, M)
+  ~>  parallelBitDeposit(Mask, TempR, DestR, M +Int 1, K +Int  1)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 1))
+      
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+        parallelBitDeposit(Mask, TempR, DestR, M +Int 1, K)
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 0))
+
+
+
+
 // subl-r32-m32
 
   context execinstr(subl:Opcode ( HOLE:Mem, _:R32, .Operands):Operands) [result(MemOffset)]
@@ -30813,6 +31026,84 @@ RSMap:Map => updateMap(RSMap,
 
 
 
+// adcb-m8-rh
+
+  rule <k>
+    execinstr (adcb R1:Rh, M8,  .Operands) => .
+  ...</k>
+
+
+// adcb-m8-rh-semantics
+
+
+// adcb-m8-imm8
+
+  rule <k>
+    execinstr (adcb Imm8:Imm, M8,  .Operands) => .
+  ...</k>
+
+
+// adcb-m8-imm8-semantics
+
+
+// pdepl-r32-r32-m32
+
+
+  context execinstr(pdepl:Opcode (HOLE:Mem, R2:R32, R3:R32, .Operands):Operands) [result(MemOffset)]
+
+
+  rule <k> 
+  execinstr (pdepl memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,
+      .Operands) => 
+    loadFromMemory( MemOff, 32) ~> 
+    execinstr (pdepl memOffset( MemOff), R2, R3, .Operands) 
+  ...</k>
+
+
+  rule <k> 
+  memLoadValue(MemVal:MInt):MemLoadValue ~> 
+    execinstr (pdepl memOffset( MemOff), R2, R3, .Operands) =>
+      setRegisterValue(mi(32, 0), R3) ~> 
+      parallelBitDeposit(MemVal, R2, R3, 0, 0)
+  ...</k>
+    <regstate> RSMap:Map </regstate>
+
+  syntax KItem ::= parallelBitDeposit(MInt, Register, Register, Int, Int)
+
+  // Base Condition
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, 31:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, K, RSMap),
+          DestR, 31)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 1))
+
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, 31:Int, K:Int) => 
+    .
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 0))
+
+  // General Condition
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, K, RSMap), DestR, M)
+  ~>  parallelBitDeposit(Mask, TempR, DestR, M +Int 1, K +Int 1)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 31 -Int M, 32 -Int M), mi(1, 1))
+      
+  rule <k>
+    parallelBitDeposit(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+        parallelBitDeposit(Mask, TempR, DestR, M +Int 1, K)
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 31 -Int M, 32 -Int M), mi(1, 0))
+  
+ 
+
+
+
 // movsbl-r32-m8
 
   context execinstr(movsbl:Opcode (HOLE:Mem, _:R32, .Operands):Operands)  [result(MemOffset)]
@@ -30825,6 +31116,16 @@ RSMap:Map => updateMap(RSMap,
     memLoadValue (MemVal:MInt) ~> execinstr( movsbl memOffset(MemOff:MInt):MemOffset, R2:R32, .Operands) =>
       setRegisterValue( mi(32, svalueMInt(MemVal)), R2)
   ...</k>
+
+
+// adcl-m32-imm32
+
+  rule <k>
+    execinstr (adcl Imm32:Imm, M32,  .Operands) => .
+  ...</k>
+
+
+// adcl-m32-imm32-semantics
 
 
 // addl-m32-r32
