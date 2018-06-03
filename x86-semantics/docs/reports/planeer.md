@@ -21,6 +21,13 @@
 
   For vpbroadcastb_ymm_xmm, the stratified formula contain uif, where as the manually written one is without uif. To reproduce use sf --strata_path ../../circuits/ --opc vpbroadcastb_ymm_xmm as both master branch and strata branch are using strata handler.
   ```
+  - Statistics of imms in memory instructions
+  ```
+  216 imm
+   183: 8
+   11: 16
+   22: 32
+  ```
 
 
 - Checklist
@@ -62,6 +69,9 @@
     - Test the instruction with uifs in some of their regstate. Those are not tested in Strata. Check if the uifs are triggered at the right place.
   - Test all the conditional undefs
   - Test the local testcases.
+  - https://github.com/sdasgup3/binary-decompilation/wiki/Bugs-Found
+    - Search bt for bt family of instructions.
+    - Check if they are tested properly.
 
 - To Do
   - There are many 'system instructions' that can be supported. like SHLD
@@ -71,6 +81,9 @@
   A +- 0 != A
   0 + A != A
   ```
+  - Support the following:
+    - Imm: 8 remaining
+    - Mem: 10 remaining 
   - Talk with authors about the simplification
   ```
   0 & A == 0

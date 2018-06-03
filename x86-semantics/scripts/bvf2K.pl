@@ -29,37 +29,40 @@ my $debugprint  = 0;
 my $is_schedule = 0;
 
 my %opcodeSkipList = (    # Reason of manual generation
-    "pdepq_r64_r64_r64" => 1,    # impractically huge strata formula.
-    "pdepl_r32_r32_r32" => 1,
-    "pextl_r32_r32_r32" => 1,    # Difficlt to write the semantics in handlers
-    "pextq_r64_r64_r64" => 1,
-
-    "movmskpd_r64_xmm"        => 1,  # Huge strata formula.
-    "vmovmskpd_r64_xmm"       => 1,
-    "vmovmskpd_r64_ymm"       => 1,
-    "vmovmskpd_r32_xmm"       => 1,
-    "vmovmskpd_r32_ymm"       => 1,
-    "movmskpd_r32_xmm"        => 1,
-    "xchgl_eax_r32"           => 1,  # Schedule instruction;
-    "xchgl_r32_eax"           => 1,
-    "xchgl_r32_r32"           => 1,
-    "xchgq_r64_rax"           => 1,
-    "xchgq_rax_r64"           => 1,
-    "xchgw_ax_r16"            => 1,
-    "xchgw_r16_ax"            => 1,
-    "xchgq_r64_r64"           => 1,
-    "pcmpestri_xmm_xmm_imm8"  => 1,  ## Begin: Unsupported instructions in Imms.
-    "pcmpestrm_xmm_xmm_imm8"  => 1,
-    "pcmpistri_xmm_xmm_imm8"  => 1,
-    "pcmpistrm_xmm_xmm_imm8"  => 1,
-    "vpcmpestri_xmm_xmm_imm8" => 1,
-    "vpcmpestrm_xmm_xmm_imm8" => 1,
-    "vpcmpistrm_xmm_xmm_imm8" => 1,
-    "vpcmpistri_xmm_xmm_imm8" => 1,  #End
-    "pushq_imm16"             => 1,  ## Begin: Manual Implemented.
-    "pushq_imm32"             => 1,
-    "pushq_imm8"              => 1,  #End
-    "pclmulqdq_xmm_xmm_imm8"  => 1,  # Begin: HUge formula from stoke
+    "pdepq_r64_r64_r64"      => 1, # impractically huge strata formula.
+    "pdepl_r32_r32_r32"      => 1,
+    "pdepl_r32_r32_m32"      => 1,
+    "pdepq_r64_r64_m64"      => 1, # End
+    "pextl_r32_r32_r32"      => 1, # Difficlt to write the semantics in handlers
+    "pextq_r64_r64_r64"      => 1,
+    "pextl_r32_r32_m32"      => 1,
+    "pextq_r64_r64_m64"      => 1, #End.
+    "movmskpd_r64_xmm"       => 1, # Huge strata formula.
+    "vmovmskpd_r64_xmm"      => 1,
+    "vmovmskpd_r64_ymm"      => 1,
+    "vmovmskpd_r32_xmm"      => 1,
+    "vmovmskpd_r32_ymm"      => 1,
+    "movmskpd_r32_xmm"       => 1,
+    "xchgl_eax_r32"          => 1, # Schedule instruction;
+    "xchgl_r32_eax"          => 1,
+    "xchgl_r32_r32"          => 1,
+    "xchgq_r64_rax"          => 1,
+    "xchgq_rax_r64"          => 1,
+    "xchgw_ax_r16"           => 1,
+    "xchgw_r16_ax"           => 1,
+    "xchgq_r64_r64"          => 1,
+    "pcmpestri_xmm_xmm_imm8" => 1, ## Begin: Unsupported instructions in Imms.
+    "pcmpestrm_xmm_xmm_imm8" => 1,
+    "pcmpistri_xmm_xmm_imm8" => 1,
+    "pcmpistrm_xmm_xmm_imm8" => 1,
+    "vpcmpestri_xmm_xmm_imm8"     => 1,
+    "vpcmpestrm_xmm_xmm_imm8"     => 1,
+    "vpcmpistrm_xmm_xmm_imm8"     => 1,
+    "vpcmpistri_xmm_xmm_imm8"     => 1,    #End
+    "pushq_imm16"                 => 1,    ## Begin: Manual Implemented.
+    "pushq_imm32"                 => 1,
+    "pushq_imm8"                  => 1,    #End
+    "pclmulqdq_xmm_xmm_imm8"      => 1,    # Begin: HUge formula from stoke
     "vpclmulqdq_xmm_xmm_xmm_imm8" => 1,
     "mpsadbw_xmm_xmm_imm8"        => 1,
     "vmpsadbw_xmm_xmm_xmm_imm8"   => 1,
@@ -181,15 +184,15 @@ sub getSemantics {
         $operandListFromInstr_ref );
     my %actual2psedoRegs = %{$actual2psedoRegs_ref};
 
-    #utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", 1 );
+    utils::printMap( $actual2psedoRegs_ref, "ActualToPseduRegs", 1 );
 
-    #printArray( $operandListFromOpcode_ref, "Operands from opcode" );
-    #printArray( $operandListFromInstr_ref,  "Operands from instr" );
+    printArray( $operandListFromOpcode_ref, "Operands from opcode" );
+    printArray( $operandListFromInstr_ref,  "Operands from instr" );
 
     my $semantics =
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
-    #print $semantics. "\n";
-    #return;
+    print $semantics. "\n";
+    return;
     return $semantics;
 }
