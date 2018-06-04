@@ -6,10 +6,11 @@ module CVTDQ2PS-XMM-M128
 
   context execinstr(cvtdq2ps:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cvtdq2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (cvtdq2ps memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cvtdq2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (cvtdq2ps memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (cvtdq2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module CVTDQ2PS-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( cvt_int32_to_single(extractMInt( Mem128, 0, 32)), concatenateMInt( cvt_int32_to_single(extractMInt( Mem128, 32, 64)), concatenateMInt( cvt_int32_to_single(extractMInt( Mem128, 64, 96)), cvt_int32_to_single(extractMInt( Mem128, 96, 128))))))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module BZHIL-R32-M32-R32
 
   context execinstr(bzhil:Opcode R1:R32, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (bzhil:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (bzhil R1, memOffset( MemOff), R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (bzhil:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (bzhil R1, memOffset( MemOff), R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (bzhil:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), (#ifMInt ultMInt( extractMInt(
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

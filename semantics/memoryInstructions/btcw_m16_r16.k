@@ -6,17 +6,18 @@ module BTCW-M16-R16
 
   context execinstr(btcw:Opcode R1:R16, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (btcw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (btcw R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (btcw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (btcw R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (btcw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               xorMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),
-              MemOff,
+              addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 64))), 0, 61))),
               8
             )
           
@@ -33,5 +34,5 @@ module BTCW-M16-R16
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module MULB-M8
 
   context execinstr(mulb:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (mulb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (mulb memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (mulb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (mulb memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (mulb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -31,5 +32,5 @@ module MULB-M8
 
 "OF" |-> (#ifMInt (notBool eqMInt( extractMInt( mulMInt( concatenateMInt( mi(8, 0), Mem8), concatenateMInt( mi(8, 0), extractMInt( getParentValue(%rax, RSMap), 56, 64))), 0, 8), mi(8, 0))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

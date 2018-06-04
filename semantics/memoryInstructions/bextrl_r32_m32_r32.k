@@ -6,10 +6,11 @@ module BEXTRL-R32-M32-R32
 
   context execinstr(bextrl:Opcode R1:R32, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (bextrl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (bextrl R1, memOffset( MemOff), R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (bextrl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (bextrl R1, memOffset( MemOff), R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (bextrl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( lshrMInt
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module IMULQ-M64
 
   context execinstr(imulq:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (imulq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (imulq memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (imulq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (imulq memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (imulq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module IMULQ-M64
 
 "OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(128, svalueMInt(Mem64)), mi(128, svalueMInt(getParentValue(%rax, RSMap)))), mi(128, svalueMInt(extractMInt( mulMInt( mi(128, svalueMInt(Mem64)), mi(128, svalueMInt(getParentValue(%rax, RSMap)))), 64, 128))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

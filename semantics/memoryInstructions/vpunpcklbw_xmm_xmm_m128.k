@@ -6,10 +6,11 @@ module VPUNPCKLBW-XMM-XMM-M128
 
   context execinstr(vpunpcklbw:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpunpcklbw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpunpcklbw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPUNPCKLBW-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( extractMInt( Mem128, 64, 72), extractMInt( getParentValue(R2, RSMap), 192, 200)), concatenateMInt( concatenateMInt( extractMInt( Mem128, 72, 80), extractMInt( getParentValue(R2, RSMap), 200, 208)), concatenateMInt( concatenateMInt( extractMInt( Mem128, 80, 88), extractMInt( getParentValue(R2, RSMap), 208, 216)), concatenateMInt( concatenateMInt( extractMInt( Mem128, 88, 96), extractMInt( getParentValue(R2, RSMap), 216, 224)), concatenateMInt( concatenateMInt( extractMInt( Mem128, 96, 104), extractMInt( getParentValue(R2, RSMap), 224, 232)), concatenateMInt( concatenateMInt( extractMInt( Mem128, 104, 112), extractMInt( getParentValue(R2, RSMap), 232, 240)), concatenateMInt( concatenateMInt( extractMInt( Mem128, 112, 120), extractMInt( getParentValue(R2, RSMap), 240, 248)), concatenateMInt( extractMInt( Mem128, 120, 128), extractMInt( getParentValue(R2, RSMap), 248, 256))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

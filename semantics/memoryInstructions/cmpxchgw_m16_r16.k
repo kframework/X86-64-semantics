@@ -6,10 +6,11 @@ module CMPXCHGW-M16-R16
 
   context execinstr(cmpxchgw:Opcode R1:R16, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmpxchgw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (cmpxchgw R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmpxchgw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (cmpxchgw R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (cmpxchgw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -37,5 +38,5 @@ module CMPXCHGW-M16-R16
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( Mem16, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(%rax, RSMap), 48, 49), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( Mem16, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem16)), mi(17, 1)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(%rax, RSMap), 48, 64))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -16,9 +16,5 @@ module MOVW-M16-R16
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

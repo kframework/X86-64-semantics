@@ -6,13 +6,14 @@ module BTQ-M64-R64
 
   context execinstr(btq:Opcode R1:R64, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (btq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (btq R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (btq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (btq R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
-    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (btq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
     <regstate>
@@ -27,5 +28,5 @@ module BTQ-M64-R64
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module IMULQ-R64-M64-IMM32
 
   context execinstr(imulq:Opcode Imm32:Imm, HOLE:Mem, R3:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (imulq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (imulq Imm32, memOffset( MemOff), R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (imulq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (imulq Imm32, memOffset( MemOff), R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (imulq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R3) |-> extractMInt( mulMInt( mi(128, svalueMInt(Mem64)), mi(128, 
 
 "OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(128, svalueMInt(Mem64)), mi(128, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32)))), mi(128, svalueMInt(extractMInt( mulMInt( mi(128, svalueMInt(Mem64)), mi(128, svalueMInt(handleImmediateWithSignExtend(Imm32, 32, 32)))), 64, 128))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

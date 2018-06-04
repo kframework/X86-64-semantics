@@ -6,10 +6,11 @@ module BLSRL-R32-M32
 
   context execinstr(blsrl:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (blsrl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (blsrl memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (blsrl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (blsrl memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (blsrl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), andMInt( subMInt( Mem32, mi(32
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

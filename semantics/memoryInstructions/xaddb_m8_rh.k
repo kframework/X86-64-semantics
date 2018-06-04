@@ -6,10 +6,11 @@ module XADDB-M8-RH
 
   context execinstr(xaddb:Opcode R1:Rh, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xaddb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (xaddb R1:Rh, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xaddb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (xaddb R1:Rh, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (xaddb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -37,5 +38,5 @@ convToRegKeys(R1) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( getParentValue(R1, RSMap), 48, 49), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

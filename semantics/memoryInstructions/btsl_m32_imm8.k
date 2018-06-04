@@ -6,17 +6,18 @@ module BTSL-M32-IMM8
 
   context execinstr(btsl:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (btsl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (btsl Imm8, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (btsl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (btsl Imm8, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               orMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7)))))),
-              MemOff,
+              addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 3)))),
               8
             )
           
@@ -33,5 +34,5 @@ module BTSL-M32-IMM8
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

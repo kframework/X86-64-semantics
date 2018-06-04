@@ -6,10 +6,11 @@ module VPUNPCKLBW-YMM-YMM-M256
 
   context execinstr(vpunpcklbw:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpunpcklbw memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpunpcklbw memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPUNPCKLBW-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( Mem256, 64, 72), extractMInt( getParentValue(R2, RSMap), 64, 72)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 72, 80), extractMInt( getParentValue(R2, RSMap), 72, 80)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 80, 88), extractMInt( getParentValue(R2, RSMap), 80, 88)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 88, 96), extractMInt( getParentValue(R2, RSMap), 88, 96)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 96, 104), extractMInt( getParentValue(R2, RSMap), 96, 104)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 104, 112), extractMInt( getParentValue(R2, RSMap), 104, 112)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 112, 120), extractMInt( getParentValue(R2, RSMap), 112, 120)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 120, 128), extractMInt( getParentValue(R2, RSMap), 120, 128)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 192, 200), extractMInt( getParentValue(R2, RSMap), 192, 200)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 200, 208), extractMInt( getParentValue(R2, RSMap), 200, 208)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 208, 216), extractMInt( getParentValue(R2, RSMap), 208, 216)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 216, 224), extractMInt( getParentValue(R2, RSMap), 216, 224)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 224, 232), extractMInt( getParentValue(R2, RSMap), 224, 232)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 232, 240), extractMInt( getParentValue(R2, RSMap), 232, 240)), concatenateMInt( concatenateMInt( extractMInt( Mem256, 240, 248), extractMInt( getParentValue(R2, RSMap), 240, 248)), concatenateMInt( extractMInt( Mem256, 248, 256), extractMInt( getParentValue(R2, RSMap), 248, 256)))))))))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

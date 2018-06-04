@@ -6,10 +6,11 @@ module VCVTSD2SIQ-R64-M64
 
   context execinstr(vcvtsd2siq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vcvtsd2siq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vcvtsd2siq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vcvtsd2siq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vcvtsd2siq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vcvtsd2siq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -19,5 +20,5 @@ module VCVTSD2SIQ-R64-M64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> cvt_double_to_int64(Mem64)
       )
-      </regstate>
+    </regstate>
 endmodule

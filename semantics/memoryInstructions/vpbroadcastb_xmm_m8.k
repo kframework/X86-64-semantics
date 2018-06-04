@@ -6,10 +6,11 @@ module VPBROADCASTB-XMM-M8
 
   context execinstr(vpbroadcastb:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpbroadcastb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (vpbroadcastb memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpbroadcastb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (vpbroadcastb memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (vpbroadcastb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPBROADCASTB-XMM-M8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, concatenateMInt( Mem8, Mem8))))))))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

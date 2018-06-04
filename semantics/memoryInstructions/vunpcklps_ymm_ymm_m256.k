@@ -6,10 +6,11 @@ module VUNPCKLPS-YMM-YMM-M256
 
   context execinstr(vunpcklps:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vunpcklps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vunpcklps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vunpcklps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vunpcklps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vunpcklps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VUNPCKLPS-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( Mem256, 64, 96), extractMInt( getParentValue(R2, RSMap), 64, 96)), extractMInt( Mem256, 96, 128)), extractMInt( getParentValue(R2, RSMap), 96, 128)), concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( Mem256, 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224)), extractMInt( Mem256, 224, 256)), extractMInt( getParentValue(R2, RSMap), 224, 256)))
       )
-      </regstate>
+    </regstate>
 endmodule

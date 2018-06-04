@@ -6,10 +6,11 @@ module VPMOVZXBW-YMM-M128
 
   context execinstr(vpmovzxbw:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmovzxbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpmovzxbw memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmovzxbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpmovzxbw memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpmovzxbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMOVZXBW-YMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 0, 8)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 8, 16)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 16, 24)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 24, 32)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 32, 40)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 40, 48)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 48, 56)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 56, 64)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 64, 72)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 72, 80)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 80, 88)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 88, 96)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 96, 104)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 104, 112)), concatenateMInt( concatenateMInt( mi(8, 0), extractMInt( Mem128, 112, 120)), concatenateMInt( mi(8, 0), extractMInt( Mem128, 120, 128)))))))))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

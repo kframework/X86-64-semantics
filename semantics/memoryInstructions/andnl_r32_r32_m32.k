@@ -6,10 +6,11 @@ module ANDNL-R32-R32-M32
 
   context execinstr(andnl:Opcode HOLE:Mem, R2:R32, R3:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (andnl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (andnl memOffset( MemOff), R2, R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (andnl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (andnl memOffset( MemOff), R2, R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (andnl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( negMInt( extractMInt(
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

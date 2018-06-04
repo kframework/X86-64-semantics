@@ -6,10 +6,11 @@ module VFNMADD213PS-XMM-XMM-M128
 
   context execinstr(vfnmadd213ps:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vfnmadd213ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vfnmadd213ps memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vfnmadd213ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vfnmadd213ps memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vfnmadd213ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VFNMADD213PS-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( vfnmadd132_single(mi(32, 0), mi(32, 0), mi(32, 0)), concatenateMInt( vfnmadd132_single(mi(32, 0), mi(32, 0), mi(32, 0)), concatenateMInt( vfnmadd132_single(mi(32, 0), mi(32, 0), mi(32, 0)), vfnmadd132_single(mi(32, 0), mi(32, 0), mi(32, 0))))), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( Mem128, 0, 32), extractMInt( getParentValue(R3, RSMap), 128, 160)), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( Mem128, 32, 64), extractMInt( getParentValue(R3, RSMap), 160, 192)), concatenateMInt( vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( Mem128, 64, 96), extractMInt( getParentValue(R3, RSMap), 192, 224)), vfnmadd132_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( Mem128, 96, 128), extractMInt( getParentValue(R3, RSMap), 224, 256))))))
       )
-      </regstate>
+    </regstate>
 endmodule

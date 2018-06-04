@@ -6,10 +6,11 @@ module ORB-R8-M8
 
   context execinstr(orb:Opcode HOLE:Mem, R2:R8,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (orb:Opcode memOffset( MemOff:MInt):MemOffset, R2:R8,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (orb memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (orb:Opcode memOffset( MemOff:MInt):MemOffset, R2:R8,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (orb memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (orb:Opcode memOffset( MemOff:MInt):MemOffset, R2:R8,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

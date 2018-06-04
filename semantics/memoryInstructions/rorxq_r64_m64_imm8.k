@@ -6,10 +6,11 @@ module RORXQ-R64-M64-IMM8
 
   context execinstr(rorxq:Opcode Imm8:Imm, HOLE:Mem, R3:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (rorxq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (rorxq Imm8, memOffset( MemOff), R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (rorxq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (rorxq Imm8, memOffset( MemOff), R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (rorxq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
@@ -19,5 +20,5 @@ module RORXQ-R64-M64-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> orMInt( lshrMInt( Mem64, uvalueMInt(andMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)))), shlMInt( Mem64, uvalueMInt(subMInt( mi(64, 64), andMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63))))))
       )
-      </regstate>
+    </regstate>
 endmodule

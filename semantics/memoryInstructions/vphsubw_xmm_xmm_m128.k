@@ -6,10 +6,11 @@ module VPHSUBW-XMM-XMM-M128
 
   context execinstr(vphsubw:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vphsubw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vphsubw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vphsubw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vphsubw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vphsubw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPHSUBW-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( subMInt( extractMInt( Mem128, 16, 32), extractMInt( Mem128, 0, 16)), subMInt( extractMInt( Mem128, 48, 64), extractMInt( Mem128, 32, 48))), subMInt( extractMInt( Mem128, 80, 96), extractMInt( Mem128, 64, 80))), subMInt( extractMInt( Mem128, 112, 128), extractMInt( Mem128, 96, 112))), subMInt( extractMInt( getParentValue(R2, RSMap), 144, 160), extractMInt( getParentValue(R2, RSMap), 128, 144))), subMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), extractMInt( getParentValue(R2, RSMap), 160, 176))), subMInt( extractMInt( getParentValue(R2, RSMap), 208, 224), extractMInt( getParentValue(R2, RSMap), 192, 208))), subMInt( extractMInt( getParentValue(R2, RSMap), 240, 256), extractMInt( getParentValue(R2, RSMap), 224, 240))))
       )
-      </regstate>
+    </regstate>
 endmodule

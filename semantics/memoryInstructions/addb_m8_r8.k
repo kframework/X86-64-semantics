@@ -6,10 +6,11 @@ module ADDB-M8-R8
 
   context execinstr(addb:Opcode R1:R8, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (addb:Opcode R1:R8, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (addb R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (addb:Opcode R1:R8, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (addb R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (addb:Opcode R1:R8, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module ADDB-M8-R8
 
 "OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

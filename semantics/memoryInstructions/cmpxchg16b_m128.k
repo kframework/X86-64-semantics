@@ -6,10 +6,11 @@ module CMPXCHG16B-M128
 
   context execinstr(cmpxchg16b:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmpxchg16b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (cmpxchg16b memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmpxchg16b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (cmpxchg16b memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (cmpxchg16b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -29,5 +30,5 @@ module CMPXCHG16B-M128
 
 "ZF" |-> (#ifMInt eqMInt( Mem128, concatenateMInt( getParentValue(%rdx, RSMap), getParentValue(%rax, RSMap))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

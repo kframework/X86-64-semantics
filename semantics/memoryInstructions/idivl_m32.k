@@ -6,10 +6,11 @@ module IDIVL-M32
 
   context execinstr(idivl:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (idivl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (idivl memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (idivl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (idivl memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (idivl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module IDIVL-M32
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module VINSERTI128-YMM-YMM-M128-IMM8
 
   context execinstr(vinserti128:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vinserti128:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vinserti128 Imm8, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vinserti128:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vinserti128 Imm8, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vinserti128:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VINSERTI128-YMM-YMM-M128-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), Mem128) #else concatenateMInt( Mem128, extractMInt( getParentValue(R3, RSMap), 128, 256)) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module VPMASKMOVQ-YMM-YMM-M256
 
   context execinstr(vpmaskmovq:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmaskmovq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpmaskmovq memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmaskmovq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpmaskmovq memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpmaskmovq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMASKMOVQ-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1)) #then extractMInt( Mem256, 0, 64) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R2, RSMap), 64, 65), mi(1, 1)) #then extractMInt( Mem256, 64, 128) #else mi(64, 0) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R2, RSMap), 128, 129), mi(1, 1)) #then extractMInt( Mem256, 128, 192) #else mi(64, 0) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R2, RSMap), 192, 193), mi(1, 1)) #then extractMInt( Mem256, 192, 256) #else mi(64, 0) #fi))))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -16,9 +16,5 @@ module MOVB-M8-RH
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

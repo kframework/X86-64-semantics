@@ -6,10 +6,11 @@ module VMOVSLDUP-YMM-M256
 
   context execinstr(vmovsldup:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vmovsldup:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vmovsldup memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vmovsldup:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vmovsldup memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vmovsldup:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VMOVSLDUP-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( concatenateMInt( extractMInt( Mem256, 32, 64), extractMInt( Mem256, 32, 64)), concatenateMInt( extractMInt( Mem256, 96, 128), extractMInt( Mem256, 96, 128))), concatenateMInt( concatenateMInt( extractMInt( Mem256, 160, 192), extractMInt( Mem256, 160, 192)), concatenateMInt( extractMInt( Mem256, 224, 256), extractMInt( Mem256, 224, 256))))
       )
-      </regstate>
+    </regstate>
 endmodule

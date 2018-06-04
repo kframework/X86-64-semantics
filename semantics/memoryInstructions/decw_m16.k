@@ -6,10 +6,11 @@ module DECW-M16
 
   context execinstr(decw:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (decw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (decw memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (decw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (decw memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (decw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module DECW-M16
 
 "OF" |-> (#ifMInt (eqMInt( extractMInt( Mem16, 0, 1), mi(1, 1)) andBool eqMInt( extractMInt( Mem16, 1, 16), mi(15, 0))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

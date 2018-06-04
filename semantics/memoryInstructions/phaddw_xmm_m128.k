@@ -6,10 +6,11 @@ module PHADDW-XMM-M128
 
   context execinstr(phaddw:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (phaddw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (phaddw memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (phaddw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (phaddw memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (phaddw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module PHADDW-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( addMInt( extractMInt( Mem128, 0, 16), extractMInt( Mem128, 16, 32)), addMInt( extractMInt( Mem128, 32, 48), extractMInt( Mem128, 48, 64))), addMInt( extractMInt( Mem128, 64, 80), extractMInt( Mem128, 80, 96))), addMInt( extractMInt( Mem128, 96, 112), extractMInt( Mem128, 112, 128))), addMInt( extractMInt( getParentValue(R2, RSMap), 128, 144), extractMInt( getParentValue(R2, RSMap), 144, 160))), addMInt( extractMInt( getParentValue(R2, RSMap), 160, 176), extractMInt( getParentValue(R2, RSMap), 176, 192))), addMInt( extractMInt( getParentValue(R2, RSMap), 192, 208), extractMInt( getParentValue(R2, RSMap), 208, 224))), addMInt( extractMInt( getParentValue(R2, RSMap), 224, 240), extractMInt( getParentValue(R2, RSMap), 240, 256))))
       )
-      </regstate>
+    </regstate>
 endmodule

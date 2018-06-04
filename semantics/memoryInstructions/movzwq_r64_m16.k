@@ -6,10 +6,11 @@ module MOVZWQ-R64-M16
 
   context execinstr(movzwq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (movzwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (movzwq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (movzwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (movzwq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (movzwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -19,5 +20,5 @@ module MOVZWQ-R64-M16
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(48, 0), Mem16)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module MULXQ-R64-R64-M64
 
   context execinstr(mulxq:Opcode HOLE:Mem, R2:R64, R3:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (mulxq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64, R3:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (mulxq memOffset( MemOff), R2, R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (mulxq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64, R3:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (mulxq memOffset( MemOff), R2, R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (mulxq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64, R3:R64,  .Operands) =>
@@ -21,5 +22,5 @@ convToRegKeys(R2) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), MemOff),
 
 convToRegKeys(R3) |-> extractMInt( mulMInt( concatenateMInt( mi(64, 0), MemOff), concatenateMInt( mi(64, 0), Mem64)), 0, 64)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module PMULUDQ-XMM-M128
 
   context execinstr(pmuludq:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (pmuludq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (pmuludq memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (pmuludq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (pmuludq memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (pmuludq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module PMULUDQ-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( mulMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(R2, RSMap), 160, 192)), concatenateMInt( mi(32, 0), extractMInt( Mem128, 32, 64))), mulMInt( concatenateMInt( mi(32, 0), extractMInt( getParentValue(R2, RSMap), 224, 256)), concatenateMInt( mi(32, 0), extractMInt( Mem128, 96, 128)))))
       )
-      </regstate>
+    </regstate>
 endmodule

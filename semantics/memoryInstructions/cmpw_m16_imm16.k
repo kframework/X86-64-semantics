@@ -6,10 +6,11 @@ module CMPW-M16-IMM16
 
   context execinstr(cmpw:Opcode Imm16:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmpw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (cmpw Imm16, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmpw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (cmpw Imm16, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (cmpw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -29,5 +30,5 @@ module CMPW-M16-IMM16
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem16, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm16, 16, 16))), mi(17, 1)), concatenateMInt( mi(1, 0), Mem16)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

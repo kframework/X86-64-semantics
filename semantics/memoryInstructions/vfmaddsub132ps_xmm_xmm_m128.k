@@ -6,10 +6,11 @@ module VFMADDSUB132PS-XMM-XMM-M128
 
   context execinstr(vfmaddsub132ps:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vfmaddsub132ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vfmaddsub132ps memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vfmaddsub132ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vfmaddsub132ps memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vfmaddsub132ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VFMADDSUB132PS-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( vfmadd132_single(extractMInt( getParentValue(R3, RSMap), 128, 160), extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( Mem128, 0, 32)), vfmsub132_single(extractMInt( getParentValue(R3, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( Mem128, 32, 64))), concatenateMInt( vfmadd132_single(extractMInt( getParentValue(R3, RSMap), 192, 224), extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( Mem128, 64, 96)), vfmsub132_single(extractMInt( getParentValue(R3, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( Mem128, 96, 128)))))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,17 +6,18 @@ module BTSW-M16-R16
 
   context execinstr(btsw:Opcode R1:R16, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (btsw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (btsw R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (btsw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (btsw R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (btsw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               orMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),
-              MemOff,
+              addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 64))), 0, 61))),
               8
             )
           
@@ -33,5 +34,5 @@ module BTSW-M16-R16
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

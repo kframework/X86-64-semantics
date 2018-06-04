@@ -6,10 +6,11 @@ module VSQRTPD-YMM-M256
 
   context execinstr(vsqrtpd:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vsqrtpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vsqrtpd memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vsqrtpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vsqrtpd memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vsqrtpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VSQRTPD-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( sqrt_double(extractMInt( Mem256, 0, 64)), concatenateMInt( sqrt_double(extractMInt( Mem256, 64, 128)), concatenateMInt( sqrt_double(extractMInt( Mem256, 128, 192)), sqrt_double(extractMInt( Mem256, 192, 256)))))
       )
-      </regstate>
+    </regstate>
 endmodule

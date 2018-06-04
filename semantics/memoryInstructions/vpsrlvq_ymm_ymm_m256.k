@@ -6,10 +6,11 @@ module VPSRLVQ-YMM-YMM-M256
 
   context execinstr(vpsrlvq:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpsrlvq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpsrlvq memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpsrlvq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpsrlvq memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpsrlvq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPSRLVQ-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(extractMInt( Mem256, 0, 64))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(extractMInt( Mem256, 64, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem256, 128, 192))), lshrMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem256, 192, 256))))))
       )
-      </regstate>
+    </regstate>
 endmodule

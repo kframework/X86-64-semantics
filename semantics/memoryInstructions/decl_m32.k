@@ -6,10 +6,11 @@ module DECL-M32
 
   context execinstr(decl:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (decl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (decl memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (decl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (decl memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (decl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module DECL-M32
 
 "OF" |-> (#ifMInt (eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1)) andBool eqMInt( extractMInt( Mem32, 1, 32), mi(31, 0))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

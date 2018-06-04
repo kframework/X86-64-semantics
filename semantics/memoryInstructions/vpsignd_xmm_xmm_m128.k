@@ -6,10 +6,11 @@ module VPSIGND-XMM-XMM-M128
 
   context execinstr(vpsignd:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpsignd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpsignd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpsignd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpsignd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpsignd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPSIGND-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgtMInt( extractMInt( Mem128, 0, 32), mi(32, 0)) #then extractMInt( getParentValue(R2, RSMap), 128, 160) #else (#ifMInt eqMInt( extractMInt( Mem128, 0, 32), mi(32, 0)) #then mi(32, 0) #else addMInt(mi(32, 1), negMInt( extractMInt( getParentValue(R2, RSMap), 128, 160))) #fi) #fi), concatenateMInt( (#ifMInt sgtMInt( extractMInt( Mem128, 32, 64), mi(32, 0)) #then extractMInt( getParentValue(R2, RSMap), 160, 192) #else (#ifMInt eqMInt( extractMInt( Mem128, 32, 64), mi(32, 0)) #then mi(32, 0) #else addMInt(mi(32, 1), negMInt( extractMInt( getParentValue(R2, RSMap), 160, 192))) #fi) #fi), concatenateMInt( (#ifMInt sgtMInt( extractMInt( Mem128, 64, 96), mi(32, 0)) #then extractMInt( getParentValue(R2, RSMap), 192, 224) #else (#ifMInt eqMInt( extractMInt( Mem128, 64, 96), mi(32, 0)) #then mi(32, 0) #else addMInt(mi(32, 1), negMInt( extractMInt( getParentValue(R2, RSMap), 192, 224))) #fi) #fi), (#ifMInt sgtMInt( extractMInt( Mem128, 96, 128), mi(32, 0)) #then extractMInt( getParentValue(R2, RSMap), 224, 256) #else (#ifMInt eqMInt( extractMInt( Mem128, 96, 128), mi(32, 0)) #then mi(32, 0) #else addMInt(mi(32, 1), negMInt( extractMInt( getParentValue(R2, RSMap), 224, 256))) #fi) #fi)))))
       )
-      </regstate>
+    </regstate>
 endmodule

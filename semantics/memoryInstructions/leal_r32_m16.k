@@ -14,5 +14,5 @@ module LEAL-R32-M16
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( MemOff, 32, 64))
       )
-      </regstate>
+    </regstate>
 endmodule

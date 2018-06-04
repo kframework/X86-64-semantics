@@ -6,10 +6,11 @@ module LZCNTQ-R64-M64
 
   context execinstr(lzcntq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (lzcntq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (lzcntq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (lzcntq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (lzcntq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (lzcntq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> (#ifMInt eqMInt( extractMInt( Mem64, 0, 1), mi(1, 1)) #the
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

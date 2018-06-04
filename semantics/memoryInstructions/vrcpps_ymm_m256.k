@@ -6,10 +6,11 @@ module VRCPPS-YMM-M256
 
   context execinstr(vrcpps:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vrcpps memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vrcpps memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VRCPPS-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 0, 32)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 32, 64)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 64, 96)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 96, 128)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 128, 160)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 160, 192)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem256, 192, 224)), approx_reciprocal_single(extractMInt( Mem256, 224, 256)))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module DIVB-M8
 
   context execinstr(divb:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (divb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (divb memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (divb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (divb memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (divb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -31,5 +32,5 @@ module DIVB-M8
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,13 +6,14 @@ module BTW-M16-R16
 
   context execinstr(btw:Opcode R1:R16, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (btw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (btw R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (btw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (btw R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (btw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
     <regstate>
@@ -27,5 +28,5 @@ module BTW-M16-R16
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module NEGQ-M64
 
   context execinstr(negq:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (negq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (negq memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (negq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (negq memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (negq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module NEGQ-M64
 
 "OF" |-> (#ifMInt (eqMInt( extractMInt( Mem64, 0, 1), mi(1, 1)) andBool eqMInt( extractMInt( addMInt(mi(64, 1), negMInt( Mem64)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

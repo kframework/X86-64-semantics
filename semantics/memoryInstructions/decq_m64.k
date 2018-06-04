@@ -6,10 +6,11 @@ module DECQ-M64
 
   context execinstr(decq:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (decq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (decq memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (decq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (decq memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (decq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module DECQ-M64
 
 "OF" |-> (#ifMInt (eqMInt( extractMInt( Mem64, 0, 1), mi(1, 1)) andBool eqMInt( extractMInt( Mem64, 1, 64), mi(63, 0))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module XORQ-M64-IMM32
 
   context execinstr(xorq:Opcode Imm32:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xorq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (xorq Imm32, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xorq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (xorq Imm32, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (xorq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module XORQ-M64-IMM32
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

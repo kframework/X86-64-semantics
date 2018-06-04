@@ -6,10 +6,11 @@ module DIVW-M16
 
   context execinstr(divw:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (divw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (divw memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (divw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (divw memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (divw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module DIVW-M16
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module VPSHUFLW-YMM-M256-IMM8
 
   context execinstr(vpshuflw:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpshuflw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpshuflw Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpshuflw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpshuflw Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpshuflw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPSHUFLW-YMM-M256-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( extractMInt( Mem256, 0, 64), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(256, 4))))), 112, 128), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(256, 4))))), 112, 128), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(256, 4))))), 112, 128), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(256, 4))))), 112, 128), concatenateMInt( extractMInt( Mem256, 128, 192), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(256, 4))))), 240, 256), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(256, 4))))), 240, 256), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(256, 4))))), 240, 256), extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(256, 4))))), 240, 256))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

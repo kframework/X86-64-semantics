@@ -6,10 +6,11 @@ module VPABSB-XMM-M128
 
   context execinstr(vpabsb:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpabsb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpabsb memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpabsb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpabsb memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpabsb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPABSB-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 0, 8), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 0, 8))) #else extractMInt( Mem128, 0, 8) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 8, 16), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 8, 16))) #else extractMInt( Mem128, 8, 16) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 16, 24), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 16, 24))) #else extractMInt( Mem128, 16, 24) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 24, 32), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 24, 32))) #else extractMInt( Mem128, 24, 32) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 32, 40), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 32, 40))) #else extractMInt( Mem128, 32, 40) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 40, 48), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 40, 48))) #else extractMInt( Mem128, 40, 48) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 48, 56), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 48, 56))) #else extractMInt( Mem128, 48, 56) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 56, 64), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 56, 64))) #else extractMInt( Mem128, 56, 64) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 64, 72), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 64, 72))) #else extractMInt( Mem128, 64, 72) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 72, 80), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 72, 80))) #else extractMInt( Mem128, 72, 80) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 80, 88), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 80, 88))) #else extractMInt( Mem128, 80, 88) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 88, 96), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 88, 96))) #else extractMInt( Mem128, 88, 96) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 96, 104), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 96, 104))) #else extractMInt( Mem128, 96, 104) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 104, 112), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 104, 112))) #else extractMInt( Mem128, 104, 112) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem128, 112, 120), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 112, 120))) #else extractMInt( Mem128, 112, 120) #fi), (#ifMInt ugtMInt( extractMInt( Mem128, 120, 128), mi(8, 127)) #then addMInt(mi(8, 1), negMInt( extractMInt( Mem128, 120, 128))) #else extractMInt( Mem128, 120, 128) #fi)))))))))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

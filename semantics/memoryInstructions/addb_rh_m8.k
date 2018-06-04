@@ -6,10 +6,11 @@ module ADDB-RH-M8
 
   context execinstr(addb:Opcode HOLE:Mem, R2:Rh,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (addb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (addb memOffset( MemOff), R2:Rh,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (addb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (addb memOffset( MemOff), R2:Rh,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (addb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "OF" |-> (#ifMInt ((eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( concatenateMInt( mi(1, 0), Mem8), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 56))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module VBLENDVPS-XMM-XMM-M128-XMM
 
   context execinstr(vblendvps:Opcode R1:Xmm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vblendvps:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vblendvps R1:Xmm, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vblendvps:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vblendvps R1:Xmm, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vblendvps:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VBLENDVPS-XMM-XMM-M128-XMM
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 160) #else extractMInt( Mem128, 0, 32) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 160, 161), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 160, 192) #else extractMInt( Mem128, 32, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 224) #else extractMInt( Mem128, 64, 96) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 224, 225), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 224, 256) #else extractMInt( Mem128, 96, 128) #fi)))))
       )
-      </regstate>
+    </regstate>
 endmodule

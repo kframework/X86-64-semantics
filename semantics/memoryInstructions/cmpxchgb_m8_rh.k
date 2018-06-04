@@ -6,10 +6,11 @@ module CMPXCHGB-M8-RH
 
   context execinstr(cmpxchgb:Opcode R1:Rh, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmpxchgb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (cmpxchgb R1:Rh, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmpxchgb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (cmpxchgb R1:Rh, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (cmpxchgb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -37,5 +38,5 @@ convToRegKeys(R1) |-> (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 5
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( Mem8, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( Mem8, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem8)), mi(9, 1)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 56, 64))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

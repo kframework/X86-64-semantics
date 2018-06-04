@@ -6,10 +6,11 @@ module VPABSD-YMM-M256
 
   context execinstr(vpabsd:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpabsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpabsd memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpabsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpabsd memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpabsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPABSD-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 0, 32), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 0, 32))) #else extractMInt( Mem256, 0, 32) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 32, 64), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 32, 64))) #else extractMInt( Mem256, 32, 64) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 64, 96), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 64, 96))) #else extractMInt( Mem256, 64, 96) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 96, 128), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 96, 128))) #else extractMInt( Mem256, 96, 128) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 128, 160), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 128, 160))) #else extractMInt( Mem256, 128, 160) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 160, 192), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 160, 192))) #else extractMInt( Mem256, 160, 192) #fi), concatenateMInt( (#ifMInt ugtMInt( extractMInt( Mem256, 192, 224), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 192, 224))) #else extractMInt( Mem256, 192, 224) #fi), (#ifMInt ugtMInt( extractMInt( Mem256, 224, 256), mi(32, 2147483647)) #then addMInt(mi(32, 1), negMInt( extractMInt( Mem256, 224, 256))) #else extractMInt( Mem256, 224, 256) #fi))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

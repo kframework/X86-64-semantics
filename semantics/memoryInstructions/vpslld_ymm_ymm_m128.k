@@ -6,10 +6,11 @@ module VPSLLD-YMM-YMM-M128
 
   context execinstr(vpslld:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpslld:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpslld memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpslld:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpslld memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpslld:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPSLLD-YMM-YMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 31)) #then mi(256, 0) #else concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 0, 32), uvalueMInt(extractMInt( Mem128, 96, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(extractMInt( Mem128, 96, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 64, 96), uvalueMInt(extractMInt( Mem128, 96, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 96, 128), uvalueMInt(extractMInt( Mem128, 96, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( Mem128, 96, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( Mem128, 96, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( Mem128, 96, 128))), shlMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( Mem128, 96, 128)))))))))) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule
