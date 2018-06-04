@@ -74,6 +74,14 @@ my %opcodeSkipList = (    # Reason of manual generation
     "vmpsadbw_ymm_ymm_m256_imm8"   => 1,    # End
     "popq_m64"                     => 1,    # Begin: manually implemented
     "popw_m16"                     => 1,    #End
+    "vpcmpestri_xmm_m128_imm8"     => 1,    #Begin Mem Unsupported
+    "vpcmpestrm_xmm_m128_imm8"     => 1,
+    "vpcmpistri_xmm_m128_imm8"     => 1,
+    "vpcmpistrm_xmm_m128_imm8"     => 1,
+    "pcmpestri_xmm_m128_imm8"      => 1,
+    "pcmpestrm_xmm_m128_imm8"      => 1,
+    "pcmpistri_xmm_m128_imm8"      => 1,
+    "pcmpistrm_xmm_m128_imm8"      => 1,    #End
 
 );
 
