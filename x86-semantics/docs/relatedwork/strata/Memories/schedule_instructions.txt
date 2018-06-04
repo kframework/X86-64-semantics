@@ -1,0 +1,24 @@
+// Not important to treat differently
+
+cmpxchg16b_m128
+cmpxchg8b_m64
+cmpxchgb_m8_r8
+cmpxchgb_m8_rh
+cmpxchgl_m32_r32
+cmpxchgq_m64_r64
+cmpxchgw_m16_r16
+xaddb_m8_r8
+xaddb_m8_rh
+xaddl_m32_r32
+xaddq_m64_r64
+xaddw_m16_r16
+xchgb_m8_r8
+xchgb_m8_rh
+xchgb_r8_m8
+xchgb_rh_m8
+xchgl_m32_r32
+xchgl_r32_m32
+xchgq_m64_r64
+xchgq_r64_m64
+xchgw_m16_r16
+xchgw_r16_m16
