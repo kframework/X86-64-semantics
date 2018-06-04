@@ -96,7 +96,7 @@ if ( exists $opcodeSkipList{$opcode} ) {
     exit(0);
 }
 
-my ( $mainSemantics, $readSize, $writeSize, $writeVal ) =
+my ( $mainSemantics, $readSize, $writeSize, $writeVal, $writeAddr ) =
   getSemantics( $opcode, $kfile, 0 );
 
 my $auxSemantics = "";
@@ -106,7 +106,7 @@ if ($is_schedule) {
         "$utils::home/Github/strata-data/output-strata/instruction-summary",
         $type, $opcode );
     $kfile = $instrfolder . "/$opcode.samereg/$opcode.k_format";
-    ( $auxSemantics, $readSize, $writeSize, $writeVal ) =
+    ( $auxSemantics, $readSize, $writeSize, $writeVal, $writeAddr ) =
       getSemantics( $opcode, $kfile, 1 );
 }
 
@@ -128,7 +128,7 @@ print "$opcode:\tK Rule at $outFile\n";
 writeKDefn(
     $mainSemantics, $outFile,   $opcode,      1,
     0,              0,          $is_schedule, $auxSemantics,
-    $readSize,      $writeSize, $writeVal
+    $readSize,      $writeSize, $writeVal,    $writeAddr
 );
 
 ############################## UTILS ####################################
@@ -199,12 +199,11 @@ sub getSemantics {
     #printArray( $operandListFromOpcode_ref, "Operands from opcode" );
     #printArray( $operandListFromInstr_ref,  "Operands from instr" );
 
-    my ( $semantics, $readSize, $writeSize, $writeVal ) =
+    my ( $semantics, $readSize, $writeSize, $writeVal, $writeAddr ) =
       sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
     #print $semantics. "\n";
-  
 
     #return;
-    return ( $semantics, $readSize, $writeSize, $writeVal );
+    return ( $semantics, $readSize, $writeSize, $writeVal, $writeAddr );
 }
