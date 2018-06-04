@@ -72,6 +72,8 @@ my %opcodeSkipList = (    # Reason of manual generation
     "mpsadbw_xmm_m128_imm8"        => 1,
     "vmpsadbw_xmm_xmm_m128_imm8"   => 1,
     "vmpsadbw_ymm_ymm_m256_imm8"   => 1,    # End
+    "popq_m64"                     => 1,    # Begin: manually implemented
+    "popw_m16"                     => 1,    #End
 
 );
 
