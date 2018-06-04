@@ -5,7 +5,7 @@
 \input{figures/instruction.distribution.tex}
 
 In this work we supported formal semantics of the input/output behavior of
-\supp{} out of \total{} x86-64 Haswell ISA instruction variants. Figure \ref{fig:IC} shows the classification of the instructions not supported using dotted ovals. \revisit{Why they are not supported??} 
+\supp{} out of \total{} x86-64 Haswell ISA instruction variants. Figure \ref{fig:IC} shows the classification of the instructions not supported using dotted ovals. The ones that are not supported can be categorized to System, Legacy mode, MMX, X87 and Cryptography instructions.  
 
 
 In order to get semantics of individual instructions, we build on top of project
@@ -36,19 +36,19 @@ Following are some of the immediate challenges that we needed to address.
         have the same correctness guarantee that \Strata provided in most of its
         cases.} 
            
-    \item \textbf{CH.2: Getting Generic Formula for Immediates} The $\sim120$ immediate instructions, mentioned above,
-    do not have a corresponding register-only instruction to generalized from.
-    Therefore \Strata tries to learn a separate formula for every possible value
-    of the 8 bit immediate operand.  We intend to have a more intuitive generic
-    semantics (that works for all values of the immediate operand) for those
-    instructions. 
+    \item \textbf{CH.2: Getting Generic Formula for Immediates} The $\sim120$
+    immediate instructions, mentioned above, do not have a corresponding
+    register-only instruction to generalized from.  Therefore \Strata tries to
+    learn a separate formula for every possible value of the 8 bit immediate
+    operand.  We intend to have a more intuitive generic semantics (that works
+        for all values of the immediate operand) for those instructions. 
 
- \item \textbf{CH.3: Modeling \emph{undef} flags} There are instructions which conditionally sets some cpu
- flags to \emph{undef}. For example, the shift left instruction \instr{salq
-   \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state if the count mask $>1$.
-   Also there are instructions like \instr{blsr \%eax, \%ebx} which
-   un-conditionally puts flags like \reg{pf} \& \reg{af} into \emph{undef}
-   state.
+ \item \textbf{CH.3: Modeling \emph{undef} flags} There are instructions which
+ conditionally sets some cpu flags to \emph{undef}. For example, the shift left
+ instruction \instr{salq \%cl, \%rbx} sets flag \reg{of} to \emph{undef} state
+ if the count mask $>1$.  Also there are instructions like \instr{blsr \%eax,
+   \%ebx} which un-conditionally puts flags like \reg{pf} \& \reg{af} into
+   \emph{undef} state.
     
     \Strata while doing the {\tt initial search} does not test the flags which
     \emph{may} (for conditional \emph{undef}s)  or \emph{must} (for
@@ -57,12 +57,14 @@ Following are some of the immediate challenges that we needed to address.
     the other registers which do not result in \emph{undef} and hence modeled by
     \Strata.
 
-    \item \textbf{CH.4: Modeling \reg{af} flag} \Strata chose not to model the \reg{af} flag as this is
-    not commonly used. Supporting this flag fall within the scope of our work.
+    \item \textbf{CH.4: Modeling \reg{af} flag} \Strata chose not to model the
+    \reg{af} flag as this is not commonly used. Supporting this flag fall within
+    the scope of our work.
       
-    \item \textbf{CH.5: Generalization to Immediate and Memory} How reliable is the generalization of register
-    instructions to memory or immediate variants? \Strata states that the claim
-    for the generalization is based on random testing.
+    \item \textbf{CH.5: Generalization to Immediate and Memory} How reliable is
+    the generalization of register instructions to memory or immediate variants?
+    \Strata states that the claim for the generalization is based on random
+    testing.
     
         
 
@@ -109,7 +111,9 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
     model its semantics  manually or borrowed it from project \Stoke.   Once we
     have this candidate, we test it against hardware using {\tt ATS}.  Once the
     test passes we claim (from the above observation) the semantics to have the
-    same correctness guarantee which \Strata provides for most of its cases. This helped us finding instruction semantics bugs in Intel Manual~\cite{BugIntel} and \Stoke~\cite{BugStoke983}.
+    same correctness guarantee which \Strata provides for most of its cases.
+    This helped us finding instruction semantics bugs in Intel
+    Manual~\cite{BugIntel} and \Stoke~\cite{BugStoke983}.
     
     We understand that this is not as efficient as \Stoke, which is fully
     automatic in getting these formulas, and we do not intend to make any
@@ -123,9 +127,31 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    carefully written manual formula tend to need less number of conflicting
    searches than the onces generated by random search engines like Stoke.
    
+   We also tried the following other options, which we do not pursue further:
+   \begin{itemize}
+       \item \textbf{Augmenting the Base Set: }
+       Coming up with a suitable set of base instructions, which help 
+       synthesizing the semantics most of the user level instruction, could be framed 
+       as an optimization problem, which we do not explore in this work. \revisit{Why?} 
+       
+       \item \textbf{Reducing \Stoke Search Space: }This option is based
+       on the observation that {\tt initial search} for some instructions (like
+       \instr{vfmaddsub132pd \%ymm1 \%ymm2 \%ymm3}) times-out because of the
+       huge search space to be explored by \Stoke. We tried to limit the search
+       space using manually learned heuristics. An example of one such heuristic is
+       \emph{ If we know the semantics of an instruction with ymm operands and the
+           target instruction, which we want to learn, is a variant of that
+           instruction and uses xmm operand, then the search pool should contain
+           some specific instructions}. This particular heuristic  work well for few
+       instructions. In the general case, getting the search pool for every
+       target instruction, need an approximate insight about the semantics of
+       the target instructions itself. Even though such information is available
+       in manuals but we find it difficult to extract it in a way to create the
+       search pool, which is the main reason we drop this venture.
+   \end{itemize} 
+    
    
-   \revisit{differential testing}
-   \revisit{add base + reduce search space}
+   
    
    
    \paragraph{Handling CH.2} The instructions in this category either  have a
