@@ -202,12 +202,31 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    Figure \ref{fig:AD} represents the distribution of instructions affecting the
    \reg{af} flag in a defined or un-defined way (which could be conditional or
        un-conditional).  We tested all the instructions for the defined cases
-   using {\tt TS}. For conditionally undefined cases, we tested for the
+   using {\tt ATS}. For conditionally undefined cases, we tested for the
    scenarios when the condition for undefinedness is not triggered.  For all
    remaining cases,  we make sure that the \K execution halts when the
    undefinedness condition is triggered.        
    
+   \paragraph{Handling CH.5}
    
+   While testing we found instructions like \instr{movss xmm m64, movsd xmm 64} where the generalization
+   from the corresponding register variant is not faithful. Followings are the semantics of \instr{movsd xmm1, xmm2} and its memory variant  \instr{movsd xmm1, m64}. Clearly, the memory variant cannot to obtained using generalization of the  corresponding register instruction.   
+   
+   {\small \tt 
+       \centering
+       \begin{tabular}[b]{l}
+           // movsd xmm1, xmm2 \\
+           S1. DEST[63:0] $\leftarrow$ SRC[63:0] \\ 
+           S2. DEST[MAXVL-1:64] (Unmodified) \\
+           \\
+           // movsd xmm1, m64 \\
+           S1. DEST[63:0] $\leftarrow$ SRC[63:0] \\
+           S2. DEST[MAXVL-1:64] $\leftarrow$ 0 \\
+       \end{tabular}
+   }
+
+
+\cmt{
    
 \subsection{Porting to \K Rules}
 
@@ -303,4 +322,4 @@ semantics. We modifed strata so as to treat flag registers as 1 bit bitvectors.
 
 \end{itemize}
 
-
+}
