@@ -97,10 +97,6 @@ orb_rh_imm8
 palignr_xmm_xmm_imm8
 pblendw_xmm_xmm_imm8
 pclmulqdq_xmm_xmm_imm8
-pcmpestri_xmm_xmm_imm8
-pcmpestrm_xmm_xmm_imm8
-pcmpistri_xmm_xmm_imm8
-pcmpistrm_xmm_xmm_imm8
 pextrb_r32_xmm_imm8
 pextrb_r64_xmm_imm8
 pextrd_r32_xmm_imm8
@@ -237,10 +233,14 @@ vpblendd_ymm_ymm_ymm_imm8
 vpblendw_xmm_xmm_xmm_imm8
 vpblendw_ymm_ymm_ymm_imm8
 vpclmulqdq_xmm_xmm_xmm_imm8
-vpcmpestri_xmm_xmm_imm8
+vpcmpestri_xmm_xmm_imm8 // Skip as string operations begin
 vpcmpestrm_xmm_xmm_imm8
+pcmpestri_xmm_xmm_imm8
+pcmpestrm_xmm_xmm_imm8
 vpcmpistri_xmm_xmm_imm8
 vpcmpistrm_xmm_xmm_imm8
+pcmpistri_xmm_xmm_imm8
+pcmpistrm_xmm_xmm_imm8 // Skip as string operations end
 vperm2f128_ymm_ymm_ymm_imm8
 vperm2i128_ymm_ymm_ymm_imm8
 vpermilpd_xmm_xmm_imm8
