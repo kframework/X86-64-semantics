@@ -11,6 +11,7 @@ module SALL-M32-CL
       loadFromMemory( MemOff, 32) ~>
       execinstr (sall %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (sall:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

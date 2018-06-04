@@ -11,6 +11,7 @@ module RCRB-M8-CL
       loadFromMemory( MemOff, 8) ~>
       execinstr (rcrb %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (rcrb:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

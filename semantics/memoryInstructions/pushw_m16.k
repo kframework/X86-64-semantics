@@ -11,6 +11,7 @@ module PUSHW-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (pushw memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (pushw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

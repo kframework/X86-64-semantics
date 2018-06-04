@@ -11,6 +11,7 @@ module IDIVQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (idivq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (idivq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

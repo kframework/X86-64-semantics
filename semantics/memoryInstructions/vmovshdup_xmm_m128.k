@@ -11,6 +11,7 @@ module VMOVSHDUP-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vmovshdup memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vmovshdup:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

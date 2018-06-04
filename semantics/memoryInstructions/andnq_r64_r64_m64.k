@@ -11,6 +11,7 @@ module ANDNQ-R64-R64-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (andnq memOffset( MemOff), R2, R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (andnq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64, R3:R64,  .Operands) =>

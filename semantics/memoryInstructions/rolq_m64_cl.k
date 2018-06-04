@@ -11,6 +11,7 @@ module ROLQ-M64-CL
       loadFromMemory( MemOff, 64) ~>
       execinstr (rolq %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (rolq:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

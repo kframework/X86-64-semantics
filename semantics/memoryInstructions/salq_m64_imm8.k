@@ -11,6 +11,7 @@ module SALQ-M64-IMM8
       loadFromMemory( MemOff, 64) ~>
       execinstr (salq Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (salq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

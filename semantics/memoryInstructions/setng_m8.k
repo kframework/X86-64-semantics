@@ -16,5 +16,5 @@ module SETNG-M8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

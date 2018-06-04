@@ -11,6 +11,7 @@ module VPMASKMOVQ-M256-YMM-YMM
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpmaskmovq R1:Ymm, R2:Ymm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpmaskmovq:Opcode R1:Ymm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module VPMASKMOVQ-M256-YMM-YMM
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

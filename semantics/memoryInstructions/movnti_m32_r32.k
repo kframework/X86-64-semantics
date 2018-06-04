@@ -11,6 +11,7 @@ module MOVNTI-M32-R32
       loadFromMemory( MemOff, 32) ~>
       execinstr (movnti R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (movnti:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module MOVNTI-M32-R32
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

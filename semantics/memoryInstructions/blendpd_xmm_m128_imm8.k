@@ -11,6 +11,7 @@ module BLENDPD-XMM-M128-IMM8
       loadFromMemory( MemOff, 128) ~>
       execinstr (blendpd Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (blendpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>

@@ -11,6 +11,7 @@ module INSERTPS-XMM-M32-IMM8
       loadFromMemory( MemOff, 32) ~>
       execinstr (insertps Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (insertps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>

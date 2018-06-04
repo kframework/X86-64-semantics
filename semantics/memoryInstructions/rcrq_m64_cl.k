@@ -11,6 +11,7 @@ module RCRQ-M64-CL
       loadFromMemory( MemOff, 64) ~>
       execinstr (rcrq %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (rcrq:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

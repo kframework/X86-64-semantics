@@ -11,6 +11,7 @@ module BLSRQ-R64-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (blsrq memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (blsrq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>

@@ -11,6 +11,7 @@ module CVTPS2PD-XMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (cvtps2pd memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cvtps2pd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

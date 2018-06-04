@@ -11,6 +11,7 @@ module MULSS-XMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (mulss memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (mulss:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

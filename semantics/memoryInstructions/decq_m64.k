@@ -11,6 +11,7 @@ module DECQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (decq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (decq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

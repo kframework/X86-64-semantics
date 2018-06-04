@@ -11,6 +11,7 @@ module BLENDVPD-XMM-M128-XMM0
       loadFromMemory( MemOff, 128) ~>
       execinstr (blendvpd XMM0, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (blendvpd:Opcode XMM0, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>

@@ -11,6 +11,7 @@ module IDIVW-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (idivw memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (idivw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,12 +11,13 @@ module RORL-M32-ONE
       loadFromMemory( MemOff, 32) ~>
       execinstr (rorl $0x1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (rorl:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              ror( Mem32, concatenateMInt( mi(24, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))),
+              ror( Mem32, mi(32, 1)),
               MemOff,
               32
             )
@@ -24,9 +25,9 @@ module RORL-M32-ONE
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> (#ifMInt (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool eqMInt( extractMInt( ror( Mem32, concatenateMInt( mi(24, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"CF" |-> extractMInt( ror( Mem32, mi(32, 1)), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( Mem32, concatenateMInt( mi(24, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( Mem32, concatenateMInt( mi(24, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt (eqMInt( extractMInt( ror( Mem32, mi(32, 1)), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( Mem32, mi(32, 1)), 1, 2), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
 endmodule

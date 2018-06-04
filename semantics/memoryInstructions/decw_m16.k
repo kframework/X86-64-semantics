@@ -11,6 +11,7 @@ module DECW-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (decw memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (decw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

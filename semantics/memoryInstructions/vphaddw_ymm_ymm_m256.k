@@ -11,6 +11,7 @@ module VPHADDW-YMM-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vphaddw memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vphaddw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>

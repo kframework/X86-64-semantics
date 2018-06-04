@@ -11,6 +11,7 @@ module CMPXCHG16B-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (cmpxchg16b memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (cmpxchg16b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

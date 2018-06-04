@@ -11,6 +11,7 @@ module DECB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (decb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (decb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

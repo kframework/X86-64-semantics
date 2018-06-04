@@ -11,6 +11,7 @@ module MULW-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (mulw memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (mulw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module VBROADCASTSS-YMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (vbroadcastss memOffset( MemOff), R2:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vbroadcastss:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>

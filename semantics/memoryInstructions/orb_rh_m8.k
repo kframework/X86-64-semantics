@@ -11,6 +11,7 @@ module ORB-RH-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (orb memOffset( MemOff), R2:Rh,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (orb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>

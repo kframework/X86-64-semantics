@@ -11,6 +11,7 @@ module VPMOVZXWQ-XMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (vpmovzxwq memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vpmovzxwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

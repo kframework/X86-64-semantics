@@ -11,6 +11,7 @@ module MOVUPD-M128-XMM
       loadFromMemory( MemOff, 128) ~>
       execinstr (movupd R1:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (movupd:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module MOVUPD-M128-XMM
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

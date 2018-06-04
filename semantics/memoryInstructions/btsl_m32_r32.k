@@ -11,6 +11,7 @@ module BTSL-M32-R32
       loadFromMemory( addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 32, 64))), 0, 61))), 8) ~>
       execinstr (btsl R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

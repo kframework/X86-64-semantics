@@ -11,6 +11,7 @@ module VFMADDSUB132PD-XMM-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vfmaddsub132pd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vfmaddsub132pd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

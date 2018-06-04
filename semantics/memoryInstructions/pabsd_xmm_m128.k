@@ -11,6 +11,7 @@ module PABSD-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (pabsd memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (pabsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

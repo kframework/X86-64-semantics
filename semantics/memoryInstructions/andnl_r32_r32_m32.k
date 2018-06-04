@@ -11,6 +11,7 @@ module ANDNL-R32-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (andnl memOffset( MemOff), R2, R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (andnl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>

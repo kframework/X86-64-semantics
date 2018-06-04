@@ -11,6 +11,7 @@ module ORL-M32-R32
       loadFromMemory( MemOff, 32) ~>
       execinstr (orl R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (orl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

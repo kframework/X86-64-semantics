@@ -11,6 +11,7 @@ module BLSIL-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (blsil memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (blsil:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

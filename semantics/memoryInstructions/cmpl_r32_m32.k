@@ -11,6 +11,7 @@ module CMPL-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (cmpl memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (cmpl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

@@ -11,6 +11,7 @@ module IMULB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (imulb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (imulb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

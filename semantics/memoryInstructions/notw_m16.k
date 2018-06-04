@@ -11,6 +11,7 @@ module NOTW-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (notw memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (notw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module NOTW-M16
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

@@ -11,6 +11,7 @@ module VBROADCASTF128-YMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vbroadcastf128 memOffset( MemOff), R2:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vbroadcastf128:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>

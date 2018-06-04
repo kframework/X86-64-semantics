@@ -11,6 +11,7 @@ module SUBB-RH-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (subb memOffset( MemOff), R2:Rh,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (subb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>

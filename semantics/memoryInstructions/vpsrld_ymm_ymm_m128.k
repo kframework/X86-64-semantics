@@ -11,6 +11,7 @@ module VPSRLD-YMM-YMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpsrld memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpsrld:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>

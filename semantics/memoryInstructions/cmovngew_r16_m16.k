@@ -11,6 +11,7 @@ module CMOVNGEW-R16-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (cmovngew memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (cmovngew:Opcode memOffset( MemOff:MInt):MemOffset, R2:R16,  .Operands) =>

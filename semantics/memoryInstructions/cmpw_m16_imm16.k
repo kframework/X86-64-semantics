@@ -11,6 +11,7 @@ module CMPW-M16-IMM16
       loadFromMemory( MemOff, 16) ~>
       execinstr (cmpw Imm16, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (cmpw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

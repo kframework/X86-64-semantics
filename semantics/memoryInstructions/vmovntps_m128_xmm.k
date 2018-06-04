@@ -11,6 +11,7 @@ module VMOVNTPS-M128-XMM
       loadFromMemory( MemOff, 128) ~>
       execinstr (vmovntps R1:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vmovntps:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module VMOVNTPS-M128-XMM
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

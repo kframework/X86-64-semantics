@@ -11,6 +11,7 @@ module SHRXQ-R64-M64-R64
       loadFromMemory( MemOff, 64) ~>
       execinstr (shrxq R1, memOffset( MemOff), R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (shrxq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>

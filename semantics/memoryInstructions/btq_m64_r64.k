@@ -11,6 +11,7 @@ module BTQ-M64-R64
       loadFromMemory( addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( getParentValue(R1, RSMap), 0, 61))), 8) ~>
       execinstr (btq R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

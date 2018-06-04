@@ -11,6 +11,7 @@ module PMOVZXBW-XMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (pmovzxbw memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (pmovzxbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

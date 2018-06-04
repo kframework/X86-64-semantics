@@ -11,6 +11,7 @@ module PCMPEQB-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (pcmpeqb memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (pcmpeqb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

@@ -11,6 +11,7 @@ module ADCL-M32-IMM32
       loadFromMemory( MemOff, 32) ~>
       execinstr (adcl Imm32, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (adcl:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

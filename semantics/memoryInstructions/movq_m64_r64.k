@@ -16,5 +16,5 @@ module MOVQ-M64-R64
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

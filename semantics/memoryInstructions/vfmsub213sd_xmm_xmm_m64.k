@@ -11,6 +11,7 @@ module VFMSUB213SD-XMM-XMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (vfmsub213sd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vfmsub213sd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

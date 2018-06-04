@@ -16,5 +16,5 @@ module MOVL-M32-IMM32
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

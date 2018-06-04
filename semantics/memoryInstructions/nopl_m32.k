@@ -10,5 +10,5 @@ module NOPL-M32
      execinstr (nopl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

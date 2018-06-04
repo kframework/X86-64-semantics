@@ -11,6 +11,7 @@ module SARW-M16-CL
       loadFromMemory( MemOff, 16) ~>
       execinstr (sarw %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (sarw:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

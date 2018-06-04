@@ -11,6 +11,7 @@ module SARXL-R32-M32-R32
       loadFromMemory( MemOff, 32) ~>
       execinstr (sarxl R1, memOffset( MemOff), R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (sarxl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>

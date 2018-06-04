@@ -11,6 +11,7 @@ module VCVTPS2PH-M64-XMM-IMM8
       loadFromMemory( MemOff, 64) ~>
       execinstr (vcvtps2ph Imm8, R2:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vcvtps2ph:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module VCVTPS2PH-M64-XMM-IMM8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

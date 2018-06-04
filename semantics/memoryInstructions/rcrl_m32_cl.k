@@ -11,6 +11,7 @@ module RCRL-M32-CL
       loadFromMemory( MemOff, 32) ~>
       execinstr (rcrl %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (rcrl:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

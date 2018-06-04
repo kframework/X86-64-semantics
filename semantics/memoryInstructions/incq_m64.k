@@ -11,6 +11,7 @@ module INCQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (incq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (incq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module ANDB-RH-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (andb memOffset( MemOff), R2:Rh,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (andb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>

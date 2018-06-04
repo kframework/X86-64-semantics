@@ -11,6 +11,7 @@ module MOVQ-XMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (movq memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (movq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

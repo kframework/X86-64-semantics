@@ -11,12 +11,13 @@ module RCLQ-M64-ONE
       loadFromMemory( MemOff, 64) ~>
       execinstr (rclq $0x1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (rclq:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 1, 65),
+              extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 65),
               MemOff,
               64
             )
@@ -24,9 +25,9 @@ module RCLQ-M64-ONE
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 0, 1)
+"CF" |-> extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1)
 
-"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63))), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
+"OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1)) andBool (eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( rol( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem64), uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(57, 0), mi(8, 1)), mi(65, 65)), 57, 65), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
     </regstate>
 endmodule

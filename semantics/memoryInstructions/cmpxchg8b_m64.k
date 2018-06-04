@@ -11,6 +11,7 @@ module CMPXCHG8B-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (cmpxchg8b memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cmpxchg8b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

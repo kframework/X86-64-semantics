@@ -11,6 +11,7 @@ module VCVTPD2DQ-XMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vcvtpd2dq memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vcvtpd2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

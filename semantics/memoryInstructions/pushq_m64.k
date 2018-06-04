@@ -11,6 +11,7 @@ module PUSHQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (pushq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (pushq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

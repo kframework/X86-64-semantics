@@ -11,6 +11,7 @@ module ORL-M32-IMM8
       loadFromMemory( MemOff, 32) ~>
       execinstr (orl Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (orl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

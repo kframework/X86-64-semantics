@@ -11,6 +11,7 @@ module MOVSD-M64-XMM
       loadFromMemory( MemOff, 64) ~>
       execinstr (movsd R1:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (movsd:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module MOVSD-M64-XMM
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

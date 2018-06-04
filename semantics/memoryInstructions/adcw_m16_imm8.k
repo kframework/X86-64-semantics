@@ -11,6 +11,7 @@ module ADCW-M16-IMM8
       loadFromMemory( MemOff, 16) ~>
       execinstr (adcw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (adcw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module VFMSUB231SS-XMM-XMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (vfmsub231ss memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vfmsub231ss:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

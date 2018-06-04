@@ -11,6 +11,7 @@ module TESTQ-M64-IMM32
       loadFromMemory( MemOff, 64) ~>
       execinstr (testq Imm32, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (testq:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

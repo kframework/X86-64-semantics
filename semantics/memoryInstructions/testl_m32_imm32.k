@@ -11,6 +11,7 @@ module TESTL-M32-IMM32
       loadFromMemory( MemOff, 32) ~>
       execinstr (testl Imm32, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (testl:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

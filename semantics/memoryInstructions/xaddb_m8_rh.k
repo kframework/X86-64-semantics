@@ -11,6 +11,7 @@ module XADDB-M8-RH
       loadFromMemory( MemOff, 8) ~>
       execinstr (xaddb R1:Rh, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (xaddb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module NEGQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (negq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (negq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

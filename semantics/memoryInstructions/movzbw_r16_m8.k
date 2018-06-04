@@ -11,6 +11,7 @@ module MOVZBW-R16-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (movzbw memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (movzbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:R16,  .Operands) =>

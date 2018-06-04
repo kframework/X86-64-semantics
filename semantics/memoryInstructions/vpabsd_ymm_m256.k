@@ -11,6 +11,7 @@ module VPABSD-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpabsd memOffset( MemOff), R2:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpabsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>

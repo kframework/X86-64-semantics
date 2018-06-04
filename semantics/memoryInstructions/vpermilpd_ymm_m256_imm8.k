@@ -11,6 +11,7 @@ module VPERMILPD-YMM-M256-IMM8
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpermilpd Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpermilpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>

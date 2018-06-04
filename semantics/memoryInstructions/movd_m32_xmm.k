@@ -16,5 +16,5 @@ module MOVD-M32-XMM
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

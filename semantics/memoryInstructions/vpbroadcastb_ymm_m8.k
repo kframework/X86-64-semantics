@@ -11,6 +11,7 @@ module VPBROADCASTB-YMM-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (vpbroadcastb memOffset( MemOff), R2:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (vpbroadcastb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>

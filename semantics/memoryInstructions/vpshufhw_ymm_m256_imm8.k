@@ -11,6 +11,7 @@ module VPSHUFHW-YMM-M256-IMM8
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpshufhw Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpshufhw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>

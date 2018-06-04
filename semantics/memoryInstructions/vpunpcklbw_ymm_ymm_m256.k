@@ -11,6 +11,7 @@ module VPUNPCKLBW-YMM-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpunpcklbw memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpunpcklbw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>

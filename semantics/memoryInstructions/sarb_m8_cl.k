@@ -11,6 +11,7 @@ module SARB-M8-CL
       loadFromMemory( MemOff, 8) ~>
       execinstr (sarb %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (sarb:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

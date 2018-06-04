@@ -11,6 +11,7 @@ module SHRQ-M64-CL
       loadFromMemory( MemOff, 64) ~>
       execinstr (shrq %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (shrq:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
