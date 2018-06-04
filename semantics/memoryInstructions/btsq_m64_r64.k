@@ -8,7 +8,7 @@ module BTSQ-M64-R64
   
   rule <k>
     execinstr (btsq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 8) ~>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( getParentValue(R1, RSMap), 0, 61))), 8) ~>
       execinstr (btsq R1, memOffset( MemOff),  .Operands)
   ...</k>
           

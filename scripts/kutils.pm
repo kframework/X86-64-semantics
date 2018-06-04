@@ -2567,7 +2567,8 @@ sub sanitizeBVF {
 
     #$debugprint = 1;
 
-    ## Get info about memory read/write
+    #########################################################
+    ################# Get info about memory read/write
     my (
         $ReadMemValMap_ref,   $ReadMemSizeMap_ref, $WriteMemValMap_ref,
         $WriteMemSizeMap_ref, $UMemVals_ref
@@ -2581,6 +2582,7 @@ sub sanitizeBVF {
     my $readSize  = -1;
     my $writeSize = -1;
     my $writeAddr = 0;
+    my $readAddr  = 0;
     my $writeVal  = 0;
     if ( 0 != scalar( keys %ReadMemValMap ) ) {
 
@@ -2589,13 +2591,32 @@ sub sanitizeBVF {
         #$readSize = $UMemVals{ $keys[0] };
         #$readSize =~ s/Mem//g;
         # Size is the size of first use
+        my $use = "";
         for my $line (@reglines) {
             chomp $line;
-            if ( $line =~ m/TMP_BV_(\d+)_\d+/ ) {
-                $readSize = $1;
+            if ( $line =~ m/(TMP_BV_\d+_\d+)/ ) {
+                $use = $1;
             }
         }
+
+        $readSize = $UMemVals{$use};
+        $readSize =~ s/Mem//g;
+
+        #printMapArray( \%ReadMemValMap, "CHeck" );
+        for my $key ( keys %ReadMemValMap ) {
+            my @vals = @{ $ReadMemValMap{$key} };
+            for my $val (@vals) {
+                if ( $use eq $val ) {
+                    $readAddr = $key;
+                }
+            }
+        }
+
+        $readAddr =
+          applySanitizationRules( $readAddr, \%actual2psedoRegs, \%UMemVals );
         print "ReadSize: " . $readSize . "\n";
+        print "readAddr: " . $readAddr . "\n";
+
     }
     if ( 0 != scalar( keys %WriteMemValMap ) ) {
         my @keys = keys %WriteMemValMap;
@@ -2619,6 +2640,7 @@ sub sanitizeBVF {
         print "WriteVal: " . $writeVal . "\n";
         print "WriteAddr: " . $writeAddr . "\n";
     }
+    ############################################################
 
     ## Process begin
     ## stage 1
@@ -2681,7 +2703,8 @@ sub sanitizeBVF {
 
     utils::printArray( \@workList, "Final Rules", $debugprint );
 
-    return ( join "\n\n", @workList ), $readSize, $writeSize, $writeVal,
+    return ( join "\n\n", @workList ), $readSize, $readAddr, $writeSize,
+      $writeVal,
       $writeAddr;
 }
 
@@ -3050,6 +3073,7 @@ sub writeKDefn {
     my $is_schedule  = shift @_;
     my $auxSemantics = shift @_;
     my $readSize     = shift @_;
+    my $readAddr     = shift @_;
     my $writeSize    = shift @_;
     my $writeVal     = shift @_;
     my $writeAddr    = shift @_;
@@ -3135,7 +3159,7 @@ sub writeKDefn {
             $loadMemOffsetTemplate = qq(
   rule <k>
     execinstr ($enc:Opcode $type2_fill .Operands) =>
-      loadFromMemory( MemOff, $readSize) ~>
+      loadFromMemory( $readAddr, $readSize) ~>
       execinstr ($enc $type3_fill .Operands)
   ...</k>
           );

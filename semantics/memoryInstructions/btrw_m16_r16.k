@@ -8,7 +8,7 @@ module BTRW-M16-R16
   
   rule <k>
     execinstr (btrw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 8) ~>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 64))), 0, 61))), 8) ~>
       execinstr (btrw R1, memOffset( MemOff),  .Operands)
   ...</k>
           

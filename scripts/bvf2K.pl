@@ -98,8 +98,8 @@ if ( exists $opcodeSkipList{$opcode} ) {
     exit(0);
 }
 
-my ( $mainSemantics, $readSize, $writeSize, $writeVal, $writeAddr ) =
-  getSemantics( $opcode, $kfile, 0 );
+my ( $mainSemantics, $readSize, $readAddr, $writeSize, $writeVal, $writeAddr )
+  = getSemantics( $opcode, $kfile, 0 );
 
 my $auxSemantics = "";
 
@@ -108,8 +108,8 @@ if ($is_schedule) {
         "$utils::home/Github/strata-data/output-strata/instruction-summary",
         $type, $opcode );
     $kfile = $instrfolder . "/$opcode.samereg/$opcode.k_format";
-    ( $auxSemantics, $readSize, $writeSize, $writeVal, $writeAddr ) =
-      getSemantics( $opcode, $kfile, 1 );
+    ( $auxSemantics, $readSize, $readAddr, $writeSize, $writeVal, $writeAddr )
+      = getSemantics( $opcode, $kfile, 1 );
 }
 
 #Outfile
@@ -128,9 +128,10 @@ if ( "memory" eq $type ) {
 print "$opcode:\tK Rule at $outFile\n";
 
 writeKDefn(
-    $mainSemantics, $outFile,   $opcode,      1,
-    0,              0,          $is_schedule, $auxSemantics,
-    $readSize,      $writeSize, $writeVal,    $writeAddr
+    $mainSemantics, $outFile,  $opcode,      1,
+    0,              0,         $is_schedule, $auxSemantics,
+    $readSize,      $readAddr, $writeSize,   $writeVal,
+    $writeAddr
 );
 
 ############################## UTILS ####################################
@@ -201,11 +202,12 @@ sub getSemantics {
     #printArray( $operandListFromOpcode_ref, "Operands from opcode" );
     #printArray( $operandListFromInstr_ref,  "Operands from instr" );
 
-    my ( $semantics, $readSize, $writeSize, $writeVal, $writeAddr ) =
-      sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
+    my ( $semantics, $readSize, $readAddr, $writeSize, $writeVal, $writeAddr )
+      = sanitizeBVF( $opcode, \@lines, $actual2psedoRegs_ref, $debugprint );
 
     #print $semantics. "\n";
 
     #return;
-    return ( $semantics, $readSize, $writeSize, $writeVal, $writeAddr );
+    return ( $semantics, $readSize, $readAddr, $writeSize, $writeVal,
+        $writeAddr );
 }
