@@ -6,10 +6,11 @@ module VFNMSUB132SD-XMM-XMM-M64
 
   context execinstr(vfnmsub132sd:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vfnmsub132sd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vfnmsub132sd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vfnmsub132sd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vfnmsub132sd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vfnmsub132sd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VFNMSUB132SD-XMM-XMM-M64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 192), vfnmsub132_double(extractMInt( getParentValue(R3, RSMap), 192, 256), extractMInt( getParentValue(R2, RSMap), 192, 256), Mem64)))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module MOVSLQ-R64-M32
 
   context execinstr(movslq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (movslq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (movslq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (movslq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (movslq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (movslq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -19,5 +20,5 @@ module MOVSLQ-R64-M32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> mi(64, svalueMInt(Mem32))
       )
-      </regstate>
+    </regstate>
 endmodule

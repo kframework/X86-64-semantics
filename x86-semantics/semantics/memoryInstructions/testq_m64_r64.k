@@ -6,10 +6,11 @@ module TESTQ-M64-R64
 
   context execinstr(testq:Opcode R1:R64, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (testq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (testq R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (testq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (testq R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (testq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -29,5 +30,5 @@ module TESTQ-M64-R64
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

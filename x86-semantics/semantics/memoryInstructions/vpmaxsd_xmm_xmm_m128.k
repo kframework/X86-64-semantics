@@ -6,10 +6,11 @@ module VPMAXSD-XMM-XMM-M128
 
   context execinstr(vpmaxsd:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmaxsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpmaxsd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmaxsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpmaxsd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpmaxsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMAXSD-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( Mem128, 0, 32)) #then extractMInt( getParentValue(R2, RSMap), 128, 160) #else extractMInt( Mem128, 0, 32) #fi), concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( Mem128, 32, 64)) #then extractMInt( getParentValue(R2, RSMap), 160, 192) #else extractMInt( Mem128, 32, 64) #fi), concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( Mem128, 64, 96)) #then extractMInt( getParentValue(R2, RSMap), 192, 224) #else extractMInt( Mem128, 64, 96) #fi), (#ifMInt sgtMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( Mem128, 96, 128)) #then extractMInt( getParentValue(R2, RSMap), 224, 256) #else extractMInt( Mem128, 96, 128) #fi)))))
       )
-      </regstate>
+    </regstate>
 endmodule

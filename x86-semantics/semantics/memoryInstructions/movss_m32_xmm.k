@@ -6,10 +6,11 @@ module MOVSS-M32-XMM
 
   context execinstr(movss:Opcode R1:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (movss:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (movss R1:Xmm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (movss:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (movss R1:Xmm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (movss:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module MOVSS-M32-XMM
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

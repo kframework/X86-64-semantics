@@ -6,10 +6,11 @@ module VPMOVSXBD-YMM-M64
 
   context execinstr(vpmovsxbd:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmovsxbd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vpmovsxbd memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmovsxbd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vpmovsxbd memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vpmovsxbd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMOVSXBD-YMM-M64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 0, 8))), concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 8, 16))), concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 16, 24))), concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 24, 32))), concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 32, 40))), concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 40, 48))), concatenateMInt( mi(32, svalueMInt(extractMInt( Mem64, 48, 56))), mi(32, svalueMInt(extractMInt( Mem64, 56, 64))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

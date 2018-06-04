@@ -6,10 +6,11 @@ module SHLQ-M64-CL
 
   context execinstr(shlq:Opcode %cl, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (shlq:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (shlq %cl, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (shlq:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (shlq %cl, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (shlq:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module SHLQ-M64-CL
 
 "OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1)) andBool (((ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64)) andBool (undefBool)) orBool ((notBool ugeMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 64))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), Mem64), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 0, 1), mi(1, 1))) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("CF", RSMap), mi(1,1)))))) xorBool eqMInt( extractMInt( shlMInt( concatenateMInt( mi(1, 0), Mem64), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63))))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 63)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

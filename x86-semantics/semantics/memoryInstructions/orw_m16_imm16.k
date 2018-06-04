@@ -6,10 +6,11 @@ module ORW-M16-IMM16
 
   context execinstr(orw:Opcode Imm16:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (orw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (orw Imm16, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (orw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (orw Imm16, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (orw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module ORW-M16-IMM16
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

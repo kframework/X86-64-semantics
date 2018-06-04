@@ -6,10 +6,11 @@ module VMAXSD-XMM-XMM-M64
 
   context execinstr(vmaxsd:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vmaxsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vmaxsd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vmaxsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vmaxsd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vmaxsd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VMAXSD-XMM-XMM-M64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), (#ifMInt eqMInt( maxcmp_double(extractMInt( getParentValue(R2, RSMap), 192, 256), Mem64), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 192, 256) #else Mem64 #fi)))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module VPMULDQ-YMM-YMM-M256
 
   context execinstr(vpmuldq:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmuldq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpmuldq memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmuldq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpmuldq memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpmuldq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMULDQ-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R2, RSMap), 32, 64))), mi(64, svalueMInt(extractMInt( Mem256, 32, 64)))), concatenateMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R2, RSMap), 96, 128))), mi(64, svalueMInt(extractMInt( Mem256, 96, 128)))), concatenateMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R2, RSMap), 160, 192))), mi(64, svalueMInt(extractMInt( Mem256, 160, 192)))), mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R2, RSMap), 224, 256))), mi(64, svalueMInt(extractMInt( Mem256, 224, 256)))))))
       )
-      </regstate>
+    </regstate>
 endmodule

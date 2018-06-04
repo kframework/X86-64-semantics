@@ -6,10 +6,11 @@ module VUCOMISD-XMM-M64
 
   context execinstr(vucomisd:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vucomisd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vucomisd memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vucomisd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vucomisd memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vucomisd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -29,5 +30,5 @@ module VUCOMISD-XMM-M64
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

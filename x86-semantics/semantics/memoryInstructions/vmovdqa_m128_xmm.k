@@ -16,9 +16,5 @@ module VMOVDQA-M128-XMM
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

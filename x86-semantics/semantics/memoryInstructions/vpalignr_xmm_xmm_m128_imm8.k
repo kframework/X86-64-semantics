@@ -6,10 +6,11 @@ module VPALIGNR-XMM-XMM-M128-IMM8
 
   context execinstr(vpalignr:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpalignr:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpalignr Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpalignr:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpalignr Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpalignr:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPALIGNR-XMM-XMM-M128-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), extractMInt( lshrMInt( concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), Mem128), uvalueMInt(shlMInt( concatenateMInt( mi(248, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), uvalueMInt(mi(256, 3))))), 128, 256))
       )
-      </regstate>
+    </regstate>
 endmodule

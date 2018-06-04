@@ -6,10 +6,11 @@ module MULXL-R32-R32-M32
 
   context execinstr(mulxl:Opcode HOLE:Mem, R2:R32, R3:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (mulxl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (mulxl memOffset( MemOff), R2, R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (mulxl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (mulxl memOffset( MemOff), R2, R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (mulxl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>
@@ -21,5 +22,5 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concaten
 
 convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( concatenateMInt( mi(32, 0), extractMInt( MemOff, 32, 64)), concatenateMInt( mi(32, 0), Mem32)), 0, 32))
       )
-      </regstate>
+    </regstate>
 endmodule

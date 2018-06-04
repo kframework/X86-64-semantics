@@ -6,10 +6,11 @@ module VPOR-YMM-YMM-M256
 
   context execinstr(vpor:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpor:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpor memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpor:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpor memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpor:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPOR-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> orMInt( getParentValue(R2, RSMap), Mem256)
       )
-      </regstate>
+    </regstate>
 endmodule

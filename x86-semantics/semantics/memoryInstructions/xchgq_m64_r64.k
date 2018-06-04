@@ -6,10 +6,11 @@ module XCHGQ-M64-R64
 
   context execinstr(xchgq:Opcode R1:R64, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xchgq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (xchgq R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xchgq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (xchgq R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (xchgq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -25,5 +26,5 @@ module XCHGQ-M64-R64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> Mem64
       )
-      </regstate>
+    </regstate>
 endmodule

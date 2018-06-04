@@ -6,10 +6,11 @@ module VPBROADCASTD-XMM-M32
 
   context execinstr(vpbroadcastd:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpbroadcastd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (vpbroadcastd memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpbroadcastd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (vpbroadcastd memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vpbroadcastd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPBROADCASTD-XMM-M32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( concatenateMInt( concatenateMInt( Mem32, Mem32), Mem32), Mem32))
       )
-      </regstate>
+    </regstate>
 endmodule

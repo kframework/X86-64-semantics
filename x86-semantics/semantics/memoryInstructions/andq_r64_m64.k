@@ -6,10 +6,11 @@ module ANDQ-R64-M64
 
   context execinstr(andq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (andq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (andq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (andq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (andq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (andq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> andMInt( getParentValue(R2, RSMap), Mem64)
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

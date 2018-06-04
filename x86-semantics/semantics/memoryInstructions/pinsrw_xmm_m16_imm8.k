@@ -6,10 +6,11 @@ module PINSRW-XMM-M16-IMM8
 
   context execinstr(pinsrw:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (pinsrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (pinsrw Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (pinsrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (pinsrw Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (pinsrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module PINSRW-XMM-M16-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shlMInt( mi(128, 65535), uvalueMInt(shlMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))))), andMInt( shlMInt( concatenateMInt( mi(112, 0), Mem16), uvalueMInt(shlMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))), shlMInt( mi(128, 65535), uvalueMInt(shlMInt( concatenateMInt( mi(125, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8)), uvalueMInt(mi(128, 4))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

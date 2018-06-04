@@ -6,10 +6,11 @@ module BLSMSKQ-R64-M64
 
   context execinstr(blsmskq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (blsmskq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (blsmskq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (blsmskq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (blsmskq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (blsmskq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> xorMInt( subMInt( Mem64, mi(64, 1)), Mem64)
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

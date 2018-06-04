@@ -6,10 +6,11 @@ module DIVL-M32
 
   context execinstr(divl:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (divl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (divl memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (divl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (divl memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (divl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module DIVL-M32
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

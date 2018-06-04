@@ -6,10 +6,11 @@ module CMPQ-R64-M64
 
   context execinstr(cmpq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmpq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (cmpq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmpq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (cmpq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cmpq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -29,5 +30,5 @@ module CMPQ-R64-M64
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( Mem64, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(R2, RSMap), 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( Mem64, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem64)), mi(65, 1)), concatenateMInt( mi(1, 0), getParentValue(R2, RSMap))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

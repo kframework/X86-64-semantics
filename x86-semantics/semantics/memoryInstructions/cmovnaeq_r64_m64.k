@@ -6,10 +6,11 @@ module CMOVNAEQ-R64-M64
 
   context execinstr(cmovnaeq:Opcode HOLE:Mem, R2:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmovnaeq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (cmovnaeq memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmovnaeq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (cmovnaeq memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cmovnaeq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>
@@ -19,5 +20,5 @@ module CMOVNAEQ-R64-M64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then Mem64 #else getParentValue(R2, RSMap) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

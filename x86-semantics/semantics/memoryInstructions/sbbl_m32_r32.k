@@ -6,10 +6,11 @@ module SBBL-M32-R32
 
   context execinstr(sbbl:Opcode R1:R32, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (sbbl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (sbbl R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (sbbl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (sbbl R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (sbbl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module SBBL-M32-R32
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( getParentValue(R1, RSMap), 32, 33)), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( getParentValue(R1, RSMap), 32, 33)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))) #else addMInt( concatenateMInt( mi(1, 0), negMInt( extractMInt( getParentValue(R1, RSMap), 32, 64))), mi(33, 1)) #fi), concatenateMInt( mi(1, 0), Mem32)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

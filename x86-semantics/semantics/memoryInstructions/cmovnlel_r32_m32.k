@@ -6,10 +6,11 @@ module CMOVNLEL-R32-M32
 
   context execinstr(cmovnlel:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmovnlel:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (cmovnlel memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmovnlel:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (cmovnlel memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (cmovnlel:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
@@ -19,5 +20,5 @@ module CMOVNLEL-R32-M32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), (#ifMInt ((notBool eqMInt(getFlag("ZF", RSMap), mi(1,1))) andBool (eqMInt(getFlag("SF", RSMap), mi(1,1)) ==Bool eqMInt(getFlag("OF", RSMap), mi(1,1)))) #then Mem32 #else extractMInt( getParentValue(R2, RSMap), 32, 64) #fi))
       )
-      </regstate>
+    </regstate>
 endmodule

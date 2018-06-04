@@ -6,10 +6,11 @@ module VPMINUB-XMM-XMM-M128
 
   context execinstr(vpminub:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpminub:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpminub memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpminub:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpminub memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpminub:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMINUB-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 128, 136), extractMInt( Mem128, 0, 8)) #then extractMInt( getParentValue(R2, RSMap), 128, 136) #else extractMInt( Mem128, 0, 8) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 136, 144), extractMInt( Mem128, 8, 16)) #then extractMInt( getParentValue(R2, RSMap), 136, 144) #else extractMInt( Mem128, 8, 16) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 144, 152), extractMInt( Mem128, 16, 24)) #then extractMInt( getParentValue(R2, RSMap), 144, 152) #else extractMInt( Mem128, 16, 24) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 152, 160), extractMInt( Mem128, 24, 32)) #then extractMInt( getParentValue(R2, RSMap), 152, 160) #else extractMInt( Mem128, 24, 32) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 160, 168), extractMInt( Mem128, 32, 40)) #then extractMInt( getParentValue(R2, RSMap), 160, 168) #else extractMInt( Mem128, 32, 40) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 168, 176), extractMInt( Mem128, 40, 48)) #then extractMInt( getParentValue(R2, RSMap), 168, 176) #else extractMInt( Mem128, 40, 48) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 176, 184), extractMInt( Mem128, 48, 56)) #then extractMInt( getParentValue(R2, RSMap), 176, 184) #else extractMInt( Mem128, 48, 56) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 184, 192), extractMInt( Mem128, 56, 64)) #then extractMInt( getParentValue(R2, RSMap), 184, 192) #else extractMInt( Mem128, 56, 64) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 192, 200), extractMInt( Mem128, 64, 72)) #then extractMInt( getParentValue(R2, RSMap), 192, 200) #else extractMInt( Mem128, 64, 72) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 200, 208), extractMInt( Mem128, 72, 80)) #then extractMInt( getParentValue(R2, RSMap), 200, 208) #else extractMInt( Mem128, 72, 80) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 208, 216), extractMInt( Mem128, 80, 88)) #then extractMInt( getParentValue(R2, RSMap), 208, 216) #else extractMInt( Mem128, 80, 88) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 216, 224), extractMInt( Mem128, 88, 96)) #then extractMInt( getParentValue(R2, RSMap), 216, 224) #else extractMInt( Mem128, 88, 96) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 224, 232), extractMInt( Mem128, 96, 104)) #then extractMInt( getParentValue(R2, RSMap), 224, 232) #else extractMInt( Mem128, 96, 104) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 232, 240), extractMInt( Mem128, 104, 112)) #then extractMInt( getParentValue(R2, RSMap), 232, 240) #else extractMInt( Mem128, 104, 112) #fi), concatenateMInt( (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 240, 248), extractMInt( Mem128, 112, 120)) #then extractMInt( getParentValue(R2, RSMap), 240, 248) #else extractMInt( Mem128, 112, 120) #fi), (#ifMInt ultMInt( extractMInt( getParentValue(R2, RSMap), 248, 256), extractMInt( Mem128, 120, 128)) #then extractMInt( getParentValue(R2, RSMap), 248, 256) #else extractMInt( Mem128, 120, 128) #fi)))))))))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

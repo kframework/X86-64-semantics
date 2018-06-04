@@ -14,5 +14,5 @@ module LEAW-R16-M16
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), extractMInt( MemOff, 48, 64))
       )
-      </regstate>
+    </regstate>
 endmodule

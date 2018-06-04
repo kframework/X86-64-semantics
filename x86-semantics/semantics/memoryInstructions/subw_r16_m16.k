@@ -6,10 +6,11 @@ module SUBW-R16-M16
 
   context execinstr(subw:Opcode HOLE:Mem, R2:R16,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (subw:Opcode memOffset( MemOff:MInt):MemOffset, R2:R16,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (subw memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (subw:Opcode memOffset( MemOff:MInt):MemOffset, R2:R16,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (subw memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (subw:Opcode memOffset( MemOff:MInt):MemOffset, R2:R16,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( Mem16, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( getParentValue(R2, RSMap), 48, 49), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( Mem16, 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem16)), mi(17, 1)), concatenateMInt( mi(1, 0), extractMInt( getParentValue(R2, RSMap), 48, 64))), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

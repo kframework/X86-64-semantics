@@ -6,10 +6,11 @@ module VPSRLW-XMM-XMM-M128
 
   context execinstr(vpsrlw:Opcode HOLE:Mem, R2:Xmm, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpsrlw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpsrlw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpsrlw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpsrlw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpsrlw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPSRLW-XMM-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 15)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 144), uvalueMInt(extractMInt( Mem128, 112, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 144, 160), uvalueMInt(extractMInt( Mem128, 112, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 160, 176), uvalueMInt(extractMInt( Mem128, 112, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 176, 192), uvalueMInt(extractMInt( Mem128, 112, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 192, 208), uvalueMInt(extractMInt( Mem128, 112, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 208, 224), uvalueMInt(extractMInt( Mem128, 112, 128))), concatenateMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 224, 240), uvalueMInt(extractMInt( Mem128, 112, 128))), lshrMInt( extractMInt( getParentValue(R2, RSMap), 240, 256), uvalueMInt(extractMInt( Mem128, 112, 128))))))))))) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

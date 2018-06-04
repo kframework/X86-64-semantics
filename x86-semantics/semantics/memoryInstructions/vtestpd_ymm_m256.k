@@ -6,10 +6,11 @@ module VTESTPD-YMM-M256
 
   context execinstr(vtestpd:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vtestpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vtestpd memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vtestpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vtestpd memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vtestpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -29,5 +30,5 @@ module VTESTPD-YMM-M256
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

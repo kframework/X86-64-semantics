@@ -6,10 +6,11 @@ module SARB-M8-ONE
 
   context execinstr(sarb:Opcode $0x1, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (sarb:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (sarb $0x1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (sarb:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (sarb $0x1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (sarb:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module SARB-M8-ONE
 
 "OF" |-> (#ifMInt ((eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1)) andBool false) orBool ((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

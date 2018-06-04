@@ -6,10 +6,11 @@ module SHUFPS-XMM-M128-IMM8
 
   context execinstr(shufps:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (shufps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (shufps Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (shufps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (shufps Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (shufps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module SHUFPS-XMM-M128-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 1, 2), mi(1, 1)) #then (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 1), mi(1, 1)) #then extractMInt( Mem128, 0, 32) #else extractMInt( Mem128, 64, 96) #fi) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 1), mi(1, 1)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 96, 128) #fi) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), mi(1, 1)) #then (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 1)) #then extractMInt( Mem128, 0, 32) #else extractMInt( Mem128, 64, 96) #fi) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 1)) #then extractMInt( Mem128, 32, 64) #else extractMInt( Mem128, 96, 128) #fi) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), mi(1, 1)) #then (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 5), mi(1, 1)) #then extractMInt( getParentValue(R3, RSMap), 128, 160) #else extractMInt( getParentValue(R3, RSMap), 192, 224) #fi) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 5), mi(1, 1)) #then extractMInt( getParentValue(R3, RSMap), 160, 192) #else extractMInt( getParentValue(R3, RSMap), 224, 256) #fi) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 1)) #then (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 1)) #then extractMInt( getParentValue(R3, RSMap), 128, 160) #else extractMInt( getParentValue(R3, RSMap), 192, 224) #fi) #else (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 1)) #then extractMInt( getParentValue(R3, RSMap), 160, 192) #else extractMInt( getParentValue(R3, RSMap), 224, 256) #fi) #fi)))))
       )
-      </regstate>
+    </regstate>
 endmodule

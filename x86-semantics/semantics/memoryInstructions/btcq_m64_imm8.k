@@ -6,17 +6,18 @@ module BTCQ-M64-IMM8
 
   context execinstr(btcq:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (btcq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (btcq Imm8, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (btcq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (btcq Imm8, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
-    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btcq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (btcq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               xorMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7)))))),
-              MemOff,
+              addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 7)))),
               8
             )
           
@@ -33,5 +34,5 @@ module BTCQ-M64-IMM8
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

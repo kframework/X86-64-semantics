@@ -6,10 +6,11 @@ module VRCPPS-XMM-M128
 
   context execinstr(vrcpps:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vrcpps memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vrcpps memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VRCPPS-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(128, 0), concatenateMInt( approx_reciprocal_single(extractMInt( Mem128, 0, 32)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem128, 32, 64)), concatenateMInt( approx_reciprocal_single(extractMInt( Mem128, 64, 96)), approx_reciprocal_single(extractMInt( Mem128, 96, 128))))))
       )
-      </regstate>
+    </regstate>
 endmodule

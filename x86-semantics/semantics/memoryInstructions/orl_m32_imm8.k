@@ -6,10 +6,11 @@ module ORL-M32-IMM8
 
   context execinstr(orl:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (orl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (orl Imm8, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (orl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (orl Imm8, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (orl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module ORL-M32-IMM8
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

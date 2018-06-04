@@ -6,10 +6,11 @@ module SHRXL-R32-M32-R32
 
   context execinstr(shrxl:Opcode R1:R32, HOLE:Mem, R3:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (shrxl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (shrxl R1, memOffset( MemOff), R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (shrxl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (shrxl R1, memOffset( MemOff), R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (shrxl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>
@@ -19,5 +20,5 @@ module SHRXL-R32-M32-R32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), lshrMInt( Mem32, uvalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31)))))
       )
-      </regstate>
+    </regstate>
 endmodule

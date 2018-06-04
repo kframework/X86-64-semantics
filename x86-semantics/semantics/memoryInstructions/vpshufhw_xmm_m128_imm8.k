@@ -6,10 +6,11 @@ module VPSHUFHW-XMM-M128-IMM8
 
   context execinstr(vpshufhw:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpshufhw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpshufhw Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpshufhw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpshufhw Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpshufhw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPSHUFHW-XMM-M128-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( lshrMInt( Mem128, uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(128, 4))))), 48, 64), concatenateMInt( extractMInt( lshrMInt( Mem128, uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(128, 4))))), 48, 64), concatenateMInt( extractMInt( lshrMInt( Mem128, uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(128, 4))))), 48, 64), concatenateMInt( extractMInt( lshrMInt( Mem128, uvalueMInt(shlMInt( concatenateMInt( mi(126, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(128, 4))))), 48, 64), extractMInt( Mem128, 64, 128))))))
       )
-      </regstate>
+    </regstate>
 endmodule

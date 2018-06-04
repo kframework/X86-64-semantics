@@ -6,10 +6,11 @@ module VUNPCKHPD-YMM-YMM-M256
 
   context execinstr(vunpckhpd:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vunpckhpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vunpckhpd memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vunpckhpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vunpckhpd memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vunpckhpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VUNPCKHPD-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( extractMInt( Mem256, 0, 64), extractMInt( getParentValue(R2, RSMap), 0, 64)), concatenateMInt( extractMInt( Mem256, 128, 192), extractMInt( getParentValue(R2, RSMap), 128, 192)))
       )
-      </regstate>
+    </regstate>
 endmodule

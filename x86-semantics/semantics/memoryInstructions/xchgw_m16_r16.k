@@ -6,10 +6,11 @@ module XCHGW-M16-R16
 
   context execinstr(xchgw:Opcode R1:R16, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xchgw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (xchgw R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xchgw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (xchgw R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (xchgw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -25,5 +26,5 @@ module XCHGW-M16-R16
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R1) |-> concatenateMInt( extractMInt( getParentValue(R1, RSMap), 0, 48), Mem16)
       )
-      </regstate>
+    </regstate>
 endmodule

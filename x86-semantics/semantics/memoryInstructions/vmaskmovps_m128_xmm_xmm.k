@@ -6,10 +6,11 @@ module VMASKMOVPS-M128-XMM-XMM
 
   context execinstr(vmaskmovps:Opcode R1:Xmm, R2:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vmaskmovps:Opcode R1:Xmm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vmaskmovps R1:Xmm, R2:Xmm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vmaskmovps:Opcode R1:Xmm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vmaskmovps R1:Xmm, R2:Xmm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vmaskmovps:Opcode R1:Xmm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module VMASKMOVPS-M128-XMM-XMM
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

@@ -6,10 +6,11 @@ module RORL-M32-CL
 
   context execinstr(rorl:Opcode %cl, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (rorl:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (rorl %cl, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (rorl:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (rorl %cl, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (rorl:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -27,5 +28,5 @@ module RORL-M32-CL
 
 "OF" |-> (#ifMInt ((eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1)) andBool (eqMInt( extractMInt( ror( Mem32, concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 0, 1), mi(1, 1)) xorBool eqMInt( extractMInt( ror( Mem32, concatenateMInt( mi(24, 0), andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)))), 1, 2), mi(1, 1)))) orBool ((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 1))) andBool (((notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( andMInt( extractMInt( getParentValue(%rcx, RSMap), 56, 64), mi(8, 31)), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

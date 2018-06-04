@@ -6,10 +6,11 @@ module VROUNDSD-XMM-XMM-M64-IMM8
 
   context execinstr(vroundsd:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vroundsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vroundsd Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vroundsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vroundsd Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vroundsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VROUNDSD-XMM-XMM-M64-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 192), cvt_double_to_int64_rm(Mem64, handleImmediateWithSignExtend(Imm8, 8, 8))))
       )
-      </regstate>
+    </regstate>
 endmodule

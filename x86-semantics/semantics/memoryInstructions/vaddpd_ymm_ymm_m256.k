@@ -6,10 +6,11 @@ module VADDPD-YMM-YMM-M256
 
   context execinstr(vaddpd:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vaddpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vaddpd memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vaddpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vaddpd memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vaddpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VADDPD-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( add_double(extractMInt( getParentValue(R2, RSMap), 0, 64), extractMInt( Mem256, 0, 64)), concatenateMInt( add_double(extractMInt( getParentValue(R2, RSMap), 64, 128), extractMInt( Mem256, 64, 128)), concatenateMInt( add_double(extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( Mem256, 128, 192)), add_double(extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( Mem256, 192, 256)))))
       )
-      </regstate>
+    </regstate>
 endmodule

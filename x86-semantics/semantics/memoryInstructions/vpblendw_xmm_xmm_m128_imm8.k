@@ -6,10 +6,11 @@ module VPBLENDW-XMM-XMM-M128-IMM8
 
   context execinstr(vpblendw:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpblendw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vpblendw Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpblendw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vpblendw Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpblendw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPBLENDW-XMM-XMM-M128-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 1), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 144) #else extractMInt( Mem128, 0, 16) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 1, 2), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 144, 160) #else extractMInt( Mem128, 16, 32) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 3), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 160, 176) #else extractMInt( Mem128, 32, 48) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 3, 4), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 176, 192) #else extractMInt( Mem128, 48, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 5), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 208) #else extractMInt( Mem128, 64, 80) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 208, 224) #else extractMInt( Mem128, 80, 96) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 7), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 224, 240) #else extractMInt( Mem128, 96, 112) #fi), (#ifMInt eqMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 7, 8), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 240, 256) #else extractMInt( Mem128, 112, 128) #fi)))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

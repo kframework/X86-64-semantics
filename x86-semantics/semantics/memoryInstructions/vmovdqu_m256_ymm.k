@@ -6,10 +6,11 @@ module VMOVDQU-M256-YMM
 
   context execinstr(vmovdqu:Opcode R1:Ymm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vmovdqu:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vmovdqu R1:Ymm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vmovdqu:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vmovdqu R1:Ymm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vmovdqu:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module VMOVDQU-M256-YMM
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

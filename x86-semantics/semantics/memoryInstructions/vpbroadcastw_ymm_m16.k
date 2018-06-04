@@ -6,10 +6,11 @@ module VPBROADCASTW-YMM-M16
 
   context execinstr(vpbroadcastw:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpbroadcastw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (vpbroadcastw memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpbroadcastw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (vpbroadcastw memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (vpbroadcastw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPBROADCASTW-YMM-M16
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, concatenateMInt( Mem16, Mem16)))))))))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

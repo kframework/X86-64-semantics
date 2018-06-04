@@ -6,10 +6,11 @@ module TESTL-M32-R32
 
   context execinstr(testl:Opcode R1:R32, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (testl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (testl R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (testl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (testl R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (testl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -29,5 +30,5 @@ module TESTL-M32-R32
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

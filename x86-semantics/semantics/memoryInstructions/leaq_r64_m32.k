@@ -14,5 +14,5 @@ module LEAQ-R64-M32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> MemOff
       )
-      </regstate>
+    </regstate>
 endmodule

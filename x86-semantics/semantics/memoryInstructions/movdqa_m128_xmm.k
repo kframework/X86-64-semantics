@@ -6,10 +6,11 @@ module MOVDQA-M128-XMM
 
   context execinstr(movdqa:Opcode R1:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (movdqa:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (movdqa R1:Xmm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (movdqa:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (movdqa R1:Xmm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (movdqa:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module MOVDQA-M128-XMM
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

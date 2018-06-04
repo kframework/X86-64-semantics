@@ -6,10 +6,11 @@ module VCVTPD2PS-XMM-M128
 
   context execinstr(vcvtpd2ps:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vcvtpd2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vcvtpd2ps memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vcvtpd2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vcvtpd2ps memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vcvtpd2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VCVTPD2PS-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(192, 0), concatenateMInt( cvt_double_to_single(extractMInt( Mem128, 0, 64)), cvt_double_to_single(extractMInt( Mem128, 64, 128))))
       )
-      </regstate>
+    </regstate>
 endmodule

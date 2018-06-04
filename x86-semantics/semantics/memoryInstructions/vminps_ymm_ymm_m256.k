@@ -6,10 +6,11 @@ module VMINPS-YMM-YMM-M256
 
   context execinstr(vminps:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vminps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vminps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vminps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vminps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vminps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VMINPS-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 0, 32), extractMInt( Mem256, 0, 32)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 0, 32) #else extractMInt( Mem256, 0, 32) #fi), concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 32, 64), extractMInt( Mem256, 32, 64)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 32, 64) #else extractMInt( Mem256, 32, 64) #fi), concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 64, 96), extractMInt( Mem256, 64, 96)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 64, 96) #else extractMInt( Mem256, 64, 96) #fi), concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 96, 128), extractMInt( Mem256, 96, 128)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 96, 128) #else extractMInt( Mem256, 96, 128) #fi), concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 128, 160), extractMInt( Mem256, 128, 160)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 128, 160) #else extractMInt( Mem256, 128, 160) #fi), concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( Mem256, 160, 192)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 160, 192) #else extractMInt( Mem256, 160, 192) #fi), concatenateMInt( (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 192, 224), extractMInt( Mem256, 192, 224)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 192, 224) #else extractMInt( Mem256, 192, 224) #fi), (#ifMInt eqMInt( mincmp_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( Mem256, 224, 256)), mi(1, 1)) #then extractMInt( getParentValue(R2, RSMap), 224, 256) #else extractMInt( Mem256, 224, 256) #fi))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

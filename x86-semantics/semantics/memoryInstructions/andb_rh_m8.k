@@ -6,10 +6,11 @@ module ANDB-RH-M8
 
   context execinstr(andb:Opcode HOLE:Mem, R2:Rh,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (andb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (andb memOffset( MemOff), R2:Rh,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (andb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (andb memOffset( MemOff), R2:Rh,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (andb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

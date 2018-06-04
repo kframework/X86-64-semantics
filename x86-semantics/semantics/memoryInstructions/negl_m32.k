@@ -6,10 +6,11 @@ module NEGL-M32
 
   context execinstr(negl:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (negl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (negl memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (negl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (negl memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (negl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module NEGL-M32
 
 "OF" |-> (#ifMInt (eqMInt( extractMInt( Mem32, 0, 1), mi(1, 1)) andBool eqMInt( extractMInt( addMInt(mi(32, 1), negMInt( Mem32)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

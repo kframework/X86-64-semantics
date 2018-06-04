@@ -6,10 +6,11 @@ module INCB-M8
 
   context execinstr(incb:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (incb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (incb memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (incb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (incb memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (incb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module INCB-M8
 
 "OF" |-> (#ifMInt ((notBool eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1))) andBool eqMInt( extractMInt( Mem8, 1, 8), mi(7, 18446744073709551615))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

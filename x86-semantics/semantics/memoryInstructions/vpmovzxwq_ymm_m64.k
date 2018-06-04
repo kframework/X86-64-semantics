@@ -6,10 +6,11 @@ module VPMOVZXWQ-YMM-M64
 
   context execinstr(vpmovzxwq:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmovzxwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vpmovzxwq memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmovzxwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vpmovzxwq memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vpmovzxwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VPMOVZXWQ-YMM-M64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( Mem64, 0, 16)), concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( Mem64, 16, 32)), concatenateMInt( concatenateMInt( mi(48, 0), extractMInt( Mem64, 32, 48)), concatenateMInt( mi(48, 0), extractMInt( Mem64, 48, 64)))))
       )
-      </regstate>
+    </regstate>
 endmodule

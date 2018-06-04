@@ -6,10 +6,11 @@ module VBLENDVPS-YMM-YMM-M256-YMM
 
   context execinstr(vblendvps:Opcode R1:Ymm, HOLE:Mem, R3:Ymm, R4:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vblendvps:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vblendvps R1:Ymm, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vblendvps:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vblendvps R1:Ymm, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vblendvps:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VBLENDVPS-YMM-YMM-M256-YMM
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 0, 1), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 0, 32) #else extractMInt( Mem256, 0, 32) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 32, 33), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 32, 64) #else extractMInt( Mem256, 32, 64) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 64, 65), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 64, 96) #else extractMInt( Mem256, 64, 96) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 96, 97), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 96, 128) #else extractMInt( Mem256, 96, 128) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 128, 129), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 128, 160) #else extractMInt( Mem256, 128, 160) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 160, 161), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 160, 192) #else extractMInt( Mem256, 160, 192) #fi), concatenateMInt( (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 192, 193), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 192, 224) #else extractMInt( Mem256, 192, 224) #fi), (#ifMInt eqMInt( extractMInt( getParentValue(R1, RSMap), 224, 225), mi(1, 0)) #then extractMInt( getParentValue(R3, RSMap), 224, 256) #else extractMInt( Mem256, 224, 256) #fi))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module ROUNDPS-XMM-M128-IMM8
 
   context execinstr(roundps:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (roundps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (roundps Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (roundps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (roundps Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (roundps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module ROUNDPS-XMM-M128-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( extractMInt( getParentValue(R3, RSMap), 0, 128), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem128, 0, 32), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem128, 32, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_single_to_int32_rm(extractMInt( Mem128, 64, 96), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_single_to_int32_rm(extractMInt( Mem128, 96, 128), handleImmediateWithSignExtend(Imm8, 8, 8))))))
       )
-      </regstate>
+    </regstate>
 endmodule

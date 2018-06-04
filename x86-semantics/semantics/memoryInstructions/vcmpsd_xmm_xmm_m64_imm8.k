@@ -6,10 +6,11 @@ module VCMPSD-XMM-XMM-M64-IMM8
 
   context execinstr(vcmpsd:Opcode Imm8:Imm, HOLE:Mem, R3:Xmm, R4:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vcmpsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (vcmpsd Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vcmpsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (vcmpsd Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vcmpsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module VCMPSD-XMM-XMM-M64-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), concatenateMInt( extractMInt( getParentValue(R3, RSMap), 128, 192), (#ifMInt eqMInt( cmp_double_pred(extractMInt( getParentValue(R3, RSMap), 192, 256), Mem64, handleImmediateWithSignExtend(Imm8, 8, 8)), mi(1, 1)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi)))
       )
-      </regstate>
+    </regstate>
 endmodule

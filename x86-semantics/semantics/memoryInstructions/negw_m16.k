@@ -6,10 +6,11 @@ module NEGW-M16
 
   context execinstr(negw:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (negw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (negw memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (negw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (negw memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (negw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module NEGW-M16
 
 "OF" |-> (#ifMInt (eqMInt( extractMInt( Mem16, 0, 1), mi(1, 1)) andBool eqMInt( extractMInt( addMInt(mi(16, 1), negMInt( Mem16)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

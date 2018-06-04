@@ -6,10 +6,11 @@ module SHRXQ-R64-M64-R64
 
   context execinstr(shrxq:Opcode R1:R64, HOLE:Mem, R3:R64,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (shrxq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (shrxq R1, memOffset( MemOff), R3,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (shrxq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (shrxq R1, memOffset( MemOff), R3,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (shrxq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>
@@ -19,5 +20,5 @@ module SHRXQ-R64-M64-R64
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> extractMInt( lshrMInt( concatenateMInt( Mem64, mi(1, 0)), uvalueMInt(concatenateMInt( mi(57, 0), andMInt( extractMInt( getParentValue(R1, RSMap), 56, 64), mi(8, 63))))), 0, 64)
       )
-      </regstate>
+    </regstate>
 endmodule

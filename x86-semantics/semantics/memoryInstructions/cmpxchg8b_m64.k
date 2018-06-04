@@ -6,10 +6,11 @@ module CMPXCHG8B-M64
 
   context execinstr(cmpxchg8b:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cmpxchg8b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (cmpxchg8b memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cmpxchg8b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (cmpxchg8b memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cmpxchg8b:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -29,5 +30,5 @@ module CMPXCHG8B-M64
 
 "ZF" |-> (#ifMInt eqMInt( concatenateMInt( extractMInt( getParentValue(%rdx, RSMap), 32, 64), extractMInt( getParentValue(%rax, RSMap), 32, 64)), Mem64) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

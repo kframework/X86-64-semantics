@@ -6,10 +6,11 @@ module IMULL-R32-M32
 
   context execinstr(imull:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (imull:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (imull memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (imull:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (imull memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (imull:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( mulMInt( mi(64, s
 
 "OF" |-> (#ifMInt (notBool eqMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R2, RSMap), 32, 64))), mi(64, svalueMInt(Mem32))), mi(64, svalueMInt(extractMInt( mulMInt( mi(64, svalueMInt(extractMInt( getParentValue(R2, RSMap), 32, 64))), mi(64, svalueMInt(Mem32))), 32, 64))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

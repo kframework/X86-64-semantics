@@ -6,10 +6,11 @@ module PEXTRB-M8-XMM-IMM8
 
   context execinstr(pextrb:Opcode Imm8:Imm, R2:Xmm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (pextrb:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (pextrb Imm8, R2:Xmm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (pextrb:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (pextrb Imm8, R2:Xmm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (pextrb:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module PEXTRB-M8-XMM-IMM8
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

@@ -6,10 +6,11 @@ module XORB-RH-M8
 
   context execinstr(xorb:Opcode HOLE:Mem, R2:Rh,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xorb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (xorb memOffset( MemOff), R2:Rh,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xorb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (xorb memOffset( MemOff), R2:Rh,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (xorb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Rh,  .Operands) =>
@@ -31,5 +32,5 @@ convToRegKeys(R2) |-> concatenateMInt( concatenateMInt( extractMInt( getParentVa
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

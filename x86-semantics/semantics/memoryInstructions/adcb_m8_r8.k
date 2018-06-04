@@ -6,10 +6,11 @@ module ADCB-M8-R8
 
   context execinstr(adcb:Opcode R1:R8, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (adcb:Opcode R1:R8, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (adcb R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (adcb:Opcode R1:R8, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (adcb R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (adcb:Opcode R1:R8, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module ADCB-M8-R8
 
 "OF" |-> (#ifMInt ((eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem8, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( extractMInt( getParentValue(R1, RSMap), 56, 57), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then addMInt( concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)), mi(9, 1)) #else concatenateMInt( mi(1, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)) #fi), concatenateMInt( mi(1, 0), Mem8)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

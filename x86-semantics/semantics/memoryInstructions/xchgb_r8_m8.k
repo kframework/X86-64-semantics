@@ -6,10 +6,11 @@ module XCHGB-R8-M8
 
   context execinstr(xchgb:Opcode HOLE:Mem, R2:R8,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xchgb:Opcode memOffset( MemOff:MInt):MemOffset, R2:R8,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (xchgb memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xchgb:Opcode memOffset( MemOff:MInt):MemOffset, R2:R8,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (xchgb memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (xchgb:Opcode memOffset( MemOff:MInt):MemOffset, R2:R8,  .Operands) =>
@@ -25,5 +26,5 @@ module XCHGB-R8-M8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 56), Mem8)
       )
-      </regstate>
+    </regstate>
 endmodule

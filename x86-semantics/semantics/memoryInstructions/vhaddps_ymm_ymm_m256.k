@@ -6,10 +6,11 @@ module VHADDPS-YMM-YMM-M256
 
   context execinstr(vhaddps:Opcode HOLE:Mem, R2:Ymm, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vhaddps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vhaddps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vhaddps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vhaddps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vhaddps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VHADDPS-YMM-YMM-M256
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( concatenateMInt( concatenateMInt( concatenateMInt( add_single(extractMInt( Mem256, 32, 64), extractMInt( Mem256, 0, 32)), add_single(extractMInt( Mem256, 96, 128), extractMInt( Mem256, 64, 96))), add_single(extractMInt( getParentValue(R2, RSMap), 32, 64), extractMInt( getParentValue(R2, RSMap), 0, 32))), add_single(extractMInt( getParentValue(R2, RSMap), 96, 128), extractMInt( getParentValue(R2, RSMap), 64, 96))), concatenateMInt( concatenateMInt( concatenateMInt( add_single(extractMInt( Mem256, 160, 192), extractMInt( Mem256, 128, 160)), add_single(extractMInt( Mem256, 224, 256), extractMInt( Mem256, 192, 224))), add_single(extractMInt( getParentValue(R2, RSMap), 160, 192), extractMInt( getParentValue(R2, RSMap), 128, 160))), add_single(extractMInt( getParentValue(R2, RSMap), 224, 256), extractMInt( getParentValue(R2, RSMap), 192, 224))))
       )
-      </regstate>
+    </regstate>
 endmodule

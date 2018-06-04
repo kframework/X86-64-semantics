@@ -6,10 +6,11 @@ module SBBW-M16-IMM16
 
   context execinstr(sbbw:Opcode Imm16:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (sbbw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (sbbw Imm16, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (sbbw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (sbbw Imm16, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (sbbw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module SBBW-M16-IMM16
 
 "OF" |-> (#ifMInt ((eqMInt( negMInt( extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( Mem16, 0, 1), mi(1, 1))) andBool (notBool (eqMInt( negMInt( extractMInt( handleImmediateWithSignExtend(Imm16, 16, 16), 0, 1)), mi(1, 1)) ==Bool eqMInt( extractMInt( addMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm16, 16, 16))) #else addMInt( concatenateMInt( mi(1, 0), negMInt( handleImmediateWithSignExtend(Imm16, 16, 16))), mi(17, 1)) #fi), concatenateMInt( mi(1, 0), Mem16)), 1, 2), mi(1, 1))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

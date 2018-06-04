@@ -6,10 +6,11 @@ module MOVZBL-R32-M8
 
   context execinstr(movzbl:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (movzbl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (movzbl memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (movzbl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (movzbl memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (movzbl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
@@ -19,5 +20,5 @@ module MOVZBL-R32-M8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(56, 0), Mem8)
       )
-      </regstate>
+    </regstate>
 endmodule

@@ -6,10 +6,11 @@ module VEXTRACTI128-M128-YMM-IMM8
 
   context execinstr(vextracti128:Opcode Imm8:Imm, R2:Ymm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vextracti128:Opcode Imm8:Imm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vextracti128 Imm8, R2:Ymm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vextracti128:Opcode Imm8:Imm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vextracti128 Imm8, R2:Ymm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vextracti128:Opcode Imm8:Imm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module VEXTRACTI128-M128-YMM-IMM8
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

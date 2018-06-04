@@ -6,10 +6,11 @@ module RCRW-M16-IMM8
 
   context execinstr(rcrw:Opcode Imm8:Imm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (rcrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 16) ~> execinstr (rcrw Imm8, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (rcrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 16) ~>
+      execinstr (rcrw Imm8, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (rcrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -27,5 +28,5 @@ module RCRW-M16-IMM8
 
 "OF" |-> (#ifMInt ((eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1)) andBool (eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem16), uremMInt( concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), mi(17, 17))), 1, 2), mi(1, 1)) xorBool eqMInt( extractMInt( ror( concatenateMInt( (#ifMInt eqMInt(getFlag("CF", RSMap), mi(1,1)) #then mi(1, 1) #else mi(1, 0) #fi), Mem16), uremMInt( concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), mi(17, 17))), 2, 3), mi(1, 1)))) orBool ((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 1))) andBool (((notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0))) andBool (undefBool)) orBool ((notBool (notBool eqMInt( extractMInt( uremMInt( concatenateMInt( mi(9, 0), andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 31))), mi(17, 17)), 9, 17), mi(8, 0)))) andBool eqMInt(getFlag("OF", RSMap), mi(1,1)))))) #then mi(1, 1) #else mi(1, 0) #fi)
       )
-      </regstate>
+    </regstate>
 endmodule

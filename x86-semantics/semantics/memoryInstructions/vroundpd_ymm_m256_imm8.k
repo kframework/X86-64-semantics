@@ -6,10 +6,11 @@ module VROUNDPD-YMM-M256-IMM8
 
   context execinstr(vroundpd:Opcode Imm8:Imm, HOLE:Mem, R3:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vroundpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vroundpd Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vroundpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vroundpd Imm8, memOffset( MemOff), R3:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vroundpd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VROUNDPD-YMM-M256-IMM8
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R3) |-> concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 0, 64), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 64, 128), handleImmediateWithSignExtend(Imm8, 8, 8)), concatenateMInt( cvt_double_to_int64_rm(extractMInt( Mem256, 128, 192), handleImmediateWithSignExtend(Imm8, 8, 8)), cvt_double_to_int64_rm(extractMInt( Mem256, 192, 256), handleImmediateWithSignExtend(Imm8, 8, 8)))))
       )
-      </regstate>
+    </regstate>
 endmodule

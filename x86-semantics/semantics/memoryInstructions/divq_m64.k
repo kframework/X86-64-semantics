@@ -6,10 +6,11 @@ module DIVQ-M64
 
   context execinstr(divq:Opcode HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (divq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 64) ~> execinstr (divq memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (divq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 64) ~>
+      execinstr (divq memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (divq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -33,5 +34,5 @@ module DIVQ-M64
 
 "OF" |-> (undefMInt)
       )
-      </regstate>
+    </regstate>
 endmodule

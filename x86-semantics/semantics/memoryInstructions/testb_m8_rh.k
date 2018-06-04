@@ -6,10 +6,11 @@ module TESTB-M8-RH
 
   context execinstr(testb:Opcode R1:Rh, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (testb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 8) ~> execinstr (testb R1:Rh, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (testb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 8) ~>
+      execinstr (testb R1:Rh, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (testb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -29,5 +30,5 @@ module TESTB-M8-RH
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

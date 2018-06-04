@@ -6,10 +6,11 @@ module VCVTPH2PS-YMM-M128
 
   context execinstr(vcvtph2ps:Opcode HOLE:Mem, R2:Ymm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vcvtph2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (vcvtph2ps memOffset( MemOff), R2:Ymm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vcvtph2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (vcvtph2ps memOffset( MemOff), R2:Ymm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vcvtph2ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>
@@ -19,5 +20,5 @@ module VCVTPH2PS-YMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 0, 16)), concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 16, 32)), concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 32, 48)), concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 48, 64)), concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 64, 80)), concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 80, 96)), concatenateMInt( cvt_half_to_single(extractMInt( Mem128, 96, 112)), cvt_half_to_single(extractMInt( Mem128, 112, 128)))))))))
       )
-      </regstate>
+    </regstate>
 endmodule

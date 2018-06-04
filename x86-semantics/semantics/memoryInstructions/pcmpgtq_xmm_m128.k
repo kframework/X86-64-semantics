@@ -6,10 +6,11 @@ module PCMPGTQ-XMM-M128
 
   context execinstr(pcmpgtq:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (pcmpgtq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (pcmpgtq memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (pcmpgtq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (pcmpgtq memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (pcmpgtq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module PCMPGTQ-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( (#ifMInt sgtMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), extractMInt( Mem128, 0, 64)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi), (#ifMInt sgtMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), extractMInt( Mem128, 64, 128)) #then mi(64, 18446744073709551615) #else mi(64, 0) #fi)))
       )
-      </regstate>
+    </regstate>
 endmodule

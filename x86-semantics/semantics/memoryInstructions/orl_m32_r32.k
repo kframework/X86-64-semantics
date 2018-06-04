@@ -6,10 +6,11 @@ module ORL-M32-R32
 
   context execinstr(orl:Opcode R1:R32, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (orl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (orl R1, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (orl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (orl R1, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (orl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -35,5 +36,5 @@ module ORL-M32-R32
 
 "OF" |-> mi(1, 0)
       )
-      </regstate>
+    </regstate>
 endmodule

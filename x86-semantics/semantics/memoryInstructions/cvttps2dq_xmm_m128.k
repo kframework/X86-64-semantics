@@ -6,10 +6,11 @@ module CVTTPS2DQ-XMM-M128
 
   context execinstr(cvttps2dq:Opcode HOLE:Mem, R2:Xmm,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (cvttps2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
-              loadFromMemory( MemOff, 128) ~> execinstr (cvttps2dq memOffset( MemOff), R2:Xmm,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (cvttps2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
+      loadFromMemory( MemOff, 128) ~>
+      execinstr (cvttps2dq memOffset( MemOff), R2:Xmm,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (cvttps2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>
@@ -19,5 +20,5 @@ module CVTTPS2DQ-XMM-M128
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), concatenateMInt( cvt_single_to_int32_truncate(extractMInt( Mem128, 0, 32)), concatenateMInt( cvt_single_to_int32_truncate(extractMInt( Mem128, 32, 64)), concatenateMInt( cvt_single_to_int32_truncate(extractMInt( Mem128, 64, 96)), cvt_single_to_int32_truncate(extractMInt( Mem128, 96, 128))))))
       )
-      </regstate>
+    </regstate>
 endmodule

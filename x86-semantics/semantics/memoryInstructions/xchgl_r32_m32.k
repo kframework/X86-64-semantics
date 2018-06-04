@@ -6,10 +6,11 @@ module XCHGL-R32-M32
 
   context execinstr(xchgl:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (xchgl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (xchgl memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (xchgl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (xchgl memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (xchgl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
@@ -25,5 +26,5 @@ module XCHGL-R32-M32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), Mem32)
       )
-      </regstate>
+    </regstate>
 endmodule

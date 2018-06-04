@@ -6,10 +6,11 @@ module VPMASKMOVQ-M256-YMM-YMM
 
   context execinstr(vpmaskmovq:Opcode R1:Ymm, R2:Ymm, HOLE:Mem,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vpmaskmovq:Opcode R1:Ymm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-              loadFromMemory( MemOff, 256) ~> execinstr (vpmaskmovq R1:Ymm, R2:Ymm, memOffset( MemOff),  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vpmaskmovq:Opcode R1:Ymm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+      loadFromMemory( MemOff, 256) ~>
+      execinstr (vpmaskmovq R1:Ymm, R2:Ymm, memOffset( MemOff),  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpmaskmovq:Opcode R1:Ymm, R2:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -21,9 +22,5 @@ module VPMASKMOVQ-M256-YMM-YMM
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

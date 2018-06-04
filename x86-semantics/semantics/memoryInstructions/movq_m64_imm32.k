@@ -16,9 +16,5 @@ module MOVQ-M64-IMM32
             )
           
   ...</k>
-    <regstate>
-      RSMap:Map => updateMap(RSMap,
-
-      )
-      </regstate>
+  
 endmodule

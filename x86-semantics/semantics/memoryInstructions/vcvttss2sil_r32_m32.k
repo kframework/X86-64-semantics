@@ -6,10 +6,11 @@ module VCVTTSS2SIL-R32-M32
 
   context execinstr(vcvttss2sil:Opcode HOLE:Mem, R2:R32,  .Operands) [result(MemOffset)]
   
-          rule <k>
-            execinstr (vcvttss2sil:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
-              loadFromMemory( MemOff, 32) ~> execinstr (vcvttss2sil memOffset( MemOff), R2,  .Operands)
-          ...</k>
+  rule <k>
+    execinstr (vcvttss2sil:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
+      loadFromMemory( MemOff, 32) ~>
+      execinstr (vcvttss2sil memOffset( MemOff), R2,  .Operands)
+  ...</k>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vcvttss2sil:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>
@@ -19,5 +20,5 @@ module VCVTTSS2SIL-R32-M32
       RSMap:Map => updateMap(RSMap,
 convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), cvt_single_to_int32_truncate(Mem32))
       )
-      </regstate>
+    </regstate>
 endmodule
