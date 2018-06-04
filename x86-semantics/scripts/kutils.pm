@@ -2591,9 +2591,14 @@ sub sanitizeBVF {
         print "ReadSize: " . $readSize . "\n";
     }
     if ( 0 != scalar( keys %WriteMemValMap ) ) {
+        my @keys = keys %WriteMemValMap;
+
+        #Write Address
+        $writeAddr = $keys[0];
+        $writeAddr =
+          applySanitizationRules( $writeAddr, \%actual2psedoRegs, \%UMemVals );
 
         #Write Value
-        my @keys = keys %WriteMemValMap;
         $writeVal = $WriteMemValMap{ $keys[0] };
         $writeVal =
           applySanitizationRules( $writeVal, \%actual2psedoRegs, \%UMemVals );
@@ -2605,6 +2610,7 @@ sub sanitizeBVF {
 
         print "WriteSize: " . $writeSize . "\n";
         print "WriteVal: " . $writeVal . "\n";
+        print "WriteAddr: " . $writeAddr . "\n";
     }
 
     ## Process begin
@@ -2668,7 +2674,8 @@ sub sanitizeBVF {
 
     utils::printArray( \@workList, "Final Rules", $debugprint );
 
-    return ( join "\n\n", @workList ), $readSize, $writeSize, $writeVal;
+    return ( join "\n\n", @workList ), $readSize, $writeSize, $writeVal,
+      $writeAddr;
 }
 
 sub applySanitizationRules {
@@ -3038,6 +3045,7 @@ sub writeKDefn {
     my $readSize     = shift @_;
     my $writeSize    = shift @_;
     my $writeVal     = shift @_;
+    my $writeAddr    = shift @_;
 
     my $module_name    = $opcode =~ s/_/-/gr;
     my $module_name_uc = uc($module_name);
@@ -3099,7 +3107,7 @@ sub writeKDefn {
             $storeTemplate = qq(
             storeToMemory(
               $writeVal,
-              MemOff,
+              $writeAddr,
               $writeSize
             )
           );
