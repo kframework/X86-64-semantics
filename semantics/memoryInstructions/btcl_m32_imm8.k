@@ -8,12 +8,12 @@ module BTCL-M32-IMM8
   
   rule <k>
     execinstr (btcl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 32) ~>
+      loadFromMemory( MemOff, 8) ~>
       execinstr (btcl Imm8, memOffset( MemOff),  .Operands)
   ...</k>
           
   rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (btcl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btcl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               xorMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7)))))),

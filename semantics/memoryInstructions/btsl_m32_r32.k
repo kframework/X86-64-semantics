@@ -8,12 +8,12 @@ module BTSL-M32-R32
   
   rule <k>
     execinstr (btsl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 32) ~>
+      loadFromMemory( MemOff, 8) ~>
       execinstr (btsl R1, memOffset( MemOff),  .Operands)
   ...</k>
           
   rule <k>
-    memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (btsl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               orMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),

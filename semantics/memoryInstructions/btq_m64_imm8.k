@@ -8,12 +8,12 @@ module BTQ-M64-IMM8
   
   rule <k>
     execinstr (btq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 64) ~>
+      loadFromMemory( MemOff, 8) ~>
       execinstr (btq Imm8, memOffset( MemOff),  .Operands)
   ...</k>
           
   rule <k>
-    memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (btq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
     <regstate>
