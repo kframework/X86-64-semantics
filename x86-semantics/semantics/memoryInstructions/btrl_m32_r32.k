@@ -8,7 +8,7 @@ module BTRL-M32-R32
   
   rule <k>
     execinstr (btrl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 8) ~>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 32, 64))), 0, 61))), 8) ~>
       execinstr (btrl R1, memOffset( MemOff),  .Operands)
   ...</k>
           

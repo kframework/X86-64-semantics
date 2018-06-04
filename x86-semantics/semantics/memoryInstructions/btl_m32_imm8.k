@@ -8,7 +8,7 @@ module BTL-M32-IMM8
   
   rule <k>
     execinstr (btl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 8) ~>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 3)))), 8) ~>
       execinstr (btl Imm8, memOffset( MemOff),  .Operands)
   ...</k>
           

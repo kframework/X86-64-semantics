@@ -8,7 +8,7 @@ module BTSQ-M64-IMM8
   
   rule <k>
     execinstr (btsq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 8) ~>
+      loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 7)))), 8) ~>
       execinstr (btsq Imm8, memOffset( MemOff),  .Operands)
   ...</k>
           
