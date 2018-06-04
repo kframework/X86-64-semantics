@@ -8,12 +8,12 @@ module BTCW-M16-R16
   
   rule <k>
     execinstr (btcw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 16) ~>
+      loadFromMemory( MemOff, 8) ~>
       execinstr (btcw R1, memOffset( MemOff),  .Operands)
   ...</k>
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (btcw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btcw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               xorMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),

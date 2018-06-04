@@ -8,12 +8,12 @@ module BTRW-M16-IMM8
   
   rule <k>
     execinstr (btrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
-      loadFromMemory( MemOff, 16) ~>
+      loadFromMemory( MemOff, 8) ~>
       execinstr (btrw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
           
   rule <k>
-    memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (btrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
+    memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btrw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
               andMInt( Mem8, negMInt( shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7))))))),

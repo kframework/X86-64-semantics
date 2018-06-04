@@ -2585,9 +2585,16 @@ sub sanitizeBVF {
     if ( 0 != scalar( keys %ReadMemValMap ) ) {
 
         # Read Size
-        my @keys = keys %UMemVals;
-        $readSize = $UMemVals{ $keys[0] };
-        $readSize =~ s/Mem//g;
+        #my @keys = keys %UMemVals;
+        #$readSize = $UMemVals{ $keys[0] };
+        #$readSize =~ s/Mem//g;
+        # Size is the size of first use
+        for my $line (@reglines) {
+            chomp $line;
+            if ( $line =~ m/TMP_BV_(\d+)_\d+/ ) {
+                $readSize = $1;
+            }
+        }
         print "ReadSize: " . $readSize . "\n";
     }
     if ( 0 != scalar( keys %WriteMemValMap ) ) {
