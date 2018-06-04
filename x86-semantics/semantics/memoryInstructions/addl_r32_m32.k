@@ -11,6 +11,7 @@ module ADDL-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (addl memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (addl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

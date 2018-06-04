@@ -11,6 +11,7 @@ module IDIVL-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (idivl memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (idivl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

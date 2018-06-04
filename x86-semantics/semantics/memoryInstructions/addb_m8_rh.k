@@ -11,6 +11,7 @@ module ADDB-M8-RH
       loadFromMemory( MemOff, 8) ~>
       execinstr (addb R1:Rh, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (addb:Opcode R1:Rh, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

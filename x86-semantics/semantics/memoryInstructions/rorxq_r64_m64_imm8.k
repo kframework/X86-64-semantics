@@ -11,6 +11,7 @@ module RORXQ-R64-M64-IMM8
       loadFromMemory( MemOff, 64) ~>
       execinstr (rorxq Imm8, memOffset( MemOff), R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (rorxq:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R64,  .Operands) =>

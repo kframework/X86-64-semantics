@@ -11,6 +11,7 @@ module VTESTPD-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vtestpd memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vtestpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

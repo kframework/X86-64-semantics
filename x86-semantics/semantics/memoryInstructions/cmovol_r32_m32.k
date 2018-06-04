@@ -11,6 +11,7 @@ module CMOVOL-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (cmovol memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (cmovol:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

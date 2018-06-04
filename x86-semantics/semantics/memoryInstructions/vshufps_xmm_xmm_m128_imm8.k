@@ -11,6 +11,7 @@ module VSHUFPS-XMM-XMM-M128-IMM8
       loadFromMemory( MemOff, 128) ~>
       execinstr (vshufps Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vshufps:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>

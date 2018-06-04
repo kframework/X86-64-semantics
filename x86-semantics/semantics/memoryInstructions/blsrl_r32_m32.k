@@ -11,6 +11,7 @@ module BLSRL-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (blsrl memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (blsrl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

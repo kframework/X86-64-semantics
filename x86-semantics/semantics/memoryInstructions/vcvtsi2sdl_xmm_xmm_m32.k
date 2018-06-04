@@ -11,6 +11,7 @@ module VCVTSI2SDL-XMM-XMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (vcvtsi2sdl memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vcvtsi2sdl:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

@@ -11,6 +11,7 @@ module VCVTTSS2SIQ-R64-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (vcvttss2siq memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vcvttss2siq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>

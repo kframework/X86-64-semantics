@@ -11,6 +11,7 @@ module MULXL-R32-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (mulxl memOffset( MemOff), R2, R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (mulxl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32, R3:R32,  .Operands) =>

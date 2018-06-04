@@ -11,6 +11,7 @@ module NOTQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (notq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (notq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module NOTQ-M64
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

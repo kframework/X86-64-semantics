@@ -11,6 +11,7 @@ module VSUBPD-XMM-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vsubpd memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vsubpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

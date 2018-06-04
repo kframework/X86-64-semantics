@@ -11,6 +11,7 @@ module INCL-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (incl memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (incl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

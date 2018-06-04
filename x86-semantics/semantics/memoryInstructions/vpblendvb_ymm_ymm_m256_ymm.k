@@ -11,6 +11,7 @@ module VPBLENDVB-YMM-YMM-M256-YMM
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpblendvb R1:Ymm, memOffset( MemOff), R3:Ymm, R4:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpblendvb:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset, R3:Ymm, R4:Ymm,  .Operands) =>

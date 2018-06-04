@@ -11,6 +11,7 @@ module MOVSBQ-R64-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (movsbq memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (movsbq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>

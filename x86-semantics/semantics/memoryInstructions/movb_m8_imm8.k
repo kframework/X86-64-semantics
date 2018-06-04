@@ -16,5 +16,5 @@ module MOVB-M8-IMM8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

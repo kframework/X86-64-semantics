@@ -11,6 +11,7 @@ module VPAVGW-XMM-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpavgw memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpavgw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

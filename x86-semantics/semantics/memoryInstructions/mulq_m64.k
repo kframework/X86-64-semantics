@@ -11,6 +11,7 @@ module MULQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (mulq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (mulq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

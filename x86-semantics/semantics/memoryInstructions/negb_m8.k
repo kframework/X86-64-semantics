@@ -11,6 +11,7 @@ module NEGB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (negb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (negb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module PACKSSDW-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (packssdw memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (packssdw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

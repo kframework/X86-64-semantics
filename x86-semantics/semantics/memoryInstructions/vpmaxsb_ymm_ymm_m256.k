@@ -11,6 +11,7 @@ module VPMAXSB-YMM-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vpmaxsb memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vpmaxsb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>

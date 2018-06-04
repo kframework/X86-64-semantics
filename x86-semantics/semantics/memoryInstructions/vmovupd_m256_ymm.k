@@ -11,6 +11,7 @@ module VMOVUPD-M256-YMM
       loadFromMemory( MemOff, 256) ~>
       execinstr (vmovupd R1:Ymm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vmovupd:Opcode R1:Ymm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module VMOVUPD-M256-YMM
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

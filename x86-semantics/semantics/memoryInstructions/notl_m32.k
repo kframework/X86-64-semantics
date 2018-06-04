@@ -11,6 +11,7 @@ module NOTL-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (notl memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (notl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module NOTL-M32
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

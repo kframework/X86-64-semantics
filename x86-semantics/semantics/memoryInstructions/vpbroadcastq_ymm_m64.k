@@ -11,6 +11,7 @@ module VPBROADCASTQ-YMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (vpbroadcastq memOffset( MemOff), R2:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vpbroadcastq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>

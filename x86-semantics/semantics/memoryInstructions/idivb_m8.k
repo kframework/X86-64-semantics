@@ -11,6 +11,7 @@ module IDIVB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (idivb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (idivb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

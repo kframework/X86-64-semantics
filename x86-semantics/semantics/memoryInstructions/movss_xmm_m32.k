@@ -11,6 +11,7 @@ module MOVSS-XMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (movss memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (movss:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

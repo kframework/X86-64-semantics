@@ -11,6 +11,7 @@ module DIVQ-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (divq memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (divq:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

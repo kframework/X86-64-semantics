@@ -11,6 +11,7 @@ module ANDW-M16-IMM8
       loadFromMemory( MemOff, 16) ~>
       execinstr (andw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (andw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

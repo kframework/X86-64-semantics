@@ -11,6 +11,7 @@ module VCMPSD-XMM-XMM-M64-IMM8
       loadFromMemory( MemOff, 64) ~>
       execinstr (vcmpsd Imm8, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (vcmpsd:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>

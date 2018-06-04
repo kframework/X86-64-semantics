@@ -16,5 +16,5 @@ module SETNBE-M8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

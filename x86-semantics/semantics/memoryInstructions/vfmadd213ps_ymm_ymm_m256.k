@@ -11,6 +11,7 @@ module VFMADD213PS-YMM-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vfmadd213ps memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vfmadd213ps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>

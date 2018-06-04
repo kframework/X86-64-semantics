@@ -11,6 +11,7 @@ module CMOVNGL-R32-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (cmovngl memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (cmovngl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

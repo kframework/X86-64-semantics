@@ -11,6 +11,7 @@ module RSQRTSS-XMM-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (rsqrtss memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (rsqrtss:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

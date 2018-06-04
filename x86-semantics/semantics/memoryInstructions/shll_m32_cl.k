@@ -11,6 +11,7 @@ module SHLL-M32-CL
       loadFromMemory( MemOff, 32) ~>
       execinstr (shll %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (shll:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

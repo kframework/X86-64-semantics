@@ -11,6 +11,7 @@ module XORQ-M64-R64
       loadFromMemory( MemOff, 64) ~>
       execinstr (xorq R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (xorq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

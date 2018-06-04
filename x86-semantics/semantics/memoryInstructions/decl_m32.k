@@ -11,6 +11,7 @@ module DECL-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (decl memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (decl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module INCB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (incb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (incb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

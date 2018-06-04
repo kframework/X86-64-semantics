@@ -11,6 +11,7 @@ module RCLL-M32-IMM8
       loadFromMemory( MemOff, 32) ~>
       execinstr (rcll Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (rcll:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

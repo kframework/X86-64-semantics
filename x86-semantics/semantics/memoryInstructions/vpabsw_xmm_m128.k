@@ -11,6 +11,7 @@ module VPABSW-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpabsw memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpabsw:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

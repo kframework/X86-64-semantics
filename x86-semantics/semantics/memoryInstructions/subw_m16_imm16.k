@@ -11,6 +11,7 @@ module SUBW-M16-IMM16
       loadFromMemory( MemOff, 16) ~>
       execinstr (subw Imm16, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (subw:Opcode Imm16:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

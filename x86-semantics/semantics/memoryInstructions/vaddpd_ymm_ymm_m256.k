@@ -11,6 +11,7 @@ module VADDPD-YMM-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vaddpd memOffset( MemOff), R2:Ymm, R3:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vaddpd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm, R3:Ymm,  .Operands) =>

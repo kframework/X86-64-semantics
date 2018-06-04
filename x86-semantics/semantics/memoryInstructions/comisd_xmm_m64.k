@@ -11,6 +11,7 @@ module COMISD-XMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (comisd memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (comisd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

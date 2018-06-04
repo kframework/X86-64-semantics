@@ -10,5 +10,5 @@ module NOPW-M16
      execinstr (nopw:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       .
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

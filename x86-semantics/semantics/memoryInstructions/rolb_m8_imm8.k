@@ -11,6 +11,7 @@ module ROLB-M8-IMM8
       loadFromMemory( MemOff, 8) ~>
       execinstr (rolb Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (rolb:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

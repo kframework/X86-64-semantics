@@ -11,6 +11,7 @@ module PUNPCKLWD-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (punpcklwd memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (punpcklwd:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

@@ -11,6 +11,7 @@ module RCRW-M16-CL
       loadFromMemory( MemOff, 16) ~>
       execinstr (rcrw %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (rcrw:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module NOTB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (notb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (notb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module NOTB-M8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

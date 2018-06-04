@@ -11,6 +11,7 @@ module VPSLLQ-XMM-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpsllq memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpsllq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

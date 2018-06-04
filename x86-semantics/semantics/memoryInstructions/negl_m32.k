@@ -11,6 +11,7 @@ module NEGL-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (negl memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (negl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

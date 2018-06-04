@@ -11,6 +11,7 @@ module VPEXTRD-M32-XMM-IMM8
       loadFromMemory( MemOff, 32) ~>
       execinstr (vpextrd Imm8, R2:Xmm, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (vpextrd:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
@@ -22,5 +23,5 @@ module VPEXTRD-M32-XMM-IMM8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

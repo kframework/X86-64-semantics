@@ -11,6 +11,7 @@ module DIVL-M32
       loadFromMemory( MemOff, 32) ~>
       execinstr (divl memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (divl:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

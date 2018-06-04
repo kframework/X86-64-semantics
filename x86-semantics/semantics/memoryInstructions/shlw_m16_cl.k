@@ -11,6 +11,7 @@ module SHLW-M16-CL
       loadFromMemory( MemOff, 16) ~>
       execinstr (shlw %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (shlw:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

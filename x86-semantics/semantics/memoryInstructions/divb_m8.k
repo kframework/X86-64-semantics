@@ -11,6 +11,7 @@ module DIVB-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (divb memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (divb:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) =>

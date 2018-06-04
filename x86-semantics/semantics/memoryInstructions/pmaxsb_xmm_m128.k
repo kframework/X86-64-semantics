@@ -11,6 +11,7 @@ module PMAXSB-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (pmaxsb memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (pmaxsb:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

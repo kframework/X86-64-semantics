@@ -11,6 +11,7 @@ module CVTSI2SSQ-XMM-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (cvtsi2ssq memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cvtsi2ssq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

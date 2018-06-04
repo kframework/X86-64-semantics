@@ -11,6 +11,7 @@ module IMULW-R16-M16-IMM8
       loadFromMemory( MemOff, 16) ~>
       execinstr (imulw Imm8, memOffset( MemOff), R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (imulw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:R16,  .Operands) =>

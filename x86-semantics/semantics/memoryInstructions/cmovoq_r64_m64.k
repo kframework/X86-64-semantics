@@ -11,6 +11,7 @@ module CMOVOQ-R64-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (cmovoq memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cmovoq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>

@@ -11,6 +11,7 @@ module CVTTSD2SIL-R32-M64
       loadFromMemory( MemOff, 64) ~>
       execinstr (cvttsd2sil memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem64:MInt):MemLoadValue ~> execinstr (cvttsd2sil:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

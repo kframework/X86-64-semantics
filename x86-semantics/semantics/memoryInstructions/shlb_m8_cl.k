@@ -11,6 +11,7 @@ module SHLB-M8-CL
       loadFromMemory( MemOff, 8) ~>
       execinstr (shlb %cl, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (shlb:Opcode %cl, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

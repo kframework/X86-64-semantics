@@ -11,6 +11,7 @@ module CVTPS2DQ-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (cvtps2dq memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (cvtps2dq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

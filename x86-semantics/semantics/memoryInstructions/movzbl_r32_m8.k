@@ -11,6 +11,7 @@ module MOVZBL-R32-M8
       loadFromMemory( MemOff, 8) ~>
       execinstr (movzbl memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (movzbl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) =>

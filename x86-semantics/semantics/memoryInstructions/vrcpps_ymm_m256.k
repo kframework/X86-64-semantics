@@ -11,6 +11,7 @@ module VRCPPS-YMM-M256
       loadFromMemory( MemOff, 256) ~>
       execinstr (vrcpps memOffset( MemOff), R2:Ymm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem256:MInt):MemLoadValue ~> execinstr (vrcpps:Opcode memOffset( MemOff:MInt):MemOffset, R2:Ymm,  .Operands) =>

@@ -11,6 +11,7 @@ module XORW-M16-R16
       loadFromMemory( MemOff, 16) ~>
       execinstr (xorw R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (xorw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

@@ -11,6 +11,7 @@ module MOVZWQ-R64-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (movzwq memOffset( MemOff), R2,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (movzwq:Opcode memOffset( MemOff:MInt):MemOffset, R2:R64,  .Operands) =>

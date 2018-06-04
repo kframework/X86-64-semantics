@@ -11,6 +11,7 @@ module CMPSS-XMM-M32-IMM8
       loadFromMemory( MemOff, 32) ~>
       execinstr (cmpss Imm8, memOffset( MemOff), R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (cmpss:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset, R3:Xmm,  .Operands) =>

@@ -11,6 +11,7 @@ module VPMULLD-XMM-XMM-M128
       loadFromMemory( MemOff, 128) ~>
       execinstr (vpmulld memOffset( MemOff), R2:Xmm, R3:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vpmulld:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm, R3:Xmm,  .Operands) =>

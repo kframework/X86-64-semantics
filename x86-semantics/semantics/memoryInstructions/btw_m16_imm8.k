@@ -11,6 +11,7 @@ module BTW-M16-IMM8
       loadFromMemory( addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 1)))), 8) ~>
       execinstr (btw Imm8, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btw:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

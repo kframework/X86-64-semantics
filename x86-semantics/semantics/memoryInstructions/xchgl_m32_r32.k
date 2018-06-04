@@ -11,6 +11,7 @@ module XCHGL-M32-R32
       loadFromMemory( MemOff, 32) ~>
       execinstr (xchgl R1, memOffset( MemOff),  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (xchgl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>

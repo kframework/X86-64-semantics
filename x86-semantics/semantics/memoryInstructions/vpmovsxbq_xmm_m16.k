@@ -11,6 +11,7 @@ module VPMOVSXBQ-XMM-M16
       loadFromMemory( MemOff, 16) ~>
       execinstr (vpmovsxbq memOffset( MemOff), R2:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (vpmovsxbq:Opcode memOffset( MemOff:MInt):MemOffset, R2:Xmm,  .Operands) =>

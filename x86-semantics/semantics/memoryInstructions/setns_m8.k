@@ -16,5 +16,5 @@ module SETNS-M8
             )
           
   ...</k>
-  
+    <regstate> RSMap:Map </regstate>
 endmodule

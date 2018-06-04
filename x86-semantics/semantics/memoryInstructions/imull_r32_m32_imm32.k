@@ -11,6 +11,7 @@ module IMULL-R32-M32-IMM32
       loadFromMemory( MemOff, 32) ~>
       execinstr (imull Imm32, memOffset( MemOff), R3,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem32:MInt):MemLoadValue ~> execinstr (imull:Opcode Imm32:Imm, memOffset( MemOff:MInt):MemOffset, R3:R32,  .Operands) =>

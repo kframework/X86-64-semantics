@@ -11,6 +11,7 @@ module VBLENDVPD-XMM-XMM-M128-XMM
       loadFromMemory( MemOff, 128) ~>
       execinstr (vblendvpd R1:Xmm, memOffset( MemOff), R3:Xmm, R4:Xmm,  .Operands)
   ...</k>
+    <regstate> RSMap:Map </regstate>
           
   rule <k>
     memLoadValue(Mem128:MInt):MemLoadValue ~> execinstr (vblendvpd:Opcode R1:Xmm, memOffset( MemOff:MInt):MemOffset, R3:Xmm, R4:Xmm,  .Operands) =>
