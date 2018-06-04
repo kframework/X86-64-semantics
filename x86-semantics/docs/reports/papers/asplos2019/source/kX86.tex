@@ -170,7 +170,7 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    concrete formulas. For the case where we have a separate formula for a subset
    of constant values, we do the same equivalence check as before for that
    subset. The constants for which we do not have a separate formula we test
-   \GN{I}{c} using {\tt TS}, the final test-suite of \Strata. 
+   \GN{I}{c} using {\tt ATS}, the final augmented test-suite of \Strata. 
     
     \paragraph{Handling CH.3} There are $474\ (= 141(\text{Reg}) +
         109(\text{Imm}) + 224(\text{Mem}))$ instructions that results in
@@ -181,7 +181,7 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
     in \Stoke. We needed to model the semantics of flag registers for $40$
     instructions involving {\tt shifts, rotates}~\cite{BugStoke986}. 
     
-    For \emph{may undef} cases, we tested against hardware, using {\tt TS}, for
+    For \emph{may undef} cases, we tested against hardware, using {\tt ATS}, for
     the scenarios when the condition for undefinedness is not triggered.  For
     the remaining cases, (1) \emph{may undef}s where the condition for
     triggering \emph{undef} is true and (2) \emph{must undef}, we make sure that
@@ -209,8 +209,11 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    
    \paragraph{Handling CH.5}
    
-   While testing we found instructions like \instr{movss xmm m64, movsd xmm 64} where the generalization
-   from the corresponding register variant is not faithful. Followings are the semantics of \instr{movsd xmm1, xmm2} and its memory variant  \instr{movsd xmm1, m64}. Clearly, the memory variant cannot to obtained using generalization of the  corresponding register instruction.   
+   While testing we found instructions like \instr{movss xmm m64, movsd xmm 64}
+   where the generalization from the corresponding register variant is not
+   faithful. Followings are the semantics of \instr{movsd xmm1, xmm2} and its
+   memory variant  \instr{movsd xmm1, m64}. Clearly, the memory variant cannot
+   to obtained using generalization of the  corresponding register instruction.   
    
    {\small \tt 
        \centering
