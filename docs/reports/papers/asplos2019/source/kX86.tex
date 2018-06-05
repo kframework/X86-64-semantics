@@ -98,20 +98,23 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
     
    In the paper\cite{Heule2016a}, it is mentioned that there are only $50$
    cases, where they found a (valid) counterexample. That means, there are $762
-   = (692 + 120 - 50)$ instructions, whose the initial stoke search using
+   = (692 + 120 - 50)$ instructions, for which  the initial stoke search using
    augmented test-suite, containing $6630\ (= 6580 + 50$) tests,  is sufficient
    enough to provide a semantics with the same correctness guarantee which
    \Strata provides.   In other words, in  most of the cases, the correctness
    guarantee of secondary searches is same as that of the initial stoke search
    using the augmented test-suite (henceforth referred as {\tt ATS})  which
-   \Strata ends up with.
+   \Strata ends up with. \revisit{Had \Strata supported rest of the instructions 
+       it could have performed better by providing more counter examples. 
+       In that sense can we generalize the the observation to unsupported ones?}
       
       
     \paragraph{Handling CH.1} For an unsupported instruction {\tt I}, we either
     model its semantics  manually or borrowed it from project \Stoke.   Once we
     have this candidate, we test it against hardware using {\tt ATS}.  Once the
     test passes we claim (from the above observation) the semantics to have the
-    same correctness guarantee which \Strata provides for most of its cases.
+    same correctness guarantee which \Strata provided for most of its cases.
+    
     This helped us finding instruction semantics bugs in Intel
     Manual~\cite{BugIntel} and \Stoke~\cite{BugStoke983}.
     
@@ -213,7 +216,7 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
    where the generalization from the corresponding register variant is not
    faithful. Followings are the semantics of \instr{movsd xmm1, xmm2} and its
    memory variant  \instr{movsd xmm1, m64}. Clearly, the memory variant cannot
-   to obtained using generalization of the  corresponding register instruction.   
+   be obtained using generalization of the  corresponding register instruction.   
    
    {\small \tt 
        \centering
@@ -227,6 +230,9 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
            S2. DEST[MAXVL-1:64] $\leftarrow$ 0 \\
        \end{tabular}
    }
+
+
+
 
 
 \cmt{
