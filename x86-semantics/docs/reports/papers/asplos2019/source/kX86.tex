@@ -49,7 +49,7 @@ In this work we supported formal semantics of the input/output behavior of
     testing.
     
     \item \textbf{CH.6: Formula simplification} In \Strata{}, formulas are added to the base set as soon as a specification has been learned (by learning multiple programs) and  the next target instruction, whose semantics is yet to be learned, uses the current base set to express its semantics. This implies that the target instructions  which comes later in the stratification process, might have complex formula (beyond the simplification rules that \Strata has). For example, the \Strata formula
-    for \instr{shrxl \%eax \%ebx \%ecx} contain around 2560 terms (excluding the operator symbols). 
+    for \instr{shrxl \%edx, \%ecx, \%ebx} contain around 2560 terms (excluding the operator symbols). 
     
     Moreover, for a non-floating point target instruction {\tt T}, \Strata might get a program containing floating point instruction(s) because the program happens to agree with T on a set of test inputs. Now if the subsequent \secS{} failed to obtain a  program without floating point instruction(s), then we might end up getting a formula containing the floating point operations expressed as \uif{}. This will only happen when the simplification rules, which are applied later to the stratified formulas,  are not able to eliminate the redundant floating point operation. For example, the \Strata formual for \instr{vpbroadcastb \%xmm1 \%ymm2} contain \uif{} related to floating points operations, where as the instruction itself has nothing to do with such operations. The synthesized formula has many instances of uninterpreted function $add\_double(0, A)$ for addition of two double precision floating point values, which we cannot eliminate using a simplification formula $add\_double(0, A) \equiv A$ unless we apply some additional heuristics to make sure that {\tt A} is not $-0.0$.
     
@@ -219,9 +219,14 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
        \end{tabular}
    }
 
-
-
-
+   \paragraph{Handling CH.6}
+        For each instruction for which we have the \Strata formula, we check if we have a simpler formula available from \Stoke. If not we write the formula manually. We make a equivalence check between the two formulas and accept the simpler one. For example, the \Strata formula \instr{shrxl \%edx, \%ecx, \%ebx} having $2650$ terms can be simplified to a formula derived from stoke using $4$ terms.
+         We added additional simplification rules to simplify the formulas even further. The following are some of them:
+        \begin{itemize}
+            \item $add\_double(0, A)  \equiv  A  \text{ if } A\equiv \text{ concat}(0, B)$  
+            \item \revisit{add more} 
+        \end{itemize}
+        \revisit{Add number of how many manually added and how many are still derived from strata}. There are \revisit{??} formulas still derived from \Strata as they are not provided by \Stoke. But they are all manually inspected to be simpler formulas.
 
 \cmt{
    
