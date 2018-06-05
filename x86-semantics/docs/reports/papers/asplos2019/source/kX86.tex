@@ -229,6 +229,17 @@ synthesize an instruction sequence which agrees with {\tt I} on {\tt TS} (which
         \revisit{Add number of how many manually added and how many are still derived from strata}. There are \revisit{??} formulas still derived from \Strata as they are not provided by \Stoke. But they are all manually inspected to be simpler formulas.
 
 \cmt{
+        While we are writing the semantics of instructions manually, we prefer
+        to write it in \K{} framework directly rather than adding them in
+        \Stoke framework. In order to write a formula in \Stoke, we need to
+        create a AST for that formula, which might be too difficult to create
+        for instructions like \instr{pdepq_r64_r64_r64}
+        \instr{pextq_r64_r64_r64} \instr{mpsadbw_xmm_m128_imm8}
+        \intr{pclmulqdq_xmm_m128_imm8} and all their variants, because the AST
+        in these cases wil ave a node for 
+}
+
+\cmt{
    
 \subsection{Porting to \K Rules}
 
