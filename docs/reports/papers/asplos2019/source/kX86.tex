@@ -5,11 +5,7 @@
 \input{figures/instruction.distribution.tex}
 
 In this work we supported formal semantics of the input/output behavior of
-\supp{} out of \total{} x86-64 Haswell ISA instruction variants. Figure \ref{fig:IC} shows the classification of the instructions not supported using dotted ovals. The ones that are not supported can be categorized to System, Legacy mode, MMX, X87 and Cryptography instructions.  
-
-
-
-Following are some of the immediate challenges that we needed to address.
+\supp{} out of \total{} x86-64 Haswell ISA instruction variants. Figure \ref{fig:IC} shows the classification of the instructions not supported using dotted ovals. The ones that are not supported can be categorized to System, Legacy mode, MMX, X87 and Cryptography instructions. Following are some of the immediate challenges that we needed to address.
 
 \begin{enumerate}
     
@@ -52,6 +48,13 @@ Following are some of the immediate challenges that we needed to address.
     \Strata states that the claim for the generalization is based on random
     testing.
     
+    \item \textbf{CH.6: Formula simplification} In \Strata{}, formulas are added to the base set as soon as a specification has been learned (by learning multiple programs) and  the next target instruction, whose semantics is yet to be learned, uses the current base set to express its semantics. This implies that the target instructions  which comes later in the stratification process, might have complex formula (beyond the simplification rules that \Strata has). For example, the \Strata formula
+    fir \instr{shrxl \%eax \%ebx \%ecx} contain around 2560 terms (excluding the operator symbols). 
+    
+    Moreover, for a non-floating point target instruction {\tt T}, \Strata might get a program containing floating point instructions (because the program agrees with T on a set of test inputs) which might result in a formula containing those floating point operations expressed in \uif{}.
+    
+    We intend to get a simpler and more intuitive formula in either cases. 
+       
         
 
 \end{enumerate} 
