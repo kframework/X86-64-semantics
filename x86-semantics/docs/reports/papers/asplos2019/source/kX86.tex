@@ -8,20 +8,6 @@ In this work we supported formal semantics of the input/output behavior of
 \supp{} out of \total{} x86-64 Haswell ISA instruction variants. Figure \ref{fig:IC} shows the classification of the instructions not supported using dotted ovals. The ones that are not supported can be categorized to System, Legacy mode, MMX, X87 and Cryptography instructions.  
 
 
-In order to get semantics of individual instructions, we build on top of project
-\Strata~\cite{Heule2016a} which automatically synthesized formal semantics  of
-the input/output behavior for $1796$ Haswell ISA X86-64 instructions. The key to
-their results is stratified synthesis, where they use a set of instructions
-whose semantics are known to synthesize the semantics of additional instructions
-whose semantics are unknown. Using a  combination of stochastic search + pruning
-using testing (we refer as {\tt initial search}) and subsequent refining of the
-search results using equivalence checking ({\tt referred as secondary
-    searches}), they first came up with the semantics of $692$ register and
-\revisit{$\sim120$} immediate instructions. The rest $\sim984$ are the immediate
-and memory variants obtained by generalization of $692$ register instructions.     
-
-\revisit{Strata Vs Stoke}
-
 
 Following are some of the immediate challenges that we needed to address.
 
