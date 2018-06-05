@@ -5,6 +5,8 @@
 
 ## Todo
 - Paper
+  - Provode DJ with related work on existing projects hosting semantics. 
+  - instructions containing UIF are never testing in stoke whereas we can test it.
   - Problem with secondary searhces in involving UIFs.
   - what about the baseInstructions: should we have our own or just take it from stoke
   - K better than strata because of the ease of testing uifs
@@ -13,7 +15,8 @@
   - In Strata, reg state of instruction containing undefs are never tested. In K we can test to check in the exec gets haleted when the undef values are used.
   - Talk about the manually written K formulas.
   - vpbroadcastb_ymm_xmm simplification helps in getting rid of uifs ... talk about the simplificatiom lemma
-  - Why be chose not to use strata results: Compes & imvolve UIFS when its not required. and could become wrong Refer:X1
+  - Why be chose not to use strata results: Complex & imvolve UIFS when its not required. and could become wrong Refer:X1
+  - Add the stat of what is manualy supprted/ or not.
   - Add this to paper. This is written while handling memory.
   ```
   In case we have formulas from multiple sources (like strata or stoke or manually implemented), and all are
@@ -83,7 +86,7 @@
   ```
   - Support the following:
     - Imm: 8 remaining
-    - Mem: 10 remaining 
+    - Mem: 10 remaining
   - Talk with authors about the simplification
   ```
   0 & A == 0
@@ -95,13 +98,6 @@
   - Nan Forwarding for dppd
   - Check how `PALIGNR mm1, mm2/m64, imm8` is handled
 
-
-## Important Points
-- Uses the tc same as the final strata tc
-- Use the pattern in the stratified set to feed the search pool.
-- instructions containing UIF are never testing in stoke whereas we can test it.
-- Our implementation of semantics tested all the base instructions throughly
--  Individual imeediates formulas might have uifs but the generic formula could be very without them.
 
 ## base sets
 - Base has ymm; Target has xmm
