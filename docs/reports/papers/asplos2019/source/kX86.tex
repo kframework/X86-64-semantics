@@ -51,11 +51,10 @@ In this work we supported formal semantics of the input/output behavior of
     \item \textbf{CH.6: Formula simplification} In \Strata{}, formulas are added to the base set as soon as a specification has been learned (by learning multiple programs) and  the next target instruction, whose semantics is yet to be learned, uses the current base set to express its semantics. This implies that the target instructions  which comes later in the stratification process, might have complex formula (beyond the simplification rules that \Strata has). For example, the \Strata formula
     fir \instr{shrxl \%eax \%ebx \%ecx} contain around 2560 terms (excluding the operator symbols). 
     
-    Moreover, for a non-floating point target instruction {\tt T}, \Strata might get a program containing floating point instructions (because the program agrees with T on a set of test inputs) which might result in a formula containing those floating point operations expressed in \uif{}.
+    Moreover, for a non-floating point target instruction {\tt T}, \Strata might get a program containing floating point instruction(s) because the program happens to agree with T on a set of test inputs. Now if the subsequent \secS{} failed to obtain a  program without floating point instruction(s), then we might end up getting a formula containing the floating point operations expressed as \uif{}. This will only happen when the simplification rules, which are applied later to the stratified formulas,  are not able to eliminate the redundant floating point operation. For example, the \Strata formual for \instr{vpbroadcastb \%xmm1 \%ymm2} containing \uif{} related to floating points operations, where as the instruction itself has nothing to do with such operations. The synthesized formula has many instances of uninterpreted function $add\_double(0, A)$ for addition of two double precision floating point values, which we cannot eliminate unless we apply some additional heuristics to make sure that {\tt A} is not $-0.0$.
     
-    We intend to get a simpler and more intuitive formula in either cases. 
-       
-        
+    We intend to have simpler and more intuitive formulas in either cases.
+    
 
 \end{enumerate} 
 
