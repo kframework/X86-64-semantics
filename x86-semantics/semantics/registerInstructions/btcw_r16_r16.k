@@ -9,7 +9,7 @@ module BTCW-R16-R16
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), xorMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), shlMInt( mi(16, 1), uvalueMInt(mi(16, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 15))))))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), xorMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), shiftLeftMInt( mi(16, 1), uvalueMInt(mi(16, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 15))))))))
 
 "CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), uvalueMInt(mi(16, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 48, 64), mi(16, 15)))))), 15, 16)
 

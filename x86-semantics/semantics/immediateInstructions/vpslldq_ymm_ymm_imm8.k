@@ -9,7 +9,7 @@ module VPSLLDQ-YMM-YMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), uvalueMInt(shlMInt( (#ifMInt ugtMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi), uvalueMInt(mi(128, 3))))), shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( (#ifMInt ugtMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi), uvalueMInt(mi(128, 3))))))
+convToRegKeys(R3) |-> concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), uvalueMInt(shiftLeftMInt( (#ifMInt ugtMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi), uvalueMInt(mi(128, 3))))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( (#ifMInt ugtMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)) #then concatenateMInt( mi(120, 0), mi(8, 16)) #else concatenateMInt( mi(120, 0), handleImmediateWithSignExtend(Imm8, 8, 8)) #fi), uvalueMInt(mi(128, 3))))))
 )
 
     </regstate>

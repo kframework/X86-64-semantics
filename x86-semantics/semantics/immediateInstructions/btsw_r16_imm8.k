@@ -9,7 +9,7 @@ module BTSW-R16-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), orMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), shlMInt( mi(16, 1), uvalueMInt(mi(16, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15))))))))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 48), orMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), shiftLeftMInt( mi(16, 1), uvalueMInt(mi(16, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15))))))))
 
 "CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 48, 64), uvalueMInt(mi(16, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 15)))))), 15, 16)
 

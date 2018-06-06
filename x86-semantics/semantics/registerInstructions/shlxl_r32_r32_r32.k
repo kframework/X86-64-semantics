@@ -9,7 +9,7 @@ module SHLXL-R32-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), shlMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31)))))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31)))))
 )
 
     </regstate>

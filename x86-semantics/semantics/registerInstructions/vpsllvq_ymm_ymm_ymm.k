@@ -9,7 +9,7 @@ module VPSLLVQ-YMM-YMM-YMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 0, 64))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 64, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 128, 192))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 256))))))
+convToRegKeys(R3) |-> concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 0, 64))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 64, 128))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 128, 192))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 256))))))
 )
 
     </regstate>

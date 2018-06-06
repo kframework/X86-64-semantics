@@ -9,7 +9,7 @@ module SHLXQ-R64-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> shlMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63))))
+convToRegKeys(R3) |-> shiftLeftMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63))))
 )
 
     </regstate>

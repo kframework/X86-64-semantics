@@ -17,7 +17,7 @@ module BTSQ-M64-R64
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsq:Opcode R1:R64, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              orMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),
+              orMInt( Mem8, shiftLeftMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),
               addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( getParentValue(R1, RSMap), 0, 61))),
               8
             )

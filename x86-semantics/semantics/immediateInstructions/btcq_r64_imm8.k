@@ -9,7 +9,7 @@ module BTCQ-R64-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uvalueMInt(mi(64, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63)))))))
+convToRegKeys(R2) |-> xorMInt( getParentValue(R2, RSMap), shiftLeftMInt( mi(64, 1), uvalueMInt(mi(64, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63)))))))
 
 "CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( handleImmediateWithSignExtend(Imm8, 8, 8), mi(8, 63)))))), 63, 64)
 

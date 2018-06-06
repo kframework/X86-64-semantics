@@ -19,7 +19,7 @@ module VPERMPD-YMM-M256-IMM8
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(256, 6))))), 192, 256), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(256, 6))))), 192, 256), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(256, 6))))), 192, 256), extractMInt( lshrMInt( Mem256, uvalueMInt(shlMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(256, 6))))), 192, 256))))
+convToRegKeys(R3) |-> concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shiftLeftMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 2)), uvalueMInt(mi(256, 6))))), 192, 256), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shiftLeftMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 2, 4)), uvalueMInt(mi(256, 6))))), 192, 256), concatenateMInt( extractMInt( lshrMInt( Mem256, uvalueMInt(shiftLeftMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 6)), uvalueMInt(mi(256, 6))))), 192, 256), extractMInt( lshrMInt( Mem256, uvalueMInt(shiftLeftMInt( concatenateMInt( mi(254, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 6, 8)), uvalueMInt(mi(256, 6))))), 192, 256))))
       )
     </regstate>
 endmodule

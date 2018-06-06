@@ -17,7 +17,7 @@ module BTSW-M16-R16
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btsw:Opcode R1:R16, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              orMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),
+              orMInt( Mem8, shiftLeftMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64))))),
               addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 48, 64))), 0, 61))),
               8
             )

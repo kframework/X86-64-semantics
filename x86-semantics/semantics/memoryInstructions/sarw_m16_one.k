@@ -17,7 +17,7 @@ module SARW-M16-ONE
     memLoadValue(Mem16:MInt):MemLoadValue ~> execinstr (sarw:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16),
+              extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16),
               MemOff,
               16
             )
@@ -25,15 +25,15 @@ module SARW-M16-ONE
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-"CF" |-> extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 16, 17)
+"CF" |-> extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 16, 17)
 
-"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 8, 9), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
+"PF" |-> (#ifMInt (notBool (((((((eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 15, 16), mi(1, 1)) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 14, 15), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 13, 14), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 12, 13), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 11, 12), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 10, 11), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 9, 10), mi(1, 1))) xorBool eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 8, 9), mi(1, 1)))) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "AF" |-> (undefMInt)
 
-"ZF" |-> (#ifMInt eqMInt( extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 16), mi(16, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
-"SF" |-> extractMInt( ashrMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 1)
+"SF" |-> extractMInt( aShiftRightMInt( concatenateMInt( Mem16, mi(1, 0)), uvalueMInt(mi(17, 1))), 0, 1)
 
 "OF" |-> mi(1, 0)
       )

@@ -19,7 +19,7 @@ module RORXL-R32-M32-IMM8
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), orMInt( lshrMInt( Mem32, uvalueMInt(andMInt( concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(32, 31)))), shlMInt( Mem32, uvalueMInt(subMInt( mi(32, 32), andMInt( concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(32, 31)))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), orMInt( lshrMInt( Mem32, uvalueMInt(andMInt( concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(32, 31)))), shiftLeftMInt( Mem32, uvalueMInt(subMInt( mi(32, 32), andMInt( concatenateMInt( mi(24, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(32, 31)))))))
       )
     </regstate>
 endmodule

@@ -9,7 +9,7 @@ module VPSLLQ-YMM-YMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)) #then mi(256, 0) #else concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8))))))) #fi)
+convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)) #then mi(256, 0) #else concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8))))))) #fi)
 )
 
     </regstate>

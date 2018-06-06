@@ -9,7 +9,7 @@ module BTSL-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), shlMInt( mi(32, 1), uvalueMInt(mi(32, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31))))))))
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), orMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), shiftLeftMInt( mi(32, 1), uvalueMInt(mi(32, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31))))))))
 
 "CF" |-> extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 32, 64), uvalueMInt(mi(32, svalueMInt(andMInt( extractMInt( getParentValue(R1, RSMap), 32, 64), mi(32, 31)))))), 31, 32)
 
