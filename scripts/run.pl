@@ -112,7 +112,7 @@ if ( "" ne $compare ) {
     my @kstates = processKFile( $basename, $filek );
     my @xstates = processXFile( $basename, $filex );
 
-    #pprint( \@kstates, \@xstates, $kstateskip );
+    pprint( \@kstates, \@xstates, $kstateskip );
 
     compareStates( $basename, \@kstates, \@xstates );
 }

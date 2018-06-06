@@ -781,11 +781,11 @@ sub compareStates {
           )
         {
 
-            #info("Skip $regMap{$i % $regcount}");
+            info("Skip $regMap{$i % $regcount}");
             next;
         }
 
-        if ( $kstates[$i] eq "undef" ) {
+        if ( $kstates[$i] =~ m/undefMInt/ or $kstates[$i] =~ m/undefBool/ ) {
 
             #info("\"undef\" found at $regMap{$i % $regcount}");
             next;

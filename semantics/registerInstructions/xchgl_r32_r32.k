@@ -15,7 +15,6 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1
 )
 
     </regstate>
-      requires notBool sameRegisters(R1, R2)
 
 
   // There are several possible encodings for the instruction xchgl eax, eax, and 
@@ -23,6 +22,8 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1
   // These essentially encode to nop. According to this, the following
   // should not be nop.
   /* 
+      requires notBool sameRegisters(R1, R2)
+
          rule <k>
     execinstr (xchgl R1:R32, R1:R32,  .Operands) => execinstr(nop  .Operands)
   ...</k>

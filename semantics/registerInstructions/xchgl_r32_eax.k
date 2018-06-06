@@ -15,12 +15,23 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(%r
 )
 
     </regstate>
+
+     /*
+    One possible encoding for xchgl eax, eax is 0x90 according to the manual,
+    and its semantics are to clear the upper 32 bits of rax. However, 0x90 is
+    also the encoding (RQ4).We found that the automatically synthesized formulas
+    of nop, which does nothing according to the manual (and have the same number
+        of non-linear operations, except for 9 hardware).
+        */
+
+    /*
       requires notBool sameRegisters(%eax, R2)
 
   rule <k>
     execinstr (xchgl %eax, R2:R32,  .Operands) => execinstr(nop  .Operands)
   ...</k>
       requires sameRegisters(%eax, R2)
+      */
 endmodule
 
 module XCHGL-R32-EAX-SEMANTICS
