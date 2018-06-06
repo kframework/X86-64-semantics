@@ -18,10 +18,16 @@ convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt( getParentValue(R1
       requires notBool sameRegisters(R1, R2)
 
 
+  // There are several possible encodings for the instruction xchgl eax, eax, and 
+  // only the two variants that hard-code one of the operands to be eax are affected. 
+  // These essentially encode to nop. According to this, the following
+  // should not be nop.
+  /* 
          rule <k>
     execinstr (xchgl R1:R32, R1:R32,  .Operands) => execinstr(nop  .Operands)
   ...</k>
       requires sameRegisters(R1, %eax)
+  */    
 endmodule
 
 module XCHGL-R32-R32-SEMANTICS
