@@ -1,0 +1,6 @@
+loader
+memory1
+memory2
+memory3
+memory4
+pushpop
