@@ -5,7 +5,15 @@
 
 ## Todo
 - Paper
-  - Provode DJ with related work on existing projects hosting semantics. 
+  - Mention the following as a bug.
+  ```
+  0 & A == 0
+  A & 1 == A
+  but not A & 0 == 0
+  or
+  add_single(-0, 0) != -0
+  ```
+  - Provode DJ with related work on existing projects hosting semantics.
   - instructions containing UIF are never testing in stoke whereas we can test it.
   - Problem with secondary searhces in involving UIFs.
   - what about the baseInstructions: should we have our own or just take it from stoke
@@ -87,14 +95,7 @@
   - Support the following:
     - Imm: 8 remaining
     - Mem: 10 remaining
-  - Talk with authors about the simplification
-  ```
-  0 & A == 0
-  A & 1 == A
-  but not A & 0 == 0
-  or
-  add_single(-0, 0) != -0
-  ```
+
   - Nan Forwarding for dppd
   - Check how `PALIGNR mm1, mm2/m64, imm8` is handled
 
