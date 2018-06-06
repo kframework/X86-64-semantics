@@ -17,7 +17,7 @@ module BTRL-M32-R32
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btrl:Opcode R1:R32, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              andMInt( Mem8, negMInt( shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64)))))),
+              andMInt( Mem8, negMInt( shiftLeftMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), extractMInt( getParentValue(R1, RSMap), 61, 64)))))),
               addMInt( MemOff, concatenateMInt( mi(3, 0), extractMInt( mi(64, svalueMInt(extractMInt( getParentValue(R1, RSMap), 32, 64))), 0, 61))),
               8
             )

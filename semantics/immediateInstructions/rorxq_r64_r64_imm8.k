@@ -9,7 +9,7 @@ module RORXQ-R64-R64-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> orMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)))), shlMInt( getParentValue(R2, RSMap), uvalueMInt(subMInt( mi(64, 64), andMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63))))))
+convToRegKeys(R3) |-> orMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)))), shiftLeftMInt( getParentValue(R2, RSMap), uvalueMInt(subMInt( mi(64, 64), andMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63))))))
 )
 
     </regstate>

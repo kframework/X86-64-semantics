@@ -19,7 +19,7 @@ module VPSLLQ-XMM-XMM-M128
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 63)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem128, 64, 128))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem128, 64, 128))))) #fi)
+convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 63)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem128, 64, 128))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem128, 64, 128))))) #fi)
       )
     </regstate>
 endmodule

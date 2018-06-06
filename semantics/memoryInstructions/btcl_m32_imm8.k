@@ -17,7 +17,7 @@ module BTCL-M32-IMM8
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (btcl:Opcode Imm8:Imm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              xorMInt( Mem8, shlMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7)))))),
+              xorMInt( Mem8, shiftLeftMInt( mi(8, 1), uvalueMInt(concatenateMInt( mi(5, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 5, 8), mi(3, 7)))))),
               addMInt( MemOff, concatenateMInt( mi(59, 0), andMInt( extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 0, 5), mi(5, 3)))),
               8
             )

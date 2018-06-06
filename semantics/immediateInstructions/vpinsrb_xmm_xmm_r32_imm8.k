@@ -9,7 +9,7 @@ module VPINSRB-XMM-XMM-R32-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shlMInt( mi(128, 255), uvalueMInt(shlMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))))), andMInt( shlMInt( concatenateMInt( mi(96, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(shlMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))), shlMInt( mi(128, 255), uvalueMInt(shlMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))))))
+convToRegKeys(R4) |-> concatenateMInt( mi(128, 0), orMInt( andMInt( extractMInt( getParentValue(R3, RSMap), 128, 256), negMInt( shiftLeftMInt( mi(128, 255), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))))), andMInt( shiftLeftMInt( concatenateMInt( mi(96, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))), shiftLeftMInt( mi(128, 255), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))))))
 )
 
     </regstate>

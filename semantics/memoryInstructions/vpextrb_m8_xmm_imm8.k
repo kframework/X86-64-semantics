@@ -17,7 +17,7 @@ module VPEXTRB-M8-XMM-IMM8
     memLoadValue(Mem8:MInt):MemLoadValue ~> execinstr (vpextrb:Opcode Imm8:Imm, R2:Xmm, memOffset( MemOff:MInt):MemOffset,  .Operands) =>
       
             storeToMemory(
-              extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shlMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))), 120, 128),
+              extractMInt( lshrMInt( extractMInt( getParentValue(R2, RSMap), 128, 256), uvalueMInt(shiftLeftMInt( concatenateMInt( mi(124, 0), extractMInt( handleImmediateWithSignExtend(Imm8, 8, 8), 4, 8)), uvalueMInt(mi(128, 3))))), 120, 128),
               MemOff,
               8
             )

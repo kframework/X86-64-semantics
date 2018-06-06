@@ -9,7 +9,7 @@ module VPSLLQ-XMM-XMM-IMM8
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))))) #fi)
+convToRegKeys(R3) |-> (#ifMInt ugtMInt( concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)), mi(64, 63)) #then concatenateMInt( mi(128, 0), mi(128, 0)) #else concatenateMInt( mi(128, 0), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(concatenateMInt( mi(56, 0), handleImmediateWithSignExtend(Imm8, 8, 8)))))) #fi)
 )
 
     </regstate>

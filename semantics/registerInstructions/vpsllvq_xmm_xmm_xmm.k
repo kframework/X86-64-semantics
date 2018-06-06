@@ -9,7 +9,7 @@ module VPSLLVQ-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 128, 192))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 256)))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 128, 192))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 256)))))
 )
 
     </regstate>

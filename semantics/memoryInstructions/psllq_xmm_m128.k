@@ -19,7 +19,7 @@ module PSLLQ-XMM-M128
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 63)) #then mi(128, 0) #else concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem128, 64, 128))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem128, 64, 128)))) #fi))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 63)) #then mi(128, 0) #else concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem128, 64, 128))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem128, 64, 128)))) #fi))
       )
     </regstate>
 endmodule

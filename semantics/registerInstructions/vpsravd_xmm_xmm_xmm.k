@@ -9,7 +9,7 @@ module VPSRAVD-XMM-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( ashrMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 128, 160))), concatenateMInt( ashrMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 160, 192))), concatenateMInt( ashrMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 224))), ashrMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256)))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 128, 160))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 160, 192))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 192, 224))), aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256)))))))
 )
 
     </regstate>

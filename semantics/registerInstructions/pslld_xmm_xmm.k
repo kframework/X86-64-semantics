@@ -9,7 +9,7 @@ module PSLLD-XMM-XMM
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), mi(64, 31)) #then mi(128, 0) #else concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256))), shlMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256)))))) #fi))
+convToRegKeys(R2) |-> concatenateMInt( extractMInt( getParentValue(R2, RSMap), 0, 128), (#ifMInt ugtMInt( extractMInt( getParentValue(R1, RSMap), 192, 256), mi(64, 31)) #then mi(128, 0) #else concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( getParentValue(R1, RSMap), 224, 256)))))) #fi))
 )
 
     </regstate>

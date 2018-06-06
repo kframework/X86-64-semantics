@@ -19,7 +19,7 @@ module VPSLLQ-YMM-YMM-M128
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 63)) #then mi(256, 0) #else concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(extractMInt( Mem128, 64, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(extractMInt( Mem128, 64, 128))), concatenateMInt( shlMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem128, 64, 128))), shlMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem128, 64, 128)))))) #fi)
+convToRegKeys(R3) |-> (#ifMInt ugtMInt( extractMInt( Mem128, 64, 128), mi(64, 63)) #then mi(256, 0) #else concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 0, 64), uvalueMInt(extractMInt( Mem128, 64, 128))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 64, 128), uvalueMInt(extractMInt( Mem128, 64, 128))), concatenateMInt( shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 128, 192), uvalueMInt(extractMInt( Mem128, 64, 128))), shiftLeftMInt( extractMInt( getParentValue(R2, RSMap), 192, 256), uvalueMInt(extractMInt( Mem128, 64, 128)))))) #fi)
       )
     </regstate>
 endmodule

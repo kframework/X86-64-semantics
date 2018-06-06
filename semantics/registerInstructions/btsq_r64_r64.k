@@ -9,7 +9,7 @@ module BTSQ-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), shlMInt( mi(64, 1), uvalueMInt(mi(64, svalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63)))))))
+convToRegKeys(R2) |-> orMInt( getParentValue(R2, RSMap), shiftLeftMInt( mi(64, 1), uvalueMInt(mi(64, svalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63)))))))
 
 "CF" |-> extractMInt( lshrMInt( getParentValue(R2, RSMap), uvalueMInt(mi(64, svalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63)))))), 63, 64)
 

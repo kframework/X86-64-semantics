@@ -9,7 +9,7 @@ module BEXTRL-R32-R32-R32
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( lshrMInt( concatenateMInt( mi(480, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)))), 480, 512), negMInt( extractMInt( shlMInt( lshrMInt( mi(512, 18446744073709551615), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), 480, 512))))
+convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( lshrMInt( concatenateMInt( mi(480, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)))), 480, 512), negMInt( extractMInt( shiftLeftMInt( lshrMInt( mi(512, 18446744073709551615), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), 480, 512))))
 
 "CF" |-> mi(1, 0)
 
@@ -17,7 +17,7 @@ convToRegKeys(R3) |-> concatenateMInt( mi(32, 0), andMInt( extractMInt( lshrMInt
 
 "AF" |-> (undefMInt)
 
-"ZF" |-> (#ifMInt eqMInt( andMInt( extractMInt( lshrMInt( concatenateMInt( mi(480, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)))), 480, 512), negMInt( extractMInt( shlMInt( lshrMInt( mi(512, 18446744073709551615), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), 480, 512))), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
+"ZF" |-> (#ifMInt eqMInt( andMInt( extractMInt( lshrMInt( concatenateMInt( mi(480, 0), extractMInt( getParentValue(R2, RSMap), 32, 64)), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 56, 64)))), 480, 512), negMInt( extractMInt( shiftLeftMInt( lshrMInt( mi(512, 18446744073709551615), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), uvalueMInt(concatenateMInt( mi(504, 0), extractMInt( getParentValue(R1, RSMap), 48, 56)))), 480, 512))), mi(32, 0)) #then mi(1, 1) #else mi(1, 0) #fi)
 
 "SF" |-> (undefMInt)
 

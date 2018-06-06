@@ -9,7 +9,7 @@ module SARXQ-R64-R64-R64
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> ashrMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63))))
+convToRegKeys(R3) |-> aShiftRightMInt( getParentValue(R2, RSMap), uvalueMInt(andMInt( getParentValue(R1, RSMap), mi(64, 63))))
 )
 
     </regstate>

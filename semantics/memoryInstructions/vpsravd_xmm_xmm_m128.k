@@ -19,7 +19,7 @@ module VPSRAVD-XMM-XMM-M128
   ...</k>
     <regstate>
       RSMap:Map => updateMap(RSMap,
-convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( ashrMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( Mem128, 0, 32))), concatenateMInt( ashrMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( Mem128, 32, 64))), concatenateMInt( ashrMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( Mem128, 64, 96))), ashrMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( Mem128, 96, 128)))))))
+convToRegKeys(R3) |-> concatenateMInt( mi(128, 0), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 128, 160), uvalueMInt(extractMInt( Mem128, 0, 32))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 160, 192), uvalueMInt(extractMInt( Mem128, 32, 64))), concatenateMInt( aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 192, 224), uvalueMInt(extractMInt( Mem128, 64, 96))), aShiftRightMInt( extractMInt( getParentValue(R2, RSMap), 224, 256), uvalueMInt(extractMInt( Mem128, 96, 128)))))))
       )
     </regstate>
 endmodule
