@@ -15,11 +15,13 @@ module X86-CONFIGURATION
   imports X86-LOADER-SYNTAX
   //imports COMMON-C-LIBRARY-CONFIGURATION
 
+
   // configuration <T>
   configuration
 //initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
     <k> 
 	$PGM:Instructions ~> 
+	initRegisters($REGV:RegValPairList) ~> 
 	initEnvironment($ARGV:List) ~> 
         loadEntryPoint ~>
 	inforegisters ~> 
@@ -47,7 +49,6 @@ module X86-CONFIGURATION
       .Map
       /*@
         General purpose registers.
-      */
       ("RIP" |-> mi(64, 0))
       ("RAX" |-> mi(64, 0))
       ("RBX" |-> mi(64, 0))
@@ -65,20 +66,20 @@ module X86-CONFIGURATION
       ("R13" |-> mi(64, 0))
       ("R14" |-> mi(64, 0))
       ("R15" |-> mi(64, 0))
+      */
 
       /*@
         General purpose registers.
-      */
       ("CF" |-> mi(1, 0))
       ("PF" |-> mi(1, 0))
       ("AF" |-> mi(1, 0))
       ("ZF" |-> mi(1, 0))
       ("SF" |-> mi(1, 0))
       ("OF" |-> mi(1, 0))
+      */
 
       /*@
         256 bit ymm registers
-      */
       ("YMM0"  |->  mi(256, 0))
       ("YMM1"  |->  mi(256, 0))
       ("YMM2"  |->  mi(256, 0))
@@ -95,6 +96,7 @@ module X86-CONFIGURATION
       ("YMM13" |->  mi(256, 0))
       ("YMM14" |->  mi(256, 0))
       ("YMM15" |->  mi(256, 0))
+      */
     </regstate>
 
     /*@

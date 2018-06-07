@@ -2,12 +2,33 @@ require "x86-configuration.k"
 
 module X86-INIT-SYNTAX
   imports LIST
+  imports STRING
+  imports MINT
+
+  syntax RegValPair ::= "regvalpair" "(" String "," MInt ")"
+  syntax RegValPairList ::= List{RegValPair, ""} [klabel(regvalpairlist)]
+
 
   syntax KItem ::= initEnvironment(List)
+  syntax KItem ::= initRegisters(RegValPairList)
 endmodule
 
 module X86-INIT
   imports X86-CONFIGURATION
+
+  /*@
+    Initialize register with user supplied values.
+  */
+  rule <k> 
+    initRegisters(.RegValPairList) => .  
+  ...</k>
+  rule <k>
+      initRegisters(regvalpair(R:String, V:MInt ) Rest:RegValPairList) => 
+        initRegisters(Rest)
+  ...</k>
+      <regstate>...  .Map => R |-> V    ...</regstate>
+
+
 
   /*@
     Initialization involves:
@@ -16,6 +37,7 @@ module X86-INIT
   */  
   rule initEnvironment(L:List) =>
      allocateStackMemory(256, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
+
 
   /*@
     Store a fake return adress mi(64, -1) which signals program executaion halt. 
