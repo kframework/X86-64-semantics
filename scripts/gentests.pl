@@ -6,7 +6,7 @@ use File::Compare;
 use File::Basename;
 use File::Find;
 
-use lib qw( ../../scripts/ );
+use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
 
 my $help = "";

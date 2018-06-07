@@ -5,8 +5,8 @@ use Getopt::Long;
 use File::Compare;
 use File::Basename;
 
-use lib qw( ./ );
-use ktestutils;
+use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
+use kutils;
 
 my $gendir = "";
 my $templatedir = "";
