@@ -269,5 +269,4 @@ TEST_INPUTS(
     movq ARG1_64, %rax
     movq ARG2_64, %rcx
     pdepq %rax, %rcx, %rbx
-    pdepl %eax, %ecx, %ebx
 TEST_END
