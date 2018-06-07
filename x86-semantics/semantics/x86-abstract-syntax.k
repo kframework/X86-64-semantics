@@ -136,4 +136,10 @@ module X86-ASBTRACT-SYNTAX
   syntax KItem ::= decRSPInBytes(Int) 
   syntax KItem ::= incRSPInBytes(Int) 
 
+  /*@
+    pdepl/q
+  */
+  syntax KItem ::= parallelBitDeposit64(MInt, Register, Register, Int, Int)
+  syntax KItem ::= parallelBitDeposit32(MInt, Register, Register, Int, Int)
+
 endmodule

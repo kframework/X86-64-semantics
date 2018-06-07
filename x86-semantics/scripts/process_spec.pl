@@ -258,14 +258,18 @@ sub createSingleFileDefn {
     my $memoryInstructionsPath    = "memoryInstructions/";
     my $systemInstructionsPath    = "systemInstructions/";
     my $customInstructionsPath    = "customInstructions/";
+    my $UTInstructionsPath        = "underTestInstructions/";
 
     if ( "" ne $useuif ) {
         $baseInstrPath    = "instructions_with_uif/baseInstructions/";
         $derivedInstrPath = "instructions_with_uif/derivedInstructions/";
     }
 
-    print("\tMerging customInstructionsPath\n");
-    find( \&mergeToSingleFile, $customInstructionsPath );
+    print("\tMerging UTInstructionsPath\n");
+    find( \&mergeToSingleFile, $UTInstructionsPath );
+
+    #print("\tMerging customInstructionsPath\n");
+    #find( \&mergeToSingleFile, $customInstructionsPath );
 
     #print("\tMerging $registerInstructionsPath\n");
     #find( \&mergeToSingleFile, $registerInstructionsPath );
@@ -274,8 +278,8 @@ sub createSingleFileDefn {
     #print("\tMerging $memoryInstructionsPath\n");
     #find( \&mergeToSingleFile, $memoryInstructionsPath );
 
-    print("\tMerging $systemInstructionsPath\n");
-    find( \&mergeToSingleFile, $systemInstructionsPath );
+    #print("\tMerging $systemInstructionsPath\n");
+    #find( \&mergeToSingleFile, $systemInstructionsPath );
 
     #print $sfp "endmodule";
     #    close($sfp);
