@@ -1,0 +1,89 @@
+Testcase 5730:
+
+SIGNAL 0 [normal exit]
+
+%rax     c2 5c c0 6f b5 1a 49 60
+%rcx     8a cc 80 11 d9 97 d9 20
+%rdx     7f 16 03 bc ad a9 f3 42
+%rbx     7d a2 ad 1d 61 4f bd ae
+%rsp     00 00 00 07 00 00 00 00
+%rbp     82 03 43 40 79 77 c0 68
+%rsi     5e 73 46 b0 f3 30 ac 37
+%rdi     67 9e 62 70 21 bf c2 04
+%r8      c7 39 f6 5f 9b cd d0 1e
+%r9      2a 79 44 f3 f6 40 b0 b6
+%r10     f3 ff 91 ef a0 1e a9 f0
+%r11     3f 2a b2 20 c3 14 be 53
+%r12     a5 aa 13 ee e2 da f8 83
+%r13     1f e1 14 2e b7 9b ea c3
+%r14     e4 a0 be 90 ad bf ff bd
+%r15     ea dc d2 67 9d a7 b5 7d
+
+%ymm0    de 1f 24 14 35 47 42 cd aa 9a 18 2d b6 78 6e 26 cb af 26 0d 90 45 f9 61 8e 5d 77 ca b8 cd b7 ca
+%ymm1    00 10 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00 10 00 00 00 00 00 00
+%ymm2    3f f0 00 00 00 00 00 01 3f f0 00 00 00 00 00 01 3f f0 00 00 00 00 00 01 3f f0 00 00 00 00 00 01
+%ymm3    3f f0 00 00 00 00 00 00 3f f0 00 00 00 00 00 00 3f f0 00 00 00 00 00 00 3f f0 00 00 00 00 00 00
+%ymm4    7d a4 9d a2 3a f0 14 96 b1 9d d6 7a ae b2 d5 92 bc 68 b7 9e 10 d4 40 77 49 28 5f a5 91 04 e2 db
+%ymm5    05 0a cf 85 8d 2a e8 eb f0 f7 d7 5a 46 3a 83 cc 8b d1 f7 f9 15 8f 42 77 7f 6e 36 08 25 0e a8 80
+%ymm6    eb 01 f5 73 fc eb a4 76 5d 7a 8e 72 8a 97 9a 30 50 60 ac 84 d5 db 8d db c6 fe 99 4f 7f 2a 18 77
+%ymm7    2e e1 65 20 f6 63 2b 83 67 40 de f1 e2 64 62 70 da cb d6 aa 7b 75 fe f6 a0 23 69 c5 5d 6a 2c 0e
+%ymm8    06 4f cf 75 20 ee 10 00 f7 ad d5 74 45 95 96 54 b2 31 f2 42 57 26 6c ac ab f6 ae b5 56 8b 4c 91
+%ymm9    99 68 8d 7d 61 3e ae ec 1d c0 db 1d c8 2e 48 54 e9 b3 be 94 01 8c a2 bf 35 7c 53 89 d0 5c da 1b
+%ymm10   41 11 c5 d9 78 5d 4c fb fb 0e 4d 0f f1 8d 34 d3 c4 05 8b 70 1c d7 b2 88 d6 26 e5 17 f0 69 c4 67
+%ymm11   f5 14 9e 6b d3 8c a6 f9 14 49 ad 19 4e 9e cc 3e ad 3f 0a da 7a 05 4f 0a e8 77 57 60 a1 31 7b 89
+%ymm12   9d 4e 10 84 59 fc e6 ee 29 59 47 2f 45 fe 82 2c b0 e4 60 71 36 21 67 5c a7 62 0d 9d 79 96 45 19
+%ymm13   a5 ee dc 50 51 8e 40 cd 34 44 e7 46 1b 8d ff eb 48 01 69 1b 51 85 bb df 4e 99 78 f2 f2 16 e4 55
+%ymm14   54 6f d0 93 ca e2 b6 7a 91 28 3a c4 f4 f6 dd ad db 50 ae ef 08 ad 86 ec 5c 01 31 7d b3 98 04 c1
+%ymm15   39 72 3d 64 1e cd 93 8b 03 b1 d4 89 1f ac 4f 5b b8 59 7d 0a 7e 2d 5c 8f 25 ae 08 39 52 07 07 d5
+
+%cf      0 
+%1       1 
+%pf      1 
+%0       0 
+%af      1 
+%0       0 
+%zf      1 
+%sf      1 
+%tf      0 
+%if      1 
+%df      0 
+%of      1 
+%iopl[0] 0 
+%iopl[1] 0 
+%nt      0 
+%0       0 
+%rf      0 
+%vm      0 
+%ac      0 
+%vif     0 
+%vip     0 
+%id      0 
+
+[ 00000007 00000000 - 00000006 ffffff80 ]
+[ 16 valid rows shown ]
+
+00000006 fffffff8   v v v v v v v v   da 08 f5 51 22 92 3d 49 
+00000006 fffffff0   v v v v v v v v   38 99 7a ea 32 46 ba 75 
+00000006 ffffffe8   v v v v v v v v   78 3a 4e 66 78 ef 9f f2 
+00000006 ffffffe0   v v v v v v v v   c4 16 45 08 52 97 fb 89 
+00000006 ffffffd8   v v v v v v v v   e6 63 14 d8 59 a3 cf 4e 
+00000006 ffffffd0   v v v v v v v v   67 34 30 bd ce 7f 26 12 
+00000006 ffffffc8   v v v v v v v v   c2 5f c7 86 2b 89 ad bb 
+00000006 ffffffc0   v v v v v v v v   c4 ad 0d c8 b1 97 75 0d 
+00000006 ffffffb8   v v v v v v v v   0a 70 09 0b 3c 9b 1d aa 
+00000006 ffffffb0   v v v v v v v v   66 b1 96 bc bd c7 4b 3c 
+00000006 ffffffa8   v v v v v v v v   34 3e d8 6f c4 00 ae fc 
+00000006 ffffffa0   v v v v v v v v   fc 76 53 a4 8d 05 04 fe 
+00000006 ffffff98   v v v v v v v v   34 6e ee 91 35 6c 14 aa 
+00000006 ffffff90   v v v v v v v v   f3 cf 71 81 92 0d 63 c5 
+00000006 ffffff88   v v v v v v v v   79 d8 c1 c8 04 38 a9 58 
+00000006 ffffff80   v v v v v v v v   e8 4e a0 8f d0 95 10 a3 
+
+[ 00000001 00000000 - 00000001 00000000 ]
+[ 0 valid rows shown ]
+
+[ 00000000 00000000 - 00000000 00000000 ]
+[ 0 valid rows shown ]
+
+0 more segment(s)
+
