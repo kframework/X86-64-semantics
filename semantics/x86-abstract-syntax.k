@@ -142,4 +142,11 @@ module X86-ASBTRACT-SYNTAX
   syntax KItem ::= parallelBitDeposit64(MInt, Register, Register, Int, Int)
   syntax KItem ::= parallelBitDeposit32(MInt, Register, Register, Int, Int)
 
+  /*@
+    pextl/q
+  */
+  syntax KItem ::= parallelBitExtract64(MInt, Register, Register, Int, Int)
+  syntax KItem ::= parallelBitExtract32(MInt, Register, Register, Int, Int)
+
+
 endmodule

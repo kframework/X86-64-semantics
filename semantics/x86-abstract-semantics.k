@@ -430,6 +430,71 @@ module X86-ABSTRACT-SEMANTICS
                 andBool M =/=Int 31
     
 
+  /*@
+    pextl/q
+  */
+   // Base Condition
+  rule <k>
+    parallelBitExtract32(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, 31, RSMap), DestR, K)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 1)) andBool M ==Int 31
+
+  rule <k>
+    parallelBitExtract32(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+    .
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 0)) andBool M ==Int 31
+
+  // General Condition
+  rule <k>
+    parallelBitExtract32(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, M, RSMap), DestR, K)
+  ~>  parallelBitExtract32(Mask, TempR, DestR, M +Int 1, K +Int 1)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 31 -Int M, 32 -Int M), mi(1, 1))
+                andBool M =/=Int 31
+      
+  rule <k>
+    parallelBitExtract32(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+        parallelBitExtract32(Mask, TempR, DestR, M +Int 1, K)
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 31 -Int M, 32 -Int M), mi(1, 0))
+                andBool M =/=Int 31
+             
+
+  // Base Condition
+  rule <k>
+    parallelBitExtract64(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, 63, RSMap), DestR, K)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 1)) andBool M ==Int 63
+
+  rule <k>
+    parallelBitExtract64(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+    .
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 0, 1), mi(1, 0)) andBool M ==Int 63
+
+  // General Condition
+  rule <k>
+    parallelBitExtract64(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+      setRegisterBitsAtPositon(getRegisterBitsAtPositon(TempR, 1, M, RSMap), DestR, K)
+  ~>  parallelBitExtract64(Mask, TempR, DestR, M +Int 1, K +Int 1)
+  ...</k>  
+    <regstate> RSMap:Map </regstate>
+      requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 1))
+                andBool M =/=Int 63
+      
+  rule <k>
+    parallelBitExtract64(Mask:MInt, TempR:Register, DestR:Register, M:Int, K:Int) => 
+        parallelBitExtract64(Mask, TempR, DestR, M +Int 1, K)
+  ...</k>  
+    requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 0))
+                andBool M =/=Int 63               
 
 endmodule
 
