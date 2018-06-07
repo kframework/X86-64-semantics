@@ -830,12 +830,12 @@ module MINT-WRAPPER
     }
   */   
   rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) => DEST
-      requires M ==Int N
+      requires M >Int N
 
   rule computePCLMULQDQ1(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
     computePCLMULQDQ1( 
         TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ1Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
-      requires M <Int N
+      requires M <=Int N
 
   rule computePCLMULQDQ1Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
   refineHelper(TEMP1, TEMP2, 1, M, 
@@ -855,12 +855,12 @@ module MINT-WRAPPER
   */
 
   rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) => DEST
-      requires M ==Int N
+      requires M >Int N
 
   rule computePCLMULQDQ2(TEMP1:MInt, TEMP2:MInt, DEST:MInt, M:Int, N:Int) =>
     computePCLMULQDQ2( 
         TEMP1, TEMP2, plugInMask(DEST, computePCLMULQDQ2Refine(TEMP1, TEMP2, M), M), M +Int 1, N)
-      requires M <Int N
+      requires M <=Int N
 
   rule computePCLMULQDQ2Refine(TEMP1:MInt, TEMP2:MInt, M:Int) =>
   refineHelper(TEMP1, TEMP2, M -Int 63, 63,  mi(1, 0))
@@ -870,7 +870,7 @@ module MINT-WRAPPER
   syntax MInt ::= refineHelper(MInt, MInt, Int, Int, MInt) [function]
   rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int,
       RES:MInt) => RES
-      requires P >=Int Q
+      requires P >Int Q
 
   rule refineHelper(TEMP1:MInt, TEMP2:MInt, P:Int, Q:Int,
       RES:MInt) => 
@@ -880,7 +880,7 @@ module MINT-WRAPPER
             extractMInt(TEMP1, 63 -Int P,         64 -Int P),
             extractMInt(TEMP2, 63 -Int (P -Int Q), 64 -Int (P -Int Q))
             )))
-      requires P <Int Q
+      requires P <=Int Q
 
 
   rule selectSlice(SRC1:MInt, Imm8:MInt, CheckBit:Int, Start1:Int, Start2:Int)
