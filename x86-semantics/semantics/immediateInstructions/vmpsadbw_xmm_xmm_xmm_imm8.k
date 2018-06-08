@@ -37,7 +37,7 @@ module VMPSADBW-XMM-XMM-XMM-IMM8
           extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 79, 72),
         selectSliceMPSAD(getRegisterValue(R3, RSMap),
           extractMInt(handleImmediateWithSignExtend(Imm8, 8, 8), 5, 6), 87, 80),
-        R3:Xmm, 
+        R4:Xmm, 
         .Operands)
   ...</k>   
     <regstate> RSMap </regstate>
@@ -48,7 +48,7 @@ module VMPSADBW-XMM-XMM-XMM-IMM8
         DestByte0:MInt, DestByte1:MInt, DestByte2:MInt, DestByte3:MInt,
         DestByte4:MInt, DestByte5:MInt, DestByte6:MInt, DestByte7:MInt,
         DestByte8:MInt, DestByte9:MInt, DestByte10:MInt,
-        R3:Xmm,  .Operands) =>
+        R4:Xmm,  .Operands) =>
   setParentValue(
   concatenateMInt(mi(128, 0),
     concatenateMInt(
@@ -125,23 +125,9 @@ module VMPSADBW-XMM-XMM-XMM-IMM8
               absoluteUnsignedDifference(DestByte2, SrcByte2),
               absoluteUnsignedDifference(DestByte3, SrcByte3))
           ))
-      ))) , R3)
+      ))) , R4)
 
   ...</k>
-
-  // Utils
-
-  syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
-  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(A, B)
-    requires ugtMInt(A, B)
-
-  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(B, A)
-    requires notBool ugtMInt(A, B)
-
-  syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
-  rule selectSliceMPSAD(DEST:MInt, Offset:MInt, High:Int, Low:Int) =>
-    concatenateMInt(mi(8, 0), extractMInt(DEST, (uvalueMInt(Offset) *Int 32)
-          +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
 endmodule
 
 module VMPSADBW-XMM-XMM-XMM-IMM8-SEMANTICS
