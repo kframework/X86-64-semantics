@@ -352,6 +352,13 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= computePCLMULQDQ2(MInt, MInt, MInt, Int, Int) [function]
   syntax MInt ::= computePCLMULQDQ2Refine(MInt, MInt, Int) [function]
   syntax MInt ::= selectSlice(MInt, MInt, Int, Int, Int) [function]
+
+  /*@
+    mpsad
+  */  
+   syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
+   syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
+   
 endmodule
 
 
@@ -890,7 +897,21 @@ module MINT-WRAPPER
   rule selectSlice(SRC1:MInt, Imm8:MInt, CheckBit:Int, Start1:Int, Start2:Int)
   => extractMInt(SRC1, Start2, Start2 +Int 64)
     requires  eqMInt(mi(1, 1), extractMInt(Imm8, CheckBit, CheckBit +Int 1))
-  
+
+  /*@
+    mpsad
+  */  
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(A, B)
+    requires ugtMInt(A, B)
+
+  rule absoluteUnsignedDifference(A:MInt, B:MInt) => subMInt(B, A)
+    requires notBool ugtMInt(A, B)
+
+  rule selectSliceMPSAD(DEST:MInt, Offset:MInt, High:Int, Low:Int) =>
+    concatenateMInt(mi(8, 0), 
+        //extractMInt(DEST, (uvalueMInt(Offset) *Int 32) +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
+        extractMask(DEST, High -Int Low +Int 1, (uvalueMInt(Offset) *Int 32) +Int Low))
+    
 endmodule
 
 /*
