@@ -517,6 +517,27 @@ registerInstructions/vfmadd231ss_xmm_xmm_xmm.k
 registerInstructions/vfmadd231pd_ymm_ymm_ymm.k
 registerInstructions/vfmadd231ps_ymm_ymm_ymm.k  <--- End
 
+registerInstructions/vfmsub132pd_xmm_xmm_xmm.k  <--- fmsub
+registerInstructions/vfmsub132ps_xmm_xmm_xmm.k
+registerInstructions/vfmsub132sd_xmm_xmm_xmm.k
+registerInstructions/vfmsub132ss_xmm_xmm_xmm.k
+registerInstructions/vfmsub132pd_ymm_ymm_ymm.k
+registerInstructions/vfmsub132ps_ymm_ymm_ymm.k
+
+registerInstructions/vfmsub213pd_xmm_xmm_xmm.k
+registerInstructions/vfmsub213ps_xmm_xmm_xmm.k
+registerInstructions/vfmsub213sd_xmm_xmm_xmm.k
+registerInstructions/vfmsub213ss_xmm_xmm_xmm.k
+registerInstructions/vfmsub213pd_ymm_ymm_ymm.k
+registerInstructions/vfmsub213ps_ymm_ymm_ymm.k
+
+registerInstructions/vfmsub231pd_xmm_xmm_xmm.k
+registerInstructions/vfmsub231ps_xmm_xmm_xmm.k
+registerInstructions/vfmsub231sd_xmm_xmm_xmm.k
+registerInstructions/vfmsub231ss_xmm_xmm_xmm.k
+registerInstructions/vfmsub231pd_ymm_ymm_ymm.k
+registerInstructions/vfmsub231ps_ymm_ymm_ymm.k  <-- End
+
 registerInstructions/vfmaddsub132pd_xmm_xmm_xmm.k
 registerInstructions/vfmaddsub132pd_ymm_ymm_ymm.k
 registerInstructions/vfmaddsub132ps_xmm_xmm_xmm.k
@@ -529,24 +550,6 @@ registerInstructions/vfmaddsub231pd_xmm_xmm_xmm.k
 registerInstructions/vfmaddsub231pd_ymm_ymm_ymm.k
 registerInstructions/vfmaddsub231ps_xmm_xmm_xmm.k
 registerInstructions/vfmaddsub231ps_ymm_ymm_ymm.k
-registerInstructions/vfmsub132pd_xmm_xmm_xmm.k
-registerInstructions/vfmsub132pd_ymm_ymm_ymm.k
-registerInstructions/vfmsub132ps_xmm_xmm_xmm.k
-registerInstructions/vfmsub132ps_ymm_ymm_ymm.k
-registerInstructions/vfmsub132sd_xmm_xmm_xmm.k
-registerInstructions/vfmsub132ss_xmm_xmm_xmm.k
-registerInstructions/vfmsub213pd_xmm_xmm_xmm.k
-registerInstructions/vfmsub213pd_ymm_ymm_ymm.k
-registerInstructions/vfmsub213ps_xmm_xmm_xmm.k
-registerInstructions/vfmsub213ps_ymm_ymm_ymm.k
-registerInstructions/vfmsub213sd_xmm_xmm_xmm.k
-registerInstructions/vfmsub213ss_xmm_xmm_xmm.k
-registerInstructions/vfmsub231pd_xmm_xmm_xmm.k
-registerInstructions/vfmsub231pd_ymm_ymm_ymm.k
-registerInstructions/vfmsub231ps_xmm_xmm_xmm.k
-registerInstructions/vfmsub231ps_ymm_ymm_ymm.k
-registerInstructions/vfmsub231sd_xmm_xmm_xmm.k
-registerInstructions/vfmsub231ss_xmm_xmm_xmm.k
 registerInstructions/vfmsubadd132pd_xmm_xmm_xmm.k
 registerInstructions/vfmsubadd132pd_ymm_ymm_ymm.k
 registerInstructions/vfmsubadd132ps_xmm_xmm_xmm.k
@@ -559,6 +562,7 @@ registerInstructions/vfmsubadd231pd_xmm_xmm_xmm.k
 registerInstructions/vfmsubadd231pd_ymm_ymm_ymm.k
 registerInstructions/vfmsubadd231ps_xmm_xmm_xmm.k
 registerInstructions/vfmsubadd231ps_ymm_ymm_ymm.k
+
 registerInstructions/vfnmadd132pd_xmm_xmm_xmm.k
 registerInstructions/vfnmadd132pd_ymm_ymm_ymm.k
 registerInstructions/vfnmadd132ps_xmm_xmm_xmm.k
