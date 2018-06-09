@@ -82,6 +82,45 @@ module MINT-WRAPPER-SYNTAX
   */
   syntax Floats ::= convertFloatsToDoubles(Floats) [function]
 
+  /*@
+    splitVector(MI, W): Splits the Bitvector MI into a List of
+    bitwidthMInt(MI)/W Bitvectors each of width W.
+  */
+  syntax MInts ::= splitVector(MInt, Int) [function]
+  syntax MInts ::= splitVectorHelper(MInt, Int, Int) [function]
+
+  /*@
+    joinVector(MIs): Concatenates a list of Bitvectors MIs to a
+    single Bitvector of size equals added bitwidths.
+  */
+  syntax MInt ::= joinVector(MInts) [function]
+
+  /*@
+    operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
+    Vop elementwise on two lists MI1, MI2 of MInts.
+    OpW: Width of the operation. Typical values: 32 or 64.
+  */
+  syntax VOperation ::= "vfadd"         [token]
+                      | "vfsub"         [token]
+                      | "vfmul"         [token]
+                      | "vfdiv"         [token]
+                      | "vfmax"         [token]
+                      | "vfmin"         [token]
+                      | "viadd"         [token]
+                      | "visub"         [token]
+                      | "vimul"         [token]
+                      | "vidiv"         [token]
+                      // Unary operators
+                      | "vfsqrt"        [token]
+                      | "vfrsqrt"       [token]
+                      | "vfnegate"      [token]
+                      | "vfreciprocal"  [token]
+
+  syntax MInts ::= operateOnVector(MInts, MInts, VOperation, Int) [function, klabel(binaryoperateonvector)]
+  syntax MInts ::= operateOnVectorHelper(MInts, MInts, VOperation, Int, Int) [function, klabel(binaryoperateonvectorhelper)]
+  syntax MInts ::= operateOnVector(MInts, VOperation, Int) [function, klabel(unaryoperateonvector)]
+  syntax MInts ::= operateOnVectorHelper(MInts, VOperation, Int, Int) [function, klabel(unaryoperateonvectorhelper)]
+
   // UIF operations
   syntax UIFBinOperation ::= "add_double"               [token]
                       | "add_single"                    [token]
@@ -163,6 +202,13 @@ module MINT-WRAPPER-SYNTAX
                         | "cvt_int64_to_double"    [token]
 
 
+  /*@ 
+    Used for symbolic exection                      
+  syntax MInts ::= applyUIFs(MInts, UIFUOperation ) [function, klabel(unaryoperateonuifs)]
+  syntax MInts ::= applyUIFs(MInts, MInts,  UIFBinOperation) [function, klabel(binaryoperateonuifs)]
+  syntax MInts ::= applyUIFs(MInts, MInts, MInts,  UIFTerOperation) [function, klabel(ternaryoperateonuifs)]
+  */
+
   /*@
     The following are the uninterpreted functions F(BitVector theory) -> Bitvector Theory
     Help to prove equivalence between K rule and Strata's BVFs.
@@ -172,6 +218,7 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= UIFTerOperation "(" MInt "," MInt "," MInt ")" [function]
 
   /*@
+    Deprecated
   syntax MInt ::= shiftLeft(MInt, Int)   [function]
   */
 
@@ -420,48 +467,32 @@ module MINT-WRAPPER
   rule convertFloatsToDoubles(.Floats) => .Floats
 
   /*@
-      Define binary uifs
+    splitVector(MI, W): Splits the Bitvector MI into a List of
+    bitwidthMInt(MI)/W Bitvectors each of width W.
+  rule splitVector(MI, W) => #ifMInts bitwidthMInt(MI) >=Int W andBool 0 =/=Int W
+                              #then
+                                splitVectorHelper(MI, W, 0)
+                              #else
+                                .MInts
+                             #fi
+
+  rule splitVectorHelper(MI, W, P) =>
+    extractMInt(MI, P, P +Int W) splitVectorHelper(MI, W, P +Int W)
+      requires bitwidthMInt(MI) >Int P
+
+  rule splitVectorHelper(MI, W, P) => .MInts
+      requires bitwidthMInt(MI) ==Int P
   */
-  rule add_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) +Float MInt2Float(MI2, 53, 11), 64)
-  rule sub_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) -Float MInt2Float(MI2, 53, 11), 64)
-  rule mul_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) *Float MInt2Float(MI2, 53, 11), 64)
-  rule div_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) /Float MInt2Float(MI2, 53, 11), 64)
-  rule maxcmp_double(MI1:MInt, MI2:MInt) => #ifMInt 
-                                              maxFloat(
-                                                  MInt2Float(MI1, 53, 11), 
-                                                  MInt2Float(MI2, 53, 11)) 
-                                              ==Float MInt2Float(MI1, 53, 11)
-                                            #then mi(1, 1) #else mi(1,0) #fi
-  rule mincmp_double(MI1:MInt, MI2:MInt) => #ifMInt 
-                                              minFloat(
-                                                  MInt2Float(MI1, 53, 11), 
-                                                  MInt2Float(MI2, 53, 11)) 
-                                              ==Float MInt2Float(MI1, 53, 11)
-                                            #then mi(1, 1) #else mi(1,0) #fi
-                                            
-  rule add_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) +Float MInt2Float(MI2, 24, 8), 32)
-  rule sub_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) -Float MInt2Float(MI2, 24, 8), 32)
-  rule mul_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) *Float MInt2Float(MI2, 24, 8), 32)
-  rule div_single(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 24, 8) /Float MInt2Float(MI2, 24, 8), 32)
-  rule maxcmp_single(MI1:MInt, MI2:MInt) => #ifMInt 
-                                              maxFloat(
-                                                  MInt2Float(MI1, 24, 8),
-                                                  MInt2Float(MI2, 24, 8))
-                                              ==Float MInt2Float(MI1, 24, 8)
-                                            #then mi(1, 1) #else mi(1,0) #fi
-  rule mincmp_single(MI1:MInt, MI2:MInt) => #ifMInt 
-                                              minFloat(
-                                                  MInt2Float(MI1, 24, 8),
-                                                  MInt2Float(MI2, 24, 8))
-                                              ==Float MInt2Float(MI1, 24, 8)
-                                            #then mi(1, 1) #else mi(1,0) #fi
 
   /*@
-      Define unary uifs
-  */
-  rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 53, 11)), 64)
+    joinVector(MIs): Concatenates a list of Bitvectors MIs to a
+    single Bitvector of size equals added bitwidths.
+  rule joinVector(MI:MInt Rest) => MI
+    requires Rest ==K .MInts
 
-  rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 24, 8)), 32)
+  rule joinVector(MI:MInt Rest) => concatenateMInt(MI, joinVector(Rest))
+    requires Rest =/=K .MInts
+  */
 
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
@@ -516,6 +547,27 @@ module MINT-WRAPPER
   rule operateOnVectorHelper(.MInts, _, _, _) => .MInts
   */
 
+  /*@
+    Operate on UIFs
+  rule
+    applyUIFs(MI1:MInt MI1s, UIF_U_OP:UIFUOperation)
+    =>
+    UIF_U_OP(MI1) applyUIFs(MI1s, UIF_U_OP)
+
+  rule
+    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, UIF_BIN_OP:UIFBinOperation)
+    =>
+    UIF_BIN_OP(MI1, MI2) applyUIFs(MI1s, MI2s, UIF_BIN_OP)
+
+  rule
+    applyUIFs(MI1:MInt MI1s, MI2:MInt MI2s, MI3:MInt MI3s, UIF_TER_OP:UIFTerOperation)
+    =>
+    UIF_TER_OP(MI1, MI2, MI3) applyUIFs(MI1s, MI2s, MI3s, UIF_TER_OP)
+
+  rule applyUIFs(.MInts, _:UIFUOperation) => .MInts
+  rule applyUIFs(.MInts, .MInts, _:UIFBinOperation) => .MInts
+  rule applyUIFs(.MInts, .MInts, .MInts, _:UIFTerOperation) => .MInts
+  */
 
   /*@
   rule shiftLeft(MI, I) =>
