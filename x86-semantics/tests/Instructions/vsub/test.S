@@ -67,17 +67,27 @@ TEST_INPUTS(
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
 
-  vsubpd  %ymm4, %ymm5, %ymm0 
-  vsubpd  %ymm4, %ymm6, %ymm0 
-  vsubpd  %ymm4, %ymm7, %ymm0 
-  vsubpd  %ymm4, %ymm8, %ymm0 
-  vsubpd  %ymm4, %ymm9, %ymm0 
+  subpd  %xmm5, %xmm5 
+  subps  %xmm4, %xmm6 
+  subsd  %xmm4, %xmm7 
+  subss  %xmm4, %xmm8 
+  hsubpd  %xmm4, %xmm9 
+  hsubps  %xmm4, %xmm9 
+  
+  vsubpd    %xmm4, %xmm5, %xmm0 
+  vsubps    %xmm4, %xmm6, %xmm0 
+  vsubsd    %xmm4, %xmm7, %xmm0 
+  vsubss    %xmm4, %xmm8, %xmm0 
+  vhsubpd   %xmm4, %xmm9, %xmm0 
+  vhsubps   %xmm4, %xmm9, %xmm0 
 
-  vsubps  %ymm5, %ymm4, %ymm0 
-  vsubps  %ymm6, %ymm4, %ymm0 
-  vsubps  %ymm7, %ymm4, %ymm0 
-  vsubps  %ymm8, %ymm4, %ymm0 
-  vsubps  %ymm9, %ymm4, %ymm0 
+
+  vsubpd    %ymm4, %ymm5, %ymm0 
+  vsubps    %ymm4, %ymm6, %ymm0 
+  vhsubpd   %ymm4, %ymm7, %ymm0 
+  vhsubps   %ymm4, %ymm8, %ymm0 
+
+
 
 TEST_END
 
