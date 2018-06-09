@@ -139,10 +139,17 @@ module MINT-WRAPPER-SYNTAX
                           | "vfnmadd132_single"     [token]
                           | "vfnmsub132_double"     [token]
                           | "vfnmsub132_single"     [token]
-                          | "vfnmadd213_double"     [token]
+
                           | "vfnmadd231_double"     [token]
-                          | "vfnmsub213_double"     [token]
+                          | "vfnmadd231_single"     [token]
+                          | "vfnmsub231_double"     [token]
+                          | "vfnmsub231_single"     [token]
+
+                          | "vfnmadd213_double"     [token]
                           | "vfnmadd213_single"     [token]
+                          | "vfnmsub213_double"     [token]
+                          | "vfnmsub213_single"     [token]
+
 
   syntax UIFUOperation ::= "cvt_half_to_single"    [token]
                         | "cvt_double_to_int64_truncate"    [token]
@@ -442,6 +449,20 @@ module MINT-WRAPPER
   rule vfmsub213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) -Float MInt2Float(MI3, 53, 11), 64)
 
+  rule vfnmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI2, 53, 11), 64)
+  rule vfnmadd231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI1, 53, 11), 64)
+  rule vfnmadd213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) +Float MInt2Float(MI3, 53, 11), 64)
+
+  rule vfnmsub132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) -Float MInt2Float(MI2, 53, 11), 64)
+  rule vfnmsub231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) -Float MInt2Float(MI1, 53, 11), 64)
+  rule vfnmsub213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) -Float MInt2Float(MI3, 53, 11), 64)
+
   // Singles
   rule vfmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI2, 24, 8), 32)
@@ -457,6 +478,19 @@ module MINT-WRAPPER
   rule vfmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) -Float MInt2Float(MI3, 24, 8), 32)
 
+  rule vfnmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI2, 24, 8), 32)
+  rule vfnmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI1, 24, 8), 32)
+  rule vfnmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) +Float MInt2Float(MI3, 24, 8), 32)
+
+  rule vfnmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) -Float MInt2Float(MI2, 24, 8), 32)
+  rule vfnmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8)) -Float MInt2Float(MI1, 24, 8), 32)
+  rule vfnmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) -Float MInt2Float(MI3, 24, 8), 32)
   /*@
       Define binary uifs
   */
