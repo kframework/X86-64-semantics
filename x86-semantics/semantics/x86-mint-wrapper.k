@@ -459,9 +459,9 @@ module MINT-WRAPPER
   /*@
       Define unary uifs
   */
-  rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 53, 11)), 64)
+  //rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 53, 11)), 64)
 
-  rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 24, 8)), 32)
+  //rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 24, 8)), 32)
 
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
