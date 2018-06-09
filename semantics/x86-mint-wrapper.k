@@ -119,18 +119,22 @@ module MINT-WRAPPER-SYNTAX
 
   syntax UIFTerOperation ::=  "cmp_double_pred"     [token]
                           | "cmp_single_pred"     [token]
+
                           | "vfmadd132_double"     [token]
                           | "vfmadd132_single"     [token]
-                          | "vfmadd231_double"     [token]
-                          | "vfmadd231_single"     [token]
-                          | "vfmadd213_double"     [token]
-                          | "vfmadd213_single"     [token]
                           | "vfmsub132_double"     [token]
                           | "vfmsub132_single"     [token]
+
+                          | "vfmadd231_double"     [token]
+                          | "vfmadd231_single"     [token]
                           | "vfmsub231_double"     [token]
                           | "vfmsub231_single"     [token]
+
+                          | "vfmadd213_double"     [token]
+                          | "vfmadd213_single"     [token]
                           | "vfmsub213_double"     [token]
                           | "vfmsub213_single"     [token]
+
                           | "vfnmadd132_double"     [token]
                           | "vfnmadd132_single"     [token]
                           | "vfnmsub132_double"     [token]
@@ -418,6 +422,40 @@ module MINT-WRAPPER
   */
   rule convertFloatsToDoubles(F Fs) => Float2Double(F) convertFloatsToDoubles(Fs)
   rule convertFloatsToDoubles(.Floats) => .Floats
+
+  /*@
+      Define unary uifs
+  */
+
+  // Doubles
+  rule vfmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI2, 53, 11), 64)
+  rule vfmadd231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI1, 53, 11), 64)
+  rule vfmadd213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) +Float MInt2Float(MI3, 53, 11), 64)
+
+  rule vfmsub132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) -Float MInt2Float(MI2, 53, 11), 64)
+  rule vfmsub231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) -Float MInt2Float(MI1, 53, 11), 64)
+  rule vfmsub213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) -Float MInt2Float(MI3, 53, 11), 64)
+
+  // Singles
+  rule vfmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI2, 24, 8), 32)
+  rule vfmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI1, 24, 8), 32)
+  rule vfmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) +Float MInt2Float(MI3, 24, 8), 32)
+
+  rule vfmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) -Float MInt2Float(MI2, 24, 8), 32)
+  rule vfmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8)) -Float MInt2Float(MI1, 24, 8), 32)
+  rule vfmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) -Float MInt2Float(MI3, 24, 8), 32)
 
   /*@
       Define binary uifs
