@@ -436,6 +436,7 @@ module MINT-WRAPPER
 
   // Doubles
   // Add
+  // Non Negate
   rule vfmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI2, 53, 11), 64)
   rule vfmadd231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
@@ -443,12 +444,34 @@ module MINT-WRAPPER
   rule vfmadd213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) +Float MInt2Float(MI3, 53, 11), 64)
 
+  // Negate
+  // 132
   rule vfnmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
-    Float2MInt((-1.0d *Float (MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11))) +Float MInt2Float(MI2, 53, 11), 64)
+    Float2MInt(negateFloat(MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI2, 53, 11), 64)
+      requires  notBool (notBool eqMInt(MI1, mi(64, 0)) andBool notBool eqMInt(MI3, mi(64, 0)) andBool eqMInt(MI2, mi(64, 0)))
+
+  rule vfnmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)), 64)
+      requires           notBool eqMInt(MI1, mi(64, 0)) andBool notBool eqMInt(MI3, mi(64, 0)) andBool eqMInt(MI2, mi(64, 0))
+
+
+  // 231
   rule vfnmadd231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
-    Float2MInt((-1.0d *Float (MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11))) +Float MInt2Float(MI1, 53, 11), 64)
+    Float2MInt(negateFloat(MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI1, 53, 11), 64)
+      requires  notBool (notBool eqMInt(MI2, mi(64, 0)) andBool notBool eqMInt(MI3, mi(64, 0)) andBool eqMInt(MI1, mi(64, 0)))
+
+  rule vfnmadd231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI1, 53, 11), 64)
+      requires          notBool eqMInt(MI2, mi(64, 0)) andBool notBool eqMInt(MI3, mi(64, 0)) andBool eqMInt(MI1, mi(64, 0))
+
+  // 213
   rule vfnmadd213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
-    Float2MInt((-1.0d *Float (MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11))) +Float MInt2Float(MI3, 53, 11), 64)
+    Float2MInt(negateFloat(MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) +Float MInt2Float(MI3, 53, 11), 64)
+      requires  notBool (notBool eqMInt(MI2, mi(64, 0)) andBool notBool eqMInt(MI1, mi(64, 0)) andBool eqMInt(MI3, mi(64, 0)))
+
+  rule vfnmadd213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 53, 11) *Float MInt2Float(MI1, 53, 11)) +Float MInt2Float(MI3, 53, 11), 64)
+      requires          notBool eqMInt(MI2, mi(64, 0)) andBool notBool eqMInt(MI1, mi(64, 0)) andBool eqMInt(MI3, mi(64, 0))
 
   // Sub
   rule vfmsub132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
@@ -467,6 +490,7 @@ module MINT-WRAPPER
 
   // Singles
   // Add
+  // Non Negate
   rule vfmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI2, 24, 8), 32)
   rule vfmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
@@ -474,12 +498,33 @@ module MINT-WRAPPER
   rule vfmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) +Float MInt2Float(MI3, 24, 8), 32)
 
+  // Negate
+  // 132
   rule vfnmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
-    Float2MInt((-1.0f *Float (MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8))) +Float MInt2Float(MI2, 24, 8), 32)
+    Float2MInt(negateFloat(MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI2, 24, 8), 32)
+      requires  notBool (notBool eqMInt(MI1, mi(32, 0)) andBool notBool eqMInt(MI3, mi(32, 0)) andBool eqMInt(MI2, mi(32, 0)))
+
+  rule vfnmadd132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI1, 24, 8) *Float MInt2Float(MI3, 24, 8)), 32)
+      requires          notBool eqMInt(MI1, mi(32, 0)) andBool notBool eqMInt(MI3, mi(32, 0)) andBool eqMInt(MI2 , mi(32, 0))
+
+  // 231
   rule vfnmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
-    Float2MInt((-1.0f *Float (MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8))) +Float MInt2Float(MI1, 24, 8), 32)
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI1, 24, 8), 32)
+      requires  notBool (notBool eqMInt(MI2, mi(32, 0)) andBool notBool eqMInt(MI3, mi(32, 0)) andBool eqMInt(MI1, mi(32, 0)))
+
+  rule vfnmadd231_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI3, 24, 8)) +Float MInt2Float(MI1, 24, 8), 32)
+      requires          notBool eqMInt(MI2, mi(32, 0)) andBool notBool eqMInt(MI3, mi(32, 0)) andBool eqMInt(MI1, mi(32, 0))
+
+  // 213
   rule vfnmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
-    Float2MInt((-1.0f *Float (MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8))) +Float MInt2Float(MI3, 24, 8), 32)
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) +Float MInt2Float(MI3, 24, 8), 32)
+      requires  notBool (notBool eqMInt(MI2, mi(32, 0)) andBool notBool eqMInt(MI1, mi(32, 0)) andBool eqMInt(MI3, mi(32, 0)))
+
+  rule vfnmadd213_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt(negateFloat(MInt2Float(MI2, 24, 8) *Float MInt2Float(MI1, 24, 8)) +Float MInt2Float(MI3, 24, 8), 32)
+      requires          notBool eqMInt(MI2, mi(32, 0)) andBool notBool eqMInt(MI1, mi(32, 0)) andBool eqMInt(MI3, mi(32, 0))
 
   // Sub
   rule vfmsub132_single(MI1:MInt, MI2:MInt, MI3:MInt) => 
