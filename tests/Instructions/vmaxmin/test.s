@@ -18,18 +18,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $1,  %rax
@@ -47,18 +60,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x41,  %rax
@@ -76,18 +102,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x51,  %rax
@@ -105,18 +144,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x80,  %rax
@@ -134,18 +186,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x55,  %rax
@@ -163,18 +228,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAA,  %rax
@@ -192,18 +270,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x0F,  %rax
@@ -221,18 +312,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xF7,  %rax
@@ -250,18 +354,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFE,  %rax
@@ -279,18 +396,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xEF,  %rax
@@ -308,18 +438,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x7F,  %rax
@@ -337,18 +480,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFF,  %rax
@@ -366,18 +522,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x4141,  %rax
@@ -395,18 +564,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x5151,  %rax
@@ -424,18 +606,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x8000,  %rax
@@ -453,18 +648,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x5500,  %rax
@@ -482,18 +690,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x5555,  %rax
@@ -511,18 +732,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAA00,  %rax
@@ -540,18 +774,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAAAA,  %rax
@@ -569,18 +816,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x0F0F,  %rax
@@ -598,18 +858,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xF7F7,  %rax
@@ -627,18 +900,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFEFE,  %rax
@@ -656,18 +942,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xEFEF,  %rax
@@ -685,18 +984,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x7FFF,  %rax
@@ -714,18 +1026,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFFFF,  %rax
@@ -743,18 +1068,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x41414141,  %rax
@@ -772,18 +1110,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x51515151,  %rax
@@ -801,18 +1152,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x55000000,  %rax
@@ -830,18 +1194,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x55555555,  %rax
@@ -859,18 +1236,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAAFFFFFF,  %rax
@@ -888,18 +1278,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAAAAAAAA,  %rax
@@ -917,18 +1320,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x0F0F0F0F,  %rax
@@ -946,18 +1362,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xF7F7F7F7,  %rax
@@ -975,18 +1404,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFEFEFEFE,  %rax
@@ -1004,18 +1446,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xEFEFEFEF,  %rax
@@ -1033,18 +1488,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x7FFFFFFF,  %rax
@@ -1062,18 +1530,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFFFFFFFF,  %rax
@@ -1091,18 +1572,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x4141414141414141,  %rax
@@ -1120,18 +1614,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x5115151515115151,  %rax
@@ -1149,18 +1656,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x8000000000000000,  %rax
@@ -1178,18 +1698,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x5500000000000000,  %rax
@@ -1207,18 +1740,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x5555555555555555,  %rax
@@ -1236,18 +1782,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAA00000000000000,  %rax
@@ -1265,18 +1824,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xAAAAAAAAAAAAAAAA,  %rax
@@ -1294,18 +1866,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0x0F0F0F0F0F0F0F0F,  %rax
@@ -1323,18 +1908,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xF7F7F7F7F7F7F7F7,  %rax
@@ -1352,18 +1950,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xEFEFEFEFEFEFEFEF,  %rax
@@ -1381,18 +1992,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
+  
+  vmaxpd  %xmm4, %xmm5, %xmm0
+  vmaxps  %xmm4, %xmm6, %xmm0
+  
+  vmaxpd  %ymm5, %ymm4, %ymm0
+  vmaxps  %ymm6, %ymm4, %ymm0
+  
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
+  
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
+  
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
   
   movq  $0xFEFEFEFEFEFEFEFE,  %rax
@@ -1410,76 +2034,31 @@ _start:
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
   
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
   maxpd  %xmm5, %xmm4
   maxps  %xmm6, %xmm4
   maxsd  %xmm7, %xmm4
   maxss  %xmm8, %xmm4
-  
-  
-  movq  $0x7FFFFFFFFFFFFFFF,  %rax
-  movq  %rax, %xmm0
-  
-  movddup %xmm0, %xmm1
-  movsldup %xmm0, %xmm2
-  movshdup %xmm0, %xmm3
-  
-  vbroadcastsd %xmm1, %ymm4
-  vbroadcastsd %xmm2, %ymm5
-  vbroadcastsd %xmm3, %ymm6
-  
-  vbroadcastss %xmm1, %ymm7
-  vbroadcastss %xmm2, %ymm8
-  vbroadcastss %xmm3, %ymm9
+  vmaxsd  %xmm4, %xmm7, %xmm0
+  vmaxss  %xmm4, %xmm8, %xmm0
   
   vmaxpd  %xmm4, %xmm5, %xmm0
   vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
   
   vmaxpd  %ymm5, %ymm4, %ymm0
   vmaxps  %ymm6, %ymm4, %ymm0
   
-  maxpd  %xmm5, %xmm4
-  maxps  %xmm6, %xmm4
-  maxsd  %xmm7, %xmm4
-  maxss  %xmm8, %xmm4
+  minpd  %xmm5, %xmm4
+  minps  %xmm6, %xmm4
+  minsd  %xmm7, %xmm4
+  minss  %xmm8, %xmm4
+  vminsd  %xmm4, %xmm7, %xmm0
+  vminss  %xmm4, %xmm8, %xmm0
   
+  vminpd  %xmm4, %xmm5, %xmm0
+  vminps  %xmm4, %xmm6, %xmm0
   
-  movq  $0xFFFFFFFFFFFFFFFF,  %rax
-  movq  %rax, %xmm0
-  
-  movddup %xmm0, %xmm1
-  movsldup %xmm0, %xmm2
-  movshdup %xmm0, %xmm3
-  
-  vbroadcastsd %xmm1, %ymm4
-  vbroadcastsd %xmm2, %ymm5
-  vbroadcastsd %xmm3, %ymm6
-  
-  vbroadcastss %xmm1, %ymm7
-  vbroadcastss %xmm2, %ymm8
-  vbroadcastss %xmm3, %ymm9
-  
-  vmaxpd  %xmm4, %xmm5, %xmm0
-  vmaxps  %xmm4, %xmm6, %xmm0
-  vmaxsd  %xmm4, %xmm7, %xmm0
-  vmaxss  %xmm4, %xmm8, %xmm0
-  
-  vmaxpd  %ymm5, %ymm4, %ymm0
-  vmaxps  %ymm6, %ymm4, %ymm0
-  
-  maxpd  %xmm5, %xmm4
-  maxps  %xmm6, %xmm4
-  maxsd  %xmm7, %xmm4
-  maxss  %xmm8, %xmm4
+  vminpd  %ymm5, %ymm4, %ymm0
+  vminps  %ymm6, %ymm4, %ymm0
   
 
 

@@ -372,6 +372,7 @@ registerInstructions/vcvttsd2sil_r32_xmm.k
 registerInstructions/vcvttsd2siq_r64_xmm.k
 registerInstructions/vcvttss2sil_r32_xmm.k
 registerInstructions/vcvttss2siq_r64_xmm.k
+
 registerInstructions/rcpps_xmm_xmm.k  <-- cpps
 registerInstructions/rcpss_xmm_xmm.k
 registerInstructions/vrcpps_xmm_xmm.k
@@ -405,26 +406,6 @@ registerInstructions/vdivps_xmm_xmm_xmm.k
 registerInstructions/vdivps_ymm_ymm_ymm.k
 registerInstructions/vdivsd_xmm_xmm_xmm.k
 registerInstructions/vdivss_xmm_xmm_xmm.k
-registerInstructions/maxpd_xmm_xmm.k    <-- max/min
-registerInstructions/maxps_xmm_xmm.k
-registerInstructions/maxsd_xmm_xmm.k
-registerInstructions/maxss_xmm_xmm.k
-registerInstructions/vmaxpd_xmm_xmm_xmm.k
-registerInstructions/vmaxpd_ymm_ymm_ymm.k
-registerInstructions/vmaxps_xmm_xmm_xmm.k
-registerInstructions/vmaxps_ymm_ymm_ymm.k
-registerInstructions/vmaxsd_xmm_xmm_xmm.k
-registerInstructions/vmaxss_xmm_xmm_xmm.k
-registerInstructions/minpd_xmm_xmm.k
-registerInstructions/minps_xmm_xmm.k
-registerInstructions/minsd_xmm_xmm.k
-registerInstructions/minss_xmm_xmm.k
-registerInstructions/vminpd_xmm_xmm_xmm.k
-registerInstructions/vminpd_ymm_ymm_ymm.k
-registerInstructions/vminps_xmm_xmm_xmm.k
-registerInstructions/vminps_ymm_ymm_ymm.k
-registerInstructions/vminsd_xmm_xmm_xmm.k
-registerInstructions/vminss_xmm_xmm_xmm.k
 registerInstructions/mulpd_xmm_xmm.k    <-- mul
 registerInstructions/mulps_xmm_xmm.k
 registerInstructions/mulsd_xmm_xmm.k
@@ -435,6 +416,7 @@ registerInstructions/vmulps_xmm_xmm_xmm.k
 registerInstructions/vmulps_ymm_ymm_ymm.k
 registerInstructions/vmulsd_xmm_xmm_xmm.k
 registerInstructions/vmulss_xmm_xmm_xmm.k
+
 registerInstructions/rsqrtps_xmm_xmm.k  <-- sqrt
 registerInstructions/rsqrtss_xmm_xmm.k
 registerInstructions/sqrtpd_xmm_xmm.k
@@ -450,6 +432,30 @@ registerInstructions/vsqrtps_xmm_xmm.k
 registerInstructions/vsqrtps_ymm_ymm.k
 registerInstructions/vsqrtsd_xmm_xmm_xmm.k
 registerInstructions/vsqrtss_xmm_xmm_xmm.k
+
+registerInstructions/maxpd_xmm_xmm.k    <-- max/min
+registerInstructions/maxps_xmm_xmm.k
+registerInstructions/maxsd_xmm_xmm.k
+registerInstructions/maxss_xmm_xmm.k
+registerInstructions/vmaxsd_xmm_xmm_xmm.k
+registerInstructions/vmaxss_xmm_xmm_xmm.k
+
+registerInstructions/vmaxpd_xmm_xmm_xmm.k
+registerInstructions/vmaxps_xmm_xmm_xmm.k
+registerInstructions/vmaxpd_ymm_ymm_ymm.k
+registerInstructions/vmaxps_ymm_ymm_ymm.k
+
+registerInstructions/minpd_xmm_xmm.k
+registerInstructions/minps_xmm_xmm.k
+registerInstructions/minsd_xmm_xmm.k
+registerInstructions/minss_xmm_xmm.k
+registerInstructions/vminsd_xmm_xmm_xmm.k
+registerInstructions/vminss_xmm_xmm_xmm.k
+
+registerInstructions/vminpd_xmm_xmm_xmm.k
+registerInstructions/vminps_xmm_xmm_xmm.k
+registerInstructions/vminpd_ymm_ymm_ymm.k
+registerInstructions/vminps_ymm_ymm_ymm.k <-- End
 
 registerInstructions/addpd_xmm_xmm.k <---- Add
 registerInstructions/addps_xmm_xmm.k
