@@ -781,7 +781,7 @@ sub compareStates {
           )
         {
 
-            info("Skip $regMap{$i % $regcount}");
+            #info("Skip $regMap{$i % $regcount}");
             next;
         }
 
