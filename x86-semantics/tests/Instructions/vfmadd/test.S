@@ -34,9 +34,7 @@ TEST_INPUTS(
 0x0F0F0F0F, 
 0xF7F7F7F7, 
 0xFEFEFEFE, 
-0xEFEFEFEF, 
-0x7FFFFFFF, 
-0xFFFFFFFF) 
+0xEFEFEFEF)
     
   movq  ARG1_64,  %rax
   movq  %rax, %xmm0  
