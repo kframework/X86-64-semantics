@@ -318,6 +318,7 @@ memoryInstructions/vsubsd_xmm_xmm_m64.k
 memoryInstructions/vsubss_xmm_xmm_m32.k
 memoryInstructions/vucomisd_xmm_m64.k
 memoryInstructions/vucomiss_xmm_m32.k
+
 registerInstructions/cvtdq2pd_xmm_xmm.k   <-- cvt
 registerInstructions/cvtdq2ps_xmm_xmm.k
 registerInstructions/cvtpd2dq_xmm_xmm.k
