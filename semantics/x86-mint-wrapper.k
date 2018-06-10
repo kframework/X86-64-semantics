@@ -84,7 +84,7 @@ module MINT-WRAPPER-SYNTAX
 
   // UIF operations
   /*
-    ToDo: DSAND: For max/min: max(NaN, A == NaN. keep the same rep as Nan)
+    ToDo: DSAND: For max/min: max(NaN, A == NaN. keep the same rep as Nan). Check TEST52 
   */   
   syntax UIFBinOperation ::= "add_double"               [token]
                       | "add_single"                    [token]
