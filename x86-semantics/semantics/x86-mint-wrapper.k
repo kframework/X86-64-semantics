@@ -437,8 +437,15 @@ module MINT-WRAPPER
   // Doubles
   // Add
   // Non Negate
+  // 132
   rule vfmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI2, 53, 11), 64)
+      requires  notBool (notBool eqMInt(MI1, mi(64, 0)) andBool notBool eqMInt(MI3, mi(64, 0)) andBool eqMInt(MI2, mi(64, 0)))
+      
+  rule vfmadd132_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
+    Float2MInt((MInt2Float(MI1, 53, 11) *Float MInt2Float(MI3, 53, 11)), 64)
+      requires          notBool eqMInt(MI1, mi(64, 0)) andBool notBool eqMInt(MI3, mi(64, 0)) andBool eqMInt(MI2, mi(64, 0))
+
   rule vfmadd231_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
     Float2MInt((MInt2Float(MI2, 53, 11) *Float MInt2Float(MI3, 53, 11)) +Float MInt2Float(MI1, 53, 11), 64)
   rule vfmadd213_double(MI1:MInt, MI2:MInt, MI3:MInt) => 
