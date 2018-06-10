@@ -83,11 +83,14 @@ module MINT-WRAPPER-SYNTAX
   syntax Floats ::= convertFloatsToDoubles(Floats) [function]
 
   // UIF operations
+  /*
+    ToDo: DSAND: For max/min: max(NaN, A == NaN. keep the same rep as Nan)
+  */   
   syntax UIFBinOperation ::= "add_double"               [token]
                       | "add_single"                    [token]
                       | "sub_double"                    [token]
                       | "sub_single"                    [token]
-                      | "maxcmp_double"                 [token]
+                      | "maxcmp_double"                 [token] 
                       | "maxcmp_single"                 [token]
                       | "mincmp_double"                 [token]
                       | "mincmp_single"                 [token]
