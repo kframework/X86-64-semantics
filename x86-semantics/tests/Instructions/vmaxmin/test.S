@@ -48,9 +48,7 @@ TEST_INPUTS(
 0x0F0F0F0F0F0F0F0F, 
 0xF7F7F7F7F7F7F7F7, 
 0xEFEFEFEFEFEFEFEF, 
-0xFEFEFEFEFEFEFEFE, 
-0x7FFFFFFFFFFFFFFF,
-0xFFFFFFFFFFFFFFFF)
+0xFEFEFEFEFEFEFEFE)
     
   movq  ARG1_64,  %rax
   movq  %rax, %xmm0  
@@ -67,18 +65,31 @@ TEST_INPUTS(
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
 
-  vmaxpd  %xmm4, %xmm5, %xmm0 
-  vmaxps  %xmm4, %xmm6, %xmm0 
-  vmaxsd  %xmm4, %xmm7, %xmm0 
-  vmaxss  %xmm4, %xmm8, %xmm0 
-
-  vmaxpd  %ymm5, %ymm4, %ymm0 
-  vmaxps  %ymm6, %ymm4, %ymm0 
-
   maxpd  %xmm5, %xmm4 
   maxps  %xmm6, %xmm4 
   maxsd  %xmm7, %xmm4 
   maxss  %xmm8, %xmm4 
+  vmaxsd  %xmm4, %xmm7, %xmm0 
+  vmaxss  %xmm4, %xmm8, %xmm0 
+
+  vmaxpd  %xmm4, %xmm5, %xmm0 
+  vmaxps  %xmm4, %xmm6, %xmm0 
+
+  vmaxpd  %ymm5, %ymm4, %ymm0 
+  vmaxps  %ymm6, %ymm4, %ymm0 
+
+  minpd  %xmm5, %xmm4 
+  minps  %xmm6, %xmm4 
+  minsd  %xmm7, %xmm4 
+  minss  %xmm8, %xmm4 
+  vminsd  %xmm4, %xmm7, %xmm0 
+  vminss  %xmm4, %xmm8, %xmm0 
+
+  vminpd  %xmm4, %xmm5, %xmm0 
+  vminps  %xmm4, %xmm6, %xmm0 
+
+  vminpd  %ymm5, %ymm4, %ymm0 
+  vminps  %ymm6, %ymm4, %ymm0 
 
 TEST_END
 
