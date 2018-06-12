@@ -1,0 +1,962 @@
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20000320-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20001122-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20010114-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20010226-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20011123-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20030331-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/20041213-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/920518-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/920518-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/920810-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/920810-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/930529-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/930529-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/980619-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/980619-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/acc1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/acc1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/acc2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/acc2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/builtin-nan-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-3.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/compare-fp-4.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/copysign1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/copysign1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/copysign2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/copysign2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-3.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4e.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4f.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-4l.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-5.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-6.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-7.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8e.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8f.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/fp-cmp-8l.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/hugeval.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/hugeval.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/inf-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/inf-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/inf-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/inf-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/inf-3.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/inf-3.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/minuszero.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/minuszero.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mul-subnormal-single-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero3.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero3.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero4.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero4.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero5.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero5.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/mzero6.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/mzero6.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr28634.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr28634.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr29302-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr30704.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr30704.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr36332.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr36332.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr38016.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr38016.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr50310.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr50310.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr67218.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr67218.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+FAIL: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O3 -g 
+FAIL: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr72824-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+FAIL: gcc.c-torture/execute/ieee/pr72824.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O3 -g 
+FAIL: gcc.c-torture/execute/ieee/pr72824.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr72824.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr72824.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/pr84235.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/pr84235.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/rbug.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/rbug.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -O0 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -O0 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -O1 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -O1 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -O2 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -O2 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -Os 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -Os 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/ieee/unsafe-fp-assoc.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
