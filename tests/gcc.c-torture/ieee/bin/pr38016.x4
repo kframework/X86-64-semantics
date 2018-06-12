@@ -1,0 +1,478 @@
+	.file	"pr38016.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.type	test_isunordered, @function
+test_isunordered:
+	vcmpunordsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.type	test_not_isunordered, @function
+test_not_isunordered:
+	vcmpordsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isunordered, .-test_not_isunordered
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.type	test_isless, @function
+test_isless:
+	vcmpnltsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isless, .-test_isless
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.type	test_not_isless, @function
+test_not_isless:
+	vcmpnltsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isless, .-test_not_isless
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.type	test_islessequal, @function
+test_islessequal:
+	vcmpnlesd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.type	test_not_islessequal, @function
+test_not_islessequal:
+	vcmpnlesd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessequal, .-test_not_islessequal
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.type	test_isgreater, @function
+test_isgreater:
+	vcmpnltsd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.text
+.LHOTB7:
+	.type	test_not_isgreater, @function
+test_not_isgreater:
+	vcmpnltsd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreater, .-test_not_isgreater
+	.section	.text.unlikely
+.LCOLDE7:
+	.text
+.LHOTE7:
+	.section	.text.unlikely
+.LCOLDB8:
+	.text
+.LHOTB8:
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	vcmpnlesd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE8:
+	.text
+.LHOTE8:
+	.section	.text.unlikely
+.LCOLDB9:
+	.text
+.LHOTB9:
+	.type	test_not_isgreaterequal, @function
+test_not_isgreaterequal:
+	vcmpnlesd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreaterequal, .-test_not_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE9:
+	.text
+.LHOTE9:
+	.section	.text.unlikely
+.LCOLDB10:
+	.text
+.LHOTB10:
+	.type	test_islessgreater, @function
+test_islessgreater:
+	vcmpeq_ussd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.section	.text.unlikely
+.LCOLDE10:
+	.text
+.LHOTE10:
+	.section	.text.unlikely
+.LCOLDB11:
+	.text
+.LHOTB11:
+	.type	test_not_islessgreater, @function
+test_not_islessgreater:
+	vcmpeq_ussd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessgreater, .-test_not_islessgreater
+	.section	.text.unlikely
+.LCOLDE11:
+	.text
+.LHOTE11:
+	.section	.text.unlikely
+.LCOLDB16:
+	.text
+.LHOTB16:
+	.type	one_test, @function
+one_test:
+	pushq	%r14
+	vmovapd	%xmm0, %xmm4
+	movl	%edi, %r14d
+	pushq	%r13
+	movq	%rdx, %r13
+	pushq	%r12
+	vmovq	%xmm1, %r12
+	pushq	%rbp
+	movl	$0, %ebp
+	pushq	%rbx
+	xorl	%ebx, %ebx
+	subq	$16, %rsp
+	vmovsd	.LC12(%rip), %xmm3
+	vmovsd	.LC13(%rip), %xmm2
+	vmovsd	%xmm4, 8(%rsp)
+	call	*%rsi
+	vmovsd	8(%rsp), %xmm4
+	vmovsd	.LC13(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	setnp	%bl
+	cmovne	%ebp, %ebx
+	cmpl	%r14d, %ebx
+	je	.L48
+.L49:
+	call	abort
+.L48:
+	vmovsd	.LC14(%rip), %xmm3
+	vmovq	%r12, %xmm1
+	vmovapd	%xmm4, %xmm0
+	vmovsd	.LC15(%rip), %xmm2
+	call	*%r13
+	xorl	%eax, %eax
+	vucomisd	.LC14(%rip), %xmm0
+	setnp	%al
+	cmovne	%ebp, %eax
+	cmpl	%ebx, %eax
+	jne	.L49
+	addq	$16, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	popq	%r13
+	popq	%r14
+	ret
+	.size	one_test, .-one_test
+	.section	.text.unlikely
+.LCOLDE16:
+	.text
+.LHOTE16:
+	.section	.text.unlikely
+.LCOLDB17:
+	.section	.text.startup,"ax",@progbits
+.LHOTB17:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r15
+	movl	$14, %r15d
+	pushq	%r14
+	pushq	%r13
+	pushq	%r12
+	xorl	%r12d, %r12d
+	pushq	%rbp
+	pushq	%rbx
+	subq	$24, %rsp
+.L53:
+	movslq	%r12d, %rbx
+	movl	$6, %r14d
+	xorl	%r13d, %r13d
+	imulq	$10, %rbx, %rbp
+	imulq	$40, %rbx, %rbx
+	addq	$data.2330, %rbx
+	vmovsd	8(%rbx), %xmm2
+.L54:
+	movslq	%r13d, %rax
+	vmovsd	(%rbx), %xmm0
+	vmovapd	%xmm2, %xmm1
+	incl	%r13d
+	movq	%rax, %rcx
+	addq	%rbp, %rax
+	vmovsd	%xmm2, 8(%rsp)
+	salq	$4, %rcx
+	movl	data.2330+16(,%rax,4), %edi
+	movq	tests.2342+8(%rcx), %rdx
+	movq	tests.2342(%rcx), %rsi
+	call	one_test
+	decl	%r14d
+	vmovsd	8(%rsp), %xmm2
+	jne	.L54
+	incl	%r12d
+	decl	%r15d
+	jne	.L53
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE17:
+	.section	.text.startup
+.LHOTE17:
+	.section	.rodata
+	.align 64
+	.type	data.2330, @object
+	.size	data.2330, 560
+data.2330:
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.align 64
+	.type	tests.2342, @object
+	.size	tests.2342, 96
+tests.2342:
+	.quad	test_isunordered
+	.quad	test_not_isunordered
+	.quad	test_isless
+	.quad	test_not_isless
+	.quad	test_islessequal
+	.quad	test_not_islessequal
+	.quad	test_isgreater
+	.quad	test_not_isgreater
+	.quad	test_isgreaterequal
+	.quad	test_not_isgreaterequal
+	.quad	test_islessgreater
+	.quad	test_not_islessgreater
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC12:
+	.long	0
+	.long	1073741824
+	.align 8
+.LC13:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC14:
+	.long	0
+	.long	1074790400
+	.align 8
+.LC15:
+	.long	0
+	.long	1074266112
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

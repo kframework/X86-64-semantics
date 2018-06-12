@@ -1,0 +1,30 @@
+	.file	"pr29302-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB2:
+	.section	.text.startup,"ax",@progbits
+.LHOTB2:
+	.globl	main
+	.type	main, @function
+main:
+	vmovsd	.LC0(%rip), %xmm0
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vdivsd	%xmm1, %xmm0, %xmm0
+	vucomisd	%xmm0, %xmm0
+	jnp	.L5
+	pushq	%rax
+	call	abort
+.L5:
+	xorl	%eax, %eax
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE2:
+	.section	.text.startup
+.LHOTE2:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	1072693248
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

@@ -1,0 +1,29 @@
+	.file	"fp-cmp-7.c"
+	.text
+	.globl	foo
+	.type	foo, @function
+foo:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	vmovsd	%xmm0, -8(%rbp)
+	popq	%rbp
+	ret
+	.size	foo, .-foo
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	vmovsd	.LC0(%rip), %xmm0
+	call	foo
+	movl	$0, %eax
+	popq	%rbp
+	ret
+	.size	main, .-main
+	.section	.rodata
+	.align 8
+.LC0:
+	.long	0
+	.long	1072693248
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

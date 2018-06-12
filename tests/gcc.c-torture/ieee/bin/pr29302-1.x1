@@ -1,0 +1,26 @@
+	.file	"pr29302-1.c"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+	vmovsd	.LC0(%rip), %xmm0
+	vdivsd	.LC1(%rip), %xmm0, %xmm0
+	vucomisd	%xmm0, %xmm0
+	jnp	.L5
+	subq	$8, %rsp
+	call	abort
+.L5:
+	movl	$0, %eax
+	ret
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC1:
+	.long	0
+	.long	0
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

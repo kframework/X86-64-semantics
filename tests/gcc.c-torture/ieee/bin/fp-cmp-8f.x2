@@ -1,0 +1,454 @@
+	.file	"fp-cmp-8f.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.type	test_isunordered, @function
+test_isunordered:
+	vcmpunordss	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.p2align 4,,15
+	.type	test_not_isunordered, @function
+test_not_isunordered:
+	vcmpordss	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isunordered, .-test_not_isunordered
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.p2align 4,,15
+	.type	test_isless, @function
+test_isless:
+	vcmpnltss	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm3, %xmm3
+	vandnps	%xmm2, %xmm1, %xmm2
+	vorps	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isless, .-test_isless
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.p2align 4,,15
+	.type	test_not_isless, @function
+test_not_isless:
+	vcmpnltss	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isless, .-test_not_isless
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.p2align 4,,15
+	.type	test_islessequal, @function
+test_islessequal:
+	vcmpnless	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm3, %xmm3
+	vandnps	%xmm2, %xmm1, %xmm2
+	vorps	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.p2align 4,,15
+	.type	test_not_islessequal, @function
+test_not_islessequal:
+	vcmpnless	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessequal, .-test_not_islessequal
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.p2align 4,,15
+	.type	test_isgreater, @function
+test_isgreater:
+	vcmpnltss	%xmm0, %xmm1, %xmm1
+	vandps	%xmm1, %xmm3, %xmm3
+	vandnps	%xmm2, %xmm1, %xmm2
+	vorps	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.text
+.LHOTB7:
+	.p2align 4,,15
+	.type	test_not_isgreater, @function
+test_not_isgreater:
+	vcmpnltss	%xmm0, %xmm1, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreater, .-test_not_isgreater
+	.section	.text.unlikely
+.LCOLDE7:
+	.text
+.LHOTE7:
+	.section	.text.unlikely
+.LCOLDB8:
+	.text
+.LHOTB8:
+	.p2align 4,,15
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	vcmpnless	%xmm0, %xmm1, %xmm1
+	vandps	%xmm1, %xmm3, %xmm3
+	vandnps	%xmm2, %xmm1, %xmm2
+	vorps	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE8:
+	.text
+.LHOTE8:
+	.section	.text.unlikely
+.LCOLDB9:
+	.text
+.LHOTB9:
+	.p2align 4,,15
+	.type	test_not_isgreaterequal, @function
+test_not_isgreaterequal:
+	vcmpnless	%xmm0, %xmm1, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreaterequal, .-test_not_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE9:
+	.text
+.LHOTE9:
+	.section	.text.unlikely
+.LCOLDB10:
+	.text
+.LHOTB10:
+	.p2align 4,,15
+	.type	test_islessgreater, @function
+test_islessgreater:
+	vcmpeq_usss	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm3, %xmm3
+	vandnps	%xmm2, %xmm1, %xmm2
+	vorps	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.section	.text.unlikely
+.LCOLDE10:
+	.text
+.LHOTE10:
+	.section	.text.unlikely
+.LCOLDB11:
+	.text
+.LHOTB11:
+	.p2align 4,,15
+	.type	test_not_islessgreater, @function
+test_not_islessgreater:
+	vcmpeq_usss	%xmm1, %xmm0, %xmm1
+	vandps	%xmm1, %xmm2, %xmm2
+	vandnps	%xmm3, %xmm1, %xmm3
+	vorps	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessgreater, .-test_not_islessgreater
+	.section	.text.unlikely
+.LCOLDE11:
+	.text
+.LHOTE11:
+	.section	.text.unlikely
+.LCOLDB16:
+	.text
+.LHOTB16:
+	.p2align 4,,15
+	.type	one_test, @function
+one_test:
+	pushq	%r13
+	vmovaps	%xmm0, %xmm4
+	vmovaps	%xmm1, %xmm5
+	movq	%rdx, %r13
+	pushq	%r12
+	movl	%edi, %r12d
+	pushq	%rbp
+	movl	$0, %ebp
+	pushq	%rbx
+	xorl	%ebx, %ebx
+	subq	$24, %rsp
+	vmovss	.LC13(%rip), %xmm2
+	vmovss	.LC12(%rip), %xmm3
+	vmovss	%xmm5, 12(%rsp)
+	vmovss	%xmm4, 8(%rsp)
+	call	*%rsi
+	vmovss	8(%rsp), %xmm4
+	vmovss	.LC13(%rip), %xmm2
+	vmovss	12(%rsp), %xmm5
+	vucomiss	%xmm2, %xmm0
+	setnp	%bl
+	cmovne	%ebp, %ebx
+	cmpl	%r12d, %ebx
+	jne	.L49
+	vmovss	.LC14(%rip), %xmm3
+	vmovaps	%xmm5, %xmm1
+	vmovaps	%xmm4, %xmm0
+	vmovss	.LC15(%rip), %xmm2
+	call	*%r13
+	xorl	%eax, %eax
+	vucomiss	.LC14(%rip), %xmm0
+	setnp	%al
+	cmovne	%ebp, %eax
+	cmpl	%eax, %ebx
+	jne	.L49
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	popq	%r13
+	ret
+.L49:
+	call	abort
+	.size	one_test, .-one_test
+	.section	.text.unlikely
+.LCOLDE16:
+	.text
+.LHOTE16:
+	.section	.text.unlikely
+.LCOLDB17:
+	.section	.text.startup,"ax",@progbits
+.LHOTB17:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r15
+	pushq	%r14
+	pushq	%r12
+	movl	$data.2330+8, %r12d
+	pushq	%rbp
+	pushq	%rbx
+	.p2align 4,,10
+	.p2align 3
+.L53:
+	vmovss	-4(%r12), %xmm2
+	movl	$tests.2342+8, %ebx
+	movq	%r12, %rbp
+	vmovss	-8(%r12), %xmm3
+	vmovd	%xmm2, %r14d
+	vmovd	%xmm3, %r15d
+	.p2align 4,,10
+	.p2align 3
+.L54:
+	movq	-8(%rbx), %rsi
+	vmovd	%r14d, %xmm1
+	vmovd	%r15d, %xmm0
+	addq	$16, %rbx
+	movq	-16(%rbx), %rdx
+	addq	$4, %rbp
+	movl	-4(%rbp), %edi
+	call	one_test
+	cmpq	$tests.2342+104, %rbx
+	jne	.L54
+	addq	$32, %r12
+	cmpq	$data.2330+456, %r12
+	jne	.L53
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE17:
+	.section	.text.startup
+.LHOTE17:
+	.section	.rodata
+	.align 64
+	.type	data.2330, @object
+	.size	data.2330, 448
+data.2330:
+	.long	2143289344
+	.long	2143289344
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2143289344
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2143289344
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	1065353216
+	.long	1073741824
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	1073741824
+	.long	1065353216
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	2139095040
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	1065353216
+	.long	2139095040
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	2139095040
+	.long	2139095040
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	4286578688
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	4286578688
+	.long	1065353216
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	4286578688
+	.long	4286578688
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	2139095040
+	.long	4286578688
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	4286578688
+	.long	2139095040
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.align 64
+	.type	tests.2342, @object
+	.size	tests.2342, 96
+tests.2342:
+	.quad	test_isunordered
+	.quad	test_not_isunordered
+	.quad	test_isless
+	.quad	test_not_isless
+	.quad	test_islessequal
+	.quad	test_not_islessequal
+	.quad	test_isgreater
+	.quad	test_not_isgreater
+	.quad	test_isgreaterequal
+	.quad	test_not_isgreaterequal
+	.quad	test_islessgreater
+	.quad	test_not_islessgreater
+	.section	.rodata.cst4,"aM",@progbits,4
+	.align 4
+.LC12:
+	.long	1073741824
+	.align 4
+.LC13:
+	.long	1065353216
+	.align 4
+.LC14:
+	.long	1082130432
+	.align 4
+.LC15:
+	.long	1077936128
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

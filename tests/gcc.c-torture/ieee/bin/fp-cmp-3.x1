@@ -1,0 +1,96 @@
+	.file	"fp-cmp-3.c"
+	.text
+	.globl	leave
+	.type	leave, @function
+leave:
+	subq	$8, %rsp
+	movl	$0, %edi
+	call	exit
+	.size	leave, .-leave
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	movl	$leave, %esi
+	movl	$8, %edi
+	call	signal
+	fldt	dnan(%rip)
+	fucomi	%st(0), %st
+	jp	.L4
+	fstp	%st(0)
+	call	abort
+.L4:
+	fldt	x(%rip)
+	fxch	%st(1)
+	fucomi	%st(1), %st
+	fstp	%st(1)
+	jp	.L19
+	je	.L24
+.L19:
+	fld1
+	fstpt	x(%rip)
+	fldt	x(%rip)
+	fucomip	%st(1), %st
+	jbe	.L25
+	fstp	%st(0)
+	jmp	.L8
+.L24:
+	fstp	%st(0)
+	call	abort
+.L8:
+	call	abort
+.L25:
+	fld1
+	fxch	%st(1)
+	fucomi	%st(1), %st
+	fstp	%st(1)
+	jbe	.L26
+	fstp	%st(0)
+	call	abort
+.L26:
+	fld1
+	fucomip	%st(1), %st
+	jb	.L27
+	fstp	%st(0)
+	call	abort
+.L27:
+	fld1
+	fxch	%st(1)
+	fucomi	%st(1), %st
+	fstp	%st(1)
+	jb	.L28
+	fstp	%st(0)
+	call	abort
+.L28:
+	fld1
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jp	.L16
+	jne	.L16
+	call	abort
+.L16:
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.globl	x
+	.data
+	.align 16
+	.type	x, @object
+	.size	x, 16
+x:
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.globl	dnan
+	.align 16
+	.type	dnan, @object
+	.size	dnan, 16
+dnan:
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

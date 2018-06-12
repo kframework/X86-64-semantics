@@ -1,0 +1,79 @@
+	.file	"fp-cmp-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.globl	leave
+	.type	leave, @function
+leave:
+	xorl	%edi, %edi
+	pushq	%rax
+	call	exit
+	.size	leave, .-leave
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB2:
+	.section	.text.startup,"ax",@progbits
+.LHOTB2:
+	.globl	main
+	.type	main, @function
+main:
+	movl	$leave, %esi
+	pushq	%rax
+	movl	$8, %edi
+	call	signal
+	vmovsd	dnan(%rip), %xmm0
+	vucomisd	%xmm0, %xmm0
+	jp	.L4
+.L6:
+	call	abort
+.L4:
+	vucomisd	x(%rip), %xmm0
+	jp	.L9
+	je	.L6
+.L9:
+	vmovsd	.LC1(%rip), %xmm1
+	vmovsd	%xmm1, x(%rip)
+	vucomisd	%xmm0, %xmm1
+	ja	.L6
+	vucomisd	%xmm1, %xmm0
+	ja	.L6
+	vucomisd	%xmm0, %xmm1
+	jnb	.L6
+	vucomisd	%xmm1, %xmm0
+	jnb	.L6
+	jp	.L10
+	je	.L6
+.L10:
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE2:
+	.section	.text.startup
+.LHOTE2:
+	.globl	x
+	.data
+	.align 8
+	.type	x, @object
+	.size	x, 8
+x:
+	.long	0
+	.long	1072693248
+	.globl	dnan
+	.align 8
+	.type	dnan, @object
+	.size	dnan, 8
+dnan:
+	.long	0
+	.long	2146959360
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC1:
+	.long	0
+	.long	1072693248
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

@@ -1,0 +1,366 @@
+	.file	"pr38016.c"
+	.text
+	.type	test_isunordered, @function
+test_isunordered:
+	vcmpunordsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.type	test_not_isunordered, @function
+test_not_isunordered:
+	vcmpordsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isunordered, .-test_not_isunordered
+	.type	test_isless, @function
+test_isless:
+	vcmpnltsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isless, .-test_isless
+	.type	test_not_isless, @function
+test_not_isless:
+	vcmpnltsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isless, .-test_not_isless
+	.type	test_islessequal, @function
+test_islessequal:
+	vcmpnlesd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.type	test_not_islessequal, @function
+test_not_islessequal:
+	vcmpnlesd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessequal, .-test_not_islessequal
+	.type	test_isgreater, @function
+test_isgreater:
+	vcmpnltsd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.type	test_not_isgreater, @function
+test_not_isgreater:
+	vcmpnltsd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreater, .-test_not_isgreater
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	vcmpnlesd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.type	test_not_isgreaterequal, @function
+test_not_isgreaterequal:
+	vcmpnlesd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreaterequal, .-test_not_isgreaterequal
+	.type	test_islessgreater, @function
+test_islessgreater:
+	vcmpeq_ussd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.type	test_not_islessgreater, @function
+test_not_islessgreater:
+	vcmpeq_ussd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessgreater, .-test_not_islessgreater
+	.type	one_test, @function
+one_test:
+	pushq	%r14
+	pushq	%r13
+	pushq	%r12
+	pushq	%rbp
+	pushq	%rbx
+	vmovq	%xmm0, %rbp
+	vmovq	%xmm1, %r12
+	movl	%edi, %r13d
+	movq	%rdx, %r14
+	vmovsd	.LC0(%rip), %xmm3
+	vmovsd	.LC1(%rip), %xmm2
+	call	*%rsi
+	vmovsd	.LC1(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	setnp	%bl
+	movzbl	%bl, %ebx
+	movl	$0, %eax
+	cmovne	%eax, %ebx
+	cmpl	%r13d, %ebx
+	je	.L48
+	call	abort
+.L48:
+	vmovsd	.LC2(%rip), %xmm3
+	vmovsd	.LC3(%rip), %xmm2
+	vmovq	%r12, %xmm1
+	vmovq	%rbp, %xmm0
+	call	*%r14
+	vucomisd	.LC2(%rip), %xmm0
+	setnp	%al
+	movzbl	%al, %eax
+	movl	$0, %edx
+	cmovne	%edx, %eax
+	cmpl	%eax, %ebx
+	je	.L47
+	call	abort
+.L47:
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	popq	%r13
+	popq	%r14
+	ret
+	.size	one_test, .-one_test
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r15
+	pushq	%r14
+	pushq	%r13
+	pushq	%r12
+	pushq	%rbp
+	pushq	%rbx
+	subq	$24, %rsp
+	movl	$14, 12(%rsp)
+	movl	$0, %r15d
+	jmp	.L52
+.L53:
+	movslq	%ebx, %rax
+	movq	%rax, %rcx
+	salq	$4, %rcx
+	movq	tests.2342+8(%rcx), %rdx
+	addq	%r14, %rax
+	movl	data.2330+16(,%rax,4), %edi
+	movq	tests.2342(%rcx), %rsi
+	vmovq	%r13, %xmm1
+	vmovsd	(%r12), %xmm0
+	call	one_test
+	addl	$1, %ebx
+	subl	$1, %ebp
+	jne	.L53
+	addl	$1, %r15d
+	subl	$1, 12(%rsp)
+	je	.L54
+.L52:
+	movl	$6, %ebp
+	movl	$0, %ebx
+	movslq	%r15d, %rax
+	leaq	(%rax,%rax,4), %rax
+	leaq	(%rax,%rax), %r14
+	leaq	data.2330(,%rax,8), %r12
+	movq	8(%r12), %r13
+	jmp	.L53
+.L54:
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.section	.rodata
+	.align 64
+	.type	data.2330, @object
+	.size	data.2330, 560
+data.2330:
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.align 64
+	.type	tests.2342, @object
+	.size	tests.2342, 96
+tests.2342:
+	.quad	test_isunordered
+	.quad	test_not_isunordered
+	.quad	test_isless
+	.quad	test_not_isless
+	.quad	test_islessequal
+	.quad	test_not_islessequal
+	.quad	test_isgreater
+	.quad	test_not_isgreater
+	.quad	test_isgreaterequal
+	.quad	test_not_isgreaterequal
+	.quad	test_islessgreater
+	.quad	test_not_islessgreater
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	1073741824
+	.align 8
+.LC1:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC2:
+	.long	0
+	.long	1074790400
+	.align 8
+.LC3:
+	.long	0
+	.long	1074266112
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

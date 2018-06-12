@@ -1,0 +1,249 @@
+	.file	"fp-cmp-4f.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.globl	test_isunordered
+	.type	test_isunordered, @function
+test_isunordered:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rdx
+	jnp	.L2
+	testl	%edi, %edi
+	jne	.L1
+.L4:
+	call	abort
+.L2:
+	testl	%edi, %edi
+	jne	.L4
+.L1:
+	popq	%rax
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.globl	test_isless
+	.type	test_isless, @function
+test_isless:
+	vucomiss	%xmm0, %xmm1
+	pushq	%rdx
+	jbe	.L8
+	testl	%edi, %edi
+	jne	.L7
+.L10:
+	call	abort
+.L8:
+	testl	%edi, %edi
+	jne	.L10
+.L7:
+	popq	%rax
+	ret
+	.size	test_isless, .-test_isless
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.globl	test_islessequal
+	.type	test_islessequal, @function
+test_islessequal:
+	vucomiss	%xmm0, %xmm1
+	pushq	%rdx
+	jb	.L13
+	testl	%edi, %edi
+	jne	.L12
+.L15:
+	call	abort
+.L13:
+	testl	%edi, %edi
+	jne	.L15
+.L12:
+	popq	%rax
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.globl	test_isgreater
+	.type	test_isgreater, @function
+test_isgreater:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rdx
+	jbe	.L18
+	testl	%edi, %edi
+	jne	.L17
+.L20:
+	call	abort
+.L18:
+	testl	%edi, %edi
+	jne	.L20
+.L17:
+	popq	%rax
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.globl	test_isgreaterequal
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rdx
+	jb	.L23
+	testl	%edi, %edi
+	jne	.L22
+.L25:
+	call	abort
+.L23:
+	testl	%edi, %edi
+	jne	.L25
+.L22:
+	popq	%rax
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.globl	test_islessgreater
+	.type	test_islessgreater, @function
+test_islessgreater:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rdx
+	je	.L28
+	testl	%edi, %edi
+	jne	.L27
+.L30:
+	call	abort
+.L28:
+	testl	%edi, %edi
+	jne	.L30
+.L27:
+	popq	%rax
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.section	.text.startup,"ax",@progbits
+.LHOTB6:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r12
+	movl	$data.2290, %r12d
+	pushq	%rbp
+	xorl	%ebp, %ebp
+	pushq	%rbx
+	subq	$16, %rsp
+.L33:
+	movslq	%ebp, %rax
+	vmovss	(%r12), %xmm3
+	incl	%ebp
+	addq	$12, %r12
+	imulq	$12, %rax, %rax
+	vmovss	-8(%r12), %xmm2
+	vmovaps	%xmm3, %xmm0
+	vmovss	%xmm3, 12(%rsp)
+	vmovaps	%xmm2, %xmm1
+	vmovss	%xmm2, 8(%rsp)
+	movb	data.2290+8(%rax), %bl
+	movl	%ebx, %edi
+	andl	$1, %edi
+	call	test_isunordered
+	movb	%bl, %dil
+	vmovss	8(%rsp), %xmm1
+	vmovss	12(%rsp), %xmm0
+	shrb	%dil
+	andl	$1, %edi
+	call	test_isless
+	movb	%bl, %dil
+	vmovss	8(%rsp), %xmm1
+	vmovss	12(%rsp), %xmm0
+	shrb	$2, %dil
+	andl	$1, %edi
+	call	test_islessequal
+	movb	%bl, %dil
+	vmovss	8(%rsp), %xmm1
+	vmovss	12(%rsp), %xmm0
+	shrb	$3, %dil
+	andl	$1, %edi
+	call	test_isgreater
+	movb	%bl, %dil
+	shrb	$5, %bl
+	vmovss	8(%rsp), %xmm1
+	vmovss	12(%rsp), %xmm0
+	shrb	$4, %dil
+	andl	$1, %edi
+	call	test_isgreaterequal
+	movb	%bl, %dil
+	vmovss	8(%rsp), %xmm1
+	vmovss	12(%rsp), %xmm0
+	andl	$1, %edi
+	call	test_islessgreater
+	cmpl	$6, %ebp
+	jne	.L33
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE6:
+	.section	.text.startup
+.LHOTE6:
+	.section	.rodata
+	.align 64
+	.type	data.2290, @object
+	.size	data.2290, 72
+data.2290:
+	.long	2143289344
+	.long	2143289344
+	.byte	1
+	.zero	3
+	.long	0
+	.long	2143289344
+	.byte	1
+	.zero	3
+	.long	2143289344
+	.long	0
+	.byte	1
+	.zero	3
+	.long	0
+	.long	0
+	.byte	20
+	.zero	3
+	.long	1065353216
+	.long	1073741824
+	.byte	38
+	.zero	3
+	.long	1073741824
+	.long	1065353216
+	.byte	56
+	.zero	3
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

@@ -1,0 +1,336 @@
+	.file	"pr36332.c"
+	.text
+.Ltext0:
+	.cfi_sections	.debug_frame
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.p2align 4,,15
+	.section	.text.unlikely
+.Ltext_cold0:
+	.text
+	.globl	foo
+	.type	foo, @function
+foo:
+.LFB0:
+	.file 1 "./src/pr36332.c"
+	.loc 1 5 0
+	.cfi_startproc
+.LVL0:
+	.loc 1 6 0
+	fldt	.LC0(%rip)
+	xorl	%eax, %eax
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	seta	%al
+	.loc 1 7 0
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	foo, .-foo
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.section	.text.startup,"ax",@progbits
+.LHOTB3:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.loc 1 11 0
+	.cfi_startproc
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 16
+	.loc 1 12 0
+	pushq	$32766
+	.cfi_def_cfa_offset 24
+	pushq	$-1
+	.cfi_def_cfa_offset 32
+	call	foo
+.LVL1:
+	popq	%rdx
+	.cfi_def_cfa_offset 24
+	popq	%rcx
+	.cfi_def_cfa_offset 16
+	testl	%eax, %eax
+	jne	.L7
+	.loc 1 15 0
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	.cfi_remember_state
+	.cfi_def_cfa_offset 8
+	ret
+.L7:
+	.cfi_restore_state
+	.loc 1 13 0
+	call	abort
+.LVL2:
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE3:
+	.section	.text.startup
+.LHOTE3:
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC0:
+	.long	4294967295
+	.long	4294967295
+	.long	32766
+	.long	0
+	.text
+.Letext0:
+	.section	.text.unlikely
+.Letext_cold0:
+	.file 2 "<built-in>"
+	.section	.debug_info,"",@progbits
+.Ldebug_info0:
+	.long	0xaa
+	.value	0x4
+	.long	.Ldebug_abbrev0
+	.byte	0x8
+	.uleb128 0x1
+	.long	.LASF1
+	.byte	0x1
+	.long	.LASF2
+	.long	.LASF3
+	.long	.Ldebug_ranges0+0
+	.quad	0
+	.long	.Ldebug_line0
+	.uleb128 0x2
+	.string	"foo"
+	.byte	0x1
+	.byte	0x4
+	.long	0x58
+	.quad	.LFB0
+	.quad	.LFE0-.LFB0
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x58
+	.uleb128 0x3
+	.string	"ld"
+	.byte	0x1
+	.byte	0x4
+	.long	0x5f
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0
+	.uleb128 0x4
+	.byte	0x4
+	.byte	0x5
+	.string	"int"
+	.uleb128 0x5
+	.byte	0x10
+	.byte	0x4
+	.long	.LASF0
+	.uleb128 0x6
+	.long	.LASF4
+	.byte	0x1
+	.byte	0xa
+	.long	0x58
+	.quad	.LFB1
+	.quad	.LFE1-.LFB1
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0xa2
+	.uleb128 0x7
+	.quad	.LVL1
+	.long	0x29
+	.uleb128 0x7
+	.quad	.LVL2
+	.long	0xa2
+	.byte	0
+	.uleb128 0x8
+	.long	.LASF5
+	.byte	0x2
+	.byte	0
+	.long	.LASF6
+	.byte	0
+	.section	.debug_abbrev,"",@progbits
+.Ldebug_abbrev0:
+	.uleb128 0x1
+	.uleb128 0x11
+	.byte	0x1
+	.uleb128 0x25
+	.uleb128 0xe
+	.uleb128 0x13
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x1b
+	.uleb128 0xe
+	.uleb128 0x55
+	.uleb128 0x17
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x10
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x2
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x4
+	.uleb128 0x24
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0
+	.byte	0
+	.uleb128 0x5
+	.uleb128 0x24
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.byte	0
+	.byte	0
+	.uleb128 0x6
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x7
+	.uleb128 0x4109
+	.byte	0
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x8
+	.uleb128 0x2e
+	.byte	0
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x6e
+	.uleb128 0xe
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x3c
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.byte	0
+	.section	.debug_aranges,"",@progbits
+	.long	0x3c
+	.value	0x2
+	.long	.Ldebug_info0
+	.byte	0x8
+	.byte	0
+	.value	0
+	.value	0
+	.quad	.Ltext0
+	.quad	.Letext0-.Ltext0
+	.quad	.LFB1
+	.quad	.LFE1-.LFB1
+	.quad	0
+	.quad	0
+	.section	.debug_ranges,"",@progbits
+.Ldebug_ranges0:
+	.quad	.Ltext0
+	.quad	.Letext0
+	.quad	.LFB1
+	.quad	.LFE1
+	.quad	0
+	.quad	0
+	.section	.debug_line,"",@progbits
+.Ldebug_line0:
+	.section	.debug_str,"MS",@progbits,1
+.LASF1:
+	.string	"GNU C 4.9.4 -march=haswell -g -O3 -fno-inline -fno-asynchronous-unwind-tables -fstack-protector-strong"
+.LASF6:
+	.string	"abort"
+.LASF5:
+	.string	"__builtin_abort"
+.LASF2:
+	.string	"./src/pr36332.c"
+.LASF3:
+	.string	"/home/sdasgup3/x86-semantics/tests/gcc.c-torture/ieee"
+.LASF0:
+	.string	"long double"
+.LASF4:
+	.string	"main"
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

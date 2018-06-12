@@ -1,0 +1,111 @@
+	.file	"fp-cmp-1.c"
+	.globl	dnan
+	.data
+	.align 8
+	.type	dnan, @object
+	.size	dnan, 8
+dnan:
+	.long	0
+	.long	2146959360
+	.globl	x
+	.align 8
+	.type	x, @object
+	.size	x, 8
+x:
+	.long	0
+	.long	1072693248
+	.text
+	.globl	leave
+	.type	leave, @function
+leave:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	$0, %edi
+	call	exit
+	.size	leave, .-leave
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	$leave, %esi
+	movl	$8, %edi
+	call	signal
+	movq	dnan(%rip), %rax
+	movq	dnan(%rip), %rdx
+	vmovq	%rax, %xmm0
+	vmovq	%rdx, %xmm1
+	vucomisd	%xmm1, %xmm0
+	jp	.L3
+	vmovq	%rax, %xmm2
+	vmovq	%rdx, %xmm3
+	vucomisd	%xmm3, %xmm2
+	jne	.L3
+	call	abort
+.L3:
+	movq	dnan(%rip), %rax
+	movq	x(%rip), %rdx
+	vmovq	%rax, %xmm4
+	vmovq	%rdx, %xmm5
+	vucomisd	%xmm5, %xmm4
+	jp	.L19
+	vmovq	%rax, %xmm6
+	vmovq	%rdx, %xmm7
+	vucomisd	%xmm7, %xmm6
+	je	.L25
+.L19:
+	movabsq	$4607182418800017408, %rax
+	movq	%rax, x(%rip)
+	movq	dnan(%rip), %rdx
+	movq	x(%rip), %rax
+	vmovq	%rax, %xmm0
+	vmovq	%rdx, %xmm1
+	vucomisd	%xmm1, %xmm0
+	ja	.L20
+	jmp	.L26
+.L25:
+	call	abort
+.L20:
+	call	abort
+.L26:
+	movq	dnan(%rip), %rax
+	movq	x(%rip), %rdx
+	vmovq	%rax, %xmm2
+	vmovq	%rdx, %xmm3
+	vucomisd	%xmm3, %xmm2
+	jbe	.L27
+	call	abort
+.L27:
+	movq	dnan(%rip), %rdx
+	movq	x(%rip), %rax
+	vmovq	%rax, %xmm4
+	vmovq	%rdx, %xmm5
+	vucomisd	%xmm5, %xmm4
+	jb	.L28
+	call	abort
+.L28:
+	movq	dnan(%rip), %rax
+	movq	x(%rip), %rdx
+	vmovq	%rax, %xmm6
+	vmovq	%rdx, %xmm7
+	vucomisd	%xmm7, %xmm6
+	jb	.L29
+	call	abort
+.L29:
+	movq	dnan(%rip), %rax
+	movq	x(%rip), %rdx
+	vmovq	%rax, %xmm0
+	vmovq	%rdx, %xmm1
+	vucomisd	%xmm1, %xmm0
+	jp	.L16
+	vmovq	%rax, %xmm2
+	vmovq	%rdx, %xmm3
+	vucomisd	%xmm3, %xmm2
+	jne	.L16
+	call	abort
+.L16:
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

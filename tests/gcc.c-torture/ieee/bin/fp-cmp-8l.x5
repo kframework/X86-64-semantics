@@ -1,0 +1,2227 @@
+	.file	"fp-cmp-8l.c"
+	.text
+.Ltext0:
+	.cfi_sections	.debug_frame
+	.type	test_isunordered, @function
+test_isunordered:
+.LFB0:
+	.file 1 "./src/fp-cmp-8.c"
+	.loc 1 9 0
+	.cfi_startproc
+.LVL0:
+	.loc 1 10 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jnp	.L3
+	fldt	40(%rsp)
+	ret
+.LVL1:
+.L3:
+	fldt	56(%rsp)
+.LVL2:
+	.loc 1 11 0
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	test_isunordered, .-test_isunordered
+	.type	test_not_isunordered, @function
+test_not_isunordered:
+.LFB1:
+	.loc 1 15 0
+	.cfi_startproc
+.LVL3:
+	.loc 1 16 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jp	.L6
+	fldt	40(%rsp)
+	ret
+.LVL4:
+.L6:
+	fldt	56(%rsp)
+.LVL5:
+	.loc 1 17 0
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	test_not_isunordered, .-test_not_isunordered
+	.type	test_isless, @function
+test_isless:
+.LFB2:
+	.loc 1 21 0
+	.cfi_startproc
+.LVL6:
+	.loc 1 22 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jbe	.L9
+	fldt	40(%rsp)
+	ret
+.L9:
+	fldt	56(%rsp)
+	.loc 1 23 0
+	ret
+	.cfi_endproc
+.LFE2:
+	.size	test_isless, .-test_isless
+	.type	test_not_isless, @function
+test_not_isless:
+.LFB3:
+	.loc 1 27 0
+	.cfi_startproc
+.LVL7:
+	.loc 1 28 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	ja	.L15
+	fldt	40(%rsp)
+	ret
+.L15:
+	fldt	56(%rsp)
+	.loc 1 29 0
+	ret
+	.cfi_endproc
+.LFE3:
+	.size	test_not_isless, .-test_not_isless
+	.type	test_islessequal, @function
+test_islessequal:
+.LFB4:
+	.loc 1 33 0
+	.cfi_startproc
+.LVL8:
+	.loc 1 34 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jb	.L18
+	fldt	40(%rsp)
+	ret
+.L18:
+	fldt	56(%rsp)
+	.loc 1 35 0
+	ret
+	.cfi_endproc
+.LFE4:
+	.size	test_islessequal, .-test_islessequal
+	.type	test_not_islessequal, @function
+test_not_islessequal:
+.LFB5:
+	.loc 1 39 0
+	.cfi_startproc
+.LVL9:
+	.loc 1 40 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jnb	.L24
+	fldt	40(%rsp)
+	ret
+.L24:
+	fldt	56(%rsp)
+	.loc 1 41 0
+	ret
+	.cfi_endproc
+.LFE5:
+	.size	test_not_islessequal, .-test_not_islessequal
+	.type	test_isgreater, @function
+test_isgreater:
+.LFB6:
+	.loc 1 45 0
+	.cfi_startproc
+.LVL10:
+	.loc 1 46 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jbe	.L27
+	fldt	40(%rsp)
+	ret
+.LVL11:
+.L27:
+	fldt	56(%rsp)
+.LVL12:
+	.loc 1 47 0
+	ret
+	.cfi_endproc
+.LFE6:
+	.size	test_isgreater, .-test_isgreater
+	.type	test_not_isgreater, @function
+test_not_isgreater:
+.LFB7:
+	.loc 1 51 0
+	.cfi_startproc
+.LVL13:
+	.loc 1 52 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	ja	.L33
+	fldt	40(%rsp)
+	ret
+.LVL14:
+.L33:
+	fldt	56(%rsp)
+.LVL15:
+	.loc 1 53 0
+	ret
+	.cfi_endproc
+.LFE7:
+	.size	test_not_isgreater, .-test_not_isgreater
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+.LFB8:
+	.loc 1 57 0
+	.cfi_startproc
+.LVL16:
+	.loc 1 58 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jb	.L36
+	fldt	40(%rsp)
+	ret
+.LVL17:
+.L36:
+	fldt	56(%rsp)
+.LVL18:
+	.loc 1 59 0
+	ret
+	.cfi_endproc
+.LFE8:
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.type	test_not_isgreaterequal, @function
+test_not_isgreaterequal:
+.LFB9:
+	.loc 1 63 0
+	.cfi_startproc
+.LVL19:
+	.loc 1 64 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jnb	.L42
+	fldt	40(%rsp)
+	ret
+.LVL20:
+.L42:
+	fldt	56(%rsp)
+.LVL21:
+	.loc 1 65 0
+	ret
+	.cfi_endproc
+.LFE9:
+	.size	test_not_isgreaterequal, .-test_not_isgreaterequal
+	.type	test_islessgreater, @function
+test_islessgreater:
+.LFB10:
+	.loc 1 69 0
+	.cfi_startproc
+.LVL22:
+	.loc 1 70 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	je	.L45
+	fldt	40(%rsp)
+	ret
+.LVL23:
+.L45:
+	fldt	56(%rsp)
+.LVL24:
+	.loc 1 71 0
+	ret
+	.cfi_endproc
+.LFE10:
+	.size	test_islessgreater, .-test_islessgreater
+	.type	test_not_islessgreater, @function
+test_not_islessgreater:
+.LFB11:
+	.loc 1 75 0
+	.cfi_startproc
+.LVL25:
+	.loc 1 76 0
+	fldt	24(%rsp)
+	fldt	8(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jne	.L51
+	fldt	40(%rsp)
+	ret
+.LVL26:
+.L51:
+	fldt	56(%rsp)
+.LVL27:
+	.loc 1 77 0
+	ret
+	.cfi_endproc
+.LFE11:
+	.size	test_not_islessgreater, .-test_not_islessgreater
+	.type	one_test, @function
+one_test:
+.LFB12:
+	.loc 1 83 0
+	.cfi_startproc
+.LVL28:
+	pushq	%r14
+	.cfi_def_cfa_offset 16
+	.cfi_offset 14, -16
+	pushq	%r13
+	.cfi_def_cfa_offset 24
+	.cfi_offset 13, -24
+	pushq	%rbp
+	.cfi_def_cfa_offset 32
+	.cfi_offset 6, -32
+	pushq	%rbx
+	.cfi_def_cfa_offset 40
+	.cfi_offset 3, -40
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 48
+	movq	48(%rsp), %r13
+	movl	56(%rsp), %r14d
+	movl	%edi, %ebx
+	movq	%rdx, %rbp
+	.loc 1 84 0
+	pushq	$16384
+	.cfi_def_cfa_offset 56
+	pushq	$0
+	.cfi_def_cfa_offset 64
+	movl	$-2147483648, 4(%rsp)
+	pushq	$16383
+	.cfi_def_cfa_offset 72
+	pushq	$0
+	.cfi_def_cfa_offset 80
+	movl	$-2147483648, 4(%rsp)
+	pushq	104(%rsp)
+	.cfi_def_cfa_offset 88
+	pushq	104(%rsp)
+	.cfi_def_cfa_offset 96
+	pushq	%r14
+	.cfi_def_cfa_offset 104
+	pushq	%r13
+	.cfi_def_cfa_offset 112
+	call	*%rsi
+.LVL29:
+	addq	$64, %rsp
+	.cfi_def_cfa_offset 48
+	fld1
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	setnp	%al
+	movzbl	%al, %eax
+	movl	$0, %edx
+	cmovne	%edx, %eax
+	cmpl	%ebx, %eax
+	je	.L53
+	.loc 1 85 0
+	call	abort
+.LVL30:
+.L53:
+	.loc 1 86 0
+	pushq	$16385
+	.cfi_def_cfa_offset 56
+	pushq	$0
+	.cfi_def_cfa_offset 64
+	movl	$-2147483648, 4(%rsp)
+	pushq	$16384
+	.cfi_def_cfa_offset 72
+	pushq	$0
+	.cfi_def_cfa_offset 80
+	movl	$-1073741824, 4(%rsp)
+	pushq	104(%rsp)
+	.cfi_def_cfa_offset 88
+	pushq	104(%rsp)
+	.cfi_def_cfa_offset 96
+	pushq	%r14
+	.cfi_def_cfa_offset 104
+	pushq	%r13
+	.cfi_def_cfa_offset 112
+	call	*%rbp
+.LVL31:
+	addq	$64, %rsp
+	.cfi_def_cfa_offset 48
+	fldt	.LC5(%rip)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	setnp	%al
+	movzbl	%al, %eax
+	movl	$0, %edx
+	cmovne	%edx, %eax
+	cmpl	%ebx, %eax
+	je	.L52
+	.loc 1 87 0
+	call	abort
+.LVL32:
+.L52:
+	.loc 1 88 0
+	addq	$8, %rsp
+	.cfi_def_cfa_offset 40
+	popq	%rbx
+	.cfi_def_cfa_offset 32
+.LVL33:
+	popq	%rbp
+	.cfi_def_cfa_offset 24
+.LVL34:
+	popq	%r13
+	.cfi_def_cfa_offset 16
+	popq	%r14
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc
+.LFE12:
+	.size	one_test, .-one_test
+	.globl	main
+	.type	main, @function
+main:
+.LFB13:
+	.loc 1 95 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	pushq	%rbx
+	.cfi_def_cfa_offset 24
+	.cfi_offset 3, -24
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 32
+.LVL35:
+	.loc 1 139 0
+	movl	$0, %ebp
+	jmp	.L57
+.LVL36:
+.L58:
+	.loc 1 141 0 discriminator 3
+	movslq	%ebx, %rsi
+	movq	%rsi, %rcx
+	salq	$4, %rcx
+	movq	tests.2342+8(%rcx), %rdx
+	movslq	%ebp, %rax
+	movq	%rax, %rdi
+	salq	$4, %rdi
+	leaq	8(%rsi,%rdi), %rsi
+	movl	data.2330(,%rsi,4), %edi
+	salq	$6, %rax
+	pushq	data.2330+24(%rax)
+	.cfi_def_cfa_offset 40
+	pushq	data.2330+16(%rax)
+	.cfi_def_cfa_offset 48
+	pushq	data.2330+8(%rax)
+	.cfi_def_cfa_offset 56
+	pushq	data.2330(%rax)
+	.cfi_def_cfa_offset 64
+	movq	tests.2342(%rcx), %rsi
+	call	one_test
+.LVL37:
+	.loc 1 140 0 discriminator 3
+	addl	$1, %ebx
+.LVL38:
+	addq	$32, %rsp
+	.cfi_def_cfa_offset 32
+	jmp	.L59
+.LVL39:
+.L60:
+	movl	$0, %ebx
+.L59:
+.LVL40:
+	.loc 1 140 0 is_stmt 0 discriminator 1
+	cmpl	$5, %ebx
+	jle	.L58
+	.loc 1 139 0 is_stmt 1 discriminator 2
+	addl	$1, %ebp
+.LVL41:
+.L57:
+	.loc 1 139 0 is_stmt 0 discriminator 1
+	cmpl	$13, %ebp
+	jle	.L60
+	.loc 1 144 0 is_stmt 1
+	movl	$0, %edi
+	call	exit
+.LVL42:
+	.cfi_endproc
+.LFE13:
+	.size	main, .-main
+	.section	.rodata
+	.align 64
+	.type	data.2330, @object
+	.size	data.2330, 896
+data.2330:
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.zero	8
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.zero	8
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.zero	8
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16384
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	16384
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.zero	8
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.zero	8
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.zero	8
+	.align 64
+	.type	tests.2342, @object
+	.size	tests.2342, 96
+tests.2342:
+	.quad	test_isunordered
+	.quad	test_not_isunordered
+	.quad	test_isless
+	.quad	test_not_isless
+	.quad	test_islessequal
+	.quad	test_not_islessequal
+	.quad	test_isgreater
+	.quad	test_not_isgreater
+	.quad	test_isgreaterequal
+	.quad	test_not_isgreaterequal
+	.quad	test_islessgreater
+	.quad	test_not_islessgreater
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC5:
+	.long	0
+	.long	2147483648
+	.long	16385
+	.long	0
+	.text
+.Letext0:
+	.file 2 "<built-in>"
+	.section	.debug_info,"",@progbits
+.Ldebug_info0:
+	.long	0x678
+	.value	0x4
+	.long	.Ldebug_abbrev0
+	.byte	0x8
+	.uleb128 0x1
+	.long	.LASF20
+	.byte	0x1
+	.long	.LASF21
+	.long	.LASF22
+	.quad	.Ltext0
+	.quad	.Letext0-.Ltext0
+	.long	.Ldebug_line0
+	.uleb128 0x2
+	.long	.LASF0
+	.byte	0x1
+	.byte	0x8
+	.long	0x80
+	.quad	.LFB0
+	.quad	.LFE0-.LFB0
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x80
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x8
+	.long	0x80
+	.long	.LLST0
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x8
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x8
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x8
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x5
+	.byte	0x10
+	.byte	0x4
+	.long	.LASF13
+	.uleb128 0x2
+	.long	.LASF1
+	.byte	0x1
+	.byte	0xe
+	.long	0x80
+	.quad	.LFB1
+	.quad	.LFE1-.LFB1
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0xda
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0xe
+	.long	0x80
+	.long	.LLST1
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0xe
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0xe
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0xe
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF2
+	.byte	0x1
+	.byte	0x14
+	.long	0x80
+	.quad	.LFB2
+	.quad	.LFE2-.LFB2
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x12c
+	.uleb128 0x4
+	.string	"x"
+	.byte	0x1
+	.byte	0x14
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x14
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x14
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x14
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF3
+	.byte	0x1
+	.byte	0x1a
+	.long	0x80
+	.quad	.LFB3
+	.quad	.LFE3-.LFB3
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x17e
+	.uleb128 0x4
+	.string	"x"
+	.byte	0x1
+	.byte	0x1a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x1a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x1a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x1a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF4
+	.byte	0x1
+	.byte	0x20
+	.long	0x80
+	.quad	.LFB4
+	.quad	.LFE4-.LFB4
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x1d0
+	.uleb128 0x4
+	.string	"x"
+	.byte	0x1
+	.byte	0x20
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x20
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x20
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x20
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF5
+	.byte	0x1
+	.byte	0x26
+	.long	0x80
+	.quad	.LFB5
+	.quad	.LFE5-.LFB5
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x222
+	.uleb128 0x4
+	.string	"x"
+	.byte	0x1
+	.byte	0x26
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x26
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x26
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x26
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF6
+	.byte	0x1
+	.byte	0x2c
+	.long	0x80
+	.quad	.LFB6
+	.quad	.LFE6-.LFB6
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x275
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x2c
+	.long	0x80
+	.long	.LLST2
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x2c
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x2c
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x2c
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF7
+	.byte	0x1
+	.byte	0x32
+	.long	0x80
+	.quad	.LFB7
+	.quad	.LFE7-.LFB7
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x2c8
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x32
+	.long	0x80
+	.long	.LLST3
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x32
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x32
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x32
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF8
+	.byte	0x1
+	.byte	0x38
+	.long	0x80
+	.quad	.LFB8
+	.quad	.LFE8-.LFB8
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x31b
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x38
+	.long	0x80
+	.long	.LLST4
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x38
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x38
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x38
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF9
+	.byte	0x1
+	.byte	0x3e
+	.long	0x80
+	.quad	.LFB9
+	.quad	.LFE9-.LFB9
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x36e
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x3e
+	.long	0x80
+	.long	.LLST5
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x3e
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x3e
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x3e
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF10
+	.byte	0x1
+	.byte	0x44
+	.long	0x80
+	.quad	.LFB10
+	.quad	.LFE10-.LFB10
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x3c1
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x44
+	.long	0x80
+	.long	.LLST6
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x44
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x44
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x44
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x2
+	.long	.LASF11
+	.byte	0x1
+	.byte	0x4a
+	.long	0x80
+	.quad	.LFB11
+	.quad	.LFE11-.LFB11
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x414
+	.uleb128 0x3
+	.string	"x"
+	.byte	0x1
+	.byte	0x4a
+	.long	0x80
+	.long	.LLST7
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x4a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x4
+	.string	"a"
+	.byte	0x1
+	.byte	0x4a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 32
+	.uleb128 0x4
+	.string	"b"
+	.byte	0x1
+	.byte	0x4a
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 48
+	.byte	0
+	.uleb128 0x6
+	.long	.LASF23
+	.byte	0x1
+	.byte	0x50
+	.quad	.LFB12
+	.quad	.LFE12-.LFB12
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x4a5
+	.uleb128 0x4
+	.string	"x"
+	.byte	0x1
+	.byte	0x50
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x4
+	.string	"y"
+	.byte	0x1
+	.byte	0x50
+	.long	0x80
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 16
+	.uleb128 0x7
+	.long	.LASF12
+	.byte	0x1
+	.byte	0x50
+	.long	0x4a5
+	.long	.LLST8
+	.uleb128 0x3
+	.string	"pos"
+	.byte	0x1
+	.byte	0x51
+	.long	0x4ca
+	.long	.LLST9
+	.uleb128 0x3
+	.string	"neg"
+	.byte	0x1
+	.byte	0x52
+	.long	0x4ca
+	.long	.LLST10
+	.uleb128 0x8
+	.long	.LASF19
+	.byte	0x2
+	.byte	0
+	.uleb128 0x9
+	.quad	.LVL29
+	.uleb128 0x3
+	.byte	0xf3
+	.uleb128 0x1
+	.byte	0x54
+	.uleb128 0xa
+	.quad	.LVL30
+	.long	0x667
+	.uleb128 0xa
+	.quad	.LVL32
+	.long	0x667
+	.byte	0
+	.uleb128 0xb
+	.byte	0x4
+	.byte	0x5
+	.string	"int"
+	.uleb128 0xc
+	.long	0x80
+	.long	0x4ca
+	.uleb128 0xd
+	.long	0x80
+	.uleb128 0xd
+	.long	0x80
+	.uleb128 0xd
+	.long	0x80
+	.uleb128 0xd
+	.long	0x80
+	.byte	0
+	.uleb128 0xe
+	.byte	0x8
+	.long	0x4ac
+	.uleb128 0xf
+	.long	.LASF24
+	.byte	0x1
+	.byte	0x5e
+	.long	0x4a5
+	.quad	.LFB13
+	.quad	.LFE13-.LFB13
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x621
+	.uleb128 0x10
+	.string	"try"
+	.byte	0x40
+	.byte	0x1
+	.byte	0x60
+	.long	0x51e
+	.uleb128 0x11
+	.string	"x"
+	.byte	0x1
+	.byte	0x62
+	.long	0x80
+	.byte	0
+	.uleb128 0x11
+	.string	"y"
+	.byte	0x1
+	.byte	0x62
+	.long	0x80
+	.byte	0x10
+	.uleb128 0x12
+	.long	.LASF14
+	.byte	0x1
+	.byte	0x63
+	.long	0x621
+	.byte	0x20
+	.byte	0
+	.uleb128 0x13
+	.long	.LASF16
+	.byte	0x1
+	.byte	0x66
+	.long	0x648
+	.uleb128 0x9
+	.byte	0x3
+	.quad	data.2330
+	.uleb128 0x14
+	.long	.LASF15
+	.byte	0x10
+	.byte	0x1
+	.byte	0x78
+	.long	0x558
+	.uleb128 0x11
+	.string	"pos"
+	.byte	0x1
+	.byte	0x7a
+	.long	0x4ca
+	.byte	0
+	.uleb128 0x11
+	.string	"neg"
+	.byte	0x1
+	.byte	0x7b
+	.long	0x4ca
+	.byte	0x8
+	.byte	0
+	.uleb128 0x13
+	.long	.LASF17
+	.byte	0x1
+	.byte	0x7e
+	.long	0x65d
+	.uleb128 0x9
+	.byte	0x3
+	.quad	tests.2342
+	.uleb128 0x15
+	.string	"n"
+	.byte	0x1
+	.byte	0x88
+	.long	0x662
+	.byte	0xe
+	.uleb128 0x16
+	.string	"i"
+	.byte	0x1
+	.byte	0x89
+	.long	0x4a5
+	.long	.LLST11
+	.uleb128 0x16
+	.string	"j"
+	.byte	0x1
+	.byte	0x89
+	.long	0x4a5
+	.long	.LLST12
+	.uleb128 0x17
+	.long	.LASF25
+	.byte	0x2
+	.byte	0
+	.long	0x5a2
+	.uleb128 0xd
+	.long	0x4a5
+	.byte	0
+	.uleb128 0x18
+	.quad	.LVL37
+	.long	0x414
+	.long	0x60d
+	.uleb128 0x19
+	.uleb128 0x1
+	.byte	0x55
+	.uleb128 0x23
+	.byte	0x76
+	.sleb128 0
+	.byte	0x8
+	.byte	0x20
+	.byte	0x24
+	.byte	0x8
+	.byte	0x20
+	.byte	0x26
+	.byte	0x34
+	.byte	0x24
+	.byte	0x73
+	.sleb128 0
+	.byte	0x8
+	.byte	0x20
+	.byte	0x24
+	.byte	0x8
+	.byte	0x20
+	.byte	0x26
+	.byte	0x22
+	.byte	0x23
+	.uleb128 0x8
+	.byte	0x32
+	.byte	0x24
+	.byte	0x3
+	.quad	data.2330
+	.byte	0x22
+	.byte	0x94
+	.byte	0x4
+	.uleb128 0x19
+	.uleb128 0x1
+	.byte	0x54
+	.uleb128 0x15
+	.byte	0x73
+	.sleb128 0
+	.byte	0x8
+	.byte	0x20
+	.byte	0x24
+	.byte	0x8
+	.byte	0x20
+	.byte	0x26
+	.byte	0x34
+	.byte	0x24
+	.byte	0x3
+	.quad	tests.2342
+	.byte	0x22
+	.byte	0x6
+	.uleb128 0x19
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x15
+	.byte	0x73
+	.sleb128 0
+	.byte	0x8
+	.byte	0x20
+	.byte	0x24
+	.byte	0x8
+	.byte	0x20
+	.byte	0x26
+	.byte	0x34
+	.byte	0x24
+	.byte	0x3
+	.quad	tests.2342+8
+	.byte	0x22
+	.byte	0x6
+	.byte	0
+	.uleb128 0x1a
+	.quad	.LVL42
+	.long	0x66e
+	.uleb128 0x19
+	.uleb128 0x1
+	.byte	0x55
+	.uleb128 0x1
+	.byte	0x30
+	.byte	0
+	.byte	0
+	.uleb128 0x1b
+	.long	0x4a5
+	.long	0x631
+	.uleb128 0x1c
+	.long	0x631
+	.byte	0x5
+	.byte	0
+	.uleb128 0x5
+	.byte	0x8
+	.byte	0x7
+	.long	.LASF18
+	.uleb128 0x1b
+	.long	0x4f1
+	.long	0x648
+	.uleb128 0x1c
+	.long	0x631
+	.byte	0xd
+	.byte	0
+	.uleb128 0x1d
+	.long	0x638
+	.uleb128 0x1b
+	.long	0x533
+	.long	0x65d
+	.uleb128 0x1c
+	.long	0x631
+	.byte	0x5
+	.byte	0
+	.uleb128 0x1d
+	.long	0x64d
+	.uleb128 0x1d
+	.long	0x4a5
+	.uleb128 0x8
+	.long	.LASF19
+	.byte	0x2
+	.byte	0
+	.uleb128 0x1e
+	.long	.LASF25
+	.byte	0x2
+	.byte	0
+	.uleb128 0xd
+	.long	0x4a5
+	.byte	0
+	.byte	0
+	.section	.debug_abbrev,"",@progbits
+.Ldebug_abbrev0:
+	.uleb128 0x1
+	.uleb128 0x11
+	.byte	0x1
+	.uleb128 0x25
+	.uleb128 0xe
+	.uleb128 0x13
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x1b
+	.uleb128 0xe
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x10
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x2
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x4
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x5
+	.uleb128 0x24
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.byte	0
+	.byte	0
+	.uleb128 0x6
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x7
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x8
+	.uleb128 0x2e
+	.byte	0
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x3c
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.uleb128 0x9
+	.uleb128 0x4109
+	.byte	0
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x2113
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0xa
+	.uleb128 0x4109
+	.byte	0
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0x24
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0
+	.byte	0
+	.uleb128 0xc
+	.uleb128 0x15
+	.byte	0x1
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xd
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xe
+	.uleb128 0xf
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xf
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x10
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x11
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x12
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x13
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x14
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x15
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x1c
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x16
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x17
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x3c
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x18
+	.uleb128 0x4109
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x19
+	.uleb128 0x410a
+	.byte	0
+	.uleb128 0x2
+	.uleb128 0x18
+	.uleb128 0x2111
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x1a
+	.uleb128 0x4109
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1b
+	.uleb128 0x1
+	.byte	0x1
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1c
+	.uleb128 0x21
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2f
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x1d
+	.uleb128 0x26
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1e
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x3c
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.byte	0
+	.section	.debug_loc,"",@progbits
+.Ldebug_loc0:
+.LLST0:
+	.quad	.LVL0-.Ltext0
+	.quad	.LVL1-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL1-.Ltext0
+	.quad	.LVL2-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL2-.Ltext0
+	.quad	.LFE0-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST1:
+	.quad	.LVL3-.Ltext0
+	.quad	.LVL4-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL4-.Ltext0
+	.quad	.LVL5-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL5-.Ltext0
+	.quad	.LFE1-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST2:
+	.quad	.LVL10-.Ltext0
+	.quad	.LVL11-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL11-.Ltext0
+	.quad	.LVL12-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL12-.Ltext0
+	.quad	.LFE6-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST3:
+	.quad	.LVL13-.Ltext0
+	.quad	.LVL14-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL14-.Ltext0
+	.quad	.LVL15-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL15-.Ltext0
+	.quad	.LFE7-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST4:
+	.quad	.LVL16-.Ltext0
+	.quad	.LVL17-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL17-.Ltext0
+	.quad	.LVL18-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL18-.Ltext0
+	.quad	.LFE8-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST5:
+	.quad	.LVL19-.Ltext0
+	.quad	.LVL20-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL20-.Ltext0
+	.quad	.LVL21-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL21-.Ltext0
+	.quad	.LFE9-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST6:
+	.quad	.LVL22-.Ltext0
+	.quad	.LVL23-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL23-.Ltext0
+	.quad	.LVL24-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL24-.Ltext0
+	.quad	.LFE10-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST7:
+	.quad	.LVL25-.Ltext0
+	.quad	.LVL26-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	.LVL26-.Ltext0
+	.quad	.LVL27-.Ltext0
+	.value	0x2
+	.byte	0x90
+	.uleb128 0x21
+	.quad	.LVL27-.Ltext0
+	.quad	.LFE11-.Ltext0
+	.value	0x2
+	.byte	0x91
+	.sleb128 0
+	.quad	0
+	.quad	0
+.LLST8:
+	.quad	.LVL28-.Ltext0
+	.quad	.LVL29-1-.Ltext0
+	.value	0x1
+	.byte	0x55
+	.quad	.LVL29-1-.Ltext0
+	.quad	.LVL33-.Ltext0
+	.value	0x1
+	.byte	0x53
+	.quad	.LVL33-.Ltext0
+	.quad	.LFE12-.Ltext0
+	.value	0x4
+	.byte	0xf3
+	.uleb128 0x1
+	.byte	0x55
+	.byte	0x9f
+	.quad	0
+	.quad	0
+.LLST9:
+	.quad	.LVL28-.Ltext0
+	.quad	.LVL29-1-.Ltext0
+	.value	0x1
+	.byte	0x54
+	.quad	.LVL29-1-.Ltext0
+	.quad	.LFE12-.Ltext0
+	.value	0x4
+	.byte	0xf3
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0x9f
+	.quad	0
+	.quad	0
+.LLST10:
+	.quad	.LVL28-.Ltext0
+	.quad	.LVL29-1-.Ltext0
+	.value	0x1
+	.byte	0x51
+	.quad	.LVL29-1-.Ltext0
+	.quad	.LVL34-.Ltext0
+	.value	0x1
+	.byte	0x56
+	.quad	.LVL34-.Ltext0
+	.quad	.LFE12-.Ltext0
+	.value	0x4
+	.byte	0xf3
+	.uleb128 0x1
+	.byte	0x51
+	.byte	0x9f
+	.quad	0
+	.quad	0
+.LLST11:
+	.quad	.LVL35-.Ltext0
+	.quad	.LVL36-.Ltext0
+	.value	0x2
+	.byte	0x30
+	.byte	0x9f
+	.quad	.LVL36-.Ltext0
+	.quad	.LFE13-.Ltext0
+	.value	0x1
+	.byte	0x56
+	.quad	0
+	.quad	0
+.LLST12:
+	.quad	.LVL36-.Ltext0
+	.quad	.LVL39-.Ltext0
+	.value	0x1
+	.byte	0x53
+	.quad	.LVL40-.Ltext0
+	.quad	.LVL41-.Ltext0
+	.value	0x1
+	.byte	0x53
+	.quad	0
+	.quad	0
+	.section	.debug_aranges,"",@progbits
+	.long	0x2c
+	.value	0x2
+	.long	.Ldebug_info0
+	.byte	0x8
+	.byte	0
+	.value	0
+	.value	0
+	.quad	.Ltext0
+	.quad	.Letext0-.Ltext0
+	.quad	0
+	.quad	0
+	.section	.debug_line,"",@progbits
+.Ldebug_line0:
+	.section	.debug_str,"MS",@progbits,1
+.LASF20:
+	.string	"GNU C 4.9.4 -march=haswell -g -Og -fno-inline -fno-asynchronous-unwind-tables -fstack-protector-strong"
+.LASF9:
+	.string	"test_not_isgreaterequal"
+.LASF18:
+	.string	"sizetype"
+.LASF10:
+	.string	"test_islessgreater"
+.LASF5:
+	.string	"test_not_islessequal"
+.LASF6:
+	.string	"test_isgreater"
+.LASF2:
+	.string	"test_isless"
+.LASF22:
+	.string	"/home/sdasgup3/x86-semantics/tests/gcc.c-torture/ieee"
+.LASF23:
+	.string	"one_test"
+.LASF24:
+	.string	"main"
+.LASF21:
+	.string	"./src/fp-cmp-8l.c"
+.LASF4:
+	.string	"test_islessequal"
+.LASF14:
+	.string	"result"
+.LASF11:
+	.string	"test_not_islessgreater"
+.LASF3:
+	.string	"test_not_isless"
+.LASF1:
+	.string	"test_not_isunordered"
+.LASF8:
+	.string	"test_isgreaterequal"
+.LASF17:
+	.string	"tests"
+.LASF19:
+	.string	"abort"
+.LASF15:
+	.string	"test"
+.LASF13:
+	.string	"long double"
+.LASF25:
+	.string	"exit"
+.LASF12:
+	.string	"expected"
+.LASF0:
+	.string	"test_isunordered"
+.LASF7:
+	.string	"test_not_isgreater"
+.LASF16:
+	.string	"data"
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

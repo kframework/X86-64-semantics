@@ -1,0 +1,45 @@
+	.file	"pr36332.c"
+	.text
+	.globl	foo
+	.type	foo, @function
+foo:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	fldt	16(%rbp)
+	fldt	.LC0(%rip)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	seta	%al
+	movzbl	%al, %eax
+	popq	%rbp
+	ret
+	.size	foo, .-foo
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	$-1, %rax
+	movl	$32766, %edx
+	pushq	%rdx
+	pushq	%rax
+	call	foo
+	addq	$16, %rsp
+	testl	%eax, %eax
+	je	.L4
+	call	abort
+.L4:
+	movl	$0, %eax
+	leave
+	ret
+	.size	main, .-main
+	.section	.rodata
+	.align 16
+.LC0:
+	.long	4294967295
+	.long	4294967295
+	.long	32766
+	.long	0
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

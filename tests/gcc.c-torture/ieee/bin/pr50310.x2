@@ -1,0 +1,337 @@
+	.file	"pr50310.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.p2align 4,,15
+	.globl	foo
+	.type	foo, @function
+foo:
+	vmovsd	.LC0(%rip), %xmm2
+	xorl	%eax, %eax
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L4:
+	vmovsd	s2(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnltsd	s1-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3-8(%rax)
+	cmpq	$32, %rax
+	jne	.L4
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L6:
+	vmovsd	s2(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnltsd	s1-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+24(%rax)
+	cmpq	$32, %rax
+	jne	.L6
+	vmovsd	.LC0(%rip), %xmm2
+	xorb	%al, %al
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L9:
+	vmovsd	s2(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnlesd	s1-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+56(%rax)
+	cmpq	$32, %rax
+	jne	.L9
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L11:
+	vmovsd	s2(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnlesd	s1-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+88(%rax)
+	cmpq	$32, %rax
+	jne	.L11
+	vmovsd	.LC0(%rip), %xmm2
+	xorb	%al, %al
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L14:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnltsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+120(%rax)
+	cmpq	$32, %rax
+	jne	.L14
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L16:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnltsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+152(%rax)
+	cmpq	$32, %rax
+	jne	.L16
+	vmovsd	.LC0(%rip), %xmm2
+	xorb	%al, %al
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L19:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnlesd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+184(%rax)
+	cmpq	$32, %rax
+	jne	.L19
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L21:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpnlesd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+216(%rax)
+	cmpq	$32, %rax
+	jne	.L21
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L24:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpneq_oqsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+248(%rax)
+	cmpq	$32, %rax
+	jne	.L24
+	vmovsd	.LC0(%rip), %xmm2
+	xorb	%al, %al
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L26:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpneq_oqsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+280(%rax)
+	cmpq	$32, %rax
+	jne	.L26
+	vmovsd	.LC0(%rip), %xmm2
+	xorb	%al, %al
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L28:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpordsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+312(%rax)
+	cmpq	$32, %rax
+	jne	.L28
+	vmovsd	.LC0(%rip), %xmm2
+	xorb	%al, %al
+	vxorpd	%xmm3, %xmm3, %xmm3
+.L30:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpunordsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+344(%rax)
+	cmpq	$32, %rax
+	jne	.L30
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L32:
+	vmovsd	s2(%rax), %xmm0
+	addq	$8, %rax
+	vcmpltsd	s1-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+376(%rax)
+	cmpq	$32, %rax
+	jne	.L32
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L34:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmplesd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+408(%rax)
+	cmpq	$32, %rax
+	jne	.L34
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L36:
+	vmovsd	s1(%rax), %xmm0
+	addq	$8, %rax
+	vcmpltsd	s2-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+440(%rax)
+	cmpq	$32, %rax
+	jne	.L36
+	vmovsd	.LC0(%rip), %xmm3
+	xorb	%al, %al
+	vxorpd	%xmm2, %xmm2, %xmm2
+.L38:
+	vmovsd	s2(%rax), %xmm0
+	addq	$8, %rax
+	vcmplesd	s1-8(%rax), %xmm0, %xmm0
+	vandpd	%xmm0, %xmm3, %xmm1
+	vandnpd	%xmm2, %xmm0, %xmm0
+	vorpd	%xmm1, %xmm0, %xmm0
+	vmovsd	%xmm0, s3+472(%rax)
+	cmpq	$32, %rax
+	jne	.L38
+	ret
+	.size	foo, .-foo
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB6:
+	.section	.text.startup,"ax",@progbits
+.LHOTB6:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vmovsd	.LC3(%rip), %xmm5
+	vmovsd	.LC4(%rip), %xmm6
+	vmovsd	%xmm5, s1(%rip)
+	vmovapd	%xmm5, %xmm7
+	vmovsd	%xmm5, s1+16(%rip)
+	vmovsd	.LC5(%rip), %xmm5
+	vmovsd	%xmm6, s1+8(%rip)
+	vmovsd	%xmm5, s1+24(%rip)
+	vmovsd	%xmm6, s2(%rip)
+	vmovsd	%xmm7, s2+8(%rip)
+	vmovsd	%xmm7, s2+16(%rip)
+	vmovsd	%xmm7, s2+24(%rip)
+	call	foo
+	vmovsd	.LC0(%rip), %xmm2
+	vxorpd	%xmm3, %xmm3, %xmm3
+	xorl	%eax, %eax
+	vmovapd	%xmm3, %xmm4
+	.p2align 4,,10
+	.p2align 3
+.L86:
+	movl	%eax, %ecx
+	movl	%eax, %edx
+	andl	$3, %ecx
+	cmpq	$47, %rax
+	ja	.L91
+.L79:
+	vmovsd	s3(,%rax,8), %xmm1
+	testb	$4, %dl
+	je	.L82
+	sarl	$3, %edx
+	movslq	%edx, %rdx
+	movl	masks.2296(,%rdx,4), %edx
+	notl	%edx
+.L83:
+	btl	%ecx, %edx
+	vmovapd	%xmm2, %xmm0
+	jc	.L84
+	vmovapd	%xmm3, %xmm0
+.L84:
+	vucomisd	%xmm0, %xmm1
+	jp	.L85
+.L90:
+	jne	.L85
+	addq	$1, %rax
+	cmpq	$64, %rax
+	jne	.L86
+	xorb	%al, %al
+	addq	$8, %rsp
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L82:
+	sarl	$3, %edx
+	movslq	%edx, %rdx
+	movl	masks.2296(,%rdx,4), %edx
+	jmp	.L83
+	.p2align 4,,10
+	.p2align 3
+.L91:
+	cmpl	$3, %ecx
+	jne	.L79
+	vucomisd	s3(,%rax,8), %xmm4
+	jnp	.L90
+.L85:
+	call	abort
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE6:
+	.section	.text.startup
+.LHOTE6:
+	.section	.rodata
+	.align 32
+	.type	masks.2296, @object
+	.size	masks.2296, 32
+masks.2296:
+	.long	2
+	.long	6
+	.long	1
+	.long	5
+	.long	3
+	.long	8
+	.long	2
+	.long	1
+	.comm	s3,512,64
+	.comm	s2,32,32
+	.comm	s1,32,32
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	-1074790400
+	.align 8
+.LC3:
+	.long	0
+	.long	1075052544
+	.align 8
+.LC4:
+	.long	0
+	.long	1075314688
+	.align 8
+.LC5:
+	.long	0
+	.long	2146959360
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

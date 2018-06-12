@@ -1,0 +1,60 @@
+	.file	"mzero6.c"
+	.text
+	.globl	func
+	.type	func, @function
+func:
+	testl	%edi, %edi
+	je	.L6
+	pushq	%rbx
+	vmovq	%xmm0, %rbx
+	subl	$1, %edi
+	call	func
+	vmovq	%rbx, %xmm1
+	vaddsd	%xmm1, %xmm0, %xmm0
+	popq	%rbx
+.L6:
+	ret
+	.size	func, .-func
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	movl	$10, %edi
+	vmovsd	.LC0(%rip), %xmm0
+	call	func
+	vandpd	.LC2(%rip), %xmm0, %xmm0
+	vorpd	.LC1(%rip), %xmm0, %xmm0
+	vucomisd	.LC3(%rip), %xmm0
+	jp	.L10
+	je	.L11
+.L10:
+	call	abort
+.L11:
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	-2147483648
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC1:
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	0
+	.align 16
+.LC2:
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	0
+	.section	.rodata.cst8
+	.align 8
+.LC3:
+	.long	0
+	.long	-1074790400
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

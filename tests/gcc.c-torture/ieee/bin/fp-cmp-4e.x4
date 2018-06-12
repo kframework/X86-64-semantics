@@ -1,0 +1,17 @@
+	.file	"fp-cmp-4e.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.section	.text.startup,"ax",@progbits
+.LHOTB0:
+	.globl	main
+	.type	main, @function
+main:
+	xorl	%eax, %eax
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE0:
+	.section	.text.startup
+.LHOTE0:
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

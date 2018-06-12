@@ -1,0 +1,69 @@
+	.file	"unsafe-fp-assoc-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.globl	func
+	.type	func, @function
+func:
+	vmovq	%xmm0, %rax
+	pushq	%rdx
+	andl	$2147483647, %eax
+	cmpl	$1127219199, %eax
+	ja	.L1
+	vmovsd	.LC0(%rip), %xmm2
+	vsubsd	%xmm2, %xmm0, %xmm1
+	vaddsd	%xmm2, %xmm1, %xmm1
+	vucomisd	%xmm0, %xmm1
+	jp	.L5
+	je	.L7
+.L5:
+	call	abort
+.L7:
+	vsubsd	.LC1(%rip), %xmm0, %xmm0
+	vsubsd	%xmm2, %xmm0, %xmm0
+	vaddsd	%xmm2, %xmm0, %xmm0
+	vucomisd	%xmm1, %xmm0
+	jp	.L1
+	je	.L5
+.L1:
+	popq	%rax
+	ret
+	.size	func, .-func
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB4:
+	.section	.text.startup,"ax",@progbits
+.LHOTB4:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rax
+	vmovsd	.LC3(%rip), %xmm0
+	call	func
+	xorl	%eax, %eax
+	popq	%rdx
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE4:
+	.section	.text.startup
+.LHOTE4:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	1127219200
+	.align 8
+.LC1:
+	.long	0
+	.long	1071644672
+	.align 8
+.LC3:
+	.long	0
+	.long	1072693248
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

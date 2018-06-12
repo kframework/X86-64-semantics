@@ -1,0 +1,687 @@
+	.file	"compare-fp-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.globl	iuneq
+	.type	iuneq, @function
+iuneq:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	sete	%al
+	cmpl	%edi, %eax
+	je	.L4
+	pushq	%rax
+	call	abort
+.L4:
+	ret
+	.size	iuneq, .-iuneq
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.globl	ieq
+	.type	ieq, @function
+ieq:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	movl	$0, %edx
+	setnp	%al
+	cmovne	%edx, %eax
+	cmpl	%edi, %eax
+	je	.L9
+	pushq	%rax
+	call	abort
+.L9:
+	ret
+	.size	ieq, .-ieq
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.globl	iltgt
+	.type	iltgt, @function
+iltgt:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rdx
+	movb	$1, %dl
+	setp	%al
+	cmovne	%edx, %eax
+	setnp	%dl
+	movzbl	%dl, %edx
+	andl	%edx, %eax
+	cmpl	%edi, %eax
+	je	.L11
+.L12:
+	call	abort
+.L11:
+	xorl	%edx, %edx
+	vucomiss	%xmm1, %xmm0
+	setne	%dl
+	cmpl	%eax, %edx
+	jne	.L12
+	popq	%rax
+	ret
+	.size	iltgt, .-iltgt
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.globl	ine
+	.type	ine, @function
+ine:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	movl	$1, %edx
+	setp	%al
+	cmovne	%edx, %eax
+	cmpl	%edi, %eax
+	je	.L17
+	pushq	%rax
+	call	abort
+.L17:
+	ret
+	.size	ine, .-ine
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.globl	iunlt
+	.type	iunlt, @function
+iunlt:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	setb	%al
+	cmpl	%edi, %eax
+	je	.L21
+	pushq	%rax
+	call	abort
+.L21:
+	ret
+	.size	iunlt, .-iunlt
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.globl	ilt
+	.type	ilt, @function
+ilt:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rcx
+	setnp	%dl
+	setb	%al
+	movzbl	%dl, %edx
+	andl	%eax, %edx
+	cmpl	%edi, %edx
+	je	.L23
+.L24:
+	call	abort
+.L23:
+	xorl	%eax, %eax
+	vucomiss	%xmm0, %xmm1
+	seta	%al
+	cmpl	%edx, %eax
+	jne	.L24
+	vucomiss	%xmm1, %xmm0
+	jp	.L33
+	je	.L35
+.L33:
+	vucomiss	%xmm0, %xmm1
+	jnb	.L27
+	jmp	.L39
+.L35:
+	testl	%eax, %eax
+	jne	.L24
+	vucomiss	%xmm0, %xmm1
+	jp	.L29
+	je	.L29
+.L32:
+	vucomiss	%xmm0, %xmm1
+	jnb	.L24
+	jmp	.L29
+.L27:
+	decl	%eax
+	je	.L29
+	jmp	.L24
+.L39:
+	testl	%eax, %eax
+	je	.L32
+	jmp	.L24
+.L29:
+	xorl	%eax, %eax
+	popq	%rdx
+	ret
+	.size	ilt, .-ilt
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.globl	iunle
+	.type	iunle, @function
+iunle:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	setbe	%al
+	cmpl	%edi, %eax
+	je	.L43
+	pushq	%rax
+	call	abort
+.L43:
+	ret
+	.size	iunle, .-iunle
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.text
+.LHOTB7:
+	.globl	ile
+	.type	ile, @function
+ile:
+	vucomiss	%xmm1, %xmm0
+	pushq	%rdx
+	setnp	%dl
+	setbe	%al
+	movzbl	%dl, %edx
+	andl	%edx, %eax
+	cmpl	%edi, %eax
+	je	.L45
+.L46:
+	call	abort
+.L45:
+	xorl	%edx, %edx
+	vucomiss	%xmm0, %xmm1
+	setnb	%dl
+	cmpl	%eax, %edx
+	jne	.L46
+	movl	%edx, %eax
+	cmpl	%edx, %eax
+	jne	.L46
+	vucomiss	%xmm1, %xmm0
+	jp	.L50
+	je	.L47
+.L50:
+	xorl	%eax, %eax
+	vucomiss	%xmm0, %xmm1
+	seta	%al
+	cmpl	%edx, %eax
+	jmp	.L53
+.L47:
+	decl	%eax
+.L53:
+	jne	.L46
+	popq	%rax
+	ret
+	.size	ile, .-ile
+	.section	.text.unlikely
+.LCOLDE7:
+	.text
+.LHOTE7:
+	.section	.text.unlikely
+.LCOLDB8:
+	.text
+.LHOTB8:
+	.globl	iungt
+	.type	iungt, @function
+iungt:
+	xorl	%eax, %eax
+	vucomiss	%xmm0, %xmm1
+	setb	%al
+	cmpl	%edi, %eax
+	je	.L57
+	pushq	%rax
+	call	abort
+.L57:
+	ret
+	.size	iungt, .-iungt
+	.section	.text.unlikely
+.LCOLDE8:
+	.text
+.LHOTE8:
+	.section	.text.unlikely
+.LCOLDB9:
+	.text
+.LHOTB9:
+	.globl	igt
+	.type	igt, @function
+igt:
+	vucomiss	%xmm0, %xmm1
+	pushq	%rcx
+	setb	%al
+	xorl	%edx, %edx
+	vucomiss	%xmm1, %xmm0
+	setnp	%dl
+	andl	%eax, %edx
+	cmpl	%edi, %edx
+	je	.L59
+.L60:
+	call	abort
+.L59:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	seta	%al
+	cmpl	%edx, %eax
+	jne	.L60
+	vucomiss	%xmm1, %xmm0
+	jp	.L71
+	je	.L72
+	jnb	.L63
+	jmp	.L71
+.L72:
+	testl	%eax, %eax
+	jne	.L60
+	vucomiss	%xmm0, %xmm1
+	jp	.L68
+	je	.L65
+.L68:
+	vucomiss	%xmm1, %xmm0
+	jnb	.L60
+	jmp	.L65
+.L63:
+	decl	%eax
+	je	.L65
+	jmp	.L60
+.L71:
+	testl	%eax, %eax
+	je	.L68
+	jmp	.L60
+.L65:
+	xorl	%eax, %eax
+	popq	%rdx
+	ret
+	.size	igt, .-igt
+	.section	.text.unlikely
+.LCOLDE9:
+	.text
+.LHOTE9:
+	.section	.text.unlikely
+.LCOLDB10:
+	.text
+.LHOTB10:
+	.globl	iunge
+	.type	iunge, @function
+iunge:
+	xorl	%eax, %eax
+	vucomiss	%xmm0, %xmm1
+	setbe	%al
+	cmpl	%edi, %eax
+	je	.L78
+	pushq	%rax
+	call	abort
+.L78:
+	ret
+	.size	iunge, .-iunge
+	.section	.text.unlikely
+.LCOLDE10:
+	.text
+.LHOTE10:
+	.section	.text.unlikely
+.LCOLDB11:
+	.text
+.LHOTB11:
+	.globl	ige
+	.type	ige, @function
+ige:
+	vucomiss	%xmm0, %xmm1
+	pushq	%rdx
+	setbe	%al
+	xorl	%edx, %edx
+	vucomiss	%xmm1, %xmm0
+	setnp	%dl
+	andl	%edx, %eax
+	cmpl	%edi, %eax
+	je	.L80
+.L81:
+	call	abort
+.L80:
+	xorl	%edx, %edx
+	vucomiss	%xmm1, %xmm0
+	setnb	%dl
+	cmpl	%eax, %edx
+	jne	.L81
+	movl	%edx, %eax
+	cmpl	%edx, %eax
+	jne	.L81
+	vucomiss	%xmm1, %xmm0
+	jp	.L85
+	je	.L82
+.L85:
+	xorl	%eax, %eax
+	vucomiss	%xmm1, %xmm0
+	seta	%al
+	cmpl	%edx, %eax
+	jmp	.L88
+.L82:
+	decl	%eax
+.L88:
+	jne	.L81
+	popq	%rax
+	ret
+	.size	ige, .-ige
+	.section	.text.unlikely
+.LCOLDE11:
+	.text
+.LHOTE11:
+	.section	.text.unlikely
+.LCOLDB20:
+	.section	.text.startup,"ax",@progbits
+.LHOTB20:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rax
+	xorl	%edi, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovss	.LC13(%rip), %xmm0
+	movl	$0x7f800000, pinf(%rip)
+	movl	$0xff800000, ninf(%rip)
+	movl	$0x7fc00000, NaN(%rip)
+	call	iuneq
+	movl	$1, %edi
+	vmovss	.LC14(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iuneq
+	xorl	%edi, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iuneq
+	xorl	%edi, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	iuneq
+	movl	$1, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iuneq
+	xorl	%edi, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	iuneq
+	xorl	%edi, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	ieq
+	movl	$1, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	ieq
+	xorl	%edi, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	ieq
+	movl	$1, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovss	.LC13(%rip), %xmm0
+	call	iltgt
+	xorl	%edi, %edi
+	vmovss	.LC14(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iltgt
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iltgt
+	movl	$1, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	iltgt
+	xorl	%edi, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iltgt
+	movl	$1, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	iltgt
+	movl	$1, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	ine
+	xorl	%edi, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	ine
+	movl	$1, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	ine
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC14(%rip), %xmm0
+	call	iunlt
+	movl	$1, %edi
+	vmovss	.LC14(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iunlt
+	xorl	%edi, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iunlt
+	xorl	%edi, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunlt
+	xorl	%edi, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunlt
+	movl	$1, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	iunlt
+	xorl	%edi, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunlt
+	xorl	%edi, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	iunlt
+	movl	$1, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	ilt
+	xorl	%edi, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	ilt
+	xorl	%edi, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	ilt
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC14(%rip), %xmm0
+	call	iunle
+	movl	$1, %edi
+	vmovss	.LC14(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iunle
+	xorl	%edi, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iunle
+	movl	$1, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunle
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunle
+	movl	$1, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	iunle
+	movl	$1, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunle
+	xorl	%edi, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	iunle
+	movl	$1, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	ile
+	movl	$1, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	ile
+	xorl	%edi, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	ile
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC14(%rip), %xmm0
+	call	iungt
+	movl	$1, %edi
+	vmovss	.LC14(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iungt
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iungt
+	xorl	%edi, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iungt
+	xorl	%edi, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iungt
+	xorl	%edi, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	iungt
+	xorl	%edi, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iungt
+	movl	$1, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	iungt
+	xorl	%edi, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	igt
+	xorl	%edi, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	igt
+	movl	$1, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	igt
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovss	.LC14(%rip), %xmm0
+	call	iunge
+	movl	$1, %edi
+	vmovss	.LC14(%rip), %xmm1
+	vmovss	.LC12(%rip), %xmm0
+	call	iunge
+	xorl	%edi, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovss	.LC13(%rip), %xmm0
+	call	iunge
+	movl	$1, %edi
+	vmovss	.LC12(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunge
+	movl	$1, %edi
+	vmovss	.LC13(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunge
+	xorl	%edi, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	iunge
+	movl	$1, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	iunge
+	movl	$1, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	iunge
+	xorl	%edi, %edi
+	vmovss	.LC15(%rip), %xmm1
+	vmovss	.LC16(%rip), %xmm0
+	call	ige
+	movl	$1, %edi
+	vmovss	.LC17(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	ige
+	movl	$1, %edi
+	vmovss	.LC18(%rip), %xmm1
+	vmovss	.LC19(%rip), %xmm0
+	call	ige
+	xorl	%eax, %eax
+	popq	%rdx
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE20:
+	.section	.text.startup
+.LHOTE20:
+	.comm	NaN,4,4
+	.comm	ninf,4,4
+	.comm	pinf,4,4
+	.section	.rodata.cst4,"aM",@progbits,4
+	.align 4
+.LC12:
+	.long	2139095040
+	.align 4
+.LC13:
+	.long	4286578688
+	.align 4
+.LC14:
+	.long	2143289344
+	.align 4
+.LC15:
+	.long	1082130432
+	.align 4
+.LC16:
+	.long	1065353216
+	.align 4
+.LC17:
+	.long	1077936128
+	.align 4
+.LC18:
+	.long	1073741824
+	.align 4
+.LC19:
+	.long	1084227584
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

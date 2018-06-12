@@ -1,0 +1,162 @@
+	.file	"mzero2.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.globl	expect
+	.type	expect, @function
+expect:
+	subq	$24, %rsp
+	vucomisd	%xmm1, %xmm1
+	vmovsd	%xmm0, 8(%rsp)
+	vmovsd	%xmm1, (%rsp)
+	jp	.L7
+	vucomisd	%xmm0, %xmm0
+	jp	.L6
+	leaq	8(%rsp), %rdi
+	movl	$8, %edx
+	movq	%rsp, %rsi
+	call	memcmp
+	testl	%eax, %eax
+	jne	.L6
+.L9:
+	addq	$24, %rsp
+	ret
+.L7:
+	vmovsd	8(%rsp), %xmm0
+	vucomisd	%xmm0, %xmm0
+	jp	.L9
+.L6:
+	call	abort
+	.size	expect, .-expect
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB8:
+	.section	.text.startup,"ax",@progbits
+.LHOTB8:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expect
+	vxorpd	%xmm2, %xmm2, %xmm2
+	vdivsd	%xmm2, %xmm2, %xmm0
+	vmovsd	.LC3(%rip), %xmm1
+	call	expect
+	vxorpd	%xmm3, %xmm3, %xmm3
+	vmovsd	.LC3(%rip), %xmm1
+	vdivsd	.LC2(%rip), %xmm3, %xmm0
+	call	expect
+	vxorpd	%xmm5, %xmm5, %xmm5
+	vmovsd	.LC2(%rip), %xmm4
+	vmovsd	.LC3(%rip), %xmm1
+	vdivsd	%xmm5, %xmm4, %xmm0
+	call	expect
+	vmovsd	.LC2(%rip), %xmm6
+	vmovsd	.LC3(%rip), %xmm1
+	vdivsd	%xmm6, %xmm6, %xmm0
+	call	expect
+	vxorpd	%xmm2, %xmm2, %xmm2
+	vmovsd	.LC5(%rip), %xmm7
+	vmovsd	.LC4(%rip), %xmm1
+	vdivsd	%xmm2, %xmm7, %xmm0
+	call	expect
+	vxorpd	%xmm4, %xmm4, %xmm4
+	vmovsd	.LC7(%rip), %xmm3
+	vmovsd	.LC6(%rip), %xmm1
+	vdivsd	%xmm4, %xmm3, %xmm0
+	call	expect
+	vmovsd	.LC6(%rip), %xmm1
+	vmovsd	.LC5(%rip), %xmm5
+	vdivsd	.LC2(%rip), %xmm5, %xmm0
+	call	expect
+	vmovsd	.LC4(%rip), %xmm1
+	vmovsd	.LC7(%rip), %xmm6
+	vdivsd	.LC2(%rip), %xmm6, %xmm0
+	call	expect
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE8:
+	.section	.text.startup
+.LHOTE8:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC2:
+	.long	0
+	.long	-2147483648
+	.align 8
+.LC3:
+	.long	0
+	.long	2146959360
+	.align 8
+.LC4:
+	.long	0
+	.long	2146435072
+	.align 8
+.LC5:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC6:
+	.long	0
+	.long	-1048576
+	.align 8
+.LC7:
+	.long	0
+	.long	-1074790400
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

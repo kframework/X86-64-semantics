@@ -1,0 +1,84 @@
+	.file	"mul-subnormal-single-1.c"
+	.text
+	.type	u2f, @function
+u2f:
+	vmovd	%edi, %xmm0
+	ret
+	.size	u2f, .-u2f
+	.type	f2u, @function
+f2u:
+	vmovd	%xmm0, %eax
+	ret
+	.size	f2u, .-f2u
+	.type	tstmul, @function
+tstmul:
+	pushq	%rbp
+	pushq	%rbx
+	subq	$8, %rsp
+	movl	%esi, %ebp
+	movl	%edx, %ebx
+	call	u2f
+	vmovss	%xmm0, 4(%rsp)
+	movl	%ebp, %edi
+	call	u2f
+	vmulss	4(%rsp), %xmm0, %xmm0
+	call	f2u
+	cmpl	%ebx, %eax
+	je	.L3
+	movl	$0, ok(%rip)
+.L3:
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
+	ret
+	.size	tstmul, .-tstmul
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	pushq	%rbx
+	subq	$8, %rsp
+	movl	$expected, %ebx
+	movl	$expected+36, %ebp
+.L7:
+	movl	8(%rbx), %edx
+	movl	4(%rbx), %esi
+	movl	(%rbx), %edi
+	call	tstmul
+	movl	8(%rbx), %edx
+	movl	4(%rbx), %edi
+	movl	(%rbx), %esi
+	call	tstmul
+	addq	$12, %rbx
+	cmpq	%rbp, %rbx
+	jne	.L7
+	cmpl	$0, ok(%rip)
+	jne	.L8
+	call	abort
+.L8:
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.globl	expected
+	.data
+	.align 32
+	.type	expected, @object
+	.size	expected, 36
+expected:
+	.long	4095
+	.long	1065354240
+	.long	4095
+	.long	15
+	.long	1070106760
+	.long	23
+	.long	15
+	.long	1065632836
+	.long	15
+	.globl	ok
+	.align 4
+	.type	ok, @object
+	.size	ok, 4
+ok:
+	.long	1
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

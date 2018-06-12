@@ -1,0 +1,114 @@
+	.file	"mzero5.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.p2align 4,,15
+	.globl	negzero_check
+	.type	negzero_check, @function
+negzero_check:
+	subq	$24, %rsp
+	vmovapd	%xmm0, %xmm1
+	vmovsd	%xmm0, 8(%rsp)
+	vxorpd	%xmm0, %xmm0, %xmm0
+	vucomisd	%xmm1, %xmm0
+	jp	.L4
+	jne	.L4
+	leaq	8(%rsp), %rsi
+	movl	$8, %edx
+	movl	$zero, %edi
+	call	memcmp
+	testl	%eax, %eax
+	setne	%al
+	addq	$24, %rsp
+	movzbl	%al, %eax
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L4:
+	xorl	%eax, %eax
+	addq	$24, %rsp
+	ret
+	.size	negzero_check, .-negzero_check
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.p2align 4,,15
+	.globl	sub
+	.type	sub, @function
+sub:
+	vxorpd	%xmm2, %xmm2, %xmm2
+	vucomisd	%xmm2, %xmm0
+	movl	$0, %edx
+	setnp	%al
+	cmovne	%edx, %eax
+	testb	%al, %al
+	je	.L11
+	vucomisd	%xmm2, %xmm1
+	setnp	%al
+	cmovne	%edx, %eax
+	testb	%al, %al
+	je	.L11
+	subq	$24, %rsp
+	vmovsd	%xmm1, 8(%rsp)
+	call	negzero_check
+	movl	%eax, %edx
+	xorl	%eax, %eax
+	testl	%edx, %edx
+	jne	.L19
+	vmovsd	8(%rsp), %xmm0
+	call	negzero_check
+	testl	%eax, %eax
+	sete	%al
+	movzbl	%al, %eax
+.L19:
+	addq	$24, %rsp
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L11:
+	xorl	%eax, %eax
+	ret
+	.size	sub, .-sub
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB4:
+	.section	.text.startup,"ax",@progbits
+.LHOTB4:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovsd	.LC3(%rip), %xmm0
+	call	sub
+	testl	%eax, %eax
+	jne	.L26
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	ret
+.L26:
+	call	abort
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE4:
+	.section	.text.startup
+.LHOTE4:
+	.local	zero
+	.comm	zero,8,8
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC3:
+	.long	0
+	.long	-2147483648
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

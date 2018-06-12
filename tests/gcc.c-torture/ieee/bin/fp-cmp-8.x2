@@ -1,0 +1,484 @@
+	.file	"fp-cmp-8.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.type	test_isunordered, @function
+test_isunordered:
+	vcmpunordsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.p2align 4,,15
+	.type	test_not_isunordered, @function
+test_not_isunordered:
+	vcmpordsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isunordered, .-test_not_isunordered
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.p2align 4,,15
+	.type	test_isless, @function
+test_isless:
+	vcmpnltsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isless, .-test_isless
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.p2align 4,,15
+	.type	test_not_isless, @function
+test_not_isless:
+	vcmpnltsd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isless, .-test_not_isless
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.p2align 4,,15
+	.type	test_islessequal, @function
+test_islessequal:
+	vcmpnlesd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.p2align 4,,15
+	.type	test_not_islessequal, @function
+test_not_islessequal:
+	vcmpnlesd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessequal, .-test_not_islessequal
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.p2align 4,,15
+	.type	test_isgreater, @function
+test_isgreater:
+	vcmpnltsd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.text
+.LHOTB7:
+	.p2align 4,,15
+	.type	test_not_isgreater, @function
+test_not_isgreater:
+	vcmpnltsd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreater, .-test_not_isgreater
+	.section	.text.unlikely
+.LCOLDE7:
+	.text
+.LHOTE7:
+	.section	.text.unlikely
+.LCOLDB8:
+	.text
+.LHOTB8:
+	.p2align 4,,15
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	vcmpnlesd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE8:
+	.text
+.LHOTE8:
+	.section	.text.unlikely
+.LCOLDB9:
+	.text
+.LHOTB9:
+	.p2align 4,,15
+	.type	test_not_isgreaterequal, @function
+test_not_isgreaterequal:
+	vcmpnlesd	%xmm0, %xmm1, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_isgreaterequal, .-test_not_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE9:
+	.text
+.LHOTE9:
+	.section	.text.unlikely
+.LCOLDB10:
+	.text
+.LHOTB10:
+	.p2align 4,,15
+	.type	test_islessgreater, @function
+test_islessgreater:
+	vcmpeq_ussd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm3, %xmm3
+	vandnpd	%xmm2, %xmm1, %xmm2
+	vorpd	%xmm3, %xmm2, %xmm0
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.section	.text.unlikely
+.LCOLDE10:
+	.text
+.LHOTE10:
+	.section	.text.unlikely
+.LCOLDB11:
+	.text
+.LHOTB11:
+	.p2align 4,,15
+	.type	test_not_islessgreater, @function
+test_not_islessgreater:
+	vcmpeq_ussd	%xmm1, %xmm0, %xmm1
+	vandpd	%xmm1, %xmm2, %xmm2
+	vandnpd	%xmm3, %xmm1, %xmm3
+	vorpd	%xmm2, %xmm3, %xmm0
+	ret
+	.size	test_not_islessgreater, .-test_not_islessgreater
+	.section	.text.unlikely
+.LCOLDE11:
+	.text
+.LHOTE11:
+	.section	.text.unlikely
+.LCOLDB16:
+	.text
+.LHOTB16:
+	.p2align 4,,15
+	.type	one_test, @function
+one_test:
+	pushq	%r14
+	vmovapd	%xmm0, %xmm4
+	vmovq	%xmm1, %r14
+	pushq	%r13
+	movq	%rdx, %r13
+	pushq	%r12
+	movl	%edi, %r12d
+	pushq	%rbp
+	movl	$0, %ebp
+	pushq	%rbx
+	xorl	%ebx, %ebx
+	subq	$16, %rsp
+	vmovsd	.LC12(%rip), %xmm3
+	vmovsd	.LC13(%rip), %xmm2
+	vmovsd	%xmm4, 8(%rsp)
+	call	*%rsi
+	vmovsd	8(%rsp), %xmm4
+	vmovsd	.LC13(%rip), %xmm1
+	vucomisd	%xmm1, %xmm0
+	setnp	%bl
+	cmovne	%ebp, %ebx
+	cmpl	%r12d, %ebx
+	jne	.L49
+	vmovsd	.LC14(%rip), %xmm3
+	vmovq	%r14, %xmm1
+	vmovapd	%xmm4, %xmm0
+	vmovsd	.LC15(%rip), %xmm2
+	call	*%r13
+	xorl	%eax, %eax
+	vucomisd	.LC14(%rip), %xmm0
+	setnp	%al
+	cmovne	%ebp, %eax
+	cmpl	%eax, %ebx
+	jne	.L49
+	addq	$16, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	popq	%r13
+	popq	%r14
+	ret
+.L49:
+	call	abort
+	.size	one_test, .-one_test
+	.section	.text.unlikely
+.LCOLDE16:
+	.text
+.LHOTE16:
+	.section	.text.unlikely
+.LCOLDB17:
+	.section	.text.startup,"ax",@progbits
+.LHOTB17:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r15
+	pushq	%r14
+	pushq	%rbp
+	xorl	%ebp, %ebp
+	pushq	%rbx
+	subq	$8, %rsp
+	.p2align 4,,10
+	.p2align 3
+.L53:
+	vmovsd	data.2330+8(%rbp), %xmm2
+	xorl	%ebx, %ebx
+	vmovsd	data.2330(%rbp), %xmm3
+	vmovq	%xmm2, %r14
+	vmovq	%xmm3, %r15
+	.p2align 4,,10
+	.p2align 3
+.L54:
+	movq	tests.2342+8(,%rbx,4), %rdx
+	vmovq	%r14, %xmm1
+	vmovq	%r15, %xmm0
+	movq	tests.2342(,%rbx,4), %rsi
+	movl	data.2330+16(%rbp,%rbx), %edi
+	addq	$4, %rbx
+	call	one_test
+	cmpq	$24, %rbx
+	jne	.L54
+	addq	$40, %rbp
+	cmpq	$560, %rbp
+	jne	.L53
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE17:
+	.section	.text.startup
+.LHOTE17:
+	.section	.rodata
+	.align 64
+	.type	data.2330, @object
+	.size	data.2330, 560
+data.2330:
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.align 64
+	.type	tests.2342, @object
+	.size	tests.2342, 96
+tests.2342:
+	.quad	test_isunordered
+	.quad	test_not_isunordered
+	.quad	test_isless
+	.quad	test_not_isless
+	.quad	test_islessequal
+	.quad	test_not_islessequal
+	.quad	test_isgreater
+	.quad	test_not_isgreater
+	.quad	test_isgreaterequal
+	.quad	test_not_isgreaterequal
+	.quad	test_islessgreater
+	.quad	test_not_islessgreater
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC12:
+	.long	0
+	.long	1073741824
+	.align 8
+.LC13:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC14:
+	.long	0
+	.long	1074790400
+	.align 8
+.LC15:
+	.long	0
+	.long	1074266112
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

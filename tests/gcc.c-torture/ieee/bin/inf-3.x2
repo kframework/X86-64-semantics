@@ -1,0 +1,204 @@
+	.file	"inf-3.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.p2align 4,,15
+	.globl	test
+	.type	test, @function
+test:
+	subq	$8, %rsp
+	vmovsd	.LC0(%rip), %xmm2
+	vucomisd	%xmm2, %xmm0
+	ja	.L4
+	vmovsd	.LC1(%rip), %xmm3
+	vucomisd	%xmm0, %xmm3
+	ja	.L4
+	vucomisd	%xmm1, %xmm3
+	ja	.L4
+	vucomisd	%xmm2, %xmm1
+	jbe	.L4
+	vucomisd	%xmm2, %xmm0
+	ja	.L4
+	vucomisd	%xmm0, %xmm3
+	ja	.L4
+	addq	$8, %rsp
+	ret
+.L4:
+	call	abort
+	.size	test, .-test
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.p2align 4,,15
+	.globl	testf
+	.type	testf, @function
+testf:
+	subq	$8, %rsp
+	vucomiss	.LC3(%rip), %xmm0
+	ja	.L13
+	vmovss	.LC4(%rip), %xmm2
+	vucomiss	%xmm0, %xmm2
+	ja	.L13
+	vucomiss	%xmm1, %xmm2
+	ja	.L13
+	vucomiss	.LC3(%rip), %xmm1
+	jbe	.L13
+	vucomiss	.LC3(%rip), %xmm0
+	ja	.L13
+	vucomiss	%xmm0, %xmm2
+	ja	.L13
+	addq	$8, %rsp
+	ret
+.L13:
+	call	abort
+	.size	testf, .-testf
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB9:
+	.text
+.LHOTB9:
+	.p2align 4,,15
+	.globl	testl
+	.type	testl, @function
+testl:
+	subq	$8, %rsp
+	fldt	16(%rsp)
+	fldt	32(%rsp)
+	fldt	.LC6(%rip)
+	fxch	%st(2)
+	fucomi	%st(2), %st
+	ja	.L26
+	fldt	.LC7(%rip)
+	fucomi	%st(1), %st
+	ja	.L27
+	fucomi	%st(2), %st
+	ja	.L28
+	fxch	%st(2)
+	fucomip	%st(3), %st
+	jbe	.L29
+	fucomi	%st(2), %st
+	fstp	%st(2)
+	ja	.L30
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	ja	.L21
+	addq	$8, %rsp
+	ret
+.L26:
+	fstp	%st(0)
+	fstp	%st(0)
+	fstp	%st(0)
+	jmp	.L21
+.L27:
+	fstp	%st(0)
+	fstp	%st(0)
+	fstp	%st(0)
+	fstp	%st(0)
+	jmp	.L21
+.L28:
+	fstp	%st(0)
+	fstp	%st(0)
+	fstp	%st(0)
+	fstp	%st(0)
+	jmp	.L21
+.L29:
+	fstp	%st(0)
+	fstp	%st(0)
+	fstp	%st(0)
+	jmp	.L21
+.L30:
+	fstp	%st(0)
+	fstp	%st(0)
+.L21:
+	call	abort
+	.size	testl, .-testl
+	.section	.text.unlikely
+.LCOLDE9:
+	.text
+.LHOTE9:
+	.section	.text.unlikely
+.LCOLDB14:
+	.section	.text.startup,"ax",@progbits
+.LHOTB14:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vmovsd	.LC10(%rip), %xmm1
+	vmovsd	.LC11(%rip), %xmm0
+	call	test
+	vmovss	.LC12(%rip), %xmm1
+	vmovss	.LC13(%rip), %xmm0
+	call	testf
+	pushq	$32767
+	movabsq	$-9223372036854775808, %rax
+	movabsq	$-8646911284551352320, %rdx
+	pushq	%rax
+	pushq	$16388
+	pushq	%rdx
+	call	testl
+	xorl	%eax, %eax
+	addq	$40, %rsp
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE14:
+	.section	.text.startup
+.LHOTE14:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	4294967295
+	.long	2146435071
+	.align 8
+.LC1:
+	.long	4294967295
+	.long	-1048577
+	.section	.rodata.cst4,"aM",@progbits,4
+	.align 4
+.LC3:
+	.long	2139095039
+	.align 4
+.LC4:
+	.long	4286578687
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC6:
+	.long	4294967295
+	.long	4294967295
+	.long	32766
+	.long	0
+	.align 16
+.LC7:
+	.long	4294967295
+	.long	4294967295
+	.long	65534
+	.long	0
+	.section	.rodata.cst8
+	.align 8
+.LC10:
+	.long	0
+	.long	2146435072
+	.align 8
+.LC11:
+	.long	0
+	.long	1078001664
+	.section	.rodata.cst4
+	.align 4
+.LC12:
+	.long	2139095040
+	.align 4
+.LC13:
+	.long	1107820544
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

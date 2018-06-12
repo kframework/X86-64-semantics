@@ -1,0 +1,131 @@
+	.file	"mzero3.c"
+	.text
+	.globl	expectd
+	.type	expectd, @function
+expectd:
+	subq	$24, %rsp
+	vmovsd	%xmm0, 8(%rsp)
+	vmovsd	%xmm1, (%rsp)
+	vucomisd	%xmm1, %xmm0
+	jp	.L2
+	jne	.L2
+	movl	$8, %edx
+	movq	%rsp, %rsi
+	leaq	8(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L1
+.L2:
+	call	abort
+.L1:
+	addq	$24, %rsp
+	ret
+	.size	expectd, .-expectd
+	.globl	expectf
+	.type	expectf, @function
+expectf:
+	subq	$24, %rsp
+	vmovss	%xmm0, 12(%rsp)
+	vmovss	%xmm1, 8(%rsp)
+	vucomiss	%xmm1, %xmm0
+	jp	.L6
+	jne	.L6
+	movl	$4, %edx
+	leaq	8(%rsp), %rsi
+	leaq	12(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L5
+.L6:
+	call	abort
+.L5:
+	addq	$24, %rsp
+	ret
+	.size	expectf, .-expectf
+	.globl	negd
+	.type	negd, @function
+negd:
+	vmovsd	.LC0(%rip), %xmm1
+	vxorpd	%xmm1, %xmm0, %xmm0
+	ret
+	.size	negd, .-negd
+	.globl	negf
+	.type	negf, @function
+negf:
+	vmovss	.LC1(%rip), %xmm1
+	vxorps	%xmm1, %xmm0, %xmm0
+	ret
+	.size	negf, .-negf
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r13
+	pushq	%r12
+	pushq	%rbp
+	pushq	%rbx
+	subq	$8, %rsp
+	movq	nzerod(%rip), %r13
+	movq	zerod(%rip), %r12
+	vmovq	%r12, %xmm0
+	call	negd
+	vmovq	%r13, %xmm1
+	call	expectd
+	movl	nzerof(%rip), %ebp
+	movl	zerof(%rip), %ebx
+	vmovd	%ebx, %xmm0
+	call	negf
+	vmovd	%ebp, %xmm1
+	call	expectf
+	vmovq	%r13, %xmm0
+	call	negd
+	vmovq	%r12, %xmm1
+	call	expectd
+	vmovd	%ebp, %xmm0
+	call	negf
+	vmovd	%ebx, %xmm1
+	call	expectf
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.globl	zerof
+	.bss
+	.align 4
+	.type	zerof, @object
+	.size	zerof, 4
+zerof:
+	.zero	4
+	.globl	zerod
+	.align 8
+	.type	zerod, @object
+	.size	zerod, 8
+zerod:
+	.zero	8
+	.globl	nzerof
+	.data
+	.align 4
+	.type	nzerof, @object
+	.size	nzerof, 4
+nzerof:
+	.long	2147483648
+	.globl	nzerod
+	.align 8
+	.type	nzerod, @object
+	.size	nzerod, 8
+nzerod:
+	.long	0
+	.long	-2147483648
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC0:
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	0
+	.align 16
+.LC1:
+	.long	2147483648
+	.long	0
+	.long	0
+	.long	0
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

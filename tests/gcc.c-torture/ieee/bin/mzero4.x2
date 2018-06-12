@@ -1,0 +1,123 @@
+	.file	"mzero4.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.globl	expectd
+	.type	expectd, @function
+expectd:
+	subq	$24, %rsp
+	vucomisd	%xmm1, %xmm0
+	vmovsd	%xmm0, 8(%rsp)
+	vmovsd	%xmm1, (%rsp)
+	jp	.L2
+	jne	.L2
+	leaq	8(%rsp), %rdi
+	movl	$8, %edx
+	movq	%rsp, %rsi
+	call	memcmp
+	testl	%eax, %eax
+	jne	.L2
+	addq	$24, %rsp
+	ret
+.L2:
+	call	abort
+	.size	expectd, .-expectd
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.p2align 4,,15
+	.globl	expectf
+	.type	expectf, @function
+expectf:
+	subq	$24, %rsp
+	vucomiss	%xmm1, %xmm0
+	vmovss	%xmm0, 12(%rsp)
+	vmovss	%xmm1, 8(%rsp)
+	jp	.L8
+	jne	.L8
+	leaq	8(%rsp), %rsi
+	movl	$4, %edx
+	leaq	12(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	jne	.L8
+	addq	$24, %rsp
+	ret
+.L8:
+	call	abort
+	.size	expectf, .-expectf
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB6:
+	.section	.text.startup,"ax",@progbits
+.LHOTB6:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vmovsd	.LC3(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vmovsd	.LC3(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vmovsd	.LC3(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vxorps	%xmm1, %xmm1, %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vxorps	%xmm1, %xmm1, %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vxorps	%xmm1, %xmm1, %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vmovss	.LC5(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vmovss	.LC5(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vmovss	.LC5(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE6:
+	.section	.text.startup
+.LHOTE6:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC3:
+	.long	0
+	.long	-2147483648
+	.section	.rodata.cst4,"aM",@progbits,4
+	.align 4
+.LC5:
+	.long	2147483648
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits
