@@ -1,0 +1,962 @@
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20000320-1.x0
+/bin/20000320-1.x0
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20000320-1.x1
+/bin/20000320-1.x1
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20000320-1.x2
+/bin/20000320-1.x2
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20000320-1.x3
+/bin/20000320-1.x3
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20000320-1.x4
+/bin/20000320-1.x4
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20000320-1.x5
+/bin/20000320-1.x5
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20000320-1.x6
+/bin/20000320-1.x6
+gcc ./gcc.c-torture/execute/ieee/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20000320-1.x7
+/bin/20000320-1.x7
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20001122-1.x0
+/bin/20001122-1.x0
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20001122-1.x1
+/bin/20001122-1.x1
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20001122-1.x2
+/bin/20001122-1.x2
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/20001122-1.x3
+/bin/20001122-1.x3
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20001122-1.x4
+/bin/20001122-1.x4
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20001122-1.x5
+/bin/20001122-1.x5
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20001122-1.x6
+/bin/20001122-1.x6
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20001122-1.x7
+/bin/20001122-1.x7
+gcc ./gcc.c-torture/execute/ieee/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20001122-1.x8
+/bin/20001122-1.x8
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20010114-2.x0
+/bin/20010114-2.x0
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20010114-2.x1
+/bin/20010114-2.x1
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20010114-2.x2
+/bin/20010114-2.x2
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20010114-2.x3
+/bin/20010114-2.x3
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20010114-2.x4
+/bin/20010114-2.x4
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20010114-2.x5
+/bin/20010114-2.x5
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20010114-2.x6
+/bin/20010114-2.x6
+gcc ./gcc.c-torture/execute/ieee/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20010114-2.x7
+/bin/20010114-2.x7
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20010226-1.x0
+/bin/20010226-1.x0
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20010226-1.x1
+/bin/20010226-1.x1
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20010226-1.x2
+/bin/20010226-1.x2
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20010226-1.x3
+/bin/20010226-1.x3
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20010226-1.x4
+/bin/20010226-1.x4
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20010226-1.x5
+/bin/20010226-1.x5
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20010226-1.x6
+/bin/20010226-1.x6
+gcc ./gcc.c-torture/execute/ieee/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20010226-1.x7
+/bin/20010226-1.x7
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20011123-1.x0
+/bin/20011123-1.x0
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20011123-1.x1
+/bin/20011123-1.x1
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20011123-1.x2
+/bin/20011123-1.x2
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20011123-1.x3
+/bin/20011123-1.x3
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20011123-1.x4
+/bin/20011123-1.x4
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20011123-1.x5
+/bin/20011123-1.x5
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20011123-1.x6
+/bin/20011123-1.x6
+gcc ./gcc.c-torture/execute/ieee/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20011123-1.x7
+/bin/20011123-1.x7
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20030331-1.x0
+/bin/20030331-1.x0
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20030331-1.x1
+/bin/20030331-1.x1
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20030331-1.x2
+/bin/20030331-1.x2
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20030331-1.x3
+/bin/20030331-1.x3
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20030331-1.x4
+/bin/20030331-1.x4
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20030331-1.x5
+/bin/20030331-1.x5
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20030331-1.x6
+/bin/20030331-1.x6
+gcc ./gcc.c-torture/execute/ieee/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20030331-1.x7
+/bin/20030331-1.x7
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/20041213-1.x0
+/bin/20041213-1.x0
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/20041213-1.x1
+/bin/20041213-1.x1
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/20041213-1.x2
+/bin/20041213-1.x2
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/20041213-1.x3
+/bin/20041213-1.x3
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/20041213-1.x4
+/bin/20041213-1.x4
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/20041213-1.x5
+/bin/20041213-1.x5
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/20041213-1.x6
+/bin/20041213-1.x6
+gcc ./gcc.c-torture/execute/ieee/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/20041213-1.x7
+/bin/20041213-1.x7
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/920518-1.x0
+/bin/920518-1.x0
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/920518-1.x1
+/bin/920518-1.x1
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/920518-1.x2
+/bin/920518-1.x2
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/920518-1.x3
+/bin/920518-1.x3
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/920518-1.x4
+/bin/920518-1.x4
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/920518-1.x5
+/bin/920518-1.x5
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/920518-1.x6
+/bin/920518-1.x6
+gcc ./gcc.c-torture/execute/ieee/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/920518-1.x7
+/bin/920518-1.x7
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/920810-1.x0
+/bin/920810-1.x0
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/920810-1.x1
+/bin/920810-1.x1
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/920810-1.x2
+/bin/920810-1.x2
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/920810-1.x3
+/bin/920810-1.x3
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/920810-1.x4
+/bin/920810-1.x4
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/920810-1.x5
+/bin/920810-1.x5
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/920810-1.x6
+/bin/920810-1.x6
+gcc ./gcc.c-torture/execute/ieee/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/920810-1.x7
+/bin/920810-1.x7
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/930529-1.x0
+/bin/930529-1.x0
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/930529-1.x1
+/bin/930529-1.x1
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/930529-1.x2
+/bin/930529-1.x2
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/930529-1.x3
+/bin/930529-1.x3
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/930529-1.x4
+/bin/930529-1.x4
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/930529-1.x5
+/bin/930529-1.x5
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/930529-1.x6
+/bin/930529-1.x6
+gcc ./gcc.c-torture/execute/ieee/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/930529-1.x7
+/bin/930529-1.x7
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/980619-1.x0
+/bin/980619-1.x0
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/980619-1.x1
+/bin/980619-1.x1
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/980619-1.x2
+/bin/980619-1.x2
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/980619-1.x3
+/bin/980619-1.x3
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/980619-1.x4
+/bin/980619-1.x4
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/980619-1.x5
+/bin/980619-1.x5
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/980619-1.x6
+/bin/980619-1.x6
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/980619-1.x7
+/bin/980619-1.x7
+gcc ./gcc.c-torture/execute/ieee/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/980619-1.x8
+/bin/980619-1.x8
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/acc1.x0
+/bin/acc1.x0
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/acc1.x1
+/bin/acc1.x1
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/acc1.x2
+/bin/acc1.x2
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/acc1.x3
+/bin/acc1.x3
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/acc1.x4
+/bin/acc1.x4
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/acc1.x5
+/bin/acc1.x5
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/acc1.x6
+/bin/acc1.x6
+gcc ./gcc.c-torture/execute/ieee/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/acc1.x7
+/bin/acc1.x7
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/acc2.x0
+/bin/acc2.x0
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/acc2.x1
+/bin/acc2.x1
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/acc2.x2
+/bin/acc2.x2
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/acc2.x3
+/bin/acc2.x3
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/acc2.x4
+/bin/acc2.x4
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/acc2.x5
+/bin/acc2.x5
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/acc2.x6
+/bin/acc2.x6
+gcc ./gcc.c-torture/execute/ieee/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/acc2.x7
+/bin/acc2.x7
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/builtin-nan-1.x0
+/bin/builtin-nan-1.x0
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/builtin-nan-1.x1
+/bin/builtin-nan-1.x1
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/builtin-nan-1.x2
+/bin/builtin-nan-1.x2
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/builtin-nan-1.x3
+/bin/builtin-nan-1.x3
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/builtin-nan-1.x4
+/bin/builtin-nan-1.x4
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/builtin-nan-1.x5
+/bin/builtin-nan-1.x5
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/builtin-nan-1.x6
+/bin/builtin-nan-1.x6
+gcc ./gcc.c-torture/execute/ieee/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/builtin-nan-1.x7
+/bin/builtin-nan-1.x7
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/compare-fp-1.x0
+/bin/compare-fp-1.x0
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/compare-fp-1.x1
+/bin/compare-fp-1.x1
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/compare-fp-1.x2
+/bin/compare-fp-1.x2
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/compare-fp-1.x3
+/bin/compare-fp-1.x3
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/compare-fp-1.x4
+/bin/compare-fp-1.x4
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/compare-fp-1.x5
+/bin/compare-fp-1.x5
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/compare-fp-1.x6
+/bin/compare-fp-1.x6
+gcc ./gcc.c-torture/execute/ieee/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/compare-fp-1.x7
+/bin/compare-fp-1.x7
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/compare-fp-2.x0
+/bin/compare-fp-2.x0
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/compare-fp-2.x1
+/bin/compare-fp-2.x1
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/compare-fp-2.x2
+/bin/compare-fp-2.x2
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/compare-fp-2.x3
+/bin/compare-fp-2.x3
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/compare-fp-2.x4
+/bin/compare-fp-2.x4
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/compare-fp-2.x5
+/bin/compare-fp-2.x5
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/compare-fp-2.x6
+/bin/compare-fp-2.x6
+gcc ./gcc.c-torture/execute/ieee/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/compare-fp-2.x7
+/bin/compare-fp-2.x7
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x0
+/bin/compare-fp-3.x0
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x1
+/bin/compare-fp-3.x1
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x2
+/bin/compare-fp-3.x2
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x3
+/bin/compare-fp-3.x3
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x4
+/bin/compare-fp-3.x4
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x5
+/bin/compare-fp-3.x5
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x6
+/bin/compare-fp-3.x6
+gcc ./gcc.c-torture/execute/ieee/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-3.x7
+/bin/compare-fp-3.x7
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x0
+/bin/compare-fp-4.x0
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x1
+/bin/compare-fp-4.x1
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x2
+/bin/compare-fp-4.x2
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x3
+/bin/compare-fp-4.x3
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x4
+/bin/compare-fp-4.x4
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x5
+/bin/compare-fp-4.x5
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x6
+/bin/compare-fp-4.x6
+gcc ./gcc.c-torture/execute/ieee/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-trapping-math  -lm  -o /bin/compare-fp-4.x7
+/bin/compare-fp-4.x7
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/copysign1.x0
+/bin/copysign1.x0
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/copysign1.x1
+/bin/copysign1.x1
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/copysign1.x2
+/bin/copysign1.x2
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/copysign1.x3
+/bin/copysign1.x3
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/copysign1.x4
+/bin/copysign1.x4
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/copysign1.x5
+/bin/copysign1.x5
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/copysign1.x6
+/bin/copysign1.x6
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/copysign1.x7
+/bin/copysign1.x7
+gcc ./gcc.c-torture/execute/ieee/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/copysign1.x8
+/bin/copysign1.x8
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/copysign2.x0
+/bin/copysign2.x0
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/copysign2.x1
+/bin/copysign2.x1
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/copysign2.x2
+/bin/copysign2.x2
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/copysign2.x3
+/bin/copysign2.x3
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/copysign2.x4
+/bin/copysign2.x4
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/copysign2.x5
+/bin/copysign2.x5
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/copysign2.x6
+/bin/copysign2.x6
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/copysign2.x7
+/bin/copysign2.x7
+gcc ./gcc.c-torture/execute/ieee/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/copysign2.x8
+/bin/copysign2.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-1.x0
+/bin/fp-cmp-1.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-1.x1
+/bin/fp-cmp-1.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-1.x2
+/bin/fp-cmp-1.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/fp-cmp-1.x3
+/bin/fp-cmp-1.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-1.x4
+/bin/fp-cmp-1.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-1.x5
+/bin/fp-cmp-1.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-1.x6
+/bin/fp-cmp-1.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-1.x7
+/bin/fp-cmp-1.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-1.x8
+/bin/fp-cmp-1.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-2.x0
+/bin/fp-cmp-2.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-2.x1
+/bin/fp-cmp-2.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-2.x2
+/bin/fp-cmp-2.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/fp-cmp-2.x3
+/bin/fp-cmp-2.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-2.x4
+/bin/fp-cmp-2.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-2.x5
+/bin/fp-cmp-2.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-2.x6
+/bin/fp-cmp-2.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-2.x7
+/bin/fp-cmp-2.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-2.x8
+/bin/fp-cmp-2.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-3.x0
+/bin/fp-cmp-3.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-3.x1
+/bin/fp-cmp-3.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-3.x2
+/bin/fp-cmp-3.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/fp-cmp-3.x3
+/bin/fp-cmp-3.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-3.x4
+/bin/fp-cmp-3.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-3.x5
+/bin/fp-cmp-3.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-3.x6
+/bin/fp-cmp-3.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-3.x7
+/bin/fp-cmp-3.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-3.x8
+/bin/fp-cmp-3.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-4.x0
+/bin/fp-cmp-4.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-4.x1
+/bin/fp-cmp-4.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-4.x2
+/bin/fp-cmp-4.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/fp-cmp-4.x3
+/bin/fp-cmp-4.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-4.x4
+/bin/fp-cmp-4.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-4.x5
+/bin/fp-cmp-4.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-4.x6
+/bin/fp-cmp-4.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-4.x7
+/bin/fp-cmp-4.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-4.x8
+/bin/fp-cmp-4.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-4e.x0
+/bin/fp-cmp-4e.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-4e.x1
+/bin/fp-cmp-4e.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-4e.x2
+/bin/fp-cmp-4e.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-4e.x3
+/bin/fp-cmp-4e.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-4e.x4
+/bin/fp-cmp-4e.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-4e.x5
+/bin/fp-cmp-4e.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-4e.x6
+/bin/fp-cmp-4e.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-4e.x7
+/bin/fp-cmp-4e.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-4f.x0
+/bin/fp-cmp-4f.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-4f.x1
+/bin/fp-cmp-4f.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-4f.x2
+/bin/fp-cmp-4f.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-4f.x3
+/bin/fp-cmp-4f.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-4f.x4
+/bin/fp-cmp-4f.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-4f.x5
+/bin/fp-cmp-4f.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-4f.x6
+/bin/fp-cmp-4f.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-4f.x7
+/bin/fp-cmp-4f.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-4l.x0
+/bin/fp-cmp-4l.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-4l.x1
+/bin/fp-cmp-4l.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-4l.x2
+/bin/fp-cmp-4l.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-4l.x3
+/bin/fp-cmp-4l.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-4l.x4
+/bin/fp-cmp-4l.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-4l.x5
+/bin/fp-cmp-4l.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-4l.x6
+/bin/fp-cmp-4l.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-4l.x7
+/bin/fp-cmp-4l.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-5.x0
+/bin/fp-cmp-5.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-5.x1
+/bin/fp-cmp-5.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-5.x2
+/bin/fp-cmp-5.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/fp-cmp-5.x3
+/bin/fp-cmp-5.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-5.x4
+/bin/fp-cmp-5.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-5.x5
+/bin/fp-cmp-5.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-5.x6
+/bin/fp-cmp-5.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-5.x7
+/bin/fp-cmp-5.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-5.x8
+/bin/fp-cmp-5.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-6.x0
+/bin/fp-cmp-6.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-6.x1
+/bin/fp-cmp-6.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-6.x2
+/bin/fp-cmp-6.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-6.x3
+/bin/fp-cmp-6.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-6.x4
+/bin/fp-cmp-6.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-6.x5
+/bin/fp-cmp-6.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-6.x6
+/bin/fp-cmp-6.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-6.x7
+/bin/fp-cmp-6.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x0
+/bin/fp-cmp-7.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x1
+/bin/fp-cmp-7.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x2
+/bin/fp-cmp-7.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x3
+/bin/fp-cmp-7.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x4
+/bin/fp-cmp-7.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x5
+/bin/fp-cmp-7.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x6
+/bin/fp-cmp-7.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-trapping-math  -lm  -o /bin/fp-cmp-7.x7
+/bin/fp-cmp-7.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-8.x0
+/bin/fp-cmp-8.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-8.x1
+/bin/fp-cmp-8.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-8.x2
+/bin/fp-cmp-8.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/fp-cmp-8.x3
+/bin/fp-cmp-8.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-8.x4
+/bin/fp-cmp-8.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-8.x5
+/bin/fp-cmp-8.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-8.x6
+/bin/fp-cmp-8.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-8.x7
+/bin/fp-cmp-8.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-8.x8
+/bin/fp-cmp-8.x8
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-8e.x0
+/bin/fp-cmp-8e.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-8e.x1
+/bin/fp-cmp-8e.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-8e.x2
+/bin/fp-cmp-8e.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-8e.x3
+/bin/fp-cmp-8e.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-8e.x4
+/bin/fp-cmp-8e.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-8e.x5
+/bin/fp-cmp-8e.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-8e.x6
+/bin/fp-cmp-8e.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-8e.x7
+/bin/fp-cmp-8e.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-8f.x0
+/bin/fp-cmp-8f.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-8f.x1
+/bin/fp-cmp-8f.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-8f.x2
+/bin/fp-cmp-8f.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-8f.x3
+/bin/fp-cmp-8f.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-8f.x4
+/bin/fp-cmp-8f.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-8f.x5
+/bin/fp-cmp-8f.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-8f.x6
+/bin/fp-cmp-8f.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-8f.x7
+/bin/fp-cmp-8f.x7
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/fp-cmp-8l.x0
+/bin/fp-cmp-8l.x0
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/fp-cmp-8l.x1
+/bin/fp-cmp-8l.x1
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/fp-cmp-8l.x2
+/bin/fp-cmp-8l.x2
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/fp-cmp-8l.x3
+/bin/fp-cmp-8l.x3
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/fp-cmp-8l.x4
+/bin/fp-cmp-8l.x4
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/fp-cmp-8l.x5
+/bin/fp-cmp-8l.x5
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/fp-cmp-8l.x6
+/bin/fp-cmp-8l.x6
+gcc ./gcc.c-torture/execute/ieee/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/fp-cmp-8l.x7
+/bin/fp-cmp-8l.x7
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/hugeval.x0
+/bin/hugeval.x0
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/hugeval.x1
+/bin/hugeval.x1
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/hugeval.x2
+/bin/hugeval.x2
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/hugeval.x3
+/bin/hugeval.x3
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/hugeval.x4
+/bin/hugeval.x4
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/hugeval.x5
+/bin/hugeval.x5
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/hugeval.x6
+/bin/hugeval.x6
+gcc ./gcc.c-torture/execute/ieee/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/hugeval.x7
+/bin/hugeval.x7
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/inf-1.x0
+/bin/inf-1.x0
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/inf-1.x1
+/bin/inf-1.x1
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/inf-1.x2
+/bin/inf-1.x2
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/inf-1.x3
+/bin/inf-1.x3
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/inf-1.x4
+/bin/inf-1.x4
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/inf-1.x5
+/bin/inf-1.x5
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/inf-1.x6
+/bin/inf-1.x6
+gcc ./gcc.c-torture/execute/ieee/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/inf-1.x7
+/bin/inf-1.x7
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/inf-2.x0
+/bin/inf-2.x0
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/inf-2.x1
+/bin/inf-2.x1
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/inf-2.x2
+/bin/inf-2.x2
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/inf-2.x3
+/bin/inf-2.x3
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/inf-2.x4
+/bin/inf-2.x4
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/inf-2.x5
+/bin/inf-2.x5
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/inf-2.x6
+/bin/inf-2.x6
+gcc ./gcc.c-torture/execute/ieee/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/inf-2.x7
+/bin/inf-2.x7
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/inf-3.x0
+/bin/inf-3.x0
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/inf-3.x1
+/bin/inf-3.x1
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/inf-3.x2
+/bin/inf-3.x2
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/inf-3.x3
+/bin/inf-3.x3
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/inf-3.x4
+/bin/inf-3.x4
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/inf-3.x5
+/bin/inf-3.x5
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/inf-3.x6
+/bin/inf-3.x6
+gcc ./gcc.c-torture/execute/ieee/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/inf-3.x7
+/bin/inf-3.x7
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/minuszero.x0
+/bin/minuszero.x0
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/minuszero.x1
+/bin/minuszero.x1
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/minuszero.x2
+/bin/minuszero.x2
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/minuszero.x3
+/bin/minuszero.x3
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/minuszero.x4
+/bin/minuszero.x4
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/minuszero.x5
+/bin/minuszero.x5
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/minuszero.x6
+/bin/minuszero.x6
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/minuszero.x7
+/bin/minuszero.x7
+gcc ./gcc.c-torture/execute/ieee/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/minuszero.x8
+/bin/minuszero.x8
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x0
+/bin/mul-subnormal-single-1.x0
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x1
+/bin/mul-subnormal-single-1.x1
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x2
+/bin/mul-subnormal-single-1.x2
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x3
+/bin/mul-subnormal-single-1.x3
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x4
+/bin/mul-subnormal-single-1.x4
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x5
+/bin/mul-subnormal-single-1.x5
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x6
+/bin/mul-subnormal-single-1.x6
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x7
+/bin/mul-subnormal-single-1.x7
+gcc ./gcc.c-torture/execute/ieee/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/mul-subnormal-single-1.x8
+/bin/mul-subnormal-single-1.x8
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/mzero2.x0
+/bin/mzero2.x0
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/mzero2.x1
+/bin/mzero2.x1
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/mzero2.x2
+/bin/mzero2.x2
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/mzero2.x3
+/bin/mzero2.x3
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/mzero2.x4
+/bin/mzero2.x4
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/mzero2.x5
+/bin/mzero2.x5
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/mzero2.x6
+/bin/mzero2.x6
+gcc ./gcc.c-torture/execute/ieee/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/mzero2.x7
+/bin/mzero2.x7
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/mzero3.x0
+/bin/mzero3.x0
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/mzero3.x1
+/bin/mzero3.x1
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/mzero3.x2
+/bin/mzero3.x2
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/mzero3.x3
+/bin/mzero3.x3
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/mzero3.x4
+/bin/mzero3.x4
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/mzero3.x5
+/bin/mzero3.x5
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/mzero3.x6
+/bin/mzero3.x6
+gcc ./gcc.c-torture/execute/ieee/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/mzero3.x7
+/bin/mzero3.x7
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/mzero4.x0
+/bin/mzero4.x0
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/mzero4.x1
+/bin/mzero4.x1
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/mzero4.x2
+/bin/mzero4.x2
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/mzero4.x3
+/bin/mzero4.x3
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/mzero4.x4
+/bin/mzero4.x4
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/mzero4.x5
+/bin/mzero4.x5
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/mzero4.x6
+/bin/mzero4.x6
+gcc ./gcc.c-torture/execute/ieee/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/mzero4.x7
+/bin/mzero4.x7
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/mzero5.x0
+/bin/mzero5.x0
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/mzero5.x1
+/bin/mzero5.x1
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/mzero5.x2
+/bin/mzero5.x2
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/mzero5.x3
+/bin/mzero5.x3
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/mzero5.x4
+/bin/mzero5.x4
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/mzero5.x5
+/bin/mzero5.x5
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/mzero5.x6
+/bin/mzero5.x6
+gcc ./gcc.c-torture/execute/ieee/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/mzero5.x7
+/bin/mzero5.x7
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/mzero6.x0
+/bin/mzero6.x0
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/mzero6.x1
+/bin/mzero6.x1
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/mzero6.x2
+/bin/mzero6.x2
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/mzero6.x3
+/bin/mzero6.x3
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/mzero6.x4
+/bin/mzero6.x4
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/mzero6.x5
+/bin/mzero6.x5
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/mzero6.x6
+/bin/mzero6.x6
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/mzero6.x7
+/bin/mzero6.x7
+gcc ./gcc.c-torture/execute/ieee/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/mzero6.x8
+/bin/mzero6.x8
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr28634.x0
+/bin/pr28634.x0
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr28634.x1
+/bin/pr28634.x1
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr28634.x2
+/bin/pr28634.x2
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/pr28634.x3
+/bin/pr28634.x3
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr28634.x4
+/bin/pr28634.x4
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr28634.x5
+/bin/pr28634.x5
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr28634.x6
+/bin/pr28634.x6
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr28634.x7
+/bin/pr28634.x7
+gcc ./gcc.c-torture/execute/ieee/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr28634.x8
+/bin/pr28634.x8
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr29302-1.x0
+/bin/pr29302-1.x0
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr29302-1.x1
+/bin/pr29302-1.x1
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr29302-1.x2
+/bin/pr29302-1.x2
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr29302-1.x3
+/bin/pr29302-1.x3
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr29302-1.x4
+/bin/pr29302-1.x4
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr29302-1.x5
+/bin/pr29302-1.x5
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr29302-1.x6
+/bin/pr29302-1.x6
+gcc ./gcc.c-torture/execute/ieee/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr29302-1.x7
+/bin/pr29302-1.x7
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr30704.x0
+/bin/pr30704.x0
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr30704.x1
+/bin/pr30704.x1
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr30704.x2
+/bin/pr30704.x2
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr30704.x3
+/bin/pr30704.x3
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr30704.x4
+/bin/pr30704.x4
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr30704.x5
+/bin/pr30704.x5
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr30704.x6
+/bin/pr30704.x6
+gcc ./gcc.c-torture/execute/ieee/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr30704.x7
+/bin/pr30704.x7
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr36332.x0
+/bin/pr36332.x0
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr36332.x1
+/bin/pr36332.x1
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr36332.x2
+/bin/pr36332.x2
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr36332.x3
+/bin/pr36332.x3
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr36332.x4
+/bin/pr36332.x4
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr36332.x5
+/bin/pr36332.x5
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr36332.x6
+/bin/pr36332.x6
+gcc ./gcc.c-torture/execute/ieee/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr36332.x7
+/bin/pr36332.x7
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x0
+/bin/pr38016.x0
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x1
+/bin/pr38016.x1
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x2
+/bin/pr38016.x2
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x3
+/bin/pr38016.x3
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x4
+/bin/pr38016.x4
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x5
+/bin/pr38016.x5
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x6
+/bin/pr38016.x6
+gcc ./gcc.c-torture/execute/ieee/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-ivopts -fno-gcse  -lm  -o /bin/pr38016.x7
+/bin/pr38016.x7
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr50310.x0
+/bin/pr50310.x0
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr50310.x1
+/bin/pr50310.x1
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr50310.x2
+/bin/pr50310.x2
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/pr50310.x3
+/bin/pr50310.x3
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr50310.x4
+/bin/pr50310.x4
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr50310.x5
+/bin/pr50310.x5
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr50310.x6
+/bin/pr50310.x6
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr50310.x7
+/bin/pr50310.x7
+gcc ./gcc.c-torture/execute/ieee/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr50310.x8
+/bin/pr50310.x8
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr67218.x0
+/bin/pr67218.x0
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr67218.x1
+/bin/pr67218.x1
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr67218.x2
+/bin/pr67218.x2
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr67218.x3
+/bin/pr67218.x3
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr67218.x4
+/bin/pr67218.x4
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr67218.x5
+/bin/pr67218.x5
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr67218.x6
+/bin/pr67218.x6
+gcc ./gcc.c-torture/execute/ieee/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr67218.x7
+/bin/pr67218.x7
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr72824-2.x0
+/bin/pr72824-2.x0
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr72824-2.x1
+/bin/pr72824-2.x1
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr72824-2.x2
+/bin/pr72824-2.x2
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/pr72824-2.x3
+/bin/pr72824-2.x3
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr72824-2.x4
+/bin/pr72824-2.x4
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr72824-2.x5
+/bin/pr72824-2.x5
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr72824-2.x6
+/bin/pr72824-2.x6
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr72824-2.x7
+/bin/pr72824-2.x7
+gcc ./gcc.c-torture/execute/ieee/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr72824-2.x8
+/bin/pr72824-2.x8
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr72824.x0
+/bin/pr72824.x0
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr72824.x1
+/bin/pr72824.x1
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr72824.x2
+/bin/pr72824.x2
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -fno-inline  -lm  -o /bin/pr72824.x3
+/bin/pr72824.x3
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr72824.x4
+/bin/pr72824.x4
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr72824.x5
+/bin/pr72824.x5
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr72824.x6
+/bin/pr72824.x6
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr72824.x7
+/bin/pr72824.x7
+gcc ./gcc.c-torture/execute/ieee/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr72824.x8
+/bin/pr72824.x8
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/pr84235.x0
+/bin/pr84235.x0
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/pr84235.x1
+/bin/pr84235.x1
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/pr84235.x2
+/bin/pr84235.x2
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/pr84235.x3
+/bin/pr84235.x3
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/pr84235.x4
+/bin/pr84235.x4
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/pr84235.x5
+/bin/pr84235.x5
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/pr84235.x6
+/bin/pr84235.x6
+gcc ./gcc.c-torture/execute/ieee/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/pr84235.x7
+/bin/pr84235.x7
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/rbug.x0
+/bin/rbug.x0
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/rbug.x1
+/bin/rbug.x1
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/rbug.x2
+/bin/rbug.x2
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/rbug.x3
+/bin/rbug.x3
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/rbug.x4
+/bin/rbug.x4
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/rbug.x5
+/bin/rbug.x5
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/rbug.x6
+/bin/rbug.x6
+gcc ./gcc.c-torture/execute/ieee/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/rbug.x7
+/bin/rbug.x7
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x0
+/bin/unsafe-fp-assoc-1.x0
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x1
+/bin/unsafe-fp-assoc-1.x1
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x2
+/bin/unsafe-fp-assoc-1.x2
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x3
+/bin/unsafe-fp-assoc-1.x3
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x4
+/bin/unsafe-fp-assoc-1.x4
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x5
+/bin/unsafe-fp-assoc-1.x5
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x6
+/bin/unsafe-fp-assoc-1.x6
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/unsafe-fp-assoc-1.x7
+/bin/unsafe-fp-assoc-1.x7
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x0
+/bin/unsafe-fp-assoc.x0
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x1
+/bin/unsafe-fp-assoc.x1
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x2
+/bin/unsafe-fp-assoc.x2
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x3
+/bin/unsafe-fp-assoc.x3
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x4
+/bin/unsafe-fp-assoc.x4
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x5
+/bin/unsafe-fp-assoc.x5
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x6
+/bin/unsafe-fp-assoc.x6
+gcc ./gcc.c-torture/execute/ieee/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -o /bin/unsafe-fp-assoc.x7
+/bin/unsafe-fp-assoc.x7

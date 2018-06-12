@@ -1,0 +1,878 @@
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/20010124-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/abs-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/abs-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/abs-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/abs-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/abs-3.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/abs-3.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/complex-1.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/complex-1.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/fprintf.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/fprintf.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/fputs.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/fputs.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memchr.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memchr.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memcmp.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memcmp.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memcpy-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memmove-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memmove-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memmove.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memmove.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memops-asm.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/mempcpy-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/mempcpy-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/mempcpy.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memset-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/memset.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/memset.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/pr22237.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/pr22237.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/pr23484-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/printf.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/printf.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/snprintf-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/sprintf-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/sprintf.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/sprintf.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/stpcpy-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/stpncpy-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcat-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcat.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcat.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strchr.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strchr.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcmp.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcmp.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcpy-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcpy-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcpy.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcpy.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strcspn.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strcspn.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strlen-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strlen-3.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strlen.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strlen.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncat-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncat.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncat.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncmp-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncmp.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncmp.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncpy-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strncpy.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strncpy.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strpbrk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strpcpy-2.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strpcpy.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strrchr.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strrchr.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strspn.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strspn.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strstr-asm.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/strstr.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/strstr.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/vsnprintf-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O0 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O0 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O1 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O1 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O2 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O2 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O3 -g 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -Os 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -Os 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -Og -g 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O2 -flto -fno-use-linker-plugin -flto-partition=none 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c compilation,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
+PASS: gcc.c-torture/execute/builtins/vsprintf-chk.c execution,  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects 
