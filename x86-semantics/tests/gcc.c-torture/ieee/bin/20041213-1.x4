@@ -1,0 +1,47 @@
+	.file	"20041213-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.globl	foo
+	.type	foo, @function
+foo:
+	movl	once(%rip), %eax
+	leal	1(%rax), %edx
+	movl	%edx, once(%rip)
+	testl	%eax, %eax
+	je	.L2
+	pushq	%rax
+	call	abort
+.L2:
+	vxorpd	%xmm0, %xmm0, %xmm0
+	vdivsd	%xmm0, %xmm0, %xmm0
+	ret
+	.size	foo, .-foo
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.section	.text.startup,"ax",@progbits
+.LHOTB2:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rax
+	call	foo
+	call	sqrt
+	xorl	%eax, %eax
+	vmovsd	%xmm0, x(%rip)
+	popq	%rdx
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE2:
+	.section	.text.startup
+.LHOTE2:
+	.comm	x,8,8
+	.comm	once,4,4
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

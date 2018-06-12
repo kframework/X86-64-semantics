@@ -1,0 +1,368 @@
+	.file	"copysign1.c"
+	.text
+	.globl	cf
+	.type	cf, @function
+cf:
+	vmovaps	%xmm1, %xmm2
+	vandps	.LC1(%rip), %xmm2, %xmm2
+	vandps	.LC0(%rip), %xmm0, %xmm0
+	vorps	%xmm2, %xmm0, %xmm0
+	ret
+	.size	cf, .-cf
+	.globl	testf
+	.type	testf, @function
+testf:
+	pushq	%rbp
+	pushq	%rbx
+	subq	$24, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, 8(%rsp)
+	xorl	%eax, %eax
+	movl	$Tf+8, %ebx
+	movl	$Tf+104, %ebp
+.L4:
+	vmovss	-4(%rbx), %xmm1
+	vmovss	-8(%rbx), %xmm0
+	call	cf
+	vmovss	%xmm0, 4(%rsp)
+	movl	$4, %edx
+	movq	%rbx, %rsi
+	leaq	4(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L3
+	call	abort
+.L3:
+	addq	$12, %rbx
+	cmpq	%rbp, %rbx
+	jne	.L4
+	movq	8(%rsp), %rax
+	xorq	%fs:40, %rax
+	je	.L5
+	call	__stack_chk_fail
+.L5:
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	ret
+	.size	testf, .-testf
+	.globl	c
+	.type	c, @function
+c:
+	vmovapd	%xmm1, %xmm2
+	vandpd	.LC3(%rip), %xmm2, %xmm2
+	vandpd	.LC2(%rip), %xmm0, %xmm0
+	vorpd	%xmm2, %xmm0, %xmm0
+	ret
+	.size	c, .-c
+	.globl	test
+	.type	test, @function
+test:
+	pushq	%rbp
+	pushq	%rbx
+	subq	$24, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, 8(%rsp)
+	xorl	%eax, %eax
+	movl	$T+16, %ebx
+	movl	$T+208, %ebp
+.L11:
+	vmovsd	-8(%rbx), %xmm1
+	vmovsd	-16(%rbx), %xmm0
+	call	c
+	vmovsd	%xmm0, (%rsp)
+	movl	$8, %edx
+	movq	%rbx, %rsi
+	movq	%rsp, %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L10
+	call	abort
+.L10:
+	addq	$24, %rbx
+	cmpq	%rbp, %rbx
+	jne	.L11
+	movq	8(%rsp), %rax
+	xorq	%fs:40, %rax
+	je	.L12
+	call	__stack_chk_fail
+.L12:
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	ret
+	.size	test, .-test
+	.globl	cl
+	.type	cl, @function
+cl:
+	fldt	24(%rsp)
+	fxam
+	fnstsw	%ax
+	fstp	%st(0)
+	fldt	8(%rsp)
+	fabs
+	testb	$2, %ah
+	je	.L16
+	fchs
+.L16:
+	ret
+	.size	cl, .-cl
+	.globl	testl
+	.type	testl, @function
+testl:
+	pushq	%rbp
+	pushq	%rbx
+	subq	$40, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, 24(%rsp)
+	xorl	%eax, %eax
+	movl	$Tl+32, %ebx
+	movl	$Tl+416, %ebp
+.L19:
+	pushq	-8(%rbx)
+	pushq	-16(%rbx)
+	pushq	-24(%rbx)
+	pushq	-32(%rbx)
+	call	cl
+	addq	$32, %rsp
+	fstpt	(%rsp)
+	movl	$10, %edx
+	movq	%rbx, %rsi
+	movq	%rsp, %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L18
+	call	abort
+.L18:
+	addq	$48, %rbx
+	cmpq	%rbp, %rbx
+	jne	.L19
+	movq	24(%rsp), %rax
+	xorq	%fs:40, %rax
+	je	.L20
+	call	__stack_chk_fail
+.L20:
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	ret
+	.size	testl, .-testl
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	call	testf
+	call	test
+	call	testl
+	movl	$0, %eax
+	addq	$8, %rsp
+	ret
+	.size	main, .-main
+	.section	.rodata
+	.align 64
+	.type	Tl, @object
+	.size	Tl, 384
+Tl:
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16384
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49152
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49151
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49151
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49152
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49151
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49152
+	.long	0
+	.long	0
+	.long	0
+	.long	32768
+	.long	0
+	.long	0
+	.long	0
+	.long	32768
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	49152
+	.long	0
+	.long	0
+	.long	0
+	.long	32768
+	.long	0
+	.long	0
+	.long	0
+	.long	32768
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16384
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	0
+	.long	32768
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	65535
+	.long	0
+	.long	0
+	.long	3221225472
+	.long	65535
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	32767
+	.long	0
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.align 64
+	.type	T, @object
+	.size	T, 192
+T:
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	-1073741824
+	.long	0
+	.long	-1074790400
+	.long	0
+	.long	-1074790400
+	.long	0
+	.long	-1073741824
+	.long	0
+	.long	-1074790400
+	.long	0
+	.long	0
+	.long	0
+	.long	-1073741824
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	-1073741824
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	0
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	-1048576
+	.long	0
+	.long	-524288
+	.long	0
+	.long	2146435072
+	.long	0
+	.long	2146959360
+	.align 64
+	.type	Tf, @object
+	.size	Tf, 96
+Tf:
+	.long	1065353216
+	.long	1073741824
+	.long	1065353216
+	.long	1065353216
+	.long	3221225472
+	.long	3212836864
+	.long	3212836864
+	.long	3221225472
+	.long	3212836864
+	.long	0
+	.long	3221225472
+	.long	2147483648
+	.long	2147483648
+	.long	3221225472
+	.long	2147483648
+	.long	2147483648
+	.long	1073741824
+	.long	0
+	.long	2139095040
+	.long	2147483648
+	.long	4286578688
+	.long	4290772992
+	.long	2139095040
+	.long	2143289344
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC0:
+	.long	2147483647
+	.long	0
+	.long	0
+	.long	0
+	.align 16
+.LC1:
+	.long	2147483648
+	.long	0
+	.long	0
+	.long	0
+	.align 16
+.LC2:
+	.long	4294967295
+	.long	2147483647
+	.long	0
+	.long	0
+	.align 16
+.LC3:
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	0
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

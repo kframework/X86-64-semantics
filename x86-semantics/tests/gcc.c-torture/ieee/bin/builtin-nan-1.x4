@@ -1,0 +1,42 @@
+	.file	"builtin-nan-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.section	.text.startup,"ax",@progbits
+.LHOTB0:
+	.globl	main
+	.type	main, @function
+main:
+	movl	$8, %edx
+	pushq	%rcx
+	movl	$n2, %esi
+	movl	$n1, %edi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L2
+	call	abort
+.L2:
+	xorl	%eax, %eax
+	popq	%rdx
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE0:
+	.section	.text.startup
+.LHOTE0:
+	.globl	n2
+	.data
+	.align 8
+	.type	n2, @object
+	.size	n2, 8
+n2:
+	.long	1
+	.long	2146959360
+	.globl	n1
+	.align 8
+	.type	n1, @object
+	.size	n1, 8
+n1:
+	.long	1
+	.long	2146959360
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

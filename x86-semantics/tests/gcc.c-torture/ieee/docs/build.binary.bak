@@ -4,6 +4,8 @@ gcc ./src/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never 
 gcc ./src/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20000320-1.x3
 gcc ./src/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20000320-1.x4
 gcc ./src/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20000320-1.x5
+gcc ./src/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20000320-1.x6
+gcc ./src/20000320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20000320-1.x7
 gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x0
 gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x1
 gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x2
@@ -11,54 +13,72 @@ gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never 
 gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x4
 gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x5
 gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x6
+gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x7
+gcc ./src/20001122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20001122-1.x8
 gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x0
 gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x1
 gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x2
 gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x3
 gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x4
 gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x5
+gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x6
+gcc ./src/20010114-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010114-2.x7
 gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x0
 gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x1
 gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x2
 gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x3
 gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x4
 gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x5
+gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x6
+gcc ./src/20010226-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010226-1.x7
 gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x0
 gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x1
 gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x2
 gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x3
 gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x4
 gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x5
+gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x6
+gcc ./src/20011123-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011123-1.x7
 gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x0
 gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x1
 gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x2
 gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x3
 gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x4
 gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x5
+gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x6
+gcc ./src/20030331-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030331-1.x7
 gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x0
 gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x1
 gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x2
 gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x3
 gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x4
 gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x5
+gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x6
+gcc ./src/20041213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-1.x7
 gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x0
 gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x1
 gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x2
 gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x3
 gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x4
 gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x5
+gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x6
+gcc ./src/920518-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920518-1.x7
 gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x0
 gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x1
 gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x2
 gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x3
 gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x4
 gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x5
+gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x6
+gcc ./src/920810-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/920810-1.x7
 gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x0
 gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x1
 gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x2
 gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x3
 gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x4
 gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x5
+gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x6
+gcc ./src/930529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/930529-1.x7
 gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x0
 gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x1
 gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x2
@@ -66,48 +86,64 @@ gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x4
 gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x5
 gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x6
+gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x7
+gcc ./src/980619-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/980619-1.x8
 gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x0
 gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x1
 gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x2
 gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x3
 gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x4
 gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x5
+gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x6
+gcc ./src/acc1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc1.x7
 gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x0
 gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x1
 gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x2
 gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x3
 gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x4
 gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x5
+gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x6
+gcc ./src/acc2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/acc2.x7
 gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x0
 gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x1
 gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x2
 gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x3
 gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x4
 gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x5
+gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x6
+gcc ./src/builtin-nan-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/builtin-nan-1.x7
 gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x0
 gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x1
 gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x2
 gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x3
 gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x4
 gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x5
+gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x6
+gcc ./src/compare-fp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-1.x7
 gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x0
 gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x1
 gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x2
 gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x3
 gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x4
 gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x5
+gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x6
+gcc ./src/compare-fp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-2.x7
 gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x0
 gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x1
 gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x2
 gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x3
 gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x4
 gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x5
+gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x6
+gcc ./src/compare-fp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-3.x7
 gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x0
 gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x1
 gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x2
 gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x3
 gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x4
 gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x5
+gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x6
+gcc ./src/compare-fp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/compare-fp-4.x7
 gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x0
 gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x1
 gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x2
@@ -115,6 +151,8 @@ gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  
 gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x4
 gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x5
 gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x6
+gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x7
+gcc ./src/copysign1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign1.x8
 gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x0
 gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x1
 gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x2
@@ -122,6 +160,8 @@ gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  
 gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x4
 gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x5
 gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x6
+gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x7
+gcc ./src/copysign2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/copysign2.x8
 gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x0
 gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x1
 gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x2
@@ -129,6 +169,8 @@ gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x4
 gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x5
 gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x6
+gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x7
+gcc ./src/fp-cmp-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-1.x8
 gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x0
 gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x1
 gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x2
@@ -136,6 +178,8 @@ gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x4
 gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x5
 gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x6
+gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x7
+gcc ./src/fp-cmp-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-2.x8
 gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x0
 gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x1
 gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x2
@@ -143,6 +187,8 @@ gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x4
 gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x5
 gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x6
+gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x7
+gcc ./src/fp-cmp-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-3.x8
 gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x0
 gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x1
 gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x2
@@ -150,24 +196,32 @@ gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x4
 gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x5
 gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x6
+gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x7
+gcc ./src/fp-cmp-4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4.x8
 gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x0
 gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x1
 gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x2
 gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x3
 gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x4
 gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x5
+gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x6
+gcc ./src/fp-cmp-4e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4e.x7
 gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x0
 gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x1
 gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x2
 gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x3
 gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x4
 gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x5
+gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x6
+gcc ./src/fp-cmp-4f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4f.x7
 gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x0
 gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x1
 gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x2
 gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x3
 gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x4
 gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x5
+gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x6
+gcc ./src/fp-cmp-4l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-4l.x7
 gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x0
 gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x1
 gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x2
@@ -175,18 +229,24 @@ gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x4
 gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x5
 gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x6
+gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x7
+gcc ./src/fp-cmp-5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-5.x8
 gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x0
 gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x1
 gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x2
 gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x3
 gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x4
 gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x5
+gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x6
+gcc ./src/fp-cmp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-6.x7
 gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x0
 gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x1
 gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x2
 gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x3
 gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x4
 gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x5
+gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x6
+gcc ./src/fp-cmp-7.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-trapping-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-7.x7
 gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x0
 gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x1
 gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x2
@@ -194,48 +254,64 @@ gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -
 gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x4
 gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x5
 gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x6
+gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x7
+gcc ./src/fp-cmp-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8.x8
 gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x0
 gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x1
 gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x2
 gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x3
 gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x4
 gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x5
+gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x6
+gcc ./src/fp-cmp-8e.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8e.x7
 gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x0
 gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x1
 gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x2
 gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x3
 gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x4
 gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x5
+gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x6
+gcc ./src/fp-cmp-8f.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8f.x7
 gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x0
 gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x1
 gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x2
 gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x3
 gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x4
 gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x5
+gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x6
+gcc ./src/fp-cmp-8l.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/fp-cmp-8l.x7
 gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x0
 gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x1
 gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x2
 gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x3
 gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x4
 gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x5
+gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x6
+gcc ./src/hugeval.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/hugeval.x7
 gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x0
 gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x1
 gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x2
 gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x3
 gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x4
 gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x5
+gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x6
+gcc ./src/inf-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-1.x7
 gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x0
 gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x1
 gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x2
 gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x3
 gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x4
 gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x5
+gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x6
+gcc ./src/inf-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-2.x7
 gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x0
 gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x1
 gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x2
 gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x3
 gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x4
 gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x5
+gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x6
+gcc ./src/inf-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/inf-3.x7
 gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x0
 gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x1
 gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x2
@@ -243,6 +319,8 @@ gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  
 gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x4
 gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x5
 gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x6
+gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x7
+gcc ./src/minuszero.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/minuszero.x8
 gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x0
 gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x1
 gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x2
@@ -250,30 +328,40 @@ gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-
 gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x4
 gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x5
 gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x6
+gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x7
+gcc ./src/mul-subnormal-single-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mul-subnormal-single-1.x8
 gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x0
 gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x1
 gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x2
 gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x3
 gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x4
 gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x5
+gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x6
+gcc ./src/mzero2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero2.x7
 gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x0
 gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x1
 gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x2
 gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x3
 gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x4
 gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x5
+gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x6
+gcc ./src/mzero3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero3.x7
 gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x0
 gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x1
 gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x2
 gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x3
 gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x4
 gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x5
+gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x6
+gcc ./src/mzero4.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero4.x7
 gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x0
 gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x1
 gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x2
 gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x3
 gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x4
 gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x5
+gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x6
+gcc ./src/mzero5.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero5.x7
 gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x0
 gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x1
 gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x2
@@ -281,6 +369,8 @@ gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w 
 gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x4
 gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x5
 gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x6
+gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x7
+gcc ./src/mzero6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/mzero6.x8
 gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x0
 gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x1
 gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x2
@@ -288,30 +378,40 @@ gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w
 gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x4
 gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x5
 gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x6
+gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x7
+gcc ./src/pr28634.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr28634.x8
 gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x0
 gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x1
 gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x2
 gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x3
 gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x4
 gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x5
+gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x6
+gcc ./src/pr29302-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr29302-1.x7
 gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x0
 gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x1
 gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x2
 gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x3
 gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x4
 gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x5
+gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x6
+gcc ./src/pr30704.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr30704.x7
 gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x0
 gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x1
 gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x2
 gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x3
 gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x4
 gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x5
+gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x6
+gcc ./src/pr36332.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36332.x7
 gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x0
 gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x1
 gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x2
 gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x3
 gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x4
 gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x5
+gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x6
+gcc ./src/pr38016.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline -fno-ivopts -fno-gcse  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr38016.x7
 gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x0
 gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x1
 gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x2
@@ -319,12 +419,16 @@ gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w
 gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x4
 gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x5
 gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x6
+gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x7
+gcc ./src/pr50310.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr50310.x8
 gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x0
 gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x1
 gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x2
 gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x3
 gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x4
 gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x5
+gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x6
+gcc ./src/pr67218.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67218.x7
 gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x0
 gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x1
 gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x2
@@ -332,6 +436,8 @@ gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  
 gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x4
 gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x5
 gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x6
+gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x7
+gcc ./src/pr72824-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824-2.x8
 gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x0
 gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x1
 gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x2
@@ -339,27 +445,37 @@ gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w
 gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x4
 gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x5
 gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x6
+gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x7
+gcc ./src/pr72824.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr72824.x8
 gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x0
 gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x1
 gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x2
 gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x3
 gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x4
 gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x5
+gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x6
+gcc ./src/pr84235.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84235.x7
 gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x0
 gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x1
 gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x2
 gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x3
 gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x4
 gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x5
+gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x6
+gcc ./src/rbug.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/rbug.x7
 gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x0
 gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x1
 gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x2
 gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x3
 gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x4
 gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x5
+gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x6
+gcc ./src/unsafe-fp-assoc-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc-1.x7
 gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O0  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x0
 gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O1  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x1
 gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x2
 gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O3 -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x3
 gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Os  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x4
 gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -Og -g  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x5
+gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x6
+gcc ./src/unsafe-fp-assoc.c    -fno-diagnostics-show-caret -fdiagnostics-color=never  -w  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -fno-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/unsafe-fp-assoc.x7

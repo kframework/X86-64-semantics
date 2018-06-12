@@ -1,0 +1,72 @@
+	.file	"pr30704.c"
+	.text
+	.globl	f1
+	.type	f1, @function
+f1:
+	movabsq	$4503599627370495, %rax
+	ret
+	.size	f1, .-f1
+	.globl	f2
+	.type	f2, @function
+f2:
+	vmovsd	.LC0(%rip), %xmm0
+	ret
+	.size	f2, .-f2
+	.globl	main
+	.type	main, @function
+main:
+	subq	$40, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, 24(%rsp)
+	xorl	%eax, %eax
+	call	f1
+	vmovq	%rax, %xmm0
+	vucomisd	.LC1(%rip), %xmm0
+	jp	.L9
+	je	.L10
+.L9:
+	call	abort
+.L10:
+	call	f2
+	vmovq	%xmm0, %rdx
+	movabsq	$4483583629026627, %rax
+	cmpq	%rax, %rdx
+	je	.L6
+	call	abort
+.L6:
+	vmovsd	.LC2(%rip), %xmm1
+	vmovsd	%xmm1, 8(%rsp)
+	movabsq	$4642437159633027072, %rax
+	movq	%rax, 16(%rsp)
+	movl	$8, %edx
+	leaq	8(%rsp), %rsi
+	leaq	16(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L7
+	call	abort
+.L7:
+	movl	$0, %eax
+	movq	24(%rsp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L8
+	call	__stack_chk_fail
+.L8:
+	addq	$40, %rsp
+	ret
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	2844222787
+	.long	1043915
+	.align 8
+.LC1:
+	.long	4294967295
+	.long	1048575
+	.align 8
+.LC2:
+	.long	0
+	.long	1080901632
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

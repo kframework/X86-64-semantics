@@ -1,0 +1,81 @@
+	.file	"mzero6.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.globl	func
+	.type	func, @function
+func:
+	testl	%edi, %edi
+	jne	.L8
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L8:
+	subq	$24, %rsp
+	vmovapd	%xmm0, %xmm1
+	subl	$1, %edi
+	vmovsd	%xmm1, 8(%rsp)
+	call	func
+	vmovsd	8(%rsp), %xmm2
+	addq	$24, %rsp
+	vaddsd	%xmm2, %xmm0, %xmm0
+	ret
+	.size	func, .-func
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB5:
+	.section	.text.startup,"ax",@progbits
+.LHOTB5:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	movl	$10, %edi
+	vmovsd	.LC1(%rip), %xmm0
+	call	func
+	vandpd	.LC3(%rip), %xmm0, %xmm0
+	vorpd	.LC2(%rip), %xmm0, %xmm1
+	vucomisd	.LC4(%rip), %xmm1
+	jp	.L12
+	je	.L13
+.L12:
+	call	abort
+.L13:
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE5:
+	.section	.text.startup
+.LHOTE5:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC1:
+	.long	0
+	.long	-2147483648
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC2:
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	0
+	.align 16
+.LC3:
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	0
+	.section	.rodata.cst8
+	.align 8
+.LC4:
+	.long	0
+	.long	-1074790400
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

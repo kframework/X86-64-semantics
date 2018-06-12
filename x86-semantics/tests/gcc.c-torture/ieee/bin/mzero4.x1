@@ -1,0 +1,99 @@
+	.file	"mzero4.c"
+	.text
+	.globl	expectd
+	.type	expectd, @function
+expectd:
+	subq	$24, %rsp
+	vmovsd	%xmm0, 8(%rsp)
+	vmovsd	%xmm1, (%rsp)
+	vucomisd	%xmm1, %xmm0
+	jp	.L2
+	jne	.L2
+	movl	$8, %edx
+	movq	%rsp, %rsi
+	leaq	8(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L1
+.L2:
+	call	abort
+.L1:
+	addq	$24, %rsp
+	ret
+	.size	expectd, .-expectd
+	.globl	expectf
+	.type	expectf, @function
+expectf:
+	subq	$24, %rsp
+	vmovss	%xmm0, 12(%rsp)
+	vmovss	%xmm1, 8(%rsp)
+	vucomiss	%xmm1, %xmm0
+	jp	.L6
+	jne	.L6
+	movl	$4, %edx
+	leaq	8(%rsp), %rsi
+	leaq	12(%rsp), %rdi
+	call	memcmp
+	testl	%eax, %eax
+	je	.L5
+.L6:
+	call	abort
+.L5:
+	addq	$24, %rsp
+	ret
+	.size	expectf, .-expectf
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vmovsd	.LC1(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vmovsd	.LC1(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vmovsd	.LC1(%rip), %xmm1
+	vmovapd	%xmm1, %xmm0
+	call	expectd
+	vxorps	%xmm1, %xmm1, %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vxorps	%xmm1, %xmm1, %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vxorps	%xmm1, %xmm1, %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vmovss	.LC3(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vmovss	.LC3(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	vmovss	.LC3(%rip), %xmm1
+	vmovaps	%xmm1, %xmm0
+	call	expectf
+	movl	$0, %eax
+	addq	$8, %rsp
+	ret
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC1:
+	.long	0
+	.long	-2147483648
+	.section	.rodata.cst4,"aM",@progbits,4
+	.align 4
+.LC3:
+	.long	2147483648
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

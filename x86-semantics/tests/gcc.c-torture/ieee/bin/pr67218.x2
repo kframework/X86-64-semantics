@@ -1,0 +1,50 @@
+	.file	"pr67218.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.globl	foo
+	.type	foo, @function
+foo:
+	orl	$-65536, %edi
+	vxorps	%xmm0, %xmm0, %xmm0
+	vcvtsi2ssq	%rdi, %xmm0, %xmm0
+	vcvtss2sd	%xmm0, %xmm0, %xmm0
+	ret
+	.size	foo, .-foo
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB2:
+	.section	.text.startup,"ax",@progbits
+.LHOTB2:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	movl	$1, %edi
+	call	foo
+	vucomisd	.LC1(%rip), %xmm0
+	jp	.L7
+	jne	.L7
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	ret
+.L7:
+	call	abort
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE2:
+	.section	.text.startup
+.LHOTE2:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC1:
+	.long	0
+	.long	1106247648
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

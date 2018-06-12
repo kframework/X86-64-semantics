@@ -1,0 +1,116 @@
+	.file	"20000320-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.globl	c
+	.type	c, @function
+c:
+	movq	%rdi, -8(%rsp)
+	vcvtsd2ss	-8(%rsp), %xmm0, %xmm0
+	movq	%rdi, ud(%rip)
+	vmovss	%xmm0, -8(%rsp)
+	vmovss	%xmm0, uf(%rip)
+	cmpl	-8(%rsp), %esi
+	je	.L1
+	incl	failed(%rip)
+.L1:
+	ret
+	.size	c, .-c
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.section	.text.startup,"ax",@progbits
+.LHOTB1:
+	.globl	main
+	.type	main, @function
+main:
+	movabsq	$3931642474694443008, %rdi
+	xorl	%esi, %esi
+	pushq	%rax
+	call	c
+	movl	$1, %esi
+	movabsq	$3931642474694443009, %rdi
+	call	c
+	movl	$1, %esi
+	movabsq	$3936146074321813503, %rdi
+	call	c
+	movl	$1, %esi
+	movabsq	$3936146074321813504, %rdi
+	call	c
+	movl	$1, %esi
+	movabsq	$3938397874135498751, %rdi
+	call	c
+	movl	$2, %esi
+	movabsq	$3938397874135498752, %rdi
+	call	c
+	movl	$2, %esi
+	movabsq	$3940649673949183999, %rdi
+	call	c
+	movl	$2, %esi
+	movabsq	$3940649673949184000, %rdi
+	call	c
+	movl	$2, %esi
+	movabsq	$3940649673949184001, %rdi
+	call	c
+	movl	$8388607, %esi
+	movabsq	$4039728865214463999, %rdi
+	call	c
+	movl	$8388608, %esi
+	movabsq	$4039728865214464000, %rdi
+	call	c
+	movl	$8388608, %esi
+	movabsq	$4039728865214464001, %rdi
+	call	c
+	movl	$8388608, %esi
+	movabsq	$4039728865751334911, %rdi
+	call	c
+	movl	$8388608, %esi
+	movabsq	$4039728865751334912, %rdi
+	call	c
+	movl	$8388608, %esi
+	movabsq	$4039728865751334913, %rdi
+	call	c
+	movl	$8388608, %esi
+	movabsq	$4039728866019770368, %rdi
+	call	c
+	movl	$8388609, %esi
+	movabsq	$4039728866019770369, %rdi
+	call	c
+	movl	$8388609, %esi
+	movabsq	$4039728866556641279, %rdi
+	call	c
+	movl	$8388610, %esi
+	movabsq	$4039728866556641280, %rdi
+	call	c
+	movl	$8388610, %esi
+	movabsq	$4039728867093512192, %rdi
+	call	c
+	movl	$8388611, %esi
+	movabsq	$4039728867093512193, %rdi
+	call	c
+	cmpl	$0, failed(%rip)
+	je	.L5
+	call	abort
+.L5:
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE1:
+	.section	.text.startup
+.LHOTE1:
+	.globl	failed
+	.bss
+	.align 4
+	.type	failed, @object
+	.size	failed, 4
+failed:
+	.zero	4
+	.comm	ud,8,8
+	.comm	uf,4,4
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

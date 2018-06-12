@@ -1,0 +1,22 @@
+	.file	"minuszero.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.section	.text.startup,"ax",@progbits
+.LHOTB0:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$24, %rsp
+	xorl	%edi, %edi
+	movq	%fs:40, %rax
+	movq	%rax, 8(%rsp)
+	xorl	%eax, %eax
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE0:
+	.section	.text.startup
+.LHOTE0:
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

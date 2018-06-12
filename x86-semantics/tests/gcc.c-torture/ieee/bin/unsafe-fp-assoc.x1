@@ -1,0 +1,38 @@
+	.file	"unsafe-fp-assoc.c"
+	.text
+	.globl	foo
+	.type	foo, @function
+foo:
+	vmovsd	.LC0(%rip), %xmm1
+	vmulsd	%xmm1, %xmm0, %xmm0
+	vmulsd	%xmm1, %xmm0, %xmm0
+	vmulsd	%xmm1, %xmm0, %xmm0
+	ret
+	.size	foo, .-foo
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm0, %xmm0, %xmm0
+	call	foo
+	vucomisd	.LC1(%rip), %xmm0
+	jp	.L5
+	je	.L6
+.L5:
+	call	abort
+.L6:
+	movl	$0, %eax
+	addq	$8, %rsp
+	ret
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	4294967295
+	.long	2146435071
+	.align 8
+.LC1:
+	.long	0
+	.long	0
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

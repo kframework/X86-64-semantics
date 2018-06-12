@@ -1,0 +1,327 @@
+	.file	"fp-cmp-4l.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.globl	test_isunordered
+	.type	test_isunordered, @function
+test_isunordered:
+	pushq	%rdx
+	fldt	16(%rsp)
+	fldt	32(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jnp	.L2
+	testl	%edi, %edi
+	jne	.L1
+.L4:
+	call	abort
+.L2:
+	testl	%edi, %edi
+	jne	.L4
+.L1:
+	popq	%rax
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.globl	test_isless
+	.type	test_isless, @function
+test_isless:
+	pushq	%rdx
+	fldt	32(%rsp)
+	fldt	16(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jbe	.L8
+	testl	%edi, %edi
+	jne	.L7
+.L10:
+	call	abort
+.L8:
+	testl	%edi, %edi
+	jne	.L10
+.L7:
+	popq	%rax
+	ret
+	.size	test_isless, .-test_isless
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.globl	test_islessequal
+	.type	test_islessequal, @function
+test_islessequal:
+	pushq	%rdx
+	fldt	32(%rsp)
+	fldt	16(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jb	.L13
+	testl	%edi, %edi
+	jne	.L12
+.L15:
+	call	abort
+.L13:
+	testl	%edi, %edi
+	jne	.L15
+.L12:
+	popq	%rax
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.globl	test_isgreater
+	.type	test_isgreater, @function
+test_isgreater:
+	pushq	%rdx
+	fldt	16(%rsp)
+	fldt	32(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jbe	.L18
+	testl	%edi, %edi
+	jne	.L17
+.L20:
+	call	abort
+.L18:
+	testl	%edi, %edi
+	jne	.L20
+.L17:
+	popq	%rax
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.globl	test_isgreaterequal
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	pushq	%rdx
+	fldt	16(%rsp)
+	fldt	32(%rsp)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jb	.L23
+	testl	%edi, %edi
+	jne	.L22
+.L25:
+	call	abort
+.L23:
+	testl	%edi, %edi
+	jne	.L25
+.L22:
+	popq	%rax
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.globl	test_islessgreater
+	.type	test_islessgreater, @function
+test_islessgreater:
+	pushq	%rdx
+	fldt	16(%rsp)
+	fldt	32(%rsp)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	je	.L28
+	testl	%edi, %edi
+	jne	.L27
+.L30:
+	call	abort
+.L28:
+	testl	%edi, %edi
+	jne	.L30
+.L27:
+	popq	%rax
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.section	.text.startup,"ax",@progbits
+.LHOTB7:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%r12
+	movl	$data.2290, %r12d
+	pushq	%rbp
+	xorl	%ebp, %ebp
+	pushq	%rbx
+	subq	$32, %rsp
+.L33:
+	fldt	16(%r12)
+	movslq	%ebp, %rax
+	incl	%ebp
+	addq	$48, %r12
+	imulq	$48, %rax, %rax
+	fld	%st(0)
+	fstpt	(%rsp)
+	fldt	-48(%r12)
+	fstpt	16(%rsp)
+	movb	data.2290+32(%rax), %bl
+	pushq	%rax
+	pushq	%rax
+	fstpt	(%rsp)
+	movl	%ebx, %edi
+	pushq	40(%rsp)
+	andl	$1, %edi
+	pushq	40(%rsp)
+	call	test_isunordered
+	movb	%bl, %dil
+	addq	$32, %rsp
+	pushq	8(%rsp)
+	shrb	%dil
+	pushq	8(%rsp)
+	andl	$1, %edi
+	pushq	40(%rsp)
+	pushq	40(%rsp)
+	call	test_isless
+	movb	%bl, %dil
+	addq	$32, %rsp
+	pushq	8(%rsp)
+	shrb	$2, %dil
+	pushq	8(%rsp)
+	andl	$1, %edi
+	pushq	40(%rsp)
+	pushq	40(%rsp)
+	call	test_islessequal
+	movb	%bl, %dil
+	addq	$32, %rsp
+	pushq	8(%rsp)
+	shrb	$3, %dil
+	pushq	8(%rsp)
+	andl	$1, %edi
+	pushq	40(%rsp)
+	pushq	40(%rsp)
+	call	test_isgreater
+	movb	%bl, %dil
+	addq	$32, %rsp
+	shrb	$5, %bl
+	pushq	8(%rsp)
+	shrb	$4, %dil
+	pushq	8(%rsp)
+	andl	$1, %edi
+	pushq	40(%rsp)
+	pushq	40(%rsp)
+	call	test_isgreaterequal
+	addq	$32, %rsp
+	movb	%bl, %dil
+	pushq	8(%rsp)
+	andl	$1, %edi
+	pushq	8(%rsp)
+	pushq	40(%rsp)
+	pushq	40(%rsp)
+	call	test_islessgreater
+	addq	$32, %rsp
+	cmpl	$6, %ebp
+	jne	.L33
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE7:
+	.section	.text.startup
+.LHOTE7:
+	.section	.rodata
+	.align 64
+	.type	data.2290, @object
+	.size	data.2290, 288
+data.2290:
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.byte	1
+	.zero	15
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.byte	1
+	.zero	15
+	.long	0
+	.long	3221225472
+	.long	32767
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.byte	1
+	.zero	15
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.byte	20
+	.zero	15
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16384
+	.long	0
+	.byte	38
+	.zero	15
+	.long	0
+	.long	2147483648
+	.long	16384
+	.long	0
+	.long	0
+	.long	2147483648
+	.long	16383
+	.long	0
+	.byte	56
+	.zero	15
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

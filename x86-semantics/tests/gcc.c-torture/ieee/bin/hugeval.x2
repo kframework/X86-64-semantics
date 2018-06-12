@@ -1,0 +1,48 @@
+	.file	"hugeval.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB5:
+	.section	.text.startup,"ax",@progbits
+.LHOTB5:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovsd	.LC0(%rip), %xmm0
+	vdivsd	%xmm1, %xmm0, %xmm0
+	vucomisd	.LC2(%rip), %xmm0
+	jbe	.L3
+	vmovsd	.LC3(%rip), %xmm0
+	vdivsd	%xmm1, %xmm0, %xmm0
+	vmovsd	.LC4(%rip), %xmm1
+	vucomisd	%xmm0, %xmm1
+	jbe	.L3
+	xorl	%edi, %edi
+	call	exit
+.L3:
+	call	abort
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE5:
+	.section	.text.startup
+.LHOTE5:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC2:
+	.long	4294967295
+	.long	2146435071
+	.align 8
+.LC3:
+	.long	0
+	.long	-1074790400
+	.align 8
+.LC4:
+	.long	4294967295
+	.long	-1048577
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

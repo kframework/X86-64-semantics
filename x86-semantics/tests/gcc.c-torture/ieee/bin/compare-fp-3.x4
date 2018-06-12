@@ -1,0 +1,121 @@
+	.file	"compare-fp-3.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.globl	test1
+	.type	test1, @function
+test1:
+	ret
+	.size	test1, .-test1
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.globl	test2
+	.type	test2, @function
+test2:
+	ret
+	.size	test2, .-test2
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.globl	test3
+	.type	test3, @function
+test3:
+	ret
+	.size	test3, .-test3
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.globl	test4
+	.type	test4, @function
+test4:
+	ret
+	.size	test4, .-test4
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.globl	test5
+	.type	test5, @function
+test5:
+	ret
+	.size	test5, .-test5
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.globl	test6
+	.type	test6, @function
+test6:
+	ret
+	.size	test6, .-test6
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.globl	test7
+	.type	test7, @function
+test7:
+	ret
+	.size	test7, .-test7
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.text
+.LHOTB7:
+	.globl	all_tests
+	.type	all_tests, @function
+all_tests:
+	ret
+	.size	all_tests, .-all_tests
+	.section	.text.unlikely
+.LCOLDE7:
+	.text
+.LHOTE7:
+	.section	.text.unlikely
+.LCOLDB8:
+	.section	.text.startup,"ax",@progbits
+.LHOTB8:
+	.globl	main
+	.type	main, @function
+main:
+	xorl	%eax, %eax
+	ret
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE8:
+	.section	.text.startup
+.LHOTE8:
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

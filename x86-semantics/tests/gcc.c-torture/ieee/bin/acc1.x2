@@ -1,0 +1,85 @@
+	.file	"acc1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.p2align 4,,15
+	.globl	func
+	.type	func, @function
+func:
+	subq	$24, %rsp
+	vmovsd	(%rdi), %xmm1
+	vucomisd	.LC0(%rip), %xmm1
+	jp	.L5
+	vmovapd	%xmm1, %xmm0
+	jne	.L5
+	addq	$24, %rsp
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L5:
+	addq	$8, %rdi
+	vmovsd	%xmm1, 8(%rsp)
+	call	func
+	vmovsd	8(%rsp), %xmm1
+	addq	$24, %rsp
+	vaddsd	%xmm1, %xmm0, %xmm0
+	ret
+	.size	func, .-func
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB5:
+	.section	.text.startup,"ax",@progbits
+.LHOTB5:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+	subq	$56, %rsp
+	vmovsd	.LC2(%rip), %xmm1
+	vmovsd	.LC3(%rip), %xmm2
+	movq	%rsp, %rdi
+	movq	$0, 24(%rsp)
+	vmovsd	.LC4(%rip), %xmm3
+	vmovsd	%xmm1, (%rsp)
+	movq	%fs:40, %rax
+	movq	%rax, 40(%rsp)
+	xorl	%eax, %eax
+	vmovsd	%xmm2, 8(%rsp)
+	vmovsd	%xmm3, 16(%rsp)
+	call	func
+	vucomisd	.LC2(%rip), %xmm0
+	jp	.L13
+	je	.L14
+.L13:
+	call	abort
+.L14:
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE5:
+	.section	.text.startup
+.LHOTE5:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	0
+	.align 8
+.LC2:
+	.long	490629773
+	.long	720790975
+	.align 8
+.LC3:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC4:
+	.long	0
+	.long	-1074790400
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

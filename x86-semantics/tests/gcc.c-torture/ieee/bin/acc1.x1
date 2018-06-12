@@ -1,0 +1,65 @@
+	.file	"acc1.c"
+	.text
+	.globl	func
+	.type	func, @function
+func:
+	pushq	%rbx
+	movq	(%rdi), %rbx
+	vmovq	%rbx, %xmm1
+	vucomisd	.LC0(%rip), %xmm1
+	jp	.L5
+	vmovq	%rbx, %xmm0
+	je	.L2
+.L5:
+	addq	$8, %rdi
+	call	func
+	vmovq	%rbx, %xmm3
+	vaddsd	%xmm3, %xmm0, %xmm0
+.L2:
+	popq	%rbx
+	ret
+	.size	func, .-func
+	.globl	main
+	.type	main, @function
+main:
+	subq	$56, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, 40(%rsp)
+	xorl	%eax, %eax
+	vmovsd	.LC1(%rip), %xmm1
+	vmovsd	%xmm1, (%rsp)
+	vmovsd	.LC2(%rip), %xmm2
+	vmovsd	%xmm2, 8(%rsp)
+	vmovsd	.LC3(%rip), %xmm3
+	vmovsd	%xmm3, 16(%rsp)
+	movq	$0, 24(%rsp)
+	movq	%rsp, %rdi
+	call	func
+	vucomisd	.LC1(%rip), %xmm0
+	jp	.L11
+	je	.L12
+.L11:
+	call	abort
+.L12:
+	movl	$0, %edi
+	call	exit
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	0
+	.align 8
+.LC1:
+	.long	490629773
+	.long	720790975
+	.align 8
+.LC2:
+	.long	0
+	.long	1072693248
+	.align 8
+.LC3:
+	.long	0
+	.long	-1074790400
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

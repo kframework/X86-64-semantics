@@ -1,0 +1,192 @@
+	.file	"inf-2.c"
+	.text
+	.globl	test
+	.type	test, @function
+test:
+	subq	$8, %rsp
+	vucomisd	.LC0(%rip), %xmm0
+	jbe	.L18
+	call	abort
+.L18:
+	vmovsd	.LC1(%rip), %xmm2
+	vucomisd	%xmm0, %xmm2
+	jbe	.L19
+	call	abort
+.L19:
+	vmovsd	.LC1(%rip), %xmm2
+	vucomisd	%xmm1, %xmm2
+	jbe	.L20
+	call	abort
+.L20:
+	vucomisd	.LC0(%rip), %xmm1
+	ja	.L8
+	call	abort
+.L8:
+	vucomisd	.LC0(%rip), %xmm0
+	jbe	.L21
+	call	abort
+.L21:
+	vmovsd	.LC1(%rip), %xmm1
+	vucomisd	%xmm0, %xmm1
+	jbe	.L22
+	call	abort
+.L22:
+	addq	$8, %rsp
+	ret
+	.size	test, .-test
+	.globl	testf
+	.type	testf, @function
+testf:
+	subq	$8, %rsp
+	vucomiss	.LC2(%rip), %xmm0
+	jbe	.L41
+	call	abort
+.L41:
+	vmovss	.LC3(%rip), %xmm2
+	vucomiss	%xmm0, %xmm2
+	jbe	.L42
+	call	abort
+.L42:
+	vmovss	.LC3(%rip), %xmm2
+	vucomiss	%xmm1, %xmm2
+	jbe	.L43
+	call	abort
+.L43:
+	vucomiss	.LC2(%rip), %xmm1
+	ja	.L31
+	call	abort
+.L31:
+	vucomiss	.LC2(%rip), %xmm0
+	jbe	.L44
+	call	abort
+.L44:
+	vmovss	.LC3(%rip), %xmm1
+	vucomiss	%xmm0, %xmm1
+	jbe	.L45
+	call	abort
+.L45:
+	addq	$8, %rsp
+	ret
+	.size	testf, .-testf
+	.globl	testl
+	.type	testl, @function
+testl:
+	subq	$8, %rsp
+	fldt	16(%rsp)
+	fldt	32(%rsp)
+	fldt	.LC4(%rip)
+	fxch	%st(2)
+	fucomi	%st(2), %st
+	fstp	%st(2)
+	jbe	.L64
+	fstp	%st(0)
+	fstp	%st(0)
+	call	abort
+.L64:
+	fldt	.LC5(%rip)
+	fucomip	%st(2), %st
+	jbe	.L65
+	fstp	%st(0)
+	fstp	%st(0)
+	call	abort
+.L65:
+	fldt	.LC5(%rip)
+	fucomip	%st(1), %st
+	jbe	.L66
+	fstp	%st(0)
+	fstp	%st(0)
+	call	abort
+.L66:
+	fldt	.LC4(%rip)
+	fxch	%st(1)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	ja	.L54
+	fstp	%st(0)
+	call	abort
+.L54:
+	fldt	.LC4(%rip)
+	fxch	%st(1)
+	fucomi	%st(1), %st
+	fstp	%st(1)
+	jbe	.L67
+	fstp	%st(0)
+	call	abort
+.L67:
+	fldt	.LC5(%rip)
+	fucomip	%st(1), %st
+	fstp	%st(0)
+	jbe	.L68
+	call	abort
+.L68:
+	addq	$8, %rsp
+	ret
+	.size	testl, .-testl
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vmovsd	.LC7(%rip), %xmm1
+	vmovsd	.LC8(%rip), %xmm0
+	call	test
+	vmovss	.LC9(%rip), %xmm1
+	vmovss	.LC10(%rip), %xmm0
+	call	testf
+	pushq	$32767
+	pushq	$0
+	movl	$-2147483648, 4(%rsp)
+	pushq	$16388
+	pushq	$0
+	movl	$-2013265920, 4(%rsp)
+	call	testl
+	movl	$0, %eax
+	addq	$40, %rsp
+	ret
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	4294967295
+	.long	2146435071
+	.align 8
+.LC1:
+	.long	4294967295
+	.long	-1048577
+	.section	.rodata.cst4,"aM",@progbits,4
+	.align 4
+.LC2:
+	.long	2139095039
+	.align 4
+.LC3:
+	.long	4286578687
+	.section	.rodata.cst16,"aM",@progbits,16
+	.align 16
+.LC4:
+	.long	4294967295
+	.long	4294967295
+	.long	32766
+	.long	0
+	.align 16
+.LC5:
+	.long	4294967295
+	.long	4294967295
+	.long	65534
+	.long	0
+	.section	.rodata.cst8
+	.align 8
+.LC7:
+	.long	0
+	.long	2146435072
+	.align 8
+.LC8:
+	.long	0
+	.long	1078001664
+	.section	.rodata.cst4
+	.align 4
+.LC9:
+	.long	2139095040
+	.align 4
+.LC10:
+	.long	1107820544
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

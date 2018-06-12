@@ -1,0 +1,44 @@
+	.file	"920518-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.section	.text.startup,"ax",@progbits
+.LHOTB0:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rax
+	movl	u(%rip), %eax
+	vcvtsi2ssq	%rax, %xmm0, %xmm0
+	vucomiss	f0(%rip), %xmm0
+	jp	.L2
+	jne	.L2
+	call	abort
+.L2:
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE0:
+	.section	.text.startup
+.LHOTE0:
+	.globl	f1
+	.data
+	.align 4
+	.type	f1, @object
+	.size	f1, 4
+f1:
+	.long	1325400065
+	.globl	f0
+	.align 4
+	.type	f0, @object
+	.size	f0, 4
+f0:
+	.long	1325400064
+	.globl	u
+	.align 4
+	.type	u, @object
+	.size	u, 4
+u:
+	.long	-2147483457
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

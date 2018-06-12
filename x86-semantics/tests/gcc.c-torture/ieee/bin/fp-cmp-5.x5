@@ -1,0 +1,346 @@
+	.file	"fp-cmp-5.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.type	test_isunordered, @function
+test_isunordered:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	setp	%al
+	ret
+	.size	test_isunordered, .-test_isunordered
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.type	test_not_isunordered, @function
+test_not_isunordered:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	setnp	%al
+	ret
+	.size	test_not_isunordered, .-test_not_isunordered
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.type	test_isless, @function
+test_isless:
+	xorl	%eax, %eax
+	vucomisd	%xmm0, %xmm1
+	seta	%al
+	ret
+	.size	test_isless, .-test_isless
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.text
+.LHOTB3:
+	.type	test_not_isless, @function
+test_not_isless:
+	xorl	%eax, %eax
+	vucomisd	%xmm0, %xmm1
+	setbe	%al
+	ret
+	.size	test_not_isless, .-test_not_isless
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.section	.text.unlikely
+.LCOLDB4:
+	.text
+.LHOTB4:
+	.type	test_islessequal, @function
+test_islessequal:
+	xorl	%eax, %eax
+	vucomisd	%xmm0, %xmm1
+	setnb	%al
+	ret
+	.size	test_islessequal, .-test_islessequal
+	.section	.text.unlikely
+.LCOLDE4:
+	.text
+.LHOTE4:
+	.section	.text.unlikely
+.LCOLDB5:
+	.text
+.LHOTB5:
+	.type	test_not_islessequal, @function
+test_not_islessequal:
+	xorl	%eax, %eax
+	vucomisd	%xmm0, %xmm1
+	setb	%al
+	ret
+	.size	test_not_islessequal, .-test_not_islessequal
+	.section	.text.unlikely
+.LCOLDE5:
+	.text
+.LHOTE5:
+	.section	.text.unlikely
+.LCOLDB6:
+	.text
+.LHOTB6:
+	.type	test_isgreater, @function
+test_isgreater:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	seta	%al
+	ret
+	.size	test_isgreater, .-test_isgreater
+	.section	.text.unlikely
+.LCOLDE6:
+	.text
+.LHOTE6:
+	.section	.text.unlikely
+.LCOLDB7:
+	.text
+.LHOTB7:
+	.type	test_not_isgreater, @function
+test_not_isgreater:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	setbe	%al
+	ret
+	.size	test_not_isgreater, .-test_not_isgreater
+	.section	.text.unlikely
+.LCOLDE7:
+	.text
+.LHOTE7:
+	.section	.text.unlikely
+.LCOLDB8:
+	.text
+.LHOTB8:
+	.type	test_isgreaterequal, @function
+test_isgreaterequal:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	setnb	%al
+	ret
+	.size	test_isgreaterequal, .-test_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE8:
+	.text
+.LHOTE8:
+	.section	.text.unlikely
+.LCOLDB9:
+	.text
+.LHOTB9:
+	.type	test_not_isgreaterequal, @function
+test_not_isgreaterequal:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	setb	%al
+	ret
+	.size	test_not_isgreaterequal, .-test_not_isgreaterequal
+	.section	.text.unlikely
+.LCOLDE9:
+	.text
+.LHOTE9:
+	.section	.text.unlikely
+.LCOLDB10:
+	.text
+.LHOTB10:
+	.type	test_islessgreater, @function
+test_islessgreater:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	setne	%al
+	ret
+	.size	test_islessgreater, .-test_islessgreater
+	.section	.text.unlikely
+.LCOLDE10:
+	.text
+.LHOTE10:
+	.section	.text.unlikely
+.LCOLDB11:
+	.text
+.LHOTB11:
+	.type	test_not_islessgreater, @function
+test_not_islessgreater:
+	xorl	%eax, %eax
+	vucomisd	%xmm1, %xmm0
+	sete	%al
+	ret
+	.size	test_not_islessgreater, .-test_not_islessgreater
+	.section	.text.unlikely
+.LCOLDE11:
+	.text
+.LHOTE11:
+	.section	.text.unlikely
+.LCOLDB12:
+	.text
+.LHOTB12:
+	.type	one_test, @function
+one_test:
+	pushq	%r13
+	vmovapd	%xmm0, %xmm2
+	movl	%edi, %r13d
+	pushq	%r12
+	movq	%rdx, %r12
+	pushq	%rbp
+	vmovq	%xmm1, %rbp
+	pushq	%rbx
+	subq	$24, %rsp
+	vmovsd	%xmm2, 8(%rsp)
+	call	*%rsi
+	vmovsd	8(%rsp), %xmm2
+	cmpl	%r13d, %eax
+	movl	%eax, %ebx
+	je	.L14
+.L15:
+	call	abort
+.L14:
+	vmovq	%rbp, %xmm1
+	vmovapd	%xmm2, %xmm0
+	call	*%r12
+	xorl	%edx, %edx
+	testl	%ebx, %ebx
+	sete	%dl
+	cmpl	%edx, %eax
+	jne	.L15
+	addq	$24, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	popq	%r13
+	ret
+	.size	one_test, .-one_test
+	.section	.text.unlikely
+.LCOLDE12:
+	.text
+.LHOTE12:
+	.section	.text.unlikely
+.LCOLDB13:
+	.section	.text.startup,"ax",@progbits
+.LHOTB13:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	pushq	%rbx
+	xorl	%ebx, %ebx
+	subq	$24, %rsp
+.L19:
+	vmovsd	data.2302+8(%rbx), %xmm3
+	xorl	%ebp, %ebp
+	vmovsd	data.2302(%rbx), %xmm2
+.L20:
+	movq	tests.2310+8(,%rbp,4), %rdx
+	vmovapd	%xmm3, %xmm1
+	vmovapd	%xmm2, %xmm0
+	vmovsd	%xmm3, 8(%rsp)
+	movq	tests.2310(,%rbp,4), %rsi
+	vmovsd	%xmm2, (%rsp)
+	movl	data.2302+16(%rbx,%rbp), %edi
+	addq	$4, %rbp
+	call	one_test
+	cmpq	$24, %rbp
+	vmovsd	(%rsp), %xmm2
+	vmovsd	8(%rsp), %xmm3
+	jne	.L20
+	addq	$40, %rbx
+	cmpq	$240, %rbx
+	jne	.L19
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE13:
+	.section	.text.startup
+.LHOTE13:
+	.section	.rodata
+	.align 64
+	.type	data.2302, @object
+	.size	data.2302, 240
+data.2302:
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	2146959360
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1
+	.long	0
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1
+	.long	1
+	.long	0
+	.long	0
+	.long	1
+	.long	0
+	.long	1073741824
+	.long	0
+	.long	1072693248
+	.long	0
+	.long	0
+	.long	0
+	.long	1
+	.long	1
+	.long	1
+	.align 64
+	.type	tests.2310, @object
+	.size	tests.2310, 96
+tests.2310:
+	.quad	test_isunordered
+	.quad	test_not_isunordered
+	.quad	test_isless
+	.quad	test_not_isless
+	.quad	test_islessequal
+	.quad	test_not_islessequal
+	.quad	test_isgreater
+	.quad	test_not_isgreater
+	.quad	test_isgreaterequal
+	.quad	test_not_isgreaterequal
+	.quad	test_islessgreater
+	.quad	test_not_islessgreater
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

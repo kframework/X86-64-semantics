@@ -1,0 +1,56 @@
+	.file	"unsafe-fp-assoc-1.c"
+	.text
+	.globl	func
+	.type	func, @function
+func:
+	subq	$8, %rsp
+	vmovq	%xmm0, %rax
+	andl	$2147483647, %eax
+	cmpl	$1127219199, %eax
+	ja	.L1
+	vmovsd	.LC0(%rip), %xmm2
+	vsubsd	%xmm2, %xmm0, %xmm1
+	vaddsd	%xmm2, %xmm1, %xmm1
+	vucomisd	%xmm0, %xmm1
+	jp	.L6
+	je	.L8
+.L6:
+	call	abort
+.L8:
+	vsubsd	.LC1(%rip), %xmm0, %xmm0
+	vmovsd	.LC0(%rip), %xmm2
+	vsubsd	%xmm2, %xmm0, %xmm0
+	vaddsd	%xmm2, %xmm0, %xmm0
+	vucomisd	%xmm0, %xmm1
+	jp	.L1
+	jne	.L1
+	call	abort
+.L1:
+	addq	$8, %rsp
+	ret
+	.size	func, .-func
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vmovsd	.LC2(%rip), %xmm0
+	call	func
+	movl	$0, %eax
+	addq	$8, %rsp
+	ret
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	1127219200
+	.align 8
+.LC1:
+	.long	0
+	.long	1071644672
+	.align 8
+.LC2:
+	.long	0
+	.long	1072693248
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

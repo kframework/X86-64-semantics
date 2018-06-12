@@ -1,0 +1,36 @@
+	.file	"minuszero.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB1:
+	.section	.text.startup,"ax",@progbits
+.LHOTB1:
+	.globl	main
+	.type	main, @function
+main:
+	subq	$24, %rsp
+	vmovsd	.LC0(%rip), %xmm0
+	movq	%fs:40, %rax
+	movq	%rax, 8(%rsp)
+	xorl	%eax, %eax
+	vmovsd	%xmm0, (%rsp)
+.L3:
+	addq	$2, %rax
+	cmpw	$-32768, -2(%rsp,%rax)
+	jne	.L2
+	xorl	%edi, %edi
+	call	exit
+.L2:
+	cmpq	$8, %rax
+	jne	.L3
+	call	abort
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE1:
+	.section	.text.startup
+.LHOTE1:
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	-2147483648
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

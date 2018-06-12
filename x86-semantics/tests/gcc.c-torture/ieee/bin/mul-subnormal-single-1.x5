@@ -1,0 +1,112 @@
+	.file	"mul-subnormal-single-1.c"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.type	u2f, @function
+u2f:
+	vmovd	%edi, %xmm0
+	ret
+	.size	u2f, .-u2f
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.type	f2u, @function
+f2u:
+	vmovd	%xmm0, %eax
+	ret
+	.size	f2u, .-f2u
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+.LCOLDB2:
+	.text
+.LHOTB2:
+	.type	tstmul, @function
+tstmul:
+	pushq	%rbp
+	movl	%esi, %ebp
+	pushq	%rbx
+	movl	%edx, %ebx
+	pushq	%rcx
+	call	u2f
+	movl	%ebp, %edi
+	vmovss	%xmm0, 4(%rsp)
+	call	u2f
+	vmulss	4(%rsp), %xmm0, %xmm0
+	call	f2u
+	cmpl	%ebx, %eax
+	je	.L3
+	movl	$0, ok(%rip)
+.L3:
+	popq	%rax
+	popq	%rbx
+	popq	%rbp
+	ret
+	.size	tstmul, .-tstmul
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+.LCOLDB3:
+	.section	.text.startup,"ax",@progbits
+.LHOTB3:
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbx
+	movl	$expected, %ebx
+.L8:
+	movl	8(%rbx), %edx
+	addq	$12, %rbx
+	movl	-8(%rbx), %esi
+	movl	-12(%rbx), %edi
+	call	tstmul
+	movl	-4(%rbx), %edx
+	movl	-8(%rbx), %edi
+	movl	-12(%rbx), %esi
+	call	tstmul
+	cmpq	$expected+36, %rbx
+	jne	.L8
+	cmpl	$0, ok(%rip)
+	jne	.L9
+	call	abort
+.L9:
+	xorl	%edi, %edi
+	call	exit
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE3:
+	.section	.text.startup
+.LHOTE3:
+	.globl	expected
+	.data
+	.align 16
+	.type	expected, @object
+	.size	expected, 36
+expected:
+	.long	4095
+	.long	1065354240
+	.long	4095
+	.long	15
+	.long	1070106760
+	.long	23
+	.long	15
+	.long	1065632836
+	.long	15
+	.globl	ok
+	.align 4
+	.type	ok, @object
+	.size	ok, 4
+ok:
+	.long	1
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits

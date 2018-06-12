@@ -1,0 +1,90 @@
+	.file	"mzero5.c"
+	.text
+	.globl	negzero_check
+	.type	negzero_check, @function
+negzero_check:
+	subq	$24, %rsp
+	vmovapd	%xmm0, %xmm1
+	vmovsd	%xmm0, 8(%rsp)
+	vucomisd	.LC0(%rip), %xmm0
+	jp	.L4
+	vxorpd	%xmm0, %xmm0, %xmm0
+	vucomisd	%xmm1, %xmm0
+	jne	.L4
+	movl	$8, %edx
+	leaq	8(%rsp), %rsi
+	movl	$zero, %edi
+	call	memcmp
+	testl	%eax, %eax
+	setne	%al
+	movzbl	%al, %eax
+	jmp	.L2
+.L4:
+	movl	$0, %eax
+.L2:
+	addq	$24, %rsp
+	ret
+	.size	negzero_check, .-negzero_check
+	.globl	sub
+	.type	sub, @function
+sub:
+	vxorpd	%xmm2, %xmm2, %xmm2
+	vucomisd	%xmm2, %xmm0
+	setnp	%al
+	movl	$0, %edx
+	cmovne	%edx, %eax
+	testb	%al, %al
+	je	.L9
+	vucomisd	%xmm2, %xmm1
+	setnp	%al
+	cmovne	%edx, %eax
+	testb	%al, %al
+	je	.L9
+	pushq	%rbx
+	vmovq	%xmm1, %rbx
+	call	negzero_check
+	movl	%eax, %edx
+	movl	$0, %eax
+	testl	%edx, %edx
+	jne	.L8
+	vmovq	%rbx, %xmm0
+	call	negzero_check
+	testl	%eax, %eax
+	sete	%al
+	movzbl	%al, %eax
+	jmp	.L8
+.L9:
+	movl	$0, %eax
+	ret
+.L8:
+	popq	%rbx
+	ret
+	.size	sub, .-sub
+	.globl	main
+	.type	main, @function
+main:
+	subq	$8, %rsp
+	vxorpd	%xmm1, %xmm1, %xmm1
+	vmovsd	.LC1(%rip), %xmm0
+	call	sub
+	testl	%eax, %eax
+	je	.L14
+	call	abort
+.L14:
+	movl	$0, %eax
+	addq	$8, %rsp
+	ret
+	.size	main, .-main
+	.local	zero
+	.comm	zero,8,8
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	0
+	.long	0
+	.align 8
+.LC1:
+	.long	0
+	.long	-2147483648
+	.ident	"GCC: (Ubuntu 4.9.4-2ubuntu1) 4.9.4"
+	.section	.note.GNU-stack,"",@progbits
