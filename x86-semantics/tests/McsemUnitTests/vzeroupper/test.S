@@ -1,0 +1,6 @@
+TEST_BEGIN(VZEROUPPER, 0)
+TEST_INPUTS(
+    0)
+
+    vzeroupper
+TEST_END
