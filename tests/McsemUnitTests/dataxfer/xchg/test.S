@@ -21,8 +21,8 @@ TEST_INPUTS(
     0xFFEE,
     0xEEFF)
 
-    mov eax, ARG1_32
-    xchg ah, al
+    movl ARG1_32, %eax
+    xchgb %al, %ah
 TEST_END
 
 TEST_BEGIN(XCHGr16r16, 2)
@@ -32,7 +32,9 @@ TEST_INPUTS(
     0xFFEE, 0xEEFF,
     0xEEFF, 0xFFEE)
 
-    xchg ARG1_16, ARG2_16
+    movw ARG1_16, %ax
+    movw ARG2_16, %bx
+    xchgw %bx, %ax
 TEST_END
 
 TEST_BEGIN(XCHGr32r32, 2)
@@ -42,7 +44,9 @@ TEST_INPUTS(
     0xFFEEFFEE, 0xEEFFEEFF,
     0xEEFFEEFF, 0xFFEEFFEE)
 
-    xchg ARG1_32, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
+    xchgl %ebx, %eax
 TEST_END
 
 /* Want to test that the high-order bits of ARG1_64 and ARG2_64 get cleared */
@@ -50,7 +54,9 @@ TEST_BEGIN_64(XCHGr32r32_64, 2)
 TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xEEEEEEEEEEEEEEEE)
 
-    xchg ARG1_32, ARG2_32
+    movq ARG1_64, %rax
+    movq ARG2_64, %rbx
+    xchgl %ebx, %eax
 TEST_END_64
 
 TEST_BEGIN_64(XCHGr64r64_64, 2)
@@ -59,5 +65,7 @@ TEST_INPUTS(
     1, 0,
     0xFFFFFFFFFFFFFFFF, 0xEEEEEEEEEEEEEEEE)
 
-    xchg ARG1_64, ARG2_64
+    movq ARG1_64, %rax
+    movq ARG2_64, %rbx
+    xchgq %rax, %rbx
 TEST_END_64
