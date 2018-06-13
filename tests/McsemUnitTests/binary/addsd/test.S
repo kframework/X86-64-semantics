@@ -1,47 +1,51 @@
-TEST_BEGIN(ADDSDv128v128_04, 1)
-TEST_INPUTS(
-    0)
-    addsd xmm0, xmm4
-TEST_END
-
-TEST_BEGIN(ADDSDv128v128_40, 1)
-TEST_INPUTS(
-    0)
-    addsd xmm4, xmm0
-TEST_END
-
 TEST_BEGIN(ADDSDv128m128_04, 1)
 TEST_INPUTS(
-    0)
-    movdqu [rsp - 16], xmm4
-    addsd xmm0, [rsp - 16]
-TEST_END
-
-TEST_BEGIN(ADDSDv128m128_40, 1)
-TEST_INPUTS(
-    0)
-    movdqu [rsp - 16], xmm0
-    addsd xmm4, [rsp - 16]
-TEST_END
-
-TEST_BEGIN(VADDSDv128v128_04, 1)
-TEST_INPUTS(
-    0)
-    vaddsd xmm0, xmm1, xmm4
-TEST_END
-
-TEST_BEGIN(VADDSDv128v128_40, 1)
-TEST_INPUTS(
-    0)
-    vaddsd xmm1, xmm4, xmm0
-TEST_END
-
-TEST_BEGIN_64(VADDSDv128m32_40, 1)
-TEST_INPUTS(
+    0,
+    0x3f800000,
+    0x40490fdb,
+    0x47c34f80,
     0x3ff0000000000000,
     0x400921fb54442d18,
-    0x40f869f000000000)
+    0x40f869f000000000.
+    0x4141414141414141)
 
-    mov QWORD PTR [rsp - 16], ARG1_64
-    vaddsd xmm1, xmm4, QWORD PTR [rsp - 16]
-TEST_END_64
+    movq  ARG1_64,  %rax
+    movq  %rax, %xmm4
+    movdqu %xmm4, -16(%rsp)
+    addsd -16(%rsp), %xmm0
+TEST_END
+
+
+TEST_BEGIN(VADDSDv128m128_45, 1)
+TEST_INPUTS(
+    0,
+    0x3f800000,
+    0x40490fdb,
+    0x47c34f80,
+    0x3ff0000000000000,
+    0x400921fb54442d18,
+    0x40f869f000000000.
+    0x4141414141414141)
+
+    movq  ARG1_64,  %rax
+    movq  %rax, %xmm5
+    movdqu %xmm4, -16(%rsp)
+    vaddsd -16(%rsp), %xmm4, %xmm1
+TEST_END
+
+TEST_BEGIN(VADDSDv256m256_45, 1)
+TEST_INPUTS(
+    0,
+    0x3f800000,
+    0x40490fdb,
+    0x47c34f80,
+    0x3ff0000000000000,
+    0x400921fb54442d18,
+    0x40f869f000000000.
+    0x4141414141414141)
+
+    movq  ARG1_64,  %rax
+    movq  %rax, %xmm5
+    movdqu %xmm4, -32(%rsp)
+    vaddsd -32(%rsp), %ymm4, %ymm1
+TEST_END
