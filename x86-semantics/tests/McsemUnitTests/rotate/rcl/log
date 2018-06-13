@@ -1,0 +1,58 @@
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	deleted:    ../../adc/test.S
+	deleted:    ../../add/test.S
+	deleted:    ../../addpd/test.S
+	deleted:    ../../addps/test.S
+	deleted:    ../../addsd/test.S
+	deleted:    ../../addss/test.S
+	deleted:    ../../cmp/test.S
+	deleted:    ../../dec/test.S
+	deleted:    ../../div/test.S
+	deleted:    ../../divpd/test.S
+	deleted:    ../../divps/test.S
+	deleted:    ../../divsd/test.S
+	deleted:    ../../divss/test.S
+	deleted:    ../../idiv/test.S
+	deleted:    ../../imul/test.S
+	deleted:    ../../inc/test.S
+	deleted:    ../../log
+	deleted:    ../../mul/test.S
+	deleted:    ../../mulpd/test.S
+	deleted:    ../../mulps/test.S
+	deleted:    ../../mulsd/test.S
+	deleted:    ../../mulss/test.S
+	deleted:    ../../mulx/test.S
+	deleted:    ../../neg/test.S
+	deleted:    ../../sbb/test.S
+	deleted:    ../../sub/test.S
+	deleted:    ../../subpd/test.S
+	deleted:    ../../subps/test.S
+	deleted:    ../../subsd/test.S
+	deleted:    ../../subss/test.S
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   ../../../../semantics/x86-instructions-semantics.k
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	../../../../docs/reports/papers/asplos2019/source/text.txt
+	../../../../semantics/log
+	../../../../semantics/underTestInstructions/vzeroupper.k
+	../../../../semantics/verify.json
+	../../binary/
+	../log
+	log
+	test.s
+	../rcr/
+	../rol/
+	../ror/
+	../../../gcc.c-torture/ieee/a.out
+
