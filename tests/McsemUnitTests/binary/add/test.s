@@ -2,395 +2,488 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
   // ADDal  
-  mov eax, $0
-  add al, 1
+  movl $0, %eax
+  addb $1, %al
   
-  mov eax, $1
-  add al, 1
+  movl $1, %eax
+  addb $1, %al
   
-  mov eax, $0x7F
-  add al, 1
+  movl $0x7F, %eax
+  addb $1, %al
   
-  mov eax, $0xFF
-  add al, 1
+  movl $0xFF, %eax
+  addb $1, %al
 
   // ADDax  
-  mov eax, $0
-  add ax, 1
+  movl $0, %eax
+  addw $1, %ax
   
-  mov eax, $1
-  add ax, 1
+  movl $1, %eax
+  addw $1, %ax
   
-  mov eax, $0x7F
-  add ax, 1
+  movl $0x7F, %eax
+  addw $1, %ax
   
-  mov eax, $0xFF
-  add ax, 1
+  movl $0xFF, %eax
+  addw $1, %ax
   
-  mov eax, $0x7FFF
-  add ax, 1
+  movl $0x7FFF, %eax
+  addw $1, %ax
   
-  mov eax, $0xFFFF
-  add ax, 1
+  movl $0xFFFF, %eax
+  addw $1, %ax
 
   // ADDeax  
-  mov eax, $0
-  add eax, 1
+  movl $0, %eax
+  addl $1, %eax
   
-  mov eax, $1
-  add eax, 1
+  movl $1, %eax
+  addl $1, %eax
   
-  mov eax, $0x7F
-  add eax, 1
+  movl $0x7F, %eax
+  addl $1, %eax
   
-  mov eax, $0xFF
-  add eax, 1
+  movl $0xFF, %eax
+  addl $1, %eax
   
-  mov eax, $0x7FFF
-  add eax, 1
+  movl $0x7FFF, %eax
+  addl $1, %eax
   
-  mov eax, $0xFFFF
-  add eax, 1
+  movl $0xFFFF, %eax
+  addl $1, %eax
   
-  mov eax, $0x7FFFFFFF
-  add eax, 1
+  movl $0x7FFFFFFF, %eax
+  addl $1, %eax
   
-  mov eax, $0xFFFFFFFF
-  add eax, 1
+  movl $0xFFFFFFFF, %eax
+  addl $1, %eax
 
   // ADDr8i8  
-  mov ebx, $0
-  add bl, 1
+  movl $0, %ebx
+  addb $1, %bl
   
-  mov ebx, $1
-  add bl, 1
+  movl $1, %ebx
+  addb $1, %bl
   
-  mov ebx, $0x7F
-  add bl, 1
+  movl $0x7F, %ebx
+  addb $1, %bl
   
-  mov ebx, $0xFF
-  add bl, 1
+  movl $0xFF, %ebx
+  addb $1, %bl
 
   // ADDr8u8_64  
-  mov r8, $0
-  add r8b, 0x7F
+  movq $0, %r8
+  addb $0x7F, %r8b
   
-  mov r8, $1
-  add r8b, 0x7F
+  movq $1, %r8
+  addb $0x7F, %r8b
   
-  mov r8, $0x7F
-  add r8b, 0x7F
+  movq $0x7F, %r8
+  addb $0x7F, %r8b
   
-  mov r8, $0xFF
-  add r8b, 0x7F
+  movq $0xFF, %r8
+  addb $0x7F, %r8b
 
   // ADDr8s8_64  
-  mov r8, $0
-  add r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $0, %r8
+  addb $0xFF /* Sign-extended to 64-bits */, %r8b
   
-  mov r8, $1
-  add r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $1, %r8
+  addb $0xFF /* Sign-extended to 64-bits */, %r8b
   
-  mov r8, $0x7F
-  add r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $0x7F, %r8
+  addb $0xFF /* Sign-extended to 64-bits */, %r8b
   
-  mov r8, $0xFF
-  add r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $0xFF, %r8
+  addb $0xFF /* Sign-extended to 64-bits */, %r8b
 
   // ADDr8r8  
-  mov ebx, $0
-  mov eax, $0
-  add bl, al
+  movl $0, %ebx
+  movl $0, %eax
+  addb %al, %bl
   
-  mov ebx, $1
-  mov eax, $0
-  add bl, al
+  movl $1, %ebx
+  movl $0, %eax
+  addb %al, %bl
   
-  mov ebx, $0xFF
-  mov eax, $1
-  add bl, al
+  movl $0xFF, %ebx
+  movl $1, %eax
+  addb %al, %bl
   
-  mov ebx, $0x7F
-  mov eax, $1
-  add bl, al
+  movl $0x7F, %ebx
+  movl $1, %eax
+  addb %al, %bl
   
-  mov ebx, $0x7F
-  mov eax, $0xFF
-  add bl, al
+  movl $0x7F, %ebx
+  movl $0xFF, %eax
+  addb %al, %bl
   
-  mov ebx, $0xFF
-  mov eax, $0xFF
-  add bl, al
+  movl $0xFF, %ebx
+  movl $0xFF, %eax
+  addb %al, %bl
 
   // ADDr8r8_64  
-  add $0, $0
+  movb $0, %al
+  movb $0, %bl
+  addb %bl, %al
   
-  add $1, $0
+  movb $1, %al
+  movb $0, %bl
+  addb %bl, %al
   
-  add $0xFF, $1
+  movb $0xFF, %al
+  movb $1, %bl
+  addb %bl, %al
   
-  add $0x7F, $1
+  movb $0x7F, %al
+  movb $1, %bl
+  addb %bl, %al
   
-  add $0x7F, $0xFF
+  movb $0x7F, %al
+  movb $0xFF, %bl
+  addb %bl, %al
   
-  add $0xFF, $0xFF
+  movb $0xFF, %al
+  movb $0xFF, %bl
+  addb %bl, %al
 
   // ADDr16u8  
-  add $0, 0x7F
+  movw $0, %ax
+  addw $0x7F, %ax
   
-  add $1, 0x7F
+  movw $1, %ax
+  addw $0x7F, %ax
   
-  add $0x7F, 0x7F
+  movw $0x7F, %ax
+  addw $0x7F, %ax
   
-  add $0xFF, 0x7F
+  movw $0xFF, %ax
+  addw $0x7F, %ax
   
-  add $0x7FFF, 0x7F
+  movw $0x7FFF, %ax
+  addw $0x7F, %ax
   
-  add $0xFFFF, 0x7F
+  movw $0xFFFF, %ax
+  addw $0x7F, %ax
 
   // ADDr16s8  
-  add $0, 0xFF /* Sign-extended to 16-bits */
+  movw $0, %ax
+  addw $0xFF /* Sign-extended to $16-bits */, %ax
   
-  add $1, 0xFF /* Sign-extended to 16-bits */
+  movw $1, %ax
+  addw $0xFF /* Sign-extended to $16-bits */, %ax
   
-  add $0x7F, 0xFF /* Sign-extended to 16-bits */
+  movw $0x7F, %ax
+  addw $0xFF /* Sign-extended to $16-bits */, %ax
   
-  add $0xFF, 0xFF /* Sign-extended to 16-bits */
+  movw $0xFF, %ax
+  addw $0xFF /* Sign-extended to $16-bits */, %ax
   
-  add $0x7FFF, 0xFF /* Sign-extended to 16-bits */
+  movw $0x7FFF, %ax
+  addw $0xFF /* Sign-extended to $16-bits */, %ax
   
-  add $0xFFFF, 0xFF /* Sign-extended to 16-bits */
+  movw $0xFFFF, %ax
+  addw $0xFF /* Sign-extended to $16-bits */, %ax
 
   // ADDr16i16  
-  add $0, 0xFFFF
+  movw $0, %ax
+  addw $0xFFFF, %ax
   
-  add $1, 0xFFFF
+  movw $1, %ax
+  addw $0xFFFF, %ax
   
-  add $0x7F, 0xFFFF
+  movw $0x7F, %ax
+  addw $0xFFFF, %ax
   
-  add $0xFF, 0xFFFF
+  movw $0xFF, %ax
+  addw $0xFFFF, %ax
   
-  add $0x7FFF, 0xFFFF
+  movw $0x7FFF, %ax
+  addw $0xFFFF, %ax
   
-  add $0xFFFF, 0xFFFF
+  movw $0xFFFF, %ax
+  addw $0xFFFF, %ax
 
   // ADDr16r16  
-  add $0, $0
+  movw $0, %ax
+  movw $0, bc
+  addw %bx, %ax
   
-  add $1, $0
+  movw $1, %ax
+  movw $0, bc
+  addw %bx, %ax
   
-  add $0xFF, $1
+  movw $0xFF, %ax
+  movw $1, bc
+  addw %bx, %ax
   
-  add $0x7F, $1
+  movw $0x7F, %ax
+  movw $1, bc
+  addw %bx, %ax
   
-  add $0x7F, $0xFF
+  movw $0x7F, %ax
+  movw $0xFF, bc
+  addw %bx, %ax
   
-  add $0xFF, $0xFF
+  movw $0xFF, %ax
+  movw $0xFF, bc
+  addw %bx, %ax
   
-  add $0x7FFF, $1
+  movw $0x7FFF, %ax
+  movw $1, bc
+  addw %bx, %ax
   
-  add $0x7FFF, $0xFFFF
+  movw $0x7FFF, %ax
+  movw $0xFFFF, bc
+  addw %bx, %ax
   
-  add $0xFFFF, $0xFFFF
+  movw $0xFFFF, %ax
+  movw $0xFFFF, bc
+  addw %bx, %ax
 
   // ADDr32u8  
-  add $0, 0x7F
+  movl $0, %eax
+  addl $0x7F, %eax
   
-  add $1, 0x7F
+  movl $1, %eax
+  addl $0x7F, %eax
   
-  add $0x7F, 0x7F
+  movl $0x7F, %eax
+  addl $0x7F, %eax
   
-  add $0xFF, 0x7F
+  movl $0xFF, %eax
+  addl $0x7F, %eax
   
-  add $0x7FFF, 0x7F
+  movl $0x7FFF, %eax
+  addl $0x7F, %eax
   
-  add $0xFFFF, 0x7F
+  movl $0xFFFF, %eax
+  addl $0x7F, %eax
   
-  add $0x7FFFFFFF, 0x7F
+  movl $0x7FFFFFFF, %eax
+  addl $0x7F, %eax
   
-  add $0xFFFFFFFF, 0x7F
+  movl $0xFFFFFFFF, %eax
+  addl $0x7F, %eax
 
   // ADDr32s8  
-  add $0, 0xFF
+  movl $0, %eax
+  addl $0xFF, %eax
   
-  add $1, 0xFF
+  movl $1, %eax
+  addl $0xFF, %eax
   
-  add $0x7F, 0xFF
+  movl $0x7F, %eax
+  addl $0xFF, %eax
   
-  add $0xFF, 0xFF
+  movl $0xFF, %eax
+  addl $0xFF, %eax
   
-  add $0x7FFF, 0xFF
+  movl $0x7FFF, %eax
+  addl $0xFF, %eax
   
-  add $0xFFFF, 0xFF
+  movl $0xFFFF, %eax
+  addl $0xFF, %eax
   
-  add $0x7FFFFFFF, 0xFF
+  movl $0x7FFFFFFF, %eax
+  addl $0xFF, %eax
   
-  add $0xFFFFFFFF, 0xFF
+  movl $0xFFFFFFFF, %eax
+  addl $0xFF, %eax
 
   // ADDr32i32  
-  add $0, 0x7FFFFFFF
+  movl $0, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $1, 0x7FFFFFFF
+  movl $1, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $0x7F, 0x7FFFFFFF
+  movl $0x7F, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $0xFF, 0x7FFFFFFF
+  movl $0xFF, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $0x7FFF, 0x7FFFFFFF
+  movl $0x7FFF, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $0xFFFF, 0x7FFFFFFF
+  movl $0xFFFF, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $0x7FFFFFFF, 0x7FFFFFFF
+  movl $0x7FFFFFFF, %eax
+  addl $0x7FFFFFFF, %eax
   
-  add $0xFFFFFFFF, 0x7FFFFFFF
+  movl $0xFFFFFFFF, %eax
+  addl $0x7FFFFFFF, %eax
 
   // ADDr32r32  
-  add $0, $0
+  movl $0, %eax
+  movl $0, %ebx
+  addl %ebx, %eax
   
-  add $1, $0
+  movl $1, %eax
+  movl $0, %ebx
+  addl %ebx, %eax
   
-  add $0xFFFFFFFF, $1
+  movl $0xFFFFFFFF, %eax
+  movl $1, %ebx
+  addl %ebx, %eax
   
-  add $0xFFFFFFFF, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFFFFFF, %ebx
+  addl %ebx, %eax
   
-  add $0x7FFFFFFF, $1
+  movl $0x7FFFFFFF, %eax
+  movl $1, %ebx
+  addl %ebx, %eax
   
-  add $0, $0x10
+  movl $0, %eax
+  movl $0x10, %ebx
+  addl %ebx, %eax
   
-  add $0x7F, $0x10
+  movl $0x7F, %eax
+  movl $0x10, %ebx
+  addl %ebx, %eax
 
   // ADDr64u8_64  
-  add $0, 0x7F
+  movq $0, %rax
+  addq $0x7F, %rax
   
-  add $1, 0x7F
+  movq $1, %rax
+  addq $0x7F, %rax
   
-  add $0x7F, 0x7F
+  movq $0x7F, %rax
+  addq $0x7F, %rax
   
-  add $0xFF, 0x7F
+  movq $0xFF, %rax
+  addq $0x7F, %rax
   
-  add $0x7FFF, 0x7F
+  movq $0x7FFF, %rax
+  addq $0x7F, %rax
   
-  add $0xFFFF, 0x7F
+  movq $0xFFFF, %rax
+  addq $0x7F, %rax
   
-  add $0x7FFFFFFF, 0x7F
+  movq $0x7FFFFFFF, %rax
+  addq $0x7F, %rax
   
-  add $0xFFFFFFFF, 0x7F
+  movq $0xFFFFFFFF, %rax
+  addq $0x7F, %rax
   
-  add $0x7FFFFFFFFFFFFFFF, 0x7F
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  addq $0x7F, %rax
   
-  add $0xFFFFFFFFFFFFFFFF, 0x7F
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  addq $0x7F, %rax
 
   // ADDr64s8_64  
-  add $0, 0xFF /* Sign-extended */
+  movq $0, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $1, 0xFF /* Sign-extended */
+  movq $1, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0x7F, 0xFF /* Sign-extended */
+  movq $0x7F, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0xFF, 0xFF /* Sign-extended */
+  movq $0xFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0x7FFF, 0xFF /* Sign-extended */
+  movq $0x7FFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0xFFFF, 0xFF /* Sign-extended */
+  movq $0xFFFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0x7FFFFFFF, 0xFF /* Sign-extended */
+  movq $0x7FFFFFFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0xFFFFFFFF, 0xFF /* Sign-extended */
+  movq $0xFFFFFFFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0x7FFFFFFFFFFFFFFF, 0xFF /* Sign-extended */
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
   
-  add $0xFFFFFFFFFFFFFFFF, 0xFF /* Sign-extended */
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  addq $0xFF /* Sign-extended */, %rax
 
   // ADDr64u32_64  
-  add $0, 0x7FFFFFFF
+  movq $0, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $1, 0x7FFFFFFF
+  movq $1, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0x7F, 0x7FFFFFFF
+  movq $0x7F, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0xFF, 0x7FFFFFFF
+  movq $0xFF, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0x7FFF, 0x7FFFFFFF
+  movq $0x7FFF, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0xFFFF, 0x7FFFFFFF
+  movq $0xFFFF, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0x7FFFFFFF, 0x7FFFFFFF
+  movq $0x7FFFFFFF, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0xFFFFFFFF, 0x7FFFFFFF
+  movq $0xFFFFFFFF, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0x7FFFFFFFFFFFFFFF, 0x7FFFFFFF
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  addq $0x7FFFFFFF, %rax
   
-  add $0xFFFFFFFFFFFFFFFF, 0x7FFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  addq $0x7FFFFFFF, %rax
 
-  // ADDr64s32_64  
-  .byte 0x48;  /* REX.W */
-  add $0, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $1, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0x7F, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0xFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0x7FFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0xFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0x7FFFFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0xFFFFFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0x7FFFFFFFFFFFFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  add $0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF /* Sign-extended */
+
 
   // ADDr64r64_64  
-  add $0, $0
+  movq $0, %rax
+  movq $0, %rbx
+  addq %rbx, %rax
   
-  add $1, $0
+  movq $1, %rax
+  movq $0, %rbx
+  addq %rbx, %rax
   
-  add $0xFFFFFFFF, $1
+  movq $0xFFFFFFFF, %rax
+  movq $1, %rbx
+  addq %rbx, %rax
   
-  add $0xFFFFFFFF, $0xFFFFFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
+  addq %rbx, %rax
   
-  add $0x7FFFFFFF, $1
+  movq $0x7FFFFFFF, %rax
+  movq $1, %rbx
+  addq %rbx, %rax
   
-  add $0, $0x10
+  movq $0, %rax
+  movq $0x10, %rbx
+  addq %rbx, %rax
   
-  add $0x7F, $0x10
+  movq $0x7F, %rax
+  movq $0x10, %rbx
+  addq %rbx, %rax
   
-  add $0x7FFFFFFFFFFFFFFF, $1
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  movq $1, %rbx
+  addq %rbx, %rax
   
-  add $0x7FFFFFFFFFFFFFFF, $0x7FFFFFFFFFFFFFFF
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  movq $0x7FFFFFFFFFFFFFFF, %rbx
+  addq %rbx, %rax
   
-  add $0x7FFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  addq %rbx, %rax
   
-  add $0xFFFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  addq %rbx, %rax
 
   nop
