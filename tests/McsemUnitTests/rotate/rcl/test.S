@@ -10,8 +10,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    movl eax, ARG1_32
-    rclb al, 0
+    movl ARG1_32, %eax
+    rclb $0, %al
 TEST_END
 
 /* Mask 0x1F of 0xFF is still bigger than 8 bits. */
@@ -27,8 +27,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    movl eax, ARG1_32
-    rclb al, 0xFF
+    movl ARG1_32, %eax
+    rclb $0xFF, %al
 TEST_END
 
 /* Special encoding of RCLr8 with i8 = 1, also has special behaviour
@@ -44,8 +44,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    movl eax, ARG1_32
-    rclb al, 1
+    movl ARG1_32, %eax
+    rclb $1, %al
 TEST_END
 
 /* REX-prefix encoded RCLr8i8 */
@@ -60,11 +60,11 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    movq r8, ARG1_64
-    rclb r8b, 1
+    movq ARG1_64, %r8
+    rclb $1, %r8b
 TEST_END_64
 
-/* Special encoding with `cl` as the reg containing the number of bits */
+/* Special encoding with `%cl` as the reg containing the number of bits */
 TEST_BEGIN(RCLr8cl, 2)
 TEST_IGNORE_FLAGS(OF)
 TEST_INPUTS(
@@ -85,12 +85,12 @@ TEST_INPUTS(
     0xF7, 7,
     0xFE, 7)
 
-    movl eax, ARG1_32
-    movl ecx, ARG2_32
-    rclb al, cl
+    movl ARG1_32, %eax
+    movl ARG2_32, %ecx
+    rclb %cl, %al
 TEST_END
 
-/* Special encoding with `cl` as the reg containing the number of bits, using
+/* Special encoding with `%cl` as the reg containing the number of bits, using
  * a REX prefix to access a 64-bit dest reg. */
 TEST_BEGIN_64(RCLr8cl_1_64, 2)
 TEST_INPUTS(
@@ -103,9 +103,9 @@ TEST_INPUTS(
     0xF7, 1,
     0xFE, 1)
 
-    movq r8, ARG1_64
-    movq rcx, ARG2_64
-    rclb r8b, cl
+    movq ARG1_64, %r8
+    movq ARG2_64, %rcx
+    rclb %cl, %r8b
 TEST_END_64
 
 /* Right shift where the number of bits is greater than the number of bits
@@ -122,8 +122,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    movl eax, ARG1_32
-    rclb al, 9
+    movl ARG1_32, %eax
+    rclb $9, %al
 TEST_END
 
 TEST_BEGIN(RCLr8i8_2, 1)
@@ -138,8 +138,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    movl eax, ARG1_32
-    rclb al, 2
+    movl ARG1_32, %eax
+    rclb $2, %al
 TEST_END
 
 TEST_BEGIN(RCLr16cl, 2)
@@ -162,9 +162,9 @@ TEST_INPUTS(
     0xF7F7, 15,
     0xFEFE, 15)
 
-    movl eax, ARG1_32
-    movl ecx, ARG2_32
-    rclw ax, cl
+    movl ARG1_32, %eax
+    movl ARG2_32, %ecx
+    rclw %cl, %ax
 TEST_END
 
 TEST_BEGIN(RCLr16i8_1, 1)
@@ -178,8 +178,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    movl eax, ARG1_32
-    rclw ax, 1
+    movl ARG1_32, %eax
+    rclw $1, %ax
 TEST_END
 
 TEST_BEGIN(RCLr16i8_8, 1)
@@ -194,8 +194,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    movl eax, ARG1_32
-    rclw ax, 8
+    movl ARG1_32, %eax
+    rclw $8, %ax
 TEST_END
 
 TEST_BEGIN(RCLr16i8_15, 1)
@@ -210,8 +210,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    movl eax, ARG1_32
-    rclw ax, 15
+    movl ARG1_32, %eax
+    rclw $15, %ax
 TEST_END
 
 TEST_BEGIN(RCLr16i8_255, 1)
@@ -226,8 +226,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    movl eax, ARG1_32
-    rclw ax, 0xFF
+    movl ARG1_32, %eax
+    rclw $0xFF, %ax
 TEST_END
 
 TEST_BEGIN(RCLr32i8_1, 1)
@@ -241,8 +241,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    movl eax, ARG1_32
-    rcll eax, 1
+    movl ARG1_32, %eax
+    rcll $1, %eax
 TEST_END
 
 TEST_BEGIN(RCLr32i8_16, 1)
@@ -257,8 +257,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    movl eax, ARG1_32
-    rcll eax, 16
+    movl ARG1_32, %eax
+    rcll $16, %eax
 TEST_END
 
 TEST_BEGIN(RCLr32i8_31, 1)
@@ -273,8 +273,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    movl eax, ARG1_32
-    rcll eax, 31
+    movl ARG1_32, %eax
+    rcll $31, %eax
 TEST_END
 
 TEST_BEGIN(RCLr32i8_255, 1)
@@ -289,8 +289,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    movl eax, ARG1_32
-    rcll eax, 0xFF
+    movl ARG1_32, %eax
+    rcll $0xFF, %eax
 TEST_END
 
 TEST_BEGIN_64(RCLr64i8_1_64, 1)
@@ -304,8 +304,8 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    movq rax, ARG1_64
-    rclq rax, 1
+    movq ARG1_64, %rax
+    rclq $1, %rax
 TEST_END_64
 
 TEST_BEGIN_64(RCLr64i8_32_64, 1)
@@ -320,8 +320,8 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    movq rax, ARG1_64
-    rclq rax, 32
+    movq ARG1_64, %rax
+    rclq $32, %rax
 TEST_END_64
 
 TEST_BEGIN_64(RCLr64i8_63_64, 1)
@@ -336,8 +336,8 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    movq rax, ARG1_64
-    rclq rax, 63
+    movq ARG1_64, %rax
+    rclq $63, %rax
 TEST_END_64
 
 TEST_BEGIN_64(RCLr64i8_255_64, 1)
@@ -352,6 +352,6 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    movq rax, ARG1_64
-    rclq rax, 0xFF
+    movq ARG1_64, %rax
+    rclq $0xFF, %rax
 TEST_END_64
