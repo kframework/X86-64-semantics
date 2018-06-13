@@ -20,41 +20,71 @@
 
 TEST_BEGIN(MOVUPSv128v128_1to0, 1)
 TEST_INPUTS(
-    0)
-    movups xmm4, xmm0
+0,    
+1,    
+0x41, 
+0x51, 
+0x80, 
+0x55, 
+0xAA, 
+0x0F, 
+0xF7, 
+0xFE, 
+0xEF, 
+0x7F, 
+0xFF, 
+0x4141, 
+0x5151, 
+0x8000, 
+0x5500, 
+0x5555, 
+0xAA00, 
+0xAAAA, 
+0x0F0F, 
+0xF7F7, 
+0xFEFE, 
+0xEFEF, 
+0x7FFF, 
+0xFFFF, 
+0x41414141, 
+0x51515151, 
+0x55000000, 
+0x55555555, 
+0xAAFFFFFF, 
+0xAAAAAAAA, 
+0x0F0F0F0F, 
+0xF7F7F7F7, 
+0xFEFEFEFE, 
+0xEFEFEFEF, 
+0x7FFFFFFF, 
+0xFFFFFFFF, 
+0x4141414141414141, 
+0x5115151515115151, 
+0x8000000000000000, 
+0x5500000000000000, 
+0x5555555555555555, 
+0xAA00000000000000, 
+0xAAAAAAAAAAAAAAAA, 
+0x0F0F0F0F0F0F0F0F, 
+0xF7F7F7F7F7F7F7F7, 
+0xEFEFEFEFEFEFEFEF, 
+0xFEFEFEFEFEFEFEFE, 
+0x7FFFFFFFFFFFFFFF,
+0xFFFFFFFFFFFFFFFF)
+
+  movq  ARG1_64,  %rax
+  movq  %rax, %xmm0  
+  movddup %xmm0, %xmm1
+  vbroadcastsd %xmm1, %ymm4
+
+    movups %xmm0, %xmm4
+    movups %xmm4, %xmm0
+    vmovups %xmm0, %xmm4
+    vmovups %xmm4, %xmm0
+    vmovups %ymm0, %ymm4
+    vmovups %ymm4, %ymm0
+    movups  %xmm0, -16(%rsp)
+    movups  -16(%rsp), %xmm0
+    vmovups  %ymm4, -32(%rsp)
+    vmovups  -32(%rsp), %ymm4
 TEST_END
-
-
-TEST_BEGIN(MOVUPSv128v128_0to1, 1)
-TEST_INPUTS(
-    0)
-    movups xmm0, xmm4
-TEST_END
-
-#if HAS_FEATURE_AVX
-
-TEST_BEGIN(VMOVUPSv128v128_1to0, 1)
-TEST_INPUTS(
-    0)
-    vmovups xmm4, xmm0
-TEST_END
-
-TEST_BEGIN(VMOVUPSv128v128_0to1, 1)
-TEST_INPUTS(
-    0)
-    vmovups xmm0, xmm4
-TEST_END
-
-TEST_BEGIN(VMOVUPSv256v256_1to0, 1)
-TEST_INPUTS(
-    0)
-    vmovups ymm4, ymm0
-TEST_END
-
-TEST_BEGIN(VMOVUPSv256v256_0to1, 1)
-TEST_INPUTS(
-    0)
-    vmovups ymm0, ymm4
-TEST_END
-
-#endif
