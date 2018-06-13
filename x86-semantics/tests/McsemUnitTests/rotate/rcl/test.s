@@ -1,606 +1,627 @@
-section .text
-global _start
+.section .text
+.globl _start
 
 _start:
-  mov eax, $0
-  rcl al, 0
+  // RCLr8i8_0  
+  movl $0, %eax
+  rclb $0, %al
   
-  mov eax, $1
-  rcl al, 0
+  movl $1, %eax
+  rclb $0, %al
   
-  mov eax, $0x80
-  rcl al, $0
+  movl $0x80, %eax
+  rclb $0, %al
   
-  mov eax, $0x55
-  rcl al, 0
+  movl $0x55, %eax
+  rclb $0, %al
   
-  mov eax, $0xAA
-  rcl al, 0
+  movl $0xAA, %eax
+  rclb $0, %al
   
-  mov eax, $0x0F
-  rcl al, 0
+  movl $0x0F, %eax
+  rclb $0, %al
   
-  mov eax, $0xF7
-  rcl al, 0
+  movl $0xF7, %eax
+  rclb $0, %al
   
-  mov eax, $0xFE
-  rcl al, 0
+  movl $0xFE, %eax
+  rclb $0, %al
 
 /* Mask 0x1F of 0xFF is still bigger than 8 bits. */
-  mov eax, $0
-  rcl al, 0xFF
+  // RCLr8i8_255  
+  movl $0, %eax
+  rclb $0xFF, %al
   
-  mov eax, $1
-  rcl al, 0xFF
+  movl $1, %eax
+  rclb $0xFF, %al
   
-  mov eax, $0x80
-  rcl al, 0xFF
+  movl $0x80, %eax
+  rclb $0xFF, %al
   
-  mov eax, $0x55
-  rcl al, 0xFF
+  movl $0x55, %eax
+  rclb $0xFF, %al
   
-  mov eax, $0xAA
-  rcl al, 0xFF
+  movl $0xAA, %eax
+  rclb $0xFF, %al
   
-  mov eax, $0x0F
-  rcl al, 0xFF
+  movl $0x0F, %eax
+  rclb $0xFF, %al
   
-  mov eax, $0xF7
-  rcl al, 0xFF
+  movl $0xF7, %eax
+  rclb $0xFF, %al
   
-  mov eax, $0xFE
-  rcl al, 0xFF
+  movl $0xFE, %eax
+  rclb $0xFF, %al
 
 /* Special encoding of RCLr8 with i8 = 1, also has special behaviour
  * with AF and OF */
-  mov eax, $0
-  rcl al, 1
+  // RCLr8i8_1  
+  movl $0, %eax
+  rclb $1, %al
   
-  mov eax, $1
-  rcl al, 1
+  movl $1, %eax
+  rclb $1, %al
   
-  mov eax, $0x80
-  rcl al, 1
+  movl $0x80, %eax
+  rclb $1, %al
   
-  mov eax, $0x55
-  rcl al, 1
+  movl $0x55, %eax
+  rclb $1, %al
   
-  mov eax, $0xAA
-  rcl al, 1
+  movl $0xAA, %eax
+  rclb $1, %al
   
-  mov eax, $0x0F
-  rcl al, 1
+  movl $0x0F, %eax
+  rclb $1, %al
   
-  mov eax, $0xF7
-  rcl al, 1
+  movl $0xF7, %eax
+  rclb $1, %al
   
-  mov eax, $0xFE
-  rcl al, 1
+  movl $0xFE, %eax
+  rclb $1, %al
 
 /* REX-prefix encoded RCLr8i8 */
-  mov r8, $0
-  rcl r8b, 1
+  // RCLr8i8_1_64  
+  movq $0, %r8
+  rclb $1, %r8b
   
-  mov r8, $1
-  rcl r8b, 1
+  movq $1, %r8
+  rclb $1, %r8b
   
-  mov r8, $0x80
-  rcl r8b, 1
+  movq $0x80, %r8
+  rclb $1, %r8b
   
-  mov r8, $0x55
-  rcl r8b, 1
+  movq $0x55, %r8
+  rclb $1, %r8b
   
-  mov r8, $0xAA
-  rcl r8b, 1
+  movq $0xAA, %r8
+  rclb $1, %r8b
   
-  mov r8, $0x0F
-  rcl r8b, 1
+  movq $0x0F, %r8
+  rclb $1, %r8b
   
-  mov r8, $0xF7
-  rcl r8b, 1
+  movq $0xF7, %r8
+  rclb $1, %r8b
   
-  mov r8, $0xFE
-  rcl r8b, 1
+  movq $0xFE, %r8
+  rclb $1, %r8b
 
-/* Special encoding with `cl` as the reg containing the number of bits */
-  mov eax, $0
-  mov ecx, $2
-  rcl al, cl
+/* Special encoding with `%cl` as the reg containing the number of bits */
+  // RCLr8cl  
+  movl $0, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $1
-  mov ecx, $2
-  rcl al, cl
+  movl $1, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0x80
-  mov ecx, $2
-  rcl al, cl
+  movl $0x80, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0x55
-  mov ecx, $2
-  rcl al, cl
+  movl $0x55, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0xAA
-  mov ecx, $2
-  rcl al, cl
+  movl $0xAA, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0x0F
-  mov ecx, $2
-  rcl al, cl
+  movl $0x0F, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0xF7
-  mov ecx, $2
-  rcl al, cl
+  movl $0xF7, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0xFE
-  mov ecx, $2
-  rcl al, cl
+  movl $0xFE, %eax
+  movl $2, %ecx
+  rclb %cl, %al
   
-  mov eax, $0
-  mov ecx, $7
-  rcl al, cl
+  movl $0, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $1
-  mov ecx, $7
-  rcl al, cl
+  movl $1, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $0x80
-  mov ecx, $7
-  rcl al, cl
+  movl $0x80, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $0x55
-  mov ecx, $7
-  rcl al, cl
+  movl $0x55, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $0xAA
-  mov ecx, $7
-  rcl al, cl
+  movl $0xAA, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $0x0F
-  mov ecx, $7
-  rcl al, cl
+  movl $0x0F, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $0xF7
-  mov ecx, $7
-  rcl al, cl
+  movl $0xF7, %eax
+  movl $7, %ecx
+  rclb %cl, %al
   
-  mov eax, $0xFE
-  mov ecx, $7
-  rcl al, cl
+  movl $0xFE, %eax
+  movl $7, %ecx
+  rclb %cl, %al
 
-/* Special encoding with `cl` as the reg containing the number of bits, using
+/* Special encoding with `%cl` as the reg containing the number of bits, using
  * a REX prefix to access a 64-bit dest reg. */
-  mov r8, $0
-  mov rcx, $1
-  rcl r8b, cl
+  // RCLr8cl_1_64  
+  movq $0, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $1
-  mov rcx, $1
-  rcl r8b, cl
+  movq $1, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $0x80
-  mov rcx, $1
-  rcl r8b, cl
+  movq $0x80, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $0x55
-  mov rcx, $1
-  rcl r8b, cl
+  movq $0x55, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $0xAA
-  mov rcx, $1
-  rcl r8b, cl
+  movq $0xAA, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $0x0F
-  mov rcx, $1
-  rcl r8b, cl
+  movq $0x0F, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $0xF7
-  mov rcx, $1
-  rcl r8b, cl
+  movq $0xF7, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
   
-  mov r8, $0xFE
-  mov rcx, $1
-  rcl r8b, cl
+  movq $0xFE, %r8
+  movq $1, %rcx
+  rclb %cl, %r8b
 
 /* Right shift where the number of bits is greater than the number of bits
  * in the src/dst reg */
-  mov eax, $0
-  rcl al, 9
+  // RCLr8i8_9  
+  movl $0, %eax
+  rclb $9, %al
   
-  mov eax, $1
-  rcl al, 9
+  movl $1, %eax
+  rclb $9, %al
   
-  mov eax, $0x80
-  rcl al, 9
+  movl $0x80, %eax
+  rclb $9, %al
   
-  mov eax, $0x55
-  rcl al, 9
+  movl $0x55, %eax
+  rclb $9, %al
   
-  mov eax, $0xAA
-  rcl al, 9
+  movl $0xAA, %eax
+  rclb $9, %al
   
-  mov eax, $0x0F
-  rcl al, 9
+  movl $0x0F, %eax
+  rclb $9, %al
   
-  mov eax, $0xF7
-  rcl al, 9
+  movl $0xF7, %eax
+  rclb $9, %al
   
-  mov eax, $0xFE
-  rcl al, 9
+  movl $0xFE, %eax
+  rclb $9, %al
 
-  mov eax, $0
-  rcl al, 2
+  // RCLr8i8_2  
+  movl $0, %eax
+  rclb $2, %al
   
-  mov eax, $1
-  rcl al, 2
+  movl $1, %eax
+  rclb $2, %al
   
-  mov eax, $0x80
-  rcl al, 2
+  movl $0x80, %eax
+  rclb $2, %al
   
-  mov eax, $0x55
-  rcl al, 2
+  movl $0x55, %eax
+  rclb $2, %al
   
-  mov eax, $0xAA
-  rcl al, 2
+  movl $0xAA, %eax
+  rclb $2, %al
   
-  mov eax, $0x0F
-  rcl al, 2
+  movl $0x0F, %eax
+  rclb $2, %al
   
-  mov eax, $0xF7
-  rcl al, 2
+  movl $0xF7, %eax
+  rclb $2, %al
   
-  mov eax, $0xFE
-  rcl al, 2
+  movl $0xFE, %eax
+  rclb $2, %al
 
-  mov eax, $0
-  mov ecx, $8
-  rcl ax, cl
+  // RCLr16cl  
+  movl $0, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $1
-  mov ecx, $8
-  rcl ax, cl
+  movl $1, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0x8000
-  mov ecx, $8
-  rcl ax, cl
+  movl $0x8000, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0x5500
-  mov ecx, $8
-  rcl ax, cl
+  movl $0x5500, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0xAA00
-  mov ecx, $8
-  rcl ax, cl
+  movl $0xAA00, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0x0F0F
-  mov ecx, $8
-  rcl ax, cl
+  movl $0x0F0F, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0xF7F7
-  mov ecx, $8
-  rcl ax, cl
+  movl $0xF7F7, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0xFEFE
-  mov ecx, $8
-  rcl ax, cl
+  movl $0xFEFE, %eax
+  movl $8, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0
-  mov ecx, $15
-  rcl ax, cl
+  movl $0, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $1
-  mov ecx, $15
-  rcl ax, cl
+  movl $1, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0x8000
-  mov ecx, $15
-  rcl ax, cl
+  movl $0x8000, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0x5500
-  mov ecx, $15
-  rcl ax, cl
+  movl $0x5500, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0xAA00
-  mov ecx, $15
-  rcl ax, cl
+  movl $0xAA00, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0x0F0F
-  mov ecx, $15
-  rcl ax, cl
+  movl $0x0F0F, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0xF7F7
-  mov ecx, $15
-  rcl ax, cl
+  movl $0xF7F7, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
   
-  mov eax, $0xFEFE
-  mov ecx, $15
-  rcl ax, cl
+  movl $0xFEFE, %eax
+  movl $15, %ecx
+  rclw %cl, %ax
 
-  mov eax, $0
-  rcl ax, 1
+  // RCLr16i8_1  
+  movl $0, %eax
+  rclw $1, %ax
   
-  mov eax, $1
-  rcl ax, 1
+  movl $1, %eax
+  rclw $1, %ax
   
-  mov eax, $0x8000
-  rcl ax, 1
+  movl $0x8000, %eax
+  rclw $1, %ax
   
-  mov eax, $0x5500
-  rcl ax, 1
+  movl $0x5500, %eax
+  rclw $1, %ax
   
-  mov eax, $0xAA00
-  rcl ax, 1
+  movl $0xAA00, %eax
+  rclw $1, %ax
   
-  mov eax, $0x0F0F
-  rcl ax, 1
+  movl $0x0F0F, %eax
+  rclw $1, %ax
   
-  mov eax, $0xF7F7
-  rcl ax, 1
+  movl $0xF7F7, %eax
+  rclw $1, %ax
   
-  mov eax, $0xFEFE
-  rcl ax, 1
+  movl $0xFEFE, %eax
+  rclw $1, %ax
 
-  mov eax, $0
-  rcl ax, 8
+  // RCLr16i8_8  
+  movl $0, %eax
+  rclw $8, %ax
   
-  mov eax, $1
-  rcl ax, 8
+  movl $1, %eax
+  rclw $8, %ax
   
-  mov eax, $0x8000
-  rcl ax, 8
+  movl $0x8000, %eax
+  rclw $8, %ax
   
-  mov eax, $0x5500
-  rcl ax, 8
+  movl $0x5500, %eax
+  rclw $8, %ax
   
-  mov eax, $0xAA00
-  rcl ax, 8
+  movl $0xAA00, %eax
+  rclw $8, %ax
   
-  mov eax, $0x0F0F
-  rcl ax, 8
+  movl $0x0F0F, %eax
+  rclw $8, %ax
   
-  mov eax, $0xF7F7
-  rcl ax, 8
+  movl $0xF7F7, %eax
+  rclw $8, %ax
   
-  mov eax, $0xFEFE
-  rcl ax, 8
+  movl $0xFEFE, %eax
+  rclw $8, %ax
 
-  mov eax, $0
-  rcl ax, 15
+  // RCLr16i8_15  
+  movl $0, %eax
+  rclw $15, %ax
   
-  mov eax, $1
-  rcl ax, 15
+  movl $1, %eax
+  rclw $15, %ax
   
-  mov eax, $0x8000
-  rcl ax, 15
+  movl $0x8000, %eax
+  rclw $15, %ax
   
-  mov eax, $0x5500
-  rcl ax, 15
+  movl $0x5500, %eax
+  rclw $15, %ax
   
-  mov eax, $0xAA00
-  rcl ax, 15
+  movl $0xAA00, %eax
+  rclw $15, %ax
   
-  mov eax, $0x0F0F
-  rcl ax, 15
+  movl $0x0F0F, %eax
+  rclw $15, %ax
   
-  mov eax, $0xF7F7
-  rcl ax, 15
+  movl $0xF7F7, %eax
+  rclw $15, %ax
   
-  mov eax, $0xFEFE
-  rcl ax, 15
+  movl $0xFEFE, %eax
+  rclw $15, %ax
 
-  mov eax, $0
-  rcl ax, 0xFF
+  // RCLr16i8_255  
+  movl $0, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $1
-  rcl ax, 0xFF
+  movl $1, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $0x8000
-  rcl ax, 0xFF
+  movl $0x8000, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $0x5500
-  rcl ax, 0xFF
+  movl $0x5500, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $0xAA00
-  rcl ax, 0xFF
+  movl $0xAA00, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $0x0F0F
-  rcl ax, 0xFF
+  movl $0x0F0F, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $0xF7F7
-  rcl ax, 0xFF
+  movl $0xF7F7, %eax
+  rclw $0xFF, %ax
   
-  mov eax, $0xFEFE
-  rcl ax, 0xFF
+  movl $0xFEFE, %eax
+  rclw $0xFF, %ax
 
-  mov eax, $0
-  rcl eax, 1
+  // RCLr32i8_1  
+  movl $0, %eax
+  rcll $1, %eax
   
-  mov eax, $1
-  rcl eax, 1
+  movl $1, %eax
+  rcll $1, %eax
   
-  mov eax, $0x80000000
-  rcl eax, 1
+  movl $0x80000000, %eax
+  rcll $1, %eax
   
-  mov eax, $0x55000000
-  rcl eax, 1
+  movl $0x55000000, %eax
+  rcll $1, %eax
   
-  mov eax, $0xAA000000
-  rcl eax, 1
+  movl $0xAA000000, %eax
+  rcll $1, %eax
   
-  mov eax, $0x0F0F0F0F
-  rcl eax, 1
+  movl $0x0F0F0F0F, %eax
+  rcll $1, %eax
   
-  mov eax, $0xF7F7F7F7
-  rcl eax, 1
+  movl $0xF7F7F7F7, %eax
+  rcll $1, %eax
   
-  mov eax, $0xFEFEFEFE
-  rcl eax, 1
+  movl $0xFEFEFEFE, %eax
+  rcll $1, %eax
 
-  mov eax, $0
-  rcl eax, 16
+  // RCLr32i8_16  
+  movl $0, %eax
+  rcll $16, %eax
   
-  mov eax, $1
-  rcl eax, 16
+  movl $1, %eax
+  rcll $16, %eax
   
-  mov eax, $0x80000000
-  rcl eax, 16
+  movl $0x80000000, %eax
+  rcll $16, %eax
   
-  mov eax, $0x55000000
-  rcl eax, 16
+  movl $0x55000000, %eax
+  rcll $16, %eax
   
-  mov eax, $0xAA000000
-  rcl eax, 16
+  movl $0xAA000000, %eax
+  rcll $16, %eax
   
-  mov eax, $0x0F0F0F0F
-  rcl eax, 16
+  movl $0x0F0F0F0F, %eax
+  rcll $16, %eax
   
-  mov eax, $0xF7F7F7F7
-  rcl eax, 16
+  movl $0xF7F7F7F7, %eax
+  rcll $16, %eax
   
-  mov eax, $0xFEFEFEFE
-  rcl eax, 16
+  movl $0xFEFEFEFE, %eax
+  rcll $16, %eax
 
-  mov eax, $0
-  rcl eax, 31
+  // RCLr32i8_31  
+  movl $0, %eax
+  rcll $31, %eax
   
-  mov eax, $1
-  rcl eax, 31
+  movl $1, %eax
+  rcll $31, %eax
   
-  mov eax, $0x80000000
-  rcl eax, 31
+  movl $0x80000000, %eax
+  rcll $31, %eax
   
-  mov eax, $0x55000000
-  rcl eax, 31
+  movl $0x55000000, %eax
+  rcll $31, %eax
   
-  mov eax, $0xAA000000
-  rcl eax, 31
+  movl $0xAA000000, %eax
+  rcll $31, %eax
   
-  mov eax, $0x0F0F0F0F
-  rcl eax, 31
+  movl $0x0F0F0F0F, %eax
+  rcll $31, %eax
   
-  mov eax, $0xF7F7F7F7
-  rcl eax, 31
+  movl $0xF7F7F7F7, %eax
+  rcll $31, %eax
   
-  mov eax, $0xFEFEFEFE
-  rcl eax, 31
+  movl $0xFEFEFEFE, %eax
+  rcll $31, %eax
 
-  mov eax, $0
-  rcl eax, 0xFF
+  // RCLr32i8_255  
+  movl $0, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $1
-  rcl eax, 0xFF
+  movl $1, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $0x80000000
-  rcl eax, 0xFF
+  movl $0x80000000, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $0x55000000
-  rcl eax, 0xFF
+  movl $0x55000000, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $0xAA000000
-  rcl eax, 0xFF
+  movl $0xAA000000, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $0x0F0F0F0F
-  rcl eax, 0xFF
+  movl $0x0F0F0F0F, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $0xF7F7F7F7
-  rcl eax, 0xFF
+  movl $0xF7F7F7F7, %eax
+  rcll $0xFF, %eax
   
-  mov eax, $0xFEFEFEFE
-  rcl eax, 0xFF
+  movl $0xFEFEFEFE, %eax
+  rcll $0xFF, %eax
 
-  mov rax, $0
-  rcl rax, 1
+  // RCLr64i8_1_64  
+  movq $0, %rax
+  rclq $1, %rax
   
-  mov rax, $1
-  rcl rax, 1
+  movq $1, %rax
+  rclq $1, %rax
   
-  mov rax, $0x8000000000000000
-  rcl rax, 1
+  movq $0x8000000000000000, %rax
+  rclq $1, %rax
   
-  mov rax, $0x5500000000000000
-  rcl rax, 1
+  movq $0x5500000000000000, %rax
+  rclq $1, %rax
   
-  mov rax, $0xAA00000000000000
-  rcl rax, 1
+  movq $0xAA00000000000000, %rax
+  rclq $1, %rax
   
-  mov rax, $0x0F0F0F0F0F0F0F0F
-  rcl rax, 1
+  movq $0x0F0F0F0F0F0F0F0F, %rax
+  rclq $1, %rax
   
-  mov rax, $0xF7F7F7F7F7F7F7F7
-  rcl rax, 1
+  movq $0xF7F7F7F7F7F7F7F7, %rax
+  rclq $1, %rax
   
-  mov rax, $0xFEFEFEFEFEFEFEFE
-  rcl rax, 1
+  movq $0xFEFEFEFEFEFEFEFE, %rax
+  rclq $1, %rax
 
-  mov rax, $0
-  rcl rax, 32
+  // RCLr64i8_32_64  
+  movq $0, %rax
+  rclq $32, %rax
   
-  mov rax, $1
-  rcl rax, 32
+  movq $1, %rax
+  rclq $32, %rax
   
-  mov rax, $0x8000000000000000
-  rcl rax, 32
+  movq $0x8000000000000000, %rax
+  rclq $32, %rax
   
-  mov rax, $0x5500000000000000
-  rcl rax, 32
+  movq $0x5500000000000000, %rax
+  rclq $32, %rax
   
-  mov rax, $0xAA00000000000000
-  rcl rax, 32
+  movq $0xAA00000000000000, %rax
+  rclq $32, %rax
   
-  mov rax, $0x0F0F0F0F0F0F0F0F
-  rcl rax, 32
+  movq $0x0F0F0F0F0F0F0F0F, %rax
+  rclq $32, %rax
   
-  mov rax, $0xF7F7F7F7F7F7F7F7
-  rcl rax, 32
+  movq $0xF7F7F7F7F7F7F7F7, %rax
+  rclq $32, %rax
   
-  mov rax, $0xFEFEFEFEFEFEFEFE
-  rcl rax, 32
+  movq $0xFEFEFEFEFEFEFEFE, %rax
+  rclq $32, %rax
 
-  mov rax, $0
-  rcl rax, 63
+  // RCLr64i8_63_64  
+  movq $0, %rax
+  rclq $63, %rax
   
-  mov rax, $1
-  rcl rax, 63
+  movq $1, %rax
+  rclq $63, %rax
   
-  mov rax, $0x8000000000000000
-  rcl rax, 63
+  movq $0x8000000000000000, %rax
+  rclq $63, %rax
   
-  mov rax, $0x5500000000000000
-  rcl rax, 63
+  movq $0x5500000000000000, %rax
+  rclq $63, %rax
   
-  mov rax, $0xAA00000000000000
-  rcl rax, 63
+  movq $0xAA00000000000000, %rax
+  rclq $63, %rax
   
-  mov rax, $0x0F0F0F0F0F0F0F0F
-  rcl rax, 63
+  movq $0x0F0F0F0F0F0F0F0F, %rax
+  rclq $63, %rax
   
-  mov rax, $0xF7F7F7F7F7F7F7F7
-  rcl rax, 63
+  movq $0xF7F7F7F7F7F7F7F7, %rax
+  rclq $63, %rax
   
-  mov rax, $0xFEFEFEFEFEFEFEFE
-  rcl rax, 63
+  movq $0xFEFEFEFEFEFEFEFE, %rax
+  rclq $63, %rax
 
-  mov rax, $0
-  rcl rax, 0xFF
+  // RCLr64i8_255_64  
+  movq $0, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $1
-  rcl rax, 0xFF
+  movq $1, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $0x8000000000000000
-  rcl rax, 0xFF
+  movq $0x8000000000000000, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $0x5500000000000000
-  rcl rax, 0xFF
+  movq $0x5500000000000000, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $0xAA00000000000000
-  rcl rax, 0xFF
+  movq $0xAA00000000000000, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $0x0F0F0F0F0F0F0F0F
-  rcl rax, 0xFF
+  movq $0x0F0F0F0F0F0F0F0F, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $0xF7F7F7F7F7F7F7F7
-  rcl rax, 0xFF
+  movq $0xF7F7F7F7F7F7F7F7, %rax
+  rclq $0xFF, %rax
   
-  mov rax, $0xFEFEFEFEFEFEFEFE
-  rcl rax, 0xFF
+  movq $0xFEFEFEFEFEFEFEFE, %rax
+  rclq $0xFF, %rax
 
   nop
