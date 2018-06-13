@@ -19,8 +19,13 @@ sar
 sarx
 shr
 vadd
-vfnmsub132
-vmax
+vaddsub
+vfmadd
+vfmaddsub
+vfmsub
+vfnmadd
+vfnmsub
+vmaxmin
 vmpsadbw_xmm_xmm_xmm
 vmpsadbw_ymm_ymm_ymm
 vpclmulqdq
