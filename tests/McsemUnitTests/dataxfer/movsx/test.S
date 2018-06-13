@@ -19,7 +19,10 @@ TEST_INPUTS(
     0x70, 0xFFFFFFFFFFFFFFFF,
     0x80, 0xFFFFFFFFFFFFFFFF)
 
-    movsx ARG2_16, ARG1_8
+    movb ARG1_8, %al
+    movw ARG2_16, %bx
+    movsbw %al, %bx
+
 TEST_END_64
 
 TEST_BEGIN(MOVSXr32r16, 2)
@@ -27,7 +30,9 @@ TEST_INPUTS(
     0x7000, 0xFFFFFFFFFFFFFFFF,
     0x8000, 0xFFFFFFFFFFFFFFFF)
 
-    movsx ARG2_32, ARG1_16
+    movw ARG1_16, %ax
+    movl ARG2_32, %ebx
+    movswl %ax, %ebx
 TEST_END
 
 TEST_BEGIN_64(MOVSXr32r8, 2)
@@ -35,7 +40,9 @@ TEST_INPUTS(
     0x70, 0xFFFFFFFFFFFFFFFF,
     0x80, 0xFFFFFFFFFFFFFFFF)
 
-    movsx ARG2_32, ARG1_8
+    movb ARG1_8, %al
+    movl ARG2_32, %ebx
+    movsbl %al, %ebx
 TEST_END_64
 
 TEST_BEGIN_64(MOVSXr64r8, 2)
@@ -43,7 +50,9 @@ TEST_INPUTS(
     0x70, 0xFFFFFFFFFFFFFFFF,
     0x80, 0xFFFFFFFFFFFFFFFF)
 
-    movsx ARG2_64, ARG1_8
+    movb ARG1_8, %al
+    movq ARG2_64, %rbx
+    movsbq %al, %rbx
 TEST_END_64
 
 TEST_BEGIN_64(MOVSXr64r16, 2)
@@ -51,17 +60,8 @@ TEST_INPUTS(
     0x7000, 0xFFFFFFFFFFFFFFFF,
     0x8000, 0xFFFFFFFFFFFFFFFF)
 
-    movsx ARG2_64, ARG1_16
+    movw ARG1_16, %ax
+    movq ARG2_64, %rbx
+    movswq %ax, %rbx
 TEST_END_64
 
-TEST_BEGIN_64(MOVSXr64r32, 2)
-TEST_INPUTS(
-    0x70000000, 0xFFFFFFFFFFFFFFFF,
-    0x80000000, 0xFFFFFFFFFFFFFFFF)
-
-    mov edi, ARG1_32
-
-    // movsx rsi, edi
-    .byte 0x48, 0x63, 0xf7
-
-TEST_END_64

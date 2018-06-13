@@ -18,73 +18,68 @@
 
 TEST_BEGIN(MOVSSv128m64, 1)
 TEST_INPUTS(
-    0)
-    movss xmm0,DWORD PTR [rsp - 8]
+0,    
+1,    
+0x41, 
+0x51, 
+0x80, 
+0x55, 
+0xAA, 
+0x0F, 
+0xF7, 
+0xFE, 
+0xEF, 
+0x7F, 
+0xFF, 
+0x4141, 
+0x5151, 
+0x8000, 
+0x5500, 
+0x5555, 
+0xAA00, 
+0xAAAA, 
+0x0F0F, 
+0xF7F7, 
+0xFEFE, 
+0xEFEF, 
+0x7FFF, 
+0xFFFF, 
+0x41414141, 
+0x51515151, 
+0x55000000, 
+0x55555555, 
+0xAAFFFFFF, 
+0xAAAAAAAA, 
+0x0F0F0F0F, 
+0xF7F7F7F7, 
+0xFEFEFEFE, 
+0xEFEFEFEF, 
+0x7FFFFFFF, 
+0xFFFFFFFF, 
+0x4141414141414141, 
+0x5115151515115151, 
+0x8000000000000000, 
+0x5500000000000000, 
+0x5555555555555555, 
+0xAA00000000000000, 
+0xAAAAAAAAAAAAAAAA, 
+0x0F0F0F0F0F0F0F0F, 
+0xF7F7F7F7F7F7F7F7, 
+0xEFEFEFEFEFEFEFEF, 
+0xFEFEFEFEFEFEFEFE, 
+0x7FFFFFFFFFFFFFFF,
+0xFFFFFFFFFFFFFFFF)
+
+  movq  ARG1_64,  %rax
+  movq  %rax, %xmm0  
+  movddup %xmm0, %xmm1
+  movss %xmm0, -8(%rsp)
+  movss -8(%rsp), %xmm0
+  movss %xmm0, %xmm1
+  movss %xmm1, %xmm0
+
+  vmovss %xmm0, -8(%rsp)
+  vmovss -8(%rsp), %xmm0
+  vmovss %xmm0, %xmm1, %xmm4
+  vmovss %xmm4, %xmm1, %xmm0
 TEST_END
-
-TEST_BEGIN(MOVSSv128m64_4, 1)
-TEST_INPUTS(
-    0)
-    movss xmm1,DWORD PTR [rsp - 8]
-TEST_END
-
-TEST_BEGIN(MOVSSm64v128, 1)
-TEST_INPUTS(
-    0)
-    movss DWORD PTR [rsp - 8], xmm0
-TEST_END
-
-#endif  // APPLE_SAFE_TESTS
-
-TEST_BEGIN(MOVSSv12v128, 1)
-TEST_INPUTS(
-    0)
-    movss xmm0, xmm4
-TEST_END
-
-TEST_BEGIN(MOVSSv12v128_4, 1)
-TEST_INPUTS(
-    0)
-    movss xmm4, xmm0
-TEST_END
-
-#if HAS_FEATURE_AVX
-#if APPLE_SAFE_TESTS
-
-TEST_BEGIN(VMOVSSv128m64, 1)
-TEST_INPUTS(
-    0)
-    vmovss xmm0,DWORD PTR [rsp - 8]
-TEST_END
-
-TEST_BEGIN(VMOVSSv128m64_4, 1)
-TEST_INPUTS(
-    0)
-    vmovss xmm4,DWORD PTR [rsp - 8]
-TEST_END
-
-TEST_BEGIN(VMOVSSm64v128, 1)
-TEST_INPUTS(
-    0)
-    vmovss DWORD PTR [rsp - 8], xmm0
-TEST_END
-
-TEST_BEGIN(VMOVSSm64v128_4, 1)
-TEST_INPUTS(
-    0)
-    vmovss DWORD PTR [rsp - 8], xmm4
-TEST_END
-
-TEST_BEGIN(VMOVSSv128v128v128, 1)
-TEST_INPUTS(
-    0)
-    vmovss xmm0, xmm1, xmm4
-TEST_END
-
-TEST_BEGIN(VMOVSSv128v128v128_4, 1)
-TEST_INPUTS(
-    0)
-    vmovss xmm4, xmm1, xmm0
-TEST_END
-#endif  // APPLE_SAFE_TESTS
-#endif  // HAS_FEATURE_AVX

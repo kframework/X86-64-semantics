@@ -16,58 +16,105 @@
 
 TEST_BEGIN_64(MOVHPDv128m64, 1)
 TEST_INPUTS(
-    0)
-    lea rsp, [rsp - 64]
-    movhpd xmm0,QWORD PTR [rsp - 0]  /* whatever is on the stack */
-    movhpd xmm1,QWORD PTR [rsp - 8]
-    movhpd xmm2,QWORD PTR [rsp - 16]
-    movhpd xmm3,QWORD PTR [rsp - 24]
-    movhpd xmm4,QWORD PTR [rsp - 32]
-    movhpd xmm5,QWORD PTR [rsp - 40]
-    movhpd xmm6,QWORD PTR [rsp - 48]
-    movhpd xmm7,QWORD PTR [rsp - 56]
+0,    
+1,    
+0x41, 
+0x51, 
+0x80, 
+0x55, 
+0xAA, 
+0x0F, 
+0xF7, 
+0xFE, 
+0xEF, 
+0x7F, 
+0xFF, 
+0x4141, 
+0x5151, 
+0x8000, 
+0x5500, 
+0x5555, 
+0xAA00, 
+0xAAAA, 
+0x0F0F, 
+0xF7F7, 
+0xFEFE, 
+0xEFEF, 
+0x7FFF, 
+0xFFFF, 
+0x41414141, 
+0x51515151, 
+0x55000000, 
+0x55555555, 
+0xAAFFFFFF, 
+0xAAAAAAAA, 
+0x0F0F0F0F, 
+0xF7F7F7F7, 
+0xFEFEFEFE, 
+0xEFEFEFEF, 
+0x7FFFFFFF, 
+0xFFFFFFFF, 
+0x4141414141414141, 
+0x5115151515115151, 
+0x8000000000000000, 
+0x5500000000000000, 
+0x5555555555555555, 
+0xAA00000000000000, 
+0xAAAAAAAAAAAAAAAA, 
+0x0F0F0F0F0F0F0F0F, 
+0xF7F7F7F7F7F7F7F7, 
+0xEFEFEFEFEFEFEFEF, 
+0xFEFEFEFEFEFEFEFE, 
+0x7FFFFFFFFFFFFFFF,
+0xFFFFFFFFFFFFFFFF)
+
+  movq  ARG1_64,  %rax
+  movq  %rax, %xmm0  
+
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  vbroadcastss %xmm1, %ymm7
+
+    leaq -64(%rsp), %rsp
+
+    movhpd %xmm0,   (%rsp)
+    movhpd %xmm1, -8(%rsp)
+    movhpd %xmm2,-16(%rsp)
+    movhpd %xmm3,-24(%rsp)
+    movhpd %xmm4,-32(%rsp)
+    movhpd %xmm5,-40(%rsp)
+    movhpd %xmm6,-48(%rsp)
+    movhpd %xmm7,-56(%rsp)
+
+    movhpd    (%rsp), %xmm0
+    movhpd  -8(%rsp), %xmm1
+    movhpd -16(%rsp), %xmm2
+    movhpd -24(%rsp), %xmm3
+    movhpd -32(%rsp), %xmm4
+    movhpd -40(%rsp), %xmm5
+    movhpd -48(%rsp), %xmm6
+    movhpd -56(%rsp), %xmm7
+
+    vmovhpd %xmm0,   (%rsp)
+    vmovhpd %xmm1, -8(%rsp)
+    vmovhpd %xmm2,-16(%rsp)
+    vmovhpd %xmm3,-24(%rsp)
+    vmovhpd %xmm4,-32(%rsp)
+    vmovhpd %xmm5,-40(%rsp)
+    vmovhpd %xmm6,-48(%rsp)
+    vmovhpd %xmm7,-56(%rsp)
+
+
+    vmovhpd    (%rsp), %xmm0, %xmm7
+    vmovhpd  -8(%rsp), %xmm1, %xmm6
+    vmovhpd -16(%rsp), %xmm2, %xmm5
+    vmovhpd -24(%rsp), %xmm3, %xmm4
+    vmovhpd -32(%rsp), %xmm4, %xmm3
+    vmovhpd -40(%rsp), %xmm5, %xmm2
+    vmovhpd -48(%rsp), %xmm6, %xmm1
+    vmovhpd -56(%rsp), %xmm7, %xmm0
 TEST_END_64
-
-TEST_BEGIN_64(MOVHPDm64v128, 1)
-TEST_INPUTS(
-    0)
-    lea rsp, [rsp - 64]
-    movhpd QWORD PTR [rsp - 0], xmm0
-    movhpd QWORD PTR [rsp - 8], xmm1
-    movhpd QWORD PTR [rsp - 16], xmm2
-    movhpd QWORD PTR [rsp - 24], xmm3
-    movhpd QWORD PTR [rsp - 32], xmm4
-    movhpd QWORD PTR [rsp - 40], xmm5
-    movhpd QWORD PTR [rsp - 48], xmm6
-    movhpd QWORD PTR [rsp - 56], xmm7
-TEST_END_64
-
-#if HAS_FEATURE_AVX
-
-TEST_BEGIN_64(VMOVHPDvv128v128m64, 1)
-TEST_INPUTS(0)
-    lea rsp, [rsp - 64]
-    vmovhpd xmm0, xmm1, QWORD PTR [rsp - 0]
-    vmovhpd xmm1, xmm2, QWORD PTR [rsp - 8]
-    vmovhpd xmm2, xmm3, QWORD PTR [rsp - 16]
-    vmovhpd xmm3, xmm4, QWORD PTR [rsp - 24]
-    vmovhpd xmm4, xmm5, QWORD PTR [rsp - 32]
-    vmovhpd xmm5, xmm6, QWORD PTR [rsp - 40]
-    vmovhpd xmm6, xmm7, QWORD PTR [rsp - 48]
-TEST_END_64
-
-TEST_BEGIN_64(VMOVHPDm64v128, 1)
-TEST_INPUTS(
-    0)
-    lea rsp, [rsp - 64]
-    vmovhpd QWORD PTR [rsp - 0], xmm0
-    vmovhpd QWORD PTR [rsp - 8], xmm1
-    vmovhpd QWORD PTR [rsp - 16], xmm2
-    vmovhpd QWORD PTR [rsp - 24], xmm3
-    vmovhpd QWORD PTR [rsp - 32], xmm4
-    vmovhpd QWORD PTR [rsp - 40], xmm5
-    vmovhpd QWORD PTR [rsp - 48], xmm6
-    vmovhpd QWORD PTR [rsp - 56], xmm7
-TEST_END_64
-
-#endif  // HAS_FEATURE_AVX
