@@ -1,20 +1,3 @@
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/* Should not affect any flags */
 TEST_BEGIN(ROLr8i8_0, 1)
 TEST_IGNORE_FLAGS(OF)
 TEST_INPUTS(
@@ -27,8 +10,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    mov eax, ARG1_32
-    rol al, 0
+    movl ARG1_32, %eax
+    rolb $0, %al
 TEST_END
 
 /* Mask 0x1F of 0xFF is still bigger than 8 bits. */
@@ -44,8 +27,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    mov eax, ARG1_32
-    rol al, 0xFF
+    movl ARG1_32, %eax
+    rolb $0xFF, %al
 TEST_END
 
 /* Special encoding of ROLr8 with i8 = 1, also has special behaviour
@@ -61,8 +44,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    mov eax, ARG1_32
-    rol al, 1
+    movl ARG1_32, %eax
+    rolb $1, %al
 TEST_END
 
 /* REX-prefix encoded ROLr8i8 */
@@ -77,11 +60,11 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    mov r8, ARG1_64
-    rol r8b, 1
+    movq ARG1_64, %r8
+    rolb $1, %r8b
 TEST_END_64
 
-/* Special encoding with `cl` as the reg containing the number of bits */
+/* Special encoding with `%cl` as the reg containing the number of bits */
 TEST_BEGIN(ROLr8cl, 2)
 TEST_IGNORE_FLAGS(OF)
 TEST_INPUTS(
@@ -102,12 +85,12 @@ TEST_INPUTS(
     0xF7, 7,
     0xFE, 7)
 
-    mov eax, ARG1_32
-    mov ecx, ARG2_32
-    rol al, cl
+    movl ARG1_32, %eax
+    movl ARG2_32, %ecx
+    rolb %cl, %al
 TEST_END
 
-/* Special encoding with `cl` as the reg containing the number of bits, using
+/* Special encoding with `%cl` as the reg containing the number of bits, using
  * a REX prefix to access a 64-bit dest reg. */
 TEST_BEGIN_64(ROLr8cl_1_64, 2)
 TEST_INPUTS(
@@ -120,9 +103,9 @@ TEST_INPUTS(
     0xF7, 1,
     0xFE, 1)
 
-    mov r8, ARG1_64
-    mov rcx, ARG2_64
-    rol r8b, cl
+    movq ARG1_64, %r8
+    movq ARG2_64, %rcx
+    rolb %cl, %r8b
 TEST_END_64
 
 /* Right shift where the number of bits is greater than the number of bits
@@ -139,8 +122,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    mov eax, ARG1_32
-    rol al, 9
+    movl ARG1_32, %eax
+    rolb $9, %al
 TEST_END
 
 TEST_BEGIN(ROLr8i8_2, 1)
@@ -155,8 +138,8 @@ TEST_INPUTS(
     0xF7,
     0xFE)
 
-    mov eax, ARG1_32
-    rol al, 2
+    movl ARG1_32, %eax
+    rolb $2, %al
 TEST_END
 
 TEST_BEGIN(ROLr16cl, 2)
@@ -179,9 +162,9 @@ TEST_INPUTS(
     0xF7F7, 15,
     0xFEFE, 15)
 
-    mov eax, ARG1_32
-    mov ecx, ARG2_32
-    rol ax, cl
+    movl ARG1_32, %eax
+    movl ARG2_32, %ecx
+    rolw %cl, %ax
 TEST_END
 
 TEST_BEGIN(ROLr16i8_1, 1)
@@ -195,8 +178,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    mov eax, ARG1_32
-    rol ax, 1
+    movl ARG1_32, %eax
+    rolw $1, %ax
 TEST_END
 
 TEST_BEGIN(ROLr16i8_8, 1)
@@ -211,8 +194,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    mov eax, ARG1_32
-    rol ax, 8
+    movl ARG1_32, %eax
+    rolw $8, %ax
 TEST_END
 
 TEST_BEGIN(ROLr16i8_15, 1)
@@ -227,8 +210,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    mov eax, ARG1_32
-    rol ax, 15
+    movl ARG1_32, %eax
+    rolw $15, %ax
 TEST_END
 
 TEST_BEGIN(ROLr16i8_255, 1)
@@ -243,8 +226,8 @@ TEST_INPUTS(
     0xF7F7,
     0xFEFE)
 
-    mov eax, ARG1_32
-    rol ax, 0xFF
+    movl ARG1_32, %eax
+    rolw $0xFF, %ax
 TEST_END
 
 TEST_BEGIN(ROLr32i8_1, 1)
@@ -258,8 +241,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    mov eax, ARG1_32
-    rol eax, 1
+    movl ARG1_32, %eax
+    roll $1, %eax
 TEST_END
 
 TEST_BEGIN(ROLr32i8_16, 1)
@@ -274,8 +257,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    mov eax, ARG1_32
-    rol eax, 16
+    movl ARG1_32, %eax
+    roll $16, %eax
 TEST_END
 
 TEST_BEGIN(ROLr32i8_31, 1)
@@ -290,8 +273,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    mov eax, ARG1_32
-    rol eax, 31
+    movl ARG1_32, %eax
+    roll $31, %eax
 TEST_END
 
 TEST_BEGIN(ROLr32i8_255, 1)
@@ -306,8 +289,8 @@ TEST_INPUTS(
     0xF7F7F7F7,
     0xFEFEFEFE)
 
-    mov eax, ARG1_32
-    rol eax, 0xFF
+    movl ARG1_32, %eax
+    roll $0xFF, %eax
 TEST_END
 
 TEST_BEGIN_64(ROLr64i8_1_64, 1)
@@ -321,8 +304,8 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    mov rax, ARG1_64
-    rol rax, 1
+    movq ARG1_64, %rax
+    rolq $1, %rax
 TEST_END_64
 
 TEST_BEGIN_64(ROLr64i8_32_64, 1)
@@ -337,8 +320,8 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    mov rax, ARG1_64
-    rol rax, 32
+    movq ARG1_64, %rax
+    rolq $32, %rax
 TEST_END_64
 
 TEST_BEGIN_64(ROLr64i8_63_64, 1)
@@ -353,8 +336,8 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    mov rax, ARG1_64
-    rol rax, 63
+    movq ARG1_64, %rax
+    rolq $63, %rax
 TEST_END_64
 
 TEST_BEGIN_64(ROLr64i8_255_64, 1)
@@ -369,6 +352,6 @@ TEST_INPUTS(
     0xF7F7F7F7F7F7F7F7,
     0xFEFEFEFEFEFEFEFE)
 
-    mov rax, ARG1_64
-    rol rax, 0xFF
+    movq ARG1_64, %rax
+    rolq $0xFF, %rax
 TEST_END_64
