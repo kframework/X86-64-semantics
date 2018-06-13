@@ -1,0 +1,28 @@
+Opening log files in .
+Test run by sdasgup3 on Mon Jun 11 22:42:30 2018
+Native configuration is x86_64-pc-linux-gnu
+
+		=== gcc tests ===
+
+setting trap for SIGINT to interrupted by user
+setting trap for SIGQUIT to interrupted by user
+setting trap for SIGTERM to terminated
+dirlist is /usr/local/share/dejagnu/baseboards
+pushing config for build, name is linux
+dirlist is /usr/local/share/dejagnu/baseboards
+pushing config for host, name is linux
+Schedule of variations:
+    unix
+
+target is unix
+Running target unix
+dirlist is /usr/local/share/dejagnu/baseboards/linux /usr/local/share/dejagnu/baseboards
+Using /usr/local/share/dejagnu/baseboards/unix.exp as board description file for target.
+Using /usr/local/share/dejagnu/config/unix.exp as generic interface file for target.
+Using ./../../config/default.exp as tool-and-target-specific interface file.
+Loading /usr/local/share/dejagnu/standard.exp
+pushing config for target, name is unix
+
+		=== gcc Summary ===
+
+runtest completed at Mon Jun 11 22:42:30 2018
