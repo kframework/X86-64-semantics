@@ -185,6 +185,7 @@ sub unroll {
                 $i++;
                 $line = utils::trim( $lines[$i] );
                 chomp $line;
+
                 my @splitarr = split( /,/, $line );
 
                 if ( $args == 1 ) {
@@ -222,7 +223,7 @@ sub unroll {
             }
         }
 
-        if ( $line =~ m/\)/ ) {
+        if ( ($line =~ m/\)$/) and ($line !~ m/-\d+/)) {
             $i++;
             next;
         }
