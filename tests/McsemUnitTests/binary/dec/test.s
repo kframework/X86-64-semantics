@@ -2,93 +2,105 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
   // DECr8  
-  mov eax, $0
-  dec al
+  movl $0, %eax
+  decb %al
   
-  mov eax, $1
-  dec al
+  movl $1, %eax
+  decb %al
   
-  mov eax, $0x7F
-  dec al
+  movl $0x7F, %eax
+  decb %al
   
-  mov eax, $0xFF
-  dec al
+  movl $0xFF, %eax
+  decb %al
 
   // DECr8_64  
-  dec $0
+  movb $0, %al
+  decb %al
   
-  dec $1
+  movb $1, %al
+  decb %al
   
-  dec $0x7F
+  movb $0x7F, %al
+  decb %al
   
-  dec $0xFF
+  movb $0xFF, %al
+  decb %al
 
   // DECr16  
-  dec $0
+  movw $0, %ax
+  decw %ax
   
-  dec $1
+  movw $1, %ax
+  decw %ax
   
-  dec $0x7F
+  movw $0x7F, %ax
+  decw %ax
   
-  dec $0xFF
+  movw $0xFF, %ax
+  decw %ax
   
-  dec $0x7FFF
+  movw $0x7FFF, %ax
+  decw %ax
   
-  dec $0xFFFF
+  movw $0xFFFF, %ax
+  decw %ax
 
   // DECr32  
-  dec $0
+  movl  $0, %eax
+  decl %eax
   
-  dec $1
+  movl  $1, %eax
+  decl %eax
   
-  dec $0x7F
+  movl  $0x7F, %eax
+  decl %eax
   
-  dec $0xFF
+  movl  $0xFF, %eax
+  decl %eax
   
-  dec $0x7FFF
+  movl  $0x7FFF, %eax
+  decl %eax
   
-  dec $0xFFFF
+  movl  $0xFFFF, %eax
+  decl %eax
   
-  dec $0x7FFFFFFF
+  movl  $0x7FFFFFFF, %eax
+  decl %eax
   
-  dec $0xFFFFFFFF
+  movl  $0xFFFFFFFF, %eax
+  decl %eax
 
   // DECr64_64  
-  dec $0
+  movq  $0, %rax
+  decq %rax
   
-  dec $1
+  movq  $1, %rax
+  decq %rax
   
-  dec $0x7F
+  movq  $0x7F, %rax
+  decq %rax
   
-  dec $0xFF
+  movq  $0xFF, %rax
+  decq %rax
   
-  dec $0x7FFF
+  movq  $0x7FFF, %rax
+  decq %rax
   
-  dec $0xFFFF
+  movq  $0xFFFF, %rax
+  decq %rax
   
-  dec $0x7FFFFFFF
+  movq  $0x7FFFFFFF, %rax
+  decq %rax
   
-  dec $0xFFFFFFFF
+  movq  $0xFFFFFFFF, %rax
+  decq %rax
   
-  dec $0x7FFFFFFFFFFFFFFF
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  decq %rax
   
-  dec $0xFFFFFFFFFFFFFFFF
+  movq  $0xFFFFFFFFFFFFFFFF, %rax
+  decq %rax
 
   nop

@@ -19,390 +19,384 @@ _start:
  */
 
   // IDIVax  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $1
-  mov ebx, $0
+  movl $1, %eax
+  movl $0, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0
-  mov ebx, $1
+  movl $0, %eax
+  movl $1, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $1
-  mov ebx, $1
+  movl $1, %eax
+  movl $1, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $1
-  mov ebx, $2
+  movl $1, %eax
+  movl $2, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0xFFFF
-  mov ebx, $1
+  movl $0xFFFF, %eax
+  movl $1, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0xFFFF
-  mov ebx, $2
+  movl $0xFFFF, %eax
+  movl $2, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0x7FFF
-  mov ebx, $1
+  movl $0x7FFF, %eax
+  movl $1, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0x7FFF
-  mov ebx, $2
+  movl $0x7FFF, %eax
+  movl $2, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0x7FFF
-  mov ebx, $0xFF
+  movl $0x7FFF, %eax
+  movl $0xFF, %ebx
   
-  idiv bl
+  idivb %bl
   
-  mov eax, $0x7FFF
-  mov ebx, $0xF7
+  movl $0x7FFF, %eax
+  movl $0xF7, %ebx
   
-  idiv bl
+  idivb %bl
 
   // IDIVax_64  
-  mov rax, $0
-  mov r8, $0
+  movq $0, %rax
+  movq $0, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $1
-  mov r8, $0
+  movq $1, %rax
+  movq $0, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0
-  mov r8, $1
+  movq $0, %rax
+  movq $1, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $1
-  mov r8, $1
+  movq $1, %rax
+  movq $1, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $1
-  mov r8, $2
+  movq $1, %rax
+  movq $2, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0xFFFF
-  mov r8, $1
+  movq $0xFFFF, %rax
+  movq $1, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0xFFFF
-  mov r8, $2
+  movq $0xFFFF, %rax
+  movq $2, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0xFFFF
-  mov r8, $0xFF
+  movq $0xFFFF, %rax
+  movq $0xFF, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0xFFFF
-  mov r8, $0xF7
+  movq $0xFFFF, %rax
+  movq $0xF7, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0x7FFF
-  mov r8, $1
+  movq $0x7FFF, %rax
+  movq $1, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0x7FFF
-  mov r8, $2
+  movq $0x7FFF, %rax
+  movq $2, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0x7FFF
-  mov r8, $0xFF
+  movq $0x7FFF, %rax
+  movq $0xFF, %r8
   
-  idiv r8b
+  idivb %r8b
   
-  mov rax, $0x7FFF
-  mov r8, $0xF7
+  movq $0x7FFF, %rax
+  movq $0xF7, %r8
   
-  idiv r8b
+  idivb %r8b
 
   // IDIVdxax  
-  mov eax, $0
-  mov ebx, $0
-  mov edx, $0
+  movl $0, %eax
+  movl $0, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $1
-  mov ebx, $0
-  mov edx, $0
+  movl $1, %eax
+  movl $0, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0
-  mov ebx, $1
-  mov edx, $0
+  movl $0, %eax
+  movl $1, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $1
-  mov ebx, $1
-  mov edx, $0
+  movl $1, %eax
+  movl $1, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $1
-  mov ebx, $2
-  mov edx, $0
+  movl $1, %eax
+  movl $2, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $1
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $1, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $2
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $2, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $1
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $1, %ebx
+  movl $0xFFFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $2
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $2, %ebx
+  movl $0xFFFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0xFFFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0xFFFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $1
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $1, %ebx
+  movl $0x7FFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $2
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $2, %ebx
+  movl $0x7FFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0x7FFF, %edx
   
-  idiv bx
+  idivw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0x7FFF, %edx
   
-  idiv bx
+  idivw %bx
 
   // IDIVedxeax  
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0xFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0xFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0x7FFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0x7FFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFF
-  mov edx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0xFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xF7
-  mov edx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0xFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFF
-  mov edx, $0x7FFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0x7FFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xF7
-  mov edx, $0x7FFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0x7FFFFFFF, %edx
   
-  idiv ebx
-  
-  mov eax, $0xffffffff
-  mov ebx, $32
-  mov edx, $0xffffffff
-  
-  idiv ebx
+  idivl %ebx
 
   // IDIVrdxrax_64  
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0xFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0xFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFF
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0x7FFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xF7
-  mov edx, $0x7FFF
+  movl $0xFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0x7FFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFF
-  mov edx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0xFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xF7
-  mov edx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0xFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFF
-  mov edx, $0x7FFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0x7FFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xF7
-  mov edx, $0x7FFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0x7FFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFFFFFFFFFF
-  mov ebx, $0xFF
-  mov edx, $0xFFFFFFFFFFFFFFFF
+  movl $0xFFFFFFFFFFFFFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0xFFFFFFFFFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFFFFFFFFFF
-  mov ebx, $0xF7
-  mov edx, $0xFFFFFFFFFFFFFFFF
+  movl $0xFFFFFFFFFFFFFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0xFFFFFFFFFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFFFFFFFFFF
-  mov ebx, $0xFF
-  mov edx, $0x7FFFFFFFFFFFFFFF
+  movl $0xFFFFFFFFFFFFFFFF, %eax
+  movl $0xFF, %ebx
+  movl $0x7FFFFFFFFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
   
-  mov eax, $0xFFFFFFFFFFFFFFFF
-  mov ebx, $0xF7
-  mov edx, $0x7FFFFFFFFFFFFFFF
+  movl $0xFFFFFFFFFFFFFFFF, %eax
+  movl $0xF7, %ebx
+  movl $0x7FFFFFFFFFFFFFFF, %edx
   
-  idiv ebx
+  idivl %ebx
 
   nop

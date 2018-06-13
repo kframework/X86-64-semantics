@@ -19,75 +19,75 @@ _start:
  */
 
   // MULXedx  
-  mov ecx, $0
-  mov ebx, $0
+  movl $0, %ecx
+  movl $0, %ebx
   
-  mulx edx, eax, ebx
+  mulxl %ebx, %eax, %edx
   
-  mov ecx, $1
-  mov ebx, $0x7FFF
+  movl $1, %ecx
+  movl $0x7FFF, %ebx
   
-  mulx edx, eax, ebx
+  mulxl %ebx, %eax, %edx
   
-  mov ecx, $1
-  mov ebx, $0xFFFF
+  movl $1, %ecx
+  movl $0xFFFF, %ebx
   
-  mulx edx, eax, ebx
+  mulxl %ebx, %eax, %edx
   
-  mov ecx, $0xFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFF, %ecx
+  movl $0xFFFF, %ebx
   
-  mulx edx, eax, ebx
+  mulxl %ebx, %eax, %edx
   
-  mov ecx, $0xFFFFFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFFFFFF, %ecx
+  movl $0xFFFF, %ebx
   
-  mulx edx, eax, ebx
+  mulxl %ebx, %eax, %edx
   
-  mov ecx, $0xFFFFFFFF
-  mov ebx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %ecx
+  movl $0xFFFFFFFF, %ebx
   
-  mulx edx, eax, ebx
+  mulxl %ebx, %eax, %edx
 
   // MULXrdx_64  
-  mov rcx, $0
-  mov rbx, $1
+  mov  $0, %rcx
+  mov  $1, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0xFFFF
-  mov rbx, $0xFFFF
+  mov  $0xFFFF, %rcx
+  mov  $0xFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0xFFFFFFFF
-  mov rbx, $0xFFFF
+  mov  $0xFFFFFFFF, %rcx
+  mov  $0xFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0xFFFFFFFF
-  mov rbx, $0xFFFFFFFF
+  mov  $0xFFFFFFFF, %rcx
+  mov  $0xFFFFFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0xFFFFFFFF
-  mov rbx, $0x7FFFFFFF
+  mov  $0xFFFFFFFF, %rcx
+  mov  $0x7FFFFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0x7FFFFFFF
-  mov rbx, $0xFFFFFFFF
+  mov  $0x7FFFFFFF, %rcx
+  mov  $0xFFFFFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0xFFFFFFFFFFFFFFFF
-  mov rbx, $0xFFFFFFFF
+  mov  $0xFFFFFFFFFFFFFFFF, %rcx
+  mov  $0xFFFFFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
   
-  mov rcx, $0xFFFFFFFFFFFFFFFF
-  mov rbx, $0xFFFFFFFFFFFFFFFF
+  mov  $0xFFFFFFFFFFFFFFFF, %rcx
+  mov  $0xFFFFFFFFFFFFFFFF, %rbx
   
-  mulx rdx, rax, rbx
+  mulxq %rbx, %rax, %rdx
 
   nop

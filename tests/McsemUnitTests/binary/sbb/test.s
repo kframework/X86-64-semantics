@@ -2,467 +2,457 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
   // SBBal  
-  mov eax, $0
-  sbb al, 1
+  movl $0, %eax
+  sbbb $1, %al
   
-  mov eax, $1
-  sbb al, 1
+  movl $1, %eax
+  sbbb $1, %al
   
-  mov eax, $0x7F
-  sbb al, 1
+  movl $0x7F, %eax
+  sbbb $1, %al
   
-  mov eax, $0xFF
-  sbb al, 1
+  movl $0xFF, %eax
+  sbbb $1, %al
 
   // SBBax  
-  mov eax, $0
-  sbb ax, 1
+  movl $0, %eax
+  sbbw $1, %ax
   
-  mov eax, $1
-  sbb ax, 1
+  movl $1, %eax
+  sbbw $1, %ax
   
-  mov eax, $0x7F
-  sbb ax, 1
+  movl $0x7F, %eax
+  sbbw $1, %ax
   
-  mov eax, $0xFF
-  sbb ax, 1
+  movl $0xFF, %eax
+  sbbw $1, %ax
   
-  mov eax, $0x7FFF
-  sbb ax, 1
+  movl $0x7FFF, %eax
+  sbbw $1, %ax
   
-  mov eax, $0xFFFF
-  sbb ax, 1
+  movl $0xFFFF, %eax
+  sbbw $1, %ax
 
   // SBBeax  
-  mov eax, $0
-  sbb eax, 1
+  movl $0, %eax
+  sbbl $1, %eax
   
-  mov eax, $1
-  sbb eax, 1
+  movl $1, %eax
+  sbbl $1, %eax
   
-  mov eax, $0x7F
-  sbb eax, 1
+  movl $0x7F, %eax
+  sbbl $1, %eax
   
-  mov eax, $0xFF
-  sbb eax, 1
+  movl $0xFF, %eax
+  sbbl $1, %eax
   
-  mov eax, $0x7FFF
-  sbb eax, 1
+  movl $0x7FFF, %eax
+  sbbl $1, %eax
   
-  mov eax, $0xFFFF
-  sbb eax, 1
+  movl $0xFFFF, %eax
+  sbbl $1, %eax
   
-  mov eax, $0x7FFFFFFF
-  sbb eax, 1
+  movl $0x7FFFFFFF, %eax
+  sbbl $1, %eax
   
-  mov eax, $0xFFFFFFFF
-  sbb eax, 1
+  movl $0xFFFFFFFF, %eax
+  sbbl $1, %eax
 
   // SBBr8i8  
-  mov ebx, $0
-  sbb bl, 1
+  movl $0, %ebx
+  sbbb $1, %bl
   
-  mov ebx, $1
-  sbb bl, 1
+  movl $1, %ebx
+  sbbb $1, %bl
   
-  mov ebx, $0x7F
-  sbb bl, 1
+  movl $0x7F, %ebx
+  sbbb $1, %bl
   
-  mov ebx, $0xFF
-  sbb bl, 1
+  movl $0xFF, %ebx
+  sbbb $1, %bl
 
   // SBBr8u8_64  
-  mov r8, $0
-  sbb r8b, 0x7F
+  movq $0, %r8
+  sbbb $0x7F, %r8b
   
-  mov r8, $1
-  sbb r8b, 0x7F
+  movq $1, %r8
+  sbbb $0x7F, %r8b
   
-  mov r8, $0x7F
-  sbb r8b, 0x7F
+  movq $0x7F, %r8
+  sbbb $0x7F, %r8b
   
-  mov r8, $0xFF
-  sbb r8b, 0x7F
+  movq $0xFF, %r8
+  sbbb $0x7F, %r8b
 
   // SBBr8s8_64  
-  mov r8, $0
-  sbb r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $0, %r8
+  sbbb $0xFF /* Sign-extended to 64-bits */, %r8b
   
-  mov r8, $1
-  sbb r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $1, %r8
+  sbbb $0xFF /* Sign-extended to 64-bits */, %r8b
   
-  mov r8, $0x7F
-  sbb r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $0x7F, %r8
+  sbbb $0xFF /* Sign-extended to 64-bits */, %r8b
   
-  mov r8, $0xFF
-  sbb r8b, 0xFF /* Sign-extended to 64-bits */
+  movq $0xFF, %r8
+  sbbb $0xFF /* Sign-extended to 64-bits */, %r8b
 
   // SBBr8r8  
-  mov ebx, $0
-  mov eax, $0
-  sbb bl, al
+  movl $0, %ebx
+  movl $0, %eax
+  sbbb %al, %bl
   
-  mov ebx, $1
-  mov eax, $0
-  sbb bl, al
+  movl $1, %ebx
+  movl $0, %eax
+  sbbb %al, %bl
   
-  mov ebx, $0xFF
-  mov eax, $1
-  sbb bl, al
+  movl $0xFF, %ebx
+  movl $1, %eax
+  sbbb %al, %bl
   
-  mov ebx, $0x7F
-  mov eax, $1
-  sbb bl, al
+  movl $0x7F, %ebx
+  movl $1, %eax
+  sbbb %al, %bl
   
-  mov ebx, $0x7F
-  mov eax, $0xFF
-  sbb bl, al
+  movl $0x7F, %ebx
+  movl $0xFF, %eax
+  sbbb %al, %bl
   
-  mov ebx, $0xFF
-  mov eax, $0xFF
-  sbb bl, al
+  movl $0xFF, %ebx
+  movl $0xFF, %eax
+  sbbb %al, %bl
 
   // SBBr8r8_64  
-  mov r8, $0
-  mov r9, $0
-  sbb r9b, r8b
+  movq $0, %r8
+  movq $0, %r9
+  sbbb %r8b, %r9b
   
-  mov r8, $1
-  mov r9, $0
-  sbb r9b, r8b
+  movq $1, %r8
+  movq $0, %r9
+  sbbb %r8b, %r9b
   
-  mov r8, $0xFF
-  mov r9, $1
-  sbb r9b, r8b
+  movq $0xFF, %r8
+  movq $1, %r9
+  sbbb %r8b, %r9b
   
-  mov r8, $0x7F
-  mov r9, $1
-  sbb r9b, r8b
+  movq $0x7F, %r8
+  movq $1, %r9
+  sbbb %r8b, %r9b
   
-  mov r8, $0x7F
-  mov r9, $0xFF
-  sbb r9b, r8b
+  movq $0x7F, %r8
+  movq $0xFF, %r9
+  sbbb %r8b, %r9b
   
-  mov r8, $0xFF
-  mov r9, $0xFF
-  sbb r9b, r8b
+  movq $0xFF, %r8
+  movq $0xFF, %r9
+  sbbb %r8b, %r9b
 
   // SBBr16u8  
-  mov ebx, $0
-  sbb bx, 0x7F
+  movl $0, %ebx
+  sbbw $0x7F, %bx
   
-  mov ebx, $1
-  sbb bx, 0x7F
+  movl $1, %ebx
+  sbbw $0x7F, %bx
   
-  mov ebx, $0x7F
-  sbb bx, 0x7F
+  movl $0x7F, %ebx
+  sbbw $0x7F, %bx
   
-  mov ebx, $0xFF
-  sbb bx, 0x7F
+  movl $0xFF, %ebx
+  sbbw $0x7F, %bx
   
-  mov ebx, $0x7FFF
-  sbb bx, 0x7F
+  movl $0x7FFF, %ebx
+  sbbw $0x7F, %bx
   
-  mov ebx, $0xFFFF
-  sbb bx, 0x7F
+  movl $0xFFFF, %ebx
+  sbbw $0x7F, %bx
 
   // SBBr16s8  
-  mov ebx, $0
-  sbb bx, 0xFF /* Sign-extended to 16-bits */
+  movl $0, %ebx
+  sbbw $0xFF /* Sign-extended to $16-bits */, %bx
   
-  mov ebx, $1
-  sbb bx, 0xFF /* Sign-extended to 16-bits */
+  movl $1, %ebx
+  sbbw $0xFF /* Sign-extended to $16-bits */, %bx
   
-  mov ebx, $0x7F
-  sbb bx, 0xFF /* Sign-extended to 16-bits */
+  movl $0x7F, %ebx
+  sbbw $0xFF /* Sign-extended to $16-bits */, %bx
   
-  mov ebx, $0xFF
-  sbb bx, 0xFF /* Sign-extended to 16-bits */
+  movl $0xFF, %ebx
+  sbbw $0xFF /* Sign-extended to $16-bits */, %bx
   
-  mov ebx, $0x7FFF
-  sbb bx, 0xFF /* Sign-extended to 16-bits */
+  movl $0x7FFF, %ebx
+  sbbw $0xFF /* Sign-extended to $16-bits */, %bx
   
-  mov ebx, $0xFFFF
-  sbb bx, 0xFF /* Sign-extended to 16-bits */
+  movl $0xFFFF, %ebx
+  sbbw $0xFF /* Sign-extended to $16-bits */, %bx
 
   // SBBr16i16  
-  mov ebx, $0
-  sbb bx, 0xFFFF
+  movl $0, %ebx
+  sbbw $0xFFFF, %bx
   
-  mov ebx, $1
-  sbb bx, 0xFFFF
+  movl $1, %ebx
+  sbbw $0xFFFF, %bx
   
-  mov ebx, $0x7F
-  sbb bx, 0xFFFF
+  movl $0x7F, %ebx
+  sbbw $0xFFFF, %bx
   
-  mov ebx, $0xFF
-  sbb bx, 0xFFFF
+  movl $0xFF, %ebx
+  sbbw $0xFFFF, %bx
   
-  mov ebx, $0x7FFF
-  sbb bx, 0xFFFF
+  movl $0x7FFF, %ebx
+  sbbw $0xFFFF, %bx
   
-  mov ebx, $0xFFFF
-  sbb bx, 0xFFFF
+  movl $0xFFFF, %ebx
+  sbbw $0xFFFF, %bx
 
   // SBBr16r16  
-  mov ebx, $0
-  mov edx, $0
-  sbb bx, dx
+  movl $0, %ebx
+  movl $0, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $1
-  mov edx, $0
-  sbb bx, dx
+  movl $1, %ebx
+  movl $0, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0xFF
-  mov edx, $1
-  sbb bx, dx
+  movl $0xFF, %ebx
+  movl $1, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0x7F
-  mov edx, $1
-  sbb bx, dx
+  movl $0x7F, %ebx
+  movl $1, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0x7F
-  mov edx, $0xFF
-  sbb bx, dx
+  movl $0x7F, %ebx
+  movl $0xFF, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0xFF
-  mov edx, $0xFF
-  sbb bx, dx
+  movl $0xFF, %ebx
+  movl $0xFF, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0x7FFF
-  mov edx, $1
-  sbb bx, dx
+  movl $0x7FFF, %ebx
+  movl $1, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0x7FFF
-  mov edx, $0xFFFF
-  sbb bx, dx
+  movl $0x7FFF, %ebx
+  movl $0xFFFF, %edx
+  sbbw %dx, %bx
   
-  mov ebx, $0xFFFF
-  mov edx, $0xFFFF
-  sbb bx, dx
+  movl $0xFFFF, %ebx
+  movl $0xFFFF, %edx
+  sbbw %dx, %bx
 
   // SBBr32u8  
-  mov ebx, $0
-  sbb ebx, 0x7F
+  movl $0, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $1
-  sbb ebx, 0x7F
+  movl $1, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $0x7F
-  sbb ebx, 0x7F
+  movl $0x7F, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $0xFF
-  sbb ebx, 0x7F
+  movl $0xFF, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $0x7FFF
-  sbb ebx, 0x7F
+  movl $0x7FFF, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $0xFFFF
-  sbb ebx, 0x7F
+  movl $0xFFFF, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $0x7FFFFFFF
-  sbb ebx, 0x7F
+  movl $0x7FFFFFFF, %ebx
+  sbbl $0x7F, %ebx
   
-  mov ebx, $0xFFFFFFFF
-  sbb ebx, 0x7F
+  movl $0xFFFFFFFF, %ebx
+  sbbl $0x7F, %ebx
 
   // SBBr32s8  
-  mov ebx, $0
-  sbb ebx, 0xFF
+  movl $0, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $1
-  sbb ebx, 0xFF
+  movl $1, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $0x7F
-  sbb ebx, 0xFF
+  movl $0x7F, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $0xFF
-  sbb ebx, 0xFF
+  movl $0xFF, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $0x7FFF
-  sbb ebx, 0xFF
+  movl $0x7FFF, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $0xFFFF
-  sbb ebx, 0xFF
+  movl $0xFFFF, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $0x7FFFFFFF
-  sbb ebx, 0xFF
+  movl $0x7FFFFFFF, %ebx
+  sbbl $0xFF, %ebx
   
-  mov ebx, $0xFFFFFFFF
-  sbb ebx, 0xFF
+  movl $0xFFFFFFFF, %ebx
+  sbbl $0xFF, %ebx
 
   // SBBr32i32  
-  mov ebx, $0
-  sbb ebx, 0x7FFFFFFF
+  movl $0, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $1
-  sbb ebx, 0x7FFFFFFF
+  movl $1, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $0x7F
-  sbb ebx, 0x7FFFFFFF
+  movl $0x7F, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $0xFF
-  sbb ebx, 0x7FFFFFFF
+  movl $0xFF, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $0x7FFF
-  sbb ebx, 0x7FFFFFFF
+  movl $0x7FFF, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $0xFFFF
-  sbb ebx, 0x7FFFFFFF
+  movl $0xFFFF, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $0x7FFFFFFF
-  sbb ebx, 0x7FFFFFFF
+  movl $0x7FFFFFFF, %ebx
+  sbbl $0x7FFFFFFF, %ebx
   
-  mov ebx, $0xFFFFFFFF
-  sbb ebx, 0x7FFFFFFF
+  movl $0xFFFFFFFF, %ebx
+  sbbl $0x7FFFFFFF, %ebx
 
   // SBBr32r32  
-  sbb $0, $0
+  movl  $0, %eax
+  movl  $0, %ebx
+  sbbl %ebx, %eax
   
-  sbb $1, $0
+  movl  $1, %eax
+  movl  $0, %ebx
+  sbbl %ebx, %eax
   
-  sbb $0xFFFFFFFF, $1
+  movl  $0xFFFFFFFF, %eax
+  movl  $1, %ebx
+  sbbl %ebx, %eax
   
-  sbb $0xFFFFFFFF, $0xFFFFFFFF
+  movl  $0xFFFFFFFF, %eax
+  movl  $0xFFFFFFFF, %ebx
+  sbbl %ebx, %eax
   
-  sbb $0x7FFFFFFF, $1
+  movl  $0x7FFFFFFF, %eax
+  movl  $1, %ebx
+  sbbl %ebx, %eax
   
-  sbb $0, $0x10
+  movl  $0, %eax
+  movl  $0x10, %ebx
+  sbbl %ebx, %eax
   
-  sbb $0x7F, $0x10
+  movl  $0x7F, %eax
+  movl  $0x10, %ebx
+  sbbl %ebx, %eax
 
   // SBBr64u8_64  
-  sbb $0, 0x7F
+  movb  $0, %al
+  sbbb $0x7F, %al
   
-  sbb $1, 0x7F
+  movb  $1, %al
+  sbbb $0x7F, %al
   
-  sbb $0x7F, 0x7F
+  movb  $0x7F, %al
+  sbbb $0x7F, %al
   
-  sbb $0xFF, 0x7F
+  movb  $0xFF, %al
+  sbbb $0x7F, %al
   
-  sbb $0x7FFF, 0x7F
+  movb  $0x7FFF, %al
+  sbbb $0x7F, %al
   
-  sbb $0xFFFF, 0x7F
+  movb  $0xFFFF, %al
+  sbbb $0x7F, %al
   
-  sbb $0x7FFFFFFF, 0x7F
+  movb  $0x7FFFFFFF, %al
+  sbbb $0x7F, %al
   
-  sbb $0xFFFFFFFF, 0x7F
+  movb  $0xFFFFFFFF, %al
+  sbbb $0x7F, %al
   
-  sbb $0x7FFFFFFFFFFFFFFF, 0x7F
+  movb  $0x7FFFFFFFFFFFFFFF, %al
+  sbbb $0x7F, %al
   
-  sbb $0xFFFFFFFFFFFFFFFF, 0x7F
+  movb  $0xFFFFFFFFFFFFFFFF, %al
+  sbbb $0x7F, %al
 
-  // SBBr64s8_64  
-  sbb $0, 0xFF /* Sign-extended */
-  
-  sbb $1, 0xFF /* Sign-extended */
-  
-  sbb $0x7F, 0xFF /* Sign-extended */
-  
-  sbb $0xFF, 0xFF /* Sign-extended */
-  
-  sbb $0x7FFF, 0xFF /* Sign-extended */
-  
-  sbb $0xFFFF, 0xFF /* Sign-extended */
-  
-  sbb $0x7FFFFFFF, 0xFF /* Sign-extended */
-  
-  sbb $0xFFFFFFFF, 0xFF /* Sign-extended */
-  
-  sbb $0x7FFFFFFFFFFFFFFF, 0xFF /* Sign-extended */
-  
-  sbb $0xFFFFFFFFFFFFFFFF, 0xFF /* Sign-extended */
 
   // SBBr64u32_64  
-  sbb $0, 0x7FFFFFFF
+  movq  $0, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $1, 0x7FFFFFFF
+  movq  $1, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0x7F, 0x7FFFFFFF
+  movq  $0x7F, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0xFF, 0x7FFFFFFF
+  movq  $0xFF, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0x7FFF, 0x7FFFFFFF
+  movq  $0x7FFF, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0xFFFF, 0x7FFFFFFF
+  movq  $0xFFFF, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0x7FFFFFFF, 0x7FFFFFFF
+  movq  $0x7FFFFFFF, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0xFFFFFFFF, 0x7FFFFFFF
+  movq  $0xFFFFFFFF, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0x7FFFFFFFFFFFFFFF, 0x7FFFFFFF
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  sbbq $0x7FFFFFFF, %rax
   
-  sbb $0xFFFFFFFFFFFFFFFF, 0x7FFFFFFF
+  movq  $0xFFFFFFFFFFFFFFFF, %rax
+  sbbq $0x7FFFFFFF, %rax
 
-  // SBBr64s32_64  
-  .byte 0x48;  /* REX.W */
-  sbb $0, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $1, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0x7F, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0xFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0x7FFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0xFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0x7FFFFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0xFFFFFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0x7FFFFFFFFFFFFFFF, 0xFFFFFFFF /* Sign-extended */
-  
-  .byte 0x48;  /* REX.W */
-  sbb $0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF /* Sign-extended */
 
   // SBBr64r64_64  
-  sbb $0, $0
+  movq  $0, %rax
+  movq  $0, %rbx
+  sbbq %rax, %rbx
   
-  sbb $1, $0
+  movq  $1, %rax
+  movq  $1, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0xFFFFFFFF, $1
+  movq  $0xFFFFFFFF, %rax
+  movq  $0xFFFFFFFF, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0xFFFFFFFF, $0xFFFFFFFF
+  movq  $0xFFFFFFFF, %rax
+  movq  $0xFFFFFFFF, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0x7FFFFFFF, $1
+  movq  $0x7FFFFFFF, %rax
+  movq  $0x7FFFFFFF, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0, $0x10
+  movq  $0, %rax
+  movq  $0, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0x7F, $0x10
+  movq  $0x7F, %rax
+  movq  $0x7F, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0x7FFFFFFFFFFFFFFF, $1
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  movq  $0x7FFFFFFFFFFFFFFF, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0x7FFFFFFFFFFFFFFF, $0x7FFFFFFFFFFFFFFF
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  movq  $0x7FFFFFFFFFFFFFFF, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0x7FFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  movq  $0x7FFFFFFFFFFFFFFF, %rbx
+  sbbq %rax, %rbx
   
-  sbb $0xFFFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
+  movq  $0xFFFFFFFFFFFFFFFF, %rax
+  movq  $0xFFFFFFFFFFFFFFFF, %rbx
+  sbbq %rax, %rbx
 
   nop
