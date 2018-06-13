@@ -136,14 +136,14 @@ my $debugprint = 0;
 if ( "" ne $compareintel ) {
     ## file names
     my $availfile = "docs/instruction_manuals/all.instrs";
-    my $intelatt  = "docs/instruction_manuals/intel_att.txt";
+    my $intelatt  = "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
 
-    my $stratafile = "docs/relatedwork/strata/strata_supported.txt";
+    my $stratafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_supported.txt";
     my $stratavecimmfile =
-      "docs/relatedwork/strata/stratum_vector_immediates.txt";
-    my $mcsemafile = "docs/relatedwork/mcsema/amd64.txt";
-    my $xedfile    = "docs/relatedwork/mcsema/xed.txt";
-    my $acl2file   = "docs/relatedwork/acl2/supportedOPcodes.txt";
+      "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
+    my $mcsemafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
+    my $xedfile    = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
+    my $acl2file   = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
     my $stoke_strata_unsup_file =
       "docs/relatedwork/strata/strata_stoke_unsupported.txt";
     my $ungeneralized_memory =
