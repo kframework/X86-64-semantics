@@ -31,10 +31,10 @@ TEST_INPUTS(
     0x7FFF, 0xFF,
     0x7FFF, 0xF7)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    div bl
+    divb %bl
 TEST_END
 
 TEST_BEGIN_64(DIVax_64, 2)
@@ -54,10 +54,10 @@ TEST_INPUTS(
     0x7FFF, 0xFF,
     0x7FFF, 0xF7)
 
-    mov rax, ARG1_64
-    mov r8, ARG2_64
+    movq ARG1_64, %rax
+    movq ARG2_64, %r8
 
-    div r8b
+    divb %r8b
 TEST_END_64
 
 TEST_BEGIN(DIVdxax, 3)
@@ -81,11 +81,11 @@ TEST_INPUTS(
     0xFFFF, 0xFF, 0x7FFF,
     0xFFFF, 0xF7, 0x7FFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
-    mov edx, ARG3_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
+    movl ARG3_32, %edx
 
-    div bx
+    divw %bx
 TEST_END
 
 TEST_BEGIN(DIVedxeax, 3)
@@ -102,11 +102,11 @@ TEST_INPUTS(
     0xFFFFFFFF, 0xFF, 0x7FFFFFFF,
     0xFFFFFFFF, 0xF7, 0x7FFFFFFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
-    mov edx, ARG3_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
+    movl ARG3_32, %edx
 
-    div ebx
+    divl %ebx
 TEST_END
 
 TEST_BEGIN_64(DIVrdxrax_64, 3)
@@ -127,9 +127,9 @@ TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xFF, 0x7FFFFFFFFFFFFFFF,
     0xFFFFFFFFFFFFFFFF, 0xF7, 0x7FFFFFFFFFFFFFFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
-    mov edx, ARG3_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
+    movl ARG3_32, %edx
 
-    div ebx
+    divl %ebx
 TEST_END_64

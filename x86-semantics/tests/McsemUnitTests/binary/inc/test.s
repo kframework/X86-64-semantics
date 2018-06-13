@@ -2,93 +2,105 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
   // INCr8  
-  mov eax, $0
-  inc al
+  movl $0, %eax
+  incb %al
   
-  mov eax, $1
-  inc al
+  movl $1, %eax
+  incb %al
   
-  mov eax, $0x7F
-  inc al
+  movl $0x7F, %eax
+  incb %al
   
-  mov eax, $0xFF
-  inc al
+  movl $0xFF, %eax
+  incb %al
 
   // INCr8_64  
-  inc $0
+  movb $0, %al
+  incb %al
   
-  inc $1
+  movb $1, %al
+  incb %al
   
-  inc $0x7F
+  movb $0x7F, %al
+  incb %al
   
-  inc $0xFF
+  movb $0xFF, %al
+  incb %al
 
   // INCr16  
-  inc $0
+  movw $0, %ax
+  incw %ax
   
-  inc $1
+  movw $1, %ax
+  incw %ax
   
-  inc $0x7F
+  movw $0x7F, %ax
+  incw %ax
   
-  inc $0xFF
+  movw $0xFF, %ax
+  incw %ax
   
-  inc $0x7FFF
+  movw $0x7FFF, %ax
+  incw %ax
   
-  inc $0xFFFF
+  movw $0xFFFF, %ax
+  incw %ax
 
   // INCr32  
-  inc $0
+  movl  $0, %eax
+  incl %eax
   
-  inc $1
+  movl  $1, %eax
+  incl %eax
   
-  inc $0x7F
+  movl  $0x7F, %eax
+  incl %eax
   
-  inc $0xFF
+  movl  $0xFF, %eax
+  incl %eax
   
-  inc $0x7FFF
+  movl  $0x7FFF, %eax
+  incl %eax
   
-  inc $0xFFFF
+  movl  $0xFFFF, %eax
+  incl %eax
   
-  inc $0x7FFFFFFF
+  movl  $0x7FFFFFFF, %eax
+  incl %eax
   
-  inc $0xFFFFFFFF
+  movl  $0xFFFFFFFF, %eax
+  incl %eax
 
   // INCr64_64  
-  inc $0
+  movq  $0, %rax
+  incq %rax
   
-  inc $1
+  movq  $1, %rax
+  incq %rax
   
-  inc $0x7F
+  movq  $0x7F, %rax
+  incq %rax
   
-  inc $0xFF
+  movq  $0xFF, %rax
+  incq %rax
   
-  inc $0x7FFF
+  movq  $0x7FFF, %rax
+  incq %rax
   
-  inc $0xFFFF
+  movq  $0xFFFF, %rax
+  incq %rax
   
-  inc $0x7FFFFFFF
+  movq  $0x7FFFFFFF, %rax
+  incq %rax
   
-  inc $0xFFFFFFFF
+  movq  $0xFFFFFFFF, %rax
+  incq %rax
   
-  inc $0x7FFFFFFFFFFFFFFF
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  incq %rax
   
-  inc $0xFFFFFFFFFFFFFFFF
+  movq  $0xFFFFFFFFFFFFFFFF, %rax
+  incq %rax
 
   nop

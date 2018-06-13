@@ -2,146 +2,147 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
   // CMPr8r8  
-  mov ax, $0
-  mov bx, $0
-  cmp al, bl
+  movw $0, %ax
+  movw $0, %bx
+  cmpb %al, %bl
   
-  mov ax, $0
-  mov bx, $1
-  cmp al, bl
+  movw $0, %ax
+  movw $1, %bx
+  cmpb %al, %bl
   
-  mov ax, $1
-  mov bx, $0
-  cmp al, bl
+  movw $1, %ax
+  movw $0, %bx
+  cmpb %al, %bl
   
-  mov ax, $1
-  mov bx, $1
-  cmp al, bl
+  movw $1, %ax
+  movw $1, %bx
+  cmpb %al, %bl
   
-  mov ax, $0
-  mov bx, $0xFF
-  cmp al, bl
+  movw $0, %ax
+  movw $0xFF, %bx
+  cmpb %al, %bl
   
-  mov ax, $0x10
-  mov bx, $0
-  cmp al, bl
+  movw $0x10, %ax
+  movw $0, %bx
+  cmpb %al, %bl
   
-  mov ax, $0xFF
-  mov bx, $0x11
-  cmp al, bl
+  movw $0xFF, %ax
+  movw $0x11, %bx
+  cmpb %al, %bl
 
   // CMPr16r16  
-  cmp $0, $0
+  movw $0, %ax
+  movw $0, %bx
+  cmpw %bx, %ax
   
-  cmp $0, $1
+  movw $0, %ax
+  movw $1, %bx
+  cmpw %bx, %ax
   
-  cmp $1, $0
+  movw $1, %ax
+  movw $0, %bx
+  cmpw %bx, %ax
   
-  cmp $1, $1
+  movw $1, %ax
+  movw $1, %bx
+  cmpw %bx, %ax
   
-  cmp $0, $0xFFFF
+  movw $0, %ax
+  movw $0xFFFF, %bx
+  cmpw %bx, %ax
   
-  cmp $0x10, $0
+  movw $0x10, %ax
+  movw $0, %bx
+  cmpw %bx, %ax
   
-  cmp $0xFF, $0x11
+  movw $0xFF, %ax
+  movw $0x11, %bx
+  cmpw %bx, %ax
 
   // CMPr16i16  
-  cmp $0, 0xFFFF
+  movw $0, %ax
+  cmpw 0xFFFF, %ax
   
-  cmp $1, 0xFFFF
+  movw $1, %ax
+  cmpw 0xFFFF, %ax
   
-  cmp $0x7FFF, 0xFFFF
+  movw $0x7FFF, %ax
+  cmpw 0xFFFF, %ax
   
-  cmp $0xFFFF, 0xFFFF
+  movw $0xFFFF, %ax
+  cmpw 0xFFFF, %ax
 
   // CMPr32r32  
-  cmp $0, $0
+  movl $0, %eax
+  movl $0, %ebx
+  cmpl %ebx, %eax
   
-  cmp $0, $1
+  movl $0, %eax
+  movl $1, %ebx
+  cmpl %ebx, %eax
   
-  cmp $1, $0
+  movl $1, %eax
+  movl $0, %ebx
+  cmpl %ebx, %eax
   
-  cmp $1, $1
+  movl $1, %eax
+  movl $1, %ebx
+  cmpl %ebx, %eax
   
-  cmp $0, $0xFFFFFFFF
+  movl $0, %eax
+  movl $0xFFFFFFFF, %ebx
+  cmpl %ebx, %eax
   
-  cmp $0x10, $0
+  movl $0x10, %eax
+  movl $0, %ebx
+  cmpl %ebx, %eax
   
-  cmp $0xFF, $0x11
+  movl $0xFF, %eax
+  movl $0x11, %ebx
+  cmpl %ebx, %eax
 
-  // CMPr32i32  
-  cmp $0, 0xFFFFFFFF
-  
-  cmp $1, 0xFFFFFFFF
-  
-  cmp $0x7FFFFFFF, 0xFFFFFFFF
-  
-  cmp $0xFFFFFFFF, 0xFFFFFFFF
+
 
   // CMPr64r64_64  
-  cmp $0, $0
+  movq $0, %rax
+  movq $0, %rbx
+  cmpq %rax, %rbx
   
-  cmp $0, $1
+  movq $0, %rax
+  movq $1, %rbx
+  cmpq %rax, %rbx
   
-  cmp $1, $0
+  movq $1, %rax
+  movq $0, %rbx
+  cmpq %rax, %rbx
   
-  cmp $1, $1
+  movq $1, %rax
+  movq $1, %rbx
+  cmpq %rax, %rbx
   
-  cmp $0, $0xFFFFFFFFFFFFFFFF
+  movq $0, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  cmpq %rax, %rbx
   
-  cmp $1, $0xFFFFFFFFFFFFFFFF
+  movq $1, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  cmpq %rax, %rbx
   
-  cmp $0xFFFFFFFFFFFFFFFF, $1
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $1, %rbx
+  cmpq %rax, %rbx
   
-  cmp $0xFFFFFFFFFFFFFFFF, $0x7FFFFFFFFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0x7FFFFFFFFFFFFFFF, %rbx
+  cmpq %rax, %rbx
   
-  cmp $0x7FFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
+  movq $0x7FFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  cmpq %rax, %rbx
   
-  cmp $0xFFFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
-
-  // CMPr64s32_64  
-  .byte 0x48;  /* REX.W */
-  cmp $0, 0xFFFFFFFF
-  
-  .byte 0x48;  /* REX.W */
-  cmp $1, 0xFFFFFFFF
-  
-  .byte 0x48;  /* REX.W */
-  cmp $0xFFFFFFFF, 0xFFFFFFFF
-  
-  .byte 0x48;  /* REX.W */
-  cmp $0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF
-  
-  .byte 0x48;  /* REX.W */
-  cmp $0x7FFFFFFFFFFFFFFF, 0xFFFFFFFF
-
-  // CMPr64u32_64  
-  cmp $0, 0x7FFFFFFF
-  
-  cmp $1, 0x7FFFFFFF
-  
-  cmp $0xFFFFFFFF, 0x7FFFFFFF
-  
-  cmp $0xFFFFFFFFFFFFFFFF, 0x7FFFFFFF
-  
-  cmp $0x7FFFFFFFFFFFFFFF, 0x7FFFFFFF
-
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  cmpq %rax, %rbx
 
   nop
