@@ -36,7 +36,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movw ARG1_16, %ax
-    cmpw 0xFFFF, %ax
+    cmpw $0xFFFF, %ax
 TEST_END
 
 TEST_BEGIN(CMPr32r32, 2)

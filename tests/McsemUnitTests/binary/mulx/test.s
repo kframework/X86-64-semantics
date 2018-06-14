@@ -50,43 +50,43 @@ _start:
   mulxl %ebx, %eax, %edx
 
   // MULXrdx_64  
-  mov  $0, %rcx
-  mov  $1, %rbx
+  movq  $0, %rcx
+  movq  $1, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0xFFFF, %rcx
-  mov  $0xFFFF, %rbx
+  movq  $0xFFFF, %rcx
+  movq  $0xFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0xFFFFFFFF, %rcx
-  mov  $0xFFFF, %rbx
+  movq  $0xFFFFFFFF, %rcx
+  movq  $0xFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0xFFFFFFFF, %rcx
-  mov  $0xFFFFFFFF, %rbx
+  movq  $0xFFFFFFFF, %rcx
+  movq  $0xFFFFFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0xFFFFFFFF, %rcx
-  mov  $0x7FFFFFFF, %rbx
+  movq  $0xFFFFFFFF, %rcx
+  movq  $0x7FFFFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0x7FFFFFFF, %rcx
-  mov  $0xFFFFFFFF, %rbx
+  movq  $0x7FFFFFFF, %rcx
+  movq  $0xFFFFFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0xFFFFFFFFFFFFFFFF, %rcx
-  mov  $0xFFFFFFFF, %rbx
+  movq  $0xFFFFFFFFFFFFFFFF, %rcx
+  movq  $0xFFFFFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
   
-  mov  $0xFFFFFFFFFFFFFFFF, %rcx
-  mov  $0xFFFFFFFFFFFFFFFF, %rbx
+  movq  $0xFFFFFFFFFFFFFFFF, %rcx
+  movq  $0xFFFFFFFFFFFFFFFF, %rbx
   
   mulxq %rbx, %rax, %rdx
 

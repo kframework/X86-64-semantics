@@ -2,128 +2,128 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+  // ADDSSv128m128_04  
+  movq  $0,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x3f800000,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x40490fdb,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x47c34f80,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x3ff0000000000000,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x400921fb54442d18,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x40f869f000000000,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
+  
+  movq  $0x4141414141414141,  %rax
+  movq  %rax, %xmm4
+  movdqu %xmm4, -16(%rsp)
+  addss -16(%rsp), %xmm0
 
-  // ADDSSv128v128_04  
-  mov DWORD PTR [rsp - 16], $0
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+
+  // VADDSSv128m128_45  
+  movq  $0,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $TEST_END
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x3f800000,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x40490fdb,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $128
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x47c34f80,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $4
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x3ff0000000000000,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $TEST_END
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x400921fb54442d18,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x40f869f000000000,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
   
-  mov DWORD PTR [rsp - 16], $#if APPLE_SAFE_TESTS
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x4141414141414141,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -16(%rsp)
+  vaddss -16(%rsp), %xmm4, %xmm1
+
+  // VADDSSv256m256_45  
+  movq  $0,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x3f800000,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $128
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x40490fdb,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $16
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x47c34f80,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $0
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x3ff0000000000000,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $TEST_END
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x400921fb54442d18,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
+  movq  $0x40f869f000000000,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
   
-  mov DWORD PTR [rsp - 16], $128
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $16
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $4
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $TEST_END
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $#endif  // APPLE_SAFE_TESTS
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $#if HAS_FEATURE_AVX
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $128
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $0
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $TEST_END
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $128
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $1
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $TEST_END
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $#if APPLE_SAFE_TESTS
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $64
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $0x3f800000
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $0x40490fdb
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-  
-  mov DWORD PTR [rsp - 16], $0x47c34f80
-  vaddss xmm1, xmm4, DWORD PTR [rsp - 16]
-#endif  // APPLE_SAFE_TESTS
-#endif  // HAS_FEATURE_AVX
+  movq  $0x4141414141414141,  %rax
+  movq  %rax, %xmm5
+  movdqu %xmm4, -32(%rsp)
+  vaddss -32(%rsp), %ymm4, %ymm1
 
   nop

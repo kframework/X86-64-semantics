@@ -19,138 +19,138 @@ _start:
  */
 
   // MULal  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  mul bl
+  mulb %bl
   
-  mov eax, $0x7F
-  mov ebx, $0x7F
+  movl $0x7F, %eax
+  movl $0x7F, %ebx
   
-  mul bl
+  mulb %bl
   
-  mov eax, $0xFF
-  mov ebx, $0x7F
+  movl $0xFF, %eax
+  movl $0x7F, %ebx
   
-  mul bl
+  mulb %bl
   
-  mov eax, $0xFF
-  mov ebx, $0xFF
+  movl $0xFF, %eax
+  movl $0xFF, %ebx
   
-  mul bl
+  mulb %bl
 
   // MULal_64  
-  mov rax, $0
-  mov r8, $0
+  movq $0, %rax
+  movq $0, %r8
   
-  mul r8b
+  mulb %r8b
   
-  mov rax, $0x7F
-  mov r8, $0x7F
+  movq $0x7F, %rax
+  movq $0x7F, %r8
   
-  mul r8b
+  mulb %r8b
   
-  mov rax, $0xFF
-  mov r8, $0x7F
+  movq $0xFF, %rax
+  movq $0x7F, %r8
   
-  mul r8b
+  mulb %r8b
   
-  mov rax, $0xFF
-  mov r8, $0xFF
+  movq $0xFF, %rax
+  movq $0xFF, %r8
   
-  mul r8b
+  mulb %r8b
 
   // MULax  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  mul bx
+  mulw %bx
   
-  mov eax, $1
-  mov ebx, $0x7FFF
+  movl $1, %eax
+  movl $0x7FFF, %ebx
   
-  mul bx
+  mulw %bx
   
-  mov eax, $1
-  mov ebx, $0xFFFF
+  movl $1, %eax
+  movl $0xFFFF, %ebx
   
-  mul bx
+  mulw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFFFF, %ebx
   
-  mul bx
+  mulw %bx
 
   // MULeax  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  mul ebx
+  mull %ebx
   
-  mov eax, $1
-  mov ebx, $0x7FFF
+  movl $1, %eax
+  movl $0x7FFF, %ebx
   
-  mul ebx
+  mull %ebx
   
-  mov eax, $1
-  mov ebx, $0xFFFF
+  movl $1, %eax
+  movl $0xFFFF, %ebx
   
-  mul ebx
+  mull %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFFFF, %ebx
   
-  mul ebx
+  mull %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFF, %ebx
   
-  mul ebx
+  mull %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFFFFFF, %ebx
   
-  mul ebx
+  mull %ebx
 
   // MULrax_64  
-  mov rax, $0
-  mov rbx, $1
+  movq $0, %rax
+  movq $1, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0xFFFF
-  mov rbx, $0xFFFF
+  movq $0xFFFF, %rax
+  movq $0xFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0xFFFFFFFF
-  mov rbx, $0xFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0xFFFFFFFF
-  mov rbx, $0xFFFFFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0xFFFFFFFF
-  mov rbx, $0x7FFFFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0x7FFFFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0x7FFFFFFF
-  mov rbx, $0xFFFFFFFF
+  movq $0x7FFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0xFFFFFFFFFFFFFFFF
-  mov rbx, $0xFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
   
-  mov rax, $0xFFFFFFFFFFFFFFFF
-  mov rbx, $0xFFFFFFFFFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
   
-  mul rbx
+  mulq %rbx
 
   nop

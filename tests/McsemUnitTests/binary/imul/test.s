@@ -23,246 +23,336 @@ _start:
  */
 
   // IMULal  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  imul bl
+  imulb %bl
   
-  mov eax, $0xFF
-  mov ebx, $0xFF
+  movl $0xFF, %eax
+  movl $0xFF, %ebx
   
-  imul bl
+  imulb %bl
 
   // IMULax  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  imul bx
+  imulw %bx
   
-  mov eax, $1
-  mov ebx, $0x7FFF
+  movl $1, %eax
+  movl $0x7FFF, %ebx
   
-  imul bx
+  imulw %bx
   
-  mov eax, $1
-  mov ebx, $0xFFFF
+  movl $1, %eax
+  movl $0xFFFF, %ebx
   
-  imul bx
+  imulw %bx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFFFF, %ebx
   
-  imul bx
+  imulw %bx
 
   // IMULeax  
-  mov eax, $0
-  mov ebx, $0
+  movl $0, %eax
+  movl $0, %ebx
   
-  imul ebx
+  imull %ebx
   
-  mov eax, $0xFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFFFF, %ebx
   
-  imul ebx
+  imull %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFF, %ebx
   
-  imul ebx
+  imull %ebx
   
-  mov eax, $0xFFFFFFFF
-  mov ebx, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFFFFFF, %ebx
   
-  imul ebx
+  imull %ebx
 
   // IMULrax_64  
-  mov rax, $0
-  mov rbx, $0
+  movq $0, %rax
+  movq $0, %rbx
   
-  imul rbx
+  imulq %rbx
   
-  mov rax, $0xFFFF
-  mov rbx, $0xFFFF
+  movq $0xFFFF, %rax
+  movq $0xFFFF, %rbx
   
-  imul rbx
+  imulq %rbx
   
-  mov rax, $0xFFFFFFFF
-  mov rbx, $0xFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFF, %rbx
   
-  imul rbx
+  imulq %rbx
   
-  mov rax, $0xFFFFFFFF
-  mov rbx, $0xFFFFFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
   
-  imul rbx
+  imulq %rbx
   
-  mov rax, $0xFFFFFFFFFFFFFFFF
-  mov rbx, $0xFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
   
-  imul rbx
+  imulq %rbx
   
-  mov rax, $0xFFFFFFFFFFFFFFFF
-  mov rbx, $0xFFFFFFFFFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
   
-  imul rbx
+  imulq %rbx
 
   // IMULr16r16  
-  imul $0, $0
+  movw $0, %ax
+  movw $0, %bx
+  imulw %ax, %bx
   
-  imul $1, $0x7FFF
+  movw $1, %ax
+  movw $0x7FFF, %bx
+  imulw %ax, %bx
   
-  imul $1, $0xFFFF
+  movw $1, %ax
+  movw $0xFFFF, %bx
+  imulw %ax, %bx
   
-  imul $0xFFFF, $0xFFFF
+  movw $0xFFFF, %ax
+  movw $0xFFFF, %bx
+  imulw %ax, %bx
 
   // IMULr32r32  
-  imul $0, $0
+  movl $0, %eax
+  movl $0, %ebx
+  imul %eax, %ebx
   
-  imul $0xFFFF, $0xFFFF
+  movl $0xFFFF, %eax
+  movl $0xFFFF, %ebx
+  imul %eax, %ebx
   
-  imul $0xFFFFFFFF, $0xFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFF, %ebx
+  imul %eax, %ebx
   
-  imul $0xFFFFFFFF, $0xFFFFFFFF
+  movl $0xFFFFFFFF, %eax
+  movl $0xFFFFFFFF, %ebx
+  imul %eax, %ebx
 
   // IMULr64r64_64  
-  imul $0, $1
+  movq $0, %rax
+  movq $1, %rbx
+  imul %rax, %rbx
   
-  imul $0xFFFF, $0xFFFF
+  movq $0xFFFF, %rax
+  movq $0xFFFF, %rbx
+  imul %rax, %rbx
   
-  imul $0xFFFFFFFF, $0xFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFF, %rbx
+  imul %rax, %rbx
   
-  imul $0xFFFFFFFF, $0xFFFFFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
+  imul %rax, %rbx
   
-  imul $0xFFFFFFFF, $0x7FFFFFFF
+  movq $0xFFFFFFFF, %rax
+  movq $0x7FFFFFFF, %rbx
+  imul %rax, %rbx
   
-  imul $0x7FFFFFFF, $0xFFFFFFFF
+  movq $0x7FFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
+  imul %rax, %rbx
   
-  imul $0xFFFFFFFFFFFFFFFF, $0xFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFF, %rbx
+  imul %rax, %rbx
   
-  imul $0xFFFFFFFFFFFFFFFF, $0xFFFFFFFFFFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rax
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  imul %rax, %rbx
 
   // IMULr16r16i8  
-  imul ax, $0, 7
+  movw $0, %bx
+  imulw $7, %bx, %ax
   
-  imul ax, $1, 7
+  movw $1, %bx
+  imulw $7, %bx, %ax
   
-  imul ax, $2, 7
+  movw $2, %bx
+  imulw $7, %bx, %ax
   
-  imul ax, $0x7FFF, 7
+  movw $0x7FFF, %bx
+  imulw $7, %bx, %ax
   
-  imul ax, $0xFFFF), 7
+  movw $0xFFFF, %bx
+  imulw $7, %bx, %ax
 
   // IMULr16r16i16  
-  imul ax, $0, 0x7FFF
+  movw $0, %bx
+  imulw $0x7FFF, %bx, %ax
   
-  imul ax, $1, 0x7FFF
+  movw $1, %bx
+  imulw $0x7FFF, %bx, %ax
   
-  imul ax, $2, 0x7FFF
+  movw $2, %bx
+  imulw $0x7FFF, %bx, %ax
   
-  imul ax, $0x7FFF, 0x7FFF
+  movw $0x7FFF, %bx
+  imulw $0x7FFF, %bx, %ax
   
-  imul ax, $0xFFFF, 0x7FFF
+  movw $0xFFFF, %bx
+  imulw $0x7FFF, %bx, %ax
 
   // IMULr32r32i8  
-  imul eax, $0, 7
+  movl $0, %ebx
+  imull $7, %ebx, %eax
   
-  imul eax, $1, 7
+  movl $1, %ebx
+  imull $7, %ebx, %eax
   
-  imul eax, $2, 7
+  movl $2, %ebx
+  imull $7, %ebx, %eax
   
-  imul eax, $0x7FFF, 7
+  movl $0x7FFF, %ebx
+  imull $7, %ebx, %eax
   
-  imul eax, $0xFFFF, 7
+  movl $0xFFFF, %ebx
+  imull $7, %ebx, %eax
   
-  imul eax, $0x7FFFFFFF, 7
+  movl $0x7FFFFFFF, %ebx
+  imull $7, %ebx, %eax
   
-  imul eax, $0xFFFFFFFF, 7
+  movl $0xFFFFFFFF, %ebx
+  imull $7, %ebx, %eax
 
   // IMULr32r32s32  
-  imul eax, $0, 0xFFFFFFF
+  movl $0, %ebx
+  imull $0x7FFF, %ebx, %eax
   
-  imul eax, $1, 0xFFFFFFF
+  movl $1, %ebx
+  imull $0x7FFF, %ebx, %eax
   
-  imul eax, $2, 0xFFFFFFF
+  movl $2, %ebx
+  imull $0x7FFF, %ebx, %eax
   
-  imul eax, $0x7FFF, 0xFFFFFFF
+  movl $0x7FFF, %ebx
+  imull $0x7FFF, %ebx, %eax
   
-  imul eax, $0xFFFF, 0xFFFFFFF
+  movl $0xFFFF, %ebx
+  imull $0x7FFF, %ebx, %eax
   
-  imul eax, $0x7FFFFFFF, 0xFFFFFFF
+  movl $0x7FFFFFFF, %ebx
+  imull $0x7FFF, %ebx, %eax
   
-  imul eax, $0xFFFFFFFF, 0xFFFFFFF
+  movl $0xFFFFFFFF, %ebx
+  imull $0x7FFF, %ebx, %eax
 
   // IMULr32r32u32  
-  imul eax, $0, 0x7FFFFFFF
+  movl $0, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
   
-  imul eax, $1, 0x7FFFFFFF
+  movl $1, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
   
-  imul eax, $2, 0x7FFFFFFF
+  movl $2, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
   
-  imul eax, $0x7FFF, 0x7FFFFFFF
+  movl $0x7FFF, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
   
-  imul eax, $0xFFFF, 0x7FFFFFFF
+  movl $0xFFFF, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
   
-  imul eax, $0x7FFFFFFF, 0x7FFFFFFF
+  movl $0x7FFFFFFF, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
   
-  imul eax, $0xFFFFFFFF, 0x7FFFFFFF
+  movl $0xFFFFFFFF, %ebx
+  imull $0x7FFFFFFF, %ebx, %eax
 
   // IMULr64r64i8_64  
-  imul rax, $0, 7
+  movq $0, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $1, 7
+  movq $1, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $2, 7
+  movq $2, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $0x7FFF, 7
+  movq $0x7FFF, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $0xFFFF, 7
+  movq $0xFFFF, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $0x7FFFFFFF, 7
+  movq $0x7FFFFFFF, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $0xFFFFFFFF, 7
+  movq $0xFFFFFFFF, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $0x7FFFFFFFFFFFFFFF, 7
+  movq $0x7FFFFFFFFFFFFFFF, %rbx
+  imulq $0x7, %rbx, %rax
   
-  imul rax, $0xFFFFFFFFFFFFFFFF), 7
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  imulq $0x7, %rbx, %rax
 
   // IMULr64r64s32_64  
-  imul rax, $0, 0xFFFFFFF
+  movq $0, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $1, 0xFFFFFFF
+  movq $1, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $2, 0xFFFFFFF
+  movq $2, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $0x7FFF, 0xFFFFFFF
+  movq $0x7FFF, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $0xFFFF, 0xFFFFFFF
+  movq $0xFFFF, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $0x7FFFFFFF, 0xFFFFFFF
+  movq $0x7FFFFFFF, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $0xFFFFFFFF, 0xFFFFFFF
+  movq $0xFFFFFFFF, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $0x7FFFFFFFFFFFFFFF, 0xFFFFFFF
+  movq $0x7FFFFFFFFFFFFFFF, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
   
-  imul rax, $0xFFFFFFFFFFFFFFFF, 0xFFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  imulq $0xFFFFFFF, %rbx, %rax
 
   // IMULr64r64u32_64  
-  imul rax, $0, 0x7FFFFFFF
+  movq $0, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $1, 0x7FFFFFFF
+  movq $1, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $2, 0x7FFFFFFF
+  movq $2, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $0x7FFF, 0x7FFFFFFF
+  movq $0x7FFF, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $0xFFFF, 0x7FFFFFFF
+  movq $0xFFFF, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $0x7FFFFFFF, 0x7FFFFFFF
+  movq $0x7FFFFFFF, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $0xFFFFFFFF, 0x7FFFFFFF
+  movq $0xFFFFFFFF, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $0x7FFFFFFFFFFFFFFF, 0x7FFFFFFF
+  movq $0x7FFFFFFFFFFFFFFF, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
   
-  imul rax, $0xFFFFFFFFFFFFFFFF, 0x7FFFFFFF
+  movq $0xFFFFFFFFFFFFFFFF, %rbx
+  imulq $0x7FFFFFFF, %rbx, %rax
 
   nop
