@@ -17,22 +17,22 @@ _start:
 
   // ANDax  
   movl $0, %eax
-  andw $1, ax
+  andw $1, %ax
   
   movl $1, %eax
-  andw $1, ax
+  andw $1, %ax
   
   movl $0x7F, %eax
-  andw $1, ax
+  andw $1, %ax
   
   movl $0xFF, %eax
-  andw $1, ax
+  andw $1, %ax
   
   movl $0x7FFF, %eax
-  andw $1, ax
+  andw $1, %ax
   
   movl $0xFFFF, %eax
-  andw $1, ax
+  andw $1, %ax
 
   // ANDeax  
   movl $0, %eax
@@ -60,17 +60,17 @@ _start:
   andl $1, %eax
 
   // ANDr8i8  
-  movl $0, ebx
-  andb $1, bl
+  movl $0, %ebx
+  andb $1, %bl
   
-  movl $1, ebx
-  andb $1, bl
+  movl $1, %ebx
+  andb $1, %bl
   
-  movl $0x7F, ebx
-  andb $1, bl
+  movl $0x7F, %ebx
+  andb $1, %bl
   
-  movl $0xFF, ebx
-  andb $1, bl
+  movl $0xFF, %ebx
+  andb $1, %bl
 
   // ANDr8u8_64  
   movq $0, %r8
@@ -87,41 +87,41 @@ _start:
 
   // ANDr8s8_64  
   movq $0, %r8
-  andb 0xFF /* Sign-extended to $64-bits */, %r8b
+  andb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $1, %r8
-  andb 0xFF /* Sign-extended to $64-bits */, %r8b
+  andb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $0x7F, %r8
-  andb 0xFF /* Sign-extended to $64-bits */, %r8b
+  andb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $0xFF, %r8
-  andb 0xFF /* Sign-extended to $64-bits */, %r8b
+  andb $0xFF /* Sign-extended to $64-bits */, %r8b
 
   // ANDr8r8  
-  movl $0, ebx
+  movl $0, %ebx
   movl $0, %eax
-  andb %al, bl
+  andb %al, %bl
   
-  movl $1, ebx
+  movl $1, %ebx
   movl $0, %eax
-  andb %al, bl
+  andb %al, %bl
   
-  movl $0xFF, ebx
+  movl $0xFF, %ebx
   movl $1, %eax
-  andb %al, bl
+  andb %al, %bl
   
-  movl $0x7F, ebx
+  movl $0x7F, %ebx
   movl $1, %eax
-  andb %al, bl
+  andb %al, %bl
   
-  movl $0x7F, ebx
+  movl $0x7F, %ebx
   movl $0xFF, %eax
-  andb %al, bl
+  andb %al, %bl
   
-  movl $0xFF, ebx
+  movl $0xFF, %ebx
   movl $0xFF, %eax
-  andb %al, bl
+  andb %al, %bl
 
   // ANDr8r8_64  
   movb  $0, %al
@@ -169,22 +169,22 @@ _start:
 
   // ANDr16s8  
   movw  $0, %ax
-  andw 0xFF /* Sign-extended to $16-bits */, %ax
+  andw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $1, %ax
-  andw 0xFF /* Sign-extended to $16-bits */, %ax
+  andw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0x7F, %ax
-  andw 0xFF /* Sign-extended to $16-bits */, %ax
+  andw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0xFF, %ax
-  andw 0xFF /* Sign-extended to $16-bits */, %ax
+  andw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0x7FFF, %ax
-  andw 0xFF /* Sign-extended to $16-bits */, %ax
+  andw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0xFFFF, %ax
-  andw 0xFF /* Sign-extended to $16-bits */, %ax
+  andw $0xFF /* Sign-extended to $16-bits */, %ax
 
   // ANDr16i16  
   movw  $0, %ax

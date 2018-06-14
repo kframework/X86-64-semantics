@@ -19,7 +19,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movl ARG1_32, %eax
-    andw $1, ax
+    andw $1, %ax
 TEST_END
 
 TEST_BEGIN(ANDeax, 1)
@@ -44,8 +44,8 @@ TEST_INPUTS(
     0x7F,
     0xFF)
 
-    movl ARG1_32, ebx
-    andb $1, bl
+    movl ARG1_32, %ebx
+    andb $1, %bl
 TEST_END
 
 TEST_BEGIN_64(ANDr8u8_64, 1)
@@ -67,7 +67,7 @@ TEST_INPUTS(
     0xFF)
 
     movq ARG1_64, %r8
-    andb 0xFF /* Sign-extended to $64-bits */, %r8b
+    andb $0xFF /* Sign-extended to $64-bits */, %r8b
 TEST_END_64
 
 TEST_BEGIN(ANDr8r8, 2)
@@ -79,9 +79,9 @@ TEST_INPUTS(
     0x7F, 0xFF,
     0xFF, 0xFF)
 
-    movl ARG1_32, ebx
+    movl ARG1_32, %ebx
     movl ARG2_32, %eax
-    andb %al, bl
+    andb %al, %bl
 TEST_END
 
 TEST_BEGIN_64(ANDr8r8_64, 2)
@@ -121,7 +121,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movw  ARG1_16, %ax
-    andw 0xFF /* Sign-extended to $16-bits */, %ax
+    andw $0xFF /* Sign-extended to $16-bits */, %ax
 TEST_END
 
 TEST_BEGIN(ANDr16i16, 1)
