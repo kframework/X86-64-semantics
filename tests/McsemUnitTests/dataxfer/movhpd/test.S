@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,32 +41,7 @@ TEST_INPUTS(
 0xFEFE, 
 0xEFEF, 
 0x7FFF, 
-0xFFFF, 
-0x41414141, 
-0x51515151, 
-0x55000000, 
-0x55555555, 
-0xAAFFFFFF, 
-0xAAAAAAAA, 
-0x0F0F0F0F, 
-0xF7F7F7F7, 
-0xFEFEFEFE, 
-0xEFEFEFEF, 
-0x7FFFFFFF, 
-0xFFFFFFFF, 
-0x4141414141414141, 
-0x5115151515115151, 
-0x8000000000000000, 
-0x5500000000000000, 
-0x5555555555555555, 
-0xAA00000000000000, 
-0xAAAAAAAAAAAAAAAA, 
-0x0F0F0F0F0F0F0F0F, 
-0xF7F7F7F7F7F7F7F7, 
-0xEFEFEFEFEFEFEFEF, 
-0xFEFEFEFEFEFEFEFE, 
-0x7FFFFFFFFFFFFFFF,
-0xFFFFFFFFFFFFFFFF)
+0xFFFF) 
 
   movq  ARG1_64,  %rax
   movq  %rax, %xmm0  
@@ -82,39 +57,41 @@ TEST_INPUTS(
     leaq -64(%rsp), %rsp
 
     movhpd %xmm0,   (%rsp)
-    movhpd %xmm1, -8(%rsp)
-    movhpd %xmm2,-16(%rsp)
-    movhpd %xmm3,-24(%rsp)
-    movhpd %xmm4,-32(%rsp)
-    movhpd %xmm5,-40(%rsp)
-    movhpd %xmm6,-48(%rsp)
-    movhpd %xmm7,-56(%rsp)
+    movhpd %xmm1, 8(%rsp)
+    movhpd %xmm2,16(%rsp)
+    movhpd %xmm3,24(%rsp)
+    movhpd %xmm4,32(%rsp)
+    movhpd %xmm5,40(%rsp)
+    movhpd %xmm6,48(%rsp)
+    movhpd %xmm7,56(%rsp)
 
     movhpd    (%rsp), %xmm0
-    movhpd  -8(%rsp), %xmm1
-    movhpd -16(%rsp), %xmm2
-    movhpd -24(%rsp), %xmm3
-    movhpd -32(%rsp), %xmm4
-    movhpd -40(%rsp), %xmm5
-    movhpd -48(%rsp), %xmm6
-    movhpd -56(%rsp), %xmm7
+    movhpd  8(%rsp), %xmm1
+    movhpd 16(%rsp), %xmm2
+    movhpd 24(%rsp), %xmm3
+    movhpd 32(%rsp), %xmm4
+    movhpd 40(%rsp), %xmm5
+    movhpd 48(%rsp), %xmm6
+    movhpd 56(%rsp), %xmm7
 
     vmovhpd %xmm0,   (%rsp)
-    vmovhpd %xmm1, -8(%rsp)
-    vmovhpd %xmm2,-16(%rsp)
-    vmovhpd %xmm3,-24(%rsp)
-    vmovhpd %xmm4,-32(%rsp)
-    vmovhpd %xmm5,-40(%rsp)
-    vmovhpd %xmm6,-48(%rsp)
-    vmovhpd %xmm7,-56(%rsp)
+    vmovhpd %xmm1, 8(%rsp)
+    vmovhpd %xmm2,16(%rsp)
+    vmovhpd %xmm3,24(%rsp)
+    vmovhpd %xmm4,32(%rsp)
+    vmovhpd %xmm5,40(%rsp)
+    vmovhpd %xmm6,48(%rsp)
+    vmovhpd %xmm7,56(%rsp)
 
 
     vmovhpd    (%rsp), %xmm0, %xmm7
-    vmovhpd  -8(%rsp), %xmm1, %xmm6
-    vmovhpd -16(%rsp), %xmm2, %xmm5
-    vmovhpd -24(%rsp), %xmm3, %xmm4
-    vmovhpd -32(%rsp), %xmm4, %xmm3
-    vmovhpd -40(%rsp), %xmm5, %xmm2
-    vmovhpd -48(%rsp), %xmm6, %xmm1
-    vmovhpd -56(%rsp), %xmm7, %xmm0
+    vmovhpd  8(%rsp), %xmm1, %xmm6
+    vmovhpd 16(%rsp), %xmm2, %xmm5
+    vmovhpd 24(%rsp), %xmm3, %xmm4
+    vmovhpd 32(%rsp), %xmm4, %xmm3
+    vmovhpd 40(%rsp), %xmm5, %xmm2
+    vmovhpd 48(%rsp), %xmm6, %xmm1
+    vmovhpd 56(%rsp), %xmm7, %xmm0
+
+    leaq 64(%rsp), %rsp
 TEST_END_64

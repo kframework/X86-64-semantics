@@ -1042,7 +1042,5 @@ _start:
   vmovaps -16(%rsp), %xmm4
   vmovaps %ymm0, -32(%rsp)
   vmovaps -32(%rsp), %ymm4
-#endif  // APPLE_SAFE_TESTS
-#endif  // HAS_FEATURE_AVX
 
   nop

@@ -92,5 +92,3 @@ TEST_INPUTS(
     vmovaps %ymm0, -32(%rsp)
     vmovaps -32(%rsp), %ymm4
 TEST_END
-#endif  // APPLE_SAFE_TESTS
-#endif  // HAS_FEATURE_AVX

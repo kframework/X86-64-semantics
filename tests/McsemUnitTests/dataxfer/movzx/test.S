@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-TEST_BEGIN_64(MOVZXr16r8, 1)
+TEST_BEGIN_64(MOVZXr16r8, 2)
 TEST_INPUTS(
     0x70, 0xFFFFFFFFFFFFFFFF,
     0x80, 0xFFFFFFFFFFFFFFFF)
