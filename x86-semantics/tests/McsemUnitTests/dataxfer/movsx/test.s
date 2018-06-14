@@ -20,12 +20,12 @@ _start:
 
   // MOVSXr16r8  
   movb $0x70, %al
-  movw ARG2_16, %bx
+  movw $0xFFFFFFFFFFFFFFFF, %bx
   movsbw %al, %bx
   
   
   movb $0x80, %al
-  movw ARG2_16, %bx
+  movw $0xFFFFFFFFFFFFFFFF, %bx
   movsbw %al, %bx
   
 

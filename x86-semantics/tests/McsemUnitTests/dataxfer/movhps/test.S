@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -82,39 +82,41 @@ TEST_INPUTS(
     leaq -64(%rsp), %rsp
 
     movhps %xmm0,   (%rsp)
-    movhps %xmm1, -8(%rsp)
-    movhps %xmm2,-16(%rsp)
-    movhps %xmm3,-24(%rsp)
-    movhps %xmm4,-32(%rsp)
-    movhps %xmm5,-40(%rsp)
-    movhps %xmm6,-48(%rsp)
-    movhps %xmm7,-56(%rsp)
+    movhps %xmm1, 8(%rsp)
+    movhps %xmm2,16(%rsp)
+    movhps %xmm3,24(%rsp)
+    movhps %xmm4,32(%rsp)
+    movhps %xmm5,40(%rsp)
+    movhps %xmm6,48(%rsp)
+    movhps %xmm7,56(%rsp)
 
     movhps    (%rsp), %xmm0
-    movhps  -8(%rsp), %xmm1
-    movhps -16(%rsp), %xmm2
-    movhps -24(%rsp), %xmm3
-    movhps -32(%rsp), %xmm4
-    movhps -40(%rsp), %xmm5
-    movhps -48(%rsp), %xmm6
-    movhps -56(%rsp), %xmm7
+    movhps  8(%rsp), %xmm1
+    movhps 16(%rsp), %xmm2
+    movhps 24(%rsp), %xmm3
+    movhps 32(%rsp), %xmm4
+    movhps 40(%rsp), %xmm5
+    movhps 48(%rsp), %xmm6
+    movhps 56(%rsp), %xmm7
 
     vmovhps %xmm0,   (%rsp)
-    vmovhps %xmm1, -8(%rsp)
-    vmovhps %xmm2,-16(%rsp)
-    vmovhps %xmm3,-24(%rsp)
-    vmovhps %xmm4,-32(%rsp)
-    vmovhps %xmm5,-40(%rsp)
-    vmovhps %xmm6,-48(%rsp)
-    vmovhps %xmm7,-56(%rsp)
+    vmovhps %xmm1, 8(%rsp)
+    vmovhps %xmm2,16(%rsp)
+    vmovhps %xmm3,24(%rsp)
+    vmovhps %xmm4,32(%rsp)
+    vmovhps %xmm5,40(%rsp)
+    vmovhps %xmm6,48(%rsp)
+    vmovhps %xmm7,56(%rsp)
 
 
     vmovhps    (%rsp), %xmm0, %xmm7
-    vmovhps  -8(%rsp), %xmm1, %xmm6
-    vmovhps -16(%rsp), %xmm2, %xmm5
-    vmovhps -24(%rsp), %xmm3, %xmm4
-    vmovhps -32(%rsp), %xmm4, %xmm3
-    vmovhps -40(%rsp), %xmm5, %xmm2
-    vmovhps -48(%rsp), %xmm6, %xmm1
-    vmovhps -56(%rsp), %xmm7, %xmm0
+    vmovhps  8(%rsp), %xmm1, %xmm6
+    vmovhps 16(%rsp), %xmm2, %xmm5
+    vmovhps 24(%rsp), %xmm3, %xmm4
+    vmovhps 32(%rsp), %xmm4, %xmm3
+    vmovhps 40(%rsp), %xmm5, %xmm2
+    vmovhps 48(%rsp), %xmm6, %xmm1
+    vmovhps 56(%rsp), %xmm7, %xmm0
+
+    leaq 64(%rsp), %rsp
 TEST_END_64

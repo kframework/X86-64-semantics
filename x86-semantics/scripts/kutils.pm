@@ -560,7 +560,7 @@ sub checkKRunStatus {
             }
         }
     }
-    failInfo("K cell missing");
+    failInfo("$file: K cell missing");
 }
 
 sub processKFile {
