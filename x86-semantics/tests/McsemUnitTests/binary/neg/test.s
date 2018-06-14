@@ -2,97 +2,105 @@
 .globl _start
 
 _start:
-/*
- * Copyright (c) 2017 Trail of Bits, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
   // NEGr8  
-  mov eax, $0
-  neg al
+  movl $0, %eax
+  negb %al
   
-  mov eax, $1
-  neg al
+  movl $1, %eax
+  negb %al
   
-  mov eax, $0xFF
-  neg al
+  movl $0x7F, %eax
+  negb %al
   
-  mov eax, $0x7F
-  neg al
+  movl $0xFF, %eax
+  negb %al
 
   // NEGr8_64  
-  mov r8, $0
-  neg r8b
+  movb $0, %al
+  negb %al
   
-  mov r8, $1
-  neg r8b
+  movb $1, %al
+  negb %al
   
-  mov r8, $0xFF
-  neg r8b
+  movb $0x7F, %al
+  negb %al
   
-  mov r8, $0x7F
-  neg r8b
+  movb $0xFF, %al
+  negb %al
 
   // NEGr16  
-  neg $0
+  movw $0, %ax
+  negw %ax
   
-  neg $1
+  movw $1, %ax
+  negw %ax
   
-  neg $0xFF
+  movw $0x7F, %ax
+  negw %ax
   
-  neg $0x7F
+  movw $0xFF, %ax
+  negw %ax
   
-  neg $0xFFFF
+  movw $0x7FFF, %ax
+  negw %ax
   
-  neg $0x7FFF
+  movw $0xFFFF, %ax
+  negw %ax
 
   // NEGr32  
-  neg $0
+  movl  $0, %eax
+  negl %eax
   
-  neg $1
+  movl  $1, %eax
+  negl %eax
   
-  neg $0xFF
+  movl  $0x7F, %eax
+  negl %eax
   
-  neg $0x7F
+  movl  $0xFF, %eax
+  negl %eax
   
-  neg $0xFFFF
+  movl  $0x7FFF, %eax
+  negl %eax
   
-  neg $0x7FFF
+  movl  $0xFFFF, %eax
+  negl %eax
   
-  neg $0xFFFFFFFF
+  movl  $0x7FFFFFFF, %eax
+  negl %eax
   
-  neg $0x7FFFFFFF
+  movl  $0xFFFFFFFF, %eax
+  negl %eax
 
   // NEGr64_64  
-  neg $0
+  movq  $0, %rax
+  negq %rax
   
-  neg $1
+  movq  $1, %rax
+  negq %rax
   
-  neg $0xFF
+  movq  $0x7F, %rax
+  negq %rax
   
-  neg $0x7F
+  movq  $0xFF, %rax
+  negq %rax
   
-  neg $0xFFFF
+  movq  $0x7FFF, %rax
+  negq %rax
   
-  neg $0x7FFF
+  movq  $0xFFFF, %rax
+  negq %rax
   
-  neg $0xFFFFFFFF
+  movq  $0x7FFFFFFF, %rax
+  negq %rax
   
-  neg $0x7FFFFFFF
+  movq  $0xFFFFFFFF, %rax
+  negq %rax
   
-  neg $0xFFFFFFFFFFFFFFFF
+  movq  $0x7FFFFFFFFFFFFFFF, %rax
+  negq %rax
   
-  neg $0x7FFFFFFFFFFFFFFF
+  movq  $0xFFFFFFFFFFFFFFFF, %rax
+  negq %rax
 
   nop

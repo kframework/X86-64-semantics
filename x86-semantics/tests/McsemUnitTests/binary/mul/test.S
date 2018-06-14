@@ -22,10 +22,10 @@ TEST_INPUTS(
     0xFF, 0x7F,
     0xFF, 0xFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    mul bl
+    mulb %bl
 TEST_END
 
 TEST_BEGIN_64(MULal_64, 2)
@@ -36,10 +36,10 @@ TEST_INPUTS(
     0xFF, 0x7F,
     0xFF, 0xFF)
 
-    mov rax, ARG1_64
-    mov r8, ARG2_64
+    movq ARG1_64, %rax
+    movq ARG2_64, %r8
 
-    mul r8b
+    mulb %r8b
 TEST_END_64
 
 TEST_BEGIN(MULax, 2)
@@ -50,10 +50,10 @@ TEST_INPUTS(
     1, 0xFFFF,
     0xFFFF, 0xFFFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    mul bx
+    mulw %bx
 TEST_END
 
 TEST_BEGIN(MULeax, 2)
@@ -66,10 +66,10 @@ TEST_INPUTS(
     0xFFFFFFFF, 0xFFFF,
     0xFFFFFFFF, 0xFFFFFFFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    mul ebx
+    mull %ebx
 TEST_END
 
 TEST_BEGIN_64(MULrax_64, 2)
@@ -84,8 +84,8 @@ TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF,
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF)
 
-    mov rax, ARG1_64
-    mov rbx, ARG2_64
+    movq ARG1_64, %rax
+    movq ARG2_64, %rbx
 
-    mul rbx
+    mulq %rbx
 TEST_END_64

@@ -40,8 +40,8 @@ TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF,
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF)
 
-    mov  ARG1_64, %rcx
-    mov  ARG2_64, %rbx
+    movq  ARG1_64, %rcx
+    movq  ARG2_64, %rbx
 
     mulxq %rbx, %rax, %rdx
 TEST_END_64

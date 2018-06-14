@@ -207,47 +207,47 @@ _start:
 
   // SUBr16r16  
   movw $0, %ax
-  movw $0, bc
+  movw $0, %bx
   subw %bx, %ax
   
   movw $1, %ax
-  movw $0, bc
+  movw $0, %bx
   subw %bx, %ax
   
   movw $0xFF, %ax
-  movw $1, bc
+  movw $1, %bx
   subw %bx, %ax
   
   movw $0x7F, %ax
-  movw $1, bc
+  movw $1, %bx
   subw %bx, %ax
   
   movw $0x7F, %ax
-  movw $0xFF, bc
+  movw $0xFF, %bx
   subw %bx, %ax
   
   movw $0xFF, %ax
-  movw $0xFF, bc
+  movw $0xFF, %bx
   subw %bx, %ax
   
   movw $0xFF, %ax
-  movw $0x7F, bc
+  movw $0x7F, %bx
   subw %bx, %ax
   
   movw $0x7FFF, %ax
-  movw $1, bc
+  movw $1, %bx
   subw %bx, %ax
   
   movw $0x7FFF, %ax
-  movw $0xFFFF, bc
+  movw $0xFFFF, %bx
   subw %bx, %ax
   
   movw $0xFFFF, %ax
-  movw $0x7FFF, bc
+  movw $0x7FFF, %bx
   subw %bx, %ax
   
   movw $0xFFFF, %ax
-  movw $0xFFFF, bc
+  movw $0xFFFF, %bx
   subw %bx, %ax
 
   // SUBr32u8  

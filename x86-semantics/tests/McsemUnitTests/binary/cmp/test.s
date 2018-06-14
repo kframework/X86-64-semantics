@@ -62,16 +62,16 @@ _start:
 
   // CMPr16i16  
   movw $0, %ax
-  cmpw 0xFFFF, %ax
+  cmpw $0xFFFF, %ax
   
   movw $1, %ax
-  cmpw 0xFFFF, %ax
+  cmpw $0xFFFF, %ax
   
   movw $0x7FFF, %ax
-  cmpw 0xFFFF, %ax
+  cmpw $0xFFFF, %ax
   
   movw $0xFFFF, %ax
-  cmpw 0xFFFF, %ax
+  cmpw $0xFFFF, %ax
 
   // CMPr32r32  
   movl $0, %eax

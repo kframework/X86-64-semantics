@@ -152,7 +152,7 @@ TEST_INPUTS(
     0xFFFF, 0xFFFF)
 
     movw ARG1_16, %ax
-    movw ARG2_16, bc
+    movw ARG2_16, %bx
     subw %bx, %ax
 TEST_END
 

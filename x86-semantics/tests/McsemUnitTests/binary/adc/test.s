@@ -207,39 +207,47 @@ _start:
 
   // ADCr16r16  
   movw $0, %ax
-  movw $0, bc
+  movw $0, %bx
   adcw %bx, %ax
   
   movw $1, %ax
-  movw $0, bc
+  movw $0, %bx
   adcw %bx, %ax
   
   movw $0xFF, %ax
-  movw $1, bc
+  movw $1, %bx
   adcw %bx, %ax
   
   movw $0x7F, %ax
-  movw $1, bc
+  movw $1, %bx
   adcw %bx, %ax
   
   movw $0x7F, %ax
-  movw $0xFF, bc
+  movw $0xFF, %bx
   adcw %bx, %ax
   
   movw $0xFF, %ax
-  movw $0xFF, bc
+  movw $0xFF, %bx
+  adcw %bx, %ax
+  
+  movw $0xFF, %ax
+  movw $0x7F, %bx
   adcw %bx, %ax
   
   movw $0x7FFF, %ax
-  movw $1, bc
+  movw $1, %bx
   adcw %bx, %ax
   
   movw $0x7FFF, %ax
-  movw $0xFFFF, bc
+  movw $0xFFFF, %bx
   adcw %bx, %ax
   
   movw $0xFFFF, %ax
-  movw $0xFFFF, bc
+  movw $0x7FFF, %bx
+  adcw %bx, %ax
+  
+  movw $0xFFFF, %ax
+  movw $0xFFFF, %bx
   adcw %bx, %ax
 
   // ADCr32u8  

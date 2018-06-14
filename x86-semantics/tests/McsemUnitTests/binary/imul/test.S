@@ -24,10 +24,10 @@ TEST_INPUTS(
     0, 0,
     0xFF, 0xFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    imul bl
+    imulb %bl
 TEST_END
 
 TEST_BEGIN(IMULax, 2)
@@ -38,10 +38,10 @@ TEST_INPUTS(
     1, 0xFFFF,
     0xFFFF, 0xFFFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    imul bx
+    imulw %bx
 TEST_END
 
 TEST_BEGIN(IMULeax, 2)
@@ -52,10 +52,10 @@ TEST_INPUTS(
     0xFFFFFFFF, 0xFFFF,
     0xFFFFFFFF, 0xFFFFFFFF)
 
-    mov eax, ARG1_32
-    mov ebx, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
 
-    imul ebx
+    imull %ebx
 TEST_END
 
 TEST_BEGIN_64(IMULrax_64, 2)
@@ -68,10 +68,10 @@ TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF,
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF)
 
-    mov rax, ARG1_64
-    mov rbx, ARG2_64
+    movq ARG1_64, %rax
+    movq ARG2_64, %rbx
 
-    imul rbx
+    imulq %rbx
 TEST_END_64
 
 TEST_BEGIN(IMULr16r16, 2)
@@ -82,7 +82,9 @@ TEST_INPUTS(
     1, 0xFFFF,
     0xFFFF, 0xFFFF)
 
-    imul ARG1_16, ARG2_16
+    movw ARG1_16, %ax
+    movw ARG2_16, %bx
+    imulw %ax, %bx
 TEST_END
 
 TEST_BEGIN(IMULr32r32, 2)
@@ -93,7 +95,9 @@ TEST_INPUTS(
     0xFFFFFFFF, 0xFFFF,
     0xFFFFFFFF, 0xFFFFFFFF)
 
-    imul ARG1_32, ARG2_32
+    movl ARG1_32, %eax
+    movl ARG2_32, %ebx
+    imul %eax, %ebx
 TEST_END
 
 TEST_BEGIN_64(IMULr64r64_64, 2)
@@ -108,10 +112,12 @@ TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFF,
     0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF)
 
-    imul ARG1_64, ARG2_64
+    movq ARG1_64, %rax
+    movq ARG2_64, %rbx
+    imul %rax, %rbx
 TEST_END_64
 
-TEST_BEGIN(IMULr16r16i8, 2)
+TEST_BEGIN(IMULr16r16i8, 1)
 TEST_IGNORE_FLAGS(SF ZF AF PF)
 TEST_INPUTS(
     0,
@@ -120,7 +126,8 @@ TEST_INPUTS(
     0x7FFF,
     0xFFFF)
 
-    imul ax, ARG1_16, 7
+    movw ARG1_16, %bx
+    imulw $7, %bx, %ax 
 TEST_END
 
 TEST_BEGIN(IMULr16r16i16, 1)
@@ -132,7 +139,8 @@ TEST_INPUTS(
     0x7FFF,
     0xFFFF)
 
-    imul ax, ARG1_16, 0x7FFF
+    movw ARG1_16, %bx
+    imulw $0x7FFF, %bx, %ax 
 TEST_END
 
 TEST_BEGIN(IMULr32r32i8, 1)
@@ -146,7 +154,8 @@ TEST_INPUTS(
     0x7FFFFFFF,
     0xFFFFFFFF)
 
-    imul eax, ARG1_32, 7
+    movl ARG1_32, %ebx
+    imull $7, %ebx, %eax 
 TEST_END
 
 TEST_BEGIN(IMULr32r32s32, 1)
@@ -160,7 +169,8 @@ TEST_INPUTS(
     0x7FFFFFFF,
     0xFFFFFFFF)
 
-    imul eax, ARG1_32, 0xFFFFFFF
+    movl ARG1_32, %ebx
+    imull $0x7FFF, %ebx, %eax 
 TEST_END
 
 TEST_BEGIN(IMULr32r32u32, 1)
@@ -174,10 +184,11 @@ TEST_INPUTS(
     0x7FFFFFFF,
     0xFFFFFFFF)
 
-    imul eax, ARG1_32, 0x7FFFFFFF
+    movl ARG1_32, %ebx
+    imull $0x7FFFFFFF, %ebx, %eax 
 TEST_END
 
-TEST_BEGIN_64(IMULr64r64i8_64, 2)
+TEST_BEGIN_64(IMULr64r64i8_64, 1)
 TEST_IGNORE_FLAGS(SF ZF AF PF)
 TEST_INPUTS(
     0,
@@ -190,7 +201,8 @@ TEST_INPUTS(
     0x7FFFFFFFFFFFFFFF,
     0xFFFFFFFFFFFFFFFF)
 
-    imul rax, ARG1_64, 7
+    movq ARG1_64, %rbx
+    imulq $0x7, %rbx, %rax 
 TEST_END_64
 
 TEST_BEGIN_64(IMULr64r64s32_64, 1)
@@ -206,7 +218,8 @@ TEST_INPUTS(
     0x7FFFFFFFFFFFFFFF,
     0xFFFFFFFFFFFFFFFF)
 
-    imul rax, ARG1_64, 0xFFFFFFF
+    movq ARG1_64, %rbx
+    imulq $0xFFFFFFF, %rbx, %rax 
 TEST_END_64
 
 TEST_BEGIN_64(IMULr64r64u32_64, 1)
@@ -222,5 +235,6 @@ TEST_INPUTS(
     0x7FFFFFFFFFFFFFFF,
     0xFFFFFFFFFFFFFFFF)
 
-    imul rax, ARG1_64, 0x7FFFFFFF
+    movq ARG1_64, %rbx
+    imulq $0x7FFFFFFF, %rbx, %rax 
 TEST_END_64
