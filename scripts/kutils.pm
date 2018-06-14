@@ -31,14 +31,6 @@ our $stoke_check_circuit =
 our $functions_dir = "/home/sdasgup3/Github/strata-data/data-regs/functions";
 our $testcases     = "/home/sdasgup3/Github/strata-data/data-regs/testcases.tc";
 
-my @xpatterns = (
-    qr/$\d* = ([-]?\d+)/,
-
-    #qr/$\d* = \{(0x[\dabcdef]+, 0x[\dabcdef]+)\}/,
-    qr/$\d* = \{0x([\dabcdef]+), 0x([\dabcdef]+)\}/,
-    qr/$\d* = \[ ([CPAZSOIF ]*) \]/,
-);
-
 my $uif_binop = (
 qr/add_double|add_single|sub_double|sub_single|maxcmp_double|maxcmp_single|mincmp_double|mincmp_single|mul_double|mul_single|div_double|div_single/
 );
@@ -659,7 +651,15 @@ sub processXFile {
     my $basename = shift @_;
     my $file     = shift @_;
     my ( $unused_fh, $tmpfile ) = tempfile( "tmpfileXXXXX", DIR => "/tmp/" );
-    my @xstates = ();
+    my @xstates   = ();
+
+    my @xpatterns = (
+        qr/$\d* = ([-]?\d+)/,
+
+        #qr/$\d* = \{(0x[\dabcdef]+, 0x[\dabcdef]+)\}/,
+        qr/$\d* = \{0x([\dabcdef]+), 0x([\dabcdef]+)\}/,
+        qr/$\d* = \[ ([CPAZSOIFR ]*) \]/,
+    );
 
     execute("grep   -A 33  \"_start+\"  $file 1> ${tmpfile} 2>&1");
 
