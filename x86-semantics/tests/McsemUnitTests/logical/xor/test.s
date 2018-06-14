@@ -17,22 +17,22 @@ _start:
 
   // XORax  
   movl $0, %eax
-  xorw $1, ax
+  xorw $1, %ax
   
   movl $1, %eax
-  xorw $1, ax
+  xorw $1, %ax
   
   movl $0x7F, %eax
-  xorw $1, ax
+  xorw $1, %ax
   
   movl $0xFF, %eax
-  xorw $1, ax
+  xorw $1, %ax
   
   movl $0x7FFF, %eax
-  xorw $1, ax
+  xorw $1, %ax
   
   movl $0xFFFF, %eax
-  xorw $1, ax
+  xorw $1, %ax
 
   // XOReax  
   movl $0, %eax
@@ -60,17 +60,17 @@ _start:
   xorl $1, %eax
 
   // XORr8i8  
-  movl $0, ebx
-  xorb $1, bl
+  movl $0, %ebx
+  xorb $1, %bl
   
-  movl $1, ebx
-  xorb $1, bl
+  movl $1, %ebx
+  xorb $1, %bl
   
-  movl $0x7F, ebx
-  xorb $1, bl
+  movl $0x7F, %ebx
+  xorb $1, %bl
   
-  movl $0xFF, ebx
-  xorb $1, bl
+  movl $0xFF, %ebx
+  xorb $1, %bl
 
   // XORr8u8_64  
   movq $0, %r8
@@ -87,41 +87,41 @@ _start:
 
   // XORr8s8_64  
   movq $0, %r8
-  xorb 0xFF /* Sign-extended to $64-bits */, %r8b
+  xorb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $1, %r8
-  xorb 0xFF /* Sign-extended to $64-bits */, %r8b
+  xorb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $0x7F, %r8
-  xorb 0xFF /* Sign-extended to $64-bits */, %r8b
+  xorb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $0xFF, %r8
-  xorb 0xFF /* Sign-extended to $64-bits */, %r8b
+  xorb $0xFF /* Sign-extended to $64-bits */, %r8b
 
   // XORr8r8  
-  movl $0, ebx
+  movl $0, %ebx
   movl $0, %eax
-  xorb %al, bl
+  xorb %al, %bl
   
-  movl $1, ebx
+  movl $1, %ebx
   movl $0, %eax
-  xorb %al, bl
+  xorb %al, %bl
   
-  movl $0xFF, ebx
+  movl $0xFF, %ebx
   movl $1, %eax
-  xorb %al, bl
+  xorb %al, %bl
   
-  movl $0x7F, ebx
+  movl $0x7F, %ebx
   movl $1, %eax
-  xorb %al, bl
+  xorb %al, %bl
   
-  movl $0x7F, ebx
+  movl $0x7F, %ebx
   movl $0xFF, %eax
-  xorb %al, bl
+  xorb %al, %bl
   
-  movl $0xFF, ebx
+  movl $0xFF, %ebx
   movl $0xFF, %eax
-  xorb %al, bl
+  xorb %al, %bl
 
   // XORr8r8_64  
   movb  $0, %al
@@ -169,22 +169,22 @@ _start:
 
   // XORr16s8  
   movw  $0, %ax
-  xorw 0xFF /* Sign-extended to $16-bits */, %ax
+  xorw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $1, %ax
-  xorw 0xFF /* Sign-extended to $16-bits */, %ax
+  xorw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0x7F, %ax
-  xorw 0xFF /* Sign-extended to $16-bits */, %ax
+  xorw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0xFF, %ax
-  xorw 0xFF /* Sign-extended to $16-bits */, %ax
+  xorw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0x7FFF, %ax
-  xorw 0xFF /* Sign-extended to $16-bits */, %ax
+  xorw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0xFFFF, %ax
-  xorw 0xFF /* Sign-extended to $16-bits */, %ax
+  xorw $0xFF /* Sign-extended to $16-bits */, %ax
 
   // XORr16i16  
   movw  $0, %ax
