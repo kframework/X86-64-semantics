@@ -19,7 +19,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movl ARG1_32, %eax
-    orw $1, ax
+    orw $1, %ax
 TEST_END
 
 TEST_BEGIN(OReax, 1)
@@ -44,8 +44,8 @@ TEST_INPUTS(
     0x7F,
     0xFF)
 
-    movl ARG1_32, ebx
-    orb $1, bl
+    movl ARG1_32, %ebx
+    orb $1, %bl
 TEST_END
 
 TEST_BEGIN_64(ORr8u8_64, 1)
@@ -67,7 +67,7 @@ TEST_INPUTS(
     0xFF)
 
     movq ARG1_64, %r8
-    orb 0xFF /* Sign-extended to $64-bits */, %r8b
+    orb $0xFF /* Sign-extended to $64-bits */, %r8b
 TEST_END_64
 
 TEST_BEGIN(ORr8r8, 2)
@@ -79,9 +79,9 @@ TEST_INPUTS(
     0x7F, 0xFF,
     0xFF, 0xFF)
 
-    movl ARG1_32, ebx
+    movl ARG1_32, %ebx
     movl ARG2_32, %eax
-    orb %al, bl
+    orb %al, %bl
 TEST_END
 
 TEST_BEGIN_64(ORr8r8_64, 2)
@@ -121,7 +121,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movw  ARG1_16, %ax
-    orw 0xFF /* Sign-extended to $16-bits */, %ax
+    orw $0xFF /* DSAND: restrict rule to orw_r16_imm16, Else orw_r16_imm8will get priority and Sign-extended ff to $16-bits. */, %ax
 TEST_END
 
 TEST_BEGIN(ORr16i16, 1)
