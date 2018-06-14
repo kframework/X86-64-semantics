@@ -17,22 +17,22 @@ _start:
 
   // TESTax  
   movl $0, %eax
-  testw $1, ax
+  testw $1, %ax
   
   movl $1, %eax
-  testw $1, ax
+  testw $1, %ax
   
   movl $0x7F, %eax
-  testw $1, ax
+  testw $1, %ax
   
   movl $0xFF, %eax
-  testw $1, ax
+  testw $1, %ax
   
   movl $0x7FFF, %eax
-  testw $1, ax
+  testw $1, %ax
   
   movl $0xFFFF, %eax
-  testw $1, ax
+  testw $1, %ax
 
   // TESTeax  
   movl $0, %eax
@@ -60,17 +60,17 @@ _start:
   testl $1, %eax
 
   // TESTr8i8  
-  movl $0, ebx
-  testb $1, bl
+  movl $0, %ebx
+  testb $1, %bl
   
-  movl $1, ebx
-  testb $1, bl
+  movl $1, %ebx
+  testb $1, %bl
   
-  movl $0x7F, ebx
-  testb $1, bl
+  movl $0x7F, %ebx
+  testb $1, %bl
   
-  movl $0xFF, ebx
-  testb $1, bl
+  movl $0xFF, %ebx
+  testb $1, %bl
 
   // TESTr8u8_64  
   movq $0, %r8
@@ -87,41 +87,41 @@ _start:
 
   // TESTr8s8_64  
   movq $0, %r8
-  testb 0xFF /* Sign-extended to $64-bits */, %r8b
+  testb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $1, %r8
-  testb 0xFF /* Sign-extended to $64-bits */, %r8b
+  testb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $0x7F, %r8
-  testb 0xFF /* Sign-extended to $64-bits */, %r8b
+  testb $0xFF /* Sign-extended to $64-bits */, %r8b
   
   movq $0xFF, %r8
-  testb 0xFF /* Sign-extended to $64-bits */, %r8b
+  testb $0xFF /* Sign-extended to $64-bits */, %r8b
 
   // TESTr8r8  
-  movl $0, ebx
+  movl $0, %ebx
   movl $0, %eax
-  testb %al, bl
+  testb %al, %bl
   
-  movl $1, ebx
+  movl $1, %ebx
   movl $0, %eax
-  testb %al, bl
+  testb %al, %bl
   
-  movl $0xFF, ebx
+  movl $0xFF, %ebx
   movl $1, %eax
-  testb %al, bl
+  testb %al, %bl
   
-  movl $0x7F, ebx
+  movl $0x7F, %ebx
   movl $1, %eax
-  testb %al, bl
+  testb %al, %bl
   
-  movl $0x7F, ebx
+  movl $0x7F, %ebx
   movl $0xFF, %eax
-  testb %al, bl
+  testb %al, %bl
   
-  movl $0xFF, ebx
+  movl $0xFF, %ebx
   movl $0xFF, %eax
-  testb %al, bl
+  testb %al, %bl
 
   // TESTr8r8_64  
   movb  $0, %al
@@ -169,22 +169,22 @@ _start:
 
   // TESTr16s8  
   movw  $0, %ax
-  testw 0xFF /* Sign-extended to $16-bits */, %ax
+  testw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $1, %ax
-  testw 0xFF /* Sign-extended to $16-bits */, %ax
+  testw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0x7F, %ax
-  testw 0xFF /* Sign-extended to $16-bits */, %ax
+  testw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0xFF, %ax
-  testw 0xFF /* Sign-extended to $16-bits */, %ax
+  testw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0x7FFF, %ax
-  testw 0xFF /* Sign-extended to $16-bits */, %ax
+  testw $0xFF /* Sign-extended to $16-bits */, %ax
   
   movw  $0xFFFF, %ax
-  testw 0xFF /* Sign-extended to $16-bits */, %ax
+  testw $0xFF /* Sign-extended to $16-bits */, %ax
 
   // TESTr16i16  
   movw  $0, %ax

@@ -19,7 +19,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movl ARG1_32, %eax
-    testw $1, ax
+    testw $1, %ax
 TEST_END
 
 TEST_BEGIN(TESTeax, 1)
@@ -44,8 +44,8 @@ TEST_INPUTS(
     0x7F,
     0xFF)
 
-    movl ARG1_32, ebx
-    testb $1, bl
+    movl ARG1_32, %ebx
+    testb $1, %bl
 TEST_END
 
 TEST_BEGIN_64(TESTr8u8_64, 1)
@@ -67,7 +67,7 @@ TEST_INPUTS(
     0xFF)
 
     movq ARG1_64, %r8
-    testb 0xFF /* Sign-extended to $64-bits */, %r8b
+    testb $0xFF /* Sign-extended to $64-bits */, %r8b
 TEST_END_64
 
 TEST_BEGIN(TESTr8r8, 2)
@@ -79,9 +79,9 @@ TEST_INPUTS(
     0x7F, 0xFF,
     0xFF, 0xFF)
 
-    movl ARG1_32, ebx
+    movl ARG1_32, %ebx
     movl ARG2_32, %eax
-    testb %al, bl
+    testb %al, %bl
 TEST_END
 
 TEST_BEGIN_64(TESTr8r8_64, 2)
@@ -121,7 +121,7 @@ TEST_INPUTS(
     0xFFFF)
 
     movw  ARG1_16, %ax
-    testw 0xFF /* Sign-extended to $16-bits */, %ax
+    testw $0xFF /* Sign-extended to $16-bits */, %ax
 TEST_END
 
 TEST_BEGIN(TESTr16i16, 1)

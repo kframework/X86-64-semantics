@@ -1,0 +1,16 @@
+./cmovb/
+./cmovbe/
+./cmovl/
+./cmovle/
+./cmovnb/
+./cmovnbe/
+./cmovnl/
+./cmovnle/
+./cmovno/
+./cmovnp/
+./cmovns/
+./cmovnz/
+./cmovo/
+./cmovp/
+./cmovs/
+./cmovz/
