@@ -26,17 +26,18 @@ execinstr ( addq %rbx, %rcx, .Operands )
       <argc> .K </argc>
       <argv> .K </argv>
     </environment>
+    <regstatequeue> .List </regstatequeue>
 
     <regstate>
 "RIP" |-> (mi(64, 0) => _)
 "RAX" |-> (mi(64, I1:Int):MInt)
 "RBX" |-> (
-    mi(64, I2:Int):MInt => 
-      addMInt(mi(64, I1), mi(64, I2))
+    mi(64, I2:Int):MInt => mi(64, I1 +Int I2)
+     // addMInt(mi(64, I1), mi(64, I2))
     )
 "RCX" |-> (
-    mi(64, I3:Int):MInt => 
-      addMInt(mi(64, I1), addMInt(mi(64, I2), mi(64, I3)))
+    mi(64, I3:Int):MInt => mi(64, I1 +Int I2 +Int I3)
+      //addMInt(mi(64, I1), addMInt(mi(64, I2), mi(64, I3)))
     )
 "AF" |-> (mi(1, F1) => _)
 "CF" |-> (mi(1, F2) => _)
@@ -45,5 +46,9 @@ execinstr ( addq %rbx, %rcx, .Operands )
 "SF" |-> (mi(1, F5) => _)
 "ZF" |-> (mi(1, F6) => _)
     </regstate>
-    <regstatequeue> .List </regstatequeue>
+      requires (I1 +Int I2) >=Int 0 
+       andBool (I1 +Int I2) <Int (2 ^Int 64) 
+       andBool I1 +Int I2 +Int I3 >=Int 0
+       andBool I1 +Int I2 +Int I3 <Int (2 ^Int 64) 
+
 endmodule
