@@ -235,8 +235,7 @@ module TEST-SPEC
        andBool N <Int 255
        andBool S >=Int 0
        andBool M >=Int 0
-       andBool (S +Int M *Int (M +Int 1) /Int 2) <Int 255
-      [trusted]
+       andBool (S +Int M *Int (M +Int 1) /Int 2) <Int 255     [trusted]
 
 
 
