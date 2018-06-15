@@ -406,6 +406,7 @@ module MINT-LEMMAS
     requires  (bitwidthMInt(MIF) ==Int 1) andBool 
               zeroMInt(MIZ) andBool
               (svalueMInt(MI_MINUS_ONE) ==Int -1)
+
 endmodule
 
 module ITE-LEMMAS
@@ -611,6 +612,17 @@ module ITE-LEMMAS
   */
 endmodule
 
+module PROG-VERIFICATION-LEMMAS
+  // "RCX" |-> extractMInt ( addMInt ( concatenateMInt ( 1'0 , extractMInt ( addMInt ( concatenateMInt ( 1'0 , mi ( 64 , V0 ) ) , concatenateMInt ( 1'0 , mi ( 64 , V1 ) ) ) , 1 , 65 ) ) , concatenateMInt ( 1'0 , mi ( 64 , V2 ) ) ) , 1 , 65 )
+
+  rule extractMInt(
+      addMInt(
+        concatenateMInt(mi(1, 0), mi(64, I1):MInt),
+        concatenateMInt(mi(1, 0), mi(64, I2):MInt)), 1, 65 
+  => mi(64, I1 +Int I2)
+    //requires I1 +Int I2 <Int (2 ^Int (64 -Int 1) )
+endmodule
+
 module X86-VERIFICATION-LEMMAS
   // Provided by commons
   // imports INTEGER-LEMMAS
@@ -618,6 +630,7 @@ module X86-VERIFICATION-LEMMAS
   imports MINT-LEMMAS
   imports FLOAT-LEMMAS
   imports ITE-LEMMAS
+  imports PROG-VERIFICATION-LEMMAS
   // The following in needed only while generating K rules cotaining
   // UIFs used for Z3 equiv with Strata's BFVs.
   // imports UIF-LEMMAS
