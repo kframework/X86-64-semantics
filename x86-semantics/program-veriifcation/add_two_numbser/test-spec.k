@@ -50,5 +50,11 @@ execinstr ( addq %rbx, %rcx, .Operands )
        andBool (I1 +Int I2) <Int (2 ^Int 64) 
        andBool I1 +Int I2 +Int I3 >=Int 0
        andBool I1 +Int I2 +Int I3 <Int (2 ^Int 64) 
+       andBool I1  >=Int 0
+       andBool I2  >=Int 0
+       andBool I3  >=Int 0
+       andBool I1  <Int (2 ^Int 64) 
+       andBool I2  <Int (2 ^Int 64) 
+       andBool I3  <Int (2 ^Int 64) 
 
 endmodule

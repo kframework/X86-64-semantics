@@ -620,18 +620,22 @@ module PROG-VERIFICATION-LEMMAS
         concatenateMInt(Z:MInt, MI1:MInt),
         concatenateMInt(Z:MInt, MI2:MInt)), 1, N) 
   => addMInt(MI1, MI2)
-    requires eqMInt(Z, mi(1, 0)) andBool N ==Int (bitwidthMInt(MI1) +Int 1) 
-  // => mi(64, I1 +Int I2)
-    //requires I1 +Int I2 <Int (2 ^Int (64 -Int 1) )
+    requires eqMInt(Z, mi(1, 0)) andBool N ==Int (bitwidthMInt(MI1) +Int 1)
+     andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
 
   rule addMInt(MI1, addMInt(MI2, MI3)) => addMInt(addMInt(MI1, MI2), MI3)
+     requires  bitwidthMInt(MI1) ==Int bitwidthMInt(MI2) 
+     andBool   bitwidthMInt(MI1) ==Int bitwidthMInt(MI3)
 
   rule addMInt(MI1:MInt, MI2:MInt) => 
     mi(bitwidthMInt(MI1), uvalueMInt(MI1) +Int uvalueMInt(MI2))
       requires (uvalueMInt(MI1) +Int uvalueMInt(MI2)) <Int (2 ^Int bitwidthMInt(MI1)) 
        andBool (uvalueMInt(MI1) +Int uvalueMInt(MI2)) >=Int 0
+       andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2) 
 
   rule uvalueMInt(mi(M:Int, N:Int)) => N
+    requires N >=Int 0 
+    andBool  N <Int (2 ^Int M)
 
 endmodule
 
