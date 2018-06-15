@@ -613,14 +613,26 @@ module ITE-LEMMAS
 endmodule
 
 module PROG-VERIFICATION-LEMMAS
-  // "RCX" |-> extractMInt ( addMInt ( concatenateMInt ( 1'0 , extractMInt ( addMInt ( concatenateMInt ( 1'0 , mi ( 64 , V0 ) ) , concatenateMInt ( 1'0 , mi ( 64 , V1 ) ) ) , 1 , 65 ) ) , concatenateMInt ( 1'0 , mi ( 64 , V2 ) ) ) , 1 , 65 )
+  imports MINT-WRAPPER-SYNTAX
 
   rule extractMInt(
       addMInt(
-        concatenateMInt(mi(1, 0), mi(64, I1):MInt),
-        concatenateMInt(mi(1, 0), mi(64, I2):MInt)), 1, 65 
-  => mi(64, I1 +Int I2)
+        concatenateMInt(Z:MInt, MI1:MInt),
+        concatenateMInt(Z:MInt, MI2:MInt)), 1, N) 
+  => addMInt(MI1, MI2)
+    requires eqMInt(Z, mi(1, 0)) andBool N ==Int (bitwidthMInt(MI1) +Int 1) 
+  // => mi(64, I1 +Int I2)
     //requires I1 +Int I2 <Int (2 ^Int (64 -Int 1) )
+
+  rule addMInt(MI1, addMInt(MI2, MI3)) => addMInt(addMInt(MI1, MI2), MI3)
+
+  rule addMInt(MI1:MInt, MI2:MInt) => 
+    mi(bitwidthMInt(MI1), uvalueMInt(MI1) +Int uvalueMInt(MI2))
+      requires (uvalueMInt(MI1) +Int uvalueMInt(MI2)) <Int (2 ^Int bitwidthMInt(MI1)) 
+       andBool (uvalueMInt(MI1) +Int uvalueMInt(MI2)) >=Int 0
+
+  rule uvalueMInt(mi(M:Int, N:Int)) => N
+
 endmodule
 
 module X86-VERIFICATION-LEMMAS
