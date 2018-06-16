@@ -26,14 +26,17 @@ module TEST-SPEC
       <memstate>
         <text> 
           code ( 
-              iloc ( mi(64,0  )) |-> storedInstr ( pushq %rbp , .Operands )
-              iloc ( mi(64,1  )) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+              // iloc ( mi(64,0  )) |-> storedInstr ( pushq %rbp , .Operands )
+              // iloc ( mi(64,1  )) |-> storedInstr ( movq %rsp , %rbp , .Operands )
               // Initial Value of n, .Operands)
               iloc ( mi(64,2  )) |-> storedInstr ( movl %edi , -20 ( %rbp ) , .Operands )
               // Setting s to 0 , .Operands)
               iloc ( mi(64,3  )) |-> storedInstr ( movl $ 0 , -4 ( %rbp ) , .Operands )
               iloc ( mi(64,4  )) |-> storedInstr ( movl -20 ( %rbp ) , %eax , .Operands )
               iloc ( mi(64,5  )) |-> storedInstr ( movl %eax , -8 ( %rbp ) , .Operands )
+              iloc ( mi(64,14 )) |-> storedInstr ( ret .Operands )
+
+              /*
               // L3:  Loop head, .Operands) 
               iloc ( mi(64,6  )) |-> storedInstr ( cmpl $ 0 , -8 ( %rbp ) , .Operands )
               iloc ( mi(64,7  )) |-> storedInstr ( jle L2 , .Operands )
@@ -44,7 +47,7 @@ module TEST-SPEC
               // L2:, .Operands)
               iloc ( mi(64,12 )) |-> storedInstr ( movl -4 ( %rbp ) , %eax , .Operands )
               iloc ( mi(64,13 )) |-> storedInstr ( popq %rbp , .Operands )
-              iloc ( mi(64,14 )) |-> storedInstr ( ret .Operands )
+              */
           )
         </text>
         <stack> 
@@ -124,13 +127,15 @@ module TEST-SPEC
           
            // Main Claim
           "RDI" |-> (mi(64, N:Int):MInt => _)
-          "RAX" |-> (mi(64, _:Int):MInt => mi(64, (N *Int (N +Int 1)) /Int 2))
+          //"RAX" |-> (mi(64, _:Int):MInt => mi(64, (N *Int (N +Int 1)) /Int 2))
+          "RAX" |-> (mi(64, _:Int):MInt => mi(64, N))
     </regstate>
       requires N >=Int 0 
        andBool N <Int 255
 
 
   // Loop Invariant                       
+       /*
   rule 
     <k> fetch => _ </k>
      <functargets>  
@@ -236,7 +241,6 @@ module TEST-SPEC
        andBool S >=Int 0
        andBool M >=Int 0
        andBool (S +Int M *Int (M +Int 1) /Int 2) <Int 255     [trusted]
-
-
+       */
 
 endmodule
