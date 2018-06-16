@@ -637,6 +637,22 @@ module PROG-VERIFICATION-LEMMAS
     requires N >=Int 0 
     andBool  N <Int (2 ^Int M)
 
+  /*@
+    concat with 0
+  */  
+  rule concatenateMInt(MI1, MI2) => mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), uvalueMInt(MI2))
+    requires eqMInt(MI1, mi(bitwidthMInt(MI1), 0))
+
+  /*@
+    extract(MI)
+  */  
+  rule extractMInt(MI:MInt, S:Int, E:Int) => mi(E -Int S, uvalueMInt(MI))
+    requires  bitwidthMInt(MI) ==Int E
+    andBool   E >Int S
+    andBool   bitwidthMInt(MI) >Int (E -Int S)
+    andBool   uvalueMInt(MI) >=Int 0    
+    andBool   uvalueMInt(MI) <Int (2 ^Int (E -Int S))    
+
 endmodule
 
 module X86-VERIFICATION-LEMMAS
