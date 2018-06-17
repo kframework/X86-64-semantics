@@ -1,0 +1,104 @@
+Adding all the require is soundness (first priority)
+adding different rules in completeness.
+
+
+cmpl semantics:
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+  extractMInt( 
+    addMInt( 
+      addMInt( 
+        concatenateMInt( 
+          mi(1, 0), 
+          negMInt( handleImmediateWithSignExtend(Imm32, 32, 32))), 
+        mi(33, 1)), 
+      concatenateMInt( mi(1, 0), Mem32)), 
+    1, 33), mi(32, 0)) 
+  #then mi(1, 1) #else 
+    mi(1, 0) #fi)
+
+=====
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+  extractMInt( 
+    addMInt( 
+      addMInt( 
+        concatenateMInt( 
+          mi(1, 0), 
+          negMInt( mi(32, Imm32))), 
+        mi(33, 1)), 
+      concatenateMInt( mi(1, 0), Mem32)), 
+    1, 33), mi(32, 0)) 
+  #then mi(1, 1) #else 
+    mi(1, 0) #fi)
+
+
+===================
+from L11:
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+  extractMInt( 
+    addMInt( 
+      addMInt( 
+        concatenateMInt( 
+          mi(1, 0), 
+           mi(32, ~Imm32)), 
+        mi(33, 1)), 
+      concatenateMInt( mi(1, 0), Mem32)), 
+    1, 33), mi(32, 0)) 
+  #then mi(1, 1) #else 
+    mi(1, 0) #fi)
+
+===================
+from L7:
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+  extractMInt( 
+    addMInt( 
+      addMInt( 
+        mi(33, ~Imm32), 
+        mi(33, 1)), 
+      concatenateMInt( mi(1, 0), Mem32)), 
+    1, 33), mi(32, 0)) 
+  #then mi(1, 1) #else 
+    mi(1, 0) #fi)
+
+===================
+from L3:
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+  extractMInt( 
+    addMInt( 
+      mi(33, ~Imm32 +Int 1), 
+      concatenateMInt( mi(1, 0), Mem32)), 
+    1, 33), mi(32, 0)) 
+  #then mi(1, 1) #else 
+    mi(1, 0) #fi)
+
+
+
+
+
+
+
+
+========== JUNK
+
+    /*@
+    L4: Redundant Extraction
+  rule extractMInt(
+      addMInt(
+        concatenateMInt(X:MInt, MI1:MInt),
+        concatenateMInt(Y:MInt, MI2:MInt)), S:Int, E:Int) 
+  => addMInt(MI1, MI2)
+    requires  eqMInt(Z, mi(1, 0)) 
+    andBool   S ==Int (bitwidthMInt(X)
+    andBool   E ==Int (bitwidthMInt(X) +Int (bitwidthMInt(MI1)
+    andBool   bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+    andBool   bitwidthMInt(X) ==Int bitwidthMInt(Y)
+  */
