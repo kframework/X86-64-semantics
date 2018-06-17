@@ -71,7 +71,7 @@ module X86-MEMORY
   imports X86-CONFIGURATION
 
 
-  rule StackSpaceForEnvs => 64 [macro]
+  rule StackSpaceForEnvs => 8 [macro]
 
   /// Decomposition of a dynamic value into bytes
   syntax ByteVal ::= byte(/* position, 0 being the LSB */ Int, MInt)
