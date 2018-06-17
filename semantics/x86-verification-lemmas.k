@@ -194,6 +194,7 @@ module MINT-LEMMAS
   // bitwidthMInt    
   // Recursive rules
   rule bitwidthMInt(addMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
+  rule bitwidthMInt(subMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(xorMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(orMInt(MIC,   _)) => bitwidthMInt(MIC) [lemma]
   rule bitwidthMInt(andMInt(MIC,  _)) => bitwidthMInt(MIC) [lemma]
@@ -615,36 +616,85 @@ endmodule
 module PROG-VERIFICATION-LEMMAS
   imports MINT-WRAPPER-SYNTAX
 
-  rule extractMInt(
-      addMInt(
-        concatenateMInt(Z:MInt, MI1:MInt),
-        concatenateMInt(Z:MInt, MI2:MInt)), 1, N) 
-  => addMInt(MI1, MI2)
-    requires eqMInt(Z, mi(1, 0)) andBool N ==Int (bitwidthMInt(MI1) +Int 1)
-     andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+  /*@
+    L0: Distributing extraction over addition
+  */  
 
+   rule extractMInt(
+        addMInt( MI1:MInt, MI2:MInt), 
+        S:Int, E:Int) 
+  => addMInt(
+      extractMInt(MI1, S, E), 
+      extractMInt(MI2, S, E))
+    requires  bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+    andBool   E ==Int bitwidthMInt(MI1)
+    andBool   S <Int E
+    andBool   S >=Int 0  
+
+  /*@ 
+    L1: addMInt semantics: Associativity
+  */  
   rule addMInt(MI1, addMInt(MI2, MI3)) => addMInt(addMInt(MI1, MI2), MI3)
      requires  bitwidthMInt(MI1) ==Int bitwidthMInt(MI2) 
      andBool   bitwidthMInt(MI1) ==Int bitwidthMInt(MI3)
 
+  /*@ 
+    L3: addMInt: Semantics 
+  */  
   rule addMInt(MI1:MInt, MI2:MInt) => 
     mi(bitwidthMInt(MI1), uvalueMInt(MI1) +Int uvalueMInt(MI2))
       requires (uvalueMInt(MI1) +Int uvalueMInt(MI2)) <Int (2 ^Int bitwidthMInt(MI1)) 
        andBool (uvalueMInt(MI1) +Int uvalueMInt(MI2)) >=Int 0
        andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2) 
 
+  /*@ 
+    L4: subMInt Semantics
+  */  
+  rule subMInt(MI1:MInt, MI2:MInt) => 
+    mi(bitwidthMInt(MI1), uvalueMInt(MI1) -Int uvalueMInt(MI2))
+      requires uvalueMInt(MI1) >=Int uvalueMInt(MI2)
+       andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+
+  rule subMInt(MI1:MInt, MI2:MInt) => 
+    mi(bitwidthMInt(MI1), 
+        (2 ^Int bitwidthMInt(MI1)) +Int ( uvalueMInt(MI1) -Int uvalueMInt(MI2)))
+      requires uvalueMInt(MI1) <Int uvalueMInt(MI2)
+       andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+
+  /*@ 
+    L5: uvalueMInt semantics
+  */  
   rule uvalueMInt(mi(M:Int, N:Int)) => N
     requires N >=Int 0 
     andBool  N <Int (2 ^Int M)
 
+  rule uvalueMInt(mi(M:Int, N:Int)) => (2 ^Int M) +Int N
+    requires N <Int 0 
+    andBool  N >=Int -1 *Int (2 ^Int (M -Int 1))
+
+  /*@ 
+    L6: svalueMInt semantics
+  */  
+  rule svalueMInt(mi(M:Int, N:Int)) => (-1 *Int (2 ^Int M)) +Int N 
+    requires  N >=Int 2 ^Int (M -Int 1)
+    andBool   N <Int  2 ^Int M
+
+  rule svalueMInt(mi(M:Int, N:Int)) => N
+    requires 
+        (N <Int 0 
+          andBool  N >=Int -1 *Int (2 ^Int (M -Int 1)))
+      orBool
+        (N >=Int 0 
+          andBool N <Int (2 ^Int (M -Int 1)))
+
   /*@
-    concat with 0
+    L7: concat with 0
   */  
   rule concatenateMInt(MI1, MI2) => mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), uvalueMInt(MI2))
     requires eqMInt(MI1, mi(bitwidthMInt(MI1), 0))
 
   /*@
-    extract(MI)
+    L8: extract(MI) short width
   */  
   rule extractMInt(MI:MInt, S:Int, E:Int) => mi(E -Int S, uvalueMInt(MI))
     requires  bitwidthMInt(MI) ==Int E
@@ -652,6 +702,19 @@ module PROG-VERIFICATION-LEMMAS
     andBool   bitwidthMInt(MI) >Int (E -Int S)
     andBool   uvalueMInt(MI) >=Int 0    
     andBool   uvalueMInt(MI) <Int (2 ^Int (E -Int S))    
+
+
+  /*@
+    L9: eqMInt semantics
+  */
+  rule eqMInt(mi(W, I1), mi(W, I2)) => I1 ==Int I2
+
+  /*@
+    L10: 2's complement
+  */
+  rule addMInt(negMInt(MI:MInt), ONE:MInt) => mi(bitwidthMInt(MI), -1 *Int svalueMInt(MI))
+    requires  bitwidthMInt(MI) ==Int bitwidthMInt(ONE)
+    andBool   eqMInt(ONE, mi(bitwidthMInt(ONE), 1)) 
 
 endmodule
 
