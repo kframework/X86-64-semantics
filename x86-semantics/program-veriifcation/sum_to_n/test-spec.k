@@ -30,7 +30,6 @@ module TEST-SPEC
         "SF" |-> (mi(1, _) => _)
         "ZF" |-> (mi(1, _) => _)
            
-        
          // Main Claim
         "RDI" |-> (mi(64, N:Int):MInt => _)
         "RAX" |-> (mi(64, _:Int):MInt => mi(64, N:Int):MInt)
@@ -65,14 +64,14 @@ module TEST-SPEC
                     37 |-> (byte ( 0 , undefMInt ) => byte(1, mi(32, N)))
                     38 |-> (byte ( 0 , undefMInt ) => byte(2, mi(32, N)))
                     39 |-> (byte ( 0 , undefMInt ) => byte(3, mi(32, N)))
-                    40 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    41 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    42 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    43 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    44 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    45 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    46 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    47 |-> (byte ( 0 , undefMInt ) => byte(_,_))
+                    40 |-> (byte ( 0 , undefMInt ))
+                    41 |-> (byte ( 0 , undefMInt ))
+                    42 |-> (byte ( 0 , undefMInt ))
+                    43 |-> (byte ( 0 , undefMInt ))
+                    44 |-> (byte ( 0 , undefMInt ))
+                    45 |-> (byte ( 0 , undefMInt ))
+                    46 |-> (byte ( 0 , undefMInt ))
+                    47 |-> (byte ( 0 , undefMInt ))
                     48 |-> (byte ( 0 , undefMInt ) => byte(0, mi(32, N -Int 1)))
                     49 |-> (byte ( 0 , undefMInt ) => byte(1, mi(32, N -Int 1)))
                     50 |-> (byte ( 0 , undefMInt ) => byte(2, mi(32, N -Int 1)))
@@ -101,8 +100,8 @@ module TEST-SPEC
         <argc> .K => _ </argc>
         <argv> .K => _ </argv>
       </environment>
-        requires N >=Int 1 
-          andBool N <Int (2 ^Int 32)
+        requires N >=Int 0 
+          andBool N <Int (2 ^Int 31)
 
 
 endmodule

@@ -4,16 +4,53 @@ adding different rules in completeness.
 
 cmpl semantics:
 
-"ZF" |-> (
-#ifMInt eqMInt( 
-  extractMInt( 
+  Jump to target:   
+        requires  eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1)) 
+                    orBool 
+                  (notBool eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt))
+V1 ==K 0
+
+
+
+  Fall through
+        requires  notBool eqMInt({RSMap["ZF"]}:>MInt, mi(1, 1)) 
+                    andBool 
+                  eqMInt({RSMap["SF"]}:>MInt, {RSMap["OF"]}:>MInt)
+
+V1 !=K 0
+
+
+
+
+============
+
+"SF" |-> extractMInt( 
     addMInt( 
+
       addMInt( 
         concatenateMInt( 
           mi(1, 0), 
           negMInt( handleImmediateWithSignExtend(Imm32, 32, 32))), 
         mi(33, 1)), 
+
+      concatenateMInt( mi(1, 0), Mem32)), 1, 2)
+
+
+================================
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+  extractMInt( 
+    addMInt( 
+
+      addMInt( 
+        concatenateMInt( 
+          mi(1, 0), 
+          negMInt( handleImmediateWithSignExtend(Imm32, 32, 32))), 
+        mi(33, 1)), 
+
       concatenateMInt( mi(1, 0), Mem32)), 
+
     1, 33), mi(32, 0)) 
   #then mi(1, 1) #else 
     mi(1, 0) #fi)
@@ -114,3 +151,38 @@ from L0:
     andBool   bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
     andBool   bitwidthMInt(X) ==Int bitwidthMInt(Y)
   */
+
+
+====== sub unsigned semantics
+  /*@ 
+    L4: subMInt Semantics
+  */  
+  rule subMInt(MI1:MInt, MI2:MInt) => 
+    mi(bitwidthMInt(MI1), uvalueMInt(MI1) -Int uvalueMInt(MI2))
+      requires uvalueMInt(MI1) >=Int uvalueMInt(MI2)
+       andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+
+  rule subMInt(MI1:MInt, MI2:MInt) => 
+    mi(bitwidthMInt(MI1), 
+        (2 ^Int bitwidthMInt(MI1)) +Int ( uvalueMInt(MI1) -Int uvalueMInt(MI2)))
+      requires uvalueMInt(MI1) <Int uvalueMInt(MI2)
+       andBool bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+
+   /*@
+    L10: 2's complement
+  rule addMInt(negMInt(MI:MInt), ONE:MInt) => mi(bitwidthMInt(MI), -1 *Int svalueMInt(MI))
+    requires  bitwidthMInt(MI) ==Int bitwidthMInt(ONE)
+    andBool   eqMInt(ONE, mi(bitwidthMInt(ONE), 1)) 
+  */
+
+
+   /*@ 
+    addMInt with zero
+  rule addMInt(MI1:MInt, MI2:MInt) => concatenateMInt(mi(1, 1), MI2)
+    requires eqMInt(
+        extractMInt(MI1, 1, bitwidthMInt(MI1) +Int 1), 
+        mi(bitwidthMInt(MI1), 0))  
+    andBool eqMInt(extractMInt(MI2, 0, 1), mi(1, 0))
+    andBool  bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+  */  
+
