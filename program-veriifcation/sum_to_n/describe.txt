@@ -80,6 +80,18 @@ from L3:
   #then mi(1, 1) #else 
     mi(1, 0) #fi)
 
+===================
+from L0:
+
+"ZF" |-> (
+#ifMInt eqMInt( 
+    addMInt( 
+      mi(32, ~Imm32 +Int 1), 
+      Mem32), 
+    , mi(32, 0)) 
+  #then mi(1, 1) #else 
+    mi(1, 0) #fi)
+
 
 
 

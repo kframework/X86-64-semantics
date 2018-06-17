@@ -43,7 +43,15 @@ module TEST-SPEC
               iloc ( mi(64,1)) |-> storedInstr ( movl $ 0 , -4 ( %rbp ) , .Operands )
               iloc ( mi(64,2)) |-> storedInstr ( movl -20 ( %rbp ) , %eax , .Operands )
               iloc ( mi(64,3)) |-> storedInstr ( movl %eax , -8 ( %rbp ) , .Operands )
-              iloc ( mi(64,4)) |-> storedInstr ( ret .Operands )
+
+              iloc ( mi(64,4  )) |-> storedInstr ( cmpl $ 0 , -8 ( %rbp ) , .Operands )
+              iloc ( mi(64,5  )) |-> storedInstr ( movl -8 ( %rbp ) , %eax , .Operands )
+              iloc ( mi(64,6  )) |-> storedInstr ( addl %eax , -4 ( %rbp ) , .Operands )
+              iloc ( mi(64,7 )) |-> storedInstr ( decl -8 ( %rbp ) , .Operands )
+
+              iloc ( mi(64,8 )) |-> storedInstr ( movl -4 ( %rbp ) , %eax , .Operands )
+              iloc ( mi(64,9)) |-> storedInstr ( ret .Operands )
+
           )
         </text>
         <stack> 
@@ -53,10 +61,10 @@ module TEST-SPEC
                mem( 
               symloc ( 1 , 128 ) |-> 
                 mVector(64, 8, 
-                    36 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    37 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    38 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    39 |-> (byte ( 0 , undefMInt ) => byte(_,_))
+                    36 |-> (byte ( 0 , undefMInt ) => byte(0, mi(32, N)))
+                    37 |-> (byte ( 0 , undefMInt ) => byte(1, mi(32, N)))
+                    38 |-> (byte ( 0 , undefMInt ) => byte(2, mi(32, N)))
+                    39 |-> (byte ( 0 , undefMInt ) => byte(3, mi(32, N)))
                     40 |-> (byte ( 0 , undefMInt ) => byte(_,_))
                     41 |-> (byte ( 0 , undefMInt ) => byte(_,_))
                     42 |-> (byte ( 0 , undefMInt ) => byte(_,_))
@@ -65,14 +73,14 @@ module TEST-SPEC
                     45 |-> (byte ( 0 , undefMInt ) => byte(_,_))
                     46 |-> (byte ( 0 , undefMInt ) => byte(_,_))
                     47 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    48 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    49 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    50 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    51 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    52 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    53 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    54 |-> (byte ( 0 , undefMInt ) => byte(_,_))
-                    55 |-> (byte ( 0 , undefMInt ) => byte(_,_))
+                    48 |-> (byte ( 0 , undefMInt ) => byte(0, mi(32, N -Int 1)))
+                    49 |-> (byte ( 0 , undefMInt ) => byte(1, mi(32, N -Int 1)))
+                    50 |-> (byte ( 0 , undefMInt ) => byte(2, mi(32, N -Int 1)))
+                    51 |-> (byte ( 0 , undefMInt ) => byte(3, mi(32, N -Int 1)))
+                    52 |-> (byte ( 0 , undefMInt ) => byte(0, mi(32, N)))
+                    53 |-> (byte ( 0 , undefMInt ) => byte(1, mi(32, N)))
+                    54 |-> (byte ( 0 , undefMInt ) => byte(2, mi(32, N)))
+                    55 |-> (byte ( 0 , undefMInt ) => byte(3, mi(32, N)))
                     56 |-> byte ( 0 , mi(64,-1) )
                     57 |-> byte ( 1 , mi(64,-1) )
                     58 |-> byte ( 2 , mi(64,-1) )
@@ -93,7 +101,7 @@ module TEST-SPEC
         <argc> .K => _ </argc>
         <argv> .K => _ </argv>
       </environment>
-        requires N >=Int 0 
+        requires N >=Int 1 
           andBool N <Int (2 ^Int 32)
 
 
