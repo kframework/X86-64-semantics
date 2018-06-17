@@ -26,7 +26,6 @@ execinstr ( addq %rbx, %rcx, .Operands )
       <argc> .K </argc>
       <argv> .K </argv>
     </environment>
-    <regstatequeue> .List </regstatequeue>
 
     <regstate>
 "RIP" |-> (mi(64, 0) => _)
@@ -47,14 +46,14 @@ execinstr ( addq %rbx, %rcx, .Operands )
 "ZF" |-> (mi(1, F6) => _)
     </regstate>
       requires (I1 +Int I2) >=Int 0 
-       andBool (I1 +Int I2) <Int (2 ^Int 64) 
+       andBool (I1 +Int I2) <Int (2 ^Int 63) 
        andBool I1 +Int I2 +Int I3 >=Int 0
-       andBool I1 +Int I2 +Int I3 <Int (2 ^Int 64) 
+       andBool I1 +Int I2 +Int I3 <Int (2 ^Int 63) 
        andBool I1  >=Int 0
        andBool I2  >=Int 0
        andBool I3  >=Int 0
-       andBool I1  <Int (2 ^Int 64) 
-       andBool I2  <Int (2 ^Int 64) 
-       andBool I3  <Int (2 ^Int 64) 
+       andBool I1  <Int (2 ^Int 63) 
+       andBool I2  <Int (2 ^Int 63) 
+       andBool I3  <Int (2 ^Int 63) 
 
 endmodule

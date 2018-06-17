@@ -1,0 +1,25 @@
+addMInt(mi(64, I1), mi(64, I2)) => addMInt(svalueMInt(mi(64, I1)), 
+    svalueMInt(mi(64, I2)))
+
+The condidtion of  the rewrite L6
+are satisfied in spec using
+
+
+
+
+andBool I1  >=Int 0
+       andBool I2  >=Int 0
+       andBool I3  >=Int 0
+       andBool I1  <Int (2 ^Int 63) 
+       andBool I2  <Int (2 ^Int 63) 
+       andBool I3  <Int (2 ^Int 63) 
+
+
+and the   condidtion of  the rewrite L3 
+are satisfied in spec using
+
+(I1 +Int I2) >=Int 0 
+       andBool (I1 +Int I2) <Int (2 ^Int 63) 
+       andBool I1 +Int I2 +Int I3 >=Int 0
+       andBool I1 +Int I2 +Int I3 <Int (2 ^Int 63) 
+
