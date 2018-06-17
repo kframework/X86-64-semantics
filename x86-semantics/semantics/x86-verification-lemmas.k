@@ -713,11 +713,10 @@ module PROG-VERIFICATION-LEMMAS
     L7: concat with 0
     makes concatenateMInt ( 32'0 , mi ( 32 , V1 ) )
     equiv to mi(64, V1)
-
-  */  
   rule concatenateMInt(MI1, MI2) => 
       mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), uvalueMInt(MI2))
     requires eqMInt(MI1, mi(bitwidthMInt(MI1), 0))
+  */  
 
   /*@
     L8: extract(MI) short width
@@ -732,13 +731,46 @@ module PROG-VERIFICATION-LEMMAS
 
   /*@
     L9: eqMInt semantics
-  */
   rule eqMInt( MI1:MInt, MI2:MInt) => svalueMInt(MI1) ==Int svalueMInt(MI2)
     requires bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
+  */
 
+  rule eqMInt( MI1:MInt, MI2:MInt) => svalueMInt(MI1) ==Int 0
+    requires  bitwidthMInt(MI1) ==Int bitwidthMInt(MI2) 
+    andBool   eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+
+  /*@
+    L10: redundant ite
+  */
+  rule eqMInt
+  (
+    (#ifMInt B:Bool #then MI1:MInt #else MI2:MInt #fi),
+    MI3:MInt
+  )
+  => B
+    requires eqMInt(MI3, MI1)
+
+  rule eqMInt
+  (
+    (#ifMInt B:Bool #then MI1:MInt #else MI2:MInt #fi),
+    MI3:MInt
+  )
+  => notBool B
+    requires eqMInt(MI3, MI2)
+
+  /*@
+    L11: Bool simplification
+  rule (I:Int ==K J:Int) ==Bool true => I ==Int J
+  rule (I:Int ==K J:Int) ==Bool false => I =/=Int J
+  */
+
+
+  /*
   rule extractMInt ( MI:MInt , M:Int , N:Int ) =>  
     #ifMInt svalueMInt(MI) <Int 0 #then mi(N -Int M, 0) #else mi(N -Int M, 0) #fi
       requires M ==Int 0 andBool N ==Int 1
+      */
     
 
 
@@ -750,7 +782,7 @@ module X86-VERIFICATION-LEMMAS
   // imports BOOLEAN-LEMMAS
   imports MINT-LEMMAS
   imports FLOAT-LEMMAS
-  imports ITE-LEMMAS
+  // imports ITE-LEMMAS
   imports PROG-VERIFICATION-LEMMAS
   // The following in needed only while generating K rules cotaining
   // UIFs used for Z3 equiv with Strata's BFVs.
