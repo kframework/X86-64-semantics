@@ -36,7 +36,7 @@ module X86-INIT
     2. Setting up argc and argv in environment memory.
   */  
   rule initEnvironment(L:List) =>
-     allocateStackMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
+     allocateStackMemory(128, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
 
 
   /*@
