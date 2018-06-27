@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <limits.h>
 
 #if ULONG_LONG_MAX != 18446744073709551615ull && ULONG_MAX != 18446744073709551615ull

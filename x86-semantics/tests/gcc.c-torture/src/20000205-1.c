@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 static int f (int a)
 {
   if (a == 0)

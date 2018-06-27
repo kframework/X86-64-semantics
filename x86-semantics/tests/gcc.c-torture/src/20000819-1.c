@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int a[2] = { 2, 0 };
 
 void foo(int *sp, int cnt)

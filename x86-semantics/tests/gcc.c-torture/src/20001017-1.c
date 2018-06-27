@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
  
 void bug (double *Cref, char transb, int m, int n, int k,
 	  double a, double *A, int fdA, double *B, int fdB,

@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct F { int x; int y; };
 
 int main()

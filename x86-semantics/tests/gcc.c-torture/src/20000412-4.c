@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
   void f(int i, int j, int radius, int width, int N)
   {
     const int diff   = i-radius;

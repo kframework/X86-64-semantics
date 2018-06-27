@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern void *malloc(__SIZE_TYPE__);
 
 enum tree_code {

@@ -34,6 +34,11 @@ for my $line (@lines) {
       next;
     }
 
+    if($line =~ m/(.*)\%fs:(.*)/) {
+      print $1. "\$" . $2. "\n";
+      next;
+    }
+
     if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file/) {
       next;
     }

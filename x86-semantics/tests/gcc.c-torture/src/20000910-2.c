@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Copyright (C) 2000  Free Software Foundation  */
 /* by Alexandre Oliva <aoliva@redhat.com> */
 

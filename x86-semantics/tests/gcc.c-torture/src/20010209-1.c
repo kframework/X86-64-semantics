@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-effective-target alloca } */
 int b;
 int foo (void)
