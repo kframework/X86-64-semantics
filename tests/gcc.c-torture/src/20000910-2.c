@@ -12,7 +12,8 @@ static int bar (const char *fmt) {
 
 static void foo () {
   int i;
-  for (i = 0; i < sizeof (list) / sizeof (*list); i++) {
+  //for (i = 0; i < sizeof (list) / sizeof (*list); i++) {
+  for (i = 0; i < 2; i++) {
     const char *fmt = list[i];
     if (bar (fmt))
       continue;

@@ -1,0 +1,14 @@
+/\ #And(_==K_(
+      eqMInt(
+        extractMInt(
+          addMInt(
+            mi(Int(#"65"),, _+Int__INT(uvalueMInt(xorMInt(mi(Int(#"64"),, A_853:Int),, MInt(#"64'-1"))),, Int(#"1"))),, 
+            mi(Int(#"65"),, 
+              uvalueMInt(extractMInt(
+                  mi(Int(#"65"),, _+Int__INT(A_853:Int,, B_854:Int)),, 
+                  Int(#"1"),, Int(#"65"))))),, 
+          Int(#"0"),, Int(#"1")),, 
+        MInt(#"1'1")),, Bool(#"true")),, 
+
+
+#And(_==K_(_>=Int__INT(A_853:Int,, Int(#"0")),, Bool(#"true")),, #And(_==K_(_<Int__INT(A_853:Int,, Int(#"18446744073709551616")),, Bool(#"true")),, #And(_==K_(_>=Int__INT(B_854:Int,, Int(#"0")),, Bool(#"true")),, _==K_(_<Int__INT(B_854:Int,, Int(#"18446744073709551616")),, Bool(#"true"))))))
