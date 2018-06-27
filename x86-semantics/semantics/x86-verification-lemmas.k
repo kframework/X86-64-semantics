@@ -615,6 +615,7 @@ endmodule
 
 module PROG-VERIFICATION-LEMMAS
   imports MINT-WRAPPER-SYNTAX
+  imports K-REFLECTION
 
   /*@
     L0: Distributing extraction over addition
@@ -645,6 +646,13 @@ module PROG-VERIFICATION-LEMMAS
         orBool
       eqMInt( extractMInt(MI1, E, bitwidthMInt(MI1)), mi(bitwidthMInt(MI1) -Int E, 0))
       )
+
+    rule 
+      extractMInt(mi(M, A +Int B), S, E) => addMInt(extractMInt(mi(M, A), S, E), extractMInt(mi(M, B), S, E))
+    requires  M ==Int E
+    andBool   E >Int S andBool  S >=Int 0
+    andBool   #isConcrete(A)
+
           
   /*@ 
     L1: addMInt semantics: Associativity
@@ -688,6 +696,14 @@ module PROG-VERIFICATION-LEMMAS
   /*@ 
     L5: uvalueMInt semantics
   */  
+
+  /*
+  rule uvalueMInt(mi(M:Int, A:Int +Int B:Int)) => A +Int B
+    requires A >=Int 0 andBool A <Int ((2 ^Int 32) -Int 1)
+    andBool  B >=Int 0 andBool B <Int ((2 ^Int 32) -Int 1)
+    andBool  A +Int B <Int ((2 ^Int 32) -Int 1)
+  */
+
   rule uvalueMInt(mi(M:Int, N:Int)) => N
     requires N >=Int 0 
     andBool  N <Int (2 ^Int M)
@@ -702,21 +718,21 @@ module PROG-VERIFICATION-LEMMAS
   rule svalueMInt(mi(M:Int, N:Int)) => (-1 *Int (2 ^Int M)) +Int N 
     requires  N >=Int 2 ^Int (M -Int 1)
     andBool   N <Int  2 ^Int M
+    andBool   M >Int 1
 
   rule svalueMInt(mi(M:Int, N:Int)) => N
-    requires 
-        (N <Int 0 andBool  N >=Int -1 *Int (2 ^Int (M -Int 1)))
-      orBool
-        (N >=Int 0 andBool N <Int (2 ^Int (M -Int 1)))
+    requires M >Int 1
+      andBool
+        N >=Int -1 *Int (2 ^Int (M -Int 1))
+      andBool
+        N <Int (2 ^Int (M -Int 1))
 
-  /*@
-    L7: concat with 0
-    makes concatenateMInt ( 32'0 , mi ( 32 , V1 ) )
-    equiv to mi(64, V1)
+  rule svalueMInt(mi(M:Int, N:Int)) => N
+    requires M ==Int 1
+
   rule concatenateMInt(MI1, MI2) => 
       mi(bitwidthMInt(MI1) +Int bitwidthMInt(MI2), uvalueMInt(MI2))
     requires eqMInt(MI1, mi(bitwidthMInt(MI1), 0))
-  */  
 
   /*@
     L8: extract(MI) short width
@@ -728,17 +744,12 @@ module PROG-VERIFICATION-LEMMAS
     andBool   uvalueMInt(MI) >=Int 0    
     andBool   uvalueMInt(MI) <Int (2 ^Int (E -Int S))    
 
-
-  /*@
-    L9: eqMInt semantics
-  rule eqMInt( MI1:MInt, MI2:MInt) => svalueMInt(MI1) ==Int svalueMInt(MI2)
-    requires bitwidthMInt(MI1) ==Int bitwidthMInt(MI2)
-  */
-
-  rule eqMInt( MI1:MInt, MI2:MInt) => svalueMInt(MI1) ==Int 0
-    requires  bitwidthMInt(MI1) ==Int bitwidthMInt(MI2) 
-    andBool   eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
-
+  rule extractMInt(MI:MInt, S:Int, E:Int) => mi(E -Int S, 0)
+    requires  E<Int bitwidthMInt(MI)
+    andBool   E >Int S
+    andBool   bitwidthMInt(MI) >Int (E -Int S)
+    andBool   uvalueMInt(MI) >=Int 0    
+    andBool   uvalueMInt(MI) <Int (2 ^Int (bitwidthMInt(MI) -Int E))    
 
   /*@
     L10: redundant ite
@@ -760,18 +771,37 @@ module PROG-VERIFICATION-LEMMAS
     requires eqMInt(MI3, MI2)
 
   /*@
-    L11: Bool simplification
-  rule (I:Int ==K J:Int) ==Bool true => I ==Int J
-  rule (I:Int ==K J:Int) ==Bool false => I =/=Int J
+    L11: mi semantics
   */
+  rule mi(M, I) ==K mi(M, J) => I ==Int J
+    requires  I >=Int -1 *Int (2 ^Int (M -Int 1))
+      andBool
+              I <Int (2 ^Int (M -Int 1))
+      andBool 
+              J >=Int -1 *Int (2 ^Int (M -Int 1))
+      andBool 
+              J <Int (2 ^Int (M -Int 1))
 
 
-  /*
-  rule extractMInt ( MI:MInt , M:Int , N:Int ) =>  
-    #ifMInt svalueMInt(MI) <Int 0 #then mi(N -Int M, 0) #else mi(N -Int M, 0) #fi
-      requires M ==Int 0 andBool N ==Int 1
-      */
-    
+  rule mi(M, I) ==K mi(M, J) => ((-1 *Int (2 ^Int M)) +Int I) ==Int ((-1 *Int (2 ^Int M)) +Int J)
+    requires  I >=Int 2 ^Int (M -Int 1)
+      andBool
+              I <Int 2 ^Int M
+      andBool
+              J >=Int 2 ^Int (M -Int 1)
+      andBool
+              J <Int 2 ^Int M
+
+
+  rule MI:MInt ==K mi(M, J) => svalueMInt(MI) ==Int J
+    requires #isConcrete(MI)
+
+  rule mi(M, J) ==K MI => J ==Int svalueMInt(MI)
+    requires #isConcrete(MI)
+
+  rule eqMInt( mi(M, I), MI2:MInt) => svalueMInt(MI2) ==Int I
+    requires  bitwidthMInt(MI2) ==Int M
+    andBool   #isConcrete(MI2)
 
 
 endmodule
