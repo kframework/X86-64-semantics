@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned int buggy (unsigned int *param)
 {
   unsigned int accu, zero = 0, borrow;

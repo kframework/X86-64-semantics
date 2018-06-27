@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Origin: PR c/128 from Martin Sebor <sebor@roguewave.com>, adapted
    as a testcase by Joseph Myers <jsm28@cam.ac.uk>.
 */

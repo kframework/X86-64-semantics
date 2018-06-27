@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Distilled from optimization/863.  */
 
 extern void abort (void);

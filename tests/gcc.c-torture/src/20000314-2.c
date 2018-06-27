@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef unsigned long long uint64;
 const uint64 bigconst = 1ULL << 34;
 

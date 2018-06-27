@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned bug (unsigned short value, unsigned short *buffer,
               unsigned short *bufend);
 

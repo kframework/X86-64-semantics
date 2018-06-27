@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 void big(long long u) { }
 
 void doit(unsigned int a,unsigned int b,char *id)

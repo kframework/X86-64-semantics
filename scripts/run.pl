@@ -22,6 +22,7 @@ my $compare    = "";
 my $output     = "";
 my $linker     = "";
 my $testinput  = "";
+my $nopathsplit  = "";
 my @args       = ();
 my $kstateskip = 0;
 my $kdefn =
@@ -38,6 +39,7 @@ GetOptions(
     "krun"         => \$krun,
     "xrun"         => \$xrun,
     "compare"      => \$compare,
+    "nopathsplit"      => \$nopathsplit,
     "clean"        => \$clean,
     "outdir:s"     => \$outdir,
     "testinput:s"  => \$testinput,
@@ -130,6 +132,11 @@ if ( "" ne $krun ) {
 
     my $envArgs = createEnv( \@args );
     my $regArgs = createRegArgs();
+
+    if($nopathsplit ne "") {
+      $basename =  $dir. "/" . $basename; 
+    }
+
     execute(
 "time krun -d $kdefn $basename.$ext $envArgs $regArgs --output-file $output",
         1

@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int loop_1 = 100;
 int loop_2 = 7;
 int flag = 0;

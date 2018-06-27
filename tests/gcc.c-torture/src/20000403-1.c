@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern unsigned long aa[], bb[];
 
 int seqgt (unsigned long a, unsigned short win, unsigned long b);

@@ -1,5 +1,5 @@
-#include string.h
-#include stdlib.h
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int ops[13] =
 {
   11, 12, 46, 3, 2, 2, 3, 2, 1, 3, 2, 1, 2
