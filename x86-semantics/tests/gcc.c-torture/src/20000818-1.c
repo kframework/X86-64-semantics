@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* Copyright (C) 2000  Free Software Foundation.
 
    by Manfred Hollstein <manfredh@redhat.com>  */

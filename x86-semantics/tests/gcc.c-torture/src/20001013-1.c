@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct x {
 	int a, b;
 } z = { -4028, 4096 };

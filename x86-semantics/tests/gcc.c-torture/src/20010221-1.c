@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 
 int n = 2;
 

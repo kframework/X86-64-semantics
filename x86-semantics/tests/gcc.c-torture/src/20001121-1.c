@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* { dg-options "-fgnu89-inline" } */
 
 extern void abort (void);

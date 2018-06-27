@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* Copyright 2001 Free Software Foundation
    Contributed by Alexandre Oliva <aoliva@redhat.com> */
 

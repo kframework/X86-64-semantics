@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* Distilled from optimization/863.  */
 
 extern void abort (void);

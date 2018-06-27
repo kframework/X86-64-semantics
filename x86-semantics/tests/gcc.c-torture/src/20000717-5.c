@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 typedef struct trio { int a, b, c; } trio;
 
 int

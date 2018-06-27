@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 typedef struct _RenderInfo RenderInfo;
 struct _RenderInfo
 {

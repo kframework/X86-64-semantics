@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 
 static int next_buffer = 0;
 void bar (void);

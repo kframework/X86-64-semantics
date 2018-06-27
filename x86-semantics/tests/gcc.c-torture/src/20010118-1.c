@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 typedef struct {
   int a, b, c, d, e, f;
 } A;

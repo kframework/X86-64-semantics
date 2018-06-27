@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 void
 fn_4parms (unsigned char a, long *b, long *c, unsigned int *d)
 {

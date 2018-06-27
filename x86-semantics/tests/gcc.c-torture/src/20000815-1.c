@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct table_elt
 {
   void *exp;

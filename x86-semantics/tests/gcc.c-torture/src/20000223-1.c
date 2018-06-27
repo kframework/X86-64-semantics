@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* Copyright (C) 2000 Free Software Foundation, Inc.
    Contributed by Nathan Sidwell 23 Feb 2000 <nathan@codesourcery.com> */
 

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 int f(int a,int *y)
 {
   int x = a;

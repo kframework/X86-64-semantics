@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct x { 
   unsigned x1:1;
   unsigned x2:2;

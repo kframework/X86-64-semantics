@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* Extracted from gas.  Incorrectly generated non-pic code at -O0 for
    IA-64, which produces linker errors on some operating systems.  */
 

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 int foo1(void)
 {
   union {

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* This testcase originally provoked an unaligned access fault on Alpha.
 
    Since Digital Unix and Linux (and probably others) by default fix

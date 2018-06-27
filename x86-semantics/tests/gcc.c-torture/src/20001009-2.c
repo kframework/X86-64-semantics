@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 int b=1;
 int foo()
 {

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 static const unsigned char f[] = "\0\377";
 static const unsigned char g[] = "\0ÿ";
 

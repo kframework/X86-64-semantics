@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 void abort(void);
 void exit(int);
 

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 typedef struct {
   char y;
   char x[32];

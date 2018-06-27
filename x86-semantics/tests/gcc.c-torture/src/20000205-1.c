@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 static int f (int a)
 {
   if (a == 0)

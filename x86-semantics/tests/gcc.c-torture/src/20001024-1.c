@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct a;
 
 extern int baz (struct a *__restrict x);

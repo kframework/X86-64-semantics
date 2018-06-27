@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* { dg-require-effective-target alloca } */
 int b;
 int foo (void)

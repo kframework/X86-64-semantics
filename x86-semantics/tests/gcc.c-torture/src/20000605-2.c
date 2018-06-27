@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct F { int i; };
 
 void f1(struct F *x, struct F *y)

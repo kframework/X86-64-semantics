@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 typedef struct {
   long int p_x, p_y;
 } Point;

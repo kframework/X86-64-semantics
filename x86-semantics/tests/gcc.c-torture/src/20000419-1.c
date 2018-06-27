@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct foo { int a, b, c; };
 
 void
