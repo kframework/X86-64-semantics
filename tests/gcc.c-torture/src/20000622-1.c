@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 long foo(long a, long b, long c)
 {
   if (a != 12 || b != 1 || c != 11)

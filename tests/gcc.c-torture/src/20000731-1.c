@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 double
 foo (void)
 {

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 void big(long long u) { }
 
 void doit(unsigned int a,unsigned int b,char *id)

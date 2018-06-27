@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 extern void abort (void);
 
 static char arg0[] = "arg0";

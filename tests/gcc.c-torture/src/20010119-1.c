@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 #ifdef __OPTIMIZE__
 extern void undef (void);
 

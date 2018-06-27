@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 void adjust_xy (short *, short *);
 
 struct adjust_template

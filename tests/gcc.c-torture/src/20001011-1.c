@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 extern void abort(void);
 extern int strcmp(const char *, const char *);
 

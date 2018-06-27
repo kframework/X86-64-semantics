@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 static void
 compare (long long foo)
 {

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 extern void *malloc(__SIZE_TYPE__);
 
 enum tree_code {

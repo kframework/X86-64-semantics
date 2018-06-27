@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* { dg-require-effective-target trampolines } */
 
 int f0(int (*fn)(int *), int *p)

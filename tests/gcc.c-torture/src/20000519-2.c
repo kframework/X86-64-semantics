@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 long x = -1L;
 
 int main()

@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 unsigned bug (unsigned short value, unsigned short *buffer,
               unsigned short *bufend);
 

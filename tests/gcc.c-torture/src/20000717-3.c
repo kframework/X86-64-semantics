@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 int c = -1;
 
 foo (p)

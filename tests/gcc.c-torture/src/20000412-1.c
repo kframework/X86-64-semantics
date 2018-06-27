@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 short int i = -1;
 const char * const wordlist[207];
 

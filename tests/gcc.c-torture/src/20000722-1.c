@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 struct s { char *p; int t; };
 
 extern void bar (void);

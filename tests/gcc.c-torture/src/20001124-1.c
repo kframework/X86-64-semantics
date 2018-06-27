@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 
 struct inode {
 	long long		i_size;

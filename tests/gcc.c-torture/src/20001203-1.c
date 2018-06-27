@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 /* Origin: PR c/410 from Jan Echternach
    <jan.echternach@informatik.uni-rostock.de>,
    adapted to a testcase by Joseph Myers <jsm28@cam.ac.uk>.

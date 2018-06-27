@@ -1,3 +1,5 @@
+#include string.h
+#include stdlib.h
 void f (int value, int expect)
 {
   if (value != expect)
