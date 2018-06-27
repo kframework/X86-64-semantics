@@ -813,7 +813,7 @@ module X86-VERIFICATION-LEMMAS
   imports MINT-LEMMAS
   imports FLOAT-LEMMAS
   // imports ITE-LEMMAS
-  imports PROG-VERIFICATION-LEMMAS
+  // imports PROG-VERIFICATION-LEMMAS
   // The following in needed only while generating K rules cotaining
   // UIFs used for Z3 equiv with Strata's BFVs.
   // imports UIF-LEMMAS
