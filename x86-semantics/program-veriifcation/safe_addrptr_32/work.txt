@@ -1,0 +1,53 @@
+#And
+
+(_==K_(
+       eqMInt(
+         extractMInt(
+          #ifMInt_#then_#else_#fi_MINT-WRAPPER-SYNTAX(
+            // Check carry of A[32:0] + B[32:0] - A[32:0] == 0
+            notBool_(
+              // Check carry of A[32:0] + B[32:0] - A[32:0] == 1
+              eqMInt(
+                extractMInt(
+                  // A[32:0] + B[32:0] - A[32:0]
+                  addMInt(
+                    
+                    // -A[32:0]
+                    mi(Int(#"33"),, _+Int__INT(uvalueMInt(xorMInt(extractMInt(mi(Int(#"64"),, A_853:Int),, Int(#"32"),, Int(#"64")),, MInt(#"32'-1"))),, Int(#"1"))),, 
+
+                    //  A[32:0] + B[32:0]
+                    mi(Int(#"33"),, uvalueMInt(
+                        extractMInt(
+                          mi(Int(#"33"),, _+Int__INT(
+                              uvalueMInt(extractMInt(mi(Int(#"64"),, A_853:Int),, Int(#"32"),, Int(#"64"))),, 
+                              uvalueMInt(extractMInt(mi(Int(#"64"),, B_854:Int),, Int(#"32"),, Int(#"64"))))),, 
+                          Int(#"1"),, Int(#"33"))))),, 
+                  
+                  Int(#"0"),, Int(#"1")),, 
+
+                MInt(#"1'1"))),, 
+            
+            mi(Int(#"33"),, uvalueMInt(xorMInt(extractMInt(mi(Int(#"64"),, A_853:Int),, Int(#"0"),, Int(#"32")),, MInt(#"32'-1")))),, 
+            mi(Int(#"33"),, _+Int__INT(uvalueMInt(xorMInt(extractMInt(mi(Int(#"64"),, A_853:Int),, Int(#"0"),, Int(#"32")),, MInt(#"32'-1"))),, Int(#"1")))),, 
+           
+           Int(#"0"),, Int(#"1")),, 
+         
+         MInt(#"1'1")),, Bool(#"true")),, #And
+
+(_==K_(_>=Int__INT(A_853:Int,, Int(#"0")),, Bool(#"true")),, #And
+
+(_==K_(_<Int__INT(A_853:Int,, Int(#"18446744073709551616")),, Bool(#"true")),, #And
+
+(_==K_(_>=Int__INT(B_854:Int,, Int(#"0")),, Bool(#"true")),, _==K_(_<Int__INT(B_854:Int,, Int(#"18446744073709551616")),, Bool(#"true"))))))
+
+Target:
+
+/\ _==K_(_>=Int__INT(_+Int__INT(A_853:Int,, B_854:Int),, _^Int__INT(Int(#"2"),, Int(#"32"))),, Bool(#"true"))
+
+
+(=  
+ )
+
+
+#xffffffffbfffffff)
+#xdfffffffc8000000) 

@@ -1,4 +1,5 @@
-#include <string.h>
+#include "string.h"
+#include "stdlib.h"
 
 static int
 special_format (fmt)

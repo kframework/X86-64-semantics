@@ -1,0 +1,168 @@
+<generatedTop>
+  <k>
+    exit_0
+  </k>
+  <functargets>
+    L2 |-> 64'7
+    L3 |-> 64'12
+    L4 |-> 64'11
+    get_sign |-> 64'0
+    main |-> 64'14
+  </functargets>
+  <entrypoint>
+    64'14
+  </entrypoint>
+  <nextLocPc>
+    64'21
+  </nextLocPc>
+  <memstate>
+    <text>
+      code ( iloc ( 64'0 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'1 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'2 ) |-> storedInstr ( movl %edi , -4 ( %rbp ) , .Operands )
+      iloc ( 64'3 ) |-> storedInstr ( cmpl $ 0 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'4 ) |-> storedInstr ( jne L2 , .Operands )
+      iloc ( 64'5 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      iloc ( 64'6 ) |-> storedInstr ( jmp L3 , .Operands )
+      iloc ( 64'7 ) |-> storedInstr ( cmpl $ 0 , -4 ( %rbp ) , .Operands )
+      iloc ( 64'8 ) |-> storedInstr ( jns L4 , .Operands )
+      iloc ( 64'9 ) |-> storedInstr ( movl $ -1 , %eax , .Operands )
+      iloc ( 64'10 ) |-> storedInstr ( jmp L3 , .Operands )
+      iloc ( 64'11 ) |-> storedInstr ( movl $ 1 , %eax , .Operands )
+      iloc ( 64'12 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'13 ) |-> storedInstr ( ret .Operands )
+      iloc ( 64'14 ) |-> storedInstr ( pushq %rbp , .Operands )
+      iloc ( 64'15 ) |-> storedInstr ( movq %rsp , %rbp , .Operands )
+      iloc ( 64'16 ) |-> storedInstr ( movl $ 4 , %edi , .Operands )
+      iloc ( 64'17 ) |-> storedInstr ( call get_sign , .Operands )
+      iloc ( 64'18 ) |-> storedInstr ( nop .Operands )
+      iloc ( 64'19 ) |-> storedInstr ( popq %rbp , .Operands )
+      iloc ( 64'20 ) |-> storedInstr ( ret .Operands ) )
+    </text>
+    <stack>
+      <memory>
+        <nextLoc>
+          2
+        </nextLoc>
+        <objects>
+          mem ( symloc ( 1 , 128 ) |-> mVector ( 64 , 8 , 0 |-> byte ( 0 , undefMInt )
+          1 |-> byte ( 0 , undefMInt )
+          2 |-> byte ( 0 , undefMInt )
+          3 |-> byte ( 0 , undefMInt )
+          4 |-> byte ( 0 , undefMInt )
+          5 |-> byte ( 0 , undefMInt )
+          6 |-> byte ( 0 , undefMInt )
+          7 |-> byte ( 0 , undefMInt )
+          8 |-> byte ( 0 , undefMInt )
+          9 |-> byte ( 0 , undefMInt )
+          10 |-> byte ( 0 , undefMInt )
+          11 |-> byte ( 0 , undefMInt )
+          12 |-> byte ( 0 , undefMInt )
+          13 |-> byte ( 0 , undefMInt )
+          14 |-> byte ( 0 , undefMInt )
+          15 |-> byte ( 0 , undefMInt )
+          16 |-> byte ( 0 , undefMInt )
+          17 |-> byte ( 0 , undefMInt )
+          18 |-> byte ( 0 , undefMInt )
+          19 |-> byte ( 0 , undefMInt )
+          20 |-> byte ( 0 , undefMInt )
+          21 |-> byte ( 0 , undefMInt )
+          22 |-> byte ( 0 , undefMInt )
+          23 |-> byte ( 0 , undefMInt )
+          24 |-> byte ( 0 , undefMInt )
+          25 |-> byte ( 0 , undefMInt )
+          26 |-> byte ( 0 , undefMInt )
+          27 |-> byte ( 0 , undefMInt )
+          28 |-> byte ( 0 , 32'4 )
+          29 |-> byte ( 1 , 32'4 )
+          30 |-> byte ( 2 , 32'4 )
+          31 |-> byte ( 3 , 32'4 )
+          32 |-> byte ( 0 , 64'48 )
+          33 |-> byte ( 1 , 64'48 )
+          34 |-> byte ( 2 , 64'48 )
+          35 |-> byte ( 3 , 64'48 )
+          36 |-> byte ( 4 , 64'48 )
+          37 |-> byte ( 5 , 64'48 )
+          38 |-> byte ( 6 , 64'48 )
+          39 |-> byte ( 7 , 64'48 )
+          40 |-> byte ( 0 , 64'18 )
+          41 |-> byte ( 1 , 64'18 )
+          42 |-> byte ( 2 , 64'18 )
+          43 |-> byte ( 3 , 64'18 )
+          44 |-> byte ( 4 , 64'18 )
+          45 |-> byte ( 5 , 64'18 )
+          46 |-> byte ( 6 , 64'18 )
+          47 |-> byte ( 7 , 64'18 )
+          48 |-> byte ( 0 , 64'56 )
+          49 |-> byte ( 1 , 64'56 )
+          50 |-> byte ( 2 , 64'56 )
+          51 |-> byte ( 3 , 64'56 )
+          52 |-> byte ( 4 , 64'56 )
+          53 |-> byte ( 5 , 64'56 )
+          54 |-> byte ( 6 , 64'56 )
+          55 |-> byte ( 7 , 64'56 )
+          56 |-> byte ( 0 , 64'-1 )
+          57 |-> byte ( 1 , 64'-1 )
+          58 |-> byte ( 2 , 64'-1 )
+          59 |-> byte ( 3 , 64'-1 )
+          60 |-> byte ( 4 , 64'-1 )
+          61 |-> byte ( 5 , 64'-1 )
+          62 |-> byte ( 6 , 64'-1 )
+          63 |-> byte ( 7 , 64'-1 ) ) )
+        </objects>
+      </memory>
+      <stackbase>
+        stackBaseInfo ( symloc ( 1 , 128 ) , 64'56 )
+      </stackbase>
+    </stack>
+  </memstate>
+  <environment>
+    <argc>
+      0
+    </argc>
+    <argv>
+      64'64
+    </argv>
+  </environment>
+  <regstate>
+    "AF" |-> 1'0
+    "CF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'1
+    "RBP" |-> 64'56
+    "RBX" |-> 64'0
+    "RCX" |-> 64'0
+    "RDI" |-> 64'4
+    "RDX" |-> 64'0
+    "RIP" |-> 64'18446744073709551615
+    "RSI" |-> 64'0
+    "RSP" |-> 64'64
+    "SF" |-> 1'0
+    "YMM0" |-> 256'0
+    "YMM1" |-> 256'0
+    "YMM2" |-> 256'0
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0
+  </regstate>
+</generatedTop>
