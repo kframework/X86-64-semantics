@@ -16,11 +16,6 @@ btrq
 .byte
 call
 cbtw
-.cfi_def_cfa_offset
-.cfi_def_cfa_register
-.cfi_endproc
-.cfi_offset
-.cfi_startproc
 cltd
 cltq
 cmova
