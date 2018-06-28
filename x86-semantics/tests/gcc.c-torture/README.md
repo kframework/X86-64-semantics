@@ -11,12 +11,6 @@ cat bin_worklist.txt | parallel "../../scripts/run.pl --file bin/{}.asm --xrun -
 cat bin_worklist.txt | parallel "../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log" |& tee runlog.txt
 ```
 
-# Generate Binaries
-```
-source cmd_worklist.txt
-cat bin_worklist.txt | parallel "./scripts/remove_directives.pl --file bin/{}.asm > bin/{}.tmp; mv bin/{}.tmp bin/{}.asm"
-```
-
 # Modify source
 ```
 cat src_worklist.txt  | parallel  "sed -i '1 i\#include \"mini_stdlib.h\"' src/{}.c" 
@@ -26,3 +20,10 @@ cat src_worklist.txt  | parallel  "sed -i '1 i\#include \"mini_string.h\"' src/{
 cat src_worklist.txt  | parallel  "sed -i '1d' src/{}.c"
 cat src_worklist.txt  | parallel  "sed -i '1d' src/{}.c"
 ```
+
+# Generate Binaries
+```
+source cmd_worklist.txt
+cat bin_worklist.txt | parallel "../scripts/remove_directives.pl --file bin/{}.asm > bin/{}.tmp; mv bin/{}.tmp bin/{}.asm"
+```
+
