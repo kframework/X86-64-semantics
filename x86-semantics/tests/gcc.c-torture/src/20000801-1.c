@@ -6,9 +6,9 @@ extern void exit(int);
 void
 foo (char *bp, unsigned n)
 {
-  register char c;
-  register char *ep = bp + n;
-  register char *sp;
+  char c;
+  char *ep = bp + n;
+  char *sp;
 
   while (bp < ep)
     {
@@ -28,11 +28,11 @@ int main(void)
 {
   int one = 1;
 
-  if (sizeof(int) != 4 * sizeof(char))
+  if (4 != 4 * 1)
     exit(0);
 
-  foo((char *)&one, sizeof(one));
-  foo((char *)&one, sizeof(one));
+  foo((char *)&one, 4);
+  foo((char *)&one, 4);
 
   if (one != 1)
     abort();

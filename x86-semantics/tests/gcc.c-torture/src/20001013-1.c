@@ -1,8 +1,9 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-struct x {
+typedef struct x {
 	int a, b;
-} z = { -4028, 4096 };
+} X;
+
 
 int foo(struct x *p, int y)
 {
@@ -13,6 +14,8 @@ int foo(struct x *p, int y)
 
 main()
 {
+
+X z = { -4028, 4096 };
   if (foo (&z, 10))
     abort ();
   exit (0);

@@ -1,5 +1,7 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
+int main()
+{
 int ops[13] =
 {
   11, 12, 46, 3, 2, 2, 3, 2, 1, 3, 2, 1, 2
@@ -12,8 +14,6 @@ int correct[13] =
 
 int num = 13;
 
-int main()
-{
   int i;
 
   for (i = 0; i < num; i++)

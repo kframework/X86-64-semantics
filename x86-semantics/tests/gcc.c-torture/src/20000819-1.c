@@ -1,6 +1,5 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-int a[2] = { 2, 0 };
 
 void foo(int *sp, int cnt)
 {
@@ -14,6 +13,7 @@ void foo(int *sp, int cnt)
 
 int main()
 {
+int a[2] = { 2, 0 };
   foo(a + 1, 1);
   abort();
 }

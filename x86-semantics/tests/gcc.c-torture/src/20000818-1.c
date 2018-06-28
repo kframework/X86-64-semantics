@@ -4,7 +4,6 @@
 
    by Manfred Hollstein <manfredh@redhat.com>  */
 
-void *temporary_obstack;
 
 static int input (void);
 static int ISALNUM (int ch);
@@ -22,6 +21,7 @@ int main (void)
 
 int yylex (void)
 {
+void *temporary_obstack;
   int ch;
 
 #ifndef WORK_AROUND

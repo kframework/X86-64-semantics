@@ -60,13 +60,16 @@ do_isofs_readdir(struct inode *inode, struct file *filp)
 	return 0;
 }
 
-struct super_block s;
-struct inode i;
-struct file f;
+//struct super_block s;
+//struct inode i;
+//struct file f;
 
 int
 main(int argc, char **argv)
 {
+struct super_block s;
+struct inode i;
+struct file f;
 	s.s_blocksize = 512;
 	s.s_blocksize_bits = 9;
 	i.i_size = 2048;

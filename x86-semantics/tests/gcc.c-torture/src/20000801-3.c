@@ -12,13 +12,13 @@ typedef struct {
   int i2;
 } st;
 
-st s = { .i = 0, .i2 = 1 };
 
 extern void abort (void);
 
 int
 main (void)
 {
+st s = { .i = 0, .i2 = 1 };
   if (s.i2 == 1)
     exit (0);
   else
