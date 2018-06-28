@@ -647,6 +647,7 @@ sub processKFile {
     return @kstates;
 }
 
+my @instructions = ();
 sub processXFile {
     my $basename = shift @_;
     my $file     = shift @_;
@@ -661,12 +662,16 @@ sub processXFile {
         qr/$\d* = \[ ([CPAZSOIFR ]*) \]/,
     );
 
-    execute("grep   -A 33  \"_start+\"  $file 1> ${tmpfile} 2>&1");
+    execute("grep   -A 33  \"<.*+[0-9]*>:\"  $file 1> ${tmpfile} 2>&1");
 
     open( my $fp, "<", "$tmpfile" ) or die "Can't open: $!";
     my @lines = <$fp>;
     for my $line (@lines) {
         chomp $line;
+
+        if($line =~ m/.*>:(.*)/g) {
+          push @instructions, $1;
+        }
 
         #print $line."\n";
         if ( $line =~ m/$xpatterns[0]/ ) {
@@ -765,7 +770,9 @@ sub compareStates {
         info("kstate xstate count unequal");
         print $msg;
 
-        #return;
+#print join( "\n", @kstates );
+#print join( "\n", @xstates );
+#return;
     }
 
     my $iter = scalar(@kstates);
@@ -799,7 +806,7 @@ sub compareStates {
         if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
             print $kstates[$i] . "\n" . $xstates[$i] . "\n";
             failInfo( "$regMap{$i % $regcount} at instrcount: " . $instrcount );
-            return;
+#return;
         }
         else {
             #info("$instrcount matched");
@@ -819,10 +826,12 @@ sub pprint {
     my $instrcount = 0;
 
     my $i = 0 + $kstateskip * $regcount;
+    
+    printArray(\@instructions,"");
 
     for ( ; $i < scalar(@kstates) ; $i++ ) {
         if ( 0 == $i % $regcount ) {
-            print "\n$instrcount) reg\tkstate\txstate"
+            print "\nCount $instrcount) reg\tkstate\txstate\t$instructions[$instrcount]"
               . "\n---------------------\n";
         }
 
