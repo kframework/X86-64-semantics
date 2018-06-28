@@ -16,11 +16,11 @@ foo (void)
   return 0 == s[1];
 }
 
-char *t;
 
 int
 main (void)
 {
+char *t;
   {
     char s[] = "x";
     t = s;

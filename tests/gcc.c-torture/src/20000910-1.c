@@ -9,7 +9,7 @@ void bar (int);
 void foo (int *);
 
 int main () {
-  static int a[] = { 0, 1, 2 };
+  int a[] = { 0, 1, 2 };
   //int *i = &a[sizeof(a)/sizeof(*a)];
   int *i = &a[3];
   

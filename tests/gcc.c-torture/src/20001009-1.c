@@ -1,8 +1,8 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-int a,b;
 main()
 {
+int a,b;
   int c=-2;
   int d=0xfe;
   int e=a&1;

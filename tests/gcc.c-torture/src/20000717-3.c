@@ -1,10 +1,10 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-int c = -1;
 
 foo (p)
      int *p;
 {
+int c = -1;
   int x;
   int a;
 

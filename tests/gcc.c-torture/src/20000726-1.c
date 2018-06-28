@@ -10,7 +10,6 @@ struct adjust_template
   short kz;
 };
 
-static struct adjust_template adjust = {0, 0, 1, 1};
 
 main ()
 {
@@ -29,5 +28,6 @@ adjust_xy (x, y)
      short  *x;
      short  *y;
 {
+ struct adjust_template adjust = {0, 0, 1, 1};
   *x = adjust.kx_x * *x + adjust.kx_y * *y + adjust.kx;
 }

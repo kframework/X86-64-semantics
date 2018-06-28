@@ -23,13 +23,14 @@ int baz3 (int i)
   return 1;
 }
 
-void **bar;
+//void **bar;
 
 int foo (void *a, long b, int c)
 {
   int d = 0, e, f = 0, i;
   char g[256];
   void **h;
+  void **bar = (void **)a;
 
   g[0] = '\n';
   g[1] = 0;
@@ -65,7 +66,7 @@ int foo (void *a, long b, int c)
 int main ()
 {
   void *n = 0;
-  bar = &n;
+  //bar = &n;
   foo (&n, 1, 0xc811);
   exit (0);
 }
