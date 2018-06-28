@@ -555,7 +555,7 @@ sub checkKRunStatus {
                 return;
             }
             else {
-                failInfo("Non exit status");
+                failInfo("$file: Non exit status");
                 return;
             }
         }
@@ -769,9 +769,9 @@ sub compareStates {
           . "xstates = "
           . scalar(@xstates) . "\n\n";
 
-        failInfo("kstate xstate count unequal");
+        failInfo("$basename: kstate xstate count unequal");
         print $msg;
-        return;
+        #return;
 
 #print join( "\n", @kstates );
 #print join( "\n", @xstates );

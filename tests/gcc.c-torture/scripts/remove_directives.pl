@@ -52,7 +52,6 @@ for my $line (@lines) {
       print "_start". $1. "\n";
       next;
     }
-
-
     print $line . "\n";
 }
+
