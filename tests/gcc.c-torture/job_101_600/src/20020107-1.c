@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This testcase failed because - 1 - buf was simplified into ~buf and when
    later expanding it back into - buf + -1, -1 got lost.  */
 /* { dg-options "-fgnu89-inline" } */

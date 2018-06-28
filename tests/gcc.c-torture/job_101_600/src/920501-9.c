@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <stdio.h>
 
 long long proc1(){return 1LL;}

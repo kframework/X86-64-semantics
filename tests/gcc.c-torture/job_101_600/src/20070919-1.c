@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/33238 */
 /* { dg-require-effective-target alloca } */
 

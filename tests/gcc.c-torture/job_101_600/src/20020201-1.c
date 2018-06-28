@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test whether division by constant works properly.  */
 
 extern void abort (void);

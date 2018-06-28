@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR target/60941 */
 /* Reported by Martin Husemann <martin@netbsd.org> */
 

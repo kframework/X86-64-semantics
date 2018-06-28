@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Copyright (C) 2002  Free Software Foundation.
 
    Test that (A & C1) op C2 optimizations behave correctly where C1 is

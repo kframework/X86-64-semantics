@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* ifcvt accidentally deletes a referenced label while generating
    conditional traps on machines having such patterns */
 

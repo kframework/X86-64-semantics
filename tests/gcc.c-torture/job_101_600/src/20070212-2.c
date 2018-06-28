@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int f(int k, int i1, int j1)
 {
   int *f1;

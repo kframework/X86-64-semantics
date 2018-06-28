@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR optimization/8988 */
 /* Contributed by Kevin Easton */
 

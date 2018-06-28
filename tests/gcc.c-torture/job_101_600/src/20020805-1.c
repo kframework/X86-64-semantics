@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This testcase was miscompiled on IA-32, because fold-const
    assumed associate_trees is always done on PLUS_EXPR.  */
 

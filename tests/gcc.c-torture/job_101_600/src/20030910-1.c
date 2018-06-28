@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* The gimplifier was inserting unwanted temporaries for REALPART_EXPR
    nodes.  These need to be treated like a COMPONENT_REF so their address can
    be taken.  */

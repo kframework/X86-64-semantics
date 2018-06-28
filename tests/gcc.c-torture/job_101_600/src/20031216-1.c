@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR optimization/13313 */
 /* Origin: Mike Lerwill <mike@ml-solutions.co.uk> */
 

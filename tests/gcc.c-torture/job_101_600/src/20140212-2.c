@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This used to fail as we would convert f into just return (unsigned int)usVlanID
    which is wrong. */
 

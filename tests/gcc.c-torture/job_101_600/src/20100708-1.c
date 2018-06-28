@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/44843 */
 /* Verify that we don't use the alignment of struct S for inner accesses.  */
 

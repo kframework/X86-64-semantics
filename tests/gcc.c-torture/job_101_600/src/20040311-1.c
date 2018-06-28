@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Copyright (C) 2004 Free Software Foundation.
 
    Check that constant folding and RTL simplification of -(x >> y) doesn't

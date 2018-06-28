@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/7102 */
 
 /* Verify that GCC zero-extends integer constants

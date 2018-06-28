@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* On H8/300 port, NOTICE_UPDATE_CC had a bug that causes the final
    pass to remove test insns that should be kept.  */
 

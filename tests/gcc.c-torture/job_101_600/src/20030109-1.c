@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/8032 */
 /* Verify that an empty initializer inside a partial
    parent initializer doesn't confuse GCC.  */

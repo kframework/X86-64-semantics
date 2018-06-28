@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Distilled from try_pre_increment in flow.c.  If-conversion inserted
    new instructions at the wrong place on ppc.  */
 

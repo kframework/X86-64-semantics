@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This used to generate unaligned accesses at -O2 because of IVOPTS.  */
 
 struct packed_struct

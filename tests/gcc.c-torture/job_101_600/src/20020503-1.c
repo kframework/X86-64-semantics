@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR 6534 */
 /* GCSE unified the two i<0 tests, but if-conversion to ui=abs(i) 
    insertted the code at the wrong place corrupting the i<0 test.  */

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test case contributed by Ingo Rohloff <rohloff@in.tum.de>.
    Code distilled from Linux kernel.  */
 
@@ -33,10 +35,10 @@ static void epic_init_ring(struct epic_private *ep)
   ep->rx_ring[i-1].next = 10;
 }
 
-static int check_rx_ring[5] = { 12,14,16,18,10 };
 
 int main(void)
 {
+ int check_rx_ring[5] = { 12,14,16,18,10 };
   struct epic_private ep;
   struct epic_rx_desc rx_ring[5];
   int i;

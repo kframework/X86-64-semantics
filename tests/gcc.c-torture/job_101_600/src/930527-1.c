@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 f (unsigned char x)
 {
   return (0x50 | (x >> 4)) ^ 0xff;

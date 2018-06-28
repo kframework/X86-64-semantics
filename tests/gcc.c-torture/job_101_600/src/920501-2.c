@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned long
 gcd_ll (unsigned long long x, unsigned long long y)
 {

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This tests the rotate patterns that some machines support.  */
 
 #include <limits.h>

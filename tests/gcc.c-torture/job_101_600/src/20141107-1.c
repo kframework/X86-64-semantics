@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #define bool _Bool
 
 bool f(int a, bool c) __attribute__((noinline));

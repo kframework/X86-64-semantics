@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-stack-size "128 * 128 * 4 + 1024" } */
 
 typedef struct {

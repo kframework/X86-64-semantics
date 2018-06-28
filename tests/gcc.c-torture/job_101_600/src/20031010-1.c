@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* A reminder to process ops in generate_expr_as_of_bb exactly once.  */
 
 long __attribute__((noinline))

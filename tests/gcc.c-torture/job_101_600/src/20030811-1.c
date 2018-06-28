@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Origin: PR target/11535 from H. J. Lu <hjl@lucon.org> */
 /* { dg-require-effective-target return_address } */
 

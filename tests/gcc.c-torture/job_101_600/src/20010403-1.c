@@ -1,12 +1,14 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 void b (int *);
 void c (int, int);
 void d (int);
 
-int e;
+//int e;
 
 void a (int x, int y)
 {
-  int f = x ? e : 0;
+  int f = x ? 0 : 0;
   int z = y;
 
   b (&y);

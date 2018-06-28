@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/59138 */
 /* Testcase by John Regehr <regehr@cs.utah.edu> */
 

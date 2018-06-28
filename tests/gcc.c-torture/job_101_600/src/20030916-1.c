@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* "i" overflows in f().  Check that x[i] is not treated as a giv.  */
 #include <limits.h>
 

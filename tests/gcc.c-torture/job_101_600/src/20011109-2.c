@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int main(void)
 {
   char *c1 = "foo";

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* derived from PR optimization/11440  */
 
 extern void abort (void);

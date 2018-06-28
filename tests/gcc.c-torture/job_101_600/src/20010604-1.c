@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <stdbool.h>
 
 int f (int a, int b, int c, _Bool d, _Bool e, _Bool f, char g)

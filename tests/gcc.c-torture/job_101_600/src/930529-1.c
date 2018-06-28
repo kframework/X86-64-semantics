@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-options { "-fwrapv" } } */
 
 extern void abort (void);

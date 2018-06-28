@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-options "-std=c99" } */
 
 long long a = -1;

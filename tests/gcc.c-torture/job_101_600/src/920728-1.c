@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef struct {int dims[0]; } *A;
 
 f(unsigned long obj)

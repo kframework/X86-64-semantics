@@ -1,8 +1,10 @@
-static unsigned int expr_hash_table_size = 1;
+#include "mini_string.h"
+#include "mini_stdlib.h"
 
 int
 main ()
 {
+ unsigned int expr_hash_table_size = 1;
   int del = 1;
   unsigned int i = 0;
 

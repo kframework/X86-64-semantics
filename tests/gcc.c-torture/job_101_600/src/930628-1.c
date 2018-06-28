@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 f (double x[2], double y[2])
 {
   if (x == y)

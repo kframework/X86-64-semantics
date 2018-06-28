@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 char buf[40];
 
 extern int sprintf (char*, const char*, ...);

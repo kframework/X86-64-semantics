@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR tree-optimization/33136 */
 /* { dg-require-effective-target alloca } */
 

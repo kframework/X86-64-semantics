@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* submitted by kenneth zadeck */
 
 static int test_var;

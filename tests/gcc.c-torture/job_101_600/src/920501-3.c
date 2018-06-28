@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-effective-target label_values } */
 
 int tab[9];

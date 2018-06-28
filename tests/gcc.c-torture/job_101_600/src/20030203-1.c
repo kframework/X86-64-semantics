@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 void f(int);
 int do_layer3(int single)
 {

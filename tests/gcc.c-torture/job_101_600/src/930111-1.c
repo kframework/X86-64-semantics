@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 main()
 {
   if (wwrite((long long) 0) != 123)

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct s { char c1, c2; };
 void foo (struct s s)
 {

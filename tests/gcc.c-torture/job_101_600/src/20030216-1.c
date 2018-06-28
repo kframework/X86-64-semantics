@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This test requires constant propagation of loads and stores to be
    enabled.  This is only guaranteed at -O2 and higher.  Do not run
    at -O1.  */

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-effective-target indirect_jumps } */
 
 typedef long unsigned int size_t;

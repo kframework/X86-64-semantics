@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-skip-if "requires alloca" { ! alloca } { "-O0" } { "" } } */
 /* REPRODUCED:RUN:SIGNAL MACHINE:sparc OPTIONS: */
 f(int n)

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/16104 */
 /* { dg-require-effective-target int32plus } */
 /* { dg-options "-Wno-psabi" } */

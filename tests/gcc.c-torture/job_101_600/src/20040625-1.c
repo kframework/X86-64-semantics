@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* From PR target/16176 */
 struct __attribute__ ((packed)) s { struct s *next; };
 

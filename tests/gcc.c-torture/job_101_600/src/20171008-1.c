@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct S { char c1, c2, c3, c4; } __attribute__((aligned(4)));
 
 static char bar (char **p) __attribute__((noclone, noinline));

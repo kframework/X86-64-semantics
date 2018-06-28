@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #define MASK(N) ((1UL << (N)) - 1)
 #define BITS(N) ((1UL << ((N) - 1)) + 2)
 

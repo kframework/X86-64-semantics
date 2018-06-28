@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 static inline fu (unsigned short data)
 {
   return data;

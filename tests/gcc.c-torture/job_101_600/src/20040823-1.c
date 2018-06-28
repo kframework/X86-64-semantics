@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Ensure that we create VUSE operands also for noreturn functions.  */
 
 #include <stdlib.h>

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int a = 1, b;
 
 g () { return 0; }

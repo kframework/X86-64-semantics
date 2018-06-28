@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* extracted from gdb sources */
 
 typedef unsigned long long CORE_ADDR;

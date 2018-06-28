@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Testcase for PR fortran/9974.  This was a miscompilation of the g77
    front-end caused by the jump bypassing optimizations not handling
    instructions inserted on CFG edges.  */

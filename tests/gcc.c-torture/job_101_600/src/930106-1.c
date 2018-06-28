@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-add-options stack_size } */
 
 #if defined (STACK_SIZE)

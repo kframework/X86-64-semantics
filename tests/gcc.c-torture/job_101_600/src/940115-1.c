@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 f (cp, end)
      char *cp;
      char *end;

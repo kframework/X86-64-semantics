@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned int foo(unsigned int x)
 {
   if (x < 5)

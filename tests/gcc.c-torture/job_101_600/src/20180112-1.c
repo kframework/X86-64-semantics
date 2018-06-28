@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/83565 */
 /* Testcase by Sergei Trofimovich <slyfox@inbox.ru> */
 

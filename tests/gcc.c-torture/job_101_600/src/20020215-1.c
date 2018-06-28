@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test failed on an architecture that:
 
    - had 16-bit registers,

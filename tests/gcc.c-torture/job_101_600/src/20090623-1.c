@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int * __restrict__ x;
 
 int foo (int y)

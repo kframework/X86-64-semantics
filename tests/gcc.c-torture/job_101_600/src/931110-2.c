@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 main ()
 {
   static int a[] = {3, 4};

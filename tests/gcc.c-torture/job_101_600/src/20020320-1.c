@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/5354 */
 /* Verify that GCC preserves relevant stack slots.  */
 

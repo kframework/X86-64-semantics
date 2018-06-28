@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int s = 200;
 int __attribute__((noinline))
 foo (void)

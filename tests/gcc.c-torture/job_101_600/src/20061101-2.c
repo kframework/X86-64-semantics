@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/28970 */
 /* Origin: Peter Bergner <bergner@vnet.ibm.com> */
 

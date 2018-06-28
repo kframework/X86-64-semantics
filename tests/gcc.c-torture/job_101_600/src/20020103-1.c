@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* On h8300 port, the following used to be broken with -mh or -ms.  */
 
 extern void abort (void);

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct S { char c; char arr[4]; float f; };
 
 char A[4] = { '1', '2', '3', '4' };
