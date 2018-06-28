@@ -30,6 +30,10 @@ for my $line (@lines) {
       next;
     }
 
+    if($line =~ m/^#.*/) {
+      next;
+    }
+
     if($line =~ m/\.file .*/) {
       next;
     }
@@ -40,6 +44,12 @@ for my $line (@lines) {
     }
 
     if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file/) {
+      next;
+    }
+
+    if($line =~ m/main(.*)/) {
+      print ".globl _start\n";
+      print "_start". $1. "\n";
       next;
     }
 

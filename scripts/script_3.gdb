@@ -44,11 +44,11 @@ define nstep
  set $foo = $arg0
  while ($foo--)
   process_instr
-  ni
+  si
  end
 end
 
-b _start
+b *_start
 r
 nstep 10000
 q

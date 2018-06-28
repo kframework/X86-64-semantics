@@ -108,7 +108,7 @@ module X86-CONFIGURATION
     */
 
     // <itracer> .List </itracer>
-    // <regstatequeue> .List </regstatequeue>
+    <regstatequeue> .List </regstatequeue>
 
  //   <c-library/>
  //   <formatting/>

@@ -24,6 +24,7 @@ module X86-FETCH-EXECUTE
 
   /*@
     inforegisters prints all the register states for debug purposes.
+  */
   rule
     <k> inforegisters => . ... </k>
       <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
@@ -31,15 +32,13 @@ module X86-FETCH-EXECUTE
       <regstate> RSMap </regstate>
       <text> code (CMap) </text>
         requires  iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
-  */
 
   rule
     <k> inforegisters => . ... </k>
-  /*  
+      <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
       <text> code (CMap) </text>
       <regstate> RSMap </regstate>
         requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
-  */
 
   /*@
     Final Exit.
