@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef unsigned int u32;
 
 static const u32 deadfish = 0xdeadf155;

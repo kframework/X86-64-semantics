@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef __SIZE_TYPE__ size_t;
 extern size_t strlen (const char *s);
 

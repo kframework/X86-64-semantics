@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int g1, g2;
 
 void foo (int x)

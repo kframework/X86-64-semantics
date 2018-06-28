@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int
 sub1 (int i, int j)
 {

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This testcase failed on mmix-knuth-mmixware.  Problem was with storing
    to an unaligned mem:SC, gcc tried doing it by parts from a (concat:SC
    (reg:SF 293) (reg:SF 294)).  */

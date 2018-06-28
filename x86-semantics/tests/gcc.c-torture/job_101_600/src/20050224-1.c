@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Origin: Mikael Pettersson <mikpe@csd.uu.se> and the Linux kernel.  */
 
 extern void abort (void);

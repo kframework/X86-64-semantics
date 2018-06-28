@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR tree-optimization/50569 */
 /* Reported by Paul Koning <pkoning@gcc.gnu.org> */
 /* Reduced testcase by Mikael Pettersson <mikpe@it.uu.se> */

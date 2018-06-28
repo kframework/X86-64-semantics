@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-skip-if "requires alloca" { ! alloca } { "-O0" } { "" } } */
 /* { dg-require-effective-target trampolines } */
 

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This file tests shifts in various integral modes.  */
 
 #include <limits.h>

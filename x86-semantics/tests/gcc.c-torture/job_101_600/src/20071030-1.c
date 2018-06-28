@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR target/11044 */
 /* Originator: Tim McGrath <misty-@charter.net> */
 /* Testcase contributed by Eric Botcazou <ebotcazou@libertysurf.fr> */

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c++/14755 */
 extern void abort (void);
 extern void exit (int);

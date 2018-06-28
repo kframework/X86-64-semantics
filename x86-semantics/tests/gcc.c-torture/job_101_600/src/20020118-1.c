@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This tests an insn length of sign extension on h8300 port.  */
 
 extern void exit (int);

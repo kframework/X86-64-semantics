@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/21330 */
 
 extern void abort (void);

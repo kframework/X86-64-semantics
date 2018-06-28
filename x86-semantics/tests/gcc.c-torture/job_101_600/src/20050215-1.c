@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/19857 */
 
 typedef struct { char c[8]; } V

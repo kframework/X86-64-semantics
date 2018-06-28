@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* 920730-1.c */
 #include <limits.h>
 f1()

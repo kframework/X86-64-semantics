@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/60116 */
 /* Reported by Zhendong Su <su@cs.ucdavis.edu> */
 

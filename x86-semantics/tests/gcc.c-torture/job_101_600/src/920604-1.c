@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 long long
 mod (a, b)
      long long a, b;

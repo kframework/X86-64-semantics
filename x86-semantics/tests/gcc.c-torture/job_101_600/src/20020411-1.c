@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR optimization/6177
    This testcase ICEd because expr.c did not expect to see a CONCAT
    as array rtl.  */

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Origin: PR c/8467 */
 
 extern void abort (void);

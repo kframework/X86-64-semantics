@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef enum foo E;
 enum foo { e0, e1 };
 

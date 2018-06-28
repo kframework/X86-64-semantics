@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/3444
    This used to fail because bitwise xor was improperly computed in char type
    and sign extended to int type.  */

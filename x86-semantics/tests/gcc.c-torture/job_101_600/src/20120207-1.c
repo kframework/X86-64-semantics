@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/51994 */
 /* Testcase by Uros Bizjak <ubizjak@gmail.com> */
 

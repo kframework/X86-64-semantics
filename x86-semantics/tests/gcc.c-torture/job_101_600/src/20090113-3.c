@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct obstack {};
 struct bitmap_head_def;
 typedef struct bitmap_head_def *bitmap;

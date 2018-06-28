@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct s {
   unsigned long long a:8, b:32;
 };

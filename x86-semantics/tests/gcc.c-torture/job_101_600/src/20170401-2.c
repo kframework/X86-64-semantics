@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 void adjust_xy (short *, short *);
 
 struct adjust_template

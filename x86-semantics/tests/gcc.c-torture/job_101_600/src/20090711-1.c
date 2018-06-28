@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Used to be miscompiled at -O0 due to incorrect choice of sign extension
    vs. zero extension.  __attribute__ ((noinline)) added to try to make it
    fail at higher optimization levels too.  */

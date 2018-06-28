@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern void abort (void);
 
 typedef float v4flt __attribute__ ((vector_size (16)));

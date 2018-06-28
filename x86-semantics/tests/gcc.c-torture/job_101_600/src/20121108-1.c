@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 char temp[] = "192.168.190.160";
 unsigned result = (((((192u<<8)|168u)<<8)|190u)<<8)|160u;
 

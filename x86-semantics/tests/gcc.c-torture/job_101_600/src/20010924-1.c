@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Verify that flexible arrays can be initialized from STRING_CST
    constructors. */
 

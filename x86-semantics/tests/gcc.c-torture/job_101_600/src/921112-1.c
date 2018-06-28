@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 union u {
   struct { int i1, i2; } t;
   double d;

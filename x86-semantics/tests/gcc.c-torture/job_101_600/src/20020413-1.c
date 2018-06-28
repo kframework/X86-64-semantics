@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 void test(long double val, int *eval)
 {
   long double tmp = 1.0l;

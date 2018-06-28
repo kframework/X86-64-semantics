@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/68205 */
 /* { dg-require-effective-target int32plus } */
 /* { dg-additional-options "-fno-common" } */

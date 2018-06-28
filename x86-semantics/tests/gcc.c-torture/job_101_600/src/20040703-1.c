@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR 16341 */
 /* { dg-require-effective-target int32plus } */
 

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 long double
 ll_to_ld (long long n)
 {

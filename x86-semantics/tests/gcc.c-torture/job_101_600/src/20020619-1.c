@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #if (__SIZEOF_INT__ == 4)
 typedef int int32;
 #elif (__SIZEOF_LONG__ == 4)

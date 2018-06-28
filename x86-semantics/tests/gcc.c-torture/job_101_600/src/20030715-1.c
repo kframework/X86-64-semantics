@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR optimization/11320 */
 /* Origin: Andreas Schwab <schwab@suse.de> */
 

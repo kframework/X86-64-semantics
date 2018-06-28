@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test that we don't let stmt.c think that the enumeration's values are
    the entire set of possibilities.  Such an assumption is false for C,
    but true for other languages.  */

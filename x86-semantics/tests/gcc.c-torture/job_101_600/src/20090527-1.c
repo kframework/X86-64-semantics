@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef enum { POSITION_ASIS, POSITION_UNSPECIFIED } unit_position;
 
 typedef enum { STATUS_UNKNOWN, STATUS_UNSPECIFIED } unit_status;

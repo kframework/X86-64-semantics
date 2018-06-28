@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Origin: Joseph Myers <jsm28@cam.ac.uk>.
 
    This tests for inconsistency in whether wide STRING_CSTs use the host

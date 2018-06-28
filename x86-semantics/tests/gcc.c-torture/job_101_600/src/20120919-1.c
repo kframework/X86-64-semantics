@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/54290 */
 /* Testcase by Eric Volk <eriksnga@gmail.com> */
 /* { dg-require-effective-target int32plus } */

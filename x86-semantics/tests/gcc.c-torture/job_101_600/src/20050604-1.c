@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR regression/21897 */
 /* This testcase generates MMX instructions together with x87 instructions.
    Currently, there is no "emms" generated to switch between register sets,

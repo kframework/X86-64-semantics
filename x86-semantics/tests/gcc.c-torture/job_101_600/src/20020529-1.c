@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR target/6838 from cato@df.lth.se.
    cris-elf got an ICE with -O2: the insn matching
       (insn 49 48 52 (parallel[ 

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test arithmetics on bitfields.  */
 /* { dg-require-effective-target int32plus } */
 

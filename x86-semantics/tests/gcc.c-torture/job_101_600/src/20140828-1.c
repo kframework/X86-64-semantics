@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 short *f(short *a, int b, int *d) __attribute__((noinline,noclone));
 
 short *f(short *a, int b, int *d)

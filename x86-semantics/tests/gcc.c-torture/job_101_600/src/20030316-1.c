@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR target/9164 */
 /* The comparison operand was sign extended erraneously.  */
 

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Bug in reorg.c, deleting the "++" in the last loop in main.
    Origin: <hp@axis.com>.  */
 

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-effective-target untyped_assembly } */
 /* { dg-require-stack-size "100000 * 4 + 1024" } */
 

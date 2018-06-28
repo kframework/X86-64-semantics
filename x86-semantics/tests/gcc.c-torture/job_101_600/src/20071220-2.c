@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR tree-optimization/29484 */
 /* { dg-require-effective-target label_values } */
 

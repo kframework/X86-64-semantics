@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* REPRODUCED:RUN:SIGNAL MACHINE:mips OPTIONS: */
 
 #include <stdarg.h>

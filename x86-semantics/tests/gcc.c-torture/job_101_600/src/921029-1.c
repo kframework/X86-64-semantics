@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef unsigned long long ULL;
 ULL back;
 ULL hpart, lpart;

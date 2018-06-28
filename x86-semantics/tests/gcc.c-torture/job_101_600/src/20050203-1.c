@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Reduced testcase extracted from Samba source code.  */
 
 #include <stdlib.h>

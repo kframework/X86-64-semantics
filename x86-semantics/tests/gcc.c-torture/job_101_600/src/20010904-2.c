@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef struct x { int a; int b; } __attribute__((aligned(32))) X;
 typedef struct y { X x; X y[31]; int c; } Y;
 

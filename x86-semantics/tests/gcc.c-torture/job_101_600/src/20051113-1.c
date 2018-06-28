@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern void *malloc(__SIZE_TYPE__);
 extern void *memset(void *, int, __SIZE_TYPE__);
 typedef struct

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test whether store motion recognizes pure functions as potentially reading
    any memory.  */
 

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef union {
   long l;
   struct { char b3, b2, b1, b0; } c;

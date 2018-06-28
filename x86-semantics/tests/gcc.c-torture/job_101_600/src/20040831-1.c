@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* This testcase was being miscompiled, because operand_equal_p
    returned that (unsigned long) d and (long) d are equal.  */
 extern void abort (void);

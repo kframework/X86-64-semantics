@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-stack-size "8*100*100" } */
 
 double x[100][100];

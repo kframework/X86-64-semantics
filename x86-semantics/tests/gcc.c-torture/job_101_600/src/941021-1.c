@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 double glob_dbl;
 
 f (pdbl, value)

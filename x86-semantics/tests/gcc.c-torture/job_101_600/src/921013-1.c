@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 f(d,x,y,n)
 int*d;
 float*x,*y;

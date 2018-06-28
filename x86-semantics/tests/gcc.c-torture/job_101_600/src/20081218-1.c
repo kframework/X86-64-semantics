@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct A { int i, j; char pad[512]; } a;
 
 int __attribute__((noinline))

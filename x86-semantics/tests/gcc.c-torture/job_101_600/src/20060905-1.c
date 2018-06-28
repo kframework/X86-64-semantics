@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-optimization/28386 */
 /* Origin: Volker Reichelt <reichelt@gcc.gnu.org> */
 

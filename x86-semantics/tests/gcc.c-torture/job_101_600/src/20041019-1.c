@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 test_store_ccp (int i)
 {
   int *p, a, b, c;

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef unsigned long long u64;
 unsigned long foo = 0;
 u64 f() __attribute__((noinline));

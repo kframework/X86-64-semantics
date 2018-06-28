@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef struct gs_imager_state_s {
   struct {
     int half_width;

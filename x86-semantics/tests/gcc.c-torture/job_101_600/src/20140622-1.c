@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned p;
 
 long __attribute__((noinline, noclone))

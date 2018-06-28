@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef struct
 {
   short f:3, g:3, h:10;

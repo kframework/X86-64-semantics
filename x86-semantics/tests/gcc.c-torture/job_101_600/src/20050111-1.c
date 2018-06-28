@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/19084, rtl-optimization/19348 */
 
 unsigned int

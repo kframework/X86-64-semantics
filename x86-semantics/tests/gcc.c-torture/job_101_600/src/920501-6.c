@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 #include <stdio.h>
 
 /* Convert a decimal string to a long long unsigned.  No error check is

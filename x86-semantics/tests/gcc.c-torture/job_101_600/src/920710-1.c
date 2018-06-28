@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 main()
 {
   if ((double) 18446744073709551615ULL < 1.84467440737095e+19 ||

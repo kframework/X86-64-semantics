@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 int f(long long a) __attribute__((noinline,noclone));
 int f(long long a)
 {

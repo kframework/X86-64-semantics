@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR rtl-opt/15289 */
 
 typedef struct { _Complex char a; _Complex char b; } Scc2;

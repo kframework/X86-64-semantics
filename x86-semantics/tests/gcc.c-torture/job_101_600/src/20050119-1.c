@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/19342 */
 typedef enum { A, B, C, D } E;
 

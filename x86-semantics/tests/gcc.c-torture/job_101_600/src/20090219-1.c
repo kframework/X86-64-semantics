@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* On ARM, BAR used to get a bogus number in E due to stack
    misalignment.  */
 

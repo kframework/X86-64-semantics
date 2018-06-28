@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* { dg-require-effective-target alloca } */
 
 /* This program tests a data flow bug that would cause constant propagation

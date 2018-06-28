@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 static int g_7;
 static int *volatile g_6 = &g_7;
 int g_3;

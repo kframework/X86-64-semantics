@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR c/6677 */
 /* Verify that GCC doesn't perform illegal simplifications
    when folding constants.  */

@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern void abort (void);
 
 typedef unsigned long HARD_REG_SET[2];

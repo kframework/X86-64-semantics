@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* Test that sibling call is not used if there is an argument overlap.  */
 
 extern void abort (void);

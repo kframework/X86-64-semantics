@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 struct __attribute__((packed)) S
 {
   int a, b, c;

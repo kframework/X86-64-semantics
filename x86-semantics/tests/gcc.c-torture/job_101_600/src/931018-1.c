@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 unsigned int a[0x1000];
 extern const unsigned long v;
 

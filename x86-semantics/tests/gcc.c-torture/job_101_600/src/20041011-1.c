@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 typedef unsigned long long ull;
 volatile int gvol[32];
 ull gull;

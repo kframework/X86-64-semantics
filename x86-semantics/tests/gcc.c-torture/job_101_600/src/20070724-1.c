@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 void abort (void);
 
 static unsigned char magic[] = "\235";

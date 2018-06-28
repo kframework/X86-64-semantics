@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR middle-end/30473 */
 
 extern int sprintf (char *, const char *, ...);

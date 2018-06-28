@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 // Origin: abbott@dima.unige.it
 // PR c/5120
 

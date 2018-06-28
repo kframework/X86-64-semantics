@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 /* PR tree-optimization/80426 */
 /* Testcase by <ishiura-compiler@ml.kwansei.ac.jp> */
 

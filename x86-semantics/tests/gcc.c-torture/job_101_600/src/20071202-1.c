@@ -1,3 +1,5 @@
+#include "mini_string.h"
+#include "mini_stdlib.h"
 extern void abort (void);
 struct T { int t; int r[8]; };
 struct S { int a; int b; int c[6]; struct T d; };
