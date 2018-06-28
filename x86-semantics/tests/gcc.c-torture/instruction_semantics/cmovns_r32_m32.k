@@ -9,5 +9,5 @@ module CMOVNS-R32-M32
   rule <k>
     execinstr (cmovns:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands) => 
             execinstr (cmovnsl:Opcode memOffset( MemOff:MInt):MemOffset, R2:R32,  .Operands)
-  </k>                                                                                                                                        
+  ...</k>                                                                                                                                        
 endmodule
