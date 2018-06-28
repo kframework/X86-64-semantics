@@ -1,6 +1,6 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-extern unsigned long aa[], bb[];
+//extern unsigned long aa[], bb[];
 
 int seqgt (unsigned long a, unsigned short win, unsigned long b);
 
@@ -8,7 +8,8 @@ int seqgt2 (unsigned long a, unsigned short win, unsigned long b);
 
 main()
 {
-  if (! seqgt (*aa, 0x1000, *bb) || ! seqgt2 (*aa, 0x1000, *bb))
+  //if (! seqgt (*aa, 0x1000, *bb) || ! seqgt2 (*aa, 0x1000, *bb))
+  if (! seqgt (9223372036854771713, 0x1000, 9223372036854771713) || ! seqgt2 (9223372036854771713, 0x1000, 9223372036854771713))
     abort ();
 
   exit (0);
@@ -27,5 +28,5 @@ seqgt2 (unsigned long a, unsigned short win, unsigned long b)
   return l > 0;
 }
 
-unsigned long aa[] = { (1UL << (sizeof (long) * 8 - 1)) - 0xfff };
-unsigned long bb[] = { (1UL << (sizeof (long) * 8 - 1)) - 0xfff };
+//unsigned long aa[] = { (1UL << (sizeof (long) * 8 - 1)) - 0xfff };
+//unsigned long bb[] = { (1UL << (sizeof (long) * 8 - 1)) - 0xfff };

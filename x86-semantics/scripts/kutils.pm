@@ -571,7 +571,7 @@ sub processKFile {
     my @kstates       = ();
     my @sortedkstates = ();
     my %kstateMap     = ();
-    print "$basename\n\n";
+    #print "\n\n$basename\n\n";
     my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 
     execute(
@@ -745,7 +745,8 @@ sub compareInts {
         return 1;
     }
     else {
-        failInfo("$xhexnum != $khexnum\n");
+        failInfo("Fail");
+        print "$khexnum != $xhexnum\n";
     }
     return 0;
 }
@@ -761,14 +762,16 @@ sub compareStates {
         failInfo("Either of xstate or kstate is Empty\n");
         return;
     }
-    if ( scalar(@kstates) != scalar(@xstates) ) {
+    if ( scalar(@kstates) != scalar(@xstates) + 38 ) {
         my $msg =
             "kstates = "
           . scalar(@kstates) . "\n"
           . "xstates = "
           . scalar(@xstates) . "\n\n";
-        info("kstate xstate count unequal");
+
+        failInfo("kstate xstate count unequal");
         print $msg;
+        return;
 
 #print join( "\n", @kstates );
 #print join( "\n", @xstates );
@@ -804,8 +807,8 @@ sub compareStates {
         }
 
         if ( 0 == compareInts( $kstates[$i], $xstates[$i] ) ) {
-            print $kstates[$i] . "\n" . $xstates[$i] . "\n";
-            failInfo( "$regMap{$i % $regcount} at instrcount: " . $instrcount );
+          #print $kstates[$i] . "\n" . $xstates[$i] . "\n";
+            print( "$regMap{$i % $regcount} at instrcount: " . $instrcount ."\n\n" );
 #return;
         }
         else {
