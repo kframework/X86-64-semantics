@@ -1,0 +1,5137 @@
+grep  -A 39  "ListItem"  Output/20000412-2-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileyCl_R 2>&1 
+numOfInstrs: 72
+
+	0:	55	push   %rbp
+	1:	48 89 e5	mov    %rsp,%rbp
+	2:	48 83 ec 10	sub    $0x10,%rsp
+	3:	89 7d fc	mov    %edi,-0x4(%rbp)
+	4:	48 89 75 f0	mov    %rsi,-0x10(%rbp)
+	5:	be 00 00 00 00	mov    $0x0,%esi
+	6:	bf 64 00 00 00	mov    $0x64,%edi
+	7:	e8 a9 ff ff ff	callq  0x4000d5 <f>
+	8:	55	push   %rbp
+	9:	48 89 e5	mov    %rsp,%rbp
+	10:	48 83 ec 20	sub    $0x20,%rsp
+	11:	89 7d ec	mov    %edi,-0x14(%rbp)
+	12:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	13:	8b 45 ec	mov    -0x14(%rbp),%eax
+	14:	89 45 fc	mov    %eax,-0x4(%rbp)
+	15:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	16:	75 08	jne    0x4000f8 <L10>
+	17:	8b 45 ec	mov    -0x14(%rbp),%eax
+	18:	8d 50 ff	lea    -0x1(%rax),%edx
+	19:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	20:	48 89 c6	mov    %rax,%rsi
+	21:	89 d7	mov    %edx,%edi
+	22:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	23:	55	push   %rbp
+	24:	48 89 e5	mov    %rsp,%rbp
+	25:	48 83 ec 20	sub    $0x20,%rsp
+	26:	89 7d ec	mov    %edi,-0x14(%rbp)
+	27:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	28:	8b 45 ec	mov    -0x14(%rbp),%eax
+	29:	89 45 fc	mov    %eax,-0x4(%rbp)
+	30:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	31:	75 08	jne    0x4000f8 <L10>
+	32:	8b 45 ec	mov    -0x14(%rbp),%eax
+	33:	8d 50 ff	lea    -0x1(%rax),%edx
+	34:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	35:	48 89 c6	mov    %rax,%rsi
+	36:	89 d7	mov    %edx,%edi
+	37:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	38:	55	push   %rbp
+	39:	48 89 e5	mov    %rsp,%rbp
+	40:	48 83 ec 20	sub    $0x20,%rsp
+	41:	89 7d ec	mov    %edi,-0x14(%rbp)
+	42:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	43:	8b 45 ec	mov    -0x14(%rbp),%eax
+	44:	89 45 fc	mov    %eax,-0x4(%rbp)
+	45:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	46:	75 08	jne    0x4000f8 <L10>
+	47:	8b 45 ec	mov    -0x14(%rbp),%eax
+	48:	8d 50 ff	lea    -0x1(%rax),%edx
+	49:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	50:	48 89 c6	mov    %rax,%rsi
+	51:	89 d7	mov    %edx,%edi
+	52:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	53:	55	push   %rbp
+	54:	48 89 e5	mov    %rsp,%rbp
+	55:	48 83 ec 20	sub    $0x20,%rsp
+	56:	89 7d ec	mov    %edi,-0x14(%rbp)
+	57:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	58:	8b 45 ec	mov    -0x14(%rbp),%eax
+	59:	89 45 fc	mov    %eax,-0x4(%rbp)
+	60:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	61:	75 08	jne    0x4000f8 <L10>
+	62:	8b 45 ec	mov    -0x14(%rbp),%eax
+	63:	8d 50 ff	lea    -0x1(%rax),%edx
+	64:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	65:	48 89 c6	mov    %rax,%rsi
+	66:	89 d7	mov    %edx,%edi
+	67:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	68:	55	push   %rbp
+	69:	48 89 e5	mov    %rsp,%rbp
+	70:	48 83 ec 20	sub    $0x20,%rsp
+	71:	89 7d ec	mov    %edi,-0x14(%rbp)
+	72:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	73:	8b 45 ec	mov    -0x14(%rbp),%eax
+	74:	89 45 fc	mov    %eax,-0x4(%rbp)
+	75:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	76:	75 08	jne    0x4000f8 <L10>
+	77:	8b 45 ec	mov    -0x14(%rbp),%eax
+	78:	8d 50 ff	lea    -0x1(%rax),%edx
+	79:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	80:	48 89 c6	mov    %rax,%rsi
+	81:	89 d7	mov    %edx,%edi
+	82:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	83:	55	push   %rbp
+	84:	48 89 e5	mov    %rsp,%rbp
+	85:	48 83 ec 20	sub    $0x20,%rsp
+	86:	89 7d ec	mov    %edi,-0x14(%rbp)
+	87:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	88:	8b 45 ec	mov    -0x14(%rbp),%eax
+	89:	89 45 fc	mov    %eax,-0x4(%rbp)
+	90:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	91:	75 08	jne    0x4000f8 <L10>
+	92:	8b 45 ec	mov    -0x14(%rbp),%eax
+	93:	8d 50 ff	lea    -0x1(%rax),%edx
+	94:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	95:	48 89 c6	mov    %rax,%rsi
+	96:	89 d7	mov    %edx,%edi
+	97:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	98:	55	push   %rbp
+	99:	48 89 e5	mov    %rsp,%rbp
+	100:	48 83 ec 20	sub    $0x20,%rsp
+	101:	89 7d ec	mov    %edi,-0x14(%rbp)
+	102:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	103:	8b 45 ec	mov    -0x14(%rbp),%eax
+	104:	89 45 fc	mov    %eax,-0x4(%rbp)
+	105:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	106:	75 08	jne    0x4000f8 <L10>
+	107:	8b 45 ec	mov    -0x14(%rbp),%eax
+	108:	8d 50 ff	lea    -0x1(%rax),%edx
+	109:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	110:	48 89 c6	mov    %rax,%rsi
+	111:	89 d7	mov    %edx,%edi
+	112:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	113:	55	push   %rbp
+	114:	48 89 e5	mov    %rsp,%rbp
+	115:	48 83 ec 20	sub    $0x20,%rsp
+	116:	89 7d ec	mov    %edi,-0x14(%rbp)
+	117:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	118:	8b 45 ec	mov    -0x14(%rbp),%eax
+	119:	89 45 fc	mov    %eax,-0x4(%rbp)
+	120:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	121:	75 08	jne    0x4000f8 <L10>
+	122:	8b 45 ec	mov    -0x14(%rbp),%eax
+	123:	8d 50 ff	lea    -0x1(%rax),%edx
+	124:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	125:	48 89 c6	mov    %rax,%rsi
+	126:	89 d7	mov    %edx,%edi
+	127:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	128:	55	push   %rbp
+	129:	48 89 e5	mov    %rsp,%rbp
+	130:	48 83 ec 20	sub    $0x20,%rsp
+	131:	89 7d ec	mov    %edi,-0x14(%rbp)
+	132:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	133:	8b 45 ec	mov    -0x14(%rbp),%eax
+	134:	89 45 fc	mov    %eax,-0x4(%rbp)
+	135:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	136:	75 08	jne    0x4000f8 <L10>
+	137:	8b 45 ec	mov    -0x14(%rbp),%eax
+	138:	8d 50 ff	lea    -0x1(%rax),%edx
+	139:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	140:	48 89 c6	mov    %rax,%rsi
+	141:	89 d7	mov    %edx,%edi
+	142:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	143:	55	push   %rbp
+	144:	48 89 e5	mov    %rsp,%rbp
+	145:	48 83 ec 20	sub    $0x20,%rsp
+	146:	89 7d ec	mov    %edi,-0x14(%rbp)
+	147:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	148:	8b 45 ec	mov    -0x14(%rbp),%eax
+	149:	89 45 fc	mov    %eax,-0x4(%rbp)
+	150:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	151:	75 08	jne    0x4000f8 <L10>
+	152:	8b 45 ec	mov    -0x14(%rbp),%eax
+	153:	8d 50 ff	lea    -0x1(%rax),%edx
+	154:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	155:	48 89 c6	mov    %rax,%rsi
+	156:	89 d7	mov    %edx,%edi
+	157:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	158:	55	push   %rbp
+	159:	48 89 e5	mov    %rsp,%rbp
+	160:	48 83 ec 20	sub    $0x20,%rsp
+	161:	89 7d ec	mov    %edi,-0x14(%rbp)
+	162:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	163:	8b 45 ec	mov    -0x14(%rbp),%eax
+	164:	89 45 fc	mov    %eax,-0x4(%rbp)
+	165:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	166:	75 08	jne    0x4000f8 <L10>
+	167:	8b 45 ec	mov    -0x14(%rbp),%eax
+	168:	8d 50 ff	lea    -0x1(%rax),%edx
+	169:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	170:	48 89 c6	mov    %rax,%rsi
+	171:	89 d7	mov    %edx,%edi
+	172:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	173:	55	push   %rbp
+	174:	48 89 e5	mov    %rsp,%rbp
+	175:	48 83 ec 20	sub    $0x20,%rsp
+	176:	89 7d ec	mov    %edi,-0x14(%rbp)
+	177:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	178:	8b 45 ec	mov    -0x14(%rbp),%eax
+	179:	89 45 fc	mov    %eax,-0x4(%rbp)
+	180:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	181:	75 08	jne    0x4000f8 <L10>
+	182:	8b 45 ec	mov    -0x14(%rbp),%eax
+	183:	8d 50 ff	lea    -0x1(%rax),%edx
+	184:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	185:	48 89 c6	mov    %rax,%rsi
+	186:	89 d7	mov    %edx,%edi
+	187:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	188:	55	push   %rbp
+	189:	48 89 e5	mov    %rsp,%rbp
+	190:	48 83 ec 20	sub    $0x20,%rsp
+	191:	89 7d ec	mov    %edi,-0x14(%rbp)
+	192:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	193:	8b 45 ec	mov    -0x14(%rbp),%eax
+	194:	89 45 fc	mov    %eax,-0x4(%rbp)
+	195:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	196:	75 08	jne    0x4000f8 <L10>
+	197:	8b 45 ec	mov    -0x14(%rbp),%eax
+	198:	8d 50 ff	lea    -0x1(%rax),%edx
+	199:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	200:	48 89 c6	mov    %rax,%rsi
+	201:	89 d7	mov    %edx,%edi
+	202:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	203:	55	push   %rbp
+	204:	48 89 e5	mov    %rsp,%rbp
+	205:	48 83 ec 20	sub    $0x20,%rsp
+	206:	89 7d ec	mov    %edi,-0x14(%rbp)
+	207:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	208:	8b 45 ec	mov    -0x14(%rbp),%eax
+	209:	89 45 fc	mov    %eax,-0x4(%rbp)
+	210:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	211:	75 08	jne    0x4000f8 <L10>
+	212:	8b 45 ec	mov    -0x14(%rbp),%eax
+	213:	8d 50 ff	lea    -0x1(%rax),%edx
+	214:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	215:	48 89 c6	mov    %rax,%rsi
+	216:	89 d7	mov    %edx,%edi
+	217:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	218:	55	push   %rbp
+	219:	48 89 e5	mov    %rsp,%rbp
+	220:	48 83 ec 20	sub    $0x20,%rsp
+	221:	89 7d ec	mov    %edi,-0x14(%rbp)
+	222:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	223:	8b 45 ec	mov    -0x14(%rbp),%eax
+	224:	89 45 fc	mov    %eax,-0x4(%rbp)
+	225:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	226:	75 08	jne    0x4000f8 <L10>
+	227:	8b 45 ec	mov    -0x14(%rbp),%eax
+	228:	8d 50 ff	lea    -0x1(%rax),%edx
+	229:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	230:	48 89 c6	mov    %rax,%rsi
+	231:	89 d7	mov    %edx,%edi
+	232:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	233:	55	push   %rbp
+	234:	48 89 e5	mov    %rsp,%rbp
+	235:	48 83 ec 20	sub    $0x20,%rsp
+	236:	89 7d ec	mov    %edi,-0x14(%rbp)
+	237:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	238:	8b 45 ec	mov    -0x14(%rbp),%eax
+	239:	89 45 fc	mov    %eax,-0x4(%rbp)
+	240:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	241:	75 08	jne    0x4000f8 <L10>
+	242:	8b 45 ec	mov    -0x14(%rbp),%eax
+	243:	8d 50 ff	lea    -0x1(%rax),%edx
+	244:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	245:	48 89 c6	mov    %rax,%rsi
+	246:	89 d7	mov    %edx,%edi
+	247:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	248:	55	push   %rbp
+	249:	48 89 e5	mov    %rsp,%rbp
+	250:	48 83 ec 20	sub    $0x20,%rsp
+	251:	89 7d ec	mov    %edi,-0x14(%rbp)
+	252:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	253:	8b 45 ec	mov    -0x14(%rbp),%eax
+	254:	89 45 fc	mov    %eax,-0x4(%rbp)
+	255:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	256:	75 08	jne    0x4000f8 <L10>
+	257:	8b 45 ec	mov    -0x14(%rbp),%eax
+	258:	8d 50 ff	lea    -0x1(%rax),%edx
+	259:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	260:	48 89 c6	mov    %rax,%rsi
+	261:	89 d7	mov    %edx,%edi
+	262:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	263:	55	push   %rbp
+	264:	48 89 e5	mov    %rsp,%rbp
+	265:	48 83 ec 20	sub    $0x20,%rsp
+	266:	89 7d ec	mov    %edi,-0x14(%rbp)
+	267:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	268:	8b 45 ec	mov    -0x14(%rbp),%eax
+	269:	89 45 fc	mov    %eax,-0x4(%rbp)
+	270:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	271:	75 08	jne    0x4000f8 <L10>
+	272:	8b 45 ec	mov    -0x14(%rbp),%eax
+	273:	8d 50 ff	lea    -0x1(%rax),%edx
+	274:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	275:	48 89 c6	mov    %rax,%rsi
+	276:	89 d7	mov    %edx,%edi
+	277:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	278:	55	push   %rbp
+	279:	48 89 e5	mov    %rsp,%rbp
+	280:	48 83 ec 20	sub    $0x20,%rsp
+	281:	89 7d ec	mov    %edi,-0x14(%rbp)
+	282:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	283:	8b 45 ec	mov    -0x14(%rbp),%eax
+	284:	89 45 fc	mov    %eax,-0x4(%rbp)
+	285:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	286:	75 08	jne    0x4000f8 <L10>
+	287:	8b 45 ec	mov    -0x14(%rbp),%eax
+	288:	8d 50 ff	lea    -0x1(%rax),%edx
+	289:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	290:	48 89 c6	mov    %rax,%rsi
+	291:	89 d7	mov    %edx,%edi
+	292:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	293:	55	push   %rbp
+	294:	48 89 e5	mov    %rsp,%rbp
+	295:	48 83 ec 20	sub    $0x20,%rsp
+	296:	89 7d ec	mov    %edi,-0x14(%rbp)
+	297:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	298:	8b 45 ec	mov    -0x14(%rbp),%eax
+	299:	89 45 fc	mov    %eax,-0x4(%rbp)
+	300:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	301:	75 08	jne    0x4000f8 <L10>
+	302:	8b 45 ec	mov    -0x14(%rbp),%eax
+	303:	8d 50 ff	lea    -0x1(%rax),%edx
+	304:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	305:	48 89 c6	mov    %rax,%rsi
+	306:	89 d7	mov    %edx,%edi
+	307:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	308:	55	push   %rbp
+	309:	48 89 e5	mov    %rsp,%rbp
+	310:	48 83 ec 20	sub    $0x20,%rsp
+	311:	89 7d ec	mov    %edi,-0x14(%rbp)
+	312:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	313:	8b 45 ec	mov    -0x14(%rbp),%eax
+	314:	89 45 fc	mov    %eax,-0x4(%rbp)
+	315:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	316:	75 08	jne    0x4000f8 <L10>
+	317:	8b 45 ec	mov    -0x14(%rbp),%eax
+	318:	8d 50 ff	lea    -0x1(%rax),%edx
+	319:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	320:	48 89 c6	mov    %rax,%rsi
+	321:	89 d7	mov    %edx,%edi
+	322:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	323:	55	push   %rbp
+	324:	48 89 e5	mov    %rsp,%rbp
+	325:	48 83 ec 20	sub    $0x20,%rsp
+	326:	89 7d ec	mov    %edi,-0x14(%rbp)
+	327:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	328:	8b 45 ec	mov    -0x14(%rbp),%eax
+	329:	89 45 fc	mov    %eax,-0x4(%rbp)
+	330:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	331:	75 08	jne    0x4000f8 <L10>
+	332:	8b 45 ec	mov    -0x14(%rbp),%eax
+	333:	8d 50 ff	lea    -0x1(%rax),%edx
+	334:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	335:	48 89 c6	mov    %rax,%rsi
+	336:	89 d7	mov    %edx,%edi
+	337:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	338:	55	push   %rbp
+	339:	48 89 e5	mov    %rsp,%rbp
+	340:	48 83 ec 20	sub    $0x20,%rsp
+	341:	89 7d ec	mov    %edi,-0x14(%rbp)
+	342:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	343:	8b 45 ec	mov    -0x14(%rbp),%eax
+	344:	89 45 fc	mov    %eax,-0x4(%rbp)
+	345:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	346:	75 08	jne    0x4000f8 <L10>
+	347:	8b 45 ec	mov    -0x14(%rbp),%eax
+	348:	8d 50 ff	lea    -0x1(%rax),%edx
+	349:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	350:	48 89 c6	mov    %rax,%rsi
+	351:	89 d7	mov    %edx,%edi
+	352:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	353:	55	push   %rbp
+	354:	48 89 e5	mov    %rsp,%rbp
+	355:	48 83 ec 20	sub    $0x20,%rsp
+	356:	89 7d ec	mov    %edi,-0x14(%rbp)
+	357:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	358:	8b 45 ec	mov    -0x14(%rbp),%eax
+	359:	89 45 fc	mov    %eax,-0x4(%rbp)
+	360:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	361:	75 08	jne    0x4000f8 <L10>
+	362:	8b 45 ec	mov    -0x14(%rbp),%eax
+	363:	8d 50 ff	lea    -0x1(%rax),%edx
+	364:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	365:	48 89 c6	mov    %rax,%rsi
+	366:	89 d7	mov    %edx,%edi
+	367:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	368:	55	push   %rbp
+	369:	48 89 e5	mov    %rsp,%rbp
+	370:	48 83 ec 20	sub    $0x20,%rsp
+	371:	89 7d ec	mov    %edi,-0x14(%rbp)
+	372:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	373:	8b 45 ec	mov    -0x14(%rbp),%eax
+	374:	89 45 fc	mov    %eax,-0x4(%rbp)
+	375:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	376:	75 08	jne    0x4000f8 <L10>
+	377:	8b 45 ec	mov    -0x14(%rbp),%eax
+	378:	8d 50 ff	lea    -0x1(%rax),%edx
+	379:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	380:	48 89 c6	mov    %rax,%rsi
+	381:	89 d7	mov    %edx,%edi
+	382:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	383:	55	push   %rbp
+	384:	48 89 e5	mov    %rsp,%rbp
+	385:	48 83 ec 20	sub    $0x20,%rsp
+	386:	89 7d ec	mov    %edi,-0x14(%rbp)
+	387:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	388:	8b 45 ec	mov    -0x14(%rbp),%eax
+	389:	89 45 fc	mov    %eax,-0x4(%rbp)
+	390:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	391:	75 08	jne    0x4000f8 <L10>
+	392:	8b 45 ec	mov    -0x14(%rbp),%eax
+	393:	8d 50 ff	lea    -0x1(%rax),%edx
+	394:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	395:	48 89 c6	mov    %rax,%rsi
+	396:	89 d7	mov    %edx,%edi
+	397:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	398:	55	push   %rbp
+	399:	48 89 e5	mov    %rsp,%rbp
+	400:	48 83 ec 20	sub    $0x20,%rsp
+	401:	89 7d ec	mov    %edi,-0x14(%rbp)
+	402:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	403:	8b 45 ec	mov    -0x14(%rbp),%eax
+	404:	89 45 fc	mov    %eax,-0x4(%rbp)
+	405:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	406:	75 08	jne    0x4000f8 <L10>
+	407:	8b 45 ec	mov    -0x14(%rbp),%eax
+	408:	8d 50 ff	lea    -0x1(%rax),%edx
+	409:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	410:	48 89 c6	mov    %rax,%rsi
+	411:	89 d7	mov    %edx,%edi
+	412:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	413:	55	push   %rbp
+	414:	48 89 e5	mov    %rsp,%rbp
+	415:	48 83 ec 20	sub    $0x20,%rsp
+	416:	89 7d ec	mov    %edi,-0x14(%rbp)
+	417:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	418:	8b 45 ec	mov    -0x14(%rbp),%eax
+	419:	89 45 fc	mov    %eax,-0x4(%rbp)
+	420:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	421:	75 08	jne    0x4000f8 <L10>
+	422:	8b 45 ec	mov    -0x14(%rbp),%eax
+	423:	8d 50 ff	lea    -0x1(%rax),%edx
+	424:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	425:	48 89 c6	mov    %rax,%rsi
+	426:	89 d7	mov    %edx,%edi
+	427:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	428:	55	push   %rbp
+	429:	48 89 e5	mov    %rsp,%rbp
+	430:	48 83 ec 20	sub    $0x20,%rsp
+	431:	89 7d ec	mov    %edi,-0x14(%rbp)
+	432:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	433:	8b 45 ec	mov    -0x14(%rbp),%eax
+	434:	89 45 fc	mov    %eax,-0x4(%rbp)
+	435:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	436:	75 08	jne    0x4000f8 <L10>
+	437:	8b 45 ec	mov    -0x14(%rbp),%eax
+	438:	8d 50 ff	lea    -0x1(%rax),%edx
+	439:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	440:	48 89 c6	mov    %rax,%rsi
+	441:	89 d7	mov    %edx,%edi
+	442:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	443:	55	push   %rbp
+	444:	48 89 e5	mov    %rsp,%rbp
+	445:	48 83 ec 20	sub    $0x20,%rsp
+	446:	89 7d ec	mov    %edi,-0x14(%rbp)
+	447:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	448:	8b 45 ec	mov    -0x14(%rbp),%eax
+	449:	89 45 fc	mov    %eax,-0x4(%rbp)
+	450:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	451:	75 08	jne    0x4000f8 <L10>
+	452:	8b 45 ec	mov    -0x14(%rbp),%eax
+	453:	8d 50 ff	lea    -0x1(%rax),%edx
+	454:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	455:	48 89 c6	mov    %rax,%rsi
+	456:	89 d7	mov    %edx,%edi
+	457:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	458:	55	push   %rbp
+	459:	48 89 e5	mov    %rsp,%rbp
+	460:	48 83 ec 20	sub    $0x20,%rsp
+	461:	89 7d ec	mov    %edi,-0x14(%rbp)
+	462:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	463:	8b 45 ec	mov    -0x14(%rbp),%eax
+	464:	89 45 fc	mov    %eax,-0x4(%rbp)
+	465:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	466:	75 08	jne    0x4000f8 <L10>
+	467:	8b 45 ec	mov    -0x14(%rbp),%eax
+	468:	8d 50 ff	lea    -0x1(%rax),%edx
+	469:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	470:	48 89 c6	mov    %rax,%rsi
+	471:	89 d7	mov    %edx,%edi
+	472:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	473:	55	push   %rbp
+	474:	48 89 e5	mov    %rsp,%rbp
+	475:	48 83 ec 20	sub    $0x20,%rsp
+	476:	89 7d ec	mov    %edi,-0x14(%rbp)
+	477:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	478:	8b 45 ec	mov    -0x14(%rbp),%eax
+	479:	89 45 fc	mov    %eax,-0x4(%rbp)
+	480:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	481:	75 08	jne    0x4000f8 <L10>
+	482:	8b 45 ec	mov    -0x14(%rbp),%eax
+	483:	8d 50 ff	lea    -0x1(%rax),%edx
+	484:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	485:	48 89 c6	mov    %rax,%rsi
+	486:	89 d7	mov    %edx,%edi
+	487:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	488:	55	push   %rbp
+	489:	48 89 e5	mov    %rsp,%rbp
+	490:	48 83 ec 20	sub    $0x20,%rsp
+	491:	89 7d ec	mov    %edi,-0x14(%rbp)
+	492:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	493:	8b 45 ec	mov    -0x14(%rbp),%eax
+	494:	89 45 fc	mov    %eax,-0x4(%rbp)
+	495:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	496:	75 08	jne    0x4000f8 <L10>
+	497:	8b 45 ec	mov    -0x14(%rbp),%eax
+	498:	8d 50 ff	lea    -0x1(%rax),%edx
+	499:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	500:	48 89 c6	mov    %rax,%rsi
+	501:	89 d7	mov    %edx,%edi
+	502:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	503:	55	push   %rbp
+	504:	48 89 e5	mov    %rsp,%rbp
+	505:	48 83 ec 20	sub    $0x20,%rsp
+	506:	89 7d ec	mov    %edi,-0x14(%rbp)
+	507:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	508:	8b 45 ec	mov    -0x14(%rbp),%eax
+	509:	89 45 fc	mov    %eax,-0x4(%rbp)
+	510:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	511:	75 08	jne    0x4000f8 <L10>
+	512:	8b 45 ec	mov    -0x14(%rbp),%eax
+	513:	8d 50 ff	lea    -0x1(%rax),%edx
+	514:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	515:	48 89 c6	mov    %rax,%rsi
+	516:	89 d7	mov    %edx,%edi
+	517:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	518:	55	push   %rbp
+	519:	48 89 e5	mov    %rsp,%rbp
+	520:	48 83 ec 20	sub    $0x20,%rsp
+	521:	89 7d ec	mov    %edi,-0x14(%rbp)
+	522:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	523:	8b 45 ec	mov    -0x14(%rbp),%eax
+	524:	89 45 fc	mov    %eax,-0x4(%rbp)
+	525:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	526:	75 08	jne    0x4000f8 <L10>
+	527:	8b 45 ec	mov    -0x14(%rbp),%eax
+	528:	8d 50 ff	lea    -0x1(%rax),%edx
+	529:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	530:	48 89 c6	mov    %rax,%rsi
+	531:	89 d7	mov    %edx,%edi
+	532:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	533:	55	push   %rbp
+	534:	48 89 e5	mov    %rsp,%rbp
+	535:	48 83 ec 20	sub    $0x20,%rsp
+	536:	89 7d ec	mov    %edi,-0x14(%rbp)
+	537:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	538:	8b 45 ec	mov    -0x14(%rbp),%eax
+	539:	89 45 fc	mov    %eax,-0x4(%rbp)
+	540:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	541:	75 08	jne    0x4000f8 <L10>
+	542:	8b 45 ec	mov    -0x14(%rbp),%eax
+	543:	8d 50 ff	lea    -0x1(%rax),%edx
+	544:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	545:	48 89 c6	mov    %rax,%rsi
+	546:	89 d7	mov    %edx,%edi
+	547:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	548:	55	push   %rbp
+	549:	48 89 e5	mov    %rsp,%rbp
+	550:	48 83 ec 20	sub    $0x20,%rsp
+	551:	89 7d ec	mov    %edi,-0x14(%rbp)
+	552:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	553:	8b 45 ec	mov    -0x14(%rbp),%eax
+	554:	89 45 fc	mov    %eax,-0x4(%rbp)
+	555:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	556:	75 08	jne    0x4000f8 <L10>
+	557:	8b 45 ec	mov    -0x14(%rbp),%eax
+	558:	8d 50 ff	lea    -0x1(%rax),%edx
+	559:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	560:	48 89 c6	mov    %rax,%rsi
+	561:	89 d7	mov    %edx,%edi
+	562:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	563:	55	push   %rbp
+	564:	48 89 e5	mov    %rsp,%rbp
+	565:	48 83 ec 20	sub    $0x20,%rsp
+	566:	89 7d ec	mov    %edi,-0x14(%rbp)
+	567:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	568:	8b 45 ec	mov    -0x14(%rbp),%eax
+	569:	89 45 fc	mov    %eax,-0x4(%rbp)
+	570:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	571:	75 08	jne    0x4000f8 <L10>
+	572:	8b 45 ec	mov    -0x14(%rbp),%eax
+	573:	8d 50 ff	lea    -0x1(%rax),%edx
+	574:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	575:	48 89 c6	mov    %rax,%rsi
+	576:	89 d7	mov    %edx,%edi
+	577:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	578:	55	push   %rbp
+	579:	48 89 e5	mov    %rsp,%rbp
+	580:	48 83 ec 20	sub    $0x20,%rsp
+	581:	89 7d ec	mov    %edi,-0x14(%rbp)
+	582:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	583:	8b 45 ec	mov    -0x14(%rbp),%eax
+	584:	89 45 fc	mov    %eax,-0x4(%rbp)
+	585:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	586:	75 08	jne    0x4000f8 <L10>
+	587:	8b 45 ec	mov    -0x14(%rbp),%eax
+	588:	8d 50 ff	lea    -0x1(%rax),%edx
+	589:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	590:	48 89 c6	mov    %rax,%rsi
+	591:	89 d7	mov    %edx,%edi
+	592:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	593:	55	push   %rbp
+	594:	48 89 e5	mov    %rsp,%rbp
+	595:	48 83 ec 20	sub    $0x20,%rsp
+	596:	89 7d ec	mov    %edi,-0x14(%rbp)
+	597:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	598:	8b 45 ec	mov    -0x14(%rbp),%eax
+	599:	89 45 fc	mov    %eax,-0x4(%rbp)
+	600:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	601:	75 08	jne    0x4000f8 <L10>
+	602:	8b 45 ec	mov    -0x14(%rbp),%eax
+	603:	8d 50 ff	lea    -0x1(%rax),%edx
+	604:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	605:	48 89 c6	mov    %rax,%rsi
+	606:	89 d7	mov    %edx,%edi
+	607:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	608:	55	push   %rbp
+	609:	48 89 e5	mov    %rsp,%rbp
+	610:	48 83 ec 20	sub    $0x20,%rsp
+	611:	89 7d ec	mov    %edi,-0x14(%rbp)
+	612:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	613:	8b 45 ec	mov    -0x14(%rbp),%eax
+	614:	89 45 fc	mov    %eax,-0x4(%rbp)
+	615:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	616:	75 08	jne    0x4000f8 <L10>
+	617:	8b 45 ec	mov    -0x14(%rbp),%eax
+	618:	8d 50 ff	lea    -0x1(%rax),%edx
+	619:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	620:	48 89 c6	mov    %rax,%rsi
+	621:	89 d7	mov    %edx,%edi
+	622:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	623:	55	push   %rbp
+	624:	48 89 e5	mov    %rsp,%rbp
+	625:	48 83 ec 20	sub    $0x20,%rsp
+	626:	89 7d ec	mov    %edi,-0x14(%rbp)
+	627:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	628:	8b 45 ec	mov    -0x14(%rbp),%eax
+	629:	89 45 fc	mov    %eax,-0x4(%rbp)
+	630:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	631:	75 08	jne    0x4000f8 <L10>
+	632:	8b 45 ec	mov    -0x14(%rbp),%eax
+	633:	8d 50 ff	lea    -0x1(%rax),%edx
+	634:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	635:	48 89 c6	mov    %rax,%rsi
+	636:	89 d7	mov    %edx,%edi
+	637:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	638:	55	push   %rbp
+	639:	48 89 e5	mov    %rsp,%rbp
+	640:	48 83 ec 20	sub    $0x20,%rsp
+	641:	89 7d ec	mov    %edi,-0x14(%rbp)
+	642:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	643:	8b 45 ec	mov    -0x14(%rbp),%eax
+	644:	89 45 fc	mov    %eax,-0x4(%rbp)
+	645:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	646:	75 08	jne    0x4000f8 <L10>
+	647:	8b 45 ec	mov    -0x14(%rbp),%eax
+	648:	8d 50 ff	lea    -0x1(%rax),%edx
+	649:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	650:	48 89 c6	mov    %rax,%rsi
+	651:	89 d7	mov    %edx,%edi
+	652:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	653:	55	push   %rbp
+	654:	48 89 e5	mov    %rsp,%rbp
+	655:	48 83 ec 20	sub    $0x20,%rsp
+	656:	89 7d ec	mov    %edi,-0x14(%rbp)
+	657:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	658:	8b 45 ec	mov    -0x14(%rbp),%eax
+	659:	89 45 fc	mov    %eax,-0x4(%rbp)
+	660:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	661:	75 08	jne    0x4000f8 <L10>
+	662:	8b 45 ec	mov    -0x14(%rbp),%eax
+	663:	8d 50 ff	lea    -0x1(%rax),%edx
+	664:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	665:	48 89 c6	mov    %rax,%rsi
+	666:	89 d7	mov    %edx,%edi
+	667:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	668:	55	push   %rbp
+	669:	48 89 e5	mov    %rsp,%rbp
+	670:	48 83 ec 20	sub    $0x20,%rsp
+	671:	89 7d ec	mov    %edi,-0x14(%rbp)
+	672:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	673:	8b 45 ec	mov    -0x14(%rbp),%eax
+	674:	89 45 fc	mov    %eax,-0x4(%rbp)
+	675:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	676:	75 08	jne    0x4000f8 <L10>
+	677:	8b 45 ec	mov    -0x14(%rbp),%eax
+	678:	8d 50 ff	lea    -0x1(%rax),%edx
+	679:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	680:	48 89 c6	mov    %rax,%rsi
+	681:	89 d7	mov    %edx,%edi
+	682:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	683:	55	push   %rbp
+	684:	48 89 e5	mov    %rsp,%rbp
+	685:	48 83 ec 20	sub    $0x20,%rsp
+	686:	89 7d ec	mov    %edi,-0x14(%rbp)
+	687:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	688:	8b 45 ec	mov    -0x14(%rbp),%eax
+	689:	89 45 fc	mov    %eax,-0x4(%rbp)
+	690:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	691:	75 08	jne    0x4000f8 <L10>
+	692:	8b 45 ec	mov    -0x14(%rbp),%eax
+	693:	8d 50 ff	lea    -0x1(%rax),%edx
+	694:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	695:	48 89 c6	mov    %rax,%rsi
+	696:	89 d7	mov    %edx,%edi
+	697:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	698:	55	push   %rbp
+	699:	48 89 e5	mov    %rsp,%rbp
+	700:	48 83 ec 20	sub    $0x20,%rsp
+	701:	89 7d ec	mov    %edi,-0x14(%rbp)
+	702:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	703:	8b 45 ec	mov    -0x14(%rbp),%eax
+	704:	89 45 fc	mov    %eax,-0x4(%rbp)
+	705:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	706:	75 08	jne    0x4000f8 <L10>
+	707:	8b 45 ec	mov    -0x14(%rbp),%eax
+	708:	8d 50 ff	lea    -0x1(%rax),%edx
+	709:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	710:	48 89 c6	mov    %rax,%rsi
+	711:	89 d7	mov    %edx,%edi
+	712:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	713:	55	push   %rbp
+	714:	48 89 e5	mov    %rsp,%rbp
+	715:	48 83 ec 20	sub    $0x20,%rsp
+	716:	89 7d ec	mov    %edi,-0x14(%rbp)
+	717:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	718:	8b 45 ec	mov    -0x14(%rbp),%eax
+	719:	89 45 fc	mov    %eax,-0x4(%rbp)
+	720:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	721:	75 08	jne    0x4000f8 <L10>
+	722:	8b 45 ec	mov    -0x14(%rbp),%eax
+	723:	8d 50 ff	lea    -0x1(%rax),%edx
+	724:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	725:	48 89 c6	mov    %rax,%rsi
+	726:	89 d7	mov    %edx,%edi
+	727:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	728:	55	push   %rbp
+	729:	48 89 e5	mov    %rsp,%rbp
+	730:	48 83 ec 20	sub    $0x20,%rsp
+	731:	89 7d ec	mov    %edi,-0x14(%rbp)
+	732:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	733:	8b 45 ec	mov    -0x14(%rbp),%eax
+	734:	89 45 fc	mov    %eax,-0x4(%rbp)
+	735:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	736:	75 08	jne    0x4000f8 <L10>
+	737:	8b 45 ec	mov    -0x14(%rbp),%eax
+	738:	8d 50 ff	lea    -0x1(%rax),%edx
+	739:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	740:	48 89 c6	mov    %rax,%rsi
+	741:	89 d7	mov    %edx,%edi
+	742:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	743:	55	push   %rbp
+	744:	48 89 e5	mov    %rsp,%rbp
+	745:	48 83 ec 20	sub    $0x20,%rsp
+	746:	89 7d ec	mov    %edi,-0x14(%rbp)
+	747:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	748:	8b 45 ec	mov    -0x14(%rbp),%eax
+	749:	89 45 fc	mov    %eax,-0x4(%rbp)
+	750:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	751:	75 08	jne    0x4000f8 <L10>
+	752:	8b 45 ec	mov    -0x14(%rbp),%eax
+	753:	8d 50 ff	lea    -0x1(%rax),%edx
+	754:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	755:	48 89 c6	mov    %rax,%rsi
+	756:	89 d7	mov    %edx,%edi
+	757:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	758:	55	push   %rbp
+	759:	48 89 e5	mov    %rsp,%rbp
+	760:	48 83 ec 20	sub    $0x20,%rsp
+	761:	89 7d ec	mov    %edi,-0x14(%rbp)
+	762:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	763:	8b 45 ec	mov    -0x14(%rbp),%eax
+	764:	89 45 fc	mov    %eax,-0x4(%rbp)
+	765:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	766:	75 08	jne    0x4000f8 <L10>
+	767:	8b 45 ec	mov    -0x14(%rbp),%eax
+	768:	8d 50 ff	lea    -0x1(%rax),%edx
+	769:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	770:	48 89 c6	mov    %rax,%rsi
+	771:	89 d7	mov    %edx,%edi
+	772:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	773:	55	push   %rbp
+	774:	48 89 e5	mov    %rsp,%rbp
+	775:	48 83 ec 20	sub    $0x20,%rsp
+	776:	89 7d ec	mov    %edi,-0x14(%rbp)
+	777:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	778:	8b 45 ec	mov    -0x14(%rbp),%eax
+	779:	89 45 fc	mov    %eax,-0x4(%rbp)
+	780:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	781:	75 08	jne    0x4000f8 <L10>
+	782:	8b 45 ec	mov    -0x14(%rbp),%eax
+	783:	8d 50 ff	lea    -0x1(%rax),%edx
+	784:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	785:	48 89 c6	mov    %rax,%rsi
+	786:	89 d7	mov    %edx,%edi
+	787:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	788:	55	push   %rbp
+	789:	48 89 e5	mov    %rsp,%rbp
+	790:	48 83 ec 20	sub    $0x20,%rsp
+	791:	89 7d ec	mov    %edi,-0x14(%rbp)
+	792:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	793:	8b 45 ec	mov    -0x14(%rbp),%eax
+	794:	89 45 fc	mov    %eax,-0x4(%rbp)
+	795:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	796:	75 08	jne    0x4000f8 <L10>
+	797:	8b 45 ec	mov    -0x14(%rbp),%eax
+	798:	8d 50 ff	lea    -0x1(%rax),%edx
+	799:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	800:	48 89 c6	mov    %rax,%rsi
+	801:	89 d7	mov    %edx,%edi
+	802:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	803:	55	push   %rbp
+	804:	48 89 e5	mov    %rsp,%rbp
+	805:	48 83 ec 20	sub    $0x20,%rsp
+	806:	89 7d ec	mov    %edi,-0x14(%rbp)
+	807:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	808:	8b 45 ec	mov    -0x14(%rbp),%eax
+	809:	89 45 fc	mov    %eax,-0x4(%rbp)
+	810:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	811:	75 08	jne    0x4000f8 <L10>
+	812:	8b 45 ec	mov    -0x14(%rbp),%eax
+	813:	8d 50 ff	lea    -0x1(%rax),%edx
+	814:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	815:	48 89 c6	mov    %rax,%rsi
+	816:	89 d7	mov    %edx,%edi
+	817:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	818:	55	push   %rbp
+	819:	48 89 e5	mov    %rsp,%rbp
+	820:	48 83 ec 20	sub    $0x20,%rsp
+	821:	89 7d ec	mov    %edi,-0x14(%rbp)
+	822:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	823:	8b 45 ec	mov    -0x14(%rbp),%eax
+	824:	89 45 fc	mov    %eax,-0x4(%rbp)
+	825:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	826:	75 08	jne    0x4000f8 <L10>
+	827:	8b 45 ec	mov    -0x14(%rbp),%eax
+	828:	8d 50 ff	lea    -0x1(%rax),%edx
+	829:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	830:	48 89 c6	mov    %rax,%rsi
+	831:	89 d7	mov    %edx,%edi
+	832:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	833:	55	push   %rbp
+	834:	48 89 e5	mov    %rsp,%rbp
+	835:	48 83 ec 20	sub    $0x20,%rsp
+	836:	89 7d ec	mov    %edi,-0x14(%rbp)
+	837:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	838:	8b 45 ec	mov    -0x14(%rbp),%eax
+	839:	89 45 fc	mov    %eax,-0x4(%rbp)
+	840:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	841:	75 08	jne    0x4000f8 <L10>
+	842:	8b 45 ec	mov    -0x14(%rbp),%eax
+	843:	8d 50 ff	lea    -0x1(%rax),%edx
+	844:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	845:	48 89 c6	mov    %rax,%rsi
+	846:	89 d7	mov    %edx,%edi
+	847:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	848:	55	push   %rbp
+	849:	48 89 e5	mov    %rsp,%rbp
+	850:	48 83 ec 20	sub    $0x20,%rsp
+	851:	89 7d ec	mov    %edi,-0x14(%rbp)
+	852:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	853:	8b 45 ec	mov    -0x14(%rbp),%eax
+	854:	89 45 fc	mov    %eax,-0x4(%rbp)
+	855:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	856:	75 08	jne    0x4000f8 <L10>
+	857:	8b 45 ec	mov    -0x14(%rbp),%eax
+	858:	8d 50 ff	lea    -0x1(%rax),%edx
+	859:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	860:	48 89 c6	mov    %rax,%rsi
+	861:	89 d7	mov    %edx,%edi
+	862:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	863:	55	push   %rbp
+	864:	48 89 e5	mov    %rsp,%rbp
+	865:	48 83 ec 20	sub    $0x20,%rsp
+	866:	89 7d ec	mov    %edi,-0x14(%rbp)
+	867:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	868:	8b 45 ec	mov    -0x14(%rbp),%eax
+	869:	89 45 fc	mov    %eax,-0x4(%rbp)
+	870:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	871:	75 08	jne    0x4000f8 <L10>
+	872:	8b 45 ec	mov    -0x14(%rbp),%eax
+	873:	8d 50 ff	lea    -0x1(%rax),%edx
+	874:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	875:	48 89 c6	mov    %rax,%rsi
+	876:	89 d7	mov    %edx,%edi
+	877:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	878:	55	push   %rbp
+	879:	48 89 e5	mov    %rsp,%rbp
+	880:	48 83 ec 20	sub    $0x20,%rsp
+	881:	89 7d ec	mov    %edi,-0x14(%rbp)
+	882:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	883:	8b 45 ec	mov    -0x14(%rbp),%eax
+	884:	89 45 fc	mov    %eax,-0x4(%rbp)
+	885:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	886:	75 08	jne    0x4000f8 <L10>
+	887:	8b 45 ec	mov    -0x14(%rbp),%eax
+	888:	8d 50 ff	lea    -0x1(%rax),%edx
+	889:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	890:	48 89 c6	mov    %rax,%rsi
+	891:	89 d7	mov    %edx,%edi
+	892:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	893:	55	push   %rbp
+	894:	48 89 e5	mov    %rsp,%rbp
+	895:	48 83 ec 20	sub    $0x20,%rsp
+	896:	89 7d ec	mov    %edi,-0x14(%rbp)
+	897:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	898:	8b 45 ec	mov    -0x14(%rbp),%eax
+	899:	89 45 fc	mov    %eax,-0x4(%rbp)
+	900:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	901:	75 08	jne    0x4000f8 <L10>
+	902:	8b 45 ec	mov    -0x14(%rbp),%eax
+	903:	8d 50 ff	lea    -0x1(%rax),%edx
+	904:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	905:	48 89 c6	mov    %rax,%rsi
+	906:	89 d7	mov    %edx,%edi
+	907:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	908:	55	push   %rbp
+	909:	48 89 e5	mov    %rsp,%rbp
+	910:	48 83 ec 20	sub    $0x20,%rsp
+	911:	89 7d ec	mov    %edi,-0x14(%rbp)
+	912:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	913:	8b 45 ec	mov    -0x14(%rbp),%eax
+	914:	89 45 fc	mov    %eax,-0x4(%rbp)
+	915:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	916:	75 08	jne    0x4000f8 <L10>
+	917:	8b 45 ec	mov    -0x14(%rbp),%eax
+	918:	8d 50 ff	lea    -0x1(%rax),%edx
+	919:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	920:	48 89 c6	mov    %rax,%rsi
+	921:	89 d7	mov    %edx,%edi
+	922:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	923:	55	push   %rbp
+	924:	48 89 e5	mov    %rsp,%rbp
+	925:	48 83 ec 20	sub    $0x20,%rsp
+	926:	89 7d ec	mov    %edi,-0x14(%rbp)
+	927:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	928:	8b 45 ec	mov    -0x14(%rbp),%eax
+	929:	89 45 fc	mov    %eax,-0x4(%rbp)
+	930:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	931:	75 08	jne    0x4000f8 <L10>
+	932:	8b 45 ec	mov    -0x14(%rbp),%eax
+	933:	8d 50 ff	lea    -0x1(%rax),%edx
+	934:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	935:	48 89 c6	mov    %rax,%rsi
+	936:	89 d7	mov    %edx,%edi
+	937:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	938:	55	push   %rbp
+	939:	48 89 e5	mov    %rsp,%rbp
+	940:	48 83 ec 20	sub    $0x20,%rsp
+	941:	89 7d ec	mov    %edi,-0x14(%rbp)
+	942:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	943:	8b 45 ec	mov    -0x14(%rbp),%eax
+	944:	89 45 fc	mov    %eax,-0x4(%rbp)
+	945:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	946:	75 08	jne    0x4000f8 <L10>
+	947:	8b 45 ec	mov    -0x14(%rbp),%eax
+	948:	8d 50 ff	lea    -0x1(%rax),%edx
+	949:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	950:	48 89 c6	mov    %rax,%rsi
+	951:	89 d7	mov    %edx,%edi
+	952:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	953:	55	push   %rbp
+	954:	48 89 e5	mov    %rsp,%rbp
+	955:	48 83 ec 20	sub    $0x20,%rsp
+	956:	89 7d ec	mov    %edi,-0x14(%rbp)
+	957:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	958:	8b 45 ec	mov    -0x14(%rbp),%eax
+	959:	89 45 fc	mov    %eax,-0x4(%rbp)
+	960:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	961:	75 08	jne    0x4000f8 <L10>
+	962:	8b 45 ec	mov    -0x14(%rbp),%eax
+	963:	8d 50 ff	lea    -0x1(%rax),%edx
+	964:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	965:	48 89 c6	mov    %rax,%rsi
+	966:	89 d7	mov    %edx,%edi
+	967:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	968:	55	push   %rbp
+	969:	48 89 e5	mov    %rsp,%rbp
+	970:	48 83 ec 20	sub    $0x20,%rsp
+	971:	89 7d ec	mov    %edi,-0x14(%rbp)
+	972:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	973:	8b 45 ec	mov    -0x14(%rbp),%eax
+	974:	89 45 fc	mov    %eax,-0x4(%rbp)
+	975:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	976:	75 08	jne    0x4000f8 <L10>
+	977:	8b 45 ec	mov    -0x14(%rbp),%eax
+	978:	8d 50 ff	lea    -0x1(%rax),%edx
+	979:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	980:	48 89 c6	mov    %rax,%rsi
+	981:	89 d7	mov    %edx,%edi
+	982:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	983:	55	push   %rbp
+	984:	48 89 e5	mov    %rsp,%rbp
+	985:	48 83 ec 20	sub    $0x20,%rsp
+	986:	89 7d ec	mov    %edi,-0x14(%rbp)
+	987:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	988:	8b 45 ec	mov    -0x14(%rbp),%eax
+	989:	89 45 fc	mov    %eax,-0x4(%rbp)
+	990:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	991:	75 08	jne    0x4000f8 <L10>
+	992:	8b 45 ec	mov    -0x14(%rbp),%eax
+	993:	8d 50 ff	lea    -0x1(%rax),%edx
+	994:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	995:	48 89 c6	mov    %rax,%rsi
+	996:	89 d7	mov    %edx,%edi
+	997:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	998:	55	push   %rbp
+	999:	48 89 e5	mov    %rsp,%rbp
+	1000:	48 83 ec 20	sub    $0x20,%rsp
+	1001:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1002:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1003:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1004:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1005:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1006:	75 08	jne    0x4000f8 <L10>
+	1007:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1008:	8d 50 ff	lea    -0x1(%rax),%edx
+	1009:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1010:	48 89 c6	mov    %rax,%rsi
+	1011:	89 d7	mov    %edx,%edi
+	1012:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1013:	55	push   %rbp
+	1014:	48 89 e5	mov    %rsp,%rbp
+	1015:	48 83 ec 20	sub    $0x20,%rsp
+	1016:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1017:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1018:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1019:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1020:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1021:	75 08	jne    0x4000f8 <L10>
+	1022:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1023:	8d 50 ff	lea    -0x1(%rax),%edx
+	1024:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1025:	48 89 c6	mov    %rax,%rsi
+	1026:	89 d7	mov    %edx,%edi
+	1027:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1028:	55	push   %rbp
+	1029:	48 89 e5	mov    %rsp,%rbp
+	1030:	48 83 ec 20	sub    $0x20,%rsp
+	1031:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1032:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1033:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1034:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1035:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1036:	75 08	jne    0x4000f8 <L10>
+	1037:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1038:	8d 50 ff	lea    -0x1(%rax),%edx
+	1039:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1040:	48 89 c6	mov    %rax,%rsi
+	1041:	89 d7	mov    %edx,%edi
+	1042:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1043:	55	push   %rbp
+	1044:	48 89 e5	mov    %rsp,%rbp
+	1045:	48 83 ec 20	sub    $0x20,%rsp
+	1046:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1047:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1048:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1049:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1050:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1051:	75 08	jne    0x4000f8 <L10>
+	1052:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1053:	8d 50 ff	lea    -0x1(%rax),%edx
+	1054:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1055:	48 89 c6	mov    %rax,%rsi
+	1056:	89 d7	mov    %edx,%edi
+	1057:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1058:	55	push   %rbp
+	1059:	48 89 e5	mov    %rsp,%rbp
+	1060:	48 83 ec 20	sub    $0x20,%rsp
+	1061:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1062:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1063:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1064:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1065:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1066:	75 08	jne    0x4000f8 <L10>
+	1067:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1068:	8d 50 ff	lea    -0x1(%rax),%edx
+	1069:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1070:	48 89 c6	mov    %rax,%rsi
+	1071:	89 d7	mov    %edx,%edi
+	1072:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1073:	55	push   %rbp
+	1074:	48 89 e5	mov    %rsp,%rbp
+	1075:	48 83 ec 20	sub    $0x20,%rsp
+	1076:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1077:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1078:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1079:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1080:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1081:	75 08	jne    0x4000f8 <L10>
+	1082:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1083:	8d 50 ff	lea    -0x1(%rax),%edx
+	1084:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1085:	48 89 c6	mov    %rax,%rsi
+	1086:	89 d7	mov    %edx,%edi
+	1087:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1088:	55	push   %rbp
+	1089:	48 89 e5	mov    %rsp,%rbp
+	1090:	48 83 ec 20	sub    $0x20,%rsp
+	1091:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1092:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1093:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1094:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1095:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1096:	75 08	jne    0x4000f8 <L10>
+	1097:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1098:	8d 50 ff	lea    -0x1(%rax),%edx
+	1099:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1100:	48 89 c6	mov    %rax,%rsi
+	1101:	89 d7	mov    %edx,%edi
+	1102:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1103:	55	push   %rbp
+	1104:	48 89 e5	mov    %rsp,%rbp
+	1105:	48 83 ec 20	sub    $0x20,%rsp
+	1106:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1107:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1108:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1109:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1110:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1111:	75 08	jne    0x4000f8 <L10>
+	1112:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1113:	8d 50 ff	lea    -0x1(%rax),%edx
+	1114:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1115:	48 89 c6	mov    %rax,%rsi
+	1116:	89 d7	mov    %edx,%edi
+	1117:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1118:	55	push   %rbp
+	1119:	48 89 e5	mov    %rsp,%rbp
+	1120:	48 83 ec 20	sub    $0x20,%rsp
+	1121:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1122:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1123:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1124:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1125:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1126:	75 08	jne    0x4000f8 <L10>
+	1127:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1128:	8d 50 ff	lea    -0x1(%rax),%edx
+	1129:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1130:	48 89 c6	mov    %rax,%rsi
+	1131:	89 d7	mov    %edx,%edi
+	1132:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1133:	55	push   %rbp
+	1134:	48 89 e5	mov    %rsp,%rbp
+	1135:	48 83 ec 20	sub    $0x20,%rsp
+	1136:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1137:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1138:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1139:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1140:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1141:	75 08	jne    0x4000f8 <L10>
+	1142:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1143:	8d 50 ff	lea    -0x1(%rax),%edx
+	1144:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1145:	48 89 c6	mov    %rax,%rsi
+	1146:	89 d7	mov    %edx,%edi
+	1147:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1148:	55	push   %rbp
+	1149:	48 89 e5	mov    %rsp,%rbp
+	1150:	48 83 ec 20	sub    $0x20,%rsp
+	1151:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1152:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1153:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1154:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1155:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1156:	75 08	jne    0x4000f8 <L10>
+	1157:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1158:	8d 50 ff	lea    -0x1(%rax),%edx
+	1159:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1160:	48 89 c6	mov    %rax,%rsi
+	1161:	89 d7	mov    %edx,%edi
+	1162:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1163:	55	push   %rbp
+	1164:	48 89 e5	mov    %rsp,%rbp
+	1165:	48 83 ec 20	sub    $0x20,%rsp
+	1166:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1167:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1168:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1169:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1170:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1171:	75 08	jne    0x4000f8 <L10>
+	1172:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1173:	8d 50 ff	lea    -0x1(%rax),%edx
+	1174:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1175:	48 89 c6	mov    %rax,%rsi
+	1176:	89 d7	mov    %edx,%edi
+	1177:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1178:	55	push   %rbp
+	1179:	48 89 e5	mov    %rsp,%rbp
+	1180:	48 83 ec 20	sub    $0x20,%rsp
+	1181:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1182:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1183:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1184:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1185:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1186:	75 08	jne    0x4000f8 <L10>
+	1187:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1188:	8d 50 ff	lea    -0x1(%rax),%edx
+	1189:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1190:	48 89 c6	mov    %rax,%rsi
+	1191:	89 d7	mov    %edx,%edi
+	1192:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1193:	55	push   %rbp
+	1194:	48 89 e5	mov    %rsp,%rbp
+	1195:	48 83 ec 20	sub    $0x20,%rsp
+	1196:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1197:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1198:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1199:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1200:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1201:	75 08	jne    0x4000f8 <L10>
+	1202:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1203:	8d 50 ff	lea    -0x1(%rax),%edx
+	1204:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1205:	48 89 c6	mov    %rax,%rsi
+	1206:	89 d7	mov    %edx,%edi
+	1207:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1208:	55	push   %rbp
+	1209:	48 89 e5	mov    %rsp,%rbp
+	1210:	48 83 ec 20	sub    $0x20,%rsp
+	1211:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1212:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1213:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1214:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1215:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1216:	75 08	jne    0x4000f8 <L10>
+	1217:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1218:	8d 50 ff	lea    -0x1(%rax),%edx
+	1219:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1220:	48 89 c6	mov    %rax,%rsi
+	1221:	89 d7	mov    %edx,%edi
+	1222:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1223:	55	push   %rbp
+	1224:	48 89 e5	mov    %rsp,%rbp
+	1225:	48 83 ec 20	sub    $0x20,%rsp
+	1226:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1227:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1228:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1229:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1230:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1231:	75 08	jne    0x4000f8 <L10>
+	1232:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1233:	8d 50 ff	lea    -0x1(%rax),%edx
+	1234:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1235:	48 89 c6	mov    %rax,%rsi
+	1236:	89 d7	mov    %edx,%edi
+	1237:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1238:	55	push   %rbp
+	1239:	48 89 e5	mov    %rsp,%rbp
+	1240:	48 83 ec 20	sub    $0x20,%rsp
+	1241:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1242:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1243:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1244:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1245:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1246:	75 08	jne    0x4000f8 <L10>
+	1247:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1248:	8d 50 ff	lea    -0x1(%rax),%edx
+	1249:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1250:	48 89 c6	mov    %rax,%rsi
+	1251:	89 d7	mov    %edx,%edi
+	1252:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1253:	55	push   %rbp
+	1254:	48 89 e5	mov    %rsp,%rbp
+	1255:	48 83 ec 20	sub    $0x20,%rsp
+	1256:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1257:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1258:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1259:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1260:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1261:	75 08	jne    0x4000f8 <L10>
+	1262:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1263:	8d 50 ff	lea    -0x1(%rax),%edx
+	1264:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1265:	48 89 c6	mov    %rax,%rsi
+	1266:	89 d7	mov    %edx,%edi
+	1267:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1268:	55	push   %rbp
+	1269:	48 89 e5	mov    %rsp,%rbp
+	1270:	48 83 ec 20	sub    $0x20,%rsp
+	1271:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1272:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1273:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1274:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1275:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1276:	75 08	jne    0x4000f8 <L10>
+	1277:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1278:	8d 50 ff	lea    -0x1(%rax),%edx
+	1279:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1280:	48 89 c6	mov    %rax,%rsi
+	1281:	89 d7	mov    %edx,%edi
+	1282:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1283:	55	push   %rbp
+	1284:	48 89 e5	mov    %rsp,%rbp
+	1285:	48 83 ec 20	sub    $0x20,%rsp
+	1286:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1287:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1288:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1289:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1290:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1291:	75 08	jne    0x4000f8 <L10>
+	1292:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1293:	8d 50 ff	lea    -0x1(%rax),%edx
+	1294:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1295:	48 89 c6	mov    %rax,%rsi
+	1296:	89 d7	mov    %edx,%edi
+	1297:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1298:	55	push   %rbp
+	1299:	48 89 e5	mov    %rsp,%rbp
+	1300:	48 83 ec 20	sub    $0x20,%rsp
+	1301:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1302:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1303:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1304:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1305:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1306:	75 08	jne    0x4000f8 <L10>
+	1307:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1308:	8d 50 ff	lea    -0x1(%rax),%edx
+	1309:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1310:	48 89 c6	mov    %rax,%rsi
+	1311:	89 d7	mov    %edx,%edi
+	1312:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1313:	55	push   %rbp
+	1314:	48 89 e5	mov    %rsp,%rbp
+	1315:	48 83 ec 20	sub    $0x20,%rsp
+	1316:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1317:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1318:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1319:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1320:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1321:	75 08	jne    0x4000f8 <L10>
+	1322:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1323:	8d 50 ff	lea    -0x1(%rax),%edx
+	1324:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1325:	48 89 c6	mov    %rax,%rsi
+	1326:	89 d7	mov    %edx,%edi
+	1327:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1328:	55	push   %rbp
+	1329:	48 89 e5	mov    %rsp,%rbp
+	1330:	48 83 ec 20	sub    $0x20,%rsp
+	1331:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1332:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1333:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1334:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1335:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1336:	75 08	jne    0x4000f8 <L10>
+	1337:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1338:	8d 50 ff	lea    -0x1(%rax),%edx
+	1339:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1340:	48 89 c6	mov    %rax,%rsi
+	1341:	89 d7	mov    %edx,%edi
+	1342:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1343:	55	push   %rbp
+	1344:	48 89 e5	mov    %rsp,%rbp
+	1345:	48 83 ec 20	sub    $0x20,%rsp
+	1346:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1347:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1348:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1349:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1350:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1351:	75 08	jne    0x4000f8 <L10>
+	1352:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1353:	8d 50 ff	lea    -0x1(%rax),%edx
+	1354:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1355:	48 89 c6	mov    %rax,%rsi
+	1356:	89 d7	mov    %edx,%edi
+	1357:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1358:	55	push   %rbp
+	1359:	48 89 e5	mov    %rsp,%rbp
+	1360:	48 83 ec 20	sub    $0x20,%rsp
+	1361:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1362:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1363:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1364:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1365:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1366:	75 08	jne    0x4000f8 <L10>
+	1367:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1368:	8d 50 ff	lea    -0x1(%rax),%edx
+	1369:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1370:	48 89 c6	mov    %rax,%rsi
+	1371:	89 d7	mov    %edx,%edi
+	1372:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1373:	55	push   %rbp
+	1374:	48 89 e5	mov    %rsp,%rbp
+	1375:	48 83 ec 20	sub    $0x20,%rsp
+	1376:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1377:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1378:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1379:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1380:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1381:	75 08	jne    0x4000f8 <L10>
+	1382:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1383:	8d 50 ff	lea    -0x1(%rax),%edx
+	1384:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1385:	48 89 c6	mov    %rax,%rsi
+	1386:	89 d7	mov    %edx,%edi
+	1387:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1388:	55	push   %rbp
+	1389:	48 89 e5	mov    %rsp,%rbp
+	1390:	48 83 ec 20	sub    $0x20,%rsp
+	1391:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1392:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1393:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1394:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1395:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1396:	75 08	jne    0x4000f8 <L10>
+	1397:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1398:	8d 50 ff	lea    -0x1(%rax),%edx
+	1399:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1400:	48 89 c6	mov    %rax,%rsi
+	1401:	89 d7	mov    %edx,%edi
+	1402:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1403:	55	push   %rbp
+	1404:	48 89 e5	mov    %rsp,%rbp
+	1405:	48 83 ec 20	sub    $0x20,%rsp
+	1406:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1407:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1408:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1409:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1410:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1411:	75 08	jne    0x4000f8 <L10>
+	1412:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1413:	8d 50 ff	lea    -0x1(%rax),%edx
+	1414:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1415:	48 89 c6	mov    %rax,%rsi
+	1416:	89 d7	mov    %edx,%edi
+	1417:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1418:	55	push   %rbp
+	1419:	48 89 e5	mov    %rsp,%rbp
+	1420:	48 83 ec 20	sub    $0x20,%rsp
+	1421:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1422:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1423:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1424:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1425:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1426:	75 08	jne    0x4000f8 <L10>
+	1427:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1428:	8d 50 ff	lea    -0x1(%rax),%edx
+	1429:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1430:	48 89 c6	mov    %rax,%rsi
+	1431:	89 d7	mov    %edx,%edi
+	1432:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1433:	55	push   %rbp
+	1434:	48 89 e5	mov    %rsp,%rbp
+	1435:	48 83 ec 20	sub    $0x20,%rsp
+	1436:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1437:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1438:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1439:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1440:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1441:	75 08	jne    0x4000f8 <L10>
+	1442:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1443:	8d 50 ff	lea    -0x1(%rax),%edx
+	1444:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1445:	48 89 c6	mov    %rax,%rsi
+	1446:	89 d7	mov    %edx,%edi
+	1447:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1448:	55	push   %rbp
+	1449:	48 89 e5	mov    %rsp,%rbp
+	1450:	48 83 ec 20	sub    $0x20,%rsp
+	1451:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1452:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1453:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1454:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1455:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1456:	75 08	jne    0x4000f8 <L10>
+	1457:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1458:	8d 50 ff	lea    -0x1(%rax),%edx
+	1459:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1460:	48 89 c6	mov    %rax,%rsi
+	1461:	89 d7	mov    %edx,%edi
+	1462:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1463:	55	push   %rbp
+	1464:	48 89 e5	mov    %rsp,%rbp
+	1465:	48 83 ec 20	sub    $0x20,%rsp
+	1466:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1467:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1468:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1469:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1470:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1471:	75 08	jne    0x4000f8 <L10>
+	1472:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1473:	8d 50 ff	lea    -0x1(%rax),%edx
+	1474:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1475:	48 89 c6	mov    %rax,%rsi
+	1476:	89 d7	mov    %edx,%edi
+	1477:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1478:	55	push   %rbp
+	1479:	48 89 e5	mov    %rsp,%rbp
+	1480:	48 83 ec 20	sub    $0x20,%rsp
+	1481:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1482:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1483:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1484:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1485:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1486:	75 08	jne    0x4000f8 <L10>
+	1487:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1488:	8d 50 ff	lea    -0x1(%rax),%edx
+	1489:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1490:	48 89 c6	mov    %rax,%rsi
+	1491:	89 d7	mov    %edx,%edi
+	1492:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1493:	55	push   %rbp
+	1494:	48 89 e5	mov    %rsp,%rbp
+	1495:	48 83 ec 20	sub    $0x20,%rsp
+	1496:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1497:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1498:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1499:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1500:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1501:	75 08	jne    0x4000f8 <L10>
+	1502:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1503:	8d 50 ff	lea    -0x1(%rax),%edx
+	1504:	48 8d 45 fc	lea    -0x4(%rbp),%rax
+	1505:	48 89 c6	mov    %rax,%rsi
+	1506:	89 d7	mov    %edx,%edi
+	1507:	e8 c9 ff ff ff	callq  0x4000d5 <f>
+	1508:	55	push   %rbp
+	1509:	48 89 e5	mov    %rsp,%rbp
+	1510:	48 83 ec 20	sub    $0x20,%rsp
+	1511:	89 7d ec	mov    %edi,-0x14(%rbp)
+	1512:	48 89 75 e0	mov    %rsi,-0x20(%rbp)
+	1513:	8b 45 ec	mov    -0x14(%rbp),%eax
+	1514:	89 45 fc	mov    %eax,-0x4(%rbp)
+	1515:	83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+	1516:	75 08	jne    0x4000f8 <L10>
+	1517:	48 8b 45 e0	mov    -0x20(%rbp),%rax
+	1518:	8b 00	mov    (%rax),%eax
+	1519:	eb 14	jmp    0x40010c <L12>
+	1520:	c9	leaveq 
+	1521:	c3	retq   
+	1522:	c9	leaveq 
+	1523:	c3	retq   
+	1524:	c9	leaveq 
+	1525:	c3	retq   
+	1526:	c9	leaveq 
+	1527:	c3	retq   
+	1528:	c9	leaveq 
+	1529:	c3	retq   
+	1530:	c9	leaveq 
+	1531:	c3	retq   
+	1532:	c9	leaveq 
+	1533:	c3	retq   
+	1534:	c9	leaveq 
+	1535:	c3	retq   
+	1536:	c9	leaveq 
+	1537:	c3	retq   
+	1538:	c9	leaveq 
+	1539:	c3	retq   
+	1540:	c9	leaveq 
+	1541:	c3	retq   
+	1542:	c9	leaveq 
+	1543:	c3	retq   
+	1544:	c9	leaveq 
+	1545:	c3	retq   
+	1546:	c9	leaveq 
+	1547:	c3	retq   
+	1548:	c9	leaveq 
+	1549:	c3	retq   
+	1550:	c9	leaveq 
+	1551:	c3	retq   
+	1552:	c9	leaveq 
+	1553:	c3	retq   
+	1554:	c9	leaveq 
+	1555:	c3	retq   
+	1556:	c9	leaveq 
+	1557:	c3	retq   
+	1558:	c9	leaveq 
+	1559:	c3	retq   
+	1560:	c9	leaveq 
+	1561:	c3	retq   
+	1562:	c9	leaveq 
+	1563:	c3	retq   
+	1564:	c9	leaveq 
+	1565:	c3	retq   
+	1566:	c9	leaveq 
+	1567:	c3	retq   
+	1568:	c9	leaveq 
+	1569:	c3	retq   
+	1570:	c9	leaveq 
+	1571:	c3	retq   
+	1572:	c9	leaveq 
+	1573:	c3	retq   
+	1574:	c9	leaveq 
+	1575:	c3	retq   
+	1576:	c9	leaveq 
+	1577:	c3	retq   
+	1578:	c9	leaveq 
+	1579:	c3	retq   
+	1580:	c9	leaveq 
+	1581:	c3	retq   
+	1582:	c9	leaveq 
+	1583:	c3	retq   
+	1584:	c9	leaveq 
+	1585:	c3	retq   
+	1586:	c9	leaveq 
+	1587:	c3	retq   
+	1588:	c9	leaveq 
+	1589:	c3	retq   
+	1590:	c9	leaveq 
+	1591:	c3	retq   
+	1592:	c9	leaveq 
+	1593:	c3	retq   
+	1594:	c9	leaveq 
+	1595:	c3	retq   
+	1596:	c9	leaveq 
+	1597:	c3	retq   
+	1598:	c9	leaveq 
+	1599:	c3	retq   
+	1600:	c9	leaveq 
+	1601:	c3	retq   
+	1602:	c9	leaveq 
+	1603:	c3	retq   
+	1604:	c9	leaveq 
+	1605:	c3	retq   
+	1606:	c9	leaveq 
+	1607:	c3	retq   
+	1608:	c9	leaveq 
+	1609:	c3	retq   
+	1610:	c9	leaveq 
+	1611:	c3	retq   
+	1612:	c9	leaveq 
+	1613:	c3	retq   
+	1614:	c9	leaveq 
+	1615:	c3	retq   
+	1616:	c9	leaveq 
+	1617:	c3	retq   
+	1618:	c9	leaveq 
+	1619:	c3	retq   
+	1620:	c9	leaveq 
+	1621:	c3	retq   
+	1622:	c9	leaveq 
+	1623:	c3	retq   
+	1624:	c9	leaveq 
+	1625:	c3	retq   
+	1626:	c9	leaveq 
+	1627:	c3	retq   
+	1628:	c9	leaveq 
+	1629:	c3	retq   
+	1630:	c9	leaveq 
+	1631:	c3	retq   
+	1632:	c9	leaveq 
+	1633:	c3	retq   
+	1634:	c9	leaveq 
+	1635:	c3	retq   
+	1636:	c9	leaveq 
+	1637:	c3	retq   
+	1638:	c9	leaveq 
+	1639:	c3	retq   
+	1640:	c9	leaveq 
+	1641:	c3	retq   
+	1642:	c9	leaveq 
+	1643:	c3	retq   
+	1644:	c9	leaveq 
+	1645:	c3	retq   
+	1646:	c9	leaveq 
+	1647:	c3	retq   
+	1648:	c9	leaveq 
+	1649:	c3	retq   
+	1650:	c9	leaveq 
+	1651:	c3	retq   
+	1652:	c9	leaveq 
+	1653:	c3	retq   
+	1654:	c9	leaveq 
+	1655:	c3	retq   
+	1656:	c9	leaveq 
+	1657:	c3	retq   
+	1658:	c9	leaveq 
+	1659:	c3	retq   
+	1660:	c9	leaveq 
+	1661:	c3	retq   
+	1662:	c9	leaveq 
+	1663:	c3	retq   
+	1664:	c9	leaveq 
+	1665:	c3	retq   
+	1666:	c9	leaveq 
+	1667:	c3	retq   
+	1668:	c9	leaveq 
+	1669:	c3	retq   
+	1670:	c9	leaveq 
+	1671:	c3	retq   
+	1672:	c9	leaveq 
+	1673:	c3	retq   
+	1674:	c9	leaveq 
+	1675:	c3	retq   
+	1676:	c9	leaveq 
+	1677:	c3	retq   
+	1678:	c9	leaveq 
+	1679:	c3	retq   
+	1680:	c9	leaveq 
+	1681:	c3	retq   
+	1682:	c9	leaveq 
+	1683:	c3	retq   
+	1684:	c9	leaveq 
+	1685:	c3	retq   
+	1686:	c9	leaveq 
+	1687:	c3	retq   
+	1688:	c9	leaveq 
+	1689:	c3	retq   
+	1690:	c9	leaveq 
+	1691:	c3	retq   
+	1692:	c9	leaveq 
+	1693:	c3	retq   
+	1694:	c9	leaveq 
+	1695:	c3	retq   
+	1696:	c9	leaveq 
+	1697:	c3	retq   
+	1698:	c9	leaveq 
+	1699:	c3	retq   
+	1700:	c9	leaveq 
+	1701:	c3	retq   
+	1702:	c9	leaveq 
+	1703:	c3	retq   
+	1704:	c9	leaveq 
+	1705:	c3	retq   
+	1706:	c9	leaveq 
+	1707:	c3	retq   
+	1708:	c9	leaveq 
+	1709:	c3	retq   
+	1710:	c9	leaveq 
+	1711:	c3	retq   
+	1712:	c9	leaveq 
+	1713:	c3	retq   
+	1714:	c9	leaveq 
+	1715:	c3	retq   
+	1716:	c9	leaveq 
+	1717:	c3	retq   
+	1718:	c9	leaveq 
+	1719:	c3	retq   
+	1720:	c9	leaveq 
+	1721:	c3	retq   
+	1722:	83 f8 01	cmp    $0x1,%eax
+	1723:	74 05	je     0x400136 <L14>
+	1724:	bf 00 00 00 00	mov    $0x0,%edi
+	1725:	e8 74 ff ff ff	callq  0x4000b4 <exit>
+	1726:	55	push   %rbp
+	1727:	48 89 e5	mov    %rsp,%rbp
+	1728:	89 7d fc	mov    %edi,-0x4(%rbp)
+	1729:	48 c7 c0 ff ff ff ff	mov    $0xffffffffffffffff,%rax
+	1730:	ff e0	jmpq   *%rax
+
+
+Count 0) reg	kstate	xstate		55	push   %rbp
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'248	140737488343392
+rbp	64'248	0
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 1) reg	kstate	xstate		48 89 e5	mov    %rsp,%rbp
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'240	140737488343384
+rbp	64'248	0
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 2) reg	kstate	xstate		48 83 ec 10	sub    $0x10,%rsp
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'240	140737488343384
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 3) reg	kstate	xstate		89 7d fc	mov    %edi,-0x4(%rbp)
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'224	140737488343368
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 4) reg	kstate	xstate		48 89 75 f0	mov    %rsi,-0x10(%rbp)
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'224	140737488343368
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 5) reg	kstate	xstate		be 00 00 00 00	mov    $0x0,%esi
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'224	140737488343368
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 6) reg	kstate	xstate		bf 64 00 00 00	mov    $0x64,%edi
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'0	0
+rsp	64'224	140737488343368
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 7) reg	kstate	xstate		e8 a9 ff ff ff	callq  0x4000d5 <f>
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'224	140737488343368
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 8) reg	kstate	xstate		55	push   %rbp
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'216	140737488343360
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 9) reg	kstate	xstate		48 89 e5	mov    %rsp,%rbp
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'208	140737488343352
+rbp	64'240	140737488343384
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 10) reg	kstate	xstate		48 83 ec 20	sub    $0x20,%rsp
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'208	140737488343352
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 11) reg	kstate	xstate		89 7d ec	mov    %edi,-0x14(%rbp)
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 12) reg	kstate	xstate		48 89 75 e0	mov    %rsi,-0x20(%rbp)
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 13) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'0	0
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 14) reg	kstate	xstate		89 45 fc	mov    %eax,-0x4(%rbp)
+---------------------
+rax	64'100	100
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 15) reg	kstate	xstate		83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+---------------------
+rax	64'100	100
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 16) reg	kstate	xstate		75 08	jne    0x4000f8 <L10>
+---------------------
+rax	64'100	100
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 17) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'100	100
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 18) reg	kstate	xstate		8d 50 ff	lea    -0x1(%rax),%edx
+---------------------
+rax	64'100	100
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'0	0
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 19) reg	kstate	xstate		48 8d 45 fc	lea    -0x4(%rbp),%rax
+---------------------
+rax	64'100	100
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 20) reg	kstate	xstate		48 89 c6	mov    %rax,%rsi
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'0	0
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 21) reg	kstate	xstate		89 d7	mov    %edx,%edi
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'100	100
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 22) reg	kstate	xstate		e8 c9 ff ff ff	callq  0x4000d5 <f>
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'176	140737488343320
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 23) reg	kstate	xstate		55	push   %rbp
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'168	140737488343312
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 24) reg	kstate	xstate		48 89 e5	mov    %rsp,%rbp
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'160	140737488343304
+rbp	64'208	140737488343352
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 25) reg	kstate	xstate		48 83 ec 20	sub    $0x20,%rsp
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'160	140737488343304
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 26) reg	kstate	xstate		89 7d ec	mov    %edi,-0x14(%rbp)
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 27) reg	kstate	xstate		48 89 75 e0	mov    %rsi,-0x20(%rbp)
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 28) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'204	140737488343348
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 29) reg	kstate	xstate		89 45 fc	mov    %eax,-0x4(%rbp)
+---------------------
+rax	64'99	99
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 30) reg	kstate	xstate		83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+---------------------
+rax	64'99	99
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 31) reg	kstate	xstate		75 08	jne    0x4000f8 <L10>
+---------------------
+rax	64'99	99
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 32) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'99	99
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 33) reg	kstate	xstate		8d 50 ff	lea    -0x1(%rax),%edx
+---------------------
+rax	64'99	99
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'99	99
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 34) reg	kstate	xstate		48 8d 45 fc	lea    -0x4(%rbp),%rax
+---------------------
+rax	64'99	99
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 35) reg	kstate	xstate		48 89 c6	mov    %rax,%rsi
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'204	140737488343348
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 36) reg	kstate	xstate		89 d7	mov    %edx,%edi
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'99	99
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 37) reg	kstate	xstate		e8 c9 ff ff ff	callq  0x4000d5 <f>
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'128	140737488343272
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 38) reg	kstate	xstate		55	push   %rbp
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'120	140737488343264
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 39) reg	kstate	xstate		48 89 e5	mov    %rsp,%rbp
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'112	140737488343256
+rbp	64'160	140737488343304
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 40) reg	kstate	xstate		48 83 ec 20	sub    $0x20,%rsp
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'112	140737488343256
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 41) reg	kstate	xstate		89 7d ec	mov    %edi,-0x14(%rbp)
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 42) reg	kstate	xstate		48 89 75 e0	mov    %rsi,-0x20(%rbp)
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 43) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'156	140737488343300
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 44) reg	kstate	xstate		89 45 fc	mov    %eax,-0x4(%rbp)
+---------------------
+rax	64'98	98
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 45) reg	kstate	xstate		83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+---------------------
+rax	64'98	98
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'1	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 46) reg	kstate	xstate		75 08	jne    0x4000f8 <L10>
+---------------------
+rax	64'98	98
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 47) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'98	98
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 48) reg	kstate	xstate		8d 50 ff	lea    -0x1(%rax),%edx
+---------------------
+rax	64'98	98
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'98	98
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 49) reg	kstate	xstate		48 8d 45 fc	lea    -0x4(%rbp),%rax
+---------------------
+rax	64'98	98
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 50) reg	kstate	xstate		48 89 c6	mov    %rax,%rsi
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'156	140737488343300
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 51) reg	kstate	xstate		89 d7	mov    %edx,%edi
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'98	98
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 52) reg	kstate	xstate		e8 c9 ff ff ff	callq  0x4000d5 <f>
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'80	140737488343224
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 53) reg	kstate	xstate		55	push   %rbp
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'72	140737488343216
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 54) reg	kstate	xstate		48 89 e5	mov    %rsp,%rbp
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'64	140737488343208
+rbp	64'112	140737488343256
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 55) reg	kstate	xstate		48 83 ec 20	sub    $0x20,%rsp
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'64	140737488343208
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 56) reg	kstate	xstate		89 7d ec	mov    %edi,-0x14(%rbp)
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 57) reg	kstate	xstate		48 89 75 e0	mov    %rsi,-0x20(%rbp)
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 58) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'108	140737488343252
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 59) reg	kstate	xstate		89 45 fc	mov    %eax,-0x4(%rbp)
+---------------------
+rax	64'97	97
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 60) reg	kstate	xstate		83 7d ec 00	cmpl   $0x0,-0x14(%rbp)
+---------------------
+rax	64'97	97
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	1
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 61) reg	kstate	xstate		75 08	jne    0x4000f8 <L10>
+---------------------
+rax	64'97	97
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 62) reg	kstate	xstate		8b 45 ec	mov    -0x14(%rbp),%eax
+---------------------
+rax	64'97	97
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 63) reg	kstate	xstate		8d 50 ff	lea    -0x1(%rax),%edx
+---------------------
+rax	64'97	97
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'97	97
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 64) reg	kstate	xstate		48 8d 45 fc	lea    -0x4(%rbp),%rax
+---------------------
+rax	64'97	97
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 65) reg	kstate	xstate		48 89 c6	mov    %rax,%rsi
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'108	140737488343252
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 66) reg	kstate	xstate		89 d7	mov    %edx,%edi
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'60	140737488343204
+rdi	64'97	97
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 67) reg	kstate	xstate		e8 c9 ff ff ff	callq  0x4000d5 <f>
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'60	140737488343204
+rdi	64'96	96
+rsp	64'32	140737488343176
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 68) reg	kstate	xstate		55	push   %rbp
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'60	140737488343204
+rdi	64'96	96
+rsp	64'24	140737488343168
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 69) reg	kstate	xstate		48 89 e5	mov    %rsp,%rbp
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'60	140737488343204
+rdi	64'96	96
+rsp	64'16	140737488343160
+rbp	64'64	140737488343208
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 70) reg	kstate	xstate		48 83 ec 20	sub    $0x20,%rsp
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'60	140737488343204
+rdi	64'96	96
+rsp	64'16	140737488343160
+rbp	64'16	140737488343160
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'0	0
+pf	1'0	0
+af	1'0	0
+zf	1'0	0
+sf	1'0	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+
+Count 71) reg	kstate	xstate		89 7d ec	mov    %edi,-0x14(%rbp)
+---------------------
+rax	64'60	140737488343204
+rbx	64'0	0
+rcx	64'0	0
+rdx	64'96	96
+rsi	64'60	140737488343204
+rdi	64'96	96
+rsp	64'18446744073709551600	140737488343128
+rbp	64'16	140737488343160
+r8	64'0	0
+r9	64'0	0
+r10	64'0	0
+r11	64'0	0
+r12	64'0	0
+r13	64'0	0
+r14	64'0	0
+r15	64'0	0
+cf	1'1	0
+pf	1'1	0
+af	1'0	0
+zf	1'0	0
+sf	1'1	0
+of	1'0	0
+ymm0	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm1	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm2	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm3	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm4	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm5	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm6	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm7	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm8	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm9	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm10	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm11	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm12	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
+[4m[1m[34m20000412-2-0 Compare Results :[0m
+Failed:[4m[1m[91m20000412-2-0: kstate xstate count unequal[0m
+kstates = 2736
+xstates = 65778
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 4
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 5
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 7
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 8
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 10
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 11
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 13
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 14
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 16
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 20
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 22
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 23
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 25
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 26
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rax at instrcount: 28
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 29
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 31
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 32
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 34
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 35
+
+Failed:[4m[1m[91mFail[0m
+00000000000000cc != 00007fffffffd134
+rsi at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 37
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 38
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 40
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 41
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rax at instrcount: 43
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 44
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 45
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 46
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 47
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 49
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 50
+
+Failed:[4m[1m[91mFail[0m
+000000000000009c != 00007fffffffd104
+rsi at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 52
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 53
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 55
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 55
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 56
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rax at instrcount: 58
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 59
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+0 != 1
+pf at instrcount: 61
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 62
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 64
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 65
+
+Failed:[4m[1m[91mFail[0m
+000000000000006c != 00007fffffffd0d4
+rsi at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rsi at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 67
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rsi at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 68
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rsi at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rsi at instrcount: 70
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 70
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rsi at instrcount: 71
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rax at instrcount: 71
+
+Failed:[4m[1m[91mFail[0m
+000000000000003c != 00007fffffffd0a4
+rsi at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+cf at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+pf at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+1 != 0
+sf at instrcount: 72
+
+Passed:[4m[1m[92mPassed[0m

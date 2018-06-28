@@ -9,6 +9,6 @@ module SALL-M32
   rule <k>
     execinstr (sall:Opcode memOffset( MemOff:MInt):MemOffset,  .Operands) => 
     execinstr (sall:Opcode $0x1, memOffset( MemOff:MInt):MemOffset,  .Operands)
-  </k>
+  ...</k>
   
  endmodule

@@ -1,4 +1,4 @@
-grep  -A 39  "ListItem"  Output/20000113-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileC6ghd 2>&1 
+grep  -A 39  "ListItem"  Output/20000113-1-0.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileQclqr 2>&1 
 numOfInstrs: 111
 
 	0:	55	push   %rbp
