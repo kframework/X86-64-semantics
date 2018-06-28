@@ -43,7 +43,7 @@ for my $line (@lines) {
       next;
     }
 
-    if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file/) {
+    if($line =~ m/\.text|\.globl|\.type|\.size|\.ident|\.section|\.file|\.data|\.align/) {
       next;
     }
 
