@@ -1206,7 +1206,10 @@ module X86-SYNTAX
                   | "vcvtsi2sd"
                   | "sarx"
                   | "shlx"
+                  | "shrx"
                   | "cmovs"
                   | "cmovns"
+                  | "cmovge"
+                  | "cmove"
 
 endmodule
