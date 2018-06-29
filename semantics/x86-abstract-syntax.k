@@ -17,6 +17,7 @@ module X86-ASBTRACT-SYNTAX
 
   syntax Abstractinstruction ::= storedInstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)
+  syntax Abstractinstruction ::= "IllegalInstructionException" [token]
 
   /*@
     Used for late evaluation of memory offset in case of instructions
