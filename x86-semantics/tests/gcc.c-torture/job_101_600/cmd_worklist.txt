@@ -9,7 +9,6 @@ gcc -I src/library ./src/20010604-1.c    -fno-diagnostics-show-caret -fdiagnosti
 gcc -I src/library ./src/20010711-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010711-1-0.asm
 gcc -I src/library ./src/20010717-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010717-1-0.asm
 gcc -I src/library ./src/20010723-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010723-1-0.asm
-gcc -I src/library ./src/20010904-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010904-1-0.asm
 gcc -I src/library ./src/20010910-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20010910-1-0.asm
 gcc -I src/library ./src/20011008-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011008-3-0.asm
 gcc -I src/library ./src/20011115-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20011115-1-0.asm
@@ -27,7 +26,6 @@ gcc -I src/library ./src/20020225-2.c    -fno-diagnostics-show-caret -fdiagnosti
 gcc -I src/library ./src/20020307-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020307-1-0.asm
 gcc -I src/library ./src/20020320-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020320-1-0.asm
 gcc -I src/library ./src/20020402-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020402-1-0.asm
-gcc -I src/library ./src/20020402-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020402-3-0.asm
 gcc -I src/library ./src/20020418-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020418-1-0.asm
 gcc -I src/library ./src/20020423-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020423-1-0.asm
 gcc -I src/library ./src/20020503-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20020503-1-0.asm
@@ -51,7 +49,6 @@ gcc -I src/library ./src/20030117-1.c    -fno-diagnostics-show-caret -fdiagnosti
 gcc -I src/library ./src/20030120-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030120-1-0.asm
 gcc -I src/library ./src/20030120-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030120-2-0.asm
 gcc -I src/library ./src/20030203-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030203-1-0.asm
-gcc -I src/library ./src/20030221-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030221-1-0.asm
 gcc -I src/library ./src/20030307-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030307-1-0.asm
 gcc -I src/library ./src/20030316-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030316-1-0.asm
 gcc -I src/library ./src/20030330-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20030330-1-0.asm
@@ -77,7 +74,6 @@ gcc -I src/library ./src/20031216-1.c    -fno-diagnostics-show-caret -fdiagnosti
 gcc -I src/library ./src/20040218-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040218-1-0.asm
 gcc -I src/library ./src/20040223-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040223-1-0.asm
 gcc -I src/library ./src/20040307-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040307-1-0.asm
-gcc -I src/library ./src/20040308-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040308-1-0.asm
 gcc -I src/library ./src/20040309-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040309-1-0.asm
 gcc -I src/library ./src/20040311-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040311-1-0.asm
 gcc -I src/library ./src/20040313-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040313-1-0.asm
@@ -90,14 +86,12 @@ gcc -I src/library ./src/20040409-2w.c    -fno-diagnostics-show-caret -fdiagnost
 gcc -I src/library ./src/20040409-3.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040409-3-0.asm
 gcc -I src/library ./src/20040409-3w.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w -fwrapv  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040409-3w-0.asm
 gcc -I src/library ./src/20040411-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040411-1-0.asm
-gcc -I src/library ./src/20040423-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040423-1-0.asm
 gcc -I src/library ./src/20040625-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040625-1-0.asm
 gcc -I src/library ./src/20040704-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040704-1-0.asm
 gcc -I src/library ./src/20040706-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040706-1-0.asm
 gcc -I src/library ./src/20040820-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20040820-1-0.asm
 gcc -I src/library ./src/20041019-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041019-1-0.asm
 gcc -I src/library ./src/20041126-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041126-1-0.asm
-gcc -I src/library ./src/20041212-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041212-1-0.asm
 gcc -I src/library ./src/20041213-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041213-2-0.asm
 gcc -I src/library ./src/20041218-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20041218-2-0.asm
 gcc -I src/library ./src/20050104-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20050104-1-0.asm
@@ -127,14 +121,12 @@ gcc -I src/library ./src/20070623-1.c    -fno-diagnostics-show-caret -fdiagnosti
 gcc -I src/library ./src/20071011-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20071011-1-0.asm
 gcc -I src/library ./src/20071202-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20071202-1-0.asm
 gcc -I src/library ./src/20071205-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20071205-1-0.asm
-gcc -I src/library ./src/20071213-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20071213-1-0.asm
 gcc -I src/library ./src/20080122-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20080122-1-0.asm
 gcc -I src/library ./src/20080408-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20080408-1-0.asm
 gcc -I src/library ./src/20080506-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20080506-1-0.asm
 gcc -I src/library ./src/20080506-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20080506-2-0.asm
 gcc -I src/library ./src/20080813-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20080813-1-0.asm
 gcc -I src/library ./src/20081112-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20081112-1-0.asm
-gcc -I src/library ./src/20090113-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20090113-1-0.asm
 gcc -I src/library ./src/20090207-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20090207-1-0.asm
 gcc -I src/library ./src/20090527-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20090527-1-0.asm
 gcc -I src/library ./src/20090711-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/20090711-1-0.asm
