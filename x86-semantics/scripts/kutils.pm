@@ -551,7 +551,7 @@ sub checkKRunStatus {
         if ($criticalSection) {
             my $txt = utils::trim($line);
             if ( $txt eq "exit_0" ) {
-                passInfo("Pass: krun");
+                passInfo("$file: Pass: krun");
                 return;
             }
             else {
