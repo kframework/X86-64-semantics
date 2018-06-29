@@ -12,8 +12,11 @@ foo (int *p)
 
 main()
 {
-  int *ptr = alloca (sizeof (int));
-  *ptr = 5;
+  //int *ptr = alloca (sizeof (int));
+  int x;
+  int *ptr = &x;
+
+   *ptr = 5;
   foo (ptr);
   if (*ptr == 5)
     abort ();

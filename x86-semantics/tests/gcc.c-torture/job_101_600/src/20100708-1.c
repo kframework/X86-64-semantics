@@ -6,7 +6,7 @@
 struct S
 {
   double for_alignment;
-  struct { int x, y, z; } a[16];
+  struct { int x, y, z; } a[8];
 };
 
 void f(struct S *s) __attribute__((noinline));
@@ -15,7 +15,7 @@ void f(struct S *s)
 {
   unsigned int i;
 
-  for (i = 0; i < 16; ++i)
+  for (i = 0; i < 8; ++i)
     {
       s->a[i].x = 0;
       s->a[i].y = 0;
