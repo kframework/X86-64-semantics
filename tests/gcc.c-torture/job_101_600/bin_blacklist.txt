@@ -253,3 +253,24 @@ bin/931110-2-0.asm
 bin/940122-1-0.asm
 bin/941014-2-0.asm
 bin/941021-1-0.asm
+bin/20040629-1-0.asm
+bin/20040705-1-0.asm
+bin/20040705-2-0.asm
+bin/20040709-3-0.asm
+bin/20051113-1-0.asm
+bin/20080502-1-0.asm
+bin//20070824-1-0.asm
+bin//20071018-1-0.asm
+bin//20170111-1-0.asm // div
+bin//920721-2-0.asm //div
+bin//920908-1-0.asm //vaarg
+bin//920929-1-0.asm //double alloc
+bin//931004-10-0.asm // vaarg
+bin//931004-12-0.asm // vaarg
+bin//931004-2-0.asm // vaarg
+bin//931004-4-0.asm // vaarg
+bin//931004-14-0.asm // vaarg
+bin//931004-6-0.asm // vaarg
+bin//931004-5-0.asm // vaarg
+bin//931004-8-0.asm // vaarg
+bin//941014-1-0.asm
