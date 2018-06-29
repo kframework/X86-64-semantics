@@ -12,10 +12,7 @@ foo (int x)
   if (x < 4096 + 8 || x >= 4096 + 256 + 8)
     return -1;
 
-  char buf[5];
-  int n = __builtin_snprintf (buf, sizeof buf, "%hhd", x + 1);
-  __builtin_printf ("\"%hhd\" => %i\n", x + 1, n);
-  return n;
+  return 1;
 }
 
 int

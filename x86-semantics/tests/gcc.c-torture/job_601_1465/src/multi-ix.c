@@ -13,7 +13,9 @@
    constant is so large that it has to be reloaded into a register first,
    that clobbers the index.  */
 
-#include <stdarg.h>
+//#include <stdarg.h>
+
+#define STACK_SIZE 2048
 
 #ifdef STACK_SIZE
 /* We need to be careful that we don't blow our stack.  Function f, in the
