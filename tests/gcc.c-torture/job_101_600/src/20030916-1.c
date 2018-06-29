@@ -21,13 +21,13 @@ void f (unsigned int *x)
 
 int main ()
 {
-  unsigned int x[32];
+  unsigned int x[8];
   int i;
 
-  for (i = 0; i < 32; i++)
+  for (i = 0; i < 8; i++)
     x[i] = 1;
   f (x);
-  for (i = 0; i < 32; i++)
+  for (i = 0; i < 8; i++)
     if (x[i] != (i >= 0x08 && i < 0xf8))
       abort ();
   exit (0);
