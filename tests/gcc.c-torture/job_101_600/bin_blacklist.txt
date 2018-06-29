@@ -282,3 +282,7 @@ bin//20040423-1-0.asm //shldq
 bin//20090113-1-0.asm //stosq
 bin//20010904-1-0.asm // big mem
 bin//20041212-1-0.asm //fn ptr
+bin/920810-1-0.asm //malloc
+bin//920501-5-0.asm // fn ptr
+bin//20030916-1-0.asm //big
+bin//20011008-3-0.asm // big
