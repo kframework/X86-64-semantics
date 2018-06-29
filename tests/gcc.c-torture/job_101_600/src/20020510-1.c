@@ -45,7 +45,7 @@ testi (unsigned int i, int ok)
 }
 
 void
-testl (unsigned long l, int ok)
+mytestl (unsigned long l, int ok)
 {
   if ((l>=1) && (l<=LONG_MAX))
     {
@@ -76,11 +76,11 @@ main ()
   testi (INT_MAX+1U, 0);
   testi (UINT_MAX, 0);
 
-  testl (0, 0);
-  testl (1, 1);
-  testl (LONG_MAX, 1);
-  testl (LONG_MAX+1UL, 0);
-  testl (ULONG_MAX, 0);
+  mytestl (0, 0);
+  mytestl (1, 1);
+  mytestl (LONG_MAX, 1);
+  mytestl (LONG_MAX+1UL, 0);
+  mytestl (ULONG_MAX, 0);
 
   return 0;
 }

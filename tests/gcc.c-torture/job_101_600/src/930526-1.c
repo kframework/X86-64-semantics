@@ -7,11 +7,11 @@ extern void exit (int);
 inline void
 f (int x)
 {
-  int *(p[25]);
-  int m[25*7];
+  int *(p[2]);
+  int m[2*7];
   int i;
 
-  for (i = 0; i < 25; i++)
+  for (i = 0; i < 2; i++)
     p[i] = m + x*i;
 
   p[1][0] = 0;

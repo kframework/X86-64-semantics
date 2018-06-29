@@ -20,7 +20,7 @@ extern void abort (void);
 
 static void foo ()
 {
-    char a[ARRAY_SIZE];
+    char a[32];
 
     a[0]=0;
     memset( &a[0], 0xCD, STRLEN );
