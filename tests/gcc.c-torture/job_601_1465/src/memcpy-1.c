@@ -4,11 +4,7 @@
 
 #include <string.h>
 
-#if defined (STACK_SIZE)
-#define MEMCPY_SIZE (STACK_SIZE / 3)
-#else
-#define MEMCPY_SIZE (1 << 17)
-#endif
+#define MEMCPY_SIZE (256 / 3)
 
 
 void *copy (void *o, const void *i, unsigned l)
