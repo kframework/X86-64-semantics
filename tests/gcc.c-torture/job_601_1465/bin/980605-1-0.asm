@@ -1,0 +1,195 @@
+strchr:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	nop
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movl	-12(%rbp), %eax
+	cmpb	%al, %dl
+	je	L6
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L3
+	movl	$0, %eax
+	jmp	L1
+L3:
+	movq	-8(%rbp), %rax
+	jmp	L1
+L6:
+L1:
+	popq	%rbp
+	ret
+exit:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	movq $-1, %rax
+	jmp %rax
+	
+	popq	%rbp
+	ret
+abort:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq $-1, %rax
+	jmp %rax
+	
+	popq	%rbp
+	ret
+f2:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$64, %rsp
+	vmovsd	%xmm0, -56(%rbp)
+	call	getval
+	movl	%eax, -4(%rbp)
+	call	getval
+	movl	%eax, -8(%rbp)
+	call	getval
+	movl	%eax, -12(%rbp)
+	call	getval
+	movl	%eax, -16(%rbp)
+	call	getval
+	movl	%eax, -20(%rbp)
+	call	getval
+	movl	%eax, -24(%rbp)
+	call	getval
+	movl	%eax, -28(%rbp)
+	call	getval
+	movl	%eax, -32(%rbp)
+	call	getval
+	movl	%eax, -36(%rbp)
+	call	getval
+	movl	%eax, -40(%rbp)
+	vcvttsd2si	-56(%rbp), %eax
+	movw	%ax, -42(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	addl	%eax, %edx
+	movl	-12(%rbp), %eax
+	addl	%eax, %edx
+	movl	-16(%rbp), %eax
+	addl	%eax, %edx
+	movl	-20(%rbp), %eax
+	addl	%eax, %edx
+	movl	-24(%rbp), %eax
+	addl	%eax, %edx
+	movl	-28(%rbp), %eax
+	addl	%eax, %edx
+	movl	-32(%rbp), %eax
+	addl	%eax, %edx
+	movl	-36(%rbp), %eax
+	addl	%eax, %edx
+	movl	-40(%rbp), %eax
+	addl	%eax, %edx
+	movzwl	-42(%rbp), %eax
+	addl	%edx, %eax
+	leave
+	ret
+x:
+	.long	1
+getval:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	x(%rip), %eax
+	leal	1(%rax), %edx
+	movl	%edx, x(%rip)
+	popq	%rbp
+	ret
+	.comm	buf,10,1
+LC1:
+	.string	"%d\n"
+f:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$100048, %rsp
+	call	getval
+	movl	%eax, -4(%rbp)
+	call	getval
+	movl	%eax, -8(%rbp)
+	call	getval
+	movl	%eax, -12(%rbp)
+	call	getval
+	movl	%eax, -16(%rbp)
+	call	getval
+	movl	%eax, -20(%rbp)
+	call	getval
+	movl	%eax, -24(%rbp)
+	call	getval
+	movl	%eax, -28(%rbp)
+	call	getval
+	movl	%eax, -32(%rbp)
+	call	getval
+	movl	%eax, -36(%rbp)
+	call	getval
+	movl	%eax, -40(%rbp)
+	movabsq	$4625478292286210048, %rax
+	vmovq	%rax, %xmm0
+	call	f2
+	movl	%eax, -44(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	addl	%eax, %edx
+	movl	-12(%rbp), %eax
+	addl	%eax, %edx
+	movl	-16(%rbp), %eax
+	addl	%eax, %edx
+	movl	-20(%rbp), %eax
+	addl	%eax, %edx
+	movl	-24(%rbp), %eax
+	addl	%eax, %edx
+	movl	-28(%rbp), %eax
+	addl	%eax, %edx
+	movl	-32(%rbp), %eax
+	addl	%eax, %edx
+	movl	-36(%rbp), %eax
+	addl	%eax, %edx
+	movl	-40(%rbp), %eax
+	addl	%eax, %edx
+	movl	-44(%rbp), %eax
+	addl	%edx, %eax
+	movl	%eax, %edx
+	movl	$LC1, %esi
+	movl	$buf, %edi
+	movl	$0, %eax
+	call	sprintf
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	addl	%eax, %edx
+	movl	-12(%rbp), %eax
+	addl	%eax, %edx
+	movl	-16(%rbp), %eax
+	addl	%eax, %edx
+	movl	-20(%rbp), %eax
+	addl	%eax, %edx
+	movl	-24(%rbp), %eax
+	addl	%eax, %edx
+	movl	-28(%rbp), %eax
+	addl	%eax, %edx
+	movl	-32(%rbp), %eax
+	addl	%eax, %edx
+	movl	-36(%rbp), %eax
+	addl	%eax, %edx
+	movl	-40(%rbp), %eax
+	addl	%eax, %edx
+	movl	-44(%rbp), %eax
+	addl	%edx, %eax
+	cmpl	$227, %eax
+	je	L13
+	call	abort
+L13:
+	leave
+	ret
+.globl _start
+_start:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	$0, %eax
+	call	f
+	movl	$0, %edi
+	call	exit
