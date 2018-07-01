@@ -142,6 +142,7 @@ L20:
 L9:
 	leave
 	ret
+.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
