@@ -7,7 +7,7 @@ extern void abort(void);
 
 int main()
 {
-  int t[1025] = { 1024 }, d;
+  int t[1] = { 1024 }, d;
 
   d = 0;
   d = t[d]++;

@@ -15,6 +15,8 @@
 
 #include <stdarg.h>
 
+#define STACK_SIZE 2048
+
 #ifdef STACK_SIZE
 /* We need to be careful that we don't blow our stack.  Function f, in the
    worst case, needs to fit on the stack:
