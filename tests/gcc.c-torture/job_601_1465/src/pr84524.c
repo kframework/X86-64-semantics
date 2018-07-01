@@ -30,7 +30,7 @@ main ()
       unsigned short v = i << 8;
       for (int j = 0; j < 8; j++)
 	{
-	  asm volatile ("" : "+r" (v));
+	  //asm volatile ("" : "+r" (v));
 	  if (v & 0x8000)
 	    v = (v << 1) ^ 0x1021;
 	  else
