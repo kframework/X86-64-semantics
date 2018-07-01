@@ -52,6 +52,17 @@ for my $line (@lines) {
       print "_start". $1. "\n";
       next;
     }
+
+    if($line =~ m/(.*)call\s*\*(.*)/) {
+      print  $1. "call $2". "\n";
+      next;
+    }
+
+    if($line =~ m/(.*)jmp\s*\*(.*)/) {
+      print  $1. "call $2". "\n";
+      next;
+    }
+
     print $line . "\n";
 }
 
