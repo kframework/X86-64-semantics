@@ -1,7 +1,5 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-unsigned int b;
-int c;
 
 signed char
 fn1 ()
@@ -15,6 +13,8 @@ fn1 ()
 int
 main (void)
 {
+unsigned int b;
+int c;
   for (c = 0; c < 1; c++)
     b = 0;
   char e = fn1 ();
