@@ -13,5 +13,5 @@ int main()
 {
   if (foo(0) != 1)
     abort ();
-  return 0;
+  return 10;
 }
