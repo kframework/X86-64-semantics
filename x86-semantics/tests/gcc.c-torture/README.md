@@ -36,3 +36,8 @@ cat bin_blacklist.txt  | parallel -j1 "sed -i '/\<{}\>/d' cmd_worklist.txt "
 ```
 cat log | parallel  "echo {}; grep  \"\\.\" bin/{}.asm  | grep -v globl"
 ```
+
+# Search commands
+```
+cat log | parallel "grep -w "{}" ../docs/work.build_O0.binary"
+```
