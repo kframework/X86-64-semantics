@@ -590,55 +590,136 @@ module MINT-WRAPPER
                                             #then mi(1, 1) #else mi(1,0) #fi
 
   // signed divs
-  rule idiv_quotient_int64(MI1:MInt, MI2:MInt) => sdivMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+  rule idiv_quotient_int64(MI1:MInt, MI2:MInt) => 
+    extractMInt(
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
 
-  rule idiv_quotient_int32(MI1:MInt, MI2:MInt) => sdivMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+  rule idiv_quotient_int32(MI1:MInt, MI2:MInt) => 
+    extractMInt(
+    miMInt(sdivMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
 
-  rule idiv_quotient_int16(MI1:MInt, MI2:MInt) => sdivMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+  rule idiv_quotient_int16(MI1:MInt, MI2:MInt) => 
+    extractMInt(
+    miMInt(sdivMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
 
-  rule idiv_quotient_int8(MI1:MInt, MI2:MInt)  => sdivMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+  rule idiv_quotient_int8(MI1:MInt, MI2:MInt)  => 
+    extractMInt(
+    miMInt(sdivMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
 
   // signed remainders
-  rule idiv_remainder_int64(MI1:MInt, MI2:MInt) => sremMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+  rule idiv_remainder_int64(MI1:MInt, MI2:MInt) => 
+    extractMInt(
+    miMInt(sremMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
 
-  rule idiv_remainder_int32(MI1:MInt, MI2:MInt) => sremMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+  rule idiv_remainder_int32(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    miMInt(sremMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
 
-  rule idiv_remainder_int16(MI1:MInt, MI2:MInt) => sremMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+  rule idiv_remainder_int16(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    miMInt(sremMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
 
-  rule idiv_remainder_int8(MI1:MInt, MI2:MInt)  => sremMInt(MI1, MI2)
-    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+  rule idiv_remainder_int8(MI1:MInt, MI2:MInt)  =>
+    extractMInt(
+    miMInt(sremMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
 
   // unsigned divs
-  rule div_quotient_int64(MI1:MInt, MI2:MInt) => udivMInt(MI1, MI2)
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
 
-  rule div_quotient_int32(MI1:MInt, MI2:MInt) => udivMInt(MI1, MI2)
+  rule div_quotient_int32(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
 
-  rule div_quotient_int16(MI1:MInt, MI2:MInt) => udivMInt(MI1, MI2)
+  rule div_quotient_int16(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
 
-  rule div_quotient_int8(MI1:MInt, MI2:MInt)  => udivMInt(MI1, MI2)
+  rule div_quotient_int8(MI1:MInt, MI2:MInt)  =>
+    extractMInt(
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
 
   // unsigned remainders
-  rule div_remainder_int64(MI1:MInt, MI2:MInt) => uremMInt(MI1, MI2)
+  rule div_remainder_int64(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    uremMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
 
-  rule div_remainder_int32(MI1:MInt, MI2:MInt) => uremMInt(MI1, MI2)
+  rule div_remainder_int32(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    uremMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
 
-  rule div_remainder_int16(MI1:MInt, MI2:MInt) => uremMInt(MI1, MI2)
+  rule div_remainder_int16(MI1:MInt, MI2:MInt) =>
+    extractMInt(
+    uremMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
 
-  rule div_remainder_int8(MI1:MInt, MI2:MInt)  => uremMInt(MI1, MI2)
+  rule div_remainder_int8(MI1:MInt, MI2:MInt)  =>
+    extractMInt(
+    uremMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
     requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
 
   /*@
