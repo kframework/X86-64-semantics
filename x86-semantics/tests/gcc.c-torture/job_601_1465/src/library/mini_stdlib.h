@@ -68,6 +68,11 @@ void* malloc(size_t n) {
   return (void*) 1000;
 }
 
+void* calloc(size_t ele, size_t n) {
+  return (void*) 1000;
+}
+
+
 
 void free(void* p) {
 }

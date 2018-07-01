@@ -302,3 +302,8 @@ gcc -I src/library ./src/va-arg-23.c    -fno-diagnostics-show-caret -fdiagnostic
 gcc -I src/library ./src/va-arg-20.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-20-0.asm
 gcc -I src/library ./src/va-arg-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -fgnu89-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-8-0.asm
 gcc -I src/library ./src/strct-stdarg-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/strct-stdarg-1-0.asm
+gcc -I src/library ./src/pr36765.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr36765-0.asm
+gcc -I src/library ./src/ipa-sra-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/ipa-sra-2-0.asm
+gcc -I src/library ./src/pr41395-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr41395-1-0.asm
+gcc -I src/library ./src/pr41395-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr41395-2-0.asm
+gcc -I src/library ./src/pr42614.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr42614-0.asm
