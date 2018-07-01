@@ -536,6 +536,7 @@ bin/ipa-sra-2-0.asm //calloc
 bin/pr41395-1-0.asm // malloc
 bin/pr41395-2-0.asm //malloc
 bin/pr42614-0.asm //malloc
+
 bin/pr30185-0.asm //div
 bin/pr69447-0.asm //div
 bin/pr78791-0.asm //div
@@ -543,15 +544,6 @@ bin/frame-address-0.asm // div
 bin/pr71626-1-0.asm // fn ptr
 
 bin/pr85095-0.asm // builins
-
-bin/991216-2-0.asm // vaarg
-bin/strct-varg-1-0.asm // vaarg
-bin/va-arg-1-0.asm // vaarg
-bin/va-arg-13-0.asm// vaarg
-bin/va-arg-23-0.asm// vaarg
-bin/va-arg-20-0.asm// vaarg
-bin/va-arg-8-0.asm// vaarg
-bin/strct-stdarg-1-0.asm// vaarg
 
 bin/990117-1-0.asm // cvt
 bin/ipa-sra-1-0.asm //cvt
