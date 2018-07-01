@@ -294,3 +294,11 @@ gcc -I src/library ./src/vrp-5.c    -fno-diagnostics-show-caret -fdiagnostics-co
 gcc -I src/library ./src/vrp-6.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/vrp-6-0.asm
 gcc -I src/library ./src/widechar-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/widechar-1-0.asm
 gcc -I src/library ./src/zerolen-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/zerolen-2-0.asm
+gcc -I src/library ./src/991216-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/991216-2-0.asm
+gcc -I src/library ./src/strct-varg-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/strct-varg-1-0.asm
+gcc -I src/library ./src/va-arg-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-1-0.asm
+gcc -I src/library ./src/va-arg-13.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-13-0.asm
+gcc -I src/library ./src/va-arg-23.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-23-0.asm
+gcc -I src/library ./src/va-arg-20.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-20-0.asm
+gcc -I src/library ./src/va-arg-8.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -fgnu89-inline  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/va-arg-8-0.asm
+gcc -I src/library ./src/strct-stdarg-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/strct-stdarg-1-0.asm
