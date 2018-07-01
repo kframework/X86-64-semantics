@@ -32,3 +32,7 @@ cat bin_worklist.txt | parallel "../scripts/remove_directives.pl --file bin/{}.a
 cat bin_blacklist.txt  | parallel -j1 "sed -i '/\<{}\>/d' cmd_worklist.txt "
 ```
 
+# CHeck for a presence of specific pattern
+```
+cat log | parallel  "echo {}; grep  \"\\.\" bin/{}.asm  | grep -v globl"
+```
