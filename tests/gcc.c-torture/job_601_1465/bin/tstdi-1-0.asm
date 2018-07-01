@@ -1,3 +1,7 @@
+	.file	"tstdi-1.c"
+	.text
+	.globl	strchr
+	.type	strchr, @function
 strchr:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -8,40 +12,46 @@ strchr:
 	movzbl	(%rax), %edx
 	movl	-12(%rbp), %eax
 	cmpb	%al, %dl
-	je	L6
+	je	.L6
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L3
+	jne	.L3
 	movl	$0, %eax
-	jmp	L1
-L3:
+	jmp	.L1
+.L3:
 	movq	-8(%rbp), %rax
-	jmp	L1
-L6:
-L1:
+	jmp	.L1
+.L6:
+.L1:
 	popq	%rbp
 	ret
+	.size	strchr, .-strchr
+	.globl	strlen
+	.type	strlen, @function
 strlen:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -24(%rbp)
 	movq	$0, -8(%rbp)
-	jmp	L8
-L9:
+	jmp	.L8
+.L9:
 	addq	$1, -8(%rbp)
-L8:
+.L8:
 	movq	-24(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	addq	%rdx, %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L9
+	jne	.L9
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	strlen, .-strlen
+	.globl	strcpy
+	.type	strcpy, @function
 strcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -50,7 +60,7 @@ strcpy:
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
 	nop
-L12:
+.L12:
 	movq	-24(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -24(%rbp)
@@ -61,10 +71,13 @@ L12:
 	movb	%dl, (%rax)
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L12
+	jne	.L12
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	strcpy, .-strcpy
+	.globl	memcmp
+	.type	memcmp, @function
 memcmp:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -75,14 +88,14 @@ memcmp:
 	movq	%rax, -8(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	jmp	L15
-L18:
+	jmp	.L15
+.L18:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %edx
 	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	cmpb	%al, %dl
-	je	L16
+	je	.L16
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %edx
@@ -91,37 +104,54 @@ L18:
 	movzbl	%al, %eax
 	subl	%eax, %edx
 	movl	%edx, %eax
-	jmp	L17
-L16:
+	jmp	.L17
+.L16:
 	addq	$1, -8(%rbp)
 	addq	$1, -16(%rbp)
-L15:
+.L15:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L18
+	jne	.L18
 	movl	$0, %eax
-L17:
+.L17:
 	popq	%rbp
 	ret
+	.size	memcmp, .-memcmp
+	.globl	exit
+	.type	exit, @function
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
+#APP
+# 41 "src/library/mini_stdlib.h" 1
 	movq $-1, %rax
 	jmp %rax
 	
+# 0 "" 2
+#NO_APP
 	popq	%rbp
 	ret
+	.size	exit, .-exit
+	.globl	abort
+	.type	abort, @function
 abort:
 	pushq	%rbp
 	movq	%rsp, %rbp
+#APP
+# 46 "src/library/mini_stdlib.h" 1
 	movq $-1, %rax
 	jmp %rax
 	
+# 0 "" 2
+#NO_APP
 	popq	%rbp
 	ret
+	.size	abort, .-abort
+	.globl	memset
+	.type	memset, @function
 memset:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -130,22 +160,25 @@ memset:
 	movq	%rdx, -40(%rbp)
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	jmp	L22
-L23:
+	jmp	.L22
+.L23:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
 	movl	-28(%rbp), %edx
 	movb	%dl, (%rax)
-L22:
+.L22:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L23
+	jne	.L23
 	movq	-24(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	memset, .-memset
+	.globl	memcpy
+	.type	memcpy, @function
 memcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -156,8 +189,8 @@ memcpy:
 	movq	%rax, -8(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	jmp	L26
-L27:
+	jmp	.L26
+.L27:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
@@ -166,348 +199,390 @@ L27:
 	movq	%rcx, -16(%rbp)
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
-L26:
+.L26:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L27
+	jne	.L27
 	movq	-24(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	memcpy, .-memcpy
+	.globl	malloc
+	.type	malloc, @function
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+	.size	malloc, .-malloc
+	.globl	free
+	.type	free, @function
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+	.size	free, .-free
+	.globl	feq
+	.type	feq, @function
 feq:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	L30
+	jne	.L33
 	movl	$13, %eax
-	jmp	L31
-L30:
+	jmp	.L34
+.L33:
 	movl	$140, %eax
-L31:
+.L34:
 	popq	%rbp
 	ret
+	.size	feq, .-feq
+	.globl	fne
+	.type	fne, @function
 fne:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	je	L33
+	je	.L36
 	movl	$13, %eax
-	jmp	L34
-L33:
+	jmp	.L37
+.L36:
 	movl	$140, %eax
-L34:
+.L37:
 	popq	%rbp
 	ret
+	.size	fne, .-fne
+	.globl	flt
+	.type	flt, @function
 flt:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jns	L36
+	jns	.L39
 	movl	$13, %eax
-	jmp	L37
-L36:
+	jmp	.L40
+.L39:
 	movl	$140, %eax
-L37:
+.L40:
 	popq	%rbp
 	ret
+	.size	flt, .-flt
+	.globl	fge
+	.type	fge, @function
 fge:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	js	L39
+	js	.L42
 	movl	$13, %eax
-	jmp	L40
-L39:
+	jmp	.L43
+.L42:
 	movl	$140, %eax
-L40:
+.L43:
 	popq	%rbp
 	ret
+	.size	fge, .-fge
+	.globl	fgt
+	.type	fgt, @function
 fgt:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jle	L42
+	jle	.L45
 	movl	$13, %eax
-	jmp	L43
-L42:
+	jmp	.L46
+.L45:
 	movl	$140, %eax
-L43:
+.L46:
 	popq	%rbp
 	ret
+	.size	fgt, .-fgt
+	.globl	fle
+	.type	fle, @function
 fle:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jg	L45
+	jg	.L48
 	movl	$13, %eax
-	jmp	L46
-L45:
+	jmp	.L49
+.L48:
 	movl	$140, %eax
-L46:
+.L49:
 	popq	%rbp
 	ret
-.globl _start
-_start:
+	.size	fle, .-fle
+	.globl	main
+	.type	main, @function
+main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	$0, %edi
 	movl	$0, %eax
 	call	feq
 	cmpl	$13, %eax
-	je	L48
+	je	.L51
 	call	abort
-L48:
+.L51:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	feq
 	cmpl	$140, %eax
-	je	L49
+	je	.L52
 	call	abort
-L49:
+.L52:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	feq
 	cmpl	$140, %eax
-	je	L50
+	je	.L53
 	call	abort
-L50:
+.L53:
 	movabsq	$-9223372036854775807, %rdi
 	movl	$0, %eax
 	call	feq
 	cmpl	$140, %eax
-	je	L51
+	je	.L54
 	call	abort
-L51:
+.L54:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	feq
 	cmpl	$140, %eax
-	je	L52
+	je	.L55
 	call	abort
-L52:
+.L55:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	feq
 	cmpl	$140, %eax
-	je	L53
+	je	.L56
 	call	abort
-L53:
+.L56:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	fne
 	cmpl	$140, %eax
-	je	L54
+	je	.L57
 	call	abort
-L54:
+.L57:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	fne
 	cmpl	$13, %eax
-	je	L55
+	je	.L58
 	call	abort
-L55:
+.L58:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	fne
 	cmpl	$13, %eax
-	je	L56
+	je	.L59
 	call	abort
-L56:
+.L59:
 	movabsq	$-9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fne
 	cmpl	$13, %eax
-	je	L57
+	je	.L60
 	call	abort
-L57:
+.L60:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	fne
 	cmpl	$13, %eax
-	je	L58
+	je	.L61
 	call	abort
-L58:
+.L61:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fne
 	cmpl	$13, %eax
-	je	L59
+	je	.L62
 	call	abort
-L59:
+.L62:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	flt
 	cmpl	$140, %eax
-	je	L60
+	je	.L63
 	call	abort
-L60:
+.L63:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	flt
 	cmpl	$13, %eax
-	je	L61
+	je	.L64
 	call	abort
-L61:
+.L64:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	flt
 	cmpl	$13, %eax
-	je	L62
+	je	.L65
 	call	abort
-L62:
+.L65:
 	movabsq	$-9223372036854775807, %rdi
 	movl	$0, %eax
 	call	flt
 	cmpl	$13, %eax
-	je	L63
+	je	.L66
 	call	abort
-L63:
+.L66:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	flt
 	cmpl	$140, %eax
-	je	L64
+	je	.L67
 	call	abort
-L64:
+.L67:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	flt
 	cmpl	$140, %eax
-	je	L65
+	je	.L68
 	call	abort
-L65:
+.L68:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	fge
 	cmpl	$13, %eax
-	je	L66
+	je	.L69
 	call	abort
-L66:
+.L69:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	fge
 	cmpl	$140, %eax
-	je	L67
+	je	.L70
 	call	abort
-L67:
+.L70:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	fge
 	cmpl	$140, %eax
-	je	L68
+	je	.L71
 	call	abort
-L68:
+.L71:
 	movabsq	$-9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fge
 	cmpl	$140, %eax
-	je	L69
+	je	.L72
 	call	abort
-L69:
+.L72:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	fge
 	cmpl	$13, %eax
-	je	L70
+	je	.L73
 	call	abort
-L70:
+.L73:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fge
 	cmpl	$13, %eax
-	je	L71
+	je	.L74
 	call	abort
-L71:
+.L74:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	fgt
 	cmpl	$140, %eax
-	je	L72
+	je	.L75
 	call	abort
-L72:
+.L75:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	fgt
 	cmpl	$140, %eax
-	je	L73
+	je	.L76
 	call	abort
-L73:
+.L76:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	fgt
 	cmpl	$140, %eax
-	je	L74
+	je	.L77
 	call	abort
-L74:
+.L77:
 	movabsq	$-9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fgt
 	cmpl	$140, %eax
-	je	L75
+	je	.L78
 	call	abort
-L75:
+.L78:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	fgt
 	cmpl	$13, %eax
-	je	L76
+	je	.L79
 	call	abort
-L76:
+.L79:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fgt
 	cmpl	$13, %eax
-	je	L77
+	je	.L80
 	call	abort
-L77:
+.L80:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	fle
 	cmpl	$13, %eax
-	je	L78
+	je	.L81
 	call	abort
-L78:
+.L81:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	fle
 	cmpl	$13, %eax
-	je	L79
+	je	.L82
 	call	abort
-L79:
+.L82:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	fle
 	cmpl	$13, %eax
-	je	L80
+	je	.L83
 	call	abort
-L80:
+.L83:
 	movabsq	$-9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fle
 	cmpl	$13, %eax
-	je	L81
+	je	.L84
 	call	abort
-L81:
+.L84:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	fle
 	cmpl	$140, %eax
-	je	L82
+	je	.L85
 	call	abort
-L82:
+.L85:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	fle
 	cmpl	$140, %eax
-	je	L83
+	je	.L86
 	call	abort
-L83:
+.L86:
 	movl	$0, %edi
 	call	exit
+	.size	main, .-main
+	.ident	"GCC: (GNU) 4.9.0"
+	.section	.note.GNU-stack,"",@progbits
