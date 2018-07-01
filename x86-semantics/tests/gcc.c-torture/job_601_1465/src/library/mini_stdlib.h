@@ -64,3 +64,10 @@ void *memcpy(void *dest, const void *src, size_t n)
     return dest;
 }
 
+void* malloc(size_t n) {
+  return (void*) 1000;
+}
+
+
+void free(void* p) {
+}

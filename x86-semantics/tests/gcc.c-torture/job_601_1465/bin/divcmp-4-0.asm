@@ -1,3 +1,7 @@
+	.file	"divcmp-4.c"
+	.text
+	.globl	strchr
+	.type	strchr, @function
 strchr:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -8,40 +12,46 @@ strchr:
 	movzbl	(%rax), %edx
 	movl	-12(%rbp), %eax
 	cmpb	%al, %dl
-	je	L6
+	je	.L6
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L3
+	jne	.L3
 	movl	$0, %eax
-	jmp	L1
-L3:
+	jmp	.L1
+.L3:
 	movq	-8(%rbp), %rax
-	jmp	L1
-L6:
-L1:
+	jmp	.L1
+.L6:
+.L1:
 	popq	%rbp
 	ret
+	.size	strchr, .-strchr
+	.globl	strlen
+	.type	strlen, @function
 strlen:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -24(%rbp)
 	movq	$0, -8(%rbp)
-	jmp	L8
-L9:
+	jmp	.L8
+.L9:
 	addq	$1, -8(%rbp)
-L8:
+.L8:
 	movq	-24(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	addq	%rdx, %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L9
+	jne	.L9
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	strlen, .-strlen
+	.globl	strcpy
+	.type	strcpy, @function
 strcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -50,7 +60,7 @@ strcpy:
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
 	nop
-L12:
+.L12:
 	movq	-24(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -24(%rbp)
@@ -61,10 +71,13 @@ L12:
 	movb	%dl, (%rax)
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L12
+	jne	.L12
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	strcpy, .-strcpy
+	.globl	memcmp
+	.type	memcmp, @function
 memcmp:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -75,14 +88,14 @@ memcmp:
 	movq	%rax, -8(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	jmp	L15
-L18:
+	jmp	.L15
+.L18:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %edx
 	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	cmpb	%al, %dl
-	je	L16
+	je	.L16
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %edx
@@ -91,37 +104,54 @@ L18:
 	movzbl	%al, %eax
 	subl	%eax, %edx
 	movl	%edx, %eax
-	jmp	L17
-L16:
+	jmp	.L17
+.L16:
 	addq	$1, -8(%rbp)
 	addq	$1, -16(%rbp)
-L15:
+.L15:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L18
+	jne	.L18
 	movl	$0, %eax
-L17:
+.L17:
 	popq	%rbp
 	ret
+	.size	memcmp, .-memcmp
+	.globl	exit
+	.type	exit, @function
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
+#APP
+# 41 "src/library/mini_stdlib.h" 1
 	movq $-1, %rax
 	jmp %rax
 	
+# 0 "" 2
+#NO_APP
 	popq	%rbp
 	ret
+	.size	exit, .-exit
+	.globl	abort
+	.type	abort, @function
 abort:
 	pushq	%rbp
 	movq	%rsp, %rbp
+#APP
+# 46 "src/library/mini_stdlib.h" 1
 	movq $-1, %rax
 	jmp %rax
 	
+# 0 "" 2
+#NO_APP
 	popq	%rbp
 	ret
+	.size	abort, .-abort
+	.globl	memset
+	.type	memset, @function
 memset:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -130,22 +160,25 @@ memset:
 	movq	%rdx, -40(%rbp)
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	jmp	L22
-L23:
+	jmp	.L22
+.L23:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
 	movl	-28(%rbp), %edx
 	movb	%dl, (%rax)
-L22:
+.L22:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L23
+	jne	.L23
 	movq	-24(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	memset, .-memset
+	.globl	memcpy
+	.type	memcpy, @function
 memcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -156,8 +189,8 @@ memcpy:
 	movq	%rax, -8(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	jmp	L26
-L27:
+	jmp	.L26
+.L27:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
@@ -166,15 +199,37 @@ L27:
 	movq	%rcx, -16(%rbp)
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
-L26:
+.L26:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L27
+	jne	.L27
 	movq	-24(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	memcpy, .-memcpy
+	.globl	malloc
+	.type	malloc, @function
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+	.size	malloc, .-malloc
+	.globl	free
+	.type	free, @function
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+	.size	free, .-free
+	.globl	test1
+	.type	test1, @function
 test1:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -186,6 +241,9 @@ test1:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test1, .-test1
+	.globl	test2
+	.type	test2, @function
 test2:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -197,6 +255,9 @@ test2:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test2, .-test2
+	.globl	test3
+	.type	test3, @function
 test3:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -208,6 +269,9 @@ test3:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test3, .-test3
+	.globl	test4
+	.type	test4, @function
 test4:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -219,6 +283,9 @@ test4:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test4, .-test4
+	.globl	test5
+	.type	test5, @function
 test5:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -228,6 +295,9 @@ test5:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test5, .-test5
+	.globl	test6
+	.type	test6, @function
 test6:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -237,6 +307,9 @@ test6:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test6, .-test6
+	.globl	test7
+	.type	test7, @function
 test7:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -246,6 +319,9 @@ test7:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test7, .-test7
+	.globl	test8
+	.type	test8, @function
 test8:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -255,6 +331,9 @@ test8:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test8, .-test8
+	.globl	test9
+	.type	test9, @function
 test9:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -264,6 +343,9 @@ test9:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test9, .-test9
+	.globl	test10
+	.type	test10, @function
 test10:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -273,6 +355,9 @@ test10:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test10, .-test10
+	.globl	test11
+	.type	test11, @function
 test11:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -282,6 +367,9 @@ test11:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
+	.size	test11, .-test11
+	.globl	test12
+	.type	test12, @function
 test12:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -291,370 +379,375 @@ test12:
 	movzbl	%al, %eax
 	popq	%rbp
 	ret
-.globl _start
-_start:
+	.size	test12, .-test12
+	.globl	main
+	.type	main, @function
+main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	$-30, %edi
 	call	test1
 	testl	%eax, %eax
-	je	L54
+	je	.L57
 	call	abort
-L54:
+.L57:
 	movl	$-29, %edi
 	call	test1
 	cmpl	$1, %eax
-	je	L55
+	je	.L58
 	call	abort
-L55:
+.L58:
 	movl	$-20, %edi
 	call	test1
 	cmpl	$1, %eax
-	je	L56
+	je	.L59
 	call	abort
-L56:
+.L59:
 	movl	$-19, %edi
 	call	test1
 	testl	%eax, %eax
-	je	L57
+	je	.L60
 	call	abort
-L57:
+.L60:
 	movl	$0, %edi
 	call	test2
 	cmpl	$1, %eax
-	je	L58
+	je	.L61
 	call	abort
-L58:
+.L61:
 	movl	$9, %edi
 	call	test2
 	cmpl	$1, %eax
-	je	L59
+	je	.L62
 	call	abort
-L59:
+.L62:
 	movl	$10, %edi
 	call	test2
 	testl	%eax, %eax
-	je	L60
+	je	.L63
 	call	abort
-L60:
+.L63:
 	movl	$-1, %edi
 	call	test2
 	cmpl	$1, %eax
-	je	L61
+	je	.L64
 	call	abort
-L61:
+.L64:
 	movl	$-9, %edi
 	call	test2
 	cmpl	$1, %eax
-	je	L62
+	je	.L65
 	call	abort
-L62:
+.L65:
 	movl	$-10, %edi
 	call	test2
 	testl	%eax, %eax
-	je	L63
+	je	.L66
 	call	abort
-L63:
+.L66:
 	movl	$-30, %edi
 	call	test3
 	cmpl	$1, %eax
-	je	L64
+	je	.L67
 	call	abort
-L64:
+.L67:
 	movl	$-29, %edi
 	call	test3
 	testl	%eax, %eax
-	je	L65
+	je	.L68
 	call	abort
-L65:
+.L68:
 	movl	$-20, %edi
 	call	test3
 	testl	%eax, %eax
-	je	L66
+	je	.L69
 	call	abort
-L66:
+.L69:
 	movl	$-19, %edi
 	call	test3
 	cmpl	$1, %eax
-	je	L67
+	je	.L70
 	call	abort
-L67:
+.L70:
 	movl	$0, %edi
 	call	test4
 	testl	%eax, %eax
-	je	L68
+	je	.L71
 	call	abort
-L68:
+.L71:
 	movl	$9, %edi
 	call	test4
 	testl	%eax, %eax
-	je	L69
+	je	.L72
 	call	abort
-L69:
+.L72:
 	movl	$10, %edi
 	call	test4
 	cmpl	$1, %eax
-	je	L70
+	je	.L73
 	call	abort
-L70:
+.L73:
 	movl	$-1, %edi
 	call	test4
 	testl	%eax, %eax
-	je	L71
+	je	.L74
 	call	abort
-L71:
+.L74:
 	movl	$-9, %edi
 	call	test4
 	testl	%eax, %eax
-	je	L72
+	je	.L75
 	call	abort
-L72:
+.L75:
 	movl	$-10, %edi
 	call	test4
 	cmpl	$1, %eax
-	je	L73
+	je	.L76
 	call	abort
-L73:
+.L76:
 	movl	$-30, %edi
 	call	test5
 	testl	%eax, %eax
-	je	L74
+	je	.L77
 	call	abort
-L74:
+.L77:
 	movl	$-29, %edi
 	call	test5
 	testl	%eax, %eax
-	je	L75
+	je	.L78
 	call	abort
-L75:
+.L78:
 	movl	$-20, %edi
 	call	test5
 	testl	%eax, %eax
-	je	L76
+	je	.L79
 	call	abort
-L76:
+.L79:
 	movl	$-19, %edi
 	call	test5
 	cmpl	$1, %eax
-	je	L77
+	je	.L80
 	call	abort
-L77:
+.L80:
 	movl	$0, %edi
 	call	test6
 	testl	%eax, %eax
-	je	L78
+	je	.L81
 	call	abort
-L78:
+.L81:
 	movl	$9, %edi
 	call	test6
 	testl	%eax, %eax
-	je	L79
+	je	.L82
 	call	abort
-L79:
+.L82:
 	movl	$10, %edi
 	call	test6
 	cmpl	$1, %eax
-	je	L80
+	je	.L83
 	call	abort
-L80:
+.L83:
 	movl	$-1, %edi
 	call	test6
 	testl	%eax, %eax
-	je	L81
+	je	.L84
 	call	abort
-L81:
+.L84:
 	movl	$-9, %edi
 	call	test6
 	testl	%eax, %eax
-	je	L82
+	je	.L85
 	call	abort
-L82:
+.L85:
 	movl	$-10, %edi
 	call	test6
 	testl	%eax, %eax
-	je	L83
+	je	.L86
 	call	abort
-L83:
+.L86:
 	movl	$-30, %edi
 	call	test7
 	testl	%eax, %eax
-	je	L84
+	je	.L87
 	call	abort
-L84:
+.L87:
 	movl	$-29, %edi
 	call	test7
 	cmpl	$1, %eax
-	je	L85
+	je	.L88
 	call	abort
-L85:
+.L88:
 	movl	$-20, %edi
 	call	test7
 	cmpl	$1, %eax
-	je	L86
+	je	.L89
 	call	abort
-L86:
+.L89:
 	movl	$-19, %edi
 	call	test7
 	cmpl	$1, %eax
-	je	L87
+	je	.L90
 	call	abort
-L87:
+.L90:
 	movl	$0, %edi
 	call	test8
 	cmpl	$1, %eax
-	je	L88
+	je	.L91
 	call	abort
-L88:
+.L91:
 	movl	$9, %edi
 	call	test8
 	cmpl	$1, %eax
-	je	L89
+	je	.L92
 	call	abort
-L89:
+.L92:
 	movl	$10, %edi
 	call	test8
 	cmpl	$1, %eax
-	je	L90
+	je	.L93
 	call	abort
-L90:
+.L93:
 	movl	$-1, %edi
 	call	test8
 	cmpl	$1, %eax
-	je	L91
+	je	.L94
 	call	abort
-L91:
+.L94:
 	movl	$-9, %edi
 	call	test8
 	cmpl	$1, %eax
-	je	L92
+	je	.L95
 	call	abort
-L92:
+.L95:
 	movl	$-10, %edi
 	call	test8
 	testl	%eax, %eax
-	je	L93
+	je	.L96
 	call	abort
-L93:
+.L96:
 	movl	$-30, %edi
 	call	test9
 	cmpl	$1, %eax
-	je	L94
+	je	.L97
 	call	abort
-L94:
+.L97:
 	movl	$-29, %edi
 	call	test9
 	testl	%eax, %eax
-	je	L95
+	je	.L98
 	call	abort
-L95:
+.L98:
 	movl	$-20, %edi
 	call	test9
 	testl	%eax, %eax
-	je	L96
+	je	.L99
 	call	abort
-L96:
+.L99:
 	movl	$-19, %edi
 	call	test9
 	testl	%eax, %eax
-	je	L97
+	je	.L100
 	call	abort
-L97:
+.L100:
 	movl	$0, %edi
 	call	test10
 	testl	%eax, %eax
-	je	L98
+	je	.L101
 	call	abort
-L98:
+.L101:
 	movl	$9, %edi
 	call	test10
 	testl	%eax, %eax
-	je	L99
+	je	.L102
 	call	abort
-L99:
+.L102:
 	movl	$10, %edi
 	call	test10
 	testl	%eax, %eax
-	je	L100
+	je	.L103
 	call	abort
-L100:
+.L103:
 	movl	$-1, %edi
 	call	test10
 	testl	%eax, %eax
-	je	L101
+	je	.L104
 	call	abort
-L101:
+.L104:
 	movl	$-9, %edi
 	call	test10
 	testl	%eax, %eax
-	je	L102
+	je	.L105
 	call	abort
-L102:
+.L105:
 	movl	$-10, %edi
 	call	test10
 	cmpl	$1, %eax
-	je	L103
+	je	.L106
 	call	abort
-L103:
+.L106:
 	movl	$-30, %edi
 	call	test11
 	cmpl	$1, %eax
-	je	L104
+	je	.L107
 	call	abort
-L104:
+.L107:
 	movl	$-29, %edi
 	call	test11
 	cmpl	$1, %eax
-	je	L105
+	je	.L108
 	call	abort
-L105:
+.L108:
 	movl	$-20, %edi
 	call	test11
 	cmpl	$1, %eax
-	je	L106
+	je	.L109
 	call	abort
-L106:
+.L109:
 	movl	$-19, %edi
 	call	test11
 	testl	%eax, %eax
-	je	L107
+	je	.L110
 	call	abort
-L107:
+.L110:
 	movl	$0, %edi
 	call	test12
 	cmpl	$1, %eax
-	je	L108
+	je	.L111
 	call	abort
-L108:
+.L111:
 	movl	$9, %edi
 	call	test12
 	cmpl	$1, %eax
-	je	L109
+	je	.L112
 	call	abort
-L109:
+.L112:
 	movl	$10, %edi
 	call	test12
 	testl	%eax, %eax
-	je	L110
+	je	.L113
 	call	abort
-L110:
+.L113:
 	movl	$-1, %edi
 	call	test12
 	cmpl	$1, %eax
-	je	L111
+	je	.L114
 	call	abort
-L111:
+.L114:
 	movl	$-9, %edi
 	call	test12
 	cmpl	$1, %eax
-	je	L112
+	je	.L115
 	call	abort
-L112:
+.L115:
 	movl	$-10, %edi
 	call	test12
 	cmpl	$1, %eax
-	je	L113
+	je	.L116
 	call	abort
-L113:
+.L116:
 	movl	$0, %eax
 	popq	%rbp
 	ret
+	.size	main, .-main
+	.ident	"GCC: (GNU) 4.9.0"
+	.section	.note.GNU-stack,"",@progbits

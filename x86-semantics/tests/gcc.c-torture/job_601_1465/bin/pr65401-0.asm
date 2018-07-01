@@ -1,3 +1,7 @@
+	.file	"pr65401.c"
+	.text
+	.globl	strchr
+	.type	strchr, @function
 strchr:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -8,40 +12,46 @@ strchr:
 	movzbl	(%rax), %edx
 	movl	-12(%rbp), %eax
 	cmpb	%al, %dl
-	je	L6
+	je	.L6
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L3
+	jne	.L3
 	movl	$0, %eax
-	jmp	L1
-L3:
+	jmp	.L1
+.L3:
 	movq	-8(%rbp), %rax
-	jmp	L1
-L6:
-L1:
+	jmp	.L1
+.L6:
+.L1:
 	popq	%rbp
 	ret
+	.size	strchr, .-strchr
+	.globl	strlen
+	.type	strlen, @function
 strlen:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -24(%rbp)
 	movq	$0, -8(%rbp)
-	jmp	L8
-L9:
+	jmp	.L8
+.L9:
 	addq	$1, -8(%rbp)
-L8:
+.L8:
 	movq	-24(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	addq	%rdx, %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L9
+	jne	.L9
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	strlen, .-strlen
+	.globl	strcpy
+	.type	strcpy, @function
 strcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -50,7 +60,7 @@ strcpy:
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
 	nop
-L12:
+.L12:
 	movq	-24(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -24(%rbp)
@@ -61,10 +71,13 @@ L12:
 	movb	%dl, (%rax)
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L12
+	jne	.L12
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	strcpy, .-strcpy
+	.globl	memcmp
+	.type	memcmp, @function
 memcmp:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -75,14 +88,14 @@ memcmp:
 	movq	%rax, -8(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	jmp	L15
-L18:
+	jmp	.L15
+.L18:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %edx
 	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	cmpb	%al, %dl
-	je	L16
+	je	.L16
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %edx
@@ -91,37 +104,54 @@ L18:
 	movzbl	%al, %eax
 	subl	%eax, %edx
 	movl	%edx, %eax
-	jmp	L17
-L16:
+	jmp	.L17
+.L16:
 	addq	$1, -8(%rbp)
 	addq	$1, -16(%rbp)
-L15:
+.L15:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L18
+	jne	.L18
 	movl	$0, %eax
-L17:
+.L17:
 	popq	%rbp
 	ret
+	.size	memcmp, .-memcmp
+	.globl	exit
+	.type	exit, @function
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
+#APP
+# 41 "src/library/mini_stdlib.h" 1
 	movq $-1, %rax
 	jmp %rax
 	
+# 0 "" 2
+#NO_APP
 	popq	%rbp
 	ret
+	.size	exit, .-exit
+	.globl	abort
+	.type	abort, @function
 abort:
 	pushq	%rbp
 	movq	%rsp, %rbp
+#APP
+# 46 "src/library/mini_stdlib.h" 1
 	movq $-1, %rax
 	jmp %rax
 	
+# 0 "" 2
+#NO_APP
 	popq	%rbp
 	ret
+	.size	abort, .-abort
+	.globl	memset
+	.type	memset, @function
 memset:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -130,22 +160,25 @@ memset:
 	movq	%rdx, -40(%rbp)
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	jmp	L22
-L23:
+	jmp	.L22
+.L23:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
 	movl	-28(%rbp), %edx
 	movb	%dl, (%rax)
-L22:
+.L22:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L23
+	jne	.L23
 	movq	-24(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	memset, .-memset
+	.globl	memcpy
+	.type	memcpy, @function
 memcpy:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -156,8 +189,8 @@ memcpy:
 	movq	%rax, -8(%rbp)
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	jmp	L26
-L27:
+	jmp	.L26
+.L27:
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
 	movq	%rdx, -8(%rbp)
@@ -166,15 +199,37 @@ L27:
 	movq	%rcx, -16(%rbp)
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
-L26:
+.L26:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	%rdx, -40(%rbp)
 	testq	%rax, %rax
-	jne	L27
+	jne	.L27
 	movq	-24(%rbp), %rax
 	popq	%rbp
 	ret
+	.size	memcpy, .-memcpy
+	.globl	malloc
+	.type	malloc, @function
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+	.size	malloc, .-malloc
+	.globl	free
+	.type	free, @function
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+	.size	free, .-free
+	.globl	foo
+	.type	foo, @function
 foo:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -182,8 +237,8 @@ foo:
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	L30
-L31:
+	jmp	.L33
+.L34:
 	movl	-4(%rbp), %eax
 	addl	%eax, %eax
 	movl	%eax, %edx
@@ -206,11 +261,14 @@ L31:
 	movl	-4(%rbp), %edx
 	movw	%cx, (%rax,%rdx,2)
 	addl	$1, -4(%rbp)
-L30:
+.L33:
 	cmpl	$63, -4(%rbp)
-	jbe	L31
+	jbe	.L34
 	popq	%rbp
 	ret
+	.size	foo, .-foo
+	.globl	bar
+	.type	bar, @function
 bar:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -218,8 +276,8 @@ bar:
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	L33
-L34:
+	jmp	.L36
+.L37:
 	movl	-4(%rbp), %eax
 	addl	%eax, %eax
 	movl	%eax, %edx
@@ -243,19 +301,21 @@ L34:
 	movl	-4(%rbp), %edx
 	movw	%cx, (%rax,%rdx,2)
 	addl	$1, -4(%rbp)
-L33:
+.L36:
 	cmpl	$63, -4(%rbp)
-	jbe	L34
+	jbe	.L37
 	popq	%rbp
 	ret
-.globl _start
-_start:
+	.size	bar, .-bar
+	.globl	main
+	.type	main, @function
+main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$144, %rsp
 	movl	$0, -4(%rbp)
-	jmp	L36
-L37:
+	jmp	.L39
+.L40:
 	movl	-4(%rbp), %eax
 	movl	$64, %edx
 	subl	%eax, %edx
@@ -267,15 +327,15 @@ L37:
 	movl	-4(%rbp), %eax
 	movw	%dx, -144(%rbp,%rax,2)
 	addl	$1, -4(%rbp)
-L36:
+.L39:
 	cmpl	$63, -4(%rbp)
-	jbe	L37
+	jbe	.L40
 	leaq	-144(%rbp), %rax
 	movq	%rax, %rdi
 	call	foo
 	movl	$0, -4(%rbp)
-	jmp	L38
-L40:
+	jmp	.L41
+.L43:
 	movl	-4(%rbp), %eax
 	movzwl	-144(%rbp,%rax,2), %eax
 	movzwl	%ax, %edx
@@ -286,16 +346,16 @@ L40:
 	movl	-4(%rbp), %eax
 	addl	%ecx, %eax
 	cmpl	%eax, %edx
-	je	L39
+	je	.L42
 	call	abort
-L39:
+.L42:
 	addl	$1, -4(%rbp)
-L38:
+.L41:
 	cmpl	$63, -4(%rbp)
-	jbe	L40
+	jbe	.L43
 	movl	$0, -4(%rbp)
-	jmp	L41
-L42:
+	jmp	.L44
+.L45:
 	movl	-4(%rbp), %eax
 	movl	$64, %edx
 	subl	%eax, %edx
@@ -307,15 +367,15 @@ L42:
 	movl	-4(%rbp), %eax
 	movw	%dx, -144(%rbp,%rax,2)
 	addl	$1, -4(%rbp)
-L41:
+.L44:
 	cmpl	$63, -4(%rbp)
-	jbe	L42
+	jbe	.L45
 	leaq	-144(%rbp), %rax
 	movq	%rax, %rdi
 	call	bar
 	movl	$0, -4(%rbp)
-	jmp	L43
-L45:
+	jmp	.L46
+.L48:
 	movl	-4(%rbp), %eax
 	movzwl	-144(%rbp,%rax,2), %eax
 	movzwl	%ax, %eax
@@ -324,13 +384,16 @@ L45:
 	subl	-4(%rbp), %edx
 	addl	$64, %edx
 	cmpl	%edx, %eax
-	je	L44
+	je	.L47
 	call	abort
-L44:
+.L47:
 	addl	$1, -4(%rbp)
-L43:
+.L46:
 	cmpl	$63, -4(%rbp)
-	jbe	L45
+	jbe	.L48
 	movl	$0, %eax
 	leave
 	ret
+	.size	main, .-main
+	.ident	"GCC: (GNU) 4.9.0"
+	.section	.note.GNU-stack,"",@progbits
