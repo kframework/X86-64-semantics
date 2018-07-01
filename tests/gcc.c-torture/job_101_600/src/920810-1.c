@@ -1,8 +1,8 @@
 #include "mini_string.h"
 #include "mini_stdlib.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <string.h>
+//#include <stdlib.h>
 
 typedef struct{void*super;int name;int size;}t;
 t*f(t*clas,int size)
