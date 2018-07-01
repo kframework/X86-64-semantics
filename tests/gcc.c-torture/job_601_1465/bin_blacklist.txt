@@ -568,6 +568,7 @@ bin/pr47237-0.asm // x87
 bin/align-nest-0.asm // shldq
 bin/pr61375-0.asm // shrdq
 bin/pr82210-0.asm //shldq
+bin//pr41935-0.asm // shldq
 bin/pr84339-0.asm //scasb
 bin/pr41935-0.asm // shldq
 bin/pr85169-0.asm // stosq
