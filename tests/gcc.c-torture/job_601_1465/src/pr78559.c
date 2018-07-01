@@ -2,8 +2,6 @@
 #include "mini_stdlib.h"
 /* PR rtl-optimization/78559 */
 
-int g = 20;
-int d = 0;
 
 short
 fn2 (int p1, int p2)
@@ -14,6 +12,8 @@ fn2 (int p1, int p2)
 int
 main ()
 {
+int g = 20;
+int d = 0;
   int result = 0;
 lbl_2582:
   if (g)

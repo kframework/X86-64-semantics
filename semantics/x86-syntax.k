@@ -527,6 +527,7 @@ module X86-SYNTAX
                   | "movbel"
                   | "movbeq"
                   | "movbew"
+                  | "movbe"
                   | "movd"
                   | "movddup"
                   | "movdqa"
