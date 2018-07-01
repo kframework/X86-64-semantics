@@ -15,6 +15,7 @@ void foo(int n)
     unsigned int b:1;
     myint mi;
   } __attribute__ ((packed)) __attribute__ ((aligned (4)));
+  };
 
   struct S s[2];
   int k;

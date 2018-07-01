@@ -76,3 +76,11 @@ void* calloc(size_t ele, size_t n) {
 
 void free(void* p) {
 }
+
+int isprint(int p ) {
+  if(p >= 'a' && p <= 'z') return 1;
+  if(p >= 'A' && p <= 'Z') return 1;
+  if(p >= '0' && p <= '9') return 1;
+
+  return 0;
+}
