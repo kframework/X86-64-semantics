@@ -55,3 +55,12 @@ void *memset(void *s, int c, size_t n)
     return s;
 }
 
+void *memcpy(void *dest, const void *src, size_t n)
+{
+    char *dp = dest;
+    const char *sp = src;
+    while (n--)
+        *dp++ = *sp++;
+    return dest;
+}
+
