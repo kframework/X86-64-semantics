@@ -24,6 +24,87 @@ L6:
 L1:
 	popq	%rbp
 	ret
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
+	ret
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -39,6 +120,109 @@ abort:
 	movq $-1, %rax
 	jmp %rax
 	
+	popq	%rbp
+	ret
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 uq4444:
@@ -1370,8 +1554,8 @@ _start:
 	movq	%rsp, %rbp
 	subq	$48, %rsp
 	movl	$0, -4(%rbp)
-	jmp	L34
-L83:
+	jmp	L64
+L113:
 	movl	-4(%rbp), %eax
 	cltq
 	salq	$4, %rax
@@ -1388,7 +1572,7 @@ L83:
 	movl	(%rdx), %edx
 	shrl	$2, %edx
 	cmpl	%edx, %eax
-	jne	L35
+	jne	L65
 	movl	-20(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1397,10 +1581,10 @@ L83:
 	movl	12(%rdx), %edx
 	shrl	$2, %edx
 	cmpl	%edx, %eax
-	je	L36
-L35:
+	je	L66
+L65:
 	call	abort
-L36:
+L66:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %eax
 	movl	-4(%rbp), %edx
@@ -1410,7 +1594,7 @@ L36:
 	movl	8(%rdx), %edx
 	shrl	$2, %edx
 	cmpl	%edx, %eax
-	jne	L37
+	jne	L67
 	movl	-28(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1419,10 +1603,10 @@ L36:
 	movl	4(%rdx), %edx
 	shrl	$2, %edx
 	cmpl	%edx, %eax
-	je	L38
-L37:
+	je	L68
+L67:
 	call	abort
-L38:
+L68:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1440,7 +1624,7 @@ L38:
 	movl	(%rdx), %edx
 	andl	$3, %edx
 	cmpl	%edx, %eax
-	jne	L39
+	jne	L69
 	movl	-20(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1449,10 +1633,10 @@ L38:
 	movl	12(%rdx), %edx
 	andl	$3, %edx
 	cmpl	%edx, %eax
-	je	L40
-L39:
+	je	L70
+L69:
 	call	abort
-L40:
+L70:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %eax
 	movl	-4(%rbp), %edx
@@ -1462,7 +1646,7 @@ L40:
 	movl	8(%rdx), %edx
 	andl	$3, %edx
 	cmpl	%edx, %eax
-	jne	L41
+	jne	L71
 	movl	-28(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1471,10 +1655,10 @@ L40:
 	movl	4(%rdx), %edx
 	andl	$3, %edx
 	cmpl	%edx, %eax
-	je	L42
-L41:
+	je	L72
+L71:
 	call	abort
-L42:
+L72:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1491,7 +1675,7 @@ L42:
 	addq	$u, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jne	L43
+	jne	L73
 	movl	-20(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1500,10 +1684,10 @@ L42:
 	movl	12(%rdx), %edx
 	shrl	$3, %edx
 	cmpl	%edx, %eax
-	je	L44
-L43:
+	je	L74
+L73:
 	call	abort
-L44:
+L74:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %eax
 	movl	-4(%rbp), %edx
@@ -1513,7 +1697,7 @@ L44:
 	movl	8(%rdx), %edx
 	shrl	%edx
 	cmpl	%edx, %eax
-	jne	L45
+	jne	L75
 	movl	-28(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1522,10 +1706,10 @@ L44:
 	movl	4(%rdx), %edx
 	shrl	$2, %edx
 	cmpl	%edx, %eax
-	je	L46
-L45:
+	je	L76
+L75:
 	call	abort
-L46:
+L76:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1537,7 +1721,7 @@ L46:
 	call	ur1428
 	movl	-32(%rbp), %eax
 	testl	%eax, %eax
-	jne	L47
+	jne	L77
 	movl	-20(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1546,10 +1730,10 @@ L46:
 	movl	12(%rdx), %edx
 	andl	$7, %edx
 	cmpl	%edx, %eax
-	je	L48
-L47:
+	je	L78
+L77:
 	call	abort
-L48:
+L78:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %eax
 	movl	-4(%rbp), %edx
@@ -1559,7 +1743,7 @@ L48:
 	movl	8(%rdx), %edx
 	andl	$1, %edx
 	cmpl	%edx, %eax
-	jne	L49
+	jne	L79
 	movl	-28(%rbp), %eax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -1568,10 +1752,10 @@ L48:
 	movl	4(%rdx), %edx
 	andl	$3, %edx
 	cmpl	%edx, %eax
-	je	L50
-L49:
+	je	L80
+L79:
 	call	abort
-L50:
+L80:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1592,7 +1776,7 @@ L50:
 	movl	%edx, %eax
 	shrl	%eax
 	cmpl	%eax, %ecx
-	jne	L51
+	jne	L81
 	movl	-20(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -1604,10 +1788,10 @@ L50:
 	movl	%edx, %eax
 	shrl	%eax
 	cmpl	%eax, %ecx
-	je	L52
-L51:
+	je	L82
+L81:
 	call	abort
-L52:
+L82:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %ecx
 	movl	-4(%rbp), %eax
@@ -1620,7 +1804,7 @@ L52:
 	movl	%edx, %eax
 	shrl	%eax
 	cmpl	%eax, %ecx
-	jne	L53
+	jne	L83
 	movl	-28(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -1632,10 +1816,10 @@ L52:
 	movl	%edx, %eax
 	shrl	%eax
 	cmpl	%eax, %ecx
-	je	L54
-L53:
+	je	L84
+L83:
 	call	abort
-L54:
+L84:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1661,7 +1845,7 @@ L54:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L55
+	jne	L85
 	movl	-20(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -1678,10 +1862,10 @@ L54:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L56
-L55:
+	je	L86
+L85:
 	call	abort
-L56:
+L86:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -1699,7 +1883,7 @@ L56:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L57
+	jne	L87
 	movl	-28(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -1716,10 +1900,10 @@ L56:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L58
-L57:
+	je	L88
+L87:
 	call	abort
-L58:
+L88:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1740,7 +1924,7 @@ L58:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	jne	L59
+	jne	L89
 	movl	-20(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -1752,10 +1936,10 @@ L58:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	je	L60
-L59:
+	je	L90
+L89:
 	call	abort
-L60:
+L90:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %ecx
 	movl	-4(%rbp), %eax
@@ -1768,7 +1952,7 @@ L60:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	jne	L61
+	jne	L91
 	movl	-28(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -1780,10 +1964,10 @@ L60:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	je	L62
-L61:
+	je	L92
+L91:
 	call	abort
-L62:
+L92:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1810,7 +1994,7 @@ L62:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L63
+	jne	L93
 	movl	-20(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -1827,10 +2011,10 @@ L62:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L64
-L63:
+	je	L94
+L93:
 	call	abort
-L64:
+L94:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -1849,7 +2033,7 @@ L64:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L65
+	jne	L95
 	movl	-28(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -1866,10 +2050,10 @@ L64:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L66
-L65:
+	je	L96
+L95:
 	call	abort
-L66:
+L96:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1891,7 +2075,7 @@ L66:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	jne	L67
+	jne	L97
 	movl	-20(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -1903,10 +2087,10 @@ L66:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	je	L68
-L67:
+	je	L98
+L97:
 	call	abort
-L68:
+L98:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %ecx
 	movl	-4(%rbp), %eax
@@ -1920,7 +2104,7 @@ L68:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	jne	L69
+	jne	L99
 	movl	-28(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -1933,10 +2117,10 @@ L68:
 	movl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %ecx
-	je	L70
-L69:
+	je	L100
+L99:
 	call	abort
-L70:
+L100:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -1964,7 +2148,7 @@ L70:
 	movl	%ecx, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L71
+	jne	L101
 	movl	-20(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -1982,10 +2166,10 @@ L70:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L72
-L71:
+	je	L102
+L101:
 	call	abort
-L72:
+L102:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2005,7 +2189,7 @@ L72:
 	movl	%ecx, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L73
+	jne	L103
 	movl	-28(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2024,10 +2208,10 @@ L72:
 	movl	%ecx, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L74
-L73:
+	je	L104
+L103:
 	call	abort
-L74:
+L104:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2052,7 +2236,7 @@ L74:
 	addl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %esi
-	jne	L75
+	jne	L105
 	movl	-20(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2068,10 +2252,10 @@ L74:
 	addl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %esi
-	je	L76
-L75:
+	je	L106
+L105:
 	call	abort
-L76:
+L106:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2088,7 +2272,7 @@ L76:
 	addl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %esi
-	jne	L77
+	jne	L107
 	movl	-28(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2104,10 +2288,10 @@ L76:
 	addl	%edx, %eax
 	shrl	$2, %eax
 	cmpl	%eax, %esi
-	je	L78
-L77:
+	je	L108
+L107:
 	call	abort
-L78:
+L108:
 	leaq	-32(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2138,7 +2322,7 @@ L78:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L79
+	jne	L109
 	movl	-20(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2160,10 +2344,10 @@ L78:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L80
-L79:
+	je	L110
+L109:
 	call	abort
-L80:
+L110:
 	leaq	-32(%rbp), %rax
 	movl	-24(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2186,7 +2370,7 @@ L80:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L81
+	jne	L111
 	movl	-28(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2208,19 +2392,19 @@ L80:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L82
-L81:
+	je	L112
+L111:
 	call	abort
-L82:
+L112:
 	leaq	-32(%rbp), %rax
 	addl	$1, -4(%rbp)
-L34:
+L64:
 	movl	-4(%rbp), %eax
 	cmpl	$1, %eax
-	jbe	L83
+	jbe	L113
 	movl	$0, -4(%rbp)
-	jmp	L84
-L133:
+	jmp	L114
+L163:
 	movl	-4(%rbp), %eax
 	cltq
 	salq	$4, %rax
@@ -2240,7 +2424,7 @@ L133:
 	cmovs	%ecx, %eax
 	sarl	$2, %eax
 	cmpl	%eax, %edx
-	jne	L85
+	jne	L115
 	movl	-36(%rbp), %edx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2252,10 +2436,10 @@ L133:
 	cmovs	%ecx, %eax
 	sarl	$2, %eax
 	cmpl	%eax, %edx
-	je	L86
-L85:
+	je	L116
+L115:
 	call	abort
-L86:
+L116:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %edx
 	movl	-4(%rbp), %eax
@@ -2268,7 +2452,7 @@ L86:
 	cmovs	%ecx, %eax
 	sarl	$2, %eax
 	cmpl	%eax, %edx
-	jne	L87
+	jne	L117
 	movl	-44(%rbp), %edx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2280,10 +2464,10 @@ L86:
 	cmovs	%ecx, %eax
 	sarl	$2, %eax
 	cmpl	%eax, %edx
-	je	L88
-L87:
+	je	L118
+L117:
 	call	abort
-L88:
+L118:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2305,7 +2489,7 @@ L88:
 	andl	$3, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	jne	L89
+	jne	L119
 	movl	-36(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2318,10 +2502,10 @@ L88:
 	andl	$3, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	je	L90
-L89:
+	je	L120
+L119:
 	call	abort
-L90:
+L120:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %ecx
 	movl	-4(%rbp), %eax
@@ -2335,7 +2519,7 @@ L90:
 	andl	$3, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	jne	L91
+	jne	L121
 	movl	-44(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2348,10 +2532,10 @@ L90:
 	andl	$3, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	je	L92
-L91:
+	je	L122
+L121:
 	call	abort
-L92:
+L122:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2368,7 +2552,7 @@ L92:
 	addq	$s, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jne	L93
+	jne	L123
 	movl	-36(%rbp), %edx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2380,10 +2564,10 @@ L92:
 	cmovs	%ecx, %eax
 	sarl	$3, %eax
 	cmpl	%eax, %edx
-	je	L94
-L93:
+	je	L124
+L123:
 	call	abort
-L94:
+L124:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %edx
 	movl	-4(%rbp), %eax
@@ -2396,7 +2580,7 @@ L94:
 	addl	%ecx, %eax
 	sarl	%eax
 	cmpl	%eax, %edx
-	jne	L95
+	jne	L125
 	movl	-44(%rbp), %edx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2408,10 +2592,10 @@ L94:
 	cmovs	%ecx, %eax
 	sarl	$2, %eax
 	cmpl	%eax, %edx
-	je	L96
-L95:
+	je	L126
+L125:
 	call	abort
-L96:
+L126:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2423,7 +2607,7 @@ L96:
 	call	sr1428
 	movl	-48(%rbp), %eax
 	testl	%eax, %eax
-	jne	L97
+	jne	L127
 	movl	-36(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2436,10 +2620,10 @@ L96:
 	andl	$7, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	je	L98
-L97:
+	je	L128
+L127:
 	call	abort
-L98:
+L128:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %ecx
 	movl	-4(%rbp), %eax
@@ -2453,7 +2637,7 @@ L98:
 	andl	$1, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	jne	L99
+	jne	L129
 	movl	-44(%rbp), %ecx
 	movl	-4(%rbp), %eax
 	cltq
@@ -2466,10 +2650,10 @@ L98:
 	andl	$3, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %ecx
-	je	L100
-L99:
+	je	L130
+L129:
 	call	abort
-L100:
+L130:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2493,7 +2677,7 @@ L100:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L101
+	jne	L131
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2508,10 +2692,10 @@ L100:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L102
-L101:
+	je	L132
+L131:
 	call	abort
-L102:
+L132:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2527,7 +2711,7 @@ L102:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L103
+	jne	L133
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2542,10 +2726,10 @@ L102:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L104
-L103:
+	je	L134
+L133:
 	call	abort
-L104:
+L134:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2573,7 +2757,7 @@ L104:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L105
+	jne	L135
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2592,10 +2776,10 @@ L104:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L106
-L105:
+	je	L136
+L135:
 	call	abort
-L106:
+L136:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2615,7 +2799,7 @@ L106:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L107
+	jne	L137
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2634,10 +2818,10 @@ L106:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L108
-L107:
+	je	L138
+L137:
 	call	abort
-L108:
+L138:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2661,7 +2845,7 @@ L108:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L109
+	jne	L139
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2677,10 +2861,10 @@ L108:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L110
-L109:
+	je	L140
+L139:
 	call	abort
-L110:
+L140:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2696,7 +2880,7 @@ L110:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L111
+	jne	L141
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2712,10 +2896,10 @@ L110:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L112
-L111:
+	je	L142
+L141:
 	call	abort
-L112:
+L142:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2744,7 +2928,7 @@ L112:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L113
+	jne	L143
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2764,10 +2948,10 @@ L112:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L114
-L113:
+	je	L144
+L143:
 	call	abort
-L114:
+L144:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2788,7 +2972,7 @@ L114:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L115
+	jne	L145
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2808,10 +2992,10 @@ L114:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L116
-L115:
+	je	L146
+L145:
 	call	abort
-L116:
+L146:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2838,7 +3022,7 @@ L116:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L117
+	jne	L147
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2853,10 +3037,10 @@ L116:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L118
-L117:
+	je	L148
+L147:
 	call	abort
-L118:
+L148:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2875,7 +3059,7 @@ L118:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L119
+	jne	L149
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2893,10 +3077,10 @@ L118:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L120
-L119:
+	je	L150
+L149:
 	call	abort
-L120:
+L150:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -2928,7 +3112,7 @@ L120:
 	movl	%ecx, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L121
+	jne	L151
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2948,10 +3132,10 @@ L120:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L122
-L121:
+	je	L152
+L151:
 	call	abort
-L122:
+L152:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -2975,7 +3159,7 @@ L122:
 	movl	%ecx, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L123
+	jne	L153
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -2998,10 +3182,10 @@ L122:
 	movl	%ecx, %eax
 	subl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L124
-L123:
+	je	L154
+L153:
 	call	abort
-L124:
+L154:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -3028,7 +3212,7 @@ L124:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L125
+	jne	L155
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -3046,10 +3230,10 @@ L124:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L126
-L125:
+	je	L156
+L155:
 	call	abort
-L126:
+L156:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -3068,7 +3252,7 @@ L126:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	jne	L127
+	jne	L157
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -3086,10 +3270,10 @@ L126:
 	subl	%eax, %edx
 	movl	%edx, %eax
 	cmpl	%eax, %esi
-	je	L128
-L127:
+	je	L158
+L157:
 	call	abort
-L128:
+L158:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %eax
 	cltq
@@ -3120,7 +3304,7 @@ L128:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L129
+	jne	L159
 	movl	-36(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -3142,10 +3326,10 @@ L128:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L130
-L129:
+	je	L160
+L159:
 	call	abort
-L130:
+L160:
 	leaq	-48(%rbp), %rax
 	movl	-40(%rbp), %esi
 	movl	-4(%rbp), %eax
@@ -3168,7 +3352,7 @@ L130:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	jne	L131
+	jne	L161
 	movl	-44(%rbp), %esi
 	movl	-4(%rbp), %eax
 	cltq
@@ -3190,16 +3374,16 @@ L130:
 	subl	%eax, %ecx
 	movl	%ecx, %edx
 	cmpl	%edx, %esi
-	je	L132
-L131:
+	je	L162
+L161:
 	call	abort
-L132:
+L162:
 	leaq	-48(%rbp), %rax
 	addl	$1, -4(%rbp)
-L84:
+L114:
 	movl	-4(%rbp), %eax
 	cmpl	$1, %eax
-	jbe	L133
+	jbe	L163
 	movl	$0, %eax
 	leave
 	ret

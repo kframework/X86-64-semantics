@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 doit:
@@ -203,12 +240,12 @@ doit:
 	movq	%rax, -24(%rbp)
 	movl	-36(%rbp), %eax
 	cmpl	$1, %eax
-	je	L34
+	je	L41
 	cmpl	$2, %eax
-	je	L35
+	je	L42
 	testl	%eax, %eax
-	jne	L38
-L36:
+	jne	L45
+L43:
 	movq	-8(%rbp), %rax
 	movl	(%rax), %edx
 	movq	-8(%rbp), %rax
@@ -218,14 +255,14 @@ L36:
 	movl	%edx, (%rax)
 	subl	$1, -40(%rbp)
 	cmpl	$0, -40(%rbp)
-	jne	L36
+	jne	L43
 	movq	-8(%rbp), %rax
 	movl	(%rax), %eax
 	testl	%eax, %eax
 	sete	%al
 	movzbl	%al, %eax
-	jmp	L37
-L34:
+	jmp	L44
+L41:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rdx
 	movq	-16(%rbp), %rax
@@ -235,14 +272,14 @@ L34:
 	movq	%rdx, (%rax)
 	subl	$1, -40(%rbp)
 	cmpl	$0, -40(%rbp)
-	jne	L34
+	jne	L41
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
 	sete	%al
 	movzbl	%al, %eax
-	jmp	L37
-L35:
+	jmp	L44
+L42:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rdx
 	movq	-24(%rbp), %rax
@@ -252,16 +289,16 @@ L35:
 	movq	%rdx, (%rax)
 	subl	$1, -40(%rbp)
 	cmpl	$0, -40(%rbp)
-	jne	L35
+	jne	L42
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
 	sete	%al
 	movzbl	%al, %eax
-	jmp	L37
-L38:
+	jmp	L44
+L45:
 	call	abort
-L37:
+L44:
 	leave
 	ret
 .globl _start
@@ -289,18 +326,18 @@ _start:
 	call	doit
 	movl	-4(%rbp), %eax
 	cmpl	$32, %eax
-	je	L40
+	je	L47
 	call	abort
-L40:
+L47:
 	movq	-16(%rbp), %rax
 	cmpq	$32, %rax
-	je	L41
+	je	L48
 	call	abort
-L41:
+L48:
 	movq	-24(%rbp), %rax
 	cmpq	$32, %rax
-	je	L42
+	je	L49
 	call	abort
-L42:
+L49:
 	movl	$0, %edi
 	call	exit

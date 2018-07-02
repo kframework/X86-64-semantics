@@ -84,6 +84,40 @@ L28:
 	jne	L28
 L30:
 	ret
+memcpy:
+	movq	%rdi, %rax
+	testq	%rdx, %rdx
+	je	L35
+	movl	$0, %ecx
+L33:
+	movzbl	(%rsi,%rcx), %r8d
+	movb	%r8b, (%rax,%rcx)
+	addq	$1, %rcx
+	cmpq	%rdx, %rcx
+	jne	L33
+L35:
+	ret
+malloc:
+	movl	$1000, %eax
+	ret
+calloc:
+	movl	$1000, %eax
+	ret
+free:
+	ret
+isprint:
+	movl	%edi, %edx
+	andl	$-33, %edx
+	subl	$65, %edx
+	movl	$1, %eax
+	cmpl	$25, %edx
+	jbe	L42
+	subl	$48, %edi
+	cmpl	$9, %edi
+	setbe	%al
+	movzbl	%al, %eax
+L42:
+	ret
 foo:
 	subq	$24, %rsp
 	movzwl	%si, %esi
@@ -92,21 +126,22 @@ foo:
 	movl	$0, %eax
 	call	__builtin_mul_overflow
 	testl	%eax, %eax
-	je	L33
+	je	L45
 	call	abort
-L33:
+L45:
 	movl	12(%rsp), %eax
 	addq	$24, %rsp
 	ret
+.globl _start
 _start:
 	subq	$8, %rsp
 	movl	$2, %esi
 	movl	$1, %edi
 	call	foo
 	cmpl	$2, %eax
-	je	L37
+	je	L49
 	call	abort
-L37:
+L49:
 	movl	$0, %eax
 	addq	$8, %rsp
 	ret

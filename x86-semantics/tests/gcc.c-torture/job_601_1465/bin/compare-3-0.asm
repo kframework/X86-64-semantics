@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 test1:
@@ -196,13 +233,13 @@ test1:
 	movl	%esi, -8(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jne	L32
+	jne	L39
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	je	L32
+	je	L39
 	movl	$0, %eax
 	call	link_error0
-L32:
+L39:
 	leave
 	ret
 test2:
@@ -213,13 +250,13 @@ test2:
 	movl	%esi, -8(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jge	L34
+	jge	L41
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jle	L34
+	jle	L41
 	movl	$0, %eax
 	call	link_error0
-L34:
+L41:
 	leave
 	ret
 test3:
@@ -230,13 +267,13 @@ test3:
 	movl	%esi, -8(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jge	L36
+	jge	L43
 	movl	-8(%rbp), %eax
 	cmpl	-4(%rbp), %eax
-	jge	L36
+	jge	L43
 	movl	$0, %eax
 	call	link_error0
-L36:
+L43:
 	leave
 	ret
 test4:
@@ -247,13 +284,13 @@ test4:
 	movl	%esi, -8(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	je	L38
+	je	L45
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jne	L38
+	jne	L45
 	movl	$0, %eax
 	call	link_error1
-L38:
+L45:
 	leave
 	ret
 test5:
@@ -264,13 +301,13 @@ test5:
 	movl	%esi, -8(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jge	L40
+	jge	L47
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jl	L40
+	jl	L47
 	movl	$0, %eax
 	call	link_error1
-L40:
+L47:
 	leave
 	ret
 test6:
@@ -281,13 +318,13 @@ test6:
 	movl	%esi, -8(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jle	L42
+	jle	L49
 	movl	-8(%rbp), %eax
 	cmpl	-4(%rbp), %eax
-	jl	L42
+	jl	L49
 	movl	$0, %eax
 	call	link_error1
-L42:
+L49:
 	leave
 	ret
 all_tests:

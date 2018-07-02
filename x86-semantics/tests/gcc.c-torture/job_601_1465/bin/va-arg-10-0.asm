@@ -24,6 +24,87 @@ L6:
 L1:
 	popq	%rbp
 	ret
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
+	ret
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -41,17 +122,120 @@ abort:
 	
 	popq	%rbp
 	ret
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
+	ret
 to_hex:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$8, %rsp
 	movl	%edi, -4(%rbp)
 	cmpl	$15, -4(%rbp)
-	jbe	L10
+	jbe	L40
 	call	abort
-L10:
+L40:
 	movl	-4(%rbp), %eax
-	movzbl	hex.2260(%rax), %eax
+	movzbl	hex.2321(%rax), %eax
 	movsbl	%al, %eax
 	leave
 	ret
@@ -59,106 +243,106 @@ fap:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	pushq	%rbx
-	subq	$72, %rsp
-	movl	%edi, -52(%rbp)
-	movq	%rsi, -64(%rbp)
-	movq	%rdx, -72(%rbp)
-	leaq	-48(%rbp), %rax
-	movq	-72(%rbp), %rdx
+	subq	$56, %rsp
+	movl	%edi, -44(%rbp)
+	movq	%rsi, -56(%rbp)
+	movq	%rdx, -64(%rbp)
+	leaq	-40(%rbp), %rax
+	movq	-64(%rbp), %rdx
 	movq	(%rdx), %rcx
 	movq	%rcx, (%rax)
 	movq	8(%rdx), %rcx
 	movq	%rcx, 8(%rax)
 	movq	16(%rdx), %rdx
 	movq	%rdx, 16(%rax)
-	movq	-64(%rbp), %rax
-	movq	%rax, -24(%rbp)
-	movq	-64(%rbp), %rax
+	movq	-56(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-56(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen
 	movl	$16, %edx
-	subl	-52(%rbp), %edx
+	subl	-44(%rbp), %edx
 	movslq	%edx, %rdx
 	cmpq	%rdx, %rax
-	je	L13
+	je	L43
 	call	abort
-L13:
-	jmp	L14
-L17:
-	movq	-64(%rbp), %rax
+L43:
+	jmp	L44
+L47:
+	movq	-56(%rbp), %rax
 	leaq	1(%rax), %rdx
-	movq	%rdx, -64(%rbp)
+	movq	%rdx, -56(%rbp)
 	movzbl	(%rax), %eax
 	movsbl	%al, %ebx
-	movq	-72(%rbp), %rax
+	movq	-64(%rbp), %rax
 	movl	(%rax), %eax
 	cmpl	$48, %eax
-	jae	L15
-	movq	-72(%rbp), %rax
+	jae	L45
+	movq	-64(%rbp), %rax
 	movq	16(%rax), %rdx
-	movq	-72(%rbp), %rax
+	movq	-64(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %eax
 	addq	%rdx, %rax
-	movq	-72(%rbp), %rdx
+	movq	-64(%rbp), %rdx
 	movl	(%rdx), %edx
 	leal	8(%rdx), %ecx
-	movq	-72(%rbp), %rdx
+	movq	-64(%rbp), %rdx
 	movl	%ecx, (%rdx)
-	jmp	L16
-L15:
-	movq	-72(%rbp), %rax
+	jmp	L46
+L45:
+	movq	-64(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	8(%rax), %rcx
-	movq	-72(%rbp), %rdx
+	movq	-64(%rbp), %rdx
 	movq	%rcx, 8(%rdx)
-L16:
+L46:
 	movl	(%rax), %eax
 	movl	%eax, %edi
 	call	to_hex
 	cmpl	%eax, %ebx
-	je	L14
+	je	L44
 	call	abort
-L14:
-	movq	-64(%rbp), %rax
+L44:
+	movq	-56(%rbp), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L17
-	jmp	L18
-L21:
-	movq	-24(%rbp), %rax
+	jne	L47
+	jmp	L48
+L51:
+	movq	-16(%rbp), %rax
 	leaq	1(%rax), %rdx
-	movq	%rdx, -24(%rbp)
+	movq	%rdx, -16(%rbp)
 	movzbl	(%rax), %eax
 	movsbl	%al, %ebx
-	movl	-48(%rbp), %eax
+	movl	-40(%rbp), %eax
 	cmpl	$48, %eax
-	jae	L19
-	movq	-32(%rbp), %rdx
-	movl	-48(%rbp), %eax
+	jae	L49
+	movq	-24(%rbp), %rdx
+	movl	-40(%rbp), %eax
 	movl	%eax, %eax
 	addq	%rdx, %rax
-	movl	-48(%rbp), %edx
+	movl	-40(%rbp), %edx
 	addl	$8, %edx
-	movl	%edx, -48(%rbp)
-	jmp	L20
-L19:
-	movq	-40(%rbp), %rax
+	movl	%edx, -40(%rbp)
+	jmp	L50
+L49:
+	movq	-32(%rbp), %rax
 	leaq	8(%rax), %rdx
-	movq	%rdx, -40(%rbp)
-L20:
+	movq	%rdx, -32(%rbp)
+L50:
 	movl	(%rax), %eax
 	movl	%eax, %edi
 	call	to_hex
 	cmpl	%eax, %ebx
-	je	L18
+	je	L48
 	call	abort
-L18:
-	movq	-24(%rbp), %rax
+L48:
+	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L21
-	addq	$72, %rsp
+	jne	L51
+	addq	$56, %rsp
 	popq	%rbx
 	popq	%rbp
 	ret
@@ -172,7 +356,7 @@ f0:
 	movq	%r8, -144(%rbp)
 	movq	%r9, -136(%rbp)
 	testb	%al, %al
-	je	L23
+	je	L53
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -181,7 +365,7 @@ f0:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L23:
+L53:
 	movq	%rdi, -216(%rbp)
 	movl	$8, -200(%rbp)
 	movl	$48, -196(%rbp)
@@ -206,7 +390,7 @@ f1:
 	movq	%r8, -144(%rbp)
 	movq	%r9, -136(%rbp)
 	testb	%al, %al
-	je	L25
+	je	L55
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -215,7 +399,7 @@ f1:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L25:
+L55:
 	movq	%rsi, -224(%rbp)
 	movl	$16, -200(%rbp)
 	movl	$48, -196(%rbp)
@@ -240,7 +424,7 @@ f2:
 	movq	%r8, -144(%rbp)
 	movq	%r9, -136(%rbp)
 	testb	%al, %al
-	je	L27
+	je	L57
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -249,7 +433,7 @@ f2:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L27:
+L57:
 	movq	%rdx, -224(%rbp)
 	movl	$24, -200(%rbp)
 	movl	$48, -196(%rbp)
@@ -274,7 +458,7 @@ f3:
 	movq	%r8, -144(%rbp)
 	movq	%r9, -136(%rbp)
 	testb	%al, %al
-	je	L29
+	je	L59
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -283,7 +467,7 @@ f3:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L29:
+L59:
 	movq	%rcx, -232(%rbp)
 	movl	$32, -200(%rbp)
 	movl	$48, -196(%rbp)
@@ -308,7 +492,7 @@ f4:
 	movl	%ecx, -224(%rbp)
 	movq	%r9, -136(%rbp)
 	testb	%al, %al
-	je	L31
+	je	L61
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -317,7 +501,7 @@ f4:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L31:
+L61:
 	movq	%r8, -232(%rbp)
 	movl	$40, -200(%rbp)
 	movl	$48, -196(%rbp)
@@ -342,7 +526,7 @@ f5:
 	movl	%ecx, -224(%rbp)
 	movl	%r8d, -228(%rbp)
 	testb	%al, %al
-	je	L33
+	je	L63
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -351,7 +535,7 @@ f5:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L33:
+L63:
 	movq	%r9, -240(%rbp)
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
@@ -377,7 +561,7 @@ f6:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L36
+	je	L66
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -386,7 +570,7 @@ f6:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L36:
+L66:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	24(%rbp), %rax
@@ -411,7 +595,7 @@ f7:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L39
+	je	L69
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -420,7 +604,7 @@ f7:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L39:
+L69:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	32(%rbp), %rax
@@ -445,7 +629,7 @@ f8:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L42
+	je	L72
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -454,7 +638,7 @@ f8:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L42:
+L72:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	40(%rbp), %rax
@@ -479,7 +663,7 @@ f9:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L45
+	je	L75
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -488,7 +672,7 @@ f9:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L45:
+L75:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	48(%rbp), %rax
@@ -513,7 +697,7 @@ f10:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L48
+	je	L78
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -522,7 +706,7 @@ f10:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L48:
+L78:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	56(%rbp), %rax
@@ -547,7 +731,7 @@ f11:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L51
+	je	L81
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -556,7 +740,7 @@ f11:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L51:
+L81:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	64(%rbp), %rax
@@ -581,7 +765,7 @@ f12:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L54
+	je	L84
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -590,7 +774,7 @@ f12:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L54:
+L84:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	72(%rbp), %rax
@@ -615,7 +799,7 @@ f13:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L57
+	je	L87
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -624,7 +808,7 @@ f13:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L57:
+L87:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	80(%rbp), %rax
@@ -649,7 +833,7 @@ f14:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L60
+	je	L90
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -658,7 +842,7 @@ f14:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L60:
+L90:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	88(%rbp), %rax
@@ -683,7 +867,7 @@ f15:
 	movl	%r8d, -228(%rbp)
 	movl	%r9d, -232(%rbp)
 	testb	%al, %al
-	je	L63
+	je	L93
 	vmovaps	%xmm0, -128(%rbp)
 	vmovaps	%xmm1, -112(%rbp)
 	vmovaps	%xmm2, -96(%rbp)
@@ -692,7 +876,7 @@ f15:
 	vmovaps	%xmm5, -48(%rbp)
 	vmovaps	%xmm6, -32(%rbp)
 	vmovaps	%xmm7, -16(%rbp)
-L63:
+L93:
 	movl	$48, -200(%rbp)
 	movl	$48, -196(%rbp)
 	leaq	96(%rbp), %rax
@@ -1083,5 +1267,5 @@ _start:
 	addq	$96, %rsp
 	movl	$0, %edi
 	call	exit
-hex.2260:
+hex.2321:
 	.string	"0123456789abcdef"

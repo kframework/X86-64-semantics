@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 f1:
@@ -210,12 +247,12 @@ f3:
 	movb	$-128, -1(%rbp)
 	movzbl	-1(%rbp), %eax
 	testb	%al, %al
-	jns	L37
+	jns	L44
 	movl	$896, %eax
-	jmp	L38
-L37:
+	jmp	L45
+L44:
 	movl	$0, %eax
-L38:
+L45:
 	popq	%rbp
 	ret
 f4:
@@ -250,12 +287,12 @@ f7:
 	movl	$-2147483648, -4(%rbp)
 	movl	-4(%rbp), %eax
 	testl	%eax, %eax
-	jns	L47
+	jns	L54
 	movabsq	$15032385536, %rax
-	jmp	L48
-L47:
+	jmp	L55
+L54:
 	movl	$0, %eax
-L48:
+L55:
 	popq	%rbp
 	ret
 f8:
@@ -273,47 +310,47 @@ _start:
 	movq	%rsp, %rbp
 	call	f1
 	cmpl	$128, %eax
-	je	L53
-	call	abort
-L53:
-	call	f2
-	cmpl	$128, %eax
-	je	L54
-	call	abort
-L54:
-	call	f3
-	cmpl	$896, %eax
-	je	L55
-	call	abort
-L55:
-	call	f4
-	cmpl	$-128, %eax
-	je	L56
-	call	abort
-L56:
-	call	f5
-	movl	$2147483648, %edx
-	cmpq	%rdx, %rax
-	je	L57
-	call	abort
-L57:
-	call	f6
-	movl	$2147483648, %edx
-	cmpq	%rdx, %rax
-	je	L58
-	call	abort
-L58:
-	call	f7
-	movabsq	$15032385536, %rdx
-	cmpq	%rdx, %rax
-	je	L59
-	call	abort
-L59:
-	call	f8
-	cmpq	$-2147483648, %rax
 	je	L60
 	call	abort
 L60:
+	call	f2
+	cmpl	$128, %eax
+	je	L61
+	call	abort
+L61:
+	call	f3
+	cmpl	$896, %eax
+	je	L62
+	call	abort
+L62:
+	call	f4
+	cmpl	$-128, %eax
+	je	L63
+	call	abort
+L63:
+	call	f5
+	movl	$2147483648, %edx
+	cmpq	%rdx, %rax
+	je	L64
+	call	abort
+L64:
+	call	f6
+	movl	$2147483648, %edx
+	cmpq	%rdx, %rax
+	je	L65
+	call	abort
+L65:
+	call	f7
+	movabsq	$15032385536, %rdx
+	cmpq	%rdx, %rax
+	je	L66
+	call	abort
+L66:
+	call	f8
+	cmpq	$-2147483648, %rax
+	je	L67
+	call	abort
+L67:
 	movl	$0, %eax
 	popq	%rbp
 	ret

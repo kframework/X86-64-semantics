@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 div1:
@@ -305,68 +342,68 @@ _start:
 	movl	$-128, %edi
 	call	div1
 	cmpl	$128, %eax
-	je	L53
+	je	L60
 	call	abort
-L53:
+L60:
 	movl	$-32768, %edi
 	call	div2
 	cmpl	$32768, %eax
-	je	L54
+	je	L61
 	call	abort
-L54:
+L61:
 	movl	$-1, %esi
 	movl	$-128, %edi
 	call	div3
 	cmpl	$128, %eax
-	je	L55
+	je	L62
 	call	abort
-L55:
+L62:
 	movl	$-1, %esi
 	movl	$-32768, %edi
 	call	div4
 	cmpl	$32768, %eax
-	je	L56
+	je	L63
 	call	abort
-L56:
+L63:
 	movl	$-128, %edi
 	call	mod1
 	testl	%eax, %eax
-	je	L57
+	je	L64
 	call	abort
-L57:
+L64:
 	movl	$-32768, %edi
 	call	mod2
 	testl	%eax, %eax
-	je	L58
+	je	L65
 	call	abort
-L58:
+L65:
 	movl	$-1, %esi
 	movl	$-128, %edi
 	call	mod3
 	testl	%eax, %eax
-	je	L59
+	je	L66
 	call	abort
-L59:
+L66:
 	movl	$-1, %esi
 	movl	$-32768, %edi
 	call	mod4
 	testl	%eax, %eax
-	je	L60
+	je	L67
 	call	abort
-L60:
+L67:
 	movl	$2, %esi
 	movl	$1342177280, %edi
 	call	mod5
 	testq	%rax, %rax
-	je	L61
+	je	L68
 	call	abort
-L61:
+L68:
 	movl	$2, %esi
 	movl	$1342177280, %edi
 	call	mod6
 	testq	%rax, %rax
-	je	L62
+	je	L69
 	call	abort
-L62:
+L69:
 	movl	$0, %edi
 	call	exit

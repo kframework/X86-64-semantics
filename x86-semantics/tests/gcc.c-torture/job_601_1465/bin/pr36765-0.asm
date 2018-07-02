@@ -196,6 +196,35 @@ free:
 	movq	%rdi, -8(%rbp)
 	popq	%rbp
 	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
+	ret
 foo:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -223,9 +252,9 @@ _start:
 	movl	$0, %edi
 	call	foo
 	cmpl	$1, %eax
-	je	L37
+	je	L42
 	call	abort
-L37:
+L42:
 	movl	$10, %eax
 	popq	%rbp
 	ret

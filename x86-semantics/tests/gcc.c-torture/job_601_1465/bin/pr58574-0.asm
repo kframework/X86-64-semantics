@@ -24,6 +24,87 @@ L6:
 L1:
 	popq	%rbp
 	ret
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
+	ret
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -41,6 +122,109 @@ abort:
 	
 	popq	%rbp
 	ret
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
+	ret
 foo:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -49,72 +233,12 @@ foo:
 	vmovq	%rax, %xmm1
 	vcvttsd2si	%xmm1, %eax
 	cmpl	$93, %eax
-	ja	L10
+	ja	L40
 	movl	%eax, %eax
-	movq	L12(,%rax,8), %rax
-	jmp	*%rax
-L12:
-	.quad	L11
-	.quad	L13
-	.quad	L14
-	.quad	L15
-	.quad	L16
-	.quad	L17
-	.quad	L18
-	.quad	L19
-	.quad	L20
-	.quad	L21
-	.quad	L22
-	.quad	L23
-	.quad	L24
-	.quad	L25
-	.quad	L26
-	.quad	L27
-	.quad	L28
-	.quad	L29
-	.quad	L30
-	.quad	L31
-	.quad	L32
-	.quad	L33
-	.quad	L34
-	.quad	L35
-	.quad	L36
-	.quad	L37
-	.quad	L38
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L39
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L40
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
+	movq	L42(,%rax,8), %rax
+	call %rax
+L42:
 	.quad	L41
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L10
-	.quad	L42
 	.quad	L43
 	.quad	L44
 	.quad	L45
@@ -141,14 +265,74 @@ L12:
 	.quad	L66
 	.quad	L67
 	.quad	L68
+	.quad	L40
+	.quad	L40
+	.quad	L40
 	.quad	L69
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
 	.quad	L70
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
 	.quad	L71
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
+	.quad	L40
 	.quad	L72
 	.quad	L73
 	.quad	L74
 	.quad	L75
-L11:
+	.quad	L76
+	.quad	L77
+	.quad	L78
+	.quad	L79
+	.quad	L80
+	.quad	L81
+	.quad	L82
+	.quad	L83
+	.quad	L84
+	.quad	L85
+	.quad	L86
+	.quad	L87
+	.quad	L88
+	.quad	L89
+	.quad	L90
+	.quad	L91
+	.quad	L92
+	.quad	L93
+	.quad	L94
+	.quad	L95
+	.quad	L96
+	.quad	L97
+	.quad	L98
+	.quad	L99
+	.quad	L100
+	.quad	L101
+	.quad	L102
+	.quad	L103
+	.quad	L104
+	.quad	L105
+L41:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -198,8 +382,8 @@ L11:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L13:
+	jmp	L106
+L43:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -249,8 +433,8 @@ L13:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L14:
+	jmp	L106
+L44:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -300,8 +484,8 @@ L14:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L15:
+	jmp	L106
+L45:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -351,8 +535,8 @@ L15:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L16:
+	jmp	L106
+L46:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -402,8 +586,8 @@ L16:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L17:
+	jmp	L106
+L47:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -453,8 +637,8 @@ L17:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L18:
+	jmp	L106
+L48:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -504,8 +688,8 @@ L18:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L19:
+	jmp	L106
+L49:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -555,8 +739,8 @@ L19:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L20:
+	jmp	L106
+L50:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -606,8 +790,8 @@ L20:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L21:
+	jmp	L106
+L51:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -657,8 +841,8 @@ L21:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L22:
+	jmp	L106
+L52:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -708,8 +892,8 @@ L22:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L23:
+	jmp	L106
+L53:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -759,8 +943,8 @@ L23:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L24:
+	jmp	L106
+L54:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -810,8 +994,8 @@ L24:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L25:
+	jmp	L106
+L55:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -861,8 +1045,8 @@ L25:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L26:
+	jmp	L106
+L56:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -912,8 +1096,8 @@ L26:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L27:
+	jmp	L106
+L57:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -963,8 +1147,8 @@ L27:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L28:
+	jmp	L106
+L58:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -1014,8 +1198,8 @@ L28:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L29:
+	jmp	L106
+L59:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -1065,8 +1249,8 @@ L29:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L30:
+	jmp	L106
+L60:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -1116,8 +1300,8 @@ L30:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L31:
+	jmp	L106
+L61:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -1167,8 +1351,8 @@ L31:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L32:
+	jmp	L106
+L62:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -1218,8 +1402,8 @@ L32:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L33:
+	jmp	L106
+L63:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -1269,8 +1453,8 @@ L33:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L34:
+	jmp	L106
+L64:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -1320,8 +1504,8 @@ L34:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L35:
+	jmp	L106
+L65:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -1371,8 +1555,8 @@ L35:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L36:
+	jmp	L106
+L66:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -1422,8 +1606,8 @@ L36:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L37:
+	jmp	L106
+L67:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -1473,8 +1657,8 @@ L37:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L38:
+	jmp	L106
+L68:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -1524,8 +1708,8 @@ L38:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L39:
+	jmp	L106
+L69:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -1575,8 +1759,8 @@ L39:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L40:
+	jmp	L106
+L70:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -1626,8 +1810,8 @@ L40:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L41:
+	jmp	L106
+L71:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -1677,8 +1861,8 @@ L41:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L42:
+	jmp	L106
+L72:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -1728,8 +1912,8 @@ L42:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L43:
+	jmp	L106
+L73:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -1779,8 +1963,8 @@ L43:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L44:
+	jmp	L106
+L74:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -1830,8 +2014,8 @@ L44:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L45:
+	jmp	L106
+L75:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -1881,8 +2065,8 @@ L45:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L46:
+	jmp	L106
+L76:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -1932,8 +2116,8 @@ L46:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L47:
+	jmp	L106
+L77:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -1983,8 +2167,8 @@ L47:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L48:
+	jmp	L106
+L78:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -2034,8 +2218,8 @@ L48:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L49:
+	jmp	L106
+L79:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -2085,8 +2269,8 @@ L49:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L50:
+	jmp	L106
+L80:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -2136,8 +2320,8 @@ L50:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L51:
+	jmp	L106
+L81:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -2187,8 +2371,8 @@ L51:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L52:
+	jmp	L106
+L82:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -2238,8 +2422,8 @@ L52:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L53:
+	jmp	L106
+L83:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -2289,8 +2473,8 @@ L53:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L54:
+	jmp	L106
+L84:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -2340,8 +2524,8 @@ L54:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L55:
+	jmp	L106
+L85:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -2391,8 +2575,8 @@ L55:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L56:
+	jmp	L106
+L86:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -2442,8 +2626,8 @@ L56:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L57:
+	jmp	L106
+L87:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -2493,8 +2677,8 @@ L57:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L58:
+	jmp	L106
+L88:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -2544,8 +2728,8 @@ L58:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L59:
+	jmp	L106
+L89:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -2595,8 +2779,8 @@ L59:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L60:
+	jmp	L106
+L90:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -2646,8 +2830,8 @@ L60:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L61:
+	jmp	L106
+L91:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -2697,8 +2881,8 @@ L61:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L62:
+	jmp	L106
+L92:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -2748,8 +2932,8 @@ L62:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L63:
+	jmp	L106
+L93:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -2799,8 +2983,8 @@ L63:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L64:
+	jmp	L106
+L94:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -2850,8 +3034,8 @@ L64:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L65:
+	jmp	L106
+L95:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -2901,8 +3085,8 @@ L65:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L66:
+	jmp	L106
+L96:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -2952,8 +3136,8 @@ L66:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L67:
+	jmp	L106
+L97:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -3003,8 +3187,8 @@ L67:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L68:
+	jmp	L106
+L98:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -3054,8 +3238,8 @@ L68:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L69:
+	jmp	L106
+L99:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm6, %xmm5
@@ -3105,8 +3289,8 @@ L69:
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm0, %xmm6
 	vmovq	%xmm6, %rax
-	jmp	L76
-L70:
+	jmp	L106
+L100:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm2, %xmm1
@@ -3156,8 +3340,8 @@ L70:
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm0, %xmm2
 	vmovq	%xmm2, %rax
-	jmp	L76
-L71:
+	jmp	L106
+L101:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm5, %xmm4
@@ -3207,8 +3391,8 @@ L71:
 	vmovq	%rax, %xmm6
 	vaddsd	%xmm6, %xmm0, %xmm5
 	vmovq	%xmm5, %rax
-	jmp	L76
-L72:
+	jmp	L106
+L102:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm1, %xmm7
@@ -3258,8 +3442,8 @@ L72:
 	vmovq	%rax, %xmm2
 	vaddsd	%xmm2, %xmm0, %xmm1
 	vmovq	%xmm1, %rax
-	jmp	L76
-L73:
+	jmp	L106
+L103:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm4, %xmm3
@@ -3309,8 +3493,8 @@ L73:
 	vmovq	%rax, %xmm5
 	vaddsd	%xmm5, %xmm0, %xmm4
 	vmovq	%xmm4, %rax
-	jmp	L76
-L74:
+	jmp	L106
+L104:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm7
 	vaddsd	%xmm7, %xmm7, %xmm6
@@ -3360,8 +3544,8 @@ L74:
 	vmovq	%rax, %xmm1
 	vaddsd	%xmm1, %xmm0, %xmm7
 	vmovq	%xmm7, %rax
-	jmp	L76
-L75:
+	jmp	L106
+L105:
 	movq	-24(%rbp), %rax
 	vmovq	%rax, %xmm3
 	vaddsd	%xmm3, %xmm3, %xmm2
@@ -3411,10 +3595,10 @@ L75:
 	vmovq	%rax, %xmm4
 	vaddsd	%xmm4, %xmm0, %xmm3
 	vmovq	%xmm3, %rax
-	jmp	L76
-L10:
+	jmp	L106
+L40:
 	movabsq	$4607182418800017408, %rax
-L76:
+L106:
 	vmovq	%rax, %xmm0
 	popq	%rbp
 	ret
@@ -3431,14 +3615,14 @@ _start:
 	movabsq	$4600517091351509074, %rax
 	vmovq	%rax, %xmm1
 	vucomisd	-8(%rbp), %xmm1
-	ja	L78
+	ja	L108
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm2
 	vucomisd	LC514(%rip), %xmm2
-	jbe	L82
-L78:
+	jbe	L112
+L108:
 	call	abort
-L82:
+L112:
 	movl	$0, %eax
 	leave
 	ret

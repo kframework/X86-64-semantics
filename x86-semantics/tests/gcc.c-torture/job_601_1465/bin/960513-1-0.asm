@@ -1,163 +1,302 @@
-LCOLDB0:
-LHOTB0:
-	.p2align 4,,15
 strchr:
-	movzbl	(%rdi), %edx
-	cmpb	%sil, %dl
-	je	L2
-	addq	$1, %rdi
-	xorl	%eax, %eax
-	testb	%dl, %dl
-	cmovne	%rdi, %rax
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	nop
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movl	-12(%rbp), %eax
+	cmpb	%al, %dl
+	je	L6
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L3
+	movl	$0, %eax
+	jmp	L1
+L3:
+	movq	-8(%rbp), %rax
+	jmp	L1
+L6:
+L1:
+	popq	%rbp
 	ret
-	.p2align 4,,10
-	.p2align 3
-L2:
-	ret
-LCOLDE0:
-LHOTE0:
-LCOLDB1:
-LHOTB1:
-	.p2align 4,,15
 strlen:
-	xorl	%eax, %eax
-	cmpb	$0, (%rdi)
-	je	L11
-	.p2align 4,,10
-	.p2align 3
-L10:
-	addq	$1, %rax
-	cmpb	$0, (%rdi,%rax)
-	jne	L10
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
 	ret
-L11:
-	ret
-LCOLDE1:
-LHOTE1:
-LCOLDB2:
-LHOTB2:
-	.p2align 4,,15
 strcpy:
-	movq	%rdi, %rax
-	movq	%rdi, %rdx
-	.p2align 4,,10
-	.p2align 3
-L15:
-	addq	$1, %rsi
-	movzbl	-1(%rsi), %ecx
-	addq	$1, %rdx
-	movb	%cl, -1(%rdx)
-	testb	%cl, %cl
-	jne	L15
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
 	ret
-LCOLDE2:
-LHOTE2:
-LCOLDB3:
-LHOTB3:
-	.p2align 4,,15
 memcmp:
-	leaq	-1(%rdx), %r8
-	testq	%rdx, %rdx
-	je	L22
-	movzbl	(%rdi), %edx
-	movzbl	(%rsi), %ecx
-	cmpb	%cl, %dl
-	jne	L19
-	xorl	%eax, %eax
-	jmp	L20
-	.p2align 4,,10
-	.p2align 3
-L21:
-	movzbl	1(%rdi,%rax), %edx
-	addq	$1, %rax
-	movzbl	(%rsi,%rax), %ecx
-	cmpb	%cl, %dl
-	jne	L19
-L20:
-	cmpq	%r8, %rax
-	jne	L21
-L22:
-	xorl	%eax, %eax
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
 	ret
-	.p2align 4,,10
-	.p2align 3
-L19:
-	movzbl	%dl, %eax
-	subl	%ecx, %eax
-	ret
-LCOLDE3:
-LHOTE3:
-LCOLDB4:
-LHOTB4:
-	.p2align 4,,15
 exit:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
 	movq $-1, %rax
 	jmp %rax
 	
+	popq	%rbp
 	ret
-LCOLDE4:
-LHOTE4:
-LCOLDB5:
-LHOTB5:
-	.p2align 4,,15
 abort:
+	pushq	%rbp
+	movq	%rsp, %rbp
 	movq $-1, %rax
 	jmp %rax
 	
+	popq	%rbp
 	ret
-LCOLDE5:
-LHOTE5:
-LCOLDB6:
-LHOTB6:
-	.p2align 4,,15
 memset:
-	testq	%rdx, %rdx
-	je	L33
-	subq	$8, %rsp
-	movzbl	%sil, %esi
-	call	memset
-	addq	$8, %rsp
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
 	ret
-	.p2align 4,,10
-	.p2align 3
-L33:
-	movq	%rdi, %rax
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
 	ret
-LCOLDE6:
-LHOTE6:
-LCOLDB8:
-LHOTB8:
-	.p2align 4,,15
-f:
-	fldt	8(%rsp)
-	fchs
-	fld	%st(0)
-	cmpl	$1, %edi
-	jne	L35
-	fadd	%st(1), %st
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
 L35:
-	fld	%st(0)
-	fmul	%st(2), %st
-	fsubrp	%st, %st(1)
-	fld	%st(1)
-	fmul	%st(1), %st
-	fsubrp	%st, %st(1)
-	fld	%st(1)
-	fmul	%st(1), %st
-	fsubrp	%st, %st(1)
-	fld	%st(1)
-	fmul	%st(1), %st
-	fsubrp	%st, %st(1)
-	fmul	%st, %st(1)
-	fsubp	%st, %st(1)
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
 	ret
-LCOLDE8:
-LHOTE8:
-LCOLDB9:
-LHOTB9:
-	.p2align 4,,15
+f:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -20(%rbp)
+	fldt	16(%rbp)
+	fchs
+	fstpt	16(%rbp)
+	movq	16(%rbp), %rax
+	movl	24(%rbp), %edx
+	movq	%rax, -16(%rbp)
+	movl	%edx, -8(%rbp)
+	cmpl	$1, -20(%rbp)
+	jne	L40
+	fldt	16(%rbp)
+	fadd	%st(0), %st
+	fstpt	16(%rbp)
+L40:
+	fldt	-16(%rbp)
+	fldt	16(%rbp)
+	fmulp	%st, %st(1)
+	fldt	16(%rbp)
+	fsubp	%st, %st(1)
+	fstpt	16(%rbp)
+	fldt	-16(%rbp)
+	fldt	16(%rbp)
+	fmulp	%st, %st(1)
+	fldt	16(%rbp)
+	fsubp	%st, %st(1)
+	fstpt	16(%rbp)
+	fldt	-16(%rbp)
+	fldt	16(%rbp)
+	fmulp	%st, %st(1)
+	fldt	16(%rbp)
+	fsubp	%st, %st(1)
+	fstpt	16(%rbp)
+	fldt	-16(%rbp)
+	fldt	16(%rbp)
+	fmulp	%st, %st(1)
+	fldt	16(%rbp)
+	fsubp	%st, %st(1)
+	fstpt	16(%rbp)
+	fldt	-16(%rbp)
+	fldt	16(%rbp)
+	fmulp	%st, %st(1)
+	fldt	16(%rbp)
+	fsubp	%st, %st(1)
+	fstpt	16(%rbp)
+	movq	16(%rbp), %rax
+	movl	24(%rbp), %edx
+	movq	%rax, -48(%rbp)
+	movl	%edx, -40(%rbp)
+	fldt	-48(%rbp)
+	popq	%rbp
+	ret
+.globl _start
 _start:
-	xorl	%edi, %edi
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	movabsq	$-9223372036854775808, %rax
+	movl	$16384, %edx
+	pushq	%rdx
+	pushq	%rax
+	movl	$1, %edi
+	movl	$0, %eax
+	call	f
+	addq	$16, %rsp
+	fisttpl	-4(%rbp)
+	movl	-4(%rbp), %eax
+	testl	%eax, %eax
+	jne	L43
+	call	abort
+L43:
+	movl	$0, %edi
 	call	exit
-LCOLDE9:
-LHOTE9:

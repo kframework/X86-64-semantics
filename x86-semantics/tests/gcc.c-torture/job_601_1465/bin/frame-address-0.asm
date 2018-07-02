@@ -196,6 +196,35 @@ free:
 	movq	%rdi, -8(%rbp)
 	popq	%rbp
 	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
+	ret
 check_fa_work:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -204,32 +233,32 @@ check_fa_work:
 	movb	$0, -1(%rbp)
 	leaq	-1(%rbp), %rax
 	cmpq	%rax, -24(%rbp)
-	jb	L35
+	jb	L40
 	movq	-24(%rbp), %rax
 	cmpq	-32(%rbp), %rax
-	jb	L36
+	jb	L41
 	leaq	-1(%rbp), %rax
 	cmpq	%rax, -32(%rbp)
-	jb	L36
+	jb	L41
 	movl	$1, %eax
-	jmp	L41
-L36:
-	movl	$0, %eax
-	jmp	L41
-L35:
-	movq	-24(%rbp), %rax
-	cmpq	-32(%rbp), %rax
-	ja	L39
-	leaq	-1(%rbp), %rax
-	cmpq	%rax, -32(%rbp)
-	ja	L39
-	movl	$1, %eax
-	jmp	L40
-L39:
-	movl	$0, %eax
-L40:
-	nop
+	jmp	L46
 L41:
+	movl	$0, %eax
+	jmp	L46
+L40:
+	movq	-24(%rbp), %rax
+	cmpq	-32(%rbp), %rax
+	ja	L44
+	leaq	-1(%rbp), %rax
+	cmpq	%rax, -32(%rbp)
+	ja	L44
+	movl	$1, %eax
+	jmp	L45
+L44:
+	movl	$0, %eax
+L45:
+	nop
+L46:
 	popq	%rbp
 	ret
 check_fa_mid:
@@ -293,9 +322,9 @@ _start:
 	movq	%rax, %rdi
 	call	check_fa
 	testl	%eax, %eax
-	jne	L49
+	jne	L54
 	call	abort
-L49:
+L54:
 	movl	$0, %eax
 	leave
 	ret
