@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 f1:
@@ -193,12 +230,12 @@ f1:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L33
+	je	L40
 	movl	$2147483647, %eax
-	jmp	L34
-L33:
+	jmp	L41
+L40:
 	movl	$2147483646, %eax
-L34:
+L41:
 	popq	%rbp
 	ret
 f2:
@@ -206,12 +243,12 @@ f2:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L37
+	je	L44
 	movabsq	$9223372036854775807, %rax
-	jmp	L38
-L37:
+	jmp	L45
+L44:
 	movabsq	$9223372036854775806, %rax
-L38:
+L45:
 	popq	%rbp
 	ret
 .globl _start
@@ -222,31 +259,31 @@ _start:
 	movl	$0, %eax
 	call	f1
 	cmpl	$2147483647, %eax
-	je	L41
+	je	L48
 	call	abort
-L41:
+L48:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	f1
 	cmpl	$2147483646, %eax
-	je	L42
+	je	L49
 	call	abort
-L42:
+L49:
 	movl	$1, %edi
 	movl	$0, %eax
 	call	f2
 	movabsq	$9223372036854775807, %rdx
 	cmpq	%rdx, %rax
-	je	L43
+	je	L50
 	call	abort
-L43:
+L50:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	f2
 	movabsq	$9223372036854775806, %rdx
 	cmpq	%rdx, %rax
-	je	L44
+	je	L51
 	call	abort
-L44:
+L51:
 	movl	$0, %edi
 	call	exit

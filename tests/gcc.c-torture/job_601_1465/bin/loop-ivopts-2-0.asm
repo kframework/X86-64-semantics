@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 check:
@@ -194,8 +231,8 @@ check:
 	subq	$24, %rsp
 	movq	%rdi, -24(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	L33
-L40:
+	jmp	L40
+L47:
 	movl	-4(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
@@ -203,34 +240,34 @@ L40:
 	addq	%rdx, %rax
 	movl	(%rax), %edx
 	cmpl	$255, -4(%rbp)
-	jle	L34
+	jle	L41
 	cmpl	$279, -4(%rbp)
-	jle	L35
-L34:
+	jle	L42
+L41:
 	movl	$1, %eax
-	jmp	L36
-L35:
+	jmp	L43
+L42:
 	movl	$0, %eax
-L36:
+L43:
 	leal	7(%rax), %ecx
 	cmpl	$143, -4(%rbp)
-	jle	L37
+	jle	L44
 	cmpl	$255, -4(%rbp)
-	jg	L37
+	jg	L44
 	movl	$1, %eax
-	jmp	L38
-L37:
+	jmp	L45
+L44:
 	movl	$0, %eax
-L38:
+L45:
 	addl	%ecx, %eax
 	cmpl	%eax, %edx
-	je	L39
+	je	L46
 	call	abort
-L39:
+L46:
 	addl	$1, -4(%rbp)
-L33:
+L40:
 	cmpl	$287, -4(%rbp)
-	jle	L40
+	jle	L47
 	leave
 	ret
 .globl _start
@@ -239,42 +276,42 @@ _start:
 	movq	%rsp, %rbp
 	subq	$1168, %rsp
 	movl	$0, -4(%rbp)
-	jmp	L42
-L43:
+	jmp	L49
+L50:
 	movl	-4(%rbp), %eax
 	cltq
 	movl	$8, -1168(%rbp,%rax,4)
 	addl	$1, -4(%rbp)
-L42:
+L49:
 	cmpl	$143, -4(%rbp)
-	jle	L43
-	jmp	L44
-L45:
+	jle	L50
+	jmp	L51
+L52:
 	movl	-4(%rbp), %eax
 	cltq
 	movl	$9, -1168(%rbp,%rax,4)
 	addl	$1, -4(%rbp)
-L44:
+L51:
 	cmpl	$255, -4(%rbp)
-	jle	L45
-	jmp	L46
-L47:
+	jle	L52
+	jmp	L53
+L54:
 	movl	-4(%rbp), %eax
 	cltq
 	movl	$7, -1168(%rbp,%rax,4)
 	addl	$1, -4(%rbp)
-L46:
+L53:
 	cmpl	$279, -4(%rbp)
-	jle	L47
-	jmp	L48
-L49:
+	jle	L54
+	jmp	L55
+L56:
 	movl	-4(%rbp), %eax
 	cltq
 	movl	$8, -1168(%rbp,%rax,4)
 	addl	$1, -4(%rbp)
-L48:
+L55:
 	cmpl	$287, -4(%rbp)
-	jle	L49
+	jle	L56
 	leaq	-1168(%rbp), %rax
 	movq	%rax, %rdi
 	call	check

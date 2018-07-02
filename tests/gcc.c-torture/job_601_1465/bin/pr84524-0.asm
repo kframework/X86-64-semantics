@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 foo:
@@ -193,31 +230,31 @@ foo:
 	movq	%rsp, %rbp
 	movq	%rdi, -24(%rbp)
 	movw	$0, -2(%rbp)
-	jmp	L33
-L38:
+	jmp	L40
+L45:
 	movzwl	-2(%rbp), %eax
 	sall	$8, %eax
 	movw	%ax, -4(%rbp)
 	movb	$0, -5(%rbp)
-	jmp	L34
-L37:
+	jmp	L41
+L44:
 	movzwl	-4(%rbp), %eax
 	testw	%ax, %ax
-	jns	L35
+	jns	L42
 	movzwl	-4(%rbp), %eax
 	addl	%eax, %eax
 	xorw	$4129, %ax
 	movw	%ax, -4(%rbp)
-	jmp	L36
-L35:
+	jmp	L43
+L42:
 	salw	-4(%rbp)
-L36:
+L43:
 	movzbl	-5(%rbp), %eax
 	addl	$1, %eax
 	movb	%al, -5(%rbp)
-L34:
+L41:
 	cmpb	$7, -5(%rbp)
-	jbe	L37
+	jbe	L44
 	movzwl	-2(%rbp), %eax
 	leaq	(%rax,%rax), %rdx
 	movq	-24(%rbp), %rax
@@ -227,9 +264,9 @@ L34:
 	movzwl	-2(%rbp), %eax
 	addl	$1, %eax
 	movw	%ax, -2(%rbp)
-L33:
+L40:
 	cmpw	$255, -2(%rbp)
-	jbe	L38
+	jbe	L45
 	popq	%rbp
 	ret
 .globl _start
@@ -241,40 +278,40 @@ _start:
 	movq	%rax, %rdi
 	call	foo
 	movl	$0, -4(%rbp)
-	jmp	L40
-L46:
+	jmp	L47
+L53:
 	movl	-4(%rbp), %eax
 	sall	$8, %eax
 	movw	%ax, -6(%rbp)
 	movl	$0, -12(%rbp)
-	jmp	L41
-L44:
+	jmp	L48
+L51:
 	movzwl	-6(%rbp), %eax
 	testw	%ax, %ax
-	jns	L42
+	jns	L49
 	movzwl	-6(%rbp), %eax
 	addl	%eax, %eax
 	xorw	$4129, %ax
 	movw	%ax, -6(%rbp)
-	jmp	L43
-L42:
+	jmp	L50
+L49:
 	salw	-6(%rbp)
-L43:
+L50:
 	addl	$1, -12(%rbp)
-L41:
+L48:
 	cmpl	$7, -12(%rbp)
-	jle	L44
+	jle	L51
 	movl	-4(%rbp), %eax
 	cltq
 	movzwl	-528(%rbp,%rax,2), %eax
 	cmpw	-6(%rbp), %ax
-	je	L45
+	je	L52
 	call	abort
-L45:
+L52:
 	addl	$1, -4(%rbp)
-L40:
+L47:
 	cmpl	$255, -4(%rbp)
-	jle	L46
+	jle	L53
 	movl	$0, %eax
 	leave
 	ret

@@ -24,6 +24,87 @@ L6:
 L1:
 	popq	%rbp
 	ret
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
+	ret
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -39,6 +120,109 @@ abort:
 	movq $-1, %rax
 	jmp %rax
 	
+	popq	%rbp
+	ret
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 	.comm	arr,400,64
@@ -480,141 +664,141 @@ _start:
 	movq	%rax, %rdi
 	call	assign_arg_ptr
 	testl	%eax, %eax
-	jne	L58
+	jne	L88
 	call	abort
-L58:
+L88:
 	call	assign_glob_ptr
 	testl	%eax, %eax
-	jne	L59
+	jne	L89
 	call	abort
-L59:
+L89:
 	movq	ptr(%rip), %rax
 	movl	$4, %esi
 	movq	%rax, %rdi
 	call	assign_arg_idx
 	testl	%eax, %eax
-	jne	L60
+	jne	L90
 	call	abort
-L60:
+L90:
 	call	assign_glob_idx
 	testl	%eax, %eax
-	jne	L61
+	jne	L91
 	call	abort
-L61:
+L91:
 	movq	ptr(%rip), %rax
 	movq	%rax, %rdi
 	call	preinc_arg_ptr
 	testl	%eax, %eax
-	jne	L62
+	jne	L92
 	call	abort
-L62:
+L92:
 	call	preinc_glob_ptr
 	testl	%eax, %eax
-	jne	L63
+	jne	L93
 	call	abort
-L63:
+L93:
 	movq	ptr(%rip), %rax
 	movq	%rax, %rdi
 	call	postinc_arg_ptr
 	testl	%eax, %eax
-	jne	L64
+	jne	L94
 	call	abort
-L64:
+L94:
 	call	postinc_glob_ptr
 	testl	%eax, %eax
-	jne	L65
+	jne	L95
 	call	abort
-L65:
+L95:
 	movq	ptr(%rip), %rax
 	movq	%rax, %rdi
 	call	predec_arg_ptr
 	testl	%eax, %eax
-	jne	L66
+	jne	L96
 	call	abort
-L66:
+L96:
 	call	predec_glob_ptr
 	testl	%eax, %eax
-	jne	L67
+	jne	L97
 	call	abort
-L67:
+L97:
 	movq	ptr(%rip), %rax
 	movq	%rax, %rdi
 	call	postdec_arg_ptr
 	testl	%eax, %eax
-	jne	L68
+	jne	L98
 	call	abort
-L68:
+L98:
 	call	postdec_glob_ptr
 	testl	%eax, %eax
-	jne	L69
+	jne	L99
 	call	abort
-L69:
+L99:
 	movq	ptr(%rip), %rax
 	movl	$3, %esi
 	movq	%rax, %rdi
 	call	preinc_arg_idx
 	testl	%eax, %eax
-	jne	L70
+	jne	L100
 	call	abort
-L70:
+L100:
 	call	preinc_glob_idx
 	testl	%eax, %eax
-	jne	L71
+	jne	L101
 	call	abort
-L71:
+L101:
 	movq	ptr(%rip), %rax
 	movl	$3, %esi
 	movq	%rax, %rdi
 	call	postinc_arg_idx
 	testl	%eax, %eax
-	jne	L72
+	jne	L102
 	call	abort
-L72:
+L102:
 	call	postinc_glob_idx
 	testl	%eax, %eax
-	jne	L73
+	jne	L103
 	call	abort
-L73:
+L103:
 	movq	ptr(%rip), %rax
 	movl	$3, %esi
 	movq	%rax, %rdi
 	call	predec_arg_idx
 	testl	%eax, %eax
-	jne	L74
+	jne	L104
 	call	abort
-L74:
+L104:
 	call	predec_glob_idx
 	testl	%eax, %eax
-	jne	L75
+	jne	L105
 	call	abort
-L75:
+L105:
 	movq	ptr(%rip), %rax
 	movl	$3, %esi
 	movq	%rax, %rdi
 	call	postdec_arg_idx
 	testl	%eax, %eax
-	jne	L76
+	jne	L106
 	call	abort
-L76:
+L106:
 	call	postdec_glob_idx
 	testl	%eax, %eax
-	jne	L77
+	jne	L107
 	call	abort
-L77:
+L107:
 	movq	ptr(%rip), %rax
 	movq	%rax, %rdi
 	call	funccall_arg_ptr
 	testl	%eax, %eax
-	jne	L78
+	jne	L108
 	call	abort
-L78:
+L108:
 	movq	ptr(%rip), %rax
 	movl	$3, %esi
 	movq	%rax, %rdi
 	call	funccall_arg_idx
 	testl	%eax, %eax
-	jne	L79
+	jne	L109
 	call	abort
-L79:
+L109:
 	movl	$0, %edi
 	call	exit

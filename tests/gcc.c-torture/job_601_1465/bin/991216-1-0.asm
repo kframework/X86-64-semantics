@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 test1:
@@ -196,15 +233,15 @@ test1:
 	movq	%rsi, -16(%rbp)
 	movl	%edx, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L33
+	jne	L40
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, -16(%rbp)
-	jne	L33
+	jne	L40
 	cmpl	$85, -8(%rbp)
-	je	L32
-L33:
+	je	L39
+L40:
 	call	abort
-L32:
+L39:
 	leave
 	ret
 test2:
@@ -216,17 +253,17 @@ test2:
 	movq	%rdx, -16(%rbp)
 	movl	%ecx, -20(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L36
+	jne	L43
 	cmpl	$2, -8(%rbp)
-	jne	L36
+	jne	L43
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, -16(%rbp)
-	jne	L36
+	jne	L43
 	cmpl	$85, -20(%rbp)
-	je	L35
-L36:
+	je	L42
+L43:
 	call	abort
-L35:
+L42:
 	leave
 	ret
 test3:
@@ -239,19 +276,19 @@ test3:
 	movq	%rcx, -24(%rbp)
 	movl	%r8d, -16(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L39
+	jne	L46
 	cmpl	$2, -8(%rbp)
-	jne	L39
+	jne	L46
 	cmpl	$3, -12(%rbp)
-	jne	L39
+	jne	L46
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, -24(%rbp)
-	jne	L39
+	jne	L46
 	cmpl	$85, -16(%rbp)
-	je	L38
-L39:
+	je	L45
+L46:
 	call	abort
-L38:
+L45:
 	leave
 	ret
 test4:
@@ -265,21 +302,21 @@ test4:
 	movq	%r8, -24(%rbp)
 	movl	%r9d, -28(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L42
+	jne	L49
 	cmpl	$2, -8(%rbp)
-	jne	L42
+	jne	L49
 	cmpl	$3, -12(%rbp)
-	jne	L42
+	jne	L49
 	cmpl	$4, -16(%rbp)
-	jne	L42
+	jne	L49
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, -24(%rbp)
-	jne	L42
+	jne	L49
 	cmpl	$85, -28(%rbp)
-	je	L41
-L42:
+	je	L48
+L49:
 	call	abort
-L41:
+L48:
 	leave
 	ret
 test5:
@@ -293,23 +330,23 @@ test5:
 	movl	%r8d, -20(%rbp)
 	movq	%r9, -32(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L45
+	jne	L52
 	cmpl	$2, -8(%rbp)
-	jne	L45
+	jne	L52
 	cmpl	$3, -12(%rbp)
-	jne	L45
+	jne	L52
 	cmpl	$4, -16(%rbp)
-	jne	L45
+	jne	L52
 	cmpl	$5, -20(%rbp)
-	jne	L45
+	jne	L52
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, -32(%rbp)
-	jne	L45
+	jne	L52
 	cmpl	$85, 16(%rbp)
-	je	L44
-L45:
+	je	L51
+L52:
 	call	abort
-L44:
+L51:
 	leave
 	ret
 test6:
@@ -323,25 +360,25 @@ test6:
 	movl	%r8d, -20(%rbp)
 	movl	%r9d, -24(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L48
+	jne	L55
 	cmpl	$2, -8(%rbp)
-	jne	L48
+	jne	L55
 	cmpl	$3, -12(%rbp)
-	jne	L48
+	jne	L55
 	cmpl	$4, -16(%rbp)
-	jne	L48
+	jne	L55
 	cmpl	$5, -20(%rbp)
-	jne	L48
+	jne	L55
 	cmpl	$6, -24(%rbp)
-	jne	L48
+	jne	L55
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, 16(%rbp)
-	jne	L48
+	jne	L55
 	cmpl	$85, 24(%rbp)
-	je	L47
-L48:
+	je	L54
+L55:
 	call	abort
-L47:
+L54:
 	leave
 	ret
 test7:
@@ -355,27 +392,27 @@ test7:
 	movl	%r8d, -20(%rbp)
 	movl	%r9d, -24(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$2, -8(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$3, -12(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$4, -16(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$5, -20(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$6, -24(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$7, 16(%rbp)
-	jne	L51
+	jne	L58
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, 24(%rbp)
-	jne	L51
+	jne	L58
 	cmpl	$85, 32(%rbp)
-	je	L50
-L51:
+	je	L57
+L58:
 	call	abort
-L50:
+L57:
 	leave
 	ret
 test8:
@@ -389,29 +426,29 @@ test8:
 	movl	%r8d, -20(%rbp)
 	movl	%r9d, -24(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$2, -8(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$3, -12(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$4, -16(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$5, -20(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$6, -24(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$7, 16(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$8, 24(%rbp)
-	jne	L54
+	jne	L61
 	movabsq	$81985529216486895, %rax
 	cmpq	%rax, 32(%rbp)
-	jne	L54
+	jne	L61
 	cmpl	$85, 40(%rbp)
-	je	L53
-L54:
+	je	L60
+L61:
 	call	abort
-L53:
+L60:
 	leave
 	ret
 .globl _start

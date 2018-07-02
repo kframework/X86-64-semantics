@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 fooctz:
@@ -193,13 +230,13 @@ fooctz:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L33
+	je	L40
 	movl	-4(%rbp), %eax
 	tzcntl	%eax, %eax
-	jmp	L34
-L33:
+	jmp	L41
+L40:
 	movl	$32, %eax
-L34:
+L41:
 	popq	%rbp
 	ret
 fooctz2:
@@ -207,13 +244,13 @@ fooctz2:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L37
+	je	L44
 	movl	-4(%rbp), %eax
 	tzcntl	%eax, %eax
-	jmp	L38
-L37:
+	jmp	L45
+L44:
 	movl	$32, %eax
-L38:
+L45:
 	popq	%rbp
 	ret
 fooctz3:
@@ -221,12 +258,12 @@ fooctz3:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L41
+	je	L48
 	tzcntl	-4(%rbp), %eax
-	jmp	L42
-L41:
+	jmp	L49
+L48:
 	movl	$32, %eax
-L42:
+L49:
 	popq	%rbp
 	ret
 fooclz:
@@ -234,13 +271,13 @@ fooclz:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L45
+	je	L52
 	movl	-4(%rbp), %eax
 	lzcntl	%eax, %eax
-	jmp	L46
-L45:
+	jmp	L53
+L52:
 	movl	$32, %eax
-L46:
+L53:
 	popq	%rbp
 	ret
 fooclz2:
@@ -248,13 +285,13 @@ fooclz2:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L49
+	je	L56
 	movl	-4(%rbp), %eax
 	lzcntl	%eax, %eax
-	jmp	L50
-L49:
+	jmp	L57
+L56:
 	movl	$32, %eax
-L50:
+L57:
 	popq	%rbp
 	ret
 fooclz3:
@@ -262,12 +299,12 @@ fooclz3:
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	je	L53
+	je	L60
 	lzcntl	-4(%rbp), %eax
-	jmp	L54
-L53:
+	jmp	L61
+L60:
 	movl	$32, %eax
-L54:
+L61:
 	popq	%rbp
 	ret
 .globl _start
@@ -277,30 +314,30 @@ _start:
 	movl	$0, %edi
 	call	fooctz
 	cmpl	$32, %eax
-	jne	L57
+	jne	L64
 	movl	$0, %edi
 	call	fooctz2
 	cmpl	$32, %eax
-	jne	L57
+	jne	L64
 	movl	$0, %edi
 	call	fooctz3
 	cmpl	$32, %eax
-	jne	L57
+	jne	L64
 	movl	$0, %edi
 	call	fooclz
 	cmpl	$32, %eax
-	jne	L57
+	jne	L64
 	movl	$0, %edi
 	call	fooclz2
 	cmpl	$32, %eax
-	jne	L57
+	jne	L64
 	movl	$0, %edi
 	call	fooclz3
 	cmpl	$32, %eax
-	je	L58
-L57:
+	je	L65
+L64:
 	call	abort
-L58:
+L65:
 	movl	$0, %eax
 	popq	%rbp
 	ret

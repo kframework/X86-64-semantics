@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 g:
@@ -232,72 +269,72 @@ _start:
 	movl	$18, %edi
 	call	g
 	cmpq	%rax, %rbx
-	je	L37
-	call	abort
-L37:
-	movl	$4660, %edi
-	call	f
-	movq	%rax, %rbx
-	movl	$4660, %edi
-	call	g
-	cmpq	%rax, %rbx
-	je	L38
-	call	abort
-L38:
-	movl	$1193046, %edi
-	call	f
-	movq	%rax, %rbx
-	movl	$1193046, %edi
-	call	g
-	cmpq	%rax, %rbx
-	je	L39
-	call	abort
-L39:
-	movl	$305419896, %edi
-	call	f
-	movq	%rax, %rbx
-	movl	$305419896, %edi
-	call	g
-	cmpq	%rax, %rbx
-	je	L40
-	call	abort
-L40:
-	movabsq	$78187493520, %rdi
-	call	f
-	movq	%rax, %rbx
-	movabsq	$78187493520, %rdi
-	call	g
-	cmpq	%rax, %rbx
-	je	L41
-	call	abort
-L41:
-	movabsq	$20015998341138, %rdi
-	call	f
-	movq	%rax, %rbx
-	movabsq	$20015998341138, %rdi
-	call	g
-	cmpq	%rax, %rbx
-	je	L42
-	call	abort
-L42:
-	movabsq	$5124095575331380, %rdi
-	call	f
-	movq	%rax, %rbx
-	movabsq	$5124095575331380, %rdi
-	call	g
-	cmpq	%rax, %rbx
-	je	L43
-	call	abort
-L43:
-	movabsq	$1311768467284833366, %rdi
-	call	f
-	movq	%rax, %rbx
-	movabsq	$1311768467284833366, %rdi
-	call	g
-	cmpq	%rax, %rbx
 	je	L44
 	call	abort
 L44:
+	movl	$4660, %edi
+	call	f
+	movq	%rax, %rbx
+	movl	$4660, %edi
+	call	g
+	cmpq	%rax, %rbx
+	je	L45
+	call	abort
+L45:
+	movl	$1193046, %edi
+	call	f
+	movq	%rax, %rbx
+	movl	$1193046, %edi
+	call	g
+	cmpq	%rax, %rbx
+	je	L46
+	call	abort
+L46:
+	movl	$305419896, %edi
+	call	f
+	movq	%rax, %rbx
+	movl	$305419896, %edi
+	call	g
+	cmpq	%rax, %rbx
+	je	L47
+	call	abort
+L47:
+	movabsq	$78187493520, %rdi
+	call	f
+	movq	%rax, %rbx
+	movabsq	$78187493520, %rdi
+	call	g
+	cmpq	%rax, %rbx
+	je	L48
+	call	abort
+L48:
+	movabsq	$20015998341138, %rdi
+	call	f
+	movq	%rax, %rbx
+	movabsq	$20015998341138, %rdi
+	call	g
+	cmpq	%rax, %rbx
+	je	L49
+	call	abort
+L49:
+	movabsq	$5124095575331380, %rdi
+	call	f
+	movq	%rax, %rbx
+	movabsq	$5124095575331380, %rdi
+	call	g
+	cmpq	%rax, %rbx
+	je	L50
+	call	abort
+L50:
+	movabsq	$1311768467284833366, %rdi
+	call	f
+	movq	%rax, %rbx
+	movabsq	$1311768467284833366, %rdi
+	call	g
+	cmpq	%rax, %rbx
+	je	L51
+	call	abort
+L51:
 	movl	$0, %eax
 	addq	$8, %rsp
 	popq	%rbx

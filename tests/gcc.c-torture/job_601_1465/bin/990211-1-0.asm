@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 func:
@@ -194,101 +231,101 @@ func:
 	subq	$8, %rsp
 	movl	%edi, -4(%rbp)
 	cmpl	$0, -4(%rbp)
-	jns	L33
+	jns	L40
 	cmpl	$0, -4(%rbp)
-	js	L33
-	call	abort
-L33:
-	cmpl	$0, -4(%rbp)
-	jle	L34
-	cmpl	$0, -4(%rbp)
-	jg	L34
-	call	abort
-L34:
-	cmpl	$0, -4(%rbp)
-	js	L35
-	cmpl	$0, -4(%rbp)
-	jns	L35
-	call	abort
-L35:
-	cmpl	$0, -4(%rbp)
-	jg	L36
-	cmpl	$0, -4(%rbp)
-	jle	L36
-	call	abort
-L36:
-	cmpl	$76, -4(%rbp)
-	jg	L37
-	cmpl	$76, -4(%rbp)
-	jle	L37
-	call	abort
-L37:
-	cmpl	$77, -4(%rbp)
-	jle	L38
-	cmpl	$77, -4(%rbp)
-	jg	L38
-	call	abort
-L38:
-	cmpl	$76, -4(%rbp)
-	jle	L39
-	cmpl	$76, -4(%rbp)
-	jg	L39
-	call	abort
-L39:
-	cmpl	$77, -4(%rbp)
-	jg	L40
-	cmpl	$77, -4(%rbp)
-	jle	L40
+	js	L40
 	call	abort
 L40:
 	cmpl	$0, -4(%rbp)
-	js	L41
+	jle	L41
 	cmpl	$0, -4(%rbp)
-	jns	L41
+	jg	L41
 	call	abort
 L41:
 	cmpl	$0, -4(%rbp)
-	jg	L42
+	js	L42
 	cmpl	$0, -4(%rbp)
-	jle	L42
+	jns	L42
 	call	abort
 L42:
 	cmpl	$0, -4(%rbp)
-	jns	L43
+	jg	L43
 	cmpl	$0, -4(%rbp)
-	js	L43
+	jle	L43
 	call	abort
 L43:
-	cmpl	$0, -4(%rbp)
-	jle	L44
-	cmpl	$0, -4(%rbp)
+	cmpl	$76, -4(%rbp)
 	jg	L44
+	cmpl	$76, -4(%rbp)
+	jle	L44
 	call	abort
 L44:
-	cmpl	$76, -4(%rbp)
+	cmpl	$77, -4(%rbp)
 	jle	L45
-	cmpl	$76, -4(%rbp)
+	cmpl	$77, -4(%rbp)
 	jg	L45
 	call	abort
 L45:
-	cmpl	$77, -4(%rbp)
-	jg	L46
-	cmpl	$77, -4(%rbp)
+	cmpl	$76, -4(%rbp)
 	jle	L46
+	cmpl	$76, -4(%rbp)
+	jg	L46
 	call	abort
 L46:
-	cmpl	$76, -4(%rbp)
+	cmpl	$77, -4(%rbp)
 	jg	L47
-	cmpl	$76, -4(%rbp)
+	cmpl	$77, -4(%rbp)
 	jle	L47
 	call	abort
 L47:
-	cmpl	$77, -4(%rbp)
-	jle	L48
-	cmpl	$77, -4(%rbp)
-	jg	L48
+	cmpl	$0, -4(%rbp)
+	js	L48
+	cmpl	$0, -4(%rbp)
+	jns	L48
 	call	abort
 L48:
+	cmpl	$0, -4(%rbp)
+	jg	L49
+	cmpl	$0, -4(%rbp)
+	jle	L49
+	call	abort
+L49:
+	cmpl	$0, -4(%rbp)
+	jns	L50
+	cmpl	$0, -4(%rbp)
+	js	L50
+	call	abort
+L50:
+	cmpl	$0, -4(%rbp)
+	jle	L51
+	cmpl	$0, -4(%rbp)
+	jg	L51
+	call	abort
+L51:
+	cmpl	$76, -4(%rbp)
+	jle	L52
+	cmpl	$76, -4(%rbp)
+	jg	L52
+	call	abort
+L52:
+	cmpl	$77, -4(%rbp)
+	jg	L53
+	cmpl	$77, -4(%rbp)
+	jle	L53
+	call	abort
+L53:
+	cmpl	$76, -4(%rbp)
+	jg	L54
+	cmpl	$76, -4(%rbp)
+	jle	L54
+	call	abort
+L54:
+	cmpl	$77, -4(%rbp)
+	jle	L55
+	cmpl	$77, -4(%rbp)
+	jg	L55
+	call	abort
+L55:
 	nop
 	leave
 	ret

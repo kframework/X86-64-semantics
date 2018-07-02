@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 copy:
@@ -209,8 +246,8 @@ _start:
 	movq	%rsp, %rbp
 	subq	$192, %rsp
 	movl	$0, -4(%rbp)
-	jmp	L35
-L36:
+	jmp	L42
+L43:
 	movl	-4(%rbp), %eax
 	movl	%eax, %edx
 	movl	-4(%rbp), %eax
@@ -218,9 +255,9 @@ L36:
 	movl	-4(%rbp), %eax
 	movb	$0, -192(%rbp,%rax)
 	addl	$1, -4(%rbp)
-L35:
+L42:
 	cmpl	$84, -4(%rbp)
-	jbe	L36
+	jbe	L43
 	movl	$0, -4(%rbp)
 	nop
 	movl	$0, -4(%rbp)
@@ -250,37 +287,37 @@ L35:
 	movzbl	-12(%rbp), %eax
 	movb	%al, -108(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	L37
-L39:
+	jmp	L44
+L46:
 	movl	-4(%rbp), %eax
 	movzbl	-192(%rbp,%rax), %edx
 	movl	-4(%rbp), %eax
 	cmpb	%al, %dl
-	je	L38
+	je	L45
 	call	abort
-L38:
+L45:
 	addl	$1, -4(%rbp)
-L37:
+L44:
 	cmpl	$84, -4(%rbp)
-	jbe	L39
+	jbe	L46
 	leaq	-192(%rbp), %rax
 	movl	$85, %edx
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	memset
 	movl	$0, -4(%rbp)
-	jmp	L40
-L42:
+	jmp	L47
+L49:
 	movl	-4(%rbp), %eax
 	movzbl	-192(%rbp,%rax), %eax
 	testb	%al, %al
-	je	L41
+	je	L48
 	call	abort
-L41:
+L48:
 	addl	$1, -4(%rbp)
-L40:
+L47:
 	cmpl	$84, -4(%rbp)
-	jbe	L42
+	jbe	L49
 	leaq	-96(%rbp), %rcx
 	leaq	-192(%rbp), %rax
 	movl	$0, %edx
@@ -301,18 +338,18 @@ L40:
 	movq	%rax, %rdi
 	call	copy
 	movl	$0, -4(%rbp)
-	jmp	L43
-L45:
+	jmp	L50
+L52:
 	movl	-4(%rbp), %eax
 	movzbl	-192(%rbp,%rax), %edx
 	movl	-4(%rbp), %eax
 	cmpb	%al, %dl
-	je	L44
+	je	L51
 	call	abort
-L44:
+L51:
 	addl	$1, -4(%rbp)
-L43:
+L50:
 	cmpl	$84, -4(%rbp)
-	jbe	L45
+	jbe	L52
 	movl	$0, %edi
 	call	exit

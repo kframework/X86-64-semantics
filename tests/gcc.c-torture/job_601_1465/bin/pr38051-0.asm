@@ -24,6 +24,87 @@ L6:
 L1:
 	popq	%rbp
 	ret
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
+	ret
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -41,6 +122,109 @@ abort:
 	
 	popq	%rbp
 	ret
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
+	ret
 mymemcmp1:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -50,7 +234,7 @@ mymemcmp1:
 	movq	%rax, -8(%rbp)
 	leaq	-48(%rbp), %rax
 	movq	%rax, -16(%rbp)
-L10:
+L40:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %eax
@@ -63,7 +247,7 @@ L10:
 	addq	$1, -16(%rbp)
 	movq	-24(%rbp), %rax
 	cmpq	-32(%rbp), %rax
-	je	L10
+	je	L40
 	movq	-24(%rbp), %rax
 	movl	%eax, %edx
 	movq	-32(%rbp), %rax
@@ -81,11 +265,11 @@ mymemcmp2:
 	movq	-56(%rbp), %rax
 	andl	$3, %eax
 	cmpq	$1, %rax
-	je	L14
+	je	L44
 	cmpq	$1, %rax
-	jb	L15
+	jb	L45
 	cmpq	$3, %rax
-	je	L16
+	je	L46
 	movq	-40(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -8(%rbp)
@@ -99,8 +283,8 @@ mymemcmp2:
 	subq	$16, %rax
 	movq	%rax, -48(%rbp)
 	addq	$2, -56(%rbp)
-	jmp	L17
-L16:
+	jmp	L47
+L46:
 	movq	-40(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
@@ -114,21 +298,21 @@ L16:
 	subq	$8, %rax
 	movq	%rax, -48(%rbp)
 	addq	$1, -56(%rbp)
-	jmp	L18
-L15:
+	jmp	L48
+L45:
 	cmpq	$0, -56(%rbp)
-	jne	L19
+	jne	L49
 	movl	$0, %eax
-	jmp	L20
-L19:
+	jmp	L50
+L49:
 	movq	-40(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -8(%rbp)
 	movq	-48(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -24(%rbp)
-	jmp	L21
-L14:
+	jmp	L51
+L44:
 	movq	-40(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
@@ -143,9 +327,9 @@ L14:
 	movq	%rax, -48(%rbp)
 	subq	$1, -56(%rbp)
 	cmpq	$0, -56(%rbp)
-	jne	L22
-	jmp	L23
-L22:
+	jne	L52
+	jmp	L53
+L52:
 	movq	-40(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -8(%rbp)
@@ -154,14 +338,14 @@ L22:
 	movq	%rax, -24(%rbp)
 	movq	-16(%rbp), %rax
 	cmpq	-32(%rbp), %rax
-	je	L21
+	je	L51
 	movq	-32(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L20
-L21:
+	jmp	L50
+L51:
 	movq	-40(%rbp), %rax
 	addq	$8, %rax
 	movq	(%rax), %rax
@@ -172,14 +356,14 @@ L21:
 	movq	%rax, -32(%rbp)
 	movq	-8(%rbp), %rax
 	cmpq	-24(%rbp), %rax
-	je	L18
+	je	L48
 	movq	-24(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L20
-L18:
+	jmp	L50
+L48:
 	movq	-40(%rbp), %rax
 	addq	$16, %rax
 	movq	(%rax), %rax
@@ -190,14 +374,14 @@ L18:
 	movq	%rax, -24(%rbp)
 	movq	-16(%rbp), %rax
 	cmpq	-32(%rbp), %rax
-	je	L17
+	je	L47
 	movq	-32(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L20
-L17:
+	jmp	L50
+L47:
 	movq	-40(%rbp), %rax
 	addq	$24, %rax
 	movq	(%rax), %rax
@@ -208,14 +392,14 @@ L17:
 	movq	%rax, -32(%rbp)
 	movq	-8(%rbp), %rax
 	cmpq	-24(%rbp), %rax
-	je	L24
+	je	L54
 	movq	-24(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L20
-L24:
+	jmp	L50
+L54:
 	movq	-40(%rbp), %rax
 	addq	$32, %rax
 	movq	%rax, -40(%rbp)
@@ -224,20 +408,20 @@ L24:
 	movq	%rax, -48(%rbp)
 	subq	$4, -56(%rbp)
 	cmpq	$0, -56(%rbp)
-	jne	L22
-L23:
+	jne	L52
+L53:
 	movq	-16(%rbp), %rax
 	cmpq	-32(%rbp), %rax
-	je	L25
+	je	L55
 	movq	-32(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L20
-L25:
+	jmp	L50
+L55:
 	movl	$0, %eax
-L20:
+L50:
 	leave
 	ret
 mymemcmp3:
@@ -260,11 +444,11 @@ mymemcmp3:
 	movq	-104(%rbp), %rax
 	andl	$3, %eax
 	cmpq	$1, %rax
-	je	L28
+	je	L58
 	cmpq	$1, %rax
-	jb	L29
+	jb	L59
 	cmpq	$3, %rax
-	je	L30
+	je	L60
 	movq	-88(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
@@ -282,8 +466,8 @@ mymemcmp3:
 	subq	$16, %rax
 	movq	%rax, -96(%rbp)
 	addq	$2, -104(%rbp)
-	jmp	L31
-L30:
+	jmp	L61
+L60:
 	movq	-88(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -8(%rbp)
@@ -298,13 +482,13 @@ L30:
 	subq	$8, %rax
 	movq	%rax, -96(%rbp)
 	addq	$1, -104(%rbp)
-	jmp	L32
-L29:
+	jmp	L62
+L59:
 	cmpq	$0, -104(%rbp)
-	jne	L33
+	jne	L63
 	movl	$0, %eax
-	jmp	L34
-L33:
+	jmp	L64
+L63:
 	movq	-88(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -32(%rbp)
@@ -318,8 +502,8 @@ L33:
 	movq	-88(%rbp), %rax
 	addq	$8, %rax
 	movq	%rax, -88(%rbp)
-	jmp	L35
-L28:
+	jmp	L65
+L58:
 	movq	-88(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -24(%rbp)
@@ -338,9 +522,9 @@ L28:
 	movq	%rax, -96(%rbp)
 	subq	$1, -104(%rbp)
 	cmpq	$0, -104(%rbp)
-	jne	L36
-	jmp	L37
-L36:
+	jne	L66
+	jmp	L67
+L66:
 	movq	-88(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -8(%rbp)
@@ -357,14 +541,14 @@ L36:
 	movq	%rax, -80(%rbp)
 	movq	-80(%rbp), %rax
 	cmpq	-64(%rbp), %rax
-	je	L35
+	je	L65
 	movq	-64(%rbp), %rdx
 	movq	-80(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L34
-L35:
+	jmp	L64
+L65:
 	movq	-88(%rbp), %rax
 	addq	$8, %rax
 	movq	(%rax), %rax
@@ -383,14 +567,14 @@ L35:
 	movq	%rax, -80(%rbp)
 	movq	-80(%rbp), %rax
 	cmpq	-40(%rbp), %rax
-	je	L32
+	je	L62
 	movq	-40(%rbp), %rdx
 	movq	-80(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L34
-L32:
+	jmp	L64
+L62:
 	movq	-88(%rbp), %rax
 	addq	$16, %rax
 	movq	(%rax), %rax
@@ -409,14 +593,14 @@ L32:
 	movq	%rax, -80(%rbp)
 	movq	-80(%rbp), %rax
 	cmpq	-48(%rbp), %rax
-	je	L31
+	je	L61
 	movq	-48(%rbp), %rdx
 	movq	-80(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L34
-L31:
+	jmp	L64
+L61:
 	movq	-88(%rbp), %rax
 	addq	$24, %rax
 	movq	(%rax), %rax
@@ -435,14 +619,14 @@ L31:
 	movq	%rax, -80(%rbp)
 	movq	-80(%rbp), %rax
 	cmpq	-56(%rbp), %rax
-	je	L38
+	je	L68
 	movq	-56(%rbp), %rdx
 	movq	-80(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L34
-L38:
+	jmp	L64
+L68:
 	movq	-88(%rbp), %rax
 	addq	$32, %rax
 	movq	%rax, -88(%rbp)
@@ -451,8 +635,8 @@ L38:
 	movq	%rax, -96(%rbp)
 	subq	$4, -104(%rbp)
 	cmpq	$0, -104(%rbp)
-	jne	L36
-L37:
+	jne	L66
+L67:
 	movl	-68(%rbp), %eax
 	movq	-24(%rbp), %rdx
 	shrx	%rax, %rdx, %rcx
@@ -463,16 +647,16 @@ L37:
 	movq	%rax, -80(%rbp)
 	movq	-80(%rbp), %rax
 	cmpq	-64(%rbp), %rax
-	je	L39
+	je	L69
 	movq	-64(%rbp), %rdx
 	movq	-80(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp1
-	jmp	L34
-L39:
+	jmp	L64
+L69:
 	movl	$0, %eax
-L34:
+L64:
 	leave
 	ret
 mymemcmp:
@@ -489,7 +673,7 @@ mymemcmp:
 	movq	-8(%rbp), %rax
 	andl	$7, %eax
 	testq	%rax, %rax
-	jne	L41
+	jne	L71
 	movq	-40(%rbp), %rax
 	shrq	$3, %rax
 	movq	%rax, %rdx
@@ -498,8 +682,8 @@ mymemcmp:
 	movq	%rcx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp2
-	jmp	L42
-L41:
+	jmp	L72
+L71:
 	movq	-40(%rbp), %rax
 	shrq	$3, %rax
 	movq	%rax, %rdx
@@ -508,10 +692,14 @@ L41:
 	movq	%rcx, %rsi
 	movq	%rax, %rdi
 	call	mymemcmp3
-L42:
+L72:
 	leave
 	ret
 	.comm	buf,256,64
+LC0:
+	.string	"\0017\202\247UI\235\277\370D\266U\027\216\371"
+LC1:
+	.string	"\0017\202\247UI\320\363\267*m#qIj"
 .globl _start
 _start:
 	pushq	%rbp
@@ -520,20 +708,20 @@ _start:
 	movq	$305419896, -16(%rbp)
 	movzbl	-16(%rbp), %eax
 	cmpb	$120, %al
-	jne	L44
+	jne	L74
 	movzbl	-15(%rbp), %eax
 	cmpb	$86, %al
-	jne	L44
+	jne	L74
 	movzbl	-14(%rbp), %eax
 	cmpb	$52, %al
-	jne	L44
+	jne	L74
 	movzbl	-13(%rbp), %eax
 	cmpb	$18, %al
-	je	L45
-L44:
+	je	L75
+L74:
 	movl	$0, %eax
-	jmp	L48
-L45:
+	jmp	L78
+L75:
 	movl	$buf, %eax
 	andl	$15, %eax
 	movq	%rax, %rdx
@@ -543,18 +731,16 @@ L45:
 	movq	%rax, -8(%rbp)
 	movq	-8(%rbp), %rax
 	addq	$9, %rax
-	movabsq	$-4639471408890366207, %rsi
-	movq	%rsi, (%rax)
-	movl	$1438008568, 8(%rax)
-	movw	$-29161, 12(%rax)
-	movb	$-7, 14(%rax)
+	movl	$15, %edx
+	movl	$LC0, %esi
+	movq	%rax, %rdi
+	call	memcpy
 	movq	-8(%rbp), %rax
 	addq	$152, %rax
-	movabsq	$-878121295105870079, %rdi
-	movq	%rdi, (%rax)
-	movl	$594356919, 8(%rax)
-	movw	$18801, 12(%rax)
-	movb	$106, 14(%rax)
+	movl	$15, %edx
+	movl	$LC1, %esi
+	movq	%rax, %rdi
+	call	memcpy
 	movq	-8(%rbp), %rax
 	leaq	152(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -564,10 +750,10 @@ L45:
 	movq	%rax, %rdi
 	call	mymemcmp
 	cmpl	$-51, %eax
-	je	L47
+	je	L77
 	call	abort
-L47:
+L77:
 	movl	$0, %eax
-L48:
+L78:
 	leave
 	ret

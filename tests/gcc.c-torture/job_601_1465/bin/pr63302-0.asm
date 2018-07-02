@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 foo:
@@ -205,7 +242,7 @@ foo:
 	movq	-8(%rbp), %rax
 	orq	-16(%rbp), %rax
 	testq	%rax, %rax
-	je	L33
+	je	L40
 	movabsq	$-9223372036854775808, %rax
 	movq	$-1, %rdx
 	movq	%rdx, %rcx
@@ -213,13 +250,13 @@ foo:
 	xorq	-16(%rbp), %rax
 	orq	%rcx, %rax
 	testq	%rax, %rax
-	jne	L34
-L33:
+	jne	L41
+L40:
 	movl	$1, %eax
-	jmp	L35
-L34:
+	jmp	L42
+L41:
 	movl	$0, %eax
-L35:
+L42:
 	popq	%rbp
 	ret
 bar:
@@ -230,15 +267,15 @@ bar:
 	andq	$-2147481601, %rax
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	je	L38
+	je	L45
 	cmpq	$-2147483648, -8(%rbp)
-	jne	L39
-L38:
+	jne	L46
+L45:
 	movl	$1, %eax
-	jmp	L40
-L39:
+	jmp	L47
+L46:
 	movl	$0, %eax
-L40:
+L47:
 	popq	%rbp
 	ret
 .globl _start
@@ -251,105 +288,105 @@ _start:
 	movq	%rax, %rsi
 	call	foo
 	cmpl	$1, %eax
-	jne	L43
+	jne	L50
 	movl	$1, %edx
 	movl	$0, %eax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	testl	%eax, %eax
-	jne	L43
+	jne	L50
 	movl	$2048, %edx
 	movl	$0, %eax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	cmpl	$1, %eax
-	jne	L43
+	jne	L50
 	movl	$2049, %edx
 	movl	$0, %eax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	testl	%eax, %eax
-	jne	L43
+	jne	L50
 	movabsq	$-9223372036854775808, %rdx
 	movl	$0, %eax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	testl	%eax, %eax
-	jne	L43
+	jne	L50
 	movabsq	$-9223372036854775808, %rdx
 	movq	$-1, %rax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	cmpl	$1, %eax
-	jne	L43
+	jne	L50
 	movabsq	$-9223372036854775807, %rdx
 	movq	$-1, %rax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	testl	%eax, %eax
-	jne	L43
+	jne	L50
 	movabsq	$-9223372036854773760, %rdx
 	movq	$-1, %rax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	cmpl	$1, %eax
-	jne	L43
+	jne	L50
 	movabsq	$-9223372036854773759, %rdx
 	movq	$-1, %rax
 	movq	%rdx, %rdi
 	movq	%rax, %rsi
 	call	foo
 	testl	%eax, %eax
-	je	L44
-L43:
+	je	L51
+L50:
 	call	abort
-L44:
+L51:
 	movl	$0, %edi
 	call	bar
 	cmpl	$1, %eax
-	jne	L45
+	jne	L52
 	movl	$1, %edi
 	call	bar
 	testl	%eax, %eax
-	jne	L45
+	jne	L52
 	movl	$2048, %edi
 	call	bar
 	cmpl	$1, %eax
-	jne	L45
+	jne	L52
 	movl	$2049, %edi
 	call	bar
 	testl	%eax, %eax
-	jne	L45
+	jne	L52
 	movl	$2147483648, %edi
 	call	bar
 	testl	%eax, %eax
-	jne	L45
+	jne	L52
 	movq	$-2147483648, %rdi
 	call	bar
 	cmpl	$1, %eax
-	jne	L45
+	jne	L52
 	movq	$-2147483647, %rdi
 	call	bar
 	testl	%eax, %eax
-	jne	L45
+	jne	L52
 	movq	$-2147481600, %rdi
 	call	bar
 	cmpl	$1, %eax
-	jne	L45
+	jne	L52
 	movq	$-2147481599, %rdi
 	call	bar
 	testl	%eax, %eax
-	je	L46
-L45:
+	je	L53
+L52:
 	call	abort
-L46:
+L53:
 	movl	$0, %eax
 	popq	%rbp
 	ret

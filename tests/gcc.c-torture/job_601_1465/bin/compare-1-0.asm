@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 ieq:
@@ -197,68 +234,68 @@ ieq:
 	movl	%edx, -12(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jg	L33
+	jg	L40
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jl	L33
+	jl	L40
 	cmpl	$0, -12(%rbp)
-	jne	L34
-	call	abort
-L34:
-	jmp	L35
-L33:
-	cmpl	$0, -12(%rbp)
-	je	L35
-	call	abort
-L35:
-	movl	-4(%rbp), %eax
-	cmpl	-8(%rbp), %eax
-	jg	L36
-	movl	-4(%rbp), %eax
-	cmpl	-8(%rbp), %eax
-	jne	L36
-	cmpl	$0, -12(%rbp)
-	jne	L37
-	call	abort
-L37:
-	jmp	L38
-L36:
-	cmpl	$0, -12(%rbp)
-	je	L38
-	call	abort
-L38:
-	movl	-4(%rbp), %eax
-	cmpl	-8(%rbp), %eax
-	jg	L39
-	movl	-8(%rbp), %eax
-	cmpl	-4(%rbp), %eax
-	jg	L39
-	cmpl	$0, -12(%rbp)
-	jne	L40
-	call	abort
-L40:
-	jmp	L41
-L39:
-	cmpl	$0, -12(%rbp)
-	je	L41
+	jne	L41
 	call	abort
 L41:
-	movl	-8(%rbp), %eax
-	cmpl	-4(%rbp), %eax
-	jne	L42
+	jmp	L42
+L40:
+	cmpl	$0, -12(%rbp)
+	je	L42
+	call	abort
+L42:
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jg	L42
-	cmpl	$0, -12(%rbp)
+	jg	L43
+	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
 	jne	L43
-	call	abort
-L43:
-	jmp	L44
-L42:
 	cmpl	$0, -12(%rbp)
-	je	L44
+	jne	L44
 	call	abort
 L44:
+	jmp	L45
+L43:
+	cmpl	$0, -12(%rbp)
+	je	L45
+	call	abort
+L45:
+	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
+	jg	L46
+	movl	-8(%rbp), %eax
+	cmpl	-4(%rbp), %eax
+	jg	L46
+	cmpl	$0, -12(%rbp)
+	jne	L47
+	call	abort
+L47:
+	jmp	L48
+L46:
+	cmpl	$0, -12(%rbp)
+	je	L48
+	call	abort
+L48:
+	movl	-8(%rbp), %eax
+	cmpl	-4(%rbp), %eax
+	jne	L49
+	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
+	jg	L49
+	cmpl	$0, -12(%rbp)
+	jne	L50
+	call	abort
+L50:
+	jmp	L51
+L49:
+	cmpl	$0, -12(%rbp)
+	je	L51
+	call	abort
+L51:
 	leave
 	ret
 ine:
@@ -270,21 +307,21 @@ ine:
 	movl	%edx, -12(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jl	L46
+	jl	L53
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jle	L47
-L46:
+	jle	L54
+L53:
 	cmpl	$0, -12(%rbp)
-	jne	L48
+	jne	L55
 	call	abort
-L48:
-	jmp	L49
-L47:
+L55:
+	jmp	L56
+L54:
 	cmpl	$0, -12(%rbp)
-	je	L49
+	je	L56
 	call	abort
-L49:
+L56:
 	leave
 	ret
 ilt:
@@ -296,20 +333,20 @@ ilt:
 	movl	%edx, -12(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jge	L51
+	jge	L58
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	je	L51
+	je	L58
 	cmpl	$0, -12(%rbp)
-	jne	L52
+	jne	L59
 	call	abort
-L52:
-	jmp	L53
-L51:
+L59:
+	jmp	L60
+L58:
 	cmpl	$0, -12(%rbp)
-	je	L53
+	je	L60
 	call	abort
-L53:
+L60:
 	leave
 	ret
 ile:
@@ -321,21 +358,21 @@ ile:
 	movl	%edx, -12(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jl	L55
+	jl	L62
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jne	L56
-L55:
+	jne	L63
+L62:
 	cmpl	$0, -12(%rbp)
-	jne	L57
+	jne	L64
 	call	abort
-L57:
-	jmp	L58
-L56:
+L64:
+	jmp	L65
+L63:
 	cmpl	$0, -12(%rbp)
-	je	L58
+	je	L65
 	call	abort
-L58:
+L65:
 	leave
 	ret
 igt:
@@ -347,20 +384,20 @@ igt:
 	movl	%edx, -12(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jle	L60
+	jle	L67
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	je	L60
+	je	L67
 	cmpl	$0, -12(%rbp)
-	jne	L61
+	jne	L68
 	call	abort
-L61:
-	jmp	L62
-L60:
+L68:
+	jmp	L69
+L67:
 	cmpl	$0, -12(%rbp)
-	je	L62
+	je	L69
 	call	abort
-L62:
+L69:
 	leave
 	ret
 ige:
@@ -372,21 +409,21 @@ ige:
 	movl	%edx, -12(%rbp)
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jg	L64
+	jg	L71
 	movl	-4(%rbp), %eax
 	cmpl	-8(%rbp), %eax
-	jne	L65
-L64:
+	jne	L72
+L71:
 	cmpl	$0, -12(%rbp)
-	jne	L66
+	jne	L73
 	call	abort
-L66:
-	jmp	L67
-L65:
+L73:
+	jmp	L74
+L72:
 	cmpl	$0, -12(%rbp)
-	je	L67
+	je	L74
 	call	abort
-L67:
+L74:
 	leave
 	ret
 .globl _start

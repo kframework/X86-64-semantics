@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 foo:
@@ -195,8 +232,8 @@ foo:
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	L33
-L34:
+	jmp	L40
+L41:
 	movl	-4(%rbp), %eax
 	addl	%eax, %eax
 	movl	%eax, %edx
@@ -219,9 +256,9 @@ L34:
 	movl	-4(%rbp), %edx
 	movw	%cx, (%rax,%rdx,2)
 	addl	$1, -4(%rbp)
-L33:
+L40:
 	cmpl	$63, -4(%rbp)
-	jbe	L34
+	jbe	L41
 	popq	%rbp
 	ret
 bar:
@@ -231,8 +268,8 @@ bar:
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	L36
-L37:
+	jmp	L43
+L44:
 	movl	-4(%rbp), %eax
 	addl	%eax, %eax
 	movl	%eax, %edx
@@ -256,9 +293,9 @@ L37:
 	movl	-4(%rbp), %edx
 	movw	%cx, (%rax,%rdx,2)
 	addl	$1, -4(%rbp)
-L36:
+L43:
 	cmpl	$63, -4(%rbp)
-	jbe	L37
+	jbe	L44
 	popq	%rbp
 	ret
 .globl _start
@@ -267,8 +304,8 @@ _start:
 	movq	%rsp, %rbp
 	subq	$144, %rsp
 	movl	$0, -4(%rbp)
-	jmp	L39
-L40:
+	jmp	L46
+L47:
 	movl	-4(%rbp), %eax
 	movl	$64, %edx
 	subl	%eax, %edx
@@ -280,15 +317,15 @@ L40:
 	movl	-4(%rbp), %eax
 	movw	%dx, -144(%rbp,%rax,2)
 	addl	$1, -4(%rbp)
-L39:
+L46:
 	cmpl	$63, -4(%rbp)
-	jbe	L40
+	jbe	L47
 	leaq	-144(%rbp), %rax
 	movq	%rax, %rdi
 	call	foo
 	movl	$0, -4(%rbp)
-	jmp	L41
-L43:
+	jmp	L48
+L50:
 	movl	-4(%rbp), %eax
 	movzwl	-144(%rbp,%rax,2), %eax
 	movzwl	%ax, %edx
@@ -299,16 +336,16 @@ L43:
 	movl	-4(%rbp), %eax
 	addl	%ecx, %eax
 	cmpl	%eax, %edx
-	je	L42
+	je	L49
 	call	abort
-L42:
+L49:
 	addl	$1, -4(%rbp)
-L41:
+L48:
 	cmpl	$63, -4(%rbp)
-	jbe	L43
+	jbe	L50
 	movl	$0, -4(%rbp)
-	jmp	L44
-L45:
+	jmp	L51
+L52:
 	movl	-4(%rbp), %eax
 	movl	$64, %edx
 	subl	%eax, %edx
@@ -320,15 +357,15 @@ L45:
 	movl	-4(%rbp), %eax
 	movw	%dx, -144(%rbp,%rax,2)
 	addl	$1, -4(%rbp)
-L44:
+L51:
 	cmpl	$63, -4(%rbp)
-	jbe	L45
+	jbe	L52
 	leaq	-144(%rbp), %rax
 	movq	%rax, %rdi
 	call	bar
 	movl	$0, -4(%rbp)
-	jmp	L46
-L48:
+	jmp	L53
+L55:
 	movl	-4(%rbp), %eax
 	movzwl	-144(%rbp,%rax,2), %eax
 	movzwl	%ax, %eax
@@ -337,13 +374,13 @@ L48:
 	subl	-4(%rbp), %edx
 	addl	$64, %edx
 	cmpl	%edx, %eax
-	je	L47
+	je	L54
 	call	abort
-L47:
+L54:
 	addl	$1, -4(%rbp)
-L46:
+L53:
 	cmpl	$63, -4(%rbp)
-	jbe	L48
+	jbe	L55
 	movl	$0, %eax
 	leave
 	ret

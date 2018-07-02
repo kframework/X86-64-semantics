@@ -24,6 +24,87 @@ L6:
 L1:
 	popq	%rbp
 	ret
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L8
+L9:
+	addq	$1, -8(%rbp)
+L8:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L9
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+strcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	nop
+L12:
+	movq	-24(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -24(%rbp)
+	movq	-32(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -32(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L12
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
+memcmp:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L15
+L18:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	%al, %dl
+	je	L16
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %edx
+	movq	-16(%rbp), %rax
+	movzbl	(%rax), %eax
+	movzbl	%al, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	jmp	L17
+L16:
+	addq	$1, -8(%rbp)
+	addq	$1, -16(%rbp)
+L15:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L18
+	movl	$0, %eax
+L17:
+	popq	%rbp
+	ret
 exit:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -39,6 +120,109 @@ abort:
 	movq $-1, %rax
 	jmp %rax
 	
+	popq	%rbp
+	ret
+memset:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	jmp	L22
+L23:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movl	-28(%rbp), %edx
+	movb	%dl, (%rax)
+L22:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L23
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+memcpy:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	%rdx, -40(%rbp)
+	movq	-24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	jmp	L26
+L27:
+	movq	-8(%rbp), %rax
+	leaq	1(%rax), %rdx
+	movq	%rdx, -8(%rbp)
+	movq	-16(%rbp), %rdx
+	leaq	1(%rdx), %rcx
+	movq	%rcx, -16(%rbp)
+	movzbl	(%rdx), %edx
+	movb	%dl, (%rax)
+L26:
+	movq	-40(%rbp), %rax
+	leaq	-1(%rax), %rdx
+	movq	%rdx, -40(%rbp)
+	testq	%rax, %rax
+	jne	L27
+	movq	-24(%rbp), %rax
+	popq	%rbp
+	ret
+malloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
+free:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 zext:
@@ -188,42 +372,12 @@ constant_shift:
 	movq	%rdi, -8(%rbp)
 	movl	%esi, -12(%rbp)
 	cmpl	$63, -12(%rbp)
-	ja	L12
+	ja	L42
 	movl	-12(%rbp), %eax
-	movq	L14(,%rax,8), %rax
-	jmp	*%rax
-L14:
-	.quad	L80
-	.quad	L15
-	.quad	L16
-	.quad	L17
-	.quad	L18
-	.quad	L19
-	.quad	L20
-	.quad	L21
-	.quad	L22
-	.quad	L23
-	.quad	L24
-	.quad	L25
-	.quad	L26
-	.quad	L27
-	.quad	L28
-	.quad	L29
-	.quad	L30
-	.quad	L31
-	.quad	L32
-	.quad	L33
-	.quad	L34
-	.quad	L35
-	.quad	L36
-	.quad	L37
-	.quad	L38
-	.quad	L39
-	.quad	L40
-	.quad	L41
-	.quad	L42
-	.quad	L43
-	.quad	L44
+	movq	L44(,%rax,8), %rax
+	call %rax
+L44:
+	.quad	L110
 	.quad	L45
 	.quad	L46
 	.quad	L47
@@ -257,200 +411,230 @@ L14:
 	.quad	L75
 	.quad	L76
 	.quad	L77
-L15:
-	sarq	-8(%rbp)
-	jmp	L78
-L16:
-	sarq	$2, -8(%rbp)
-	jmp	L78
-L17:
-	sarq	$3, -8(%rbp)
-	jmp	L78
-L18:
-	sarq	$4, -8(%rbp)
-	jmp	L78
-L19:
-	sarq	$5, -8(%rbp)
-	jmp	L78
-L20:
-	sarq	$6, -8(%rbp)
-	jmp	L78
-L21:
-	sarq	$7, -8(%rbp)
-	jmp	L78
-L22:
-	sarq	$8, -8(%rbp)
-	jmp	L78
-L23:
-	sarq	$9, -8(%rbp)
-	jmp	L78
-L24:
-	sarq	$10, -8(%rbp)
-	jmp	L78
-L25:
-	sarq	$11, -8(%rbp)
-	jmp	L78
-L26:
-	sarq	$12, -8(%rbp)
-	jmp	L78
-L27:
-	sarq	$13, -8(%rbp)
-	jmp	L78
-L28:
-	sarq	$14, -8(%rbp)
-	jmp	L78
-L29:
-	sarq	$15, -8(%rbp)
-	jmp	L78
-L30:
-	sarq	$16, -8(%rbp)
-	jmp	L78
-L31:
-	sarq	$17, -8(%rbp)
-	jmp	L78
-L32:
-	sarq	$18, -8(%rbp)
-	jmp	L78
-L33:
-	sarq	$19, -8(%rbp)
-	jmp	L78
-L34:
-	sarq	$20, -8(%rbp)
-	jmp	L78
-L35:
-	sarq	$21, -8(%rbp)
-	jmp	L78
-L36:
-	sarq	$22, -8(%rbp)
-	jmp	L78
-L37:
-	sarq	$23, -8(%rbp)
-	jmp	L78
-L38:
-	sarq	$24, -8(%rbp)
-	jmp	L78
-L39:
-	sarq	$25, -8(%rbp)
-	jmp	L78
-L40:
-	sarq	$26, -8(%rbp)
-	jmp	L78
-L41:
-	sarq	$27, -8(%rbp)
-	jmp	L78
-L42:
-	sarq	$28, -8(%rbp)
-	jmp	L78
-L43:
-	sarq	$29, -8(%rbp)
-	jmp	L78
-L44:
-	sarq	$30, -8(%rbp)
-	jmp	L78
+	.quad	L78
+	.quad	L79
+	.quad	L80
+	.quad	L81
+	.quad	L82
+	.quad	L83
+	.quad	L84
+	.quad	L85
+	.quad	L86
+	.quad	L87
+	.quad	L88
+	.quad	L89
+	.quad	L90
+	.quad	L91
+	.quad	L92
+	.quad	L93
+	.quad	L94
+	.quad	L95
+	.quad	L96
+	.quad	L97
+	.quad	L98
+	.quad	L99
+	.quad	L100
+	.quad	L101
+	.quad	L102
+	.quad	L103
+	.quad	L104
+	.quad	L105
+	.quad	L106
+	.quad	L107
 L45:
-	sarq	$31, -8(%rbp)
-	jmp	L78
+	sarq	-8(%rbp)
+	jmp	L108
 L46:
-	sarq	$32, -8(%rbp)
-	jmp	L78
+	sarq	$2, -8(%rbp)
+	jmp	L108
 L47:
-	sarq	$33, -8(%rbp)
-	jmp	L78
+	sarq	$3, -8(%rbp)
+	jmp	L108
 L48:
-	sarq	$34, -8(%rbp)
-	jmp	L78
+	sarq	$4, -8(%rbp)
+	jmp	L108
 L49:
-	sarq	$35, -8(%rbp)
-	jmp	L78
+	sarq	$5, -8(%rbp)
+	jmp	L108
 L50:
-	sarq	$36, -8(%rbp)
-	jmp	L78
+	sarq	$6, -8(%rbp)
+	jmp	L108
 L51:
-	sarq	$37, -8(%rbp)
-	jmp	L78
+	sarq	$7, -8(%rbp)
+	jmp	L108
 L52:
-	sarq	$38, -8(%rbp)
-	jmp	L78
+	sarq	$8, -8(%rbp)
+	jmp	L108
 L53:
-	sarq	$39, -8(%rbp)
-	jmp	L78
+	sarq	$9, -8(%rbp)
+	jmp	L108
 L54:
-	sarq	$40, -8(%rbp)
-	jmp	L78
+	sarq	$10, -8(%rbp)
+	jmp	L108
 L55:
-	sarq	$41, -8(%rbp)
-	jmp	L78
+	sarq	$11, -8(%rbp)
+	jmp	L108
 L56:
-	sarq	$42, -8(%rbp)
-	jmp	L78
+	sarq	$12, -8(%rbp)
+	jmp	L108
 L57:
-	sarq	$43, -8(%rbp)
-	jmp	L78
+	sarq	$13, -8(%rbp)
+	jmp	L108
 L58:
-	sarq	$44, -8(%rbp)
-	jmp	L78
+	sarq	$14, -8(%rbp)
+	jmp	L108
 L59:
-	sarq	$45, -8(%rbp)
-	jmp	L78
+	sarq	$15, -8(%rbp)
+	jmp	L108
 L60:
-	sarq	$46, -8(%rbp)
-	jmp	L78
+	sarq	$16, -8(%rbp)
+	jmp	L108
 L61:
-	sarq	$47, -8(%rbp)
-	jmp	L78
+	sarq	$17, -8(%rbp)
+	jmp	L108
 L62:
-	sarq	$48, -8(%rbp)
-	jmp	L78
+	sarq	$18, -8(%rbp)
+	jmp	L108
 L63:
-	sarq	$49, -8(%rbp)
-	jmp	L78
+	sarq	$19, -8(%rbp)
+	jmp	L108
 L64:
-	sarq	$50, -8(%rbp)
-	jmp	L78
+	sarq	$20, -8(%rbp)
+	jmp	L108
 L65:
-	sarq	$51, -8(%rbp)
-	jmp	L78
+	sarq	$21, -8(%rbp)
+	jmp	L108
 L66:
-	sarq	$52, -8(%rbp)
-	jmp	L78
+	sarq	$22, -8(%rbp)
+	jmp	L108
 L67:
-	sarq	$53, -8(%rbp)
-	jmp	L78
+	sarq	$23, -8(%rbp)
+	jmp	L108
 L68:
-	sarq	$54, -8(%rbp)
-	jmp	L78
+	sarq	$24, -8(%rbp)
+	jmp	L108
 L69:
-	sarq	$55, -8(%rbp)
-	jmp	L78
+	sarq	$25, -8(%rbp)
+	jmp	L108
 L70:
-	sarq	$56, -8(%rbp)
-	jmp	L78
+	sarq	$26, -8(%rbp)
+	jmp	L108
 L71:
-	sarq	$57, -8(%rbp)
-	jmp	L78
+	sarq	$27, -8(%rbp)
+	jmp	L108
 L72:
-	sarq	$58, -8(%rbp)
-	jmp	L78
+	sarq	$28, -8(%rbp)
+	jmp	L108
 L73:
-	sarq	$59, -8(%rbp)
-	jmp	L78
+	sarq	$29, -8(%rbp)
+	jmp	L108
 L74:
-	sarq	$60, -8(%rbp)
-	jmp	L78
+	sarq	$30, -8(%rbp)
+	jmp	L108
 L75:
-	sarq	$61, -8(%rbp)
-	jmp	L78
+	sarq	$31, -8(%rbp)
+	jmp	L108
 L76:
-	sarq	$62, -8(%rbp)
-	jmp	L78
+	sarq	$32, -8(%rbp)
+	jmp	L108
 L77:
-	sarq	$63, -8(%rbp)
-	jmp	L78
-L12:
-	call	abort
-L80:
-	nop
+	sarq	$33, -8(%rbp)
+	jmp	L108
 L78:
+	sarq	$34, -8(%rbp)
+	jmp	L108
+L79:
+	sarq	$35, -8(%rbp)
+	jmp	L108
+L80:
+	sarq	$36, -8(%rbp)
+	jmp	L108
+L81:
+	sarq	$37, -8(%rbp)
+	jmp	L108
+L82:
+	sarq	$38, -8(%rbp)
+	jmp	L108
+L83:
+	sarq	$39, -8(%rbp)
+	jmp	L108
+L84:
+	sarq	$40, -8(%rbp)
+	jmp	L108
+L85:
+	sarq	$41, -8(%rbp)
+	jmp	L108
+L86:
+	sarq	$42, -8(%rbp)
+	jmp	L108
+L87:
+	sarq	$43, -8(%rbp)
+	jmp	L108
+L88:
+	sarq	$44, -8(%rbp)
+	jmp	L108
+L89:
+	sarq	$45, -8(%rbp)
+	jmp	L108
+L90:
+	sarq	$46, -8(%rbp)
+	jmp	L108
+L91:
+	sarq	$47, -8(%rbp)
+	jmp	L108
+L92:
+	sarq	$48, -8(%rbp)
+	jmp	L108
+L93:
+	sarq	$49, -8(%rbp)
+	jmp	L108
+L94:
+	sarq	$50, -8(%rbp)
+	jmp	L108
+L95:
+	sarq	$51, -8(%rbp)
+	jmp	L108
+L96:
+	sarq	$52, -8(%rbp)
+	jmp	L108
+L97:
+	sarq	$53, -8(%rbp)
+	jmp	L108
+L98:
+	sarq	$54, -8(%rbp)
+	jmp	L108
+L99:
+	sarq	$55, -8(%rbp)
+	jmp	L108
+L100:
+	sarq	$56, -8(%rbp)
+	jmp	L108
+L101:
+	sarq	$57, -8(%rbp)
+	jmp	L108
+L102:
+	sarq	$58, -8(%rbp)
+	jmp	L108
+L103:
+	sarq	$59, -8(%rbp)
+	jmp	L108
+L104:
+	sarq	$60, -8(%rbp)
+	jmp	L108
+L105:
+	sarq	$61, -8(%rbp)
+	jmp	L108
+L106:
+	sarq	$62, -8(%rbp)
+	jmp	L108
+L107:
+	sarq	$63, -8(%rbp)
+	jmp	L108
+L42:
+	call	abort
+L110:
+	nop
+L108:
 	movq	-8(%rbp), %rax
 	leave
 	ret
@@ -460,8 +644,8 @@ _start:
 	movq	%rsp, %rbp
 	subq	$48, %rsp
 	movl	$0, -4(%rbp)
-	jmp	L82
-L84:
+	jmp	L112
+L114:
 	movabsq	$8526495107234113920, %rax
 	movl	-4(%rbp), %edx
 	movl	%edx, %esi
@@ -472,16 +656,16 @@ L84:
 	cltq
 	movq	zext(,%rax,8), %rax
 	cmpq	-16(%rbp), %rax
-	je	L83
+	je	L113
 	call	abort
-L83:
+L113:
 	addl	$1, -4(%rbp)
-L82:
+L112:
 	cmpl	$63, -4(%rbp)
-	jle	L84
+	jle	L114
 	movl	$0, -4(%rbp)
-	jmp	L85
-L87:
+	jmp	L115
+L117:
 	movabsq	$-8152436031399644656, %rax
 	movl	-4(%rbp), %edx
 	movl	%edx, %esi
@@ -492,16 +676,16 @@ L87:
 	cltq
 	movq	sext(,%rax,8), %rax
 	cmpq	-24(%rbp), %rax
-	je	L86
+	je	L116
 	call	abort
-L86:
+L116:
 	addl	$1, -4(%rbp)
-L85:
+L115:
 	cmpl	$63, -4(%rbp)
-	jle	L87
+	jle	L117
 	movl	$0, -4(%rbp)
-	jmp	L88
-L90:
+	jmp	L118
+L120:
 	movabsq	$8526495107234113920, %rax
 	movl	-4(%rbp), %edx
 	movl	%edx, %esi
@@ -512,16 +696,16 @@ L90:
 	cltq
 	movq	zext(,%rax,8), %rax
 	cmpq	-32(%rbp), %rax
-	je	L89
+	je	L119
 	call	abort
-L89:
+L119:
 	addl	$1, -4(%rbp)
-L88:
+L118:
 	cmpl	$63, -4(%rbp)
-	jle	L90
+	jle	L120
 	movl	$0, -4(%rbp)
-	jmp	L91
-L93:
+	jmp	L121
+L123:
 	movabsq	$-8152436031399644656, %rax
 	movl	-4(%rbp), %edx
 	movl	%edx, %esi
@@ -532,12 +716,12 @@ L93:
 	cltq
 	movq	sext(,%rax,8), %rax
 	cmpq	-40(%rbp), %rax
-	je	L92
+	je	L122
 	call	abort
-L92:
+L122:
 	addl	$1, -4(%rbp)
-L91:
+L121:
 	cmpl	$63, -4(%rbp)
-	jle	L93
+	jle	L123
 	movl	$0, %edi
 	call	exit

@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 bar:
@@ -201,23 +238,23 @@ foo:
 	movl	%edi, -4(%rbp)
 	movq	%rsi, -16(%rbp)
 	cmpq	$0, -16(%rbp)
-	jns	L34
+	jns	L41
 	movl	$0, %eax
-	jmp	L35
-L34:
+	jmp	L42
+L41:
 	movl	-4(%rbp), %eax
 	sall	$2, %eax
 	movl	%eax, %eax
 	cmpq	-16(%rbp), %rax
-	jle	L36
+	jle	L43
 	movq	-16(%rbp), %rax
 	movl	%eax, %edi
 	call	bar
 	movl	$1, %eax
-	jmp	L35
-L36:
+	jmp	L42
+L43:
 	movl	$0, %eax
-L35:
+L42:
 	leave
 	ret
 .globl _start
@@ -233,9 +270,9 @@ _start:
 	movl	%eax, %edi
 	call	foo
 	testl	%eax, %eax
-	je	L38
+	je	L45
 	call	abort
-L38:
+L45:
 	movq	$-1, -16(%rbp)
 	movq	-16(%rbp), %rdx
 	movl	-4(%rbp), %eax
@@ -243,9 +280,9 @@ L38:
 	movl	%eax, %edi
 	call	foo
 	testl	%eax, %eax
-	je	L39
+	je	L46
 	call	abort
-L39:
+L46:
 	movq	$0, -16(%rbp)
 	movq	-16(%rbp), %rdx
 	movl	-4(%rbp), %eax
@@ -253,9 +290,9 @@ L39:
 	movl	%eax, %edi
 	call	foo
 	cmpl	$1, %eax
-	je	L40
+	je	L47
 	call	abort
-L40:
+L47:
 	movq	$39, -16(%rbp)
 	movq	-16(%rbp), %rdx
 	movl	-4(%rbp), %eax
@@ -263,9 +300,9 @@ L40:
 	movl	%eax, %edi
 	call	foo
 	cmpl	$1, %eax
-	je	L41
+	je	L48
 	call	abort
-L41:
+L48:
 	movq	$40, -16(%rbp)
 	movq	-16(%rbp), %rdx
 	movl	-4(%rbp), %eax
@@ -273,9 +310,9 @@ L41:
 	movl	%eax, %edi
 	call	foo
 	testl	%eax, %eax
-	je	L42
+	je	L49
 	call	abort
-L42:
+L49:
 	movq	$10000, -16(%rbp)
 	movq	-16(%rbp), %rdx
 	movl	-4(%rbp), %eax
@@ -283,9 +320,9 @@ L42:
 	movl	%eax, %edi
 	call	foo
 	testl	%eax, %eax
-	je	L43
+	je	L50
 	call	abort
-L43:
+L50:
 	movl	$0, %eax
 	leave
 	ret

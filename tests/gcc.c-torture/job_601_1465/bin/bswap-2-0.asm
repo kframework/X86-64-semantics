@@ -182,10 +182,47 @@ malloc:
 	movl	$1000, %eax
 	popq	%rbp
 	ret
+calloc:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movl	$1000, %eax
+	popq	%rbp
+	ret
 free:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movq	%rdi, -8(%rbp)
+	popq	%rbp
+	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
 	popq	%rbp
 	ret
 partial_read_le32:
@@ -390,9 +427,9 @@ _start:
 	call	partial_read_le32
 	movl	%eax, -4(%rbp)
 	cmpl	$-1987607165, -4(%rbp)
-	jne	L45
+	jne	L52
 	call	abort
-L45:
+L52:
 	movb	$-125, -16(%rbp)
 	movb	$-123, -15(%rbp)
 	movb	$-121, -14(%rbp)
@@ -402,9 +439,9 @@ L45:
 	call	partial_read_be32
 	movl	%eax, -4(%rbp)
 	cmpl	$-2088401015, -4(%rbp)
-	jne	L46
+	jne	L53
 	call	abort
-L46:
+L53:
 	leaq	-32(%rbp), %rax
 	leaq	2(%rax), %rdx
 	leaq	-32(%rbp), %rax
@@ -413,9 +450,9 @@ L46:
 	call	fake_read_le32
 	movl	%eax, -4(%rbp)
 	cmpl	$-1996388989, -4(%rbp)
-	je	L47
+	je	L54
 	call	abort
-L47:
+L54:
 	movb	$-121, -30(%rbp)
 	leaq	-32(%rbp), %rax
 	leaq	2(%rax), %rdx
@@ -425,9 +462,9 @@ L47:
 	call	fake_read_be32
 	movl	%eax, -4(%rbp)
 	cmpl	$-2088435319, -4(%rbp)
-	je	L48
+	je	L55
 	call	abort
-L48:
+L55:
 	movb	$-121, -30(%rbp)
 	leaq	-32(%rbp), %rax
 	leaq	2(%rax), %rdx
@@ -437,9 +474,9 @@ L48:
 	call	incorrect_read_le32
 	movl	%eax, -4(%rbp)
 	cmpl	$-1987607165, -4(%rbp)
-	je	L49
+	je	L56
 	call	abort
-L49:
+L56:
 	movb	$-121, -30(%rbp)
 	leaq	-32(%rbp), %rax
 	leaq	2(%rax), %rdx
@@ -449,9 +486,9 @@ L49:
 	call	incorrect_read_be32
 	movl	%eax, -4(%rbp)
 	cmpl	$-2088401015, -4(%rbp)
-	je	L50
+	je	L57
 	call	abort
-L50:
+L57:
 	movl	$0, %eax
 	leave
 	ret

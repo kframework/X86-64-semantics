@@ -196,6 +196,35 @@ free:
 	movq	%rdi, -8(%rbp)
 	popq	%rbp
 	ret
+isprint:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -4(%rbp)
+	cmpl	$96, -4(%rbp)
+	jle	L35
+	cmpl	$122, -4(%rbp)
+	jg	L35
+	movl	$1, %eax
+	jmp	L36
+L35:
+	cmpl	$64, -4(%rbp)
+	jle	L37
+	cmpl	$90, -4(%rbp)
+	jg	L37
+	movl	$1, %eax
+	jmp	L36
+L37:
+	cmpl	$47, -4(%rbp)
+	jle	L38
+	cmpl	$57, -4(%rbp)
+	jg	L38
+	movl	$1, %eax
+	jmp	L36
+L38:
+	movl	$0, %eax
+L36:
+	popq	%rbp
+	ret
 init:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -212,12 +241,12 @@ inlined_wrong:
 	movq	-24(%rbp), %rax
 	movb	$0, (%rax)
 	cmpl	$0, -28(%rbp)
-	jne	L37
+	jne	L42
 	call	abort
-L37:
+L42:
 	movb	$0, -1(%rbp)
-	jmp	L38
-L39:
+	jmp	L43
+L44:
 	movq	-24(%rbp), %rax
 	movzbl	(%rax), %eax
 	leal	1(%rax), %edx
@@ -226,15 +255,15 @@ L39:
 	movzbl	-1(%rbp), %eax
 	addl	$1, %eax
 	movb	%al, -1(%rbp)
-L38:
+L43:
 	cmpb	$0, -1(%rbp)
-	je	L39
+	je	L44
 	movq	-24(%rbp), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	L36
+	jne	L41
 	call	abort
-L36:
+L41:
 	leave
 	ret
 expect_func:
@@ -244,15 +273,16 @@ expect_func:
 	movl	%edi, -4(%rbp)
 	movq	%rsi, -16(%rbp)
 	cmpl	$0, -4(%rbp)
-	jne	L42
+	jne	L47
 	call	abort
-L42:
+L47:
 	cmpq	$0, -16(%rbp)
-	jne	L41
+	jne	L46
 	call	abort
-L41:
+L46:
 	leave
 	ret
+.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
