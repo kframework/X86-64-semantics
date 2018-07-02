@@ -1,5 +1,5 @@
-#include "mini_string.h"
-#include "mini_stdlib.h"
+//#include "mini_string.h"
+//#include "mini_stdlib.h"
 /* PR middle-end/71626 */
 /* { dg-additional-options "-fpic" { target fpic } } */
 
