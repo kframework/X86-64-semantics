@@ -7,7 +7,6 @@
 951115-1-0
 960117-1-0
 960209-1-0
-960215-1-0
 960218-1-0
 960301-1-0
 960302-1-0
@@ -17,15 +16,12 @@
 960312-1-0
 960321-1-0
 960326-1-0
-960405-1-0
 960419-1-0
 960521-1-0
 960802-1-0
 961004-1-0
 961122-1-0
 961125-1-0
-961223-1-0
-980205-0
 980223-0
 980424-1-0
 980505-2-0
@@ -37,7 +33,6 @@
 980612-1-0
 980701-1-0
 980707-1-0
-980709-1-0
 980716-1-0
 981001-1-0
 981019-1-0
@@ -53,10 +48,7 @@
 990527-1-0
 990604-1-0
 990628-1-0
-990829-1-0
-991019-1-0
 991023-1-0
-991030-1-0
 991118-1-0
 991201-1-0
 991202-1-0
@@ -66,7 +58,6 @@ alias-1-0
 alias-2-0
 alias-3-0
 alias-4-0
-align-2-0
 anon-1-0
 arith-rand-0
 arith-rand-ll-0
@@ -79,24 +70,12 @@ bitfld-6-0
 bitfld-7-0
 builtin-bitops-1-0
 builtin-constant-0
-builtin-prefetch-1-0
-builtin-prefetch-2-0
-builtin-prefetch-3-0
-builtin-prefetch-4-0
-builtin-prefetch-5-0
-builtin-prefetch-6-0
 built-in-setjmp-0
 builtin-types-compatible-p-0
 cmpdi-1-0
-cmpsf-1-0
 cmpsi-2-0
 comp-goto-1-0
 comp-goto-2-0
-complex-1-0
-complex-2-0
-complex-3-0
-complex-5-0
-complex-7-0
 compndlit-1-0
 const-addr-expr-1-0
 divconst-2-0
@@ -108,8 +87,6 @@ enum-3-0
 extzvsi-0
 ffs-1-0
 ffs-2-0
-fprintf-1-0
-fprintf-chk-1-0
 index-1-0
 longlong-0
 loop-10-0
@@ -126,7 +103,6 @@ loop-3-0
 loop-3b-0
 loop-3c-0
 loop-5-0
-loop-8-0
 loop-ivopts-1-0
 lto-tbaa-1-0
 mayalias-3-0
@@ -146,13 +122,9 @@ nestfunc-4-0
 nestfunc-5-0
 nestfunc-6-0
 nestfunc-7-0
-nest-stdar-1-0
 p18298-0
 packed-1-0
 packed-2-0
-postmod-1-0
-pr15262-0
-pr15262-1-0
 pr15262-2-0
 pr15296-0
 pr17133-0
@@ -177,9 +149,7 @@ pr22141-1-0
 pr22141-2-0
 pr22630-0
 pr23135-0
-pr23324-0
 pr23467-0
-pr23941-0
 pr24135-0
 pr24141-0
 pr24716-0
@@ -204,11 +174,8 @@ pr34456-0
 pr34768-1-0
 pr34768-2-0
 pr34971-0
-pr35456-0
 pr35472-0
 pr35800-0
-pr36034-1-0
-pr36034-2-0
 pr36038-0
 pr36093-0
 pr36321-0
@@ -221,11 +188,8 @@ pr38051-0
 pr38151-0
 pr38422-0
 pr38819-0
-pr38969-0
 pr39120-0
-pr39228-0
 pr39240-0
-pr39501-0
 pr40022-0
 pr40386-0
 pr40404-0
@@ -237,7 +201,6 @@ pr41750-0
 pr41917-0
 pr41919-0
 pr42231-0
-pr42248-0
 pr42269-2-0
 pr42512-0
 pr42570-0
@@ -254,12 +217,9 @@ pr43784-0
 pr43987-0
 pr44164-0
 pr44468-0
-pr44575-0
-pr44683-0
 pr44828-0
 pr44852-0
 pr44858-0
-pr44942-0
 pr46309-0
 pr47148-0
 pr47155-0
@@ -302,7 +262,6 @@ pr53688-0
 pr54937-0
 pr55750-0
 pr55875-0
-pr56205-0
 pr56799-0
 pr56837-0
 pr56962-0
@@ -358,7 +317,6 @@ pr64260-0
 pr64682-0
 pr64718-0
 pr64756-0
-pr64979-0
 pr65053-1-0
 pr65053-2-0
 pr65216-0
@@ -396,7 +354,6 @@ pr70602-0
 pr70903-0
 pr71083-0
 pr71335-0
-pr71550-0
 pr71631-0
 pr71700-0
 pr7284-1-0
@@ -406,13 +363,11 @@ pr78170-0
 pr78436-0
 pr78438-0
 pr78477-0
-pr78586-0
 pr78617-0
 pr78675-0
 pr78726-0
 pr78856-0
 pr79043-0
-pr79327-0
 pr79388-0
 pr79737-1-0
 pr79737-2-0
@@ -431,16 +386,10 @@ pr83383-0
 pr83477-0
 pr84748-0
 pr85156-0
-pr85331-0
 pr85529-1-0
-printf-1-0
-printf-chk-1-0
 ptr-arith-1-0
 pure-1-0
-regstack-1-0
-scal-to-vec1-0
 scal-to-vec2-0
-scal-to-vec3-0
 scope-1-0
 simd-1-0
 simd-2-0
@@ -451,7 +400,6 @@ stkalign-0
 strcmp-1-0
 strcpy-1-0
 strcpy-2-0
-strct-pack-1-0
 string-opt-17-0
 string-opt-5-0
 strlen-1-0
@@ -461,86 +409,138 @@ struct-ini-1-0
 struct-ini-2-0
 struct-ini-3-0
 struct-ini-4-0
-struct-ret-1-0
 va-arg-10-0
-va-arg-12-0
 va-arg-14-0
-va-arg-16-0
-va-arg-17-0
 va-arg-18-0
 va-arg-19-0
 va-arg-2-0
-va-arg-21-0
 va-arg-22-0
-va-arg-24-0
-va-arg-26-0
 va-arg-4-0
-va-arg-5-0
-va-arg-6-0
 va-arg-7-0
 va-arg-9-0
-va-arg-pack-1-0
 va-arg-trap-1-0
-vfprintf-1-0
-vfprintf-chk-1-0
 vla-dealloc-1-0
-vprintf-1-0
-vprintf-chk-1-0
 vrp-7-0
 wchar_t-1-0
 widechar-2-0
 zerolen-1-0
 zero-struct-1-0
 zero-struct-2-0
-pr71494-0 // gcc internal error
-960513-1-0 // x87
-990413-2-0 // x87
-pr47237-0 // x87
-pr85095-0 // __builtin_mul_overflow or __builtin_add_overflow
-pr68381-0 // do
-pr64006-0  // do
-pr71554-0  // do 
-pr84169-0  // do 
-980604-1-0 // shld shrd scac stos cvt
-980605-1-0 //do
-ashldi-1-0 //do
-ashrdi-1-0 //do
-cbrt-0 //do
-complex-6-0 //do
-conversion-0 //do
-cvt-1-0 //do
-float-floor-0 //do
-floatunsisf-1-0 //do
-func-ptr-1-0 //do
-gofast-0 //do
-lshrdi-1-0 //do
-pr28289-0 //do
-pr28982a-0 //do
-pr28982b-0 //do
-pr36343-0 //do
-pr47538-0 //do
-pr57321-0 //do
-pr58277-1-0 //do
-pr58277-2-0 //do
-pr58574-0 //do
-pr59643-0 //do
-pr66233-0 //do
-pr67929_1-0 //do
-pr69691-0 //do
-pr79354-0 //do
-pr80153-0 //do
-pr82388-0 //do
-pr84478-0 //do
-stdarg-1-0 //do
-stdarg-2-0 //do
-stdarg-3-0 //do
-stdarg-4-0 //do
-va-arg-15-0 //do
-pr61375-0 //do
-align-nest-0 //do
-pr82210-0 //do
-pr41935-0 //do
-pr84339-0 //do
-pr85169-0 //do
-990117-1-0 //do
-ipa-sra-1-0 //do
+pr71494-0 // START, END: gcc internal error
+960513-1-0 // START: x87
+990413-2-0
+pr47237-0
+960215-1-0
+960405-1-0
+align-2-0
+complex-7-0
+pr39228-0
+regstack-1-0
+va-arg-5-0
+va-arg-6-0
+va-arg-pack-1-0 // END
+pr85095-0 // START: __builtin_mul_overflow or __builtin_add_overflow
+pr68381-0
+pr64006-0 
+pr71554-0 
+pr84169-0  // END
+980604-1-0 // START: shld shrd scac stos cvt
+980605-1-0
+ashldi-1-0
+ashrdi-1-0
+cbrt-0
+complex-6-0
+conversion-0
+cvt-1-0
+float-floor-0
+floatunsisf-1-0
+func-ptr-1-0
+gofast-0
+lshrdi-1-0
+pr28289-0
+pr28982a-0
+pr28982b-0
+pr36343-0
+pr47538-0
+pr57321-0
+pr58277-1-0
+pr58277-2-0
+pr58574-0
+pr59643-0
+pr66233-0
+pr67929_1-0
+pr69691-0
+pr79354-0
+pr80153-0
+pr82388-0
+pr84478-0
+stdarg-1-0
+stdarg-2-0
+stdarg-3-0
+stdarg-4-0
+va-arg-15-0
+pr61375-0
+align-nest-0
+pr82210-0
+pr41935-0
+pr84339-0
+pr85169-0
+990117-1-0
+ipa-sra-1-0 // END
+builtin-prefetch-6-0 // START: printf\\|putc\\|puts\\|write
+fprintf-1-0
+fprintf-chk-1-0
+pr71550-0
+pr78586-0
+pr79327-0
+printf-1-0
+printf-chk-1-0
+struct-ret-1-0
+va-arg-21-0
+va-arg-24-0
+vfprintf-1-0
+vfprintf-chk-1-0
+vprintf-1-0
+vprintf-chk-1-0 // END
+builtin-prefetch-1-0 // START: prefetch
+builtin-prefetch-2-0
+builtin-prefetch-3-0
+builtin-prefetch-4-0
+builtin-prefetch-5-0 // END
+961223-1-0 // START: comis
+980205-0
+980709-1-0
+990829-1-0
+991019-1-0
+991030-1-0
+cmpsf-1-0
+complex-1-0
+complex-2-0
+complex-3-0
+complex-5-0
+loop-8-0
+nest-stdar-1-0
+postmod-1-0
+pr15262-0
+pr15262-1-0
+pr23324-0
+pr23941-0
+pr35456-0
+pr36034-1-0
+pr36034-2-0
+pr38969-0
+pr39501-0
+pr42248-0
+pr44575-0
+pr44683-0
+pr44942-0
+pr56205-0
+pr64979-0
+pr85331-0
+scal-to-vec1-0
+scal-to-vec3-0
+strct-pack-1-0
+va-arg-12-0
+va-arg-16-0
+va-arg-17-0
+va-arg-26-0 // END
