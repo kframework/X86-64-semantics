@@ -35,6 +35,9 @@ cat bin_blacklist.txt  | parallel -j1 "sed -i '/\<{}\>/d' cmd_worklist.txt "
 # CHeck for a presence of specific pattern
 ```
 cat log | parallel  "echo {}; grep  \"\\.\" bin/{}.asm  | grep -v globl"
+
+cat log | parallel  "grep -l \"shld\\|shrd\\|scas\\|stos\\|cvt\" bin/{}.asm "
+cat log | parallel grep -l "_overflow" bin/{}.asm
 ```
 
 # Search commands
