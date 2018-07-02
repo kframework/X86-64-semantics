@@ -38,7 +38,7 @@ cat log | parallel  "echo {}; grep  \"\\.\" bin/{}.asm  | grep -v globl"
 
 cat log | parallel  "grep -l \"shld\\|shrd\\|scas\\|stos\\|cvt\" bin/{}.asm "
 cat log | parallel grep -l "_overflow" bin/{}.asm
-cat log | parallel  "echo {}; echo ===; grep -l  \"fadd\\|fsubp\\|fstpt\\|fmulp\\|fldt\\|fisttpl\\|fchs\" bin/{}.asm  "
+cat log | parallel  "grep -l  \"fadd\\|fsubp\\|fstpt\\|fmulp\\|fldt\\|fisttpl\\|fchs\" bin/{}.asm  "
 cat log | parallel  "grep -l  \"printf\\|putc\\|puts\\|write\" bin/{}.asm"
 cat log | parallel  "grep -l  \"comis\" bin/{}.asm"
 ```
