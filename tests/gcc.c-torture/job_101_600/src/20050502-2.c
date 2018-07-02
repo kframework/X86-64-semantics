@@ -2,7 +2,7 @@
 #include "mini_stdlib.h"
 /* PR target/21297 */
 typedef __SIZE_TYPE__ size_t;
-extern int memcmp (const char *, const char *, size_t);
+//extern int memcmp (const char *, const char *, size_t);
 extern void abort ();
 
 void
