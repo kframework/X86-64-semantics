@@ -1463,3 +1463,5 @@ gcc -I src/library ./src/zero-struct-1.c    -fno-diagnostics-show-caret -fdiagno
 gcc -I src/library ./src/zero-struct-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/zero-struct-2-0.asm
 gcc -I src/library ./src/zerolen-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/zerolen-1-0.asm
 gcc -I src/library ./src/zerolen-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/zerolen-2-0.asm
+gcc -I src/library ./src/pr68390.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -O2  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68390-0.asm
+gcc -I src/library ./src/pr68532.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -O2 -ftree-vectorize -fno-vect-cost-model  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68532-0.asm

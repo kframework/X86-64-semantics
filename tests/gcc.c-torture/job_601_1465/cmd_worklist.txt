@@ -314,3 +314,5 @@ gcc -I src/library ./src/frame-address.c    -fno-diagnostics-show-caret -fdiagno
 gcc -I src/library ./src/941202-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/941202-1-0.asm
 gcc -I src/library ./src/pr71626-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr71626-1-0.asm
 gcc -I src/library ./src/991112-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/991112-1-0.asm
+gcc -I src/library ./src/pr68390.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0    -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68390-0.asm
+gcc -I src/library ./src/pr68532.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0 -std=c11  -ftree-vectorize -fno-vect-cost-model  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68532-0.asm
