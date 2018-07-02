@@ -11,7 +11,7 @@ cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --xru
 cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log" |& tee runlog.txt
 ```
 
-# Modify source
+# Modify source (One time)
 ```
 cat src_worklist.txt  | parallel  "sed -i '1 i\#include \"mini_stdlib.h\"' src/{}.c" 
 cat src_worklist.txt  | parallel  "sed -i '1 i\#include \"mini_string.h\"' src/{}.c" 
@@ -47,3 +47,54 @@ cat log | parallel  "grep -l  \"comis\" bin/{}.asm"
 ```
 cat log | parallel "grep -w "{}" ../docs/work.build_O0.binary"
 ```
+
+# Statistics
+```
+find . -name cmd_worklist.txt | xargs wc -l
+   100 ./job_1_100/cmd_worklist.txt
+   500 ./job_101_600/cmd_worklist.txt
+   867 ./job_601_1465/cmd_worklist.txt
+  1467 total
+
+find . -name bin_worklist.txt | xargs wc -l
+  100 ./job_1_100/bin_worklist.txt
+  500 ./job_101_600/bin_worklist.txt
+  867 ./job_601_1465/bin_worklist.txt
+ 1467 total
+
+find . -name whitelist.txt | xargs wc -l
+   74 ./job_1_100/whitelist.txt
+  232 ./job_101_600/whitelist.txt
+  321 ./job_601_1465/whitelist.txt
+  627 total
+ 
+find . -name blacklist.txt | xargs wc -l
+   26 ./job_1_100/blacklist.txt
+  268 ./job_101_600/blacklist.txt
+  546 ./job_601_1465/blacklist.txt
+  840 total
+
+total == white + blacklist  
+```
+
+
+Whitelist: 627
+
+Blacklist (1_100 101_600 601_rest)
+  - Unsupp instr (shld\\|shrd\\|scas\\|stos\\): 0 + 6 +  14
+  - Unsupp syscall:                             0 + 12 + 15
+  - x87 :                                       0 + 9 +  12
+  - Unsupp instr (cvt|comis):                   4 + 32 + 63
+  - prefetch:                                   0 + 0  + 5
+  - buitins:                                    0 + 0  + 5
+  - gcc seg fault:                              0 + 0  + 1
+  - Can be whitelisted:                         22 + 209 + 431
+
+
+Total support:  627 +  (22 + 209 + 431) + (4 + 32 + 63) == 1388 / 1467                                           
+
+
+
+
+
+
