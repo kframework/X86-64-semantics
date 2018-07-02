@@ -533,7 +533,6 @@ bin/zero-struct-2-0.asm
 bin/pr61375-0.asm // shrdq
 bin/align-nest-0.asm // shldq
 bin/pr82210-0.asm //shldq
-bin//pr41935-0.asm // shldq
 bin/pr41935-0.asm // shldq
 bin/pr84339-0.asm //scasb
 bin/pr85169-0.asm // stosq
