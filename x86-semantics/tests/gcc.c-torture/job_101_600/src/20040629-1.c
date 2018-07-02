@@ -1,12 +1,12 @@
-#include "mini_string.h"
-#include "mini_stdlib.h"
 /* { dg-require-effective-target int32plus } */
 
 /* Test arithmetics on bitfields.  */
 #ifndef T
+#include "mini_string.h"
+#include "mini_stdlib.h"
 
-extern void abort (void);
-extern void exit (int);
+//extern void abort (void);
+//extern void exit (int);
 
 #ifndef FIELDS1
 #define FIELDS1
