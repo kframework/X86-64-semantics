@@ -377,7 +377,6 @@ bin/pr61682-0.asm
 bin/pr62151-0.asm
 bin/pr63641-0.asm
 bin/pr63659-0.asm
-bin/pr64006-0.asm
 bin/pr64260-0.asm
 bin/pr64682-0.asm
 bin/pr64718-0.asm
@@ -424,7 +423,6 @@ bin/pr70903-0.asm
 bin/pr71083-0.asm
 bin/pr71335-0.asm
 bin/pr71550-0.asm
-bin/pr71554-0.asm
 bin/pr71631-0.asm
 bin/pr71700-0.asm
 bin/pr7284-1-0.asm
@@ -460,7 +458,6 @@ bin/pr83298-0.asm
 bin/pr83362-0.asm
 bin/pr83383-0.asm
 bin/pr83477-0.asm
-bin/pr84169-0.asm
 bin/pr84478-0.asm
 bin/pr84748-0.asm
 bin/pr85156-0.asm
@@ -540,10 +537,12 @@ bin/pr33870-0.asm //stosq
 bin/pr56866-0.asm //stosq
 bin/990117-1-0.asm // cvt
 bin/ipa-sra-1-0.asm //cvt
-bin/pr71494-0.asm // gcc error
-bin/pr71626-2-0.asm // gcc errro
+bin/pr71494-0.asm // gcc internal error
 bin/960513-1-0.asm // x87
 bin/990413-2-0.asm // x87
 bin/pr47237-0.asm // x87
-bin/pr85095-0.asm // builins
-bin//pr68381-0.asm // buildin_mul_overflow
+bin/pr85095-0.asm // __builtin_mul_overflow or __builtin_add_overflow
+bin//pr68381-0.asm // do
+bin/pr64006-0.asm  // do
+bin/pr71554-0.asm  // do 
+bin/pr84169-0.asm  // do 

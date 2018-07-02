@@ -438,7 +438,7 @@ gcc -I src/library ./src/pr39339.c    -fno-diagnostics-show-caret -fdiagnostics-
 gcc -I src/library ./src/pr39501.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -ffast-math  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr39501-0.asm
 gcc -I src/library ./src/pr40022.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40022-0.asm
 gcc -I src/library ./src/pr40057.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40057-0.asm
-gcc -I src/library ./src/pr40386.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -fno-ira-share-spill-slots -Wno-shift-overflow  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40386-0.asm
+gcc -I src/library ./src/pr40386.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -fno-ira-share-spill-slots -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40386-0.asm
 gcc -I src/library ./src/pr40404.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40404-0.asm
 gcc -I src/library ./src/pr40493.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40493-0.asm
 gcc -I src/library ./src/pr40579.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr40579-0.asm
@@ -662,7 +662,7 @@ gcc -I src/library ./src/pr66757.c    -fno-diagnostics-show-caret -fdiagnostics-
 gcc -I src/library ./src/pr66940.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr66940-0.asm
 gcc -I src/library ./src/pr67037.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67037-0.asm
 gcc -I src/library ./src/pr67226.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67226-0.asm
-gcc -I src/library ./src/pr67714.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67714-0.asm
+gcc -I src/library ./src/pr67714.c  -std=c11  -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67714-0.asm
 gcc -I src/library ./src/pr67781.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67781-0.asm
 gcc -I src/library ./src/pr67929_1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr67929_1-0.asm
 gcc -I src/library ./src/pr68143_1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68143_1-0.asm
@@ -676,7 +676,7 @@ gcc -I src/library ./src/pr68376-2.c    -fno-diagnostics-show-caret -fdiagnostic
 gcc -I src/library ./src/pr68381.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -O -fexpensive-optimizations -fno-tree-bit-ccp  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68381-0.asm
 gcc -I src/library ./src/pr68390.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -O2  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68390-0.asm
 gcc -I src/library ./src/pr68506.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -fno-builtin-abort  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68506-0.asm
-gcc -I src/library ./src/pr68532.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -O2 -ftree-vectorize -fno-vect-cost-model  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68532-0.asm
+gcc -I src/library ./src/pr68532.c  -std=c11  -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -O2 -ftree-vectorize -fno-vect-cost-model  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68532-0.asm
 gcc -I src/library ./src/pr68624.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68624-0.asm
 gcc -I src/library ./src/pr68648.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68648-0.asm
 gcc -I src/library ./src/pr68841.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr68841-0.asm
@@ -718,10 +718,10 @@ gcc -I src/library ./src/pr78378.c    -fno-diagnostics-show-caret -fdiagnostics-
 gcc -I src/library ./src/pr78436.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78436-0.asm
 gcc -I src/library ./src/pr78438.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78438-0.asm
 gcc -I src/library ./src/pr78477.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78477-0.asm
-gcc -I src/library ./src/pr78559.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78559-0.asm
+gcc -I src/library ./src/pr78559.c -std=c11   -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78559-0.asm
 gcc -I src/library ./src/pr78586.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78586-0.asm
 gcc -I src/library ./src/pr78617.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78617-0.asm
-gcc -I src/library ./src/pr78622.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w -Wformat-overflow=2  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78622-0.asm
+gcc -I src/library ./src/pr78622.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78622-0.asm
 gcc -I src/library ./src/pr78675.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78675-0.asm
 gcc -I src/library ./src/pr78720.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78720-0.asm
 gcc -I src/library ./src/pr78726.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78726-0.asm
@@ -729,7 +729,7 @@ gcc -I src/library ./src/pr78791.c    -fno-diagnostics-show-caret -fdiagnostics-
 gcc -I src/library ./src/pr78856.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr78856-0.asm
 gcc -I src/library ./src/pr79043.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79043-0.asm
 gcc -I src/library ./src/pr79121.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79121-0.asm
-gcc -I src/library ./src/pr79286.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79286-0.asm
+gcc -I src/library ./src/pr79286.c -std=c11   -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79286-0.asm
 gcc -I src/library ./src/pr79327.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79327-0.asm
 gcc -I src/library ./src/pr79354.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79354-0.asm
 gcc -I src/library ./src/pr79388.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w -fno-tree-coalesce-vars  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr79388-0.asm
@@ -761,11 +761,11 @@ gcc -I src/library ./src/pr83477.c    -fno-diagnostics-show-caret -fdiagnostics-
 gcc -I src/library ./src/pr84169.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84169-0.asm
 gcc -I src/library ./src/pr84339.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84339-0.asm
 gcc -I src/library ./src/pr84478.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84478-0.asm
-gcc -I src/library ./src/pr84524.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84524-0.asm
+gcc -I src/library ./src/pr84524.c  -std=c11  -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84524-0.asm
 gcc -I src/library ./src/pr84748.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr84748-0.asm
 gcc -I src/library ./src/pr85095.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85095-0.asm
 gcc -I src/library ./src/pr85156.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85156-0.asm
-gcc -I src/library ./src/pr85169.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85169-0.asm
+gcc -I src/library ./src/pr85169.c  -std=c11   -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85169-0.asm
 gcc -I src/library ./src/pr85331.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85331-0.asm
 gcc -I src/library ./src/pr85529-1.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85529-1-0.asm
 gcc -I src/library ./src/pr85529-2.c    -fno-diagnostics-show-caret -fdiagnostics-color=never    -O0  -w  -lm  -march=haswell -fno-asynchronous-unwind-tables -S -o ./bin/pr85529-2-0.asm
