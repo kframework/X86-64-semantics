@@ -426,6 +426,9 @@ widechar-2-0
 zerolen-1-0
 zero-struct-1-0
 zero-struct-2-0
+ashldi-1-0
+ashrdi-1-0
+lshrdi-1-0
 pr71494-0 // START, END: gcc internal error
 960513-1-0 // START: x87
 990413-2-0
@@ -444,49 +447,20 @@ pr68381-0
 pr64006-0 
 pr71554-0 
 pr84169-0  // END
-980604-1-0 // START: shld shrd scac stos cvt
-980605-1-0
-ashldi-1-0
-ashrdi-1-0
-cbrt-0
-complex-6-0
-conversion-0
-cvt-1-0
-float-floor-0
-floatunsisf-1-0
-func-ptr-1-0
-gofast-0
-lshrdi-1-0
-pr28289-0
-pr28982a-0
-pr28982b-0
-pr36343-0
-pr47538-0
+pr28289-0 // START: shld shrd scac stos
 pr57321-0
-pr58277-1-0
-pr58277-2-0
-pr58574-0
-pr59643-0
-pr66233-0
-pr67929_1-0
+pr58277-1-0   
+pr58277-2-0   
 pr69691-0
-pr79354-0
 pr80153-0
 pr82388-0
 pr84478-0
-stdarg-1-0
-stdarg-2-0
-stdarg-3-0
-stdarg-4-0
-va-arg-15-0
 pr61375-0
 align-nest-0
 pr82210-0
 pr41935-0
 pr84339-0
-pr85169-0
-990117-1-0
-ipa-sra-1-0 // END
+pr85169-0 // END
 builtin-prefetch-6-0 // START: printf\\|putc\\|puts\\|write
 fprintf-1-0
 fprintf-chk-1-0
@@ -543,4 +517,30 @@ strct-pack-1-0
 va-arg-12-0
 va-arg-16-0
 va-arg-17-0
-va-arg-26-0 // END
+va-arg-26-0 
+980604-1-0 <-- cvt
+980605-1-0
+cbrt-0
+complex-6-0
+conversion-0
+cvt-1-0
+float-floor-0
+floatunsisf-1-0
+func-ptr-1-0
+gofast-0
+pr28982a-0
+pr28982b-0
+pr36343-0
+pr47538-0
+pr58574-0
+pr59643-0
+pr66233-0
+pr67929_1-0
+pr79354-0
+stdarg-1-0
+stdarg-2-0
+stdarg-3-0
+stdarg-4-0
+va-arg-15-0
+990117-1-0
+ipa-sra-1-0 // END
