@@ -1,0 +1,13 @@
+echo ; echo vpmaxub_ymm_ymm_ymm; echo ===;  bap  vpmaxub_ymm_ymm_ymm.exe -d |& tee  vpmaxub_ymm_ymm_ymm.baprunlog
+echo ; echo vpminub_ymm_ymm_ymm; echo ===;  bap  vpminub_ymm_ymm_ymm.exe -d |& tee  vpminub_ymm_ymm_ymm.baprunlog
+echo ; echo vpmaxub_xmm_xmm_xmm; echo ===;  bap  vpmaxub_xmm_xmm_xmm.exe -d |& tee  vpmaxub_xmm_xmm_xmm.baprunlog
+echo ; echo pminsb_xmm_xmm; echo ===;  bap  pminsb_xmm_xmm.exe -d |& tee  pminsb_xmm_xmm.baprunlog
+echo ; echo pmaxub_xmm_xmm; echo ===;  bap  pmaxub_xmm_xmm.exe -d |& tee  pmaxub_xmm_xmm.baprunlog
+echo ; echo pminub_xmm_xmm; echo ===;  bap  pminub_xmm_xmm.exe -d |& tee  pminub_xmm_xmm.baprunlog
+echo ; echo popcntq_r64_r64; echo ===;  bap  popcntq_r64_r64.exe -d |& tee  popcntq_r64_r64.baprunlog
+echo ; echo vpminsb_xmm_xmm_xmm; echo ===;  bap  vpminsb_xmm_xmm_xmm.exe -d |& tee  vpminsb_xmm_xmm_xmm.baprunlog
+echo ; echo vpminub_xmm_xmm_xmm; echo ===;  bap  vpminub_xmm_xmm_xmm.exe -d |& tee  vpminub_xmm_xmm_xmm.baprunlog
+echo ; echo vpminsb_ymm_ymm_ymm; echo ===;  bap  vpminsb_ymm_ymm_ymm.exe -d |& tee  vpminsb_ymm_ymm_ymm.baprunlog
+echo ; echo popcntl_r32_r32; echo ===;  bap  popcntl_r32_r32.exe -d |& tee  popcntl_r32_r32.baprunlog
+echo ; echo vpminuw_ymm_ymm_ymm; echo ===;  bap  vpminuw_ymm_ymm_ymm.exe -d |& tee  vpminuw_ymm_ymm_ymm.baprunlog
+echo ; echo popcntw_r16_r16; echo ===;  bap  popcntw_r16_r16.exe -d |& tee  popcntw_r16_r16.baprunlog
