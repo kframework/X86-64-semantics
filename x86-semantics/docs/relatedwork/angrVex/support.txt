@@ -906,9 +906,9 @@ setg_r8
 vpacksswb_xmm_xmm_xmm
 vpsubsb_ymm_ymm_ymm
 vandnps_xmm_xmm_xmm
-vpvmpgtq_ymm_ymm_ymm
-vpvmpgtq_ymm_ymm_ymm
-vpvmpgtq_ymm_ymm_ymm
+vpcmpgtq_ymm_ymm_ymm
+vpcmpgtq_ymm_ymm_ymm
+vpcmpgtq_ymm_ymm_ymm
 punpcklqdq_xmm_xmm
 xorps_xmm_xmm
 vmovmskpd_r32_ymm
