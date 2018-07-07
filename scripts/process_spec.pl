@@ -138,7 +138,10 @@ if ( "" ne $compareintel ) {
     my $availfile = "docs/instruction_manuals/all.instrs";
     my $intelatt  = "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
 
-    my $stratafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_supported.txt";
+    my $stratafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
+    my $currentfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/current_support.txt";
+    my $bapfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
+    my $angrfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
     my $stratavecimmfile =
       "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
     my $mcsemafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
@@ -158,6 +161,37 @@ if ( "" ne $compareintel ) {
           . scalar( keys %{att2intel} ) . "/"
           . scalar( keys %{intel2att} )
           . "|\n" );
+
+    ## Get the current supported instr
+    my ( $curr_supp_att_ref, $curr_supp_intel_ref ) =
+      modelInstructions( $currentfile, $intelatt, "", 0 );
+    my %curr_supp_att   = %{$curr_supp_att_ref};
+    my %curr_supp_intel = %{$curr_supp_intel_ref};
+    print(  "| Current Support(att/intel)| "
+          . scalar( keys %curr_supp_att ) . "/"
+          . scalar( keys %curr_supp_intel )
+          . "|\n" );
+
+    ## Get the bap supported instr
+    my ( $bap_supp_att_ref, $bap_supp_intel_ref ) =
+      modelInstructions( $bapfile, $intelatt, "", 0 );
+    my %bap_supp_att   = %{$bap_supp_att_ref};
+    my %bap_supp_intel = %{$bap_supp_intel_ref};
+    print(  "| Bap Support(att/intel)| "
+          . scalar( keys %bap_supp_att ) . "/"
+          . scalar( keys %bap_supp_intel )
+          . "|\n" );
+
+    ## Get the angr supported instr
+    my ( $angr_supp_att_ref, $angr_supp_intel_ref ) =
+      modelInstructions( $angrfile, $intelatt, "", 0 );
+    my %angr_supp_att   = %{$angr_supp_att_ref};
+    my %angr_supp_intel = %{$angr_supp_intel_ref};
+    print(  "| Angr Support(att/intel)| "
+          . scalar( keys %angr_supp_att ) . "/"
+          . scalar( keys %angr_supp_intel )
+          . "|\n" );
+
 
     ## Get the strata supported instr
     my ( $strata_supp_att_ref, $strata_supp_intel_ref ) =
