@@ -4911,7 +4911,7 @@ sub assocateMcSemaXed {
                 push @{ $retmodel{$1} }, $line;
             }
             else {
-                #print "K1:$key1 K2:$key2 L:$line\n";
+                print "K1:$key1 K2:$key2 L:$line\n";
             }
         }
     }
@@ -4961,6 +4961,63 @@ sub assocateMcSemaAvail {
 }
 
 sub modelInstructions {
+    my $filename     = shift @_;
+    my $intelattfile = shift @_;
+    my $hint         = shift @_;
+    my $print        = shift @_;
+
+    if($hint eq "inIntel") {
+      return modelIntelInstructions($filename, $intelattfile, $hint, $print);
+    } else {
+      return modelAttInstructions($filename, $intelattfile, $hint, $print);
+    }
+}
+
+sub modelIntelInstructions {
+    my $filename     = shift @_;
+    my $intelattfile = shift @_;
+    my $hint         = shift @_;
+    my $print        = shift @_;
+
+     ## get intel <-> att
+    my ( $intel2att_ref, $att2intel_ref ) = assocIntelATT( $intelattfile, 0 );
+    my %intel2att = %{$intel2att_ref};
+    my %att2intel = %{$att2intel_ref};
+
+    ## Model instruction in a map.
+    open( my $fp, "<", $filename ) or die "Can't open: $!";
+    my @lines = <$fp>;
+    close $fp;
+
+    my %model_att   = ();
+    my %model_intel = ();
+    my $linecount = 0;
+    for my $line (@lines) {
+        chomp $line;
+        $linecount++;
+
+        my $key  = "";
+        my $name = "";
+
+        $key = $line ;
+        $name = $line;
+        push @{ $model_intel{$key} }, $name;
+    }
+
+    ## Get the corresponding intel keys
+    for my $intelkey ( sort keys %model_intel ) {
+        if ( exists $intel2att{$intelkey} ) {
+            $model_att{ $intel2att{$intelkey} } = $intelkey;
+        }
+        else {
+            print "No corresponding Opcode for: $intelkey\n";
+        }
+    }
+
+    return ( \%model_att, \%model_intel );
+}
+
+sub modelAttInstructions {
     my $filename     = shift @_;
     my $intelattfile = shift @_;
     my $hint         = shift @_;
@@ -5016,8 +5073,7 @@ sub modelInstructions {
         }
     }
 
-    if (   ( $hint eq "inIntel" )
-        or ( $hint eq "keep_instruction" ) )
+    if ( $hint eq "keep_instruction" )
     {
         return ( \%model_att, \%model_att );
     }
@@ -5028,7 +5084,7 @@ sub modelInstructions {
             $model_intel{ $att2intel{$attkey} } = $attkey;
         }
         else {
-            print "$attkey\n";
+            print "No corresponding Opcode for: $attkey\n";
         }
     }
 
@@ -5066,7 +5122,7 @@ sub assocIntelATT {
         }
     }
 
-    if ( $verifyCount != scalar( keys %att2intel ) + 6 ) {
+    if ( $verifyCount != scalar( keys %att2intel ) + 7 ) {
         print $verifyCount. "\n";
         print scalar( keys %att2intel ) . "\n";
         utils::failInfo("assocIntelATT failed");

@@ -2869,15 +2869,6 @@ orb_rh_r8_1
 orb_rh_rh_1
 pextrw_r32_xmm_imm8_1
 pextrw_r64_xmm_imm8_1
-rep insb_m8_dx_1
-rep lodsb_al_1
-rep movsb_m8_m8_1
-rep outsb_dx_m8_1
-rep stosb_m8_1
-repz cmpsb_m8_m8_1
-repz scasb_m8_1
-repnz cmpsb_m8_m8_1
-repnz scasb_m8_1
 sbbw_r16_r16_1
 sbbl_r32_r32_1
 sbbq_r64_r64_1

@@ -136,17 +136,28 @@ my $debugprint = 0;
 if ( "" ne $compareintel ) {
     ## file names
     my $availfile = "docs/instruction_manuals/all.instrs";
-    my $intelatt  = "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
+    my $intelatt =
+"/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
 
-    my $stratafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
-    my $currentfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/current_support.txt";
-    my $bapfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
-    my $angrfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
+    my $stratafile =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
+    my $currentfile =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/current_support.txt";
+    my $idealfile =
+"/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
+    my $bapfile =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
+    my $angrfile =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/angrVex/support.txt";
     my $stratavecimmfile =
-      "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
-    my $mcsemafile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
-    my $xedfile    = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
-    my $acl2file   = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/Immediates/stratum_vector_immediates.txt";
+    my $mcsemafile =
+#"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/amd64.txt";
+"/home/sdasgup3/x86-semantics/docs/relatedwork/mcsema/reportlist.txt";
+    my $xedfile =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
+    my $acl2file =
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
     my $stoke_strata_unsup_file =
       "docs/relatedwork/strata/strata_stoke_unsupported.txt";
     my $ungeneralized_memory =
@@ -160,6 +171,16 @@ if ( "" ne $compareintel ) {
     print(  " | Att/Intel Opcodes |"
           . scalar( keys %{att2intel} ) . "/"
           . scalar( keys %{intel2att} )
+          . "|\n" );
+
+    ## Get the ideal supported instr
+    my ( $ideal_supp_att_ref, $ideal_supp_intel_ref ) =
+      modelInstructions( $idealfile, $intelatt, "", 0 );
+    my %ideal_supp_att   = %{$ideal_supp_att_ref};
+    my %ideal_supp_intel = %{$ideal_supp_intel_ref};
+    print(  "| Ideal Support(att/intel)| "
+          . scalar( keys %ideal_supp_att ) . "/"
+          . scalar( keys %ideal_supp_intel )
           . "|\n" );
 
     ## Get the current supported instr
@@ -192,7 +213,6 @@ if ( "" ne $compareintel ) {
           . scalar( keys %angr_supp_intel )
           . "|\n" );
 
-
     ## Get the strata supported instr
     my ( $strata_supp_att_ref, $strata_supp_intel_ref ) =
       modelInstructions( $stratafile, $intelatt, "", 0 );
@@ -204,16 +224,21 @@ if ( "" ne $compareintel ) {
           . "|\n" );
 
     ## Get the mcsema supported instr
-    my $mcsema_supp_intel_ref =
-      assocateMcSemaXed( $mcsemafile, $xedfile, $debugprint );
+#my $mcsema_supp_intel_ref =
+#      assocateMcSemaXed( $mcsemafile, $xedfile, $debugprint );
+    my ( $mcsema_supp_att_ref, $mcsema_supp_intel_ref ) =
+      modelInstructions( $mcsemafile, $intelatt, "inIntel", 0 );
+    my %mcsema_supp_att   = %{$mcsema_supp_att_ref};
     my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
     print(  "| McSema Support(Intel)| "
+          . scalar( keys %mcsema_supp_att ) . "/"
           . scalar( keys %mcsema_supp_intel )
           . "|\n" );
 
     ## Get the acl2 supported instr
     my $acl2_intel_ref =
       modelInstructions( $acl2file, $intelatt, "inIntel", $debugprint );
+    my %mcsema_supp_att   = %{$mcsema_supp_att_ref};
     my %acl2_intel = %{$acl2_intel_ref};
     print( "| ACL2 Support(Intel)| " . scalar( keys %acl2_intel ) . "|\n" );
 
