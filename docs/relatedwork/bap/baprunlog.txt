@@ -1420,11 +1420,19 @@ sysenter
 xgetbv
 ldmxcsr
 stmxcsr
-scasb
-scasl
-scasq
-scas
-scasw
+rdtsc
+rep movsb
+rep movsl
+rep movsq
+rep movsw
+repz cmpsb
+repz cmpsl
+repz cmpsq
+repz cmpsw
+repnz cmpsb
+repnz cmpsl
+repnz cmpsq
+repnz cmpsw
 repnz scasb
 repnz scasl
 repnz scasq
@@ -1433,14 +1441,10 @@ repz scasb
 repz scasl
 repz scasq
 repz scasw
-stosb
-stosl
-stosq
-stosb
-stosl
-stosq
-stosw
-stosw
+repnz scasb
+repnz scasl
+repnz scasq
+repnz scasw
 rep stosb
 rep stosl
 rep stosq

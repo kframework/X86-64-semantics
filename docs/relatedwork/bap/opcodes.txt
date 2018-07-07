@@ -1,0 +1,73 @@
+      | Nop -> []
+      | Bswap(t, op) ->
+      | Retn (op, far_ret) when pref = [] || pref = [repz]  || pref = [repnz]->
+      | Mov(t, dst, src, condition) ->
+      | Movs(Type.Imm _bits as t) ->
+      | Movzx(t, dst, ts, src) ->
+      | Movsx(t, dst, ts, src) ->
+      | Movdq(ts, s, td, d, align) ->
+      | Movoffset((tdst, dst), offsets) ->
+      | Punpck(t, et, o, d, s, vs) ->
+      | Ppackedbinop(t, et, fbop, _, d, s, vs) ->
+      | Pbinop(t, fbop, _s, o1, o2, vop) ->
+      | Pcmp (t,elet,bop,_,dst,src,vsrc) ->
+      | Pmov (t, dstet, srcet, dst, src, ext, _) ->
+      | Pmovmskb (t,dst,src) ->
+      | Palignr (t,dst,src,vsrc,imm) ->
+      | Pcmpstr(t,xmm1,xmm2m128,_imm,imm8cb,pcmpinfo) ->
+      | Pshufb (exp_type, dst_op, src_op, vsrc) ->
+      | Lea(t, r, a) when pref = [] ->
+      | Call(o1, ra) when pref = [] ->
+      | Jump(o) ->
+      | Jcc(o, c) ->
+      | Setcc(t, o1, c) ->
+      | Shift(st, s, dst, shift) ->
+      | Shiftd(st, s, dst, fill, count) ->
+      | Rotate(shift_type, exp_type, dst_op, shift_op, use_cf) ->
+      | Bt(t, bitoffset, bitbase) ->
+      | Bs(t, dst, src, dir) ->
+      | Hlt -> [] (* x86 Hlt is essentially a NOP *)
+      | Rdtsc ->
+      | Cpuid ->
+      | Xgetbv ->
+      | Stmxcsr (dst) ->
+      | Ldmxcsr (src) ->
+      | Fnstcw (dst) ->
+      | Fldcw (src) ->
+      | Fld _src ->
+      | Fst (_dst,_pop) ->
+      | Push(t, o) ->
+      | Pop(t, o) ->
+      | Pushf(t) ->
+      | Popf t ->
+      | Popcnt(t, s, d) ->
+      | Sahf ->
+      | Lahf ->
+      | Add(t, o1, o2) ->
+      | Adc(t, o1, o2) ->
+      | Inc(t, o) (* o = o + 1 *) ->
+      | Dec(t, o) (* o = o - 1 *) ->
+      | Sub(t, o1, o2) (* o1 = o1 - o2 *) ->
+      | Sbb(t, o1, o2) ->
+      | Cmp(t, o1, o2) ->
+      | Cmpxchg(t, src, dst) ->
+      | Cmpxchg8b o -> (* only 32bit case *)
+      | Xadd(t, dst_op, src_op) ->
+      | Xchg(t, src, dst) ->
+      | And(t, o1, o2) ->
+      | Or(t, o1, o2) ->
+      | Xor(t, o1, o2) when o1 = o2 ->
+      | Xor(t, o1, o2) ->
+      | Test(t, o1, o2) ->
+      | Ptest(t, o1, o2) ->
+      | Not(t, o) ->
+      | Neg(t, o) ->
+      | Mul (t, src) ->
+      | Imul (t, (oneopform, dst), src1, src2) ->
+      | Div(t, src) ->
+      | Idiv(t, src) ->
+      | Cld ->
+      | Leave t when pref = [] -> (* #UD if Lock prefix is used *)
+      | Interrupt3 -> [Bil.Special "int3"]
+      | Interrupt(Oimm i) ->
+      | Sysenter | Syscall -> [Bil.Special "syscall"]
