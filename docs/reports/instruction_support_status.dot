@@ -104,7 +104,7 @@ digraph instr_supprt {
     UGUSUS [fontcolor=red; color=red; label="#4\nUnStoked\n!!&#8704;I:  == TS !!\n#31"]
     S2_STOKED [fontcolor=red; color=red; label="#5\nStoked\n !! &#8704;I: Stoke SMT(I) == Strata SMT_I !!\n#15"]
     S2_UNSTOKED [fontcolor=red; color=red; label="#6\nUnStoked\n !! &#8704;I: Stoke SMT(I) == Strata SMT_I !!\n#63"]
-    GUS [fontcolor=red; color=red; label="#7\nRegister versions from strata or stoke\n !! &#8704;I &isin;[1..255]: ==TS !!\n#162 \n(size 8: 105; size > 8: 57)"]
+    GUS [fontcolor=red; color=red; label="#7\nRegister versions from strata (116) or stoke (46)\n !! &#8704;I &isin;[1..255]: ==TS !!\n#162 \n(size 8: 105; size > 8: 57)"]
 
     IMMS -> G
     IMMS -> UG
