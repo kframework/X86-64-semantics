@@ -111,7 +111,8 @@
           2
         </nextLoc>
         <objects>
-          mem ( symloc ( 1 , 128 ) |-> mVector ( 256 , 8 , 0 |-> byte ( 0 , undefMInt )
+          mem ( symloc ( 1 , 128 ) |-> mVector ( 256 , 8 , 
+          0 |-> byte ( 0 , undefMInt )
           1 |-> byte ( 0 , undefMInt )
           2 |-> byte ( 0 , undefMInt )
           3 |-> byte ( 0 , undefMInt )

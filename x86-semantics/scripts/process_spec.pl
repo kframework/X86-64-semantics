@@ -142,7 +142,7 @@ if ( "" ne $compareintel ) {
     my $stratafile =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
     my $currentfile =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/current_support.txt";
+"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
     my $idealfile =
 "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
     my $bapfile =
@@ -158,6 +158,8 @@ if ( "" ne $compareintel ) {
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
     my $acl2file =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
+    my $r2file =
+"/home/sdasgup3/x86-semantics/docs/relatedwork/radare2/r2log.txt";
     my $stoke_strata_unsup_file =
       "docs/relatedwork/strata/strata_stoke_unsupported.txt";
     my $ungeneralized_memory =
@@ -203,6 +205,17 @@ if ( "" ne $compareintel ) {
           . scalar( keys %bap_supp_intel )
           . "|\n" );
 
+    ## Get the r2 supported instr
+    my ( $r2_supp_att_ref, $r2_supp_intel_ref ) =
+      modelInstructions( $r2file, $intelatt, "", 0 );
+    my %r2_supp_att   = %{$r2_supp_att_ref};
+    my %r2_supp_intel = %{$r2_supp_intel_ref};
+    print(  "| Radar2 Support(att/intel)| "
+          . scalar( keys %r2_supp_att ) . "/"
+          . scalar( keys %r2_supp_intel )
+          . "|\n" );
+
+
     ## Get the angr supported instr
     my ( $angr_supp_att_ref, $angr_supp_intel_ref ) =
       modelInstructions( $angrfile, $intelatt, "", 0 );
@@ -238,7 +251,6 @@ if ( "" ne $compareintel ) {
     ## Get the acl2 supported instr
     my $acl2_intel_ref =
       modelInstructions( $acl2file, $intelatt, "inIntel", $debugprint );
-    my %mcsema_supp_att   = %{$mcsema_supp_att_ref};
     my %acl2_intel = %{$acl2_intel_ref};
     print( "| ACL2 Support(Intel)| " . scalar( keys %acl2_intel ) . "|\n" );
 
@@ -1297,10 +1309,10 @@ if ( "" ne $angr_support ) {
 
 sub angr_support_task {
     my $line     = shift @_;
-    my $instance = "./instructions/$line/$line.s";
-    my $outbin   = "./instructions/$line/$line.o";
-    my $pyfile   = "./instructions/$line/$line.gen.vex.py";
-    my $outfile  = "./instructions/$line/$line.vex";
+    my $instance = "$line.s";
+    my $outbin   = "$line.exe";
+    my $pyfile   = "$line.gen.vex.py";
+    my $outfile  = "$line.vex";
     open( $sfp, ">", $pyfile ) or die "Can't open $pyfile: $!";
 
     print $sfp "import angr" . "\n"
@@ -1316,11 +1328,11 @@ sub angr_support_task {
     print "\n\nVEX for $line\n";
 
     #Display the instructions
-    execute("cat $instance 1 >$outfile 2>&1");
+#execute("cat $instance 1 >$outfile 2>&1");
 
     # Assemble
     #execute("as $instance -o $output");
 
     # Run angr
-    execute( "python $pyfile 1 >$outfile 2>&1", 1 );
+#execute( "python $pyfile 1>$outfile 2>&1", 1 );
 }
