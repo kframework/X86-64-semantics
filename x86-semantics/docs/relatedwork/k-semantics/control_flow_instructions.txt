@@ -40,9 +40,6 @@ jle_label
 jle_label_1
 jle_rel32
 jle_rel8
-jmpq_farptr1616
-jmpq_farptr1632
-jmpq_farptr1664
 jmpq_label
 jmpq_label_1
 jmpq_m64
