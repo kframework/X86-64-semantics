@@ -1070,7 +1070,7 @@ vpunpcklqdq_xmm_xmm_xmm
 vpunpcklqdq_ymm_ymm_ymm
 vpunpcklwd_xmm_xmm_xmm
 vpunpcklwd_ymm_ymm_ymm
-vpvmpgtq_ymm_ymm_ymm
+vpcmpgtq_ymm_ymm_ymm
 vpxor_xmm_xmm_xmm
 vpxor_ymm_ymm_ymm
 vrcpps_xmm_xmm
@@ -2668,7 +2668,7 @@ vpcmpgtb_ymm_ymm_m256
 vpcmpgtd_xmm_xmm_m128
 vpcmpgtd_ymm_ymm_m256
 vpcmpgtq_xmm_xmm_m128
-vpvmpgtq_ymm_ymm_m256
+vpcmpgtq_ymm_ymm_m256
 vpcmpgtw_xmm_xmm_m128
 vpcmpgtw_ymm_ymm_m256
 vpcmpistri_xmm_m128_imm8
