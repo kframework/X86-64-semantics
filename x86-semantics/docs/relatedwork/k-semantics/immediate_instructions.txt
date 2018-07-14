@@ -307,3 +307,11 @@ xorq_r64_imm8
 xorb_r8_imm8
 xorq_rax_imm32
 xorb_rh_imm8
+movw_r16_imm16_1 <-- Duplicate
+movl_r32_imm32_1
+movb_r8_imm8_1
+movb_rh_imm8_1
+pextrw_r32_xmm_imm8_1
+pextrw_r64_xmm_imm8_1
+vpextrw_r32_xmm_imm8_1
+vpextrw_r64_xmm_imm8_1 <-- End
