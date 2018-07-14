@@ -26,26 +26,18 @@ cmpb_r8_r8_1
 cmpb_r8_rh_1
 cmpb_rh_r8_1
 cmpb_rh_rh_1
-movw_r16_imm16_1
 movw_r16_r16_1
-movl_r32_imm32_1
 movl_r32_r32_1
 movq_r64_r64_1
-movb_r8_imm8_1
 movb_r8_r8_1
 movb_r8_rh_1
-movb_rh_imm8_1
 movb_rh_r8_1
 movb_rh_rh_1
 movapd_xmm_xmm_1
 movaps_xmm_xmm_1
 movdqa_xmm_xmm_1
 movdqu_xmm_xmm_1
-movq_m64_mm_1
-movq_m64_xmm_1
-movq_mm_m64_1
 movq_mm_mm_1
-movq_xmm_m64_1
 movq_xmm_xmm_1
 movsd_xmm_xmm_1
 movss_xmm_xmm_1
@@ -58,17 +50,7 @@ orb_r8_r8_1
 orb_r8_rh_1
 orb_rh_r8_1
 orb_rh_rh_1
-pextrw_r32_xmm_imm8_1
-pextrw_r64_xmm_imm8_1
-rep insb_m8_dx_1
 rep lodsb_al_1
-rep movsb_m8_m8_1
-rep outsb_dx_m8_1
-rep stosb_m8_1
-repz cmpsb_m8_m8_1
-repz scasb_m8_1
-repnz cmpsb_m8_m8_1
-repnz scasb_m8_1
 sbbw_r16_r16_1
 sbbl_r32_r32_1
 sbbq_r64_r64_1
@@ -83,7 +65,6 @@ subb_r8_r8_1
 subb_r8_rh_1
 subb_rh_r8_1
 subb_rh_rh_1
-vgatherqps_xmm_m64_xmm_1
 vmovapd_xmm_xmm_1
 vmovapd_ymm_ymm_1
 vmovaps_xmm_xmm_1
@@ -92,8 +73,6 @@ vmovdqa_xmm_xmm_1
 vmovdqa_ymm_ymm_1
 vmovdqu_xmm_xmm_1
 vmovdqu_ymm_ymm_1
-vmovq_m64_xmm_1
-vmovq_xmm_m64_1
 vmovq_xmm_xmm_1
 vmovsd_xmm_xmm_xmm_1
 vmovss_xmm_xmm_xmm_1
@@ -101,9 +80,6 @@ vmovupd_xmm_xmm_1
 vmovupd_ymm_ymm_1
 vmovups_xmm_xmm_1
 vmovups_ymm_ymm_1
-vpextrw_r32_xmm_imm8_1
-vpextrw_r64_xmm_imm8_1
-vpgatherqd_xmm_m64_xmm_1
 xchgw_r16_r16_1
 xchgl_r32_r32_1
 xchgq_r64_r64_1
@@ -118,3 +94,17 @@ xorb_r8_r8_1
 xorb_r8_rh_1
 xorb_rh_r8_1
 xorb_rh_rh_1
+movw_r16_imm16_1
+movl_r32_imm32_1
+movb_r8_imm8_1
+movb_rh_imm8_1
+pextrw_r32_xmm_imm8_1
+pextrw_r64_xmm_imm8_1
+vpextrw_r32_xmm_imm8_1
+vpextrw_r64_xmm_imm8_1
+movq_m64_mm_1
+movq_m64_xmm_1
+movq_mm_m64_1
+movq_xmm_m64_1
+vmovq_m64_xmm_1
+vmovq_xmm_m64_1
