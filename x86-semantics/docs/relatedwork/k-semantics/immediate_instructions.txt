@@ -315,3 +315,9 @@ pextrw_r32_xmm_imm8_1
 pextrw_r64_xmm_imm8_1
 vpextrw_r32_xmm_imm8_1
 vpextrw_r64_xmm_imm8_1 <-- End
+shldw_r16_r16_imm8 <-- Bit Scan/ Shift
+shldl_r32_r32_imm8
+shldq_r64_r64_imm8
+shrdw_r16_r16_imm8
+shrdl_r32_r32_imm8
+shrdq_r64_r64_imm8 <-- End

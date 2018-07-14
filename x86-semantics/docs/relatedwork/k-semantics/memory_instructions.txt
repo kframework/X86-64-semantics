@@ -1372,3 +1372,21 @@ movq_mm_m64_1
 movq_xmm_m64_1
 vmovq_m64_xmm_1
 vmovq_xmm_m64_1 <-- End
+bsfl_r32_m32 <-- Bit Scan/ SHift
+bsfq_r64_m64
+bsfw_r16_m16
+bsrw_r16_m16
+bsrl_r32_m32
+bsrq_r64_m64
+shldw_m16_r16_cl
+shldw_m16_r16_imm8
+shldl_m32_r32_cl
+shldl_m32_r32_imm8
+shldq_m64_r64_cl
+shldq_m64_r64_imm8
+shrdw_m16_r16_cl
+shrdw_m16_r16_imm8
+shrdl_m32_r32_cl
+shrdl_m32_r32_imm8
+shrdq_m64_r64_cl
+shrdq_m64_r64_imm8 <-- End
