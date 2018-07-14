@@ -1070,7 +1070,7 @@ vpunpcklqdq_xmm_xmm_xmm
 vpunpcklqdq_ymm_ymm_ymm
 vpunpcklwd_xmm_xmm_xmm
 vpunpcklwd_ymm_ymm_ymm
-vpvmpgtq_ymm_ymm_ymm
+vpcmpgtq_ymm_ymm_ymm
 vpxor_xmm_xmm_xmm
 vpxor_ymm_ymm_ymm
 vrcpps_xmm_xmm
