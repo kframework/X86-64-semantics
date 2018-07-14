@@ -1366,3 +1366,9 @@ xorb_r8_m8
 xorb_rh_m8
 xorpd_xmm_m128
 xorps_xmm_m128
+movq_m64_mm_1 <-- Duplicate
+movq_m64_xmm_1
+movq_mm_m64_1
+movq_xmm_m64_1
+vmovq_m64_xmm_1
+vmovq_xmm_m64_1 <-- End
