@@ -1417,6 +1417,7 @@ hlt
 int
 cld
 sysenter
+syscall
 xgetbv
 ldmxcsr
 stmxcsr
