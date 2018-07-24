@@ -138,13 +138,13 @@ if ( "" ne $compareintel ) {
     my $availfile = "docs/instruction_manuals/all.instrs";
     my $intelatt =
 "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
+    my $idealfile =
+"/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
 
     my $stratafile =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
     my $currentfile =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
-    my $idealfile =
-"/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
     my $bapfile =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/bap/baprunlog.txt";
     my $angrfile =
@@ -192,7 +192,8 @@ if ( "" ne $compareintel ) {
     my %curr_supp_intel = %{$curr_supp_intel_ref};
     print(  "| Current Support(att/intel)| "
           . scalar( keys %curr_supp_att ) . "/"
-          . scalar( keys %curr_supp_intel )
+          . scalar( keys %curr_supp_intel )  
+          . " \t[". scalar( keys %curr_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
 
     ## Get the bap supported instr
@@ -203,6 +204,7 @@ if ( "" ne $compareintel ) {
     print(  "| Bap Support(att/intel)| "
           . scalar( keys %bap_supp_att ) . "/"
           . scalar( keys %bap_supp_intel )
+          . " \t[". scalar( keys %bap_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
 
     ## Get the r2 supported instr
@@ -213,18 +215,20 @@ if ( "" ne $compareintel ) {
     print(  "| Radar2 Support(att/intel)| "
           . scalar( keys %r2_supp_att ) . "/"
           . scalar( keys %r2_supp_intel )
+          . " \t[". scalar( keys %r2_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
 
 
     ## Get the angr supported instr
-    my ( $angr_supp_att_ref, $angr_supp_intel_ref ) =
-      modelInstructions( $angrfile, $intelatt, "", 0 );
-    my %angr_supp_att   = %{$angr_supp_att_ref};
-    my %angr_supp_intel = %{$angr_supp_intel_ref};
-    print(  "| Angr Support(att/intel)| "
-          . scalar( keys %angr_supp_att ) . "/"
-          . scalar( keys %angr_supp_intel )
-          . "|\n" );
+#    my ( $angr_supp_att_ref, $angr_supp_intel_ref ) =
+#      modelInstructions( $angrfile, $intelatt, "", 0 );
+#    my %angr_supp_att   = %{$angr_supp_att_ref};
+#    my %angr_supp_intel = %{$angr_supp_intel_ref};
+#    print(  "| Angr Support(att/intel)| "
+#          . scalar( keys %angr_supp_att ) . "/"
+#          . scalar( keys %angr_supp_intel )
+#          . " \t[". scalar( keys %angr_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
+#          . "|\n" );
 
     ## Get the strata supported instr
     my ( $strata_supp_att_ref, $strata_supp_intel_ref ) =
@@ -234,6 +238,7 @@ if ( "" ne $compareintel ) {
     print(  "| Strata Support(att/intel)| "
           . scalar( keys %strata_supp_att ) . "/"
           . scalar( keys %strata_supp_intel )
+          . " \t[". scalar( keys %strata_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
 
     ## Get the mcsema supported instr
@@ -246,13 +251,17 @@ if ( "" ne $compareintel ) {
     print(  "| McSema Support(Intel)| "
           . scalar( keys %mcsema_supp_att ) . "/"
           . scalar( keys %mcsema_supp_intel )
+          . " \t[". scalar( keys %mcsema_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
 
     ## Get the acl2 supported instr
     my $acl2_intel_ref =
       modelInstructions( $acl2file, $intelatt, "inIntel", $debugprint );
     my %acl2_intel = %{$acl2_intel_ref};
-    print( "| ACL2 Support(Intel)| " . scalar( keys %acl2_intel ) . "|\n" );
+    print( "| ACL2 Support(Intel)| " 
+        . scalar( keys %acl2_intel ) 
+        . " \t[". scalar( keys %acl2_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
+        . "|\n" );
 
     print "\n\n";
 
