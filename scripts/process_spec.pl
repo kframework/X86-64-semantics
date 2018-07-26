@@ -190,6 +190,7 @@ if ( "" ne $compareintel ) {
       modelInstructions( $currentfile, $intelatt, "", 0 );
     my %curr_supp_att   = %{$curr_supp_att_ref};
     my %curr_supp_intel = %{$curr_supp_intel_ref};
+    #printMap(\%curr_supp_intel);
     print(  "| Current Support(att/intel)| "
           . scalar( keys %curr_supp_att ) . "/"
           . scalar( keys %curr_supp_intel )  
@@ -248,6 +249,7 @@ if ( "" ne $compareintel ) {
       modelInstructions( $mcsemafile, $intelatt, "inIntel", 0 );
     my %mcsema_supp_att   = %{$mcsema_supp_att_ref};
     my %mcsema_supp_intel = %{$mcsema_supp_intel_ref};
+    #printMap(\%mcsema_supp_intel);
     print(  "| McSema Support(Intel)| "
           . scalar( keys %mcsema_supp_att ) . "/"
           . scalar( keys %mcsema_supp_intel )
