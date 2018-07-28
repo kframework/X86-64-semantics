@@ -154,4 +154,15 @@ module X86-ASBTRACT-SYNTAX
   */
   syntax Int ::= scanForward(MInt, Int, Int) [function]
   syntax Int ::= scanReverse(MInt, Int, Int) [function]
+
+  /*@
+    pcmpestri
+  */
+  syntax MInt ::= equalAnyImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
+  syntax MInt ::= rangeImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
+  syntax MInt ::= equalEachImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
+  syntax MInt ::= equalOrderedImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
+  syntax MInt ::= findLimitIndex(MInt, MInt) [function]
+  syntax MInt ::= polarityImpl(MInt, MInt) [function]
+
 endmodule

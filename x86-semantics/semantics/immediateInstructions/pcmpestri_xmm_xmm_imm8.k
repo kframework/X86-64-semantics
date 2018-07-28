@@ -8,8 +8,8 @@ module PCMPESTRI-XMM-XMM-IMM8
   rule <k>
     execinstr (pcmpestri Imm8:Imm, Xmm2:Xmm, Xmm1:Xmm,  .Operands) => 
       execinstr (pcmpestri handleImmediateWithSignExtend(Imm8, 8, 8), Xmm2, Xmm1, getRegisterValue(Xmm2, RSMap), getRegisterValue(Xmm1, RSMap),
-          findLimitIndex(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx)),   
-          findLimitIndex(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax)),   
+          findLimitIndex(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx, RSMap)),   
+          findLimitIndex(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax, RSMap)),   
           .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
@@ -19,38 +19,38 @@ module PCMPESTRI-XMM-XMM-IMM8
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt,  Limit2:MInt, Limit1:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  mi(8, 8) , extractMInt(Imm8, 6, 7),  .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)
+    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1))
 
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt,  Limit2:MInt, Limit1:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  mi(8, 16), extractMInt(Imm8, 6, 7),  .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)
+    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0))
 
   // Aggregation operation
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalAnyImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 0)
+    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 0))
     
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, rangeImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 1)
+    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 1))
 
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalEachImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 2)
+    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 2))
 
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
-      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, EqualOrderedImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
+      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalOrderedImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 3)    
+    requires eqMInt(extractMInt(Imm8, 4, 5), mi(2, 3) )   
 
   // Polarity
   rule <k>
@@ -63,32 +63,23 @@ module PCMPESTRI-XMM-XMM-IMM8
   // If no bit is set, 16 or 8 is returned.
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(%rcx, mi(64, uvalueMInt(NumElems)))
+      setRegisterValue(mi(64, uvalueMInt(NumElems)), %rcx)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0) 
-      andBool  eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
-
-  rule <k>
-    execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(%rcx, mi(64, uvalueMInt(NumElems)))
-  ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) 
-      andBool  eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
+    requires  eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
 
   // ELse
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(%rcx, mi(64, scanForward(IntRes2, NumElems-1, NumElems)))
+      setRegisterValue(mi(64, scanForward(IntRes2, uvalueMInt(NumElems) -Int 1, uvalueMInt(NumElems))), %rcx)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0) 
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0)) 
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
 
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(%rcx, mi(64, scanReverse(IntRes2, 0, NumElems)))
+      setRegisterValue(mi(64, scanReverse(IntRes2, 0, uvalueMInt(NumElems))), %rcx)
   ...</k>
-  ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) 
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) )
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
       
 endmodule
