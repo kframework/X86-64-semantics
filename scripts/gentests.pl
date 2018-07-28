@@ -223,10 +223,12 @@ sub unroll {
             }
         }
 
-        if ( ($line =~ m/\)$/) and ($line !~ m/-\d+/)) {
+#print $line. " 1\n";
+        if ( ($line =~ m/\)$/) and ($line !~ m/-\d+/) and ($line !~ m/rsp/)) {
             $i++;
             next;
         }
+#print $line. " 2\n";
 
         if ( $line =~ m/^TEST_END/ ) {
             $retcounter = $i;
