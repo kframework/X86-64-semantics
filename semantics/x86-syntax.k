@@ -1231,4 +1231,8 @@ module X86-SYNTAX
                   | "shrdq"
                   | "shrdl"
                   | "shrdw"
+                  | "pcmpestri"
+                  | "pcmpestrm"
+                  | "pcmpistri"
+                  | "pcmpistrm"
 endmodule
