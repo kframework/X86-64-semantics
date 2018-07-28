@@ -1225,4 +1225,10 @@ module X86-SYNTAX
                   | "bsrw"
                   | "bsrl"
                   | "bsrq"
+                  | "shldq"
+                  | "shldl"
+                  | "shldw"
+                  | "shrdq"
+                  | "shrdl"
+                  | "shrdw"
 endmodule

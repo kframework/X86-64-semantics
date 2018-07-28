@@ -63,7 +63,7 @@ module SHLDQ-R64-R64
       updateZeroFlag(MIresult) ~> 
       updateParityFlag(MIresult) ~> 
 
-      setFlag(mi(1, 0), "OF") ~>
+      setFlag(undefMInt, "OF") ~>
       setFlag(undefMInt, "AF") ~> 
       setRegisterValue(MIresult, R)
   ...</k> 

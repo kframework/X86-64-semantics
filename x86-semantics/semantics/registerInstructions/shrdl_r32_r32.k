@@ -64,7 +64,7 @@ module SHRDL-R32-R32
       updateZeroFlag(MIresult) ~> 
       updateParityFlag(MIresult) ~> 
 
-      setFlag(mi(1, 0), "OF") ~>
+      setFlag(undefMInt, "OF") ~>
       setFlag(undefMInt, "AF") ~> 
       setParentValue(concatenateMInt(mi(32,0), MIresult), R)
   ...</k> 
