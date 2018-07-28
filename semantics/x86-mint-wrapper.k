@@ -14,6 +14,10 @@ module MINT-WRAPPER-SYNTAX
   imports INT
 
   syntax MInt ::= "undefMInt"
+  syntax MInt ::= "undefMInt8"
+  syntax MInt ::= "undefMInt16"
+  syntax MInt ::= "undefMInt32"
+  syntax MInt ::= "undefMInt64"
   syntax Bool ::= "undefBool"
   syntax MInt ::= "zeroMIntW1"
   syntax MInt ::= "zeroMIntW64"
@@ -348,6 +352,10 @@ module MINT-WRAPPER
     Used while allocating the undef stack memory,
   */
   //rule bitwidthMInt(undefMInt) => 8 [lemma]
+  rule bitwidthMInt(undefMInt8) =>  8 [lemma]
+  rule bitwidthMInt(undefMInt16) => 16 [lemma]
+  rule bitwidthMInt(undefMInt32) => 32 [lemma]
+  rule bitwidthMInt(undefMInt64) => 64 [lemma]
 
   /*@
     Create a list of indef MInts

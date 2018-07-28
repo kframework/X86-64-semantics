@@ -26,7 +26,7 @@ module SHLDQ-M64-R64-CL
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount), 0))
 
   rule <k>
-    execinstr (shldq memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => storeToMemory(undefMInt, MemOff, 64)
+    execinstr (shldq memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => storeToMemory(undefMInt64, MemOff, 64)
   ...</k> 
    <regstate>
   RSMap:Map => updateMap(RSMap,

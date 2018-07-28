@@ -26,7 +26,7 @@ module SHLDW-M16-R16-CL
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount), 0))
 
   rule <k>
-    execinstr (shldw memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => storeToMemory(undefMInt, MemOff, 16)
+    execinstr (shldw memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => storeToMemory(undefMInt16, MemOff, 16)
   ...</k> 
    <regstate>
   RSMap:Map => updateMap(RSMap,
