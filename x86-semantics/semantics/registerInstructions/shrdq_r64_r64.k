@@ -5,19 +5,19 @@ module SHLDQ-R64-R64
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (shldq %cl, R2:R64, R1:R64,  .Operands) =>  
-      execinstr (shldq R1, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
+    execinstr (shrdq %cl, R2:R64, R1:R64,  .Operands) =>  
+      execinstr (shrdq R1, getRegisterValue(R1, RSMap), getRegisterValue(R2, RSMap), 
           shiftCountMask(getRegisterValue(%cl, RSMap), 64),  .Operands)
   ...</k>
     <regstate> RSMap </regstate>
 
   rule <k>
-    execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .
+    execinstr (shrdq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .
   ...</k> 
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount), 0))
 
   rule <k>
-    execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .
+    execinstr (shrdq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => .
   ...</k> 
    <regstate>
   RSMap:Map => updateMap(RSMap,
@@ -34,18 +34,18 @@ module SHLDQ-R64-R64
 
 
   rule <k>
-    execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => 
-      execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, 
-          orMInt( shiftLeftMInt(MIdest, uvalueMInt(MIcount)),
-          lshrMInt(MIsrc, bitwidthMInt(MIdest) -Int uvalueMInt(MIcount))),
+    execinstr (shrdq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => 
+      execinstr (shrdq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, 
+          orMInt( lshrMInt(MIdest, uvalueMInt(MIcount)),
+      shiftLeftMInt(MIsrc, bitwidthMInt(MIdest) -Int uvalueMInt(MIcount))),
           .Operands) 
   ...</k> 
       requires uleMInt(MIcount, mi(bitwidthMInt(MIcount), bitwidthMInt(MIdest)))
        andBool (notBool eqMInt(MIcount, mi(bitwidthMInt(MIcount), 0)))
 
   rule <k>
-    execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, MIresult:MInt, .Operands) => 
-      setFlag(extractMInt(MIdest, uvalueMInt(MIcount) -Int 1, uvalueMInt(MIcount)), "CF") ~> 
+    execinstr (shrdq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, MIresult:MInt, .Operands) => 
+      setFlag(extractMInt(MIdest, bitwidthMInt(MIdest) -Int uvalueMInt(MIcount), bitwidthMInt(MIdest) -Int uvalueMInt(MIcount) +Int 1), "CF") ~> 
       updateSignFlag(MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateParityFlag(MIresult) ~> 
@@ -57,8 +57,8 @@ module SHLDQ-R64-R64
       requires eqMInt(MIcount, mi(bitwidthMInt(MIcount), 1))
   
   rule <k>
-    execinstr (shldq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, MIresult:MInt, .Operands) => 
-      setFlag(extractMInt(MIdest, uvalueMInt(MIcount) -Int 1, uvalueMInt(MIcount)), "CF") ~> 
+    execinstr (shrdq R, MIdest:MInt, MIsrc:MInt, MIcount:MInt, MIresult:MInt, .Operands) => 
+      setFlag(extractMInt(MIdest, bitwidthMInt(MIdest) -Int uvalueMInt(MIcount), bitwidthMInt(MIdest) -Int uvalueMInt(MIcount) +Int 1), "CF") ~> 
       updateSignFlag(MIresult) ~> 
       updateZeroFlag(MIresult) ~> 
       updateParityFlag(MIresult) ~> 
