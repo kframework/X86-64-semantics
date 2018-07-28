@@ -15,181 +15,181 @@
     <text>
       code ( iloc ( 64'0 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'1 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'2 ) |-> storedInstr ( shldq $ 0 , %rax , %rbx , .Operands )
+      iloc ( 64'2 ) |-> storedInstr ( shldl $ 0 , %eax , %ebx , .Operands )
       iloc ( 64'3 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'4 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'5 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'5 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'6 ) |-> storedInstr ( movq $ 1 , %rax , .Operands )
       iloc ( 64'7 ) |-> storedInstr ( movq $ 1 , %rbx , .Operands )
-      iloc ( 64'8 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'8 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'9 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'10 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'11 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'11 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'12 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'13 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'14 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'14 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'15 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'16 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'17 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'17 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'18 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'19 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'20 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'20 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'21 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'22 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'23 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'23 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'24 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'25 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'26 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'26 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'27 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'28 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'29 ) |-> storedInstr ( shldq $ 1 , %rax , %rbx , .Operands )
+      iloc ( 64'29 ) |-> storedInstr ( shldl $ 1 , %eax , %ebx , .Operands )
       iloc ( 64'30 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'31 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'32 ) |-> storedInstr ( shldq $ 15 , %rax , %rbx , .Operands )
+      iloc ( 64'32 ) |-> storedInstr ( shldl $ 15 , %eax , %ebx , .Operands )
       iloc ( 64'33 ) |-> storedInstr ( movq $ 1 , %rax , .Operands )
       iloc ( 64'34 ) |-> storedInstr ( movq $ 1 , %rbx , .Operands )
-      iloc ( 64'35 ) |-> storedInstr ( shldq $ 15 , %rax , %rbx , .Operands )
+      iloc ( 64'35 ) |-> storedInstr ( shldl $ 15 , %eax , %ebx , .Operands )
       iloc ( 64'36 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'37 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'38 ) |-> storedInstr ( shldq $ 15 , %rax , %rbx , .Operands )
+      iloc ( 64'38 ) |-> storedInstr ( shldl $ 15 , %eax , %ebx , .Operands )
       iloc ( 64'39 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'40 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'41 ) |-> storedInstr ( shldq $ 15 , %rax , %rbx , .Operands )
+      iloc ( 64'41 ) |-> storedInstr ( shldl $ 15 , %eax , %ebx , .Operands )
       iloc ( 64'42 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'43 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'44 ) |-> storedInstr ( shldq $ 15 , %rax , %rbx , .Operands )
+      iloc ( 64'44 ) |-> storedInstr ( shldl $ 15 , %eax , %ebx , .Operands )
       iloc ( 64'45 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'46 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'47 ) |-> storedInstr ( shldq $ 15 , %rax , %rbx , .Operands )
+      iloc ( 64'47 ) |-> storedInstr ( shldl $ 15 , %eax , %ebx , .Operands )
       iloc ( 64'48 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'49 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'50 ) |-> storedInstr ( shldq $ 16 , %rax , %rbx , .Operands )
+      iloc ( 64'50 ) |-> storedInstr ( shldl $ 16 , %eax , %ebx , .Operands )
       iloc ( 64'51 ) |-> storedInstr ( movq $ 1 , %rax , .Operands )
       iloc ( 64'52 ) |-> storedInstr ( movq $ 1 , %rbx , .Operands )
-      iloc ( 64'53 ) |-> storedInstr ( shldq $ 16 , %rax , %rbx , .Operands )
+      iloc ( 64'53 ) |-> storedInstr ( shldl $ 16 , %eax , %ebx , .Operands )
       iloc ( 64'54 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'55 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'56 ) |-> storedInstr ( shldq $ 16 , %rax , %rbx , .Operands )
+      iloc ( 64'56 ) |-> storedInstr ( shldl $ 16 , %eax , %ebx , .Operands )
       iloc ( 64'57 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'58 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'59 ) |-> storedInstr ( shldq $ 16 , %rax , %rbx , .Operands )
+      iloc ( 64'59 ) |-> storedInstr ( shldl $ 16 , %eax , %ebx , .Operands )
       iloc ( 64'60 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'61 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'62 ) |-> storedInstr ( shldq $ 16 , %rax , %rbx , .Operands )
+      iloc ( 64'62 ) |-> storedInstr ( shldl $ 16 , %eax , %ebx , .Operands )
       iloc ( 64'63 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'64 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'65 ) |-> storedInstr ( shldq $ 16 , %rax , %rbx , .Operands )
+      iloc ( 64'65 ) |-> storedInstr ( shldl $ 16 , %eax , %ebx , .Operands )
       iloc ( 64'66 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'67 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'68 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'68 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'69 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'70 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'71 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'71 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'72 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'73 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'74 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'74 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'75 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'76 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'77 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'77 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'78 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'79 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'80 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'80 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'81 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'82 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'83 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'83 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'84 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'85 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'86 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'86 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'87 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
       iloc ( 64'88 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'89 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'89 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'90 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'91 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'92 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'92 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'93 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
       iloc ( 64'94 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'95 ) |-> storedInstr ( shldq $ 31 , %rax , %rbx , .Operands )
+      iloc ( 64'95 ) |-> storedInstr ( shldl $ 31 , %eax , %ebx , .Operands )
       iloc ( 64'96 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'97 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'98 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'98 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'99 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'100 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'101 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'101 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'102 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'103 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'104 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'104 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'105 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'106 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'107 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'107 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'108 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'109 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'110 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'110 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'111 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'112 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'113 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'113 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'114 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'115 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'116 ) |-> storedInstr ( shldq $ 32 , %rax , %rbx , .Operands )
+      iloc ( 64'116 ) |-> storedInstr ( shldl $ 32 , %eax , %ebx , .Operands )
       iloc ( 64'117 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'118 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'119 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'119 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'120 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'121 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'122 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'122 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'123 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'124 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'125 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'125 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'126 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'127 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'128 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'128 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'129 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'130 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'131 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'131 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'132 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'133 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'134 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'134 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'135 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'136 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'137 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'137 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'138 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
       iloc ( 64'139 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'140 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'140 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'141 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'142 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'143 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'143 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'144 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
       iloc ( 64'145 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'146 ) |-> storedInstr ( shldq $ 63 , %rax , %rbx , .Operands )
+      iloc ( 64'146 ) |-> storedInstr ( shldl $ 63 , %eax , %ebx , .Operands )
       iloc ( 64'147 ) |-> storedInstr ( movq $0xFF , %rax , .Operands )
       iloc ( 64'148 ) |-> storedInstr ( movq $0xFF , %rbx , .Operands )
-      iloc ( 64'149 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'149 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'150 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'151 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'152 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'152 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'153 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'154 ) |-> storedInstr ( movq $0xFFFF , %rbx , .Operands )
-      iloc ( 64'155 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'155 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'156 ) |-> storedInstr ( movq $0xFFFF , %rax , .Operands )
       iloc ( 64'157 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'158 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'158 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'159 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'160 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'161 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'161 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'162 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'163 ) |-> storedInstr ( movq $0xFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'164 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'164 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'165 ) |-> storedInstr ( movq $0xFFFFFFFF , %rax , .Operands )
       iloc ( 64'166 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'167 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'167 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'168 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
       iloc ( 64'169 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'170 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'170 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'171 ) |-> storedInstr ( movq $ 0 , %rax , .Operands )
       iloc ( 64'172 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rbx , .Operands )
-      iloc ( 64'173 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'173 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'174 ) |-> storedInstr ( movq $0xFFFFFFFFFFFFFFFF , %rax , .Operands )
       iloc ( 64'175 ) |-> storedInstr ( movq $ 0 , %rbx , .Operands )
-      iloc ( 64'176 ) |-> storedInstr ( shldq $ 64 , %rax , %rbx , .Operands )
+      iloc ( 64'176 ) |-> storedInstr ( shldl $ 64 , %eax , %ebx , .Operands )
       iloc ( 64'177 ) |-> storedInstr ( nop .Operands ) )
     </text>
     <stack>
@@ -3265,9 +3265,9 @@
     "ZF" |-> 1'1 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> 1'0
-    "PF" |-> 1'0
+    "PF" |-> 1'1
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -3278,14 +3278,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'8589934590
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'24
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -3305,9 +3305,9 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> 1'0
-    "PF" |-> 1'0
+    "PF" |-> 1'1
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -3318,14 +3318,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'8589934590
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'25
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -3345,9 +3345,9 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> 1'0
-    "PF" |-> 1'0
+    "PF" |-> 1'1
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -3365,7 +3365,7 @@
     "RIP" |-> 64'26
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -3385,7 +3385,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -3398,14 +3398,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'8589934590
+    "RBX" |-> 64'4294967294
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'27
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -3425,7 +3425,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -3438,14 +3438,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'8589934590
+    "RBX" |-> 64'4294967294
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'28
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -3465,7 +3465,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> 1'0
     "PF" |-> 1'0
     "R8" |-> 64'0
@@ -3485,7 +3485,7 @@
     "RIP" |-> 64'29
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -3507,7 +3507,7 @@
 "AF" |-> undefMInt
     "CF" |-> 1'0
     "OF" |-> 1'0
-    "PF" |-> 1'1
+    "PF" |-> 1'0
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -3518,7 +3518,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'0
+    "RBX" |-> 64'1
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -3542,12 +3542,12 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
     "OF" |-> 1'0
-    "PF" |-> 1'1
+    "PF" |-> 1'0
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -3558,7 +3558,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'0
+    "RBX" |-> 64'1
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -3582,12 +3582,12 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
     "OF" |-> 1'0
-    "PF" |-> 1'1
+    "PF" |-> 1'0
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -3622,7 +3622,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -4725,7 +4725,7 @@
     "RIP" |-> 64'60
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -4765,7 +4765,7 @@
     "RIP" |-> 64'61
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -4805,7 +4805,7 @@
     "RIP" |-> 64'62
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -4845,7 +4845,7 @@
     "RIP" |-> 64'63
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -4885,7 +4885,7 @@
     "RIP" |-> 64'64
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -4925,7 +4925,7 @@
     "RIP" |-> 64'65
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5065,9 +5065,9 @@
     "ZF" |-> 1'1 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
-    "PF" |-> 1'1
+    "PF" |-> 1'0
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -5078,14 +5078,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'255
     "RBP" |-> 64'2040
-    "RBX" |-> 64'547608330240
+    "RBX" |-> 64'2147483775
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'69
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5105,9 +5105,9 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
-    "PF" |-> 1'1
+    "PF" |-> 1'0
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -5118,14 +5118,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'547608330240
+    "RBX" |-> 64'2147483775
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'70
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5145,9 +5145,9 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
-    "PF" |-> 1'1
+    "PF" |-> 1'0
     "R8" |-> 64'0
     "R9" |-> 64'0
     "R10" |-> 64'0
@@ -5165,7 +5165,7 @@
     "RIP" |-> 64'71
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5185,7 +5185,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5198,14 +5198,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'140735340871680
+    "RBX" |-> 64'2147516415
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'72
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5225,7 +5225,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5238,14 +5238,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'140735340871680
+    "RBX" |-> 64'2147516415
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'73
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5265,7 +5265,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5285,7 +5285,7 @@
     "RIP" |-> 64'74
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5305,7 +5305,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5318,14 +5318,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'140735340871680
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'75
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5345,7 +5345,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5358,14 +5358,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'140735340871680
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'76
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5385,7 +5385,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5405,7 +5405,7 @@
     "RIP" |-> 64'77
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5438,7 +5438,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'0
+    "RBX" |-> 64'32767
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5462,7 +5462,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -5478,7 +5478,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'0
+    "RBX" |-> 64'32767
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5502,7 +5502,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -5542,10 +5542,10 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5558,14 +5558,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372034707292160
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'81
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5585,7 +5585,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5598,14 +5598,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372034707292160
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'82
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5625,7 +5625,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5645,7 +5645,7 @@
     "RIP" |-> 64'83
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5665,7 +5665,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5678,14 +5678,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372034707292160
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'84
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5705,7 +5705,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5718,14 +5718,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372034707292160
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'85
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5745,7 +5745,7 @@
     "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
-    "CF" |-> 1'0
+    "CF" |-> 1'1
     "OF" |-> undefMInt
     "PF" |-> 1'1
     "R8" |-> 64'0
@@ -5765,7 +5765,7 @@
     "RIP" |-> 64'86
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'0
+    "SF" |-> 1'1
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -5798,7 +5798,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'0
+    "RBX" |-> 64'2147483647
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5822,7 +5822,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -5838,7 +5838,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'0
+    "RBX" |-> 64'2147483647
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5862,7 +5862,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -5902,7 +5902,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'1
@@ -5918,7 +5918,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -5958,7 +5958,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6038,7 +6038,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744071562067968
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6078,7 +6078,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744071562067968
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6278,7 +6278,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'255
     "RBP" |-> 64'2040
-    "RBX" |-> 64'1095216660480
+    "RBX" |-> 64'255
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6318,7 +6318,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'1095216660480
+    "RBX" |-> 64'255
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6398,7 +6398,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'281470681743360
+    "RBX" |-> 64'65535
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6438,7 +6438,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'281470681743360
+    "RBX" |-> 64'65535
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6518,7 +6518,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'281470681743360
+    "RBX" |-> 64'65535
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6558,7 +6558,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'281470681743360
+    "RBX" |-> 64'65535
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -6662,7 +6662,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -6702,7 +6702,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -6742,7 +6742,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -6758,14 +6758,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744069414584320
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'111
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'1
+    "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -6798,14 +6798,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744069414584320
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'112
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'1
+    "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -6845,7 +6845,7 @@
     "RIP" |-> 64'113
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'1
+    "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -6878,14 +6878,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744069414584320
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'114
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'1
+    "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -6918,14 +6918,14 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744069414584320
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
     "RIP" |-> 64'115
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'1
+    "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -6965,7 +6965,7 @@
     "RIP" |-> 64'116
     "RSI" |-> 64'0
     "RSP" |-> 64'2040
-    "SF" |-> 1'1
+    "SF" |-> 1'0
     "YMM0" |-> 256'0
     "YMM1" |-> 256'0
     "YMM2" |-> 256'0
@@ -7022,7 +7022,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -7062,7 +7062,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'0
@@ -7102,7 +7102,7 @@
     "YMM13" |-> 256'0
     "YMM14" |-> 256'0
     "YMM15" |-> 256'0
-    "ZF" |-> 1'1 )
+    "ZF" |-> 1'0 )
     ListItem (
 "AF" |-> undefMInt
     "CF" |-> 1'1
@@ -7118,7 +7118,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'255
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775935
+    "RBX" |-> 64'2147483775
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7158,7 +7158,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775935
+    "RBX" |-> 64'2147483775
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7238,7 +7238,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854808575
+    "RBX" |-> 64'2147516415
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7278,7 +7278,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854808575
+    "RBX" |-> 64'2147516415
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7358,7 +7358,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775808
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7398,7 +7398,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'65535
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775808
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7598,7 +7598,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372039002259455
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7638,7 +7638,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372039002259455
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7718,7 +7718,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775808
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7758,7 +7758,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'4294967295
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775808
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7958,7 +7958,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -7998,7 +7998,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -8078,7 +8078,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775808
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -8118,7 +8118,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775808
+    "RBX" |-> 64'2147483648
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -8198,7 +8198,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775807
+    "RBX" |-> 64'2147483647
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -8238,7 +8238,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'255
     "RBP" |-> 64'2040
-    "RBX" |-> 64'9223372036854775807
+    "RBX" |-> 64'2147483647
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -9158,7 +9158,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -9198,7 +9198,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -9278,7 +9278,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'0
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0
@@ -9318,7 +9318,7 @@
     "R15" |-> 64'0
     "RAX" |-> 64'18446744073709551615
     "RBP" |-> 64'2040
-    "RBX" |-> 64'18446744073709551615
+    "RBX" |-> 64'4294967295
     "RCX" |-> 64'0
     "RDI" |-> 64'0
     "RDX" |-> 64'0

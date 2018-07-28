@@ -62,5 +62,5 @@ TEST_INPUTS(
 
     movq ARG1_64, %rax
     movq ARG2_64, %rbx
-    shrdq ARG3_64, %eax, %ebx
+    shrdl ARG3_64, %eax, %ebx
 TEST_END
