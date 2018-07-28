@@ -4,15 +4,6 @@ requires "x86-configuration.k"
 module BSFQ-R64-R64
   imports X86-CONFIGURATION
 
-  syntax Int ::= scanForward(MInt, Int, Int) [function]
-
-  rule scanForward(M:MInt, N:Int, W:Int) => W -Int 1 -Int N
-    requires eqMInt(extractMInt(M, N, N +Int 1), mi(1,1)) 
-
-  rule scanForward(M:MInt, N:Int, W:Int) => scanForward(M, N -Int 1, W)
-    requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1)) 
-
-
   rule <k>
     execinstr (bsfq R1:R64, R2:R64,  .Operands) =>  .
   ...</k>
