@@ -498,12 +498,18 @@ module X86-ABSTRACT-SEMANTICS
 
 
   /*@
-    bsf
+    bsf/bsr
   */
   rule scanForward(M:MInt, N:Int, W:Int) => W -Int 1 -Int N
     requires eqMInt(extractMInt(M, N, N +Int 1), mi(1,1)) 
 
   rule scanForward(M:MInt, N:Int, W:Int) => scanForward(M, N -Int 1, W)
+    requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1))
+
+  rule scanReverse(M:MInt, N:Int, W:Int) => W -Int 1 -Int N
+    requires eqMInt(extractMInt(M, N, N +Int 1), mi(1,1)) 
+
+  rule scanReverse(M:MInt, N:Int, W:Int) => scanReverse(M, N +Int 1, W)
     requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1))
 endmodule
 
