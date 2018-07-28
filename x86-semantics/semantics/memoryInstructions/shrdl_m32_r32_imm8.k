@@ -26,7 +26,7 @@ module SHLDL-M32-R32-CL
     requires eqMInt(MIcount, mi(bitwidthMInt(MIcount), 0))
 
   rule <k>
-    execinstr (shrdl memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => storeToMemory(undefMInt, MemOff, 32)
+    execinstr (shrdl memOffset( MemOff), MIdest:MInt, MIsrc:MInt, MIcount:MInt, .Operands) => storeToMemory(undefMInt32, MemOff, 32)
   ...</k> 
    <regstate>
   RSMap:Map => updateMap(RSMap,
