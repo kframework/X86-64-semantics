@@ -1219,5 +1219,10 @@ module X86-SYNTAX
                   | "cmovle"
                   | "cmovbe"
                   | "ud2"
-
+                  | "bsfl"
+                  | "bsfq"
+                  | "bsfw"
+                  | "bsrw"
+                  | "bsrl"
+                  | "bsrq"
 endmodule

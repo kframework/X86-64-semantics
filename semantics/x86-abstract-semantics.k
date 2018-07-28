@@ -496,6 +496,15 @@ module X86-ABSTRACT-SEMANTICS
     requires eqMInt( extractMInt(Mask, 63 -Int M, 64 -Int M), mi(1, 0))
                 andBool M =/=Int 63               
 
+
+  /*@
+    bsf
+  */
+  rule scanForward(M:MInt, N:Int, W:Int) => W -Int 1 -Int N
+    requires eqMInt(extractMInt(M, N, N +Int 1), mi(1,1)) 
+
+  rule scanForward(M:MInt, N:Int, W:Int) => scanForward(M, N -Int 1, W)
+    requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1))
 endmodule
 
   /*

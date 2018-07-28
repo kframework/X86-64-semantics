@@ -149,5 +149,8 @@ module X86-ASBTRACT-SYNTAX
   syntax KItem ::= parallelBitExtract64(MInt, Register, Register, Int, Int)
   syntax KItem ::= parallelBitExtract32(MInt, Register, Register, Int, Int)
 
-
+  /*@
+    bsf
+  */
+  syntax Int ::= scanForward(MInt, Int, Int) [function]
 endmodule

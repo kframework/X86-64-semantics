@@ -347,7 +347,7 @@ module MINT-WRAPPER
     The bitwodth of undef is defined as 8 bits.
     Used while allocating the undef stack memory,
   */
-  rule bitwidthMInt(undefMInt) => 8 [lemma]
+  //rule bitwidthMInt(undefMInt) => 8 [lemma]
 
   /*@
     Create a list of indef MInts
