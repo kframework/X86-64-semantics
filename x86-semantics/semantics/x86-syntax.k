@@ -1261,5 +1261,11 @@ module X86-SYNTAX
                   | "scasw"
                   | "scasl"
                   | "scasq"
+                  | "std"
+                  | "cld"
+                  | "stosb"
+                  | "stosw"
+                  | "stosl"
+                  | "stosq"
 
 endmodule
