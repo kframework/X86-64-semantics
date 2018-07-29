@@ -1390,3 +1390,81 @@ shrdl_m32_r32_cl
 shrdl_m32_r32_imm8
 shrdq_m64_r64_cl
 shrdq_m64_r64_imm8 <-- End
+scas_m16 <-- String
+scas_m32
+scas_m64
+scas_m8
+scasb
+scasl
+scasq
+scasw 
+cmps_m16_m16 
+cmps_m32_m32
+cmps_m64_m64 *
+cmps_m8_m8
+cmpsb
+cmpsl
+cmpsq *
+cmpsw
+rep lodsb_al
+rep lodsw_ax
+rep lodsl_eax
+rep lodsq_rax *
+rep movsw_m16_m16
+rep movsl_m32_m32
+rep movsq_m64_m64 *
+rep movsb_m8_m8
+rep stosw_m16
+rep stosl_m32
+rep stosq_m64 *
+rep stosb_m8
+repz cmpsw_m16_m16
+repz cmpsl_m32_m32
+repz cmpsq_m64_m64  *
+repz cmpsb_m8_m8
+repz scasw_m16
+repz scasl_m32
+repz scasq_m64
+repz scasb_m8
+repnz cmpsw_m16_m16
+repnz cmpsl_m32_m32
+repnz cmpsq_m64_m64 *
+repnz cmpsb_m8_m8
+repnz scasw_m16
+repnz scasl_m32
+repnz scasq_m64
+repnz scasb_m8
+rep lodsb_al_1
+rep movsb_m8_m8_1
+rep outsb_dx_m8_1
+rep stosb_m8_1
+repz cmpsb_m8_m8_1
+repz scasb_m8_1
+repnz cmpsb_m8_m8_1
+repnz scasb_m8_1
+lods_m16
+lods_m32
+lods_m64
+lods_m8
+lodsb
+lodsl
+lodsq **
+lodsw
+stosw_m16
+stosl_m32
+stosq_m64 **
+stosb_m8
+stosb
+stosl
+stosq **
+stosw 
+movs_m16_m16
+movs_m32_m32
+movs_m64_m64
+movs_m8_m8
+movsb
+movsl
+movsq **
+movsw 
+std 
+cld <-- End
