@@ -1235,4 +1235,9 @@ module X86-SYNTAX
                   | "pcmpestrm"
                   | "pcmpistri"
                   | "pcmpistrm"
+                  | "loop"
+                  | "loope"
+                  | "loopne"
+                  | "loopz"
+                  | "loopnz"
 endmodule
