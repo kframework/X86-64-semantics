@@ -1,0 +1,2122 @@
+GROUP-6	
+SLDT/SLDT	((:reg 0))	Unimplemented
+STR/STR	((:reg 1))	Unimplemented
+LLDT	((:reg 2))	x86-lldt
+LTR	((:reg 3))	Unimplemented
+VERR	((:reg 4))	Unimplemented
+VERW	((:reg 5))	Unimplemented
+NONE	((:reg 6))	Reserved
+NONE	((:reg 7))	Reserved
+#ux1	GROUP-7	
+SGDT	((:reg 0) (:mod :mem))	Unimplemented
+VMCALL	((:reg 0) (:mod 3) (:r/m 1))	Unimplemented
+VMLAUNCH	((:reg 0) (:mod 3) (:r/m 2))	Unimplemented
+VMRESUME	((:reg 0) (:mod 3) (:r/m 3))	Unimplemented
+VMXOFF	((:reg 0) (:mod 3) (:r/m 4))	Unimplemented
+SIDT	((:reg 1) (:mod :mem))	Unimplemented
+MONITOR	((:reg 1) (:mod 3) (:r/m 0))	Unimplemented
+MWAIT	((:reg 1) (:mod 3) (:r/m 1))	Unimplemented
+CLAC	((:reg 1) (:mod 3) (:r/m 2))	Unimplemented
+STAC	((:reg 1) (:mod 3) (:r/m 3))	Unimplemented
+ENCLS	((:reg 1) (:mod 3) (:r/m 7))	Unimplemented
+LGDT	((:reg 2) (:mod :mem))	x86-lgdt
+LIDT	((:reg 3) (:mod :mem))	x86-lidt
+XGETBV	((:reg 3) (:mod 3) (:r/m 0))	Unimplemented
+XSETBV	((:reg 3) (:mod 3) (:r/m 1))	Unimplemented
+VMFUNC	((:reg 3) (:mod 3) (:r/m 4))	Unimplemented
+XEND	((:reg 3) (:mod 3) (:r/m 5))	Unimplemented
+XTEST	((:reg 3) (:mod 3) (:r/m 6))	Unimplemented
+ENCLU	((:reg 3) (:mod 3) (:r/m 7))	Unimplemented
+SMSW/SMSW	((:reg 4))	Unimplemented
+NONE	((:reg 4) (:r/m 3))	Reserved
+NONE	((:reg 5))	Reserved
+LMSW	((:reg 6))	Unimplemented
+INVLPG	((:reg 7) (:r/m :mem))	Unimplemented
+SWAPGS	((:reg 7) (:mod 3) (:r/m 0))	Unimplemented
+RDTSCP	((:reg 7) (:mod 3) (:r/m 1))	Unimplemented
+#ux2	LAR	Unimplemented
+#ux3	LSL	Unimplemented
+#ux4	NONE	Reserved
+#ux5		
+:o64	SYSCALL	x86-syscall-both-views
+:i64	NONE	Reserved
+#ux6	CLTS	Unimplemented
+#ux7		
+:o64	SYSRET	x86-sysret
+:i64	NONE	Reserved
+#ux8	INVD	Unimplemented
+#ux9	WBINVD	Unimplemented
+#uxA	NONE	Reserved
+#uxB	UD2	Unimplemented
+#uxC	NONE	Reserved
+#uxD	prefetchw(/1)	Unimplemented
+#uxE	NONE	Reserved
+#uxF	NONE	Reserved
+#ux10		
+:66	VMOVUPD	x86-movups/movupd/movdqu-op/en-rm
+:F2	VMOVSD	x86-movss/movsd-op/en-rm -- 
+((sp/dp . 1))
+:F3	VMOVSS	x86-movss/movsd-op/en-rm -- 
+((sp/dp . 0))
+No-Pfx	VMOVUPS	x86-movups/movupd/movdqu-op/en-rm
+#ux11		
+:66	VMOVUPD	x86-movups/movupd/movdqu-op/en-mr
+:F2	VMOVSD	x86-movss/movsd-op/en-mr -- 
+((sp/dp . 1))
+:F3	VMOVSS	x86-movss/movsd-op/en-mr -- 
+((sp/dp . 0))
+No-Pfx	VMOVUPS	x86-movups/movupd/movdqu-op/en-mr
+#ux12		
+:66	VMOVLPD	x86-movlps/movlpd-op/en-rm
+:F2	VMOVDDUP	x86-movlps/movlpd-op/en-rm
+:F3	VMOVSLDUP	x86-movlps/movlpd-op/en-rm
+No-Pfx	VMOVLPS/VMOVHLPS	x86-movlps/movlpd-op/en-rm
+#ux13		
+:66	VMOVLPD	x86-movlps/movlpd-op/en-mr
+No-Pfx	VMOVLPS	x86-movlps/movlpd-op/en-mr
+#ux14		
+:66	VUNPCKLPD	x86-unpck?pd-op/en-rm -- 
+((high/low . 0))
+No-Pfx	VUNPCKLPS	x86-unpck?ps-op/en-rm -- 
+((high/low . 0))
+#ux15		
+:66	VUNPCKHPD	x86-unpck?pd-op/en-rm -- 
+((high/low . 1))
+No-Pfx	VUNPCKHPS	x86-unpck?ps-op/en-rm -- 
+((high/low . 1))
+#ux16		
+:66	VMOVHPD	x86-movhps/movhpd-op/en-rm
+:F3	VMOVSHDUP	Unimplemented
+No-Pfx	VMOVHPS/VMOVLHPS	x86-movhps/movhpd-op/en-rm
+#ux17		
+:66	VMOVHPD	x86-movhps/movhpd-op/en-mr
+No-Pfx	VMOVHPS	x86-movhps/movhpd-op/en-mr
+#ux18	GROUP-16	
+PREFETCHNTA	((:reg 0) (:mod :mem))	Unimplemented
+PREFETCHT0	((:reg 1) (:mod :mem))	Unimplemented
+PREFETCHT1	((:reg 2) (:mod :mem))	Unimplemented
+PREFETCHT2	((:reg 3) (:mod :mem))	Unimplemented
+RESERVEDNOP	((:reg 4))	Unimplemented
+RESERVEDNOP	((:reg 5))	Unimplemented
+RESERVEDNOP	((:reg 6))	Unimplemented
+RESERVEDNOP	((:reg 7))	Unimplemented
+RESERVEDNOP	((:mod 3))	Unimplemented
+#ux19	NONE	Reserved
+#ux1A	NONE	Reserved
+#ux1B	NONE	Reserved
+#ux1C	NONE	Reserved
+#ux1D	NONE	Reserved
+#ux1E	NONE	Reserved
+#ux1F	NOP	x86-two-byte-nop
+#ux20	MOV	x86-mov-control-regs-op/en-mr
+#ux21	MOV	Unimplemented
+#ux22	MOV	Unimplemented
+#ux23	MOV	Unimplemented
+#ux24	NONE	Reserved
+#ux25	NONE	Reserved
+#ux26	NONE	Reserved
+#ux27	NONE	Reserved
+#ux28		
+:66	VMOVAPD	x86-movaps/movapd-op/en-rm
+No-Pfx	VMOVAPS	x86-movaps/movapd-op/en-rm
+#ux29		
+:66	VMOVAPD	x86-movaps/movapd-op/en-mr
+No-Pfx	VMOVAPS	x86-movaps/movapd-op/en-mr
+#ux2A		
+:66	CVTPI2PD	Unimplemented
+:F2	VCVTSI2SD	x86-cvtsi2s?-op/en-rm -- 
+((sp/dp . 1))
+:F3	VCVTSI2SS	x86-cvtsi2s?-op/en-rm -- 
+((sp/dp . 0))
+No-Pfx	CVTPI2PS	Unimplemented
+#ux2B		
+:66	VMOVNTPD	Unimplemented
+No-Pfx	VMOVNTPS	Unimplemented
+#ux2C		
+:66	CVTTPD2PI	Unimplemented
+:F2	VCVTTSD2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
+((sp/dp . 1) (trunc . t))
+:F3	VCVTTSS2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
+((sp/dp . 0) (trunc . t))
+No-Pfx	CVTTPS2PI	Unimplemented
+#ux2D		
+:66	CVTPD2PI	Unimplemented
+:F2	VCVTSD2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
+((sp/dp . 1) (trunc))
+:F3	VCVTSS2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
+((sp/dp . 0) (trunc))
+No-Pfx	CVTPS2PI	Unimplemented
+#ux2E		
+:66	VUCOMISD	x86-comis?/ucomis?-op/en-rm -- 
+((operation . 9) (sp/dp . 1))
+No-Pfx	VUCOMISS	x86-comis?/ucomis?-op/en-rm -- 
+((operation . 9) (sp/dp . 0))
+#ux2F		
+:66	VCOMISD	x86-comis?/ucomis?-op/en-rm -- 
+((operation . 9) (sp/dp . 1))
+No-Pfx	VCOMISS	x86-comis?/ucomis?-op/en-rm -- 
+((operation . 9) (sp/dp . 0))
+#ux30	WRMSR	Unimplemented
+#ux31	RDTSC	Unimplemented
+#ux32	RDMSR	Unimplemented
+#ux33	RDPMC	Unimplemented
+#ux34	SYSENTER	Unimplemented
+#ux35	SYSEXIT	Unimplemented
+#ux36	NONE	Reserved
+#ux37	GETSEC	Unimplemented
+#ux38	3-BYTE-ESCAPE	three-byte-opcode-decode-and-execute -- 
+((second-escape-byte . opcode))
+#ux39	NONE	Reserved
+#ux3A	3-BYTE-ESCAPE	three-byte-opcode-decode-and-execute -- 
+((second-escape-byte . opcode))
+#ux3B	NONE	Reserved
+#ux3C	NONE	Reserved
+#ux3D	NONE	Reserved
+#ux3E	NONE	Reserved
+#ux3F	NONE	Reserved
+#ux40	CMOVO	x86-cmovcc
+#ux41	CMOVNO	x86-cmovcc
+#ux42	CMOVB/C/NAE	x86-cmovcc
+#ux43	CMOVAE/NB/NC	x86-cmovcc
+#ux44	CMOVE/Z	x86-cmovcc
+#ux45	CMOVNE/NZ	x86-cmovcc
+#ux46	CMOVBE/NA	x86-cmovcc
+#ux47	CMOVA/NBE	x86-cmovcc
+#ux48	CMOVS	x86-cmovcc
+#ux49	CMOVNS	x86-cmovcc
+#ux4A	CMOVP/PE	x86-cmovcc
+#ux4B	CMOVNP/PO	x86-cmovcc
+#ux4C	CMOVL/NGE	x86-cmovcc
+#ux4D	CMOVNL/GE	x86-cmovcc
+#ux4E	CMOVLE/NG	x86-cmovcc
+#ux4F	CMOVNLE/G	x86-cmovcc
+#ux50		
+:66	VMOVMSKPD	Unimplemented
+No-Pfx	VMOVMSKPS	Unimplemented
+#ux51		
+:66	VSQRTPD	x86-sqrtpd-op/en-rm
+:F2	VSQRTSD	x86-sqrts?-op/en-rm -- 
+((sp/dp . 1))
+:F3	VSQRTSS	x86-sqrts?-op/en-rm -- 
+((sp/dp . 0))
+No-Pfx	VSQRTPS	x86-sqrtps-op/en-rm
+#ux52		
+:F3	VRSQRTSS	Unimplemented
+No-Pfx	VRSQRTPS	Unimplemented
+#ux53		
+:F3	VRCPSS	Unimplemented
+No-Pfx	VRCPPS	Unimplemented
+#ux54		
+:66	VANDPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 3))
+No-Pfx	VANDPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 3))
+#ux55		
+:66	VANDNPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 13))
+No-Pfx	VANDNPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 13))
+#ux56		
+:66	VORPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 1))
+No-Pfx	VORPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 1))
+#ux57		
+:66	VXORPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 5))
+No-Pfx	VXORPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 5))
+#ux58		
+:66	VADDPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
+((operation . 0))
+:F2	VADDSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 0) (sp/dp . 1))
+:F3	VADDSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 0) (sp/dp . 0))
+No-Pfx	VADDPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
+((operation . 0))
+#ux59		
+:66	VMULPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
+((operation . 26))
+:F2	VMULSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 26) (sp/dp . 1))
+:F3	VMULSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 26) (sp/dp . 0))
+No-Pfx	VMULPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
+((operation . 26))
+#ux5A		
+:66	VCVTPD2PS	x86-cvtpd2ps-op/en-rm
+:F2	VCVTSD2SS	x86-cvts?2s?-op/en-rm -- 
+((dp-to-sp . 1))
+:F3	VCVTSS2SD	x86-cvts?2s?-op/en-rm -- 
+((dp-to-sp . 0))
+No-Pfx	VCVTPS2PD	x86-cvtps2pd-op/en-rm
+#ux5B		
+:66	VCVTPS2DQ	Unimplemented
+:F3	VCVTTPS2DQ	Unimplemented
+No-Pfx	VCVTDQ2PS	Unimplemented
+#ux5C		
+:66	VSUBPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
+((operation . 4))
+:F2	VSUBSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 4) (sp/dp . 1))
+:F3	VSUBSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 4) (sp/dp . 0))
+No-Pfx	VSUBPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
+((operation . 4))
+#ux5D		
+:66	VMINPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
+((operation . 36))
+:F2	VMINSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 36) (sp/dp . 1))
+:F3	VMINSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 36) (sp/dp . 0))
+No-Pfx	VMINPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
+((operation . 36))
+#ux5E		
+:66	VDIVPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
+((operation . 28))
+:F2	VDIVSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 28) (sp/dp . 1))
+:F3	VDIVSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 28) (sp/dp . 0))
+No-Pfx	VDIVPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
+((operation . 28))
+#ux5F		
+:66	VMAXPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
+((operation . 34))
+:F2	VMAXSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 34) (sp/dp . 1))
+:F3	VMAXSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
+((operation . 34) (sp/dp . 0))
+No-Pfx	VMAXPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
+((operation . 34))
+#ux60		
+:66	VPUNPCKLBW	Unimplemented
+No-Pfx	PUNPCKLBW	Unimplemented
+#ux61		
+:66	VPUNPCKLWD	Unimplemented
+No-Pfx	PUNPCKLWD	Unimplemented
+#ux62		
+:66	VPUNPCKLDQ	Unimplemented
+No-Pfx	PUNPCKLDQ	Unimplemented
+#ux63		
+:66	VPACKSSWB	Unimplemented
+No-Pfx	PACKSSWB	Unimplemented
+#ux64		
+:66	VPCMPGTB	Unimplemented
+No-Pfx	PCMPGTB	Unimplemented
+#ux65		
+:66	VPCMPGTW	Unimplemented
+No-Pfx	PCMPGTW	Unimplemented
+#ux66		
+:66	VPCMPGTD	Unimplemented
+No-Pfx	PCMPGTD	Unimplemented
+#ux67		
+:66	VPACKUSWB	Unimplemented
+No-Pfx	PACKUSWB	Unimplemented
+#ux68		
+:66	VPUNPCKHBW	Unimplemented
+No-Pfx	PUNPCKHBW	Unimplemented
+#ux69		
+:66	VPUNPCKHWD	Unimplemented
+No-Pfx	PUNPCKHWD	Unimplemented
+#ux6A		
+:66	VPUNPCKHDQ	Unimplemented
+No-Pfx	PUNPCKHDQ	Unimplemented
+#ux6B		
+:66	VPACKSSDW	Unimplemented
+No-Pfx	PACKSSDW	Unimplemented
+#ux6C		
+:66	VPUNPCKLQDQ	Unimplemented
+#ux6D		
+:66	VPUNPCKHQDQ	Unimplemented
+#ux6E		
+:66	VMOVD/Q	Unimplemented
+No-Pfx	MOVD/Q	Unimplemented
+#ux6F		
+:66	VMOVDQA	Unimplemented
+:F3	VMOVDQU	x86-movups/movupd/movdqu-op/en-rm
+No-Pfx	MOVQ	Unimplemented
+#ux70		
+:66	VPSHUFD	Unimplemented
+:F2	VPSHUFLW	Unimplemented
+:F3	VPSHUFHW	Unimplemented
+No-Pfx	PSHUFW	Unimplemented
+#ux71	GROUP-12	
+NONE	((:reg 0))	Reserved
+NONE	((:reg 1))	Reserved
+PSRLW	((:reg 2) (:mod 3))	Unimplemented
+VPSRLW	((:pfx :|66|) (:reg 2) (:mod 3))	Unimplemented
+NONE	((:reg 3))	Reserved
+PSRAW	((:reg 4) (:mod 3))	Unimplemented
+VPSRAW	((:pfx :|66|) (:reg 4) (:mod 3))	Unimplemented
+NONE	((:reg 5))	Reserved
+PSLLW	((:reg 6) (:mod 3))	Unimplemented
+VPSLLW	((:pfx :|66|) (:reg 6) (:mod 3))	Unimplemented
+NONE	((:reg 7))	Reserved
+#ux72	GROUP-13	
+NONE	((:reg 0))	Reserved
+NONE	((:reg 1))	Reserved
+PSRLD	((:reg 2) (:mod 3))	Unimplemented
+VPSRLD	((:pfx :|66|) (:reg 2) (:mod 3))	Unimplemented
+NONE	((:reg 3))	Reserved
+PSRAD	((:reg 4) (:mod 3))	Unimplemented
+VPSRAD	((:pfx :|66|) (:reg 4) (:mod 3))	Unimplemented
+NONE	((:reg 5))	Reserved
+PSLLD	((:reg 6) (:mod 3))	Unimplemented
+VPSLLD	((:pfx :|66|) (:reg 6) (:mod 3))	Unimplemented
+NONE	((:reg 7))	Reserved
+#ux73	GROUP-14	
+NONE	((:reg 0))	Reserved
+NONE	((:reg 1))	Reserved
+PSRLQ	((:reg 2) (:mod 3))	Unimplemented
+VPSRLQ	((:pfx :|66|) (:reg 2) (:mod 3))	Unimplemented
+VPSRLDQ	((:pfx :|66|) (:reg 3) (:mod 3))	Unimplemented
+NONE	((:reg 4))	Reserved
+NONE	((:reg 5))	Reserved
+PSLLQ	((:reg 6) (:mod 3))	Unimplemented
+VPSLLQ	((:pfx :|66|) (:reg 6) (:mod 3))	Unimplemented
+VPSLLDQ	((:pfx :|66|) (:reg 7) (:mod 3))	Unimplemented
+#ux74		
+:66	VPCMPEQB	x86-pcmpeqb-op/en-rm
+No-Pfx	PCMPEQB	Unimplemented
+#ux75		
+:66	VPCMPEQW	Unimplemented
+No-Pfx	PCMPEQW	Unimplemented
+#ux76		
+:66	VPCMPEQD	Unimplemented
+No-Pfx	PCMPEQD	Unimplemented
+#ux77		
+No-Pfx	EMMS	Unimplemented
+#ux78	VMREAD	Unimplemented
+#ux79	VMWRITE	Unimplemented
+#ux7A	NONE	Reserved
+#ux7B	NONE	Reserved
+#ux7C		
+:66	VHADDPD	Unimplemented
+:F2	VHADDPS	Unimplemented
+#ux7D		
+:66	VHSUBPD	Unimplemented
+:F2	VHSUBPS	Unimplemented
+#ux7E		
+:66	VMOVD/Q	Unimplemented
+:F3	VMOVQ	Unimplemented
+No-Pfx	MOVD/Q	Unimplemented
+#ux7F		
+:66	VMOVDQA	Unimplemented
+:F3	VMOVQU	x86-movups/movupd/movdqu-op/en-mr
+No-Pfx	MOVQ	Unimplemented
+#ux80	JO	x86-two-byte-jcc
+#ux81	JNO	x86-two-byte-jcc
+#ux82	JB/NAE/C	x86-two-byte-jcc
+#ux83	JNB/AE/NC	x86-two-byte-jcc
+#ux84	JZ/E	x86-two-byte-jcc
+#ux85	JNZ/NE	x86-two-byte-jcc
+#ux86	JBE/NA	x86-two-byte-jcc
+#ux87	JNBE/A	x86-two-byte-jcc
+#ux88	JS	x86-two-byte-jcc
+#ux89	JNS	x86-two-byte-jcc
+#ux8A	JP/PE	x86-two-byte-jcc
+#ux8B	JNP/PO	x86-two-byte-jcc
+#ux8C	JL/NGE	x86-two-byte-jcc
+#ux8D	JNL/GE	x86-two-byte-jcc
+#ux8E	JLE/NG	x86-two-byte-jcc
+#ux8F	JNLE/G	x86-two-byte-jcc
+#ux90	SETO	x86-setcc
+#ux91	SETNO	x86-setcc
+#ux92	SETB/NAE/C	x86-setcc
+#ux93	SETNB/AE/NC	x86-setcc
+#ux94	SETZ/E	x86-setcc
+#ux95	SETNZ/NE	x86-setcc
+#ux96	SETBE/NA	x86-setcc
+#ux97	SETNBE/A	x86-setcc
+#ux98	SETS	x86-setcc
+#ux99	SETNS	x86-setcc
+#ux9A	SETP/PE	x86-setcc
+#ux9B	SETNP/PO	x86-setcc
+#ux9C	SETL/NGE	x86-setcc
+#ux9D	SETNL/GE	x86-setcc
+#ux9E	SETLE/NG	x86-setcc
+#ux9F	SETNLE/G	x86-setcc
+#uxA0	PUSH	x86-push-segment-register
+#uxA1	POP	Unimplemented
+#uxA2	CPUID	Unimplemented
+#uxA3	BT	x86-bt-0f-a3
+#uxA4	SHLD	Unimplemented
+#uxA5	SHLD	Unimplemented
+#uxA6	NONE	Reserved
+#uxA7	NONE	Reserved
+#uxA8	PUSH	x86-push-segment-register
+#uxA9	POP	Unimplemented
+#uxAA	RSM	Unimplemented
+#uxAB	BTS	Unimplemented
+#uxAC	SHRD	Unimplemented
+#uxAD	SHRD	Unimplemented
+#uxAE	GROUP-15	
+FXSAVE	((:reg 0) (:mod :mem))	Unimplemented
+RDFSBASE	((:pfx :f3) (:reg 0) (:mod 3))	Unimplemented
+FXRSTOR	((:reg 1) (:mod :mem))	Unimplemented
+RDGSBASE	((:pfx :f3) (:reg 1) (:mod 3))	Unimplemented
+LDMXCSR	((:reg 2) (:mod :mem))	x86-ldmxcsr/stmxcsr-op/en-m
+WRFSBASE	((:pfx :f3) (:reg 2) (:mod 3))	Unimplemented
+STMXCSR	((:reg 3) (:mod :mem))	x86-ldmxcsr/stmxcsr-op/en-m
+WRGSBASE	((:pfx :f3) (:reg 3) (:mod 3))	Unimplemented
+XSAVE	((:reg 4) (:mod :mem))	Unimplemented
+XRSTOR/LFENCE	((:reg 5) (:mod 3))	Unimplemented
+XSAVEOPT/MFENCE	((:reg 6) (:mod 3))	Unimplemented
+CLFLUSH/SFENCE	((:reg 7) (:mod 3))	Unimplemented
+#uxAF	IMUL	x86-imul-op/en-rm
+#uxB0	CMPXCHG	x86-cmpxchg
+#uxB1	CMPXCHG	x86-cmpxchg
+#uxB2	LSS	Unimplemented
+#uxB3	BTR	Unimplemented
+#uxB4	LFS	Unimplemented
+#uxB5	LGS	Unimplemented
+#uxB6	MOVZX	x86-movzx
+#uxB7	MOVZX	x86-movzx
+#uxB8		
+:F3	POPCNT	Unimplemented
+No-Pfx	JMPE	Unimplemented
+#uxB9	GROUP-10	
+UD1	Unimplemented
+#uxBA	GROUP-8	
+NONE	((:reg 0))	Reserved
+NONE	((:reg 1))	Reserved
+NONE	((:reg 2))	Reserved
+NONE	((:reg 3))	Reserved
+BT	((:reg 4))	x86-bt-0f-ba
+BTS	((:reg 5))	Unimplemented
+BTR	((:reg 6))	Unimplemented
+BTC	((:reg 7))	Unimplemented
+#uxBB	BTC	Unimplemented
+#uxBC		
+:F3	TZCNT	Unimplemented
+No-Pfx	BSF	x86-bsf-op/en-rm
+#uxBD		
+:F3	LZCNT	Unimplemented
+No-Pfx	BSR	Unimplemented
+#uxBE	MOVSX	x86-two-byte-movsxd
+#uxBF	MOVSX	x86-two-byte-movsxd
+#uxC0	XADD	Unimplemented
+#uxC1	XADD	Unimplemented
+#uxC2		
+:66	VCMPPD	x86-cmppd-op/en-rmi
+:F2	VCMPSD	x86-cmpss/cmpsd-op/en-rmi -- 
+((sp/dp . 1))
+:F3	VCMPSS	x86-cmpss/cmpsd-op/en-rmi -- 
+((sp/dp . 0))
+No-Pfx	VCMPPS	x86-cmpps-op/en-rmi
+#uxC3	MOVNTI	Unimplemented
+#uxC4		
+:66	VPINSRW	Unimplemented
+No-Pfx	PINSRW	Unimplemented
+#uxC5		
+:66	VPEXTRW	Unimplemented
+No-Pfx	PEXTRW	Unimplemented
+#uxC6		
+:66	VSHUFPD	x86-shufpd-op/en-rmi
+No-Pfx	VSHUFPS	x86-shufps-op/en-rmi
+#uxC7	GROUP-9	
+NONE	((:reg 0))	Reserved
+CMPXCH8B/CMPXCHG16B	((:reg 1) (:mod :mem))	Unimplemented
+NONE	((:reg 1) (:mod 3))	Reserved
+NONE	((:reg 2))	Reserved
+NONE	((:reg 3))	Reserved
+NONE	((:reg 4))	Reserved
+NONE	((:reg 5))	Reserved
+VMPTRLD	((:reg 6) (:mod :mem))	Unimplemented
+VMCLEAR	((:pfx :|66|) (:reg 6) (:mod :mem))	Unimplemented
+VMXON	((:pfx :f3) (:reg 6) (:mod :mem))	Unimplemented
+RDRAND	((:reg 6) (:mod 3))	x86-rdrand
+RDSEED	((:reg 7))	Unimplemented
+RDPID/RDPID	((:pfx :f3) (:reg 7))	Unimplemented
+#uxC8	BSWAP	Unimplemented
+#uxC9	BSWAP	Unimplemented
+#uxCA	BSWAP	Unimplemented
+#uxCB	BSWAP	Unimplemented
+#uxCC	BSWAP	Unimplemented
+#uxCD	BSWAP	Unimplemented
+#uxCE	BSWAP	Unimplemented
+#uxCF	BSWAP	Unimplemented
+#uxD0		
+:66	VADDSUBPD	Unimplemented
+:F2	VADDSUBPS	Unimplemented
+#uxD1		
+:66	VPSRLW	Unimplemented
+No-Pfx	PSRLW	Unimplemented
+#uxD2		
+:66	VPSRLD	Unimplemented
+No-Pfx	PSRLD	Unimplemented
+#uxD3		
+:66	VPSRLQ	Unimplemented
+No-Pfx	PSRLQ	Unimplemented
+#uxD4		
+:66	VADDQ	Unimplemented
+No-Pfx	PADDQ	Unimplemented
+#uxD5		
+:66	VPMULLW	Unimplemented
+No-Pfx	PMULLW	Unimplemented
+#uxD6		
+:66	VMOVQ	Unimplemented
+:F2	MOVDQ2Q	Unimplemented
+:F3	MOVQ2DQ	Unimplemented
+#uxD7		
+:66	VPMOVMSKB	x86-pmovmskb-op/en-rm
+No-Pfx	PMOVMSKB	Unimplemented
+#uxD8		
+:66	VPSUBUSB	Unimplemented
+No-Pfx	PSUBUSB	Unimplemented
+#uxD9		
+:66	VPSUBUSW	Unimplemented
+No-Pfx	PSUBUSW	Unimplemented
+#uxDA		
+:66	VPMINUB	Unimplemented
+No-Pfx	PMINUB	Unimplemented
+#uxDB		
+:66	VPAND	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 3))
+No-Pfx	PAND	Unimplemented
+#uxDC		
+:66	VPADDUSB	Unimplemented
+No-Pfx	PADDUSB	Unimplemented
+#uxDD		
+:66	VPADDUSW	Unimplemented
+No-Pfx	PADDUSW	Unimplemented
+#uxDE		
+:66	VPMAXUB	Unimplemented
+No-Pfx	PMAXUB	Unimplemented
+#uxDF		
+:66	VPANDN	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 13))
+No-Pfx	PANDN	Unimplemented
+#uxE0		
+:66	VPAVGB	Unimplemented
+No-Pfx	PAVGB	Unimplemented
+#uxE1		
+:66	VPSRAW	Unimplemented
+No-Pfx	PSRAW	Unimplemented
+#uxE2		
+:66	VPSRAD	Unimplemented
+No-Pfx	PSRAD	Unimplemented
+#uxE3		
+:66	VPAVGW	Unimplemented
+No-Pfx	PAVGW	Unimplemented
+#uxE4		
+:66	VPMULHUW	Unimplemented
+No-Pfx	PMULHUW	Unimplemented
+#uxE5		
+:66	VPMULHW	Unimplemented
+No-Pfx	PMULHW	Unimplemented
+#uxE6		
+:66	VCVTTPD2DQ	Unimplemented
+:F2	VCVTPD2DQ	Unimplemented
+:F3	VCVTDQ2PD	Unimplemented
+#uxE7		
+:66	VMOVNTDQ	Unimplemented
+No-Pfx	MOVNTQ	Unimplemented
+#uxE8		
+:66	VPSUBSB	Unimplemented
+No-Pfx	PSUBSB	Unimplemented
+#uxE9		
+:66	VPSUBSW	Unimplemented
+No-Pfx	PSUBSW	Unimplemented
+#uxEA		
+:66	VPMINSW	Unimplemented
+No-Pfx	PMINSW	Unimplemented
+#uxEB		
+:66	VPOR	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 1))
+No-Pfx	POR	Unimplemented
+#uxEC		
+:66	VPADDSB	Unimplemented
+No-Pfx	PADDSB	Unimplemented
+#uxED		
+:66	VPADDSW	Unimplemented
+No-Pfx	PADDSW	Unimplemented
+#uxEE		
+:66	VPMAXSW	Unimplemented
+No-Pfx	PMAXSW	Unimplemented
+#uxEF		
+:66	VPXOR	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
+((operation . 5))
+No-Pfx	PXOR	Unimplemented
+#uxF0		
+:F2	VLDDQU	Unimplemented
+#uxF1		
+:66	VPSLLW	Unimplemented
+No-Pfx	PSLLW	Unimplemented
+#uxF2		
+:66	VPSLLD	Unimplemented
+No-Pfx	PSLLD	Unimplemented
+#uxF3		
+:66	VPSLLQ	Unimplemented
+No-Pfx	PSLLQ	Unimplemented
+#uxF4		
+:66	VPMULUDQ	Unimplemented
+No-Pfx	PMULUDQ	Unimplemented
+#uxF5		
+:66	VPMADDWD	Unimplemented
+No-Pfx	PMADDWD	Unimplemented
+#uxF6		
+:66	VPSADBW	Unimplemented
+No-Pfx	PSADBW	Unimplemented
+#uxF7		
+:66	VMASKMOVDQU	Unimplemented
+No-Pfx	MASKMOVQ	Unimplemented
+#uxF8		
+:66	VPSUBB	Unimplemented
+No-Pfx	PSUBB	Unimplemented
+#uxF9		
+:66	VPSUBW	Unimplemented
+No-Pfx	PSUBW	Unimplemented
+#uxFA		
+:66	VPSUBD	Unimplemented
+No-Pfx	PSUBD	Unimplemented
+#uxFB		
+:66	VPSUBQ	Unimplemented
+No-Pfx	PSUBQ	Unimplemented
+#uxFC		
+:66	VPADDB	Unimplemented
+No-Pfx	PADDB	Unimplemented
+#uxFD		
+:66	VPADDW	Unimplemented
+No-Pfx	PADDW	Unimplemented
+#uxFE		
+:66	VPADDD	Unimplemented
+No-Pfx	PADDD	Unimplemented
+#uxFF	NONE	Reserved
+#ux0	ADD	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 0))
+#ux1	ADD	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 0))
+#ux2	ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 0))
+#ux3	ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 0))
+#ux4	ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 0))
+#ux5	ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 0))
+#ux6		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "PUSH ES is illegal in the 64-bit mode!"))
+:i64	PUSH ES	x86-push-segment-register -- 
+((vex-prefixes . 0) (evex-prefixes . 0))
+#ux7		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "POP ES is illegal in the 64-bit mode!"))
+:i64	POP ES	Unimplemented
+#ux8	OR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 1))
+#ux9	OR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 1))
+#uxA	OR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 1))
+#uxB	OR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 1))
+#uxC	OR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 1))
+#uxD	OR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 1))
+#uxE		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "PUSH CS is illegal in the 64-bit mode!"))
+:i64	PUSH CS	x86-push-segment-register -- 
+((vex-prefixes . 0) (evex-prefixes . 0))
+#uxF	2-BYTE-ESCAPE	two-byte-opcode-decode-and-execute -- 
+((vex-prefixes . 0) (evex-prefixes . 0) (escape-byte . opcode))
+#ux10	ADC	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 2))
+#ux11	ADC	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 2))
+#ux12	ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 2))
+#ux13	ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 2))
+#ux14	ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 2))
+#ux15	ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 2))
+#ux16		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "PUSH SS is illegal in the 64-bit mode!"))
+:i64	PUSH SS	x86-push-segment-register -- 
+((vex-prefixes . 0) (evex-prefixes . 0))
+#ux17		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "POP SS is illegal in the 64-bit mode!"))
+:i64	POP SS	Unimplemented
+#ux18	SBB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 6))
+#ux19	SBB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 6))
+#ux1A	SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 6))
+#ux1B	SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 6))
+#ux1C	SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 6))
+#ux1D	SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 6))
+#ux1E		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "PUSH DS is illegal in the 64-bit mode!"))
+:i64	PUSH DS	x86-push-segment-register -- 
+((vex-prefixes . 0) (evex-prefixes . 0))
+#ux1F		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "POP DS is illegal in the 64-bit mode!"))
+:i64	POP DS	Unimplemented
+#ux20	AND	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 3))
+#ux21	AND	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 3))
+#ux22	AND	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 3))
+#ux23	AND	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 3))
+#ux24	AND	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 3))
+#ux25	AND	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 3))
+#ux26	PREFIX-ES	Reserved
+#ux27		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "DAA is illegal in the 64-bit mode!"))
+:i64	DAA	Unimplemented
+#ux28	SUB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 4))
+#ux29	SUB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 4))
+#ux2A	SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 4))
+#ux2B	SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 4))
+#ux2C	SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 4))
+#ux2D	SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 4))
+#ux2E	PREFIX-CS	Reserved
+#ux2F		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "DAS is illegal in the 64-bit mode!"))
+:i64	DAS	Unimplemented
+#ux30	XOR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 5))
+#ux31	XOR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 5))
+#ux32	XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 5))
+#ux33	XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 5))
+#ux34	XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 5))
+#ux35	XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 5))
+#ux36	PREFIX-SS	Reserved
+#ux37		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "AAA is illegal in the 64-bit mode!"))
+:i64	AAA	Unimplemented
+#ux38	CMP	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 8))
+#ux39	CMP	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 8))
+#ux3A	CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 8))
+#ux3B	CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
+((operation . 8))
+#ux3C	CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 8))
+#ux3D	CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 8))
+#ux3E	PREFIX-DS	Reserved
+#ux3F		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "AAS is illegal in the 64-bit mode!"))
+:i64	AAS	Unimplemented
+#ux40		
+:o64	REX	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux41		
+:o64	REX-B	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux42		
+:o64	REX-X	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux43		
+:o64	REX-XB	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux44		
+:o64	REX-R	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux45		
+:o64	REX-RB	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux46		
+:o64	REX-RX	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux47		
+:o64	REX-RXB	Reserved
+:i64	INC	x86-inc/dec-4x
+#ux48		
+:o64	REX-W	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux49		
+:o64	REX-WB	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux4A		
+:o64	REX-WX	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux4B		
+:o64	REX-WXB	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux4C		
+:o64	REX-WR	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux4D		
+:o64	REX-WRB	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux4E		
+:o64	REX-WRX	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux4F		
+:o64	REX-WRXB	Reserved
+:i64	DEC	x86-inc/dec-4x
+#ux50	PUSH	x86-push-general-register
+#ux51	PUSH	x86-push-general-register
+#ux52	PUSH	x86-push-general-register
+#ux53	PUSH	x86-push-general-register
+#ux54	PUSH	x86-push-general-register
+#ux55	PUSH	x86-push-general-register
+#ux56	PUSH	x86-push-general-register
+#ux57	PUSH	x86-push-general-register
+#ux58	POP	x86-pop-general-register
+#ux59	POP	x86-pop-general-register
+#ux5A	POP	x86-pop-general-register
+#ux5B	POP	x86-pop-general-register
+#ux5C	POP	x86-pop-general-register
+#ux5D	POP	x86-pop-general-register
+#ux5E	POP	x86-pop-general-register
+#ux5F	POP	x86-pop-general-register
+#ux60		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "PUSHA is illegal in the 64-bit mode!"))
+:i64	PUSHA/PUSHAD	x86-pusha
+#ux61		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "POPA is illegal in the 64-bit mode!"))
+:i64	POPA/POPAD	x86-popa
+#ux62		
+:o64	EVEX-BYTE0	Reserved
+:i64	BOUND	Unimplemented
+#ux63		
+:o64	MOVSXD	x86-one-byte-movsxd
+:i64	ARPL	Unimplemented
+#ux64	PREFIX-FS	Reserved
+#ux65	PREFIX-GS	Reserved
+#ux66	PREFIX-OPSIZE	Reserved
+#ux67	PREFIX-ADDRSIZE	Reserved
+#ux68	PUSH	x86-push-i
+#ux69	IMUL	x86-imul-op/en-rmi
+#ux6A	PUSH	x86-push-i
+#ux6B	IMUL	x86-imul-op/en-rmi
+#ux6C	INS/INSB	Unimplemented
+#ux6D	INS/INSW/INSD	Unimplemented
+#ux6E	OUTS/OUTSB	Unimplemented
+#ux6F	OUTS/OUTSW/OUTSD	Unimplemented
+#ux70	JO	x86-one-byte-jcc
+#ux71	JNO	x86-one-byte-jcc
+#ux72	JB/NAE/C	x86-one-byte-jcc
+#ux73	JNB/AE/NC	x86-one-byte-jcc
+#ux74	JZ/E	x86-one-byte-jcc
+#ux75	JNZ/NE	x86-one-byte-jcc
+#ux76	JBE/NA	x86-one-byte-jcc
+#ux77	JNBE/A	x86-one-byte-jcc
+#ux78	JS	x86-one-byte-jcc
+#ux79	JNS	x86-one-byte-jcc
+#ux7A	JP/PE	x86-one-byte-jcc
+#ux7B	JNP/PO	x86-one-byte-jcc
+#ux7C	JL/NGE	x86-one-byte-jcc
+#ux7D	JNL/GE	x86-one-byte-jcc
+#ux7E	JLE/NG	x86-one-byte-jcc
+#ux7F	JNLE/G	x86-one-byte-jcc
+#ux80	GROUP-1	
+ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 0))
+OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 1))
+ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 2))
+SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 6))
+AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 3))
+SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 4))
+XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 5))
+CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 8))
+#ux81	GROUP-1	
+ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 0))
+OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 1))
+ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 2))
+SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 6))
+AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 3))
+SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 4))
+XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 5))
+CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 8))
+#ux82		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "Opcode 0x82 is illegal in the 64-bit mode!"))
+:i64	GROUP-1	
+ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 0))
+OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 1))
+ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 2))
+SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 6))
+AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 3))
+SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 4))
+XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 5))
+CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 8))
+#ux83	GROUP-1	
+ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 0))
+OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 1))
+ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 2))
+SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 6))
+AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 3))
+SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 4))
+XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 5))
+CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 8))
+#ux84	TEST	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 7))
+#ux85	TEST	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
+((operation . 7))
+#ux86	XCHG	x86-xchg
+#ux87	XCHG	x86-xchg
+#ux88	MOV	x86-mov-op/en-mr
+#ux89	MOV	x86-mov-op/en-mr
+#ux8A	MOV	x86-mov-op/en-rm
+#ux8B	MOV	x86-mov-op/en-rm
+#ux8C	MOV	Unimplemented
+#ux8D	LEA	x86-lea
+#ux8E	MOV	Unimplemented
+#ux8F	GROUP-1A	
+POP	((:reg 0))	x86-pop-ev
+NONE	((:reg 1))	Reserved
+NONE	((:reg 2))	Reserved
+NONE	((:reg 3))	Reserved
+NONE	((:reg 4))	Reserved
+NONE	((:reg 5))	Reserved
+NONE	((:reg 6))	Reserved
+NONE	((:reg 7))	Reserved
+#ux90	XCHG	x86-xchg
+#ux91	XCHG	x86-xchg
+#ux92	XCHG	x86-xchg
+#ux93	XCHG	x86-xchg
+#ux94	XCHG	x86-xchg
+#ux95	XCHG	x86-xchg
+#ux96	XCHG	x86-xchg
+#ux97	XCHG	x86-xchg
+#ux98	CBW/CWDE/CDQE	x86-cbw/cwd/cdqe
+#ux99	CWD/CDQ/CQO	x86-cwd/cdq/cqo
+#ux9A		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "far CALL is illegal in the 64-bit mode!"))
+:i64	CALL	Unimplemented
+#ux9B	FWAIT/WAIT	Unimplemented
+#ux9C	PUSHF/D/Q	x86-pushf
+#ux9D	POPF/D/Q	x86-popf
+#ux9E	SAHF	x86-sahf
+#ux9F	LAHF	x86-lahf
+#uxA0	MOV	x86-mov-op/en-fd
+#uxA1	MOV	x86-mov-op/en-fd
+#uxA2	MOV	Unimplemented
+#uxA3	MOV	Unimplemented
+#uxA4	MOVS/B	x86-movs
+#uxA5	MOVS/W/D/Q	x86-movs
+#uxA6	CMPS/B	x86-cmps
+#uxA7	CMPS/W/D	x86-cmps
+#uxA8	TEST	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 7))
+#uxA9	TEST	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
+((operation . 7))
+#uxAA	STOS/B	x86-stos
+#uxAB	STOS/W/D/Q	x86-stos
+#uxAC	LODS/B	Unimplemented
+#uxAD	LODS/W/D/Q	Unimplemented
+#uxAE	SCAS/B	Unimplemented
+#uxAF	SCAS/W/D/Q	Unimplemented
+#uxB0	MOV	x86-mov-op/en-oi
+#uxB1	MOV	x86-mov-op/en-oi
+#uxB2	MOV	x86-mov-op/en-oi
+#uxB3	MOV	x86-mov-op/en-oi
+#uxB4	MOV	x86-mov-op/en-oi
+#uxB5	MOV	x86-mov-op/en-oi
+#uxB6	MOV	x86-mov-op/en-oi
+#uxB7	MOV	x86-mov-op/en-oi
+#uxB8	MOV	x86-mov-op/en-oi
+#uxB9	MOV	x86-mov-op/en-oi
+#uxBA	MOV	x86-mov-op/en-oi
+#uxBB	MOV	x86-mov-op/en-oi
+#uxBC	MOV	x86-mov-op/en-oi
+#uxBD	MOV	x86-mov-op/en-oi
+#uxBE	MOV	x86-mov-op/en-oi
+#uxBF	MOV	x86-mov-op/en-oi
+#uxC0	GROUP-2	
+ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+NONE	((:reg 6))	Reserved
+SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+#uxC1	GROUP-2	
+ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+NONE	((:reg 6))	Reserved
+SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+#uxC2	RET	x86-ret
+#uxC3	RET	x86-ret
+#uxC4		
+:o64	VEX3-BYTE0	Reserved
+:i64	LES	Unimplemented
+#uxC5		
+:o64	VEX2-BYTE0	Reserved
+:i64	LDS	Unimplemented
+#uxC6	GROUP-11	
+MOV	((:reg 0))	x86-mov-op/en-mi
+NONE	((:reg 1))	Reserved
+NONE	((:reg 2))	Reserved
+NONE	((:reg 3))	Reserved
+NONE	((:reg 4))	Reserved
+NONE	((:reg 5))	Reserved
+NONE	((:reg 6))	Reserved
+NONE	((:reg 7) (:mod :mem))	Reserved
+XABORT	((:reg 7) (:mod 3) (:r/m 0))	Unimplemented
+#uxC7	GROUP-11	
+MOV	((:reg 0))	x86-mov-op/en-mi
+NONE	((:reg 1))	Reserved
+NONE	((:reg 2))	Reserved
+NONE	((:reg 3))	Reserved
+NONE	((:reg 4))	Reserved
+NONE	((:reg 5))	Reserved
+NONE	((:reg 6))	Reserved
+NONE	((:reg 7) (:mod :mem))	Reserved
+XBEGIN	((:reg 7) (:mod 3) (:r/m 0))	Unimplemented
+#uxC8	ENTER	Unimplemented
+#uxC9	LEAVE	x86-leave
+#uxCA	RET	Unimplemented
+#uxCB	RET	Unimplemented
+#uxCC	INT3	Unimplemented
+#uxCD	INT	Unimplemented
+#uxCE		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "INTO is illegal in the 64-bit mode!"))
+:i64	INTO	Unimplemented
+#uxCF	IRET/D/Q	Unimplemented
+#uxD0	GROUP-2	
+ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+NONE	((:reg 6))	Reserved
+SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+#uxD1	GROUP-2	
+ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+NONE	((:reg 6))	Reserved
+SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+#uxD2	GROUP-2	
+ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+NONE	((:reg 6))	Reserved
+SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+#uxD3	GROUP-2	
+ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+NONE	((:reg 6))	Reserved
+SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
+#uxD4		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "AAM is illegal in the 64-bit mode!"))
+:i64	AAM	Unimplemented
+#uxD5		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "AAD is illegal in the 64-bit mode!"))
+:i64	AAD	Unimplemented
+#uxD6	NONE	Reserved
+#uxD7	XLAT/XLATB	Unimplemented
+#uxD8	ESC	Unimplemented
+#uxD9	ESC	Unimplemented
+#uxDA	ESC	Unimplemented
+#uxDB	ESC	Unimplemented
+#uxDC	ESC	Unimplemented
+#uxDD	ESC	Unimplemented
+#uxDE	ESC	Unimplemented
+#uxDF	ESC	Unimplemented
+#uxE0	LOOPNE/LOOPNZ	x86-loop
+#uxE1	LOOPE/LOOPZ	x86-loop
+#uxE2	LOOP	x86-loop
+#uxE3	JrCXZ	x86-jrcxz
+#uxE4	IN	Unimplemented
+#uxE5	IN	Unimplemented
+#uxE6	OUT	Unimplemented
+#uxE7	OUT	Unimplemented
+#uxE8	CALL	x86-call-e8-op/en-m
+#uxE9	JMP	x86-near-jmp-op/en-d
+#uxEA		
+:o64	#UD	x86-illegal-instruction -- 
+((message . "JMP is illegal in the 64-bit mode!"))
+:i64	JMP	Unimplemented
+#uxEB	JMP	x86-near-jmp-op/en-d
+#uxEC	IN	Unimplemented
+#uxED	IN	Unimplemented
+#uxEE	OUT	Unimplemented
+#uxEF	OUT	Unimplemented
+#uxF0	PREFIX-LOCK	Reserved
+#uxF1	INT1	Unimplemented
+#uxF2	PREFIX-REPNE	Reserved
+#uxF3	PREFIX-REP/REPE	Reserved
+#uxF4	HLT	x86-hlt
+#uxF5	CMC	x86-cmc/clc/stc/cld/std
+#uxF6	GROUP-3	
+TEST	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 7))
+NONE	((:reg 1))	Reserved
+NOT	((:reg 2))	x86-not/neg-f6-f7
+NEG	((:reg 3))	x86-not/neg-f6-f7
+MUL	((:reg 4))	x86-mul
+IMUL	((:reg 5))	x86-imul-op/en-m
+DIV	((:reg 6))	x86-div
+IDIV	((:reg 7))	x86-idiv
+#uxF7	GROUP-3	
+TEST	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
+((operation . 7))
+NONE	((:reg 1))	Reserved
+NOT	((:reg 2))	x86-not/neg-f6-f7
+NEG	((:reg 3))	x86-not/neg-f6-f7
+MUL	((:reg 4))	x86-mul
+IMUL	((:reg 5))	x86-imul-op/en-m
+DIV	((:reg 6))	x86-div
+IDIV	((:reg 7))	x86-idiv
+#uxF8	CLC	x86-cmc/clc/stc/cld/std
+#uxF9	STC	x86-cmc/clc/stc/cld/std
+#uxFA	CLI	Unimplemented
+#uxFB	STI	Unimplemented
+#uxFC	CLD	x86-cmc/clc/stc/cld/std
+#uxFD	STD	x86-cmc/clc/stc/cld/std
+#uxFE	GROUP-4	
+INC	((:reg 0))	x86-inc/dec-fe-ff
+DEC	((:reg 1))	x86-inc/dec-fe-ff
+NONE	((:reg 2))	Reserved
+NONE	((:reg 3))	Reserved
+NONE	((:reg 4))	Reserved
+NONE	((:reg 5))	Reserved
+NONE	((:reg 6))	Reserved
+NONE	((:reg 7))	Reserved
+#uxFF	GROUP-5	
+INC	((:reg 0))	x86-inc/dec-fe-ff
+DEC	((:reg 1))	x86-inc/dec-fe-ff
+near CALL	((:reg 2))	x86-call-ff/2-op/en-m
+far CALL	((:reg 3))	Unimplemented
+near JMP	((:reg 4))	x86-near-jmp-op/en-m
+far JMP	((:reg 5))	x86-far-jmp-op/en-d
+PUSH	((:reg 6))	x86-push-ev
+NONE	((:reg 7))	Reserved
+
+#ux0		
+:66	VPERMQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux1		
+:66	VPERMPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2		
+:66	VPBLENDD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3	NONE	Reserved
+#ux4		
+:66	VPERMILPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux5		
+:66	VPERMILPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux6		
+:66	VPERM2F128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux7	NONE	Reserved
+#ux8		
+:66	VROUNDPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9		
+:66	VROUNDPD	Unimplemented
+No-Pfx	NONE	Reserved
+#uxA		
+:66	VROUNDSS	Unimplemented
+No-Pfx	NONE	Reserved
+#uxB		
+:66	VROUNDSD	Unimplemented
+No-Pfx	NONE	Reserved
+#uxC		
+:66	VBLENDPS	Unimplemented
+No-Pfx	NONE	Reserved
+#uxD		
+:66	VBLENDPD	Unimplemented
+No-Pfx	NONE	Reserved
+#uxE		
+:66	VPBLENDW	Unimplemented
+No-Pfx	NONE	Reserved
+#uxF		
+:66	VPALIGNR	Unimplemented
+No-Pfx	PALIGNR	Unimplemented
+#ux10	NONE	Reserved
+#ux11	NONE	Reserved
+#ux12	NONE	Reserved
+#ux13	NONE	Reserved
+#ux14		
+:66	VPEXTRB/VPEXTRB	Unimplemented
+No-Pfx	NONE	Reserved
+#ux15		
+:66	VPEXTRW/VPEXTRW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux16		
+:66	VPEXTRD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux17		
+:66	VEXTRACTPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux18		
+:66	VINSERTF128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux19		
+:66	VEXTRACTF128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux1A	NONE	Reserved
+#ux1B	NONE	Reserved
+#ux1C	NONE	Reserved
+#ux1D		
+:66	VCVTPS2PH	Unimplemented
+No-Pfx	NONE	Reserved
+#ux1E	NONE	Reserved
+#ux1F	NONE	Reserved
+#ux20		
+:66	VPINSRB/VPINSRB	Unimplemented
+No-Pfx	NONE	Reserved
+#ux21		
+:66	VINSERTPS/VINSERTPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux22		
+:66	VPINSRD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux23	NONE	Reserved
+#ux24	NONE	Reserved
+#ux25	NONE	Reserved
+#ux26	NONE	Reserved
+#ux27	NONE	Reserved
+#ux28	NONE	Reserved
+#ux29	NONE	Reserved
+#ux2A	NONE	Reserved
+#ux2B	NONE	Reserved
+#ux2C	NONE	Reserved
+#ux2D	NONE	Reserved
+#ux2E	NONE	Reserved
+#ux2F	NONE	Reserved
+#ux30	NONE	Reserved
+#ux31	NONE	Reserved
+#ux32	NONE	Reserved
+#ux33	NONE	Reserved
+#ux34	NONE	Reserved
+#ux35	NONE	Reserved
+#ux36	NONE	Reserved
+#ux37	NONE	Reserved
+#ux38		
+:66	VINSERTI128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux39		
+:66	VEXTRACTI128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3A	NONE	Reserved
+#ux3B	NONE	Reserved
+#ux3C	NONE	Reserved
+#ux3D	NONE	Reserved
+#ux3E	NONE	Reserved
+#ux3F	NONE	Reserved
+#ux40		
+:66	VDPPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux41		
+:66	VDPPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux42		
+:66	VMPSADBW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux43	NONE	Reserved
+#ux44		
+:66	VPCLMULQDQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux45	NONE	Reserved
+#ux46		
+:66	VPERM2I128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux47	NONE	Reserved
+#ux48	NONE	Reserved
+#ux49	NONE	Reserved
+#ux4A		
+:66	VBLENDVPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux4B		
+:66	VBLENDVPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux4C		
+:66	VPBLENDVB	Unimplemented
+No-Pfx	NONE	Reserved
+#ux4D	NONE	Reserved
+#ux4E	NONE	Reserved
+#ux4F	NONE	Reserved
+#ux50	NONE	Reserved
+#ux51	NONE	Reserved
+#ux52	NONE	Reserved
+#ux53	NONE	Reserved
+#ux54	NONE	Reserved
+#ux55	NONE	Reserved
+#ux56	NONE	Reserved
+#ux57	NONE	Reserved
+#ux58	NONE	Reserved
+#ux59	NONE	Reserved
+#ux5A	NONE	Reserved
+#ux5B	NONE	Reserved
+#ux5C	NONE	Reserved
+#ux5D	NONE	Reserved
+#ux5E	NONE	Reserved
+#ux5F	NONE	Reserved
+#ux60		
+:66	VPCMPESTRM	Unimplemented
+No-Pfx	NONE	Reserved
+#ux61		
+:66	VPCMPESTRI	Unimplemented
+No-Pfx	NONE	Reserved
+#ux62		
+:66	VPCMPISTRM	Unimplemented
+No-Pfx	NONE	Reserved
+#ux63		
+:66	VPCMPISTRI	Unimplemented
+No-Pfx	NONE	Reserved
+#ux64	NONE	Reserved
+#ux65	NONE	Reserved
+#ux66	NONE	Reserved
+#ux67	NONE	Reserved
+#ux68	NONE	Reserved
+#ux69	NONE	Reserved
+#ux6A	NONE	Reserved
+#ux6B	NONE	Reserved
+#ux6C	NONE	Reserved
+#ux6D	NONE	Reserved
+#ux6E	NONE	Reserved
+#ux6F	NONE	Reserved
+#ux70	NONE	Reserved
+#ux71	NONE	Reserved
+#ux72	NONE	Reserved
+#ux73	NONE	Reserved
+#ux74	NONE	Reserved
+#ux75	NONE	Reserved
+#ux76	NONE	Reserved
+#ux77	NONE	Reserved
+#ux78	NONE	Reserved
+#ux79	NONE	Reserved
+#ux7A	NONE	Reserved
+#ux7B	NONE	Reserved
+#ux7C	NONE	Reserved
+#ux7D	NONE	Reserved
+#ux7E	NONE	Reserved
+#ux7F	NONE	Reserved
+#ux80	NONE	Reserved
+#ux81	NONE	Reserved
+#ux82	NONE	Reserved
+#ux83	NONE	Reserved
+#ux84	NONE	Reserved
+#ux85	NONE	Reserved
+#ux86	NONE	Reserved
+#ux87	NONE	Reserved
+#ux88	NONE	Reserved
+#ux89	NONE	Reserved
+#ux8A	NONE	Reserved
+#ux8B	NONE	Reserved
+#ux8C	NONE	Reserved
+#ux8D	NONE	Reserved
+#ux8E	NONE	Reserved
+#ux8F	NONE	Reserved
+#ux90	NONE	Reserved
+#ux91	NONE	Reserved
+#ux92	NONE	Reserved
+#ux93	NONE	Reserved
+#ux94	NONE	Reserved
+#ux95	NONE	Reserved
+#ux96	NONE	Reserved
+#ux97	NONE	Reserved
+#ux98	NONE	Reserved
+#ux99	NONE	Reserved
+#ux9A	NONE	Reserved
+#ux9B	NONE	Reserved
+#ux9C	NONE	Reserved
+#ux9D	NONE	Reserved
+#ux9E	NONE	Reserved
+#ux9F	NONE	Reserved
+#uxA0	NONE	Reserved
+#uxA1	NONE	Reserved
+#uxA2	NONE	Reserved
+#uxA3	NONE	Reserved
+#uxA4	NONE	Reserved
+#uxA5	NONE	Reserved
+#uxA6	NONE	Reserved
+#uxA7	NONE	Reserved
+#uxA8	NONE	Reserved
+#uxA9	NONE	Reserved
+#uxAA	NONE	Reserved
+#uxAB	NONE	Reserved
+#uxAC	NONE	Reserved
+#uxAD	NONE	Reserved
+#uxAE	NONE	Reserved
+#uxAF	NONE	Reserved
+#uxB0	NONE	Reserved
+#uxB1	NONE	Reserved
+#uxB2	NONE	Reserved
+#uxB3	NONE	Reserved
+#uxB4	NONE	Reserved
+#uxB5	NONE	Reserved
+#uxB6	NONE	Reserved
+#uxB7	NONE	Reserved
+#uxB8	NONE	Reserved
+#uxB9	NONE	Reserved
+#uxBA	NONE	Reserved
+#uxBB	NONE	Reserved
+#uxBC	NONE	Reserved
+#uxBD	NONE	Reserved
+#uxBE	NONE	Reserved
+#uxBF	NONE	Reserved
+#uxC0	NONE	Reserved
+#uxC1	NONE	Reserved
+#uxC2	NONE	Reserved
+#uxC3	NONE	Reserved
+#uxC4	NONE	Reserved
+#uxC5	NONE	Reserved
+#uxC6	NONE	Reserved
+#uxC7	NONE	Reserved
+#uxC8	NONE	Reserved
+#uxC9	NONE	Reserved
+#uxCA	NONE	Reserved
+#uxCB	NONE	Reserved
+#uxCC	SHA1RNDS4	Unimplemented
+#uxCD	NONE	Reserved
+#uxCE	NONE	Reserved
+#uxCF	NONE	Reserved
+#uxD0	NONE	Reserved
+#uxD1	NONE	Reserved
+#uxD2	NONE	Reserved
+#uxD3	NONE	Reserved
+#uxD4	NONE	Reserved
+#uxD5	NONE	Reserved
+#uxD6	NONE	Reserved
+#uxD7	NONE	Reserved
+#uxD8	NONE	Reserved
+#uxD9	NONE	Reserved
+#uxDA	NONE	Reserved
+#uxDB	NONE	Reserved
+#uxDC	NONE	Reserved
+#uxDD	NONE	Reserved
+#uxDE	NONE	Reserved
+#uxDF		
+:66	VAESKEYGEN	Unimplemented
+No-Pfx	NONE	Reserved
+#uxE0	NONE	Reserved
+#uxE1	NONE	Reserved
+#uxE2	NONE	Reserved
+#uxE3	NONE	Reserved
+#uxE4	NONE	Reserved
+#uxE5	NONE	Reserved
+#uxE6	NONE	Reserved
+#uxE7	NONE	Reserved
+#uxE8	NONE	Reserved
+#uxE9	NONE	Reserved
+#uxEA	NONE	Reserved
+#uxEB	NONE	Reserved
+#uxEC	NONE	Reserved
+#uxED	NONE	Reserved
+#uxEE	NONE	Reserved
+#uxEF	NONE	Reserved
+#uxF0		
+:F2	RORX	Unimplemented
+No-Pfx	NONE	Reserved
+#uxF1	NONE	Reserved
+#uxF2	NONE	Reserved
+#uxF3	NONE	Reserved
+#uxF4	NONE	Reserved
+#uxF5	NONE	Reserved
+#uxF6	NONE	Reserved
+#uxF7	NONE	Reserved
+#uxF8	NONE	Reserved
+#uxF9	NONE	Reserved
+#uxFA	NONE	Reserved
+#uxFB	NONE	Reserved
+#uxFC	NONE	Reserved
+#uxFD	NONE	Reserved
+#uxFE	NONE	Reserved
+#uxFF	NONE	Reserved
+
+#ux0		
+:66	VPSHUFB	Unimplemented
+No-Pfx	PSHUFB	Unimplemented
+#ux1		
+:66	VPHADDW	Unimplemented
+No-Pfx	PHADDW	Unimplemented
+#ux2		
+:66	VPHADDD	Unimplemented
+No-Pfx	PHADDD	Unimplemented
+#ux3		
+:66	VPHADDSW	Unimplemented
+No-Pfx	PHADDSW	Unimplemented
+#ux4		
+:66	VPMADDUBSW	Unimplemented
+No-Pfx	PMADDUBSW	Unimplemented
+#ux5		
+:66	VPHSUBW	Unimplemented
+No-Pfx	PHSUBW	Unimplemented
+#ux6		
+:66	VPHSUBD	Unimplemented
+No-Pfx	PHSUBD	Unimplemented
+#ux7		
+:66	VPHSUBSW	Unimplemented
+No-Pfx	PHSUBSW	Unimplemented
+#ux8		
+:66	VPSIGNB	Unimplemented
+No-Pfx	PSIGNB	Unimplemented
+#ux9		
+:66	VPSIGNW	Unimplemented
+No-Pfx	PSIGNW	Unimplemented
+#uxA		
+:66	VPSIGND	Unimplemented
+No-Pfx	PSIGND	Unimplemented
+#uxB		
+:66	VPMULHRSW	Unimplemented
+No-Pfx	PMULHRSW	Unimplemented
+#uxC		
+:66	VPERMILPS	Unimplemented
+No-Pfx	NONE	Reserved
+#uxD		
+:66	VPERMILPD	Unimplemented
+No-Pfx	NONE	Reserved
+#uxE		
+:66	VTESTPS	Unimplemented
+No-Pfx	NONE	Reserved
+#uxF		
+:66	VTESTPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux10		
+:66	PBLENDVB	Unimplemented
+#ux11	NONE	Reserved
+#ux12	NONE	Reserved
+#ux13		
+:66	VCVTPH2PS	Unimplemented
+#ux14		
+:66	BLENDVPS	Unimplemented
+#ux15		
+:66	BLENDVPD	Unimplemented
+#ux16		
+:66	VPERMPS	Unimplemented
+#ux17		
+:66	VPTEST	Unimplemented
+#ux18		
+:66	VBROADCASTSS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux19		
+:66	VBROADCASTSD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux1A		
+:66	VBROADCASTF128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux1B	NONE	Reserved
+#ux1C		
+:66	VPABSB	Unimplemented
+No-Pfx	PABSB	Unimplemented
+#ux1D		
+:66	VPABSW	Unimplemented
+No-Pfx	PABSW	Unimplemented
+#ux1E		
+:66	VPABSD	Unimplemented
+No-Pfx	PABSD	Unimplemented
+#ux1F	NONE	Reserved
+#ux20		
+:66	VPMOVSXBW/VPMOVSXBW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux21		
+:66	VPMOVSXBD/VPMOVSXBD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux22		
+:66	VPMOVSXBQ/VPMOVSXBQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux23		
+:66	VPMOVSXWD/VPMOVSXWD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux24		
+:66	VPMOVSXWQ/VPMOVSXWQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux25		
+:66	VPMOVSXDQ/VPMOVSXDQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux26	NONE	Reserved
+#ux27	NONE	Reserved
+#ux28		
+:66	VPMULDQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux29		
+:66	VPCMPEQQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2A		
+:66	VMOVNTDQA	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2B		
+:66	VPACKUSDW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2C		
+:66	VMASKMOVPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2D		
+:66	VMASKMOVPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2E		
+:66	VMASKMOVPS	Unimplemented
+No-Pfx	NONE	Reserved
+#ux2F		
+:66	VMASKMOVPD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux30		
+:66	VPMOVZXBW/VPMOVZXBW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux31		
+:66	VPMOVZXBD/VPMOVZXBD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux32		
+:66	VPMOVZXBQ/VPMOVZXBQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux33		
+:66	VPMOVZXWD/VPMOVZXWD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux34		
+:66	VPMOVZXWQ/VPMOVZXWQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux35		
+:66	VPMOVZXDQ/VPMOVZXDQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux36		
+:66	VPERMD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux37		
+:66	VPCMPGTQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux38		
+:66	VPMINSB	Unimplemented
+No-Pfx	NONE	Reserved
+#ux39		
+:66	VPMINSD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3A		
+:66	VPMINUW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3B		
+:66	VPMINUD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3C		
+:66	VPMAXSB	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3D		
+:66	VPMAXSD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3E		
+:66	VPMAXUW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux3F		
+:66	VPMAXUD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux40		
+:66	VPMULLD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux41		
+:66	VPHMINPOSUW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux42	NONE	Reserved
+#ux43	NONE	Reserved
+#ux44	NONE	Reserved
+#ux45		
+:66	VPSRLVD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux46		
+:66	VPSRAVD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux47		
+:66	VPSLLVD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux48	NONE	Reserved
+#ux49	NONE	Reserved
+#ux4A	NONE	Reserved
+#ux4B	NONE	Reserved
+#ux4C	NONE	Reserved
+#ux4D	NONE	Reserved
+#ux4E	NONE	Reserved
+#ux4F	NONE	Reserved
+#ux50	NONE	Reserved
+#ux51	NONE	Reserved
+#ux52	NONE	Reserved
+#ux53	NONE	Reserved
+#ux54	NONE	Reserved
+#ux55	NONE	Reserved
+#ux56	NONE	Reserved
+#ux57	NONE	Reserved
+#ux58		
+:66	VPBROADCASTD	Unimplemented
+No-Pfx	NONE	Reserved
+#ux59		
+:66	VPBROADCASTQ	Unimplemented
+No-Pfx	NONE	Reserved
+#ux5A		
+:66	VBROADCASTI128	Unimplemented
+No-Pfx	NONE	Reserved
+#ux5B	NONE	Reserved
+#ux5C	NONE	Reserved
+#ux5D	NONE	Reserved
+#ux5E	NONE	Reserved
+#ux5F	NONE	Reserved
+#ux60	NONE	Reserved
+#ux61	NONE	Reserved
+#ux62	NONE	Reserved
+#ux63	NONE	Reserved
+#ux64	NONE	Reserved
+#ux65	NONE	Reserved
+#ux66	NONE	Reserved
+#ux67	NONE	Reserved
+#ux68	NONE	Reserved
+#ux69	NONE	Reserved
+#ux6A	NONE	Reserved
+#ux6B	NONE	Reserved
+#ux6C	NONE	Reserved
+#ux6D	NONE	Reserved
+#ux6E	NONE	Reserved
+#ux6F	NONE	Reserved
+#ux70	NONE	Reserved
+#ux71	NONE	Reserved
+#ux72	NONE	Reserved
+#ux73	NONE	Reserved
+#ux74	NONE	Reserved
+#ux75	NONE	Reserved
+#ux76	NONE	Reserved
+#ux77	NONE	Reserved
+#ux78		
+:66	VPBROADCASTB	Unimplemented
+No-Pfx	NONE	Reserved
+#ux79		
+:66	VPBROADCASTW	Unimplemented
+No-Pfx	NONE	Reserved
+#ux7A	NONE	Reserved
+#ux7B	NONE	Reserved
+#ux7C	NONE	Reserved
+#ux7D	NONE	Reserved
+#ux7E	NONE	Reserved
+#ux7F	NONE	Reserved
+#ux80		
+:66	INVEPT	Unimplemented
+No-Pfx	NONE	Reserved
+#ux81		
+:66	INVVPID	Unimplemented
+No-Pfx	NONE	Reserved
+#ux82		
+:66	INVPCID	Unimplemented
+No-Pfx	NONE	Reserved
+#ux83	NONE	Reserved
+#ux84	NONE	Reserved
+#ux85	NONE	Reserved
+#ux86	NONE	Reserved
+#ux87	NONE	Reserved
+#ux88	NONE	Reserved
+#ux89	NONE	Reserved
+#ux8A	NONE	Reserved
+#ux8B	NONE	Reserved
+#ux8C		
+:66	VPMASKMOVD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux8D	NONE	Reserved
+#ux8E		
+:66	VPMASKMOVD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux8F	NONE	Reserved
+#ux90		
+:66	VGATHERDD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux91		
+:66	VGATHERQD/Q	Unimplemented
+No-Pfx	NONE	Reserved
+#ux92		
+:66	VGATHERDPS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux93		
+:66	VGATHERQPS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux94		
+:66	NONE	Reserved
+No-Pfx	NONE	Reserved
+#ux95		
+:66	NONE	Reserved
+No-Pfx	NONE	Reserved
+#ux96		
+:66	VFMADDSUB132PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux97		
+:66	VFMSUBADD132PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux98		
+:66	VFMADD132PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux99		
+:66	VFMADD132SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9A		
+:66	VFMSUB132PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9B		
+:66	VFMSUB132SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9C		
+:66	VFNMADD132PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9D		
+:66	VFNMADD132SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9E		
+:66	VFNMSUB132PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#ux9F		
+:66	VFNMSUB132SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxA0	NONE	Reserved
+#uxA1	NONE	Reserved
+#uxA2	NONE	Reserved
+#uxA3	NONE	Reserved
+#uxA4	NONE	Reserved
+#uxA5	NONE	Reserved
+#uxA6		
+:66	VFMADDSUB213PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxA7		
+:66	VFMSUBADD213PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxA8		
+:66	VFMADD213PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxA9		
+:66	VFMADD213SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxAA		
+:66	VFMSUB213PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxAB		
+:66	VFMSUB213SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxAC		
+:66	VFNMADD213PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxAD		
+:66	VFNMADD213SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxAE		
+:66	VFNMSUB213PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxAF		
+:66	VFNMSUB213SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxB0	NONE	Reserved
+#uxB1	NONE	Reserved
+#uxB2	NONE	Reserved
+#uxB3	NONE	Reserved
+#uxB4	NONE	Reserved
+#uxB5	NONE	Reserved
+#uxB6		
+:66	VFMADDSUB231PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxB7		
+:66	VFMSUBADD231PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxB8		
+:66	VFMADD231PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxB9		
+:66	VFMADD231SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxBA		
+:66	VFMSUB231PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxBB		
+:66	VFMSUB231SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxBC		
+:66	VFNMADD231PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxBD		
+:66	VFNMADD231SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxBE		
+:66	VFNMSUB231PS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxBF		
+:66	VFNMSUB231SS/D	Unimplemented
+No-Pfx	NONE	Reserved
+#uxC0	NONE	Reserved
+#uxC1	NONE	Reserved
+#uxC2	NONE	Reserved
+#uxC3	NONE	Reserved
+#uxC4	NONE	Reserved
+#uxC5	NONE	Reserved
+#uxC6	NONE	Reserved
+#uxC7	NONE	Reserved
+#uxC8	SHA1NEXTE	Unimplemented
+#uxC9	SHA1MSG1	Unimplemented
+#uxCA	SHA1MSG2	Unimplemented
+#uxCB	SHA256RNDS2	Unimplemented
+#uxCC	SHA256MSG1	Unimplemented
+#uxCD	SHA256MSG2	Unimplemented
+#uxCE	NONE	Reserved
+#uxCF	NONE	Reserved
+#uxD0	NONE	Reserved
+#uxD1	NONE	Reserved
+#uxD2	NONE	Reserved
+#uxD3	NONE	Reserved
+#uxD4	NONE	Reserved
+#uxD5	NONE	Reserved
+#uxD6	NONE	Reserved
+#uxD7	NONE	Reserved
+#uxD8	NONE	Reserved
+#uxD9	NONE	Reserved
+#uxDA	NONE	Reserved
+#uxDB		
+:66	VAESIMC	Unimplemented
+No-Pfx	NONE	Reserved
+#uxDC		
+:66	VAESENC	Unimplemented
+No-Pfx	NONE	Reserved
+#uxDD		
+:66	VAESENCLAST	Unimplemented
+No-Pfx	NONE	Reserved
+#uxDE		
+:66	VAESDEC	Unimplemented
+No-Pfx	NONE	Reserved
+#uxDF		
+:66	VAESDECLAST	Unimplemented
+No-Pfx	NONE	Reserved
+#uxE0	NONE	Reserved
+#uxE1	NONE	Reserved
+#uxE2	NONE	Reserved
+#uxE3	NONE	Reserved
+#uxE4	NONE	Reserved
+#uxE5	NONE	Reserved
+#uxE6	NONE	Reserved
+#uxE7	NONE	Reserved
+#uxE8	NONE	Reserved
+#uxE9	NONE	Reserved
+#uxEA	NONE	Reserved
+#uxEB	NONE	Reserved
+#uxEC	NONE	Reserved
+#uxED	NONE	Reserved
+#uxEE	NONE	Reserved
+#uxEF	NONE	Reserved
+#uxF0		
+:66	MOVBE	Unimplemented
+:F2	CRC32	Unimplemented
+:F3	NONE	Reserved
+No-Pfx	MOVBE	Unimplemented
+#uxF1		
+:66	MOVBE	Unimplemented
+:F2	CRC32	Unimplemented
+:F3	NONE	Reserved
+No-Pfx	MOVBE	Unimplemented
+#uxF2		
+:66	NONE	Reserved
+:F2	NONE	Reserved
+:F3	NONE	Reserved
+No-Pfx	ANDN	Unimplemented
+#uxF3	GROUP-17	
+NONE	((:vex t) (:reg 0))	Reserved
+BLSR	((:vex t) (:reg 1))	Unimplemented
+BLSMSK	((:vex t) (:reg 2))	Unimplemented
+BLSI	((:vex t) (:reg 3))	Unimplemented
+NONE	((:vex t) (:reg 4))	Reserved
+NONE	((:vex t) (:reg 5))	Reserved
+NONE	((:vex t) (:reg 6))	Reserved
+NONE	((:vex t) (:reg 7))	Reserved
+#uxF4		
+:66	NONE	Reserved
+:F2	NONE	Reserved
+:F3	NONE	Reserved
+No-Pfx	NONE	Reserved
+#uxF5		
+:66	NONE	Reserved
+:F2	PDEP	Unimplemented
+:F3	PEXT	Unimplemented
+No-Pfx	BZHI	Unimplemented
+#uxF6		
+:66	ADCX	Unimplemented
+:F2	MULX	Unimplemented
+:F3	ADOX	Unimplemented
+No-Pfx	NONE	Reserved
+#uxF7		
+:66	SHLX	Unimplemented
+:F2	SHRX	Unimplemented
+:F3	SARX	Unimplemented
+No-Pfx	BEXTR	Unimplemented
+#uxF8	NONE	Reserved
+#uxF9	NONE	Reserved
+#uxFA	NONE	Reserved
+#uxFB	NONE	Reserved
+#uxFC	NONE	Reserved
+#uxFD	NONE	Reserved
+#uxFE	NONE	Reserved
+#uxFF	NONE	Reserved
