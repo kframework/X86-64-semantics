@@ -1267,5 +1267,9 @@ module X86-SYNTAX
                   | "stosw"
                   | "stosl"
                   | "stosq"
+                  | "cmpsb"
+                  | "cmpsw"
+                  | "cmpsl"
+                  | "cmpsq"
 
 endmodule
