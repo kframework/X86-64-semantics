@@ -1279,4 +1279,6 @@ module X86-SYNTAX
                   | "movsw"
                   | "movsl"
                   | "movsq"
+                  | "maskmovdqu"
+                  | "vmaskmovdqu"
 endmodule
