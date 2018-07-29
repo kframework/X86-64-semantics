@@ -575,7 +575,7 @@ sub processKFile {
     my @kpatterns = ( qr/"(\w*)" \|-> (\d+'[-]?\d+)/, qr/"(\w*)" \|-> (.*)/ );
 
     execute(
-"grep  -A 39  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1",
+"grep  -A 40  \"ListItem\"  $file  | sed -e '/RIP/d' 1> ${tmpfile} 2>&1",
         1
     );
 
@@ -588,8 +588,12 @@ sub processKFile {
         #print "Line: " . $line . "\n";
         if ( $line =~ m/$kpatterns[0]/ ) {
 
-            #print "Match: " . $1 . "=>" . $2 . "\n";
-            push( @{ $kstateMap{$1} }, $2 );
+#print "Match: " . $1 . "=>" . $2 . "\n";
+            my $key = $1;
+            my $val = $2;
+            if($key ne "DF") {
+              push( @{ $kstateMap{$key} }, $val );
+            }
         }
         elsif ( $line =~ m/$kpatterns[1]/ ) {
             my $reg = $1;
