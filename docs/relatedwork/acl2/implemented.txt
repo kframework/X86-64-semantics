@@ -1,428 +1,543 @@
-LLDT	((:reg 2))	x86-lldt
-LGDT	((:reg 2) (:mod :mem))	x86-lgdt
-LIDT	((:reg 3) (:mod :mem))	x86-lidt
-SYSCALL	x86-syscall-both-views
-SYSRET	x86-sysret
-VMOVUPD	x86-movups/movupd/movdqu-op/en-rm
-VMOVSD	x86-movss/movsd-op/en-rm -- 
-VMOVSS	x86-movss/movsd-op/en-rm -- 
-VMOVUPS	x86-movups/movupd/movdqu-op/en-rm
-VMOVUPD	x86-movups/movupd/movdqu-op/en-mr
-VMOVSD	x86-movss/movsd-op/en-mr -- 
-VMOVSS	x86-movss/movsd-op/en-mr -- 
-VMOVUPS	x86-movups/movupd/movdqu-op/en-mr
-VMOVLPD	x86-movlps/movlpd-op/en-rm
-VMOVDDUP	x86-movlps/movlpd-op/en-rm
-VMOVSLDUP	x86-movlps/movlpd-op/en-rm
-VMOVLPS/VMOVHLPS	x86-movlps/movlpd-op/en-rm
-VMOVLPD	x86-movlps/movlpd-op/en-mr
-VMOVLPS	x86-movlps/movlpd-op/en-mr
-VUNPCKLPD	x86-unpck?pd-op/en-rm -- 
-VUNPCKLPS	x86-unpck?ps-op/en-rm -- 
-VUNPCKHPD	x86-unpck?pd-op/en-rm -- 
-VUNPCKHPS	x86-unpck?ps-op/en-rm -- 
-VMOVHPD	x86-movhps/movhpd-op/en-rm
-VMOVHPS/VMOVLHPS	x86-movhps/movhpd-op/en-rm
-VMOVHPD	x86-movhps/movhpd-op/en-mr
-VMOVHPS	x86-movhps/movhpd-op/en-mr
-NOP	x86-two-byte-nop
-MOV	x86-mov-control-regs-op/en-mr
-VMOVAPD	x86-movaps/movapd-op/en-rm
-VMOVAPS	x86-movaps/movapd-op/en-rm
-VMOVAPD	x86-movaps/movapd-op/en-mr
-VMOVAPS	x86-movaps/movapd-op/en-mr
-VCVTSI2SD	x86-cvtsi2s?-op/en-rm -- 
-VCVTSI2SS	x86-cvtsi2s?-op/en-rm -- 
-VCVTTSD2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
-VCVTTSS2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
-VCVTSD2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
-VCVTSS2SI	x86-cvts?2si/cvtts?2si-op/en-rm -- 
-VUCOMISD	x86-comis?/ucomis?-op/en-rm -- 
-VUCOMISS	x86-comis?/ucomis?-op/en-rm -- 
-VCOMISD	x86-comis?/ucomis?-op/en-rm -- 
-VCOMISS	x86-comis?/ucomis?-op/en-rm -- 
-CMOVO	x86-cmovcc
-CMOVNO	x86-cmovcc
-CMOVB/C/NAE	x86-cmovcc
-CMOVAE/NB/NC	x86-cmovcc
-CMOVE/Z	x86-cmovcc
-CMOVNE/NZ	x86-cmovcc
-CMOVBE/NA	x86-cmovcc
-CMOVA/NBE	x86-cmovcc
-CMOVS	x86-cmovcc
-CMOVNS	x86-cmovcc
-CMOVP/PE	x86-cmovcc
-CMOVNP/PO	x86-cmovcc
-CMOVL/NGE	x86-cmovcc
-CMOVNL/GE	x86-cmovcc
-CMOVLE/NG	x86-cmovcc
-CMOVNLE/G	x86-cmovcc
-VSQRTPD	x86-sqrtpd-op/en-rm
-VSQRTSD	x86-sqrts?-op/en-rm -- 
-VSQRTSS	x86-sqrts?-op/en-rm -- 
-VSQRTPS	x86-sqrtps-op/en-rm
-VANDPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VANDPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VANDNPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VANDNPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VORPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VORPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VXORPD	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VXORPS	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VADDPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
-VADDSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VADDSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VADDPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
-VMULPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
-VMULSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VMULSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VMULPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
-VCVTPD2PS	x86-cvtpd2ps-op/en-rm
-VCVTSD2SS	x86-cvts?2s?-op/en-rm -- 
-VCVTSS2SD	x86-cvts?2s?-op/en-rm -- 
-VCVTPS2PD	x86-cvtps2pd-op/en-rm
-VSUBPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
-VSUBSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VSUBSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VSUBPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
-VMINPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
-VMINSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VMINSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VMINPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
-VDIVPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
-VDIVSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VDIVSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VDIVPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
-VMAXPD	x86-addpd/subpd/mulpd/divpd/maxpd/minpd-op/en-rm -- 
-VMAXSD	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VMAXSS	x86-adds?/subs?/muls?/divs?/maxs?/mins?-op/en-rm -- 
-VMAXPS	x86-addps/subps/mulps/divps/maxps/minps-op/en-rm -- 
-VMOVDQU	x86-movups/movupd/movdqu-op/en-rm
-VPCMPEQB	x86-pcmpeqb-op/en-rm
-VMOVQU	x86-movups/movupd/movdqu-op/en-mr
-JO	x86-two-byte-jcc
-JNO	x86-two-byte-jcc
-JB/NAE/C	x86-two-byte-jcc
-JNB/AE/NC	x86-two-byte-jcc
-JZ/E	x86-two-byte-jcc
-JNZ/NE	x86-two-byte-jcc
-JBE/NA	x86-two-byte-jcc
-JNBE/A	x86-two-byte-jcc
-JS	x86-two-byte-jcc
-JNS	x86-two-byte-jcc
-JP/PE	x86-two-byte-jcc
-JNP/PO	x86-two-byte-jcc
-JL/NGE	x86-two-byte-jcc
-JNL/GE	x86-two-byte-jcc
-JLE/NG	x86-two-byte-jcc
-JNLE/G	x86-two-byte-jcc
-SETO	x86-setcc
-SETNO	x86-setcc
-SETB/NAE/C	x86-setcc
-SETNB/AE/NC	x86-setcc
-SETZ/E	x86-setcc
-SETNZ/NE	x86-setcc
-SETBE/NA	x86-setcc
-SETNBE/A	x86-setcc
-SETS	x86-setcc
-SETNS	x86-setcc
-SETP/PE	x86-setcc
-SETNP/PO	x86-setcc
-SETL/NGE	x86-setcc
-SETNL/GE	x86-setcc
-SETLE/NG	x86-setcc
-SETNLE/G	x86-setcc
-PUSH	x86-push-segment-register
-BT	x86-bt-0f-a3
-PUSH	x86-push-segment-register
-LDMXCSR	((:reg 2) (:mod :mem))	x86-ldmxcsr/stmxcsr-op/en-m
-STMXCSR	((:reg 3) (:mod :mem))	x86-ldmxcsr/stmxcsr-op/en-m
-IMUL	x86-imul-op/en-rm
-CMPXCHG	x86-cmpxchg
-CMPXCHG	x86-cmpxchg
-MOVZX	x86-movzx
-MOVZX	x86-movzx
-BT	((:reg 4))	x86-bt-0f-ba
-BSF	x86-bsf-op/en-rm
-MOVSX	x86-two-byte-movsxd
-MOVSX	x86-two-byte-movsxd
-VCMPPD	x86-cmppd-op/en-rmi
-VCMPSD	x86-cmpss/cmpsd-op/en-rmi -- 
-VCMPSS	x86-cmpss/cmpsd-op/en-rmi -- 
-VCMPPS	x86-cmpps-op/en-rmi
-VSHUFPD	x86-shufpd-op/en-rmi
-VSHUFPS	x86-shufps-op/en-rmi
-RDRAND	((:reg 6) (:mod 3))	x86-rdrand
-VPMOVMSKB	x86-pmovmskb-op/en-rm
-VPAND	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VPANDN	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VPOR	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-VPXOR	x86-andp?/andnp?/orp?/xorp?/pand/pandn/por/pxor-op/en-rm -- 
-ADD	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-ADD	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-ADD	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-OR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-OR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-OR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-OR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-OR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-OR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-ADC	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-ADC	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-ADC	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-SBB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-SBB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-SBB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-AND	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-AND	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-AND	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-AND	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-AND	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-AND	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-SUB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-SUB	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-SUB	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-XOR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-XOR	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-XOR	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-CMP	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-CMP	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-g-e -- 
-CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-CMP	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-INC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-DEC	x86-inc/dec-4x
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-PUSH	x86-push-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-POP	x86-pop-general-register
-PUSHA/PUSHAD	x86-pusha
-POPA/POPAD	x86-popa
-MOVSXD	x86-one-byte-movsxd
-PUSH	x86-push-i
-IMUL	x86-imul-op/en-rmi
-PUSH	x86-push-i
-IMUL	x86-imul-op/en-rmi
-JO	x86-one-byte-jcc
-JNO	x86-one-byte-jcc
-JB/NAE/C	x86-one-byte-jcc
-JNB/AE/NC	x86-one-byte-jcc
-JZ/E	x86-one-byte-jcc
-JNZ/NE	x86-one-byte-jcc
-JBE/NA	x86-one-byte-jcc
-JNBE/A	x86-one-byte-jcc
-JS	x86-one-byte-jcc
-JNS	x86-one-byte-jcc
-JP/PE	x86-one-byte-jcc
-JNP/PO	x86-one-byte-jcc
-JL/NGE	x86-one-byte-jcc
-JNL/GE	x86-one-byte-jcc
-JLE/NG	x86-one-byte-jcc
-JNLE/G	x86-one-byte-jcc
-ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-#ux82		
-ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-ADD	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-OR	((:reg 1))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-ADC	((:reg 2))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SBB	((:reg 3))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-AND	((:reg 4))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-SUB	((:reg 5))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-XOR	((:reg 6))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-CMP	((:reg 7))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-TEST	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-TEST	x86-add/adc/sub/sbb/or/and/xor/cmp/test-e-g -- 
-XCHG	x86-xchg
-XCHG	x86-xchg
-MOV	x86-mov-op/en-mr
-MOV	x86-mov-op/en-mr
-MOV	x86-mov-op/en-rm
-MOV	x86-mov-op/en-rm
-LEA	x86-lea
-POP	((:reg 0))	x86-pop-ev
-XCHG	x86-xchg
-XCHG	x86-xchg
-XCHG	x86-xchg
-XCHG	x86-xchg
-XCHG	x86-xchg
-XCHG	x86-xchg
-XCHG	x86-xchg
-XCHG	x86-xchg
-CBW/CWDE/CDQE	x86-cbw/cwd/cdqe
-CWD/CDQ/CQO	x86-cwd/cdq/cqo
-PUSHF/D/Q	x86-pushf
-POPF/D/Q	x86-popf
-SAHF	x86-sahf
-LAHF	x86-lahf
-MOV	x86-mov-op/en-fd
-MOV	x86-mov-op/en-fd
-MOVS/B	x86-movs
-MOVS/W/D/Q	x86-movs
-CMPS/B	x86-cmps
-CMPS/W/D	x86-cmps
-TEST	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-TEST	x86-add/adc/sub/sbb/or/and/xor/cmp-test-rax-i -- 
-STOS/B	x86-stos
-STOS/W/D/Q	x86-stos
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-MOV	x86-mov-op/en-oi
-ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RET	x86-ret
-RET	x86-ret
-MOV	((:reg 0))	x86-mov-op/en-mi
-MOV	((:reg 0))	x86-mov-op/en-mi
-LEAVE	x86-leave
-ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROL	((:reg 0))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-ROR	((:reg 1))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCL	((:reg 2))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-RCR	((:reg 3))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHL/SAL	((:reg 4))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SHR	((:reg 5))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-SAR	((:reg 7))	x86-sal/sar/shl/shr/rcl/rcr/rol/ror
-LOOPNE/LOOPNZ	x86-loop
-LOOPE/LOOPZ	x86-loop
-LOOP	x86-loop
-JrCXZ	x86-jrcxz
-CALL	x86-call-e8-op/en-m
-JMP	x86-near-jmp-op/en-d
-JMP	x86-near-jmp-op/en-d
-HLT	x86-hlt
-CMC	x86-cmc/clc/stc/cld/std
-TEST	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-NOT	((:reg 2))	x86-not/neg-f6-f7
-NEG	((:reg 3))	x86-not/neg-f6-f7
-MUL	((:reg 4))	x86-mul
-IMUL	((:reg 5))	x86-imul-op/en-m
-DIV	((:reg 6))	x86-div
-IDIV	((:reg 7))	x86-idiv
-TEST	((:reg 0))	x86-add/adc/sub/sbb/or/and/xor/cmp-test-e-i -- 
-NOT	((:reg 2))	x86-not/neg-f6-f7
-NEG	((:reg 3))	x86-not/neg-f6-f7
-MUL	((:reg 4))	x86-mul
-IMUL	((:reg 5))	x86-imul-op/en-m
-DIV	((:reg 6))	x86-div
-IDIV	((:reg 7))	x86-idiv
-CLC	x86-cmc/clc/stc/cld/std
-STC	x86-cmc/clc/stc/cld/std
-CLD	x86-cmc/clc/stc/cld/std
-STD	x86-cmc/clc/stc/cld/std
-INC	((:reg 0))	x86-inc/dec-fe-ff
-DEC	((:reg 1))	x86-inc/dec-fe-ff
-INC	((:reg 0))	x86-inc/dec-fe-ff
-DEC	((:reg 1))	x86-inc/dec-fe-ff
-CALL	((:reg 2))	x86-call-ff/2-op/en-m
-JMP	((:reg 4))	x86-near-jmp-op/en-m
-JMP	((:reg 5))	x86-far-jmp-op/en-d
-PUSH	((:reg 6))	x86-push-ev
+LLDT
+LGDT
+LIDT
+SYSCALL
+SYSRET
+VMOVUPD
+VMOVSD
+VMOVSS
+VMOVUPS
+VMOVUPD
+VMOVSD
+VMOVSS
+VMOVUPS
+VMOVLPD
+VMOVDDUP
+VMOVSLDUP
+VMOVLPS
+VMOVHLPS
+VMOVLPD
+VMOVLPS
+VUNPCKLPD
+VUNPCKLPS
+VUNPCKHPD
+VUNPCKHPS
+VMOVHPD
+VMOVHPS
+VMOVLHPS
+VMOVHPD
+VMOVHPS
+NOP
+MOV
+VMOVAPD
+VMOVAPS
+VMOVAPD
+VMOVAPS
+VCVTSI2SD
+VCVTSI2SS
+VCVTTSD2SI
+VCVTTSS2SI
+VCVTSD2SI
+VCVTSS2SI
+VUCOMISD
+VUCOMISS
+VCOMISD
+VCOMISS
+CMOVA
+CMOVA
+CMOVA
+CMOVAE
+CMOVAE
+CMOVAE
+CMOVB
+CMOVB
+CMOVB
+CMOVBE
+CMOVBE
+CMOVBE
+CMOVC
+CMOVC
+CMOVC
+CMOVE
+CMOVE
+CMOVE
+CMOVG
+CMOVG
+CMOVG
+CMOVGE
+CMOVGE
+CMOVGE
+CMOVL
+CMOVL
+CMOVL
+CMOVLE
+CMOVLE
+CMOVLE
+CMOVNA
+CMOVNA
+CMOVNA
+CMOVNAE
+CMOVNAE
+CMOVNAE
+CMOVNB
+CMOVNB
+CMOVNB
+CMOVNBE
+CMOVNBE
+CMOVNBE
+CMOVNC
+CMOVNC
+CMOVNC
+CMOVNE
+CMOVNE
+CMOVNE
+CMOVNG
+CMOVNG
+CMOVNG
+CMOVNGE
+CMOVNGE
+CMOVNGE
+CMOVNL
+CMOVNL
+CMOVNL
+CMOVNLE
+CMOVNLE
+CMOVNLE
+CMOVNO
+CMOVNO
+CMOVNO
+CMOVNP
+CMOVNP
+CMOVNP
+CMOVNS
+CMOVNS
+CMOVNS
+CMOVNZ
+CMOVNZ
+CMOVNZ
+CMOVO
+CMOVO
+CMOVO
+CMOVP
+CMOVP
+CMOVP
+CMOVPE
+CMOVPE
+CMOVPE
+CMOVPO
+CMOVPO
+CMOVPO
+CMOVS
+CMOVS
+CMOVS
+CMOVZ
+CMOVZ
+CMOVZ
+VSQRTPD
+VSQRTSD
+VSQRTSS
+VSQRTPS
+VANDPD
+VANDPS
+VANDNPD
+VANDNPS
+VORPD
+VORPS
+VXORPD
+VXORPS
+VADDPD
+VADDSD
+VADDSS
+VADDPS
+VMULPD
+VMULSD
+VMULSS
+VMULPS
+VCVTPD2PS
+VCVTSD2SS
+VCVTSS2SD
+VCVTPS2PD
+VSUBPD
+VSUBSD
+VSUBSS
+VSUBPS
+VMINPD
+VMINSD
+VMINSS
+VMINPS
+VDIVPD
+VDIVSD
+VDIVSS
+VDIVPS
+VMAXPD
+VMAXSD
+VMAXSS
+VMAXPS
+VMOVDQU
+VPCMPEQB
+VMOVQU
+JAE
+JA
+JBE
+JB
+JC
+JECXZ
+JE
+JGE
+JG
+JLE
+JL
+JMP
+JNAE
+JNA
+JNBE
+JNB
+JNC
+JNE
+JNGE
+JNG
+JNLE
+JNL
+JNO
+JNP
+JNS
+JNZ
+JO
+JPE
+JP
+JPO
+JRCXZ
+JS
+JZ
+SETAE
+SETA
+SETBE
+SETB
+SETC
+SETE
+SETGE
+SETG
+SETLE
+SETL
+SETNAE
+SETNA
+SETNBE
+SETNB
+SETNC
+SETNE
+SETNGE
+SETNG
+SETNLE
+SETNL
+SETNO
+SETNP
+SETNS
+SETNZ
+SETO
+SETPE
+SETPO
+SETP
+SETS
+SETZ
+PUSH
+BT
+PUSH
+LDMXCSR
+STMXCSR
+IMUL
+CMPXCHG
+CMPXCHG
+MOVZX
+MOVZX
+BT
+BSF
+MOVSX
+MOVSX
+VCMPPD
+VCMPSD
+VCMPSS
+VCMPPS
+VSHUFPD
+VSHUFPS
+RDRAND
+VPMOVMSKB
+VPAND
+VPANDN
+VPOR
+VPXOR
+ADD
+ADD
+ADD
+ADD
+ADD
+ADD
+OR
+OR
+OR
+OR
+OR
+OR
+ADC
+ADC
+ADC
+ADC
+ADC
+ADC
+SBB
+SBB
+SBB
+SBB
+SBB
+SBB
+AND
+AND
+AND
+AND
+AND
+AND
+SUB
+SUB
+SUB
+SUB
+SUB
+SUB
+XOR
+XOR
+XOR
+XOR
+XOR
+XOR
+CMP
+CMP
+CMP
+CMP
+CMP
+CMP
+INC
+INC
+INC
+INC
+INC
+INC
+INC
+INC
+DEC
+DEC
+DEC
+DEC
+DEC
+DEC
+DEC
+DEC
+PUSH
+PUSH
+PUSH
+PUSH
+PUSH
+PUSH
+PUSH
+PUSH
+POP
+POP
+POP
+POP
+POP
+POP
+POP
+POP
+PUSHA
+PUSHAD
+POPA
+POPAD
+MOVSXD
+PUSH
+IMUL
+PUSH
+IMUL
+ADD
+OR
+ADC
+SBB
+AND
+SUB
+XOR
+CMP
+ADD
+OR
+ADC
+SBB
+AND
+SUB
+XOR
+CMP
+#ux82
+ADD
+OR
+ADC
+SBB
+AND
+SUB
+XOR
+CMP
+ADD
+OR
+ADC
+SBB
+AND
+SUB
+XOR
+CMP
+TEST
+TEST
+XCHG
+XCHG
+MOV
+MOV
+MOV
+MOV
+LEA
+POP
+XCHG
+XCHG
+XCHG
+XCHG
+XCHG
+XCHG
+XCHG
+XCHG
+CBW
+CWDE
+CDQE
+CWD
+CDQ
+CQO
+PUSHF
+PUSHFD
+PUSHFQ
+POPF
+POPFD
+POPFQ
+SAHF
+LAHF
+MOV
+MOV
+MOVS
+MOVSB
+MOVSW
+MOVSD
+MOVSQ
+CMPSB
+CMPSW
+CMPSD
+TEST
+TEST
+STOSB
+STOSW
+STOSD
+STOSQ
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+MOV
+ROL
+ROR
+RCL
+RCR
+SHL
+SAL
+SHR
+SAR
+ROL
+ROR
+RCL
+RCR
+SHL
+SAL
+SHR
+SAR
+RET
+RET
+MOV
+MOV
+LEAVE
+ROL
+ROR
+RCL
+RCR
+SHL
+SAL
+SHR
+SAR
+ROL
+ROR
+RCL
+RCR
+SHL
+SAL
+SHR
+SAR
+ROL
+ROR
+RCL
+RCR
+SHL
+SAL
+SHR
+SAR
+ROL
+ROR
+RCL
+RCR
+SHL
+SAL
+SHR
+SAR
+LOOPNE
+LOOPNZ
+LOOPE
+LOOPZ
+LOOP
+JrCXZ
+CALL
+JMP
+JMP
+HLT
+CMC
+TEST
+NOT
+NEG
+MUL
+IMUL
+DIV
+IDIV
+TEST
+NOT
+NEG
+MUL
+IMUL
+DIV
+IDIV
+CLC
+STC
+CLD
+STD
+INC
+DEC
+INC
+DEC
+CALL
+JMP
+JMP
+PUSH
