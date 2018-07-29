@@ -16,7 +16,7 @@ module SCASB
   ...</k>
   <regstate>
 RSMap:Map => updateMap(RSMap,
-  convToRegKeys(%rdi) |-> addMInt(V, mi( bitwidthMInt(V), 1))
+  convToRegKeys(%rdi) |-> addMInt(getRegisterValue(%rdi, RSMap), mi( 64, 1))
 
   "CF" |-> (#ifMInt (notBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem8)), mi(9, 1)), concatenateMInt( mi(1, 0), V)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
   "AF" |-> xorMInt( xorMInt( extractMInt(Mem8, 3, 4), extractMInt(V, 3, 4)), extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem8)), mi(9, 1)), concatenateMInt( mi(1, 0), V)), 4, 5))
@@ -35,7 +35,7 @@ RSMap:Map => updateMap(RSMap,
   ...</k>
   <regstate>
 RSMap:Map => updateMap(RSMap,
-  convToRegKeys(%rdi) |-> subMInt(V, mi( bitwidthMInt(V), 1))
+  convToRegKeys(%rdi) |-> subMInt(getRegisterValue(%rdi, RSMap), mi( 64, 1))
 
   "CF" |-> (#ifMInt (notBool eqMInt( extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem8)), mi(9, 1)), concatenateMInt( mi(1, 0), V)), 0, 1), mi(1, 1))) #then mi(1, 1) #else mi(1, 0) #fi)
   "AF" |-> xorMInt( xorMInt( extractMInt(Mem8, 3, 4), extractMInt(V, 3, 4)), extractMInt( addMInt( addMInt( concatenateMInt( mi(1, 0), negMInt( Mem8)), mi(9, 1)), concatenateMInt( mi(1, 0), V)), 4, 5))
