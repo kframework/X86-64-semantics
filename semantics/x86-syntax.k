@@ -1271,5 +1271,12 @@ module X86-SYNTAX
                   | "cmpsw"
                   | "cmpsl"
                   | "cmpsq"
-
+                  | "lodsb"
+                  | "lodsw"
+                  | "lodsl"
+                  | "lodsq"
+                  | "movsb"
+                  | "movsw"
+                  | "movsl"
+                  | "movsq"
 endmodule
