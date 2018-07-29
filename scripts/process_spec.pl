@@ -138,8 +138,8 @@ if ( "" ne $compareintel ) {
     my $availfile = "docs/instruction_manuals/all.instrs";
     my $intelatt =
 "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/misc-documents/intel_att.txt";
-    my $idealfile =
-"/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
+#my $idealfile = "/home/sdasgup3/Github/strata-data/output-strata/instruction-summary/clasification/all.txt";
+    my $idealfile = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/k-semantics/current_support.txt";
 
     my $stratafile =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/strata/strata_orig_supported.txt";
@@ -156,8 +156,8 @@ if ( "" ne $compareintel ) {
 "/home/sdasgup3/x86-semantics/docs/relatedwork/mcsema/reportlist.txt";
     my $xedfile =
 "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/mcsema/xed.txt";
-    my $acl2file =
-"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
+    my $acl2file = "/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/implemented.txt";
+#"/home/sdasgup3/Github/binary-decompilation/x86-semantics/docs/relatedwork/acl2/supportedOPcodes.txt";
     my $r2file =
 "/home/sdasgup3/x86-semantics/docs/relatedwork/radare2/r2log.txt";
     my $stoke_strata_unsup_file =
@@ -196,6 +196,7 @@ if ( "" ne $compareintel ) {
           . scalar( keys %curr_supp_intel )  
           . " \t[". scalar( keys %curr_supp_intel ) * 100 / scalar( keys %ideal_supp_intel ) ." %]"
           . "|\n" );
+    #printMap(\%curr_supp_intel); 
 
     ## Get the bap supported instr
     my ( $bap_supp_att_ref, $bap_supp_intel_ref ) =
@@ -266,6 +267,7 @@ if ( "" ne $compareintel ) {
         . "|\n" );
 
     print "\n\n";
+    #printMap(\%acl2_intel); 
 
     # Strata Vs McSema
     utils::compareMaps(
