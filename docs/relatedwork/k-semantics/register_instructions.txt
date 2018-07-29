@@ -1247,3 +1247,5 @@ xorb_r8_r8_1
 xorb_r8_rh_1
 xorb_rh_r8_1
 xorb_rh_rh_1 <-- End
+maskmovdqu_xmm_xmm <-- Segments
+vmaskmovdqu_xmm_xmm <-- End

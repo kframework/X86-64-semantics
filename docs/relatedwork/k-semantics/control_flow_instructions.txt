@@ -138,3 +138,5 @@ callq_label
 callq_m64
 callq_r64
 callq_rel32
+retq
+leaveq
