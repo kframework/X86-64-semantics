@@ -234,11 +234,15 @@ _start:
 	movq	%rax, -8(%rbp)
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm0
-	vucomisd	LC1(%rip), %xmm0
+  pushq $1086556160
+	vucomisd	(%rsp), %xmm0
+  popq %r15
 	jbe	L47
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm1
-	vucomisd	LC2(%rip), %xmm1
+  pushq $1138753536
+	vucomisd	(%rsp), %xmm1
+  popq %r15
 	jae	L42
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm2
@@ -268,9 +272,3 @@ L44:
 L45:
 	movl	$0, %edi
 	call	exit
-LC1:
-	.long	0
-	.long	1086556160
-LC2:
-	.long	0
-	.long	1138753536
