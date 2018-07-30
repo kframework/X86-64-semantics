@@ -41,6 +41,7 @@ cat log | parallel grep -l "_overflow" bin/{}.asm
 cat log | parallel  "grep -l  \"fadd\\|fsubp\\|fstpt\\|fmulp\\|fldt\\|fisttpl\\|fchs\" bin/{}.asm  "
 cat log | parallel  "grep -l  \"printf\\|putc\\|puts\\|write\" bin/{}.asm"
 cat log | parallel  "grep -l  \"comis\" bin/{}.asm"
+cat log | parallel  "grep -l  \"__builtin_conjf\" src/{}.c"
 ```
 
 # Search commands
