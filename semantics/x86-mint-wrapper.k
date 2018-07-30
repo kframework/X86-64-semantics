@@ -442,7 +442,7 @@ module MINT-WRAPPER
   rule convertFloatsToDoubles(.Floats) => .Floats
 
   /*@
-      Define unary uifs
+      Define ternary uifs
   */
 
   // Doubles
@@ -563,6 +563,27 @@ module MINT-WRAPPER
   /*@
       Define binary uifs
   */
+
+  // comisd
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 0)
+    requires isNaN(MInt2Float(MI1, 53, 11)) orBool  isNaN(MInt2Float(MI2, 53, 11))
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 1)
+    requires MInt2Float(MI1, 53, 11) >Float  MInt2Float(MI2, 53, 11)
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 2)
+    requires MInt2Float(MI1, 53, 11) <Float  MInt2Float(MI2, 53, 11)
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 3)
+    requires MInt2Float(MI1, 53, 11) ==Float  MInt2Float(MI2, 53, 11)
+
+  // comiss
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 0)
+    requires isNaN(MInt2Float(MI1, 24, 8)) orBool  isNaN(MInt2Float(MI2, 24, 8))
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 1)
+    requires MInt2Float(MI1, 24, 8) >Float  MInt2Float(MI2, 24, 8)
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 2)
+    requires MInt2Float(MI1, 24, 8) <Float  MInt2Float(MI2, 24, 8)
+  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 3)
+    requires MInt2Float(MI1, 24, 8) ==Float  MInt2Float(MI2, 24, 8)
+
   rule add_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) +Float MInt2Float(MI2, 53, 11), 64)
   rule sub_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) -Float MInt2Float(MI2, 53, 11), 64)
   rule mul_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) *Float MInt2Float(MI2, 53, 11), 64)
@@ -733,6 +754,32 @@ module MINT-WRAPPER
   /*@
       Define unary uifs
   */
+  // float <-> double  
+  rule cvt_single_to_double(MI:MInt) =>  Float2MInt(Float2Double(MInt2Float(MI, 24,8)), 64)
+  rule cvt_double_to_single(MI:MInt) =>  Float2MInt(Double2Float(MInt2Float(MI, 53,11)), 32)
+
+  // int -> float/double
+  rule cvt_int64_to_double(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 53, 11), 64)
+  rule cvt_int64_to_single(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 24, 8), 32)
+
+  // float/double -> int
+  rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 53,11)))
+    requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 63 -Int 1) 
+      andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 63) 
+
+  rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
+    requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 63 -Int 1) 
+      orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 63) 
+
+
+  rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 24,8)))
+    requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 63 -Int 1) 
+      andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 63) 
+
+  rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
+    requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 63 -Int 1) 
+      orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 63) 
+
   //rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 53, 11)), 64)
 
   //rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 24, 8)), 32)
