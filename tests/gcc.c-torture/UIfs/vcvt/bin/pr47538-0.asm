@@ -507,15 +507,15 @@ _start:
   pushq $1076101120
   pushq $0
 	vucomisd	(%rsp), %xmm6
-  popq %15
-  popq %15
+  popq %r15
+  popq %r15
 	jp	L50
 	vmovq	%rax, %xmm7
   pushq $1076101120
   pushq $0
 	vucomisd	(%rsp), %xmm7
-  popq %15
-  popq %15
+  popq %r15
+  popq %r15
 	jne	L50
 	movq	-104(%rbp), %rax
 	vmovq	%rax, %xmm0
@@ -631,15 +631,15 @@ L64:
   pushq $-1070333952
   pushq $0
 	vucomisd	(%rsp), %xmm2
-  popq $r15
-  popq $r15
+  popq %r15
+  popq %r15
 	jp	L56
 	vmovq	%rax, %xmm3
   pushq $-1070333952
   pushq $0
 	vucomisd	(%rsp), %xmm3
-  popq $r15
-  popq $r15
+  popq %r15
+  popq %r15
 	jne	L56
 	movq	-120(%rbp), %rax
 	vmovq	%rax, %xmm4

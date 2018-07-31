@@ -6,9 +6,9 @@
 
 OR
 
-cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --krun --output Output/{}.kstate --nopathsplit" |& tee runlog.txt
-cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --xrun --output Output/{}.xstate --nopathsplit" |& tee runlog.txt
-cat bin_worklist.txt | parallel "../../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log" |& tee runlog.txt
+cat bin_worklist.txt | parallel "../../../../scripts/run.pl --file bin/{}.asm --krun --output Output/{}.kstate --nopathsplit" |& tee runlog.txt
+cat bin_worklist.txt | parallel "../../../../scripts/run.pl --file bin/{}.asm --xrun --output Output/{}.xstate --nopathsplit" |& tee runlog.txt
+cat bin_worklist.txt | parallel "../../../../scripts/run.pl --file bin/{}.asm --compare |& tee Output/{}.compare.log" |& tee runlog.txt
 ```
 
 # Modify source (One time)
@@ -45,6 +45,7 @@ cat log | parallel  "grep -l  \"fadd\\|fsubp\\|fstpt\\|fmulp\\|fldt\\|fisttpl\\|
 cat log | parallel  "grep -l  \"printf\\|putc\\|puts\\|write\" bin/{}.asm"
 cat log | parallel  "grep -l  \"comis\" bin/{}.asm"
 cat log | parallel  "grep -l  \"__builtin_conjf\" src/{}.c"
+__stack_chk_fail
 ```
 
 # Search commands

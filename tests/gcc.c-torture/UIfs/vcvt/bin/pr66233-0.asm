@@ -239,7 +239,7 @@ L41:
 	movl	%eax, %edx
 	movl	-4(%rbp), %eax
 	cltq
-	movl	%edx, v(,%rax,4)
+	movl	%edx, (,%rax,4)
 	addl	$1, -4(%rbp)
 L40:
 	cmpl	$7, -4(%rbp)
@@ -255,7 +255,7 @@ _start:
 	jmp	L43
 L45:
 	movl	-4(%rbp), %eax
-	movl	v(,%rax,4), %eax
+	movl	(,%rax,4), %eax
 	cmpl	-4(%rbp), %eax
 	je	L44
 	call	abort

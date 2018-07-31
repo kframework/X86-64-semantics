@@ -309,7 +309,7 @@ _start:
 	movl	-8(%rbp), %eax
 	vmovd	%eax, %xmm3
   pushq $1082130432
-	vucomiss	(%sp), %xmm3
+	vucomiss	(%rsp), %xmm3
   popq %r15
 	je	L45
 L42:
