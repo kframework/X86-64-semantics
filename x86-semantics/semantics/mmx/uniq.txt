@@ -1,0 +1,16 @@
+cvtpd2pi
+cvtpd2pi
+cvtpi2pd
+cvtpi2ps
+cvtps2pi
+cvtps2pi
+cvttpd2pi
+cvttpd2pi
+cvttps2pi
+cvttps2pi
+movdq2q
+movntq
+movq2dq
+pshufw
+pshufw
+maskmovq
