@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>BNDMK
+		— Make Bounds</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>BNDMK
+		— Make Bounds</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 1B /r BNDMK bnd, m32</td>
+<td>RM</td>
+<td>NE/V</td>
+<td>MPX</td>
+<td>Make lower and upper bounds from m32 and store them in bnd.</td></tr>
+<tr>
+<td>F3 0F 1B /r BNDMK bnd, m64</td>
+<td>RM</td>
+<td>V/NE</td>
+<td>MPX</td>
+<td>Make lower and upper bounds from m64 and store them in bnd.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Makes bounds from the second operand and stores the lower and upper bounds in the bound register bnd. The second operand must be a memory operand. The content of the base register from the memory operand is stored in the lower bound bnd.LB. The 1's complement of the effective address of m32/m64 is stored in the upper bound b.UB. Computation of m32/m64 has identical behavior to LEA.</p>
+<p>This instruction does not cause any memory access, and does not read or write any flags.</p>
+<p>If the instruction did not specify base register, the lower bound will be zero. The reg-reg form of this instruction retains legacy behavior (NOP).</p>
+<p>The instruction causes an invalid-opcode exception (#UD) if executed in 64-bit mode with RIP-relative addressing.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>BND.LB ← SRCMEM.base;
+IF 64-bit mode Then
+    BND.UB ← NOT(LEA.64_bits(SRCMEM));
+ELSE
+    BND.UB ← Zero_Extend.64_bits(NOT(LEA.32_bits(SRCMEM)));
+FI;
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>BNDMKvoid * _bnd_set_ptr_bounds(const void * q, size_t size);
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="4">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 67H prefix is not used and CS.D=0.</td></tr>
+<tr>
+<td>If 67H prefix is used and CS.D=1.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 16-bit addressing is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 16-bit addressing is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m and REX encodes BND4-BND15 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If RIP-relative addressing is used.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr></table>
+<p>Same exceptions as in protected mode.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

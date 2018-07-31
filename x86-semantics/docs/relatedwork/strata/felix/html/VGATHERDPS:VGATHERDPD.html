@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VGATHERDPS/VGATHERDPD
+		— Gather Packed Single, Packed Double with Signed Dword</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VGATHERDPS/VGATHERDPD
+		— Gather Packed Single, Packed Double with Signed Dword</h1>
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 92 /vsib VGATHERDPS xmm1 {k1}, vm32x</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Using signed dword indices, gather single-precision floating-point values from memory using k1 as completion mask.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 92 /vsib VGATHERDPS ymm1 {k1}, vm32y</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Using signed dword indices, gather single-precision floating-point values from memory using k1 as completion mask.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 92 /vsib VGATHERDPS zmm1 {k1}, vm32z</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Using signed dword indices, gather single-precision floating-point values from memory using k1 as completion mask.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W1 92 /vsib VGATHERDPD xmm1 {k1}, vm32x</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Using signed dword indices, gather float64 vector into float64 vector xmm1 using k1 as completion mask.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 92 /vsib VGATHERDPD ymm1 {k1}, vm32x</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Using signed dword indices, gather float64 vector into float64 vector ymm1 using k1 as completion mask.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 92 /vsib VGATHERDPD zmm1 {k1}, vm32y</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Using signed dword indices, gather float64 vector into float64 vector zmm1 using k1 as completion mask.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>BaseReg (R): VSIB:base, VectorReg(R): VSIB:index</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>A set of single-precision/double-precision faulting-point memory locations pointed by base address BASE_ADDR and index vector V_INDEX with scale SCALE are gathered. The result is written into a vector register. The elements are specified via the VSIB (i.e., the index register is a vector register, holding packed indices). Elements will only be loaded if their corresponding mask bit is one. If an element’s mask bit is not set, the corresponding element of the destination register is left unchanged. The entire mask register will be set to zero by this instruction unless it triggers an exception.</p>
+<p>This instruction can be suspended by an exception if at least one element is already gathered (i.e., if the exception is triggered by an element other than the right most one with its mask bit set). When this happens, the destination register and the mask register (k1) are partially updated; those elements that have been gathered are placed into the destination register and have their mask bits set to zero. If any traps or interrupts are pending from already gathered elements, they will be delivered in lieu of the exception; in this case, EFLAG.RF is set to one so an instruction breakpoint is not re-triggered when the instruction is continued.</p>
+<p>If the data element size is less than the index element size, the higher part of the destination register and the mask register do not correspond to any elements being gathered. This instruction sets those higher parts to zero. It may update these unused elements to one or both of those registers even if the instruction triggers an exception, and even if the instruction triggers the exception before gathering any elements.</p>
+<p>Note that:</p>
+<ul>
+<li>The values may be read from memory in any order. Memory ordering with other instructions follows the Intel-64 memory-ordering model.</li>
+<li>Faults are delivered in a right-to-left manner. That is, if a fault is triggered by an element and delivered, all elements closer to the LSB of the destination zmm will be completed (and non-faulting). Individual elements closer to the MSB may or may not be completed. If a given element triggers multiple faults, they are delivered in the conventional order.</li>
+<li>Elements may be gathered in any order, but faults must be delivered in a right-to left order; thus, elements to the left of a faulting one may be gathered before the fault is delivered. A given implementation of this instruction is repeatable - given the same input values and architectural state, the same set of elements to the left of the faulting one will be gathered.</li>
+<li>This instruction does not perform AC checks, and so will never deliver an AC fault.</li>
+<li>Not valid with 16-bit effective addresses. Will deliver a #UD fault.</li></ul>
+<p>Note that the presence of VSIB byte is enforced in this instruction. Hence, the instruction will #UD fault if ModRM.rm is different than 100b.</p>
+<p>This instruction has special disp8*N and alignment rules. N is considered to be the size of a single vector element.</p>
+<p>The scaled index may require more bits to represent than the address bits used by the processor (e.g., in 32-bit mode, if the scale is greater than one). In this case, the most significant bits beyond the number of address bits are ignored.</p>
+<p>The instruction will #UD fault if the destination vector zmm1 is the same as index vector VINDEX. The instruction will #UD fault if the k0 mask register is specified.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>BASE_ADDR stands for the memory operand base address (a GPR); may not exist
+VINDEX stands for the memory operand vector of indices (a vector register)
+SCALE stands for the memory operand scalar (1, 2, 4 or 8)
+DISP is the optional 1, 2 or 4 byte displacement
+</pre>
+<h4 id="vgatherdps--evex-encoded-version-">VGATHERDPS (EVEX encoded version)<a class="anchor" href="#vgatherdps--evex-encoded-version-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j]
+        THEN DEST[i+31:i]←
+            MEM[BASE_ADDR +
+                SignExtend(VINDEX[i+31:i]) * SCALE + DISP]
+            k1[j] ← 0
+        ELSE *DEST[i+31:i]←remains unchanged*
+    FI;
+ENDFOR
+k1[MAX_KL-1:KL] ← 0
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vgatherdpd--evex-encoded-version-">VGATHERDPD (EVEX encoded version)<a class="anchor" href="#vgatherdpd--evex-encoded-version-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    k←j * 32
+    IF k1[j]
+        THEN DEST[i+63:i]←MEM[BASE_ADDR +
+                SignExtend(VINDEX[k+31:k]) * SCALE + DISP]
+            k1[j] ← 0
+        ELSE *DEST[i+63:i]←remains unchanged*
+    FI;
+ENDFOR
+k1[MAX_KL-1:KL] ← 0
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VGATHERDPD __m512d _mm512_i32gather_pd( __m256i vdx, void * base, int scale);
+</pre>
+<pre>VGATHERDPD __m512d _mm512_mask_i32gather_pd(__m512d s, __mmask8 k, __m256i vdx, void * base, int scale);
+</pre>
+<pre>VGATHERDPD __m256d _mm256_mmask_i32gather_pd(__m256d s, __mmask8 k, __m128i vdx, void * base, int scale);
+</pre>
+<pre>VGATHERDPD __m128d _mm_mmask_i32gather_pd(__m128d s, __mmask8 k, __m128i vdx, void * base, int scale);
+</pre>
+<pre>VGATHERDPS __m512 _mm512_i32gather_ps( __m512i vdx, void * base, int scale);
+</pre>
+<pre>VGATHERDPS __m512 _mm512_mask_i32gather_ps(__m512 s, __mmask16 k, __m512i vdx, void * base, int scale);
+</pre>
+<pre>VGATHERDPS __m256 _mm256_mmask_i32gather_ps(__m256 s, __mmask8 k, __m256i vdx, void * base, int scale);
+</pre>
+<pre>GATHERDPS __m128 _mm_mmask_i32gather_ps(__m128 s, __mmask8 k, __m128i vdx, void * base, int scale);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E12.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

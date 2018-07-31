@@ -244,7 +244,6 @@ ld_to_ll:
 	vcvttsd2siq	%xmm1, %rax
 	popq	%rbp
 	ret
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

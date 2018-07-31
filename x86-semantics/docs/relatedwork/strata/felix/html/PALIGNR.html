@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PALIGNR
+		— Packed Align Right</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PALIGNR
+		— Packed Align Right</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 3A 0F /r ib<sup>1</sup> PALIGNR <em>mm1, mm2/m64, imm8</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Concatenate destination and source operands, extract byte-aligned result shifted to the right by constant value in <em>imm8</em> into <em>mm1</em>.</td></tr>
+<tr>
+<td>66 0F 3A 0F /r ib PALIGNR <em>xmm1, xmm2/m128, imm8</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Concatenate destination and source operands, extract byte-aligned result shifted to the right by constant value in <em>imm8</em> into <em>xmm1.</em></td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F3A.WIG 0F /r ib VPALIGNR <em>xmm1, xmm2, xmm3/m128, imm8</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Concatenate <em>xmm2</em> and <em>xmm3/m128</em>, extract byte aligned result shifted to the right by constant value in <em>imm8</em> and result is stored in <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F3A.WIG 0F /r ib VPALIGNR <em>ymm1, ymm2, ymm3/m256, imm8</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Concatenate pairs of 16 bytes in ymm2 and <em>ymm3/m256</em> into 32-byte intermediate result, extract byte-aligned, 16-byte result shifted to the right by constant values in <em>imm8</em> from each intermediate result, and two 16-byte results are stored in <em>ymm1</em>.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F3A.WIG 0F /r ib VPALIGNR xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Concatenate xmm2 and xmm3/m128 into a 32-byte intermediate result, extract byte aligned result shifted to the right by constant value in imm8 and result is stored in xmm1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F3A.WIG 0F /r ib VPALIGNR ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Concatenate pairs of 16 bytes in ymm2 and ymm3/m256 into 32-byte intermediate result, extract byte-aligned, 16-byte result shifted to the right by constant values in imm8 from each intermediate result, and two 16-byte results are stored in ymm1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F3A.WIG 0F /r ib VPALIGNR zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Concatenate pairs of 16 bytes in zmm2 and zmm3/m512 into 32-byte intermediate result, extract byte-aligned, 16-byte result shifted to the right by constant values in imm8 from each intermediate result, and four 16-byte results are stored in zmm1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>(V)PALIGNR concatenates the destination operand (the first operand) and the source operand (the second operand) into an intermediate composite, shifts the composite at byte granularity to the right by a constant immediate, and extracts the right-aligned result into the destination. The first and the second operands can be an MMX,</p>
+<p>XMM or a YMM register. The immediate value is considered unsigned. Immediate shift counts larger than the 2L (i.e. 32 for 128-bit operands, or 16 for 64-bit operands) produce a zero result. Both operands can be MMX registers, XMM registers or YMM registers. When the source operand is a 128-bit memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<p>In 64-bit mode and not encoded by VEX/EVEX prefix, use the REX prefix to access additional registers.</p>
+<p>128-bit Legacy SSE version: Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>EVEX.512 encoded version: The first source operand is a ZMM register and contains four 16-byte blocks. The second source operand is a ZMM register or a 512-bit memory location containing four 16-byte block. The destination operand is a ZMM register and contain four 16-byte results. The imm8[7:0] is the common shift count</p>
+<p>used for each of the four successive 16-byte block sources. The low 16-byte block of the two source operands produce the low 16-byte result of the destination operand, the high 16-byte block of the two source operands produce the high 16-byte result of the destination operand and so on for the blocks in the middle.</p>
+<p>VEX.256 and EVEX.256 encoded versions: The first source operand is a YMM register and contains two 16-byte blocks. The second source operand is a YMM register or a 256-bit memory location containing two 16-byte block. The destination operand is a YMM register and contain two 16-byte results. The imm8[7:0] is the common shift count used for the two lower 16-byte block sources and the two upper 16-byte block sources. The low 16-byte block of the two source operands produce the low 16-byte result of the destination operand, the high 16-byte block of the two source operands produce the high 16-byte result of the destination operand. The upper bits (MAXVL-1:256) of the corresponding ZMM register destination are zeroed.</p>
+<p>VEX.128 and EVEX.128 encoded versions: The first source operand is an XMM register. The second source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding ZMM register destination are zeroed.</p>
+<p>Concatenation is done with 128-bit data in the first and second source operand for both 128-bit and 256-bit instructions. The high 128-bits of the intermediate composite 256-bit result came from the 128-bit data from the first source operand; the low 128-bits of the intermediate result came from the 128-bit data of the second source operand.</p>
+<p>Note: VEX.L must be 0, otherwise the instruction will #UD.</p>
+<p>0 127 0 127</p>
+<figure id="fig-4-7">
+<svg style="width: 445.54743282017pt; height: 159.119988pt" viewBox="104.6004264 0.0 376.289527350142 137.59999">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="0.48001" x="183.36" style="fill: rgb(0%, 0%, 0%)" y="0.0599799999999959" width="34.2"></rect>
+<rect height="18.24" x="217.08" style="fill: rgb(0%, 0%, 0%)" y="0.29998999999998" width="0.48"></rect>
+<rect height="0.48001" x="183.12" style="fill: rgb(0%, 0%, 0%)" y="18.05998" width="34.2"></rect>
+<rect height="18.24" x="183.12" style="fill: rgb(0%, 0%, 0%)" y="0.0599899999999707" width="0.48"></rect>
+<rect height="18.0" x="217.32" style="fill: rgb(100%, 100%, 100%)" y="0.29998999999998" width="34.02"></rect>
+<rect height="0.48001" x="217.32" style="fill: rgb(0%, 0%, 0%)" y="0.0599799999999959" width="34.26"></rect>
+<rect height="18.24" x="251.1" style="fill: rgb(0%, 0%, 0%)" y="0.29998999999998" width="0.48"></rect>
+<rect height="0.48001" x="217.08" style="fill: rgb(0%, 0%, 0%)" y="18.05998" width="34.26"></rect>
+<rect height="18.24" x="217.08" style="fill: rgb(0%, 0%, 0%)" y="0.0599899999999707" width="0.48"></rect>
+<rect height="18.0" x="251.34" style="fill: rgb(100%, 100%, 100%)" y="0.29998999999998" width="34.02"></rect>
+<rect height="0.48001" x="251.34" style="fill: rgb(0%, 0%, 0%)" y="0.0599799999999959" width="34.26"></rect>
+<rect height="18.24" x="285.12" style="fill: rgb(0%, 0%, 0%)" y="0.29998999999998" width="0.48001"></rect>
+<rect height="0.48001" x="251.1" style="fill: rgb(0%, 0%, 0%)" y="18.05998" width="34.26"></rect>
+<rect height="18.24" x="251.1" style="fill: rgb(0%, 0%, 0%)" y="0.0599899999999707" width="0.48"></rect>
+<rect height="18.0" x="285.36" style="fill: rgb(100%, 100%, 100%)" y="0.29998999999998" width="34.02"></rect>
+<rect height="0.48001" x="285.36" style="fill: rgb(0%, 0%, 0%)" y="0.0599799999999959" width="34.26"></rect>
+<rect height="18.24" x="319.14" style="fill: rgb(0%, 0%, 0%)" y="0.29998999999998" width="0.47998"></rect>
+<rect height="0.48001" x="285.12" style="fill: rgb(0%, 0%, 0%)" y="18.05998" width="34.26"></rect>
+<rect height="18.24" x="285.12" style="fill: rgb(0%, 0%, 0%)" y="0.0599899999999707" width="0.48001"></rect>
+<rect height="18.06" x="319.98" style="fill: rgb(100%, 100%, 100%)" y="0.419989999999984" width="34.02"></rect>
+<rect height="0.48001" x="319.98" style="fill: rgb(0%, 0%, 0%)" y="0.17998" width="34.26"></rect>
+<rect height="18.3" x="353.76" style="fill: rgb(0%, 0%, 0%)" y="0.419989999999984" width="0.47998"></rect>
+<rect height="0.48001" x="319.74" style="fill: rgb(0%, 0%, 0%)" y="18.23998" width="34.26"></rect>
+<rect height="18.3" x="319.74" style="fill: rgb(0%, 0%, 0%)" y="0.179989999999975" width="0.48001"></rect>
+<rect height="18.06" x="354.0" style="fill: rgb(100%, 100%, 100%)" y="0.419989999999984" width="34.02"></rect>
+<rect height="0.48001" x="354.0" style="fill: rgb(0%, 0%, 0%)" y="0.17998" width="34.26"></rect>
+<rect height="18.3" x="387.78" style="fill: rgb(0%, 0%, 0%)" y="0.419989999999984" width="0.48001"></rect>
+<rect height="0.48001" x="353.76" style="fill: rgb(0%, 0%, 0%)" y="18.23998" width="34.26"></rect>
+<rect height="18.3" x="353.76" style="fill: rgb(0%, 0%, 0%)" y="0.179989999999975" width="0.47998"></rect>
+<rect height="18.06" x="388.02" style="fill: rgb(100%, 100%, 100%)" y="0.419989999999984" width="33.96"></rect>
+<rect height="0.48001" x="388.02" style="fill: rgb(0%, 0%, 0%)" y="0.17998" width="34.2"></rect>
+<rect height="18.3" x="421.74" style="fill: rgb(0%, 0%, 0%)" y="0.419989999999984" width="0.47998"></rect>
+<rect height="0.48001" x="387.78" style="fill: rgb(0%, 0%, 0%)" y="18.23998" width="34.2"></rect>
+<rect height="18.3" x="387.78" style="fill: rgb(0%, 0%, 0%)" y="0.179989999999975" width="0.48001"></rect>
+<rect height="18.06" x="421.98" style="fill: rgb(100%, 100%, 100%)" y="0.419989999999984" width="34.02"></rect>
+<rect height="0.48001" x="421.98" style="fill: rgb(0%, 0%, 0%)" y="0.17998" width="34.26"></rect>
+<rect height="18.3" x="455.76" style="fill: rgb(0%, 0%, 0%)" y="0.419989999999984" width="0.48001"></rect>
+<rect height="0.48001" x="421.74" style="fill: rgb(0%, 0%, 0%)" y="18.23998" width="34.26"></rect>
+<rect height="18.3" x="421.74" style="fill: rgb(0%, 0%, 0%)" y="0.179989999999975" width="0.47998"></rect>
+<rect height="0.23999" x="438.78" style="fill: rgb(0%, 0%, 0%)" y="0.240000000000009" width="0.48001"></rect>
+<rect height="18.24" x="438.78" style="fill: rgb(0%, 0%, 0%)" y="0.479989999999987" width="0.48001"></rect>
+<rect height="0.23999" x="404.76" style="fill: rgb(0%, 0%, 0%)" y="1.01999999999998" width="0.48001"></rect>
+<rect height="18.24" x="404.76" style="fill: rgb(0%, 0%, 0%)" y="1.25999000000002" width="0.48001"></rect>
+<rect height="0.23999" x="370.14" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="0.47998"></rect>
+<rect height="18.24" x="370.14" style="fill: rgb(0%, 0%, 0%)" y="0.239989999999977" width="0.47998"></rect>
+<rect height="0.23999" x="335.58" style="fill: rgb(0%, 0%, 0%)" y="0.840000000000032" width="0.48001"></rect>
+<rect height="18.24" x="335.58" style="fill: rgb(0%, 0%, 0%)" y="1.07999000000001" width="0.48001"></rect>
+<rect height="0.23999" x="302.1" style="fill: rgb(0%, 0%, 0%)" y="1.01999999999998" width="0.47998"></rect>
+<rect height="18.24" x="302.1" style="fill: rgb(0%, 0%, 0%)" y="1.25999000000002" width="0.47998"></rect>
+<rect height="0.24002" x="268.08" style="fill: rgb(0%, 0%, 0%)" y="1.19997000000001" width="0.48001"></rect>
+<rect height="18.24" x="268.08" style="fill: rgb(0%, 0%, 0%)" y="1.43998999999997" width="0.48001"></rect>
+<rect height="0.23999" x="233.46" style="fill: rgb(0%, 0%, 0%)" y="1.44" width="0.47998"></rect>
+<rect height="18.24" x="233.46" style="fill: rgb(0%, 0%, 0%)" y="1.67998999999998" width="0.47998"></rect>
+<rect height="0.23999" x="199.98" style="fill: rgb(0%, 0%, 0%)" y="1.01999999999998" width="0.48001"></rect>
+<rect height="18.24" x="199.98" style="fill: rgb(0%, 0%, 0%)" y="1.25999000000002" width="0.48001"></rect>
+<rect height="0.48001" x="415.38" style="fill: rgb(0%, 0%, 0%)" y="12.23998" width="0.23999"></rect>
+<rect height="0.48001" x="294.42" style="fill: rgb(0%, 0%, 0%)" y="12.23998" width="120.96"></rect>
+<rect height="17.64" x="131.4" style="fill: rgb(100%, 100%, 100%)" y="50.09999" width="34.98"></rect>
+<rect height="0.48001" x="131.4" style="fill: rgb(0%, 0%, 0%)" y="49.85998" width="35.22"></rect>
+<rect height="17.88" x="166.14" style="fill: rgb(0%, 0%, 0%)" y="50.09999" width="0.48"></rect>
+<rect height="0.47998" x="131.16" style="fill: rgb(0%, 0%, 0%)" y="67.50001" width="35.22"></rect>
+<rect height="17.88" x="131.16" style="fill: rgb(0%, 0%, 0%)" y="49.85999" width="0.48001"></rect>
+<rect height="17.64" x="166.38" style="fill: rgb(100%, 100%, 100%)" y="50.09999" width="34.98"></rect>
+<rect height="0.48001" x="166.38" style="fill: rgb(0%, 0%, 0%)" y="49.85998" width="35.22"></rect>
+<rect height="17.88" x="201.12" style="fill: rgb(0%, 0%, 0%)" y="50.09999" width="0.48"></rect>
+<rect height="0.47998" x="166.14" style="fill: rgb(0%, 0%, 0%)" y="67.50001" width="35.22"></rect>
+<rect height="17.88" x="166.14" style="fill: rgb(0%, 0%, 0%)" y="49.85999" width="0.48"></rect>
+<rect height="17.64" x="201.36" style="fill: rgb(100%, 100%, 100%)" y="50.09999" width="34.92"></rect>
+<rect height="0.48001" x="201.36" style="fill: rgb(0%, 0%, 0%)" y="49.85998" width="35.16"></rect>
+<rect height="17.88" x="236.04" style="fill: rgb(0%, 0%, 0%)" y="50.09999" width="0.48001"></rect>
+<rect height="0.47998" x="201.12" style="fill: rgb(0%, 0%, 0%)" y="67.50001" width="35.16"></rect>
+<rect height="17.88" x="201.12" style="fill: rgb(0%, 0%, 0%)" y="49.85999" width="0.48"></rect>
+<rect height="17.64" x="236.28" style="fill: rgb(100%, 100%, 100%)" y="50.09999" width="34.98"></rect>
+<rect height="0.48001" x="236.28" style="fill: rgb(0%, 0%, 0%)" y="49.85998" width="35.22"></rect>
+<rect height="17.88" x="271.02" style="fill: rgb(0%, 0%, 0%)" y="50.09999" width="0.48001"></rect>
+<rect height="0.47998" x="236.04" style="fill: rgb(0%, 0%, 0%)" y="67.50001" width="35.22"></rect>
+<rect height="17.88" x="236.04" style="fill: rgb(0%, 0%, 0%)" y="49.85999" width="0.48001"></rect>
+<rect height="17.64" x="271.92" style="fill: rgb(100%, 100%, 100%)" y="50.21999" width="34.98"></rect>
+<rect height="0.47998" x="271.92" style="fill: rgb(0%, 0%, 0%)" y="49.98001" width="35.22"></rect>
+<rect height="17.88" x="306.66" style="fill: rgb(0%, 0%, 0%)" y="50.21999" width="0.48001"></rect>
+<rect height="0.48001" x="271.68" style="fill: rgb(0%, 0%, 0%)" y="67.61998" width="35.22"></rect>
+<rect height="17.88" x="271.68" style="fill: rgb(0%, 0%, 0%)" y="49.97999" width="0.48001"></rect>
+<rect height="17.64" x="306.9" style="fill: rgb(100%, 100%, 100%)" y="50.21999" width="34.92"></rect>
+<rect height="0.47998" x="306.9" style="fill: rgb(0%, 0%, 0%)" y="49.98001" width="35.16"></rect>
+<rect height="17.88" x="341.58" style="fill: rgb(0%, 0%, 0%)" y="50.21999" width="0.48001"></rect>
+<rect height="0.48001" x="306.66" style="fill: rgb(0%, 0%, 0%)" y="67.61998" width="35.16"></rect>
+<rect height="17.88" x="306.66" style="fill: rgb(0%, 0%, 0%)" y="49.97999" width="0.48001"></rect>
+<rect height="17.64" x="341.82" style="fill: rgb(100%, 100%, 100%)" y="50.21999" width="34.98"></rect>
+<rect height="0.47998" x="341.82" style="fill: rgb(0%, 0%, 0%)" y="49.98001" width="35.22"></rect>
+<rect height="17.88" x="376.56" style="fill: rgb(0%, 0%, 0%)" y="50.21999" width="0.48001"></rect>
+<rect height="0.48001" x="341.58" style="fill: rgb(0%, 0%, 0%)" y="67.61998" width="35.22"></rect>
+<rect height="17.88" x="341.58" style="fill: rgb(0%, 0%, 0%)" y="49.97999" width="0.48001"></rect>
+<rect height="17.64" x="376.8" style="fill: rgb(100%, 100%, 100%)" y="50.21999" width="34.98"></rect>
+<rect height="0.47998" x="376.8" style="fill: rgb(0%, 0%, 0%)" y="49.98001" width="35.22"></rect>
+<rect height="17.88" x="411.54" style="fill: rgb(0%, 0%, 0%)" y="50.21999" width="0.47998"></rect>
+<rect height="0.48001" x="376.56" style="fill: rgb(0%, 0%, 0%)" y="67.61998" width="35.22"></rect>
+<rect height="17.88" x="376.56" style="fill: rgb(0%, 0%, 0%)" y="49.97999" width="0.48001"></rect>
+<rect height="18.12" x="394.08" style="fill: rgb(0%, 0%, 0%)" y="49.97999" width="0.48001"></rect>
+<rect height="18.12" x="359.1" style="fill: rgb(0%, 0%, 0%)" y="50.75999" width="0.47998"></rect>
+<rect height="18.12" x="323.52" style="fill: rgb(0%, 0%, 0%)" y="49.79999" width="0.48001"></rect>
+<rect height="18.12" x="287.94" style="fill: rgb(0%, 0%, 0%)" y="50.57999" width="0.48001"></rect>
+<rect height="18.12" x="253.5" style="fill: rgb(0%, 0%, 0%)" y="50.75999" width="0.48"></rect>
+<rect height="18.18" x="218.52" style="fill: rgb(0%, 0%, 0%)" y="50.93999" width="0.48"></rect>
+<rect height="18.12" x="182.94" style="fill: rgb(0%, 0%, 0%)" y="51.17999" width="0.48001"></rect>
+<rect height="18.18" x="148.56" style="fill: rgb(0%, 0%, 0%)" y="50.75999" width="0.48"></rect>
+<rect height="17.64" x="165.96" style="fill: rgb(100%, 100%, 100%)" y="113.39999" width="34.92"></rect>
+<rect height="0.48" x="165.96" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="35.16"></rect>
+<rect height="17.88" x="200.64" style="fill: rgb(0%, 0%, 0%)" y="113.39999" width="0.48"></rect>
+<rect height="0.48" x="165.72" style="fill: rgb(0%, 0%, 0%)" y="130.79999" width="35.16"></rect>
+<rect height="17.88" x="165.72" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="0.48"></rect>
+<rect height="17.64" x="200.88" style="fill: rgb(100%, 100%, 100%)" y="113.39999" width="34.98"></rect>
+<rect height="0.48" x="200.88" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="35.22"></rect>
+<rect height="17.88" x="235.62" style="fill: rgb(0%, 0%, 0%)" y="113.39999" width="0.48"></rect>
+<rect height="0.48" x="200.64" style="fill: rgb(0%, 0%, 0%)" y="130.79999" width="35.22"></rect>
+<rect height="17.88" x="200.64" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="0.48"></rect>
+<rect height="17.64" x="235.86" style="fill: rgb(100%, 100%, 100%)" y="113.39999" width="34.98"></rect>
+<rect height="0.48" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="35.22"></rect>
+<rect height="17.88" x="270.6" style="fill: rgb(0%, 0%, 0%)" y="113.39999" width="0.47998"></rect>
+<rect height="0.48" x="235.62" style="fill: rgb(0%, 0%, 0%)" y="130.79999" width="35.22"></rect>
+<rect height="17.88" x="235.62" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="0.48"></rect>
+<rect height="17.64" x="270.84" style="fill: rgb(100%, 100%, 100%)" y="113.39999" width="34.98"></rect>
+<rect height="0.48" x="270.84" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="35.22"></rect>
+<rect height="17.88" x="305.58" style="fill: rgb(0%, 0%, 0%)" y="113.39999" width="0.48001"></rect>
+<rect height="0.48" x="270.6" style="fill: rgb(0%, 0%, 0%)" y="130.79999" width="35.22"></rect>
+<rect height="17.88" x="270.6" style="fill: rgb(0%, 0%, 0%)" y="113.15999" width="0.47998"></rect>
+<rect height="17.64" x="306.42" style="fill: rgb(100%, 100%, 100%)" y="113.51999" width="34.98"></rect>
+<rect height="0.48" x="306.42" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="35.22"></rect>
+<rect height="17.88" x="341.16" style="fill: rgb(0%, 0%, 0%)" y="113.51999" width="0.48001"></rect>
+<rect height="0.48" x="306.18" style="fill: rgb(0%, 0%, 0%)" y="130.91999" width="35.22"></rect>
+<rect height="17.88" x="306.18" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="0.48001"></rect>
+<rect height="17.64" x="341.4" style="fill: rgb(100%, 100%, 100%)" y="113.51999" width="34.98"></rect>
+<rect height="0.48" x="341.4" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="35.22"></rect>
+<rect height="17.88" x="376.14" style="fill: rgb(0%, 0%, 0%)" y="113.51999" width="0.47998"></rect>
+<rect height="0.48" x="341.16" style="fill: rgb(0%, 0%, 0%)" y="130.91999" width="35.22"></rect>
+<rect height="17.88" x="341.16" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="0.48001"></rect>
+<rect height="17.64" x="376.38" style="fill: rgb(100%, 100%, 100%)" y="113.51999" width="34.98"></rect>
+<rect height="0.48" x="376.38" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="35.22"></rect>
+<rect height="17.88" x="411.12" style="fill: rgb(0%, 0%, 0%)" y="113.51999" width="0.48001"></rect>
+<rect height="0.48" x="376.14" style="fill: rgb(0%, 0%, 0%)" y="130.91999" width="35.22"></rect>
+<rect height="17.88" x="376.14" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="0.47998"></rect>
+<rect height="17.64" x="411.36" style="fill: rgb(100%, 100%, 100%)" y="113.51999" width="34.92"></rect>
+<rect height="0.48" x="411.36" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="35.16"></rect>
+<rect height="17.88" x="446.04" style="fill: rgb(0%, 0%, 0%)" y="113.51999" width="0.47998"></rect>
+<rect height="0.48" x="411.12" style="fill: rgb(0%, 0%, 0%)" y="130.91999" width="35.16"></rect>
+<rect height="17.88" x="411.12" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="0.48001"></rect>
+<rect height="18.12" x="428.58" style="fill: rgb(0%, 0%, 0%)" y="113.27999" width="0.47998"></rect>
+<rect height="18.18" x="393.6" style="fill: rgb(0%, 0%, 0%)" y="114.05999" width="0.47998"></rect>
+<rect height="18.12" x="358.02" style="fill: rgb(0%, 0%, 0%)" y="113.09999" width="0.48001"></rect>
+<rect height="18.12" x="322.44" style="fill: rgb(0%, 0%, 0%)" y="113.87999" width="0.48001"></rect>
+<rect height="18.18" x="288.06" style="fill: rgb(0%, 0%, 0%)" y="114.05999" width="0.48001"></rect>
+<rect height="18.12" x="253.08" style="fill: rgb(0%, 0%, 0%)" y="114.29999" width="0.48"></rect>
+<rect height="18.12" x="217.5" style="fill: rgb(0%, 0%, 0%)" y="114.47999" width="0.48"></rect>
+<rect height="18.18" x="183.06" style="fill: rgb(0%, 0%, 0%)" y="114.05999" width="0.48"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 315.54 113.87999 L 315.06 113.99999 L 315.3 115.01999 L 315.78 114.89999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 315.24 114.53999 L 316.62 113.69999 L 317.52 113.15999 L 317.4 114.17999 L 316.98 119.75999 L 316.92 121.55999 L 316.08 119.99999 L 313.5 115.01999 L 312.96 114.05999 L 313.98 114.23999 L 314.34 114.47999 L 316.92 119.45999 L 316.08 119.99999 L 316.02 119.69999 L 316.44 114.11999 L 317.4 114.17999 L 317.22 114.53999 L 315.84 115.37999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 313.98 114.23999 L 315.6 114.47999 L 315.84 115.37999 L 315.66 115.49999 L 315.48 115.43999 L 313.86 115.19999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 315.54 114.95999 L 316.92 114.11999 L 316.5 119.69999 L 313.92 114.71999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 294.3 12.41999 L 294.24 12.17999 L 293.76 12.29999 L 293.82 12.53999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 315.54 113.87999 L 315.6 114.11999 L 315.12 114.23999 L 315.06 113.99999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 294.3 12.41999 L 293.82 12.53999 L 315.06 113.99999 L 315.54 113.87999"></path>
+<rect height="0.47998" x="245.22" style="fill: rgb(0%, 0%, 0%)" y="60.66001" width="121.2"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 436.62 114.83999 L 436.14 114.95999 L 436.32 116.03999 L 436.8 115.91999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 436.26 115.55999 L 437.7 114.71999 L 438.6 114.17999 L 438.48 115.19999 L 438.0 120.71999 L 437.88 122.39999 L 437.1 120.95999 L 434.52 116.03999 L 433.98 115.07999 L 435.0 115.25999 L 435.36 115.49999 L 437.94 120.41999 L 437.1 120.95999 L 437.04 120.65999 L 437.52 115.13999 L 438.48 115.19999 L 438.24 115.55999 L 436.8 116.39999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 435.0 115.25999 L 436.62 115.49999 L 436.8 116.39999 L 436.62 116.51999 L 436.5 116.45999 L 434.88 116.21999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 436.56 115.97999 L 438.0 115.13999 L 437.52 120.65999 L 434.94 115.73999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 416.1 13.61999 L 416.04 13.37999 L 415.56 13.49999 L 415.62 13.73999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 436.62 114.83999 L 436.68 115.07999 L 436.2 115.19999 L 436.14 114.95999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 416.1 13.61999 L 415.62 13.73999 L 436.14 114.95999 L 436.62 114.83999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 301.92 118.13999 L 301.56 117.77999 L 300.72 118.43999 L 301.08 118.79999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 301.14 118.19999 L 302.58 119.03999 L 303.48 119.51999 L 302.52 119.93999 L 297.42 122.27999 L 295.8 122.99999 L 296.82 121.55999 L 299.94 116.87999 L 300.48 115.97999 L 300.84 116.93999 L 300.78 117.41999 L 297.66 122.09999 L 296.82 121.55999 L 297.0 121.37999 L 302.1 119.03999 L 302.52 119.93999 L 302.1 119.87999 L 300.66 119.03999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 300.84 116.93999 L 301.38 118.43999 L 300.66 119.03999 L 300.48 118.97999 L 300.42 118.79999 L 299.88 117.29999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 300.9 118.61999 L 302.34 119.45999 L 297.24 121.79999 L 300.36 117.11999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 367.62 61.79999 L 367.8 61.67999 L 367.5 61.31999 L 367.32 61.43999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 301.92 118.13999 L 301.74 118.25999 L 301.44 117.89999 L 301.62 117.77999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 367.62 61.79999 L 367.32 61.43999 L 301.62 117.77999 L 301.92 118.13999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 181.8 119.03999 L 181.44 118.67999 L 180.66 119.33999 L 181.02 119.69999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 181.08 119.03999 L 182.52 119.81999 L 183.48 120.29999 L 182.46 120.77999 L 177.42 123.23999 L 175.92 123.95999 L 176.76 122.51999 L 179.7 117.77999 L 180.24 116.93999 L 180.6 117.77999 L 180.6 118.31999 L 177.66 123.05999 L 176.76 122.51999 L 177.0 122.33999 L 182.04 119.87999 L 182.46 120.77999 L 182.04 120.77999 L 180.6 119.99999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 180.6 117.77999 L 181.26 119.27999 L 180.6 119.99999 L 180.42 119.87999 L 180.36 119.69999 L 179.7 118.19999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 180.84 119.51999 L 182.28 120.29999 L 177.24 122.75999 L 180.18 118.01999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 246.18 61.31999 L 246.36 61.19999 L 246.06 60.83999 L 245.88 60.95999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 181.8 119.03999 L 181.62 119.15999 L 181.32 118.79999 L 181.5 118.67999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 246.18 61.31999 L 245.88 60.95999 L 181.5 118.67999 L 181.8 119.03999"></path>
+<rect height="9.66" x="376.68" style="fill: rgb(0%, 0%, 0%)" y="74.4599899999999" width="0.48001"></rect>
+<rect height="9.66" x="411.06" style="fill: rgb(0%, 0%, 0%)" y="74.4599899999999" width="0.48001"></rect>
+<rect height="9.6" x="421.32" style="fill: rgb(0%, 0%, 0%)" y="21.6599899999999" width="0.48001"></rect>
+<rect height="9.6" x="456.3" style="fill: rgb(0%, 0%, 0%)" y="21.6599899999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 435.42 26.03999 L 435.42 29.33999 L 434.76 29.15999 L 423.84 26.03999 L 434.76 22.91999 L 435.42 22.73999 L 435.42 23.39999 L 435.06 23.87999 L 425.82 26.51999 L 425.52 25.55999 L 425.82 25.55999 L 435.06 28.19999 L 434.76 29.15999 L 434.4 28.67999 L 434.4 26.03999"></path>
+<rect height="2.64" x="434.4" style="fill: rgb(0%, 0%, 0%)" y="23.39999" width="1.02"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 434.94 26.03999 L 434.94 28.67999 L 425.7 26.03999 L 434.94 23.39999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 444.3 26.03999 L 444.3 22.73999 L 444.96 22.91999 L 455.88 26.03999 L 444.96 29.15999 L 444.3 29.33999 L 444.3 28.67999 L 444.66 28.19999 L 453.9 25.55999 L 454.2 26.51999 L 453.9 26.51999 L 444.66 23.87999 L 444.96 22.91999 L 445.32 23.39999 L 445.32 26.03999"></path>
+<rect height="2.64" x="444.3" style="fill: rgb(0%, 0%, 0%)" y="26.03999" width="1.02"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 444.78 26.03999 L 444.78 23.39999 L 454.02 26.03999 L 444.78 28.67999"></path>
+<rect height="0.48001" x="435.18" style="fill: rgb(0%, 0%, 0%)" y="25.79998" width="0.23999"></rect>
+<rect height="0.48001" x="435.42" style="fill: rgb(0%, 0%, 0%)" y="25.79998" width="9.12"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 388.32 78.05999 L 388.32 81.35999 L 387.66 81.17999 L 376.74 78.05999 L 387.66 74.93999 L 388.32 74.75999 L 388.32 75.41999 L 387.96 75.8999899999999 L 378.72 78.53999 L 378.42 77.57999 L 378.72 77.57999 L 387.96 80.21999 L 387.66 81.17999 L 387.3 80.69999 L 387.3 78.05999"></path>
+<rect height="2.64" x="387.3" style="fill: rgb(0%, 0%, 0%)" y="75.41999" width="1.02"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 387.84 78.05999 L 387.84 80.69999 L 378.6 78.05999 L 387.84 75.41999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 399.0 78.05999 L 399.0 74.75999 L 399.66 74.93999 L 410.58 78.05999 L 399.66 81.17999 L 399.0 81.35999 L 399.0 80.69999 L 399.36 80.21999 L 408.6 77.57999 L 408.9 78.53999 L 408.6 78.53999 L 399.36 75.8999899999999 L 399.66 74.93999 L 400.02 75.41999 L 400.02 78.05999"></path>
+<rect height="2.64" x="399.0" style="fill: rgb(0%, 0%, 0%)" y="78.05999" width="1.02"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 399.48 78.05999 L 399.48 75.41999 L 408.72 78.05999 L 399.48 80.69999"></path>
+<rect height="0.47998" x="388.08" style="fill: rgb(0%, 0%, 0%)" y="77.82001" width="0.24002"></rect>
+<rect height="0.47998" x="388.32" style="fill: rgb(0%, 0%, 0%)" y="77.82001" width="10.92"></rect>
+<text x="159.7205216" textLength="20.0506261501421" y="13.2240917771222" lengthAdjust="spacingAndGlyphs" style="font-size: 8.69791241359445pt; fill: #000">SRC1</text>
+<text x="458.279954" textLength="20.109999750142" y="13.4045357771222" lengthAdjust="spacingAndGlyphs" style="font-size: 8.69791241359445pt; fill: #000">SRC2</text>
+<text x="430.74" textLength="43.1458062999999" y="40.206091" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">Imm8[7:0]*8</text>
+<text x="257.6399056" textLength="28.582274422504" y="47.0458350250869" lengthAdjust="spacingAndGlyphs" style="font-size: 8.65907615164474pt; fill: #000">128 255</text>
+<text x="405.8362032" textLength="12.862180022504" y="47.0458350250869" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164474pt; fill: #000">128</text>
+<text x="132.66" textLength="12.802045222504" y="47.585835025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164474pt; fill: #000">255</text>
+<text x="107.1004264" textLength="20.481792022504" y="62.7661950250869" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164474pt; fill: #000">SRC1</text>
+<text x="414.1195816" textLength="20.4817920225041" y="62.946135025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164474pt; fill: #000">SRC2</text>
+<text x="380.820223" textLength="43.1498017999998" y="93.6059485" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">Imm8[7:0]*8</text>
+<text x="292.1999056" textLength="28.522139622504" y="110.346075025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59949615164473pt; fill: #000">128 127</text>
+<text x="440.3962032" textLength="4.28421722250403" y="110.345835025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164475pt; fill: #000">0</text>
+<text x="167.22" textLength="12.802045222504" y="110.885835025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164477pt; fill: #000">255</text>
+<text x="141.6002916" textLength="20.4869304887589" y="126.066195025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164474pt; fill: #000">DEST</text>
+<text x="448.6795816" textLength="20.4869304887589" y="126.246135025087" lengthAdjust="spacingAndGlyphs" style="font-size: 8.59925615164474pt; fill: #000">DEST</text></g></svg>
+<figcaption><a href="./PALIGNR.html#fig-4-7">Figure 4-7</a>. 256-bit VPALIGN Instruction Operation</figcaption></figure>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="palignr--with-64-bit-operands-">PALIGNR (with 64-bit operands)<a class="anchor" href="#palignr--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>temp1[127:0] = CONCATENATE(DEST,SRC)&gt;&gt;(imm8*8)
+DEST[63:0] = temp1[63:0]
+</pre>
+<h3 id="palignr--with-128-bit-operands-">PALIGNR (with 128-bit operands)<a class="anchor" href="#palignr--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>temp1[255:0]←((DEST[127:0] &lt;&lt; 128) OR SRC[127:0])&gt;&gt;(imm8*8);
+DEST[127:0] ← temp1[127:0]
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="vpalignr--vex-128-encoded-version-">VPALIGNR (VEX.128 encoded version)<a class="anchor" href="#vpalignr--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>temp1[255:0]←((SRC1[127:0] &lt;&lt; 128) OR SRC2[127:0])&gt;&gt;(imm8*8);
+DEST[127:0] ← temp1[127:0]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpalignr--vex-256-encoded-version-">VPALIGNR (VEX.256 encoded version)<a class="anchor" href="#vpalignr--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>temp1[255:0]←((SRC1[127:0] &lt;&lt; 128) OR SRC2[127:0])&gt;&gt;(imm8[7:0]*8);
+DEST[127:0] ← temp1[127:0]
+temp1[255:0]←((SRC1[255:128] &lt;&lt; 128) OR SRC2[255:128])&gt;&gt;(imm8[7:0]*8);
+DEST[MAXVL-1:128] ← temp1[127:0]
+</pre>
+<h3 id="vpalignr--evex-encoded-versions-">VPALIGNR (EVEX encoded versions)<a class="anchor" href="#vpalignr--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR l←0 TO VL-1 with increments of 128
+    temp1[255:0] ← ((SRC1[l+127:l] &lt;&lt; 128) OR SRC2[l+127:l])&gt;&gt;(imm8[7:0]*8);
+    TMP_DEST[l+127:l] ← temp1[127:0]
+ENDFOR;
+FOR j←0 TO KL-1
+    i←j * 8
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i]←TMP_DEST[i+7:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+7:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h2>
+<pre>PALIGNR: __m64 _mm_alignr_pi8 (__m64 a, __m64 b, int n)
+</pre>
+<pre>(V)PALIGNR: __m128i _mm_alignr_epi8 (__m128i a, __m128i b, int n)
+</pre>
+<pre>VPALIGNR: VPALIGNR __m512i _mm512_alignr_epi8 (__m512i a, __m512i b, const int n)
+</pre>
+<pre>VPALIGNR __m512i _mm512_mask_alignr_epi8 (__m512i s, __mmask64 m, __m512i a, __m512i b, const int n)
+</pre>
+<pre>VPALIGNR __m512i _mm512_maskz_alignr_epi8 ( __mmask64 m, __m512i a, __m512i b, const int n)
+</pre>
+<pre>VPALIGNR __m256i _mm256_mask_alignr_epi8 (__m256i s, __mmask32 m, __m256i a, __m256i b, const int n)
+</pre>
+<pre>VPALIGNR __m256i _mm256_maskz_alignr_epi8 (__mmask32 m, __m256i a, __m256i b, const int n)
+</pre>
+<pre>VPALIGNR __m128i _mm_mask_alignr_epi8 (__m128i s, __mmask16 m, __m128i a, __m128i b, const int n)
+</pre>
+<pre>VPALIGNR __m128i _mm_maskz_alignr_epi8 (__mmask16 m, __m128i a, __m128i b, const int n)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

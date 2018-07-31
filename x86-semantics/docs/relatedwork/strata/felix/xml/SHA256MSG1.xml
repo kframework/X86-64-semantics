@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Perform an Intermediate Calculation for the Next Four SHA256 Message Dwords" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="SHA256MSG1"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 38 CC /r SHA256MSG1 xmm1, xmm2/m128</td>
+<td>RM</td>
+<td>V/V</td>
+<td>SHA</td>
+<td>Performs an intermediate calculation for the next four SHA256 message dwords using previous message dwords from xmm1 and xmm2/m128, storing the result in xmm1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>The SHA256MSG1 instruction is one of two SHA256 message scheduling instructions. The instruction performs an intermediate calculation for the next four SHA256 message dwords.</p>
+<h3>Operation</h3>
+<h4>SHA256MSG1</h4>
+<pre>W4←SRC2[31: 0] ;
+W3←SRC1[127:96] ;
+W2←SRC1[95:64] ;
+W1←SRC1[63: 32] ;
+W0←SRC1[31: 0] ;
+DEST[127:96]←W3 + σ<sub>0</sub>( W4);
+DEST[95:64]←W2 + σ<sub>0</sub>( W3);
+DEST[63:32]←W1 + σ<sub>0</sub>( W2);
+DEST[31:0]←W0 + σ<sub>0</sub>( W1);
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>SHA256MSG1: __m128i _mm_sha256msg1_epu32(__m128i, __m128i);
+</pre>
+<h3>Flags Affected</h3>
+<p>None</p>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>None</p>
+<h3>Other Exceptions</h3>
+<p>See Exceptions Type 4.</p></x86:instruction>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>SHRD
+		— Double Precision Shift Right</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SHRD
+		— Double Precision Shift Right</h1>
+
+<table>
+<tr>
+<th>Opcode*</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>0F AC /r ib</td>
+<td>SHRD <em>r/m16, r16, imm8</em></td>
+<td>MRI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Shift <em>r/m16</em> to right <em>imm8</em> places while shifting bits from <em>r16</em> in from the left.</td></tr>
+<tr>
+<td>0F AD /r</td>
+<td>SHRD <em>r/m16, r16</em>, CL</td>
+<td>MRC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Shift <em>r/m16</em> to right CL places while shifting bits from <em>r16</em> in from the left.</td></tr>
+<tr>
+<td>0F AC /r ib</td>
+<td>SHRD <em>r/m32, r32, imm8</em></td>
+<td>MRI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Shift <em>r/m32</em> to right <em>imm8</em> places while shifting bits from <em>r32</em> in from the left.</td></tr>
+<tr>
+<td>REX.W + 0F AC /r ib</td>
+<td>SHRD <em>r/m64, r64, imm8</em></td>
+<td>MRI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Shift <em>r/m64</em> to right <em>imm8</em> places while shifting bits from <em>r64</em> in from the left.</td></tr>
+<tr>
+<td>0F AD /r</td>
+<td>SHRD <em>r/m32, r32</em>, CL</td>
+<td>MRC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Shift <em>r/m32</em> to right CL places while shifting bits from <em>r32</em> in from the left.</td></tr>
+<tr>
+<td>REX.W + 0F AD /r</td>
+<td>SHRD <em>r/m64, r64</em>, CL</td>
+<td>MRC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Shift <em>r/m64</em> to right CL places while shifting bits from <em>r64</em> in from the left.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>MRI</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>imm8</td>
+<td>NA</td></tr>
+<tr>
+<td>MRC</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>CL</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>The SHRD instruction is useful for multi-precision shifts of 64 bits or more.</p>
+<p>The instruction shifts the first operand (destination operand) to the right the number of bits specified by the third operand (count operand). The second operand (source operand) provides bits to shift in from the left (starting with the most significant bit of the destination operand).</p>
+<p>The destination operand can be a register or a memory location; the source operand is a register. The count operand is an unsigned integer that can be stored in an immediate byte or the CL register. If the count operand is CL, the shift count is the logical AND of CL and a count mask. In non-64-bit modes and default 64-bit mode, the width of the count mask is 5 bits. Only bits 0 through 4 of the count register are used (masking the count to a value between 0 and 31). If the count is greater than the operand size, the result is undefined.</p>
+<p>If the count is 1 or greater, the CF flag is filled with the last bit shifted out of the destination operand. For a 1-bit shift, the OF flag is set if a sign change occurred; otherwise, it is cleared. If the count operand is 0, flags are not affected.</p>
+<p>In 64-bit mode, the instruction’s default operation size is 32 bits. Using a REX prefix in the form of REX.R permits access to additional registers (R8-R15). Using a REX prefix in the form of REX.W promotes operation to 64 bits (upgrading the count mask to 6 bits). See the summary chart at the beginning of this section for encoding data and limits.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF (In 64-Bit Mode and REX.W = 1)
+    THEN COUNT ← COUNT MOD 64;
+    ELSE COUNT ← COUNT MOD 32;
+FI
+SIZE ← OperandSize;
+IF COUNT = 0
+    THEN
+        No operation;
+    ELSE
+        IF COUNT &gt; SIZE
+            THEN (* Bad parameters *)
+                DEST is undefined;
+                CF, OF, SF, ZF, AF, PF are undefined;
+            ELSE (* Perform the shift *)
+                CF ← BIT[DEST, COUNT – 1]; (* Last bit shifted out on exit *)
+                FOR i ← 0 TO SIZE – 1 – COUNT
+                    DO
+                        BIT[DEST, i] ← BIT[DEST<em>,</em> i + COUNT];
+                    OD;
+                FOR i ← SIZE – COUNT TO SIZE – 1
+                    DO
+                        BIT[DEST<em>,</em>i] ← BIT[SRC, i + COUNT – SIZE];
+                    OD;
+        FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>If the count is 1 or greater, the CF flag is filled with the last bit shifted out of the destination operand and the SF, ZF, and PF flags are set according to the value of the result. For a 1-bit shift, the OF flag is set if a sign change occurred; otherwise, it is cleared. For shifts greater than 1 bit, the OF flag is undefined. If a shift occurs, the AF flag is undefined. If the count operand is 0, the flags are not affected. If the count is greater than the operand size, the flags are undefined.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the destination is located in a non-writable segment.</td></tr>
+<tr>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

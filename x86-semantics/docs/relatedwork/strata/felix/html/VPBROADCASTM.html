@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VPBROADCASTM
+		— Broadcast Mask to Vector Register</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPBROADCASTM
+		— Broadcast Mask to Vector Register</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W1 2A /r VPBROADCASTMB2Q xmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low byte value in k1 to two locations in xmm1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W1 2A /r VPBROADCASTMB2Q ymm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low byte value in k1 to four locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W1 2A /r VPBROADCASTMB2Q zmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512CD</td>
+<td>Broadcast low byte value in k1 to eight locations in zmm1.</td></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W0 3A /r VPBROADCASTMW2D xmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low word value in k1 to four locations in xmm1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W0 3A /r VPBROADCASTMW2D ymm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low word value in k1 to eight locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W0 3A /r VPBROADCASTMW2D zmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512CD</td>
+<td>Broadcast low word value in k1 to sixteen locations in zmm1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Broadcasts the zero-extended 64/32 bit value of the low byte/word of the source operand (the second operand) to each 64/32 bit element of the destination operand (the first operand). The source operand is an opmask register. The destination operand is a ZMM register (EVEX.512), YMM register (EVEX.256), or XMM register (EVEX.128).</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vpbroadcastmb2q">VPBROADCASTMB2Q<a class="anchor" href="#vpbroadcastmb2q">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j*64
+    DEST[i+63:i] ← ZeroExtend(SRC[7:0])
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpbroadcastmw2d">VPBROADCASTMW2D<a class="anchor" href="#vpbroadcastmw2d">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256),(16, 512)
+FOR j←0 TO KL-1
+    i←j*32
+    DEST[i+31:i] ← ZeroExtend(SRC[15:0])
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VPBROADCASTMB2Q __m512i _mm512_broadcastmb_epi64( __mmask8);
+</pre>
+<pre>VPBROADCASTMW2D __m512i _mm512_broadcastmw_epi32( __mmask16);
+</pre>
+<pre>VPBROADCASTMB2Q __m256i _mm256_broadcastmb_epi64( __mmask8);
+</pre>
+<pre>VPBROADCASTMW2D __m256i _mm256_broadcastmw_epi32( __mmask8);
+</pre>
+<pre>VPBROADCASTMB2Q __m128i _mm_broadcastmb_epi64( __mmask8);
+</pre>
+<pre>VPBROADCASTMW2D __m128i _mm_broadcastmw_epi32( __mmask8);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>EVEX-encoded instruction, see Exceptions Type E6NF.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>SAL/SAR/SHL/SHR
+		— Shift</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SAL/SAR/SHL/SHR
+		— Shift</h1>
+
+
+
+
+<table>
+<tr>
+<th>Opcode***</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D0 /4</td>
+<td>SAL <em>r/m8</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>REX + D0 /4</td>
+<td>SAL <em>r/m8**</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>D2 /4</td>
+<td>SAL <em>r/m8</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX + D2 /4</td>
+<td>SAL <em>r/m8**</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>C0 /4 <em>ib</em></td>
+<td>SAL <em>r/m8, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX + C0 /4 <em>ib</em></td>
+<td>SAL <em>r/m8**, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /4</td>
+<td>SAL <em>r/m16</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m16</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /4</td>
+<td>SAL <em>r/m16</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m16</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /4 <em>ib</em></td>
+<td>SAL <em>r/m16, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m16</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /4</td>
+<td>SAL <em>r/m32</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m32</em> by 2, once.</td></tr>
+<tr>
+<td>REX.W + D1 /4</td>
+<td>SAL <em>r/m64</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m64</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /4</td>
+<td>SAL <em>r/m32</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m32</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX.W + D3 /4</td>
+<td>SAL <em>r/m64</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m64</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /4 <em>ib</em></td>
+<td>SAL <em>r/m32, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m32</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX.W + C1 /4 <em>ib</em></td>
+<td>SAL <em>r/m64, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m64</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D0 /7</td>
+<td>SAR <em>r/m8</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>REX + D0 /7</td>
+<td>SAR <em>r/m8**</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Signed divide* <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>D2 /7</td>
+<td>SAR <em>r/m8</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX + D2 /7</td>
+<td>SAR <em>r/m8**</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Signed divide* <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>C0 /7 <em>ib</em></td>
+<td>SAR <em>r/m8, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m8</em> by 2, <em>imm8</em> time.</td></tr>
+<tr>
+<td>REX + C0 /7 <em>ib</em></td>
+<td>SAR <em>r/m8**, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Signed divide* <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /7</td>
+<td>SAR <em>r/m16</em>,1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m16</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /7</td>
+<td>SAR <em>r/m16</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m16</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /7 <em>ib</em></td>
+<td>SAR <em>r/m16, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m16</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /7</td>
+<td>SAR <em>r/m32</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m32</em> by 2, once.</td></tr>
+<tr>
+<td>REX.W + D1 /7</td>
+<td>SAR <em>r/m64</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Signed divide* <em>r/m64</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /7</td>
+<td>SAR <em>r/m32</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m32</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX.W + D3 /7</td>
+<td>SAR <em>r/m64</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Signed divide* <em>r/m64</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /7 <em>ib</em></td>
+<td>SAR <em>r/m32, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Signed divide* <em>r/m32</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX.W + C1 /7 <em>ib</em></td>
+<td>SAR <em>r/m64, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Signed divide* <em>r/m64</em> by 2, <em>imm8</em> times</td></tr>
+<tr>
+<td>D0 /4</td>
+<td>SHL <em>r/m8</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>REX + D0 /4</td>
+<td>SHL <em>r/m8**</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>D2 /4</td>
+<td>SHL <em>r/m8</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX + D2 /4</td>
+<td>SHL <em>r/m8**</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>C0 /4 <em>ib</em></td>
+<td>SHL <em>r/m8, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX + C0 /4 <em>ib</em></td>
+<td>SHL <em>r/m8**, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /4</td>
+<td>SHL <em>r/m16</em>,1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m16</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /4</td>
+<td>SHL <em>r/m16</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m16</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /4 <em>ib</em></td>
+<td>SHL <em>r/m16, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m16</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /4</td>
+<td>SHL <em>r/m32</em>,1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m32</em> by 2, once.</td></tr></table>
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>REX.W + D1 /4</td>
+<td>SHL <em>r/m64</em>,1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m64</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /4</td>
+<td>SHL <em>r/m32</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m32</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX.W + D3 /4</td>
+<td>SHL <em>r/m64</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m64</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /4 <em>ib</em></td>
+<td>SHL <em>r/m32, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Multiply <em>r/m32</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX.W + C1 /4 <em>ib</em></td>
+<td>SHL <em>r/m64, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Multiply <em>r/m64</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D0 /5</td>
+<td>SHR <em>r/m8</em>,1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>REX + D0 /5</td>
+<td>SHR <em>r/m8**</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide <em>r/m8</em> by 2, once.</td></tr>
+<tr>
+<td>D2 /5</td>
+<td>SHR <em>r/m8</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX + D2 /5</td>
+<td>SHR <em>r/m8**</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide <em>r/m8</em> by 2, CL times.</td></tr>
+<tr>
+<td>C0 /5 <em>ib</em></td>
+<td>SHR <em>r/m8, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX + C0 /5 <em>ib</em></td>
+<td>SHR <em>r/m8**, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide <em>r/m8</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /5</td>
+<td>SHR <em>r/m16</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m16</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /5</td>
+<td>SHR <em>r/m16</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m16</em> by 2, CL times</td></tr>
+<tr>
+<td>C1 /5 <em>ib</em></td>
+<td>SHR <em>r/m16, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m16</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>D1 /5</td>
+<td>SHR <em>r/m32</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m32</em> by 2, once.</td></tr>
+<tr>
+<td>REX.W + D1 /5</td>
+<td>SHR <em>r/m64</em>, 1</td>
+<td>M1</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide <em>r/m64</em> by 2, once.</td></tr>
+<tr>
+<td>D3 /5</td>
+<td>SHR <em>r/m32</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m32</em> by 2, CL times.</td></tr>
+<tr>
+<td>REX.W + D3 /5</td>
+<td>SHR <em>r/m64</em>, CL</td>
+<td>MC</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide <em>r/m64</em> by 2, CL times.</td></tr>
+<tr>
+<td>C1 /5 <em>ib</em></td>
+<td>SHR <em>r/m32, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide <em>r/m32</em> by 2, <em>imm8</em> times.</td></tr>
+<tr>
+<td>REX.W + C1 /5 <em>ib</em></td>
+<td>SHR <em>r/m64, imm8</em></td>
+<td>MI</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide <em>r/m64</em> by 2, <em>imm8</em> times.</td></tr></table>
+<blockquote>
+<p>* NotthesameformofdivisionasIDIV;roundingistowardnegativeinfinity.</p>
+<p>** In 64-bit mode, r/m8 can not be encoded to access the following byte registers if a REX prefix is used: AH, BH, CH, DH.</p>
+<p>***See IA-32 Architecture Compatibility section below.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M1</td>
+<td>ModRM:r/m (r, w)</td>
+<td>1</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>MC</td>
+<td>ModRM:r/m (r, w)</td>
+<td>CL</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>MI</td>
+<td>ModRM:r/m (r, w)</td>
+<td>imm8</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Shifts the bits in the first operand (destination operand) to the left or right by the number of bits specified in the second operand (count operand). Bits shifted beyond the destination operand boundary are first shifted into the CF flag, then discarded. At the end of the shift operation, the CF flag contains the last bit shifted out of the destination operand.</p>
+<p>The destination operand can be a register or a memory location. The count operand can be an immediate value or the CL register. The count is masked to 5 bits (or 6 bits if in 64-bit mode and REX.W is used). The count range is limited to 0 to 31 (or 63 if 64-bit mode and REX.W is used). A special opcode encoding is provided for a count of 1.</p>
+<p>The shift arithmetic left (SAL) and shift logical left (SHL) instructions perform the same operation; they shift the bits in the destination operand to the left (toward more significant bit locations). For each shift count, the most significant bit of the destination operand is shifted into the CF flag, and the least significant bit is cleared (see <span class="not-imported">Figure 7-7</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>).</p>
+<p>The shift arithmetic right (SAR) and shift logical right (SHR) instructions shift the bits of the destination operand to the right (toward less significant bit locations). For each shift count, the least significant bit of the destination operand is shifted into the CF flag, and the most significant bit is either set or cleared depending on the instruction type. The SHR instruction clears the most significant bit (see <span class="not-imported">Figure 7-8</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>); the SAR instruction sets or clears the most significant bit to correspond to the sign (most significant bit) of the original value in the destination operand. In effect, the SAR instruction fills the empty bit position’s shifted value with the sign of the unshifted value (see <span class="not-imported">Figure 7-9</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>).</p>
+<p>The SAR and SHR instructions can be used to perform signed or unsigned division, respectively, of the destination operand by powers of 2. For example, using the SAR instruction to shift a signed integer 1 bit to the right divides the value by 2.</p>
+<p>Using the SAR instruction to perform a division operation does not produce the same result as the IDIV instruction. The quotient from the IDIV instruction is rounded toward zero, whereas the “quotient” of the SAR instruction is rounded toward negative infinity. This difference is apparent only for negative numbers. For example, when the IDIV instruction is used to divide -9 by 4, the result is -2 with a remainder of -1. If the SAR instruction is used to shift -9 right by two bits, the result is -3 and the “remainder” is +3; however, the SAR instruction stores only the most significant bit of the remainder (in the CF flag).</p>
+<p>The OF flag is affected only on 1-bit shifts. For left shifts, the OF flag is set to 0 if the most-significant bit of the result is the same as the CF flag (that is, the top two bits of the original operand were the same); otherwise, it is set to 1. For the SAR instruction, the OF flag is cleared for all 1-bit shifts. For the SHR instruction, the OF flag is set to the most-significant bit of the original operand.</p>
+<p>In 64-bit mode, the instruction’s default operation size is 32 bits and the mask width for CL is 5 bits. Using a REX prefix in the form of REX.R permits access to additional registers (R8-R15). Using a REX prefix in the form of REX.W promotes operation to 64-bits and sets the mask width for CL to 6 bits. See the summary chart at the beginning of this section for encoding data and limits.</p>
+<h2 id="ia-32-architecture-compatibility">IA-32 Architecture Compatibility<a class="anchor" href="#ia-32-architecture-compatibility">
+			¶
+		</a></h2>
+<p>The 8086 does not mask the shift count. However, all other IA-32 processors (starting with the Intel 286 processor) do mask the shift count to 5 bits, resulting in a maximum count of 31. This masking is done in all operating modes (including the virtual-8086 mode) to reduce the maximum execution time of the instructions.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF 64-Bit Mode and using REX.W
+    THEN
+        countMASK ← 3FH;
+    ELSE
+        countMASK ← 1FH;
+FI
+tempCOUNT ← (COUNT AND countMASK);
+tempDEST ← DEST;
+WHILE (tempCOUNT ≠ 0)
+DO
+    IF instruction is SAL or SHL
+        THEN
+            CF ← MSB(DEST);
+        ELSE (* Instruction is SAR or SHR *)
+            CF ← LSB(DEST);
+    FI;
+    IF instruction is SAL or SHL
+        THEN
+            DEST ← DEST ∗ 2;
+        ELSE
+            IF instruction is SAR
+                THEN
+                    DEST ← DEST / 2; (* Signed divide, rounding toward negative infinity *)
+                ELSE (* Instruction is SHR *)
+                    DEST ← DEST / 2 ; (* Unsigned divide *)
+            FI;
+    FI;
+    tempCOUNT ← tempCOUNT – 1;
+OD;
+(* Determine overflow for the various instructions *)
+IF (COUNT and countMASK) = 1
+    THEN
+        IF instruction is SAL or SHL
+            THEN
+                OF ← MSB(DEST) XOR CF;
+            ELSE
+                IF instruction is SAR
+                    THEN
+                        OF ← 0;
+                    ELSE (* Instruction is SHR *)
+                        OF ← MSB(tempDEST);
+                FI;
+        FI;
+    ELSE IF (COUNT AND countMASK) = 0
+        THEN
+            All flags unchanged;
+        ELSE (* COUNT not 1 or 0 *)
+            OF ← undefined;
+    FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>The CF flag contains the value of the last bit shifted out of the destination operand; it is undefined for SHL and SHR instructions where the count is greater than or equal to the size (in bits) of the destination operand. The OF flag is affected only for 1-bit shifts (see “Description” above); otherwise, it is undefined. The SF, ZF, and PF flags are set according to the result. If the count is 0, the flags are not affected. For a non-zero count, the AF flag is undefined.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the destination is located in a non-writable segment.</td></tr>
+<tr>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

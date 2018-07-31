@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PMOVSX
+		— Packed Move with Sign Extend</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMOVSX
+		— Packed Move with Sign Extend</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0f 38 20 /r PMOVSXBW xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Sign extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 16-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 21 /r PMOVSXBD xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Sign extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 22 /r PMOVSXBQ xmm1, xmm2/m16</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Sign extend 2 packed 8-bit integers in the low 2 bytes of xmm2/m16 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 23/r PMOVSXWD xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Sign extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 24 /r PMOVSXWQ xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Sign extend 2 packed 16-bit integers in the low 4 bytes of xmm2/m32 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 25 /r PMOVSXDQ xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Sign extend 2 packed 32-bit integers in the low 8 bytes of xmm2/m64 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 20 /r VPMOVSXBW xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Sign extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 16-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 21 /r VPMOVSXBD xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Sign extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 22 /r VPMOVSXBQ xmm1, xmm2/m16</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Sign extend 2 packed 8-bit integers in the low 2 bytes of xmm2/m16 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 23 /r VPMOVSXWD xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Sign extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 24 /r VPMOVSXWQ xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Sign extend 2 packed 16-bit integers in the low 4 bytes of xmm2/m32 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 25 /r VPMOVSXDQ xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Sign extend 2 packed 32-bit integers in the low 8 bytes of xmm2/m64 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 20 /r VPMOVSXBW ymm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Sign extend 16 packed 8-bit integers in xmm2/m128 to 16 packed 16-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 21 /r VPMOVSXBD ymm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Sign extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 32-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 22 /r VPMOVSXBQ ymm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Sign extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 64-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 23 /r VPMOVSXWD ymm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Sign extend 8 packed 16-bit integers in the low 16 bytes of xmm2/m128 to 8 packed 32-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 24 /r VPMOVSXWQ ymm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Sign extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 64-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 25 /r VPMOVSXDQ ymm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Sign extend 4 packed 32-bit integers in the low 16 bytes of xmm2/m128 to 4 packed 64-bit integers in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 20 /r VPMOVSXBW xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Sign extend 8 packed 8-bit integers in xmm2/m64 to 8 packed 16-bit integers in zmm1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 20 /r VPMOVSXBW ymm1 {k1}{z}, xmm2/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Sign extend 16 packed 8-bit integers in xmm2/m128 to 16 packed 16-bit integers in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 20 /r VPMOVSXBW zmm1 {k1}{z}, ymm2/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Sign extend 32 packed 8-bit integers in ymm2/m256 to 32 packed 16-bit integers in zmm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 21 /r VPMOVSXBD xmm1 {k1}{z}, xmm2/m32</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 32-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 21 /r VPMOVSXBD ymm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 32-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 21 /r VPMOVSXBD zmm1 {k1}{z}, xmm2/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Sign extend 16 packed 8-bit integers in the low 16 bytes of xmm2/m128 to 16 packed 32-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 22 /r VPMOVSXBQ xmm1 {k1}{z}, xmm2/m16</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 2 packed 8-bit integers in the low 2 bytes of xmm2/m16 to 2 packed 64-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 22 /r VPMOVSXBQ ymm1 {k1}{z}, xmm2/m32</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 64-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 22 /r VPMOVSXBQ zmm1 {k1}{z}, xmm2/m64</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Sign extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 64-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 23 /r VPMOVSXWD xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 4 packed 16-bit integers in the low 8 bytes of ymm2/mem to 4 packed 32-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 23 /r VPMOVSXWD ymm1 {k1}{z}, xmm2/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 8 packed 16-bit integers in the low 16 bytes of ymm2/m128 to 8 packed 32-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 23 /r VPMOVSXWD zmm1 {k1}{z}, ymm2/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Sign extend 16 packed 16-bit integers in the low 32 bytes of ymm2/m256 to 16 packed 32-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 24 /r VPMOVSXWQ xmm1 {k1}{z}, xmm2/m32</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 2 packed 16-bit integers in the low 4 bytes of xmm2/m32 to 2 packed 64-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 24 /r VPMOVSXWQ ymm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 64-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 24 /r VPMOVSXWQ zmm1 {k1}{z}, xmm2/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Sign extend 8 packed 16-bit integers in the low 16 bytes of xmm2/m128 to 8 packed 64-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 25 /r VPMOVSXDQ xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 2 packed 32-bit integers in the low 8 bytes of xmm2/m64 to 2 packed 64-bit integers in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 25 /r VPMOVSXDQ ymm1 {k1}{z}, xmm2/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Sign extend 4 packed 32-bit integers in the low 16 bytes of xmm2/m128 to 4 packed 64-bit integers in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 25 /r VPMOVSXDQ zmm1 {k1}{z}, ymm2/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Sign extend 8 packed 32-bit integers in the low 32 bytes of ymm2/m256 to 8 packed 64-bit integers in zmm1 using writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Half Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Quarter Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>Eighth Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Legacy and VEX encoded versions: Packed byte, word, or dword integers in the low bytes of the source operand (second operand) are sign extended to word, dword, or quadword integers and stored in packed signed bytes the destination operand.</p>
+<p>128-bit Legacy SSE version: Bits (MAXVL-1:128) of the corresponding destination register remain unchanged.</p>
+<p>VEX.128 and EVEX.128 encoded versions: Bits (MAXVL-1:128) of the corresponding destination register are zeroed.</p>
+<p>VEX.256 and EVEX.256 encoded versions: Bits (MAXVL-1:256) of the corresponding destination register are zeroed.</p>
+<p>EVEX encoded versions: Packed byte, word or dword integers starting from the low bytes of the source operand (second operand) are sign extended to word, dword or quadword integers and stored to the destination operand under the writemask. The destination register is XMM, YMM or ZMM Register.</p>
+<p>Note: VEX.vvvv and EVEX.vvvv are reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="packed_sign_extend_byte_to_word-dest--src-">Packed_Sign_Extend_BYTE_to_WORD(DEST, SRC)<a class="anchor" href="#packed_sign_extend_byte_to_word-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ←SignExtend(SRC[7:0]);
+DEST[31:16] ←SignExtend(SRC[15:8]);
+DEST[47:32] ←SignExtend(SRC[23:16]);
+DEST[63:48] ←SignExtend(SRC[31:24]);
+DEST[79:64] ←SignExtend(SRC[39:32]);
+DEST[95:80] ←SignExtend(SRC[47:40]);
+DEST[111:96] ←SignExtend(SRC[55:48]);
+DEST[127:112] ←SignExtend(SRC[63:56]);
+</pre>
+<h4 id="packed_sign_extend_byte_to_dword-dest--src-">Packed_Sign_Extend_BYTE_to_DWORD(DEST, SRC)<a class="anchor" href="#packed_sign_extend_byte_to_dword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SignExtend(SRC[7:0]);
+DEST[63:32] ←SignExtend(SRC[15:8]);
+DEST[95:64] ←SignExtend(SRC[23:16]);
+DEST[127:96] ←SignExtend(SRC[31:24]);
+</pre>
+<h4 id="packed_sign_extend_byte_to_qword-dest--src-">Packed_Sign_Extend_BYTE_to_QWORD(DEST, SRC)<a class="anchor" href="#packed_sign_extend_byte_to_qword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ←SignExtend(SRC[7:0]);
+DEST[127:64] ←SignExtend(SRC[15:8]);
+</pre>
+<h4 id="packed_sign_extend_word_to_dword-dest--src-">Packed_Sign_Extend_WORD_to_DWORD(DEST, SRC)<a class="anchor" href="#packed_sign_extend_word_to_dword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SignExtend(SRC[15:0]);
+DEST[63:32] ←SignExtend(SRC[31:16]);
+DEST[95:64] ←SignExtend(SRC[47:32]);
+DEST[127:96] ←SignExtend(SRC[63:48]);
+</pre>
+<h4 id="packed_sign_extend_word_to_qword-dest--src-">Packed_Sign_Extend_WORD_to_QWORD(DEST, SRC)<a class="anchor" href="#packed_sign_extend_word_to_qword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ←SignExtend(SRC[15:0]);
+DEST[127:64] ←SignExtend(SRC[31:16]);
+</pre>
+<h4 id="packed_sign_extend_dword_to_qword-dest--src-">Packed_Sign_Extend_DWORD_to_QWORD(DEST, SRC)<a class="anchor" href="#packed_sign_extend_dword_to_qword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ←SignExtend(SRC[31:0]);
+DEST[127:64] ←SignExtend(SRC[63:32]);
+</pre>
+<h4 id="vpmovsxbw--evex-encoded-versions-">VPMOVSXBW (EVEX encoded versions)<a class="anchor" href="#vpmovsxbw--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+Packed_Sign_Extend_BYTE_to_WORD(TMP_DEST[127:0], SRC[63:0])
+IF VL &gt;= 256
+    Packed_Sign_Extend_BYTE_to_WORD(TMP_DEST[255:128], SRC[127:64])
+FI;
+IF VL &gt;= 512
+    Packed_Sign_Extend_BYTE_to_WORD(TMP_DEST[383:256], SRC[191:128])
+    Packed_Sign_Extend_BYTE_to_WORD(TMP_DEST[511:384], SRC[255:192])
+FI;
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←TEMP_DEST[i+15:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovsxbd--evex-encoded-versions-">VPMOVSXBD (EVEX encoded versions)<a class="anchor" href="#vpmovsxbd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+Packed_Sign_Extend_BYTE_to_DWORD(TMP_DEST[127:0], SRC[31:0])
+IF VL &gt;= 256
+    Packed_Sign_Extend_BYTE_to_DWORD(TMP_DEST[255:128], SRC[63:32])
+FI;
+IF VL &gt;= 512
+    Packed_Sign_Extend_BYTE_to_DWORD(TMP_DEST[383:256], SRC[95:64])
+    Packed_Sign_Extend_BYTE_to_DWORD(TMP_DEST[511:384], SRC[127:96])
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TEMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovsxbq--evex-encoded-versions-">VPMOVSXBQ (EVEX encoded versions)<a class="anchor" href="#vpmovsxbq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+Packed_Sign_Extend_BYTE_to_QWORD(TMP_DEST[127:0], SRC[15:0])
+IF VL &gt;= 256
+    Packed_Sign_Extend_BYTE_to_QWORD(TMP_DEST[255:128], SRC[31:16])
+FI;
+IF VL &gt;= 512
+    Packed_Sign_Extend_BYTE_to_QWORD(TMP_DEST[383:256], SRC[47:32])
+    Packed_Sign_Extend_BYTE_to_QWORD(TMP_DEST[511:384], SRC[63:48])
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TEMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovsxwd--evex-encoded-versions-">VPMOVSXWD (EVEX encoded versions)<a class="anchor" href="#vpmovsxwd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+Packed_Sign_Extend_WORD_to_DWORD(TMP_DEST[127:0], SRC[63:0])
+IF VL &gt;= 256
+    Packed_Sign_Extend_WORD_to_DWORD(TMP_DEST[255:128], SRC[127:64])
+FI;
+IF VL &gt;= 512
+    Packed_Sign_Extend_WORD_to_DWORD(TMP_DEST[383:256], SRC[191:128])
+    Packed_Sign_Extend_WORD_to_DWORD(TMP_DEST[511:384], SRC[256:192])
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TEMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovsxwq--evex-encoded-versions-">VPMOVSXWQ (EVEX encoded versions)<a class="anchor" href="#vpmovsxwq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+Packed_Sign_Extend_WORD_to_QWORD(TMP_DEST[127:0], SRC[31:0])
+IF VL &gt;= 256
+    Packed_Sign_Extend_WORD_to_QWORD(TMP_DEST[255:128], SRC[63:32])
+FI;
+IF VL &gt;= 512
+    Packed_Sign_Extend_WORD_to_QWORD(TMP_DEST[383:256], SRC[95:64])
+    Packed_Sign_Extend_WORD_to_QWORD(TMP_DEST[511:384], SRC[127:96])
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TEMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovsxdq--evex-encoded-versions-">VPMOVSXDQ (EVEX encoded versions)<a class="anchor" href="#vpmovsxdq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+Packed_Sign_Extend_DWORD_to_QWORD(TEMP_DEST[127:0], SRC[63:0])
+IF VL &gt;= 256
+    Packed_Sign_Extend_DWORD_to_QWORD(TEMP_DEST[255:128], SRC[127:64])
+FI;
+IF VL &gt;= 512
+    Packed_Sign_Extend_DWORD_to_QWORD(TEMP_DEST[383:256], SRC[191:128])
+    Packed_Sign_Extend_DWORD_to_QWORD(TEMP_DEST[511:384], SRC[255:192])
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TEMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovsxbw--vex-256-encoded-version-">VPMOVSXBW (VEX.256 encoded version)<a class="anchor" href="#vpmovsxbw--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_WORD(DEST[127:0], SRC[63:0])
+Packed_Sign_Extend_BYTE_to_WORD(DEST[255:128], SRC[127:64])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovsxbd--vex-256-encoded-version-">VPMOVSXBD (VEX.256 encoded version)<a class="anchor" href="#vpmovsxbd--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_DWORD(DEST[127:0], SRC[31:0])
+Packed_Sign_Extend_BYTE_to_DWORD(DEST[255:128], SRC[63:32])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovsxbq--vex-256-encoded-version-">VPMOVSXBQ (VEX.256 encoded version)<a class="anchor" href="#vpmovsxbq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_QWORD(DEST[127:0], SRC[15:0])
+Packed_Sign_Extend_BYTE_to_QWORD(DEST[255:128], SRC[31:16])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovsxwd--vex-256-encoded-version-">VPMOVSXWD (VEX.256 encoded version)<a class="anchor" href="#vpmovsxwd--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_WORD_to_DWORD(DEST[127:0], SRC[63:0])
+Packed_Sign_Extend_WORD_to_DWORD(DEST[255:128], SRC[127:64])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovsxwq--vex-256-encoded-version-">VPMOVSXWQ (VEX.256 encoded version)<a class="anchor" href="#vpmovsxwq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_WORD_to_QWORD(DEST[127:0], SRC[31:0])
+Packed_Sign_Extend_WORD_to_QWORD(DEST[255:128], SRC[63:32])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovsxdq--vex-256-encoded-version-">VPMOVSXDQ (VEX.256 encoded version)<a class="anchor" href="#vpmovsxdq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_DWORD_to_QWORD(DEST[127:0], SRC[63:0])
+Packed_Sign_Extend_DWORD_to_QWORD(DEST[255:128], SRC[127:64])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovsxbw--vex-128-encoded-version-">VPMOVSXBW (VEX.128 encoded version)<a class="anchor" href="#vpmovsxbw--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_WORDDEST[127:0], SRC[127:0]()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovsxbd--vex-128-encoded-version-">VPMOVSXBD (VEX.128 encoded version)<a class="anchor" href="#vpmovsxbd--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_DWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovsxbq--vex-128-encoded-version-">VPMOVSXBQ (VEX.128 encoded version)<a class="anchor" href="#vpmovsxbq--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_QWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovsxwd--vex-128-encoded-version-">VPMOVSXWD (VEX.128 encoded version)<a class="anchor" href="#vpmovsxwd--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_WORD_to_DWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovsxwq--vex-128-encoded-version-">VPMOVSXWQ (VEX.128 encoded version)<a class="anchor" href="#vpmovsxwq--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_WORD_to_QWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovsxdq--vex-128-encoded-version-">VPMOVSXDQ (VEX.128 encoded version)<a class="anchor" href="#vpmovsxdq--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_DWORD_to_QWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="pmovsxbw">PMOVSXBW<a class="anchor" href="#pmovsxbw">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_WORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovsxbd">PMOVSXBD<a class="anchor" href="#pmovsxbd">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_DWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovsxbq">PMOVSXBQ<a class="anchor" href="#pmovsxbq">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_BYTE_to_QWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovsxwd">PMOVSXWD<a class="anchor" href="#pmovsxwd">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_WORD_to_DWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovsxwq">PMOVSXWQ<a class="anchor" href="#pmovsxwq">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_WORD_to_QWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovsxdq">PMOVSXDQ<a class="anchor" href="#pmovsxdq">
+			¶
+		</a></h4>
+<pre>Packed_Sign_Extend_DWORD_to_QWORD(DEST[127:0], SRC[127:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VPMOVSXBW __m512i _mm512_cvtepi8_epi16(__m512i a);
+</pre>
+<pre>VPMOVSXBW __m512i _mm512_mask_cvtepi8_epi16(__m512i a, __mmask32 k, __m512i b);
+</pre>
+<pre>VPMOVSXBW __m512i _mm512_maskz_cvtepi8_epi16( __mmask32 k, __m512i b);
+</pre>
+<pre>VPMOVSXBD __m512i _mm512_cvtepi8_epi32(__m512i a);
+</pre>
+<pre>VPMOVSXBD __m512i _mm512_mask_cvtepi8_epi32(__m512i a, __mmask16 k, __m512i b);
+</pre>
+<pre>VPMOVSXBD __m512i _mm512_maskz_cvtepi8_epi32( __mmask16 k, __m512i b);
+</pre>
+<pre>VPMOVSXBQ __m512i _mm512_cvtepi8_epi64(__m512i a);
+</pre>
+<pre>VPMOVSXBQ __m512i _mm512_mask_cvtepi8_epi64(__m512i a, __mmask8 k, __m512i b);
+</pre>
+<pre>VPMOVSXBQ __m512i _mm512_maskz_cvtepi8_epi64( __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVSXDQ __m512i _mm512_cvtepi32_epi64(__m512i a);
+</pre>
+<pre>VPMOVSXDQ __m512i _mm512_mask_cvtepi32_epi64(__m512i a, __mmask8 k, __m512i b);
+</pre>
+<pre>VPMOVSXDQ __m512i _mm512_maskz_cvtepi32_epi64( __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVSXWD __m512i _mm512_cvtepi16_epi32(__m512i a);
+</pre>
+<pre>VPMOVSXWD __m512i _mm512_mask_cvtepi16_epi32(__m512i a, __mmask16 k, __m512i b);
+</pre>
+<pre>VPMOVSXWD __m512i _mm512_maskz_cvtepi16_epi32(__mmask16 k, __m512i a);
+</pre>
+<pre>VPMOVSXWQ __m512i _mm512_cvtepi16_epi64(__m512i a);
+</pre>
+<pre>VPMOVSXWQ __m512i _mm512_mask_cvtepi16_epi64(__m512i a, __mmask8 k, __m512i b);
+</pre>
+<pre>VPMOVSXWQ __m512i _mm512_maskz_cvtepi16_epi64( __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVSXBW __m256i _mm256_cvtepi8_epi16(__m256i a);
+</pre>
+<pre>VPMOVSXBW __m256i _mm256_mask_cvtepi8_epi16(__m256i a, __mmask16 k, __m256i b);
+</pre>
+<pre>VPMOVSXBW __m256i _mm256_maskz_cvtepi8_epi16( __mmask16 k, __m256i b);
+</pre>
+<pre>VPMOVSXBD __m256i _mm256_cvtepi8_epi32(__m256i a);
+</pre>
+<pre>VPMOVSXBD __m256i _mm256_mask_cvtepi8_epi32(__m256i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSXBD __m256i _mm256_maskz_cvtepi8_epi32( __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSXBQ __m256i _mm256_cvtepi8_epi64(__m256i a);
+</pre>
+<pre>VPMOVSXBQ __m256i _mm256_mask_cvtepi8_epi64(__m256i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSXBQ __m256i _mm256_maskz_cvtepi8_epi64( __mmask8 k, __m256i a);
+</pre>
+<pre>VPMOVSXDQ __m256i _mm256_cvtepi32_epi64(__m256i a);
+</pre>
+<pre>VPMOVSXDQ __m256i _mm256_mask_cvtepi32_epi64(__m256i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSXDQ __m256i _mm256_maskz_cvtepi32_epi64( __mmask8 k, __m256i a);
+</pre>
+<pre>VPMOVSXWD __m256i _mm256_cvtepi16_epi32(__m256i a);
+</pre>
+<pre>VPMOVSXWD __m256i _mm256_mask_cvtepi16_epi32(__m256i a, __mmask16 k, __m256i b);
+</pre>
+<pre>VPMOVSXWD __m256i _mm256_maskz_cvtepi16_epi32(__mmask16 k, __m256i a);
+</pre>
+<pre>VPMOVSXWQ __m256i _mm256_cvtepi16_epi64(__m256i a);
+</pre>
+<pre>VPMOVSXWQ __m256i _mm256_mask_cvtepi16_epi64(__m256i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSXWQ __m256i _mm256_maskz_cvtepi16_epi64( __mmask8 k, __m256i a);
+</pre>
+<pre>VPMOVSXBW __m128i _mm_mask_cvtepi8_epi16(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXBW __m128i _mm_maskz_cvtepi8_epi16( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXBD __m128i _mm_mask_cvtepi8_epi32(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXBD __m128i _mm_maskz_cvtepi8_epi32( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXBQ __m128i _mm_mask_cvtepi8_epi64(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXBQ __m128i _mm_maskz_cvtepi8_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVSXDQ __m128i _mm_mask_cvtepi32_epi64(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXDQ __m128i _mm_maskz_cvtepi32_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVSXWD __m128i _mm_mask_cvtepi16_epi32(__m128i a, __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVSXWD __m128i _mm_maskz_cvtepi16_epi32(__mmask16 k, __m128i a);
+</pre>
+<pre>VPMOVSXWQ __m128i _mm_mask_cvtepi16_epi64(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSXWQ __m128i _mm_maskz_cvtepi16_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>PMOVSXBW __m128i _mm_ cvtepi8_epi16 ( __m128i a);
+</pre>
+<pre>PMOVSXBD __m128i _mm_ cvtepi8_epi32 ( __m128i a);
+</pre>
+<pre>PMOVSXBQ __m128i _mm_ cvtepi8_epi64 ( __m128i a);
+</pre>
+<pre>PMOVSXWD __m128i _mm_ cvtepi16_epi32 ( __m128i a);
+</pre>
+<pre>PMOVSXWQ __m128i _mm_ cvtepi16_epi64 ( __m128i a);
+</pre>
+<pre>PMOVSXDQ __m128i _mm_ cvtepi32_epi64 ( __m128i a);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 5.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E5.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.vvvv != 1111B, or EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

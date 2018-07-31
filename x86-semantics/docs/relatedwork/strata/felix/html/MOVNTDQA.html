@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>MOVNTDQA
+		— Load Double Quadword Non-Temporal Aligned Hint</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVNTDQA
+		— Load Double Quadword Non-Temporal Aligned Hint</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F 38 2A /r MOVNTDQA xmm1, m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Move double quadword from m128 to xmm1 using non-temporal hint if WC memory type.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 2A /r VMOVNTDQA xmm1, m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Move double quadword from m128 to xmm using non-temporal hint if WC memory type.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 2A /r VMOVNTDQA ymm1, m256</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Move 256-bit data from m256 to ymm using non-temporal hint if WC memory type.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 2A /r VMOVNTDQA xmm1, m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Move 128-bit data from m128 to xmm using non-temporal hint if WC memory type.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 2A /r VMOVNTDQA ymm1, m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Move 256-bit data from m256 to ymm using non-temporal hint if WC memory type.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 2A /r VMOVNTDQA zmm1, m512</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move 512-bit data from m512 to zmm using non-temporal hint if WC memory type.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<sup>1</sup><a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<blockquote>
+<p>1. ModRM.MOD = 011B required</p></blockquote>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>MOVNTDQA loads a double quadword from the source operand (second operand) to the destination operand (first operand) using a non-temporal hint if the memory source is WC (write combining) memory type. For WC memory type, the nontemporal hint may be implemented by loading a temporary internal buffer with the equivalent of an aligned cache line without filling this data to the cache. Any memory-type aliased lines in the cache will be snooped and flushed. Subsequent MOVNTDQA reads to unread portions of the WC cache line will receive data from the temporary internal buffer if data is available. The temporary internal buffer may be flushed by the processor at any time for any reason, for example:</p>
+<ul>
+<li>A load operation other than a MOVNTDQA which references memory already resident in a temporary internal buffer.</li>
+<li>A non-WC reference to memory already resident in a temporary internal buffer.</li>
+<li>Interleaving of reads and writes to a single temporary internal buffer.</li>
+<li>Repeated (V)MOVNTDQA loads of a particular 16-byte item in a streaming line.</li>
+<li>Certain micro-architectural conditions including resource shortages, detection of</li></ul>
+<p>a mis-speculation condition, and various fault conditions</p>
+<p>The non-temporal hint is implemented by using a write combining (WC) memory type protocol when reading the data from memory. Using this protocol, the processor</p>
+<p>does not read the data into the cache hierarchy, nor does it fetch the corresponding cache line from memory into the cache hierarchy. The memory type of the region being read can override the non-temporal hint, if the memory address specified for the non-temporal read is not a WC memory region. Information on non-temporal reads and writes can be found in “Caching of Temporal vs. Non-Temporal Data” in Chapter 10 in the Intel® 64 and IA-32 Architecture Software Developer’s Manual, Volume 3A.</p>
+<p>Because the WC protocol uses a weakly-ordered memory consistency model, a fencing operation implemented with a MFENCE instruction should be used in conjunction with MOVNTDQA instructions if multiple processors might use different memory types for the referenced memory locations or to synchronize reads of a processor with writes by other agents in the system. A processor’s implementation of the streaming load hint does not override the effective memory type, but the implementation of the hint is processor dependent. For example, a processor implementa-</p>
+<p>tion may choose to ignore the hint and process the instruction as a normal MOVDQA for any memory type. Alternatively, another implementation may optimize cache reads generated by MOVNTDQA on WB memory type to reduce cache evictions.</p>
+<p>The 128-bit (V)MOVNTDQA addresses must be 16-byte aligned or the instruction will cause a #GP.</p>
+<p>The 256-bit VMOVNTDQA addresses must be 32-byte aligned or the instruction will cause a #GP.</p>
+<p>The 512-bit VMOVNTDQA addresses must be 64-byte aligned or the instruction will cause a #GP.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="movntdqa--128bit--legacy-sse-form-">MOVNTDQA (128bit- Legacy SSE form)<a class="anchor" href="#movntdqa--128bit--legacy-sse-form-">
+			¶
+		</a></h4>
+<pre>DEST ←SRC
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="vmovntdqa--vex-128-and-evex-128-encoded-form-">VMOVNTDQA (VEX.128 and EVEX.128 encoded form)<a class="anchor" href="#vmovntdqa--vex-128-and-evex-128-encoded-form-">
+			¶
+		</a></h4>
+<pre>DEST ← SRC
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vmovntdqa--vex-256-and-evex-256-encoded-forms-">VMOVNTDQA (VEX.256 and EVEX.256 encoded forms)<a class="anchor" href="#vmovntdqa--vex-256-and-evex-256-encoded-forms-">
+			¶
+		</a></h4>
+<pre>DEST[255:0] ← SRC[255:0]
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vmovntdqa--evex-512-encoded-form-">VMOVNTDQA (EVEX.512 encoded form)<a class="anchor" href="#vmovntdqa--evex-512-encoded-form-">
+			¶
+		</a></h4>
+<pre>DEST[511:0] ← SRC[511:0]
+DEST[MAXVL-1:512] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VMOVNTDQA __m512i _mm512_stream_load_si512(__m512i const* p);
+</pre>
+<pre>MOVNTDQA __m128i _mm_stream_load_si128 (const __m128i *p);
+</pre>
+<pre>VMOVNTDQA __m256i _mm256_stream_load_si256 (__m256i const* p);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type1;</p>
+<p>EVEX-encoded instruction, see Exceptions Type E1NF.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.vvvv != 1111B or EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

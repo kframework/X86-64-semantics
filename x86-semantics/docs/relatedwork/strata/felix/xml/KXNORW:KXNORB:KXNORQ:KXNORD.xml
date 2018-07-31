@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Bitwise Logical XNOR Masks" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="KXNORW"/>
+<x86:mnemonic name="KXNORB"/>
+<x86:mnemonic name="KXNORQ"/>
+<x86:mnemonic name="KXNORD"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.NDS.L1.0F.W0 46 /r KXNORW k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Bitwise XNOR 16 bits masks k2 and k3 and place result in k1.</td></tr>
+<tr>
+<td>VEX.L1.66.0F.W0 46 /r KXNORB k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Bitwise XNOR 8 bits masks k2 and k3 and place result in k1.</td></tr>
+<tr>
+<td>VEX.L1.0F.W1 46 /r KXNORQ k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Bitwise XNOR 64 bits masks k2 and k3 and place result in k1.</td></tr>
+<tr>
+<td>VEX.L1.66.0F.W1 46 /r KXNORD k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Bitwise XNOR 32 bits masks k2 and k3 and place result in k1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RVR</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.1vvv (r)</td>
+<td>ModRM:r/m (r, ModRM:[7:6] must be 11b)</td></tr></table>
+<h2>Description</h2>
+<p>Performs a bitwise XNOR between the vector mask k2 and the vector mask k3, and writes the result into vector mask k1 (three-operand form).</p>
+<h2>Operation</h2>
+<h3>KXNORW</h3>
+<pre>DEST[15:0]←NOT (SRC1[15:0] BITWISE XOR SRC2[15:0])
+DEST[MAX_KL-1:16] ← 0
+</pre>
+<h3>KXNORB</h3>
+<pre>DEST[7:0]←NOT (SRC1[7:0] BITWISE XOR SRC2[7:0])
+DEST[MAX_KL-1:8] ← 0
+</pre>
+<h3>KXNORQ</h3>
+<pre>DEST[63:0]←NOT (SRC1[63:0] BITWISE XOR SRC2[63:0])
+DEST[MAX_KL-1:64] ← 0
+</pre>
+<h3>KXNORD</h3>
+<pre>DEST[31:0]←NOT (SRC1[31:0] BITWISE XOR SRC2[31:0])
+DEST[MAX_KL-1:32] ← 0
+</pre>
+<h2>Intel C/C++ Compiler Intrinsic Equivalent</h2>
+<pre>KXNORW __mmask16 _mm512_kxnor(__mmask16 a, __mmask16 b);
+</pre>
+<h2>Flags Affected</h2>
+<p>None</p>
+<h2>SIMD Floating-Point Exceptions</h2>
+<p>None</p>
+<h2>Other Exceptions</h2>
+<p>See Exceptions Type K20.</p></x86:instruction>

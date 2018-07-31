@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PMADDUBSW
+		— Multiply and Add Packed Signed and Unsigned Bytes</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMADDUBSW
+		— Multiply and Add Packed Signed and Unsigned Bytes</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 38 04 /r<sup>1</sup> PMADDUBSW <em>mm1, mm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>mm1</em>.</td></tr>
+<tr>
+<td>66 0F 38 04 /r PMADDUBSW <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F38.WIG 04 /r VPMADDUBSW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F38.WIG 04 /r VPMADDUBSW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>ymm1.</em></td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F38.WIG 04 /r VPMADDUBSW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F38.WIG 04 /r VPMADDUBSW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F38.WIG 04 /r VPMADDUBSW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to zmm1 under writemask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>(V)PMADDUBSW multiplies vertically each unsigned byte of the destination operand (first operand) with the corresponding signed byte of the source operand (second operand), producing intermediate signed 16-bit integers. Each adjacent pair of signed words is added and the saturated result is packed to the destination operand. For example, the lowest-order bytes (bits 7-0) in the source and destination operands are multiplied and the intermediate signed word result is added with the corresponding intermediate result from the 2nd lowest-order bytes (bits 15-8) of the operands; the sign-saturated result is stored in the lowest word of the destination register (15-0). The same operation is performed on the other pairs of adjacent bytes. Both operands can be MMX register or XMM registers. When the source operand is a 128-bit memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<p>In 64-bit mode and not encoded with VEX/EVEX, use the REX prefix to access XMM8-XMM15.</p>
+<p>128-bit Legacy SSE version: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding destination register remain unchanged.</p>
+<p>VEX.128 and EVEX.128 encoded versions: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding destination register are zeroed.</p>
+<p>VEX.256 and EVEX.256 encoded versions: The second source operand can be an YMM register or a 256-bit memory location. The first source and destination operands are YMM registers. Bits (MAXVL-1:256) of the corresponding ZMM register are zeroed.</p>
+<p>EVEX.512 encoded version: The second source operand can be an ZMM register or a 512-bit memory location. The first source and destination operands are ZMM registers.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="pmaddubsw--with-64-bit-operands-">PMADDUBSW (with 64 bit operands)<a class="anchor" href="#pmaddubsw--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[15-0] = SaturateToSignedWord(SRC[15-8]*DEST[15-8]+SRC[7-0]*DEST[7-0]);
+DEST[31-16] = SaturateToSignedWord(SRC[31-24]*DEST[31-24]+SRC[23-16]*DEST[23-16]);
+DEST[47-32] = SaturateToSignedWord(SRC[47-40]*DEST[47-40]+SRC[39-32]*DEST[39-32]);
+DEST[63-48] = SaturateToSignedWord(SRC[63-56]*DEST[63-56]+SRC[55-48]*DEST[55-48]);
+</pre>
+<h3 id="pmaddubsw--with-128-bit-operands-">PMADDUBSW (with 128 bit operands)<a class="anchor" href="#pmaddubsw--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[15-0] = SaturateToSignedWord(SRC[15-8]* DEST[15-8]+SRC[7-0]*DEST[7-0]);
+// Repeat operation for 2nd through 7th word
+SRC1/DEST[127-112] = SaturateToSignedWord(SRC[127-120]*DEST[127-120]+ SRC[119-112]* DEST[119-112]);
+</pre>
+<h3 id="vpmaddubsw--vex-128-encoded-version-">VPMADDUBSW (VEX.128 encoded version)<a class="anchor" href="#vpmaddubsw--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SaturateToSignedWord(SRC2[15:8]* SRC1[15:8]+SRC2[7:0]*SRC1[7:0])
+// Repeat operation for 2nd through 7th word
+DEST[127:112]←SaturateToSignedWord(SRC2[127:120]*SRC1[127:120]+ SRC2[119:112]* SRC1[119:112])
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpmaddubsw--vex-256-encoded-version-">VPMADDUBSW (VEX.256 encoded version)<a class="anchor" href="#vpmaddubsw--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SaturateToSignedWord(SRC2[15:8]* SRC1[15:8]+SRC2[7:0]*SRC1[7:0])
+// Repeat operation for 2nd through 15th word
+DEST[255:240]←SaturateToSignedWord(SRC2[255:248]*SRC1[255:248]+ SRC2[247:240]* SRC1[247:240])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h3 id="vpmaddubsw--evex-encoded-versions-">VPMADDUBSW (EVEX encoded versions)<a class="anchor" href="#vpmaddubsw--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateToSignedWord(SRC2[i+15:i+8]* SRC1[i+15:i+8] + SRC2[i+7:i]*SRC1[i+7:i])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h2>
+<pre>VPMADDUBSW __m512i _mm512_maddubs_epi16( __m512i a, __m512i b);
+</pre>
+<pre>VPMADDUBSW __m512i _mm512_mask_maddubs_epi16(__m512i s, __mmask32 k, __m512i a, __m512i b);
+</pre>
+<pre>VPMADDUBSW __m512i _mm512_maskz_maddubs_epi16( __mmask32 k, __m512i a, __m512i b);
+</pre>
+<pre>VPMADDUBSW __m256i _mm256_mask_maddubs_epi16(__m256i s, __mmask16 k, __m256i a, __m256i b);
+</pre>
+<pre>VPMADDUBSW __m256i _mm256_maskz_maddubs_epi16( __mmask16 k, __m256i a, __m256i b);
+</pre>
+<pre>VPMADDUBSW __m128i _mm_mask_maddubs_epi16(__m128i s, __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPMADDUBSW __m128i _mm_maskz_maddubs_epi16( __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>PMADDUBSW: __m64 _mm_maddubs_pi16 (__m64 a, __m64 b)
+</pre>
+<pre>(V)PMADDUBSW: __m128i _mm_maddubs_epi16 (__m128i a, __m128i b)
+</pre>
+<pre>VPMADDUBSW: __m256i _mm256_maddubs_epi16 (__m256i a, __m256i b)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

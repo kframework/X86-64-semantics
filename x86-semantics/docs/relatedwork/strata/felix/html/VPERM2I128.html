@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VPERM2I128
+		— Permute Integer Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPERM2I128
+		— Permute Integer Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 -bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.NDS.256.66.0F3A.W0 46 /r ib VPERM2I128 <em>ymm1, ymm2, ymm3/m256, imm8</em></td>
+<td>RVMI</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Permute 128-bit integer data in <em>ymm2</em> and <em>ymm3/mem</em> using controls from <em>imm8</em> and store result in <em>ymm1</em>.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RVMI</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Permute 128 bit integer data from the first source operand (second operand) and second source operand (third operand) using bits in the 8-bit immediate and store results in the destination operand (first operand). The first source operand is a YMM register, the second source operand is a YMM register or a 256-bit memory location, and the destination operand is a YMM register.</p>
+<figure id="fig-5-22">
+<svg style="width: 380.952012pt; height: 149.040012pt" viewBox="141.86 0.0 322.46001 129.20001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 255.12 104.58001 L 256.56 108.60001 L 256.68 109.26001 L 256.08 109.32001 L 240.54 110.40001 L 238.8 110.52001 L 240.18 109.50001 L 252.78 100.32001 L 253.38 99.90001 L 253.62 100.50001 L 253.44 101.10001 L 240.84 110.28001 L 240.18 109.50001 L 240.48 109.38001 L 256.02 108.30001 L 256.08 109.32001 L 255.6 108.96001 L 254.16 104.94001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 253.62 100.50001 L 255.12 104.58001 L 254.16 104.94001 L 252.66 100.86001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 254.64 104.76001 L 256.08 108.78001 L 240.54 109.86001 L 253.14 100.68001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 387.72 57.42001 L 387.06 55.56001 L 254.82 103.68001 L 255.48 105.54001"></path>
+<rect height="13.5" x="313.08" style="fill: rgb(100%, 100%, 100%)" y="42.96001" width="148.5"></rect>
+<rect height="0.47998" x="313.08" style="fill: rgb(0%, 0%, 0%)" y="42.72003" width="148.74"></rect>
+<rect height="13.74" x="461.34" style="fill: rgb(0%, 0%, 0%)" y="42.96001" width="0.48001"></rect>
+<rect height="0.47998" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="56.22003" width="148.74"></rect>
+<rect height="13.74" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="42.72001" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 387.36 94.20001 L 387.72 94.08001 C 388.615 93.78401 388.47 92.30501 387.54 92.22001L 387.36 92.16001 L 387.12 92.22001 C 386.19 92.30501 386.045 93.78401 386.94 94.08001L 387.12 94.14001 L 387.36 94.20001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 387.36 93.18001 L 392.28 93.18001 L 392.1 93.84001 L 387.84 108.84001 L 387.36 110.52001 L 386.88 108.84001 L 382.56 93.84001 L 382.38 93.18001 L 383.04 93.18001 L 383.52 93.54001 L 387.84 108.54001 L 386.88 108.84001 L 386.88 108.54001 L 391.14 93.54001 L 392.1 93.84001 L 391.62 94.20001 L 387.36 94.20001"></path>
+<rect height="1.02" x="383.04" style="fill: rgb(0%, 0%, 0%)" y="93.18001" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 387.36 93.66001 L 391.62 93.66001 L 387.36 108.66001 L 383.04 93.66001"></path>
+<rect height="36.72" x="386.4" style="fill: rgb(0%, 0%, 0%)" y="56.46001" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 372.0 104.88001 L 372.06 104.70001 L 372.06 104.52001 C 372.043 103.48001 370.738 103.23101 370.2 104.04001L 370.14 104.22001 L 370.08 104.40001 L 370.08 104.82001 L 370.2 105.00001 L 370.26 105.12001 L 370.38 105.30001 L 370.56 105.42001 L 370.92 105.54001 L 371.34 105.54001 L 371.52 105.48001 L 371.64 105.36001 L 371.82 105.24001 L 371.94 105.06001 L 372.0 104.88001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 371.04 104.58001 L 372.54 100.50001 L 372.84 99.90001 L 373.38 100.32001 L 385.98 109.50001 L 387.36 110.52001 L 385.62 110.40001 L 370.08 109.32001 L 369.42 109.26001 L 369.6 108.60001 L 370.14 108.30001 L 385.68 109.38001 L 385.62 110.40001 L 385.32 110.28001 L 372.72 101.10001 L 373.38 100.32001 L 373.5 100.86001 L 372.0 104.94001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 369.6 108.60001 L 371.04 104.58001 L 372.0 104.94001 L 370.56 108.96001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 371.52 104.76001 L 373.02 100.68001 L 385.62 109.86001 L 370.08 108.78001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 239.22 55.56001 L 238.56 57.42001 L 370.8 105.54001 L 371.46 103.68001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 238.86 94.20001 L 239.22 94.08001 C 240.115 93.78401 239.97 92.30401 239.04 92.22001L 238.86 92.16001 L 238.62 92.22001 C 237.69 92.30501 237.545 93.78401 238.44 94.08001L 238.62 94.14001 L 238.86 94.20001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 238.86 93.18001 L 243.78 93.18001 L 243.6 93.84001 L 239.34 108.84001 L 238.86 110.52001 L 238.38 108.84001 L 234.06 93.84001 L 233.88 93.18001 L 234.54 93.18001 L 235.02 93.54001 L 239.34 108.54001 L 238.38 108.84001 L 238.38 108.54001 L 242.64 93.54001 L 243.6 93.84001 L 243.12 94.20001 L 238.86 94.20001"></path>
+<rect height="1.02" x="234.54" style="fill: rgb(0%, 0%, 0%)" y="93.18001" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 238.86 93.66001 L 243.12 93.66001 L 238.86 108.66001 L 234.54 93.66001"></path>
+<rect height="36.72" x="237.9" style="fill: rgb(0%, 0%, 0%)" y="56.46001" width="1.98"></rect>
+<rect height="13.5" x="164.58" style="fill: rgb(100%, 100%, 100%)" y="42.96001" width="148.5"></rect>
+<rect height="0.47998" x="164.58" style="fill: rgb(0%, 0%, 0%)" y="42.72003" width="148.74"></rect>
+<rect height="13.74" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="42.96001" width="0.48001"></rect>
+<rect height="0.47998" x="164.34" style="fill: rgb(0%, 0%, 0%)" y="56.22003" width="148.74"></rect>
+<rect height="13.74" x="164.34" style="fill: rgb(0%, 0%, 0%)" y="42.72001" width="0.48"></rect>
+<rect height="13.5" x="313.08" style="fill: rgb(100%, 100%, 100%)" y="110.46001" width="148.5"></rect>
+<rect height="0.47998" x="313.08" style="fill: rgb(0%, 0%, 0%)" y="110.22003" width="148.74"></rect>
+<rect height="13.74" x="461.34" style="fill: rgb(0%, 0%, 0%)" y="110.46001" width="0.48001"></rect>
+<rect height="0.47998" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="123.72003" width="148.74"></rect>
+<rect height="13.74" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="110.22001" width="0.48001"></rect>
+<rect height="13.5" x="164.58" style="fill: rgb(100%, 100%, 100%)" y="110.46001" width="148.5"></rect>
+<rect height="0.47998" x="164.58" style="fill: rgb(0%, 0%, 0%)" y="110.22003" width="148.74"></rect>
+<rect height="13.74" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="110.46001" width="0.48001"></rect>
+<rect height="0.47998" x="164.34" style="fill: rgb(0%, 0%, 0%)" y="123.72003" width="148.74"></rect>
+<rect height="13.74" x="164.34" style="fill: rgb(0%, 0%, 0%)" y="110.22001" width="0.48"></rect>
+<rect height="13.5" x="313.08" style="fill: rgb(100%, 100%, 100%)" y="0.240009999999984" width="148.5"></rect>
+<rect height="0.48001" x="313.08" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="148.74"></rect>
+<rect height="13.74" x="461.34" style="fill: rgb(0%, 0%, 0%)" y="0.240009999999984" width="0.48001"></rect>
+<rect height="0.48001" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="13.5" width="148.74"></rect>
+<rect height="13.74" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="9.99999997475243e-06" width="0.48001"></rect>
+<rect height="13.5" x="164.58" style="fill: rgb(100%, 100%, 100%)" y="0.240009999999984" width="148.5"></rect>
+<rect height="0.48001" x="164.58" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="148.74"></rect>
+<rect height="13.74" x="312.84" style="fill: rgb(0%, 0%, 0%)" y="0.240009999999984" width="0.48001"></rect>
+<rect height="0.48001" x="164.34" style="fill: rgb(0%, 0%, 0%)" y="13.5" width="148.74"></rect>
+<rect height="13.74" x="164.34" style="fill: rgb(0%, 0%, 0%)" y="9.99999997475243e-06" width="0.48"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 394.08 95.28001 L 394.32 95.28001 L 394.5 95.22001 L 394.62 95.10001 L 394.8 94.98001 L 394.92 94.86001 L 395.04 94.68001 L 395.1 94.50001 L 395.1 94.08001 C 394.978 93.60301 394.74 93.62901 394.5 93.36001L 394.32 93.30001 L 393.9 93.30001 L 393.72 93.36001 L 393.36 93.60001 L 393.24 93.72001 L 393.18 93.90001 L 393.12 94.08001 L 393.12 94.50001 L 393.18 94.68001 L 393.24 94.86001 L 393.36 94.98001 L 393.72 95.22001 L 393.9 95.28001 L 394.08 95.28001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 394.08 94.32001 L 399.06 94.32001 L 398.88 94.98001 L 394.56 109.98001 L 394.08 111.66001 L 393.6 109.98001 L 389.34 94.98001 L 389.16 94.32001 L 389.82 94.32001 L 390.3 94.68001 L 394.56 109.68001 L 393.6 109.98001 L 393.6 109.68001 L 397.92 94.68001 L 398.88 94.98001 L 398.4 95.34001 L 394.08 95.34001"></path>
+<rect height="1.02" x="389.82" style="fill: rgb(0%, 0%, 0%)" y="94.32001" width="4.26"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 394.08 94.80001 L 398.4 94.80001 L 394.08 109.80001 L 389.82 94.80001"></path>
+<rect height="80.58" x="393.12" style="fill: rgb(0%, 0%, 0%)" y="13.74001" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 232.08 95.28001 L 232.26 95.28001 L 232.5 95.22001 L 232.62 95.10001 L 232.8 94.98001 L 232.92 94.86001 L 233.04 94.50001 L 233.1 94.32001 L 233.04 94.08001 L 232.92 93.72001 L 232.8 93.60001 L 232.62 93.48001 L 232.5 93.36001 L 232.26 93.30001 L 231.9 93.30001 C 230.908 93.56101 230.785 94.79801 231.72 95.22001L 231.9 95.28001 L 232.08 95.28001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 232.08 94.32001 L 237.06 94.32001 L 236.88 94.98001 L 232.56 109.98001 L 232.08 111.66001 L 231.6 109.98001 L 227.28 94.98001 L 227.1 94.32001 L 227.76 94.32001 L 228.24 94.68001 L 232.56 109.68001 L 231.6 109.98001 L 231.6 109.68001 L 235.92 94.68001 L 236.88 94.98001 L 236.4 95.34001 L 232.08 95.34001"></path>
+<rect height="1.02" x="227.76" style="fill: rgb(0%, 0%, 0%)" y="94.32001" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 232.08 94.80001 L 236.4 94.80001 L 232.08 109.80001 L 227.76 94.80001"></path>
+<rect height="80.58" x="231.12" style="fill: rgb(0%, 0%, 0%)" y="13.74001" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 370.14 99.60001 L 370.26 99.24001 C 370.389 98.23901 369.242 97.71901 368.52 98.40001L 368.4 98.58001 L 368.34 98.76001 C 367.965 99.64201 369.11 100.48401 369.84 99.90001L 370.02 99.78001 L 370.14 99.60001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 369.3 99.12001 L 371.52 95.46001 L 371.88 94.86001 L 372.36 95.40001 L 382.86 106.98001 L 384.0 108.24001 L 382.32 107.76001 L 367.32 103.50001 L 366.66 103.32001 L 367.02 102.78001 L 367.62 102.54001 L 382.56 106.80001 L 382.32 107.76001 L 382.08 107.64001 L 371.58 96.06001 L 372.36 95.40001 L 372.42 96.00001 L 370.2 99.6600100000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 367.02 102.78001 L 369.3 99.12001 L 370.2 99.66001 L 367.92 103.32001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 369.72 99.36001 L 371.94 95.70001 L 382.44 107.28001 L 367.44 103.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 232.62 12.90001 L 231.6 14.58001 L 368.82 99.90001 L 369.84 98.22001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 252.78 99.72001 L 252.9 99.90001 L 253.02 100.02001 L 253.2 100.14001 L 253.38 100.20001 L 253.74 100.20001 L 253.98 100.14001 L 254.16 100.08001 L 254.4 99.84001 L 254.52 99.66001 L 254.58 99.48001 L 254.64 99.30001 L 254.58 99.06001 L 254.58 98.88001 L 254.34 98.52001 C 253.638 97.84201 252.547 98.42701 252.6 99.36001L 252.66 99.54001 L 252.78 99.72001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 253.62 99.24001 L 255.84 102.90001 L 256.14 103.50001 L 255.54 103.62001 L 240.48 107.76001 L 238.8 108.24001 L 239.94 106.98001 L 250.56 95.52001 L 251.04 94.98001 L 251.4 95.58001 L 251.34 96.18001 L 240.72 107.64001 L 239.94 106.98001 L 240.24 106.80001 L 255.3 102.66001 L 255.54 103.62001 L 254.94 103.44001 L 252.72 99.78001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 251.4 95.58001 L 253.62 99.24001 L 252.72 99.78001 L 250.5 96.12001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 253.2 99.48001 L 255.42 103.14001 L 240.36 107.28001 L 250.98 95.82001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 394.62 14.58001 L 393.6 12.90001 L 253.14 98.40001 L 254.16 100.08001"></path>
+<text x="235.44" textLength="9.17216670000002" y="10.3509078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y1</text>
+<text x="383.94" textLength="9.17216669999999" y="10.3509078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y0</text>
+<text x="144.36" textLength="19.97066826" y="11.9709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">SRC2</text>
+<text x="235.44" textLength="9.17216670000002" y="53.0709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X1</text>
+<text x="383.94" textLength="9.17216669999999" y="53.0709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="144.59976564" textLength="20.02646278" y="54.69115132" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">SRC1</text>
+<text x="359.81955672" textLength="57.89737022" y="119.97055204" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0, X1, Y0, or Y1</text>
+<text x="144.36" textLength="19.96388244" y="120.5709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="214.68" textLength="57.8973702199999" y="121.7109078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0, X1, Y0, or Y1</text></g></svg>
+<figcaption><a href="./VPERM2I128.html#fig-5-22">Figure 5-22</a>. VPERM2I128 Operation</figcaption></figure>
+<p>Imm8[1:0] select the source for the first destination 128-bit field, imm8[5:4] select the source for the second destination field. If imm8[3] is set, the low 128-bit field is zeroed. If imm8[7] is set, the high 128-bit field is zeroed.</p>
+<p>VEX.L must be 1, otherwise the instruction will #UD.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="vperm2i128">VPERM2I128<a class="anchor" href="#vperm2i128">
+			¶
+		</a></h3>
+<pre>CASE IMM8[1:0] of
+0: DEST[127:0]←SRC1[127:0]
+1: DEST[127:0]←SRC1[255:128]
+2: DEST[127:0]←SRC2[127:0]
+3: DEST[127:0]←SRC2[255:128]
+ESAC
+CASE IMM8[5:4] of
+0: DEST[255:128]←SRC1[127:0]
+1: DEST[255:128]←SRC1[255:128]
+2: DEST[255:128]←SRC2[127:0]
+3: DEST[255:128]←SRC2[255:128]
+ESAC
+IF (imm8[3])
+DEST[127:0] ← 0
+FI
+IF (imm8[7])
+DEST[255:128] ← 0
+FI
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>VPERM2I128: __m256i _mm256_permute2x128_si256 (__m256i a, __m256i b, int control)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type 6; additionally</p>
+<table>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If VEX.L = 0,</td></tr>
+<tr>
+<td>If VEX.W = 1.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

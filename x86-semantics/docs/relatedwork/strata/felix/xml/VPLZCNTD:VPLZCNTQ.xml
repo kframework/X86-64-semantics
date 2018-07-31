@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Count the Number of Leading Zero Bits for Packed Dword, Packed Qword Values" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VPLZCNTD"/>
+<x86:mnemonic name="VPLZCNTQ"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 44 /r VPLZCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Count the number of leading zero bits in each dword element of xmm2/m128/m32bcst using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 44 /r VPLZCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Count the number of leading zero bits in each dword element of ymm2/m256/m32bcst using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 44 /r VPLZCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512CD</td>
+<td>Count the number of leading zero bits in each dword element of zmm2/m512/m32bcst using writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W1 44 /r VPLZCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Count the number of leading zero bits in each qword element of xmm2/m128/m64bcst using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 44 /r VPLZCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Count the number of leading zero bits in each qword element of ymm2/m256/m64bcst using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 44 /r VPLZCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512CD</td>
+<td>Count the number of leading zero bits in each qword element of zmm2/m512/m64bcst using writemask k1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Counts the number of leading most significant zero bits in each dword or qword element of the source operand (the second operand) and stores the results in the destination register (the first operand) according to the writemask. If an element is zero, the result for that element is the operand size of the element.</p>
+<p>EVEX.512 encoded version: The source operand is a ZMM register, a 512-bit memory location, or a 512-bit vector broadcasted from a 32/64-bit memory location. The destination operand is a ZMM register, conditionally updated using writemask k1.</p>
+<p>EVEX.256 encoded version: The source operand is a YMM register, a 256-bit memory location, or a 256-bit vector broadcasted from a 32/64-bit memory location. The destination operand is a YMM register, conditionally updated using writemask k1.</p>
+<p>EVEX.128 encoded version: The source operand is a XMM register, a 128-bit memory location, or a 128-bit vector broadcasted from a 32/64-bit memory location. The destination operand is a XMM register, conditionally updated using writemask k1.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3>Operation</h3>
+<h4>VPLZCNTD</h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j*32
+    IF MaskBit(j) OR *no writemask*
+        THEN
+                temp ← 32
+                DEST[i+31:i] ← 0
+                WHILE (temp &gt; 0) AND (SRC[i+temp-1] = 0)
+                DO
+                    temp←temp – 1
+                    DEST[i+31:i]←DEST[i+31:i] + 1
+                OD
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE DEST[i+31:i]←0
+            FI
+    FI
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4>VPLZCNTQ</h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j*64
+    IF MaskBit(j) OR *no writemask*
+        THEN
+                temp ← 64
+                DEST[i+63:i] ← 0
+                WHILE (temp &gt; 0) AND (SRC[i+temp-1] = 0)
+                DO
+                    temp←temp – 1
+                    DEST[i+63:i]←DEST[i+63:i] + 1
+                OD
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE DEST[i+63:i]←0
+            FI
+    FI
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VPLZCNTD __m512i _mm512_lzcnt_epi32(__m512i a);
+</pre>
+<pre>VPLZCNTD __m512i _mm512_mask_lzcnt_epi32(__m512i s, __mmask16 m, __m512i a);
+</pre>
+<pre>VPLZCNTD __m512i _mm512_maskz_lzcnt_epi32( __mmask16 m, __m512i a);
+</pre>
+<pre>VPLZCNTQ __m512i _mm512_lzcnt_epi64(__m512i a);
+</pre>
+<pre>VPLZCNTQ __m512i _mm512_mask_lzcnt_epi64(__m512i s, __mmask8 m, __m512i a);
+</pre>
+<pre>VPLZCNTQ __m512i _mm512_maskz_lzcnt_epi64(__mmask8 m, __m512i a);
+</pre>
+<pre>VPLZCNTD __m256i _mm256_lzcnt_epi32(__m256i a);
+</pre>
+<pre>VPLZCNTD __m256i _mm256_mask_lzcnt_epi32(__m256i s, __mmask8 m, __m256i a);
+</pre>
+<pre>VPLZCNTD __m256i _mm256_maskz_lzcnt_epi32( __mmask8 m, __m256i a);
+</pre>
+<pre>VPLZCNTQ __m256i _mm256_lzcnt_epi64(__m256i a);
+</pre>
+<pre>VPLZCNTQ __m256i _mm256_mask_lzcnt_epi64(__m256i s, __mmask8 m, __m256i a);
+</pre>
+<pre>VPLZCNTQ __m256i _mm256_maskz_lzcnt_epi64(__mmask8 m, __m256i a);
+</pre>
+<pre>VPLZCNTD __m128i _mm_lzcnt_epi32(__m128i a);
+</pre>
+<pre>VPLZCNTD __m128i _mm_mask_lzcnt_epi32(__m128i s, __mmask8 m, __m128i a);
+</pre>
+<pre>VPLZCNTD __m128i _mm_maskz_lzcnt_epi32( __mmask8 m, __m128i a);
+</pre>
+<pre>VPLZCNTQ __m128i _mm_lzcnt_epi64(__m128i a);
+</pre>
+<pre>VPLZCNTQ __m128i _mm_mask_lzcnt_epi64(__m128i s, __mmask8 m, __m128i a);
+</pre>
+<pre>VPLZCNTQ __m128i _mm_maskz_lzcnt_epi64(__mmask8 m, __m128i a);
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>None</p>
+<h3>Other Exceptions</h3>
+<p>EVEX-encoded instruction, see Exceptions Type E4.</p></x86:instruction>

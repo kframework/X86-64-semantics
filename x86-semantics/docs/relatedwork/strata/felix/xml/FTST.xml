@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="TEST" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="FTST"/>
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D9 E4</td>
+<td>FTST</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Compare ST(0) with 0.0.</td></tr></table>
+<h2>Description</h2>
+<p>Compares the value in the ST(0) register with 0.0 and sets the condition code flags C0, C2, and C3 in the FPU status word according to the results (see table below).</p>
+<figure id="tbl-3-40">
+<table>
+<tr>
+<th>Condition</th>
+<th>C3</th>
+<th>C2</th>
+<th>C0</th></tr>
+<tr>
+<td>ST(0) &gt; 0.0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td></tr>
+<tr>
+<td>ST(0) &lt; 0.0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td></tr>
+<tr>
+<td>ST(0) = 0.0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td></tr>
+<tr>
+<td>Unordered</td>
+<td>1</td>
+<td>1</td>
+<td>1</td></tr></table>
+<figcaption><x86:tblref>Table 3-40</x86:tblref>. FTST Results</figcaption></figure>
+<p>This instruction performs an “unordered comparison.” An unordered comparison also checks the class of the numbers being compared (see “FXAM—Examine Floating-Point” in this chapter). If the value in register ST(0) is a NaN or is in an undefined format, the condition flags are set to “unordered” and the invalid operation exception is generated.</p>
+<p>The sign of zero is ignored, so that (– 0.0 ← +0.0).</p>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2>Operation</h2>
+<pre>CASE (relation of operands) OF
+    Not comparable:
+        C3, C2, C0 ← 111;
+    ST(0) &gt; 0.0:
+        C3, C2, C0 ← 000;
+    ST(0) &lt; 0.0:
+        C3, C2, C0 ← 001;
+    ST(0) = 0.0:
+        C3, C2, C0 ← 100;
+ESAC;
+</pre>
+<h2>FPU Flags Affected</h2>
+<table>
+<tr>
+<td>C1</td>
+<td>Set to 0.</td></tr>
+<tr>
+<td>C0, C2, C3</td>
+<td>See Table 3-40.</td></tr></table>
+<h2>Floating-Point Exceptions</h2>
+<table>
+<tr>
+<td>#IS</td>
+<td>Stack underflow occurred.</td></tr>
+<tr>
+<td>#IA</td>
+<td>The source operand is a NaN value or is in an unsupported format.</td></tr>
+<tr>
+<td>#D</td>
+<td>The source operand is a denormal value.</td></tr></table>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>

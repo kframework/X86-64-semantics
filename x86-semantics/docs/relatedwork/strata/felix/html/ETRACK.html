@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>ETRACK
+		— Activates EBLOCK Checks</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ETRACK
+		— Activates EBLOCK Checks</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 0CH ENCLS[ETRACK]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX1</td>
+<td>This leaf function activates EBLOCK checks.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td colspan="2">EAX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>ETRACK (In)</td>
+<td>Return error code (Out)</td>
+<td>Pointer to the SECS of the EPC page (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function provides the mechanism for hardware to track that software has completed the required TLB address clears successfully. The instruction can only be executed when the current privilege level is 0.</p>
+<p>The content of RCX is an effective address of an EPC page.</p>
+<p>The table below provides additional information on the memory parameter of ETRACK leaf function.</p>
+<h2 id="etrack-memory-parameter-semantics">ETRACK Memory Parameter Semantics<a class="anchor" href="#etrack-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>EPCPAGE</td></tr>
+<tr>
+<td>Read/Write access permitted by Enclave</td></tr></table>
+<p>The error codes are:</p>
+<figure id="tbl-40-45">
+<table>
+<tr>
+<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Description</th></tr>
+<tr>
+<td>No Error</td>
+<td>ETRACK successful.</td></tr>
+<tr>
+<td>SGX_PREV_TRK_INCMPL</td>
+<td>All processors did not complete the previous shoot-down sequence.</td></tr></table>
+<figcaption><a href="./ETRACK.html#tbl-40-45">Table 40-45</a>. ETRACK Return Value in RAX</figcaption></figure>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-46">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>ETRACK</td>
+<td>SECS [DS:RCX]</td>
+<td>Shared</td>
+<td>#GP</td>
+<td></td></tr></table>
+<figcaption><a href="./ETRACK.html#tbl-40-46">Table 40-46</a>. Base Concurrency Restrictions of ETRACK</figcaption></figure>
+<figure id="tbl-40-47">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>ETRACK</td>
+<td>SECS [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Exclusive</td>
+<td>SGX_EPC_PAGE _CONFLICT</td></tr></table>
+<figcaption><a href="./ETRACK.html#tbl-40-47">Table 40-47</a>. Additional Concurrency Restrictions of ETRACK</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>IF (DS:RCX is not 4KByte Aligned)
+    THEN #GP(0); FI;
+IF (DS:RCX does not resolve within an EPC)
+    THEN #PF(DS:RCX); FI;
+(* Check concurrency with other Intel SGX instructions *)
+IF (Other Intel SGX instructions using tracking facility on this SECS)
+    THEN
+        IF (&lt;&lt;VMX non-root operation&gt;&gt; AND &lt;&lt;ENABLE_EPC_VIRTUALIZATION_EXTENSIONS&gt;&gt;)
+            THEN
+                VMCS.Exit_reason ← SGX_CONFLICT;
+                VMCS.Exit_qualification.code ← TRACKING_RESOURCE_CONFLICT;
+                VMCS.Exit_qualification.error ← 0;
+                VMCS.Guest-physical_address ← SECS(TMP_SECS).ENCLAVECONTEXT;
+                VMCS.Guest-linear_address ← 0;
+            Deliver VMEXIT;
+            ELSE
+                #GP(0);
+        FI;
+FI;
+IF (EPCM(DS:RCX). VALID = 0)
+    THEN #PF(DS:RCX); FI;
+IF (EPCM(DS:RCX).PT ≠ PT_SECS)
+    THEN #PF(DS:RCX); FI;
+(* All processors must have completed the previous tracking cycle*)
+IF ( (DS:RCX).TRACKING ≠ 0) )
+    THEN
+        IF (&lt;&lt;VMX non-root operation&gt;&gt; AND &lt;&lt;ENABLE_EPC_VIRTUALIZATION_EXTENSIONS&gt;&gt;)
+            THEN
+                VMCS.Exit_reason ← SGX_CONFLICT;
+                VMCS.Exit_qualification.code ← TRACKING_REFERENCE_CONFLICT;
+                VMCS.Exit_qualification.error ← 0;
+                VMCS.Guest-physical_address ← SECS(TMP_SECS).ENCLAVECONTEXT;
+                VMCS.Guest-linear_address ← 0;
+            Deliver VMEXIT;
+        FI;
+    RFLAGS.ZF ← 1;
+        RAX← SGX_PREV_TRK_INCMPL;
+        GOTO DONE;
+    ELSE
+        RAX← 0;
+        RFLAGS.ZF ← 0;
+FI;
+DONE:
+RFLAGS.CF,PF,AF,OF,SF ← 0;
+</pre>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>Sets ZF if SECS is in use or invalid, otherwise cleared. Clears CF, PF, AF, OF, SF.</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If another thread is concurrently using the tracking facility on this SECS.</td></tr>
+<tr>
+<td rowspan="2">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand is non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If the specified EPC resource is in use.</td></tr>
+<tr>
+<td rowspan="2">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

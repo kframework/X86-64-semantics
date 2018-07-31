@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>AESDEC
+		— Perform One Round of an AES Decryption Flow</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>AESDEC
+		— Perform One Round of an AES Decryption Flow</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F 38 DE /r AESDEC xmm1, xmm2/m128</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AES</td>
+<td>Perform one round of an AES decryption flow, using the Equivalent Inverse Cipher, operating on a 128-bit data (state) from xmm1 with a 128-bit round key from xmm2/m128.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F38.WIG DE /r VAESDEC xmm1, xmm2, xmm3/m128</td>
+<td>RVM</td>
+<td>V/V</td>
+<td>Both AES and AVX flags</td>
+<td>Perform one round of an AES decryption flow, using the Equivalent Inverse Cipher, operating on a 128-bit data (state) from xmm2 with a 128-bit round key from xmm3/m128; store the result in xmm1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand2</td>
+<td>Operand3</td>
+<td>Operand4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>RVM</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>This instruction performs a single round of the AES decryption flow using the Equivalent Inverse Cipher, with the round key from the second source operand, operating on a 128-bit data (state) from the first source operand, and store the result in the destination operand.</p>
+<p>Use the AESDEC instruction for all but the last decryption round. For the last decryption round, use the AESDECLAST instruction.</p>
+<p>128-bit Legacy SSE version: The first source operand and the destination operand are the same and must be an XMM register. The second source operand can be an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>VEX.128 encoded version: The first source operand and the destination operand are XMM registers. The second source operand can be an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="aesdec">AESDEC<a class="anchor" href="#aesdec">
+			¶
+		</a></h3>
+<pre>STATE ← SRC1;
+RoundKey ← SRC2;
+STATE ← InvShiftRows( STATE );
+STATE ← InvSubBytes( STATE );
+STATE ← InvMixColumns( STATE );
+DEST[127:0] ← STATE XOR RoundKey;
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="vaesdec">VAESDEC<a class="anchor" href="#vaesdec">
+			¶
+		</a></h3>
+<pre>STATE ← SRC1;
+RoundKey ← SRC2;
+STATE ← InvShiftRows( STATE );
+STATE ← InvSubBytes( STATE );
+STATE ← InvMixColumns( STATE );
+DEST[127:0] ← STATE XOR RoundKey;
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>(V)AESDEC: __m128i _mm_aesdec (__m128i, __m128i)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type 4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

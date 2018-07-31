@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Subtract Scalar Double-Precision Floating-Point Value" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="SUBSD"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F2 0F 5C /r SUBSD xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Subtract the low double-precision floating-point value in xmm2/m64 from xmm1 and store the result in xmm1.</td></tr>
+<tr>
+<td>VEX.NDS.LIG.F2.0F.WIG 5C /r VSUBSD xmm1,xmm2, xmm3/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Subtract the low double-precision floating-point value in xmm3/m64 from xmm2 and store the result in xmm1.</td></tr>
+<tr>
+<td>EVEX.NDS.LIG.F2.0F.W1 5C /r VSUBSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Subtract the low double-precision floating-point value in xmm3/m64 from xmm2 and store the result in xmm1 under writemask k1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Subtract the low double-precision floating-point value in the second source operand from the first source operand and stores the double-precision floating-point result in the low quadword of the destination operand.</p>
+<p>The second source operand can be an XMM register or a 64-bit memory location. The first source and destination operands are XMM registers.</p>
+<p>128-bit Legacy SSE version: The destination and first source operand are the same. Bits (MAXVL-1:64) of the corresponding destination register remain unchanged.</p>
+<p>VEX.128 and EVEX encoded versions: Bits (127:64) of the XMM register destination are copied from corresponding bits in the first source operand. Bits (MAXVL-1:128) of the destination register are zeroed.</p>
+<p>EVEX encoded version: The low quadword element of the destination operand is updated according to the writemask.</p>
+<p>Software should ensure VSUBSD is encoded with VEX.L=0. Encoding VSUBSD with VEX.L=1 may encounter unpredictable behavior across different processor generations.</p>
+<h3>Operation</h3>
+<h4>VSUBSD (EVEX encoded version)</h4>
+<pre>IF (SRC2 *is register*) AND (EVEX.b = 1)
+    THEN
+        SET_RM(EVEX.RC);
+    ELSE
+        SET_RM(MXCSR.RM);
+FI;
+IF k1[0] or *no writemask*
+    THEN DEST[63:0]←SRC1[63:0] - SRC2[63:0]
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[63:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[63:0]←0
+        FI;
+FI;
+DEST[127:64] ← SRC1[127:64]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4>VSUBSD (VEX.128 encoded version)</h4>
+<pre>DEST[63:0]←SRC1[63:0] - SRC2[63:0]
+DEST[127:64] ←SRC1[127:64]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4>SUBSD (128-bit Legacy SSE version)</h4>
+<pre>DEST[63:0]←DEST[63:0] - SRC[63:0]
+DEST[MAXVL-1:64] (Unmodified)
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VSUBSD __m128d _mm_mask_sub_sd (__m128d s, __mmask8 k, __m128d a, __m128d b);
+</pre>
+<pre>VSUBSD __m128d _mm_maskz_sub_sd (__mmask8 k, __m128d a, __m128d b);
+</pre>
+<pre>VSUBSD __m128d _mm_sub_round_sd (__m128d a, __m128d b, int);
+</pre>
+<pre>VSUBSD __m128d _mm_mask_sub_round_sd (__m128d s, __mmask8 k, __m128d a, __m128d b, int);
+</pre>
+<pre>VSUBSD __m128d _mm_maskz_sub_round_sd (__mmask8 k, __m128d a, __m128d b, int);
+</pre>
+<pre>SUBSD __m128d _mm_sub_sd (__m128d a, __m128d b);
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>Overflow, Underflow, Invalid, Precision, Denormal</p>
+<h3>Other Exceptions</h3>
+<p>VEX-encoded instructions, see Exceptions Type 3.</p>
+<p>EVEX-encoded instructions, see Exceptions Type E3.</p></x86:instruction>

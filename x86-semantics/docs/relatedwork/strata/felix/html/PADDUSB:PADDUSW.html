@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PADDUSB/PADDUSW
+		— Add Packed Unsigned Integers with Unsigned Saturation</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PADDUSB/PADDUSW
+		— Add Packed Unsigned Integers with Unsigned Saturation</h1>
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F DC /<em>r</em><sup>1</sup> PADDUSB <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Add packed unsigned byte integers from <em>mm/m64 and mm</em> and saturate the results.</td></tr>
+<tr>
+<td>66 0F DC /<em>r</em> PADDUSB <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed unsigned byte integers from <em>xmm2/m128</em> and <em>xmm1</em> saturate the results.</td></tr>
+<tr>
+<td>NP 0F DD /<em>r</em><sup>1</sup> PADDUSW <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Add packed unsigned word integers from <em>mm/m64 and mm</em> and saturate the results.</td></tr>
+<tr>
+<td>66 0F DD /<em>r</em> PADDUSW <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed unsigned word integers from <em>xmm2/m128</em> to <em>xmm1</em> and saturate the results.</td></tr>
+<tr>
+<td>VEX.NDS.128.660F.WIG DC /r VPADDUSB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed unsigned byte integers from <em>xmm3/m128</em> to <em>xmm2</em> and saturate the results.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG DD /r VPADDUSW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed unsigned word integers from <em>xmm3/m128</em> to <em>xmm2</em> and saturate the results.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG DC /r VPADDUSB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Add packed unsigned byte integers from <em>ymm2</em>, and <em>ymm3/m256</em> and store the saturated results in <em>ymm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG DD /r VPADDUSW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Add packed unsigned word integers from <em>ymm2</em>, and <em>ymm3/m256</em> and store the saturated results in <em>ymm1</em>.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG DC /r VPADDUSB <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed unsigned byte integers from xmm2, and <em>xmm3/m128</em> and store the saturated results in xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG DC /r VPADDUSB <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed unsigned byte integers from ymm2, and <em>ymm3/m256</em> and store the saturated results in ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG DC /r VPADDUSB <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Add packed unsigned byte integers from zmm2, and <em>zmm3/m512</em> and store the saturated results in zmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG DD /r VPADDUSW <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed unsigned word integers from xmm2, and <em>xmm3/m128</em> and store the saturated results in xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG DD /r VPADDUSW <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed unsigned word integers from ymm2, and <em>ymm3/m256</em> and store the saturated results in ymm1 under writemask k1.</td></tr></table>
+<table>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG DD /r VPADDUSW <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Add packed unsigned word integers from zmm2, and <em>zmm3/m512</em> and store the saturated results in zmm1 under writemask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a SIMD add of the packed unsigned integers from the source operand (second operand) and the destination operand (first operand), and stores the packed integer results in the destination operand. See <span class="not-imported">Figure 9-4</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for an illustration of a SIMD operation. Overflow is handled with unsigned saturation, as described in the following paragraphs.</p>
+<p>(V)PADDUSB performs a SIMD add of the packed unsigned integers with saturation from the first source operand and second source operand and stores the packed integer results in the destination operand. When an individual byte result is beyond the range of an unsigned byte integer (that is, greater than FFH), the saturated value of FFH is written to the destination operand.</p>
+<p>(V)PADDUSW performs a SIMD add of the packed unsigned word integers with saturation from the first source operand and second source operand and stores the packed integer results in the destination operand. When an individual word result is beyond the range of an unsigned word integer (that is, greater than FFFFH), the saturated value of FFFFH is written to the destination operand.</p>
+<p>EVEX encoded versions: The first source operand is an ZMM/YMM/XMM register. The second source operand is an ZMM/YMM/XMM register or a 512/256/128-bit memory location. The destination is an ZMM/YMM/XMM register.</p>
+<p>VEX.256 encoded version: The first source operand is a YMM register. The second source operand is a YMM register or a 256-bit memory location. The destination operand is a YMM register.</p>
+<p>VEX.128 encoded version: The first source operand is an XMM register. The second source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding destination register destination are zeroed.</p>
+<p>128-bit Legacy SSE version: The first source operand is an XMM register. The second operand can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper bits (MAXVL-1:128) of the corresponding register destination are unmodified.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="paddusb--with-64-bit-operands-">PADDUSB (with 64-bit operands)<a class="anchor" href="#paddusb--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[7:0] ← SaturateToUnsignedByte(DEST[7:0] + SRC (7:0] );
+(* Repeat add operation for 2nd through 7th bytes *)
+DEST[63:56] ← SaturateToUnsignedByte(DEST[63:56] + SRC[63:56]
+</pre>
+<h3 id="paddusb--with-128-bit-operands-">PADDUSB (with 128-bit operands)<a class="anchor" href="#paddusb--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[7:0] ← SaturateToUnsignedByte (DEST[7:0] + SRC[7:0]);
+(* Repeat add operation for 2nd through 14th bytes *)
+DEST[127:120] ← SaturateToUnSignedByte (DEST[127:120] + SRC[127:120]);
+</pre>
+<h3 id="vpaddusb--vex-128-encoded-version-">VPADDUSB (VEX.128 encoded version)<a class="anchor" href="#vpaddusb--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[7:0]←SaturateToUnsignedByte (SRC1[7:0] + SRC2[7:0]);
+(* Repeat subtract operation for 2nd through 14th bytes *)
+DEST[127:120]←SaturateToUnsignedByte (SRC1[111:120] + SRC2[127:120]);
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpaddusb--vex-256-encoded-version-">VPADDUSB (VEX.256 encoded version)<a class="anchor" href="#vpaddusb--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[7:0]←SaturateToUnsignedByte (SRC1[7:0] + SRC2[7:0]);
+(* Repeat add operation for 2nd through 31st bytes *)
+DEST[255:248]←SaturateToUnsignedByte (SRC1[255:248] + SRC2[255:248]);
+</pre>
+<h3 id="paddusw--with-64-bit-operands-">PADDUSW (with 64-bit operands)<a class="anchor" href="#paddusw--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[15:0] ← SaturateToUnsignedWord(DEST[15:0] + SRC[15:0] );
+(* Repeat add operation for 2nd and 3rd words *)
+DEST[63:48] ← SaturateToUnsignedWord(DEST[63:48] + SRC[63:48] );
+</pre>
+<h3 id="paddusw--with-128-bit-operands-">PADDUSW (with 128-bit operands)<a class="anchor" href="#paddusw--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[15:0] ← SaturateToUnsignedWord (DEST[15:0] + SRC[15:0]);
+(* Repeat add operation for 2nd through 7th words *)
+DEST[127:112] ← SaturateToUnSignedWord (DEST[127:112] + SRC[127:112]);
+</pre>
+<h3 id="vpaddusw--vex-128-encoded-version-">VPADDUSW (VEX.128 encoded version)<a class="anchor" href="#vpaddusw--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SaturateToUnsignedWord (SRC1[15:0] + SRC2[15:0]);
+(* Repeat subtract operation for 2nd through 7th words *)
+DEST[127:112]←SaturateToUnsignedWord (SRC1[127:112] + SRC2[127:112]);
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpaddusw--vex-256-encoded-version-">VPADDUSW (VEX.256 encoded version)<a class="anchor" href="#vpaddusw--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>    DEST[15:0]←SaturateToUnsignedWord (SRC1[15:0] + SRC2[15:0]);
+    (* Repeat add operation for 2nd through 15th words *)
+    DEST[255:240]←SaturateToUnsignedWord (SRC1[255:240] + SRC2[255:240])
+VPADDUSB (EVEX encoded versions)
+(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR j←0 TO KL-1
+    i←j * 8
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i]←SaturateToUnsignedByte (SRC1[i+7:i] + SRC2[i+7:i])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+7:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="vpaddusw--evex-encoded-versions-">VPADDUSW (EVEX encoded versions)<a class="anchor" href="#vpaddusw--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateToUnsignedWord (SRC1[i+15:i] + SRC2[i+15:i])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h2>
+<pre>PADDUSB: __m64 _mm_adds_pu8(__m64 m1, __m64 m2)
+</pre>
+<pre>PADDUSW: __m64 _mm_adds_pu16(__m64 m1, __m64 m2)
+</pre>
+<pre>(V)PADDUSB: __m128i _mm_adds_epu8 ( __m128i a, __m128i b)
+</pre>
+<pre>(V)PADDUSW: __m128i _mm_adds_epu16 ( __m128i a, __m128i b)
+</pre>
+<pre>VPADDUSB: __m256i _mm256_adds_epu8 ( __m256i a, __m256i b)
+</pre>
+<pre>VPADDUSW: VPADDUSB__m512i _mm512_adds_epu8 ( __m512i a, __m512i b)
+</pre>
+<pre>VPADDUSW__m512i _mm512_adds_epu16 ( __m512i a, __m512i b)
+</pre>
+<pre>VPADDUSB__m512i _mm512_mask_adds_epu8 ( __m512i s, __mmask64 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDUSW__m512i _mm512_mask_adds_epu16 ( __m512i s, __mmask32 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDUSB__m512i _mm512_maskz_adds_epu8 (__mmask64 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDUSW__m512i _mm512_maskz_adds_epu16 (__mmask32 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDUSB__m256i _mm256_mask_adds_epu8 (__m256i s, __mmask32 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDUSW__m256i _mm256_mask_adds_epu16 (__m256i s, __mmask16 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDUSB__m256i _mm256_maskz_adds_epu8 (__mmask32 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDUSW__m256i _mm256_maskz_adds_epu16 (__mmask16 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDUSB__m128i _mm_mask_adds_epu8 (__m128i s, __mmask16 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDUSW__m128i _mm_mask_adds_epu16 (__m128i s, __mmask8 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDUSB__m128i _mm_maskz_adds_epu8 (__mmask16 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDUSW__m128i _mm_maskz_adds_epu16 (__mmask8 m, __m128i a, __m128i b)
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="#numeric-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

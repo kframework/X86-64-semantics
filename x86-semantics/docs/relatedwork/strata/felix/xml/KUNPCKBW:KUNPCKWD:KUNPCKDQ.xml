@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Unpack for Mask Registers" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="KUNPCKBW"/>
+<x86:mnemonic name="KUNPCKWD"/>
+<x86:mnemonic name="KUNPCKDQ"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.NDS.L1.66.0F.W0 4B /r KUNPCKBW k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Unpack and interleave 8 bits masks in k2 and k3 and write word result in k1.</td></tr>
+<tr>
+<td>VEX.NDS.L1.0F.W0 4B /r KUNPCKWD k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Unpack and interleave 16 bits in k2 and k3 and write double-word result in k1.</td></tr>
+<tr>
+<td>VEX.NDS.L1.0F.W1 4B /r KUNPCKDQ k1, k2, k3</td>
+<td>RVR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Unpack and interleave 32 bits masks in k2 and k3 and write quadword result in k1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RVR</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.1vvv (r)</td>
+<td>ModRM:r/m (r, ModRM:[7:6] must be 11b)</td></tr></table>
+<h2>Description</h2>
+<p>Unpacks the lower 8/16/32 bits of the second and third operands (source operands) into the low part of the first operand (destination operand), starting from the low bytes. The result is zero-extended in the destination.</p>
+<h2>Operation</h2>
+<h3>KUNPCKBW</h3>
+<pre>DEST[7:0] ← SRC2[7:0]
+DEST[15:8] ← SRC1[7:0]
+DEST[MAX_KL-1:16] ← 0
+</pre>
+<h3>KUNPCKWD</h3>
+<pre>DEST[15:0] ← SRC2[15:0]
+DEST[31:16] ← SRC1[15:0]
+DEST[MAX_KL-1:32] ← 0
+</pre>
+<h3>KUNPCKDQ</h3>
+<pre>DEST[31:0] ← SRC2[31:0]
+DEST[63:32] ← SRC1[31:0]
+DEST[MAX_KL-1:64] ← 0
+</pre>
+<h2>Intel C/C++ Compiler Intrinsic Equivalent</h2>
+<pre>KUNPCKBW __mmask16 _mm512_kunpackb(__mmask16 a, __mmask16 b);
+</pre>
+<pre>KUNPCKDQ __mmask64 _mm512_kunpackd(__mmask64 a, __mmask64 b);
+</pre>
+<pre>KUNPCKWD __mmask32 _mm512_kunpackw(__mmask32 a, __mmask32 b);
+</pre>
+<h2>Flags Affected</h2>
+<p>None</p>
+<h2>SIMD Floating-Point Exceptions</h2>
+<p>None</p>
+<h2>Other Exceptions</h2>
+<p>See Exceptions Type K20.</p></x86:instruction>

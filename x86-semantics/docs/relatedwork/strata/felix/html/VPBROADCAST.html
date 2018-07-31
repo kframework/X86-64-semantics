@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VPBROADCAST
+		— Load Integer and Broadcast</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPBROADCAST
+		— Load Integer and Broadcast</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.128.66.0F38.W0 78 /r VPBROADCASTB xmm1, xmm2/m8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a byte integer in the source operand to sixteen locations in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 78 /r VPBROADCASTB ymm1, xmm2/m8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a byte integer in the source operand to thirty-two locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 78 /r VPBROADCASTB xmm1{k1}{z}, xmm2/m8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast a byte integer in the source operand to locations in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 78 /r VPBROADCASTB ymm1{k1}{z}, xmm2/m8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast a byte integer in the source operand to locations in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 78 /r VPBROADCASTB zmm1{k1}{z}, xmm2/m8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Broadcast a byte integer in the source operand to 64 locations in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.W0 79 /r VPBROADCASTW xmm1, xmm2/m16</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a word integer in the source operand to eight locations in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 79 /r VPBROADCASTW ymm1, xmm2/m16</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a word integer in the source operand to sixteen locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 79 /r VPBROADCASTW xmm1{k1}{z}, xmm2/m16</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast a word integer in the source operand to locations in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 79 /r VPBROADCASTW ymm1{k1}{z}, xmm2/m16</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast a word integer in the source operand to locations in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 79 /r VPBROADCASTW zmm1{k1}{z}, xmm2/m16</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Broadcast a word integer in the source operand to 32 locations in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.W0 58 /r VPBROADCASTD xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a dword integer in the source operand to four locations in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 58 /r VPBROADCASTD ymm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a dword integer in the source operand to eight locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 58 /r VPBROADCASTD xmm1 {k1}{z}, xmm2/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a dword integer in the source operand to locations in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 58 /r VPBROADCASTD ymm1 {k1}{z}, xmm2/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a dword integer in the source operand to locations in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 58 /r VPBROADCASTD zmm1 {k1}{z}, xmm2/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast a dword integer in the source operand to locations in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.W0 59 /r VPBROADCASTQ xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a qword element in source operand to two locations in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 59 /r VPBROADCASTQ ymm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast a qword element in source operand to four locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W1 59 /r VPBROADCASTQ xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a qword element in source operand to locations in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 59 /r VPBROADCASTQ ymm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a qword element in source operand to locations in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 59 /r VPBROADCASTQ zmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast a qword element in source operand to locations in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 59 /r VBROADCASTI32x2 xmm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Broadcast two dword elements in source operand to locations in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 59 /r VBROADCASTI32x2 ymm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Broadcast two dword elements in source operand to locations in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 59 /r VBROADCASTI32x2 zmm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Broadcast two dword elements in source operand to locations in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 5A /r VBROADCASTI128 ymm1, m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast 128 bits of integer data in mem to low and high 128-bits in ymm1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 5A /r VBROADCASTI32X4 ymm1 {k1}{z}, m128</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast 128 bits of 4 doubleword integer data in mem to locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 5A /r VBROADCASTI32X4 zmm1 {k1}{z}, m128</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast 128 bits of 4 doubleword integer data in mem to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 5A /r VBROADCASTI64X2 ymm1 {k1}{z}, m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Broadcast 128 bits of 2 quadword integer data in mem to locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 5A /r VBROADCASTI64X2 zmm1 {k1}{z}, m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Broadcast 128 bits of 2 quadword integer data in mem to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 5B /r VBROADCASTI32X8 zmm1 {k1}{z}, m256</td>
+<td>E</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Broadcast 256 bits of 8 doubleword integer data in mem to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 5B /r VBROADCASTI64X4 zmm1 {k1}{z}, m256</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast 256 bits of 4 quadword integer data in mem to locations in zmm1 using writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Tuple2</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>Tuple4</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>E</td>
+<td>Tuple8</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Load integer data from the source operand (the second operand) and broadcast to all elements of the destination operand (the first operand).</p>
+<p>VEX256-encoded VPBROADCASTB/W/D/Q: The source operand is 8-bit, 16-bit, 32-bit, 64-bit memory location or the low 8-bit, 16-bit 32-bit, 64-bit data in an XMM register. The destination operand is a YMM register. VPBROADCASTI128 support the source operand of 128-bit memory location. Register source encodings for VPBROADCASTI128 is reserved and will #UD. Bits (MAXVL-1:256) of the destination register are zeroed.</p>
+<p>EVEX-encoded VPBROADCASTD/Q: The source operand is a 32-bit, 64-bit memory location or the low 32-bit, 64-bit data in an XMM register. The destination operand is a ZMM/YMM/XMM register and updated according to the writemask k1.</p>
+<p>VPBROADCASTI32X4 and VPBROADCASTI64X4: The destination operand is a ZMM register and updated according to the writemask k1. The source operand is 128-bit or 256-bit memory location. Register source encodings for VBROADCASTI32X4 and VBROADCASTI64X4 are reserved and will #UD.</p>
+<p>Note: VEX.vvvv and EVEX.vvvv are reserved and must be 1111b otherwise instructions will #UD.</p>
+<p>If VPBROADCASTI128 is encoded with VEX.L= 0, an attempt to execute the instruction encoded with VEX.L= 0 will cause an #UD exception.</p>
+<figure id="fig-5-16">
+<svg style="width: 475.848pt; height: 139.752048pt" viewBox="100.7 0.0 401.54 121.46004">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="115.38" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.540039999999976" width="0.48"></rect>
+<rect height="115.38" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.540039999999976" width="0.47998"></rect>
+<rect height="0.48004" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.48004" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="115.98" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 327.36 78.24004 L 329.34 82.0800400000001 L 329.64 82.6800400000001 L 328.98 82.80004 L 313.68 85.86004 L 311.94 86.22004 L 313.26 85.02004 L 324.6 74.28004 L 325.08 73.86004 L 325.38 74.40004 L 325.26 75.00004 L 313.92 85.74004 L 313.26 85.02004 L 313.5 84.90004 L 328.8 81.84004 L 328.98 82.80004 L 328.44 82.5600400000001 L 326.46 78.72004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 325.38 74.40004 L 327.36 78.24004 L 326.46 78.72004 L 324.48 74.88004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 326.94 78.48004 L 328.92 82.3200400000001 L 313.62 85.38004 L 324.96 74.64004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.84 29.7000399999999 L 422.94 27.9600399999999 L 326.94 77.40004 L 327.84 79.1400399999999"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="15.30004" width="37.14"></rect>
+<rect height="0.47998" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="15.06006" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="15.30004" width="0.48001"></rect>
+<rect height="0.48004" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="28.5599999999999" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="15.06004" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 69.90004 L 423.9 69.78004 C 424.832 69.5510399999999 424.684 67.99604 423.72 67.92004L 423.54 67.86004 L 423.36 67.92004 L 423.18 67.98004 L 423.0 68.04004 L 422.82 68.16004 L 422.7 68.34004 L 422.64 68.4600399999999 L 422.58 68.7000399999999 L 422.52 68.88004 C 422.65 69.20704 422.645 69.48104 422.94 69.72004L 423.3 69.84004 L 423.54 69.90004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.54 68.88004 L 427.8 68.94004 L 428.46 69.00004 L 428.28 69.60004 L 423.84 84.54004 L 423.36 86.22004 L 422.88 84.54004 L 418.74 69.54004 L 418.56 68.88004 L 419.22 68.88004 L 419.7 69.24004 L 423.84 84.24004 L 422.88 84.54004 L 422.88 84.24004 L 427.32 69.30004 L 428.28 69.60004 L 427.8 69.96004 L 423.54 69.90004"></path>
+<rect height="1.02" x="419.22" style="fill: rgb(0%, 0%, 0%)" y="68.88004" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 69.36004 L 427.8 69.42004 L 423.36 84.36004 L 419.22 69.36004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.98 28.80004 L 423.0 28.80004 L 422.58 68.88004 L 424.56 68.88004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.1 72.48004 L 395.28 72.60004 L 395.46 72.66004 C 396.409 72.7960400000001 397.005 71.7580400000001 396.36 70.9200400000001L 396.18 70.8000400000001 L 396.0 70.74004 C 395.053 70.41304 394.305 71.30304 394.8 72.24004L 394.92 72.36004 L 395.1 72.48004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 395.64 71.64004 L 399.24 73.98004 L 399.78 74.40004 L 399.3 74.8200399999999 L 387.54 85.0800400000001 L 386.22 86.22004 L 386.76 84.54004 L 391.26 69.60004 L 391.44 68.94004 L 391.98 69.30004 L 392.22 69.90004 L 387.72 84.84004 L 386.76 84.54004 L 386.88 84.30004 L 398.64 74.04004 L 399.3 74.8200399999999 L 398.7 74.88004 L 395.1 72.54004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 391.98 69.30004 L 395.64 71.64004 L 395.1 72.54004 L 391.44 70.2000399999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.4 72.06004 L 399.0 74.40004 L 387.24 84.66004 L 391.74 69.7200399999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.2 29.34004 L 422.52 28.26004 L 394.8 71.10004 L 396.48 72.1800400000001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.04 76.2000399999999 L 362.16 76.3800399999999 L 362.34 76.5000399999999 L 362.7 76.6200399999999 L 362.88 76.6200399999999 L 363.24 76.5000399999999 L 363.42 76.3800399999999 L 363.54 76.2600399999999 C 363.919 75.7110399999999 363.748 76.0030399999999 363.78 75.3600399999999L 363.72 75.18004 L 363.6 75.0000399999999 L 363.48 74.8200399999999 L 363.3 74.7600399999999 L 363.12 74.64004 L 362.94 74.64004 L 362.76 74.5800399999999 L 362.58 74.64004 L 362.34 74.7000399999999 L 362.22 74.8200399999999 L 362.04 74.94004 L 361.92 75.1200399999999 L 361.86 75.30004 L 361.8 75.4800399999999 L 361.8 75.66004 L 361.92 76.02004 L 362.04 76.2000399999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 75.60004 L 365.4 79.02004 L 365.82 79.5600400000001 L 365.22 79.8000400000001 L 350.76 85.5600400000001 L 349.14 86.16004 L 350.16 84.78004 L 359.34 72.24004 L 359.76 71.64004 L 360.12 72.1800400000001 L 360.12 72.78004 L 350.94 85.38004 L 350.16 84.78004 L 350.4 84.60004 L 364.86 78.84004 L 365.22 79.8000400000001 L 364.62 79.62004 L 361.98 76.26004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 360.12 72.18004 L 362.76 75.6000399999999 L 361.98 76.26004 L 359.34 72.8400399999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 75.90004 L 365.04 79.3200399999999 L 350.58 85.0800399999999 L 359.76 72.48004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.96 29.5800399999999 L 422.76 28.02004 L 362.22 74.8200399999999 L 363.42 76.3800399999999"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.14"></rect>
+<rect height="0.47998" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.48001"></rect>
+<rect height="0.47998" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.48001"></rect>
+<rect height="13.5" x="332.22" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.14"></rect>
+<rect height="0.47998" x="332.22" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.48001"></rect>
+<rect height="0.47998" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.38"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.47998"></rect>
+<rect height="13.5" x="369.36" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.14"></rect>
+<rect height="0.47998" x="369.36" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.48001"></rect>
+<rect height="0.47998" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.48001"></rect>
+<rect height="13.5" x="258.0" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.14"></rect>
+<rect height="0.47998" x="258.0" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.38"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.48001"></rect>
+<rect height="0.47998" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.47998"></rect>
+<rect height="13.5" x="295.14" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.08"></rect>
+<rect height="0.47998" x="295.14" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.32"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.47998"></rect>
+<rect height="0.47998" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.32"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.48001"></rect>
+<rect height="13.5" x="183.72" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.14"></rect>
+<rect height="0.47998" x="183.72" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.48"></rect>
+<rect height="0.47998" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.38"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.48001"></rect>
+<rect height="13.5" x="220.86" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.14"></rect>
+<rect height="0.47998" x="220.86" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.47998"></rect>
+<rect height="0.47998" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.48"></rect>
+<rect height="13.5" x="146.64" style="fill: rgb(100%, 100%, 100%)" y="86.16004" width="37.08"></rect>
+<rect height="0.47998" x="146.64" style="fill: rgb(0%, 0%, 0%)" y="85.92006" width="37.32"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="86.16004" width="0.48001"></rect>
+<rect height="0.47998" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="99.42006" width="37.32"></rect>
+<rect height="13.74" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="85.92004" width="0.48"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 293.4 80.22004 L 293.52 80.40004 L 293.64 80.52004 C 294.26 81.2580400000001 295.477 80.5880400000001 295.32 79.6800400000001L 295.26 79.4400400000001 L 295.14 79.26004 C 294.569 78.4730400000001 293.346 78.81104 293.34 79.8000400000001L 293.34 79.98004 L 293.4 80.22004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 294.3 79.80004 L 295.86 83.8200399999999 L 296.1 84.4800399999999 L 295.44 84.54004 L 279.9 86.04004 L 278.16 86.16004 L 279.54 85.14004 L 291.9 75.66004 L 292.44 75.24004 L 292.68 75.8400399999999 L 292.56 76.44004 L 280.2 85.92004 L 279.54 85.14004 L 279.84 85.02004 L 295.38 83.52004 L 295.44 84.54004 L 294.96 84.18004 L 293.4 80.16004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 292.68 75.84004 L 294.3 79.8000400000001 L 293.4 80.1600400000001 L 291.78 76.2000400000001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 293.88 79.98004 L 295.44 84.00004 L 279.9 85.50004 L 292.26 76.02004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.72 29.76004 L 423.0 27.90004 L 294.0 78.90004 L 294.72 80.76004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 253.32 81.36004 L 253.38 81.54004 L 253.5 81.72004 C 254.112 82.43704 255.401 82.00104 255.24 81.00004L 255.24 80.76004 L 255.12 80.5800400000001 C 254.694 79.7520400000001 253.357 79.99604 253.26 81.00004L 253.26 81.1800400000001 L 253.32 81.36004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 254.28 81.12004 L 255.54 85.2000400000001 L 255.72 85.80004 L 255.0 85.86004 L 239.46 86.16004 L 237.66 86.16004 L 239.16 85.2000400000001 L 252.24 76.68004 L 252.78 76.3200400000001 L 253.02 76.98004 L 252.78 77.52004 L 239.7 86.04004 L 239.16 85.2000400000001 L 239.46 85.14004 L 255.06 84.84004 L 255.0 85.86004 L 254.52 85.50004 L 253.26 81.42004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 253.02 76.98004 L 254.28 81.12004 L 253.26 81.4200400000001 L 252.0 77.28004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 253.8 81.24004 L 255.06 85.3200400000001 L 239.46 85.62004 L 252.54 77.10004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.66 29.76004 L 423.06 27.84004 L 253.98 80.10004 L 254.58 82.02004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 219.78 82.0800399999999 L 219.84 82.2600399999999 L 219.96 82.44004 C 220.564 83.18904 221.726 82.7310399999999 221.7 81.78004L 221.7 81.54004 L 221.64 81.3600399999999 C 221.171 80.54504 219.893 80.6250399999999 219.72 81.66004L 219.72 81.8400399999999 L 219.78 82.0800399999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 220.74 81.84004 L 221.82 85.98004 L 222.0 86.64004 L 221.28 86.5800400000001 L 205.68 86.2800400000001 L 203.94 86.22004 L 205.44 85.3200400000001 L 218.88 77.34004 L 219.48 76.98004 L 219.66 77.64004 L 219.42 78.1800400000001 L 205.98 86.1600400000001 L 205.44 85.3200400000001 L 205.74 85.26004 L 221.34 85.62004 L 221.28 86.5800400000001 L 220.8 86.22004 L 219.72 82.0800400000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 219.66 77.64004 L 220.74 81.84004 L 219.72 82.0800400000001 L 218.64 77.88004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 220.26 81.9600399999999 L 221.34 86.1000399999999 L 205.74 85.7400399999999 L 219.18 77.7600399999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.6 29.76004 L 423.12 27.84004 L 220.5 80.8200399999999 L 220.98 82.74004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 179.4 82.68004 L 179.46 82.8600399999999 L 179.58 83.04004 L 179.82 83.28004 L 180.0 83.40004 L 180.18 83.4600399999999 L 180.6 83.4600399999999 L 180.78 83.3400399999999 L 180.96 83.28004 L 181.08 83.16004 L 181.2 82.9800399999999 L 181.32 82.80004 L 181.38 82.62004 L 181.38 82.26004 L 181.32 82.02004 L 181.2 81.90004 L 181.08 81.7200399999999 L 180.9 81.6000399999999 L 180.54 81.4800399999999 L 180.18 81.4800399999999 L 180.0 81.54004 L 179.64 81.78004 L 179.52 81.90004 L 179.46 82.0800399999999 L 179.4 82.26004 L 179.4 82.68004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 180.36 82.44004 L 181.32 86.64004 L 181.38 87.30004 L 180.78 87.2400399999999 L 165.18 86.28004 L 163.44 86.2200399999999 L 164.94 85.38004 L 178.68 77.94004 L 179.28 77.64004 L 179.46 78.2400399999999 L 179.22 78.78004 L 165.48 86.2200399999999 L 164.94 85.38004 L 165.24 85.3200399999999 L 180.84 86.28004 L 180.78 87.2400399999999 L 180.3 86.88004 L 179.34 82.68004"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 179.46 78.24004 L 180.36 82.4400400000001 L 179.34 82.6800400000001 L 178.44 78.48004"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 179.88 82.56004 L 180.84 86.76004 L 165.24 85.80004 L 178.98 78.3600399999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.6 29.76004 L 423.18 27.84004 L 180.18 81.48004 L 180.6 83.40004"></path>
+<text x="417.6" textLength="9.17216669999999" y="25.4109377999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="368.27840322" textLength="14.56990952" y="27.03112804" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m32</text>
+<text x="126.9" textLength="20.02495482" y="96.3309378" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="160.2" textLength="9.90499989598945" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="197.22" textLength="9.84447194598945" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="234.42" textLength="9.84447194598945" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="271.5" textLength="9.90499989598948" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="308.7" textLength="9.90499989598948" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="345.72" textLength="9.84447194598948" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="382.92" textLength="9.84447194598948" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="420.0" textLength="9.90499989598948" y="98.0239492632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VPBROADCAST.html#fig-5-16">Figure 5-16</a>. VPBROADCASTD Operation (VEX.256 encoded version)</figcaption></figure>
+<figure id="fig-5-17">
+<svg style="width: 475.848pt; height: 140.256012pt" viewBox="100.7 0.0 401.54 121.88001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="115.92" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
+<rect height="115.92" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="116.4" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 327.36 79.32001 L 329.34 83.1600099999999 L 329.64 83.76001 L 328.98 83.88001 L 313.68 86.94001 L 311.94 87.30001 L 313.26 86.1000099999999 L 324.6 75.42001 L 325.08 75.00001 L 325.38 75.54001 L 325.26 76.14001 L 313.92 86.82001 L 313.26 86.1000099999999 L 313.5 85.98001 L 328.8 82.92001 L 328.98 83.88001 L 328.44 83.64001 L 326.46 79.80001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 325.38 75.54001 L 327.36 79.32001 L 326.46 79.80001 L 324.48 76.02001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 326.94 79.56001 L 328.92 83.40001 L 313.62 86.46001 L 324.96 75.78001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.84 30.78001 L 422.94 29.04001 L 326.94 78.54001 L 327.84 80.28001"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="16.38001" width="37.14"></rect>
+<rect height="0.48001" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="16.14" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="16.38001" width="0.48001"></rect>
+<rect height="0.48001" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="29.64" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="16.14001" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 70.98001 L 423.72 70.98001 L 423.9 70.92001 L 424.26 70.68001 L 424.38 70.56001 L 424.44 70.38001 L 424.5 70.20001 L 424.56 69.96001 L 424.5 69.78001 C 424.441 69.47201 424.253 69.19101 423.96 69.06001L 423.72 69.00001 L 423.36 69.00001 L 423.0 69.12001 L 422.82 69.24001 L 422.7 69.42001 L 422.58 69.78001 L 422.52 69.96001 C 422.658 70.34301 422.599 70.48501 422.94 70.80001L 423.3 70.92001 L 423.54 70.98001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.54 70.02001 L 427.8 70.02001 L 428.46 70.08001 L 428.28 70.68001 L 423.84 85.62001 L 423.36 87.30001 L 422.88 85.62001 L 418.74 70.62001 L 418.56 69.96001 L 419.22 69.96001 L 419.7 70.32001 L 423.84 85.32001 L 422.88 85.62001 L 422.88 85.32001 L 427.32 70.38001 L 428.28 70.68001 L 427.8 71.04001 L 423.54 71.04001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 419.22 69.96001 L 423.54 70.02001 L 423.54 71.04001 L 419.22 70.98001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 70.50001 L 427.8 70.50001 L 423.36 85.44001 L 419.22 70.44001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.98 29.88001 L 423.0 29.88001 L 422.58 69.96001 L 424.56 69.96001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.1 73.56001 L 395.28 73.68001 L 395.46 73.74001 C 396.433 73.87201 397.02 72.82301 396.36 72.06001L 396.18 71.88001 L 395.82 71.76001 L 395.46 71.76001 L 395.22 71.82001 L 395.1 71.94001 L 394.92 72.06001 L 394.8 72.18001 L 394.68 72.36001 L 394.68 72.60001 L 394.62 72.78001 L 394.68 72.96001 L 394.74 73.14001 L 394.8 73.32001 L 394.92 73.44001 L 395.1 73.56001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 395.64 72.72001 L 399.24 75.06001 L 399.78 75.48001 L 399.3 75.90001 L 387.54 86.16001 L 386.22 87.30001 L 386.76 85.62001 L 391.26 70.74001 L 391.44 70.08001 L 391.98 70.44001 L 392.22 71.04001 L 387.72 85.92001 L 386.76 85.62001 L 386.88 85.38001 L 398.64 75.12001 L 399.3 75.90001 L 398.7 75.96001 L 395.1 73.62001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 391.98 70.44001 L 395.64 72.7200099999999 L 395.1 73.62001 L 391.44 71.3400099999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.4 73.14001 L 399.0 75.48001 L 387.24 85.74001 L 391.74 70.86001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.2 30.42001 L 422.52 29.34001 L 394.8 72.18001 L 396.48 73.26001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.04 77.28001 L 362.16 77.46001 L 362.34 77.58001 L 362.7 77.70001 L 362.88 77.70001 L 363.24 77.58001 L 363.42 77.46001 L 363.54 77.34001 C 363.919 76.79101 363.748 77.08301 363.78 76.44001L 363.72 76.26001 L 363.6 76.08001 L 363.48 75.96001 C 362.745 75.29801 361.522 75.98601 361.86 76.98001L 361.92 77.16001 L 362.04 77.28001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 76.68001 L 365.4 80.10001 L 365.82 80.64001 L 365.22 80.88001 L 350.76 86.64001 L 349.08 87.30001 L 350.16 85.86001 L 359.34 73.38001 L 359.76 72.78001 L 360.12 73.32001 L 360.12 73.92001 L 350.94 86.46001 L 350.16 85.86001 L 350.4 85.68001 L 364.86 79.92001 L 365.22 80.88001 L 364.62 80.70001 L 361.98 77.34001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 360.12 73.32001 L 362.76 76.68001 L 361.98 77.3400099999999 L 359.34 73.98001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 76.98001 L 365.04 80.40001 L 350.58 86.16001 L 359.76 73.62001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.96 30.66001 L 422.76 29.10001 L 362.22 75.90001 L 363.42 77.46001"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.14"></rect>
+<rect height="0.48001" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.48001"></rect>
+<rect height="0.48001" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.48001"></rect>
+<rect height="13.5" x="332.22" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.14"></rect>
+<rect height="0.48001" x="332.22" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.48001"></rect>
+<rect height="0.48001" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.38"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.47998"></rect>
+<rect height="13.5" x="369.36" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.14"></rect>
+<rect height="0.48001" x="369.36" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.48001"></rect>
+<rect height="0.48001" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.48001"></rect>
+<rect height="13.5" x="258.0" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.14"></rect>
+<rect height="0.48001" x="258.0" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.38"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.48001"></rect>
+<rect height="0.48001" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.47998"></rect>
+<rect height="13.5" x="295.14" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.08"></rect>
+<rect height="0.48001" x="295.14" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.32"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.47998"></rect>
+<rect height="0.48001" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.32"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.48001"></rect>
+<rect height="13.5" x="183.72" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.14"></rect>
+<rect height="0.48001" x="183.72" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.48"></rect>
+<rect height="0.48001" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.38"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.48001"></rect>
+<rect height="13.5" x="220.86" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.14"></rect>
+<rect height="0.48001" x="220.86" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.47998"></rect>
+<rect height="0.48001" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.48"></rect>
+<rect height="13.5" x="146.64" style="fill: rgb(100%, 100%, 100%)" y="87.30001" width="37.08"></rect>
+<rect height="0.48001" x="146.64" style="fill: rgb(0%, 0%, 0%)" y="87.06" width="37.32"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="87.30001" width="0.48001"></rect>
+<rect height="0.48001" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="100.56" width="37.32"></rect>
+<rect height="13.74" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="87.06001" width="0.48"></rect>
+<text x="417.6" textLength="9.17216669999999" y="26.5509078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="368.27840322" textLength="14.56990952" y="28.17141644" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m32</text>
+<text x="126.9" textLength="20.02495482" y="97.4109078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="160.2" textLength="4.38451919598944" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="197.22" textLength="4.38451919598944" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="234.42" textLength="4.38451919598944" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="271.5" textLength="4.38451919598947" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="308.7" textLength="9.90499989598948" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="345.72" textLength="9.84447194598948" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="382.92" textLength="9.84447194598948" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="420.0" textLength="9.90499989598948" y="99.1039192632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VPBROADCAST.html#fig-5-17">Figure 5-17</a>. VPBROADCASTD Operation (128-bit version)</figcaption></figure>
+<figure id="fig-5-18">
+<svg style="width: 475.848pt; height: 147.096012pt" viewBox="100.7 0.0 401.54 127.58001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="121.62" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.48001000000005" width="0.48"></rect>
+<rect height="121.62" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.48001000000005" width="0.47998"></rect>
+<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="122.1" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 341.64 82.14001 L 344.28 85.56001 L 344.7 86.10001 L 344.1 86.34001 L 329.58 92.10001 L 327.9 92.76001 L 328.98 91.32001 L 338.22 78.84001 L 338.64 78.24001 L 339.0 78.78001 L 339.0 79.38001 L 329.76 91.92001 L 328.98 91.32001 L 329.22 91.14001 L 343.74 85.38001 L 344.1 86.34001 L 343.5 86.16001 L 340.86 82.80001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 339.0 78.78001 L 341.64 82.14001 L 340.86 82.80001 L 338.22 79.44001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 341.28 82.44001 L 343.92 85.86001 L 329.4 91.62001 L 338.64 79.08001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.84 36.12001 L 401.64 34.56001 L 341.1 81.36001 L 342.3 82.92001"></path>
+<rect height="13.5" x="365.1" style="fill: rgb(100%, 100%, 100%)" y="21.84001" width="74.28"></rect>
+<rect height="0.48001" x="365.1" style="fill: rgb(0%, 0%, 0%)" y="21.6" width="74.52"></rect>
+<rect height="13.74" x="439.14" style="fill: rgb(0%, 0%, 0%)" y="21.84001" width="0.48004"></rect>
+<rect height="0.48001" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="35.1" width="74.52"></rect>
+<rect height="13.74" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="21.60001" width="0.47998"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 402.24 76.44001 L 402.42 76.44001 L 402.66 76.38001 L 402.78 76.26001 L 402.96 76.14001 L 403.08 76.02001 L 403.14 75.84001 L 403.2 75.66001 L 403.26 75.42001 L 403.2 75.24001 C 403.141 74.93201 402.953 74.65101 402.66 74.52001L 402.42 74.46001 L 402.06 74.46001 L 401.7 74.58001 L 401.4 74.88001 L 401.22 75.42001 C 401.344 75.80101 401.296 76.06601 401.7 76.26001L 401.88 76.38001 L 402.06 76.44001 L 402.24 76.44001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.24 75.48001 L 407.22 75.48001 L 407.04 76.14001 L 402.72 91.08001 L 402.24 92.76001 L 401.76 91.08001 L 397.44 76.14001 L 397.26 75.48001 L 397.92 75.48001 L 398.4 75.84001 L 402.72 90.78001 L 401.76 91.08001 L 401.76 90.78001 L 406.08 75.84001 L 407.04 76.14001 L 406.56 76.50001 L 402.24 76.50001"></path>
+<rect height="1.02" x="397.92" style="fill: rgb(0%, 0%, 0%)" y="75.48001" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 402.24 75.96001 L 406.56 75.96001 L 402.24 90.90001 L 397.92 75.96001"></path>
+<rect height="40.08" x="401.28" style="fill: rgb(0%, 0%, 0%)" y="35.34001" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 268.92 86.88001 L 269.04 87.06001 L 269.16 87.18001 C 269.8 87.90801 271.079 87.29701 270.84 86.34001L 270.84 86.16001 L 270.6 85.80001 L 270.42 85.68001 L 270.3 85.62001 L 270.12 85.50001 L 269.7 85.50001 L 269.52 85.56001 C 269.013 85.92401 269.096 85.72101 268.92 86.28001L 268.86 86.46001 L 268.92 86.64001 L 268.92 86.88001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 269.82 86.52001 L 271.38 90.54001 L 271.56 91.20001 L 270.96 91.26001 L 255.42 92.64001 L 253.68 92.76001 L 255.06 91.74001 L 267.48 82.32001 L 268.08 81.90001 L 268.26 82.50001 L 268.14 83.10001 L 255.72 92.52001 L 255.06 91.74001 L 255.36 91.62001 L 270.9 90.24001 L 270.96 91.26001 L 270.48 90.90001 L 268.92 86.88001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 268.26 82.50001 L 269.82 86.52001 L 268.92 86.88001 L 267.36 82.86001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 269.4 86.70001 L 270.96 90.72001 L 255.42 92.10001 L 267.84 82.68001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.6 36.30001 L 401.88 34.44001 L 269.52 85.62001 L 270.24 87.48001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 191.94 88.74001 L 192.0 88.92001 L 192.06 89.10001 C 192.792 89.78201 193.837 89.52001 193.86 88.44001L 193.86 88.26001 L 193.8 88.02001 L 193.68 87.90001 L 193.56 87.72001 L 193.38 87.60001 L 193.02 87.48001 L 192.84 87.48001 L 192.66 87.54001 L 192.42 87.60001 L 192.3 87.66001 L 192.0 87.96001 L 191.88 88.32001 L 191.88 88.56001 L 191.94 88.74001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 192.9 88.50001 L 193.92 92.64001 L 193.98 93.30001 L 193.38 93.24001 L 177.78 92.76001 L 176.04 92.76001 L 177.54 91.86001 L 191.04 84.00001 L 191.64 83.64001 L 191.82 84.30001 L 191.58 84.84001 L 178.08 92.70001 L 177.54 91.86001 L 177.84 91.80001 L 193.44 92.28001 L 193.38 93.24001 L 192.9 92.88001 L 191.88 88.74001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 191.82 84.30001 L 192.9 88.50001 L 191.88 88.74001 L 190.8 84.54001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 192.42 88.62001 L 193.44 92.76001 L 177.84 92.28001 L 191.34 84.42001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.48 36.30001 L 402.0 34.38001 L 192.66 87.5400100000001 L 193.14 89.46001"></path>
+<rect height="13.5" x="365.1" style="fill: rgb(100%, 100%, 100%)" y="92.76001" width="74.28"></rect>
+<rect height="0.48" x="365.1" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="74.52"></rect>
+<rect height="13.74" x="439.14" style="fill: rgb(0%, 0%, 0%)" y="92.76001" width="0.48004"></rect>
+<rect height="0.48" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="106.02001" width="74.52"></rect>
+<rect height="13.74" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="0.47998"></rect>
+<rect height="13.5" x="290.88" style="fill: rgb(100%, 100%, 100%)" y="92.76001" width="74.22"></rect>
+<rect height="0.48" x="290.88" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="74.46"></rect>
+<rect height="13.74" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="92.76001" width="0.47998"></rect>
+<rect height="0.48" x="290.64" style="fill: rgb(0%, 0%, 0%)" y="106.02001" width="74.46"></rect>
+<rect height="13.74" x="290.64" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="0.47998"></rect>
+<rect height="13.5" x="216.6" style="fill: rgb(100%, 100%, 100%)" y="92.76001" width="74.28"></rect>
+<rect height="0.48" x="216.6" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="74.52"></rect>
+<rect height="13.74" x="290.64" style="fill: rgb(0%, 0%, 0%)" y="92.76001" width="0.47998"></rect>
+<rect height="0.48" x="216.36" style="fill: rgb(0%, 0%, 0%)" y="106.02001" width="74.52"></rect>
+<rect height="13.74" x="216.36" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="0.48"></rect>
+<rect height="13.5" x="142.38" style="fill: rgb(100%, 100%, 100%)" y="92.76001" width="74.22"></rect>
+<rect height="0.48" x="142.38" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="74.46"></rect>
+<rect height="13.74" x="216.36" style="fill: rgb(0%, 0%, 0%)" y="92.76001" width="0.48"></rect>
+<rect height="0.48" x="142.14" style="fill: rgb(0%, 0%, 0%)" y="106.02001" width="74.46"></rect>
+<rect height="13.74" x="142.14" style="fill: rgb(0%, 0%, 0%)" y="92.52001" width="0.48"></rect>
+<text x="328.01855574" textLength="14.6309818999999" y="32.01111342" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m64</text>
+<text x="395.52" textLength="9.23248509999996" y="33.6309078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="122.7" textLength="20.02495482" y="102.8709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">DEST</text>
+<text x="246.96" textLength="9.23248509999999" y="104.4909078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">X0</text>
+<text x="321.24" textLength="9.17216669999999" y="104.4909078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">X0</text>
+<text x="395.52" textLength="9.23248509999996" y="104.4909078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VPBROADCAST.html#fig-5-18">Figure 5-18</a>. VPBROADCASTQ Operation (256-bit version)</figcaption></figure>
+<figure id="fig-5-19">
+<svg style="width: 475.776048pt; height: 126.935976pt" viewBox="101.24 0.0 401.48004 110.77998">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="104.82" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
+<rect height="104.82" x="499.74" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48004"></rect>
+<rect height="0.47998" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.48"></rect>
+<rect height="0.47998" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="105.3" width="396.48"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.4 60.47998 L 367.32 60.47998 L 367.14 61.1399799999999 L 362.88 76.1399799999999 L 362.4 77.81998 L 361.92 76.1399799999999 L 357.6 61.1399799999999 L 357.42 60.47998 L 358.08 60.47998 L 358.56 60.83998 L 362.88 75.83998 L 361.92 76.1399799999999 L 361.92 75.83998 L 366.18 60.83998 L 367.14 61.1399799999999 L 366.66 61.4999799999999 L 362.4 61.4999799999999"></path>
+<rect height="1.02" x="358.08" style="fill: rgb(0%, 0%, 0%)" y="60.47998" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 60.95998 L 366.66 60.95998 L 362.4 75.95998 L 358.08 60.95998"></path>
+<rect height="23.04" x="361.44" style="fill: rgb(0%, 0%, 0%)" y="37.43998" width="1.98"></rect>
+<rect height="13.56" x="294.24" style="fill: rgb(100%, 100%, 100%)" y="23.39998" width="148.5"></rect>
+<rect height="0.47998" x="294.24" style="fill: rgb(0%, 0%, 0%)" y="23.16" width="148.74"></rect>
+<rect height="13.8" x="442.5" style="fill: rgb(0%, 0%, 0%)" y="23.39998" width="0.48001"></rect>
+<rect height="0.47998" x="294.0" style="fill: rgb(0%, 0%, 0%)" y="36.72" width="148.74"></rect>
+<rect height="13.8" x="294.0" style="fill: rgb(0%, 0%, 0%)" y="23.15998" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 229.62 73.4999799999999 L 229.68 73.6799799999999 L 229.8 73.85998 C 230.409 74.64198 231.591 74.1939799999999 231.6 73.19998L 231.54 73.0199799999999 L 231.48 72.7799799999999 L 231.36 72.6599799999999 L 231.24 72.47998 L 231.06 72.35998 L 230.7 72.2399799999999 L 230.52 72.2399799999999 L 230.34 72.2999799999999 C 229.963 72.3339799999999 229.773 72.6609799999999 229.62 72.95998L 229.56 73.1399799999999 L 229.56 73.31998 L 229.62 73.4999799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 230.58 73.2599799999999 L 231.72 77.3999799999999 L 231.9 78.0599799999999 L 231.18 77.9999799999999 L 215.58 77.8799799999999 L 213.84 77.8199799999999 L 215.34 76.9199799999999 L 228.66 68.8199799999999 L 229.26 68.45998 L 229.44 69.1199799999999 L 229.2 69.6599799999999 L 215.88 77.7599799999999 L 215.34 76.9199799999999 L 215.64 76.85998 L 231.24 77.0399799999999 L 231.18 77.9999799999999 L 230.7 77.6399799999999 L 229.56 73.4999799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 229.44 69.1199799999999 L 230.58 73.2599799999999 L 229.56 73.4999799999999 L 228.42 69.35998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 230.1 73.3799799999999 L 231.24 77.5199799999999 L 215.64 77.33998 L 228.96 69.2399799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.7 38.3999799999999 L 362.16 36.47998 L 230.34 72.2999799999999 L 230.88 74.21998"></path>
+<rect height="13.56" x="294.9" style="fill: rgb(100%, 100%, 100%)" y="77.7599799999999" width="148.5"></rect>
+<rect height="0.48004" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="77.5199399999999" width="148.74"></rect>
+<rect height="13.8" x="443.16" style="fill: rgb(0%, 0%, 0%)" y="77.75998" width="0.47998"></rect>
+<rect height="0.48004" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="91.07994" width="148.74"></rect>
+<rect height="13.8" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="77.5199799999999" width="0.48001"></rect>
+<rect height="13.56" x="146.4" style="fill: rgb(100%, 100%, 100%)" y="77.7599799999999" width="148.5"></rect>
+<rect height="0.48004" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="77.5199399999999" width="148.74"></rect>
+<rect height="13.8" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="77.75998" width="0.48001"></rect>
+<rect height="0.48004" x="146.16" style="fill: rgb(0%, 0%, 0%)" y="91.07994" width="148.74"></rect>
+<rect height="13.8" x="146.16" style="fill: rgb(0%, 0%, 0%)" y="77.5199799999999" width="0.48001"></rect>
+<text x="270.59898748" textLength="18.7688241399999" y="33.5711817399999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m128</text>
+<text x="354.96" textLength="9.17216669999999" y="35.1908778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="126.72" textLength="20.02495482" y="87.9308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="207.12" textLength="9.17216670000002" y="89.5508778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="355.62" textLength="9.17216669999999" y="89.5508778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VPBROADCAST.html#fig-5-19">Figure 5-19</a>. VBROADCASTI128 Operation (256-bit version)</figcaption></figure>
+<figure id="fig-5-20">
+<svg style="width: 475.776048pt; height: 126.143976pt" viewBox="101.24 0.0 401.48004 110.11998">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="104.16" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
+<rect height="104.16" x="499.74" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48004"></rect>
+<rect height="0.47998" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.48"></rect>
+<rect height="0.48001" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="104.63997" width="396.48"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.4 59.21998 L 367.32 59.21998 L 367.14 59.87998 L 362.88 74.87998 L 362.4 76.5599799999999 L 361.92 74.87998 L 357.6 59.87998 L 357.42 59.21998 L 358.08 59.21998 L 358.56 59.57998 L 362.88 74.57998 L 361.92 74.87998 L 361.92 74.57998 L 366.18 59.57998 L 367.14 59.87998 L 366.66 60.2399799999999 L 362.4 60.2399799999999"></path>
+<rect height="1.02" x="358.08" style="fill: rgb(0%, 0%, 0%)" y="59.21998" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 59.69998 L 366.66 59.69998 L 362.4 74.69998 L 358.08 59.69998"></path>
+<rect height="22.44" x="361.44" style="fill: rgb(0%, 0%, 0%)" y="36.71998" width="1.98"></rect>
+<rect height="13.5" x="292.26" style="fill: rgb(100%, 100%, 100%)" y="22.79998" width="148.5"></rect>
+<rect height="0.47998" x="292.26" style="fill: rgb(0%, 0%, 0%)" y="22.5600000000001" width="148.74"></rect>
+<rect height="13.74" x="440.52" style="fill: rgb(0%, 0%, 0%)" y="22.79998" width="0.48001"></rect>
+<rect height="0.47998" x="292.02" style="fill: rgb(0%, 0%, 0%)" y="36.0600000000001" width="148.74"></rect>
+<rect height="13.74" x="292.02" style="fill: rgb(0%, 0%, 0%)" y="22.55998" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 229.62 72.29998 L 229.68 72.47998 L 229.8 72.59998 C 230.272 73.40898 231.704 72.95998 231.6 71.93998L 231.48 71.57998 L 231.36 71.39998 L 231.12 71.15998 L 230.94 71.03998 L 230.34 71.03998 C 230.047 71.08698 229.727 71.40698 229.68 71.69998L 229.62 71.87998 L 229.62 72.29998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 230.58 71.99998 L 231.72 76.19998 L 231.84 76.85998 L 231.18 76.79998 L 215.58 76.55998 L 213.84 76.49998 L 215.34 75.59998 L 228.72 67.55998 L 229.32 67.19998 L 229.5 67.85998 L 229.26 68.39998 L 215.88 76.43998 L 215.34 75.59998 L 215.64 75.53998 L 231.24 75.83998 L 231.18 76.79998 L 230.7 76.43998 L 229.56 72.23998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 229.5 67.85998 L 230.58 71.99998 L 229.56 72.23998 L 228.48 68.09998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 230.1 72.11998 L 231.24 76.31998 L 215.64 76.01998 L 229.02 67.97998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.7 37.67998 L 362.16 35.75998 L 230.34 71.03998 L 230.88 72.95998"></path>
+<rect height="13.5" x="294.9" style="fill: rgb(100%, 100%, 100%)" y="76.49998" width="148.5"></rect>
+<rect height="0.48001" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="76.25997" width="148.74"></rect>
+<rect height="13.74" x="443.16" style="fill: rgb(0%, 0%, 0%)" y="76.49998" width="0.47998"></rect>
+<rect height="0.48001" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="89.75997" width="148.74"></rect>
+<rect height="13.74" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="76.25998" width="0.48001"></rect>
+<rect height="13.5" x="146.4" style="fill: rgb(100%, 100%, 100%)" y="76.49998" width="148.5"></rect>
+<rect height="0.48001" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="76.25997" width="148.74"></rect>
+<rect height="13.74" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="76.49998" width="0.48001"></rect>
+<rect height="0.48001" x="146.16" style="fill: rgb(0%, 0%, 0%)" y="89.75997" width="148.74"></rect>
+<rect height="13.74" x="146.16" style="fill: rgb(0%, 0%, 0%)" y="76.25998" width="0.48001"></rect>
+<text x="268.619036" textLength="18.7688241399999" y="32.91091424" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m256</text>
+<text x="352.98" textLength="9.17216669999999" y="34.5308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="126.72" textLength="20.02495482" y="86.6108778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="207.12" textLength="9.17216670000002" y="88.2308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="355.62" textLength="9.17216669999999" y="88.2308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VPBROADCAST.html#fig-5-20">Figure 5-20</a>. VBROADCASTI256 Operation (512-bit version)</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vpbroadcastb--evex-encoded-versions-">VPBROADCASTB (EVEX encoded versions)<a class="anchor" href="#vpbroadcastb--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR j←0 TO KL-1
+    i←j * 8
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i]←SRC[7:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+7:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpbroadcastw--evex-encoded-versions-">VPBROADCASTW (EVEX encoded versions)<a class="anchor" href="#vpbroadcastw--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SRC[15:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpbroadcastd--128-bit-version-">VPBROADCASTD (128 bit version)<a class="anchor" href="#vpbroadcastd--128-bit-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[31:0]
+DEST[31:0] ← temp
+DEST[63:32] ← temp
+DEST[95:64] ← temp
+DEST[127:96] ← temp
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vpbroadcastd--vex-256-encoded-version-">VPBROADCASTD (VEX.256 encoded version)<a class="anchor" href="#vpbroadcastd--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[31:0]
+DEST[31:0] ← temp
+DEST[63:32] ← temp
+DEST[95:64] ← temp
+DEST[127:96] ← temp
+DEST[159:128] ← temp
+DEST[191:160] ← temp
+DEST[223:192] ← temp
+DEST[255:224] ← temp
+DEST[MAXVL-1:256] ← 0
+VPBROADCASTD (EVEX encoded versions)
+(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[31:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpbroadcastq--vex-256-encoded-version-">VPBROADCASTQ (VEX.256 encoded version)<a class="anchor" href="#vpbroadcastq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[63:0]
+DEST[63:0] ← temp
+DEST[127:64] ← temp
+DEST[191:128] ← temp
+DEST[255:192] ← temp
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpbroadcastq--evex-encoded-versions-">VPBROADCASTQ (EVEX encoded versions)<a class="anchor" href="#vpbroadcastq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[63:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+VBROADCASTI32x2 (EVEX encoded versions)
+(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i← j * 32
+    n← (j mod 2) * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[n+31:n]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcasti128--vex-256-encoded-version-">VBROADCASTI128 (VEX.256 encoded version)<a class="anchor" href="#vbroadcasti128--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[127:0]
+DEST[127:0] ← temp
+DEST[255:128] ← temp
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vbroadcasti32x4--evex-encoded-versions-">VBROADCASTI32X4 (EVEX encoded versions)<a class="anchor" href="#vbroadcasti32x4--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i← j* 32
+    n← (j modulo 4) * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[n+31:n]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcasti64x2--evex-encoded-versions-">VBROADCASTI64X2 (EVEX encoded versions)<a class="anchor" href="#vbroadcasti64x2--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    n←(j modulo 2) * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[n+63:n]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] = 0
+            FI
+    FI;
+ENDFOR;
+</pre>
+<h4 id="vbroadcasti32x8--evex-u1-512-encoded-version-">VBROADCASTI32X8 (EVEX.U1.512 encoded version)<a class="anchor" href="#vbroadcasti32x8--evex-u1-512-encoded-version-">
+			¶
+		</a></h4>
+<pre>FOR j←0 TO 15
+    i←j * 32
+    n←(j modulo 8) * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[n+31:n]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcasti64x4--evex-512-encoded-version-">VBROADCASTI64X4 (EVEX.512 encoded version)<a class="anchor" href="#vbroadcasti64x4--evex-512-encoded-version-">
+			¶
+		</a></h4>
+<pre>FOR j←0 TO 7
+    i←j * 64
+    n← (j modulo 4) * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[n+63:n]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VPBROADCASTB __m512i _mm512_broadcastb_epi8( __m128i a);
+</pre>
+<pre>VPBROADCASTB __m512i _mm512_mask_broadcastb_epi8(__m512i s, __mmask64 k, __m128i a);
+</pre>
+<pre>VPBROADCASTB __m512i _mm512_maskz_broadcastb_epi8( __mmask64 k, __m128i a);
+</pre>
+<pre>VPBROADCASTB __m256i _mm256_broadcastb_epi8(__m128i a);
+</pre>
+<pre>VPBROADCASTB __m256i _mm256_mask_broadcastb_epi8(__m256i s, __mmask32 k, __m128i a);
+</pre>
+<pre>VPBROADCASTB __m256i _mm256_maskz_broadcastb_epi8( __mmask32 k, __m128i a);
+</pre>
+<pre>VPBROADCASTB __m128i _mm_mask_broadcastb_epi8(__m128i s, __mmask16 k, __m128i a);
+</pre>
+<pre>VPBROADCASTB __m128i _mm_maskz_broadcastb_epi8( __mmask16 k, __m128i a);
+</pre>
+<pre>VPBROADCASTB __m128i _mm_broadcastb_epi8(__m128i a);
+</pre>
+<pre>VPBROADCASTD __m512i _mm512_broadcastd_epi32( __m128i a);
+</pre>
+<pre>VPBROADCASTD __m512i _mm512_mask_broadcastd_epi32(__m512i s, __mmask16 k, __m128i a);
+</pre>
+<pre>VPBROADCASTD __m512i _mm512_maskz_broadcastd_epi32( __mmask16 k, __m128i a);
+</pre>
+<pre>VPBROADCASTD __m256i _mm256_broadcastd_epi32( __m128i a);
+</pre>
+<pre>VPBROADCASTD __m256i _mm256_mask_broadcastd_epi32(__m256i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTD __m256i _mm256_maskz_broadcastd_epi32( __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTD __m128i _mm_broadcastd_epi32(__m128i a);
+</pre>
+<pre>VPBROADCASTD __m128i _mm_mask_broadcastd_epi32(__m128i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTD __m128i _mm_maskz_broadcastd_epi32( __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m512i _mm512_broadcastq_epi64( __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m512i _mm512_mask_broadcastq_epi64(__m512i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m512i _mm512_maskz_broadcastq_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m256i _mm256_broadcastq_epi64(__m128i a);
+</pre>
+<pre>VPBROADCASTQ __m256i _mm256_mask_broadcastq_epi64(__m256i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m256i _mm256_maskz_broadcastq_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m128i _mm_broadcastq_epi64(__m128i a);
+</pre>
+<pre>VPBROADCASTQ __m128i _mm_mask_broadcastq_epi64(__m128i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTQ __m128i _mm_maskz_broadcastq_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTW __m512i _mm512_broadcastw_epi16(__m128i a);
+</pre>
+<pre>VPBROADCASTW __m512i _mm512_mask_broadcastw_epi16(__m512i s, __mmask32 k, __m128i a);
+</pre>
+<pre>VPBROADCASTW __m512i _mm512_maskz_broadcastw_epi16( __mmask32 k, __m128i a);
+</pre>
+<pre>VPBROADCASTW __m256i _mm256_broadcastw_epi16(__m128i a);
+</pre>
+<pre>VPBROADCASTW __m256i _mm256_mask_broadcastw_epi16(__m256i s, __mmask16 k, __m128i a);
+</pre>
+<pre>VPBROADCASTW __m256i _mm256_maskz_broadcastw_epi16( __mmask16 k, __m128i a);
+</pre>
+<pre>VPBROADCASTW __m128i _mm_broadcastw_epi16(__m128i a);
+</pre>
+<pre>VPBROADCASTW __m128i _mm_mask_broadcastw_epi16(__m128i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VPBROADCASTW __m128i _mm_maskz_broadcastw_epi16( __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m512i _mm512_broadcast_i32x2( __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m512i _mm512_mask_broadcast_i32x2(__m512i s, __mmask16 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m512i _mm512_maskz_broadcast_i32x2( __mmask16 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m256i _mm256_broadcast_i32x2( __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m256i _mm256_mask_broadcast_i32x2(__m256i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m256i _mm256_maskz_broadcast_i32x2( __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m128i _mm_broadcast_i32x2(__m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m128i _mm_mask_broadcast_i32x2(__m128i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x2 __m128i _mm_maskz_broadcast_i32x2( __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x4 __m512i _mm512_broadcast_i32x4( __m128i a);
+</pre>
+<pre>VBROADCASTI32x4 __m512i _mm512_mask_broadcast_i32x4(__m512i s, __mmask16 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x4 __m512i _mm512_maskz_broadcast_i32x4( __mmask16 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x4 __m256i _mm256_broadcast_i32x4( __m128i a);
+</pre>
+<pre>VBROADCASTI32x4 __m256i _mm256_mask_broadcast_i32x4(__m256i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x4 __m256i _mm256_maskz_broadcast_i32x4( __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI32x8 __m512i _mm512_broadcast_i32x8( __m256i a);
+</pre>
+<pre>VBROADCASTI32x8 __m512i _mm512_mask_broadcast_i32x8(__m512i s, __mmask16 k, __m256i a);
+</pre>
+<pre>VBROADCASTI32x8 __m512i _mm512_maskz_broadcast_i32x8( __mmask16 k, __m256i a);
+</pre>
+<pre>VBROADCASTI64x2 __m512i _mm512_broadcast_i64x2( __m128i a);
+</pre>
+<pre>VBROADCASTI64x2 __m512i _mm512_mask_broadcast_i64x2(__m512i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI64x2 __m512i _mm512_maskz_broadcast_i64x2( __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI64x2 __m256i _mm256_broadcast_i64x2( __m128i a);
+</pre>
+<pre>VBROADCASTI64x2 __m256i _mm256_mask_broadcast_i64x2(__m256i s, __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI64x2 __m256i _mm256_maskz_broadcast_i64x2( __mmask8 k, __m128i a);
+</pre>
+<pre>VBROADCASTI64x4 __m512i _mm512_broadcast_i64x4( __m256i a);
+</pre>
+<pre>VBROADCASTI64x4 __m512i _mm512_mask_broadcast_i64x4(__m512i s, __mmask8 k, __m256i a);
+</pre>
+<pre>VBROADCASTI64x4 __m512i _mm512_maskz_broadcast_i64x4( __mmask8 k, __m256i a);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>EVEX-encoded instructions, see Exceptions Type 6;</p>
+<p>EVEX-encoded instructions, syntax with reg/mem operand, see Exceptions Type E6.</p>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If VEX.L = 0 for VPBROADCASTQ, VPBROADCASTI128.</td></tr>
+<tr>
+<td>If EVEX.L’L = 0 for VBROADCASTI32X4/VBROADCASTI64X2.</td></tr>
+<tr>
+<td>If EVEX.L’L &lt; 10b for VBROADCASTI32X8/VBROADCASTI64X4.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

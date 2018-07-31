@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>INVEPT
+		— Invalidate Translations Derived from EPT</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>INVEPT
+		— Invalidate Translations Derived from EPT</h1>
+
+<table>
+<tr>
+<td><strong>Opcode Instruction Description</strong> 66 0F 38 80 INVEPT r64, m128 Invalidates EPT-derived entries in the TLBs and paging-structure caches (in 64-bit mode) 66 0F 38 80 INVEPT r32, m128 Invalidates EPT-derived entries in the TLBs and paging-structure caches (outside 64-bit mode)</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Invalidates mappings in the translation lookaside buffers (TLBs) and paging-structure caches that were derived from extended page tables (EPT). (See Chapter 28, “VMX Support for Address Translation”.) Invalidation is based on the <strong>INVEPT type</strong> specified in the register operand and the <strong>INVEPT descriptor</strong> specified in the memory operand.</p>
+<p>Outside IA-32e mode, the register operand is always 32 bits, regardless of the value of CS.D; in 64-bit mode, the register operand has 64 bits (the instruction cannot be executed in compatibility mode).</p>
+<p>The INVEPT types supported by a logical processors are reported in the IA32_VMX_EPT_VPID_CAP MSR (see Appendix A, “VMX Capability Reporting Facility”). There are two INVEPT types currently defined:</p>
+<ul>
+<li>Single-context invalidation. If the INVEPT type is 1, the logical processor invalidates all mappings associated with bits 51:12 of the EPT pointer (EPTP) specified in the INVEPT descriptor. It may invalidate other mappings as well.</li>
+<li>Global invalidation: If the INVEPT type is 2, the logical processor invalidates mappings associated with all EPTPs.</li></ul>
+<p>If an unsupported INVEPT type is specified, the instruction fails.</p>
+<p>INVEPT invalidates all the specified mappings for the indicated EPTP(s) regardless of the VPID and PCID values with which those mappings may be associated.</p>
+<p>The INVEPT descriptor comprises 128 bits and contains a 64-bit EPTP value in bits 63:0 (see <a href="./INVEPT.html#fig-30-1">Figure 30-1</a>).</p>
+<figure id="fig-30-1">
+<svg style="width: 455.616pt; height: 91.080012pt" viewBox="109.64 0.0 384.68 80.90001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="74.94" x="112.14" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
+<rect height="74.94" x="491.34" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="0.48001" x="112.14" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="379.68"></rect>
+<rect height="0.48001" x="112.14" style="fill: rgb(0%, 0%, 0%)" y="75.42" width="379.68"></rect>
+<rect height="1.02" x="153.6" style="fill: rgb(0%, 0%, 0%)" y="28.74001" width="306.6"></rect>
+<rect height="18.54" x="459.18" style="fill: rgb(0%, 0%, 0%)" y="29.22001" width="1.02"></rect>
+<rect height="1.02" x="153.12" style="fill: rgb(0%, 0%, 0%)" y="46.74001" width="306.54"></rect>
+<rect height="18.48" x="153.12" style="fill: rgb(0%, 0%, 0%)" y="28.74001" width="1.02"></rect>
+<rect height="18.0" x="153.6" style="fill: rgb(70%, 70%, 70%)" y="29.22001" width="153.06"></rect>
+<rect height="1.02" x="153.6" style="fill: rgb(0%, 0%, 0%)" y="28.74001" width="153.6"></rect>
+<rect height="18.54" x="306.18" style="fill: rgb(0%, 0%, 0%)" y="29.22001" width="1.02"></rect>
+<rect height="1.02" x="153.12" style="fill: rgb(0%, 0%, 0%)" y="46.74001" width="153.54"></rect>
+<rect height="18.48" x="153.12" style="fill: rgb(0%, 0%, 0%)" y="28.74001" width="1.02"></rect>
+<text x="150.0" textLength="14.99328888" y="27.5310792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">127</text>
+<text x="295.5" textLength="21.53168156" y="27.5310792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">6463</text>
+<text x="456.05517296" textLength="5.03580319999998" y="27.5310792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">0</text>
+<text x="182.40002644" textLength="98.8711123599999" y="42.83140716" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">Reserved (must be zero)</text>
+<text x="344.43514588" textLength="79.4434183599999" y="42.83140716" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">EPT pointer (EPTP)</text></g></svg>
+<figcaption><a href="./INVEPT.html#fig-30-1">Figure 30-1</a>. INVEPT Descriptor</figcaption></figure>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF (not in VMX operation) or (CR0.PE = 0) or (RFLAGS.VM = 1) or (IA32_EFER.LMA = 1 and CS.L = 0)
+    THEN #UD;
+ELSIF in VMX non-root operation
+    THEN VM exit;
+ELSIF CPL &gt; 0
+    THEN #GP(0);
+    ELSE
+        INVEPT_TYPE ← value of register operand;
+        IF IA32_VMX_EPT_VPID_CAP MSR indicates that processor does not support INVEPT_TYPE
+            THEN VMfail(Invalid operand to INVEPT/INVVPID);
+            ELSE // INVEPT_TYPE must be 1 or 2
+                INVEPT_DESC ← value of memory operand;
+                EPTP ← INVEPT_DESC[63:0];
+                CASE INVEPT_TYPE OF
+                    1:
+                                    // single-context invalidation
+                        IF VM entry with the “enable EPT“ VM execution control set to 1
+                        would fail due to the EPTP value
+                            THEN VMfail(Invalid operand to INVEPT/INVVPID);
+                            ELSE
+                                Invalidate mappings associated with EPTP[51:12];
+                                VMsucceed;
+                        FI;
+                        BREAK;
+                    2:
+                                    // global invalidation
+                        Invalidate mappings associated with all EPTPs;
+                        VMsucceed;
+                        BREAK;
+                ESAC;
+        FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>See the operation section and Section 30.2.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="4">#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If the memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains an unusable segment.</td></tr>
+<tr>
+<td>If the source operand is located in an execute-only code segment.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs in accessing the memory operand.</td></tr>
+<tr>
+<td rowspan="2">#SS(0)</td>
+<td>If the memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>If the SS register contains an unusable segment.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If not in VMX operation.</td></tr>
+<tr>
+<td>If the logical processor does not support EPT (IA32_VMX_PROCBASED_CTLS2[33]=0).</td></tr>
+<tr>
+<td>If the logical processor supports EPT (IA32_VMX_PROCBASED_CTLS2[33]=1) but does not support the INVEPT instruction (IA32_VMX_EPT_VPID_CAP[20]=0).</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The INVEPT instruction is not recognized in real-address mode.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The INVEPT instruction is not recognized in virtual-8086 mode.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The INVEPT instruction is not recognized in compatibility mode.</td></tr></table>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If the memory operand is in the CS, DS, ES, FS, or GS segments and the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs in accessing the memory operand.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the memory operand is in the SS segment and the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If not in VMX operation.</td></tr>
+<tr>
+<td>If the logical processor does not support EPT (IA32_VMX_PROCBASED_CTLS2[33]=0).</td></tr>
+<tr>
+<td>If the logical processor supports EPT (IA32_VMX_PROCBASED_CTLS2[33]=1) but does not support the INVEPT instruction (IA32_VMX_EPT_VPID_CAP[20]=0).</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

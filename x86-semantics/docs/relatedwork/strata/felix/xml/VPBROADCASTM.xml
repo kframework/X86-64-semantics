@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Broadcast Mask to Vector Register" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VPBROADCASTM"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W1 2A /r VPBROADCASTMB2Q xmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low byte value in k1 to two locations in xmm1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W1 2A /r VPBROADCASTMB2Q ymm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low byte value in k1 to four locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W1 2A /r VPBROADCASTMB2Q zmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512CD</td>
+<td>Broadcast low byte value in k1 to eight locations in zmm1.</td></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W0 3A /r VPBROADCASTMW2D xmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low word value in k1 to four locations in xmm1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W0 3A /r VPBROADCASTMW2D ymm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512VL AVX512CD</td>
+<td>Broadcast low word value in k1 to eight locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W0 3A /r VPBROADCASTMW2D zmm1, k1</td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX512CD</td>
+<td>Broadcast low word value in k1 to sixteen locations in zmm1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Broadcasts the zero-extended 64/32 bit value of the low byte/word of the source operand (the second operand) to each 64/32 bit element of the destination operand (the first operand). The source operand is an opmask register. The destination operand is a ZMM register (EVEX.512), YMM register (EVEX.256), or XMM register (EVEX.128).</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3>Operation</h3>
+<h4>VPBROADCASTMB2Q</h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j*64
+    DEST[i+63:i] ← ZeroExtend(SRC[7:0])
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4>VPBROADCASTMW2D</h4>
+<pre>(KL, VL) = (4, 128), (8, 256),(16, 512)
+FOR j←0 TO KL-1
+    i←j*32
+    DEST[i+31:i] ← ZeroExtend(SRC[15:0])
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VPBROADCASTMB2Q __m512i _mm512_broadcastmb_epi64( __mmask8);
+</pre>
+<pre>VPBROADCASTMW2D __m512i _mm512_broadcastmw_epi32( __mmask16);
+</pre>
+<pre>VPBROADCASTMB2Q __m256i _mm256_broadcastmb_epi64( __mmask8);
+</pre>
+<pre>VPBROADCASTMW2D __m256i _mm256_broadcastmw_epi32( __mmask8);
+</pre>
+<pre>VPBROADCASTMB2Q __m128i _mm_broadcastmb_epi64( __mmask8);
+</pre>
+<pre>VPBROADCASTMW2D __m128i _mm_broadcastmw_epi32( __mmask8);
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>None</p>
+<h3>Other Exceptions</h3>
+<p>EVEX-encoded instruction, see Exceptions Type E6NF.</p></x86:instruction>

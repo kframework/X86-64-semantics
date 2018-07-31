@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VBROADCAST
+		— Load with Broadcast Floating-Point Data</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VBROADCAST
+		— Load with Broadcast Floating-Point Data</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.128.66.0F38.W0 18 /r VBROADCASTSS xmm1, m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Broadcast single-precision floating-point element in mem to four locations in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 18 /r VBROADCASTSS ymm1, m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Broadcast single-precision floating-point element in mem to eight locations in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 19 /r VBROADCASTSD ymm1, m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Broadcast double-precision floating-point element in mem to four locations in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 1A /r VBROADCASTF128 ymm1, m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Broadcast 128 bits of floating-point data in mem to low and high 128-bits in ymm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.W0 18/r VBROADCASTSS <em>xmm1, xmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast the low single-precision floating-point element in the source operand to four locations in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 18 /r VBROADCASTSS <em>ymm1, xmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast low single-precision floating-point element in the source operand to eight locations in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 19 /r VBROADCASTSD <em>ymm1, xmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Broadcast low double-precision floating-point element in the source operand to four locations in ymm1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 19 /r VBROADCASTSD ymm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast low double-precision floating-point element in xmm2/m64 to four locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 19 /r VBROADCASTSD zmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast low double-precision floating-point element in xmm2/m64 to eight locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 19 /r VBROADCASTF32X2 ymm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Broadcast two single-precision floating-point elements in xmm2/m64 to locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 19 /r VBROADCASTF32X2 zmm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Broadcast two single-precision floating-point elements in xmm2/m64 to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 18 /r VBROADCASTSS xmm1 {k1}{z}, xmm2/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast low single-precision floating-point element in xmm2/m32 to all locations in xmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 18 /r VBROADCASTSS ymm1 {k1}{z}, xmm2/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast low single-precision floating-point element in xmm2/m32 to all locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 18 /r VBROADCASTSS zmm1 {k1}{z}, xmm2/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast low single-precision floating-point element in xmm2/m32 to all locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 1A /r VBROADCASTF32X4 ymm1 {k1}{z}, m128</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast 128 bits of 4 single-precision floating-point data in mem to locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 1A /r VBROADCASTF32X4 zmm1 {k1}{z}, m128</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast 128 bits of 4 single-precision floating-point data in mem to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 1A /r VBROADCASTF64X2 ymm1 {k1}{z}, m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Broadcast 128 bits of 2 double-precision floating-point data in mem to locations in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 1A /r VBROADCASTF64X2 zmm1 {k1}{z}, m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Broadcast 128 bits of 2 double-precision floating-point data in mem to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 1B /r VBROADCASTF32X8 zmm1 {k1}{z}, m256</td>
+<td>E</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Broadcast 256 bits of 8 single-precision floating-point data in mem to locations in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 1B /r VBROADCASTF64X4 zmm1 {k1}{z}, m256</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast 256 bits of 4 double-precision floating-point data in mem to locations in zmm1 using writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Tuple2</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>Tuple4</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>E</td>
+<td>Tuple8</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>VBROADCASTSD/VBROADCASTSS/VBROADCASTF128 load floating-point values as one tuple from the source operand (second operand) in memory and broadcast to all elements of the destination operand (first operand).</p>
+<p>VEX256-encoded versions: The destination operand is a YMM register. The source operand is either a 32-bit, 64-bit, or 128-bit memory location. Register source encodings are reserved and will #UD. Bits (MAXVL-1:256) of the destination register are zeroed.</p>
+<p>EVEX-encoded versions: The destination operand is a ZMM/YMM/XMM register and updated according to the writemask k1. The source operand is either a 32-bit, 64-bit memory location or the low doubleword/quadword element of an XMM register.</p>
+<p>VBROADCASTF32X2/VBROADCASTF32X4/VBROADCASTF64X2/VBROADCASTF32X8/VBROADCASTF64X4 load floating-point values as tuples from the source operand (the second operand) in memory or register and broadcast to all elements of the destination operand (the first operand). The destination operand is a YMM/ZMM register updated according to the writemask k1. The source operand is either a register or 64-bit/128-bit/256-bit memory location.</p>
+<p>VBROADCASTSD and VBROADCASTF128,F32x4 and F64x2 are only supported as 256-bit and 512-bit wide versions and up. VBROADCASTSS is supported in 128-bit, 256-bit and 512-bit wide versions. F32x8 and F64x4 are only supported as 512-bit wide versions.</p>
+<p>VBROADCASTF32X2/VBROADCASTF32X4/VBROADCASTF32X8 have 32-bit granularity. VBROADCASTF64X2 and VBROADCASTF64X4 have 64-bit granularity.</p>
+<p>Note: VEX.vvvv and EVEX.vvvv are reserved and must be 1111b otherwise instructions will #UD.</p>
+<p>If VBROADCASTSD or VBROADCASTF128 is encoded with VEX.L= 0, an attempt to execute the instruction encoded with VEX.L= 0 will cause an #UD exception.</p>
+<figure id="fig-5-1">
+<svg style="width: 475.848pt; height: 136.367976pt" viewBox="100.7 0.0 401.54 118.63998">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="112.62" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
+<rect height="112.62" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.47998"></rect>
+<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="113.16" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 327.36 78.8399799999999 L 329.34 82.6799799999999 L 329.64 83.2799799999999 L 328.98 83.3999799999998 L 313.68 86.4599799999999 L 311.94 86.8199799999999 L 313.26 85.6199799999998 L 324.6 74.8799799999998 L 325.08 74.4599799999999 L 325.38 74.9999799999998 L 325.26 75.5999799999998 L 313.92 86.3399799999999 L 313.26 85.6199799999998 L 313.5 85.4999799999998 L 328.8 82.4399799999999 L 328.98 83.3999799999998 L 328.44 83.1599799999999 L 326.46 79.3199799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 325.38 74.9999799999999 L 327.36 78.83998 L 326.46 79.31998 L 324.48 75.47998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 326.94 79.07998 L 328.92 82.91998 L 313.62 85.97998 L 324.96 75.2399799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.84 30.2999799999999 L 422.94 28.5599799999999 L 326.94 77.9999799999999 L 327.84 79.7399799999999"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="15.8999799999999" width="37.14"></rect>
+<rect height="0.47998" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="15.66" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="15.8999799999999" width="0.48001"></rect>
+<rect height="0.47998" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="29.16" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="15.6599799999999" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 70.4999799999999 L 423.9 70.3799799999999 C 424.832 70.1509799999999 424.684 68.5959799999999 423.72 68.5199799999999L 423.54 68.45998 L 423.0 68.6399799999999 L 422.82 68.7599799999999 L 422.7 68.93998 L 422.64 69.0599799999999 L 422.58 69.2399799999999 L 422.52 69.47998 C 422.65 69.80698 422.645 70.08098 422.94 70.31998L 423.3 70.43998 L 423.54 70.4999799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.54 69.47998 L 427.8 69.5399799999999 L 428.46 69.59998 L 428.28 70.19998 L 423.84 85.1399799999999 L 423.36 86.81998 L 422.88 85.1399799999999 L 418.74 70.1399799999999 L 418.56 69.47998 L 419.22 69.47998 L 419.7 69.83998 L 423.84 84.83998 L 422.88 85.1399799999999 L 422.88 84.83998 L 427.32 69.8999799999999 L 428.28 70.19998 L 427.8 70.55998 L 423.54 70.4999799999999"></path>
+<rect height="1.02" x="419.22" style="fill: rgb(0%, 0%, 0%)" y="69.47998" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 69.95998 L 427.8 70.0199799999999 L 423.36 84.95998 L 419.22 69.95998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.98 29.3999799999999 L 423.0 29.3999799999999 L 422.58 69.47998 L 424.56 69.47998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.1 73.07998 L 395.28 73.19998 L 395.46 73.2599799999999 C 396.409 73.39498 397.005 72.35798 396.36 71.51998L 396.18 71.39998 L 396.0 71.33998 C 395.053 71.01298 394.305 71.90298 394.8 72.83998L 394.92 72.95998 L 395.1 73.07998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 395.64 72.2399799999999 L 399.24 74.57998 L 399.78 74.9999799999999 L 399.3 75.4199799999999 L 387.54 85.67998 L 386.22 86.81998 L 386.76 85.1399799999999 L 391.26 70.19998 L 391.44 69.5399799999999 L 391.98 69.8999799999999 L 392.22 70.4999799999999 L 387.72 85.43998 L 386.76 85.1399799999999 L 386.88 84.8999799999999 L 398.64 74.6399799999999 L 399.3 75.4199799999999 L 398.7 75.47998 L 395.1 73.1399799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 391.98 69.8999799999999 L 395.64 72.2399799999999 L 395.1 73.1399799999999 L 391.44 70.7999799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.4 72.6599799999999 L 399.0 74.9999799999999 L 387.24 85.2599799999999 L 391.74 70.3199799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.2 29.9399799999999 L 422.52 28.8599799999998 L 394.8 71.6999799999999 L 396.48 72.7799799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.04 76.7999799999999 L 362.16 76.9799799999998 L 362.34 77.0999799999998 L 362.7 77.2199799999999 L 362.88 77.2199799999999 L 363.24 77.0999799999998 L 363.42 76.9799799999998 L 363.54 76.8599799999998 C 363.919 76.3109799999999 363.748 76.6029799999999 363.78 75.9599799999999L 363.72 75.7799799999999 L 363.6 75.5999799999998 L 363.48 75.4199799999999 L 363.3 75.3599799999998 L 363.12 75.2399799999999 L 362.94 75.2399799999999 L 362.76 75.1799799999999 L 362.58 75.2399799999999 L 362.34 75.2999799999999 L 362.22 75.4199799999999 L 362.04 75.5399799999999 L 361.92 75.7199799999999 L 361.86 75.8999799999999 L 361.8 76.0799799999999 L 361.8 76.2599799999999 L 361.92 76.6199799999999 L 362.04 76.7999799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 76.19998 L 365.4 79.6199799999999 L 365.82 80.15998 L 365.22 80.39998 L 350.76 86.15998 L 349.14 86.7599799999999 L 350.16 85.3799799999999 L 359.34 72.83998 L 359.76 72.2399799999999 L 360.12 72.77998 L 360.12 73.3799799999999 L 350.94 85.97998 L 350.16 85.3799799999999 L 350.4 85.19998 L 364.86 79.43998 L 365.22 80.39998 L 364.62 80.21998 L 361.98 76.85998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 360.12 72.7799799999999 L 362.76 76.1999799999999 L 361.98 76.85998 L 359.34 73.4399799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 76.4999799999999 L 365.04 79.9199799999999 L 350.58 85.6799799999999 L 359.76 73.07998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.96 30.1799799999999 L 422.76 28.6199799999999 L 362.22 75.4199799999999 L 363.42 76.9799799999998"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.14"></rect>
+<rect height="0.47998" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.48001"></rect>
+<rect height="0.47998" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.48001"></rect>
+<rect height="13.5" x="332.22" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.14"></rect>
+<rect height="0.47998" x="332.22" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.48001"></rect>
+<rect height="0.47998" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.38"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.47998"></rect>
+<rect height="13.5" x="369.36" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.14"></rect>
+<rect height="0.47998" x="369.36" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.48001"></rect>
+<rect height="0.47998" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.48001"></rect>
+<rect height="13.5" x="258.0" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.14"></rect>
+<rect height="0.47998" x="258.0" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.38"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.48001"></rect>
+<rect height="0.47998" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.47998"></rect>
+<rect height="13.5" x="295.14" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.08"></rect>
+<rect height="0.47998" x="295.14" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.32"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.47998"></rect>
+<rect height="0.47998" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.32"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.48001"></rect>
+<rect height="13.5" x="183.72" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.14"></rect>
+<rect height="0.47998" x="183.72" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.48"></rect>
+<rect height="0.47998" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.38"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.48001"></rect>
+<rect height="13.5" x="220.86" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.14"></rect>
+<rect height="0.47998" x="220.86" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.47998"></rect>
+<rect height="0.47998" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.48"></rect>
+<rect height="13.5" x="146.64" style="fill: rgb(100%, 100%, 100%)" y="86.7599799999999" width="37.08"></rect>
+<rect height="0.47998" x="146.64" style="fill: rgb(0%, 0%, 0%)" y="86.52" width="37.32"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="86.7599799999999" width="0.48001"></rect>
+<rect height="0.47998" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="100.02" width="37.32"></rect>
+<rect height="13.74" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="86.5199799999999" width="0.48"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 293.4 80.7599799999999 L 293.64 81.1199799999999 L 293.76 81.2399799999999 L 293.94 81.35998 L 294.12 81.4199799999999 L 294.48 81.4199799999999 L 294.72 81.35998 L 294.9 81.2399799999999 C 295.127 81.0139799999999 295.367 80.8269799999999 295.32 80.45998L 295.32 80.21998 L 295.26 80.0399799999999 L 295.14 79.85998 C 294.569 79.0729799999999 293.346 79.4109799999999 293.34 80.3999799999999L 293.34 80.57998 L 293.4 80.7599799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 294.3 80.3999799999999 L 295.86 84.4199799999999 L 296.1 85.0799799999999 L 295.44 85.1399799999999 L 279.9 86.6399799999999 L 278.16 86.7599799999999 L 279.54 85.7399799999999 L 291.9 76.2599799999999 L 292.44 75.83998 L 292.68 76.4399799999999 L 292.56 77.0399799999999 L 280.2 86.5199799999999 L 279.54 85.7399799999999 L 279.84 85.6199799999999 L 295.38 84.1199799999999 L 295.44 85.1399799999999 L 294.96 84.7799799999999 L 293.4 80.7599799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 292.68 76.4399799999999 L 294.3 80.3999799999999 L 293.4 80.7599799999999 L 291.78 76.7999799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 293.88 80.57998 L 295.44 84.59998 L 279.9 86.09998 L 292.26 76.6199799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.72 30.35998 L 423.0 28.4999799999999 L 294.0 79.4999799999999 L 294.72 81.35998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 253.32 81.95998 L 253.38 82.1399799999999 L 253.5 82.31998 C 254.112 83.03698 255.401 82.6009799999999 255.24 81.59998L 255.24 81.35998 L 255.12 81.17998 L 255.06 80.9999799999999 L 254.88 80.8799799999999 L 254.76 80.7599799999999 L 254.58 80.69998 L 253.98 80.69998 C 253.691 80.8469799999999 253.403 81.0189799999999 253.32 81.35998L 253.26 81.59998 L 253.26 81.77998 L 253.32 81.95998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 254.28 81.71998 L 255.54 85.79998 L 255.72 86.3999799999999 L 255.0 86.45998 L 239.46 86.7599799999999 L 237.66 86.7599799999999 L 239.16 85.79998 L 252.24 77.2799799999999 L 252.78 76.91998 L 253.02 77.57998 L 252.78 78.1199799999999 L 239.7 86.6399799999999 L 239.16 85.79998 L 239.46 85.7399799999999 L 255.06 85.43998 L 255.0 86.45998 L 254.52 86.09998 L 253.26 82.0199799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 253.02 77.57998 L 254.28 81.71998 L 253.26 82.01998 L 252.0 77.8799799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 253.8 81.8399799999999 L 255.06 85.9199799999999 L 239.46 86.2199799999999 L 252.54 77.6999799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.66 30.35998 L 423.06 28.43998 L 253.98 80.69998 L 254.58 82.6199799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 219.78 82.6799799999999 L 219.84 82.8599799999998 L 219.96 83.0399799999999 C 220.564 83.7889799999999 221.726 83.3309799999998 221.7 82.3799799999999L 221.7 82.1399799999999 L 221.64 81.9599799999999 C 221.171 81.1449799999999 219.893 81.2249799999998 219.72 82.2599799999999L 219.72 82.4399799999999 L 219.78 82.6799799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 220.74 82.4399799999999 L 221.82 86.5799799999999 L 222.0 87.2399799999998 L 221.28 87.1799799999999 L 205.68 86.8799799999999 L 203.94 86.8199799999999 L 205.44 85.9199799999999 L 218.88 77.9399799999999 L 219.48 77.5799799999999 L 219.66 78.2399799999998 L 219.42 78.7799799999999 L 205.98 86.7599799999999 L 205.44 85.9199799999999 L 205.74 85.8599799999998 L 221.34 86.2199799999999 L 221.28 87.1799799999999 L 220.8 86.8199799999999 L 219.72 82.6799799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 219.66 78.2399799999999 L 220.74 82.43998 L 219.72 82.67998 L 218.64 78.47998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 220.26 82.5599799999999 L 221.34 86.6999799999999 L 205.74 86.3399799999999 L 219.18 78.3599799999998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.6 30.35998 L 423.12 28.43998 L 220.5 81.41998 L 220.98 83.33998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 179.4 83.2799799999999 L 179.46 83.4599799999999 L 179.58 83.6399799999999 L 179.82 83.8799799999999 L 180.0 83.9999799999999 L 180.18 84.0599799999999 L 180.42 84.0599799999999 L 180.96 83.8799799999999 L 181.08 83.7599799999999 L 181.32 83.3999799999999 L 181.38 83.21998 L 181.38 82.85998 L 181.32 82.6199799999999 L 181.2 82.4999799999999 L 181.08 82.3199799999999 L 180.9 82.1999799999999 L 180.54 82.0799799999999 L 180.18 82.0799799999999 L 180.0 82.1399799999999 L 179.64 82.3799799999999 L 179.52 82.4999799999999 L 179.46 82.6799799999999 L 179.4 82.85998 L 179.4 83.2799799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 180.36 83.0399799999999 L 181.32 87.2399799999999 L 181.38 87.8999799999999 L 180.78 87.8399799999999 L 165.18 86.8799799999999 L 163.44 86.8199799999999 L 164.94 85.97998 L 178.68 78.5399799999999 L 179.28 78.2399799999999 L 179.46 78.8399799999999 L 179.22 79.3799799999999 L 165.48 86.8199799999999 L 164.94 85.97998 L 165.24 85.9199799999999 L 180.84 86.8799799999999 L 180.78 87.8399799999999 L 180.3 87.47998 L 179.34 83.2799799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 179.46 78.8399799999999 L 180.36 83.0399799999999 L 179.34 83.2799799999999 L 178.44 79.0799799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 179.88 83.1599799999999 L 180.84 87.35998 L 165.24 86.3999799999999 L 178.98 78.9599799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.6 30.35998 L 423.18 28.43998 L 180.18 82.07998 L 180.6 83.9999799999999"></path>
+<text x="417.6" textLength="9.17216669999999" y="26.0109777999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="368.27840322" textLength="14.56990952" y="27.6310680399998" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m32</text>
+<text x="126.9" textLength="20.02495482" y="96.9308777999998" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="160.2" textLength="9.90499989598945" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="197.22" textLength="9.84447194598945" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="234.42" textLength="9.84447194598945" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="271.5" textLength="9.90499989598948" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="308.7" textLength="9.90499989598948" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="345.72" textLength="9.84447194598948" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="382.92" textLength="9.84447194598948" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="420.0" textLength="9.90499989598948" y="98.6238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VBROADCAST.html#fig-5-1">Figure 5-1</a>. VBROADCASTSS Operation (VEX.256 encoded version)</figcaption></figure>
+<figure id="fig-5-2">
+<svg style="width: 475.848pt; height: 136.871976pt" viewBox="100.7 0.0 401.54 119.05998">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="113.1" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
+<rect height="113.1" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.47998"></rect>
+<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="113.58" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 327.36 79.2599799999999 L 329.34 83.0999799999999 L 329.64 83.6999799999999 L 328.98 83.8199799999999 L 313.68 86.8799799999999 L 311.94 87.2399799999999 L 313.26 86.0399799999999 L 324.6 75.35998 L 325.08 74.9399799999999 L 325.38 75.47998 L 325.26 76.0799799999999 L 313.92 86.7599799999999 L 313.26 86.0399799999999 L 313.5 85.91998 L 328.8 82.85998 L 328.98 83.8199799999999 L 328.44 83.5799799999999 L 326.46 79.7399799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 325.38 75.47998 L 327.36 79.2599799999999 L 326.46 79.7399799999999 L 324.48 75.95998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 326.94 79.4999799999999 L 328.92 83.3399799999999 L 313.62 86.3999799999999 L 324.96 75.71998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.84 30.71998 L 422.94 28.97998 L 326.94 78.41998 L 327.84 80.15998"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="16.31998" width="37.14"></rect>
+<rect height="0.47998" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="16.08" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="16.31998" width="0.48001"></rect>
+<rect height="0.48004" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="29.57994" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="16.07998" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 70.91998 L 423.72 70.91998 L 423.9 70.85998 L 424.26 70.6199799999999 L 424.38 70.4999799999999 L 424.44 70.3199799999999 L 424.5 70.13998 L 424.56 69.89998 L 424.5 69.71998 C 424.347 69.2979799999999 424.412 69.2109799999999 423.96 68.9999799999999L 423.72 68.9399799999999 L 423.54 68.8799799999999 L 423.0 69.0599799999999 L 422.82 69.1799799999999 L 422.7 69.35998 L 422.58 69.71998 L 422.52 69.89998 C 422.65 70.22698 422.645 70.50098 422.94 70.7399799999999L 423.3 70.85998 L 423.54 70.91998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.54 69.8999799999999 L 427.8 69.9599799999999 L 428.46 70.0199799999999 L 428.28 70.6199799999999 L 423.84 85.5599799999999 L 423.36 87.2399799999999 L 422.88 85.5599799999999 L 418.74 70.5599799999999 L 418.56 69.8999799999999 L 419.22 69.8999799999999 L 419.7 70.2599799999999 L 423.84 85.2599799999999 L 422.88 85.5599799999999 L 422.88 85.2599799999999 L 427.32 70.3199799999999 L 428.28 70.6199799999999 L 427.8 70.9799799999999 L 423.54 70.9199799999999"></path>
+<rect height="1.02" x="419.22" style="fill: rgb(0%, 0%, 0%)" y="69.89998" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 423.54 70.3799799999999 L 427.8 70.4399799999999 L 423.36 85.3799799999999 L 419.22 70.3799799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.98 29.81998 L 423.0 29.81998 L 422.58 69.89998 L 424.56 69.89998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.1 73.4999799999999 L 395.28 73.6199799999999 L 395.46 73.6799799999999 C 396.389 73.8419799999999 397.025 72.71798 396.36 71.9999799999999L 396.18 71.8199799999999 L 395.82 71.6999799999999 L 395.46 71.6999799999999 L 395.22 71.7599799999999 L 395.1 71.8799799999999 L 394.92 71.9999799999999 L 394.8 72.1199799999999 L 394.68 72.2999799999999 L 394.68 72.53998 L 394.62 72.71998 L 394.68 72.8999799999999 L 394.74 73.0799799999999 L 394.8 73.2599799999999 L 394.92 73.3799799999999 L 395.1 73.4999799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 395.64 72.65998 L 399.24 74.9999799999999 L 399.78 75.41998 L 399.3 75.83998 L 387.54 86.09998 L 386.22 87.2399799999999 L 386.76 85.5599799999999 L 391.26 70.6199799999999 L 391.44 69.95998 L 391.98 70.31998 L 392.22 70.91998 L 387.72 85.85998 L 386.76 85.5599799999999 L 386.88 85.31998 L 398.64 75.0599799999999 L 399.3 75.83998 L 398.7 75.89998 L 395.1 73.5599799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 391.98 70.3199799999999 L 395.64 72.6599799999999 L 395.1 73.5599799999999 L 391.44 71.2199799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 395.4 73.07998 L 399.0 75.41998 L 387.24 85.67998 L 391.74 70.73998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 424.2 30.35998 L 422.52 29.2799799999999 L 394.8 72.1199799999999 L 396.48 73.19998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.04 77.21998 L 362.16 77.39998 L 362.34 77.51998 L 362.7 77.63998 L 362.88 77.63998 L 363.24 77.51998 L 363.42 77.39998 L 363.54 77.27998 C 363.919 76.73098 363.748 77.02298 363.78 76.37998L 363.72 76.19998 L 363.6 76.01998 L 363.48 75.89998 C 362.758 75.24098 361.538 75.92598 361.86 76.85998L 361.92 77.09998 L 362.04 77.21998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 76.6199799999999 L 365.4 80.03998 L 365.82 80.5799799999999 L 365.22 80.8199799999999 L 350.76 86.5799799999999 L 349.08 87.2399799999999 L 350.16 85.7999799999999 L 359.34 73.3199799999999 L 359.76 72.71998 L 360.12 73.2599799999999 L 360.12 73.85998 L 350.94 86.3999799999999 L 350.16 85.7999799999999 L 350.4 85.6199799999999 L 364.86 79.85998 L 365.22 80.8199799999999 L 364.62 80.6399799999999 L 361.98 77.27998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 360.12 73.2599799999999 L 362.76 76.6199799999999 L 361.98 77.2799799999999 L 359.34 73.91998"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 76.91998 L 365.04 80.33998 L 350.58 86.09998 L 359.76 73.5599799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 423.96 30.59998 L 422.76 29.03998 L 362.22 75.83998 L 363.42 77.39998"></path>
+<rect height="13.5" x="406.5" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.14"></rect>
+<rect height="0.48001" x="406.5" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.38"></rect>
+<rect height="13.74" x="443.4" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.48001"></rect>
+<rect height="0.48001" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.48001"></rect>
+<rect height="13.5" x="332.22" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.14"></rect>
+<rect height="0.48001" x="332.22" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.48001"></rect>
+<rect height="0.48001" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.38"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.47998"></rect>
+<rect height="13.5" x="369.36" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.14"></rect>
+<rect height="0.48001" x="369.36" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.38"></rect>
+<rect height="13.74" x="406.26" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.48001"></rect>
+<rect height="0.48001" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.38"></rect>
+<rect height="13.74" x="369.12" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.48001"></rect>
+<rect height="13.5" x="258.0" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.14"></rect>
+<rect height="0.48001" x="258.0" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.38"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.48001"></rect>
+<rect height="0.48001" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.47998"></rect>
+<rect height="13.5" x="295.14" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.08"></rect>
+<rect height="0.48001" x="295.14" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.32"></rect>
+<rect height="13.74" x="331.98" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.47998"></rect>
+<rect height="0.48001" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.32"></rect>
+<rect height="13.74" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.48001"></rect>
+<rect height="13.5" x="183.72" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.14"></rect>
+<rect height="0.48001" x="183.72" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.48"></rect>
+<rect height="0.48001" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.38"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.48001"></rect>
+<rect height="13.5" x="220.86" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.14"></rect>
+<rect height="0.48001" x="220.86" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.38"></rect>
+<rect height="13.74" x="257.76" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.47998"></rect>
+<rect height="0.48001" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.38"></rect>
+<rect height="13.74" x="220.62" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.48"></rect>
+<rect height="13.5" x="146.64" style="fill: rgb(100%, 100%, 100%)" y="87.2399799999999" width="37.08"></rect>
+<rect height="0.48001" x="146.64" style="fill: rgb(0%, 0%, 0%)" y="86.99997" width="37.32"></rect>
+<rect height="13.74" x="183.48" style="fill: rgb(0%, 0%, 0%)" y="87.2399799999999" width="0.48001"></rect>
+<rect height="0.48001" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="100.49997" width="37.32"></rect>
+<rect height="13.74" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="86.9999799999999" width="0.48"></rect>
+<text x="417.6" textLength="9.17216669999999" y="26.4308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="368.27840322" textLength="14.56990952" y="28.1113864399999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m32</text>
+<text x="126.9" textLength="20.02495482" y="97.3508777999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="160.2" textLength="4.38451919598944" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="197.22" textLength="4.38451919598944" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="234.42" textLength="4.38451919598944" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="271.5" textLength="4.38451919598947" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">0</text>
+<text x="308.7" textLength="9.90499989598948" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="345.72" textLength="9.84447194598948" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="382.92" textLength="9.84447194598948" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
+<text x="420.0" textLength="9.90499989598948" y="99.0438892632262" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VBROADCAST.html#fig-5-2">Figure 5-2</a>. VBROADCASTSS Operation (VEX.128-bit version)</figcaption></figure>
+<figure id="fig-5-3">
+<svg style="width: 475.848pt; height: 130.104012pt" viewBox="100.7 0.0 401.54 113.42001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="107.46" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999936" width="0.48"></rect>
+<rect height="107.46" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999936" width="0.47998"></rect>
+<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="107.94" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 341.64 75.42001 L 344.28 78.84001 L 344.7 79.38001 L 344.1 79.62001 L 329.58 85.38001 L 327.9 86.04001 L 328.98 84.60001 L 338.22 72.12001 L 338.64 71.52001 L 339.0 72.06001 L 339.0 72.66001 L 329.76 85.20001 L 328.98 84.60001 L 329.22 84.42001 L 343.74 78.66001 L 344.1 79.62001 L 343.5 79.44001 L 340.86 76.08001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 339.0 72.06001 L 341.64 75.42001 L 340.86 76.08001 L 338.22 72.72001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 341.28 75.72001 L 343.92 79.14001 L 329.4 84.90001 L 338.64 72.36001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.84 29.40001 L 401.64 27.84001 L 341.1 74.64001 L 342.3 76.20001"></path>
+<rect height="13.5" x="365.1" style="fill: rgb(100%, 100%, 100%)" y="15.12001" width="74.28"></rect>
+<rect height="0.48001" x="365.1" style="fill: rgb(0%, 0%, 0%)" y="14.88" width="74.52"></rect>
+<rect height="13.74" x="439.14" style="fill: rgb(0%, 0%, 0%)" y="15.12001" width="0.48004"></rect>
+<rect height="0.48001" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="28.38" width="74.52"></rect>
+<rect height="13.74" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="14.88001" width="0.47998"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 402.24 69.72001 L 402.42 69.66001 L 402.66 69.60001 C 403.519 69.27201 403.365 67.82401 402.42 67.74001L 402.24 67.68001 L 401.7 67.86001 L 401.52 67.98001 L 401.4 68.16001 L 401.34 68.34001 L 401.28 68.52001 L 401.22 68.70001 C 401.338 69.00701 401.33 69.37301 401.7 69.54001L 402.24 69.72001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.24 68.70001 L 407.22 68.70001 L 407.04 69.36001 L 402.72 84.36001 L 402.24 86.0400099999999 L 401.76 84.36001 L 397.44 69.36001 L 397.26 68.70001 L 397.92 68.70001 L 398.4 69.06001 L 402.72 84.06001 L 401.76 84.36001 L 401.76 84.06001 L 406.08 69.06001 L 407.04 69.36001 L 406.56 69.7200099999999 L 402.24 69.7200099999999"></path>
+<rect height="1.02" x="397.92" style="fill: rgb(0%, 0%, 0%)" y="68.70001" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 402.24 69.18001 L 406.56 69.18001 L 402.24 84.18001 L 397.92 69.18001"></path>
+<rect height="40.08" x="401.28" style="fill: rgb(0%, 0%, 0%)" y="28.62001" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 268.92 80.16001 L 269.04 80.34001 L 269.16 80.46001 C 269.77 81.20701 271.09 80.53201 270.84 79.62001L 270.84 79.38001 L 270.72 79.20001 C 270.065 78.42301 269.013 78.72801 268.86 79.74001L 268.92 79.92001 L 268.92 80.16001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 269.82 79.74001 L 271.38 83.76001 L 271.62 84.36001 L 270.96 84.48001 L 255.42 85.92001 L 253.68 86.04001 L 255.06 85.02001 L 267.48 75.60001 L 268.08 75.18001 L 268.26 75.78001 L 268.14 76.38001 L 255.72 85.80001 L 255.06 85.02001 L 255.36 84.90001 L 270.9 83.46001 L 270.96 84.48001 L 270.48 84.12001 L 268.92 80.10001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 268.26 75.78001 L 269.82 79.74001 L 268.92 80.10001 L 267.36 76.14001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 269.4 79.92001 L 270.96 83.94001 L 255.42 85.38001 L 267.84 75.96001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.6 29.58001 L 401.88 27.72001 L 269.52 78.84001 L 270.24 80.70001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 191.94 82.02001 L 192.0 82.20001 L 192.06 82.38001 C 192.792 83.06201 193.837 82.80001 193.86 81.72001L 193.86 81.48001 L 193.8 81.30001 C 193.343 80.46501 192.04 80.61501 191.88 81.60001L 191.88 81.78001 L 191.94 82.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 192.9 81.78001 L 193.92 85.92001 L 193.98 86.58001 L 193.38 86.52001 L 177.78 86.04001 L 176.04 86.04001 L 177.54 85.14001 L 191.04 77.28001 L 191.64 76.92001 L 191.82 77.58001 L 191.58 78.12001 L 178.08 85.98001 L 177.54 85.14001 L 177.84 85.08001 L 193.44 85.56001 L 193.38 86.52001 L 192.9 86.16001 L 191.88 82.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 191.82 77.58001 L 192.9 81.78001 L 191.88 82.02001 L 190.8 77.82001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 192.42 81.90001 L 193.44 86.04001 L 177.84 85.56001 L 191.34 77.70001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 402.48 29.58001 L 402.0 27.66001 L 192.66 80.82001 L 193.14 82.74001"></path>
+<rect height="13.5" x="365.1" style="fill: rgb(100%, 100%, 100%)" y="85.98001" width="74.28"></rect>
+<rect height="0.48001" x="365.1" style="fill: rgb(0%, 0%, 0%)" y="85.74" width="74.52"></rect>
+<rect height="13.74" x="439.14" style="fill: rgb(0%, 0%, 0%)" y="85.98001" width="0.48004"></rect>
+<rect height="0.48001" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="99.24" width="74.52"></rect>
+<rect height="13.74" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="85.74001" width="0.47998"></rect>
+<rect height="13.5" x="290.88" style="fill: rgb(100%, 100%, 100%)" y="85.98001" width="74.22"></rect>
+<rect height="0.48001" x="290.88" style="fill: rgb(0%, 0%, 0%)" y="85.74" width="74.46"></rect>
+<rect height="13.74" x="364.86" style="fill: rgb(0%, 0%, 0%)" y="85.98001" width="0.47998"></rect>
+<rect height="0.48001" x="290.64" style="fill: rgb(0%, 0%, 0%)" y="99.24" width="74.46"></rect>
+<rect height="13.74" x="290.64" style="fill: rgb(0%, 0%, 0%)" y="85.74001" width="0.47998"></rect>
+<rect height="13.5" x="216.6" style="fill: rgb(100%, 100%, 100%)" y="85.98001" width="74.28"></rect>
+<rect height="0.48001" x="216.6" style="fill: rgb(0%, 0%, 0%)" y="85.74" width="74.52"></rect>
+<rect height="13.74" x="290.64" style="fill: rgb(0%, 0%, 0%)" y="85.98001" width="0.47998"></rect>
+<rect height="0.48001" x="216.36" style="fill: rgb(0%, 0%, 0%)" y="99.24" width="74.52"></rect>
+<rect height="13.74" x="216.36" style="fill: rgb(0%, 0%, 0%)" y="85.74001" width="0.48"></rect>
+<rect height="13.5" x="142.38" style="fill: rgb(100%, 100%, 100%)" y="85.98001" width="74.22"></rect>
+<rect height="0.48001" x="142.38" style="fill: rgb(0%, 0%, 0%)" y="85.74" width="74.46"></rect>
+<rect height="13.74" x="216.36" style="fill: rgb(0%, 0%, 0%)" y="85.98001" width="0.48"></rect>
+<rect height="0.48001" x="142.14" style="fill: rgb(0%, 0%, 0%)" y="99.24" width="74.46"></rect>
+<rect height="13.74" x="142.14" style="fill: rgb(0%, 0%, 0%)" y="85.74001" width="0.48"></rect>
+<text x="395.52" textLength="9.23248509999996" y="26.8509078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="122.7" textLength="20.02495482" y="96.1509078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="172.74" textLength="9.17216670000002" y="97.7709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="246.96" textLength="9.23248509999999" y="97.7709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="321.24" textLength="9.17216669999999" y="97.7709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="395.52" textLength="9.23248509999996" y="97.7709078" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VBROADCAST.html#fig-5-3">Figure 5-3</a>. VBROADCASTSD Operation (VEX.256-bit version)</figcaption></figure>
+<figure id="fig-5-4">
+<svg style="width: 475.848pt; height: 133.776pt" viewBox="100.7 0.0 401.54 116.48">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="110.52" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.47999999999999" width="0.48"></rect>
+<rect height="110.52" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.47999999999999" width="0.47998"></rect>
+<rect height="0.48" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
+<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="111.00002" width="396.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 361.86 70.98 L 366.84 70.98 L 366.66 71.64 L 362.34 86.64 L 361.86 88.32 L 361.38 86.64 L 357.06 71.64 L 356.88 70.98 L 357.54 70.98 L 358.02 71.34 L 362.34 86.34 L 361.38 86.64 L 361.38 86.34 L 365.7 71.34 L 366.66 71.64 L 366.18 72.0 L 361.86 72.0"></path>
+<rect height="1.02" x="357.54" style="fill: rgb(0%, 0%, 0%)" y="70.98" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 361.86 71.46 L 366.18 71.46 L 361.86 86.46 L 357.54 71.46"></path>
+<rect height="40.08" x="360.9" style="fill: rgb(0%, 0%, 0%)" y="30.9" width="1.98"></rect>
+<rect height="13.5" x="294.36" style="fill: rgb(100%, 100%, 100%)" y="17.4" width="148.5"></rect>
+<rect height="0.48" x="294.36" style="fill: rgb(0%, 0%, 0%)" y="17.16" width="148.74"></rect>
+<rect height="13.74" x="442.62" style="fill: rgb(0%, 0%, 0%)" y="17.4" width="0.47998"></rect>
+<rect height="0.48" x="294.12" style="fill: rgb(0%, 0%, 0%)" y="30.66" width="148.74"></rect>
+<rect height="13.74" x="294.12" style="fill: rgb(0%, 0%, 0%)" y="17.16" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 228.54 82.38 L 228.78 82.74 C 229.492 83.426 230.701 82.816 230.46 81.84L 230.46 81.66 L 230.34 81.48 L 230.22 81.36 L 230.1 81.18 L 229.56 81.0 L 229.32 81.06 L 229.14 81.12 C 228.761 81.197 228.643 81.447 228.54 81.78L 228.48 82.02 L 228.54 82.2 L 228.54 82.38"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 229.44 82.02 L 231.0 86.04 L 231.18 86.7 L 230.58 86.76 L 215.04 88.14 L 213.3 88.26 L 214.68 87.24 L 227.1 77.82 L 227.7 77.4 L 227.88 78.0 L 227.76 78.6 L 215.34 88.02 L 214.68 87.24 L 214.98 87.12 L 230.52 85.74 L 230.58 86.76 L 230.1 86.4 L 228.54 82.38"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 227.88 78.0 L 229.44 82.02 L 228.54 82.38 L 226.98 78.36"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 229.02 82.2 L 230.58 86.22 L 215.04 87.6 L 227.46 78.18"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.22 31.86 L 361.5 30.0 L 229.14 81.12 L 229.86 82.98"></path>
+<rect height="13.5" x="294.36" style="fill: rgb(100%, 100%, 100%)" y="88.26" width="148.5"></rect>
+<rect height="0.48001" x="294.36" style="fill: rgb(0%, 0%, 0%)" y="88.01999" width="148.74"></rect>
+<rect height="13.74" x="442.62" style="fill: rgb(0%, 0%, 0%)" y="88.26" width="0.47998"></rect>
+<rect height="0.48001" x="294.12" style="fill: rgb(0%, 0%, 0%)" y="101.51999" width="148.74"></rect>
+<rect height="13.74" x="294.12" style="fill: rgb(0%, 0%, 0%)" y="88.02" width="0.48001"></rect>
+<rect height="13.5" x="145.86" style="fill: rgb(100%, 100%, 100%)" y="88.26" width="148.5"></rect>
+<rect height="0.48001" x="145.86" style="fill: rgb(0%, 0%, 0%)" y="88.01999" width="148.74"></rect>
+<rect height="13.74" x="294.12" style="fill: rgb(0%, 0%, 0%)" y="88.26" width="0.48001"></rect>
+<rect height="0.48001" x="145.62" style="fill: rgb(0%, 0%, 0%)" y="101.51999" width="148.74"></rect>
+<rect height="13.74" x="145.62" style="fill: rgb(0%, 0%, 0%)" y="88.02" width="0.48"></rect>
+<text x="270.71947396" textLength="18.7688241399999" y="27.51110342" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">m128</text>
+<text x="355.14" textLength="9.17216669999999" y="29.1308978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">X0</text>
+<text x="126.18" textLength="20.02495482" y="98.3708978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">DEST</text>
+<text x="206.64" textLength="9.17216670000002" y="99.9908978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">X0</text>
+<text x="355.14" textLength="9.17216669999999" y="99.9908978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VBROADCAST.html#fig-5-4">Figure 5-4</a>. VBROADCASTF128 Operation (VEX.256-bit version)</figcaption></figure>
+<figure id="fig-5-5">
+<svg style="width: 475.776048pt; height: 136.943976pt" viewBox="101.24 0.0 401.48004 119.11998">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="113.16" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
+<rect height="113.16" x="499.74" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48004"></rect>
+<rect height="0.47998" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.48"></rect>
+<rect height="0.47998" x="103.74" style="fill: rgb(0%, 0%, 0%)" y="113.64" width="396.48"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.4 71.6399799999999 L 367.32 71.6399799999999 L 367.14 72.2999799999999 L 362.88 87.2999799999999 L 362.4 88.97998 L 361.92 87.2999799999999 L 357.6 72.2999799999999 L 357.42 71.6399799999999 L 358.08 71.6399799999999 L 358.56 71.9999799999999 L 362.88 86.9999799999999 L 361.92 87.2999799999999 L 361.92 86.9999799999999 L 366.18 71.9999799999999 L 367.14 72.2999799999999 L 366.66 72.6599799999999 L 362.4 72.6599799999999"></path>
+<rect height="1.02" x="358.08" style="fill: rgb(0%, 0%, 0%)" y="71.6399799999999" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 362.4 72.1199799999999 L 366.66 72.1199799999999 L 362.4 87.1199799999999 L 358.08 72.1199799999999"></path>
+<rect height="40.08" x="361.44" style="fill: rgb(0%, 0%, 0%)" y="31.5599799999999" width="1.98"></rect>
+<rect height="13.5" x="294.9" style="fill: rgb(100%, 100%, 100%)" y="18.0599799999999" width="148.5"></rect>
+<rect height="0.48004" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="17.8199399999999" width="148.74"></rect>
+<rect height="13.74" x="443.16" style="fill: rgb(0%, 0%, 0%)" y="18.0599799999999" width="0.47998"></rect>
+<rect height="0.48004" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="31.3199399999999" width="148.74"></rect>
+<rect height="13.74" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="17.8199799999999" width="0.48001"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 229.08 83.0399799999999 L 229.2 83.2199799999999 L 229.32 83.3999799999999 C 230.107 84.0889799999999 231.131 83.4769799999999 231.0 82.4999799999999L 230.94 82.3199799999999 L 230.88 82.1399799999999 C 230.276 81.3749799999999 229.002 81.6999799999999 229.02 82.6799799999999L 229.02 82.85998 L 229.08 83.0399799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 229.98 82.6799799999999 L 231.54 86.6999799999999 L 231.72 87.3599799999998 L 231.12 87.4199799999999 L 215.58 88.7999799999999 L 213.84 88.9199799999999 L 215.22 87.8999799999999 L 227.64 78.4799799999998 L 228.24 78.0599799999999 L 228.42 78.6599799999999 L 228.3 79.2599799999999 L 215.88 88.6799799999999 L 215.22 87.8999799999999 L 215.52 87.7799799999999 L 231.06 86.3999799999999 L 231.12 87.4199799999999 L 230.64 87.0599799999999 L 229.08 83.0399799999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 228.42 78.6599799999999 L 229.98 82.6799799999999 L 229.08 83.0399799999999 L 227.52 79.0199799999999"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 229.56 82.85998 L 231.12 86.8799799999999 L 215.58 88.2599799999999 L 228.0 78.83998"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 32.5199799999999 L 362.04 30.6599799999999 L 229.68 81.7799799999999 L 230.4 83.6399799999999"></path>
+<rect height="13.5" x="294.9" style="fill: rgb(100%, 100%, 100%)" y="88.9199799999999" width="148.5"></rect>
+<rect height="0.47998" x="294.9" style="fill: rgb(0%, 0%, 0%)" y="88.6799999999999" width="148.74"></rect>
+<rect height="13.74" x="443.16" style="fill: rgb(0%, 0%, 0%)" y="88.9199799999999" width="0.47998"></rect>
+<rect height="0.48004" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="102.17994" width="148.74"></rect>
+<rect height="13.74" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="88.6799799999999" width="0.48001"></rect>
+<rect height="13.5" x="146.4" style="fill: rgb(100%, 100%, 100%)" y="88.9199799999999" width="148.5"></rect>
+<rect height="0.47998" x="146.4" style="fill: rgb(0%, 0%, 0%)" y="88.6799999999999" width="148.74"></rect>
+<rect height="13.74" x="294.66" style="fill: rgb(0%, 0%, 0%)" y="88.9199799999999" width="0.48001"></rect>
+<rect height="0.48004" x="146.16" style="fill: rgb(0%, 0%, 0%)" y="102.17994" width="148.74"></rect>
+<rect height="13.74" x="146.16" style="fill: rgb(0%, 0%, 0%)" y="88.6799799999999" width="0.48001"></rect>
+<text x="271.25947396" textLength="18.7688241399999" y="28.1710834199998" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">m256</text>
+<text x="355.62" textLength="9.17216669999999" y="29.7908778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="126.72" textLength="20.02495482" y="99.0308777999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="207.12" textLength="9.17216670000002" y="100.6508778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="355.62" textLength="9.17216669999999" y="100.6508778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text></g></svg>
+<figcaption><a href="./VBROADCAST.html#fig-5-5">Figure 5-5</a>. VBROADCASTF64X4 Operation (512-bit version with writemask all 1s)</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vbroadcastss--128-bit-version-vex-and-legacy-">VBROADCASTSS (128 bit version VEX and legacy)<a class="anchor" href="#vbroadcastss--128-bit-version-vex-and-legacy-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[31:0]
+DEST[31:0] ← temp
+DEST[63:32] ← temp
+DEST[95:64] ← temp
+DEST[127:96] ← temp
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vbroadcastss--vex-256-encoded-version-">VBROADCASTSS (VEX.256 encoded version)<a class="anchor" href="#vbroadcastss--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[31:0]
+DEST[31:0] ← temp
+DEST[63:32] ← temp
+DEST[95:64] ← temp
+DEST[127:96] ← temp
+DEST[159:128] ← temp
+DEST[191:160] ← temp
+DEST[223:192] ← temp
+DEST[255:224] ← temp
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vbroadcastss--evex-encoded-versions-">VBROADCASTSS (EVEX encoded versions)<a class="anchor" href="#vbroadcastss--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) (4, 128), (8, 256),= (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[31:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcastsd--vex-256-encoded-version-">VBROADCASTSD (VEX.256 encoded version)<a class="anchor" href="#vbroadcastsd--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[63:0]
+DEST[63:0] ← temp
+DEST[127:64] ← temp
+DEST[191:128] ← temp
+DEST[255:192] ← temp
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vbroadcastsd--evex-encoded-versions-">VBROADCASTSD (EVEX encoded versions)<a class="anchor" href="#vbroadcastsd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[63:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcastf32x2--evex-encoded-versions-">VBROADCASTF32x2 (EVEX encoded versions)<a class="anchor" href="#vbroadcastf32x2--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i← j * 32
+    n← (j mod 2) * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[n+31:n]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcastf128--vex-256-encoded-version-">VBROADCASTF128 (VEX.256 encoded version)<a class="anchor" href="#vbroadcastf128--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>temp ← SRC[127:0]
+DEST[127:0] ← temp
+DEST[255:128] ← temp
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vbroadcastf32x4--evex-encoded-versions-">VBROADCASTF32X4 (EVEX encoded versions)<a class="anchor" href="#vbroadcastf32x4--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i← j* 32
+    n← (j modulo 4) * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[n+31:n]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcastf64x2--evex-encoded-versions-">VBROADCASTF64X2 (EVEX encoded versions)<a class="anchor" href="#vbroadcastf64x2--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    n←(j modulo 2) * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[n+63:n]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] = 0
+            FI
+    FI;
+ENDFOR;
+</pre>
+<h4 id="vbroadcastf32x8--evex-u1-512-encoded-version-">VBROADCASTF32X8 (EVEX.U1.512 encoded version)<a class="anchor" href="#vbroadcastf32x8--evex-u1-512-encoded-version-">
+			¶
+		</a></h4>
+<pre>FOR j←0 TO 15
+    i←j * 32
+    n←(j modulo 8) * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[n+31:n]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vbroadcastf64x4--evex-512-encoded-version-">VBROADCASTF64X4 (EVEX.512 encoded version)<a class="anchor" href="#vbroadcastf64x4--evex-512-encoded-version-">
+			¶
+		</a></h4>
+<pre>FOR j←0 TO 7
+    i←j * 64
+    n← (j modulo 4) * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[n+63:n]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VBROADCASTF32x2 __m512 _mm512_broadcast_f32x2( __m128 a);
+</pre>
+<pre>VBROADCASTF32x2 __m512 _mm512_mask_broadcast_f32x2(__m512 s, __mmask16 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x2 __m512 _mm512_maskz_broadcast_f32x2( __mmask16 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x2 __m256 _mm256_broadcast_f32x2( __m128 a);
+</pre>
+<pre>VBROADCASTF32x2 __m256 _mm256_mask_broadcast_f32x2(__m256 s, __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x2 __m256 _mm256_maskz_broadcast_f32x2( __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x4 __m512 _mm512_broadcast_f32x4( __m128 a);
+</pre>
+<pre>VBROADCASTF32x4 __m512 _mm512_mask_broadcast_f32x4(__m512 s, __mmask16 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x4 __m512 _mm512_maskz_broadcast_f32x4( __mmask16 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x4 __m256 _mm256_broadcast_f32x4( __m128 a);
+</pre>
+<pre>VBROADCASTF32x4 __m256 _mm256_mask_broadcast_f32x4(__m256 s, __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x4 __m256 _mm256_maskz_broadcast_f32x4( __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTF32x8 __m512 _mm512_broadcast_f32x8( __m256 a);
+</pre>
+<pre>VBROADCASTF32x8 __m512 _mm512_mask_broadcast_f32x8(__m512 s, __mmask16 k, __m256 a);
+</pre>
+<pre>VBROADCASTF32x8 __m512 _mm512_maskz_broadcast_f32x8( __mmask16 k, __m256 a);
+</pre>
+<pre>VBROADCASTF64x2 __m512d _mm512_broadcast_f64x2( __m128d a);
+</pre>
+<pre>VBROADCASTF64x2 __m512d _mm512_mask_broadcast_f64x2(__m512d s, __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTF64x2 __m512d _mm512_maskz_broadcast_f64x2( __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTF64x2 __m256d _mm256_broadcast_f64x2( __m128d a);
+</pre>
+<pre>VBROADCASTF64x2 __m256d _mm256_mask_broadcast_f64x2(__m256d s, __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTF64x2 __m256d _mm256_maskz_broadcast_f64x2( __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTF64x4 __m512d _mm512_broadcast_f64x4( __m256d a);
+</pre>
+<pre>VBROADCASTF64x4 __m512d _mm512_mask_broadcast_f64x4(__m512d s, __mmask8 k, __m256d a);
+</pre>
+<pre>VBROADCASTF64x4 __m512d _mm512_maskz_broadcast_f64x4( __mmask8 k, __m256d a);
+</pre>
+<pre>VBROADCASTSD __m512d _mm512_broadcastsd_pd( __m128d a);
+</pre>
+<pre>VBROADCASTSD __m512d _mm512_mask_broadcastsd_pd(__m512d s, __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTSD __m512d _mm512_maskz_broadcastsd_pd(__mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTSD __m256d _mm256_broadcastsd_pd(__m128d a);
+</pre>
+<pre>VBROADCASTSD __m256d _mm256_mask_broadcastsd_pd(__m256d s, __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTSD __m256d _mm256_maskz_broadcastsd_pd( __mmask8 k, __m128d a);
+</pre>
+<pre>VBROADCASTSD __m256d _mm256_broadcast_sd(double *a);
+</pre>
+<pre>VBROADCASTSS __m512 _mm512_broadcastss_ps( __m128 a);
+</pre>
+<pre>VBROADCASTSS __m512 _mm512_mask_broadcastss_ps(__m512 s, __mmask16 k, __m128 a);
+</pre>
+<pre>VBROADCASTSS __m512 _mm512_maskz_broadcastss_ps( __mmask16 k, __m128 a);
+</pre>
+<pre>VBROADCASTSS __m256 _mm256_broadcastss_ps(__m128 a);
+</pre>
+<pre>VBROADCASTSS __m256 _mm256_mask_broadcastss_ps(__m256 s, __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTSS __m256 _mm256_maskz_broadcastss_ps( __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTSS __m128 _mm_broadcastss_ps(__m128 a);
+</pre>
+<pre>VBROADCASTSS __m128 _mm_mask_broadcastss_ps(__m128 s, __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTSS __m128 _mm_maskz_broadcastss_ps( __mmask8 k, __m128 a);
+</pre>
+<pre>VBROADCASTSS __m128 _mm_broadcast_ss(float *a);
+</pre>
+<pre>VBROADCASTSS __m256 _mm256_broadcast_ss(float *a);
+</pre>
+<pre>VBROADCASTF128 __m256 _mm256_broadcast_ps(__m128 * a);
+</pre>
+<pre>VBROADCASTF128 __m256d _mm256_broadcast_pd(__m128d * a);
+</pre>
+<h3 class="exceptions" id="exceptions">Exceptions<a class="anchor" href="#exceptions">
+			¶
+		</a></h3>
+<p>VEX-encoded instructions, see Exceptions Type 6;</p>
+<p>EVEX-encoded instructions, see Exceptions Type E6.</p>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If VEX.L = 0 for VBROADCASTSD or VBROADCASTF128.</td></tr>
+<tr>
+<td>If EVEX.L’L = 0 for VBROADCASTSD/VBROADCASTF32X2/VBROADCASTF32X4/VBROADCASTF64X2.</td></tr>
+<tr>
+<td>If EVEX.L’L &lt; 10b for VBROADCASTF32X8/VBROADCASTF64X4.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

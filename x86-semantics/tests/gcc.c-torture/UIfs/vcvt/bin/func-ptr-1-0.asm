@@ -227,7 +227,6 @@ L36:
 	ret
 	.local	fp
 	.comm	fp,8,8
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

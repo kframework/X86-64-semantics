@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="No Operation" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="FNOP"/>
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D9 D0</td>
+<td>FNOP</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>No operation is performed.</td></tr></table>
+<h2>Description</h2>
+<p>Performs no FPU operation. This instruction takes up space in the instruction stream but does not affect the FPU or machine context, except the EIP register and the FPU Instruction Pointer.</p>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2>FPU Flags Affected</h2>
+<table>
+<tr>
+<td>C0, C1, C2, C3</td>
+<td>undefined.</td></tr></table>
+<h2>Floating-Point Exceptions</h2>
+<p>None</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>

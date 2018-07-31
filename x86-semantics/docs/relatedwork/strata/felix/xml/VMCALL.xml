@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Call to VM Monitor" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VMCALL"/>
+<table>
+<tr>
+<td><strong>Opcode Instruction Description</strong> 0F 01 C1 VMCALL Call to VM monitor by causing VM exit<em>.</em></td></tr></table>
+<h2>Description</h2>
+<p>This instruction allows guest software can make a call for service into an underlying VM monitor. The details of the programming interface for such calls are VMM-specific; this instruction does nothing more than cause a VM exit, registering the appropriate exit reason.</p>
+<p>Use of this instruction in VMX root operation invokes an SMM monitor (see Section 34.15.2). This invocation will activate the dual-monitor treatment of system-management interrupts (SMIs) and system-management mode (SMM) if it is not already active (see Section 34.15.6).</p>
+<h2>Operation</h2>
+<pre>IF not in VMX operation
+    THEN #UD;
+ELSIF in VMX non-root operation
+    THEN VM exit;
+ELSIF (RFLAGS.VM = 1) or (IA32_EFER.LMA = 1 and CS.L = 0)
+    THEN #UD;
+ELSIF CPL &gt; 0
+    THEN #GP(0);
+ELSIF in SMM or the logical processor does not support the dual-monitor treatment of SMIs and SMM or the valid bit in the
+IA32_SMM_MONITOR_CTL MSR is clear
+    THEN VMfail (VMCALL executed in VMX root operation);
+ELSIF dual-monitor treatment of SMIs and SMM is active
+    THEN perform an SMM VM exit (see Section 34.15.2);
+ELSIF current-VMCS pointer is not valid
+    THEN VMfailInvalid;
+ELSIF launch state of current VMCS is not clear
+    THEN VMfailValid(VMCALL with non-clear VMCS);
+ELSIF VM-exit control fields are not valid (see Section 34.15.6.1)
+    THEN VMfailValid (VMCALL with invalid VM-exit control fields);
+ELSE
+    enter SMM;
+    read revision identifier in MSEG;
+    IF revision identifier does not match that supported by processor
+        THEN
+            leave SMM;
+            VMfailValid(VMCALL with incorrect MSEG revision identifier);
+        ELSE
+            read SMM-monitor features field in MSEG (see Section 34.15.6.1);
+            IF features field is invalid
+                THEN
+                    leave SMM;
+                    VMfailValid(VMCALL with invalid SMM-monitor features);
+                ELSE activate dual-monitor treatment of SMIs and SMM (see Section 34.15.6);
+            FI;
+        FI;
+FI;
+</pre>
+<h2>Flags Affected</h2>
+<p>See the operation section and Section 30.2.</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If the current privilege level is not 0 and the logical processor is in VMX root operation.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></table>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX non-root operation.</td></tr></table>
+<h2>Compatibility Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX non-root operation.</td></tr></table>
+<h2>64-Bit Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></table></x86:instruction>

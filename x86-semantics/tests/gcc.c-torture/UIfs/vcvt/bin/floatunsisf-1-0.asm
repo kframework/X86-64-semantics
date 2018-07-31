@@ -229,7 +229,6 @@ u:
 	.long	-2147483519
 	.comm	f1,4,4
 	.comm	f2,4,4
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

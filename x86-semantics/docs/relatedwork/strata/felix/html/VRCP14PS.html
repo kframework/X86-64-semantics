@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VRCP14PS
+		— Compute Approximate Reciprocals of Packed Float32 Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VRCP14PS
+		— Compute Approximate Reciprocals of Packed Float32 Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 4C /r VRCP14PS xmm1 {k1}{z}, xmm2/m128/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Computes the approximate reciprocals of the packed single-precision floating-point values in xmm2/m128/m32bcst and stores the results in xmm1. Under writemask.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 4C /r VRCP14PS ymm1 {k1}{z}, ymm2/m256/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Computes the approximate reciprocals of the packed single-precision floating-point values in ymm2/m256/m32bcst and stores the results in ymm1. Under writemask.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 4C /r VRCP14PS zmm1 {k1}{z}, zmm2/m512/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Computes the approximate reciprocals of the packed single-precision floating-point values in zmm2/m512/m32bcst and stores the results in zmm1. Under writemask.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This instruction performs a SIMD computation of the approximate reciprocals of the packed single-precision floating-point values in the source operand (the second operand) and stores the packed single-precision floating-point results in the destination operand (the first operand). The maximum relative error for this approximation is less than 2<sup>-14</sup>.</p>
+<p>The source operand can be a ZMM register, a 512-bit memory location or a 512-bit vector broadcasted from a 32-bit memory location. The destination operand is a ZMM register conditionally updated according to the writemask.</p>
+<p>The VRCP14PS instruction is not affected by the rounding control bits in the MXCSR register. When a source value is a 0.0, an ∞ with the sign of the source value is returned. A denormal source value will be treated as zero only in case of DAZ bit set in MXCSR. Otherwise it is treated correctly (i.e. not as a 0.0). Underflow results are flushed to zero only in case of FTZ bit set in MXCSR. Otherwise it will be treated correctly (i.e. correct underflow result is written) with the sign of the operand. When a source value is a SNaN or QNaN, the SNaN is converted to a QNaN or the source QNaN is returned.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<p>MXCSR exception flags are not affected by this instruction and floating-point exceptions are not reported.</p>
+<figure id="tbl-5-23">
+<table>
+<tr>
+<th>Input value</th>
+<th>Result value</th>
+<th>Comments</th></tr>
+<tr>
+<td><sub>0 ≤ X ≤ 2</sub><sup>-128</sup></td>
+<td>INF</td>
+<td>Very small denormal</td></tr>
+<tr>
+<td>-2<sup>-128</sup> ≤ X ≤ -0</td>
+<td>-INF</td>
+<td>Very small denormal</td></tr>
+<tr>
+<td>X &gt; 2<sup>126</sup></td>
+<td>Underflow</td>
+<td>Up to 18 bits of fractions are returned*</td></tr>
+<tr>
+<td>X &lt; -2<sup>126</sup></td>
+<td>-Underflow</td>
+<td>Up to 18 bits of fractions are returned*</td></tr>
+<tr>
+<td><sub>X = 2</sub>-n</td>
+<td><sub>2</sub><sup>n</sup></td>
+<td></td></tr>
+<tr>
+<td>X = -2<sup>-n</sup></td>
+<td>-2<sup>n</sup></td>
+<td></td></tr></table>
+<figcaption><a href="./VRCP14PS.html#tbl-5-23">Table 5-23</a>. VRCP14PS/VRCP14SS Special Cases</figcaption></figure>
+<p>* in this case the mantissa is shifted right by one or two bits</p>
+<h3 id="a-numerically-exact-implementation-of-vrcp14xx-can-be-found-at-https---software-intel-com-en-us-articles-refer-">A numerically exact implementation of VRCP14xx can be found at https://software.intel.com/en-us/articles/refer-<a class="anchor" href="#a-numerically-exact-implementation-of-vrcp14xx-can-be-found-at-https---software-intel-com-en-us-articles-refer-">
+			¶
+		</a></h3>
+<h3 id="ence-implementations-for-ia-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2-">ence-implementations-for-IA-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2.<a class="anchor" href="#ence-implementations-for-ia-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2-">
+			¶
+		</a></h3>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vrcp14ps--evex-encoded-versions-">VRCP14PS (EVEX encoded versions)<a class="anchor" href="#vrcp14ps--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC *is memory*)
+                THEN DEST[i+31:i]←APPROXIMATE(1.0/SRC[31:0]);
+                ELSE DEST[i+31:i]←APPROXIMATE(1.0/SRC[i+31:i]);
+            FI;
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[i+31:i] remains unchanged*
+            ELSE ; zeroing-masking
+                DEST[i+31:i] ← 0
+        FI;
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VRCP14PS __m512 _mm512_rcp14_ps( __m512 a);
+</pre>
+<pre>VRCP14PS __m512 _mm512_mask_rcp14_ps(__m512 s, __mmask16 k, __m512 a);
+</pre>
+<pre>VRCP14PS __m512 _mm512_maskz_rcp14_ps( __mmask16 k, __m512 a);
+</pre>
+<pre>VRCP14PS __m256 _mm256_rcp14_ps( __m256 a);
+</pre>
+<pre>VRCP14PS __m256 _mm512_mask_rcp14_ps(__m256 s, __mmask8 k, __m256 a);
+</pre>
+<pre>VRCP14PS __m256 _mm512_maskz_rcp14_ps( __mmask8 k, __m256 a);
+</pre>
+<pre>VRCP14PS __m128 _mm_rcp14_ps( __m128 a);
+</pre>
+<pre>VRCP14PS __m128 _mm_mask_rcp14_ps(__m128 s, __mmask8 k, __m128 a);
+</pre>
+<pre>VRCP14PS __m128 _mm_maskz_rcp14_ps( __mmask8 k, __m128 a);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

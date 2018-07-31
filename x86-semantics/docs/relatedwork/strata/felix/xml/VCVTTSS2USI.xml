@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Convert with Truncation Scalar Single-Precision Floating-Point Value to Unsigned Integer" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VCVTTSS2USI"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.LIG.F3.0F.W0 78 /r VCVTTSS2USI r32, xmm1/m32{sae}</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Convert one single-precision floating-point value from xmm1/m32 to one unsigned doubleword integer in r32 using truncation.</td></tr>
+<tr>
+<td>EVEX.LIG.F3.0F.W1 78 /r VCVTTSS2USI r64, xmm1/m32{sae}</td>
+<td>A</td>
+<td>V/N.E.<sup>1</sup></td>
+<td>AVX512F</td>
+<td>Convert one single-precision floating-point value from xmm1/m32 to one unsigned quadword integer in r64 using truncation.</td></tr></table>
+<blockquote>
+<p>1. For this specific instruction, EVEX.W in non-64 bit is ignored; the instructions behaves as if the W0 version is used.</p></blockquote>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Tuple1 Fixed</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Converts with truncation a single-precision floating-point value in the source operand (the second operand) to an unsigned doubleword integer (or unsigned quadword integer if operand size is 64 bits) in the destination operand (the first operand). The source operand can be an XMM register or a memory location. The destination operand is a general-purpose register. When the source operand is an XMM register, the single-precision floating-point value is contained in the low doubleword of the register.</p>
+<p>When a conversion is inexact, the value returned is rounded according to the rounding control bits in the MXCSR register. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the integer value 2<sup>w</sup> – 1 is returned, where w represents the number of bits in the destination format.</p>
+<p>EVEX.W1 version: promotes the instruction to produce 64-bit data in 64-bit mode.</p>
+<p>Note: EVEX.vvvv is reserved and must be 1111b, otherwise instructions will #UD.</p>
+<h3>Operation</h3>
+<h4>VCVTTSS2USI (EVEX encoded version)</h4>
+<pre>IF 64-bit Mode and OperandSize = 64
+THEN
+    DEST[63:0] ← Convert_Single_Precision_Floating_Point_To_UInteger_Truncate(SRC[31:0]);
+ELSE
+    DEST[31:0] ← Convert_Single_Precision_Floating_Point_To_UInteger_Truncate(SRC[31:0]);
+FI;
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VCVTTSS2USI unsigned int _mm_cvttss_u32( __m128 a);
+</pre>
+<pre>VCVTTSS2USI unsigned int _mm_cvtt_roundss_u32( __m128 a, int sae);
+</pre>
+<pre>VCVTTSS2USI unsigned __int64 _mm_cvttss_u64( __m128 a);
+</pre>
+<pre>VCVTTSS2USI unsigned __int64 _mm_cvtt_roundss_u64( __m128 a, int sae);
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>Invalid, Precision</p>
+<h3>Other Exceptions</h3>
+<p>EVEX-encoded instructions, see Exceptions Type E3NF.</p></x86:instruction>

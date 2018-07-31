@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>FIST/FISTP
+		— Store Integer</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>FIST/FISTP
+		— Store Integer</h1>
+
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>DF /2</td>
+<td>FIST <em>m16int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Store ST(0) in <em>m16int.</em></td></tr>
+<tr>
+<td>DB /2</td>
+<td>FIST <em>m32int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Store ST(0) in <em>m32int.</em></td></tr>
+<tr>
+<td>DF /3</td>
+<td>FISTP <em>m16int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Store ST(0) in <em>m16int</em> and pop register stack.</td></tr>
+<tr>
+<td>DB /3</td>
+<td>FISTP <em>m32int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Store ST(0) in <em>m32int</em> and pop register stack.</td></tr>
+<tr>
+<td>DF /7</td>
+<td>FISTP <em>m64int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Store ST(0) in <em>m64int</em> and pop register stack.</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>The FIST instruction converts the value in the ST(0) register to a signed integer and stores the result in the destination operand. Values can be stored in word or doubleword integer format. The destination operand specifies the address where the first byte of the destination value is to be stored.</p>
+<p>The FISTP instruction performs the same operation as the FIST instruction and then pops the register stack. To pop the register stack, the processor marks the ST(0) register as empty and increments the stack pointer (TOP) by 1. The FISTP instruction also stores values in quadword integer format.</p>
+<p>The following table shows the results obtained when storing various classes of numbers in integer format.</p>
+<figure id="tbl-3-27">
+<table>
+<tr>
+<th>ST(0)</th>
+<th>DEST</th></tr>
+<tr>
+<td>− ∞ or Value Too Large for DEST Format</td>
+<td>*</td></tr>
+<tr>
+<td>F ≤ −1</td>
+<td>−I</td></tr>
+<tr>
+<td>−1 &lt; F &lt; −0</td>
+<td>**</td></tr>
+<tr>
+<td>−0</td>
+<td>0</td></tr>
+<tr>
+<td>+0</td>
+<td>0</td></tr>
+<tr>
+<td>+0&lt;F&lt;+1</td>
+<td>**</td></tr>
+<tr>
+<td>F≥+1</td>
+<td>+I</td></tr>
+<tr>
+<td>+ ∞ or Value Too Large for DEST Format</td>
+<td>*</td></tr>
+<tr>
+<td>NaN</td>
+<td>*</td></tr>
+<tr>
+<td colspan="2"><strong>NOTES:</strong> F Meansfinitefloating-pointvalue. I Means integer. * Indicatesfloating-pointinvalid-operation(#IA)exception. ** 0 or ±1, depending on the rounding mode.</td></tr></table>
+<figcaption><a href="./FIST:FISTP.html#tbl-3-27">Table 3-27</a>. FIST/FISTP Results</figcaption></figure>
+<p>If the source value is a non-integral value, it is rounded to an integer value, according to the rounding mode specified by the RC field of the FPU control word.</p>
+<p>If the converted value is too large for the destination format, or if the source operand is an ∞, SNaN, QNAN, or is in an unsupported format, an invalid-arithmetic-operand condition is signaled. If the invalid-operation exception is not masked, an invalid-arithmetic-operand exception (#IA) is generated and no value is stored in the destination operand. If the invalid-operation exception is masked, the integer indefinite value is stored in memory.</p>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>DEST ← Integer(ST(0));
+IF Instruction = FISTP
+    THEN
+        PopRegisterStack;
+FI;
+</pre>
+<h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="#fpu-flags-affected">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">C1</td>
+<td>Set to 0 if stack underflow occurred.</td></tr>
+<tr>
+<td>Indicates rounding direction of if the inexact exception (#P) is generated: 0 ← not roundup; 1 ← roundup.</td></tr>
+<tr>
+<td>Set to 0 otherwise.</td></tr>
+<tr>
+<td>C0, C2, C3</td>
+<td>Undefined.</td></tr></table>
+<h2 class="exceptions" id="floating-point-exceptions">Floating-Point Exceptions<a class="anchor" href="#floating-point-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#IS</td>
+<td>Stack underflow occurred.</td></tr>
+<tr>
+<td rowspan="2">#IA</td>
+<td>Converted value is too large for the destination format.</td></tr>
+<tr>
+<td>Source operand is an SNaN, QNaN, ±∞, or unsupported format.</td></tr>
+<tr>
+<td>#P</td>
+<td>Value cannot be represented exactly in destination format.</td></tr></table>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the destination is located in a non-writable segment.</td></tr>
+<tr>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register is used to access memory and it contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

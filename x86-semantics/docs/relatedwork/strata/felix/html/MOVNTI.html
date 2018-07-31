@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>MOVNTI
+		— Store Doubleword Using Non-Temporal Hint</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVNTI
+		— Store Doubleword Using Non-Temporal Hint</h1>
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F C3 /<em>r</em></td>
+<td>MOVNTI <em>m32</em>, <em>r32</em></td>
+<td>MR</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Move doubleword from <em>r32</em> to <em>m32</em> using non-temporal hint.</td></tr>
+<tr>
+<td>NP REX.W + 0F C3 /<em>r</em></td>
+<td>MOVNTI <em>m64, r64</em></td>
+<td>MR</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Move quadword from <em>r64</em> to <em>m64</em> using non-temporal hint.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>MR</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Moves the doubleword integer in the source operand (second operand) to the destination operand (first operand) using a non-temporal hint to minimize cache pollution during the write to memory. The source operand is a general-purpose register. The destination operand is a 32-bit memory location.</p>
+<p>The non-temporal hint is implemented by using a write combining (WC) memory type protocol when writing the data to memory. Using this protocol, the processor does not write the data into the cache hierarchy, nor does it fetch the corresponding cache line from memory into the cache hierarchy. The memory type of the region being written to can override the non-temporal hint, if the memory address specified for the non-temporal store is in an uncacheable (UC) or write protected (WP) memory region. For more information on non-temporal stores, see “Caching of Temporal vs. Non-Temporal Data” in Chapter 10 in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>.</p>
+<p>Because the WC protocol uses a weakly-ordered memory consistency model, a fencing operation implemented with the SFENCE or MFENCE instruction should be used in conjunction with MOVNTI instructions if multiple processors might use different memory types to read/write the destination memory locations.</p>
+<p>In 64-bit mode, the instruction’s default operation size is 32 bits. Use of the REX.R prefix permits access to additional registers (R8-R15). Use of the REX.W prefix promotes operation to 64 bits. See the summary chart at the beginning of this section for encoding data and limits.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>DEST ← SRC;
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>MOVNTI: void _mm_stream_si32 (int *p, int a)
+</pre>
+<pre>MOVNTI: void _mm_stream_si64(__int64 *p, __int64 a)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>For an illegal memory operand effective address in the CS, DS, ES, FS or GS segments.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>For an illegal address in the SS segment.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.01H:EDX.SSE2[bit 26] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP</td>
+<td>If any part of the operand lies outside the effective address space from 0 to FFFFH.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.01H:EDX.SSE2[bit 26] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in real address mode.</p>
+<table>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.01H:EDX.SSE2[bit 26] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

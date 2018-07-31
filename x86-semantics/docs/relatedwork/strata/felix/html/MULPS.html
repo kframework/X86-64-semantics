@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>MULPS
+		— Multiply Packed Single-Precision Floating-Point Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MULPS
+		— Multiply Packed Single-Precision Floating-Point Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 59 /r MULPS xmm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Multiply packed single-precision floating-point values in xmm2/m128 with xmm1 and store result in xmm1.</td></tr>
+<tr>
+<td>VEX.NDS.128.0F.WIG 59 /r VMULPS xmm1,xmm2, xmm3/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Multiply packed single-precision floating-point values in xmm3/m128 with xmm2 and store result in xmm1.</td></tr>
+<tr>
+<td>VEX.NDS.256.0F.WIG 59 /r VMULPS ymm1, ymm2, ymm3/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Multiply packed single-precision floating-point values in ymm3/m256 with ymm2 and store result in ymm1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.0F.W0 59 /r VMULPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Multiply packed single-precision floating-point values from xmm3/m128/m32bcst to xmm2 and store result in xmm1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.0F.W0 59 /r VMULPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Multiply packed single-precision floating-point values from ymm3/m256/m32bcst to ymm2 and store result in ymm1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.0F.W0 59 /r VMULPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst {er}</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Multiply packed single-precision floating-point values in zmm3/m512/m32bcst with zmm2 and store result in zmm1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Multiply the packed single-precision floating-point values from the first source operand with the corresponding values in the second source operand, and stores the packed double-precision floating-point results in the destination operand.</p>
+<p>EVEX encoded versions: The first source operand (the second operand) is a ZMM/YMM/XMM register. The second source operand can be a ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 32-bit memory location. The destination operand is a ZMM/YMM/XMM register conditionally updated with writemask k1.</p>
+<p>VEX.256 encoded version: The first source operand is a YMM register. The second source operand can be a YMM register or a 256-bit memory location. The destination operand is a YMM register. Bits (MAXVL-1:256) of the corresponding destination ZMM register are zeroed.</p>
+<p>VEX.128 encoded version: The first source operand is a XMM register. The second source operand can be a XMM register or a 128-bit memory location. The destination operand is a XMM register. The upper bits (MAXVL-1:128) of the destination YMM register destination are zeroed.</p>
+<p>128-bit Legacy SSE version: The second source can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper bits (MAXVL-1:128) of the corresponding ZMM register destination are unmodified.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vmulps--evex-encoded-version-">VMULPS (EVEX encoded version)<a class="anchor" href="#vmulps--evex-encoded-version-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+IF (VL = 512) AND (EVEX.b = 1) AND SRC2 *is a register*
+    THEN
+        SET_RM(EVEX.RC);
+    ELSE
+        SET_RM(MXCSR.RM);
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN
+                    DEST[i+31:i]←SRC1[i+31:i] * SRC2[31:0]
+                ELSE
+                    DEST[i+31:i]←SRC1[i+31:i] * SRC2[i+31:i]
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vmulps--vex-256-encoded-version-">VMULPS (VEX.256 encoded version)<a class="anchor" href="#vmulps--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←SRC1[31:0] * SRC2[31:0]
+DEST[63:32]←SRC1[63:32] * SRC2[63:32]
+DEST[95:64]←SRC1[95:64] * SRC2[95:64]
+DEST[127:96]←SRC1[127:96] * SRC2[127:96]
+DEST[159:128]←SRC1[159:128] * SRC2[159:128]
+DEST[191:160]←SRC1[191:160] * SRC2[191:160]
+DEST[223:192]←SRC1[223:192] * SRC2[223:192]
+DEST[255:224]←SRC1[255:224] * SRC2[255:224].
+DEST[MAXVL-1:256] ←0;
+</pre>
+<h4 id="vmulps--vex-128-encoded-version-">VMULPS (VEX.128 encoded version)<a class="anchor" href="#vmulps--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←SRC1[31:0] * SRC2[31:0]
+DEST[63:32]←SRC1[63:32] * SRC2[63:32]
+DEST[95:64]←SRC1[95:64] * SRC2[95:64]
+DEST[127:96]←SRC1[127:96] * SRC2[127:96]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="mulps--128-bit-legacy-sse-version-">MULPS (128-bit Legacy SSE version)<a class="anchor" href="#mulps--128-bit-legacy-sse-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←SRC1[31:0] * SRC2[31:0]
+DEST[63:32]←SRC1[63:32] * SRC2[63:32]
+DEST[95:64]←SRC1[95:64] * SRC2[95:64]
+DEST[127:96]←SRC1[127:96] * SRC2[127:96]
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VMULPS __m512 _mm512_mul_ps( __m512 a, __m512 b);
+</pre>
+<pre>VMULPS __m512 _mm512_mask_mul_ps(__m512 s, __mmask16 k, __m512 a, __m512 b);
+</pre>
+<pre>VMULPS __m512 _mm512_maskz_mul_ps(__mmask16 k, __m512 a, __m512 b);
+</pre>
+<pre>VMULPS __m512 _mm512_mul_round_ps( __m512 a, __m512 b, int);
+</pre>
+<pre>VMULPS __m512 _mm512_mask_mul_round_ps(__m512 s, __mmask16 k, __m512 a, __m512 b, int);
+</pre>
+<pre>VMULPS __m512 _mm512_maskz_mul_round_ps(__mmask16 k, __m512 a, __m512 b, int);
+</pre>
+<pre>VMULPS __m256 _mm256_mask_mul_ps(__m256 s, __mmask8 k, __m256 a, __m256 b);
+</pre>
+<pre>VMULPS __m256 _mm256_maskz_mul_ps(__mmask8 k, __m256 a, __m256 b);
+</pre>
+<pre>VMULPS __m128 _mm_mask_mul_ps(__m128 s, __mmask8 k, __m128 a, __m128 b);
+</pre>
+<pre>VMULPS __m128 _mm_maskz_mul_ps(__mmask8 k, __m128 a, __m128 b);
+</pre>
+<pre>VMULPS __m256 _mm256_mul_ps (__m256 a, __m256 b);
+</pre>
+<pre>MULPS __m128 _mm_mul_ps (__m128 a, __m128 b);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Overflow, Underflow, Invalid, Precision, Denormal</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 2.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E2.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

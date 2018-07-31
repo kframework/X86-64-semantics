@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="NOT Mask Register" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="KNOTW"/>
+<x86:mnemonic name="KNOTB"/>
+<x86:mnemonic name="KNOTQ"/>
+<x86:mnemonic name="KNOTD"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.L0.0F.W0 44 /r KNOTW k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Bitwise NOT of 16 bits mask k2.</td></tr>
+<tr>
+<td>VEX.L0.66.0F.W0 44 /r KNOTB k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Bitwise NOT of 8 bits mask k2.</td></tr>
+<tr>
+<td>VEX.L0.0F.W1 44 /r KNOTQ k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Bitwise NOT of 64 bits mask k2.</td></tr>
+<tr>
+<td>VEX.L0.66.0F.W1 44 /r KNOTD k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Bitwise NOT of 32 bits mask k2.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td></tr>
+<tr>
+<td>RR</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r, ModRM:[7:6] must be 11b)</td></tr></table>
+<h2>Description</h2>
+<p>Performs a bitwise NOT of vector mask k2 and writes the result into vector mask k1.</p>
+<h2>Operation</h2>
+<h3>KNOTW</h3>
+<pre>DEST[15:0]←BITWISE NOT SRC[15:0]
+DEST[MAX_KL-1:16] ← 0
+</pre>
+<h3>KNOTB</h3>
+<pre>DEST[7:0]←BITWISE NOT SRC[7:0]
+DEST[MAX_KL-1:8] ← 0
+</pre>
+<h3>KNOTQ</h3>
+<pre>DEST[63:0]←BITWISE NOT SRC[63:0]
+DEST[MAX_KL-1:64] ← 0
+</pre>
+<h3>KNOTD</h3>
+<pre>DEST[31:0]←BITWISE NOT SRC[31:0]
+DEST[MAX_KL-1:32] ← 0
+</pre>
+<h2>Intel C/C++ Compiler Intrinsic Equivalent</h2>
+<pre>KNOTW __mmask16 _mm512_knot(__mmask16 a);
+</pre>
+<h2>Flags Affected</h2>
+<p>None</p>
+<h2>SIMD Floating-Point Exceptions</h2>
+<p>None</p>
+<h2>Other Exceptions</h2>
+<p>See Exceptions Type K20.</p></x86:instruction>

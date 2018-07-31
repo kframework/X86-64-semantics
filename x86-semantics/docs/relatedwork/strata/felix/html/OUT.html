@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>OUT
+		— Output to Port</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>OUT
+		— Output to Port</h1>
+
+<table>
+<tr>
+<th>Opcode*</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>E6 <em>ib</em></td>
+<td>OUT <em>imm8</em>, AL</td>
+<td>I</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Output byte in AL to I/O port address <em>imm8</em>.</td></tr>
+<tr>
+<td>E7 <em>ib</em></td>
+<td>OUT <em>imm8</em>, AX</td>
+<td>I</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Output word in AX to I/O port address <em>imm8.</em></td></tr>
+<tr>
+<td>E7 <em>ib</em></td>
+<td>OUT <em>imm8</em>, EAX</td>
+<td>I</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Output doubleword in EAX to I/O port address <em>imm8</em>.</td></tr>
+<tr>
+<td>EE</td>
+<td>OUT DX, AL</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Output byte in AL to I/O port address in DX.</td></tr>
+<tr>
+<td>EF</td>
+<td>OUT DX, AX</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Output word in AX to I/O port address in DX.</td></tr>
+<tr>
+<td>EF</td>
+<td>OUT DX, EAX</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Output doubleword in EAX to I/O port address in DX.</td></tr></table>
+<blockquote>
+<p>* SeeIA-32ArchitectureCompatibilitysectionbelow.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>I</td>
+<td>imm8</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Copies the value from the second operand (source operand) to the I/O port specified with the destination operand (first operand). The source operand can be register AL, AX, or EAX, depending on the size of the port being accessed (8, 16, or 32 bits, respectively); the destination operand can be a byte-immediate or the DX register. Using a byte immediate allows I/O port addresses 0 to 255 to be accessed; using the DX register as a source operand allows I/O ports from 0 to 65,535 to be accessed.</p>
+<p>The size of the I/O port being accessed is determined by the opcode for an 8-bit I/O port or by the operand-size attribute of the instruction for a 16- or 32-bit I/O port.</p>
+<p>At the machine code level, I/O instructions are shorter when accessing 8-bit I/O ports. Here, the upper eight bits of the port address will be 0.</p>
+<p>This instruction is only useful for accessing I/O ports located in the processor’s I/O address space. See Chapter 18, “Input/Output,” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for more information on accessing I/O ports in the I/O address space.</p>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="ia-32-architecture-compatibility">IA-32 Architecture Compatibility<a class="anchor" href="#ia-32-architecture-compatibility">
+			¶
+		</a></h2>
+<p>After executing an OUT instruction, the Pentium<em><sup>® </sup></em>processor ensures that the EWBE# pin has been sampled active before it begins to execute the next instruction. (Note that the instruction can be prefetched if EWBE# is not active, but it will not be executed until the EWBE# pin is sampled active.) Only the Pentium processor family has the EWBE# pin.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF ((PE = 1) and ((CPL &gt; IOPL) or (VM = 1)))
+    THEN (* Protected mode with CPL &gt; IOPL or virtual-8086 mode *)
+        IF (Any I/O Permission Bit for I/O port being accessed = 1)
+            THEN (* I/O operation is not allowed *)
+                #GP(0);
+            ELSE ( * I/O operation is allowed *)
+                DEST ← SRC; (* Writes to selected I/O port *)
+        FI;
+    ELSE (Real Mode or Protected Mode with CPL ≤ IOPL *)
+        DEST ← SRC; (* Writes to selected I/O port *)
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If the CPL is greater than (has less privilege) the I/O privilege level (IOPL) and any of the corresponding I/O permission bits in TSS for the I/O port being accessed is 1.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If any of the I/O permission bits in the TSS for the I/O port being accessed is 1.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same as protected mode exceptions.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same as protected mode exceptions.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

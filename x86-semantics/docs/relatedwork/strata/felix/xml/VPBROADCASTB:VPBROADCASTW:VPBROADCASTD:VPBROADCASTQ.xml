@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Load with Broadcast Integer Data from General Purpose Register" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VPBROADCASTB"/>
+<x86:mnemonic name="VPBROADCASTW"/>
+<x86:mnemonic name="VPBROADCASTD"/>
+<x86:mnemonic name="VPBROADCASTQ"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 7A /r VPBROADCASTB xmm1 {k1}{z}, reg</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast an 8-bit value from a GPR to all bytes in the 128-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 7A /r VPBROADCASTB ymm1 {k1}{z}, reg</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast an 8-bit value from a GPR to all bytes in the 256-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 7A /r VPBROADCASTB zmm1 {k1}{z}, reg</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Broadcast an 8-bit value from a GPR to all bytes in the 512-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 7B /r VPBROADCASTW xmm1 {k1}{z}, reg</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast a 16-bit value from a GPR to all words in the 128-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 7B /r VPBROADCASTW ymm1 {k1}{z}, reg</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Broadcast a 16-bit value from a GPR to all words in the 256-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 7B /r VPBROADCASTW zmm1 {k1}{z}, reg</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Broadcast a 16-bit value from a GPR to all words in the 512-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 7C /r VPBROADCASTD xmm1 {k1}{z}, r32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a 32-bit value from a GPR to all double-words in the 128-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 7C /r VPBROADCASTD ymm1 {k1}{z}, r32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a 32-bit value from a GPR to all double-words in the 256-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 7C /r VPBROADCASTD zmm1 {k1}{z}, r32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Broadcast a 32-bit value from a GPR to all double-words in the 512-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W1 7C /r VPBROADCASTQ xmm1 {k1}{z}, r64</td>
+<td>A</td>
+<td>V/N.E.<sup>1</sup></td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a 64-bit value from a GPR to all quad-words in the 128-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 7C /r VPBROADCASTQ ymm1 {k1}{z}, r64</td>
+<td>A</td>
+<td>V/N.E.<sup>1</sup></td>
+<td>AVX512VL AVX512F</td>
+<td>Broadcast a 64-bit value from a GPR to all quad-words in the 256-bit destination subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 7C /r VPBROADCASTQ zmm1 {k1}{z}, r64</td>
+<td>A</td>
+<td>V/N.E.<sup>1</sup></td>
+<td>AVX512F</td>
+<td>Broadcast a 64-bit value from a GPR to all quad-words in the 512-bit destination subject to writemask k1.</td></tr></table>
+<blockquote>
+<p>1. EVEX.W in non-64 bit is ignored; the instructions behaves as if the W0 version is used.</p></blockquote>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Broadcasts a 8-bit, 16-bit, 32-bit or 64-bit value from a general-purpose register (the second operand) to all the locations in the destination vector register (the first operand) using the writemask k1.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3>Operation</h3>
+<h4>VPBROADCASTB (EVEX encoded versions)</h4>
+<pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR j←0 TO KL-1
+    i←j * 8
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i]←SRC[7:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+7:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4>VPBROADCASTW (EVEX encoded versions)</h4>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SRC[15:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4>VPBROADCASTD (EVEX encoded versions)</h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←SRC[31:0]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4>VPBROADCASTQ (EVEX encoded versions)</h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC[63:0]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VPBROADCASTB __m512i _mm512_mask_set1_epi8(__m512i s, __mmask64 k, int a);
+</pre>
+<pre>VPBROADCASTB __m512i _mm512_maskz_set1_epi8( __mmask64 k, int a);
+</pre>
+<pre>VPBROADCASTB __m256i _mm256_mask_set1_epi8(__m256i s, __mmask32 k, int a);
+</pre>
+<pre>VPBROADCASTB __m256i _mm256_maskz_set1_epi8( __mmask32 k, int a);
+</pre>
+<pre>VPBROADCASTB __m128i _mm_mask_set1_epi8(__m128i s, __mmask16 k, int a);
+</pre>
+<pre>VPBROADCASTB __m128i _mm_maskz_set1_epi8( __mmask16 k, int a);
+</pre>
+<pre>VPBROADCASTD __m512i _mm512_mask_set1_epi32(__m512i s, __mmask16 k, int a);
+</pre>
+<pre>VPBROADCASTD __m512i _mm512_maskz_set1_epi32( __mmask16 k, int a);
+</pre>
+<pre>VPBROADCASTD __m256i _mm256_mask_set1_epi32(__m256i s, __mmask8 k, int a);
+</pre>
+<pre>VPBROADCASTD __m256i _mm256_maskz_set1_epi32( __mmask8 k, int a);
+</pre>
+<pre>VPBROADCASTD __m128i _mm_mask_set1_epi32(__m128i s, __mmask8 k, int a);
+</pre>
+<pre>VPBROADCASTD __m128i _mm_maskz_set1_epi32( __mmask8 k, int a);
+</pre>
+<pre>VPBROADCASTQ __m512i _mm512_mask_set1_epi64(__m512i s, __mmask8 k, __int64 a);
+</pre>
+<pre>VPBROADCASTQ __m512i _mm512_maskz_set1_epi64( __mmask8 k, __int64 a);
+</pre>
+<pre>VPBROADCASTQ __m256i _mm256_mask_set1_epi64(__m256i s, __mmask8 k, __int64 a);
+</pre>
+<pre>VPBROADCASTQ __m256i _mm256_maskz_set1_epi64( __mmask8 k, __int64 a);
+</pre>
+<pre>VPBROADCASTQ __m128i _mm_mask_set1_epi64(__m128i s, __mmask8 k, __int64 a);
+</pre>
+<pre>VPBROADCASTQ __m128i _mm_maskz_set1_epi64( __mmask8 k, __int64 a);
+</pre>
+<pre>VPBROADCASTW __m512i _mm512_mask_set1_epi16(__m512i s, __mmask32 k, int a);
+</pre>
+<pre>VPBROADCASTW __m512i _mm512_maskz_set1_epi16( __mmask32 k, int a);
+</pre>
+<pre>VPBROADCASTW __m256i _mm256_mask_set1_epi16(__m256i s, __mmask16 k, int a);
+</pre>
+<pre>VPBROADCASTW __m256i _mm256_maskz_set1_epi16( __mmask16 k, int a);
+</pre>
+<pre>VPBROADCASTW __m128i _mm_mask_set1_epi16(__m128i s, __mmask8 k, int a);
+</pre>
+<pre>VPBROADCASTW __m128i _mm_maskz_set1_epi16( __mmask8 k, int a);
+</pre>
+<h3>Exceptions</h3>
+<p>EVEX-encoded instructions, see Exceptions Type E7NM.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table></x86:instruction>

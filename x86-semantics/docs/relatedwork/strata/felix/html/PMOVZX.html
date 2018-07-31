@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PMOVZX
+		— Packed Move with Zero Extend</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMOVZX
+		— Packed Move with Zero Extend</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0f 38 30 /r PMOVZXBW xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Zero extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 16-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 31 /r PMOVZXBD xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Zero extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 32 /r PMOVZXBQ xmm1, xmm2/m16</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Zero extend 2 packed 8-bit integers in the low 2 bytes of xmm2/m16 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 33 /r PMOVZXWD xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Zero extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 34 /r PMOVZXWQ xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Zero extend 2 packed 16-bit integers in the low 4 bytes of xmm2/m32 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>66 0f 38 35 /r PMOVZXDQ xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE4_1</td>
+<td>Zero extend 2 packed 32-bit integers in the low 8 bytes of xmm2/m64 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 30 /r VPMOVZXBW xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Zero extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 16-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 31 /r VPMOVZXBD xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Zero extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 32 /r VPMOVZXBQ xmm1, xmm2/m16</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Zero extend 2 packed 8-bit integers in the low 2 bytes of xmm2/m16 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 33 /r VPMOVZXWD xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Zero extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 32-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F38.WIG 34 /r VPMOVZXWQ xmm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Zero extend 2 packed 16-bit integers in the low 4 bytes of xmm2/m32 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.128.66.0F 38.WIG 35 /r VPMOVZXDQ xmm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Zero extend 2 packed 32-bit integers in the low 8 bytes of xmm2/m64 to 2 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 30 /r VPMOVZXBW ymm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Zero extend 16 packed 8-bit integers in xmm2/m128 to 16 packed 16-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 31 /r VPMOVZXBD ymm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Zero extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 32-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 32 /r VPMOVZXBQ ymm1, xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Zero extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 64-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 33 /r VPMOVZXWD ymm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Zero extend 8 packed 16-bit integers xmm2/m128 to 8 packed 32-bit integers in ymm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 34 /r VPMOVZXWQ ymm1, xmm2/m64</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Zero extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 64-bit integers in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG 35 /r VPMOVZXDQ ymm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Zero extend 4 packed 32-bit integers in xmm2/m128 to 4 packed 64-bit integers in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38 30.WIG /r VPMOVZXBW xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Zero extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 16-bit integers in xmm1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 30 /r VPMOVZXBW ymm1 {k1}{z}, xmm2/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Zero extend 16 packed 8-bit integers in xmm2/m128 to 16 packed 16-bit integers in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 30 /r VPMOVZXBW zmm1 {k1}{z}, ymm2/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Zero extend 32 packed 8-bit integers in ymm2/m256 to 32 packed 16-bit integers in zmm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 31 /r VPMOVZXBD xmm1 {k1}{z}, xmm2/m32</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 32-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 31 /r VPMOVZXBD ymm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 32-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 31 /r VPMOVZXBD zmm1 {k1}{z}, xmm2/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Zero extend 16 packed 8-bit integers in xmm2/m128 to 16 packed 32-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 32 /r VPMOVZXBQ xmm1 {k1}{z}, xmm2/m16</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 2 packed 8-bit integers in the low 2 bytes of xmm2/m16 to 2 packed 64-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 32 /r VPMOVZXBQ ymm1 {k1}{z}, xmm2/m32</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 4 packed 8-bit integers in the low 4 bytes of xmm2/m32 to 4 packed 64-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 32 /r VPMOVZXBQ zmm1 {k1}{z}, xmm2/m64</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Zero extend 8 packed 8-bit integers in the low 8 bytes of xmm2/m64 to 8 packed 64-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 33 /r VPMOVZXWD xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 32-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 33 /r VPMOVZXWD ymm1 {k1}{z}, xmm2/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 8 packed 16-bit integers in xmm2/m128 to 8 packed 32-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 33 /r VPMOVZXWD zmm1 {k1}{z}, ymm2/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Zero extend 16 packed 16-bit integers in ymm2/m256 to 16 packed 32-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG 34 /r VPMOVZXWQ xmm1 {k1}{z}, xmm2/m32</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 2 packed 16-bit integers in the low 4 bytes of xmm2/m32 to 2 packed 64-bit integers in xmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG 34 /r VPMOVZXWQ ymm1 {k1}{z}, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 4 packed 16-bit integers in the low 8 bytes of xmm2/m64 to 4 packed 64-bit integers in ymm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG 34 /r VPMOVZXWQ zmm1 {k1}{z}, xmm2/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Zero extend 8 packed 16-bit integers in xmm2/m128 to 8 packed 64-bit integers in zmm1 subject to writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 35 /r VPMOVZXDQ xmm1 {k1}{z}, xmm2/m64</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 2 packed 32-bit integers in the low 8 bytes of xmm2/m64 to 2 packed 64-bit integers in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 35 /r VPMOVZXDQ ymm1 {k1}{z}, xmm2/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Zero extend 4 packed 32-bit integers in xmm2/m128 to 4 packed 64-bit integers in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 35 /r VPMOVZXDQ zmm1 {k1}{z}, ymm2/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Zero extend 8 packed 32-bit integers in ymm2/m256 to 8 packed 64-bit integers in zmm1 using writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Half Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Quarter Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>Eighth Mem</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Legacy, VEX and EVEX encoded versions: Packed byte, word, or dword integers starting from the low bytes of the source operand (second operand) are zero extended to word, dword, or quadword integers and stored in packed signed bytes the destination operand.</p>
+<p>128-bit Legacy SSE version: Bits (MAXVL-1:128) of the corresponding destination register remain unchanged.</p>
+<p>VEX.128 encoded version: Bits (MAXVL-1:128) of the corresponding destination register are zeroed.</p>
+<p>VEX.256 encoded version: Bits (MAXVL-1:256) of the corresponding destination register are zeroed.</p>
+<p>EVEX encoded versions: Packed dword integers starting from the low bytes of the source operand (second operand) are zero extended to quadword integers and stored to the destination operand under the writemask.The destination register is XMM, YMM or ZMM Register.</p>
+<p>Note: VEX.vvvv and EVEX.vvvv are reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="packed_zero_extend_byte_to_word-dest--src-">Packed_Zero_Extend_BYTE_to_WORD(DEST, SRC)<a class="anchor" href="#packed_zero_extend_byte_to_word-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ←ZeroExtend(SRC[7:0]);
+DEST[31:16] ←ZeroExtend(SRC[15:8]);
+DEST[47:32] ←ZeroExtend(SRC[23:16]);
+DEST[63:48] ←ZeroExtend(SRC[31:24]);
+DEST[79:64] ←ZeroExtend(SRC[39:32]);
+DEST[95:80] ←ZeroExtend(SRC[47:40]);
+DEST[111:96] ←ZeroExtend(SRC[55:48]);
+DEST[127:112] ←ZeroExtend(SRC[63:56]);
+</pre>
+<h4 id="packed_zero_extend_byte_to_dword-dest--src-">Packed_Zero_Extend_BYTE_to_DWORD(DEST, SRC)<a class="anchor" href="#packed_zero_extend_byte_to_dword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←ZeroExtend(SRC[7:0]);
+DEST[63:32] ←ZeroExtend(SRC[15:8]);
+DEST[95:64] ←ZeroExtend(SRC[23:16]);
+DEST[127:96] ←ZeroExtend(SRC[31:24]);
+</pre>
+<h4 id="packed_zero_extend_byte_to_qword-dest--src-">Packed_Zero_Extend_BYTE_to_QWORD(DEST, SRC)<a class="anchor" href="#packed_zero_extend_byte_to_qword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ←ZeroExtend(SRC[7:0]);
+DEST[127:64] ←ZeroExtend(SRC[15:8]);
+</pre>
+<h4 id="packed_zero_extend_word_to_dword-dest--src-">Packed_Zero_Extend_WORD_to_DWORD(DEST, SRC)<a class="anchor" href="#packed_zero_extend_word_to_dword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←ZeroExtend(SRC[15:0]);
+DEST[63:32] ←ZeroExtend(SRC[31:16]);
+DEST[95:64] ←ZeroExtend(SRC[47:32]);
+DEST[127:96] ←ZeroExtend(SRC[63:48]);
+</pre>
+<h4 id="packed_zero_extend_word_to_qword-dest--src-">Packed_Zero_Extend_WORD_to_QWORD(DEST, SRC)<a class="anchor" href="#packed_zero_extend_word_to_qword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ←ZeroExtend(SRC[15:0]);
+DEST[127:64] ←ZeroExtend(SRC[31:16]);
+</pre>
+<h4 id="packed_zero_extend_dword_to_qword-dest--src-">Packed_Zero_Extend_DWORD_to_QWORD(DEST, SRC)<a class="anchor" href="#packed_zero_extend_dword_to_qword-dest--src-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ←ZeroExtend(SRC[31:0]);
+DEST[127:64] ←ZeroExtend(SRC[63:32]);
+</pre>
+<h4 id="vpmovzxbw--evex-encoded-versions-">VPMOVZXBW (EVEX encoded versions)<a class="anchor" href="#vpmovzxbw--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+Packed_Zero_Extend_BYTE_to_WORD(TMP_DEST[127:0], SRC[63:0])
+IF VL &gt;= 256
+    Packed_Zero_Extend_BYTE_to_WORD(TMP_DEST[255:128], SRC[127:64])
+FI;
+IF VL &gt;= 512
+    Packed_Zero_Extend_BYTE_to_WORD(TMP_DEST[383:256], SRC[191:128])
+    Packed_Zero_Extend_BYTE_to_WORD(TMP_DEST[511:384], SRC[255:192])
+FI;
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←TEMP_DEST[i+15:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovzxbd--evex-encoded-versions-">VPMOVZXBD (EVEX encoded versions)<a class="anchor" href="#vpmovzxbd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+Packed_Zero_Extend_BYTE_to_DWORD(TMP_DEST[127:0], SRC[31:0])
+IF VL &gt;= 256
+    Packed_Zero_Extend_BYTE_to_DWORD(TMP_DEST[255:128], SRC[63:32])
+FI;
+IF VL &gt;= 512
+    Packed_Zero_Extend_BYTE_to_DWORD(TMP_DEST[383:256], SRC[95:64])
+    Packed_Zero_Extend_BYTE_to_DWORD(TMP_DEST[511:384], SRC[127:96])
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TEMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovzxbq--evex-encoded-versions-">VPMOVZXBQ (EVEX encoded versions)<a class="anchor" href="#vpmovzxbq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+Packed_Zero_Extend_BYTE_to_QWORD(TMP_DEST[127:0], SRC[15:0])
+IF VL &gt;= 256
+    Packed_Zero_Extend_BYTE_to_QWORD(TMP_DEST[255:128], SRC[31:16])
+FI;
+IF VL &gt;= 512
+    Packed_Zero_Extend_BYTE_to_QWORD(TMP_DEST[383:256], SRC[47:32])
+    Packed_Zero_Extend_BYTE_to_QWORD(TMP_DEST[511:384], SRC[63:48])
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TEMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovzxwd--evex-encoded-versions-">VPMOVZXWD (EVEX encoded versions)<a class="anchor" href="#vpmovzxwd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+Packed_Zero_Extend_WORD_to_DWORD(TMP_DEST[127:0], SRC[63:0])
+IF VL &gt;= 256
+    Packed_Zero_Extend_WORD_to_DWORD(TMP_DEST[255:128], SRC[127:64])
+FI;
+IF VL &gt;= 512
+    Packed_Zero_Extend_WORD_to_DWORD(TMP_DEST[383:256], SRC[191:128])
+    Packed_Zero_Extend_WORD_to_DWORD(TMP_DEST[511:384], SRC[256:192])
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TEMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking* ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovzxwq--evex-encoded-versions-">VPMOVZXWQ (EVEX encoded versions)<a class="anchor" href="#vpmovzxwq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+Packed_Zero_Extend_WORD_to_QWORD(TMP_DEST[127:0], SRC[31:0])
+IF VL &gt;= 256
+    Packed_Zero_Extend_WORD_to_QWORD(TMP_DEST[255:128], SRC[63:32])
+FI;
+IF VL &gt;= 512
+    Packed_Zero_Extend_WORD_to_QWORD(TMP_DEST[383:256], SRC[95:64])
+    Packed_Zero_Extend_WORD_to_QWORD(TMP_DEST[511:384], SRC[127:96])
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TEMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovzxdq--evex-encoded-versions-">VPMOVZXDQ (EVEX encoded versions)<a class="anchor" href="#vpmovzxdq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+Packed_Zero_Extend_DWORD_to_QWORD(TEMP_DEST[127:0], SRC[63:0])
+IF VL &gt;= 256
+    Packed_Zero_Extend_DWORD_to_QWORD(TEMP_DEST[255:128], SRC[127:64])
+FI;
+IF VL &gt;= 512
+    Packed_Zero_Extend_DWORD_to_QWORD(TEMP_DEST[383:256], SRC[191:128])
+    Packed_Zero_Extend_DWORD_to_QWORD(TEMP_DEST[511:384], SRC[255:192])
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TEMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpmovzxbw--vex-256-encoded-version-">VPMOVZXBW (VEX.256 encoded version)<a class="anchor" href="#vpmovzxbw--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_WORD(DEST[127:0], SRC[63:0])
+Packed_Zero_Extend_BYTE_to_WORD(DEST[255:128], SRC[127:64])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovzxbd--vex-256-encoded-version-">VPMOVZXBD (VEX.256 encoded version)<a class="anchor" href="#vpmovzxbd--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_DWORD(DEST[127:0], SRC[31:0])
+Packed_Zero_Extend_BYTE_to_DWORD(DEST[255:128], SRC[63:32])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovzxbq--vex-256-encoded-version-">VPMOVZXBQ (VEX.256 encoded version)<a class="anchor" href="#vpmovzxbq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_QWORD(DEST[127:0], SRC[15:0])
+Packed_Zero_Extend_BYTE_to_QWORD(DEST[255:128], SRC[31:16])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovzxwd--vex-256-encoded-version-">VPMOVZXWD (VEX.256 encoded version)<a class="anchor" href="#vpmovzxwd--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_WORD_to_DWORD(DEST[127:0], SRC[63:0])
+Packed_Zero_Extend_WORD_to_DWORD(DEST[255:128], SRC[127:64])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovzxwq--vex-256-encoded-version-">VPMOVZXWQ (VEX.256 encoded version)<a class="anchor" href="#vpmovzxwq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_WORD_to_QWORD(DEST[127:0], SRC[31:0])
+Packed_Zero_Extend_WORD_to_QWORD(DEST[255:128], SRC[63:32])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovzxdq--vex-256-encoded-version-">VPMOVZXDQ (VEX.256 encoded version)<a class="anchor" href="#vpmovzxdq--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_DWORD_to_QWORD(DEST[127:0], SRC[63:0])
+Packed_Zero_Extend_DWORD_to_QWORD(DEST[255:128], SRC[127:64])
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h4 id="vpmovzxbw--vex-128-encoded-version-">VPMOVZXBW (VEX.128 encoded version)<a class="anchor" href="#vpmovzxbw--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_WORD()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovzxbd--vex-128-encoded-version-">VPMOVZXBD (VEX.128 encoded version)<a class="anchor" href="#vpmovzxbd--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_DWORD()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovzxbq--vex-128-encoded-version-">VPMOVZXBQ (VEX.128 encoded version)<a class="anchor" href="#vpmovzxbq--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_QWORD()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovzxwd--vex-128-encoded-version-">VPMOVZXWD (VEX.128 encoded version)<a class="anchor" href="#vpmovzxwd--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_WORD_to_DWORD()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovzxwq--vex-128-encoded-version-">VPMOVZXWQ (VEX.128 encoded version)<a class="anchor" href="#vpmovzxwq--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_WORD_to_QWORD()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vpmovzxdq--vex-128-encoded-version">VPMOVZXDQ (VEX.128 encoded version<a class="anchor" href="#vpmovzxdq--vex-128-encoded-version">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_DWORD_to_QWORD()
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="pmovzxbw">PMOVZXBW<a class="anchor" href="#pmovzxbw">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_WORD()
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovzxbd">PMOVZXBD<a class="anchor" href="#pmovzxbd">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_DWORD()
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovzxbq">PMOVZXBQ<a class="anchor" href="#pmovzxbq">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_BYTE_to_QWORD()
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovzxwd">PMOVZXWD<a class="anchor" href="#pmovzxwd">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_WORD_to_DWORD()
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovzxwq">PMOVZXWQ<a class="anchor" href="#pmovzxwq">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_WORD_to_QWORD()
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="pmovzxdq">PMOVZXDQ<a class="anchor" href="#pmovzxdq">
+			¶
+		</a></h4>
+<pre>Packed_Zero_Extend_DWORD_to_QWORD()
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VPMOVZXBW __m512i _mm512_cvtepu8_epi16(__m256i a);
+</pre>
+<pre>VPMOVZXBW __m512i _mm512_mask_cvtepu8_epi16(__m512i a, __mmask32 k, __m256i b);
+</pre>
+<pre>VPMOVZXBW __m512i _mm512_maskz_cvtepu8_epi16( __mmask32 k, __m256i b);
+</pre>
+<pre>VPMOVZXBD __m512i _mm512_cvtepu8_epi32(__m128i a);
+</pre>
+<pre>VPMOVZXBD __m512i _mm512_mask_cvtepu8_epi32(__m512i a, __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXBD __m512i _mm512_maskz_cvtepu8_epi32( __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXBQ __m512i _mm512_cvtepu8_epi64(__m128i a);
+</pre>
+<pre>VPMOVZXBQ __m512i _mm512_mask_cvtepu8_epi64(__m512i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBQ __m512i _mm512_maskz_cvtepu8_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXDQ __m512i _mm512_cvtepu32_epi64(__m256i a);
+</pre>
+<pre>VPMOVZXDQ __m512i _mm512_mask_cvtepu32_epi64(__m512i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVZXDQ __m512i _mm512_maskz_cvtepu32_epi64( __mmask8 k, __m256i a);
+</pre>
+<pre>VPMOVZXWD __m512i _mm512_cvtepu16_epi32(__m128i a);
+</pre>
+<pre>VPMOVZXWD __m512i _mm512_mask_cvtepu16_epi32(__m512i a, __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXWD __m512i _mm512_maskz_cvtepu16_epi32(__mmask16 k, __m128i a);
+</pre>
+<pre>VPMOVZXWQ __m512i _mm512_cvtepu16_epi64(__m256i a);
+</pre>
+<pre>VPMOVZXWQ __m512i _mm512_mask_cvtepu16_epi64(__m512i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVZXWQ __m512i _mm512_maskz_cvtepu16_epi64( __mmask8 k, __m256i a);
+</pre>
+<pre>VPMOVZXBW __m256i _mm256_cvtepu8_epi16(__m256i a);
+</pre>
+<pre>VPMOVZXBW __m256i _mm256_mask_cvtepu8_epi16(__m256i a, __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXBW __m256i _mm256_maskz_cvtepu8_epi16( __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXBD __m256i _mm256_cvtepu8_epi32(__m128i a);
+</pre>
+<pre>VPMOVZXBD __m256i _mm256_mask_cvtepu8_epi32(__m256i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBD __m256i _mm256_maskz_cvtepu8_epi32( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBQ __m256i _mm256_cvtepu8_epi64(__m128i a);
+</pre>
+<pre>VPMOVZXBQ __m256i _mm256_mask_cvtepu8_epi64(__m256i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBQ __m256i _mm256_maskz_cvtepu8_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXDQ __m256i _mm256_cvtepu32_epi64(__m128i a);
+</pre>
+<pre>VPMOVZXDQ __m256i _mm256_mask_cvtepu32_epi64(__m256i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXDQ __m256i _mm256_maskz_cvtepu32_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXWD __m256i _mm256_cvtepu16_epi32(__m128i a);
+</pre>
+<pre>VPMOVZXWD __m256i _mm256_mask_cvtepu16_epi32(__m256i a, __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXWD __m256i _mm256_maskz_cvtepu16_epi32(__mmask16 k, __m128i a);
+</pre>
+<pre>VPMOVZXWQ __m256i _mm256_cvtepu16_epi64(__m128i a);
+</pre>
+<pre>VPMOVZXWQ __m256i _mm256_mask_cvtepu16_epi64(__m256i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXWQ __m256i _mm256_maskz_cvtepu16_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXBW __m128i _mm_mask_cvtepu8_epi16(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBW __m128i _mm_maskz_cvtepu8_epi16( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBD __m128i _mm_mask_cvtepu8_epi32(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBD __m128i _mm_maskz_cvtepu8_epi32( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBQ __m128i _mm_mask_cvtepu8_epi64(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXBQ __m128i _mm_maskz_cvtepu8_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXDQ __m128i _mm_mask_cvtepu32_epi64(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXDQ __m128i _mm_maskz_cvtepu32_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXWD __m128i _mm_mask_cvtepu16_epi32(__m128i a, __mmask16 k, __m128i b);
+</pre>
+<pre>VPMOVZXWD __m128i _mm_maskz_cvtepu16_epi32(__mmask8 k, __m128i a);
+</pre>
+<pre>VPMOVZXWQ __m128i _mm_mask_cvtepu16_epi64(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVZXWQ __m128i _mm_maskz_cvtepu16_epi64( __mmask8 k, __m128i a);
+</pre>
+<pre>PMOVZXBW __m128i _mm_ cvtepu8_epi16 ( __m128i a);
+</pre>
+<pre>PMOVZXBD __m128i _mm_ cvtepu8_epi32 ( __m128i a);
+</pre>
+<pre>PMOVZXBQ __m128i _mm_ cvtepu8_epi64 ( __m128i a);
+</pre>
+<pre>PMOVZXWD __m128i _mm_ cvtepu16_epi32 ( __m128i a);
+</pre>
+<pre>PMOVZXWQ __m128i _mm_ cvtepu16_epi64 ( __m128i a);
+</pre>
+<pre>PMOVZXDQ __m128i _mm_ cvtepu32_epi64 ( __m128i a);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 5.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E5.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.vvvv != 1111B, or EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

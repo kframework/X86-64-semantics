@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Leave VMX Operation" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VMXOFF"/>
+<table>
+<tr>
+<td><strong>Opcode Instruction Description</strong> 0F 01 C4 VMXOFF Leaves VMX operation<em>.</em></td></tr></table>
+<h2>Description</h2>
+<p>Takes the logical processor out of VMX operation, unblocks INIT signals, conditionally re-enables A20M, and clears any address-range monitoring.<sup>7</sup></p>
+<h2>Operation</h2>
+<pre>IF (not in VMX operation) or (CR0.PE = 0) or (RFLAGS.VM = 1) or (IA32_EFER.LMA = 1 and CS.L = 0)
+    THEN #UD;
+ELSIF in VMX non-root operation
+    THEN VMexit;
+ELSIF CPL &gt; 0
+    THEN #GP(0);
+ELSIF dual-monitor treatment of SMIs and SMM is active
+    THEN VMfail(VMXOFF under dual-monitor treatment of SMIs and SMM);
+    ELSE
+        leave VMX operation;
+        unblock INIT;
+        IF IA32_SMM_MONITOR_CTL[2] = 0<sup>8</sup>
+            THEN unblock SMIs;
+        IF outside SMX operation<sup>9</sup>
+            THEN unblock and enable A20M;
+        FI;
+        clear address-range monitoring;
+        VMsucceed;
+FI;
+</pre>
+<blockquote>
+<p>7. See the information on MONITOR/MWAIT in Chapter 8, “Multiple-Processor Management,” of the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p>
+<p>8. Setting IA32_SMM_MONITOR_CTL[bit 2] to 1 prevents VMXOFF from unblocking SMIs regardless of the value of the register’s value bit (bit 0). Not all processors allow this bit to be set to 1. Software should consult the VMX capability MSR IA32_VMX_MISC (see Appendix A.6) to determine whether this is allowed.</p>
+<p>9. A logical processor is outside SMX operation if GETSEC[SENTER] has not been executed or if GETSEC[SEXIT] was executed after the last execution of GETSEC[SENTER]. See Chapter 6, “Safer Mode Extensions Reference.”</p></blockquote>
+<h2>Flags Affected</h2>
+<p>See the operation section and Section 30.2.</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If executed in VMX root operation with CPL &gt; 0.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The VMXOFF instruction is not recognized in real-address mode.</td></tr></table>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The VMXOFF instruction is not recognized in virtual-8086 mode.</td></tr></table>
+<h2>Compatibility Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The VMXOFF instruction is not recognized in compatibility mode.</td></tr></table>
+<h2>64-Bit Mode Exceptions</h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If executed in VMX root operation with CPL &gt; 0.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></table></x86:instruction>

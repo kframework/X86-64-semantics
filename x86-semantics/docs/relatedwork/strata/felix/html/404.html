@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>File Not Found</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript">
+	<!--
+	function mnemonics(location) {
+		var period = location.pathname.lastIndexOf(".");
+		var mnemonics;
+		if (period == -1) {
+			mnemonics = location.pathname.substring(
+				location.pathname.lastIndexOf("/") + 1)
+				.split(":");
+		} else {
+			mnemonics = location.pathname.substring(
+				location.pathname.lastIndexOf("/") + 1,
+				period)
+				.split(":");
+		}
+
+		if (location.textContent) {
+			mnemonics.push(location.textContent);
+		}
+
+		var currentLength = mnemonics.length;
+		for (var i = 0; i < currentLength; ++i) {
+			mnemonics[i] = mnemonics[i].toUpperCase();
+			if (mnemonics[i].substring(0, 3) == "SET" && mnemonics[i].length < 6) {
+				mnemonics.push("SETCC");
+			} else if (mnemonics[i].charAt(0) == "J" && mnemonics[i].length < 4) {
+				mnemonics.push("JCC");
+			} else if (mnemonics[i].charAt(0) == "CMOV" && mnemonics[i].length < 7) {
+				mnemonics.push("CMOVCC");
+			} else if (mnemonics[i].charAt(0) != "V") {
+				mnemonics.push("V" + mnemonics[i]);
+			}
+		}
+		return mnemonics;
+	}
+
+	function addLink(target, link, mnemonic) {
+		if (!target[link.pathname]) {
+			target[link.pathname] = {};
+		}
+		target[link.pathname][link.textContent] = true;
+	}
+
+	var errorMnemonics = mnemonics(document.location);
+
+	function onload()
+	{
+		document.getElementById("loc").textContent = "(" + document.location.pathname + ")";
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "index.html");
+		xhr.responseType = "document";
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState != 4) return;
+			var matchedLinks = {};
+			var links = xhr.responseXML.getElementsByTagName("a");
+			for (var i = 0; i < links.length; ++i) {
+				var link = links[i];
+				var allMnemonics = mnemonics(link);
+				var intersection = allMnemonics.filter(function(f) {
+					return errorMnemonics.indexOf(f.toUpperCase()) != -1;
+				});
+
+				for (var j = 0; j < intersection.length; ++j) {
+					var match = intersection[j];
+					addLink(matchedLinks, link);
+				}
+			}
+			autocorrect(matchedLinks);
+		}
+		xhr.send();
+	}
+
+	function autocorrect(links) {
+		if (Object.keys(links).length == 0) return;
+		var newP = document.createElement("p");
+		newP.textContent = "Did you mean ";
+
+		var keys = Object.keys(links);
+		keys.sort();
+
+		for (var i = 0; i < keys.length; ++i) {
+			var path = keys[i];
+			var link = document.createElement("a");
+			link.href = path;
+			var mnemonics = Object.keys(links[path]);
+			mnemonics.sort();
+			link.textContent = mnemonics.join("/");
+			newP.appendChild(link);
+			newP.appendChild(document.createTextNode(" or "));
+		}
+
+		newP.lastChild.textContent = "?";
+
+		var oldP = document.getElementById("p");
+		oldP.parentNode.insertBefore(newP, oldP.nextSibling);
+	}
+
+	document.addEventListener("DOMContentLoaded", onload, false);
+	-->
+	</script>
+</head>
+<body>
+	<h1>File Not Found</h1>
+	<p id="p">The document you requested <span id="loc"></span> cannot be found.</p>
+	<p><a href=".">Back to x86 instruction index</a></p>
+</body>
+</html>

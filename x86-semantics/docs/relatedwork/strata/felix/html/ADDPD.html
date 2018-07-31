@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>ADDPD
+		— Add Packed Double-Precision Floating-Point Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ADDPD
+		— Add Packed Double-Precision Floating-Point Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F 58 /r ADDPD xmm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed double-precision floating-point values from xmm2/mem to xmm1 and store result in xmm1.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG 58 /r VADDPD xmm1,xmm2, xmm3/m128</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed double-precision floating-point values from xmm3/mem to xmm2 and store result in xmm1.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG 58 /r VADDPD ymm1, ymm2, ymm3/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed double-precision floating-point values from ymm3/mem to ymm2 and store result in ymm1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.W1 58 /r VADDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Add packed double-precision floating-point values from xmm3/m128/m64bcst to xmm2 and store result in xmm1 with writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.W1 58 /r VADDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Add packed double-precision floating-point values from ymm3/m256/m64bcst to ymm2 and store result in ymm1 with writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.W1 58 /r VADDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Add packed double-precision floating-point values from zmm3/m512/m64bcst to zmm2 and store result in zmm1 with writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Add two, four or eight packed double-precision floating-point values from the first source operand to the second source operand, and stores the packed double-precision floating-point results in the destination operand.</p>
+<p>EVEX encoded versions: The first source operand is a ZMM/YMM/XMM register. The second source operand can be a ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 64-bit memory location. The destination operand is a ZMM/YMM/XMM register conditionally updated with writemask k1.</p>
+<p>VEX.256 encoded version: The first source operand is a YMM register. The second source operand can be a YMM register or a 256-bit memory location. The destination operand is a YMM register. The upper bits (MAXVL-1:256) of the corresponding ZMM register destination are zeroed.</p>
+<p>VEX.128 encoded version: the first source operand is a XMM register. The second source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding ZMM register destination are zeroed.</p>
+<p>128-bit Legacy SSE version: The second source can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper Bits (MAXVL-1:128) of the corresponding ZMM register destination are unmodified.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="vaddpd--evex-encoded-versions--when-src2-operand-is-a-vector-register">VADDPD (EVEX encoded versions) when src2 operand is a vector register<a class="anchor" href="#vaddpd--evex-encoded-versions--when-src2-operand-is-a-vector-register">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+IF (VL = 512) AND (EVEX.b = 1)
+    THEN
+        SET_RM(EVEX.RC);
+    ELSE
+        SET_RM(MXCSR.RM);
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←SRC1[i+63:i] + SRC2[i+63:i]
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="vaddpd--evex-encoded-versions--when-src2-operand-is-a-memory-source">VADDPD (EVEX encoded versions) when src2 operand is a memory source<a class="anchor" href="#vaddpd--evex-encoded-versions--when-src2-operand-is-a-memory-source">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN
+            IF (EVEX.b = 1)
+                THEN
+                    DEST[i+63:i]←SRC1[i+63:i] + SRC2[63:0]
+                ELSE
+                    DEST[i+63:i]←SRC1[i+63:i] + SRC2[i+63:i]
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="vaddpd--vex-256-encoded-version-">VADDPD (VEX.256 encoded version)<a class="anchor" href="#vaddpd--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[63:0] + SRC2[63:0]
+DEST[127:64]←SRC1[127:64] + SRC2[127:64]
+DEST[191:128]←SRC1[191:128] + SRC2[191:128]
+DEST[255:192]←SRC1[255:192] + SRC2[255:192]
+DEST[MAXVL-1:256] ← 0
+.
+</pre>
+<h3 id="vaddpd--vex-128-encoded-version-">VADDPD (VEX.128 encoded version)<a class="anchor" href="#vaddpd--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[63:0] + SRC2[63:0]
+DEST[127:64]←SRC1[127:64] + SRC2[127:64]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="addpd--128-bit-legacy-sse-version-">ADDPD (128-bit Legacy SSE version)<a class="anchor" href="#addpd--128-bit-legacy-sse-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←DEST[63:0] + SRC[63:0]
+DEST[127:64]←DEST[127:64] + SRC[127:64]
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>VADDPD __m512d _mm512_add_pd (__m512d a, __m512d b);
+</pre>
+<pre>VADDPD __m512d _mm512_mask_add_pd (__m512d s, __mmask8 k, __m512d a, __m512d b);
+</pre>
+<pre>VADDPD __m512d _mm512_maskz_add_pd (__mmask8 k, __m512d a, __m512d b);
+</pre>
+<pre>VADDPD __m256d _mm256_mask_add_pd (__m256d s, __mmask8 k, __m256d a, __m256d b);
+</pre>
+<pre>VADDPD __m256d _mm256_maskz_add_pd (__mmask8 k, __m256d a, __m256d b);
+</pre>
+<pre>VADDPD __m128d _mm_mask_add_pd (__m128d s, __mmask8 k, __m128d a, __m128d b);
+</pre>
+<pre>VADDPD __m128d _mm_maskz_add_pd (__mmask8 k, __m128d a, __m128d b);
+</pre>
+<pre>VADDPD __m512d _mm512_add_round_pd (__m512d a, __m512d b, int);
+</pre>
+<pre>VADDPD __m512d _mm512_mask_add_round_pd (__m512d s, __mmask8 k, __m512d a, __m512d b, int);
+</pre>
+<pre>VADDPD __m512d _mm512_maskz_add_round_pd (__mmask8 k, __m512d a, __m512d b, int);
+</pre>
+<pre>ADDPD __m256d _mm256_add_pd (__m256d a, __m256d b);
+</pre>
+<pre>ADDPD __m128d _mm_add_pd (__m128d a, __m128d b);
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>Overflow, Underflow, Invalid, Precision, Denormal</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>VEX-encoded instruction, see Exceptions Type 2.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E2.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

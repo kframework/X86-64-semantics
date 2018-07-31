@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>ENTER
+		— Make Stack Frame for Procedure Parameters</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ENTER
+		— Make Stack Frame for Procedure Parameters</h1>
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>C8 <em>iw</em> 00</td>
+<td>ENTER <em>imm16</em>, 0</td>
+<td>II</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Create a stack frame for a procedure.</td></tr>
+<tr>
+<td>C8 <em>iw</em> 01</td>
+<td>ENTER <em>imm16</em>,1</td>
+<td>II</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Create a stack frame with a nested pointer for a procedure.</td></tr>
+<tr>
+<td>C8 <em>iw</em> ib</td>
+<td>ENTER <em>imm16, imm8</em></td>
+<td>II</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Create a stack frame with nested pointers for a procedure.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>II</td>
+<td>iw</td>
+<td>imm8</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Creates a stack frame (comprising of space for dynamic storage and 1-32 frame pointer storage) for a procedure. The first operand (imm16) specifies the size of the dynamic storage in the stack frame (that is, the number of bytes of dynamically allocated on the stack for the procedure). The second operand (imm8) gives the lexical nesting level (0 to 31) of the procedure. The nesting level (imm8 mod 32) and the OperandSize attribute determine the size in bytes of the storage space for frame pointers.</p>
+<p>The nesting level determines the number of frame pointers that are copied into the “display area” of the new stack frame from the preceding frame. The default size of the frame pointer is the StackAddrSize attribute, but can be overridden using the 66H prefix. Thus, the OperandSize attribute determines the size of each frame pointer that will be copied into the stack frame and the data being transferred from SP/ESP/RSP register into the BP/EBP/RBP register.</p>
+<p>The ENTER and companion LEAVE instructions are provided to support block structured languages. The ENTER instruction (when used) is typically the first instruction in a procedure and is used to set up a new stack frame for a procedure. The LEAVE instruction is then used at the end of the procedure (just before the RET instruction) to release the stack frame.</p>
+<p>If the nesting level is 0, the processor pushes the frame pointer from the BP/EBP/RBP register onto the stack, copies the current stack pointer from the SP/ESP/RSP register into the BP/EBP/RBP register, and loads the SP/ESP/RSP register with the current stack-pointer value minus the value in the size operand. For nesting levels of 1 or greater, the processor pushes additional frame pointers on the stack before adjusting the stack pointer. These additional frame pointers provide the called procedure with access points to other nested frames on the stack. See “Procedure Calls for Block-Structured Languages” in Chapter 6 of the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for more information about the actions of the ENTER instruction.</p>
+<p>The ENTER instruction causes a page fault whenever a write using the final value of the stack pointer (within the current stack segment) would do so.</p>
+<p>In 64-bit mode, default operation size is 64 bits; 32-bit operation size cannot be encoded. Use of 66H prefix changes frame pointer operand size to 16 bits.</p>
+<p>When the 66H prefix is used and causing the OperandSize attribute to be less than the StackAddrSize, software is responsible for the following:</p>
+<ul>
+<li>The companion LEAVE instruction must also use the 66H prefix,</li>
+<li>The value in the RBP/EBP register prior to executing “66H ENTER” must be within the same 16KByte region of the current stack pointer (RSP/ESP), such that the value of RBP/EBP after “66H ENTER” remains a valid address in the stack. This ensures “66H LEAVE” can restore 16-bits of data from the stack.</li></ul>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>AllocSize ← imm16;
+NestingLevel ← imm8 MOD 32;
+IF (OperandSize = 64)
+    THEN
+        Push(RBP); (* RSP decrements by 8 *)
+        FrameTemp ← RSP;
+    ELSE IF OperandSize = 32
+        THEN
+            Push(EBP); (* (E)SP decrements by 4 *)
+            FrameTemp ← ESP; FI;
+    ELSE (* OperandSize = 16 *)
+            Push(BP); (* RSP or (E)SP decrements by 2 *)
+            FrameTemp ← SP;
+FI;
+IF NestingLevel = 0
+    THEN GOTO CONTINUE;
+FI;
+IF (NestingLevel &gt; 1)
+    THEN FOR i ← 1 to (NestingLevel - 1)
+        DO
+            IF (OperandSize = 64)
+                THEN
+                    RBP ← RBP - 8;
+                    Push([RBP]); (* Quadword push *)
+                ELSE IF OperandSize = 32
+                    THEN
+                        IF StackSize = 32
+                            EBP ← EBP - 4;
+                            Push([EBP]); (* Doubleword push *)
+                        ELSE (* StackSize = 16 *)
+                            BP ← BP - 4;
+                            Push([BP]); (* Doubleword push *)
+                        FI;
+                    FI;
+                ELSE (* OperandSize = 16 *)
+                    IF StackSize = 32
+                        THEN
+                            EBP ← EBP - 2;
+                            Push([EBP]); (* Word push *)
+                        ELSE (* StackSize = 16 *)
+                            BP ← BP - 2;
+                            Push([BP]); (* Word push *)
+                    FI;
+                FI;
+    OD;
+FI;
+IF (OperandSize = 64) (* nestinglevel 1 *)
+    THEN
+        Push(FrameTemp); (* Quadword push and RSP decrements by 8 *)
+    ELSE IF OperandSize = 32
+        THEN
+            Push(FrameTemp); FI; (* Doubleword push and (E)SP decrements by 4 *)
+    ELSE (* OperandSize = 16 *)
+            Push(FrameTemp); (* Word push and RSP|ESP|SP decrements by 2 *)
+FI;
+CONTINUE:
+IF 64-Bit Mode (StackSize = 64)
+    THEN
+            RBP ← FrameTemp;
+            RSP ← RSP − AllocSize;
+    ELSE IF OperandSize = 32
+        THEN
+            EBP ← FrameTemp;
+            ESP ← ESP − AllocSize; FI;
+    ELSE (* OperandSize = 16 *)
+            BP ← FrameTemp[15:1]; (* Bits 16 and above of applicable RBP/EBP are unmodified *)
+            SP ← SP − AllocSize;
+FI;
+END;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If the new value of the SP or ESP register is outside the stack segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs or if a write using the final value of the stack pointer (within the current stack segment) would cause a page fault.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS</td>
+<td>If the new value of the SP or ESP register is outside the stack segment limit.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If the new value of the SP or ESP register is outside the stack segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs or if a write using the final value of the stack pointer (within the current stack segment) would cause a page fault.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If the stack address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs or if a write using the final value of the stack pointer (within the current stack segment) would cause a page fault.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

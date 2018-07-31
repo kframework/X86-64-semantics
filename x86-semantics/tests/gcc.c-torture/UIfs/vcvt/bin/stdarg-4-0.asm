@@ -1317,7 +1317,6 @@ L131:
 	movq	%rax, x(%rip)
 	leave
 	ret
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -1424,7 +1423,11 @@ L143:
 	movabsq	$4619567317775286272, %rax
 	vmovq	%rcx, %xmm3
 	movl	$17, %esi
-	vmovsd	LC10(%rip), %xmm2
+  psuhq $1072693248
+  psuhq $0
+	vmovsd	(%rsp), %xmm2
+  popq %r15
+  popq %r15
 	vmovq	%rdx, %xmm1
 	vmovq	%rax, %xmm0
 	movl	$5, %edi
@@ -1442,6 +1445,3 @@ L145:
 	movl	$0, %eax
 	popq	%rbp
 	ret
-LC10:
-	.long	0
-	.long	1072693248

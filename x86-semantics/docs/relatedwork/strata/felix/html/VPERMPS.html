@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VPERMPS
+		— Permute Single-Precision Floating-Point Elements</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPERMPS
+		— Permute Single-Precision Floating-Point Elements</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.256.66.0F38.W0 16 /r VPERMPS ymm1, ymm2, ymm3/m256</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Permute single-precision floating-point elements in ymm3/m256 using indices in ymm2 and store the result in ymm1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F38.W0 16 /r VPERMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Permute single-precision floating-point elements in ymm3/m256/m32bcst using indexes in ymm2 and store the result in ymm1 subject to write mask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F38.W0 16 /r VPERMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Permute single-precision floating-point values in zmm3/m512/m32bcst using indices in zmm2 and store the result in zmm1 subject to write mask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Copies doubleword elements of single-precision floating-point values from the second source operand (the third operand) to the destination operand (the first operand) according to the indices in the first source operand (the second operand). Note that this instruction permits a doubleword in the source operand to be copied to more than one location in the destination operand.</p>
+<p>VEX.256 versions: The first and second operands are YMM registers, the third operand can be a YMM register or memory location. Bits (MAXVL-1:256) of the corresponding destination register are zeroed.</p>
+<p>EVEX encoded version: The first and second operands are ZMM registers, the third operand can be a ZMM register, a 512-bit memory location or a 512-bit vector broadcasted from a 32-bit memory location. The elements in the destination are updated using the writemask k1.</p>
+<p>If VPERMPS is encoded with VEX.L= 0, an attempt to execute the instruction encoded with VEX.L= 0 will cause an #UD exception.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vpermps--evex-forms-">VPERMPS (EVEX forms)<a class="anchor" href="#vpermps--evex-forms-">
+			¶
+		</a></h4>
+<pre>(KL, VL) (8, 256),= (16, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF (EVEX.b = 1) AND (SRC2 *is memory*)
+        THEN TMP_SRC2[i+31:i]←SRC2[31:0];
+        ELSE TMP_SRC2[i+31:i]←SRC2[i+31:i];
+    FI;
+ENDFOR;
+IF VL = 256
+    TMP_DEST[31:0]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[2:0] * 32))[31:0];
+    TMP_DEST[63:32]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[34:32] * 32))[31:0];
+    TMP_DEST[95:64]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[66:64] * 32))[31:0];
+    TMP_DEST[127:96]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[98:96] * 32))[31:0];
+    TMP_DEST[159:128]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[130:128] * 32))[31:0];
+    TMP_DEST[191:160]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[162:160] * 32))[31:0];
+    TMP_DEST[223:192]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[193:192] * 32))[31:0];
+    TMP_DEST[255:224]←(TMP_SRC2[255:0] &gt;&gt; (SRC1[226:224] * 32))[31:0];
+FI;
+IF VL = 512
+    TMP_DEST[31:0]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[3:0] * 32))[31:0];
+    TMP_DEST[63:32]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[35:32] * 32))[31:0];
+    TMP_DEST[95:64]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[67:64] * 32))[31:0];
+    TMP_DEST[127:96]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[99:96] * 32))[31:0];
+    TMP_DEST[159:128]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[131:128] * 32))[31:0];
+    TMP_DEST[191:160]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[163:160] * 32))[31:0];
+    TMP_DEST[223:192]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[195:192] * 32))[31:0];
+    TMP_DEST[255:224]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[227:224] * 32))[31:0];
+    TMP_DEST[287:256]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[259:256] * 32))[31:0];
+    TMP_DEST[319:288]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[291:288] * 32))[31:0];
+    TMP_DEST[351:320]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[323:320] * 32))[31:0];
+    TMP_DEST[383:352]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[355:352] * 32))[31:0];
+    TMP_DEST[415:384]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[387:384] * 32))[31:0];
+    TMP_DEST[447:416]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[419:416] * 32))[31:0];
+    TMP_DEST[479:448]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[451:448] * 32))[31:0];
+    TMP_DEST[511:480]←(TMP_SRC2[511:0] &gt;&gt; (SRC1[483:480] * 32))[31:0];
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+                            ;zeroing-masking
+            FI;
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpermps--vex-256-encoded-version-">VPERMPS (VEX.256 encoded version)<a class="anchor" href="#vpermps--vex-256-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←(SRC2[255:0] &gt;&gt; (SRC1[2:0] * 32))[31:0];
+DEST[63:32]←(SRC2[255:0] &gt;&gt; (SRC1[34:32] * 32))[31:0];
+DEST[95:64]←(SRC2[255:0] &gt;&gt; (SRC1[66:64] * 32))[31:0];
+DEST[127:96]←(SRC2[255:0] &gt;&gt; (SRC1[98:96] * 32))[31:0];
+DEST[159:128]←(SRC2[255:0] &gt;&gt; (SRC1[130:128] * 32))[31:0];
+DEST[191:160]←(SRC2[255:0] &gt;&gt; (SRC1[162:160] * 32))[31:0];
+DEST[223:192]←(SRC2[255:0] &gt;&gt; (SRC1[194:192] * 32))[31:0];
+DEST[255:224]←(SRC2[255:0] &gt;&gt; (SRC1[226:224] * 32))[31:0];
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VPERMPS __m512 _mm512_permutexvar_ps(__m512i i, __m512 a);
+</pre>
+<pre>VPERMPS __m512 _mm512_mask_permutexvar_ps(__m512 s, __mmask16 k, __m512i i, __m512 a);
+</pre>
+<pre>VPERMPS __m512 _mm512_maskz_permutexvar_ps( __mmask16 k, __m512i i, __m512 a);
+</pre>
+<pre>VPERMPS __m256 _mm256_permutexvar_ps(__m256 i, __m256 a);
+</pre>
+<pre>VPERMPS __m256 _mm256_mask_permutexvar_ps(__m256 s, __mmask8 k, __m256 i, __m256 a);
+</pre>
+<pre>VPERMPS __m256 _mm256_maskz_permutexvar_ps( __mmask8 k, __m256 i, __m256 a);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4; additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.L = 0.</td></tr></table>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

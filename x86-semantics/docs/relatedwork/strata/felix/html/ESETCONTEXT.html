@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>ESETCONTEXT
+		— Set the ENCLAVECONTEXT Field in SECS</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ESETCONTEXT
+		— Set the ENCLAVECONTEXT Field in SECS</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 02H ENCLV[ESETCONTEXT]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>EAX[5]</td>
+<td>This leaf function sets the ENCLAVECONTEXT field in SECS.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>RCX</td>
+<td>RDX</td></tr>
+<tr>
+<td>IR</td>
+<td>ESETCONTEXT (In)</td>
+<td>Address of the destination EPC page (In, EA)</td>
+<td>Context Value (In, EA)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>The ESETCONTEXT leaf overwrites the ENCLAVECONTEXT field in the SECS. ECREATE and ELD of an SECS set the ENCLAVECONTEXT field in the SECS to the address of the SECS (for access later in ERDINFO). The ESETCONTEXT instruction allows a VMM to overwrite the default context value if necessary, for example, if the VMM is emulating ECREATE or ELD on behalf of the guest.</p>
+<p>The content of RCX is an effective address of the SECS page to be updated, RDX contains the address pointing to the value to be stored in the SECS. The DS segment is used to create linear address. Segment override is not supported.</p>
+<p>The instruction fails if:</p>
+<ul>
+<li>The operand is not properly aligned.</li>
+<li>RCX does not refer to an SECS page.</li></ul>
+<h2 id="esetcontext-memory-parameter-semantics">ESETCONTEXT Memory Parameter Semantics<a class="anchor" href="#esetcontext-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>EPCPAGE</td>
+<td>CONTEXT</td></tr>
+<tr>
+<td>Read access permitted by Enclave</td>
+<td>Read/Write access permitted by Non Enclave</td></tr></table>
+<p>The instruction faults if any of the following:</p>
+<h2 id="esetcontext-faulting-conditions">ESETCONTEXT Faulting Conditions<a class="anchor" href="#esetcontext-faulting-conditions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>A memory operand effective address is outside the DS segment limit (32b mode).</td>
+<td>A memory operand is not properly aligned.</td></tr>
+<tr>
+<td>DS segment is unusable (32b mode).</td>
+<td>A page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>A memory address is in a non-canonical form (64b mode).</td>
+<td></td></tr></table>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-78">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>ESETCONTEXT</td>
+<td>SECS [DS:RCX]</td>
+<td>Shared</td>
+<td>SGX_EPC_PAGE_ CONFLICT</td>
+<td></td></tr></table>
+<figcaption><a href="./ESETCONTEXT.html#tbl-40-78">Table 40-78</a>. Base Concurrency Restrictions of ESETCONTEXT</figcaption></figure>
+<figure id="tbl-40-79">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>ESETCONTEXT</td>
+<td>SECS [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./ESETCONTEXT.html#tbl-40-79">Table 40-79</a>. Additional Concurrency Restrictions of ESETCONTEXT</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-esetcontext-operational-flow">Temp Variables in ESETCONTEXT Operational Flow<a class="anchor" href="#temp-variables-in-esetcontext-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size (bits)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_SECS</td>
+<td>Physical Address</td>
+<td>64</td>
+<td>Physical address of the SECS of the page being modified.</td></tr>
+<tr>
+<td>TMP_CONTEXT</td>
+<td>CONTEXT</td>
+<td>64</td>
+<td>Data Value of CONTEXT.</td></tr></table>
+<h2 id="esetcontext-return-value-in-rax">ESETCONTEXT Return Value in RAX<a class="anchor" href="#esetcontext-return-value-in-rax">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Error</th>
+<th>Value</th>
+<th>Description</th></tr>
+<tr>
+<td>No Error</td>
+<td>0</td>
+<td>ESETCONTEXT Successful.</td></tr>
+<tr>
+<td>SGX_EPC_PAGE_CONFLICT</td>
+<td></td>
+<td>Failure due to concurrent operation of another SGX instruction.</td></tr></table>
+<p>(* check alignment of the EPCPAGE (RCX) *)</p>
+<p>IF (DS:RCX is not 4KByte Aligned) THEN</p>
+<p>#GP(0); FI;</p>
+<p>(* check that EPCPAGE (DS:RCX) is the address of an EPC page *)</p>
+<p>IF (DS:RCX does not resolve within an EPC)THEN</p>
+<p>#PF(DS:RCX, PFEC.SGX); FI;</p>
+<p>(* check alignment of the CONTEXT field (RDX) *)</p>
+<p>IF (DS:RDX is not 8Byte Aligned) THEN</p>
+<p>#GP(0); FI;</p>
+<p>(* Load CONTEXT into local variable *)</p>
+<p>TMP_CONTEXT ← DS:RDX</p>
+<p>(* Check the EPC page for concurrency *)</p>
+<p>IF (EPC page is being modified) THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RFLAGS.CF ← 0;</p>
+<p>RAX ← SGX_EPC_PAGE_CONFLICT;</p>
+<p>goto DONE;</p>
+<p>FI;</p>
+<p>(* check page validity *)</p>
+<p>IF (EPCM(DS:RCX).VALID = 0) THEN</p>
+<p>#PF(DS:RCX, PFEC.SGX);</p>
+<p>FI;</p>
+<p>(* check EPC page is an SECS page *)</p>
+<p>IF (EPCM(DS:RCX).PT is not PT_SECS) THEN</p>
+<p>#PF(DS:RCX, PFEC.SGX);</p>
+<p>FI;</p>
+<p>(* load the context value into SECS(DS:RCX).ENCLAVECONTEXT *)</p>
+<p>SECS(DS:RCX).ENCLAVECONTEXT ← TMP_CONTEXT;</p>
+<p>RAX←0;</p>
+<p>RFLAGS.ZF ← 0;</p>
+<p>DONE:</p>
+<p>(* clear flags *)</p>
+<p>RFLAGS.CF,PF,AF,OF,SF ← 0;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>ZF is set if ESETCONTEXT fails due to concurrent operation with another SGX instruction; otherwise cleared.</p>
+<p>CF, PF, AF, OF and SF are cleared.</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If DS segment is unusable.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If a memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

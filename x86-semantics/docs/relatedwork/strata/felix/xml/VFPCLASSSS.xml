@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Tests Types Of a Scalar Float32 Values" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VFPCLASSSS"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.LIG.66.0F3A.W0 67 /r VFPCLASSSS k2 {k1}, xmm2/m32, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Tests the input for the following categories: NaN, +0, -0, +Infinity, -Infinity, denormal, finite negative. The immediate field provides a mask bit for each of these category tests. The masked test results are OR-ed together to form a mask result.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>The FPCLASSSS instruction checks the low single-precision floating point value in the source operand for special categories, specified by the set bits in the imm8 byte. Each set bit in imm8 specifies a category of floating-point values that the input data element is classified against. The classified results of all specified categories of an input value are ORed together to form the final boolean result for the input element. The result is written to the low bit in a mask register k2 according to the writemask k1. Bits MAX_KL-1: 1 of the destination are cleared.</p>
+<p>The classification categories specified by imm8 are shown in <x86:figref>Figure 5-13</x86:figref>. The classification test for each category is listed in <x86:tblref>Table 5-13</x86:tblref>.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3>Operation</h3>
+<pre>CheckFPClassSP (tsrc[31:0], imm8[7:0]){
+    //* Start checking the source operand for special type *//
+    NegNum ←tsrc[31];
+    IF (tsrc[30:23]=0FFh) Then ExpAllOnes←1; FI;
+    IF (tsrc[30:23]=0h) Then ExpAllZeros←1;
+    IF (ExpAllZeros AND MXCSR.DAZ) Then
+        MantAllZeros ← 1;
+    ELSIF (tsrc[22:0]=0h) Then
+        MantAllZeros ← 1;
+    FI;
+    ZeroNumber= ExpAllZeros AND MantAllZeros
+    SignalingBit= tsrc[22];
+    sNaN_res←ExpAllOnes AND NOT(MantAllZeros) AND NOT(SignalingBit); // sNaN
+    qNaN_res←ExpAllOnes AND NOT(MantAllZeros) AND SignalingBit; // qNaN
+    Pzero_res←NOT(NegNum) AND ExpAllZeros AND MantAllZeros; // +0
+    Nzero_res←NegNum AND ExpAllZeros AND MantAllZeros; // -0
+    PInf_res←NOT(NegNum) AND ExpAllOnes AND MantAllZeros; // +Inf
+    NInf_res←NegNum AND ExpAllOnes AND MantAllZeros; // -Inf
+    Denorm_res←ExpAllZeros AND NOT(MantAllZeros); // denorm
+    FinNeg_res←NegNum AND NOT(ExpAllOnes) AND NOT(ZeroNumber); // -finite
+    bResult = ( imm8[0] AND qNaN_res ) OR (imm8[1] AND Pzero_res ) OR
+            ( imm8[2] AND Nzero_res ) OR ( imm8[3] AND PInf_res ) OR
+            ( imm8[4] AND NInf_res ) OR ( imm8[5] AND Denorm_res ) OR
+            ( imm8[6] AND FinNeg_res ) OR ( imm8[7] AND sNaN_res );
+    Return bResult;
+} //* end of CheckSPClassSP() *//
+</pre>
+<h4>VFPCLASSSS (EVEX encoded version)</h4>
+<pre>IF k1[0] OR *no writemask*
+    THEN DEST[0]←
+        CheckFPClassSP(SRC1[31:0], imm8[7:0])
+    ELSE DEST[0]←0 ; zeroing-masking only
+FI;
+DEST[MAX_KL-1:1] ← 0
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VFPCLASSSS __mmask8 _mm_fpclass_ss_mask( __m128 a, int c)
+</pre>
+<pre>VFPCLASSSS __mmask8 _mm_mask_fpclass_ss_mask( __mmask8 m, __m128 a, int c)
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>None</p>
+<h3>Other Exceptions</h3>
+<p>See Exceptions Type E6</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table></x86:instruction>

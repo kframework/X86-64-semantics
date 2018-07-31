@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Shift Right Mask Registers" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="KSHIFTRW"/>
+<x86:mnemonic name="KSHIFTRB"/>
+<x86:mnemonic name="KSHIFTRQ"/>
+<x86:mnemonic name="KSHIFTRD"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.L0.66.0F3A.W1 30 /r KSHIFTRW k1, k2, imm8</td>
+<td>RRI</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Shift right 16 bits in k2 by immediate and write result in k1.</td></tr>
+<tr>
+<td>VEX.L0.66.0F3A.W0 30 /r KSHIFTRB k1, k2, imm8</td>
+<td>RRI</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Shift right 8 bits in k2 by immediate and write result in k1.</td></tr>
+<tr>
+<td>VEX.L0.66.0F3A.W1 31 /r KSHIFTRQ k1, k2, imm8</td>
+<td>RRI</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Shift right 64 bits in k2 by immediate and write result in k1.</td></tr>
+<tr>
+<td>VEX.L0.66.0F3A.W0 31 /r KSHIFTRD k1, k2, imm8</td>
+<td>RRI</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Shift right 32 bits in k2 by immediate and write result in k1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RRI</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r, ModRM:[7:6] must be 11b)</td>
+<td>Imm8</td></tr></table>
+<h2>Description</h2>
+<p>Shifts 8/16/32/64 bits in the second operand (source operand) right by the count specified in immediate and place the least significant 8/16/32/64 bits of the result in the destination operand. The higher bits of the destination are zero-extended. The destination is set to zero if the count value is greater than 7 (for byte shift), 15 (for word shift), 31 (for doubleword shift) or 63 (for quadword shift).</p>
+<h2>Operation</h2>
+<h3>KSHIFTRW</h3>
+<pre>COUNT ← imm8[7:0]
+DEST[MAX_KL-1:0] ← 0
+IF COUNT &lt;=15
+    THEN DEST[15:0]←SRC1[15:0] &gt;&gt; COUNT;
+FI;
+</pre>
+<h3>KSHIFTRB</h3>
+<pre>COUNT ← imm8[7:0]
+DEST[MAX_KL-1:0] ← 0
+IF COUNT &lt;=7
+    THEN DEST[7:0] ← SRC1[7:0] &gt;&gt; COUNT;
+FI;
+</pre>
+<h3>KSHIFTRQ</h3>
+<pre>COUNT ← imm8[7:0]
+DEST[MAX_KL-1:0] ← 0
+IF COUNT &lt;=63
+    THEN DEST[63:0] ← SRC1[63:0] &gt;&gt; COUNT;
+FI;
+</pre>
+<h3>KSHIFTRD</h3>
+<pre>COUNT ← imm8[7:0]
+DEST[MAX_KL-1:0] ← 0
+IF COUNT &lt;=31
+    THEN DEST[31:0] ← SRC1[31:0] &gt;&gt; COUNT;
+FI;
+</pre>
+<h2>Intel C/C++ Compiler Intrinsic Equivalent</h2>
+<pre>Compiler auto generates KSHIFTRW when needed.
+</pre>
+<h2>Flags Affected</h2>
+<p>None</p>
+<h2>SIMD Floating-Point Exceptions</h2>
+<p>None</p>
+<h2>Other Exceptions</h2>
+<p>See Exceptions Type K20.</p></x86:instruction>

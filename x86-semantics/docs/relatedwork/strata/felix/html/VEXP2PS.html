@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VEXP2PS
+		— Approximation to the Exponential 2^x of Packed Single-Precision Floating-Point Values with Less Than 2^-23 Relative Error</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VEXP2PS
+		— Approximation to the Exponential 2^x of Packed Single-Precision Floating-Point Values with Less Than 2^-23 Relative Error</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 C8 /r VEXP2PS zmm1 {k1}{z}, zmm2/m512/m32bcst {sae}</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512ER</td>
+<td>Computes approximations to the exponential 2^x (with less than 2^-23 of maximum relative error) of the packed single-precision floating-point values from zmm2/m512/m32bcst and stores the floating-point result in zmm1with writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Computes the approximate base-2 exponential evaluation of the single-precision floating-point values in the source operand (the second operand) and store the results in the destination operand (the first operand) using the writemask k1. The approximate base-2 exponential is evaluated with less than 2^-23 of relative error.</p>
+<p>Denormal input values are treated as zeros and do not signal #DE, irrespective of MXCSR.DAZ. Denormal results are flushed to zeros and do not signal #UE, irrespective of MXCSR.FTZ.</p>
+<p>The source operand is a ZMM register, a 512-bit memory location, or a 512-bit vector broadcasted from a 32-bit memory location. The destination operand is a ZMM register, conditionally updated using writemask k1.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3 id="a-numerically-exact-implementation-of-vexp2xx-can-be-found-at-https---software-intel-com-en-us-articles-refer-">A numerically exact implementation of VEXP2xx can be found at https://software.intel.com/en-us/articles/refer-<a class="anchor" href="#a-numerically-exact-implementation-of-vexp2xx-can-be-found-at-https---software-intel-com-en-us-articles-refer-">
+			¶
+		</a></h3>
+<h3 id="ence-implementations-for-ia-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2-">ence-implementations-for-IA-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2.<a class="anchor" href="#ence-implementations-for-ia-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2-">
+			¶
+		</a></h3>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vexp2ps">VEXP2PS<a class="anchor" href="#vexp2ps">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC *is memory*)
+                THEN DEST[i+31:i]←EXP2_23_SP(SRC[31:0])
+                ELSE DEST[i+31:i]←EXP2_23_SP(SRC[i+31:i])
+            FI;
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[i+31:i] remains unchanged*
+            ELSE ; zeroing-masking
+                DEST[i+31:i] ← 0
+        FI;
+    FI;
+ENDFOR;
+</pre>
+<figure id="tbl-6-34">
+<table>
+<tr>
+<th>Source Input</th>
+<th>Result</th>
+<th>Comments</th></tr>
+<tr>
+<td>NaN</td>
+<td>QNaN(src)</td>
+<td>If (SRC = SNaN) then #I</td></tr>
+<tr>
+<td>+∞</td>
+<td>+∞</td>
+<td></td></tr>
+<tr>
+<td>+/-0</td>
+<td>1.0f</td>
+<td><em>Exact result</em></td></tr>
+<tr>
+<td>-∞</td>
+<td>+0.0f</td>
+<td></td></tr>
+<tr>
+<td>Integral value N</td>
+<td>2^ (N)</td>
+<td><em>Exact result</em></td></tr></table>
+<figcaption><a href="./VEXP2PS.html#tbl-6-34">Table 6-34</a>. Special Values Behavior</figcaption></figure>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VEXP2PS __m512 _mm512_exp2a23_round_ps (__m512 a, int sae);
+</pre>
+<pre>VEXP2PS __m512 _mm512_mask_exp2a23_round_ps (__m512 a, __mmask16 m, __m512 b, int sae);
+</pre>
+<pre>VEXP2PS __m512 _mm512_maskz_exp2a23_round_ps (__mmask16 m, __m512 b, int sae);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Invalid (if SNaN input), Overflow</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E2.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

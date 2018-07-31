@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Store Sparse Packed Double-Precision Floating-Point Values into Dense Memory" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VCOMPRESSPD"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F38.W1 8A /r VCOMPRESSPD xmm1/m128 {k1}{z}, xmm2</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Compress packed double-precision floating-point values from xmm2 to xmm1/m128 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W1 8A /r VCOMPRESSPD ymm1/m256 {k1}{z}, ymm2</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Compress packed double-precision floating-point values from ymm2 to ymm1/m256 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W1 8A /r VCOMPRESSPD zmm1/m512 {k1}{z}, zmm2</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Compress packed double-precision floating-point values from zmm2 using control mask k1 to zmm1/m512.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Compress (store) up to 8 double-precision floating-point values from the source operand (the second operand) as a contiguous vector to the destination operand (the first operand) The source operand is a ZMM/YMM/XMM register, the destination operand can be a ZMM/YMM/XMM register or a 512/256/128-bit memory location.</p>
+<p>The opmask register k1 selects the active elements (partial vector or possibly non-contiguous if less than 8 active elements) from the source operand to compress into a contiguous vector. The contiguous vector is written to the destination starting from the low element of the destination operand.</p>
+<p>Memory destination version: Only the contiguous vector is written to the destination memory location. EVEX.z must be zero.</p>
+<p>Register destination version: If the vector length of the contiguous vector is less than that of the input vector in the source operand, the upper bits of the destination register are unmodified if EVEX.z is not set, otherwise the upper bits are zeroed.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<p>Note that the compressed displacement assumes a pre-scaling (N) corresponding to the size of one single element instead of the size of the full vector.</p>
+<h3>Operation</h3>
+<h4>VCOMPRESSPD (EVEX encoded versions) store form</h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+SIZE ← 64
+k←0
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN
+            DEST[k+SIZE-1:k]← SRC[i+63:i]
+            k←k + SIZE
+    FI;
+ENDFOR
+</pre>
+<h4>VCOMPRESSPD (EVEX encoded versions) reg-reg form</h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+SIZE ← 64
+k←0
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN
+                DEST[k+SIZE-1:k]← SRC[i+63:i]
+                k←k + SIZE
+    FI;
+ENDFOR
+IF *merging-masking*
+            THEN *DEST[VL-1:k] remains unchanged*
+            ELSE DEST[VL-1:k] ← 0
+FI
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VCOMPRESSPD __m512d _mm512_mask_compress_pd( __m512d s, __mmask8 k, __m512d a);
+</pre>
+<pre>VCOMPRESSPD __m512d _mm512_maskz_compress_pd( __mmask8 k, __m512d a);
+</pre>
+<pre>VCOMPRESSPD void _mm512_mask_compressstoreu_pd( void * d, __mmask8 k, __m512d a);
+</pre>
+<pre>VCOMPRESSPD __m256d _mm256_mask_compress_pd( __m256d s, __mmask8 k, __m256d a);
+</pre>
+<pre>VCOMPRESSPD __m256d _mm256_maskz_compress_pd( __mmask8 k, __m256d a);
+</pre>
+<pre>VCOMPRESSPD void _mm256_mask_compressstoreu_pd( void * d, __mmask8 k, __m256d a);
+</pre>
+<pre>VCOMPRESSPD __m128d _mm_mask_compress_pd( __m128d s, __mmask8 k, __m128d a);
+</pre>
+<pre>VCOMPRESSPD __m128d _mm_maskz_compress_pd( __mmask8 k, __m128d a);
+</pre>
+<pre>VCOMPRESSPD void _mm_mask_compressstoreu_pd( void * d, __mmask8 k, __m128d a);
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>None</p>
+<h3>Other Exceptions</h3>
+<p>EVEX-encoded instructions, see Exceptions Type E4.nb.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table></x86:instruction>

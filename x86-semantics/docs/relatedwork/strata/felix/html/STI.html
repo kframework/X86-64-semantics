@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>STI
+		— Set Interrupt Flag</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>STI
+		— Set Interrupt Flag</h1>
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>FB</td>
+<td>STI</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Set interrupt flag; external, maskable interrupts enabled at the end of the next instruction.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>In most cases, STI sets the interrupt flag (IF) in the EFLAGS register. This allows the processor to respond to maskable hardware interrupts.</p>
+<p>If IF = 0, maskable hardware interrupts remain inhibited on the instruction boundary following an execution of STI. (The delayed effect of this instruction is provided to allow interrupts to be enabled just before returning from a procedure or subroutine. For instance, if an STI instruction is followed by an RET instruction, the RET instruction is allowed to execute before external interrupts are recognized. No interrupts can be recognized if an execution of CLI immediately follow such an execution of STI.) The inhibition ends after delivery of another event (e.g., exception) or the execution of the next instruction.</p>
+<p>The IF flag and the STI and CLI instructions do not prohibit the generation of exceptions and nonmaskable interrupts (NMIs). However, NMIs (and system-management interrupts) may be inhibited on the instruction boundary following an execution of STI that begins with IF = 0.</p>
+<p>Operation is different in two modes defined as follows:</p>
+<ul>
+<li><strong>PVI mode </strong>(protected-mode virtual interrupts): CR0.PE = 1, EFLAGS.VM = 0, CPL = 3, and CR4.PVI = 1;</li>
+<li><strong>VME mode </strong>(virtual-8086 mode extensions): CR0.PE = 1, EFLAGS.VM = 1, and CR4.VME = 1.</li></ul>
+<p>If IOPL &lt; 3, EFLAGS.VIP = 1, and either VME mode or PVI mode is active, STI sets the VIF flag in the EFLAGS register, leaving IF unaffected.</p>
+<p><a href="./STI.html#tbl-4-19">Table 4-19</a> indicates the action of the STI instruction depending on the processor operating mode, IOPL, CPL, and EFLAGS.VIP.</p>
+<figure id="tbl-4-19">
+<table>
+<tr>
+<th>Mode</th>
+<th>IOPL</th>
+<th>EFLAGS.VIP</th>
+<th>STI Result</th></tr>
+<tr>
+<td>Real-address</td>
+<td><sub>X</sub><sup>1</sup></td>
+<td>X</td>
+<td>IF = 1</td></tr>
+<tr>
+<td rowspan="2">Protected, not PVI<sup>2</sup></td>
+<td>≥ CPL</td>
+<td>X</td>
+<td>IF = 1</td></tr>
+<tr>
+<td>&lt; CPL</td>
+<td>X</td>
+<td>#GP fault</td></tr>
+<tr>
+<td rowspan="3">Protected, PVI<sup>3</sup></td>
+<td>3</td>
+<td>X</td>
+<td>IF = 1</td></tr>
+<tr>
+<td rowspan="2">0–2</td>
+<td>0</td>
+<td>VIF = 1</td></tr>
+<tr>
+<td>1</td>
+<td>#GP fault</td></tr>
+<tr>
+<td rowspan="2">Virtual-8086, not VME<sup>3</sup></td>
+<td>3</td>
+<td>X</td>
+<td>IF = 1</td></tr>
+<tr>
+<td>0–2</td>
+<td>X</td>
+<td>#GP fault</td></tr>
+<tr>
+<td rowspan="3">Virtual-8086, VME<sup>3</sup></td>
+<td>3</td>
+<td>X</td>
+<td>IF = 1</td></tr>
+<tr>
+<td rowspan="2">0–2</td>
+<td>0</td>
+<td>VIF = 1</td></tr>
+<tr>
+<td>1</td>
+<td>#GP fault</td></tr></table>
+<figcaption><a href="./STI.html#tbl-4-19">Table 4-19</a>. Decision Table for STI Results</figcaption></figure>
+<blockquote>
+<p>1. X = This setting has no effect on instruction operation.</p></blockquote>
+<p>2. For this table, “protected mode” applies whenever CR0.PE = 1 and EFLAGS.VM = 0; it includes compatibility mode and 64-bit mode.</p>
+<p>3. PVI mode and virtual-8086 mode each imply CPL = 3.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF CR0.PE = 0 (* Executing in real-address mode *)
+    THEN IF ← 1; (* Set Interrupt Flag *)
+    ELSE
+        IF IOPL ≥ CPL (* CPL = 3 if EFLAGS.VM = 1 *)
+            THEN IF ← 1; (* Set Interrupt Flag *)
+            ELSE
+                IF VME mode OR PVI mode
+                    THEN
+                        IF EFLAGS.VIP = 0
+                            THEN VIF ← 1; (* Set Virtual Interrupt Flag *)
+                            ELSE #GP(0);
+                        FI;
+                    ELSE #GP(0);
+                FI;
+        FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>Either the IF flag or the VIF flag is set to 1. Other flags are unaffected.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If CPL is greater than IOPL and PVI mode is not active.</td></tr>
+<tr>
+<td>If CPL is greater than IOPL and EFLAGS.VIP = 1.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If IOPL is less than 3 and VME mode is not active.</td></tr>
+<tr>
+<td>If IOPL is less than 3 and EFLAGS.VIP = 1.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

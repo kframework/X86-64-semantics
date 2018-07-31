@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VGETEXPPS
+		— Convert Exponents of Packed SP FP Values to SP FP Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VGETEXPPS
+		— Convert Exponents of Packed SP FP Values to SP FP Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F38.W0 42 /r VGETEXPPS xmm1 {k1}{z}, xmm2/m128/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Convert the exponent of packed single-precision floating-point values in the source operand to SP FP results representing unbiased integer exponents and stores the results in the destination register.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.W0 42 /r VGETEXPPS ymm1 {k1}{z}, ymm2/m256/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Convert the exponent of packed single-precision floating-point values in the source operand to SP FP results representing unbiased integer exponents and stores the results in the destination register.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 42 /r VGETEXPPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Convert the exponent of packed single-precision floating-point values in the source operand to SP FP results representing unbiased integer exponents and stores the results in the destination register.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Extracts the biased exponents from the normalized SP FP representation of each dword element of the source operand (the second operand) as unbiased signed integer value, or convert the denormal representation of input data to unbiased negative integer values. Each integer value of the unbiased exponent is converted to single-precision FP value and written to the corresponding dword elements of the destination operand (the first operand) as SP FP numbers.</p>
+<p>The destination operand is a ZMM/YMM/XMM register and updated under the writemask. The source operand can be a ZMM/YMM/XMM register, a 512/256/128-bit memory location, or a 512/256/128-bit vector broadcasted from a 32-bit memory location.</p>
+<p>EVEX.vvvv is reserved and must be 1111b, otherwise instructions will #UD.</p>
+<p>Each GETEXP operation converts the exponent value into a FP number (permitting input value in denormal representation). Special cases of input values are listed in <a href="./VGETEXPPS.html#tbl-5-15">Table 5-15</a>.</p>
+<p>The formula is:</p>
+<p>GETEXP(x) = floor(log<sub>2</sub>(|x|))</p>
+<p>Notation <strong>floor(x)</strong> stands for maximal integer not exceeding real number x.</p>
+<p>Software usage of VGETEXPxx and VGETMANTxx instructions generally involve a combination of GETEXP operation and GETMANT operation (see VGETMANTPD). Thus VGETEXPxx instruction do not require software to handle SIMD FP exceptions.</p>
+<figure id="tbl-5-15">
+<table>
+<tr>
+<th>Input Operand</th>
+<th>Result</th>
+<th>Comments</th></tr>
+<tr>
+<td>src1 = NaN</td>
+<td>QNaN(src1)</td>
+<td rowspan="4">If (SRC = SNaN) then #IE If (SRC = denormal) then #DE</td></tr>
+<tr>
+<td>0 &lt; |src1| &lt; INF</td>
+<td>floor(log<sub>2</sub>(|src1|))</td></tr>
+<tr>
+<td>| src1| = +INF</td>
+<td>+INF</td></tr>
+<tr>
+<td>| src1| = 0</td>
+<td>-INF</td></tr></table>
+<figcaption><a href="./VGETEXPPS.html#tbl-5-15">Table 5-15</a>. VGETEXPPS/SS Special Cases</figcaption></figure>
+<p><a href="./VGETEXPPS.html#fig-5-14">Figure 5-14</a> illustrates the VGETEXPPS functionality on input values with normalized representation.</p>
+<figure id="fig-5-14">
+<svg style="width: 592.632pt; height: 152.424048pt" viewBox="52.58 0.0 498.86 132.02004">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="126.0" x="55.08" style="fill: rgb(0%, 0%, 0%)" y="0.540039999999976" width="0.48001"></rect>
+<rect height="126.0" x="548.4" style="fill: rgb(0%, 0%, 0%)" y="0.540039999999976" width="0.47998"></rect>
+<rect height="0.48004" x="55.08" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="493.86"></rect>
+<rect height="0.47998" x="55.08" style="fill: rgb(0%, 0%, 0%)" y="126.54006" width="493.86"></rect>
+<rect height="17.46" x="193.92" style="fill: rgb(80%, 100%, 80%)" y="15.7200399999999" width="75.66"></rect>
+<rect height="17.46" x="269.1" style="fill: rgb(80%, 100%, 100%)" y="15.7200399999999" width="216.54"></rect>
+<rect height="9.0" x="193.92" style="fill: rgb(80%, 100%, 80%)" y="32.64004" width="75.66"></rect>
+<rect height="8.94" x="410.04" style="fill: rgb(80%, 100%, 80%)" y="49.6200399999999" width="75.6"></rect>
+<rect height="8.9399" x="184.56" style="fill: rgb(100%, 100%, 60%)" y="66.5401400000001" width="225.96"></rect>
+<rect height="8.9399" x="410.04" style="fill: rgb(80%, 100%, 80%)" y="66.5401400000001" width="75.6"></rect>
+<rect height="8.94" x="184.56" style="fill: rgb(100%, 100%, 60%)" y="83.4600399999999" width="291.72"></rect>
+<rect height="8.94" x="475.8" style="fill: rgb(80%, 100%, 80%)" y="83.4600399999999" width="9.84"></rect>
+<rect height="8.94" x="184.56" style="fill: rgb(100%, 100%, 60%)" y="100.38004" width="9.84"></rect>
+<rect height="8.94" x="193.92" style="fill: rgb(80%, 100%, 80%)" y="100.38004" width="75.66"></rect>
+<rect height="8.94" x="269.1" style="fill: rgb(80%, 100%, 100%)" y="100.38004" width="216.54"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 117.84 15.30004 L 117.899998 15.30004 L 117.899998 15.2399809999999 L 117.84 15.2399809999999 Z M 117.84 15.24004 L 117.84 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 184.56 15.30004 L 184.619998 15.30004 L 184.619998 15.2399809999999 L 184.56 15.2399809999999 Z M 184.56 15.24004 L 184.56 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 193.92 15.30004 L 193.979998 15.30004 L 193.979998 15.2399809999999 L 193.92 15.2399809999999 Z M 193.92 15.24004 L 193.92 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 203.34 15.30004 L 203.399998 15.30004 L 203.399998 15.2399809999999 L 203.34 15.2399809999999 Z M 203.34 15.24004 L 203.34 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 212.76 15.30004 L 212.819998 15.30004 L 212.819998 15.2399809999999 L 212.76 15.2399809999999 Z M 212.76 15.24004 L 212.76 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 222.12 15.30004 L 222.180013 15.30004 L 222.180013 15.2399809999999 L 222.12 15.2399809999999 Z M 222.12 15.24004 L 222.12 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 231.54 15.30004 L 231.599998 15.30004 L 231.599998 15.2399809999999 L 231.54 15.2399809999999 Z M 231.54 15.24004 L 231.54 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 240.9 15.30004 L 240.959998 15.30004 L 240.959998 15.2399809999999 L 240.9 15.2399809999999 Z M 240.9 15.24004 L 240.9 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 250.32 15.30004 L 250.379998 15.30004 L 250.379998 15.2399809999999 L 250.32 15.2399809999999 Z M 250.32 15.24004 L 250.32 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 259.68 15.30004 L 259.739998 15.30004 L 259.739998 15.2399809999999 L 259.68 15.2399809999999 Z M 259.68 15.24004 L 259.68 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 269.1 15.30004 L 269.159998 15.30004 L 269.159998 15.2399809999999 L 269.1 15.2399809999999 Z M 269.1 15.24004 L 269.1 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 278.52 15.30004 L 278.579998 15.30004 L 278.579998 15.2399809999999 L 278.52 15.2399809999999 Z M 278.52 15.24004 L 278.52 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 287.88 15.30004 L 287.939998 15.30004 L 287.939998 15.2399809999999 L 287.88 15.2399809999999 Z M 287.88 15.24004 L 287.88 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 297.3 15.30004 L 297.360028 15.30004 L 297.360028 15.2399809999999 L 297.3 15.2399809999999 Z M 297.3 15.24004 L 297.3 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 306.66 15.30004 L 306.719998 15.30004 L 306.719998 15.2399809999999 L 306.66 15.2399809999999 Z M 306.66 15.24004 L 306.66 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 316.08 15.30004 L 316.140028 15.30004 L 316.140028 15.2399809999999 L 316.08 15.2399809999999 Z M 316.08 15.24004 L 316.08 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 325.44 15.30004 L 325.499998 15.30004 L 325.499998 15.2399809999999 L 325.44 15.2399809999999 Z M 325.44 15.24004 L 325.44 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 334.86 15.30004 L 334.919998 15.30004 L 334.919998 15.2399809999999 L 334.86 15.2399809999999 Z M 334.86 15.24004 L 334.86 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 344.28 15.30004 L 344.339998 15.30004 L 344.339998 15.2399809999999 L 344.28 15.2399809999999 Z M 344.28 15.24004 L 344.28 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 353.64 15.30004 L 353.699998 15.30004 L 353.699998 15.2399809999999 L 353.64 15.2399809999999 Z M 353.64 15.24004 L 353.64 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 363.06 15.30004 L 363.119998 15.30004 L 363.119998 15.2399809999999 L 363.06 15.2399809999999 Z M 363.06 15.24004 L 363.06 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 372.42 15.30004 L 372.479998 15.30004 L 372.479998 15.2399809999999 L 372.42 15.2399809999999 Z M 372.42 15.24004 L 372.42 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 381.84 15.30004 L 381.899998 15.30004 L 381.899998 15.2399809999999 L 381.84 15.2399809999999 Z M 381.84 15.24004 L 381.84 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 391.26 15.30004 L 391.319998 15.30004 L 391.319998 15.2399809999999 L 391.26 15.2399809999999 Z M 391.26 15.24004 L 391.26 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 400.62 15.30004 L 400.680028 15.30004 L 400.680028 15.2399809999999 L 400.62 15.2399809999999 Z M 400.62 15.24004 L 400.62 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 410.04 15.30004 L 410.099998 15.30004 L 410.099998 15.2399809999999 L 410.04 15.2399809999999 Z M 410.04 15.24004 L 410.04 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 419.4 15.30004 L 419.459998 15.30004 L 419.459998 15.2399809999999 L 419.4 15.2399809999999 Z M 419.4 15.24004 L 419.4 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 428.82 15.30004 L 428.879998 15.30004 L 428.879998 15.2399809999999 L 428.82 15.2399809999999 Z M 428.82 15.24004 L 428.82 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 438.18 15.30004 L 438.239998 15.30004 L 438.239998 15.2399809999999 L 438.18 15.2399809999999 Z M 438.18 15.24004 L 438.18 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 447.6 15.30004 L 447.659998 15.30004 L 447.659998 15.2399809999999 L 447.6 15.2399809999999 Z M 447.6 15.24004 L 447.6 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 457.02 15.30004 L 457.079998 15.30004 L 457.079998 15.2399809999999 L 457.02 15.2399809999999 Z M 457.02 15.24004 L 457.02 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 466.38 15.30004 L 466.439998 15.30004 L 466.439998 15.2399809999999 L 466.38 15.2399809999999 Z M 466.38 15.24004 L 466.38 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 475.8 15.30004 L 475.859998 15.30004 L 475.859998 15.2399809999999 L 475.8 15.2399809999999 Z M 475.8 15.24004 L 475.8 14.76004"></path>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 485.16 15.30004 L 485.219998 15.30004 L 485.219998 15.2399809999999 L 485.16 15.2399809999999 Z M 485.16 15.24004 L 485.16 14.76004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="23.70006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 23.7000399999999 L 193.5 23.7000399999999"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="23.70006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 23.7000399999999 L 268.62 23.7000399999999"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="23.70006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 23.7000399999999 L 484.74 23.7000399999999"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="23.70006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 32.64004 L 184.08 32.64004"></path>
+<rect height="0.54004" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="32.64" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 203.34 15.72004 L 203.34 24.1800400000001"></path>
+<rect height="8.46" x="203.34" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 212.76 15.72004 L 212.76 24.1800400000001"></path>
+<rect height="8.46" x="212.76" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 222.12 15.72004 L 222.12 24.1800400000001"></path>
+<rect height="8.46" x="222.12" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 231.54 15.72004 L 231.54 24.1800400000001"></path>
+<rect height="8.46" x="231.54" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 240.9 15.72004 L 240.9 24.1800400000001"></path>
+<rect height="8.46" x="240.9" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 250.32 15.72004 L 250.32 24.1800400000001"></path>
+<rect height="8.46" x="250.32" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 259.68 15.72004 L 259.68 24.1800400000001"></path>
+<rect height="8.46" x="259.68" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 278.52 15.72004 L 278.52 24.1800400000001"></path>
+<rect height="8.46" x="278.52" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 287.88 15.72004 L 287.88 24.1800400000001"></path>
+<rect height="8.46" x="287.88" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 297.3 15.72004 L 297.3 24.1800400000001"></path>
+<rect height="8.46" x="297.3" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 306.66 15.72004 L 306.66 24.1800400000001"></path>
+<rect height="8.46" x="306.66" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 316.08 15.72004 L 316.08 24.1800400000001"></path>
+<rect height="8.46" x="316.08" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 325.44 15.72004 L 325.44 24.1800400000001"></path>
+<rect height="8.46" x="325.44" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 334.86 15.72004 L 334.86 24.1800400000001"></path>
+<rect height="8.46" x="334.86" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 344.28 15.72004 L 344.28 24.1800400000001"></path>
+<rect height="8.46" x="344.28" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 353.64 15.72004 L 353.64 24.1800400000001"></path>
+<rect height="8.46" x="353.64" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 363.06 15.72004 L 363.06 24.1800400000001"></path>
+<rect height="8.46" x="363.06" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 372.42 15.72004 L 372.42 24.1800400000001"></path>
+<rect height="8.46" x="372.42" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 381.84 15.72004 L 381.84 24.1800400000001"></path>
+<rect height="8.46" x="381.84" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 391.26 15.72004 L 391.26 24.1800400000001"></path>
+<rect height="8.46" x="391.26" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 400.62 15.72004 L 400.62 24.1800400000001"></path>
+<rect height="8.46" x="400.62" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 410.04 15.72004 L 410.04 24.1800400000001"></path>
+<rect height="8.46" x="410.04" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 419.4 15.72004 L 419.4 24.1800400000001"></path>
+<rect height="8.46" x="419.4" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 428.82 15.72004 L 428.82 24.1800400000001"></path>
+<rect height="8.46" x="428.82" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 438.18 15.72004 L 438.18 24.1800400000001"></path>
+<rect height="8.46" x="438.18" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 447.6 15.72004 L 447.6 24.1800400000001"></path>
+<rect height="8.46" x="447.6" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 457.02 15.72004 L 457.02 24.1800400000001"></path>
+<rect height="8.46" x="457.02" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 466.38 15.72004 L 466.38 24.1800400000001"></path>
+<rect height="8.46" x="466.38" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 475.8 15.72004 L 475.8 24.1800400000001"></path>
+<rect height="8.46" x="475.8" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.47998"></rect>
+<rect height="1.02" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="32.16004" width="300.6"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 41.16004 L 184.08 41.16004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="41.16006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 41.16004 L 193.5 41.16004"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="41.16006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 41.16004 L 268.62 41.16004"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="41.16006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 41.16004 L 484.74 41.16004"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="41.16006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 49.62004 L 184.08 49.62004"></path>
+<rect height="0.48004" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="49.62" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 49.62004 L 193.5 49.62004"></path>
+<rect height="0.48004" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="49.62" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 49.62004 L 268.62 49.62004"></path>
+<rect height="0.48004" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="49.62" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 49.62004 L 484.74 49.62004"></path>
+<rect height="0.48004" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="49.62" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 58.0800399999999 L 184.08 58.0800399999999"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="58.08006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 58.0800399999999 L 193.5 58.0800399999999"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="58.08006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 58.0800399999999 L 268.62 58.0800399999999"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="58.08006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 58.0800399999999 L 484.74 58.0800399999999"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="58.08006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 66.54004 L 184.08 66.54004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="66.54006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 66.54004 L 193.5 66.54004"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="66.54006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 66.54004 L 268.62 66.54004"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="66.54006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 66.54004 L 484.74 66.54004"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="66.54006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 75.00004 L 184.08 75.00004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="75.0000600000001" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 75.00004 L 193.5 75.00004"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="75.0000600000001" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 75.00004 L 268.62 75.00004"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="75.0000600000001" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 75.00004 L 484.74 75.00004"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="75.0000600000001" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 83.4600399999999 L 184.08 83.4600399999999"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="83.46006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 83.4600399999999 L 193.5 83.4600399999999"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="83.46006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 83.4600399999999 L 268.62 83.4600399999999"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="83.46006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 83.4600399999999 L 484.74 83.4600399999999"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="83.46006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 91.92004 L 184.08 91.92004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="91.92006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 91.92004 L 193.5 91.92004"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="91.92006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 91.92004 L 268.62 91.92004"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="91.92006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 91.92004 L 484.74 91.92004"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="91.92006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 100.38004 L 184.08 100.38004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="100.38006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 100.38004 L 193.5 100.38004"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="100.38006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 100.38004 L 268.62 100.38004"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="100.38006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 100.38004 L 484.74 100.38004"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="100.38006" width="215.16"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(75%, 75%, 75%)" d="M 118.32 108.84004 L 184.08 108.84004"></path>
+<rect height="0.47998" x="118.32" style="fill: rgb(75%, 75%, 75%)" y="108.84006" width="65.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 185.04 108.84004 L 193.5 108.84004"></path>
+<rect height="0.47998" x="185.04" style="fill: rgb(0%, 0%, 0%)" y="108.84006" width="8.46"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 194.4 108.84004 L 268.62 108.84004"></path>
+<rect height="0.47998" x="194.4" style="fill: rgb(0%, 0%, 0%)" y="108.84006" width="74.22"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 269.58 108.84004 L 484.74 108.84004"></path>
+<rect height="0.47998" x="269.58" style="fill: rgb(0%, 0%, 0%)" y="108.84006" width="215.16"></rect>
+<rect height="103.08" x="117.84" style="fill: rgb(0%, 0%, 0%)" y="15.2400399999999" width="0.48"></rect>
+<rect height="102.6" x="184.08" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.95999"></rect>
+<rect height="102.6" x="193.5" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.90001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 203.34 33.18004 L 203.34 117.30004"></path>
+<rect height="84.12" x="203.34" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 212.76 33.18004 L 212.76 117.30004"></path>
+<rect height="84.12" x="212.76" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 222.12 33.18004 L 222.12 117.30004"></path>
+<rect height="84.12" x="222.12" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 231.54 33.18004 L 231.54 117.30004"></path>
+<rect height="84.12" x="231.54" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 240.9 33.18004 L 240.9 117.30004"></path>
+<rect height="84.12" x="240.9" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 250.32 33.18004 L 250.32 117.30004"></path>
+<rect height="84.12" x="250.32" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 259.68 33.18004 L 259.68 117.30004"></path>
+<rect height="84.12" x="259.68" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<rect height="102.6" x="268.62" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.95999"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 278.52 33.18004 L 278.52 117.30004"></path>
+<rect height="84.12" x="278.52" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 287.88 33.18004 L 287.88 117.30004"></path>
+<rect height="84.12" x="287.88" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 297.3 33.18004 L 297.3 117.30004"></path>
+<rect height="84.12" x="297.3" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 306.66 33.18004 L 306.66 117.30004"></path>
+<rect height="84.12" x="306.66" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 316.08 33.18004 L 316.08 117.30004"></path>
+<rect height="84.12" x="316.08" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 325.44 33.18004 L 325.44 117.30004"></path>
+<rect height="84.12" x="325.44" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 334.86 33.18004 L 334.86 117.30004"></path>
+<rect height="84.12" x="334.86" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 344.28 33.18004 L 344.28 117.30004"></path>
+<rect height="84.12" x="344.28" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 353.64 33.18004 L 353.64 117.30004"></path>
+<rect height="84.12" x="353.64" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 363.06 33.18004 L 363.06 117.30004"></path>
+<rect height="84.12" x="363.06" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 372.42 33.18004 L 372.42 117.30004"></path>
+<rect height="84.12" x="372.42" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 381.84 33.18004 L 381.84 117.30004"></path>
+<rect height="84.12" x="381.84" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 391.26 33.18004 L 391.26 117.30004"></path>
+<rect height="84.12" x="391.26" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 400.62 33.18004 L 400.62 117.30004"></path>
+<rect height="84.12" x="400.62" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 410.04 33.18004 L 410.04 117.30004"></path>
+<rect height="84.12" x="410.04" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 419.4 33.18004 L 419.4 117.30004"></path>
+<rect height="84.12" x="419.4" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 428.82 33.18004 L 428.82 117.30004"></path>
+<rect height="84.12" x="428.82" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 438.18 33.18004 L 438.18 117.30004"></path>
+<rect height="84.12" x="438.18" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 447.6 33.18004 L 447.6 117.30004"></path>
+<rect height="84.12" x="447.6" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 457.02 33.18004 L 457.02 117.30004"></path>
+<rect height="84.12" x="457.02" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.42001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 466.38 33.18004 L 466.38 117.30004"></path>
+<rect height="84.12" x="466.38" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 475.8 33.18004 L 475.8 117.30004"></path>
+<rect height="84.12" x="475.8" style="fill: rgb(0%, 0%, 0%)" y="33.18004" width="0.47998"></rect>
+<rect height="1.02" x="118.32" style="fill: rgb(0%, 0%, 0%)" y="117.30004" width="367.32"></rect>
+<rect height="102.6" x="484.74" style="fill: rgb(0%, 0%, 0%)" y="15.7200399999999" width="0.89999"></rect>
+<text x="186.42" textLength="6.89774325000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">31</text>
+<text x="195.83813475" textLength="6.83754900000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">30</text>
+<text x="205.19607525" textLength="6.89774325000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">29</text>
+<text x="214.61421" textLength="6.89774325000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">28</text>
+<text x="223.9721505" textLength="6.89774325000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">27</text>
+<text x="233.39028525" textLength="6.89774325000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">26</text>
+<text x="242.80842" textLength="6.83754900000002" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">25</text>
+<text x="252.1663605" textLength="6.89774324999999" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">24</text>
+<text x="261.58449525" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">23</text>
+<text x="270.94243575" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">22</text>
+<text x="280.3605705" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">21</text>
+<text x="289.718511" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">20</text>
+<text x="299.13664575" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">19</text>
+<text x="308.5547805" textLength="6.83754899999997" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">18</text>
+<text x="317.912721" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">17</text>
+<text x="327.33085575" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">16</text>
+<text x="336.68879625" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">15</text>
+<text x="346.106931" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">14</text>
+<text x="355.52506575" textLength="6.83754899999997" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">13</text>
+<text x="364.88300625" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">12</text>
+<text x="374.301141" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">11</text>
+<text x="383.6590815" textLength="6.89774324999996" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">10</text>
+<text x="396.37689675" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">9</text>
+<text x="405.73613175" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">8</text>
+<text x="415.15491375" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">7</text>
+<text x="424.51414875" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">6</text>
+<text x="433.93293075" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">5</text>
+<text x="443.35171275" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">4</text>
+<text x="452.71094775" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">3</text>
+<text x="462.12972975" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">2</text>
+<text x="471.488964749999" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="480.907746749999" textLength="3.59870999999998" y="22.9057375" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="226.7993385" textLength="10.198071" y="31.3646477499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">exp</text>
+<text x="366.35744175" textLength="22.376727" y="31.3646477499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">Fraction</text>
+<text x="185.9397405" textLength="3.23625000000001" y="31.36594225" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">s</text>
+<text x="119.279463" textLength="26.09776725" y="40.3659534999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">Src = 2^1</text>
+<text x="189.71773875" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="199.07697375" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="208.49575575" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="217.91453775" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="227.27377275" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="236.69255475" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="246.05178975" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="255.47057175" textLength="3.59871000000001" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="264.88935375" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="274.24858875" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="283.66737075" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="293.02660575" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="302.44538775" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="311.80462275" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="321.22340475" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="330.64218675" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="340.00142175" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="349.42020375" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="358.77943875" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="368.19822075" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="377.61700275" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="386.97623775" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="396.39501975" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="405.75425475" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="415.17303675" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="424.53227175" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="433.95105375" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="443.36983575" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="452.72907075" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="462.14785275" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="471.50708775" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="480.92586975" textLength="3.59870999999998" y="40.3659535" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="119.279463" textLength="55.26026325" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">SAR Src, 23 = 080h</text>
+<text x="189.72032775" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="199.07956275" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="208.49834475" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="217.91712675" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="227.27636175" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="236.69514375" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="246.05437875" textLength="3.59871000000001" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="255.47316075" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="264.89194275" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="274.25117775" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="283.66995975" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="293.02919475" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="302.44797675" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="311.80721175" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="321.22599375" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="330.64477575" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="340.00401075" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="349.42279275" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="358.78202775" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="368.20080975" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="377.61959175" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="386.97882675" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="396.39760875" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="405.75684375" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="415.17562575" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="424.53486075" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="433.95364275" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="443.372424750001" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="452.731659750001" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="462.150441750001" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="471.509676750001" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="480.928458750001" textLength="3.59870999999998" y="57.2857157499999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="119.279463" textLength="14.03432175" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">-Bias</text>
+<text x="189.71773875" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="199.07697375" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="208.49575575" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="217.91453775" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="227.27377275" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="236.69255475" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="246.05178975" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="255.47057175" textLength="3.59871000000001" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="264.88935375" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="274.24858875" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="283.66737075" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="293.02660575" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="302.44538775" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="311.80462275" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="321.22340475" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="330.64218675" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="340.00142175" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="349.42020375" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="358.77943875" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="368.19822075" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="377.61700275" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="386.97623775" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="396.39501975" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="405.75425475" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="415.17303675" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="424.53227175" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="433.95105375" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="443.36983575" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="452.72907075" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="462.14785275" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="471.50708775" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="480.92586975" textLength="3.59870999999998" y="74.2054779999999" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="119.279463" textLength="40.6796625" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">Tmp - Bias = 1</text>
+<text x="189.7196805" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="199.0789155" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="208.4976975" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="217.9164795" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="227.2757145" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="236.6944965" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="246.0537315" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="255.4725135" textLength="3.59871000000001" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="264.8912955" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="274.2505305" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="283.6693125" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="293.0285475" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="302.4473295" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="311.8065645" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="321.2253465" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="330.6441285" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="340.0033635" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="349.4221455" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="358.7813805" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="368.2001625" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="377.6189445" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="386.9781795" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="396.3969615" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="405.7561965" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="415.1749785" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="424.5342135" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="433.9529955" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="443.3717775" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="452.7310125" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="462.1497945" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="471.5090295" textLength="3.59870999999998" y="91.1252402499998" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="119.279463" textLength="59.45314875" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22330999999997pt; fill: #000">Cvt_PI2PS(01h) = 2^0</text>
+<text x="199.072443" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="208.491225" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="217.910007" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="227.269242" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="236.688024" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="246.047259" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="255.466041" textLength="3.59871000000001" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="264.884823" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">1</text>
+<text x="274.244058" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="283.66284" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="293.022075" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="302.440857" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="311.800092" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="321.218874" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="330.637656" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="339.996891" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="349.415673" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="358.774908" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="368.19369" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="377.612472" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="386.971707" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="396.390489" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="405.749724" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="415.168506" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="424.527741" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="433.946523" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="443.365305" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="452.72454" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="462.143322" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="471.502557" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text>
+<text x="480.921339" textLength="3.59870999999998" y="108.0450025" lengthAdjust="spacingAndGlyphs" style="font-size: 7.22331pt; fill: #000">0</text></g></svg>
+<figcaption><a href="./VGETEXPPS.html#fig-5-14">Figure 5-14</a>. VGETEXPPS Functionality On Normal Input values</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>NormalizeExpTinySPFP(SRC[31:0])
+{
+    // Jbit is the hidden integral bit of a FP number. In case of denormal number it has the value of ZERO.
+    Src.Jbit ← 0;
+    Dst.exp ← 1;
+    Dst.fraction ← SRC[22:0];
+    WHILE(Src.Jbit = 0)
+    {
+        Src.Jbit←Dst.fraction[22];
+                        // Get the fraction MSB
+        Dst.fraction←Dst.fraction &lt;&lt; 1 ;
+                        // One bit shift left
+        Dst.exp-- ;
+                // Decrement the exponent
+    }
+    Dst.fraction←0;
+    Dst.sign←1;
+    TMP[31:0] ← MXCSR.DAZ? 0 : (Dst.sign &lt;&lt; 31) OR (Dst.exp &lt;&lt; 23) OR (Dst.fraction) ;
+    Return (TMP[31:0]);
+}
+ConvertExpSPFP(SRC[31:0])
+{
+    Src.sign←0;
+                // Zero out sign bit
+    Src.exp ← SRC[30:23];
+    Src.fraction ← SRC[22:0];
+    // Check for NaN
+    IF (SRC = NaN)
+    {
+        IF ( SRC = SNAN ) SET IE;
+        Return QNAN(SRC);
+    }
+    // Check for +INF
+    IF (SRC = +INF) Return (SRC);
+    // check if zero operand
+    IF ((Src.exp = 0) AND ((Src.fraction = 0) OR (MXCSR.DAZ = 1))) Return (-INF);
+    }
+    ELSE // check if denormal operand (notice that MXCSR.DAZ = 0)
+    {
+        IF ((Src.exp = 0) AND (Src.fraction != 0))
+        {
+            TMP[31:0]←NormalizeExpTinySPFP(SRC[31:0]) ;
+                            // Get Normalized Exponent
+            Set #DE
+        }
+        ELSE // exponent value is correct
+        {
+            TMP[31:0]←(Src.sign &lt;&lt; 31) OR (Src.exp &lt;&lt; 23) OR (Src.fraction) ;
+        }
+        TMP←SAR(TMP, 23) ;
+                    // Shift Arithmetic Right
+        TMP←TMP – 127;
+                    // Subtract Bias
+        Return CvtI2D(TMP);
+                    // Convert INT to Single-Precision FP number
+    }
+}
+</pre>
+<h4 id="vgetexpps--evex-encoded-versions-">VGETEXPPS (EVEX encoded versions)<a class="anchor" href="#vgetexpps--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN
+            IF (EVEX.b = 1) AND (SRC *is memory*)
+                THEN
+                    DEST[i+31:i] ←
+            ConvertExpSPFP(SRC[31:0])
+                ELSE
+                    DEST[i+31:i] ←
+            ConvertExpSPFP(SRC[i+31:i])
+            FI;
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VGETEXPPS __m512 _mm512_getexp_ps( __m512 a);
+</pre>
+<pre>VGETEXPPS __m512 _mm512_mask_getexp_ps(__m512 s, __mmask16 k, __m512 a);
+</pre>
+<pre>VGETEXPPS __m512 _mm512_maskz_getexp_ps( __mmask16 k, __m512 a);
+</pre>
+<pre>VGETEXPPS __m512 _mm512_getexp_round_ps( __m512 a, int sae);
+</pre>
+<pre>VGETEXPPS __m512 _mm512_mask_getexp_round_ps(__m512 s, __mmask16 k, __m512 a, int sae);
+</pre>
+<pre>VGETEXPPS __m512 _mm512_maskz_getexp_round_ps( __mmask16 k, __m512 a, int sae);
+</pre>
+<pre>VGETEXPPS __m256 _mm256_getexp_ps(__m256 a);
+</pre>
+<pre>VGETEXPPS __m256 _mm256_mask_getexp_ps(__m256 s, __mmask8 k, __m256 a);
+</pre>
+<pre>VGETEXPPS __m256 _mm256_maskz_getexp_ps( __mmask8 k, __m256 a);
+</pre>
+<pre>VGETEXPPS __m128 _mm_getexp_ps(__m128 a);
+</pre>
+<pre>VGETEXPPS __m128 _mm_mask_getexp_ps(__m128 s, __mmask8 k, __m128 a);
+</pre>
+<pre>VGETEXPPS __m128 _mm_maskz_getexp_ps( __mmask8 k, __m128 a);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Invalid, Denormal</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E2.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

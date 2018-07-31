@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>ERDINFO
+		— Read Type and Status Information About an EPC Page</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ERDINFO
+		— Read Type and Status Information About an EPC Page</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 10H ENCLS[ERDINFO]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>EAX[6]</td>
+<td>This leaf function returns type and status information about an EPC page.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>RBX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>ERDINFO (In)</td>
+<td>Address of a RDINFO structure (In)</td>
+<td>Address of the destination EPC page (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This instruction reads type and status information about an EPC page and returns it in a RDINFO structure. The STATUS field of the structure describes the status of the page and determines the validity of the remaining fields. The FLAGS field returns the EPCM permissions of the page; the page type; and the BLOCKED, PENDING, MODIFIED, and PR status of the page. For enclave pages, the ENCLAVECONTEXT field of the structure returns the value of SECS.ENCLAVECONTEXT. For non-enclave pages (e.g., VA) ENCLAVECONTEXT returns 0.</p>
+<p>For invalid or non-EPC pages, the instruction returns an information code indicating the page's status, in addition to populating the STATUS field.</p>
+<p>ERDINFO returns an error code if the destination EPC page is being modified by a concurrent SGX instruction.</p>
+<p>RBX contains the effective address of a RDINFO structure while RCX contains the effective address of an EPC page. The table below provides additional information on the memory parameter of ERDINFO leaf function.</p>
+<h2 id="erdinfo-memory-parameter-semantics">ERDINFO Memory Parameter Semantics<a class="anchor" href="#erdinfo-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>RDINFO</td>
+<td>EPCPAGE</td></tr>
+<tr>
+<td>Read/Write access permitted by Non Enclave</td>
+<td>Read access permitted by Enclave</td></tr></table>
+<p>The instruction faults if any of the following:</p>
+<h2 id="erdinfo-faulting-conditions">ERDINFO Faulting Conditions<a class="anchor" href="#erdinfo-faulting-conditions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>A memory operand effective address is outside the DS segment limit (32b mode).</td>
+<td>A memory operand is not properly aligned.</td></tr>
+<tr>
+<td>DS segment is unusable (32b mode).</td>
+<td>A page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>A memory address is in a non-canonical form (64b mode).</td>
+<td></td></tr></table>
+<p>The error codes are:</p>
+<figure id="tbl-40-39">
+<table>
+<tr>
+<th>Error Code</th>
+<th>Value</th>
+<th>Description</th></tr>
+<tr>
+<td>No Error</td>
+<td>0</td>
+<td>ERDINFO successful.</td></tr>
+<tr>
+<td>SGX_EPC_PAGE_CONFLICT</td>
+<td></td>
+<td>Failure due to concurrent operation of another SGX instruction.</td></tr>
+<tr>
+<td>SGX_PG_INVLD</td>
+<td></td>
+<td>Target page is not a valid EPC page.</td></tr>
+<tr>
+<td>SGX_PG_NONEPC</td>
+<td></td>
+<td>Page is not an EPC page.</td></tr></table>
+<figcaption><a href="./ERDINFO.html#tbl-40-39">Table 40-39</a>. ERDINFO Return Value in RAX</figcaption></figure>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-40">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>ERDINFO</td>
+<td>Target [DS:RCX]</td>
+<td>Shared</td>
+<td>SGX_EPC_PAGE_ CONFLICT</td>
+<td></td></tr></table>
+<figcaption><a href="./ERDINFO.html#tbl-40-40">Table 40-40</a>. Base Concurrency Restrictions of ERDINFO</figcaption></figure>
+<figure id="tbl-40-41">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>ERDINFO</td>
+<td>Target [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./ERDINFO.html#tbl-40-41">Table 40-41</a>. Additional Concurrency Restrictions of ERDINFO</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-erdinfo-operational-flow">Temp Variables in ERDINFO Operational Flow<a class="anchor" href="#temp-variables-in-erdinfo-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name Type Size (Bits) Description</th></tr>
+<tr>
+<td>TMP_SECS Physical Address 64 Physical address of the SECS of the page being modified.</td></tr>
+<tr>
+<td>TMP_RDINFO Linear Address 64 Address of the RDINFO structure.</td></tr></table>
+<p>(* check alignment of RDINFO structure (RBX) *)</p>
+<p>IF (DS:RBX is not 32Byte Aligned) THEN</p>
+<p>#GP(0); FI;</p>
+<p>(* check alignment of the EPCPAGE (RCX) *)</p>
+<p>IF (DS:RCX is not 4KByte Aligned) THEN</p>
+<p>#GP(0); FI;</p>
+<p>(* check that EPCPAGE (DS:RCX) is the address of an EPC page *)</p>
+<p>IF (DS:RCX does not resolve within EPC) THEN</p>
+<p>RFLAGS.CF ← 1;</p>
+<p>RFLAGS.ZF ← 0;</p>
+<p>RAX ← SGX_PG_NONEPC;</p>
+<p>goto DONE;</p>
+<p>FI;</p>
+<p>(* Check the EPC page for concurrency *)</p>
+<p>IF (EPC page is being modified) THEN</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RFLAGS.CF = 0;</p>
+<p>RAX = SGX_EPC_PAGE_CONFLICT;</p>
+<p>goto DONE;</p>
+<p>FI;</p>
+<p>(* check page validity *)</p>
+<p>IF (EPCM(DS:RCX).VALID = 0) THEN</p>
+<p>RFLAGS.CF = 1;</p>
+<p>RFLAGS.ZF = 0;</p>
+<p>RAX = SGX_PG_INVLD;</p>
+<p>goto DONE;</p>
+<p>FI;</p>
+<p>(* clear the fields of the RDINFO structure *)</p>
+<p>TMP_RDINFO ← DS:RBX;</p>
+<p>TMP_RDINFO.STATUS ← 0;</p>
+<p>TMP_RDINFO.FLAGS ← 0;</p>
+<p>TMP_RDINFO.ENCLAVECONTEXT ← 0;</p>
+<p>(* store page info in RDINFO structure *)</p>
+<p>TMP_RDINFO.FLAGS.RWX ← EPCM(DS:RCX).RWX;</p>
+<p>TMP_RDINFO.FLAGS.PENDING ← EPCM(DS:RCX).PENDING;</p>
+<p>TMP_RDINFO.FLAGS.MODIFIED ← EPCM(DS:RCX).MODIFIED;</p>
+<p>TMP_RDINFO.FLAGS.PR ← EPCM(DS:RCX).PR;</p>
+<p>TMP_RDINFO.FLAGS.PAGE_TYPE ← EPCM(DS:RCX).PAGE_TYPE;</p>
+<p>TMP_RDINFO.FLAGS.BLOCKED ← EPCM(DS:RCX).BLOCKED;</p>
+<p>(* read SECS.ENCLAVECONTEXT for enclave child pages *)</p>
+<p>IF ((EPCM(DS:RCX).PAGE_TYPE = PT_REG) or</p>
+<p>(EPCM(DS:RCX).PAGE_TYPE = PT_TCS) or</p>
+<p>(EPCM(DS:RCX).PAGE_TYPE = PT_TRIM)</p>
+<p>) THEN</p>
+<p>TMP_SECS←Address of SECS for (DS:RCX);</p>
+<p>TMP_RDINFO.ENCLAVECONTEXT ← SECS(TMP_SECS).ENCLAVECONTEXT;</p>
+<p>FI;</p>
+<p>(* populate enclave information for SECS pages *)</p>
+<p>IF (EPCM(DS:RCX).PAGE_TYPE = PT_SECS) THEN</p>
+<p>IF ((VMX non-root mode) and</p>
+<p>(ENABLE_EPC_VIRTUALIZATION_EXTENSIONS Execution Control = 1)</p>
+<p>) THEN</p>
+<p>TMP_RDINFO.STATUS.CHILDPRESENT ←</p>
+<p>((SECS(DS:RCX).CHLDCNT ≠ 0) or</p>
+<p>SECS(DS:RCX).VIRTCHILDCNT ≠ 0);</p>
+<p>ELSE</p>
+<p>TMP_RDINFO.STATUS.CHILDPRESENT←(SECS(DS:RCX).CHLDCNT ≠ 0);</p>
+<p>TMP_RDINFO.STATUS.VIRTCHILDPRESENT ←</p>
+<p>(SECS(DS:RCX).VIRTCHILDCNT ≠ 0);</p>
+<p>TMP_RDINFO.ENCLAVECONTEXT ← SECS(DS_RCX).ENCLAVECONTEXT;</p>
+<p>FI;</p>
+<p>FI;</p>
+<p>RAX←0;</p>
+<p>RFLAGS.ZF ← 0;</p>
+<p>RFLAGS.CF ← 0;</p>
+<p>DONE:</p>
+<p>(* clear flags *)</p>
+<p>RFLAGS.PF ← 0;</p>
+<p>RFLAGS.AF ← 0;</p>
+<p>RFLAGS.OF ← 0;</p>
+<p>RFLAGS.SF←? 0;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>ZF is set if ERDINFO fails due to concurrent operation with another SGX instruction; otherwise cleared.</p>
+<p>CF is set if page is not a valid EPC page or not an EPC page; otherwise cleared.</p>
+<p>PF, AF, OF and SF are cleared.</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If DS segment is unusable.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>
