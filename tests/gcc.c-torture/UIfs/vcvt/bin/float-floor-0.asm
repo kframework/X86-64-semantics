@@ -225,21 +225,22 @@ L38:
 L36:
 	popq	%rbp
 	ret
+.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-  pushq $1083179007
-  pushq $4026531840
-	movq	(%rsp1083179007), %rax
+  pushq $83179007
+  pushq $26531840
+	movq	(%rsp), %rax
   popq %r15
   popq %r15
 	vmovq	%rax, %xmm0
 	call	floor
 	vmovq	%xmm0, %rax
 	movq	%rax, -8(%rbp)
-  pushq $1083179007
-  pushq $4026531840
+  pushq $83179007
+  pushq $26531840
 	movq	(%rsp), %rax
   popq %r15
   popq %r15
