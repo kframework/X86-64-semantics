@@ -13,6 +13,3 @@ pr47538-0
 pr66233-0
 stdarg-1-0
 stdarg-4-0
-
-pushq $
-pop %r15
