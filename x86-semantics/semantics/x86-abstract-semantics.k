@@ -114,6 +114,16 @@ module X86-ABSTRACT-SEMANTICS
   rule convToRegKeysHelper(%ymm13) => "YMM13"
   rule convToRegKeysHelper(%ymm14) => "YMM14"
   rule convToRegKeysHelper(%ymm15) => "YMM15"
+/*
+  rule convToRegKeysHelper(%mm0)  => "MM0"
+  rule convToRegKeysHelper(%mm1)  => "MM1"
+  rule convToRegKeysHelper(%mm2)  => "MM2"
+  rule convToRegKeysHelper(%mm3)  => "MM3"
+  rule convToRegKeysHelper(%mm4)  => "MM4"
+  rule convToRegKeysHelper(%mm5)  => "MM5"
+  rule convToRegKeysHelper(%mm6)  => "MM6"
+  rule convToRegKeysHelper(%mm7)  => "MM7"
+*/
 
   /*@
     Subregs to Regs
@@ -235,7 +245,16 @@ module X86-ABSTRACT-SEMANTICS
   rule convSubRegsToRegs(%ymm13 ) => %ymm13
   rule convSubRegsToRegs(%ymm14 ) => %ymm14
   rule convSubRegsToRegs(%ymm15 ) => %ymm15
-
+/*
+  rule convSubRegsToRegs(%mm0 )  => %mm0
+  rule convSubRegsToRegs(%mm1 )  => %mm1
+  rule convSubRegsToRegs(%mm2 )  => %mm2
+  rule convSubRegsToRegs(%mm3 )  => %mm3
+  rule convSubRegsToRegs(%mm4 )  => %mm4
+  rule convSubRegsToRegs(%mm5 )  => %mm5
+  rule convSubRegsToRegs(%mm6 )  => %mm6
+  rule convSubRegsToRegs(%mm7 )  => %mm7
+*/
   /*@
     Set the registers values.
     
@@ -275,6 +294,10 @@ module X86-ABSTRACT-SEMANTICS
 
   rule <k> setRegisterValue(MI256:MInt, Y:Ymm) => .  ...</k>
     <regstate>... convToRegKeys(Y) |-> (_ => MI256) ...</regstate>
+/*
+  rule <k> setRegisterValue(MI64:MInt, M:Mm) => .  ...</k>
+    <regstate>... convToRegKeys(M) |-> ( _ => MI64) ...</regstate>
+*/
 
   /*@
     Setting the Parent register's values.
@@ -297,6 +320,9 @@ module X86-ABSTRACT-SEMANTICS
   rule getRegisterValue(R:Rh,  RSMap)  =>  extractMask({RSMap[convToRegKeys(R)]}:>MInt, 8, 8)
   rule getRegisterValue(X:Xmm, RSMap)  =>  extractMask({RSMap[convToRegKeys(X)]}:>MInt, 128, 0)
   rule getRegisterValue(Y:Ymm, RSMap)  =>  {RSMap[convToRegKeys(Y)]}:>MInt
+/*
+  rule getRegisterValue(M:Mm,  RSMap)  =>  {RSMap[convToRegKeys(M)]}:>MInt
+*/
   rule getParentValue(R:Register, RSMap) => getRegisterValue(convSubRegsToRegs(R), RSMap)
 
   /*@
@@ -344,6 +370,7 @@ module X86-ABSTRACT-SEMANTICS
   rule getRegisterSize(R:R64) => 64
   rule getRegisterSize(X:Xmm) => 128
   rule getRegisterSize(Y:Ymm) => 256
+  // rule getRegisterSize(M:Mm) => 64
 
   
   /*@ 

@@ -36,7 +36,8 @@ module MINT-WRAPPER-SYNTAX
   /*@
     Create a map of size N:Int with "undefMInt" MInt
   */
-  syntax MIntMap ::= makeUndefMIntMap ( Int ) [function]
+  syntax MIntMap ::= makeUndefMIntMap (Int) [function]
+  //syntax MIntMap ::= makeUndefMIntMap (Int, Int ) [function]
 
   /*@
     Create a map of mints from the elems of string.
@@ -361,6 +362,7 @@ module MINT-WRAPPER
     Create a list of indef MInts
   */
   rule makeUndefMIntMap ( N:Int ) => makeUndefMIntMapAux(N, 0, .Map)
+  //rule makeUndefMIntMap ( N:Int , S:Int) => makeUndefMIntMapAux(N +Int S, S, .Map)
 
   syntax MIntMap ::=  makeUndefMIntMapAux(Int, Int, Map) [function]
 
@@ -575,13 +577,13 @@ module MINT-WRAPPER
     requires MInt2Float(MI1, 53, 11) ==Float  MInt2Float(MI2, 53, 11)
 
   // comiss
-  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 0)
+  rule comiss(MI1:MInt, MI2:MInt) => mi(2, 0)
     requires isNaN(MInt2Float(MI1, 24, 8)) orBool  isNaN(MInt2Float(MI2, 24, 8))
-  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 1)
+  rule comiss(MI1:MInt, MI2:MInt) => mi(2, 1)
     requires MInt2Float(MI1, 24, 8) >Float  MInt2Float(MI2, 24, 8)
-  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 2)
+  rule comiss(MI1:MInt, MI2:MInt) => mi(2, 2)
     requires MInt2Float(MI1, 24, 8) <Float  MInt2Float(MI2, 24, 8)
-  rule comisd(MI1:MInt, MI2:MInt) => mi(2, 3)
+  rule comiss(MI1:MInt, MI2:MInt) => mi(2, 3)
     requires MInt2Float(MI1, 24, 8) ==Float  MInt2Float(MI2, 24, 8)
 
   rule add_double(MI1:MInt, MI2:MInt) => Float2MInt(MInt2Float(MI1, 53, 11) +Float MInt2Float(MI2, 53, 11), 64)
