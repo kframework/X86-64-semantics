@@ -5,9 +5,9 @@ strchr:
 	movl	%esi, -12(%rbp)
 	nop
 	movq	-8(%rbp), %rax
-	movzbl	(%rax), %edx
-	movl	-12(%rbp), %eax
-	cmpb	%al, %dl
+	movzbl	(%rax), %eax
+	movl	-12(%rbp), %edx
+	cmpb	%dl, %al
 	je	L6
 	movq	-8(%rbp), %rax
 	leaq	1(%rax), %rdx
@@ -72,29 +72,29 @@ memcmp:
 	movq	%rsi, -32(%rbp)
 	movq	%rdx, -40(%rbp)
 	movq	-24(%rbp), %rax
-	movq	%rax, -8(%rbp)
-	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -8(%rbp)
 	jmp	L15
 L18:
-	movq	-8(%rbp), %rax
-	movzbl	(%rax), %edx
 	movq	-16(%rbp), %rax
+	movzbl	(%rax), %edx
+	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	cmpb	%al, %dl
 	je	L16
-	movq	-8(%rbp), %rax
+	movq	-16(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %edx
-	movq	-16(%rbp), %rax
+	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %eax
 	subl	%eax, %edx
 	movl	%edx, %eax
 	jmp	L17
 L16:
-	addq	$1, -8(%rbp)
 	addq	$1, -16(%rbp)
+	addq	$1, -8(%rbp)
 L15:
 	movq	-40(%rbp), %rax
 	leaq	-1(%rax), %rdx
@@ -153,17 +153,17 @@ memcpy:
 	movq	%rsi, -32(%rbp)
 	movq	%rdx, -40(%rbp)
 	movq	-24(%rbp), %rax
-	movq	%rax, -8(%rbp)
-	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
+	movq	-32(%rbp), %rax
+	movq	%rax, -8(%rbp)
 	jmp	L26
 L27:
-	movq	-8(%rbp), %rax
+	movq	-16(%rbp), %rax
 	leaq	1(%rax), %rdx
-	movq	%rdx, -8(%rbp)
-	movq	-16(%rbp), %rdx
+	movq	%rdx, -16(%rbp)
+	movq	-8(%rbp), %rdx
 	leaq	1(%rdx), %rcx
-	movq	%rcx, -16(%rbp)
+	movq	%rcx, -8(%rbp)
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
 L26:
@@ -225,14 +225,12 @@ L38:
 L36:
 	popq	%rbp
 	ret
-u:
-	.long	-2147483519
-	.comm	f1,4,4
-	.comm	f2,4,4
+.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	u(%rip), %eax
+	subq	$16, %rsp
+	movl	$-2147483519, %eax
 	movl	%eax, %eax
 	testq	%rax, %rax
 	js	L40
@@ -250,23 +248,19 @@ L40:
 	vaddss	%xmm0, %xmm0, %xmm2
 	vmovd	%xmm2, %eax
 L41:
-	movl	%eax, f1(%rip)
-	movl	LC0(%rip), %eax
-	movl	%eax, f2(%rip)
-	movl	f1(%rip), %eax
-	movl	f2(%rip), %edx
+	movl	%eax, -8(%rbp)
+	movl	$1325400065, %eax
+	movl	%eax, -4(%rbp)
+	movl	-8(%rbp), %eax
 	vmovd	%eax, %xmm3
-	vmovd	%edx, %xmm4
-	vucomiss	%xmm4, %xmm3
+	vucomiss	-4(%rbp), %xmm3
 	jp	L44
-	vmovd	%eax, %xmm5
-	vmovd	%edx, %xmm6
-	vucomiss	%xmm6, %xmm5
+	movl	-8(%rbp), %eax
+	vmovd	%eax, %xmm4
+	vucomiss	-4(%rbp), %xmm4
 	je	L45
 L44:
 	call	abort
 L45:
 	movl	$0, %edi
 	call	exit
-LC0:
-	.long	1325400065
