@@ -164,6 +164,16 @@ module X86-MEMORY
       </regstate>
       <argv> _ => mi(addrSize, N -Int StackSpaceForEnvs +Int 8) </argv>
       <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, N -Int StackSpaceForEnvs))  </stackbase>
+      /*
+      <regstate> RSMap </regstate>
+      <argv> _ => mi(addrSize, 
+          uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs  // N
+          -Int StackSpaceForEnvs +Int 8) </argv>
+      <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, 
+            uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs // N 
+            -Int StackSpaceForEnvs))  
+      </stackbase>
+	*/
 
   /*@
     Save the allocation id for later reads/writes/free.
@@ -184,6 +194,15 @@ module X86-MEMORY
             toMemValue(makeUndefMIntMap(N), N *Int 8),
             A)
   ... </k>
+  /*
+  rule <k> allocateLocalMemory(N:Int, A:Int) => 
+          mAlloc(
+            toMemValue(
+              makeUndefMIntMap(N, uvalueMInt({RSMap["RSP"]}:>MInt) +Int StackSpaceForEnvs -Int N), 
+              N *Int 8), A)
+  ... </k>
+  <regstate> RSMap </regstate>
+  */
 
   rule <k> freeMemory => mClear(Loc) ... </k>
     <stackbase> stackBaseInfo( Loc:MemLoc, _:K) </stackbase>

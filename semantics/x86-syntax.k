@@ -83,6 +83,7 @@ module X86-SYNTAX
                     | R64
                     | Xmm
                     | Ymm
+//                    | Mm
 //  syntax Memoffs ::= Offset
 //                   | Sreg ":" Offset
   syntax Offset ::= Int
@@ -252,6 +253,16 @@ module X86-SYNTAX
                | "%xmm13"
                | "%xmm14"
                | "%xmm15"
+/*
+  syntax Mm ::= "%mm0"
+               | "%mm1"
+               | "%mm2"
+               | "%mm3"
+               | "%mm4"
+               | "%mm5"
+               | "%mm6"
+               | "%mm7"
+*/
   syntax Ymm ::= "%ymm0"
                | "%ymm1"
                | "%ymm2"
