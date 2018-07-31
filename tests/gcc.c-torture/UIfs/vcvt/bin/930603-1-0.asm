@@ -277,11 +277,15 @@ _start:
 	call	f
 	movl	-4(%rbp), %eax
 	vmovd	%eax, %xmm4
-	vucomiss	LC3(%rip), %xmm4
+  pushq $1077936128
+	vucomiss	(%rsp), %xmm4
+  pop %r15
 	jp	L42
 	movl	-4(%rbp), %eax
 	vmovd	%eax, %xmm5
-	vucomiss	LC3(%rip), %xmm5
+  pushq $1077936128
+	vucomiss	(%rsp), %xmm5
+  pop %r15
 	jne	L42
 	vcvtss2sd	-12(%rbp), %xmm0, %xmm0
 	movabsq	$4616556323654417043, %rax
@@ -291,15 +295,23 @@ _start:
 	vcvtss2sd	-12(%rbp), %xmm7, %xmm7
 	vmovq	%xmm7, %rax
 	vmovq	%rax, %xmm1
-	vucomisd	LC5(%rip), %xmm1
+  pushq $1074875806
+  pushq $2212767151
+	vucomisd	(%rsp), %xmm1
+  popq %r15
+  popq %r15
 	ja	L42
 	movl	-8(%rbp), %eax
 	vmovd	%eax, %xmm2
-	vucomiss	LC6(%rip), %xmm2
+  pushq $1082130432
+	vucomiss	(%rsp), %xmm2
+  popq %r15
 	jp	L42
 	movl	-8(%rbp), %eax
 	vmovd	%eax, %xmm3
-	vucomiss	LC6(%rip), %xmm3
+  pushq $1082130432
+	vucomiss	(%sp), %xmm3
+  popq %r15
 	je	L45
 L42:
 	call	abort
@@ -309,14 +321,14 @@ L45:
 inita:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	LC3(%rip), %eax
+	movl	$1077936128, %eax
 	vmovd	%eax, %xmm0
 	popq	%rbp
 	ret
 initc:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	LC6(%rip), %eax
+	movl	$1082130432, %eax
 	vmovd	%eax, %xmm0
 	popq	%rbp
 	ret
@@ -325,10 +337,3 @@ f:
 	movq	%rsp, %rbp
 	popq	%rbp
 	ret
-LC3:
-	.long	1077936128
-LC5:
-	.long	2212767151
-	.long	1074875806
-LC6:
-	.long	1082130432

@@ -296,7 +296,7 @@ baz:
 L45:
 	vxorps	%xmm0, %xmm0, %xmm0
 	vcvtsi2ss	-4(%rbp), %xmm0, %xmm0
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm2
 	vmulss	%xmm2, %xmm0, %xmm1
 	vcvtss2sd	%xmm1, %xmm3, %xmm3
@@ -331,5 +331,3 @@ _start:
 	movl	$0, %eax
 	popq	%rbp
 	ret
-LC0:
-	.long	0
