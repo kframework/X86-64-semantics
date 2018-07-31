@@ -290,10 +290,18 @@ _start:
 	call	f
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm1
-	vucomisd	LC0(%rip), %xmm1
+  pushq $1100836660
+  pushq $1409286144
+	vucomisd	(%rsp), %xmm1
+  pop %r15
+  pop %r15
 	jp	L51
 	vmovq	%rax, %xmm2
-	vucomisd	LC0(%rip), %xmm2
+  pushq $1100836660
+  pushq $1409286144
+	vucomisd	(%rsp), %xmm2
+  pop %r15
+  pop %r15
 	je	L53
 L51:
 	call	abort
@@ -317,6 +325,3 @@ L52:
 L54:
 	movl	$0, %edi
 	call	exit
-LC0:
-	.long	1409286144
-	.long	1100836660

@@ -332,11 +332,11 @@ fnear:
 	vsubss	-24(%rbp), %xmm3, %xmm2
 	vmovd	%xmm2, %eax
 	movl	%eax, -4(%rbp)
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm4
 	vucomiss	-4(%rbp), %xmm4
 	jp	L64
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm5
 	vucomiss	-4(%rbp), %xmm5
 	je	L58
@@ -346,7 +346,10 @@ L64:
 	vdivss	-4(%rbp), %xmm7, %xmm6
 	vmovd	%xmm6, %eax
 	vmovd	%eax, %xmm0
-	vucomiss	LC1(%rip), %xmm0
+  pushq $1232348160
+	vucomiss	(%rsp), %xmm0
+  pop %r15
+  
 	jbe	L65
 L58:
 	movl	$1, %eax
@@ -380,7 +383,11 @@ L73:
 	vdivsd	-8(%rbp), %xmm7, %xmm6
 	vmovq	%xmm6, %rax
 	vmovq	%rax, %xmm0
-	vucomisd	LC3(%rip), %xmm0
+  pushq $1121369284
+  pushq $512753664
+	vucomisd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	jbe	L74
 L67:
 	movl	$1, %eax
@@ -414,7 +421,11 @@ L82:
 	vdivsd	-8(%rbp), %xmm7, %xmm6
 	vmovq	%xmm6, %rax
 	vmovq	%rax, %xmm0
-	vucomisd	LC4(%rip), %xmm0
+  pushq $1184086197
+  pushq $3037031959
+	vucomisd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	jbe	L83
 L76:
 	movl	$1, %eax
@@ -430,11 +441,11 @@ test_integer_to_float:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	u2f
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm2
 	vucomiss	%xmm2, %xmm0
 	jp	L121
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm3
 	vucomiss	%xmm3, %xmm0
 	je	L133
@@ -444,7 +455,9 @@ L133:
 	movl	$-1, %edi
 	movl	$0, %eax
 	call	u2f
-	vmovss	LC5(%rip), %xmm1
+  pushq $1333788672
+	vmovss	(%rsp), %xmm1
+  pop %r15
 	call	fnear
 	testl	%eax, %eax
 	jne	L87
@@ -453,7 +466,9 @@ L87:
 	movl	$2147483647, %edi
 	movl	$0, %eax
 	call	u2f
-	vmovss	LC6(%rip), %xmm1
+  pushq $1325400064
+	vmovss	(%rsp), %xmm1
+  pop %r15
 	call	fnear
 	testl	%eax, %eax
 	jne	L88
@@ -462,9 +477,13 @@ L88:
 	movl	$-2147483648, %edi
 	movl	$0, %eax
 	call	u2f
-	vucomiss	LC6(%rip), %xmm0
+  pushq $1325400064
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	jp	L122
-	vucomiss	LC6(%rip), %xmm0
+  pushq $1325400064
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	je	L134
 L122:
 	call	abort
@@ -515,10 +534,18 @@ L94:
 	call	u2d
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm2
-	vucomisd	LC9(%rip), %xmm2
+  pushq $1105199104
+  pushq $0
+	vucomisd	(%rsp), %xmm2
+  pop %r15
+  pop %r15
 	jp	L124
 	vmovq	%rax, %xmm3
-	vucomisd	LC9(%rip), %xmm3
+  pushq $1105199104
+  pushq $0
+	vucomisd	(%rsp), %xmm3
+  pop %r15
+  pop %r15
 	je	L136
 L124:
 	call	abort
@@ -569,10 +596,18 @@ L100:
 	call	u2ld
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm2
-	vucomisd	LC9(%rip), %xmm2
+  pushq $1105199104
+  pushq $0
+	vucomisd	(%rsp), %xmm2
+  pop %r15
+  pop %r15
 	jp	L126
 	vmovq	%rax, %xmm3
-	vucomisd	LC9(%rip), %xmm3
+  pushq $1105199104
+  pushq $0
+	vucomisd	(%rsp), %xmm3
+  pop %r15
+  pop %r15
 	je	L138
 L126:
 	call	abort
@@ -580,11 +615,11 @@ L138:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	s2f
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm4
 	vucomiss	%xmm4, %xmm0
 	jp	L127
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm5
 	vucomiss	%xmm5, %xmm0
 	je	L139
@@ -594,7 +629,9 @@ L139:
 	movl	$-1, %edi
 	movl	$0, %eax
 	call	s2f
-	vmovss	LC10(%rip), %xmm1
+  pushq $3212836864
+	vmovss	(%rsp), %xmm1
+  pop %r15
 	call	fnear
 	testl	%eax, %eax
 	jne	L105
@@ -603,7 +640,9 @@ L105:
 	movl	$2147483647, %edi
 	movl	$0, %eax
 	call	s2f
-	vmovss	LC6(%rip), %xmm1
+  pushq $1325400064
+	vmovss	(%rsp), %xmm1
+  pop %r15
 	call	fnear
 	testl	%eax, %eax
 	jne	L106
@@ -612,9 +651,13 @@ L106:
 	movl	$-2147483648, %edi
 	movl	$0, %eax
 	call	s2f
-	vucomiss	LC11(%rip), %xmm0
+  pushq $3472883712
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	jp	L128
-	vucomiss	LC11(%rip), %xmm0
+  pushq $3472883712
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	je	L140
 L128:
 	call	abort
@@ -640,7 +683,11 @@ L141:
 	movl	$0, %eax
 	call	s2d
 	vmovq	%xmm0, %rax
-	vmovsd	LC12(%rip), %xmm1
+  pushq $-1074790400
+  pushq $0
+	vmovsd	(%rsp), %xmm1
+  pop %r15
+  pop %r15
 	vmovq	%rax, %xmm0
 	call	dnear
 	testl	%eax, %eax
@@ -664,10 +711,18 @@ L112:
 	call	s2d
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm4
-	vucomisd	LC13(%rip), %xmm4
+  pushq $-1042284544
+  pushq $0
+	vucomisd	(%rsp), %xmm4
+  pop %r15
+  pop %r15
 	jp	L130
 	vmovq	%rax, %xmm5
-	vucomisd	LC13(%rip), %xmm5
+  pushq $-1042284544
+  pushq $0
+	vucomisd	(%rsp), %xmm5
+  pop %r15
+  pop %r15
 	je	L142
 L130:
 	call	abort
@@ -693,7 +748,11 @@ L143:
 	movl	$0, %eax
 	call	s2ld
 	vmovq	%xmm0, %rax
-	vmovsd	LC12(%rip), %xmm1
+  pushq $-1074790400
+  pushq $0
+	vmovsd	(%rsp), %xmm1
+  pop %r15
+  pop %r15
 	vmovq	%rax, %xmm0
 	call	ldnear
 	testl	%eax, %eax
@@ -717,10 +776,18 @@ L118:
 	call	s2ld
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm4
-	vucomisd	LC13(%rip), %xmm4
+  pushq $-1042284544
+  pushq $0
+	vucomisd	(%rsp), %xmm4
+  pop %r15
+  pop %r15
 	jp	L132
 	vmovq	%rax, %xmm5
-	vucomisd	LC13(%rip), %xmm5
+  pushq $-1042284544
+  pushq $0
+	vucomisd	(%rsp), %xmm5
+  pop %r15
+  pop %r15
 	je	L144
 L132:
 	call	abort
@@ -830,11 +897,11 @@ test_longlong_integer_to_float:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	ull2f
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm2
 	vucomiss	%xmm2, %xmm0
 	jp	L207
-	movl	LC0(%rip), %eax
+	movl $0, %eax
 	vmovd	%eax, %xmm3
 	vucomiss	%xmm3, %xmm0
 	je	L226
@@ -844,9 +911,13 @@ L226:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	ull2f
-	vucomiss	LC14(%rip), %xmm0
+  pushq $1602224128
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	jp	L208
-	vucomiss	LC14(%rip), %xmm0
+  pushq $1602224128
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	je	L227
 L208:
 	call	abort
@@ -854,9 +925,13 @@ L227:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	ull2f
-	vucomiss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	jp	L209
-	vucomiss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	je	L228
 L209:
 	call	abort
@@ -864,9 +939,13 @@ L228:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	ull2f
-	vucomiss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	jp	L210
-	vucomiss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vucomiss	(%rsp), %xmm0
+  pop %r15
 	je	L229
 L210:
 	call	abort
@@ -893,10 +972,18 @@ L230:
 	call	ull2d
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm2
-	vucomisd	LC16(%rip), %xmm2
+  pushq $1139802112
+  pushq $0
+	vucomisd	(%rsp), %xmm2
+  pop %r15
+  pop %r15
 	jp	L212
 	vmovq	%rax, %xmm3
-	vucomisd	LC16(%rip), %xmm3
+  pushq $1139802112
+  pushq $0
+	vucomisd	(%rsp), %xmm3
+  pop %r15
+  pop %r15
 	je	L231
 L212:
 	call	abort
@@ -906,10 +993,18 @@ L231:
 	call	ull2d
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm4
-	vucomisd	LC17(%rip), %xmm4
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm4
+  pop %r15
+  pop %r15
 	jp	L213
 	vmovq	%rax, %xmm5
-	vucomisd	LC17(%rip), %xmm5
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm5
+  pop %r15
+  pop %r15
 	je	L232
 L213:
 	call	abort
@@ -919,10 +1014,18 @@ L232:
 	call	ull2d
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm6
-	vucomisd	LC17(%rip), %xmm6
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm6
+  pop %r15
+  pop %r15
 	jp	L214
 	vmovq	%rax, %xmm7
-	vucomisd	LC17(%rip), %xmm7
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm7
+  pop %r15
+  pop %r15
 	je	L233
 L214:
 	call	abort
@@ -949,10 +1052,18 @@ L234:
 	call	ull2ld
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm6
-	vucomisd	LC16(%rip), %xmm6
+  pushq $1139802112
+  pushq $0
+	vucomisd	(%rsp), %xmm6
+  pop %r15
+  pop %r15
 	jp	L216
 	vmovq	%rax, %xmm7
-	vucomisd	LC16(%rip), %xmm7
+  pushq $1139802112
+  pushq $0
+	vucomisd	(%rsp), %xmm7
+  pop %r15
+  pop %r15
 	je	L235
 L216:
 	call	abort
@@ -962,10 +1073,18 @@ L235:
 	call	ull2ld
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm1
-	vucomisd	LC17(%rip), %xmm1
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm1
+  pop %r15
+  pop %r15
 	jp	L217
 	vmovq	%rax, %xmm2
-	vucomisd	LC17(%rip), %xmm2
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm2
+  pop %r15
+  pop %r15
 	je	L236
 L217:
 	call	abort
@@ -975,10 +1094,18 @@ L236:
 	call	ull2ld
 	vmovq	%xmm0, %rax
 	vmovq	%rax, %xmm3
-	vucomisd	LC17(%rip), %xmm3
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm3
+  pop %r15
+  pop %r15
 	jp	L218
 	vmovq	%rax, %xmm4
-	vucomisd	LC17(%rip), %xmm4
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm4
+  pop %r15
+  pop %r15
 	je	L237
 L218:
 	call	abort
@@ -986,11 +1113,11 @@ L237:
 	movl	$0, %edi
 	movl	$0, %eax
 	call	sll2f
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm5
 	vucomiss	%xmm5, %xmm0
 	jp	L219
-	movl	LC0(%rip), %eax
+	movl	$0, %eax
 	vmovd	%eax, %xmm6
 	vucomiss	%xmm6, %xmm0
 	je	L238
@@ -1000,11 +1127,15 @@ L238:
 	movq	$-1, %rdi
 	movl	$0, %eax
 	call	sll2f
-	movl	LC10(%rip), %eax
+  pushq $3212836864
+	movl	(%rsp), %eax
+  pop %r15
 	vmovd	%eax, %xmm7
 	vucomiss	%xmm7, %xmm0
 	jp	L220
-	movl	LC10(%rip), %eax
+  pushq $3212836864
+	movl	(%rsp), %eax
+  pop %r15
 	vmovd	%eax, %xmm1
 	vucomiss	%xmm1, %xmm0
 	je	L239
@@ -1014,7 +1145,9 @@ L239:
 	movabsq	$9223372036854775807, %rdi
 	movl	$0, %eax
 	call	sll2f
-	vmovss	LC15(%rip), %xmm1
+  pushq $1593835520
+	vmovss	(%rsp), %xmm1
+  pop %r15
 	call	fnear
 	testl	%eax, %eax
 	jne	L192
@@ -1023,9 +1156,13 @@ L192:
 	movabsq	$-9223372036854775808, %rdi
 	movl	$0, %eax
 	call	sll2f
-	vucomiss	LC18(%rip), %xmm0
+  pushq $3741319168
+	vucomiss	(%rsp), %xmm0
+  popq %r15
 	jp	L221
-	vucomiss	LC18(%rip), %xmm0
+  pushq $3741319168
+	vucomiss	(%rsp), %xmm0
+  popq %r15
 	je	L240
 L221:
 	call	abort
@@ -1211,35 +1348,47 @@ test_float_to_integer:
 	je	L258
 	call	abort
 L258:
-	vmovss	LC20(%rip), %xmm0
+  pushq $1065336439
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2u
 	testl	%eax, %eax
 	je	L259
 	call	abort
 L259:
-	vmovss	LC21(%rip), %xmm0
+  pushq $1065353216
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2u
 	cmpl	$1, %eax
 	je	L260
 	call	abort
 L260:
-	vmovss	LC22(%rip), %xmm0
+  pushq $1073657938
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2u
 	cmpl	$1, %eax
 	je	L261
 	call	abort
 L261:
-	vmovss	LC6(%rip), %xmm0
+  pushq $1325400064
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2u
 	cmpl	$2147483647, %eax
 	je	L262
-	vmovss	LC6(%rip), %xmm0
+  pushq $1325400064
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2u
 	cmpl	$-2147483648, %eax
 	je	L262
 	call	abort
 L262:
-	vmovss	LC6(%rip), %xmm0
+  pushq $1325400064
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2u
 	cmpl	$-2147483648, %eax
 	je	L263
@@ -1258,7 +1407,11 @@ L264:
 	je	L265
 	call	abort
 L265:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	d2u
 	cmpl	$1, %eax
 	je	L266
@@ -1305,7 +1458,11 @@ L271:
 	je	L272
 	call	abort
 L272:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	ld2u
 	cmpl	$1, %eax
 	je	L273
@@ -1345,43 +1502,57 @@ L277:
 	je	L278
 	call	abort
 L278:
-	vmovss	LC20(%rip), %xmm0
+  pushq $1065336439
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2s
 	testl	%eax, %eax
 	je	L279
 	call	abort
 L279:
-	vmovss	LC21(%rip), %xmm0
+  pushq $1065353216
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2s
 	cmpl	$1, %eax
 	je	L280
 	call	abort
 L280:
-	vmovss	LC22(%rip), %xmm0
+  pushq $1073657938
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2s
 	cmpl	$1, %eax
 	je	L281
 	call	abort
 L281:
-	vmovss	LC26(%rip), %xmm0
+popq $3212820087
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2s
 	testl	%eax, %eax
 	je	L282
 	call	abort
 L282:
-	vmovss	LC10(%rip), %xmm0
+  pushq $3212836864
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2s
 	cmpl	$-1, %eax
 	je	L283
 	call	abort
 L283:
-	vmovss	LC27(%rip), %xmm0
+  pushq $3221141586
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2s
 	cmpl	$-1, %eax
 	je	L284
 	call	abort
 L284:
-	vmovss	LC11(%rip), %xmm0
+  pushq $3472883712
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2s
 	cmpl	$-2147483648, %eax
 	je	L285
@@ -1400,7 +1571,11 @@ L286:
 	je	L287
 	call	abort
 L287:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	d2s
 	cmpl	$1, %eax
 	je	L288
@@ -1420,7 +1595,11 @@ L289:
 	je	L290
 	call	abort
 L290:
-	vmovsd	LC12(%rip), %xmm0
+  pushq $-1074790400
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	d2s
 	cmpl	$-1, %eax
 	je	L291
@@ -1460,7 +1639,11 @@ L295:
 	je	L296
 	call	abort
 L296:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	ld2s
 	cmpl	$1, %eax
 	je	L297
@@ -1480,7 +1663,11 @@ L298:
 	je	L299
 	call	abort
 L299:
-	vmovsd	LC12(%rip), %xmm0
+  pushq $-1074790400
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	ld2s
 	cmpl	$-1, %eax
 	je	L300
@@ -1515,7 +1702,9 @@ f2ull:
 	vmovss	%xmm0, -4(%rbp)
 	movl	-4(%rbp), %eax
 	vmovd	%eax, %xmm1
-	vucomiss	LC15(%rip), %xmm1
+  pushq $1593835520
+	vucomiss	(%rsp), %xmm1
+  pop %r15
 	jnb	L305
 	movl	-4(%rbp), %eax
 	vmovd	%eax, %xmm2
@@ -1523,7 +1712,9 @@ f2ull:
 	jmp	L306
 L305:
 	movl	-4(%rbp), %eax
-	movl	LC15(%rip), %edx
+  pushq $1593835520
+	movl	(%rsp), %edx
+  pop %r15
 	vmovd	%eax, %xmm3
 	vmovd	%edx, %xmm4
 	vsubss	%xmm4, %xmm3, %xmm0
@@ -1539,7 +1730,11 @@ d2ull:
 	vmovsd	%xmm0, -8(%rbp)
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm1
-	vucomisd	LC17(%rip), %xmm1
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm1
+  pop %r15
+  pop %r15
 	jnb	L309
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm2
@@ -1563,7 +1758,11 @@ ld2ull:
 	vmovsd	%xmm0, -8(%rbp)
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm1
-	vucomisd	LC17(%rip), %xmm1
+  pushq $1138753536
+  pushq $0
+	vucomisd	(%rsp), %xmm1
+  pop %r15
+  pop %r15
 	jnb	L313
 	movq	-8(%rbp), %rax
 	vmovq	%rax, %xmm2
@@ -1617,31 +1816,41 @@ test_float_to_longlong_integer:
 	je	L323
 	call	abort
 L323:
-	vmovss	LC20(%rip), %xmm0
+  pushq $1065336439
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2ull
 	testq	%rax, %rax
 	je	L324
 	call	abort
 L324:
-	vmovss	LC21(%rip), %xmm0
+  pushq $1065353216
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2ull
 	cmpq	$1, %rax
 	je	L325
 	call	abort
 L325:
-	vmovss	LC22(%rip), %xmm0
+  pushq $1073657938
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2ull
 	cmpq	$1, %rax
 	je	L326
 	call	abort
 L326:
-	vmovss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2ull
 	movq	%rax, %rdx
 	movabsq	$9223372036854775807, %rax
 	cmpq	%rax, %rdx
 	je	L327
-	vmovss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2ull
 	movq	%rax, %rdx
 	movabsq	$-9223372036854775808, %rax
@@ -1649,7 +1858,9 @@ L326:
 	je	L327
 	call	abort
 L327:
-	vmovss	LC15(%rip), %xmm0
+  pushq $1593835520
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2ull
 	movq	%rax, %rdx
 	movabsq	$-9223372036854775808, %rax
@@ -1670,7 +1881,11 @@ L329:
 	je	L330
 	call	abort
 L330:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	d2ull
 	cmpq	$1, %rax
 	je	L331
@@ -1721,7 +1936,11 @@ L335:
 	je	L336
 	call	abort
 L336:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	ld2ull
 	cmpq	$1, %rax
 	je	L337
@@ -1765,43 +1984,57 @@ L340:
 	je	L341
 	call	abort
 L341:
-	vmovss	LC20(%rip), %xmm0
+  pushq $1065336439
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2sll
 	testq	%rax, %rax
 	je	L342
 	call	abort
 L342:
-	vmovss	LC21(%rip), %xmm0
+  pushq $1065353216
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2sll
 	cmpq	$1, %rax
 	je	L343
 	call	abort
 L343:
-	vmovss	LC22(%rip), %xmm0
+  pushq $1073657938
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2sll
 	cmpq	$1, %rax
 	je	L344
 	call	abort
 L344:
-	vmovss	LC26(%rip), %xmm0
+popq $3212820087
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2sll
 	testq	%rax, %rax
 	je	L345
 	call	abort
 L345:
-	vmovss	LC10(%rip), %xmm0
+  pushq $3212836864
+	vmovss	(%rsp), %xmm0
+  pop %r15
 	call	f2sll
 	cmpq	$-1, %rax
 	je	L346
 	call	abort
 L346:
-	vmovss	LC27(%rip), %xmm0
+  pushq $3221141586
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2sll
 	cmpq	$-1, %rax
 	je	L347
 	call	abort
 L347:
-	vmovss	LC18(%rip), %xmm0
+  pushq $3741319168
+	vmovss	(%rsp), %xmm0
+  popq %r15
 	call	f2sll
 	movq	%rax, %rdx
 	movabsq	$-9223372036854775808, %rax
@@ -1822,7 +2055,11 @@ L349:
 	je	L350
 	call	abort
 L350:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	d2sll
 	cmpq	$1, %rax
 	je	L351
@@ -1842,7 +2079,11 @@ L352:
 	je	L353
 	call	abort
 L353:
-	vmovsd	LC12(%rip), %xmm0
+  pushq $-1074790400
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	d2sll
 	cmpq	$-1, %rax
 	je	L354
@@ -1877,7 +2118,11 @@ L357:
 	je	L358
 	call	abort
 L358:
-	vmovsd	LC24(%rip), %xmm0
+  pushq $1072693248
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	ld2sll
 	cmpq	$1, %rax
 	je	L359
@@ -1897,7 +2142,11 @@ L360:
 	je	L361
 	call	abort
 L361:
-	vmovsd	LC12(%rip), %xmm0
+  pushq $-1074790400
+  pushq $0
+	vmovsd	(%rsp), %xmm0
+  pop %r15
+  pop %r15
 	call	ld2sll
 	cmpq	$-1, %rax
 	je	L362
@@ -1934,55 +2183,3 @@ _start:
 	call	test_float_to_longlong_integer
 	movl	$0, %edi
 	call	exit
-LC0:
-	.long	0
-LC1:
-	.long	1232348160
-LC3:
-	.long	512753664
-	.long	1121369284
-LC4:
-	.long	3037031959
-	.long	1184086197
-LC5:
-	.long	1333788672
-LC6:
-	.long	1325400064
-LC9:
-	.long	0
-	.long	1105199104
-LC10:
-	.long	3212836864
-LC11:
-	.long	3472883712
-LC12:
-	.long	0
-	.long	-1074790400
-LC13:
-	.long	0
-	.long	-1042284544
-LC14:
-	.long	1602224128
-LC15:
-	.long	1593835520
-LC16:
-	.long	0
-	.long	1139802112
-LC17:
-	.long	0
-	.long	1138753536
-LC18:
-	.long	3741319168
-LC20:
-	.long	1065336439
-LC21:
-	.long	1065353216
-LC22:
-	.long	1073657938
-LC24:
-	.long	0
-	.long	1072693248
-LC26:
-	.long	3212820087
-LC27:
-	.long	3221141586
