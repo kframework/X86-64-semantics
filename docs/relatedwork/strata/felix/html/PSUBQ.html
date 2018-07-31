@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PSUBQ
+		— Subtract Packed Quadword Integers</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSUBQ
+		— Subtract Packed Quadword Integers</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F FB /<em>r</em><sup>1</sup> PSUBQ <em>mm1</em>, <em>mm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Subtract quadword integer in <em>mm1</em> from <em>mm2 /m64</em>.</td></tr>
+<tr>
+<td>66 0F FB /<em>r</em> PSUBQ <em>xmm1</em>, <em>xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Subtract packed quadword integers in <em>xmm1</em> from <em>xmm2 /m128</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG FB/r VPSUBQ <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Subtract packed quadword integers in <em>xmm3/m128</em> from <em>xmm2</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG FB /r VPSUBQ <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Subtract packed quadword integers in <em>ymm3/m256</em> from <em>ymm2.</em></td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.W1 FB /r VPSUBQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Subtract packed quadword integers in xmm3/m128/m64bcst from xmm2 and store in xmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.W1 FB /r VPSUBQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Subtract packed quadword integers in ymm3/m256/m64bcst from ymm2 and store in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.W1 FB/r VPSUBQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Subtract packed quadword integers in zmm3/m512/m64bcst from zmm2 and store in zmm1 using writemask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Subtracts the second operand (source operand) from the first operand (destination operand) and stores the result in the destination operand. When packed quadword operands are used, a SIMD subtract is performed. When a quadword result is too large to be represented in 64 bits (overflow), the result is wrapped around and the low 64 bits are written to the destination element (that is, the carry is ignored).</p>
+<p>Note that the (V)PSUBQ instruction can operate on either unsigned or signed (two’s complement notation) integers; however, it does not set bits in the EFLAGS register to indicate overflow and/or a carry. To prevent undetected overflow conditions, software must control the ranges of the values upon which it operates.</p>
+<p>In 64-bit mode and not encoded with VEX/EVEX, using a REX prefix in the form of REX.R permits this instruction to access additional registers (XMM8-XMM15).</p>
+<p>Legacy SSE version 64-bit operand: The source operand can be a quadword integer stored in an MMX technology register or a 64-bit memory location.</p>
+<p>128-bit Legacy SSE version: The second source operand is an XMM register or a 128-bit memory location. The first source operand and destination operands are XMM registers. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>VEX.128 encoded version: The second source operand is an XMM register or a 128-bit memory location. The first source operand and destination operands are XMM registers. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<p>VEX.256 encoded versions: The second source operand is an YMM register or an 256-bit memory location. The first source operand and destination operands are YMM registers. Bits (MAXVL-1:256) of the corresponding ZMM register are zeroed.</p>
+<p>EVEX encoded VPSUBQ: The second source operand is a ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 32/64-bit memory location. The first source operand and destination operands are ZMM/YMM/XMM registers. The destination is conditionally updated with writemask k1.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="psubq--with-64-bit-operands-">PSUBQ (with 64-Bit operands)<a class="anchor" href="#psubq--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← DEST[63:0] − SRC[63:0];
+</pre>
+<h3 id="psubq--with-128-bit-operands-">PSUBQ (with 128-Bit operands)<a class="anchor" href="#psubq--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← DEST[63:0] − SRC[63:0];
+DEST[127:64] ← DEST[127:64] − SRC[127:64];
+</pre>
+<h3 id="vpsubq--vex-128-encoded-version-">VPSUBQ (VEX.128 encoded version)<a class="anchor" href="#vpsubq--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC1[63:0]-SRC2[63:0]
+DEST[127:64] ← SRC1[127:64]-SRC2[127:64]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpsubq--vex-256-encoded-version-">VPSUBQ (VEX.256 encoded version)<a class="anchor" href="#vpsubq--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC1[63:0]-SRC2[63:0]
+DEST[127:64] ← SRC1[127:64]-SRC2[127:64]
+DEST[191:128] ← SRC1[191:128]-SRC2[191:128]
+DEST[255:192] ← SRC1[255:192]-SRC2[255:192]
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h3 id="vpsubq--evex-encoded-versions-">VPSUBQ (EVEX encoded versions)<a class="anchor" href="#vpsubq--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN DEST[i+63:i]←SRC1[i+63:i] - SRC2[63:0]
+                ELSE DEST[i+63:i]←SRC1[i+63:i] - SRC2[i+63:i]
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h2>
+<pre>VPSUBQ __m512i _mm512_sub_epi64(__m512i a, __m512i b);
+</pre>
+<pre>VPSUBQ __m512i _mm512_mask_sub_epi64(__m512i s, __mmask8 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSUBQ __m512i _mm512_maskz_sub_epi64( __mmask8 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSUBQ __m256i _mm256_mask_sub_epi64(__m256i s, __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSUBQ __m256i _mm256_maskz_sub_epi64( __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSUBQ __m128i _mm_mask_sub_epi64(__m128i s, __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPSUBQ __m128i _mm_maskz_sub_epi64( __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>PSUBQ:__m64 _mm_sub_si64(__m64 m1, __m64 m2)
+</pre>
+<pre>(V)PSUBQ:__m128i _mm_sub_epi64(__m128i m1, __m128i m2)
+</pre>
+<pre>VPSUBQ:__m256i _mm256_sub_epi64(__m256i m1, __m256i m2)
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="#numeric-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded VPSUBQ, see Exceptions Type E4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

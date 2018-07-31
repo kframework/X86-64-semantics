@@ -1,0 +1,1712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:index xmlns:x86="http://www.felixcloutier.com/x86" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/1999/xhtml">
+<x86:group summary="ASCII Adjust After Addition" section="Core" href="AAA">
+<x86:mnemonic name="AAA"/></x86:group>
+<x86:group summary="ASCII Adjust AX Before Division" section="Core" href="AAD">
+<x86:mnemonic name="AAD"/></x86:group>
+<x86:group summary="ASCII Adjust AX After Multiply" section="Core" href="AAM">
+<x86:mnemonic name="AAM"/></x86:group>
+<x86:group summary="ASCII Adjust AL After Subtraction" section="Core" href="AAS">
+<x86:mnemonic name="AAS"/></x86:group>
+<x86:group summary="Add with Carry" section="Core" href="ADC">
+<x86:mnemonic name="ADC"/></x86:group>
+<x86:group summary="Unsigned Integer Addition of Two Operands with Carry Flag" section="Core" href="ADCX">
+<x86:mnemonic name="ADCX"/></x86:group>
+<x86:group summary="Add" section="Core" href="ADD">
+<x86:mnemonic name="ADD"/></x86:group>
+<x86:group summary="Add Packed Double-Precision Floating-Point Values" section="Core" href="ADDPD">
+<x86:mnemonic name="ADDPD"/></x86:group>
+<x86:group summary="Add Packed Single-Precision Floating-Point Values" section="Core" href="ADDPS">
+<x86:mnemonic name="ADDPS"/></x86:group>
+<x86:group summary="Add Scalar Double-Precision Floating-Point Values" section="Core" href="ADDSD">
+<x86:mnemonic name="ADDSD"/></x86:group>
+<x86:group summary="Add Scalar Single-Precision Floating-Point Values" section="Core" href="ADDSS">
+<x86:mnemonic name="ADDSS"/></x86:group>
+<x86:group summary="Packed Double-FP Add/Subtract" section="Core" href="ADDSUBPD">
+<x86:mnemonic name="ADDSUBPD"/></x86:group>
+<x86:group summary="Packed Single-FP Add/Subtract" section="Core" href="ADDSUBPS">
+<x86:mnemonic name="ADDSUBPS"/></x86:group>
+<x86:group summary="Unsigned Integer Addition of Two Operands with Overflow Flag" section="Core" href="ADOX">
+<x86:mnemonic name="ADOX"/></x86:group>
+<x86:group summary="Perform One Round of an AES Decryption Flow" section="Core" href="AESDEC">
+<x86:mnemonic name="AESDEC"/></x86:group>
+<x86:group summary="Perform Last Round of an AES Decryption Flow" section="Core" href="AESDECLAST">
+<x86:mnemonic name="AESDECLAST"/></x86:group>
+<x86:group summary="Perform One Round of an AES Encryption Flow" section="Core" href="AESENC">
+<x86:mnemonic name="AESENC"/></x86:group>
+<x86:group summary="Perform Last Round of an AES Encryption Flow" section="Core" href="AESENCLAST">
+<x86:mnemonic name="AESENCLAST"/></x86:group>
+<x86:group summary="Perform the AES InvMixColumn Transformation" section="Core" href="AESIMC">
+<x86:mnemonic name="AESIMC"/></x86:group>
+<x86:group summary="AES Round Key Generation Assist" section="Core" href="AESKEYGENASSIST">
+<x86:mnemonic name="AESKEYGENASSIST"/></x86:group>
+<x86:group summary="Logical AND" section="Core" href="AND">
+<x86:mnemonic name="AND"/></x86:group>
+<x86:group summary="Logical AND NOT" section="Core" href="ANDN">
+<x86:mnemonic name="ANDN"/></x86:group>
+<x86:group summary="Bitwise Logical AND of Packed Double Precision Floating-Point Values" section="Core" href="ANDPD">
+<x86:mnemonic name="ANDPD"/></x86:group>
+<x86:group summary="Bitwise Logical AND of Packed Single Precision Floating-Point Values" section="Core" href="ANDPS">
+<x86:mnemonic name="ANDPS"/></x86:group>
+<x86:group summary="Bitwise Logical AND NOT of Packed Double Precision Floating-Point Values" section="Core" href="ANDNPD">
+<x86:mnemonic name="ANDNPD"/></x86:group>
+<x86:group summary="Bitwise Logical AND NOT of Packed Single Precision Floating-Point Values" section="Core" href="ANDNPS">
+<x86:mnemonic name="ANDNPS"/></x86:group>
+<x86:group summary="Adjust RPL Field of Segment Selector" section="Core" href="ARPL">
+<x86:mnemonic name="ARPL"/></x86:group>
+<x86:group summary="Blend Packed Double Precision Floating-Point Values" section="Core" href="BLENDPD">
+<x86:mnemonic name="BLENDPD"/></x86:group>
+<x86:group summary="Bit Field Extract" section="Core" href="BEXTR">
+<x86:mnemonic name="BEXTR"/></x86:group>
+<x86:group summary="Blend Packed Single Precision Floating-Point Values" section="Core" href="BLENDPS">
+<x86:mnemonic name="BLENDPS"/></x86:group>
+<x86:group summary="Variable Blend Packed Double Precision Floating-Point Values" section="Core" href="BLENDVPD">
+<x86:mnemonic name="BLENDVPD"/></x86:group>
+<x86:group summary="Variable Blend Packed Single Precision Floating-Point Values" section="Core" href="BLENDVPS">
+<x86:mnemonic name="BLENDVPS"/></x86:group>
+<x86:group summary="Extract Lowest Set Isolated Bit" section="Core" href="BLSI">
+<x86:mnemonic name="BLSI"/></x86:group>
+<x86:group summary="Get Mask Up to Lowest Set Bit" section="Core" href="BLSMSK">
+<x86:mnemonic name="BLSMSK"/></x86:group>
+<x86:group summary="Reset Lowest Set Bit" section="Core" href="BLSR">
+<x86:mnemonic name="BLSR"/></x86:group>
+<x86:group summary="Check Lower Bound" section="Core" href="BNDCL">
+<x86:mnemonic name="BNDCL"/></x86:group>
+<x86:group summary="Check Upper Bound" section="Core" href="BNDCU:BNDCN">
+<x86:mnemonic name="BNDCU"/>
+<x86:mnemonic name="BNDCN"/></x86:group>
+<x86:group summary="Load Extended Bounds Using Address Translation" section="Core" href="BNDLDX">
+<x86:mnemonic name="BNDLDX"/></x86:group>
+<x86:group summary="Make Bounds" section="Core" href="BNDMK">
+<x86:mnemonic name="BNDMK"/></x86:group>
+<x86:group summary="Move Bounds" section="Core" href="BNDMOV">
+<x86:mnemonic name="BNDMOV"/></x86:group>
+<x86:group summary="Store Extended Bounds Using Address Translation" section="Core" href="BNDSTX">
+<x86:mnemonic name="BNDSTX"/></x86:group>
+<x86:group summary="Check Array Index Against Bounds" section="Core" href="BOUND">
+<x86:mnemonic name="BOUND"/></x86:group>
+<x86:group summary="Bit Scan Forward" section="Core" href="BSF">
+<x86:mnemonic name="BSF"/></x86:group>
+<x86:group summary="Bit Scan Reverse" section="Core" href="BSR">
+<x86:mnemonic name="BSR"/></x86:group>
+<x86:group summary="Byte Swap" section="Core" href="BSWAP">
+<x86:mnemonic name="BSWAP"/></x86:group>
+<x86:group summary="Bit Test" section="Core" href="BT">
+<x86:mnemonic name="BT"/></x86:group>
+<x86:group summary="Bit Test and Complement" section="Core" href="BTC">
+<x86:mnemonic name="BTC"/></x86:group>
+<x86:group summary="Bit Test and Reset" section="Core" href="BTR">
+<x86:mnemonic name="BTR"/></x86:group>
+<x86:group summary="Bit Test and Set" section="Core" href="BTS">
+<x86:mnemonic name="BTS"/></x86:group>
+<x86:group summary="Zero High Bits Starting with Specified Bit Position" section="Core" href="BZHI">
+<x86:mnemonic name="BZHI"/></x86:group>
+<x86:group summary="Call Procedure" section="Core" href="CALL">
+<x86:mnemonic name="CALL"/></x86:group>
+<x86:group summary="Convert Byte to Word/Convert Word to Doubleword/Convert Doubleword to Quadword" section="Core" href="CBW:CWDE:CDQE">
+<x86:mnemonic name="CBW"/>
+<x86:mnemonic name="CWDE"/>
+<x86:mnemonic name="CDQE"/></x86:group>
+<x86:group summary="Clear AC Flag in EFLAGS Register" section="Core" href="CLAC">
+<x86:mnemonic name="CLAC"/></x86:group>
+<x86:group summary="Clear Carry Flag" section="Core" href="CLC">
+<x86:mnemonic name="CLC"/></x86:group>
+<x86:group summary="Clear Direction Flag" section="Core" href="CLD">
+<x86:mnemonic name="CLD"/></x86:group>
+<x86:group summary="Flush Cache Line" section="Core" href="CLFLUSH">
+<x86:mnemonic name="CLFLUSH"/></x86:group>
+<x86:group summary="Flush Cache Line Optimized" section="Core" href="CLFLUSHOPT">
+<x86:mnemonic name="CLFLUSHOPT"/></x86:group>
+<x86:group summary="Clear Interrupt Flag" section="Core" href="CLI">
+<x86:mnemonic name="CLI"/></x86:group>
+<x86:group summary="Clear Task-Switched Flag in CR0" section="Core" href="CLTS">
+<x86:mnemonic name="CLTS"/></x86:group>
+<x86:group summary="Cache Line Write Back" section="Core" href="CLWB">
+<x86:mnemonic name="CLWB"/></x86:group>
+<x86:group summary="Complement Carry Flag" section="Core" href="CMC">
+<x86:mnemonic name="CMC"/></x86:group>
+<x86:group summary="Conditional Move" section="Core" href="CMOVcc">
+<x86:mnemonic name="CMOVcc"/></x86:group>
+<x86:group summary="Compare Two Operands" section="Core" href="CMP">
+<x86:mnemonic name="CMP"/></x86:group>
+<x86:group summary="Compare Packed Double-Precision Floating-Point Values" section="Core" href="CMPPD">
+<x86:mnemonic name="CMPPD"/></x86:group>
+<x86:group summary="Compare Packed Single-Precision Floating-Point Values" section="Core" href="CMPPS">
+<x86:mnemonic name="CMPPS"/></x86:group>
+<x86:group summary="Compare String Operands" section="Core" href="CMPS:CMPSB:CMPSW:CMPSD:CMPSQ">
+<x86:mnemonic name="CMPS"/>
+<x86:mnemonic name="CMPSB"/>
+<x86:mnemonic name="CMPSW"/>
+<x86:mnemonic name="CMPSD"/>
+<x86:mnemonic name="CMPSQ"/></x86:group>
+<x86:group summary="Compare Scalar Double-Precision Floating-Point Value" section="Core" href="CMPSD">
+<x86:mnemonic name="CMPSD"/></x86:group>
+<x86:group summary="Compare Scalar Single-Precision Floating-Point Value" section="Core" href="CMPSS">
+<x86:mnemonic name="CMPSS"/></x86:group>
+<x86:group summary="Compare and Exchange" section="Core" href="CMPXCHG">
+<x86:mnemonic name="CMPXCHG"/></x86:group>
+<x86:group summary="Compare and Exchange Bytes" section="Core" href="CMPXCHG8B:CMPXCHG16B">
+<x86:mnemonic name="CMPXCHG8B"/>
+<x86:mnemonic name="CMPXCHG16B"/></x86:group>
+<x86:group summary="Compare Scalar Ordered Double-Precision Floating-Point Values and Set EFLAGS" section="Core" href="COMISD">
+<x86:mnemonic name="COMISD"/></x86:group>
+<x86:group summary="Compare Scalar Ordered Single-Precision Floating-Point Values and Set EFLAGS" section="Core" href="COMISS">
+<x86:mnemonic name="COMISS"/></x86:group>
+<x86:group summary="CPU Identification" section="Core" href="CPUID">
+<x86:mnemonic name="CPUID"/></x86:group>
+<x86:group summary="Accumulate CRC32 Value" section="Core" href="CRC32">
+<x86:mnemonic name="CRC32"/></x86:group>
+<x86:group summary="Convert Packed Doubleword Integers to Packed Double-Precision Floating-Point Values" section="Core" href="CVTDQ2PD">
+<x86:mnemonic name="CVTDQ2PD"/></x86:group>
+<x86:group summary="Convert Packed Doubleword Integers to Packed Single-Precision Floating-Point Values" section="Core" href="CVTDQ2PS">
+<x86:mnemonic name="CVTDQ2PS"/></x86:group>
+<x86:group summary="Convert Packed Double-Precision Floating-Point Values to Packed Doubleword Integers" section="Core" href="CVTPD2DQ">
+<x86:mnemonic name="CVTPD2DQ"/></x86:group>
+<x86:group summary="Convert Packed Double-Precision FP Values to Packed Dword Integers" section="Core" href="CVTPD2PI">
+<x86:mnemonic name="CVTPD2PI"/></x86:group>
+<x86:group summary="Convert Packed Double-Precision Floating-Point Values to Packed Single-Precision Floating-Point Values" section="Core" href="CVTPD2PS">
+<x86:mnemonic name="CVTPD2PS"/></x86:group>
+<x86:group summary="Convert Packed Dword Integers to Packed Double-Precision FP Values" section="Core" href="CVTPI2PD">
+<x86:mnemonic name="CVTPI2PD"/></x86:group>
+<x86:group summary="Convert Packed Dword Integers to Packed Single-Precision FP Values" section="Core" href="CVTPI2PS">
+<x86:mnemonic name="CVTPI2PS"/></x86:group>
+<x86:group summary="Convert Packed Single-Precision Floating-Point Values to Packed Signed Doubleword Integer Values" section="Core" href="CVTPS2DQ">
+<x86:mnemonic name="CVTPS2DQ"/></x86:group>
+<x86:group summary="Convert Packed Single-Precision Floating-Point Values to Packed Double-Precision Floating-Point Values" section="Core" href="CVTPS2PD">
+<x86:mnemonic name="CVTPS2PD"/></x86:group>
+<x86:group summary="Convert Packed Single-Precision FP Values to Packed Dword Integers" section="Core" href="CVTPS2PI">
+<x86:mnemonic name="CVTPS2PI"/></x86:group>
+<x86:group summary="Convert Scalar Double-Precision Floating-Point Value to Doubleword Integer" section="Core" href="CVTSD2SI">
+<x86:mnemonic name="CVTSD2SI"/></x86:group>
+<x86:group summary="Convert Scalar Double-Precision Floating-Point Value to Scalar Single-Precision Floating-Point Value" section="Core" href="CVTSD2SS">
+<x86:mnemonic name="CVTSD2SS"/></x86:group>
+<x86:group summary="Convert Doubleword Integer to Scalar Double-Precision Floating-Point Value" section="Core" href="CVTSI2SD">
+<x86:mnemonic name="CVTSI2SD"/></x86:group>
+<x86:group summary="Convert Doubleword Integer to Scalar Single-Precision Floating-Point Value" section="Core" href="CVTSI2SS">
+<x86:mnemonic name="CVTSI2SS"/></x86:group>
+<x86:group summary="Convert Scalar Single-Precision Floating-Point Value to Scalar Double-Precision Floating-Point Value" section="Core" href="CVTSS2SD">
+<x86:mnemonic name="CVTSS2SD"/></x86:group>
+<x86:group summary="Convert Scalar Single-Precision Floating-Point Value to Doubleword Integer" section="Core" href="CVTSS2SI">
+<x86:mnemonic name="CVTSS2SI"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Double-Precision Floating-Point Values to Packed Doubleword Integers" section="Core" href="CVTTPD2DQ">
+<x86:mnemonic name="CVTTPD2DQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Double-Precision FP Values to Packed Dword Integers" section="Core" href="CVTTPD2PI">
+<x86:mnemonic name="CVTTPD2PI"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Single-Precision Floating-Point Values to Packed Signed Doubleword Integer Values" section="Core" href="CVTTPS2DQ">
+<x86:mnemonic name="CVTTPS2DQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Single-Precision FP Values to Packed Dword Integers" section="Core" href="CVTTPS2PI">
+<x86:mnemonic name="CVTTPS2PI"/></x86:group>
+<x86:group summary="Convert with Truncation Scalar Double-Precision Floating-Point Value to Signed Integer" section="Core" href="CVTTSD2SI">
+<x86:mnemonic name="CVTTSD2SI"/></x86:group>
+<x86:group summary="Convert with Truncation Scalar Single-Precision Floating-Point Value to Integer" section="Core" href="CVTTSS2SI">
+<x86:mnemonic name="CVTTSS2SI"/></x86:group>
+<x86:group summary="Convert Word to Doubleword/Convert Doubleword to Quadword" section="Core" href="CWD:CDQ:CQO">
+<x86:mnemonic name="CWD"/>
+<x86:mnemonic name="CDQ"/>
+<x86:mnemonic name="CQO"/></x86:group>
+<x86:group summary="Decimal Adjust AL after Addition" section="Core" href="DAA">
+<x86:mnemonic name="DAA"/></x86:group>
+<x86:group summary="Decimal Adjust AL after Subtraction" section="Core" href="DAS">
+<x86:mnemonic name="DAS"/></x86:group>
+<x86:group summary="Decrement by 1" section="Core" href="DEC">
+<x86:mnemonic name="DEC"/></x86:group>
+<x86:group summary="Unsigned Divide" section="Core" href="DIV">
+<x86:mnemonic name="DIV"/></x86:group>
+<x86:group summary="Divide Packed Double-Precision Floating-Point Values" section="Core" href="DIVPD">
+<x86:mnemonic name="DIVPD"/></x86:group>
+<x86:group summary="Divide Packed Single-Precision Floating-Point Values" section="Core" href="DIVPS">
+<x86:mnemonic name="DIVPS"/></x86:group>
+<x86:group summary="Divide Scalar Double-Precision Floating-Point Value" section="Core" href="DIVSD">
+<x86:mnemonic name="DIVSD"/></x86:group>
+<x86:group summary="Divide Scalar Single-Precision Floating-Point Values" section="Core" href="DIVSS">
+<x86:mnemonic name="DIVSS"/></x86:group>
+<x86:group summary="Dot Product of Packed Double Precision Floating-Point Values" section="Core" href="DPPD">
+<x86:mnemonic name="DPPD"/></x86:group>
+<x86:group summary="Dot Product of Packed Single Precision Floating-Point Values" section="Core" href="DPPS">
+<x86:mnemonic name="DPPS"/></x86:group>
+<x86:group summary="Empty MMX Technology State" section="Core" href="EMMS">
+<x86:mnemonic name="EMMS"/></x86:group>
+<x86:group summary="Make Stack Frame for Procedure Parameters" section="Core" href="ENTER">
+<x86:mnemonic name="ENTER"/></x86:group>
+<x86:group summary="Extract Packed Floating-Point Values" section="Core" href="EXTRACTPS">
+<x86:mnemonic name="EXTRACTPS"/></x86:group>
+<x86:group summary="Compute 2x–1" section="Core" href="F2XM1">
+<x86:mnemonic name="F2XM1"/></x86:group>
+<x86:group summary="Absolute Value" section="Core" href="FABS">
+<x86:mnemonic name="FABS"/></x86:group>
+<x86:group summary="Add" section="Core" href="FADD:FADDP:FIADD">
+<x86:mnemonic name="FADD"/>
+<x86:mnemonic name="FADDP"/>
+<x86:mnemonic name="FIADD"/></x86:group>
+<x86:group summary="Load Binary Coded Decimal" section="Core" href="FBLD">
+<x86:mnemonic name="FBLD"/></x86:group>
+<x86:group summary="Store BCD Integer and Pop" section="Core" href="FBSTP">
+<x86:mnemonic name="FBSTP"/></x86:group>
+<x86:group summary="Change Sign" section="Core" href="FCHS">
+<x86:mnemonic name="FCHS"/></x86:group>
+<x86:group summary="Clear Exceptions" section="Core" href="FCLEX:FNCLEX">
+<x86:mnemonic name="FCLEX"/>
+<x86:mnemonic name="FNCLEX"/></x86:group>
+<x86:group summary="Floating-Point Conditional Move" section="Core" href="FCMOVcc">
+<x86:mnemonic name="FCMOVcc"/></x86:group>
+<x86:group summary="Compare Floating Point Values" section="Core" href="FCOM:FCOMP:FCOMPP">
+<x86:mnemonic name="FCOM"/>
+<x86:mnemonic name="FCOMP"/>
+<x86:mnemonic name="FCOMPP"/></x86:group>
+<x86:group summary="Compare Floating Point Values and Set EFLAGS" section="Core" href="FCOMI:FCOMIP:FUCOMI:FUCOMIP">
+<x86:mnemonic name="FCOMI"/>
+<x86:mnemonic name="FCOMIP"/>
+<x86:mnemonic name="FUCOMI"/>
+<x86:mnemonic name="FUCOMIP"/></x86:group>
+<x86:group summary="Cosine" section="Core" href="FCOS">
+<x86:mnemonic name="FCOS"/></x86:group>
+<x86:group summary="Decrement Stack-Top Pointer" section="Core" href="FDECSTP">
+<x86:mnemonic name="FDECSTP"/></x86:group>
+<x86:group summary="Divide" section="Core" href="FDIV:FDIVP:FIDIV">
+<x86:mnemonic name="FDIV"/>
+<x86:mnemonic name="FDIVP"/>
+<x86:mnemonic name="FIDIV"/></x86:group>
+<x86:group summary="Reverse Divide" section="Core" href="FDIVR:FDIVRP:FIDIVR">
+<x86:mnemonic name="FDIVR"/>
+<x86:mnemonic name="FDIVRP"/>
+<x86:mnemonic name="FIDIVR"/></x86:group>
+<x86:group summary="Free Floating-Point Register" section="Core" href="FFREE">
+<x86:mnemonic name="FFREE"/></x86:group>
+<x86:group summary="Compare Integer" section="Core" href="FICOM:FICOMP">
+<x86:mnemonic name="FICOM"/>
+<x86:mnemonic name="FICOMP"/></x86:group>
+<x86:group summary="Load Integer" section="Core" href="FILD">
+<x86:mnemonic name="FILD"/></x86:group>
+<x86:group summary="Increment Stack-Top Pointer" section="Core" href="FINCSTP">
+<x86:mnemonic name="FINCSTP"/></x86:group>
+<x86:group summary="Initialize Floating-Point Unit" section="Core" href="FINIT:FNINIT">
+<x86:mnemonic name="FINIT"/>
+<x86:mnemonic name="FNINIT"/></x86:group>
+<x86:group summary="Store Integer" section="Core" href="FIST:FISTP">
+<x86:mnemonic name="FIST"/>
+<x86:mnemonic name="FISTP"/></x86:group>
+<x86:group summary="Store Integer with Truncation" section="Core" href="FISTTP">
+<x86:mnemonic name="FISTTP"/></x86:group>
+<x86:group summary="Load Floating Point Value" section="Core" href="FLD">
+<x86:mnemonic name="FLD"/></x86:group>
+<x86:group summary="Load Constant" section="Core" href="FLD1:FLDL2T:FLDL2E:FLDPI:FLDLG2:FLDLN2:FLDZ">
+<x86:mnemonic name="FLD1"/>
+<x86:mnemonic name="FLDL2T"/>
+<x86:mnemonic name="FLDL2E"/>
+<x86:mnemonic name="FLDPI"/>
+<x86:mnemonic name="FLDLG2"/>
+<x86:mnemonic name="FLDLN2"/>
+<x86:mnemonic name="FLDZ"/></x86:group>
+<x86:group summary="Load x87 FPU Control Word" section="Core" href="FLDCW">
+<x86:mnemonic name="FLDCW"/></x86:group>
+<x86:group summary="Load x87 FPU Environment" section="Core" href="FLDENV">
+<x86:mnemonic name="FLDENV"/></x86:group>
+<x86:group summary="Multiply" section="Core" href="FMUL:FMULP:FIMUL">
+<x86:mnemonic name="FMUL"/>
+<x86:mnemonic name="FMULP"/>
+<x86:mnemonic name="FIMUL"/></x86:group>
+<x86:group summary="No Operation" section="Core" href="FNOP">
+<x86:mnemonic name="FNOP"/></x86:group>
+<x86:group summary="Partial Arctangent" section="Core" href="FPATAN">
+<x86:mnemonic name="FPATAN"/></x86:group>
+<x86:group summary="Partial Remainder" section="Core" href="FPREM">
+<x86:mnemonic name="FPREM"/></x86:group>
+<x86:group summary="Partial Remainder" section="Core" href="FPREM1">
+<x86:mnemonic name="FPREM1"/></x86:group>
+<x86:group summary="Partial Tangent" section="Core" href="FPTAN">
+<x86:mnemonic name="FPTAN"/></x86:group>
+<x86:group summary="Round to Integer" section="Core" href="FRNDINT">
+<x86:mnemonic name="FRNDINT"/></x86:group>
+<x86:group summary="Restore x87 FPU State" section="Core" href="FRSTOR">
+<x86:mnemonic name="FRSTOR"/></x86:group>
+<x86:group summary="Store x87 FPU State" section="Core" href="FSAVE:FNSAVE">
+<x86:mnemonic name="FSAVE"/>
+<x86:mnemonic name="FNSAVE"/></x86:group>
+<x86:group summary="Scale" section="Core" href="FSCALE">
+<x86:mnemonic name="FSCALE"/></x86:group>
+<x86:group summary="Sine" section="Core" href="FSIN">
+<x86:mnemonic name="FSIN"/></x86:group>
+<x86:group summary="Sine and Cosine" section="Core" href="FSINCOS">
+<x86:mnemonic name="FSINCOS"/></x86:group>
+<x86:group summary="Square Root" section="Core" href="FSQRT">
+<x86:mnemonic name="FSQRT"/></x86:group>
+<x86:group summary="Store Floating Point Value" section="Core" href="FST:FSTP">
+<x86:mnemonic name="FST"/>
+<x86:mnemonic name="FSTP"/></x86:group>
+<x86:group summary="Store x87 FPU Control Word" section="Core" href="FSTCW:FNSTCW">
+<x86:mnemonic name="FSTCW"/>
+<x86:mnemonic name="FNSTCW"/></x86:group>
+<x86:group summary="Store x87 FPU Environment" section="Core" href="FSTENV:FNSTENV">
+<x86:mnemonic name="FSTENV"/>
+<x86:mnemonic name="FNSTENV"/></x86:group>
+<x86:group summary="Store x87 FPU Status Word" section="Core" href="FSTSW:FNSTSW">
+<x86:mnemonic name="FSTSW"/>
+<x86:mnemonic name="FNSTSW"/></x86:group>
+<x86:group summary="Subtract" section="Core" href="FSUB:FSUBP:FISUB">
+<x86:mnemonic name="FSUB"/>
+<x86:mnemonic name="FSUBP"/>
+<x86:mnemonic name="FISUB"/></x86:group>
+<x86:group summary="Reverse Subtract" section="Core" href="FSUBR:FSUBRP:FISUBR">
+<x86:mnemonic name="FSUBR"/>
+<x86:mnemonic name="FSUBRP"/>
+<x86:mnemonic name="FISUBR"/></x86:group>
+<x86:group summary="TEST" section="Core" href="FTST">
+<x86:mnemonic name="FTST"/></x86:group>
+<x86:group summary="Unordered Compare Floating Point Values" section="Core" href="FUCOM:FUCOMP:FUCOMPP">
+<x86:mnemonic name="FUCOM"/>
+<x86:mnemonic name="FUCOMP"/>
+<x86:mnemonic name="FUCOMPP"/></x86:group>
+<x86:group summary="Examine Floating-Point" section="Core" href="FXAM">
+<x86:mnemonic name="FXAM"/></x86:group>
+<x86:group summary="Exchange Register Contents" section="Core" href="FXCH">
+<x86:mnemonic name="FXCH"/></x86:group>
+<x86:group summary="Restore x87 FPU, MMX, XMM, and MXCSR State" section="Core" href="FXRSTOR">
+<x86:mnemonic name="FXRSTOR"/></x86:group>
+<x86:group summary="Save x87 FPU, MMX Technology, and SSE State" section="Core" href="FXSAVE">
+<x86:mnemonic name="FXSAVE"/></x86:group>
+<x86:group summary="Extract Exponent and Significand" section="Core" href="FXTRACT">
+<x86:mnemonic name="FXTRACT"/></x86:group>
+<x86:group summary="Compute y ∗ log2x" section="Core" href="FYL2X">
+<x86:mnemonic name="FYL2X"/></x86:group>
+<x86:group summary="Compute y ∗ log2(x +1)" section="Core" href="FYL2XP1">
+<x86:mnemonic name="FYL2XP1"/></x86:group>
+<x86:group summary="Packed Double-FP Horizontal Add" section="Core" href="HADDPD">
+<x86:mnemonic name="HADDPD"/></x86:group>
+<x86:group summary="Packed Single-FP Horizontal Add" section="Core" href="HADDPS">
+<x86:mnemonic name="HADDPS"/></x86:group>
+<x86:group summary="Halt" section="Core" href="HLT">
+<x86:mnemonic name="HLT"/></x86:group>
+<x86:group summary="Packed Double-FP Horizontal Subtract" section="Core" href="HSUBPD">
+<x86:mnemonic name="HSUBPD"/></x86:group>
+<x86:group summary="Packed Single-FP Horizontal Subtract" section="Core" href="HSUBPS">
+<x86:mnemonic name="HSUBPS"/></x86:group>
+<x86:group summary="Signed Divide" section="Core" href="IDIV">
+<x86:mnemonic name="IDIV"/></x86:group>
+<x86:group summary="Signed Multiply" section="Core" href="IMUL">
+<x86:mnemonic name="IMUL"/></x86:group>
+<x86:group summary="Input from Port" section="Core" href="IN">
+<x86:mnemonic name="IN"/></x86:group>
+<x86:group summary="Increment by 1" section="Core" href="INC">
+<x86:mnemonic name="INC"/></x86:group>
+<x86:group summary="Input from Port to String" section="Core" href="INS:INSB:INSW:INSD">
+<x86:mnemonic name="INS"/>
+<x86:mnemonic name="INSB"/>
+<x86:mnemonic name="INSW"/>
+<x86:mnemonic name="INSD"/></x86:group>
+<x86:group summary="Insert Scalar Single-Precision Floating-Point Value" section="Core" href="INSERTPS">
+<x86:mnemonic name="INSERTPS"/></x86:group>
+<x86:group summary="Call to Interrupt Procedure" section="Core" href="INTn:INTO:INT3:INT1">
+<x86:mnemonic name="INT n"/>
+<x86:mnemonic name="INTO"/>
+<x86:mnemonic name="INT3"/>
+<x86:mnemonic name="INT1"/></x86:group>
+<x86:group summary="Invalidate Internal Caches" section="Core" href="INVD">
+<x86:mnemonic name="INVD"/></x86:group>
+<x86:group summary="Invalidate TLB Entries" section="Core" href="INVLPG">
+<x86:mnemonic name="INVLPG"/></x86:group>
+<x86:group summary="Invalidate Process-Context Identifier" section="Core" href="INVPCID">
+<x86:mnemonic name="INVPCID"/></x86:group>
+<x86:group summary="Interrupt Return" section="Core" href="IRET:IRETD">
+<x86:mnemonic name="IRET"/>
+<x86:mnemonic name="IRETD"/></x86:group>
+<x86:group summary="Jump if Condition Is Met" section="Core" href="Jcc">
+<x86:mnemonic name="Jcc"/></x86:group>
+<x86:group summary="Jump" section="Core" href="JMP">
+<x86:mnemonic name="JMP"/></x86:group>
+<x86:group summary="ADD Two Masks" section="Core" href="KADDW:KADDB:KADDQ:KADDD">
+<x86:mnemonic name="KADDW"/>
+<x86:mnemonic name="KADDB"/>
+<x86:mnemonic name="KADDQ"/>
+<x86:mnemonic name="KADDD"/></x86:group>
+<x86:group summary="Bitwise Logical AND Masks" section="Core" href="KANDW:KANDB:KANDQ:KANDD">
+<x86:mnemonic name="KANDW"/>
+<x86:mnemonic name="KANDB"/>
+<x86:mnemonic name="KANDQ"/>
+<x86:mnemonic name="KANDD"/></x86:group>
+<x86:group summary="Bitwise Logical AND NOT Masks" section="Core" href="KANDNW:KANDNB:KANDNQ:KANDND">
+<x86:mnemonic name="KANDNW"/>
+<x86:mnemonic name="KANDNB"/>
+<x86:mnemonic name="KANDNQ"/>
+<x86:mnemonic name="KANDND"/></x86:group>
+<x86:group summary="Move from and to Mask Registers" section="Core" href="KMOVW:KMOVB:KMOVQ:KMOVD">
+<x86:mnemonic name="KMOVW"/>
+<x86:mnemonic name="KMOVB"/>
+<x86:mnemonic name="KMOVQ"/>
+<x86:mnemonic name="KMOVD"/></x86:group>
+<x86:group summary="NOT Mask Register" section="Core" href="KNOTW:KNOTB:KNOTQ:KNOTD">
+<x86:mnemonic name="KNOTW"/>
+<x86:mnemonic name="KNOTB"/>
+<x86:mnemonic name="KNOTQ"/>
+<x86:mnemonic name="KNOTD"/></x86:group>
+<x86:group summary="Bitwise Logical OR Masks" section="Core" href="KORW:KORB:KORQ:KORD">
+<x86:mnemonic name="KORW"/>
+<x86:mnemonic name="KORB"/>
+<x86:mnemonic name="KORQ"/>
+<x86:mnemonic name="KORD"/></x86:group>
+<x86:group summary="OR Masks And Set Flags" section="Core" href="KORTESTW:KORTESTB:KORTESTQ:KORTESTD">
+<x86:mnemonic name="KORTESTW"/>
+<x86:mnemonic name="KORTESTB"/>
+<x86:mnemonic name="KORTESTQ"/>
+<x86:mnemonic name="KORTESTD"/></x86:group>
+<x86:group summary="Shift Left Mask Registers" section="Core" href="KSHIFTLW:KSHIFTLB:KSHIFTLQ:KSHIFTLD">
+<x86:mnemonic name="KSHIFTLW"/>
+<x86:mnemonic name="KSHIFTLB"/>
+<x86:mnemonic name="KSHIFTLQ"/>
+<x86:mnemonic name="KSHIFTLD"/></x86:group>
+<x86:group summary="Shift Right Mask Registers" section="Core" href="KSHIFTRW:KSHIFTRB:KSHIFTRQ:KSHIFTRD">
+<x86:mnemonic name="KSHIFTRW"/>
+<x86:mnemonic name="KSHIFTRB"/>
+<x86:mnemonic name="KSHIFTRQ"/>
+<x86:mnemonic name="KSHIFTRD"/></x86:group>
+<x86:group summary="Packed Bit Test Masks and Set Flags" section="Core" href="KTESTW:KTESTB:KTESTQ:KTESTD">
+<x86:mnemonic name="KTESTW"/>
+<x86:mnemonic name="KTESTB"/>
+<x86:mnemonic name="KTESTQ"/>
+<x86:mnemonic name="KTESTD"/></x86:group>
+<x86:group summary="Unpack for Mask Registers" section="Core" href="KUNPCKBW:KUNPCKWD:KUNPCKDQ">
+<x86:mnemonic name="KUNPCKBW"/>
+<x86:mnemonic name="KUNPCKWD"/>
+<x86:mnemonic name="KUNPCKDQ"/></x86:group>
+<x86:group summary="Bitwise Logical XNOR Masks" section="Core" href="KXNORW:KXNORB:KXNORQ:KXNORD">
+<x86:mnemonic name="KXNORW"/>
+<x86:mnemonic name="KXNORB"/>
+<x86:mnemonic name="KXNORQ"/>
+<x86:mnemonic name="KXNORD"/></x86:group>
+<x86:group summary="Bitwise Logical XOR Masks" section="Core" href="KXORW:KXORB:KXORQ:KXORD">
+<x86:mnemonic name="KXORW"/>
+<x86:mnemonic name="KXORB"/>
+<x86:mnemonic name="KXORQ"/>
+<x86:mnemonic name="KXORD"/></x86:group>
+<x86:group summary="Load Status Flags into AH Register" section="Core" href="LAHF">
+<x86:mnemonic name="LAHF"/></x86:group>
+<x86:group summary="Load Access Rights Byte" section="Core" href="LAR">
+<x86:mnemonic name="LAR"/></x86:group>
+<x86:group summary="Load Unaligned Integer 128 Bits" section="Core" href="LDDQU">
+<x86:mnemonic name="LDDQU"/></x86:group>
+<x86:group summary="Load MXCSR Register" section="Core" href="LDMXCSR">
+<x86:mnemonic name="LDMXCSR"/></x86:group>
+<x86:group summary="Load Far Pointer" section="Core" href="LDS:LES:LFS:LGS:LSS">
+<x86:mnemonic name="LDS"/>
+<x86:mnemonic name="LES"/>
+<x86:mnemonic name="LFS"/>
+<x86:mnemonic name="LGS"/>
+<x86:mnemonic name="LSS"/></x86:group>
+<x86:group summary="Load Effective Address" section="Core" href="LEA">
+<x86:mnemonic name="LEA"/></x86:group>
+<x86:group summary="High Level Procedure Exit" section="Core" href="LEAVE">
+<x86:mnemonic name="LEAVE"/></x86:group>
+<x86:group summary="Load Fence" section="Core" href="LFENCE">
+<x86:mnemonic name="LFENCE"/></x86:group>
+<x86:group summary="Load Global/Interrupt Descriptor Table Register" section="Core" href="LGDT:LIDT">
+<x86:mnemonic name="LGDT"/>
+<x86:mnemonic name="LIDT"/></x86:group>
+<x86:group summary="Load Local Descriptor Table Register" section="Core" href="LLDT">
+<x86:mnemonic name="LLDT"/></x86:group>
+<x86:group summary="Load Machine Status Word" section="Core" href="LMSW">
+<x86:mnemonic name="LMSW"/></x86:group>
+<x86:group summary="Assert LOCK# Signal Prefix" section="Core" href="LOCK">
+<x86:mnemonic name="LOCK"/></x86:group>
+<x86:group summary="Load String" section="Core" href="LODS:LODSB:LODSW:LODSD:LODSQ">
+<x86:mnemonic name="LODS"/>
+<x86:mnemonic name="LODSB"/>
+<x86:mnemonic name="LODSW"/>
+<x86:mnemonic name="LODSD"/>
+<x86:mnemonic name="LODSQ"/></x86:group>
+<x86:group summary="Loop According to ECX Counter" section="Core" href="LOOP:LOOPcc">
+<x86:mnemonic name="LOOP"/>
+<x86:mnemonic name="LOOPcc"/></x86:group>
+<x86:group summary="Load Segment Limit" section="Core" href="LSL">
+<x86:mnemonic name="LSL"/></x86:group>
+<x86:group summary="Load Task Register" section="Core" href="LTR">
+<x86:mnemonic name="LTR"/></x86:group>
+<x86:group summary="Count the Number of Leading Zero Bits" section="Core" href="LZCNT">
+<x86:mnemonic name="LZCNT"/></x86:group>
+<x86:group summary="Store Selected Bytes of Double Quadword" section="Core" href="MASKMOVDQU">
+<x86:mnemonic name="MASKMOVDQU"/></x86:group>
+<x86:group summary="Store Selected Bytes of Quadword" section="Core" href="MASKMOVQ">
+<x86:mnemonic name="MASKMOVQ"/></x86:group>
+<x86:group summary="Maximum of Packed Double-Precision Floating-Point Values" section="Core" href="MAXPD">
+<x86:mnemonic name="MAXPD"/></x86:group>
+<x86:group summary="Maximum of Packed Single-Precision Floating-Point Values" section="Core" href="MAXPS">
+<x86:mnemonic name="MAXPS"/></x86:group>
+<x86:group summary="Return Maximum Scalar Double-Precision Floating-Point Value" section="Core" href="MAXSD">
+<x86:mnemonic name="MAXSD"/></x86:group>
+<x86:group summary="Return Maximum Scalar Single-Precision Floating-Point Value" section="Core" href="MAXSS">
+<x86:mnemonic name="MAXSS"/></x86:group>
+<x86:group summary="Memory Fence" section="Core" href="MFENCE">
+<x86:mnemonic name="MFENCE"/></x86:group>
+<x86:group summary="Minimum of Packed Double-Precision Floating-Point Values" section="Core" href="MINPD">
+<x86:mnemonic name="MINPD"/></x86:group>
+<x86:group summary="Minimum of Packed Single-Precision Floating-Point Values" section="Core" href="MINPS">
+<x86:mnemonic name="MINPS"/></x86:group>
+<x86:group summary="Return Minimum Scalar Double-Precision Floating-Point Value" section="Core" href="MINSD">
+<x86:mnemonic name="MINSD"/></x86:group>
+<x86:group summary="Return Minimum Scalar Single-Precision Floating-Point Value" section="Core" href="MINSS">
+<x86:mnemonic name="MINSS"/></x86:group>
+<x86:group summary="Set Up Monitor Address" section="Core" href="MONITOR">
+<x86:mnemonic name="MONITOR"/></x86:group>
+<x86:group summary="Move" section="Core" href="MOV">
+<x86:mnemonic name="MOV"/></x86:group>
+<x86:group summary="Move to/from Control Registers" section="Core" href="MOV-1">
+<x86:mnemonic name="MOV"/></x86:group>
+<x86:group summary="Move to/from Debug Registers" section="Core" href="MOV-2">
+<x86:mnemonic name="MOV"/></x86:group>
+<x86:group summary="Move Aligned Packed Double-Precision Floating-Point Values" section="Core" href="MOVAPD">
+<x86:mnemonic name="MOVAPD"/></x86:group>
+<x86:group summary="Move Aligned Packed Single-Precision Floating-Point Values" section="Core" href="MOVAPS">
+<x86:mnemonic name="MOVAPS"/></x86:group>
+<x86:group summary="Move Data After Swapping Bytes" section="Core" href="MOVBE">
+<x86:mnemonic name="MOVBE"/></x86:group>
+<x86:group summary="Move Doubleword/Move Quadword" section="Core" href="MOVD:MOVQ">
+<x86:mnemonic name="MOVD"/>
+<x86:mnemonic name="MOVQ"/></x86:group>
+<x86:group summary="Replicate Double FP Values" section="Core" href="MOVDDUP">
+<x86:mnemonic name="MOVDDUP"/></x86:group>
+<x86:group summary="Move Aligned Packed Integer Values" section="Core" href="MOVDQA:VMOVDQA32:VMOVDQA64">
+<x86:mnemonic name="MOVDQA"/>
+<x86:mnemonic name="VMOVDQA32"/>
+<x86:mnemonic name="VMOVDQA64"/></x86:group>
+<x86:group summary="Move Unaligned Packed Integer Values" section="Core" href="MOVDQU:VMOVDQU8:VMOVDQU16:VMOVDQU32:VMOVDQU64">
+<x86:mnemonic name="MOVDQU"/>
+<x86:mnemonic name="VMOVDQU8"/>
+<x86:mnemonic name="VMOVDQU16"/>
+<x86:mnemonic name="VMOVDQU32"/>
+<x86:mnemonic name="VMOVDQU64"/></x86:group>
+<x86:group summary="Move Quadword from XMM to MMX Technology Register" section="Core" href="MOVDQ2Q">
+<x86:mnemonic name="MOVDQ2Q"/></x86:group>
+<x86:group summary="Move Packed Single-Precision Floating-Point Values High to Low" section="Core" href="MOVHLPS">
+<x86:mnemonic name="MOVHLPS"/></x86:group>
+<x86:group summary="Move High Packed Double-Precision Floating-Point Value" section="Core" href="MOVHPD">
+<x86:mnemonic name="MOVHPD"/></x86:group>
+<x86:group summary="Move High Packed Single-Precision Floating-Point Values" section="Core" href="MOVHPS">
+<x86:mnemonic name="MOVHPS"/></x86:group>
+<x86:group summary="Move Packed Single-Precision Floating-Point Values Low to High" section="Core" href="MOVLHPS">
+<x86:mnemonic name="MOVLHPS"/></x86:group>
+<x86:group summary="Move Low Packed Double-Precision Floating-Point Value" section="Core" href="MOVLPD">
+<x86:mnemonic name="MOVLPD"/></x86:group>
+<x86:group summary="Move Low Packed Single-Precision Floating-Point Values" section="Core" href="MOVLPS">
+<x86:mnemonic name="MOVLPS"/></x86:group>
+<x86:group summary="Extract Packed Double-Precision Floating-Point Sign Mask" section="Core" href="MOVMSKPD">
+<x86:mnemonic name="MOVMSKPD"/></x86:group>
+<x86:group summary="Extract Packed Single-Precision Floating-Point Sign Mask" section="Core" href="MOVMSKPS">
+<x86:mnemonic name="MOVMSKPS"/></x86:group>
+<x86:group summary="Load Double Quadword Non-Temporal Aligned Hint" section="Core" href="MOVNTDQA">
+<x86:mnemonic name="MOVNTDQA"/></x86:group>
+<x86:group summary="Store Packed Integers Using Non-Temporal Hint" section="Core" href="MOVNTDQ">
+<x86:mnemonic name="MOVNTDQ"/></x86:group>
+<x86:group summary="Store Doubleword Using Non-Temporal Hint" section="Core" href="MOVNTI">
+<x86:mnemonic name="MOVNTI"/></x86:group>
+<x86:group summary="Store Packed Double-Precision Floating-Point Values Using Non-Temporal Hint" section="Core" href="MOVNTPD">
+<x86:mnemonic name="MOVNTPD"/></x86:group>
+<x86:group summary="Store Packed Single-Precision Floating-Point Values Using Non-Temporal Hint" section="Core" href="MOVNTPS">
+<x86:mnemonic name="MOVNTPS"/></x86:group>
+<x86:group summary="Store of Quadword Using Non-Temporal Hint" section="Core" href="MOVNTQ">
+<x86:mnemonic name="MOVNTQ"/></x86:group>
+<x86:group summary="Move Quadword" section="Core" href="MOVQ">
+<x86:mnemonic name="MOVQ"/></x86:group>
+<x86:group summary="Move Quadword from MMX Technology to XMM Register" section="Core" href="MOVQ2DQ">
+<x86:mnemonic name="MOVQ2DQ"/></x86:group>
+<x86:group summary="Move Data from String to String" section="Core" href="MOVS:MOVSB:MOVSW:MOVSD:MOVSQ">
+<x86:mnemonic name="MOVS"/>
+<x86:mnemonic name="MOVSB"/>
+<x86:mnemonic name="MOVSW"/>
+<x86:mnemonic name="MOVSD"/>
+<x86:mnemonic name="MOVSQ"/></x86:group>
+<x86:group summary="Move or Merge Scalar Double-Precision Floating-Point Value" section="Core" href="MOVSD">
+<x86:mnemonic name="MOVSD"/></x86:group>
+<x86:group summary="Replicate Single FP Values" section="Core" href="MOVSHDUP">
+<x86:mnemonic name="MOVSHDUP"/></x86:group>
+<x86:group summary="Replicate Single FP Values" section="Core" href="MOVSLDUP">
+<x86:mnemonic name="MOVSLDUP"/></x86:group>
+<x86:group summary="Move or Merge Scalar Single-Precision Floating-Point Value" section="Core" href="MOVSS">
+<x86:mnemonic name="MOVSS"/></x86:group>
+<x86:group summary="Move with Sign-Extension" section="Core" href="MOVSX:MOVSXD">
+<x86:mnemonic name="MOVSX"/>
+<x86:mnemonic name="MOVSXD"/></x86:group>
+<x86:group summary="Move Unaligned Packed Double-Precision Floating-Point Values" section="Core" href="MOVUPD">
+<x86:mnemonic name="MOVUPD"/></x86:group>
+<x86:group summary="Move Unaligned Packed Single-Precision Floating-Point Values" section="Core" href="MOVUPS">
+<x86:mnemonic name="MOVUPS"/></x86:group>
+<x86:group summary="Move with Zero-Extend" section="Core" href="MOVZX">
+<x86:mnemonic name="MOVZX"/></x86:group>
+<x86:group summary="Compute Multiple Packed Sums of Absolute Difference" section="Core" href="MPSADBW">
+<x86:mnemonic name="MPSADBW"/></x86:group>
+<x86:group summary="Unsigned Multiply" section="Core" href="MUL">
+<x86:mnemonic name="MUL"/></x86:group>
+<x86:group summary="Multiply Packed Double-Precision Floating-Point Values" section="Core" href="MULPD">
+<x86:mnemonic name="MULPD"/></x86:group>
+<x86:group summary="Multiply Packed Single-Precision Floating-Point Values" section="Core" href="MULPS">
+<x86:mnemonic name="MULPS"/></x86:group>
+<x86:group summary="Multiply Scalar Double-Precision Floating-Point Value" section="Core" href="MULSD">
+<x86:mnemonic name="MULSD"/></x86:group>
+<x86:group summary="Multiply Scalar Single-Precision Floating-Point Values" section="Core" href="MULSS">
+<x86:mnemonic name="MULSS"/></x86:group>
+<x86:group summary="Unsigned Multiply Without Affecting Flags" section="Core" href="MULX">
+<x86:mnemonic name="MULX"/></x86:group>
+<x86:group summary="Monitor Wait" section="Core" href="MWAIT">
+<x86:mnemonic name="MWAIT"/></x86:group>
+<x86:group summary="Two's Complement Negation" section="Core" href="NEG">
+<x86:mnemonic name="NEG"/></x86:group>
+<x86:group summary="No Operation" section="Core" href="NOP">
+<x86:mnemonic name="NOP"/></x86:group>
+<x86:group summary="One's Complement Negation" section="Core" href="NOT">
+<x86:mnemonic name="NOT"/></x86:group>
+<x86:group summary="Logical Inclusive OR" section="Core" href="OR">
+<x86:mnemonic name="OR"/></x86:group>
+<x86:group summary="Bitwise Logical OR of Packed Double Precision Floating-Point Values" section="Core" href="ORPD">
+<x86:mnemonic name="ORPD"/></x86:group>
+<x86:group summary="Bitwise Logical OR of Packed Single Precision Floating-Point Values" section="Core" href="ORPS">
+<x86:mnemonic name="ORPS"/></x86:group>
+<x86:group summary="Output to Port" section="Core" href="OUT">
+<x86:mnemonic name="OUT"/></x86:group>
+<x86:group summary="Output String to Port" section="Core" href="OUTS:OUTSB:OUTSW:OUTSD">
+<x86:mnemonic name="OUTS"/>
+<x86:mnemonic name="OUTSB"/>
+<x86:mnemonic name="OUTSW"/>
+<x86:mnemonic name="OUTSD"/></x86:group>
+<x86:group summary="Packed Absolute Value" section="Core" href="PABSB:PABSW:PABSD:PABSQ">
+<x86:mnemonic name="PABSB"/>
+<x86:mnemonic name="PABSW"/>
+<x86:mnemonic name="PABSD"/>
+<x86:mnemonic name="PABSQ"/></x86:group>
+<x86:group summary="Pack with Signed Saturation" section="Core" href="PACKSSWB:PACKSSDW">
+<x86:mnemonic name="PACKSSWB"/>
+<x86:mnemonic name="PACKSSDW"/></x86:group>
+<x86:group summary="Pack with Unsigned Saturation" section="Core" href="PACKUSDW">
+<x86:mnemonic name="PACKUSDW"/></x86:group>
+<x86:group summary="Pack with Unsigned Saturation" section="Core" href="PACKUSWB">
+<x86:mnemonic name="PACKUSWB"/></x86:group>
+<x86:group summary="Add Packed Integers" section="Core" href="PADDB:PADDW:PADDD:PADDQ">
+<x86:mnemonic name="PADDB"/>
+<x86:mnemonic name="PADDW"/>
+<x86:mnemonic name="PADDD"/>
+<x86:mnemonic name="PADDQ"/></x86:group>
+<x86:group summary="Add Packed Signed Integers with Signed Saturation" section="Core" href="PADDSB:PADDSW">
+<x86:mnemonic name="PADDSB"/>
+<x86:mnemonic name="PADDSW"/></x86:group>
+<x86:group summary="Add Packed Unsigned Integers with Unsigned Saturation" section="Core" href="PADDUSB:PADDUSW">
+<x86:mnemonic name="PADDUSB"/>
+<x86:mnemonic name="PADDUSW"/></x86:group>
+<x86:group summary="Packed Align Right" section="Core" href="PALIGNR">
+<x86:mnemonic name="PALIGNR"/></x86:group>
+<x86:group summary="Logical AND" section="Core" href="PAND">
+<x86:mnemonic name="PAND"/></x86:group>
+<x86:group summary="Logical AND NOT" section="Core" href="PANDN">
+<x86:mnemonic name="PANDN"/></x86:group>
+<x86:group summary="Spin Loop Hint" section="Core" href="PAUSE">
+<x86:mnemonic name="PAUSE"/></x86:group>
+<x86:group summary="Average Packed Integers" section="Core" href="PAVGB:PAVGW">
+<x86:mnemonic name="PAVGB"/>
+<x86:mnemonic name="PAVGW"/></x86:group>
+<x86:group summary="Variable Blend Packed Bytes" section="Core" href="PBLENDVB">
+<x86:mnemonic name="PBLENDVB"/></x86:group>
+<x86:group summary="Blend Packed Words" section="Core" href="PBLENDW">
+<x86:mnemonic name="PBLENDW"/></x86:group>
+<x86:group summary="Carry-Less Multiplication Quadword" section="Core" href="PCLMULQDQ">
+<x86:mnemonic name="PCLMULQDQ"/></x86:group>
+<x86:group summary="Compare Packed Data for Equal" section="Core" href="PCMPEQB:PCMPEQW:PCMPEQD">
+<x86:mnemonic name="PCMPEQB"/>
+<x86:mnemonic name="PCMPEQW"/>
+<x86:mnemonic name="PCMPEQD"/></x86:group>
+<x86:group summary="Compare Packed Qword Data for Equal" section="Core" href="PCMPEQQ">
+<x86:mnemonic name="PCMPEQQ"/></x86:group>
+<x86:group summary="Packed Compare Explicit Length Strings, Return Index" section="Core" href="PCMPESTRI">
+<x86:mnemonic name="PCMPESTRI"/></x86:group>
+<x86:group summary="Packed Compare Explicit Length Strings, Return Mask" section="Core" href="PCMPESTRM">
+<x86:mnemonic name="PCMPESTRM"/></x86:group>
+<x86:group summary="Compare Packed Signed Integers for Greater Than" section="Core" href="PCMPGTB:PCMPGTW:PCMPGTD">
+<x86:mnemonic name="PCMPGTB"/>
+<x86:mnemonic name="PCMPGTW"/>
+<x86:mnemonic name="PCMPGTD"/></x86:group>
+<x86:group summary="Compare Packed Data for Greater Than" section="Core" href="PCMPGTQ">
+<x86:mnemonic name="PCMPGTQ"/></x86:group>
+<x86:group summary="Packed Compare Implicit Length Strings, Return Index" section="Core" href="PCMPISTRI">
+<x86:mnemonic name="PCMPISTRI"/></x86:group>
+<x86:group summary="Packed Compare Implicit Length Strings, Return Mask" section="Core" href="PCMPISTRM">
+<x86:mnemonic name="PCMPISTRM"/></x86:group>
+<x86:group summary="Parallel Bits Deposit" section="Core" href="PDEP">
+<x86:mnemonic name="PDEP"/></x86:group>
+<x86:group summary="Parallel Bits Extract" section="Core" href="PEXT">
+<x86:mnemonic name="PEXT"/></x86:group>
+<x86:group summary="Extract Byte/Dword/Qword" section="Core" href="PEXTRB:PEXTRD:PEXTRQ">
+<x86:mnemonic name="PEXTRB"/>
+<x86:mnemonic name="PEXTRD"/>
+<x86:mnemonic name="PEXTRQ"/></x86:group>
+<x86:group summary="Extract Word" section="Core" href="PEXTRW">
+<x86:mnemonic name="PEXTRW"/></x86:group>
+<x86:group summary="Packed Horizontal Add" section="Core" href="PHADDW:PHADDD">
+<x86:mnemonic name="PHADDW"/>
+<x86:mnemonic name="PHADDD"/></x86:group>
+<x86:group summary="Packed Horizontal Add and Saturate" section="Core" href="PHADDSW">
+<x86:mnemonic name="PHADDSW"/></x86:group>
+<x86:group summary="Packed Horizontal Word Minimum" section="Core" href="PHMINPOSUW">
+<x86:mnemonic name="PHMINPOSUW"/></x86:group>
+<x86:group summary="Packed Horizontal Subtract" section="Core" href="PHSUBW:PHSUBD">
+<x86:mnemonic name="PHSUBW"/>
+<x86:mnemonic name="PHSUBD"/></x86:group>
+<x86:group summary="Packed Horizontal Subtract and Saturate" section="Core" href="PHSUBSW">
+<x86:mnemonic name="PHSUBSW"/></x86:group>
+<x86:group summary="Insert Byte/Dword/Qword" section="Core" href="PINSRB:PINSRD:PINSRQ">
+<x86:mnemonic name="PINSRB"/>
+<x86:mnemonic name="PINSRD"/>
+<x86:mnemonic name="PINSRQ"/></x86:group>
+<x86:group summary="Insert Word" section="Core" href="PINSRW">
+<x86:mnemonic name="PINSRW"/></x86:group>
+<x86:group summary="Multiply and Add Packed Signed and Unsigned Bytes" section="Core" href="PMADDUBSW">
+<x86:mnemonic name="PMADDUBSW"/></x86:group>
+<x86:group summary="Multiply and Add Packed Integers" section="Core" href="PMADDWD">
+<x86:mnemonic name="PMADDWD"/></x86:group>
+<x86:group summary="Maximum of Packed Signed Integers" section="Core" href="PMAXSB:PMAXSW:PMAXSD:PMAXSQ">
+<x86:mnemonic name="PMAXSB"/>
+<x86:mnemonic name="PMAXSW"/>
+<x86:mnemonic name="PMAXSD"/>
+<x86:mnemonic name="PMAXSQ"/></x86:group>
+<x86:group summary="Maximum of Packed Unsigned Integers" section="Core" href="PMAXUB:PMAXUW">
+<x86:mnemonic name="PMAXUB"/>
+<x86:mnemonic name="PMAXUW"/></x86:group>
+<x86:group summary="Maximum of Packed Unsigned Integers" section="Core" href="PMAXUD:PMAXUQ">
+<x86:mnemonic name="PMAXUD"/>
+<x86:mnemonic name="PMAXUQ"/></x86:group>
+<x86:group summary="Minimum of Packed Signed Integers" section="Core" href="PMINSB:PMINSW">
+<x86:mnemonic name="PMINSB"/>
+<x86:mnemonic name="PMINSW"/></x86:group>
+<x86:group summary="Minimum of Packed Signed Integers" section="Core" href="PMINSD:PMINSQ">
+<x86:mnemonic name="PMINSD"/>
+<x86:mnemonic name="PMINSQ"/></x86:group>
+<x86:group summary="Minimum of Packed Unsigned Integers" section="Core" href="PMINUB:PMINUW">
+<x86:mnemonic name="PMINUB"/>
+<x86:mnemonic name="PMINUW"/></x86:group>
+<x86:group summary="Minimum of Packed Unsigned Integers" section="Core" href="PMINUD:PMINUQ">
+<x86:mnemonic name="PMINUD"/>
+<x86:mnemonic name="PMINUQ"/></x86:group>
+<x86:group summary="Move Byte Mask" section="Core" href="PMOVMSKB">
+<x86:mnemonic name="PMOVMSKB"/></x86:group>
+<x86:group summary="Packed Move with Sign Extend" section="Core" href="PMOVSX">
+<x86:mnemonic name="PMOVSX"/></x86:group>
+<x86:group summary="Packed Move with Zero Extend" section="Core" href="PMOVZX">
+<x86:mnemonic name="PMOVZX"/></x86:group>
+<x86:group summary="Multiply Packed Doubleword Integers" section="Core" href="PMULDQ">
+<x86:mnemonic name="PMULDQ"/></x86:group>
+<x86:group summary="Packed Multiply High with Round and Scale" section="Core" href="PMULHRSW">
+<x86:mnemonic name="PMULHRSW"/></x86:group>
+<x86:group summary="Multiply Packed Unsigned Integers and Store High Result" section="Core" href="PMULHUW">
+<x86:mnemonic name="PMULHUW"/></x86:group>
+<x86:group summary="Multiply Packed Signed Integers and Store High Result" section="Core" href="PMULHW">
+<x86:mnemonic name="PMULHW"/></x86:group>
+<x86:group summary="Multiply Packed Integers and Store Low Result" section="Core" href="PMULLD:PMULLQ">
+<x86:mnemonic name="PMULLD"/>
+<x86:mnemonic name="PMULLQ"/></x86:group>
+<x86:group summary="Multiply Packed Signed Integers and Store Low Result" section="Core" href="PMULLW">
+<x86:mnemonic name="PMULLW"/></x86:group>
+<x86:group summary="Multiply Packed Unsigned Doubleword Integers" section="Core" href="PMULUDQ">
+<x86:mnemonic name="PMULUDQ"/></x86:group>
+<x86:group summary="Pop a Value from the Stack" section="Core" href="POP">
+<x86:mnemonic name="POP"/></x86:group>
+<x86:group summary="Pop All General-Purpose Registers" section="Core" href="POPA:POPAD">
+<x86:mnemonic name="POPA"/>
+<x86:mnemonic name="POPAD"/></x86:group>
+<x86:group summary="Return the Count of Number of Bits Set to 1" section="Core" href="POPCNT">
+<x86:mnemonic name="POPCNT"/></x86:group>
+<x86:group summary="Pop Stack into EFLAGS Register" section="Core" href="POPF:POPFD:POPFQ">
+<x86:mnemonic name="POPF"/>
+<x86:mnemonic name="POPFD"/>
+<x86:mnemonic name="POPFQ"/></x86:group>
+<x86:group summary="Bitwise Logical OR" section="Core" href="POR">
+<x86:mnemonic name="POR"/></x86:group>
+<x86:group summary="Prefetch Data Into Caches" section="Core" href="PREFETCHh">
+<x86:mnemonic name="PREFETCHh"/></x86:group>
+<x86:group summary="Prefetch Data into Caches in Anticipation of a Write" section="Core" href="PREFETCHW">
+<x86:mnemonic name="PREFETCHW"/></x86:group>
+<x86:group summary="Compute Sum of Absolute Differences" section="Core" href="PSADBW">
+<x86:mnemonic name="PSADBW"/></x86:group>
+<x86:group summary="Packed Shuffle Bytes" section="Core" href="PSHUFB">
+<x86:mnemonic name="PSHUFB"/></x86:group>
+<x86:group summary="Shuffle Packed Doublewords" section="Core" href="PSHUFD">
+<x86:mnemonic name="PSHUFD"/></x86:group>
+<x86:group summary="Shuffle Packed High Words" section="Core" href="PSHUFHW">
+<x86:mnemonic name="PSHUFHW"/></x86:group>
+<x86:group summary="Shuffle Packed Low Words" section="Core" href="PSHUFLW">
+<x86:mnemonic name="PSHUFLW"/></x86:group>
+<x86:group summary="Shuffle Packed Words" section="Core" href="PSHUFW">
+<x86:mnemonic name="PSHUFW"/></x86:group>
+<x86:group summary="Packed SIGN" section="Core" href="PSIGNB:PSIGNW:PSIGND">
+<x86:mnemonic name="PSIGNB"/>
+<x86:mnemonic name="PSIGNW"/>
+<x86:mnemonic name="PSIGND"/></x86:group>
+<x86:group summary="Shift Double Quadword Left Logical" section="Core" href="PSLLDQ">
+<x86:mnemonic name="PSLLDQ"/></x86:group>
+<x86:group summary="Shift Packed Data Left Logical" section="Core" href="PSLLW:PSLLD:PSLLQ">
+<x86:mnemonic name="PSLLW"/>
+<x86:mnemonic name="PSLLD"/>
+<x86:mnemonic name="PSLLQ"/></x86:group>
+<x86:group summary="Shift Packed Data Right Arithmetic" section="Core" href="PSRAW:PSRAD:PSRAQ">
+<x86:mnemonic name="PSRAW"/>
+<x86:mnemonic name="PSRAD"/>
+<x86:mnemonic name="PSRAQ"/></x86:group>
+<x86:group summary="Shift Double Quadword Right Logical" section="Core" href="PSRLDQ">
+<x86:mnemonic name="PSRLDQ"/></x86:group>
+<x86:group summary="Shift Packed Data Right Logical" section="Core" href="PSRLW:PSRLD:PSRLQ">
+<x86:mnemonic name="PSRLW"/>
+<x86:mnemonic name="PSRLD"/>
+<x86:mnemonic name="PSRLQ"/></x86:group>
+<x86:group summary="Subtract Packed Integers" section="Core" href="PSUBB:PSUBW:PSUBD">
+<x86:mnemonic name="PSUBB"/>
+<x86:mnemonic name="PSUBW"/>
+<x86:mnemonic name="PSUBD"/></x86:group>
+<x86:group summary="Subtract Packed Quadword Integers" section="Core" href="PSUBQ">
+<x86:mnemonic name="PSUBQ"/></x86:group>
+<x86:group summary="Subtract Packed Signed Integers with Signed Saturation" section="Core" href="PSUBSB:PSUBSW">
+<x86:mnemonic name="PSUBSB"/>
+<x86:mnemonic name="PSUBSW"/></x86:group>
+<x86:group summary="Subtract Packed Unsigned Integers with Unsigned Saturation" section="Core" href="PSUBUSB:PSUBUSW">
+<x86:mnemonic name="PSUBUSB"/>
+<x86:mnemonic name="PSUBUSW"/></x86:group>
+<x86:group summary="Logical Compare" section="Core" href="PTEST">
+<x86:mnemonic name="PTEST"/></x86:group>
+<x86:group summary="Write Data to a Processor Trace Packet" section="Core" href="PTWRITE">
+<x86:mnemonic name="PTWRITE"/></x86:group>
+<x86:group summary="Unpack High Data" section="Core" href="PUNPCKHBW:PUNPCKHWD:PUNPCKHDQ:PUNPCKHQDQ">
+<x86:mnemonic name="PUNPCKHBW"/>
+<x86:mnemonic name="PUNPCKHWD"/>
+<x86:mnemonic name="PUNPCKHDQ"/>
+<x86:mnemonic name="PUNPCKHQDQ"/></x86:group>
+<x86:group summary="Unpack Low Data" section="Core" href="PUNPCKLBW:PUNPCKLWD:PUNPCKLDQ:PUNPCKLQDQ">
+<x86:mnemonic name="PUNPCKLBW"/>
+<x86:mnemonic name="PUNPCKLWD"/>
+<x86:mnemonic name="PUNPCKLDQ"/>
+<x86:mnemonic name="PUNPCKLQDQ"/></x86:group>
+<x86:group summary="Push Word, Doubleword or Quadword Onto the Stack" section="Core" href="PUSH">
+<x86:mnemonic name="PUSH"/></x86:group>
+<x86:group summary="Push All General-Purpose Registers" section="Core" href="PUSHA:PUSHAD">
+<x86:mnemonic name="PUSHA"/>
+<x86:mnemonic name="PUSHAD"/></x86:group>
+<x86:group summary="Push EFLAGS Register onto the Stack" section="Core" href="PUSHF:PUSHFD:PUSHFQ">
+<x86:mnemonic name="PUSHF"/>
+<x86:mnemonic name="PUSHFD"/>
+<x86:mnemonic name="PUSHFQ"/></x86:group>
+<x86:group summary="Logical Exclusive OR" section="Core" href="PXOR">
+<x86:mnemonic name="PXOR"/></x86:group>
+<x86:group summary="Rotate" section="Core" href="RCL:RCR:ROL:ROR">
+<x86:mnemonic name="RCL"/>
+<x86:mnemonic name="RCR"/>
+<x86:mnemonic name="ROL"/>
+<x86:mnemonic name="ROR"/></x86:group>
+<x86:group summary="Compute Reciprocals of Packed Single-Precision Floating-Point Values" section="Core" href="RCPPS">
+<x86:mnemonic name="RCPPS"/></x86:group>
+<x86:group summary="Compute Reciprocal of Scalar Single-Precision Floating-Point Values" section="Core" href="RCPSS">
+<x86:mnemonic name="RCPSS"/></x86:group>
+<x86:group summary="Read FS/GS Segment Base" section="Core" href="RDFSBASE:RDGSBASE">
+<x86:mnemonic name="RDFSBASE"/>
+<x86:mnemonic name="RDGSBASE"/></x86:group>
+<x86:group summary="Read from Model Specific Register" section="Core" href="RDMSR">
+<x86:mnemonic name="RDMSR"/></x86:group>
+<x86:group summary="Read Processor ID" section="Core" href="RDPID">
+<x86:mnemonic name="RDPID"/></x86:group>
+<x86:group summary="Read Protection Key Rights for User Pages" section="Core" href="RDPKRU">
+<x86:mnemonic name="RDPKRU"/></x86:group>
+<x86:group summary="Read Performance-Monitoring Counters" section="Core" href="RDPMC">
+<x86:mnemonic name="RDPMC"/></x86:group>
+<x86:group summary="Read Random Number" section="Core" href="RDRAND">
+<x86:mnemonic name="RDRAND"/></x86:group>
+<x86:group summary="Read Random SEED" section="Core" href="RDSEED">
+<x86:mnemonic name="RDSEED"/></x86:group>
+<x86:group summary="Read Time-Stamp Counter" section="Core" href="RDTSC">
+<x86:mnemonic name="RDTSC"/></x86:group>
+<x86:group summary="Read Time-Stamp Counter and Processor ID" section="Core" href="RDTSCP">
+<x86:mnemonic name="RDTSCP"/></x86:group>
+<x86:group summary="Repeat String Operation Prefix" section="Core" href="REP:REPE:REPZ:REPNE:REPNZ">
+<x86:mnemonic name="REP"/>
+<x86:mnemonic name="REPE"/>
+<x86:mnemonic name="REPZ"/>
+<x86:mnemonic name="REPNE"/>
+<x86:mnemonic name="REPNZ"/></x86:group>
+<x86:group summary="Return from Procedure" section="Core" href="RET">
+<x86:mnemonic name="RET"/></x86:group>
+<x86:group summary="Rotate Right Logical Without Affecting Flags" section="Core" href="RORX">
+<x86:mnemonic name="RORX"/></x86:group>
+<x86:group summary="Round Packed Double Precision Floating-Point Values" section="Core" href="ROUNDPD">
+<x86:mnemonic name="ROUNDPD"/></x86:group>
+<x86:group summary="Round Packed Single Precision Floating-Point Values" section="Core" href="ROUNDPS">
+<x86:mnemonic name="ROUNDPS"/></x86:group>
+<x86:group summary="Round Scalar Double Precision Floating-Point Values" section="Core" href="ROUNDSD">
+<x86:mnemonic name="ROUNDSD"/></x86:group>
+<x86:group summary="Round Scalar Single Precision Floating-Point Values" section="Core" href="ROUNDSS">
+<x86:mnemonic name="ROUNDSS"/></x86:group>
+<x86:group summary="Resume from System Management Mode" section="Core" href="RSM">
+<x86:mnemonic name="RSM"/></x86:group>
+<x86:group summary="Compute Reciprocals of Square Roots of Packed Single-Precision Floating-Point Values" section="Core" href="RSQRTPS">
+<x86:mnemonic name="RSQRTPS"/></x86:group>
+<x86:group summary="Compute Reciprocal of Square Root of Scalar Single-Precision Floating-Point Value" section="Core" href="RSQRTSS">
+<x86:mnemonic name="RSQRTSS"/></x86:group>
+<x86:group summary="Store AH into Flags" section="Core" href="SAHF">
+<x86:mnemonic name="SAHF"/></x86:group>
+<x86:group summary="Shift" section="Core" href="SAL:SAR:SHL:SHR">
+<x86:mnemonic name="SAL"/>
+<x86:mnemonic name="SAR"/>
+<x86:mnemonic name="SHL"/>
+<x86:mnemonic name="SHR"/></x86:group>
+<x86:group summary="Shift Without Affecting Flags" section="Core" href="SARX:SHLX:SHRX">
+<x86:mnemonic name="SARX"/>
+<x86:mnemonic name="SHLX"/>
+<x86:mnemonic name="SHRX"/></x86:group>
+<x86:group summary="Integer Subtraction with Borrow" section="Core" href="SBB">
+<x86:mnemonic name="SBB"/></x86:group>
+<x86:group summary="Scan String" section="Core" href="SCAS:SCASB:SCASW:SCASD">
+<x86:mnemonic name="SCAS"/>
+<x86:mnemonic name="SCASB"/>
+<x86:mnemonic name="SCASW"/>
+<x86:mnemonic name="SCASD"/></x86:group>
+<x86:group summary="Set Byte on Condition" section="Core" href="SETcc">
+<x86:mnemonic name="SETcc"/></x86:group>
+<x86:group summary="Store Fence" section="Core" href="SFENCE">
+<x86:mnemonic name="SFENCE"/></x86:group>
+<x86:group summary="Store Global Descriptor Table Register" section="Core" href="SGDT">
+<x86:mnemonic name="SGDT"/></x86:group>
+<x86:group summary="Perform Four Rounds of SHA1 Operation" section="Core" href="SHA1RNDS4">
+<x86:mnemonic name="SHA1RNDS4"/></x86:group>
+<x86:group summary="Calculate SHA1 State Variable E after Four Rounds" section="Core" href="SHA1NEXTE">
+<x86:mnemonic name="SHA1NEXTE"/></x86:group>
+<x86:group summary="Perform an Intermediate Calculation for the Next Four SHA1 Message Dwords" section="Core" href="SHA1MSG1">
+<x86:mnemonic name="SHA1MSG1"/></x86:group>
+<x86:group summary="Perform a Final Calculation for the Next Four SHA1 Message Dwords" section="Core" href="SHA1MSG2">
+<x86:mnemonic name="SHA1MSG2"/></x86:group>
+<x86:group summary="Perform Two Rounds of SHA256 Operation" section="Core" href="SHA256RNDS2">
+<x86:mnemonic name="SHA256RNDS2"/></x86:group>
+<x86:group summary="Perform an Intermediate Calculation for the Next Four SHA256 Message Dwords" section="Core" href="SHA256MSG1">
+<x86:mnemonic name="SHA256MSG1"/></x86:group>
+<x86:group summary="Perform a Final Calculation for the Next Four SHA256 Message Dwords" section="Core" href="SHA256MSG2">
+<x86:mnemonic name="SHA256MSG2"/></x86:group>
+<x86:group summary="Double Precision Shift Left" section="Core" href="SHLD">
+<x86:mnemonic name="SHLD"/></x86:group>
+<x86:group summary="Double Precision Shift Right" section="Core" href="SHRD">
+<x86:mnemonic name="SHRD"/></x86:group>
+<x86:group summary="Packed Interleave Shuffle of Pairs of Double-Precision Floating-Point Values" section="Core" href="SHUFPD">
+<x86:mnemonic name="SHUFPD"/></x86:group>
+<x86:group summary="Packed Interleave Shuffle of Quadruplets of Single-Precision Floating-Point Values" section="Core" href="SHUFPS">
+<x86:mnemonic name="SHUFPS"/></x86:group>
+<x86:group summary="Store Interrupt Descriptor Table Register" section="Core" href="SIDT">
+<x86:mnemonic name="SIDT"/></x86:group>
+<x86:group summary="Store Local Descriptor Table Register" section="Core" href="SLDT">
+<x86:mnemonic name="SLDT"/></x86:group>
+<x86:group summary="Store Machine Status Word" section="Core" href="SMSW">
+<x86:mnemonic name="SMSW"/></x86:group>
+<x86:group summary="Square Root of Double-Precision Floating-Point Values" section="Core" href="SQRTPD">
+<x86:mnemonic name="SQRTPD"/></x86:group>
+<x86:group summary="Square Root of Single-Precision Floating-Point Values" section="Core" href="SQRTPS">
+<x86:mnemonic name="SQRTPS"/></x86:group>
+<x86:group summary="Compute Square Root of Scalar Double-Precision Floating-Point Value" section="Core" href="SQRTSD">
+<x86:mnemonic name="SQRTSD"/></x86:group>
+<x86:group summary="Compute Square Root of Scalar Single-Precision Value" section="Core" href="SQRTSS">
+<x86:mnemonic name="SQRTSS"/></x86:group>
+<x86:group summary="Set AC Flag in EFLAGS Register" section="Core" href="STAC">
+<x86:mnemonic name="STAC"/></x86:group>
+<x86:group summary="Set Carry Flag" section="Core" href="STC">
+<x86:mnemonic name="STC"/></x86:group>
+<x86:group summary="Set Direction Flag" section="Core" href="STD">
+<x86:mnemonic name="STD"/></x86:group>
+<x86:group summary="Set Interrupt Flag" section="Core" href="STI">
+<x86:mnemonic name="STI"/></x86:group>
+<x86:group summary="Store MXCSR Register State" section="Core" href="STMXCSR">
+<x86:mnemonic name="STMXCSR"/></x86:group>
+<x86:group summary="Store String" section="Core" href="STOS:STOSB:STOSW:STOSD:STOSQ">
+<x86:mnemonic name="STOS"/>
+<x86:mnemonic name="STOSB"/>
+<x86:mnemonic name="STOSW"/>
+<x86:mnemonic name="STOSD"/>
+<x86:mnemonic name="STOSQ"/></x86:group>
+<x86:group summary="Store Task Register" section="Core" href="STR">
+<x86:mnemonic name="STR"/></x86:group>
+<x86:group summary="Subtract" section="Core" href="SUB">
+<x86:mnemonic name="SUB"/></x86:group>
+<x86:group summary="Subtract Packed Double-Precision Floating-Point Values" section="Core" href="SUBPD">
+<x86:mnemonic name="SUBPD"/></x86:group>
+<x86:group summary="Subtract Packed Single-Precision Floating-Point Values" section="Core" href="SUBPS">
+<x86:mnemonic name="SUBPS"/></x86:group>
+<x86:group summary="Subtract Scalar Double-Precision Floating-Point Value" section="Core" href="SUBSD">
+<x86:mnemonic name="SUBSD"/></x86:group>
+<x86:group summary="Subtract Scalar Single-Precision Floating-Point Value" section="Core" href="SUBSS">
+<x86:mnemonic name="SUBSS"/></x86:group>
+<x86:group summary="Swap GS Base Register" section="Core" href="SWAPGS">
+<x86:mnemonic name="SWAPGS"/></x86:group>
+<x86:group summary="Fast System Call" section="Core" href="SYSCALL">
+<x86:mnemonic name="SYSCALL"/></x86:group>
+<x86:group summary="Fast System Call" section="Core" href="SYSENTER">
+<x86:mnemonic name="SYSENTER"/></x86:group>
+<x86:group summary="Fast Return from Fast System Call" section="Core" href="SYSEXIT">
+<x86:mnemonic name="SYSEXIT"/></x86:group>
+<x86:group summary="Return From Fast System Call" section="Core" href="SYSRET">
+<x86:mnemonic name="SYSRET"/></x86:group>
+<x86:group summary="Logical Compare" section="Core" href="TEST">
+<x86:mnemonic name="TEST"/></x86:group>
+<x86:group summary="Count the Number of Trailing Zero Bits" section="Core" href="TZCNT">
+<x86:mnemonic name="TZCNT"/></x86:group>
+<x86:group summary="Unordered Compare Scalar Double-Precision Floating-Point Values and Set EFLAGS" section="Core" href="UCOMISD">
+<x86:mnemonic name="UCOMISD"/></x86:group>
+<x86:group summary="Unordered Compare Scalar Single-Precision Floating-Point Values and Set EFLAGS" section="Core" href="UCOMISS">
+<x86:mnemonic name="UCOMISS"/></x86:group>
+<x86:group summary="Undefined Instruction" section="Core" href="UD">
+<x86:mnemonic name="UD"/></x86:group>
+<x86:group summary="Unpack and Interleave High Packed Double-Precision Floating-Point Values" section="Core" href="UNPCKHPD">
+<x86:mnemonic name="UNPCKHPD"/></x86:group>
+<x86:group summary="Unpack and Interleave High Packed Single-Precision Floating-Point Values" section="Core" href="UNPCKHPS">
+<x86:mnemonic name="UNPCKHPS"/></x86:group>
+<x86:group summary="Unpack and Interleave Low Packed Double-Precision Floating-Point Values" section="Core" href="UNPCKLPD">
+<x86:mnemonic name="UNPCKLPD"/></x86:group>
+<x86:group summary="Unpack and Interleave Low Packed Single-Precision Floating-Point Values" section="Core" href="UNPCKLPS">
+<x86:mnemonic name="UNPCKLPS"/></x86:group>
+<x86:group summary="Align Doubleword/Quadword Vectors" section="Core" href="VALIGND:VALIGNQ">
+<x86:mnemonic name="VALIGND"/>
+<x86:mnemonic name="VALIGNQ"/></x86:group>
+<x86:group summary="Blend Float64/Float32 Vectors Using an OpMask Control" section="Core" href="VBLENDMPD:VBLENDMPS">
+<x86:mnemonic name="VBLENDMPD"/>
+<x86:mnemonic name="VBLENDMPS"/></x86:group>
+<x86:group summary="Load with Broadcast Floating-Point Data" section="Core" href="VBROADCAST">
+<x86:mnemonic name="VBROADCAST"/></x86:group>
+<x86:group summary="Store Sparse Packed Double-Precision Floating-Point Values into Dense Memory" section="Core" href="VCOMPRESSPD">
+<x86:mnemonic name="VCOMPRESSPD"/></x86:group>
+<x86:group summary="Store Sparse Packed Single-Precision Floating-Point Values into Dense Memory" section="Core" href="VCOMPRESSPS">
+<x86:mnemonic name="VCOMPRESSPS"/></x86:group>
+<x86:group summary="Convert Packed Double-Precision Floating-Point Values to Packed Quadword Integers" section="Core" href="VCVTPD2QQ">
+<x86:mnemonic name="VCVTPD2QQ"/></x86:group>
+<x86:group summary="Convert Packed Double-Precision Floating-Point Values to Packed Unsigned Doubleword Integers" section="Core" href="VCVTPD2UDQ">
+<x86:mnemonic name="VCVTPD2UDQ"/></x86:group>
+<x86:group summary="Convert Packed Double-Precision Floating-Point Values to Packed Unsigned Quadword Integers" section="Core" href="VCVTPD2UQQ">
+<x86:mnemonic name="VCVTPD2UQQ"/></x86:group>
+<x86:group summary="Convert 16-bit FP values to Single-Precision FP values" section="Core" href="VCVTPH2PS">
+<x86:mnemonic name="VCVTPH2PS"/></x86:group>
+<x86:group summary="Convert Single-Precision FP value to 16-bit FP value" section="Core" href="VCVTPS2PH">
+<x86:mnemonic name="VCVTPS2PH"/></x86:group>
+<x86:group summary="Convert Packed Single-Precision Floating-Point Values to Packed Unsigned Doubleword Integer Values" section="Core" href="VCVTPS2UDQ">
+<x86:mnemonic name="VCVTPS2UDQ"/></x86:group>
+<x86:group summary="Convert Packed Single Precision Floating-Point Values to Packed Singed Quadword Integer Values" section="Core" href="VCVTPS2QQ">
+<x86:mnemonic name="VCVTPS2QQ"/></x86:group>
+<x86:group summary="Convert Packed Single Precision Floating-Point Values to Packed Unsigned Quadword Integer Values" section="Core" href="VCVTPS2UQQ">
+<x86:mnemonic name="VCVTPS2UQQ"/></x86:group>
+<x86:group summary="Convert Packed Quadword Integers to Packed Double-Precision Floating-Point Values" section="Core" href="VCVTQQ2PD">
+<x86:mnemonic name="VCVTQQ2PD"/></x86:group>
+<x86:group summary="Convert Packed Quadword Integers to Packed Single-Precision Floating-Point Values" section="Core" href="VCVTQQ2PS">
+<x86:mnemonic name="VCVTQQ2PS"/></x86:group>
+<x86:group summary="Convert Scalar Double-Precision Floating-Point Value to Unsigned Doubleword Integer" section="Core" href="VCVTSD2USI">
+<x86:mnemonic name="VCVTSD2USI"/></x86:group>
+<x86:group summary="Convert Scalar Single-Precision Floating-Point Value to Unsigned Doubleword Integer" section="Core" href="VCVTSS2USI">
+<x86:mnemonic name="VCVTSS2USI"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Double-Precision Floating-Point Values to Packed Quadword Integers" section="Core" href="VCVTTPD2QQ">
+<x86:mnemonic name="VCVTTPD2QQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Double-Precision Floating-Point Values to Packed Unsigned Doubleword Integers" section="Core" href="VCVTTPD2UDQ">
+<x86:mnemonic name="VCVTTPD2UDQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Double-Precision Floating-Point Values to Packed Unsigned Quadword Integers" section="Core" href="VCVTTPD2UQQ">
+<x86:mnemonic name="VCVTTPD2UQQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Single-Precision Floating-Point Values to Packed Unsigned Doubleword Integer Values" section="Core" href="VCVTTPS2UDQ">
+<x86:mnemonic name="VCVTTPS2UDQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Single Precision Floating-Point Values to Packed Singed Quadword Integer Values" section="Core" href="VCVTTPS2QQ">
+<x86:mnemonic name="VCVTTPS2QQ"/></x86:group>
+<x86:group summary="Convert with Truncation Packed Single Precision Floating-Point Values to Packed Unsigned Quadword Integer Values" section="Core" href="VCVTTPS2UQQ">
+<x86:mnemonic name="VCVTTPS2UQQ"/></x86:group>
+<x86:group summary="Convert with Truncation Scalar Double-Precision Floating-Point Value to Unsigned Integer" section="Core" href="VCVTTSD2USI">
+<x86:mnemonic name="VCVTTSD2USI"/></x86:group>
+<x86:group summary="Convert with Truncation Scalar Single-Precision Floating-Point Value to Unsigned Integer" section="Core" href="VCVTTSS2USI">
+<x86:mnemonic name="VCVTTSS2USI"/></x86:group>
+<x86:group summary="Convert Packed Unsigned Doubleword Integers to Packed Double-Precision Floating-Point Values" section="Core" href="VCVTUDQ2PD">
+<x86:mnemonic name="VCVTUDQ2PD"/></x86:group>
+<x86:group summary="Convert Packed Unsigned Doubleword Integers to Packed Single-Precision Floating-Point Values" section="Core" href="VCVTUDQ2PS">
+<x86:mnemonic name="VCVTUDQ2PS"/></x86:group>
+<x86:group summary="Convert Packed Unsigned Quadword Integers to Packed Double-Precision Floating-Point Values" section="Core" href="VCVTUQQ2PD">
+<x86:mnemonic name="VCVTUQQ2PD"/></x86:group>
+<x86:group summary="Convert Packed Unsigned Quadword Integers to Packed Single-Precision Floating-Point Values" section="Core" href="VCVTUQQ2PS">
+<x86:mnemonic name="VCVTUQQ2PS"/></x86:group>
+<x86:group summary="Convert Unsigned Integer to Scalar Double-Precision Floating-Point Value" section="Core" href="VCVTUSI2SD">
+<x86:mnemonic name="VCVTUSI2SD"/></x86:group>
+<x86:group summary="Convert Unsigned Integer to Scalar Single-Precision Floating-Point Value" section="Core" href="VCVTUSI2SS">
+<x86:mnemonic name="VCVTUSI2SS"/></x86:group>
+<x86:group summary="Double Block Packed Sum-Absolute-Differences (SAD) on Unsigned Bytes" section="Core" href="VDBPSADBW">
+<x86:mnemonic name="VDBPSADBW"/></x86:group>
+<x86:group summary="Load Sparse Packed Double-Precision Floating-Point Values from Dense Memory" section="Core" href="VEXPANDPD">
+<x86:mnemonic name="VEXPANDPD"/></x86:group>
+<x86:group summary="Load Sparse Packed Single-Precision Floating-Point Values from Dense Memory" section="Core" href="VEXPANDPS">
+<x86:mnemonic name="VEXPANDPS"/></x86:group>
+<x86:group summary="Verify a Segment for Reading or Writing" section="Core" href="VERR:VERW">
+<x86:mnemonic name="VERR"/>
+<x86:mnemonic name="VERW"/></x86:group>
+<x86:group summary="Extra ct Packed Floating-Point Values" section="Core" href="VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4">
+<x86:mnemonic name="VEXTRACTF128"/>
+<x86:mnemonic name="VEXTRACTF32x4"/>
+<x86:mnemonic name="VEXTRACTF64x2"/>
+<x86:mnemonic name="VEXTRACTF32x8"/>
+<x86:mnemonic name="VEXTRACTF64x4"/></x86:group>
+<x86:group summary="Extract packed Integer Values" section="Core" href="VEXTRACTI128:VEXTRACTI32x4:VEXTRACTI64x2:VEXTRACTI32x8:VEXTRACTI64x4">
+<x86:mnemonic name="VEXTRACTI128"/>
+<x86:mnemonic name="VEXTRACTI32x4"/>
+<x86:mnemonic name="VEXTRACTI64x2"/>
+<x86:mnemonic name="VEXTRACTI32x8"/>
+<x86:mnemonic name="VEXTRACTI64x4"/></x86:group>
+<x86:group summary="Fix Up Special Packed Float64 Values" section="Core" href="VFIXUPIMMPD">
+<x86:mnemonic name="VFIXUPIMMPD"/></x86:group>
+<x86:group summary="Fix Up Special Packed Float32 Values" section="Core" href="VFIXUPIMMPS">
+<x86:mnemonic name="VFIXUPIMMPS"/></x86:group>
+<x86:group summary="Fix Up Special Scalar Float64 Value" section="Core" href="VFIXUPIMMSD">
+<x86:mnemonic name="VFIXUPIMMSD"/></x86:group>
+<x86:group summary="Fix Up Special Scalar Float32 Value" section="Core" href="VFIXUPIMMSS">
+<x86:mnemonic name="VFIXUPIMMSS"/></x86:group>
+<x86:group summary="Fused Multiply-Add of Packed Double- Precision Floating-Point Values" section="Core" href="VFMADD132PD:VFMADD213PD:VFMADD231PD">
+<x86:mnemonic name="VFMADD132PD"/>
+<x86:mnemonic name="VFMADD213PD"/>
+<x86:mnemonic name="VFMADD231PD"/></x86:group>
+<x86:group summary="Fused Multiply-Add of Packed Single- Precision Floating-Point Values" section="Core" href="VFMADD132PS:VFMADD213PS:VFMADD231PS">
+<x86:mnemonic name="VFMADD132PS"/>
+<x86:mnemonic name="VFMADD213PS"/>
+<x86:mnemonic name="VFMADD231PS"/></x86:group>
+<x86:group summary="Fused Multiply-Add of Scalar Double- Precision Floating-Point Values" section="Core" href="VFMADD132SD:VFMADD213SD:VFMADD231SD">
+<x86:mnemonic name="VFMADD132SD"/>
+<x86:mnemonic name="VFMADD213SD"/>
+<x86:mnemonic name="VFMADD231SD"/></x86:group>
+<x86:group summary="Fused Multiply-Add of Scalar Single-Precision Floating-Point Values" section="Core" href="VFMADD132SS:VFMADD213SS:VFMADD231SS">
+<x86:mnemonic name="VFMADD132SS"/>
+<x86:mnemonic name="VFMADD213SS"/>
+<x86:mnemonic name="VFMADD231SS"/></x86:group>
+<x86:group summary="Fused Multiply-Alternating Add/Subtract of Packed Double-Precision Floating-Point Values" section="Core" href="VFMADDSUB132PD:VFMADDSUB213PD:VFMADDSUB231PD">
+<x86:mnemonic name="VFMADDSUB132PD"/>
+<x86:mnemonic name="VFMADDSUB213PD"/>
+<x86:mnemonic name="VFMADDSUB231PD"/></x86:group>
+<x86:group summary="Fused Multiply-Alternating Add/Subtract of Packed Single-Precision Floating-Point Values" section="Core" href="VFMADDSUB132PS:VFMADDSUB213PS:VFMADDSUB231PS">
+<x86:mnemonic name="VFMADDSUB132PS"/>
+<x86:mnemonic name="VFMADDSUB213PS"/>
+<x86:mnemonic name="VFMADDSUB231PS"/></x86:group>
+<x86:group summary="Fused Multiply-Alternating Subtract/Add of Packed Double-Precision Floating-Point Values" section="Core" href="VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD">
+<x86:mnemonic name="VFMSUBADD132PD"/>
+<x86:mnemonic name="VFMSUBADD213PD"/>
+<x86:mnemonic name="VFMSUBADD231PD"/></x86:group>
+<x86:group summary="Fused Multiply-Alternating Subtract/Add of Packed Single-Precision Floating-Point Values" section="Core" href="VFMSUBADD132PS:VFMSUBADD213PS:VFMSUBADD231PS">
+<x86:mnemonic name="VFMSUBADD132PS"/>
+<x86:mnemonic name="VFMSUBADD213PS"/>
+<x86:mnemonic name="VFMSUBADD231PS"/></x86:group>
+<x86:group summary="Fused Multiply-Subtract of Packed Double- Precision Floating-Point Values" section="Core" href="VFMSUB132PD:VFMSUB213PD:VFMSUB231PD">
+<x86:mnemonic name="VFMSUB132PD"/>
+<x86:mnemonic name="VFMSUB213PD"/>
+<x86:mnemonic name="VFMSUB231PD"/></x86:group>
+<x86:group summary="Fused Multiply-Subtract of Packed Single- Precision Floating-Point Values" section="Core" href="VFMSUB132PS:VFMSUB213PS:VFMSUB231PS">
+<x86:mnemonic name="VFMSUB132PS"/>
+<x86:mnemonic name="VFMSUB213PS"/>
+<x86:mnemonic name="VFMSUB231PS"/></x86:group>
+<x86:group summary="Fused Multiply-Subtract of Scalar Double- Precision Floating-Point Values" section="Core" href="VFMSUB132SD:VFMSUB213SD:VFMSUB231SD">
+<x86:mnemonic name="VFMSUB132SD"/>
+<x86:mnemonic name="VFMSUB213SD"/>
+<x86:mnemonic name="VFMSUB231SD"/></x86:group>
+<x86:group summary="Fused Multiply-Subtract of Scalar Single- Precision Floating-Point Values" section="Core" href="VFMSUB132SS:VFMSUB213SS:VFMSUB231SS">
+<x86:mnemonic name="VFMSUB132SS"/>
+<x86:mnemonic name="VFMSUB213SS"/>
+<x86:mnemonic name="VFMSUB231SS"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Add of Packed Double-Precision Floating-Point Values" section="Core" href="VFNMADD132PD:VFNMADD213PD:VFNMADD231PD">
+<x86:mnemonic name="VFNMADD132PD"/>
+<x86:mnemonic name="VFNMADD213PD"/>
+<x86:mnemonic name="VFNMADD231PD"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Add of Packed Single-Precision Floating-Point Values" section="Core" href="VFNMADD132PS:VFNMADD213PS:VFNMADD231PS">
+<x86:mnemonic name="VFNMADD132PS"/>
+<x86:mnemonic name="VFNMADD213PS"/>
+<x86:mnemonic name="VFNMADD231PS"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Add of Scalar Double-Precision Floating-Point Values" section="Core" href="VFNMADD132SD:VFNMADD213SD:VFNMADD231SD">
+<x86:mnemonic name="VFNMADD132SD"/>
+<x86:mnemonic name="VFNMADD213SD"/>
+<x86:mnemonic name="VFNMADD231SD"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Add of Scalar Single-Precision Floating-Point Values" section="Core" href="VFNMADD132SS:VFNMADD213SS:VFNMADD231SS">
+<x86:mnemonic name="VFNMADD132SS"/>
+<x86:mnemonic name="VFNMADD213SS"/>
+<x86:mnemonic name="VFNMADD231SS"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Subtract of Packed Double-Precision Floating-Point Values" section="Core" href="VFNMSUB132PD:VFNMSUB213PD:VFNMSUB231PD">
+<x86:mnemonic name="VFNMSUB132PD"/>
+<x86:mnemonic name="VFNMSUB213PD"/>
+<x86:mnemonic name="VFNMSUB231PD"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Subtract of Packed Single-Precision Floating-Point Values" section="Core" href="VFNMSUB132PS:VFNMSUB213PS:VFNMSUB231PS">
+<x86:mnemonic name="VFNMSUB132PS"/>
+<x86:mnemonic name="VFNMSUB213PS"/>
+<x86:mnemonic name="VFNMSUB231PS"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Subtract of Scalar Double-Precision Floating-Point Values" section="Core" href="VFNMSUB132SD:VFNMSUB213SD:VFNMSUB231SD">
+<x86:mnemonic name="VFNMSUB132SD"/>
+<x86:mnemonic name="VFNMSUB213SD"/>
+<x86:mnemonic name="VFNMSUB231SD"/></x86:group>
+<x86:group summary="Fused Negative Multiply-Subtract of Scalar Single-Precision Floating-Point Values" section="Core" href="VFNMSUB132SS:VFNMSUB213SS:VFNMSUB231SS">
+<x86:mnemonic name="VFNMSUB132SS"/>
+<x86:mnemonic name="VFNMSUB213SS"/>
+<x86:mnemonic name="VFNMSUB231SS"/></x86:group>
+<x86:group summary="Tests Types Of a Packed Float64 Values" section="Core" href="VFPCLASSPD">
+<x86:mnemonic name="VFPCLASSPD"/></x86:group>
+<x86:group summary="Tests Types Of a Packed Float32 Values" section="Core" href="VFPCLASSPS">
+<x86:mnemonic name="VFPCLASSPS"/></x86:group>
+<x86:group summary="Tests Types Of a Scalar Float64 Values" section="Core" href="VFPCLASSSD">
+<x86:mnemonic name="VFPCLASSSD"/></x86:group>
+<x86:group summary="Tests Types Of a Scalar Float32 Values" section="Core" href="VFPCLASSSS">
+<x86:mnemonic name="VFPCLASSSS"/></x86:group>
+<x86:group summary="Gather Packed DP FP Values Using Signed Dword/Qword Indices" section="Core" href="VGATHERDPD:VGATHERQPD">
+<x86:mnemonic name="VGATHERDPD"/>
+<x86:mnemonic name="VGATHERQPD"/></x86:group>
+<x86:group summary="Gather Packed SP FP values Using Signed Dword/Qword Indices" section="Core" href="VGATHERDPS:VGATHERQPS">
+<x86:mnemonic name="VGATHERDPS"/>
+<x86:mnemonic name="VGATHERQPS"/></x86:group>
+<x86:group summary="Gather Packed Single, Packed Double with Signed Dword" section="Core" href="VGATHERDPS:VGATHERDPD">
+<x86:mnemonic name="VGATHERDPS"/>
+<x86:mnemonic name="VGATHERDPD"/></x86:group>
+<x86:group summary="Gather Packed Single, Packed Double with Signed Qword Indices" section="Core" href="VGATHERQPS:VGATHERQPD">
+<x86:mnemonic name="VGATHERQPS"/>
+<x86:mnemonic name="VGATHERQPD"/></x86:group>
+<x86:group summary="Convert Exponents of Packed DP FP Values to DP FP Values" section="Core" href="VGETEXPPD">
+<x86:mnemonic name="VGETEXPPD"/></x86:group>
+<x86:group summary="Convert Exponents of Packed SP FP Values to SP FP Values" section="Core" href="VGETEXPPS">
+<x86:mnemonic name="VGETEXPPS"/></x86:group>
+<x86:group summary="Convert Exponents of Scalar DP FP Values to DP FP Value" section="Core" href="VGETEXPSD">
+<x86:mnemonic name="VGETEXPSD"/></x86:group>
+<x86:group summary="Convert Exponents of Scalar SP FP Values to SP FP Value" section="Core" href="VGETEXPSS">
+<x86:mnemonic name="VGETEXPSS"/></x86:group>
+<x86:group summary="Extract Float64 Vector of Normalized Mantissas from Float64 Vector" section="Core" href="VGETMANTPD">
+<x86:mnemonic name="VGETMANTPD"/></x86:group>
+<x86:group summary="Extract Float32 Vector of Normalized Mantissas from Float32 Vector" section="Core" href="VGETMANTPS">
+<x86:mnemonic name="VGETMANTPS"/></x86:group>
+<x86:group summary="Extract Float64 of Normalized Mantissas from Float64 Scalar" section="Core" href="VGETMANTSD">
+<x86:mnemonic name="VGETMANTSD"/></x86:group>
+<x86:group summary="Extract Float32 Vector of Normalized Mantissa from Float32 Vector" section="Core" href="VGETMANTSS">
+<x86:mnemonic name="VGETMANTSS"/></x86:group>
+<x86:group summary="Insert Packed Floating-Point Values" section="Core" href="VINSERTF128:VINSERTF32x4:VINSERTF64x2:VINSERTF32x8:VINSERTF64x4">
+<x86:mnemonic name="VINSERTF128"/>
+<x86:mnemonic name="VINSERTF32x4"/>
+<x86:mnemonic name="VINSERTF64x2"/>
+<x86:mnemonic name="VINSERTF32x8"/>
+<x86:mnemonic name="VINSERTF64x4"/></x86:group>
+<x86:group summary="Insert Packed Integer Values" section="Core" href="VINSERTI128:VINSERTI32x4:VINSERTI64x2:VINSERTI32x8:VINSERTI64x4">
+<x86:mnemonic name="VINSERTI128"/>
+<x86:mnemonic name="VINSERTI32x4"/>
+<x86:mnemonic name="VINSERTI64x2"/>
+<x86:mnemonic name="VINSERTI32x8"/>
+<x86:mnemonic name="VINSERTI64x4"/></x86:group>
+<x86:group summary="Conditional SIMD Packed Loads and Stores" section="Core" href="VMASKMOV">
+<x86:mnemonic name="VMASKMOV"/></x86:group>
+<x86:group summary="Blend Packed Dwords" section="Core" href="VPBLENDD">
+<x86:mnemonic name="VPBLENDD"/></x86:group>
+<x86:group summary="Blend Byte/Word Vectors Using an Opmask Control" section="Core" href="VPBLENDMB:VPBLENDMW">
+<x86:mnemonic name="VPBLENDMB"/>
+<x86:mnemonic name="VPBLENDMW"/></x86:group>
+<x86:group summary="Blend Int32/Int64 Vectors Using an OpMask Control" section="Core" href="VPBLENDMD:VPBLENDMQ">
+<x86:mnemonic name="VPBLENDMD"/>
+<x86:mnemonic name="VPBLENDMQ"/></x86:group>
+<x86:group summary="Load with Broadcast Integer Data from General Purpose Register" section="Core" href="VPBROADCASTB:VPBROADCASTW:VPBROADCASTD:VPBROADCASTQ">
+<x86:mnemonic name="VPBROADCASTB"/>
+<x86:mnemonic name="VPBROADCASTW"/>
+<x86:mnemonic name="VPBROADCASTD"/>
+<x86:mnemonic name="VPBROADCASTQ"/></x86:group>
+<x86:group summary="Load Integer and Broadcast" section="Core" href="VPBROADCAST">
+<x86:mnemonic name="VPBROADCAST"/></x86:group>
+<x86:group summary="Broadcast Mask to Vector Register" section="Core" href="VPBROADCASTM">
+<x86:mnemonic name="VPBROADCASTM"/></x86:group>
+<x86:group summary="Compare Packed Byte Values Into Mask" section="Core" href="VPCMPB:VPCMPUB">
+<x86:mnemonic name="VPCMPB"/>
+<x86:mnemonic name="VPCMPUB"/></x86:group>
+<x86:group summary="Compare Packed Integer Values into Mask" section="Core" href="VPCMPD:VPCMPUD">
+<x86:mnemonic name="VPCMPD"/>
+<x86:mnemonic name="VPCMPUD"/></x86:group>
+<x86:group summary="Compare Packed Integer Values into Mask" section="Core" href="VPCMPQ:VPCMPUQ">
+<x86:mnemonic name="VPCMPQ"/>
+<x86:mnemonic name="VPCMPUQ"/></x86:group>
+<x86:group summary="Compare Packed Word Values Into Mask" section="Core" href="VPCMPW:VPCMPUW">
+<x86:mnemonic name="VPCMPW"/>
+<x86:mnemonic name="VPCMPUW"/></x86:group>
+<x86:group summary="Store Sparse Packed Doubleword Integer Values into Dense Memory/Register" section="Core" href="VPCOMPRESSD">
+<x86:mnemonic name="VPCOMPRESSD"/></x86:group>
+<x86:group summary="Store Sparse Packed Quadword Integer Values into Dense Memory/Register" section="Core" href="VPCOMPRESSQ">
+<x86:mnemonic name="VPCOMPRESSQ"/></x86:group>
+<x86:group summary="Detect Conflicts Within a Vector of Packed Dword/Qword Values into Dense Memory/ Register" section="Core" href="VPCONFLICTD:VPCONFLICTQ">
+<x86:mnemonic name="VPCONFLICTD"/>
+<x86:mnemonic name="VPCONFLICTQ"/></x86:group>
+<x86:group summary="Permute Floating-Point Values" section="Core" href="VPERM2F128">
+<x86:mnemonic name="VPERM2F128"/></x86:group>
+<x86:group summary="Permute Integer Values" section="Core" href="VPERM2I128">
+<x86:mnemonic name="VPERM2I128"/></x86:group>
+<x86:group summary="Permute Packed Bytes Elements" section="Core" href="VPERMB">
+<x86:mnemonic name="VPERMB"/></x86:group>
+<x86:group summary="Permute Packed Doublewords/Words Elements" section="Core" href="VPERMD:VPERMW">
+<x86:mnemonic name="VPERMD"/>
+<x86:mnemonic name="VPERMW"/></x86:group>
+<x86:group summary="Full Permute of Bytes from Two Tables Overwriting the Index" section="Core" href="VPERMI2B">
+<x86:mnemonic name="VPERMI2B"/></x86:group>
+<x86:group summary="Full Permute From Two Tables Overwriting the Index" section="Core" href="VPERMI2W:VPERMI2D:VPERMI2Q:VPERMI2PS:VPERMI2PD">
+<x86:mnemonic name="VPERMI2W"/>
+<x86:mnemonic name="VPERMI2D"/>
+<x86:mnemonic name="VPERMI2Q"/>
+<x86:mnemonic name="VPERMI2PS"/>
+<x86:mnemonic name="VPERMI2PD"/></x86:group>
+<x86:group summary="Permute In-Lane of Pairs of Double-Precision Floating-Point Values" section="Core" href="VPERMILPD">
+<x86:mnemonic name="VPERMILPD"/></x86:group>
+<x86:group summary="Permute In-Lane of Quadruples of Single-Precision Floating-Point Values" section="Core" href="VPERMILPS">
+<x86:mnemonic name="VPERMILPS"/></x86:group>
+<x86:group summary="Permute Double-Precision Floating-Point Elements" section="Core" href="VPERMPD">
+<x86:mnemonic name="VPERMPD"/></x86:group>
+<x86:group summary="Permute Single-Precision Floating-Point Elements" section="Core" href="VPERMPS">
+<x86:mnemonic name="VPERMPS"/></x86:group>
+<x86:group summary="Qwords Element Permutation" section="Core" href="VPERMQ">
+<x86:mnemonic name="VPERMQ"/></x86:group>
+<x86:group summary="Full Permute of Bytes from Two Tables Overwriting a Table" section="Core" href="VPERMT2B">
+<x86:mnemonic name="VPERMT2B"/></x86:group>
+<x86:group summary="Full Permute from Two Tables Overwriting one Table" section="Core" href="VPERMT2W:VPERMT2D:VPERMT2Q:VPERMT2PS:VPERMT2PD">
+<x86:mnemonic name="VPERMT2W"/>
+<x86:mnemonic name="VPERMT2D"/>
+<x86:mnemonic name="VPERMT2Q"/>
+<x86:mnemonic name="VPERMT2PS"/>
+<x86:mnemonic name="VPERMT2PD"/></x86:group>
+<x86:group summary="Load Sparse Packed Doubleword Integer Values from Dense Memory / Register" section="Core" href="VPEXPANDD">
+<x86:mnemonic name="VPEXPANDD"/></x86:group>
+<x86:group summary="Load Sparse Packed Quadword Integer Values from Dense Memory / Register" section="Core" href="VPEXPANDQ">
+<x86:mnemonic name="VPEXPANDQ"/></x86:group>
+<x86:group summary="Gather Packed Dword Values Using Signed Dword/Qword Indices" section="Core" href="VPGATHERDD:VPGATHERQD">
+<x86:mnemonic name="VPGATHERDD"/>
+<x86:mnemonic name="VPGATHERQD"/></x86:group>
+<x86:group summary="Gather Packed Dword, Packed Qword with Signed Dword Indices" section="Core" href="VPGATHERDD:VPGATHERDQ">
+<x86:mnemonic name="VPGATHERDD"/>
+<x86:mnemonic name="VPGATHERDQ"/></x86:group>
+<x86:group summary="Gather Packed Qword Values Using Signed Dword/Qword Indices" section="Core" href="VPGATHERDQ:VPGATHERQQ">
+<x86:mnemonic name="VPGATHERDQ"/>
+<x86:mnemonic name="VPGATHERQQ"/></x86:group>
+<x86:group summary="Gather Packed Dword, Packed Qword with Signed Qword Indices" section="Core" href="VPGATHERQD:VPGATHERQQ">
+<x86:mnemonic name="VPGATHERQD"/>
+<x86:mnemonic name="VPGATHERQQ"/></x86:group>
+<x86:group summary="Count the Number of Leading Zero Bits for Packed Dword, Packed Qword Values" section="Core" href="VPLZCNTD:VPLZCNTQ">
+<x86:mnemonic name="VPLZCNTD"/>
+<x86:mnemonic name="VPLZCNTQ"/></x86:group>
+<x86:group summary="Packed Multiply of Unsigned 52-bit Unsigned Integers and Add High 52-bit Products to 64-bit Accumulators" section="Core" href="VPMADD52HUQ">
+<x86:mnemonic name="VPMADD52HUQ"/></x86:group>
+<x86:group summary="Packed Multiply of Unsigned 52-bit Integers and Add the Low 52-bit Products to Qword Accumulators" section="Core" href="VPMADD52LUQ">
+<x86:mnemonic name="VPMADD52LUQ"/></x86:group>
+<x86:group summary="Conditional SIMD Integer Packed Loads and Stores" section="Core" href="VPMASKMOV">
+<x86:mnemonic name="VPMASKMOV"/></x86:group>
+<x86:group summary="Convert a Vector Register to a Mask" section="Core" href="VPMOVB2M:VPMOVW2M:VPMOVD2M:VPMOVQ2M">
+<x86:mnemonic name="VPMOVB2M"/>
+<x86:mnemonic name="VPMOVW2M"/>
+<x86:mnemonic name="VPMOVD2M"/>
+<x86:mnemonic name="VPMOVQ2M"/></x86:group>
+<x86:group summary="Down Convert DWord to Byte" section="Core" href="VPMOVDB:VPMOVSDB:VPMOVUSDB">
+<x86:mnemonic name="VPMOVDB"/>
+<x86:mnemonic name="VPMOVSDB"/>
+<x86:mnemonic name="VPMOVUSDB"/></x86:group>
+<x86:group summary="Down Convert DWord to Word" section="Core" href="VPMOVDW:VPMOVSDW:VPMOVUSDW">
+<x86:mnemonic name="VPMOVDW"/>
+<x86:mnemonic name="VPMOVSDW"/>
+<x86:mnemonic name="VPMOVUSDW"/></x86:group>
+<x86:group summary="Convert a Mask Register to a Vector Register" section="Core" href="VPMOVM2B:VPMOVM2W:VPMOVM2D:VPMOVM2Q">
+<x86:mnemonic name="VPMOVM2B"/>
+<x86:mnemonic name="VPMOVM2W"/>
+<x86:mnemonic name="VPMOVM2D"/>
+<x86:mnemonic name="VPMOVM2Q"/></x86:group>
+<x86:group summary="Down Convert QWord to Byte" section="Core" href="VPMOVQB:VPMOVSQB:VPMOVUSQB">
+<x86:mnemonic name="VPMOVQB"/>
+<x86:mnemonic name="VPMOVSQB"/>
+<x86:mnemonic name="VPMOVUSQB"/></x86:group>
+<x86:group summary="Down Convert QWord to DWord" section="Core" href="VPMOVQD:VPMOVSQD:VPMOVUSQD">
+<x86:mnemonic name="VPMOVQD"/>
+<x86:mnemonic name="VPMOVSQD"/>
+<x86:mnemonic name="VPMOVUSQD"/></x86:group>
+<x86:group summary="Down Convert QWord to Word" section="Core" href="VPMOVQW:VPMOVSQW:VPMOVUSQW">
+<x86:mnemonic name="VPMOVQW"/>
+<x86:mnemonic name="VPMOVSQW"/>
+<x86:mnemonic name="VPMOVUSQW"/></x86:group>
+<x86:group summary="Down Convert Word to Byte" section="Core" href="VPMOVWB:VPMOVSWB:VPMOVUSWB">
+<x86:mnemonic name="VPMOVWB"/>
+<x86:mnemonic name="VPMOVSWB"/>
+<x86:mnemonic name="VPMOVUSWB"/></x86:group>
+<x86:group summary="Select Packed Unaligned Bytes from Quadword Sources" section="Core" href="VPMULTISHIFTQB">
+<x86:mnemonic name="VPMULTISHIFTQB"/></x86:group>
+<x86:group summary="Bit Rotate Left" section="Core" href="VPROLD:VPROLVD:VPROLQ:VPROLVQ">
+<x86:mnemonic name="VPROLD"/>
+<x86:mnemonic name="VPROLVD"/>
+<x86:mnemonic name="VPROLQ"/>
+<x86:mnemonic name="VPROLVQ"/></x86:group>
+<x86:group summary="Bit Rotate Right" section="Core" href="VPRORD:VPRORVD:VPRORQ:VPRORVQ">
+<x86:mnemonic name="VPRORD"/>
+<x86:mnemonic name="VPRORVD"/>
+<x86:mnemonic name="VPRORQ"/>
+<x86:mnemonic name="VPRORVQ"/></x86:group>
+<x86:group summary="Scatter Packed Dword, Packed Qword with Signed Dword, Signed Qword Indices" section="Core" href="VPSCATTERDD:VPSCATTERDQ:VPSCATTERQD:VPSCATTERQQ">
+<x86:mnemonic name="VPSCATTERDD"/>
+<x86:mnemonic name="VPSCATTERDQ"/>
+<x86:mnemonic name="VPSCATTERQD"/>
+<x86:mnemonic name="VPSCATTERQQ"/></x86:group>
+<x86:group summary="Variable Bit Shift Left Logical" section="Core" href="VPSLLVW:VPSLLVD:VPSLLVQ">
+<x86:mnemonic name="VPSLLVW"/>
+<x86:mnemonic name="VPSLLVD"/>
+<x86:mnemonic name="VPSLLVQ"/></x86:group>
+<x86:group summary="Variable Bit Shift Right Arithmetic" section="Core" href="VPSRAVW:VPSRAVD:VPSRAVQ">
+<x86:mnemonic name="VPSRAVW"/>
+<x86:mnemonic name="VPSRAVD"/>
+<x86:mnemonic name="VPSRAVQ"/></x86:group>
+<x86:group summary="Variable Bit Shift Right Logical" section="Core" href="VPSRLVW:VPSRLVD:VPSRLVQ">
+<x86:mnemonic name="VPSRLVW"/>
+<x86:mnemonic name="VPSRLVD"/>
+<x86:mnemonic name="VPSRLVQ"/></x86:group>
+<x86:group summary="Bitwise Ternary Logic" section="Core" href="VPTERNLOGD:VPTERNLOGQ">
+<x86:mnemonic name="VPTERNLOGD"/>
+<x86:mnemonic name="VPTERNLOGQ"/></x86:group>
+<x86:group summary="Logical AND and Set Mask" section="Core" href="VPTESTMB:VPTESTMW:VPTESTMD:VPTESTMQ">
+<x86:mnemonic name="VPTESTMB"/>
+<x86:mnemonic name="VPTESTMW"/>
+<x86:mnemonic name="VPTESTMD"/>
+<x86:mnemonic name="VPTESTMQ"/></x86:group>
+<x86:group summary="Logical NAND and Set" section="Core" href="VPTESTNMB:VPTESTNMW:VPTESTNMD:VPTESTNMQ">
+<x86:mnemonic name="VPTESTNMB"/>
+<x86:mnemonic name="VPTESTNMW"/>
+<x86:mnemonic name="VPTESTNMD"/>
+<x86:mnemonic name="VPTESTNMQ"/></x86:group>
+<x86:group summary="Range Restriction Calculation For Packed Pairs of Float64 Values" section="Core" href="VRANGEPD">
+<x86:mnemonic name="VRANGEPD"/></x86:group>
+<x86:group summary="Range Restriction Calculation For Packed Pairs of Float32 Values" section="Core" href="VRANGEPS">
+<x86:mnemonic name="VRANGEPS"/></x86:group>
+<x86:group summary="Range Restriction Calculation From a pair of Scalar Float64 Values" section="Core" href="VRANGESD">
+<x86:mnemonic name="VRANGESD"/></x86:group>
+<x86:group summary="Range Restriction Calculation From a Pair of Scalar Float32 Values" section="Core" href="VRANGESS">
+<x86:mnemonic name="VRANGESS"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocals of Packed Float64 Values" section="Core" href="VRCP14PD">
+<x86:mnemonic name="VRCP14PD"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocal of Scalar Float64 Value" section="Core" href="VRCP14SD">
+<x86:mnemonic name="VRCP14SD"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocals of Packed Float32 Values" section="Core" href="VRCP14PS">
+<x86:mnemonic name="VRCP14PS"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocal of Scalar Float32 Value" section="Core" href="VRCP14SS">
+<x86:mnemonic name="VRCP14SS"/></x86:group>
+<x86:group summary="Perform Reduction Transformation on Packed Float64 Values" section="Core" href="VREDUCEPD">
+<x86:mnemonic name="VREDUCEPD"/></x86:group>
+<x86:group summary="Perform a Reduction Transformation on a Scalar Float64 Value" section="Core" href="VREDUCESD">
+<x86:mnemonic name="VREDUCESD"/></x86:group>
+<x86:group summary="Perform Reduction Transformation on Packed Float32 Values" section="Core" href="VREDUCEPS">
+<x86:mnemonic name="VREDUCEPS"/></x86:group>
+<x86:group summary="Perform a Reduction Transformation on a Scalar Float32 Value" section="Core" href="VREDUCESS">
+<x86:mnemonic name="VREDUCESS"/></x86:group>
+<x86:group summary="Round Packed Float64 Values To Include A Given Number Of Fraction Bits" section="Core" href="VRNDSCALEPD">
+<x86:mnemonic name="VRNDSCALEPD"/></x86:group>
+<x86:group summary="Round Scalar Float64 Value To Include A Given Number Of Fraction Bits" section="Core" href="VRNDSCALESD">
+<x86:mnemonic name="VRNDSCALESD"/></x86:group>
+<x86:group summary="Round Packed Float32 Values To Include A Given Number Of Fraction Bits" section="Core" href="VRNDSCALEPS">
+<x86:mnemonic name="VRNDSCALEPS"/></x86:group>
+<x86:group summary="Round Scalar Float32 Value To Include A Given Number Of Fraction Bits" section="Core" href="VRNDSCALESS">
+<x86:mnemonic name="VRNDSCALESS"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocals of Square Roots of Packed Float64 Values" section="Core" href="VRSQRT14PD">
+<x86:mnemonic name="VRSQRT14PD"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocal of Square Root of Scalar Float64 Value" section="Core" href="VRSQRT14SD">
+<x86:mnemonic name="VRSQRT14SD"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocals of Square Roots of Packed Float32 Values" section="Core" href="VRSQRT14PS">
+<x86:mnemonic name="VRSQRT14PS"/></x86:group>
+<x86:group summary="Compute Approximate Reciprocal of Square Root of Scalar Float32 Value" section="Core" href="VRSQRT14SS">
+<x86:mnemonic name="VRSQRT14SS"/></x86:group>
+<x86:group summary="Scale Packed Float64 Values With Float64 Values" section="Core" href="VSCALEFPD">
+<x86:mnemonic name="VSCALEFPD"/></x86:group>
+<x86:group summary="Scale Scalar Float64 Values With Float64 Values" section="Core" href="VSCALEFSD">
+<x86:mnemonic name="VSCALEFSD"/></x86:group>
+<x86:group summary="Scale Packed Float32 Values With Float32 Values" section="Core" href="VSCALEFPS">
+<x86:mnemonic name="VSCALEFPS"/></x86:group>
+<x86:group summary="Scale Scalar Float32 Value With Float32 Value" section="Core" href="VSCALEFSS">
+<x86:mnemonic name="VSCALEFSS"/></x86:group>
+<x86:group summary="Scatter Packed Single, Packed Double with Signed Dword and Qword Indices" section="Core" href="VSCATTERDPS:VSCATTERDPD:VSCATTERQPS:VSCATTERQPD">
+<x86:mnemonic name="VSCATTERDPS"/>
+<x86:mnemonic name="VSCATTERDPD"/>
+<x86:mnemonic name="VSCATTERQPS"/>
+<x86:mnemonic name="VSCATTERQPD"/></x86:group>
+<x86:group summary="Shuffle Packed Values at 128-bit Granularity" section="Core" href="VSHUFF32x4:VSHUFF64x2:VSHUFI32x4:VSHUFI64x2">
+<x86:mnemonic name="VSHUFF32x4"/>
+<x86:mnemonic name="VSHUFF64x2"/>
+<x86:mnemonic name="VSHUFI32x4"/>
+<x86:mnemonic name="VSHUFI64x2"/></x86:group>
+<x86:group summary="Packed Bit Test" section="Core" href="VTESTPD:VTESTPS">
+<x86:mnemonic name="VTESTPD"/>
+<x86:mnemonic name="VTESTPS"/></x86:group>
+<x86:group summary="Zero All YMM Registers" section="Core" href="VZEROALL">
+<x86:mnemonic name="VZEROALL"/></x86:group>
+<x86:group summary="Zero Upper Bits of YMM Registers" section="Core" href="VZEROUPPER">
+<x86:mnemonic name="VZEROUPPER"/></x86:group>
+<x86:group summary="Wait" section="Core" href="WAIT:FWAIT">
+<x86:mnemonic name="WAIT"/>
+<x86:mnemonic name="FWAIT"/></x86:group>
+<x86:group summary="Write Back and Invalidate Cache" section="Core" href="WBINVD">
+<x86:mnemonic name="WBINVD"/></x86:group>
+<x86:group summary="Write FS/GS Segment Base" section="Core" href="WRFSBASE:WRGSBASE">
+<x86:mnemonic name="WRFSBASE"/>
+<x86:mnemonic name="WRGSBASE"/></x86:group>
+<x86:group summary="Write to Model Specific Register" section="Core" href="WRMSR">
+<x86:mnemonic name="WRMSR"/></x86:group>
+<x86:group summary="Write Data to User Page Key Register" section="Core" href="WRPKRU">
+<x86:mnemonic name="WRPKRU"/></x86:group>
+<x86:group summary="Hardware Lock Elision Prefix Hints" section="Core" href="XACQUIRE:XRELEASE">
+<x86:mnemonic name="XACQUIRE"/>
+<x86:mnemonic name="XRELEASE"/></x86:group>
+<x86:group summary="Transactional Abort" section="Core" href="XABORT">
+<x86:mnemonic name="XABORT"/></x86:group>
+<x86:group summary="Exchange and Add" section="Core" href="XADD">
+<x86:mnemonic name="XADD"/></x86:group>
+<x86:group summary="Transactional Begin" section="Core" href="XBEGIN">
+<x86:mnemonic name="XBEGIN"/></x86:group>
+<x86:group summary="Exchange Register/Memory with Register" section="Core" href="XCHG">
+<x86:mnemonic name="XCHG"/></x86:group>
+<x86:group summary="Transactional End" section="Core" href="XEND">
+<x86:mnemonic name="XEND"/></x86:group>
+<x86:group summary="Get Value of Extended Control Register" section="Core" href="XGETBV">
+<x86:mnemonic name="XGETBV"/></x86:group>
+<x86:group summary="Table Look-up Translation" section="Core" href="XLAT:XLATB">
+<x86:mnemonic name="XLAT"/>
+<x86:mnemonic name="XLATB"/></x86:group>
+<x86:group summary="Logical Exclusive OR" section="Core" href="XOR">
+<x86:mnemonic name="XOR"/></x86:group>
+<x86:group summary="Bitwise Logical XOR of Packed Double Precision Floating-Point Values" section="Core" href="XORPD">
+<x86:mnemonic name="XORPD"/></x86:group>
+<x86:group summary="Bitwise Logical XOR of Packed Single Precision Floating-Point Values" section="Core" href="XORPS">
+<x86:mnemonic name="XORPS"/></x86:group>
+<x86:group summary="Restore Processor Extended States" section="Core" href="XRSTOR">
+<x86:mnemonic name="XRSTOR"/></x86:group>
+<x86:group summary="Restore Processor Extended States Supervisor" section="Core" href="XRSTORS">
+<x86:mnemonic name="XRSTORS"/></x86:group>
+<x86:group summary="Save Processor Extended States" section="Core" href="XSAVE">
+<x86:mnemonic name="XSAVE"/></x86:group>
+<x86:group summary="Save Processor Extended States with Compaction" section="Core" href="XSAVEC">
+<x86:mnemonic name="XSAVEC"/></x86:group>
+<x86:group summary="Save Processor Extended States Optimized" section="Core" href="XSAVEOPT">
+<x86:mnemonic name="XSAVEOPT"/></x86:group>
+<x86:group summary="Save Processor Extended States Supervisor" section="Core" href="XSAVES">
+<x86:mnemonic name="XSAVES"/></x86:group>
+<x86:group summary="Set Extended Control Register" section="Core" href="XSETBV">
+<x86:mnemonic name="XSETBV"/></x86:group>
+<x86:group summary="Test If In Transactional Execution" section="Core" href="XTEST">
+<x86:mnemonic name="XTEST"/></x86:group>
+<x86:group summary="Prefetch Vector Data Into Caches with Intent to Write and T1 Hint" section="Xeon Phi™" href="PREFETCHWT1">
+<x86:mnemonic name="PREFETCHWT1"/></x86:group>
+<x86:group summary="Packed Single-Precision Floating-Point Fused Multiply-Add (4-iterations)" section="Xeon Phi™" href="V4FMADDPS:V4FNMADDPS">
+<x86:mnemonic name="V4FMADDPS"/>
+<x86:mnemonic name="V4FNMADDPS"/></x86:group>
+<x86:group summary="Scalar Single-Precision Floating-Point Fused Multiply-Add (4-iterations)" section="Xeon Phi™" href="V4FMADDSS:V4FNMADDSS">
+<x86:mnemonic name="V4FMADDSS"/>
+<x86:mnemonic name="V4FNMADDSS"/></x86:group>
+<x86:group summary="Approximation to the Exponential 2^x of Packed Double-Precision Floating-Point Values with Less Than 2^-23 Relative Error" section="Xeon Phi™" href="VEXP2PD">
+<x86:mnemonic name="VEXP2PD"/></x86:group>
+<x86:group summary="Approximation to the Exponential 2^x of Packed Single-Precision Floating-Point Values with Less Than 2^-23 Relative Error" section="Xeon Phi™" href="VEXP2PS">
+<x86:mnemonic name="VEXP2PS"/></x86:group>
+<x86:group summary="Sparse Prefetch Packed SP/DP Data Values with Signed Dword, Signed Qword Indices Using T0 Hint" section="Xeon Phi™" href="VGATHERPF0DPS:VGATHERPF0QPS:VGATHERPF0DPD:VGATHERPF0QPD">
+<x86:mnemonic name="VGATHERPF0DPS"/>
+<x86:mnemonic name="VGATHERPF0QPS"/>
+<x86:mnemonic name="VGATHERPF0DPD"/>
+<x86:mnemonic name="VGATHERPF0QPD"/></x86:group>
+<x86:group summary="Sparse Prefetch Packed SP/DP Data Values with Signed Dword, Signed Qword Indices Using T1 Hint" section="Xeon Phi™" href="VGATHERPF1DPS:VGATHERPF1QPS:VGATHERPF1DPD:VGATHERPF1QPD">
+<x86:mnemonic name="VGATHERPF1DPS"/>
+<x86:mnemonic name="VGATHERPF1QPS"/>
+<x86:mnemonic name="VGATHERPF1DPD"/>
+<x86:mnemonic name="VGATHERPF1QPD"/></x86:group>
+<x86:group summary="Dot Product of Signed Words with Dword Accumulation and Saturation (4-iterations)" section="Xeon Phi™" href="VP4DPWSSDS">
+<x86:mnemonic name="VP4DPWSSDS"/></x86:group>
+<x86:group summary="Dot Product of Signed Words with Dword Accumulation (4-iterations)" section="Xeon Phi™" href="VP4DPWSSD">
+<x86:mnemonic name="VP4DPWSSD"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal of Packed Double-Precision Floating-Point Values with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRCP28PD">
+<x86:mnemonic name="VRCP28PD"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal of Scalar Double-Precision Floating-Point Value with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRCP28SD">
+<x86:mnemonic name="VRCP28SD"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal of Packed Single-Precision Floating-Point Values with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRCP28PS">
+<x86:mnemonic name="VRCP28PS"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal of Scalar Single-Precision Floating-Point Value with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRCP28SS">
+<x86:mnemonic name="VRCP28SS"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal Square Root of Packed Double-Precision Floating-Point Values with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRSQRT28PD">
+<x86:mnemonic name="VRSQRT28PD"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal Square Root of Scalar Double-Precision Floating-Point Value with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRSQRT28SD">
+<x86:mnemonic name="VRSQRT28SD"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal Square Root of Packed Single-Precision Floating-Point Values with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRSQRT28PS">
+<x86:mnemonic name="VRSQRT28PS"/></x86:group>
+<x86:group summary="Approximation to the Reciprocal Square Root of Scalar Single-Precision Floating- Point Value with Less Than 2^-28 Relative Error" section="Xeon Phi™" href="VRSQRT28SS">
+<x86:mnemonic name="VRSQRT28SS"/></x86:group>
+<x86:group summary="Sparse Prefetch Packed SP/DP Data Values with Signed Dword, Signed Qword Indices Using T0 Hint with Intent to Write" section="Xeon Phi™" href="VSCATTERPF0DPS:VSCATTERPF0QPS:VSCATTERPF0DPD:VSCATTERPF0QPD">
+<x86:mnemonic name="VSCATTERPF0DPS"/>
+<x86:mnemonic name="VSCATTERPF0QPS"/>
+<x86:mnemonic name="VSCATTERPF0DPD"/>
+<x86:mnemonic name="VSCATTERPF0QPD"/></x86:group>
+<x86:group summary="Sparse Prefetch Packed SP/DP Data Values with Signed Dword, Signed Qword Indices Using T1 Hint with Intent to Write" section="Xeon Phi™" href="VSCATTERPF1DPS:VSCATTERPF1QPS:VSCATTERPF1DPD:VSCATTERPF1QPD">
+<x86:mnemonic name="VSCATTERPF1DPS"/>
+<x86:mnemonic name="VSCATTERPF1QPS"/>
+<x86:mnemonic name="VSCATTERPF1DPD"/>
+<x86:mnemonic name="VSCATTERPF1QPD"/></x86:group>
+<x86:group summary="Invalidate Translations Derived from EPT" section="VMX" href="INVEPT">
+<x86:mnemonic name="INVEPT"/></x86:group>
+<x86:group summary="Invalidate Translations Based on VPID" section="VMX" href="INVVPID">
+<x86:mnemonic name="INVVPID"/></x86:group>
+<x86:group summary="Call to VM Monitor" section="VMX" href="VMCALL">
+<x86:mnemonic name="VMCALL"/></x86:group>
+<x86:group summary="Clear Virtual-Machine Control Structure" section="VMX" href="VMCLEAR">
+<x86:mnemonic name="VMCLEAR"/></x86:group>
+<x86:group summary="Invoke VM function" section="VMX" href="VMFUNC">
+<x86:mnemonic name="VMFUNC"/></x86:group>
+<x86:group summary="Launch/Resume Virtual Machine" section="VMX" href="VMLAUNCH:VMRESUME">
+<x86:mnemonic name="VMLAUNCH"/>
+<x86:mnemonic name="VMRESUME"/></x86:group>
+<x86:group summary="Load Pointer to Virtual-Machine Control Structure" section="VMX" href="VMPTRLD">
+<x86:mnemonic name="VMPTRLD"/></x86:group>
+<x86:group summary="Store Pointer to Virtual-Machine Control Structure" section="VMX" href="VMPTRST">
+<x86:mnemonic name="VMPTRST"/></x86:group>
+<x86:group summary="Read Field from Virtual-Machine Control Structure" section="VMX" href="VMREAD">
+<x86:mnemonic name="VMREAD"/></x86:group>
+<x86:group summary="Resume Virtual Machine" section="VMX" href="VMRESUME">
+<x86:mnemonic name="VMRESUME"/></x86:group>
+<x86:group summary="Write Field to Virtual-Machine Control Structure" section="VMX" href="VMWRITE">
+<x86:mnemonic name="VMWRITE"/></x86:group>
+<x86:group summary="Leave VMX Operation" section="VMX" href="VMXOFF">
+<x86:mnemonic name="VMXOFF"/></x86:group>
+<x86:group summary="Enter VMX Operation" section="VMX" href="VMXON">
+<x86:mnemonic name="VMXON"/></x86:group>
+<x86:group summary="Execute an Enclave System Function of Specified Leaf Number" section="SGX" href="ENCLS">
+<x86:mnemonic name="ENCLS"/></x86:group>
+<x86:group summary="Execute an Enclave User Function of Specified Leaf Number" section="SGX" href="ENCLU">
+<x86:mnemonic name="ENCLU"/></x86:group>
+<x86:group summary="Execute an Enclave VMM Function of Specified Leaf Number" section="SGX" href="ENCLV">
+<x86:mnemonic name="ENCLV"/></x86:group>
+<x86:group summary="Add a Page to an Uninitialized Enclave" section="SGX" href="EADD">
+<x86:mnemonic name="EADD"/></x86:group>
+<x86:group summary="Add a Page to an Initialized Enclave" section="SGX" href="EAUG">
+<x86:mnemonic name="EAUG"/></x86:group>
+<x86:group summary="Mark a page in EPC as Blocked" section="SGX" href="EBLOCK">
+<x86:mnemonic name="EBLOCK"/></x86:group>
+<x86:group summary="Create an SECS page in the Enclave Page Cache" section="SGX" href="ECREATE">
+<x86:mnemonic name="ECREATE"/></x86:group>
+<x86:group summary="Read From a Debug Enclave" section="SGX" href="EDBGRD">
+<x86:mnemonic name="EDBGRD"/></x86:group>
+<x86:group summary="Write to a Debug Enclave" section="SGX" href="EDBGWR">
+<x86:mnemonic name="EDBGWR"/></x86:group>
+<x86:group summary="Extend Uninitialized Enclave Measurement by 256 Bytes" section="SGX" href="EEXTEND">
+<x86:mnemonic name="EEXTEND"/></x86:group>
+<x86:group summary="Initialize an Enclave for Execution" section="SGX" href="EINIT">
+<x86:mnemonic name="EINIT"/></x86:group>
+<x86:group summary="Load an EPC Page and Mark its State" section="SGX" href="ELDB:ELDU:ELDBC:ELBUC">
+<x86:mnemonic name="ELDB"/>
+<x86:mnemonic name="ELDU"/>
+<x86:mnemonic name="ELDBC"/>
+<x86:mnemonic name="ELBUC"/></x86:group>
+<x86:group summary="Restrict the Permissions of an EPC Page" section="SGX" href="EMODPR">
+<x86:mnemonic name="EMODPR"/></x86:group>
+<x86:group summary="Change the Type of an EPC Page" section="SGX" href="EMODT">
+<x86:mnemonic name="EMODT"/></x86:group>
+<x86:group summary="Add Version Array" section="SGX" href="EPA">
+<x86:mnemonic name="EPA"/></x86:group>
+<x86:group summary="Read Type and Status Information About an EPC Page" section="SGX" href="ERDINFO">
+<x86:mnemonic name="ERDINFO"/></x86:group>
+<x86:group summary="Remove a page from the EPC" section="SGX" href="EREMOVE">
+<x86:mnemonic name="EREMOVE"/></x86:group>
+<x86:group summary="Activates EBLOCK Checks" section="SGX" href="ETRACK">
+<x86:mnemonic name="ETRACK"/></x86:group>
+<x86:group summary="Activates EBLOCK Checks" section="SGX" href="ETRACKC">
+<x86:mnemonic name="ETRACKC"/></x86:group>
+<x86:group summary="Invalidate an EPC Page and Write out to Main Memory" section="SGX" href="EWB">
+<x86:mnemonic name="EWB"/></x86:group>
+<x86:group summary="Accept Changes to an EPC Page" section="SGX" href="EACCEPT">
+<x86:mnemonic name="EACCEPT"/></x86:group>
+<x86:group summary="Initialize a Pending Page" section="SGX" href="EACCEPTCOPY">
+<x86:mnemonic name="EACCEPTCOPY"/></x86:group>
+<x86:group summary="Enters an Enclave" section="SGX" href="EENTER">
+<x86:mnemonic name="EENTER"/></x86:group>
+<x86:group summary="Exits an Enclave" section="SGX" href="EEXIT">
+<x86:mnemonic name="EEXIT"/></x86:group>
+<x86:group summary="Retrieves a Cryptographic Key" section="SGX" href="EGETKEY">
+<x86:mnemonic name="EGETKEY"/></x86:group>
+<x86:group summary="Extend an EPC Page Permissions" section="SGX" href="EMODPE">
+<x86:mnemonic name="EMODPE"/></x86:group>
+<x86:group summary="Create a Cryptographic Report of the Enclave" section="SGX" href="EREPORT">
+<x86:mnemonic name="EREPORT"/></x86:group>
+<x86:group summary="Re-Enters an Enclave" section="SGX" href="ERESUME">
+<x86:mnemonic name="ERESUME"/></x86:group>
+<x86:group summary="Decrement VIRTCHILDCNT in SECS" section="SGX" href="EDECVIRTCHILD">
+<x86:mnemonic name="EDECVIRTCHILD"/></x86:group>
+<x86:group summary="Increment VIRTCHILDCNT in SECS" section="SGX" href="EINCVIRTCHILD">
+<x86:mnemonic name="EINCVIRTCHILD"/></x86:group>
+<x86:group summary="Set the ENCLAVECONTEXT Field in SECS" section="SGX" href="ESETCONTEXT">
+<x86:mnemonic name="ESETCONTEXT"/></x86:group></x86:index>

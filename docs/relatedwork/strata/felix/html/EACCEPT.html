@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EACCEPT
+		— Accept Changes to an EPC Page</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EACCEPT
+		— Accept Changes to an EPC Page</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 05H ENCLU[EACCEPT]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX2</td>
+<td>This leaf function accepts changes made by system software to an EPC page in the running enclave.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td colspan="2">EAX</td>
+<td>RBX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>EACCEPT (In)</td>
+<td>Return Error Code (Out)</td>
+<td>Address of a SECINFO (In)</td>
+<td>Address of the destination EPC page (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function accepts changes to a page in the running enclave by verifying that the security attributes specified in the SECINFO match the security attributes of the page in the EPCM. This instruction leaf can only be executed when inside the enclave.</p>
+<p>RBX contains the effective address of a SECINFO structure while RCX contains the effective address of an EPC page. The table below provides additional information on the memory parameter of the EACCEPT leaf function.</p>
+<h2 id="eaccept-memory-parameter-semantics">EACCEPT Memory Parameter Semantics<a class="anchor" href="#eaccept-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>SECINFO</td>
+<td>EPCPAGE (Destination)</td></tr>
+<tr>
+<td>Read access permitted by Non Enclave</td>
+<td>Read access permitted by Enclave</td></tr></table>
+<p>The instruction faults if any of the following:</p>
+<h2 id="eaccept-faulting-conditions">EACCEPT Faulting Conditions<a class="anchor" href="#eaccept-faulting-conditions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>The operands are not properly aligned.</td>
+<td>RBX does not contain an effective address in an EPC page in the running enclave.</td></tr>
+<tr>
+<td>The EPC page is locked by another thread.</td>
+<td>RCX does not contain an effective address of an EPC page in the running enclave.</td></tr>
+<tr>
+<td>The EPC page is not valid.</td>
+<td>Page type is PT_REG and MODIFIED bit is 0.</td></tr>
+<tr>
+<td>SECINFO contains an invalid request.</td>
+<td>Page type is PT_TCS or PT_TRIM and PENDING bit is 0 and MODIFIED bit is 1.</td></tr>
+<tr>
+<td>If security attributes of the SECINFO page make the page inaccessible.</td>
+<td></td></tr></table>
+<p>The error codes are:</p>
+<figure id="tbl-40-54">
+<table>
+<tr>
+<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Description</th></tr>
+<tr>
+<td>No Error</td>
+<td>EACCEPT successful.</td></tr>
+<tr>
+<td>SGX_PAGE_ATTRIBUTES_MISMATCH</td>
+<td>The attributes of the target EPC page do not match the expected values.</td></tr>
+<tr>
+<td>SGX_NOT_TRACKED</td>
+<td>The OS did not complete an ETRACK on the target page.</td></tr></table>
+<figcaption><a href="./EACCEPT.html#tbl-40-54">Table 40-54</a>. EACCEPT Return Value in RAX</figcaption></figure>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-55">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td rowspan="2">EACCEPT</td>
+<td>Target [DS:RCX]</td>
+<td>Shared</td>
+<td>#GP</td>
+<td></td></tr>
+<tr>
+<td>SECINFO [DS:RBX]</td>
+<td>Concurrent</td>
+<td></td>
+<td></td></tr></table>
+<figcaption><a href="./EACCEPT.html#tbl-40-55">Table 40-55</a>. Base Concurrency Restrictions of EACCEPT</figcaption></figure>
+<figure id="tbl-40-56">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td rowspan="2">EACCEPT</td>
+<td>Target [DS:RCX]</td>
+<td>Exclusive</td>
+<td>#GP</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr>
+<tr>
+<td>SECINFO [DS:RBX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EACCEPT.html#tbl-40-56">Table 40-56</a>. Additional Concurrency Restrictions of EACCEPT</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-eaccept-operational-flow">Temp Variables in EACCEPT Operational Flow<a class="anchor" href="#temp-variables-in-eaccept-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size (bits)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_SECS</td>
+<td>Effective Address</td>
+<td>32/64</td>
+<td>Physical address of SECS to which EPC operands belongs.</td></tr>
+<tr>
+<td>SCRATCH_SECINFO</td>
+<td>SECINFO</td>
+<td>512</td>
+<td>Scratch storage for holding the contents of DS:RBX.</td></tr></table>
+<p>IF (DS:RBX is not 64Byte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RBX is not within CR_ELRANGE)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RBX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RBX); FI;</p>
+<p>IF ( (EPCM(DS:RBX &amp;~FFFH).VALID = 0) or (EPCM(DS:RBX &amp;~FFFH).R = 0) or (EPCM(DS:RBX &amp;~FFFH).PENDING ≠ 0) or</p>
+<p>(EPCM(DS:RBX &amp;~FFFH).MODIFIED ≠ 0) or (EPCM(DS:RBX &amp;~FFFH).BLOCKED ≠ 0) or</p>
+<p>(EPCM(DS:RBX &amp;~FFFH).PT ≠ PT_REG) or (EPCM(DS:RBX &amp;~FFFH).ENCLAVESECS ≠ CR_ACTIVE_SECS) or</p>
+<p>(EPCM(DS:RBX &amp;~FFFH).ENCLAVEADDRESS ≠ (DS:RBX &amp; FFFH)) )</p>
+<p>THEN #PF(DS:RBX); FI;</p>
+<p>(* Copy 64 bytes of contents *)</p>
+<p>SCRATCH_SECINFO ← DS:RBX;</p>
+<p>(* Check for misconfigured SECINFO flags*)</p>
+<p>IF (SCRATCH_SECINFO reserved fields are not zero )</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX is not 4KByte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX is not within CR_ELRANGE)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* Check that the combination of requested PT, PENDING and MODIFIED is legal *)</p>
+<p>IF (NOT (((SCRATCH_SECINFO.FLAGS.PT is PT_REG) and</p>
+<p>((SCRATCH_SECINFO.FLAGS.PR is 1) or</p>
+<p>(SCRATCH_SECINFO.FLAGS.PENDING is 1)) and</p>
+<p>(SCRATCH_SECINFO.FLAGS.MODIFIED is 0)) or</p>
+<p>((SCRATCH_SECINFO.FLAGS.PT is PT_TCS or PT_TRIM) and</p>
+<p>(SCRATCH_SECINFO.FLAGS.PR is 0) and</p>
+<p>(SCRATCH_SECINFO.FLAGS.PENDING is 0) and</p>
+<p>(SCRATCH_SECINFO.FLAGS.MODIFIED is 1) )))</p>
+<p>THEN #GP(0); FI</p>
+<p>(* Check security attributes of the destination EPC page *)</p>
+<p>If ( (EPCM(DS:RCX).VALID is 0) or (EPCM(DS:RCX).BLOCKED is not 0) or</p>
+<p>((EPCM(DS:RCX).PT is not PT_REG) and (EPCM(DS:RCX).PT is not PT_TCS) and (EPCM(DS:RCX).PT is not PT_TRIM)) or</p>
+<p>(EPCM(DS:RCX).ENCLAVESECS ≠ CR_ACTIVE_SECS))</p>
+<p>THEN #PF((DS:RCX); FI;</p>
+<p>(* Check the destination EPC page for concurrency *)</p>
+<p>IF ( EPC page in use )</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* Re-Check security attributes of the destination EPC page *)</p>
+<p>IF ( (EPCM(DS:RCX).VALID is 0) or (EPCM(DS:RCX).ENCLAVESECS ≠ CR_ACTIVE_SECS) )</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* Verify that accept request matches current EPC page settings *)</p>
+<p>IF ( (EPCM(DS:RCX).ENCLAVEADDRESS ≠ DS:RCX) or (EPCM(DS:RCX).PENDING ≠ SCRATCH_SECINFO.FLAGS.PENDING) or</p>
+<p>(EPCM(DS:RCX).MODIFIED ≠ SCRATCH_SECINFO.FLAGS.MODIFIED) or (EPCM(DS:RCX).R ≠ SCRATCH_SECINFO.FLAGS.R) or</p>
+<p>(EPCM(DS:RCX).W ≠ SCRATCH_SECINFO.FLAGS.W) or (EPCM(DS:RCX).X ≠ SCRATCH_SECINFO.FLAGS.X) or</p>
+<p>(EPCM(DS:RCX).PT ≠ SCRATCH_SECINFO.FLAGS.PT) )</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_PAGE_ATTRIBUTES_MISMATCH;</p>
+<p>GOTO DONE;</p>
+<p>FI;</p>
+<p>(* Check that all required threads have left enclave *)</p>
+<p>IF (Tracking not correct)</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_NOT_TRACKED;</p>
+<p>GOTO DONE;</p>
+<p>FI;</p>
+<p>(* Get pointer to the SECS to which the EPC page belongs *)</p>
+<p>TMP_SECS = &lt;&lt; Obtain physical address of SECS through EPCM(DS:RCX)&gt;&gt;</p>
+<p>(* For TCS pages, perform additional checks *)</p>
+<p>IF (SCRATCH_SECINFO.FLAGS.PT = PT_TCS)</p>
+<p>IF (DS:RCX.RESERVED ≠ 0) #GP(0); FI;</p>
+<p>FI;</p>
+<p>(* Check that TCS.FLAGS.DBGOPTIN, TCS stack, and TCS status are correctly initialized *) IF ( ((DS:RCX).FLAGS.DBGOPTIN is not 0) or ((DS:RCX).CSSA ≥ (DS:RCX).NSSA) or ((DS:RCX).AEP is not 0) or ((DS:RCX).STATE is not 0)) THEN #GP(0); FI;</p>
+<p>(* Check consistency of FS &amp; GS Limit *)</p>
+<p>IF ( (TMP_SECS.ATTRIBUTES.MODE64BIT is 0) and ((DS:RCX.FSLIMIT &amp; FFFH ≠ FFFH) or (DS:RCX.GSLIMIT &amp; FFFH ≠ FFFH)) )</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* Clear PENDING/MODIFIED flags to mark accept operation complete *)</p>
+<p>EPCM(DS:RCX).PENDING ← 0;</p>
+<p>EPCM(DS:RCX).MODIFIED ← 0;</p>
+<p>EPCM(DS:RCX).PR ← 0;</p>
+<p>(* Clear EAX and ZF to indicate successful completion *)</p>
+<p>RFLAGS.ZF ← 0;</p>
+<p>RAX←0;</p>
+<p>DONE:</p>
+<p>RFLAGS.CF,PF,AF,OF,SF ← 0;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>Sets ZF if page cannot be accepted, otherwise cleared. Clears CF, PF, AF, OF, SF</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If a memory operand is locked.</td></tr>
+<tr>
+<td rowspan="3">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr>
+<tr>
+<td>If EPC page has incorrect page type or security attributes.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand is non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If a memory operand is locked.</td></tr>
+<tr>
+<td rowspan="3">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr>
+<tr>
+<td>If EPC page has incorrect page type or security attributes.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

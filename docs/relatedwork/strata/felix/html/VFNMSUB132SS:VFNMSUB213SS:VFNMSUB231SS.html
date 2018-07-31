@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VFNMSUB132SS/VFNMSUB213SS/VFNMSUB231SS
+		— Fused Negative Multiply-Subtract of Scalar Single-Precision Floating-Point Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VFNMSUB132SS/VFNMSUB213SS/VFNMSUB231SS
+		— Fused Negative Multiply-Subtract of Scalar Single-Precision Floating-Point Values</h1>
+
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.DDS.LIG.66.0F38.W0 9F /r VFNMSUB132SS xmm1, xmm2, xmm3/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>FMA</td>
+<td>Multiply scalar single-precision floating-point value from xmm1 and xmm3/m32, negate the multiplication result and subtract xmm2 and put result in xmm1.</td></tr>
+<tr>
+<td>VEX.DDS.LIG.66.0F38.W0 AF /r VFNMSUB213SS xmm1, xmm2, xmm3/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>FMA</td>
+<td>Multiply scalar single-precision floating-point value from xmm1 and xmm2, negate the multiplication result and subtract xmm3/m32 and put result in xmm1.</td></tr>
+<tr>
+<td>VEX.DDS.LIG.66.0F38.W0 BF /r VFNMSUB231SS xmm1, xmm2, xmm3/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>FMA</td>
+<td>Multiply scalar single-precision floating-point value from xmm2 and xmm3/m32, negate the multiplication result and subtract xmm1 and put result in xmm1.</td></tr>
+<tr>
+<td>EVEX.DDS.LIG.66.0F38.W0 9F /r VFNMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Multiply scalar single-precision floating-point value from xmm1 and xmm3/m32, negate the multiplication result and subtract xmm2 and put result in xmm1.</td></tr>
+<tr>
+<td>EVEX.DDS.LIG.66.0F38.W0 AF /r VFNMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Multiply scalar single-precision floating-point value from xmm1 and xmm2, negate the multiplication result and subtract xmm3/m32 and put result in xmm1.</td></tr>
+<tr>
+<td>EVEX.DDS.LIG.66.0F38.W0 BF /r VFNMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Multiply scalar single-precision floating-point value from xmm2 and xmm3/m32, negate the multiplication result and subtract xmm1 and put result in xmm1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (r, w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>VFNMSUB132SS: Multiplies the low packed single-precision floating-point value from the first source operand to the low packed single-precision floating-point value in the third source operand. From negated infinite precision intermediate result, the low single-precision floating-point value in the second source operand, performs rounding and stores the resulting packed single-precision floating-point value to the destination operand (first source operand).</p>
+<p>VFNMSUB213SS: Multiplies the low packed single-precision floating-point value from the second source operand to the low packed single-precision floating-point value in the first source operand. From negated infinite precision intermediate result, the low single-precision floating-point value in the third source operand, performs rounding and stores the resulting packed single-precision floating-point value to the destination operand (first source operand).</p>
+<p>VFNMSUB231SS: Multiplies the low packed single-precision floating-point value from the second source to the low packed single-precision floating-point value in the third source operand. From negated infinite precision intermediate result, the low single-precision floating-point value in the first source operand, performs rounding and stores the resulting packed single-precision floating-point value to the destination operand (first source operand).</p>
+<p>VEX.128 and EVEX encoded version: The destination operand (also first source operand) is encoded in reg_field. The second source operand is encoded in VEX.vvvv/EVEX.vvvv. The third source operand is encoded in rm_field. Bits 127:32 of the destination are unchanged. Bits MAXVL-1:128 of the destination register are zeroed.</p>
+<p>EVEX encoded version: The low doubleword element of the destination is updated according to the writemask.</p>
+<p>Compiler tools may optionally support a complementary mnemonic for each instruction mnemonic listed in the opcode/instruction column of the summary table. The behavior of the complementary mnemonic in situations involving NANs are governed by the definition of the instruction mnemonic defined in the opcode/instruction column.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>In the operations below, “*” and “-” symbols represent multiplication and subtraction with infinite precision inputs and outputs (no
+rounding).
+</pre>
+<h4 id="vfnmsub132ss-dest--src2--src3--evex-encoded-version-">VFNMSUB132SS DEST, SRC2, SRC3 (EVEX encoded version)<a class="anchor" href="#vfnmsub132ss-dest--src2--src3--evex-encoded-version-">
+			¶
+		</a></h4>
+<pre>IF (EVEX.b = 1) and SRC3 *is a register*
+    THEN
+        SET_RM(EVEX.RC);
+    ELSE
+        SET_RM(MXCSR.RM);
+FI;
+IF k1[0] or *no writemask*
+    THEN DEST[31:0]←RoundFPControl(-(DEST[31:0]*SRC3[31:0]) - SRC2[31:0])
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[31:0]←0
+        FI;
+FI;
+DEST[127:32] ← DEST[127:32]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vfnmsub213ss-dest--src2--src3--evex-encoded-version-">VFNMSUB213SS DEST, SRC2, SRC3 (EVEX encoded version)<a class="anchor" href="#vfnmsub213ss-dest--src2--src3--evex-encoded-version-">
+			¶
+		</a></h4>
+<pre>IF (EVEX.b = 1) and SRC3 *is a register*
+    THEN
+        SET_RM(EVEX.RC);
+    ELSE
+        SET_RM(MXCSR.RM);
+FI;
+IF k1[0] or *no writemask*
+    THEN DEST[31:0]←RoundFPControl(-(SRC2[31:0]*DEST[31:0]) - SRC3[31:0])
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[31:0]←0
+        FI;
+FI;
+DEST[127:32] ← DEST[127:32]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vfnmsub231ss-dest--src2--src3--evex-encoded-version-">VFNMSUB231SS DEST, SRC2, SRC3 (EVEX encoded version)<a class="anchor" href="#vfnmsub231ss-dest--src2--src3--evex-encoded-version-">
+			¶
+		</a></h4>
+<pre>IF (EVEX.b = 1) and SRC3 *is a register*
+    THEN
+        SET_RM(EVEX.RC);
+    ELSE
+        SET_RM(MXCSR.RM);
+FI;
+IF k1[0] or *no writemask*
+    THEN DEST[31:0]←RoundFPControl(-(SRC2[31:0]*SRC3[63:0]) - DEST[31:0])
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[31:0]←0
+        FI;
+FI;
+DEST[127:32] ← DEST[127:32]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vfnmsub132ss-dest--src2--src3--vex-encoded-version-">VFNMSUB132SS DEST, SRC2, SRC3 (VEX encoded version)<a class="anchor" href="#vfnmsub132ss-dest--src2--src3--vex-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←RoundFPControl_MXCSR(- (DEST[31:0]*SRC3[31:0]) - SRC2[31:0])
+DEST[127:32] ←DEST[127:32]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vfnmsub213ss-dest--src2--src3--vex-encoded-version-">VFNMSUB213SS DEST, SRC2, SRC3 (VEX encoded version)<a class="anchor" href="#vfnmsub213ss-dest--src2--src3--vex-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←RoundFPControl_MXCSR(- (SRC2[31:0]*DEST[31:0]) - SRC3[31:0])
+DEST[127:32] ←DEST[127:32]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vfnmsub231ss-dest--src2--src3--vex-encoded-version-">VFNMSUB231SS DEST, SRC2, SRC3 (VEX encoded version)<a class="anchor" href="#vfnmsub231ss-dest--src2--src3--vex-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]←RoundFPControl_MXCSR(- (SRC2[31:0]*SRC3[31:0]) - DEST[31:0])
+DEST[127:32] ←DEST[127:32]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VFNMSUBxxxSS __m128 _mm_fnmsub_round_ss(__m128 a, __m128 b, __m128 c, int r);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_mask_fnmsub_ss(__m128 a, __mmask8 k, __m128 b, __m128 c);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_maskz_fnmsub_ss(__mmask8 k, __m128 a, __m128 b, __m128 c);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_mask3_fnmsub_ss(__m128 a, __m128 b, __m128 c, __mmask8 k);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_mask_fnmsub_round_ss(__m128 a, __mmask8 k, __m128 b, __m128 c, int r);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_maskz_fnmsub_round_ss(__mmask8 k, __m128 a, __m128 b, __m128 c, int r);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_mask3_fnmsub_round_ss(__m128 a, __m128 b, __m128 c, __mmask8 k, int r);
+</pre>
+<pre>VFNMSUBxxxSS __m128 _mm_fnmsub_ss (__m128 a, __m128 b, __m128 c);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Overflow, Underflow, Invalid, Precision, Denormal</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>VEX-encoded instructions, see Exceptions Type 3.</p>
+<p>EVEX-encoded instructions, see Exceptions Type E3.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

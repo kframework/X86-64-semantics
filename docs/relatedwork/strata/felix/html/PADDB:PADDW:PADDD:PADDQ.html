@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PADDB/PADDW/PADDD/PADDQ
+		— Add Packed Integers</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PADDB/PADDW/PADDD/PADDQ
+		— Add Packed Integers</h1>
+
+
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F FC /<em>r</em><sup>1</sup> PADDB <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Add packed byte integers from <em>mm/m64</em> and <em>mm</em>.</td></tr>
+<tr>
+<td>NP 0F FD /<em>r</em><sup>1</sup> PADDW <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Add packed word integers from <em>mm/m64</em> and <em>mm</em>.</td></tr>
+<tr>
+<td>NP 0F FE /<em>r</em><sup>1</sup> PADDD <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Add packed doubleword integers from <em>mm/m64</em> and <em>mm</em>.</td></tr>
+<tr>
+<td>NP 0F D4 /<em>r</em><sup>1</sup> PADDQ <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Add packed quadword integers from <em>mm/m64</em> and <em>mm</em>.</td></tr>
+<tr>
+<td>66 0F FC /<em>r</em> PADDB <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed byte integers from <em>xmm2/m128</em> and <em>xmm1</em>.</td></tr>
+<tr>
+<td>66 0F FD /<em>r</em> PADDW <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed word integers from <em>xmm2/m128</em> and <em>xmm1</em>.</td></tr>
+<tr>
+<td>66 0F FE /<em>r</em> PADDD <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed doubleword integers from <em>xmm2/m128</em> and <em>xmm1</em>.</td></tr>
+<tr>
+<td>66 0F D4 /<em>r</em> PADDQ <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Add packed quadword integers from <em>xmm2/m128</em> and <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG FC /<em>r</em> VPADDB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed byte integers from <em>xmm2, and xmm3/m128</em> and store in <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG FD /<em>r</em> VPADDW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed word integers from <em>xmm2, xmm3/m128</em> and <em>store in xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG FE /<em>r</em> VPADDD <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed doubleword integers from <em>xmm2, xmm3/m128</em> and store in <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG D4 /<em>r</em> VPADDQ <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Add packed quadword integers from <em>xmm2, xmm3/m128</em> and store in <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG FC /<em>r</em> VPADDB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Add packed byte integers from <em>ymm2, and ymm3/m256</em> and store in <em>ymm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG FD /<em>r</em> VPADDW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Add packed word integers from <em>ymm2, ymm3/m256</em> and <em>store in ymm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG FE /<em>r</em> VPADDD <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Add packed doubleword integers from <em>ymm2, ymm3/m256</em> and <em>store in ymm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG D4 /<em>r</em> VPADDQ <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Add packed quadword integers from <em>ymm2, ymm3/m256</em> and store in <em>ymm1</em>.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG FC /r VPADDB <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed byte integers from <em>xmm2, and xmm3/m128</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG FD /r VPADDW <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed word integers from <em>xmm2, and xmm3/m128</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.W0 FE /r VPADDD <em>xmm1 {k1}{z}, xmm2,</em> xmm3/m128/m32bcst</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Add packed doubleword integers from <em>xmm2, and xmm3/m128/m32bcst</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.W1 D4 /r VPADDQ <em>xmm1 {k1}{z}, xmm2,</em> xmm3/m128/m64bcst</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Add packed quadword integers from <em>xmm2, and xmm3/m128/m64bcst</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG FC /r VPADDB <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed byte integers from <em>ymm2, and ymm3/m256</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG FD /r VPADDW <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Add packed word integers from <em>ymm2, and ymm3/m256</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.W0 FE /r VPADDD <em>ymm1 {k1}{z}, ymm2,</em> ymm3/m256/m32bcst</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Add packed doubleword integers from <em>ymm2, ymm3/m256/m32bcst</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.W1 D4 /r VPADDQ <em>ymm1 {k1}{z}, ymm2,</em> ymm3/m256/m64bcst</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Add packed quadword integers from <em>ymm2, ymm3/m256/m64bcst</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG FC /r VPADDB <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Add packed byte integers from <em>zmm2, and zmm3/m512</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG FD /r VPADDW <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Add packed word integers from <em>zmm2, and zmm3/m512</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.W0 FE /<em>r</em> VPADDD <em>zmm1 {k1}{z}, zmm2,</em> zmm3/m512/m32bcst</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Add packed doubleword integers from <em>zmm2, zmm3/m512/m32bcst</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.W1 D4 /<em>r</em> VPADDQ <em>zmm1 {k1}{z}, zmm2,</em> zmm3/m512/m64bcst</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Add packed quadword integers from <em>zmm2, zmm3/m512/m64bcst</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
+<tr>
+<td colspan="5">NOTES: 1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Performs a SIMD add of the packed integers from the source operand (second operand) and the destination operand (first operand), and stores the packed integer results in the destination operand. See <span class="not-imported">Figure 9-4</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for an illustration of a SIMD operation. Overflow is handled with wraparound, as described in the following paragraphs.</p>
+<p>The PADDB and VPADDB instructions add packed byte integers from the first source operand and second source operand and store the packed integer results in the destination operand. When an individual result is too large to be represented in 8 bits (overflow), the result is wrapped around and the low 8 bits are written to the destination operand (that is, the carry is ignored).</p>
+<p>The PADDW and VPADDW instructions add packed word integers from the first source operand and second source operand and store the packed integer results in the destination operand. When an individual result is too large to be represented in 16 bits (overflow), the result is wrapped around and the low 16 bits are written to the destination operand (that is, the carry is ignored).</p>
+<p>The PADDD and VPADDD instructions add packed doubleword integers from the first source operand and second source operand and store the packed integer results in the destination operand. When an individual result is too large to be represented in 32 bits (overflow), the result is wrapped around and the low 32 bits are written to the destination operand (that is, the carry is ignored).</p>
+<p>The PADDQ and VPADDQ instructions add packed quadword integers from the first source operand and second source operand and store the packed integer results in the destination operand. When a quadword result is too</p>
+<p>large to be represented in 64 bits (overflow), the result is wrapped around and the low 64 bits are written to the destination operand (that is, the carry is ignored).</p>
+<p>Note that the (V)PADDB, (V)PADDW, (V)PADDD and (V)PADDQ instructions can operate on either unsigned or signed (two's complement notation) packed integers; however, it does not set bits in the EFLAGS register to indicate overflow and/or a carry. To prevent undetected overflow conditions, software must control the ranges of values operated on.</p>
+<p>EVEX encoded VPADDD/Q: The first source operand is a ZMM/YMM/XMM register. The second source operand is a ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 32/64-bit memory location. The destination operand is a ZMM/YMM/XMM register updated according to the writemask.</p>
+<p>EVEX encoded VPADDB/W: The first source operand is a ZMM/YMM/XMM register. The second source operand is a ZMM/YMM/XMM register, a 512/256/128-bit memory location. The destination operand is a ZMM/YMM/XMM register updated according to the writemask.</p>
+<p>VEX.256 encoded version: The first source operand is a YMM register. The second source operand is a YMM register or a 256-bit memory location. The destination operand is a YMM register. the upper bits (MAXVL-1:256) of the destination are cleared.</p>
+<p>VEX.128 encoded version: The first source operand is an XMM register. The second source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding ZMM register destination are zeroed.</p>
+<p>128-bit Legacy SSE version: The first source operand is an XMM register. The second operand can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper bits (MAXVL-1:128) of the corresponding ZMM register destination are unmodified.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="paddb--with-64-bit-operands-">PADDB (with 64-bit operands)<a class="anchor" href="#paddb--with-64-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[7:0] ← DEST[7:0] + SRC[7:0];
+(* Repeat add operation for 2nd through 7th byte *)
+DEST[63:56] ← DEST[63:56] + SRC[63:56];
+</pre>
+<h4 id="paddw--with-64-bit-operands-">PADDW (with 64-bit operands)<a class="anchor" href="#paddw--with-64-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ← DEST[15:0] + SRC[15:0];
+(* Repeat add operation for 2nd and 3th word *)
+DEST[63:48] ← DEST[63:48] + SRC[63:48];
+</pre>
+<h4 id="paddd--with-64-bit-operands-">PADDD (with 64-bit operands)<a class="anchor" href="#paddd--with-64-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ← DEST[31:0] + SRC[31:0];
+DEST[63:32] ← DEST[63:32] + SRC[63:32];
+</pre>
+<h4 id="paddq--with-64-bit-operands-">PADDQ (with 64-Bit operands)<a class="anchor" href="#paddq--with-64-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[63:0] ← DEST[63:0] + SRC[63:0];
+</pre>
+<h4 id="paddb--legacy-sse-instruction-">PADDB (Legacy SSE instruction)<a class="anchor" href="#paddb--legacy-sse-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[7:0]← DEST[7:0] + SRC[7:0];
+(* Repeat add operation for 2nd through 15th byte *)
+DEST[127:120]← DEST[127:120] + SRC[127:120];
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="paddw--legacy-sse-instruction-">PADDW (Legacy SSE instruction)<a class="anchor" href="#paddw--legacy-sse-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ← DEST[15:0] + SRC[15:0];
+(* Repeat add operation for 2nd through 7th word *)
+DEST[127:112]← DEST[127:112] + SRC[127:112];
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="paddd--legacy-sse-instruction-">PADDD (Legacy SSE instruction)<a class="anchor" href="#paddd--legacy-sse-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]← DEST[31:0] + SRC[31:0];
+(* Repeat add operation for 2nd and 3th doubleword *)
+DEST[127:96]← DEST[127:96] + SRC[127:96];
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="paddq--legacy-sse-instruction-">PADDQ (Legacy SSE instruction)<a class="anchor" href="#paddq--legacy-sse-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[63:0]← DEST[63:0] + SRC[63:0];
+DEST[127:64]← DEST[127:64] + SRC[127:64];
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h4 id="vpaddb--vex-128-encoded-instruction-">VPADDB (VEX.128 encoded instruction)<a class="anchor" href="#vpaddb--vex-128-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[7:0]← SRC1[7:0] + SRC2[7:0];
+(* Repeat add operation for 2nd through 15th byte *)
+DEST[127:120]← SRC1[127:120] + SRC2[127:120];
+DEST[MAXVL-1:128] ← 0;
+</pre>
+<h4 id="vpaddw--vex-128-encoded-instruction-">VPADDW (VEX.128 encoded instruction)<a class="anchor" href="#vpaddw--vex-128-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ← SRC1[15:0] + SRC2[15:0];
+(* Repeat add operation for 2nd through 7th word *)
+DEST[127:112]← SRC1[127:112] + SRC2[127:112];
+DEST[MAXVL-1:128] ← 0;
+</pre>
+<h4 id="vpaddd--vex-128-encoded-instruction-">VPADDD (VEX.128 encoded instruction)<a class="anchor" href="#vpaddd--vex-128-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]← SRC1[31:0] + SRC2[31:0];
+(* Repeat add operation for 2nd and 3th doubleword *)
+DEST[127:96] ← SRC1[127:96] + SRC2[127:96];
+DEST[MAXVL-1:128] ← 0;
+</pre>
+<h4 id="vpaddq--vex-128-encoded-instruction-">VPADDQ (VEX.128 encoded instruction)<a class="anchor" href="#vpaddq--vex-128-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[63:0]← SRC1[63:0] + SRC2[63:0];
+DEST[127:64] ← SRC1[127:64] + SRC2[127:64];
+DEST[MAXVL-1:128] ← 0;
+</pre>
+<h4 id="vpaddb--vex-256-encoded-instruction-">VPADDB (VEX.256 encoded instruction)<a class="anchor" href="#vpaddb--vex-256-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[7:0]← SRC1[7:0] + SRC2[7:0];
+(* Repeat add operation for 2nd through 31th byte *)
+DEST[255:248]← SRC1[255:248] + SRC2[255:248];
+</pre>
+<h4 id="vpaddw--vex-256-encoded-instruction-">VPADDW (VEX.256 encoded instruction)<a class="anchor" href="#vpaddw--vex-256-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ← SRC1[15:0] + SRC2[15:0];
+(* Repeat add operation for 2nd through 15th word *)
+DEST[255:240]← SRC1[255:240] + SRC2[255:240];
+</pre>
+<h4 id="vpaddd--vex-256-encoded-instruction-">VPADDD (VEX.256 encoded instruction)<a class="anchor" href="#vpaddd--vex-256-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[31:0]← SRC1[31:0] + SRC2[31:0];
+(* Repeat add operation for 2nd and 7th doubleword *)
+DEST[255:224] ← SRC1[255:224] + SRC2[255:224];
+</pre>
+<h4 id="vpaddq--vex-256-encoded-instruction-">VPADDQ (VEX.256 encoded instruction)<a class="anchor" href="#vpaddq--vex-256-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[63:0]← SRC1[63:0] + SRC2[63:0];
+DEST[127:64] ← SRC1[127:64] + SRC2[127:64];
+DEST[191:128]← SRC1[191:128] + SRC2[191:128];
+DEST[255:192] ← SRC1[255:192] + SRC2[255:192];
+</pre>
+<h4 id="vpaddb--evex-encoded-versions-">VPADDB (EVEX encoded versions)<a class="anchor" href="#vpaddb--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR j←0 TO KL-1
+    i←j * 8
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i]←SRC1[i+7:i] + SRC2[i+7:i]
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+7:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpaddw--evex-encoded-versions-">VPADDW (EVEX encoded versions)<a class="anchor" href="#vpaddw--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SRC1[i+15:i] + SRC2[i+15:i]
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpaddd--evex-encoded-versions-">VPADDD (EVEX encoded versions)<a class="anchor" href="#vpaddd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN DEST[i+31:i]←SRC1[i+31:i] + SRC2[31:0]
+                ELSE DEST[i+31:i]←SRC1[i+31:i] + SRC2[i+31:i]
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpaddq--evex-encoded-versions-">VPADDQ (EVEX encoded versions)<a class="anchor" href="#vpaddq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN DEST[i+63:i]←SRC1[i+63:i] + SRC2[63:0]
+                ELSE DEST[i+63:i]←SRC1[i+63:i] + SRC2[i+63:i]
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h3>
+<pre>VPADDB__m512i _mm512_add_epi8 ( __m512i a, __m512i b)
+</pre>
+<pre>VPADDW__m512i _mm512_add_epi16 ( __m512i a, __m512i b)
+</pre>
+<pre>VPADDB__m512i _mm512_mask_add_epi8 ( __m512i s, __mmask64 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDW__m512i _mm512_mask_add_epi16 ( __m512i s, __mmask32 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDB__m512i _mm512_maskz_add_epi8 (__mmask64 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDW__m512i _mm512_maskz_add_epi16 (__mmask32 m, __m512i a, __m512i b)
+</pre>
+<pre>VPADDB__m256i _mm256_mask_add_epi8 (__m256i s, __mmask32 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDW__m256i _mm256_mask_add_epi16 (__m256i s, __mmask16 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDB__m256i _mm256_maskz_add_epi8 (__mmask32 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDW__m256i _mm256_maskz_add_epi16 (__mmask16 m, __m256i a, __m256i b)
+</pre>
+<pre>VPADDB__m128i _mm_mask_add_epi8 (__m128i s, __mmask16 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDW__m128i _mm_mask_add_epi16 (__m128i s, __mmask8 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDB__m128i _mm_maskz_add_epi8 (__mmask16 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDW__m128i _mm_maskz_add_epi16 (__mmask8 m, __m128i a, __m128i b)
+</pre>
+<pre>VPADDD __m512i _mm512_add_epi32( __m512i a, __m512i b);
+</pre>
+<pre>VPADDD __m512i _mm512_mask_add_epi32(__m512i s, __mmask16 k, __m512i a, __m512i b);
+</pre>
+<pre>VPADDD __m512i _mm512_maskz_add_epi32( __mmask16 k, __m512i a, __m512i b);
+</pre>
+<pre>VPADDD __m256i _mm256_mask_add_epi32(__m256i s, __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPADDD __m256i _mm256_maskz_add_epi32( __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPADDD __m128i _mm_mask_add_epi32(__m128i s, __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPADDD __m128i _mm_maskz_add_epi32( __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPADDQ __m512i _mm512_add_epi64( __m512i a, __m512i b);
+</pre>
+<pre>VPADDQ __m512i _mm512_mask_add_epi64(__m512i s, __mmask8 k, __m512i a, __m512i b);
+</pre>
+<pre>VPADDQ __m512i _mm512_maskz_add_epi64( __mmask8 k, __m512i a, __m512i b);
+</pre>
+<pre>VPADDQ __m256i _mm256_mask_add_epi64(__m256i s, __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPADDQ __m256i _mm256_maskz_add_epi64( __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPADDQ __m128i _mm_mask_add_epi64(__m128i s, __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPADDQ __m128i _mm_maskz_add_epi64( __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>PADDB __m128i _mm_add_epi8 (__m128i a,__m128i b );
+</pre>
+<pre>PADDW __m128i _mm_add_epi16 ( __m128i a, __m128i b);
+</pre>
+<pre>PADDD __m128i _mm_add_epi32 ( __m128i a, __m128i b);
+</pre>
+<pre>PADDQ __m128i _mm_add_epi64 ( __m128i a, __m128i b);
+</pre>
+<pre>VPADDB __m256i _mm256_add_epi8 (__m256ia,__m256i b );
+</pre>
+<pre>VPADDW __m256i _mm256_add_epi16 ( __m256i a, __m256i b);
+</pre>
+<pre>VPADDD __m256i _mm256_add_epi32 ( __m256i a, __m256i b);
+</pre>
+<pre>VPADDQ __m256i _mm256_add_epi64 ( __m256i a, __m256i b);
+</pre>
+<pre>PADDB __m64 _mm_add_pi8(__m64 m1, __m64 m2)
+</pre>
+<pre>PADDW __m64 _mm_add_pi16(__m64 m1, __m64 m2)
+</pre>
+<pre>PADDD __m64 _mm_add_pi32(__m64 m1, __m64 m2)
+</pre>
+<pre>PADDQ __m64 _mm_add_si64(__m64 m1, __m64 m2)
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded VPADDD/Q, see Exceptions Type E4.</p>
+<p>EVEX-encoded VPADDB/W, see Exceptions Type E4.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

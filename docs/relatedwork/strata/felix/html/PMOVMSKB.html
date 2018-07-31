@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PMOVMSKB
+		— Move Byte Mask</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMOVMSKB
+		— Move Byte Mask</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F D7 /<em>r</em><sup>1</sup> PMOVMSKB <em>reg</em>, <em>mm</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Move a byte mask of <em>mm</em> to <em>reg</em>. The upper bits of r32 or r64 are zeroed</td></tr>
+<tr>
+<td>66 0F D7 /<em>r</em> PMOVMSKB <em>reg</em>, <em>xmm</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Move a byte mask of <em>xmm</em> to <em>reg</em>. The upper bits of r32 or r64 are zeroed</td></tr>
+<tr>
+<td>VEX.128.66.0F.WIG D7 /r VPMOVMSKB <em>reg, xmm1</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Move a byte mask of <em>xmm1</em> to <em>reg</em>. The upper bits of r32 or r64 are filled with zeros.</td></tr>
+<tr>
+<td>VEX.256.66.0F.WIG D7 /r VPMOVMSKB <em>reg, ymm1</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Move a 32-bit mask of <em>ymm1</em> to <em>reg</em>. The upper bits of r64 are filled with zeros.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Creates a mask made up of the most significant bit of each byte of the source operand (second operand) and stores the result in the low byte or word of the destination operand (first operand).</p>
+<p>The byte mask is 8 bits for 64-bit source operand, 16 bits for 128-bit source operand and 32 bits for 256-bit source operand. The destination operand is a general-purpose register.</p>
+<p>In 64-bit mode, the instruction can access additional registers (XMM8-XMM15, R8-R15) when used with a REX.R prefix. The default operand size is 64-bit in 64-bit mode.</p>
+<p>Legacy SSE version: The source operand is an MMX technology register.</p>
+<p>128-bit Legacy SSE version: The source operand is an XMM register.</p>
+<p>VEX.128 encoded version: The source operand is an XMM register.</p>
+<p>VEX.256 encoded version: The source operand is a YMM register.</p>
+<p>Note: VEX.vvvv is reserved and must be 1111b.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="pmovmskb--with-64-bit-source-operand-and-r32-">PMOVMSKB (with 64-bit source operand and r32)<a class="anchor" href="#pmovmskb--with-64-bit-source-operand-and-r32-">
+			¶
+		</a></h3>
+<pre>    r32[0] ← SRC[7];
+    r32[1] ← SRC[15];
+    (* Repeat operation for bytes 2 through 6 *)
+    r32[7] ← SRC[63];
+    r32[31:8] ← ZERO_FILL;
+(<strong>V)PMOVMSKB (with 128-bit source operand and r32)</strong>
+    r32[0] ← SRC[7];
+    r32[1] ← SRC[15];
+    (* Repeat operation for bytes 2 through 14 *)
+    r32[15] ← SRC[127];
+    r32[31:16] ← ZERO_FILL;
+</pre>
+<h3 id="vpmovmskb--with-256-bit-source-operand-and-r32-">VPMOVMSKB (with 256-bit source operand and r32)<a class="anchor" href="#vpmovmskb--with-256-bit-source-operand-and-r32-">
+			¶
+		</a></h3>
+<pre>r32[0] ← SRC[7];
+r32[1] ← SRC[15];
+(* Repeat operation for bytes 3rd through 31*)
+r32[31] ← SRC[255];
+</pre>
+<h3 id="pmovmskb--with-64-bit-source-operand-and-r64-">PMOVMSKB (with 64-bit source operand and r64)<a class="anchor" href="#pmovmskb--with-64-bit-source-operand-and-r64-">
+			¶
+		</a></h3>
+<pre>r64[0] ← SRC[7];
+r64[1] ← SRC[15];
+(* Repeat operation for bytes 2 through 6 *)
+r64[7] ← SRC[63];
+r64[63:8] ← ZERO_FILL;
+</pre>
+<h3 id="-v-pmovmskb--with-128-bit-source-operand-and-r64-">(V)PMOVMSKB (with 128-bit source operand and r64)<a class="anchor" href="#-v-pmovmskb--with-128-bit-source-operand-and-r64-">
+			¶
+		</a></h3>
+<pre>r64[0] ← SRC[7];
+r64[1] ← SRC[15];
+(* Repeat operation for bytes 2 through 14 *)
+r64[15] ← SRC[127];
+r64[63:16] ← ZERO_FILL;
+</pre>
+<h3 id="vpmovmskb--with-256-bit-source-operand-and-r64-">VPMOVMSKB (with 256-bit source operand and r64)<a class="anchor" href="#vpmovmskb--with-256-bit-source-operand-and-r64-">
+			¶
+		</a></h3>
+<pre>r64[0] ← SRC[7];
+r64[1] ← SRC[15];
+(* Repeat operation for bytes 2 through 31*)
+r64[31] ← SRC[255];
+r64[63:32] ← ZERO_FILL;
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>PMOVMSKB: int _mm_movemask_pi8(__m64 a)
+</pre>
+<pre>(V)PMOVMSKB: int _mm_movemask_epi8 ( __m128i a)
+</pre>
+<pre>VPMOVMSKB: int _mm256_movemask_epi8 ( __m256i a)
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="#numeric-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type 7; additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.vvvv ≠ 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VREDUCEPD
+		— Perform Reduction Transformation on Packed Float64 Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VREDUCEPD
+		— Perform Reduction Transformation on Packed Float64 Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F3A.W1 56 /r ib VREDUCEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Perform reduction transformation on packed double-precision floating point values in xmm2/m128/m32bcst by subtracting a number of fraction bits specified by the imm8 field. Stores the result in xmm1 register under writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F3A.W1 56 /r ib VREDUCEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Perform reduction transformation on packed double-precision floating point values in ymm2/m256/m32bcst by subtracting a number of fraction bits specified by the imm8 field. Stores the result in ymm1 register under writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F3A.W1 56 /r ib VREDUCEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Perform reduction transformation on double-precision floating point values in zmm2/m512/m32bcst by subtracting a number of fraction bits specified by the imm8 field. Stores the result in zmm1 register under writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Perform reduction transformation of the packed binary encoded double-precision FP values in the source operand (the second operand) and store the reduced results in binary FP format to the destination operand (the first operand) under the writemask k1.</p>
+<p>The reduction transformation subtracts the integer part and the leading M fractional bits from the binary FP source value, where M is a unsigned integer specified by imm8[7:4], see <a href="./VREDUCEPD.html#fig-5-28">Figure 5-28</a>. Specifically, the reduction transformation can be expressed as:</p>
+<p>dest = src – (ROUND(2<sup>M</sup>*src))*2<sup>-M</sup>;</p>
+<p>where “Round()” treats “src”, “2<sup>M</sup>”, and their product as binary FP numbers with normalized significand and biased exponents.</p>
+<p>The magnitude of the reduced result can be expressed by considering src= 2<sup>p</sup>*man2,</p>
+<p>where ‘man2’ is the normalized significand and ‘p’ is the unbiased exponent</p>
+<p>Then if RC = RNE: 0&lt;=|Reduced Result|&lt;=2<sup>p-M-1</sup></p>
+<p>Then if RC ≠ RNE: 0&lt;=|Reduced Result|&lt;2<sup>p-M</sup></p>
+<p>This instruction might end up with a precision exception set. However, in case of SPE set (i.e. Suppress Precision Exception, which is imm8[3]=1), no precision exception is reported.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<figure id="fig-5-28">
+<svg style="width: 619.056pt; height: 129.744pt" viewBox="41.54 0.0 520.88 113.12">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="107.1" x="44.04" style="fill: rgb(0%, 0%, 0%)" y="0.47999999999999" width="0.48001"></rect>
+<rect height="107.1" x="559.44" style="fill: rgb(0%, 0%, 0%)" y="0.47999999999999" width="0.47998"></rect>
+<rect height="0.48" x="44.04" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="515.88"></rect>
+<rect height="0.48001" x="44.04" style="fill: rgb(0%, 0%, 0%)" y="107.63999" width="515.88"></rect>
+<rect height="13.5" x="465.84" style="fill: rgb(0%, 0%, 0%)" y="27.54" width="0.48001"></rect>
+<rect height="0.48" x="92.82" style="fill: rgb(0%, 0%, 0%)" y="40.56" width="373.26"></rect>
+<rect height="13.5" x="92.82" style="fill: rgb(0%, 0%, 0%)" y="27.3" width="0.48"></rect>
+<rect height="0.24001" x="372.6" style="fill: rgb(0%, 0%, 0%)" y="27.53999" width="0.47998"></rect>
+<rect height="13.26" x="372.6" style="fill: rgb(0%, 0%, 0%)" y="27.78" width="0.47998"></rect>
+<rect height="0.24001" x="279.3" style="fill: rgb(0%, 0%, 0%)" y="27.53999" width="0.48001"></rect>
+<rect height="13.26" x="279.3" style="fill: rgb(0%, 0%, 0%)" y="27.78" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 137.64 61.44 L 133.44 64.38"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 139.32 63.9 L 133.44 64.38 L 135.9 59.04"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 159.54 46.2 L 137.64 61.44"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 440.46 53.52 L 444.48 56.7"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 442.32 51.18 L 444.48 56.7 L 438.66 55.86"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 423.6 40.2 L 440.46 53.52"></path>
+<rect height="0.23999" x="327.3" style="fill: rgb(0%, 0%, 0%)" y="28.50001" width="0.48001"></rect>
+<rect height="11.7" x="327.3" style="fill: rgb(0%, 0%, 0%)" y="28.74" width="0.48001"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 350.46 57.06 L 351.0 62.16"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 353.4 56.76 L 351.0 62.16 L 347.52 57.42"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 348.6 40.74 L 350.46 57.06"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 280.68 52.92 L 276.06 55.2"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 281.94 55.62 L 276.06 55.2 L 279.36 50.28"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 302.52 42.24 L 280.68 52.92"></path>
+<text x="394.86" textLength="49.83" y="23.796" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">10</text>
+<text x="62.58" textLength="14.0712" y="36.036" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">imm8</text>
+<text x="297.6" textLength="9.75240000000002" y="37.176" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">SPE</text>
+<text x="345.12" textLength="6.786" y="37.176" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">RS</text>
+<text x="164.58" textLength="45.7308" y="37.716" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Fixed point length</text>
+<text x="391.08" textLength="59.0819999999998" y="37.716" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Round Control Override</text>
+<text x="224.04" textLength="97.7429999999999" y="62.556" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Suppress Precision Exception: Imm8[3]</text>
+<text x="439.08" textLength="97.5281999999995" y="65.196" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 00b : Round nearest even</text>
+<text x="342.12" textLength="57.2586000000002" y="71.496" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Round Select: Imm8[2]</text>
+<text x="224.04" textLength="108.2826" y="72.396" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3] = 0b : Use MXCSR exception mask</text>
+<text x="82.08" textLength="117.6576" y="74.676" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[7:4] : Number of fixed points to subtract</text>
+<text x="439.08" textLength="78.3072000000001" y="75.036" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 01b : Round down</text>
+<text x="342.12" textLength="75.6233999999999" y="81.336" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[2] = 0b : Use Imm8[1:0]</text>
+<text x="224.04" textLength="61.6589999999999" y="82.236" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3] = 1b : Suppress</text>
+<text x="439.08" textLength="70.6085999999999" y="84.876" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 10b : Round up</text>
+<text x="342.12" textLength="67.5353999999999" y="91.176" lengthAdjust="spacingAndGlyphs" style="font-size: 7.51799999999999pt; fill: #000">Imm8[2] = 1b : Use MXCSR</text>
+<text x="439.08" textLength="69.3239999999999" y="94.716" lengthAdjust="spacingAndGlyphs" style="font-size: 7.51799999999999pt; fill: #000">Imm8[1:0] = 11b : Truncate</text></g></svg>
+<figcaption><a href="./VREDUCEPD.html#fig-5-28">Figure 5-28</a>. Imm8 Controls for VREDUCEPD/SD/PS/SS</figcaption></figure>
+<p>Handling of special case of input values are listed in <a href="./VREDUCEPD.html#tbl-5-24">Table 5-24</a>.</p>
+<figure id="tbl-5-24">
+<table>
+<tr>
+<th></th>
+<th>Round Mode</th>
+<th>Returned value</th></tr>
+<tr>
+<td>|Src1| &lt; 2<sup>-M-1</sup></td>
+<td>RNE</td>
+<td>Src1</td></tr>
+<tr>
+<td rowspan="4">|Src1| &lt; 2<sup>-M</sup></td>
+<td>RPI, Src1 &gt; 0</td>
+<td>Round (Src1-2<sup>-M</sup>) *</td></tr>
+<tr>
+<td>RPI, Src1 ≤ 0</td>
+<td>Src1</td></tr>
+<tr>
+<td>RNI, Src1 ≥ 0</td>
+<td>Src1</td></tr>
+<tr>
+<td>RNI, Src1 &lt; 0</td>
+<td>Round (Src1+2<sup>-M</sup>) *</td></tr>
+<tr>
+<td rowspan="2">Src1 = ±0, or Dest = ±0 (Src1!=INF)</td>
+<td>NOT RNI</td>
+<td>+0.0</td></tr>
+<tr>
+<td>RNI</td>
+<td>-0.0</td></tr>
+<tr>
+<td>Src1 = ±INF</td>
+<td>any</td>
+<td>+0.0</td></tr>
+<tr>
+<td>Src1= ±NAN</td>
+<td>n/a</td>
+<td>QNaN(Src1)</td></tr></table>
+<figcaption><a href="./VREDUCEPD.html#tbl-5-24">Table 5-24</a>. VREDUCEPD/SD/PS/SS Special Cases</figcaption></figure>
+<p>* Round control = (imm8.MS1)? MXCSR.RC: imm8.RC</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>ReduceArgumentDP(SRC[63:0], imm8[7:0])
+{
+    // Check for NaN
+    IF (SRC [63:0] = NAN) THEN
+        RETURN (Convert SRC[63:0] to QNaN); FI;
+    M ← imm8[7:4]; // Number of fraction bits of the normalized significand to be subtracted
+    RC←imm8[1:0];// Round Control for ROUND() operation
+    RC source←imm[2];
+    SPE←0;// Suppress Precision Exception
+    TMP[63:0] ← 2<sup>-M</sup> *{ROUND(2<sup>M</sup>*SRC[63:0], SPE, RC_source, RC)}; // ROUND() treats SRC and 2<sup>M</sup> as standard binary FP values
+    TMP[63:0]←SRC[63:0] – TMP[63:0]; // subtraction under the same RC,SPE controls
+    RETURN TMP[63:0]; // binary encoded FP with biased exponent and normalized significand
+}
+</pre>
+<h4 id="vreducepd">VREDUCEPD<a class="anchor" href="#vreducepd">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b == 1) AND (SRC *is memory*)
+                THEN DEST[i+63:i]←ReduceArgumentDP(SRC[63:0], imm8[7:0]);
+                ELSE DEST[i+63:i]←ReduceArgumentDP(SRC[i+63:i], imm8[7:0]);
+            FI;
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[i+63:i] remains unchanged*
+            ELSE
+                    ; zeroing-masking
+                DEST[i+63:i] = 0
+        FI;
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VREDUCEPD __m512d _mm512_mask_reduce_pd( __m512d a, int imm, int sae)
+</pre>
+<pre>VREDUCEPD __m512d _mm512_mask_reduce_pd(__m512d s, __mmask8 k, __m512d a, int imm, int sae)
+</pre>
+<pre>VREDUCEPD __m512d _mm512_maskz_reduce_pd(__mmask8 k, __m512d a, int imm, int sae)
+</pre>
+<pre>VREDUCEPD __m256d _mm256_mask_reduce_pd( __m256d a, int imm)
+</pre>
+<pre>VREDUCEPD __m256d _mm256_mask_reduce_pd(__m256d s, __mmask8 k, __m256d a, int imm)
+</pre>
+<pre>VREDUCEPD __m256d _mm256_maskz_reduce_pd(__mmask8 k, __m256d a, int imm)
+</pre>
+<pre>VREDUCEPD __m128d _mm_mask_reduce_pd( __m128d a, int imm)
+</pre>
+<pre>VREDUCEPD __m128d _mm_mask_reduce_pd(__m128d s, __mmask8 k, __m128d a, int imm)
+</pre>
+<pre>VREDUCEPD __m128d _mm_maskz_reduce_pd(__mmask8 k, __m128d a, int imm)
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Invalid, Precision</p>
+<p>If SPE is enabled, precision exception is not reported (regardless of MXCSR exception mask).</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E2, additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

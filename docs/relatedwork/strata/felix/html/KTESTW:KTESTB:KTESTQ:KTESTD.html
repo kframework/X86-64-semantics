@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>KTESTW/KTESTB/KTESTQ/KTESTD
+		— Packed Bit Test Masks and Set Flags</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>KTESTW/KTESTB/KTESTQ/KTESTD
+		— Packed Bit Test Masks and Set Flags</h1>
+
+
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.L0.0F.W0 99 /r KTESTW k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Set ZF and CF depending on sign bit AND and ANDN of 16 bits mask register sources.</td></tr>
+<tr>
+<td>VEX.L0.66.0F.W0 99 /r KTESTB k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Set ZF and CF depending on sign bit AND and ANDN of 8 bits mask register sources.</td></tr>
+<tr>
+<td>VEX.L0.0F.W1 99 /r KTESTQ k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Set ZF and CF depending on sign bit AND and ANDN of 64 bits mask register sources.</td></tr>
+<tr>
+<td>VEX.L0.66.0F.W1 99 /r KTESTD k1, k2</td>
+<td>RR</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Set ZF and CF depending on sign bit AND and ANDN of 32 bits mask register sources.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand2</td></tr>
+<tr>
+<td>RR</td>
+<td>ModRM:reg (r)</td>
+<td>ModRM:r/m (r, ModRM:[7:6] must be 11b)</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a bitwise comparison of the bits of the first source operand and corresponding bits in the second source operand. If the AND operation produces all zeros, the ZF is set else the ZF is clear. If the bitwise AND operation of the inverted first source operand with the second source operand produces all zeros the CF is set else the CF is clear. Only the EFLAGS register is updated.</p>
+<p>Note: In VEX-encoded versions, VEX.vvvv is reserved and must be 1111b, otherwise instructions will #UD.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="ktestw">KTESTW<a class="anchor" href="#ktestw">
+			¶
+		</a></h3>
+<pre>TEMP[15:0]←SRC2[15:0] AND SRC1[15:0]
+IF (TEMP[15:0] = = 0)
+    THEN ZF←1;
+    ELSE ZF←0;
+FI;
+TEMP[15:0]←SRC2[15:0] AND NOT SRC1[15:0]
+IF (TEMP[15:0] = = 0)
+    THEN CF←1;
+    ELSE CF←0;
+FI;
+AF←OF←PF←SF←0;
+</pre>
+<h3 id="ktestb">KTESTB<a class="anchor" href="#ktestb">
+			¶
+		</a></h3>
+<pre>TEMP[7:0]←SRC2[7:0] AND SRC1[7:0]
+IF (TEMP[7:0] = = 0)
+    THEN ZF←1;
+    ELSE ZF←0;
+FI;
+TEMP[7:0]←SRC2[7:0] AND NOT SRC1[7:0]
+IF (TEMP[7:0] = = 0)
+    THEN CF←1;
+    ELSE CF←0;
+FI;
+AF←OF←PF←SF←0;
+</pre>
+<h3 id="ktestq">KTESTQ<a class="anchor" href="#ktestq">
+			¶
+		</a></h3>
+<pre>TEMP[63:0]←SRC2[63:0] AND SRC1[63:0]
+IF (TEMP[63:0] = = 0)
+    THEN ZF←1;
+    ELSE ZF←0;
+FI;
+TEMP[63:0]←SRC2[63:0] AND NOT SRC1[63:0]
+IF (TEMP[63:0] = = 0)
+    THEN CF←1;
+    ELSE CF←0;
+FI;
+AF←OF←PF←SF←0;
+</pre>
+<h3 id="ktestd">KTESTD<a class="anchor" href="#ktestd">
+			¶
+		</a></h3>
+<pre>TEMP[31:0]←SRC2[31:0] AND SRC1[31:0]
+IF (TEMP[31:0] = = 0)
+    THEN ZF←1;
+    ELSE ZF←0;
+FI;
+TEMP[31:0]←SRC2[31:0] AND NOT SRC1[31:0]
+IF (TEMP[31:0] = = 0)
+    THEN CF←1;
+    ELSE CF←0;
+FI;
+AF←OF←PF←SF←0;
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type K20.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

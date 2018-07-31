@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:history xmlns:x86="http://www.felixcloutier.com/x86" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/1999/xhtml">
+<x86:renamed-url from="PREFETCHWT1" to="PREFETCHW"/>
+<x86:renamed-url from="MOVDQU,VMOVDQU8:16:32:64" to="MOVDQU:VMOVDQU8:VMOVDQU16:VMOVDQU32:VMOVDQU64"/>
+<x86:renamed-url from="VPBROADCASTB:W:D:Q" to="VPBROADCASTB:VPBROADCASTW:VPBROADCASTD:VPBROADCASTQ"/>
+<x86:renamed-url from="MOVDQA,VMOVDQA32:64" to="MOVDQA:VMOVDQA32:VMOVDQA64"/>
+<x86:renamed-url from="FCOMI:FCOMIP:" to="FCOMI:FCOMIP:FUCOMI:FUCOMIP"/>
+<x86:renamed-url from="PROLD:PROLVD:PROLQ:PROLVQ" to="VPROLD:VPROLVD:VPROLQ:VPROLVQ"/>
+<x86:renamed-url from="VPERMI2W:D:Q:PS:PD" to="VPERMI2W:VPERMI2D:VPERMI2Q:VPERMI2PS:VPERMI2PD"/>
+<x86:renamed-url from="FUCOMI:FUCOMIP:" to="FCOMI:FCOMIP:FUCOMI:FUCOMIP"/>
+<x86:renamed-url from="INT n:INTO:INT 3" to="INTn:INTO:INT3"/>
+<x86:renamed-url from="PRORD:PRORVD:PRORQ:PRORVQ" to="VPRORD:VPRORVD:VPRORQ:VPRORVQ"/>
+<x86:renamed-url from="PUSHF:PUSHFD" to="PUSHF:PUSHFD:PUSHFQ"/>
+<x86:renamed-url from="UD2" to="UD"/>
+<x86:renamed-url from="RCL:RCR:ROL:ROR-" to="RCL:RCR:ROL:ROR"/>
+<x86:renamed-url from="VPLZCNTD:Q" to="VPLZCNTD:VPLZCNTQ"/>
+<x86:renamed-url from="VPCONFLICTD:Q" to="VPCONFLICTD:VPCONFLICTQ"/>
+<x86:renamed-url from="VPTESTNMB:W:D:Q" to="VPTESTNMB:VPTESTNMW:VPTESTNMD:VPTESTNMQ"/></x86:history>

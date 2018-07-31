@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>LGDT/LIDT
+		— Load Global/Interrupt Descriptor Table Register</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>LGDT/LIDT
+		— Load Global/Interrupt Descriptor Table Register</h1>
+
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>0F 01 /2</td>
+<td>LGDT <em>m16&amp;32</em></td>
+<td>M</td>
+<td>N.E.</td>
+<td>Valid</td>
+<td>Load <em>m</em> into GDTR.</td></tr>
+<tr>
+<td>0F 01 /3</td>
+<td>LIDT <em>m16&amp;32</em></td>
+<td>M</td>
+<td>N.E.</td>
+<td>Valid</td>
+<td>Load <em>m</em> into IDTR.</td></tr>
+<tr>
+<td>0F 01 /2</td>
+<td>LGDT <em>m16&amp;64</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Load <em>m</em> into GDTR.</td></tr>
+<tr>
+<td>0F 01 /3</td>
+<td>LIDT <em>m16&amp;64</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Load <em>m</em> into IDTR.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Loads the values in the source operand into the global descriptor table register (GDTR) or the interrupt descriptor table register (IDTR). The source operand specifies a 6-byte memory location that contains the base address (a linear address) and the limit (size of table in bytes) of the global descriptor table (GDT) or the interrupt descriptor table (IDT). If operand-size attribute is 32 bits, a 16-bit limit (lower 2 bytes of the 6-byte data operand) and a 32-bit base address (upper 4 bytes of the data operand) are loaded into the register. If the operand-size attribute is 16 bits, a 16-bit limit (lower 2 bytes) and a 24-bit base address (third, fourth, and fifth byte) are loaded. Here, the high-order byte of the operand is not used and the high-order byte of the base address in the GDTR or IDTR is filled with zeros.</p>
+<p>The LGDT and LIDT instructions are used only in operating-system software; they are not used in application programs. They are the only instructions that directly load a linear address (that is, not a segment-relative address) and a limit in protected mode. They are commonly executed in real-address mode to allow processor initialization prior to switching to protected mode.</p>
+<p>In 64-bit mode, the instruction’s operand size is fixed at 8+2 bytes (an 8-byte base and a 2-byte limit). See the summary chart at the beginning of this section for encoding data and limits.</p>
+<p>See “SGDT—Store Global Descriptor Table Register” in Chapter 4, <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2B</em>, for information on storing the contents of the GDTR and IDTR.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF Instruction is LIDT
+    THEN
+        IF OperandSize = 16
+            THEN
+                IDTR(Limit) ← SRC[0:15];
+                IDTR(Base) ← SRC[16:47] AND 00FFFFFFH;
+            ELSE IF 32-bit Operand Size
+                THEN
+                    IDTR(Limit) ← SRC[0:15];
+                    IDTR(Base) ← SRC[16:47];
+                FI;
+            ELSE IF 64-bit Operand Size (* In 64-Bit Mode *)
+                THEN
+                    IDTR(Limit) ← SRC[0:15];
+                    IDTR(Base) ← SRC[16:79];
+                FI;
+        FI;
+    ELSE (* Instruction is LGDT *)
+        IF OperandSize = 16
+            THEN
+                GDTR(Limit) ← SRC[0:15];
+                GDTR(Base) ← SRC[16:47] AND 00FFFFFFH;
+            ELSE IF 32-bit Operand Size
+                THEN
+                    GDTR(Limit) ← SRC[0:15];
+                    GDTR(Base) ← SRC[16:47];
+                FI;
+            ELSE IF 64-bit Operand Size (* In 64-Bit Mode *)
+                THEN
+                    GDTR(Limit) ← SRC[0:15];
+                    GDTR(Base) ← SRC[16:79];
+                FI;
+        FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register is used to access memory and it contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#GP</td>
+<td>If the current privilege level is not 0.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

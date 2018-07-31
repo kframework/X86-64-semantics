@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>SHA1RNDS4
+		— Perform Four Rounds of SHA1 Operation</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SHA1RNDS4
+		— Perform Four Rounds of SHA1 Operation</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 3A CC /r ib SHA1RNDS4 xmm1, xmm2/m128, imm8</td>
+<td>RMI</td>
+<td>V/V</td>
+<td>SHA</td>
+<td>Performs four rounds of SHA1 operation operating on SHA1 state (A,B,C,D) from xmm1, with a pre-computed sum of the next 4 round message dwords and state variable E from xmm2/m128. The immediate byte controls logic functions and round constants.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RMI</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>The SHA1RNDS4 instruction performs four rounds of SHA1 operation using an initial SHA1 state (A,B,C,D) from the first operand (which is a source operand and the destination operand) and some pre-computed sum of the next 4 round message dwords, and state variable E from the second operand (a source operand). The updated SHA1 state (A,B,C,D) after four rounds of processing is stored in the destination operand.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="sha1rnds4">SHA1RNDS4<a class="anchor" href="#sha1rnds4">
+			¶
+		</a></h4>
+<pre>The function f() and Constant K are dependent on the value of the immediate.
+IF ( imm8[1:0] = 0 )
+    THEN f()←f0(), K←K<sub>0</sub>;
+ELSE IF ( imm8[1:0] = 1 )
+    THEN f()←f1(), K←K<sub>1</sub>;
+ELSE IF ( imm8[1:0] = 2 )
+    THEN f()←f2(), K←K<sub>2</sub>;
+ELSE IF ( imm8[1:0] = 3 )
+    THEN f()←f3(), K←K3;
+FI;
+A ← SRC1[127:96];
+B ← SRC1[95:64];
+C ← SRC1[63:32];
+D ← SRC1[31:0];
+W<sub>0</sub>E ← SRC2[127:96];
+W<sub>1</sub> ← SRC2[95:64];
+W<sub>2</sub> ← SRC2[63:32];
+W<sub>3</sub> ← SRC2[31:0];
+Round i = 0 operation:
+A_1←f (B, C, D) + (A ROL 5) +W<sub>0</sub>E +K;
+B_1←A;
+C_1←B ROL 30;
+D_1←C;
+E_1←D;
+FOR i = 1 to 3
+    A_(i +1) ← f (B_i, C_i, D_i) + (A_i ROL 5) +W<sub>i</sub>+ E_i +K;
+    B_(i +1)←A_i;
+    C_(i +1)←B_i ROL 30;
+    D_(i +1)←C_i;
+    E_(i +1)←D_i;
+ENDFOR
+DEST[127:96] ← A_4;
+DEST[95:64] ← B_4;
+DEST[63:32] ← C_4;
+DEST[31:0] ← D_4;
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>SHA1RNDS4: __m128i _mm_sha1rnds4_epu32(__m128i, __m128i, const int);
+</pre>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type 4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

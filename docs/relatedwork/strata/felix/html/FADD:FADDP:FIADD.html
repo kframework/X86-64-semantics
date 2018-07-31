@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>FADD/FADDP/FIADD
+		— Add</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>FADD/FADDP/FIADD
+		— Add</h1>
+
+
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D8 /0</td>
+<td>FADD <em>m32fp</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add <em>m32fp</em> to ST(0) and store result in ST(0).</td></tr>
+<tr>
+<td>DC /0</td>
+<td>FADD <em>m64fp</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add <em>m64fp</em> to ST(0) and store result in ST(0).</td></tr>
+<tr>
+<td>D8 C0+i</td>
+<td>FADD ST(0), ST(i)</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add ST(0) to ST(i) and store result in ST(0).</td></tr>
+<tr>
+<td>DC C0+i</td>
+<td>FADD ST(i), ST(0)</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add ST(i) to ST(0) and store result in ST(i).</td></tr>
+<tr>
+<td>DE C0+i</td>
+<td>FADDP ST(i), ST(0)</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add ST(0) to ST(i), store result in ST(i), and pop the register stack.</td></tr>
+<tr>
+<td>DE C1</td>
+<td>FADDP</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add ST(0) to ST(1), store result in ST(1), and pop the register stack.</td></tr>
+<tr>
+<td>DA /0</td>
+<td>FIADD <em>m32int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add <em>m32int</em> to ST(0) and store result in ST(0).</td></tr>
+<tr>
+<td>DE /0</td>
+<td>FIADD <em>m16int</em></td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Add <em>m16int</em> to ST(0) and store result in ST(0).</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Adds the destination and source operands and stores the sum in the destination location. The destination operand is always an FPU register; the source operand can be a register or a memory location. Source operands in memory can be in single-precision or double-precision floating-point format or in word or doubleword integer format.</p>
+<p>The no-operand version of the instruction adds the contents of the ST(0) register to the ST(1) register. The one-operand version adds the contents of a memory location (either a floating-point or an integer value) to the contents of the ST(0) register. The two-operand version, adds the contents of the ST(0) register to the ST(i) register or vice versa. The value in ST(0) can be doubled by coding:</p>
+<p>FADD ST(0), ST(0);</p>
+<p>The FADDP instructions perform the additional operation of popping the FPU register stack after storing the result. To pop the register stack, the processor marks the ST(0) register as empty and increments the stack pointer (TOP) by 1. (The no-operand version of the floating-point add instructions always results in the register stack being popped. In some assemblers, the mnemonic for this instruction is FADD rather than FADDP.)</p>
+<p>The FIADD instructions convert an integer source operand to double extended-precision floating-point format before performing the addition.</p>
+<p>The table on the following page shows the results obtained when adding various classes of numbers, assuming that neither overflow nor underflow occurs.</p>
+<p>When the sum of two operands with opposite signs is 0, the result is +0, except for the round toward −∞ mode, in which case the result is −0. When the source operand is an integer 0, it is treated as a +0.</p>
+<p>When both operand are infinities of the same sign, the result is ∞ of the expected sign. If both operands are infinities of opposite signs, an invalid-operation exception is generated. See <a href="./FADD:FADDP:FIADD.html#tbl-3-18">Table 3-18</a>.</p>
+<figure id="tbl-3-18">
+<table>
+<tr>
+<th colspan="9">DEST</th></tr>
+<tr>
+<td rowspan="8"><strong>SRC</strong></td>
+<td></td>
+<td>−∞</td>
+<td>−F</td>
+<td>−0</td>
+<td>+0</td>
+<td>+F</td>
+<td>+∞</td>
+<td>NaN</td></tr>
+<tr>
+<td>−∞</td>
+<td>−∞</td>
+<td>−∞</td>
+<td>−∞</td>
+<td>−∞</td>
+<td>−∞</td>
+<td>*</td>
+<td>NaN</td></tr>
+<tr>
+<td>− F or − I</td>
+<td>−∞</td>
+<td>−F</td>
+<td>SRC</td>
+<td>SRC</td>
+<td>± F or ± 0</td>
+<td>+∞</td>
+<td>NaN</td></tr>
+<tr>
+<td>−0</td>
+<td>−∞</td>
+<td>DEST</td>
+<td>−0</td>
+<td>±0</td>
+<td>DEST</td>
+<td>+∞</td>
+<td>NaN</td></tr>
+<tr>
+<td>+0</td>
+<td>−∞</td>
+<td>DEST</td>
+<td>±0</td>
+<td>+0</td>
+<td>DEST</td>
+<td>+∞</td>
+<td>NaN</td></tr>
+<tr>
+<td>+ F or + I</td>
+<td>−∞</td>
+<td>± F or ± 0</td>
+<td>SRC</td>
+<td>SRC</td>
+<td>+F</td>
+<td>+∞</td>
+<td>NaN</td></tr>
+<tr>
+<td>+∞</td>
+<td>*</td>
+<td>+∞</td>
+<td>+∞</td>
+<td>+∞</td>
+<td>+∞</td>
+<td>+∞</td>
+<td>NaN</td></tr>
+<tr>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td></tr></table>
+<figcaption><a href="./FADD:FADDP:FIADD.html#tbl-3-18">Table 3-18</a>. FADD/FADDP/FIADD Results</figcaption></figure>
+<blockquote>
+<p>F Means finite floating-point value.</p>
+<p>I Means integer.</p>
+<p>* Indicatesfloating-pointinvalid-arithmetic-operand(#IA)exception.</p></blockquote>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF Instruction = FIADD
+    THEN
+        DEST ← DEST + ConvertToDoubleExtendedPrecisionFP(SRC);
+    ELSE (* Source operand is floating-point value *)
+        DEST ← DEST + SRC;
+FI;
+IF Instruction = FADDP
+    THEN
+        PopRegisterStack;
+FI;
+</pre>
+<h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="#fpu-flags-affected">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">C1</td>
+<td>Set to 0 if stack underflow occurred.</td></tr>
+<tr>
+<td>Set if result was rounded up; cleared otherwise.</td></tr>
+<tr>
+<td>C0, C2, C3</td>
+<td>Undefined.</td></tr></table>
+<h2 class="exceptions" id="floating-point-exceptions">Floating-Point Exceptions<a class="anchor" href="#floating-point-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#IS</td>
+<td>Stack underflow occurred.</td></tr>
+<tr>
+<td rowspan="2">#IA</td>
+<td>Operand is an SNaN value or unsupported format.</td></tr>
+<tr>
+<td>Operands are infinities of unlike sign.</td></tr>
+<tr>
+<td>#D</td>
+<td>Source operand is a denormal value.</td></tr>
+<tr>
+<td>#U</td>
+<td>Result is too small for destination format.</td></tr>
+<tr>
+<td>#O</td>
+<td>Result is too large for destination format.</td></tr>
+<tr>
+<td>#P</td>
+<td>Value cannot be represented exactly in destination format.</td></tr></table>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

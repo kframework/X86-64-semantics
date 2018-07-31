@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>HADDPD
+		— Packed Double-FP Horizontal Add</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>HADDPD
+		— Packed Double-FP Horizontal Add</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F 7C /<em>r</em> HADDPD <em>xmm1, xmm2/m128</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSE3</td>
+<td>Horizontal add packed double-precision floating-point values from <em>xmm2/m128</em> to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG 7C /r VHADDPD xmm1,xmm2, xmm3/m128</td>
+<td>RVM</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Horizontal add packed double-precision floating-point values from xmm2 and xmm3/mem.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG 7C /r VHADDPD ymm1, ymm2, ymm3/m256</td>
+<td>RVM</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Horizontal add packed double-precision floating-point values from ymm2 and ymm3/mem.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>RVM</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Adds the double-precision floating-point values in the high and low quadwords of the destination operand and stores the result in the low quadword of the destination operand.</p>
+<p>Adds the double-precision floating-point values in the high and low quadwords of the source operand and stores the result in the high quadword of the destination operand.</p>
+<p>In 64-bit mode, use of the REX.R prefix permits this instruction to access additional registers (XMM8-XMM15).</p>
+<p>See <a href="./HADDPD.html#fig-3-16">Figure 3-16</a> for HADDPD; see <a href="./HADDPD.html#fig-3-17">Figure 3-17</a> for VHADDPD.</p>
+<figure id="fig-3-16">
+<svg style="width: 397.878pt; height: 217.5072pt" viewBox="131.082 0.0 336.565 186.256">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="181.256" x="133.582" style="stroke: rgb(0%, 0%, 0%)" y="0.0" width="331.565"></rect>
+<rect height="26.525" x="292.733" style="fill: rgb(100%, 100%, 100%)" y="25.421" width="132.626"></rect>
+<rect height="26.525" x="292.733" style="stroke: rgb(0%, 0%, 0%)" y="25.42" width="132.626"></rect>
+<rect height="26.525" x="160.107" style="fill: rgb(100%, 100%, 100%)" y="25.421" width="132.626"></rect>
+<rect height="26.525" x="160.107" style="stroke: rgb(0%, 0%, 0%)" y="25.42" width="132.626"></rect>
+<rect height="26.525" x="292.733" style="fill: rgb(100%, 100%, 100%)" y="72.945" width="132.626"></rect>
+<rect height="26.525" x="292.733" style="stroke: rgb(0%, 0%, 0%)" y="72.945" width="132.626"></rect>
+<rect height="26.525" x="160.107" style="fill: rgb(100%, 100%, 100%)" y="72.945" width="132.626"></rect>
+<rect height="26.525" x="160.107" style="stroke: rgb(0%, 0%, 0%)" y="72.945" width="132.626"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 226.42 125.347 L 226.42 119.364 L 146.844 119.364 L 146.844 62.443 L 359.046 62.443 L 359.046 51.941"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 229.132 124.993 L 226.42 130.416 L 223.709 124.993 L 229.132 124.993"></path>
+<rect height="26.525" x="160.107" style="fill: rgb(80%, 80%, 80%)" y="130.417" width="132.626"></rect>
+<rect height="26.525" x="160.107" style="stroke: rgb(0%, 0%, 0%)" y="130.416" width="132.626"></rect>
+<rect height="26.525" x="292.733" style="fill: rgb(80%, 80%, 80%)" y="130.417" width="132.626"></rect>
+<rect height="26.525" x="292.733" style="stroke: rgb(0%, 0%, 0%)" y="130.416" width="132.626"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 359.046 125.347 L 359.046 110.522 L 226.42 110.522 L 226.42 99.47"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 361.758 124.993 L 359.047 130.416 L 356.335 124.993 L 361.758 124.993"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 226.42 51.946 L 226.42 62.448"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 359.046 99.47 L 359.046 110.522"></path>
+<text x="240.5524" textLength="104.3636447" y="17.824353" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">HADDPD xmm1, xmm2/m128</text>
+<text x="430.61542376" textLength="21.3930146" y="37.9755982" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">xmm2</text>
+<text x="212.2146" textLength="28.4035102" y="42.691353" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">[127:64]</text>
+<text x="349.2124" textLength="19.6639686" y="42.691353" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">[63:0]</text>
+<text x="430.61542376" textLength="21.8409947000001" y="47.4067582" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">/m128</text>
+<text x="430.61542376" textLength="21.3930146" y="90.21557937" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985249999998pt; fill: #000">xmm1</text>
+<text x="212.2146" textLength="28.4035102" y="90.215753" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">[127:64]</text>
+<text x="349.2124" textLength="19.6639686" y="90.215753" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">[63:0]</text>
+<text x="430.61511584" textLength="24.4581416" y="142.97130425" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">Result:</text>
+<text x="191.5839" textLength="69.6726945000001" y="142.971553" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">xmm2/m128[63:0] +</text>
+<text x="309.1397" textLength="99.8131100000001" y="147.687153" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">xmm1[63:0] + xmm1[127:64]</text>
+<text x="430.61511584" textLength="21.3930146" y="152.40246425" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">xmm1</text>
+<text x="190.6014875" textLength="71.6375195" y="152.402713" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">xmm2/m128[127:64]</text>
+<text x="212.22481709" textLength="28.4035102" y="170.90954506" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">[127:64]</text>
+<text x="353.64348943" textLength="19.6639686" y="170.90954506" lengthAdjust="spacingAndGlyphs" style="font-size: 7.26985250000001pt; fill: #000">[63:0]</text></g></svg>
+<figcaption><a href="./HADDPD.html#fig-3-16">Figure 3-16</a>. HADDPD—Packed Double-FP Horizontal Add</figcaption></figure>
+<figure id="fig-3-17">
+<svg style="width: 380.950842192pt; height: 97.776pt" viewBox="139.10100484 0.0 322.45903516 86.48">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="0.47998" x="161.82" style="fill: rgb(0%, 0%, 0%)" y="67.5000200000001" width="74.52"></rect>
+<rect height="13.74" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="67.74" width="0.48"></rect>
+<rect height="0.47998" x="161.58" style="fill: rgb(0%, 0%, 0%)" y="81.0000200000001" width="74.52"></rect>
+<rect height="13.74" x="161.58" style="fill: rgb(0%, 0%, 0%)" y="67.5" width="0.48"></rect>
+<rect height="13.5" x="236.1" style="fill: rgb(100%, 100%, 100%)" y="67.74" width="74.22"></rect>
+<rect height="0.47998" x="236.1" style="fill: rgb(0%, 0%, 0%)" y="67.5000200000001" width="74.46"></rect>
+<rect height="13.74" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="67.74" width="0.48001"></rect>
+<rect height="0.47998" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="81.0000200000001" width="74.46"></rect>
+<rect height="13.74" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="67.5" width="0.48"></rect>
+<rect height="13.5" x="310.32" style="fill: rgb(100%, 100%, 100%)" y="67.74" width="74.28"></rect>
+<rect height="0.47998" x="310.32" style="fill: rgb(0%, 0%, 0%)" y="67.5000200000001" width="74.52"></rect>
+<rect height="13.74" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="67.74" width="0.47998"></rect>
+<rect height="0.47998" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="81.0000200000001" width="74.52"></rect>
+<rect height="13.74" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="67.5" width="0.48001"></rect>
+<rect height="13.5" x="384.6" style="fill: rgb(100%, 100%, 100%)" y="67.74" width="74.22"></rect>
+<rect height="0.47998" x="384.6" style="fill: rgb(0%, 0%, 0%)" y="67.5000200000001" width="74.46"></rect>
+<rect height="13.74" x="458.58" style="fill: rgb(0%, 0%, 0%)" y="67.74" width="0.48004"></rect>
+<rect height="0.47998" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="81.0000200000001" width="74.46"></rect>
+<rect height="13.74" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="67.5" width="0.47998"></rect>
+<rect height="13.5" x="161.82" style="fill: rgb(100%, 100%, 100%)" y="0.240000000000009" width="74.28"></rect>
+<rect height="0.47998" x="161.82" style="fill: rgb(0%, 0%, 0%)" y="2.00000000631917e-05" width="74.52"></rect>
+<rect height="13.74" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="0.240000000000009" width="0.48"></rect>
+<rect height="0.47998" x="161.58" style="fill: rgb(0%, 0%, 0%)" y="13.5000200000001" width="74.52"></rect>
+<rect height="13.74" x="161.58" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="0.48"></rect>
+<rect height="13.5" x="236.1" style="fill: rgb(100%, 100%, 100%)" y="0.240000000000009" width="74.22"></rect>
+<rect height="0.47998" x="236.1" style="fill: rgb(0%, 0%, 0%)" y="2.00000000631917e-05" width="74.46"></rect>
+<rect height="13.74" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="0.240000000000009" width="0.48001"></rect>
+<rect height="0.47998" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="13.5000200000001" width="74.46"></rect>
+<rect height="13.74" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="0.48"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 263.4 58.14 L 263.52 57.96 L 263.58 57.78 C 263.73 56.77 262.681 56.223 261.9 56.8199999999999L 261.78 56.9399999999999 L 261.66 57.12 C 261.257 58.168 262.476 58.905 263.1 58.38L 263.28 58.26 L 263.4 58.14"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 262.62 57.54 L 265.14 54.0599999999999 L 265.56 53.5799999999999 L 265.92 54.0599999999999 L 275.52 66.36 L 276.6 67.74 L 274.98 67.14 L 260.34 61.8 L 259.68 61.5599999999999 L 260.1 61.02 L 260.64 60.8399999999999 L 275.28 66.1799999999999 L 274.98 67.14 L 274.74 66.9599999999999 L 265.14 54.66 L 265.92 54.0599999999999 L 265.92 54.66 L 263.4 58.14"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 260.1 61.02 L 262.62 57.54 L 263.4 58.14 L 260.88 61.62"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 262.98 57.84 L 265.5 54.36 L 275.1 66.6600000000001 L 260.46 61.3200000000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 202.92 12.96 L 201.78 14.58 L 262.08 58.38 L 263.22 56.76"></path>
+<rect height="13.5" x="310.32" style="fill: rgb(100%, 100%, 100%)" y="0.240000000000009" width="74.28"></rect>
+<rect height="0.47998" x="310.32" style="fill: rgb(0%, 0%, 0%)" y="2.00000000631917e-05" width="74.52"></rect>
+<rect height="13.74" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="0.240000000000009" width="0.47998"></rect>
+<rect height="0.47998" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="13.5000200000001" width="74.52"></rect>
+<rect height="13.74" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="0.48001"></rect>
+<rect height="13.5" x="384.6" style="fill: rgb(100%, 100%, 100%)" y="0.240000000000009" width="74.22"></rect>
+<rect height="0.47998" x="384.6" style="fill: rgb(0%, 0%, 0%)" y="2.00000000631917e-05" width="74.46"></rect>
+<rect height="13.74" x="458.58" style="fill: rgb(0%, 0%, 0%)" y="0.240000000000009" width="0.48004"></rect>
+<rect height="0.47998" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="13.5000200000001" width="74.46"></rect>
+<rect height="13.74" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="0.47998"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 425.1 51.42 L 425.28 51.42 L 425.46 51.36 C 426.393 50.938 426.275 49.703 425.28 49.4399999999999L 424.92 49.4399999999999 L 424.68 49.5 L 424.56 49.62 L 424.38 49.74 L 424.26 49.86 L 424.08 50.4 C 424.204 50.7809999999999 424.156 51.0459999999999 424.56 51.24L 424.68 51.36 L 424.92 51.42 L 425.1 51.42"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 425.1 50.46 L 430.08 50.46 L 429.9 51.12 L 425.58 66.12 L 425.1 67.8000000000001 L 424.62 66.12 L 420.3 51.12 L 420.12 50.46 L 420.78 50.46 L 421.26 50.8200000000001 L 425.58 65.8200000000001 L 424.62 66.12 L 424.62 65.8200000000001 L 428.94 50.8200000000001 L 429.9 51.12 L 429.42 51.48 L 425.1 51.48"></path>
+<rect height="1.02" x="420.78" style="fill: rgb(0%, 0%, 0%)" y="50.46" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 425.1 50.9400000000001 L 429.42 50.9400000000001 L 425.1 65.9400000000001 L 420.78 50.9400000000001"></path>
+<rect height="36.66" x="424.14" style="fill: rgb(0%, 0%, 0%)" y="13.74" width="1.98"></rect>
+<rect height="1.98" x="202.32" style="fill: rgb(0%, 0%, 0%)" y="39.78" width="74.28"></rect>
+<rect height="1.98" x="350.82" style="fill: rgb(0%, 0%, 0%)" y="39.78" width="74.28"></rect>
+<rect height="13.5" x="161.82" style="fill: rgb(100%, 100%, 100%)" y="30.6" width="74.28"></rect>
+<rect height="0.47998" x="161.82" style="fill: rgb(0%, 0%, 0%)" y="30.3600200000001" width="74.52"></rect>
+<rect height="13.74" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="30.6" width="0.48"></rect>
+<rect height="0.47998" x="161.58" style="fill: rgb(0%, 0%, 0%)" y="43.8600200000001" width="74.52"></rect>
+<rect height="13.74" x="161.58" style="fill: rgb(0%, 0%, 0%)" y="30.36" width="0.48"></rect>
+<rect height="13.5" x="236.1" style="fill: rgb(100%, 100%, 100%)" y="30.6" width="74.22"></rect>
+<rect height="0.47998" x="236.1" style="fill: rgb(0%, 0%, 0%)" y="30.3600200000001" width="74.46"></rect>
+<rect height="13.74" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="30.6" width="0.48001"></rect>
+<rect height="0.47998" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="43.8600200000001" width="74.46"></rect>
+<rect height="13.74" x="235.86" style="fill: rgb(0%, 0%, 0%)" y="30.36" width="0.48"></rect>
+<rect height="13.5" x="310.32" style="fill: rgb(100%, 100%, 100%)" y="30.6" width="74.28"></rect>
+<rect height="0.47998" x="310.32" style="fill: rgb(0%, 0%, 0%)" y="30.3600200000001" width="74.52"></rect>
+<rect height="13.74" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="30.6" width="0.47998"></rect>
+<rect height="0.47998" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="43.8600200000001" width="74.52"></rect>
+<rect height="13.74" x="310.08" style="fill: rgb(0%, 0%, 0%)" y="30.36" width="0.48001"></rect>
+<rect height="13.5" x="384.6" style="fill: rgb(100%, 100%, 100%)" y="30.6" width="74.22"></rect>
+<rect height="0.47998" x="384.6" style="fill: rgb(0%, 0%, 0%)" y="30.3600200000001" width="74.46"></rect>
+<rect height="13.74" x="458.58" style="fill: rgb(0%, 0%, 0%)" y="30.6" width="0.48004"></rect>
+<rect height="0.47998" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="43.8600200000001" width="74.46"></rect>
+<rect height="13.74" x="384.36" style="fill: rgb(0%, 0%, 0%)" y="30.36" width="0.47998"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 411.72 58.4400000000001 L 411.78 58.2600000000001 L 411.84 58.08 C 412.167 57.177 410.918 56.418 410.22 57.12L 410.04 57.3000000000001 L 409.98 57.48 C 409.533 58.4110000000001 410.79 59.224 411.42 58.6800000000001L 411.6 58.5600000000001 L 411.72 58.4400000000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 410.88 57.84 L 413.34 54.3000000000001 L 413.76 53.76 L 414.18 54.3000000000001 L 424.02 66.4200000000001 L 425.1 67.8000000000001 L 423.48 67.2 L 408.72 62.1600000000001 L 408.06 61.9200000000001 L 408.42 61.38 L 409.02 61.2 L 423.78 66.24 L 423.48 67.2 L 423.24 67.02 L 413.4 54.9 L 414.18 54.3000000000001 L 414.18 54.9 L 411.72 58.4400000000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 408.42 61.38 L 410.88 57.84 L 411.72 58.4399999999999 L 409.26 61.98"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 411.3 58.14 L 413.76 54.6 L 423.6 66.72 L 408.84 61.6799999999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 348.06 12.96 L 346.92 14.58 L 410.34 58.6800000000001 L 411.48 57.0600000000001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 276.6 51.42 L 276.78 51.42 L 276.96 51.36 L 277.32 51.12 L 277.44 51.0 L 277.5 50.8199999999999 L 277.56 50.64 L 277.56 50.2199999999999 C 277.384 49.6609999999999 277.467 49.8639999999999 276.96 49.5L 276.78 49.4399999999999 L 276.36 49.4399999999999 C 275.404 49.7629999999999 275.268 50.8579999999999 276.18 51.36L 276.36 51.42 L 276.6 51.42"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 276.6 50.46 L 281.52 50.46 L 281.34 51.12 L 277.08 66.12 L 276.6 67.8000000000001 L 276.12 66.12 L 271.8 51.12 L 271.62 50.46 L 272.28 50.46 L 272.76 50.8200000000001 L 277.08 65.8200000000001 L 276.12 66.12 L 276.12 65.8200000000001 L 280.38 50.8200000000001 L 281.34 51.12 L 280.86 51.48 L 276.6 51.48"></path>
+<rect height="1.02" x="272.28" style="fill: rgb(0%, 0%, 0%)" y="50.46" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 276.6 50.9400000000001 L 280.86 50.9400000000001 L 276.6 65.9400000000001 L 272.28 50.9400000000001"></path>
+<rect height="36.66" x="275.64" style="fill: rgb(0%, 0%, 0%)" y="13.74" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 198.96 51.42 L 199.14 51.42 L 199.32 51.36 C 200.253 50.938 200.135 49.703 199.14 49.4399999999999L 198.78 49.4399999999999 L 198.54 49.5 L 198.42 49.62 L 198.24 49.74 L 198.12 49.86 L 198.0 50.2199999999999 L 197.94 50.4 C 198.064 50.7809999999999 198.016 51.0459999999999 198.42 51.24L 198.54 51.36 L 198.78 51.42 L 198.96 51.42"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 198.96 50.46 L 203.94 50.46 L 203.76 51.12 L 199.44 66.12 L 198.96 67.8000000000001 L 198.48 66.12 L 194.16 51.12 L 193.98 50.46 L 194.64 50.46 L 195.12 50.8200000000001 L 199.44 65.8200000000001 L 198.48 66.12 L 198.48 65.8200000000001 L 202.8 50.8200000000001 L 203.76 51.12 L 203.28 51.48 L 198.96 51.48"></path>
+<rect height="1.02" x="194.64" style="fill: rgb(0%, 0%, 0%)" y="50.46" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 198.96 50.9400000000001 L 203.28 50.9400000000001 L 198.96 65.9400000000001 L 194.64 50.9400000000001"></path>
+<rect height="6.3" x="198.0" style="fill: rgb(0%, 0%, 0%)" y="44.1" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 347.46 51.42 L 347.64 51.42 L 347.88 51.36 L 348.0 51.24 L 348.18 51.12 L 348.3 51.0 L 348.36 50.8199999999999 L 348.42 50.64 L 348.48 50.4 L 348.3 49.86 L 348.18 49.74 L 348.0 49.62 L 347.88 49.5 L 347.64 49.4399999999999 L 347.28 49.4399999999999 C 346.285 49.703 346.167 50.938 347.1 51.36L 347.28 51.42 L 347.46 51.42"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 347.46 50.46 L 352.44 50.46 L 352.26 51.12 L 347.94 66.12 L 347.46 67.8000000000001 L 346.98 66.12 L 342.66 51.12 L 342.48 50.46 L 343.14 50.46 L 343.62 50.8200000000001 L 347.94 65.8200000000001 L 346.98 66.12 L 346.98 65.8200000000001 L 351.3 50.8200000000001 L 352.26 51.12 L 351.78 51.48 L 347.46 51.48"></path>
+<rect height="1.02" x="343.14" style="fill: rgb(0%, 0%, 0%)" y="50.46" width="4.32"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 347.46 50.9400000000001 L 351.78 50.9400000000001 L 347.46 65.9400000000001 L 343.14 50.9400000000001"></path>
+<rect height="6.3" x="346.5" style="fill: rgb(0%, 0%, 0%)" y="44.1" width="1.98"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 214.44 62.58 L 214.5 62.76 L 214.62 62.9400000000001 C 215.285 63.596 216.466 63.1450000000001 216.36 62.1600000000001L 216.3 61.9200000000001 L 216.24 61.74 L 216.12 61.62 L 216.0 61.4400000000001 L 215.82 61.38 L 215.64 61.3200000000001 L 215.46 61.26 L 215.28 61.26 L 215.04 61.3200000000001 C 214.699 61.403 214.527 61.691 214.38 61.98L 214.38 62.4000000000001 L 214.44 62.58"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 215.4 62.22 L 216.72 66.3000000000001 L 216.84 66.96 L 216.24 67.02 L 200.7 67.6800000000001 L 198.96 67.74 L 200.4 66.72 L 213.24 57.9 L 213.78 57.5400000000001 L 214.02 58.14 L 213.78 58.74 L 200.94 67.5600000000001 L 200.4 66.72 L 200.64 66.6600000000001 L 216.18 66.0 L 216.24 67.02 L 215.7 66.6600000000001 L 214.38 62.58"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 214.02 58.14 L 215.4 62.22 L 214.38 62.58 L 213.0 58.5"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 214.92 62.4 L 216.24 66.48 L 200.7 67.14 L 213.54 58.3199999999999"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 270.12 45.0600000000001 L 269.52 43.2 L 215.1 61.3800000000001 L 215.7 63.24"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 366.24 62.34 L 366.3 62.52 L 366.42 62.7 L 366.6 62.8200000000001 L 366.72 62.9400000000001 L 366.9 63.0 L 367.32 63.0 L 367.5 62.9400000000001 L 367.68 62.88 L 367.86 62.76 L 367.98 62.58 L 368.1 62.46 L 368.16 62.2800000000001 L 368.16 61.86 L 368.04 61.5 C 367.54 60.592 366.145 61.063 366.18 61.9200000000001L 366.18 62.1600000000001 L 366.24 62.34"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 367.2 61.98 L 368.58 66.0600000000001 L 368.7 66.72 L 368.1 66.78 L 352.56 67.6800000000001 L 350.82 67.74 L 352.26 66.72 L 364.98 57.72 L 365.52 57.36 L 365.76 57.96 L 365.58 58.5600000000001 L 352.86 67.5600000000001 L 352.26 66.72 L 352.5 66.66 L 368.04 65.76 L 368.1 66.78 L 367.62 66.4200000000001 L 366.24 62.34"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 365.76 57.96 L 367.2 61.98 L 366.24 62.34 L 364.74 58.3200000000001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 366.72 62.16 L 368.1 66.24 L 352.56 67.14 L 365.28 58.14"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 418.68 45.0600000000001 L 418.02 43.2 L 366.9 61.1400000000001 L 367.56 63.0000000000001"></path>
+<text x="197.7" textLength="9.17216670000002" y="10.3508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X3</text>
+<text x="271.92" textLength="9.17216669999999" y="10.3508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X2</text>
+<text x="346.2" textLength="9.17216669999999" y="10.3508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X1</text>
+<text x="420.42" textLength="9.17216669999999" y="10.3508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text>
+<text x="141.84035448" textLength="20.02872472" y="11.97120082" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">SRC1</text>
+<text x="197.7" textLength="9.17216670000002" y="40.7108978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y3</text>
+<text x="271.92" textLength="9.17216669999999" y="40.7108978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y2</text>
+<text x="346.2" textLength="9.17216669999999" y="40.7108978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y1</text>
+<text x="420.42" textLength="9.17216669999999" y="40.7108978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y0</text>
+<text x="141.60121192" textLength="19.97066826" y="42.33120082" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">SRC2</text>
+<text x="141.60100484" textLength="19.96388244" y="77.8508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
+<text x="185.46" textLength="26.8673233200001" y="77.8508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y2 + Y3</text>
+<text x="259.68" textLength="26.8793869999999" y="77.8508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X2 + X3</text>
+<text x="333.96" textLength="26.8673233199999" y="77.8508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">Y0 + Y1</text>
+<text x="408.24" textLength="26.8793869999999" y="77.8508978" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0 + X1</text></g></svg>
+<figcaption><a href="./HADDPD.html#fig-3-17">Figure 3-17</a>. VHADDPD operation</figcaption></figure>
+<p>128-bit Legacy SSE version: The second source can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper bits (MAXVL-1:128) of the corresponding YMM register destination are unmodified.</p>
+<p>VEX.128 encoded version: the first source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding YMM register destination are zeroed.</p>
+<p>VEX.256 encoded version: The first source operand is a YMM register. The second source operand can be a YMM register or a 256-bit memory location. The destination operand is a YMM register.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="haddpd--128-bit-legacy-sse-version-">HADDPD (128-bit Legacy SSE version)<a class="anchor" href="#haddpd--128-bit-legacy-sse-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[127:64] + SRC1[63:0]
+DEST[127:64]←SRC2[127:64] + SRC2[63:0]
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="vhaddpd--vex-128-encoded-version-">VHADDPD (VEX.128 encoded version)<a class="anchor" href="#vhaddpd--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[127:64] + SRC1[63:0]
+DEST[127:64]←SRC2[127:64] + SRC2[63:0]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vhaddpd--vex-256-encoded-version-">VHADDPD (VEX.256 encoded version)<a class="anchor" href="#vhaddpd--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[127:64] + SRC1[63:0]
+DEST[127:64]←SRC2[127:64] + SRC2[63:0]
+DEST[191:128]←SRC1[255:192] + SRC1[191:128]
+DEST[255:192]←SRC2[255:192] + SRC2[191:128]
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>VHADDPD: __m256d _mm256_hadd_pd (__m256d a, __m256d b);
+</pre>
+<pre>HADDPD: __m128d _mm_hadd_pd (__m128d a, __m128d b);
+</pre>
+<h2 class="exceptions" id="exceptions">Exceptions<a class="anchor" href="#exceptions">
+			¶
+		</a></h2>
+<p>When the source operand is a memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="#numeric-exceptions">
+			¶
+		</a></h2>
+<p>Overflow, Underflow, Invalid, Precision, Denormal</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type 2.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

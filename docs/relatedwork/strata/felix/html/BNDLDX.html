@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>BNDLDX
+		— Load Extended Bounds Using Address Translation</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>BNDLDX
+		— Load Extended Bounds Using Address Translation</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 1A /r BNDLDX bnd, mib</td>
+<td>RM</td>
+<td>V/V</td>
+<td>MPX</td>
+<td>Load the bounds stored in a bound table entry (BTE) into bnd with address translation using the base of mib and conditional on the index of mib matching the pointer value in the BTE.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>SIB.base (r): Address of pointer SIB.index(r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>BNDLDX uses the linear address constructed from the base register and displacement of the SIB-addressing form of the memory operand (mib) to perform address translation to access a bound table entry and conditionally load the bounds in the BTE to the destination. The destination register is updated with the bounds in the BTE, if the content of the index register of mib matches the pointer value stored in the BTE.</p>
+<p>If the pointer value comparison fails, the destination is updated with INIT bounds (lb = 0x0, ub = 0x0) (note: as articulated earlier, the upper bound is represented using 1's complement, therefore, the 0x0 value of upper bound allows for access to full memory).</p>
+<p>This instruction does not cause memory access to the linear address of mib nor the effective address referenced by the base, and does not read or write any flags.</p>
+<p>Segment overrides apply to the linear address computation with the base of mib, and are used during address translation to generate the address of the bound table entry. By default, the address of the BTE is assumed to be linear address. There are no segmentation checks performed on the base of mib.</p>
+<p>The base of mib will not be checked for canonical address violation as it does not access memory.</p>
+<p>Any encoding of this instruction that does not specify base or index register will treat those registers as zero (constant). The reg-reg form of this instruction will remain a NOP.</p>
+<p>The scale field of the SIB byte has no effect on these instructions and is ignored.</p>
+<p>The bound register may be partially updated on memory faults. The order in which memory operands are loaded is implementation specific.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>base←mib.SIB.base ? mib.SIB.base + Disp: 0;
+ptr_value←mib.SIB.index ? mib.SIB.index : 0;
+</pre>
+<h3 id="outside-64-bit-mode">Outside 64-bit mode<a class="anchor" href="#outside-64-bit-mode">
+			¶
+		</a></h3>
+<pre>A_BDE[31:0]←(Zero_extend32(base[31:12] « 2) + (BNDCFG[31:12] «12 );
+A_BT[31:0]←LoadFrom(A_BDE );
+IF A_BT[0] equal 0 Then
+    BNDSTATUS←A_BDE | 02H;
+    #BR;
+FI;
+A_BTE[31:0]←(Zero_extend32(base[11:2] « 4) + (A_BT[31:2] « 2 );
+Temp_lb[31:0] ← LoadFrom(A_BTE);
+Temp_ub[31:0]←LoadFrom(A_BTE + 4);
+Temp_ptr[31:0]←LoadFrom(A_BTE + 8);
+IF Temp_ptr equal ptr_value Then
+    BND.LB ← Temp_lb;
+    BND.UB ← Temp_ub;
+ELSE
+    BND.LB ← 0;
+    BND.UB ← 0;
+FI;
+</pre>
+<h3 id="in-64-bit-mode">In 64-bit mode<a class="anchor" href="#in-64-bit-mode">
+			¶
+		</a></h3>
+<pre>A_BDE[63:0]←(Zero_extend64(base[47+MAWA:20] « 3) + (BNDCFG[63:12] «12 );<sup>1</sup>
+A_BT[63:0] ← LoadFrom(A_BDE);
+IF A_BT[0] equal 0 Then
+    BNDSTATUS←A_BDE | 02H;
+    #BR;
+FI;
+A_BTE[63:0]←(Zero_extend64(base[19:3] « 5) + (A_BT[63:3] « 3 );
+Temp_lb[63:0] ← LoadFrom(A_BTE);
+Temp_ub[63:0]←LoadFrom(A_BTE + 8);
+Temp_ptr[63:0]←LoadFrom(A_BTE + 16);
+IF Temp_ptr equal ptr_value Then
+    BND.LB ← Temp_lb;
+    BND.UB ← Temp_ub;
+ELSE
+    BND.LB ← 0;
+    BND.UB ← 0;
+FI;
+</pre>
+<blockquote>
+<p>1. If CPL &lt; 3, the supervisor MAWA (MAWAS) is used; this value is 0. If CPL = 3, the user MAWA (MAWAU) is used; this value is enumerated in CPUID.(EAX=07H,ECX=0H):ECX.MAWAU[bits 21:17]. See Section 17.3.1 of <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>.</p></blockquote>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>BNDLDX: Generated by compiler as needed.
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#BR</td>
+<td>If the bound directory entry is invalid.</td></tr>
+<tr>
+<td rowspan="4">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 67H prefix is not used and CS.D=0.</td></tr>
+<tr>
+<td>If 67H prefix is used and CS.D=1.</td></tr>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If a destination effective address of the Bound Table entry is outside the DS segment limit.</td></tr>
+<tr>
+<td>If DS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#PF(fault</td>
+<td>code) If a page fault occurs.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 16-bit addressing is used.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If a destination effective address of the Bound Table entry is outside the DS segment limit.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 16-bit addressing is used.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If a destination effective address of the Bound Table entry is outside the DS segment limit.</td></tr>
+<tr>
+<td>#PF(fault</td>
+<td>code) If a page fault occurs.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#BR</td>
+<td>If the bound directory entry is invalid.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If ModRM is RIP relative.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If ModRM.r/m and REX encodes BND4-BND15 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address (A_BDE or A_BTE) is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault</td>
+<td>code) If a page fault occurs.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

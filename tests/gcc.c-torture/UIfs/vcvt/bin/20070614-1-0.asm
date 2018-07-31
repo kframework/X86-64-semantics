@@ -323,7 +323,6 @@ L44:
 	movl	$0, %eax
 	leave
 	ret
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

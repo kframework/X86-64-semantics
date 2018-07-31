@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PHSUBW/PHSUBD
+		— Packed Horizontal Subtract</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PHSUBW/PHSUBD
+		— Packed Horizontal Subtract</h1>
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 38 05 /r<sup>1</sup> PHSUBW <em>mm1, mm2/m64</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Subtract 16-bit signed integers horizontally, pack to <em>mm1</em>.</td></tr>
+<tr>
+<td>66 0F 38 05 /r PHSUBW <em>xmm1, xmm2/m128</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Subtract 16-bit signed integers horizontally, pack to <em>xmm1</em>.</td></tr>
+<tr>
+<td>NP 0F 38 06 /r PHSUBD <em>mm1, mm2/m64</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Subtract 32-bit signed integers horizontally, pack to <em>mm1</em>.</td></tr>
+<tr>
+<td>66 0F 38 06 /r PHSUBD <em>xmm1, xmm2/m128</em></td>
+<td>RM</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Subtract 32-bit signed integers horizontally, pack to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F38.WIG 05 /r VPHSUBW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>RVM</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Subtract 16-bit signed integers horizontally, pack to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F38.WIG 06 /r VPHSUBD <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>RVM</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Subtract 32-bit signed integers horizontally, pack to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F38.WIG 05 /r VPHSUBW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>RVM</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Subtract 16-bit signed integers horizontally, pack to <em>ymm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F38.WIG 06 /r VPHSUBD <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>RVM</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Subtract 32-bit signed integers horizontally, pack to <em>ymm1</em>.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>RVM</td>
+<td>ModRM:reg (r, w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>(V)PHSUBW performs horizontal subtraction on each adjacent pair of 16-bit signed integers by subtracting the most significant word from the least significant word of each pair in the source and destination operands, and packs the signed 16-bit results to the destination operand (first operand). (V)PHSUBD performs horizontal subtraction on each adjacent pair of 32-bit signed integers by subtracting the most significant doubleword from the least significant doubleword of each pair, and packs the signed 32-bit result to the destination operand. When the source operand is a 128-bit memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<p>Legacy SSE version: Both operands can be MMX registers. The second source operand can be an MMX register or a 64-bit memory location.</p>
+<p>128-bit Legacy SSE version: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>In 64-bit mode, use the REX prefix to access additional registers.</p>
+<p>VEX.128 encoded version: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<p>VEX.256 encoded version: The first source and destination operands are YMM registers. The second source operand can be an YMM register or a 256-bit memory location.</p>
+<p>Note: VEX.L must be 0, otherwise the instruction will #UD.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="phsubw--with-64-bit-operands-">PHSUBW (with 64-bit operands)<a class="anchor" href="#phsubw--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>mm1[15-0] = mm1[15-0] - mm1[31-16];
+mm1[31-16] = mm1[47-32] - mm1[63-48];
+mm1[47-32] = mm2/m64[15-0] - mm2/m64[31-16];
+mm1[63-48] = mm2/m64[47-32] - mm2/m64[63-48];
+</pre>
+<h3 id="phsubw--with-128-bit-operands-">PHSUBW (with 128-bit operands)<a class="anchor" href="#phsubw--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>xmm1[15-0] = xmm1[15-0] - xmm1[31-16];
+xmm1[31-16] = xmm1[47-32] - xmm1[63-48];
+xmm1[47-32] = xmm1[79-64] - xmm1[95-80];
+xmm1[63-48] = xmm1[111-96] - xmm1[127-112];
+xmm1[79-64] = xmm2/m128[15-0] - xmm2/m128[31-16];
+xmm1[95-80] = xmm2/m128[47-32] - xmm2/m128[63-48];
+xmm1[111-96] = xmm2/m128[79-64] - xmm2/m128[95-80];
+xmm1[127-112] = xmm2/m128[111-96] - xmm2/m128[127-112];
+</pre>
+<h3 id="vphsubw--vex-128-encoded-version-">VPHSUBW (VEX.128 encoded version)<a class="anchor" href="#vphsubw--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SRC1[15:0] - SRC1[31:16]
+DEST[31:16]←SRC1[47:32] - SRC1[63:48]
+DEST[47:32]←SRC1[79:64] - SRC1[95:80]
+DEST[63:48]←SRC1[111:96] - SRC1[127:112]
+DEST[79:64]←SRC2[15:0] - SRC2[31:16]
+DEST[95:80]←SRC2[47:32] - SRC2[63:48]
+DEST[111:96]←SRC2[79:64] - SRC2[95:80]
+DEST[127:112]←SRC2[111:96] - SRC2[127:112]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vphsubw--vex-256-encoded-version-">VPHSUBW (VEX.256 encoded version)<a class="anchor" href="#vphsubw--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SRC1[15:0] - SRC1[31:16]
+DEST[31:16]←SRC1[47:32] - SRC1[63:48]
+DEST[47:32]←SRC1[79:64] - SRC1[95:80]
+DEST[63:48]←SRC1[111:96] - SRC1[127:112]
+DEST[79:64]←SRC2[15:0] - SRC2[31:16]
+DEST[95:80]←SRC2[47:32] - SRC2[63:48]
+DEST[111:96]←SRC2[79:64] - SRC2[95:80]
+DEST[127:112]←SRC2[111:96] - SRC2[127:112]
+DEST[143:128]←SRC1[143:128] - SRC1[159:144]
+DEST[159:144]←SRC1[175:160] - SRC1[191:176]
+DEST[175:160]←SRC1[207:192] - SRC1[223:208]
+DEST[191:176]←SRC1[239:224] - SRC1[255:240]
+DEST[207:192]←SRC2[143:128] - SRC2[159:144]
+DEST[223:208]←SRC2[175:160] - SRC2[191:176]
+DEST[239:224]←SRC2[207:192] - SRC2[223:208]
+DEST[255:240]←SRC2[239:224] - SRC2[255:240]
+</pre>
+<h3 id="phsubd--with-64-bit-operands-">PHSUBD (with 64-bit operands)<a class="anchor" href="#phsubd--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>mm1[31-0] = mm1[31-0] - mm1[63-32];
+mm1[63-32] = mm2/m64[31-0] - mm2/m64[63-32];
+</pre>
+<h3 id="phsubd--with-128-bit-operands-">PHSUBD (with 128-bit operands)<a class="anchor" href="#phsubd--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>xmm1[31-0] = xmm1[31-0] - xmm1[63-32];
+xmm1[63-32] = xmm1[95-64] - xmm1[127-96];
+xmm1[95-64] = xmm2/m128[31-0] - xmm2/m128[63-32];
+xmm1[127-96] = xmm2/m128[95-64] - xmm2/m128[127-96];
+</pre>
+<h3 id="vphsubd--vex-128-encoded-version-">VPHSUBD (VEX.128 encoded version)<a class="anchor" href="#vphsubd--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[31-0]←SRC1[31-0] - SRC1[63-32]
+DEST[63-32]←SRC1[95-64] - SRC1[127-96]
+DEST[95-64]←SRC2[31-0] - SRC2[63-32]
+DEST[127-96]←SRC2[95-64] - SRC2[127-96]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vphsubd--vex-256-encoded-version-">VPHSUBD (VEX.256 encoded version)<a class="anchor" href="#vphsubd--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[31:0]←SRC1[31:0] - SRC1[63:32]
+DEST[63:32]←SRC1[95:64] - SRC1[127:96]
+DEST[95:64]←SRC2[31:0] - SRC2[63:32]
+DEST[127:96]←SRC2[95:64] - SRC2[127:96]
+DEST[159:128]←SRC1[159:128] - SRC1[191:160]
+DEST[191:160]←SRC1[223:192] - SRC1[255:224]
+DEST[223:192]←SRC2[159:128] - SRC2[191:160]
+DEST[255:224]←SRC2[223:192] - SRC2[255:224]
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h2>
+<pre>PHSUBW: __m64 _mm_hsub_pi16 (__m64 a, __m64 b)
+</pre>
+<pre>PHSUBD: __m64 _mm_hsub_pi32 (__m64 a, __m64 b)
+</pre>
+<pre>(V)PHSUBW: __m128i _mm_hsub_epi16 (__m128i a, __m128i b)
+</pre>
+<pre>(V)PHSUBD: __m128i _mm_hsub_epi32 (__m128i a, __m128i b)
+</pre>
+<pre>VPHSUBW: __m256i _mm256_hsub_epi16 (__m256i a, __m256i b)
+</pre>
+<pre>VPHSUBD: __m256i _mm256_hsub_epi32 (__m256i a, __m256i b)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type 4; additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.L = 1.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

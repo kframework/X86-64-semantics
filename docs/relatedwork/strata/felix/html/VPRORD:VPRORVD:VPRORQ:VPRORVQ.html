@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VPRORD/VPRORVD/VPRORQ/VPRORVQ
+		— Bit Rotate Right</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPRORD/VPRORVD/VPRORQ/VPRORVQ
+		— Bit Rotate Right</h1>
+
+
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F38.W0 14 /r VPRORVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate doublewords in xmm2 right by count in the corresponding element of xmm3/m128/m32bcst, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDD.128.66.0F.W0 72 /0 ib VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate doublewords in xmm2/m128/m32bcst right by imm8, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F38.W1 14 /r VPRORVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate quadwords in xmm2 right by count in the corresponding element of xmm3/m128/m64bcst, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDD.128.66.0F.W1 72 /0 ib VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate quadwords in xmm2/m128/m64bcst right by imm8, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F38.W0 14 /r VPRORVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate doublewords in ymm2 right by count in the corresponding element of ymm3/m256/m32bcst, store using result writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDD.256.66.0F.W0 72 /0 ib VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate doublewords in ymm2/m256/m32bcst right by imm8, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F38.W1 14 /r VPRORVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate quadwords in ymm2 right by count in the corresponding element of ymm3/m256/m64bcst, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDD.256.66.0F.W1 72 /0 ib VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Rotate quadwords in ymm2/m256/m64bcst right by imm8, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F38.W0 14 /r VPRORVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Rotate doublewords in zmm2 right by count in the corresponding element of zmm3/m512/m32bcst, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDD.512.66.0F.W0 72 /0 ib VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Rotate doublewords in zmm2/m512/m32bcst right by imm8, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F38.W1 14 /r VPRORVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Rotate quadwords in zmm2 right by count in the corresponding element of zmm3/m512/m64bcst, store result using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDD.512.66.0F.W1 72 /0 ib VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Rotate quadwords in zmm2/m512/m64bcst right by imm8, store result using writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>VEX.vvvv (w)</td>
+<td>ModRM:r/m (R)</td>
+<td>Imm8</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Rotates the bits in the individual data elements (doublewords, or quadword) in the first source operand to the right by the number of bits specified in the count operand. If the value specified by the count operand is greater than 31 (for doublewords), or 63 (for a quadword), then the count operand modulo the data size (32 or 64) is used.</p>
+<p>EVEX.128 encoded version: The destination operand is a XMM register. The source operand is a XMM register or a memory location (for immediate form). The count operand can come either from an XMM register or a memory location or an 8-bit immediate. Bits (MAXVL-1:128) of the corresponding ZMM register are zeroed.</p>
+<p>EVEX.256 encoded version: The destination operand is a YMM register. The source operand is a YMM register or a memory location (for immediate form). The count operand can come either from an XMM register or a memory location or an 8-bit immediate. Bits (MAXVL-1:256) of the corresponding ZMM register are zeroed.</p>
+<p>EVEX.512 encoded version: The destination operand is a ZMM register updated according to the writemask. For the count operand in immediate form, the source operand can be a ZMM register, a 512-bit memory location or a 512-bit vector broadcasted from a 32/64-bit memory location, the count operand is an 8-bit immediate. For the count operand in variable form, the first source operand (the second operand) is a ZMM register and the counter operand (the third operand) is a ZMM register, a 512-bit memory location or a 512-bit vector broadcasted from a 32/64-bit memory location.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>RIGHT_ROTATE_DWORDS(SRC, COUNT_SRC)
+COUNT← COUNT_SRC modulo 32;
+DEST[31:0]←(SRC &gt;&gt; COUNT) | (SRC &lt;&lt; (32 - COUNT));
+RIGHT_ROTATE_QWORDS(SRC, COUNT_SRC)
+COUNT← COUNT_SRC modulo 64;
+DEST[63:0]←(SRC &gt;&gt; COUNT) | (SRC &lt;&lt; (64 - COUNT));
+</pre>
+<h4 id="vprord--evex-encoded-versions-">VPRORD (EVEX encoded versions)<a class="anchor" href="#vprord--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC1 *is memory*)
+                THEN DEST[i+31:i]←RIGHT_ROTATE_DWORDS( SRC1[31:0], imm8)
+                ELSE DEST[i+31:i]←RIGHT_ROTATE_DWORDS(SRC1[i+31:i], imm8)
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vprorvd--evex-encoded-versions-">VPRORVD (EVEX encoded versions)<a class="anchor" href="#vprorvd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN DEST[i+31:i]←RIGHT_ROTATE_DWORDS(SRC1[i+31:i], SRC2[31:0])
+                ELSE DEST[i+31:i]←RIGHT_ROTATE_DWORDS(SRC1[i+31:i], SRC2[i+31:i])
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vprorq--evex-encoded-versions-">VPRORQ (EVEX encoded versions)<a class="anchor" href="#vprorq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC1 *is memory*)
+                THEN DEST[i+63:i]←RIGHT_ROTATE_QWORDS(SRC1[63:0], imm8)
+                ELSE DEST[i+63:i]←RIGHT_ROTATE_QWORDS(SRC1[i+63:i], imm8])
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vprorvq--evex-encoded-versions-">VPRORVQ (EVEX encoded versions)<a class="anchor" href="#vprorvq--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN DEST[i+63:i]←RIGHT_ROTATE_QWORDS(SRC1[i+63:i], SRC2[63:0])
+                ELSE DEST[i+63:i]←RIGHT_ROTATE_QWORDS(SRC1[i+63:i], SRC2[i+63:i])
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VPRORD __m512i _mm512_ror_epi32(__m512i a, int imm);
+</pre>
+<pre>VPRORD __m512i _mm512_mask_ror_epi32(__m512i a, __mmask16 k, __m512i b, int imm);
+</pre>
+<pre>VPRORD __m512i _mm512_maskz_ror_epi32( __mmask16 k, __m512i a, int imm);
+</pre>
+<pre>VPRORD __m256i _mm256_ror_epi32(__m256i a, int imm);
+</pre>
+<pre>VPRORD __m256i _mm256_mask_ror_epi32(__m256i a, __mmask8 k, __m256i b, int imm);
+</pre>
+<pre>VPRORD __m256i _mm256_maskz_ror_epi32( __mmask8 k, __m256i a, int imm);
+</pre>
+<pre>VPRORD __m128i _mm_ror_epi32(__m128i a, int imm);
+</pre>
+<pre>VPRORD __m128i _mm_mask_ror_epi32(__m128i a, __mmask8 k, __m128i b, int imm);
+</pre>
+<pre>VPRORD __m128i _mm_maskz_ror_epi32( __mmask8 k, __m128i a, int imm);
+</pre>
+<pre>VPRORQ __m512i _mm512_ror_epi64(__m512i a, int imm);
+</pre>
+<pre>VPRORQ __m512i _mm512_mask_ror_epi64(__m512i a, __mmask8 k, __m512i b, int imm);
+</pre>
+<pre>VPRORQ __m512i _mm512_maskz_ror_epi64(__mmask8 k, __m512i a, int imm);
+</pre>
+<pre>VPRORQ __m256i _mm256_ror_epi64(__m256i a, int imm);
+</pre>
+<pre>VPRORQ __m256i _mm256_mask_ror_epi64(__m256i a, __mmask8 k, __m256i b, int imm);
+</pre>
+<pre>VPRORQ __m256i _mm256_maskz_ror_epi64( __mmask8 k, __m256i a, int imm);
+</pre>
+<pre>VPRORQ __m128i _mm_ror_epi64(__m128i a, int imm);
+</pre>
+<pre>VPRORQ __m128i _mm_mask_ror_epi64(__m128i a, __mmask8 k, __m128i b, int imm);
+</pre>
+<pre>VPRORQ __m128i _mm_maskz_ror_epi64( __mmask8 k, __m128i a, int imm);
+</pre>
+<pre>VPRORVD __m512i _mm512_rorv_epi32(__m512i a, __m512i cnt);
+</pre>
+<pre>VPRORVD __m512i _mm512_mask_rorv_epi32(__m512i a, __mmask16 k, __m512i b, __m512i cnt);
+</pre>
+<pre>VPRORVD __m512i _mm512_maskz_rorv_epi32(__mmask16 k, __m512i a, __m512i cnt);
+</pre>
+<pre>VPRORVD __m256i _mm256_rorv_epi32(__m256i a, __m256i cnt);
+</pre>
+<pre>VPRORVD __m256i _mm256_mask_rorv_epi32(__m256i a, __mmask8 k, __m256i b, __m256i cnt);
+</pre>
+<pre>VPRORVD __m256i _mm256_maskz_rorv_epi32(__mmask8 k, __m256i a, __m256i cnt);
+</pre>
+<pre>VPRORVD __m128i _mm_rorv_epi32(__m128i a, __m128i cnt);
+</pre>
+<pre>VPRORVD __m128i _mm_mask_rorv_epi32(__m128i a, __mmask8 k, __m128i b, __m128i cnt);
+</pre>
+<pre>VPRORVD __m128i _mm_maskz_rorv_epi32(__mmask8 k, __m128i a, __m128i cnt);
+</pre>
+<pre>VPRORVQ __m512i _mm512_rorv_epi64(__m512i a, __m512i cnt);
+</pre>
+<pre>VPRORVQ __m512i _mm512_mask_rorv_epi64(__m512i a, __mmask8 k, __m512i b, __m512i cnt);
+</pre>
+<pre>VPRORVQ __m512i _mm512_maskz_rorv_epi64( __mmask8 k, __m512i a, __m512i cnt);
+</pre>
+<pre>VPRORVQ __m256i _mm256_rorv_epi64(__m256i a, __m256i cnt);
+</pre>
+<pre>VPRORVQ __m256i _mm256_mask_rorv_epi64(__m256i a, __mmask8 k, __m256i b, __m256i cnt);
+</pre>
+<pre>VPRORVQ __m256i _mm256_maskz_rorv_epi64(__mmask8 k, __m256i a, __m256i cnt);
+</pre>
+<pre>VPRORVQ __m128i _mm_rorv_epi64(__m128i a, __m128i cnt);
+</pre>
+<pre>VPRORVQ __m128i _mm_mask_rorv_epi64(__m128i a, __mmask8 k, __m128i b, __m128i cnt);
+</pre>
+<pre>VPRORVQ __m128i _mm_maskz_rorv_epi64(__mmask8 k, __m128i a, __m128i cnt);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>EVEX-encoded instruction, see Exceptions Type E4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

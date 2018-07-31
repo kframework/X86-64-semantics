@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>MOVSS
+		— Move or Merge Scalar Single-Precision Floating-Point Value</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVSS
+		— Move or Merge Scalar Single-Precision Floating-Point Value</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 10 /r MOVSS xmm1, xmm2</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Merge scalar single-precision floating-point value from xmm2 to xmm1 register.</td></tr>
+<tr>
+<td>F3 0F 10 /r MOVSS xmm1, m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Load scalar single-precision floating-point value from m32 to xmm1 register.</td></tr>
+<tr>
+<td>VEX.NDS.LIG.F3.0F.WIG 10 /r VMOVSS xmm1, xmm2, xmm3</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Merge scalar single-precision floating-point value from xmm2 and xmm3 to xmm1 register</td></tr>
+<tr>
+<td>VEX.LIG.F3.0F.WIG 10 /r VMOVSS xmm1, m32</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Load scalar single-precision floating-point value from m32 to xmm1 register.</td></tr>
+<tr>
+<td>F3 0F 11 /r MOVSS xmm2/m32, xmm1</td>
+<td>C</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Move scalar single-precision floating-point value from xmm1 register to xmm2/m32.</td></tr>
+<tr>
+<td>VEX.NDS.LIG.F3.0F.WIG 11 /r VMOVSS xmm1, xmm2, xmm3</td>
+<td>E</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Move scalar single-precision floating-point value from xmm2 and xmm3 to xmm1 register.</td></tr>
+<tr>
+<td>VEX.LIG.F3.0F.WIG 11 /r VMOVSS m32, xmm1</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Move scalar single-precision floating-point value from xmm1 register to m32.</td></tr>
+<tr>
+<td>EVEX.NDS.LIG.F3.0F.W0 10 /r VMOVSS xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move scalar single-precision floating-point value from xmm2 and xmm3 to xmm1 register under writemask k1.</td></tr>
+<tr>
+<td>EVEX.LIG.F3.0F.W0 10 /r VMOVSS xmm1 {k1}{z}, m32</td>
+<td>F</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move scalar single-precision floating-point values from m32 to xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.LIG.F3.0F.W0 11 /r VMOVSS xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>E</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move scalar single-precision floating-point value from xmm2 and xmm3 to xmm1 register under writemask k1.</td></tr>
+<tr>
+<td>EVEX.LIG.F3.0F.W0 11 /r VMOVSS m32 {k1}, xmm1</td>
+<td>G</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move scalar single-precision floating-point values from xmm1 to m32 under writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>NA</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>E</td>
+<td>NA</td>
+<td>ModRM:r/m (w)</td>
+<td>vvvv (r)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>F</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>G</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Moves a scalar single-precision floating-point value from the source operand (second operand) to the destination operand (first operand). The source and destination operands can be XMM registers or 32-bit memory locations. This instruction can be used to move a single-precision floating-point value to and from the low doubleword of an XMM register and a 32-bit memory location, or to move a single-precision floating-point value between the low doublewords of two XMM registers. The instruction cannot be used to transfer data between memory locations.</p>
+<p>Legacy version: When the source and destination operands are XMM registers, bits (MAXVL-1:32) of the corresponding destination register are unmodified. When the source operand is a memory location and destination operand is an XMM registers, Bits (127:32) of the destination operand is cleared to all 0s, bits MAXVL:128 of the destination operand remains unchanged.</p>
+<p>VEX and EVEX encoded register-register syntax: Moves a scalar single-precision floating-point value from the second source operand (the third operand) to the low doubleword element of the destination operand (the first operand). Bits 127:32 of the destination operand are copied from the first source operand (the second operand). Bits (MAXVL-1:128) of the corresponding destination register are zeroed.</p>
+<p>VEX and EVEX encoded memory load syntax: When the source operand is a memory location and destination operand is an XMM registers, bits MAXVL:32 of the destination operand is cleared to all 0s.</p>
+<p>EVEX encoded versions: The low doubleword of the destination is updated according to the writemask.</p>
+<p>Note: For memory store form instruction “VMOVSS m32, xmm1”, VEX.vvvv is reserved and must be 1111b otherwise instruction will #UD. For memory store form instruction “VMOVSS mv {k1}, xmm1”, EVEX.vvvv is reserved and must be 1111b otherwise instruction will #UD.</p>
+<p>Software should ensure VMOVSS is encoded with VEX.L=0. Encoding VMOVSS with VEX.L=1 may encounter unpredictable behavior across different processor generations.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vmovss--evex-nds-lig-f3-0f-w0-11--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">VMOVSS (EVEX.NDS.LIG.F3.0F.W0 11 /r when the source operand is memory and the destination is an XMM register)<a class="anchor" href="#vmovss--evex-nds-lig-f3-0f-w0-11--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
+			¶
+		</a></h4>
+<pre>IF k1[0] or *no writemask*
+    THEN DEST[31:0] ← SRC[31:0]
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[31:0]←0
+        FI;
+FI;
+DEST[MAXVL-1:32] ← 0
+</pre>
+<h4 id="vmovss--evex-nds-lig-f3-0f-w0-10--r-when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">VMOVSS (EVEX.NDS.LIG.F3.0F.W0 10 /r when the source operand is an XMM register and the destination is memory)<a class="anchor" href="#vmovss--evex-nds-lig-f3-0f-w0-10--r-when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">
+			¶
+		</a></h4>
+<pre>IF k1[0] or *no writemask*
+    THEN DEST[31:0] ← SRC[31:0]
+    ELSE *DEST[31:0] remains unchanged* ; merging-masking
+FI;
+</pre>
+<h4 id="vmovss--evex-nds-lig-f3-0f-w0-10-11--r-where-the-source-and-destination-are-xmm-registers-">VMOVSS (EVEX.NDS.LIG.F3.0F.W0 10/11 /r where the source and destination are XMM registers)<a class="anchor" href="#vmovss--evex-nds-lig-f3-0f-w0-10-11--r-where-the-source-and-destination-are-xmm-registers-">
+			¶
+		</a></h4>
+<pre>IF k1[0] or *no writemask*
+    THEN DEST[31:0] ← SRC2[31:0]
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[31:0]←0
+        FI;
+FI;
+DEST[127:32] ← SRC1[127:32]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="movss--legacy-sse-version-when-the-source-and-destination-operands-are-both-xmm-registers-">MOVSS (Legacy SSE version when the source and destination operands are both XMM registers)<a class="anchor" href="#movss--legacy-sse-version-when-the-source-and-destination-operands-are-both-xmm-registers-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SRC[31:0]
+DEST[MAXVL-1:32] (Unmodified)
+</pre>
+<h4 id="vmovss--vex-nds-128-f3-0f-11--r-where-the-destination-is-an-xmm-register-">VMOVSS (VEX.NDS.128.F3.0F 11 /r where the destination is an XMM register)<a class="anchor" href="#vmovss--vex-nds-128-f3-0f-11--r-where-the-destination-is-an-xmm-register-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SRC2[31:0]
+DEST[127:32] ←SRC1[127:32]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vmovss--vex-nds-128-f3-0f-10--r-where-the-source-and-destination-are-xmm-registers-">VMOVSS (VEX.NDS.128.F3.0F 10 /r where the source and destination are XMM registers)<a class="anchor" href="#vmovss--vex-nds-128-f3-0f-10--r-where-the-source-and-destination-are-xmm-registers-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SRC2[31:0]
+DEST[127:32] ←SRC1[127:32]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4 id="vmovss--vex-nds-128-f3-0f-10--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">VMOVSS (VEX.NDS.128.F3.0F 10 /r when the source operand is memory and the destination is an XMM register)<a class="anchor" href="#vmovss--vex-nds-128-f3-0f-10--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SRC[31:0]
+DEST[MAXVL-1:32] ←0
+</pre>
+<h4 id="movss-vmovss--when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">MOVSS/VMOVSS (when the source operand is an XMM register and the destination is memory)<a class="anchor" href="#movss-vmovss--when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SRC[31:0]
+</pre>
+<h4 id="movss--legacy-sse-version-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">MOVSS (Legacy SSE version when the source operand is memory and the destination is an XMM register)<a class="anchor" href="#movss--legacy-sse-version-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
+			¶
+		</a></h4>
+<pre>DEST[31:0] ←SRC[31:0]
+DEST[127:32] ←0
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VMOVSS __m128 _mm_mask_load_ss(__m128 s, __mmask8 k, float * p);
+</pre>
+<pre>VMOVSS __m128 _mm_maskz_load_ss( __mmask8 k, float * p);
+</pre>
+<pre>VMOVSS __m128 _mm_mask_move_ss(__m128 sh, __mmask8 k, __m128 sl, __m128 a);
+</pre>
+<pre>VMOVSS __m128 _mm_maskz_move_ss( __mmask8 k, __m128 s, __m128 a);
+</pre>
+<pre>VMOVSS void _mm_mask_store_ss(float * p, __mmask8 k, __m128 a);
+</pre>
+<pre>MOVSS __m128 _mm_load_ss(float * p)
+</pre>
+<pre>MOVSS void_mm_store_ss(float * p, __m128 a)
+</pre>
+<pre>MOVSS __m128 _mm_move_ss(__m128 a, __m128 b)
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 5; additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.vvvv != 1111B.</td></tr></table>
+<p>EVEX-encoded instruction, see Exceptions Type E10.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EBLOCK
+		— Mark a page in EPC as Blocked</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EBLOCK
+		— Mark a page in EPC as Blocked</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 09H ENCLS[EBLOCK]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX1</td>
+<td>This leaf function marks a page in the EPC as blocked.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td colspan="2">EAX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>EBLOCK (In)</td>
+<td>Return error code (Out)</td>
+<td>Effective address of the EPC page (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function causes an EPC page to be marked as BLOCKED. This instruction can only be executed when current privilege level is 0.</p>
+<p>The content of RCX is an effective address of an EPC page. The DS segment is used to create linear address. Segment override is not supported.</p>
+<p>An error code is returned in RAX.</p>
+<p>The table below provides additional information on the memory parameter of EBLOCK leaf function.</p>
+<h2 id="eblock-memory-parameter-semantics">EBLOCK Memory Parameter Semantics<a class="anchor" href="#eblock-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>EPCPAGE</td></tr>
+<tr>
+<td>Read/Write access permitted by Enclave</td></tr></table>
+<p>The error codes are:</p>
+<figure id="tbl-40-12">
+<table>
+<tr>
+<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Description</th></tr>
+<tr>
+<td>No Error</td>
+<td>EBLOCK successful.</td></tr>
+<tr>
+<td>SGX_BLKSTATE</td>
+<td>Page already blocked. This value is used to indicate to a VMM that the page was already in BLOCKED state as a result of EBLOCK and thus will need to be restored to this state when it is eventually reloaded (using ELDB).</td></tr>
+<tr>
+<td>SGX_ENTRYEPOCH_LOCKED</td>
+<td>SECS locked for Entry Epoch update. This value indicates that an ETRACK is currently executing on the SECS. The EBLOCK should be reattempted.</td></tr>
+<tr>
+<td>SGX_NOTBLOCKABLE</td>
+<td>Page type is not one which can be blocked.</td></tr>
+<tr>
+<td>SGX_PG_INVLD</td>
+<td>Page is not valid and cannot be blocked.</td></tr>
+<tr>
+<td>SGX_EPC_PAGE_CONFLICT</td>
+<td>Page is being written by EADD, EAUG, ECREATE, ELDU/B, EMODT, or EWB.</td></tr></table>
+<figcaption><a href="./EBLOCK.html#tbl-40-12">Table 40-12</a>. EBLOCK Return Value in RAX</figcaption></figure>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-13">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>EBLOCK</td>
+<td>Target [DS:RCX]</td>
+<td>Shared</td>
+<td>SGX_EPC_PAGE_ CONFLICT</td>
+<td></td></tr></table>
+<figcaption><a href="./EBLOCK.html#tbl-40-13">Table 40-13</a>. Base Concurrency Restrictions of EBLOCK</figcaption></figure>
+<figure id="tbl-40-14">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>EBLOCK</td>
+<td>Target [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EBLOCK.html#tbl-40-14">Table 40-14</a>. Additional Concurrency Restrictions of EBLOCK</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-eblock-operational-flow">Temp Variables in EBLOCK Operational Flow<a class="anchor" href="#temp-variables-in-eblock-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Name</td>
+<td>Type</td>
+<td>Size (Bits)</td>
+<td>Description</td></tr>
+<tr>
+<td>TMP_BLKSTATE</td>
+<td>Integer</td>
+<td>64</td>
+<td>Page is already blocked.</td></tr></table>
+<p>IF (DS:RCX is not 4KByte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>RFLAGS.ZF,CF,PF,AF,OF,SF ← 0;</p>
+<p>RAX← 0;</p>
+<p>(* Check the EPC page for concurrency*)</p>
+<p>IF (EPC page in use)</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX← SGX_EPC_PAGE_CONFLICT;</p>
+<p>GOTO DONE;</p>
+<p>FI;</p>
+<p>IF (EPCM(DS:RCX). VALID = 0)</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX← SGX_PG_INVLD;</p>
+<p>GOTO DONE;</p>
+<p>FI;</p>
+<p>IF ( (EPCM(DS:RCX).PT ≠ PT_REG) and (EPCM(DS:RCX).PT ≠ PT_TCS) and (EPCM(DS:RCX).PT ≠ PT_TRIM) )</p>
+<p>THEN</p>
+<p>RFLAGS.CF ← 1;</p>
+<p>IF (EPCM(DS:RCX).PT = PT_SECS)</p>
+<p>THEN RAX←SGX_PG_IS_SECS;</p>
+<p>ELSE RAX←SGX_NOTBLOCKABLE;</p>
+<p>FI;</p>
+<p>GOTO DONE;</p>
+<p>FI;</p>
+<p>(* Check if the page is already blocked and report blocked state *)</p>
+<p>TMP_BLKSTATE ← EPCM(DS:RCX).BLOCKED;</p>
+<p>(* at this point, the page must be valid and PT_TCS or PT_REG or PT_TRIM*)</p>
+<p>IF (TMP_BLKSTATE = 1)</p>
+<p>THEN</p>
+<p>RFLAGS.CF ← 1;</p>
+<p>RAX← SGX_BLKSTATE;</p>
+<p>ELSE</p>
+<p>EPCM(DS:RCX).BLOCKED ← 1</p>
+<p>FI;</p>
+<p>DONE:</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>Sets ZF if SECS is in use or invalid, otherwise cleared. Sets CF if page is BLOCKED or not blockable, otherwise cleared. Clears PF, AF, OF, SF.</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If the specified EPC resource is in use.</td></tr>
+<tr>
+<td rowspan="2">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If a memory operand is non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If the specified EPC resource is in use.</td></tr>
+<tr>
+<td rowspan="2">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

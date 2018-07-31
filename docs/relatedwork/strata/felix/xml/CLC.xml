@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Clear Carry Flag" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="CLC"/>
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>F8</td>
+<td>CLC</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Clear CF flag.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2>Description</h2>
+<p>Clears the CF flag in the EFLAGS register. Operation is the same in all modes.</p>
+<h2>Operation</h2>
+<pre>CF ← 0;
+</pre>
+<h2>Flags Affected</h2>
+<p>The CF flag is set to 0. The OF, ZF, SF, AF, and PF flags are unaffected.</p>
+<h2>Exceptions (All Operating Modes)</h2>
+<p>#UD If the LOCK prefix is used.</p></x86:instruction>

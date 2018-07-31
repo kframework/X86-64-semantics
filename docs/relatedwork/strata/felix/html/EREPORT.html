@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EREPORT
+		— Create a Cryptographic Report of the Enclave</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EREPORT
+		— Create a Cryptographic Report of the Enclave</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 00H ENCLU[EREPORT]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX1</td>
+<td>This leaf function creates a cryptographic report of the enclave.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>RBX</td>
+<td>RCX</td>
+<td>RDX</td></tr>
+<tr>
+<td>IR</td>
+<td>EREPORT (In)</td>
+<td>Address of TARGETINFO (In)</td>
+<td>Address of REPORTDATA (In)</td>
+<td>Address where the REPORT is written to in an OUTPUTDATA (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function creates a cryptographic REPORT that describes the contents of the enclave. This instruction leaf can only be executed when inside the enclave. The cryptographic report can be used by other enclaves to determine that the enclave is running on the same platform.</p>
+<p>RBX contains the effective address of the MRENCLAVE value of the enclave that will authenticate the REPORT output, using the REPORT key delivered by EGETKEY command for that enclave. RCX contains the effective address of a 64-byte REPORTDATA structure, which allows the caller of the instruction to associate data with the enclave from which the instruction is called. RDX contains the address where the REPORT will be output by the instruction.</p>
+<h2 id="ereport-memory-parameter-semantics">EREPORT Memory Parameter Semantics<a class="anchor" href="#ereport-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>TARGETINFO</td>
+<td>REPORTDATA</td>
+<td>OUTPUTDATA</td></tr>
+<tr>
+<td>Read access by Enclave</td>
+<td>Read access by Enclave</td>
+<td>Read/Write access by Enclave</td></tr></table>
+<p>This instruction leaf perform the following:</p>
+<p>1. Validate the 3 operands (RBX, RCX, RDX) are inside the enclave.</p>
+<p>2. Compute a report key for the target enclave, as indicated by the value located in RBX(TARGETINFO).</p>
+<p>3. Assemble the enclave SECS data to complete the REPORT structure (including the data provided using the RCX (REPORTDATA) operand).</p>
+<p>4. Computes a cryptographic hash over REPORT structure.</p>
+<p>5. Add the computed hash to the REPORT structure.</p>
+<p>6. Output the completed REPORT structure to the address in RDX (OUTPUTDATA).</p>
+<p>The instruction fails if the operands are not properly aligned.</p>
+<p>CR_REPORT_KEYID, used to provide key wearout protection, is populated with a statistically unique value on boot of the platform by a trusted entity within the SGX TCB.</p>
+<p>The instruction faults if any of the following:</p>
+<h2 id="ereport-faulting-conditions">EREPORT Faulting Conditions<a class="anchor" href="#ereport-faulting-conditions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>An effective address not properly aligned.</td>
+<td>An memory address does not resolve in an EPC page.</td></tr>
+<tr>
+<td>If accessing an invalid EPC page.</td>
+<td>If the EPC page is blocked.</td></tr>
+<tr>
+<td>May page fault.</td>
+<td></td></tr></table>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-70">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td rowspan="3">EREPORT</td>
+<td>TARGETINFO [DS:RBX]</td>
+<td>Concurrent</td>
+<td></td>
+<td></td></tr>
+<tr>
+<td>REPORTDATA [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td></td></tr>
+<tr>
+<td>OUTPUTDATA [DS:RDX]</td>
+<td>Concurrent</td>
+<td></td>
+<td></td></tr></table>
+<figcaption><a href="./EREPORT.html#tbl-40-70">Table 40-70</a>. Base Concurrency Restrictions of EREPORT</figcaption></figure>
+<figure id="tbl-40-71">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td rowspan="3">EREPORT</td>
+<td>TARGETINFO [DS:RBX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr>
+<tr>
+<td>REPORTDATA [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr>
+<tr>
+<td>OUTPUTDATA [DS:RDX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EREPORT.html#tbl-40-71">Table 40-71</a>. Additional Concurrency Restrictions of EREPORT</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-ereport-operational-flow">Temp Variables in EREPORT Operational Flow<a class="anchor" href="#temp-variables-in-ereport-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size (bits)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_ATTRIBUTES</td>
+<td></td>
+<td>32</td>
+<td>Physical address of SECS of the enclave to which source operand belongs.</td></tr>
+<tr>
+<td>TMP_CURRENTSECS</td>
+<td></td>
+<td></td>
+<td>Address of the SECS for the currently executing enclave.</td></tr>
+<tr>
+<td>TMP_KEYDEPENDENCIES</td>
+<td></td>
+<td></td>
+<td>Temp space for key derivation.</td></tr>
+<tr>
+<td>TMP_REPORTKEY</td>
+<td></td>
+<td>128</td>
+<td>REPORTKEY generated by the instruction.</td></tr>
+<tr>
+<td>TMP_REPORT</td>
+<td></td>
+<td>3712</td>
+<td></td></tr></table>
+<p>TMP_MODE64←((IA32_EFER.LMA = 1) &amp;&amp; (CS.L = 1));</p>
+<p>(* Address verification for TARGETINFO (RBX) *)</p>
+<p>IF ( (DS:RBX is not 512Byte Aligned) or (DS:RBX is not within CR_ELRANGE) )</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RBX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RBX); FI;</p>
+<p>IF (EPCM(DS:RBX).VALID = 0)</p>
+<p>THEN #PF(DS:RBX); FI;</p>
+<p>IF (EPCM(DS:RBX).BLOCKED = 1)</p>
+<p>THEN #PF(DS:RBX); FI;</p>
+<p>(* Check page parameters for correctness *)</p>
+<p>IF ( (EPCM(DS:RBX).PT ≠ PT_REG) or (EPCM(DS:RBX).ENCLAVESECS ≠ CR_ACTIVE_SECS) or (EPCM(DS:RBX).PENDING = 1) or</p>
+<p>(EPCM(DS:RBX).MODIFIED = 1) or (EPCM(DS:RBX).ENCLAVEADDRESS ≠ (DS:RBX &amp; ~0FFFH) ) or (EPCM(DS:RBX).R = 0) )</p>
+<p>THEN #PF(DS:RBX);</p>
+<p>FI;</p>
+<p>(* Address verification for REPORTDATA (RCX) *)</p>
+<p>IF ( (DS:RCX is not 128Byte Aligned) or (DS:RCX is not within CR_ELRANGE) )</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>IF (EPCM(DS:RCX).VALID = 0)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>IF (EPCM(DS:RCX).BLOCKED = 1)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* Check page parameters for correctness *)</p>
+<p>IF ( (EPCM(DS:RCX).PT ≠ PT_REG) or (EPCM(DS:RCX).ENCLAVESECS ≠ CR_ACTIVE_SECS) or (EPCM(DS:RCX).PENDING = 1) or</p>
+<p>(EPCM(DS:RCX).MODIFIED = 1) or (EPCM(DS:RCX).ENCLAVEADDRESS ≠ (DS:RCX &amp; ~0FFFH) ) or (EPCM(DS:RCX).R = 0) )</p>
+<p>THEN #PF(DS:RCX);</p>
+<p>FI;</p>
+<p>(* Address verification for OUTPUTDATA (RDX) *)</p>
+<p>IF ( (DS:RDX is not 512Byte Aligned) or (DS:RDX is not within CR_ELRANGE) )</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RDX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RDX); FI;</p>
+<p>IF (EPCM(DS:RDX).VALID = 0)</p>
+<p>THEN #PF(DS:RDX); FI;</p>
+<p>IF (EPCM(DS:RDX).BLOCKED = 1)</p>
+<p>THEN #PF(DS:RDX); FI;</p>
+<p>(* Check page parameters for correctness *)</p>
+<p>IF ( (EPCM(DS:RDX).PT ≠ PT_REG) or (EPCM(DS:RDX).ENCLAVESECS ≠ CR_ACTIVE_SECS) or (EPCM(DS:RCX).PENDING = 1) or</p>
+<p>(EPCM(DS:RCX).MODIFIED = 1) or (EPCM(DS:RDX).ENCLAVEADDRESS ≠ (DS:RDX &amp; ~0FFFH) ) or (EPCM(DS:RDX).W = 0) )</p>
+<p>THEN #PF(DS:RDX);</p>
+<p>FI;</p>
+<p>(* REPORT MAC needs to be computed over data which cannot be modified *)</p>
+<p>TMP_REPORT.CPUSVN ← CR_CPUSVN;</p>
+<p>TMP_REPORT.ISVFAMILYID ← TMP_CURRENTSECS.ISVFAMILYID;</p>
+<p>TMP_REPORT.ISVEXTPRODID ← TMP_CURRENTSECS.ISVEXTPRODID;</p>
+<p>TMP_REPORT.ISVPRODID ← TMP_CURRENTSECS.ISVPRODID;</p>
+<p>TMP_REPORT.ISVSVN ← TMP_CURRENTSECS.ISVSVN;</p>
+<p>TMP_REPORT.ATTRIBUTES ← TMP_CURRENTSECS.ATTRIBUTES;</p>
+<p>TMP_REPORT.REPORTDATA ← DS:RCX[511:0];</p>
+<p>TMP_REPORT.MRENCLAVE ← TMP_CURRENTSECS.MRENCLAVE;</p>
+<p>TMP_REPORT.MRSIGNER ← TMP_CURRENTSECS.MRSIGNER;</p>
+<p>TMP_REPORT.MRRESERVED ← 0;</p>
+<p>TMP_REPORT.KEYID[255:0] ← CR_REPORT_KEYID;</p>
+<p>TMP_REPORT.MISCSELECT ← TMP_CURRENTSECS.MISCSELECT;</p>
+<p>TMP_REPORT.CONFIGID ← TMP_CURRENTSECS.CONFIGID;</p>
+<p>TMP_REPORT.CONFIGSVN ← TMP_CURRENTSECS.CONFIGSVN;</p>
+<p>(* Derive the report key *)</p>
+<p>TMP_KEYDEPENDENCIES.KEYNAME ← REPORT_KEY;</p>
+<p>TMP_KEYDEPENDENCIES.ISVFAMILYID ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVEXTPRODID ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVPRODID ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVSVN ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.SGXOWNEREPOCH ← CR_SGXOWNEREPOCH;</p>
+<p>TMP_KEYDEPENDENCIES.ATTRIBUTES ← DS:RBX.ATTRIBUTES;</p>
+<p>TMP_KEYDEPENDENCIES.ATTRIBUTESMASK ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.MRENCLAVE ← DS:RBX.MEASUREMENT;</p>
+<p>TMP_KEYDEPENDENCIES.MRSIGNER ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.KEYID ← TMP_REPORT.KEYID;</p>
+<p>TMP_KEYDEPENDENCIES.SEAL_KEY_FUSES ← CR_SEAL_FUSES;</p>
+<p>TMP_KEYDEPENDENCIES.CPUSVN ← CR_CPUSVN;</p>
+<p>TMP_KEYDEPENDENCIES.PADDING ← TMP_CURRENTSECS.PADDING;</p>
+<p>TMP_KEYDEPENDENCIES.MISCSELECT ← DS:RBX.MISCSELECT;</p>
+<p>TMP_KEYDEPENDENCIES.MISCMASK ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.KEYPOLICY ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.CONFIGID ← DS:RBX.CONFIGID;</p>
+<p>TMP_KEYDEPENDENCIES.CONFIGSVN ← DS:RBX.CONFIGSVN;</p>
+<p>(* Calculate the derived key*)</p>
+<p>TMP_REPORTKEY ← derive_key(TMP_KEYDEPENDENCIES);</p>
+<p>(* call cryptographic CMAC function, CMAC data are not including MAC&amp;KEYID *)</p>
+<p>TMP_REPORT.MAC←cmac(TMP_REPORTKEY, TMP_REPORT[3071:0] );</p>
+<p>DS:RDX[3455: 0]←TMP_REPORT;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the address in RCS is outside the DS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If a memory operand is not in the current enclave.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If RCX is non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If a memory operand is not in the current enclave.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

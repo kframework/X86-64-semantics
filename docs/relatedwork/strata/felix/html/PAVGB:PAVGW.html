@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PAVGB/PAVGW
+		— Average Packed Integers</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PAVGB/PAVGW
+		— Average Packed Integers</h1>
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F E0 /<em>r</em><sup>1</sup> PAVGB <em>mm1, mm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Average packed unsigned byte integers from <em>mm2/m64</em> and <em>mm1</em> with rounding.</td></tr>
+<tr>
+<td>66 0F E0, /<em>r</em> PAVGB <em>xmm1</em>, <em>xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Average packed unsigned byte integers from <em>xmm2/m128</em> and <em>xmm1</em> with rounding.</td></tr>
+<tr>
+<td>NP 0F E3 /<em>r</em><sup>1</sup> PAVGW <em>mm1, mm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Average packed unsigned word integers from mm2/m64 and <em>mm1</em> with rounding.</td></tr>
+<tr>
+<td>66 0F E3 /<em>r</em> PAVGW <em>xmm1</em>, <em>xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Average packed unsigned word integers from <em>xmm2/m128</em> and <em>xmm1</em> with rounding.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG E0 /r VPAVGB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Average packed unsigned byte integers from <em>xmm3/m128</em> and <em>xmm2</em> with rounding.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG E3 /r VPAVGW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Average packed unsigned word integers from <em>xmm3/m128</em> and <em>xmm2</em> with rounding.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG E0 /r VPAVGB <em>ymm1</em>, <em>ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Average packed unsigned byte integers from ymm2, and <em>ymm3/m256</em> with rounding and store to <em>ymm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG E3 /r VPAVGW <em>ymm1</em>, <em>ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Average packed unsigned word integers from <em>ymm2</em>, <em>ymm3/m256</em> with rounding to <em>ymm1</em>.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG E0 /r VPAVGB <em>xmm1</em> {k1}{z}, <em>xmm2, xmm3/m128</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Average packed unsigned byte integers from xmm2, and <em>xmm3/m128</em> with rounding and store to xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG E0 /r VPAVGB <em>ymm1</em> {k1}{z}, <em>ymm2, ymm3/m256</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Average packed unsigned byte integers from ymm2, and <em>ymm3/m256</em> with rounding and store to ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG E0 /r VPAVGB <em>zmm1</em> {k1}{z}, <em>zmm2, zmm3/m512</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Average packed unsigned byte integers from zmm2, and <em>zmm3/m512</em> with rounding and store to zmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG E3 /r VPAVGW <em>xmm1</em> {k1}{z}, <em>xmm2, xmm3/m128</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Average packed unsigned word integers from xmm2, <em>xmm3/m128</em> with rounding to xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG E3 /r VPAVGW <em>ymm1</em> {k1}{z}, <em>ymm2, ymm3/m256</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Average packed unsigned word integers from ymm2, <em>ymm3/m256</em> with rounding to ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG E3 /r VPAVGW <em>zmm1</em> {k1}{z}, <em>zmm2, zmm3/m512</em></td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Average packed unsigned word integers from zmm2, <em>zmm3/m512</em> with rounding to zmm1 under writemask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a SIMD average of the packed unsigned integers from the source operand (second operand) and the destination operand (first operand), and stores the results in the destination operand. For each corresponding pair of data elements in the first and second operands, the elements are added together, a 1 is added to the temporary sum, and that result is shifted right one bit position.</p>
+<p>The (V)PAVGB instruction operates on packed unsigned bytes and the (V)PAVGW instruction operates on packed unsigned words.</p>
+<p>In 64-bit mode and not encoded with VEX/EVEX, using a REX prefix in the form of REX.R permits this instruction to access additional registers (XMM8-XMM15).</p>
+<p>Legacy SSE instructions: The source operand can be an MMX technology register or a 64-bit memory location. The destination operand can be an MMX technology register.</p>
+<p>128-bit Legacy SSE version: The first source operand is an XMM register. The second operand can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper bits (MAXVL-1:128) of the corresponding register destination are unmodified.</p>
+<p>EVEX.512 encoded version: The first source operand is a ZMM register. The second source operand is a ZMM register or a 512-bit memory location. The destination operand is a ZMM register.</p>
+<p>VEX.256 and EVEX.256 encoded versions: The first source operand is a YMM register. The second source operand is a YMM register or a 256-bit memory location. The destination operand is a YMM register.</p>
+<p>VEX.128 and EVEX.128 encoded versions: The first source operand is an XMM register. The second source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding register destination are zeroed.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h4 id="pavgb--with-64-bit-operands-">PAVGB (with 64-bit operands)<a class="anchor" href="#pavgb--with-64-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[7:0] ← (SRC[7:0] + DEST[7:0] + 1) &gt;&gt; 1; (* Temp sum before shifting is 9 bits *)
+(* Repeat operation performed for bytes 2 through 6 *)
+DEST[63:56] ← (SRC[63:56] + DEST[63:56] + 1) &gt;&gt; 1;
+</pre>
+<h4 id="pavgw--with-64-bit-operands-">PAVGW (with 64-bit operands)<a class="anchor" href="#pavgw--with-64-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ← (SRC[15:0] + DEST[15:0] + 1) &gt;&gt; 1; (* Temp sum before shifting is 17 bits *)
+(* Repeat operation performed for words 2 and 3 *)
+DEST[63:48] ← (SRC[63:48] + DEST[63:48] + 1) &gt;&gt; 1;
+</pre>
+<h4 id="pavgb--with-128-bit-operands-">PAVGB (with 128-bit operands)<a class="anchor" href="#pavgb--with-128-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[7:0] ← (SRC[7:0] + DEST[7:0] + 1) &gt;&gt; 1; (* Temp sum before shifting is 9 bits *)
+(* Repeat operation performed for bytes 2 through 14 *)
+DEST[127:120] ← (SRC[127:120] + DEST[127:120] + 1) &gt;&gt; 1;
+</pre>
+<h4 id="pavgw--with-128-bit-operands-">PAVGW (with 128-bit operands)<a class="anchor" href="#pavgw--with-128-bit-operands-">
+			¶
+		</a></h4>
+<pre>DEST[15:0] ← (SRC[15:0] + DEST[15:0] + 1) &gt;&gt; 1; (* Temp sum before shifting is 17 bits *)
+(* Repeat operation performed for words 2 through 6 *)
+DEST[127:112] ← (SRC[127:112] + DEST[127:112] + 1) &gt;&gt; 1;
+</pre>
+<h4 id="vpavgb--vex-128-encoded-version-">VPAVGB (VEX.128 encoded version)<a class="anchor" href="#vpavgb--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[7:0]←(SRC1[7:0] + SRC2[7:0] + 1) &gt;&gt; 1;
+(* Repeat operation performed for bytes 2 through 15 *)
+DEST[127:120]←(SRC1[127:120] + SRC2[127:120] + 1) &gt;&gt; 1
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vpavgw--vex-128-encoded-version-">VPAVGW (VEX.128 encoded version)<a class="anchor" href="#vpavgw--vex-128-encoded-version-">
+			¶
+		</a></h4>
+<pre>DEST[15:0]←(SRC1[15:0] + SRC2[15:0] + 1) &gt;&gt; 1;
+(* Repeat operation performed for 16-bit words 2 through 7 *)
+DEST[127:112]←(SRC1[127:112] + SRC2[127:112] + 1) &gt;&gt; 1
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4 id="vpavgb--vex-256-encoded-instruction-">VPAVGB (VEX.256 encoded instruction)<a class="anchor" href="#vpavgb--vex-256-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>DEST[7:0] ← (SRC1[7:0] + SRC2[7:0] + 1) &gt;&gt; 1; (* Temp sum before shifting is 9 bits *)
+(* Repeat operation performed for bytes 2 through 31)
+DEST[255:248]←(SRC1[255:248] + SRC2[255:248] + 1) &gt;&gt; 1;
+</pre>
+<h4 id="vpavgw--vex-256-encoded-instruction-">VPAVGW (VEX.256 encoded instruction)<a class="anchor" href="#vpavgw--vex-256-encoded-instruction-">
+			¶
+		</a></h4>
+<pre>    DEST[15:0] ← (SRC1[15:0] + SRC2[15:0] + 1) &gt;&gt; 1; (* Temp sum before shifting is 17 bits *)
+    (* Repeat operation performed for words 2 through 15)
+    DEST[255:14])←(SRC1[255:240] + SRC2[255:240] + 1) &gt;&gt; 1;
+VPAVGB (EVEX encoded versions)
+(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR j←0 TO KL-1
+    i←j * 8
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i] ← (SRC1[i+7:i] + SRC2[i+7:i] + 1) &gt;&gt; 1; (* Temp sum before shifting is 9 bits *)
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+7:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vpavgw--evex-encoded-versions-">VPAVGW (EVEX encoded versions)<a class="anchor" href="#vpavgw--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←(SRC1[i+15:i] + SRC2[i+15:i] + 1) &gt;&gt; 1
+                        ; (* Temp sum before shifting is 17 bits *)
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                            ; zeroing-masking
+                    DEST[i+15:i] = 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h3>
+<pre>VPAVGB __m512i _mm512_avg_epu8( __m512i a, __m512i b);
+</pre>
+<pre>VPAVGW __m512i _mm512_avg_epu16( __m512i a, __m512i b);
+</pre>
+<pre>VPAVGB __m512i _mm512_mask_avg_epu8(__m512i s, __mmask64 m, __m512i a, __m512i b);
+</pre>
+<pre>VPAVGW __m512i _mm512_mask_avg_epu16(__m512i s, __mmask32 m, __m512i a, __m512i b);
+</pre>
+<pre>VPAVGB __m512i _mm512_maskz_avg_epu8( __mmask64 m, __m512i a, __m512i b);
+</pre>
+<pre>VPAVGW __m512i _mm512_maskz_avg_epu16( __mmask32 m, __m512i a, __m512i b);
+</pre>
+<pre>VPAVGB __m256i _mm256_mask_avg_epu8(__m256i s, __mmask32 m, __m256i a, __m256i b);
+</pre>
+<pre>VPAVGW __m256i _mm256_mask_avg_epu16(__m256i s, __mmask16 m, __m256i a, __m256i b);
+</pre>
+<pre>VPAVGB __m256i _mm256_maskz_avg_epu8( __mmask32 m, __m256i a, __m256i b);
+</pre>
+<pre>VPAVGW __m256i _mm256_maskz_avg_epu16( __mmask16 m, __m256i a, __m256i b);
+</pre>
+<pre>VPAVGB __m128i _mm_mask_avg_epu8(__m128i s, __mmask16 m, __m128i a, __m128i b);
+</pre>
+<pre>VPAVGW __m128i _mm_mask_avg_epu16(__m128i s, __mmask8 m, __m128i a, __m128i b);
+</pre>
+<pre>VPAVGB __m128i _mm_maskz_avg_epu8( __mmask16 m, __m128i a, __m128i b);
+</pre>
+<pre>VPAVGW __m128i _mm_maskz_avg_epu16( __mmask8 m, __m128i a, __m128i b);
+</pre>
+<pre>PAVGB: __m64 _mm_avg_pu8 (__m64 a, __m64 b)
+</pre>
+<pre>PAVGW: __m64 _mm_avg_pu16 (__m64 a, __m64 b)
+</pre>
+<pre>(V)PAVGB: __m128i _mm_avg_epu8 ( __m128i a, __m128i b)
+</pre>
+<pre>(V)PAVGW: __m128i _mm_avg_epu16 ( __m128i a, __m128i b)
+</pre>
+<pre>VPAVGB: __m256i _mm256_avg_epu8 ( __m256i a, __m256i b)
+</pre>
+<pre>VPAVGW: __m256i _mm256_avg_epu16 ( __m256i a, __m256i b)
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="#numeric-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

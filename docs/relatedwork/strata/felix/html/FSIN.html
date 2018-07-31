@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>FSIN
+		— Sine</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>FSIN
+		— Sine</h1>
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D9 FE</td>
+<td>FSIN</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Replace ST(0) with the approximate of its sine.</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Computes an approximation of the sine of the source operand in register ST(0) and stores the result in ST(0). The source operand must be given in radians and must be within the range −2<sup>63</sup> to +2<sup>63</sup>. The following table shows the results obtained when taking the sine of various classes of numbers, assuming that underflow does not occur.</p>
+<figure id="tbl-3-35">
+<table>
+<tr>
+<th>SRC (ST(0))</th>
+<th>DEST (ST(0))</th></tr>
+<tr>
+<td>−∞</td>
+<td>*</td></tr>
+<tr>
+<td>−F</td>
+<td>− 1 to + 1</td></tr>
+<tr>
+<td>−0</td>
+<td>−0</td></tr>
+<tr>
+<td>+0</td>
+<td>+0</td></tr>
+<tr>
+<td>+F</td>
+<td>− 1 to +1</td></tr>
+<tr>
+<td>+∞</td>
+<td>*</td></tr>
+<tr>
+<td>NaN</td>
+<td>NaN</td></tr></table>
+<figcaption><a href="./FSIN.html#tbl-3-35">Table 3-35</a>. FSIN Results</figcaption></figure>
+<blockquote>
+<p>F Meansfinitefloating-pointvalue.</p>
+<p>* Indicatesfloating-pointinvalid-arithmetic-operand(#IA)exception.</p></blockquote>
+<p>If the source operand is outside the acceptable range, the C2 flag in the FPU status word is set, and the value in register ST(0) remains unchanged. The instruction does not raise an exception when the source operand is out of range. It is up to the program to check the C2 flag for out-of-range conditions. Source values outside the range − 2<sup>63</sup> to +2<sup>63</sup> can be reduced to the range of the instruction by subtracting an appropriate integer multiple of 2π. However, even within the range -2<sup>63</sup> to +2<sup>63</sup>, inaccurate results can occur because the finite approximation of π used internally for argument reduction is not sufficient in all cases. Therefore, for accurate results it is safe to apply FSIN only to arguments reduced accurately in software, to a value smaller in absolute value than 3π/4. See the sections titled “Approximation of Pi” and “Transcendental Instruction Accuracy” in Chapter 8 of the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for a discussion of the proper value to use for π in performing such reductions.</p>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF -2<sup>63</sup> &lt; ST(0) &lt; 2<sup>63</sup>
+    THEN
+        C2 ← 0;
+        ST(0) ← fsin(ST(0)); // approximation of the mathematical sin function
+    ELSE (* Source operand out of range *)
+        C2 ← 1;
+FI;
+</pre>
+<h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="#fpu-flags-affected">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">C1</td>
+<td>Set to 0 if stack underflow occurred.</td></tr>
+<tr>
+<td>Set if result was rounded up; cleared otherwise.</td></tr>
+<tr>
+<td>Set to 1 if outside range (−263 &lt; source operand &lt; +263); otherwise, set to 0.</td></tr>
+<tr>
+<td>C2</td></tr>
+<tr>
+<td>C0, C3</td>
+<td>Undefined.</td></tr></table>
+<h2 class="exceptions" id="floating-point-exceptions">Floating-Point Exceptions<a class="anchor" href="#floating-point-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#IS</td>
+<td>Stack underflow occurred.</td></tr>
+<tr>
+<td>#IA</td>
+<td>Source operand is an SNaN value, ∞, or unsupported format.</td></tr>
+<tr>
+<td>#D</td>
+<td>Source operand is a denormal value.</td></tr>
+<tr>
+<td>#P</td>
+<td>Value cannot be represented exactly in destination format.</td></tr></table>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EEXIT
+		— Exits an Enclave</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EEXIT
+		— Exits an Enclave</h1>
+
+<table>
+<tr>
+<td><strong>Opcode/Op/En 64/32 CPUID Description Instruction bit Mode Feature Support Flag</strong> EAX = 04H IR V/V SGX1 This leaf function is used to exit an enclave. ENCLU[EEXIT]</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>RBX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>EEXIT (In)</td>
+<td>Target address outside the enclave (In)</td>
+<td>Address of the current AEP (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>The ENCLU[EEXIT] instruction exits the currently executing enclave and branches to the location specified in RBX. RCX receives the current AEP. If RBX is not within the CS (32-bit mode) or is not canonical (64-bit mode) a #GP(0) results.</p>
+<h2 id="eexit-memory-parameter-semantics">EEXIT Memory Parameter Semantics<a class="anchor" href="#eexit-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Target Address</td></tr>
+<tr>
+<td>Non-Enclave read and execute access</td></tr></table>
+<p>If RBX specifies an address that is inside the enclave, the instruction will complete normally. The fetch of the next instruction will occur in non-enclave mode, but will attempt to fetch from inside the enclave. This fetch returns a fixed data pattern.</p>
+<p>If secrets are contained in any registers, it is responsibility of enclave software to clear those registers.</p>
+<p>If XCR0 was modified on enclave entry, it is restored to the value it had at the time of the most recent EENTER or ERESUME.</p>
+<p>If the enclave is opt-out, RFLAGS.TF is loaded from the value previously saved on EENTER.</p>
+<p>Code and data breakpoints are unsuppressed.</p>
+<p>Performance monitoring counters are unsuppressed.</p>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-62">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>EEXIT</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td></td></tr></table>
+<figcaption><a href="./EEXIT.html#tbl-40-62">Table 40-62</a>. Base Concurrency Restrictions of EEXIT</figcaption></figure>
+<figure id="tbl-40-63">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>EEXIT</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EEXIT.html#tbl-40-63">Table 40-63</a>. Additional Concurrency Restrictions of EEXIT</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-eexit-operational-flow">Temp Variables in EEXIT Operational Flow<a class="anchor" href="#temp-variables-in-eexit-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size (Bits)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_RIP</td>
+<td>Effective Address</td>
+<td>32/64</td>
+<td>Saved copy of CRIP for use when creating LBR.</td></tr></table>
+<p>TMP_MODE64←((IA32_EFER.LMA = 1) &amp;&amp; (CS.L = 1));</p>
+<p>IF (TMP_MODE64 = 1)</p>
+<p>THEN</p>
+<p>IF (RBX is not canonical) THEN #GP(0); FI;</p>
+<p>ELSE</p>
+<p>IF (RBX &gt; CS limit) THEN #GP(0); FI;</p>
+<p>FI;</p>
+<p>TMP_RIP ← CRIP;</p>
+<p>RIP ← RBX;</p>
+<p>(* Return current AEP in RCX *)</p>
+<p>RCX ← CR_TCS_PA.AEP;</p>
+<p>(* Do the FS/GS swap *)</p>
+<p>FS.selector ← CR_SAVE_FS.selector;</p>
+<p>FS.base ← CR_SAVE_FS.base;</p>
+<p>FS.limit ← CR_SAVE_FS.limit;</p>
+<p>FS.access_rights ← CR_SAVE_FS.access_rights;</p>
+<p>GS.selector ← CR_SAVE_GS.selector;</p>
+<p>GS.base ← CR_SAVE_GS.base;</p>
+<p>GS.limit ← CR_SAVE_GS.limit;</p>
+<p>GS.access_rights ← CR_SAVE_GS.access_rights;</p>
+<p>(* Restore XCR0 if needed *)</p>
+<p>IF (CR4.OSXSAVE = 1)</p>
+<p>XCR0 ← CR_SAVE__XCR0;</p>
+<p>FI;</p>
+<p>Unsuppress_all_code_breakpoints_that_are_outside_ELRANGE;</p>
+<p>IF (CR_DBGOPTIN = 0)</p>
+<p>THEN</p>
+<p>UnSuppress_all_code_breakpoints_that_overlap_with_ELRANGE;</p>
+<p>Restore suppressed breakpoint matches;</p>
+<p>RFLAGS.TF ← CR_SAVE_TF;</p>
+<p>UnSuppress_montior_trap_flag;</p>
+<p>UnSuppress_LBR_Generation;</p>
+<p>UnSuppress_performance monitoring_activity;</p>
+<p>Restore performance monitoring counter AnyThread demotion to MyThread in enclave back to AnyThread</p>
+<p>FI;</p>
+<p>IF RFLAGS.TF = 1</p>
+<p>THEN Pend Single-Step #DB at the end of EEXIT;</p>
+<p>FI;</p>
+<p>IF the “monitor trap flag” VM-execution control is set</p>
+<p>THEN pend a MTF VM exit at the end of EEXIT;</p>
+<p>FI;</p>
+<p>CR_ENCLAVE_MODE ← 0;</p>
+<p>CR_TCS_PA.STATE ← INACTIVE;</p>
+<p>(* Assure consistent translations *)</p>
+<p>Flush_linear_context;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>RFLAGS.TF is restored from the value previously saved in EENTER or ERESUME.</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If executed outside an enclave.</td></tr>
+<tr>
+<td>If RBX is outside the CS segment.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If executed outside an enclave.</td></tr>
+<tr>
+<td>If RBX is not canonical.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

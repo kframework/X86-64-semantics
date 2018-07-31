@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VRANGEPD
+		— Range Restriction Calculation For Packed Pairs of Float64 Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VRANGEPD
+		— Range Restriction Calculation For Packed Pairs of Float64 Values</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F3A.W1 50 /r ib VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Calculate two RANGE operation output value from 2 pairs of double-precision floating-point values in xmm2 and xmm3/m128/m32bcst, store the results to xmm1 under the writemask k1. Imm8 specifies the comparison and sign of the range operation.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F3A.W1 50 /r ib VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Calculate four RANGE operation output value from 4pairs of double-precision floating-point values in ymm2 and ymm3/m256/m32bcst, store the results to ymm1 under the writemask k1. Imm8 specifies the comparison and sign of the range operation.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F3A.W1 50 /r ib VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Calculate eight RANGE operation output value from 8 pairs of double-precision floating-point values in zmm2 and zmm3/m512/m32bcst, store the results to zmm1 under the writemask k1. Imm8 specifies the comparison and sign of the range operation.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This instruction calculates 2/4/8 range operation outputs from two sets of packed input double-precision FP values in the first source operand (the second operand) and the second source operand (the third operand). The range outputs are written to the destination operand (the first operand) under the writemask k1.</p>
+<p>Bits7:4 of imm8 byte must be zero. The range operation output is performed in two parts, each configured by a two-bit control field within imm8[3:0]:</p>
+<ul>
+<li>Imm8[1:0] specifies the initial comparison operation to be one of max, min, max absolute value or min absolute value of the input value pair. Each comparison of two input values produces an intermediate result that combines with the sign selection control (Imm8[3:2]) to determine the final range operation output.</li>
+<li>Imm8[3:2] specifies the sign of the range operation output to be one of the following: from the first input value, from the comparison result, set or clear.</li></ul>
+<p>The encodings of Imm8[1:0] and Imm8[3:2] are shown in <a href="./VRANGEPD.html#fig-5-27">Figure 5-27</a>.</p>
+<figure id="fig-5-27">
+<svg style="width: 599.04pt; height: 129.744012pt" viewBox="49.34 0.0 504.2 113.12001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="107.1" x="51.9" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
+<rect height="107.1" x="550.56" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="0.48001" x="51.84" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="499.2"></rect>
+<rect height="0.48" x="51.84" style="fill: rgb(0%, 0%, 0%)" y="107.64001" width="499.2"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 112.44 27.72001 L 297.9 27.72001 L 297.9 40.56001 L 112.44 40.56001 L 112.44 27.72001"></path>
+<rect height="0.48001" x="111.96" style="fill: rgb(0%, 0%, 0%)" y="27.3" width="373.26"></rect>
+<rect height="13.5" x="484.74" style="fill: rgb(0%, 0%, 0%)" y="27.54001" width="0.47998"></rect>
+<rect height="0.48" x="111.72" style="fill: rgb(0%, 0%, 0%)" y="40.56001" width="373.26"></rect>
+<rect height="13.5" x="111.72" style="fill: rgb(0%, 0%, 0%)" y="27.30001" width="0.48001"></rect>
+<rect height="0.24001" x="391.44" style="fill: rgb(0%, 0%, 0%)" y="27.54" width="0.48001"></rect>
+<rect height="13.26" x="391.44" style="fill: rgb(0%, 0%, 0%)" y="27.78001" width="0.48001"></rect>
+<rect height="0.24001" x="298.2" style="fill: rgb(0%, 0%, 0%)" y="27.54" width="0.47998"></rect>
+<rect height="13.26" x="298.2" style="fill: rgb(0%, 0%, 0%)" y="27.78001" width="0.47998"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 209.88 64.02001 L 204.78 64.92001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 210.36 66.96001 L 204.78 64.92001 L 209.34 61.14001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 338.46 41.22001 L 209.88 64.02001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 442.5 47.52001 L 442.5 52.68001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 445.44 47.58001 L 442.5 52.68001 L 439.5 47.58001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 442.5 40.20001 L 442.5 47.52001"></path>
+<text x="460.08" textLength="3.50999999999999" y="23.79601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">0</text>
+<text x="81.4800000000001" textLength="14.0712" y="36.03601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">imm8</text>
+<text x="183.48" textLength="33.786" y="37.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Must Be Zero</text>
+<text x="325.5" textLength="41.6706" y="37.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Sign Control (SC)</text>
+<text x="409.98" textLength="65.5415999999998" y="37.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Compare Operation Select</text>
+<text x="396.0" textLength="87.6899999999996" y="63.69601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 00b : Select Min value</text>
+<text x="184.5" textLength="90.8484000000002" y="72.69601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 00b : Select sign(SRC1)</text>
+<text x="396.0" textLength="89.3669999999998" y="73.53601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 01b : Select Max value</text>
+<text x="184.5" textLength="118.7298" y="82.17601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 01b : Select sign(Compare_Result)</text>
+<text x="396.0" textLength="99.0894" y="83.37601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 10b : Select Min-Abs value</text>
+<text x="184.5" textLength="78.6324" y="91.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 10b : Set sign to 0</text>
+<text x="396.0" textLength="100.7664" y="93.21601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 11b : Select Max-Abs value</text>
+<text x="184.5" textLength="78.5898" y="99.69601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 11b : Set sign to 1</text></g></svg>
+<figcaption><a href="./VRANGEPD.html#fig-5-27">Figure 5-27</a>. Imm8 Controls for VRANGEPD/SD/PS/SS</figcaption></figure>
+<p>When one or more of the input value is a NAN, the comparison operation may signal invalid exception (IE). Details with one of more input value is NAN is listed in <a href="./VRANGEPD.html#tbl-5-19">Table 5-19</a>. If the comparison raises an IE, the sign select control (Imm8[3:2] has no effect to the range operation output, this is indicated also in <a href="./VRANGEPD.html#tbl-5-19">Table 5-19</a>.</p>
+<p>When both input values are zeros of opposite signs, the comparison operation of MIN/MAX in the range compare operation is slightly different from the conceptually similar FP MIN/MAX operation that are found in the instructions VMAXPD/VMINPD. The details of MIN/MAX/MIN_ABS/MAX_ABS operation for VRANGEPD/PS/SD/SS for magni-tude-0, opposite-signed input cases are listed in <a href="./VRANGEPD.html#tbl-5-20">Table 5-20</a>.</p>
+<p>Additionally, non-zero, equal-magnitude with opposite-sign input values perform MIN_ABS or MAX_ABS comparison operation with result listed in <a href="./VRANGEPD.html#tbl-5-21">Table 5-21</a>.</p>
+<figure id="tbl-5-19">
+<table>
+<tr>
+<th>Src1</th>
+<th>Src2</th>
+<th>Result</th>
+<th>IE Signaling Due to Comparison</th>
+<th>Imm8[3:2] Effect to Range Output</th></tr>
+<tr>
+<td>sNaN1</td>
+<td>sNaN2</td>
+<td>Quiet(sNaN1)</td>
+<td>Yes</td>
+<td>Ignored</td></tr>
+<tr>
+<td>sNaN1</td>
+<td>qNaN2</td>
+<td>Quiet(sNaN1)</td>
+<td>Yes</td>
+<td>Ignored</td></tr>
+<tr>
+<td>sNaN1</td>
+<td>Norm2</td>
+<td>Quiet(sNaN1)</td>
+<td>Yes</td>
+<td>Ignored</td></tr>
+<tr>
+<td>qNaN1</td>
+<td>sNaN2</td>
+<td>Quiet(sNaN2)</td>
+<td>Yes</td>
+<td>Ignored</td></tr>
+<tr>
+<td>qNaN1</td>
+<td>qNaN2</td>
+<td>qNaN1</td>
+<td>No</td>
+<td>Applicable</td></tr>
+<tr>
+<td>qNaN1</td>
+<td>Norm2</td>
+<td>Norm2</td>
+<td>No</td>
+<td>Applicable</td></tr>
+<tr>
+<td>Norm1</td>
+<td>sNaN2</td>
+<td>Quiet(sNaN2)</td>
+<td>Yes</td>
+<td>Ignored</td></tr>
+<tr>
+<td>Norm1</td>
+<td>qNaN2</td>
+<td>Norm1</td>
+<td>No</td>
+<td>Applicable</td></tr></table>
+<figcaption><a href="./VRANGEPD.html#tbl-5-19">Table 5-19</a>. Signaling of Comparison Operation of One or More NaN Input Values and Effect of Imm8[3:2]</figcaption></figure>
+<figure id="tbl-5-20">
+<table>
+<tr>
+<th colspan="3">MIN and MIN_ABS</th>
+<th colspan="3">MAX and MAX_ABS</th></tr>
+<tr>
+<th>Src1</th>
+<th>Src2</th>
+<th>Result</th>
+<th>Src1</th>
+<th>Src2</th>
+<th>Result</th></tr>
+<tr>
+<td>+0</td>
+<td>-0</td>
+<td>-0</td>
+<td>+0</td>
+<td>-0</td>
+<td>+0</td></tr>
+<tr>
+<td>-0</td>
+<td>+0</td>
+<td>-0</td>
+<td>-0</td>
+<td>+0</td>
+<td>+0</td></tr></table>
+<figcaption><a href="./VRANGEPD.html#tbl-5-20">Table 5-20</a>. Comparison Result for Opposite-Signed Zero Cases for MIN, MIN_ABS and MAX, MAX_ABS</figcaption></figure>
+<figure id="tbl-5-21">
+<table>
+<tr>
+<th colspan="3">MIN_ABS (|a| = |b|, a&gt;0, b&lt;0)</th>
+<th colspan="3">MAX_ABS (|a| = |b|, a&gt;0, b&lt;0)</th></tr>
+<tr>
+<th>Src1</th>
+<th>Src2</th>
+<th>Result</th>
+<th>Src1</th>
+<th>Src2</th>
+<th>Result</th></tr>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td></tr>
+<tr>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>b</td>
+<td>a</td>
+<td>a</td></tr></table>
+<figcaption><a href="./VRANGEPD.html#tbl-5-21">Table 5-21</a>. Comparison Result of Equal-Magnitude Input Cases for MIN_ABS and MAX_ABS, (|a| = |b|, a&gt;0, b&lt;0)</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>RangeDP(SRC1[63:0], SRC2[63:0], CmpOpCtl[1:0], SignSelCtl[1:0])
+{
+    // Check if SNAN and report IE, see also <a href="./VRANGEPD.html#tbl-5-19">Table 5-19</a>
+    IF (SRC1 = SNAN) THEN RETURN (QNAN(SRC1), set IE);
+    IF (SRC2 = SNAN) THEN RETURN (QNAN(SRC2), set IE);
+    Src1.exp ← SRC1[62:52];
+    Src1.fraction ← SRC1[51:0];
+    IF ((Src1.exp = 0 ) and (Src1.fraction != 0)) THEN// Src1 is a denormal number
+        IF DAZ THEN Src1.fraction←0;
+        ELSE IF (SRC2 &lt;&gt; QNAN) Set DE; FI;
+    FI;
+    Src2.exp ← SRC2[62:52];
+    Src2.fraction ← SRC2[51:0];
+    IF ((Src2.exp = 0) and (Src2.fraction !=0 )) THEN// Src2 is a denormal number
+        IF DAZ THEN Src2.fraction←0;
+        ELSE IF (SRC1 &lt;&gt; QNAN) Set DE; FI;
+    FI;
+    IF (SRC2 = QNAN) THEN{TMP[63:0]←SRC1[63:0]}
+    ELSE IF(SRC1 = QNAN) THEN{TMP[63:0]←SRC2[63:0]}
+    ELSE IF (Both SRC1, SRC2 are magnitude-0 and opposite-signed) TMP[63:0] ← from <a href="./VRANGEPD.html#tbl-5-20">Table 5-20</a>
+    ELSE IF (Both SRC1, SRC2 are magnitude-equal and opposite-signed and CmpOpCtl[1:0] &gt; 01) TMP[63:0] ← from <a href="./VRANGEPD.html#tbl-5-21">Table 5-21</a>
+    ELSE
+        Case(CmpOpCtl[1:0])
+        00: TMP[63:0]←(SRC1[63:0] ≤ SRC2[63:0]) ? SRC1[63:0] : SRC2[63:0];
+        01: TMP[63:0]←(SRC1[63:0] ≤ SRC2[63:0]) ? SRC2[63:0] : SRC1[63:0];
+        10: TMP[63:0]←(ABS(SRC1[63:0]) ≤ ABS(SRC2[63:0])) ? SRC1[63:0] : SRC2[63:0];
+        11: TMP[63:0]←(ABS(SRC1[63:0]) ≤ ABS(SRC2[63:0])) ? SRC2[63:0] : SRC1[63:0];
+        ESAC;
+    FI;
+    Case(SignSelCtl[1:0])
+    00: dest←(SRC1[63] &lt;&lt; 63) OR (TMP[62:0]);// Preserve Src1 sign bit
+    01: dest←TMP[63:0];// Preserve sign of compare result
+    10: dest←(0 &lt;&lt; 63) OR (TMP[62:0]);// Zero out sign bit
+    11: dest←(1 &lt;&lt; 63) OR (TMP[62:0]);// Set the sign bit
+    ESAC;
+    RETURN dest[63:0];
+}
+CmpOpCtl[1:0]= imm8[1:0];
+SignSelCtl[1:0]=imm8[3:2];
+</pre>
+<h4 id="vrangepd--evex-encoded-versions-">VRANGEPD (EVEX encoded versions)<a class="anchor" href="#vrangepd--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask* THEN
+                IF (EVEX.b == 1) AND (SRC2 *is memory*)
+                    THEN DEST[i+63:i]←RangeDP (SRC1[i+63:i], SRC2[63:0], CmpOpCtl[1:0], SignSelCtl[1:0]);
+                    ELSE DEST[i+63:i]←RangeDP (SRC1[i+63:i], SRC2[i+63:i], CmpOpCtl[1:0], SignSelCtl[1:0]);
+                FI;
+    ELSE
+        IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] = 0
+        FI;
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+The following example describes a common usage of this instruction for checking that the input operand is
+bounded between ±1023.
+VRANGEPD zmm_dst, zmm_src, zmm_1023, 02h;
+Where:
+            zmm_dst is the destination operand.
+            zmm_src is the input operand to compare against ±1023 (this is SRC1).
+            zmm_1023 is the reference operand, contains the value of 1023 (and this is SRC2).
+            IMM=02(imm8[1:0]='10) selects the Min Absolute value operation with selection of SRC1.sign.
+In case |zmm_src| &lt; 1023 (i.e. SRC1 is smaller than 1023 in magnitude), then its value will be written into
+zmm_dst. Otherwise, the value stored in zmm_dst will get the value of 1023 (received on zmm_1023, which is
+SRC2).
+However, the sign control (imm8[3:2]='00) instructs to select the sign of SRC1 received from zmm_src. So, even
+in the case of |zmm_src| ≥ 1023, the selected sign of SRC1 is kept.
+Thus, if zmm_src &lt; -1023, the result of VRANGEPD will be the minimal value of -1023 while if zmm_src &gt; +1023,
+the result of VRANGE will be the maximal value of +1023.
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VRANGEPD __m512d _mm512_range_pd ( __m512d a, __m512d b, int imm);
+</pre>
+<pre>VRANGEPD __m512d _mm512_range_round_pd ( __m512d a, __m512d b, int imm, int sae);
+</pre>
+<pre>VRANGEPD __m512d _mm512_mask_range_pd (__m512 ds, __mmask8 k, __m512d a, __m512d b, int imm);
+</pre>
+<pre>VRANGEPD __m512d _mm512_mask_range_round_pd (__m512d s, __mmask8 k, __m512d a, __m512d b, int imm, int sae);
+</pre>
+<pre>VRANGEPD __m512d _mm512_maskz_range_pd ( __mmask8 k, __m512d a, __m512d b, int imm);
+</pre>
+<pre>VRANGEPD __m512d _mm512_maskz_range_round_pd ( __mmask8 k, __m512d a, __m512d b, int imm, int sae);
+</pre>
+<pre>VRANGEPD __m256d _mm256_range_pd ( __m256d a, __m256d b, int imm);
+</pre>
+<pre>VRANGEPD __m256d _mm256_mask_range_pd (__m256d s, __mmask8 k, __m256d a, __m256d b, int imm);
+</pre>
+<pre>VRANGEPD __m256d _mm256_maskz_range_pd ( __mmask8 k, __m256d a, __m256d b, int imm);
+</pre>
+<pre>VRANGEPD __m128d _mm_range_pd ( __m128 a, __m128d b, int imm);
+</pre>
+<pre>VRANGEPD __m128d _mm_mask_range_pd (__m128 s, __mmask8 k, __m128d a, __m128d b, int imm);
+</pre>
+<pre>VRANGEPD __m128d _mm_maskz_range_pd ( __mmask8 k, __m128d a, __m128d b, int imm);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Invalid, Denormal</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E2.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

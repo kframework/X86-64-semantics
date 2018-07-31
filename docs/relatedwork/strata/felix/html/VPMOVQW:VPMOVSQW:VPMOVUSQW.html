@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VPMOVQW/VPMOVSQW/VPMOVUSQW
+		— Down Convert QWord to Word</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPMOVQW/VPMOVSQW/VPMOVUSQW
+		— Down Convert QWord to Word</h1>
+
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W0 34 /<em>r</em> VPMOVQW <em>xmm1/m32 {k1}{z}, xmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Converts 2 packed quad-word integers from <em>xmm2</em> into 2 packed word integers in <em>xmm1/m32</em> with truncation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W0 24 /<em>r</em> VPMOVSQW <em>xmm1/m32 {k1}{z}, xmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Converts 8 packed signed quad-word integers from <em>zmm2</em> into 8 packed signed word integers in <em>xmm1/m32</em> using signed saturation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W0 14 /<em>r</em> VPMOVUSQW <em>xmm1/m32 {k1}{z}, xmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Converts 2 packed unsigned quad-word integers from <em>xmm2</em> into 2 packed unsigned word integers in <em>xmm1/m32</em> using unsigned saturation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W0 34 /<em>r</em> VPMOVQW <em>xmm1/m64 {k1}{z}, ymm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Converts 4 packed quad-word integers from <em>ymm2</em> into 4 packed word integers in <em>xmm1/m64</em> with truncation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W0 24 /<em>r</em> VPMOVSQW <em>xmm1/m64 {k1}{z}, ymm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Converts 4 packed signed quad-word integers from <em>ymm2</em> into 4 packed signed word integers in <em>xmm1/m64</em> using signed saturation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W0 14 /<em>r</em> VPMOVUSQW <em>xmm1/m64 {k1}{z}, ymm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Converts 4 packed unsigned quad-word integers from <em>ymm2</em> into 4 packed unsigned word integers in <em>xmm1/m64</em> using unsigned saturation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W0 34 /<em>r</em> VPMOVQW <em>xmm1/m128 {k1}{z}, zmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Converts 8 packed quad-word integers from <em>zmm2</em> into 8 packed word integers in <em>xmm1/m128</em> with truncation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W0 24 /<em>r</em> VPMOVSQW <em>xmm1/m128 {k1}{z}, zmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Converts 8 packed signed quad-word integers from <em>zmm2</em> into 8 packed signed word integers in <em>xmm1/m128</em> using signed saturation under writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W0 14 /<em>r</em> VPMOVUSQW <em>xmm1/m128 {k1}{z}, zmm2</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Converts 8 packed unsigned quad-word integers from <em>zmm2</em> into 8 packed unsigned word integers in <em>xmm1/m128</em> using unsigned saturation under writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Quarter Mem</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>VPMOVQW down converts 64-bit integer elements in the source operand (the second operand) into packed words using truncation. VPMOVSQW converts signed 64-bit integers into packed signed words using signed saturation. VPMOVUSQW convert unsigned quad-word values into unsigned word values using unsigned saturation.</p>
+<p>The source operand is a ZMM/YMM/XMM register. The destination operand is a XMM register or a 128/64/32-bit memory location.</p>
+<p>Down-converted word elements are written to the destination operand (the first operand) from the least-significant word. Word elements of the destination operand are updated according to the writemask. Bits (MAXVL-1:128/64/32) of the register destination are zeroed.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vpmovqw-instruction--evex-encoded-versions--when-dest-is-a-register">VPMOVQW instruction (EVEX encoded versions) when dest is a register<a class="anchor" href="#vpmovqw-instruction--evex-encoded-versions--when-dest-is-a-register">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    m←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←TruncateQuadWordToWord (SRC[m+63:m])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL/4] ← 0;
+</pre>
+<h4 id="vpmovqw-instruction--evex-encoded-versions--when-dest-is-memory">VPMOVQW instruction (EVEX encoded versions) when dest is memory<a class="anchor" href="#vpmovqw-instruction--evex-encoded-versions--when-dest-is-memory">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    m←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←TruncateQuadWordToWord (SRC[m+63:m])
+        ELSE
+            *DEST[i+15:i] remains unchanged* ; merging-masking
+    FI;
+ENDFOR
+</pre>
+<h4 id="vpmovsqw-instruction--evex-encoded-versions--when-dest-is-a-register">VPMOVSQW instruction (EVEX encoded versions) when dest is a register<a class="anchor" href="#vpmovsqw-instruction--evex-encoded-versions--when-dest-is-a-register">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    m←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateSignedQuadWordToWord (SRC[m+63:m])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL/4] ← 0;
+</pre>
+<h4 id="vpmovsqw-instruction--evex-encoded-versions--when-dest-is-memory">VPMOVSQW instruction (EVEX encoded versions) when dest is memory<a class="anchor" href="#vpmovsqw-instruction--evex-encoded-versions--when-dest-is-memory">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    m←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateSignedQuadWordToWord (SRC[m+63:m])
+        ELSE
+            *DEST[i+15:i] remains unchanged* ; merging-masking
+    FI;
+ENDFOR
+</pre>
+<h4 id="vpmovusqw-instruction--evex-encoded-versions--when-dest-is-a-register">VPMOVUSQW instruction (EVEX encoded versions) when dest is a register<a class="anchor" href="#vpmovusqw-instruction--evex-encoded-versions--when-dest-is-a-register">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    m←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateUnsignedQuadWordToWord (SRC[m+63:m])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL/4] ← 0;
+</pre>
+<h4 id="vpmovusqw-instruction--evex-encoded-versions--when-dest-is-memory">VPMOVUSQW instruction (EVEX encoded versions) when dest is memory<a class="anchor" href="#vpmovusqw-instruction--evex-encoded-versions--when-dest-is-memory">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    m←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateUnsignedQuadWordToWord (SRC[m+63:m])
+        ELSE
+            *DEST[i+15:i] remains unchanged* ; merging-masking
+    FI;
+ENDFOR
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h3>
+<pre>VPMOVQW __m128i _mm512_cvtepi64_epi16( __m512i a);
+</pre>
+<pre>VPMOVQW __m128i _mm512_mask_cvtepi64_epi16(__m128i s, __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVQW __m128i _mm512_maskz_cvtepi64_epi16( __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVQW void _mm512_mask_cvtepi64_storeu_epi16(void * d, __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVSQW __m128i _mm512_cvtsepi64_epi16( __m512i a);
+</pre>
+<pre>VPMOVSQW __m128i _mm512_mask_cvtsepi64_epi16(__m128i s, __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVSQW __m128i _mm512_maskz_cvtsepi64_epi16( __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVSQW void _mm512_mask_cvtsepi64_storeu_epi16(void * d, __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVUSQW __m128i _mm512_cvtusepi64_epi16( __m512i a);
+</pre>
+<pre>VPMOVUSQW __m128i _mm512_mask_cvtusepi64_epi16(__m128i s, __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVUSQW __m128i _mm512_maskz_cvtusepi64_epi16( __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVUSQW void _mm512_mask_cvtusepi64_storeu_epi16(void * d, __mmask8 k, __m512i a);
+</pre>
+<pre>VPMOVUSQD __m128i _mm256_cvtusepi64_epi32(__m256i a);
+</pre>
+<pre>VPMOVUSQD __m128i _mm256_mask_cvtusepi64_epi32(__m128i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVUSQD __m128i _mm256_maskz_cvtusepi64_epi32( __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVUSQD void _mm256_mask_cvtusepi64_storeu_epi32(void * , __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVUSQD __m128i _mm_cvtusepi64_epi32(__m128i a);
+</pre>
+<pre>VPMOVUSQD __m128i _mm_mask_cvtusepi64_epi32(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVUSQD __m128i _mm_maskz_cvtusepi64_epi32( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVUSQD void _mm_mask_cvtusepi64_storeu_epi32(void * , __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSQD __m128i _mm256_cvtsepi64_epi32(__m256i a);
+</pre>
+<pre>VPMOVSQD __m128i _mm256_mask_cvtsepi64_epi32(__m128i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSQD __m128i _mm256_maskz_cvtsepi64_epi32( __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSQD void _mm256_mask_cvtsepi64_storeu_epi32(void * , __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVSQD __m128i _mm_cvtsepi64_epi32(__m128i a);
+</pre>
+<pre>VPMOVSQD __m128i _mm_mask_cvtsepi64_epi32(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSQD __m128i _mm_maskz_cvtsepi64_epi32( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVSQD void _mm_mask_cvtsepi64_storeu_epi32(void * , __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVQD __m128i _mm256_cvtepi64_epi32(__m256i a);
+</pre>
+<pre>VPMOVQD __m128i _mm256_mask_cvtepi64_epi32(__m128i a, __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVQD __m128i _mm256_maskz_cvtepi64_epi32( __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVQD void _mm256_mask_cvtepi64_storeu_epi32(void * , __mmask8 k, __m256i b);
+</pre>
+<pre>VPMOVQD __m128i _mm_cvtepi64_epi32(__m128i a);
+</pre>
+<pre>VPMOVQD __m128i _mm_mask_cvtepi64_epi32(__m128i a, __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVQD __m128i _mm_maskz_cvtepi64_epi32( __mmask8 k, __m128i b);
+</pre>
+<pre>VPMOVQD void _mm_mask_cvtepi64_storeu_epi32(void * , __mmask8 k, __m128i b);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>EVEX-encoded instruction, see Exceptions Type E6.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

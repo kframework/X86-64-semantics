@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PSUBSB/PSUBSW
+		— Subtract Packed Signed Integers with Signed Saturation</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSUBSB/PSUBSW
+		— Subtract Packed Signed Integers with Signed Saturation</h1>
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F E8 /<em>r</em><sup>1</sup> PSUBSB <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Subtract signed packed bytes in <em>mm/m64</em> from signed packed bytes in <em>mm</em> and saturate results.</td></tr>
+<tr>
+<td>66 0F E8 /<em>r</em> PSUBSB <em>xmm1</em>, <em>xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Subtract packed signed byte integers in <em>xmm2/m128</em> from packed signed byte integers in <em>xmm1</em> and saturate results.</td></tr>
+<tr>
+<td>NP 0F E9 /<em>r</em><sup>1</sup> PSUBSW <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Subtract signed packed words in <em>mm/m64</em> from signed packed words in <em>mm</em> and saturate results.</td></tr>
+<tr>
+<td>66 0F E9 /<em>r</em> PSUBSW <em>xmm1</em>, <em>xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Subtract packed signed word integers in <em>xmm2/m128</em> from packed signed word integers in <em>xmm1</em> and saturate results.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG E8 /r VPSUBSB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Subtract packed signed byte integers in <em>xmm3/m128</em> from packed signed byte integers in <em>xmm2</em> and saturate results.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG E9 /r VPSUBSW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Subtract packed signed word integers in <em>xmm3/m128</em> from packed signed word integers in <em>xmm2</em> and saturate results.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG E8 /r VPSUBSB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Subtract packed signed byte integers in <em>ymm3/m256</em> from packed signed byte integers in <em>ymm2</em> and saturate results.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG E9 /r VPSUBSW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Subtract packed signed word integers in <em>ymm3/m256</em> from packed signed word integers in <em>ymm2</em> and saturate results.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG E8 /r VPSUBSB xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Subtract packed signed byte integers in xmm3/m128 from packed signed byte integers in xmm2 and saturate results and store in xmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG E8 /r VPSUBSB ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Subtract packed signed byte integers in ymm3/m256 from packed signed byte integers in ymm2 and saturate results and store in ymm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG E8 /r VPSUBSB zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Subtract packed signed byte integers in zmm3/m512 from packed signed byte integers in zmm2 and saturate results and store in zmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.WIG E9 /r VPSUBSW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Subtract packed signed word integers in xmm3/m128 from packed signed word integers in xmm2 and saturate results and store in xmm1 using writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.WIG E9 /r VPSUBSW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Subtract packed signed word integers in ymm3/m256 from packed signed word integers in ymm2 and saturate results and store in ymm1 using writemask k1.</td></tr></table>
+<table>
+<tr>
+<td>EVEX.NDS.512.66.0F.WIG E9 /r VPSUBSW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Subtract packed signed word integers in zmm3/m512 from packed signed word integers in zmm2 and saturate results and store in zmm1 using writemask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a SIMD subtract of the packed signed integers of the source operand (second operand) from the packed signed integers of the destination operand (first operand), and stores the packed integer results in the destination operand. See <span class="not-imported">Figure 9-4</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for an illustration of a SIMD operation. Overflow is handled with signed saturation, as described in the following paragraphs.</p>
+<p>The (V)PSUBSB instruction subtracts packed signed byte integers. When an individual byte result is beyond the range of a signed byte integer (that is, greater than 7FH or less than 80H), the saturated value of 7FH or 80H, respectively, is written to the destination operand.</p>
+<p>The (V)PSUBSW instruction subtracts packed signed word integers. When an individual word result is beyond the range of a signed word integer (that is, greater than 7FFFH or less than 8000H), the saturated value of 7FFFH or 8000H, respectively, is written to the destination operand.</p>
+<p>In 64-bit mode and not encoded with VEX/EVEX, using a REX prefix in the form of REX.R permits this instruction to access additional registers (XMM8-XMM15).</p>
+<p>Legacy SSE version 64-bit operand: The destination operand must be an MMX technology register and the source operand can be either an MMX technology register or a 64-bit memory location.</p>
+<p>128-bit Legacy SSE version: The second source operand is an XMM register or a 128-bit memory location. The first source operand and destination operands are XMM registers. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>VEX.128 encoded version: The second source operand is an XMM register or a 128-bit memory location. The first source operand and destination operands are XMM registers. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<p>VEX.256 encoded versions: The second source operand is an YMM register or an 256-bit memory location. The first source operand and destination operands are YMM registers. Bits (MAXVL-1:256) of the corresponding ZMM register are zeroed.</p>
+<p>EVEX encoded version: The second source operand is an ZMM/YMM/XMM register or an 512/256/128-bit memory location. The first source operand and destination operands are ZMM/YMM/XMM registers. The destination is conditionally updated with writemask k1.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="psubsb--with-64-bit-operands-">PSUBSB (with 64-bit operands)<a class="anchor" href="#psubsb--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[7:0] ← SaturateToSignedByte (DEST[7:0] − SRC (7:0]);
+(* Repeat subtract operation for 2nd through 7th bytes *)
+DEST[63:56] ← SaturateToSignedByte (DEST[63:56] − SRC[63:56] );
+</pre>
+<h3 id="psubsw--with-64-bit-operands-">PSUBSW (with 64-bit operands)<a class="anchor" href="#psubsw--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[15:0] ← SaturateToSignedWord (DEST[15:0] − SRC[15:0] );
+(* Repeat subtract operation for 2nd and 7th words *)
+DEST[63:48] ← SaturateToSignedWord (DEST[63:48] − SRC[63:48] );
+</pre>
+<h3 id="vpsubsb--evex-encoded-versions-">VPSUBSB (EVEX encoded versions)<a class="anchor" href="#vpsubsb--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
+FOR j←0 TO KL-1
+    i←j * 8;
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+7:i]←SaturateToSignedByte (SRC1[i+7:i] - SRC2[i+7:i])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+7:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+7:i] ← 0;
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="vpsubsw--evex-encoded-versions-">VPSUBSW (EVEX encoded versions)<a class="anchor" href="#vpsubsw--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
+FOR j←0 TO KL-1
+    i←j * 16
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+15:i]←SaturateToSignedWord (SRC1[i+15:i] - SRC2[i+15:i])
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+15:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+15:i] ← 0;
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] ← 0;
+</pre>
+<h3 id="vpsubsb--vex-256-encoded-version-">VPSUBSB (VEX.256 encoded version)<a class="anchor" href="#vpsubsb--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[7:0]←SaturateToSignedByte (SRC1[7:0] - SRC2[7:0]);
+(* Repeat subtract operation for 2nd through 31th bytes *)
+DEST[255:248]←SaturateToSignedByte (SRC1[255:248] - SRC2[255:248]);
+DEST[MAXVL-1:256] ←0;
+</pre>
+<h3 id="vpsubsb--vex-128-encoded-version-">VPSUBSB (VEX.128 encoded version)<a class="anchor" href="#vpsubsb--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[7:0]←SaturateToSignedByte (SRC1[7:0] - SRC2[7:0]);
+(* Repeat subtract operation for 2nd through 14th bytes *)
+DEST[127:120]←SaturateToSignedByte (SRC1[127:120] - SRC2[127:120]);
+DEST[MAXVL-1:128] ← 0;
+</pre>
+<h3 id="psubsb--128-bit-legacy-sse-version-">PSUBSB (128-bit Legacy SSE Version)<a class="anchor" href="#psubsb--128-bit-legacy-sse-version-">
+			¶
+		</a></h3>
+<pre>DEST[7:0]←SaturateToSignedByte (DEST[7:0] - SRC[7:0]);
+(* Repeat subtract operation for 2nd through 14th bytes *)
+DEST[127:120]←SaturateToSignedByte (DEST[127:120] - SRC[127:120]);
+DEST[MAXVL-1:128] (Unmodified);
+</pre>
+<h3 id="vpsubsw--vex-256-encoded-version-">VPSUBSW (VEX.256 encoded version)<a class="anchor" href="#vpsubsw--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SaturateToSignedWord (SRC1[15:0] - SRC2[15:0]);
+(* Repeat subtract operation for 2nd through 15th words *)
+DEST[255:240]←SaturateToSignedWord (SRC1[255:240] - SRC2[255:240]);
+DEST[MAXVL-1:256] ← 0;
+</pre>
+<h3 id="vpsubsw--vex-128-encoded-version-">VPSUBSW (VEX.128 encoded version)<a class="anchor" href="#vpsubsw--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SaturateToSignedWord (SRC1[15:0] - SRC2[15:0]);
+(* Repeat subtract operation for 2nd through 7th words *)
+DEST[127:112]←SaturateToSignedWord (SRC1[127:112] - SRC2[127:112]);
+DEST[MAXVL-1:128] ← 0;
+</pre>
+<h3 id="psubsw--128-bit-legacy-sse-version-">PSUBSW (128-bit Legacy SSE Version)<a class="anchor" href="#psubsw--128-bit-legacy-sse-version-">
+			¶
+		</a></h3>
+<pre>DEST[15:0]←SaturateToSignedWord (DEST[15:0] - SRC[15:0]);
+(* Repeat subtract operation for 2nd through 7th words *)
+DEST[127:112]←SaturateToSignedWord (DEST[127:112] - SRC[127:112]);
+DEST[MAXVL-1:128] (Unmodified);
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalents">
+			¶
+		</a></h2>
+<pre>VPSUBSB __m512i _mm512_subs_epi8(__m512i a, __m512i b);
+</pre>
+<pre>VPSUBSB __m512i _mm512_mask_subs_epi8(__m512i s, __mmask64 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSUBSB __m512i _mm512_maskz_subs_epi8( __mmask64 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSUBSB __m256i _mm256_mask_subs_epi8(__m256i s, __mmask32 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSUBSB __m256i _mm256_maskz_subs_epi8( __mmask32 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSUBSB __m128i _mm_mask_subs_epi8(__m128i s, __mmask16 k, __m128i a, __m128i b);
+</pre>
+<pre>VPSUBSB __m128i _mm_maskz_subs_epi8( __mmask16 k, __m128i a, __m128i b);
+</pre>
+<pre>VPSUBSW __m512i _mm512_subs_epi16(__m512i a, __m512i b);
+</pre>
+<pre>VPSUBSW __m512i _mm512_mask_subs_epi16(__m512i s, __mmask32 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSUBSW __m512i _mm512_maskz_subs_epi16( __mmask32 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSUBSW __m256i _mm256_mask_subs_epi16(__m256i s, __mmask16 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSUBSW __m256i _mm256_maskz_subs_epi16( __mmask16 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSUBSW __m128i _mm_mask_subs_epi16(__m128i s, __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPSUBSW __m128i _mm_maskz_subs_epi16( __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>PSUBSB:__m64 _mm_subs_pi8(__m64 m1, __m64 m2)
+</pre>
+<pre>(V)PSUBSB:__m128i _mm_subs_epi8(__m128i m1, __m128i m2)
+</pre>
+<pre>VPSUBSB:__m256i _mm256_subs_epi8(__m256i m1, __m256i m2)
+</pre>
+<pre>PSUBSW:__m64 _mm_subs_pi16(__m64 m1, __m64 m2)
+</pre>
+<pre>(V)PSUBSW:__m128i _mm_subs_epi16(__m128i m1, __m128i m2)
+</pre>
+<pre>VPSUBSW:__m256i _mm256_subs_epi16(__m256i m1, __m256i m2)
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="#numeric-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

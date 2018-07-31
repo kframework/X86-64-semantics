@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Read Processor ID" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="RDPID"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F C7 /7 RDPID r32</td>
+<td>R</td>
+<td>N.E./V</td>
+<td>RDPID</td>
+<td>Read IA32_TSC_AUX into r32.</td></tr>
+<tr>
+<td>F3 0F C7 /7 RDPID r64</td>
+<td>R</td>
+<td>V/N.E.</td>
+<td>RDPID</td>
+<td>Read IA32_TSC_AUX into r64.</td></tr></table>
+<h2>Instruction Operand Encoding<sup>1</sup></h2>
+<blockquote>
+<p>1.ModRM.MOD = 011B required</p></blockquote>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>R</td>
+<td>ModRM:r/m (w)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2>Description</h2>
+<p>Reads the value of the IA32_TSC_AUX MSR (address C0000103H) into the destination register. The value of CS.D and operand-size prefixes (66H and REX.W) do not affect the behavior of the RDPID instruction.</p>
+<h2>Operation</h2>
+<pre>DEST ← IA32_TSC_AUX
+</pre>
+<h2>Flags Affected</h2>
+<p>None.</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If CPUID.7H.0:ECX.RDPID[bit 22] = 0.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>

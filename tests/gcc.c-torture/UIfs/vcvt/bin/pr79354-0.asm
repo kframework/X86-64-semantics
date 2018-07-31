@@ -273,7 +273,6 @@ L40:
 	jle	L44
 	popq	%rbp
 	ret
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

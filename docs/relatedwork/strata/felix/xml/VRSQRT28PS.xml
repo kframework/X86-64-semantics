@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Approximation to the Reciprocal Square Root of Packed Single-Precision Floating-Point Values with Less Than 2^-28 Relative Error" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VRSQRT28PS"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.512.66.0F38.W0 CC /r VRSQRT28PS zmm1 {k1}{z}, zmm2/m512/m32bcst {sae}</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512ER</td>
+<td>Computes approximations to the Reciprocal square root (&lt;2^-28 relative error) of the packed single-precision floating-point values from zmm2/m512/m32bcst and stores result in zmm1with writemask k1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Computes the reciprocal square root of the float32 values in the source operand (the second operand) and store the results to the destination operand (the first operand). The approximate reciprocal is evaluated with less than 2^-28 of maximum relative error prior to final rounding. The final results is rounded to &lt; 2^-23 relative error before written to the destination.</p>
+<p>If any source element is NaN, the quietized NaN source value is returned for that element. Negative (non-zero) source numbers, as well as -∞, return the canonical NaN and set the Invalid Flag (#I).</p>
+<p>A value of -0 must return -∞ and set the DivByZero flags (#Z). Negative numbers should return NaN and set the Invalid flag (#I). Note however that the instruction flush input denormals to zero of the same sign, so negative denormals return -∞ and set the DivByZero flag.</p>
+<p>The source operand is a ZMM register, a 512-bit memory location, or a 512-bit vector broadcasted from a 32-bit memory location. The destination operand is a ZMM register, conditionally updated using writemask k1.</p>
+<p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
+<h3>A numerically exact implementation of VRSQRT28xx can be found at https://software.intel.com/en-us/arti-</h3>
+<h3>cles/reference-implementations-for-IA-approximation-instructions-vrcp14-vrsqrt14-vrcp28-vrsqrt28-vexp2.</h3>
+<h3>Operation</h3>
+<h4>VRSQRT28PS (EVEX encoded versions)</h4>
+<pre>(KL, VL) = (16, 512)
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC *is memory*)
+                THEN DEST[i+31:i]←(1.0/ SQRT(SRC[31:0]));
+                ELSE DEST[i+31:i]←(1.0/ SQRT(SRC[i+31:i]));
+            FI;
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[i+31:i] remains unchanged*
+            ELSE ; zeroing-masking
+                DEST[i+31:i] ← 0
+        FI;
+    FI;
+ENDFOR;
+</pre>
+<figure id="tbl-6-41">
+<table>
+<tr>
+<th>Input value</th>
+<th>Result value</th>
+<th>Comments</th></tr>
+<tr>
+<td>NAN</td>
+<td>QNAN(input)</td>
+<td>If (SRC = SNaN) then #I</td></tr>
+<tr>
+<td>X = 2<sup>-2n</sup></td>
+<td><sub>2</sub><sup>n</sup></td>
+<td/></tr>
+<tr>
+<td>X&lt;0</td>
+<td>QNaN_Indefinite</td>
+<td>Including -INF</td></tr>
+<tr>
+<td>X = -0 or negative denormal</td>
+<td>-INF</td>
+<td>#Z</td></tr>
+<tr>
+<td>X = +0 or positive denormal</td>
+<td>+INF</td>
+<td>#Z</td></tr>
+<tr>
+<td>X = +INF</td>
+<td>+0</td>
+<td/></tr></table>
+<figcaption><x86:tblref>Table 6-41</x86:tblref>. VRSQRT28PS Special Cases</figcaption></figure>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VRSQRT28PS __m512 _mm512_rsqrt28_round_ps(__m512 a, int sae);
+</pre>
+<pre>VRSQRT28PS __m512 _mm512_mask_rsqrt28_round_ps(__m512 s, __mmask16 m,__m512 a, int sae);
+</pre>
+<pre>VRSQRT28PS __m512 _mm512_maskz_rsqrt28_round_ps(__mmask16 m,__m512 a, int sae);
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>Invalid (if SNaN input), Divide-by-zero</p>
+<h3>Other Exceptions</h3>
+<p>See Exceptions Type E2.</p></x86:instruction>

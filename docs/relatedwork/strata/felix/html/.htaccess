@@ -1,0 +1,61 @@
+
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css
+</IfModule>
+
+ErrorDocument 404 /x86/404.html
+Options -Multiviews
+
+
+Redirect permanent "/x86/PREFETCHWT1.html" "http://www.felixcloutier.com/x86/PREFETCHW.html"
+Redirect permanent "/x86/PREFETCHWT1.xml" "http://www.felixcloutier.com/x86/PREFETCHW.html"
+
+Redirect permanent "/x86/MOVDQU,VMOVDQU8:16:32:64.html" "http://www.felixcloutier.com/x86/MOVDQU:VMOVDQU8:VMOVDQU16:VMOVDQU32:VMOVDQU64.html"
+Redirect permanent "/x86/MOVDQU,VMOVDQU8:16:32:64.xml" "http://www.felixcloutier.com/x86/MOVDQU:VMOVDQU8:VMOVDQU16:VMOVDQU32:VMOVDQU64.html"
+
+Redirect permanent "/x86/VPBROADCASTB:W:D:Q.html" "http://www.felixcloutier.com/x86/VPBROADCASTB:VPBROADCASTW:VPBROADCASTD:VPBROADCASTQ.html"
+Redirect permanent "/x86/VPBROADCASTB:W:D:Q.xml" "http://www.felixcloutier.com/x86/VPBROADCASTB:VPBROADCASTW:VPBROADCASTD:VPBROADCASTQ.html"
+
+Redirect permanent "/x86/MOVDQA,VMOVDQA32:64.html" "http://www.felixcloutier.com/x86/MOVDQA:VMOVDQA32:VMOVDQA64.html"
+Redirect permanent "/x86/MOVDQA,VMOVDQA32:64.xml" "http://www.felixcloutier.com/x86/MOVDQA:VMOVDQA32:VMOVDQA64.html"
+
+Redirect permanent "/x86/FCOMI:FCOMIP:.html" "http://www.felixcloutier.com/x86/FCOMI:FCOMIP:FUCOMI:FUCOMIP.html"
+Redirect permanent "/x86/FCOMI:FCOMIP:.xml" "http://www.felixcloutier.com/x86/FCOMI:FCOMIP:FUCOMI:FUCOMIP.html"
+
+Redirect permanent "/x86/PROLD:PROLVD:PROLQ:PROLVQ.html" "http://www.felixcloutier.com/x86/VPROLD:VPROLVD:VPROLQ:VPROLVQ.html"
+Redirect permanent "/x86/PROLD:PROLVD:PROLQ:PROLVQ.xml" "http://www.felixcloutier.com/x86/VPROLD:VPROLVD:VPROLQ:VPROLVQ.html"
+
+Redirect permanent "/x86/VPERMI2W:D:Q:PS:PD.html" "http://www.felixcloutier.com/x86/VPERMI2W:VPERMI2D:VPERMI2Q:VPERMI2PS:VPERMI2PD.html"
+Redirect permanent "/x86/VPERMI2W:D:Q:PS:PD.xml" "http://www.felixcloutier.com/x86/VPERMI2W:VPERMI2D:VPERMI2Q:VPERMI2PS:VPERMI2PD.html"
+
+Redirect permanent "/x86/FUCOMI:FUCOMIP:.html" "http://www.felixcloutier.com/x86/FCOMI:FCOMIP:FUCOMI:FUCOMIP.html"
+Redirect permanent "/x86/FUCOMI:FUCOMIP:.xml" "http://www.felixcloutier.com/x86/FCOMI:FCOMIP:FUCOMI:FUCOMIP.html"
+
+Redirect permanent "/x86/INT n:INTO:INT 3.html" "http://www.felixcloutier.com/x86/INTn:INTO:INT3.html"
+Redirect permanent "/x86/INT n:INTO:INT 3.xml" "http://www.felixcloutier.com/x86/INTn:INTO:INT3.html"
+
+Redirect permanent "/x86/PRORD:PRORVD:PRORQ:PRORVQ.html" "http://www.felixcloutier.com/x86/VPRORD:VPRORVD:VPRORQ:VPRORVQ.html"
+Redirect permanent "/x86/PRORD:PRORVD:PRORQ:PRORVQ.xml" "http://www.felixcloutier.com/x86/VPRORD:VPRORVD:VPRORQ:VPRORVQ.html"
+
+Redirect permanent "/x86/PUSHF:PUSHFD.html" "http://www.felixcloutier.com/x86/PUSHF:PUSHFD:PUSHFQ.html"
+Redirect permanent "/x86/PUSHF:PUSHFD.xml" "http://www.felixcloutier.com/x86/PUSHF:PUSHFD:PUSHFQ.html"
+
+Redirect permanent "/x86/UD2.html" "http://www.felixcloutier.com/x86/UD.html"
+Redirect permanent "/x86/UD2.xml" "http://www.felixcloutier.com/x86/UD.html"
+
+Redirect permanent "/x86/RCL:RCR:ROL:ROR-.html" "http://www.felixcloutier.com/x86/RCL:RCR:ROL:ROR.html"
+Redirect permanent "/x86/RCL:RCR:ROL:ROR-.xml" "http://www.felixcloutier.com/x86/RCL:RCR:ROL:ROR.html"
+
+Redirect permanent "/x86/VPLZCNTD:Q.html" "http://www.felixcloutier.com/x86/VPLZCNTD:VPLZCNTQ.html"
+Redirect permanent "/x86/VPLZCNTD:Q.xml" "http://www.felixcloutier.com/x86/VPLZCNTD:VPLZCNTQ.html"
+
+Redirect permanent "/x86/VPCONFLICTD:Q.html" "http://www.felixcloutier.com/x86/VPCONFLICTD:VPCONFLICTQ.html"
+Redirect permanent "/x86/VPCONFLICTD:Q.xml" "http://www.felixcloutier.com/x86/VPCONFLICTD:VPCONFLICTQ.html"
+
+Redirect permanent "/x86/VPTESTNMB:W:D:Q.html" "http://www.felixcloutier.com/x86/VPTESTNMB:VPTESTNMW:VPTESTNMD:VPTESTNMQ.html"
+Redirect permanent "/x86/VPTESTNMB:W:D:Q.xml" "http://www.felixcloutier.com/x86/VPTESTNMB:VPTESTNMW:VPTESTNMD:VPTESTNMQ.html"
+
+
+Redirect permanent "/x86/removed.xml" "http://www.felixcloutier.com/x86/history.html"
+RedirectMatch permanent "/x86/([^.]+).xml" "http://www.felixcloutier.com/x86/$1.html"
+

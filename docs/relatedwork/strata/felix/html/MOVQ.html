@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>MOVQ
+		— Move Quadword</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVQ
+		— Move Quadword</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/ En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 6F /<em>r</em> MOVQ <em>mm, mm/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Move quadword from <em>mm/m64</em> to <em>mm</em>.</td></tr>
+<tr>
+<td>NP 0F 7F /<em>r</em> MOVQ <em>mm/m64, mm</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>MMX</td>
+<td>Move quadword from <em>mm</em> to <em>mm/m64</em>.</td></tr>
+<tr>
+<td>F3 0F 7E /r MOVQ <em>xmm1</em>, <em>xmm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Move quadword from <em>xmm2/mem64</em> to <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.128.F3.0F.WIG 7E /r VMOVQ <em>xmm1, xmm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Move quadword from <em>xmm2</em> to <em>xmm1</em>.</td></tr>
+<tr>
+<td>EVEX.128.F3.0F.W1 7E /r VMOVQ xmm1, xmm2/m64</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move quadword from xmm2/m64 to xmm1.</td></tr>
+<tr>
+<td>66 0F D6 /r MOVQ <em>xmm2/m64</em>, <em>xmm1</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Move quadword from <em>xmm1</em> to <em>xmm2/mem64</em>.</td></tr>
+<tr>
+<td>VEX.128.66.0F.WIG D6 /r VMOVQ <em>xmm1/m64, xmm2</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Move quadword from <em>xmm2</em> register to <em>xmm1/m64</em>.</td></tr>
+<tr>
+<td>EVEX.128.66.0F.W1 D6 /r VMOVQ xmm1/m64, xmm2</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Move quadword from xmm2 register to xmm1/m64.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>D</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Copies a quadword from the source operand (second operand) to the destination operand (first operand). The source and destination operands can be MMX technology registers, XMM registers, or 64-bit memory locations. This instruction can be used to move a quadword between two MMX technology registers or between an MMX technology register and a 64-bit memory location, or to move data between two XMM registers or between an XMM register and a 64-bit memory location. The instruction cannot be used to transfer data between memory locations.</p>
+<p>When the source operand is an XMM register, the low quadword is moved; when the destination operand is an XMM register, the quadword is stored to the low quadword of the register, and the high quadword is cleared to all 0s.</p>
+<p>In 64-bit mode and if not encoded using VEX/EVEX, use of the REX prefix in the form of REX.R permits this instruction to access additional registers (XMM8-XMM15).</p>
+<p>Note: VEX.vvvv and EVEX.vvvv are reserved and must be 1111b, otherwise instructions will #UD.</p>
+<p>If VMOVQ is encoded with VEX.L= 1, an attempt to execute the instruction encoded with VEX.L= 1 will cause an #UD exception.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="movq-instruction-when-operating-on-mmx-technology-registers-and-memory-locations">MOVQ instruction when operating on MMX technology registers and memory locations<a class="anchor" href="#movq-instruction-when-operating-on-mmx-technology-registers-and-memory-locations">
+			¶
+		</a></h3>
+<pre>DEST ← SRC;
+</pre>
+<h3 id="movq-instruction-when-source-and-destination-operands-are-xmm-registers">MOVQ instruction when source and destination operands are XMM registers<a class="anchor" href="#movq-instruction-when-source-and-destination-operands-are-xmm-registers">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0];
+DEST[127:64] ← 0000000000000000H;
+</pre>
+<h3 id="movq-instruction-when-source-operand-is-xmm-register-and-destination">MOVQ instruction when source operand is XMM register and destination<a class="anchor" href="#movq-instruction-when-source-operand-is-xmm-register-and-destination">
+			¶
+		</a></h3>
+<pre>operand is memory location:
+    DEST ← SRC[63:0];
+</pre>
+<h3 id="movq-instruction-when-source-operand-is-memory-location-and-destination">MOVQ instruction when source operand is memory location and destination<a class="anchor" href="#movq-instruction-when-source-operand-is-memory-location-and-destination">
+			¶
+		</a></h3>
+<pre>operand is XMM register:
+    DEST[63:0] ← SRC;
+    DEST[127:64] ← 0000000000000000H;
+</pre>
+<h3 id="vmovq--vex-nds-128-f3-0f-7e--with-xmm-register-source-and-destination">VMOVQ (VEX.NDS.128.F3.0F 7E) with XMM register source and destination<a class="anchor" href="#vmovq--vex-nds-128-f3-0f-7e--with-xmm-register-source-and-destination">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0]
+DEST[MAXVL-1:64] ← 0
+</pre>
+<h3 id="vmovq--vex-128-66-0f-d6--with-xmm-register-source-and-destination">VMOVQ (VEX.128.66.0F D6) with XMM register source and destination<a class="anchor" href="#vmovq--vex-128-66-0f-d6--with-xmm-register-source-and-destination">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0]
+DEST[MAXVL-1:64] ← 0
+</pre>
+<h3 id="vmovq--7e---evex-encoded-version--with-xmm-register-source-and-destination">VMOVQ (7E - EVEX encoded version) with XMM register source and destination<a class="anchor" href="#vmovq--7e---evex-encoded-version--with-xmm-register-source-and-destination">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0]
+DEST[MAXVL-1:64] ← 0
+</pre>
+<h3 id="vmovq--d6---evex-encoded-version--with-xmm-register-source-and-destination">VMOVQ (D6 - EVEX encoded version) with XMM register source and destination<a class="anchor" href="#vmovq--d6---evex-encoded-version--with-xmm-register-source-and-destination">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0]
+DEST[MAXVL-1:64] ← 0
+</pre>
+<h3 id="vmovq--7e--with-memory-source">VMOVQ (7E) with memory source<a class="anchor" href="#vmovq--7e--with-memory-source">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0]
+DEST[MAXVL-1:64] ← 0
+</pre>
+<h3 id="vmovq--7e---evex-encoded-version--with-memory-source">VMOVQ (7E - EVEX encoded version) with memory source<a class="anchor" href="#vmovq--7e---evex-encoded-version--with-memory-source">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC[63:0]
+DEST[:MAXVL-1:64] ← 0
+</pre>
+<h3 id="vmovq--d6--with-memory-dest">VMOVQ (D6) with memory dest<a class="anchor" href="#vmovq--d6--with-memory-dest">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← SRC2[63:0]
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>VMOVQ __m128i _mm_loadu_si64( void * s);
+</pre>
+<pre>VMOVQ void _mm_storeu_si64( void * d, __m128i s);
+</pre>
+<pre>MOVQ m128i _mm_move_epi64(__m128i a)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See <span class="not-imported">Table 22-8</span>, “Exception Conditions for Legacy SIMD/MMX Instructions without FP Exception,” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3B</em>.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

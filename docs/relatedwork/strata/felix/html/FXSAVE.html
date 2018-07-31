@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>FXSAVE
+		— Save x87 FPU, MMX Technology, and SSE State</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>FXSAVE
+		— Save x87 FPU, MMX Technology, and SSE State</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F AE /0 FXSAVE <em>m512byte</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Save the x87 FPU, MMX, XMM, and MXCSR register state to <em>m512byte</em>.</td></tr>
+<tr>
+<td>NP REX.W + 0F AE /0 FXSAVE64 <em>m512byte</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Save the x87 FPU, MMX, XMM, and MXCSR register state to <em>m512byte</em>.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M</td>
+<td>ModRM:r/m (w)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Saves the current state of the x87 FPU, MMX technology, XMM, and MXCSR registers to a 512-byte memory location specified in the destination operand. The content layout of the 512 byte region depends on whether the processor is operating in non-64-bit operating modes or 64-bit sub-mode of IA-32e mode.</p>
+<p>Bytes 464:511 are available to software use. The processor does not write to bytes 464:511 of an FXSAVE area.</p>
+<p>The operation of FXSAVE in non-64-bit modes is described first.</p>
+<h2 id="non-64-bit-mode-operation">Non-64-Bit Mode Operation<a class="anchor" href="#non-64-bit-mode-operation">
+			¶
+		</a></h2>
+<p><a href="./FXSAVE.html#tbl-3-43">Table 3-43</a> shows the layout of the state information in memory when the processor is operating in legacy modes.</p>
+<figure id="tbl-3-43">
+<table>
+<tr>
+<th>15 14</th>
+<th>13 12</th>
+<th>11 10</th>
+<th>98</th>
+<th>76</th>
+<th>5</th>
+<th>4</th>
+<th>32</th>
+<th>10</th>
+<th></th></tr>
+<tr>
+<td>Rsvd</td>
+<td>FCS</td>
+<td colspan="2">FIP[31:0]</td>
+<td>FOP</td>
+<td>Rsvd</td>
+<td>FTW</td>
+<td>FSW</td>
+<td>FCW</td>
+<td><strong>0</strong></td></tr>
+<tr>
+<td colspan="2">MXCSR_MASK</td>
+<td colspan="2">MXCSR</td>
+<td>Rsrvd</td>
+<td colspan="2">FDS</td>
+<td colspan="2">FDP[31:0]</td>
+<td><strong>16</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST0/MM0</td>
+<td><strong>32</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST1/MM1</td>
+<td><strong>48</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST2/MM2</td>
+<td><strong>64</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST3/MM3</td>
+<td><strong>80</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST4/MM4</td>
+<td><strong>96</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST5/MM5</td>
+<td><strong>112</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST6/MM6</td>
+<td><strong>128</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST7/MM7</td>
+<td><strong>144</strong></td></tr>
+<tr>
+<td colspan="9">XMM0</td>
+<td><strong>160</strong></td></tr>
+<tr>
+<td colspan="9">XMM1</td>
+<td><strong>176</strong></td></tr>
+<tr>
+<td colspan="9">XMM2</td>
+<td><strong>192</strong></td></tr>
+<tr>
+<td colspan="9">XMM3</td>
+<td><strong>208</strong></td></tr>
+<tr>
+<td colspan="9">XMM4</td>
+<td><strong>224</strong></td></tr>
+<tr>
+<td colspan="9">XMM5</td>
+<td><strong>240</strong></td></tr>
+<tr>
+<td colspan="9">XMM6</td>
+<td><strong>256</strong></td></tr>
+<tr>
+<td colspan="9">XMM7</td>
+<td><strong>272</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>288</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>304</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>320</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>336</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>352</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>368</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>384</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>400</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>416</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>432</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>448</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>464</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>480</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>496</strong></td></tr></table>
+<figcaption><a href="./FXSAVE.html#tbl-3-43">Table 3-43</a>. Non-64-bit-Mode Layout of FXSAVE and FXRSTOR Memory Region</figcaption></figure>
+<p>The destination operand contains the first byte of the memory image, and it must be aligned on a 16-byte boundary. A misaligned destination operand will result in a general-protection (#GP) exception being generated (or in some cases, an alignment check exception [#AC]).</p>
+<p>The FXSAVE instruction is used when an operating system needs to perform a context switch or when an exception handler needs to save and examine the current state of the x87 FPU, MMX technology, and/or XMM and MXCSR registers.</p>
+<p>The fields in <a href="./FXSAVE.html#tbl-3-43">Table 3-43</a> are defined in <a href="./FXSAVE.html#tbl-3-44">Table 3-44</a>.</p>
+<figure id="tbl-3-44">
+<table>
+<tr>
+<th>Field</th>
+<th>Definition</th></tr>
+<tr>
+<td>FCW</td>
+<td>x87 FPU Control Word (16 bits). See <span class="not-imported">Figure 8-6</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for the layout of the x87 FPU control word.</td></tr>
+<tr>
+<td>FSW</td>
+<td>x87 FPU Status Word (16 bits). See <span class="not-imported">Figure 8-4</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for the layout of the x87 FPU status word.</td></tr>
+<tr>
+<td>Abridged FTW</td>
+<td>x87 FPU Tag Word (8 bits). The tag information saved here is abridged, as described in the following paragraphs.</td></tr>
+<tr>
+<td>FOP</td>
+<td>x87 FPU Opcode (16 bits). The lower 11 bits of this field contain the opcode, upper 5 bits are reserved. See <span class="not-imported">Figure 8-8</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for the layout of the x87 FPU opcode field.</td></tr>
+<tr>
+<td>FIP</td>
+<td>x87 FPU Instruction Pointer Offset (64 bits). The contents of this field differ depending on the current addressing mode (32-bit, 16-bit, or 64-bit) of the processor when the FXSAVE instruction was executed: 32-bit mode — 32-bit IP offset. 16-bit mode — low 16 bits are IP offset; high 16 bits are reserved. 64-bit mode with REX.W — 64-bit IP offset. 64-bit mode without REX.W — 32-bit IP offset. See “x87 FPU Instruction and Operand (Data) Pointers” in Chapter 8 of the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for a description of the x87 FPU instruction pointer.</td></tr>
+<tr>
+<td>FCS</td>
+<td>x87 FPU Instruction Pointer Selector (16 bits). If CPUID.(EAX=07H,ECX=0H):EBX[bit 13] = 1, the processor deprecates FCS and FDS, and this field is saved as 0000H.</td></tr>
+<tr>
+<td>FDP</td>
+<td>x87 FPU Instruction Operand (Data) Pointer Offset (64 bits). The contents of this field differ depending on the current addressing mode (32-bit, 16-bit, or 64-bit) of the processor when the FXSAVE instruction was executed: 32-bit mode — 32-bit DP offset. 16-bit mode — low 16 bits are DP offset; high 16 bits are reserved. 64-bit mode with REX.W — 64-bit DP offset. 64-bit mode without REX.W — 32-bit DP offset. See “x87 FPU Instruction and Operand (Data) Pointers” in Chapter 8 of the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for a description of the x87 FPU operand pointer.</td></tr>
+<tr>
+<td>FDS</td>
+<td>x87 FPU Instruction Operand (Data) Pointer Selector (16 bits). If CPUID.(EAX=07H,ECX=0H):EBX[bit 13] = 1, the processor deprecates FCS and FDS, and this field is saved as 0000H.</td></tr>
+<tr>
+<td>MXCSR</td>
+<td>MXCSR Register State (32 bits). See <span class="not-imported">Figure 10-3</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for the layout of the MXCSR register. If the OSFXSR bit in control register CR4 is not set, the FXSAVE instruction may not save this register. This behavior is implementation dependent.</td></tr>
+<tr>
+<td>MXCSR_ MASK</td>
+<td>MXCSR_MASK (32 bits). This mask can be used to adjust values written to the MXCSR register, ensuring that reserved bits are set to 0. Set the mask bits and flags in MXCSR to the mode of operation desired for SSE and SSE2 SIMD floating-point instructions. See “Guidelines for Writing to the MXCSR Register” in Chapter 11 of the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>, for instructions for how to determine and use the MXCSR_MASK value.</td></tr>
+<tr>
+<td>ST0/MM0 through ST7/MM7</td>
+<td>x87 FPU or MMX technology registers. These 80-bit fields contain the x87 FPU data registers or the MMX technology registers, depending on the state of the processor prior to the execution of the FXSAVE instruction. If the processor had been executing x87 FPU instruction prior to the FXSAVE instruction, the x87 FPU data registers are saved; if it had been executing MMX instructions (or SSE or SSE2 instructions that operated on the MMX technology registers), the MMX technology registers are saved. When the MMX technology registers are saved, the high 16 bits of the field are reserved.</td></tr>
+<tr>
+<td>XMM0 through XMM7</td>
+<td>XMM registers (128 bits per field). If the OSFXSR bit in control register CR4 is not set, the FXSAVE instruction may not save these registers. This behavior is implementation dependent.</td></tr></table>
+<figcaption><a href="./FXSAVE.html#tbl-3-44">Table 3-44</a>. Field Definitions</figcaption></figure>
+<p>The FXSAVE instruction saves an abridged version of the x87 FPU tag word in the FTW field (unlike the FSAVE instruction, which saves the complete tag word). The tag information is saved in physical register order (R0 through R7), rather than in top-of-stack (TOS) order. With the FXSAVE instruction, however, only a single bit (1 for valid or 0 for empty) is saved for each tag. For example, assume that the tag word is currently set as follows:</p>
+<p>R7 R6 R5 R4 R3 R2 R1 R0</p>
+<p>11 xx xx xx 11 11 11 11</p>
+<p>Here, 11B indicates empty stack elements and “xx” indicates valid (00B), zero (01B), or special (10B).</p>
+<p>For this example, the FXSAVE instruction saves only the following 8 bits of information:</p>
+<p>R7 R6 R5 R4 R3 R2 R1 R0</p>
+<p>01110000</p>
+<p>Here, a 1 is saved for any valid, zero, or special tag, and a 0 is saved for any empty tag.</p>
+<p>The operation of the FXSAVE instruction differs from that of the FSAVE instruction, the as follows:</p>
+<ul>
+<li>FXSAVE instruction does not check for pending unmasked floating-point exceptions. (The FXSAVE operation in this regard is similar to the operation of the FNSAVE instruction).</li>
+<li>After the FXSAVE instruction has saved the state of the x87 FPU, MMX technology, XMM, and MXCSR registers, the processor retains the contents of the registers. Because of this behavior, the FXSAVE instruction cannot be used by an application program to pass a “clean” x87 FPU state to a procedure, since it retains the current state. To clean the x87 FPU state, an application must explicitly execute an FINIT instruction after an FXSAVE instruction to reinitialize the x87 FPU state.</li>
+<li>The format of the memory image saved with the FXSAVE instruction is the same regardless of the current addressing mode (32-bit or 16-bit) and operating mode (protected, real address, or system management). This behavior differs from the FSAVE instructions, where the memory image format is different depending on the addressing mode and operating mode. Because of the different image formats, the memory image saved with the FXSAVE instruction cannot be restored correctly with the FRSTOR instruction, and likewise the state saved with the FSAVE instruction cannot be restored correctly with the FXRSTOR instruction.</li></ul>
+<p>The FSAVE format for FTW can be recreated from the FTW valid bits and the stored 80-bit FP data (assuming the stored data was not the contents of MMX technology registers) using <a href="./FXSAVE.html#tbl-3-45">Table 3-45</a>.</p>
+<figure id="tbl-3-45">
+<table>
+<tr>
+<th>Exponent all 1’s</th>
+<th>Exponent all 0’s</th>
+<th>Fraction all 0’s</th>
+<th>J and M bits</th>
+<th>FTW valid bit</th>
+<th>x87 FTW</th></tr>
+<tr>
+<td>0 0</td>
+<td>0 0</td>
+<td>0 0</td>
+<td>0x 1x</td>
+<td>1 1</td>
+<td>Special 10 Valid 00</td></tr>
+<tr>
+<td>0 0</td>
+<td>0 0</td>
+<td>1 1</td>
+<td>00 10</td>
+<td>1 1</td>
+<td>Special 10 Valid 00</td></tr>
+<tr>
+<td>0 0</td>
+<td>1 1</td>
+<td>0 0</td>
+<td>0x 1x</td>
+<td>1 1</td>
+<td>Special 10 Special 10</td></tr>
+<tr>
+<td>0 0</td>
+<td>1 1</td>
+<td>1 1</td>
+<td>00 10</td>
+<td>1 1</td>
+<td>Zero 01 Special 10</td></tr>
+<tr>
+<td>1 1</td>
+<td>0 0</td>
+<td>0 0</td>
+<td>1x 1x</td>
+<td>1 1</td>
+<td>Special 10 Special 10</td></tr>
+<tr>
+<td>1 1</td>
+<td>0 0</td>
+<td>1 1</td>
+<td>00 10</td>
+<td>1 1</td>
+<td>Special 10 Special 10</td></tr>
+<tr>
+<td colspan="4">For all legal combinations above.</td>
+<td>0</td>
+<td>Empty 11</td></tr></table>
+<figcaption><a href="./FXSAVE.html#tbl-3-45">Table 3-45</a>. Recreating FSAVE Format</figcaption></figure>
+<p>The J-bit is defined to be the 1-bit binary integer to the left of the decimal place in the significand. The M-bit is defined to be the most significant bit of the fractional portion of the significand (i.e., the bit immediately to the right of the decimal place).</p>
+<p>When the M-bit is the most significant bit of the fractional portion of the significand, it must be 0 if the fraction is all 0’s.</p>
+<h2 id="ia-32e-mode-operation">IA-32e Mode Operation<a class="anchor" href="#ia-32e-mode-operation">
+			¶
+		</a></h2>
+<p>In compatibility sub-mode of IA-32e mode, legacy SSE registers, XMM0 through XMM7, are saved according to the legacy FXSAVE map. In 64-bit mode, all of the SSE registers, XMM0 through XMM15, are saved. Additionally, there are two different layouts of the FXSAVE map in 64-bit mode, corresponding to FXSAVE64 (which requires REX.W=1) and FXSAVE (REX.W=0). In the FXSAVE64 map (<a href="./FXSAVE.html#tbl-3-46">Table 3-46</a>), the FPU IP and FPU DP pointers are 64-bit wide. In the FXSAVE map for 64-bit mode (<a href="./FXSAVE.html#tbl-3-47">Table 3-47</a>), the FPU IP and FPU DP pointers are 32-bits.</p>
+<figure id="tbl-3-46">
+<table>
+<tr>
+<td>15 14</td>
+<td>13 12</td>
+<td>11 10</td>
+<td>98</td>
+<td>76</td>
+<td>5</td>
+<td>4</td>
+<td>32</td>
+<td>10</td>
+<td></td></tr>
+<tr>
+<td colspan="4">FIP</td>
+<td>FOP</td>
+<td>Reserved</td>
+<td>FTW</td>
+<td>FSW</td>
+<td>FCW</td>
+<td><strong>0</strong></td></tr>
+<tr>
+<td colspan="2">MXCSR_MASK</td>
+<td colspan="2">MXCSR</td>
+<td colspan="5">FDP</td>
+<td><strong>16</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST0/MM0</td>
+<td><strong>32</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST1/MM1</td>
+<td><strong>48</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST2/MM2</td>
+<td><strong>64</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST3/MM3</td>
+<td><strong>80</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST4/MM4</td>
+<td><strong>96</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST5/MM5</td>
+<td><strong>112</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST6/MM6</td>
+<td><strong>128</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST7/MM7</td>
+<td><strong>144</strong></td></tr>
+<tr>
+<td colspan="9">XMM0</td>
+<td><strong>160</strong></td></tr>
+<tr>
+<td colspan="9">XMM1</td>
+<td><strong>176</strong></td></tr>
+<tr>
+<td colspan="9">XMM2</td>
+<td><strong>192</strong></td></tr>
+<tr>
+<td colspan="9">XMM3</td>
+<td><strong>208</strong></td></tr>
+<tr>
+<td colspan="9">XMM4</td>
+<td><strong>224</strong></td></tr>
+<tr>
+<td colspan="9">XMM5</td>
+<td><strong>240</strong></td></tr>
+<tr>
+<td colspan="9">XMM6</td>
+<td><strong>256</strong></td></tr>
+<tr>
+<td colspan="9">XMM7</td>
+<td><strong>272</strong></td></tr>
+<tr>
+<td colspan="9">XMM8</td>
+<td><strong>288</strong></td></tr>
+<tr>
+<td colspan="9">XMM9</td>
+<td><strong>304</strong></td></tr>
+<tr>
+<td colspan="9">XMM10</td>
+<td><strong>320</strong></td></tr>
+<tr>
+<td colspan="9">XMM11</td>
+<td><strong>336</strong></td></tr>
+<tr>
+<td colspan="9">XMM12</td>
+<td><strong>352</strong></td></tr>
+<tr>
+<td colspan="9">XMM13</td>
+<td><strong>368</strong></td></tr>
+<tr>
+<td colspan="9">XMM14</td>
+<td><strong>384</strong></td></tr>
+<tr>
+<td colspan="9">XMM15</td>
+<td><strong>400</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>416</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>432</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>448</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>464</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>480</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>496</strong></td></tr></table>
+<figcaption><a href="./FXSAVE.html#tbl-3-46">Table 3-46</a>. Layout of the 64-bit-mode FXSAVE64 Map (requires REX.W = 1)</figcaption></figure>
+<figure id="tbl-3-47">
+<table>
+<tr>
+<td>15 14</td>
+<td>13 12</td>
+<td>11 10</td>
+<td>98</td>
+<td>76</td>
+<td>5</td>
+<td>4</td>
+<td>32</td>
+<td>10</td>
+<td></td></tr>
+<tr>
+<td>Reserved</td>
+<td>FCS</td>
+<td colspan="2">FIP[31:0]</td>
+<td>FOP</td>
+<td>Reserved</td>
+<td>FTW</td>
+<td>FSW</td>
+<td>FCW</td>
+<td><strong>0</strong></td></tr>
+<tr>
+<td colspan="2">MXCSR_MASK</td>
+<td colspan="2">MXCSR</td>
+<td>Reserved</td>
+<td colspan="2">FDS</td>
+<td colspan="2">FDP[31:0]</td>
+<td><strong>16</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST0/MM0</td>
+<td><strong>32</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST1/MM1</td>
+<td><strong>48</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST2/MM2</td>
+<td><strong>64</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST3/MM3</td>
+<td><strong>80</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST4/MM4</td>
+<td><strong>96</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST5/MM5</td>
+<td><strong>112</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST6/MM6</td>
+<td><strong>128</strong></td></tr>
+<tr>
+<td colspan="3">Reserved</td>
+<td colspan="6">ST7/MM7</td>
+<td><strong>144</strong></td></tr>
+<tr>
+<td colspan="9">XMM0</td>
+<td><strong>160</strong></td></tr>
+<tr>
+<td colspan="9">XMM1</td>
+<td><strong>176</strong></td></tr>
+<tr>
+<td colspan="9">XMM2</td>
+<td><strong>192</strong></td></tr>
+<tr>
+<td colspan="9">XMM3</td>
+<td><strong>208</strong></td></tr>
+<tr>
+<td colspan="9">XMM4</td>
+<td><strong>224</strong></td></tr>
+<tr>
+<td colspan="9">XMM5</td>
+<td><strong>240</strong></td></tr>
+<tr>
+<td colspan="9">XMM6</td>
+<td><strong>256</strong></td></tr>
+<tr>
+<td colspan="9">XMM7</td>
+<td><strong>272</strong></td></tr>
+<tr>
+<td colspan="9">XMM8</td>
+<td><strong>288</strong></td></tr>
+<tr>
+<td colspan="9">XMM9</td>
+<td><strong>304</strong></td></tr>
+<tr>
+<td colspan="9">XMM10</td>
+<td><strong>320</strong></td></tr>
+<tr>
+<td colspan="9">XMM11</td>
+<td><strong>336</strong></td></tr>
+<tr>
+<td colspan="9">XMM12</td>
+<td><strong>352</strong></td></tr>
+<tr>
+<td colspan="9">XMM13</td>
+<td><strong>368</strong></td></tr>
+<tr>
+<td colspan="9">XMM14</td>
+<td><strong>384</strong></td></tr>
+<tr>
+<td colspan="9">XMM15</td>
+<td><strong>400</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>416</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>432</strong></td></tr>
+<tr>
+<td colspan="9">Reserved</td>
+<td><strong>448</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>464</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>480</strong></td></tr>
+<tr>
+<td colspan="9">Available</td>
+<td><strong>496</strong></td></tr></table>
+<figcaption><a href="./FXSAVE.html#tbl-3-47">Table 3-47</a>. Layout of the 64-bit-mode FXSAVE Map (REX.W = 0)</figcaption></figure>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF 64-Bit Mode
+    THEN
+        IF REX.W = 1
+            THEN
+                DEST ← Save64BitPromotedFxsave(x87 FPU, MMX, XMM15-XMM0,
+                MXCSR);
+            ELSE
+                DEST ← Save64BitDefaultFxsave(x87 FPU, MMX, XMM15-XMM0, MXCSR);
+        FI;
+    ELSE
+        DEST ← SaveLegacyFxsave(x87 FPU, MMX, XMM7-XMM0, MXCSR);
+FI;
+</pre>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>For an illegal memory operand effective address in the CS, DS, ES, FS or GS segments.</td></tr>
+<tr>
+<td>If a memory operand is not aligned on a 16-byte boundary, regardless of segment. (See the description of the alignment check exception [#AC] below.)</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>For an illegal address in the SS segment.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td rowspan="2">#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>If CR0.EM[bit 2] = 1.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If CPUID.01H:EDX.FXSR[bit 24] = 0.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#AC</td>
+<td>If this exception is disabled a general protection exception (#GP) is signaled if the memory operand is not aligned on a 16-byte boundary, as described above. If the alignment check exception (#AC) is enabled (and the CPL is 3), signaling of #AC is not guaranteed and may vary with implementation, as follows. In all implementations where #AC is not signaled, a general protection exception is signaled in its place. In addition, the width of the alignment check may also vary with implementation. For instance, for a given implementation, an alignment check exception might be signaled for a 2-byte misalignment, whereas a general protection exception might be signaled for all other misalignments (4-, 8-, or 16-byte misalignments).</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP</td>
+<td>If a memory operand is not aligned on a 16-byte boundary, regardless of segment.</td></tr>
+<tr>
+<td>If any part of the operand lies outside the effective address space from 0 to FFFFH.</td></tr>
+<tr>
+<td rowspan="2">#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>If CR0.EM[bit 2] = 1.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.01H:EDX.FXSR[bit 24] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in real address mode.</p>
+<table>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td>#AC</td>
+<td>For unaligned memory reference.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>If memory operand is not aligned on a 16-byte boundary, regardless of segment.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td rowspan="2">#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>If CR0.EM[bit 2] = 1.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.01H:EDX.FXSR[bit 24] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#AC</td>
+<td>If this exception is disabled a general protection exception (#GP) is signaled if the memory operand is not aligned on a 16-byte boundary, as described above. If the alignment check exception (#AC) is enabled (and the CPL is 3), signaling of #AC is not guaranteed and may vary with implementation, as follows. In all implementations where #AC is not signaled, a general protection exception is signaled in its place. In addition, the width of the alignment check may also vary with implementation. For instance, for a given implementation, an alignment check exception might be signaled for a 2-byte misalignment, whereas a general protection exception might be signaled for all other misalignments (4-, 8-, or 16-byte misalignments).</td></tr></table>
+<h2 id="implementation-note">Implementation Note<a class="anchor" href="#implementation-note">
+			¶
+		</a></h2>
+<p>The order in which the processor signals general-protection (#GP) and page-fault (#PF) exceptions when they both occur on an instruction boundary is given in <span class="not-imported">Table 5-2</span> in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3B</em>. This order vary for FXSAVE for different processor implementations.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

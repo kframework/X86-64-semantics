@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EAUG
+		— Add a Page to an Initialized Enclave</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EAUG
+		— Add a Page to an Initialized Enclave</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 0DH ENCLS[EAUG]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX2</td>
+<td>This leaf function adds a page to an initialized enclave.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>RBX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>EAUG (In)</td>
+<td>Address of a SECINFO (In)</td>
+<td>Address of the destination EPC page (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function zeroes a page of EPC memory, associates the EPC page with an SECS page residing in the EPC, and stores the linear address and security attributes in the EPCM. As part of the association, the security attributes are configured to prevent access to the EPC page until a corresponding invocation of the EACCEPT leaf or EACCEPTCOPY leaf confirms the addition of the new page into the enclave. This instruction can only be executed when current privilege level is 0.</p>
+<p>RBX contains the effective address of a PAGEINFO structure while RCX contains the effective address of an EPC page. The table below provides additional information on the memory parameter of the EAUG leaf function.</p>
+<h2 id="eaug-memory-parameter-semantics">EAUG Memory Parameter Semantics<a class="anchor" href="#eaug-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>PAGEINFO</td>
+<td>PAGEINFO.SECS</td>
+<td>PAGEINFO.SRCPGE</td>
+<td>PAGEINFO.SECINFO</td>
+<td>EPCPAGE</td></tr>
+<tr>
+<td>Read access permitted by Non Enclave</td>
+<td>Read/Write access permitted by Enclave</td>
+<td>Must be zero</td>
+<td>Read access permitted by Non Enclave</td>
+<td>Write access permitted by Enclave</td></tr></table>
+<p>The instruction faults if any of the following:</p>
+<h2 id="eaug-faulting-conditions">EAUG Faulting Conditions<a class="anchor" href="#eaug-faulting-conditions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>The operands are not properly aligned.</td>
+<td>Unsupported security attributes are set.</td></tr>
+<tr>
+<td>Refers to an invalid SECS.</td>
+<td>Reference is made to an SECS that is locked by another thread.</td></tr>
+<tr>
+<td>The EPC page is locked by another thread.</td>
+<td>RCX does not contain an effective address of an EPC page.</td></tr>
+<tr>
+<td>The EPC page is already valid.</td>
+<td>The specified enclave offset is outside of the enclave address space.</td></tr>
+<tr>
+<td>The SECS has been initialized.</td>
+<td></td></tr></table>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-10">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td rowspan="2">EAUG</td>
+<td>Target [DS:RCX]</td>
+<td>Exclusive</td>
+<td>#GP</td>
+<td>EPC_PAGE_CONFLICT_EXCEPTION</td></tr>
+<tr>
+<td>SECS [DS:RBX]PAGEINFO.SECS</td>
+<td>Shared</td>
+<td>#GP</td>
+<td></td></tr></table>
+<figcaption><a href="./EAUG.html#tbl-40-10">Table 40-10</a>. Base Concurrency Restrictions of EAUG</figcaption></figure>
+<figure id="tbl-40-11">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td rowspan="2">EAUG</td>
+<td>Target [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr>
+<tr>
+<td>SECS [DS:RBX]PAGEINFO.SECS</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EAUG.html#tbl-40-11">Table 40-11</a>. Additional Concurrency Restrictions of EAUG</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-eaug-operational-flow">Temp Variables in EAUG Operational Flow<a class="anchor" href="#temp-variables-in-eaug-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size (bits)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_SECS</td>
+<td>Effective Address</td>
+<td>32/64</td>
+<td>Effective address of the SECS destination page.</td></tr>
+<tr>
+<td>TMP_SECINFO</td>
+<td>Effective Address</td>
+<td>32/64</td>
+<td>Effective address of an SECINFO structure which contains security attributes of the page to be added.</td></tr>
+<tr>
+<td>SCRATCH_SECINFO</td>
+<td>SECINFO</td>
+<td>512</td>
+<td>Scratch storage for holding the contents of DS:TMP_SECINFO.</td></tr>
+<tr>
+<td>TMP_LINADDR</td>
+<td>Unsigned Integer</td>
+<td>64</td>
+<td>Holds the linear address to be stored in the EPCM and used to calculate TMP_ENCLAVEOFFSET.</td></tr></table>
+<p>IF (DS:RBX is not 32Byte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX is not 4KByte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>TMP_SECS ← DS:RBX.SECS;</p>
+<p>TMP_LINADDR ← DS:RBX.LINADDR;</p>
+<p>IF ( DS:TMP_SECS is not 4KByte aligned or TMP_LINADDR is not 4KByte aligned )</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF ( (DS:RBX.SRCPAGE is not 0) or (DS:RBX.SECINFO is not 0) )</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:TMP_SECS does not resolve within an EPC)</p>
+<p>THEN #PF(DS:TMP_SECS); FI;</p>
+<p>(* Check the EPC page for concurrency *)</p>
+<p>IF (EPC page in use)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (EPCM(DS:RCX).VALID ≠ 0)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* Check the SECS for concurrency *)</p>
+<p>IF (SECS is not available for EAUG)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (EPCM(DS:TMP_SECS).VALID = 0 or EPCM(DS:TMP_SECS).PT ≠ PT_SECS)</p>
+<p>THEN #PF(DS:TMP_SECS); FI;</p>
+<p>(* Check if the enclave to which the page will be added is in the Initialized state *)</p>
+<p>IF (DS:TMP_SECS is not initialized)</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* Check the enclave offset is within the enclave linear address space *) IF ( (TMP_LINADDR &lt; DS:TMP_SECS.BASEADDR) or (TMP_LINADDR ≥ DS:TMP_SECS.BASEADDR + DS:TMP_SECS.SIZE) ) THEN #GP(0); FI;</p>
+<p>(* Clear the content of EPC page*)</p>
+<p>DS:RCX[32767:0] ← 0;</p>
+<p>(* Set EPCM security attributes *)</p>
+<p>EPCM(DS:RCX).R ← 1;</p>
+<p>EPCM(DS:RCX).W ← 1;</p>
+<p>EPCM(DS:RCX).X ← 0;</p>
+<p>EPCM(DS:RCX).PT ← PT_REG;</p>
+<p>EPCM(DS:RCX).ENCLAVEADDRESS ← TMP_LINADDR;</p>
+<p>EPCM(DS:RCX).BLOCKED ← 0;</p>
+<p>EPCM(DS:RCX).PENDING ← 1;</p>
+<p>EPCM(DS:RCX).MODIFIED ← 0;</p>
+<p>EPCM(DS:RCX).PR ← 0;</p>
+<p>(* associate the EPCPAGE with the SECS by storing the SECS identifier of DS:TMP_SECS *)</p>
+<p>Update EPCM(DS:RCX) SECS identifier to reference DS:TMP_SECS identifier;</p>
+<p>(* Set EPCM valid fields *)</p>
+<p>EPCM(DS:RCX).VALID ← 1;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="4">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If a memory operand is locked.</td></tr>
+<tr>
+<td>If the enclave is not initialized.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="4">#GP(0)</td>
+<td>If a memory operand is non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If a memory operand is locked.</td></tr>
+<tr>
+<td>If the enclave is not initialized.</td></tr>
+<tr>
+<td>#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Resume Virtual Machine" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VMRESUME"/>
+<p>See VMLAUNCH/VMRESUME—Launch/Resume Virtual Machine.</p></x86:instruction>

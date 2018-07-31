@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>BNDMOV
+		— Move Bounds</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>BNDMOV
+		— Move Bounds</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F 1A /r BNDMOV bnd1, bnd2/m64</td>
+<td>RM</td>
+<td>NE/V</td>
+<td>MPX</td>
+<td>Move lower and upper bound from bnd2/m64 to bound register bnd1.</td></tr>
+<tr>
+<td>66 0F 1A /r BNDMOV bnd1, bnd2/m128</td>
+<td>RM</td>
+<td>V/NE</td>
+<td>MPX</td>
+<td>Move lower and upper bound from bnd2/m128 to bound register bnd1.</td></tr>
+<tr>
+<td>66 0F 1B /r BNDMOV bnd1/m64, bnd2</td>
+<td>MR</td>
+<td>NE/V</td>
+<td>MPX</td>
+<td>Move lower and upper bound from bnd2 to bnd1/m64.</td></tr>
+<tr>
+<td>66 0F 1B /r BNDMOV bnd1/m128, bnd2</td>
+<td>MR</td>
+<td>V/NE</td>
+<td>MPX</td>
+<td>Move lower and upper bound from bnd2 to bound register bnd1/m128.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>MR</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>BNDMOV moves a pair of lower and upper bound values from the source operand (the second operand) to the destination (the first operand). Each operation is 128-bit move. The exceptions are same as the MOV instruction. The memory format for loading/store bounds in 64-bit mode is shown in <a href="./BNDMOV.html#fig-3-5">Figure 3-5</a>.</p>
+<figure id="fig-3-5">
+<svg style="width: 596.808pt; height: 219.528012pt" viewBox="50.3 0.0 502.34 187.94001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="181.98" x="52.8" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
+<rect height="181.98" x="549.66" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="0.48001" x="52.8" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="497.34"></rect>
+<rect height="0.48" x="52.8" style="fill: rgb(0%, 0%, 0%)" y="182.46001" width="497.34"></rect>
+<rect height="0.48001" x="83.52" style="fill: rgb(0%, 0%, 0%)" y="23.82" width="286.14"></rect>
+<rect height="13.74" x="369.18" style="fill: rgb(0%, 0%, 0%)" y="24.06001" width="0.48001"></rect>
+<rect height="0.48001" x="83.28" style="fill: rgb(0%, 0%, 0%)" y="37.32" width="286.14"></rect>
+<rect height="13.74" x="83.28" style="fill: rgb(0%, 0%, 0%)" y="23.82001" width="0.48"></rect>
+<rect height="0.23999" x="232.5" style="fill: rgb(0%, 0%, 0%)" y="23.64002" width="0.48"></rect>
+<rect height="13.74" x="232.5" style="fill: rgb(0%, 0%, 0%)" y="23.88001" width="0.48"></rect>
+<rect height="13.5" x="143.7" style="fill: rgb(100%, 100%, 100%)" y="66.84001" width="320.1"></rect>
+<rect height="0.48001" x="143.7" style="fill: rgb(0%, 0%, 0%)" y="66.6" width="320.34"></rect>
+<rect height="13.74" x="463.56" style="fill: rgb(0%, 0%, 0%)" y="66.84001" width="0.47998"></rect>
+<rect height="0.48001" x="143.46" style="fill: rgb(0%, 0%, 0%)" y="80.1" width="320.34"></rect>
+<rect height="13.74" x="143.46" style="fill: rgb(0%, 0%, 0%)" y="66.60001" width="0.48"></rect>
+<rect height="0.23999" x="313.14" style="fill: rgb(0%, 0%, 0%)" y="66.48002" width="0.47998"></rect>
+<rect height="13.74" x="313.14" style="fill: rgb(0%, 0%, 0%)" y="66.72001" width="0.47998"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 432.72 61.62001 L 433.26 59.0400100000001 L 433.44 58.44001 L 434.04 58.74001 L 442.5 63.18001 L 444.0 63.96001 L 442.26 64.08001 L 432.72 64.80001 L 432.06 64.86001 L 432.18 64.20001 L 432.66 63.8400100000001 L 442.2 63.12001 L 442.26 64.08001 L 441.96 64.02001 L 433.5 59.58001 L 434.04 58.74001 L 434.28 59.2800100000001 L 433.74 61.86001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 432.18 64.20001 L 432.72 61.62001 L 433.74 61.86001 L 433.2 64.44001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 433.2 61.74001 L 433.74 59.1600100000001 L 442.2 63.6000100000001 L 432.66 64.32001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 345.66 43.38001 L 345.42 43.32001 L 345.3 43.80001 L 345.54 43.86001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 432.78 61.44001 L 433.02 61.50001 L 432.9 61.98001 L 432.66 61.92001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 345.66 43.38001 L 345.54 43.86001 L 432.66 61.92001 L 432.78 61.44001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 284.1 59.46001 L 284.64 56.82001 L 284.82 56.22001 L 285.42 56.52001 L 293.94 61.02001 L 295.44 61.80001 L 293.7 61.92001 L 284.1 62.64001 L 283.44 62.70001 L 283.56 62.04001 L 284.04 61.68001 L 293.64 60.96001 L 293.7 61.92001 L 293.4 61.86001 L 284.88 57.36001 L 285.42 56.52001 L 285.66 57.06001 L 285.12 59.70001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 283.56 62.04001 L 284.1 59.46001 L 285.12 59.70001 L 284.58 62.28001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 284.58 59.58001 L 285.12 56.94001 L 293.64 61.44001 L 284.04 62.16001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 197.04 41.16001 L 196.8 41.10001 L 196.68 41.58001 L 196.92 41.64001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 284.16 59.22001 L 284.4 59.28001 L 284.28 59.76001 L 284.04 59.70001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 197.04 41.16001 L 196.92 41.64001 L 284.04 59.70001 L 284.16 59.22001"></path>
+<rect height="13.5" x="75.9" style="fill: rgb(100%, 100%, 100%)" y="108.24001" width="285.9"></rect>
+<rect height="0.48001" x="75.9" style="fill: rgb(0%, 0%, 0%)" y="108.0" width="286.14"></rect>
+<rect height="13.74" x="361.56" style="fill: rgb(0%, 0%, 0%)" y="108.24001" width="0.48001"></rect>
+<rect height="0.47998" x="75.66" style="fill: rgb(0%, 0%, 0%)" y="121.50003" width="286.14"></rect>
+<rect height="13.74" x="75.66" style="fill: rgb(0%, 0%, 0%)" y="108.00001" width="0.48"></rect>
+<rect height="0.24002" x="224.94" style="fill: rgb(0%, 0%, 0%)" y="107.87999" width="0.48001"></rect>
+<rect height="13.74" x="224.94" style="fill: rgb(0%, 0%, 0%)" y="108.12001" width="0.48001"></rect>
+<rect height="13.5" x="136.14" style="fill: rgb(100%, 100%, 100%)" y="151.02001" width="320.1"></rect>
+<rect height="0.48004" x="136.14" style="fill: rgb(0%, 0%, 0%)" y="150.77997" width="320.34"></rect>
+<rect height="13.74" x="456.0" style="fill: rgb(0%, 0%, 0%)" y="151.02001" width="0.48001"></rect>
+<rect height="0.48001" x="135.9" style="fill: rgb(0%, 0%, 0%)" y="164.28" width="320.34"></rect>
+<rect height="13.74" x="135.9" style="fill: rgb(0%, 0%, 0%)" y="150.78001" width="0.48"></rect>
+<rect height="0.24002" x="305.52" style="fill: rgb(0%, 0%, 0%)" y="150.65999" width="0.48001"></rect>
+<rect height="13.74" x="305.52" style="fill: rgb(0%, 0%, 0%)" y="150.90001" width="0.48001"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 426.9 153.30001 L 428.1 150.30001 L 428.64 150.72001 L 436.2 156.66001 L 437.58 157.74001 L 435.84 157.56001 L 426.3 156.48001 L 425.58 156.36001 L 425.88 155.76001 L 426.36 155.46001 L 435.9 156.54001 L 435.84 157.56001 L 435.54 157.44001 L 427.98 151.50001 L 428.64 150.72001 L 428.76 151.26001 L 427.8 153.66001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 425.88 155.76001 L 426.9 153.30001 L 427.8 153.66001 L 426.78 156.12001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 427.32 153.48001 L 428.28 151.08001 L 435.84 157.02001 L 426.3 155.94001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 341.64 118.02001 L 341.46 117.96001 L 341.28 118.38001 L 341.46 118.44001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 426.96 153.12001 L 427.14 153.18001 L 426.96 153.60001 L 426.78 153.54001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 341.64 118.02001 L 341.46 118.44001 L 426.78 153.54001 L 426.96 153.12001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.7 153.84001 L 363.24 151.26001 L 363.36 150.66001 L 364.02 150.96001 L 372.54 155.40001 L 373.98 156.18001 L 372.3 156.30001 L 362.7 157.08001 L 362.04 157.14001 L 362.16 156.48001 L 362.64 156.12001 L 372.24 155.34001 L 372.3 156.30001 L 372.0 156.24001 L 363.48 151.80001 L 364.02 150.96001 L 364.26 151.50001 L 363.72 154.08001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.16 156.48001 L 362.7 153.84001 L 363.72 154.08001 L 363.18 156.72001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 363.18 153.96001 L 363.72 151.38001 L 372.24 155.82001 L 362.64 156.60001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 191.58 118.44001 L 191.34 118.38001 L 191.22 118.86001 L 191.46 118.92001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 153.66001 L 363.0 153.72001 L 362.88 154.20001 L 362.64 154.14001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 191.58 118.44001 L 191.46 118.92001 L 362.64 154.14001 L 362.76 153.66001"></path>
+<rect height="0.24002" x="385.02" style="fill: rgb(0%, 0%, 0%)" y="151.13999" width="0.48001"></rect>
+<rect height="13.74" x="385.02" style="fill: rgb(0%, 0%, 0%)" y="151.38001" width="0.48001"></rect>
+<rect height="0.23999" x="223.5" style="fill: rgb(0%, 0%, 0%)" y="151.68002" width="0.48"></rect>
+<rect height="13.74" x="223.5" style="fill: rgb(0%, 0%, 0%)" y="151.92001" width="0.48"></rect>
+<text x="395.39838172" textLength="110.34639685179" y="30.7414392498338" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">BNDMOV to memory in 64-bit mode</text>
+<text x="132.9" textLength="56.7683741799747" y="34.5814392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Upper Bound (UB)</text>
+<text x="258.59923652" textLength="55.5573013699746" y="34.6414392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Lower Bound (LB)</text>
+<text x="131.58" textLength="7.84818197178967" y="64.2814392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">16</text>
+<text x="305.52" textLength="4.00907423178967" y="64.3414392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423971pt; fill: #000">8</text>
+<text x="458.45901614" textLength="44.0805509558949" y="64.6414392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.88699072423975pt; fill: #000">0 Byteoffset</text>
+<text x="387.77838172" textLength="110.288165531789" y="114.921439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">BNDMOV to memory in 32-bit mode</text>
+<text x="125.28" textLength="56.6948917999748" y="118.821439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Upper Bound (UB)</text>
+<text x="250.97299745" textLength="55.5704727399747" y="118.821439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Lower Bound (LB)</text>
+<text x="123.96" textLength="7.84818197178967" y="148.461439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">16</text>
+<text x="297.9" textLength="4.00907423178967" y="148.521439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423971pt; fill: #000">8</text>
+<text x="378.9" textLength="4.00907423178967" y="148.521439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423971pt; fill: #000">4</text>
+<text x="450.83901614" textLength="44.1269973658947" y="148.821439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.82699072423975pt; fill: #000">0 Byteoffset</text></g></svg>
+<figcaption><a href="./BNDMOV.html#fig-3-5">Figure 3-5</a>. Memory Layout of BNDMOV to/from Memory</figcaption></figure>
+<p>This instruction does not change flags.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="bndmov-register-to-register">BNDMOV register to register<a class="anchor" href="#bndmov-register-to-register">
+			¶
+		</a></h3>
+<pre>DEST.LB ← SRC.LB;
+DEST.UB ← SRC.UB;
+</pre>
+<h3 id="bndmov-from-memory">BNDMOV from memory<a class="anchor" href="#bndmov-from-memory">
+			¶
+		</a></h3>
+<pre>IF 64-bit mode THEN
+        DEST.LB ← LOAD_QWORD(SRC);
+        DEST.UB ← LOAD_QWORD(SRC+8);
+    ELSE
+        DEST.LB ← LOAD_DWORD_ZERO_EXT(SRC);
+        DEST.UB ← LOAD_DWORD_ZERO_EXT(SRC+4);
+FI;
+</pre>
+<h3 id="bndmov-to-memory">BNDMOV to memory<a class="anchor" href="#bndmov-to-memory">
+			¶
+		</a></h3>
+<pre>IF 64-bit mode THEN
+        DEST[63:0] ← SRC.LB;
+        DEST[127:64] ← SRC.UB;
+    ELSE
+        DEST[31:0] ← SRC.LB;
+        DEST[63:32] ← SRC.UB;
+FI;
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>BNDMOV void * _bnd_copy_ptr_bounds(const void *q, const void *r)
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="4">#UD</td>
+<td>If the LOCK prefix is used but the destination is not a memory operand.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 67H prefix is not used and CS.D=0.</td></tr>
+<tr>
+<td>If 67H prefix is used and CS.D=1.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the destination operand points to a non-writable segment</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS segment register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while CPL is 3.</td></tr>
+<tr>
+<td>#PF(fault</td>
+<td>code) If a page fault occurs.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used but the destination is not a memory operand.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 16-bit addressing is used.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If the memory operand effective address is outside the SS segment limit.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If the LOCK prefix is used but the destination is not a memory operand.</td></tr>
+<tr>
+<td>If ModRM.r/m encodes BND4-BND7 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>If 16-bit addressing is used.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while CPL is 3.</td></tr>
+<tr>
+<td>#PF(fault</td>
+<td>code) If a page fault occurs.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If the LOCK prefix is used but the destination is not a memory operand.</td></tr>
+<tr>
+<td>If ModRM.r/m and REX encodes BND4-BND15 when Intel MPX is enabled.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while CPL is 3.</td></tr>
+<tr>
+<td>#PF(fault</td>
+<td>code) If a page fault occurs.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

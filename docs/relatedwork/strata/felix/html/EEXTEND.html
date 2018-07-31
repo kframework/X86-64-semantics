@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EEXTEND
+		— Extend Uninitialized Enclave Measurement by 256 Bytes</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EEXTEND
+		— Extend Uninitialized Enclave Measurement by 256 Bytes</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 06H ENCLS[EEXTEND]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX1</td>
+<td>This leaf function measures 256 bytes of an uninitialized enclave page.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>EBX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>EEXTEND (In)</td>
+<td>Effective address of the SECS of the data chunk (In)</td>
+<td>Effective address of a 256-byte chunk in the EPC (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function updates the MRENCLAVE measurement register of an SECS with the measurement of an EXTEND string compromising of “EEXTEND” || ENCLAVEOFFSET || PADDING || 256 bytes of the enclave page. This instruction can only be executed when current privilege level is 0 and the enclave is uninitialized.</p>
+<p>RBX contains the effective address of the SECS of the region to be measured. The address must be the same as the one used to add the page into the enclave.</p>
+<p>RCX contains the effective address of the 256 byte region of an EPC page to be measured. The DS segment is used to create linear addresses. Segment override is not supported.</p>
+<h2 id="eextend-memory-parameter-semantics">EEXTEND Memory Parameter Semantics<a class="anchor" href="#eextend-memory-parameter-semantics">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>EPC[RCX]</td></tr>
+<tr>
+<td>Read access by Enclave</td></tr></table>
+<p>The instruction faults if any of the following:</p>
+<h2 id="eextend-faulting-conditions">EEXTEND Faulting Conditions<a class="anchor" href="#eextend-faulting-conditions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>RBX points to an address not 4KBytes aligned.</td>
+<td>RBX does not resolve to an SECS.</td></tr>
+<tr>
+<td>RBX does not point to an SECS page.</td>
+<td>RBX does not point to the SECS page of the data chunk.</td></tr>
+<tr>
+<td>RCX points to an address not 256B aligned.</td>
+<td>RCX points to an unused page or a SECS.</td></tr>
+<tr>
+<td>RCX does not resolve in an EPC page.</td>
+<td>If SECS is locked.</td></tr>
+<tr>
+<td>If the SECS is already initialized.</td>
+<td>May page fault.</td></tr>
+<tr>
+<td>CPL &gt; 0.</td>
+<td></td></tr></table>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-23">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td rowspan="2">EEXTEND</td>
+<td>Target [DS:RCX]</td>
+<td>Shared</td>
+<td>#GP</td>
+<td></td></tr>
+<tr>
+<td>SECS [DS:RBX]</td>
+<td>Concurrent</td>
+<td></td>
+<td></td></tr></table>
+<figcaption><a href="./EEXTEND.html#tbl-40-23">Table 40-23</a>. Base Concurrency Restrictions of EEXTEND</figcaption></figure>
+<figure id="tbl-40-24">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td rowspan="2">EEXTEND</td>
+<td>Target [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr>
+<tr>
+<td>SECS [DS:RBX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Exclusive</td>
+<td>#GP</td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EEXTEND.html#tbl-40-24">Table 40-24</a>. Additional Concurrency Restrictions of EEXTEND</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-eextend-operational-flow">Temp Variables in EEXTEND Operational Flow<a class="anchor" href="#temp-variables-in-eextend-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size (Bits)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_SECS</td>
+<td></td>
+<td>64</td>
+<td>Physical address of SECS of the enclave to which source operand belongs.</td></tr>
+<tr>
+<td>TMP_ENCLAVEOFFS ET</td>
+<td>Enclave Offset</td>
+<td>64</td>
+<td>The page displacement from the enclave base address.</td></tr>
+<tr>
+<td>TMPUPDATEFIELD</td>
+<td>SHA256 Buffer</td>
+<td>512</td>
+<td>Buffer used to hold data being added to TMP_SECS.MRENCLAVE.</td></tr></table>
+<p>TMP_MODE64←((IA32_EFER.LMA = 1) &amp;&amp; (CS.L = 1));</p>
+<p>IF (DS:RBX is not 4096 Byte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RBX does resolve to an EPC page)</p>
+<p>THEN #PF(DS:RBX); FI;</p>
+<p>IF (DS:RCX is not 256Byte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (DS:RCX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* make sure no other Intel SGX instruction is accessing EPCM *)</p>
+<p>IF (Other instructions accessing EPCM)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF (EPCM(DS:RCX). VALID = 0)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* make sure that DS:RCX (DST) is pointing to a PT_REG or PT_TCS *)</p>
+<p>IF ( (EPCM(DS:RCX).PT ≠ PT_REG) and (EPCM(DS:RCX).PT ≠ PT_TCS) )</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>TMP_SECS ← Get_SECS_ADDRESS();</p>
+<p>IF (DS:RBX does not resolve to TMP_SECS)</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* make sure no other instruction is accessing MRENCLAVE or ATTRIBUTES.INIT *)</p>
+<p>IF ( (Other instruction accessing MRENCLAVE) or (Other instructions checking or updating the initialized state of the SECS))</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* Calculate enclave offset *)</p>
+<p>TMP_ENCLAVEOFFSET← EPCM(DS:RCX).ENCLAVEADDRESS - TMP_SECS.BASEADDR;</p>
+<p>TMP_ENCLAVEOFFSET← TMP_ENCLAVEOFFSET + (DS:RCX &amp; 0FFFH)</p>
+<p>(* Add EEXTEND message and offset to MRENCLAVE *)</p>
+<p>TMPUPDATEFIELD[63:0]←00444E4554584545H; // “EEXTEND”</p>
+<p>TMPUPDATEFIELD[127:64] ← TMP_ENCLAVEOFFSET;</p>
+<p>TMPUPDATEFIELD[511:128]←0; // 48 bytes</p>
+<p>TMP_SECS.MRENCLAVE←SHA256UPDATE(TMP_SECS.MRENCLAVE, TMPUPDATEFIELD)</p>
+<p>INC enclave’s MRENCLAVE update counter;</p>
+<p>(*Add 256 bytes to MRENCLAVE, 64 byte at a time *)</p>
+<p>TMP_SECS.MRENCLAVE←SHA256UPDATE(TMP_SECS.MRENCLAVE, DS:RCX[511:0] );</p>
+<p>TMP_SECS.MRENCLAVE←SHA256UPDATE(TMP_SECS.MRENCLAVE, DS:RCX[1023: 512] );</p>
+<p>TMP_SECS.MRENCLAVE←SHA256UPDATE(TMP_SECS.MRENCLAVE, DS:RCX[1535: 1024] );</p>
+<p>TMP_SECS.MRENCLAVE←SHA256UPDATE(TMP_SECS.MRENCLAVE, DS:RCX[2047: 1536] );</p>
+<p>INC enclave’s MRENCLAVE update counter by 4;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="7">#GP(0)</td>
+<td>If the address in RBX is outside the DS segment limit.</td></tr>
+<tr>
+<td>If RBX points to an SECS page which is not the SECS of the data chunk.</td></tr>
+<tr>
+<td>If the address in RCX is outside the DS segment limit.</td></tr>
+<tr>
+<td>If RCX points to a memory location not 256Byte-aligned.</td></tr>
+<tr>
+<td>If another instruction is accessing MRENCLAVE.</td></tr>
+<tr>
+<td>If another instruction is checking or updating the SECS.</td></tr>
+<tr>
+<td>If the enclave is already initialized.</td></tr>
+<tr>
+<td rowspan="5">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If the address in RBX points to a non-EPC page.</td></tr>
+<tr>
+<td>If the address in RCX points to a page which is not PT_TCS or PT_REG.</td></tr>
+<tr>
+<td>If the address in RCX points to a non-EPC page.</td></tr>
+<tr>
+<td>If the address in RCX points to an invalid EPC page.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="7">#GP(0)</td>
+<td>If RBX is non-canonical form.</td></tr>
+<tr>
+<td>If RBX points to an SECS page which is not the SECS of the data chunk.</td></tr>
+<tr>
+<td>If RCX is non-canonical form.</td></tr>
+<tr>
+<td>If RCX points to a memory location not 256 Byte-aligned.</td></tr>
+<tr>
+<td>If another instruction is accessing MRENCLAVE.</td></tr>
+<tr>
+<td>If another instruction is checking or updating the SECS.</td></tr>
+<tr>
+<td>If the enclave is already initialized.</td></tr>
+<tr>
+<td rowspan="5">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If the address in RBX points to a non-EPC page.</td></tr>
+<tr>
+<td>If the address in RCX points to a page which is not PT_TCS or PT_REG.</td></tr>
+<tr>
+<td>If the address in RCX points to a non-EPC page.</td></tr>
+<tr>
+<td>If the address in RCX points to an invalid EPC page.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

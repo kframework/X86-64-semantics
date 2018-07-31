@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VGETMANTPS
+		— Extract Float32 Vector of Normalized Mantissas from Float32 Vector</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VGETMANTPS
+		— Extract Float32 Vector of Normalized Mantissas from Float32 Vector</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.66.0F3A.W0 26 /r ib VGETMANTPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Get normalized mantissa from float32 vector xmm2/m128/m32bcst and store the result in xmm1, using imm8 for sign control and mantissa interval normalization, under writemask.</td></tr>
+<tr>
+<td>EVEX.256.66.0F3A.W0 26 /r ib VGETMANTPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Get normalized mantissa from float32 vector ymm2/m256/m32bcst and store the result in ymm1, using imm8 for sign control and mantissa interval normalization, under writemask.</td></tr>
+<tr>
+<td>EVEX.512.66.0F3A.W0 26 /r ib VGETMANTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Get normalized mantissa from float32 vector zmm2/m512/m32bcst and store the result in zmm1, using imm8 for sign control and mantissa interval normalization, under writemask.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td>
+<td>NA</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>Convert single-precision floating values in the source operand (the second operand) to SP FP values with the mantissa normalization and sign control specified by the imm8 byte, see <a href="./VGETMANTPD.html#fig-5-15">Figure 5-15</a>. The converted results are written to the destination operand (the first operand) using writemask k1. The normalized mantissa is specified by interv (imm8[1:0]) and the sign control (sc) is specified by bits 3:2 of the immediate byte.</p>
+<p>The destination operand is a ZMM/YMM/XMM register updated under the writemask. The source operand can be a ZMM/YMM/XMM register, a 512/256/128-bit memory location, or a 512/256/128-bit vector broadcasted from a 32-bit memory location.</p>
+<p>For each input SP FP value x, The conversion operation is:</p>
+<p><em>GetMant</em>(<em>x</em>) = <em>±</em>2<em><sup>k</sup>|x.significand|</em></p>
+<p>where:</p>
+<p>1 <em>&lt;</em>= <em>|x.significand| &lt;</em> 2</p>
+<p>Unbiased exponent k depends on the interval range defined by interv and whether the exponent of the source is even or odd. The sign of the final result is determined by sc and the source sign.</p>
+<p>if interv != 0 then k = -1, otherwise K = 0. The encoded value of imm8[1:0] and sign control are shown</p>
+<p>in <a href="./VGETMANTPD.html#fig-5-15">Figure 5-15</a>.</p>
+<p>Each converted SP FP result is encoded according to the sign control, the unbiased exponent k (adding bias) and a mantissa normalized to the range specified by interv.</p>
+<p>The GetMant() function follows <a href="./VGETMANTPD.html#tbl-5-16">Table 5-16</a> when dealing with floating-point special numbers.</p>
+<p>This instruction is writemasked, so only those elements with the corresponding bit set in vector mask register k1 are computed and stored into the destination. Elements in zmm1 with the corresponding bit clear in k1 retain their previous values.</p>
+<p>Note: EVEX.vvvv is reserved and must be 1111b, VEX.L must be 0; otherwise instructions will #UD.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<pre>GetNormalizeMantissaSP(SRC[31:0] , SignCtrl[1:0], Interv[1:0])
+{
+    // Extracting the SRC sign, exponent and mantissa fields
+    Dst.sign←SignCtrl[0] ? 0 : Src[31]; // Get sign bit
+    Dst.exp←SRC[30:23]; ; Get original exponent value
+    Dst.fraction←SRC[22:0];; Get original fraction value
+    ZeroOperand←(Dst.exp = 0) AND (Dst.fraction = 0);
+    DenormOperand←(Dst.exp = 0h) AND (Dst.fraction != 0);
+    InfiniteOperand←(Dst.exp = 0FFh) AND (Dst.fraction = 0);
+    NaNOperand←(Dst.exp = 0FFh) AND (Dst.fraction != 0);
+    // Check for NAN operand
+    IF (NaNOperand)
+    { IF (SRC = SNaN) {Set #IE;}
+        Return QNAN(SRC);
+    }
+    // Check for Zero and Infinite operands
+    IF ((ZeroOperand) OR (InfiniteOperand)
+    { Dst.exp←07Fh;
+                        // Override exponent with BIAS
+        Return ((Dst.sign&lt;&lt;31) | (Dst.exp&lt;&lt;23) | (Dst.fraction));
+    }
+    // Check for negative operand (including -0.0)
+    IF ((Src[31] = 1) AND SignCtrl[1])
+    { Set #IE;
+        Return QNaN_Indefinite;
+    }
+    // Checking for denormal operands
+    IF (DenormOperand)
+    { IF (MXCSR.DAZ=1) Dst.fraction←0;// Zero out fraction
+        ELSE
+        {
+            // Jbit is the hidden integral bit. Zero in case of denormal operand.
+            Src.Jbit←0;
+                    // Zero Src Jbit
+            Dst.exp←07Fh;
+                    // Override exponent with BIAS
+            WHILE (Src.Jbit = 0) {
+                    // normalize mantissa
+                Src.Jbit←Dst.fraction[22]; // Get the fraction MSB
+                Dst.fraction←(Dst.fraction &lt;&lt; 1);
+                                // Start normalizing the mantissa
+                Dst.exp--; // Adjust the exponent
+            }
+            SET #DE; // Set DE bit
+        }
+    }
+    // Checking for exponent response
+    Unbiased.exp←Dst.exp – 07Fh;
+                        // subtract the bias from exponent
+    IsOddExp←Unbiased.exp[0];
+                        // recognized unbiased ODD exponent
+    SignalingBit ← Dst.fraction[22];
+    CASE (<em>interv</em>[1:0])
+        00: Dst.exp←07Fh;
+                            // This is the bias
+        01: Dst.exp←(IsOddExp) ? 07Eh : 07Fh;
+                                // either bias-1, or bias
+        10: Dst.exp←07Eh;
+                            // bias-1
+        11: Dst.exp←(SignalingBit) ? 07Eh : 07Fh;
+                                // either bias-1, or bias
+    ESAC
+    // Form the final destination
+    DEST[31:0]←(Dst.sign &lt;&lt; 31) OR (Dst.exp &lt;&lt; 23) OR (Dst.fraction);
+    Return (DEST);
+}
+</pre>
+<h4 id="vgetmantps--evex-encoded-versions-">VGETMANTPS (EVEX encoded versions)<a class="anchor" href="#vgetmantps--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
+SignCtrl[1:0] ← IMM8[3:2];
+Interv[1:0] ← IMM8[1:0];
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN
+            IF (EVEX.b = 1) AND (SRC *is memory*)
+                THEN
+                    DEST[i+31:i] ← GetNormalizedMantissaSP(SRC[31:0], SignCtrl, Interv)
+                ELSE
+                    DEST[i+31:i] ← GetNormalizedMantissaSP(SRC[i+31:i], SignCtrl, Interv)
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VGETMANTPS __m512 _mm512_getmant_ps( __m512 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m512 _mm512_mask_getmant_ps(__m512 s, __mmask16 k, __m512 a, enum intv, enum sgn;
+</pre>
+<pre>VGETMANTPS __m512 _mm512_maskz_getmant_ps(__mmask16 k, __m512 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m512 _mm512_getmant_round_ps( __m512 a, enum intv, enum sgn, int r);
+</pre>
+<pre>VGETMANTPS __m512 _mm512_mask_getmant_round_ps(__m512 s, __mmask16 k, __m512 a, enum intv, enum sgn, int r);
+</pre>
+<pre>VGETMANTPS __m512 _mm512_maskz_getmant_round_ps(__mmask16 k, __m512 a, enum intv, enum sgn, int r);
+</pre>
+<pre>VGETMANTPS __m256 _mm256_getmant_ps( __m256 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m256 _mm256_mask_getmant_ps(__m256 s, __mmask8 k, __m256 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m256 _mm256_maskz_getmant_ps( __mmask8 k, __m256 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m128 _mm_getmant_ps( __m128 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m128 _mm_mask_getmant_ps(__m128 s, __mmask8 k, __m128 a, enum intv, enum sgn);
+</pre>
+<pre>VGETMANTPS __m128 _mm_maskz_getmant_ps( __mmask8 k, __m128 a, enum intv, enum sgn);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>Denormal, Invalid</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>See Exceptions Type E2.</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If EVEX.vvvv != 1111B.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

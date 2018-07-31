@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Resume from System Management Mode" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="RSM"/>
+<table>
+<tr>
+<th>Opcode*</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>0F AA</td>
+<td>RSM</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Resume operation of interrupted program.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2>Description</h2>
+<p>Returns program control from system management mode (SMM) to the application program or operating-system procedure that was interrupted when the processor received an SMM interrupt. The processor’s state is restored from the dump created upon entering SMM. If the processor detects invalid state information during state restoration, it enters the shutdown state. The following invalid information can cause a shutdown:</p>
+<ul>
+<li>Any reserved bit of CR4 is set to 1.</li>
+<li>Any illegal combination of bits in CR0, such as (PG=1 and PE=0) or (NW=1 and CD=0).</li>
+<li>(Intel Pentium and Intel486TM processors only.) The value stored in the state dump base field is not a 32-KByte aligned address.</li></ul>
+<p>The contents of the model-specific registers are not affected by a return from SMM.</p>
+<p>The SMM state map used by RSM supports resuming processor context for non-64-bit modes and 64-bit mode.</p>
+<p>See Chapter 34, “System Management Mode,” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3C</em>, for more information about SMM and the behavior of the RSM instruction.</p>
+<h2>Operation</h2>
+<pre>ReturnFromSMM;
+IF (IA-32e mode supported) or (CPUID DisplayFamily_DisplayModel = 06H_0CH )
+    THEN
+        ProcessorState ← Restore(SMMDump(IA-32e SMM STATE MAP));
+    Else
+        ProcessorState ← Restore(SMMDump(Non-32-Bit-Mode SMM STATE MAP));
+FI
+</pre>
+<h2>Flags Affected</h2>
+<p>All.</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If an attempt is made to execute this instruction when the processor is not in SMM.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>

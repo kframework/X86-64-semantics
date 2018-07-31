@@ -670,7 +670,6 @@ LC49:
 	.string	"lesf2 1<=1"
 LC50:
 	.string	"lesf2 1<=0"
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

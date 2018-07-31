@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Load Status Flags into AH Register" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="LAHF"/>
+<table>
+<tr>
+<th/>
+<th/>
+<th/>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td/>
+<td/>
+<td/>
+<td>Invalid*</td>
+<td>Valid</td>
+<td>Load: AH ← EFLAGS(SF:ZF:0:AF:0:PF:1:CF).</td></tr></table>
+<blockquote>
+<p>*Valid in specific steppings. See Description section.</p></blockquote>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2>Description</h2>
+<p>This instruction executes as described above in compatibility mode and legacy mode. It is valid in 64-bit mode only if CPUID.80000001H:ECX.LAHF-SAHF[bit 0] = 1.</p>
+<h2>Operation</h2>
+<pre>IF 64-Bit Mode
+    THEN
+        IF CPUID.80000001H:ECX.LAHF-SAHF[bit 0] = 1;
+            THEN AH ← RFLAGS(SF:ZF:0:AF:0:PF:1:CF);
+            ELSE #UD;
+        FI;
+    ELSE
+        AH ← EFLAGS(SF:ZF:0:AF:0:PF:1:CF);
+FI;
+</pre>
+<h2>Flags Affected</h2>
+<p>None. The state of the flags in the EFLAGS register is not affected.</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<table>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.80000001H:ECX.LAHF-SAHF[bit 0] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table></x86:instruction>

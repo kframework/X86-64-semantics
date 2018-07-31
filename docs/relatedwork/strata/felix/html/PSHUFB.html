@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PSHUFB
+		— Packed Shuffle Bytes</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSHUFB
+		— Packed Shuffle Bytes</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 38 00 /r<sup>1</sup> PSHUFB <em>mm1, mm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Shuffle bytes in <em>mm1</em> according to contents of <em>mm2/m64</em>.</td></tr>
+<tr>
+<td>66 0F 38 00 /r PSHUFB <em>xmm1, xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSSE3</td>
+<td>Shuffle bytes in <em>xmm1</em> according to contents of <em>xmm2/m128</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F38.WIG 00 /r VPSHUFB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Shuffle bytes in <em>xmm2</em> according to contents of <em>xmm3/m128</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F38.WIG 00 /r VPSHUFB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Shuffle bytes in <em>ymm2</em> according to contents of <em>ymm3/m256</em>.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F38.WIG 00 /r VPSHUFB xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Shuffle bytes in xmm2 according to contents of xmm3/m128 under write mask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F38.WIG 00 /r VPSHUFB ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512BW</td>
+<td>Shuffle bytes in ymm2 according to contents of ymm3/m256 under write mask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F38.WIG 00 /r VPSHUFB zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512BW</td>
+<td>Shuffle bytes in zmm2 according to contents of zmm3/m512 under write mask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>PSHUFB performs in-place shuffles of bytes in the destination operand (the first operand) according to the shuffle control mask in the source operand (the second operand). The instruction permutes the data in the destination operand, leaving the shuffle mask unaffected. If the most significant bit (bit[7]) of each byte of the shuffle control mask is set, then constant zero is written in the result byte. Each byte in the shuffle control mask forms an index to permute the corresponding byte in the destination operand. The value of each index is the least significant 4 bits (128-bit operation) or 3 bits (64-bit operation) of the shuffle control byte. When the source operand is a 128-bit memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<p>In 64-bit mode and not encoded with VEX/EVEX, use the REX prefix to access XMM8-XMM15 registers.</p>
+<p>Legacy SSE version 64-bit operand: Both operands can be MMX registers.</p>
+<p>128-bit Legacy SSE version: The first source operand and the destination operand are the same. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>VEX.128 encoded version: The destination operand is the first operand, the first source operand is the second operand, the second source operand is the third operand. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<p>VEX.256 encoded version: Bits (255:128) of the destination YMM register stores the 16-byte shuffle result of the upper 16 bytes of the first source operand, using the upper 16-bytes of the second source operand as control mask.</p>
+<p>The value of each index is for the high 128-bit lane is the least significant 4 bits of the respective shuffle control byte. The index value selects a source data element within each 128-bit lane.</p>
+<p>EVEX encoded version: The second source operand is an ZMM/YMM/XMM register or an 512/256/128-bit memory location. The first source operand and destination operands are ZMM/YMM/XMM registers. The destination is conditionally updated with writemask k1.</p>
+<p>EVEX and VEX encoded version: Four/two in-lane 128-bit shuffles.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="pshufb--with-64-bit-operands-">PSHUFB (with 64 bit operands)<a class="anchor" href="#pshufb--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>TEMP ← DEST
+for i = 0 to 7 {
+    if (SRC[(i * 8)+7] = 1 ) then
+        DEST[(i*8)+7...(i*8)+0] ← 0;
+    else
+        index[2..0] ← SRC[(i*8)+2 .. (i*8)+0];
+        DEST[(i*8)+7...(i*8)+0] ← TEMP[(index*8+7)..(index*8+0)];
+    endif;
+}
+</pre>
+<h3 id="pshufb--with-128-bit-operands-">PSHUFB (with 128 bit operands)<a class="anchor" href="#pshufb--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>TEMP ← DEST
+for i = 0 to 15 {
+    if (SRC[(i * 8)+7] = 1 ) then
+            DEST[(i*8)+7..(i*8)+0] ← 0;
+        else
+            index[3..0] ← SRC[(i*8)+3 .. (i*8)+0];
+            DEST[(i*8)+7..(i*8)+0] ← TEMP[(index*8+7)..(index*8+0)];
+    endif
+}
+</pre>
+<h3 id="vpshufb--vex-128-encoded-version-">VPSHUFB (VEX.128 encoded version)<a class="anchor" href="#vpshufb--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>for i = 0 to 15 {
+    if (SRC2[(i * 8)+7] = 1) then
+        DEST[(i*8)+7..(i*8)+0] ← 0;
+        else
+        index[3..0]←SRC2[(i*8)+3 .. (i*8)+0];
+        DEST[(i*8)+7..(i*8)+0] ← SRC1[(index*8+7)..(index*8+0)];
+    endif
+}
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpshufb--vex-256-encoded-version-">VPSHUFB (VEX.256 encoded version)<a class="anchor" href="#vpshufb--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>for i = 0 to 15 {
+    if (SRC2[(i * 8)+7] == 1 ) then
+        DEST[(i*8)+7..(i*8)+0] ← 0;
+        else
+        index[3..0]←SRC2[(i*8)+3 .. (i*8)+0];
+        DEST[(i*8)+7..(i*8)+0] ← SRC1[(index*8+7)..(index*8+0)];
+    endif
+    if (SRC2[128 + (i * 8)+7] == 1 ) then
+        DEST[128 + (i*8)+7..(i*8)+0]←0;
+        else
+        index[3..0]←SRC2[128 + (i*8)+3 .. (i*8)+0];
+        DEST[128 + (i*8)+7..(i*8)+0]←SRC1[128 + (index*8+7)..(index*8+0)];
+    endif
+}
+</pre>
+<h3 id="vpshufb--evex-encoded-versions-">VPSHUFB (EVEX encoded versions)<a class="anchor" href="#vpshufb--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
+jmask←(KL-1) &amp; ~0xF
+                // 0x00, 0x10, 0x30 depending on the VL
+FOR j = 0 TO KL-1
+                // dest
+    IF kl[ i ] or no_masking
+        index←src.byte[ j ];
+        IF index &amp; 0x80
+            Dest.byte[ j ]←0;
+        ELSE
+            index←(index &amp; 0xF) + (j &amp; jmask);
+                // 16-element in-lane lookup
+            Dest.byte[ j ]←src.byte[ index ];
+    ELSE if zeroing
+        Dest.byte[ j ]←0;
+DEST[MAXVL-1:VL] ← 0;
+</pre>
+<figure id="fig-4-15">
+<svg style="width: 460.512pt; height: 202.896012pt" viewBox="107.06 0.0 388.76 174.08001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="168.12" x="109.56" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
+<rect height="168.12" x="492.84" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="0.48001" x="109.56" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="383.76"></rect>
+<rect height="0.48001" x="109.56" style="fill: rgb(0%, 0%, 0%)" y="168.6" width="383.76"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.372 31.46401 L 118.531 31.46401"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.372 56.40901 L 118.531 56.40901"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 209.238 31.46501 L 209.238 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 163.883 31.46501 L 163.883 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.371 31.46501 L 481.371 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 436.015 31.46501 L 436.015 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 254.594 31.46501 L 254.594 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 299.95 31.46501 L 299.95 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 345.305 31.46501 L 345.305 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 390.661 31.46501 L 390.661 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 118.529 31.46501 L 118.529 56.41001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.374 71.15001 L 118.533 71.15001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.374 96.09501 L 118.533 96.09501"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 209.24 71.15101 L 209.24 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 163.885 71.15101 L 163.885 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.373 71.15101 L 481.373 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 436.017 71.15101 L 436.017 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 254.596 71.15101 L 254.596 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 299.952 71.15101 L 299.952 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 345.307 71.15101 L 345.307 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 390.663 71.15101 L 390.663 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 118.531 71.15101 L 118.531 96.09601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.376 124.44201 L 118.535 124.44201"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.376 149.38801 L 118.535 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 209.242 124.44301 L 209.242 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 163.887 124.44301 L 163.887 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 481.375 124.44301 L 481.375 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 436.019 124.44301 L 436.019 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 254.598 124.44301 L 254.598 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 299.954 124.44301 L 299.954 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 345.309 124.44301 L 345.309 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 390.665 124.44301 L 390.665 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 118.533 124.44301 L 118.533 149.38801"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 413.339 96.09401 L 335.647 121.65001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 336.578 124.47701 L 327.167 124.43901 L 334.718 118.82201 L 336.578 124.47701"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 431.315 118.90901 L 431.539 118.72501 L 458.692 96.10001 L 374.786 124.44501"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 433.427 121.02601 L 424.639 124.39301 L 429.648 116.42701 L 433.427 121.02601"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 458.695 124.44401 L 457.413 97.16901"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 404.169 114.51701 L 385.115 120.95401"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 386.068 123.77401 L 376.657 123.81201 L 384.162 118.13501 L 386.068 123.77401"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 458.053 110.84101 L 458.45 121.62501"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 460.656 121.54401 L 458.692 128.24501 L 456.242 121.70601 L 460.656 121.54401"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 182.023 124.44501 L 141.206 96.10001 L 141.206 115.51701"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 144.182 115.51701 L 141.206 124.44501 L 138.23 115.51701 L 144.182 115.51701"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 169.093 115.46601 L 178.584 121.07301"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 179.708 119.17301 L 184.288 124.44401 L 177.462 122.97501 L 179.708 119.17301"></path>
+<path style="fill-rule: nonzero; stroke: rgb(100%, 100%, 100%)" d="M 118.528 159.59501 L 121.928 159.59501"></path>
+<path style="fill-rule: nonzero; stroke: rgb(100%, 100%, 100%)" d="M 120.736 157.38701 L 118.528 159.59501 L 120.736 161.80301"></path>
+<path style="fill-rule: nonzero; stroke: rgb(100%, 100%, 100%)" d="M 481.372 161.86101 L 478.54 161.86101"></path>
+<path style="fill-rule: nonzero; stroke: rgb(100%, 100%, 100%)" d="M 479.164 164.06901 L 481.372 161.86101 L 479.164 159.65301"></path>
+<path style="fill-rule: nonzero; stroke: rgb(100%, 100%, 100%)" d="M 118.528 23.52901 L 121.928 23.52901"></path>
+<path style="fill-rule: nonzero; stroke: rgb(100%, 100%, 100%)" d="M 120.736 21.32101 L 118.528 23.52901 L 120.736 25.73701"></path>
+<text x="268.3832" textLength="17.7764444" y="27.609052" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">MM2</text>
+<text x="139.8721" textLength="14.6723668" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">07H</text>
+<text x="174.5609672" textLength="14.6723668" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">07H</text>
+<text x="220.3701124" textLength="15.5523888" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">FFH</text>
+<text x="269.2833352" textLength="14.6723668000001" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">80H</text>
+<text x="317.316536" textLength="14.6723668000001" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">01H</text>
+<text x="356.4535144" textLength="14.6723668000001" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">00H</text>
+<text x="404.4867152" textLength="14.6723668000001" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">00H</text>
+<text x="445.8477492" textLength="14.6723668000001" y="45.852652" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">00H</text>
+<text x="268.3832" textLength="17.7764444" y="68.0260624" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">MM1</text>
+<text x="139.8721" textLength="14.6723668" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">04H</text>
+<text x="174.5609672" textLength="14.6723668" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">01H</text>
+<text x="220.3701124" textLength="14.6723668" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">07H</text>
+<text x="268.4033132" textLength="14.6723668000001" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">03H</text>
+<text x="316.436514" textLength="14.6723668000001" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">02H</text>
+<text x="355.5734924" textLength="14.6723668000001" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">02H</text>
+<text x="403.6066932" textLength="15.5523888" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">FFH</text>
+<text x="445.8477492" textLength="14.6723668000001" y="86.57367" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">01H</text>
+<text x="267.5991804" textLength="17.7764444" y="123.2594432" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">MM1</text>
+<text x="142.1361566" textLength="14.6723668" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">04H</text>
+<text x="176.8250238" textLength="14.6723668" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">04H</text>
+<text x="222.634169" textLength="14.6723668" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">00H</text>
+<text x="270.6673698" textLength="14.6723668000001" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">00H</text>
+<text x="318.7005706" textLength="15.5523888" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">FFH</text>
+<text x="358.717571" textLength="14.6723668000001" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">01H</text>
+<text x="406.7507718" textLength="14.6723668000001" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">01H</text>
+<text x="448.1118058" textLength="14.6723668000001" y="138.734974" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40018500000002pt; fill: #000">01H</text></g></svg>
+<figcaption><a href="./PSHUFB.html#fig-4-15">Figure 4-15</a>. PSHUFB with 64-Bit Operands</figcaption></figure>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>VPSHUFB __m512i _mm512_shuffle_epi8(__m512i a, __m512i b);
+</pre>
+<pre>VPSHUFB __m512i _mm512_mask_shuffle_epi8(__m512i s, __mmask64 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSHUFB __m512i _mm512_maskz_shuffle_epi8( __mmask64 k, __m512i a, __m512i b);
+</pre>
+<pre>VPSHUFB __m256i _mm256_mask_shuffle_epi8(__m256i s, __mmask32 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSHUFB __m256i _mm256_maskz_shuffle_epi8( __mmask32 k, __m256i a, __m256i b);
+</pre>
+<pre>VPSHUFB __m128i _mm_mask_shuffle_epi8(__m128i s, __mmask16 k, __m128i a, __m128i b);
+</pre>
+<pre>VPSHUFB __m128i _mm_maskz_shuffle_epi8( __mmask16 k, __m128i a, __m128i b);
+</pre>
+<pre>PSHUFB: __m64 _mm_shuffle_pi8 (__m64 a, __m64 b)
+</pre>
+<pre>(V)PSHUFB: __m128i _mm_shuffle_epi8 (__m128i a, __m128i b)
+</pre>
+<pre>VPSHUFB:__m256i _mm256_shuffle_epi8(__m256i a, __m256i b)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

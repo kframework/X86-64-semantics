@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>FXAM
+		— Examine Floating-Point</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>FXAM
+		— Examine Floating-Point</h1>
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D9 E5</td>
+<td>FXAM</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Classify value or number in ST(0).</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Examines the contents of the ST(0) register and sets the condition code flags C0, C2, and C3 in the FPU status word to indicate the class of value or number in the register (see the table below).</p>
+<figure id="tbl-3-42">
+<table>
+<tr>
+<th>Class</th>
+<th>C3</th>
+<th>C2</th>
+<th>C0</th></tr>
+<tr>
+<td>Unsupported</td>
+<td>0</td>
+<td>0</td>
+<td>0</td></tr>
+<tr>
+<td>NaN</td>
+<td>0</td>
+<td>0</td>
+<td>1</td></tr>
+<tr>
+<td>Normal finite number</td>
+<td>0</td>
+<td>1</td>
+<td>0</td></tr>
+<tr>
+<td>Infinity</td>
+<td>0</td>
+<td>1</td>
+<td>1</td></tr>
+<tr>
+<td>Zero</td>
+<td>1</td>
+<td>0</td>
+<td>0</td></tr>
+<tr>
+<td>Empty</td>
+<td>1</td>
+<td>0</td>
+<td>1</td></tr>
+<tr>
+<td>Denormal number</td>
+<td>1</td>
+<td>1</td>
+<td>0</td></tr></table>
+<figcaption><a href="./FXAM.html#tbl-3-42">Table 3-42</a>. FXAM Results .</figcaption></figure>
+<p>The C1 flag is set to the sign of the value in ST(0), regardless of whether the register is empty or full.</p>
+<p>This instruction’s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>C1 ← sign bit of ST; (* 0 for positive, 1 for negative *)
+CASE (class of value or number in ST(0)) OF
+    Unsupported:C3, C2, C0 ← 000;
+    NaN:
+        C3, C2, C0 ← 001;
+    Normal:
+        C3, C2, C0 ← 010;
+    Infinity:
+        C3, C2, C0 ← 011;
+    Zero:
+        C3, C2, C0 ← 100;
+    Empty:
+        C3, C2, C0 ← 101;
+    Denormal:
+        C3, C2, C0 ← 110;
+ESAC;
+</pre>
+<h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="#fpu-flags-affected">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>C1</td>
+<td>Sign of value in ST(0).</td></tr>
+<tr>
+<td>C0, C2, C3</td>
+<td>See Table 3-42.</td></tr></table>
+<h2 class="exceptions" id="floating-point-exceptions">Floating-Point Exceptions<a class="anchor" href="#floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

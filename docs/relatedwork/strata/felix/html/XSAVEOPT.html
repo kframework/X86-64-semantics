@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>XSAVEOPT
+		— Save Processor Extended States Optimized</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>XSAVEOPT
+		— Save Processor Extended States Optimized</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F AE /6 XSAVEOPT <em>mem</em></td>
+<td>M</td>
+<td>V/V</td>
+<td>XSAVEOPT</td>
+<td>Save state components specified by EDX:EAX to <em>mem</em>, optimizing if possible.</td></tr>
+<tr>
+<td>NP REX.W + 0F AE /6 XSAVEOPT64 <em>mem</em></td>
+<td>M</td>
+<td>V/V</td>
+<td>XSAVEOPT</td>
+<td>Save state components specified by EDX:EAX to <em>mem</em>, optimizing if possible.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M</td>
+<td>ModRM:r/m (w)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a full or partial save of processor state components to the XSAVE area located at the memory address specified by the destination operand. The implicit EDX:EAX register pair specifies a 64-bit instruction mask. The specific state components saved correspond to the bits set in the requested-feature bitmap (RFBM), which is the logical-AND of EDX:EAX and XCR0.</p>
+<p>The format of the XSAVE area is detailed in Section 13.4, “XSAVE Area,” of <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em>.</p>
+<p>Section 13.9, “Operation of XSAVEOPT,” of <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em> provides a detailed description of the operation of the XSAVEOPT instruction. The following items provide a high-level outline:</p>
+<ul>
+<li>Execution of XSAVEOPT is similar to that of XSAVE. XSAVEOPT differs from XSAVE in that it may use the init and modified optimizations. The performance of XSAVEOPT will be equal to or better than that of XSAVE.</li>
+<li>XSAVEOPT saves state component <em>i </em>only if RFBM[<em>i</em>] = 1 and XINUSE[<em>i</em>] = 1.<sup>1 </sup>(XINUSE is a bitmap by which the processor tracks the status of various state components. See Section 13.6, “Processor Tracking of XSAVEManaged State.”) Even if both bits are 1, XSAVEOPT may optimize and not save state component <em>i </em>if (1) state component <em>i </em>has not been modified since the last execution of XRSTOR or XRSTORS; and (2) this execution of XSAVES corresponds to that last execution of XRSTOR or XRSTORS as determined by the internal value XRSTOR_INFO (see the Operation section below).</li>
+<li>XSAVEOPT does not modify bytes 511:464 of the legacy region of the XSAVE area (see Section 13.4.1, “Legacy Region of an XSAVE Area”).</li>
+<li>XSAVEOPT reads the XSTATE_BV field of the XSAVE header (see Section 13.4.2, “XSAVE Header”) and writes a modified value back to memory as follows. If RFBM[<em>i</em>] = 1, XSAVEOPT writes XSTATE_BV[<em>i</em>] with the value of XINUSE[<em>i</em>]. If RFBM[<em>i</em>] = 0, XSAVEOPT writes XSTATE_BV[<em>i</em>] with the value that it read from memory (it does not modify the bit). XSAVEOPT does not write to any part of the XSAVE header other than the XSTATE_BV field.</li>
+<li>XSAVEOPT always uses the standard format of the extended region of the XSAVE area (see Section 13.4.3, “Extended Region of an XSAVE Area”).</li></ul>
+<blockquote>
+<p>1. There is an exception made for MXCSR and MXCSR_MASK, which belong to state component 1 — SSE. XSAVEOPT always saves these to memory if RFBM[1] = 1 or RFBM[2] = 1, regardless of the value of XINUSE.</p></blockquote>
+<p>Use of a destination operand not aligned to 64-byte boundary (in either 64-bit or 32-bit modes) will result in a general-protection (#GP) exception. In 64-bit mode, the upper 32 bits of RDX and RAX are ignored.</p>
+<p>See Section 13.6, “Processor Tracking of XSAVE-Managed State,” of <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 1</em> for discussion of the bitmap XMODIFIED and of the quantity XRSTOR_INFO.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>RFBM ← XCR0 AND EDX:EAX; /* bitwise logical AND */
+</pre>
+<pre>OLD_BV ← XSTATE_BV field from XSAVE header;
+TO_BE_SAVED ← RFBM AND XINUSE;
+IF in VMX non-root operation
+    THEN VMXNR ← 1;
+    ELSE VMXNR ← 0;
+FI;
+LAXA ← linear address of XSAVE area;
+IF XRSTOR_INFO = CPL,VMXNR,LAXA,00000000_00000000H
+    THEN TO_BE_SAVED ← TO_BE_SAVED AND XMODIFIED;
+FI;
+IF TO_BE_SAVED[0] = 1
+    THEN store x87 state into legacy region of XSAVE area;
+FI;
+IF TO_BE_SAVED[1]
+    THEN store XMM registers into legacy region of XSAVE area; // this step does not save MXCSR or MXCSR_MASK
+FI;
+IF RFBM[1] = 1 or RFBM[2] = 1
+    THEN store MXCSR and MXCSR_MASK into legacy region of XSAVE area;
+FI;
+FOR i ← 2 TO 62
+    IF TO_BE_SAVED[i] = 1
+        THEN save XSAVE state component i at offset n from base of XSAVE area (n enumerated by CPUID(EAX=0DH,ECX=i):EBX);
+    FI;
+ENDFOR;
+XSTATE_BV field in XSAVE header ← (OLD_BV AND NOT RFBM) OR (XINUSE AND RFBM);
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>XSAVEOPT: void _xsaveopt( void * , unsigned __int64);
+</pre>
+<pre>XSAVEOPT: void _xsaveopt64( void * , unsigned __int64);
+</pre>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not aligned on a 64-byte boundary, regardless of segment.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If CPUID.01H:ECX.XSAVE[bit 26] = 0 or CPUID.(EAX=0DH,ECX=1):EAX.XSAVEOPT[bit 0] = 0.</td></tr>
+<tr>
+<td>If CR4.OSXSAVE[bit 18] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP</td>
+<td>If a memory operand is not aligned on a 64-byte boundary, regardless of segment.</td></tr>
+<tr>
+<td>If any part of the operand lies outside the effective address space from 0 to FFFFH.</td></tr>
+<tr>
+<td>#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If CPUID.01H:ECX.XSAVE[bit 26] = 0 or CPUID.(EAX=0DH,ECX=1):EAX.XSAVEOPT[bit 0] = 0.</td></tr>
+<tr>
+<td>If CR4.OSXSAVE[bit 18] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not aligned on a 64-byte boundary, regardless of segment.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If CPUID.01H:ECX.XSAVE[bit 26] = 0 or CPUID.(EAX=0DH,ECX=1):EAX.XSAVEOPT[bit 0] = 0.</td></tr>
+<tr>
+<td>If CR4.OSXSAVE[bit 18] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

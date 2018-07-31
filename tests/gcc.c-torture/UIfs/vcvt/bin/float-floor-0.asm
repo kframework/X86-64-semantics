@@ -228,7 +228,6 @@ L36:
 d:
 	.long	4026531840
 	.long	1083179007
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

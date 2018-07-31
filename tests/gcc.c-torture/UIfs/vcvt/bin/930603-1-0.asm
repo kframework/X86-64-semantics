@@ -248,7 +248,6 @@ fx:
 	vmovd	%eax, %xmm0
 	popq	%rbp
 	ret
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Return Minimum Scalar Single-Precision Floating-Point Value" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="MINSS"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 5D /r MINSS xmm1,xmm2/m32</td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE</td>
+<td>Return the minimum scalar single-precision floating-point value between xmm2/m32 and xmm1.</td></tr>
+<tr>
+<td>VEX.NDS.LIG.F3.0F.WIG 5D /r VMINSS xmm1,xmm2, xmm3/m32</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Return the minimum scalar single-precision floating-point value between xmm3/m32 and xmm2.</td></tr>
+<tr>
+<td>EVEX.NDS.LIG.F3.0F.W0 5D /r VMINSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Return the minimum scalar single-precision floating-point value between xmm3/m32 and xmm2.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Tuple1 Scalar</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>Compares the low single-precision floating-point values in the first source operand and the second source operand and returns the minimum value to the low doubleword of the destination operand.</p>
+<p>If the values being compared are both 0.0s (of either sign), the value in the second source operand is returned. If a value in the second operand is an SNaN, that SNaN is returned unchanged to the destination (that is, a QNaN version of the SNaN is not returned).</p>
+<p>If only one value is a NaN (SNaN or QNaN) for this instruction, the second source operand, either a NaN or a valid floating-point value, is written to the result. If instead of this behavior, it is required that the NaN in either source operand be returned, the action of MINSD can be emulated using a sequence of instructions, such as, a comparison followed by AND, ANDN and OR.</p>
+<p>The second source operand can be an XMM register or a 32-bit memory location. The first source and destination operands are XMM registers.</p>
+<p>128-bit Legacy SSE version: The destination and first source operand are the same. Bits (MAXVL:32) of the corresponding destination register remain unchanged.</p>
+<p>VEX.128 and EVEX encoded version: The first source operand is an xmm register encoded by (E)VEX.vvvv. Bits (127:32) of the XMM register destination are copied from corresponding bits in the first source operand. Bits (MAXVL-1:128) of the destination register are zeroed.</p>
+<p>EVEX encoded version: The low doubleword element of the destination operand is updated according to the writemask.</p>
+<p>Software should ensure VMINSS is encoded with VEX.L=0. Encoding VMINSS with VEX.L=1 may encounter unpredictable behavior across different processor generations.</p>
+<h3>Operation</h3>
+<pre>MIN(SRC1, SRC2)
+{
+    IF ((SRC1 = 0.0) and (SRC2 = 0.0)) THEN DEST ←SRC2;
+        ELSE IF (SRC1 = SNaN) THEN DEST ←SRC2; FI;
+        ELSE IF (SRC2 = SNaN) THEN DEST ←SRC2; FI;
+        ELSE IF (SRC1 &lt; SRC2) THEN DEST ←SRC1;
+        ELSE DEST←SRC2;
+    FI;
+}
+</pre>
+<h4>MINSS (EVEX encoded version)</h4>
+<pre>IF k1[0] or *no writemask*
+    THEN DEST[31:0]←MIN(SRC1[31:0], SRC2[31:0])
+    ELSE
+        IF *merging-masking* ; merging-masking
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                THEN DEST[31:0]←0
+        FI;
+FI;
+DEST[127:32] ← SRC1[127:32]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h4>VMINSS (VEX.128 encoded version)</h4>
+<pre>DEST[31:0]←MIN(SRC1[31:0], SRC2[31:0])
+DEST[127:32] ←SRC1[127:32]
+DEST[MAXVL-1:128] ←0
+</pre>
+<h4>MINSS (128-bit Legacy SSE version)</h4>
+<pre>DEST[31:0]←MIN(SRC1[31:0], SRC2[31:0])
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>VMINSS __m128 _mm_min_round_ss( __m128 a, __m128 b, int);
+</pre>
+<pre>VMINSS __m128 _mm_mask_min_round_ss(__m128 s, __mmask8 k, __m128 a, __m128 b, int);
+</pre>
+<pre>VMINSS __m128 _mm_maskz_min_round_ss( __mmask8 k, __m128 a, __m128 b, int);
+</pre>
+<pre>MINSS __m128 _mm_min_ss(__m128 a, __m128 b)
+</pre>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>Invalid (Including QNaN Source Operand), Denormal</p>
+<h3>Other Exceptions</h3>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 2.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E2.</p></x86:instruction>

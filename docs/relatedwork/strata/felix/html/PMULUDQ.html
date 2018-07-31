@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PMULUDQ
+		— Multiply Packed Unsigned Doubleword Integers</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMULUDQ
+		— Multiply Packed Unsigned Doubleword Integers</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F F4 /<em>r</em><sup>1</sup> PMULUDQ <em>mm1</em>, <em>mm2/m64</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Multiply unsigned doubleword integer in <em>mm1</em> by unsigned doubleword integer in <em>mm2/m64</em>, and store the quadword result in <em>mm1</em>.</td></tr>
+<tr>
+<td>66 0F F4 /<em>r</em> PMULUDQ <em>xmm1</em>, <em>xmm2/m128</em></td>
+<td>A</td>
+<td>V/V</td>
+<td>SSE2</td>
+<td>Multiply packed unsigned doubleword integers in <em>xmm1</em> by packed unsigned doubleword integers in <em>xmm2/m128</em>, and store the quadword results in <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F.WIG F4 /r VPMULUDQ <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Multiply packed unsigned doubleword integers in <em>xmm2</em> by packed unsigned doubleword integers in <em>xmm3/m128</em>, and store the quadword results in <em>xmm1</em>.</td></tr>
+<tr>
+<td>VEX.NDS.256.66.0F.WIG F4 /r VPMULUDQ <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX2</td>
+<td>Multiply packed unsigned doubleword integers in <em>ymm2</em> by packed unsigned doubleword integers in <em>ymm3/m256</em>, and store the quadword results in <em>ymm1</em>.</td></tr>
+<tr>
+<td>EVEX.NDS.128.66.0F.W1 F4 /r VPMULUDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Multiply packed unsigned doubleword integers in xmm2 by packed unsigned doubleword integers in xmm3/m128/m64bcst, and store the quadword results in xmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F.W1 F4 /r VPMULUDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Multiply packed unsigned doubleword integers in ymm2 by packed unsigned doubleword integers in ymm3/m256/m64bcst, and store the quadword results in ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F.W1 F4 /r VPMULUDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Multiply packed unsigned doubleword integers in zmm2 by packed unsigned doubleword integers in zmm3/m512/m64bcst, and store the quadword results in zmm1 under writemask k1.</td></tr></table>
+<blockquote>
+<p>1. See note in Section 2.4, “AVX and SSE Instruction Exception Specification” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A</em> and Section 22.25.3, “Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers” in the <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A</em>.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Multiplies the first operand (destination operand) by the second operand (source operand) and stores the result in the destination operand.</p>
+<p>In 64-bit mode and not encoded with VEX/EVEX, using a REX prefix in the form of REX.R permits this instruction to access additional registers (XMM8-XMM15).</p>
+<p>Legacy SSE version 64-bit operand: The source operand can be an unsigned doubleword integer stored in the low doubleword of an MMX technology register or a 64-bit memory location. The destination operand can be an unsigned doubleword integer stored in the low doubleword an MMX technology register. The result is an unsigned</p>
+<p>quadword integer stored in the destination an MMX technology register. When a quadword result is too large to be represented in 64 bits (overflow), the result is wrapped around and the low 64 bits are written to the destination element (that is, the carry is ignored).</p>
+<p>For 64-bit memory operands, 64 bits are fetched from memory, but only the low doubleword is used in the computation.</p>
+<p>128-bit Legacy SSE version: The second source operand is two packed unsigned doubleword integers stored in the first (low) and third doublewords of an XMM register or a 128-bit memory location. For 128-bit memory operands, 128 bits are fetched from memory, but only the first and third doublewords are used in the computation. The first source operand is two packed unsigned doubleword integers stored in the first and third doublewords of an XMM register. The destination contains two packed unsigned quadword integers stored in an XMM register. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>VEX.128 encoded version: The second source operand is two packed unsigned doubleword integers stored in the first (low) and third doublewords of an XMM register or a 128-bit memory location. For 128-bit memory operands, 128 bits are fetched from memory, but only the first and third doublewords are used in the computation. The first source operand is two packed unsigned doubleword integers stored in the first and third doublewords of an XMM register. The destination contains two packed unsigned quadword integers stored in an XMM register. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<p>VEX.256 encoded version: The second source operand is four packed unsigned doubleword integers stored in the first (low), third, fifth and seventh doublewords of a YMM register or a 256-bit memory location. For 256-bit memory operands, 256 bits are fetched from memory, but only the first, third, fifth and seventh doublewords are used in the computation. The first source operand is four packed unsigned doubleword integers stored in the first, third, fifth and seventh doublewords of an YMM register. The destination contains four packed unaligned quadword integers stored in an YMM register.</p>
+<p>EVEX encoded version: The input unsigned doubleword integers are taken from the even-numbered elements of the source operands. The first source operand is a ZMM/YMM/XMM registers. The second source operand can be an ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 64-bit memory location. The destination is a ZMM/YMM/XMM register, and updated according to the writemask at 64-bit granularity.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="pmuludq--with-64-bit-operands-">PMULUDQ (with 64-Bit operands)<a class="anchor" href="#pmuludq--with-64-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← DEST[31:0] ∗ SRC[31:0];
+</pre>
+<h3 id="pmuludq--with-128-bit-operands-">PMULUDQ (with 128-Bit operands)<a class="anchor" href="#pmuludq--with-128-bit-operands-">
+			¶
+		</a></h3>
+<pre>DEST[63:0] ← DEST[31:0] ∗ SRC[31:0];
+DEST[127:64] ← DEST[95:64] ∗ SRC[95:64];
+</pre>
+<h3 id="vpmuludq--vex-128-encoded-version-">VPMULUDQ (VEX.128 encoded version)<a class="anchor" href="#vpmuludq--vex-128-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[31:0] * SRC2[31:0]
+DEST[127:64]←SRC1[95:64] * SRC2[95:64]
+DEST[MAXVL-1:128] ← 0
+</pre>
+<h3 id="vpmuludq--vex-256-encoded-version-">VPMULUDQ (VEX.256 encoded version)<a class="anchor" href="#vpmuludq--vex-256-encoded-version-">
+			¶
+		</a></h3>
+<pre>DEST[63:0]←SRC1[31:0] * SRC2[31:0]
+DEST[127:64]←SRC1[95:64] * SRC2[95:64
+DEST[191:128]←SRC1[159:128] * SRC2[159:128]
+DEST[255:192]←SRC1[223:192] * SRC2[223:192]
+DEST[MAXVL-1:256] ← 0
+</pre>
+<h3 id="vpmuludq--evex-encoded-versions-">VPMULUDQ (EVEX encoded versions)<a class="anchor" href="#vpmuludq--evex-encoded-versions-">
+			¶
+		</a></h3>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN DEST[i+63:i]←ZeroExtend64( SRC1[i+31:i]) * ZeroExtend64( SRC2[31:0] )
+                ELSE DEST[i+63:i]←ZeroExtend64( SRC1[i+31:i]) * ZeroExtend64( SRC2[i+31:i] )
+            FI;
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE *zeroing-masking*
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>VPMULUDQ __m512i _mm512_mul_epu32(__m512i a, __m512i b);
+</pre>
+<pre>VPMULUDQ __m512i _mm512_mask_mul_epu32(__m512i s, __mmask8 k, __m512i a, __m512i b);
+</pre>
+<pre>VPMULUDQ __m512i _mm512_maskz_mul_epu32( __mmask8 k, __m512i a, __m512i b);
+</pre>
+<pre>VPMULUDQ __m256i _mm256_mask_mul_epu32(__m256i s, __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPMULUDQ __m256i _mm256_maskz_mul_epu32( __mmask8 k, __m256i a, __m256i b);
+</pre>
+<pre>VPMULUDQ __m128i _mm_mask_mul_epu32(__m128i s, __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>VPMULUDQ __m128i _mm_maskz_mul_epu32( __mmask8 k, __m128i a, __m128i b);
+</pre>
+<pre>PMULUDQ:__m64 _mm_mul_su32 (__m64 a, __m64 b)
+</pre>
+<pre>(V)PMULUDQ:__m128i _mm_mul_epu32 ( __m128i a, __m128i b)
+</pre>
+<pre>VPMULUDQ:__m256i _mm256_mul_epu32( __m256i a, __m256i b);
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

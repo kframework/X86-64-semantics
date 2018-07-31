@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>MOVBE
+		— Move Data After Swapping Bytes</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVBE
+		— Move Data After Swapping Bytes</h1>
+
+<table>
+<tr>
+<td><strong>Opcode Instruction Op/ 64-Bit Compat/Description En Mode Leg Mode</strong> 0F38F0/<em>r</em> MOVBE <em>r16,</em> m16 RM Valid Valid Reverse byte order in <em>m16 and move to r16.</em> 0F38F0/<em>r</em> MOVBE <em>r32,</em> m32 RM Valid Valid Reverse byte order in <em>m32 and move to r32.</em> REX.W + 0F 38 F0 /<em>r</em> MOVBE <em>r64,</em> m64 RM Valid N.E. Reverse byte order in <em>m64 and move to r64</em>. 0F 38 F1 /<em>r</em> MOVBE <em>m16,</em> r16 MR Valid Valid Reverse byte order in <em>r16 and move to m16.</em> 0F 38 F1 /<em>r</em> MOVBE <em>m32,</em> r32 MR Valid Valid Reverse byte order in <em>r32 and move to m32.</em> REX.W + 0F 38 F1 /<em>r</em> MOVBE <em>m64,</em> r64 MR Valid N.E. Reverse byte order in <em>r64 and move to m64</em>.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr>
+<tr>
+<td>MR</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a byte swap operation on the data copied from the second operand (source operand) and store the result in the first operand (destination operand). The source operand can be a general-purpose register, or memory location; the destination register can be a general-purpose register, or a memory location; however, both operands can not be registers, and only one operand can be a memory location. Both operands must be the same size, which can be a word, a doubleword or quadword.</p>
+<p>The MOVBE instruction is provided for swapping the bytes on a read from memory or on a write to memory; thus providing support for converting little-endian values to big-endian format and vice versa.</p>
+<p>In 64-bit mode, the instruction's default operation size is 32 bits. Use of the REX.R prefix permits access to additional registers (R8-R15). Use of the REX.W prefix promotes operation to 64 bits. See the summary chart at the beginning of this section for encoding data and limits.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>TEMP ← SRC
+IF ( OperandSize = 16)
+    THEN
+        DEST[7:0] ← TEMP[15:8];
+        DEST[15:8] ← TEMP[7:0];
+    ELES IF ( OperandSize = 32)
+        DEST[7:0] ← TEMP[31:24];
+        DEST[15:8] ← TEMP[23:16];
+        DEST[23:16] ← TEMP[15:8];
+        DEST[31:23] ← TEMP[7:0];
+    ELSE IF ( OperandSize = 64)
+        DEST[7:0] ← TEMP[63:56];
+        DEST[15:8] ← TEMP[55:48];
+        DEST[23:16] ← TEMP[47:40];
+        DEST[31:24] ← TEMP[39:32];
+        DEST[39:32] ← TEMP[31:24];
+        DEST[47:40] ← TEMP[23:16];
+        DEST[55:48] ← TEMP[15:8];
+        DEST[63:56] ← TEMP[7:0];
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="3">#GP(0)</td>
+<td>If the destination operand is in a non-writable segment.</td></tr>
+<tr>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If CPUID.01H:ECX.MOVBE[bit 22] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If REP (F3H) prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If CPUID.01H:ECX.MOVBE[bit 22] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If REP (F3H) prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td rowspan="4">#UD</td>
+<td>If CPUID.01H:ECX.MOVBE[bit 22] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If REP (F3H) prefix is used.</td></tr>
+<tr>
+<td>If REPNE (F2H) prefix is used and CPUID.01H:ECX.SSE4_2[bit 20] = 0.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the stack address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If CPUID.01H:ECX.MOVBE[bit 22] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If REP (F3H) prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

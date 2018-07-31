@@ -266,7 +266,6 @@ q1:
 	vmovq	%rax, %xmm0
 	leave
 	ret
-.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp

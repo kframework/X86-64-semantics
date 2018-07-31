@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Calculate SHA1 State Variable E after Four Rounds" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="SHA1NEXTE"/>
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 38 C8 /r SHA1NEXTE xmm1, xmm2/m128</td>
+<td>RM</td>
+<td>V/V</td>
+<td>SHA</td>
+<td>Calculates SHA1 state variable E after four rounds of operation from the current SHA1 state variable A in xmm1. The calculated value of the SHA1 state variable E is added to the scheduled dwords in xmm2/m128, and stored with some of the scheduled dwords in xmm1.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr></table>
+<h3>Description</h3>
+<p>The SHA1NEXTE calculates the SHA1 state variable E after four rounds of operation from the current SHA1 state variable A in the destination operand. The calculated value of the SHA1 state variable E is added to the source operand, which contains the scheduled dwords.</p>
+<h3>Operation</h3>
+<h4>SHA1NEXTE</h4>
+<pre>TMP←(SRC1[127:96] ROL 30);
+DEST[127:96]←SRC2[127:96] + TMP;
+DEST[95:64] ← SRC2[95:64];
+DEST[63:32] ← SRC2[63:32];
+DEST[31:0] ← SRC2[31:0];
+</pre>
+<h3>Intel C/C++ Compiler Intrinsic Equivalent</h3>
+<pre>SHA1NEXTE: __m128i _mm_sha1nexte_epu32(__m128i, __m128i);
+</pre>
+<h3>Flags Affected</h3>
+<p>None</p>
+<h3>SIMD Floating-Point Exceptions</h3>
+<p>None</p>
+<h3>Other Exceptions</h3>
+<p>See Exceptions Type 4.</p></x86:instruction>

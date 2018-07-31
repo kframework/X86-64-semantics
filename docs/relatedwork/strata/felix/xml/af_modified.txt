@@ -1,0 +1,107 @@
+AAD.xml:<p>The SF, ZF, and PF flags are set according to the resulting binary value in the AL register; the OF, AF, and CF flags are undefined.</p>
+ADC.xml:<p>The OF, SF, ZF, AF, CF, and PF flags are set according to the result.</p>
+ADD.xml:<p>The OF, SF, ZF, AF, CF, and PF flags are set according to the result.</p>
+ANDN.xml:<p>SF and ZF are updated based on result. OF and CF flags are cleared. AF and PF flags are undefined.</p>
+AND.xml:<p>The OF and CF flags are cleared; the SF, ZF, and PF flags are set according to the result. The state of the AF flag is undefined.</p>
+BEXTR.xml:<p>ZF is updated based on the result. AF, SF, and PF are undefined. All other flags are cleared.</p>
+BLSI.xml:<p>ZF and SF are updated based on the result. CF is set if the source is not zero. OF flags are cleared. AF and PF flags are undefined.</p>
+BLSMSK.xml:<p>SF is updated based on the result. CF is set if the source if zero. ZF and OF flags are cleared. AF and PF flag are undefined.</p>
+BLSR.xml:<p>ZF and SF flags are updated based on the result. CF is set if the source is zero. OF flag is cleared. AF and PF flags are undefined.</p>
+BSF.xml:<p>The ZF flag is set to 1 if the source operand is 0; otherwise, the ZF flag is cleared. The CF, OF, SF, AF, and PF flags are undefined.</p>
+BSR.xml:<p>The ZF flag is set to 1 if the source operand is 0; otherwise, the ZF flag is cleared. The CF, OF, SF, AF, and PF flags are undefined.</p>
+BTC.xml:<p>The CF flag contains the value of the selected bit before it is complemented. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+BTR.xml:<p>The CF flag contains the value of the selected bit before it is cleared. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+BTS.xml:<p>The CF flag contains the value of the selected bit before it is set. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+BT.xml:<p>The CF flag contains the value of the selected bit. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+BZHI.xml:<p>ZF, CF and SF flags are updated based on the result. OF flag is cleared. AF and PF flags are undefined.</p>
+CLC.xml:<p>The CF flag is set to 0. The OF, ZF, SF, AF, and PF flags are unaffected.</p>
+CLD.xml:<p>The DF flag is set to 0. The CF, OF, ZF, SF, AF, and PF flags are unaffected.</p>
+CMC.xml:<p>The CF flag contains the complement of its original value. The OF, ZF, SF, AF, and PF flags are unaffected.</p>
+CMPS:CMPSB:CMPSW:CMPSD:CMPSQ.xml:<p>The CF, OF, SF, ZF, AF, and PF flags are set according to the temporary result of the comparison.</p>
+CMPXCHG8B:CMPXCHG16B.xml:<p>The ZF flag is set if the destination operand and EDX:EAX are equal; otherwise it is cleared. The CF, PF, AF, SF, and OF flags are unaffected.</p>
+CMPXCHG.xml:<p>The ZF flag is set if the values in the destination operand and register AL, AX, or EAX are equal; otherwise it is cleared. The CF, PF, AF, SF, and OF flags are set according to the results of the comparison operation.</p>
+CMP.xml:<p>The CF, OF, SF, ZF, AF, and PF flags are set according to the result.</p>
+DEC.xml:<p>The CF flag is not affected. The OF, SF, ZF, AF, and PF flags are set according to the result.</p>
+DIV.xml:<p>The CF, OF, SF, ZF, AF, and PF flags are undefined.</p>
+IDIV.xml:<p>The CF, OF, SF, ZF, AF, and PF flags are undefined.</p>
+IMUL.xml:<td>0F AF /<em>r</em></td>
+IMUL.xml:<td>0F AF /<em>r</em></td>
+IMUL.xml:<td>REX.W + 0F AF /<em>r</em></td>
+IMUL.xml:<p>For the one operand form of the instruction, the CF and OF flags are set when significant bits are carried into the upper half of the result and cleared when the result fits exactly in the lower half of the result. For the two- and three-operand forms of the instruction, the CF and OF flags are set when the result must be truncated to fit in the destination operand size and cleared when the result fits exactly in the destination operand size. The SF, ZF, AF, and PF flags are undefined.</p>
+INC.xml:<p>The CF flag is not affected. The OF, SF, ZF, AF, and PF flags are set according to the result.</p>
+LZCNT.xml:<p>ZF flag is set to 1 in case of zero output (most significant bit of the source is set), and to 0 otherwise, CF flag is set to 1 if input was zero and cleared otherwise. OF, SF, PF and AF flags are undefined.</p>
+MOV-1.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are undefined.</p>
+MOV-2.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are undefined.</p>
+MUL.xml:<p>The OF and CF flags are set to 0 if the upper half of the result is 0; otherwise, they are set to 1. The SF, ZF, AF, and PF flags are undefined.</p>
+NEG.xml:<p>The CF flag set to 0 if the source operand is 0; otherwise it is set to 1. The OF, SF, ZF, AF, and PF flags are set according to the result.</p>
+OR.xml:<p>The OF and CF flags are cleared; the SF, ZF, and PF flags are set according to the result. The state of the AF flag is undefined.</p>
+POPCNT.xml:<p>OF, SF, ZF, AF, CF, PF are all cleared. ZF is set if SRC = 0, otherwise ZF is cleared.</p>
+PTEST.xml:AF←OF←PF←SF←0;
+PTEST.xml:AF←OF←PF←SF←0;
+PTEST.xml:<p>The 0F, AF, PF, SF flags are cleared and the ZF, CF flags are set according to the operation.</p>
+RCL:RCR:ROL:ROR.xml:<p>If the masked count is 0, the flags are not affected. If the masked count is 1, then the OF flag is affected, otherwise (masked count is greater than 1) the OF flag is undefined. The CF flag is affected when the masked count is nonzero. The SF, ZF, AF, and PF flags are always unaffected.</p>
+SAL:SAR:SHL:SHR.xml:<p>The CF flag contains the value of the last bit shifted out of the destination operand; it is undefined for SHL and SHR instructions where the count is greater than or equal to the size (in bits) of the destination operand. The OF flag is affected only for 1-bit shifts (see “Description” above); otherwise, it is undefined. The SF, ZF, and PF flags are set according to the result. If the count is 0, the flags are not affected. For a non-zero count, the AF flag is undefined.</p>
+SBB.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are set according to the result.</p>
+SCAS:SCASB:SCASW:SCASD.xml:<td>AF</td>
+SCAS:SCASB:SCASW:SCASD.xml:<td>AF</td>
+SCAS:SCASB:SCASW:SCASD.xml:<td>REX.W + AF</td>
+SCAS:SCASB:SCASW:SCASD.xml:<td>AF</td>
+SCAS:SCASB:SCASW:SCASD.xml:<td>AF</td>
+SCAS:SCASB:SCASW:SCASD.xml:<td>REX.W + AF</td>
+SCAS:SCASB:SCASW:SCASD.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are set according to the temporary result of the comparison.</p>
+SHLD.xml:                CF, OF, SF, ZF, AF, PF are undefined;
+SHLD.xml:<p>If the count is 1 or greater, the CF flag is filled with the last bit shifted out of the destination operand and the SF, ZF, and PF flags are set according to the value of the result. For a 1-bit shift, the OF flag is set if a sign change occurred; otherwise, it is cleared. For shifts greater than 1 bit, the OF flag is undefined. If a shift occurs, the AF flag is undefined. If the count operand is 0, the flags are not affected. If the count is greater than the operand size, the flags are undefined.</p>
+SHRD.xml:                CF, OF, SF, ZF, AF, PF are undefined;
+SHRD.xml:<p>If the count is 1 or greater, the CF flag is filled with the last bit shifted out of the destination operand and the SF, ZF, and PF flags are set according to the value of the result. For a 1-bit shift, the OF flag is set if a sign change occurred; otherwise, it is cleared. For shifts greater than 1 bit, the OF flag is undefined. If a shift occurs, the AF flag is undefined. If the count operand is 0, the flags are not affected. If the count is greater than the operand size, the flags are undefined.</p>
+STC.xml:<p>The CF flag is set. The OF, ZF, SF, AF, and PF flags are unaffected.</p>
+STD.xml:<p>The DF flag is set. The CF, OF, ZF, SF, AF, and PF flags are unaffected.</p>
+SUB.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are set according to the result.</p>
+TEST.xml:(* AF is undefined *)
+TEST.xml:<p>The OF and CF flags are set to 0. The SF, ZF, and PF flags are set according to the result (see the “Operation” section above). The state of the AF flag is undefined.</p>
+TZCNT.xml:<p>ZF is set to 1 in case of zero output (least significant bit of the source is set), and to 0 otherwise, CF is set to 1 if the input was zero and cleared otherwise. OF, SF, PF and AF flags are undefined.</p>
+UCOMISD.xml:<p>Performs an unordered compare of the double-precision floating-point values in the low quadwords of operand 1 (first operand) and operand 2 (second operand), and sets the ZF, PF, and CF flags in the EFLAGS register according to the result (unordered, greater than, less than, or equal). The OF, SF and AF flags in the EFLAGS register are set to 0. The unordered result is returned if either source operand is a NaN (QNaN or SNaN).</p>
+UCOMISD.xml:OF, AF, SF←0; }
+UCOMISS.xml:<p>Compares the single-precision floating-point values in the low doublewords of operand 1 (first operand) and operand 2 (second operand), and sets the ZF, PF, and CF flags in the EFLAGS register according to the result (unordered, greater than, less than, or equal). The OF, SF and AF flags in the EFLAGS register are set to 0. The unordered result is returned if either source operand is a NaN (QNaN or SNaN).</p>
+UCOMISS.xml:OF, AF, SF←0; }
+undefined.txt:AAA.xml:<p>The AF and CF flags are set to 1 if the adjustment results in a decimal carry; otherwise they are set to 0. The OF, SF, ZF, and PF flags are undefined.</p>
+undefined.txt:AAD.xml:<p>The SF, ZF, and PF flags are set according to the resulting binary value in the AL register; the OF, AF, and CF flags are undefined.</p>
+undefined.txt:AAM.xml:<p>The SF, ZF, and PF flags are set according to the resulting binary value in the AL register. The OF, AF, and CF flags are undefined.</p>
+undefined.txt:AAS.xml:<p>The AF and CF flags are set to 1 if there is a decimal borrow; otherwise, they are cleared to 0. The OF, SF, ZF, and PF flags are undefined.</p>
+undefined.txt:ANDN.xml:<p>SF and ZF are updated based on result. OF and CF flags are cleared. AF and PF flags are undefined.</p>
+undefined.txt:AND.xml:<p>The OF and CF flags are cleared; the SF, ZF, and PF flags are set according to the result. The state of the AF flag is undefined.</p>
+undefined.txt:BEXTR.xml:<p>ZF is updated based on the result. AF, SF, and PF are undefined. All other flags are cleared.</p>
+undefined.txt:BLSI.xml:<p>ZF and SF are updated based on the result. CF is set if the source is not zero. OF flags are cleared. AF and PF flags are undefined.</p>
+undefined.txt:BLSMSK.xml:<p>SF is updated based on the result. CF is set if the source if zero. ZF and OF flags are cleared. AF and PF flag are undefined.</p>
+undefined.txt:BLSR.xml:<p>ZF and SF flags are updated based on the result. CF is set if the source is zero. OF flag is cleared. AF and PF flags are undefined.</p>
+undefined.txt:BSF.xml:<p>The ZF flag is set to 1 if the source operand is 0; otherwise, the ZF flag is cleared. The CF, OF, SF, AF, and PF flags are undefined.</p>
+undefined.txt:BSR.xml:<p>The ZF flag is set to 1 if the source operand is 0; otherwise, the ZF flag is cleared. The CF, OF, SF, AF, and PF flags are undefined.</p>
+undefined.txt:BTC.xml:<p>The CF flag contains the value of the selected bit before it is complemented. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+undefined.txt:BTR.xml:<p>The CF flag contains the value of the selected bit before it is cleared. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+undefined.txt:BTS.xml:<p>The CF flag contains the value of the selected bit before it is set. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+undefined.txt:BT.xml:<p>The CF flag contains the value of the selected bit. The ZF flag is unaffected. The OF, SF, AF, and PF flags are undefined.</p>
+undefined.txt:BZHI.xml:<p>ZF, CF and SF flags are updated based on the result. OF flag is cleared. AF and PF flags are undefined.</p>
+undefined.txt:DIV.xml:<p>The CF, OF, SF, ZF, AF, and PF flags are undefined.</p>
+undefined.txt:IDIV.xml:<p>The CF, OF, SF, ZF, AF, and PF flags are undefined.</p>
+undefined.txt:IMUL.xml:<p>For the one operand form of the instruction, the CF and OF flags are set when significant bits are carried into the upper half of the result and cleared when the result fits exactly in the lower half of the result. For the two- and three-operand forms of the instruction, the CF and OF flags are set when the result must be truncated to fit in the destination operand size and cleared when the result fits exactly in the destination operand size. The SF, ZF, AF, and PF flags are undefined.</p>
+undefined.txt:LZCNT.xml:<p>ZF flag is set to 1 in case of zero output (most significant bit of the source is set), and to 0 otherwise, CF flag is set to 1 if input was zero and cleared otherwise. OF, SF, PF and AF flags are undefined.</p>
+undefined.txt:MOV-1.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are undefined.</p>
+undefined.txt:MOV-2.xml:<p>The OF, SF, ZF, AF, PF, and CF flags are undefined.</p>
+undefined.txt:MUL.xml:<p>The OF and CF flags are set to 0 if the upper half of the result is 0; otherwise, they are set to 1. The SF, ZF, AF, and PF flags are undefined.</p>
+undefined.txt:OR.xml:<p>The OF and CF flags are cleared; the SF, ZF, and PF flags are set according to the result. The state of the AF flag is undefined.</p>
+undefined.txt:RCL:RCR:ROL:ROR.xml:<p>If the masked count is 0, the flags are not affected. If the masked count is 1, then the OF flag is affected, otherwise (masked count is greater than 1) the OF flag is undefined. The CF flag is affected when the masked count is nonzero. The SF, ZF, AF, and PF flags are always unaffected.</p>
+undefined.txt:SAL:SAR:SHL:SHR.xml:<p>The CF flag contains the value of the last bit shifted out of the destination operand; it is undefined for SHL and SHR instructions where the count is greater than or equal to the size (in bits) of the destination operand. The OF flag is affected only for 1-bit shifts (see “Description” above); otherwise, it is undefined. The SF, ZF, and PF flags are set according to the result. If the count is 0, the flags are not affected. For a non-zero count, the AF flag is undefined.</p>
+undefined.txt:SHLD.xml:                CF, OF, SF, ZF, AF, PF are undefined;
+undefined.txt:SHLD.xml:<p>If the count is 1 or greater, the CF flag is filled with the last bit shifted out of the destination operand and the SF, ZF, and PF flags are set according to the value of the result. For a 1-bit shift, the OF flag is set if a sign change occurred; otherwise, it is cleared. For shifts greater than 1 bit, the OF flag is undefined. If a shift occurs, the AF flag is undefined. If the count operand is 0, the flags are not affected. If the count is greater than the operand size, the flags are undefined.</p>
+undefined.txt:SHRD.xml:                CF, OF, SF, ZF, AF, PF are undefined;
+undefined.txt:SHRD.xml:<p>If the count is 1 or greater, the CF flag is filled with the last bit shifted out of the destination operand and the SF, ZF, and PF flags are set according to the value of the result. For a 1-bit shift, the OF flag is set if a sign change occurred; otherwise, it is cleared. For shifts greater than 1 bit, the OF flag is undefined. If a shift occurs, the AF flag is undefined. If the count operand is 0, the flags are not affected. If the count is greater than the operand size, the flags are undefined.</p>
+undefined.txt:TEST.xml:(* AF is undefined *)
+undefined.txt:TEST.xml:<p>The OF and CF flags are set to 0. The SF, ZF, and PF flags are set according to the result (see the “Operation” section above). The state of the AF flag is undefined.</p>
+undefined.txt:TZCNT.xml:<p>ZF is set to 1 in case of zero output (least significant bit of the source is set), and to 0 otherwise, CF is set to 1 if the input was zero and cleared otherwise. OF, SF, PF and AF flags are undefined.</p>
+undefined.txt:XOR.xml:<p>The OF and CF flags are cleared; the SF, ZF, and PF flags are set according to the result. The state of the AF flag is undefined.</p>
+VTESTPD:VTESTPS.xml:AF←OF←PF←SF←0;
+VTESTPD:VTESTPS.xml:AF←OF←PF←SF←0;
+VTESTPD:VTESTPS.xml:AF←OF←PF←SF←0;
+VTESTPD:VTESTPS.xml:AF←OF←PF←SF←0;
+VTESTPD:VTESTPS.xml:<p>The 0F, AF, PF, SF flags are cleared and the ZF, CF flags are set according to the operation.</p>
+XADD.xml:<p>The CF, PF, AF, SF, ZF, and OF flags are set according to the result of the addition, which is stored in the destination operand.</p>
+XOR.xml:<p>The OF and CF flags are cleared; the SF, ZF, and PF flags are set according to the result. The state of the AF flag is undefined.</p>

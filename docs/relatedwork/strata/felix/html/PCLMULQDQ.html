@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>PCLMULQDQ
+		— Carry-Less Multiplication Quadword</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PCLMULQDQ
+		— Carry-Less Multiplication Quadword</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F 3A 44 /r ib PCLMULQDQ <em>xmm1, xmm2/m128, imm8</em></td>
+<td>RMI</td>
+<td>V/V</td>
+<td>PCLMULQDQ</td>
+<td>Carry-less multiplication of one quadword of xmm1 by one quadword of <em>xmm2/m128</em>, stores the 128-bit result in <em>xmm1</em>. The immediate is used to determine which quadwords of <em>xmm1</em> and <em>xmm2/m128</em> should be used.</td></tr>
+<tr>
+<td>VEX.NDS.128.66.0F3A.WIG 44 /r ib VPCLMULQDQ <em>xmm1, xmm2, xmm3/m128, imm8</em></td>
+<td>RVMI</td>
+<td>V/V</td>
+<td>Both PCLMULQDQ and AVX flags</td>
+<td>Carry-less multiplication of one quadword of <em>xmm2</em> by one quadword of <em>xmm3/m128</em>, stores the 128-bit result in <em>xmm1</em>. The immediate is used to determine which quadwords of <em>xmm2</em> and <em>xmm3/m128</em> should be used.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand2</td>
+<td>Operand3</td>
+<td>Operand4</td></tr>
+<tr>
+<td>RMI</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8</td>
+<td>NA</td></tr>
+<tr>
+<td>RVMI</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Performs a carry-less multiplication of two quadwords, selected from the first source and second source operand according to the value of the immediate byte. Bits 4 and 0 are used to select which 64-bit half of each operand to use according to <a href="./PCLMULQDQ.html#tbl-4-13">Table 4-13</a>, other bits of the immediate byte are ignored.</p>
+<figure id="tbl-4-13">
+<table>
+<tr>
+<th>Imm[4]</th>
+<th>Imm[0]</th>
+<th>PCLMULQDQ Operation</th></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>CL_MUL( SRC2<sup>1</sup>[63:0], SRC1[63:0] )</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>CL_MUL( SRC2[63:0], SRC1[127:64] )</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>CL_MUL( SRC2[127:64], SRC1[63:0] )</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>CL_MUL( SRC2[127:64], SRC1[127:64] )</td></tr></table>
+<figcaption><a href="./PCLMULQDQ.html#tbl-4-13">Table 4-13</a>. PCLMULQDQ Quadword Selection of Immediate Byte</figcaption></figure>
+<blockquote>
+<p>1. SRC2 denotes the second source operand, which can be a register or memory; SRC1 denotes the first source and destination operand.</p></blockquote>
+<p>The first source operand and the destination operand are the same and must be an XMM register. The second source operand can be an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>Compilers and assemblers may implement the following pseudo-op syntax to simply programming and emit the required encoding for Imm8.</p>
+<figure id="tbl-4-14">
+<table>
+<tr>
+<th>Pseudo-Op</th>
+<th>Imm8 Encoding</th></tr>
+<tr>
+<td><strong>PCLMULLQLQDQ</strong> <em>xmm1, xmm2</em></td>
+<td><strong>0000_0000B</strong></td></tr>
+<tr>
+<td><strong>PCLMULHQLQDQ</strong> <em>xmm1, xmm2</em></td>
+<td><strong>0000_0001B</strong></td></tr>
+<tr>
+<td><strong>PCLMULLQHQDQ</strong> <em>xmm1, xmm2</em></td>
+<td><strong>0001_0000B</strong></td></tr>
+<tr>
+<td><strong>PCLMULHQHQDQ</strong> <em>xmm1, xmm2</em></td>
+<td><strong>0001_0001B</strong></td></tr></table>
+<figcaption><a href="./PCLMULQDQ.html#tbl-4-14">Table 4-14</a>. Pseudo-Op and PCLMULQDQ Implementation</figcaption></figure>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<h3 id="pclmulqdq">PCLMULQDQ<a class="anchor" href="#pclmulqdq">
+			¶
+		</a></h3>
+<pre>IF (Imm8[0] = 0 )
+    THEN
+        TEMP1←SRC1 [63:0];
+    ELSE
+        TEMP1←SRC1 [127:64];
+FI
+IF (Imm8[4] = 0 )
+    THEN
+        TEMP2←SRC2 [63:0];
+    ELSE
+        TEMP2←SRC2 [127:64];
+FI
+For i = 0 to 63 {
+    TmpB [ i ]←(TEMP1[ 0 ] and TEMP2[ i ]);
+    For j = 1 to i {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+}
+For i = 64 to 126 {
+    TmpB [ i ]←0;
+    For j = i - 63 to 63 {
+        TmpB [ i ]←TmpB [ i ] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[ i ]←TmpB[ i ];
+}
+DEST[127] ← 0;
+DEST[MAXVL-1:128] (Unmodified)
+</pre>
+<h3 id="vpclmulqdq">VPCLMULQDQ<a class="anchor" href="#vpclmulqdq">
+			¶
+		</a></h3>
+<pre>IF (Imm8[0] = 0 )
+    THEN
+        TEMP1←SRC1 [63:0];
+    ELSE
+        TEMP1←SRC1 [127:64];
+FI
+IF (Imm8[4] = 0 )
+    THEN
+        TEMP2←SRC2 [63:0];
+    ELSE
+        TEMP2←SRC2 [127:64];
+FI
+For i = 0 to 63 {
+    TmpB [ i ]←(TEMP1[ 0 ] and TEMP2[ i ]);
+    For j = 1 to i {
+        TmpB [i]←TmpB [i] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[i] ← TmpB[i];
+}
+For i = 64 to 126 {
+    TmpB [ i ]←0;
+    For j = i - 63 to 63 {
+        TmpB [i]←TmpB [i] xor (TEMP1[ j ] and TEMP2[ i - j ])
+    }
+    DEST[i] ← TmpB[i];
+}
+DEST[MAXVL-1:127] ← 0;
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h2>
+<pre>(V)PCLMULQDQ: __m128i _mm_clmulepi64_si128 (__m128i, __m128i, const int)
+</pre>
+<h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h2>
+<p>See Exceptions Type 4, additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.L = 1.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

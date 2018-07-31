@@ -32,7 +32,6 @@ test_ ## FUNC (void)						\
 								\
   if (res != 1.0 - 2.0i)					\
     {								\
-      printf ("test_" #FUNC " failed\n");			\
       ++err;							\
     }								\
 }

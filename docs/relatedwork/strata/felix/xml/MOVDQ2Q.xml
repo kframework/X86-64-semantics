@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Move Quadword from XMM to MMX Technology Register" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="MOVDQ2Q"/>
+<table>
+<tr>
+<td><strong>Opcode Instruction Op/ 64-Bit Compat/ Description En Mode Leg Mode</strong> F2 0F D6 /r MOVDQ2Q <em>mm</em>, <em>xmm</em> RM Valid Valid Move low quadword from <em>xmm</em> to <em>mmx</em> register.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En Operand 1 Operand 2 Operand 3 Operand 4 RM ModRM:reg (w) ModRM:r/m (r) NA NA</td></tr></table>
+<h2>Description</h2>
+<p>Moves the low quadword from the source operand (second operand) to the destination operand (first operand). The source operand is an XMM register and the destination operand is an MMX technology register.</p>
+<p>This instruction causes a transition from x87 FPU to MMX technology operation (that is, the x87 FPU top-of-stack pointer is set to 0 and the x87 FPU tag word is set to all 0s [valid]). If this instruction is executed while an x87 FPU floating-point exception is pending, the exception is handled before the MOVDQ2Q instruction is executed.</p>
+<p>In 64-bit mode, use of the REX.R prefix permits this instruction to access additional registers (XMM8-XMM15).</p>
+<h2>Operation</h2>
+<pre>DEST ← SRC[63:0];
+</pre>
+<h2>Intel C/C++ Compiler Intrinsic Equivalent</h2>
+<pre>MOVDQ2Q: __m64 _mm_movepi64_pi64 ( __m128i a)
+</pre>
+<h2>SIMD Floating-Point Exceptions</h2>
+<p>None.</p>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td>#NM</td>
+<td>If CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td rowspan="4">#UD</td>
+<td>If CR0.EM[bit 2] = 1.</td></tr>
+<tr>
+<td>If CR4.OSFXSR[bit 9] = 0.</td></tr>
+<tr>
+<td>If CPUID.01H:EDX.SSE2[bit 26] = 0.</td></tr>
+<tr>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>

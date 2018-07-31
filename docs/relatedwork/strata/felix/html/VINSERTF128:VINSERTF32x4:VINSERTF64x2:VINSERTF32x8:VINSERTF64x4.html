@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VINSERTF128/VINSERTF32x4/VINSERTF64x2/VINSERTF32x8/VINSERTF64x4
+		— Insert Packed Floating-Point Values</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VINSERTF128/VINSERTF32x4/VINSERTF64x2/VINSERTF32x8/VINSERTF64x4
+		— Insert Packed Floating-Point Values</h1>
+
+
+
+
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op / En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>VEX.NDS.256.66.0F3A.W0 18 /r ib VINSERTF128 ymm1, ymm2, xmm3/m128, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX</td>
+<td>Insert 128 bits of packed floating-point values from xmm3/m128 and the remaining values from ymm2 into ymm1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F3A.W0 18 /r ib VINSERTF32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL AVX512F</td>
+<td>Insert 128 bits of packed single-precision floating-point values from xmm3/m128 and the remaining values from ymm2 into ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F3A.W0 18 /r ib VINSERTF32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Insert 128 bits of packed single-precision floating-point values from xmm3/m128 and the remaining values from zmm2 into zmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.256.66.0F3A.W1 18 /r ib VINSERTF64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512VL AVX512DQ</td>
+<td>Insert 128 bits of packed double-precision floating-point values from xmm3/m128 and the remaining values from ymm2 into ymm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F3A.W1 18 /r ib VINSERTF64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Insert 128 bits of packed double-precision floating-point values from xmm3/m128 and the remaining values from zmm2 into zmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F3A.W0 1A /r ib VINSERTF32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</td>
+<td>D</td>
+<td>V/V</td>
+<td>AVX512DQ</td>
+<td>Insert 256 bits of packed single-precision floating-point values from ymm3/m256 and the remaining values from zmm2 into zmm1 under writemask k1.</td></tr>
+<tr>
+<td>EVEX.NDS.512.66.0F3A.W1 1A /r ib VINSERTF64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F</td>
+<td>Insert 256 bits of packed double-precision floating-point values from ymm3/m256 and the remaining values from zmm2 into zmm1 under writemask k1.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Tuple Type</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr>
+<tr>
+<td>B</td>
+<td>Tuple2</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr>
+<tr>
+<td>C</td>
+<td>Tuple4</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr>
+<tr>
+<td>D</td>
+<td>Tuple8</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv</td>
+<td>ModRM:r/m (r)</td>
+<td>Imm8</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>VINSERTF128/VINSERTF32x4 and VINSERTF64x2 insert 128-bits of packed floating-point values from the second source operand (the third operand) into the destination operand (the first operand) at an 128-bit granularity offset multiplied by imm8[0] (256-bit) or imm8[1:0]. The remaining portions of the destination operand are copied from the corresponding fields of the first source operand (the second operand). The second source operand can be either an XMM register or a 128-bit memory location. The destination and first source operands are vector registers.</p>
+<p>VINSERTF32x4: The destination operand is a ZMM/YMM register and updated at 32-bit granularity according to the writemask. The high 6/7 bits of the immediate are ignored.</p>
+<p>VINSERTF64x2: The destination operand is a ZMM/YMM register and updated at 64-bit granularity according to the writemask. The high 6/7 bits of the immediate are ignored.</p>
+<p>VINSERTF32x8 and VINSERTF64x4 inserts 256-bits of packed floating-point values from the second source operand (the third operand) into the destination operand (the first operand) at a 256-bit granular offset multiplied by imm8[0]. The remaining portions of the destination are copied from the corresponding fields of the first source operand (the second operand). The second source operand can be either an YMM register or a 256-bit memory location. The high 7 bits of the immediate are ignored. The destination operand is a ZMM register and updated at 32/64-bit granularity according to the writemask.</p>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h4 id="vinsertf32x4--evex-encoded-versions-">VINSERTF32x4 (EVEX encoded versions)<a class="anchor" href="#vinsertf32x4--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (8, 256), (16, 512)
+TEMP_DEST[VL-1:0] ← SRC1[VL-1:0]
+IF VL = 256
+    CASE (imm8[0]) OF
+        0: TMP_DEST[127:0] ← SRC2[127:0]
+        1: TMP_DEST[255:128] ← SRC2[127:0]
+    ESAC.
+FI;
+IF VL = 512
+    CASE (imm8[1:0]) OF
+        00: TMP_DEST[127:0]←SRC2[127:0]
+        01: TMP_DEST[255:128]←SRC2[127:0]
+        10: TMP_DEST[383:256]←SRC2[127:0]
+        11: TMP_DEST[511:384]←SRC2[127:0]
+    ESAC.
+FI;
+FOR j←0 TO KL-1
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vinsertf64x2--evex-encoded-versions-">VINSERTF64x2 (EVEX encoded versions)<a class="anchor" href="#vinsertf64x2--evex-encoded-versions-">
+			¶
+		</a></h4>
+<pre>(KL, VL) = (4, 256), (8, 512)
+TEMP_DEST[VL-1:0] ← SRC1[VL-1:0]
+IF VL = 256
+    CASE (imm8[0]) OF
+        0: TMP_DEST[127:0] ← SRC2[127:0]
+        1: TMP_DEST[255:128] ← SRC2[127:0]
+    ESAC.
+FI;
+IF VL = 512
+    CASE (imm8[1:0]) OF
+        00: TMP_DEST[127:0]←SRC2[127:0]
+        01: TMP_DEST[255:128]←SRC2[127:0]
+        10: TMP_DEST[383:256]←SRC2[127:0]
+        11: TMP_DEST[511:384]←SRC2[127:0]
+    ESAC.
+FI;
+FOR j←0 TO KL-1
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking* ; merging-masking
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vinsertf32x8--evex-u1-512-encoded-version-">VINSERTF32x8 (EVEX.U1.512 encoded version)<a class="anchor" href="#vinsertf32x8--evex-u1-512-encoded-version-">
+			¶
+		</a></h4>
+<pre>TEMP_DEST[VL-1:0] ← SRC1[VL-1:0]
+CASE (imm8[0]) OF
+    0: TMP_DEST[255:0]←SRC2[255:0]
+    1: TMP_DEST[511:256]←SRC2[255:0]
+ESAC.
+FOR j←0 TO 15
+    i←j * 32
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+31:i]←TMP_DEST[i+31:i]
+        ELSE
+            IF *merging-masking*
+                        ; merging-masking
+                THEN *DEST[i+31:i] remains unchanged*
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vinsertf64x4--evex-512-encoded-version-">VINSERTF64x4 (EVEX.512 encoded version)<a class="anchor" href="#vinsertf64x4--evex-512-encoded-version-">
+			¶
+		</a></h4>
+<pre>VL = 512
+TEMP_DEST[VL-1:0] ← SRC1[VL-1:0]
+CASE (imm8[0]) OF
+    0: TMP_DEST[255:0]←SRC2[255:0]
+    1: TMP_DEST[511:256]←SRC2[255:0]
+ESAC.
+FOR j←0 TO 7
+    i←j * 64
+    IF k1[j] OR *no writemask*
+        THEN DEST[i+63:i]←TMP_DEST[i+63:i]
+        ELSE
+            IF *merging-masking*
+                THEN *DEST[i+63:i] remains unchanged*
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] ← 0
+            FI
+    FI;
+ENDFOR
+DEST[MAXVL-1:VL] ← 0
+</pre>
+<h4 id="vinsertf128--vex-encoded-version-">VINSERTF128 (VEX encoded version)<a class="anchor" href="#vinsertf128--vex-encoded-version-">
+			¶
+		</a></h4>
+<pre>TEMP[255:0] ←SRC1[255:0]
+CASE (imm8[0]) OF
+    0: TEMP[127:0]←SRC2[127:0]
+    1: TEMP[255:128]←SRC2[127:0]
+ESAC
+DEST ←TEMP
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="#intel-c-c++-compiler-intrinsic-equivalent">
+			¶
+		</a></h3>
+<pre>VINSERTF32x4 __m512 _mm512_insertf32x4( __m512 a, __m128 b, int imm);
+</pre>
+<pre>VINSERTF32x4 __m512 _mm512_mask_insertf32x4(__m512 s, __mmask16 k, __m512 a, __m128 b, int imm);
+</pre>
+<pre>VINSERTF32x4 __m512 _mm512_maskz_insertf32x4( __mmask16 k, __m512 a, __m128 b, int imm);
+</pre>
+<pre>VINSERTF32x4 __m256 _mm256_insertf32x4( __m256 a, __m128 b, int imm);
+</pre>
+<pre>VINSERTF32x4 __m256 _mm256_mask_insertf32x4(__m256 s, __mmask8 k, __m256 a, __m128 b, int imm);
+</pre>
+<pre>VINSERTF32x4 __m256 _mm256_maskz_insertf32x4( __mmask8 k, __m256 a, __m128 b, int imm);
+</pre>
+<pre>VINSERTF32x8 __m512 _mm512_insertf32x8( __m512 a, __m256 b, int imm);
+</pre>
+<pre>VINSERTF32x8 __m512 _mm512_mask_insertf32x8(__m512 s, __mmask16 k, __m512 a, __m256 b, int imm);
+</pre>
+<pre>VINSERTF32x8 __m512 _mm512_maskz_insertf32x8( __mmask16 k, __m512 a, __m256 b, int imm);
+</pre>
+<pre>VINSERTF64x2 __m512d _mm512_insertf64x2( __m512d a, __m128d b, int imm);
+</pre>
+<pre>VINSERTF64x2 __m512d _mm512_mask_insertf64x2(__m512d s, __mmask8 k, __m512d a, __m128d b, int imm);
+</pre>
+<pre>VINSERTF64x2 __m512d _mm512_maskz_insertf64x2( __mmask8 k, __m512d a, __m128d b, int imm);
+</pre>
+<pre>VINSERTF64x2 __m256d _mm256_insertf64x2( __m256d a, __m128d b, int imm);
+</pre>
+<pre>VINSERTF64x2 __m256d _mm256_mask_insertf64x2(__m256d s, __mmask8 k, __m256d a, __m128d b, int imm);
+</pre>
+<pre>VINSERTF64x2 __m256d _mm256_maskz_insertf64x2( __mmask8 k, __m256d a, __m128d b, int imm);
+</pre>
+<pre>VINSERTF64x4 __m512d _mm512_insertf64x4( __m512d a, __m256d b, int imm);
+</pre>
+<pre>VINSERTF64x4 __m512d _mm512_mask_insertf64x4(__m512d s, __mmask8 k, __m512d a, __m256d b, int imm);
+</pre>
+<pre>VINSERTF64x4 __m512d _mm512_maskz_insertf64x4( __mmask8 k, __m512d a, __m256d b, int imm);
+</pre>
+<pre>VINSERTF128 __m256 _mm256_insertf128_ps (__m256 a, __m128 b, int offset);
+</pre>
+<pre>VINSERTF128 __m256d _mm256_insertf128_pd (__m256d a, __m128d b, int offset);
+</pre>
+<pre>VINSERTF128 __m256i _mm256_insertf128_si256 (__m256i a, __m128i b, int offset);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="#simd-floating-point-exceptions">
+			¶
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="#other-exceptions">
+			¶
+		</a></h3>
+<p>VEX-encoded instruction, see Exceptions Type 6; additionally</p>
+<table>
+<tr>
+<td>#UD</td>
+<td>If VEX.L = 0.</td></tr></table>
+<p>EVEX-encoded instruction, see Exceptions Type E6NF.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

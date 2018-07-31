@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>VMWRITE
+		— Write Field to Virtual-Machine Control Structure</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VMWRITE
+		— Write Field to Virtual-Machine Control Structure</h1>
+
+<table>
+<tr>
+<td><strong>Opcode Instruction Description</strong> NP 0F 79 VMWRITE r64, r/m64 Writes a specified VMCS field (in 64-bit mode) NP 0F 79 VMWRITE r32, r/m32 Writes a specified VMCS field (outside 64-bit mode)</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Writes the contents of a primary source operand (register or memory) to a specified field in a VMCS. In VMX root operation, the instruction writes to the current VMCS. If executed in VMX non-root operation, the instruction writes to the VMCS referenced by the VMCS link pointer field in the current VMCS.</p>
+<p>The VMCS field is specified by the VMCS-field encoding contained in the register secondary source operand. Outside IA-32e mode, the secondary source operand is always 32 bits, regardless of the value of CS.D. In 64-bit mode, the secondary source operand has 64 bits.</p>
+<p>The effective size of the primary source operand, which may be a register or in memory, is always 32 bits outside IA-32e mode (the setting of CS.D is ignored with respect to operand size) and 64 bits in 64-bit mode. If the VMCS field specified by the secondary source operand is shorter than this effective operand size, the high bits of the primary source operand are ignored. If the VMCS field is longer, then the high bits of the field are cleared to 0.</p>
+<p>Note that any faults resulting from accessing a memory source operand occur after determining, in the operation section below, that the relevant VMCS pointer is valid but before determining if the destination VMCS field is supported.</p>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IF (not in VMX operation) or (CR0.PE = 0) or (RFLAGS.VM = 1) or (IA32_EFER.LMA = 1 and CS.L = 0)
+    THEN #UD;
+ELSIF in VMX non-root operation AND (“VMCS shadowing” is 0 OR secondary source operand sets bits in range 63:15 OR
+VMWRITE bit corresponding to bits 14:0 of secondary source operand is 1)<sup>5</sup>
+    THEN VMexit;
+ELSIF CPL &gt; 0
+    THEN #GP(0);
+ELSIF (in VMX root operation AND current-VMCS pointer is not valid) OR
+(in VMX non-root operation AND VMCS-link pointer is not valid)
+    THEN VMfailInvalid;
+ELSIF secondary source operand does not correspond to any VMCS field
+    THEN VMfailValid(VMREAD/VMWRITE from/to unsupported VMCS component);
+ELSIF VMCS field indexed by secondary source operand is a VM-exit information field AND
+processor does not support writing to such fields<sup>6</sup>
+    THEN VMfailValid(VMWRITE to read-only VMCS component);
+    ELSE
+            IF in VMX root operation
+                THEN field indexed by secondary source operand in current VMCS ← primary source operand;
+                ELSE field indexed by secondary source operand in VMCS referenced by VMCS link pointer ← primary source operand;
+        FI;
+        VMsucceed;
+FI;
+</pre>
+<blockquote>
+<p>5. The VMWRITE bit for a secondary source operand is defined as follows. Let <em>x</em> be the value of bits 14:0 of the secondary source operand and let <em>addr</em> be the VMWRITE-bitmap address. The corresponding VMWRITE bit is in bit position <em>x</em> &amp; 7 of the byte at physical address <em>addr</em> | (x » 3).</p>
+<p>6. Software can discover whether these fields can be written by reading the VMX capability MSR IA32_VMX_MISC (see Appendix A.6).</p></blockquote>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>See the operation section and Section 30.2.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="4">#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If a memory source operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains an unusable segment.</td></tr>
+<tr>
+<td>If the source operand is located in an execute-only code segment.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs in accessing a memory source operand.</td></tr>
+<tr>
+<td rowspan="2">#SS(0)</td>
+<td>If a memory source operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>If the SS register contains an unusable segment.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If not in VMX operation.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The VMWRITE instruction is not recognized in real-address mode.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The VMWRITE instruction is not recognized in virtual-8086 mode.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#UD</td>
+<td>The VMWRITE instruction is not recognized in compatibility mode.</td></tr></table>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If the memory source operand is in the CS, DS, ES, FS, or GS segments and the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs in accessing a memory source operand.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the memory source operand is in the SS segment and the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If not in VMX operation.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

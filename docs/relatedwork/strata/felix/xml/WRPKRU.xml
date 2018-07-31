@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Write Data to User Page Key Register" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="WRPKRU"/>
+<table>
+<tr>
+<th>Opcode*</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64/32bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 01 EF</td>
+<td>WRPKRU</td>
+<td>ZO</td>
+<td>V/V</td>
+<td>OSPKE</td>
+<td>Writes EAX into PKRU.</td></tr></table>
+<h2>Instruction Operand Encoding</h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2>Description</h2>
+<p>Writes the value of EAX into PKRU. ECX and EDX must be 0 when WRPKRU is executed; otherwise, a general-protection exception (#GP) occurs.</p>
+<p>WRPKRU can be executed only if CR4.PKE = 1; otherwise, an invalid-opcode exception (#UD) occurs. Software can discover the value of CR4.PKE by examining CPUID.(EAX=07H,ECX=0H):ECX.OSPKE [bit 4].</p>
+<p>On processors that support the Intel 64 Architecture, the high-order 32-bits of RCX, RDX and RAX are ignored.</p>
+<h2>Operation</h2>
+<pre>IF (ECX = 0 AND EDX = 0)
+    THEN PKRU ← EAX;
+    ELSE #GP(0);
+FI;
+</pre>
+<h2>Flags Affected</h2>
+<p>None.</p>
+<h2>C/C++ Compiler Intrinsic Equivalent</h2>
+<pre>WRPKRU: void _wrpkru(uint32_t);
+</pre>
+<h2>Protected Mode Exceptions</h2>
+<table>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If ECX ≠ 0.</td></tr>
+<tr>
+<td>If EDX ≠ 0.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If CR4.PKE = 0.</td></tr></table>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>

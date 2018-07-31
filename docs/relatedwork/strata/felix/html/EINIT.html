@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>EINIT
+		— Initialize an Enclave for Execution</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EINIT
+		— Initialize an Enclave for Execution</h1>
+
+<table>
+<tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 02H ENCLS[EINIT]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX1</td>
+<td>This leaf function initializes the enclave and makes it ready to execute enclave code.</td></tr></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td colspan="2">EAX</td>
+<td>RBX</td>
+<td>RCX</td>
+<td>RDX</td></tr>
+<tr>
+<td>IR</td>
+<td>EINIT (In)</td>
+<td>Error code (Out)</td>
+<td>Address of SIGSTRUCT (In)</td>
+<td>Address of SECS (In)</td>
+<td>Address of EINITTOKEN (In)</td></tr></table>
+<h3 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h3>
+<p>This leaf function is the final instruction executed in the enclave build process. After EINIT, the MRENCLAVE measurement is complete, and the enclave is ready to start user code execution using the EENTER instruction.</p>
+<p>EINIT takes the effective address of a SIGSTRUCT and EINITTOKEN. The SIGSTRUCT describes the enclave including MRENCLAVE, ATTRIBUTES, ISVSVN, a 3072 bit RSA key, and a signature using the included key. SIGSTRUCT must be populated with two values, q1 and q2. These are calculated using the formulas shown below:</p>
+<p>q1 = floor(Signature<sup>2</sup> / Modulus);</p>
+<p>q2 = floor((Signature<sup>3</sup> - q1 * Signature * Modulus) / Modulus);</p>
+<p>The EINITTOKEN contains the MRENCLAVE, MRSIGNER, and ATTRIBUTES. These values must match the corresponding values in the SECS. If the EINITTOKEN was created with a debug launch key, the enclave must be in debug mode as well.</p>
+<figure id="fig-40-1">
+<svg style="width: 614.016pt; height: 344.232012pt" viewBox="43.64 0.0 516.68 291.86001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="285.9" x="46.14" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48001"></rect>
+<rect height="285.9" x="557.34" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="0.48001" x="46.14" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="511.68"></rect>
+<rect height="0.47998" x="46.14" style="fill: rgb(0%, 0%, 0%)" y="286.38003" width="511.68"></rect>
+<rect height="1.02" x="263.88" style="fill: rgb(0%, 0%, 0%)" y="93.78001" width="74.34"></rect>
+<rect height="79.74" x="337.2" style="fill: rgb(0%, 0%, 0%)" y="94.26001" width="1.02"></rect>
+<rect height="1.02" x="263.4" style="fill: rgb(0%, 0%, 0%)" y="172.98001" width="74.28"></rect>
+<rect height="79.68" x="263.4" style="fill: rgb(0%, 0%, 0%)" y="93.78001" width="1.02"></rect>
+<rect height="1.02" x="264.6" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="0.47998"></rect>
+<rect height="1.02" x="265.08" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="3.96"></rect>
+<rect height="1.02" x="275.34" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="0.48001"></rect>
+<rect height="1.02" x="275.82" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="7.68"></rect>
+<rect height="1.02" x="289.74" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="0.48001"></rect>
+<rect height="1.02" x="290.22" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="7.74"></rect>
+<rect height="1.02" x="304.2" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="0.47998"></rect>
+<rect height="1.02" x="304.68" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="7.68"></rect>
+<rect height="1.02" x="318.66" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="0.48001"></rect>
+<rect height="1.02" x="319.14" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="7.68"></rect>
+<rect height="1.02" x="333.12" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="0.48001"></rect>
+<rect height="1.02" x="333.6" style="fill: rgb(0%, 0%, 0%)" y="130.32001" width="3.96"></rect>
+<rect height="1.02" x="264.0" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="0.48001"></rect>
+<rect height="1.02" x="264.48" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="3.96"></rect>
+<rect height="1.02" x="274.74" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="0.48001"></rect>
+<rect height="1.02" x="275.22" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="7.68"></rect>
+<rect height="1.02" x="289.14" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="0.47998"></rect>
+<rect height="1.02" x="289.62" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="7.74"></rect>
+<rect height="1.02" x="303.6" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="0.47998"></rect>
+<rect height="1.02" x="304.08" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="7.68"></rect>
+<rect height="1.02" x="318.06" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="0.48001"></rect>
+<rect height="1.02" x="318.54" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="7.68"></rect>
+<rect height="1.02" x="332.52" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="0.48001"></rect>
+<rect height="1.02" x="333.0" style="fill: rgb(0%, 0%, 0%)" y="117.42001" width="3.96"></rect>
+<rect height="1.02" x="264.6" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="0.47998"></rect>
+<rect height="1.02" x="265.08" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="3.96"></rect>
+<rect height="1.02" x="275.34" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="0.48001"></rect>
+<rect height="1.02" x="275.82" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="7.68"></rect>
+<rect height="1.02" x="289.74" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="0.48001"></rect>
+<rect height="1.02" x="290.22" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="7.74"></rect>
+<rect height="1.02" x="304.2" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="0.47998"></rect>
+<rect height="1.02" x="304.68" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="7.68"></rect>
+<rect height="1.02" x="318.66" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="0.48001"></rect>
+<rect height="1.02" x="319.14" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="7.68"></rect>
+<rect height="1.02" x="333.12" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="0.48001"></rect>
+<rect height="1.02" x="333.6" style="fill: rgb(0%, 0%, 0%)" y="101.10001" width="3.96"></rect>
+<rect height="1.02" x="264.6" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="0.47998"></rect>
+<rect height="1.02" x="265.08" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="3.96"></rect>
+<rect height="1.02" x="275.34" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="0.48001"></rect>
+<rect height="1.02" x="275.82" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="7.68"></rect>
+<rect height="1.02" x="289.74" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="0.48001"></rect>
+<rect height="1.02" x="290.22" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="7.74"></rect>
+<rect height="1.02" x="304.2" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="0.47998"></rect>
+<rect height="1.02" x="304.68" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="7.68"></rect>
+<rect height="1.02" x="318.66" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="0.48001"></rect>
+<rect height="1.02" x="319.14" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="7.68"></rect>
+<rect height="1.02" x="333.12" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="0.48001"></rect>
+<rect height="1.02" x="333.6" style="fill: rgb(0%, 0%, 0%)" y="156.90001" width="3.96"></rect>
+<rect height="110.4" x="103.5" style="fill: rgb(100%, 100%, 100%)" y="12.48001" width="92.4"></rect>
+<rect height="1.02" x="103.5" style="fill: rgb(0%, 0%, 0%)" y="12.00001" width="92.94"></rect>
+<rect height="110.94" x="195.42" style="fill: rgb(0%, 0%, 0%)" y="12.48001" width="1.02"></rect>
+<rect height="1.02" x="103.02" style="fill: rgb(0%, 0%, 0%)" y="122.40001" width="92.88"></rect>
+<rect height="110.88" x="103.02" style="fill: rgb(0%, 0%, 0%)" y="12.00001" width="1.02"></rect>
+<rect height="0.29999" x="83.58" style="fill: rgb(0%, 0%, 0%)" y="28.92002" width="1.38"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 84.54 29.28001 L 83.7 27.78001 L 83.04 26.70001 L 84.3 27.06001 L 89.64 28.56001 L 91.26 29.04001 L 89.64 29.52001 L 84.3 31.08001 L 83.1 31.44001 L 83.7 30.36001 L 84.0 30.12001 L 89.34 28.56001 L 89.64 29.52001 L 89.34 29.52001 L 84.0 28.02001 L 84.3 27.06001 L 84.6 27.30001 L 85.44 28.80001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 83.7 30.36001 L 84.54 28.80001 L 85.44 28.80001 L 85.56 29.04001 L 85.44 29.28001 L 84.6 30.84001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 84.96 29.04001 L 84.12 27.54001 L 89.46 29.04001 L 84.12 30.60001"></path>
+<rect height="0.30002" x="68.22" style="fill: rgb(0%, 0%, 0%)" y="50.93999" width="23.76"></rect>
+<rect height="22.14" x="68.22" style="fill: rgb(0%, 0%, 0%)" y="28.92001" width="0.3"></rect>
+<rect height="0.29999" x="68.34" style="fill: rgb(0%, 0%, 0%)" y="28.92002" width="15.36"></rect>
+<rect height="1.38" x="406.74" style="fill: rgb(0%, 0%, 0%)" y="237.48001" width="0.29999"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 407.1 237.90001 L 405.6 238.74001 L 404.52 239.40001 L 404.88 238.14001 L 406.38 232.80001 L 406.86 231.18001 L 407.34 232.80001 L 408.9 238.14001 L 409.26 239.34001 L 408.18 238.74001 L 407.94 238.44001 L 406.38 233.10001 L 407.34 232.80001 L 407.34 233.10001 L 405.84 238.44001 L 404.88 238.14001 L 405.12 237.84001 L 406.62 237.00001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 408.18 238.74001 L 406.62 237.90001 L 406.62 237.00001 L 406.86 236.88001 L 407.1 237.00001 L 408.66 237.84001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 406.86 237.48001 L 405.36 238.32001 L 406.86 232.98001 L 408.42 238.32001"></path>
+<rect height="12.06" x="301.02" style="fill: rgb(0%, 0%, 0%)" y="230.76001" width="0.30002"></rect>
+<rect height="0.3" x="301.14" style="fill: rgb(0%, 0%, 0%)" y="242.52001" width="105.9"></rect>
+<rect height="3.9" x="406.74" style="fill: rgb(0%, 0%, 0%)" y="238.74001" width="0.29999"></rect>
+<rect height="1.02" x="104.16" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="4.5"></rect>
+<rect height="1.02" x="115.26" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="8.46"></rect>
+<rect height="1.02" x="130.32" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="8.52"></rect>
+<rect height="1.02" x="145.44" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="8.46"></rect>
+<rect height="1.02" x="160.5" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="8.52"></rect>
+<rect height="1.02" x="175.62" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="8.46"></rect>
+<rect height="1.02" x="190.68" style="fill: rgb(0%, 0%, 0%)" y="59.28001" width="4.44"></rect>
+<rect height="1.02" x="104.16" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="4.5"></rect>
+<rect height="1.02" x="115.26" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="8.46"></rect>
+<rect height="1.02" x="130.32" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="8.52"></rect>
+<rect height="1.02" x="145.44" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="8.46"></rect>
+<rect height="1.02" x="160.5" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="8.52"></rect>
+<rect height="1.02" x="175.62" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="8.46"></rect>
+<rect height="1.02" x="190.68" style="fill: rgb(0%, 0%, 0%)" y="40.38001" width="4.44"></rect>
+<rect height="1.02" x="104.16" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="4.5"></rect>
+<rect height="1.02" x="115.26" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="8.46"></rect>
+<rect height="1.02" x="130.32" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="8.52"></rect>
+<rect height="1.02" x="145.44" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="8.46"></rect>
+<rect height="1.02" x="160.5" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="8.52"></rect>
+<rect height="1.02" x="175.62" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="8.46"></rect>
+<rect height="1.02" x="190.68" style="fill: rgb(0%, 0%, 0%)" y="22.32001" width="4.44"></rect>
+<rect height="0.48001" x="207.48" style="fill: rgb(0%, 0%, 0%)" y="47.94" width="98.46"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 173.28 165.30001 L 173.28 168.60001 L 172.62 168.42001 L 161.7 165.30001 L 172.62 162.18001 L 173.28 162.00001 L 173.28 162.66001 L 172.92 163.14001 L 163.68 165.78001 L 163.38 164.82001 L 163.68 164.82001 L 172.92 167.46001 L 172.62 168.42001 L 172.26 167.94001 L 172.26 165.30001"></path>
+<rect height="2.64" x="172.26" style="fill: rgb(0%, 0%, 0%)" y="162.66001" width="1.02"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 172.8 165.30001 L 172.8 167.94001 L 163.56 165.30001 L 172.8 162.66001"></path>
+<rect height="0.48001" x="173.04" style="fill: rgb(0%, 0%, 0%)" y="165.06" width="49.8"></rect>
+<rect height="1.02" x="104.16" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="4.5"></rect>
+<rect height="1.02" x="115.26" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="8.46"></rect>
+<rect height="1.02" x="130.32" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="8.52"></rect>
+<rect height="1.02" x="145.44" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="8.46"></rect>
+<rect height="1.02" x="160.5" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="8.52"></rect>
+<rect height="1.02" x="175.62" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="8.46"></rect>
+<rect height="1.02" x="190.68" style="fill: rgb(0%, 0%, 0%)" y="94.92001" width="4.44"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 143.58 145.92001 L 146.88 145.92001 L 146.7 146.58001 L 143.58 157.50001 L 140.46 146.58001 L 140.28 145.92001 L 140.94 145.92001 L 141.42 146.28001 L 144.06 155.52001 L 143.1 155.82001 L 143.1 155.52001 L 145.74 146.28001 L 146.7 146.58001 L 146.22 146.94001 L 143.58 146.94001"></path>
+<rect height="1.02" x="140.94" style="fill: rgb(0%, 0%, 0%)" y="145.92001" width="2.64"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 143.58 146.40001 L 146.22 146.40001 L 143.58 155.64001 L 140.94 146.40001"></path>
+<rect height="23.46" x="143.34" style="fill: rgb(0%, 0%, 0%)" y="122.70001" width="0.48"></rect>
+<rect height="79.2" x="169.26" style="fill: rgb(100%, 100%, 100%)" y="194.70001" width="73.8"></rect>
+<rect height="1.02" x="169.26" style="fill: rgb(0%, 0%, 0%)" y="194.22001" width="74.34"></rect>
+<rect height="79.74" x="242.58" style="fill: rgb(0%, 0%, 0%)" y="194.70001" width="1.02"></rect>
+<rect height="1.02" x="168.78" style="fill: rgb(0%, 0%, 0%)" y="273.42001" width="74.28"></rect>
+<rect height="79.68" x="168.78" style="fill: rgb(0%, 0%, 0%)" y="194.22001" width="1.02"></rect>
+<rect height="1.02" x="169.98" style="fill: rgb(0%, 0%, 0%)" y="230.70001" width="4.44"></rect>
+<rect height="1.02" x="180.72" style="fill: rgb(0%, 0%, 0%)" y="230.70001" width="8.16"></rect>
+<rect height="1.02" x="195.18" style="fill: rgb(0%, 0%, 0%)" y="230.70001" width="8.16"></rect>
+<rect height="1.02" x="209.58" style="fill: rgb(0%, 0%, 0%)" y="230.70001" width="8.22"></rect>
+<rect height="1.02" x="224.04" style="fill: rgb(0%, 0%, 0%)" y="230.70001" width="8.16"></rect>
+<rect height="1.02" x="238.5" style="fill: rgb(0%, 0%, 0%)" y="230.70001" width="4.44"></rect>
+<rect height="1.02" x="169.38" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="0.48001"></rect>
+<rect height="1.02" x="169.86" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="3.96"></rect>
+<rect height="1.02" x="180.12" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="0.48"></rect>
+<rect height="1.02" x="180.6" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="7.68"></rect>
+<rect height="1.02" x="194.58" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="0.48"></rect>
+<rect height="1.02" x="195.06" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="7.68"></rect>
+<rect height="1.02" x="208.98" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="0.48001"></rect>
+<rect height="1.02" x="209.46" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="7.74"></rect>
+<rect height="1.02" x="223.44" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="0.48001"></rect>
+<rect height="1.02" x="223.92" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="7.68"></rect>
+<rect height="1.02" x="237.9" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="0.47998"></rect>
+<rect height="1.02" x="238.38" style="fill: rgb(0%, 0%, 0%)" y="217.80001" width="3.96"></rect>
+<rect height="1.02" x="169.98" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="0.48"></rect>
+<rect height="1.02" x="170.46" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="3.96"></rect>
+<rect height="1.02" x="180.72" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="0.48001"></rect>
+<rect height="1.02" x="181.2" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="7.68"></rect>
+<rect height="1.02" x="195.18" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="0.48"></rect>
+<rect height="1.02" x="195.66" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="7.68"></rect>
+<rect height="1.02" x="209.58" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="0.48"></rect>
+<rect height="1.02" x="210.06" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="7.74"></rect>
+<rect height="1.02" x="224.04" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="0.48001"></rect>
+<rect height="1.02" x="224.52" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="7.68"></rect>
+<rect height="1.02" x="238.5" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="0.48"></rect>
+<rect height="1.02" x="238.98" style="fill: rgb(0%, 0%, 0%)" y="201.48001" width="3.96"></rect>
+<rect height="3.0" x="168.96" style="fill: rgb(0%, 0%, 0%)" y="246.66001" width="1.5"></rect>
+<rect height="3.0" x="170.46" style="fill: rgb(0%, 0%, 0%)" y="246.66001" width="73.5"></rect>
+<rect height="30.6" x="379.86" style="fill: rgb(100%, 100%, 100%)" y="197.10001" width="68.4"></rect>
+<rect height="1.02" x="379.86" style="fill: rgb(0%, 0%, 0%)" y="196.62001" width="68.94"></rect>
+<rect height="31.14" x="447.78" style="fill: rgb(0%, 0%, 0%)" y="197.10001" width="1.02"></rect>
+<rect height="1.02" x="379.38" style="fill: rgb(0%, 0%, 0%)" y="227.22001" width="68.88"></rect>
+<rect height="31.08" x="379.38" style="fill: rgb(0%, 0%, 0%)" y="196.62001" width="1.02"></rect>
+<rect height="22.2" x="477.3" style="fill: rgb(100%, 100%, 100%)" y="105.48001" width="68.4"></rect>
+<rect height="1.02" x="477.3" style="fill: rgb(0%, 0%, 0%)" y="105.00001" width="68.94"></rect>
+<rect height="22.74" x="545.22" style="fill: rgb(0%, 0%, 0%)" y="105.48001" width="1.02"></rect>
+<rect height="1.02" x="476.82" style="fill: rgb(0%, 0%, 0%)" y="127.20001" width="68.88"></rect>
+<rect height="22.68" x="476.82" style="fill: rgb(0%, 0%, 0%)" y="105.00001" width="1.02"></rect>
+<rect height="0.47998" x="500.7" style="fill: rgb(0%, 0%, 0%)" y="47.58003" width="0.23999"></rect>
+<rect height="0.47998" x="348.12" style="fill: rgb(0%, 0%, 0%)" y="47.58003" width="152.58"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 500.82 91.68001 L 504.12 91.68001 L 503.94 92.3400100000001 L 500.82 103.26001 L 497.7 92.3400100000001 L 497.52 91.68001 L 498.18 91.68001 L 498.66 92.0400100000001 L 501.3 101.28001 L 500.34 101.58001 L 500.34 101.28001 L 502.98 92.0400100000001 L 503.94 92.3400100000001 L 503.46 92.70001 L 500.82 92.70001"></path>
+<rect height="1.02" x="498.18" style="fill: rgb(0%, 0%, 0%)" y="91.68001" width="2.64"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 500.82 92.16001 L 503.46 92.16001 L 500.82 101.40001 L 498.18 92.16001"></path>
+<rect height="0.23999" x="500.58" style="fill: rgb(0%, 0%, 0%)" y="48.30002" width="0.47998"></rect>
+<rect height="43.38" x="500.58" style="fill: rgb(0%, 0%, 0%)" y="48.54001" width="0.47998"></rect>
+<rect height="0.47998" x="409.8" style="fill: rgb(0%, 0%, 0%)" y="77.40003" width="0.23999"></rect>
+<rect height="0.47998" x="358.26" style="fill: rgb(0%, 0%, 0%)" y="77.40003" width="51.54"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 409.98 184.68001 L 413.28 184.68001 L 413.1 185.34001 L 409.98 196.26001 L 406.86 185.34001 L 406.68 184.68001 L 407.34 184.68001 L 407.82 185.04001 L 410.46 194.28001 L 409.5 194.58001 L 409.5 194.28001 L 412.14 185.04001 L 413.1 185.34001 L 412.62 185.70001 L 409.98 185.70001"></path>
+<rect height="1.02" x="407.34" style="fill: rgb(0%, 0%, 0%)" y="184.68001" width="2.64"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 409.98 185.16001 L 412.62 185.16001 L 409.98 194.40001 L 407.34 185.16001"></path>
+<rect height="0.24002" x="409.74" style="fill: rgb(0%, 0%, 0%)" y="76.55999" width="0.47998"></rect>
+<rect height="108.12" x="409.74" style="fill: rgb(0%, 0%, 0%)" y="76.80001" width="0.47998"></rect>
+<rect height="0.47998" x="312.9" style="fill: rgb(0%, 0%, 0%)" y="75.18003" width="0.24002"></rect>
+<rect height="0.47998" x="201.72" style="fill: rgb(0%, 0%, 0%)" y="75.18003" width="111.18"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 466.86 109.68001 L 466.86 106.38001 L 467.52 106.56001 L 476.7 109.20001 L 478.38 109.68001 L 476.7 110.16001 L 467.52 112.80001 L 466.86 112.98001 L 466.86 112.32001 L 467.22 111.84001 L 476.4 109.20001 L 476.7 110.16001 L 476.4 110.16001 L 467.22 107.52001 L 467.52 106.56001 L 467.88 107.04001 L 467.88 109.68001"></path>
+<rect height="2.64" x="466.86" style="fill: rgb(0%, 0%, 0%)" y="109.68001" width="1.02"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 467.34 109.68001 L 467.34 107.04001 L 476.52 109.68001 L 467.34 112.32001"></path>
+<rect height="0.48001" x="440.1" style="fill: rgb(0%, 0%, 0%)" y="109.44" width="0.23999"></rect>
+<rect height="0.48001" x="440.34" style="fill: rgb(0%, 0%, 0%)" y="109.44" width="26.7"></rect>
+<rect height="0.48001" x="363.9" style="fill: rgb(0%, 0%, 0%)" y="108.36" width="0.24002"></rect>
+<rect height="0.48001" x="338.46" style="fill: rgb(0%, 0%, 0%)" y="108.36" width="25.44"></rect>
+<rect height="0.47998" x="360.3" style="fill: rgb(0%, 0%, 0%)" y="143.34003" width="0.23999"></rect>
+<rect height="0.47998" x="338.64" style="fill: rgb(0%, 0%, 0%)" y="143.34003" width="21.66"></rect>
+<rect height="0.23999" x="501.96" style="fill: rgb(0%, 0%, 0%)" y="176.40002" width="0.47998"></rect>
+<rect height="47.82" x="501.96" style="fill: rgb(0%, 0%, 0%)" y="128.58001" width="0.47998"></rect>
+<rect height="0.48" x="502.5" style="fill: rgb(0%, 0%, 0%)" y="176.58001" width="0.23999"></rect>
+<rect height="0.48" x="460.26" style="fill: rgb(0%, 0%, 0%)" y="176.58001" width="42.24"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 204.84 189.36001 L 208.14 189.36001 L 207.96 190.02001 L 205.32 199.20001 L 204.84 200.88001 L 204.36 199.20001 L 201.72 190.02001 L 201.54 189.36001 L 202.2 189.36001 L 202.68 189.72001 L 205.32 198.90001 L 204.36 199.20001 L 204.36 198.90001 L 207.0 189.72001 L 207.96 190.02001 L 207.48 190.38001 L 204.84 190.38001"></path>
+<rect height="1.02" x="202.2" style="fill: rgb(0%, 0%, 0%)" y="189.36001" width="2.64"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 204.84 189.84001 L 207.48 189.84001 L 204.84 199.02001 L 202.2 189.84001"></path>
+<rect height="0.24001" x="204.6" style="fill: rgb(0%, 0%, 0%)" y="177.72" width="0.48001"></rect>
+<rect height="11.58" x="204.6" style="fill: rgb(0%, 0%, 0%)" y="177.96001" width="0.48001"></rect>
+<rect height="0.48" x="425.28" style="fill: rgb(0%, 0%, 0%)" y="176.76001" width="0.23999"></rect>
+<rect height="0.48" x="203.7" style="fill: rgb(0%, 0%, 0%)" y="176.76001" width="221.58"></rect>
+<rect height="0.47998" x="400.56" style="fill: rgb(0%, 0%, 0%)" y="153.24003" width="0.24002"></rect>
+<rect height="0.47998" x="389.04" style="fill: rgb(0%, 0%, 0%)" y="153.24003" width="11.52"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 400.56 184.26001 L 403.86 184.26001 L 403.68 184.92001 L 400.56 195.84001 L 397.44 184.92001 L 397.26 184.26001 L 397.92 184.26001 L 398.4 184.62001 L 401.04 193.86001 L 400.08 194.16001 L 400.08 193.86001 L 402.72 184.62001 L 403.68 184.92001 L 403.2 185.28001 L 400.56 185.28001"></path>
+<rect height="1.02" x="397.92" style="fill: rgb(0%, 0%, 0%)" y="184.26001" width="2.64"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 400.56 184.74001 L 403.2 184.74001 L 400.56 193.98001 L 397.92 184.74001"></path>
+<rect height="0.23999" x="400.32" style="fill: rgb(0%, 0%, 0%)" y="152.94002" width="0.48001"></rect>
+<rect height="31.32" x="400.32" style="fill: rgb(0%, 0%, 0%)" y="153.18001" width="0.48001"></rect>
+<rect height="0.48" x="143.04" style="fill: rgb(0%, 0%, 0%)" y="209.70001" width="0.24001"></rect>
+<rect height="0.48" x="143.28" style="fill: rgb(0%, 0%, 0%)" y="209.70001" width="22.2"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 143.16 185.10001 L 139.86 185.10001 L 140.04 184.44001 L 142.68 175.26001 L 143.16 173.64001 L 143.64 175.26001 L 146.34 184.44001 L 146.52 185.10001 L 145.86 185.10001 L 145.38 184.74001 L 142.68 175.56001 L 143.64 175.26001 L 143.64 175.56001 L 141.0 184.74001 L 140.04 184.44001 L 140.52 184.08001 L 143.16 184.08001"></path>
+<rect height="1.02" x="143.16" style="fill: rgb(0%, 0%, 0%)" y="184.08001" width="2.7"></rect>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 143.16 184.62001 L 140.52 184.62001 L 143.16 175.44001 L 145.86 184.62001"></path>
+<rect height="0.23999" x="142.92" style="fill: rgb(0%, 0%, 0%)" y="210.18002" width="0.48"></rect>
+<rect height="25.26" x="142.92" style="fill: rgb(0%, 0%, 0%)" y="184.92001" width="0.48"></rect>
+<rect height="0.24001" x="301.62" style="fill: rgb(0%, 0%, 0%)" y="206.88" width="0.48001"></rect>
+<rect height="9.72" x="301.62" style="fill: rgb(0%, 0%, 0%)" y="207.12001" width="0.48001"></rect>
+<rect height="0.48" x="302.28" style="fill: rgb(0%, 0%, 0%)" y="206.82001" width="0.23999"></rect>
+<rect height="0.48" x="243.24" style="fill: rgb(0%, 0%, 0%)" y="206.82001" width="59.04"></rect>
+<rect height="0.23999" x="222.12" style="fill: rgb(0%, 0%, 0%)" y="138.24002" width="0.48"></rect>
+<rect height="26.94" x="222.12" style="fill: rgb(0%, 0%, 0%)" y="138.48001" width="0.48"></rect>
+<rect height="0.47998" x="221.88" style="fill: rgb(0%, 0%, 0%)" y="138.00003" width="0.24001"></rect>
+<rect height="0.47998" x="222.12" style="fill: rgb(0%, 0%, 0%)" y="138.00003" width="39.84"></rect>
+<text x="112.97980029" textLength="34.22675169" y="36.0742375900001" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">Signature</text>
+<text x="60.3" textLength="17.47465632" y="43.8353431" lengthAdjust="spacingAndGlyphs" style="font-size: 7.80318360000001pt; fill: #000">Verify</text>
+<text x="314.22" textLength="27.5570343000001" y="52.2737281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">Hashed</text>
+<text x="116.16" textLength="28.06996599" y="54.3137281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">PubKey</text>
+<text x="112.62" textLength="49.15956582" y="70.1537281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">ATTRIBUTES</text>
+<text x="112.25963211" textLength="66.49328556" y="79.93382317" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">ATTRIBUTEMASK</text>
+<text x="324.42003597" textLength="22.6685304" y="80.2939260700001" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">Check</text>
+<text x="112.43943915" textLength="49.21976907" y="90.37386943" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">MRENCLAVE</text>
+<text x="368.21990712" textLength="65.38554576" y="113.29413688" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">If VALID=1, Check</text>
+<text x="273.96" textLength="43.1215812" y="115.5137281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">MRSIGNER</text>
+<text x="113.82" textLength="46.143552" y="115.74379" lengthAdjust="spacingAndGlyphs" style="font-size: 8.90568000000002pt; fill: #000">SIGSTRUCT</text>
+<text x="487.44" textLength="43.1135541" y="122.7737281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">MRSIGNER</text>
+<text x="138.54" textLength="26.0385804" y="138.8753431" lengthAdjust="spacingAndGlyphs" style="font-size: 7.80318360000001pt; fill: #000">DS:RBX</text>
+<text x="273.06016209" textLength="49.21736094" y="141.19402642" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">ATTRIBUTES</text>
+<text x="366.0" textLength="40.57458237" y="148.8737281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">If VALID=1,</text>
+<text x="274.02" textLength="49.15153872" y="152.3537281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">MRENCLAVE</text>
+<text x="366.0" textLength="22.6709385300001" y="157.81350937" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">Check</text>
+<text x="186.3" textLength="26.38608777" y="159.0353431" lengthAdjust="spacingAndGlyphs" style="font-size: 7.80318360000001pt; fill: #000">DS:RDX</text>
+<text x="274.2" textLength="47.8824542100001" y="169.8737281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.95824359999997pt; fill: #000">EINITTOKEN</text>
+<text x="132.72" textLength="23.022" y="171.27901" lengthAdjust="spacingAndGlyphs" style="font-size: 10.044pt; fill: #000">EINIT</text>
+<text x="430.8" textLength="18.71036739" y="181.8737281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">Copy</text>
+<text x="179.4" textLength="21.79277379" y="215.8937281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">SECS</text>
+<text x="126.72" textLength="26.44132536" y="221.2553431" lengthAdjust="spacingAndGlyphs" style="font-size: 7.80318360000001pt; fill: #000">DS:RCX</text>
+<text x="390.06024441" textLength="49.2085311299999" y="222.79400848" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">MRENCLAVE</text>
+<text x="289.2" textLength="22.6709385300001" y="228.0737281" lengthAdjust="spacingAndGlyphs" style="font-size: 8.9582436pt; fill: #000">Check</text>
+<text x="178.44" textLength="37.6001640000001" y="241.56379" lengthAdjust="spacingAndGlyphs" style="font-size: 8.90567999999999pt; fill: #000">ENCLAVE</text>
+<text x="178.86" textLength="16.441992" y="268.98379" lengthAdjust="spacingAndGlyphs" style="font-size: 8.90567999999999pt; fill: #000">EPC</text></g></svg>
+<figcaption><a href="./EINIT.html#fig-40-1">Figure 40-1</a>. Relationships Between SECS, SIGSTRUCT and EINITTOKEN</figcaption></figure>
+<h2 id="einit-memory-parameter-semantics">EINIT Memory Parameter Semantics<a class="anchor" href="#einit-memory-parameter-semantics">
+			¶
+		</a></h2>
+<p>SIGSTRUCT</p>
+<table>
+<tr>
+<td>SECS</td>
+<td>EINITTOKEN</td></tr>
+<tr>
+<td>Read/Write access by Enclave</td>
+<td>Access by non-Enclave</td></tr></table>
+<p>Access by non-Enclave</p>
+<p>EINIT performs the following steps, which can be seen in <a href="./EINIT.html#fig-40-1">Figure 40-1</a>:</p>
+<p>Validates that SIGSTRUCT is signed using the enclosed public key.</p>
+<p>Checks that the completed computation of SECS.MRENCLAVE equals SIGSTRUCT.HASHENCLAVE.</p>
+<p>Checks that no reserved bits are set to 1 in SIGSTRUCT.ATTRIBUTES and no reserved bits in SIGSTRUCT.ATTRIBUTESMASK are set to 0.</p>
+<p>Checks that no controlled ATTRIBUTES bits are set in SIGSTRUCT.ATTRIBUTES unless the SHA256 digest of SIGSTRUCT.MODULUS equals IA32_SGX_LEPUBKEYHASH.</p>
+<p>Checks that SIGSTRUCT.ATTRIBUTES equals the result of logically and-ing SIGSTRUCT.ATTRIBUTEMASK with SECS.ATTRIBUTES.</p>
+<p>If EINITTOKEN.VALID is 0, checks that the SHA256 digest of SIGSTRUCT.MODULUS equals IA32_SGX_LEPUBKEYHASH.</p>
+<p>If EINITTOKEN.VALID is 1, checks the validity of EINITTOKEN.</p>
+<p>If EINITTOKEN.VALID is 1, checks that EINITTOKEN.MRENCLAVE equals SECS.MRENCLAVE.</p>
+<p>If EINITTOKEN.VALID is 1 and EINITTOKEN.ATTRIBUTES.DEBUG is 1, SECS.ATTRIBUTES.DEBUG must be 1.</p>
+<p>Commits SECS.MRENCLAVE, and sets SECS.MRSIGNER, SECS.ISVSVN, and SECS.ISVPRODID based on SIGSTRUCT.</p>
+<p>Update the SECS as Initialized.</p>
+<p>Periodically, EINIT polls for certain asynchronous events. If such an event is detected, it completes with failure code (ZF=1 and RAX = SGX_UNMASKED_EVENT), and RIP is incremented to point to the next instruction. These events includes external interrupts, non-maskable interrupts, system-management interrupts, machine checks, INIT signals, and the VMX-preemption timer. EINIT does not fail if the pending event is inhibited (e.g., external interrupts could be inhibited due to blocking by MOV SS blocking or by STI).</p>
+<p>The following bits in RFLAGS are cleared: CF, PF, AF, OF, and SF. When the instruction completes with an error, RFLAGS.ZF is set to 1, and the corresponding error bit is set in RAX. If no error occurs, RFLAGS.ZF is cleared and RAX is set to 0.</p>
+<p>The error codes are:</p>
+<figure id="tbl-40-25">
+<table>
+<tr>
+<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Description</th></tr>
+<tr>
+<td>No Error</td>
+<td>EINIT successful.</td></tr>
+<tr>
+<td>SGX_INVALID_SIG_STRUCT</td>
+<td>If SIGSTRUCT contained an invalid value.</td></tr>
+<tr>
+<td>SGX_INVALID_ATTRIBUTE</td>
+<td>If SIGSTRUCT contains an unauthorized attributes mask.</td></tr>
+<tr>
+<td>SGX_INVALID_MEASUREMENT</td>
+<td>If SIGSTRUCT contains an incorrect measurement. If EINITTOKEN contains an incorrect measurement.</td></tr>
+<tr>
+<td>SGX_INVALID_SIGNATURE</td>
+<td>If signature does not validate with enclosed public key.</td></tr>
+<tr>
+<td>SGX_INVALID_LICENSE</td>
+<td>If license is invalid.</td></tr>
+<tr>
+<td>SGX_INVALID_CPUSVN</td>
+<td>If license SVN is unsupported.</td></tr>
+<tr>
+<td>SGX_UNMASKED_EVENT</td>
+<td>If an unmasked event is received before the instruction completes its operation.</td></tr></table>
+<figcaption><a href="./EINIT.html#tbl-40-25">Table 40-25</a>. EINIT Return Value in RAX</figcaption></figure>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="#concurrency-restrictions">
+			¶
+		</a></h3>
+<figure id="tbl-40-26">
+<table>
+<tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>EINIT</td>
+<td>SECS [DS:RCX]</td>
+<td>Shared</td>
+<td>#GP</td>
+<td></td></tr></table>
+<figcaption><a href="./EINIT.html#tbl-40-26">Table 40-26</a>. Base Concurrency Restrictions of EINIT</figcaption></figure>
+<figure id="tbl-40-27">
+<table>
+<tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>EINIT</td>
+<td>SECS [DS:RCX]</td>
+<td>Concurrent</td>
+<td></td>
+<td>Exclusive</td>
+<td>#GP</td>
+<td>Concurrent</td>
+<td></td></tr></table>
+<figcaption><a href="./EINIT.html#tbl-40-27">Table 40-27</a>. Additional Concurrency Restrictions of ENIT</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h3>
+<h2 id="temp-variables-in-einit-operational-flow">Temp Variables in EINIT Operational Flow<a class="anchor" href="#temp-variables-in-einit-operational-flow">
+			¶
+		</a></h2>
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Size</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_SIG</td>
+<td>SIGSTRUCT</td>
+<td>1808Bytes</td>
+<td>Temp space for SIGSTRUCT.</td></tr>
+<tr>
+<td>TMP_TOKEN</td>
+<td>EINITTOKEN</td>
+<td>304Bytes</td>
+<td>Temp space for EINITTOKEN.</td></tr>
+<tr>
+<td>TMP_MRENCLAVE</td>
+<td></td>
+<td>32Bytes</td>
+<td>Temp space for calculating MRENCLAVE.</td></tr>
+<tr>
+<td>TMP_MRSIGNER</td>
+<td></td>
+<td>32Bytes</td>
+<td>Temp space for calculating MRSIGNER.</td></tr>
+<tr>
+<td>CONTROLLED_ATTRIBU TES</td>
+<td>ATTRIBUTES</td>
+<td>16Bytes</td>
+<td>Constant mask of all ATTRIBUTE bits that can only be set for authorized enclaves.</td></tr>
+<tr>
+<td>TMP_KEYDEPENDENCIE S</td>
+<td>Buffer</td>
+<td>224Bytes</td>
+<td>Temp space for key derivation.</td></tr>
+<tr>
+<td>TMP_EINITTOKENKEY</td>
+<td></td>
+<td>16Bytes</td>
+<td>Temp space for the derived EINITTOKEN Key.</td></tr>
+<tr>
+<td>TMP_SIG_PADDING</td>
+<td>PKCS Padding Buffer</td>
+<td>352Bytes</td>
+<td>The value of the top 352 bytes from the computation of Signature<sup>3</sup> modulo MRSIGNER.</td></tr></table>
+<p>(* make sure SIGSTRUCT and SECS are aligned *)</p>
+<p>IF ( (DS:RBX is not 4KByte Aligned) or (DS:RCX is not 4KByte Aligned) )</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* make sure the EINITTOKEN is aligned *)</p>
+<p>IF (DS:RDX is not 512Byte Aligned)</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* make sure the SECS is inside the EPC *)</p>
+<p>IF (DS:RCX does not resolve within an EPC)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>TMP_SIG[14463:0]←DS:RBX[14463:0]; // 1808 bytes</p>
+<p>TMP_TOKEN[2423:0]←DS:RDX[2423:0]; // 304 bytes</p>
+<p>(* Verify SIGSTRUCT Header. *)</p>
+<p>IF ( (TMP_SIG.HEADER ≠ 06000000E10000000000010000000000h) or</p>
+<p>((TMP_SIG.VENDOR ≠ 0) and (TMP_SIG.VENDOR ≠ 00008086h) ) or</p>
+<p>(TMP_SIG HEADER2 ≠ 01010000600000006000000001000000h) or</p>
+<p>(TMP_SIG.EXPONENT ≠ 00000003h) or (Reserved space is not 0’s) )</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_SIG_STRUCT;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* Open “Event Window” Check for Interrupts. Verify signature using embedded public key, q1, and q2. Save upper 352 bytes of the PKCS1.5 encoded message into the TMP_SIG_PADDING*)</p>
+<p>IF (interrupt was pending) THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_UNMASKED_EVENT;</p>
+<p>GOTO EXIT;</p>
+<p>FI</p>
+<p>IF (signature failed to verify) THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_SIGNATURE;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(*Close “Event Window” *)</p>
+<p>(* make sure no other Intel SGX instruction is modifying SECS*)</p>
+<p>IF (Other instructions modifying SECS)</p>
+<p>THEN #GP(0); FI;</p>
+<p>IF ( (EPCM(DS:RCX). VALID = 0) or (EPCM(DS:RCX).PT ≠ PT_SECS) )</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>(* Verify ISVFAMILYID is not used on an enclave with KSS disabled *)</p>
+<p>IF ((TMP_SIG.ISVFAMILYID != 0) AND (DS:RCX.ATTRIBUTES.KSS == 0))</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_SIG_STRUCT;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* make sure no other instruction is accessing MRENCLAVE or ATTRIBUTES.INIT *)</p>
+<p>IF ( (Other instruction modifying MRENCLAVE) or (Other instructions modifying the SECS’s Initialized state))</p>
+<p>THEN #GP(0); FI;</p>
+<p>(* Calculate finalized version of MRENCLAVE *)</p>
+<p>(* SHA256 algorithm requires one last update that compresses the length of the hashed message into the output SHA256 digest *)</p>
+<p>TMP_ENCLAVE ← SHA256FINAL( (DS:RCX).MRENCLAVE, enclave’s MRENCLAVE update count *512);</p>
+<p>(* Verify MRENCLAVE from SIGSTRUCT *)</p>
+<p>IF (TMP_SIG.ENCLAVEHASH ≠ TMP_MRENCLAVE)</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_MEASUREMENT;</p>
+<p>GOTO EXIT;</p>
+<p>TMP_MRSIGNER ← SHA256(TMP_SIG.MODULUS)</p>
+<p>(* if controlled ATTRIBUTES are set, SIGSTRUCT must be signed using an authorized key *)</p>
+<p>CONTROLLED_ATTRIBUTES ← 0000000000000020H;</p>
+<p>IF ( ( (DS:RCX.ATTRIBUTES &amp; CONTROLLED_ATTRIBUTES) ≠ 0) and (TMP_MRSIGNER ≠ IA32_SGXLEPUBKEYHASH) )</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_ATTRIBUTE;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* Verify SIGSTRUCT.ATTRIBUTE requirements are met *)</p>
+<p>IF ( (DS:RCX.ATTRIBUTES &amp; TMP_SIG.ATTRIBUTEMASK) ≠ (TMP_SIG.ATTRIBUTE &amp; TMP_SIG.ATTRIBUTEMASK) )</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_ATTRIBUTE;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>( *Verify SIGSTRUCT.MISCSELECT requirements are met *)</p>
+<p>IF ( (DS:RCX.MISCSELECT &amp; TMP_SIG.MISCMASK) ≠ (TMP_SIG.MISCSELECT &amp; TMP_SIG.MISCMASK) )</p>
+<p>THEN</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_ATTRIBUTE;</p>
+<p>GOTO EXIT</p>
+<p>FI;</p>
+<p>(* if EINITTOKEN.VALID[0] is 0, verify the enclave is signed by an authorized key *)</p>
+<p>IF (TMP_TOKEN.VALID[0] = 0)</p>
+<p>IF (TMP_MRSIGNER ≠ IA32_SGXLEPUBKEYHASH)</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_EINITTOKEN;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>GOTO COMMIT;</p>
+<p>FI;</p>
+<p>(* Debug Launch Enclave cannot launch Production Enclaves *)</p>
+<p>IF ( (DS:RDX.MASKEDATTRIBUTESLE.DEBUG = 1) and (DS:RCX.ATTRIBUTES.DEBUG = 0) )</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_EINITTOKEN;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* Check reserve space in EINIT token includes reserved regions and upper bits in valid field *)</p>
+<p>IF (TMP_TOKEN reserved space is not clear)</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_EINITTOKEN;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* EINIT token must be ≤ CR_CPUSVN *)</p>
+<p>IF (TMP_TOKEN.CPUSVN &gt; CR_CPUSVN)</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_CPUSVN;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* Derive Launch key used to calculate EINITTOKEN.MAC *)</p>
+<p>HARDCODED_PKCS1_5_PADDING[15:0] ← 0100H;</p>
+<p>HARDCODED_PKCS1_5_PADDING[2655:16]←SignExtend330Byte(-1); // 330 bytes of 0FFH</p>
+<p>HARDCODED_PKCS1_5_PADDING[2815:2656] ← 2004000501020403650148866009060D30313000H;</p>
+<p>TMP_KEYDEPENDENCIES.KEYNAME ← EINITTOKEN_KEY;</p>
+<p>TMP_KEYDEPENDENCIES.ISVFAMILYID ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVEXTPRODID ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVPRODID ← TMP_TOKEN.ISVPRODIDLE;</p>
+<p>TMP_KEYDEPENDENCIES.ISVSVN ← TMP_TOKEN.ISVSVN;</p>
+<p>TMP_KEYDEPENDENCIES.SGXOWNEREPOCH ← CR_SGXOWNEREPOCH;</p>
+<p>TMP_KEYDEPENDENCIES.ATTRIBUTES ← TMP_TOKEN.MASKEDATTRIBUTESLE;</p>
+<p>TMP_KEYDEPENDENCIES.ATTRIBUTESMASK ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.MRENCLAVE ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.MRSIGNER ← IA32_SGXLEPUBKEYHASH;</p>
+<p>TMP_KEYDEPENDENCIES.KEYID ← TMP_TOKEN.KEYID;</p>
+<p>TMP_KEYDEPENDENCIES.SEAL_KEY_FUSES ← CR_SEAL_FUSES;</p>
+<p>TMP_KEYDEPENDENCIES.CPUSVN ← TMP_TOKEN.CPUSVN;</p>
+<p>TMP_KEYDEPENDENCIES.MISCSELECT ← TMP_TOKEN.MASKEDMISCSELECTLE;</p>
+<p>TMP_KEYDEPENDENCIES.MISCMASK ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.PADDING ← HARDCODED_PKCS1_5_PADDING;</p>
+<p>TMP_KEYDEPENDENCIES.KEYPOLICY ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.CONFIGID ← 0;</p>
+<p>TMP_KEYDEPENDENCIES.CONFIGSVN ← 0;</p>
+<p>(* Calculate the derived key*)</p>
+<p>TMP_EINITTOKENKEY ← derivekey(TMP_KEYDEPENDENCIES);</p>
+<p>(* Verify EINITTOKEN was generated using this CPU's Launch key and that it has not been modified since issuing by the Launch Enclave. Only 192 bytes of EINITTOKEN are CMACed *)</p>
+<p>IF (TMP_TOKEN.MAC ≠ CMAC(TMP_EINITTOKENKEY, TMP_TOKEN[1535:0] ) )</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_EINITTOKEN;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* Verify EINITTOKEN (RDX) is for this enclave *)</p>
+<p>IF ( (TMP_TOKEN.MRENCLAVE ≠ TMP_MRENCLAVE) or (TMP_TOKEN.MRSIGNER ≠ TMP_MRSIGNER) )</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_MEASUREMENT;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>(* Verify ATTRIBUTES in EINITTOKEN are the same as the enclave’s *)</p>
+<p>IF (TMP_TOKEN.ATTRIBUTES ≠ DS:RCX.ATTRIBUTES)</p>
+<p>RFLAGS.ZF ← 1;</p>
+<p>RAX ← SGX_INVALID_EINIT_ATTRIBUTE;</p>
+<p>GOTO EXIT;</p>
+<p>FI;</p>
+<p>COMMIT:</p>
+<p>(* Commit changes to the SECS; Set ISVPRODID, ISVSVN, MRSIGNER, INIT ATTRIBUTE fields in SECS (RCX) *)</p>
+<p>DS:RCX.MRENCLAVE ← TMP_MRENCLAVE;</p>
+<p>(* MRSIGNER stores a SHA256 in little endian implemented natively on x86 *)</p>
+<p>DS:RCX.MRSIGNER ← TMP_MRSIGNER;</p>
+<p>DS:RCX.ISVEXTPRODID ← TMP_SIG.ISVEXTPRODID;</p>
+<p>DS:RCX.ISVPRODID ← TMP_SIG.ISVPRODID;</p>
+<p>DS:RCX.ISVSVN ← TMP_SIG.ISVSVN;</p>
+<p>DS:RCX.ISVFAMILYID ← TMP_SIG.ISVFAMILYID;</p>
+<p>DS:RCX.PADDING ← TMP_SIG_PADDING;</p>
+<p>(* Mark the SECS as initialized *)</p>
+<p>Update DS:RCX to initialized;</p>
+<p>(* Set RAX and ZF for success*)</p>
+<p>RFLAGS.ZF ← 0;</p>
+<p>RAX←0;</p>
+<p>EXIT:</p>
+<p>RFLAGS.CF,PF,AF,OF,SF ← 0;</p>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h3>
+<p>ZF is cleared if successful, otherwise ZF is set and RAX contains the error code. CF, PF, AF, OF, SF are cleared.</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="4">#GP(0)</td>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If another instruction is modifying the SECS.</td></tr>
+<tr>
+<td>If the enclave is already initialized.</td></tr>
+<tr>
+<td>If the SECS.MRENCLAVE is in use.</td></tr>
+<tr>
+<td rowspan="3">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If RCX does not resolve in an EPC page.</td></tr>
+<tr>
+<td>If the memory address is not a valid, uninitialized SECS.</td></tr></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h3>
+<table>
+<tr>
+<td rowspan="4">#GP(0)</td>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If another instruction is modifying the SECS.</td></tr>
+<tr>
+<td>If the enclave is already initialized.</td></tr>
+<tr>
+<td>If the SECS.MRENCLAVE is in use.</td></tr>
+<tr>
+<td rowspan="3">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If RCX does not resolve in an EPC page.</td></tr>
+<tr>
+<td>If the memory address is not a valid, uninitialized SECS.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

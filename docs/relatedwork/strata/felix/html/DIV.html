@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="style.css"></link><title>DIV
+		— Unsigned Divide</title></head><body><header><nav><ul><li><a href="./index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>DIV
+		— Unsigned Divide</h1>
+
+<table>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>F6 /6</td>
+<td>DIV <em>r/m8</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide AX by <em>r/m8</em>, with result stored in AL ← Quotient, AH ← Remainder.</td></tr>
+<tr>
+<td>REX + F6 /6</td>
+<td>DIV <em>r/m8</em><sup>*</sup></td>
+<td>M</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide AX by <em>r/m8</em>, with result stored in AL ← Quotient, AH ← Remainder.</td></tr>
+<tr>
+<td>F7 /6</td>
+<td>DIV <em>r/m16</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide DX:AX by <em>r/m16</em>, with result stored in AX ← Quotient, DX ← Remainder.</td></tr>
+<tr>
+<td>F7 /6</td>
+<td>DIV <em>r/m32</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Unsigned divide EDX:EAX by <em>r/m32</em>, with result stored in EAX ← Quotient, EDX ← Remainder.</td></tr>
+<tr>
+<td>REX.W + F7 /6</td>
+<td>DIV <em>r/m64</em></td>
+<td>M</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Unsigned divide RDX:RAX by <em>r/m64</em>, with result stored in RAX ← Quotient, RDX ← Remainder.</td></tr></table>
+<blockquote>
+<p>* In64-bitmode,r/m8cannotbeencodedtoaccessthefollowingbyteregistersifaREXprefixisused:AH,BH,CH,DH.</p></blockquote>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="#instruction-operand-encoding">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M</td>
+<td>ModRM:r/m (w)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></table>
+<h2 id="description">Description<a class="anchor" href="#description">
+			¶
+		</a></h2>
+<p>Divides unsigned the value in the AX, DX:AX, EDX:EAX, or RDX:RAX registers (dividend) by the source operand (divisor) and stores the result in the AX (AH:AL), DX:AX, EDX:EAX, or RDX:RAX registers. The source operand can be a general-purpose register or a memory location. The action of this instruction depends on the operand size (dividend/divisor). Division using 64-bit operand is available only in 64-bit mode.</p>
+<p>Non-integral results are truncated (chopped) towards 0. The remainder is always less than the divisor in magnitude. Overflow is indicated with the #DE (divide error) exception rather than with the CF flag.</p>
+<p>In 64-bit mode, the instruction’s default operation size is 32 bits. Use of the REX.R prefix permits access to additional registers (R8-R15). Use of the REX.W prefix promotes operation to 64 bits. In 64-bit mode when REX.W is applied, the instruction divides the unsigned value in RDX:RAX by the source operand and stores the quotient in RAX, the remainder in RDX.</p>
+<p>See the summary chart at the beginning of this section for encoding data and limits. See <a href="./DIV.html#tbl-3-15">Table 3-15</a>.</p>
+<figure id="tbl-3-15">
+<table>
+<tr>
+<th>Operand Size</th>
+<th>Dividend</th>
+<th>Divisor</th>
+<th>Quotient</th>
+<th>Remainder</th>
+<th>Maximum Quotient</th></tr>
+<tr>
+<td>Word/byte</td>
+<td>AX</td>
+<td>r/m8</td>
+<td>AL</td>
+<td>AH</td>
+<td>255</td></tr>
+<tr>
+<td>Doubleword/word</td>
+<td>DX:AX</td>
+<td>r/m16</td>
+<td>AX</td>
+<td>DX</td>
+<td>65,535</td></tr>
+<tr>
+<td>Quadword/doubleword</td>
+<td>EDX:EAX</td>
+<td>r/m32</td>
+<td>EAX</td>
+<td>EDX</td>
+<td>2<sup>32</sup> − 1</td></tr>
+<tr>
+<td>Doublequadword/quadword</td>
+<td>RDX:RAX</td>
+<td>r/m64</td>
+<td>RAX</td>
+<td>RDX</td>
+<td>2<sup>64</sup> − 1</td></tr></table>
+<figcaption><a href="./DIV.html#tbl-3-15">Table 3-15</a>. DIV Action</figcaption></figure>
+<h2 id="operation">Operation<a class="anchor" href="#operation">
+			¶
+		</a></h2>
+<pre>IFSRC =0
+    THEN #DE; FI; (* Divide Error *)
+IF OperandSize = 8 (* Word/Byte Operation *)
+    THEN
+        temp ← AX / SRC;
+        IF temp &gt; FFH
+            THEN #DE; (* Divide error *)
+            ELSE
+                AL ← temp;
+                AH ← AX MOD SRC;
+        FI;
+    ELSE IF OperandSize = 16 (* Doubleword/word operation *)
+        THEN
+            temp ← DX:AX / SRC;
+            IF temp &gt; FFFFH
+                THEN #DE; (* Divide error *)
+            ELSE
+                AX ← temp;
+                DX ← DX:AX MOD SRC;
+            FI;
+        FI;
+    ELSE IF Operandsize = 32 (* Quadword/doubleword operation *)
+        THEN
+            temp ← EDX:EAX / SRC;
+            IF temp &gt; FFFFFFFFH
+                THEN #DE; (* Divide error *)
+            ELSE
+                EAX ← temp;
+                EDX ← EDX:EAX MOD SRC;
+            FI;
+        FI;
+    ELSE IF 64-Bit Mode and Operandsize = 64 (* Doublequadword/quadword operation *)
+        THEN
+            temp ← RDX:RAX / SRC;
+            IF temp &gt; FFFFFFFFFFFFFFFFH
+                THEN #DE; (* Divide error *)
+            ELSE
+                RAX ← temp;
+                RDX ← RDX:RAX MOD SRC;
+            FI;
+        FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="#flags-affected">
+			¶
+		</a></h2>
+<p>The CF, OF, SF, ZF, AF, and PF flags are undefined.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="#protected-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#DE</td>
+<td>If the source operand (divisor) is 0</td></tr>
+<tr>
+<td>If the quotient is too large for the designated register.</td></tr>
+<tr>
+<td rowspan="2">#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="#real-address-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#DE</td>
+<td>If the source operand (divisor) is 0.</td></tr>
+<tr>
+<td>If the quotient is too large for the designated register.</td></tr>
+<tr>
+<td rowspan="2">#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="#virtual-8086-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td rowspan="2">#DE</td>
+<td>If the source operand (divisor) is 0.</td></tr>
+<tr>
+<td>If the quotient is too large for the designated register.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="#compatibility-mode-exceptions">
+			¶
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="#64-bit-mode-exceptions">
+			¶
+		</a></h2>
+<table>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td rowspan="2">#DE</td>
+<td>If the source operand (divisor) is 0</td></tr>
+<tr>
+<td>If the quotient is too large for the designated register.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#AC(0)</td>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel® 64 and IA-32 Architectures Software Developer’s Manual</a> for anything serious.
+	</p></footer></body></html>

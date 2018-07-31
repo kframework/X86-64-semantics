@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x86:instruction summary="Invoke VM function" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86">
+<x86:mnemonic name="VMFUNC"/>
+<table>
+<tr>
+<td><strong>Opcode Instruction Description</strong> NP 0F 01 D4 VMFUNC Invoke VM function specified in EAX.</td></tr></table>
+<h2>Description</h2>
+<p>This instruction allows software in VMX non-root operation to invoke a VM function, which is processor functionality enabled and configured by software in VMX root operation. The value of EAX selects the specific VM function being invoked.</p>
+<p>The behavior of each VM function (including any additional fault checking) is specified in Section 25.5.5, “VM Functions”.</p>
+<h2>Operation</h2>
+<pre>Perform functionality of the VM function specified in EAX;
+</pre>
+<h2>Flags Affected</h2>
+<p>Depends on the VM function specified in EAX. See Section 25.5.5, “VM Functions”.</p>
+<h2>Protected Mode Exceptions (not including those defined by specific VM functions)</h2>
+<p>#UD If executed outside VMX non-root operation.</p>
+<p>If “enable VM functions” VM-execution control is 0.</p>
+<p>If EAX ≥ 64.</p>
+<h2>Real-Address Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Virtual-8086 Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>Compatibility Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p>
+<h2>64-Bit Mode Exceptions</h2>
+<p>Same exceptions as in protected mode.</p></x86:instruction>
