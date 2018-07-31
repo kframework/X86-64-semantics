@@ -1,15 +1,11 @@
 20030125-1-0
 20040831-1-0
 20070614-1-0
-930603-1-0
 930622-2-0
 complex-6-0
-conversion-0
 cvt-1-0
-float-floor-0
 floatunsisf-1-0
 func-ptr-1-0
 pr47538-0
 pr66233-0
-stdarg-1-0
 stdarg-4-0

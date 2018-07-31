@@ -225,12 +225,13 @@ L38:
 L36:
 	popq	%rbp
 	ret
+.globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
   pushq $1065353216
 	vmovss	(%rsp), %xmm0
-  popq r15
+  popq %r15
 	call	f
 	vmovq	%xmm0, %rax
 	movabsq	$4607182418800017408, %rdx

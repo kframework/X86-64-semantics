@@ -1423,8 +1423,8 @@ L143:
 	movabsq	$4619567317775286272, %rax
 	vmovq	%rcx, %xmm3
 	movl	$17, %esi
-  psuhq $1072693248
-  psuhq $0
+  pushq $1072693248
+  pushq $0
 	vmovsd	(%rsp), %xmm2
   popq %r15
   popq %r15

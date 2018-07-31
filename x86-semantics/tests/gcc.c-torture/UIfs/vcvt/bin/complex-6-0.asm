@@ -243,7 +243,7 @@ ctest_float:
   pushq $0
   pushq $0
   pushq $0
-  pushq $2147483648
+  pushq $0
 	vmovss	(%rsp), %xmm0
   popq %r15
   popq %r15
