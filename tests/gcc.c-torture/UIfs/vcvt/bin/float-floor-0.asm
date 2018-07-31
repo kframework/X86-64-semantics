@@ -225,19 +225,24 @@ L38:
 L36:
 	popq	%rbp
 	ret
-d:
-	.long	4026531840
-	.long	1083179007
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-	movq	d(%rip), %rax
+  pushq $1083179007
+  pushq $4026531840
+	movq	(%rsp1083179007), %rax
+  popq %r15
+  popq %r15
 	vmovq	%rax, %xmm0
 	call	floor
 	vmovq	%xmm0, %rax
 	movq	%rax, -8(%rbp)
-	movq	d(%rip), %rax
+  pushq $1083179007
+  pushq $4026531840
+	movq	(%rsp), %rax
+  popq %r15
+  popq %r15
 	vmovq	%rax, %xmm0
 	call	floor
 	vmovq	%xmm0, %rax
