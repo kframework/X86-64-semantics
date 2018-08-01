@@ -63,10 +63,10 @@ TEST_INPUTS(
     0xFFFF, 0xF7, 0x7FFF)
 
     movq ARG1_32, %rax
-    movq ARG2_32, %rbx,
+    movq ARG2_32, %rbx
     movq ARG3_32, %rdx
 
-    divb %bx
+    divw %bx
 TEST_END
 
 TEST_BEGIN(DIVedxeax, 3)
@@ -84,7 +84,7 @@ TEST_INPUTS(
     0xffffffff, 32, 0xffffffff)
 
     movq ARG1_32, %rax
-    movq ARG2_32, %rbx,
+    movq ARG2_32, %rbx
     movq ARG3_32, %rdx
 
     divl %ebx
@@ -108,7 +108,7 @@ TEST_INPUTS(
     0xFFFFFFFFFFFFFFFF, 0xF7, 0x7FFFFFFFFFFFFFFF)
 
     movq ARG1_32, %rax
-    movq ARG2_32, %rbx,
+    movq ARG2_32, %rbx
     movq ARG3_32, %rdx
 
     divl %ebx
