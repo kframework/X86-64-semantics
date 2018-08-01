@@ -1,13 +1,7 @@
 
-Generate: Output/test.xstate 
-../../../scripts/run.pl --file test.s --xrun --output Output/test.xstate
-as test.s -o Output//test.o 
-ld Output//test.o -o Output//test.exec 
-gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//test.exec 1> Output//test.xstate 2>&1 
-
 Compare: Output/test.cstate 
 ../../../scripts/run.pl --file Output/test.kstate --compare 
-grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilemB61c 2>&1 
+grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfile_4iWg 2>&1 
 numOfInstrs: 1175
 
 	0:	48 c7 c0 00 00 00 00	mov    $0x0,%rax
