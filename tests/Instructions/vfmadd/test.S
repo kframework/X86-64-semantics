@@ -73,20 +73,6 @@ TEST_INPUTS(
   vfmadd132ss   %xmm4, %xmm8, %xmm0 
   vfmadd132pd   %ymm4, %ymm9, %ymm0 
   vfmadd132ps   %ymm4, %ymm9, %ymm0 
-
-  vfmadd213pd   %xmm4, %xmm5, %xmm0 
-  vfmadd213ps   %xmm4, %xmm6, %xmm0 
-  vfmadd213sd   %xmm4, %xmm7, %xmm0 
-  vfmadd213ss   %xmm4, %xmm8, %xmm0 
-  vfmadd213pd   %ymm4, %ymm9, %ymm0 
-  vfmadd213ps   %ymm4, %ymm9, %ymm0 
-
-  vfmadd231pd   %xmm4, %xmm5, %xmm0 
-  vfmadd231ps   %xmm4, %xmm6, %xmm0 
-  vfmadd231sd   %xmm4, %xmm7, %xmm0 
-  vfmadd231ss   %xmm4, %xmm8, %xmm0 
-  vfmadd231pd   %ymm4, %ymm9, %ymm0 
-  vfmadd231ps   %ymm4, %ymm9, %ymm0 
   vzeroall
 TEST_END
 
