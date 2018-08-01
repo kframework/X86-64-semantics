@@ -56,12 +56,16 @@ my @corpus = (
 "2147483647" #NaN
     );
 
+#movq \$ARG1, %rax
+#movq \$ARG2, %rbx
+#  movq %rax, %xmm0
+#  movq %rbx, %xmm1
+#  mulps  %xmm0, %xmm1
 my $template = qq(
   movq \$ARG1, %rax
-  movq \$ARG2, %rbx
   movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
+  cvtss2sd  %xmm0, %xmm1
+  cvtsd2ss  %xmm1, %xmm0
 );
 
 for my $line1 (@corpus) {
@@ -88,13 +92,13 @@ my @corpus2 = (
 "2147483647" #NaN
     );
 
-for my $line1 (@corpus2) {
-  for my $line2 (@corpus2) {
-
-    my $r1 = $template =~ s/ARG1/$line1/gr;
-    my $r2  = $r1 =~ s/ARG2/$line2/gr;
-    print $r2. "\n";
-
-}
-}
+#for my $line1 (@corpus2) {
+#  for my $line2 (@corpus2) {
+#
+#    my $r1 = $template =~ s/ARG1/$line1/gr;
+#    my $r2  = $r1 =~ s/ARG2/$line2/gr;
+#    print $r2. "\n";
+#
+#}
+#}
 
