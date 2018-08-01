@@ -136,255 +136,255 @@ _start:
 
   // IDIVdxax  
   movq $0, %rax
-  movq $0, %rbx,
+  movq $0, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $1, %rax
-  movq $0, %rbx,
+  movq $0, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0, %rax
-  movq $1, %rbx,
+  movq $1, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $1, %rax
-  movq $1, %rbx,
+  movq $1, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $1, %rax
-  movq $2, %rbx,
+  movq $2, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $1, %rbx,
+  movq $1, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $2, %rbx,
+  movq $2, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $1, %rbx,
+  movq $1, %rbx
   movq $0xFFFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $2, %rbx,
+  movq $2, %rbx
   movq $0xFFFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0xFFFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0xFFFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $1, %rbx,
+  movq $1, %rbx
   movq $0x7FFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $2, %rbx,
+  movq $2, %rbx
   movq $0x7FFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0x7FFF, %rdx
   
-  idivb %bx
+  idivw %bx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0x7FFF, %rdx
   
-  idivb %bx
+  idivw %bx
 
   // IDIVedxeax  
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0xFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0xFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0x7FFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0x7FFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0xFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0xFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0x7FFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0x7FFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xffffffff, %rax
-  movq $32, %rbx,
+  movq $32, %rbx
   movq $0xffffffff, %rdx
   
   idivl %ebx
 
   // IDIVrdxrax_64  
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0xFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0xFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0x7FFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0x7FFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0xFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0xFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0x7FFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0x7FFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFFFFFFFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0xFFFFFFFFFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFFFFFFFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0xFFFFFFFFFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFFFFFFFFFF, %rax
-  movq $0xFF, %rbx,
+  movq $0xFF, %rbx
   movq $0x7FFFFFFFFFFFFFFF, %rdx
   
   idivl %ebx
   
   movq $0xFFFFFFFFFFFFFFFF, %rax
-  movq $0xF7, %rbx,
+  movq $0xF7, %rbx
   movq $0x7FFFFFFFFFFFFFFF, %rdx
   
   idivl %ebx
