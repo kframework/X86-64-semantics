@@ -24,20 +24,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $1,  %rax
@@ -61,20 +47,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x41,  %rax
@@ -98,20 +70,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x51,  %rax
@@ -135,20 +93,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x80,  %rax
@@ -172,20 +116,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x55,  %rax
@@ -209,20 +139,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAA,  %rax
@@ -246,20 +162,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x0F,  %rax
@@ -283,20 +185,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xF7,  %rax
@@ -320,20 +208,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFE,  %rax
@@ -357,20 +231,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xEF,  %rax
@@ -394,20 +254,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x7F,  %rax
@@ -431,20 +277,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFF,  %rax
@@ -468,20 +300,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x4141,  %rax
@@ -505,20 +323,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x5151,  %rax
@@ -542,20 +346,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x8000,  %rax
@@ -579,20 +369,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x5500,  %rax
@@ -616,20 +392,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x5555,  %rax
@@ -653,20 +415,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAA00,  %rax
@@ -690,20 +438,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAAAA,  %rax
@@ -727,20 +461,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x0F0F,  %rax
@@ -764,20 +484,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xF7F7,  %rax
@@ -801,20 +507,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFEFE,  %rax
@@ -838,20 +530,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xEFEF,  %rax
@@ -875,20 +553,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x7FFF,  %rax
@@ -912,20 +576,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFFFF,  %rax
@@ -949,20 +599,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x41414141,  %rax
@@ -986,20 +622,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x51515151,  %rax
@@ -1023,20 +645,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x55000000,  %rax
@@ -1060,20 +668,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x55555555,  %rax
@@ -1097,20 +691,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAAFFFFFF,  %rax
@@ -1134,20 +714,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAAAAAAAA,  %rax
@@ -1171,20 +737,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x0F0F0F0F,  %rax
@@ -1208,20 +760,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xF7F7F7F7,  %rax
@@ -1245,20 +783,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFEFEFEFE,  %rax
@@ -1282,20 +806,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xEFEFEFEF,  %rax
@@ -1319,20 +829,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x7FFFFFFF,  %rax
@@ -1356,20 +852,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFFFFFFFF,  %rax
@@ -1393,20 +875,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x4141414141414141,  %rax
@@ -1430,20 +898,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x5115151515115151,  %rax
@@ -1467,20 +921,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x8000000000000000,  %rax
@@ -1504,20 +944,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x5500000000000000,  %rax
@@ -1541,20 +967,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x5555555555555555,  %rax
@@ -1578,20 +990,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAA00000000000000,  %rax
@@ -1615,20 +1013,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xAAAAAAAAAAAAAAAA,  %rax
@@ -1652,20 +1036,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x0F0F0F0F0F0F0F0F,  %rax
@@ -1689,20 +1059,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xF7F7F7F7F7F7F7F7,  %rax
@@ -1726,20 +1082,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xEFEFEFEFEFEFEFEF,  %rax
@@ -1763,20 +1105,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFEFEFEFEFEFEFEFE,  %rax
@@ -1800,20 +1128,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0x7FFFFFFFFFFFFFFF,  %rax
@@ -1837,20 +1151,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
   
   movq  $0xFFFFFFFFFFFFFFFF,  %rax
@@ -1874,20 +1174,6 @@ _start:
   vfmadd132ss   %xmm4, %xmm8, %xmm0
   vfmadd132pd   %ymm4, %ymm9, %ymm0
   vfmadd132ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd213pd   %xmm4, %xmm5, %xmm0
-  vfmadd213ps   %xmm4, %xmm6, %xmm0
-  vfmadd213sd   %xmm4, %xmm7, %xmm0
-  vfmadd213ss   %xmm4, %xmm8, %xmm0
-  vfmadd213pd   %ymm4, %ymm9, %ymm0
-  vfmadd213ps   %ymm4, %ymm9, %ymm0
-  
-  vfmadd231pd   %xmm4, %xmm5, %xmm0
-  vfmadd231ps   %xmm4, %xmm6, %xmm0
-  vfmadd231sd   %xmm4, %xmm7, %xmm0
-  vfmadd231ss   %xmm4, %xmm8, %xmm0
-  vfmadd231pd   %ymm4, %ymm9, %ymm0
-  vfmadd231ps   %ymm4, %ymm9, %ymm0
   vzeroall
 
 
