@@ -1156,6 +1156,70 @@ _start:
   mulps %xmm9, %xmm8
   
   
+  movq  $0x7FFFFFFF,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xFFFFFFFF,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
   movq  $0x4141414141414141,  %rax
   movq  %rax, %xmm0
   
@@ -1189,6 +1253,358 @@ _start:
   
   
   movq  $0x5115151515115151,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0x8000000000000000,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0x5500000000000000,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0x5555555555555555,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xAA00000000000000,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xAAAAAAAAAAAAAAAA,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0x0F0F0F0F0F0F0F0F,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xF7F7F7F7F7F7F7F7,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xEFEFEFEFEFEFEFEF,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xFEFEFEFEFEFEFEFE,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0x7FFFFFFFFFFFFFFF,  %rax
+  movq  %rax, %xmm0
+  
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+  
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+  
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+  
+  mulsd %xmm4, %xmm5
+  mulsd %xmm6, %xmm7
+  mulsd %xmm8, %xmm9
+  
+  mulss %xmm5, %xmm4
+  mulss %xmm7, %xmm6
+  mulss %xmm9, %xmm8
+  
+  mulpd %xmm4, %xmm5
+  mulpd %xmm6, %xmm7
+  mulpd %xmm8, %xmm9
+  
+  mulps %xmm5, %xmm4
+  mulps %xmm7, %xmm6
+  mulps %xmm9, %xmm8
+  
+  
+  movq  $0xFFFFFFFFFFFFFFFF,  %rax
   movq  %rax, %xmm0
   
   movddup %xmm0, %xmm1
