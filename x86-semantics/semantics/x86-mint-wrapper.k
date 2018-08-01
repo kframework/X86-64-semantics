@@ -776,7 +776,10 @@ module MINT-WRAPPER
 
   // int -> float/double
   rule cvt_int64_to_double(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 53, 11), 64)
+  rule cvt_int32_to_double(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 53, 11), 64)
+
   rule cvt_int64_to_single(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 24, 8), 32)
+  rule cvt_int32_to_single(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 24, 8), 32)
 
   // float/double -> int
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 53,11)))
