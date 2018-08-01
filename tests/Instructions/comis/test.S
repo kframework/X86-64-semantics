@@ -1,107 +1,88 @@
-TEST_BEGIN(COMISS, 2)
+TEST_BEGIN(XCHG, 1)
 TEST_INPUTS(
-    0x3f800000 , 0x3f800000, 
-    0x3f800000 , 0x40000000, 
-    0x40000000 , 0x3f800000, 
-    0x3f800000 , 0x7f800000, 
-    0x7f800000 , 0x3f800000,
-    0x3f800000 , 0xff800000,
-    0xff800000 , 0x3f800000,
-    0x7f800000 , 0x7f800000,
-    0xff800000 , 0xff800000,
-    0x3f800000 , 0x7fc00000,
-    0x7fc00000 , 0x3f800000,
-    0x7fc00000 , 0x7fc00000,
-    0x7f800000 , 0x7fc00000,
-    0x7fc00000 , 0x7f800000 )
-
+0,    
+1,    
+0x41, 
+0x51, 
+0x80, 
+0x55, 
+0xAA, 
+0x0F, 
+0xF7, 
+0xFE, 
+0xEF, 
+0x7F, 
+0xFF, 
+0x4141, 
+0x5151, 
+0x8000, 
+0x5500, 
+0x5555, 
+0xAA00, 
+0xAAAA, 
+0x0F0F, 
+0xF7F7, 
+0xFEFE, 
+0xEFEF, 
+0x7FFF, 
+0xFFFF, 
+0x41414141, 
+0x51515151, 
+0x55000000, 
+0x55555555, 
+0xAAFFFFFF, 
+0xAAAAAAAA, 
+0x0F0F0F0F, 
+0xF7F7F7F7, 
+0xFEFEFEFE, 
+0xEFEFEFEF, 
+0x7FFFFFFF, 
+0xFFFFFFFF, 
+0x4141414141414141, 
+0x5115151515115151, 
+0x8000000000000000, 
+0x5500000000000000, 
+0x5555555555555555, 
+0xAA00000000000000, 
+0xAAAAAAAAAAAAAAAA, 
+0x0F0F0F0F0F0F0F0F, 
+0xF7F7F7F7F7F7F7F7, 
+0xEFEFEFEFEFEFEFEF, 
+0xFEFEFEFEFEFEFEFE, 
+0x7FFFFFFFFFFFFFFF,
+0xFFFFFFFFFFFFFFFF)
     
   movq  ARG1_64,  %rax
-  movq  ARG2_64,  %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
+  movq  %rax, %xmm0  
 
-  comiss %xmm1, %xmm0
+  movddup %xmm0, %xmm1
+  movsldup %xmm0, %xmm2
+  movshdup %xmm0, %xmm3
+
+  vbroadcastsd %xmm1, %ymm4
+  vbroadcastsd %xmm2, %ymm5
+  vbroadcastsd %xmm3, %ymm6
+
+  vbroadcastss %xmm1, %ymm7
+  vbroadcastss %xmm2, %ymm8
+  vbroadcastss %xmm3, %ymm9
+
+  comiss %xmm4, %xmm5
+  comiss %xmm6, %xmm7
+  comiss %xmm8, %xmm9
+
+  comisd %xmm4, %xmm5
+  comisd %xmm6, %xmm7
+  comisd %xmm8, %xmm9
+
+  ucomiss %xmm4, %xmm5
+  ucomiss %xmm6, %xmm7
+  ucomiss %xmm8, %xmm9
+
+  ucomisd %xmm4, %xmm5
+  ucomisd %xmm6, %xmm7
+  ucomisd %xmm8, %xmm9
+
 TEST_END
-
-TEST_BEGIN(COMISD, 2)
-TEST_INPUTS(
-    0x3f800000 , 0x3f800000, 
-    0x3f800000 , 0x40000000, 
-    0x40000000 , 0x3f800000, 
-    0x3f800000 , 0x7f800000, 
-    0x7f800000 , 0x3f800000,
-    0x3f800000 , 0xff800000,
-    0xff800000 , 0x3f800000,
-    0x7f800000 , 0x7f800000,
-    0xff800000 , 0xff800000,
-    0x3f800000 , 0x7fc00000,
-    0x7fc00000 , 0x3f800000,
-    0x7fc00000 , 0x7fc00000,
-    0x7f800000 , 0x7fc00000,
-    0x7fc00000 , 0x7f800000 )
-
-    
-  movq  ARG1_64,  %rax
-  movq  ARG2_64,  %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-
-  comisd %xmm1, %xmm0
-TEST_END
-
-TEST_BEGIN(UCOMISS, 2)
-TEST_INPUTS(
-    0x3f800000 , 0x3f800000, 
-    0x3f800000 , 0x40000000, 
-    0x40000000 , 0x3f800000, 
-    0x3f800000 , 0x7f800000, 
-    0x7f800000 , 0x3f800000,
-    0x3f800000 , 0xff800000,
-    0xff800000 , 0x3f800000,
-    0x7f800000 , 0x7f800000,
-    0xff800000 , 0xff800000,
-    0x3f800000 , 0x7fc00000,
-    0x7fc00000 , 0x3f800000,
-    0x7fc00000 , 0x7fc00000,
-    0x7f800000 , 0x7fc00000,
-    0x7fc00000 , 0x7f800000 )
-
-    
-  movq  ARG1_64,  %rax
-  movq  ARG2_64,  %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-
-  ucomiss %xmm1, %xmm0
-TEST_END
-
-TEST_BEGIN(UCOMISD, 2)
-TEST_INPUTS(
-    0x3f800000 , 0x3f800000, 
-    0x3f800000 , 0x40000000, 
-    0x40000000 , 0x3f800000, 
-    0x3f800000 , 0x7f800000, 
-    0x7f800000 , 0x3f800000,
-    0x3f800000 , 0xff800000,
-    0xff800000 , 0x3f800000,
-    0x7f800000 , 0x7f800000,
-    0xff800000 , 0xff800000,
-    0x3f800000 , 0x7fc00000,
-    0x7fc00000 , 0x3f800000,
-    0x7fc00000 , 0x7fc00000,
-    0x7f800000 , 0x7fc00000,
-    0x7fc00000 , 0x7f800000 )
-
-    
-  movq  ARG1_64,  %rax
-  movq  ARG2_64,  %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-
-  ucomisd %xmm1, %xmm0
-TEST_END
-
-
 
 

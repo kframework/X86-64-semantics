@@ -51,7 +51,7 @@ TEST_INPUTS(
 0xFEFEFEFEFEFEFEFE, 
 0x7FFFFFFFFFFFFFFF,
 0xFFFFFFFFFFFFFFFF)
-
+    
   movq  ARG1_64,  %rax
   movq  %rax, %xmm0  
 
@@ -67,25 +67,11 @@ TEST_INPUTS(
   vbroadcastss %xmm2, %ymm8
   vbroadcastss %xmm3, %ymm9
 
-  vfmsub132pd   %xmm4, %xmm5, %xmm0 
-  vfmsub132ps   %xmm4, %xmm6, %xmm0 
-  vfmsub132sd   %xmm4, %xmm7, %xmm0 
-  vfmsub132ss   %xmm4, %xmm8, %xmm0 
-  vfmsub132pd   %ymm4, %ymm9, %ymm0 
-  vfmsub132ps   %ymm4, %ymm9, %ymm0 
-
-  vfmsub213pd   %xmm4, %xmm5, %xmm0 
-  vfmsub213ps   %xmm4, %xmm6, %xmm0 
-  vfmsub213sd   %xmm4, %xmm7, %xmm0 
-  vfmsub213ss   %xmm4, %xmm8, %xmm0 
-  vfmsub213pd   %ymm4, %ymm9, %ymm0 
-  vfmsub213ps   %ymm4, %ymm9, %ymm0 
-
-  vfmsub231pd   %xmm4, %xmm5, %xmm0 
-  vfmsub231ps   %xmm4, %xmm6, %xmm0 
-  vfmsub231sd   %xmm4, %xmm7, %xmm0 
-  vfmsub231ss   %xmm4, %xmm8, %xmm0 
-  vfmsub231pd   %ymm4, %ymm9, %ymm0 
-  vfmsub231ps   %ymm4, %ymm9, %ymm0 
+  rsqrtps  %xmm4, %xmm4 
+  rsqrtss  %xmm5, %xmm5 
+  rsqrtps  %xmm6, %xmm6 
+  rsqrtss  %xmm7, %xmm7 
+  rsqrtps  %xmm8, %xmm8 
+  rsqrtss  %xmm9, %xmm9 
 TEST_END
 
