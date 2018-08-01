@@ -69,8 +69,8 @@ my @corpus64 = (
 "9223372036854775809", # - min
 "9218868437227405312", #inf
 "-4503599627370496", #-inf
-"18446744073709551615" #NaN
-"9209861237972664319" # this will make sd->ss yirld +inf
+"18446744073709551615", #NaN
+"9209861237972664319", # this will make sd->ss yirld +inf
     );
 
 
@@ -110,7 +110,11 @@ my @corpus = (
 "2147483649", # - min
 "2139095040", #inf
 "4286578688", #-inf
-"2147483647" #NaN
+"2147483647", #NaN
+"2139095038",
+"2122317822",
+"4286578686",
+"4269801419",
     );
 
 #movq \$ARG1, %rax
@@ -118,14 +122,15 @@ my @corpus = (
 #  movq %rax, %xmm0
 #  movq %rbx, %xmm1
 #  mulps  %xmm0, %xmm1
+#  cvtss2sd %xmm1, %xmm0
 my $template = qq(
   movq \$ARG1, %rax
   movq %rax, %xmm0
-  cvtsd2ss  %xmm0, %xmm1
-  cvtss2sd %xmm1, %xmm0
+  cvttss2siq  %xmm0, %rax
+  cvttss2sil  %xmm0, %ebx
 );
 
-for my $line1 (@corpus64) {
+for my $line1 (@corpus) {
 
 #for my $line2 (@corpus) {
 
