@@ -813,7 +813,7 @@ module MINT-WRAPPER
     requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 31 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 31) 
 
-  rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(32, -2147483648)
+  rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32, -2147483648)
     requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 31 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 31) 
 
