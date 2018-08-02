@@ -7,7 +7,7 @@ gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/s
 
 Compare: Output/test.cstate 
 ../../../scripts/run.pl --file Output/test.kstate --compare 
-grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileFRkB0 2>&1 
+grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilesCk2o 2>&1 
 numOfInstrs: 162
 
 	0:	48 b8 00 00 00 80 00 00 00 00	movabs $0x80000000,%rax
@@ -1118,7 +1118,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 23) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	999999995904
+rax	64'999999995904	999999995904
 rbx	64'0	0
 rcx	64'0	0
 rdx	64'0	0
@@ -1159,8 +1159,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 24) reg	kstate	xstate		48 c7 c0 1c c2 53 67	mov    $0x6753c21c,%rax
 ---------------------
-rax	32'-2147483648	999999995904
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1399379109 ) )	2147483648
+rax	64'999999995904	999999995904
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1201,7 +1201,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 25) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'1733542428	1733542428
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1399379109 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1242,7 +1242,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 26) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'1733542428	1733542428
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1399379109 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1282,8 +1282,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 27) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1399379109 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1323,8 +1323,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 28) reg	kstate	xstate		48 c7 c0 ce 97 40 7b	mov    $0x7b4097ce,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1733542428 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1365,7 +1365,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 29) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'2067830734	2067830734
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1733542428 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1406,7 +1406,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 30) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'2067830734	2067830734
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1733542428 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1446,8 +1446,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 31) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'1733542428 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1487,8 +1487,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 32) reg	kstate	xstate		48 c7 c0 00 00 80 7f	mov    $0x7f800000,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2067830734 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1529,7 +1529,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 33) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'2139095040	2139095040
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2067830734 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1570,7 +1570,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 34) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'2139095040	2139095040
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2067830734 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -1611,7 +1611,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 35) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
 rax	cvt_single_to_int64_truncate ( 32'2139095040 )	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2067830734 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -2102,7 +2102,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 47) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
+rax	64'-9223372036854775808	9223372036854775808
 rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578688 ) )	2147483648
 rcx	64'0	0
 rdx	64'0	0
@@ -2143,8 +2143,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 48) reg	kstate	xstate		48 c7 c0 00 00 80 00	mov    $0x800000,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -2185,7 +2185,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 49) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'8388608	8388608
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -2226,7 +2226,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 50) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'8388608	8388608
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -2267,7 +2267,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 51) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
 rax	64'0	0
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -3906,7 +3906,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 91) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
+rax	64'-9223372036854775808	9223372036854775808
 rbx	64'0	0
 rcx	64'0	0
 rdx	64'0	0
@@ -3947,8 +3947,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 92) reg	kstate	xstate		48 b8 ff ff 7f ff 00 00 00 00	movabs $0xff7fffff,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -3989,7 +3989,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 93) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'4286578687	4286578687
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -4030,7 +4030,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 94) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'4286578687	4286578687
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -4070,8 +4070,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 95) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -4111,8 +4111,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 96) reg	kstate	xstate		48 c7 c0 ff ff 7f 00	mov    $0x7fffff,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -4153,7 +4153,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 97) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'8388607	8388607
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -4194,7 +4194,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 98) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'8388607	8388607
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -4235,7 +4235,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 99) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
 rax	64'0	0
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5054,7 +5054,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 119) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
+rax	64'-9223372036854775808	9223372036854775808
 rbx	64'0	0
 rcx	64'0	0
 rdx	64'0	0
@@ -5095,8 +5095,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 120) reg	kstate	xstate		48 b8 ff ff 7f ff 00 00 00 00	movabs $0xff7fffff,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5137,7 +5137,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 121) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'4286578687	4286578687
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5178,7 +5178,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 122) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'4286578687	4286578687
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5218,8 +5218,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 123) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095039 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5259,8 +5259,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 124) reg	kstate	xstate		48 c7 c0 01 00 00 00	mov    $0x1,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5301,7 +5301,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 125) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'1	1
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5342,7 +5342,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 126) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'1	1
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -5383,7 +5383,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 127) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
 rax	64'0	0
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578687 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6202,7 +6202,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 147) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
+rax	64'-9223372036854775808	9223372036854775808
 rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2147483647 ) )	2147483648
 rcx	64'0	0
 rdx	64'0	0
@@ -6243,8 +6243,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 148) reg	kstate	xstate		48 c7 c0 fe ff 7f 7e	mov    $0x7e7ffffe,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095038 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6285,7 +6285,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 149) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'2122317822	2122317822
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095038 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6326,7 +6326,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 150) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'2122317822	2122317822
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095038 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6366,8 +6366,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 151) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2139095038 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6407,8 +6407,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 152) reg	kstate	xstate		48 b8 fe ff 7f ff 00 00 00 00	movabs $0xff7ffffe,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2122317822 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6449,7 +6449,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 153) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'4286578686	4286578686
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2122317822 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6490,7 +6490,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 154) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'4286578686	4286578686
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2122317822 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6530,8 +6530,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 155) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'2122317822 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6571,8 +6571,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 156) reg	kstate	xstate		48 b8 cb ff 7f fe 00 00 00 00	movabs $0xfe7fffcb,%rax
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578686 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6613,7 +6613,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 157) reg	kstate	xstate		66 48 0f 6e c0	movq   %rax,%xmm0
 ---------------------
 rax	64'4269801419	4269801419
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578686 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6654,7 +6654,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 Count 158) reg	kstate	xstate		f3 48 0f 2c c0	cvttss2si %xmm0,%rax
 ---------------------
 rax	64'4269801419	4269801419
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578686 ) )	2147483648
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6694,8 +6694,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 159) reg	kstate	xstate		f3 0f 2c d8	cvttss2si %xmm0,%ebx
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4286578686 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6735,8 +6735,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 160) reg	kstate	xstate		90	nop
 ---------------------
-rax	32'-2147483648	9223372036854775808
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4269801419 ) )	2147483648
+rax	64'-9223372036854775808	9223372036854775808
+rbx	64'2147483648	2147483648
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
@@ -6776,8 +6776,8 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 161) reg	kstate	xstate	
 ---------------------
-rax	32'-2147483648	
-rbx	concatenateMInt ( 32'0 , cvt_single_to_int32_truncate ( 32'4269801419 ) )	
+rax	64'-9223372036854775808	
+rbx	64'2147483648	
 rcx	64'0	
 rdx	64'0	
 rsi	64'0	
@@ -6816,80 +6816,8 @@ ymm14	256'0
 ymm15	256'0	
 [4m[1m[34mtest Compare Results :[0m
 Failed:[4m[1m[91mFail[0m
-80000000 != d4a50000
-rax at instrcount: 23
-
-Failed:[4m[1m[91mFail[0m
-80000000 != d4a50000
-rax at instrcount: 24
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 25
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 26
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 27
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 27
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 28
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 28
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 29
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 30
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 31
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 31
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 32
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 32
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 33
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 34
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 35
-
-Failed:[4m[1m[91mFail[0m
 7f800000 != 00000000
 rax at instrcount: 35
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 36
 
 Failed:[4m[1m[91mFail[0m
 7f800000 != 00000000
@@ -6956,128 +6884,8 @@ Failed:[4m[1m[91mFail[0m
 rbx at instrcount: 47
 
 Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 47
-
-Failed:[4m[1m[91mFail[0m
 00000000 != 80000000
 rbx at instrcount: 48
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 48
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 49
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 50
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 51
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 52
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 91
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 92
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 93
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 94
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 95
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 95
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 96
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 96
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 97
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 98
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 99
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 100
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 119
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 120
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 121
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 122
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 123
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 123
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 124
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 124
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 125
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 126
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 127
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 128
 
 Failed:[4m[1m[91mFail[0m
 7f800000 != 00000000
@@ -7148,92 +6956,8 @@ Failed:[4m[1m[91mFail[0m
 rbx at instrcount: 147
 
 Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 147
-
-Failed:[4m[1m[91mFail[0m
 00000000 != 80000000
 rbx at instrcount: 148
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 148
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 149
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 150
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 151
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 151
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 152
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 152
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 153
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 154
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 155
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 155
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 156
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 156
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 157
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 158
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 159
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 159
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 160
-
-Failed:[4m[1m[91mFail[0m
-80000000 != 00000000
-rax at instrcount: 160
-
-Failed:[4m[1m[91mFail[0m
-00000000 != 80000000
-rbx at instrcount: 161
 
 Passed:[4m[1m[92mPassed[0m
 rm Output/test.xstate
