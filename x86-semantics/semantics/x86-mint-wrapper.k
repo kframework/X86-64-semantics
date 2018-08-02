@@ -781,7 +781,7 @@ module MINT-WRAPPER
   rule cvt_int64_to_single(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 24, 8), 32)
   rule cvt_int32_to_single(MI:MInt) =>  Float2MInt(Int2Float(svalueMInt(MI), 24, 8), 32)
 
-  // float/double -> int
+  // double -> int64
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 53,11)))
     requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 63 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 63) 
@@ -790,7 +790,16 @@ module MINT-WRAPPER
     requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 63 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 63) 
 
+  // double -> int32
+  rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32, Float2Int(MInt2Float(MI, 53,11)))
+    requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 31 -Int 1) 
+      andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 31) 
 
+  rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32, -2147483648)
+    requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 31 -Int 1) 
+      orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 31) 
+
+  // float -> int64
   rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 24,8)))
     requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 63 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 63) 
@@ -798,6 +807,15 @@ module MINT-WRAPPER
   rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
     requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 63 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 63) 
+
+  // float -> int32
+  rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32, Float2Int(MInt2Float(MI, 24,8)))
+    requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 31 -Int 1) 
+      andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 31) 
+
+  rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(32, -2147483648)
+    requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 31 -Int 1) 
+      orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 31) 
 
   //rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 53, 11)), 64)
 
