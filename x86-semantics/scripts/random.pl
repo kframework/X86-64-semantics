@@ -74,7 +74,7 @@ my @corpus64 = (
     );
 
 
-my @corpus = (
+my @corpus32 = (
 "2147483648",
 "1036831949",
 "1045220557",
@@ -110,11 +110,11 @@ my @corpus = (
 "2147483649", # - min
 "2139095040", #inf
 "4286578688", #-inf
-"2147483647", #NaN
 "2139095038",
 "2122317822",
 "4286578686",
 "4269801419",
+"2147483647", #NaN
     );
 
 #movq \$ARG1, %rax
@@ -125,12 +125,13 @@ my @corpus = (
 #  cvtss2sd %xmm1, %xmm0
 my $template = qq(
   movq \$ARG1, %rax
+  movq \$ARG2, %rbx
   movq %rax, %xmm0
-  cvttss2siq  %xmm0, %rax
-  cvttss2sil  %xmm0, %ebx
+  movq %rbx, %xmm1
+  addps  %xmm0, %xmm1
 );
 
-for my $line1 (@corpus) {
+for my $line1 (@corpus32) {
 
 #for my $line2 (@corpus) {
 
@@ -145,22 +146,22 @@ my @corpus2 = (
 "0",           #0
 "2147483648", #-0
 "16777215", # a num
+"2164260863", # - a num
 "2139095039", #max
 "4286578687", #-max
 "1",
 "2147483649", # - min
 "2139095040", #inf
 "4286578688", #-inf
-"2147483647" #NaN
     );
 
-#for my $line1 (@corpus2) {
-#  for my $line2 (@corpus2) {
-#
-#    my $r1 = $template =~ s/ARG1/$line1/gr;
-#    my $r2  = $r1 =~ s/ARG2/$line2/gr;
-#    print $r2. "\n";
-#
-#}
-#}
+for my $line1 (@corpus2) {
+  for my $line2 (@corpus2) {
+
+    my $r1 = $template =~ s/ARG1/$line1/gr;
+    my $r2  = $r1 =~ s/ARG2/$line2/gr;
+    print $r2. "\n";
+
+}
+}
 
