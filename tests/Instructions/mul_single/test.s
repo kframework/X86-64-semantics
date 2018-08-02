@@ -247,6 +247,34 @@ _start:
   mulps  %xmm0, %xmm1
 
 
+  movq $2139095038, %rax
+  movq $2139095038, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2122317822, %rax
+  movq $2122317822, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $4286578686, %rax
+  movq $4286578686, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $4269801419, %rax
+  movq $4269801419, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
   movq $2147483647, %rax
   movq $2147483647, %rbx
   movq %rax, %xmm0
@@ -270,6 +298,13 @@ _start:
 
   movq $0, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $0, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -317,13 +352,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $0, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $2147483648, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -340,6 +368,13 @@ _start:
 
   movq $2147483648, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2147483648, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -387,13 +422,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $2147483648, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $16777215, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -410,6 +438,13 @@ _start:
 
   movq $16777215, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $16777215, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -457,8 +492,71 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $16777215, %rax
-  movq $2147483647, %rbx
+  movq $2164260863, %rax
+  movq $0, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $2147483648, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $2164260863, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $2139095039, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $4286578687, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $1, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $2147483649, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $2139095040, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2164260863, %rax
+  movq $4286578688, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -480,6 +578,13 @@ _start:
 
   movq $2139095039, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2139095039, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -527,13 +632,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $2139095039, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $4286578687, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -550,6 +648,13 @@ _start:
 
   movq $4286578687, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $4286578687, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -597,13 +702,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $4286578687, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $1, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -620,6 +718,13 @@ _start:
 
   movq $1, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $1, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -667,13 +772,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $1, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $2147483649, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -690,6 +788,13 @@ _start:
 
   movq $2147483649, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2147483649, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -737,13 +842,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $2147483649, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $2139095040, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -760,6 +858,13 @@ _start:
 
   movq $2139095040, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $2139095040, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -807,13 +912,6 @@ _start:
   mulps  %xmm0, %xmm1
 
 
-  movq $2139095040, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
   movq $4286578688, %rax
   movq $0, %rbx
   movq %rax, %xmm0
@@ -830,6 +928,13 @@ _start:
 
   movq $4286578688, %rax
   movq $16777215, %rbx
+  movq %rax, %xmm0
+  movq %rbx, %xmm1
+  mulps  %xmm0, %xmm1
+
+
+  movq $4286578688, %rax
+  movq $2164260863, %rbx
   movq %rax, %xmm0
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
@@ -876,81 +981,4 @@ _start:
   movq %rbx, %xmm1
   mulps  %xmm0, %xmm1
 
-
-  movq $4286578688, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $0, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $2147483648, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $16777215, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $2139095039, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $4286578687, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $1, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $2147483649, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $2139095040, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $4286578688, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-
-  movq $2147483647, %rax
-  movq $2147483647, %rbx
-  movq %rax, %xmm0
-  movq %rbx, %xmm1
-  mulps  %xmm0, %xmm1
-
-nop  
+  nop
