@@ -1,3 +1,7 @@
+.section .text
+.globl _start
+
+_start:
 
   movq $2147483648, %rax
   movq %rax, %xmm0
@@ -238,3 +242,4 @@
   cvttss2siq  %xmm0, %rax
   cvttss2sil  %xmm0, %ebx
 
+  nop
