@@ -94,9 +94,14 @@ Blacklist (1_100 101_600 601_rest)
 
 Total support:  627 +  (22 + 209 + 431) + (4 + 32 + 63) == 1388 / 1467                                           
 
+## Total
+106 + 58 + 600 + 865
+= 1629
 
 ## Blacklist criteria
 grep -rl "__builtin_\|printf\|overflow\|puts\|putc\|write\|scanf\|prefetch\|\.comm\|\.string\|\.bss" bin/*.asm  | wc
+
+wc ./job_101_600/blacklist.txt ./ieee/blacklist.txt ./builtins/blacklist.txt ./job_601_1465/blacklist.txt ./job_1_100/blacklist.txt
 
 
 
