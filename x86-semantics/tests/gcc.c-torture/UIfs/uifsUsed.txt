@@ -1,35 +1,44 @@
-divb
+divb **
 divl
 divq
 divw
 idivl
 idivq
 idivw
-vaddpd
+
+vaddpd 
 vaddps
 vaddsd
 vaddss
-vdivpd
-vdivps
-vdivsd
-vdivss
-vmaxsd
-vmaxss
-vminsd
-vminss
-vmulsd
-vmulss
 vsubpd
 vsubps
 vsubsd
 vsubss
-vcomisd
+
+vdivpd *
+vdivps
+vdivsd
+vdivss
+
+vmulsd *
+vmulss
+
+
+vmaxsd ** nan vs non nan and 0 vs -0
+vmaxss
+vminsd
+vminss
+
+vcomisd **
 vcomiss
 vucomisd
 vucomiss
-vcvtsd2ss
+
+vcvtsd2ss *
 vcvtss2sd
-vcvtsi2sdq
+
+vcvtsi2sdq *
 vcvtsi2ssq
-vcvttsd2siq
+
+vcvttsd2siq *
 vcvttss2siq

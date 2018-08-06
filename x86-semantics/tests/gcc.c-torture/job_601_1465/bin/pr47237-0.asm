@@ -352,10 +352,8 @@ bar:
 	movq	%rdx, -520(%rbp)
 	movq	%rsi, -512(%rbp)
 	movq	%rdi, -504(%rbp)
-	fstpt	-496(%rbp)
-	fstpt	-480(%rbp)
-	vmovaps	%ymm0, -464(%rbp)
-	vmovaps	%ymm1, -432(%rbp)
+	vmovaps	%ymm0, -496(%rbp)
+	vmovaps	%ymm1, -464(%rbp)
 	movq	%rbx, %rsp
 	leaq	-16(%rbp), %rsp
 	popq	%rbx
