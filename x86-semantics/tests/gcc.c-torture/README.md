@@ -83,7 +83,7 @@ Whitelist: 627
 
 Blacklist (1_100 101_600 601_rest)
   - Unsupp instr (shld\\|shrd\\|scas\\|stos\\): 0 + 6 +  14
-  - Unsupp syscall:                             0 + 12 + 15
+  - Unsupp syscall:                             0 + 12 + 15 / 25 (revised)
   - x87 :                                       0 + 9 +  12
   - Unsupp instr (cvt|comis):                   4 + 32 + 63
   - prefetch:                                   0 + 0  + 5
@@ -95,6 +95,8 @@ Blacklist (1_100 101_600 601_rest)
 Total support:  627 +  (22 + 209 + 431) + (4 + 32 + 63) == 1388 / 1467                                           
 
 
+## Blacklist criteria
+grep -rl "__builtin_\|printf\|overflow\|puts\|putc\|write\|scanf\|prefetch\|\.comm\|\.string\|\.bss" bin/*.asm  | wc
 
 
 
