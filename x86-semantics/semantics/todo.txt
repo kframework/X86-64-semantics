@@ -1,0 +1,32 @@
+estrim
+rep
+gcc-c
+idiv/div hook implement (divide error)
+add_single test you will a diff like
+ymm1: Nan (our) 00000
+after a movq 0 -> xmm1
+
+we need a lemma which can extract(( 224'0, NaN) , 0, 128) and for this we have to enable lemmas
+but checkout the maxmin failure which is overcome by comenting the lemmas out
+
+testing (Instr level)
+  Write a scriot which can generate individual command line by reading each test input from tc file.
+pcmpestri_xmm_m128_imm8
+pcmpestrm_xmm_m128_imm8
+pcmpestrm_xmm_xmm_imm8
+pcmpistri_xmm_m128_imm8
+pcmpistri_xmm_xmm_imm8
+pcmpistrm_xmm_m128_imm8
+pcmpistrm_xmm_xmm_imm8
+pinsrq_xmm_m64_imm8
+rep
+repnz
+repz
+vpcmpestri_xmm_m128_imm8
+vpcmpestri_xmm_xmm_imm8
+vpcmpestrm_xmm_m128_imm8
+vpcmpestrm_xmm_xmm_imm8
+vpcmpistri_xmm_m128_imm8
+vpcmpistri_xmm_xmm_imm8
+vpcmpistrm_xmm_m128_imm8
+vpcmpistrm_xmm_xmm_imm8
