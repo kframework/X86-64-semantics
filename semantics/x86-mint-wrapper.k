@@ -334,6 +334,12 @@ module MINT-WRAPPER-SYNTAX
    syntax MInt ::= absoluteUnsignedDifference(MInt, MInt) [function]
    syntax MInt ::= selectSliceMPSAD(MInt, MInt, Int, Int) [function]
    
+  /*@
+    Compare Signed Or UnSigned
+  */
+   syntax Bool ::= compareEqualSignedOrUnsigned(MInt, MInt, MInt) [function]
+   syntax Bool ::= compareGESignedOrUnsigned(MInt, MInt, MInt) [function]
+   syntax Bool ::= compareLESignedOrUnsigned(MInt, MInt, MInt) [function]
 endmodule
 
 
@@ -1219,11 +1225,18 @@ module MINT-WRAPPER
     concatenateMInt(mi(8, 0), 
         //extractMInt(DEST, (uvalueMInt(Offset) *Int 32) +Int High, (uvalueMInt(Offset) *Int 32) +Int Low))
         extractMask(DEST, High -Int Low +Int 1, (uvalueMInt(Offset) *Int 32) +Int Low))
+
+  /*@
+    Compare Signed Or UnSigned
+  */
+  rule compareEqualSignedOrUnsigned(Data1:MInt, Data2:MInt,  SignedOrUnsigned:MInt) => eqMInt(Data1, Data2)
+
+  rule compareGESignedOrUnsigned(Data1:MInt, Data2:MInt,  SignedOrUnsigned:MInt) => 
+    #ifBool eqMInt(SignedOrUnsigned, mi(1, 1)) #then sgeMInt(Data1, Data2) #else ugeMInt(Data1, Data2) #fi
+    
+  rule compareLESignedOrUnsigned(Data1:MInt, Data2:MInt,  SignedOrUnsigned:MInt) => 
+    #ifBool eqMInt(SignedOrUnsigned, mi(1, 1)) #then sleMInt(Data1, Data2) #else uleMInt(Data1, Data2) #fi
+
+
     
 endmodule
-
-/*
-module X86-GENERAL-UTILS
-  imports MINT-WRAPPER
-endmodule
-*/
