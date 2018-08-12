@@ -538,110 +538,15 @@ module X86-ABSTRACT-SEMANTICS
 
   rule scanReverse(M:MInt, N:Int, W:Int) => scanReverse(M, N +Int 1, W)
     requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1))
-endmodule
-
-  /*
-  context execinstr(_:Opcode (HOLE:Mem, .Operands):Operands)
-
-  context execinstr(_:Opcode (HOLE:Mem, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, .Operands):Operands)
-
-  context execinstr(_:Opcode (HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
-
-  context execinstr(_:Opcode (HOLE:Mem, _:Operand, _:Operand, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, HOLE:Mem, _:Operand, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, HOLE:Mem, _:Operand, .Operands):Operands)
-  context execinstr(_:Opcode (_:Simpleoperand, _:Simpleoperand, _:Simpleoperand, HOLE:Mem, .Operands):Operands)
-  */
 
   /*@
-    Following states are using to define the initial and final
-    states of register in the spec file. This is used to improve
-    the runtime of kprove.
-  syntax Map ::= "regstateInitConfig"  [function]
-  syntax Map ::= "regstateFinalConfig" [function]
-
-  rule regstateInitConfig =>  
-      ("RIP" |->    (mi(64,  0:Int):MInt   )) 
-      ("RAX" |->    (mi(64,   ?I1 :Int):MInt)) 
-      ("RBX" |->    (mi(64,   ?I2 :Int):MInt)) 
-      ("RCX" |->    (mi(64,   ?I3 :Int):MInt))
-      ("RDX" |->    (mi(64,   ?I4 :Int):MInt))
-      ("RSI" |->    (mi(64,   ?I5 :Int):MInt))
-      ("RDI" |->    (mi(64,   ?I6 :Int):MInt))
-      ("RSP" |->    (mi(64,   ?I7 :Int):MInt))
-      ("RBP" |->    (mi(64,   ?I8 :Int):MInt))
-      ("R8"  |->    (mi(64,   ?I9 :Int):MInt))
-      ("R9"  |->    (mi(64,   ?I10:Int):MInt))
-      ("R10" |->    (mi(64,   ?I11:Int):MInt))
-      ("R11" |->    (mi(64,   ?I12:Int):MInt))
-      ("R12" |->    (mi(64,   ?I13:Int):MInt))
-      ("R13" |->    (mi(64,   ?I14:Int):MInt))
-      ("R14" |->    (mi(64,   ?I15:Int):MInt))
-      ("R15" |->    (mi(64,   ?I16:Int):MInt))
-      ("CF" |->     (mi(1,    ?I17:Int):MInt))
-      ("PF" |->     (mi(1,    ?I18:Int):MInt))
-      ("AF" |->     (mi(1,    ?I19:Int):MInt))
-      ("ZF" |->     (mi(1,    ?I20:Int):MInt))
-      ("SF" |->     (mi(1,    ?I21:Int):MInt))
-      ("OF" |->     (mi(1,    ?I22:Int):MInt))
-      ("YMM0"   |->  (mi(256, ?I23:Int):MInt))
-      ("YMM1"   |->  (mi(256, ?I24:Int):MInt))
-      ("YMM2"   |->  (mi(256, ?I25:Int):MInt))
-      ("YMM3"   |->  (mi(256, ?I26:Int):MInt))
-      ("YMM4"   |->  (mi(256, ?I27:Int):MInt))
-      ("YMM5"   |->  (mi(256, ?I28:Int):MInt))
-      ("YMM6"   |->  (mi(256, ?I29:Int):MInt))
-      ("YMM7"   |->  (mi(256, ?I30:Int):MInt))
-      ("YMM8"   |->  (mi(256, ?I31:Int):MInt))
-      ("YMM9"   |->  (mi(256, ?I32:Int):MInt))
-      ("YMM10"  |->  (mi(256, ?I33:Int):MInt))
-      ("YMM11"  |->  (mi(256, ?I34:Int):MInt))
-      ("YMM12"  |->  (mi(256, ?I35:Int):MInt))
-      ("YMM13"  |->  (mi(256, ?I36:Int):MInt))
-      ("YMM14"  |->  (mi(256, ?I37:Int):MInt))
-      ("YMM15"  |->  (mi(256, ?I38:Int):MInt))
-
-    rule regstateFinalConfig =>  
-      ("RIP" |->    ?K1:K) 
-      ("RAX" |->    ?K2:K) 
-      ("RBX" |->    ?K3:K) 
-      ("RCX" |->    ?K4:K)
-      ("RDX" |->    ?K5:K)
-      ("RSI" |->    ?K6:K)
-      ("RDI" |->    ?K7:K)
-      ("RSP" |->    ?K8:K)
-      ("RBP" |->    ?K9:K)
-      ("R8"  |->    ?K10:K)
-      ("R9"  |->    ?K11:K)
-      ("R10" |->    ?K12:K)
-      ("R11" |->    ?K13:K)
-      ("R12" |->    ?K14:K)
-      ("R13" |->    ?K15:K)
-      ("R14" |->    ?K16:K)
-      ("R15" |->    ?K17:K)
-      ("CF" |->     ?K18:K)
-      ("PF" |->     ?K19:K)
-      ("AF" |->     ?K20:K)
-      ("ZF" |->     ?K21:K)
-      ("SF" |->     ?K22:K)
-      ("OF" |->     ?K23:K)
-      ("YMM0"  |->  ?K24:K)
-      ("YMM1"  |->  ?K25:K)
-      ("YMM2"  |->  ?K26:K)
-      ("YMM3"  |->  ?K27:K)
-      ("YMM4"  |->  ?K28:K)
-      ("YMM5"  |->  ?K29:K)
-      ("YMM6"  |->  ?K30:K)
-      ("YMM7"  |->  ?K31:K)
-      ("YMM8"  |->  ?K32:K)
-      ("YMM9"  |->  ?K33:K)
-      ("YMM10"  |-> ?K34:K)
-      ("YMM11"  |-> ?K35:K)
-      ("YMM12" |->  ?K36:K)
-      ("YMM13" |->  ?K37:K)
-      ("YMM14" |->  ?K38:K)
-      ("YMM15" |->  ?K39:K)
+    pcmpestri
   */
+  rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
+    #ifMInt absInt(svalueMInt(Length)) >Int 8 #then mi(8, 8) #else Imm8 #fi
+      requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) // Interpret as 8 words  
+
+  rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
+    #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else Imm8 #fi
+      requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes  
+endmodule

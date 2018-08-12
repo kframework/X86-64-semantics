@@ -162,7 +162,7 @@ module X86-ASBTRACT-SYNTAX
   syntax MInt ::= rangeImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
   syntax MInt ::= equalEachImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
   syntax MInt ::= equalOrderedImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
-  syntax MInt ::= findLimitIndex(MInt, MInt) [function]
+  syntax MInt ::= findLimitIndexE(MInt, MInt, MInt) [function]
   syntax MInt ::= polarityImpl(MInt, MInt) [function]
 
 endmodule

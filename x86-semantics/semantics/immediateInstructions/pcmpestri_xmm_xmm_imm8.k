@@ -7,9 +7,14 @@ module PCMPESTRI-XMM-XMM-IMM8
   // Find Limit Index
   rule <k>
     execinstr (pcmpestri Imm8:Imm, Xmm2:Xmm, Xmm1:Xmm,  .Operands) => 
-      execinstr (pcmpestri handleImmediateWithSignExtend(Imm8, 8, 8), Xmm2, Xmm1, getRegisterValue(Xmm2, RSMap), getRegisterValue(Xmm1, RSMap),
-          findLimitIndex(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx, RSMap)),   
-          findLimitIndex(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax, RSMap)),   
+      execinstr (pcmpestri 
+          handleImmediateWithSignExtend(Imm8, 8, 8), 
+          Xmm2, 
+          Xmm1, 
+          getRegisterValue(Xmm2, RSMap), 
+          getRegisterValue(Xmm1, RSMap),
+          findLimitIndexE(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx, RSMap), handleImmediateWithSignExtend(Imm8, 8, 8)),   
+          findLimitIndexE(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax, RSMap), handleImmediateWithSignExtend(Imm8, 8, 8)),   
           .Operands) 
   ...</k>
   <regstate> RSMap </regstate>
@@ -19,13 +24,13 @@ module PCMPESTRI-XMM-XMM-IMM8
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt,  Limit2:MInt, Limit1:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  mi(8, 8) , extractMInt(Imm8, 6, 7),  .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1))
+    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) // Interpret as 8 words
 
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt,  Limit2:MInt, Limit1:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  mi(8, 16), extractMInt(Imm8, 6, 7),  .Operands)
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0))
+    requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes
 
   // Aggregation operation
   rule <k>
