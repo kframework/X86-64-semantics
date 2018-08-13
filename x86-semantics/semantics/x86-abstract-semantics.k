@@ -649,12 +649,71 @@ module X86-ABSTRACT-SEMANTICS
         orBool 
           (Index >=Int uvalueMInt(Limit1) andBool Index >=Int uvalueMInt(Limit2))
 
+  /*@
+    Range
+  */
+  rule rangeImpl(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) =>
+    rangeImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, mi(NumElems, 0), NumElems, 0)
+
+  rule rangeImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => IntRes1
+    requires Count2 ==Int  UB2
+    
+  rule rangeImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+        SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
+  rangeImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
+      rangeImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, IntRes1, UB2, Count2, NumElems, 0), 
+      UB2, Count2 +Int 1)
+    requires Count2 =/=Int  UB2
+    
+
+  rule rangeImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UB1:Int, Count1:Int) => IntRes1
+    requires Count1 ==Int  UB1
+
+  rule rangeImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UB1:Int, Count1:Int) => 
+    rangeImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
+        updateIntRes1Range(IntRes1, Count2, Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU), UB2, Count2, UB1, Count1 +Int 2)
+    requires Count1 =/=Int  UB1
+
+
+  rule   updateIntRes1Range(IntRes1:MInt, Index:Int, Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, 
+      Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    plugInMask(
+        IntRes1, 
+        orMInt(
+          extractMask(IntRes1, 1, Index), 
+          compareRange(Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU)
+        ), Index)
+
+  // Compare Range
+  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
+      requires Count1 >=Int uvalueMInt(Limit1) orBool (Count1 +Int 1) >=Int uvalueMInt(Limit1) orBool Count2 >=Int uvalueMInt(Limit2)  // If any of the data is invalid return 0
+
+  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    andMInt(
+      compareGESignedOrUnsigned(
+          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          SOrU
+      ),
+      compareLESignedOrUnsigned(
+          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          SOrU
+      ))
+
+      requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
+
 
   // General
+  // Compare Equal
   rule compareEqualSignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
     fromBoolToMInt(
       eqMInt(Data1, Data2),
       1)
+
   // Compare GE
   rule compareGESignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
     fromBoolToMInt(
