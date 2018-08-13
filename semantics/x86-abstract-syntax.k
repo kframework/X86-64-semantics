@@ -158,22 +158,29 @@ module X86-ASBTRACT-SYNTAX
   /*@
     pcmpestri
   */
-  syntax MInt ::= rangeImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
   syntax MInt ::= equalOrderedImpl(MInt, MInt, MInt, MInt, MInt, MInt) [function]
   syntax MInt ::= findLimitIndexE(MInt, MInt, MInt) [function]
   syntax MInt ::= polarityImpl(MInt, MInt) [function]
 
+  // Equal Any
   syntax MInt ::= equalAnyImpl( MInt, MInt, MInt, MInt, Int, MInt) [function]
   syntax MInt ::= equalAnyImplHelper1(MInt, MInt, MInt, MInt, Int, MInt, MInt, Int, Int) [function] 
   syntax MInt ::= equalAnyImplHelper2(MInt, MInt, MInt, MInt, Int, MInt, MInt, Int, Int, Int, Int) [function] 
   syntax MInt ::= updateIntRes1EqualAny(MInt, Int, Int, Int, MInt, MInt, MInt, MInt, Int, MInt) [function]
   syntax MInt ::= compareEqual(Int, Int, MInt, MInt, MInt, MInt, Int, MInt) [function]
 
+  // Equal Each
   syntax MInt ::= equalEachImpl(MInt, MInt, MInt, MInt, Int, MInt) [function]
   syntax MInt ::= equalEachImplHelper1(MInt, MInt, MInt, MInt, Int, MInt, MInt, Int, Int) [function] 
   syntax MInt ::= updateIntRes1EqualEach(MInt, Int, MInt, MInt, MInt, MInt, Int, MInt) [function]
   syntax MInt ::= compareEach(Int, MInt, MInt, MInt, MInt, Int, MInt) [function]
 
+  // Range
+  syntax MInt ::= rangeImpl(MInt, MInt, MInt, MInt, Int, MInt) [function]
+  syntax MInt ::= rangeImplHelper1(MInt, MInt, MInt, MInt, Int, MInt, MInt, Int, Int) [function] 
+  syntax MInt ::= rangeImplHelper2(MInt, MInt, MInt, MInt, Int, MInt, MInt, Int, Int, Int, Int) [function] 
+  syntax MInt ::= updateIntRes1Range(MInt, Int, Int, Int, MInt, MInt, MInt, MInt, Int, MInt) [function]
+  syntax MInt ::= compareRange(Int, Int, MInt, MInt, MInt, MInt, Int, MInt) [function]
 
 
   syntax MInt ::= compareEqualSignedOrUnsigned(MInt, MInt, MInt) [function]
