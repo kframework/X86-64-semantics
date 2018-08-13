@@ -1,7 +1,7 @@
 estrim
 rep
 gcc-c
-idiv/div hook implement (divide error)
+// idiv/div hook implement (divide error)
 add_single test you will a diff like
 ymm1: Nan (our) 00000
 after a movq 0 -> xmm1
