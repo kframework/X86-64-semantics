@@ -606,6 +606,55 @@ module X86-ABSTRACT-SEMANTICS
       eqMInt(Data1, Data2),
       1)
 
+  /*@
+    Equal Each
+  */
+
+  rule equalEachImpl(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) =>
+    equalEachImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, mi(NumElems, 0), NumElems, 0)
+
+  rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => IntRes1
+    requires Count2 ==Int  UB2
+    
+  rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
+  equalAnyImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
+      updateIntRes1EqualEach(IntRes1, Count2, Value2, Value1, Limit2, Limit1, NumElems, SOrU), 
+      UB2, Count2 +Int 1)
+    requires Count2 =/=Int  UB2
+    
+  rule   updateIntRes1EqualEach(IntRes1:MInt, Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    plugInMask(
+        IntRes1, 
+        compareEach(Index, Value2, Value1, Limit2, Limit1, NumElems, SOrU),
+        Index)
+
+  // Compare Each
+  rule compareEach(Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
+      requires // If one of valid and other invalid
+        notBool (
+          (Index <Int uvalueMInt(Limit1) andBool Index <Int uvalueMInt(Limit2))
+        orBool 
+          (Index >=Int uvalueMInt(Limit1) andBool Index >=Int uvalueMInt(Limit2))
+          )
+
+  rule compareEach(Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    compareEqualSignedOrUnsigned(
+        extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        SOrU
+    )           
+      requires // If both of the data are valid, or both are invalid
+          (Index  <Int uvalueMInt(Limit1) andBool Index  <Int uvalueMInt(Limit2))
+        orBool 
+          (Index >=Int uvalueMInt(Limit1) andBool Index >=Int uvalueMInt(Limit2))
+
+
+  // General
+  rule compareEqualSignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
+    fromBoolToMInt(
+      eqMInt(Data1, Data2),
+      1)
   // Compare GE
   rule compareGESignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
     fromBoolToMInt(
