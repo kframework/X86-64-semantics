@@ -543,11 +543,11 @@ module X86-ABSTRACT-SEMANTICS
     findLimitIndexE
   */
   rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
-    #ifMInt absInt(svalueMInt(Length)) >Int 8 #then mi(8, 8) #else Imm8 #fi
+    #ifMInt absInt(svalueMInt(Length)) >Int 8  #then mi(8, 8)  #else mi(8, absInt(svalueMInt(Length))) #fi
       requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) // Interpret as 8 words  
 
   rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
-    #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else Imm8 #fi
+    #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else mi(8, absInt(svalueMInt(Length))) #fi
       requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes  
 
   /*@

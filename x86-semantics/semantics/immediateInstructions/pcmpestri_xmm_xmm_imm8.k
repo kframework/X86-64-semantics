@@ -17,6 +17,8 @@ module PCMPESTRI-XMM-XMM-IMM8
   ...</k>
   <regstate> RSMap </regstate>
 
+  // pcmpestri 8'1 , 128'0 , 128'0 , 8'1 , 8'1 , 8'8 , 1'0 , 8'1 , .Operands
+
    // Find data size and interpretation
   rule <k>
     execinstr (pcmpestri Imm8:MInt,  Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, .Operands) => 
@@ -60,7 +62,7 @@ module PCMPESTRI-XMM-XMM-IMM8
   ...</k>
       
   // Output Selection
-
+  // pcmpestri 8'1 , 128'0 , 128'0 , 64'0 , 64'0 , 8'8 , 1'0 , 8'0 , 8'0 , .Operands
   // If no bit is set, 16 or 8 is returned.
   rule <k>
     execinstr (pcmpestri Imm8:MInt,  Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
@@ -85,7 +87,7 @@ module PCMPESTRI-XMM-XMM-IMM8
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0)) 
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 0)) 
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
 
   rule <k>
@@ -98,7 +100,7 @@ module PCMPESTRI-XMM-XMM-IMM8
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) )
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 1) )
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
       
 endmodule
