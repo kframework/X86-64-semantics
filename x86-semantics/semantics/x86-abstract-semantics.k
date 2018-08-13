@@ -638,16 +638,18 @@ module X86-ABSTRACT-SEMANTICS
           (Index >=Int uvalueMInt(Limit1) andBool Index >=Int uvalueMInt(Limit2))
           )
 
+  rule compareEach(Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 1)
+      requires // If both are invalid
+          (Index >=Int uvalueMInt(Limit1) andBool Index >=Int uvalueMInt(Limit2))
+
   rule compareEach(Index:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     compareEqualSignedOrUnsigned(
         extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
         extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Index *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
         SOrU
     )           
-      requires // If both of the data are valid, or both are invalid
+      requires // If both of the data are valid
           (Index  <Int uvalueMInt(Limit1) andBool Index  <Int uvalueMInt(Limit2))
-        orBool 
-          (Index >=Int uvalueMInt(Limit1) andBool Index >=Int uvalueMInt(Limit2))
 
   /*@
     Range
@@ -706,6 +708,59 @@ module X86-ABSTRACT-SEMANTICS
 
       requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
 
+  /*@
+    Equal Ordered
+  */
+  rule equalOrderedImpl(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) =>
+    equalOrderedImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, mi(NumElems, -1), NumElems, 0)
+
+  rule equalOrderedImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => IntRes1
+    requires Count2 ==Int  UB2
+    
+  rule equalOrderedImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+        SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
+  equalOrderedImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU,                           /* i limits           */ /* k limits*/
+      equalOrderedImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, IntRes1, UB2, Count2, NumElems -Int Count2, 0, NumElems, Count2), 
+      UB2, Count2 +Int 1)
+    requires Count2 =/=Int  UB2
+    
+
+  rule equalOrderedImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UBi:Int, Counti:Int, UBk:Int, Countk:Int) => IntRes1
+    requires Counti ==Int  UBi 
+
+  rule equalOrderedImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UBi:Int, Counti:Int, UBk:Int, Countk:Int) => 
+    equalOrderedImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
+        updateIntRes1EqualOrdered(IntRes1, Count2, Countk, Counti, Value2, Value1, Limit2, Limit1, NumElems, SOrU), UB2, Count2, UBi, Counti +Int 1,  UBk, Countk +Int 1)
+    requires Counti =/=Int  UBi
+
+
+  rule   updateIntRes1EqualOrdered(IntRes1:MInt, Index:Int, Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, 
+      Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    plugInMask(
+        IntRes1, 
+        andMInt(
+          extractMask(IntRes1, 1, Index), 
+          compareEqualOrdered(Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU)
+        ), Index)
+
+  // Compare Equal Ordered
+  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 1)
+      requires Count1 >=Int uvalueMInt(Limit1) // If count1 is invalid
+
+  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
+      requires Count1 <Int uvalueMInt(Limit1) andBool  Count2 >=Int uvalueMInt(Limit2) // If count1 is invalid, ut count2 invalid 
+
+  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+      compareEqualSignedOrUnsigned(
+          extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+          SOrU
+      )
+
+      requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
 
   // General
   // Compare Equal
@@ -726,6 +781,36 @@ module X86-ABSTRACT-SEMANTICS
       #ifBool eqMInt(SOrU, mi(1, 1)) #then sleMInt(Data1, Data2) #else uleMInt(Data1, Data2) #fi,
       1)  
 
+  /*@ 
+    Polarity
+  */  
+  rule  polarityImpl(IntRes1:MInt, Imm8:MInt, _:Int, _:MInt) => IntRes1
+    requires eqMInt(extractMInt(Imm8, 2, 4), mi(2, 0))
 
+  rule  polarityImpl(IntRes1:MInt, Imm8:MInt, _:Int, _:MInt) => negMInt(IntRes1)
+    requires eqMInt(extractMInt(Imm8, 2, 4), mi(2, 1))
+
+  rule  polarityImpl(IntRes1:MInt, Imm8:MInt, _:Int, _:MInt) => IntRes1
+    requires eqMInt(extractMInt(Imm8, 2, 4), mi(2, 2))
     
+  rule  polarityImpl(IntRes1:MInt, Imm8:MInt, NumElems:Int, Limit2:MInt) => 
+    polarityImplHelper(IntRes1, Imm8, NumElems, Limit2, 0)      
+      requires eqMInt(extractMInt(Imm8, 2, 4), mi(2, 3))
+
+  rule polarityImplHelper(IntRes1:MInt, Imm8:MInt, NumElems:Int, Limit2:MInt, Count:Int) => IntRes1 
+    requires Count ==Int NumElems
+
+  rule polarityImplHelper(IntRes1:MInt, Imm8:MInt, NumElems:Int, Limit2:MInt, Count:Int) => 
+    polarityImplHelper(
+        updatePolarity(IntRes1, Count, Limit2), 
+        Imm8, NumElems, Limit2, Count +Int 1)    
+      requires Count =/=Int NumElems
+
+  rule   updatePolarity(IntRes1:MInt, Index:Int, Limit2:MInt) => 
+    plugInMask(
+        IntRes1, 
+        #ifMInt Index >=Int uvalueMInt(Limit2) #then 
+          negMInt(extractMask(IntRes1, 1, Index)) #else
+          extractMask(IntRes1, 1, Index) #fi
+        , Index)
 endmodule

@@ -47,19 +47,19 @@ module PCMPESTRI-XMM-XMM-IMM8
   ...</k>
     requires eqMInt(extractMInt(Imm8, 4, 6), mi(2, 2))
 
-  /*
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
-      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalOrderedImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
+      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalOrderedImpl(Value2, Value1, Limit2, Limit1, uvalueMInt(NumElems), SignedOrUnsigned), .Operands)
   ...</k>
     requires eqMInt(extractMInt(Imm8, 4, 6), mi(2, 3) )   
 
   // Polarity
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, .Operands) => 
-      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, IntRes1, polarityImpl(IntRes1, Imm8), .Operands)
+      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, 
+          SignedOrUnsigned, IntRes1, 
+          polarityImpl(IntRes1, Imm8, uvalueMInt(NumElems), Limit2), .Operands)
   ...</k>
-  */
       
   // Output Selection
 
