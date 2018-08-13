@@ -540,7 +540,7 @@ module X86-ABSTRACT-SEMANTICS
     requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1))
 
   /*@
-    pcmpestri: findLimitIndexE
+    findLimitIndexE
   */
   rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
     #ifMInt absInt(svalueMInt(Length)) >Int 8 #then mi(8, 8) #else Imm8 #fi
@@ -550,6 +550,26 @@ module X86-ABSTRACT-SEMANTICS
     #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else Imm8 #fi
       requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes  
 
+  /*@
+    findLimitIndexI
+  */
+  rule findLimitIndexI(Value:MInt, Imm8:MInt) => findLimitIndexIHelper(Value, 
+      {#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 16 #else 8 #fi}:>Int, 
+      {#ifInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then 8 #else 16 #fi}:>Int, 
+      0) 
+
+  rule findLimitIndexIHelper(Value:MInt, BitLength:Int, NumElems:Int, Count:Int) => mi(8, Count)
+      requires Count ==Int NumElems
+
+
+  rule findLimitIndexIHelper(Value:MInt, BitLength:Int, NumElems:Int, Count:Int) => mi(8, Count)
+      requires Count =/=Int NumElems andBool 
+      eqMInt(extractMask(Value, BitLength, Count *Int BitLength), mi(BitLength, 0)) 
+
+  rule findLimitIndexIHelper(Value:MInt, BitLength:Int, NumElems:Int, Count:Int) => 
+    findLimitIndexIHelper(Value, BitLength, NumElems, Count +Int 1)  
+      requires Count =/=Int NumElems andBool 
+      (notBool eqMInt(extractMask(Value, BitLength, Count *Int BitLength), mi(BitLength, 0)) )
 
   /*@
     Equal Any
