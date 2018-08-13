@@ -66,7 +66,13 @@ module PCMPESTRI-XMM-XMM-IMM8
   // If no bit is set, 16 or 8 is returned.
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(mi(64, uvalueMInt(NumElems)), %rcx)
+      setRegisterValue(mi(64, uvalueMInt(NumElems)), %rcx) ~>
+      setFlag(mi(1,0), "CF") ~>
+      setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
+      setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
+      setFlag(extractMask(IntRes2, 1, 0), "OF") ~>
+      setFlag(mi(1,0), "AF") ~>
+      setFlag(mi(1,0), "PF") 
   ...</k>
     requires  eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
 
@@ -74,6 +80,12 @@ module PCMPESTRI-XMM-XMM-IMM8
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
       setRegisterValue(mi(64, scanForward(IntRes2, uvalueMInt(NumElems) -Int 1, uvalueMInt(NumElems))), %rcx)
+      setFlag(mi(1,1), "CF") ~>
+      setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
+      setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
+      setFlag(extractMask(IntRes2, 1, 0), "OF") ~>
+      setFlag(mi(1,0), "AF") ~>
+      setFlag(mi(1,0), "PF") 
   ...</k>
     requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0)) 
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
@@ -81,12 +93,14 @@ module PCMPESTRI-XMM-XMM-IMM8
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
       setRegisterValue(mi(64, scanReverse(IntRes2, 0, uvalueMInt(NumElems))), %rcx)
+      setFlag(mi(1,1), "CF") ~>
+      setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
+      setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
+      setFlag(extractMask(IntRes2, 1, 0), "OF") ~>
+      setFlag(mi(1,0), "AF") ~>
+      setFlag(mi(1,0), "PF") 
   ...</k>
     requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) )
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
       
-endmodule
-
-module ADCQ-R64-IMM8-SEMANTICS
-  imports ADCQ-R64-IMM8
 endmodule
