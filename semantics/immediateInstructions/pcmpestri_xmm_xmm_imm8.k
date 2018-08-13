@@ -19,23 +19,23 @@ module PCMPESTRI-XMM-XMM-IMM8
   ...</k>
   <regstate> RSMap </regstate>
 
-  // Find data size and interpretation
+   // Find data size and interpretation
   rule <k>
-    execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, .Operands) => 
-      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, 
-          findLimitIndexE(getRegisterValue(Xmm2, RSMap), getRegisterValue(%rdx, RSMap), Imm8), 
-          findLimitIndexE(getRegisterValue(Xmm1, RSMap), getRegisterValue(%rax, RSMap), Imm8),  
+    execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, .Operands) => 
+      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,
           #ifMInt eqMInt(extractMInt(Imm8, 7, 8), mi(1, 1)) #then mi(8,8) #else mi(8, 16) #fi, 
           extractMInt(Imm8, 6, 7),  .Operands)
   ...</k>
 
+
   // Aggregation operation
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
-      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalAnyImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
+      execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, equalAnyImpl(Value2, Value1, Limit2, Limit1, uvalueMInt(NumElems), SignedOrUnsigned), .Operands)
   ...</k>
     requires eqMInt(extractMInt(Imm8, 4, 6), mi(2, 0))
     
+  /*
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, rangeImpl(Value2, Value1, Limit2, Limit1, NumElems, SignedOrUnsigned), .Operands)
@@ -59,6 +59,7 @@ module PCMPESTRI-XMM-XMM-IMM8
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, .Operands) => 
       execinstr (pcmpestri Imm8, Xmm2, Xmm1, Value2, Value1, Limit2, Limit1,  NumElems, SignedOrUnsigned, IntRes1, polarityImpl(IntRes1, Imm8), .Operands)
   ...</k>
+  */
       
   // Output Selection
 

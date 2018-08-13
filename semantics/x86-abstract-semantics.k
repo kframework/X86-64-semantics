@@ -540,7 +540,7 @@ module X86-ABSTRACT-SEMANTICS
     requires notBool eqMInt(extractMInt(M, N, N +Int 1), mi(1,1))
 
   /*@
-    pcmpestri
+    pcmpestri: findLimitIndexE
   */
   rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
     #ifMInt absInt(svalueMInt(Length)) >Int 8 #then mi(8, 8) #else Imm8 #fi
@@ -549,4 +549,73 @@ module X86-ABSTRACT-SEMANTICS
   rule findLimitIndexE(Value:MInt, Length:MInt, Imm8:MInt) => 
     #ifMInt absInt(svalueMInt(Length)) >Int 16 #then mi(8, 16) #else Imm8 #fi
       requires eqMInt(extractMInt(Imm8, 7, 8), mi(1, 0)) // Interpret as 16 bytes  
+
+
+  /*@
+    Equal Any
+  */
+
+  rule equalAnyImpl(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) =>
+    equalAnyImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, mi(NumElems, 0), NumElems, 0)
+
+  rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => IntRes1
+    requires Count2 ==Int  UB2
+    
+  rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
+  equalAnyImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, IntRes1, UB2, Count2, NumElems, 0)
+    requires Count2 =/=Int  UB2
+    
+
+  rule equalAnyImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UB1:Int, Count1:Int) => IntRes1
+    requires Count1 ==Int  UB1
+
+  rule equalAnyImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UB1:Int, Count1:Int) => 
+    equalAnyImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
+        updateIntRes1EqualAny(IntRes1, Count2, Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU), UB2, Count2, UB1, Count1)
+    requires Count1 =/=Int  UB1
+
+
+  rule   updateIntRes1EqualAny(IntRes1:MInt, Index:Int, Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    plugInMask(
+        IntRes1, 
+        orMInt(
+          extractMask(IntRes1, 1, Index), 
+          compareEqual(Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU)
+        ), Index)
+
+  // Compare Equal
+  rule compareEqual(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
+      requires Count1 >=Int uvalueMInt(Limit1) orBool Count2 >=Int uvalueMInt(Limit2) // If any of the data is invalid return 0
+
+  rule compareEqual(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+    compareEqualSignedOrUnsigned(
+        extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
+        SOrU
+    )           
+      requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
+
+
+  rule compareEqualSignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
+    fromBoolToMInt(
+      eqMInt(Data1, Data2),
+      1)
+
+  // Compare GE
+  rule compareGESignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
+    fromBoolToMInt(
+      #ifBool eqMInt(SOrU, mi(1, 1)) #then sgeMInt(Data1, Data2) #else ugeMInt(Data1, Data2) #fi,
+      1)  
+    
+  // Compare LE
+  rule compareLESignedOrUnsigned(Data1:MInt, Data2:MInt,  SOrU:MInt) => 
+    fromBoolToMInt(
+      #ifBool eqMInt(SOrU, mi(1, 1)) #then sleMInt(Data1, Data2) #else uleMInt(Data1, Data2) #fi,
+      1)  
+
+
+    
 endmodule
