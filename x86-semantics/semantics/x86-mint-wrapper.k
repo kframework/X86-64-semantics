@@ -782,6 +782,7 @@ module MINT-WRAPPER
         )), 8)
     requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
     andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
   /*@
     Unsigned Divide
   */
@@ -835,7 +836,7 @@ module MINT-WRAPPER
     andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
       
   // 16-bit
-  rule div_quotient_int32(MI1:MInt, MI2:MInt) => divideError
+  rule div_quotient_int16(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
     andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
@@ -848,7 +849,7 @@ module MINT-WRAPPER
     andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
   // 8-bit
-  rule div_quotient_int32(MI1:MInt, MI2:MInt) => divideError
+  rule div_quotient_int8(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
     andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
@@ -862,7 +863,7 @@ module MINT-WRAPPER
 
   // Unsigned Remainders
   //64-bit
-  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
     andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
@@ -875,11 +876,11 @@ module MINT-WRAPPER
     andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
   // 32-bit
-  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+  rule div_remainder_int32(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
     andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+  rule div_remainder_int32(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
     udivMInt(
         MI1, 
         zeroExtend(MI2, bitwidthMInt(MI1))
@@ -888,11 +889,11 @@ module MINT-WRAPPER
     andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
   // 16-bit
-  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+  rule div_remainder_int16(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
     andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+  rule div_remainder_int16(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
     udivMInt(
         MI1, 
         zeroExtend(MI2, bitwidthMInt(MI1))
@@ -902,11 +903,11 @@ module MINT-WRAPPER
 
 
   // 8-bit
-  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+  rule div_remainder_int8(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
     andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+  rule div_remainder_int8(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
     udivMInt(
         MI1, 
         zeroExtend(MI2, bitwidthMInt(MI1))
