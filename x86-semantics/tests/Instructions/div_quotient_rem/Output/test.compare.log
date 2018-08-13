@@ -1,7 +1,7 @@
 
 Compare: Output/test.cstate 
 ../../../scripts/run.pl --file Output/test.kstate --compare 
-grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilepwPX2 2>&1 
+grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfile7HuSK 2>&1 
 numOfInstrs: 503
 
 	0:	48 c7 c0 ff 00 00 00	mov    $0xff,%rax
@@ -633,7 +633,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 3) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'255	255
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'1 ) ) , 8'255 )	255
 rbx	64'1	1
 rcx	64'0	0
 rdx	64'0	0
@@ -756,7 +756,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 6) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'383	383
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'2 ) ) , 8'127 )	383
 rbx	64'2	2
 rcx	64'0	0
 rdx	64'0	0
@@ -879,7 +879,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 9) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'85	85
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'3 ) ) , 8'85 )	85
 rbx	64'3	3
 rcx	64'0	0
 rdx	64'0	0
@@ -1002,7 +1002,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 12) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'831	831
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'4 ) ) , 8'63 )	831
 rbx	64'4	4
 rcx	64'0	0
 rdx	64'0	0
@@ -1125,7 +1125,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 15) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'51	51
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'5 ) ) , 8'51 )	51
 rbx	64'5	5
 rcx	64'0	0
 rdx	64'0	0
@@ -1248,7 +1248,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 18) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'810	810
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'6 ) ) , 8'42 )	810
 rbx	64'6	6
 rcx	64'0	0
 rdx	64'0	0
@@ -1371,7 +1371,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 21) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'804	804
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'7 ) ) , 8'36 )	804
 rbx	64'7	7
 rcx	64'0	0
 rdx	64'0	0
@@ -1494,7 +1494,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 24) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1823	1823
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'8 ) ) , 8'31 )	1823
 rbx	64'8	8
 rcx	64'0	0
 rdx	64'0	0
@@ -1617,7 +1617,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 27) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'796	796
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'9 ) ) , 8'28 )	796
 rbx	64'9	9
 rcx	64'0	0
 rdx	64'0	0
@@ -1740,7 +1740,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 30) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1305	1305
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'10 ) ) , 8'25 )	1305
 rbx	64'10	10
 rcx	64'0	0
 rdx	64'0	0
@@ -1863,7 +1863,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 33) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'535	535
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'11 ) ) , 8'23 )	535
 rbx	64'11	11
 rcx	64'0	0
 rdx	64'0	0
@@ -1986,7 +1986,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 36) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'789	789
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'12 ) ) , 8'21 )	789
 rbx	64'12	12
 rcx	64'0	0
 rdx	64'0	0
@@ -2109,7 +2109,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 39) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2067	2067
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'13 ) ) , 8'19 )	2067
 rbx	64'13	13
 rcx	64'0	0
 rdx	64'0	0
@@ -2232,7 +2232,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 42) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'786	786
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'14 ) ) , 8'18 )	786
 rbx	64'14	14
 rcx	64'0	0
 rdx	64'0	0
@@ -2355,7 +2355,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 45) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'17	17
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'15 ) ) , 8'17 )	17
 rbx	64'15	15
 rcx	64'0	0
 rdx	64'0	0
@@ -2478,7 +2478,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 48) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3855	3855
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'16 ) ) , 8'15 )	3855
 rbx	64'16	16
 rcx	64'0	0
 rdx	64'0	0
@@ -2601,7 +2601,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 51) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'15	15
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'17 ) ) , 8'15 )	15
 rbx	64'17	17
 rcx	64'0	0
 rdx	64'0	0
@@ -2724,7 +2724,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 54) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'782	782
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'18 ) ) , 8'14 )	782
 rbx	64'18	18
 rcx	64'0	0
 rdx	64'0	0
@@ -2847,7 +2847,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 57) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2061	2061
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'19 ) ) , 8'13 )	2061
 rbx	64'19	19
 rcx	64'0	0
 rdx	64'0	0
@@ -2970,7 +2970,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 60) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3852	3852
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'20 ) ) , 8'12 )	3852
 rbx	64'20	20
 rcx	64'0	0
 rdx	64'0	0
@@ -3093,7 +3093,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 63) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'780	780
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'21 ) ) , 8'12 )	780
 rbx	64'21	21
 rcx	64'0	0
 rdx	64'0	0
@@ -3216,7 +3216,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 66) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3339	3339
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'22 ) ) , 8'11 )	3339
 rbx	64'22	22
 rcx	64'0	0
 rdx	64'0	0
@@ -3339,7 +3339,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 69) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'523	523
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'23 ) ) , 8'11 )	523
 rbx	64'23	23
 rcx	64'0	0
 rdx	64'0	0
@@ -3462,7 +3462,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 72) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3850	3850
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'24 ) ) , 8'10 )	3850
 rbx	64'24	24
 rcx	64'0	0
 rdx	64'0	0
@@ -3585,7 +3585,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 75) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1290	1290
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'25 ) ) , 8'10 )	1290
 rbx	64'25	25
 rcx	64'0	0
 rdx	64'0	0
@@ -3708,7 +3708,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 78) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5385	5385
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'26 ) ) , 8'9 )	5385
 rbx	64'26	26
 rcx	64'0	0
 rdx	64'0	0
@@ -3831,7 +3831,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 81) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3081	3081
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'27 ) ) , 8'9 )	3081
 rbx	64'27	27
 rcx	64'0	0
 rdx	64'0	0
@@ -3954,7 +3954,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 84) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'777	777
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'28 ) ) , 8'9 )	777
 rbx	64'28	28
 rcx	64'0	0
 rdx	64'0	0
@@ -4077,7 +4077,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 87) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5896	5896
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'29 ) ) , 8'8 )	5896
 rbx	64'29	29
 rcx	64'0	0
 rdx	64'0	0
@@ -4200,7 +4200,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 90) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3848	3848
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'30 ) ) , 8'8 )	3848
 rbx	64'30	30
 rcx	64'0	0
 rdx	64'0	0
@@ -4323,7 +4323,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 93) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1800	1800
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'31 ) ) , 8'8 )	1800
 rbx	64'31	31
 rcx	64'0	0
 rdx	64'0	0
@@ -4446,7 +4446,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 96) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'7943	7943
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'32 ) ) , 8'7 )	7943
 rbx	64'32	32
 rcx	64'0	0
 rdx	64'0	0
@@ -4569,7 +4569,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 99) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6151	6151
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'33 ) ) , 8'7 )	6151
 rbx	64'33	33
 rcx	64'0	0
 rdx	64'0	0
@@ -4692,7 +4692,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 102) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'4359	4359
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'34 ) ) , 8'7 )	4359
 rbx	64'34	34
 rcx	64'0	0
 rdx	64'0	0
@@ -4815,7 +4815,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 105) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2567	2567
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'35 ) ) , 8'7 )	2567
 rbx	64'35	35
 rcx	64'0	0
 rdx	64'0	0
@@ -4938,7 +4938,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 108) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'775	775
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'36 ) ) , 8'7 )	775
 rbx	64'36	36
 rcx	64'0	0
 rdx	64'0	0
@@ -5061,7 +5061,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 111) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'8454	8454
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'37 ) ) , 8'6 )	8454
 rbx	64'37	37
 rcx	64'0	0
 rdx	64'0	0
@@ -5184,7 +5184,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 114) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6918	6918
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'38 ) ) , 8'6 )	6918
 rbx	64'38	38
 rcx	64'0	0
 rdx	64'0	0
@@ -5307,7 +5307,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 117) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5382	5382
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'39 ) ) , 8'6 )	5382
 rbx	64'39	39
 rcx	64'0	0
 rdx	64'0	0
@@ -5430,7 +5430,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 120) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3846	3846
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'40 ) ) , 8'6 )	3846
 rbx	64'40	40
 rcx	64'0	0
 rdx	64'0	0
@@ -5553,7 +5553,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 123) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2310	2310
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'41 ) ) , 8'6 )	2310
 rbx	64'41	41
 rcx	64'0	0
 rdx	64'0	0
@@ -5676,7 +5676,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 126) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'774	774
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'42 ) ) , 8'6 )	774
 rbx	64'42	42
 rcx	64'0	0
 rdx	64'0	0
@@ -5799,7 +5799,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 129) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'10245	10245
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'43 ) ) , 8'5 )	10245
 rbx	64'43	43
 rcx	64'0	0
 rdx	64'0	0
@@ -5922,7 +5922,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 132) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'8965	8965
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'44 ) ) , 8'5 )	8965
 rbx	64'44	44
 rcx	64'0	0
 rdx	64'0	0
@@ -6045,7 +6045,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 135) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'7685	7685
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'45 ) ) , 8'5 )	7685
 rbx	64'45	45
 rcx	64'0	0
 rdx	64'0	0
@@ -6168,7 +6168,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 138) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6405	6405
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'46 ) ) , 8'5 )	6405
 rbx	64'46	46
 rcx	64'0	0
 rdx	64'0	0
@@ -6291,7 +6291,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 141) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5125	5125
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'47 ) ) , 8'5 )	5125
 rbx	64'47	47
 rcx	64'0	0
 rdx	64'0	0
@@ -6414,7 +6414,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 144) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3845	3845
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'48 ) ) , 8'5 )	3845
 rbx	64'48	48
 rcx	64'0	0
 rdx	64'0	0
@@ -6537,7 +6537,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 147) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2565	2565
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'49 ) ) , 8'5 )	2565
 rbx	64'49	49
 rcx	64'0	0
 rdx	64'0	0
@@ -6660,7 +6660,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 150) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1285	1285
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'50 ) ) , 8'5 )	1285
 rbx	64'50	50
 rcx	64'0	0
 rdx	64'0	0
@@ -6783,7 +6783,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 153) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5	5
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'51 ) ) , 8'5 )	5
 rbx	64'51	51
 rcx	64'0	0
 rdx	64'0	0
@@ -6906,7 +6906,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 156) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'12036	12036
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'52 ) ) , 8'4 )	12036
 rbx	64'52	52
 rcx	64'0	0
 rdx	64'0	0
@@ -7029,7 +7029,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 159) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'11012	11012
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'53 ) ) , 8'4 )	11012
 rbx	64'53	53
 rcx	64'0	0
 rdx	64'0	0
@@ -7152,7 +7152,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 162) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'9988	9988
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'54 ) ) , 8'4 )	9988
 rbx	64'54	54
 rcx	64'0	0
 rdx	64'0	0
@@ -7275,7 +7275,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 165) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'8964	8964
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'55 ) ) , 8'4 )	8964
 rbx	64'55	55
 rcx	64'0	0
 rdx	64'0	0
@@ -7398,7 +7398,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 168) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'7940	7940
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'56 ) ) , 8'4 )	7940
 rbx	64'56	56
 rcx	64'0	0
 rdx	64'0	0
@@ -7521,7 +7521,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 171) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6916	6916
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'57 ) ) , 8'4 )	6916
 rbx	64'57	57
 rcx	64'0	0
 rdx	64'0	0
@@ -7644,7 +7644,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 174) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5892	5892
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'58 ) ) , 8'4 )	5892
 rbx	64'58	58
 rcx	64'0	0
 rdx	64'0	0
@@ -7767,7 +7767,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 177) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'4868	4868
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'59 ) ) , 8'4 )	4868
 rbx	64'59	59
 rcx	64'0	0
 rdx	64'0	0
@@ -7890,7 +7890,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 180) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3844	3844
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'60 ) ) , 8'4 )	3844
 rbx	64'60	60
 rcx	64'0	0
 rdx	64'0	0
@@ -8013,7 +8013,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 183) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2820	2820
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'61 ) ) , 8'4 )	2820
 rbx	64'61	61
 rcx	64'0	0
 rdx	64'0	0
@@ -8136,7 +8136,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 186) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1796	1796
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'62 ) ) , 8'4 )	1796
 rbx	64'62	62
 rcx	64'0	0
 rdx	64'0	0
@@ -8259,7 +8259,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 189) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'772	772
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'63 ) ) , 8'4 )	772
 rbx	64'63	63
 rcx	64'0	0
 rdx	64'0	0
@@ -8382,7 +8382,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 192) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'16131	16131
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'64 ) ) , 8'3 )	16131
 rbx	64'64	64
 rcx	64'0	0
 rdx	64'0	0
@@ -8505,7 +8505,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 195) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'15363	15363
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'65 ) ) , 8'3 )	15363
 rbx	64'65	65
 rcx	64'0	0
 rdx	64'0	0
@@ -8628,7 +8628,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 198) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'14595	14595
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'66 ) ) , 8'3 )	14595
 rbx	64'66	66
 rcx	64'0	0
 rdx	64'0	0
@@ -8751,7 +8751,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 201) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'13827	13827
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'67 ) ) , 8'3 )	13827
 rbx	64'67	67
 rcx	64'0	0
 rdx	64'0	0
@@ -8874,7 +8874,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 204) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'13059	13059
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'68 ) ) , 8'3 )	13059
 rbx	64'68	68
 rcx	64'0	0
 rdx	64'0	0
@@ -8997,7 +8997,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 207) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'12291	12291
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'69 ) ) , 8'3 )	12291
 rbx	64'69	69
 rcx	64'0	0
 rdx	64'0	0
@@ -9120,7 +9120,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 210) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'11523	11523
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'70 ) ) , 8'3 )	11523
 rbx	64'70	70
 rcx	64'0	0
 rdx	64'0	0
@@ -9243,7 +9243,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 213) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'10755	10755
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'71 ) ) , 8'3 )	10755
 rbx	64'71	71
 rcx	64'0	0
 rdx	64'0	0
@@ -9366,7 +9366,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 216) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'9987	9987
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'72 ) ) , 8'3 )	9987
 rbx	64'72	72
 rcx	64'0	0
 rdx	64'0	0
@@ -9489,7 +9489,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 219) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'9219	9219
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'73 ) ) , 8'3 )	9219
 rbx	64'73	73
 rcx	64'0	0
 rdx	64'0	0
@@ -9612,7 +9612,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 222) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'8451	8451
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'74 ) ) , 8'3 )	8451
 rbx	64'74	74
 rcx	64'0	0
 rdx	64'0	0
@@ -9735,7 +9735,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 225) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'7683	7683
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'75 ) ) , 8'3 )	7683
 rbx	64'75	75
 rcx	64'0	0
 rdx	64'0	0
@@ -9858,7 +9858,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 228) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6915	6915
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'76 ) ) , 8'3 )	6915
 rbx	64'76	76
 rcx	64'0	0
 rdx	64'0	0
@@ -9981,7 +9981,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 231) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6147	6147
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'77 ) ) , 8'3 )	6147
 rbx	64'77	77
 rcx	64'0	0
 rdx	64'0	0
@@ -10104,7 +10104,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 234) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5379	5379
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'78 ) ) , 8'3 )	5379
 rbx	64'78	78
 rcx	64'0	0
 rdx	64'0	0
@@ -10227,7 +10227,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 237) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'4611	4611
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'79 ) ) , 8'3 )	4611
 rbx	64'79	79
 rcx	64'0	0
 rdx	64'0	0
@@ -10350,7 +10350,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 240) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3843	3843
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'80 ) ) , 8'3 )	3843
 rbx	64'80	80
 rcx	64'0	0
 rdx	64'0	0
@@ -10473,7 +10473,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 243) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3075	3075
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'81 ) ) , 8'3 )	3075
 rbx	64'81	81
 rcx	64'0	0
 rdx	64'0	0
@@ -10596,7 +10596,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 246) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2307	2307
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'82 ) ) , 8'3 )	2307
 rbx	64'82	82
 rcx	64'0	0
 rdx	64'0	0
@@ -10719,7 +10719,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 249) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1539	1539
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'83 ) ) , 8'3 )	1539
 rbx	64'83	83
 rcx	64'0	0
 rdx	64'0	0
@@ -10842,7 +10842,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 252) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'771	771
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'84 ) ) , 8'3 )	771
 rbx	64'84	84
 rcx	64'0	0
 rdx	64'0	0
@@ -10965,7 +10965,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 255) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3	3
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'85 ) ) , 8'3 )	3
 rbx	64'85	85
 rcx	64'0	0
 rdx	64'0	0
@@ -11088,7 +11088,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 258) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'21250	21250
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'86 ) ) , 8'2 )	21250
 rbx	64'86	86
 rcx	64'0	0
 rdx	64'0	0
@@ -11211,7 +11211,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 261) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'20738	20738
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'87 ) ) , 8'2 )	20738
 rbx	64'87	87
 rcx	64'0	0
 rdx	64'0	0
@@ -11334,7 +11334,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 264) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'20226	20226
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'88 ) ) , 8'2 )	20226
 rbx	64'88	88
 rcx	64'0	0
 rdx	64'0	0
@@ -11457,7 +11457,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 267) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'19714	19714
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'89 ) ) , 8'2 )	19714
 rbx	64'89	89
 rcx	64'0	0
 rdx	64'0	0
@@ -11580,7 +11580,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 270) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'19202	19202
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'90 ) ) , 8'2 )	19202
 rbx	64'90	90
 rcx	64'0	0
 rdx	64'0	0
@@ -11703,7 +11703,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 273) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'18690	18690
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'91 ) ) , 8'2 )	18690
 rbx	64'91	91
 rcx	64'0	0
 rdx	64'0	0
@@ -11826,7 +11826,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 276) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'18178	18178
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'92 ) ) , 8'2 )	18178
 rbx	64'92	92
 rcx	64'0	0
 rdx	64'0	0
@@ -11949,7 +11949,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 279) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'17666	17666
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'93 ) ) , 8'2 )	17666
 rbx	64'93	93
 rcx	64'0	0
 rdx	64'0	0
@@ -12072,7 +12072,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 282) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'17154	17154
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'94 ) ) , 8'2 )	17154
 rbx	64'94	94
 rcx	64'0	0
 rdx	64'0	0
@@ -12195,7 +12195,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 285) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'16642	16642
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'95 ) ) , 8'2 )	16642
 rbx	64'95	95
 rcx	64'0	0
 rdx	64'0	0
@@ -12318,7 +12318,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 288) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'16130	16130
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'96 ) ) , 8'2 )	16130
 rbx	64'96	96
 rcx	64'0	0
 rdx	64'0	0
@@ -12441,7 +12441,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 291) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'15618	15618
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'97 ) ) , 8'2 )	15618
 rbx	64'97	97
 rcx	64'0	0
 rdx	64'0	0
@@ -12564,7 +12564,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 294) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'15106	15106
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'98 ) ) , 8'2 )	15106
 rbx	64'98	98
 rcx	64'0	0
 rdx	64'0	0
@@ -12687,7 +12687,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 297) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'14594	14594
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'99 ) ) , 8'2 )	14594
 rbx	64'99	99
 rcx	64'0	0
 rdx	64'0	0
@@ -12810,7 +12810,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 300) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'14082	14082
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'100 ) ) , 8'2 )	14082
 rbx	64'100	100
 rcx	64'0	0
 rdx	64'0	0
@@ -12933,7 +12933,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 303) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'13570	13570
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'101 ) ) , 8'2 )	13570
 rbx	64'101	101
 rcx	64'0	0
 rdx	64'0	0
@@ -13056,7 +13056,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 306) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'13058	13058
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'102 ) ) , 8'2 )	13058
 rbx	64'102	102
 rcx	64'0	0
 rdx	64'0	0
@@ -13179,7 +13179,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 309) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'12546	12546
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'103 ) ) , 8'2 )	12546
 rbx	64'103	103
 rcx	64'0	0
 rdx	64'0	0
@@ -13302,7 +13302,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 312) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'12034	12034
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'104 ) ) , 8'2 )	12034
 rbx	64'104	104
 rcx	64'0	0
 rdx	64'0	0
@@ -13425,7 +13425,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 315) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'11522	11522
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'105 ) ) , 8'2 )	11522
 rbx	64'105	105
 rcx	64'0	0
 rdx	64'0	0
@@ -13548,7 +13548,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 318) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'11010	11010
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'106 ) ) , 8'2 )	11010
 rbx	64'106	106
 rcx	64'0	0
 rdx	64'0	0
@@ -13671,7 +13671,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 321) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'10498	10498
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'107 ) ) , 8'2 )	10498
 rbx	64'107	107
 rcx	64'0	0
 rdx	64'0	0
@@ -13794,7 +13794,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 324) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'9986	9986
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'108 ) ) , 8'2 )	9986
 rbx	64'108	108
 rcx	64'0	0
 rdx	64'0	0
@@ -13917,7 +13917,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 327) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'9474	9474
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'109 ) ) , 8'2 )	9474
 rbx	64'109	109
 rcx	64'0	0
 rdx	64'0	0
@@ -14040,7 +14040,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 330) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'8962	8962
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'110 ) ) , 8'2 )	8962
 rbx	64'110	110
 rcx	64'0	0
 rdx	64'0	0
@@ -14163,7 +14163,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 333) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'8450	8450
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'111 ) ) , 8'2 )	8450
 rbx	64'111	111
 rcx	64'0	0
 rdx	64'0	0
@@ -14286,7 +14286,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 336) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'7938	7938
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'112 ) ) , 8'2 )	7938
 rbx	64'112	112
 rcx	64'0	0
 rdx	64'0	0
@@ -14409,7 +14409,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 339) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'7426	7426
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'113 ) ) , 8'2 )	7426
 rbx	64'113	113
 rcx	64'0	0
 rdx	64'0	0
@@ -14532,7 +14532,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 342) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6914	6914
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'114 ) ) , 8'2 )	6914
 rbx	64'114	114
 rcx	64'0	0
 rdx	64'0	0
@@ -14655,7 +14655,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 345) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'6402	6402
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'115 ) ) , 8'2 )	6402
 rbx	64'115	115
 rcx	64'0	0
 rdx	64'0	0
@@ -14778,7 +14778,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 348) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5890	5890
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'116 ) ) , 8'2 )	5890
 rbx	64'116	116
 rcx	64'0	0
 rdx	64'0	0
@@ -14901,7 +14901,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 351) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'5378	5378
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'117 ) ) , 8'2 )	5378
 rbx	64'117	117
 rcx	64'0	0
 rdx	64'0	0
@@ -15024,7 +15024,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 354) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'4866	4866
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'118 ) ) , 8'2 )	4866
 rbx	64'118	118
 rcx	64'0	0
 rdx	64'0	0
@@ -15147,7 +15147,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 357) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'4354	4354
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'119 ) ) , 8'2 )	4354
 rbx	64'119	119
 rcx	64'0	0
 rdx	64'0	0
@@ -15270,7 +15270,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 360) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3842	3842
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'120 ) ) , 8'2 )	3842
 rbx	64'120	120
 rcx	64'0	0
 rdx	64'0	0
@@ -15393,7 +15393,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 363) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'3330	3330
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'121 ) ) , 8'2 )	3330
 rbx	64'121	121
 rcx	64'0	0
 rdx	64'0	0
@@ -15516,7 +15516,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 366) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2818	2818
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'122 ) ) , 8'2 )	2818
 rbx	64'122	122
 rcx	64'0	0
 rdx	64'0	0
@@ -15639,7 +15639,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 369) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'2306	2306
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'123 ) ) , 8'2 )	2306
 rbx	64'123	123
 rcx	64'0	0
 rdx	64'0	0
@@ -15762,7 +15762,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 372) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1794	1794
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'124 ) ) , 8'2 )	1794
 rbx	64'124	124
 rcx	64'0	0
 rdx	64'0	0
@@ -15885,7 +15885,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 375) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'1282	1282
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'125 ) ) , 8'2 )	1282
 rbx	64'125	125
 rcx	64'0	0
 rdx	64'0	0
@@ -16008,7 +16008,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 378) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'770	770
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'126 ) ) , 8'2 )	770
 rbx	64'126	126
 rcx	64'0	0
 rdx	64'0	0
@@ -16131,7 +16131,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 381) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'258	258
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'127 ) ) , 8'2 )	258
 rbx	64'127	127
 rcx	64'0	0
 rdx	64'0	0
@@ -16254,7 +16254,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 384) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'32513	32513
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'128 ) ) , 8'1 )	32513
 rbx	64'128	128
 rcx	64'0	0
 rdx	64'0	0
@@ -16377,7 +16377,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 387) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'32257	32257
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'129 ) ) , 8'1 )	32257
 rbx	64'129	129
 rcx	64'0	0
 rdx	64'0	0
@@ -16500,7 +16500,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 390) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'32001	32001
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'130 ) ) , 8'1 )	32001
 rbx	64'130	130
 rcx	64'0	0
 rdx	64'0	0
@@ -16623,7 +16623,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 393) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'31745	31745
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'131 ) ) , 8'1 )	31745
 rbx	64'131	131
 rcx	64'0	0
 rdx	64'0	0
@@ -16746,7 +16746,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 396) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'31489	31489
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'132 ) ) , 8'1 )	31489
 rbx	64'132	132
 rcx	64'0	0
 rdx	64'0	0
@@ -16869,7 +16869,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 399) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'31233	31233
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'133 ) ) , 8'1 )	31233
 rbx	64'133	133
 rcx	64'0	0
 rdx	64'0	0
@@ -16992,7 +16992,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 402) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'30977	30977
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'134 ) ) , 8'1 )	30977
 rbx	64'134	134
 rcx	64'0	0
 rdx	64'0	0
@@ -17115,7 +17115,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 405) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'30721	30721
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'135 ) ) , 8'1 )	30721
 rbx	64'135	135
 rcx	64'0	0
 rdx	64'0	0
@@ -17238,7 +17238,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 408) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'30465	30465
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'136 ) ) , 8'1 )	30465
 rbx	64'136	136
 rcx	64'0	0
 rdx	64'0	0
@@ -17361,7 +17361,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 411) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'30209	30209
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'137 ) ) , 8'1 )	30209
 rbx	64'137	137
 rcx	64'0	0
 rdx	64'0	0
@@ -17484,7 +17484,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 414) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'29953	29953
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'138 ) ) , 8'1 )	29953
 rbx	64'138	138
 rcx	64'0	0
 rdx	64'0	0
@@ -17607,7 +17607,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 417) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'29697	29697
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'139 ) ) , 8'1 )	29697
 rbx	64'139	139
 rcx	64'0	0
 rdx	64'0	0
@@ -17730,7 +17730,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 420) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'29441	29441
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'140 ) ) , 8'1 )	29441
 rbx	64'140	140
 rcx	64'0	0
 rdx	64'0	0
@@ -17853,7 +17853,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 423) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'29185	29185
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'141 ) ) , 8'1 )	29185
 rbx	64'141	141
 rcx	64'0	0
 rdx	64'0	0
@@ -17976,7 +17976,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 426) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'28929	28929
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'142 ) ) , 8'1 )	28929
 rbx	64'142	142
 rcx	64'0	0
 rdx	64'0	0
@@ -18099,7 +18099,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 429) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'28673	28673
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'143 ) ) , 8'1 )	28673
 rbx	64'143	143
 rcx	64'0	0
 rdx	64'0	0
@@ -18222,7 +18222,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 432) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'28417	28417
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'144 ) ) , 8'1 )	28417
 rbx	64'144	144
 rcx	64'0	0
 rdx	64'0	0
@@ -18345,7 +18345,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 435) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'28161	28161
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'145 ) ) , 8'1 )	28161
 rbx	64'145	145
 rcx	64'0	0
 rdx	64'0	0
@@ -18468,7 +18468,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 438) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'27905	27905
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'146 ) ) , 8'1 )	27905
 rbx	64'146	146
 rcx	64'0	0
 rdx	64'0	0
@@ -18591,7 +18591,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 441) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'27649	27649
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'147 ) ) , 8'1 )	27649
 rbx	64'147	147
 rcx	64'0	0
 rdx	64'0	0
@@ -18714,7 +18714,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 444) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'27393	27393
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'148 ) ) , 8'1 )	27393
 rbx	64'148	148
 rcx	64'0	0
 rdx	64'0	0
@@ -18837,7 +18837,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 447) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'27137	27137
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'149 ) ) , 8'1 )	27137
 rbx	64'149	149
 rcx	64'0	0
 rdx	64'0	0
@@ -18960,7 +18960,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 450) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'26881	26881
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'150 ) ) , 8'1 )	26881
 rbx	64'150	150
 rcx	64'0	0
 rdx	64'0	0
@@ -19083,7 +19083,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 453) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'26625	26625
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'151 ) ) , 8'1 )	26625
 rbx	64'151	151
 rcx	64'0	0
 rdx	64'0	0
@@ -19206,7 +19206,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 456) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'26369	26369
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'152 ) ) , 8'1 )	26369
 rbx	64'152	152
 rcx	64'0	0
 rdx	64'0	0
@@ -19329,7 +19329,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 459) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'26113	26113
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'153 ) ) , 8'1 )	26113
 rbx	64'153	153
 rcx	64'0	0
 rdx	64'0	0
@@ -19452,7 +19452,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 462) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'25857	25857
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'154 ) ) , 8'1 )	25857
 rbx	64'154	154
 rcx	64'0	0
 rdx	64'0	0
@@ -19575,7 +19575,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 465) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'25601	25601
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'155 ) ) , 8'1 )	25601
 rbx	64'155	155
 rcx	64'0	0
 rdx	64'0	0
@@ -19698,7 +19698,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 468) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'25345	25345
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'156 ) ) , 8'1 )	25345
 rbx	64'156	156
 rcx	64'0	0
 rdx	64'0	0
@@ -19821,7 +19821,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 471) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'25089	25089
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'157 ) ) , 8'1 )	25089
 rbx	64'157	157
 rcx	64'0	0
 rdx	64'0	0
@@ -19944,7 +19944,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 474) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'24833	24833
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'158 ) ) , 8'1 )	24833
 rbx	64'158	158
 rcx	64'0	0
 rdx	64'0	0
@@ -20067,7 +20067,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 477) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'24577	24577
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'159 ) ) , 8'1 )	24577
 rbx	64'159	159
 rcx	64'0	0
 rdx	64'0	0
@@ -20190,7 +20190,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 480) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'24321	24321
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'160 ) ) , 8'1 )	24321
 rbx	64'160	160
 rcx	64'0	0
 rdx	64'0	0
@@ -20313,7 +20313,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 483) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'24065	24065
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'161 ) ) , 8'1 )	24065
 rbx	64'161	161
 rcx	64'0	0
 rdx	64'0	0
@@ -20436,7 +20436,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 486) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'23809	23809
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'162 ) ) , 8'1 )	23809
 rbx	64'162	162
 rcx	64'0	0
 rdx	64'0	0
@@ -20559,7 +20559,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 489) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'23553	23553
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'163 ) ) , 8'1 )	23553
 rbx	64'163	163
 rcx	64'0	0
 rdx	64'0	0
@@ -20682,7 +20682,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 492) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'23297	23297
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'164 ) ) , 8'1 )	23297
 rbx	64'164	164
 rcx	64'0	0
 rdx	64'0	0
@@ -20805,7 +20805,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 495) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'23041	23041
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'165 ) ) , 8'1 )	23041
 rbx	64'165	165
 rcx	64'0	0
 rdx	64'0	0
@@ -20928,7 +20928,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 498) reg	kstate	xstate		48 c7 c0 ff 00 00 00	mov    $0xff,%rax
 ---------------------
-rax	64'22785	22785
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'166 ) ) , 8'1 )	22785
 rbx	64'166	166
 rcx	64'0	0
 rdx	64'0	0
@@ -21051,7 +21051,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 501) reg	kstate	xstate		90	nop
 ---------------------
-rax	64'22529	22529
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'167 ) ) , 8'1 )	22529
 rbx	64'167	167
 rcx	64'0	0
 rdx	64'0	0
@@ -21092,7 +21092,7 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 502) reg	kstate	xstate	
 ---------------------
-rax	64'22529	
+rax	concatenateMInt ( concatenateMInt ( 48'0 , div_remainder_int8 ( 16'255 , 8'167 ) ) , 8'1 )	
 rbx	64'167	
 rcx	64'0	
 rdx	64'0	
@@ -21131,4 +21131,672 @@ ymm13	256'0
 ymm14	256'0	
 ymm15	256'0	
 [4m[1m[34mtest Compare Results :[0m
+Failed:[4m[1m[91mFail[0m
+000000000000 != 0000000000ff
+rax at instrcount: 3
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000017f
+rax at instrcount: 6
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000055
+rax at instrcount: 9
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000033f
+rax at instrcount: 12
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000033
+rax at instrcount: 15
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000032a
+rax at instrcount: 18
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000324
+rax at instrcount: 21
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000071f
+rax at instrcount: 24
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000031c
+rax at instrcount: 27
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000519
+rax at instrcount: 30
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000217
+rax at instrcount: 33
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000315
+rax at instrcount: 36
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000813
+rax at instrcount: 39
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000312
+rax at instrcount: 42
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000011
+rax at instrcount: 45
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f0f
+rax at instrcount: 48
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000000f
+rax at instrcount: 51
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000030e
+rax at instrcount: 54
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000080d
+rax at instrcount: 57
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f0c
+rax at instrcount: 60
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000030c
+rax at instrcount: 63
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000d0b
+rax at instrcount: 66
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000020b
+rax at instrcount: 69
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f0a
+rax at instrcount: 72
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 00000000050a
+rax at instrcount: 75
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001509
+rax at instrcount: 78
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000c09
+rax at instrcount: 81
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000309
+rax at instrcount: 84
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001708
+rax at instrcount: 87
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f08
+rax at instrcount: 90
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000708
+rax at instrcount: 93
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001f07
+rax at instrcount: 96
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001807
+rax at instrcount: 99
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001107
+rax at instrcount: 102
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000a07
+rax at instrcount: 105
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000307
+rax at instrcount: 108
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002106
+rax at instrcount: 111
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001b06
+rax at instrcount: 114
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001506
+rax at instrcount: 117
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f06
+rax at instrcount: 120
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000906
+rax at instrcount: 123
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000306
+rax at instrcount: 126
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002805
+rax at instrcount: 129
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002305
+rax at instrcount: 132
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001e05
+rax at instrcount: 135
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001905
+rax at instrcount: 138
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001405
+rax at instrcount: 141
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f05
+rax at instrcount: 144
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000a05
+rax at instrcount: 147
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000505
+rax at instrcount: 150
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000005
+rax at instrcount: 153
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002f04
+rax at instrcount: 156
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002b04
+rax at instrcount: 159
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002704
+rax at instrcount: 162
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002304
+rax at instrcount: 165
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001f04
+rax at instrcount: 168
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001b04
+rax at instrcount: 171
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001704
+rax at instrcount: 174
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001304
+rax at instrcount: 177
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f04
+rax at instrcount: 180
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000b04
+rax at instrcount: 183
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000704
+rax at instrcount: 186
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000304
+rax at instrcount: 189
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003f03
+rax at instrcount: 192
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003c03
+rax at instrcount: 195
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003903
+rax at instrcount: 198
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003603
+rax at instrcount: 201
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003303
+rax at instrcount: 204
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003003
+rax at instrcount: 207
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002d03
+rax at instrcount: 210
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002a03
+rax at instrcount: 213
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002703
+rax at instrcount: 216
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002403
+rax at instrcount: 219
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002103
+rax at instrcount: 222
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001e03
+rax at instrcount: 225
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001b03
+rax at instrcount: 228
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001803
+rax at instrcount: 231
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001503
+rax at instrcount: 234
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001203
+rax at instrcount: 237
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f03
+rax at instrcount: 240
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000c03
+rax at instrcount: 243
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000903
+rax at instrcount: 246
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000603
+rax at instrcount: 249
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000303
+rax at instrcount: 252
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000003
+rax at instrcount: 255
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005302
+rax at instrcount: 258
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005102
+rax at instrcount: 261
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004f02
+rax at instrcount: 264
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004d02
+rax at instrcount: 267
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004b02
+rax at instrcount: 270
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004902
+rax at instrcount: 273
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004702
+rax at instrcount: 276
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004502
+rax at instrcount: 279
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004302
+rax at instrcount: 282
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000004102
+rax at instrcount: 285
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003f02
+rax at instrcount: 288
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003d02
+rax at instrcount: 291
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003b02
+rax at instrcount: 294
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003902
+rax at instrcount: 297
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003702
+rax at instrcount: 300
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003502
+rax at instrcount: 303
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003302
+rax at instrcount: 306
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000003102
+rax at instrcount: 309
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002f02
+rax at instrcount: 312
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002d02
+rax at instrcount: 315
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002b02
+rax at instrcount: 318
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002902
+rax at instrcount: 321
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002702
+rax at instrcount: 324
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002502
+rax at instrcount: 327
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002302
+rax at instrcount: 330
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000002102
+rax at instrcount: 333
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001f02
+rax at instrcount: 336
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001d02
+rax at instrcount: 339
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001b02
+rax at instrcount: 342
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001902
+rax at instrcount: 345
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001702
+rax at instrcount: 348
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001502
+rax at instrcount: 351
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001302
+rax at instrcount: 354
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000001102
+rax at instrcount: 357
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000f02
+rax at instrcount: 360
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000d02
+rax at instrcount: 363
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000b02
+rax at instrcount: 366
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000902
+rax at instrcount: 369
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000702
+rax at instrcount: 372
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000502
+rax at instrcount: 375
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000302
+rax at instrcount: 378
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000000102
+rax at instrcount: 381
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007f01
+rax at instrcount: 384
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007e01
+rax at instrcount: 387
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007d01
+rax at instrcount: 390
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007c01
+rax at instrcount: 393
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007b01
+rax at instrcount: 396
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007a01
+rax at instrcount: 399
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007901
+rax at instrcount: 402
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007801
+rax at instrcount: 405
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007701
+rax at instrcount: 408
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007601
+rax at instrcount: 411
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007501
+rax at instrcount: 414
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007401
+rax at instrcount: 417
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007301
+rax at instrcount: 420
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007201
+rax at instrcount: 423
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007101
+rax at instrcount: 426
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000007001
+rax at instrcount: 429
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006f01
+rax at instrcount: 432
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006e01
+rax at instrcount: 435
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006d01
+rax at instrcount: 438
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006c01
+rax at instrcount: 441
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006b01
+rax at instrcount: 444
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006a01
+rax at instrcount: 447
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006901
+rax at instrcount: 450
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006801
+rax at instrcount: 453
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006701
+rax at instrcount: 456
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006601
+rax at instrcount: 459
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006501
+rax at instrcount: 462
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006401
+rax at instrcount: 465
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006301
+rax at instrcount: 468
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006201
+rax at instrcount: 471
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006101
+rax at instrcount: 474
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000006001
+rax at instrcount: 477
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005f01
+rax at instrcount: 480
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005e01
+rax at instrcount: 483
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005d01
+rax at instrcount: 486
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005c01
+rax at instrcount: 489
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005b01
+rax at instrcount: 492
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005a01
+rax at instrcount: 495
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005901
+rax at instrcount: 498
+
+Failed:[4m[1m[91mFail[0m
+000000000000 != 000000005801
+rax at instrcount: 501
+
 Passed:[4m[1m[92mPassed[0m
