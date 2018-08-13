@@ -79,7 +79,7 @@ module PCMPESTRI-XMM-XMM-IMM8
   // ELse
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(mi(64, scanForward(IntRes2, uvalueMInt(NumElems) -Int 1, uvalueMInt(NumElems))), %rcx)
+      setRegisterValue(mi(64, scanForward(IntRes2, uvalueMInt(NumElems) -Int 1, uvalueMInt(NumElems))), %rcx) ~>
       setFlag(mi(1,1), "CF") ~>
       setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
       setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
@@ -92,7 +92,7 @@ module PCMPESTRI-XMM-XMM-IMM8
 
   rule <k>
     execinstr (pcmpestri Imm8:MInt, Xmm2:Xmm, Xmm1:Xmm, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
-      setRegisterValue(mi(64, scanReverse(IntRes2, 0, uvalueMInt(NumElems))), %rcx)
+      setRegisterValue(mi(64, scanReverse(IntRes2, 0, uvalueMInt(NumElems))), %rcx) ~>
       setFlag(mi(1,1), "CF") ~>
       setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
       setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
