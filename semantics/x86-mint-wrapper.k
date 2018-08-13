@@ -932,41 +932,51 @@ module MINT-WRAPPER
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 53,11)))
     requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 63 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 63) 
+      // andBool check if not Infinity or NaN
 
   rule cvt_double_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
     requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 63 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 63) 
+      // orBool if Inf or NaN
 
   // double -> int32
   rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32, Float2Int(MInt2Float(MI, 53,11)))
     requires Float2Int(MInt2Float(MI, 53,11)) <=Int (2 ^Int 31 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 53,11)) >=Int (-1 *Int 2 ^Int 31) 
+      // andBool check if not Infinity or NaN
 
   rule cvt_double_to_int32_truncate(MI:MInt) =>  mi(32, -2147483648)
     requires Float2Int(MInt2Float(MI, 53,11)) >Int (2 ^Int 31 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 53,11)) <Int (-1 *Int 2 ^Int 31) 
+      // orBool if Inf or NaN
 
   // float -> int64
   rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, Float2Int(MInt2Float(MI, 24,8)))
     requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 63 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 63) 
+      // andBool check if not Inf or NaN
 
   rule cvt_single_to_int64_truncate(MI:MInt) =>  mi(64, -9223372036854775808)
     requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 63 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 63) 
+      // orBool check if  Inf or NaN
 
   // float -> int32
   rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32, Float2Int(MInt2Float(MI, 24,8)))
     requires  Float2Int(MInt2Float(MI, 24,8)) <=Int (2 ^Int 31 -Int 1) 
       andBool Float2Int(MInt2Float(MI, 24,8)) >=Int (-1 *Int 2 ^Int 31) 
+      // andBool check if not Inf or NaN
 
   rule cvt_single_to_int32_truncate(MI:MInt) =>  mi(32, -2147483648)
     requires Float2Int(MInt2Float(MI, 24,8)) >Int (2 ^Int 31 -Int 1) 
       orBool Float2Int(MInt2Float(MI, 24,8)) <Int (-1 *Int 2 ^Int 31) 
+      // orBool check if  Inf or NaN
 
-  //rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 53, 11)), 64)
 
-  //rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI1, 24, 8)), 32)
+  rule sqrt_double(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI, 53, 11)), 64)
+  rule sqrt_single(MI:MInt) => Float2MInt(sqrtFloat(MInt2Float(MI, 24, 8)), 32)
+  rule approx_reciprocal_double(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 53, 11), 64)
+  rule approx_reciprocal_single(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 24, 8), 32)
 
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
