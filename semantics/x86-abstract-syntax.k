@@ -162,6 +162,8 @@ module X86-ASBTRACT-SYNTAX
   syntax MInt ::= polarityImpl(MInt, MInt, Int, MInt) [function]
   syntax MInt ::= polarityImplHelper(MInt, MInt, Int, MInt, Int) [function]
   syntax MInt ::= updatePolarity(MInt, Int, MInt) [function]
+  syntax MInt ::= expandMask(MInt) [function]
+  syntax MInt ::= expandMaskHelper(MInt, Int, Int) [function]
 
   // Equal Any
   syntax MInt ::= equalAnyImpl( MInt, MInt, MInt, MInt, Int, MInt) [function]

@@ -813,4 +813,52 @@ module X86-ABSTRACT-SEMANTICS
           negMInt(extractMask(IntRes1, 1, Index)) #else
           extractMask(IntRes1, 1, Index) #fi
         , Index)
+
+  /*@
+    Expand Mask
+  */
+  rule expandMask(IntRes2:MInt) =>  expandMaskHelper(IntRes2, bitwidthMInt(IntRes2), 0)
+
+  rule expandMaskHelper(IntRes2:MInt, NumElems:Int, Count:Int) => 
+    #ifMInt eqMInt(extractMask(IntRes2, 1, Count), mi(1, 0)) 
+    #then 
+        {#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi}:>MInt
+    #else    
+        {#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi}:>MInt
+    #fi
+      requires Count ==Int (NumElems -Int 1)
+
+
+  rule expandMaskHelper(IntRes2:MInt, NumElems:Int, Count:Int) => 
+    concatenateMInt(
+        expandMaskHelper(IntRes2, NumElems, Count +Int 1),
+        #ifMInt eqMInt(extractMask(IntRes2, 1, Count), mi(1, 0)) 
+        #then 
+          {#ifMInt NumElems ==Int 8 #then mi(16, 0) #else mi(8, 0) #fi}:>MInt
+        #else    
+          {#ifMInt NumElems ==Int 8 #then mi(16, -1) #else mi(8, -1) #fi}:>MInt
+        #fi
+      )
+        requires Count =/=Int (NumElems -Int 1)
+
+
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
