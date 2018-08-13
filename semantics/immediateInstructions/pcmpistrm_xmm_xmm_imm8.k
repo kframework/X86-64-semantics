@@ -71,7 +71,7 @@ module PCMPISTRM-XMM-XMM-IMM8
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0)) 
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 0)) 
 
   rule <k>
     execinstr (pcmpistrm Imm8:MInt,  Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
@@ -83,6 +83,6 @@ module PCMPISTRM-XMM-XMM-IMM8
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) )
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 1) )
       
 endmodule
