@@ -156,9 +156,11 @@ module X86-ASBTRACT-SYNTAX
   syntax Int ::= scanReverse(MInt, Int, Int) [function]
 
   /*@
-    pcmpestri
+    pcmp(e/i)str(i/m)
   */
   syntax MInt ::= findLimitIndexE(MInt, MInt, MInt) [function]
+  syntax MInt ::= findLimitIndexI(MInt, MInt) [function]
+  syntax MInt ::= findLimitIndexIHelper(MInt, Int, Int, Int) [function]
   syntax MInt ::= polarityImpl(MInt, MInt, Int, MInt) [function]
   syntax MInt ::= polarityImplHelper(MInt, MInt, Int, MInt, Int) [function]
   syntax MInt ::= updatePolarity(MInt, Int, MInt) [function]
