@@ -24,6 +24,7 @@ module MINT-WRAPPER-SYNTAX
   syntax MInt ::= "zeroMIntW256"
   syntax MInt ::= "oneMIntW1"
   syntax MInt ::= "oneMIntW64"
+  syntax MInt ::= "divideError"
 
   /*@
     Sort List
@@ -637,138 +638,281 @@ module MINT-WRAPPER
     requires  (notBool isNaN(MInt2Float(MI1, 24, 8)))  andBool  isNaN(MInt2Float(MI2, 24, 8)) 
 
 
-  // signed divs
-  rule idiv_quotient_int64(MI1:MInt, MI2:MInt) => 
+  // Signed Divide
+  // Helpers     
+  syntax MInt ::= idivQuotientHelper(MInt, MInt, MInt, Int) [function]
+  syntax MInt ::= idivRemainderHelper(MInt, MInt, MInt, Int) [function]
+
+  rule  idivQuotientHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => divideError
+   requires svalueMInt(MIR) >Int ((2 ^Int OperandSize -Int 1) -Int 1) 
+     orBool svalueMInt(MIR) <Int (-1 *Int (2 ^Int OperandSize -Int 1))
+
+  rule  idivQuotientHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => 
+   extractMInt(MIR, bitwidthMInt(MI2), bitwidthMInt(MI1))  
+   requires notBool(
+       svalueMInt(MIR) >Int ((2 ^Int OperandSize -Int 1) -Int 1) 
+     orBool svalueMInt(MIR) <Int (-1 *Int (2 ^Int OperandSize -Int 1))
+     )
+
+  rule  idivRemainderHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => divideError
+   requires svalueMInt(MIR) >Int ((2 ^Int OperandSize -Int 1) -Int 1) 
+     orBool svalueMInt(MIR) <Int (-1 *Int (2 ^Int OperandSize -Int 1))
+
+  rule  idivRemainderHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => 
     extractMInt(
+    miMInt(sremMInt(
+        MI1, 
+        signExtend(MI2, bitwidthMInt(MI1))
+        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+   requires notBool(
+       svalueMInt(MIR) >Int ((2 ^Int OperandSize -Int 1) -Int 1) 
+     orBool svalueMInt(MIR) <Int (-1 *Int (2 ^Int OperandSize -Int 1))
+     )
+
+  // Quotient
+  // 64-bit
+  rule idiv_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule idiv_quotient_int64(MI1:MInt, MI2:MInt) => idivQuotientHelper(MI1, MI2,
       miMInt(
         sdivMInt(
           MI1, 
           signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+        )), 64)
       requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+      andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule idiv_quotient_int32(MI1:MInt, MI2:MInt) => 
-    extractMInt(
-    miMInt(sdivMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  // 32-bit
+  rule idiv_quotient_int32(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule idiv_quotient_int32(MI1:MInt, MI2:MInt) => idivQuotientHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 32)
       requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+      andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule idiv_quotient_int16(MI1:MInt, MI2:MInt) => 
-    extractMInt(
-    miMInt(sdivMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  // 16-bit
+  rule idiv_quotient_int16(MI1:MInt, MI2:MInt) => divideError
       requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule idiv_quotient_int8(MI1:MInt, MI2:MInt)  => 
-    extractMInt(
-    miMInt(sdivMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  rule idiv_quotient_int16(MI1:MInt, MI2:MInt) => idivQuotientHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 16)
+      requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+      andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 8-bit
+  rule idiv_quotient_int8(MI1:MInt, MI2:MInt) => divideError
       requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule idiv_quotient_int8(MI1:MInt, MI2:MInt) => idivQuotientHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 8)
+      requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+      andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
   // signed remainders
-  rule idiv_remainder_int64(MI1:MInt, MI2:MInt) => 
-    extractMInt(
-    miMInt(sremMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
-      requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
-
-  rule idiv_remainder_int32(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    miMInt(sremMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
-      requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
-
-  rule idiv_remainder_int16(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    miMInt(sremMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
-      requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
-
-  rule idiv_remainder_int8(MI1:MInt, MI2:MInt)  =>
-    extractMInt(
-    miMInt(sremMInt(
-        MI1, 
-        signExtend(MI2, bitwidthMInt(MI1))
-        )), bitwidthMInt(MI2), bitwidthMInt(MI1))
-      requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
-
-  // unsigned divs
-  rule div_quotient_int64(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    udivMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  // 64-bit
+  rule idiv_remainder_int64(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_quotient_int32(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    udivMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
-    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
-
-  rule div_quotient_int16(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    udivMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
-    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
-
-  rule div_quotient_int8(MI1:MInt, MI2:MInt)  =>
-    extractMInt(
-    udivMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
-    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
-
-  // unsigned remainders
-  rule div_remainder_int64(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    uremMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  rule idiv_remainder_int64(MI1:MInt, MI2:MInt) => idivRemainderHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 64)
     requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_remainder_int32(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    uremMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  // 32-bit
+  rule idiv_remainder_int32(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_remainder_int16(MI1:MInt, MI2:MInt) =>
-    extractMInt(
-    uremMInt(
-        MI1, 
-        zeroExtend(MI2, bitwidthMInt(MI1))
-        ), bitwidthMInt(MI2), bitwidthMInt(MI1))
+  rule idiv_remainder_int32(MI1:MInt, MI2:MInt) => idivRemainderHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 32)
+    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 16-bit
+  rule idiv_remainder_int16(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
-  rule div_remainder_int8(MI1:MInt, MI2:MInt)  =>
+  rule idiv_remainder_int16(MI1:MInt, MI2:MInt) => idivRemainderHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 16)
+    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 8-bit
+  rule idiv_remainder_int8(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule idiv_remainder_int8(MI1:MInt, MI2:MInt) => idivRemainderHelper(MI1, MI2,
+      miMInt(
+        sdivMInt(
+          MI1, 
+          signExtend(MI2, bitwidthMInt(MI1))
+        )), 8)
+    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+  /*@
+    Unsigned Divide
+  */
+  // Helpers     
+  syntax MInt ::= divQuotientHelper(MInt, MInt, MInt, Int) [function]
+  syntax MInt ::= divRemainderHelper(MInt, MInt, MInt, Int) [function]
+
+  rule  divQuotientHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => divideError
+   requires uvalueMInt(MIR) >Int ((2 ^Int OperandSize) -Int 1) 
+
+  rule  divQuotientHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => 
+   extractMInt(MIR, bitwidthMInt(MI2), bitwidthMInt(MI1))  
+    requires uvalueMInt(MIR) <=Int ((2 ^Int OperandSize) -Int 1) 
+
+  rule  divRemainderHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => divideError
+   requires uvalueMInt(MIR) >Int ((2 ^Int OperandSize) -Int 1) 
+
+  rule  divRemainderHelper(MI1:MInt, MI2:MInt, MIR:MInt, OperandSize:Int) => 
     extractMInt(
     uremMInt(
         MI1, 
         zeroExtend(MI2, bitwidthMInt(MI1))
         ), bitwidthMInt(MI2), bitwidthMInt(MI1))
+      requires uvalueMInt(MIR) <=Int ((2 ^Int OperandSize) -Int 1)
+
+  // Unsigned Quotient
+  // 64-bit    
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divQuotientHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 64)
+    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 32-bit
+  rule div_quotient_int32(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_quotient_int32(MI1:MInt, MI2:MInt) => divQuotientHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 32)
+    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+      
+  // 16-bit
+  rule div_quotient_int32(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_quotient_int16(MI1:MInt, MI2:MInt) => divQuotientHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 16)
+    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 8-bit
+  rule div_quotient_int32(MI1:MInt, MI2:MInt) => divideError
     requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_quotient_int8(MI1:MInt, MI2:MInt)  => divQuotientHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 8)
+    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // Unsigned Remainders
+  //64-bit
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 64)
+    requires bitwidthMInt(MI1) ==Int 128 andBool bitwidthMInt(MI2) ==Int 64
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 32-bit
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 32)
+    requires bitwidthMInt(MI1) ==Int 64 andBool bitwidthMInt(MI2) ==Int 32
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  // 16-bit
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 16)
+    requires bitwidthMInt(MI1) ==Int 32 andBool bitwidthMInt(MI2) ==Int 16
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+
+  // 8-bit
+  rule div_quotient_int64(MI1:MInt, MI2:MInt) => divideError
+    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
+
+  rule div_remainder_int64(MI1:MInt, MI2:MInt) => divRemainderHelper(MI1, MI2,
+    udivMInt(
+        MI1, 
+        zeroExtend(MI2, bitwidthMInt(MI1))
+        ), 8)
+    requires bitwidthMInt(MI1) ==Int 16 andBool bitwidthMInt(MI2) ==Int 8
+    andBool notBool eqMInt(MI2, mi(bitwidthMInt(MI2), 0))
 
   /*@
       Define unary uifs
