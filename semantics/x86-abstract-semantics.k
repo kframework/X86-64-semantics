@@ -563,7 +563,8 @@ module X86-ABSTRACT-SEMANTICS
     requires Count2 ==Int  UB2
     
   rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
-  equalAnyImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, IntRes1, UB2, Count2, NumElems, 0)
+  equalAnyImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, IntRes1, UB2, Count2, NumElems, 0) ~>
+  equalAnyImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, IntRes1, UB2, Count2 +Int 1)
     requires Count2 =/=Int  UB2
     
 
@@ -574,7 +575,7 @@ module X86-ABSTRACT-SEMANTICS
   rule equalAnyImplHelper2(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
       SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int, UB1:Int, Count1:Int) => 
     equalAnyImplHelper2(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
-        updateIntRes1EqualAny(IntRes1, Count2, Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU), UB2, Count2, UB1, Count1)
+        updateIntRes1EqualAny(IntRes1, Count2, Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU), UB2, Count2, UB1, Count1 +Int 1)
     requires Count1 =/=Int  UB1
 
 
