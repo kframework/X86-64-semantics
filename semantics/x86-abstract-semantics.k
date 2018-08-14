@@ -674,6 +674,7 @@ module X86-ABSTRACT-SEMANTICS
   /*@
     Range
   */
+  // execinstr ( pcmpestri 8'4 , 128'0 , 128'0 , 8'0 , 8'0 , 8'16 , 1'0 , rangeImplHelper1 ( 128'0 , 128'0 , 8'0 , 8'0 , 16 , 1'0 , 16'0 , 16 , 0 ) , rangeImplHelper1 ( 128'0 , 128'0 , 8'0 , 8'0 , 16 , 1'0 , 16'0 , 16 , 0 ) , .Operands ) 
   rule rangeImpl(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) =>
     rangeImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, mi(NumElems, 0), NumElems, 0)
 
@@ -707,11 +708,13 @@ module X86-ABSTRACT-SEMANTICS
         orMInt(
           extractMask(IntRes1, 1, Index), 
           compareRange(Count2, Count1, Value2, Value1, Limit2, Limit1, NumElems, SOrU)
-        ), Index)
+        ), 
+        Index)
 
   // Compare Range
   rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
-      requires Count1 >=Int uvalueMInt(Limit1) orBool (Count1 +Int 1) >=Int uvalueMInt(Limit1) orBool Count2 >=Int uvalueMInt(Limit2)  // If any of the data is invalid return 0
+      requires Count1 >=Int uvalueMInt(Limit1) orBool (Count1 +Int 1) >=Int uvalueMInt(Limit1) orBool Count2 >=Int uvalueMInt(Limit2)  
+  // If any of the data is invalid return 0
 
   rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
     andMInt(
@@ -726,7 +729,8 @@ module X86-ABSTRACT-SEMANTICS
           SOrU
       ))
 
-      requires Count1 <Int uvalueMInt(Limit1) andBool Count2 <Int uvalueMInt(Limit2) // If both of the data are valid, return comparison result
+      requires notBool (Count1 >=Int uvalueMInt(Limit1) orBool (Count1 +Int 1) >=Int uvalueMInt(Limit1) orBool Count2 >=Int uvalueMInt(Limit2)  )
+  // If both of the data are valid, return comparison result
 
   /*@
     Equal Ordered
@@ -767,13 +771,13 @@ module X86-ABSTRACT-SEMANTICS
         ), Index)
 
   // Compare Equal Ordered
-  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 1)
+  rule compareEqualOrdered(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 1)
       requires Count1 >=Int uvalueMInt(Limit1) // If count1 is invalid
 
-  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
+  rule compareEqualOrdered(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => mi(1, 0)
       requires Count1 <Int uvalueMInt(Limit1) andBool  Count2 >=Int uvalueMInt(Limit2) // If count1 is invalid, ut count2 invalid 
 
-  rule compareRange(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
+  rule compareEqualOrdered(Count2:Int, Count1:Int, Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) => 
       compareEqualSignedOrUnsigned(
           extractMask(Value2, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count2 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
           extractMask(Value1, {#ifInt NumElems ==Int 8 #then 16 #else 8 #fi}:>Int, Count1 *Int {#if NumElems ==Int 8 #then 16 #else 8 #fi}:>Int),
