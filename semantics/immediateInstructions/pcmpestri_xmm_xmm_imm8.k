@@ -62,7 +62,6 @@ module PCMPESTRI-XMM-XMM-IMM8
   ...</k>
       
   // Output Selection
-  // pcmpestri 8'1 , 128'0 , 128'0 , 64'0 , 64'0 , 8'8 , 1'0 , 8'0 , 8'0 , .Operands
   // If no bit is set, 16 or 8 is returned.
   rule <k>
     execinstr (pcmpestri Imm8:MInt,  Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 

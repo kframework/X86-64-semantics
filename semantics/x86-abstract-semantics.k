@@ -633,12 +633,13 @@ module X86-ABSTRACT-SEMANTICS
   rule equalEachImpl(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt) =>
     equalEachImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, mi(NumElems, 0), NumElems, 0)
 
-  rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+  rule equalEachImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
       SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => IntRes1
     requires Count2 ==Int  UB2
     
-  rule equalAnyImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
-  equalAnyImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
+  rule equalEachImplHelper1(Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:Int, 
+      SOrU:MInt, IntRes1:MInt, UB2:Int, Count2:Int) => 
+  equalEachImplHelper1(Value2, Value1, Limit2, Limit1, NumElems, SOrU, 
       updateIntRes1EqualEach(IntRes1, Count2, Value2, Value1, Limit2, Limit1, NumElems, SOrU), 
       UB2, Count2 +Int 1)
     requires Count2 =/=Int  UB2
@@ -834,8 +835,8 @@ module X86-ABSTRACT-SEMANTICS
     plugInMask(
         IntRes1, 
         #ifMInt Index >=Int uvalueMInt(Limit2) #then 
-          negMInt(extractMask(IntRes1, 1, Index)) #else
-          extractMask(IntRes1, 1, Index) #fi
+          extractMask(IntRes1, 1, Index) #else
+          negMInt(extractMask(IntRes1, 1, Index)) #fi
         , Index)
 
   /*@
