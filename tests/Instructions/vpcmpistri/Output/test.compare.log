@@ -1,4 +1,12 @@
 
+Generate: Output/test.kstate 
+../../../scripts/run.pl --file test.s --krun --output Output/test.kstate
+time krun -d /home/sdasgup3/Github/binary-decompilation/x86-semantics/semantics/ test.s '-cARGV=`.List`(.KList))))))' '-pARGV=printf %s' '-cREGV= regvalpair("RIP", mi(64, 0)) regvalpair("RAX",  mi(64, 0)) regvalpair("RBX"    , mi(64, 0)) regvalpair("RCX"    , mi(64, 0)) regvalpair("RDX"    , mi(64, 0)) regvalpair("RSI"    , mi(64, 0)) regvalpair("RDI"    , mi(64, 0)) regvalpair("RSP"    , mi(64, 0)) regvalpair("RBP"    , mi(64, 0)) regvalpair("R8"     , mi(64, 0)) regvalpair("R9"     , mi(64, 0)) regvalpair("R10"    , mi(64, 0)) regvalpair("R11"    , mi(64, 0)) regvalpair("R12"    , mi(64, 0)) regvalpair("R13"    , mi(64, 0)) regvalpair("R14"    , mi(64, 0)) regvalpair("R15"    , mi(64, 0)) regvalpair("CF"     , mi(1, 0)) regvalpair("DF" , mi(1, 0)) regvalpair("PF" , mi(1, 0)) regvalpair("AF"     , mi(1, 0)) regvalpair("ZF"     , mi(1, 0)) regvalpair("SF"     , mi(1, 0)) regvalpair("OF"     , mi(1, 0)) regvalpair("YMM0"   ,  mi(256, 0)) regvalpair("YMM1"   ,  mi(256, 0)) regvalpair("YMM2"   ,  mi(256, 0)) regvalpair("YMM3"   ,  mi(256, 0)) regvalpair("YMM4"   ,  mi(256, 0)) regvalpair("YMM5"   ,  mi(256, 0)) regvalpair("YMM6"   ,  mi(256, 0)) regvalpair("YMM7"   ,  mi(256, 0)) regvalpair("YMM8"   ,  mi(256, 0)) regvalpair("YMM9"   ,  mi(256, 0)) regvalpair("YMM10"  ,  mi(256, 0)) regvalpair("YMM11"  ,  mi(256, 0)) regvalpair("YMM12"  ,  mi(256, 0)) regvalpair("YMM13"  ,  mi(256, 0)) regvalpair("YMM14"  ,  mi(256, 0)) regvalpair("YMM15"  ,  mi(256, 0))' --output-file Output/test.kstate 
+117.06user 1.84system 0:52.62elapsed 225%CPU (0avgtext+0avgdata 2526388maxresident)k
+0inputs+25296outputs (0major+878796minor)pagefaults 0swaps
+cat Output/test.kstate | sed  '/^\s*$/d' | sed 's/(\s*"/(\n"/g'  1> /tmp/tmpfilepaUHY  2>&1 &&  mv /tmp/tmpfilepaUHY Output/test.kstate 
+Passed:[4m[1m[92mOutput/test.kstate: Pass: krun[0m
+
 Generate: Output/test.xstate 
 ../../../scripts/run.pl --file test.s --xrun --output Output/test.xstate
 as test.s -o Output//test.o 
@@ -7,141 +15,141 @@ gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/s
 
 Compare: Output/test.cstate 
 ../../../scripts/run.pl --file Output/test.kstate --compare 
-grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileE74Pa 2>&1 
+grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilehp796 2>&1 
 numOfInstrs: 130
 
-	0:	c4 e3 79 61 c8 00	vpcmpestri $0x0,%xmm0,%xmm1
-	1:	c4 e3 79 61 c8 01	vpcmpestri $0x1,%xmm0,%xmm1
-	2:	c4 e3 79 61 c8 02	vpcmpestri $0x2,%xmm0,%xmm1
-	3:	c4 e3 79 61 c8 03	vpcmpestri $0x3,%xmm0,%xmm1
-	4:	c4 e3 79 61 c8 04	vpcmpestri $0x4,%xmm0,%xmm1
-	5:	c4 e3 79 61 c8 05	vpcmpestri $0x5,%xmm0,%xmm1
-	6:	c4 e3 79 61 c8 06	vpcmpestri $0x6,%xmm0,%xmm1
-	7:	c4 e3 79 61 c8 07	vpcmpestri $0x7,%xmm0,%xmm1
-	8:	c4 e3 79 61 c8 08	vpcmpestri $0x8,%xmm0,%xmm1
-	9:	c4 e3 79 61 c8 09	vpcmpestri $0x9,%xmm0,%xmm1
-	10:	c4 e3 79 61 c8 0a	vpcmpestri $0xa,%xmm0,%xmm1
-	11:	c4 e3 79 61 c8 0b	vpcmpestri $0xb,%xmm0,%xmm1
-	12:	c4 e3 79 61 c8 0c	vpcmpestri $0xc,%xmm0,%xmm1
-	13:	c4 e3 79 61 c8 0d	vpcmpestri $0xd,%xmm0,%xmm1
-	14:	c4 e3 79 61 c8 0e	vpcmpestri $0xe,%xmm0,%xmm1
-	15:	c4 e3 79 61 c8 0f	vpcmpestri $0xf,%xmm0,%xmm1
-	16:	c4 e3 79 61 c8 10	vpcmpestri $0x10,%xmm0,%xmm1
-	17:	c4 e3 79 61 c8 11	vpcmpestri $0x11,%xmm0,%xmm1
-	18:	c4 e3 79 61 c8 12	vpcmpestri $0x12,%xmm0,%xmm1
-	19:	c4 e3 79 61 c8 13	vpcmpestri $0x13,%xmm0,%xmm1
-	20:	c4 e3 79 61 c8 14	vpcmpestri $0x14,%xmm0,%xmm1
-	21:	c4 e3 79 61 c8 15	vpcmpestri $0x15,%xmm0,%xmm1
-	22:	c4 e3 79 61 c8 16	vpcmpestri $0x16,%xmm0,%xmm1
-	23:	c4 e3 79 61 c8 17	vpcmpestri $0x17,%xmm0,%xmm1
-	24:	c4 e3 79 61 c8 18	vpcmpestri $0x18,%xmm0,%xmm1
-	25:	c4 e3 79 61 c8 19	vpcmpestri $0x19,%xmm0,%xmm1
-	26:	c4 e3 79 61 c8 1a	vpcmpestri $0x1a,%xmm0,%xmm1
-	27:	c4 e3 79 61 c8 1b	vpcmpestri $0x1b,%xmm0,%xmm1
-	28:	c4 e3 79 61 c8 1c	vpcmpestri $0x1c,%xmm0,%xmm1
-	29:	c4 e3 79 61 c8 1d	vpcmpestri $0x1d,%xmm0,%xmm1
-	30:	c4 e3 79 61 c8 1e	vpcmpestri $0x1e,%xmm0,%xmm1
-	31:	c4 e3 79 61 c8 1f	vpcmpestri $0x1f,%xmm0,%xmm1
-	32:	c4 e3 79 61 c8 20	vpcmpestri $0x20,%xmm0,%xmm1
-	33:	c4 e3 79 61 c8 21	vpcmpestri $0x21,%xmm0,%xmm1
-	34:	c4 e3 79 61 c8 22	vpcmpestri $0x22,%xmm0,%xmm1
-	35:	c4 e3 79 61 c8 23	vpcmpestri $0x23,%xmm0,%xmm1
-	36:	c4 e3 79 61 c8 24	vpcmpestri $0x24,%xmm0,%xmm1
-	37:	c4 e3 79 61 c8 25	vpcmpestri $0x25,%xmm0,%xmm1
-	38:	c4 e3 79 61 c8 26	vpcmpestri $0x26,%xmm0,%xmm1
-	39:	c4 e3 79 61 c8 27	vpcmpestri $0x27,%xmm0,%xmm1
-	40:	c4 e3 79 61 c8 28	vpcmpestri $0x28,%xmm0,%xmm1
-	41:	c4 e3 79 61 c8 29	vpcmpestri $0x29,%xmm0,%xmm1
-	42:	c4 e3 79 61 c8 2a	vpcmpestri $0x2a,%xmm0,%xmm1
-	43:	c4 e3 79 61 c8 2b	vpcmpestri $0x2b,%xmm0,%xmm1
-	44:	c4 e3 79 61 c8 2c	vpcmpestri $0x2c,%xmm0,%xmm1
-	45:	c4 e3 79 61 c8 2d	vpcmpestri $0x2d,%xmm0,%xmm1
-	46:	c4 e3 79 61 c8 2e	vpcmpestri $0x2e,%xmm0,%xmm1
-	47:	c4 e3 79 61 c8 2f	vpcmpestri $0x2f,%xmm0,%xmm1
-	48:	c4 e3 79 61 c8 30	vpcmpestri $0x30,%xmm0,%xmm1
-	49:	c4 e3 79 61 c8 31	vpcmpestri $0x31,%xmm0,%xmm1
-	50:	c4 e3 79 61 c8 32	vpcmpestri $0x32,%xmm0,%xmm1
-	51:	c4 e3 79 61 c8 33	vpcmpestri $0x33,%xmm0,%xmm1
-	52:	c4 e3 79 61 c8 34	vpcmpestri $0x34,%xmm0,%xmm1
-	53:	c4 e3 79 61 c8 35	vpcmpestri $0x35,%xmm0,%xmm1
-	54:	c4 e3 79 61 c8 36	vpcmpestri $0x36,%xmm0,%xmm1
-	55:	c4 e3 79 61 c8 37	vpcmpestri $0x37,%xmm0,%xmm1
-	56:	c4 e3 79 61 c8 38	vpcmpestri $0x38,%xmm0,%xmm1
-	57:	c4 e3 79 61 c8 39	vpcmpestri $0x39,%xmm0,%xmm1
-	58:	c4 e3 79 61 c8 3a	vpcmpestri $0x3a,%xmm0,%xmm1
-	59:	c4 e3 79 61 c8 3b	vpcmpestri $0x3b,%xmm0,%xmm1
-	60:	c4 e3 79 61 c8 3c	vpcmpestri $0x3c,%xmm0,%xmm1
-	61:	c4 e3 79 61 c8 3d	vpcmpestri $0x3d,%xmm0,%xmm1
-	62:	c4 e3 79 61 c8 3e	vpcmpestri $0x3e,%xmm0,%xmm1
-	63:	c4 e3 79 61 c8 3f	vpcmpestri $0x3f,%xmm0,%xmm1
-	64:	c4 e3 79 61 c8 40	vpcmpestri $0x40,%xmm0,%xmm1
-	65:	c4 e3 79 61 c8 41	vpcmpestri $0x41,%xmm0,%xmm1
-	66:	c4 e3 79 61 c8 42	vpcmpestri $0x42,%xmm0,%xmm1
-	67:	c4 e3 79 61 c8 43	vpcmpestri $0x43,%xmm0,%xmm1
-	68:	c4 e3 79 61 c8 44	vpcmpestri $0x44,%xmm0,%xmm1
-	69:	c4 e3 79 61 c8 45	vpcmpestri $0x45,%xmm0,%xmm1
-	70:	c4 e3 79 61 c8 46	vpcmpestri $0x46,%xmm0,%xmm1
-	71:	c4 e3 79 61 c8 47	vpcmpestri $0x47,%xmm0,%xmm1
-	72:	c4 e3 79 61 c8 48	vpcmpestri $0x48,%xmm0,%xmm1
-	73:	c4 e3 79 61 c8 49	vpcmpestri $0x49,%xmm0,%xmm1
-	74:	c4 e3 79 61 c8 4a	vpcmpestri $0x4a,%xmm0,%xmm1
-	75:	c4 e3 79 61 c8 4b	vpcmpestri $0x4b,%xmm0,%xmm1
-	76:	c4 e3 79 61 c8 4c	vpcmpestri $0x4c,%xmm0,%xmm1
-	77:	c4 e3 79 61 c8 4d	vpcmpestri $0x4d,%xmm0,%xmm1
-	78:	c4 e3 79 61 c8 4e	vpcmpestri $0x4e,%xmm0,%xmm1
-	79:	c4 e3 79 61 c8 4f	vpcmpestri $0x4f,%xmm0,%xmm1
-	80:	c4 e3 79 61 c8 50	vpcmpestri $0x50,%xmm0,%xmm1
-	81:	c4 e3 79 61 c8 51	vpcmpestri $0x51,%xmm0,%xmm1
-	82:	c4 e3 79 61 c8 52	vpcmpestri $0x52,%xmm0,%xmm1
-	83:	c4 e3 79 61 c8 53	vpcmpestri $0x53,%xmm0,%xmm1
-	84:	c4 e3 79 61 c8 54	vpcmpestri $0x54,%xmm0,%xmm1
-	85:	c4 e3 79 61 c8 55	vpcmpestri $0x55,%xmm0,%xmm1
-	86:	c4 e3 79 61 c8 56	vpcmpestri $0x56,%xmm0,%xmm1
-	87:	c4 e3 79 61 c8 57	vpcmpestri $0x57,%xmm0,%xmm1
-	88:	c4 e3 79 61 c8 58	vpcmpestri $0x58,%xmm0,%xmm1
-	89:	c4 e3 79 61 c8 59	vpcmpestri $0x59,%xmm0,%xmm1
-	90:	c4 e3 79 61 c8 5a	vpcmpestri $0x5a,%xmm0,%xmm1
-	91:	c4 e3 79 61 c8 5b	vpcmpestri $0x5b,%xmm0,%xmm1
-	92:	c4 e3 79 61 c8 5c	vpcmpestri $0x5c,%xmm0,%xmm1
-	93:	c4 e3 79 61 c8 5d	vpcmpestri $0x5d,%xmm0,%xmm1
-	94:	c4 e3 79 61 c8 5e	vpcmpestri $0x5e,%xmm0,%xmm1
-	95:	c4 e3 79 61 c8 5f	vpcmpestri $0x5f,%xmm0,%xmm1
-	96:	c4 e3 79 61 c8 60	vpcmpestri $0x60,%xmm0,%xmm1
-	97:	c4 e3 79 61 c8 61	vpcmpestri $0x61,%xmm0,%xmm1
-	98:	c4 e3 79 61 c8 62	vpcmpestri $0x62,%xmm0,%xmm1
-	99:	c4 e3 79 61 c8 63	vpcmpestri $0x63,%xmm0,%xmm1
-	100:	c4 e3 79 61 c8 64	vpcmpestri $0x64,%xmm0,%xmm1
-	101:	c4 e3 79 61 c8 65	vpcmpestri $0x65,%xmm0,%xmm1
-	102:	c4 e3 79 61 c8 66	vpcmpestri $0x66,%xmm0,%xmm1
-	103:	c4 e3 79 61 c8 67	vpcmpestri $0x67,%xmm0,%xmm1
-	104:	c4 e3 79 61 c8 68	vpcmpestri $0x68,%xmm0,%xmm1
-	105:	c4 e3 79 61 c8 69	vpcmpestri $0x69,%xmm0,%xmm1
-	106:	c4 e3 79 61 c8 6a	vpcmpestri $0x6a,%xmm0,%xmm1
-	107:	c4 e3 79 61 c8 6b	vpcmpestri $0x6b,%xmm0,%xmm1
-	108:	c4 e3 79 61 c8 6c	vpcmpestri $0x6c,%xmm0,%xmm1
-	109:	c4 e3 79 61 c8 6d	vpcmpestri $0x6d,%xmm0,%xmm1
-	110:	c4 e3 79 61 c8 6e	vpcmpestri $0x6e,%xmm0,%xmm1
-	111:	c4 e3 79 61 c8 6f	vpcmpestri $0x6f,%xmm0,%xmm1
-	112:	c4 e3 79 61 c8 70	vpcmpestri $0x70,%xmm0,%xmm1
-	113:	c4 e3 79 61 c8 71	vpcmpestri $0x71,%xmm0,%xmm1
-	114:	c4 e3 79 61 c8 72	vpcmpestri $0x72,%xmm0,%xmm1
-	115:	c4 e3 79 61 c8 73	vpcmpestri $0x73,%xmm0,%xmm1
-	116:	c4 e3 79 61 c8 74	vpcmpestri $0x74,%xmm0,%xmm1
-	117:	c4 e3 79 61 c8 75	vpcmpestri $0x75,%xmm0,%xmm1
-	118:	c4 e3 79 61 c8 76	vpcmpestri $0x76,%xmm0,%xmm1
-	119:	c4 e3 79 61 c8 77	vpcmpestri $0x77,%xmm0,%xmm1
-	120:	c4 e3 79 61 c8 78	vpcmpestri $0x78,%xmm0,%xmm1
-	121:	c4 e3 79 61 c8 79	vpcmpestri $0x79,%xmm0,%xmm1
-	122:	c4 e3 79 61 c8 7a	vpcmpestri $0x7a,%xmm0,%xmm1
-	123:	c4 e3 79 61 c8 7b	vpcmpestri $0x7b,%xmm0,%xmm1
-	124:	c4 e3 79 61 c8 7c	vpcmpestri $0x7c,%xmm0,%xmm1
-	125:	c4 e3 79 61 c8 7d	vpcmpestri $0x7d,%xmm0,%xmm1
-	126:	c4 e3 79 61 c8 7e	vpcmpestri $0x7e,%xmm0,%xmm1
-	127:	c4 e3 79 61 c8 7f	vpcmpestri $0x7f,%xmm0,%xmm1
+	0:	c4 e3 79 63 c8 00	vpcmpistri $0x0,%xmm0,%xmm1
+	1:	c4 e3 79 63 c8 01	vpcmpistri $0x1,%xmm0,%xmm1
+	2:	c4 e3 79 63 c8 02	vpcmpistri $0x2,%xmm0,%xmm1
+	3:	c4 e3 79 63 c8 03	vpcmpistri $0x3,%xmm0,%xmm1
+	4:	c4 e3 79 63 c8 04	vpcmpistri $0x4,%xmm0,%xmm1
+	5:	c4 e3 79 63 c8 05	vpcmpistri $0x5,%xmm0,%xmm1
+	6:	c4 e3 79 63 c8 06	vpcmpistri $0x6,%xmm0,%xmm1
+	7:	c4 e3 79 63 c8 07	vpcmpistri $0x7,%xmm0,%xmm1
+	8:	c4 e3 79 63 c8 08	vpcmpistri $0x8,%xmm0,%xmm1
+	9:	c4 e3 79 63 c8 09	vpcmpistri $0x9,%xmm0,%xmm1
+	10:	c4 e3 79 63 c8 0a	vpcmpistri $0xa,%xmm0,%xmm1
+	11:	c4 e3 79 63 c8 0b	vpcmpistri $0xb,%xmm0,%xmm1
+	12:	c4 e3 79 63 c8 0c	vpcmpistri $0xc,%xmm0,%xmm1
+	13:	c4 e3 79 63 c8 0d	vpcmpistri $0xd,%xmm0,%xmm1
+	14:	c4 e3 79 63 c8 0e	vpcmpistri $0xe,%xmm0,%xmm1
+	15:	c4 e3 79 63 c8 0f	vpcmpistri $0xf,%xmm0,%xmm1
+	16:	c4 e3 79 63 c8 10	vpcmpistri $0x10,%xmm0,%xmm1
+	17:	c4 e3 79 63 c8 11	vpcmpistri $0x11,%xmm0,%xmm1
+	18:	c4 e3 79 63 c8 12	vpcmpistri $0x12,%xmm0,%xmm1
+	19:	c4 e3 79 63 c8 13	vpcmpistri $0x13,%xmm0,%xmm1
+	20:	c4 e3 79 63 c8 14	vpcmpistri $0x14,%xmm0,%xmm1
+	21:	c4 e3 79 63 c8 15	vpcmpistri $0x15,%xmm0,%xmm1
+	22:	c4 e3 79 63 c8 16	vpcmpistri $0x16,%xmm0,%xmm1
+	23:	c4 e3 79 63 c8 17	vpcmpistri $0x17,%xmm0,%xmm1
+	24:	c4 e3 79 63 c8 18	vpcmpistri $0x18,%xmm0,%xmm1
+	25:	c4 e3 79 63 c8 19	vpcmpistri $0x19,%xmm0,%xmm1
+	26:	c4 e3 79 63 c8 1a	vpcmpistri $0x1a,%xmm0,%xmm1
+	27:	c4 e3 79 63 c8 1b	vpcmpistri $0x1b,%xmm0,%xmm1
+	28:	c4 e3 79 63 c8 1c	vpcmpistri $0x1c,%xmm0,%xmm1
+	29:	c4 e3 79 63 c8 1d	vpcmpistri $0x1d,%xmm0,%xmm1
+	30:	c4 e3 79 63 c8 1e	vpcmpistri $0x1e,%xmm0,%xmm1
+	31:	c4 e3 79 63 c8 1f	vpcmpistri $0x1f,%xmm0,%xmm1
+	32:	c4 e3 79 63 c8 20	vpcmpistri $0x20,%xmm0,%xmm1
+	33:	c4 e3 79 63 c8 21	vpcmpistri $0x21,%xmm0,%xmm1
+	34:	c4 e3 79 63 c8 22	vpcmpistri $0x22,%xmm0,%xmm1
+	35:	c4 e3 79 63 c8 23	vpcmpistri $0x23,%xmm0,%xmm1
+	36:	c4 e3 79 63 c8 24	vpcmpistri $0x24,%xmm0,%xmm1
+	37:	c4 e3 79 63 c8 25	vpcmpistri $0x25,%xmm0,%xmm1
+	38:	c4 e3 79 63 c8 26	vpcmpistri $0x26,%xmm0,%xmm1
+	39:	c4 e3 79 63 c8 27	vpcmpistri $0x27,%xmm0,%xmm1
+	40:	c4 e3 79 63 c8 28	vpcmpistri $0x28,%xmm0,%xmm1
+	41:	c4 e3 79 63 c8 29	vpcmpistri $0x29,%xmm0,%xmm1
+	42:	c4 e3 79 63 c8 2a	vpcmpistri $0x2a,%xmm0,%xmm1
+	43:	c4 e3 79 63 c8 2b	vpcmpistri $0x2b,%xmm0,%xmm1
+	44:	c4 e3 79 63 c8 2c	vpcmpistri $0x2c,%xmm0,%xmm1
+	45:	c4 e3 79 63 c8 2d	vpcmpistri $0x2d,%xmm0,%xmm1
+	46:	c4 e3 79 63 c8 2e	vpcmpistri $0x2e,%xmm0,%xmm1
+	47:	c4 e3 79 63 c8 2f	vpcmpistri $0x2f,%xmm0,%xmm1
+	48:	c4 e3 79 63 c8 30	vpcmpistri $0x30,%xmm0,%xmm1
+	49:	c4 e3 79 63 c8 31	vpcmpistri $0x31,%xmm0,%xmm1
+	50:	c4 e3 79 63 c8 32	vpcmpistri $0x32,%xmm0,%xmm1
+	51:	c4 e3 79 63 c8 33	vpcmpistri $0x33,%xmm0,%xmm1
+	52:	c4 e3 79 63 c8 34	vpcmpistri $0x34,%xmm0,%xmm1
+	53:	c4 e3 79 63 c8 35	vpcmpistri $0x35,%xmm0,%xmm1
+	54:	c4 e3 79 63 c8 36	vpcmpistri $0x36,%xmm0,%xmm1
+	55:	c4 e3 79 63 c8 37	vpcmpistri $0x37,%xmm0,%xmm1
+	56:	c4 e3 79 63 c8 38	vpcmpistri $0x38,%xmm0,%xmm1
+	57:	c4 e3 79 63 c8 39	vpcmpistri $0x39,%xmm0,%xmm1
+	58:	c4 e3 79 63 c8 3a	vpcmpistri $0x3a,%xmm0,%xmm1
+	59:	c4 e3 79 63 c8 3b	vpcmpistri $0x3b,%xmm0,%xmm1
+	60:	c4 e3 79 63 c8 3c	vpcmpistri $0x3c,%xmm0,%xmm1
+	61:	c4 e3 79 63 c8 3d	vpcmpistri $0x3d,%xmm0,%xmm1
+	62:	c4 e3 79 63 c8 3e	vpcmpistri $0x3e,%xmm0,%xmm1
+	63:	c4 e3 79 63 c8 3f	vpcmpistri $0x3f,%xmm0,%xmm1
+	64:	c4 e3 79 63 c8 40	vpcmpistri $0x40,%xmm0,%xmm1
+	65:	c4 e3 79 63 c8 41	vpcmpistri $0x41,%xmm0,%xmm1
+	66:	c4 e3 79 63 c8 42	vpcmpistri $0x42,%xmm0,%xmm1
+	67:	c4 e3 79 63 c8 43	vpcmpistri $0x43,%xmm0,%xmm1
+	68:	c4 e3 79 63 c8 44	vpcmpistri $0x44,%xmm0,%xmm1
+	69:	c4 e3 79 63 c8 45	vpcmpistri $0x45,%xmm0,%xmm1
+	70:	c4 e3 79 63 c8 46	vpcmpistri $0x46,%xmm0,%xmm1
+	71:	c4 e3 79 63 c8 47	vpcmpistri $0x47,%xmm0,%xmm1
+	72:	c4 e3 79 63 c8 48	vpcmpistri $0x48,%xmm0,%xmm1
+	73:	c4 e3 79 63 c8 49	vpcmpistri $0x49,%xmm0,%xmm1
+	74:	c4 e3 79 63 c8 4a	vpcmpistri $0x4a,%xmm0,%xmm1
+	75:	c4 e3 79 63 c8 4b	vpcmpistri $0x4b,%xmm0,%xmm1
+	76:	c4 e3 79 63 c8 4c	vpcmpistri $0x4c,%xmm0,%xmm1
+	77:	c4 e3 79 63 c8 4d	vpcmpistri $0x4d,%xmm0,%xmm1
+	78:	c4 e3 79 63 c8 4e	vpcmpistri $0x4e,%xmm0,%xmm1
+	79:	c4 e3 79 63 c8 4f	vpcmpistri $0x4f,%xmm0,%xmm1
+	80:	c4 e3 79 63 c8 50	vpcmpistri $0x50,%xmm0,%xmm1
+	81:	c4 e3 79 63 c8 51	vpcmpistri $0x51,%xmm0,%xmm1
+	82:	c4 e3 79 63 c8 52	vpcmpistri $0x52,%xmm0,%xmm1
+	83:	c4 e3 79 63 c8 53	vpcmpistri $0x53,%xmm0,%xmm1
+	84:	c4 e3 79 63 c8 54	vpcmpistri $0x54,%xmm0,%xmm1
+	85:	c4 e3 79 63 c8 55	vpcmpistri $0x55,%xmm0,%xmm1
+	86:	c4 e3 79 63 c8 56	vpcmpistri $0x56,%xmm0,%xmm1
+	87:	c4 e3 79 63 c8 57	vpcmpistri $0x57,%xmm0,%xmm1
+	88:	c4 e3 79 63 c8 58	vpcmpistri $0x58,%xmm0,%xmm1
+	89:	c4 e3 79 63 c8 59	vpcmpistri $0x59,%xmm0,%xmm1
+	90:	c4 e3 79 63 c8 5a	vpcmpistri $0x5a,%xmm0,%xmm1
+	91:	c4 e3 79 63 c8 5b	vpcmpistri $0x5b,%xmm0,%xmm1
+	92:	c4 e3 79 63 c8 5c	vpcmpistri $0x5c,%xmm0,%xmm1
+	93:	c4 e3 79 63 c8 5d	vpcmpistri $0x5d,%xmm0,%xmm1
+	94:	c4 e3 79 63 c8 5e	vpcmpistri $0x5e,%xmm0,%xmm1
+	95:	c4 e3 79 63 c8 5f	vpcmpistri $0x5f,%xmm0,%xmm1
+	96:	c4 e3 79 63 c8 60	vpcmpistri $0x60,%xmm0,%xmm1
+	97:	c4 e3 79 63 c8 61	vpcmpistri $0x61,%xmm0,%xmm1
+	98:	c4 e3 79 63 c8 62	vpcmpistri $0x62,%xmm0,%xmm1
+	99:	c4 e3 79 63 c8 63	vpcmpistri $0x63,%xmm0,%xmm1
+	100:	c4 e3 79 63 c8 64	vpcmpistri $0x64,%xmm0,%xmm1
+	101:	c4 e3 79 63 c8 65	vpcmpistri $0x65,%xmm0,%xmm1
+	102:	c4 e3 79 63 c8 66	vpcmpistri $0x66,%xmm0,%xmm1
+	103:	c4 e3 79 63 c8 67	vpcmpistri $0x67,%xmm0,%xmm1
+	104:	c4 e3 79 63 c8 68	vpcmpistri $0x68,%xmm0,%xmm1
+	105:	c4 e3 79 63 c8 69	vpcmpistri $0x69,%xmm0,%xmm1
+	106:	c4 e3 79 63 c8 6a	vpcmpistri $0x6a,%xmm0,%xmm1
+	107:	c4 e3 79 63 c8 6b	vpcmpistri $0x6b,%xmm0,%xmm1
+	108:	c4 e3 79 63 c8 6c	vpcmpistri $0x6c,%xmm0,%xmm1
+	109:	c4 e3 79 63 c8 6d	vpcmpistri $0x6d,%xmm0,%xmm1
+	110:	c4 e3 79 63 c8 6e	vpcmpistri $0x6e,%xmm0,%xmm1
+	111:	c4 e3 79 63 c8 6f	vpcmpistri $0x6f,%xmm0,%xmm1
+	112:	c4 e3 79 63 c8 70	vpcmpistri $0x70,%xmm0,%xmm1
+	113:	c4 e3 79 63 c8 71	vpcmpistri $0x71,%xmm0,%xmm1
+	114:	c4 e3 79 63 c8 72	vpcmpistri $0x72,%xmm0,%xmm1
+	115:	c4 e3 79 63 c8 73	vpcmpistri $0x73,%xmm0,%xmm1
+	116:	c4 e3 79 63 c8 74	vpcmpistri $0x74,%xmm0,%xmm1
+	117:	c4 e3 79 63 c8 75	vpcmpistri $0x75,%xmm0,%xmm1
+	118:	c4 e3 79 63 c8 76	vpcmpistri $0x76,%xmm0,%xmm1
+	119:	c4 e3 79 63 c8 77	vpcmpistri $0x77,%xmm0,%xmm1
+	120:	c4 e3 79 63 c8 78	vpcmpistri $0x78,%xmm0,%xmm1
+	121:	c4 e3 79 63 c8 79	vpcmpistri $0x79,%xmm0,%xmm1
+	122:	c4 e3 79 63 c8 7a	vpcmpistri $0x7a,%xmm0,%xmm1
+	123:	c4 e3 79 63 c8 7b	vpcmpistri $0x7b,%xmm0,%xmm1
+	124:	c4 e3 79 63 c8 7c	vpcmpistri $0x7c,%xmm0,%xmm1
+	125:	c4 e3 79 63 c8 7d	vpcmpistri $0x7d,%xmm0,%xmm1
+	126:	c4 e3 79 63 c8 7e	vpcmpistri $0x7e,%xmm0,%xmm1
+	127:	c4 e3 79 63 c8 7f	vpcmpistri $0x7f,%xmm0,%xmm1
 	128:	90	nop
 
 
-Count 0) reg	kstate	xstate		c4 e3 79 61 c8 00	vpcmpestri $0x0,%xmm0,%xmm1
+Count 0) reg	kstate	xstate		c4 e3 79 63 c8 00	vpcmpistri $0x0,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -182,7 +190,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 1) reg	kstate	xstate		c4 e3 79 61 c8 01	vpcmpestri $0x1,%xmm0,%xmm1
+Count 1) reg	kstate	xstate		c4 e3 79 63 c8 01	vpcmpistri $0x1,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -223,7 +231,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 2) reg	kstate	xstate		c4 e3 79 61 c8 02	vpcmpestri $0x2,%xmm0,%xmm1
+Count 2) reg	kstate	xstate		c4 e3 79 63 c8 02	vpcmpistri $0x2,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -264,7 +272,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 3) reg	kstate	xstate		c4 e3 79 61 c8 03	vpcmpestri $0x3,%xmm0,%xmm1
+Count 3) reg	kstate	xstate		c4 e3 79 63 c8 03	vpcmpistri $0x3,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -305,7 +313,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 4) reg	kstate	xstate		c4 e3 79 61 c8 04	vpcmpestri $0x4,%xmm0,%xmm1
+Count 4) reg	kstate	xstate		c4 e3 79 63 c8 04	vpcmpistri $0x4,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -346,7 +354,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 5) reg	kstate	xstate		c4 e3 79 61 c8 05	vpcmpestri $0x5,%xmm0,%xmm1
+Count 5) reg	kstate	xstate		c4 e3 79 63 c8 05	vpcmpistri $0x5,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -387,7 +395,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 6) reg	kstate	xstate		c4 e3 79 61 c8 06	vpcmpestri $0x6,%xmm0,%xmm1
+Count 6) reg	kstate	xstate		c4 e3 79 63 c8 06	vpcmpistri $0x6,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -428,7 +436,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 7) reg	kstate	xstate		c4 e3 79 61 c8 07	vpcmpestri $0x7,%xmm0,%xmm1
+Count 7) reg	kstate	xstate		c4 e3 79 63 c8 07	vpcmpistri $0x7,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -469,7 +477,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 8) reg	kstate	xstate		c4 e3 79 61 c8 08	vpcmpestri $0x8,%xmm0,%xmm1
+Count 8) reg	kstate	xstate		c4 e3 79 63 c8 08	vpcmpistri $0x8,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -510,7 +518,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 9) reg	kstate	xstate		c4 e3 79 61 c8 09	vpcmpestri $0x9,%xmm0,%xmm1
+Count 9) reg	kstate	xstate		c4 e3 79 63 c8 09	vpcmpistri $0x9,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -551,7 +559,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 10) reg	kstate	xstate		c4 e3 79 61 c8 0a	vpcmpestri $0xa,%xmm0,%xmm1
+Count 10) reg	kstate	xstate		c4 e3 79 63 c8 0a	vpcmpistri $0xa,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -592,7 +600,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 11) reg	kstate	xstate		c4 e3 79 61 c8 0b	vpcmpestri $0xb,%xmm0,%xmm1
+Count 11) reg	kstate	xstate		c4 e3 79 63 c8 0b	vpcmpistri $0xb,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -633,7 +641,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 12) reg	kstate	xstate		c4 e3 79 61 c8 0c	vpcmpestri $0xc,%xmm0,%xmm1
+Count 12) reg	kstate	xstate		c4 e3 79 63 c8 0c	vpcmpistri $0xc,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -674,7 +682,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 13) reg	kstate	xstate		c4 e3 79 61 c8 0d	vpcmpestri $0xd,%xmm0,%xmm1
+Count 13) reg	kstate	xstate		c4 e3 79 63 c8 0d	vpcmpistri $0xd,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -715,7 +723,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 14) reg	kstate	xstate		c4 e3 79 61 c8 0e	vpcmpestri $0xe,%xmm0,%xmm1
+Count 14) reg	kstate	xstate		c4 e3 79 63 c8 0e	vpcmpistri $0xe,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -756,7 +764,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 15) reg	kstate	xstate		c4 e3 79 61 c8 0f	vpcmpestri $0xf,%xmm0,%xmm1
+Count 15) reg	kstate	xstate		c4 e3 79 63 c8 0f	vpcmpistri $0xf,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -797,7 +805,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 16) reg	kstate	xstate		c4 e3 79 61 c8 10	vpcmpestri $0x10,%xmm0,%xmm1
+Count 16) reg	kstate	xstate		c4 e3 79 63 c8 10	vpcmpistri $0x10,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -838,7 +846,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 17) reg	kstate	xstate		c4 e3 79 61 c8 11	vpcmpestri $0x11,%xmm0,%xmm1
+Count 17) reg	kstate	xstate		c4 e3 79 63 c8 11	vpcmpistri $0x11,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -879,7 +887,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 18) reg	kstate	xstate		c4 e3 79 61 c8 12	vpcmpestri $0x12,%xmm0,%xmm1
+Count 18) reg	kstate	xstate		c4 e3 79 63 c8 12	vpcmpistri $0x12,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -920,7 +928,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 19) reg	kstate	xstate		c4 e3 79 61 c8 13	vpcmpestri $0x13,%xmm0,%xmm1
+Count 19) reg	kstate	xstate		c4 e3 79 63 c8 13	vpcmpistri $0x13,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -961,7 +969,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 20) reg	kstate	xstate		c4 e3 79 61 c8 14	vpcmpestri $0x14,%xmm0,%xmm1
+Count 20) reg	kstate	xstate		c4 e3 79 63 c8 14	vpcmpistri $0x14,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1002,7 +1010,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 21) reg	kstate	xstate		c4 e3 79 61 c8 15	vpcmpestri $0x15,%xmm0,%xmm1
+Count 21) reg	kstate	xstate		c4 e3 79 63 c8 15	vpcmpistri $0x15,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1043,7 +1051,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 22) reg	kstate	xstate		c4 e3 79 61 c8 16	vpcmpestri $0x16,%xmm0,%xmm1
+Count 22) reg	kstate	xstate		c4 e3 79 63 c8 16	vpcmpistri $0x16,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1084,7 +1092,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 23) reg	kstate	xstate		c4 e3 79 61 c8 17	vpcmpestri $0x17,%xmm0,%xmm1
+Count 23) reg	kstate	xstate		c4 e3 79 63 c8 17	vpcmpistri $0x17,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1125,7 +1133,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 24) reg	kstate	xstate		c4 e3 79 61 c8 18	vpcmpestri $0x18,%xmm0,%xmm1
+Count 24) reg	kstate	xstate		c4 e3 79 63 c8 18	vpcmpistri $0x18,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1166,7 +1174,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 25) reg	kstate	xstate		c4 e3 79 61 c8 19	vpcmpestri $0x19,%xmm0,%xmm1
+Count 25) reg	kstate	xstate		c4 e3 79 63 c8 19	vpcmpistri $0x19,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1207,7 +1215,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 26) reg	kstate	xstate		c4 e3 79 61 c8 1a	vpcmpestri $0x1a,%xmm0,%xmm1
+Count 26) reg	kstate	xstate		c4 e3 79 63 c8 1a	vpcmpistri $0x1a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1248,7 +1256,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 27) reg	kstate	xstate		c4 e3 79 61 c8 1b	vpcmpestri $0x1b,%xmm0,%xmm1
+Count 27) reg	kstate	xstate		c4 e3 79 63 c8 1b	vpcmpistri $0x1b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1289,7 +1297,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 28) reg	kstate	xstate		c4 e3 79 61 c8 1c	vpcmpestri $0x1c,%xmm0,%xmm1
+Count 28) reg	kstate	xstate		c4 e3 79 63 c8 1c	vpcmpistri $0x1c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1330,7 +1338,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 29) reg	kstate	xstate		c4 e3 79 61 c8 1d	vpcmpestri $0x1d,%xmm0,%xmm1
+Count 29) reg	kstate	xstate		c4 e3 79 63 c8 1d	vpcmpistri $0x1d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1371,7 +1379,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 30) reg	kstate	xstate		c4 e3 79 61 c8 1e	vpcmpestri $0x1e,%xmm0,%xmm1
+Count 30) reg	kstate	xstate		c4 e3 79 63 c8 1e	vpcmpistri $0x1e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1412,7 +1420,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 31) reg	kstate	xstate		c4 e3 79 61 c8 1f	vpcmpestri $0x1f,%xmm0,%xmm1
+Count 31) reg	kstate	xstate		c4 e3 79 63 c8 1f	vpcmpistri $0x1f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1453,7 +1461,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 32) reg	kstate	xstate		c4 e3 79 61 c8 20	vpcmpestri $0x20,%xmm0,%xmm1
+Count 32) reg	kstate	xstate		c4 e3 79 63 c8 20	vpcmpistri $0x20,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1494,7 +1502,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 33) reg	kstate	xstate		c4 e3 79 61 c8 21	vpcmpestri $0x21,%xmm0,%xmm1
+Count 33) reg	kstate	xstate		c4 e3 79 63 c8 21	vpcmpistri $0x21,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1535,7 +1543,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 34) reg	kstate	xstate		c4 e3 79 61 c8 22	vpcmpestri $0x22,%xmm0,%xmm1
+Count 34) reg	kstate	xstate		c4 e3 79 63 c8 22	vpcmpistri $0x22,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1576,7 +1584,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 35) reg	kstate	xstate		c4 e3 79 61 c8 23	vpcmpestri $0x23,%xmm0,%xmm1
+Count 35) reg	kstate	xstate		c4 e3 79 63 c8 23	vpcmpistri $0x23,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1617,7 +1625,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 36) reg	kstate	xstate		c4 e3 79 61 c8 24	vpcmpestri $0x24,%xmm0,%xmm1
+Count 36) reg	kstate	xstate		c4 e3 79 63 c8 24	vpcmpistri $0x24,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1658,7 +1666,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 37) reg	kstate	xstate		c4 e3 79 61 c8 25	vpcmpestri $0x25,%xmm0,%xmm1
+Count 37) reg	kstate	xstate		c4 e3 79 63 c8 25	vpcmpistri $0x25,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1699,7 +1707,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 38) reg	kstate	xstate		c4 e3 79 61 c8 26	vpcmpestri $0x26,%xmm0,%xmm1
+Count 38) reg	kstate	xstate		c4 e3 79 63 c8 26	vpcmpistri $0x26,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1740,7 +1748,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 39) reg	kstate	xstate		c4 e3 79 61 c8 27	vpcmpestri $0x27,%xmm0,%xmm1
+Count 39) reg	kstate	xstate		c4 e3 79 63 c8 27	vpcmpistri $0x27,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1781,7 +1789,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 40) reg	kstate	xstate		c4 e3 79 61 c8 28	vpcmpestri $0x28,%xmm0,%xmm1
+Count 40) reg	kstate	xstate		c4 e3 79 63 c8 28	vpcmpistri $0x28,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1822,7 +1830,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 41) reg	kstate	xstate		c4 e3 79 61 c8 29	vpcmpestri $0x29,%xmm0,%xmm1
+Count 41) reg	kstate	xstate		c4 e3 79 63 c8 29	vpcmpistri $0x29,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1863,7 +1871,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 42) reg	kstate	xstate		c4 e3 79 61 c8 2a	vpcmpestri $0x2a,%xmm0,%xmm1
+Count 42) reg	kstate	xstate		c4 e3 79 63 c8 2a	vpcmpistri $0x2a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1904,7 +1912,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 43) reg	kstate	xstate		c4 e3 79 61 c8 2b	vpcmpestri $0x2b,%xmm0,%xmm1
+Count 43) reg	kstate	xstate		c4 e3 79 63 c8 2b	vpcmpistri $0x2b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1945,7 +1953,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 44) reg	kstate	xstate		c4 e3 79 61 c8 2c	vpcmpestri $0x2c,%xmm0,%xmm1
+Count 44) reg	kstate	xstate		c4 e3 79 63 c8 2c	vpcmpistri $0x2c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -1986,7 +1994,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 45) reg	kstate	xstate		c4 e3 79 61 c8 2d	vpcmpestri $0x2d,%xmm0,%xmm1
+Count 45) reg	kstate	xstate		c4 e3 79 63 c8 2d	vpcmpistri $0x2d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2027,7 +2035,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 46) reg	kstate	xstate		c4 e3 79 61 c8 2e	vpcmpestri $0x2e,%xmm0,%xmm1
+Count 46) reg	kstate	xstate		c4 e3 79 63 c8 2e	vpcmpistri $0x2e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2068,7 +2076,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 47) reg	kstate	xstate		c4 e3 79 61 c8 2f	vpcmpestri $0x2f,%xmm0,%xmm1
+Count 47) reg	kstate	xstate		c4 e3 79 63 c8 2f	vpcmpistri $0x2f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2109,7 +2117,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 48) reg	kstate	xstate		c4 e3 79 61 c8 30	vpcmpestri $0x30,%xmm0,%xmm1
+Count 48) reg	kstate	xstate		c4 e3 79 63 c8 30	vpcmpistri $0x30,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2150,7 +2158,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 49) reg	kstate	xstate		c4 e3 79 61 c8 31	vpcmpestri $0x31,%xmm0,%xmm1
+Count 49) reg	kstate	xstate		c4 e3 79 63 c8 31	vpcmpistri $0x31,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2191,7 +2199,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 50) reg	kstate	xstate		c4 e3 79 61 c8 32	vpcmpestri $0x32,%xmm0,%xmm1
+Count 50) reg	kstate	xstate		c4 e3 79 63 c8 32	vpcmpistri $0x32,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2232,7 +2240,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 51) reg	kstate	xstate		c4 e3 79 61 c8 33	vpcmpestri $0x33,%xmm0,%xmm1
+Count 51) reg	kstate	xstate		c4 e3 79 63 c8 33	vpcmpistri $0x33,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2273,7 +2281,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 52) reg	kstate	xstate		c4 e3 79 61 c8 34	vpcmpestri $0x34,%xmm0,%xmm1
+Count 52) reg	kstate	xstate		c4 e3 79 63 c8 34	vpcmpistri $0x34,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2314,7 +2322,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 53) reg	kstate	xstate		c4 e3 79 61 c8 35	vpcmpestri $0x35,%xmm0,%xmm1
+Count 53) reg	kstate	xstate		c4 e3 79 63 c8 35	vpcmpistri $0x35,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2355,7 +2363,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 54) reg	kstate	xstate		c4 e3 79 61 c8 36	vpcmpestri $0x36,%xmm0,%xmm1
+Count 54) reg	kstate	xstate		c4 e3 79 63 c8 36	vpcmpistri $0x36,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2396,7 +2404,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 55) reg	kstate	xstate		c4 e3 79 61 c8 37	vpcmpestri $0x37,%xmm0,%xmm1
+Count 55) reg	kstate	xstate		c4 e3 79 63 c8 37	vpcmpistri $0x37,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2437,7 +2445,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 56) reg	kstate	xstate		c4 e3 79 61 c8 38	vpcmpestri $0x38,%xmm0,%xmm1
+Count 56) reg	kstate	xstate		c4 e3 79 63 c8 38	vpcmpistri $0x38,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2478,7 +2486,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 57) reg	kstate	xstate		c4 e3 79 61 c8 39	vpcmpestri $0x39,%xmm0,%xmm1
+Count 57) reg	kstate	xstate		c4 e3 79 63 c8 39	vpcmpistri $0x39,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2519,7 +2527,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 58) reg	kstate	xstate		c4 e3 79 61 c8 3a	vpcmpestri $0x3a,%xmm0,%xmm1
+Count 58) reg	kstate	xstate		c4 e3 79 63 c8 3a	vpcmpistri $0x3a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2560,7 +2568,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 59) reg	kstate	xstate		c4 e3 79 61 c8 3b	vpcmpestri $0x3b,%xmm0,%xmm1
+Count 59) reg	kstate	xstate		c4 e3 79 63 c8 3b	vpcmpistri $0x3b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2601,7 +2609,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 60) reg	kstate	xstate		c4 e3 79 61 c8 3c	vpcmpestri $0x3c,%xmm0,%xmm1
+Count 60) reg	kstate	xstate		c4 e3 79 63 c8 3c	vpcmpistri $0x3c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2642,7 +2650,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 61) reg	kstate	xstate		c4 e3 79 61 c8 3d	vpcmpestri $0x3d,%xmm0,%xmm1
+Count 61) reg	kstate	xstate		c4 e3 79 63 c8 3d	vpcmpistri $0x3d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2683,7 +2691,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 62) reg	kstate	xstate		c4 e3 79 61 c8 3e	vpcmpestri $0x3e,%xmm0,%xmm1
+Count 62) reg	kstate	xstate		c4 e3 79 63 c8 3e	vpcmpistri $0x3e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2724,7 +2732,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 63) reg	kstate	xstate		c4 e3 79 61 c8 3f	vpcmpestri $0x3f,%xmm0,%xmm1
+Count 63) reg	kstate	xstate		c4 e3 79 63 c8 3f	vpcmpistri $0x3f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2765,7 +2773,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 64) reg	kstate	xstate		c4 e3 79 61 c8 40	vpcmpestri $0x40,%xmm0,%xmm1
+Count 64) reg	kstate	xstate		c4 e3 79 63 c8 40	vpcmpistri $0x40,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2806,7 +2814,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 65) reg	kstate	xstate		c4 e3 79 61 c8 41	vpcmpestri $0x41,%xmm0,%xmm1
+Count 65) reg	kstate	xstate		c4 e3 79 63 c8 41	vpcmpistri $0x41,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2847,7 +2855,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 66) reg	kstate	xstate		c4 e3 79 61 c8 42	vpcmpestri $0x42,%xmm0,%xmm1
+Count 66) reg	kstate	xstate		c4 e3 79 63 c8 42	vpcmpistri $0x42,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2888,7 +2896,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 67) reg	kstate	xstate		c4 e3 79 61 c8 43	vpcmpestri $0x43,%xmm0,%xmm1
+Count 67) reg	kstate	xstate		c4 e3 79 63 c8 43	vpcmpistri $0x43,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2929,7 +2937,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 68) reg	kstate	xstate		c4 e3 79 61 c8 44	vpcmpestri $0x44,%xmm0,%xmm1
+Count 68) reg	kstate	xstate		c4 e3 79 63 c8 44	vpcmpistri $0x44,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -2970,7 +2978,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 69) reg	kstate	xstate		c4 e3 79 61 c8 45	vpcmpestri $0x45,%xmm0,%xmm1
+Count 69) reg	kstate	xstate		c4 e3 79 63 c8 45	vpcmpistri $0x45,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3011,7 +3019,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 70) reg	kstate	xstate		c4 e3 79 61 c8 46	vpcmpestri $0x46,%xmm0,%xmm1
+Count 70) reg	kstate	xstate		c4 e3 79 63 c8 46	vpcmpistri $0x46,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3052,7 +3060,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 71) reg	kstate	xstate		c4 e3 79 61 c8 47	vpcmpestri $0x47,%xmm0,%xmm1
+Count 71) reg	kstate	xstate		c4 e3 79 63 c8 47	vpcmpistri $0x47,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3093,7 +3101,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 72) reg	kstate	xstate		c4 e3 79 61 c8 48	vpcmpestri $0x48,%xmm0,%xmm1
+Count 72) reg	kstate	xstate		c4 e3 79 63 c8 48	vpcmpistri $0x48,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3134,7 +3142,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 73) reg	kstate	xstate		c4 e3 79 61 c8 49	vpcmpestri $0x49,%xmm0,%xmm1
+Count 73) reg	kstate	xstate		c4 e3 79 63 c8 49	vpcmpistri $0x49,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3175,7 +3183,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 74) reg	kstate	xstate		c4 e3 79 61 c8 4a	vpcmpestri $0x4a,%xmm0,%xmm1
+Count 74) reg	kstate	xstate		c4 e3 79 63 c8 4a	vpcmpistri $0x4a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3216,7 +3224,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 75) reg	kstate	xstate		c4 e3 79 61 c8 4b	vpcmpestri $0x4b,%xmm0,%xmm1
+Count 75) reg	kstate	xstate		c4 e3 79 63 c8 4b	vpcmpistri $0x4b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3257,7 +3265,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 76) reg	kstate	xstate		c4 e3 79 61 c8 4c	vpcmpestri $0x4c,%xmm0,%xmm1
+Count 76) reg	kstate	xstate		c4 e3 79 63 c8 4c	vpcmpistri $0x4c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3298,7 +3306,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 77) reg	kstate	xstate		c4 e3 79 61 c8 4d	vpcmpestri $0x4d,%xmm0,%xmm1
+Count 77) reg	kstate	xstate		c4 e3 79 63 c8 4d	vpcmpistri $0x4d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3339,7 +3347,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 78) reg	kstate	xstate		c4 e3 79 61 c8 4e	vpcmpestri $0x4e,%xmm0,%xmm1
+Count 78) reg	kstate	xstate		c4 e3 79 63 c8 4e	vpcmpistri $0x4e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3380,7 +3388,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 79) reg	kstate	xstate		c4 e3 79 61 c8 4f	vpcmpestri $0x4f,%xmm0,%xmm1
+Count 79) reg	kstate	xstate		c4 e3 79 63 c8 4f	vpcmpistri $0x4f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3421,7 +3429,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 80) reg	kstate	xstate		c4 e3 79 61 c8 50	vpcmpestri $0x50,%xmm0,%xmm1
+Count 80) reg	kstate	xstate		c4 e3 79 63 c8 50	vpcmpistri $0x50,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3462,7 +3470,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 81) reg	kstate	xstate		c4 e3 79 61 c8 51	vpcmpestri $0x51,%xmm0,%xmm1
+Count 81) reg	kstate	xstate		c4 e3 79 63 c8 51	vpcmpistri $0x51,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3503,7 +3511,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 82) reg	kstate	xstate		c4 e3 79 61 c8 52	vpcmpestri $0x52,%xmm0,%xmm1
+Count 82) reg	kstate	xstate		c4 e3 79 63 c8 52	vpcmpistri $0x52,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3544,7 +3552,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 83) reg	kstate	xstate		c4 e3 79 61 c8 53	vpcmpestri $0x53,%xmm0,%xmm1
+Count 83) reg	kstate	xstate		c4 e3 79 63 c8 53	vpcmpistri $0x53,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3585,7 +3593,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 84) reg	kstate	xstate		c4 e3 79 61 c8 54	vpcmpestri $0x54,%xmm0,%xmm1
+Count 84) reg	kstate	xstate		c4 e3 79 63 c8 54	vpcmpistri $0x54,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3626,7 +3634,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 85) reg	kstate	xstate		c4 e3 79 61 c8 55	vpcmpestri $0x55,%xmm0,%xmm1
+Count 85) reg	kstate	xstate		c4 e3 79 63 c8 55	vpcmpistri $0x55,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3667,7 +3675,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 86) reg	kstate	xstate		c4 e3 79 61 c8 56	vpcmpestri $0x56,%xmm0,%xmm1
+Count 86) reg	kstate	xstate		c4 e3 79 63 c8 56	vpcmpistri $0x56,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3708,7 +3716,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 87) reg	kstate	xstate		c4 e3 79 61 c8 57	vpcmpestri $0x57,%xmm0,%xmm1
+Count 87) reg	kstate	xstate		c4 e3 79 63 c8 57	vpcmpistri $0x57,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3749,7 +3757,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 88) reg	kstate	xstate		c4 e3 79 61 c8 58	vpcmpestri $0x58,%xmm0,%xmm1
+Count 88) reg	kstate	xstate		c4 e3 79 63 c8 58	vpcmpistri $0x58,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3790,7 +3798,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 89) reg	kstate	xstate		c4 e3 79 61 c8 59	vpcmpestri $0x59,%xmm0,%xmm1
+Count 89) reg	kstate	xstate		c4 e3 79 63 c8 59	vpcmpistri $0x59,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3831,7 +3839,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 90) reg	kstate	xstate		c4 e3 79 61 c8 5a	vpcmpestri $0x5a,%xmm0,%xmm1
+Count 90) reg	kstate	xstate		c4 e3 79 63 c8 5a	vpcmpistri $0x5a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3872,7 +3880,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 91) reg	kstate	xstate		c4 e3 79 61 c8 5b	vpcmpestri $0x5b,%xmm0,%xmm1
+Count 91) reg	kstate	xstate		c4 e3 79 63 c8 5b	vpcmpistri $0x5b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3913,7 +3921,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 92) reg	kstate	xstate		c4 e3 79 61 c8 5c	vpcmpestri $0x5c,%xmm0,%xmm1
+Count 92) reg	kstate	xstate		c4 e3 79 63 c8 5c	vpcmpistri $0x5c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3954,7 +3962,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 93) reg	kstate	xstate		c4 e3 79 61 c8 5d	vpcmpestri $0x5d,%xmm0,%xmm1
+Count 93) reg	kstate	xstate		c4 e3 79 63 c8 5d	vpcmpistri $0x5d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -3995,7 +4003,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 94) reg	kstate	xstate		c4 e3 79 61 c8 5e	vpcmpestri $0x5e,%xmm0,%xmm1
+Count 94) reg	kstate	xstate		c4 e3 79 63 c8 5e	vpcmpistri $0x5e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4036,7 +4044,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 95) reg	kstate	xstate		c4 e3 79 61 c8 5f	vpcmpestri $0x5f,%xmm0,%xmm1
+Count 95) reg	kstate	xstate		c4 e3 79 63 c8 5f	vpcmpistri $0x5f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4077,7 +4085,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 96) reg	kstate	xstate		c4 e3 79 61 c8 60	vpcmpestri $0x60,%xmm0,%xmm1
+Count 96) reg	kstate	xstate		c4 e3 79 63 c8 60	vpcmpistri $0x60,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4118,7 +4126,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 97) reg	kstate	xstate		c4 e3 79 61 c8 61	vpcmpestri $0x61,%xmm0,%xmm1
+Count 97) reg	kstate	xstate		c4 e3 79 63 c8 61	vpcmpistri $0x61,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4159,7 +4167,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 98) reg	kstate	xstate		c4 e3 79 61 c8 62	vpcmpestri $0x62,%xmm0,%xmm1
+Count 98) reg	kstate	xstate		c4 e3 79 63 c8 62	vpcmpistri $0x62,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4200,7 +4208,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 99) reg	kstate	xstate		c4 e3 79 61 c8 63	vpcmpestri $0x63,%xmm0,%xmm1
+Count 99) reg	kstate	xstate		c4 e3 79 63 c8 63	vpcmpistri $0x63,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4241,7 +4249,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 100) reg	kstate	xstate		c4 e3 79 61 c8 64	vpcmpestri $0x64,%xmm0,%xmm1
+Count 100) reg	kstate	xstate		c4 e3 79 63 c8 64	vpcmpistri $0x64,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4282,7 +4290,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 101) reg	kstate	xstate		c4 e3 79 61 c8 65	vpcmpestri $0x65,%xmm0,%xmm1
+Count 101) reg	kstate	xstate		c4 e3 79 63 c8 65	vpcmpistri $0x65,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4323,7 +4331,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 102) reg	kstate	xstate		c4 e3 79 61 c8 66	vpcmpestri $0x66,%xmm0,%xmm1
+Count 102) reg	kstate	xstate		c4 e3 79 63 c8 66	vpcmpistri $0x66,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4364,7 +4372,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 103) reg	kstate	xstate		c4 e3 79 61 c8 67	vpcmpestri $0x67,%xmm0,%xmm1
+Count 103) reg	kstate	xstate		c4 e3 79 63 c8 67	vpcmpistri $0x67,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4405,7 +4413,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 104) reg	kstate	xstate		c4 e3 79 61 c8 68	vpcmpestri $0x68,%xmm0,%xmm1
+Count 104) reg	kstate	xstate		c4 e3 79 63 c8 68	vpcmpistri $0x68,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4446,7 +4454,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 105) reg	kstate	xstate		c4 e3 79 61 c8 69	vpcmpestri $0x69,%xmm0,%xmm1
+Count 105) reg	kstate	xstate		c4 e3 79 63 c8 69	vpcmpistri $0x69,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4487,7 +4495,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 106) reg	kstate	xstate		c4 e3 79 61 c8 6a	vpcmpestri $0x6a,%xmm0,%xmm1
+Count 106) reg	kstate	xstate		c4 e3 79 63 c8 6a	vpcmpistri $0x6a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4528,7 +4536,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 107) reg	kstate	xstate		c4 e3 79 61 c8 6b	vpcmpestri $0x6b,%xmm0,%xmm1
+Count 107) reg	kstate	xstate		c4 e3 79 63 c8 6b	vpcmpistri $0x6b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4569,7 +4577,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 108) reg	kstate	xstate		c4 e3 79 61 c8 6c	vpcmpestri $0x6c,%xmm0,%xmm1
+Count 108) reg	kstate	xstate		c4 e3 79 63 c8 6c	vpcmpistri $0x6c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4610,7 +4618,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 109) reg	kstate	xstate		c4 e3 79 61 c8 6d	vpcmpestri $0x6d,%xmm0,%xmm1
+Count 109) reg	kstate	xstate		c4 e3 79 63 c8 6d	vpcmpistri $0x6d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4651,7 +4659,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 110) reg	kstate	xstate		c4 e3 79 61 c8 6e	vpcmpestri $0x6e,%xmm0,%xmm1
+Count 110) reg	kstate	xstate		c4 e3 79 63 c8 6e	vpcmpistri $0x6e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4692,7 +4700,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 111) reg	kstate	xstate		c4 e3 79 61 c8 6f	vpcmpestri $0x6f,%xmm0,%xmm1
+Count 111) reg	kstate	xstate		c4 e3 79 63 c8 6f	vpcmpistri $0x6f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4733,7 +4741,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 112) reg	kstate	xstate		c4 e3 79 61 c8 70	vpcmpestri $0x70,%xmm0,%xmm1
+Count 112) reg	kstate	xstate		c4 e3 79 63 c8 70	vpcmpistri $0x70,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4774,7 +4782,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 113) reg	kstate	xstate		c4 e3 79 61 c8 71	vpcmpestri $0x71,%xmm0,%xmm1
+Count 113) reg	kstate	xstate		c4 e3 79 63 c8 71	vpcmpistri $0x71,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4815,7 +4823,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 114) reg	kstate	xstate		c4 e3 79 61 c8 72	vpcmpestri $0x72,%xmm0,%xmm1
+Count 114) reg	kstate	xstate		c4 e3 79 63 c8 72	vpcmpistri $0x72,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4856,7 +4864,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 115) reg	kstate	xstate		c4 e3 79 61 c8 73	vpcmpestri $0x73,%xmm0,%xmm1
+Count 115) reg	kstate	xstate		c4 e3 79 63 c8 73	vpcmpistri $0x73,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4897,7 +4905,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 116) reg	kstate	xstate		c4 e3 79 61 c8 74	vpcmpestri $0x74,%xmm0,%xmm1
+Count 116) reg	kstate	xstate		c4 e3 79 63 c8 74	vpcmpistri $0x74,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4938,7 +4946,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 117) reg	kstate	xstate		c4 e3 79 61 c8 75	vpcmpestri $0x75,%xmm0,%xmm1
+Count 117) reg	kstate	xstate		c4 e3 79 63 c8 75	vpcmpistri $0x75,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -4979,7 +4987,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 118) reg	kstate	xstate		c4 e3 79 61 c8 76	vpcmpestri $0x76,%xmm0,%xmm1
+Count 118) reg	kstate	xstate		c4 e3 79 63 c8 76	vpcmpistri $0x76,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5020,7 +5028,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 119) reg	kstate	xstate		c4 e3 79 61 c8 77	vpcmpestri $0x77,%xmm0,%xmm1
+Count 119) reg	kstate	xstate		c4 e3 79 63 c8 77	vpcmpistri $0x77,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5061,7 +5069,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 120) reg	kstate	xstate		c4 e3 79 61 c8 78	vpcmpestri $0x78,%xmm0,%xmm1
+Count 120) reg	kstate	xstate		c4 e3 79 63 c8 78	vpcmpistri $0x78,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5102,7 +5110,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 121) reg	kstate	xstate		c4 e3 79 61 c8 79	vpcmpestri $0x79,%xmm0,%xmm1
+Count 121) reg	kstate	xstate		c4 e3 79 63 c8 79	vpcmpistri $0x79,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5143,7 +5151,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 122) reg	kstate	xstate		c4 e3 79 61 c8 7a	vpcmpestri $0x7a,%xmm0,%xmm1
+Count 122) reg	kstate	xstate		c4 e3 79 63 c8 7a	vpcmpistri $0x7a,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5184,7 +5192,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 123) reg	kstate	xstate		c4 e3 79 61 c8 7b	vpcmpestri $0x7b,%xmm0,%xmm1
+Count 123) reg	kstate	xstate		c4 e3 79 63 c8 7b	vpcmpistri $0x7b,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5225,7 +5233,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 124) reg	kstate	xstate		c4 e3 79 61 c8 7c	vpcmpestri $0x7c,%xmm0,%xmm1
+Count 124) reg	kstate	xstate		c4 e3 79 63 c8 7c	vpcmpistri $0x7c,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5266,7 +5274,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 125) reg	kstate	xstate		c4 e3 79 61 c8 7d	vpcmpestri $0x7d,%xmm0,%xmm1
+Count 125) reg	kstate	xstate		c4 e3 79 63 c8 7d	vpcmpistri $0x7d,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5307,7 +5315,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 126) reg	kstate	xstate		c4 e3 79 61 c8 7e	vpcmpestri $0x7e,%xmm0,%xmm1
+Count 126) reg	kstate	xstate		c4 e3 79 63 c8 7e	vpcmpistri $0x7e,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
@@ -5348,7 +5356,7 @@ ymm13	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm14	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
-Count 127) reg	kstate	xstate		c4 e3 79 61 c8 7f	vpcmpestri $0x7f,%xmm0,%xmm1
+Count 127) reg	kstate	xstate		c4 e3 79 63 c8 7f	vpcmpistri $0x7f,%xmm0,%xmm1
 ---------------------
 rax	64'0	0
 rbx	64'0	0
