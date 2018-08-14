@@ -64,25 +64,29 @@ module VPCMPISTRM-XMM-XMM-IMM8
   rule <k>
     execinstr (vpcmpistrm Imm8:MInt,  Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
       setRegisterValue(concatenateMInt(mi(128 -Int uvalueMInt(NumElems),  0), IntRes2), %xmm0) ~>
-      setFlag(mi(1,1), "CF") ~>
+      setFlag(
+          {#ifMInt eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0)) #then mi(1,0) #else mi(1,1) #fi}:>MInt 
+          , "CF") ~>
       setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
       setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
       setFlag(extractMask(IntRes2, 1, 0), "OF") ~>
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0)) 
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 0)) 
 
   rule <k>
     execinstr (vpcmpistrm Imm8:MInt,  Value2:MInt, Value1:MInt, Limit2:MInt, Limit1:MInt, NumElems:MInt, SignedOrUnsigned:MInt, IntRes1:MInt, IntRes2:MInt, .Operands) => 
       setRegisterValue(expandMask(IntRes2), %xmm0) ~>
-      setFlag(mi(1,1), "CF") ~>
+      setFlag(
+          {#ifMInt eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0)) #then mi(1,0) #else mi(1,1) #fi}:>MInt 
+          , "CF") ~>
       setFlag(#ifMInt ultMInt(Limit2, NumElems) #then mi(1,1) #else mi(1,0) #fi, "ZF") ~>
       setFlag(#ifMInt ultMInt(Limit1, NumElems) #then mi(1,1) #else mi(1,0) #fi, "SF") ~>
       setFlag(extractMask(IntRes2, 1, 0), "OF") ~>
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) )
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 1) )
       
 endmodule

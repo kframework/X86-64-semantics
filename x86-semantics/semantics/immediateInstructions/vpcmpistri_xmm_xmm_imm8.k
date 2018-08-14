@@ -85,7 +85,7 @@ module VPCMPISTRI-XMM-XMM-IMM8
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 0)) 
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 0)) 
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
 
   rule <k>
@@ -98,7 +98,7 @@ module VPCMPISTRI-XMM-XMM-IMM8
       setFlag(mi(1,0), "AF") ~>
       setFlag(mi(1,0), "PF") 
   ...</k>
-    requires eqMInt(extractMInt(Imm8, 1, 2), mi(2, 1) )
+    requires eqMInt(extractMInt(Imm8, 1, 2), mi(1, 1) )
       andBool  notBool eqMInt(IntRes2, mi(bitwidthMInt(IntRes2), 0))
       
 endmodule
