@@ -5,7 +5,7 @@ module SCASQ
   imports X86-CONFIGURATION
 
   rule <k>
-    execinstr (cmpsq  M1:Mem. M2:Mem, .Operands) =>
+    execinstr (cmpsq  M1:Mem, M2:Mem, .Operands) =>
       loadFromMemory( getRegisterValue(%rdi, RSMap), 64) ~>
       execinstr (cmpsq   .Operands)
   ...</k>
