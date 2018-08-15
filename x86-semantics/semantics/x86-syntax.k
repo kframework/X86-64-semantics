@@ -1287,9 +1287,13 @@ module X86-SYNTAX
                   | "lodsl"
                   | "lodsq"
                   | "movsb"
+                  | "rep movsb"
                   | "movsw"
+                  | "rep movsw"
                   | "movsl"
+                  | "rep movsl"
                   | "movsq"
+                  | "rep movsq"
                   | "maskmovdqu"
                   | "vmaskmovdqu"
 endmodule
