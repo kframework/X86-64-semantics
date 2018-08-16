@@ -1,3 +1,5 @@
+#include "strstr-asm-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2000, 2003  Free Software Foundation.
 
    Ensure all expected transformations of builtin strstr occur and

@@ -1,3 +1,5 @@
+#include "fprintf-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2001  Free Software Foundation.
 
    Ensure all expected transformations of builtin fprintf occur and

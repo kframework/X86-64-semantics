@@ -1,3 +1,5 @@
+#include "memset-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2002, 2003  Free Software Foundation.
 
    Ensure that builtin memset operations for constant length and

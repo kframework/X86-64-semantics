@@ -1,3 +1,5 @@
+#include "strlen-2-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2003  Free Software Foundation.
 
    Test strlen optimizations on conditional expressions.

@@ -1,10 +1,11 @@
-/* Verify that structure return doesn't invoke memcpy on 
-   overlapping objects.  */
 #include "20010124-1-lib.c"
 #include "lib/main.c"
+/* Verify that structure return doesn't invoke memcpy on 
+   overlapping objects.  */
 
 extern void abort (void);
 
+/*
 struct S {
   char stuff[1024];
 };
@@ -22,7 +23,7 @@ union U {
 
 struct S f(struct S *);
 void g(union U *);
-
+*/
 void main_test(void)
 {
   union U u;

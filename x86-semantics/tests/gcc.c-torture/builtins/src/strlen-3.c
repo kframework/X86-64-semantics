@@ -1,3 +1,5 @@
+#include "strlen-3-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2004  Free Software Foundation.
 
    Test strlen on const variables initialized to string literals.

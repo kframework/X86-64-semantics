@@ -1,3 +1,5 @@
+#include "memops-asm-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2003 Free Software Foundation.
 
    Test memcpy and memset in presence of redirect.  */

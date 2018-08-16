@@ -1,3 +1,5 @@
+#include "abs-3-lib.c"
+#include "lib/main.c"
 /* Test for builtin abs, labs, llabs, imaxabs.  Test for __builtin versions. */
 /* Origin: Joseph Myers <jsm28@cam.ac.uk> */
 

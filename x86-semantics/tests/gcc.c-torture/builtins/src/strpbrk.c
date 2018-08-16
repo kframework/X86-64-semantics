@@ -1,3 +1,5 @@
+#include "strpbrk-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2000  Free Software Foundation.
 
    Ensure all expected transformations of builtin strpbrk occur and
