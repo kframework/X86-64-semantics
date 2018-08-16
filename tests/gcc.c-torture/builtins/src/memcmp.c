@@ -1,3 +1,5 @@
+#include "memcmp-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2001  Free Software Foundation.
 
    Ensure that short builtin memcmp are optimized and perform correctly.

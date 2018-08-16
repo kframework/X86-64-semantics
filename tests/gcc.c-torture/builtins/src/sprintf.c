@@ -1,3 +1,5 @@
+#include "sprintf-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2003  Free Software Foundation.
 
    Test sprintf optimizations don't break anything and return the

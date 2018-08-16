@@ -1,3 +1,5 @@
+#include "strcpy-2-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2004  Free Software Foundation.
 
    Ensure builtin strcpy is optimized into memcpy

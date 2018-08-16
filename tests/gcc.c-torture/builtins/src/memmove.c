@@ -1,3 +1,5 @@
+#include "memmove-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2003, 2004  Free Software Foundation.
 
    Ensure builtin memmove and bcopy perform correctly.

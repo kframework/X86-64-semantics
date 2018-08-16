@@ -1,3 +1,5 @@
+#include "strcpy-chk-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2004, 2005  Free Software Foundation.
 
    Ensure builtin __strcpy_chk performs correctly.  */

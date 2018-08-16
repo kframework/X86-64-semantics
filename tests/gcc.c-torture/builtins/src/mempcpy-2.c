@@ -1,3 +1,5 @@
+#include "mempcpy-2-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2003  Free Software Foundation.
 
    Ensure that builtin mempcpy and stpcpy perform correctly.

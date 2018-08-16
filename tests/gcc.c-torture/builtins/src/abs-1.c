@@ -1,3 +1,5 @@
+#include "abs-1-lib.c"
+#include "lib/main.c"
 /* Test for -fno-builtin-FUNCTION.  */
 /* Origin: Joseph Myers <jsm28@cam.ac.uk>.  */
 /* GCC normally handles abs and labs as built-in functions even without

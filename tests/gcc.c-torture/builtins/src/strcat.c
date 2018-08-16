@@ -1,3 +1,5 @@
+#include "strcat-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2000, 2003  Free Software Foundation.
 
    Ensure all expected transformations of builtin strcat occur and

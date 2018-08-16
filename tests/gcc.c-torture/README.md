@@ -21,6 +21,12 @@ cat src_worklist.txt  | parallel  "sed -i '1d' src/{}.c"
 cat src_worklist.txt  | parallel  "sed -i '1d' src/{}.c"
 ```
 
+For builtins
+```
+cat src_worklist.txt | parallel   "sed -i '1 i\#include \"lib/main.c\"' src/{}.c"
+cat src_worklist.txt | parallel    "sed -i '1 i\#include \"{}-lib.c\"' src/{}.c"
+```
+
 # Generate Binaries
 ```
 source cmd_worklist.txt

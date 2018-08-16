@@ -1,3 +1,5 @@
+#include "pr22237-lib.c"
+#include "lib/main.c"
 extern void abort (void);
 extern void exit (int);
 struct s { unsigned char a[256]; };

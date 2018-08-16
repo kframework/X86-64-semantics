@@ -1,3 +1,5 @@
+#include "pr23484-chk-lib.c"
+#include "lib/main.c"
 /* PR middle-end/23484 */
 
 extern void abort (void);

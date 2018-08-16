@@ -1,3 +1,5 @@
+#include "complex-1-lib.c"
+#include "lib/main.c"
 /* Test for builtin conj, creal, cimag.  */
 /* Origin: Joseph Myers <jsm28@cam.ac.uk> */
 

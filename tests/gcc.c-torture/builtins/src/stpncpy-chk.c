@@ -1,3 +1,5 @@
+#include "stpncpy-chk-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2004, 2005, 2011  Free Software Foundation.
 
    Ensure builtin __stpncpy_chk performs correctly.  */

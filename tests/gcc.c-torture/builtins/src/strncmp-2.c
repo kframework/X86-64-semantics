@@ -1,3 +1,5 @@
+#include "strncmp-2-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2000, 2001, 2003, 2005  Free Software Foundation.
 
    Ensure all expected transformations of builtin strncmp occur and

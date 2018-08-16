@@ -1,3 +1,5 @@
+#include "fputs-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2000, 2001  Free Software Foundation.
 
    Ensure all expected transformations of builtin fputs occur and that

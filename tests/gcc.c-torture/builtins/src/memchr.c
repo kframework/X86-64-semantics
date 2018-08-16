@@ -1,3 +1,5 @@
+#include "memchr-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2007  Free Software Foundation.
 
    Ensure all expected transformations of builtin memchr occur

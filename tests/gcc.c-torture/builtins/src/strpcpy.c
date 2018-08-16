@@ -1,3 +1,5 @@
+#include "strpcpy-lib.c"
+#include "lib/main.c"
 /* Copyright (C) 2003, 2004  Free Software Foundation.
 
    Ensure builtin stpcpy performs correctly.
