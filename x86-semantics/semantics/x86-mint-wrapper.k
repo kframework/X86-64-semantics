@@ -979,6 +979,11 @@ module MINT-WRAPPER
   rule approx_reciprocal_double(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 53, 11), 64)
   rule approx_reciprocal_single(MI:MInt) => Float2MInt(1.0 /Float MInt2Float(MI, 24, 8), 32)
 
+  rule cvt_half_to_single(MI:MInt) =>  Float2MInt(Half2Float(MInt2Float(MI, 11,5)), 32)
+  rule cvt_single_to_fp16_rm(MI:MInt, RM:MInt) =>  
+    Float2MInt(Float2Half(MInt2Float(MI, 24,8), uvalueMInt(RM)), 16)
+
+
   /*@
     operateOnVector(MI1, MI2, Vop, OpW): Performs vector operation
     Vop elementwise on two lists MI1, MI2 of MInts.
