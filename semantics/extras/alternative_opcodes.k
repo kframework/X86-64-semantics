@@ -75,9 +75,6 @@ module ALTERNATIVE-OPCODES
   ...</k>
 
    rule <k> 
-    execinstr(retq:Opcode .Operands) => execinstr(ret  .Operands)
-  ...</k>
-   rule <k> 
     execinstr(leaveq:Opcode .Operands) => execinstr(leave  .Operands)
   ...</k>
    rule <k> 

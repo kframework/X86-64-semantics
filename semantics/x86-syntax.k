@@ -40,7 +40,8 @@ module X86-SYNTAX
                        | AssemblerDirective
                        | Label
 
-  syntax X86Id ::= Id
+  syntax Builtin ::= "putchar" [token]                     
+  syntax X86Id ::= Id | Builtin
 
   /*@
     Special symbols.

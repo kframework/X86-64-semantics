@@ -5,6 +5,10 @@ module RETQ
   imports X86-CONFIGURATION
 
   rule <k> 
+    execinstr(retq:Opcode .Operands) => execinstr(ret  .Operands)
+  ...</k>
+
+  rule <k> 
     execinstr (ret .Operands) => 
     incRSPInBytes(8) ~>
     loadFromMemory(getRegisterValue(%rsp, RSMap), 64)
