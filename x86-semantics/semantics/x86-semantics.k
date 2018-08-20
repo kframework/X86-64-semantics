@@ -3,11 +3,13 @@ require "x86-env-init.k"
 require "x86-fetch-execute.k"
 require "x86-abstract-semantics.k"
 require "x86-flag-checks.k"
-require "x86-verification-lemmas.k"
+//require "x86-verification-lemmas.k"
 require "x86-instructions-semantics.k"
 require "x86-memory.k"
 require "x86-mint-wrapper.k"
 require "common/common.k"
+require "x86-builtin.k"
+require "x86-c-library.k"
 
 module X86-SEMANTICS
   imports X86-LOADER
@@ -20,5 +22,6 @@ module X86-SEMANTICS
   imports X86-MEMORY
   imports MINT-WRAPPER
   imports COMMON
-
+  imports X86-BUILTIN
+  imports X86-C-LIBRARY
 endmodule

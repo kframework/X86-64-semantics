@@ -36,8 +36,43 @@ module X86-INIT
     2. Setting up argc and argv in environment memory.
   */  
   rule initEnvironment(L:List) =>
-     allocateStackMemory(2048, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
+     allocateStackMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
+     ~> initIOStreams
 
+  /*@ 
+    Initialize IO Streams   
+  */
+  syntax KItem ::= "initIOStreams"
+  rule <k> initIOStreams => . ...</k>
+       <open-files>
+         _:Set => SetItem(#stdin) SetItem(#stdout) SetItem(#stderr)
+       </open-files>
+       <files>... (.Bag =>
+         <file>...
+           <fid> #stdin </fid>
+           <uri> stdinStr </uri>
+           <mode> "r" </mode>
+           <buffer-mode> lineBuf </buffer-mode>
+         ...</file>
+         <file>...
+           <fid> #stdout </fid>
+           <uri> stdoutStr </uri>
+           <mode> "w" </mode>
+           <buffer-mode> lineBuf </buffer-mode>
+         ...</file>
+         <file>...
+           <fid> #stderr </fid>
+           <uri> stdoutStr </uri>
+           <mode> "w" </mode>
+           <buffer-mode> noBuf </buffer-mode>
+         ...</file>)
+       ...</files>
+
+  // These helpers are used to get around a bug in K related to successive
+  // ``/''s in strings.
+  syntax KItem ::= "stdinStr" [function] | "stdoutStr" [function]
+  rule stdinStr => "stdin:/" +String "/" +String "/"
+  rule stdoutStr => "stdout:/" +String "/" +String "/"
 
   /*@
     Store a fake return adress mi(64, -1) which signals program executaion halt. 
