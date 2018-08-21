@@ -15,18 +15,14 @@ module X86-BUILTIN
   //imports K-IO
 
   rule <k>
-    execinstr (call B:Builtin,  .Operands) => execinstr (callq B:Builtin,  .Operands)
-  ...</k>
-
-  rule <k>
-    execinstr (callq putchar:Builtin,  .Operands) =>
+    execinstr (call putchar:Builtin,  .Operands) =>
       stdio_putchar(svalueMInt(getRegisterValue(%rdi, RSMap)))  
   ...</k>
     <regstate> RSMap </regstate>
 
 
   rule <k>
-    execinstr (callq printf:Builtin,  .Operands) =>
+    execinstr (call printf:Builtin,  .Operands) =>
       stdio_printf({getRegisterValue(%rdi, RSMap)}:>PointerVal, 
           ListItem(svalueMInt(getRegisterValue(%rsi, RSMap)))
           ListItem(svalueMInt(getRegisterValue(%rdx, RSMap)))

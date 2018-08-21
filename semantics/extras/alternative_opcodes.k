@@ -81,6 +81,9 @@ module ALTERNATIVE-OPCODES
     execinstr (callq:Opcode LabelId:X86Id, .Operands) => execinstr (call LabelId, .Operands)
   ...</k>
    rule <k> 
+    execinstr (callq:Opcode B:Builtin, .Operands) => execinstr (call B, .Operands)
+  ...</k>
+   rule <k> 
     execinstr (jmpq:Opcode LabelId:X86Id, .Operands) => execinstr (jmp LabelId, .Operands)
   ...</
   k>

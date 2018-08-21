@@ -42,7 +42,7 @@ module X86-SYNTAX
 
   syntax Builtin ::= "putchar" [token]                     
                    | "printf"  [token]
-  syntax X86Id ::= Id | Builtin
+  syntax X86Id ::= Id
 
   /*@
     Special symbols.
@@ -73,6 +73,7 @@ module X86-SYNTAX
                        | Register
                        | MemOffset
                        | X86Id 
+                       | Builtin
                        | "$" X86Id
 
 
