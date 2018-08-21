@@ -17,9 +17,28 @@ module X86-LOADER
   /*@
     Ignore certain contructs for the time being.
   */
-  // rule <k> .section .text  => . ...</k>
-  // rule <k> .globl _start  => . ...</k>
-  rule <k> _:AssemblerDirective  => . ...</k>
+  rule <k> .section S:SectionName  => . ...</k>
+  rule <k> .globl G:X86Id  => . ...</k>
+
+
+  /*@
+    Populate RO data
+  */
+  // .string S
+  rule <k> .string S:String  =>  
+    storeToMemory(
+        createMIntMapFromString(S +String Int2String(0)), 
+        ptr(L, NextOffset), 
+        (lengthString(S) +Int 1) *Int 8)
+  ...</k>
+    <functargets> FMap:Map => FMap[LabelId <- ptr(L, BaseOffset)] </functargets>
+    <lastseenlabel> LabelId:X86Id </lastseenlabel>
+    <robase> 
+      roBaseInfo(
+          L:MemLoc, 
+          BaseOffset:MInt, 
+          NextOffset:MInt => addMInt(NextOffset, mi(addrSize, lengthString(S) +Int 1))) 
+    </robase>
 
 
   /*@
@@ -28,6 +47,7 @@ module X86-LOADER
   rule <k> (LabelId:X86Id:):Label => . ...</k>
         <functargets> FMap:Map => FMap[LabelId <- L] </functargets>
         <nextLocPc> L </nextLocPc>
+        <lastseenlabel> _:K => LabelId </lastseenlabel>
 
   /*@
     Load the instructions into Code memory.

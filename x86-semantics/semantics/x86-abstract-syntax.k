@@ -1,5 +1,9 @@
 require "x86-syntax.k"
 require "x86-memory.k"
+module  X86-ASBTRACT-SORTS
+  syntax PointerVal
+  syntax NullVal
+endmodule
 
 module X86-ASBTRACT-SYNTAX
   imports MAP
@@ -7,10 +11,17 @@ module X86-ASBTRACT-SYNTAX
   imports X86-SORT
   imports X86-MEMORY-SORT
   imports COMMON-MEMORY-SORTS
+  imports X86-ASBTRACT-SORTS
+
 
   syntax PointerVal ::=
     ptr(MemLoc, /* offset in bits */ MInt)
   syntax MInt ::= PointerVal
+  syntax NullVal
+  syntax NullVal ::= "null"
+  syntax PointerVal ::= NullVal
+  syntax Bool ::= isPointerValNull(PointerVal) [function]
+
 
   /*@
     Sorts of config cell entities
@@ -18,6 +29,7 @@ module X86-ASBTRACT-SYNTAX
   syntax CodeInMemory ::= code(/*iloc(MInt) -> storeInstr(Instruction)*/ Map)
   syntax Int ::= iloc(MInt)
   syntax StackBaseInfo ::= stackBaseInfo(/*MemLoc, Intial Offset*/ K, K)
+  syntax ROBaseInfo ::= roBaseInfo(/*MemLoc, Intial Offset, Next location*/ K, K, K)
 
   syntax Abstractinstruction ::= storedInstr(Instruction)
   syntax Abstractinstruction ::= execinstr(Instruction)

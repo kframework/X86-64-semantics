@@ -20,9 +20,9 @@ module X86-CONFIGURATION
   configuration
 //initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
     <k> 
-	$PGM:Instructions ~> 
 	initRegisters($REGV:RegValPairList) ~> 
 	initEnvironment($ARGV:List) ~> 
+	$PGM:Instructions ~> 
         loadEntryPoint ~>
 	inforegisters ~> 
 	fetch 
@@ -31,12 +31,14 @@ module X86-CONFIGURATION
     <functargets> .Map </functargets> 
     <entrypoint> .K </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
+    <lastseenlabel> .K </lastseenlabel>
 
     <memstate>
       <text> code( .Map ) </text>
       <stack>
         <memory/>
         <stackbase> stackBaseInfo(.K, .K) </stackbase>
+        <robase> roBaseInfo(.K /* Alocation id*/, .K /*Base Pointer*/, .K /*Next Location*/ ) </robase>
       </stack>
     </memstate>
 
