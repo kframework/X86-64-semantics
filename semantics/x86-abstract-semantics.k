@@ -4,6 +4,15 @@ module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
 
   /*@
+    Function related to null checks
+  */
+  rule isPointerValNull(null) => true
+  rule isPointerValNull(ptr(Loc:MemLoc, Offs:MInt))
+       =>
+       isMemLocNull(Loc) andBool eqMInt(Offs, mi(bitwidthMInt(Offs), 0))
+
+
+  /*@
     Redefining functions over PointerVal
   */
   // Arithmetic

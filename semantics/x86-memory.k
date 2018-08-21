@@ -32,6 +32,13 @@ module X86-MEMORY-SYNTAX
       /* Alignment in bits */ Int)
 
   /*@
+    Allocate memory: Used for allocating Read only memory
+  */
+  syntax KItem ::= allocateROMemory(
+      /* Number of elements */ Int,
+      /* Alignment in bits */ Int)
+
+  /*@
     Allocate memory: Used for allocating local memory
   */
   syntax KItem ::= allocateLocalMemory(
@@ -181,12 +188,25 @@ module X86-MEMORY
   syntax KItem ::=  saveAllocPointer(K) [strict(1)]
   rule <k> saveAllocPointer(L:MemLoc) => .
   ... </k>
-    //<stackbase> _:K => L:MemLoc </stackbase>
     <stackbase> stackBaseInfo(_:K => L, BP:MInt)  </stackbase>
     <regstate> RSMap => updateMap(RSMap,
                         ("RSP"  |->  ptr(L, BP)) 
                         ("RBP"  |->  ptr(L, BP)) ) 
     </regstate>
+
+  /*@
+    Allocate Read Only memory and save allocated pointer
+  */
+  rule <k> allocateROMemory(N:Int, A:Int) =>  
+    saveROPointer(allocateLocalMemory(N, A)) ... </k>
+      <robase> 
+        roBaseInfo(_:K, _:K => mi(addrSize, 0), _:K => mi(addrSize, 0))  
+      </robase>
+
+  syntax KItem ::=  saveROPointer(K) [strict(1)]
+  rule <k> saveROPointer(L:MemLoc) => .
+  ... </k>
+    <robase> roBaseInfo(_:K => L, _:K, _:K)  </robase>
 
   /*@
     Allocate memory: Used for allocating local memory

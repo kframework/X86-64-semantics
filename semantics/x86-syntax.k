@@ -54,6 +54,7 @@ module X86-SYNTAX
 
   syntax AssemblerDirective ::=  ".section" SectionName 
                             | ".globl" X86Id 
+                            | ".string" String 
   syntax SectionName ::= ".text"   [token]
                         | ".data" [token]
 
