@@ -6,7 +6,11 @@ module X86-ASBTRACT-SYNTAX
   imports MINT
   imports X86-SORT
   imports X86-MEMORY-SORT
+  imports COMMON-MEMORY-SORTS
 
+  syntax PointerVal ::=
+    ptr(MemLoc, /* offset in bits */ MInt)
+  syntax MInt ::= PointerVal
 
   /*@
     Sorts of config cell entities
