@@ -78,9 +78,9 @@ module X86-INIT
     Store a fake return adress mi(64, -1) which signals program executaion halt. 
   */  
   syntax KItem ::=  "initReturnFromEntryFunction"
-  rule <k> initReturnFromEntryFunction => storeToMemory(mi(64, -1), BaseOffset, 64)
+  rule <k> initReturnFromEntryFunction => storeToMemory(mi(64, -1), ptr(L, BaseOffset), 64)
   ...</k>
-      <stackbase> stackBaseInfo( _:K, BaseOffset:MInt) </stackbase>
+      <stackbase> stackBaseInfo( L:MemLoc, BaseOffset:MInt) </stackbase>
 
   syntax Int ::= mySize(List) [function]
   rule mySize(.List) => 0

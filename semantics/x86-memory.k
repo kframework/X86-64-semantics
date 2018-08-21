@@ -158,10 +158,10 @@ module X86-MEMORY
   */
   rule <k> allocateStackMemory(N:Int, A:Int) =>  
     saveAllocPointer(allocateLocalMemory(N, A)) ... </k>
-      <regstate> RSMap => updateMap(RSMap,
-                          ("RSP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) 
-                          ("RBP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) ) 
-      </regstate>
+      //<regstate> RSMap => updateMap(RSMap,
+      //                    ("RSP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) 
+      //                    ("RBP"  |->  mi(addrSize, N -Int StackSpaceForEnvs)) ) 
+      //</regstate>
       <argv> _ => mi(addrSize, N -Int StackSpaceForEnvs +Int 8) </argv>
       <stackbase> stackBaseInfo(_:K , _:K => mi(addrSize, N -Int StackSpaceForEnvs))  </stackbase>
       /*
@@ -182,7 +182,11 @@ module X86-MEMORY
   rule <k> saveAllocPointer(L:MemLoc) => .
   ... </k>
     //<stackbase> _:K => L:MemLoc </stackbase>
-    <stackbase> stackBaseInfo(_:K => L, _:K)  </stackbase>
+    <stackbase> stackBaseInfo(_:K => L, BP:MInt)  </stackbase>
+    <regstate> RSMap => updateMap(RSMap,
+                        ("RSP"  |->  ptr(L, BP)) 
+                        ("RBP"  |->  ptr(L, BP)) ) 
+    </regstate>
 
   /*@
     Allocate memory: Used for allocating local memory
@@ -211,19 +215,21 @@ module X86-MEMORY
     Load memory Nbits:Int bits from Address represented AddrMI:MInt
   */
   rule <k>
-    loadFromMemory(AddrMI:MInt, Nbits:Int) =>
+    //loadFromMemory(AddrMI:MInt, Nbits:Int) =>
+    loadFromMemory(ptr(L:MemLoc, AddrMI:MInt), Nbits:Int) =>
       fromMemValue(mRead(L, uvalueMInt(AddrMI) *Int 8, Nbits /Int 8, 8), Nbits)
   ... </k>
-    <stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
+    //<stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
       requires Nbits %Int 8 ==Int 0
 
   /*@
     Store 'Val' in 'Nbits' of memory starting at address 'AddrMI'
   */
   rule <k>
-    storeToMemory(Val:StoreVal, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
+    //storeToMemory(Val:StoreVal, AddrMI:MInt, Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
+    storeToMemory(Val:StoreVal, ptr(L:MemLoc, AddrMI:MInt), Nbits:Int) => mWrite(L, uvalueMInt(AddrMI) *Int 8, toMemValue(Val, Nbits))
   ... </k>
-    <stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
+    //<stackbase> stackBaseInfo( L:MemLoc, _:K) </stackbase>
       requires Nbits %Int 8 ==Int 0
 
 endmodule

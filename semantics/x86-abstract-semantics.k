@@ -4,6 +4,54 @@ module X86-ABSTRACT-SEMANTICS
   imports X86-CONFIGURATION
 
   /*@
+    Redefining functions over PointerVal
+  */
+  // Arithmetic
+  rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+    ptr(L, addMInt(MI1, MI2))
+  rule addMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+    ptr(L, addMInt(MI1, MI2))
+  rule addMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
+    ptr(L, addMInt(MI1, MI2))
+
+  rule mulMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+    ptr(L, mulMInt(MI1, MI2))
+  rule mulMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+    ptr(L, mulMInt(MI1, MI2))
+  rule mulMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
+    ptr(L, mulMInt(MI1, MI2))
+
+  rule xorMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+    ptr(L, xorMInt(MI1, MI2))
+  rule xorMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+    ptr(L, xorMInt(MI1, MI2))
+  rule xorMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
+    ptr(L, xorMInt(MI1, MI2))
+
+  rule subMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+    ptr(L, subMInt(MI1, MI2))
+  rule subMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+    ptr(L, subMInt(MI1, MI2))
+  
+  // Bitwidth
+  rule bitwidthMInt(ptr(L:MemLoc, MI:MInt)) => bitwidthMInt(MI)
+  // Extract
+  rule extractMInt(ptr(L:MemLoc, MI:MInt), S:Int, E:Int) => ptr(L, extractMInt(MI, S, E))
+
+  // Concatenate
+  rule concatenateMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+    ptr(L, concatenateMInt(MI1, MI2)) 
+  rule concatenateMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+    ptr(L, concatenateMInt(MI1, MI2)) 
+  rule concatenateMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => 
+    ptr(L, concatenateMInt(MI1, MI2)) 
+
+  // eqMInt
+  rule eqMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => eqMInt(MI1, MI2)
+  rule eqMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
+  rule eqMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
+
+  /*@
     X86-64 mnemonic allows the following ways of computing memory offsets.
       (%rax)
       -8 (%rax)

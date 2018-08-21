@@ -41,6 +41,7 @@ module X86-SYNTAX
                        | Label
 
   syntax Builtin ::= "putchar" [token]                     
+                   | "printf"  [token]
   syntax X86Id ::= Id | Builtin
 
   /*@
