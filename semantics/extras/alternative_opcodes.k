@@ -85,5 +85,4 @@ module ALTERNATIVE-OPCODES
   ...</k>
    rule <k> 
     execinstr (jmpq:Opcode LabelId:X86Id, .Operands) => execinstr (jmp LabelId, .Operands)
-  ...</
-  k>
+  ...</k>

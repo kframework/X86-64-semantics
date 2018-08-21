@@ -46,10 +46,6 @@ module ALTERNATIVE-OPCODES
     execinstr (dec R1:R32,  .Operands) => execinstr (decl R1,  .Operands)
   ...</k>
 
-  rule <k> 
-    execinstr (dec R1:R32,  .Operands) => execinstr (decl R1,  .Operands)
-  ...</k>
-
    rule <k> 
     execinstr(cmp:Opcode M:Mem, R2:R32,  .Operands) => execinstr(cmpl M, R2,  .Operands)
   ...</k>
@@ -79,15 +75,14 @@ module ALTERNATIVE-OPCODES
   ...</k>
 
    rule <k> 
-    execinstr(retq:Opcode .Operands) => execinstr(ret  .Operands)
-  ...</k>
-   rule <k> 
     execinstr(leaveq:Opcode .Operands) => execinstr(leave  .Operands)
   ...</k>
    rule <k> 
     execinstr (callq:Opcode LabelId:X86Id, .Operands) => execinstr (call LabelId, .Operands)
   ...</k>
    rule <k> 
+    execinstr (callq:Opcode B:Builtin, .Operands) => execinstr (call B, .Operands)
+  ...</k>
+   rule <k> 
     execinstr (jmpq:Opcode LabelId:X86Id, .Operands) => execinstr (jmp LabelId, .Operands)
   ...</k>
-endmodule

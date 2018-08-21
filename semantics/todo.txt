@@ -30,3 +30,11 @@ testing (Instr level)
 //vpcmpistri_xmm_xmm_imm8
 //vpcmpistrm_xmm_m128_imm8
 //vpcmpistrm_xmm_xmm_imm8
+
+   It succeeds only speculatively, because the branch predictor has been primed to assume that the bounds check will succeed.
+
+
+FInd a real world program
+Find all the lib call requires
+Get the status of each 
+What is the next problem
