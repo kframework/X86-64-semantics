@@ -104,7 +104,8 @@ module X86-CONFIGURATION
     // <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
 
-    <formatcount> 0 </formatcount>
+    <formatcountint> 0 </formatcountint>
+    <formatcountfloat> 0 </formatcountfloat>
     <c-library/>
     <formatting/>
 endmodule

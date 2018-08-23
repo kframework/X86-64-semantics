@@ -20,8 +20,6 @@ add_em_up (int count,...)
 int
 main (void)
 {
-  /* This call prints 16. */
-  int a =  add_em_up (6, 1, 2, 3, 4,5,6);
-
-  return a;
+  printf ("%d\n", add_em_up (10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+  return 0;
 }
