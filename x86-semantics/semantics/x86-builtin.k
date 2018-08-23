@@ -13,6 +13,10 @@ module X86-BUILTIN
   imports X86-ASBTRACT-SORTS
 
   //imports K-IO
+  //syntax KItem ::= "stackCheckFail"
+  //rule <k>
+  //  execinstr (call __stack_chk_fail:Builtin,  .Operands) => stackCheckFail
+  //...</k>
 
   rule <k>
     execinstr (call putchar:Builtin,  .Operands) =>

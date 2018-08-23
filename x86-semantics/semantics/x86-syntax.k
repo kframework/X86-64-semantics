@@ -42,6 +42,7 @@ module X86-SYNTAX
 
   syntax Builtin ::= "putchar" [token]                     
                    | "printf"  [token]
+                 //  | "__stack_chk_fail"  [token]
   syntax X86Id ::= Id
 
   /*@

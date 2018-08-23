@@ -804,6 +804,12 @@ sub compareStates {
             #info("\"undef\" found at $regMap{$i % $regcount}");
             next;
         }
+
+        if ( $kstates[$i] =~ m/symloc/) {
+#info("\"pointerval affected register or flags\" found at $regMap{$i % $regcount}");
+            next;
+        }
+
         if ( $kstates[$i] eq "NaN" ) {
 
             info("\"NaN\" found");
