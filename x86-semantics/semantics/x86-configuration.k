@@ -20,8 +20,9 @@ module X86-CONFIGURATION
   configuration
 //initEnvironment(ListItem("a.out") ListItem("HelloWorld!") .List) ~> 
     <k> 
-	initRegisters($REGV:RegValPairList) ~> 
-	initEnvironment($ARGV:List) ~> 
+	//initRegisters($REGV:RegValPairList) ~> 
+	//initEnvironment($ARGV:List) ~> 
+	initEnvironment(.List) ~> 
 	$PGM:Instructions ~> 
         loadEntryPoint ~>
 	inforegisters ~> 
@@ -29,6 +30,7 @@ module X86-CONFIGURATION
     </k>
 
     <functargets> .Map </functargets> 
+    <rotargets> .Map </rotargets> 
     <entrypoint> .K </entrypoint>
     <nextLocPc> mi(64, 0) </nextLocPc>
     <lastseenlabel> .K </lastseenlabel>
@@ -48,7 +50,47 @@ module X86-CONFIGURATION
     </environment>
 
     <regstate>
-      .Map
+      //.Map
+    ("RIP"    |-> mi(64, 0)) 
+    ("RAX"    |-> mi(64, 0)) 
+    ("RBX"    |-> mi(64, 0)) 
+    ("RCX"    |-> mi(64, 0)) 
+    ("RDX"    |-> mi(64, 0)) 
+    ("RSI"    |-> mi(64, 0)) 
+    ("RDI"    |-> mi(64, 0)) 
+    ("RSP"    |-> mi(64, 0)) 
+    ("RBP"    |-> mi(64, 0)) 
+    ("R8"     |-> mi(64, 0)) 
+    ("R9"     |-> mi(64, 0)) 
+    ("R10"    |-> mi(64, 0)) 
+    ("R11"    |-> mi(64, 0)) 
+    ("R12"    |-> mi(64, 0)) 
+    ("R13"    |-> mi(64, 0)) 
+    ("R14"    |-> mi(64, 0)) 
+    ("R15"    |-> mi(64, 0)) 
+    ("CF"     |-> mi(1, 0)) 
+    ("DF"     |-> mi(1, 0)) 
+    ("PF"     |-> mi(1, 0)) 
+    ("AF"     |-> mi(1, 0)) 
+    ("ZF"     |-> mi(1, 0)) 
+    ("SF"     |-> mi(1, 0)) 
+    ("OF"     |-> mi(1, 0)) 
+    ("YMM0"   |->  mi(256, 0)) 
+    ("YMM1"   |->  mi(256, 0)) 
+    ("YMM2"   |->  mi(256, 0)) 
+    ("YMM3"   |->  mi(256, 0)) 
+    ("YMM4"   |->  mi(256, 0)) 
+    ("YMM5"   |->  mi(256, 0)) 
+    ("YMM6"   |->  mi(256, 0)) 
+    ("YMM7"   |->  mi(256, 0)) 
+    ("YMM8"   |->  mi(256, 0)) 
+    ("YMM9"   |->  mi(256, 0)) 
+    ("YMM10"  |->  mi(256, 0)) 
+    ("YMM11"  |->  mi(256, 0)) 
+    ("YMM12"  |->  mi(256, 0)) 
+    ("YMM13"  |->  mi(256, 0)) 
+    ("YMM14"  |->  mi(256, 0)) 
+    ("YMM15"  |->  mi(256, 0))
     </regstate>
 
     /*@
@@ -62,6 +104,7 @@ module X86-CONFIGURATION
     // <itracer> .List </itracer>
     <regstatequeue> .List </regstatequeue>
 
+    <formatcount> 0 </formatcount>
     <c-library/>
     <formatting/>
 endmodule

@@ -55,6 +55,8 @@ module X86-SYNTAX
   syntax AssemblerDirective ::=  ".section" SectionName 
                             | ".globl" X86Id 
                             | ".string" String 
+                            | ".long" Int 
+                            | ".quad" Int 
   syntax SectionName ::= ".text"   [token]
                         | ".data" [token]
 
@@ -96,6 +98,7 @@ module X86-SYNTAX
   syntax Mem ::= "(" R32 ")"
                | "(" R64 ")"
                | "(" Rip ")"
+               | "$" X86Id "(" Rip ")"
  //              | Sreg ":" "(" R32 ")"
  //              | Sreg ":" "(" R64 ")"
  //              | Sreg ":" "(" Rip ")"

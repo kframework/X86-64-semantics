@@ -24,14 +24,24 @@ module X86-BUILTIN
   rule <k>
     execinstr (call printf:Builtin,  .Operands) =>
       stdio_printf({getRegisterValue(%rdi, RSMap)}:>PointerVal, 
-          ListItem(svalueMInt(getRegisterValue(%rsi, RSMap)))
-          ListItem(svalueMInt(getRegisterValue(%rdx, RSMap)))
-          ListItem(svalueMInt(getRegisterValue(%rcx, RSMap)))
-          ListItem(svalueMInt(getRegisterValue(%r8, RSMap)))
-          ListItem(svalueMInt(getRegisterValue(%r9, RSMap)))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          //ListItem(getRegisterValue(%rsi, RSMap))
+          //ListItem(getRegisterValue(%rdx, RSMap))
+          //ListItem(getRegisterValue(%rcx, RSMap))
+          //ListItem(getRegisterValue(%r8, RSMap))
+          //ListItem(getRegisterValue(%r9, RSMap))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    <formatcount> _ => 0 </formatcount>
+
 
 endmodule

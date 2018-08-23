@@ -14,13 +14,14 @@ module X86-ASBTRACT-SYNTAX
   imports X86-ASBTRACT-SORTS
 
 
-  syntax PointerVal ::=
-    ptr(MemLoc, /* offset in bits */ MInt)
+  syntax PointerVal ::= ptr(MemLoc, /* offset in bits */ MInt)
   syntax MInt ::= PointerVal
   syntax NullVal
   syntax NullVal ::= "null"
   syntax PointerVal ::= NullVal
   syntax Bool ::= isPointerValNull(PointerVal) [function]
+  syntax MemLoc ::= getMemLoc(PointerVal) [function]
+  syntax MInt ::= getMIntVal(PointerVal) [function]
 
 
   /*@

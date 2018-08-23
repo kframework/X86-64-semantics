@@ -22,7 +22,7 @@ main:
 	movl	%ecx, %esi
 	movl	$LC3, %edi
 	movl	$2, %eax
-	//call	printf
+	call	printf
 	movl	$0, %eax
 	leave
 	ret

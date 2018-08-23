@@ -17,7 +17,7 @@
     64'0
   </entrypoint>
   <nextLocPc>
-    64'22
+    64'23
   </nextLocPc>
   <lastseenlabel>
     LC0
@@ -43,9 +43,10 @@
       iloc ( 64'16 ) |-> storedInstr ( movl %ecx , %esi , .Operands )
       iloc ( 64'17 ) |-> storedInstr ( movl $ LC3 , %edi , .Operands )
       iloc ( 64'18 ) |-> storedInstr ( movl $ 2 , %eax , .Operands )
-      iloc ( 64'19 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
-      iloc ( 64'20 ) |-> storedInstr ( leave .Operands )
-      iloc ( 64'21 ) |-> storedInstr ( ret .Operands ) )
+      iloc ( 64'19 ) |-> storedInstr ( call printf , .Operands )
+      iloc ( 64'20 ) |-> storedInstr ( movl $ 0 , %eax , .Operands )
+      iloc ( 64'21 ) |-> storedInstr ( leave .Operands )
+      iloc ( 64'22 ) |-> storedInstr ( ret .Operands ) )
     </text>
     <stack>
       <memory>
@@ -200,7 +201,7 @@
     </argv>
   </environment>
   <regstate>
-    "AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+    "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -214,11 +215,11 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 64'56 ) ) ) ) ) ) ) )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'56 )
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'18446744073709551615
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'64 )
@@ -378,7 +379,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -423,7 +424,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -468,7 +469,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -513,7 +514,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -558,7 +559,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -603,7 +604,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -648,7 +649,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -693,7 +694,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -738,7 +739,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -783,7 +784,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -828,7 +829,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -846,7 +847,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'0
     "RDI" |-> 64'0
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'13
     "RSI" |-> 64'4612361558371493478
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -873,7 +874,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -891,7 +892,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> 64'0
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'14
     "RSI" |-> 64'4612361558371493478
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -918,7 +919,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -936,7 +937,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> 64'0
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'15
     "RSI" |-> 64'4612361558371493478
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -963,7 +964,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -981,7 +982,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> 64'0
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'16
     "RSI" |-> 64'4612361558371493478
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -1008,7 +1009,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -1026,7 +1027,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> 64'0
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'17
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -1053,7 +1054,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -1071,7 +1072,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'18
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -1098,7 +1099,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -1116,7 +1117,7 @@
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'19
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -1143,7 +1144,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -1156,12 +1157,12 @@
     "R13" |-> 64'0
     "R14" |-> 64'0
     "R15" |-> 64'0
-    "RAX" |-> 64'0
+    "RAX" |-> 64'59
     "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'48 )
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'20
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
@@ -1188,7 +1189,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -1202,12 +1203,57 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 64'56 ) ) ) ) ) ) ) )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'48 )
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'21
+    "RSI" |-> 64'10
+    "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'16 )
+    "SF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
+    "YMM0" |-> 256'4610785298287165440
+    "YMM1" |-> 256'4612361558371493478
+    "YMM2" |-> 256'4610785298287165440
+    "YMM3" |-> 256'0
+    "YMM4" |-> 256'0
+    "YMM5" |-> 256'0
+    "YMM6" |-> 256'0
+    "YMM7" |-> 256'0
+    "YMM8" |-> 256'0
+    "YMM9" |-> 256'0
+    "YMM10" |-> 256'0
+    "YMM11" |-> 256'0
+    "YMM12" |-> 256'0
+    "YMM13" |-> 256'0
+    "YMM14" |-> 256'0
+    "YMM15" |-> 256'0
+    "ZF" |-> 1'0 )
+    ListItem ( LC0 |-> ptr ( symloc ( 2 , 128 ) , 64'40 )
+    LC2 |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
+    LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
+    main |-> 64'0 )
+    ListItem (
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
+    "CF" |-> 1'0
+    "DF" |-> 1'0
+    "OF" |-> 1'0
+    "PF" |-> 1'0
+    "R8" |-> 64'0
+    "R9" |-> 64'0
+    "R10" |-> 64'0
+    "R11" |-> 64'0
+    "R12" |-> 64'0
+    "R13" |-> 64'0
+    "R14" |-> 64'0
+    "R15" |-> 64'0
+    "RAX" |-> 64'0
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'56 )
+    "RBX" |-> 64'0
+    "RCX" |-> 64'10
+    "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
+    "RIP" |-> 64'22
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'56 )
     "SF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
@@ -1233,7 +1279,7 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -1247,11 +1293,11 @@
     "R14" |-> 64'0
     "R15" |-> 64'0
     "RAX" |-> 64'0
-    "RBP" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 64'56 ) ) ) ) ) ) ) )
+    "RBP" |-> ptr ( symloc ( 1 , 128 ) , 64'56 )
     "RBX" |-> 64'0
     "RCX" |-> 64'10
     "RDI" |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
-    "RDX" |-> ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , ptr ( symloc ( 2 , 128 ) , 64'0 ) ) ) ) ) ) ) )
+    "RDX" |-> ptr ( symloc ( 2 , 128 ) , 64'0 )
     "RIP" |-> 64'18446744073709551615
     "RSI" |-> 64'10
     "RSP" |-> ptr ( symloc ( 1 , 128 ) , 64'64 )
@@ -1278,6 +1324,9 @@
     LC3 |-> ptr ( symloc ( 2 , 128 ) , 64'4 )
     main |-> 64'0 )
   </regstatequeue>
+  <formatcount>
+    4
+  </formatcount>
   <c-library>
     <malloced>
       .Map
@@ -1351,7 +1400,7 @@
           "stdout:///"
         </uri>
         <pos>
-          0
+          59
         </pos>
         <mode>
           "w"
@@ -1363,7 +1412,7 @@
           ""
         </read-buffer>
         <write-buffer>
-          ""
+          "int=10  char*=ABC float=1.7999999523162842e+00 double=0e+00"
         </write-buffer>
         <buffer-mode>
           lineBuf
@@ -1384,7 +1433,7 @@
           0
         </ferror>
         <last-op>
-          noLastOp
+          outputOp
         </last-op>
       </file> <file>
         <fid>
@@ -1461,7 +1510,68 @@
       .
     </format-arg>
     <format-result>
-      .List
+      ListItem (
+"i" )
+      ListItem (
+"n" )
+      ListItem (
+"t" )
+      ListItem (
+"=" )
+      ListItem (
+"10" )
+      ListItem (
+" " )
+      ListItem (
+" " )
+      ListItem (
+"c" )
+      ListItem (
+"h" )
+      ListItem (
+"a" )
+      ListItem (
+"r" )
+      ListItem (
+"*" )
+      ListItem (
+"=" )
+      ListItem (
+"ABC" )
+      ListItem (
+" " )
+      ListItem (
+"f" )
+      ListItem (
+"l" )
+      ListItem (
+"o" )
+      ListItem (
+"a" )
+      ListItem (
+"t" )
+      ListItem (
+"=" )
+      ListItem (
+"1.7999999523162842e+00" )
+      ListItem (
+" " )
+      ListItem (
+"d" )
+      ListItem (
+"o" )
+      ListItem (
+"u" )
+      ListItem (
+"b" )
+      ListItem (
+"l" )
+      ListItem (
+"e" )
+      ListItem (
+"=" )
+      ListItem (
+"0e+00" )
     </format-result>
     <format-state>
       "normal"

@@ -11,36 +11,52 @@ module X86-ABSTRACT-SEMANTICS
        =>
        isMemLocNull(Loc) andBool eqMInt(Offs, mi(bitwidthMInt(Offs), 0))
 
-
   /*@
     Redefining functions over PointerVal
   */
+  rule getMemLoc(ptr(L:MemLoc, MI:MInt)) => L
+  rule getMIntVal(ptr(L:MemLoc, MI:MInt)) => MI
+
   // Arithmetic
-  rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-    ptr(L, addMInt(MI1, MI2))
-  rule addMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-    ptr(L, addMInt(MI1, MI2))
-  rule addMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
-    ptr(L, addMInt(MI1, MI2))
+  //rule addMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+  //  ptr(L, addMInt(MI1, MI2))
+  //rule addMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+  //  ptr(L, addMInt(MI1, MI2))
+  //rule addMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
+  //  ptr(L, addMInt(MI1, MI2))
+  rule addMInt(PV:PointerVal, MI:MInt) => 
+    ptr( getMemLoc(PV), addMInt(convertPV(PV), convertPV(MI)))
+  rule addMInt(MI:MInt, PV:PointerVal) => 
+    ptr( getMemLoc(PV), addMInt(convertPV(MI), convertPV(PV)))
 
-  rule mulMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-    ptr(L, mulMInt(MI1, MI2))
-  rule mulMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-    ptr(L, mulMInt(MI1, MI2))
-  rule mulMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
-    ptr(L, mulMInt(MI1, MI2))
+  //rule mulMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+  //  ptr(L, mulMInt(MI1, MI2))
+  //rule mulMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+  //  ptr(L, mulMInt(MI1, MI2))
+  //rule mulMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
+  //  ptr(L, mulMInt(MI1, MI2))
+  rule mulMInt(PV:PointerVal, MI:MInt) => 
+    ptr( getMemLoc(PV), mulMInt(convertPV(PV), convertPV(MI)))
+  rule mulMInt(MI:MInt, PV:PointerVal) => 
+    ptr( getMemLoc(PV), mulMInt(convertPV(MI), convertPV(PV)))
 
-  rule xorMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-    ptr(L, xorMInt(MI1, MI2))
-  rule xorMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-    ptr(L, xorMInt(MI1, MI2))
-  rule xorMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
-    ptr(L, xorMInt(MI1, MI2))
+  //rule xorMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+  //  ptr(L, xorMInt(MI1, MI2))
+  //rule xorMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+  //  ptr(L, xorMInt(MI1, MI2))
+  //rule xorMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) =>
+  //  ptr(L, xorMInt(MI1, MI2))
+  rule xorMInt(PV:PointerVal, MI:MInt) => 
+    ptr( getMemLoc(PV), xorMInt(convertPV(PV), convertPV(MI)))
+  rule xorMInt(MI:MInt, PV:PointerVal) => 
+    ptr( getMemLoc(PV), xorMInt(convertPV(MI), convertPV(PV)))
 
-  rule subMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
-    ptr(L, subMInt(MI1, MI2))
-  rule subMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
-    ptr(L, subMInt(MI1, MI2))
+  //rule subMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
+  //  ptr(L, subMInt(MI1, MI2))
+  //rule subMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
+  //  ptr(L, subMInt(MI1, MI2))
+  rule subMInt(PV:PointerVal, MI:MInt) => 
+    ptr( getMemLoc(PV), subMInt(convertPV(PV), convertPV(MI)))
   
   // Bitwidth
   rule bitwidthMInt(ptr(L:MemLoc, MI:MInt)) => bitwidthMInt(MI)
@@ -48,17 +64,36 @@ module X86-ABSTRACT-SEMANTICS
   rule extractMInt(ptr(L:MemLoc, MI:MInt), S:Int, E:Int) => ptr(L, extractMInt(MI, S, E))
 
   // Concatenate
+  syntax MInt ::= "convertPV" "(" MInt ")" [function]
+  rule convertPV(PV:PointerVal) => getMIntVal(PV)
+  rule convertPV(MI:MInt) => MI  [owise]
+
+  rule concatenateMInt(PV:PointerVal, MI:MInt) => 
+    ptr( getMemLoc(PV), concatenateMInt(convertPV(PV), convertPV(MI)))
+  rule concatenateMInt(MI:MInt, PV:PointerVal) => 
+    ptr( getMemLoc(PV), concatenateMInt(convertPV(MI), convertPV(PV)))
+
+
+  /*
   rule concatenateMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => 
     ptr(L, concatenateMInt(MI1, MI2)) 
   rule concatenateMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => 
     ptr(L, concatenateMInt(MI1, MI2)) 
   rule concatenateMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => 
     ptr(L, concatenateMInt(MI1, MI2)) 
+    */
 
   // eqMInt
   rule eqMInt(ptr(L:MemLoc, MI1:MInt), MI2:MInt) => eqMInt(MI1, MI2)
   rule eqMInt(MI1:MInt, ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
   rule eqMInt(ptr(L:MemLoc, MI1:MInt), ptr(L:MemLoc, MI2:MInt)) => eqMInt(MI1, MI2)
+
+  // Sign Extension
+  //rule mi(W:Int, svalueMInt(PV:PointerVal)) => 
+  //  ptr(getMemLoc(PV), mi(W, svalueMInt(getMIntVal(PV))))
+
+  // Avoid bloating
+  //rule ptr(L:MemLoc, ptr(L:MemLoc, M:MInt)) => ptr(L, M)
 
   /*@
     X86-64 mnemonic allows the following ways of computing memory offsets.
@@ -78,6 +113,12 @@ module X86-ABSTRACT-SEMANTICS
     The following code streamlines the offset calculation so as to have a single rule for each memory 
     instrcution.    
   */
+  rule <k> $ L:X86Id (%rip) => 
+    memOffset( ptr(getMemLoc(LoadAddr), getMIntVal(LoadAddr)))
+  ...</k>
+      <regstate> RSMap </regstate>
+      <functargets>...  L |-> LoadAddr:PointerVal  ...</functargets>
+
   rule <k> (R1:R64):Mem => 
     memOffset( addMInt(mi(64, 0), addMInt(getRegisterValue(R1, RSMap), mulMInt(mi(64, 0), mi(64, 1))))) 
   ...</k>
