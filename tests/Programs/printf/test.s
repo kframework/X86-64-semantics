@@ -13,7 +13,7 @@ main:
 	movl	%eax, %esi
 	movl	$LC1, %edi
 	movl	$0, %eax
-	//call	printf
+	call	printf
 	movl	$0, %eax
 	leave
 	ret
