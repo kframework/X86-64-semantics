@@ -111,124 +111,124 @@ module X86-C-LIBRARY
   // %c
   rule <k> getValueToPrint(C:MInt, "%c", "") => formatChar(svalueMInt(getRegisterValue(%rsi, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
   rule <k> getValueToPrint(C:MInt, "%c", "") => formatChar(svalueMInt(getRegisterValue(%rdx, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 1
 
   rule <k> getValueToPrint(C:MInt, "%c", "") => formatChar(svalueMInt(getRegisterValue(%rcx, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 2
 
   rule <k> getValueToPrint(C:MInt, "%c", "") => formatChar(svalueMInt(getRegisterValue(%r8, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 3
 
   rule <k>  getValueToPrint(C:MInt, "%c", "") => formatChar(svalueMInt(getRegisterValue(%r9, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 4
 
   // %d    
   rule <k> getValueToPrint(C:MInt, "%d", "") => formatInt(svalueMInt(getRegisterValue(%rsi, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
   rule <k> getValueToPrint(C:MInt, "%d", "") => formatInt(svalueMInt(getRegisterValue(%rdx, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 1
 
   rule <k> getValueToPrint(C:MInt, "%d", "") => formatInt(svalueMInt(getRegisterValue(%rcx, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 2
 
   rule <k> getValueToPrint(C:MInt, "%d", "") => formatInt(svalueMInt(getRegisterValue(%r8, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 3
 
   rule <k> getValueToPrint(C:MInt, "%d", "") => formatInt(svalueMInt(getRegisterValue(%r9, RSMap)))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 4
 
   // %p    
   rule <k> getValueToPrint(PV:PointerVal, "%p", "") => formatPointer({getRegisterValue(%rsi, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
   rule <k> getValueToPrint(C:MInt, "%p", "") => formatPointer({getRegisterValue(%rdx, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 1
 
   rule <k> getValueToPrint(C:MInt, "%p", "") => formatPointer({getRegisterValue(%rcx, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 2
 
   rule <k> getValueToPrint(C:MInt, "%p", "") => formatPointer({getRegisterValue(%r8, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 3
 
   rule <k> getValueToPrint(C:MInt, "%p", "") => formatPointer({getRegisterValue(%r9, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 4
 
   // %s    
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%rsi, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%rdx, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 1
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%rcx, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 2
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%r8, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 3
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%r9, RSMap)}:>PointerVal)
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
       requires I ==Int 4
 
@@ -236,31 +236,31 @@ module X86-C-LIBRARY
   // %f    
   rule <k> getValueToPrint(C:MInt, "%f", "") => formatFloat(MInt2Float(extractMInt(getRegisterValue(%xmm0, RSMap), 64, 128), 53, 11))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountfloat> I => I +Int 1 </formatcountfloat>
     <regstate> RSMap </regstate>
       requires I ==Int 0
 
   rule <k> getValueToPrint(C:MInt, "%f", "") => formatFloat(MInt2Float(extractMInt(getRegisterValue(%xmm1, RSMap), 64, 128), 53, 11))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountfloat> I => I +Int 1 </formatcountfloat>
     <regstate> RSMap </regstate>
       requires I ==Int 1
 
   rule <k> getValueToPrint(C:MInt, "%f", "") => formatFloat(MInt2Float(extractMInt(getRegisterValue(%xmm2, RSMap), 64, 128), 53, 11))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountfloat> I => I +Int 1 </formatcountfloat>
     <regstate> RSMap </regstate>
       requires I ==Int 2
 
   rule <k> getValueToPrint(C:MInt, "%f", "") => formatFloat(MInt2Float(extractMInt(getRegisterValue(%xmm3, RSMap), 64, 128), 53, 11))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountfloat> I => I +Int 1 </formatcountfloat>
     <regstate> RSMap </regstate>
       requires I ==Int 3
 
   rule <k> getValueToPrint(C:MInt, "%f", "") => formatFloat(MInt2Float(extractMInt(getRegisterValue(%xmm4, RSMap), 64, 128), 53, 11))
   ...</k>
-    <formatcount> I => I +Int 1 </formatcount>
+    <formatcountfloat> I => I +Int 1 </formatcountfloat>
     <regstate> RSMap </regstate>
       requires I ==Int 4
 

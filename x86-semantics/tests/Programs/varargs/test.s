@@ -73,23 +73,31 @@ L3:
 L8:
 	leave
 	ret
+LC0:
+	.string	"%d\n"
 .globl _start
 _start:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	subq	$16, %rsp
 	subq	$8, %rsp
+	pushq	$10
+	pushq	$9
+	pushq	$8
+	pushq	$7
 	pushq	$6
 	movl	$5, %r9d
 	movl	$4, %r8d
 	movl	$3, %ecx
 	movl	$2, %edx
 	movl	$1, %esi
-	movl	$6, %edi
+	movl	$10, %edi
 	movl	$0, %eax
 	call	add_em_up
-	addq	$16, %rsp
-	movl	%eax, -4(%rbp)
-	movl	-4(%rbp), %eax
+	addq	$48, %rsp
+	movl	%eax, %esi
+	movl	$LC0, %edi
+	movl	$0, %eax
+	call	printf
+	movl	$0, %eax
 	leave
 	ret

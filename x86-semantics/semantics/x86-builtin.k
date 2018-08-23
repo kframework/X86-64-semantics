@@ -45,7 +45,8 @@ module X86-BUILTIN
           )  
   ...</k>
     <regstate> RSMap </regstate>
-    <formatcount> _ => 0 </formatcount>
+    <formatcountint> _ => 0 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
 
 
 endmodule
