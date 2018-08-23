@@ -1,15 +1,19 @@
 LC0:
-	.string	"ABC=%d"
+	.string	"Sandeep"
+LC1:
+	.string	"int=%d  char*=%s"
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$16, %rsp
-	movl	$10, -4(%rbp)
-	movl	-4(%rbp), %eax
+	movl	$10, -12(%rbp)
+	movq	$LC0, -8(%rbp)
+	movq	-8(%rbp), %rdx
+	movl	-12(%rbp), %eax
 	movl	%eax, %esi
-	movl	$LC0, %edi
+	movl	$LC1, %edi
 	movl	$0, %eax
-	call	printf
+	//call	printf
 	movl	$0, %eax
 	leave
 	ret

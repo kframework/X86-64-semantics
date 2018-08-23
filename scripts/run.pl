@@ -130,8 +130,10 @@ if ( "" ne $krun ) {
 
     #$output = "$outdir/$basename.kstate";
 
-    my $envArgs = createEnv( \@args );
-    my $regArgs = createRegArgs();
+#my $envArgs = createEnv( \@args );
+#my $regArgs = createRegArgs();
+    my $envArgs = "";
+    my $regArgs = "";
 
     if($nopathsplit ne "") {
       $basename =  $dir. "/" . $basename; 

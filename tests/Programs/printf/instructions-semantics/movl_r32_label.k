@@ -9,7 +9,7 @@ module MOVL-R32-LABEL
   ...</k>
     <regstate>
 RSMap:Map => updateMap(RSMap,
-convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), LoadAddr)
+convToRegKeys(R2) |-> concatenateMInt( mi(32, 0), extractMInt(LoadAddr, 32, 64))
 )
 
     </regstate>
