@@ -190,7 +190,7 @@
     </argv>
   </environment>
   <regstate>
-    "AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+    "AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -365,7 +365,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -409,7 +409,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -453,7 +453,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -497,7 +497,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -541,7 +541,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -585,7 +585,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -629,7 +629,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -673,7 +673,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -717,7 +717,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -761,7 +761,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -805,7 +805,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -849,7 +849,7 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
     ListItem (
-"AF" |-> ptr ( symloc ( 1 , 128 ) , ptr ( symloc ( 1 , 128 ) , 1'0 ) )
+"AF" |-> ptr ( symloc ( 1 , 128 ) , 1'0 )
     "CF" |-> 1'0
     "DF" |-> 1'0
     "OF" |-> 1'0
@@ -893,6 +893,9 @@
     LC1 |-> ptr ( symloc ( 2 , 128 ) , 64'8 )
     main |-> 64'0 )
   </regstatequeue>
+  <formatcount>
+    2
+  </formatcount>
   <c-library>
     <malloced>
       .Map

@@ -27,17 +27,19 @@ module X86-FETCH-EXECUTE
   */
   rule
     <k> inforegisters => . ... </k>
-      <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
+      <regstatequeue> ... .List => ListItem(RSMap) ListItem(FMap) </regstatequeue>
       // <itracer> ... .List => ListItem(CMap[iloc( {RSMap["RIP"]}:>MInt )]) </itracer>
       <regstate> RSMap </regstate>
+      <functargets> FMap:Map </functargets>
       <text> code (CMap) </text>
         requires  iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
 
   rule
     <k> inforegisters => . ... </k>
-      <regstatequeue> ... .List => ListItem(RSMap) </regstatequeue>
+      <regstatequeue> ... .List => ListItem(RSMap) ListItem(FMap) </regstatequeue>
       <text> code (CMap) </text>
       <regstate> RSMap </regstate>
+      <functargets> FMap:Map </functargets>
         requires notBool iloc( {RSMap["RIP"]}:>MInt ) in_keys ( CMap )
 
   /*@
