@@ -11,6 +11,9 @@ module ALTERNATIVE-OPCODES
   ...</k>
 
   rule <k> 
+    execinstr (movabsq:Opcode  Imm64:Imm, R2:R64,  .Operands) =>  execinstr (movq  Imm64, R2, .Operands)
+  ...</k>
+  rule <k> 
     execinstr (mov:Opcode  R1:R64, R2:R64,  .Operands) =>  execinstr (movq  R1, R2, .Operands)
   ...</k>
   rule <k> 
