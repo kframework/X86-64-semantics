@@ -320,8 +320,14 @@ module X86-C-LIBRARY
 
 
   rule asCInt(I:Int) => setRegisterValue(mi(64, I), %rax)
+  rule asCLongInt(I:Int) => setRegisterValue(mi(64, I), %rax)
+  rule asCSize(I:Int) => setRegisterValue(mi(64, I), %rax)
   rule asCFILEPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
-       
+  rule asCCharPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
+  rule nullFilePointer => setRegisterValue(null, %rax)
+  rule nullStringPointer => setRegisterValue(null, %rax)
 
+  rule isEqToOne(MI:MInt) => eqMInt(MI, mi(bitwidthMInt(MI), 1))
+  rule <k> setErrno(E:Int) => . ...</k>
 endmodule
 
