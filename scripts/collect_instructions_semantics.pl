@@ -44,18 +44,28 @@ for my $line (@lines) {
   }
 
   my $opcode = $line =~ s/\s.*//gr; 
+  print $opcode ."\n";
+  populate($opcode);
 
-  #print $opcode ."\n";
   #my @files = File::Find::Rule->file->name("$opcode\_*.k")->in($regDir);
   #foreach (@files) {
   #  print $file . "\n";
   #}
+
+
+}
+
+sub populate {
+  my $opcode = shift @_;
 
   execute("cp $regDir/$opcode\_* $target 1> /dev/null 2>&1");
   execute("cp $immDir/$opcode\_* $target 1> /dev/null 2>&1");
   execute("cp $memDir/$opcode\_* $target 1> /dev/null 2>&1");
   execute("cp $sysDir/$opcode\_* $target 1> /dev/null 2>&1");
   execute("cp $extraDir/* $target ");
+  execute("cp $sysDir/callq* $target ");
+  execute("cp $sysDir/jmpq* $target ");
+
 
 
   execute("rm  $target/cmpl_*imm8*");
