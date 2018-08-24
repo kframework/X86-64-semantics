@@ -16,15 +16,23 @@ L2:
 	movq	-8(%rbp), %rax
 	popq	%rbp
 	ret
+LC0:
+	.string	"w"
+LC1:
+	.string	"alphabet.txt"
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	pushq	%rbx
-	subq	$120, %rsp
+	subq	$136, %rsp
 	movq	$40, %rax
 	movq	%rax, -24(%rbp)
 	xorl	%eax, %eax
-	movq	$stdout, %rax
+	movq	stdout(%rip), %rax
+	movq	%rax, -128(%rbp)
+	movl	$LC0, %esi
+	movl	$LC1, %edi
+	call	fopen
 	movq	%rax, -120(%rbp)
 	movabsq	$8031924123371070792, %rax
 	movq	%rax, -112(%rbp)
@@ -37,19 +45,43 @@ main:
 	movq	%rdi, %rdx
 	movb	%al, (%rdx)
 	addq	$1, %rdx
-	movl	$0, -128(%rbp)
+	movl	$0, -136(%rbp)
 	jmp	L6
 L8:
-	addl	$1, -128(%rbp)
+	addl	$1, -136(%rbp)
 L6:
-	movl	-128(%rbp), %eax
+	movl	-136(%rbp), %eax
 	movslq	%eax, %rbx
 	leaq	-112(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen
 	cmpq	%rax, %rbx
 	jnb	L7
-	movl	-128(%rbp), %eax
+	movl	-136(%rbp), %eax
+	cltq
+	movzbl	-112(%rbp,%rax), %eax
+	movsbl	%al, %eax
+	movq	-128(%rbp), %rdx
+	movq	%rdx, %rsi
+	movl	%eax, %edi
+	call	fputc
+	movl	%eax, -132(%rbp)
+	cmpl	$-1, -132(%rbp)
+	jne	L8
+L7:
+	movl	$0, -136(%rbp)
+	jmp	L9
+L11:
+	addl	$1, -136(%rbp)
+L9:
+	movl	-136(%rbp), %eax
+	movslq	%eax, %rbx
+	leaq	-112(%rbp), %rax
+	movq	%rax, %rdi
+	call	strlen
+	cmpq	%rax, %rbx
+	jnb	L10
+	movl	-136(%rbp), %eax
 	cltq
 	movzbl	-112(%rbp,%rax), %eax
 	movsbl	%al, %eax
@@ -57,16 +89,19 @@ L6:
 	movq	%rdx, %rsi
 	movl	%eax, %edi
 	call	fputc
-	movl	%eax, -124(%rbp)
-	cmpl	$-1, -124(%rbp)
-	jne	L8
-L7:
-	movl	$0, %eax
-	movq	-24(%rbp), %rsi
-	xorq	$40, %rsi
-	je	L10
+	movl	%eax, -132(%rbp)
+	cmpl	$-1, -132(%rbp)
+	jne	L11
 L10:
-	addq	$120, %rsp
+	movq	-120(%rbp), %rax
+	movq	%rax, %rdi
+	call	fclose
+	movl	$0, %eax
+	movq	-24(%rbp), %rcx
+	xorq	$40, %rcx
+	je	L13
+L13:
+	addq	$136, %rsp
 	popq	%rbx
 	popq	%rbp
 	ret
