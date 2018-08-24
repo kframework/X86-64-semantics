@@ -20,6 +20,31 @@ module X86-BUILTIN
   //...</k>
 
   //rule initBuiltin(stdout) => allocateSTDOUTMemory(4, 0)
+  rule <k>
+    execinstr (call feof:Builtin,  .Operands) =>
+      stdio_feof(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fflush:Builtin,  .Operands) =>
+      stdio_fflush(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fgets:Builtin,  .Operands) =>
+      stdio_fgets(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          svalueMInt(getRegisterValue(%rsi, RSMap)),
+          {getRegisterValue(%rdx, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
 
   rule <k>
     execinstr (call fgetc:Builtin,  .Operands) =>
@@ -29,19 +54,28 @@ module X86-BUILTIN
   ...</k>
     <regstate> RSMap </regstate>
 
-
   rule <k>
-    execinstr (call feof:Builtin,  .Operands) =>
-      stdio_feof(
+    execinstr (call getc:Builtin,  .Operands) =>
+      stdio_getc(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal
           )  
   ...</k>
     <regstate> RSMap </regstate>
 
-
   rule <k>
     execinstr (call fwrite:Builtin,  .Operands) =>
       stdio_fwrite(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          svalueMInt(getRegisterValue(%rsi, RSMap)),
+          svalueMInt(getRegisterValue(%rdx, RSMap)),
+          {getRegisterValue(%rcx, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fread:Builtin,  .Operands) =>
+      stdio_fread(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal,
           svalueMInt(getRegisterValue(%rsi, RSMap)),
           svalueMInt(getRegisterValue(%rdx, RSMap)),
@@ -77,6 +111,16 @@ module X86-BUILTIN
     <regstate> RSMap </regstate>
 
   rule <k>
+    execinstr (call freopen:Builtin,  .Operands) =>
+      stdio_freopen(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal,
+          {getRegisterValue(%rdx, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
     execinstr (call fclose:Builtin,  .Operands) =>
       stdio_fclose(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal
@@ -89,6 +133,10 @@ module X86-BUILTIN
       stdio_putchar(svalueMInt(getRegisterValue(%rdi, RSMap)))  
   ...</k>
     <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call getchar:Builtin,  .Operands) => stdio_getchar
+  ...</k>
 
   rule <k>
     execinstr (call _IO_putc:Builtin,  .Operands) =>
@@ -131,5 +179,114 @@ module X86-BUILTIN
     <formatcountint> _ => 0 </formatcountint>
     <formatcountfloat> _ => 0 </formatcountfloat>
 
+  rule <k>
+    execinstr (call fprintf:Builtin,  .Operands) =>
+      stdio_fprintf(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          .List
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+    <formatcountint> _ => 0 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
+
+  rule <k>
+    execinstr (call sprintf:Builtin,  .Operands) =>
+      stdio_sprintf(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          .List
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call snprintf:Builtin,  .Operands) =>
+      stdio_snprintf(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
+          svalueMInt(getRegisterValue(%rsi, RSMap)),
+          {getRegisterValue(%rdx, RSMap)}:>PointerVal, 
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          .List
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fscanf:Builtin,  .Operands) =>
+      stdio_fscanf(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          .List
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call sscanf:Builtin,  .Operands) =>
+      stdio_sscanf(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          .List
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call scanf:Builtin,  .Operands) =>
+      stdio_scanf(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          ListItem(mi(64,0))
+          .List
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
 
 endmodule
