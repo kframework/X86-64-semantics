@@ -1,9 +1,27 @@
+strlen:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	%rdi, -24(%rbp)
+	movq	$0, -8(%rbp)
+	jmp	L2
+L3:
+	addq	$1, -8(%rbp)
+L2:
+	movq	-24(%rbp), %rdx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	testb	%al, %al
+	jne	L3
+	movq	-8(%rbp), %rax
+	popq	%rbp
+	ret
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	pushq	%rbx
 	subq	$120, %rsp
-	movq	%fs:40, %rax
+	movq	$40, %rax
 	movq	%rax, -24(%rbp)
 	xorl	%eax, %eax
 	movq	$stdout, %rax
@@ -20,17 +38,17 @@ main:
 	movb	%al, (%rdx)
 	addq	$1, %rdx
 	movl	$0, -128(%rbp)
-	jmp	L2
-L4:
+	jmp	L6
+L8:
 	addl	$1, -128(%rbp)
-L2:
+L6:
 	movl	-128(%rbp), %eax
 	movslq	%eax, %rbx
 	leaq	-112(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen
 	cmpq	%rax, %rbx
-	jnb	L3
+	jnb	L7
 	movl	-128(%rbp), %eax
 	cltq
 	movzbl	-112(%rbp,%rax), %eax
@@ -41,12 +59,13 @@ L2:
 	call	fputc
 	movl	%eax, -124(%rbp)
 	cmpl	$-1, -124(%rbp)
-	jne	L4
-L3:
+	jne	L8
+L7:
+	movl	$0, %eax
 	movq	-24(%rbp), %rsi
 	xorq	$40, %rsi
-	je	L5
-L5:
+	je	L10
+L10:
 	addq	$120, %rsp
 	popq	%rbx
 	popq	%rbp

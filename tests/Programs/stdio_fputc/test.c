@@ -1,7 +1,14 @@
 #include <stdio.h>
-#include <string.h>
+#include<stddef.h>
  
 #define  LENGTH 80
+
+size_t strlen(const char *s) {
+    size_t i;
+    for (i = 0; s[i] != '\0'; i++) ;
+    return i;
+}
+
  
 int main(void)
 {

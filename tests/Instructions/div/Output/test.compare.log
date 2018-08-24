@@ -1,7 +1,13 @@
 
+Generate: Output/test.xstate 
+../../../scripts/run.pl --file test.s --xrun --output Output/test.xstate
+as test.s -o Output//test.o 
+ld Output//test.o -o Output//test.exec 
+gdb --batch --command=/home/sdasgup3/Github/binary-decompilation/x86-semantics/scripts/script_3.gdb --args Output//test.exec 1> Output//test.xstate 2>&1 
+
 Compare: Output/test.cstate 
 ../../../scripts/run.pl --file Output/test.kstate --compare 
-grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfileGgTs1 2>&1 
+grep  -A 40  "ListItem"  Output/test.kstate  | sed -e '/RIP/d' 1> /tmp/tmpfilelXHJO 2>&1 
 numOfInstrs: 339
 
 	0:	48 c7 c0 00 00 00 00	mov    $0x0,%rax
@@ -27,7 +33,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -68,7 +74,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -109,7 +115,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -150,7 +156,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -191,7 +197,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -232,7 +238,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -273,7 +279,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -314,7 +320,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -355,7 +361,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -396,7 +402,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -437,7 +443,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -478,7 +484,7 @@ rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -513,13 +519,13 @@ ymm15	256'0	0x0000000000000000000000000000000000000000000000000000000000000000
 
 Count 12) reg	kstate	xstate		f6 f3	div    %bl
 ---------------------
-rax	64'255	65535
+rax	concatenateMInt ( concatenateMInt ( 48'0 , divideError ) , divideError )	65535
 rbx	64'1	1
 rcx	64'0	0
 rdx	64'0	0
 rsi	64'0	0
 rdi	64'0	0
-rsp	64'2040	140737488345568
+rsp	64'2040	140737488345632
 rbp	64'2040	0
 r8	64'0	0
 r9	64'0	0
@@ -636,7 +642,7 @@ ymm15	256'0
 
 Count 15) reg	kstate	xstate	
 ---------------------
-rax	64'511	
+rax	concatenateMInt ( concatenateMInt ( 48'0 , divideError ) , divideError )	
 rbx	64'2	
 rcx	64'0	
 rdx	64'0	
@@ -759,7 +765,7 @@ ymm15	256'0
 
 Count 18) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	concatenateMInt ( concatenateMInt ( 48'0 , divideError ) , divideError )	
 rbx	64'255	
 rcx	64'0	
 rdx	64'0	
@@ -882,7 +888,7 @@ ymm15	256'0
 
 Count 21) reg	kstate	xstate	
 ---------------------
-rax	64'20489	
+rax	concatenateMInt ( concatenateMInt ( 48'0 , divideError ) , divideError )	
 rbx	64'247	
 rcx	64'0	
 rdx	64'0	
@@ -1005,7 +1011,7 @@ ymm15	256'0
 
 Count 24) reg	kstate	xstate	
 ---------------------
-rax	64'255	
+rax	concatenateMInt ( concatenateMInt ( 48'0 , divideError ) , divideError )	
 rbx	64'1	
 rcx	64'0	
 rdx	64'0	
@@ -1128,7 +1134,7 @@ ymm15	256'0
 
 Count 27) reg	kstate	xstate	
 ---------------------
-rax	64'511	
+rax	concatenateMInt ( concatenateMInt ( 48'0 , divideError ) , divideError )	
 rbx	64'2	
 rcx	64'0	
 rdx	64'0	
@@ -2686,10 +2692,10 @@ ymm15	256'0
 
 Count 65) reg	kstate	xstate	
 ---------------------
-rax	64'65535	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'1	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -2730,7 +2736,7 @@ Count 66) reg	kstate	xstate
 rax	64'65535	
 rbx	64'1	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -2771,7 +2777,7 @@ Count 67) reg	kstate	xstate
 rax	64'65535	
 rbx	64'2	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -2850,10 +2856,10 @@ ymm15	256'0
 
 Count 69) reg	kstate	xstate	
 ---------------------
-rax	64'65535	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'2	
 rcx	64'0	
-rdx	64'1	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -2894,7 +2900,7 @@ Count 70) reg	kstate	xstate
 rax	64'65535	
 rbx	64'2	
 rcx	64'0	
-rdx	64'1	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -2935,7 +2941,7 @@ Count 71) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'1	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3014,10 +3020,10 @@ ymm15	256'0
 
 Count 73) reg	kstate	xstate	
 ---------------------
-rax	64'257	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3058,7 +3064,7 @@ Count 74) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3099,7 +3105,7 @@ Count 75) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3178,10 +3184,10 @@ ymm15	256'0
 
 Count 77) reg	kstate	xstate	
 ---------------------
-rax	64'21491	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'138	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3222,7 +3228,7 @@ Count 78) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'138	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3263,7 +3269,7 @@ Count 79) reg	kstate	xstate
 rax	64'65535	
 rbx	64'1	
 rcx	64'0	
-rdx	64'138	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3342,10 +3348,10 @@ ymm15	256'0
 
 Count 81) reg	kstate	xstate	
 ---------------------
-rax	64'65535	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'1	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3386,7 +3392,7 @@ Count 82) reg	kstate	xstate
 rax	64'65535	
 rbx	64'1	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3427,7 +3433,7 @@ Count 83) reg	kstate	xstate
 rax	64'65535	
 rbx	64'2	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3506,10 +3512,10 @@ ymm15	256'0
 
 Count 85) reg	kstate	xstate	
 ---------------------
-rax	64'65535	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'2	
 rcx	64'0	
-rdx	64'1	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3550,7 +3556,7 @@ Count 86) reg	kstate	xstate
 rax	64'65535	
 rbx	64'2	
 rcx	64'0	
-rdx	64'1	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3591,7 +3597,7 @@ Count 87) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'1	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3670,10 +3676,10 @@ ymm15	256'0
 
 Count 89) reg	kstate	xstate	
 ---------------------
-rax	64'32896	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3714,7 +3720,7 @@ Count 90) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3755,7 +3761,7 @@ Count 91) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3834,10 +3840,10 @@ ymm15	256'0
 
 Count 93) reg	kstate	xstate	
 ---------------------
-rax	64'43513	
+rax	concatenateMInt ( 48'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'192	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3878,7 +3884,7 @@ Count 94) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'192	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -3919,7 +3925,7 @@ Count 95) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'192	
+rdx	concatenateMInt ( 48'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4326,10 +4332,10 @@ ymm15	256'0
 
 Count 105) reg	kstate	xstate	
 ---------------------
-rax	64'257	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4370,7 +4376,7 @@ Count 106) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4411,7 +4417,7 @@ Count 107) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4490,10 +4496,10 @@ ymm15	256'0
 
 Count 109) reg	kstate	xstate	
 ---------------------
-rax	64'1391082790	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'85	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4534,7 +4540,7 @@ Count 110) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'85	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4575,7 +4581,7 @@ Count 111) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'85	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4654,10 +4660,10 @@ ymm15	256'0
 
 Count 113) reg	kstate	xstate	
 ---------------------
-rax	64'2139062400	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4698,7 +4704,7 @@ Count 114) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4739,7 +4745,7 @@ Count 115) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4818,10 +4824,10 @@ ymm15	256'0
 
 Count 117) reg	kstate	xstate	
 ---------------------
-rax	64'2834330910	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'13	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4862,7 +4868,7 @@ Count 118) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'13	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4903,7 +4909,7 @@ Count 119) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'13	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -4982,10 +4988,10 @@ ymm15	256'0
 
 Count 121) reg	kstate	xstate	
 ---------------------
-rax	64'16843009	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5026,7 +5032,7 @@ Count 122) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5067,7 +5073,7 @@ Count 123) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5146,10 +5152,10 @@ ymm15	256'0
 
 Count 125) reg	kstate	xstate	
 ---------------------
-rax	64'2417005887	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5190,7 +5196,7 @@ Count 126) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5231,7 +5237,7 @@ Count 127) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5310,10 +5316,10 @@ ymm15	256'0
 
 Count 129) reg	kstate	xstate	
 ---------------------
-rax	64'2155905152	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5354,7 +5360,7 @@ Count 130) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5395,7 +5401,7 @@ Count 131) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5474,10 +5480,10 @@ ymm15	256'0
 
 Count 133) reg	kstate	xstate	
 ---------------------
-rax	64'3355986591	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'150	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5518,7 +5524,7 @@ Count 134) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'150	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5559,7 +5565,7 @@ Count 135) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'32	
 rcx	64'0	
-rdx	64'150	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5638,10 +5644,10 @@ ymm15	256'0
 
 Count 137) reg	kstate	xstate	
 ---------------------
-rax	64'4294967295	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'32	
 rcx	64'0	
-rdx	64'31	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5682,7 +5688,7 @@ Count 138) reg	kstate	xstate
 rax	64'65535	
 rbx	64'32	
 rcx	64'0	
-rdx	64'31	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -5723,7 +5729,7 @@ Count 139) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'31	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6130,10 +6136,10 @@ ymm15	256'0
 
 Count 149) reg	kstate	xstate	
 ---------------------
-rax	64'257	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6174,7 +6180,7 @@ Count 150) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6215,7 +6221,7 @@ Count 151) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6294,10 +6300,10 @@ ymm15	256'0
 
 Count 153) reg	kstate	xstate	
 ---------------------
-rax	64'1391082790	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'85	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6338,7 +6344,7 @@ Count 154) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'85	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6379,7 +6385,7 @@ Count 155) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'85	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6458,10 +6464,10 @@ ymm15	256'0
 
 Count 157) reg	kstate	xstate	
 ---------------------
-rax	64'2139062400	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6502,7 +6508,7 @@ Count 158) reg	kstate	xstate
 rax	64'65535	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6543,7 +6549,7 @@ Count 159) reg	kstate	xstate
 rax	64'65535	
 rbx	64'247	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6622,10 +6628,10 @@ ymm15	256'0
 
 Count 161) reg	kstate	xstate	
 ---------------------
-rax	64'2834330910	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'13	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6666,7 +6672,7 @@ Count 162) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'13	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6707,7 +6713,7 @@ Count 163) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'13	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6786,10 +6792,10 @@ ymm15	256'0
 
 Count 165) reg	kstate	xstate	
 ---------------------
-rax	64'16843009	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6830,7 +6836,7 @@ Count 166) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6871,7 +6877,7 @@ Count 167) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6950,10 +6956,10 @@ ymm15	256'0
 
 Count 169) reg	kstate	xstate	
 ---------------------
-rax	64'2417005887	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -6994,7 +7000,7 @@ Count 170) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7035,7 +7041,7 @@ Count 171) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7114,10 +7120,10 @@ ymm15	256'0
 
 Count 173) reg	kstate	xstate	
 ---------------------
-rax	64'2155905152	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7158,7 +7164,7 @@ Count 174) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'255	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7199,7 +7205,7 @@ Count 175) reg	kstate	xstate
 rax	64'4294967295	
 rbx	64'247	
 rcx	64'0	
-rdx	64'127	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7278,10 +7284,10 @@ ymm15	256'0
 
 Count 177) reg	kstate	xstate	
 ---------------------
-rax	64'3355986591	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'150	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7322,7 +7328,7 @@ Count 178) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'247	
 rcx	64'0	
-rdx	64'150	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7363,7 +7369,7 @@ Count 179) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'255	
 rcx	64'0	
-rdx	64'150	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7442,10 +7448,10 @@ ymm15	256'0
 
 Count 181) reg	kstate	xstate	
 ---------------------
-rax	64'16843009	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7486,7 +7492,7 @@ Count 182) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7527,7 +7533,7 @@ Count 183) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7606,10 +7612,10 @@ ymm15	256'0
 
 Count 185) reg	kstate	xstate	
 ---------------------
-rax	64'2417005887	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7650,7 +7656,7 @@ Count 186) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7691,7 +7697,7 @@ Count 187) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'255	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7770,10 +7776,10 @@ ymm15	256'0
 
 Count 189) reg	kstate	xstate	
 ---------------------
-rax	64'16843009	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7814,7 +7820,7 @@ Count 190) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7855,7 +7861,7 @@ Count 191) reg	kstate	xstate
 rax	64'18446744073709551615	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7934,10 +7940,10 @@ ymm15	256'0
 
 Count 193) reg	kstate	xstate	
 ---------------------
-rax	64'2417005887	
+rax	concatenateMInt ( 32'0 , divideError )	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -7978,7 +7984,7 @@ Count 194) reg	kstate	xstate
 rax	64'65	
 rbx	64'247	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8019,7 +8025,7 @@ Count 195) reg	kstate	xstate
 rax	64'65	
 rbx	64'65	
 rcx	64'0	
-rdx	64'54	
+rdx	concatenateMInt ( 32'0 , divideError )	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8098,10 +8104,10 @@ ymm15	256'0
 
 Count 197) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'65	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8142,7 +8148,7 @@ Count 198) reg	kstate	xstate
 rax	64'81	
 rbx	64'65	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8183,7 +8189,7 @@ Count 199) reg	kstate	xstate
 rax	64'81	
 rbx	64'81	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8262,10 +8268,10 @@ ymm15	256'0
 
 Count 201) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'81	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8306,7 +8312,7 @@ Count 202) reg	kstate	xstate
 rax	64'128	
 rbx	64'81	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8347,7 +8353,7 @@ Count 203) reg	kstate	xstate
 rax	64'128	
 rbx	64'128	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8426,10 +8432,10 @@ ymm15	256'0
 
 Count 205) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'128	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8470,7 +8476,7 @@ Count 206) reg	kstate	xstate
 rax	64'85	
 rbx	64'128	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8511,7 +8517,7 @@ Count 207) reg	kstate	xstate
 rax	64'85	
 rbx	64'85	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8590,10 +8596,10 @@ ymm15	256'0
 
 Count 209) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'85	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8634,7 +8640,7 @@ Count 210) reg	kstate	xstate
 rax	64'170	
 rbx	64'85	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8675,7 +8681,7 @@ Count 211) reg	kstate	xstate
 rax	64'170	
 rbx	64'170	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8754,10 +8760,10 @@ ymm15	256'0
 
 Count 213) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'170	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8798,7 +8804,7 @@ Count 214) reg	kstate	xstate
 rax	64'15	
 rbx	64'170	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8839,7 +8845,7 @@ Count 215) reg	kstate	xstate
 rax	64'15	
 rbx	64'15	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8918,10 +8924,10 @@ ymm15	256'0
 
 Count 217) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'15	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -8962,7 +8968,7 @@ Count 218) reg	kstate	xstate
 rax	64'247	
 rbx	64'15	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9003,7 +9009,7 @@ Count 219) reg	kstate	xstate
 rax	64'247	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9082,10 +9088,10 @@ ymm15	256'0
 
 Count 221) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9126,7 +9132,7 @@ Count 222) reg	kstate	xstate
 rax	64'254	
 rbx	64'247	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9167,7 +9173,7 @@ Count 223) reg	kstate	xstate
 rax	64'254	
 rbx	64'254	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9246,10 +9252,10 @@ ymm15	256'0
 
 Count 225) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'254	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9290,7 +9296,7 @@ Count 226) reg	kstate	xstate
 rax	64'239	
 rbx	64'254	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9331,7 +9337,7 @@ Count 227) reg	kstate	xstate
 rax	64'239	
 rbx	64'239	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9410,10 +9416,10 @@ ymm15	256'0
 
 Count 229) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'239	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9454,7 +9460,7 @@ Count 230) reg	kstate	xstate
 rax	64'127	
 rbx	64'239	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9495,7 +9501,7 @@ Count 231) reg	kstate	xstate
 rax	64'127	
 rbx	64'127	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9574,10 +9580,10 @@ ymm15	256'0
 
 Count 233) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'127	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9618,7 +9624,7 @@ Count 234) reg	kstate	xstate
 rax	64'255	
 rbx	64'127	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9659,7 +9665,7 @@ Count 235) reg	kstate	xstate
 rax	64'255	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9738,10 +9744,10 @@ ymm15	256'0
 
 Count 237) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9782,7 +9788,7 @@ Count 238) reg	kstate	xstate
 rax	64'16705	
 rbx	64'255	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9823,7 +9829,7 @@ Count 239) reg	kstate	xstate
 rax	64'16705	
 rbx	64'16705	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9902,10 +9908,10 @@ ymm15	256'0
 
 Count 241) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'16705	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9946,7 +9952,7 @@ Count 242) reg	kstate	xstate
 rax	64'20817	
 rbx	64'16705	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -9987,7 +9993,7 @@ Count 243) reg	kstate	xstate
 rax	64'20817	
 rbx	64'20817	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10066,10 +10072,10 @@ ymm15	256'0
 
 Count 245) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'20817	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10110,7 +10116,7 @@ Count 246) reg	kstate	xstate
 rax	64'32768	
 rbx	64'20817	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10151,7 +10157,7 @@ Count 247) reg	kstate	xstate
 rax	64'32768	
 rbx	64'32768	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10230,10 +10236,10 @@ ymm15	256'0
 
 Count 249) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'32768	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10274,7 +10280,7 @@ Count 250) reg	kstate	xstate
 rax	64'21760	
 rbx	64'32768	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10315,7 +10321,7 @@ Count 251) reg	kstate	xstate
 rax	64'21760	
 rbx	64'21760	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10394,10 +10400,10 @@ ymm15	256'0
 
 Count 253) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'21760	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10438,7 +10444,7 @@ Count 254) reg	kstate	xstate
 rax	64'21845	
 rbx	64'21760	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10479,7 +10485,7 @@ Count 255) reg	kstate	xstate
 rax	64'21845	
 rbx	64'21845	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10558,10 +10564,10 @@ ymm15	256'0
 
 Count 257) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'21845	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10602,7 +10608,7 @@ Count 258) reg	kstate	xstate
 rax	64'43520	
 rbx	64'21845	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10643,7 +10649,7 @@ Count 259) reg	kstate	xstate
 rax	64'43520	
 rbx	64'43520	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10722,10 +10728,10 @@ ymm15	256'0
 
 Count 261) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'43520	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10766,7 +10772,7 @@ Count 262) reg	kstate	xstate
 rax	64'43690	
 rbx	64'43520	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10807,7 +10813,7 @@ Count 263) reg	kstate	xstate
 rax	64'43690	
 rbx	64'43690	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10886,10 +10892,10 @@ ymm15	256'0
 
 Count 265) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'43690	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10930,7 +10936,7 @@ Count 266) reg	kstate	xstate
 rax	64'3855	
 rbx	64'43690	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -10971,7 +10977,7 @@ Count 267) reg	kstate	xstate
 rax	64'3855	
 rbx	64'3855	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11050,10 +11056,10 @@ ymm15	256'0
 
 Count 269) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'3855	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11094,7 +11100,7 @@ Count 270) reg	kstate	xstate
 rax	64'63479	
 rbx	64'3855	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11135,7 +11141,7 @@ Count 271) reg	kstate	xstate
 rax	64'63479	
 rbx	64'63479	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11214,10 +11220,10 @@ ymm15	256'0
 
 Count 273) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'63479	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11258,7 +11264,7 @@ Count 274) reg	kstate	xstate
 rax	64'65278	
 rbx	64'63479	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11299,7 +11305,7 @@ Count 275) reg	kstate	xstate
 rax	64'65278	
 rbx	64'65278	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11378,10 +11384,10 @@ ymm15	256'0
 
 Count 277) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'65278	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11422,7 +11428,7 @@ Count 278) reg	kstate	xstate
 rax	64'61423	
 rbx	64'65278	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11463,7 +11469,7 @@ Count 279) reg	kstate	xstate
 rax	64'61423	
 rbx	64'61423	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11542,10 +11548,10 @@ ymm15	256'0
 
 Count 281) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'61423	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11586,7 +11592,7 @@ Count 282) reg	kstate	xstate
 rax	64'32767	
 rbx	64'61423	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11627,7 +11633,7 @@ Count 283) reg	kstate	xstate
 rax	64'32767	
 rbx	64'32767	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11706,10 +11712,10 @@ ymm15	256'0
 
 Count 285) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'32767	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11750,7 +11756,7 @@ Count 286) reg	kstate	xstate
 rax	64'65535	
 rbx	64'32767	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11791,7 +11797,7 @@ Count 287) reg	kstate	xstate
 rax	64'65535	
 rbx	64'65535	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11870,10 +11876,10 @@ ymm15	256'0
 
 Count 289) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'65535	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11914,7 +11920,7 @@ Count 290) reg	kstate	xstate
 rax	64'1094795585	
 rbx	64'65535	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -11955,7 +11961,7 @@ Count 291) reg	kstate	xstate
 rax	64'1094795585	
 rbx	64'1094795585	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12034,10 +12040,10 @@ ymm15	256'0
 
 Count 293) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'1094795585	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12078,7 +12084,7 @@ Count 294) reg	kstate	xstate
 rax	64'1364283729	
 rbx	64'1094795585	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12119,7 +12125,7 @@ Count 295) reg	kstate	xstate
 rax	64'1364283729	
 rbx	64'1364283729	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12198,10 +12204,10 @@ ymm15	256'0
 
 Count 297) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'1364283729	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12242,7 +12248,7 @@ Count 298) reg	kstate	xstate
 rax	64'1426063360	
 rbx	64'1364283729	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12283,7 +12289,7 @@ Count 299) reg	kstate	xstate
 rax	64'1426063360	
 rbx	64'1426063360	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12362,10 +12368,10 @@ ymm15	256'0
 
 Count 301) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'1426063360	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12406,7 +12412,7 @@ Count 302) reg	kstate	xstate
 rax	64'1431655765	
 rbx	64'1426063360	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12447,7 +12453,7 @@ Count 303) reg	kstate	xstate
 rax	64'1431655765	
 rbx	64'1431655765	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12526,10 +12532,10 @@ ymm15	256'0
 
 Count 305) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'1431655765	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12570,7 +12576,7 @@ Count 306) reg	kstate	xstate
 rax	64'2868903935	
 rbx	64'1431655765	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12611,7 +12617,7 @@ Count 307) reg	kstate	xstate
 rax	64'2868903935	
 rbx	64'2868903935	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12690,10 +12696,10 @@ ymm15	256'0
 
 Count 309) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'2868903935	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12734,7 +12740,7 @@ Count 310) reg	kstate	xstate
 rax	64'2863311530	
 rbx	64'2868903935	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12775,7 +12781,7 @@ Count 311) reg	kstate	xstate
 rax	64'2863311530	
 rbx	64'2863311530	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12854,10 +12860,10 @@ ymm15	256'0
 
 Count 313) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'2863311530	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12898,7 +12904,7 @@ Count 314) reg	kstate	xstate
 rax	64'252645135	
 rbx	64'2863311530	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -12939,7 +12945,7 @@ Count 315) reg	kstate	xstate
 rax	64'252645135	
 rbx	64'252645135	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13018,10 +13024,10 @@ ymm15	256'0
 
 Count 317) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'252645135	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13062,7 +13068,7 @@ Count 318) reg	kstate	xstate
 rax	64'4160223223	
 rbx	64'252645135	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13103,7 +13109,7 @@ Count 319) reg	kstate	xstate
 rax	64'4160223223	
 rbx	64'4160223223	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13182,10 +13188,10 @@ ymm15	256'0
 
 Count 321) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'4160223223	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13226,7 +13232,7 @@ Count 322) reg	kstate	xstate
 rax	64'4278124286	
 rbx	64'4160223223	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13267,7 +13273,7 @@ Count 323) reg	kstate	xstate
 rax	64'4278124286	
 rbx	64'4278124286	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13346,10 +13352,10 @@ ymm15	256'0
 
 Count 325) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'4278124286	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13390,7 +13396,7 @@ Count 326) reg	kstate	xstate
 rax	64'4025479151	
 rbx	64'4278124286	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13431,7 +13437,7 @@ Count 327) reg	kstate	xstate
 rax	64'4025479151	
 rbx	64'4025479151	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13510,10 +13516,10 @@ ymm15	256'0
 
 Count 329) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'4025479151	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13554,7 +13560,7 @@ Count 330) reg	kstate	xstate
 rax	64'4702111234474983745	
 rbx	64'4025479151	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13595,7 +13601,7 @@ Count 331) reg	kstate	xstate
 rax	64'4702111234474983745	
 rbx	64'4702111234474983745	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13674,10 +13680,10 @@ ymm15	256'0
 
 Count 333) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'4702111234474983745	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13718,7 +13724,7 @@ Count 334) reg	kstate	xstate
 rax	64'5842599271875039569	
 rbx	64'4702111234474983745	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13759,7 +13765,7 @@ Count 335) reg	kstate	xstate
 rax	64'5842599271875039569	
 rbx	64'5842599271875039569	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13838,10 +13844,10 @@ ymm15	256'0
 
 Count 337) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'5842599271875039569	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13879,10 +13885,10 @@ ymm15	256'0
 
 Count 338) reg	kstate	xstate	
 ---------------------
-rax	64'1	
+rax	divideError	
 rbx	64'5842599271875039569	
 rcx	64'0	
-rdx	64'0	
+rdx	divideError	
 rsi	64'0	
 rdi	64'0	
 rsp	64'2040	
@@ -13923,7 +13929,7 @@ kstates = 12882
 xstates = 494
 
 Failed:[4m[1m[91mFail[0m
-00000000000000ff != 000000000000ffff
+000000000000 != 00000000ffff
 rax at instrcount: 12
 
 Passed:[4m[1m[92mPassed[0m
