@@ -13,10 +13,18 @@ size_t strlen(const char *s) {
 int main(void)
 {
    FILE *stream = stdout;
+   FILE* pFile=fopen("alphabet.txt","w");
    int i, ch;
    char buffer[LENGTH + 1] = "Hello world";
  
    for ( i = 0;
         (i < strlen(buffer)) && ((ch = fputc(buffer[i], stream)) !=     EOF);
          ++i);
+
+   for ( i = 0;
+        (i < strlen(buffer)) && ((ch = fputc(buffer[i], pFile)) !=     EOF);
+         ++i);
+
+   fclose(pFile);
+   
 }
