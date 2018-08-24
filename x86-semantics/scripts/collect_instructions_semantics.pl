@@ -5,7 +5,7 @@ use Getopt::Long;
 use File::Compare;
 use File::Basename;
 use File::Temp qw/ tempfile tempdir /;
-use File::Find::Rule;
+#use File::Find::Rule;
 
 use lib qw( /home/sdasgup3/x86-semantics/scripts/ );
 use kutils;
@@ -45,17 +45,33 @@ for my $line (@lines) {
 
   my $opcode = $line =~ s/\s.*//gr; 
 
-  print $opcode ."\n";
-  my @files = File::Find::Rule->file->name("$opcode\_*.k")->in($regDir);
-  foreach (@files) {
-    print $file . "\n";
-}
+  #print $opcode ."\n";
+  #my @files = File::Find::Rule->file->name("$opcode\_*.k")->in($regDir);
+  #foreach (@files) {
+  #  print $file . "\n";
+  #}
 
-  #execute("cp $regDir/$opcode\_* $target");
-  #execute("cp $immDir/$opcode\_* $target");
-  #execute("cp $memDir/$opcode\_* $target");
-  #execute("cp $sysDir/$opcode\_* $target");
-  #execute("cp $extraDir/* $target");
+  execute("cp $regDir/$opcode\_* $target 1> /dev/null 2>&1");
+  execute("cp $immDir/$opcode\_* $target 1> /dev/null 2>&1");
+  execute("cp $memDir/$opcode\_* $target 1> /dev/null 2>&1");
+  execute("cp $sysDir/$opcode\_* $target 1> /dev/null 2>&1");
+  execute("cp $extraDir/* $target ");
+
+
+  execute("rm  $target/cmpl_*imm8*");
+  execute("rm  $target/cmpq_*imm8*");
+  execute("rm  $target/addl_*imm8*");
+  execute("rm  $target/addq_*imm8*");
+  execute("rm  $target/leaq_*m16*");
+  execute("rm  $target/leaq_*m32*");
+  execute("rm  $target/movq_*imm32*");
+  execute("rm  $target/xorq_*imm8*");
+  execute("rm  $target/subq_*imm8*");
+  execute("rm  $target/xorl_*imm8*");
+  execute("rm  $target/pushq_*imm8*");
+  execute("rm  $target/pushq_*imm16*");
+  execute("rm  $target/*_rax_*");
+  execute("rm  $target/*_eax_*");
 
 }
 
