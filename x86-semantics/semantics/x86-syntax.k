@@ -47,6 +47,11 @@ module X86-SYNTAX
                    | "fputc"  [token]
                    | "fopen"  [token]
                    | "fclose"  [token]
+                   | "fputs"  [token]
+                   | "puts"  [token]
+                   | "fwrite"  [token]
+                   | "feof"  [token]
+                   | "fgetc"  [token]
                    //| "stdout"  [token]
                  //  | "__stack_chk_fail"  [token]
   syntax X86Id ::= Id

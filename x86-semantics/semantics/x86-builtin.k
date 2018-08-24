@@ -22,6 +22,52 @@ module X86-BUILTIN
   //rule initBuiltin(stdout) => allocateSTDOUTMemory(4, 0)
 
   rule <k>
+    execinstr (call fgetc:Builtin,  .Operands) =>
+      stdio_fgetc(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+
+  rule <k>
+    execinstr (call feof:Builtin,  .Operands) =>
+      stdio_feof(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+
+  rule <k>
+    execinstr (call fwrite:Builtin,  .Operands) =>
+      stdio_fwrite(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          svalueMInt(getRegisterValue(%rsi, RSMap)),
+          svalueMInt(getRegisterValue(%rdx, RSMap)),
+          {getRegisterValue(%rcx, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fputs:Builtin,  .Operands) =>
+      stdio_fputs(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call puts:Builtin,  .Operands) =>
+      stdio_puts(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
     execinstr (call fopen:Builtin,  .Operands) =>
       stdio_fopen(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal,
