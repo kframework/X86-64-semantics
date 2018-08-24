@@ -20,6 +20,26 @@ module X86-BUILTIN
   //...</k>
 
   //rule initBuiltin(stdout) => allocateSTDOUTMemory(4, 0)
+
+  rule <k>
+    execinstr (call rewind:Builtin,  .Operands) =>
+      stdio_rewind(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fseek:Builtin,  .Operands) =>
+      stdio_fseek(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          svalueMInt(getRegisterValue(%rsi, RSMap)),
+          svalueMInt(getRegisterValue(%rdx, RSMap))
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+
   rule <k>
     execinstr (call feof:Builtin,  .Operands) =>
       stdio_feof(
