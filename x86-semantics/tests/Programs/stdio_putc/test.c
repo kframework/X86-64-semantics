@@ -5,10 +5,11 @@ int main ()
   FILE * pFile;
   char c;
 
-  //pFile=fopen("alphabet.txt","wt");
+  pFile=fopen("alphabet.txt","w");
   for (c = 'A' ; c <= 'Z' ; c++) {
     putc (c , stdout);
-    }
-  //fclose (pFile);
+    putc (c , pFile);
+  }
+  fclose (pFile);
   return 0;
 }
