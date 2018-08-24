@@ -23,6 +23,7 @@ module X86-SORT
   syntax Xmm
   syntax Ymm
   syntax Opcode
+  syntax Builtin
 endmodule
 
 module X86-SYNTAX
@@ -42,6 +43,11 @@ module X86-SYNTAX
 
   syntax Builtin ::= "putchar" [token]                     
                    | "printf"  [token]
+                   | "_IO_putc"  [token]
+                   | "fputc"  [token]
+                   | "fopen"  [token]
+                   | "fclose"  [token]
+                   //| "stdout"  [token]
                  //  | "__stack_chk_fail"  [token]
   syntax X86Id ::= Id
 
@@ -50,6 +56,7 @@ module X86-SYNTAX
   */  
   syntax X86Id ::= "main" [token]
                 | "_start" [token] 
+                | "stdout" [token] 
 
   syntax X86Ids ::= List{X86Id, ","} [klabel(X86Idlist)]
 

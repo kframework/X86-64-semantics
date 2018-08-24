@@ -3,6 +3,7 @@ require "x86-mint-wrapper.k"
 
 module X86-BUILTIN-SYNTAX
   //imports X86-ABSTRACT-SORTS
+  //syntax KItem ::= initBuiltin(/* builtin name */ Builtin)
 endmodule
 
 module X86-BUILTIN
@@ -18,12 +19,48 @@ module X86-BUILTIN
   //  execinstr (call __stack_chk_fail:Builtin,  .Operands) => stackCheckFail
   //...</k>
 
+  //rule initBuiltin(stdout) => allocateSTDOUTMemory(4, 0)
+
+  rule <k>
+    execinstr (call fopen:Builtin,  .Operands) =>
+      stdio_fopen(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal,
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fclose:Builtin,  .Operands) =>
+      stdio_fclose(
+          {getRegisterValue(%rdi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
   rule <k>
     execinstr (call putchar:Builtin,  .Operands) =>
       stdio_putchar(svalueMInt(getRegisterValue(%rdi, RSMap)))  
   ...</k>
     <regstate> RSMap </regstate>
 
+  rule <k>
+    execinstr (call _IO_putc:Builtin,  .Operands) =>
+      stdio_putc(
+          svalueMInt(getRegisterValue(%rdi, RSMap)),
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
+
+  rule <k>
+    execinstr (call fputc:Builtin,  .Operands) =>
+      stdio_fputc(
+          svalueMInt(getRegisterValue(%rdi, RSMap)),
+          {getRegisterValue(%rsi, RSMap)}:>PointerVal
+          )  
+  ...</k>
+    <regstate> RSMap </regstate>
 
   rule <k>
     execinstr (call printf:Builtin,  .Operands) =>

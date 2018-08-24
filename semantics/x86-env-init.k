@@ -37,7 +37,14 @@ module X86-INIT
   */  
   rule initEnvironment(L:List) =>
      //allocateStackMemory(64, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initArgc(mySize(L)) ~> initArgv(L)
-     allocateStackMemory(1024, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initIOStreams
+     allocateStackMemory(64, 16 *Int 8) ~> allocateROMemory(64, 16 *Int 8) ~> initReturnFromEntryFunction ~> initIOStreams ~> initBuiltin
+
+  /*@ 
+    Initialize STDOUT File pointer   
+  */
+  syntax KItem ::= "initBuiltin"
+  rule initBuiltin => allocateSTDOUTMemory(4, 0)
+
 
   /*@ 
     Initialize IO Streams   
