@@ -1,5 +1,6 @@
 require "x86-configuration.k"
 require "x86-mint-wrapper.k"
+require "x86-abstract-syntax.k"
 
 module X86-MEMORY-SORT
   syntax MemLoadValue
@@ -7,6 +8,7 @@ endmodule
 
 module X86-MEMORY-SYNTAX
   imports X86-MEMORY-SORT
+  imports X86-ASBTRACT-SORTS
   imports MINT-WRAPPER-SORT
   imports MINT
   imports INT
@@ -39,6 +41,13 @@ module X86-MEMORY-SYNTAX
       /* Alignment in bits */ Int)
 
   /*@
+    Allocate memory: Used for allocating memory for stdout file IO
+  */
+  syntax KItem ::= allocateSTDOUTMemory(
+      /* Number of elements */ Int,
+      /* Alignment in bits */ Int)
+
+  /*@
     Allocate memory: Used for allocating local memory
   */
   syntax KItem ::= allocateLocalMemory(
@@ -48,7 +57,8 @@ module X86-MEMORY-SYNTAX
   /*@
     Free memory allocated for stack.
   */
-  syntax KItem ::= "freeMemory" [token]
+  //syntax KItem ::= "freeMemory" [token]
+  syntax KItem ::= freeMemory(PointerVal)
 
   /*@
     Load memory at Address represented by MInt for Int bits
@@ -209,6 +219,18 @@ module X86-MEMORY
     <robase> roBaseInfo(_:K => L, _:K, _:K)  </robase>
 
   /*@
+    Allocate memory for stdout file pointer
+  */
+  rule <k> allocateSTDOUTMemory(N:Int, A:Int) =>  
+    saveSTDOUTPointer(allocateLocalMemory(N, A)) ... </k>
+
+  syntax KItem ::=  saveSTDOUTPointer(K) [strict(1)]
+  rule <k> saveSTDOUTPointer(L:MemLoc) => 
+    storeToMemory(mi(32, #stdout), ptr(L, mi(64,0)), 32)
+  ... </k>
+    <functargets> FMap:Map => FMap[stdout <- ptr(L, mi(64,0))] </functargets>
+
+  /*@
     Allocate memory: Used for allocating local memory
     `makeUndefMIntMap(N)` creates N 1 byte undefMInt and return a Map storing them
     in byte granularity, which are then store in memory.
@@ -228,8 +250,8 @@ module X86-MEMORY
   <regstate> RSMap </regstate>
   */
 
-  rule <k> freeMemory => mClear(Loc) ... </k>
-    <stackbase> stackBaseInfo( Loc:MemLoc, _:K) </stackbase>
+  rule <k> freeMemory(PV:PointerVal) => mClear(getMemLoc(PV)) ... </k>
+    //<stackbase> stackBaseInfo( Loc:MemLoc, _:K) </stackbase>
 
   /*@
     Load memory Nbits:Int bits from Address represented AddrMI:MInt

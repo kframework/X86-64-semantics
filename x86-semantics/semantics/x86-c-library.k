@@ -36,6 +36,47 @@ module X86-C-LIBRARY
            mi(bitwidthMInt(Offs), uvalueMInt(Offs) +Int Offs2 /**Int 8*/))
     requires uvalueMInt(Offs) +Int Offs2 /**Int 8*/ <Int (2 ^Int bitwidthMInt(Offs) -Int 1)
 
+  // FD
+  syntax MInt ::= "fdBitOffset" [function]
+  rule fdBitOffset => mi(64, 0)
+
+  rule getValidFD(ptr(L:MemLoc, Offs:MInt))
+       =>
+       checkFD(loadFromMemory(ptr(L, addMInt(Offs, fdBitOffset)), 32))
+
+  syntax KItem ::= checkFD(K) [strict]
+  rule checkFD(memLoadValue(FD:MInt)) => svalueMInt(FD)
+    requires svalueMInt(FD) =/=Int 0
+  rule checkFD(FD:MInt) => invalidLibCValue
+    requires svalueMInt(FD) ==Int 0
+
+  rule setValidFD(ptr(L:MemLoc, Offs:MInt), FD:Int)
+       =>
+       storeToMemory(mi(32, FD), 
+           ptr(L, addMInt(Offs, fdBitOffset)), 32)
+
+  /*
+  syntax Int ::= "fposBitOffset" [function]
+  syntax Int ::= "fposPosBitOffset" [function]
+  syntax Int ::= "fposPathBitOffset" [function]
+  rule fposBitOffset => 0
+  rule fposPosBitOffset => 0
+  rule fposPathBitOffset => 64
+
+  rule getValidFPos(ptr(L:MemLoc, Offs:Int)) =>
+       checkFPos(loadFromMemory(ptr(L, Offs +Int fposBitOffset), tInt(64)))
+
+  syntax KItem ::= checkFPos(K) [strict]
+  rule checkFPos(typedVal(tInt(64), ptr(L:MemLoc, Offs:Int)))
+       =>
+       makeFPos(
+         checkFPosPos(loadFromMemory(ptr(L, Offs +Int fposPosBitOffset),
+                                     tInt(64))),
+         checkFPosPath(loadFromMemory(ptr(L, Offs +Int fposPathBitOffset),
+                                      tPtr(tInt(8)))))
+  rule checkFPos(typedVal(tInt(64), undef)) => invalidLibCValue
+  */
+
   // Read Write
   rule readBytes(PV:PointerVal, N:Int) => readBytesAux(PV, N, "")
 
@@ -269,8 +310,18 @@ module X86-C-LIBRARY
   //rule getValueToPrint(PV:PointerVal, "%s", "") => formatString(PV)
   //rule getValueToPrint(PV:PointerVal, "%p", "") => formatPointer(PV)
 
+  rule allocFile
+       =>
+       allocateLocalMemory(4, 0) ~>
+       allocFile
+  rule L:MemLoc ~> allocFile => ptr(L, mi(64, 0))
+
+  rule freeFile(FPtr:PointerVal) => freeMemory(FPtr)
+
 
   rule asCInt(I:Int) => setRegisterValue(mi(64, I), %rax)
+  rule asCFILEPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
+       
 
 endmodule
 
