@@ -16,7 +16,6 @@ module X86-ASBTRACT-SYNTAX
 
   syntax PointerVal ::= ptr(MemLoc, /* offset in bits */ MInt)
   syntax MInt ::= PointerVal
-  syntax NullVal
   syntax NullVal ::= "null"
   syntax PointerVal ::= NullVal
   syntax Bool ::= isPointerValNull(PointerVal) [function]
