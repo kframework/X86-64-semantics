@@ -64,7 +64,7 @@ for my $line (@lines) {
   execute("rm  $target/addq_*imm8*");
   execute("rm  $target/leaq_*m16*");
   execute("rm  $target/leaq_*m32*");
-  execute("rm  $target/movq_*imm32*");
+  execute("rm  $target/movq_r64_imm32.k");
   execute("rm  $target/xorq_*imm8*");
   execute("rm  $target/subq_*imm8*");
   execute("rm  $target/xorl_*imm8*");
