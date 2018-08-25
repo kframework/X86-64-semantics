@@ -179,14 +179,14 @@ module X86-BUILTIN
   rule <k>
     execinstr (call printf:Builtin,  .Operands) =>
       stdio_printf({getRegisterValue(%rdi, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           //ListItem(getRegisterValue(%rsi, RSMap))
           //ListItem(getRegisterValue(%rdx, RSMap))
           //ListItem(getRegisterValue(%rcx, RSMap))
@@ -204,19 +204,19 @@ module X86-BUILTIN
       stdio_fprintf(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
           {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
-    <formatcountint> _ => 0 </formatcountint>
+    <formatcountint> _ => 1 </formatcountint>
     <formatcountfloat> _ => 0 </formatcountfloat>
 
   rule <k>
@@ -224,18 +224,20 @@ module X86-BUILTIN
       stdio_sprintf(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
           {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    <formatcountint> _ => 1 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
 
   rule <k>
     execinstr (call snprintf:Builtin,  .Operands) =>
@@ -243,70 +245,79 @@ module X86-BUILTIN
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
           svalueMInt(getRegisterValue(%rsi, RSMap)),
           {getRegisterValue(%rdx, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    <formatcountint> _ => 2 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
 
   rule <k>
     execinstr (call fscanf:Builtin,  .Operands) =>
       stdio_fscanf(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
           {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    <formatcountint> _ => 1 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
+
 
   rule <k>
     execinstr (call sscanf:Builtin,  .Operands) =>
       stdio_sscanf(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
           {getRegisterValue(%rsi, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    <formatcountint> _ => 1 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
 
   rule <k>
     execinstr (call scanf:Builtin,  .Operands) =>
       stdio_scanf(
           {getRegisterValue(%rdi, RSMap)}:>PointerVal, 
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
-          ListItem(mi(64,0))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
+          ListItem(mi(64,-1))
           .List
           )  
   ...</k>
     <regstate> RSMap </regstate>
+    <formatcountint> _ => 0 </formatcountint>
+    <formatcountfloat> _ => 0 </formatcountfloat>
 
 endmodule

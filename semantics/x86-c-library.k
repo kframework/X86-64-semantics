@@ -243,35 +243,39 @@ module X86-C-LIBRARY
       requires I ==Int 4
 
   // %s    
+  rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({C}:>PointerVal)
+  ...</k>
+    requires notBool eqMInt(C, mi(64, -1))
+
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%rsi, RSMap)}:>PointerVal)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 0
+      requires I ==Int 0 andBool eqMInt(C, mi(64, -1))
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%rdx, RSMap)}:>PointerVal)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 1
+      requires I ==Int 1 andBool eqMInt(C, mi(64, -1))
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%rcx, RSMap)}:>PointerVal)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 2
+      requires I ==Int 2 andBool eqMInt(C, mi(64, -1))
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%r8, RSMap)}:>PointerVal)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 3
+      requires I ==Int 3 andBool eqMInt(C, mi(64, -1))
 
   rule <k> getValueToPrint(C:MInt, "%s", "") => formatString({getRegisterValue(%r9, RSMap)}:>PointerVal)
   ...</k>
     <formatcountint> I => I +Int 1 </formatcountint>
     <regstate> RSMap </regstate>
-      requires I ==Int 4
+      requires I ==Int 4 andBool eqMInt(C, mi(64, -1))
 
 
   // %f    
@@ -312,22 +316,32 @@ module X86-C-LIBRARY
 
   rule allocFile
        =>
-       allocateLocalMemory(4, 0) ~>
+       allocateLocalMemory(5, 0) ~>
        allocFile
-  rule L:MemLoc ~> allocFile => ptr(L, mi(64, 0))
+  rule L:MemLoc ~> allocFile => ptr(L, mi(64, 1))
 
   rule freeFile(FPtr:PointerVal) => freeMemory(FPtr)
 
 
-  rule asCInt(I:Int) => setRegisterValue(mi(64, I), %rax)
+  //rule asCInt(I:Int) => setRegisterValue(mi(64, I), %rax)
+  rule asCInt(I:Int) => I
+  rule <k> I:Int  ~> inforegisters ~> fetch =>  
+    setRegisterValue(mi(64, I), %rax) ~> inforegisters ~> fetch
+  </k>
+  rule <k> PV:PointerVal ~> inforegisters ~> fetch =>  
+    setRegisterValue(PV, %rax) ~> inforegisters ~> fetch
+  </k>
+
   rule asCLongInt(I:Int) => setRegisterValue(mi(64, I), %rax)
   rule asCSize(I:Int) => setRegisterValue(mi(64, I), %rax)
   rule asCFILEPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
-  rule asCCharPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
+  //rule asCCharPtr(PV:PointerVal) => setRegisterValue(PV, %rax)
+  rule asCCharPtr(PV:PointerVal) => PV
   rule nullFilePointer => setRegisterValue(null, %rax)
   rule nullStringPointer => setRegisterValue(null, %rax)
 
-  rule isEqToOne(MI:MInt) => eqMInt(MI, mi(bitwidthMInt(MI), 1))
+  //rule isEqToOne(MI:MInt) => eqMInt(MI, mi(bitwidthMInt(MI), 1))
+  rule isEqToOne(I:Int) => I ==Int 1
   rule <k> setErrno(E:Int) => . ...</k>
 endmodule
 

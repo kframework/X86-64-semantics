@@ -1,5 +1,5 @@
 LC0:
-	.string	"w+"
+	.string	"w"
 LC1:
 	.string	"file.txt"
 LC2:

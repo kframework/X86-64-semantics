@@ -226,9 +226,9 @@ module X86-MEMORY
 
   syntax KItem ::=  saveSTDOUTPointer(K) [strict(1)]
   rule <k> saveSTDOUTPointer(L:MemLoc) => 
-    storeToMemory(mi(32, #stdout), ptr(L, mi(64,0)), 32)
+    storeToMemory(mi(32, #stdout), ptr(L, mi(64,1)), 32)
   ... </k>
-    <functargets> FMap:Map => FMap[stdout <- ptr(L, mi(64,0))] </functargets>
+    <functargets> FMap:Map => FMap[stdout <- ptr(L, mi(64,1))] </functargets>
 
   /*@
     Allocate memory: Used for allocating local memory
