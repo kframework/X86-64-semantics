@@ -57,31 +57,34 @@ for my $line (@lines) {
 
 sub populate {
   my $opcode = shift @_;
+  my $doit = shift @_;
 
-  execute("cp $regDir/$opcode\_* $target 1> /dev/null 2>&1");
-  execute("cp $immDir/$opcode\_* $target 1> /dev/null 2>&1");
-  execute("cp $memDir/$opcode\_* $target 1> /dev/null 2>&1");
-  execute("cp $sysDir/$opcode\_* $target 1> /dev/null 2>&1");
-  execute("cp $extraDir/* $target ");
-  execute("cp $sysDir/callq* $target ");
-  execute("cp $sysDir/jmpq* $target ");
+  execute("cp $regDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $immDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $memDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $sysDir/$opcode* $target 1> /dev/null 2>&1",  $doit);
+  execute("cp $extraDir/* $target ",                          $doit);
+  execute("cp $sysDir/callq* $target ",                       $doit);
+  execute("cp $sysDir/jmpq* $target ",                        $doit);
+  execute("cp $sysDir/retq.k* $target ",                      $doit);
+  execute("cp $sysDir/leaveq.k* $target ",                    $doit);
 
 
 
-  execute("rm  $target/cmpl_*imm8*");
-  execute("rm  $target/cmpq_*imm8*");
-  execute("rm  $target/addl_*imm8*");
-  execute("rm  $target/addq_*imm8*");
-  execute("rm  $target/leaq_*m16*");
-  execute("rm  $target/leaq_*m32*");
-  execute("rm  $target/movq_r64_imm32.k");
-  execute("rm  $target/xorq_*imm8*");
-  execute("rm  $target/subq_*imm8*");
-  execute("rm  $target/xorl_*imm8*");
-  execute("rm  $target/pushq_*imm8*");
-  execute("rm  $target/pushq_*imm16*");
-  execute("rm  $target/*_rax_*");
-  execute("rm  $target/*_eax_*");
+  execute("rm  $target/cmpl_*imm8*"       , $doit);
+  execute("rm  $target/cmpq_*imm8*"       , $doit);
+  execute("rm  $target/addl_*imm8*"       , $doit);
+  execute("rm  $target/addq_*imm8*"       , $doit);
+  execute("rm  $target/leaq_*m16*"        , $doit);
+  execute("rm  $target/leaq_*m32*"        , $doit);
+  execute("rm  $target/movq_r64_imm32.k"  , $doit);
+  execute("rm  $target/xorq_*imm8*"       , $doit);
+  execute("rm  $target/subq_*imm8*"       , $doit);
+  execute("rm  $target/xorl_*imm8*"       , $doit);
+  execute("rm  $target/pushq_*imm8*"      , $doit);
+  execute("rm  $target/pushq_*imm16*"     , $doit);
+  execute("rm  $target/*_rax_*"           , $doit);
+  execute("rm  $target/*_eax_*"           , $doit);
 
 }
 
