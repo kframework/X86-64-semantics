@@ -49,6 +49,7 @@ module X86-SYNTAX
                    | "snprintf"  [token]
                    | "scanf"  [token]
                    | "fscanf"  [token]
+                   | "__isoc99_fscanf" [token]
                    | "sscanf"  [token]
                    | "_IO_putc"  [token]
                    | "fputc"  [token]
